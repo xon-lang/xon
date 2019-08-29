@@ -1,0 +1,56 @@
+'console': log, clear -> cls
+
+EnumType: A, B, C, D
+
+OneOfMany: 'ABC' | 'DEF' | 'GHI'
+
+OneOfMany2: 1..4 | 10..15n
+
+Zip: /^[0-9]{5}(?:-[0-9]{4})?$/ {
+  // optional actions another way is just to use Zip /^[0-9]{5}(?:-[0-9]{4})?$/ without braces
+  getFirstNumber:
+    $ this.value[0]
+}
+zip: Zip '153008' // type is Zip literal
+zipCode: '153008' // type is str
+
+zip2: Zip zipCode // type is Zip from variable
+firstZipNumber: zip2.getFirstNumber()
+
+Type:
+  field: 324
+
+  someMethod: i32 x, str y
+    a: 90
+    b: 123
+    c: a + b
+    a= 24
+    log(x*y)
+
+  someMethodWithFuncArg: str (str, int) x, str y
+    $ x(y, 1)
+
+  callLambda:
+    $ someMethodWithFuncArg(\a b: a + b, 'somestring').length
+    x: cond ? 34 : 1
+    z: cond ? 34 // else 0
+    x = cond ? 24 // else nothing changed
+
+
+// subtypes Type
+PersonTypeWithSubTypes:
+  name: str
+  location:
+    street: str
+    zipCode: Zip
+  info: 
+    age: int
+    tall: 0
+    weight: 0
+    isNormalWeight: \x t: this.info.tall - this.info.weight |x: [x-5..x+5].includes(100)
+    isNormalWeight2: \x t: this.info.tall - this.info.weight |x: [x-5..x+5].includes(100)
+
+
+person: PersonTypeWithSubTypes {name:'John', location:{street:'San Francisco', zipCode:'153002'}, info:{age:34, tall: 178, weight:80}}
+isNormal: person.info.isNormalWeight()
+

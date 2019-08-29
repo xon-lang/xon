@@ -1,0 +1,39 @@
+{
+    "name": "xon",
+    "author": "Nizami Amirov",
+    "homepage": "https://github.com/nizami-dev/xon",
+    "version": "1.0.0",
+    "description": "XON is an open-source programming language",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nizami-dev/xon.git"
+    },
+    "keywords": [
+        "XON",
+        "compiler",
+        "language",
+        "c"
+    ],
+    "bugs": {
+        "url": "https://github.com/nizami-dev/xon/issues"
+    },
+    "license": "Apache-2.0",
+    "scripts": {
+        "antlr": "cd  src/grammar && antlr4ts -o generated *.g4",
+        "parse": "cd src && tsc && cd ../ && node dist/main.js",
+        "antlr-parse": "npm run antlr && npm run parse"
+    },
+    "devDependencies": {
+        "@types/node": "^12.7.2",
+        "antlr4": "^4.7.2",
+        "antlr4ts-cli": "^0.5.0-alpha.1",
+        "chalk": "^2.4.2",
+        "rimraf": "^3.0.0",
+        "typescript": "^3.6.2"
+    },
+    "dependencies": {
+        "antlr4ts": "^0.5.0-alpha.1",
+        "tslib": "^1.10.0"
+    }
+}
