@@ -13,7 +13,7 @@ xon is an open-source programming language
 
 before:
 
-```
+```go
 a: 5 + 6
 b: a + 3
 
@@ -23,7 +23,7 @@ wprintf(s)
 
 after:
 
-```
+```c
 #include <stdio.h>
 #include "stdlib.h"
 #include <wchar.h>
