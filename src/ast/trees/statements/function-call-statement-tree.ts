@@ -1,4 +1,4 @@
-import { FunctionCallContext } from '../../../grammar/generated/AsmParser';
+import { FunctionCallContext } from '../../../grammar/generated/XonParser';
 import { ExpressionTree } from '../expression-tree';
 
 export class FunctionCallStatementTree {

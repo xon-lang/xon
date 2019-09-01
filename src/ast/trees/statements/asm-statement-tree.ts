@@ -1,4 +1,4 @@
-import { AsmStatementContext } from '../../../grammar/generated/AsmParser';
+import { AsmStatementContext } from '../../../grammar/generated/XonParser';
 
 export class AsmStatementTree {
     code: string;

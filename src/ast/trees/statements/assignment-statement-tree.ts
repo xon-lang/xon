@@ -1,4 +1,4 @@
-import { AssignmentStatementContext } from '../../../grammar/generated/AsmParser';
+import { AssignmentStatementContext } from '../../../grammar/generated/XonParser';
 import { ExpressionTree } from '../expression-tree';
 
 export class AssignmentStatementTree {

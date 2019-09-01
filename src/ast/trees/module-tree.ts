@@ -1,17 +1,12 @@
-import { ModuleContext } from '../../grammar/generated/AsmParser';
-import { ClassTree } from './class-tree';
+import { ModuleContext } from '../../grammar/generated/XonParser';
 import { ImportTree } from './import-tree';
 import { getFilenameWithoutExtension } from '../../util';
-import { FunctionTree } from './function-tree';
 import { StatementTree } from './statement-tree';
-import { ExpressionTree } from './expression-tree';
 
 export class ModuleTree {
     name: string;
     fullName: string;
     imports: ImportTree[] = [];
-    classes: ClassTree[] = [];
-    functions: FunctionTree[] = [];
     statements: StatementTree[] = [];
 
     constructor(public ctx: ModuleContext, public absolutePath: string) {
@@ -22,8 +17,6 @@ export class ModuleTree {
 
         this.imports = ctx.importDeclaration().map(x => new ImportTree(x, this));
         this.statements = ctx.statement().map(x => new StatementTree(x));
-        // this.classes = ctx.classDeclaration().map(x => new ClassTree(x));
-        // this.functions = ctx.functionDeclaration().map(x => new FunctionTree(x));
     }
 
     commonPath(...paths: string[]) {
@@ -34,23 +27,10 @@ export class ModuleTree {
         return paths[0];
     }
 
-    getMembers() {
-        const members: { name: string; tree: ExpressionTree }[] = [];
-        this.statements
-            .filter(x => x.varDeclarationStatementTree)
-            .forEach(x =>
-                members.push({ name: x.varDeclarationStatementTree.name, tree: x.varDeclarationStatementTree.value })
-            );
-
-        return members;
-    }
-
     toPlane() {
         return {
             name: this.name,
             imports: this.imports.map(x => x.toPlane()),
-            classes: this.classes.map(x => x.toPlane()),
-            functions: this.functions.map(x => x.toPlane()),
         };
     }
 }

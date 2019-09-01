@@ -1,4 +1,4 @@
-import { NameTypeContext } from '../../grammar/generated/AsmParser';
+import { NameTypeContext } from '../../grammar/generated/XonParser';
 
 export class NameTypeTree {
     name: string;

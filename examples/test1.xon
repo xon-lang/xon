@@ -20,6 +20,13 @@ firstZipNumber: zip2.getFirstNumber()
 Type:
   field: 324
 
+  someMethod: x i32, y str 
+    a: 90
+    b: 123
+    c: a + b
+    a= 24
+    log(x*y)
+
   someMethod: i32 x, str y
     a: 90
     b: 123

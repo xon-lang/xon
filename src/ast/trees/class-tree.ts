@@ -1,4 +1,4 @@
-import { ClassDeclarationContext } from '../../grammar/generated/AsmParser';
+import { ClassDeclarationContext } from '../../grammar/generated/XonParser';
 import { FunctionTree } from './function-tree';
 import { PropertyTree } from './property-tree';
 

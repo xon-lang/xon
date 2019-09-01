@@ -1,4 +1,4 @@
-import { FunctionDeclarationContext } from '../../grammar/generated/AsmParser';
+import { FunctionDeclarationContext } from '../../grammar/generated/XonParser';
 import { StatementTree, StatementType } from './statement-tree';
 import { NameTypeTree } from './name-type';
 
@@ -16,9 +16,9 @@ export class FunctionTree {
         for (const statement of this.statements) {
             if (
                 statement.type == StatementType.Assignment &&
-                !this.localVariables.includes(statement.assignmentStatementTree.name)
+                !this.localVariables.includes(statement.assignmentStatement.name)
             ) {
-                this.localVariables.push(statement.assignmentStatementTree.name);
+                this.localVariables.push(statement.assignmentStatement.name);
             }
         }
     }
