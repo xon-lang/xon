@@ -1,22 +1,23 @@
-import { StatementContext } from '../../grammar/generated/AsmParser';
+import { StatementContext } from '../../grammar/generated/XonParser';
 import { AssignmentStatementTree } from './statements/assignment-statement-tree';
 import { AsmStatementTree } from './statements/asm-statement-tree';
 import { FunctionCallStatementTree } from './statements/function-call-statement-tree';
-import { VarDeclarationStatementTree } from './statements/var-declaration-statement-tree';
+import { VariableDeclarationStatementTree } from './statements/variable-declaration-statement-tree';
+import { DeclarationStatementTree } from './statements/declaration-statement-tree';
 
 export enum StatementType {
+    Declaration,
     Assignment,
     FunctionCall,
     Asm,
-    VarDeclaration,
 }
 
 export class StatementTree {
     type: StatementType;
-    assignmentStatementTree: AssignmentStatementTree;
-    varDeclarationStatementTree: VarDeclarationStatementTree;
-    asmStatementTree: AsmStatementTree;
-    functionCallStatementTree: FunctionCallStatementTree;
+    declarationStatement: DeclarationStatementTree;
+    assignmentStatement: AssignmentStatementTree;
+    asmStatement: AsmStatementTree;
+    functionCallStatement: FunctionCallStatementTree;
 
     constructor(public ctx: StatementContext) {
         /*   if (tree.assignmentStatement()) {
@@ -30,52 +31,27 @@ export class StatementTree {
             this.functionCallStatementTree = new FunctionCallStatementTree(tree.functionCall());
         }else  */
 
-        if (ctx.varDeclaration()) {
-            this.type = StatementType.VarDeclaration;
-            this.varDeclarationStatementTree = new VarDeclarationStatementTree(ctx.varDeclaration());
+        if (ctx.declarationStatement()) {
+            this.type = StatementType.Declaration;
+            this.declarationStatement = new DeclarationStatementTree(ctx.declarationStatement());
         }
         if (ctx.assignmentStatement()) {
             this.type = StatementType.Assignment;
-            this.assignmentStatementTree = new AssignmentStatementTree(ctx.assignmentStatement());
+            this.assignmentStatement = new AssignmentStatementTree(ctx.assignmentStatement());
         }
         if (ctx.functionCall()) {
             this.type = StatementType.FunctionCall;
-            this.functionCallStatementTree = new FunctionCallStatementTree(ctx.functionCall());
+            this.functionCallStatement = new FunctionCallStatementTree(ctx.functionCall());
         }
     }
 
     toPlane() {
-        const o = {
+        return {
             type: StatementType[this.type],
+            assignment: this.assignmentStatement.toPlane(),
+            asm: this.asmStatement.toPlane(),
+            functionCall: this.functionCallStatement.toPlane(),
+            declaration: this.declarationStatement.toPlane(),
         };
-
-        if (this.assignmentStatementTree) {
-            return {
-                ...o,
-                assignment: this.assignmentStatementTree.toPlane(),
-            };
-        }
-
-        if (this.asmStatementTree) {
-            return {
-                ...o,
-                asm: this.asmStatementTree.toPlane(),
-            };
-        }
-
-        if (this.functionCallStatementTree) {
-            return {
-                ...o,
-                functionCall: this.functionCallStatementTree.toPlane(),
-            };
-        }
-
-        if (this.varDeclarationStatementTree) {
-            return {
-                ...o,
-                varDeclaration: this.varDeclarationStatementTree.toPlane(),
-            };
-        }
-        return o;
     }
 }

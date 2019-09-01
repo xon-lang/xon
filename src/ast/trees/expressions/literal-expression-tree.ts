@@ -1,37 +1,27 @@
-import { LiteralContext, LiteralExpressionContext } from '../../../grammar/generated/AsmParser';
-import { stringLiteralToBytes } from '../../data-helper';
+import { LiteralExpressionContext } from '../../../grammar/generated/XonParser';
+import { PrimitiveDataType, DataTypeInfo } from '../../data-type';
+import { ExpressionTreeBase } from '../expression-tree-base';
 
-export enum LiteralType {
-    Decimal,
-    Boolean,
-    String,
-}
-
-export class LiteralExpressionTree {
-    type: LiteralType;
-    data: number[] = [];
-
+export class LiteralExpressionTree extends ExpressionTreeBase {
     constructor(public ctx: LiteralExpressionContext) {
-        if (ctx.literal().BooleanLiteral()) {
-            this.type = LiteralType.Boolean;
-            this.data = [ctx.literal().BooleanLiteral().text == 'true' ? 1 : 0];
-        } else if (ctx.literal().DecimalLiteral()) {
-            this.type = LiteralType.Decimal;
-            this.data = [+ctx.literal().DecimalLiteral().text];
+        super();
+        if (ctx.literal().IntegerLiteral()) {
+            this.dataType = new DataTypeInfo(PrimitiveDataType.i32);
+        } else if (ctx.literal().FloatLiteral()) {
+            this.dataType = new DataTypeInfo(PrimitiveDataType.f32);
+        } else if (ctx.literal().BooleanLiteral()) {
+            this.dataType = new DataTypeInfo(PrimitiveDataType.bool);
+        } else if (ctx.literal().CharacterLiteral()) {
+            this.dataType = new DataTypeInfo(PrimitiveDataType.char);
         } else if (ctx.literal().StringLiteral()) {
-            this.type = LiteralType.String;
-            this.data = stringLiteralToBytes(ctx.literal().StringLiteral().text);
+            this.dataType = new DataTypeInfo(PrimitiveDataType.str);
         }
     }
 
     toPlane() {
-        const o = {
-            type: LiteralType[this.type],
-            data: this.data,
+        return {
+            dataType: this.dataType.type,
+            value: this.ctx.text,
         };
-        if (this.type == LiteralType.String) {
-            return { ...o, value: this.ctx.literal().StringLiteral().text };
-        }
-        return o;
     }
 }

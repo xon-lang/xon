@@ -1,4 +1,4 @@
-lexer grammar AsmLexer;
+lexer grammar XonLexer;
 
 channels {
     ERROR
@@ -108,50 +108,34 @@ BitXorAssign: '^=';
 
 BitOrAssign: '|=';
 
-/// Keywords
-MOV: 'mov';
+PrimitiveDataType:
+    'i8'
+    | 'i16'
+    | 'i32'
+    | 'i64'
+    | 'i128'
+    | 'u8'
+    | 'u16'
+    | 'u32'
+    | 'u64'
+    | 'u128'
+    | 'bool'
+    | 'char'
+    | 'str';
 
-ADD: 'add';
-
-GPR_REG: GPR_REG_64 | GPR_REG_32 | GPR_REG_16 | GPR_REG_8;
-
-GPR_REG_64: 'rax' | 'rbx' | 'rcx' | 'rdx';
-
-GPR_REG_32: 'eax' | 'ebx' | 'ecx' | 'edx';
-
-GPR_REG_16: 'ax' | 'bx' | 'cx' | 'dx';
-
-GPR_REG_8: 'ah' | 'al' | 'bh' | 'bl' | 'ch' | 'cl' | 'dh' | 'dl';
-
-SEG_REG_CS: 'cs';
-
-SEG_REG_DS: 'ds';
-
-SEG_REG_SS: 'ss';
-
-SEG_REG_ES: 'es';
-
-INX_REG_SI: 'esi';
-
-INX_REG_DI: 'edi';
-
-CMD_REG_IP: 'ip';
-
-PTR_REG_BP: 'bp';
-
-PTR_REG_SP: 'sp';
-
-NullLiteral: 'null';
+ArrayDataType: PrimitiveDataType '[' [0-9]+ ']';
 
 BooleanLiteral: 'true' | 'false';
 
-DecimalLiteral: [0-9]+ '.' [0-9]+ | [0-9]+;
+IntegerLiteral: [0-9]+;
 
-StringLiteral: '\'' ~[\r\n']* '\'';
+FloatLiteral: [0-9]+ '.' [0-9]+;
 
-MemberName: [a-z_] [a-zA-Z0-9_]*;
+StringLiteral: '"' ~[\r\n"]* '"';
 
-TypeName: [A-Z] [a-zA-Z0-9_]*;
+CharacterLiteral: '\'' ~[\r\n'] '\'';
+
+ID: [a-zA-Z_] [a-zA-Z0-9_]*;
 
 WhiteSpaces: [\r\n\t ]+ -> channel(HIDDEN);
 

@@ -1,4 +1,4 @@
-import { PropertyDeclarationContext } from '../../grammar/generated/AsmParser';
+import { PropertyDeclarationContext } from '../../grammar/generated/XonParser';
 import { ExpressionTree } from './expression-tree';
 import { NameTypeTree } from './name-type';
 

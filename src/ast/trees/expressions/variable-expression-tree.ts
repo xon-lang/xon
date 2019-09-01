@@ -1,14 +1,25 @@
-import { VariableExpressionContext } from '../../../grammar/generated/AsmParser';
-import { ExpressionTree } from '../expression-tree';
-import { VarDeclarationStatementTree } from '../statements/var-declaration-statement-tree';
+import { VariableDeclarationStatementTree } from '../statements/variable-declaration-statement-tree';
+import { VariableExpressionContext } from '../../../grammar/generated/XonParser';
 
 export class VariableExpressionTree {
     name: string;
-    varDeclaration: VarDeclarationStatementTree;
 
     constructor(public ctx: VariableExpressionContext) {
-        this.name = ctx.insensetiveName().text;
-        // this.varDeclaration = new VarDeclarationStatementTree(ctx);
+        this.name = ctx.ID().text;
+    }
+
+    getDeclarationLink(parent: any = this): VariableDeclarationStatementTree {
+        if (!parent) return null;
+        if (!parent.declarations) return this.getDeclarationLink(parent.parent);
+
+        const declarations: VariableDeclarationStatementTree[] = parent.declarations.filter(
+            x => x instanceof VariableDeclarationStatementTree
+        );
+        for (const declaration of declarations) {
+            if (declaration.name == this.name) {
+                return declaration;
+            }
+        }
     }
 
     toPlane() {

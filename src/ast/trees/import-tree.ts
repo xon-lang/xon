@@ -1,4 +1,4 @@
-import { ImportDeclarationContext } from '../../grammar/generated/AsmParser';
+import { ImportDeclarationContext } from '../../grammar/generated/XonParser';
 import { ModuleTree } from './module-tree';
 import * as path from 'path';
 
@@ -14,7 +14,7 @@ export class ImportTree {
         this.path = ctx._path.text.slice(1, -1);
         this.isNativeImport = !this.path.toLowerCase().endsWith('.dll');
 
-        this.moduleAbsolutePath = path.resolve(path.dirname(parentModule.absolutePath), this.path) + '.x';
+        this.moduleAbsolutePath = path.resolve(path.dirname(parentModule.absolutePath), this.path) + '.xon';
     }
 
     toPlane() {

@@ -55,14 +55,16 @@ export class Compiler {
     }
 
     getCompiledCode(tree: ModuleTree) {
-        const commonLibs = ['<stdio.h>', '"stdlib.h"', '<wchar.h>', '<locale.h>', '<fcntl.h>', '<io.h>']
-            .map(x => `#include ${x}`)
-            .join(newLine);
+        const includeDataTypes = fs.readFileSync(
+            'C:/w/projects/nizami/languages/xon-lang/xon/src/compilers/c/includes/data-types.c',
+            'utf8'
+        );
+
         const beforeCode = `_setmode(_fileno(stdout), 0x00020000);`;
         let statements = tree.statements.map(x => new StatementCompiler(x).compile()).join('\n');
         statements = alignBefore(statements, 1);
         // const initObjectStr = this.generateStructType(tree.fullName);
-        const initFunction = `${commonLibs + newLineX2}int main() {${newLine +
+        const initFunction = `${includeDataTypes + newLineX2}int main() {${newLine +
             tabSpace +
             beforeCode +
             newLine +
