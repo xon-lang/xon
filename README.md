@@ -11,7 +11,7 @@ xon is an open-source programming language
 
 `npm run parse -- examples/statement/app.xon`
 
-before:
+`app.xon` source content:
 
 ```go
 a: 5 + 6
@@ -21,7 +21,7 @@ s: 'Привет 日本国'
 wprintf(s)
 ```
 
-after:
+`dist/app.c` transpilation content:
 
 ```c
 #include <stdio.h>
