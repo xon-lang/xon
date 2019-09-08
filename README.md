@@ -3,6 +3,8 @@ xon is an open-source programming language
 
 # build
 
+`cd xon`
+
 `npm i`
 
 `npm run build`
