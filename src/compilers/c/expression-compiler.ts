@@ -28,6 +28,13 @@ export class ExpressionCompiler {
     compileAdd(expr: AddExpressionTree) {
         const left = new ExpressionCompiler(expr.left).compile();
         const right = new ExpressionCompiler(expr.right).compile();
+
+        const strExpr = [left, right].find(x => x.startsWith('L"'));
+        if (strExpr) {
+            const anotherExpr = strExpr == left ? right : left;
+            if ([]) return `L"${expr.ctx.text.slice(1, -1)}\\n"`;
+        }
+
         return left + ' + ' + right;
     }
 }

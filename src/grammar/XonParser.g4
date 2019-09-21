@@ -18,9 +18,7 @@ functionDeclaration: name = ID args += nameType? (',' args += nameType)* '{' (st
 
 nameType: name = ID ':' type = ID;
 
-variableDeclarationStatement: name = ID ':' dataType? value = expression;
-
-declarationStatement: variableDeclarationStatement;
+declarationStatement: functionDeclaration;
 
 statement: declarationStatement | assignmentStatement | functionCall; // | asmStatement
 

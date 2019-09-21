@@ -1,5 +1,5 @@
 import { FunctionCallContext, FunctionCallExpressionContext } from '../../../grammar/generated/XonParser';
-import { ExpressionTree } from '../expression-tree';
+import { ExpressionTree } from './expression-tree';
 
 export class FunctionCallExpressionTree {
     name: string;

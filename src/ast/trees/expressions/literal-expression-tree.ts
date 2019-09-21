@@ -1,6 +1,6 @@
 import { LiteralExpressionContext } from '../../../grammar/generated/XonParser';
 import { PrimitiveDataType, DataTypeInfo } from '../../data-type';
-import { ExpressionTreeBase } from '../expression-tree-base';
+import { ExpressionTreeBase } from './expression-tree-base';
 
 export class LiteralExpressionTree extends ExpressionTreeBase {
     constructor(public ctx: LiteralExpressionContext) {

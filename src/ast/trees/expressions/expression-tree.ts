@@ -4,11 +4,11 @@ import {
     AddExpressionContext,
     VariableExpressionContext,
     FunctionCallExpressionContext,
-} from '../../grammar/generated/XonParser';
-import { LiteralExpressionTree } from './expressions/literal-expression-tree';
-import { AddExpressionTree } from './expressions/add-expression-tree';
-import { VariableExpressionTree } from './expressions/variable-expression-tree';
-import { FunctionCallExpressionTree } from './expressions/function-call-expression-tree';
+} from '../../../grammar/generated/XonParser';
+import { LiteralExpressionTree } from './literal-expression-tree';
+import { AddExpressionTree } from './add-expression-tree';
+import { VariableExpressionTree } from './variable-expression-tree';
+import { FunctionCallExpressionTree } from './function-call-expression-tree';
 import { ExpressionTreeBase } from './expression-tree-base';
 
 export enum ExpressionType {
