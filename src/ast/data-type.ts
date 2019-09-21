@@ -16,6 +16,8 @@ export enum PrimitiveDataType {
     str = 'str',
 }
 
+// derived types int: i8..i128; uint: u8..u128; float: f64 | f128; num: int | uint | float;
+
 export class DataTypeInfo {
     primitiveType: PrimitiveDataType;
     isPrimitive: boolean;

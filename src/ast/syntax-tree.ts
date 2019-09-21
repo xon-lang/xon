@@ -28,7 +28,7 @@ export class SyntaxTree {
                 importTree.module = this.parse(importTree.moduleAbsolutePath);
                 if (this.modules.find(x => x.absolutePath == importTree.moduleAbsolutePath)) continue;
             }
-            this.defineVariableDeclarations(moduleTree);
+            this.defineVariableTypes(moduleTree);
             return moduleTree;
         } catch (error) {
             console.error('Module path: ' + moduleAbsolutePath);
@@ -37,7 +37,7 @@ export class SyntaxTree {
         }
     }
 
-    defineVariableDeclarations(tree: ModuleTree) {
+    defineVariableTypes(tree: ModuleTree) {
         const dataTypeMap: { [key: string]: DataTypeInfo } = {};
         for (const statement of tree.statements) {
             const variableDeclaration =

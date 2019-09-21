@@ -1,6 +1,6 @@
 import { AddExpressionContext } from '../../../grammar/generated/XonParser';
-import { ExpressionTree } from '../expression-tree';
-import { ExpressionTreeBase } from '../expression-tree-base';
+import { ExpressionTree } from './expression-tree';
+import { ExpressionTreeBase } from './expression-tree-base';
 import { DataTypeInfo } from '../../../ast/data-type';
 
 export class AddExpressionTree extends ExpressionTreeBase {

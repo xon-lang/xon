@@ -1,4 +1,4 @@
-import { DataTypeInfo } from '../data-type';
+import { DataTypeInfo } from '../../data-type';
 
 export class ExpressionTreeBase {
     dataType: DataTypeInfo;
