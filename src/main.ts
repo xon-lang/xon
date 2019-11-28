@@ -7,4 +7,6 @@ const inputFile = path.resolve(process.cwd(), args[0]);
 const outputDir = path.resolve(path.dirname(inputFile), 'dist');
 
 const tree = new SyntaxTree(inputFile);
-new CCompiler(tree, inputFile, outputDir).compile();
+
+// const compiler = new CCompiler(tree, inputFile, outputDir)
+// compiler.compile();
