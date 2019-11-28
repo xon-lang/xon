@@ -21,6 +21,7 @@
     "license": "Apache-2.0",
     "scripts": {
         "build": "cd src/grammar && antlr4ts *.g4 -o generated && tsc",
+        "build-calc": "cd experiments/another-type-of-compiler/calc/ast && antlr4ts *.g4 -o generated && tsc",
         "parse": "node dist/main.js"
     },
     "devDependencies": {

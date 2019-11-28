@@ -127,7 +127,7 @@ ArrayDataType: PrimitiveDataType '[' [0-9]+ ']';
 
 BooleanLiteral: 'true' | 'false';
 
-IntegerLiteral: [0-9]+;
+IntegerLiteral: '-'? [0-9]+;
 
 FloatLiteral: [0-9]+ '.' [0-9]+;
 
