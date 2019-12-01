@@ -20,13 +20,13 @@
     },
     "license": "Apache-2.0",
     "scripts": {
-        "build": "cd src/grammar && antlr4ts *.g4 -o generated && tsc",
-        "build-calc": "cd experiments/another-type-of-compiler/calc/ast && antlr4ts *.g4 -o generated && tsc",
+        "build": "cd src/grammar && antlr4ts *.g4 -o .antlr",
         "parse": "node dist/main.js",
-        "test": "jest"
+        "test": "jest --silent"
     },
     "devDependencies": {
         "@types/jest": "^24.0.23",
+        "@types/lodash": "^4.14.149",
         "@types/node": "^12.7.2",
         "antlr4": "^4.7.2",
         "antlr4ts-cli": "^0.5.0-alpha.1",
@@ -37,6 +37,7 @@
     },
     "dependencies": {
         "antlr4ts": "^0.5.0-alpha.1",
+        "lodash": "^4.17.15",
         "tslib": "^1.10.0"
     }
 }
