@@ -1,0 +1,42 @@
+import { parseCode } from '../../test-helper/test-parser';
+import { IntegerLiteralParser } from './integer-literal.parser';
+
+test('positive number', () => {
+  const code = '144126';
+  const parser = parseCode(code, IntegerLiteralParser)
+  expect(parser.value).toBe(code);
+});
+
+test('zero number', () => {
+  const code = '0';
+  const parser = parseCode(code, IntegerLiteralParser)
+  expect(parser.value).toBe(code);
+});
+
+test('underscore in number', () => {
+  const code = '5_999_245';
+  const parser = parseCode(code, IntegerLiteralParser)
+  expect(parser.value).toBe('5999245');
+});
+
+test('no underscore at the start', () => {
+  expect.assertions(1);
+  try {
+    const code = '_123';
+    parseCode(code, IntegerLiteralParser)
+  } catch (e) {
+    expect(e.message).toBe("The specified token does not exist");
+  }
+});
+
+test('no underscore at the end', () => {
+  const code = '123_';
+  const parser = parseCode(code, IntegerLiteralParser)
+  expect(parser.value).toBe('123');
+});
+
+test('no several underscores', () => {
+  const code = '123_4567__321';
+  const parser = parseCode(code, IntegerLiteralParser)
+  expect(parser.value).toBe('1234567');
+});

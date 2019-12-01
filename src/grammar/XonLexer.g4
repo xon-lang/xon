@@ -1,12 +1,13 @@
 lexer grammar XonLexer;
 
 channels {
-    ERROR
+	ERROR
 }
 
 MultiLineComment: '/*' .*? '*/' -> channel(HIDDEN);
 
-SingleLineComment: '//' ~[\r\n\u2028\u2029]* -> channel(HIDDEN);
+SingleLineComment:
+	'//' ~[\r\n\u2028\u2029]* -> channel(HIDDEN);
 
 AsmCode: '::{' .*? '}';
 
@@ -109,25 +110,25 @@ BitXorAssign: '^=';
 BitOrAssign: '|=';
 
 PrimitiveDataType:
-    'i8'
-    | 'i16'
-    | 'i32'
-    | 'i64'
-    | 'i128'
-    | 'u8'
-    | 'u16'
-    | 'u32'
-    | 'u64'
-    | 'u128'
-    | 'bool'
-    | 'char'
-    | 'str';
+	'i8'
+	| 'i16'
+	| 'i32'
+	| 'i64'
+	| 'i128'
+	| 'u8'
+	| 'u16'
+	| 'u32'
+	| 'u64'
+	| 'u128'
+	| 'bool'
+	| 'char'
+	| 'str';
 
 ArrayDataType: PrimitiveDataType '[' [0-9]+ ']';
 
 BooleanLiteral: 'true' | 'false';
 
-IntegerLiteral: '-'? [0-9]+;
+DecimalLiteral: DECIMAL_DIGIT+ ('_' DECIMAL_DIGIT+)*;
 
 FloatLiteral: [0-9]+ '.' [0-9]+;
 
@@ -142,3 +143,5 @@ WhiteSpaces: [\r\n\t ]+ -> channel(HIDDEN);
 UnexpectedCharacter: . -> channel(ERROR);
 
 // fragment String: ~[\r\n'];
+
+fragment DECIMAL_DIGIT: [0-9];

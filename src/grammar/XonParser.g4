@@ -34,8 +34,10 @@ expression:
     | functionCall                                            # functionCallExpression
     | '[' array += expression? (',' array += expression)* ']' # arrayExpression;
 
-literal: IntegerLiteral | FloatLiteral | BooleanLiteral | CharacterLiteral | StringLiteral;
+literal: DecimalLiteral | FloatLiteral | BooleanLiteral | CharacterLiteral | StringLiteral;
 
 functionCall: name = ID '(' args += expression? (',' args += expression)* ')';
 
 dataType: PrimitiveDataType | ArrayDataType;
+
+integerLiteral: DecimalLiteral;
