@@ -22,13 +22,17 @@
     "scripts": {
         "build": "cd src/grammar && antlr4ts *.g4 -o generated && tsc",
         "build-calc": "cd experiments/another-type-of-compiler/calc/ast && antlr4ts *.g4 -o generated && tsc",
-        "parse": "node dist/main.js"
+        "parse": "node dist/main.js",
+        "test": "jest"
     },
     "devDependencies": {
+        "@types/jest": "^24.0.23",
         "@types/node": "^12.7.2",
         "antlr4": "^4.7.2",
         "antlr4ts-cli": "^0.5.0-alpha.1",
+        "jest": "^24.9.0",
         "rimraf": "^3.0.0",
+        "ts-jest": "^24.2.0",
         "typescript": "^3.6.2"
     },
     "dependencies": {
