@@ -11,10 +11,10 @@ export class AssignmentStatementTree {
         this.value = new ExpressionTree(ctx._value);
     }
 
-    toPlane() {
+    toPlain() {
         return {
             name: this.name,
-            value: this.value.toPlane(),
+            value: this.value.toPlain(),
         };
     }
 }

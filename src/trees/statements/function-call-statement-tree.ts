@@ -10,10 +10,10 @@ export class FunctionCallStatementTree {
         this.arguments = ctx._args.map(x => new ExpressionTree(x));
     }
 
-    toPlane() {
+    toPlain() {
         return {
             name: this.name,
-            arguments: this.arguments.map(x => x.toPlane()),
+            arguments: this.arguments.map(x => x.toPlain()),
         };
     }
 }

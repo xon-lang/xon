@@ -7,7 +7,7 @@ export class AsmStatementTree {
         this.code = ctx.text.slice(3, -2);
     }
 
-    toPlane() {
+    toPlain() {
         return '';
     }
 }

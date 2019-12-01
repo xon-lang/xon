@@ -4,4 +4,8 @@ import { BaseParser } from "../base.parser";
 export class ModuleParser implements BaseParser {
   constructor(public ctx: ModuleContext) {
   }
+
+  toPlain() {
+    return {}
+  }
 }

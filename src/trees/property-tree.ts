@@ -11,11 +11,11 @@ export class PropertyTree {
         this.value = new ExpressionTree(ctx.expression());
     }
 
-    toPlane() {
+    toPlain() {
         return {
             name: this.nameType.name,
             type: this.nameType.type,
-            value: this.value.toPlane(),
+            value: this.value.toPlain(),
         };
     }
 }

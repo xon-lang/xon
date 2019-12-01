@@ -19,10 +19,10 @@ export class AddExpressionTree extends ExpressionTreeBase {
         }
     }
 
-    toPlane() {
+    toPlain() {
         const o = {
-            left: this.left.toPlane(),
-            right: this.left.toPlane(),
+            left: this.left.toPlain(),
+            right: this.left.toPlain(),
         };
         return o;
     }

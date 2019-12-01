@@ -23,11 +23,11 @@ export class FunctionTree {
         }
     }
 
-    toPlane() {
+    toPlain() {
         return {
             name: this.name,
-            arguments: this.arguments.map(x => x.toPlane()),
-            statements: this.statements.map(x => x.toPlane()),
+            arguments: this.arguments.map(x => x.toPlain()),
+            statements: this.statements.map(x => x.toPlain()),
         };
     }
 }

@@ -18,7 +18,7 @@ export class LiteralExpressionTree extends ExpressionTreeBase {
         }
     }
 
-    toPlane() {
+    toPlain() {
         return {
             dataType: this.dataType.type,
             value: this.ctx.text,

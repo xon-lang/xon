@@ -8,4 +8,8 @@ export class IntegerLiteralParser implements BaseParser {
   constructor(public ctx: IntegerLiteralContext) {
     this.value = ctx.DecimalLiteral().text.replace(/_/g, '');
   }
+  
+  toPlain() {
+    return { value: this.value }
+  }
 }

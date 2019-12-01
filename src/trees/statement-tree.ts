@@ -45,13 +45,13 @@ export class StatementTree {
         }
     }
 
-    toPlane() {
+    toPlain() {
         return {
             type: StatementType[this.type],
-            assignment: this.assignmentStatement.toPlane(),
-            asm: this.asmStatement.toPlane(),
-            functionCall: this.functionCallStatement.toPlane(),
-            declaration: this.declarationStatement.toPlane(),
+            assignment: this.assignmentStatement.toPlain(),
+            asm: this.asmStatement.toPlain(),
+            functionCall: this.functionCallStatement.toPlain(),
+            declaration: this.declarationStatement.toPlain(),
         };
     }
 }
