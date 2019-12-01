@@ -12,11 +12,11 @@ export class ClassTree {
         this.functions = ctx.functionDeclaration().map(x => new FunctionTree(x));
     }
 
-    toPlane() {
+    toPlain() {
         return {
             name: this.name,
-            properties: this.properties.map(x => x.toPlane()),
-            functions: this.functions.map(x => x.toPlane()),
+            properties: this.properties.map(x => x.toPlain()),
+            functions: this.functions.map(x => x.toPlain()),
         };
     }
 }

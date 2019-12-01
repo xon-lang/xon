@@ -1,5 +1,6 @@
 import { ParserRuleContext } from "antlr4ts";
 
 export abstract class BaseParser {
-  ctx: ParserRuleContext;
+  abstract ctx: ParserRuleContext;
+  abstract toPlain(): Object;
 }

@@ -9,7 +9,7 @@ export class NameTypeTree {
         this.type = ctx._type.text;
     }
 
-    toPlane() {
+    toPlain() {
         return { name: this.name, type: this.type };
     }
 }

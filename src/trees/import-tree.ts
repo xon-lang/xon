@@ -17,7 +17,7 @@ export class ImportTree {
         this.moduleAbsolutePath = path.resolve(path.dirname(parentModule.absolutePath), this.path) + '.xon';
     }
 
-    toPlane() {
+    toPlain() {
         return {
             path: this.path,
             isNativeImport: this.isNativeImport,

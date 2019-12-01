@@ -12,10 +12,10 @@ export class DeclarationStatementTree {
         }
     }
 
-    toPlane() {
+    toPlain() {
         return {
             name: this.name,
-            variableDeclaration: this.variableDeclaration.toPlane(),
+            variableDeclaration: this.variableDeclaration.toPlain(),
         };
     }
 }

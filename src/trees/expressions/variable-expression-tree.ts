@@ -22,7 +22,7 @@ export class VariableExpressionTree {
         }
     }
 
-    toPlane() {
+    toPlain() {
         const o = {
             name: this.name,
         };

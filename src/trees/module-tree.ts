@@ -27,10 +27,10 @@ export class ModuleTree {
         return paths[0];
     }
 
-    toPlane() {
+    toPlain() {
         return {
             name: this.name,
-            imports: this.imports.map(x => x.toPlane()),
+            imports: this.imports.map(x => x.toPlain()),
         };
     }
 }

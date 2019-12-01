@@ -49,7 +49,7 @@ export class ExpressionTree extends ExpressionTreeBase {
         }
     }
 
-    toPlane() {
+    toPlain() {
         return {
             type: ExpressionType[this.expressionType],
             value: this.ctx.text,
