@@ -18,3 +18,12 @@ export function parseFile<T>(filePath: string, type: new (ctx) => T) {
   const code = fs.readFileSync(filePath, 'utf8');
   return parseCode(code, type);
 }
+
+export function parseWrongCode<T>(code: string, type: new (ctx) => T) {
+  expect.assertions(1);
+  try {
+    parseCode(code, type)
+  } catch (e) {
+    expect(e.message).toBe("The specified token does not exist");
+  }
+}

@@ -37,24 +37,22 @@ asmStatement: AsmCode;
 
 // asmStatement:
 expression:
-	literal														# literalExpression
-	| ID														# variableExpression
-	| left = expression Plus right = expression					# addExpression
-	| functionCall												# functionCallExpression
-	| '[' array += expression? (',' array += expression)* ']'	# arrayExpression;
-
-literal:
-	DecimalLiteral
-	| FloatLiteral
-	| BooleanLiteral
-	| CharacterLiteral
-	| StringLiteral;
+	integerLiteral													# integerLiteralExpression
+	| floatLiteral													# floatLiteralExpression
+	| booleanLiteral												# booleanLiteralExpression
+	| characterLiteral												# characterLiteralExpression
+	| stringLiteral													# stringLiteralExpression
+	| left = expression ('+' | '-' | '*' | '/') right = expression	# binaryExpression
+	| ('+' | '-' | '!') expression									# unaryExpression;
 
 functionCall:
 	name = ID '(' args += expression? (',' args += expression)* ')';
 
 dataType: PrimitiveDataType | ArrayDataType;
 
+// literals
 integerLiteral: DecimalLiteral;
-stringLiteral: StringLiteral;
+floatLiteral: FloatLiteral;
+booleanLiteral: BooleanLiteral;
 characterLiteral: CharacterLiteral;
+stringLiteral: StringLiteral;

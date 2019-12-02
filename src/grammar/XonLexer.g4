@@ -128,9 +128,9 @@ ArrayDataType: PrimitiveDataType '[' [0-9]+ ']';
 
 BooleanLiteral: 'true' | 'false';
 
-DecimalLiteral: DECIMAL_DIGIT+ ('_' DECIMAL_DIGIT+)*;
+DecimalLiteral: DECIMAL_NUMBER;
 
-FloatLiteral: [0-9]+ '.' [0-9]+;
+FloatLiteral: DECIMAL_NUMBER '.' DECIMAL_NUMBER;
 
 StringLiteral: '"' ~[\r\n"]* '"';
 
@@ -144,4 +144,5 @@ UnexpectedCharacter: . -> channel(ERROR);
 
 // fragment String: ~[\r\n'];
 
+fragment DECIMAL_NUMBER: DECIMAL_DIGIT+ ('_' DECIMAL_DIGIT+)*;
 fragment DECIMAL_DIGIT: [0-9];

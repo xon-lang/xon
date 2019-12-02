@@ -1,15 +1,18 @@
-import { IntegerLiteralContext } from "@parser";
+import { IntegerLiteralContext } from "../../grammar/.antlr/XonParser";
 import { BaseParser } from "../base.parser";
 
-export class IntegerLiteralParser implements BaseParser {
+export class IntegerLiteralParser extends BaseParser {
 
   value: string;
 
   constructor(public ctx: IntegerLiteralContext) {
+    super();
     this.value = ctx.DecimalLiteral().text.replace(/_/g, '');
   }
-  
+
   toPlain() {
-    return { value: this.value }
+    return {
+      ...super.toPlain(), value: this.value
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { parseCode } from '../../test-helper/test-parser';
+import { parseCode, parseWrongCode } from '../../test-helper/test-parser';
 import { IntegerLiteralParser } from './integer-literal.parser';
 
 test('positive number', () => {
@@ -20,13 +20,8 @@ test('underscore in number', () => {
 });
 
 test('no underscore at the start', () => {
-  expect.assertions(1);
-  try {
-    const code = '_123';
-    parseCode(code, IntegerLiteralParser)
-  } catch (e) {
-    expect(e.message).toBe("The specified token does not exist");
-  }
+  const code = '_123';
+  parseWrongCode(code, IntegerLiteralParser)
 });
 
 test('no underscore at the end', () => {

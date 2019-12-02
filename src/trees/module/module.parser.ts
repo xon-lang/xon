@@ -1,11 +1,14 @@
-import { ModuleContext } from "@parser";
+import { ModuleContext } from "../../grammar/.antlr/XonParser";
 import { BaseParser } from "../base.parser";
 
-export class ModuleParser implements BaseParser {
+export class ModuleParser extends BaseParser {
   constructor(public ctx: ModuleContext) {
+    super();
   }
 
   toPlain() {
-    return {}
+    return {
+      ...super.toPlain()
+    }
   }
 }
