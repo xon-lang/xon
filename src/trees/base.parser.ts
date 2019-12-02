@@ -1,6 +1,16 @@
 import { ParserRuleContext } from "antlr4ts";
 
 export abstract class BaseParser {
-  abstract ctx: ParserRuleContext;
-  abstract toPlain(): Object;
+
+  ctx: ParserRuleContext;
+
+  get type() {
+    return this.ctx.constructor.name.replace(/Context$/,'');
+  }
+
+  toPlain() {
+    return {
+      type: this.type
+    }
+  }
 }
