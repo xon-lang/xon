@@ -12,6 +12,7 @@ import {
     AddExpressionContext,
     DivideExpressionContext,
     SubtractionExpressionContext,
+    PropertyExpressionContext,
 } from '../../grammar/.antlr/XonParser';
 import { BaseTree } from '../base.tree';
 import { UnaryExpressionTree } from '../unary-expression/unary-expression.tree';
@@ -26,6 +27,7 @@ import { MultiplicationExpressionTree } from '../multiplication-expression/multi
 import { AddExpressionTree } from '../add-expression/add-expression.tree';
 import { DivideExpressionTree } from '../divide-expression/divide-expression.tree';
 import { SubtractionExpressionTree } from '../subtraction-expression/subtraction-expression.tree';
+import { PropertyExpressionTree } from '../property-expression/property-expression.tree';
 
 export class ExpressionTree extends BaseTree {
     value: BaseTree;
@@ -64,6 +66,9 @@ export class ExpressionTree extends BaseTree {
             this.value = new SubtractionExpressionTree(ctx);
         // UnaryExpression
         else if (ctx instanceof UnaryExpressionContext) this.value = new UnaryExpressionTree(ctx);
+        // PropertyExpression
+        else if (ctx instanceof PropertyExpressionContext)
+            this.value = new PropertyExpressionTree(ctx);
     }
 
     toPlain() {

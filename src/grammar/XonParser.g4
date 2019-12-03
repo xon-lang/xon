@@ -58,7 +58,7 @@ expression
     | ('+' | '-' | '!') expression                                    # unaryExpression
     | expression '.' ID                                               # propertyExpression
     | object = expression '[' index = expression ']'                  # indexExpression
-    | name = ID '(' args += expression? (',' args += expression)* ')' # functionCallExpression
+    | function = expression '(' args += expression? (',' args += expression)* ')' # functionCallExpression
     ;
 
 functionCall
