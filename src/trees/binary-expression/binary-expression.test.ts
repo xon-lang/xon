@@ -11,7 +11,6 @@ test('one plus one', () => {
 test('string plus one', () => {
   const code = '"some string"+1';
   const parser = parseCode(code, ExpressionParser)
-  console.log(parser.toPlain())
   expect(parser.value).toBeInstanceOf(BinaryExpressionParser);
 });
 
