@@ -1,4 +1,4 @@
-import { parseCode, parseWrongCode } from '../../test-helper/parse';
+import { parseCode, parseWrongCode } from '../../test-helper';
 import { StringLiteralTree } from './string-literal.tree';
 
 test('correct string', () => {

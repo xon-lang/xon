@@ -10,6 +10,9 @@ export function parseCode<T>(code: string, type: new (ctx) => T) {
     const tokenStream = new CommonTokenStream(lexer);
     const parser = new XonParser(tokenStream);
 
+    if (type.name.endsWith('ExpressionTree')) {
+        return new type(parser.expression());
+    }
     const methodName = camelCase(type.name.replace(/Tree$/g, ''));
     return new type(parser[methodName]());
 }

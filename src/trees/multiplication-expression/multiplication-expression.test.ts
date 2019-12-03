@@ -1,9 +1,9 @@
-import { parseCode } from '../../test-helper/parse';
+import { parseCode, evalExpression } from '../../test-helper';
 import { MultiplicationExpressionTree } from './multiplication-expression.tree';
 import { ExpressionTree } from '../expression/expression.tree';
 
 test('one multiply by one', () => {
-    const code = '1*1';
-    const tree = parseCode(code, ExpressionTree);
-    expect(tree.value).toBeInstanceOf(MultiplicationExpressionTree);
+    const code = '2*2';
+    const tree = parseCode(code, MultiplicationExpressionTree);
+    expect(evalExpression(tree)).toBe(2 * 2);
 });

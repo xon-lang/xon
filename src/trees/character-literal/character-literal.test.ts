@@ -1,4 +1,4 @@
-import { parseCode } from '../../test-helper/parse';
+import { parseCode } from '../../test-helper';
 import { CharacterLiteralTree } from './character-literal.tree';
 
 test('a char', () => {

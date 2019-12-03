@@ -1,9 +1,8 @@
-import { parseCode } from '../../test-helper/parse';
+import { parseCode, evalExpression } from '../../test-helper';
 import { SubtractionExpressionTree } from './subtraction-expression.tree';
-import { ExpressionTree } from '../expression/expression.tree';
 
 test('one minus one', () => {
-    const code = '1-1';
-    const tree = parseCode(code, ExpressionTree);
-    expect(tree.value).toBeInstanceOf(SubtractionExpressionTree);
+    const code = '10-5';
+    const tree = parseCode(code, SubtractionExpressionTree);
+    expect(evalExpression(tree)).toBe(10 - 5);
 });

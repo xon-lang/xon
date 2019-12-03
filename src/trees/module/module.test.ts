@@ -1,4 +1,4 @@
-import { parseFile } from '../../test-helper/parse';
+import { parseFile } from '../../test-helper';
 import { ModuleTree } from './module.tree';
 
 test('module', () => {
