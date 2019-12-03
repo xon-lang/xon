@@ -20,7 +20,7 @@
     },
     "license": "Apache-2.0",
     "scripts": {
-        "grammar": "cd src/grammar && antlr4ts *.g4 -o .antlr",
+        "grammar": "cd src/grammar && rimraf .antlr && antlr4ts *.g4 -o .antlr",
         "parse": "node dist/main.js",
         "test": "jest --silent"
     },
