@@ -43,14 +43,18 @@ asmStatement: AsmCode;
 
 // asmStatement:
 expression
-    : ID                                                              # idExpression
-    | '(' expression ')'                                              # bracedExpression
-    | integerLiteral                                                  # integerLiteralExpression
-    | floatLiteral                                                    # floatLiteralExpression
-    | booleanLiteral                                                  # booleanLiteralExpression
-    | characterLiteral                                                # characterLiteralExpression
-    | stringLiteral                                                   # stringLiteralExpression
-    | left = expression ('+' | '-' | '*' | '/') right = expression    # binaryExpression
+    : ID                                       # idExpression
+    | '(' expression ')'                       # parenthesizedExpression
+    | integerLiteral                           # integerLiteralExpression
+    | floatLiteral                             # floatLiteralExpression
+    | booleanLiteral                           # booleanLiteralExpression
+    | characterLiteral                         # characterLiteralExpression
+    | stringLiteral                            # stringLiteralExpression
+    | left = expression '*' right = expression # multiplicationExpression
+    | left = expression '/' right = expression # divideExpression
+    | left = expression '+' right = expression # addExpression
+    | left = expression '-' right = expression # subtractionExpression
+    // | left = expression ('*' | '+' | '-' | '/') right = expression    # binaryExpression
     | ('+' | '-' | '!') expression                                    # unaryExpression
     | expression '.' ID                                               # propertyExpression
     | object = expression '[' index = expression ']'                  # indexExpression
