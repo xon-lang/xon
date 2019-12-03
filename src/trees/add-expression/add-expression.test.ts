@@ -4,6 +4,6 @@ import { ExpressionTree } from '../expression/expression.tree';
 
 test('one plus one', () => {
     const code = '1+1';
-    const parser = parseCode(code, ExpressionTree);
-    expect(parser.value).toBeInstanceOf(AddExpressionTree);
+    const tree = parseCode(code, ExpressionTree);
+    expect(tree.value).toBeInstanceOf(AddExpressionTree);
 });

@@ -3,11 +3,11 @@ import { BaseTree } from '../base.tree';
 import { ExpressionTree } from '../expression/expression.tree';
 
 export class ParenthesizedExpressionTree extends BaseTree {
-    value: ExpressionTree;
+    value: BaseTree;
 
     constructor(public ctx: ParenthesizedExpressionContext) {
         super();
-        this.value = new ExpressionTree(ctx.expression());
+        this.value = new ExpressionTree(ctx.expression()).value;
     }
 
     toPlain() {

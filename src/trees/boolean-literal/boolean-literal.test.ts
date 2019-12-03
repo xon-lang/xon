@@ -3,14 +3,14 @@ import { BooleanLiteralTree } from './boolean-literal.tree';
 
 test('check true', () => {
     const code = 'true';
-    const parser = parseCode(code, BooleanLiteralTree);
-    expect(parser.value).toBe(code);
+    const tree = parseCode(code, BooleanLiteralTree);
+    expect(tree.value).toBe(code);
 });
 
 test('check false', () => {
     const code = 'false';
-    const parser = parseCode(code, BooleanLiteralTree);
-    expect(parser.value).toBe(code);
+    const tree = parseCode(code, BooleanLiteralTree);
+    expect(tree.value).toBe(code);
 });
 
 test('no True', () => {

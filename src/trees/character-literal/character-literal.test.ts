@@ -3,6 +3,6 @@ import { CharacterLiteralTree } from './character-literal.tree';
 
 test('a char', () => {
     const code = "'a'";
-    const parser = parseCode(code, CharacterLiteralTree);
-    expect(parser.value).toBe(code.replace(/\'/g, ''));
+    const tree = parseCode(code, CharacterLiteralTree);
+    expect(tree.value).toBe(code.replace(/\'/g, ''));
 });

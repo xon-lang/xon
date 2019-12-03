@@ -1,20 +1,20 @@
-import { parseCode, parseWrongCode } from '../../test-helper/parse';
+import { evalExpression, parseCode } from '../../test-helper';
 import { ExpressionTree } from './expression.tree';
 
-test('arithmetic operations expression', () => {
+test('plus operations expression', () => {
     const code = '1+2+3+4+5';
-    const parser = parseCode(code, ExpressionTree);
-    console.log(parser.toJson());
+    const tree = parseCode(code, ExpressionTree);
+    expect(evalExpression(tree.value)).toBe(1 + 2 + 3 + 4 + 5);
 });
 
 test('mixed operations expression', () => {
     const code = '1+2*3-4/5';
-    const parser = parseCode(code, ExpressionTree);
-    console.log(parser.toJson());
+    const tree = parseCode(code, ExpressionTree);
+    expect(evalExpression(tree.value)).toBe(1 + 2 * 3 - 4 / 5);
 });
 
 test('parenthesized expression', () => {
     const code = '1*(2+(3-4))/5';
-    const parser = parseCode(code, ExpressionTree);
-    console.log(parser.toJson());
+    const tree = parseCode(code, ExpressionTree);
+    expect(evalExpression(tree.value)).toBe((1 * (2 + (3 - 4))) / 5);
 });
