@@ -1,19 +1,21 @@
-import { parseCode } from '../../test-helper/parse';
+import { parseCode } from '../../test-helper';
 import { IdExpressionTree } from './id-expression.tree';
 import { ExpressionTree } from '../expression/expression.tree';
 
 test('variable', () => {
     const code = 'myVariable';
-    const tree = parseCode(code, ExpressionTree);
-    expect(tree.value).toBeInstanceOf(IdExpressionTree);
-
-    if (tree instanceof IdExpressionTree) {
-        expect(tree.id).toBe('myVariable');
-    }
+    const tree = parseCode(code, IdExpressionTree);
+    expect(tree.id).toBe(code);
 });
 
-test('number is not id', () => {
-    const code = '123';
-    const tree = parseCode(code, ExpressionTree);
-    expect(tree.value).not.toBeInstanceOf(IdExpressionTree);
+test('variable with underscore', () => {
+    const code = 'my_variable';
+    const tree = parseCode(code, IdExpressionTree);
+    expect(tree.id).toBe(code);
+});
+
+test('variable with number', () => {
+    const code = 'my2_variable777';
+    const tree = parseCode(code, IdExpressionTree);
+    expect(tree.id).toBe(code);
 });

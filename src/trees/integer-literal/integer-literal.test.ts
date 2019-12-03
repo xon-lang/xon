@@ -1,4 +1,4 @@
-import { parseCode, parseWrongCode } from '../../test-helper/parse';
+import { parseCode, parseWrongCode } from '../../test-helper';
 import { IntegerLiteralTree } from './integer-literal.tree';
 
 test('positive number', () => {
