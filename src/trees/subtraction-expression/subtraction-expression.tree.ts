@@ -20,4 +20,3 @@ export class SubtractionExpressionTree extends BaseTree {
         };
     }
 }
-``;

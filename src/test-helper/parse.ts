@@ -27,6 +27,6 @@ export function parseWrongCode<T>(code: string, type: new (ctx) => T) {
     try {
         parseCode(code, type);
     } catch (e) {
-        expect(e.message).toBe('The specified token does not exist');
+        expect(e.message).not.toBeNull();
     }
 }

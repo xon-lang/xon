@@ -1,10 +1,10 @@
-import { BooleanLiteralContext } from '../../grammar/.antlr/XonParser';
+import { BooleanLiteralExpressionContext } from '../../grammar/.antlr/XonParser';
 import { BaseTree } from '../base.tree';
 
-export class BooleanLiteralTree extends BaseTree {
+export class BooleanLiteralExpressionTree extends BaseTree {
     value: string;
 
-    constructor(public ctx: BooleanLiteralContext) {
+    constructor(public ctx: BooleanLiteralExpressionContext) {
         super();
         this.value = ctx.BooleanLiteral().text;
     }

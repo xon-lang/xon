@@ -34,7 +34,6 @@ declarationStatement: functionDeclaration;
 statement
     : declarationStatement
     | assignmentStatement
-    | functionCall
     ; // | asmStatement
 
 assignmentStatement: name = ID '=' value = expression;
@@ -47,11 +46,11 @@ expression
     | '(' expression ')'                             # parenthesizedExpression
     | object = expression '[' index = expression ']' # indexExpression
     | '[' items += expression* ']'                   # arrayLiteralExpression
-    | integerLiteral                                 # integerLiteralExpression
-    | floatLiteral                                   # floatLiteralExpression
-    | booleanLiteral                                 # booleanLiteralExpression
-    | characterLiteral                               # characterLiteralExpression
-    | stringLiteral                                  # stringLiteralExpression
+    | DecimalLiteral                                 # integerLiteralExpression
+    | FloatLiteral                                   # floatLiteralExpression
+    | BooleanLiteral                                 # booleanLiteralExpression
+    | CharacterLiteral                               # characterLiteralExpression
+    | StringLiteral                                  # stringLiteralExpression
     | left = expression '*' right = expression       # multiplicationExpression
     | left = expression '/' right = expression       # divideExpression
     | left = expression '+' right = expression       # addExpression
@@ -62,16 +61,3 @@ expression
         ',' args += expression
     )* ')' # functionCallExpression
     ;
-
-functionCall
-    : name = ID '(' args += expression? (',' args += expression)* ')'
-    ;
-
-dataType: PrimitiveDataType | ArrayDataType;
-
-// literals
-integerLiteral:   DecimalLiteral;
-floatLiteral:     FloatLiteral;
-booleanLiteral:   BooleanLiteral;
-characterLiteral: CharacterLiteral;
-stringLiteral:    StringLiteral;

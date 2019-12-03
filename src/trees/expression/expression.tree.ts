@@ -16,11 +16,11 @@ import {
 } from '../../grammar/.antlr/XonParser';
 import { BaseTree } from '../base.tree';
 import { UnaryExpressionTree } from '../unary-expression/unary-expression.tree';
-import { IntegerLiteralTree } from '../integer-literal/integer-literal.tree';
-import { FloatLiteralTree } from '../float-literal/float-literal.tree';
-import { BooleanLiteralTree } from '../boolean-literal/boolean-literal.tree';
-import { StringLiteralTree } from '../string-literal/string-literal.tree';
-import { CharacterLiteralTree } from '../character-literal/character-literal.tree';
+import { IntegerLiteralExpressionTree } from '../integer-literal-expression/integer-literal-expression.tree';
+import { FloatLiteralExpressionTree } from '../float-literal-expression/float-literal-expression.tree';
+import { BooleanLiteralExpressionTree } from '../boolean-literal-expression/boolean-literal-expression.tree';
+import { StringLiteralExpressionTree } from '../string-literal-expression/string-literal-expression.tree';
+import { CharacterLiteralExpressionTree } from '../character-literal-expression/character-literal-expression.tree';
 import { ParenthesizedExpressionTree } from '../parenthesized-expression/parenthesized-expression.tree';
 import { IdExpressionTree } from '../id-expression/id-expression.tree';
 import { MultiplicationExpressionTree } from '../multiplication-expression/multiplication-expression.tree';
@@ -41,19 +41,19 @@ export class ExpressionTree extends BaseTree {
             this.value = new ParenthesizedExpressionTree(ctx).value;
         // IntegerLiteralExpression
         else if (ctx instanceof IntegerLiteralExpressionContext)
-            this.value = new IntegerLiteralTree(ctx.integerLiteral());
+            this.value = new IntegerLiteralExpressionTree(ctx);
         // FloatLiteralExpression
         else if (ctx instanceof FloatLiteralExpressionContext)
-            this.value = new FloatLiteralTree(ctx.floatLiteral());
+            this.value = new FloatLiteralExpressionTree(ctx);
         // BooleanLiteralExpression
         else if (ctx instanceof BooleanLiteralExpressionContext)
-            this.value = new BooleanLiteralTree(ctx.booleanLiteral());
+            this.value = new BooleanLiteralExpressionTree(ctx);
         // CharacterLiteralExpression
         else if (ctx instanceof CharacterLiteralExpressionContext)
-            this.value = new CharacterLiteralTree(ctx.characterLiteral());
+            this.value = new CharacterLiteralExpressionTree(ctx);
         // StringLiteralExpression
         else if (ctx instanceof StringLiteralExpressionContext)
-            this.value = new StringLiteralTree(ctx.stringLiteral());
+            this.value = new StringLiteralExpressionTree(ctx);
         // MultiplicationExpression
         else if (ctx instanceof MultiplicationExpressionContext)
             this.value = new MultiplicationExpressionTree(ctx);
