@@ -1,10 +1,10 @@
-import { CharacterLiteralContext } from '../../grammar/.antlr/XonParser';
+import { CharacterLiteralExpressionContext } from '../../grammar/.antlr/XonParser';
 import { BaseTree } from '../base.tree';
 
-export class CharacterLiteralTree extends BaseTree {
+export class CharacterLiteralExpressionTree extends BaseTree {
     value: string;
 
-    constructor(public ctx: CharacterLiteralContext) {
+    constructor(public ctx: CharacterLiteralExpressionContext) {
         super();
         this.value = ctx.CharacterLiteral().text.slice(1, -1);
     }

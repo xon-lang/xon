@@ -1,8 +1,8 @@
 import { parseCode } from '../../test-helper';
-import { CharacterLiteralTree } from './character-literal.tree';
+import { CharacterLiteralExpressionTree } from './character-literal-expression.tree';
 
 test('a char', () => {
     const code = "'a'";
-    const tree = parseCode(code, CharacterLiteralTree);
+    const tree = parseCode(code, CharacterLiteralExpressionTree);
     expect(tree.value).toBe(code.replace(/\'/g, ''));
 });
