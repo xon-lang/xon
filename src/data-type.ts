@@ -46,16 +46,21 @@ export class DataTypeInfo {
     static resolveAddOperationType(...types: DataTypeInfo[]) {
         if (types.some(x => x.isString)) return new DataTypeInfo(PrimitiveDataType.str);
 
-        if (types.every(x => x.isFloat)) return new DataTypeInfo(this.getMaxNumberType(types.map(x => x.type)));
+        if (types.every(x => x.isFloat))
+            return new DataTypeInfo(this.getMaxNumberType(types.map(x => x.type)));
         if (types.some(x => x.isFloat)) return new DataTypeInfo(types.find(x => x.isFloat).type);
 
-        if (types.every(x => x.isInteger)) return new DataTypeInfo(this.getMaxNumberType(types.map(x => x.type)));
-        if (types.some(x => x.isInteger)) return new DataTypeInfo(types.find(x => x.isInteger).type);
+        if (types.every(x => x.isInteger))
+            return new DataTypeInfo(this.getMaxNumberType(types.map(x => x.type)));
+        if (types.some(x => x.isInteger))
+            return new DataTypeInfo(types.find(x => x.isInteger).type);
 
         return new DataTypeInfo(PrimitiveDataType.i32);
     }
 
     static getMaxNumberType(numberTypes: string[]) {
-        return numberTypes[0].slice(0, 1) + Math.max(...numberTypes.map(x => +x.slice(1))).toString();
+        return (
+            numberTypes[0].slice(0, 1) + Math.max(...numberTypes.map(x => +x.slice(1))).toString()
+        );
     }
 }

@@ -1,19 +1,19 @@
-import { parseCode } from '../../test-helper/test-parser';
-import { IdExpressionParser } from './id-expression.parser';
-import { ExpressionParser } from '../expression/expression.parser';
+import { parseCode } from '../../test-helper/parse';
+import { IdExpressionTree } from './id-expression.tree';
+import { ExpressionTree } from '../expression/expression.tree';
 
 test('variable', () => {
-  const code = 'myVariable';
-  const parser = parseCode(code, ExpressionParser)
-  expect(parser.value).toBeInstanceOf(IdExpressionParser);
+    const code = 'myVariable';
+    const parser = parseCode(code, ExpressionTree);
+    expect(parser.value).toBeInstanceOf(IdExpressionTree);
 
-  if (parser instanceof IdExpressionParser) {
-    expect(parser.id).toBe('myVariable');
-  }
+    if (parser instanceof IdExpressionTree) {
+        expect(parser.id).toBe('myVariable');
+    }
 });
 
 test('number is not id', () => {
-  const code = '123';
-  const parser = parseCode(code, ExpressionParser)
-  expect(parser.value).not.toBeInstanceOf(IdExpressionParser);
+    const code = '123';
+    const parser = parseCode(code, ExpressionTree);
+    expect(parser.value).not.toBeInstanceOf(IdExpressionTree);
 });

@@ -1,9 +1,9 @@
-import { parseCode } from '../../test-helper/test-parser';
-import { DivideExpressionParser } from './divide-expression.parser';
-import { ExpressionParser } from '../expression/expression.parser';
+import { parseCode } from '../../test-helper/parse';
+import { DivideExpressionTree } from './divide-expression.tree';
+import { ExpressionTree } from '../expression/expression.tree';
 
 test('one divide by one', () => {
     const code = '1/1';
-    const parser = parseCode(code, ExpressionParser);
-    expect(parser.value).toBeInstanceOf(DivideExpressionParser);
+    const parser = parseCode(code, ExpressionTree);
+    expect(parser.value).toBeInstanceOf(DivideExpressionTree);
 });

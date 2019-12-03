@@ -1,7 +1,7 @@
 import { IntegerLiteralContext } from '../../grammar/.antlr/XonParser';
-import { BaseParser } from '../base.parser';
+import { BaseTree } from '../base.tree';
 
-export class IntegerLiteralParser extends BaseParser {
+export class IntegerLiteralTree extends BaseTree {
     value: string;
 
     constructor(public ctx: IntegerLiteralContext) {
