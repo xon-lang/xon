@@ -1,17 +1,19 @@
 import { parseCode } from '../../test-helper/parse';
 import { ParenthesizedExpressionTree } from './parenthesized-expression.tree';
 import { ExpressionTree } from '../expression/expression.tree';
+import { AddExpressionTree } from '../add-expression/add-expression.tree';
+import { UnaryExpressionTree } from '../unary-expression/unary-expression.tree';
 
-test('one Parenthesized expression', () => {
+test('one parenthesized expression', () => {
     const code = '(1+1)';
-    const parser = parseCode(code, ExpressionTree);
-    expect(parser.value).toBeInstanceOf(ParenthesizedExpressionTree);
-    expect(parser.toPlain().type).toBe('AddExpression');
+    const tree = parseCode(code, ExpressionTree);
+    expect(tree.value).toBeInstanceOf(AddExpressionTree);
+    expect(tree.toPlain().type).toBe('AddExpression');
 });
 
-test('several Parenthesized expression', () => {
+test('several parenthesized expression', () => {
     const code = '(((-123)))';
-    const parser = parseCode(code, ExpressionTree);
-    expect(parser.value).toBeInstanceOf(ParenthesizedExpressionTree);
-    expect(parser.toPlain().type).toBe('UnaryExpression');
+    const tree = parseCode(code, ExpressionTree);
+    expect(tree.value).toBeInstanceOf(UnaryExpressionTree);
+    expect(tree.toPlain().type).toBe('UnaryExpression');
 });

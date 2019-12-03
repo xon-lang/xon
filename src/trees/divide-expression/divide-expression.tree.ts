@@ -3,13 +3,13 @@ import { BaseTree } from '../base.tree';
 import { ExpressionTree } from '../expression/expression.tree';
 
 export class DivideExpressionTree extends BaseTree {
-    left: ExpressionTree;
-    right: ExpressionTree;
+    left: BaseTree;
+    right: BaseTree;
 
     constructor(public ctx: DivideExpressionContext) {
         super();
-        this.left = new ExpressionTree(ctx._left);
-        this.right = new ExpressionTree(ctx._right);
+        this.left = new ExpressionTree(ctx._left).value;
+        this.right = new ExpressionTree(ctx._right).value;
     }
 
     toPlain() {

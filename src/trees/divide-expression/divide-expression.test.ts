@@ -4,6 +4,6 @@ import { ExpressionTree } from '../expression/expression.tree';
 
 test('one divide by one', () => {
     const code = '1/1';
-    const parser = parseCode(code, ExpressionTree);
-    expect(parser.value).toBeInstanceOf(DivideExpressionTree);
+    const tree = parseCode(code, ExpressionTree);
+    expect(tree.value).toBeInstanceOf(DivideExpressionTree);
 });

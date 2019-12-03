@@ -4,16 +4,16 @@ import { ExpressionTree } from '../expression/expression.tree';
 
 test('variable', () => {
     const code = 'myVariable';
-    const parser = parseCode(code, ExpressionTree);
-    expect(parser.value).toBeInstanceOf(IdExpressionTree);
+    const tree = parseCode(code, ExpressionTree);
+    expect(tree.value).toBeInstanceOf(IdExpressionTree);
 
-    if (parser instanceof IdExpressionTree) {
-        expect(parser.id).toBe('myVariable');
+    if (tree instanceof IdExpressionTree) {
+        expect(tree.id).toBe('myVariable');
     }
 });
 
 test('number is not id', () => {
     const code = '123';
-    const parser = parseCode(code, ExpressionTree);
-    expect(parser.value).not.toBeInstanceOf(IdExpressionTree);
+    const tree = parseCode(code, ExpressionTree);
+    expect(tree.value).not.toBeInstanceOf(IdExpressionTree);
 });
