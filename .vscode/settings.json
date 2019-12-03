@@ -1,5 +1,6 @@
 {
   "editor.formatOnSave": true,
+  "files.autoSave": "afterDelay",
   "antlr4.format": {
     "alignTrailingComments": true,
     "allowShortBlocksOnASingleLine": true,

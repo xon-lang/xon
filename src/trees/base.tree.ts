@@ -1,6 +1,6 @@
 import { ParserRuleContext } from 'antlr4ts';
 
-export abstract class BaseParser {
+export abstract class BaseTree {
     ctx: ParserRuleContext;
 
     get type() {
