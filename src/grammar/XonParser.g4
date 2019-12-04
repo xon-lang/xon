@@ -29,18 +29,8 @@ functionDeclaration
 
 nameType: name = ID ':' type = ID;
 
-declarationStatement: functionDeclaration;
+statement: ID '=' expression # assignmentStatement;
 
-statement
-    : declarationStatement
-    | assignmentStatement
-    ; // | asmStatement
-
-assignmentStatement: name = ID '=' value = expression;
-
-asmStatement: AsmCode;
-
-// asmStatement:
 expression
     : ID                                             # idExpression
     | '(' expression ')'                             # parenthesizedExpression
