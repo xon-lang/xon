@@ -1,6 +1,7 @@
 import { parseCode } from '../../test-helper';
 import { IdExpressionTree } from './id-expression.tree';
 import { ExpressionTree } from '../expression/expression.tree';
+import { getExpressionTree } from '../expression/expression-helper';
 
 test('variable', () => {
     const code = 'myVariable';

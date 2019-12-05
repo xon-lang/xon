@@ -1,13 +1,13 @@
 import { ParenthesizedExpressionContext } from '../../grammar/.antlr/XonParser';
-import { BaseTree } from '../base.tree';
 import { ExpressionTree } from '../expression/expression.tree';
+import { getExpressionTree } from '../expression/expression-helper';
 
-export class ParenthesizedExpressionTree extends BaseTree {
-    value: BaseTree;
+export class ParenthesizedExpressionTree extends ExpressionTree {
+    value: ExpressionTree;
 
     constructor(public ctx: ParenthesizedExpressionContext) {
         super();
-        this.value = new ExpressionTree(ctx.expression()).value;
+        this.value = getExpressionTree(ctx.expression());
     }
 
     toPlain() {

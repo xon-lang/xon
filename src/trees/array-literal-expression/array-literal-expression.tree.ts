@@ -1,13 +1,14 @@
 import { ArrayLiteralExpressionContext } from '../../grammar/.antlr/XonParser';
 import { BaseTree } from '../base.tree';
 import { ExpressionTree } from '../expression/expression.tree';
+import { getExpressionTree } from '../expression/expression-helper';
 
-export class ArrayLiteralExpressionTree extends BaseTree {
-    items: BaseTree[];
+export class ArrayLiteralExpressionTree extends ExpressionTree {
+    items: ExpressionTree[];
 
     constructor(public ctx: ArrayLiteralExpressionContext) {
         super();
-        this.items = ctx._items.map(x => new ExpressionTree(x).value);
+        this.items = ctx._items.map(getExpressionTree);
     }
 
     toPlain() {

@@ -1,6 +1,7 @@
 import { parseCode, parseWrongCode } from '../../test-helper';
 import { UnaryExpressionTree } from './unary-expression.tree';
 import { ExpressionTree } from '../expression/expression.tree';
+import { getExpressionTree } from '../expression/expression-helper';
 
 test('unary plus', () => {
     const code = '+34536';

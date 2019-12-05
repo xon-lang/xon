@@ -1,6 +1,7 @@
 import { parseCode, parseWrongCode } from '../../test-helper';
 import { ArrayLiteralExpressionTree } from './array-literal-expression.tree';
 import { ExpressionTree } from '../expression/expression.tree';
+import { getExpressionTree } from '../expression/expression-helper';
 import { evalExpression } from '../../test-helper';
 
 test('check array', () => {

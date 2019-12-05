@@ -1,15 +1,16 @@
 import { DivideExpressionContext } from '../../grammar/.antlr/XonParser';
 import { BaseTree } from '../base.tree';
 import { ExpressionTree } from '../expression/expression.tree';
+import { getExpressionTree } from '../expression/expression-helper';
 
-export class DivideExpressionTree extends BaseTree {
-    left: BaseTree;
-    right: BaseTree;
+export class DivideExpressionTree extends ExpressionTree {
+    left: ExpressionTree;
+    right: ExpressionTree;
 
     constructor(public ctx: DivideExpressionContext) {
         super();
-        this.left = new ExpressionTree(ctx._left).value;
-        this.right = new ExpressionTree(ctx._right).value;
+        this.left = getExpressionTree(ctx._left);
+        this.right = getExpressionTree(ctx._right);
     }
 
     toPlain() {

@@ -1,15 +1,16 @@
 import { FunctionCallExpressionContext } from '../../grammar/.antlr/XonParser';
 import { BaseTree } from '../base.tree';
 import { ExpressionTree } from '../expression/expression.tree';
+import { getExpressionTree } from '../expression/expression-helper';
 
-export class FunctionCallExpressionTree extends BaseTree {
+export class FunctionCallExpressionTree extends ExpressionTree {
     arguments: BaseTree[];
     function: BaseTree;
 
     constructor(public ctx: FunctionCallExpressionContext) {
         super();
-        this.arguments = ctx._args.map(x => new ExpressionTree(x).value);
-        this.function = new ExpressionTree(ctx._function).value;
+        this.arguments = ctx._args.map(getExpressionTree);
+        this.function = getExpressionTree(ctx._function);
     }
 
     toPlain() {

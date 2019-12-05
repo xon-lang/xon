@@ -1,6 +1,7 @@
 import { parseCode } from '../../test-helper';
 import { ParenthesizedExpressionTree } from './parenthesized-expression.tree';
 import { ExpressionTree } from '../expression/expression.tree';
+import { getExpressionTree } from '../expression/expression-helper';
 import { AddExpressionTree } from '../add-expression/add-expression.tree';
 import { UnaryExpressionTree } from '../unary-expression/unary-expression.tree';
 
