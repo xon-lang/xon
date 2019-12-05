@@ -32,21 +32,19 @@ nameType: name = ID ':' type = ID;
 statement: ID '=' expression # assignmentStatement;
 
 expression
-    : ID                                             # idExpression
-    | '(' expression ')'                             # parenthesizedExpression
-    | object = expression '[' index = expression ']' # indexExpression
-    | '[' items += expression* ']'                   # arrayLiteralExpression
-    | DecimalLiteral                                 # integerLiteralExpression
-    | FloatLiteral                                   # floatLiteralExpression
-    | BooleanLiteral                                 # booleanLiteralExpression
-    | CharacterLiteral                               # characterLiteralExpression
-    | StringLiteral                                  # stringLiteralExpression
-    | left = expression '*' right = expression       # multiplicationExpression
-    | left = expression '/' right = expression       # divideExpression
-    | left = expression '+' right = expression       # addExpression
-    | left = expression '-' right = expression       # subtractionExpression
-    | ('+' | '-' | '!') expression                   # unaryExpression
-    | expression '.' ID                              # propertyExpression
+    : ID                                                           # idExpression
+    | '(' expression ')'                                           # parenthesizedExpression
+    | object = expression '[' index = expression ']'               # indexExpression
+    | '[' items += expression* ']'                                 # arrayLiteralExpression
+    | DecimalLiteral                                               # integerLiteralExpression
+    | FloatLiteral                                                 # floatLiteralExpression
+    | BooleanLiteral                                               # booleanLiteralExpression
+    | CharacterLiteral                                             # characterLiteralExpression
+    | StringLiteral                                                # stringLiteralExpression
+    | left = expression operation = ('*' | '/') right = expression # mulDivExpression
+    | left = expression operation = ('+' | '-') right = expression # addSubExpression
+    | ('+' | '-' | '!') expression                                 # unaryExpression
+    | expression '.' ID                                            # propertyExpression
     | function = expression '(' args += expression? (
         ',' args += expression
     )* ')' # functionCallExpression
