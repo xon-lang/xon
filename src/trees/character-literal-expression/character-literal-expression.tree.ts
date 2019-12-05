@@ -1,7 +1,9 @@
 import { CharacterLiteralExpressionContext } from '../../grammar/.antlr/XonParser';
 import { BaseTree } from '../base.tree';
+import { ExpressionTree } from '../expression/expression.tree';
+import { getExpressionTree } from '../expression/expression-helper';
 
-export class CharacterLiteralExpressionTree extends BaseTree {
+export class CharacterLiteralExpressionTree extends ExpressionTree {
     value: string;
 
     constructor(public ctx: CharacterLiteralExpressionContext) {

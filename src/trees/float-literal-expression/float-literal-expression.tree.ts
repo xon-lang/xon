@@ -1,7 +1,7 @@
 import { FloatLiteralExpressionContext } from '../../grammar/.antlr/XonParser';
-import { BaseTree } from '../base.tree';
+import { ExpressionTree } from '../expression/expression.tree';
 
-export class FloatLiteralExpressionTree extends BaseTree {
+export class FloatLiteralExpressionTree extends ExpressionTree {
     value: string;
 
     constructor(public ctx: FloatLiteralExpressionContext) {

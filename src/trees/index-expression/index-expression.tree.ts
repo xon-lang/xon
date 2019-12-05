@@ -1,15 +1,16 @@
 import { IndexExpressionContext } from '../../grammar/.antlr/XonParser';
 import { BaseTree } from '../base.tree';
 import { ExpressionTree } from '../expression/expression.tree';
+import { getExpressionTree } from '../expression/expression-helper';
 
-export class IndexExpressionTree extends BaseTree {
+export class IndexExpressionTree extends ExpressionTree {
     objectExpression: BaseTree;
     indexExpression: BaseTree;
 
     constructor(public ctx: IndexExpressionContext) {
         super();
-        this.objectExpression = new ExpressionTree(ctx._object).value;
-        this.indexExpression = new ExpressionTree(ctx._index).value;
+        this.objectExpression = getExpressionTree(ctx._object);
+        this.indexExpression = getExpressionTree(ctx._index);
     }
 
     toPlain() {

@@ -1,13 +1,14 @@
 import { UnaryExpressionContext } from '../../grammar/.antlr/XonParser';
 import { BaseTree } from '../base.tree';
 import { ExpressionTree } from '../expression/expression.tree';
+import { getExpressionTree } from '../expression/expression-helper';
 
-export class UnaryExpressionTree extends BaseTree {
+export class UnaryExpressionTree extends ExpressionTree {
     value: ExpressionTree;
 
     constructor(public ctx: UnaryExpressionContext) {
         super();
-        this.value = new ExpressionTree(ctx.expression());
+        this.value = getExpressionTree(ctx.expression());
     }
 
     toPlain() {

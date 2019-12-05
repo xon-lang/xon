@@ -1,15 +1,16 @@
 import { MultiplicationExpressionContext } from '../../grammar/.antlr/XonParser';
 import { BaseTree } from '../base.tree';
 import { ExpressionTree } from '../expression/expression.tree';
+import { getExpressionTree } from '../expression/expression-helper';
 
-export class MultiplicationExpressionTree extends BaseTree {
-    left: BaseTree;
-    right: BaseTree;
+export class MultiplicationExpressionTree extends ExpressionTree {
+    left: ExpressionTree;
+    right: ExpressionTree;
 
     constructor(public ctx: MultiplicationExpressionContext) {
         super();
-        this.left = new ExpressionTree(ctx._left).value;
-        this.right = new ExpressionTree(ctx._right).value;
+        this.left = getExpressionTree(ctx._left);
+        this.right = getExpressionTree(ctx._right);
     }
 
     toPlain() {
