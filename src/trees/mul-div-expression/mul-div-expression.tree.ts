@@ -1,16 +1,19 @@
-import { AddExpressionContext } from '../../grammar/.antlr/XonParser';
-import { BaseTree } from '../base.tree';
+import { MulDivExpressionContext } from '../../grammar/.antlr/XonParser';
 import { ExpressionTree } from '../expression/expression.tree';
 import { getExpressionTree } from '../expression/expression-helper';
 
-export class AddExpressionTree extends ExpressionTree {
+export class MulDivExpressionTree extends ExpressionTree {
     left: ExpressionTree;
     right: ExpressionTree;
-
-    constructor(public ctx: AddExpressionContext) {
+    operation: string;
+    isMul: boolean;
+    
+    constructor(public ctx: MulDivExpressionContext) {
         super();
         this.left = getExpressionTree(ctx._left);
         this.right = getExpressionTree(ctx._right);
+        this.operation = ctx.Divide() ? 'div' : 'mul';
+        this.isMul = !!ctx.Multiply();
     }
 
     toPlain() {

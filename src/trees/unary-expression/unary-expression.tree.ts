@@ -5,10 +5,12 @@ import { getExpressionTree } from '../expression/expression-helper';
 
 export class UnaryExpressionTree extends ExpressionTree {
     value: ExpressionTree;
+    isMinus: boolean;
 
     constructor(public ctx: UnaryExpressionContext) {
         super();
         this.value = getExpressionTree(ctx.expression());
+        this.isMinus = !!ctx.Minus();
     }
 
     toPlain() {

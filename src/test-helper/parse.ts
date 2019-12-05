@@ -5,6 +5,7 @@ import { camelCase } from 'lodash';
 import * as fs from 'fs';
 import { getExpressionTree } from '../trees/expression/expression-helper';
 import { getStatementTree } from '../trees/statement/statement-helper';
+import { ExpressionTree } from '../trees/expression/expression.tree';
 
 export function parse(code: string) {
     const inputStream = new ANTLRInputStream(code);
@@ -14,7 +15,7 @@ export function parse(code: string) {
     return parser;
 }
 
-export function parseExpression(code: string) {
+export function parseExpression(code: string): ExpressionTree {
     return getExpressionTree(parse(code).expression());
 }
 
