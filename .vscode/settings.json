@@ -5,7 +5,7 @@
     "alignTrailingComments": true,
     "allowShortBlocksOnASingleLine": true,
     "breakBeforeBraces": false,
-    "columnLimit": 100,
+    "columnLimit": 150,
     "continuationIndentWidth": 4,
     "indentWidth": 4,
     "keepEmptyLinesAtTheStartOfBlocks": true,
