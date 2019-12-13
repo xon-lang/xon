@@ -7,9 +7,7 @@ channels {
 
 MultiLineComment: '/*' .*? '*/' -> channel(HIDDEN);
 
-SingleLineComment
-    : '//' ~[\r\n\u2028\u2029]* -> channel(HIDDEN)
-    ;
+SingleLineComment: '//' ~[\r\n\u2028\u2029]* -> channel(HIDDEN);
 
 AsmCode: '::{' .*? '}';
 
@@ -111,6 +109,8 @@ BitXorAssign: '^=';
 
 BitOrAssign: '|=';
 
+LambdaArrow: '=>';
+
 PrimitiveDataType
     : 'i8'
     | 'i16'
@@ -128,6 +128,8 @@ PrimitiveDataType
     ;
 
 ArrayDataType: PrimitiveDataType '[' [0-9]+ ']';
+
+LambdaParam: '$' DECIMAL_DIGIT;
 
 BooleanLiteral: 'true' | 'false';
 
