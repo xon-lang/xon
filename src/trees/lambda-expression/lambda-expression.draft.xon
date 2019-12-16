@@ -1,3 +1,10 @@
 callLambda(\x, y => x + y)
 callLambda(x, y => x + y)
 
+call($=>$0+$1)
+call(\$0+$1)
+call(~$0+$1)
+
+call($0+$1)
+
+call({$0+$1})
