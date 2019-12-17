@@ -11,6 +11,7 @@ import {
     MulDivExpressionContext,
     AddSubExpressionContext,
     PropertyExpressionContext,
+    FunctionCallExpressionContext,
 } from '../../grammar/.antlr/XonParser';
 import { UnaryExpressionTree } from '../unary-expression/unary-expression.tree';
 import { IntegerLiteralExpressionTree } from '../integer-literal-expression/integer-literal-expression.tree';
@@ -23,6 +24,7 @@ import { IdExpressionTree } from '../id-expression/id-expression.tree';
 import { MulDivExpressionTree } from '../mul-div-expression/mul-div-expression.tree';
 import { AddSubExpressionTree } from '../add-sub-expression/add-sub-expression.tree';
 import { PropertyExpressionTree } from '../property-expression/property-expression.tree';
+import { FunctionCallExpressionTree } from '../function-call-expression/function-call-expression.tree';
 
 export function getExpressionTree(ctx: ExpressionContext) {
     // IdExpression
@@ -53,4 +55,5 @@ export function getExpressionTree(ctx: ExpressionContext) {
     else if (ctx instanceof UnaryExpressionContext) return new UnaryExpressionTree(ctx);
     // PropertyExpression
     else if (ctx instanceof PropertyExpressionContext) return new PropertyExpressionTree(ctx);
+    else if (ctx instanceof FunctionCallExpressionContext) return new FunctionCallExpressionTree(ctx);
 }
