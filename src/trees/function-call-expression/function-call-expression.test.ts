@@ -10,5 +10,5 @@ test('function call', () => {
     expect(tree.arguments.length).toBe(2);
     expect(tree.arguments[0]).toBeInstanceOf(IntegerLiteralExpressionTree);
     expect(tree.arguments[1]).toBeInstanceOf(StringLiteralExpressionTree);
-    expect(tree.function).toBeInstanceOf(IdExpressionTree);
+    expect(tree.object).toBeInstanceOf(IdExpressionTree);
 });
