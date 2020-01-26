@@ -13,7 +13,11 @@ scope:         ID (scopeArgument (',' scopeArgument)*)? '{' scopeBody? '}';
 scopeArgument: name = ID ':' type = ID ('=' expression)?;
 scopeBody:     (statement ';')+;
 
-statement: ID '=' expression # assignmentStatement | expression # expressionStatement;
+statement
+    : 'if' expression '{' statement '}' # ifStatement
+    | ID '=' expression                 # assignmentStatement
+    | expression                        # expressionStatement
+    ;
 
 expression
     : ID                                                                        # idExpression
