@@ -19,11 +19,6 @@ test('underscore in number', () => {
     expect(tree.value).toBe('5999245.1546364');
 });
 
-test('no underscore at the start', () => {
-    const code = '_123.2535';
-    parseWrongCode(code, FloatLiteralExpressionTree);
-});
-
 test('no underscore at the end', () => {
     const code = '123_.2647_';
     parseWrongCode(code, FloatLiteralExpressionTree);
