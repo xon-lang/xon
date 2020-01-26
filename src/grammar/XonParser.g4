@@ -5,23 +5,15 @@ options {
     tokenVocab = XonLexer;
 }
 
-module: importDeclaration* statement*; //(classDeclaration | functionDeclaration)
+program: (scope)*;
 
-importDeclaration: path = StringLiteral '{' members += ID (',' members += ID)* '}';
+// importDeclaration: path = StringLiteral '{' members += ID (',' members += ID)* '}';
 
-// class
-classDeclaration: name = ID '{' (function)* '}';
+scope:         ID (scopeArgument (',' scopeArgument)*)? '{' scopeBody? '}';
+scopeArgument: name = ID ':' type = ID ('=' expression)?;
+scopeBody:     (statement ';')+;
 
-// propertyDeclaration: nameType ('=' value = expression)?;
-
-// function
-function
-    : ID ('(' ')' | '(' functionArgument (',' functionArgument)* ')') '{' (expression ';')* '}'
-    ;
-
-functionArgument: type = ID name = ID ('=' expression)?;
-
-statement: ID '=' expression # assignmentStatement;
+statement: ID '=' expression # assignmentStatement | expression # expressionStatement;
 
 expression
     : ID                                                                        # idExpression
@@ -38,5 +30,5 @@ expression
     | ('+' | '-' | '!') expression                                              # unaryExpression
     | expression '.' ID                                                         # propertyExpression
     | object = expression '(' args += expression? (',' args += expression)* ')' # functionCallExpression
-    | '(' ID (',' ID)* ')' '=>' expression                                      # lambdaExpression
+    | '\\' expression                                                           # lambdaExpression
     ;
