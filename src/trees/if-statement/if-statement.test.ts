@@ -8,7 +8,6 @@ test('variable assignment', () => {
     expect(tree.condition).not.toBeUndefined();
     expect(evalExpression(tree.condition)).toBe(12 + 45 / 5);
 
-    console.log(tree.statements[0].ctx.text)
     expect(tree.statements.length).toBe(1);
     const statement = tree.statements[0] as ExpressionStatementTree;
     expect(evalExpression(statement.value)).toBe(12 + 45 / 5);
