@@ -9,9 +9,8 @@ program: (scope)*;
 
 // importDeclaration: path = StringLiteral '{' members += ID (',' members += ID)* '}';
 
-scope:         ID (scopeArgument (',' scopeArgument)*)? '{' scopeBody? '}';
+scope:         ID (scopeArgument (',' scopeArgument)*)? '{' (statement ';' | scope)* '}';
 scopeArgument: name = ID ':' type = ID ('=' expression)?;
-scopeBody:     (statement ';')+;
 
 statement
     : 'if' expression '{' statement '}' # ifStatement

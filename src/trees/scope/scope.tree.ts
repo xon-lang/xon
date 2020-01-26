@@ -13,7 +13,8 @@ export class ScopeTree extends BaseTree {
     }[];
 
     name: string;
-    body: StatementTree[];
+    statements: StatementTree [];
+    scopes: ScopeTree[]
 
     constructor(public ctx: ScopeContext) {
         super();
@@ -23,7 +24,8 @@ export class ScopeTree extends BaseTree {
             name: x._name.text,
             value: x.expression() && getExpressionTree(x.expression()),
         })) || [];
-        this.body = ctx.scopeBody()?.statement().map(getStatementTree);
+        this.statements = ctx.statement().map(getStatementTree);
+        this.scopes = ctx.scope().map(x=>new ScopeTree(x));
     }
 
     toPlain() {
@@ -35,7 +37,8 @@ export class ScopeTree extends BaseTree {
                 name: x.name,
                 value: x.value?.toPlain(),
             })),
-            body: this.body.map(x => x.toPlain()),
+            statements: this.statements.map(x => x.toPlain()),
+            scopes: this.scopes.map(x => x.toPlain()),
         };
     }
 }

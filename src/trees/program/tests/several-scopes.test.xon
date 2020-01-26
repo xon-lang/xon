@@ -4,7 +4,9 @@ firstScope {
 }
 
 secondScope {
-
+    innerScope {
+        
+    }
 }
 
 thirdWithArgs x:str, n:num {
