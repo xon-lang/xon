@@ -10,6 +10,6 @@ testXonFIle(ProgramTree, tree => {
     expect(scope.name).toBe('oneScope');
     expect(scope.args.length).toBe(0);
 
-    expect(scope.body[0]).toBeInstanceOf(AssignmentStatementTree);
+    expect(scope.statements[0]).toBeInstanceOf(AssignmentStatementTree);
     // expect(evalExpression((scope.body[0] as AssignmentStatementTree).value)).toBe(2);
 });
