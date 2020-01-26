@@ -3,6 +3,7 @@ import { XonLexer } from '../grammar/.antlr/XonLexer';
 import { XonParser } from '../grammar/.antlr/XonParser';
 import { camelCase } from 'lodash';
 import * as fs from 'fs';
+import * as path from 'path';
 import { getExpressionTree } from '../trees/expression/expression-helper';
 import { getStatementTree } from '../trees/statement/statement-helper';
 import { ExpressionTree } from '../trees/expression/expression.tree';
@@ -47,4 +48,18 @@ export function parseWrongCode<T>(code: string, type: new (ctx) => T) {
     } catch (e) {
         expect(e.message).not.toBeNull();
     }
+}
+
+export function getTestCode() {
+    const testFilePath = module.parent.parent.filename;
+    const dir = path.dirname(testFilePath);
+    const name = path.basename(testFilePath, '.ts');
+    return fs.readFileSync(path.join(dir, name + '.xon')).toString();
+}
+
+export function testXonFIle<T>( type: new (ctx) => T, fn: (tree: T) => void) {
+    const name = path.basename(module.parent.parent.filename, '.test.td');
+    const code = getTestCode();
+    const tree = parseCode(code, type);
+    test(name, () => fn(tree));
 }
