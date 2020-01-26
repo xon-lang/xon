@@ -1,10 +1,11 @@
 import { parseCode, evalExpression } from '../../test-helper';
-import { FunctionTree } from './function.tree';
+import { ScopeTree } from './scope.tree';
 import { FunctionCallExpressionTree } from '../function-call-expression/function-call-expression.tree';
+import { ExpressionStatementTree } from '../expression-statement/expression-statement.tree';
 
 test('function with one expression body', () => {
-    const code = 'foo (str s = "simple string", i8 num = 7) { callAnotherFunc(); }';
-    const tree = parseCode(code, FunctionTree);
+    const code = 'foo s:str = "simple string", num:i8 = 7 { callAnotherFunc(); }';
+    const tree = parseCode(code, ScopeTree);
     expect(tree.name).toBe('foo');
     expect(tree.args.length).toBe(2);
 
@@ -16,5 +17,6 @@ test('function with one expression body', () => {
     expect(tree.args[1].name).toBe('num');
     expect(tree.args[1].value['value']).toBe('7');
 
-    expect(tree.body[0]).toBeInstanceOf(FunctionCallExpressionTree);
+    expect(tree.body[0]).toBeInstanceOf(ExpressionStatementTree);
+    expect((tree.body[0] as ExpressionStatementTree).value).toBeInstanceOf(FunctionCallExpressionTree);
 });

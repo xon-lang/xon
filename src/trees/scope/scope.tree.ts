@@ -1,8 +1,11 @@
-import { FunctionContext } from '../../grammar/.antlr/XonParser';
+import { ScopeContext } from '../../grammar/.antlr/XonParser';
 import { ExpressionTree } from '../expression/expression.tree';
 import { getExpressionTree } from '../expression/expression-helper';
+import { BaseTree } from '../base.tree';
+import { StatementTree } from '../statement/statement.tree';
+import { getStatementTree } from '../statement/statement-helper';
 
-export class FunctionTree extends ExpressionTree {
+export class ScopeTree extends BaseTree {
     args: {
         name: string;
         type: string;
@@ -10,17 +13,17 @@ export class FunctionTree extends ExpressionTree {
     }[];
 
     name: string;
-    body: ExpressionTree[];
+    body: StatementTree[];
 
-    constructor(public ctx: FunctionContext) {
+    constructor(public ctx: ScopeContext) {
         super();
         this.name = ctx.ID().text;
-        this.args = ctx.functionArgument().map(x => ({
+        this.args = ctx.scopeArgument()?.map(x => ({
             type: x._type.text,
             name: x._name.text,
             value: x.expression() && getExpressionTree(x.expression()),
-        }));
-        this.body = ctx.expression().map(getExpressionTree);
+        })) || [];
+        this.body = ctx.scopeBody()?.statement().map(getStatementTree);
     }
 
     toPlain() {
