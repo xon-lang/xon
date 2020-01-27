@@ -15,7 +15,7 @@ scopeArgument: name = ID ':' type = ID ('=' expression)?;
 statement
     : 'if' expression '{' statement* '}'                                                                   # ifStatement
     | 'loop' (('if' | value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? '{' statement* '}' # loopStatement
-    | ID '=' expression ';'                                                                                # assignmentStatement
+    | ID ('=' | '+=' | '-=' | '*=' | '/=' | '%=' | '&=' | '|=' | '^=' | '**=' | '//=') expression ';'      # assignmentStatement
     | expression ';'                                                                                       # expressionStatement
     ;
 
@@ -27,14 +27,18 @@ expression
     | BooleanLiteral                                                                                  # booleanLiteralExpression
     | CharacterLiteral                                                                                # characterLiteralExpression
     | StringLiteral                                                                                   # stringLiteralExpression
+    | expression '.' ID                                                                               # propertyExpression
     | '[' items += expression? (',' items += expression)* ']'                                         # arrayLiteralExpression
     | '[' startPos = expression ':' end = expression (':' step = expression)? ']'                     # rangeExpression
     | value = expression '[' index = expression ']'                                                   # indexExpression
     | value = expression '[' startPos = expression ':' end = expression? (':' step = expression)? ']' # sliceExpression
-    | left = expression operation = ('*' | '/') right = expression                                    # mulDivExpression
+    | ('+' | '-' | '!' | '~') expression                                                              # unaryExpression
+    | left = expression '**' right = expression                                                       # powExpression
+    | left = expression operation = ('*' | '/' | '//' | '%') right = expression                       # mulDivExpression
     | left = expression operation = ('+' | '-') right = expression                                    # addSubExpression
-    | ('+' | '-' | '!') expression                                                                    # unaryExpression
-    | expression '.' ID                                                                               # propertyExpression
     | object = expression '(' args += expression? (',' args += expression)* ')'                       # functionCallExpression
     | '\\' expression                                                                                 # lambdaExpression
+    | expression ('>' | '>=' | '==' | '!=' | '<=' | '<') expression                                   # comparisonExpression
+    | expression ('&' | '|' | '^' | '>>' | '>>>' | '<<') expression                                   # bitwiseExpression
+    | expression ('&&' | '||') expression                                                             # logicalExpression
     ;
