@@ -1,5 +1,5 @@
 # xon
-xon is an open-source programming language
+The xon is an open-source programming language
 
 # build
 
