@@ -1,4 +1,4 @@
-import { testXonFIle } from '../../../test-helper';
+import { testXonFIle, evalExpression } from '../../../test-helper';
 import { AssignmentStatementTree } from '../../statement/assignment-statement/assignment-statement.tree';
 import { ProgramTree } from '../program.tree';
 
@@ -11,5 +11,5 @@ testXonFIle(ProgramTree, tree => {
     expect(scope.args.length).toBe(0);
 
     expect(scope.statements[0]).toBeInstanceOf(AssignmentStatementTree);
-    // expect(evalExpression((scope.body[0] as AssignmentStatementTree).value)).toBe(2);
+    expect(evalExpression((scope.statements[0] as AssignmentStatementTree).value)).toBe(23 + 5);
 });

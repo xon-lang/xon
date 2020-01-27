@@ -7,4 +7,8 @@ export abstract class ExpressionTree extends BaseTree {
     constructor() {
         super();
     }
+
+    toString() {
+        return this.ctx?.text;
+    }
 }
