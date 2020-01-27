@@ -1,8 +1,7 @@
-import { AssignmentStatementContext, ExpressionStatementContext } from '../../grammar/.antlr/XonParser';
-import { BaseTree } from '../base.tree';
-import { ExpressionTree } from '../expression/expression.tree';
-import { getExpressionTree } from '../expression/expression-helper';
-import { StatementTree } from '../statement/statement.tree';
+import { ExpressionStatementContext } from '../../../grammar/.antlr/XonParser';
+import { getExpressionTree } from '../../expression/expression-helper';
+import { ExpressionTree } from '../../expression/expression.tree';
+import { StatementTree } from '../../statement/statement.tree';
 
 export class ExpressionStatementTree extends StatementTree {
     value: ExpressionTree;

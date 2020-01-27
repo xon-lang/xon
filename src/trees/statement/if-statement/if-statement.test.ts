@@ -1,4 +1,4 @@
-import { parseCode, evalExpression } from '../../test-helper';
+import { parseCode, evalExpression } from '../../../test-helper';
 import { IfStatementTree } from './if-statement.tree';
 import { ExpressionStatementTree } from '../expression-statement/expression-statement.tree';
 

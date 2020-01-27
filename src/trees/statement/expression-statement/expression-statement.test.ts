@@ -1,4 +1,4 @@
-import { parseCode, evalExpression } from '../../test-helper';
+import { parseCode, evalExpression } from '../../../test-helper';
 import { ExpressionStatementTree } from './expression-statement.tree';
 
 test('variable assignment', () => {
