@@ -1,0 +1,19 @@
+loop {
+    // infinity loop
+}
+
+loop key, value in [1, 2, 3, 4, 5] {
+
+}
+
+loop if true {
+
+}
+
+loop [1:10] {
+
+}
+
+loop key in [1:11:2] {
+
+}

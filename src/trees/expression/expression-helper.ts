@@ -12,6 +12,10 @@ import {
     AddSubExpressionContext,
     PropertyExpressionContext,
     FunctionCallExpressionContext,
+    ArrayLiteralExpressionContext,
+    RangeExpressionContext,
+    SliceExpressionContext,
+    IndexExpressionContext,
 } from '../../grammar/.antlr/XonParser';
 import { UnaryExpressionTree } from '../unary-expression/unary-expression.tree';
 import { IntegerLiteralExpressionTree } from '../integer-literal-expression/integer-literal-expression.tree';
@@ -25,6 +29,10 @@ import { MulDivExpressionTree } from '../mul-div-expression/mul-div-expression.t
 import { AddSubExpressionTree } from '../add-sub-expression/add-sub-expression.tree';
 import { PropertyExpressionTree } from '../property-expression/property-expression.tree';
 import { FunctionCallExpressionTree } from '../function-call-expression/function-call-expression.tree';
+import { ArrayLiteralExpressionTree } from '../array-literal-expression/array-literal-expression.tree';
+import { SliceExpressionTree } from '../slice-expression/slice-expression.tree';
+import { IndexExpressionTree } from '../index-expression/index-expression.tree';
+import { RangeExpressionTree } from '../range-expression/range-expression.tree';
 
 export function getExpressionTree(ctx: ExpressionContext) {
     // IdExpression
@@ -47,6 +55,15 @@ export function getExpressionTree(ctx: ExpressionContext) {
     // StringLiteralExpression
     else if (ctx instanceof StringLiteralExpressionContext)
         return new StringLiteralExpressionTree(ctx);
+    // ArrayLiteralExpression
+    else if (ctx instanceof ArrayLiteralExpressionContext)
+        return new ArrayLiteralExpressionTree(ctx);
+    // RangeExpression
+    else if (ctx instanceof RangeExpressionContext) return new RangeExpressionTree(ctx);
+    // SliceExpression
+    else if (ctx instanceof SliceExpressionContext) return new SliceExpressionTree(ctx);
+    // IndexExpression
+    else if (ctx instanceof IndexExpressionContext) return new IndexExpressionTree(ctx);
     // MulDivExpression
     else if (ctx instanceof MulDivExpressionContext) return new MulDivExpressionTree(ctx);
     // AddSubExpression
@@ -55,5 +72,6 @@ export function getExpressionTree(ctx: ExpressionContext) {
     else if (ctx instanceof UnaryExpressionContext) return new UnaryExpressionTree(ctx);
     // PropertyExpression
     else if (ctx instanceof PropertyExpressionContext) return new PropertyExpressionTree(ctx);
-    else if (ctx instanceof FunctionCallExpressionContext) return new FunctionCallExpressionTree(ctx);
+    else if (ctx instanceof FunctionCallExpressionContext)
+        return new FunctionCallExpressionTree(ctx);
 }

@@ -7,13 +7,13 @@ import { AddSubExpressionTree } from '../add-sub-expression/add-sub-expression.t
 test('string expression index', () => {
     const code = 'some_object.prop["ppp"]';
     const tree = parseCode(code, IndexExpressionTree);
-    expect(tree.objectExpression).toBeInstanceOf(PropertyExpressionTree);
-    expect(tree.indexExpression).toBeInstanceOf(StringLiteralExpressionTree);
+    expect(tree.value).toBeInstanceOf(PropertyExpressionTree);
+    expect(tree.index).toBeInstanceOf(StringLiteralExpressionTree);
 });
 
 test('integer expression index', () => {
     const code = 'some_object.prop[12+33]';
     const tree = parseCode(code, IndexExpressionTree);
-    expect(tree.objectExpression).toBeInstanceOf(PropertyExpressionTree);
-    expect(tree.indexExpression).toBeInstanceOf(AddSubExpressionTree);
+    expect(tree.value).toBeInstanceOf(PropertyExpressionTree);
+    expect(tree.index).toBeInstanceOf(AddSubExpressionTree);
 });
