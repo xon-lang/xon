@@ -1,11 +1,11 @@
 import { parseCode, evalExpression } from '../../test-helper';
 import { LoopStatementTree } from './loop-statement.tree';
 import { ExpressionStatementTree } from '../expression-statement/expression-statement.tree';
-import { ArrayLiteralExpressionTree } from '../array-literal-expression/array-literal-expression.tree';
-import { IdExpressionTree } from '../id-expression/id-expression.tree';
-import { BooleanLiteralExpressionTree } from '../boolean-literal-expression/boolean-literal-expression.tree';
-import { FunctionCallExpressionTree } from '../function-call-expression/function-call-expression.tree';
-import { RangeExpressionTree } from '../range-expression/range-expression.tree';
+import { ArrayLiteralExpressionTree } from '../expression/array-literal-expression/array-literal-expression.tree';
+import { IdExpressionTree } from '../expression/id-expression/id-expression.tree';
+import { BooleanLiteralExpressionTree } from '../expression/boolean-literal-expression/boolean-literal-expression.tree';
+import { FunctionCallExpressionTree } from '../expression/function-call-expression/function-call-expression.tree';
+import { RangeExpressionTree } from '../expression/range-expression/range-expression.tree';
 
 test('loop with value', () => {
     const code = 'loop item in [1, 2, 3] { 12+45/5; }';
