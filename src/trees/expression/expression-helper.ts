@@ -8,7 +8,7 @@ import {
     StringLiteralExpressionContext,
     ParenthesizedExpressionContext,
     IdExpressionContext,
-    MulDivExpressionContext,
+    MulDivModExpressionContext,
     AddSubExpressionContext,
     PropertyExpressionContext,
     FunctionCallExpressionContext,
@@ -25,7 +25,7 @@ import { BooleanLiteralExpressionTree } from './boolean-literal-expression/boole
 import { StringLiteralExpressionTree } from './string-literal-expression/string-literal-expression.tree';
 import { CharacterLiteralExpressionTree } from './character-literal-expression/character-literal-expression.tree';
 import { IdExpressionTree } from './id-expression/id-expression.tree';
-import { MulDivExpressionTree } from './mul-div-expression/mul-div-expression.tree';
+import { MulDivModExpressionTree } from './mul-div-mod-expression/mul-div-mod-expression.tree';
 import { AddSubExpressionTree } from './add-sub-expression/add-sub-expression.tree';
 import { PropertyExpressionTree } from './property-expression/property-expression.tree';
 import { FunctionCallExpressionTree } from './function-call-expression/function-call-expression.tree';
@@ -65,8 +65,8 @@ export function getExpressionTree(ctx: ExpressionContext) {
     else if (ctx instanceof SliceExpressionContext) return new SliceExpressionTree(ctx);
     // IndexExpression
     else if (ctx instanceof IndexExpressionContext) return new IndexExpressionTree(ctx);
-    // MulDivExpression
-    else if (ctx instanceof MulDivExpressionContext) return new MulDivExpressionTree(ctx);
+    // MulDivModExpression
+    else if (ctx instanceof MulDivModExpressionContext) return new MulDivModExpressionTree(ctx);
     // AddSubExpression
     else if (ctx instanceof AddSubExpressionContext) return new AddSubExpressionTree(ctx);
     // PowExpression

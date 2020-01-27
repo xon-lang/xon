@@ -35,7 +35,7 @@ expression
     | value = expression '[' startPos = expression ':' end = expression? (':' step = expression)? ']' # sliceExpression
     | base = expression '^' exponent = expression                                                     # powExpression
     | ('+' | '-' | '!' | '~') expression                                                              # unaryExpression
-    | left = expression operation = ('*' | '/' | '%') right = expression                              # mulDivExpression
+    | left = expression operation = ('*' | '/' | '%') right = expression                              # mulDivModExpression
     | left = expression operation = ('+' | '-') right = expression                                    # addSubExpression
     | object = expression '(' args += expression? (',' args += expression)* ')'                       # functionCallExpression
     | '\\' expression                                                                                 # lambdaExpression
