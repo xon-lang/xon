@@ -1,6 +1,6 @@
-import { parseCode, evalExpression, getTestCode, testXonFIle } from '../../../test-helper';
+import { testXonFIle } from '../../../test-helper';
+import { AssignmentStatementTree } from '../../statement/assignment-statement/assignment-statement.tree';
 import { ProgramTree } from '../program.tree';
-import { AssignmentStatementTree } from '../../assignment-statement/assignment-statement.tree';
 
 testXonFIle(ProgramTree, tree => {
     expect(tree.scopes.length).toBe(1);

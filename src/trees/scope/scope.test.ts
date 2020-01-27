@@ -1,7 +1,7 @@
-import { parseCode, evalExpression } from '../../test-helper';
-import { ScopeTree } from './scope.tree';
+import { parseCode } from '../../test-helper';
 import { FunctionCallExpressionTree } from '../expression/function-call-expression/function-call-expression.tree';
-import { ExpressionStatementTree } from '../expression-statement/expression-statement.tree';
+import { ExpressionStatementTree } from '../statement/expression-statement/expression-statement.tree';
+import { ScopeTree } from './scope.tree';
 
 test('function with one expression body', () => {
     const code = 'foo s:str = "simple string", num:i8 = 7 { callAnotherFunc(); }';

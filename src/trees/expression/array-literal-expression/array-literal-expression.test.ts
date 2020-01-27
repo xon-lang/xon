@@ -1,6 +1,5 @@
-import { parseCode, parseWrongCode } from '../../../test-helper';
+import { evalExpression, parseCode } from '../../../test-helper';
 import { ArrayLiteralExpressionTree } from './array-literal-expression.tree';
-import { evalExpression } from '../../../test-helper';
 
 test('check array', () => {
     const code = '[1, 2+2, 4, 6+6]';
