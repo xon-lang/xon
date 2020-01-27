@@ -8,6 +8,7 @@ export class LoopStatementTree extends StatementTree {
     ifLoop: boolean;
     infinity: boolean;
 
+    indexName: string;
     keyName: string;
     valueName: string;
     expression: ExpressionTree;
@@ -18,6 +19,7 @@ export class LoopStatementTree extends StatementTree {
         this.ifLoop = !!ctx.If();
         this.infinity = !ctx.expression();
 
+        this.indexName = ctx._index?.text;
         this.keyName = ctx._key?.text;
         this.valueName = ctx._value?.text;
         this.expression = ctx.expression() && getExpressionTree(ctx.expression());
@@ -29,6 +31,7 @@ export class LoopStatementTree extends StatementTree {
             ...super.toPlain(),
             ifLoop: this.ifLoop,
             infinity: this.infinity,
+            indexName: this.indexName,
             keyName: this.keyName,
             valueName: this.valueName,
             expression: this.expression.toPlain(),

@@ -13,10 +13,10 @@ scope:         ID (scopeArgument (',' scopeArgument)*)? '{' (statement | scope)*
 scopeArgument: name = ID ':' type = ID ('=' expression)?;
 
 statement
-    : 'if' expression '{' statement* '}'                                                # ifStatement
-    | 'loop' (('if' | key = ID (',' value = ID)? 'in')? expression)? '{' statement* '}' # loopStatement
-    | ID '=' expression ';'                                                             # assignmentStatement
-    | expression ';'                                                                    # expressionStatement
+    : 'if' expression '{' statement* '}'                                                                   # ifStatement
+    | 'loop' (('if' | value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? '{' statement* '}' # loopStatement
+    | ID '=' expression ';'                                                                                # assignmentStatement
+    | expression ';'                                                                                       # expressionStatement
     ;
 
 expression
