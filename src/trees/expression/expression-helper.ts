@@ -16,6 +16,7 @@ import {
     RangeExpressionContext,
     SliceExpressionContext,
     IndexExpressionContext,
+    PowExpressionContext,
 } from './../../grammar/.antlr/XonParser';
 import { UnaryExpressionTree } from './unary-expression/unary-expression.tree';
 import { IntegerLiteralExpressionTree } from './integer-literal-expression/integer-literal-expression.tree';
@@ -32,6 +33,7 @@ import { ArrayLiteralExpressionTree } from './array-literal-expression/array-lit
 import { SliceExpressionTree } from './slice-expression/slice-expression.tree';
 import { IndexExpressionTree } from './index-expression/index-expression.tree';
 import { RangeExpressionTree } from './range-expression/range-expression.tree';
+import { PowExpressionTree } from './pow-expression/pow-expression.tree';
 
 export function getExpressionTree(ctx: ExpressionContext) {
     // IdExpression
@@ -67,6 +69,8 @@ export function getExpressionTree(ctx: ExpressionContext) {
     else if (ctx instanceof MulDivExpressionContext) return new MulDivExpressionTree(ctx);
     // AddSubExpression
     else if (ctx instanceof AddSubExpressionContext) return new AddSubExpressionTree(ctx);
+    // PowExpression
+    else if (ctx instanceof PowExpressionContext) return new PowExpressionTree(ctx);
     // UnaryExpression
     else if (ctx instanceof UnaryExpressionContext) return new UnaryExpressionTree(ctx);
     // PropertyExpression
