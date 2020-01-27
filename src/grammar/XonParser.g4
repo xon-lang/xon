@@ -13,25 +13,28 @@ scope:         ID (scopeArgument (',' scopeArgument)*)? '{' (statement | scope)*
 scopeArgument: name = ID ':' type = ID ('=' expression)?;
 
 statement
-    : 'if' expression '{' statement* '}' # ifStatement
-    | ID '=' expression ';'              # assignmentStatement
-    | expression ';'                     # expressionStatement
+    : 'if' expression '{' statement* '}'                                                # ifStatement
+    | 'loop' (('if' | key = ID (',' value = ID)? 'in')? expression)? '{' statement* '}' # loopStatement
+    | ID '=' expression ';'                                                             # assignmentStatement
+    | expression ';'                                                                    # expressionStatement
     ;
 
 expression
-    : ID                                                                                   # idExpression
-    | '(' expression ')'                                                                   # parenthesizedExpression
-    | DecimalLiteral                                                                       # integerLiteralExpression
-    | FloatLiteral                                                                         # floatLiteralExpression
-    | BooleanLiteral                                                                       # booleanLiteralExpression
-    | CharacterLiteral                                                                     # characterLiteralExpression
-    | StringLiteral                                                                        # stringLiteralExpression
-    | '[' items += expression? (',' items += expression)* ']'                              # arrayLiteralExpression
-    | object = expression '[' index = expression (':' expression?)? (':' expression?)? ']' # indexExpression
-    | left = expression operation = ('*' | '/') right = expression                         # mulDivExpression
-    | left = expression operation = ('+' | '-') right = expression                         # addSubExpression
-    | ('+' | '-' | '!') expression                                                         # unaryExpression
-    | expression '.' ID                                                                    # propertyExpression
-    | object = expression '(' args += expression? (',' args += expression)* ')'            # functionCallExpression
-    | '\\' expression                                                                      # lambdaExpression
+    : ID                                                                                              # idExpression
+    | '(' expression ')'                                                                              # parenthesizedExpression
+    | DecimalLiteral                                                                                  # integerLiteralExpression
+    | FloatLiteral                                                                                    # floatLiteralExpression
+    | BooleanLiteral                                                                                  # booleanLiteralExpression
+    | CharacterLiteral                                                                                # characterLiteralExpression
+    | StringLiteral                                                                                   # stringLiteralExpression
+    | '[' items += expression? (',' items += expression)* ']'                                         # arrayLiteralExpression
+    | '[' startPos = expression ':' end = expression (':' step = expression)? ']'                     # rangeExpression
+    | value = expression '[' index = expression ']'                                                   # indexExpression
+    | value = expression '[' startPos = expression ':' end = expression? (':' step = expression)? ']' # sliceExpression
+    | left = expression operation = ('*' | '/') right = expression                                    # mulDivExpression
+    | left = expression operation = ('+' | '-') right = expression                                    # addSubExpression
+    | ('+' | '-' | '!') expression                                                                    # unaryExpression
+    | expression '.' ID                                                                               # propertyExpression
+    | object = expression '(' args += expression? (',' args += expression)* ')'                       # functionCallExpression
+    | '\\' expression                                                                                 # lambdaExpression
     ;
