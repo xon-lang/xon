@@ -1,6 +1,6 @@
 import { parseCode, evalExpression } from '../../test-helper';
 import { ScopeTree } from './scope.tree';
-import { FunctionCallExpressionTree } from '../function-call-expression/function-call-expression.tree';
+import { FunctionCallExpressionTree } from '../expression/function-call-expression/function-call-expression.tree';
 import { ExpressionStatementTree } from '../expression-statement/expression-statement.tree';
 
 test('function with one expression body', () => {
