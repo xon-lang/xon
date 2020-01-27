@@ -1,6 +1,6 @@
 import { ExpressionTree } from '../trees/expression/expression.tree';
 import { IntegerLiteralExpressionTree } from '../trees/expression/integer-literal-expression/integer-literal-expression.tree';
-import { MulDivExpressionTree } from '../trees/expression/mul-div-expression/mul-div-expression.tree';
+import { MulDivModExpressionTree } from '../trees/expression/mul-div-mod-expression/mul-div-mod-expression.tree';
 import { AddSubExpressionTree } from '../trees/expression/add-sub-expression/add-sub-expression.tree';
 import { UnaryExpressionTree } from '../trees/expression/unary-expression/unary-expression.tree';
 import { PowExpressionTree } from '../trees/expression/pow-expression/pow-expression.tree';
@@ -16,6 +16,11 @@ export function evalExpression(tree: ExpressionTree) {
 
     const a = evalExpression(tree['left']);
     const b = evalExpression(tree['right']);
-    if (tree instanceof MulDivExpressionTree) return tree.isMul ? a * b : a / b;
+    if (tree instanceof MulDivModExpressionTree) {
+        if (tree.isMul) return a * b;
+        if (tree.isDiv) return a / b;
+        if (tree.isMod) return a % b;
+    }
+
     if (tree instanceof AddSubExpressionTree) return tree.isAdd ? a + b : a - b;
 }
