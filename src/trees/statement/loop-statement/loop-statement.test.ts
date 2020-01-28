@@ -4,7 +4,7 @@ import { ExpressionStatementTree } from '../expression-statement/expression-stat
 import { ArrayLiteralExpressionTree } from '../../expression/array-literal-expression/array-literal-expression.tree';
 import { IdExpressionTree } from '../../expression/id-expression/id-expression.tree';
 import { BooleanLiteralExpressionTree } from '../../expression/boolean-literal-expression/boolean-literal-expression.tree';
-import { FunctionCallExpressionTree } from '../../expression/function-call-expression/function-call-expression.tree';
+import { FunctionExpressionTree } from '../../expression/function-expression/function-expression.tree';
 import { RangeExpressionTree } from '../../expression/range-expression/range-expression.tree';
 
 test('loop with value', () => {
@@ -108,5 +108,5 @@ test('infinity loop', () => {
 
     expect(tree.statements.length).toBe(1);
     const statement = tree.statements[0] as ExpressionStatementTree;
-    expect(statement.value).toBeInstanceOf(FunctionCallExpressionTree);
+    expect(statement.value).toBeInstanceOf(FunctionExpressionTree);
 });

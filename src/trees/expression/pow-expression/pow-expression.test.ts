@@ -1,6 +1,4 @@
-import { evalExpression, parseCode, parseExpression } from '../../../test-helper';
-import { UnaryExpressionTree } from '../unary-expression/unary-expression.tree';
-import { PowExpressionTree } from './pow-expression.tree';
+import { evalExpression, parseExpression } from '../../../test-helper';
 
 test('pow positive', () => {
     const code = '2^5';
