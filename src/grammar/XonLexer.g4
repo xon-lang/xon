@@ -9,17 +9,17 @@ MultiLineComment:  '/*' .*? '*/'             -> channel(HIDDEN);
 SingleLineComment: '//' ~[\r\n\u2028\u2029]* -> channel(HIDDEN);
 
 // PrimitiveDataType : 'i8' | 'i16' | 'i32' | 'i64' | 'i128' | 'u8' | 'u16' | 'u32' | 'u64' | 'u128' | 'bool' | 'char' | 'str' ;
-If:     'if';
-Loop:   'loop';
-In:     'in';
+If:   'if';
+Loop: 'loop';
+In:   'in';
 
 // Bitwise operations
-BitAnd: 'and';
-BitOr:  'or';
-BitXor: 'xor';
-RightShiftArithmetic:       '>>';
-LeftShiftArithmetic:        '<<';
-RightShiftLogical:          '>>>';
+BitAnd:               'and';
+BitOr:                'or';
+BitXor:               'xor';
+RightShiftArithmetic: '>>';
+LeftShiftArithmetic:  '<<';
+RightShiftLogical:    '>>>';
 
 OpenBracket:                '[';
 CloseBracket:               ']';
@@ -47,7 +47,7 @@ Pow:                        '^';
 LessThan:                   '<';
 MoreThan:                   '>';
 LessThanEquals:             '<=';
-GreaterThanEquals:          '>=';
+MoreThanEquals:             '>=';
 Equals:                     '==';
 NotEquals:                  '!=';
 And:                        '&';
