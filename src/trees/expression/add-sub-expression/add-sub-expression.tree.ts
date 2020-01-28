@@ -5,15 +5,15 @@ import { getExpressionTree } from '../expression-helper';
 export class AddSubExpressionTree extends ExpressionTree {
     left: ExpressionTree;
     right: ExpressionTree;
-    operation: string;
-    isAdd: boolean;
+    isPlus: boolean;
+    isMinus: boolean;
 
     constructor(public ctx: AddSubExpressionContext) {
         super();
         this.left = getExpressionTree(ctx._left);
         this.right = getExpressionTree(ctx._right);
-        this.operation = ctx.Minus() ? 'sub' : 'add';
-        this.isAdd = !!ctx.Plus();
+        this.isPlus = !!ctx.Plus();
+        this.isMinus = !!ctx.Minus();
     }
 
     toPlain() {
@@ -21,6 +21,8 @@ export class AddSubExpressionTree extends ExpressionTree {
             ...super.toPlain(),
             left: this.left.toPlain(),
             right: this.right.toPlain(),
+            isAdd: this.isPlus,
+            isMinus: this.isMinus
         };
     }
 }
