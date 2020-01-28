@@ -10,7 +10,7 @@ import {
     IdExpressionContext,
     MulDivModExpressionContext,
     AddSubExpressionContext,
-    PropertyExpressionContext,
+    MemberExpressionContext,
     FunctionCallExpressionContext,
     ArrayLiteralExpressionContext,
     RangeExpressionContext,
@@ -27,7 +27,7 @@ import { CharacterLiteralExpressionTree } from './character-literal-expression/c
 import { IdExpressionTree } from './id-expression/id-expression.tree';
 import { MulDivModExpressionTree } from './mul-div-mod-expression/mul-div-mod-expression.tree';
 import { AddSubExpressionTree } from './add-sub-expression/add-sub-expression.tree';
-import { PropertyExpressionTree } from './property-expression/property-expression.tree';
+import { MemberExpressionTree } from './member-expression/member-expression.tree';
 import { FunctionCallExpressionTree } from './function-call-expression/function-call-expression.tree';
 import { ArrayLiteralExpressionTree } from './array-literal-expression/array-literal-expression.tree';
 import { SliceExpressionTree } from './slice-expression/slice-expression.tree';
@@ -74,7 +74,7 @@ export function getExpressionTree(ctx: ExpressionContext) {
     // UnaryExpression
     else if (ctx instanceof UnaryExpressionContext) return new UnaryExpressionTree(ctx);
     // PropertyExpression
-    else if (ctx instanceof PropertyExpressionContext) return new PropertyExpressionTree(ctx);
+    else if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
     else if (ctx instanceof FunctionCallExpressionContext)
         return new FunctionCallExpressionTree(ctx);
 }

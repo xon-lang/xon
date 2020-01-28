@@ -20,16 +20,7 @@ statement
     ;
 
 expression
-    : ID                                                                                              # idExpression
-    | '(' expression ')'                                                                              # parenthesizedExpression
-    | DecimalLiteral                                                                                  # integerLiteralExpression
-    | FloatLiteral                                                                                    # floatLiteralExpression
-    | BooleanLiteral                                                                                  # booleanLiteralExpression
-    | CharacterLiteral                                                                                # characterLiteralExpression
-    | StringLiteral                                                                                   # stringLiteralExpression
-    | expression '.' ID                                                                               # propertyExpression
-    | '...' expression                                                                                # spreadExpression
-    | '[' items += expression? (',' items += expression)* ']'                                         # arrayLiteralExpression
+    : expression '.' ID                                                                               # memberExpression
     | '[' startPos = expression ':' end = expression (':' step = expression)? ']'                     # rangeExpression
     | value = expression '[' index = expression ']'                                                   # indexExpression
     | value = expression '[' startPos = expression ':' end = expression? (':' step = expression)? ']' # sliceExpression
@@ -39,7 +30,16 @@ expression
     | left = expression operation = ('+' | '-') right = expression                                    # addSubExpression
     | object = expression '(' args += expression? (',' args += expression)* ')'                       # functionCallExpression
     | '\\' expression                                                                                 # lambdaExpression
-    | expression ('>' | '>=' | '==' | '!=' | '<=' | '<') expression                                   # comparisonExpression
-    | expression ('and' | 'or' | 'xor' | '>>' | '>>>' | '<<') expression                              # bitwiseExpression
-    | expression ('&' | '|') expression                                                               # logicalExpression
+    | left = expression ('and' | 'or' | 'xor' | '>>' | '>>>' | '<<') right = expression               # bitwiseExpression
+    | left = expression ('&' | '|') right = expression                                                # logicalExpression
+    | left = expression ('>' | '>=' | '==' | '!=' | '<=' | '<') right = expression                    # comparisonExpression
+    | ID                                                                                              # idExpression
+    | DecimalLiteral                                                                                  # integerLiteralExpression
+    | FloatLiteral                                                                                    # floatLiteralExpression
+    | BooleanLiteral                                                                                  # booleanLiteralExpression
+    | CharacterLiteral                                                                                # characterLiteralExpression
+    | StringLiteral                                                                                   # stringLiteralExpression
+    | '[' items += expression? (',' items += expression)* ']'                                         # arrayLiteralExpression
+    | '{' (ID ':' expression)? (',' ID ':' expression)* '}'                                           # objectLiteralExpression
+    | '(' expression ')'                                                                              # parenthesizedExpression
     ;

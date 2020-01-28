@@ -12,9 +12,14 @@ SingleLineComment: '//' ~[\r\n\u2028\u2029]* -> channel(HIDDEN);
 If:     'if';
 Loop:   'loop';
 In:     'in';
+
+// Bitwise operations
 BitAnd: 'and';
 BitOr:  'or';
 BitXor: 'xor';
+RightShiftArithmetic:       '>>';
+LeftShiftArithmetic:        '<<';
+RightShiftLogical:          '>>>';
 
 OpenBracket:                '[';
 CloseBracket:               ']';
@@ -39,9 +44,6 @@ Multiply:                   '*';
 Divide:                     '/';
 Modulus:                    '%';
 Pow:                        '^';
-RightShiftArithmetic:       '>>';
-LeftShiftArithmetic:        '<<';
-RightShiftLogical:          '>>>';
 LessThan:                   '<';
 MoreThan:                   '>';
 LessThanEquals:             '<=';

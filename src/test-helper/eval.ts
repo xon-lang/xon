@@ -4,6 +4,7 @@ import { MulDivModExpressionTree } from '../trees/expression/mul-div-mod-express
 import { AddSubExpressionTree } from '../trees/expression/add-sub-expression/add-sub-expression.tree';
 import { UnaryExpressionTree } from '../trees/expression/unary-expression/unary-expression.tree';
 import { PowExpressionTree } from '../trees/expression/pow-expression/pow-expression.tree';
+import { BitwiseExpressionTree } from '../trees/expression/bitwise-expression/bitwise-expression.tree';
 
 export function evalExpression(tree: ExpressionTree) {
     if (tree instanceof IntegerLiteralExpressionTree) return +tree.value;
@@ -22,5 +23,14 @@ export function evalExpression(tree: ExpressionTree) {
         if (tree.isMod) return a % b;
     }
 
-    if (tree instanceof AddSubExpressionTree) return tree.isAdd ? a + b : a - b;
+    if (tree instanceof AddSubExpressionTree) return tree.isPlus ? a + b : a - b;
+
+    if (tree instanceof BitwiseExpressionTree) {
+        if (tree.isAnd) return a & b;
+        if (tree.isOr) return a | b;
+        if (tree.isXor) return a ^ b;
+        if (tree.isLeftShiftArithmetic) return a << b;
+        if (tree.isRightShiftArithmetic) return a >> b;
+        if (tree.isRightShiftLogical) return a >>> b;
+    }
 }
