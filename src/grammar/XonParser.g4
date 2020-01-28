@@ -20,19 +20,25 @@ statement
     ;
 
 expression
-    : expression '.' ID                                                                               # memberExpression
-    | '[' startPos = expression ':' end = expression (':' step = expression)? ']'                     # rangeExpression
+    : object = expression '(' args += expression? (',' args += expression)* ')'                       # functionExpression
     | value = expression '[' index = expression ']'                                                   # indexExpression
     | value = expression '[' startPos = expression ':' end = expression? (':' step = expression)? ']' # sliceExpression
+    | expression '.' ID                                                                               # memberExpression
     | base = expression '^' exponent = expression                                                     # powExpression
-    | ('+' | '-' | '!' | '~') expression                                                              # unaryExpression
+    | '+' expression                                                                                  # unaryPlusExpression
+    | '-' expression                                                                                  # unaryMinusExpression
+    | '~' expression                                                                                  # bitNotExpression
+    | '!' expression                                                                                  # logicalNotExpression
     | left = expression operation = ('*' | '/' | '%') right = expression                              # mulDivModExpression
     | left = expression operation = ('+' | '-') right = expression                                    # addSubExpression
-    | object = expression '(' args += expression? (',' args += expression)* ')'                       # functionCallExpression
-    | '\\' expression                                                                                 # lambdaExpression
-    | left = expression ('and' | 'or' | 'xor' | '>>' | '>>>' | '<<') right = expression               # bitwiseExpression
-    | left = expression ('&' | '|') right = expression                                                # logicalExpression
-    | left = expression ('>' | '>=' | '==' | '!=' | '<=' | '<') right = expression                    # comparisonExpression
+    | left = expression ('<<' | '>>' | '>>>') right = expression                                      # bitShiftExpression
+    | left = expression ('<' | '<=' | '>=' | '>') right = expression                                  # relationalExpression
+    | left = expression ( '==' | '!=') right = expression                                             # equalityExpression
+    | left = expression 'and' right = expression                                                      # bitAndExpression
+    | left = expression 'xor' right = expression                                                      # bitXorExpression
+    | left = expression 'or' right = expression                                                       # bitOrExpression
+    | left = expression '&' right = expression                                                        # logicalAndExpression
+    | left = expression '|' right = expression                                                        # logicalOrExpression
     | ID                                                                                              # idExpression
     | DecimalLiteral                                                                                  # integerLiteralExpression
     | FloatLiteral                                                                                    # floatLiteralExpression
@@ -40,6 +46,8 @@ expression
     | CharacterLiteral                                                                                # characterLiteralExpression
     | StringLiteral                                                                                   # stringLiteralExpression
     | '[' items += expression? (',' items += expression)* ']'                                         # arrayLiteralExpression
+    | '[' startPos = expression ':' end = expression (':' step = expression)? ']'                     # rangeExpression
     | '{' (ID ':' expression)? (',' ID ':' expression)* '}'                                           # objectLiteralExpression
     | '(' expression ')'                                                                              # parenthesizedExpression
+    | '\\' expression                                                                                 # lambdaExpression
     ;
