@@ -1,31 +1,31 @@
 import { AddSubExpressionTree } from '../trees/expression/add-sub-expression/add-sub-expression.tree';
+import { BitAndExpressionTree } from '../trees/expression/bit-and-expression/bit-and-expression.tree';
 import { BitNotExpressionTree } from '../trees/expression/bit-not-expression/bit-not-expression.tree';
+import { BitOrExpressionTree } from '../trees/expression/bit-or-expression/bit-or-expression.tree';
 import { BitShiftExpressionTree } from '../trees/expression/bit-shift-expression/bit-shift-expression.tree';
+import { BitXorExpressionTree } from '../trees/expression/bit-xor-expression/bit-xor-expression.tree';
 import { EqualityExpressionTree } from '../trees/expression/equality-expression/equality-expression.tree';
 import { ExpressionTree } from '../trees/expression/expression.tree';
 import { IntegerLiteralExpressionTree } from '../trees/expression/integer-literal-expression/integer-literal-expression.tree';
+import { LogicalAndExpressionTree } from '../trees/expression/logical-and-expression/logical-and-expression.tree';
 import { LogicalNotExpressionTree } from '../trees/expression/logical-not-expression/logical-not-expression.tree';
 import { MulDivModExpressionTree } from '../trees/expression/mul-div-mod-expression/mul-div-mod-expression.tree';
 import { PowExpressionTree } from '../trees/expression/pow-expression/pow-expression.tree';
 import { RelationalExpressionTree } from '../trees/expression/relational-expression/relational-expression.tree';
 import { UnaryMinusExpressionTree } from '../trees/expression/unary-minus-expression/unary-minus-expression.tree';
 import { UnaryPlusExpressionTree } from '../trees/expression/unary-plus-expression/unary-plus-expression.tree';
+import { LogicalOrExpressionTree } from '../trees/expression/logical-or-expression/logical-or-expression.tree';
 
 export function evalExpression(tree: ExpressionTree) {
     if (tree instanceof IntegerLiteralExpressionTree) return +tree.value;
 
-    if (tree instanceof UnaryPlusExpressionTree)
-        return evalExpression(tree.value);
+    if (tree instanceof UnaryPlusExpressionTree) return evalExpression(tree.value);
 
-    if (tree instanceof UnaryMinusExpressionTree)
-        return -evalExpression(tree.value);
+    if (tree instanceof UnaryMinusExpressionTree) return -evalExpression(tree.value);
 
-    if (tree instanceof LogicalNotExpressionTree)
-        return !evalExpression(tree.value);
+    if (tree instanceof LogicalNotExpressionTree) return !evalExpression(tree.value);
 
-    if (tree instanceof BitNotExpressionTree)
-        return ~evalExpression(tree.value);
-
+    if (tree instanceof BitNotExpressionTree) return ~evalExpression(tree.value);
 
     if (tree instanceof PowExpressionTree)
         return Math.pow(evalExpression(tree.base), evalExpression(tree.exponent));
@@ -57,4 +57,11 @@ export function evalExpression(tree: ExpressionTree) {
         if (tree.isEquals) return a === b;
         if (tree.isNotEquals) return a !== b;
     }
+
+    if (tree instanceof BitAndExpressionTree) return a & b;
+    if (tree instanceof BitXorExpressionTree) return a ^ b;
+    if (tree instanceof BitOrExpressionTree) return a | b;
+
+    if (tree instanceof LogicalAndExpressionTree) return a && b;
+    if (tree instanceof LogicalOrExpressionTree) return a || b;
 }

@@ -1,8 +1,11 @@
-import { AddSubExpressionContext, ArrayLiteralExpressionContext, BitNotExpressionContext, BitShiftExpressionContext, BooleanLiteralExpressionContext, CharacterLiteralExpressionContext, ExpressionContext, FloatLiteralExpressionContext, FunctionExpressionContext, IdExpressionContext, IndexExpressionContext, IntegerLiteralExpressionContext, LogicalNotExpressionContext, MemberExpressionContext, MulDivModExpressionContext, ParenthesizedExpressionContext, PowExpressionContext, RangeExpressionContext, SliceExpressionContext, StringLiteralExpressionContext, UnaryMinusExpressionContext, UnaryPlusExpressionContext } from './../../grammar/.antlr/XonParser';
+import { AddSubExpressionContext, ArrayLiteralExpressionContext, BitAndExpressionContext, BitNotExpressionContext, BitOrExpressionContext, BitShiftExpressionContext, BitXorExpressionContext, BooleanLiteralExpressionContext, CharacterLiteralExpressionContext, ExpressionContext, FloatLiteralExpressionContext, FunctionExpressionContext, IdExpressionContext, IndexExpressionContext, IntegerLiteralExpressionContext, LogicalAndExpressionContext, LogicalNotExpressionContext, LogicalOrExpressionContext, MemberExpressionContext, MulDivModExpressionContext, ParenthesizedExpressionContext, PowExpressionContext, RangeExpressionContext, SliceExpressionContext, StringLiteralExpressionContext, UnaryMinusExpressionContext, UnaryPlusExpressionContext } from './../../grammar/.antlr/XonParser';
 import { AddSubExpressionTree } from './add-sub-expression/add-sub-expression.tree';
 import { ArrayLiteralExpressionTree } from './array-literal-expression/array-literal-expression.tree';
+import { BitAndExpressionTree } from './bit-and-expression/bit-and-expression.tree';
 import { BitNotExpressionTree } from './bit-not-expression/bit-not-expression.tree';
+import { BitOrExpressionTree } from './bit-or-expression/bit-or-expression.tree';
 import { BitShiftExpressionTree } from './bit-shift-expression/bit-shift-expression.tree';
+import { BitXorExpressionTree } from './bit-xor-expression/bit-xor-expression.tree';
 import { BooleanLiteralExpressionTree } from './boolean-literal-expression/boolean-literal-expression.tree';
 import { CharacterLiteralExpressionTree } from './character-literal-expression/character-literal-expression.tree';
 import { FloatLiteralExpressionTree } from './float-literal-expression/float-literal-expression.tree';
@@ -10,7 +13,9 @@ import { FunctionExpressionTree } from './function-expression/function-expressio
 import { IdExpressionTree } from './id-expression/id-expression.tree';
 import { IndexExpressionTree } from './index-expression/index-expression.tree';
 import { IntegerLiteralExpressionTree } from './integer-literal-expression/integer-literal-expression.tree';
+import { LogicalAndExpressionTree } from './logical-and-expression/logical-and-expression.tree';
 import { LogicalNotExpressionTree } from './logical-not-expression/logical-not-expression.tree';
+import { LogicalOrExpressionTree } from './logical-or-expression/logical-or-expression.tree';
 import { MemberExpressionTree } from './member-expression/member-expression.tree';
 import { MulDivModExpressionTree } from './mul-div-mod-expression/mul-div-mod-expression.tree';
 import { PowExpressionTree } from './pow-expression/pow-expression.tree';
@@ -72,4 +77,19 @@ export function getExpressionTree(ctx: ExpressionContext) {
     // BitShift
     else if (ctx instanceof BitShiftExpressionContext)
         return new BitShiftExpressionTree(ctx);
+    // BitAnd
+    else if (ctx instanceof BitAndExpressionContext)
+        return new BitAndExpressionTree(ctx);
+    // BitXor
+    else if (ctx instanceof BitXorExpressionContext)
+        return new BitXorExpressionTree(ctx);
+    // BitOr
+    else if (ctx instanceof BitOrExpressionContext)
+        return new BitOrExpressionTree(ctx);
+    // LogicalAnd
+    else if (ctx instanceof LogicalAndExpressionContext)
+        return new LogicalAndExpressionTree(ctx);
+    // LogicalOr
+    else if (ctx instanceof LogicalOrExpressionContext)
+        return new LogicalOrExpressionTree(ctx);
 }
