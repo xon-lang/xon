@@ -32,6 +32,7 @@
         "source.organizeImports": true,
         "source.fixAll": true
     },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
 
     "files.autoSave": "afterDelay",
     "files.associations": {
