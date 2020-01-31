@@ -12,6 +12,7 @@ program: (scope)*;
 scope:         ID (scopeArgument (',' scopeArgument)*)? '{' (statement | scope)* '}';
 scopeArgument: name = ID ':' type = ID ('=' expression)?;
 
+// statements
 statement
     : 'if' expression '{' statement* '}'                                                                   # ifStatement
     | 'loop' (('if' | value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? '{' statement* '}' # loopStatement
@@ -19,8 +20,9 @@ statement
     | expression ';'                                                                                       # expressionStatement
     ;
 
+// expressions
 expression
-    : object = expression '(' args += expression? (',' args += expression)* ')'                       # functionExpression
+    : object = expression '(' (args += expression (',' args += expression)*)? ')'                     # functionExpression
     | value = expression '[' index = expression ']'                                                   # indexExpression
     | value = expression '[' startPos = expression ':' end = expression? (':' step = expression)? ']' # sliceExpression
     | expression '.' ID                                                                               # memberExpression
@@ -37,17 +39,18 @@ expression
     | left = expression 'and' right = expression                                                      # bitAndExpression
     | left = expression 'xor' right = expression                                                      # bitXorExpression
     | left = expression 'or' right = expression                                                       # bitOrExpression
-    | left = expression '&' right = expression                                                        # logicalAndExpression
-    | left = expression '|' right = expression                                                        # logicalOrExpression
+    | left = expression '&&' right = expression                                                       # logicalAndExpression
+    | left = expression '||' right = expression                                                       # logicalOrExpression
     | ID                                                                                              # idExpression
     | DecimalLiteral                                                                                  # integerLiteralExpression
     | FloatLiteral                                                                                    # floatLiteralExpression
     | BooleanLiteral                                                                                  # booleanLiteralExpression
     | CharacterLiteral                                                                                # characterLiteralExpression
     | StringLiteral                                                                                   # stringLiteralExpression
-    | '[' items += expression? (',' items += expression)* ']'                                         # arrayLiteralExpression
+    | '[' (items += expression (',' items += expression)*)? ']'                                       # arrayLiteralExpression
     | '[' startPos = expression ':' end = expression (':' step = expression)? ']'                     # rangeExpression
-    | '{' (ID ':' expression)? (',' ID ':' expression)* '}'                                           # objectLiteralExpression
+    | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                                           # objectLiteralExpression
     | '(' expression ')'                                                                              # parenthesizedExpression
-    | '\\' expression                                                                                 # lambdaExpression
+    | left = expression '|' (ID ':')? right = expression                                              # pipeExpression
+    | '\\' (ID (',' ID)* ':')? expression                                                             # lambdaExpression
     ;
