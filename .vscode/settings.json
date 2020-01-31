@@ -32,13 +32,18 @@
         "source.organizeImports": true,
         "source.fixAll": true
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-
     "files.autoSave": "afterDelay",
     "files.associations": {
         "*.xon": "rust"
     },
 
     "spellright.language": ["en", "ru"],
-    "spellright.documentTypes": ["markdown", "latex", "plaintext", "typescript"]
+    "spellright.documentTypes": ["markdown", "latex", "plaintext", "typescript"],
+
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }

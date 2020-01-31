@@ -1,4 +1,4 @@
-import { AddSubExpressionContext, ArrayLiteralExpressionContext, BitAndExpressionContext, BitNotExpressionContext, BitOrExpressionContext, BitShiftExpressionContext, BitXorExpressionContext, BooleanLiteralExpressionContext, CharacterLiteralExpressionContext, ExpressionContext, FloatLiteralExpressionContext, FunctionExpressionContext, IdExpressionContext, IndexExpressionContext, IntegerLiteralExpressionContext, LogicalAndExpressionContext, LogicalNotExpressionContext, LogicalOrExpressionContext, MemberExpressionContext, MulDivModExpressionContext, ParenthesizedExpressionContext, PowExpressionContext, RangeExpressionContext, SliceExpressionContext, StringLiteralExpressionContext, UnaryMinusExpressionContext, UnaryPlusExpressionContext } from './../../grammar/.antlr/XonParser';
+import { AddSubExpressionContext, ArrayLiteralExpressionContext, BitAndExpressionContext, BitNotExpressionContext, BitOrExpressionContext, BitShiftExpressionContext, BitXorExpressionContext, BooleanLiteralExpressionContext, CharacterLiteralExpressionContext, ExpressionContext, FloatLiteralExpressionContext, FunctionExpressionContext, IdExpressionContext, IndexExpressionContext, IntegerLiteralExpressionContext, LogicalAndExpressionContext, LogicalNotExpressionContext, LogicalOrExpressionContext, MemberExpressionContext, MulDivModExpressionContext, ParenthesizedExpressionContext, PipeExpressionContext, PowExpressionContext, RangeExpressionContext, SliceExpressionContext, StringLiteralExpressionContext, UnaryMinusExpressionContext, UnaryPlusExpressionContext } from './../../grammar/.antlr/XonParser';
 import { AddSubExpressionTree } from './add-sub-expression/add-sub-expression.tree';
 import { ArrayLiteralExpressionTree } from './array-literal-expression/array-literal-expression.tree';
 import { BitAndExpressionTree } from './bit-and-expression/bit-and-expression.tree';
@@ -18,6 +18,7 @@ import { LogicalNotExpressionTree } from './logical-not-expression/logical-not-e
 import { LogicalOrExpressionTree } from './logical-or-expression/logical-or-expression.tree';
 import { MemberExpressionTree } from './member-expression/member-expression.tree';
 import { MulDivModExpressionTree } from './mul-div-mod-expression/mul-div-mod-expression.tree';
+import { PipeExpressionTree } from './pipe-expression/pipe-expression.tree';
 import { PowExpressionTree } from './pow-expression/pow-expression.tree';
 import { RangeExpressionTree } from './range-expression/range-expression.tree';
 import { SliceExpressionTree } from './slice-expression/slice-expression.tree';
@@ -92,4 +93,7 @@ export function getExpressionTree(ctx: ExpressionContext) {
     // LogicalOr
     else if (ctx instanceof LogicalOrExpressionContext)
         return new LogicalOrExpressionTree(ctx);
+    // Pipe
+    else if (ctx instanceof PipeExpressionContext)
+        return new PipeExpressionTree(ctx);
 }
