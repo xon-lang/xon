@@ -24,7 +24,7 @@
         "grammar-force": "cd src/grammar && rimraf .antlr && antlr4ts *.g4 -o .antlr",
         "test": "npm run grammar && jest",
         "preversion": "npm run test",
-        "version": "tsc",
+        "version": "",
         "postversion": "git push && git push --tags",
         "deploy": "rimraf dist && tsc && cp package.json dist && cp *.md dist && cd dist && npm publish"
     },
