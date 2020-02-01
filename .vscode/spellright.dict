@@ -5,7 +5,6 @@ xon
 ts
 utf
 fs
-lodash
 Lexer
 ast
 js

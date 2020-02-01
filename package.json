@@ -1,7 +1,7 @@
 {
     "name": "@xon/ast",
     "author": "Nizami",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "description": "XON is an open-source programming language",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -21,10 +21,10 @@
         "programming language"
     ],
     "license": "Apache-2.0",
-    "prepublish": "tsc",
     "scripts": {
         "grammar": "cd src/grammar && rimraf .antlr && antlr4ts *.g4 -o .antlr",
-        "test": "jest"
+        "test": "jest",
+        "prepublish": "npm run grammar && npm run test && tsc"
     },
     "husky": {
         "hooks": {
@@ -33,7 +33,6 @@
     },
     "devDependencies": {
         "@types/jest": "^25.1.1",
-        "@types/lodash": "^4.14.149",
         "@types/node": "^13.7.0",
         "antlr4ts-cli": "^0.5.0-alpha.3",
         "husky": "^4.2.1",

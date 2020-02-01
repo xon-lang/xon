@@ -1,4 +1,4 @@
-import { ANTLRInputStream, CommonTokenStream } from 'antlr4ts';
+import { ANTLRInputStream, CommonTokenStream, ParserRuleContext } from 'antlr4ts';
 import { XonLexer } from './grammar/.antlr/XonLexer';
 import { XonParser } from './grammar/.antlr/XonParser';
 import { getExpressionTree } from './trees/expression/expression-helper';
@@ -22,7 +22,7 @@ export function parseStatement(code: string) {
     return getStatementTree(parse(code).statement());
 }
 
-export function parseCode<T>(code: string, type: new (ctx) => T) {
+export function parseCode<T>(code: string, type: new (ctx: ParserRuleContext) => T) {
     const parser = parse(code);
     if (type.name.endsWith('ExpressionTree')) {
         return new type(parser.expression());
