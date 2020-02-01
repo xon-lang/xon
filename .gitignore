@@ -1,5 +1,5 @@
 node_modules
-generated
 dist
-.antlr
+*.interp
+*.tokens
 .DS_Store
