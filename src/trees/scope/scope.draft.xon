@@ -1,0 +1,8 @@
+someFuntion(i8 a, str b)
+
+{
+    // empty scopes
+    foo x:str {
+        
+    }
+}

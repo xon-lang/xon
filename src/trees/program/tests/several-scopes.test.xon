@@ -1,0 +1,14 @@
+firstScope {
+    a = 23 + 5;
+    callSomeFunction();
+}
+
+secondScope {
+    innerScope {
+        
+    }
+}
+
+thirdWithArgs x:str, n:num {
+
+}

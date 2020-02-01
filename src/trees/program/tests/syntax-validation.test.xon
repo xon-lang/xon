@@ -1,0 +1,15 @@
+oneScope {
+    a = 23 + 5;
+
+    loop arr {
+        log("no way");
+    }
+    loop v, k, i in arr {
+        log("no way");
+    }
+
+    // pipe syntax
+    abc() + 345 | someF() |x: x + x;
+    a = xcv + fwef |z: z + z * z - z | (\x: x + z) |f: f(123);
+    lambdaWithPipe = \a, b, c, d: a + d |m: b + c/m^a;
+}
