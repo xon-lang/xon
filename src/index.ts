@@ -1,5 +1,4 @@
 import { ANTLRInputStream, CommonTokenStream } from 'antlr4ts';
-import { camelCase } from 'lodash';
 import { XonLexer } from './grammar/.antlr/XonLexer';
 import { XonParser } from './grammar/.antlr/XonParser';
 import { getExpressionTree } from './trees/expression/expression-helper';
@@ -31,6 +30,14 @@ export function parseCode<T>(code: string, type: new (ctx) => T) {
     if (type.name.endsWith('StatementTree')) {
         return new type(parser.statement());
     }
-    const methodName = camelCase(type.name.replace(/Tree$/g, ''));
-    return new type(parser[methodName]());
+    const methodName = camelize(type.name.replace(/Tree$/g, ''));
+    return new type((parser as any)[methodName]());
+}
+
+function camelize(str: string) {
+    return str
+        .replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+            return index == 0 ? word.toLowerCase() : word.toUpperCase();
+        })
+        .replace(/\s+/g, '');
 }
