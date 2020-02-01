@@ -25,13 +25,13 @@
         "grammar": "./grammar.sh",
         "grammar-force": "cd src/grammar && rimraf .antlr && antlr4ts *.g4 -o .antlr",
         "test": "npm run grammar && jest",
-        "preversion": "npm run grammar && npm run test",
-        "version": "tsc && git add -A dist",
+        "preversion": "npm run test",
+        "version": "tsc",
         "postversion": "git push && git push --tags"
     },
     "husky": {
         "hooks": {
-            "pre-commit": "npm run grammar && npm run test"
+            "pre-commit": "npm run test"
         }
     },
     "devDependencies": {
