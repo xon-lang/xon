@@ -5,7 +5,6 @@ import { ExpressionTree } from '../../expression/expression.tree';
 import { getExpressionTree } from '../../expression/expression-helper';
 
 export class LoopStatementTree extends StatementTree {
-    ifLoop: boolean;
     infinity: boolean;
 
     indexName: string;
@@ -16,7 +15,6 @@ export class LoopStatementTree extends StatementTree {
 
     constructor(public ctx: LoopStatementContext) {
         super();
-        this.ifLoop = !!ctx.If();
         this.infinity = !ctx.expression();
 
         this.indexName = ctx._index?.text;
@@ -29,7 +27,6 @@ export class LoopStatementTree extends StatementTree {
     toPlain() {
         return {
             ...super.toPlain(),
-            ifLoop: this.ifLoop,
             infinity: this.infinity,
             indexName: this.indexName,
             keyName: this.keyName,
