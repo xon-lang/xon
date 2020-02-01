@@ -24,8 +24,8 @@
     "scripts": {
         "grammar": "cd src/grammar && rimraf .antlr && antlr4ts *.g4 -o .antlr",
         "test": "jest",
-        "preversion": "npm run grammar && npm run test && tsc",
-        "version": "npm run build && git add -A dist",
+        "preversion": "npm run grammar && npm run test",
+        "version": "tsc && git add -A dist",
         "postversion": "git push && git push --tags"
     },
     "husky": {
