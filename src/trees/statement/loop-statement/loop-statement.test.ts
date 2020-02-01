@@ -1,11 +1,11 @@
-import { parseCode, evalExpression } from '../../../test-helper';
-import { LoopStatementTree } from './loop-statement.tree';
-import { ExpressionStatementTree } from '../expression-statement/expression-statement.tree';
+import { evalExpression, parseCode } from '../../../test-helper';
 import { ArrayLiteralExpressionTree } from '../../expression/array-literal-expression/array-literal-expression.tree';
-import { IdExpressionTree } from '../../expression/id-expression/id-expression.tree';
 import { BooleanLiteralExpressionTree } from '../../expression/boolean-literal-expression/boolean-literal-expression.tree';
 import { FunctionExpressionTree } from '../../expression/function-expression/function-expression.tree';
+import { IdExpressionTree } from '../../expression/id-expression/id-expression.tree';
 import { RangeExpressionTree } from '../../expression/range-expression/range-expression.tree';
+import { ExpressionStatementTree } from '../expression-statement/expression-statement.tree';
+import { LoopStatementTree } from './loop-statement.tree';
 
 test('loop with value', () => {
     const code = 'loop item in [1, 2, 3] { 12+45/5; }';
@@ -13,7 +13,6 @@ test('loop with value', () => {
     expect(tree.valueName).toBe('item');
     expect(tree.keyName).toBeUndefined();
     expect(tree.indexName).toBeUndefined();
-    expect(tree.ifLoop).toBe(false);
     expect(tree.infinity).toBe(false);
     expect(tree.expression).toBeInstanceOf(ArrayLiteralExpressionTree);
 
@@ -28,7 +27,6 @@ test('loop with value and key', () => {
     expect(tree.valueName).toBe('val');
     expect(tree.keyName).toBe('key');
     expect(tree.indexName).toBeUndefined();
-    expect(tree.ifLoop).toBe(false);
     expect(tree.infinity).toBe(false);
     expect(tree.expression).toBeInstanceOf(IdExpressionTree);
 
@@ -43,7 +41,6 @@ test('loop with value, key and index', () => {
     expect(tree.valueName).toBe('value');
     expect(tree.keyName).toBe('key');
     expect(tree.indexName).toBe('i');
-    expect(tree.ifLoop).toBe(false);
     expect(tree.infinity).toBe(false);
     expect(tree.expression).toBeInstanceOf(IdExpressionTree);
 
