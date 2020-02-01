@@ -1,7 +1,7 @@
 oneScope {
     a = 23 + 5;
 
-    loop if !a {
+    loop array {
         log("no way");
     }
 }

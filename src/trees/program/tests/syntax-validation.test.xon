@@ -1,7 +1,10 @@
 oneScope {
     a = 23 + 5;
 
-    loop if !a {
+    loop arr {
+        log("no way");
+    }
+    loop v, k, i in arr {
         log("no way");
     }
 
