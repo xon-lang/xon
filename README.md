@@ -14,7 +14,9 @@ const result = evalExpression(tree); // something like js eval
 console.log(result); // output is 46668
 ```
 
-## Development requirement: Node.js v12+
+## Development requirements
+
+Node.js v12+
 
 ## Generate grammar
 
