@@ -1,0 +1,49 @@
+{
+    "antlr4.format": {
+        "alignActions": true,
+        "alignColons": "hanging",
+        "alignFirstTokens": true,
+        "alignLabels": true,
+        "alignLexerCommands": true,
+        "alignSemicolons": "hanging",
+        "alignTrailers": true,
+        "alignTrailingComments": true,
+        "allowShortBlocksOnASingleLine": true,
+        "allowShortRulesOnASingleLine": true,
+        "breakBeforeBraces": false,
+        "breakBeforeParens": false,
+        "columnLimit": 150,
+        "continuationIndentWidth": 4,
+        "groupedAlignments": true,
+        "indentWidth": 4,
+        "keepEmptyLinesAtTheStartOfBlocks": true,
+        "maxEmptyLinesToKeep": 1,
+        "minEmptyLines": 0,
+        "reflowComments": true,
+        "ruleInternalsOnSingleLine": false,
+        "singleLineOverrulesHangingColon": true,
+        "spaceBeforeAssignmentOperators": true,
+        "tabWidth": 4,
+        "useTab": false
+    },
+
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true,
+        "source.fixAll": true
+    },
+    "files.autoSave": "afterDelay",
+    "files.associations": {
+        "*.xon": "rust"
+    },
+
+    "spellright.language": ["en"],
+    "spellright.documentTypes": ["markdown", "latex", "plaintext", "typescript"],
+
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}

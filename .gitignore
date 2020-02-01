@@ -1,4 +1,5 @@
 node_modules
-src/grammar/generated
+generated
 dist
-.vscode
+.antlr
+.DS_Store
