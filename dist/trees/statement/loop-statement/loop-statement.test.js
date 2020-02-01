@@ -1,0 +1,80 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const test_helper_1 = require("../../../test-helper");
+const array_literal_expression_tree_1 = require("../../expression/array-literal-expression/array-literal-expression.tree");
+const function_expression_tree_1 = require("../../expression/function-expression/function-expression.tree");
+const id_expression_tree_1 = require("../../expression/id-expression/id-expression.tree");
+const range_expression_tree_1 = require("../../expression/range-expression/range-expression.tree");
+const loop_statement_tree_1 = require("./loop-statement.tree");
+test('loop with value', () => {
+    const code = 'loop item in [1, 2, 3] { 12+45/5; }';
+    const tree = test_helper_1.parseCode(code, loop_statement_tree_1.LoopStatementTree);
+    expect(tree.valueName).toBe('item');
+    expect(tree.keyName).toBeUndefined();
+    expect(tree.indexName).toBeUndefined();
+    expect(tree.infinity).toBe(false);
+    expect(tree.expression).toBeInstanceOf(array_literal_expression_tree_1.ArrayLiteralExpressionTree);
+    expect(tree.statements.length).toBe(1);
+    const statement = tree.statements[0];
+    expect(test_helper_1.evalExpression(statement.value)).toBe(12 + 45 / 5);
+});
+test('loop with value and key', () => {
+    const code = 'loop val, key in object { 12+10; }';
+    const tree = test_helper_1.parseCode(code, loop_statement_tree_1.LoopStatementTree);
+    expect(tree.valueName).toBe('val');
+    expect(tree.keyName).toBe('key');
+    expect(tree.indexName).toBeUndefined();
+    expect(tree.infinity).toBe(false);
+    expect(tree.expression).toBeInstanceOf(id_expression_tree_1.IdExpressionTree);
+    expect(tree.statements.length).toBe(1);
+    const statement = tree.statements[0];
+    expect(test_helper_1.evalExpression(statement.value)).toBe(12 + 10);
+});
+test('loop with value, key and index', () => {
+    const code = 'loop value, key, i in object { 12+10; }';
+    const tree = test_helper_1.parseCode(code, loop_statement_tree_1.LoopStatementTree);
+    expect(tree.valueName).toBe('value');
+    expect(tree.keyName).toBe('key');
+    expect(tree.indexName).toBe('i');
+    expect(tree.infinity).toBe(false);
+    expect(tree.expression).toBeInstanceOf(id_expression_tree_1.IdExpressionTree);
+    expect(tree.statements.length).toBe(1);
+    const statement = tree.statements[0];
+    expect(test_helper_1.evalExpression(statement.value)).toBe(12 + 10);
+});
+test('loop with value and index', () => {
+    const code = 'loop value, key, i in object { 12+10; }';
+    const tree = test_helper_1.parseCode(code, loop_statement_tree_1.LoopStatementTree);
+    expect(tree.valueName).toBe('value');
+    expect(tree.keyName).toBe('key');
+    expect(tree.indexName).toBe('i');
+    expect(tree.infinity).toBe(false);
+    expect(tree.expression).toBeInstanceOf(id_expression_tree_1.IdExpressionTree);
+    expect(tree.statements.length).toBe(1);
+    const statement = tree.statements[0];
+    expect(test_helper_1.evalExpression(statement.value)).toBe(12 + 10);
+});
+test('loop with expression only', () => {
+    const code = 'loop [1:11:2] { 1+1; }';
+    const tree = test_helper_1.parseCode(code, loop_statement_tree_1.LoopStatementTree);
+    expect(tree.valueName).toBeUndefined();
+    expect(tree.keyName).toBeUndefined();
+    expect(tree.indexName).toBeUndefined();
+    expect(tree.infinity).toBe(false);
+    expect(tree.expression).toBeInstanceOf(range_expression_tree_1.RangeExpressionTree);
+    expect(tree.statements.length).toBe(1);
+    const statement = tree.statements[0];
+    expect(test_helper_1.evalExpression(statement.value)).toBe(1 + 1);
+});
+test('infinity loop', () => {
+    const code = 'loop { log("To infinity and beyond!"); }';
+    const tree = test_helper_1.parseCode(code, loop_statement_tree_1.LoopStatementTree);
+    expect(tree.valueName).toBeUndefined();
+    expect(tree.keyName).toBeUndefined();
+    expect(tree.indexName).toBeUndefined();
+    expect(tree.expression).toBeUndefined();
+    expect(tree.statements.length).toBe(1);
+    const statement = tree.statements[0];
+    expect(statement.value).toBeInstanceOf(function_expression_tree_1.FunctionExpressionTree);
+});
+//# sourceMappingURL=loop-statement.test.js.map

@@ -1,5 +1,4 @@
 node_modules
-dist
 *.interp
 *.tokens
 .DS_Store
