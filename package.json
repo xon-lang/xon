@@ -22,8 +22,9 @@
     ],
     "license": "Apache-2.0",
     "scripts": {
-        "grammar": "cd src/grammar && rimraf .antlr && antlr4ts *.g4 -o .antlr",
-        "test": "jest",
+        "grammar": "./grammar.sh",
+        "grammar-force": "cd src/grammar && rimraf .antlr && antlr4ts *.g4 -o .antlr",
+        "test": "npm run grammar && jest",
         "preversion": "npm run grammar && npm run test",
         "version": "tsc && git add -A dist",
         "postversion": "git push && git push --tags"

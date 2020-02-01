@@ -1,3 +1,7 @@
+if statement {
+    console.log("out of scope statement");
+}
+
 oneScope {
     a = 23 + 5;
 
