@@ -3,8 +3,6 @@
     "author": "Nizami",
     "version": "1.0.7",
     "description": "XON is an open-source programming language",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
     "bugs": {
         "url": "https://github.com/xon-lang/ast/issues"
     },
@@ -27,7 +25,8 @@
         "test": "npm run grammar && jest",
         "preversion": "npm run test",
         "version": "tsc",
-        "postversion": "git push && git push --tags"
+        "postversion": "git push && git push --tags",
+        "deploy": "rimraf dist && tsc && cp package.json dist && cp *.md dist && cd dist"
     },
     "husky": {
         "hooks": {

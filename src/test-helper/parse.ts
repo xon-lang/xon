@@ -1,6 +1,46 @@
+import { ANTLRInputStream, CommonTokenStream, ParserRuleContext } from 'antlr4ts';
 import * as fs from 'fs';
 import * as path from 'path';
-import { parseCode } from '../index';
+import { XonLexer } from '../grammar/.antlr/XonLexer';
+import { XonParser } from '../grammar/.antlr/XonParser';
+import { getExpressionTree } from '../trees/expression/expression-helper';
+import { ExpressionTree } from '../trees/expression/expression.tree';
+import { getStatementTree } from '../trees/statement/statement-helper';
+export function parse(code: string) {
+    const inputStream = new ANTLRInputStream(code);
+    const lexer = new XonLexer(inputStream);
+    const tokenStream = new CommonTokenStream(lexer);
+    const parser = new XonParser(tokenStream);
+    return parser;
+}
+
+export function parseExpression(code: string): ExpressionTree {
+    return getExpressionTree(parse(code).expression());
+}
+
+export function parseStatement(code: string) {
+    return getStatementTree(parse(code).statement());
+}
+
+export function parseCode<T>(code: string, type: new (ctx: ParserRuleContext) => T) {
+    const parser = parse(code);
+    if (type.name.endsWith('ExpressionTree')) {
+        return new type(parser.expression());
+    }
+    if (type.name.endsWith('StatementTree')) {
+        return new type(parser.statement());
+    }
+    const methodName = camelize(type.name.replace(/Tree$/g, ''));
+    return new type((parser as any)[methodName]());
+}
+
+function camelize(str: string) {
+    return str
+        .replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+            return index == 0 ? word.toLowerCase() : word.toUpperCase();
+        })
+        .replace(/\s+/g, '');
+}
 
 export function parseFile<T>(filePath: string, type: new (ctx) => T) {
     const code = fs.readFileSync(filePath, 'utf8');
