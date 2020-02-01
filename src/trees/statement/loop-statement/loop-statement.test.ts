@@ -55,7 +55,6 @@ test('loop with value and index', () => {
     expect(tree.valueName).toBe('value');
     expect(tree.keyName).toBe('key');
     expect(tree.indexName).toBe('i');
-    expect(tree.ifLoop).toBe(false);
     expect(tree.infinity).toBe(false);
     expect(tree.expression).toBeInstanceOf(IdExpressionTree);
 
@@ -70,7 +69,6 @@ test('loop with expression only', () => {
     expect(tree.valueName).toBeUndefined();
     expect(tree.keyName).toBeUndefined();
     expect(tree.indexName).toBeUndefined();
-    expect(tree.ifLoop).toBe(false);
     expect(tree.infinity).toBe(false);
     expect(tree.expression).toBeInstanceOf(RangeExpressionTree);
 
@@ -85,7 +83,6 @@ test('loop with if operator', () => {
     expect(tree.valueName).toBeUndefined();
     expect(tree.keyName).toBeUndefined();
     expect(tree.indexName).toBeUndefined();
-    expect(tree.ifLoop).toBe(true);
     expect(tree.infinity).toBe(false);
     expect(tree.expression).toBeInstanceOf(BooleanLiteralExpressionTree);
 
@@ -100,7 +97,6 @@ test('infinity loop', () => {
     expect(tree.valueName).toBeUndefined();
     expect(tree.keyName).toBeUndefined();
     expect(tree.indexName).toBeUndefined();
-    expect(tree.ifLoop).toBe(false);
     expect(tree.expression).toBeUndefined();
 
     expect(tree.statements.length).toBe(1);
