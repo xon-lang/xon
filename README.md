@@ -1,43 +1,31 @@
-# xon
-xon is an open-source programming language
+# XON AST
 
-# build
+xon ast is the library to parse xon code and generate abstract syntax tree for it
 
-`npm i`
+## Usage example
 
-`npm run build`
+```js
+import { evalExpression, parseExpression } from '@xon/ast';
 
-# compile
+const code = '100 >> 4 |x: x^x + x |z: z^x && x^z | z + x'; // any valid xon expression
+const tree = parseExpression(code); // generating ast
+const result = evalExpression(tree); // something like js eval
 
-`npm run parse -- examples/statement/app.xon`
-
-before:
-
-```go
-a: 5 + 6
-b: a + 3
-
-s: 'Привет 日本国'
-wprintf(s)
+console.log(result); // output is 46668
 ```
 
-after:
+## Development requirement: Node.js v12+
 
-```c
-#include <stdio.h>
-#include "stdlib.h"
-#include <wchar.h>
-#include <locale.h>
-#include <fcntl.h>
-#include <io.h>
+## Generate grammar
 
-int main() {
-    _setmode(_fileno(stdout), 0x00020000);
-    
-    int a = 5 + 6;
-    int b = a + 3;
-    wchar_t * s = L"Привет 日本国\n";
-    wprintf(s);
-    return 0;
-}
+```bash
+npm run grammar
 ```
+
+## Run tests
+
+```bash
+npm t
+```
+
+## Documentation is not ready yet

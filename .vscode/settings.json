@@ -37,7 +37,7 @@
         "*.xon": "rust"
     },
 
-    "spellright.language": ["en", "ru"],
+    "spellright.language": ["en"],
     "spellright.documentTypes": ["markdown", "latex", "plaintext", "typescript"],
 
     "[typescript]": {

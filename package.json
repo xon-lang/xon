@@ -1,27 +1,29 @@
 {
-    "name": "xon",
-    "author": "Nizami Amirov",
-    "homepage": "https://github.com/nizami-dev/xon",
+    "name": "@xon/ast",
+    "author": "Nizami",
     "version": "1.0.0",
-    "description": "XON is an open-source programming language",
-    "main": "main.ts",
+    "description": "xon is an open-source programming language",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "bugs": {
+        "url": "https://github.com/xon-lang/ast/issues"
+    },
+    "homepage": "https://github.com/xon-lang/ast#readme",
     "repository": {
         "type": "git",
-        "url": "https://github.com/nizami-dev/xon.git"
+        "url": "git+https://github.com/xon-lang/ast.git"
     },
     "keywords": [
         "xon",
+        "ast",
         "compiler",
-        "language",
-        "c"
+        "translator",
+        "programming language"
     ],
-    "bugs": {
-        "url": "https://github.com/nizami-dev/xon/issues"
-    },
     "license": "Apache-2.0",
+    "prepublish": "tsc",
     "scripts": {
         "grammar": "cd src/grammar && rimraf .antlr && antlr4ts *.g4 -o .antlr",
-        "parse": "node dist/main.js",
         "test": "jest"
     },
     "husky": {
@@ -33,7 +35,6 @@
         "@types/jest": "^25.1.1",
         "@types/lodash": "^4.14.149",
         "@types/node": "^13.7.0",
-        "antlr4": "^4.8.0",
         "antlr4ts-cli": "^0.5.0-alpha.3",
         "husky": "^4.2.1",
         "jest": "^25.1.0",
@@ -42,6 +43,7 @@
         "typescript": "^3.7.5"
     },
     "dependencies": {
+        "antlr4": "^4.8.0",
         "antlr4ts": "^0.5.0-alpha.3",
         "lodash": "^4.17.15",
         "tslib": "^1.10.0"
