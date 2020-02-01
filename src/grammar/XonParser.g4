@@ -5,7 +5,7 @@ options {
     tokenVocab = XonLexer;
 }
 
-program: (scope)*;
+program: (statement | scope)*;
 
 // importDeclaration: path = StringLiteral '{' members += ID (',' members += ID)* '}';
 
@@ -14,10 +14,11 @@ scopeArgument: name = ID ':' type = ID ('=' expression)?;
 
 // statements
 statement
-    : 'if' expression '{' statement* '}'                                                                   # ifStatement
+    : 'if' expression '{' statement* '}'                                                            # ifStatement
     | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? '{' statement* '}' # loopStatement
-    | ID ('=' | '+=' | '-=' | '*=' | '/=' | '%=' | '&=' | '|=' | '^=') expression ';'                      # assignmentStatement
-    | expression ';'                                                                                       # expressionStatement
+    | ID ('=' | '+=' | '-=' | '*=' | '/=' | '%=' | '&=' | '|=' | '^=') expression ';'               # assignmentStatement
+    | Preprocessor                                                                                  # preprocessorStatement
+    | expression ';'                                                                                # expressionStatement
     ;
 
 // expressions

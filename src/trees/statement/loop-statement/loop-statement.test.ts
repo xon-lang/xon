@@ -1,6 +1,5 @@
 import { evalExpression, parseCode } from '../../../test-helper';
 import { ArrayLiteralExpressionTree } from '../../expression/array-literal-expression/array-literal-expression.tree';
-import { BooleanLiteralExpressionTree } from '../../expression/boolean-literal-expression/boolean-literal-expression.tree';
 import { FunctionExpressionTree } from '../../expression/function-expression/function-expression.tree';
 import { IdExpressionTree } from '../../expression/id-expression/id-expression.tree';
 import { RangeExpressionTree } from '../../expression/range-expression/range-expression.tree';
@@ -75,20 +74,6 @@ test('loop with expression only', () => {
     expect(tree.statements.length).toBe(1);
     const statement = tree.statements[0] as ExpressionStatementTree;
     expect(evalExpression(statement.value)).toBe(1 + 1);
-});
-
-test('loop with if operator', () => {
-    const code = 'loop if true { 8*8; 10+10; }';
-    const tree = parseCode(code, LoopStatementTree);
-    expect(tree.valueName).toBeUndefined();
-    expect(tree.keyName).toBeUndefined();
-    expect(tree.indexName).toBeUndefined();
-    expect(tree.infinity).toBe(false);
-    expect(tree.expression).toBeInstanceOf(BooleanLiteralExpressionTree);
-
-    expect(tree.statements.length).toBe(2);
-    const statement = tree.statements[0] as ExpressionStatementTree;
-    expect(evalExpression(statement.value)).toBe(8 * 8);
 });
 
 test('infinity loop', () => {
