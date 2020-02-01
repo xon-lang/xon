@@ -19,6 +19,8 @@
         "programming language"
     ],
     "license": "Apache-2.0",
+    "types": "index.d.ts",
+    "main": "index.js",
     "scripts": {
         "grammar": "./grammar.sh",
         "grammar-force": "cd src/grammar && rimraf .antlr && antlr4ts *.g4 -o .antlr",
