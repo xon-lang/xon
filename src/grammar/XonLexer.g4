@@ -42,6 +42,7 @@ Multiply:                   '*';
 Divide:                     '/';
 Modulus:                    '%';
 Pow:                        '^';
+Sharp:                      '#';
 LessThan:                   '<';
 MoreThan:                   '>';
 LessThanEquals:             '<=';
@@ -69,6 +70,8 @@ DecimalLiteral:   DECIMAL_NUMBER;
 FloatLiteral:     DECIMAL_NUMBER '.' DECIMAL_NUMBER;
 StringLiteral:    '"' ~[\r\n"]* '"';
 CharacterLiteral: '\'' ~[\r\n'] '\'';
+
+Preprocessor: '#{' .*? '}';
 
 LambdaParam: '$' DECIMAL_DIGIT;
 ID:          [a-zA-Z_] [a-zA-Z0-9_]*;
