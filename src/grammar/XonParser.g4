@@ -43,15 +43,19 @@ expression
     | left = expression '&&' right = expression                                                       # logicalAndExpression
     | left = expression '||' right = expression                                                       # logicalOrExpression
     | ID                                                                                              # idExpression
-    | DecimalLiteral                                                                                  # integerLiteralExpression
-    | FloatLiteral                                                                                    # floatLiteralExpression
-    | BooleanLiteral                                                                                  # booleanLiteralExpression
-    | CharacterLiteral                                                                                # characterLiteralExpression
-    | StringLiteral                                                                                   # stringLiteralExpression
+    | literal                                                                                         # literalExpression
     | '[' (items += expression (',' items += expression)*)? ']'                                       # arrayLiteralExpression
     | '[' startPos = expression ':' end = expression (':' step = expression)? ']'                     # rangeExpression
     | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                                           # objectLiteralExpression
     | '(' expression ')'                                                                              # parenthesizedExpression
     | left = expression '|' (ID ':')? right = expression                                              # pipeExpression
     | '\\' (ID (',' ID)* ':')? expression                                                             # lambdaExpression
+    ;
+
+literal
+    : DecimalLiteral   # decimalLiteral
+    | FloatLiteral     # floatLiteral
+    | BooleanLiteral   # booleanLiteral
+    | CharacterLiteral # characterLiteral
+    | StringLiteral    # stringLiteral
     ;

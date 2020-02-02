@@ -7,7 +7,7 @@ import { BitXorExpressionTree } from '../tree/expression/bit-xor-expression/bit-
 import { EqualityExpressionTree } from '../tree/expression/equality-expression/equality-expression.tree';
 import { ExpressionTree } from '../tree/expression/expression.tree';
 import { IdExpressionTree } from '../tree/expression/id-expression/id-expression.tree';
-import { IntegerLiteralExpressionTree } from '../tree/expression/integer-literal-expression/integer-literal-expression.tree';
+import { LiteralExpressionTree } from '../tree/expression/literal-expression/literal-expression.tree';
 import { LogicalAndExpressionTree } from '../tree/expression/logical-and-expression/logical-and-expression.tree';
 import { LogicalNotExpressionTree } from '../tree/expression/logical-not-expression/logical-not-expression.tree';
 import { LogicalOrExpressionTree } from '../tree/expression/logical-or-expression/logical-or-expression.tree';
@@ -23,7 +23,7 @@ const store = {};
 export function evalExpression(tree: ExpressionTree) {
     if (tree instanceof IdExpressionTree) return store[tree.id];
 
-    if (tree instanceof IntegerLiteralExpressionTree) return +tree.value;
+    if (tree instanceof LiteralExpressionTree) return +tree.literal.value;
 
     if (tree instanceof UnaryPlusExpressionTree) return evalExpression(tree.value);
 
