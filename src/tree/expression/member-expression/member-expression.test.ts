@@ -1,4 +1,5 @@
 import { parseCode } from '../../../test-helper';
+import { FunctionExpressionTree } from '../function-expression/function-expression.tree';
 import { MemberExpressionTree } from './member-expression.tree';
 
 test('several properties', () => {
@@ -7,8 +8,9 @@ test('several properties', () => {
     expect(tree.name).toBe('propName');
 });
 
-// test('function member', () => {
-//     const code = 'some.object.propName(1,2,3).anotherFunc("sdf").prop';
-//     const tree = parseCode(code, MemberExpressionTree);
-//     expect(tree.name).toBe('propName');
-// });
+test('member object check', () => {
+    const code = 'func().prop';
+    const tree = parseCode(code, MemberExpressionTree);
+    expect(tree.name).toBe('prop');
+    expect(tree.object).toBeInstanceOf(FunctionExpressionTree);
+});

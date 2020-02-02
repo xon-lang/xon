@@ -1,7 +1,6 @@
 import { FunctionExpressionContext } from '../../../grammar/xon-parser';
-import { BaseTree } from '../../base.tree';
-import { ExpressionTree } from '../expression.tree';
 import { getExpressionTree } from '../expression-helper';
+import { ExpressionTree } from '../expression.tree';
 
 export class FunctionExpressionTree extends ExpressionTree {
     args: ExpressionTree[];
@@ -16,6 +15,8 @@ export class FunctionExpressionTree extends ExpressionTree {
     toPlain() {
         return {
             ...super.toPlain(),
+            args: this.args.map(x => x.toPlain()),
+            object: this.object.toPlain(),
         };
     }
 }

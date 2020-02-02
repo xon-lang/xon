@@ -10,6 +10,7 @@ SingleLineComment: '//' ~[\r\n\u2028\u2029]* -> channel(HIDDEN);
 
 // PrimitiveDataType : 'i8' | 'i16' | 'i32' | 'i64' | 'i128' | 'u8' | 'u16' | 'u32' | 'u64' | 'u128' | 'bool' | 'char' | 'str' ;
 If:   'if';
+Else: 'else';
 Loop: 'loop';
 In:   'in';
 

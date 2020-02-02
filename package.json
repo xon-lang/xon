@@ -19,7 +19,8 @@
         "programming language"
     ],
     "license": "Apache-2.0",
-    "main": "src/index.ts",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
         "grammar": "./grammar.sh",
         "preversion": "npm run test",

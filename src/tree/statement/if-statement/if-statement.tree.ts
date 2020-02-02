@@ -5,20 +5,26 @@ import { getStatementTree } from '../statement-helper';
 import { StatementTree } from '../statement.tree';
 
 export class IfStatementTree extends StatementTree {
-    condition: ExpressionTree;
-    statements: StatementTree[];
+    ifCondition: ExpressionTree;
+    ifStatements: StatementTree[];
+    elseCondition: ExpressionTree;
+    elseStatements: StatementTree[];
 
     constructor(public ctx: IfStatementContext) {
         super();
-        this.condition = getExpressionTree(ctx.expression());
-        this.statements = ctx.statement().map(getStatementTree);
+        this.ifCondition = getExpressionTree(ctx._ifCondition);
+        this.ifStatements = ctx._ifStatements.map(getStatementTree);
+        this.elseCondition = getExpressionTree(ctx._elseCondition);
+        this.elseStatements = ctx._elseStatements.map(getStatementTree);
     }
 
     toPlain() {
         return {
             ...super.toPlain(),
-            condition: this.condition.toPlain(),
-            statements: this.statements.map(x=>x.toPlain())
+            ifCondition: this.ifCondition.toPlain(),
+            ifStatements: this.ifStatements.map(x => x.toPlain()),
+            elseCondition: this.elseCondition.toPlain(),
+            elseStatements: this.elseStatements.map(x => x.toPlain()),
         };
     }
 }
