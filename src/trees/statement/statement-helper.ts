@@ -1,5 +1,5 @@
-import { StatementContext, ExpressionStatementContext } from '../../grammar/.antlr/XonParser';
-import { AssignmentStatementContext } from '../../grammar/.antlr/XonParser';
+import { StatementContext, ExpressionStatementContext } from '../../grammar/xon-parser';
+import { AssignmentStatementContext } from '../../grammar/xon-parser';
 import { AssignmentStatementTree } from '../statement/assignment-statement/assignment-statement.tree';
 import { ExpressionStatementTree } from '../statement/expression-statement/expression-statement.tree';
 

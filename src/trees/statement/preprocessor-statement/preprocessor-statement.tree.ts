@@ -1,4 +1,4 @@
-import { PreprocessorStatementContext } from '../../../grammar/.antlr/XonParser';
+import { PreprocessorStatementContext } from '../../../grammar/xon-parser';
 import { StatementTree } from '../statement.tree';
 
 export class PreprocessorStatementTree extends StatementTree {

@@ -1,4 +1,4 @@
-import { IntegerLiteralExpressionContext } from '../../../grammar/.antlr/XonParser';
+import { IntegerLiteralExpressionContext } from '../../../grammar/xon-parser';
 import { BaseTree } from '../../base.tree';
 import { ExpressionTree } from '../expression.tree';
 import { getExpressionTree } from '../expression-helper';

@@ -1,4 +1,4 @@
-import { ScopeContext } from '../../grammar/.antlr/XonParser';
+import { ScopeContext } from '../../grammar/xon-parser';
 import { ExpressionTree } from '../expression/expression.tree';
 import { getExpressionTree } from '../expression/expression-helper';
 import { BaseTree } from '../base.tree';

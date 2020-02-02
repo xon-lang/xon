@@ -1,4 +1,4 @@
-import { StatementContext } from '../../grammar/.antlr/XonParser';
+import { StatementContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { ExpressionTree } from '../expression/expression.tree';
 import { getExpressionTree } from '../expression/expression-helper';

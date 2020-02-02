@@ -1,4 +1,4 @@
-import { RelationalExpressionContext } from '../../../grammar/.antlr/XonParser';
+import { RelationalExpressionContext } from '../../../grammar/xon-parser';
 import { ExpressionTree } from '../expression.tree';
 import { getExpressionTree } from '../expression-helper';
 

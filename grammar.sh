@@ -1,7 +1,7 @@
 generate_grammar()
 {
     npx rimraf .antlr
-    npx antlr4ts *.g4 -o .antlr
+    npx antlr4ts *.g4 -o .antlr -no-listener
     cd .antlr
     cp XonLexer.ts ../xon-lexer.ts
     cp XonParser.ts ../xon-parser.ts

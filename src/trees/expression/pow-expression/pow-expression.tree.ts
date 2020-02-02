@@ -1,4 +1,4 @@
-import { PowExpressionContext } from '../../../grammar/.antlr/XonParser';
+import { PowExpressionContext } from '../../../grammar/xon-parser';
 import { ExpressionTree } from '../expression.tree';
 import { getExpressionTree } from '../expression-helper';
 

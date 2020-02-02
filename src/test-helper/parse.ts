@@ -1,8 +1,8 @@
 import { ANTLRInputStream, CommonTokenStream, ParserRuleContext } from 'antlr4ts';
 import * as fs from 'fs';
 import * as path from 'path';
-import { XonLexer } from '../grammar/.antlr/XonLexer';
-import { XonParser } from '../grammar/.antlr/XonParser';
+import { XonLexer } from '../grammar/xon-lexer';
+import { XonParser } from '../grammar/xon-parser';
 import { getExpressionTree } from '../trees/expression/expression-helper';
 import { ExpressionTree } from '../trees/expression/expression.tree';
 import { getStatementTree } from '../trees/statement/statement-helper';

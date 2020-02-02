@@ -1,4 +1,4 @@
-import { MemberExpressionContext } from '../../../grammar/.antlr/XonParser';
+import { MemberExpressionContext } from '../../../grammar/xon-parser';
 import { ExpressionTree } from '../expression.tree';
 
 export class MemberExpressionTree extends ExpressionTree {

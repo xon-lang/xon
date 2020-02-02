@@ -1,4 +1,4 @@
-import { MulDivModExpressionContext } from '../../../grammar/.antlr/XonParser';
+import { MulDivModExpressionContext } from '../../../grammar/xon-parser';
 import { ExpressionTree } from '../expression.tree';
 import { getExpressionTree } from '../expression-helper';
 

@@ -1,4 +1,4 @@
-import { EqualityExpressionContext } from '../../../grammar/.antlr/XonParser';
+import { EqualityExpressionContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 

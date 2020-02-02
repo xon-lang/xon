@@ -23,7 +23,6 @@ import { VocabularyImpl } from "antlr4ts/VocabularyImpl";
 
 import * as Utils from "antlr4ts/misc/Utils";
 
-import { XonParserListener } from "./XonParserListener";
 
 export class XonParser extends Parser {
 	public static readonly MultiLineComment = 1;
@@ -1430,18 +1429,6 @@ export class ProgramContext extends ParserRuleContext {
 	}
 	// @Override
 	public get ruleIndex(): number { return XonParser.RULE_program; }
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterProgram) {
-			listener.enterProgram(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitProgram) {
-			listener.exitProgram(this);
-		}
-	}
 }
 
 
@@ -1490,18 +1477,6 @@ export class ScopeContext extends ParserRuleContext {
 	}
 	// @Override
 	public get ruleIndex(): number { return XonParser.RULE_scope; }
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterScope) {
-			listener.enterScope(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitScope) {
-			listener.exitScope(this);
-		}
-	}
 }
 
 
@@ -1527,18 +1502,6 @@ export class ScopeArgumentContext extends ParserRuleContext {
 	}
 	// @Override
 	public get ruleIndex(): number { return XonParser.RULE_scopeArgument; }
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterScopeArgument) {
-			listener.enterScopeArgument(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitScopeArgument) {
-			listener.exitScopeArgument(this);
-		}
-	}
 }
 
 
@@ -1571,18 +1534,6 @@ export class IfStatementContext extends StatementContext {
 	constructor(ctx: StatementContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterIfStatement) {
-			listener.enterIfStatement(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitIfStatement) {
-			listener.exitIfStatement(this);
-		}
 	}
 }
 export class LoopStatementContext extends StatementContext {
@@ -1627,18 +1578,6 @@ export class LoopStatementContext extends StatementContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterLoopStatement) {
-			listener.enterLoopStatement(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitLoopStatement) {
-			listener.exitLoopStatement(this);
-		}
-	}
 }
 export class AssignmentStatementContext extends StatementContext {
 	public ID(): TerminalNode { return this.getToken(XonParser.ID, 0); }
@@ -1659,36 +1598,12 @@ export class AssignmentStatementContext extends StatementContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterAssignmentStatement) {
-			listener.enterAssignmentStatement(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitAssignmentStatement) {
-			listener.exitAssignmentStatement(this);
-		}
-	}
 }
 export class PreprocessorStatementContext extends StatementContext {
 	public Preprocessor(): TerminalNode { return this.getToken(XonParser.Preprocessor, 0); }
 	constructor(ctx: StatementContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterPreprocessorStatement) {
-			listener.enterPreprocessorStatement(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitPreprocessorStatement) {
-			listener.exitPreprocessorStatement(this);
-		}
 	}
 }
 export class ExpressionStatementContext extends StatementContext {
@@ -1699,18 +1614,6 @@ export class ExpressionStatementContext extends StatementContext {
 	constructor(ctx: StatementContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterExpressionStatement) {
-			listener.enterExpressionStatement(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitExpressionStatement) {
-			listener.exitExpressionStatement(this);
-		}
 	}
 }
 
@@ -1753,18 +1656,6 @@ export class FunctionExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterFunctionExpression) {
-			listener.enterFunctionExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitFunctionExpression) {
-			listener.exitFunctionExpression(this);
-		}
-	}
 }
 export class IndexExpressionContext extends ExpressionContext {
 	public _value: ExpressionContext;
@@ -1783,18 +1674,6 @@ export class IndexExpressionContext extends ExpressionContext {
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterIndexExpression) {
-			listener.enterIndexExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitIndexExpression) {
-			listener.exitIndexExpression(this);
-		}
 	}
 }
 export class SliceExpressionContext extends ExpressionContext {
@@ -1826,18 +1705,6 @@ export class SliceExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterSliceExpression) {
-			listener.enterSliceExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitSliceExpression) {
-			listener.exitSliceExpression(this);
-		}
-	}
 }
 export class MemberExpressionContext extends ExpressionContext {
 	public expression(): ExpressionContext {
@@ -1848,18 +1715,6 @@ export class MemberExpressionContext extends ExpressionContext {
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterMemberExpression) {
-			listener.enterMemberExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitMemberExpression) {
-			listener.exitMemberExpression(this);
-		}
 	}
 }
 export class PowExpressionContext extends ExpressionContext {
@@ -1879,18 +1734,6 @@ export class PowExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterPowExpression) {
-			listener.enterPowExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitPowExpression) {
-			listener.exitPowExpression(this);
-		}
-	}
 }
 export class UnaryPlusExpressionContext extends ExpressionContext {
 	public Plus(): TerminalNode { return this.getToken(XonParser.Plus, 0); }
@@ -1900,18 +1743,6 @@ export class UnaryPlusExpressionContext extends ExpressionContext {
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterUnaryPlusExpression) {
-			listener.enterUnaryPlusExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitUnaryPlusExpression) {
-			listener.exitUnaryPlusExpression(this);
-		}
 	}
 }
 export class UnaryMinusExpressionContext extends ExpressionContext {
@@ -1923,18 +1754,6 @@ export class UnaryMinusExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterUnaryMinusExpression) {
-			listener.enterUnaryMinusExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitUnaryMinusExpression) {
-			listener.exitUnaryMinusExpression(this);
-		}
-	}
 }
 export class BitNotExpressionContext extends ExpressionContext {
 	public BitNot(): TerminalNode { return this.getToken(XonParser.BitNot, 0); }
@@ -1945,18 +1764,6 @@ export class BitNotExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterBitNotExpression) {
-			listener.enterBitNotExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitBitNotExpression) {
-			listener.exitBitNotExpression(this);
-		}
-	}
 }
 export class LogicalNotExpressionContext extends ExpressionContext {
 	public Not(): TerminalNode { return this.getToken(XonParser.Not, 0); }
@@ -1966,18 +1773,6 @@ export class LogicalNotExpressionContext extends ExpressionContext {
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterLogicalNotExpression) {
-			listener.enterLogicalNotExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitLogicalNotExpression) {
-			listener.exitLogicalNotExpression(this);
-		}
 	}
 }
 export class MulDivModExpressionContext extends ExpressionContext {
@@ -2000,18 +1795,6 @@ export class MulDivModExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterMulDivModExpression) {
-			listener.enterMulDivModExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitMulDivModExpression) {
-			listener.exitMulDivModExpression(this);
-		}
-	}
 }
 export class AddSubExpressionContext extends ExpressionContext {
 	public _left: ExpressionContext;
@@ -2032,18 +1815,6 @@ export class AddSubExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterAddSubExpression) {
-			listener.enterAddSubExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitAddSubExpression) {
-			listener.exitAddSubExpression(this);
-		}
-	}
 }
 export class BitShiftExpressionContext extends ExpressionContext {
 	public _left: ExpressionContext;
@@ -2063,18 +1834,6 @@ export class BitShiftExpressionContext extends ExpressionContext {
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterBitShiftExpression) {
-			listener.enterBitShiftExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitBitShiftExpression) {
-			listener.exitBitShiftExpression(this);
-		}
 	}
 }
 export class RelationalExpressionContext extends ExpressionContext {
@@ -2097,18 +1856,6 @@ export class RelationalExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterRelationalExpression) {
-			listener.enterRelationalExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitRelationalExpression) {
-			listener.exitRelationalExpression(this);
-		}
-	}
 }
 export class EqualityExpressionContext extends ExpressionContext {
 	public _left: ExpressionContext;
@@ -2128,18 +1875,6 @@ export class EqualityExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterEqualityExpression) {
-			listener.enterEqualityExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitEqualityExpression) {
-			listener.exitEqualityExpression(this);
-		}
-	}
 }
 export class BitAndExpressionContext extends ExpressionContext {
 	public _left: ExpressionContext;
@@ -2157,18 +1892,6 @@ export class BitAndExpressionContext extends ExpressionContext {
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterBitAndExpression) {
-			listener.enterBitAndExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitBitAndExpression) {
-			listener.exitBitAndExpression(this);
-		}
 	}
 }
 export class BitXorExpressionContext extends ExpressionContext {
@@ -2188,18 +1911,6 @@ export class BitXorExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterBitXorExpression) {
-			listener.enterBitXorExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitBitXorExpression) {
-			listener.exitBitXorExpression(this);
-		}
-	}
 }
 export class BitOrExpressionContext extends ExpressionContext {
 	public _left: ExpressionContext;
@@ -2217,18 +1928,6 @@ export class BitOrExpressionContext extends ExpressionContext {
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterBitOrExpression) {
-			listener.enterBitOrExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitBitOrExpression) {
-			listener.exitBitOrExpression(this);
-		}
 	}
 }
 export class LogicalAndExpressionContext extends ExpressionContext {
@@ -2248,18 +1947,6 @@ export class LogicalAndExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterLogicalAndExpression) {
-			listener.enterLogicalAndExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitLogicalAndExpression) {
-			listener.exitLogicalAndExpression(this);
-		}
-	}
 }
 export class LogicalOrExpressionContext extends ExpressionContext {
 	public _left: ExpressionContext;
@@ -2278,36 +1965,12 @@ export class LogicalOrExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterLogicalOrExpression) {
-			listener.enterLogicalOrExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitLogicalOrExpression) {
-			listener.exitLogicalOrExpression(this);
-		}
-	}
 }
 export class IdExpressionContext extends ExpressionContext {
 	public ID(): TerminalNode { return this.getToken(XonParser.ID, 0); }
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterIdExpression) {
-			listener.enterIdExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitIdExpression) {
-			listener.exitIdExpression(this);
-		}
 	}
 }
 export class IntegerLiteralExpressionContext extends ExpressionContext {
@@ -2316,36 +1979,12 @@ export class IntegerLiteralExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterIntegerLiteralExpression) {
-			listener.enterIntegerLiteralExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitIntegerLiteralExpression) {
-			listener.exitIntegerLiteralExpression(this);
-		}
-	}
 }
 export class FloatLiteralExpressionContext extends ExpressionContext {
 	public FloatLiteral(): TerminalNode { return this.getToken(XonParser.FloatLiteral, 0); }
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterFloatLiteralExpression) {
-			listener.enterFloatLiteralExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitFloatLiteralExpression) {
-			listener.exitFloatLiteralExpression(this);
-		}
 	}
 }
 export class BooleanLiteralExpressionContext extends ExpressionContext {
@@ -2354,18 +1993,6 @@ export class BooleanLiteralExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterBooleanLiteralExpression) {
-			listener.enterBooleanLiteralExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitBooleanLiteralExpression) {
-			listener.exitBooleanLiteralExpression(this);
-		}
-	}
 }
 export class CharacterLiteralExpressionContext extends ExpressionContext {
 	public CharacterLiteral(): TerminalNode { return this.getToken(XonParser.CharacterLiteral, 0); }
@@ -2373,36 +2000,12 @@ export class CharacterLiteralExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterCharacterLiteralExpression) {
-			listener.enterCharacterLiteralExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitCharacterLiteralExpression) {
-			listener.exitCharacterLiteralExpression(this);
-		}
-	}
 }
 export class StringLiteralExpressionContext extends ExpressionContext {
 	public StringLiteral(): TerminalNode { return this.getToken(XonParser.StringLiteral, 0); }
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterStringLiteralExpression) {
-			listener.enterStringLiteralExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitStringLiteralExpression) {
-			listener.exitStringLiteralExpression(this);
-		}
 	}
 }
 export class ArrayLiteralExpressionContext extends ExpressionContext {
@@ -2432,18 +2035,6 @@ export class ArrayLiteralExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterArrayLiteralExpression) {
-			listener.enterArrayLiteralExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitArrayLiteralExpression) {
-			listener.exitArrayLiteralExpression(this);
-		}
-	}
 }
 export class RangeExpressionContext extends ExpressionContext {
 	public _startPos: ExpressionContext;
@@ -2472,18 +2063,6 @@ export class RangeExpressionContext extends ExpressionContext {
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterRangeExpression) {
-			listener.enterRangeExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitRangeExpression) {
-			listener.exitRangeExpression(this);
-		}
 	}
 }
 export class ObjectLiteralExpressionContext extends ExpressionContext {
@@ -2529,18 +2108,6 @@ export class ObjectLiteralExpressionContext extends ExpressionContext {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterObjectLiteralExpression) {
-			listener.enterObjectLiteralExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitObjectLiteralExpression) {
-			listener.exitObjectLiteralExpression(this);
-		}
-	}
 }
 export class ParenthesizedExpressionContext extends ExpressionContext {
 	public OpenParen(): TerminalNode { return this.getToken(XonParser.OpenParen, 0); }
@@ -2551,18 +2118,6 @@ export class ParenthesizedExpressionContext extends ExpressionContext {
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterParenthesizedExpression) {
-			listener.enterParenthesizedExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitParenthesizedExpression) {
-			listener.exitParenthesizedExpression(this);
-		}
 	}
 }
 export class PipeExpressionContext extends ExpressionContext {
@@ -2583,18 +2138,6 @@ export class PipeExpressionContext extends ExpressionContext {
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterPipeExpression) {
-			listener.enterPipeExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitPipeExpression) {
-			listener.exitPipeExpression(this);
-		}
 	}
 }
 export class LambdaExpressionContext extends ExpressionContext {
@@ -2624,18 +2167,6 @@ export class LambdaExpressionContext extends ExpressionContext {
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
-	}
-	// @Override
-	public enterRule(listener: XonParserListener): void {
-		if (listener.enterLambdaExpression) {
-			listener.enterLambdaExpression(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: XonParserListener): void {
-		if (listener.exitLambdaExpression) {
-			listener.exitLambdaExpression(this);
-		}
 	}
 }
 

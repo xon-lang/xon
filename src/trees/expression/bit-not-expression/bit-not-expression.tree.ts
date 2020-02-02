@@ -1,4 +1,4 @@
-import { BitNotExpressionContext } from '../../../grammar/.antlr/XonParser';
+import { BitNotExpressionContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 

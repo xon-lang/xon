@@ -1,4 +1,4 @@
-import { UnaryPlusExpressionContext } from '../../../grammar/.antlr/XonParser';
+import { UnaryPlusExpressionContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 

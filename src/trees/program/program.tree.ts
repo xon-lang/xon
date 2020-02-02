@@ -1,4 +1,4 @@
-import { ProgramContext } from '../../grammar/.antlr/XonParser';
+import { ProgramContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { ScopeTree } from '../scope/scope.tree';
 import { getStatementTree } from '../statement/statement-helper';

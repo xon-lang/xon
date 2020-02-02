@@ -1,4 +1,4 @@
-import { BitShiftExpressionContext } from '../../../grammar/.antlr/XonParser';
+import { BitShiftExpressionContext } from '../../../grammar/xon-parser';
 import { ExpressionTree } from '../expression.tree';
 import { getExpressionTree } from '../expression-helper';
 

@@ -1,4 +1,4 @@
-import { FloatLiteralExpressionContext } from '../../../grammar/.antlr/XonParser';
+import { FloatLiteralExpressionContext } from '../../../grammar/xon-parser';
 import { ExpressionTree } from '../expression.tree';
 
 export class FloatLiteralExpressionTree extends ExpressionTree {

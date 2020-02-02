@@ -1,4 +1,4 @@
-import { LoopStatementContext } from '../../../grammar/.antlr/XonParser';
+import { LoopStatementContext } from '../../../grammar/xon-parser';
 import { StatementTree } from '../../statement/statement.tree';
 import { getStatementTree } from '../../statement/statement-helper';
 import { ExpressionTree } from '../../expression/expression.tree';

@@ -1,4 +1,4 @@
-import { IfStatementContext } from '../../../grammar/.antlr/XonParser';
+import { IfStatementContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../../expression/expression-helper';
 import { ExpressionTree } from '../../expression/expression.tree';
 import { getStatementTree } from '../../statement/statement-helper';

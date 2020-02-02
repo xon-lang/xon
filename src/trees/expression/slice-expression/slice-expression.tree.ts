@@ -1,4 +1,4 @@
-import { IndexExpressionContext, SliceExpressionContext } from '../../../grammar/.antlr/XonParser';
+import { IndexExpressionContext, SliceExpressionContext } from '../../../grammar/xon-parser';
 import { ExpressionTree } from '../expression.tree';
 import { getExpressionTree } from '../expression-helper';
 

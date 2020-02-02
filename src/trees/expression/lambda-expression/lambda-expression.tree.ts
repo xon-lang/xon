@@ -1,4 +1,4 @@
-import { LambdaExpressionContext } from '../../../grammar/.antlr/XonParser';
+import { LambdaExpressionContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
