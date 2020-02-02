@@ -23,9 +23,8 @@
     "main": "index.js",
     "scripts": {
         "grammar": "./grammar.sh",
-        "grammar-force": "cd src/grammar && rimraf .antlr && antlr4ts *.g4 -o .antlr",
-        "test": "npm run grammar && jest",
         "preversion": "npm run test",
+        "test": "npm run grammar && jest",
         "version": "",
         "postversion": "git push && git push --tags",
         "deploy": "rimraf dist && tsc && cp package.json dist && cp *.md dist && cd dist && npm publish"
