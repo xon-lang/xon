@@ -9,7 +9,6 @@ export * from './bit-shift-expression';
 export * from './bit-xor-expression';
 export * from './equality-expression';
 export * from './expression-helper';
-export * from './expression.test';
 export * from './expression.tree';
 export * from './function-expression';
 export * from './id-expression';
