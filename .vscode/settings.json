@@ -37,9 +37,6 @@
         "*.xon": "rust"
     },
 
-    "spellright.language": ["en"],
-    "spellright.documentTypes": ["markdown", "latex", "plaintext", "typescript"],
-
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },

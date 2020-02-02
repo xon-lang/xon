@@ -7,8 +7,8 @@ import { IdExpressionTree } from '../id-expression/id-expression.tree';
 test('function call', () => {
     const code = 'f(3, "str")';
     const tree = parseCode(code, FunctionExpressionTree);
-    expect(tree.arguments.length).toBe(2);
-    expect(tree.arguments[0]).toBeInstanceOf(IntegerLiteralExpressionTree);
-    expect(tree.arguments[1]).toBeInstanceOf(StringLiteralExpressionTree);
+    expect(tree.args.length).toBe(2);
+    expect(tree.args[0]).toBeInstanceOf(IntegerLiteralExpressionTree);
+    expect(tree.args[1]).toBeInstanceOf(StringLiteralExpressionTree);
     expect(tree.object).toBeInstanceOf(IdExpressionTree);
 });

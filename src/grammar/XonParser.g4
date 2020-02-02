@@ -16,7 +16,7 @@ scopeArgument: name = ID ':' type = ID ('=' expression)?;
 statement
     : 'if' expression '{' statement* '}'                                                            # ifStatement
     | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? '{' statement* '}' # loopStatement
-    | ID ('=' | '+=' | '-=' | '*=' | '/=' | '%=' | '&=' | '|=' | '^=') expression ';'               # assignmentStatement
+    | ID ('=') expression ';'                                                                       # assignmentStatement
     | Preprocessor                                                                                  # preprocessorStatement
     | expression ';'                                                                                # expressionStatement
     ;
