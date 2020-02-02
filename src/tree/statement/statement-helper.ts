@@ -6,8 +6,8 @@ import {
     PreprocessorStatementContext,
     StatementContext,
 } from '../../grammar/xon-parser';
-import { AssignmentStatementTree } from '../statement/assignment-statement/assignment-statement.tree';
-import { ExpressionStatementTree } from '../statement/expression-statement/expression-statement.tree';
+import { AssignmentStatementTree } from './assignment-statement/assignment-statement.tree';
+import { ExpressionStatementTree } from './expression-statement/expression-statement.tree';
 import { IfStatementTree } from './if-statement';
 import { LoopStatementTree } from './loop-statement';
 import { PreprocessorStatementTree } from './preprocessor-statement';

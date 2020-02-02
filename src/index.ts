@@ -2,4 +2,4 @@
 
 export * from './grammar';
 export * from './test-helper';
-export * from './trees';
+export * from './tree';

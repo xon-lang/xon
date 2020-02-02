@@ -1,7 +1,7 @@
 import { AssignmentStatementContext } from '../../../grammar/xon-parser';
 import { ExpressionTree } from '../../expression/expression.tree';
 import { getExpressionTree } from '../../expression/expression-helper';
-import { StatementTree } from '../../statement/statement.tree';
+import { StatementTree } from '../statement.tree';
 
 export class AssignmentStatementTree extends StatementTree {
     name: string;

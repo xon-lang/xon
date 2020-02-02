@@ -1,8 +1,8 @@
 import { IfStatementContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../../expression/expression-helper';
 import { ExpressionTree } from '../../expression/expression.tree';
-import { getStatementTree } from '../../statement/statement-helper';
-import { StatementTree } from '../../statement/statement.tree';
+import { getStatementTree } from '../statement-helper';
+import { StatementTree } from '../statement.tree';
 
 export class IfStatementTree extends StatementTree {
     condition: ExpressionTree;

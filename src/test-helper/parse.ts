@@ -3,9 +3,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
-import { getExpressionTree } from '../trees/expression/expression-helper';
-import { ExpressionTree } from '../trees/expression/expression.tree';
-import { getStatementTree } from '../trees/statement/statement-helper';
+import { getExpressionTree } from '../tree/expression/expression-helper';
+import { ExpressionTree } from '../tree/expression/expression.tree';
+import { getStatementTree } from '../tree/statement/statement-helper';
 export function parse(code: string) {
     const inputStream = new ANTLRInputStream(code);
     const lexer = new XonLexer(inputStream);
