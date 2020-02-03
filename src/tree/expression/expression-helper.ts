@@ -11,6 +11,7 @@ import {
     FunctionExpressionContext,
     IdExpressionContext,
     IndexExpressionContext,
+    LambdaExpressionContext,
     LiteralExpressionContext,
     LogicalAndExpressionContext,
     LogicalNotExpressionContext,
@@ -37,6 +38,7 @@ import { EqualityExpressionTree } from './equality-expression/equality-expressio
 import { FunctionExpressionTree } from './function-expression/function-expression.tree';
 import { IdExpressionTree } from './id-expression/id-expression.tree';
 import { IndexExpressionTree } from './index-expression/index-expression.tree';
+import { LambdaExpressionTree } from './lambda-expression/lambda-expression.tree';
 import { LiteralExpressionTree } from './literal-expression/literal-expression.tree';
 import { LogicalAndExpressionTree } from './logical-and-expression/logical-and-expression.tree';
 import { LogicalNotExpressionTree } from './logical-not-expression/logical-not-expression.tree';
@@ -103,5 +105,7 @@ export function getExpressionTree(ctx: ExpressionContext) {
     else if (ctx instanceof RelationalExpressionContext) return new RelationalExpressionTree(ctx);
     // Equality
     else if (ctx instanceof EqualityExpressionContext) return new EqualityExpressionTree(ctx);
+    // Lambda
+    else if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
     throw 'No Expression found for ' + ctx.constructor.name;
 }
