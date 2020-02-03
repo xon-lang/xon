@@ -1,5 +1,8 @@
 if statement {
-    console.log('out of scope statement');
+    console.log('out
+                 of 
+                 scope 
+                 statement');
 }
 
 oneScope {

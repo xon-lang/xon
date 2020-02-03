@@ -69,7 +69,7 @@ Pipe:                       '|';
 BooleanLiteral: 'true' | 'false';
 DecimalLiteral: DECIMAL_NUMBER;
 FloatLiteral:   DECIMAL_NUMBER '.' DECIMAL_NUMBER;
-StringLiteral:  '\'' ~[\r\n']* '\'';
+StringLiteral:  '\'' ~[']* '\'';
 
 Preprocessor: '#{' .*? '}';
 
