@@ -1,15 +1,15 @@
 if statement {
-    console.log("out of scope statement");
+    console.log('out of scope statement');
 }
 
 oneScope {
     a = 23 + 5;
 
     loop arr {
-        log("no way");
+        log('no way');
     }
     loop v, k, i in arr {
-        log("no way");
+        log('no way');
     }
 
     // pipe syntax

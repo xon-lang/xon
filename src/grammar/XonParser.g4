@@ -58,6 +58,5 @@ literal
     : DecimalLiteral   # decimalLiteral
     | FloatLiteral     # floatLiteral
     | BooleanLiteral   # booleanLiteral
-    | CharacterLiteral # characterLiteral
     | StringLiteral    # stringLiteral
     ;

@@ -66,11 +66,10 @@ BitOrAssign:                '|=';
 LambdaStart:                '\\';
 Pipe:                       '|';
 
-BooleanLiteral:   'true' | 'false';
-DecimalLiteral:   DECIMAL_NUMBER;
-FloatLiteral:     DECIMAL_NUMBER '.' DECIMAL_NUMBER;
-StringLiteral:    '"' ~[\r\n"]* '"';
-CharacterLiteral: '\'' ~[\r\n'] '\'';
+BooleanLiteral: 'true' | 'false';
+DecimalLiteral: DECIMAL_NUMBER;
+FloatLiteral:   DECIMAL_NUMBER '.' DECIMAL_NUMBER;
+StringLiteral:  '\'' ~[\r\n']* '\'';
 
 Preprocessor: '#{' .*? '}';
 

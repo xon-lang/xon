@@ -6,7 +6,7 @@ import { MemberExpressionTree } from '../member-expression/member-expression.tre
 import { IndexExpressionTree } from './index-expression.tree';
 
 test('string expression index', () => {
-    const code = 'some_object.prop["ppp"]';
+    const code = "some_object.prop['ppp']";
     const tree = parseCode(code, IndexExpressionTree);
     expect(tree.value).toBeInstanceOf(MemberExpressionTree);
     expect(tree.index).toBeInstanceOf(LiteralExpressionTree);
