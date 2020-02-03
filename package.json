@@ -27,7 +27,7 @@
         "test": "npm run grammar && jest",
         "version": "",
         "postversion": "git push && git push --tags",
-        "deploy": "rimraf dist && tsc && cp package.json dist && cp *.md dist && cd dist && npm publish"
+        "deploy": "./deploy.sh"
     },
     "husky": {
         "hooks": {

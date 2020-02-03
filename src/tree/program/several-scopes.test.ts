@@ -1,5 +1,5 @@
-import { testXonFIle } from '../../../test-helper';
-import { ProgramTree } from '../program.tree';
+import { testXonFIle } from '../../test-helper';
+import { ProgramTree } from './program.tree';
 
 testXonFIle(ProgramTree, tree => {
     expect(tree.scopes.length).toBe(3);
