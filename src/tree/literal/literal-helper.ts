@@ -1,4 +1,3 @@
-import { BooleanLiteralTree, DecimalLiteralTree, FloatLiteralTree, StringLiteralTree } from '.';
 import {
     BooleanLiteralContext,
     CharacterLiteralContext,
@@ -7,8 +6,12 @@ import {
     LiteralContext,
     StringLiteralContext,
 } from '../../grammar/xon-parser';
-import { CharacterLiteralTree } from './character-literal';
+import { BooleanLiteralTree } from './boolean-literal/boolean-literal.tree';
+import { CharacterLiteralTree } from './character-literal/character-literal.tree';
+import { DecimalLiteralTree } from './decimal-literal/decimal-literal.tree';
+import { FloatLiteralTree } from './float-literal/float-literal.tree';
 import { LiteralTree } from './literal.tree';
+import { StringLiteralTree } from './string-literal/string-literal.tree';
 
 export function getLiteralTree(ctx: LiteralContext): LiteralTree {
     if (ctx instanceof BooleanLiteralContext) return new BooleanLiteralTree(ctx);

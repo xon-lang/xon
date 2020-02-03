@@ -1,4 +1,3 @@
-import { EqualityExpressionTree, RelationalExpressionTree } from '.';
 import {
     AddSubExpressionContext,
     ArrayExpressionContext,
@@ -34,6 +33,7 @@ import { BitNotExpressionTree } from './bit-not-expression/bit-not-expression.tr
 import { BitOrExpressionTree } from './bit-or-expression/bit-or-expression.tree';
 import { BitShiftExpressionTree } from './bit-shift-expression/bit-shift-expression.tree';
 import { BitXorExpressionTree } from './bit-xor-expression/bit-xor-expression.tree';
+import { EqualityExpressionTree } from './equality-expression/equality-expression.tree';
 import { FunctionExpressionTree } from './function-expression/function-expression.tree';
 import { IdExpressionTree } from './id-expression/id-expression.tree';
 import { IndexExpressionTree } from './index-expression/index-expression.tree';
@@ -46,6 +46,7 @@ import { MulDivModExpressionTree } from './mul-div-mod-expression/mul-div-mod-ex
 import { PipeExpressionTree } from './pipe-expression/pipe-expression.tree';
 import { PowExpressionTree } from './pow-expression/pow-expression.tree';
 import { RangeExpressionTree } from './range-expression/range-expression.tree';
+import { RelationalExpressionTree } from './relational-expression/relational-expression.tree';
 import { SliceExpressionTree } from './slice-expression/slice-expression.tree';
 import { UnaryMinusExpressionTree } from './unary-minus-expression/unary-minus-expression.tree';
 import { UnaryPlusExpressionTree } from './unary-plus-expression/unary-plus-expression.tree';
