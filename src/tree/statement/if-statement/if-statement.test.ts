@@ -1,4 +1,5 @@
-import { evalExpression, parseCode } from '../../../test-helper';
+import { evalExpression, parseCode, parse } from '../../../test-helper';
+import { RelationalExpressionTree } from '../../expression/relational-expression/relational-expression.tree';
 import { ExpressionStatementTree } from '../expression-statement/expression-statement.tree';
 import { IfStatementTree } from './if-statement.tree';
 
@@ -41,6 +42,19 @@ test('if condition', () => {
     const ifStatement = tree.ifStatements[0] as ExpressionStatementTree;
     expect(evalExpression(ifStatement.value)).toBe(12 + 45 / 5);
 
+    expect(tree.elseCondition).toBeUndefined();
+    expect(tree.elseStatements.length).toBe(0);
+});
+
+test('if condition', () => {
+    const code = 'if 6 > 4 { 12+45/5; }';
+    const tree = parseCode(code, IfStatementTree);
+
+    expect(tree.ifCondition).toBeInstanceOf(RelationalExpressionTree);
+    expect(evalExpression(tree.ifCondition)).toBe(true);
+    expect(tree.ifStatements.length).toBe(1);
+    const ifStatement = tree.ifStatements[0] as ExpressionStatementTree;
+    expect(evalExpression(ifStatement.value)).toBe(12 + 45 / 5);
     expect(tree.elseCondition).toBeUndefined();
     expect(tree.elseStatements.length).toBe(0);
 });

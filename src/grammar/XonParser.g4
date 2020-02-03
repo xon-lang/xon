@@ -36,9 +36,9 @@ expression
     | '!' expression                                                                                  # logicalNotExpression
     | left = expression operation = ('*' | '/' | '%') right = expression                              # mulDivModExpression
     | left = expression operation = ('+' | '-') right = expression                                    # addSubExpression
-    | left = expression operation =('<<' | '>>' | '>>>') right = expression                                      # bitShiftExpression
-    | left = expression operation =('<' | '<=' | '>=' | '>') right = expression                                  # relationalExpression
-    | left = expression operation =( '==' | '!=') right = expression                                             # equalityExpression
+    | left = expression operation = ('<<' | '>>' | '>>>') right = expression                          # bitShiftExpression
+    | left = expression operation = ('<' | '<=' | '>=' | '>') right = expression                      # relationalExpression
+    | left = expression operation = ('==' | '!=') right = expression                                  # equalityExpression
     | left = expression 'and' right = expression                                                      # bitAndExpression
     | left = expression 'xor' right = expression                                                      # bitXorExpression
     | left = expression 'or' right = expression                                                       # bitOrExpression

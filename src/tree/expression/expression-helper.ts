@@ -1,3 +1,4 @@
+import { EqualityExpressionTree, RelationalExpressionTree } from '.';
 import {
     AddSubExpressionContext,
     ArrayLiteralExpressionContext,
@@ -6,6 +7,7 @@ import {
     BitOrExpressionContext,
     BitShiftExpressionContext,
     BitXorExpressionContext,
+    EqualityExpressionContext,
     ExpressionContext,
     FunctionExpressionContext,
     IdExpressionContext,
@@ -20,6 +22,7 @@ import {
     PipeExpressionContext,
     PowExpressionContext,
     RangeExpressionContext,
+    RelationalExpressionContext,
     SliceExpressionContext,
     UnaryMinusExpressionContext,
     UnaryPlusExpressionContext,
@@ -96,4 +99,8 @@ export function getExpressionTree(ctx: ExpressionContext) {
     else if (ctx instanceof LogicalOrExpressionContext) return new LogicalOrExpressionTree(ctx);
     // Pipe
     else if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);
+    // Relational
+    else if (ctx instanceof RelationalExpressionContext) return new RelationalExpressionTree(ctx);
+    // Equality
+    else if (ctx instanceof EqualityExpressionContext) return new EqualityExpressionTree(ctx);
 }
