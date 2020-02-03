@@ -1,12 +1,11 @@
-import { ArrayLiteralExpressionContext } from '../../../grammar/xon-parser';
-import { BaseTree } from '../../base.tree';
-import { ExpressionTree } from '../expression.tree';
+import { ArrayExpressionContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../expression-helper';
+import { ExpressionTree } from '../expression.tree';
 
-export class ArrayLiteralExpressionTree extends ExpressionTree {
+export class ArrayExpressionTree extends ExpressionTree {
     items: ExpressionTree[];
 
-    constructor(public ctx: ArrayLiteralExpressionContext) {
+    constructor(public ctx: ArrayExpressionContext) {
         super();
         this.items = ctx._items.map(getExpressionTree);
     }

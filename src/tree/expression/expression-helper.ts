@@ -1,7 +1,7 @@
 import { EqualityExpressionTree, RelationalExpressionTree } from '.';
 import {
     AddSubExpressionContext,
-    ArrayLiteralExpressionContext,
+    ArrayExpressionContext,
     BitAndExpressionContext,
     BitNotExpressionContext,
     BitOrExpressionContext,
@@ -28,7 +28,7 @@ import {
     UnaryPlusExpressionContext,
 } from '../../grammar/xon-parser';
 import { AddSubExpressionTree } from './add-sub-expression/add-sub-expression.tree';
-import { ArrayLiteralExpressionTree } from './array-literal-expression/array-literal-expression.tree';
+import { ArrayExpressionTree } from './array-expression/array-expression.tree';
 import { BitAndExpressionTree } from './bit-and-expression/bit-and-expression.tree';
 import { BitNotExpressionTree } from './bit-not-expression/bit-not-expression.tree';
 import { BitOrExpressionTree } from './bit-or-expression/bit-or-expression.tree';
@@ -58,9 +58,8 @@ export function getExpressionTree(ctx: ExpressionContext) {
         return getExpressionTree(ctx.expression());
     // LiteralExpression
     else if (ctx instanceof LiteralExpressionContext) return new LiteralExpressionTree(ctx);
-    // ArrayLiteralExpression
-    else if (ctx instanceof ArrayLiteralExpressionContext)
-        return new ArrayLiteralExpressionTree(ctx);
+    // ArrayExpression
+    else if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
     // RangeExpression
     else if (ctx instanceof RangeExpressionContext) return new RangeExpressionTree(ctx);
     // SliceExpression

@@ -629,7 +629,7 @@ export class XonParser extends Parser {
 
 			case 7:
 				{
-				_localctx = new ArrayLiteralExpressionContext(_localctx);
+				_localctx = new ArrayExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 119;
@@ -640,8 +640,8 @@ export class XonParser extends Parser {
 				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OpenBracket) | (1 << XonParser.OpenParen) | (1 << XonParser.OpenBrace) | (1 << XonParser.Plus) | (1 << XonParser.Minus) | (1 << XonParser.BitNot) | (1 << XonParser.Not))) !== 0) || ((((_la - 54)) & ~0x1F) === 0 && ((1 << (_la - 54)) & ((1 << (XonParser.LambdaStart - 54)) | (1 << (XonParser.BooleanLiteral - 54)) | (1 << (XonParser.DecimalLiteral - 54)) | (1 << (XonParser.FloatLiteral - 54)) | (1 << (XonParser.StringLiteral - 54)) | (1 << (XonParser.CharacterLiteral - 54)) | (1 << (XonParser.ID - 54)))) !== 0)) {
 					{
 					this.state = 120;
-					(_localctx as ArrayLiteralExpressionContext)._expression = this.expression(0);
-					(_localctx as ArrayLiteralExpressionContext)._items.push((_localctx as ArrayLiteralExpressionContext)._expression);
+					(_localctx as ArrayExpressionContext)._expression = this.expression(0);
+					(_localctx as ArrayExpressionContext)._items.push((_localctx as ArrayExpressionContext)._expression);
 					this.state = 125;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
@@ -651,8 +651,8 @@ export class XonParser extends Parser {
 						this.state = 121;
 						this.match(XonParser.Comma);
 						this.state = 122;
-						(_localctx as ArrayLiteralExpressionContext)._expression = this.expression(0);
-						(_localctx as ArrayLiteralExpressionContext)._items.push((_localctx as ArrayLiteralExpressionContext)._expression);
+						(_localctx as ArrayExpressionContext)._expression = this.expression(0);
+						(_localctx as ArrayExpressionContext)._items.push((_localctx as ArrayExpressionContext)._expression);
 						}
 						}
 						this.state = 127;
@@ -699,7 +699,7 @@ export class XonParser extends Parser {
 
 			case 9:
 				{
-				_localctx = new ObjectLiteralExpressionContext(_localctx);
+				_localctx = new ObjectExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 141;
@@ -2088,7 +2088,7 @@ export class LiteralExpressionContext extends ExpressionContext {
 		this.copyFrom(ctx);
 	}
 }
-export class ArrayLiteralExpressionContext extends ExpressionContext {
+export class ArrayExpressionContext extends ExpressionContext {
 	public _expression: ExpressionContext;
 	public _items: ExpressionContext[] = [];
 	public OpenBracket(): TerminalNode { return this.getToken(XonParser.OpenBracket, 0); }
@@ -2145,7 +2145,7 @@ export class RangeExpressionContext extends ExpressionContext {
 		this.copyFrom(ctx);
 	}
 }
-export class ObjectLiteralExpressionContext extends ExpressionContext {
+export class ObjectExpressionContext extends ExpressionContext {
 	public OpenBrace(): TerminalNode { return this.getToken(XonParser.OpenBrace, 0); }
 	public CloseBrace(): TerminalNode { return this.getToken(XonParser.CloseBrace, 0); }
 	public ID(): TerminalNode[];

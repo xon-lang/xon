@@ -46,9 +46,9 @@ expression
     | left = expression '||' right = expression                                                       # logicalOrExpression
     | ID                                                                                              # idExpression
     | literal                                                                                         # literalExpression
-    | '[' (items += expression (',' items += expression)*)? ']'                                       # arrayLiteralExpression
+    | '[' (items += expression (',' items += expression)*)? ']'                                       # arrayExpression
     | '[' startPos = expression ':' end = expression (':' step = expression)? ']'                     # rangeExpression
-    | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                                           # objectLiteralExpression
+    | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                                           # objectExpression
     | '(' expression ')'                                                                              # parenthesizedExpression
     | left = expression '|' (ID ':')? right = expression                                              # pipeExpression
     | '\\' (ID (',' ID)* ':')? expression                                                             # lambdaExpression

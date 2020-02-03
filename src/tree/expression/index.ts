@@ -1,7 +1,7 @@
 // created from 'create-ts-index'
 
 export * from './add-sub-expression';
-export * from './array-literal-expression';
+export * from './array-expression';
 export * from './bit-and-expression';
 export * from './bit-not-expression';
 export * from './bit-or-expression';

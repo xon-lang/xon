@@ -1,5 +1,5 @@
 import { evalExpression, parseCode } from '../../../test-helper';
-import { ArrayLiteralExpressionTree } from '../../expression/array-literal-expression/array-literal-expression.tree';
+import { ArrayExpressionTree } from '../../expression/array-expression/array-expression.tree';
 import { FunctionExpressionTree } from '../../expression/function-expression/function-expression.tree';
 import { IdExpressionTree } from '../../expression/id-expression/id-expression.tree';
 import { RangeExpressionTree } from '../../expression/range-expression/range-expression.tree';
@@ -13,7 +13,7 @@ test('loop with value', () => {
     expect(tree.keyName).toBeUndefined();
     expect(tree.indexName).toBeUndefined();
     expect(tree.infinity).toBe(false);
-    expect(tree.expression).toBeInstanceOf(ArrayLiteralExpressionTree);
+    expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
     expect(tree.statements.length).toBe(1);
     const statement = tree.statements[0] as ExpressionStatementTree;
