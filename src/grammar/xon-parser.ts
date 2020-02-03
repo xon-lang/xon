@@ -891,9 +891,10 @@ export class XonParser extends Parser {
 							throw new FailedPredicateException(this, "this.precpred(this._ctx, 16)");
 						}
 						this.state = 186;
+						(_localctx as BitShiftExpressionContext)._operation = this._input.LT(1);
 						_la = this._input.LA(1);
 						if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.RightShiftArithmetic) | (1 << XonParser.LeftShiftArithmetic) | (1 << XonParser.RightShiftLogical))) !== 0))) {
-						this._errHandler.recoverInline(this);
+							(_localctx as BitShiftExpressionContext)._operation = this._errHandler.recoverInline(this);
 						} else {
 							if (this._input.LA(1) === Token.EOF) {
 								this.matchedEOF = true;
@@ -917,9 +918,10 @@ export class XonParser extends Parser {
 							throw new FailedPredicateException(this, "this.precpred(this._ctx, 15)");
 						}
 						this.state = 189;
+						(_localctx as RelationalExpressionContext)._operation = this._input.LT(1);
 						_la = this._input.LA(1);
 						if (!(((((_la - 35)) & ~0x1F) === 0 && ((1 << (_la - 35)) & ((1 << (XonParser.LessThan - 35)) | (1 << (XonParser.MoreThan - 35)) | (1 << (XonParser.LessThanEquals - 35)) | (1 << (XonParser.MoreThanEquals - 35)))) !== 0))) {
-						this._errHandler.recoverInline(this);
+							(_localctx as RelationalExpressionContext)._operation = this._errHandler.recoverInline(this);
 						} else {
 							if (this._input.LA(1) === Token.EOF) {
 								this.matchedEOF = true;
@@ -943,9 +945,10 @@ export class XonParser extends Parser {
 							throw new FailedPredicateException(this, "this.precpred(this._ctx, 14)");
 						}
 						this.state = 192;
+						(_localctx as EqualityExpressionContext)._operation = this._input.LT(1);
 						_la = this._input.LA(1);
 						if (!(_la === XonParser.Equals || _la === XonParser.NotEquals)) {
-						this._errHandler.recoverInline(this);
+							(_localctx as EqualityExpressionContext)._operation = this._errHandler.recoverInline(this);
 						} else {
 							if (this._input.LA(1) === Token.EOF) {
 								this.matchedEOF = true;
@@ -1918,6 +1921,7 @@ export class AddSubExpressionContext extends ExpressionContext {
 }
 export class BitShiftExpressionContext extends ExpressionContext {
 	public _left: ExpressionContext;
+	public _operation: Token;
 	public _right: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
@@ -1938,6 +1942,7 @@ export class BitShiftExpressionContext extends ExpressionContext {
 }
 export class RelationalExpressionContext extends ExpressionContext {
 	public _left: ExpressionContext;
+	public _operation: Token;
 	public _right: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
@@ -1959,6 +1964,7 @@ export class RelationalExpressionContext extends ExpressionContext {
 }
 export class EqualityExpressionContext extends ExpressionContext {
 	public _left: ExpressionContext;
+	public _operation: Token;
 	public _right: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;

@@ -3,26 +3,29 @@ import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class EqualityExpressionTree extends ExpressionTree {
-    left: ExpressionTree;
-    right: ExpressionTree;
+    operation: string;
     isEquals: boolean;
     isNotEquals: boolean;
+    left: ExpressionTree;
+    right: ExpressionTree;
 
     constructor(public ctx: EqualityExpressionContext) {
         super();
-        this.left = getExpressionTree(ctx._left);
-        this.right = getExpressionTree(ctx._right);
+        this.operation = ctx._operation.text;
         this.isEquals = !!ctx.Equals();
         this.isNotEquals = !!ctx.NotEquals();
+        this.left = getExpressionTree(ctx._left);
+        this.right = getExpressionTree(ctx._right);
     }
 
     toPlain() {
         return {
             ...super.toPlain(),
-            left: this.left.toPlain(),
-            right: this.right.toPlain(),
+            operation: this.operation,
             isEquals: this.isEquals,
             isNotEquals: this.isNotEquals,
+            left: this.left.toPlain(),
+            right: this.right.toPlain(),
         };
     }
 }
