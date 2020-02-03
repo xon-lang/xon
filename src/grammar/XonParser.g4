@@ -19,6 +19,9 @@ statement
     )?                                                                                              # ifStatement
     | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? '{' statement* '}' # loopStatement
     | ID ('=') expression ';'                                                                       # assignmentStatement
+    | Continue ';'                                                                                  # continueStatement
+    | Break ';'                                                                                     # breakStatement
+    | Return expression? ';'                                                                        # returnStatement
     | Preprocessor                                                                                  # preprocessorStatement
     | expression ';'                                                                                # expressionStatement
     ;
@@ -55,8 +58,8 @@ expression
     ;
 
 literal
-    : DecimalLiteral   # decimalLiteral
-    | FloatLiteral     # floatLiteral
-    | BooleanLiteral   # booleanLiteral
-    | StringLiteral    # stringLiteral
+    : DecimalLiteral # decimalLiteral
+    | FloatLiteral   # floatLiteral
+    | BooleanLiteral # booleanLiteral
+    | StringLiteral  # stringLiteral
     ;

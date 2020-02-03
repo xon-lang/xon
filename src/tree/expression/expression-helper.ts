@@ -103,4 +103,5 @@ export function getExpressionTree(ctx: ExpressionContext) {
     else if (ctx instanceof RelationalExpressionContext) return new RelationalExpressionTree(ctx);
     // Equality
     else if (ctx instanceof EqualityExpressionContext) return new EqualityExpressionTree(ctx);
+    throw 'No Expression found for ' + ctx.constructor.name;
 }

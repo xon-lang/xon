@@ -4,6 +4,7 @@ import {
     IfStatementContext,
     LoopStatementContext,
     PreprocessorStatementContext,
+    ReturnStatementContext,
     StatementContext,
 } from '../../grammar/xon-parser';
 import { AssignmentStatementTree } from './assignment-statement/assignment-statement.tree';
@@ -11,6 +12,7 @@ import { ExpressionStatementTree } from './expression-statement/expression-state
 import { IfStatementTree } from './if-statement/if-statement.tree';
 import { LoopStatementTree } from './loop-statement/loop-statement.tree';
 import { PreprocessorStatementTree } from './preprocessor-statement/preprocessor-statement.tree';
+import { ReturnStatementTree } from './return-statement/return-statement.tree';
 import { StatementTree } from './statement.tree';
 
 export function getStatementTree(ctx: StatementContext): StatementTree {
@@ -19,4 +21,6 @@ export function getStatementTree(ctx: StatementContext): StatementTree {
     if (ctx instanceof IfStatementContext) return new IfStatementTree(ctx);
     if (ctx instanceof LoopStatementContext) return new LoopStatementTree(ctx);
     if (ctx instanceof PreprocessorStatementContext) return new PreprocessorStatementTree(ctx);
+    if (ctx instanceof ReturnStatementContext) return new ReturnStatementTree(ctx);
+    throw 'No Statemenet found for ' + ctx.constructor.name;
 }
