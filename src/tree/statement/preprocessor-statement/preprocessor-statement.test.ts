@@ -3,12 +3,12 @@ import { PreprocessorStatementTree } from './preprocessor-statement.tree';
 
 test('preprocessor test for any symbol', () => {
     const code =
-        '#{joke wrong goal virus 40298 .RGJ^ j 6& W DCVµˆ∆∑ªº¨˙√å∂√∆π–√•∂√¶˙∆˚çßÎ◊´‰◊´®√ı}';
+        '#{joke wrong goal virus 40298 .RGJ^ j 6& W DCVµˆ∆∑ªº¨˙√å∂√∆π–√•∂√¶˙∆˚çßÎ◊´‰◊´®√ı}\n';
     const tree = parseCode(code, PreprocessorStatementTree);
 });
 
 test('preprocessor value test', () => {
-    const code = '#{await m();}';
+    const code = '#{await m();}\n';
     const tree = parseCode(code, PreprocessorStatementTree);
     expect(tree.value).toBe('await m();');
 });

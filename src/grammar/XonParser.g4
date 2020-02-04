@@ -9,21 +9,31 @@ program: (statement | scope)*;
 
 // importDeclaration: path = StringLiteral '{' members += ID (',' members += ID)* '}';
 
-scope:         ID (scopeArgument (',' scopeArgument)*)? '{' (statement | scope)* '}';
+scope:         ID (scopeArgument (',' scopeArgument)*)? '{' LineBreak (statement | scope)* '}';
 scopeArgument: name = ID ':' type = ID ('=' expression)?;
 
 // statements
 statement
-    : 'if' ifCondition = expression '{' ifStatements += statement+ '}' (
-        'else' ('if' elseCondition = expression)? '{' elseStatements += statement+ '}'
-    )?                                                                                              # ifStatement
-    | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? '{' statement* '}' # loopStatement
-    | ID ('=') expression ';'                                                                       # assignmentStatement
-    | Continue ';'                                                                                  # continueStatement
-    | Break ';'                                                                                     # breakStatement
-    | Return expression? ';'                                                                        # returnStatement
-    | Preprocessor                                                                                  # preprocessorStatement
-    | expression ';'                                                                                # expressionStatement
+    : 'if' ifCondition = expression (
+        '{' LineBreak ifStatements += statement+ '}'
+        | ':' ifStatements += statement
+    ) (
+        'else' ('if' elseCondition = expression)? (
+            '{' LineBreak elseStatements += statement+ '}'
+            | ':' elseStatements += statement
+        )
+    )? # ifStatement
+    | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? (
+        '{' LineBreak statement* '}'
+        | ':' statement
+    )                               # loopStatement
+    | LineBreak                     # lineBreakStatement
+    | ID ('=') expression LineBreak # assignmentStatement
+    | Continue LineBreak            # continueStatement
+    | Break LineBreak               # breakStatement
+    | Return expression? LineBreak  # returnStatement
+    | Preprocessor LineBreak        # preprocessorStatement
+    | expression LineBreak          # expressionStatement
     ;
 
 // expressions

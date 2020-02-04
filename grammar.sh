@@ -1,9 +1,8 @@
 generate_grammar()
 {
     npx antlr4ts *.g4 -o .antlr -no-listener
-    cd .antlr
-    cp XonLexer.ts ../xon-lexer.ts
-    cp XonParser.ts ../xon-parser.ts
+    cp .antlr/XonLexer.ts xon-lexer.ts
+    cp .antlr/XonParser.ts xon-parser.ts
 }
 
 cd src/grammar

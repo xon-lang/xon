@@ -1,6 +1,6 @@
 import { AssignmentStatementContext } from '../../../grammar/xon-parser';
-import { ExpressionTree } from '../../expression/expression.tree';
 import { getExpressionTree } from '../../expression/expression-helper';
+import { ExpressionTree } from '../../expression/expression.tree';
 import { StatementTree } from '../statement.tree';
 
 export class AssignmentStatementTree extends StatementTree {
@@ -16,6 +16,8 @@ export class AssignmentStatementTree extends StatementTree {
     toPlain() {
         return {
             ...super.toPlain(),
+            name: this.name,
+            value: this.value.toPlain(),
         };
     }
 }
