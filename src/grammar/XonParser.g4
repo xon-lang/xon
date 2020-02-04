@@ -49,6 +49,7 @@ expression
     | left = expression '||' right = expression                                                       # logicalOrExpression
     | ID                                                                                              # idExpression
     | literal                                                                                         # literalExpression
+    | StringFormat                                                                                    # stringFormatExpression
     | '[' (items += expression (',' items += expression)*)? ']'                                       # arrayExpression
     | '[' startPos = expression ':' end = expression (':' step = expression)? ']'                     # rangeExpression
     | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                                           # objectExpression

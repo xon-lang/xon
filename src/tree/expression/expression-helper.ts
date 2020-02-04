@@ -24,6 +24,7 @@ import {
     RangeExpressionContext,
     RelationalExpressionContext,
     SliceExpressionContext,
+    StringFormatExpressionContext,
     UnaryMinusExpressionContext,
     UnaryPlusExpressionContext,
 } from '../../grammar/xon-parser';
@@ -50,6 +51,7 @@ import { PowExpressionTree } from './pow-expression/pow-expression.tree';
 import { RangeExpressionTree } from './range-expression/range-expression.tree';
 import { RelationalExpressionTree } from './relational-expression/relational-expression.tree';
 import { SliceExpressionTree } from './slice-expression/slice-expression.tree';
+import { StringFormatExpressionTree } from './string-format-expression/string-format-expression.tree';
 import { UnaryMinusExpressionTree } from './unary-minus-expression/unary-minus-expression.tree';
 import { UnaryPlusExpressionTree } from './unary-plus-expression/unary-plus-expression.tree';
 
@@ -107,5 +109,9 @@ export function getExpressionTree(ctx: ExpressionContext) {
     else if (ctx instanceof EqualityExpressionContext) return new EqualityExpressionTree(ctx);
     // Lambda
     else if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
+    // StringFormat
+    else if (ctx instanceof StringFormatExpressionContext)
+        return new StringFormatExpressionTree(ctx);
+
     throw 'No Expression found for ' + ctx.constructor.name;
 }

@@ -74,10 +74,9 @@ DecimalLiteral: DECIMAL_NUMBER;
 FloatLiteral:   DECIMAL_NUMBER '.' DECIMAL_NUMBER;
 StringLiteral:  '\'' ~[']* '\'';
 
+StringFormat: 'f\'' ~[']* '\'';
 Preprocessor: '#{' .*? '}';
-
-LambdaParam: '$' DECIMAL_DIGIT;
-ID:          [a-zA-Z_] [a-zA-Z0-9_@]*;
+ID:           [a-zA-Z_] [a-zA-Z0-9_@]*;
 
 WhiteSpaces:         [\r\n\t ]+ -> channel(HIDDEN);
 UnexpectedCharacter: .          -> channel(ERROR);
