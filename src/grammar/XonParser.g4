@@ -14,27 +14,18 @@ scopeArgument: name = ID ':' type = ID ('=' expression)?;
 
 // statements
 statement
-    : 'if' ifCondition = expression (
-        '{' LineBreak ifStatements += statement+ '}'
-        | ':' ifStatements += statement
-    ) (
-        'else' ('if' elseCondition = expression)? (
-            '{' LineBreak elseStatements += statement+ '}'
-            | ':' elseStatements += statement
-        )
-    )? # ifStatement
-    | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? (
-        '{' LineBreak statement* '}'
-        | ':' statement
-    )                               # loopStatement
-    | LineBreak                     # lineBreakStatement
-    | ID ('=') expression LineBreak # assignmentStatement
-    | Continue LineBreak            # continueStatement
-    | Break LineBreak               # breakStatement
-    | Return expression? LineBreak  # returnStatement
-    | Preprocessor LineBreak        # preprocessorStatement
-    | expression LineBreak          # expressionStatement
+    : 'if' expression body ('else' ('if' expression)? body)?                          # ifStatement
+    | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body # loopStatement
+    | LineBreak                                                                       # lineBreakStatement
+    | ID ('=') expression LineBreak                                                   # assignmentStatement
+    | Continue LineBreak                                                              # continueStatement
+    | Break LineBreak                                                                 # breakStatement
+    | Return expression? LineBreak                                                    # returnStatement
+    | Preprocessor LineBreak                                                          # preprocessorStatement
+    | expression LineBreak                                                            # expressionStatement
     ;
+
+body: '{' LineBreak statement* '}' | ':' statement;
 
 // expressions
 expression

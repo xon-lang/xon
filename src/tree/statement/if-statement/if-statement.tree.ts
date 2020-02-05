@@ -12,10 +12,13 @@ export class IfStatementTree extends StatementTree {
 
     constructor(public ctx: IfStatementContext) {
         super();
-        this.ifCondition = getExpressionTree(ctx._ifCondition);
-        this.ifStatements = ctx._ifStatements.map(getStatementTree);
-        this.elseCondition = ctx._elseCondition && getExpressionTree(ctx._elseCondition);
-        this.elseStatements = ctx._elseStatements.map(getStatementTree);
+        const [ifExpression, elseExpression] = ctx.expression();
+        const [ifBody, elseBody] = ctx.body();
+
+        this.ifCondition = getExpressionTree(ifExpression);
+        this.ifStatements = ifBody.statement().map(getStatementTree);
+        this.elseCondition = elseExpression && getExpressionTree(elseExpression);
+        this.elseStatements = elseBody && elseBody.statement().map(getStatementTree);
     }
 
     toPlain() {

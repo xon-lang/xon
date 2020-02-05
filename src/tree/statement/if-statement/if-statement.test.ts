@@ -43,7 +43,7 @@ test('if', () => {
     expect(evalExpression(ifStatement.value)).toBe(12 + 45 / 5);
 
     expect(tree.elseCondition).toBeUndefined();
-    expect(tree.elseStatements.length).toBe(0);
+    expect(tree.elseStatements).toBeUndefined();
 });
 
 test('if relational', () => {
@@ -56,5 +56,5 @@ test('if relational', () => {
     const ifStatement = tree.ifStatements[0] as ExpressionStatementTree;
     expect(evalExpression(ifStatement.value)).toBe(12 + 45 / 5);
     expect(tree.elseCondition).toBeUndefined();
-    expect(tree.elseStatements.length).toBe(0);
+    expect(tree.elseStatements).toBeUndefined();
 });
