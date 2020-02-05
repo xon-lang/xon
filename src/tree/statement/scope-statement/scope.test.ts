@@ -1,11 +1,11 @@
-import { parseCode } from '../../test-helper';
-import { FunctionExpressionTree } from '../expression/function-expression/function-expression.tree';
-import { ExpressionStatementTree } from '../statement/expression-statement/expression-statement.tree';
-import { ScopeTree } from './scope.tree';
+import { parseCode } from '../../../test-helper';
+import { FunctionExpressionTree } from '../../expression/function-expression/function-expression.tree';
+import { ExpressionStatementTree } from '../expression-statement/expression-statement.tree';
+import { ScopeStatementTree } from './scope-statement.tree';
 
 test('function with one expression body', () => {
     const code = "foo s:str = 'simple string', num:i8 = 7 {\n callAnotherFunc()\n }";
-    const tree = parseCode(code, ScopeTree);
+    const tree = parseCode(code, ScopeStatementTree);
     expect(tree.name).toBe('foo');
     expect(tree.args.length).toBe(2);
 

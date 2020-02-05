@@ -1,12 +1,11 @@
-import { ScopeContext } from '../../grammar/xon-parser';
-import { BaseTree } from '../base.tree';
-import { getExpressionTree } from '../expression/expression-helper';
-import { ExpressionTree } from '../expression/expression.tree';
-import { LineBreakStatementTree } from '../statement/line-break-statement/line-break-statement.tree';
-import { getStatementTree } from '../statement/statement-helper';
-import { StatementTree } from '../statement/statement.tree';
+import { ScopeStatementContext } from '../../../grammar/xon-parser';
+import { getExpressionTree } from '../../expression/expression-helper';
+import { ExpressionTree } from '../../expression/expression.tree';
+import { LineBreakStatementTree } from '../line-break-statement/line-break-statement.tree';
+import { getStatementTree } from '../statement-helper';
+import { StatementTree } from '../statement.tree';
 
-export class ScopeTree extends BaseTree {
+export class ScopeStatementTree extends StatementTree {
     name: string;
     isClass: boolean;
     isFunction: boolean;
@@ -17,9 +16,8 @@ export class ScopeTree extends BaseTree {
     }[];
 
     statements: StatementTree[];
-    scopes: ScopeTree[];
 
-    constructor(public ctx: ScopeContext) {
+    constructor(public ctx: ScopeStatementContext) {
         super();
         this.name = ctx.ID().text;
         this.isClass = this.name[0] == this.name[0].toUpperCase();
@@ -31,10 +29,10 @@ export class ScopeTree extends BaseTree {
                 value: x.expression() && getExpressionTree(x.expression()),
             })) || [];
         this.statements = ctx
+            .body()
             .statement()
             .map(getStatementTree)
             .filter(x => !(x instanceof LineBreakStatementTree));
-        this.scopes = ctx.scope().map(x => new ScopeTree(x));
     }
 
     toPlain() {
@@ -49,7 +47,6 @@ export class ScopeTree extends BaseTree {
                 value: x.value?.toPlain(),
             })),
             statements: this.statements.map(x => x.toPlain()),
-            scopes: this.scopes.map(x => x.toPlain()),
         };
     }
 }
