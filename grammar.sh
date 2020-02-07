@@ -17,9 +17,7 @@ parser_ts_date=$(date -r xon-parser.ts "+%Y-%m-%d %H:%M:%S")
 if [[ "$lexer_date" > "$lexer_ts_date" ]] ;
 then
     generate_grammar
-fi
-
-if [[ "$parser_date" > "$parser_ts_date" ]] ;
+elif [[ "$parser_date" > "$parser_ts_date" ]] ;
 then
     generate_grammar
 fi

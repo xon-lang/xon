@@ -34,7 +34,12 @@ export function parseCode<T>(code: string, type: new (ctx: ParserRuleContext) =>
         return new type(parser.statement());
     }
     const methodName = camelize(type.name.replace(/Tree$/g, ''));
-    return new type((parser as any)[methodName]());
+
+    if (methodName in parser) {
+        return new type((parser as any)[methodName]());
+    }
+
+    throw 'No ' + methodName + ' for ' + type.name;
 }
 
 function camelize(str: string) {

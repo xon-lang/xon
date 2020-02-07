@@ -16,6 +16,7 @@ In:       'in';
 Continue: 'continue';
 Break:    'break';
 Return:   'return';
+As:       'as';
 
 // Bitwise operations
 BitAnd:               'and';

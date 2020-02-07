@@ -5,9 +5,11 @@ options {
     tokenVocab = XonLexer;
 }
 
-program: statement*;
+program:  /* imports*?  */ statement*;
 
-// importDeclaration: path = StringLiteral '{' members += ID (',' members += ID)* '}';
+imports:      importPath ':' ('*' 'as' alias = ID | importMember (',' importMember)*) LineBreak;
+importPath:   '.'* (ID | StringLiteral) ('.' (ID | StringLiteral))*;
+importMember: name = ID 'as' alias = ID | name = ID;
 
 // statements
 statement
@@ -31,7 +33,7 @@ expression
     : object = expression '(' (args += expression (',' args += expression)*)? ')'                     # functionExpression
     | value = expression '[' index = expression ']'                                                   # indexExpression
     | value = expression '[' startPos = expression ':' end = expression? (':' step = expression)? ']' # sliceExpression
-    | expression '.' ID                                                                               # memberExpression
+    | expression '?'? '.' ID                                                                          # memberExpression
     | base = expression '^' exponent = expression                                                     # powExpression
     | '+' expression                                                                                  # unaryPlusExpression
     | '-' expression                                                                                  # unaryMinusExpression

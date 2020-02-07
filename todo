@@ -1,2 +1,4 @@
-manada do
-expression()?.do(\my code)
++   manada do
+    expression()?.do(\my code)
+
+-   regex

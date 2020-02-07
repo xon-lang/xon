@@ -3,20 +3,23 @@ import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class MemberExpressionTree extends ExpressionTree {
-    object: ExpressionTree;
+    hasElvis: boolean;
     name: string;
+    object: ExpressionTree;
 
     constructor(public ctx: MemberExpressionContext) {
         super();
-        this.object = getExpressionTree(ctx.expression());
+        this.hasElvis = !!ctx.QuestionMark();
         this.name = ctx.ID().text;
+        this.object = getExpressionTree(ctx.expression());
     }
 
     toPlain() {
         return {
             ...super.toPlain(),
-            object: this.object.toPlain(),
+            hasElvis: this.hasElvis,
             name: this.name,
+            object: this.object.toPlain(),
         };
     }
 }
