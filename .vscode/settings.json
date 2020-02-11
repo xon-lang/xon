@@ -36,11 +36,5 @@
     "files.associations": {
         "*.xon": "rust"
     },
-
-    "[typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+    "prettier.tabWidth": 4
 }
