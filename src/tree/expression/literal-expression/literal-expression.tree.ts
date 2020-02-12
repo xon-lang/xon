@@ -9,6 +9,7 @@ export class LiteralExpressionTree extends ExpressionTree {
     constructor(public ctx: LiteralExpressionContext) {
         super();
         this.literal = getLiteralTree(ctx.literal());
+        this.valueType = this.literal.valueType;
     }
 
     toPlain() {

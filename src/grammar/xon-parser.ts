@@ -93,9 +93,8 @@ export class XonParser extends Parser {
 	public static readonly ID = 66;
 	public static readonly Preprocessor = 67;
 	public static readonly LineBreak = 68;
-	public static readonly Documentation = 69;
-	public static readonly WhiteSpaces = 70;
-	public static readonly UnexpectedCharacter = 71;
+	public static readonly WhiteSpaces = 69;
+	public static readonly UnexpectedCharacter = 70;
 	public static readonly RULE_program = 0;
 	public static readonly RULE_imports = 1;
 	public static readonly RULE_importPath = 2;
@@ -134,7 +133,7 @@ export class XonParser extends Parser {
 		"RightShiftLogicalAssign", "BitAndAssign", "BitXorAssign", "BitOrAssign", 
 		"LambdaStart", "Pipe", "Underscore", "BooleanLiteral", "DecimalLiteral", 
 		"FloatLiteral", "StringLiteral", "StringFormat", "ID", "Preprocessor", 
-		"LineBreak", "Documentation", "WhiteSpaces", "UnexpectedCharacter",
+		"LineBreak", "WhiteSpaces", "UnexpectedCharacter",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(XonParser._LITERAL_NAMES, XonParser._SYMBOLIC_NAMES, []);
 
@@ -1578,7 +1577,7 @@ export class XonParser extends Parser {
 	}
 
 	public static readonly _serializedATN: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03I\u0138\x04\x02" +
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03H\u0138\x04\x02" +
 		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
 		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x03\x02\x07\x02\x16\n\x02\f\x02\x0E" +
 		"\x02\x19\v\x02\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03" +

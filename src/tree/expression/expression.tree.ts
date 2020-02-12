@@ -1,10 +1,12 @@
 import { BaseTree } from '../base.tree';
-import { ExpressionContext } from '../../grammar/xon-parser';
 
 export abstract class ExpressionTree extends BaseTree {
-    ctx: ExpressionContext;
+    valueType: string;
 
-    toString() {
-        return this.ctx?.text;
+    toPlain() {
+        return {
+            ...super.toPlain(),
+            valueType: this.valueType
+        };
     }
 }
