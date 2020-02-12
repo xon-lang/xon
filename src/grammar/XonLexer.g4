@@ -17,6 +17,7 @@ Continue: 'continue';
 Break:    'break';
 Return:   'return';
 As:       'as';
+Var:      'var';
 
 // Bitwise operations
 BitAnd:               'and';
@@ -69,6 +70,7 @@ BitXorAssign:               '^=';
 BitOrAssign:                '|=';
 LambdaStart:                '\\';
 Pipe:                       '|';
+Underscore:                 '_';
 
 BooleanLiteral: 'true' | 'false';
 DecimalLiteral: DECIMAL_NUMBER;
@@ -76,9 +78,11 @@ FloatLiteral:   DECIMAL_NUMBER '.' DECIMAL_NUMBER;
 StringLiteral:  '\'' ~[']* '\'';
 
 StringFormat: 'f\'' ~[']* '\'';
-ID:           [a-zA-Z_] [a-zA-Z0-9_]*;
+ID:           [a-zA-Z] [a-zA-Z0-9_]* | [a-zA-Z_] [a-zA-Z0-9_]+;
 Preprocessor: '#{' .*? '}';
 LineBreak:    '\n';
+
+// Documentation: '_' .*? '_';
 
 WhiteSpaces:         [ \t\r]+ -> channel(HIDDEN);
 UnexpectedCharacter: .        -> channel(ERROR);

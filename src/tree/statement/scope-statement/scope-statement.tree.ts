@@ -12,6 +12,7 @@ export class ScopeStatementTree extends StatementTree {
     args: {
         name: string;
         type: string;
+        condition: ExpressionTree;
         value: ExpressionTree;
     }[];
 
@@ -24,9 +25,10 @@ export class ScopeStatementTree extends StatementTree {
         this.isFunction = !this.isClass;
         this.args =
             ctx.scopeArgument()?.map(x => ({
-                type: x._type.text,
                 name: x._name.text,
-                value: x.expression() && getExpressionTree(x.expression()),
+                type: x._type.text,
+                condition: x._condition && getExpressionTree(x._condition),
+                value: x._value && getExpressionTree(x._value),
             })) || [];
         this.statements = ctx
             .body()
@@ -42,8 +44,9 @@ export class ScopeStatementTree extends StatementTree {
             isClass: this.isClass,
             isFunction: this.isFunction,
             args: this.args.map(x => ({
-                type: x.type,
                 name: x.name,
+                type: x.type,
+                condition: x.condition?.toPlain(),
                 value: x.value?.toPlain(),
             })),
             statements: this.statements.map(x => x.toPlain()),

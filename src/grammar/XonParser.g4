@@ -17,7 +17,7 @@ statement
     | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body # loopStatement
     | ID (scopeArgument (',' scopeArgument)*)? body                                   # scopeStatement
     | LineBreak                                                                       # lineBreakStatement
-    | ID ('=') expression LineBreak                                                   # assignmentStatement
+    | 'var'? ID ('=') expression LineBreak                                            # assignmentStatement
     | Continue LineBreak                                                              # continueStatement
     | Break LineBreak                                                                 # breakStatement
     | Return expression? LineBreak                                                    # returnStatement
@@ -26,7 +26,7 @@ statement
     ;
 
 body:          '{' LineBreak statement* '}' | ':' statement;
-scopeArgument: name = ID ':' type = ID ('=' expression)?;
+scopeArgument: name = ID ':' type = ID ('=' value = expression)? (':' condition = expression)?;
 
 // expressions
 expression

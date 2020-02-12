@@ -5,3 +5,14 @@ oneScope {
         log('no way');
     }
 }
+
+_
+Do something
+a: first argument
+   tyhtyj
+   gergegerget ery
+b: second one
+_
+some_fun a:i8:a>10+b, b: str {
+
+}

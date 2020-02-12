@@ -33,8 +33,5 @@
         "source.fixAll": true
     },
     "files.autoSave": "afterDelay",
-    "files.associations": {
-        "*.xon": "rust"
-    },
     "prettier.tabWidth": 4
 }
