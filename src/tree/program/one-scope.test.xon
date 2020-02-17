@@ -1,18 +1,7 @@
-oneScope {
-    a = 23 + 5;
+oneScope:
+    a = 23 + 5
+    loop array:
+        log('no way')
 
-    loop array {
-        log('no way');
-    }
-}
-
-_
-Do something
-a: first argument
-   tyhtyj
-   gergegerget ery
-b: second one
-_
-some_fun a:i8:a>10+b, b: str {
-
-}
+some_fun a: i8:a>10+b, b: str:
+    call()

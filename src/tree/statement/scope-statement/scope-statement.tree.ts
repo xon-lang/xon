@@ -1,8 +1,7 @@
 import { ScopeStatementContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../../expression/expression-helper';
 import { ExpressionTree } from '../../expression/expression.tree';
-import { LineBreakStatementTree } from '../line-break-statement/line-break-statement.tree';
-import { getStatementTree } from '../statement-helper';
+import { getStatementsTree } from '../statement-helper';
 import { StatementTree } from '../statement.tree';
 
 export class ScopeStatementTree extends StatementTree {
@@ -30,11 +29,9 @@ export class ScopeStatementTree extends StatementTree {
                 condition: x._condition && getExpressionTree(x._condition),
                 value: x._value && getExpressionTree(x._value),
             })) || [];
-        this.statements = ctx
+        this.statements = getStatementsTree(ctx
             .body()
-            .statement()
-            .map(getStatementTree)
-            .filter(x => !(x instanceof LineBreakStatementTree));
+            .statement());
     }
 
     toPlain() {

@@ -9,7 +9,7 @@ export class PreprocessorStatementTree extends StatementTree {
         this.value = ctx
             .Preprocessor()
             .text.trim()
-            .slice(2, -1);
+            .slice(2);
     }
 
     toPlain() {

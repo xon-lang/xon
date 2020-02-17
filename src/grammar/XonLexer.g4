@@ -5,8 +5,18 @@ channels {
     ERROR
 }
 
-MultiLineComment:  '/*' .*? '*/'             -> channel(HIDDEN);
-SingleLineComment: '//' ~[\r\n\u2028\u2029]* -> channel(HIDDEN);
+options {
+    superClass = XonLexerBase;
+}
+
+tokens {
+    INDENT,
+    DEDENT
+}
+
+@lexer::header { 
+import { XonLexerBase } from "./xon-lexer-base";
+}
 
 // PrimitiveDataType : 'i8' | 'i16' | 'i32' | 'i64' | 'i128' | 'u8' | 'u16' | 'u32' | 'u64' | 'u128' | 'bool' | 'char' | 'str' ;
 If:       'if';
@@ -19,6 +29,9 @@ Return:   'return';
 As:       'as';
 Var:      'var';
 
+Preprocessor: '#:' ~[\r\n]+;
+LineBreak:    ({this.atStartOfInput()}? SPACES | ( '\r'? '\n' | '\r') SPACES?) {this.handleLineBreak()};
+
 // Bitwise operations
 BitAnd:               'and';
 BitOr:                'or';
@@ -27,13 +40,12 @@ RightShiftArithmetic: '>>';
 LeftShiftArithmetic:  '<<';
 RightShiftLogical:    '>>>';
 
-OpenBracket:  '[';
-CloseBracket: ']';
-OpenParen:    '(';
-CloseParen:   ')';
-OpenBrace:    '{';
-CloseBrace:   '}';
-// SemiColon:                  ';';
+OpenBracket:                '[' {this.opened++;};
+CloseBracket:               ']' {this.opened--;};
+OpenParen:                  '(' {this.opened++;};
+CloseParen:                 ')' {this.opened--;};
+OpenBrace:                  '{' {this.opened++;};
+CloseBrace:                 '}' {this.opened--;};
 Comma:                      ',';
 Assign:                     '=';
 QuestionMark:               '?';
@@ -79,13 +91,16 @@ StringLiteral:  '\'' ~[']* '\'';
 
 StringFormat: 'f\'' ~[']* '\'';
 ID:           [a-zA-Z] [a-zA-Z0-9_]* | [a-zA-Z_] [a-zA-Z0-9_]+;
-Preprocessor: '#{' .*? '}';
-LineBreak:    '\n';
+// LineBreak:    '\n';
 
 // Documentation: '_' .*? '_';
 
-WhiteSpaces:         [ \t\r]+ -> channel(HIDDEN);
-UnexpectedCharacter: .        -> channel(ERROR);
+Skip:                ( SPACES | SINGLE_LINE_COMMENT | MULTI_LINE_COMMENT | LINE_JOINING) -> skip;
+UnexpectedCharacter: .                                                                   -> channel(ERROR);
 
-fragment DECIMAL_NUMBER: DECIMAL_DIGIT+ ('_' DECIMAL_DIGIT+)*;
-fragment DECIMAL_DIGIT:  [0-9];
+fragment SPACES:              [ \t]+;
+fragment MULTI_LINE_COMMENT:  '/*' .*? '*/';
+fragment SINGLE_LINE_COMMENT: '//' ~[\r\n]*;
+fragment LINE_JOINING:        '\\' SPACES? ( '\r'? '\n' | '\r');
+fragment DECIMAL_NUMBER:      DECIMAL_DIGIT+ ('_' DECIMAL_DIGIT+)*;
+fragment DECIMAL_DIGIT:       [0-9];

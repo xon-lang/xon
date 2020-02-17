@@ -7,26 +7,26 @@ options {
 
 program:  /* imports*?  */ statement*;
 
-imports:      importPath ':' ('*' 'as' alias = ID | importMember (',' importMember)*) LineBreak;
+imports:      importPath ':' ('*' 'as' alias = ID | importMember (',' importMember)*);
 importPath:   '.'* (ID | StringLiteral) ('.' (ID | StringLiteral))*;
 importMember: name = ID 'as' alias = ID | name = ID;
 
 // statements
 statement
-    : 'if' expression body ('else' ('if' expression)? body)?                          # ifStatement
+    : Preprocessor                                                                    # preprocessorStatement
+    | 'if' expression body ('else' ('if' expression)? body)?                          # ifStatement
     | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body # loopStatement
     | ID (scopeArgument (',' scopeArgument)*)? body                                   # scopeStatement
-    | LineBreak                                                                       # lineBreakStatement
-    | 'var'? ID ('=') expression LineBreak                                            # assignmentStatement
-    | Continue LineBreak                                                              # continueStatement
-    | Break LineBreak                                                                 # breakStatement
-    | Return expression? LineBreak                                                    # returnStatement
-    | Preprocessor LineBreak                                                          # preprocessorStatement
-    | expression LineBreak                                                            # expressionStatement
+    | 'var'? ID ('=') expression                                                      # assignmentStatement
+    | Continue                                                                        # continueStatement
+    | Break                                                                           # breakStatement
+    | Return expression?                                                              # returnStatement
+    | expression                                                                      # expressionStatement
+    | LineBreak                                                                       # LineBreakStatement
     ;
 
-body:          '{' LineBreak statement* '}' | ':' statement;
 scopeArgument: name = ID ':' type = ID ('=' value = expression)? (':' condition = expression)?;
+body:          ':' (statement | LineBreak INDENT statement+ DEDENT);
 
 // expressions
 expression

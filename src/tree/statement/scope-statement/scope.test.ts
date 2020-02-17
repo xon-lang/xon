@@ -4,7 +4,7 @@ import { ExpressionStatementTree } from '../expression-statement/expression-stat
 import { ScopeStatementTree } from './scope-statement.tree';
 
 test('function with one expression body', () => {
-    const code = "foo s:str = 'simple string', num:i8 = 7: 99+10 {\n callAnotherFunc()\n }";
+    const code = "foo s:str = 'simple string', num:i8 = 7: 99+10:    callAnotherFunc()";
     const tree = parseCode(code, ScopeStatementTree);
     expect(tree.name).toBe('foo');
     expect(tree.args.length).toBe(2);

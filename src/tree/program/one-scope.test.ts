@@ -4,7 +4,7 @@ import { ScopeStatementTree } from '../statement/scope-statement/scope-statement
 import { ProgramTree } from './program.tree';
 
 testXonFIle(ProgramTree, tree => {
-    expect(tree.statements.length).toBe(1);
+    expect(tree.statements.length).toBe(2);
 
     const scope = tree.statements[0] as ScopeStatementTree;
     expect(scope).not.toBeUndefined();

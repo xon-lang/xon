@@ -1,7 +1,7 @@
 import { IfStatementContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../../expression/expression-helper';
 import { ExpressionTree } from '../../expression/expression.tree';
-import { getStatementTree } from '../statement-helper';
+import { getStatementsTree } from '../statement-helper';
 import { StatementTree } from '../statement.tree';
 
 export class IfStatementTree extends StatementTree {
@@ -16,9 +16,9 @@ export class IfStatementTree extends StatementTree {
         const [ifBody, elseBody] = ctx.body();
 
         this.ifCondition = getExpressionTree(ifExpression);
-        this.ifStatements = ifBody.statement().map(getStatementTree);
+        this.ifStatements = getStatementsTree(ifBody.statement());
         this.elseCondition = elseExpression && getExpressionTree(elseExpression);
-        this.elseStatements = elseBody && elseBody.statement().map(getStatementTree);
+        this.elseStatements = elseBody && getStatementsTree(elseBody.statement());
     }
 
     toPlain() {
@@ -27,7 +27,7 @@ export class IfStatementTree extends StatementTree {
             ifCondition: this.ifCondition.toPlain(),
             ifStatements: this.ifStatements.map(x => x.toPlain()),
             elseCondition: this.elseCondition?.toPlain(),
-            elseStatements: this.elseStatements.map(x => x.toPlain()),
+            elseStatements: this.elseStatements?.map(x => x.toPlain()),
         };
     }
 }
