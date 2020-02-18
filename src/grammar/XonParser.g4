@@ -13,17 +13,17 @@ importMember: name = ID 'as' alias = ID | name = ID;
 
 // type definitions
 definition
-    : 'class' ID ':' LineBreak INDENT (classItem LineBreak)+ DEDENT
-    | 'enum' ID ':' LineBreak INDENT (enumItem LineBreak)+ DEDENT
-    | 'scheme' ID ':' LineBreak INDENT (schemeItem LineBreak)+ DEDENT
+    : 'class' ID ':' LineBreak INDENT (classItem LineBreak)+ DEDENT   # classDefinition
+    | 'enum' ID ':' LineBreak INDENT (enumItem LineBreak)+ DEDENT     # enumDefinition
+    | 'scheme' ID ':' LineBreak INDENT (schemeItem LineBreak)+ DEDENT # schemeDefinition
     ;
 
 classItem
-    : name = ID ':' type = ID? ('=' value = expression)
-    | ID (scopeArgument (',' scopeArgument)*)? body
+    : name = ID ':' type = ID? ('=' value = expression) # propertyClassItem
+    | ID (scopeArgument (',' scopeArgument)*)? body     # methodClassItem
     ;
 
-enumItem: ID ('=' DecimalLiteral)?;
+enumItem: ID ('=' (literal | literal? ':' constant))?;
 
 schemeItem
     : name = ID ':' type = ID? ('=' value = expression)
@@ -35,6 +35,7 @@ statement
     : Preprocessor                                                                    # preprocessorStatement
     | 'if' expression body ('else' ('if' expression)? body)?                          # ifStatement
     | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body # loopStatement
+    | name = ID '::' '=' value = expression                                           # constantStatement
     | name = ID ':' (type = ID | type = ID? '=' value = expression)                   # declarationStatement
     | ID '=' expression                                                               # assignmentStatement
     | ID (scopeArgument (',' scopeArgument)*)? body                                   # scopeStatement
@@ -80,9 +81,30 @@ expression
     | '\\' (ID (',' ID)* ':')? expression                                                             # lambdaExpression
     ;
 
+constant
+    : base = constant '^' exponent = constant                                # powConstant
+    | '+' constant                                                           # unaryPlusConstant
+    | '-' constant                                                           # unaryMinusConstant
+    | '~' constant                                                           # bitNotConstant
+    | '!' constant                                                           # logicalNotConstant
+    | left = constant operation = ('*' | '/' | '%') right = constant         # mulDivModConstant
+    | left = constant operation = ('+' | '-') right = constant               # addSubConstant
+    | left = constant operation = ('<<' | '>>' | '>>>') right = constant     # bitShiftConstant
+    | left = constant operation = ('<' | '<=' | '>=' | '>') right = constant # relationalConstant
+    | left = constant operation = ('==' | '!=') right = constant             # equalityConstant
+    | left = constant 'and' right = constant                                 # bitAndConstant
+    | left = constant 'xor' right = constant                                 # bitXorConstant
+    | left = constant 'or' right = constant                                  # bitOrConstant
+    | left = constant '&&' right = constant                                  # logicalAndConstant
+    | left = constant '||' right = constant                                  # logicalOrConstant
+    | literal                                                                # literalConstant
+    | ID                                                                     # idConstant
+    ;
+
 literal
-    : DecimalLiteral # decimalLiteral
-    | FloatLiteral   # floatLiteral
+    : NullLiteral    # nullLiteral
     | BooleanLiteral # booleanLiteral
+    | DecimalLiteral # decimalLiteral
+    | FloatLiteral   # floatLiteral
     | StringLiteral  # stringLiteral
     ;

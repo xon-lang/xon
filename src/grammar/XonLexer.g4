@@ -53,6 +53,7 @@ Comma:                      ',';
 Assign:                     '=';
 QuestionMark:               '?';
 Colon:                      ':';
+TwoColon:                   '::';
 Ellipsis:                   '...';
 Dot:                        '.';
 Plus:                       '+';
@@ -87,6 +88,7 @@ LambdaStart:                '\\';
 Pipe:                       '|';
 Underscore:                 '_';
 
+NullLiteral:    'null';
 BooleanLiteral: 'true' | 'false';
 DecimalLiteral: DECIMAL_NUMBER;
 FloatLiteral:   DECIMAL_NUMBER '.' DECIMAL_NUMBER;
