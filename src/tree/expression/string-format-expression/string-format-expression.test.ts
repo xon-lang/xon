@@ -3,7 +3,7 @@ import { ExpressionTree } from '../expression.tree';
 import { StringFormatExpressionTree } from './string-format-expression.tree';
 
 test('format string', () => {
-    const code = "f'1+1 = {1 + sd se f1}; \\'2+2 = {2+2}'";
+    const code = "f'1+1 = {1 + 1}; \\'2+2 = {2+2}'";
     const tree = parseCode(code, StringFormatExpressionTree);
 
     expect(tree).toBeInstanceOf(StringFormatExpressionTree);
