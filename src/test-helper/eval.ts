@@ -23,7 +23,7 @@ const store = {};
 export function evalExpression(tree: ExpressionTree) {
     if (tree instanceof IdExpressionTree) return store[tree.id];
 
-    if (tree instanceof LiteralExpressionTree) return +tree.literal.value;
+    if (tree instanceof LiteralExpressionTree) return tree.literal.value;
 
     if (tree instanceof UnaryPlusExpressionTree) return evalExpression(tree.value);
 

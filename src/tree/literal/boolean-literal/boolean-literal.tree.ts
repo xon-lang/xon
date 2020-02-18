@@ -7,8 +7,8 @@ export class BooleanLiteralTree extends LiteralTree {
 
     constructor(public ctx: BooleanLiteralContext) {
         super();
-        this.value = ctx.BooleanLiteral().text;
-        this.isPositive = this.value == 'true';
+        this.isPositive = ctx.text == 'true';
+        this.value = this.isPositive ? 1 : 0; // ctx.BooleanLiteral().text;
         this.valueType = LiteralType.Boolean;
     }
 }

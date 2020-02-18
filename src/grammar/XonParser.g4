@@ -72,7 +72,7 @@ expression
     | left = expression '||' right = expression                                                       # logicalOrExpression
     | ID                                                                                              # idExpression
     | literal                                                                                         # literalExpression
-    | StringFormat                                                                                    # stringFormatExpression
+    | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd                   # stringFormatExpression
     | '[' (items += expression (',' items += expression)*)? ']'                                       # arrayExpression
     | '[' startPos = expression ':' end = expression (':' step = expression)? ']'                     # rangeExpression
     | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                                           # objectExpression
@@ -82,23 +82,25 @@ expression
     ;
 
 constant
-    : base = constant '^' exponent = constant                                # powConstant
-    | '+' constant                                                           # unaryPlusConstant
-    | '-' constant                                                           # unaryMinusConstant
-    | '~' constant                                                           # bitNotConstant
-    | '!' constant                                                           # logicalNotConstant
-    | left = constant operation = ('*' | '/' | '%') right = constant         # mulDivModConstant
-    | left = constant operation = ('+' | '-') right = constant               # addSubConstant
-    | left = constant operation = ('<<' | '>>' | '>>>') right = constant     # bitShiftConstant
-    | left = constant operation = ('<' | '<=' | '>=' | '>') right = constant # relationalConstant
-    | left = constant operation = ('==' | '!=') right = constant             # equalityConstant
-    | left = constant 'and' right = constant                                 # bitAndConstant
-    | left = constant 'xor' right = constant                                 # bitXorConstant
-    | left = constant 'or' right = constant                                  # bitOrConstant
-    | left = constant '&&' right = constant                                  # logicalAndConstant
-    | left = constant '||' right = constant                                  # logicalOrConstant
-    | literal                                                                # literalConstant
-    | ID                                                                     # idConstant
+    : base = constant '^' exponent = constant                                     # powConstant
+    | '+' constant                                                                # unaryPlusConstant
+    | '-' constant                                                                # unaryMinusConstant
+    | '~' constant                                                                # bitNotConstant
+    | '!' constant                                                                # logicalNotConstant
+    | left = constant operation = ('*' | '/' | '%') right = constant              # mulDivModConstant
+    | left = constant operation = ('+' | '-') right = constant                    # addSubConstant
+    | left = constant operation = ('<<' | '>>' | '>>>') right = constant          # bitShiftConstant
+    | left = constant operation = ('<' | '<=' | '>=' | '>') right = constant      # relationalConstant
+    | left = constant operation = ('==' | '!=') right = constant                  # equalityConstant
+    | left = constant 'and' right = constant                                      # bitAndConstant
+    | left = constant 'xor' right = constant                                      # bitXorConstant
+    | left = constant 'or' right = constant                                       # bitOrConstant
+    | left = constant '&&' right = constant                                       # logicalAndConstant
+    | left = constant '||' right = constant                                       # logicalOrConstant
+    | literal                                                                     # literalConstant
+    | ID                                                                          # idConstant
+    | '[' (items += literal (',' items += literal)*)? ']'                         # arrayConstant
+    | '[' startPos = expression ':' end = expression (':' step = expression)? ']' # rangeConstant
     ;
 
 literal

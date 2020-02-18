@@ -92,10 +92,12 @@ NullLiteral:    'null';
 BooleanLiteral: 'true' | 'false';
 DecimalLiteral: DECIMAL_NUMBER;
 FloatLiteral:   DECIMAL_NUMBER '.' DECIMAL_NUMBER;
-StringLiteral:  '\'' ~[']* '\'';
+StringLiteral:  '\'' CHARACTER* '\'';
 
-StringFormat: 'f\'' ~[']* '\'';
-ID:           [a-zA-Z] [a-zA-Z0-9_]* | [a-zA-Z_] [a-zA-Z0-9_]+;
+StringFormatStart:  'f\'' CHARACTER* '{';
+StringFormatMiddle: '}' CHARACTER* '{';
+StringFormatEnd:    '}' CHARACTER* '\'';
+ID:                 [a-zA-Z] [a-zA-Z0-9_]* | [a-zA-Z_] [a-zA-Z0-9_]+;
 // LineBreak:    '\n';
 
 // Documentation: '_' .*? '_';
@@ -109,3 +111,5 @@ fragment SINGLE_LINE_COMMENT: '//' ~[\r\n]*;
 fragment LINE_JOINING:        '\\' SPACES? ( '\r'? '\n' | '\r');
 fragment DECIMAL_NUMBER:      DECIMAL_DIGIT+ ('_' DECIMAL_DIGIT+)*;
 fragment DECIMAL_DIGIT:       [0-9];
+fragment CHARACTER:           ~['] | '\\' ['"\\bfnrtv];
+

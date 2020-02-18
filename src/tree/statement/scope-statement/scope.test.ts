@@ -15,7 +15,7 @@ test('function with one expression body', () => {
 
     expect(tree.args[1].type).toBe('i8');
     expect(tree.args[1].name).toBe('num');
-    expect(tree.args[1].value['literal']['value']).toBe('7');
+    expect(tree.args[1].value['literal']['value']).toBe(7);
     expect(evalExpression(tree.args[1].condition)).toBe(99 + 10);
 
     expect(tree.statements[0]).toBeInstanceOf(ExpressionStatementTree);

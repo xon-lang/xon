@@ -4,7 +4,7 @@ import { LiteralType } from './literal-type';
 
 export class LiteralTree extends BaseTree {
     ctx: LiteralContext;
-    value: string;
+    value: any;
     valueType: LiteralType;
 
     toPlain() {
