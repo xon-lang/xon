@@ -11,16 +11,36 @@ imports:      importPath ':' ('*' 'as' alias = ID | importMember (',' importMemb
 importPath:   '.'* (ID | StringLiteral) ('.' (ID | StringLiteral))*;
 importMember: name = ID 'as' alias = ID | name = ID;
 
+// type definitions
+definition
+    : 'class' ID ':' LineBreak INDENT (classItem LineBreak)+ DEDENT
+    | 'enum' ID ':' LineBreak INDENT (enumItem LineBreak)+ DEDENT
+    | 'scheme' ID ':' LineBreak INDENT (schemeItem LineBreak)+ DEDENT
+    ;
+
+classItem
+    : name = ID ':' type = ID? ('=' value = expression)
+    | ID (scopeArgument (',' scopeArgument)*)? body
+    ;
+
+enumItem: ID ('=' DecimalLiteral)?;
+
+schemeItem
+    : name = ID ':' type = ID? ('=' value = expression)
+    | name = ID ':' LineBreak INDENT schemeItem+ DEDENT
+    ;
+
 // statements
 statement
     : Preprocessor                                                                    # preprocessorStatement
     | 'if' expression body ('else' ('if' expression)? body)?                          # ifStatement
     | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body # loopStatement
+    | name = ID ':' (type = ID | type = ID? '=' value = expression)                   # declarationStatement
+    | ID '=' expression                                                               # assignmentStatement
     | ID (scopeArgument (',' scopeArgument)*)? body                                   # scopeStatement
-    | 'var'? ID ('=') expression                                                      # assignmentStatement
-    | Continue                                                                        # continueStatement
-    | Break                                                                           # breakStatement
-    | Return expression?                                                              # returnStatement
+    | 'continue'                                                                      # continueStatement
+    | 'break'                                                                         # breakStatement
+    | 'return' expression?                                                            # returnStatement
     | expression                                                                      # expressionStatement
     | LineBreak                                                                       # LineBreakStatement
     ;

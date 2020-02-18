@@ -4,13 +4,11 @@ import { ExpressionTree } from '../../expression/expression.tree';
 import { StatementTree } from '../statement.tree';
 
 export class AssignmentStatementTree extends StatementTree {
-    isDeclaration: boolean;
     name: string;
     value: ExpressionTree;
 
     constructor(public ctx: AssignmentStatementContext) {
         super();
-        this.isDeclaration = !!ctx.Var();
         this.name = ctx.ID().text;
         this.value = getExpressionTree(ctx.expression());
     }
@@ -18,7 +16,6 @@ export class AssignmentStatementTree extends StatementTree {
     toPlain() {
         return {
             ...super.toPlain(),
-            isDeclaration: this.isDeclaration,
             name: this.name,
             value: this.value.toPlain(),
         };
