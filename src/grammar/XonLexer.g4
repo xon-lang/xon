@@ -97,7 +97,7 @@ StringLiteral:  '\'' CHARACTER* '\'';
 StringFormatStart:  'f\'' CHARACTER* '{';
 StringFormatMiddle: '}' CHARACTER* '{';
 StringFormatEnd:    '}' CHARACTER* '\'';
-ID:                 [a-zA-Z] [a-zA-Z0-9_]* | [a-zA-Z_] [a-zA-Z0-9_]+;
+ID:                 [a-zA-Z$] [a-zA-Z0-9_]* | [a-zA-Z_$] [a-zA-Z0-9_]+;
 // LineBreak:    '\n';
 
 // Documentation: '_' .*? '_';

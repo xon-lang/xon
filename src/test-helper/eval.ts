@@ -18,32 +18,36 @@ import { RelationalExpressionTree } from '../tree/expression/relational-expressi
 import { UnaryMinusExpressionTree } from '../tree/expression/unary-minus-expression/unary-minus-expression.tree';
 import { UnaryPlusExpressionTree } from '../tree/expression/unary-plus-expression/unary-plus-expression.tree';
 
-const store = {};
+export function evalExpression(tree: ExpressionTree, params = {}) {
+    if (tree instanceof IdExpressionTree) {
+        if (tree.id in params) {
+            return params[tree.id];
+        }
 
-export function evalExpression(tree: ExpressionTree) {
-    if (tree instanceof IdExpressionTree) return store[tree.id];
+        throw Error('Undefined key: ' + tree.id);
+    }
 
     if (tree instanceof LiteralExpressionTree) return tree.literal.value;
 
-    if (tree instanceof UnaryPlusExpressionTree) return evalExpression(tree.value);
+    if (tree instanceof UnaryPlusExpressionTree) return evalExpression(tree.value, params);
 
-    if (tree instanceof UnaryMinusExpressionTree) return -evalExpression(tree.value);
+    if (tree instanceof UnaryMinusExpressionTree) return -evalExpression(tree.value, params);
 
-    if (tree instanceof LogicalNotExpressionTree) return !evalExpression(tree.value);
+    if (tree instanceof LogicalNotExpressionTree) return !evalExpression(tree.value, params);
 
-    if (tree instanceof BitNotExpressionTree) return ~evalExpression(tree.value);
+    if (tree instanceof BitNotExpressionTree) return ~evalExpression(tree.value, params);
 
     if (tree instanceof PowExpressionTree)
-        return Math.pow(evalExpression(tree.base), evalExpression(tree.exponent));
+        return Math.pow(evalExpression(tree.base, params), evalExpression(tree.exponent, params));
 
     if (tree instanceof PipeExpressionTree) {
-        const a = evalExpression(tree['left']);
-        if (tree.arg) store[tree.arg] = a;
-        return evalExpression(tree['right']);
+        const a = evalExpression(tree['left'], params);
+        if (tree.arg) params[tree.arg] = a;
+        return evalExpression(tree['right'], params);
     }
 
-    const a = evalExpression(tree['left']);
-    const b = evalExpression(tree['right']);
+    const a = evalExpression(tree['left'], params);
+    const b = evalExpression(tree['right'], params);
     if (tree instanceof MulDivModExpressionTree) {
         if (tree.isMul) return a * b;
         if (tree.isDiv) return a / b;
@@ -76,4 +80,6 @@ export function evalExpression(tree: ExpressionTree) {
 
     if (tree instanceof LogicalAndExpressionTree) return a && b;
     if (tree instanceof LogicalOrExpressionTree) return a || b;
+
+    throw 'Unsupported operation';
 }

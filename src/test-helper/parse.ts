@@ -33,13 +33,16 @@ export function parseCode<T>(code: string, type: new (ctx: ParserRuleContext) =>
     if (type.name.endsWith('StatementTree')) {
         return new type(parser.statement());
     }
+    if (type.name.endsWith('DefinitionTree')) {
+        return new type(parser.definition());
+    }
     const methodName = camelize(type.name.replace(/Tree$/g, ''));
 
     if (methodName in parser) {
         return new type((parser as any)[methodName]());
     }
 
-    throw 'No ' + methodName + ' for ' + type.name;
+    throw new Error('No ' + methodName + ' for ' + type.name);
 }
 
 function camelize(str: string) {

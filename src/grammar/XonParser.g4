@@ -19,11 +19,16 @@ definition
     ;
 
 classItem
-    : name = ID ':' type = ID? ('=' value = expression) # propertyClassItem
-    | ID (scopeArgument (',' scopeArgument)*)? body     # methodClassItem
+    : name = ID ':' type = ID? ('=' value = expression)    # propertyClassItem
+    | name = ID (scopeArgument (',' scopeArgument)*)? body # methodClassItem
     ;
 
-enumItem: ID ('=' (literal | literal? ':' constant))?;
+enumItem
+    : name = ID '=' value = expression ',' '\\' (prev = ID ':')? step = expression
+    | name = ID '=' value = expression
+    | name = ID '\\' (prev = ID ':')? step = expression
+    | name = ID
+    ;
 
 schemeItem
     : name = ID ':' type = ID? ('=' value = expression)
@@ -79,32 +84,6 @@ expression
     | '(' expression ')'                                                                              # parenthesizedExpression
     | left = expression '|' (ID ':')? right = expression                                              # pipeExpression
     | '\\' (ID (',' ID)* ':')? expression                                                             # lambdaExpression
-    ;
-
-constant
-    : base = constant '^' exponent = constant                                   # powConstant
-    | '+' constant                                                              # unaryPlusConstant
-    | '-' constant                                                              # unaryMinusConstant
-    | '~' constant                                                              # bitNotConstant
-    | '!' constant                                                              # logicalNotConstant
-    | left = constant operation = ('*' | '/' | '%') right = constant            # mulDivModConstant
-    | left = constant operation = ('+' | '-') right = constant                  # addSubConstant
-    | left = constant operation = ('<<' | '>>' | '>>>') right = constant        # bitShiftConstant
-    | left = constant operation = ('<' | '<=' | '>=' | '>') right = constant    # relationalConstant
-    | left = constant operation = ('==' | '!=') right = constant                # equalityConstant
-    | left = constant 'and' right = constant                                    # bitAndConstant
-    | left = constant 'xor' right = constant                                    # bitXorConstant
-    | left = constant 'or' right = constant                                     # bitOrConstant
-    | left = constant '&&' right = constant                                     # logicalAndConstant
-    | left = constant '||' right = constant                                     # logicalOrConstant
-    | ID                                                                        # idConstant
-    | literal                                                                   # literalConstant
-    | StringFormatStart (constant StringFormatMiddle)* constant StringFormatEnd # stringFormatConstant
-    | '[' (items += constant (',' items += constant)*)? ']'                     # arrayConstant
-    | '[' startPos = constant ':' end = constant (':' step = constant)? ']'     # rangeConstant
-    | '{' (ID ':' constant (',' ID ':' constant)*)? '}'                         # objectConstant
-    | '(' constant ')'                                                          # parenthesizedConstant
-    | left = constant '|' (ID ':')? right = constant                            # pipeConstant
     ;
 
 literal

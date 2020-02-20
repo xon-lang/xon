@@ -1,39 +1,40 @@
-import { LiteralTree } from 'src/tree/literal/literal.tree';
 import { EnumDefinitionContext } from '../../../grammar/xon-parser';
+import { evalExpression, parseExpression } from '../../../test-helper';
 import { ExpressionTree } from '../../expression/expression.tree';
-import { getLiteralTree } from '../../literal/literal-helper';
+import { EnumItemTree } from './enum-item.tree';
 
 export class EnumDefinitionTree extends ExpressionTree {
     name: string;
-    items: { name: string, value: string }[]
+    items: EnumItemTree[];
 
     constructor(public ctx: EnumDefinitionContext) {
         super();
         this.name = ctx.ID().text;
 
-        const items = ctx.enumItem()
-        this.items = items.map((x, i, arr) => ({
-            name: x.ID().text,
-            value: x.literal() && getLiteralTree(x.literal()).value
-        }))
-
-        this.items.forEach((x, i) => this.setEmptyOptionValue(x, i))
+        const items = ctx.enumItem();
+        this.items = items.map(x => new EnumItemTree(x));
+        this.items.forEach(this.getEnumItemValue.bind(this));
     }
 
-    setEmptyOptionValue(option, index) {
-        if (option.value) return;
-        option.value = this.
-    }
+    getEnumItemValue(item: EnumItemTree, index, arr) {
+        if (item.value !== undefined) return;
 
-    getNextValue(current: string, literal: LiteralTree) {
-
+        if (index == 0) {
+            item.value = 0;
+            item.step = parseExpression(item.prevArgName + '+1');
+        } else {
+            const prevItem = arr[index - 1];
+            item.value = evalExpression(prevItem.step, { [prevItem.prevArgName]: prevItem.value });
+            item.step = prevItem.step;
+            item.prevArgName = prevItem.prevArgName;
+        }
     }
 
     toPlain() {
         return {
             ...super.toPlain(),
             name: this.name,
-            items: this.options
+            items: this.items.map(x => x.toPlain()),
         };
     }
 }
