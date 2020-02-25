@@ -24,11 +24,8 @@ classItem
     ;
 
 enumItem
-    : name = ID '=' value = expression ',' '\\' (prev = ID ':')? step = expression
-    | name = ID '=' value = expression
-    | name = ID '\\' (prev = ID ':')? step = expression
-    | name = ID
-    ;
+    : name = ID ('=' expression)?
+    ; // $name, $index, $prev - if previous step was changed after some gap
 
 schemeItem
     : name = ID ':' type = ID? ('=' value = expression)

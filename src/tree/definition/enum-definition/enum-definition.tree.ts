@@ -16,18 +16,17 @@ export class EnumDefinitionTree extends ExpressionTree {
         this.items.forEach(this.getEnumItemValue.bind(this));
     }
 
-    getEnumItemValue(item: EnumItemTree, index, arr) {
-        if (item.value !== undefined) return;
-
-        if (index == 0) {
-            item.value = 0;
-            item.step = parseExpression(item.prevArgName + '+1');
-        } else {
-            const prevItem = arr[index - 1];
-            item.value = evalExpression(prevItem.step, { [prevItem.prevArgName]: prevItem.value });
-            item.step = prevItem.step;
-            item.prevArgName = prevItem.prevArgName;
+    getEnumItemValue(item: EnumItemTree, index: number, arr: EnumItemTree[]) {
+        if (!item.expressionValue) {
+            item.expressionValue =
+                (arr[index - 1] && arr[index - 1].expressionValue) || parseExpression('$index');
         }
+
+        item.value = evalExpression(item.expressionValue, {
+            $index: index,
+            $name: item.name,
+            $prev: arr[index - 1]?.value,
+        });
     }
 
     toPlain() {

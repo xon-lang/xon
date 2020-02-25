@@ -28,7 +28,7 @@ scheme ApiPostResult:
         some: String
 
 enum Fruit:
-    Apple \$ + 4
+    Apple = $ + 4
     Banana
     Garnet
 

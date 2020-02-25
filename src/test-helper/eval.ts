@@ -1,3 +1,4 @@
+import { ExpressionContext } from '../grammar/xon-parser';
 import { AddSubExpressionTree } from '../tree/expression/add-sub-expression/add-sub-expression.tree';
 import { BitAndExpressionTree } from '../tree/expression/bit-and-expression/bit-and-expression.tree';
 import { BitNotExpressionTree } from '../tree/expression/bit-not-expression/bit-not-expression.tree';
@@ -5,6 +6,7 @@ import { BitOrExpressionTree } from '../tree/expression/bit-or-expression/bit-or
 import { BitShiftExpressionTree } from '../tree/expression/bit-shift-expression/bit-shift-expression.tree';
 import { BitXorExpressionTree } from '../tree/expression/bit-xor-expression/bit-xor-expression.tree';
 import { EqualityExpressionTree } from '../tree/expression/equality-expression/equality-expression.tree';
+import { getExpressionTree } from '../tree/expression/expression-helper';
 import { ExpressionTree } from '../tree/expression/expression.tree';
 import { IdExpressionTree } from '../tree/expression/id-expression/id-expression.tree';
 import { LiteralExpressionTree } from '../tree/expression/literal-expression/literal-expression.tree';
@@ -82,4 +84,8 @@ export function evalExpression(tree: ExpressionTree, params = {}) {
     if (tree instanceof LogicalOrExpressionTree) return a || b;
 
     throw 'Unsupported operation';
+}
+
+export function evalExpressionCtx(ctx: ExpressionContext) {
+    return evalExpression(getExpressionTree(ctx));
 }
