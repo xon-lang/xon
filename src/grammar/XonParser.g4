@@ -11,7 +11,7 @@ imports:      importPath ':' ('*' 'as' alias = ID | importMember (',' importMemb
 importPath:   '.'* (ID | StringLiteral) ('.' (ID | StringLiteral))*;
 importMember: name = ID 'as' alias = ID | name = ID;
 
-// type definitions
+// definitions
 definition
     : 'class' ID ':' LineBreak INDENT (classItem LineBreak)+ DEDENT   # classDefinition
     | 'enum' ID ':' LineBreak INDENT (enumItem LineBreak)+ DEDENT     # enumDefinition
@@ -19,8 +19,8 @@ definition
     ;
 
 classItem
-    : name = ID ':' type = ID? ('=' value = expression)    # propertyClassItem
-    | name = ID (scopeArgument (',' scopeArgument)*)? body # methodClassItem
+    : name = ID ':' valueType = ID? ('=' value = expression) # propertyClassItem
+    | name = ID (scopeArgument (',' scopeArgument)*)? body   # methodClassItem
     ;
 
 enumItem
@@ -28,8 +28,8 @@ enumItem
     ; // $name, $index, $prev - if previous step was changed after some gap
 
 schemeItem
-    : name = ID ':' type = ID? ('=' value = expression)
-    | name = ID ':' LineBreak INDENT schemeItem+ DEDENT
+    : name = ID (':' valueType = ID)? ('=' value = expression)?
+    | name = ID ':' LineBreak INDENT (schemeItem LineBreak)+ DEDENT
     ;
 
 // statements
@@ -38,7 +38,7 @@ statement
     | 'if' expression body ('else' ('if' expression)? body)?                          # ifStatement
     | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body # loopStatement
     | name = ID '::' '=' value = expression                                           # constantStatement
-    | name = ID ':' (type = ID | type = ID? '=' value = expression)                   # declarationStatement
+    | name = ID ':' (valueType = ID | valueType = ID? '=' value = expression)         # declarationStatement
     | ID '=' expression                                                               # assignmentStatement
     | ID (scopeArgument (',' scopeArgument)*)? body                                   # scopeStatement
     | 'continue'                                                                      # continueStatement
@@ -48,8 +48,10 @@ statement
     | LineBreak                                                                       # LineBreakStatement
     ;
 
-scopeArgument: name = ID ':' type = ID ('=' value = expression)? (':' condition = expression)?;
-body:          ':' (statement | LineBreak INDENT statement+ DEDENT);
+scopeArgument
+    : name = ID ':' valueType = ID ('=' value = expression)? (':' condition = expression)?
+    ;
+body: ':' (statement | LineBreak INDENT statement+ DEDENT);
 
 // expressions
 expression

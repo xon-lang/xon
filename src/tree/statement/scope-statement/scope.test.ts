@@ -9,11 +9,11 @@ test('function with one expression body', () => {
     expect(tree.name).toBe('foo');
     expect(tree.args.length).toBe(2);
 
-    expect(tree.args[0].type).toBe('str');
+    expect(tree.args[0].valueType).toBe('str');
     expect(tree.args[0].name).toBe('s');
     expect(tree.args[0].value['literal']['value']).toBe('simple string');
 
-    expect(tree.args[1].type).toBe('i8');
+    expect(tree.args[1].valueType).toBe('i8');
     expect(tree.args[1].name).toBe('num');
     expect(tree.args[1].value['literal']['value']).toBe(7);
     expect(evalExpression(tree.args[1].condition)).toBe(99 + 10);

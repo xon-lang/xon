@@ -1,0 +1,4 @@
+scheme SomeScheme:
+    a:
+        b: num = 7 + 7
+        ccc = 7 * 7
