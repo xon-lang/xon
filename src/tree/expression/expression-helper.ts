@@ -113,5 +113,5 @@ export function getExpressionTree(ctx: ExpressionContext) {
     else if (ctx instanceof StringFormatExpressionContext)
         return new StringFormatExpressionTree(ctx);
 
-    throw 'No Expression found for ' + ctx.constructor.name;
+    throw Error('No Expression found for ' + ctx.constructor.name);
 }

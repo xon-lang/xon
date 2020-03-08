@@ -1,8 +1,2 @@
-someFuntion(i8 a, str b)
-
-{
-    // empty scopes
-    foo x:str = 'empty': x.length > 4 {
-        
-    }
-}
+someFuntion a:i8, b:str:
+    foo x:str = 'empty': x.length > 4

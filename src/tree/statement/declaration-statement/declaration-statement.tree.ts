@@ -11,7 +11,7 @@ export class DeclarationStatementTree extends StatementTree {
     constructor(public ctx: DeclarationStatementContext) {
         super();
         this.name = ctx._name.text;
-        this.valueType = ctx._type?.text;
+        this.valueType = ctx._valueType?.text;
         this.value = ctx._value && getExpressionTree(ctx._value);
     }
 

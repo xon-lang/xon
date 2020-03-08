@@ -20,5 +20,5 @@ export function getLiteralTree(ctx: LiteralContext): LiteralTree {
     if (ctx instanceof FloatLiteralContext) return new FloatLiteralTree(ctx);
     if (ctx instanceof StringLiteralContext) return new StringLiteralTree(ctx);
 
-    throw 'No Literal found for ' + ctx.constructor.name;
+    throw Error('No Literal found for ' + ctx.constructor.name);
 }

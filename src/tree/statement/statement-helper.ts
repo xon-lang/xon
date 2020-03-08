@@ -1,4 +1,15 @@
-import { AssignmentStatementContext, DeclarationStatementContext, ExpressionStatementContext, IfStatementContext, LineBreakStatementContext, LoopStatementContext, PreprocessorStatementContext, ReturnStatementContext, ScopeStatementContext, StatementContext } from '../../grammar/xon-parser';
+import {
+    AssignmentStatementContext,
+    DeclarationStatementContext,
+    ExpressionStatementContext,
+    IfStatementContext,
+    LineBreakStatementContext,
+    LoopStatementContext,
+    PreprocessorStatementContext,
+    ReturnStatementContext,
+    ScopeStatementContext,
+    StatementContext,
+} from '../../grammar/xon-parser';
 import { AssignmentStatementTree } from './assignment-statement/assignment-statement.tree';
 import { DeclarationStatementTree } from './declaration-statement/declaration-statement.tree';
 import { ExpressionStatementTree } from './expression-statement/expression-statement.tree';
@@ -21,10 +32,9 @@ export function getStatementTree(ctx: StatementContext): StatementTree {
     if (ctx instanceof ScopeStatementContext) return new ScopeStatementTree(ctx);
     if (ctx instanceof DeclarationStatementContext) return new DeclarationStatementTree(ctx);
 
-    throw 'No Statemenet found for ' + ctx.constructor.name;
+    throw Error('No Statemenet found for ' + ctx.constructor.name);
 }
 
 export function getStatementsTree(statements: StatementContext[]) {
-    return statements.filter(x => !(x instanceof LineBreakStatementContext))
-        .map(getStatementTree)
+    return statements.filter(x => !(x instanceof LineBreakStatementContext)).map(getStatementTree);
 }

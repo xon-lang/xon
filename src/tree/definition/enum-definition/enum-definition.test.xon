@@ -1,0 +1,5 @@
+enum SomeEnum: // $index, $name, $prev
+    River = $name + $index + $prev,
+    Tree,
+    Birds,
+    Animals
