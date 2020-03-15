@@ -31,6 +31,7 @@ Break:    'break';
 Return:   'return';
 As:       'as';
 Var:      'var';
+Await:    'await';
 
 Preprocessor: '#:' ~[\r\n]+;
 LineBreak:    ({this.atStartOfInput()}? SPACES | ( '\r'? '\n' | '\r') SPACES?) {this.handleLineBreak()};

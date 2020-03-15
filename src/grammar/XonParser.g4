@@ -64,6 +64,7 @@ expression
     | '-' expression                                                                                  # unaryMinusExpression
     | '~' expression                                                                                  # bitNotExpression
     | '!' expression                                                                                  # logicalNotExpression
+    | 'await' expression                                                                              # awaitExpression
     | left = expression operation = ('*' | '/' | '%') right = expression                              # mulDivModExpression
     | left = expression operation = ('+' | '-') right = expression                                    # addSubExpression
     | left = expression operation = ('<<' | '>>' | '>>>') right = expression                          # bitShiftExpression
