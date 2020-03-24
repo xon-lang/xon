@@ -37,6 +37,7 @@ statement
     : Preprocessor                                                                    # preprocessorStatement
     | 'if' expression body ('else' ('if' expression)? body)?                          # ifStatement
     | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body # loopStatement
+    | 'select' value = expression? ':' LineBreak (INDENT item = expression body)+     # selectStatement
     | name = ID '::' '=' value = expression                                           # constantStatement
     | name = ID ':' (valueType = ID | valueType = ID? '=' value = expression)         # declarationStatement
     | ID '=' expression                                                               # assignmentStatement
