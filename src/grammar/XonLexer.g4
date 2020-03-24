@@ -31,7 +31,6 @@ Break:    'break';
 Return:   'return';
 As:       'as';
 Var:      'var';
-Await:    'await';
 Select:   'select';
 
 Preprocessor: '#:' ~[\r\n]+;
