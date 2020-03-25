@@ -11,27 +11,24 @@ imports:      importPath ':' ('*' 'as' alias = ID | importMember (',' importMemb
 importPath:   '.'* (ID | StringLiteral) ('.' (ID | StringLiteral))*;
 importMember: name = ID 'as' alias = ID | name = ID;
 
-definition: TypeID ':' LineBreak INDENT (declration LineBreak)+ DEDENT;
-declration
-    : name = ID ':' valueType = ID? ('=' value = expression) # propertyDeclaration
-    | name = ID '(' (argument (',' argument)*)? ')' body     # methodDeclaration
+definition: TypeID ':' LineBreak INDENT (definitionMember LineBreak)+ DEDENT;
+definitionMember
+    : name = ID (':' valueType = ID | '=' value = expression) # propertyMember
+    | name = ID '(' (argument (',' argument)*)? ')' body      # methodMember
     ;
 
 // statements
 statement
-    : Preprocessor                                                                    # preprocessorStatement
-    | 'if' expression body ('else' ('if' expression)? body)?                          # ifStatement
-    | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body # loopStatement
-    | 'select' value = expression? ':' LineBreak (INDENT item = expression body)+     # selectStatement
-    | ID '::=' expression                                                             # constantStatement
-    | ID ':=' expression                                                              # declarationStatement
-    | ID '=' expression                                                               # assignmentStatement
-    | ID '(' (argument (',' argument)*)? ')' body                                     # functionStatement
-    | 'continue'                                                                      # continueStatement
-    | 'break'                                                                         # breakStatement
-    | 'return' expression?                                                            # returnStatement
-    | expression                                                                      # expressionStatement
-    | LineBreak                                                                       # LineBreakStatement
+    : Preprocessor                                # preprocessorStatement
+    | ID '::=' expression                         # constantStatement
+    | ID ':=' expression                          # declarationStatement
+    | ID '=' expression                           # assignmentStatement
+    | ID '(' (argument (',' argument)*)? ')' body # functionStatement
+    | 'continue'                                  # continueStatement
+    | 'break'                                     # breakStatement
+    | 'return' expression?                        # returnStatement
+    | expression                                  # expressionStatement
+    | LineBreak                                   # LineBreakStatement
     ;
 
 argument: name = ID ':' valueType = ID ('=' value = expression)?;
@@ -39,7 +36,10 @@ body:     ':' (statement | LineBreak INDENT statement+ DEDENT);
 
 // expressions
 expression
-    : object = expression '(' (args += expression (',' args += expression)*)? ')'                     # functionExpression
+    : 'if' expression body ('else' ('if' expression)? body)?                                          # ifExpression
+    | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body                 # loopExpression
+    | 'select' value = expression? ':' LineBreak (INDENT item = expression body)+                     # selectExpression
+    | object = expression '(' (args += expression (',' args += expression)*)? ')'                     # functionExpression
     | value = expression '[' index = expression ']'                                                   # indexExpression
     | value = expression '[' startPos = expression ':' end = expression? (':' step = expression)? ']' # sliceExpression
     | expression '?'? '.' ID                                                                          # memberExpression

@@ -1,0 +1,7 @@
+SomeClass:
+    property: str
+    anotherProp = 234
+    
+    method():
+        hello()
+    

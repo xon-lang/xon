@@ -10,12 +10,14 @@ import {
     ExpressionContext,
     FunctionExpressionContext,
     IdExpressionContext,
+    IfExpressionContext,
     IndexExpressionContext,
     LambdaExpressionContext,
     LiteralExpressionContext,
     LogicalAndExpressionContext,
     LogicalNotExpressionContext,
     LogicalOrExpressionContext,
+    LoopExpressionContext,
     MemberExpressionContext,
     MulDivModExpressionContext,
     ParenthesizedExpressionContext,
@@ -23,6 +25,7 @@ import {
     PowExpressionContext,
     RangeExpressionContext,
     RelationalExpressionContext,
+    SelectExpressionContext,
     SliceExpressionContext,
     StringFormatExpressionContext,
     UnaryMinusExpressionContext,
@@ -38,18 +41,21 @@ import { BitXorExpressionTree } from './bit-xor-expression/bit-xor-expression.tr
 import { EqualityExpressionTree } from './equality-expression/equality-expression.tree';
 import { FunctionExpressionTree } from './function-expression/function-expression.tree';
 import { IdExpressionTree } from './id-expression/id-expression.tree';
+import { IfExpressionTree } from './if-expression/if-expression.tree';
 import { IndexExpressionTree } from './index-expression/index-expression.tree';
 import { LambdaExpressionTree } from './lambda-expression/lambda-expression.tree';
 import { LiteralExpressionTree } from './literal-expression/literal-expression.tree';
 import { LogicalAndExpressionTree } from './logical-and-expression/logical-and-expression.tree';
 import { LogicalNotExpressionTree } from './logical-not-expression/logical-not-expression.tree';
 import { LogicalOrExpressionTree } from './logical-or-expression/logical-or-expression.tree';
+import { LoopExpressionTree } from './loop-statement/loop-statement.tree';
 import { MemberExpressionTree } from './member-expression/member-expression.tree';
 import { MulDivModExpressionTree } from './mul-div-mod-expression/mul-div-mod-expression.tree';
 import { PipeExpressionTree } from './pipe-expression/pipe-expression.tree';
 import { PowExpressionTree } from './pow-expression/pow-expression.tree';
 import { RangeExpressionTree } from './range-expression/range-expression.tree';
 import { RelationalExpressionTree } from './relational-expression/relational-expression.tree';
+import { SelectExpressionTree } from './select-statement/select-statement.tree';
 import { SliceExpressionTree } from './slice-expression/slice-expression.tree';
 import { StringFormatExpressionTree } from './string-format-expression/string-format-expression.tree';
 import { UnaryMinusExpressionTree } from './unary-minus-expression/unary-minus-expression.tree';
@@ -112,6 +118,12 @@ export function getExpressionTree(ctx: ExpressionContext) {
     // StringFormat
     else if (ctx instanceof StringFormatExpressionContext)
         return new StringFormatExpressionTree(ctx);
+    // IfExpression
+    else if (ctx instanceof IfExpressionContext) return new IfExpressionTree(ctx);
+    // LoopExpression
+    else if (ctx instanceof LoopExpressionContext) return new LoopExpressionTree(ctx);
+    // SelectExpression
+    else if (ctx instanceof SelectExpressionContext) return new SelectExpressionTree(ctx);
 
     throw Error('No Expression found for ' + ctx.constructor.name);
 }

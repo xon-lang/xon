@@ -1,16 +1,16 @@
-import { IfStatementContext } from '../../../grammar/xon-parser';
-import { getExpressionTree } from '../../expression/expression-helper';
-import { ExpressionTree } from '../../expression/expression.tree';
-import { getStatementsTree } from '../statement-helper';
-import { StatementTree } from '../statement.tree';
+import { IfExpressionContext } from '../../../grammar/xon-parser';
+import { getExpressionTree } from '../expression-helper';
+import { ExpressionTree } from '../expression.tree';
+import { StatementTree } from '../../statement/statement.tree';
+import { getStatementsTree } from '../../statement/statement-helper';
 
-export class IfStatementTree extends StatementTree {
+export class IfExpressionTree extends StatementTree {
     ifCondition: ExpressionTree;
     ifStatements: StatementTree[];
     elseCondition: ExpressionTree;
     elseStatements: StatementTree[];
 
-    constructor(public ctx: IfStatementContext) {
+    constructor(public ctx: IfExpressionContext) {
         super();
         const [ifExpression, elseExpression] = ctx.expression();
         const [ifBody, elseBody] = ctx.body();

@@ -1,10 +1,10 @@
-import { LoopStatementContext } from '../../../grammar/xon-parser';
-import { getExpressionTree } from '../../expression/expression-helper';
-import { ExpressionTree } from '../../expression/expression.tree';
-import { getStatementsTree } from '../statement-helper';
-import { StatementTree } from '../statement.tree';
+import { LoopExpressionContext } from '../../../grammar/xon-parser';
+import { getExpressionTree } from '../expression-helper';
+import { ExpressionTree } from '../expression.tree';
+import { getStatementsTree } from '../../statement/statement-helper';
+import { StatementTree } from '../../statement/statement.tree';
 
-export class LoopStatementTree extends StatementTree {
+export class LoopExpressionTree extends StatementTree {
     infinity: boolean;
 
     indexName: string;
@@ -13,7 +13,7 @@ export class LoopStatementTree extends StatementTree {
     expression: ExpressionTree;
     statements: StatementTree[];
 
-    constructor(public ctx: LoopStatementContext) {
+    constructor(public ctx: LoopExpressionContext) {
         super();
         this.infinity = !ctx.expression();
 
@@ -21,9 +21,7 @@ export class LoopStatementTree extends StatementTree {
         this.keyName = ctx._key?.text;
         this.valueName = ctx._value?.text;
         this.expression = ctx.expression() && getExpressionTree(ctx.expression());
-        this.statements = getStatementsTree(ctx
-            .body()
-            .statement());
+        this.statements = getStatementsTree(ctx.body().statement());
     }
 
     toPlain() {

@@ -1,7 +1,7 @@
 import {
     DefinitionContext,
-    MethodDeclarationContext,
-    PropertyDeclarationContext,
+    MethodMemberContext,
+    PropertyMemberContext,
 } from '../../grammar/xon-parser';
 import { getExpressionTree } from '../expression/expression-helper';
 import { ExpressionTree } from '../expression/expression.tree';
@@ -22,9 +22,9 @@ export class DefinitionTree extends ExpressionTree {
         this.name = ctx.TypeID().text;
 
         this.properties = ctx
-            .declration()
-            .filter(x => x instanceof PropertyDeclarationContext)
-            .map(x => x as PropertyDeclarationContext)
+            .definitionMember()
+            .filter(x => x instanceof PropertyMemberContext)
+            .map(x => x as PropertyMemberContext)
             .map(x => ({
                 name: x._name.text,
                 valueType: x._valueType.text,
@@ -32,8 +32,8 @@ export class DefinitionTree extends ExpressionTree {
             }));
 
         this.methods = ctx
-            .declration()
-            .filter(x => x instanceof MethodDeclarationContext)
+            .definitionMember()
+            .filter(x => x instanceof MethodMemberContext)
             .map(x => getStatementTree(x) as FunctionStatementTree);
     }
 
