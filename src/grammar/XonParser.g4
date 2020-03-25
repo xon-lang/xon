@@ -11,25 +11,10 @@ imports:      importPath ':' ('*' 'as' alias = ID | importMember (',' importMemb
 importPath:   '.'* (ID | StringLiteral) ('.' (ID | StringLiteral))*;
 importMember: name = ID 'as' alias = ID | name = ID;
 
-// definitions
-definition
-    : 'class' ID ':' LineBreak INDENT (classItem LineBreak)+ DEDENT   # classDefinition
-    | 'enum' ID ':' LineBreak INDENT (enumItem LineBreak)+ DEDENT     # enumDefinition
-    | 'scheme' ID ':' LineBreak INDENT (schemeItem LineBreak)+ DEDENT # schemeDefinition
-    ;
-
-classItem
-    : name = ID ':' valueType = ID? ('=' value = expression) # propertyClassItem
-    | name = ID (scopeArgument (',' scopeArgument)*)? body   # methodClassItem
-    ;
-
-enumItem
-    : name = ID ('=' expression)?
-    ; // $name, $index, $prev - if previous step was changed after some gap
-
-schemeItem
-    : name = ID (':' valueType = ID)? ('=' value = expression)?
-    | name = ID ':' LineBreak INDENT (schemeItem LineBreak)+ DEDENT
+definition: TypeID ':' LineBreak INDENT (declration LineBreak)+ DEDENT;
+declration
+    : name = ID ':' valueType = ID? ('=' value = expression) # propertyDeclaration
+    | name = ID '(' (argument (',' argument)*)? ')' body     # methodDeclaration
     ;
 
 // statements
@@ -38,10 +23,10 @@ statement
     | 'if' expression body ('else' ('if' expression)? body)?                          # ifStatement
     | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body # loopStatement
     | 'select' value = expression? ':' LineBreak (INDENT item = expression body)+     # selectStatement
-    | name = ID '::' '=' value = expression                                           # constantStatement
-    | name = ID ':' (valueType = ID | valueType = ID? '=' value = expression)         # declarationStatement
+    | ID '::=' expression                                                             # constantStatement
+    | ID ':=' expression                                                              # declarationStatement
     | ID '=' expression                                                               # assignmentStatement
-    | ID (scopeArgument (',' scopeArgument)*)? body                                   # scopeStatement
+    | ID '(' (argument (',' argument)*)? ')' body                                     # functionStatement
     | 'continue'                                                                      # continueStatement
     | 'break'                                                                         # breakStatement
     | 'return' expression?                                                            # returnStatement
@@ -49,10 +34,8 @@ statement
     | LineBreak                                                                       # LineBreakStatement
     ;
 
-scopeArgument
-    : name = ID ':' valueType = ID ('=' value = expression)? (':' condition = expression)?
-    ;
-body: ':' (statement | LineBreak INDENT statement+ DEDENT);
+argument: name = ID ':' valueType = ID ('=' value = expression)?;
+body:     ':' (statement | LineBreak INDENT statement+ DEDENT);
 
 // expressions
 expression

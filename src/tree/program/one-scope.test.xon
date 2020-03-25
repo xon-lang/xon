@@ -1,7 +1,7 @@
-oneScope:
+oneScope():
     a = 23 + 5
     loop array:
         log('no way')
 
-some_fun a: i8:a>10+b, b: str:
+some_fun (a: i8, b: str):
     call()

@@ -1,12 +1,11 @@
 import { evalExpression, parseCode } from '../../../test-helper';
-import { ScopeStatementTree } from '../scope-statement/scope-statement.tree';
 import { ReturnStatementTree } from './return-statement.tree';
 
 test('return in scope', () => {
-    const code = 'myScope:    return 6+6';
-    const tree = parseCode(code, ScopeStatementTree);
+    const code = 'return 6+6';
+    const tree = parseCode(code, ReturnStatementTree);
 
-    expect(tree.statements[0]).toBeInstanceOf(ReturnStatementTree);
-    const returnStatement = tree.statements[0] as ReturnStatementTree;
+    expect(tree).toBeInstanceOf(ReturnStatementTree);
+    const returnStatement = tree as ReturnStatementTree;
     expect(evalExpression(returnStatement.value)).toBe(6 + 6);
 });

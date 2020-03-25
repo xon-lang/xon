@@ -88,6 +88,8 @@ BitOrAssign:                '|=';
 LambdaStart:                '\\';
 Pipe:                       '|';
 Underscore:                 '_';
+Declaration:                ':=';
+Constant:                   '::=';
 
 NullLiteral:    'null';
 BooleanLiteral: 'true' | 'false';
@@ -98,7 +100,8 @@ StringLiteral:  '\'' CHARACTER* '\'';
 StringFormatStart:  'f\'' CHARACTER* '{';
 StringFormatMiddle: '}' CHARACTER* '{';
 StringFormatEnd:    '}' CHARACTER* '\'';
-ID:                 [a-zA-Z$] [a-zA-Z0-9_]* | [a-zA-Z_$] [a-zA-Z0-9_]+;
+ID:                 [a-z$] [a-zA-Z0-9_]* | [a-z_$] [a-zA-Z0-9_]+;
+TypeID:             [A-Z] [a-zA-Z0-9_]*;
 // LineBreak:    '\n';
 
 // Documentation: '_' .*? '_';
