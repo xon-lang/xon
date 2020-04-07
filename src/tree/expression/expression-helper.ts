@@ -48,20 +48,22 @@ import { LiteralExpressionTree } from './literal-expression/literal-expression.t
 import { LogicalAndExpressionTree } from './logical-and-expression/logical-and-expression.tree';
 import { LogicalNotExpressionTree } from './logical-not-expression/logical-not-expression.tree';
 import { LogicalOrExpressionTree } from './logical-or-expression/logical-or-expression.tree';
-import { LoopExpressionTree } from './loop-statement/loop-statement.tree';
+import { LoopExpressionTree } from './loop-expression/loop-expression.tree';
 import { MemberExpressionTree } from './member-expression/member-expression.tree';
 import { MulDivModExpressionTree } from './mul-div-mod-expression/mul-div-mod-expression.tree';
 import { PipeExpressionTree } from './pipe-expression/pipe-expression.tree';
 import { PowExpressionTree } from './pow-expression/pow-expression.tree';
 import { RangeExpressionTree } from './range-expression/range-expression.tree';
 import { RelationalExpressionTree } from './relational-expression/relational-expression.tree';
-import { SelectExpressionTree } from './select-statement/select-statement.tree';
+import { SelectExpressionTree } from './select-expression/select-expression.tree';
 import { SliceExpressionTree } from './slice-expression/slice-expression.tree';
 import { StringFormatExpressionTree } from './string-format-expression/string-format-expression.tree';
 import { UnaryMinusExpressionTree } from './unary-minus-expression/unary-minus-expression.tree';
 import { UnaryPlusExpressionTree } from './unary-plus-expression/unary-plus-expression.tree';
 
 export function getExpressionTree(ctx: ExpressionContext) {
+    if (ctx === undefined) return undefined;
+
     // IdExpression
     if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);
     // ParenthesizedExpression
@@ -125,5 +127,5 @@ export function getExpressionTree(ctx: ExpressionContext) {
     // SelectExpression
     else if (ctx instanceof SelectExpressionContext) return new SelectExpressionTree(ctx);
 
-    throw Error('No Expression found for ' + ctx.constructor.name);
+    throw Error('No Expression found for ' + ctx?.constructor?.name);
 }

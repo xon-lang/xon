@@ -9,7 +9,7 @@ program:  /* imports*?  */ statement*;
 
 imports:      importPath ':' ('*' 'as' alias = ID | importMember (',' importMember)*);
 importPath:   '.'* (ID | StringLiteral) ('.' (ID | StringLiteral))*;
-importMember: name = ID 'as' alias = ID | name = ID;
+importMember: name = ID ('as' alias = ID)?;
 
 definition: TypeID ':' LineBreak INDENT (definitionMember LineBreak)+ DEDENT;
 definitionMember
@@ -36,9 +36,11 @@ body:     ':' (statement | LineBreak INDENT statement+ DEDENT);
 
 // expressions
 expression
-    : 'if' expression body ('else' ('if' expression)? body)?                                          # ifExpression
-    | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body                 # loopExpression
-    | 'select' value = expression? ':' LineBreak (INDENT item = expression body)+                     # selectExpression
+    : 'if' expression body ('else' ('if' expression)? body)?                          # ifExpression
+    | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body # loopExpression
+    | 'select' (value = expression ('as' ID)?)? ':' LineBreak INDENT (
+        cases += expression body LineBreak
+    )+ DEDENT                                                                                         # selectExpression
     | object = expression '(' (args += expression (',' args += expression)*)? ')'                     # functionExpression
     | value = expression '[' index = expression ']'                                                   # indexExpression
     | value = expression '[' startPos = expression ':' end = expression? (':' step = expression)? ']' # sliceExpression

@@ -7,6 +7,10 @@ export abstract class BaseTree {
         return this.ctx.constructor.name.replace(/Context$/, '');
     }
 
+    log() {
+        console.log(this.toJson());
+    }
+
     toPlain() {
         return {
             type: this.type,
