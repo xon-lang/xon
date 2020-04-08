@@ -4,4 +4,6 @@ SomeClass:
     
     method():
         hello()
+        bye()
     
+    location(x: num, y:num = 6): coord(x, y)

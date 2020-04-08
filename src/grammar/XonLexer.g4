@@ -100,10 +100,7 @@ StringLiteral:  '\'' CHARACTER* '\'';
 StringFormatStart:  'f\'' CHARACTER* '{';
 StringFormatMiddle: '}' CHARACTER* '{';
 StringFormatEnd:    '}' CHARACTER* '\'';
-ID:                 [a-z$] [a-zA-Z0-9_]* | [a-z_$] [a-zA-Z0-9_]+;
-TypeID:             [A-Z] [a-zA-Z0-9_]*;
-// LineBreak:    '\n';
-
+ID:                 [a-zA-Z_] [a-zA-Z0-9_]*;
 // Documentation: '_' .*? '_';
 
 Skip:                ( SPACES | SINGLE_LINE_COMMENT | MULTI_LINE_COMMENT | LINE_JOINING) -> skip;

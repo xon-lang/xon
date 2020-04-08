@@ -11,7 +11,7 @@ imports:      importPath ':' ('*' 'as' alias = ID | importMember (',' importMemb
 importPath:   '.'* (ID | StringLiteral) ('.' (ID | StringLiteral))*;
 importMember: name = ID ('as' alias = ID)?;
 
-definition: TypeID ':' LineBreak INDENT (definitionMember LineBreak)+ DEDENT;
+definition: ID ':' LineBreak INDENT definitionMember+ DEDENT;
 definitionMember
     : name = ID (':' valueType = ID | '=' value = expression) # propertyMember
     | name = ID '(' (argument (',' argument)*)? ')' body      # methodMember
