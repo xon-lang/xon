@@ -13,9 +13,9 @@ importMember: name = ID ('as' alias = ID)?;
 
 definition: ID ':' LineBreak INDENT definitionMember+ DEDENT;
 definitionMember
-    : name = ID (':' valueType = ID | '=' value = expression) # propertyMember
-    | name = ID '(' (argument (',' argument)*)? ')' body      # methodMember
-    | LineBreak                                               # lineBreakMember
+    : name = ID (':' type = ID | '=' value = expression) # propertyMember
+    | name = ID '(' (argument (',' argument)*)? ')' body # methodMember
+    | LineBreak                                          # lineBreakMember
     ;
 
 // statements
@@ -32,7 +32,7 @@ statement
     | LineBreak                                   # lineBreakStatement
     ;
 
-argument: name = ID ':' valueType = ID ('=' value = expression)?;
+argument: name = ID ':' type = ID ('=' value = expression)?;
 body:     ':' (statement | LineBreak INDENT statement+ DEDENT);
 
 // expressions

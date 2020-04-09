@@ -5,7 +5,7 @@ import { StatementTree } from '../statement.tree';
 
 export class DeclarationStatementTree extends StatementTree {
     name: string;
-    valueType: string;
+    type: string;
     value: ExpressionTree;
 
     constructor(public ctx: DeclarationStatementContext) {
@@ -18,7 +18,7 @@ export class DeclarationStatementTree extends StatementTree {
         return {
             ...super.toPlain(),
             name: this.name,
-            valueType: this.valueType,
+            type: this.type,
             value: this.value?.toPlain(),
         };
     }

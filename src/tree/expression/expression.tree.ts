@@ -2,7 +2,7 @@ import { evalExpression } from '../../test-helper';
 import { BaseTree } from '../base.tree';
 
 export abstract class ExpressionTree extends BaseTree {
-    valueType: string;
+    type: string;
 
     eval() {
         return evalExpression(this);
@@ -11,7 +11,7 @@ export abstract class ExpressionTree extends BaseTree {
     toPlain() {
         return {
             ...super.toPlain(),
-            valueType: this.valueType,
+            type: this.type,
         };
     }
 }

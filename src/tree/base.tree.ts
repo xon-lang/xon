@@ -3,7 +3,7 @@ import { ParserRuleContext } from 'antlr4ts';
 export abstract class BaseTree {
     ctx: ParserRuleContext;
 
-    get type() {
+    get treeType() {
         return this.ctx.constructor.name.replace(/Context$/, '');
     }
 
@@ -13,7 +13,7 @@ export abstract class BaseTree {
 
     toPlain() {
         return {
-            type: this.type,
+            type: this.treeType,
         };
     }
 

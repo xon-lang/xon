@@ -6,6 +6,6 @@ export class NullLiteralTree extends LiteralTree {
     constructor(public ctx: NullLiteralContext) {
         super();
         this.value = 0; // ctx.NullLiteral().text;
-        this.valueType = LiteralType.Null;
+        this.type = LiteralType.Null;
     }
 }

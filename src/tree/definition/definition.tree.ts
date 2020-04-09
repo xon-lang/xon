@@ -12,14 +12,14 @@ export class DefinitionTree extends ExpressionTree {
     name: string;
     properties: {
         name: string;
-        valueType: string;
+        type: string;
         value: ExpressionTree;
     }[];
     methods: {
         name: string;
         args: {
             name: string;
-            valueType: string;
+            type: string;
             value: ExpressionTree;
         }[];
         statements: StatementTree[];
@@ -35,7 +35,7 @@ export class DefinitionTree extends ExpressionTree {
             .map((x) => x as PropertyMemberContext)
             .map((x) => ({
                 name: x._name.text,
-                valueType: x._valueType?.text,
+                type: x._type?.text,
                 value: getExpressionTree(x._value),
             }));
 
@@ -48,7 +48,7 @@ export class DefinitionTree extends ExpressionTree {
                 args:
                     x.argument()?.map((x) => ({
                         name: x._name.text,
-                        valueType: x._valueType.text,
+                        type: x._type.text,
                         value: x._value && getExpressionTree(x._value),
                     })) || [],
                 statements: getStatementsTree(x.body().statement()),
@@ -62,13 +62,13 @@ export class DefinitionTree extends ExpressionTree {
             properties: this.properties.map((x) => ({
                 name: x.name,
                 value: x.value?.toPlain(),
-                valueType: x.valueType,
+                type: x.type,
             })),
             methods: this.methods.map((x) => ({
                 name: x.name,
                 args: x.args.map((x) => ({
                     name: x.name,
-                    valueType: x.valueType,
+                    type: x.type,
                     value: x.value?.toPlain(),
                 })),
                 statements: x.statements.map((x) => x.toPlain()),

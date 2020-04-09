@@ -8,7 +8,7 @@ export class FunctionStatementTree extends StatementTree {
     name: string;
     args: {
         name: string;
-        valueType: string;
+        type: string;
         value: ExpressionTree;
     }[];
 
@@ -18,9 +18,9 @@ export class FunctionStatementTree extends StatementTree {
         super();
         this.name = ctx.ID().text;
         this.args =
-            ctx.argument()?.map(x => ({
+            ctx.argument()?.map((x) => ({
                 name: x._name.text,
-                valueType: x._valueType.text,
+                type: x._type.text,
                 value: x._value && getExpressionTree(x._value),
             })) || [];
         this.statements = getStatementsTree(ctx.body().statement());
@@ -30,12 +30,12 @@ export class FunctionStatementTree extends StatementTree {
         return {
             ...super.toPlain(),
             name: this.name,
-            args: this.args.map(x => ({
+            args: this.args.map((x) => ({
                 name: x.name,
-                valueType: x.valueType,
+                type: x.type,
                 value: x.value?.toPlain(),
             })),
-            statements: this.statements.map(x => x.toPlain()),
+            statements: this.statements.map((x) => x.toPlain()),
         };
     }
 }

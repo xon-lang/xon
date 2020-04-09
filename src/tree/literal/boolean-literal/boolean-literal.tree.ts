@@ -9,6 +9,6 @@ export class BooleanLiteralTree extends LiteralTree {
         super();
         this.isPositive = ctx.text == 'true';
         this.value = this.isPositive; // ctx.BooleanLiteral().text;
-        this.valueType = LiteralType.Boolean;
+        this.type = LiteralType.Boolean;
     }
 }

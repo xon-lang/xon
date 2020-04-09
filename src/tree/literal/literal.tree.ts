@@ -5,13 +5,13 @@ import { LiteralType } from './literal-type';
 export class LiteralTree extends BaseTree {
     ctx: LiteralContext;
     value: any;
-    valueType: LiteralType;
+    type: LiteralType;
 
     toPlain() {
         return {
             ...super.toPlain(),
             value: this.value,
-            valueType: this.valueType,
+            type: this.type,
         };
     }
 }

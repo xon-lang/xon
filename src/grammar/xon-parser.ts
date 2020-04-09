@@ -460,7 +460,7 @@ export class XonParser extends Parser {
 					this.state = 74;
 					this.match(XonParser.Colon);
 					this.state = 75;
-					(_localctx as PropertyMemberContext)._valueType = this.match(XonParser.ID);
+					(_localctx as PropertyMemberContext)._type = this.match(XonParser.ID);
 					}
 					break;
 				case XonParser.Assign:
@@ -723,7 +723,7 @@ export class XonParser extends Parser {
 			this.state = 132;
 			this.match(XonParser.Colon);
 			this.state = 133;
-			_localctx._valueType = this.match(XonParser.ID);
+			_localctx._type = this.match(XonParser.ID);
 			this.state = 136;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
@@ -2164,7 +2164,7 @@ export class DefinitionMemberContext extends ParserRuleContext {
 }
 export class PropertyMemberContext extends DefinitionMemberContext {
 	public _name: Token;
-	public _valueType: Token;
+	public _type: Token;
 	public _value: ExpressionContext;
 	public ID(): TerminalNode[];
 	public ID(i: number): TerminalNode;
@@ -2349,7 +2349,7 @@ export class LineBreakStatementContext extends StatementContext {
 
 export class ArgumentContext extends ParserRuleContext {
 	public _name: Token;
-	public _valueType: Token;
+	public _type: Token;
 	public _value: ExpressionContext;
 	public Colon(): TerminalNode { return this.getToken(XonParser.Colon, 0); }
 	public ID(): TerminalNode[];
