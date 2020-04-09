@@ -5,6 +5,7 @@ import {
 } from '../../grammar/xon-parser';
 import { getExpressionTree } from '../expression/expression-helper';
 import { ExpressionTree } from '../expression/expression.tree';
+import { getStatementsTree } from '../statement/statement-helper';
 import { StatementTree } from '../statement/statement.tree';
 
 export class DefinitionTree extends ExpressionTree {
@@ -50,7 +51,7 @@ export class DefinitionTree extends ExpressionTree {
                         valueType: x._valueType.text,
                         value: x._value && getExpressionTree(x._value),
                     })) || [],
-                statements: null, // getStatementsTree(x.body().statement()),
+                statements: getStatementsTree(x.body().statement()),
             }));
     }
 
@@ -58,7 +59,11 @@ export class DefinitionTree extends ExpressionTree {
         return {
             ...super.toPlain(),
             name: this.name,
-            properties: this.properties,
+            properties: this.properties.map((x) => ({
+                name: x.name,
+                value: x.value?.toPlain(),
+                valueType: x.valueType,
+            })),
             methods: this.methods.map((x) => ({
                 name: x.name,
                 args: x.args.map((x) => ({

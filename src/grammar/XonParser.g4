@@ -15,6 +15,7 @@ definition: ID ':' LineBreak INDENT definitionMember+ DEDENT;
 definitionMember
     : name = ID (':' valueType = ID | '=' value = expression) # propertyMember
     | name = ID '(' (argument (',' argument)*)? ')' body      # methodMember
+    | LineBreak                                               # lineBreakMember
     ;
 
 // statements
@@ -28,7 +29,7 @@ statement
     | 'break'                                     # breakStatement
     | 'return' expression?                        # returnStatement
     | expression                                  # expressionStatement
-    | LineBreak                                   # LineBreakStatement
+    | LineBreak                                   # lineBreakStatement
     ;
 
 argument: name = ID ':' valueType = ID ('=' value = expression)?;
