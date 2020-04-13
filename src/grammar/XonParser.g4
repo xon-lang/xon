@@ -5,16 +5,16 @@ options {
     tokenVocab = XonLexer;
 }
 
-program:  /* imports*?  */ statement*;
+program:  /* imports*?  */ (statement | definition)*;
 
 imports:      importPath ':' ('*' 'as' alias = ID | importMember (',' importMember)*);
 importPath:   '.'* (ID | StringLiteral) ('.' (ID | StringLiteral))*;
 importMember: name = ID ('as' alias = ID)?;
 
-definition: ID ':' LineBreak INDENT definitionMember+ DEDENT;
+definition: name = ID ':' LineBreak INDENT definitionMember* DEDENT;
 definitionMember
     : name = ID (':' type = ID | '=' value = expression) # propertyMember
-    | name = ID '(' (argument (',' argument)*)? ')' body # methodMember
+    | ID '(' (argument (',' argument)*)? ')' body        # methodMember
     | LineBreak                                          # lineBreakMember
     ;
 
@@ -46,6 +46,7 @@ expression
     | value = expression '[' index = expression ']'                                                   # indexExpression
     | value = expression '[' startPos = expression ':' end = expression? (':' step = expression)? ']' # sliceExpression
     | expression '?'? '.' ID                                                                          # memberExpression
+    | '...' expression                                                                                # spreadExpression
     | base = expression '^' exponent = expression                                                     # powExpression
     | '+' expression                                                                                  # unaryPlusExpression
     | '-' expression                                                                                  # unaryMinusExpression

@@ -53,41 +53,41 @@ export class XonLexer extends XonLexerBase {
 	public static readonly QuestionMark = 32;
 	public static readonly Colon = 33;
 	public static readonly TwoColon = 34;
-	public static readonly Ellipsis = 35;
-	public static readonly Dot = 36;
-	public static readonly Plus = 37;
-	public static readonly Minus = 38;
-	public static readonly BitNot = 39;
-	public static readonly Not = 40;
-	public static readonly Multiply = 41;
-	public static readonly Divide = 42;
-	public static readonly Modulus = 43;
-	public static readonly Pow = 44;
-	public static readonly Sharp = 45;
-	public static readonly LessThan = 46;
-	public static readonly MoreThan = 47;
-	public static readonly LessThanEquals = 48;
-	public static readonly MoreThanEquals = 49;
-	public static readonly Equals = 50;
-	public static readonly NotEquals = 51;
-	public static readonly And = 52;
-	public static readonly Or = 53;
-	public static readonly MultiplyAssign = 54;
-	public static readonly DivideAssign = 55;
-	public static readonly ModulusAssign = 56;
-	public static readonly PlusAssign = 57;
-	public static readonly MinusAssign = 58;
-	public static readonly LeftShiftArithmeticAssign = 59;
-	public static readonly RightShiftArithmeticAssign = 60;
-	public static readonly RightShiftLogicalAssign = 61;
-	public static readonly BitAndAssign = 62;
-	public static readonly BitXorAssign = 63;
-	public static readonly BitOrAssign = 64;
-	public static readonly LambdaStart = 65;
-	public static readonly Pipe = 66;
-	public static readonly Underscore = 67;
-	public static readonly Declaration = 68;
-	public static readonly Constant = 69;
+	public static readonly Dot = 35;
+	public static readonly Plus = 36;
+	public static readonly Minus = 37;
+	public static readonly BitNot = 38;
+	public static readonly Not = 39;
+	public static readonly Multiply = 40;
+	public static readonly Divide = 41;
+	public static readonly Modulus = 42;
+	public static readonly Pow = 43;
+	public static readonly Sharp = 44;
+	public static readonly LessThan = 45;
+	public static readonly MoreThan = 46;
+	public static readonly LessThanEquals = 47;
+	public static readonly MoreThanEquals = 48;
+	public static readonly Equals = 49;
+	public static readonly NotEquals = 50;
+	public static readonly And = 51;
+	public static readonly Or = 52;
+	public static readonly MultiplyAssign = 53;
+	public static readonly DivideAssign = 54;
+	public static readonly ModulusAssign = 55;
+	public static readonly PlusAssign = 56;
+	public static readonly MinusAssign = 57;
+	public static readonly LeftShiftArithmeticAssign = 58;
+	public static readonly RightShiftArithmeticAssign = 59;
+	public static readonly RightShiftLogicalAssign = 60;
+	public static readonly BitAndAssign = 61;
+	public static readonly BitXorAssign = 62;
+	public static readonly BitOrAssign = 63;
+	public static readonly LambdaStart = 64;
+	public static readonly Pipe = 65;
+	public static readonly Underscore = 66;
+	public static readonly Declaration = 67;
+	public static readonly Constant = 68;
+	public static readonly Spread = 69;
 	public static readonly NullLiteral = 70;
 	public static readonly BooleanLiteral = 71;
 	public static readonly DecimalLiteral = 72;
@@ -117,16 +117,17 @@ export class XonLexer extends XonLexerBase {
 		"BitOr", "BitXor", "RightShiftArithmetic", "LeftShiftArithmetic", "RightShiftLogical", 
 		"OpenBracket", "CloseBracket", "OpenParen", "CloseParen", "OpenBrace", 
 		"CloseBrace", "Comma", "Assign", "QuestionMark", "Colon", "TwoColon", 
-		"Ellipsis", "Dot", "Plus", "Minus", "BitNot", "Not", "Multiply", "Divide", 
-		"Modulus", "Pow", "Sharp", "LessThan", "MoreThan", "LessThanEquals", "MoreThanEquals", 
+		"Dot", "Plus", "Minus", "BitNot", "Not", "Multiply", "Divide", "Modulus", 
+		"Pow", "Sharp", "LessThan", "MoreThan", "LessThanEquals", "MoreThanEquals", 
 		"Equals", "NotEquals", "And", "Or", "MultiplyAssign", "DivideAssign", 
 		"ModulusAssign", "PlusAssign", "MinusAssign", "LeftShiftArithmeticAssign", 
 		"RightShiftArithmeticAssign", "RightShiftLogicalAssign", "BitAndAssign", 
 		"BitXorAssign", "BitOrAssign", "LambdaStart", "Pipe", "Underscore", "Declaration", 
-		"Constant", "NullLiteral", "BooleanLiteral", "DecimalLiteral", "FloatLiteral", 
-		"StringLiteral", "StringFormatStart", "StringFormatMiddle", "StringFormatEnd", 
-		"ID", "Skip", "UnexpectedCharacter", "SPACES", "MULTI_LINE_COMMENT", "SINGLE_LINE_COMMENT", 
-		"LINE_JOINING", "DECIMAL_NUMBER", "DECIMAL_DIGIT", "CHARACTER",
+		"Constant", "Spread", "NullLiteral", "BooleanLiteral", "DecimalLiteral", 
+		"FloatLiteral", "StringLiteral", "StringFormatStart", "StringFormatMiddle", 
+		"StringFormatEnd", "ID", "Skip", "UnexpectedCharacter", "SPACES", "MULTI_LINE_COMMENT", 
+		"SINGLE_LINE_COMMENT", "LINE_JOINING", "DECIMAL_NUMBER", "DECIMAL_DIGIT", 
+		"CHARACTER",
 	];
 
 	private static readonly _LITERAL_NAMES: Array<string | undefined> = [
@@ -134,10 +135,10 @@ export class XonLexer extends XonLexerBase {
 		"'else'", "'loop'", "'in'", "'continue'", "'break'", "'return'", "'as'", 
 		"'var'", "'select'", undefined, undefined, "'and'", "'or'", "'xor'", "'>>'", 
 		"'<<'", "'>>>'", "'['", "']'", "'('", "')'", "'{'", "'}'", "','", "'='", 
-		"'?'", "':'", "'::'", "'...'", "'.'", "'+'", "'-'", "'~'", "'!'", "'*'", 
-		"'/'", "'%'", "'^'", "'#'", "'<'", "'>'", "'<='", "'>='", "'=='", "'!='", 
-		"'&&'", "'||'", "'*='", "'/='", "'%='", "'+='", "'-='", "'<<='", "'>>='", 
-		"'>>>='", "'&='", "'^='", "'|='", "'\\'", "'|'", "'_'", "':='", "'::='", 
+		"'?'", "':'", "'::'", "'.'", "'+'", "'-'", "'~'", "'!'", "'*'", "'/'", 
+		"'%'", "'^'", "'#'", "'<'", "'>'", "'<='", "'>='", "'=='", "'!='", "'&&'", 
+		"'||'", "'*='", "'/='", "'%='", "'+='", "'-='", "'<<='", "'>>='", "'>>>='", 
+		"'&='", "'^='", "'|='", "'\\'", "'|'", "'_'", "':='", "'::='", "'...'", 
 		"'null'",
 	];
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
@@ -146,15 +147,15 @@ export class XonLexer extends XonLexerBase {
 		"LineBreak", "BitAnd", "BitOr", "BitXor", "RightShiftArithmetic", "LeftShiftArithmetic", 
 		"RightShiftLogical", "OpenBracket", "CloseBracket", "OpenParen", "CloseParen", 
 		"OpenBrace", "CloseBrace", "Comma", "Assign", "QuestionMark", "Colon", 
-		"TwoColon", "Ellipsis", "Dot", "Plus", "Minus", "BitNot", "Not", "Multiply", 
-		"Divide", "Modulus", "Pow", "Sharp", "LessThan", "MoreThan", "LessThanEquals", 
-		"MoreThanEquals", "Equals", "NotEquals", "And", "Or", "MultiplyAssign", 
-		"DivideAssign", "ModulusAssign", "PlusAssign", "MinusAssign", "LeftShiftArithmeticAssign", 
+		"TwoColon", "Dot", "Plus", "Minus", "BitNot", "Not", "Multiply", "Divide", 
+		"Modulus", "Pow", "Sharp", "LessThan", "MoreThan", "LessThanEquals", "MoreThanEquals", 
+		"Equals", "NotEquals", "And", "Or", "MultiplyAssign", "DivideAssign", 
+		"ModulusAssign", "PlusAssign", "MinusAssign", "LeftShiftArithmeticAssign", 
 		"RightShiftArithmeticAssign", "RightShiftLogicalAssign", "BitAndAssign", 
 		"BitXorAssign", "BitOrAssign", "LambdaStart", "Pipe", "Underscore", "Declaration", 
-		"Constant", "NullLiteral", "BooleanLiteral", "DecimalLiteral", "FloatLiteral", 
-		"StringLiteral", "StringFormatStart", "StringFormatMiddle", "StringFormatEnd", 
-		"ID", "Skip", "UnexpectedCharacter",
+		"Constant", "Spread", "NullLiteral", "BooleanLiteral", "DecimalLiteral", 
+		"FloatLiteral", "StringLiteral", "StringFormatStart", "StringFormatMiddle", 
+		"StringFormatEnd", "ID", "Skip", "UnexpectedCharacter",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(XonLexer._LITERAL_NAMES, XonLexer._SYMBOLIC_NAMES, []);
 
@@ -312,13 +313,13 @@ export class XonLexer extends XonLexerBase {
 		"\x03\x17\x03\x17\x03\x17\x03\x18\x03\x18\x03\x18\x03\x19\x03\x19\x03\x19" +
 		"\x03\x1A\x03\x1A\x03\x1A\x03\x1B\x03\x1B\x03\x1B\x03\x1C\x03\x1C\x03\x1C" +
 		"\x03\x1D\x03\x1D\x03\x1E\x03\x1E\x03\x1F\x03\x1F\x03 \x03 \x03!\x03!\x03" +
-		"!\x03\"\x03\"\x03\"\x03\"\x03#\x03#\x03$\x03$\x03%\x03%\x03&\x03&\x03" +
-		"\'\x03\'\x03(\x03(\x03)\x03)\x03*\x03*\x03+\x03+\x03,\x03,\x03-\x03-\x03" +
-		".\x03.\x03/\x03/\x03/\x030\x030\x030\x031\x031\x031\x032\x032\x032\x03" +
-		"3\x033\x033\x034\x034\x034\x035\x035\x035\x036\x036\x036\x037\x037\x03" +
-		"7\x038\x038\x038\x039\x039\x039\x03:\x03:\x03:\x03:\x03;\x03;\x03;\x03" +
-		";\x03<\x03<\x03<\x03<\x03<\x03=\x03=\x03=\x03>\x03>\x03>\x03?\x03?\x03" +
-		"?\x03@\x03@\x03A\x03A\x03B\x03B\x03C\x03C\x03C\x03D\x03D\x03D\x03D\x03" +
+		"!\x03\"\x03\"\x03#\x03#\x03$\x03$\x03%\x03%\x03&\x03&\x03\'\x03\'\x03" +
+		"(\x03(\x03)\x03)\x03*\x03*\x03+\x03+\x03,\x03,\x03-\x03-\x03.\x03.\x03" +
+		".\x03/\x03/\x03/\x030\x030\x030\x031\x031\x031\x032\x032\x032\x033\x03" +
+		"3\x033\x034\x034\x034\x035\x035\x035\x036\x036\x036\x037\x037\x037\x03" +
+		"8\x038\x038\x039\x039\x039\x039\x03:\x03:\x03:\x03:\x03;\x03;\x03;\x03" +
+		";\x03;\x03<\x03<\x03<\x03=\x03=\x03=\x03>\x03>\x03>\x03?\x03?\x03@\x03" +
+		"@\x03A\x03A\x03B\x03B\x03B\x03C\x03C\x03C\x03C\x03D\x03D\x03D\x03D\x03" +
 		"E\x03E\x03E\x03E\x03E\x03F\x03F\x03F\x03F\x03F\x03F\x03F\x03F\x03F\x05" +
 		"F\u01AC\nF\x03G\x03G\x03H\x03H\x03H\x03H\x03I\x03I\x07I\u01B6\nI\fI\x0E" +
 		"I\u01B9\vI\x03I\x03I\x03J\x03J\x03J\x03J\x07J\u01C1\nJ\fJ\x0EJ\u01C4\v" +
@@ -377,18 +378,18 @@ export class XonLexer extends XonLexerBase {
 		"/\u0123\x03\x02\x02\x021\u0126\x03\x02\x02\x023\u0129\x03\x02\x02\x02" +
 		"5\u012C\x03\x02\x02\x027\u012F\x03\x02\x02\x029\u0132\x03\x02\x02\x02" +
 		";\u0134\x03\x02\x02\x02=\u0136\x03\x02\x02\x02?\u0138\x03\x02\x02\x02" +
-		"A\u013A\x03\x02\x02\x02C\u013D\x03\x02\x02\x02E\u0141\x03\x02\x02\x02" +
-		"G\u0143\x03\x02\x02\x02I\u0145\x03\x02\x02\x02K\u0147\x03\x02\x02\x02" +
-		"M\u0149\x03\x02\x02\x02O\u014B\x03\x02\x02\x02Q\u014D\x03\x02\x02\x02" +
-		"S\u014F\x03\x02\x02\x02U\u0151\x03\x02\x02\x02W\u0153\x03\x02\x02\x02" +
-		"Y\u0155\x03\x02\x02\x02[\u0157\x03\x02\x02\x02]\u0159\x03\x02\x02\x02" +
-		"_\u015C\x03\x02\x02\x02a\u015F\x03\x02\x02\x02c\u0162\x03\x02\x02\x02" +
-		"e\u0165\x03\x02\x02\x02g\u0168\x03\x02\x02\x02i\u016B\x03\x02\x02\x02" +
-		"k\u016E\x03\x02\x02\x02m\u0171\x03\x02\x02\x02o\u0174\x03\x02\x02\x02" +
-		"q\u0177\x03\x02\x02\x02s\u017A\x03\x02\x02\x02u\u017E\x03\x02\x02\x02" +
-		"w\u0182\x03\x02\x02\x02y\u0187\x03\x02\x02\x02{\u018A\x03\x02\x02\x02" +
-		"}\u018D\x03\x02\x02\x02\x7F\u0190\x03\x02\x02\x02\x81\u0192\x03\x02\x02" +
-		"\x02\x83\u0194\x03\x02\x02\x02\x85\u0196\x03\x02\x02\x02\x87\u0199\x03" +
+		"A\u013A\x03\x02\x02\x02C\u013D\x03\x02\x02\x02E\u013F\x03\x02\x02\x02" +
+		"G\u0141\x03\x02\x02\x02I\u0143\x03\x02\x02\x02K\u0145\x03\x02\x02\x02" +
+		"M\u0147\x03\x02\x02\x02O\u0149\x03\x02\x02\x02Q\u014B\x03\x02\x02\x02" +
+		"S\u014D\x03\x02\x02\x02U\u014F\x03\x02\x02\x02W\u0151\x03\x02\x02\x02" +
+		"Y\u0153\x03\x02\x02\x02[\u0155\x03\x02\x02\x02]\u0158\x03\x02\x02\x02" +
+		"_\u015B\x03\x02\x02\x02a\u015E\x03\x02\x02\x02c\u0161\x03\x02\x02\x02" +
+		"e\u0164\x03\x02\x02\x02g\u0167\x03\x02\x02\x02i\u016A\x03\x02\x02\x02" +
+		"k\u016D\x03\x02\x02\x02m\u0170\x03\x02\x02\x02o\u0173\x03\x02\x02\x02" +
+		"q\u0176\x03\x02\x02\x02s\u017A\x03\x02\x02\x02u\u017E\x03\x02\x02\x02" +
+		"w\u0183\x03\x02\x02\x02y\u0186\x03\x02\x02\x02{\u0189\x03\x02\x02\x02" +
+		"}\u018C\x03\x02\x02\x02\x7F\u018E\x03\x02\x02\x02\x81\u0190\x03\x02\x02" +
+		"\x02\x83\u0192\x03\x02\x02\x02\x85\u0195\x03\x02\x02\x02\x87\u0199\x03" +
 		"\x02\x02\x02\x89\u019D\x03\x02\x02\x02\x8B\u01AB\x03\x02\x02\x02\x8D\u01AD" +
 		"\x03\x02\x02\x02\x8F\u01AF\x03\x02\x02\x02\x91\u01B3\x03\x02\x02\x02\x93" +
 		"\u01BC\x03\x02\x02\x02\x95\u01C7\x03\x02\x02\x02\x97\u01D0\x03\x02\x02" +
@@ -444,102 +445,102 @@ export class XonLexer extends XonLexerBase {
 		":\x03\x02\x02\x02\u0134\u0135\x07?\x02\x02\u0135<\x03\x02\x02\x02\u0136" +
 		"\u0137\x07A\x02\x02\u0137>\x03\x02\x02\x02\u0138\u0139\x07<\x02\x02\u0139" +
 		"@\x03\x02\x02\x02\u013A\u013B\x07<\x02\x02\u013B\u013C\x07<\x02\x02\u013C" +
-		"B\x03\x02\x02\x02\u013D\u013E\x070\x02\x02\u013E\u013F\x070\x02\x02\u013F" +
-		"\u0140\x070\x02\x02\u0140D\x03\x02\x02\x02\u0141\u0142\x070\x02\x02\u0142" +
-		"F\x03\x02\x02\x02\u0143\u0144\x07-\x02\x02\u0144H\x03\x02\x02\x02\u0145" +
-		"\u0146\x07/\x02\x02\u0146J\x03\x02\x02\x02\u0147\u0148\x07\x80\x02\x02" +
-		"\u0148L\x03\x02\x02\x02\u0149\u014A\x07#\x02\x02\u014AN\x03\x02\x02\x02" +
-		"\u014B\u014C\x07,\x02\x02\u014CP\x03\x02\x02\x02\u014D\u014E\x071\x02" +
-		"\x02\u014ER\x03\x02\x02\x02\u014F\u0150\x07\'\x02\x02\u0150T\x03\x02\x02" +
-		"\x02\u0151\u0152\x07`\x02\x02\u0152V\x03\x02\x02\x02\u0153\u0154\x07%" +
-		"\x02\x02\u0154X\x03\x02\x02\x02\u0155\u0156\x07>\x02\x02\u0156Z\x03\x02" +
-		"\x02\x02\u0157\u0158\x07@\x02\x02\u0158\\\x03\x02\x02\x02\u0159\u015A" +
-		"\x07>\x02\x02\u015A\u015B\x07?\x02\x02\u015B^\x03\x02\x02\x02\u015C\u015D" +
-		"\x07@\x02\x02\u015D\u015E\x07?\x02\x02\u015E`\x03\x02\x02\x02\u015F\u0160" +
-		"\x07?\x02\x02\u0160\u0161\x07?\x02\x02\u0161b\x03\x02\x02\x02\u0162\u0163" +
-		"\x07#\x02\x02\u0163\u0164\x07?\x02\x02\u0164d\x03\x02\x02\x02\u0165\u0166" +
-		"\x07(\x02\x02\u0166\u0167\x07(\x02\x02\u0167f\x03\x02\x02\x02\u0168\u0169" +
-		"\x07~\x02\x02\u0169\u016A\x07~\x02\x02\u016Ah\x03\x02\x02\x02\u016B\u016C" +
-		"\x07,\x02\x02\u016C\u016D\x07?\x02\x02\u016Dj\x03\x02\x02\x02\u016E\u016F" +
-		"\x071\x02\x02\u016F\u0170\x07?\x02\x02\u0170l\x03\x02\x02\x02\u0171\u0172" +
-		"\x07\'\x02\x02\u0172\u0173\x07?\x02\x02\u0173n\x03\x02\x02\x02\u0174\u0175" +
-		"\x07-\x02\x02\u0175\u0176\x07?\x02\x02\u0176p\x03\x02\x02\x02\u0177\u0178" +
-		"\x07/\x02\x02\u0178\u0179\x07?\x02\x02\u0179r\x03\x02\x02\x02\u017A\u017B" +
-		"\x07>\x02\x02\u017B\u017C\x07>\x02\x02\u017C\u017D\x07?\x02\x02\u017D" +
-		"t\x03\x02\x02\x02\u017E\u017F\x07@\x02\x02\u017F\u0180\x07@\x02\x02\u0180" +
-		"\u0181\x07?\x02\x02\u0181v\x03\x02\x02\x02\u0182\u0183\x07@\x02\x02\u0183" +
-		"\u0184\x07@\x02\x02\u0184\u0185\x07@\x02\x02\u0185\u0186\x07?\x02\x02" +
-		"\u0186x\x03\x02\x02\x02\u0187\u0188\x07(\x02\x02\u0188\u0189\x07?\x02" +
-		"\x02\u0189z\x03\x02\x02\x02\u018A\u018B\x07`\x02\x02\u018B\u018C\x07?" +
-		"\x02\x02\u018C|\x03\x02\x02\x02\u018D\u018E\x07~\x02\x02\u018E\u018F\x07" +
-		"?\x02\x02\u018F~\x03\x02\x02\x02\u0190\u0191\x07^\x02\x02\u0191\x80\x03" +
-		"\x02\x02\x02\u0192\u0193\x07~\x02\x02\u0193\x82\x03\x02\x02\x02\u0194" +
-		"\u0195\x07a\x02\x02\u0195\x84\x03\x02\x02\x02\u0196\u0197\x07<\x02\x02" +
-		"\u0197\u0198\x07?\x02\x02\u0198\x86\x03\x02\x02\x02\u0199\u019A\x07<\x02" +
-		"\x02\u019A\u019B\x07<\x02\x02\u019B\u019C\x07?\x02\x02\u019C\x88\x03\x02" +
-		"\x02\x02\u019D\u019E\x07p\x02\x02\u019E\u019F\x07w\x02\x02\u019F\u01A0" +
-		"\x07n\x02\x02\u01A0\u01A1\x07n\x02\x02\u01A1\x8A\x03\x02\x02\x02\u01A2" +
-		"\u01A3\x07v\x02\x02\u01A3\u01A4\x07t\x02\x02\u01A4\u01A5\x07w\x02\x02" +
-		"\u01A5\u01AC\x07g\x02\x02\u01A6\u01A7\x07h\x02\x02\u01A7\u01A8\x07c\x02" +
-		"\x02\u01A8\u01A9\x07n\x02\x02\u01A9\u01AA\x07u\x02\x02\u01AA\u01AC\x07" +
-		"g\x02\x02\u01AB\u01A2\x03\x02\x02\x02\u01AB\u01A6\x03\x02\x02\x02\u01AC" +
-		"\x8C\x03\x02\x02\x02\u01AD\u01AE\x05\xA7T\x02\u01AE\x8E\x03\x02\x02\x02" +
-		"\u01AF\u01B0\x05\xA7T\x02\u01B0\u01B1\x070\x02\x02\u01B1\u01B2\x05\xA7" +
-		"T\x02\u01B2\x90\x03\x02\x02\x02\u01B3\u01B7\x07)\x02\x02\u01B4\u01B6\x05" +
-		"\xABV\x02\u01B5\u01B4\x03\x02\x02\x02\u01B6\u01B9\x03\x02\x02\x02\u01B7" +
-		"\u01B5\x03\x02\x02\x02\u01B7\u01B8\x03\x02\x02\x02\u01B8\u01BA\x03\x02" +
-		"\x02\x02\u01B9\u01B7\x03\x02\x02\x02\u01BA\u01BB\x07)\x02\x02\u01BB\x92" +
-		"\x03\x02\x02\x02\u01BC\u01BD\x07h\x02\x02\u01BD\u01BE\x07)\x02\x02\u01BE" +
-		"\u01C2\x03\x02\x02\x02\u01BF\u01C1\x05\xABV\x02\u01C0\u01BF\x03\x02\x02" +
-		"\x02\u01C1\u01C4\x03\x02\x02\x02\u01C2\u01C0\x03\x02\x02\x02\u01C2\u01C3" +
-		"\x03\x02\x02\x02\u01C3\u01C5\x03\x02\x02\x02\u01C4\u01C2\x03\x02\x02\x02" +
-		"\u01C5\u01C6\x07}\x02\x02\u01C6\x94\x03\x02\x02\x02\u01C7\u01CB\x07\x7F" +
-		"\x02\x02\u01C8\u01CA\x05\xABV\x02\u01C9\u01C8\x03\x02\x02\x02\u01CA\u01CD" +
-		"\x03\x02\x02\x02\u01CB\u01C9\x03\x02\x02\x02\u01CB\u01CC\x03\x02\x02\x02" +
-		"\u01CC\u01CE\x03\x02\x02\x02\u01CD\u01CB\x03\x02\x02\x02\u01CE\u01CF\x07" +
-		"}\x02\x02\u01CF\x96\x03\x02\x02\x02\u01D0\u01D4\x07\x7F\x02\x02\u01D1" +
-		"\u01D3\x05\xABV\x02\u01D2\u01D1\x03\x02\x02\x02\u01D3\u01D6\x03\x02\x02" +
-		"\x02\u01D4\u01D2\x03\x02\x02\x02\u01D4\u01D5\x03\x02\x02\x02\u01D5\u01D7" +
-		"\x03\x02\x02\x02\u01D6\u01D4\x03\x02\x02\x02\u01D7\u01D8\x07)\x02\x02" +
-		"\u01D8\x98\x03\x02\x02\x02\u01D9\u01DD\t\x03\x02\x02\u01DA\u01DC\t\x04" +
-		"\x02\x02\u01DB\u01DA\x03\x02\x02\x02\u01DC\u01DF\x03\x02\x02\x02\u01DD" +
-		"\u01DB\x03\x02\x02\x02\u01DD\u01DE\x03\x02\x02\x02\u01DE\x9A\x03\x02\x02" +
-		"\x02\u01DF\u01DD\x03\x02\x02\x02\u01E0\u01E5\x05\x9FP\x02\u01E1\u01E5" +
-		"\x05\xA3R\x02\u01E2\u01E5\x05\xA1Q\x02\u01E3\u01E5\x05\xA5S\x02\u01E4" +
-		"\u01E0\x03\x02\x02\x02\u01E4\u01E1\x03\x02\x02\x02\u01E4\u01E2\x03\x02" +
-		"\x02\x02\u01E4\u01E3\x03\x02\x02\x02\u01E5\u01E6\x03\x02\x02\x02\u01E6" +
-		"\u01E7\bN\t\x02\u01E7\x9C\x03\x02\x02\x02\u01E8\u01E9\v\x02\x02\x02\u01E9" +
-		"\u01EA\x03\x02\x02\x02\u01EA\u01EB\bO\n\x02\u01EB\x9E\x03\x02\x02\x02" +
-		"\u01EC\u01EE\t\x05\x02\x02\u01ED\u01EC\x03\x02\x02\x02\u01EE\u01EF\x03" +
-		"\x02\x02\x02\u01EF\u01ED\x03\x02\x02\x02\u01EF\u01F0\x03\x02\x02\x02\u01F0" +
-		"\xA0\x03\x02\x02\x02\u01F1\u01F2\x071\x02\x02\u01F2\u01F3\x07,\x02\x02" +
-		"\u01F3\u01F7\x03\x02\x02\x02\u01F4\u01F6\v\x02\x02\x02\u01F5\u01F4\x03" +
-		"\x02\x02\x02\u01F6\u01F9\x03\x02\x02\x02\u01F7\u01F8\x03\x02\x02\x02\u01F7" +
-		"\u01F5\x03\x02\x02\x02\u01F8\u01FA\x03\x02\x02\x02\u01F9\u01F7\x03\x02" +
-		"\x02\x02\u01FA\u01FB\x07,\x02\x02\u01FB\u01FC\x071\x02\x02\u01FC\xA2\x03" +
-		"\x02\x02\x02\u01FD\u01FE\x071\x02\x02\u01FE\u01FF\x071\x02\x02\u01FF\u0203" +
-		"\x03\x02\x02\x02\u0200\u0202\n\x02\x02\x02\u0201\u0200\x03\x02\x02\x02" +
-		"\u0202\u0205\x03\x02\x02\x02\u0203\u0201\x03\x02\x02\x02\u0203\u0204\x03" +
-		"\x02\x02\x02\u0204\xA4\x03\x02\x02\x02\u0205\u0203\x03\x02\x02\x02\u0206" +
-		"\u0208\x07^\x02\x02\u0207\u0209\x05\x9FP\x02\u0208\u0207\x03\x02\x02\x02" +
-		"\u0208\u0209\x03\x02\x02\x02\u0209\u020F\x03\x02\x02\x02\u020A\u020C\x07" +
-		"\x0F\x02\x02\u020B\u020A\x03\x02\x02\x02\u020B\u020C\x03\x02\x02\x02\u020C" +
-		"\u020D\x03\x02\x02\x02\u020D\u0210\x07\f\x02\x02\u020E\u0210\x07\x0F\x02" +
-		"\x02\u020F\u020B\x03\x02\x02\x02\u020F\u020E\x03\x02\x02\x02\u0210\xA6" +
-		"\x03\x02\x02\x02\u0211\u0213\x05\xA9U\x02\u0212\u0211\x03\x02\x02\x02" +
-		"\u0213\u0214\x03\x02\x02\x02\u0214\u0212\x03\x02\x02\x02\u0214\u0215\x03" +
-		"\x02\x02\x02\u0215\u021E\x03\x02\x02\x02\u0216\u0218\x07a\x02\x02\u0217" +
-		"\u0219\x05\xA9U\x02\u0218\u0217\x03\x02\x02\x02\u0219\u021A\x03\x02\x02" +
-		"\x02\u021A\u0218\x03\x02\x02\x02\u021A\u021B\x03\x02\x02\x02\u021B\u021D" +
-		"\x03\x02\x02\x02\u021C\u0216\x03\x02\x02\x02\u021D\u0220\x03\x02\x02\x02" +
-		"\u021E\u021C\x03\x02\x02\x02\u021E\u021F\x03\x02\x02\x02\u021F\xA8\x03" +
-		"\x02\x02\x02\u0220\u021E\x03\x02\x02\x02\u0221\u0222\t\x06\x02\x02\u0222" +
-		"\xAA\x03\x02\x02\x02\u0223\u0227\n\x07\x02\x02\u0224\u0225\x07^\x02\x02" +
-		"\u0225\u0227\t\b\x02\x02\u0226\u0223\x03\x02\x02\x02\u0226\u0224\x03\x02" +
-		"\x02\x02\u0227\xAC\x03\x02\x02\x02\x19\x02\xF9\xFE\u0102\u0105\u0107\u01AB" +
-		"\u01B7\u01C2\u01CB\u01D4\u01DD\u01E4\u01EF\u01F7\u0203\u0208\u020B\u020F" +
-		"\u0214\u021A\u021E\u0226\v\x03\x10\x02\x03\x17\x03\x03\x18\x04\x03\x19" +
-		"\x05\x03\x1A\x06\x03\x1B\x07\x03\x1C\b\b\x02\x02\x02\x04\x02";
+		"B\x03\x02\x02\x02\u013D\u013E\x070\x02\x02\u013ED\x03\x02\x02\x02\u013F" +
+		"\u0140\x07-\x02\x02\u0140F\x03\x02\x02\x02\u0141\u0142\x07/\x02\x02\u0142" +
+		"H\x03\x02\x02\x02\u0143\u0144\x07\x80\x02\x02\u0144J\x03\x02\x02\x02\u0145" +
+		"\u0146\x07#\x02\x02\u0146L\x03\x02\x02\x02\u0147\u0148\x07,\x02\x02\u0148" +
+		"N\x03\x02\x02\x02\u0149\u014A\x071\x02\x02\u014AP\x03\x02\x02\x02\u014B" +
+		"\u014C\x07\'\x02\x02\u014CR\x03\x02\x02\x02\u014D\u014E\x07`\x02\x02\u014E" +
+		"T\x03\x02\x02\x02\u014F\u0150\x07%\x02\x02\u0150V\x03\x02\x02\x02\u0151" +
+		"\u0152\x07>\x02\x02\u0152X\x03\x02\x02\x02\u0153\u0154\x07@\x02\x02\u0154" +
+		"Z\x03\x02\x02\x02\u0155\u0156\x07>\x02\x02\u0156\u0157\x07?\x02\x02\u0157" +
+		"\\\x03\x02\x02\x02\u0158\u0159\x07@\x02\x02\u0159\u015A\x07?\x02\x02\u015A" +
+		"^\x03\x02\x02\x02\u015B\u015C\x07?\x02\x02\u015C\u015D\x07?\x02\x02\u015D" +
+		"`\x03\x02\x02\x02\u015E\u015F\x07#\x02\x02\u015F\u0160\x07?\x02\x02\u0160" +
+		"b\x03\x02\x02\x02\u0161\u0162\x07(\x02\x02\u0162\u0163\x07(\x02\x02\u0163" +
+		"d\x03\x02\x02\x02\u0164\u0165\x07~\x02\x02\u0165\u0166\x07~\x02\x02\u0166" +
+		"f\x03\x02\x02\x02\u0167\u0168\x07,\x02\x02\u0168\u0169\x07?\x02\x02\u0169" +
+		"h\x03\x02\x02\x02\u016A\u016B\x071\x02\x02\u016B\u016C\x07?\x02\x02\u016C" +
+		"j\x03\x02\x02\x02\u016D\u016E\x07\'\x02\x02\u016E\u016F\x07?\x02\x02\u016F" +
+		"l\x03\x02\x02\x02\u0170\u0171\x07-\x02\x02\u0171\u0172\x07?\x02\x02\u0172" +
+		"n\x03\x02\x02\x02\u0173\u0174\x07/\x02\x02\u0174\u0175\x07?\x02\x02\u0175" +
+		"p\x03\x02\x02\x02\u0176\u0177\x07>\x02\x02\u0177\u0178\x07>\x02\x02\u0178" +
+		"\u0179\x07?\x02\x02\u0179r\x03\x02\x02\x02\u017A\u017B\x07@\x02\x02\u017B" +
+		"\u017C\x07@\x02\x02\u017C\u017D\x07?\x02\x02\u017Dt\x03\x02\x02\x02\u017E" +
+		"\u017F\x07@\x02\x02\u017F\u0180\x07@\x02\x02\u0180\u0181\x07@\x02\x02" +
+		"\u0181\u0182\x07?\x02\x02\u0182v\x03\x02\x02\x02\u0183\u0184\x07(\x02" +
+		"\x02\u0184\u0185\x07?\x02\x02\u0185x\x03\x02\x02\x02\u0186\u0187\x07`" +
+		"\x02\x02\u0187\u0188\x07?\x02\x02\u0188z\x03\x02\x02\x02\u0189\u018A\x07" +
+		"~\x02\x02\u018A\u018B\x07?\x02\x02\u018B|\x03\x02\x02\x02\u018C\u018D" +
+		"\x07^\x02\x02\u018D~\x03\x02\x02\x02\u018E\u018F\x07~\x02\x02\u018F\x80" +
+		"\x03\x02\x02\x02\u0190\u0191\x07a\x02\x02\u0191\x82\x03\x02\x02\x02\u0192" +
+		"\u0193\x07<\x02\x02\u0193\u0194\x07?\x02\x02\u0194\x84\x03\x02\x02\x02" +
+		"\u0195\u0196\x07<\x02\x02\u0196\u0197\x07<\x02\x02\u0197\u0198\x07?\x02" +
+		"\x02\u0198\x86\x03\x02\x02\x02\u0199\u019A\x070\x02\x02\u019A\u019B\x07" +
+		"0\x02\x02\u019B\u019C\x070\x02\x02\u019C\x88\x03\x02\x02\x02\u019D\u019E" +
+		"\x07p\x02\x02\u019E\u019F\x07w\x02\x02\u019F\u01A0\x07n\x02\x02\u01A0" +
+		"\u01A1\x07n\x02\x02\u01A1\x8A\x03\x02\x02\x02\u01A2\u01A3\x07v\x02\x02" +
+		"\u01A3\u01A4\x07t\x02\x02\u01A4\u01A5\x07w\x02\x02\u01A5\u01AC\x07g\x02" +
+		"\x02\u01A6\u01A7\x07h\x02\x02\u01A7\u01A8\x07c\x02\x02\u01A8\u01A9\x07" +
+		"n\x02\x02\u01A9\u01AA\x07u\x02\x02\u01AA\u01AC\x07g\x02\x02\u01AB\u01A2" +
+		"\x03\x02\x02\x02\u01AB\u01A6\x03\x02\x02\x02\u01AC\x8C\x03\x02\x02\x02" +
+		"\u01AD\u01AE\x05\xA7T\x02\u01AE\x8E\x03\x02\x02\x02\u01AF\u01B0\x05\xA7" +
+		"T\x02\u01B0\u01B1\x070\x02\x02\u01B1\u01B2\x05\xA7T\x02\u01B2\x90\x03" +
+		"\x02\x02\x02\u01B3\u01B7\x07)\x02\x02\u01B4\u01B6\x05\xABV\x02\u01B5\u01B4" +
+		"\x03\x02\x02\x02\u01B6\u01B9\x03\x02\x02\x02\u01B7\u01B5\x03\x02\x02\x02" +
+		"\u01B7\u01B8\x03\x02\x02\x02\u01B8\u01BA\x03\x02\x02\x02\u01B9\u01B7\x03" +
+		"\x02\x02\x02\u01BA\u01BB\x07)\x02\x02\u01BB\x92\x03\x02\x02\x02\u01BC" +
+		"\u01BD\x07h\x02\x02\u01BD\u01BE\x07)\x02\x02\u01BE\u01C2\x03\x02\x02\x02" +
+		"\u01BF\u01C1\x05\xABV\x02\u01C0\u01BF\x03\x02\x02\x02\u01C1\u01C4\x03" +
+		"\x02\x02\x02\u01C2\u01C0\x03\x02\x02\x02\u01C2\u01C3\x03\x02\x02\x02\u01C3" +
+		"\u01C5\x03\x02\x02\x02\u01C4\u01C2\x03\x02\x02\x02\u01C5\u01C6\x07}\x02" +
+		"\x02\u01C6\x94\x03\x02\x02\x02\u01C7\u01CB\x07\x7F\x02\x02\u01C8\u01CA" +
+		"\x05\xABV\x02\u01C9\u01C8\x03\x02\x02\x02\u01CA\u01CD\x03\x02\x02\x02" +
+		"\u01CB\u01C9\x03\x02\x02\x02\u01CB\u01CC\x03\x02\x02\x02\u01CC\u01CE\x03" +
+		"\x02\x02\x02\u01CD\u01CB\x03\x02\x02\x02\u01CE\u01CF\x07}\x02\x02\u01CF" +
+		"\x96\x03\x02\x02\x02\u01D0\u01D4\x07\x7F\x02\x02\u01D1\u01D3\x05\xABV" +
+		"\x02\u01D2\u01D1\x03\x02\x02\x02\u01D3\u01D6\x03\x02\x02\x02\u01D4\u01D2" +
+		"\x03\x02\x02\x02\u01D4\u01D5\x03\x02\x02\x02\u01D5\u01D7\x03\x02\x02\x02" +
+		"\u01D6\u01D4\x03\x02\x02\x02\u01D7\u01D8\x07)\x02\x02\u01D8\x98\x03\x02" +
+		"\x02\x02\u01D9\u01DD\t\x03\x02\x02\u01DA\u01DC\t\x04\x02\x02\u01DB\u01DA" +
+		"\x03\x02\x02\x02\u01DC\u01DF\x03\x02\x02\x02\u01DD\u01DB\x03\x02\x02\x02" +
+		"\u01DD\u01DE\x03\x02\x02\x02\u01DE\x9A\x03\x02\x02\x02\u01DF\u01DD\x03" +
+		"\x02\x02\x02\u01E0\u01E5\x05\x9FP\x02\u01E1\u01E5\x05\xA3R\x02\u01E2\u01E5" +
+		"\x05\xA1Q\x02\u01E3\u01E5\x05\xA5S\x02\u01E4\u01E0\x03\x02\x02\x02\u01E4" +
+		"\u01E1\x03\x02\x02\x02\u01E4\u01E2\x03\x02\x02\x02\u01E4\u01E3\x03\x02" +
+		"\x02\x02\u01E5\u01E6\x03\x02\x02\x02\u01E6\u01E7\bN\t\x02\u01E7\x9C\x03" +
+		"\x02\x02\x02\u01E8\u01E9\v\x02\x02\x02\u01E9\u01EA\x03\x02\x02\x02\u01EA" +
+		"\u01EB\bO\n\x02\u01EB\x9E\x03\x02\x02\x02\u01EC\u01EE\t\x05\x02\x02\u01ED" +
+		"\u01EC\x03\x02\x02\x02\u01EE\u01EF\x03\x02\x02\x02\u01EF\u01ED\x03\x02" +
+		"\x02\x02\u01EF\u01F0\x03\x02\x02\x02\u01F0\xA0\x03\x02\x02\x02\u01F1\u01F2" +
+		"\x071\x02\x02\u01F2\u01F3\x07,\x02\x02\u01F3\u01F7\x03\x02\x02\x02\u01F4" +
+		"\u01F6\v\x02\x02\x02\u01F5\u01F4\x03\x02\x02\x02\u01F6\u01F9\x03\x02\x02" +
+		"\x02\u01F7\u01F8\x03\x02\x02\x02\u01F7\u01F5\x03\x02\x02\x02\u01F8\u01FA" +
+		"\x03\x02\x02\x02\u01F9\u01F7\x03\x02\x02\x02\u01FA\u01FB\x07,\x02\x02" +
+		"\u01FB\u01FC\x071\x02\x02\u01FC\xA2\x03\x02\x02\x02\u01FD\u01FE\x071\x02" +
+		"\x02\u01FE\u01FF\x071\x02\x02\u01FF\u0203\x03\x02\x02\x02\u0200\u0202" +
+		"\n\x02\x02\x02\u0201\u0200\x03\x02\x02\x02\u0202\u0205\x03\x02\x02\x02" +
+		"\u0203\u0201\x03\x02\x02\x02\u0203\u0204\x03\x02\x02\x02\u0204\xA4\x03" +
+		"\x02\x02\x02\u0205\u0203\x03\x02\x02\x02\u0206\u0208\x07^\x02\x02\u0207" +
+		"\u0209\x05\x9FP\x02\u0208\u0207\x03\x02\x02\x02\u0208\u0209\x03\x02\x02" +
+		"\x02\u0209\u020F\x03\x02\x02\x02\u020A\u020C\x07\x0F\x02\x02\u020B\u020A" +
+		"\x03\x02\x02\x02\u020B\u020C\x03\x02\x02\x02\u020C\u020D\x03\x02\x02\x02" +
+		"\u020D\u0210\x07\f\x02\x02\u020E\u0210\x07\x0F\x02\x02\u020F\u020B\x03" +
+		"\x02\x02\x02\u020F\u020E\x03\x02\x02\x02\u0210\xA6\x03\x02\x02\x02\u0211" +
+		"\u0213\x05\xA9U\x02\u0212\u0211\x03\x02\x02\x02\u0213\u0214\x03\x02\x02" +
+		"\x02\u0214\u0212\x03\x02\x02\x02\u0214\u0215\x03\x02\x02\x02\u0215\u021E" +
+		"\x03\x02\x02\x02\u0216\u0218\x07a\x02\x02\u0217\u0219\x05\xA9U\x02\u0218" +
+		"\u0217\x03\x02\x02\x02\u0219\u021A\x03\x02\x02\x02\u021A\u0218\x03\x02" +
+		"\x02\x02\u021A\u021B\x03\x02\x02\x02\u021B\u021D\x03\x02\x02\x02\u021C" +
+		"\u0216\x03\x02\x02\x02\u021D\u0220\x03\x02\x02\x02\u021E\u021C\x03\x02" +
+		"\x02\x02\u021E\u021F\x03\x02\x02\x02\u021F\xA8\x03\x02\x02\x02\u0220\u021E" +
+		"\x03\x02\x02\x02\u0221\u0222\t\x06\x02\x02\u0222\xAA\x03\x02\x02\x02\u0223" +
+		"\u0227\n\x07\x02\x02\u0224\u0225\x07^\x02\x02\u0225\u0227\t\b\x02\x02" +
+		"\u0226\u0223\x03\x02\x02\x02\u0226\u0224\x03\x02\x02\x02\u0227\xAC\x03" +
+		"\x02\x02\x02\x19\x02\xF9\xFE\u0102\u0105\u0107\u01AB\u01B7\u01C2\u01CB" +
+		"\u01D4\u01DD\u01E4\u01EF\u01F7\u0203\u0208\u020B\u020F\u0214\u021A\u021E" +
+		"\u0226\v\x03\x10\x02\x03\x17\x03\x03\x18\x04\x03\x19\x05\x03\x1A\x06\x03" +
+		"\x1B\x07\x03\x1C\b\b\x02\x02\x02\x04\x02";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!XonLexer.__ATN) {

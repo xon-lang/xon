@@ -27,6 +27,7 @@ import {
     RelationalExpressionContext,
     SelectExpressionContext,
     SliceExpressionContext,
+    SpreadExpressionContext,
     StringFormatExpressionContext,
     UnaryMinusExpressionContext,
     UnaryPlusExpressionContext,
@@ -57,6 +58,7 @@ import { RangeExpressionTree } from './range-expression/range-expression.tree';
 import { RelationalExpressionTree } from './relational-expression/relational-expression.tree';
 import { SelectExpressionTree } from './select-expression/select-expression.tree';
 import { SliceExpressionTree } from './slice-expression/slice-expression.tree';
+import { SpreadExpressionTree } from './spread-expression/spread-expression.tree';
 import { StringFormatExpressionTree } from './string-format-expression/string-format-expression.tree';
 import { UnaryMinusExpressionTree } from './unary-minus-expression/unary-minus-expression.tree';
 import { UnaryPlusExpressionTree } from './unary-plus-expression/unary-plus-expression.tree';
@@ -120,12 +122,14 @@ export function getExpressionTree(ctx: ExpressionContext) {
     // StringFormat
     else if (ctx instanceof StringFormatExpressionContext)
         return new StringFormatExpressionTree(ctx);
-    // IfExpression
+    // If
     else if (ctx instanceof IfExpressionContext) return new IfExpressionTree(ctx);
-    // LoopExpression
+    // Loop
     else if (ctx instanceof LoopExpressionContext) return new LoopExpressionTree(ctx);
-    // SelectExpression
+    // Select
     else if (ctx instanceof SelectExpressionContext) return new SelectExpressionTree(ctx);
+    // Spread
+    else if (ctx instanceof SpreadExpressionContext) return new SpreadExpressionTree(ctx);
 
     throw Error('No Expression found for ' + ctx?.constructor?.name);
 }

@@ -55,7 +55,6 @@ Assign:                     '=';
 QuestionMark:               '?';
 Colon:                      ':';
 TwoColon:                   '::';
-Ellipsis:                   '...';
 Dot:                        '.';
 Plus:                       '+';
 Minus:                      '-';
@@ -90,6 +89,7 @@ Pipe:                       '|';
 Underscore:                 '_';
 Declaration:                ':=';
 Constant:                   '::=';
+Spread:                     '...';
 
 NullLiteral:    'null';
 BooleanLiteral: 'true' | 'false';

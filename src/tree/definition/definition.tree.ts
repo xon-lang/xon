@@ -44,7 +44,7 @@ export class DefinitionTree extends ExpressionTree {
             .filter((x) => x instanceof MethodMemberContext)
             .map((x) => x as MethodMemberContext)
             .map((x) => ({
-                name: x._name.text,
+                name: x.ID().text,
                 args:
                     x.argument()?.map((x) => ({
                         name: x._name.text,
