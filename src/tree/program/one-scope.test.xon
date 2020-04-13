@@ -3,5 +3,5 @@ oneScope():
     loop array:
         log('no way')
 
-some_fun (a: i8, b: str):
+some_fun (a i8, b str):
     call()

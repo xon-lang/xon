@@ -7,5 +7,5 @@ test('return in scope', () => {
 
     expect(tree).toBeInstanceOf(ReturnStatementTree);
     const returnStatement = tree as ReturnStatementTree;
-    expect(evalExpression(returnStatement.value)).toBe(6 + 6);
+    expect(returnStatement.value.eval()).toBe(6 + 6);
 });

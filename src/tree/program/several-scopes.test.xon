@@ -7,5 +7,5 @@ secondScope():
         call()
 
 
-thirdWithArgs (x:str, n:num):
+thirdWithArgs (x str, n num):
     call()

@@ -1,9 +1,9 @@
 SomeClass:
-    property: str
+    property str
     anotherProp = 234
     
     method():
         hello()
         bye()
     
-    location(x: num, y:num = 6): coord(x, y)
+    location(x num, y num = 6): coord(x, y)

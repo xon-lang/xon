@@ -4,7 +4,7 @@ import { ExpressionStatementTree } from '../expression-statement/expression-stat
 import { FunctionStatementTree } from './function-statement.tree';
 
 test('function with one expression body', () => {
-    const code = "foo (s:str = 'simple string', num:i8 = 7): callAnotherFunc()";
+    const code = "foo (s str = 'simple string', num i8 = 7): callAnotherFunc()";
     const tree = parseCode(code, FunctionStatementTree);
     expect(tree.name).toBe('foo');
     expect(tree.args.length).toBe(2);
