@@ -10,10 +10,10 @@ export class StringFormatExpressionTree extends ExpressionTree {
 
         const expressionCode = ctx.text
             .slice(1)
-            .replace(/\{(.*?)\}/g, (z, x) => "' + (" + x + ") + '")
-            .replace(/\+ '' \+/g, '')
-            .replace(/^'' \+/, '')
-            .replace(/\+ ''$/, '');
+            .replace(/\{(.*?)\}/g, (z, x) => "' + (" + x + ") + '");
+        // .replace(/\+ '' \+/g, '')
+        // .replace(/^'' \+/, '')
+        // .replace(/\+ ''$/, '');
         this.value = parseExpression(expressionCode);
     }
 
