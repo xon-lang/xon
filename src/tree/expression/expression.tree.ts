@@ -1,7 +1,7 @@
 import { evalExpression } from '../../test-helper';
 import { BaseTree } from '../base.tree';
 
-export abstract class ExpressionTree extends BaseTree {
+export class ExpressionTree extends BaseTree {
     type: string;
 
     eval() {

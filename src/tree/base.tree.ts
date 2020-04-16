@@ -13,7 +13,7 @@ export abstract class BaseTree {
 
     toPlain() {
         return {
-            type: this.treeType,
+            treeType: this.treeType,
         };
     }
 

@@ -8,12 +8,14 @@ export class StringFormatExpressionTree extends ExpressionTree {
     constructor(public ctx: StringFormatExpressionContext) {
         super();
 
-        const expressionCode = ctx.text
+        let expressionCode = ctx.text
             .slice(1)
-            .replace(/\{(.*?)\}/g, (z, x) => "' + (" + x + ") + '");
-        // .replace(/\+ '' \+/g, '')
-        // .replace(/^'' \+/, '')
-        // .replace(/\+ ''$/, '');
+            .replace(/\{(.*?)\}/g, (z, x) => "' + (" + x + ") + '")
+            .replace(/\+ '' \+/g, '+')
+            .replace(/'' \+/, '')
+            .replace(/\+ ''$/, '')
+            .trim();
+
         this.value = parseExpression(expressionCode);
     }
 

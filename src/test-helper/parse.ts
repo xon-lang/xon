@@ -6,6 +6,7 @@ import { XonParser } from '../grammar/xon-parser';
 import { getExpressionTree } from '../tree/expression/expression-helper';
 import { ExpressionTree } from '../tree/expression/expression.tree';
 import { getStatementTree } from '../tree/statement/statement-helper';
+
 export function parse(code: string) {
     const inputStream = new ANTLRInputStream(code);
     const lexer = new XonLexer(inputStream);
@@ -15,7 +16,9 @@ export function parse(code: string) {
 }
 
 export function parseExpression(code: string): ExpressionTree {
-    return getExpressionTree(parse(code).expression());
+    const parser = parse(code);
+    const ctx = parser.expression();
+    return getExpressionTree(ctx);
 }
 
 export function parseStatement(code: string) {
@@ -47,7 +50,7 @@ export function parseCode<T>(code: string, type: new (ctx: ParserRuleContext) =>
 
 function camelize(str: string) {
     return str
-        .replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+        .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
             return index == 0 ? word.toLowerCase() : word.toUpperCase();
         })
         .replace(/\s+/g, '');
