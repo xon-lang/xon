@@ -23,7 +23,7 @@ export class FunctionStatementTree extends StatementTree {
                 type: x._type.text,
                 value: x._value && getExpressionTree(x._value),
             })) || [];
-        this.statements = getStatementsTree(ctx.body().statement());
+        this.statements = getStatementsTree(ctx.body());
     }
 
     toPlain() {

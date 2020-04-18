@@ -51,7 +51,7 @@ export class DefinitionTree extends ExpressionTree {
                         type: x._type.text,
                         value: x._value && getExpressionTree(x._value),
                     })) || [],
-                statements: getStatementsTree(x.body().statement()),
+                statements: getStatementsTree(x.body()),
             }));
     }
 

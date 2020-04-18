@@ -1,5 +1,6 @@
 import {
     AssignmentStatementContext,
+    BodyContext,
     DeclarationStatementContext,
     ExpressionStatementContext,
     FunctionStatementContext,
@@ -29,6 +30,9 @@ export function getStatementTree(ctx: StatementContext): StatementTree {
     throw Error('No Statemenet found for ' + ctx.constructor.name);
 }
 
-export function getStatementsTree(statements: StatementContext[]) {
-    return statements.filter(x => !(x instanceof LineBreakStatementContext)).map(getStatementTree);
+export function getStatementsTree(body: BodyContext) {
+    return body
+        .statement()
+        .filter((x) => !(x instanceof LineBreakStatementContext))
+        .map(getStatementTree);
 }

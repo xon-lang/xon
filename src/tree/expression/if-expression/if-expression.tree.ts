@@ -16,9 +16,9 @@ export class IfExpressionTree extends ExpressionTree {
         const [ifBody, elseBody] = ctx.body();
 
         this.ifCondition = getExpressionTree(ifExpression);
-        this.ifStatements = getStatementsTree(ifBody.statement());
+        this.ifStatements = getStatementsTree(ifBody);
         this.elseCondition = elseExpression && getExpressionTree(elseExpression);
-        this.elseStatements = elseBody && getStatementsTree(elseBody.statement());
+        this.elseStatements = elseBody && getStatementsTree(elseBody);
     }
 
     toPlain() {

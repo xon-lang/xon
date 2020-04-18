@@ -21,7 +21,7 @@ export class LoopExpressionTree extends ExpressionTree {
         this.keyName = ctx._key?.text;
         this.valueName = ctx._value?.text;
         this.expression = ctx.expression() && getExpressionTree(ctx.expression());
-        this.statements = getStatementsTree(ctx.body().statement());
+        this.statements = getStatementsTree(ctx.body());
     }
 
     toPlain() {
