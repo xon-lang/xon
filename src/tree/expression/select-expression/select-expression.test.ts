@@ -19,10 +19,11 @@ test('select with one case', () => {
 
 test('select with two cases', () => {
     const code = `select:
-    true: 5 + 5
-    3.14: log('pi')`;
+    true: (5 + 5)
+    3.14:
+        log('pi')
+        anotherMethod()`;
     const tree = parseCode(code, SelectExpressionTree);
-
     expect(tree).toBeInstanceOf(SelectExpressionTree);
     expect(tree.cases.length).toBe(2);
 
@@ -31,6 +32,7 @@ test('select with two cases', () => {
     expect(statements.value.eval()).toBe(5 + 5);
 
     expect(tree.cases[1].value.eval()).toBe(3.14);
+    expect(tree.cases[1].statements.length).toBe(2);
     const body2 = tree.cases[1].statements[0] as ExpressionStatementTree;
     const expr = body2.value as FunctionExpressionTree;
     const func = expr.object as IdExpressionTree;

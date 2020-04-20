@@ -1,9 +1,9 @@
 import { evalExpression, parseCode } from '../../../test-helper';
+import { ExpressionStatementTree } from '../../statement/expression-statement/expression-statement.tree';
 import { ArrayExpressionTree } from '../array-expression/array-expression.tree';
 import { FunctionExpressionTree } from '../function-expression/function-expression.tree';
 import { IdExpressionTree } from '../id-expression/id-expression.tree';
 import { RangeExpressionTree } from '../range-expression/range-expression.tree';
-import { ExpressionStatementTree } from '../../statement/expression-statement/expression-statement.tree';
 import { LoopExpressionTree } from './loop-expression.tree';
 
 test('loop with value', () => {

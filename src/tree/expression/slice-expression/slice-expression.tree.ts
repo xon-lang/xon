@@ -12,7 +12,7 @@ export class SliceExpressionTree extends ExpressionTree {
         super();
         this.value = getExpressionTree(ctx._value);
         this.start = getExpressionTree(ctx._startPos);
-        this.end = getExpressionTree(ctx._end);
+        this.end = getExpressionTree(ctx._endPos);
         this.step = ctx._step && getExpressionTree(ctx._step);
     }
 

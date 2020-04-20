@@ -40,11 +40,11 @@ expression
     : 'if' expression body ('else' ('if' expression)? body)?                          # ifExpression
     | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body # loopExpression
     | 'select' (value = expression ('as' ID)?)? ':' LineBreak INDENT (
-        cases += expression body LineBreak
+        cases += expression body LineBreak?
     )+ DEDENT                                                                                         # selectExpression
     | object = expression '(' (args += expression (',' args += expression)*)? ')'                     # functionExpression
     | value = expression '[' index = expression ']'                                                   # indexExpression
-    | value = expression '[' startPos = expression ':' end = expression? (':' step = expression)? ']' # sliceExpression
+    | value = expression '[' startPos = expression ':' endPos = expression? (':' step = expression)? ']' # sliceExpression
     | expression '?'? '.' ID                                                                          # memberExpression
     | '...' expression                                                                                # spreadExpression
     | base = expression '^' exponent = expression                                                     # powExpression
