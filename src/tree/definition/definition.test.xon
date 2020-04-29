@@ -2,6 +2,7 @@ SomeClass:
 
     property str
     anotherProp = 234
+    typed_value number = 1
     
     method():
         hello()

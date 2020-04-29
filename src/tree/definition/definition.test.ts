@@ -6,13 +6,16 @@ import { DefinitionTree } from './definition.tree';
 testXonFIle(DefinitionTree, (tree) => {
     expect(tree.name).toBe('SomeClass');
 
-    expect(tree.properties.length).toBe(2);
+    expect(tree.properties.length).toBe(3);
     expect(tree.properties[0].name).toBe('property');
     expect(tree.properties[0].type).toBe('str');
     expect(tree.properties[0].value).toBeUndefined();
     expect(tree.properties[1].name).toBe('anotherProp');
     expect(tree.properties[1].type).toBeUndefined();
     expect(tree.properties[1].value.eval()).toBe(234);
+    expect(tree.properties[2].name).toBe('typed_value');
+    expect(tree.properties[2].type).toBe('number');
+    expect(tree.properties[2].value.eval()).toBe(1);
 
     expect(tree.methods.length).toBe(2);
     expect(tree.methods[0].name).toBe('method');
