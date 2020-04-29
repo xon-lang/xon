@@ -1,4 +1,5 @@
 SomeClass:
+
     property str
     anotherProp = 234
     

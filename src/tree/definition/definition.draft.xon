@@ -1,0 +1,14 @@
+ConstructorClass:
+    .(x int, y str):
+        pass
+    
+    InnerClass:
+        some_method():
+            call(..another_method())
+            call(.some_method_2())
+
+        some_method_2():
+            pass
+
+    another_method():
+        pass

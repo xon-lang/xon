@@ -4,13 +4,13 @@ import { ExpressionTree } from '../expression.tree';
 
 export class MemberExpressionTree extends ExpressionTree {
     hasElvis: boolean;
-    name: string;
+    memberName: string;
     object: ExpressionTree;
 
     constructor(public ctx: MemberExpressionContext) {
         super();
         this.hasElvis = !!ctx.QuestionMark();
-        this.name = ctx.ID().text;
+        this.memberName = ctx.ID().text;
         this.object = getExpressionTree(ctx.expression());
     }
 
@@ -18,7 +18,7 @@ export class MemberExpressionTree extends ExpressionTree {
         return {
             ...super.toPlain(),
             hasElvis: this.hasElvis,
-            name: this.name,
+            name: this.memberName,
             object: this.object.toPlain(),
         };
     }

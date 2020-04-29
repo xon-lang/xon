@@ -12,6 +12,7 @@ import {
     IdExpressionContext,
     IfExpressionContext,
     IndexExpressionContext,
+    InstanceMemberExpressionContext,
     LambdaExpressionContext,
     LiteralExpressionContext,
     LogicalAndExpressionContext,
@@ -44,6 +45,7 @@ import { FunctionExpressionTree } from './function-expression/function-expressio
 import { IdExpressionTree } from './id-expression/id-expression.tree';
 import { IfExpressionTree } from './if-expression/if-expression.tree';
 import { IndexExpressionTree } from './index-expression/index-expression.tree';
+import { InstanceMemberExpressionTree } from './instance-member-expression/instance-member-expression.tree';
 import { LambdaExpressionTree } from './lambda-expression/lambda-expression.tree';
 import { LiteralExpressionTree } from './literal-expression/literal-expression.tree';
 import { LogicalAndExpressionTree } from './logical-and-expression/logical-and-expression.tree';
@@ -95,8 +97,11 @@ export function getExpressionTree(ctx: ExpressionContext) {
     else if (ctx instanceof LogicalNotExpressionContext) return new LogicalNotExpressionTree(ctx);
     // BitNotExpression
     else if (ctx instanceof BitNotExpressionContext) return new BitNotExpressionTree(ctx);
-    // PropertyExpression
+    // MemberExpression
     else if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
+    // InstanceMemberExpression
+    else if (ctx instanceof InstanceMemberExpressionContext)
+        return new InstanceMemberExpressionTree(ctx);
     // Function
     else if (ctx instanceof FunctionExpressionContext) return new FunctionExpressionTree(ctx);
     // BitShift

@@ -26,6 +26,7 @@ If:       'if';
 Else:     'else';
 Loop:     'loop';
 In:       'in';
+Pass:     'pass';
 Continue: 'continue';
 Break:    'break';
 Return:   'return';

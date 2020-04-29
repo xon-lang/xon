@@ -1,5 +1,6 @@
 import {
     DefinitionContext,
+    DefinitionMemberContext,
     MethodMemberContext,
     PropertyMemberContext,
 } from '../../grammar/xon-parser';
@@ -24,13 +25,20 @@ export class DefinitionTree extends ExpressionTree {
         }[];
         statements: StatementTree[];
     }[];
+    definitions: DefinitionTree[];
 
     constructor(public ctx: DefinitionContext) {
         super();
         this.name = ctx.ID().text;
 
+        this.definitions = ctx
+            .member()
+            .filter((x) => x instanceof DefinitionMemberContext)
+            .map((x) => x as DefinitionMemberContext)
+            .map((x) => new DefinitionTree(x.definition()));
+
         this.properties = ctx
-            .definitionMember()
+            .member()
             .filter((x) => x instanceof PropertyMemberContext)
             .map((x) => x as PropertyMemberContext)
             .map((x) => ({
@@ -40,7 +48,7 @@ export class DefinitionTree extends ExpressionTree {
             }));
 
         this.methods = ctx
-            .definitionMember()
+            .member()
             .filter((x) => x instanceof MethodMemberContext)
             .map((x) => x as MethodMemberContext)
             .map((x) => ({
@@ -59,6 +67,7 @@ export class DefinitionTree extends ExpressionTree {
         return {
             ...super.toPlain(),
             name: this.name,
+            definitions: this.definitions.map((x) => x.toPlain()),
             properties: this.properties.map((x) => ({
                 name: x.name,
                 value: x.value?.toPlain(),
