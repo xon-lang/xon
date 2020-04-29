@@ -14,24 +14,25 @@ importMember: name = ID ('as' alias = ID)?;
 definition: name = ID ':' LineBreak INDENT member+ DEDENT;
 member
     : name = ID (type = ID | type = ID? '=' value = expression) # propertyMember
-    | ID '(' (argument (',' argument)*)? ')' body               # methodMember
+    | function                                                  # methodMember
     | 'pass'                                                    # passMember
     | LineBreak                                                 # lineBreakMember
     ;
 
 // statements
 statement
-    : Preprocessor                                # preprocessorStatement
-    | ID '=' expression                           # assignmentStatement
-    | ID '(' (argument (',' argument)*)? ')' body # functionStatement
-    | 'pass'                                      # passStatement
-    | 'continue'                                  # continueStatement
-    | 'break'                                     # breakStatement
-    | 'return' expression?                        # returnStatement
-    | expression                                  # expressionStatement
-    | LineBreak                                   # lineBreakStatement
+    : Preprocessor         # preprocessorStatement
+    | ID '=' expression    # assignmentStatement
+    | function             # functionStatement
+    | 'pass'               # passStatement
+    | 'continue'           # continueStatement
+    | 'break'              # breakStatement
+    | 'return' expression? # returnStatement
+    | expression           # expressionStatement
+    | LineBreak            # lineBreakStatement
     ;
 
+function: ID '(' (argument (',' argument)*)? ')' body;
 argument: name = ID (type = ID | type = ID? '=' value = expression);
 body:     ':' (statement | LineBreak INDENT statement+ DEDENT);
 

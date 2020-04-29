@@ -3,14 +3,16 @@ import { AssignmentStatementTree } from '../statement/assignment-statement/assig
 import { FunctionStatementTree } from '../statement/function-statement/function-statement.tree';
 import { ProgramTree } from './program.tree';
 
-testXonFIle(ProgramTree, tree => {
+testXonFIle(ProgramTree, (tree) => {
     expect(tree.statements.length).toBe(2);
 
-    const scope = tree.statements[0] as FunctionStatementTree;
-    expect(scope).not.toBeUndefined();
-    expect(scope.name).toBe('oneScope');
-    expect(scope.args.length).toBe(0);
+    const func = tree.statements[0] as FunctionStatementTree;
+    expect(func).not.toBeUndefined();
+    expect(func.value.name).toBe('oneScope');
+    expect(func.value.args.length).toBe(0);
 
-    expect(scope.statements[0]).toBeInstanceOf(AssignmentStatementTree);
-    expect(evalExpression((scope.statements[0] as AssignmentStatementTree).value)).toBe(23 + 5);
+    expect(func.value.statements[0]).toBeInstanceOf(AssignmentStatementTree);
+    expect(evalExpression((func.value.statements[0] as AssignmentStatementTree).value)).toBe(
+        23 + 5
+    );
 });

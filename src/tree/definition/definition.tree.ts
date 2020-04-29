@@ -5,8 +5,7 @@ import {
 } from '../../grammar/xon-parser';
 import { getExpressionTree } from '../expression/expression-helper';
 import { ExpressionTree } from '../expression/expression.tree';
-import { getStatementsTree } from '../statement/statement-helper';
-import { StatementTree } from '../statement/statement.tree';
+import { FunctionTree } from '../function/function.tree';
 
 export class DefinitionTree extends ExpressionTree {
     name: string;
@@ -15,15 +14,7 @@ export class DefinitionTree extends ExpressionTree {
         type: string;
         value: ExpressionTree;
     }[];
-    methods: {
-        name: string;
-        args: {
-            name: string;
-            type: string;
-            value: ExpressionTree;
-        }[];
-        statements: StatementTree[];
-    }[];
+    methods: FunctionTree[];
 
     constructor(public ctx: DefinitionContext) {
         super();
@@ -43,16 +34,7 @@ export class DefinitionTree extends ExpressionTree {
             .member()
             .filter((x) => x instanceof MethodMemberContext)
             .map((x) => x as MethodMemberContext)
-            .map((x) => ({
-                name: x.ID().text,
-                args:
-                    x.argument()?.map((x) => ({
-                        name: x._name.text,
-                        type: x._type && x._type.text,
-                        value: getExpressionTree(x._value),
-                    })) || [],
-                statements: getStatementsTree(x.body()),
-            }));
+            .map((x) => new FunctionTree(x.function()));
     }
 
     toPlain() {
@@ -64,15 +46,7 @@ export class DefinitionTree extends ExpressionTree {
                 value: x.value?.toPlain(),
                 type: x.type,
             })),
-            methods: this.methods.map((x) => ({
-                name: x.name,
-                args: x.args.map((x) => ({
-                    name: x.name,
-                    type: x.type,
-                    value: x.value?.toPlain(),
-                })),
-                statements: x.statements.map((x) => x.toPlain()),
-            })),
+            methods: this.methods.map((x) => x.toPlain()),
         };
     }
 }
