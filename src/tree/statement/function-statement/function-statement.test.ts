@@ -3,6 +3,7 @@ import { FunctionExpressionTree } from '../../expression/function-expression/fun
 import { FunctionTree } from '../../function/function.tree';
 import { ExpressionStatementTree } from '../expression-statement/expression-statement.tree';
 import { FunctionStatementTree } from './function-statement.tree';
+import { SimpleTypeTree } from '../../type/simple-type/simple-type.tree';
 
 test('function with one expression body', () => {
     const code = "foo (s str = 'simple string', num i8 = 7): callAnotherFunc()";
@@ -13,11 +14,13 @@ test('function with one expression body', () => {
     expect(tree.value.name).toBe('foo');
     expect(tree.value.args.length).toBe(2);
 
-    expect(tree.value.args[0].type).toBe('str');
+    const type1 = tree.value.args[0].type as SimpleTypeTree
+    expect(type1.name).toBe('str');
     expect(tree.value.args[0].name).toBe('s');
     expect(tree.value.args[0].value['literal']['value']).toBe('simple string');
 
-    expect(tree.value.args[1].type).toBe('i8');
+    const type2 = tree.value.args[1].type as SimpleTypeTree
+    expect(type2.name).toBe('i8');
     expect(tree.value.args[1].name).toBe('num');
     expect(tree.value.args[1].value['literal']['value']).toBe(7);
 

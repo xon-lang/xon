@@ -1,7 +1,7 @@
 import { ParserRuleContext } from 'antlr4ts';
 
 export abstract class BaseTree {
-    ctx: ParserRuleContext;
+    ctx?: ParserRuleContext;
 
     get treeType() {
         return this.ctx.constructor.name.replace(/Context$/, '');

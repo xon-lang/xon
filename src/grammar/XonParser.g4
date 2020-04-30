@@ -13,10 +13,10 @@ importMember: name = ID ('as' alias = ID)?;
 
 definition: name = ID ':' LineBreak INDENT member+ DEDENT;
 member
-    : name = ID (type = ID | type = ID? '=' value = expression) # propertyMember
-    | function                                                  # methodMember
-    | 'pass'                                                    # passMember
-    | LineBreak                                                 # lineBreakMember
+    : name = ID (type | type? '=' value = expression) # propertyMember
+    | function                                        # methodMember
+    | 'pass'                                          # passMember
+    | LineBreak                                       # lineBreakMember
     ;
 
 // statements
@@ -31,9 +31,15 @@ statement
     | expression           # expressionStatement
     | LineBreak            # lineBreakStatement
     ;
+dotsId: '...'? ID;
 
+type
+    : ID                                 # simpleType
+    | type '[' ']'                       # arrayType
+    | ( '{' ID type ( ',' ID type)* '}') # dictionaryType
+    ;
 function: ID '(' (argument (',' argument)*)? ')' body;
-argument: name = ID (type = ID | type = ID? '=' value = expression);
+argument: name = ID (type | type? '=' expression);
 body:     ':' (statement | LineBreak INDENT statement+ DEDENT);
 
 // expressions
@@ -69,7 +75,7 @@ expression
     | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd                      # stringFormatExpression
     | '[' (items += expression (',' items += expression)*)? ']'                                          # arrayExpression
     | '[' startPos = expression ':' end = expression (':' step = expression)? ']'                        # rangeExpression
-    | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                                              # objectExpression
+    | '{' (ID '=' expression (',' ID '=' expression)*)? '}'                                              # objectExpression
     | '(' expression ')'                                                                                 # parenthesizedExpression
     | left = expression '|' (ID ':')? right = expression                                                 # pipeExpression
     | '\\' (ID (',' ID)* ':')? expression                                                                # lambdaExpression

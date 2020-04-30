@@ -2,7 +2,7 @@ import { StatementContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { ExpressionStatementTree } from './expression-statement/expression-statement.tree';
 
-export class StatementTree extends BaseTree {
+export abstract class StatementTree extends BaseTree {
     ctx: StatementContext;
 
     asExpression() {

@@ -6,12 +6,14 @@ import {
 import { getExpressionTree } from '../expression/expression-helper';
 import { ExpressionTree } from '../expression/expression.tree';
 import { FunctionTree } from '../function/function.tree';
+import { getTypeTree } from '../type/type-helper';
+import { TypeTree } from '../type/type.tree';
 
 export class DefinitionTree extends ExpressionTree {
     name: string;
     properties: {
         name: string;
-        type: string;
+        type: TypeTree;
         value: ExpressionTree;
     }[];
     methods: FunctionTree[];
@@ -26,7 +28,7 @@ export class DefinitionTree extends ExpressionTree {
             .map((x) => x as PropertyMemberContext)
             .map((x) => ({
                 name: x._name.text,
-                type: x._type?.text,
+                type: x.type() && getTypeTree(x.type()),
                 value: getExpressionTree(x._value),
             }));
 
@@ -44,7 +46,7 @@ export class DefinitionTree extends ExpressionTree {
             properties: this.properties.map((x) => ({
                 name: x.name,
                 value: x.value?.toPlain(),
-                type: x.type,
+                type: x.type?.toPlain(),
             })),
             methods: this.methods.map((x) => x.toPlain()),
         };
