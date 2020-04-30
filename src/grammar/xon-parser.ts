@@ -722,7 +722,6 @@ export class XonParser extends Parser {
 				_localctx = new DictionaryTypeContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
-				{
 				this.state = 115;
 				this.match(XonParser.OpenBrace);
 				this.state = 116;
@@ -749,7 +748,6 @@ export class XonParser extends Parser {
 				}
 				this.state = 126;
 				this.match(XonParser.CloseBrace);
-				}
 				}
 				break;
 			default:
@@ -2565,7 +2563,7 @@ export class ArrayTypeContext extends TypeContext {
 	}
 }
 export class DictionaryTypeContext extends TypeContext {
-	public OpenBrace(): TerminalNode | undefined { return this.tryGetToken(XonParser.OpenBrace, 0); }
+	public OpenBrace(): TerminalNode { return this.getToken(XonParser.OpenBrace, 0); }
 	public ID(): TerminalNode[];
 	public ID(i: number): TerminalNode;
 	public ID(i?: number): TerminalNode | TerminalNode[] {
@@ -2584,7 +2582,7 @@ export class DictionaryTypeContext extends TypeContext {
 			return this.getRuleContext(i, TypeContext);
 		}
 	}
-	public CloseBrace(): TerminalNode | undefined { return this.tryGetToken(XonParser.CloseBrace, 0); }
+	public CloseBrace(): TerminalNode { return this.getToken(XonParser.CloseBrace, 0); }
 	public Comma(): TerminalNode[];
 	public Comma(i: number): TerminalNode;
 	public Comma(i?: number): TerminalNode | TerminalNode[] {

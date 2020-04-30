@@ -34,9 +34,9 @@ statement
 dotsId: '...'? ID;
 
 type
-    : ID                                 # simpleType
-    | type '[' ']'                       # arrayType
-    | ( '{' ID type ( ',' ID type)* '}') # dictionaryType
+    : ID                              # simpleType
+    | type '[' ']'                    # arrayType
+    | '{' ID type ( ',' ID type)* '}' # dictionaryType
     ;
 function: ID '(' (argument (',' argument)*)? ')' body;
 argument: name = ID (type | type? '=' expression);

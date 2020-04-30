@@ -12,3 +12,14 @@ ConstructorClass:
 
     another_method():
         pass
+
+dict_arg_method(x {a num, b =3}, b {s {v str}}}):
+    pass
+
+dict_arg_method(x <a num, b = 3>, b <s <v str>>)):
+    {
+        a str,
+        b str,
+        c char
+    }
+    pass

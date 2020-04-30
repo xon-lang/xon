@@ -37,14 +37,12 @@ Select:   'select';
 Preprocessor: '#:' ~[\r\n]+;
 LineBreak:    ({this.atStartOfInput()}? SPACES | ( '\r'? '\n' | '\r') SPACES?) {this.handleLineBreak()};
 
-// Bitwise operations
-BitAnd:               'and';
-BitOr:                'or';
-BitXor:               'xor';
-RightShiftArithmetic: '>>';
-LeftShiftArithmetic:  '<<';
-RightShiftLogical:    '>>>';
-
+BitAnd:                     'and';
+BitOr:                      'or';
+BitXor:                     'xor';
+RightShiftArithmetic:       '>>';
+LeftShiftArithmetic:        '<<';
+RightShiftLogical:          '>>>';
 OpenBracket:                '[' {this.opened++;};
 CloseBracket:               ']' {this.opened--;};
 OpenParen:                  '(' {this.opened++;};
