@@ -16,22 +16,32 @@ member
     : name = ID (type | type? '=' value = expression) # propertyMember
     | function                                        # methodMember
     | 'pass'                                          # passMember
-    | LineBreak                                       # lineBreakMember
+    // | init (.pub_prop, ...._prv_prop, no_prop)
+    | LineBreak # lineBreakMember
     ;
 
 // statements
 statement
-    : Preprocessor         # preprocessorStatement
-    | ID '=' expression    # assignmentStatement
-    | function             # functionStatement
-    | 'pass'               # passStatement
-    | 'continue'           # continueStatement
-    | 'break'              # breakStatement
-    | 'return' expression? # returnStatement
-    | expression           # expressionStatement
-    | LineBreak            # lineBreakStatement
+    : Preprocessor                                        # preprocessorStatement
+    | (assignmentsList '=')+ expression (',' expression)* # assignmentStatement
+    | function                                            # functionStatement
+    | 'pass'                                              # passStatement
+    | 'continue'                                          # continueStatement
+    | 'break'                                             # breakStatement
+    | 'return' expression?                                # returnStatement
+    | expression                                          # expressionStatement
+    | LineBreak                                           # lineBreakStatement
     ;
-dotsId: '...'? ID;
+
+assignmentsList
+    : leftAssignments
+    | leftAssignments middleAssignments rightAssignments?
+    | middleAssignments rightAssignments?
+    ;
+
+leftAssignments:   ID (',' ID?)* | (',' ID?)+;
+middleAssignments: '...' ID? (',' '...' ID?)*;
+rightAssignments:  (',' ID?)+;
 
 type
     : ID                              # simpleType
@@ -55,6 +65,7 @@ expression
     | expression '?'? '.' ID                                                                             # memberExpression
     | '.' ID                                                                                             # instanceMemberExpression
     | '...' expression                                                                                   # spreadExpression
+    | '@' expression                                                                                     # asyncExpression
     | base = expression '^' exponent = expression                                                        # powExpression
     | '+' expression                                                                                     # unaryPlusExpression
     | '-' expression                                                                                     # unaryMinusExpression
@@ -75,10 +86,14 @@ expression
     | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd                      # stringFormatExpression
     | '[' (items += expression (',' items += expression)*)? ']'                                          # arrayExpression
     | '[' startPos = expression ':' end = expression (':' step = expression)? ']'                        # rangeExpression
-    | '{' (ID '=' expression (',' ID '=' expression)*)? '}'                                              # objectExpression
-    | '(' expression ')'                                                                                 # parenthesizedExpression
-    | left = expression '|' (ID ':')? right = expression                                                 # pipeExpression
-    | '\\' (ID (',' ID)* ':')? expression                                                                # lambdaExpression
+    | '{' (
+        ('.' ID | key += expression) '=' value += expression (
+            ',' ('.' ID | key += expression) '=' value += expression
+        )*
+    )? '}'                                               # objectExpression
+    | '(' expression ')'                                 # parenthesizedExpression
+    | left = expression '|' (ID ':')? right = expression # pipeExpression
+    | '\\' (ID (',' ID)* ':')? expression                # lambdaExpression
     ;
 
 literal

@@ -49,6 +49,7 @@ OpenParen:                  '(' {this.opened++;};
 CloseParen:                 ')' {this.opened--;};
 OpenBrace:                  '{' {this.opened++;};
 CloseBrace:                 '}' {this.opened--;};
+Ad:                         '@';
 Comma:                      ',';
 Assign:                     '=';
 QuestionMark:               '?';

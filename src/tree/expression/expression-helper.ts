@@ -138,3 +138,7 @@ export function getExpressionTree(ctx: ExpressionContext) {
 
     throw Error('No Expression found for ' + ctx?.constructor?.name);
 }
+
+export function getExpressionsTree(expressions: ExpressionContext[]) {
+    return expressions.map(getExpressionTree);
+}
