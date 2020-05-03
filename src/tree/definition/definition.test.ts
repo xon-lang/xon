@@ -1,3 +1,4 @@
+import { BaseTypes } from '../../base-types';
 import { testXonFIle } from '../../test-helper';
 import { FunctionExpressionTree } from '../expression/function-expression/function-expression.tree';
 import { IdExpressionTree } from '../expression/id-expression/id-expression.tree';
@@ -11,7 +12,7 @@ testXonFIle(DefinitionTree, (tree) => {
     expect(tree.properties[0].type.asSimple.name).toBe('str');
     expect(tree.properties[0].value).toBeUndefined();
     expect(tree.properties[1].name).toBe('anotherProp');
-    expect(tree.properties[1].value.type.asSimple.name).toBe('num');
+    expect(tree.properties[1].value.getType()).toBe(BaseTypes.Integer);
     expect(tree.properties[1].value.eval()).toBe(234);
     expect(tree.properties[2].name).toBe('typed_value');
     expect(tree.properties[2].type.asSimple.name).toBe('number');

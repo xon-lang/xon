@@ -19,10 +19,14 @@ export function getTypeTree(ctx: TypeContext): TypeTree {
     throw Error('No Statemenet found for ' + ctx.constructor.name);
 }
 
+export function createSimpleTreeType(name) {
+    const type = new SimpleTypeTree();
+    type.name = name;
+    return type;
+}
 
-
-export function createSimpleTreeType(name){
-    const type =  new SimpleTypeTree()
-    type.name = name
-    return type
+export function createArrayTreeType(baseType: TypeTree) {
+    const type = new ArrayTypeTree();
+    type.baseType = baseType;
+    return type;
 }

@@ -73,6 +73,11 @@ export class AssignmentStatementTree extends StatementTree {
         return {
             ...super.toPlain(),
             value: this.value.toPlain(),
+            singleAssigments: this.singleAssigments,
+            arrayAssginments: this.arrayAssginments,
+            startArraysIndex: this.startArraysIndex,
+            endArraysIndex: this.endArraysIndex,
+            name: this.name,
         };
     }
 }

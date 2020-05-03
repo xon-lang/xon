@@ -33,6 +33,7 @@ Return:   'return';
 As:       'as';
 Var:      'var';
 Select:   'select';
+Init:     'init';
 
 Preprocessor: '#:' ~[\r\n]+;
 LineBreak:    ({this.atStartOfInput()}? SPACES | ( '\r'? '\n' | '\r') SPACES?) {this.handleLineBreak()};

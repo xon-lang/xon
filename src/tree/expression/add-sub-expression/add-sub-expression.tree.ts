@@ -19,6 +19,12 @@ export class AddSubExpressionTree extends ExpressionTree {
         this.right = getExpressionTree(ctx._right);
     }
 
+    getType() {
+        // const hasStrOperand = BaseTypes.String in [this.left, this.right].map(x=>x.getType().)
+        // return createSimpleTreeType
+        return null;
+    }
+
     toPlain() {
         return {
             ...super.toPlain(),

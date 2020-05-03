@@ -41,6 +41,7 @@ import { BitOrExpressionTree } from './bit-or-expression/bit-or-expression.tree'
 import { BitShiftExpressionTree } from './bit-shift-expression/bit-shift-expression.tree';
 import { BitXorExpressionTree } from './bit-xor-expression/bit-xor-expression.tree';
 import { EqualityExpressionTree } from './equality-expression/equality-expression.tree';
+import { ExpressionTree } from './expression.tree';
 import { FunctionExpressionTree } from './function-expression/function-expression.tree';
 import { IdExpressionTree } from './id-expression/id-expression.tree';
 import { IfExpressionTree } from './if-expression/if-expression.tree';
@@ -65,7 +66,7 @@ import { StringFormatExpressionTree } from './string-format-expression/string-fo
 import { UnaryMinusExpressionTree } from './unary-minus-expression/unary-minus-expression.tree';
 import { UnaryPlusExpressionTree } from './unary-plus-expression/unary-plus-expression.tree';
 
-export function getExpressionTree(ctx: ExpressionContext) {
+export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
     if (ctx === undefined) return undefined;
 
     // IdExpression

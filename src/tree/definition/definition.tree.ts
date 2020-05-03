@@ -26,11 +26,14 @@ export class DefinitionTree extends ExpressionTree {
             .member()
             .filter((x) => x instanceof PropertyMemberContext)
             .map((x) => x as PropertyMemberContext)
-            .map((x) => ({
-                name: x._name.text,
-                type: x.type() && getTypeTree(x.type()),
-                value: getExpressionTree(x._value),
-            }));
+            .map((x) => {
+                const expr = getExpressionTree(x._value)
+                return {
+                    name: x._name.text,
+                    type: x.type() && getTypeTree(x.type()) || expr.getType(),
+                    value: expr,
+                };
+            });
 
         this.methods = ctx
             .member()

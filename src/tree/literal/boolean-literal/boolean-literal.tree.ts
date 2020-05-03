@@ -1,5 +1,5 @@
+import { BaseTypes } from '../../../base-types';
 import { BooleanLiteralContext } from '../../../grammar/xon-parser';
-import { createSimpleTreeType } from '../../type/type-helper';
 import { LiteralTree } from '../literal.tree';
 
 export class BooleanLiteralTree extends LiteralTree {
@@ -8,7 +8,10 @@ export class BooleanLiteralTree extends LiteralTree {
     constructor(public ctx: BooleanLiteralContext) {
         super();
         this.isPositive = ctx.text == 'true';
-        this.value = this.isPositive; // ctx.BooleanLiteral().text;
-        this.type = createSimpleTreeType('bool');
+        this.value = this.isPositive;
+    }
+
+    getType() {
+        return BaseTypes.Boolean;
     }
 }

@@ -15,7 +15,18 @@ definition: name = ID ':' LineBreak INDENT member+ DEDENT;
 member
     : name = ID (type | type? '=' value = expression) # propertyMember
     | function                                        # methodMember
-    | 'pass'                                          # passMember
+    // | 'init' '(' (argument (',' argument)*)? ')' body # constructordMember
+
+    // | '+' '(' argument ')' body          # addOperatordMember
+
+    // | '-' '(' argument ')' body          # subOperatordMember
+
+    // | '*' '(' argument ')' body          # mulOperatordMember
+
+    // | '/' '(' argument ')' body          # divOperatordMember
+
+    // | '^' '(' argument ')' body          # powOperatordMember
+    | 'pass' # passMember
     // | init (.pub_prop, ...._prv_prop, no_prop)
     | LineBreak # lineBreakMember
     ;

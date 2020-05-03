@@ -14,6 +14,7 @@ export class FunctionTree extends BaseTree {
         type: TypeTree;
         value: ExpressionTree;
     }[];
+    returnType: TypeTree;
     statements: StatementTree[];
 
     constructor(public ctx: FunctionContext) {
@@ -24,7 +25,7 @@ export class FunctionTree extends BaseTree {
             ctx.argument()?.map((x) => ({
                 name: x._name.text,
                 type: x.type() && getTypeTree(x.type()),
-                value: getExpressionTree(x.expression())
+                value: getExpressionTree(x.expression()),
             })) || [];
         this.statements = getStatementsTree(ctx.body());
     }
@@ -38,6 +39,7 @@ export class FunctionTree extends BaseTree {
                 type: x.type?.toPlain(),
                 value: x.value?.toPlain(),
             })),
+            returnType: this.returnType.toPlain(),
             statements: this.statements.map((x) => x.toPlain()),
         };
     }
