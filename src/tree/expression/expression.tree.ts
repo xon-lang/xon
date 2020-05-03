@@ -15,4 +15,8 @@ export abstract class ExpressionTree extends BaseTree {
             type: this.type,
         };
     }
+
+    as<T>() {
+        return (this as any) as T;
+    }
 }

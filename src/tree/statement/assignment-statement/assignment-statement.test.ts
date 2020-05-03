@@ -2,10 +2,27 @@ import { parseCode } from '../../../test-helper';
 import { ArrayExpressionTree } from '../../expression/array-expression/array-expression.tree';
 import { AssignmentStatementTree } from './assignment-statement.tree';
 
+test('one assignment', () => {
+    const code = "a = 1, 2, 3, 'v'";
+    const tree = parseCode(code, AssignmentStatementTree);
+    expect(tree.value).toBeInstanceOf(ArrayExpressionTree);
+    expect(tree.isOneAssignment).toBe(true);
+    expect(tree.singleAssigments.length).toBe(1);
+    expect(tree.arrayAssginments.length).toBe(0);
+    expect(tree.name).toBe('a');
+    expect(
+        tree.value
+            .as<ArrayExpressionTree>()
+            .items.map((x) => x.eval())
+            .join()
+    ).toBe('1,2,3,v');
+});
+
 test('id only list', () => {
     const code = 'a, b, c, d = [5 + 5]';
     const tree = parseCode(code, AssignmentStatementTree);
     expect(tree.value).toBeInstanceOf(ArrayExpressionTree);
+    expect(tree.isOneAssignment).toBe(false);
     expect(tree.singleAssigments.length).toBe(4);
     expect(tree.singleAssigments.map((x) => x.name).join()).toBe('a,b,c,d');
     expect(tree.singleAssigments[0].index).toBe(0);
@@ -18,6 +35,7 @@ test('several equals', () => {
     const code = 'a,, b = ,c, d, = [5 + 5]';
     const tree = parseCode(code, AssignmentStatementTree);
     expect(tree.value).toBeInstanceOf(ArrayExpressionTree);
+    expect(tree.isOneAssignment).toBe(false);
     expect(tree.singleAssigments.length).toBe(4);
     expect(tree.singleAssigments.map((x) => x.name).join()).toBe('a,b,c,d');
     expect(tree.singleAssigments[0].index).toBe(0);
@@ -29,6 +47,7 @@ test('several equals', () => {
 test('id list and expression list', () => {
     const code = ",b, , , e, = 8, 5 + 5, 2^3, 'abcd', 8.9, 11, 7";
     const tree = parseCode(code, AssignmentStatementTree);
+    expect(tree.isOneAssignment).toBe(false);
     expect(tree.singleAssigments.length).toBe(2);
     expect(tree.singleAssigments.map((x) => x.name).join()).toBe('b,e');
 
@@ -44,6 +63,7 @@ test('id list and expression list', () => {
 test('array id', () => {
     const code = ", , ...a, ..., ...z, b, c = 'x', 'y', 'z', 22, 33";
     const tree = parseCode(code, AssignmentStatementTree);
+    expect(tree.isOneAssignment).toBe(false);
     expect(tree.singleAssigments.length).toBe(2);
     expect(tree.singleAssigments.map((x) => x.name).join()).toBe('b,c');
 
