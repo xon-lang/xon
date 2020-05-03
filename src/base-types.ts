@@ -11,7 +11,7 @@ export const BaseTypes = {
     String: createSimpleTreeType('String'),
 };
 
-export function getDestinationType(operator: string, left: TypeTree, right: TypeTree) {
+export function getOperationType(operator: string, left: TypeTree, right: TypeTree) {
     if (!left || !right) return BaseTypes.Undefined;
     // return variations_cross[`${left.asSimple?.name} ${operator} ${right.asSimple?.name}`];
     return generated_variations[`${left.asSimple?.name} ${operator} ${right.asSimple?.name}`];

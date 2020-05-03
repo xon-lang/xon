@@ -25,7 +25,7 @@ export function createSimpleTreeType(name) {
     return type;
 }
 
-export function createArrayTreeType(baseType: TypeTree) {
+export function createArrayTreeType(baseType?: TypeTree) {
     const type = new ArrayTypeTree();
     type.baseType = baseType;
     return type;

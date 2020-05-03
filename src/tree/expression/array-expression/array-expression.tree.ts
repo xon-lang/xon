@@ -12,7 +12,7 @@ export class ArrayExpressionTree extends ExpressionTree {
     }
 
     getType() {
-        return createArrayTreeType(this.items[0]?.getType());
+        return createArrayTreeType();
     }
 
     toPlain() {
