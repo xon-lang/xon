@@ -16,7 +16,6 @@ export class AssignmentStatementTree extends StatementTree {
     startArraysIndex: number;
     endArraysIndex: number;
 
-    isOneAssignment: boolean;
     name: string;
 
     constructor(public ctx: AssignmentStatementContext) {
@@ -54,8 +53,7 @@ export class AssignmentStatementTree extends StatementTree {
             }
         }
 
-        this.isOneAssignment = this.singleAssigments.length + this.arrayAssginments.length == 1;
-        if (this.isOneAssignment) {
+        if (this.singleAssigments.length + this.arrayAssginments.length == 1) {
             this.name = this.singleAssigments[0]?.name || this.arrayAssginments[0];
         }
     }
