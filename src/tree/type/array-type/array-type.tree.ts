@@ -10,6 +10,10 @@ export class ArrayTypeTree extends TypeTree {
         this.baseType = getTypeTree(ctx?.type());
     }
 
+    eq(anotherType: TypeTree) {
+        return anotherType instanceof ArrayTypeTree && anotherType.baseType.eq(this.baseType);
+    }
+
     toPlain() {
         return {
             ...super.toPlain(),

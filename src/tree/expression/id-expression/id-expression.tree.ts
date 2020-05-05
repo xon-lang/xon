@@ -1,7 +1,5 @@
 import { IdExpressionContext } from '../../../grammar/xon-parser';
-import { BaseTree } from '../../base.tree';
 import { ExpressionTree } from '../expression.tree';
-import { getExpressionTree } from '../expression-helper';
 
 export class IdExpressionTree extends ExpressionTree {
     id: string;
@@ -9,6 +7,10 @@ export class IdExpressionTree extends ExpressionTree {
     constructor(public ctx: IdExpressionContext) {
         super();
         this.id = ctx.ID().text;
+    }
+
+    getType() {
+        return this.getIdType(this.id);
     }
 
     toPlain() {

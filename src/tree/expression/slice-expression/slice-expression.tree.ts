@@ -1,6 +1,8 @@
-import { IndexExpressionContext, SliceExpressionContext } from '../../../grammar/xon-parser';
-import { ExpressionTree } from '../expression.tree';
+import { BaseTypes } from '../../../base-types';
+import { SliceExpressionContext } from '../../../grammar/xon-parser';
+import { createArrayTreeType } from '../../type/type-helper';
 import { getExpressionTree } from '../expression-helper';
+import { ExpressionTree } from '../expression.tree';
 
 export class SliceExpressionTree extends ExpressionTree {
     value: ExpressionTree;
@@ -14,6 +16,10 @@ export class SliceExpressionTree extends ExpressionTree {
         this.start = getExpressionTree(ctx._startPos);
         this.end = getExpressionTree(ctx._endPos);
         this.step = ctx._step && getExpressionTree(ctx._step);
+    }
+
+    getType() {
+        return createArrayTreeType(BaseTypes.Any);
     }
 
     toPlain() {

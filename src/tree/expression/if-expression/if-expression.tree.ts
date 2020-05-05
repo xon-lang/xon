@@ -3,6 +3,7 @@ import { getStatementsTree } from '../../statement/statement-helper';
 import { StatementTree } from '../../statement/statement.tree';
 import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
+import { BaseTypes } from '../../../base-types';
 
 export class IfExpressionTree extends ExpressionTree {
     ifCondition: ExpressionTree;
@@ -19,6 +20,10 @@ export class IfExpressionTree extends ExpressionTree {
         this.ifStatements = getStatementsTree(ifBody);
         this.elseCondition = elseExpression && getExpressionTree(elseExpression);
         this.elseStatements = elseBody && getStatementsTree(elseBody);
+    }
+
+    getType(){
+        return BaseTypes.Undefined
     }
 
     toPlain() {

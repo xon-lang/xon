@@ -4,7 +4,7 @@ import { getExpressionTree } from '../expression/expression-helper';
 import { ExpressionTree } from '../expression/expression.tree';
 import { getStatementsTree } from '../statement/statement-helper';
 import { StatementTree } from '../statement/statement.tree';
-import { getTypeTree } from '../type/type-helper';
+import { createFunctionTreeType, getTypeTree } from '../type/type-helper';
 import { TypeTree } from '../type/type.tree';
 
 export class FunctionTree extends BaseTree {
@@ -20,14 +20,26 @@ export class FunctionTree extends BaseTree {
     constructor(public ctx: FunctionContext) {
         super();
 
-        this.name = ctx.ID().text;
+        BaseTree.locals.push({});
+
+        this.name = ctx._name.text;
         this.args =
             ctx.argument()?.map((x) => ({
                 name: x._name.text,
                 type: x.type() && getTypeTree(x.type()),
                 value: getExpressionTree(x.expression()),
             })) || [];
+
+        this.args.forEach((x) => (this.locals[x.name] = x.type));
         this.statements = getStatementsTree(ctx.body());
+        BaseTree.locals.pop();
+    }
+
+    getType() {
+        return createFunctionTreeType(
+            this.args.map((x) => x.type),
+            this.returnType
+        );
     }
 
     toPlain() {

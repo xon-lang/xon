@@ -18,4 +18,6 @@ export abstract class TypeTree extends BaseTree {
     get asDictionary() {
         return (this as any) as DictionaryTypeTree;
     }
+
+    abstract eq(anotherType: TypeTree): Boolean;
 }

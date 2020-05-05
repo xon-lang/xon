@@ -1,3 +1,4 @@
+import { BaseTypes } from '../../../base-types';
 import { SelectExpressionContext } from '../../../grammar/xon-parser';
 import { getStatementsTree } from '../../statement/statement-helper';
 import { StatementTree } from '../../statement/statement.tree';
@@ -18,6 +19,10 @@ export class SelectExpressionTree extends ExpressionTree {
             value: getExpressionTree(x),
             statements: getStatementsTree(ctx.body(i)),
         }));
+    }
+
+    getType() {
+        return BaseTypes.Any;
     }
 
     toPlain() {

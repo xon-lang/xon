@@ -1,7 +1,26 @@
 import { ParserRuleContext } from 'antlr4ts';
+import { BaseTypes } from '../base-types';
 
 export abstract class BaseTree {
+    static locals = [];
+    static defLocals = [];
     ctx?: ParserRuleContext;
+
+    get locals() {
+        return BaseTree.locals.slice(-1)[0];
+    }
+
+    get defLocals() {
+        return BaseTree.defLocals.slice(-1)[0];
+    }
+
+    getIdType(id: string) {
+        for (const locals of BaseTree.locals.reverse()) {
+            if (id in locals) return locals;
+        }
+
+        return BaseTypes.Undefined;
+    }
 
     get treeType() {
         return this.ctx.constructor.name.replace(/Context$/, '');

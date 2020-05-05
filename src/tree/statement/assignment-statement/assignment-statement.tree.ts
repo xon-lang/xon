@@ -55,6 +55,9 @@ export class AssignmentStatementTree extends StatementTree {
 
         if (this.singleAssigments.length + this.arrayAssginments.length == 1) {
             this.name = this.singleAssigments[0]?.name || this.arrayAssginments[0];
+            if (this.locals) {
+                this.locals[this.name] = this.value.getType();
+            }
         }
     }
 

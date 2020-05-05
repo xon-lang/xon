@@ -1,6 +1,7 @@
 import { BitShiftExpressionContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
+import { BaseTypes } from '../../../base-types';
 
 export class BitShiftExpressionTree extends ExpressionTree {
     operation: string;
@@ -18,6 +19,11 @@ export class BitShiftExpressionTree extends ExpressionTree {
         this.isRightShiftLogical = !!ctx.RightShiftLogical();
         this.left = getExpressionTree(ctx._left);
         this.right = getExpressionTree(ctx._right);
+    }
+
+
+    getType(){
+        return BaseTypes.Integer
     }
 
     toPlain() {

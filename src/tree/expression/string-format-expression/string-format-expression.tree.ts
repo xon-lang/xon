@@ -1,3 +1,4 @@
+import { BaseTypes } from '../../../base-types';
 import { StringFormatExpressionContext } from '../../../grammar/xon-parser';
 import { parseExpression } from '../../../test-helper';
 import { ExpressionTree } from '../expression.tree';
@@ -17,6 +18,10 @@ export class StringFormatExpressionTree extends ExpressionTree {
             .trim();
 
         this.value = parseExpression(expressionCode);
+    }
+
+    getType() {
+        return BaseTypes.String;
     }
 
     toPlain() {

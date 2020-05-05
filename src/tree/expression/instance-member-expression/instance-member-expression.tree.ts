@@ -9,6 +9,10 @@ export class InstanceMemberExpressionTree extends ExpressionTree {
         this.memberName = ctx.ID().text;
     }
 
+    getType() {
+        return this.defLocals[this.memberName];
+    }
+
     toPlain() {
         return {
             ...super.toPlain(),

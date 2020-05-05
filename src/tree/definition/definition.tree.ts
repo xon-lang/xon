@@ -3,13 +3,14 @@ import {
     MethodMemberContext,
     PropertyMemberContext,
 } from '../../grammar/xon-parser';
+import { BaseTree } from '../base.tree';
 import { getExpressionTree } from '../expression/expression-helper';
 import { ExpressionTree } from '../expression/expression.tree';
 import { FunctionTree } from '../function/function.tree';
-import { getTypeTree } from '../type/type-helper';
+import { createFunctionTreeType, createSimpleTreeType, getTypeTree } from '../type/type-helper';
 import { TypeTree } from '../type/type.tree';
 
-export class DefinitionTree extends ExpressionTree {
+export class DefinitionTree extends BaseTree {
     name: string;
     properties: {
         name: string;
@@ -20,26 +21,36 @@ export class DefinitionTree extends ExpressionTree {
 
     constructor(public ctx: DefinitionContext) {
         super();
+
+        BaseTree.defLocals.push({});
         this.name = ctx.ID().text;
 
-        this.properties = ctx
+        this.defLocals[this.name] = createFunctionTreeType([], createSimpleTreeType(this.name));
+
+        const properties = ctx
             .member()
             .filter((x) => x instanceof PropertyMemberContext)
-            .map((x) => x as PropertyMemberContext)
-            .map((x) => {
-                const expr = getExpressionTree(x._value)
-                return {
-                    name: x._name.text,
-                    type: x.type() && getTypeTree(x.type()) || expr.getType(),
-                    value: expr,
-                };
-            });
-
-        this.methods = ctx
+            .map((x) => x as PropertyMemberContext);
+        const methods = ctx
             .member()
             .filter((x) => x instanceof MethodMemberContext)
             .map((x) => x as MethodMemberContext)
-            .map((x) => new FunctionTree(x.function()));
+            .map((x) => x.function());
+
+        this.properties = properties.map((x) => {
+            const expr = getExpressionTree(x._value);
+            return {
+                name: x._name.text,
+                type: (x.type() && getTypeTree(x.type())) || expr.getType(),
+                value: expr,
+            };
+        });
+        this.properties.forEach((x) => (this.defLocals[x.name] = x.type));
+
+        this.methods = methods.map((x) => new FunctionTree(x));
+        this.methods.forEach((x) => (this.defLocals[x.name] = x.getType()));
+
+        BaseTree.defLocals.pop();
     }
 
     toPlain() {

@@ -1,3 +1,4 @@
+import { BaseTypes } from '../../../base-types';
 import { UnaryPlusExpressionContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
@@ -8,6 +9,10 @@ export class UnaryPlusExpressionTree extends ExpressionTree {
     constructor(public ctx: UnaryPlusExpressionContext) {
         super();
         this.value = getExpressionTree(ctx.expression());
+    }
+
+    getType() {
+        return BaseTypes.Integer;
     }
 
     toPlain() {

@@ -1,6 +1,7 @@
 import { FunctionExpressionContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
+import { BaseTypes } from '../../../base-types';
 
 export class FunctionExpressionTree extends ExpressionTree {
     args: ExpressionTree[];
@@ -10,6 +11,10 @@ export class FunctionExpressionTree extends ExpressionTree {
         super();
         this.args = ctx._args.map(getExpressionTree);
         this.object = getExpressionTree(ctx._object);
+    }
+
+    getType(){
+        return BaseTypes.Undefined
     }
 
     toPlain() {

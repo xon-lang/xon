@@ -55,11 +55,12 @@ middleAssignments: '...' ID? (',' '...' ID?)*;
 rightAssignments:  (',' ID?)+;
 
 type
-    : ID                              # simpleType
-    | type '[' ']'                    # arrayType
-    | '{' ID type ( ',' ID type)* '}' # dictionaryType
+    : ID                                                            # simpleType
+    | type '[' ']'                                                  # arrayType
+    | '{' ID type ( ',' ID type)* '}'                               # dictionaryType
+    | '(' (args += type (',' args += type)*)? ')' returnType = type # functionType
     ;
-function: ID '(' (argument (',' argument)*)? ')' body;
+function: name = ID '(' (argument (',' argument)*)? ')' body;
 argument: name = ID (type | type? '=' expression);
 body:     ':' (statement | LineBreak INDENT statement+ DEDENT);
 

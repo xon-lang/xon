@@ -14,6 +14,10 @@ export class PipeExpressionTree extends ExpressionTree {
         this.right = getExpressionTree(ctx._right);
     }
 
+    getType() {
+        return this.right.getType();
+    }
+
     toPlain() {
         return {
             ...super.toPlain(),

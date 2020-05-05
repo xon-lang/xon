@@ -18,7 +18,5 @@ export abstract class ExpressionTree extends BaseTree {
         return (this as any) as T;
     }
 
-    getType(): TypeTree {
-        return null;
-    }
+    abstract getType(): TypeTree;
 }
