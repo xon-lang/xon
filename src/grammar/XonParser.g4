@@ -76,7 +76,6 @@ expression
     | value = expression '[' startPos = expression ':' endPos = expression? (':' step = expression)? ']' # sliceExpression
     | expression '?'? '.' ID                                                                             # memberExpression
     | '.' ID                                                                                             # instanceMemberExpression
-    | '...' expression                                                                                   # spreadExpression
     | '@' expression                                                                                     # asyncExpression
     | base = expression '^' exponent = expression                                                        # powExpression
     | '+' expression                                                                                     # unaryPlusExpression
@@ -96,11 +95,11 @@ expression
     | ID                                                                                                 # idExpression
     | literal                                                                                            # literalExpression
     | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd                      # stringFormatExpression
-    | '[' (items += expression (',' items += expression)*)? ']'                                          # arrayExpression
+    | '[' ('...'? items += expression (',' '...'? items += expression)*)? ']'                            # arrayExpression
     | '[' startPos = expression ':' end = expression (':' step = expression)? ']'                        # rangeExpression
     | '{' (
-        ('.' ID | key += expression) '=' value += expression (
-            ',' ('.' ID | key += expression) '=' value += expression
+        ('.' ID | '...'? key += expression) '=' value += expression (
+            ',' ('.' ID | '...'? key += expression) '=' value += expression
         )*
     )? '}'                                               # objectExpression
     | '(' expression ')'                                 # parenthesizedExpression
