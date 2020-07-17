@@ -15,19 +15,12 @@ definition: name = ID ':' LineBreak INDENT member+ DEDENT;
 member
     : name = ID (type | type? '=' value = expression) # propertyMember
     | function                                        # methodMember
-    // | 'init' '(' (argument (',' argument)*)? ')' body # constructordMember
-
-    // | '+' '(' argument ')' body          # addOperatordMember
-
-    // | '-' '(' argument ')' body          # subOperatordMember
-
-    // | '*' '(' argument ')' body          # mulOperatordMember
-
-    // | '/' '(' argument ')' body          # divOperatordMember
-
-    // | '^' '(' argument ')' body          # powOperatordMember
-    | 'pass' # passMember
     // | init (.pub_prop, ...._prv_prop, no_prop)
+    // 
+    // | 'init' '(' (argument (',' argument)*)? ')' body # constructordMember
+    // 
+    // | ('+') '(' ID type ')' type body # infixOperatorMember
+    | 'pass'    # passMember
     | LineBreak # lineBreakMember
     ;
 
@@ -60,7 +53,7 @@ type
     | '{' ID type ( ',' ID type)* '}'                               # dictionaryType
     | '(' (args += type (',' args += type)*)? ')' returnType = type # functionType
     ;
-function: name = ID '(' (argument (',' argument)*)? ')' body;
+function: name = ID '(' (argument (',' argument)*)? ')' type? body;
 argument: name = ID (type | type? '=' expression);
 body:     ':' (statement | LineBreak INDENT statement+ DEDENT);
 

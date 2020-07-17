@@ -6,6 +6,7 @@ test('one_plus_one', () => {
     const tree = parseCode(code, AddSubExpressionTree);
     expect(tree.isPlus).toBe(true);
     expect(tree.isMinus).toBe(false);
+    expect(tree.getType().asSimple.name).toBe('Integer');
     expect(evalExpression(tree)).toBe(2);
 });
 
