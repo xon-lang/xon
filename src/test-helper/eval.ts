@@ -29,7 +29,10 @@ export function evalExpression(tree: ExpressionTree, params = {}) {
         throw Error('Undefined key: ' + tree.id);
     }
 
-    if (tree instanceof LiteralExpressionTree) return tree.literal.value;
+    if (tree instanceof LiteralExpressionTree) {
+        if (tree.literal.value == 'null') return 0;
+        return tree.literal.value;
+    }
 
     if (tree instanceof UnaryPlusExpressionTree) return evalExpression(tree.value, params);
 
