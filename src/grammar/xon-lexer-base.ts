@@ -63,7 +63,7 @@ export class XonLexerBase extends Lexer {
             this.emit(this.commonToken(XonParser.EOF, '<EOF>'));
         }
 
-        let next = super.nextToken();
+        let next = super.nextToken(); 
 
         if (next.channel == Token.DEFAULT_CHANNEL) {
             // Keep track of the last token on the default channel.
