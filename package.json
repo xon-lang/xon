@@ -25,10 +25,9 @@
         "grammar": "./grammar.sh",
         "preversion": "npm run test",
         "test": "npm run grammar && jest",
-        "version": "",
         "postversion": "git push && git push --tags",
         "deploy": "./deploy.sh",
-        "pre-commit": "{ git diff --name-only ; git diff --name-only --staged ; } | sort | grep '\\.ts$' && npm test"
+        "pre-commit": "{ git diff --name-only ; git diff --name-only --staged ; } | sort | grep '\\.ts$' && npm test || echo 'Tests skipped'"
     },
     "husky": {
         "hooks": {
