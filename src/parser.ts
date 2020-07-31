@@ -1,5 +1,6 @@
 import { ANTLRInputStream, CommonTokenStream, ParserRuleContext } from 'antlr4ts';
 import * as fs from 'fs';
+import path from 'path';
 import { XonLexer } from './grammar/xon-lexer';
 import { XonParser } from './grammar/xon-parser';
 import { BaseTree } from './tree/base.tree';
@@ -8,7 +9,7 @@ import { ExpressionTree } from './tree/expression/expression.tree';
 import { getStatementTree } from './tree/statement/statement-helper';
 
 export class Parser {
-    translator: { translate(): string };
+    translator?: { translate(): string };
 
     parse(code: string) {
         const inputStream = new ANTLRInputStream(code);
@@ -43,9 +44,7 @@ export class Parser {
             return new type(parser.definition());
         }
 
-        throw 'WWW' + type.name;
-        const methodName = this.camelize(type.name.replace(/Tree$/g, ''));
-
+        const methodName = this.camelize(type.name.replace(/Tree$/, ''));
         if (methodName in parser) {
             return new type((parser as any)[methodName]());
         }
@@ -55,13 +54,18 @@ export class Parser {
 
     private camelize(str: string) {
         return str
-            .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) =>
-                index == 0 ? word.toLowerCase() : word.toUpperCase()
-            )
+            .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
+                return index == 0 ? word.toLowerCase() : word.toUpperCase();
+            })
             .replace(/\s+/g, '');
     }
 
     parseFile<T extends BaseTree>(filePath: string, type: new (ctx) => T) {
+        if (filePath.startsWith('.')) {
+            const testFilePath = module.parent.parent.parent.filename;
+            const dir = path.dirname(testFilePath);
+            filePath = path.join(dir, filePath);
+        }
         const code = fs.readFileSync(filePath, 'utf8');
         return this.parseCode(code, type);
     }

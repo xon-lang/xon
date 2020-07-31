@@ -4,8 +4,8 @@ import { BaseTypes } from '../base-types';
 export abstract class BaseTree {
     static locals = [];
     static defLocals = [];
+    translator?: { translate(BaseTree): string };
     ctx?: ParserRuleContext;
-
 
     get locals() {
         return BaseTree.locals.slice(-1)[0];
@@ -39,6 +39,10 @@ export abstract class BaseTree {
 
     toJson() {
         return JSON.stringify(this.toPlain(), null, 2);
+    }
+
+    translate() {
+        return this.translator?.translate(this);
     }
 
     toHighlightJson() {
