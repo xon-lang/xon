@@ -1,10 +1,12 @@
 import { BaseTypes } from '../../base-types';
-import { testXonFIle } from '../../test-helper';
+import { parseFile } from '../../test-helper';
 import { FunctionExpressionTree } from '../expression/function-expression/function-expression.tree';
 import { IdExpressionTree } from '../expression/id-expression/id-expression.tree';
 import { DefinitionTree } from './definition.tree';
 
-testXonFIle(DefinitionTree, (tree) => {
+test('definition', () => {
+    const tree = parseFile('./definition.test.xon', DefinitionTree);
+    expect(tree).toBeInstanceOf(DefinitionTree);
     expect(tree.name).toBe('SomeClass');
 
     expect(tree.properties.length).toBe(3);

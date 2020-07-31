@@ -63,7 +63,7 @@ export class XonLexerBase extends Lexer {
             this.emit(this.commonToken(XonParser.EOF, '<EOF>'));
         }
 
-        let next = super.nextToken(); 
+        let next = super.nextToken();
 
         if (next.channel == Token.DEFAULT_CHANNEL) {
             // Keep track of the last token on the default channel.
@@ -128,7 +128,7 @@ export class XonLexerBase extends Lexer {
         if (
             this.opened > 0 ||
             (nextnext != -1 /* EOF */ &&
-                (next === 13 /* '\r' */ || next === 10 /* '\n' */ || next === 35) /* '#' */)
+                (next === 13 /* '\r' */ || next === 10 /* '\n' */ || next === 35)) /* '#' */
         ) {
             // If we're inside a list or on a blank line, ignore all indents,
             // dedents and line breaks.

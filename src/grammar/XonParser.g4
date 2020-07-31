@@ -37,11 +37,8 @@ statement:
     ;
 
 assignmentsList: leftAssignments | leftAssignments middleAssignments rightAssignments? | middleAssignments rightAssignments?;
-
 leftAssignments: ID (',' ID?)* | (',' ID?)+;
-
 middleAssignments: '...' ID? (',' '...' ID?)*;
-
 rightAssignments: (',' ID?)+;
 
 type: ID # simpleType | type '[' ']' # arrayType | '{' ID type ( ',' ID type)* '}' # dictionaryType | '(' (args += type (',' args += type)*)? ')' returnType = type # functionType;

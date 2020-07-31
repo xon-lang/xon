@@ -1,4 +1,7 @@
-import { testXonFIle } from '../../test-helper';
+import { parseFile } from '../../test-helper';
 import { ProgramTree } from './program.tree';
 
-testXonFIle(ProgramTree, () => {});
+test('syntax validation', () => {
+    const tree = parseFile('./syntax-validation.test.xon', ProgramTree);
+    expect(tree).toBeInstanceOf(ProgramTree);
+});

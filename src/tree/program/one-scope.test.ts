@@ -1,9 +1,11 @@
-import { evalExpression, testXonFIle } from '../../test-helper';
+import { evalExpression, parseFile } from '../../test-helper';
 import { AssignmentStatementTree } from '../statement/assignment-statement/assignment-statement.tree';
 import { FunctionStatementTree } from '../statement/function-statement/function-statement.tree';
 import { ProgramTree } from './program.tree';
 
-testXonFIle(ProgramTree, (tree) => {
+test('one scope', () => {
+    const tree = parseFile('./one-scope.test.xon', ProgramTree);
+    expect(tree).toBeInstanceOf(ProgramTree);
     expect(tree.statements.length).toBe(2);
 
     const func = tree.statements[0] as FunctionStatementTree;

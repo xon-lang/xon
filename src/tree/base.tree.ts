@@ -6,6 +6,7 @@ export abstract class BaseTree {
     static defLocals = [];
     ctx?: ParserRuleContext;
 
+
     get locals() {
         return BaseTree.locals.slice(-1)[0];
     }
