@@ -2,6 +2,7 @@ import { ANTLRInputStream, CommonTokenStream, ParserRuleContext } from 'antlr4ts
 import * as fs from 'fs';
 import { XonLexer } from './grammar/xon-lexer';
 import { XonParser } from './grammar/xon-parser';
+import { BaseTree } from './tree/base.tree';
 import { getExpressionTree } from './tree/expression/expression-helper';
 import { ExpressionTree } from './tree/expression/expression.tree';
 import { getStatementTree } from './tree/statement/statement-helper';
@@ -27,7 +28,7 @@ export class Parser {
         return getStatementTree(this.parse(code).statement());
     }
 
-    parseCode<T>(code: string, type: new (ctx: ParserRuleContext) => T) {
+    parseCode<T extends BaseTree>(code: string, type: new (ctx: ParserRuleContext) => T) {
         const parser = this.parse(code);
         if (type.name.endsWith('LiteralTree')) {
             return new type(parser.literal());
@@ -41,6 +42,8 @@ export class Parser {
         if (type.name.endsWith('DefinitionTree')) {
             return new type(parser.definition());
         }
+
+        throw 'WWW' + type.name;
         const methodName = this.camelize(type.name.replace(/Tree$/g, ''));
 
         if (methodName in parser) {
@@ -58,7 +61,7 @@ export class Parser {
             .replace(/\s+/g, '');
     }
 
-    parseFile<T>(filePath: string, type: new (ctx) => T) {
+    parseFile<T extends BaseTree>(filePath: string, type: new (ctx) => T) {
         const code = fs.readFileSync(filePath, 'utf8');
         return this.parseCode(code, type);
     }

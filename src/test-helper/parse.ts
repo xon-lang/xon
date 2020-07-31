@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
+import { BaseTree } from '../tree/base.tree';
 import { getExpressionTree } from '../tree/expression/expression-helper';
 import { ExpressionTree } from '../tree/expression/expression.tree';
 import { getStatementTree } from '../tree/statement/statement-helper';
@@ -25,7 +26,10 @@ export function parseStatement(code: string) {
     return getStatementTree(parse(code).statement());
 }
 
-export function parseCode<T>(code: string, type: new (ctx: ParserRuleContext) => T) {
+export function parseCode<T extends BaseTree>(
+    code: string,
+    type: new (ctx: ParserRuleContext) => T
+) {
     const parser = parse(code);
     if (type.name.endsWith('LiteralTree')) {
         return new type(parser.literal());
@@ -39,8 +43,8 @@ export function parseCode<T>(code: string, type: new (ctx: ParserRuleContext) =>
     if (type.name.endsWith('DefinitionTree')) {
         return new type(parser.definition());
     }
-    const methodName = camelize(type.name.replace(/Tree$/g, ''));
 
+    const methodName = camelize(type.name.replace(/Tree$/, ''));
     if (methodName in parser) {
         return new type((parser as any)[methodName]());
     }
@@ -56,7 +60,7 @@ function camelize(str: string) {
         .replace(/\s+/g, '');
 }
 
-export function parseFile<T>(filePath: string, type: new (ctx) => T) {
+export function parseFile<T extends BaseTree>(filePath: string, type: new (ctx) => T) {
     if (filePath.startsWith('.')) {
         const testFilePath = module.parent.parent.filename;
         const dir = path.dirname(testFilePath);

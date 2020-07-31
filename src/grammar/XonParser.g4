@@ -36,10 +36,10 @@ statement:
     | LineBreak                                           # lineBreakStatement
     ;
 
-assignmentsList: leftAssignments | leftAssignments middleAssignments rightAssignments? | middleAssignments rightAssignments?;
-leftAssignments: ID (',' ID?)* | (',' ID?)+;
+assignmentsList:   leftAssignments | leftAssignments middleAssignments rightAssignments? | middleAssignments rightAssignments?;
+leftAssignments:   ID (',' ID?)* | (',' ID?)+;
 middleAssignments: '...' ID? (',' '...' ID?)*;
-rightAssignments: (',' ID?)+;
+rightAssignments:  (',' ID?)+;
 
 type: ID # simpleType | type '[' ']' # arrayType | '{' ID type ( ',' ID type)* '}' # dictionaryType | '(' (args += type (',' args += type)*)? ')' returnType = type # functionType;
 
@@ -85,4 +85,4 @@ expression:
     | '\\' (ID (',' ID)* ':')? expression                                                                                                         # lambdaExpression
     ;
 
-literal: NullLiteral # nullLiteral | BooleanLiteral # booleanLiteral | DecimalLiteral # decimalLiteral | FloatLiteral # floatLiteral | StringLiteral # stringLiteral;
+literal: NullLiteral | BooleanLiteral | DecimalLiteral | FloatLiteral | StringLiteral;
