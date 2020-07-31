@@ -26,7 +26,10 @@
         "tabWidth": 4,
         "useTab": false
     },
-
+    "antlr4.generation": {
+        "mode": "none"
+    },
+    "git.postCommitCommand": "sync",
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.organizeImports": true,

@@ -1,4 +1,3 @@
-node_modules
-.antlr
 .DS_Store
 dist
+node_modules
