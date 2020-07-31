@@ -8,7 +8,7 @@ options {
 program:  /* imports*?  */ (statement | definition)*;
 
 imports:      importPath ':' ('*' 'as' alias = ID | importMember (',' importMember)*);
-importPath:   ('.'* (ID | StringLiteral))*;
+importPath:   ('.'* (ID | StringLiteral))+;
 importMember: name = ID ('as' alias = ID)?;
 
 definition: name = ID ':' LineBreak INDENT member+ DEDENT;

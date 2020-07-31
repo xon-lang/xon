@@ -19,9 +19,7 @@ import { XonLexerBase } from "./xon-lexer-base";
 }
 
 // PrimitiveDataType : 'i8' | 'i16' | 'i32' | 'i64' | 'i128' | 'u8' | 'u16' | 'u32' | 'u64' | 'u128' | 'bool' | 'char' | 'str' ;
-Class:    'class';
-Enum:     'enum';
-Scheme:   'scheme';
+As:       'as';
 If:       'if';
 Else:     'else';
 Loop:     'loop';
@@ -30,10 +28,7 @@ Pass:     'pass';
 Continue: 'continue';
 Break:    'break';
 Return:   'return';
-As:       'as';
-Var:      'var';
 Select:   'select';
-Init:     'init';
 
 Preprocessor: '#:' ~[\r\n]+;
 LineBreak:    ({this.atStartOfInput()}? SPACES | ( '\r'? '\n' | '\r') SPACES?) {this.handleLineBreak()};

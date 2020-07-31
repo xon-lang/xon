@@ -30,6 +30,9 @@
         "mode": "none"
     },
     "git.postCommitCommand": "sync",
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#054f6d"
+    },
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.organizeImports": true,
