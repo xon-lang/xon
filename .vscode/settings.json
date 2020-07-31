@@ -1,7 +1,7 @@
 {
     "antlr4.format": {
         "alignActions": true,
-        "alignColons": "trailing",
+        "alignColons": "none",
         "alignFirstTokens": true,
         "alignLabels": true,
         "alignLexerCommands": true,
@@ -9,7 +9,7 @@
         "alignTrailers": true,
         "alignTrailingComments": true,
         "allowShortBlocksOnASingleLine": true,
-        "allowShortRulesOnASingleLine": false,
+        "allowShortRulesOnASingleLine": true,
         "breakBeforeBraces": false,
         "breakBeforeParens": false,
         "columnLimit": 500,
@@ -18,7 +18,7 @@
         "indentWidth": 4,
         "keepEmptyLinesAtTheStartOfBlocks": true,
         "maxEmptyLinesToKeep": 1,
-        "minEmptyLines": 1,
+        "minEmptyLines": 0,
         "reflowComments": false,
         "ruleInternalsOnSingleLine": false,
         "singleLineOverrulesHangingColon": true,

@@ -1,5 +1,4 @@
-lexer grammar XonLexer
-    ;
+lexer grammar XonLexer;
 
 channels {
     ERROR

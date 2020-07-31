@@ -4,24 +4,15 @@ options {
     tokenVocab = XonLexer;
 }
 
-program:
-    (statement | definition)*
-    ;
+program: (statement | definition)*;
 
-imports:
-    importPath ':' ('*' 'as' alias = ID | importMember (',' importMember)*)
-    ;
+imports: importPath ':' ('*' 'as' alias = ID | importMember (',' importMember)*);
 
-importPath: ('.'* (ID | StringLiteral))+
-    ;
+importPath: ('.'* (ID | StringLiteral))+;
 
-importMember:
-    name = ID ('as' alias = ID)?
-    ;
+importMember: name = ID ('as' alias = ID)?;
 
-definition:
-    name = ID ':' LineBreak INDENT member+ DEDENT
-    ;
+definition: name = ID ':' LineBreak INDENT member+ DEDENT;
 
 member:
     name = ID (type | type? '=' value = expression) # propertyMember
@@ -45,42 +36,21 @@ statement:
     | LineBreak                                           # lineBreakStatement
     ;
 
-assignmentsList:
-    leftAssignments
-    | leftAssignments middleAssignments rightAssignments?
-    | middleAssignments rightAssignments?
-    ;
+assignmentsList: leftAssignments | leftAssignments middleAssignments rightAssignments? | middleAssignments rightAssignments?;
 
-leftAssignments:
-    ID (',' ID?)*
-    | (',' ID?)+
-    ;
+leftAssignments: ID (',' ID?)* | (',' ID?)+;
 
-middleAssignments:
-    '...' ID? (',' '...' ID?)*
-    ;
+middleAssignments: '...' ID? (',' '...' ID?)*;
 
-rightAssignments: (',' ID?)+
-    ;
+rightAssignments: (',' ID?)+;
 
-type:
-    ID                                                              # simpleType
-    | type '[' ']'                                                  # arrayType
-    | '{' ID type ( ',' ID type)* '}'                               # dictionaryType
-    | '(' (args += type (',' args += type)*)? ')' returnType = type # functionType
-    ;
+type: ID # simpleType | type '[' ']' # arrayType | '{' ID type ( ',' ID type)* '}' # dictionaryType | '(' (args += type (',' args += type)*)? ')' returnType = type # functionType;
 
-function:
-    name = ID '(' (argument (',' argument)*)? ')' type? body
-    ;
+function: name = ID '(' (argument (',' argument)*)? ')' type? body;
 
-argument:
-    name = ID (type | type? '=' expression)
-    ;
+argument: name = ID (type | type? '=' expression);
 
-body:
-    ':' (statement | LineBreak INDENT statement+ DEDENT)
-    ;
+body: ':' (statement | LineBreak INDENT statement+ DEDENT);
 
 expression:
     'if' expression body ('else' ('if' expression)? body)?                                                                                        # ifExpression
@@ -118,10 +88,4 @@ expression:
     | '\\' (ID (',' ID)* ':')? expression                                                                                                         # lambdaExpression
     ;
 
-literal:
-    NullLiteral      # nullLiteral
-    | BooleanLiteral # booleanLiteral
-    | DecimalLiteral # decimalLiteral
-    | FloatLiteral   # floatLiteral
-    | StringLiteral  # stringLiteral
-    ;
+literal: NullLiteral # nullLiteral | BooleanLiteral # booleanLiteral | DecimalLiteral # decimalLiteral | FloatLiteral # floatLiteral | StringLiteral # stringLiteral;
