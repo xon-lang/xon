@@ -1,14 +1,14 @@
-import { Lexer } from "antlr4ts";
+import { Lexer } from 'antlr4ts';
 import { CommonToken } from 'antlr4ts/CommonToken';
 import { Token } from 'antlr4ts/Token';
-import { XonParser } from "./xon-parser";
+import { XonParser } from './xon-parser';
 
 export class XonLexerBase extends Lexer {
-    channelNames: string[]; modeNames: string[];
+    channelNames: string[];
+    modeNames: string[];
     ruleNames: string[];
-    vocabulary: import("antlr4ts").Vocabulary;
+    vocabulary: import('antlr4ts').Vocabulary;
     grammarFileName: string;
-
 
     token_queue: Token[] = [];
     indents: number[] = [];
@@ -36,12 +36,12 @@ export class XonLexerBase extends Lexer {
     }
 
     /**
-* Return the next token from the character stream and records this last
-* token in case it resides on the default channel. This recorded token
-* is used to determine when the lexer could possibly match a regex
-* literal.
-*
-*/
+     * Return the next token from the character stream and records this last
+     * token in case it resides on the default channel. This recorded token
+     * is used to determine when the lexer could possibly match a regex
+     * literal.
+     *
+     */
     public nextToken(): Token {
         // Check if the end-of-file is ahead and there are still some DEDENTS expected.
         if (this.inputStream.LA(1) === XonParser.EOF && this.indents.length) {
@@ -51,7 +51,7 @@ export class XonLexerBase extends Lexer {
             });
 
             // First emit an extra line break that serves as the end of the statement.
-            this.emit(this.commonToken(XonParser.LineBreak, "\n"));
+            this.emit(this.commonToken(XonParser.LineBreak, '\n'));
 
             // Now emit as much DEDENT tokens as needed.
             while (this.indents.length) {
@@ -60,7 +60,7 @@ export class XonLexerBase extends Lexer {
             }
 
             // Put the EOF back on the token stream.
-            this.emit(this.commonToken(XonParser.EOF, "<EOF>"));
+            this.emit(this.commonToken(XonParser.EOF, '<EOF>'));
         }
 
         let next = super.nextToken();
@@ -74,7 +74,7 @@ export class XonLexerBase extends Lexer {
     }
 
     createDedent(): Token {
-        let dedent = this.commonToken(XonParser.DEDENT, "");
+        let dedent = this.commonToken(XonParser.DEDENT, '');
         if (this.last_token) {
             dedent.line = this.last_token.line;
         }
@@ -84,7 +84,14 @@ export class XonLexerBase extends Lexer {
     commonToken(type: number, text: string): CommonToken {
         let stop: number = this.charIndex - 1;
         let start: number = text.length ? stop - text.length + 1 : stop;
-        return new CommonToken(type, text, this._tokenFactorySourcePair, Lexer.DEFAULT_TOKEN_CHANNEL, start, stop);
+        return new CommonToken(
+            type,
+            text,
+            this._tokenFactorySourcePair,
+            Lexer.DEFAULT_TOKEN_CHANNEL,
+            start,
+            stop
+        );
     }
 
     // Calculates the indentation of the provided spaces, taking the
@@ -99,7 +106,7 @@ export class XonLexerBase extends Lexer {
         let count = 0;
         for (let i = 0; i < whitespace.length; i++) {
             if (whitespace[i] === '\t') {
-                count += 4 - count % 4;
+                count += 4 - (count % 4);
             } else {
                 count++;
             }
@@ -118,7 +125,11 @@ export class XonLexerBase extends Lexer {
         // satisfy the final newline needed by the single_put rule used by the REPL.
         let next = this.inputStream.LA(1);
         let nextnext = this.inputStream.LA(2);
-        if (this.opened > 0 || (nextnext != -1 /* EOF */ && (next === 13 /* '\r' */ || next === 10 /* '\n' */ || next === 35 /* '#' */))) {
+        if (
+            this.opened > 0 ||
+            (nextnext != -1 /* EOF */ &&
+                (next === 13 /* '\r' */ || next === 10 /* '\n' */ || next === 35) /* '#' */)
+        ) {
             // If we're inside a list or on a blank line, ignore all indents,
             // dedents and line breaks.
             this.skip();

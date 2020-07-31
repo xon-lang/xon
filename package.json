@@ -27,11 +27,12 @@
         "test": "npm run grammar && jest",
         "version": "",
         "postversion": "git push && git push --tags",
-        "deploy": "./deploy.sh"
+        "deploy": "./deploy.sh",
+        "pre-commit": "{ git diff --name-only ; git diff --name-only --staged ; } | sort | grep '\\.ts$' && npm test"
     },
     "husky": {
         "hooks": {
-            "pre-commit": "npm run test"
+            "pre-commit": "npm run pre-commit"
         }
     },
     "devDependencies": {
