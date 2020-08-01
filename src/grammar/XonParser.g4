@@ -36,10 +36,10 @@ statement:
     | LineBreak                                           # lineBreakStatement
     ;
 
-assignmentsList: leftAssignments | leftAssignments middleAssignments rightAssignments? | middleAssignments rightAssignments?;
-leftAssignments: ID (',' ID?)* | (',' ID?)+;
+assignmentsList:   leftAssignments | leftAssignments middleAssignments rightAssignments? | middleAssignments rightAssignments?;
+leftAssignments:   ID (',' ID?)* | (',' ID?)+;
 middleAssignments: '...' ID? (',' '...' ID?)*;
-rightAssignments: (',' ID?)+;
+rightAssignments:  (',' ID?)+;
 
 type: ID # simpleType | type '[' ']' # arrayType | '{' ID type ( ',' ID type)* '}' # dictionaryType | '(' (args += type (',' args += type)*)? ')' returnType = type # functionType;
 
@@ -66,7 +66,7 @@ expression:
     | '!' expression                                                                                                                              # logicalNotExpression
     | left = expression operation = ('*' | '/' | '%') right = expression                                                                          # mulDivModExpression
     | left = expression operation = ('+' | '-') right = expression                                                                                # addSubExpression
-    | left = expression operation = ('<<' | '>>') right = expression                                                                              # bitShiftExpression
+    | left = expression operation = ('<<' | '>>' | '>>>') right = expression                                                                      # bitShiftExpression
     | left = expression operation = ('<' | '<=' | '>=' | '>') right = expression                                                                  # relationalExpression
     | left = expression operation = ('==' | '!=') right = expression                                                                              # equalityExpression
     | left = expression 'and' right = expression                                                                                                  # bitAndExpression
