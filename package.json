@@ -1,7 +1,7 @@
 {
     "name": "@xon/ast",
     "author": "Nizami",
-    "version": "1.0.0",
+    "version": "1.0.11",
     "description": "XON is an open-source programming language",
     "bugs": {
         "url": "https://github.com/xon-lang/ast/issues"
@@ -25,7 +25,6 @@
         "grammar": "scripts/grammar.sh",
         "preversion": "npm run test",
         "test": "npm run grammar && jest --no-cache",
-        "postversion": "git push && git push --tags",
         "deploy": "scripts/deploy.sh",
         "pre-commit": "scripts/pre-commit.sh"
     },

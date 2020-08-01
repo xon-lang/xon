@@ -5,5 +5,5 @@ cp *.md dist
 
 npx cti create -e tests, test-helper, .antlr -i .test.ts -w -f ./dist
 npx tsc -p tsconfig.dist.json
-# cd dist
-# npm publish
+cd dist
+npm publish --access public
