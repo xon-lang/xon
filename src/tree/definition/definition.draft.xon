@@ -1,0 +1,42 @@
+ConstructorClass:
+    .(x int, y str):
+        pass
+    
+    InnerClass:
+        some_method():
+            call(..another_method())
+            call(.some_method_2())
+
+        some_method_2():
+            pass
+
+    another_method() bool:
+        pass
+
+dict_arg_method(x {a num, b =3}, b {s {v str}}}):
+    pass
+
+dict_arg_method(x <a num, b = 3>, b <s <v str>>)):
+    {
+        a str,
+        b str,
+        c char
+    }
+    pass
+
+// assign
+, b, , d, ...arr = [1, 2, 3, 4, 5, 6, 7, 8]
+, b[2], c.k, d, ...arr = [1, [2, 22, 222], {.kkk = vvv, 'z' = v}, 4, 5, 6, 7, 8]
+a = b = c = d = 5
+a, b, c, d, ...arr = 1, 2, 3, 4, 5, 6, 7, 8
+a, b, c, d, ...arr = {a = 1, d = 4, c = 3, b = 2, e = 5, f = 6, g = 7, h = 8}
+
+
+
+Class =
+    mth (t int, s str) int =
+        t + s
+
+method = t int, s str: pass
+
+run_after(delay int, fn (s string, b bool) bool)

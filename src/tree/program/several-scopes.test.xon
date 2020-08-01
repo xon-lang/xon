@@ -1,0 +1,11 @@
+firstScope():
+    a = 23 + 5
+    callSomeFunction()
+
+secondScope():
+    innerScope():
+        call()
+
+
+thirdWithArgs (x str, n num):
+    call()

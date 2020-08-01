@@ -1,7 +1,0 @@
-oneScope {
-    a = 23 + 5;
-
-    loop array {
-        log("no way");
-    }
-}

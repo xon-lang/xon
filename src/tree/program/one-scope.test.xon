@@ -1,0 +1,7 @@
+oneScope():
+    a = 23 + 5
+    loop array:
+        log('no way')
+
+some_fun (a i8, b str):
+    call()

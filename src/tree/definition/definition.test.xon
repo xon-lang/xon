@@ -1,0 +1,11 @@
+SomeClass:
+
+    property str
+    anotherProp = 234
+    typed_value number = 1
+    
+    method():
+        hello()
+        bye()
+    
+    location(x num, y num = 6): coord(x, y)

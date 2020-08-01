@@ -1,7 +1,7 @@
 {
     "antlr4.format": {
         "alignActions": true,
-        "alignColons": "hanging",
+        "alignColons": "none",
         "alignFirstTokens": true,
         "alignLabels": true,
         "alignLexerCommands": true,
@@ -12,34 +12,35 @@
         "allowShortRulesOnASingleLine": true,
         "breakBeforeBraces": false,
         "breakBeforeParens": false,
-        "columnLimit": 150,
+        "columnLimit": 500,
         "continuationIndentWidth": 4,
         "groupedAlignments": true,
         "indentWidth": 4,
         "keepEmptyLinesAtTheStartOfBlocks": true,
         "maxEmptyLinesToKeep": 1,
         "minEmptyLines": 0,
-        "reflowComments": true,
+        "reflowComments": false,
         "ruleInternalsOnSingleLine": false,
         "singleLineOverrulesHangingColon": true,
         "spaceBeforeAssignmentOperators": true,
         "tabWidth": 4,
         "useTab": false
     },
-
+    "antlr4.generation": {
+        "mode": "none"
+    },
+    "git.postCommitCommand": "sync",
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#054f6d"
+    },
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.organizeImports": true,
         "source.fixAll": true
     },
     "files.autoSave": "afterDelay",
-    "files.associations": {
-        "*.xon": "rust"
-    },
-
-    "spellright.language": ["en"],
-    "spellright.documentTypes": ["markdown", "latex", "plaintext", "typescript"],
-
+    "prettier.tabWidth": 4,
+    "typescript.preferences.importModuleSpecifier": "relative",
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },

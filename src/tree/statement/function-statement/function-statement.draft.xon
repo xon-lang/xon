@@ -1,0 +1,2 @@
+someFuntion a:i8, b:str:
+    foo x:str = 'empty': x.length > 4

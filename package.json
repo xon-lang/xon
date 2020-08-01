@@ -2,9 +2,7 @@
     "name": "@xon/ast",
     "author": "Nizami",
     "version": "1.0.0",
-    "description": "xon is an open-source programming language",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "description": "XON is an open-source programming language",
     "bugs": {
         "url": "https://github.com/xon-lang/ast/issues"
     },
@@ -20,32 +18,34 @@
         "translator",
         "programming language"
     ],
-    "license": "Apache-2.0",
-    "prepublish": "tsc",
+    "license": "MIT",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
-        "grammar": "cd src/grammar && rimraf .antlr && antlr4ts *.g4 -o .antlr",
-        "test": "jest"
+        "grammar": "scripts//grammar.sh",
+        "preversion": "npm run test",
+        "test": "npm run grammar && jest",
+        "postversion": "git push && git push --tags",
+        "deploy": "scripts//deploy.sh",
+        "pre-commit": "scripts/pre-commit.sh"
     },
     "husky": {
         "hooks": {
-            "pre-commit": "npm run grammar && npm run test"
+            "pre-commit": "npm run pre-commit"
         }
     },
     "devDependencies": {
-        "@types/jest": "^25.1.1",
-        "@types/lodash": "^4.14.149",
-        "@types/node": "^13.7.0",
+        "@types/jest": "^26.0.8",
+        "@types/node": "^14.0.27",
         "antlr4ts-cli": "^0.5.0-alpha.3",
-        "husky": "^4.2.1",
-        "jest": "^25.1.0",
-        "rimraf": "^3.0.1",
-        "ts-jest": "^25.1.0",
-        "typescript": "^3.7.5"
+        "create-ts-index": "^1.13.3",
+        "husky": "^4.2.5",
+        "jest": "^26.2.2",
+        "rimraf": "^3.0.2",
+        "ts-jest": "^26.1.4",
+        "typescript": "^3.9.7"
     },
     "dependencies": {
-        "antlr4": "^4.8.0",
-        "antlr4ts": "^0.5.0-alpha.3",
-        "lodash": "^4.17.15",
-        "tslib": "^1.10.0"
+        "antlr4ts": "^0.5.0-alpha.3"
     }
 }

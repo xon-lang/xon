@@ -1,0 +1,36 @@
+if statement:
+    console.log('out
+                 of 
+                 scope 
+                 statement')
+}
+
+oneScope:
+    a:= 23 + 5
+    b: Number = 55
+    c:= Char
+
+    loop arr:
+        log('no way')
+
+    loop v, k, i in arr:
+        log('no way')
+
+    // pipe syntax
+    abc() + 345 | someF() |x: x + x
+    a = xcv + fwef |z: z + z * z - z | (\x: x + z) |f: f(123)
+    lambdaWithPipe = \a, b, c, d: a + d |m: b + c/m^a
+
+
+scheme ApiPostResult:
+    prop_other:
+        another: Number = 45
+        some: String
+
+enum Fruit:
+    Apple = $ + 4
+    Banana
+    Garnet
+
+class Animal:
+    canFly?
