@@ -85,4 +85,4 @@ expression:
     | '\\' (ID (',' ID)* ':')? expression                                                                                                         # lambdaExpression
     ;
 
-literal: NullLiteral | BooleanLiteral | DecimalLiteral | FloatLiteral | StringLiteral;
+literal: NullLiteral # nullLiteral | BooleanLiteral # booleanLiteral | DecimalLiteral # decimalLiteral | FloatLiteral # floatLiteral | StringLiteral # stringLiteral;

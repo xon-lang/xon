@@ -24,7 +24,7 @@
     "scripts": {
         "grammar": "scripts//grammar.sh",
         "preversion": "npm run test",
-        "test": "npm run grammar && jest",
+        "test": "npm run grammar && jest --no-cache",
         "postversion": "git push && git push --tags",
         "deploy": "scripts//deploy.sh",
         "pre-commit": "scripts/pre-commit.sh"
