@@ -1,5 +1,9 @@
 if [[ $(git diff --name-only --staged) ]]; then
-    git diff --name-only --staged | grep '.ts$' && npm test
+    if [[ $(git diff --name-only --staged | grep '.ts$') ]]; then
+        npm test
+    fi
 else
-    git diff --name-only | grep '.ts$' && npm test
+    if [[ $(git diff --name-only | grep '.ts$') ]]; then
+        npm test
+    fi
 fi

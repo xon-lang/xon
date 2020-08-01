@@ -22,11 +22,11 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "grammar": "scripts//grammar.sh",
+        "grammar": "scripts/grammar.sh",
         "preversion": "npm run test",
-        "test": "npm run grammar && jest",
+        "test": "npm run grammar && jest --no-cache",
         "postversion": "git push && git push --tags",
-        "deploy": "scripts//deploy.sh",
+        "deploy": "scripts/deploy.sh",
         "pre-commit": "scripts/pre-commit.sh"
     },
     "husky": {
