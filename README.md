@@ -1,6 +1,6 @@
 # XON AST
 
-xon ast is the library to parse xon code and generate abstract syntax tree for it
+XON AST is a library to parse XON code and to generate abstract syntax tree for it
 
 ## Usage example
 
