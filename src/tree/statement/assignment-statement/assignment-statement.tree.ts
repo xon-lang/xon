@@ -22,7 +22,9 @@ export class AssignmentStatementTree extends StatementTree {
         super();
         if (ctx.expression().length > 1) {
             this.value = new ArrayExpressionTree();
-            this.value['items'] = getExpressionsTree(ctx.expression());
+            (this.value as ArrayExpressionTree).items = getExpressionsTree(
+                ctx.expression()
+            ).map((x) => ({ value: x, hasSpread: false }));
         } else {
             this.value = getExpressionTree(ctx.expression(0));
         }

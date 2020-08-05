@@ -12,7 +12,7 @@ test('one assignment', () => {
     expect(
         tree.value
             .as<ArrayExpressionTree>()
-            .items.map((x) => x.eval())
+            .items.map((x) => x.value.eval())
             .join()
     ).toBe('1,2,3,v');
 });
@@ -50,10 +50,10 @@ test('id list and expression list', () => {
     const arr = tree.value as ArrayExpressionTree;
     expect(arr).toBeInstanceOf(ArrayExpressionTree);
     expect(tree.singleAssigments[0].index).toBe(1);
-    expect(arr.items[1].eval()).toBe(5 + 5);
+    expect(arr.items[1].value.eval()).toBe(5 + 5);
 
     expect(tree.singleAssigments[1].index).toBe(4);
-    expect(arr.items[4].eval()).toBe(8.9);
+    expect(arr.items[4].value.eval()).toBe(8.9);
 });
 
 test('array id', () => {

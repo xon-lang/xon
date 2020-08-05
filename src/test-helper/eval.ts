@@ -51,6 +51,8 @@ export function evalExpression(tree: ExpressionTree, params = {}) {
         return evalExpression(tree['right'], params);
     }
 
+    if (!tree['left'] || !tree['right']) return undefined;
+
     const a = evalExpression(tree['left'], params);
     const b = evalExpression(tree['right'], params);
     if (tree instanceof MulDivModExpressionTree) {

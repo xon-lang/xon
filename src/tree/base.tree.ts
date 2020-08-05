@@ -24,7 +24,7 @@ export abstract class BaseTree {
     }
 
     get treeType() {
-        return this.ctx.constructor.name.replace(/Context$/, '');
+        return this.constructor.name.replace(/Tree$/, '');
     }
 
     log() {

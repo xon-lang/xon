@@ -77,12 +77,14 @@ expression:
     | ID                                                                                                                                          # idExpression
     | literal                                                                                                                                     # literalExpression
     | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd                                                               # stringFormatExpression
-    | '[' ('...'? items += expression (',' '...'? items += expression)*)? ']'                                                                     # arrayExpression
-    | '[' startPos = expression ':' end = expression (':' step = expression)? ']'                                                                 # rangeExpression
+    | '[' (arrayItem (',' arrayItem)*)? ']'                                                                                                       # arrayExpression
+    | '[' startPos = expression ':' endPos = expression (':' step = expression)? ']'                                                              # rangeExpression
     | '{' ( ('.' ID | '...'? key += expression) '=' value += expression ( ',' ('.' ID | '...'? key += expression) '=' value += expression)*)? '}' # objectExpression
     | '(' expression ')'                                                                                                                          # parenthesizedExpression
     | left = expression '|' (ID ':')? right = expression                                                                                          # pipeExpression
     | '\\' (ID (',' ID)* ':')? expression                                                                                                         # lambdaExpression
     ;
+
+arrayItem: '...'? expression;
 
 literal: NullLiteral # nullLiteral | BooleanLiteral # booleanLiteral | DecimalLiteral # decimalLiteral | FloatLiteral # floatLiteral | StringLiteral # stringLiteral;
