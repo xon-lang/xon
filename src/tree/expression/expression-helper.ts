@@ -39,7 +39,7 @@ import { BitNotExpressionTree } from './bit-not-expression/bit-not-expression.tr
 import { BitOrExpressionTree } from './bit-or-expression/bit-or-expression.tree';
 import { BitShiftExpressionTree } from './bit-shift-expression/bit-shift-expression.tree';
 import { BitXorExpressionTree } from './bit-xor-expression/bit-xor-expression.tree';
-import { EqualityExpressionTree } from './equality-expression/equality-expression.tree';
+import { EqualsExpressionTree } from './equals-expression/equals-expression.tree';
 import { ExpressionTree } from './expression.tree';
 import { FunctionExpressionTree } from './function-expression/function-expression.tree';
 import { IdExpressionTree } from './id-expression/id-expression.tree';
@@ -54,6 +54,7 @@ import { LogicalOrExpressionTree } from './logical-or-expression/logical-or-expr
 import { LoopExpressionTree } from './loop-expression/loop-expression.tree';
 import { MemberExpressionTree } from './member-expression/member-expression.tree';
 import { MulDivModExpressionTree } from './mul-div-mod-expression/mul-div-mod-expression.tree';
+import { NotEqualsExpressionTree } from './not-equals-expression/not-equals-expression.tree';
 import { PipeExpressionTree } from './pipe-expression/pipe-expression.tree';
 import { PowExpressionTree } from './pow-expression/pow-expression.tree';
 import { RangeExpressionTree } from './range-expression/range-expression.tree';
@@ -96,8 +97,10 @@ export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
     else if (ctx instanceof LogicalOrExpressionContext) return new LogicalOrExpressionTree(ctx);
     else if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);
     else if (ctx instanceof RelationalExpressionContext) return new RelationalExpressionTree(ctx);
-    else if (ctx instanceof EqualityExpressionContext) return new EqualityExpressionTree(ctx);
-    else if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
+    else if (ctx instanceof EqualityExpressionContext) {
+        if (ctx.Equals()) return new EqualsExpressionTree(ctx);
+        if (ctx.NotEquals()) return new NotEqualsExpressionTree(ctx);
+    } else if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
     else if (ctx instanceof StringFormatExpressionContext)
         return new StringFormatExpressionTree(ctx);
     else if (ctx instanceof IfExpressionContext) return new IfExpressionTree(ctx);

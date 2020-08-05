@@ -5,7 +5,7 @@ import { BitNotExpressionTree } from '../tree/expression/bit-not-expression/bit-
 import { BitOrExpressionTree } from '../tree/expression/bit-or-expression/bit-or-expression.tree';
 import { BitShiftExpressionTree } from '../tree/expression/bit-shift-expression/bit-shift-expression.tree';
 import { BitXorExpressionTree } from '../tree/expression/bit-xor-expression/bit-xor-expression.tree';
-import { EqualityExpressionTree } from '../tree/expression/equality-expression/equality-expression.tree';
+import { EqualsExpressionTree } from '../tree/expression/equals-expression/equals-expression.tree';
 import { getExpressionTree } from '../tree/expression/expression-helper';
 import { ExpressionTree } from '../tree/expression/expression.tree';
 import { IdExpressionTree } from '../tree/expression/id-expression/id-expression.tree';
@@ -14,6 +14,7 @@ import { LogicalAndExpressionTree } from '../tree/expression/logical-and-express
 import { LogicalNotExpressionTree } from '../tree/expression/logical-not-expression/logical-not-expression.tree';
 import { LogicalOrExpressionTree } from '../tree/expression/logical-or-expression/logical-or-expression.tree';
 import { MulDivModExpressionTree } from '../tree/expression/mul-div-mod-expression/mul-div-mod-expression.tree';
+import { NotEqualsExpressionTree } from '../tree/expression/not-equals-expression/not-equals-expression.tree';
 import { PipeExpressionTree } from '../tree/expression/pipe-expression/pipe-expression.tree';
 import { PowExpressionTree } from '../tree/expression/pow-expression/pow-expression.tree';
 import { RelationalExpressionTree } from '../tree/expression/relational-expression/relational-expression.tree';
@@ -78,10 +79,8 @@ export function evalExpression(tree: ExpressionTree, params = {}) {
         if (tree.isMoreThanEquals) return a >= b;
     }
 
-    if (tree instanceof EqualityExpressionTree) {
-        if (tree.isEquals) return a === b;
-        if (tree.isNotEquals) return a !== b;
-    }
+    if (tree instanceof EqualsExpressionTree) return a === b;
+    if (tree instanceof NotEqualsExpressionTree) return a !== b;
 
     if (tree instanceof BitAndExpressionTree) return a & b;
     if (tree instanceof BitXorExpressionTree) return a ^ b;
