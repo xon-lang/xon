@@ -29,7 +29,7 @@ export class Parser {
         return getStatementTree(this.parse(code).statement());
     }
 
-    parseCode<T extends BaseTree>(code: string, type: new (ctx: ParserRuleContext) => T) {
+    parseCode<T extends BaseTree>(code: string, type: new (ctx: ParserRuleContext) => T): T {
         const parser = this.parse(code);
         if (type.name.endsWith('LiteralTree')) {
             return new type(parser.literal());

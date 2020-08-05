@@ -1,6 +1,6 @@
 import { parseCode } from '../../../test-helper';
 import { StringLiteralTree } from '../../literal/string-literal/string-literal.tree';
-import { AddSubExpressionTree } from '../add-sub-expression/add-sub-expression.tree';
+import { AddExpressionTree } from '../add-expression/add-expression.tree';
 import { LiteralExpressionTree } from '../literal-expression/literal-expression.tree';
 import { MemberExpressionTree } from '../member-expression/member-expression.tree';
 import { IndexExpressionTree } from './index-expression.tree';
@@ -17,5 +17,5 @@ test('integer expression index', () => {
     const code = 'some_object.prop[12+33]';
     const tree = parseCode(code, IndexExpressionTree);
     expect(tree.value).toBeInstanceOf(MemberExpressionTree);
-    expect(tree.index).toBeInstanceOf(AddSubExpressionTree);
+    expect(tree.index).toBeInstanceOf(AddExpressionTree);
 });

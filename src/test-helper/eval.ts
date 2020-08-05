@@ -1,5 +1,5 @@
 import { ExpressionContext } from '../grammar/xon-parser';
-import { AddSubExpressionTree } from '../tree/expression/add-sub-expression/add-sub-expression.tree';
+import { AddExpressionTree } from '../tree/expression/add-expression/add-expression.tree';
 import { BitAndExpressionTree } from '../tree/expression/bit-and-expression/bit-and-expression.tree';
 import { BitNotExpressionTree } from '../tree/expression/bit-not-expression/bit-not-expression.tree';
 import { BitOrExpressionTree } from '../tree/expression/bit-or-expression/bit-or-expression.tree';
@@ -17,6 +17,7 @@ import { MulDivModExpressionTree } from '../tree/expression/mul-div-mod-expressi
 import { PipeExpressionTree } from '../tree/expression/pipe-expression/pipe-expression.tree';
 import { PowExpressionTree } from '../tree/expression/pow-expression/pow-expression.tree';
 import { RelationalExpressionTree } from '../tree/expression/relational-expression/relational-expression.tree';
+import { SubstractExpressionTree } from '../tree/expression/substract-expression/substract-expression.tree';
 import { UnaryMinusExpressionTree } from '../tree/expression/unary-minus-expression/unary-minus-expression.tree';
 import { UnaryPlusExpressionTree } from '../tree/expression/unary-plus-expression/unary-plus-expression.tree';
 
@@ -61,7 +62,8 @@ export function evalExpression(tree: ExpressionTree, params = {}) {
         if (tree.isMod) return a % b;
     }
 
-    if (tree instanceof AddSubExpressionTree) return tree.isPlus ? a + b : a - b;
+    if (tree instanceof AddExpressionTree) return a + b;
+    if (tree instanceof SubstractExpressionTree) return a - b;
 
     if (tree instanceof BitShiftExpressionTree) {
         if (tree.isLeftShiftArithmetic) return a << b;

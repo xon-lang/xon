@@ -3,33 +3,24 @@ import { AddSubExpressionContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
-export class AddSubExpressionTree extends ExpressionTree {
-    operation: string;
-    isPlus: boolean;
-    isMinus: boolean;
+export class SubstractExpressionTree extends ExpressionTree {
     left: ExpressionTree;
     right: ExpressionTree;
 
     constructor(public ctx: AddSubExpressionContext) {
         super();
 
-        this.operation = ctx._operation.text;
-        this.isPlus = !!ctx.Plus();
-        this.isMinus = !!ctx.Minus();
         this.left = getExpressionTree(ctx._left);
         this.right = getExpressionTree(ctx._right);
     }
 
     getType() {
-        return getOperationType(this.operation, this.left.getType(), this.right.getType());
+        return getOperationType('-', this.left.getType(), this.right.getType());
     }
 
     toPlain() {
         return {
             ...super.toPlain(),
-            operation: this.operation,
-            isPlus: this.isPlus,
-            isMinus: this.isMinus,
             left: this.left.toPlain(),
             right: this.right.toPlain(),
         };

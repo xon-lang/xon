@@ -1,11 +1,11 @@
 import { evalExpression, parseExpression } from '../../../test-helper';
-import { AddSubExpressionTree } from '../add-sub-expression/add-sub-expression.tree';
+import { AddExpressionTree } from '../add-expression/add-expression.tree';
 import { UnaryMinusExpressionTree } from '../unary-minus-expression/unary-minus-expression.tree';
 
 test('one parenthesized expression', () => {
     const code = '(1+1)';
     const tree = parseExpression(code);
-    expect(tree).toBeInstanceOf(AddSubExpressionTree);
+    expect(tree).toBeInstanceOf(AddExpressionTree);
 });
 
 test('several parenthesized expression', () => {

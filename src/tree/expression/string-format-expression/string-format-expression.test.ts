@@ -1,5 +1,5 @@
 import { parseCode } from '../../../test-helper';
-import { AddSubExpressionTree } from '../add-sub-expression/add-sub-expression.tree';
+import { AddExpressionTree } from '../add-expression/add-expression.tree';
 import { ExpressionTree } from '../expression.tree';
 import { StringFormatExpressionTree } from './string-format-expression.tree';
 
@@ -17,5 +17,5 @@ test('another format string', () => {
     const tree = parseCode(code, StringFormatExpressionTree);
 
     expect(tree).toBeInstanceOf(StringFormatExpressionTree);
-    expect(tree.value).toBeInstanceOf(AddSubExpressionTree);
+    expect(tree.value).toBeInstanceOf(AddExpressionTree);
 });
