@@ -1,3 +1,5 @@
+#!/bin/sh
+
 generate_grammar()
 {
     npx antlr4ts -Werror -o .antlr -no-listener -no-visitor *.g4

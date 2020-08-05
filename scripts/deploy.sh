@@ -1,3 +1,5 @@
+#!/bin/sh
+
 npx rimraf dist
 cp -r src/ dist/
 cp package.json dist
