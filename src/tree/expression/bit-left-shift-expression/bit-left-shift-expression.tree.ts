@@ -3,7 +3,7 @@ import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 import { BaseTypes } from '../../../base-types';
 
-export class BitLeftExpressionTree extends ExpressionTree {
+export class BitLeftShiftExpressionTree extends ExpressionTree {
     left: ExpressionTree;
     right: ExpressionTree;
 

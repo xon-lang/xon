@@ -1,6 +1,6 @@
 import { evalExpression, parseCode } from '../../../test-helper';
 import { ExpressionStatementTree } from '../../statement/expression-statement/expression-statement.tree';
-import { RelationalExpressionTree } from '../relational-expression/relational-expression.tree';
+import { MoreThanExpressionTree } from '../more-than-expression/more-than-expression.tree';
 import { IfExpressionTree } from './if-expression.tree';
 
 test('else only', () => {
@@ -50,7 +50,7 @@ test('if relational', () => {
     const code = 'if 6 > 4:\n    12+45/  5';
     const tree = parseCode(code, IfExpressionTree);
 
-    expect(tree.ifCondition).toBeInstanceOf(RelationalExpressionTree);
+    expect(tree.ifCondition).toBeInstanceOf(MoreThanExpressionTree);
     expect(evalExpression(tree.ifCondition)).toBe(true);
     expect(tree.ifStatements.length).toBe(1);
     const ifStatement = tree.ifStatements[0] as ExpressionStatementTree;

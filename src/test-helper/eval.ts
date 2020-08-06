@@ -1,26 +1,29 @@
 import { ExpressionContext } from '../grammar/xon-parser';
 import { AddExpressionTree } from '../tree/expression/add-expression/add-expression.tree';
 import { BitAndExpressionTree } from '../tree/expression/bit-and-expression/bit-and-expression.tree';
-import { BitLeftExpressionTree } from '../tree/expression/bit-left-shift-expression/bit-left-shift-expression.tree';
+import { BitLeftShiftExpressionTree } from '../tree/expression/bit-left-shift-expression/bit-left-shift-expression.tree';
 import { BitNotExpressionTree } from '../tree/expression/bit-not-expression/bit-not-expression.tree';
 import { BitOrExpressionTree } from '../tree/expression/bit-or-expression/bit-or-expression.tree';
-import { BitRightExpressionTree } from '../tree/expression/bit-right-shift-expression/bit-right-shift-expression.tree';
+import { BitRightShiftExpressionTree } from '../tree/expression/bit-right-shift-expression/bit-right-shift-expression.tree';
 import { BitXorExpressionTree } from '../tree/expression/bit-xor-expression/bit-xor-expression.tree';
 import { DivideExpressionTree } from '../tree/expression/divide-expression/divide-expression.tree';
 import { EqualsExpressionTree } from '../tree/expression/equals-expression/equals-expression.tree';
 import { getExpressionTree } from '../tree/expression/expression-helper';
 import { ExpressionTree } from '../tree/expression/expression.tree';
 import { IdExpressionTree } from '../tree/expression/id-expression/id-expression.tree';
+import { LessThanEqualsExpressionTree } from '../tree/expression/less-than-equals-expression/less-than-equals-expression.tree';
+import { LessThanExpressionTree } from '../tree/expression/less-than-expression/less-than-expression.tree';
 import { LiteralExpressionTree } from '../tree/expression/literal-expression/literal-expression.tree';
 import { LogicalAndExpressionTree } from '../tree/expression/logical-and-expression/logical-and-expression.tree';
 import { LogicalNotExpressionTree } from '../tree/expression/logical-not-expression/logical-not-expression.tree';
 import { LogicalOrExpressionTree } from '../tree/expression/logical-or-expression/logical-or-expression.tree';
 import { ModuloExpressionTree } from '../tree/expression/modulo-expression/modulo-expression.tree';
+import { MoreThanEqualsExpressionTree } from '../tree/expression/more-than-equals-expression/more-than-equals-expression.tree';
+import { MoreThanExpressionTree } from '../tree/expression/more-than-expression/more-than-expression.tree';
 import { MultiplyExpressionTree } from '../tree/expression/multiply-expression/multiply-expression.tree';
 import { NotEqualsExpressionTree } from '../tree/expression/not-equals-expression/not-equals-expression.tree';
 import { PipeExpressionTree } from '../tree/expression/pipe-expression/pipe-expression.tree';
 import { PowExpressionTree } from '../tree/expression/pow-expression/pow-expression.tree';
-import { RelationalExpressionTree } from '../tree/expression/relational-expression/relational-expression.tree';
 import { SubstractExpressionTree } from '../tree/expression/substract-expression/substract-expression.tree';
 import { UnaryMinusExpressionTree } from '../tree/expression/unary-minus-expression/unary-minus-expression.tree';
 import { UnaryPlusExpressionTree } from '../tree/expression/unary-plus-expression/unary-plus-expression.tree';
@@ -68,15 +71,13 @@ export function evalExpression(tree: ExpressionTree, params = {}) {
     if (tree instanceof AddExpressionTree) return a + b;
     if (tree instanceof SubstractExpressionTree) return a - b;
 
-    if (tree instanceof BitLeftExpressionTree) return a << b;
-    if (tree instanceof BitRightExpressionTree) return a >> b;
+    if (tree instanceof BitLeftShiftExpressionTree) return a << b;
+    if (tree instanceof BitRightShiftExpressionTree) return a >> b;
 
-    if (tree instanceof RelationalExpressionTree) {
-        if (tree.isLessThan) return a < b;
-        if (tree.isLessThanEquals) return a <= b;
-        if (tree.isMoreThan) return a > b;
-        if (tree.isMoreThanEquals) return a >= b;
-    }
+    if (tree instanceof LessThanExpressionTree) return a < b;
+    if (tree instanceof LessThanEqualsExpressionTree) return a <= b;
+    if (tree instanceof MoreThanExpressionTree) return a > b;
+    if (tree instanceof MoreThanEqualsExpressionTree) return a >= b;
 
     if (tree instanceof EqualsExpressionTree) return a === b;
     if (tree instanceof NotEqualsExpressionTree) return a !== b;
