@@ -39,6 +39,7 @@ import { BitNotExpressionTree } from './bit-not-expression/bit-not-expression.tr
 import { BitOrExpressionTree } from './bit-or-expression/bit-or-expression.tree';
 import { BitShiftExpressionTree } from './bit-shift-expression/bit-shift-expression.tree';
 import { BitXorExpressionTree } from './bit-xor-expression/bit-xor-expression.tree';
+import { DivideExpressionTree } from './divide-expression/divide-expression.tree';
 import { EqualsExpressionTree } from './equals-expression/equals-expression.tree';
 import { ExpressionTree } from './expression.tree';
 import { FunctionExpressionTree } from './function-expression/function-expression.tree';
@@ -53,7 +54,8 @@ import { LogicalNotExpressionTree } from './logical-not-expression/logical-not-e
 import { LogicalOrExpressionTree } from './logical-or-expression/logical-or-expression.tree';
 import { LoopExpressionTree } from './loop-expression/loop-expression.tree';
 import { MemberExpressionTree } from './member-expression/member-expression.tree';
-import { MulDivModExpressionTree } from './mul-div-mod-expression/mul-div-mod-expression.tree';
+import { ModuloExpressionTree } from './modulo-expression/modulo-expression.tree';
+import { MultiplyExpressionTree } from './multiply-expression/multiply-expression.tree';
 import { NotEqualsExpressionTree } from './not-equals-expression/not-equals-expression.tree';
 import { PipeExpressionTree } from './pipe-expression/pipe-expression.tree';
 import { PowExpressionTree } from './pow-expression/pow-expression.tree';
@@ -76,8 +78,11 @@ export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
     else if (ctx instanceof RangeExpressionContext) return new RangeExpressionTree(ctx);
     else if (ctx instanceof SliceExpressionContext) return new SliceExpressionTree(ctx);
     else if (ctx instanceof IndexExpressionContext) return new IndexExpressionTree(ctx);
-    else if (ctx instanceof MulDivModExpressionContext) return new MulDivModExpressionTree(ctx);
-    else if (ctx instanceof AddSubExpressionContext) {
+    else if (ctx instanceof MulDivModExpressionContext) {
+        if (ctx.Divide()) return new DivideExpressionTree(ctx);
+        if (ctx.Modulus()) return new ModuloExpressionTree(ctx);
+        if (ctx.Multiply()) return new MultiplyExpressionTree(ctx);
+    } else if (ctx instanceof AddSubExpressionContext) {
         if (ctx.Minus()) return new SubstractExpressionTree(ctx);
         if (ctx.Plus()) return new AddExpressionTree(ctx);
     } else if (ctx instanceof PowExpressionContext) return new PowExpressionTree(ctx);
