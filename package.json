@@ -23,11 +23,11 @@
     "types": "dist/index.d.ts",
     "scripts": {
         "grammar": "scripts/grammar.sh",
-        "preversion": "npm run test",
         "test": "npm run grammar && jest --no-cache",
-        "deploy": "scripts/deploy.sh",
+        "build": "scripts/build.sh",
         "pre-commit": "scripts/pre-commit.sh",
-        "postversion": "git push && npm run deploy"
+        "preversion": "npm run test && npm run build",
+        "postversion": "git push && cd dist && npm publish --access public"
     },
     "husky": {
         "hooks": {
