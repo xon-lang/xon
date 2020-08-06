@@ -1936,7 +1936,7 @@ export class XonParser extends Parser {
 						this.state = 419;
 						(_localctx as BitShiftExpressionContext)._operation = this._input.LT(1);
 						_la = this._input.LA(1);
-						if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.RightShiftArithmetic) | (1 << XonParser.LeftShiftArithmetic) | (1 << XonParser.RightShiftLogical))) !== 0))) {
+						if (!(_la === XonParser.RightShiftArithmetic || _la === XonParser.LeftShiftArithmetic)) {
 							(_localctx as BitShiftExpressionContext)._operation = this._errHandler.recoverInline(this);
 						} else {
 							if (this._input.LA(1) === Token.EOF) {
@@ -2496,7 +2496,7 @@ export class XonParser extends Parser {
 		"\x12\x03\x13\x03\x13\x03\x13\x03\x13\x03\x13\x05\x13\u01F8\n\x13\x03\x13" +
 		"\x02\x02\x04\x18 \x14\x02\x02\x04\x02\x06\x02\b\x02\n\x02\f\x02\x0E\x02" +
 		"\x10\x02\x12\x02\x14\x02\x16\x02\x18\x02\x1A\x02\x1C\x02\x1E\x02 \x02" +
-		"\"\x02$\x02\x02\b\x04\x02JJNN\x03\x02(*\x03\x02$%\x03\x02\x14\x16\x03" +
+		"\"\x02$\x02\x02\b\x04\x02JJNN\x03\x02(*\x03\x02$%\x03\x02\x14\x15\x03" +
 		"\x02-0\x03\x0212\x02\u025C\x02*\x03\x02\x02\x02\x04-\x03\x02\x02\x02\x06" +
 		"C\x03\x02\x02\x02\bG\x03\x02\x02\x02\nL\x03\x02\x02\x02\fc\x03\x02\x02" +
 		"\x02\x0E\x7F\x03\x02\x02\x02\x10\x8B\x03\x02\x02\x02\x12\x9F\x03\x02\x02" +
@@ -3652,7 +3652,6 @@ export class BitShiftExpressionContext extends ExpressionContext {
 	}
 	public LeftShiftArithmetic(): TerminalNode | undefined { return this.tryGetToken(XonParser.LeftShiftArithmetic, 0); }
 	public RightShiftArithmetic(): TerminalNode | undefined { return this.tryGetToken(XonParser.RightShiftArithmetic, 0); }
-	public RightShiftLogical(): TerminalNode | undefined { return this.tryGetToken(XonParser.RightShiftLogical, 0); }
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);

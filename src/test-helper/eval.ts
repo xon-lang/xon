@@ -1,9 +1,10 @@
 import { ExpressionContext } from '../grammar/xon-parser';
 import { AddExpressionTree } from '../tree/expression/add-expression/add-expression.tree';
 import { BitAndExpressionTree } from '../tree/expression/bit-and-expression/bit-and-expression.tree';
+import { BitLeftExpressionTree } from '../tree/expression/bit-left-shift-expression/bit-left-shift-expression.tree';
 import { BitNotExpressionTree } from '../tree/expression/bit-not-expression/bit-not-expression.tree';
 import { BitOrExpressionTree } from '../tree/expression/bit-or-expression/bit-or-expression.tree';
-import { BitShiftExpressionTree } from '../tree/expression/bit-shift-expression/bit-shift-expression.tree';
+import { BitRightExpressionTree } from '../tree/expression/bit-right-shift-expression/bit-right-shift-expression.tree';
 import { BitXorExpressionTree } from '../tree/expression/bit-xor-expression/bit-xor-expression.tree';
 import { DivideExpressionTree } from '../tree/expression/divide-expression/divide-expression.tree';
 import { EqualsExpressionTree } from '../tree/expression/equals-expression/equals-expression.tree';
@@ -59,7 +60,7 @@ export function evalExpression(tree: ExpressionTree, params = {}) {
 
     const a = evalExpression(tree['left'], params);
     const b = evalExpression(tree['right'], params);
-    
+
     if (tree instanceof MultiplyExpressionTree) return a * b;
     if (tree instanceof DivideExpressionTree) return a / b;
     if (tree instanceof ModuloExpressionTree) return a % b;
@@ -67,11 +68,8 @@ export function evalExpression(tree: ExpressionTree, params = {}) {
     if (tree instanceof AddExpressionTree) return a + b;
     if (tree instanceof SubstractExpressionTree) return a - b;
 
-    if (tree instanceof BitShiftExpressionTree) {
-        if (tree.isLeftShiftArithmetic) return a << b;
-        if (tree.isRightShiftArithmetic) return a >> b;
-        if (tree.isRightShiftLogical) return a >>> b;
-    }
+    if (tree instanceof BitLeftExpressionTree) return a << b;
+    if (tree instanceof BitRightExpressionTree) return a >> b;
 
     if (tree instanceof RelationalExpressionTree) {
         if (tree.isLessThan) return a < b;

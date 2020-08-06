@@ -35,9 +35,10 @@ import {
 import { AddExpressionTree } from './add-expression/add-expression.tree';
 import { ArrayExpressionTree } from './array-expression/array-expression.tree';
 import { BitAndExpressionTree } from './bit-and-expression/bit-and-expression.tree';
+import { BitLeftExpressionTree } from './bit-left-shift-expression/bit-left-shift-expression.tree';
 import { BitNotExpressionTree } from './bit-not-expression/bit-not-expression.tree';
 import { BitOrExpressionTree } from './bit-or-expression/bit-or-expression.tree';
-import { BitShiftExpressionTree } from './bit-shift-expression/bit-shift-expression.tree';
+import { BitRightExpressionTree } from './bit-right-shift-expression/bit-right-shift-expression.tree';
 import { BitXorExpressionTree } from './bit-xor-expression/bit-xor-expression.tree';
 import { DivideExpressionTree } from './divide-expression/divide-expression.tree';
 import { EqualsExpressionTree } from './equals-expression/equals-expression.tree';
@@ -94,8 +95,10 @@ export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
     else if (ctx instanceof InstanceMemberExpressionContext)
         return new InstanceMemberExpressionTree(ctx);
     else if (ctx instanceof FunctionExpressionContext) return new FunctionExpressionTree(ctx);
-    else if (ctx instanceof BitShiftExpressionContext) return new BitShiftExpressionTree(ctx);
-    else if (ctx instanceof BitAndExpressionContext) return new BitAndExpressionTree(ctx);
+    else if (ctx instanceof BitShiftExpressionContext) {
+        if (ctx.LeftShiftArithmetic()) return new BitLeftExpressionTree(ctx);
+        if (ctx.RightShiftArithmetic()) return new BitRightExpressionTree(ctx);
+    } else if (ctx instanceof BitAndExpressionContext) return new BitAndExpressionTree(ctx);
     else if (ctx instanceof BitXorExpressionContext) return new BitXorExpressionTree(ctx);
     else if (ctx instanceof BitOrExpressionContext) return new BitOrExpressionTree(ctx);
     else if (ctx instanceof LogicalAndExpressionContext) return new LogicalAndExpressionTree(ctx);
