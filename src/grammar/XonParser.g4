@@ -6,14 +6,11 @@ options {
 
 program: (statement | definition)*;
 
-imports: importPath ':' ('*' 'as' alias = ID | importMember (',' importMember)*);
-
-importPath: ('.'* (ID | StringLiteral))+;
-
+imports:      importPath ':' ('*' 'as' alias = ID | importMember (',' importMember)*);
+importPath:   ('.'* (ID | StringLiteral))+;
 importMember: name = ID ('as' alias = ID)?;
 
 definition: name = ID ':' LineBreak INDENT member+ DEDENT;
-
 member:
     name = ID (type | type? '=' value = expression) # propertyMember
     | function                                      # methodMember

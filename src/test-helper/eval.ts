@@ -22,6 +22,7 @@ import { MoreThanEqualsExpressionTree } from '../tree/expression/more-than-equal
 import { MoreThanExpressionTree } from '../tree/expression/more-than-expression/more-than-expression.tree';
 import { MultiplyExpressionTree } from '../tree/expression/multiply-expression/multiply-expression.tree';
 import { NotEqualsExpressionTree } from '../tree/expression/not-equals-expression/not-equals-expression.tree';
+import { ParenthesizedExpressionTree } from '../tree/expression/parenthesized-expression/parenthesized-expression.tree';
 import { PipeExpressionTree } from '../tree/expression/pipe-expression/pipe-expression.tree';
 import { PowExpressionTree } from '../tree/expression/pow-expression/pow-expression.tree';
 import { SubstractExpressionTree } from '../tree/expression/substract-expression/substract-expression.tree';
@@ -29,6 +30,7 @@ import { UnaryMinusExpressionTree } from '../tree/expression/unary-minus-express
 import { UnaryPlusExpressionTree } from '../tree/expression/unary-plus-expression/unary-plus-expression.tree';
 
 export function evalExpression(tree: ExpressionTree, params = {}) {
+    if (tree instanceof ParenthesizedExpressionTree) return tree.value.eval();
     if (tree instanceof IdExpressionTree) {
         if (tree.id in params) {
             return params[tree.id];
