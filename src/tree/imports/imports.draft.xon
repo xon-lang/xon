@@ -1,0 +1,21 @@
+..some dir/another one: * as dir_one
+...src/tree/program:
+    one-scope.test: ab
+    several-scope.test: cd
+    
+'...src/tree/program/one-scope': ab
+...src/tree/program/several-scope: cd
+'lib.console': * as log
+
+lib.array: * as arr
+src....
+.sdf.fwef
+
+
+console.log()
+
+
+
+'/math.geometry': triangle
+'..some dir/another one': * as dir_one
+'...src/tree/program': cd, bd
