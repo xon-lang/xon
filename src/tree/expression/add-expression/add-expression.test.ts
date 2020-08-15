@@ -1,4 +1,5 @@
-import { evalExpression, parseCode } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseCode } from '../../../parse';
 import { AddExpressionTree } from './add-expression.tree';
 
 test('one_plus_one', () => {

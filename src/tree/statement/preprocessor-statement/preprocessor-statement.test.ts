@@ -1,4 +1,4 @@
-import { parseCode } from '../../../test-helper';
+import { parseCode } from '../../../parse';
 import { ProgramTree } from '../../program/program.tree';
 import { PreprocessorStatementTree } from './preprocessor-statement.tree';
 

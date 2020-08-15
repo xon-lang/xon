@@ -1,4 +1,5 @@
-import { parseCode } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseCode } from '../../../parse';
 import { ExpressionStatementTree } from '../../statement/expression-statement/expression-statement.tree';
 import { FunctionExpressionTree } from '../function-expression/function-expression.tree';
 import { IdExpressionTree } from '../id-expression/id-expression.tree';
@@ -12,9 +13,9 @@ test('select with one case', () => {
     expect(tree.value).toBeUndefined();
     expect(tree.cases.length).toBe(1);
 
-    expect(tree.cases[0].value.eval()).toBe(true);
+    expect(evalExpression(tree.cases[0].value)).toBe(true);
     const statements = tree.cases[0].statements[0] as ExpressionStatementTree;
-    expect(statements.value.eval()).toBe(6 + 7);
+    expect(evalExpression(statements.value)).toBe(6 + 7);
 });
 
 test('select with two cases', () => {
@@ -29,12 +30,12 @@ test('select with two cases', () => {
     expect(tree).toBeInstanceOf(SelectExpressionTree);
     expect(tree.cases.length).toBe(2);
 
-    expect(tree.cases[0].value.eval()).toBe(true);
+    expect(evalExpression(tree.cases[0].value)).toBe(true);
     expect(tree.cases[0].statements.length).toBe(2);
     const statements = tree.cases[0].statements[0] as ExpressionStatementTree;
-    expect(statements.value.eval()).toBe(5 + 5);
+    expect(evalExpression(statements.value)).toBe(5 + 5);
 
-    expect(tree.cases[1].value.eval()).toBe(3.14);
+    expect(evalExpression(tree.cases[1].value)).toBe(3.14);
     expect(tree.cases[1].statements.length).toBe(2);
     const body2 = tree.cases[1].statements[0] as ExpressionStatementTree;
     const expr = body2.value as FunctionExpressionTree;

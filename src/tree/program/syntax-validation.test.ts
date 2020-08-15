@@ -1,7 +1,7 @@
-import { parseFile } from '../../test-helper';
 import { ProgramTree } from './program.tree';
+import { parseFile } from '../../parse';
 
 test('syntax validation', () => {
-    const tree = parseFile('./syntax-validation.test.xon', ProgramTree);
+    const tree = parseFile('tree/program/syntax-validation.test.xon', ProgramTree);
     expect(tree).toBeInstanceOf(ProgramTree);
 });

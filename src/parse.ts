@@ -1,7 +1,7 @@
 import { ParserRuleContext } from 'antlr4ts';
-import { Parser } from '../parser';
-import { BaseTree } from '../tree/base.tree';
-import { ExpressionTree } from '../tree/expression/expression.tree';
+import { Parser } from './parser';
+import { BaseTree } from './tree/base.tree';
+import { ExpressionTree } from './tree/expression/expression.tree';
 
 export function parse(code: string) {
     return new Parser().parse(code);

@@ -1,4 +1,5 @@
-import { evalExpression, parseCode } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseCode } from '../../../parse';
 import { ModuloExpressionTree } from './modulo-expression.tree';
 
 test('modulo expression', () => {

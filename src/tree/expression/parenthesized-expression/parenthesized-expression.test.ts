@@ -1,4 +1,5 @@
-import { evalExpression, parseExpression } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseExpression } from '../../../parse';
 import { AddExpressionTree } from '../add-expression/add-expression.tree';
 import { ParenthesizedExpressionTree } from './parenthesized-expression.tree';
 

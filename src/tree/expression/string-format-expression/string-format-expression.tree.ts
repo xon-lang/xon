@@ -1,6 +1,6 @@
 import { BaseTypes } from '../../../base-types';
 import { StringFormatExpressionContext } from '../../../grammar/xon-parser';
-import { parseExpression } from '../../../test-helper';
+import { parseExpression } from '../../../parse';
 import { ExpressionTree } from '../expression.tree';
 
 export class StringFormatExpressionTree extends ExpressionTree {

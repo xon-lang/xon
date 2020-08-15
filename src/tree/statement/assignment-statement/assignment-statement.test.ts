@@ -1,4 +1,5 @@
-import { parseCode } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseCode } from '../../../parse';
 import { ArrayExpressionTree } from '../../expression/array-expression/array-expression.tree';
 import { AssignmentStatementTree } from './assignment-statement.tree';
 
@@ -12,7 +13,7 @@ test('one assignment', () => {
     expect(
         tree.value
             .as<ArrayExpressionTree>()
-            .items.map((x) => x.value.eval())
+            .items.map((x) => evalExpression(x.value))
             .join()
     ).toBe('1,2,3,v');
 });
@@ -50,10 +51,10 @@ test('id list and expression list', () => {
     const arr = tree.value as ArrayExpressionTree;
     expect(arr).toBeInstanceOf(ArrayExpressionTree);
     expect(tree.singleAssigments[0].index).toBe(1);
-    expect(arr.items[1].value.eval()).toBe(5 + 5);
+    expect(evalExpression(arr.items[1].value)).toBe(5 + 5);
 
     expect(tree.singleAssigments[1].index).toBe(4);
-    expect(arr.items[4].value.eval()).toBe(8.9);
+    expect(evalExpression(arr.items[4].value)).toBe(8.9);
 });
 
 test('array id', () => {

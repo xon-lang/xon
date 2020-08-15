@@ -1,4 +1,5 @@
-import { evalExpression, parseCode } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseCode } from '../../../parse';
 import { NotEqualsExpressionTree } from './not-equals-expression.tree';
 
 test('not equals', () => {

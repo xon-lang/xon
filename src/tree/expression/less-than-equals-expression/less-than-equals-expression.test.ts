@@ -1,4 +1,5 @@
-import { evalExpression, parseCode } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseCode } from '../../../parse';
 import { LessThanEqualsExpressionTree } from './less-than-equals-expression.tree';
 
 test('less  equals', () => {

@@ -1,9 +1,10 @@
-import { parseCode, evalExpression } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseCode } from '../../../parse';
 import { BitNotExpressionTree } from './bit-not-expression.tree';
 
 test('bit not', () => {
     const code = '~34536';
     const tree = parseCode(code, BitNotExpressionTree);
     expect(tree).toBeInstanceOf(BitNotExpressionTree);
-    expect(evalExpression(tree)).toBe(~34536)
+    expect(evalExpression(tree)).toBe(~34536);
 });

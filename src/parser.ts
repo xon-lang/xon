@@ -61,11 +61,7 @@ export class Parser {
     }
 
     parseFile<T extends BaseTree>(filePath: string, type: new (ctx) => T) {
-        if (filePath.startsWith('.')) {
-            const testFilePath = module.parent.parent.parent.filename;
-            const dir = path.dirname(testFilePath);
-            filePath = path.join(dir, filePath);
-        }
+        filePath = path.join(process.cwd(), 'src', filePath);
         const code = fs.readFileSync(filePath, 'utf8');
         return this.parseCode(code, type);
     }

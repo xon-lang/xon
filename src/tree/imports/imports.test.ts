@@ -1,5 +1,5 @@
-import { parseCode } from '../../test-helper';
 import { ImportsTree } from './imports.tree';
+import { parseCode } from '../../parse';
 
 test('import all', () => {
     const code = "'./../my-module': * as mm\n";
