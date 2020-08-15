@@ -1,6 +1,6 @@
-[![npm](https://img.shields.io/npm/v/@xon/ast)](https://www.npmjs.com/package/@xon/ast)
+# XON AST (Under Development)
 
-# XON AST
+[![npm](https://img.shields.io/npm/v/@xon/ast)](https://www.npmjs.com/package/@xon/ast)
 
 XON AST is a library to parse XON code and to generate abstract syntax tree for it
 
