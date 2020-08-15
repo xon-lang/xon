@@ -19,8 +19,8 @@
         "programming language"
     ],
     "license": "MIT",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "index.js",
+    "types": "index.d.ts",
     "scripts": {
         "grammar": "scripts/grammar.sh",
         "test": "npm run grammar && jest --no-cache",
