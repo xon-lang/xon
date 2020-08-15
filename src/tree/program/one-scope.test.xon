@@ -1,3 +1,5 @@
+'./one-scope.test.xon': one as single, second;
+
 oneScope():
     a = 23 + 5
     loop array:
