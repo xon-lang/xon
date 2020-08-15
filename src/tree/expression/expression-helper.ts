@@ -62,6 +62,7 @@ import { MoreThanEqualsExpressionTree } from './more-than-equals-expression/more
 import { MoreThanExpressionTree } from './more-than-expression/more-than-expression.tree';
 import { MultiplyExpressionTree } from './multiply-expression/multiply-expression.tree';
 import { NotEqualsExpressionTree } from './not-equals-expression/not-equals-expression.tree';
+import { ParenthesizedExpressionTree } from './parenthesized-expression/parenthesized-expression.tree';
 import { PipeExpressionTree } from './pipe-expression/pipe-expression.tree';
 import { PowExpressionTree } from './pow-expression/pow-expression.tree';
 import { RangeExpressionTree } from './range-expression/range-expression.tree';
@@ -71,57 +72,61 @@ import { StringFormatExpressionTree } from './string-format-expression/string-fo
 import { SubstractExpressionTree } from './substract-expression/substract-expression.tree';
 import { UnaryMinusExpressionTree } from './unary-minus-expression/unary-minus-expression.tree';
 import { UnaryPlusExpressionTree } from './unary-plus-expression/unary-plus-expression.tree';
-import { ParenthesizedExpressionTree } from './parenthesized-expression/parenthesized-expression.tree';
 
 export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
     if (ctx === undefined) return undefined;
+
+    if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionTree(ctx);
     if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);
-    else if (ctx instanceof ParenthesizedExpressionContext)
-        return new ParenthesizedExpressionTree(ctx);
-    else if (ctx instanceof LiteralExpressionContext) return new LiteralExpressionTree(ctx);
-    else if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
-    else if (ctx instanceof RangeExpressionContext) return new RangeExpressionTree(ctx);
-    else if (ctx instanceof SliceExpressionContext) return new SliceExpressionTree(ctx);
-    else if (ctx instanceof IndexExpressionContext) return new IndexExpressionTree(ctx);
-    else if (ctx instanceof MulDivModExpressionContext) {
+    if (ctx instanceof LiteralExpressionContext) return new LiteralExpressionTree(ctx);
+    if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
+    if (ctx instanceof RangeExpressionContext) return new RangeExpressionTree(ctx);
+    if (ctx instanceof SliceExpressionContext) return new SliceExpressionTree(ctx);
+    if (ctx instanceof IndexExpressionContext) return new IndexExpressionTree(ctx);
+    if (ctx instanceof PowExpressionContext) return new PowExpressionTree(ctx);
+    if (ctx instanceof UnaryPlusExpressionContext) return new UnaryPlusExpressionTree(ctx);
+    if (ctx instanceof UnaryMinusExpressionContext) return new UnaryMinusExpressionTree(ctx);
+    if (ctx instanceof LogicalNotExpressionContext) return new LogicalNotExpressionTree(ctx);
+    if (ctx instanceof BitNotExpressionContext) return new BitNotExpressionTree(ctx);
+    if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
+    if (ctx instanceof FunctionExpressionContext) return new FunctionExpressionTree(ctx);
+    if (ctx instanceof BitAndExpressionContext) return new BitAndExpressionTree(ctx);
+    if (ctx instanceof BitXorExpressionContext) return new BitXorExpressionTree(ctx);
+    if (ctx instanceof BitOrExpressionContext) return new BitOrExpressionTree(ctx);
+    if (ctx instanceof LogicalAndExpressionContext) return new LogicalAndExpressionTree(ctx);
+    if (ctx instanceof LogicalOrExpressionContext) return new LogicalOrExpressionTree(ctx);
+    if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);
+    if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
+    if (ctx instanceof StringFormatExpressionContext) return new StringFormatExpressionTree(ctx);
+    if (ctx instanceof IfExpressionContext) return new IfExpressionTree(ctx);
+    if (ctx instanceof LoopExpressionContext) return new LoopExpressionTree(ctx);
+    if (ctx instanceof SelectExpressionContext) return new SelectExpressionTree(ctx);
+    if (ctx instanceof InstanceMemberExpressionContext)
+        return new InstanceMemberExpressionTree(ctx);
+
+    if (ctx instanceof MulDivModExpressionContext) {
         if (ctx.Divide()) return new DivideExpressionTree(ctx);
         if (ctx.Modulus()) return new ModuloExpressionTree(ctx);
         if (ctx.Multiply()) return new MultiplyExpressionTree(ctx);
-    } else if (ctx instanceof AddSubExpressionContext) {
+    }
+    if (ctx instanceof AddSubExpressionContext) {
         if (ctx.Minus()) return new SubstractExpressionTree(ctx);
         if (ctx.Plus()) return new AddExpressionTree(ctx);
-    } else if (ctx instanceof PowExpressionContext) return new PowExpressionTree(ctx);
-    else if (ctx instanceof UnaryPlusExpressionContext) return new UnaryPlusExpressionTree(ctx);
-    else if (ctx instanceof UnaryMinusExpressionContext) return new UnaryMinusExpressionTree(ctx);
-    else if (ctx instanceof LogicalNotExpressionContext) return new LogicalNotExpressionTree(ctx);
-    else if (ctx instanceof BitNotExpressionContext) return new BitNotExpressionTree(ctx);
-    else if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
-    else if (ctx instanceof InstanceMemberExpressionContext)
-        return new InstanceMemberExpressionTree(ctx);
-    else if (ctx instanceof FunctionExpressionContext) return new FunctionExpressionTree(ctx);
-    else if (ctx instanceof BitShiftExpressionContext) {
+    }
+    if (ctx instanceof BitShiftExpressionContext) {
         if (ctx.LeftShiftArithmetic()) return new BitLeftShiftExpressionTree(ctx);
         if (ctx.RightShiftArithmetic()) return new BitRightShiftExpressionTree(ctx);
-    } else if (ctx instanceof BitAndExpressionContext) return new BitAndExpressionTree(ctx);
-    else if (ctx instanceof BitXorExpressionContext) return new BitXorExpressionTree(ctx);
-    else if (ctx instanceof BitOrExpressionContext) return new BitOrExpressionTree(ctx);
-    else if (ctx instanceof LogicalAndExpressionContext) return new LogicalAndExpressionTree(ctx);
-    else if (ctx instanceof LogicalOrExpressionContext) return new LogicalOrExpressionTree(ctx);
-    else if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);
-    else if (ctx instanceof RelationalExpressionContext) {
+    }
+    if (ctx instanceof RelationalExpressionContext) {
         if (ctx.LessThan()) return new LessThanExpressionTree(ctx);
         if (ctx.LessThanEquals()) return new LessThanEqualsExpressionTree(ctx);
         if (ctx.MoreThan()) return new MoreThanExpressionTree(ctx);
         if (ctx.MoreThanEquals()) return new MoreThanEqualsExpressionTree(ctx);
-    } else if (ctx instanceof EqualityExpressionContext) {
+    }
+    if (ctx instanceof EqualityExpressionContext) {
         if (ctx.Equals()) return new EqualsExpressionTree(ctx);
         if (ctx.NotEquals()) return new NotEqualsExpressionTree(ctx);
-    } else if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
-    else if (ctx instanceof StringFormatExpressionContext)
-        return new StringFormatExpressionTree(ctx);
-    else if (ctx instanceof IfExpressionContext) return new IfExpressionTree(ctx);
-    else if (ctx instanceof LoopExpressionContext) return new LoopExpressionTree(ctx);
-    else if (ctx instanceof SelectExpressionContext) return new SelectExpressionTree(ctx);
+    }
 
     throw Error('No Expression found for ' + ctx?.constructor?.name);
 }

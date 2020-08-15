@@ -16,7 +16,6 @@ test('format string', () => {
 test('another format string', () => {
     const code = "f'{color}{chargeIcon}{battery.percent}% | size=13'";
     const tree = parseCode(code, StringFormatExpressionTree);
-
     expect(tree).toBeInstanceOf(StringFormatExpressionTree);
     expect(tree.value).toBeInstanceOf(AddExpressionTree);
 });
