@@ -2,7 +2,7 @@ import { parseCode } from '../../test-helper';
 import { ImportsTree } from './imports.tree';
 
 test('import all', () => {
-    const code = "'..my-module': * as mm\n";
+    const code = "'./../my-module': * as mm\n";
     const tree = parseCode(code, ImportsTree);
     expect(tree.allModulesAlias).toBe('mm');
     expect(tree.path).toBe('./../my-module');
@@ -10,7 +10,7 @@ test('import all', () => {
 });
 
 test('import with many members', () => {
-    const code = "'...lib/math.high': sqrt as s, log, ln, dnn as net \n";
+    const code = "'./../../lib/math.high': sqrt as s, log, ln, dnn as net \n";
     const tree = parseCode(code, ImportsTree);
     expect(tree.allModulesAlias).toBeUndefined();
     expect(tree.path).toBe('./../../lib/math.high');
