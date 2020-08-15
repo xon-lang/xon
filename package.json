@@ -26,8 +26,9 @@
         "test": "npm run grammar && jest --no-cache",
         "build": "scripts/build.sh",
         "pre-commit": "scripts/pre-commit.sh",
-        "preversion": "npm run test && npm run build",
-        "postversion": "git push && cd dist && npm publish --access public"
+        "preversion": "npm run test",
+        "version": "npm run build",
+        "postversion": "git push && cd dist && npm publish --access public && rimraf ../dist"
     },
     "husky": {
         "hooks": {
