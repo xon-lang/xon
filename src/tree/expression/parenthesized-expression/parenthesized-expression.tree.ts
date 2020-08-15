@@ -15,6 +15,9 @@ export class ParenthesizedExpressionTree extends ExpressionTree {
     }
 
     toPlain() {
-        return this.value.toPlain();
+        return {
+            ...super.toPlain(),
+            value: this.value.toPlain(),
+        };
     }
 }

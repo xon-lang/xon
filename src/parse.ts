@@ -12,8 +12,7 @@ export function parse(code: string) {
     const inputStream = new ANTLRInputStream(code);
     const lexer = new XonLexer(inputStream);
     const tokenStream = new CommonTokenStream(lexer);
-    const parser = new XonParser(tokenStream);
-    return parser;
+    return new XonParser(tokenStream);
 }
 
 export function parseExpression(code: string): ExpressionTree {
