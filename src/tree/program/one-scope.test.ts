@@ -6,8 +6,16 @@ import { ProgramTree } from './program.tree';
 test('one scope', () => {
     const tree = parseFile('./one-scope.test.xon', ProgramTree);
     expect(tree).toBeInstanceOf(ProgramTree);
-    expect(tree.statements.length).toBe(2);
 
+    expect(tree.imports.length).toBe(1);
+    expect(tree.imports[0].path).toBe('./one-scope.test.xon');
+    expect(tree.imports[0].members.length).toBe(2);
+    expect(tree.imports[0].members[0].name).toBe('one');
+    expect(tree.imports[0].members[0].alias).toBe('single');
+    expect(tree.imports[0].members[1].name).toBe('second');
+    expect(tree.imports[0].members[1].alias).toBeUndefined();
+
+    expect(tree.statements.length).toBe(2);
     const func = tree.statements[0] as FunctionStatementTree;
     expect(func).not.toBeUndefined();
     expect(func.value.name).toBe('oneScope');

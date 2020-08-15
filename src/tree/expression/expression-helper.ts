@@ -71,12 +71,13 @@ import { StringFormatExpressionTree } from './string-format-expression/string-fo
 import { SubstractExpressionTree } from './substract-expression/substract-expression.tree';
 import { UnaryMinusExpressionTree } from './unary-minus-expression/unary-minus-expression.tree';
 import { UnaryPlusExpressionTree } from './unary-plus-expression/unary-plus-expression.tree';
+import { ParenthesizedExpressionTree } from './parenthesized-expression/parenthesized-expression.tree';
 
 export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
     if (ctx === undefined) return undefined;
     if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);
     else if (ctx instanceof ParenthesizedExpressionContext)
-        return getExpressionTree(ctx.expression());
+        return new ParenthesizedExpressionTree(ctx);
     else if (ctx instanceof LiteralExpressionContext) return new LiteralExpressionTree(ctx);
     else if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
     else if (ctx instanceof RangeExpressionContext) return new RangeExpressionTree(ctx);

@@ -1,18 +1,16 @@
-import { parseCode } from "../../test-helper";
-import { ProgramTree } from "./program.tree";
-
+import { parseCode } from '../../test-helper';
+import { ProgramTree } from './program.tree';
 
 test('two if', () => {
-    const code =
-        `if e1:
+    const code = `if e1:
     7+7
 else if e2:
     call3()
 `;
     const tree = parseCode(code, ProgramTree);
 
-    expect(tree).toBeInstanceOf(ProgramTree)
-    expect(tree.statements.length).toBe(1)
+    expect(tree).toBeInstanceOf(ProgramTree);
+    expect(tree.statements.length).toBe(1);
     // expect(evalExpression(tree.ifCondition)).toBe(12 + 45 / 9);
     // expect(tree.ifStatements.length).toBe(1);
     // const ifStatement = tree.ifStatements[0] as ExpressionStatementTree;

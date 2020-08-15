@@ -96,6 +96,7 @@ StringFormatStart:  'f\'' CHARACTER* '{';
 StringFormatMiddle: '}' CHARACTER* '{';
 StringFormatEnd:    '}' CHARACTER* '\'';
 ID:                 [a-zA-Z_] [a-zA-Z0-9_]*;
+// ImportPath:         ('.'+ | '/') ~[<>:"/\\|?*]+ ('/' ~[<>:"/\\|?*]+)* ':';
 // Documentation: '_' .*? '_';
 
 Skip:                ( SPACES | SINGLE_LINE_COMMENT | MULTI_LINE_COMMENT | LINE_JOINING) -> skip;

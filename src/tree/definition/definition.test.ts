@@ -6,6 +6,7 @@ import { DefinitionTree } from './definition.tree';
 
 test('definition', () => {
     const tree = parseFile('./definition.test.xon', DefinitionTree);
+    console.log(tree.toJson())
     expect(tree).toBeInstanceOf(DefinitionTree);
     expect(tree.name).toBe('SomeClass');
 
