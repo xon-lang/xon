@@ -2,7 +2,7 @@
     expression()?.do(\my code)
 
 -   regex
-
+-   check all toPlain methods
 
 
 ________________________________

@@ -40,3 +40,11 @@ Class =
 method = t int, s str: pass
 
 run_after(delay int, fn (s string, b bool) bool)
+
+
+// method name with spaces
+i like this method ():
+    // do stuff
+
+_i_do_not_like_this_method ():
+    // do stuff

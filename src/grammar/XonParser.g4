@@ -13,9 +13,6 @@ definition: name = ID ':' LineBreak INDENT member+ DEDENT;
 member:
     name = ID (type | type? '=' value = expression) # propertyMember
     | function                                      # methodMember
-    // | init (.pub_prop, ...._prv_prop, no_prop)
-    // | 'init' '(' (argument (',' argument)*)? ')' body # constructordMember
-    // | ('+') '(' ID type ')' type body # infixOperatorMember
     | 'pass'    # passMember
     | LineBreak # lineBreakMember
     ;

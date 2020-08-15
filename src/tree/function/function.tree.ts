@@ -49,7 +49,7 @@ export class FunctionTree extends BaseTree {
                 type: x.type?.toPlain(),
                 value: x.value?.toPlain(),
             })),
-            returnType: this.returnType.toPlain(),
+            returnType: this.returnType?.toPlain(),
             statements: this.statements.map((x) => x.toPlain()),
         };
     }
