@@ -4,9 +4,9 @@ options {
     tokenVocab = XonLexer;
 }
 
-program: imports? (statement | definition)*;
+program: imports* (statement | definition)*;
 
-imports:      StringLiteral ':' ('*' 'as' alias = ID | importMember (',' importMember)*);
+imports:      StringLiteral ':' ('*' 'as' alias = ID | importMember (',' importMember)*) | LineBreak;
 importMember: name = ID ('as' alias = ID)?;
 
 definition: name = ID ':' LineBreak INDENT member+ DEDENT;
