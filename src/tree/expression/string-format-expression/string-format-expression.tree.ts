@@ -4,12 +4,13 @@ import { parseExpression } from '../../../parse';
 import { ExpressionTree } from '../expression.tree';
 
 export class StringFormatExpressionTree extends ExpressionTree {
+    valueString: string;
     value: ExpressionTree;
 
     constructor(public ctx: StringFormatExpressionContext) {
         super();
 
-        let expressionCode = ctx.text
+        this.valueString = ctx.text
             .slice(1)
             .replace(/\{(.*?)\}/g, (z, x) => "' + (" + x + ") + '")
             .replace(/\+ '' \+/g, '+')
@@ -17,7 +18,7 @@ export class StringFormatExpressionTree extends ExpressionTree {
             .replace(/\+ ''$/, '')
             .trim();
 
-        this.value = parseExpression(expressionCode);
+        this.value = parseExpression(this.valueString);
     }
 
     getType() {
@@ -27,6 +28,7 @@ export class StringFormatExpressionTree extends ExpressionTree {
     toPlain() {
         return {
             ...super.toPlain(),
+            valueString: this.valueString,
             value: this.value.toPlain(),
         };
     }
