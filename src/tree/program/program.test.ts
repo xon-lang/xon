@@ -1,5 +1,5 @@
-import { parseCode } from '../../test-helper';
 import { ProgramTree } from './program.tree';
+import { parseCode } from '../../parse';
 
 test('two if', () => {
     const code = `if e1:

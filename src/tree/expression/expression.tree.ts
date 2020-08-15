@@ -1,12 +1,8 @@
-import { evalExpression } from '../../test-helper';
+import { evalExpression } from '../../eval';
 import { BaseTree } from '../base.tree';
 import { TypeTree } from '../type/type.tree';
 
 export abstract class ExpressionTree extends BaseTree {
-    eval() {
-        return evalExpression(this);
-    }
-
     toPlain() {
         return {
             ...super.toPlain(),

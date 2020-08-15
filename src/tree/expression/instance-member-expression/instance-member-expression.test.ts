@@ -1,4 +1,4 @@
-import { parseCode } from '../../../test-helper';
+import { parseCode } from '../../../parse';
 import { FunctionExpressionTree } from '../function-expression/function-expression.tree';
 import { MemberExpressionTree } from '../member-expression/member-expression.tree';
 import { InstanceMemberExpressionTree } from './instance-member-expression.tree';

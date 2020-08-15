@@ -1,4 +1,5 @@
-import { parseCode } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseCode } from '../../../parse';
 import { AddExpressionTree } from '../add-expression/add-expression.tree';
 import { ExpressionTree } from '../expression.tree';
 import { StringFormatExpressionTree } from './string-format-expression.tree';
@@ -9,7 +10,7 @@ test('format string', () => {
 
     expect(tree).toBeInstanceOf(StringFormatExpressionTree);
     expect(tree.value).toBeInstanceOf(ExpressionTree);
-    expect(tree.value.eval()).toBe(`1+1 = ${1 + 1}; '2+2 = ${2 + 2}`);
+    expect(evalExpression(tree.value)).toBe(`1+1 = ${1 + 1}; '2+2 = ${2 + 2}`);
 });
 
 test('another format string', () => {

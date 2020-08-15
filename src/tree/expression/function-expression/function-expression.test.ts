@@ -1,4 +1,4 @@
-import { parseCode } from '../../../test-helper';
+import { parseCode } from '../../../parse';
 import { DecimalLiteralTree } from '../../literal/decimal-literal/decimal-literal.tree';
 import { StringLiteralTree } from '../../literal/string-literal/string-literal.tree';
 import { IdExpressionTree } from '../id-expression/id-expression.tree';
@@ -9,7 +9,7 @@ test('function call', () => {
     const code = "f(3, 'str')";
     const tree = parseCode(code, FunctionExpressionTree);
     expect(tree.args.length).toBe(2);
-    const [arg1, arg2] = tree.args.map(x => x as LiteralExpressionTree);
+    const [arg1, arg2] = tree.args.map((x) => x as LiteralExpressionTree);
     expect(arg1.literal).toBeInstanceOf(DecimalLiteralTree);
     expect(arg2.literal).toBeInstanceOf(StringLiteralTree);
     expect(tree.object).toBeInstanceOf(IdExpressionTree);
@@ -21,7 +21,7 @@ test('function on several lines', () => {
     415)`;
     const tree = parseCode(code, FunctionExpressionTree);
     expect(tree.args.length).toBe(4);
-    const [arg1, arg2] = tree.args.map(x => x as LiteralExpressionTree);
+    const [arg1, arg2] = tree.args.map((x) => x as LiteralExpressionTree);
     expect(arg1.literal).toBeInstanceOf(DecimalLiteralTree);
     expect(arg2.literal).toBeInstanceOf(StringLiteralTree);
     expect(tree.object).toBeInstanceOf(IdExpressionTree);

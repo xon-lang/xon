@@ -1,4 +1,5 @@
-import { evalExpression, parseExpression } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseExpression } from '../../../parse';
 
 test('pow positive', () => {
     const code = '2^5';

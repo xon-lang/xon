@@ -1,9 +1,9 @@
-import { parseCode } from '../../../test-helper';
+import { parseCode } from '../../../parse';
 import { FunctionExpressionTree } from '../../expression/function-expression/function-expression.tree';
 import { FunctionTree } from '../../function/function.tree';
+import { SimpleTypeTree } from '../../type/simple-type/simple-type.tree';
 import { ExpressionStatementTree } from '../expression-statement/expression-statement.tree';
 import { FunctionStatementTree } from './function-statement.tree';
-import { SimpleTypeTree } from '../../type/simple-type/simple-type.tree';
 
 test('function with one expression body', () => {
     const code = "foo (s str = 'simple string', num i8 = 7): callAnotherFunc()";

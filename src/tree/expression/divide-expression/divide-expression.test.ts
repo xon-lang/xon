@@ -1,4 +1,5 @@
-import { evalExpression, parseCode } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseCode } from '../../../parse';
 import { DivideExpressionTree } from './divide-expression.tree';
 
 test('333 divide by 111', () => {

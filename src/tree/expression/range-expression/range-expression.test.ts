@@ -1,7 +1,8 @@
-import { evalExpression, parseCode } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseCode } from '../../../parse';
 import { DecimalLiteralTree } from '../../literal/decimal-literal/decimal-literal.tree';
-import { RangeExpressionTree } from './range-expression.tree';
 import { LiteralExpressionTree } from '../literal-expression/literal-expression.tree';
+import { RangeExpressionTree } from './range-expression.tree';
 
 test('start and end', () => {
     const code = '[1:5+2]';

@@ -1,4 +1,5 @@
-import { evalExpression, parseCode } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseCode } from '../../../parse';
 import { ReturnStatementTree } from './return-statement.tree';
 
 test('return in scope', () => {
@@ -7,5 +8,5 @@ test('return in scope', () => {
 
     expect(tree).toBeInstanceOf(ReturnStatementTree);
     const returnStatement = tree as ReturnStatementTree;
-    expect(returnStatement.value.eval()).toBe(6 + 6);
+    expect(evalExpression(returnStatement.value)).toBe(6 + 6);
 });

@@ -1,6 +1,7 @@
-import { parseCode } from '../../test-helper';
+import { evalExpression } from '../../eval';
 import { SimpleTypeTree } from '../type/simple-type/simple-type.tree';
 import { FunctionTree } from './function.tree';
+import { parseCode } from '../../parse';
 
 test('positive number', () => {
     const code = "func_name(arg1 num, arg2 = 5, arg3 str = 'pifpaf') String:\n    log('babah')";
@@ -17,12 +18,12 @@ test('positive number', () => {
     expect(tree.args[1].name).toBe('arg2');
     const type2 = tree.args[1].type as SimpleTypeTree;
     expect(type2).toBeUndefined();
-    expect(tree.args[1].value.eval()).toBe(5);
+    expect(evalExpression(tree.args[1].value)).toBe(5);
 
     expect(tree.args[2].name).toBe('arg3');
     const type3 = tree.args[2].type as SimpleTypeTree;
     expect(type3.name).toBe('str');
-    expect(tree.args[2].value.eval()).toBe('pifpaf');
+    expect(evalExpression(tree.args[2].value)).toBe('pifpaf');
 
     expect(tree.returnType.asSimple).not.toBeUndefined();
     expect(tree.returnType.asSimple.name).toBe('String');

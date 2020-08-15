@@ -1,4 +1,4 @@
-import { parseCode } from '../../../test-helper';
+import { parseCode } from '../../../parse';
 import { FunctionTree } from '../../function/function.tree';
 import { SimpleTypeTree } from '../simple-type/simple-type.tree';
 

@@ -1,4 +1,4 @@
-import { parseCode } from '../../../test-helper';
+import { parseCode } from '../../../parse';
 import { LiteralExpressionTree } from './literal-expression.tree';
 
 test('check true', () => {

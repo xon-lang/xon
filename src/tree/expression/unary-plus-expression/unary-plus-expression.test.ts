@@ -1,4 +1,5 @@
-import { parseCode, evalExpression } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseCode } from '../../../parse';
 import { UnaryPlusExpressionTree } from './unary-plus-expression.tree';
 
 test('unary plus', () => {

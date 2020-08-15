@@ -1,4 +1,5 @@
-import { evalExpression, parseCode } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseCode } from '../../../parse';
 import { LambdaExpressionTree } from './lambda-expression.tree';
 
 test('lambda with plus expression body', () => {

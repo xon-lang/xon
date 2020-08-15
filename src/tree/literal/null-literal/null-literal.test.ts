@@ -1,4 +1,4 @@
-import { parseCode } from '../../../test-helper';
+import { parseCode } from '../../../parse';
 import { NullLiteralTree } from './null-literal.tree';
 
 test('check null', () => {

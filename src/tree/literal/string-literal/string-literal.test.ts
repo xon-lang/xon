@@ -1,4 +1,4 @@
-import { parseCode } from '../../../test-helper';
+import { parseCode } from '../../../parse';
 import { StringLiteralTree } from './string-literal.tree';
 
 test('single line string', () => {

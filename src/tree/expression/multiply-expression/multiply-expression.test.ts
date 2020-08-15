@@ -1,4 +1,5 @@
-import { evalExpression, parseCode } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseCode } from '../../../parse';
 import { MultiplyExpressionTree } from './multiply-expression.tree';
 
 test('two multiply by two', () => {

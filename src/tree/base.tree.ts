@@ -1,10 +1,8 @@
 import { ParserRuleContext } from 'antlr4ts';
-import { BaseTypes } from '../base-types';
 
 export abstract class BaseTree {
     static locals = [];
     static defLocals = [];
-    translator?: { translate(BaseTree): string };
     ctx?: ParserRuleContext;
 
     get locals() {
@@ -20,7 +18,7 @@ export abstract class BaseTree {
             if (id in locals) return locals;
         }
 
-        return BaseTypes.Undefined;
+        return undefined;
     }
 
     get treeType() {
@@ -39,10 +37,6 @@ export abstract class BaseTree {
 
     toJson() {
         return JSON.stringify(this.toPlain(), null, 2);
-    }
-
-    translate() {
-        return this.translator?.translate(this);
     }
 
     toHighlightJson() {

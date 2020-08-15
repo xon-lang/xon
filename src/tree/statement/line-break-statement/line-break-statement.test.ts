@@ -1,4 +1,4 @@
-import { parseCode } from '../../../test-helper';
+import { parseCode } from '../../../parse';
 import { LineBreakStatementTree } from './line-break-statement.tree';
 
 test('line breakz', () => {

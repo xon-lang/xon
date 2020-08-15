@@ -1,4 +1,5 @@
-import { evalExpression, parseCode } from '../../../test-helper';
+import { evalExpression } from '../../../eval';
+import { parseCode } from '../../../parse';
 import { SubstractExpressionTree } from './substract-expression.tree';
 
 test('substract decimal', () => {

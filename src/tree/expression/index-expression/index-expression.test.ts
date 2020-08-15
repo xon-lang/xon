@@ -1,4 +1,4 @@
-import { parseCode } from '../../../test-helper';
+import { parseCode } from '../../../parse';
 import { StringLiteralTree } from '../../literal/string-literal/string-literal.tree';
 import { AddExpressionTree } from '../add-expression/add-expression.tree';
 import { LiteralExpressionTree } from '../literal-expression/literal-expression.tree';

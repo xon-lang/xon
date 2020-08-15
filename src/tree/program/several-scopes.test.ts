@@ -1,9 +1,9 @@
-import { parseFile } from '../../test-helper';
 import { FunctionStatementTree } from '../statement/function-statement/function-statement.tree';
 import { ProgramTree } from './program.tree';
+import { parseFile } from '../../parse';
 
 test('several scope', () => {
-    const tree = parseFile('./several-scopes.test.xon', ProgramTree);
+    const tree = parseFile('tree/program/several-scopes.test.xon', ProgramTree);
     expect(tree).toBeInstanceOf(ProgramTree);
     expect(tree.statements.length).toBe(3);
 
