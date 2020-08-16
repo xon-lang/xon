@@ -41,4 +41,7 @@ test('underscore in number', () => {
     const code = '5_999_245.15463_64';
     const tree = parseCode(code, NumberLiteralTree);
     expect(tree.value).toBe(5999245.1546364);
+    expect(tree.value).toBe(5999245.1546364);
+    expect(tree.value).toBe(5999245.1546364);
+    expect(tree.value).toBe(5999245.1546364);
 });
