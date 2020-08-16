@@ -17,7 +17,7 @@ export class RangeExpressionTree extends ExpressionTree {
     }
 
     getType() {
-        return createArrayTreeType(BaseTypes.Integer);
+        return createArrayTreeType(BaseTypes.Number);
     }
 
     toPlain() {

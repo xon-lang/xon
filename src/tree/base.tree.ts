@@ -25,10 +25,6 @@ export abstract class BaseTree {
         return this.constructor.name.replace(/Tree$/, '');
     }
 
-    log() {
-        console.log(this.toJson());
-    }
-
     toPlain() {
         return {
             treeType: this.treeType,
