@@ -12,7 +12,7 @@ export class UnaryPlusExpressionTree extends ExpressionTree {
     }
 
     getType() {
-        return BaseTypes.Integer;
+        return BaseTypes.Number;
     }
 
     toPlain() {

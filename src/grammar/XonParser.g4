@@ -10,12 +10,7 @@ imports:      StringLiteral ':' ('*' 'as' alias = ID | importMember (',' importM
 importMember: name = ID ('as' alias = ID)?;
 
 definition: name = ID ':' LineBreak INDENT member+ DEDENT;
-member:
-    name = ID (type | type? '=' value = expression) # propertyMember
-    | function                                      # methodMember
-    | 'pass'    # passMember
-    | LineBreak # lineBreakMember
-    ;
+member:     name = ID (type | type? '=' value = expression) # propertyMember | function # methodMember | 'pass' # passMember | LineBreak # lineBreakMember;
 
 statement:
     Preprocessor                                          # preprocessorStatement
@@ -80,4 +75,4 @@ expression:
 
 arrayItem: '...'? expression;
 
-literal: NullLiteral # nullLiteral | BooleanLiteral # booleanLiteral | DecimalLiteral # decimalLiteral | FloatLiteral # floatLiteral | StringLiteral # stringLiteral;
+literal: NullLiteral # nullLiteral | BooleanLiteral # booleanLiteral | NumberLiteral # numberLiteral | StringLiteral # stringLiteral;

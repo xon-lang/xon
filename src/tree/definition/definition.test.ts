@@ -1,9 +1,9 @@
 import { BaseTypes } from '../../base-types';
 import { evalExpression } from '../../eval';
+import { parseFile } from '../../parse';
 import { FunctionExpressionTree } from '../expression/function-expression/function-expression.tree';
 import { IdExpressionTree } from '../expression/id-expression/id-expression.tree';
 import { DefinitionTree } from './definition.tree';
-import { parseFile } from '../../parse';
 
 test('definition', () => {
     const tree = parseFile('tree/definition/definition.test.xon', DefinitionTree);
@@ -16,7 +16,7 @@ test('definition', () => {
     expect(tree.properties[0].type.asSimple.name).toBe('str');
     expect(tree.properties[0].value).toBeUndefined();
     expect(tree.properties[1].name).toBe('anotherProp');
-    expect(tree.properties[1].value.getType()).toBe(BaseTypes.Integer);
+    expect(tree.properties[1].value.getType()).toBe(BaseTypes.Number);
     expect(evalExpression(tree.properties[1].value)).toBe(234);
     expect(tree.properties[2].name).toBe('typed_value');
     expect(tree.properties[2].type.asSimple.name).toBe('number');

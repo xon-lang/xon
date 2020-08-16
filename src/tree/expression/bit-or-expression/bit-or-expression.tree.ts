@@ -1,7 +1,7 @@
+import { BaseTypes } from '../../../base-types';
 import { BitOrExpressionContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
-import { BaseTypes } from '../../../base-types';
 
 export class BitOrExpressionTree extends ExpressionTree {
     left: ExpressionTree;
@@ -13,8 +13,8 @@ export class BitOrExpressionTree extends ExpressionTree {
         this.right = getExpressionTree(ctx._right);
     }
 
-    getType(){
-        return BaseTypes.Integer
+    getType() {
+        return BaseTypes.Number;
     }
 
     toPlain() {

@@ -88,8 +88,7 @@ Spread:                     '...';
 
 NullLiteral:    'null';
 BooleanLiteral: 'true' | 'false';
-DecimalLiteral: DECIMAL_NUMBER;
-FloatLiteral:   DECIMAL_NUMBER '.' DECIMAL_NUMBER;
+NumberLiteral:  NUMBER | (NUMBER? '.' NUMBER);
 StringLiteral:  '\'' CHARACTER* '\'';
 
 StringFormatStart:  'f\'' CHARACTER* '{';
@@ -106,7 +105,6 @@ fragment SPACES:              [ \t]+;
 fragment MULTI_LINE_COMMENT:  '/*' .*? '*/';
 fragment SINGLE_LINE_COMMENT: '//' ~[\r\n]*;
 fragment LINE_JOINING:        '\\' SPACES? ( '\r'? '\n' | '\r');
-fragment DECIMAL_NUMBER:      DECIMAL_DIGIT+ ('_' DECIMAL_DIGIT+)*;
-fragment DECIMAL_DIGIT:       [0-9];
+fragment NUMBER:              [0-9]+ ('_' [0-9]+)*;
 fragment CHARACTER:           ~['] | '\\' ['"\\bfnrtv];
 
