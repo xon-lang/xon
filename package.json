@@ -1,7 +1,7 @@
 {
     "name": "@xon/ast",
     "author": "Nizami",
-    "version": "1.0.19",
+    "version": "1.1.0",
     "description": "XON is an open-source programming language",
     "bugs": {
         "url": "https://github.com/xon-lang/ast/issues"
