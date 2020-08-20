@@ -45,3 +45,18 @@ test('underscore in number', () => {
     expect(tree.value).toBe(5999245.1546364);
     expect(tree.value).toBe(5999245.1546364);
 });
+
+test('radix int', () => {
+    const code = '16x1ABC';
+    const tree = parseCode(code, NumberLiteralTree);
+    expect(tree.value).toBe(0x1abc);
+});
+
+test('radix float', () => {
+    const code = '2x11.011001100110011001100110011001100110011001100110011';
+    const tree = parseCode(code, NumberLiteralTree);
+    expect(tree.base).toBe(2);
+    expect(tree.integerValue).toBe('11');
+    expect(tree.fractionValue).toBe('011001100110011001100110011001100110011001100110011');
+    expect(tree.value).toBe(3.4);
+});

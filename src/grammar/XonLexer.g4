@@ -98,5 +98,5 @@ fragment SPACES:              [ \t]+;
 fragment MULTI_LINE_COMMENT:  '/*' .*? '*/';
 fragment SINGLE_LINE_COMMENT: '//' ~[\r\n]*;
 fragment LINE_JOINING:        '\\' SPACES? ( '\r'? '\n' | '\r');
-fragment NUMBER:              [0-9]+ ('_' [0-9]+)*;
+fragment NUMBER:              ([0-9][0-9]? 'x' [0-9a-zA-Z]+ ('_' [0-9a-zA-Z]+)*) | ( [0-9]+ ('_' [0-9]+)*);
 fragment CHARACTER:           ~['] | '\\' ['"\\bfnrtv];
