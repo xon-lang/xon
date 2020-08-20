@@ -10,7 +10,7 @@ export class MemberExpressionTree extends ExpressionTree {
 
     constructor(public ctx: MemberExpressionContext) {
         super();
-        this.hasElvis = !!ctx.QuestionMark();
+        this.hasElvis = !!ctx.Question();
         this.memberName = ctx.ID().text;
         this.object = getExpressionTree(ctx.expression());
     }

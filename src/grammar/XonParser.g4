@@ -50,7 +50,7 @@ expression:
     | base = expression '^' exponent = expression                                                                                                 # powExpression
     | '+' expression                                                                                                                              # unaryPlusExpression
     | '-' expression                                                                                                                              # unaryMinusExpression
-    | '~' expression                                                                                                                              # bitNotExpression
+    | 'not' expression                                                                                                                            # bitNotExpression
     | '!' expression                                                                                                                              # logicalNotExpression
     | left = expression operation = ('*' | '/' | '%') right = expression                                                                          # mulDivModExpression
     | left = expression operation = ('+' | '-') right = expression                                                                                # addSubExpression
