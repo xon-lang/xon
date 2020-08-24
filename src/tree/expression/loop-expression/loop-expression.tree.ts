@@ -7,7 +7,7 @@ import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class LoopExpressionTree extends ExpressionTree {
-    infinity: boolean;
+    isInfinity: boolean;
 
     indexName: string;
     keyName: string;
@@ -17,7 +17,7 @@ export class LoopExpressionTree extends ExpressionTree {
 
     constructor(public ctx: LoopExpressionContext) {
         super();
-        this.infinity = !ctx.expression();
+        this.isInfinity = !ctx.expression();
 
         this.indexName = ctx._index?.text;
         this.keyName = ctx._key?.text;
@@ -33,7 +33,7 @@ export class LoopExpressionTree extends ExpressionTree {
     toPlain() {
         return {
             ...super.toPlain(),
-            infinity: this.infinity,
+            infinity: this.isInfinity,
             indexName: this.indexName,
             keyName: this.keyName,
             valueName: this.valueName,
