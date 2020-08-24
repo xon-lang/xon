@@ -1,9 +1,15 @@
 import { evalExpression } from '../../../eval';
 import { parseExpression } from '../../../parse';
+import { PowExpressionTree } from './pow-expression.tree';
 
 test('pow positive', () => {
     const code = '2^5';
     const tree = parseExpression(code);
+    expect(tree).toBeInstanceOf(PowExpressionTree);
+    if (tree instanceof PowExpressionTree) {
+        expect(evalExpression(tree.base)).toBe(2);
+        expect(evalExpression(tree.exponent)).toBe(5);
+    }
     expect(evalExpression(tree)).toBe(Math.pow(2, 5));
 });
 
