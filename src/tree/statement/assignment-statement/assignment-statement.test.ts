@@ -1,7 +1,18 @@
 import { evalExpression } from '../../../eval';
 import { parseCode } from '../../../parse';
 import { ArrayExpressionTree } from '../../expression/array-expression/array-expression.tree';
+import { LiteralExpressionTree } from '../../expression/literal-expression/literal-expression.tree';
 import { AssignmentStatementTree } from './assignment-statement.tree';
+
+test('simple assignment', () => {
+    const code = 'a = 220';
+    const tree = parseCode(code, AssignmentStatementTree);
+    expect(tree.value).toBeInstanceOf(LiteralExpressionTree);
+    expect(tree.singleAssigments.length).toBe(1);
+    expect(tree.arrayAssginments.length).toBe(0);
+    expect(tree.singleAssigments[0].name).toBe('a');
+    expect(tree.value.as<LiteralExpressionTree>().literal.value).toBe(220);
+});
 
 test('one assignment', () => {
     const code = "a = 1, 2, 3, 'v'";
@@ -9,7 +20,7 @@ test('one assignment', () => {
     expect(tree.value).toBeInstanceOf(ArrayExpressionTree);
     expect(tree.singleAssigments.length).toBe(1);
     expect(tree.arrayAssginments.length).toBe(0);
-    expect(tree.name).toBe('a');
+    expect(tree.singleAssigments[0].name).toBe('a');
     expect(
         tree.value
             .as<ArrayExpressionTree>()
@@ -43,7 +54,7 @@ test('several equals', () => {
 });
 
 test('id list and expression list', () => {
-    const code = ",b, , , e, = 8, 5 + 5, 2^3, 'abcd', 8.9, 11, 7";
+    const code = ",b, , , e, = 8, 5 + 5, 2^3, ...['abcd'], 8.9, 11, 7";
     const tree = parseCode(code, AssignmentStatementTree);
     expect(tree.singleAssigments.length).toBe(2);
     expect(tree.singleAssigments.map((x) => x.name).join()).toBe('b,e');
@@ -52,6 +63,7 @@ test('id list and expression list', () => {
     expect(arr).toBeInstanceOf(ArrayExpressionTree);
     expect(tree.singleAssigments[0].index).toBe(1);
     expect(evalExpression(arr.items[1].value)).toBe(5 + 5);
+    expect(arr.items[3].hasSpread).toBe(true);
 
     expect(tree.singleAssigments[1].index).toBe(4);
     expect(evalExpression(arr.items[4].value)).toBe(8.9);

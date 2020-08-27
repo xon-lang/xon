@@ -1,6 +1,6 @@
 import { AssignmentStatementContext } from '../../../grammar/xon-parser';
 import { ArrayExpressionTree } from '../../expression/array-expression/array-expression.tree';
-import { getExpressionsTree, getExpressionTree } from '../../expression/expression-helper';
+import { getExpressionTree } from '../../expression/expression-helper';
 import { ExpressionTree } from '../../expression/expression.tree';
 import { StatementTree } from '../statement.tree';
 
@@ -16,17 +16,16 @@ export class AssignmentStatementTree extends StatementTree {
     startArraysIndex: number;
     endArraysIndex: number;
 
-    name: string;
-
     constructor(public ctx: AssignmentStatementContext) {
         super();
-        if (ctx.expression().length > 1) {
+        if (ctx.spreadItem().length > 1) {
             this.value = new ArrayExpressionTree();
-            (this.value as ArrayExpressionTree).items = getExpressionsTree(
-                ctx.expression()
-            ).map((x) => ({ value: x, hasSpread: false }));
+            (this.value as ArrayExpressionTree).items = ctx.spreadItem().map((x) => ({
+                value: getExpressionTree(x.expression()),
+                hasSpread: !!x.Spread(),
+            }));
         } else {
-            this.value = getExpressionTree(ctx.expression(0));
+            this.value = getExpressionTree(ctx.expression());
         }
 
         for (const assignments of ctx.assignmentsList()) {
@@ -54,13 +53,6 @@ export class AssignmentStatementTree extends StatementTree {
                 if (rightSingleVars.length) this.endArraysIndex = -rightSingleVars.length;
             }
         }
-
-        if (this.singleAssigments.length + this.arrayAssginments.length == 1) {
-            this.name = this.singleAssigments[0]?.name || this.arrayAssginments[0];
-            if (this.locals) {
-                this.locals[this.name] = this.value.getType();
-            }
-        }
     }
 
     *getSingleAssigments(vars: string[], fromTheEnd) {
@@ -82,7 +74,6 @@ export class AssignmentStatementTree extends StatementTree {
             arrayAssginments: this.arrayAssginments,
             startArraysIndex: this.startArraysIndex,
             endArraysIndex: this.endArraysIndex,
-            name: this.name,
         };
     }
 }

@@ -11,7 +11,7 @@ export class ArrayExpressionTree extends ExpressionTree {
     constructor(public ctx?: ArrayExpressionContext) {
         super();
         this.items = ctx
-            ?.arrayItem()
+            ?.spreadItem()
             .map((x, i) => ({ value: getExpressionTree(x.expression()), hasSpread: !!x.Spread() }));
     }
 

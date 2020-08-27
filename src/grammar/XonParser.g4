@@ -13,15 +13,15 @@ definition: name = ID ':' LineBreak INDENT member+ DEDENT;
 member:     name = ID (type | type? '=' value = expression) # propertyMember | function # methodMember | 'pass' # passMember | LineBreak # lineBreakMember;
 
 statement:
-    Preprocessor                                          # preprocessorStatement
-    | (assignmentsList '=')+ expression (',' expression)* # assignmentStatement
-    | function                                            # functionStatement
-    | 'pass'                                              # passStatement
-    | 'continue'                                          # continueStatement
-    | 'break'                                             # breakStatement
-    | 'return' expression?                                # returnStatement
-    | expression                                          # expressionStatement
-    | LineBreak                                           # lineBreakStatement
+    Preprocessor                                                         # preprocessorStatement
+    | (assignmentsList '=')+ (expression | spreadItem (',' spreadItem)*) # assignmentStatement
+    | function                                                           # functionStatement
+    | 'pass'                                                             # passStatement
+    | 'continue'                                                         # continueStatement
+    | 'break'                                                            # breakStatement
+    | 'return' expression?                                               # returnStatement
+    | expression                                                         # expressionStatement
+    | LineBreak                                                          # lineBreakStatement
     ;
 
 assignmentsList:   leftAssignments | leftAssignments middleAssignments rightAssignments? | middleAssignments rightAssignments?;
@@ -65,7 +65,7 @@ expression:
     | ID                                                                                                                                          # idExpression
     | literal                                                                                                                                     # literalExpression
     | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd                                                               # stringFormatExpression
-    | '[' (arrayItem (',' arrayItem)*)? ']'                                                                                                       # arrayExpression
+    | '[' (spreadItem (',' spreadItem)*)? ']'                                                                                                     # arrayExpression
     | '[' startPos = expression ':' endPos = expression (':' step = expression)? ']'                                                              # rangeExpression
     | '{' ( ('.' ID | '...'? key += expression) '=' value += expression ( ',' ('.' ID | '...'? key += expression) '=' value += expression)*)? '}' # objectExpression
     | '(' expression ')'                                                                                                                          # parenthesizedExpression
@@ -73,6 +73,6 @@ expression:
     | '\\' (ID (',' ID)* ':')? expression                                                                                                         # lambdaExpression
     ;
 
-arrayItem: '...'? expression;
+spreadItem: '...'? expression;
 
 literal: NullLiteral # nullLiteral | BooleanLiteral # booleanLiteral | NumberLiteral # numberLiteral | StringLiteral # stringLiteral;
