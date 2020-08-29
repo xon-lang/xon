@@ -6,6 +6,7 @@ import { getExpressionTree } from './tree/expression/expression-helper';
 import { ExpressionTree } from './tree/expression/expression.tree';
 import { getLiteralTree } from './tree/literal/literal-helper';
 import { LiteralTree } from './tree/literal/literal.tree';
+import { ProgramTree } from './tree/program/program.tree';
 import { getStatementTree } from './tree/statement/statement-helper';
 import { StatementTree } from './tree/statement/statement.tree';
 
@@ -30,4 +31,8 @@ export function parseStatement<T extends StatementTree>(code: string): T {
 
 export function parseDefinition<T extends DefinitionTree>(code: string): T {
     return new DefinitionTree(parse(code).definition()) as T;
+}
+
+export function parseProgram<T extends ProgramTree>(code: string): T {
+    return new ProgramTree(parse(code).program()) as T;
 }
