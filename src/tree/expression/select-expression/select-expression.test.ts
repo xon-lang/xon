@@ -1,5 +1,5 @@
 import { evalExpression } from '../../../eval';
-import { parseCode } from '../../../parse';
+import { parseExpression } from '../../../parse';
 import { ExpressionStatementTree } from '../../statement/expression-statement/expression-statement.tree';
 import { FunctionExpressionTree } from '../function-expression/function-expression.tree';
 import { IdExpressionTree } from '../id-expression/id-expression.tree';
@@ -7,7 +7,7 @@ import { SelectExpressionTree } from './select-expression.tree';
 
 test('select with one case', () => {
     const code = 'select:\n    true: 6 + 7';
-    const tree = parseCode(code, SelectExpressionTree);
+    const tree = parseExpression<SelectExpressionTree>(code);
 
     expect(tree).toBeInstanceOf(SelectExpressionTree);
     expect(tree.value).toBeUndefined();
@@ -26,7 +26,7 @@ test('select with two cases', () => {
     3.14:
         log('pi')
         anotherMethod()`;
-    const tree = parseCode(code, SelectExpressionTree);
+    const tree = parseExpression<SelectExpressionTree>(code);
     expect(tree).toBeInstanceOf(SelectExpressionTree);
     expect(tree.cases.length).toBe(2);
 

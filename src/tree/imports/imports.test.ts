@@ -1,9 +1,9 @@
+import { parse } from '../../parse';
 import { ImportsTree } from './imports.tree';
-import { parseCode } from '../../parse';
 
 test('import all', () => {
     const code = "'./../my-module': * as mm\n";
-    const tree = parseCode(code, ImportsTree);
+    const tree = new ImportsTree(parse(code).imports());
     expect(tree.allModulesAlias).toBe('mm');
     expect(tree.path).toBe('./../my-module');
     expect(tree.members.length).toBe(0);
@@ -11,7 +11,7 @@ test('import all', () => {
 
 test('import with many members', () => {
     const code = "'./../../lib/math.high': sqrt as s, log, ln, dnn as net \n";
-    const tree = parseCode(code, ImportsTree);
+    const tree = new ImportsTree(parse(code).imports());
     expect(tree.allModulesAlias).toBeUndefined();
     expect(tree.path).toBe('./../../lib/math.high');
 
@@ -26,7 +26,7 @@ test('import with many members', () => {
 
 // test('import library', () => {
 //     const code = "/math/geometry: * as mm\n";
-//     const tree = parseCode(code, ImportsTree);
+//     const tree = new ImportsTree(parse(code).imports());
 //     expect(tree.allModulesAlias).toBe('mm');
 //     expect(tree.path).toBe('./../my-module');
 //     expect(tree.members.length).toBe(0);

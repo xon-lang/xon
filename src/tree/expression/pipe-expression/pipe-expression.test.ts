@@ -1,10 +1,10 @@
 import { evalExpression } from '../../../eval';
-import { parseCode } from '../../../parse';
+import { parseExpression } from '../../../parse';
 import { PipeExpressionTree } from './pipe-expression.tree';
 
 test('arithmetic pipe', () => {
     const code = '1+1 |x: x + 5 + x |z: z + x ';
-    const tree = parseCode(code, PipeExpressionTree);
+    const tree = parseExpression<PipeExpressionTree>(code);
 
     let x = 1 + 1;
     let z = x + 5 + x;
@@ -14,7 +14,7 @@ test('arithmetic pipe', () => {
 
 test('arithmetic and logic pipe', () => {
     const code = '1+1 |x: x + 5 + x |z: z || x ';
-    const tree = parseCode(code, PipeExpressionTree);
+    const tree = parseExpression<PipeExpressionTree>(code);
 
     let x = 1 + 1;
     let z = x + 5 + x;
@@ -24,7 +24,7 @@ test('arithmetic and logic pipe', () => {
 
 test('complex pipe', () => {
     const code = '33 >> 44 |x: x^x + x |z: z^x && x^z | z + x';
-    const tree = parseCode(code, PipeExpressionTree);
+    const tree = parseExpression<PipeExpressionTree>(code);
 
     let x = 33 >> 44;
     let z = Math.pow(x, x) + x;

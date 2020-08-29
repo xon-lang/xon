@@ -1,8 +1,8 @@
-import { parseCode } from '../../../parse';
+import { parseLiteral } from '../../../parse';
 import { NullLiteralTree } from './null-literal.tree';
 
 test('check null', () => {
     const code = 'null';
-    const tree = parseCode(code, NullLiteralTree);
+    const tree = parseLiteral<NullLiteralTree>(code);
     expect(tree.value).toBe('null');
 });

@@ -1,4 +1,4 @@
-import { parseCode } from '../../../parse';
+import { parse } from '../../../parse';
 import { FunctionTree } from '../../function/function.tree';
 import { ArrayTypeTree } from '../array-type/array-type.tree';
 import { SimpleTypeTree } from '../simple-type/simple-type.tree';
@@ -6,7 +6,7 @@ import { DictionaryTypeTree } from './dictionary-type.tree';
 
 test('one items', () => {
     const code = 'f(a {key str}): log\n';
-    const tree = parseCode(code, FunctionTree);
+    const tree = new FunctionTree(parse(code).function());
     expect(tree.name).toBe('f');
     expect(tree.args.length).toBe(1);
     expect(tree.args[0].name).toBe('a');
@@ -21,7 +21,7 @@ test('one items', () => {
 
 test('two items', () => {
     const code = 'f(a {key str, another num}): log\n';
-    const tree = parseCode(code, FunctionTree);
+    const tree = new FunctionTree(parse(code).function());
     // tree.log()
     expect(tree.name).toBe('f');
     expect(tree.args.length).toBe(1);
@@ -39,7 +39,7 @@ test('two items', () => {
 
 test('complex dict type', () => {
     const code = 'f(a {first str[], second {b hidden[]}}): log\n';
-    const tree = parseCode(code, FunctionTree);
+    const tree = new FunctionTree(parse(code).function());
     expect(tree.name).toBe('f');
 
     expect(tree.args.length).toBe(1);

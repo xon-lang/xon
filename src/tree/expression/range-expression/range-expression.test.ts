@@ -1,12 +1,12 @@
 import { evalExpression } from '../../../eval';
-import { parseCode } from '../../../parse';
+import { parseExpression } from '../../../parse';
 import { NumberLiteralTree } from '../../literal/number-literal/number-literal.tree';
 import { LiteralExpressionTree } from '../literal-expression/literal-expression.tree';
 import { RangeExpressionTree } from './range-expression.tree';
 
 test('start and end', () => {
     const code = '[1:5+2]';
-    const tree = parseCode(code, RangeExpressionTree);
+    const tree = parseExpression<RangeExpressionTree>(code);
     expect(tree.start).toBeInstanceOf(LiteralExpressionTree);
     expect(tree.start['literal']).toBeInstanceOf(NumberLiteralTree);
     expect(evalExpression(tree.start)).toBe(1);
@@ -15,7 +15,7 @@ test('start and end', () => {
 
 test('start, end, step', () => {
     const code = '[1:2+2:2/1]';
-    const tree = parseCode(code, RangeExpressionTree);
+    const tree = parseExpression<RangeExpressionTree>(code);
     expect(tree.start).toBeInstanceOf(LiteralExpressionTree);
     expect(tree.start['literal']).toBeInstanceOf(NumberLiteralTree);
     expect(evalExpression(tree.start)).toBe(1);

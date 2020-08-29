@@ -1,13 +1,13 @@
 import * as fs from 'fs';
 import { evalExpression } from '../../eval';
-import { parseCode } from '../../parse';
+import { parse } from '../../parse';
 import { AssignmentStatementTree } from '../statement/assignment-statement/assignment-statement.tree';
 import { FunctionStatementTree } from '../statement/function-statement/function-statement.tree';
 import { ProgramTree } from './program.tree';
 
 test('one scope', () => {
     const code = fs.readFileSync('src/tree/program/one-scope.test.xon').toString();
-    const tree = parseCode(code, ProgramTree);
+    const tree = new ProgramTree(parse(code).program());
     expect(tree).toBeInstanceOf(ProgramTree);
 
     expect(tree.imports.length).toBe(1);

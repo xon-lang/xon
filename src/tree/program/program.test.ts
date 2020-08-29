@@ -1,5 +1,5 @@
+import { parse } from '../../parse';
 import { ProgramTree } from './program.tree';
-import { parseCode } from '../../parse';
 
 test('two if', () => {
     const code = `if e1:
@@ -7,7 +7,7 @@ test('two if', () => {
 else if e2:
     call3()
 `;
-    const tree = parseCode(code, ProgramTree);
+    const tree = new ProgramTree(parse(code).program());
 
     expect(tree).toBeInstanceOf(ProgramTree);
     expect(tree.statements.length).toBe(1);

@@ -1,11 +1,11 @@
-import { parseCode } from '../../../parse';
+import { parseExpression } from '../../../parse';
 import { FunctionExpressionTree } from '../function-expression/function-expression.tree';
 import { MemberExpressionTree } from '../member-expression/member-expression.tree';
 import { InstanceMemberExpressionTree } from './instance-member-expression.tree';
 
 test('object instance member', () => {
     const code = '.object.propName';
-    const tree = parseCode(code, MemberExpressionTree);
+    const tree = parseExpression<MemberExpressionTree>(code);
     expect(tree.memberName).toBe('propName');
 
     const instanceMember = tree.object as InstanceMemberExpressionTree;
@@ -15,7 +15,7 @@ test('object instance member', () => {
 
 test('func instance member', () => {
     const code = '.func().prop';
-    const tree = parseCode(code, MemberExpressionTree);
+    const tree = parseExpression<MemberExpressionTree>(code);
     expect(tree.memberName).toBe('prop');
 
     const functionTree = tree.object as FunctionExpressionTree;
@@ -28,6 +28,6 @@ test('func instance member', () => {
 
 test('single prop instance member', () => {
     const code = '.prop';
-    const tree = parseCode(code, InstanceMemberExpressionTree);
+    const tree = parseExpression<InstanceMemberExpressionTree>(code);
     expect(tree.memberName).toBe('prop');
 });

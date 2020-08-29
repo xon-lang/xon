@@ -1,11 +1,11 @@
 import { evalExpression } from '../../eval';
+import { parse } from '../../parse';
 import { SimpleTypeTree } from '../type/simple-type/simple-type.tree';
 import { FunctionTree } from './function.tree';
-import { parseCode } from '../../parse';
 
 test('positive number', () => {
     const code = "func_name(arg1 num, arg2 = 5, arg3 str = 'pifpaf') String:\n    log('babah')";
-    const tree = parseCode(code, FunctionTree);
+    const tree = new FunctionTree(parse(code).function());
 
     expect(tree.name).toBe('func_name');
     expect(tree.args.length).toBe(3);

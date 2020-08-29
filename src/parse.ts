@@ -1,10 +1,13 @@
-import { ANTLRInputStream, CommonTokenStream, ParserRuleContext } from 'antlr4ts';
+import { ANTLRInputStream, CommonTokenStream } from 'antlr4ts';
 import { XonLexer } from './grammar/xon-lexer';
 import { XonParser } from './grammar/xon-parser';
-import { BaseTree } from './tree/base.tree';
+import { DefinitionTree } from './tree/definition/definition.tree';
 import { getExpressionTree } from './tree/expression/expression-helper';
 import { ExpressionTree } from './tree/expression/expression.tree';
+import { getLiteralTree } from './tree/literal/literal-helper';
+import { LiteralTree } from './tree/literal/literal.tree';
 import { getStatementTree } from './tree/statement/statement-helper';
+import { StatementTree } from './tree/statement/statement.tree';
 
 export function parse(code: string) {
     const inputStream = new ANTLRInputStream(code);
@@ -13,46 +16,18 @@ export function parse(code: string) {
     return new XonParser(tokenStream);
 }
 
-export function parseExpression(code: string): ExpressionTree {
-    const parser = this.parse(code);
-    const ctx = parser.expression();
-    return getExpressionTree(ctx);
+export function parseLiteral<T extends LiteralTree>(code: string): T {
+    return getLiteralTree(parse(code).literal()) as T;
 }
 
-export function parseStatement(code: string) {
-    return getStatementTree(this.parse(code).statement());
+export function parseExpression<T extends ExpressionTree>(code: string): T {
+    return getExpressionTree(parse(code).expression()) as T;
 }
 
-export function parseCode<T extends BaseTree>(
-    code: string,
-    type: new (ctx: ParserRuleContext) => T
-) {
-    const parser = this.parse(code);
-    if (type.name.endsWith('LiteralTree')) {
-        return new type(parser.literal());
-    }
-    if (type.name.endsWith('ExpressionTree')) {
-        return new type(parser.expression());
-    }
-    if (type.name.endsWith('StatementTree')) {
-        return new type(parser.statement());
-    }
-    if (type.name.endsWith('DefinitionTree')) {
-        return new type(parser.definition());
-    }
-
-    const methodName = camelize(type.name.replace(/Tree$/, ''));
-    if (methodName in parser) {
-        return new type((parser as any)[methodName]());
-    }
-
-    throw new Error('No ' + methodName + ' for ' + type.name);
+export function parseStatement<T extends StatementTree>(code: string): T {
+    return getStatementTree(parse(code).statement()) as T;
 }
 
-function camelize(str: string) {
-    return str
-        .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
-            return index == 0 ? word.toLowerCase() : word.toUpperCase();
-        })
-        .replace(/\s+/g, '');
+export function parseDefinition<T extends DefinitionTree>(code: string): T {
+    return new DefinitionTree(parse(code).definition()) as T;
 }

@@ -1,8 +1,8 @@
-import { parseCode } from '../../../parse';
+import { parseStatement } from '../../../parse';
 import { LineBreakStatementTree } from './line-break-statement.tree';
 
 test('line break', () => {
     const code = '\r\n  \n';
-    const tree = parseCode(code, LineBreakStatementTree);
+    const tree = parseStatement<LineBreakStatementTree>(code);
     expect(tree).toBeInstanceOf(LineBreakStatementTree);
 });

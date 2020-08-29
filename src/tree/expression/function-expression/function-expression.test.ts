@@ -1,4 +1,4 @@
-import { parseCode } from '../../../parse';
+import { parseExpression } from '../../../parse';
 import { NumberLiteralTree } from '../../literal/number-literal/number-literal.tree';
 import { StringLiteralTree } from '../../literal/string-literal/string-literal.tree';
 import { IdExpressionTree } from '../id-expression/id-expression.tree';
@@ -7,7 +7,7 @@ import { FunctionExpressionTree } from './function-expression.tree';
 
 test('function call', () => {
     const code = "f(3, 'str')";
-    const tree = parseCode(code, FunctionExpressionTree);
+    const tree = parseExpression<FunctionExpressionTree>(code);
     expect(tree.args.length).toBe(2);
     const [arg1, arg2] = tree.args.map((x) => x as LiteralExpressionTree);
     expect(arg1.literal).toBeInstanceOf(NumberLiteralTree);
@@ -19,7 +19,7 @@ test('function on several lines', () => {
     const code = `f(3,
         'str', 123, 
     415)`;
-    const tree = parseCode(code, FunctionExpressionTree);
+    const tree = parseExpression<FunctionExpressionTree>(code);
     expect(tree.args.length).toBe(4);
     const [arg1, arg2] = tree.args.map((x) => x as LiteralExpressionTree);
     expect(arg1.literal).toBeInstanceOf(NumberLiteralTree);

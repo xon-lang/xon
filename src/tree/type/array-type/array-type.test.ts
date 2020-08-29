@@ -1,11 +1,11 @@
-import { parseCode } from '../../../parse';
+import { parse } from '../../../parse';
 import { FunctionTree } from '../../function/function.tree';
 import { SimpleTypeTree } from '../simple-type/simple-type.tree';
 import { ArrayTypeTree } from './array-type.tree';
 
 test('one arg', () => {
     const code = 'f(a num[]): log\n';
-    const tree = parseCode(code, FunctionTree);
+    const tree = new FunctionTree(parse(code).function());
     expect(tree.name).toBe('f');
     expect(tree.args.length).toBe(1);
     expect(tree.args[0].name).toBe('a');
