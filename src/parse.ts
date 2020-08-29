@@ -1,6 +1,4 @@
 import { ANTLRInputStream, CommonTokenStream, ParserRuleContext } from 'antlr4ts';
-import * as fs from 'fs';
-import path from 'path';
 import { XonLexer } from './grammar/xon-lexer';
 import { XonParser } from './grammar/xon-parser';
 import { BaseTree } from './tree/base.tree';
@@ -49,12 +47,6 @@ export function parseCode<T extends BaseTree>(
     }
 
     throw new Error('No ' + methodName + ' for ' + type.name);
-}
-
-export function parseFile<T extends BaseTree>(filePath: string, type: new (ctx) => T) {
-    filePath = path.join(process.cwd(), 'src', filePath);
-    const code = fs.readFileSync(filePath, 'utf8');
-    return this.parseCode(code, type);
 }
 
 function camelize(str: string) {

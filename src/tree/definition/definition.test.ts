@@ -1,12 +1,14 @@
+import * as fs from 'fs';
 import { BaseTypes } from '../../base-types';
 import { evalExpression } from '../../eval';
-import { parseFile } from '../../parse';
+import { parseCode } from '../../parse';
 import { FunctionExpressionTree } from '../expression/function-expression/function-expression.tree';
 import { IdExpressionTree } from '../expression/id-expression/id-expression.tree';
 import { DefinitionTree } from './definition.tree';
 
-test('definition', () => {
-    const tree = parseFile('tree/definition/definition.test.xon', DefinitionTree);
+test('one scope', () => {
+    const code = fs.readFileSync('src/tree/definition/definition.test.xon').toString();
+    const tree = parseCode(code, DefinitionTree);
     console.log(tree.toJson());
     expect(tree).toBeInstanceOf(DefinitionTree);
     expect(tree.name).toBe('SomeClass');

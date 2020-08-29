@@ -1,7 +1,9 @@
+import * as fs from 'fs';
+import { parseCode } from '../../parse';
 import { ProgramTree } from './program.tree';
-import { parseFile } from '../../parse';
 
-test('syntax validation', () => {
-    const tree = parseFile('tree/program/syntax-validation.test.xon', ProgramTree);
+test('one scope', () => {
+    const code = fs.readFileSync('src/tree/program/syntax-validation.test.xon').toString();
+    const tree = parseCode(code, ProgramTree);
     expect(tree).toBeInstanceOf(ProgramTree);
 });

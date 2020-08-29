@@ -1,9 +1,11 @@
+import * as fs from 'fs';
+import { parseCode } from '../../parse';
 import { FunctionStatementTree } from '../statement/function-statement/function-statement.tree';
 import { ProgramTree } from './program.tree';
-import { parseFile } from '../../parse';
 
-test('several scope', () => {
-    const tree = parseFile('tree/program/several-scopes.test.xon', ProgramTree);
+test('one scope', () => {
+    const code = fs.readFileSync('src/tree/program/several-scopes.test.xon').toString();
+    const tree = parseCode(code, ProgramTree);
     expect(tree).toBeInstanceOf(ProgramTree);
     expect(tree.statements.length).toBe(3);
 
