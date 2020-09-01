@@ -30,11 +30,11 @@ import { UnaryPlusExpressionTree } from './tree/expression/unary-plus-expression
 export function evalExpression(tree: ExpressionTree, params = {}) {
     if (tree instanceof ParenthesizedExpressionTree) return evalExpression(tree.value);
     if (tree instanceof IdExpressionTree) {
-        if (tree.id in params) {
-            return params[tree.id];
+        if (tree.name in params) {
+            return params[tree.name];
         }
 
-        throw Error('Undefined key: ' + tree.id);
+        throw Error('Undefined key: ' + tree.name);
     }
 
     if (tree instanceof LiteralExpressionTree) {

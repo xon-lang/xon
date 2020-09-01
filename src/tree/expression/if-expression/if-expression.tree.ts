@@ -40,7 +40,7 @@ export class IfExpressionTree extends ExpressionTree {
             ...super.toPlain(),
             items: this.items.map((x) => ({
                 statements: x.statements.map((z) => z.toPlain()),
-                condition: x.condition.toPlain(),
+                condition: x.condition?.toPlain(),
                 hasIf: x.hasIf,
                 hasElse: x.hasElse,
             })),

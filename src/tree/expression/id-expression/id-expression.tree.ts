@@ -2,21 +2,21 @@ import { IdExpressionContext } from '../../../grammar/xon-parser';
 import { ExpressionTree } from '../expression.tree';
 
 export class IdExpressionTree extends ExpressionTree {
-    id: string;
+    name: string;
 
     constructor(public ctx: IdExpressionContext) {
         super();
-        this.id = ctx.ID().text;
+        this.name = ctx.ID().text;
     }
 
     getType() {
-        return this.getIdType(this.id);
+        return this.getIdType(this.name);
     }
 
     toPlain() {
         return {
             ...super.toPlain(),
-            id: this.id,
+            name: this.name,
         };
     }
 }

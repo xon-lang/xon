@@ -42,6 +42,6 @@ test('one scope', () => {
     expect(tree.methods[1].statements[0].asExpression()).toBeInstanceOf(FunctionExpressionTree);
     const innerMethod = tree.methods[1].statements[0].asExpression() as FunctionExpressionTree;
     const functionExpression = innerMethod.object as IdExpressionTree;
-    expect(functionExpression.id).toBe('coord');
+    expect(functionExpression.name).toBe('coord');
     expect(innerMethod.args.length).toBe(2);
 });

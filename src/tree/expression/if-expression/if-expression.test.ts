@@ -1,6 +1,7 @@
 import { evalExpression } from '../../../eval';
 import { parseExpression } from '../../../parse';
 import { ExpressionStatementTree } from '../../statement/expression-statement/expression-statement.tree';
+import { IdExpressionTree } from '../id-expression/id-expression.tree';
 import { IfExpressionTree } from './if-expression.tree';
 
 test('else only', () => {
@@ -49,4 +50,13 @@ test('if relational', () => {
     expect(tree.items.length).toBe(1);
     const ifStatement = tree.items[0].statements[0] as ExpressionStatementTree;
     expect(evalExpression(ifStatement.value)).toBe(12 + Math.pow(45, 5));
+});
+
+test('complex if', () => {
+    const code = 'if a: b elif c: d elif e: f elif g: h else: i';
+    const tree = parseExpression<IfExpressionTree>(code);
+    expect(tree.items.length).toBe(5);
+    expect(tree.items[0].condition.as<IdExpressionTree>().name).toBe('a');
+    expect(tree.items[0].statements[0].asExpression().as<IdExpressionTree>().name).toBe('b');
+    expect(tree.items[4].statements[0].asExpression().as<IdExpressionTree>().name).toBe('i');
 });

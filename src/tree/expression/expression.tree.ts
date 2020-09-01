@@ -6,7 +6,7 @@ export abstract class ExpressionTree extends BaseTree {
     toPlain() {
         return {
             ...super.toPlain(),
-            type: this.getType()?.toPlain(),
+            // type: this.getType()?.toPlain(),
         };
     }
 

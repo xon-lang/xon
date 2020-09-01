@@ -40,5 +40,5 @@ test('select with two cases', () => {
     const body2 = tree.cases[1].statements[0] as ExpressionStatementTree;
     const expr = body2.value as FunctionExpressionTree;
     const func = expr.object as IdExpressionTree;
-    expect(func.id).toBe('log');
+    expect(func.name).toBe('log');
 });
