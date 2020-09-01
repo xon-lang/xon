@@ -2,10 +2,11 @@ import { BaseTypes } from '../../../base-types';
 import { StringFormatExpressionContext } from '../../../grammar/xon-parser';
 import { parseExpression } from '../../../parse';
 import { ExpressionTree } from '../expression.tree';
+import { ParenthesizedExpressionTree } from '../parenthesized-expression/parenthesized-expression.tree';
 
 export class StringFormatExpressionTree extends ExpressionTree {
     valueString: string;
-    value: ExpressionTree;
+    value: ParenthesizedExpressionTree;
 
     constructor(public ctx: StringFormatExpressionContext) {
         super();
@@ -18,7 +19,7 @@ export class StringFormatExpressionTree extends ExpressionTree {
             .replace(/\+ ''$/, '')
             .trim();
 
-        this.value = parseExpression(this.valueString);
+        this.value = parseExpression(`(${this.valueString})`);
     }
 
     getType() {
