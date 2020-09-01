@@ -38,7 +38,7 @@ argument: name = ID (type | type? '=' expression);
 body: ':' (statement | LineBreak INDENT statement+ DEDENT);
 
 expression:
-    'if' expression body ('else' ('if' expression)? body)?                                                                                        # ifExpression
+    'if' expression body ('elif' expression body)* ('else' body)?                                                                                 # ifExpression
     | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body                                                             # loopExpression
     | 'select' (value = expression ('as' ID)?)? ':' LineBreak INDENT ( cases += expression body LineBreak?)+ DEDENT                               # selectExpression
     | object = expression '(' (args += expression (',' args += expression)*)? ')'                                                                 # functionExpression

@@ -21,6 +21,7 @@ import { XonLexerBase } from "./xon-lexer-base";
 As:       'as';
 If:       'if';
 Else:     'else';
+ElseIf:   'elif';
 Loop:     'loop';
 In:       'in';
 Pass:     'pass';
