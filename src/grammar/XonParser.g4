@@ -40,7 +40,7 @@ body: ':' (statement | LineBreak INDENT statement+ DEDENT);
 expression:
     'if' expression body ('elif' expression body)* ('else' body)?                                                                                 # ifExpression
     | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body                                                             # loopExpression
-    | 'select' (value = expression ('as' ID)?)? ':' LineBreak INDENT ( cases += expression body LineBreak?)+ DEDENT                               # selectExpression
+    | 'select' (value = expression)? ':' LineBreak INDENT ( cases += expression body LineBreak?)+ DEDENT                                          # selectExpression
     | object = expression '(' (args += expression (',' args += expression)*)? ')'                                                                 # functionExpression
     | value = expression '[' index = expression ']'                                                                                               # indexExpression
     | value = expression '[' startPos = expression ':' endPos = expression? (':' step = expression)? ']'                                          # sliceExpression
