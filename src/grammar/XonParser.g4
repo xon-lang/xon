@@ -33,7 +33,7 @@ type: ID # simpleType | type '[' ']' # arrayType | '{' ID type ( ',' ID type)* '
 
 function: name = ID '(' (argument (',' argument)*)? ')' type? body;
 
-argument: name = ID (type | type? '=' expression);
+argument: name = ID type? ('=' expression)?;
 
 body: ':' (statement | LineBreak INDENT statement+ DEDENT);
 
