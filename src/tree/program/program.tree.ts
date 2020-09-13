@@ -13,15 +13,16 @@ export class ProgramTree extends BaseTree {
 
     constructor(public ctx: ProgramContext) {
         super();
+
         this.imports = ctx
             .imports()
             .filter((x) => !x.LineBreak())
             .map((x) => new ImportsTree(x));
+
         this.statements = ctx
             .statement()
             ?.map(getStatementTree)
             .filter((x) => !(x instanceof LineBreakStatementTree));
-
         this.definitions = ctx.definition()?.map((x) => new DefinitionTree(x));
     }
 

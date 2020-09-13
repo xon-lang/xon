@@ -9,10 +9,6 @@ export class IdExpressionTree extends ExpressionTree {
         this.name = ctx.ID().text;
     }
 
-    getType() {
-        return this.getIdType(this.name);
-    }
-
     toPlain() {
         return {
             ...super.toPlain(),

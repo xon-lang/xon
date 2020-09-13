@@ -1,6 +1,4 @@
-import { BaseTypes } from '../../../base-types';
 import { IndexExpressionContext } from '../../../grammar/xon-parser';
-import { ArrayExpressionTree } from '../array-expression/array-expression.tree';
 import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
@@ -12,13 +10,6 @@ export class IndexExpressionTree extends ExpressionTree {
         super();
         this.value = getExpressionTree(ctx._value);
         this.index = getExpressionTree(ctx._index);
-    }
-
-    getType() {
-        if (this.value instanceof ArrayExpressionTree) {
-            return this.value.getType().baseType;
-        }
-        return BaseTypes.Undefined;
     }
 
     toPlain() {

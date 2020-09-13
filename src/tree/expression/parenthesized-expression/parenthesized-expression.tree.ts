@@ -10,10 +10,6 @@ export class ParenthesizedExpressionTree extends ExpressionTree {
         this.value = getExpressionTree(ctx.expression());
     }
 
-    getType() {
-        return this.value.getType();
-    }
-
     toPlain() {
         return {
             ...super.toPlain(),

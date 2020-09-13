@@ -11,10 +11,6 @@ export class ImportsTree extends BaseTree {
         super();
         this.allModulesAlias = ctx._alias?.text;
         this.path = ctx.StringLiteral().text.slice(1, -1);
-        // makes dots to ../
-        // .replace(/^\.+/g, (x) => x.replace(/(\.)/g, '$1./'))
-        // .replace(/^\.\./, '.');
-
         this.members = ctx.importMember().map((x) => new ImportMember(x));
     }
 

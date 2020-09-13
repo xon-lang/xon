@@ -1,4 +1,3 @@
-import { BaseTypes } from '../../../base-types';
 import { NumberLiteralContext } from '../../../grammar/xon-parser';
 import { LiteralTree } from '../literal.tree';
 
@@ -41,9 +40,5 @@ export class NumberLiteralTree extends LiteralTree {
             );
         }
         return parseInt(parts[0], radix);
-    }
-
-    getType() {
-        return BaseTypes.Number;
     }
 }

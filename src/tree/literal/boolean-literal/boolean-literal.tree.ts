@@ -1,4 +1,3 @@
-import { BaseTypes } from '../../../base-types';
 import { BooleanLiteralContext } from '../../../grammar/xon-parser';
 import { LiteralTree } from '../literal.tree';
 
@@ -9,9 +8,5 @@ export class BooleanLiteralTree extends LiteralTree {
         super();
         this.isPositive = ctx.text == 'true';
         this.value = this.isPositive;
-    }
-
-    getType() {
-        return BaseTypes.Boolean;
     }
 }

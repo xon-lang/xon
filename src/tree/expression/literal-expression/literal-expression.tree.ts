@@ -11,10 +11,6 @@ export class LiteralExpressionTree extends ExpressionTree {
         this.literal = getLiteralTree(ctx.literal());
     }
 
-    getType() {
-        return this.literal.getType();
-    }
-
     toPlain() {
         return {
             ...super.toPlain(),

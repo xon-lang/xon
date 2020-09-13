@@ -1,4 +1,3 @@
-import { BaseTypes } from '../../../base-types';
 import { IfExpressionContext } from '../../../grammar/xon-parser';
 import { getStatementsTree } from '../../statement/statement-helper';
 import { StatementTree } from '../../statement/statement.tree';
@@ -29,10 +28,6 @@ export class IfExpressionTree extends ExpressionTree {
                 hasElse: true,
             });
         }
-    }
-
-    getType() {
-        return BaseTypes.Undefined;
     }
 
     toPlain() {

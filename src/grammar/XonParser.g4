@@ -4,13 +4,13 @@ options {
     tokenVocab = XonLexer;
 }
 
-program: imports* (statement | definition)*;
+program: imports* statement* definition*;
 
 imports:      StringLiteral ':' ('*' 'as' alias = ID | importMember (',' importMember)*) | LineBreak;
-importMember: name = ID ('as' alias = ID)?;
+importMember: name = ID ('as' alias = ID)? | name = DefinitionID ('as' alias = DefinitionID)?;
 
-definition: name = ID ':' LineBreak INDENT member+ DEDENT;
-member:     name = ID (type | type? '=' value = expression) # propertyMember | function # methodMember | 'pass' # passMember | LineBreak # lineBreakMember;
+definition: name = DefinitionID ':' LineBreak INDENT member+ DEDENT;
+member:     name = ID type? ( '=' value = expression)? # propertyMember | function # methodMember | 'pass' # passMember | LineBreak # lineBreakMember;
 
 statement:
     Preprocessor                                                         # preprocessorStatement
@@ -45,7 +45,6 @@ expression:
     | value = expression '[' index = expression ']'                                                                                               # indexExpression
     | value = expression '[' startPos = expression ':' endPos = expression? (':' step = expression)? ']'                                          # sliceExpression
     | expression '?'? '.' ID                                                                                                                      # memberExpression
-    | '.' ID                                                                                                                                      # instanceMemberExpression
     | '@' expression                                                                                                                              # asyncExpression
     | base = expression '^' exponent = expression                                                                                                 # powExpression
     | '+' expression                                                                                                                              # unaryPlusExpression

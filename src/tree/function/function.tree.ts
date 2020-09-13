@@ -20,8 +20,6 @@ export class FunctionTree extends BaseTree {
     constructor(public ctx: FunctionContext) {
         super();
 
-        BaseTree.locals.push({});
-
         this.name = ctx._name.text;
         this.args =
             ctx.argument()?.map((x) => ({
@@ -30,14 +28,8 @@ export class FunctionTree extends BaseTree {
                 value: getExpressionTree(x.expression()),
             })) || [];
 
-        this.args.forEach((x) => (this.locals[x.name] = x.type));
         this.returnType = ctx.type() && getTypeTree(ctx.type());
         this.statements = getStatementsTree(ctx.body());
-        BaseTree.locals.pop();
-    }
-
-    getType() {
-        return this.returnType;
     }
 
     toPlain() {

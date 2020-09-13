@@ -7,7 +7,7 @@ import { BaseTree } from '../base.tree';
 import { getExpressionTree } from '../expression/expression-helper';
 import { ExpressionTree } from '../expression/expression.tree';
 import { FunctionTree } from '../function/function.tree';
-import { createFunctionTreeType, createSimpleTreeType, getTypeTree } from '../type/type-helper';
+import { getTypeTree } from '../type/type-helper';
 import { TypeTree } from '../type/type.tree';
 
 export class DefinitionTree extends BaseTree {
@@ -21,11 +21,7 @@ export class DefinitionTree extends BaseTree {
 
     constructor(public ctx: DefinitionContext) {
         super();
-
-        BaseTree.defLocals.push({});
-        this.name = ctx.ID().text;
-
-        this.defLocals[this.name] = createFunctionTreeType([], createSimpleTreeType(this.name));
+        this.name = ctx._name.text;
 
         const properties = ctx
             .member()
@@ -41,16 +37,11 @@ export class DefinitionTree extends BaseTree {
             const expr = getExpressionTree(x._value);
             return {
                 name: x._name.text,
-                type: (x.type() && getTypeTree(x.type())) || expr.getType(),
+                type: x.type() && getTypeTree(x.type()),
                 value: expr,
             };
         });
-        this.properties.forEach((x) => (this.defLocals[x.name] = x.type));
-
         this.methods = methods.map((x) => new FunctionTree(x));
-        this.methods.forEach((x) => (this.defLocals[x.name] = x.getType()));
-
-        BaseTree.defLocals.pop();
     }
 
     toPlain() {

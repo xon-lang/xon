@@ -90,7 +90,8 @@ StringLiteral:  '\'' CHARACTER* '\'';
 StringFormatStart:  'f\'' CHARACTER* '{';
 StringFormatMiddle: '}' CHARACTER* '{';
 StringFormatEnd:    '}' CHARACTER* '\'';
-ID:                 [a-zA-Z_] [a-zA-Z0-9_]*;
+ID:                 [a-z_] [a-zA-Z0-9_]*;
+DefinitionID:       [A-Z_] [a-zA-Z0-9_]*;
 
 Skip:                ( SPACES | SINGLE_LINE_COMMENT | MULTI_LINE_COMMENT | LINE_JOINING) -> skip;
 UnexpectedCharacter: .                                                                   -> channel(ERROR);
