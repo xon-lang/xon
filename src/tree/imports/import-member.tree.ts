@@ -1,7 +1,7 @@
 import { ImportMemberContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 
-export class ImportMember extends BaseTree {
+export class ImportMemberTree extends BaseTree {
     name: string;
     alias: string;
 

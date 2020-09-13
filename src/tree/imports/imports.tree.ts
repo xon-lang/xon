@@ -1,24 +1,24 @@
 import { ImportsContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
-import { ImportMember } from './import-member';
+import { ImportMemberTree } from './import-member.tree';
 
 export class ImportsTree extends BaseTree {
-    allModulesAlias: string;
-    path: string;
-    members: ImportMember[];
+    scopeName: string;
+    libName: string;
+    members: ImportMemberTree[];
 
     constructor(public ctx: ImportsContext) {
         super();
-        this.allModulesAlias = ctx._alias?.text;
-        this.path = ctx.StringLiteral().text.slice(1, -1);
-        this.members = ctx.importMember().map((x) => new ImportMember(x));
+        this.scopeName = ctx.importPath().text.split('/')[0];
+        this.libName = ctx.importPath().text.split('/')[1];
+        this.members = ctx.importMember().map((x) => new ImportMemberTree(x));
     }
 
     toPlain() {
         return {
             ...super.toPlain(),
-            alias: this.allModulesAlias,
-            path: this.path,
+            scopeName: this.scopeName,
+            libName: this.libName,
             member: this.members.map((x) => x.toPlain()),
         };
     }

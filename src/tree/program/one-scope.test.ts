@@ -11,7 +11,8 @@ test('one scope', () => {
     expect(tree).toBeInstanceOf(ProgramTree);
 
     expect(tree.imports.length).toBe(1);
-    expect(tree.imports[0].path).toBe('./one-scope.test.xon');
+    expect(tree.imports[0].scopeName).toBe('uniqAuthor');
+    expect(tree.imports[0].libName).toBe('math');
     expect(tree.imports[0].members.length).toBe(2);
     expect(tree.imports[0].members[0].name).toBe('one');
     expect(tree.imports[0].members[0].alias).toBe('single');

@@ -7,9 +7,8 @@
 ...src/tree/program/several-scope: cd
 'lib.console': * as log
 
-lib.array: * as arr
-src....
-.sdf.fwef
+.sdf.fwef:
+.: 
 
 
 console.log()
@@ -19,3 +18,4 @@ console.log()
 '/math.geometry': triangle
 '..some dir/another one': * as dir_one
 '...src/tree/program': cd, bd
+
