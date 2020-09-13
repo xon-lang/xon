@@ -1,26 +1,4 @@
-+   manada do
-    expression()?.do(\my code)
-
--   regex
--   check all toPlain methods
-
-
-________________________________
-expression?.do()
-expression.do
-
-
-
-v:=0
-if expression:
-    v = max(expression, 55)
-    v = v ^ v
-chrchr
-v := expression |x: max(x, 55) |x: x ^ x
-
-v := expression.do(\x: max(x, 55) |x: x ^ x, 0)
-v := expression?\max(x, 55) |x: x ^ x
-
-ext do instance:any f: Func<any, T>:
-    if instance: f(instance)
- 
+manada do, expression()?.do(\my code)
+regex
+inherits
+enums
