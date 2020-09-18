@@ -12,7 +12,7 @@
         "allowShortRulesOnASingleLine": true,
         "breakBeforeBraces": false,
         "breakBeforeParens": false,
-        "columnLimit": 500,
+        "columnLimit": 200,
         "continuationIndentWidth": 4,
         "groupedAlignments": true,
         "indentWidth": 4,

@@ -6,9 +6,9 @@ import { ExpressionTree } from '../expression.tree';
 export class LiteralExpressionTree extends ExpressionTree {
     literal: LiteralTree;
 
-    constructor(public ctx: LiteralExpressionContext) {
+    constructor(public ctx?: LiteralExpressionContext) {
         super();
-        this.literal = getLiteralTree(ctx.literal());
+        this.literal = ctx && getLiteralTree(ctx.literal());
     }
 
     toPlain() {

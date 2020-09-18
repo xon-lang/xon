@@ -2,7 +2,7 @@ import { parse } from '../../../parse';
 import { FunctionTree } from '../../function/function.tree';
 import { ArrayTypeTree } from '../array-type/array-type.tree';
 import { SimpleTypeTree } from '../simple-type/simple-type.tree';
-import { DictionaryTypeTree } from './dictionary-type.tree';
+import { ObjectTypeTree } from './object-type.tree';
 
 test('one items', () => {
     const code = 'f(a {key str}): log\n';
@@ -11,8 +11,8 @@ test('one items', () => {
     expect(tree.args.length).toBe(1);
     expect(tree.args[0].name).toBe('a');
 
-    const dictType = tree.args[0].type as DictionaryTypeTree;
-    expect(dictType).toBeInstanceOf(DictionaryTypeTree);
+    const dictType = tree.args[0].type as ObjectTypeTree;
+    expect(dictType).toBeInstanceOf(ObjectTypeTree);
     expect(dictType.items.length).toBe(1);
     expect(dictType.items[0].name).toBe('key');
     const type = dictType.items[0].type as SimpleTypeTree;
@@ -27,8 +27,8 @@ test('two items', () => {
     expect(tree.args.length).toBe(1);
     expect(tree.args[0].name).toBe('a');
 
-    const dictType = tree.args[0].type as DictionaryTypeTree;
-    expect(dictType).toBeInstanceOf(DictionaryTypeTree);
+    const dictType = tree.args[0].type as ObjectTypeTree;
+    expect(dictType).toBeInstanceOf(ObjectTypeTree);
     expect(dictType.items.length).toBe(2);
     expect(dictType.items[0].name).toBe('key');
     expect(dictType.items[0].type.asSimple.name).toBe('str');
@@ -45,8 +45,8 @@ test('complex dict type', () => {
     expect(tree.args.length).toBe(1);
     expect(tree.args[0].name).toBe('a');
 
-    const dictType = tree.args[0].type as DictionaryTypeTree;
-    expect(dictType).toBeInstanceOf(DictionaryTypeTree);
+    const dictType = tree.args[0].type as ObjectTypeTree;
+    expect(dictType).toBeInstanceOf(ObjectTypeTree);
 
     expect(dictType.items.length).toBe(2);
     expect(dictType.items[0].name).toBe('first');
@@ -55,7 +55,7 @@ test('complex dict type', () => {
     expect(baseType1.name).toBe('str');
 
     expect(dictType.items[1].name).toBe('second');
-    const type2 = dictType.items[1].type as DictionaryTypeTree;
+    const type2 = dictType.items[1].type as ObjectTypeTree;
     expect(type2.items.length).toBe(1);
     const type2FirstItem = type2.items[0];
     expect(type2FirstItem.name).toBe('b');

@@ -3,7 +3,7 @@ import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class ArrayExpressionTree extends ExpressionTree {
-    items: { value: ExpressionTree; hasSpread: any }[];
+    items: { value: ExpressionTree; hasSpread: boolean }[];
 
     constructor(public ctx?: ArrayExpressionContext) {
         super();
@@ -15,7 +15,10 @@ export class ArrayExpressionTree extends ExpressionTree {
     toPlain() {
         return {
             ...super.toPlain(),
-            items: this.items.map((x) => x.value.toPlain()),
+            items: this.items.map((x) => ({
+                value: x.value.toPlain(),
+                hasSpread: x.hasSpread,
+            })),
         };
     }
 }

@@ -28,6 +28,7 @@ import { UnaryMinusExpressionTree } from './tree/expression/unary-minus-expressi
 import { UnaryPlusExpressionTree } from './tree/expression/unary-plus-expression/unary-plus-expression.tree';
 
 export function evalExpression(tree: ExpressionTree, params = {}) {
+    if (tree === undefined) return undefined;
     if (tree instanceof ParenthesizedExpressionTree) return evalExpression(tree.value);
     if (tree instanceof IdExpressionTree) {
         if (tree.name in params) {

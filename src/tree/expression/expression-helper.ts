@@ -18,6 +18,7 @@ import {
     LogicalOrExpressionContext,
     MemberExpressionContext,
     MulDivModExpressionContext,
+    ObjectExpressionContext,
     ParenthesizedExpressionContext,
     PipeExpressionContext,
     PowExpressionContext,
@@ -55,6 +56,7 @@ import { MoreThanEqualsExpressionTree } from './more-than-equals-expression/more
 import { MoreThanExpressionTree } from './more-than-expression/more-than-expression.tree';
 import { MultiplyExpressionTree } from './multiply-expression/multiply-expression.tree';
 import { NotEqualsExpressionTree } from './not-equals-expression/not-equals-expression.tree';
+import { ObjectExpressionTree } from './object-expression/object-expression.tree';
 import { ParenthesizedExpressionTree } from './parenthesized-expression/parenthesized-expression.tree';
 import { PipeExpressionTree } from './pipe-expression/pipe-expression.tree';
 import { PowExpressionTree } from './pow-expression/pow-expression.tree';
@@ -90,6 +92,7 @@ export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
     if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);
     if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
     if (ctx instanceof StringFormatExpressionContext) return new StringFormatExpressionTree(ctx);
+    if (ctx instanceof ObjectExpressionContext) return new ObjectExpressionTree(ctx);
     if (ctx instanceof MulDivModExpressionContext) {
         if (ctx.Divide()) return new DivideExpressionTree(ctx);
         if (ctx.Modulo()) return new ModuloExpressionTree(ctx);

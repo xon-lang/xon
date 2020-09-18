@@ -1,8 +1,8 @@
 import { TypeContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { ArrayTypeTree } from './array-type/array-type.tree';
-import { DictionaryTypeTree } from './dictionary-type/dictionary-type.tree';
 import { FunctionTypeTree } from './fucntion-type/function-type.tree';
+import { ObjectTypeTree } from './object-type/object-type.tree';
 import { SimpleTypeTree } from './simple-type/simple-type.tree';
 
 export abstract class TypeTree extends BaseTree {
@@ -17,7 +17,7 @@ export abstract class TypeTree extends BaseTree {
     }
 
     get asDictionary() {
-        return (this as any) as DictionaryTypeTree;
+        return (this as any) as ObjectTypeTree;
     }
 
     get asFunction() {

@@ -1,11 +1,11 @@
-import { DictionaryTypeContext } from '../../../grammar/xon-parser';
+import { ObjectTypeContext } from '../../../grammar/xon-parser';
 import { getTypeTree } from '../type-helper';
 import { TypeTree } from '../type.tree';
 
-export class DictionaryTypeTree extends TypeTree {
+export class ObjectTypeTree extends TypeTree {
     items: { name: string; type: TypeTree }[];
 
-    constructor(public ctx?: DictionaryTypeContext) {
+    constructor(public ctx?: ObjectTypeContext) {
         super();
         this.items = ctx.ID().map((x, i) => ({
             name: x.text,
@@ -15,7 +15,7 @@ export class DictionaryTypeTree extends TypeTree {
 
     eq(anotherType: TypeTree) {
         return (
-            anotherType instanceof DictionaryTypeTree &&
+            anotherType instanceof ObjectTypeTree &&
             anotherType.items.length == this.items.length &&
             anotherType.items.every(
                 (x, i) => x.name == this.items[i].name && x.type.eq(this.items[i].type)
