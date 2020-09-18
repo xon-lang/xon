@@ -16,16 +16,20 @@ export class AssignmentStatementTree extends StatementTree {
     startArraysIndex: number;
     endArraysIndex: number;
 
-    constructor(public ctx: AssignmentStatementContext) {
+    constructor(public ctx?: AssignmentStatementContext) {
         super();
-        if (ctx.spreadItem().length > 1) {
-            this.value = new ArrayExpressionTree();
-            (this.value as ArrayExpressionTree).items = ctx.spreadItem().map((x) => ({
+        if (!ctx) return;
+
+        const assignmentValue = ctx.assignmentValue();
+        if (assignmentValue.spreadItem().length > 1) {
+            const arrayTree = new ArrayExpressionTree();
+            arrayTree.items = assignmentValue.spreadItem().map((x) => ({
                 value: getExpressionTree(x.expression()),
                 hasSpread: !!x.Spread(),
             }));
+            this.value = arrayTree;
         } else {
-            this.value = getExpressionTree(ctx.expression());
+            this.value = getExpressionTree(assignmentValue.expression());
         }
 
         for (const assignments of ctx.assignmentsList()) {

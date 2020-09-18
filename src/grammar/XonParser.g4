@@ -14,17 +14,21 @@ definition: name = ID ':' LineBreak INDENT member+ DEDENT;
 member:     name = ID type? ( '=' value = expression)? # propertyMember | function # methodMember | 'pass' # passMember | LineBreak # lineBreakMember;
 
 statement:
-    Preprocessor                                                         # preprocessorStatement
-    | (assignmentsList '=')+ (expression | spreadItem (',' spreadItem)*) # assignmentStatement
-    | function                                                           # functionStatement
-    | 'pass'                                                             # passStatement
-    | 'continue'                                                         # continueStatement
-    | 'break'                                                            # breakStatement
-    | 'return' expression?                                               # returnStatement
-    | expression                                                         # expressionStatement
-    | LineBreak                                                          # lineBreakStatement
+    'if' expression body ('elif' expression body)* ('else' body)?                                        # ifStatement
+    | 'select' (value = expression)? ':' LineBreak INDENT ( cases += expression body LineBreak?)+ DEDENT # selectStatement
+    | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body                    # loopStatement
+    | 'pass'                                                                                             # passStatement
+    | 'continue'                                                                                         # continueStatement
+    | 'break'                                                                                            # breakStatement
+    | 'return' expression?                                                                               # returnStatement
+    | function                                                                                           # functionStatement
+    | (assignmentsList '=')+ assignmentValue                                                             # assignmentStatement
+    | expression                                                                                         # expressionStatement
+    | Preprocessor                                                                                       # preprocessorStatement
+    | LineBreak                                                                                          # lineBreakStatement
     ;
 
+assignmentValue:   expression | spreadItem (',' spreadItem)*;
 assignmentsList:   leftAssignments | leftAssignments middleAssignments rightAssignments? | middleAssignments rightAssignments?;
 leftAssignments:   ID (',' ID?)* | (',' ID?)+;
 middleAssignments: '...' ID? (',' '...' ID?)*;
@@ -38,11 +42,10 @@ argument: name = ID type? ('=' expression)?;
 
 body: ':' (statement | LineBreak INDENT statement+ DEDENT);
 
+spreadItem: '...'? expression;
+
 expression:
-    'if' expression body ('elif' expression body)* ('else' body)?                                                                                 # ifExpression
-    | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body                                                             # loopExpression
-    | 'select' (value = expression)? ':' LineBreak INDENT ( cases += expression body LineBreak?)+ DEDENT                                          # selectExpression
-    | object = expression '(' (args += expression (',' args += expression)*)? ')'                                                                 # functionExpression
+    object = expression '(' (args += expression (',' args += expression)*)? ')'                                                                   # functionExpression
     | value = expression '[' index = expression ']'                                                                                               # indexExpression
     | value = expression '[' startPos = expression ':' endPos = expression? (':' step = expression)? ']'                                          # sliceExpression
     | expression '?'? '.' ID                                                                                                                      # memberExpression
@@ -72,7 +75,5 @@ expression:
     | left = expression '|' (ID ':')? right = expression                                                                                          # pipeExpression
     | '\\' (ID (',' ID)* ':')? expression                                                                                                         # lambdaExpression
     ;
-
-spreadItem: '...'? expression;
 
 literal: NullLiteral # nullLiteral | BooleanLiteral # booleanLiteral | NumberLiteral # numberLiteral | StringLiteral # stringLiteral;

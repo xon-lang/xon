@@ -10,14 +10,12 @@ import {
     ExpressionContext,
     FunctionExpressionContext,
     IdExpressionContext,
-    IfExpressionContext,
     IndexExpressionContext,
     LambdaExpressionContext,
     LiteralExpressionContext,
     LogicalAndExpressionContext,
     LogicalNotExpressionContext,
     LogicalOrExpressionContext,
-    LoopExpressionContext,
     MemberExpressionContext,
     MulDivModExpressionContext,
     ParenthesizedExpressionContext,
@@ -25,7 +23,6 @@ import {
     PowExpressionContext,
     RangeExpressionContext,
     RelationalExpressionContext,
-    SelectExpressionContext,
     SliceExpressionContext,
     StringFormatExpressionContext,
     UnaryMinusExpressionContext,
@@ -44,7 +41,6 @@ import { EqualsExpressionTree } from './equals-expression/equals-expression.tree
 import { ExpressionTree } from './expression.tree';
 import { FunctionExpressionTree } from './function-expression/function-expression.tree';
 import { IdExpressionTree } from './id-expression/id-expression.tree';
-import { IfExpressionTree } from './if-expression/if-expression.tree';
 import { IndexExpressionTree } from './index-expression/index-expression.tree';
 import { LambdaExpressionTree } from './lambda-expression/lambda-expression.tree';
 import { LessThanEqualsExpressionTree } from './less-than-equals-expression/less-than-equals-expression.tree';
@@ -53,7 +49,6 @@ import { LiteralExpressionTree } from './literal-expression/literal-expression.t
 import { LogicalAndExpressionTree } from './logical-and-expression/logical-and-expression.tree';
 import { LogicalNotExpressionTree } from './logical-not-expression/logical-not-expression.tree';
 import { LogicalOrExpressionTree } from './logical-or-expression/logical-or-expression.tree';
-import { LoopExpressionTree } from './loop-expression/loop-expression.tree';
 import { MemberExpressionTree } from './member-expression/member-expression.tree';
 import { ModuloExpressionTree } from './modulo-expression/modulo-expression.tree';
 import { MoreThanEqualsExpressionTree } from './more-than-equals-expression/more-than-equals-expression.tree';
@@ -64,7 +59,6 @@ import { ParenthesizedExpressionTree } from './parenthesized-expression/parenthe
 import { PipeExpressionTree } from './pipe-expression/pipe-expression.tree';
 import { PowExpressionTree } from './pow-expression/pow-expression.tree';
 import { RangeExpressionTree } from './range-expression/range-expression.tree';
-import { SelectExpressionTree } from './select-expression/select-expression.tree';
 import { SliceExpressionTree } from './slice-expression/slice-expression.tree';
 import { StringFormatExpressionTree } from './string-format-expression/string-format-expression.tree';
 import { SubstractExpressionTree } from './substract-expression/substract-expression.tree';
@@ -96,9 +90,6 @@ export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
     if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);
     if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
     if (ctx instanceof StringFormatExpressionContext) return new StringFormatExpressionTree(ctx);
-    if (ctx instanceof IfExpressionContext) return new IfExpressionTree(ctx);
-    if (ctx instanceof LoopExpressionContext) return new LoopExpressionTree(ctx);
-    if (ctx instanceof SelectExpressionContext) return new SelectExpressionTree(ctx);
     if (ctx instanceof MulDivModExpressionContext) {
         if (ctx.Divide()) return new DivideExpressionTree(ctx);
         if (ctx.Modulo()) return new ModuloExpressionTree(ctx);

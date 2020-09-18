@@ -1,12 +1,12 @@
 import { evalExpression } from '../../../eval';
-import { parseExpression } from '../../../parse';
+import { parseStatement } from '../../../parse';
+import { IdExpressionTree } from '../../expression/id-expression/id-expression.tree';
 import { ExpressionStatementTree } from '../../statement/expression-statement/expression-statement.tree';
-import { IdExpressionTree } from '../id-expression/id-expression.tree';
-import { IfExpressionTree } from './if-expression.tree';
+import { IfStatementTree } from './if-statement.tree';
 
 test('else only', () => {
     const code = 'if 12+45/9:\n    12+45/5\nelif 2+2:\n    2 * 4';
-    const tree = parseExpression<IfExpressionTree>(code);
+    const tree = parseStatement<IfStatementTree>(code);
 
     expect(evalExpression(tree.items[0].condition)).toBe(12 + 45 / 9);
     expect(tree.items.length).toBe(2);
@@ -20,7 +20,7 @@ test('else only', () => {
 
 test('else if', () => {
     const code = 'if 12+45/9:\n    12+45/5\nelse:    2   *   4   ';
-    const tree = parseExpression<IfExpressionTree>(code);
+    const tree = parseStatement<IfStatementTree>(code);
 
     expect(evalExpression(tree.items[0].condition)).toBe(12 + 45 / 9);
     expect(tree.items.length).toBe(2);
@@ -34,7 +34,7 @@ test('else if', () => {
 
 test('if', () => {
     const code = 'if 12+45/9: 12+45/5';
-    const tree = parseExpression<IfExpressionTree>(code);
+    const tree = parseStatement<IfStatementTree>(code);
 
     expect(evalExpression(tree.items[0].condition)).toBe(12 + 45 / 9);
     expect(tree.items.length).toBe(1);
@@ -44,7 +44,7 @@ test('if', () => {
 
 test('if relational', () => {
     const code = 'if 6 > 4:\n    12+45^  5';
-    const tree = parseExpression<IfExpressionTree>(code);
+    const tree = parseStatement<IfStatementTree>(code);
 
     expect(evalExpression(tree.items[0].condition)).toBe(6 > 4);
     expect(tree.items.length).toBe(1);
@@ -54,7 +54,7 @@ test('if relational', () => {
 
 test('complex if', () => {
     const code = 'if a: b elif c: d elif e: f elif g: h else: i';
-    const tree = parseExpression<IfExpressionTree>(code);
+    const tree = parseStatement<IfStatementTree>(code);
     expect(tree.items.length).toBe(5);
     expect(tree.items[0].condition.as<IdExpressionTree>().name).toBe('a');
     expect(tree.items[0].statements[0].asExpression().as<IdExpressionTree>().name).toBe('b');

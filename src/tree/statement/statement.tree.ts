@@ -3,7 +3,7 @@ import { BaseTree } from '../base.tree';
 import { ExpressionStatementTree } from './expression-statement/expression-statement.tree';
 
 export abstract class StatementTree extends BaseTree {
-    ctx: StatementContext;
+    ctx?: StatementContext;
 
     asExpression() {
         const self = this as any;

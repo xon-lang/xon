@@ -1,17 +1,17 @@
-import { SelectExpressionContext } from '../../../grammar/xon-parser';
-import { getStatementsTree } from '../../statement/statement-helper';
-import { StatementTree } from '../../statement/statement.tree';
-import { getExpressionTree } from '../expression-helper';
-import { ExpressionTree } from '../expression.tree';
+import { SelectStatementContext } from '../../../grammar/xon-parser';
+import { getExpressionTree } from '../../expression/expression-helper';
+import { ExpressionTree } from '../../expression/expression.tree';
+import { getStatementsTree } from '../statement-helper';
+import { StatementTree } from '../statement.tree';
 
-export class SelectExpressionTree extends ExpressionTree {
+export class SelectStatementTree extends StatementTree {
     value: ExpressionTree;
     cases: {
         value: ExpressionTree;
         statements: StatementTree[];
     }[];
 
-    constructor(public ctx: SelectExpressionContext) {
+    constructor(public ctx: SelectStatementContext) {
         super();
         this.value = getExpressionTree(ctx._value);
         this.cases = ctx._cases.map((x, i) => ({

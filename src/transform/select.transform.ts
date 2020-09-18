@@ -1,13 +1,13 @@
-import { IfExpressionTree } from '../tree/expression/if-expression/if-expression.tree';
-import { SelectExpressionTree } from '../tree/expression/select-expression/select-expression.tree';
+import { IfStatementTree } from '../tree/statement/if-statement/if-statement.tree';
+import { SelectStatementTree } from '../tree/statement/select-statement/select-expression.tree';
 import { BaseTransform } from './base-transform';
 
 export class SelectTransform extends BaseTransform {
-    constructor(public tree: SelectExpressionTree) {
+    constructor(public tree: SelectStatementTree) {
         super();
     }
 
-    transformToIfExpression() {
-        new IfExpressionTree();
+    transformToIf() {
+        new IfStatementTree();
     }
 }

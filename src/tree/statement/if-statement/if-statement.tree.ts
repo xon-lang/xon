@@ -1,10 +1,10 @@
-import { IfExpressionContext } from '../../../grammar/xon-parser';
-import { getStatementsTree } from '../../statement/statement-helper';
-import { StatementTree } from '../../statement/statement.tree';
-import { getExpressionTree } from '../expression-helper';
-import { ExpressionTree } from '../expression.tree';
+import { IfStatementContext } from '../../../grammar/xon-parser';
+import { getExpressionTree } from '../../expression/expression-helper';
+import { ExpressionTree } from '../../expression/expression.tree';
+import { getStatementsTree } from '../statement-helper';
+import { StatementTree } from '../statement.tree';
 
-export class IfExpressionTree extends ExpressionTree {
+export class IfStatementTree extends StatementTree {
     items: {
         statements: StatementTree[];
         condition: ExpressionTree;
@@ -12,8 +12,10 @@ export class IfExpressionTree extends ExpressionTree {
         hasElse: boolean;
     }[] = [];
 
-    constructor(public ctx: IfExpressionContext) {
+    constructor(public ctx?: IfStatementContext) {
         super();
+        if (!ctx) return;
+
         this.items = ctx.expression().map((x, i) => ({
             statements: getStatementsTree(ctx.body(i)),
             condition: getExpressionTree(x),

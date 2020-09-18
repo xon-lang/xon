@@ -1,10 +1,10 @@
-import { LoopExpressionContext } from '../../../grammar/xon-parser';
-import { getStatementsTree } from '../../statement/statement-helper';
-import { StatementTree } from '../../statement/statement.tree';
-import { getExpressionTree } from '../expression-helper';
-import { ExpressionTree } from '../expression.tree';
+import { LoopStatementContext } from '../../../grammar/xon-parser';
+import { getExpressionTree } from '../../expression/expression-helper';
+import { ExpressionTree } from '../../expression/expression.tree';
+import { getStatementsTree } from '../statement-helper';
+import { StatementTree } from '../statement.tree';
 
-export class LoopExpressionTree extends ExpressionTree {
+export class LoopStatementTree extends StatementTree {
     isInfinity: boolean;
 
     indexName: string;
@@ -13,7 +13,7 @@ export class LoopExpressionTree extends ExpressionTree {
     expression: ExpressionTree;
     statements: StatementTree[];
 
-    constructor(public ctx: LoopExpressionContext) {
+    constructor(public ctx: LoopStatementContext) {
         super();
         this.isInfinity = !ctx.expression();
 
