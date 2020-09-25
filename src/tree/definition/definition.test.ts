@@ -26,8 +26,8 @@ test('one scope', () => {
     expect(tree.methods[0].name).toBe('method');
     expect(tree.methods[0].args.length).toBe(0);
     expect(tree.methods[0].statements.length).toBe(2);
-    expect(tree.methods[0].statements[0].asExpression()).toBeInstanceOf(FunctionExpressionTree);
-    expect(tree.methods[0].statements[1].asExpression()).toBeInstanceOf(FunctionExpressionTree);
+    expect(tree.methods[0].statements[0].asExpression).toBeInstanceOf(FunctionExpressionTree);
+    expect(tree.methods[0].statements[1].asExpression).toBeInstanceOf(FunctionExpressionTree);
     expect(tree.methods[1].name).toBe('location');
     expect(tree.methods[1].args.length).toBe(2);
     expect(tree.methods[1].args[0].name).toBe('x');
@@ -37,8 +37,8 @@ test('one scope', () => {
     expect(tree.methods[1].args[1].type.asSimple.name).toBe('num');
     expect(evalExpression(tree.methods[1].args[1].value)).toBe(6);
     expect(tree.methods[1].statements.length).toBe(1);
-    expect(tree.methods[1].statements[0].asExpression()).toBeInstanceOf(FunctionExpressionTree);
-    const innerMethod = tree.methods[1].statements[0].asExpression() as FunctionExpressionTree;
+    expect(tree.methods[1].statements[0].asExpression).toBeInstanceOf(FunctionExpressionTree);
+    const innerMethod = tree.methods[1].statements[0].asExpression as FunctionExpressionTree;
     const functionExpression = innerMethod.object as IdExpressionTree;
     expect(functionExpression.name).toBe('coord');
     expect(innerMethod.args.length).toBe(2);

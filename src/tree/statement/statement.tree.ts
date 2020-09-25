@@ -5,7 +5,7 @@ import { ExpressionStatementTree } from './expression-statement/expression-state
 export abstract class StatementTree extends BaseTree {
     ctx?: StatementContext;
 
-    asExpression() {
+    get asExpression() {
         const self = this as any;
         return (self as ExpressionStatementTree)?.value;
     }

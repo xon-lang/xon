@@ -29,6 +29,9 @@ Continue: 'continue';
 Break:    'break';
 Return:   'return';
 Select:   'select';
+Infix:    'infix';
+Prefix:   'prefix';
+Postfix:  'postfix';
 
 Preprocessor: '#:' ~[\r\n]+;
 LineBreak:    ({this.atStartOfInput()}? SPACES | ( '\r'? '\n' | '\r') SPACES?) {this.handleLineBreak()};

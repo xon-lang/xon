@@ -57,6 +57,6 @@ test('complex if', () => {
     const tree = parseStatement<IfStatementTree>(code);
     expect(tree.items.length).toBe(5);
     expect(tree.items[0].condition.as<IdExpressionTree>().name).toBe('a');
-    expect(tree.items[0].statements[0].asExpression().as<IdExpressionTree>().name).toBe('b');
-    expect(tree.items[4].statements[0].asExpression().as<IdExpressionTree>().name).toBe('i');
+    expect(tree.items[0].statements[0].asExpression.as<IdExpressionTree>().name).toBe('b');
+    expect(tree.items[4].statements[0].asExpression.as<IdExpressionTree>().name).toBe('i');
 });

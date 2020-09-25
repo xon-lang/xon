@@ -2,6 +2,8 @@ import { ANTLRInputStream, CommonTokenStream } from 'antlr4ts';
 import { XonLexer } from './grammar/xon-lexer';
 import { XonParser } from './grammar/xon-parser';
 import { DefinitionTree } from './tree/definition/definition.tree';
+import { getMemberTree } from './tree/definition/member/member-helper';
+import { MemberTree } from './tree/definition/member/member.tree';
 import { getExpressionTree } from './tree/expression/expression-helper';
 import { ExpressionTree } from './tree/expression/expression.tree';
 import { getLiteralTree } from './tree/literal/literal-helper';
@@ -31,6 +33,10 @@ export function parseStatement<T extends StatementTree>(code: string): T {
 
 export function parseDefinition<T extends DefinitionTree>(code: string): T {
     return new DefinitionTree(parse(code).definition()) as T;
+}
+
+export function parseMember<T extends MemberTree>(code: string): T {
+    return getMemberTree(parse(code).member()) as T;
 }
 
 export function parseProgram<T extends ProgramTree>(code: string): T {
