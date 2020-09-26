@@ -1,11 +1,11 @@
-import { InfixOperatorMemberContext, MemberContext } from './../../../grammar/xon-parser';
-import { InfixOperatorMemberTree } from './infix-operator-member/infix-operator-member.tree';
+import { MemberContext, OperatorMemberContext } from './../../../grammar/xon-parser';
 import { MemberTree } from './member.tree';
+import { OperatorMemberTree } from './operator-member/operator-member.tree';
 
 export function getMemberTree(ctx: MemberContext): MemberTree {
     if (ctx === undefined) return undefined;
 
-    if (ctx instanceof InfixOperatorMemberContext) return new InfixOperatorMemberTree(ctx);
+    if (ctx instanceof OperatorMemberContext) return new OperatorMemberTree(ctx);
 
     throw Error('No Member found for ' + ctx?.constructor?.name);
 }

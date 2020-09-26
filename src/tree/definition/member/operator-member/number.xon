@@ -1,0 +1,3 @@
+Number:
+    + (a, b Number) Number:
+        #{}

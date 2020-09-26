@@ -12,36 +12,14 @@ importMember: name = ID ('as' alias = ID)?;
 
 definition: name = ID ':' LineBreak INDENT member+ DEDENT;
 member:
-    name = ID type? ('=' value = expression)?                         # propertyMember
-    | function                                                        # methodMember
-    | 'pass'                                                          # passMember
-    | 'infix' operator '(' ID ',' ID type ')' returnType = type? body # infixOperatorMember
-    | 'prefix' operator '(' ID ')' type? body                         # prefixOperatorMember
-    | 'postfix' operator '(' ID ')' type? body                        # postfixOperatorMember
-    | LineBreak                                                       # lineBreakMember
+    name = ID type? ('=' value = expression)?                # propertyMember
+    | function                                               # methodMember
+    | 'pass'                                                 # passMember
+    | operator '(' ID ',' ID type ')' returnType = type body # operatorMember
+    | LineBreak                                              # lineBreakMember
     ;
 
-operator:
-    '+'
-    | '-'
-    | '*'
-    | '/'
-    | '%'
-    | '^'
-    | '!'
-    | '&&'
-    | '||'
-    | 'and'
-    | 'xor'
-    | 'or'
-    | 'not'
-    | '>'
-    | '<'
-    | '>>'
-    | '<<'
-    | '=='
-    | '!='
-    ;
+operator: '+' | '-' | '*' | '/' | '%' | '^' | '&&' | '||' | 'and' | 'xor' | 'or' | '>' | '<' | '>>' | '<<' | '==' | '!=';
 
 statement:
     'if' expression body ('elif' expression body)* ('else' body)?                                       # ifStatement

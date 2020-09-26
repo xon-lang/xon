@@ -1,11 +1,11 @@
-import { InfixOperatorMemberContext } from '../../../../grammar/xon-parser';
+import { OperatorMemberContext } from '../../../../grammar/xon-parser';
 import { getStatementsTree } from '../../../statement/statement-helper';
 import { StatementTree } from '../../../statement/statement.tree';
 import { getTypeTree } from '../../../type/type-helper';
 import { TypeTree } from '../../../type/type.tree';
 import { MemberTree } from '../member.tree';
 
-export class InfixOperatorMemberTree extends MemberTree {
+export class OperatorMemberTree extends MemberTree {
     operator: string;
     leftArg: {
         name: string;
@@ -19,7 +19,7 @@ export class InfixOperatorMemberTree extends MemberTree {
     returnType: TypeTree;
     statements: StatementTree[];
 
-    constructor(public ctx: InfixOperatorMemberContext) {
+    constructor(public ctx: OperatorMemberContext) {
         super();
 
         this.operator = ctx.operator().text;

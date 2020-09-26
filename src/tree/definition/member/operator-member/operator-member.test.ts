@@ -1,10 +1,10 @@
 import { evalExpression } from '../../../../eval';
 import { parseMember } from '../../../../parse';
-import { InfixOperatorMemberTree } from './infix-operator-member.tree';
+import { OperatorMemberTree } from './operator-member.tree';
 
 test('one_plus_one', () => {
-    const code = 'infix + (a, b Number): 1 + 2';
-    const tree = parseMember<InfixOperatorMemberTree>(code);
+    const code = '+ (a, b Number) Number: 1 + 2';
+    const tree = parseMember<OperatorMemberTree>(code);
     expect(tree.operator).toBe('+');
     expect(tree.leftArg.name).toBe('a');
     expect(tree.leftArg.type).toBe(null);
