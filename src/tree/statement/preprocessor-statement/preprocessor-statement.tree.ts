@@ -6,10 +6,7 @@ export class PreprocessorStatementTree extends StatementTree {
 
     constructor(public ctx: PreprocessorStatementContext) {
         super();
-        this.value = ctx
-            .Preprocessor()
-            .text.trim()
-            .slice(2);
+        this.value = ctx.Preprocessor().text.trim().slice(2, -1);
     }
 
     toPlain() {

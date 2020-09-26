@@ -33,7 +33,7 @@ Infix:    'infix';
 Prefix:   'prefix';
 Postfix:  'postfix';
 
-Preprocessor: '#:' ~[\r\n]+;
+Preprocessor: '#{' .*? '}';
 LineBreak:    ({this.atStartOfInput()}? SPACES | ( '\r'? '\n' | '\r') SPACES?) {this.handleLineBreak()};
 
 BitAnd:                     'and';
