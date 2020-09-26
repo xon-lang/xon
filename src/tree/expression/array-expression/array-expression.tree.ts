@@ -9,7 +9,7 @@ export class ArrayExpressionTree extends ExpressionTree {
         super();
         this.items = ctx
             ?.spreadItem()
-            .map((x, i) => ({ value: getExpressionTree(x.expression()), hasSpread: !!x.Spread() }));
+            .map((x, i) => ({ value: getExpressionTree(x.expression()), hasSpread: !!x.Elipsis() }));
     }
 
     toPlain() {

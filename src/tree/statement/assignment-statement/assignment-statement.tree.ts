@@ -25,7 +25,7 @@ export class AssignmentStatementTree extends StatementTree {
             const arrayTree = new ArrayExpressionTree();
             arrayTree.items = assignmentValue.spreadItem().map((x) => ({
                 value: getExpressionTree(x.expression()),
-                hasSpread: !!x.Spread(),
+                hasSpread: !!x.Elipsis(),
             }));
             this.value = arrayTree;
         } else {

@@ -94,13 +94,13 @@ export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
     if (ctx instanceof StringFormatExpressionContext) return new StringFormatExpressionTree(ctx);
     if (ctx instanceof ObjectExpressionContext) return new ObjectExpressionTree(ctx);
     if (ctx instanceof MulDivModExpressionContext) {
-        if (ctx.Divide()) return new DivideExpressionTree(ctx);
+        if (ctx.Slash()) return new DivideExpressionTree(ctx);
         if (ctx.Modulo()) return new ModuloExpressionTree(ctx);
-        if (ctx.Multiply()) return new MultiplyExpressionTree(ctx);
+        if (ctx.Asterisk()) return new MultiplyExpressionTree(ctx);
     }
     if (ctx instanceof AddSubExpressionContext) {
-        if (ctx.Add()) return new AddExpressionTree(ctx);
-        if (ctx.Substract()) return new SubstractExpressionTree(ctx);
+        if (ctx.Plus()) return new AddExpressionTree(ctx);
+        if (ctx.Minus()) return new SubstractExpressionTree(ctx);
     }
     if (ctx instanceof BitShiftExpressionContext) {
         if (ctx.LeftShiftArithmetic()) return new BitLeftShiftExpressionTree(ctx);

@@ -55,14 +55,14 @@ export class XonLexer extends XonLexerBase {
 	public static readonly Question = 34;
 	public static readonly Colon = 35;
 	public static readonly Dot = 36;
-	public static readonly Add = 37;
-	public static readonly Substract = 38;
-	public static readonly Not = 39;
-	public static readonly Multiply = 40;
-	public static readonly Divide = 41;
+	public static readonly Plus = 37;
+	public static readonly Minus = 38;
+	public static readonly Exclamation = 39;
+	public static readonly Asterisk = 40;
+	public static readonly Slash = 41;
 	public static readonly Modulo = 42;
-	public static readonly Pow = 43;
-	public static readonly Sharp = 44;
+	public static readonly Caret = 43;
+	public static readonly Hash = 44;
 	public static readonly LessThan = 45;
 	public static readonly MoreThan = 46;
 	public static readonly LessThanEquals = 47;
@@ -71,20 +71,20 @@ export class XonLexer extends XonLexerBase {
 	public static readonly NotEquals = 50;
 	public static readonly And = 51;
 	public static readonly Or = 52;
-	public static readonly MultiplyAssign = 53;
-	public static readonly DivideAssign = 54;
-	public static readonly ModuloAssign = 55;
-	public static readonly AddAssign = 56;
-	public static readonly SubstractAssign = 57;
+	public static readonly AsteriskAssign = 53;
+	public static readonly SlashAssign = 54;
+	public static readonly PercentAssign = 55;
+	public static readonly PlusAssign = 56;
+	public static readonly MinusAssign = 57;
 	public static readonly LeftShiftArithmeticAssign = 58;
 	public static readonly RightShiftArithmeticAssign = 59;
 	public static readonly BitAndAssign = 60;
 	public static readonly BitXorAssign = 61;
 	public static readonly BitOrAssign = 62;
-	public static readonly LambdaStart = 63;
-	public static readonly Pipe = 64;
-	public static readonly Underscore = 65;
-	public static readonly Spread = 66;
+	public static readonly Pipe = 63;
+	public static readonly Underscore = 64;
+	public static readonly Elipsis = 65;
+	public static readonly LambdaStart = 66;
 	public static readonly NullLiteral = 67;
 	public static readonly BooleanLiteral = 68;
 	public static readonly NumberLiteral = 69;
@@ -112,15 +112,15 @@ export class XonLexer extends XonLexerBase {
 		"Return", "Select", "Infix", "Prefix", "Postfix", "Preprocessor", "LineBreak", 
 		"BitAnd", "BitOr", "BitXor", "BitNot", "RightShiftArithmetic", "LeftShiftArithmetic", 
 		"OpenBracket", "CloseBracket", "OpenParen", "CloseParen", "OpenBrace", 
-		"CloseBrace", "Ad", "Comma", "Assign", "Question", "Colon", "Dot", "Add", 
-		"Substract", "Not", "Multiply", "Divide", "Modulo", "Pow", "Sharp", "LessThan", 
-		"MoreThan", "LessThanEquals", "MoreThanEquals", "Equals", "NotEquals", 
-		"And", "Or", "MultiplyAssign", "DivideAssign", "ModuloAssign", "AddAssign", 
-		"SubstractAssign", "LeftShiftArithmeticAssign", "RightShiftArithmeticAssign", 
-		"BitAndAssign", "BitXorAssign", "BitOrAssign", "LambdaStart", "Pipe", 
-		"Underscore", "Spread", "NullLiteral", "BooleanLiteral", "NumberLiteral", 
-		"StringLiteral", "StringFormatStart", "StringFormatMiddle", "StringFormatEnd", 
-		"ID", "Skip", "UnexpectedCharacter", "SPACES", "MULTI_LINE_COMMENT", "SINGLE_LINE_COMMENT", 
+		"CloseBrace", "Ad", "Comma", "Assign", "Question", "Colon", "Dot", "Plus", 
+		"Minus", "Exclamation", "Asterisk", "Slash", "Modulo", "Caret", "Hash", 
+		"LessThan", "MoreThan", "LessThanEquals", "MoreThanEquals", "Equals", 
+		"NotEquals", "And", "Or", "AsteriskAssign", "SlashAssign", "PercentAssign", 
+		"PlusAssign", "MinusAssign", "LeftShiftArithmeticAssign", "RightShiftArithmeticAssign", 
+		"BitAndAssign", "BitXorAssign", "BitOrAssign", "Pipe", "Underscore", "Elipsis", 
+		"LambdaStart", "NullLiteral", "BooleanLiteral", "NumberLiteral", "StringLiteral", 
+		"StringFormatStart", "StringFormatMiddle", "StringFormatEnd", "ID", "Skip", 
+		"UnexpectedCharacter", "SPACES", "MULTI_LINE_COMMENT", "SINGLE_LINE_COMMENT", 
 		"LINE_JOINING", "NUMBER", "CHARACTER",
 	];
 
@@ -132,7 +132,7 @@ export class XonLexer extends XonLexerBase {
 		"','", "'='", "'?'", "':'", "'.'", "'+'", "'-'", "'!'", "'*'", "'/'", 
 		"'%'", "'^'", "'#'", "'<'", "'>'", "'<='", "'>='", "'=='", "'!='", "'&&'", 
 		"'||'", "'*='", "'/='", "'%='", "'+='", "'-='", "'<<='", "'>>='", undefined, 
-		undefined, undefined, "'\\'", "'|'", "'_'", "'...'", "'null'",
+		undefined, undefined, "'|'", "'_'", "'...'", "'\\'", "'null'",
 	];
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
 		undefined, "INDENT", "DEDENT", "As", "If", "Else", "ElseIf", "Loop", "In", 
@@ -140,14 +140,14 @@ export class XonLexer extends XonLexerBase {
 		"Preprocessor", "LineBreak", "BitAnd", "BitOr", "BitXor", "BitNot", "RightShiftArithmetic", 
 		"LeftShiftArithmetic", "OpenBracket", "CloseBracket", "OpenParen", "CloseParen", 
 		"OpenBrace", "CloseBrace", "Ad", "Comma", "Assign", "Question", "Colon", 
-		"Dot", "Add", "Substract", "Not", "Multiply", "Divide", "Modulo", "Pow", 
-		"Sharp", "LessThan", "MoreThan", "LessThanEquals", "MoreThanEquals", "Equals", 
-		"NotEquals", "And", "Or", "MultiplyAssign", "DivideAssign", "ModuloAssign", 
-		"AddAssign", "SubstractAssign", "LeftShiftArithmeticAssign", "RightShiftArithmeticAssign", 
-		"BitAndAssign", "BitXorAssign", "BitOrAssign", "LambdaStart", "Pipe", 
-		"Underscore", "Spread", "NullLiteral", "BooleanLiteral", "NumberLiteral", 
-		"StringLiteral", "StringFormatStart", "StringFormatMiddle", "StringFormatEnd", 
-		"ID", "Skip", "UnexpectedCharacter",
+		"Dot", "Plus", "Minus", "Exclamation", "Asterisk", "Slash", "Modulo", 
+		"Caret", "Hash", "LessThan", "MoreThan", "LessThanEquals", "MoreThanEquals", 
+		"Equals", "NotEquals", "And", "Or", "AsteriskAssign", "SlashAssign", "PercentAssign", 
+		"PlusAssign", "MinusAssign", "LeftShiftArithmeticAssign", "RightShiftArithmeticAssign", 
+		"BitAndAssign", "BitXorAssign", "BitOrAssign", "Pipe", "Underscore", "Elipsis", 
+		"LambdaStart", "NullLiteral", "BooleanLiteral", "NumberLiteral", "StringLiteral", 
+		"StringFormatStart", "StringFormatMiddle", "StringFormatEnd", "ID", "Skip", 
+		"UnexpectedCharacter",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(XonLexer._LITERAL_NAMES, XonLexer._SYMBOLIC_NAMES, []);
 
@@ -312,7 +312,7 @@ export class XonLexer extends XonLexerBase {
 		"3\x034\x034\x034\x035\x035\x035\x036\x036\x036\x037\x037\x037\x038\x03" +
 		"8\x038\x039\x039\x039\x039\x03:\x03:\x03:\x03:\x03;\x03;\x03;\x03;\x03" +
 		";\x03;\x03<\x03<\x03<\x03<\x03<\x03<\x03=\x03=\x03=\x03=\x03=\x03>\x03" +
-		">\x03?\x03?\x03@\x03@\x03A\x03A\x03A\x03A\x03B\x03B\x03B\x03B\x03B\x03" +
+		">\x03?\x03?\x03@\x03@\x03@\x03@\x03A\x03A\x03B\x03B\x03B\x03B\x03B\x03" +
 		"C\x03C\x03C\x03C\x03C\x03C\x03C\x03C\x03C\x05C\u01A4\nC\x03D\x03D\x05" +
 		"D\u01A8\nD\x03D\x03D\x05D\u01AC\nD\x03E\x03E\x07E\u01B0\nE\fE\x0EE\u01B3" +
 		"\vE\x03E\x03E\x03F\x03F\x03F\x03F\x07F\u01BB\nF\fF\x0EF\u01BE\vF\x03F" +
@@ -381,7 +381,7 @@ export class XonLexer extends XonLexerBase {
 		"\x03\x02\x02\x02m\u016C\x03\x02\x02\x02o\u016F\x03\x02\x02\x02q\u0172" +
 		"\x03\x02\x02\x02s\u0176\x03\x02\x02\x02u\u017A\x03\x02\x02\x02w\u0180" +
 		"\x03\x02\x02\x02y\u0186\x03\x02\x02\x02{\u018B\x03\x02\x02\x02}\u018D" +
-		"\x03\x02\x02\x02\x7F\u018F\x03\x02\x02\x02\x81\u0191\x03\x02\x02\x02\x83" +
+		"\x03\x02\x02\x02\x7F\u018F\x03\x02\x02\x02\x81\u0193\x03\x02\x02\x02\x83" +
 		"\u0195\x03\x02\x02\x02\x85\u01A3\x03\x02\x02\x02\x87\u01AB\x03\x02\x02" +
 		"\x02\x89\u01AD\x03\x02\x02\x02\x8B\u01B6\x03\x02\x02\x02\x8D\u01C1\x03" +
 		"\x02\x02\x02\x8F\u01CA\x03\x02\x02\x02\x91\u01D3\x03\x02\x02\x02\x93\u01DE" +
@@ -466,10 +466,10 @@ export class XonLexer extends XonLexerBase {
 		"t\x02\x02\u0183\u0184\x03\x02\x02\x02\u0184\u0185\x07?\x02\x02\u0185x" +
 		"\x03\x02\x02\x02\u0186\u0187\x07q\x02\x02\u0187\u0188\x07t\x02\x02\u0188" +
 		"\u0189\x03\x02\x02\x02\u0189\u018A\x07?\x02\x02\u018Az\x03\x02\x02\x02" +
-		"\u018B\u018C\x07^\x02\x02\u018C|\x03\x02\x02\x02\u018D\u018E\x07~\x02" +
-		"\x02\u018E~\x03\x02\x02\x02\u018F\u0190\x07a\x02\x02\u0190\x80\x03\x02" +
-		"\x02\x02\u0191\u0192\x070\x02\x02\u0192\u0193\x070\x02\x02\u0193\u0194" +
-		"\x070\x02\x02\u0194\x82\x03\x02\x02\x02\u0195\u0196\x07p\x02\x02\u0196" +
+		"\u018B\u018C\x07~\x02\x02\u018C|\x03\x02\x02\x02\u018D\u018E\x07a\x02" +
+		"\x02\u018E~\x03\x02\x02\x02\u018F\u0190\x070\x02\x02\u0190\u0191\x070" +
+		"\x02\x02\u0191\u0192\x070\x02\x02\u0192\x80\x03\x02\x02\x02\u0193\u0194" +
+		"\x07^\x02\x02\u0194\x82\x03\x02\x02\x02\u0195\u0196\x07p\x02\x02\u0196" +
 		"\u0197\x07w\x02\x02\u0197\u0198\x07n\x02\x02\u0198\u0199\x07n\x02\x02" +
 		"\u0199\x84\x03\x02\x02\x02\u019A\u019B\x07v\x02\x02\u019B\u019C\x07t\x02" +
 		"\x02\u019C\u019D\x07w\x02\x02\u019D\u01A4\x07g\x02\x02\u019E\u019F\x07" +

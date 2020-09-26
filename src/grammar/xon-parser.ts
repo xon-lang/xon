@@ -61,14 +61,14 @@ export class XonParser extends Parser {
 	public static readonly Question = 34;
 	public static readonly Colon = 35;
 	public static readonly Dot = 36;
-	public static readonly Add = 37;
-	public static readonly Substract = 38;
-	public static readonly Not = 39;
-	public static readonly Multiply = 40;
-	public static readonly Divide = 41;
+	public static readonly Plus = 37;
+	public static readonly Minus = 38;
+	public static readonly Exclamation = 39;
+	public static readonly Asterisk = 40;
+	public static readonly Slash = 41;
 	public static readonly Modulo = 42;
-	public static readonly Pow = 43;
-	public static readonly Sharp = 44;
+	public static readonly Caret = 43;
+	public static readonly Hash = 44;
 	public static readonly LessThan = 45;
 	public static readonly MoreThan = 46;
 	public static readonly LessThanEquals = 47;
@@ -77,20 +77,20 @@ export class XonParser extends Parser {
 	public static readonly NotEquals = 50;
 	public static readonly And = 51;
 	public static readonly Or = 52;
-	public static readonly MultiplyAssign = 53;
-	public static readonly DivideAssign = 54;
-	public static readonly ModuloAssign = 55;
-	public static readonly AddAssign = 56;
-	public static readonly SubstractAssign = 57;
+	public static readonly AsteriskAssign = 53;
+	public static readonly SlashAssign = 54;
+	public static readonly PercentAssign = 55;
+	public static readonly PlusAssign = 56;
+	public static readonly MinusAssign = 57;
 	public static readonly LeftShiftArithmeticAssign = 58;
 	public static readonly RightShiftArithmeticAssign = 59;
 	public static readonly BitAndAssign = 60;
 	public static readonly BitXorAssign = 61;
 	public static readonly BitOrAssign = 62;
-	public static readonly LambdaStart = 63;
-	public static readonly Pipe = 64;
-	public static readonly Underscore = 65;
-	public static readonly Spread = 66;
+	public static readonly Pipe = 63;
+	public static readonly Underscore = 64;
+	public static readonly Elipsis = 65;
+	public static readonly LambdaStart = 66;
 	public static readonly NullLiteral = 67;
 	public static readonly BooleanLiteral = 68;
 	public static readonly NumberLiteral = 69;
@@ -138,7 +138,7 @@ export class XonParser extends Parser {
 		"','", "'='", "'?'", "':'", "'.'", "'+'", "'-'", "'!'", "'*'", "'/'", 
 		"'%'", "'^'", "'#'", "'<'", "'>'", "'<='", "'>='", "'=='", "'!='", "'&&'", 
 		"'||'", "'*='", "'/='", "'%='", "'+='", "'-='", "'<<='", "'>>='", undefined, 
-		undefined, undefined, "'\\'", "'|'", "'_'", "'...'", "'null'",
+		undefined, undefined, "'|'", "'_'", "'...'", "'\\'", "'null'",
 	];
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
 		undefined, "INDENT", "DEDENT", "As", "If", "Else", "ElseIf", "Loop", "In", 
@@ -146,14 +146,14 @@ export class XonParser extends Parser {
 		"Preprocessor", "LineBreak", "BitAnd", "BitOr", "BitXor", "BitNot", "RightShiftArithmetic", 
 		"LeftShiftArithmetic", "OpenBracket", "CloseBracket", "OpenParen", "CloseParen", 
 		"OpenBrace", "CloseBrace", "Ad", "Comma", "Assign", "Question", "Colon", 
-		"Dot", "Add", "Substract", "Not", "Multiply", "Divide", "Modulo", "Pow", 
-		"Sharp", "LessThan", "MoreThan", "LessThanEquals", "MoreThanEquals", "Equals", 
-		"NotEquals", "And", "Or", "MultiplyAssign", "DivideAssign", "ModuloAssign", 
-		"AddAssign", "SubstractAssign", "LeftShiftArithmeticAssign", "RightShiftArithmeticAssign", 
-		"BitAndAssign", "BitXorAssign", "BitOrAssign", "LambdaStart", "Pipe", 
-		"Underscore", "Spread", "NullLiteral", "BooleanLiteral", "NumberLiteral", 
-		"StringLiteral", "StringFormatStart", "StringFormatMiddle", "StringFormatEnd", 
-		"ID", "Skip", "UnexpectedCharacter",
+		"Dot", "Plus", "Minus", "Exclamation", "Asterisk", "Slash", "Modulo", 
+		"Caret", "Hash", "LessThan", "MoreThan", "LessThanEquals", "MoreThanEquals", 
+		"Equals", "NotEquals", "And", "Or", "AsteriskAssign", "SlashAssign", "PercentAssign", 
+		"PlusAssign", "MinusAssign", "LeftShiftArithmeticAssign", "RightShiftArithmeticAssign", 
+		"BitAndAssign", "BitXorAssign", "BitOrAssign", "Pipe", "Underscore", "Elipsis", 
+		"LambdaStart", "NullLiteral", "BooleanLiteral", "NumberLiteral", "StringLiteral", 
+		"StringFormatStart", "StringFormatMiddle", "StringFormatEnd", "ID", "Skip", 
+		"UnexpectedCharacter",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(XonParser._LITERAL_NAMES, XonParser._SYMBOLIC_NAMES, []);
 
@@ -324,11 +324,11 @@ export class XonParser extends Parser {
 			this.state = 78;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while (_la === XonParser.Substract) {
+			while (_la === XonParser.Minus) {
 				{
 				{
 				this.state = 74;
-				this.match(XonParser.Substract);
+				this.match(XonParser.Minus);
 				this.state = 75;
 				this.match(XonParser.ID);
 				}
@@ -338,17 +338,17 @@ export class XonParser extends Parser {
 				_la = this._input.LA(1);
 			}
 			this.state = 81;
-			this.match(XonParser.Divide);
+			this.match(XonParser.Slash);
 			this.state = 82;
 			this.match(XonParser.ID);
 			this.state = 87;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while (_la === XonParser.Substract) {
+			while (_la === XonParser.Minus) {
 				{
 				{
 				this.state = 83;
-				this.match(XonParser.Substract);
+				this.match(XonParser.Minus);
 				this.state = 84;
 				this.match(XonParser.ID);
 				}
@@ -440,7 +440,7 @@ export class XonParser extends Parser {
 				this.state = 102;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.Pass) | (1 << XonParser.LineBreak) | (1 << XonParser.BitAnd) | (1 << XonParser.BitOr) | (1 << XonParser.BitXor) | (1 << XonParser.RightShiftArithmetic) | (1 << XonParser.LeftShiftArithmetic))) !== 0) || ((((_la - 37)) & ~0x1F) === 0 && ((1 << (_la - 37)) & ((1 << (XonParser.Add - 37)) | (1 << (XonParser.Substract - 37)) | (1 << (XonParser.Multiply - 37)) | (1 << (XonParser.Divide - 37)) | (1 << (XonParser.Modulo - 37)) | (1 << (XonParser.Pow - 37)) | (1 << (XonParser.LessThan - 37)) | (1 << (XonParser.MoreThan - 37)) | (1 << (XonParser.Equals - 37)) | (1 << (XonParser.NotEquals - 37)) | (1 << (XonParser.And - 37)) | (1 << (XonParser.Or - 37)))) !== 0) || _la === XonParser.ID);
+			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.Pass) | (1 << XonParser.LineBreak) | (1 << XonParser.BitAnd) | (1 << XonParser.BitOr) | (1 << XonParser.BitXor) | (1 << XonParser.RightShiftArithmetic) | (1 << XonParser.LeftShiftArithmetic))) !== 0) || ((((_la - 37)) & ~0x1F) === 0 && ((1 << (_la - 37)) & ((1 << (XonParser.Plus - 37)) | (1 << (XonParser.Minus - 37)) | (1 << (XonParser.Asterisk - 37)) | (1 << (XonParser.Slash - 37)) | (1 << (XonParser.Modulo - 37)) | (1 << (XonParser.Caret - 37)) | (1 << (XonParser.LessThan - 37)) | (1 << (XonParser.MoreThan - 37)) | (1 << (XonParser.Equals - 37)) | (1 << (XonParser.NotEquals - 37)) | (1 << (XonParser.And - 37)) | (1 << (XonParser.Or - 37)))) !== 0) || _la === XonParser.ID);
 			this.state = 104;
 			this.match(XonParser.DEDENT);
 			}
@@ -576,7 +576,7 @@ export class XonParser extends Parser {
 			{
 			this.state = 129;
 			_la = this._input.LA(1);
-			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.BitAnd) | (1 << XonParser.BitOr) | (1 << XonParser.BitXor) | (1 << XonParser.RightShiftArithmetic) | (1 << XonParser.LeftShiftArithmetic))) !== 0) || ((((_la - 37)) & ~0x1F) === 0 && ((1 << (_la - 37)) & ((1 << (XonParser.Add - 37)) | (1 << (XonParser.Substract - 37)) | (1 << (XonParser.Multiply - 37)) | (1 << (XonParser.Divide - 37)) | (1 << (XonParser.Modulo - 37)) | (1 << (XonParser.Pow - 37)) | (1 << (XonParser.LessThan - 37)) | (1 << (XonParser.MoreThan - 37)) | (1 << (XonParser.Equals - 37)) | (1 << (XonParser.NotEquals - 37)) | (1 << (XonParser.And - 37)) | (1 << (XonParser.Or - 37)))) !== 0))) {
+			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.BitAnd) | (1 << XonParser.BitOr) | (1 << XonParser.BitXor) | (1 << XonParser.RightShiftArithmetic) | (1 << XonParser.LeftShiftArithmetic))) !== 0) || ((((_la - 37)) & ~0x1F) === 0 && ((1 << (_la - 37)) & ((1 << (XonParser.Plus - 37)) | (1 << (XonParser.Minus - 37)) | (1 << (XonParser.Asterisk - 37)) | (1 << (XonParser.Slash - 37)) | (1 << (XonParser.Modulo - 37)) | (1 << (XonParser.Caret - 37)) | (1 << (XonParser.LessThan - 37)) | (1 << (XonParser.MoreThan - 37)) | (1 << (XonParser.Equals - 37)) | (1 << (XonParser.NotEquals - 37)) | (1 << (XonParser.And - 37)) | (1 << (XonParser.Or - 37)))) !== 0))) {
 			this._errHandler.recoverInline(this);
 			} else {
 				if (this._input.LA(1) === Token.EOF) {
@@ -666,7 +666,7 @@ export class XonParser extends Parser {
 				this.state = 149;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (((((_la - 22)) & ~0x1F) === 0 && ((1 << (_la - 22)) & ((1 << (XonParser.BitNot - 22)) | (1 << (XonParser.OpenBracket - 22)) | (1 << (XonParser.OpenParen - 22)) | (1 << (XonParser.OpenBrace - 22)) | (1 << (XonParser.Ad - 22)) | (1 << (XonParser.Add - 22)) | (1 << (XonParser.Substract - 22)) | (1 << (XonParser.Not - 22)))) !== 0) || ((((_la - 63)) & ~0x1F) === 0 && ((1 << (_la - 63)) & ((1 << (XonParser.LambdaStart - 63)) | (1 << (XonParser.NullLiteral - 63)) | (1 << (XonParser.BooleanLiteral - 63)) | (1 << (XonParser.NumberLiteral - 63)) | (1 << (XonParser.StringLiteral - 63)) | (1 << (XonParser.StringFormatStart - 63)) | (1 << (XonParser.ID - 63)))) !== 0)) {
+				if (((((_la - 22)) & ~0x1F) === 0 && ((1 << (_la - 22)) & ((1 << (XonParser.BitNot - 22)) | (1 << (XonParser.OpenBracket - 22)) | (1 << (XonParser.OpenParen - 22)) | (1 << (XonParser.OpenBrace - 22)) | (1 << (XonParser.Ad - 22)) | (1 << (XonParser.Plus - 22)) | (1 << (XonParser.Minus - 22)) | (1 << (XonParser.Exclamation - 22)))) !== 0) || ((((_la - 66)) & ~0x1F) === 0 && ((1 << (_la - 66)) & ((1 << (XonParser.LambdaStart - 66)) | (1 << (XonParser.NullLiteral - 66)) | (1 << (XonParser.BooleanLiteral - 66)) | (1 << (XonParser.NumberLiteral - 66)) | (1 << (XonParser.StringLiteral - 66)) | (1 << (XonParser.StringFormatStart - 66)) | (1 << (XonParser.ID - 66)))) !== 0)) {
 					{
 					this.state = 148;
 					(_localctx as SelectStatementContext)._value = this.expression(0);
@@ -705,7 +705,7 @@ export class XonParser extends Parser {
 					this.state = 161;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
-				} while (((((_la - 22)) & ~0x1F) === 0 && ((1 << (_la - 22)) & ((1 << (XonParser.BitNot - 22)) | (1 << (XonParser.OpenBracket - 22)) | (1 << (XonParser.OpenParen - 22)) | (1 << (XonParser.OpenBrace - 22)) | (1 << (XonParser.Ad - 22)) | (1 << (XonParser.Add - 22)) | (1 << (XonParser.Substract - 22)) | (1 << (XonParser.Not - 22)))) !== 0) || ((((_la - 63)) & ~0x1F) === 0 && ((1 << (_la - 63)) & ((1 << (XonParser.LambdaStart - 63)) | (1 << (XonParser.NullLiteral - 63)) | (1 << (XonParser.BooleanLiteral - 63)) | (1 << (XonParser.NumberLiteral - 63)) | (1 << (XonParser.StringLiteral - 63)) | (1 << (XonParser.StringFormatStart - 63)) | (1 << (XonParser.ID - 63)))) !== 0));
+				} while (((((_la - 22)) & ~0x1F) === 0 && ((1 << (_la - 22)) & ((1 << (XonParser.BitNot - 22)) | (1 << (XonParser.OpenBracket - 22)) | (1 << (XonParser.OpenParen - 22)) | (1 << (XonParser.OpenBrace - 22)) | (1 << (XonParser.Ad - 22)) | (1 << (XonParser.Plus - 22)) | (1 << (XonParser.Minus - 22)) | (1 << (XonParser.Exclamation - 22)))) !== 0) || ((((_la - 66)) & ~0x1F) === 0 && ((1 << (_la - 66)) & ((1 << (XonParser.LambdaStart - 66)) | (1 << (XonParser.NullLiteral - 66)) | (1 << (XonParser.BooleanLiteral - 66)) | (1 << (XonParser.NumberLiteral - 66)) | (1 << (XonParser.StringLiteral - 66)) | (1 << (XonParser.StringFormatStart - 66)) | (1 << (XonParser.ID - 66)))) !== 0));
 				this.state = 163;
 				this.match(XonParser.DEDENT);
 				}
@@ -720,7 +720,7 @@ export class XonParser extends Parser {
 				this.state = 181;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (((((_la - 22)) & ~0x1F) === 0 && ((1 << (_la - 22)) & ((1 << (XonParser.BitNot - 22)) | (1 << (XonParser.OpenBracket - 22)) | (1 << (XonParser.OpenParen - 22)) | (1 << (XonParser.OpenBrace - 22)) | (1 << (XonParser.Ad - 22)) | (1 << (XonParser.Add - 22)) | (1 << (XonParser.Substract - 22)) | (1 << (XonParser.Not - 22)))) !== 0) || ((((_la - 63)) & ~0x1F) === 0 && ((1 << (_la - 63)) & ((1 << (XonParser.LambdaStart - 63)) | (1 << (XonParser.NullLiteral - 63)) | (1 << (XonParser.BooleanLiteral - 63)) | (1 << (XonParser.NumberLiteral - 63)) | (1 << (XonParser.StringLiteral - 63)) | (1 << (XonParser.StringFormatStart - 63)) | (1 << (XonParser.ID - 63)))) !== 0)) {
+				if (((((_la - 22)) & ~0x1F) === 0 && ((1 << (_la - 22)) & ((1 << (XonParser.BitNot - 22)) | (1 << (XonParser.OpenBracket - 22)) | (1 << (XonParser.OpenParen - 22)) | (1 << (XonParser.OpenBrace - 22)) | (1 << (XonParser.Ad - 22)) | (1 << (XonParser.Plus - 22)) | (1 << (XonParser.Minus - 22)) | (1 << (XonParser.Exclamation - 22)))) !== 0) || ((((_la - 66)) & ~0x1F) === 0 && ((1 << (_la - 66)) & ((1 << (XonParser.LambdaStart - 66)) | (1 << (XonParser.NullLiteral - 66)) | (1 << (XonParser.BooleanLiteral - 66)) | (1 << (XonParser.NumberLiteral - 66)) | (1 << (XonParser.StringLiteral - 66)) | (1 << (XonParser.StringFormatStart - 66)) | (1 << (XonParser.ID - 66)))) !== 0)) {
 					{
 					this.state = 178;
 					this._errHandler.sync(this);
@@ -1129,7 +1129,7 @@ export class XonParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			this.state = 249;
-			this.match(XonParser.Spread);
+			this.match(XonParser.Elipsis);
 			this.state = 251;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
@@ -1150,7 +1150,7 @@ export class XonParser extends Parser {
 					this.state = 253;
 					this.match(XonParser.Comma);
 					this.state = 254;
-					this.match(XonParser.Spread);
+					this.match(XonParser.Elipsis);
 					this.state = 256;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
@@ -1542,7 +1542,7 @@ export class XonParser extends Parser {
 					this.state = 342;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
-				} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.If) | (1 << XonParser.Loop) | (1 << XonParser.Pass) | (1 << XonParser.Continue) | (1 << XonParser.Break) | (1 << XonParser.Return) | (1 << XonParser.Select) | (1 << XonParser.Preprocessor) | (1 << XonParser.LineBreak) | (1 << XonParser.BitNot) | (1 << XonParser.OpenBracket) | (1 << XonParser.OpenParen) | (1 << XonParser.OpenBrace) | (1 << XonParser.Ad))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (XonParser.Comma - 32)) | (1 << (XonParser.Add - 32)) | (1 << (XonParser.Substract - 32)) | (1 << (XonParser.Not - 32)) | (1 << (XonParser.LambdaStart - 32)))) !== 0) || ((((_la - 66)) & ~0x1F) === 0 && ((1 << (_la - 66)) & ((1 << (XonParser.Spread - 66)) | (1 << (XonParser.NullLiteral - 66)) | (1 << (XonParser.BooleanLiteral - 66)) | (1 << (XonParser.NumberLiteral - 66)) | (1 << (XonParser.StringLiteral - 66)) | (1 << (XonParser.StringFormatStart - 66)) | (1 << (XonParser.ID - 66)))) !== 0));
+				} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.If) | (1 << XonParser.Loop) | (1 << XonParser.Pass) | (1 << XonParser.Continue) | (1 << XonParser.Break) | (1 << XonParser.Return) | (1 << XonParser.Select) | (1 << XonParser.Preprocessor) | (1 << XonParser.LineBreak) | (1 << XonParser.BitNot) | (1 << XonParser.OpenBracket) | (1 << XonParser.OpenParen) | (1 << XonParser.OpenBrace) | (1 << XonParser.Ad))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (XonParser.Comma - 32)) | (1 << (XonParser.Plus - 32)) | (1 << (XonParser.Minus - 32)) | (1 << (XonParser.Exclamation - 32)))) !== 0) || ((((_la - 65)) & ~0x1F) === 0 && ((1 << (_la - 65)) & ((1 << (XonParser.Elipsis - 65)) | (1 << (XonParser.LambdaStart - 65)) | (1 << (XonParser.NullLiteral - 65)) | (1 << (XonParser.BooleanLiteral - 65)) | (1 << (XonParser.NumberLiteral - 65)) | (1 << (XonParser.StringLiteral - 65)) | (1 << (XonParser.StringFormatStart - 65)) | (1 << (XonParser.ID - 65)))) !== 0));
 				this.state = 344;
 				this.match(XonParser.DEDENT);
 				}
@@ -1575,10 +1575,10 @@ export class XonParser extends Parser {
 			this.state = 349;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if (_la === XonParser.Spread) {
+			if (_la === XonParser.Elipsis) {
 				{
 				this.state = 348;
-				this.match(XonParser.Spread);
+				this.match(XonParser.Elipsis);
 				}
 			}
 
@@ -1705,7 +1705,7 @@ export class XonParser extends Parser {
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 368;
-				this.match(XonParser.Add);
+				this.match(XonParser.Plus);
 				this.state = 369;
 				this.expression(23);
 				}
@@ -1717,7 +1717,7 @@ export class XonParser extends Parser {
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 370;
-				this.match(XonParser.Substract);
+				this.match(XonParser.Minus);
 				this.state = 371;
 				this.expression(22);
 				}
@@ -1741,7 +1741,7 @@ export class XonParser extends Parser {
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 374;
-				this.match(XonParser.Not);
+				this.match(XonParser.Exclamation);
 				this.state = 375;
 				this.expression(20);
 				}
@@ -1839,7 +1839,7 @@ export class XonParser extends Parser {
 				this.state = 409;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (((((_la - 22)) & ~0x1F) === 0 && ((1 << (_la - 22)) & ((1 << (XonParser.BitNot - 22)) | (1 << (XonParser.OpenBracket - 22)) | (1 << (XonParser.OpenParen - 22)) | (1 << (XonParser.OpenBrace - 22)) | (1 << (XonParser.Ad - 22)) | (1 << (XonParser.Add - 22)) | (1 << (XonParser.Substract - 22)) | (1 << (XonParser.Not - 22)))) !== 0) || ((((_la - 63)) & ~0x1F) === 0 && ((1 << (_la - 63)) & ((1 << (XonParser.LambdaStart - 63)) | (1 << (XonParser.Spread - 63)) | (1 << (XonParser.NullLiteral - 63)) | (1 << (XonParser.BooleanLiteral - 63)) | (1 << (XonParser.NumberLiteral - 63)) | (1 << (XonParser.StringLiteral - 63)) | (1 << (XonParser.StringFormatStart - 63)) | (1 << (XonParser.ID - 63)))) !== 0)) {
+				if (((((_la - 22)) & ~0x1F) === 0 && ((1 << (_la - 22)) & ((1 << (XonParser.BitNot - 22)) | (1 << (XonParser.OpenBracket - 22)) | (1 << (XonParser.OpenParen - 22)) | (1 << (XonParser.OpenBrace - 22)) | (1 << (XonParser.Ad - 22)) | (1 << (XonParser.Plus - 22)) | (1 << (XonParser.Minus - 22)) | (1 << (XonParser.Exclamation - 22)))) !== 0) || ((((_la - 65)) & ~0x1F) === 0 && ((1 << (_la - 65)) & ((1 << (XonParser.Elipsis - 65)) | (1 << (XonParser.LambdaStart - 65)) | (1 << (XonParser.NullLiteral - 65)) | (1 << (XonParser.BooleanLiteral - 65)) | (1 << (XonParser.NumberLiteral - 65)) | (1 << (XonParser.StringLiteral - 65)) | (1 << (XonParser.StringFormatStart - 65)) | (1 << (XonParser.ID - 65)))) !== 0)) {
 					{
 					this.state = 401;
 					this.spreadItem();
@@ -1877,7 +1877,7 @@ export class XonParser extends Parser {
 				this.state = 421;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (((((_la - 22)) & ~0x1F) === 0 && ((1 << (_la - 22)) & ((1 << (XonParser.BitNot - 22)) | (1 << (XonParser.OpenBracket - 22)) | (1 << (XonParser.OpenParen - 22)) | (1 << (XonParser.OpenBrace - 22)) | (1 << (XonParser.Ad - 22)) | (1 << (XonParser.Add - 22)) | (1 << (XonParser.Substract - 22)) | (1 << (XonParser.Not - 22)))) !== 0) || ((((_la - 63)) & ~0x1F) === 0 && ((1 << (_la - 63)) & ((1 << (XonParser.LambdaStart - 63)) | (1 << (XonParser.Spread - 63)) | (1 << (XonParser.NullLiteral - 63)) | (1 << (XonParser.BooleanLiteral - 63)) | (1 << (XonParser.NumberLiteral - 63)) | (1 << (XonParser.StringLiteral - 63)) | (1 << (XonParser.StringFormatStart - 63)) | (1 << (XonParser.ID - 63)))) !== 0)) {
+				if (((((_la - 22)) & ~0x1F) === 0 && ((1 << (_la - 22)) & ((1 << (XonParser.BitNot - 22)) | (1 << (XonParser.OpenBracket - 22)) | (1 << (XonParser.OpenParen - 22)) | (1 << (XonParser.OpenBrace - 22)) | (1 << (XonParser.Ad - 22)) | (1 << (XonParser.Plus - 22)) | (1 << (XonParser.Minus - 22)) | (1 << (XonParser.Exclamation - 22)))) !== 0) || ((((_la - 65)) & ~0x1F) === 0 && ((1 << (_la - 65)) & ((1 << (XonParser.Elipsis - 65)) | (1 << (XonParser.LambdaStart - 65)) | (1 << (XonParser.NullLiteral - 65)) | (1 << (XonParser.BooleanLiteral - 65)) | (1 << (XonParser.NumberLiteral - 65)) | (1 << (XonParser.StringLiteral - 65)) | (1 << (XonParser.StringFormatStart - 65)) | (1 << (XonParser.ID - 65)))) !== 0)) {
 					{
 					this.state = 413;
 					this.objectItem();
@@ -1983,7 +1983,7 @@ export class XonParser extends Parser {
 							throw new FailedPredicateException(this, "this.precpred(this._ctx, 24)");
 						}
 						this.state = 444;
-						this.match(XonParser.Pow);
+						this.match(XonParser.Caret);
 						this.state = 445;
 						(_localctx as PowExpressionContext)._exponent = this.expression(25);
 						}
@@ -2001,7 +2001,7 @@ export class XonParser extends Parser {
 						this.state = 447;
 						(_localctx as MulDivModExpressionContext)._operation = this._input.LT(1);
 						_la = this._input.LA(1);
-						if (!(((((_la - 40)) & ~0x1F) === 0 && ((1 << (_la - 40)) & ((1 << (XonParser.Multiply - 40)) | (1 << (XonParser.Divide - 40)) | (1 << (XonParser.Modulo - 40)))) !== 0))) {
+						if (!(((((_la - 40)) & ~0x1F) === 0 && ((1 << (_la - 40)) & ((1 << (XonParser.Asterisk - 40)) | (1 << (XonParser.Slash - 40)) | (1 << (XonParser.Modulo - 40)))) !== 0))) {
 							(_localctx as MulDivModExpressionContext)._operation = this._errHandler.recoverInline(this);
 						} else {
 							if (this._input.LA(1) === Token.EOF) {
@@ -2028,7 +2028,7 @@ export class XonParser extends Parser {
 						this.state = 450;
 						(_localctx as AddSubExpressionContext)._operation = this._input.LT(1);
 						_la = this._input.LA(1);
-						if (!(_la === XonParser.Add || _la === XonParser.Substract)) {
+						if (!(_la === XonParser.Plus || _la === XonParser.Minus)) {
 							(_localctx as AddSubExpressionContext)._operation = this._errHandler.recoverInline(this);
 						} else {
 							if (this._input.LA(1) === Token.EOF) {
@@ -2246,7 +2246,7 @@ export class XonParser extends Parser {
 						this.state = 493;
 						this._errHandler.sync(this);
 						_la = this._input.LA(1);
-						if (((((_la - 22)) & ~0x1F) === 0 && ((1 << (_la - 22)) & ((1 << (XonParser.BitNot - 22)) | (1 << (XonParser.OpenBracket - 22)) | (1 << (XonParser.OpenParen - 22)) | (1 << (XonParser.OpenBrace - 22)) | (1 << (XonParser.Ad - 22)) | (1 << (XonParser.Add - 22)) | (1 << (XonParser.Substract - 22)) | (1 << (XonParser.Not - 22)))) !== 0) || ((((_la - 63)) & ~0x1F) === 0 && ((1 << (_la - 63)) & ((1 << (XonParser.LambdaStart - 63)) | (1 << (XonParser.NullLiteral - 63)) | (1 << (XonParser.BooleanLiteral - 63)) | (1 << (XonParser.NumberLiteral - 63)) | (1 << (XonParser.StringLiteral - 63)) | (1 << (XonParser.StringFormatStart - 63)) | (1 << (XonParser.ID - 63)))) !== 0)) {
+						if (((((_la - 22)) & ~0x1F) === 0 && ((1 << (_la - 22)) & ((1 << (XonParser.BitNot - 22)) | (1 << (XonParser.OpenBracket - 22)) | (1 << (XonParser.OpenParen - 22)) | (1 << (XonParser.OpenBrace - 22)) | (1 << (XonParser.Ad - 22)) | (1 << (XonParser.Plus - 22)) | (1 << (XonParser.Minus - 22)) | (1 << (XonParser.Exclamation - 22)))) !== 0) || ((((_la - 66)) & ~0x1F) === 0 && ((1 << (_la - 66)) & ((1 << (XonParser.LambdaStart - 66)) | (1 << (XonParser.NullLiteral - 66)) | (1 << (XonParser.BooleanLiteral - 66)) | (1 << (XonParser.NumberLiteral - 66)) | (1 << (XonParser.StringLiteral - 66)) | (1 << (XonParser.StringFormatStart - 66)) | (1 << (XonParser.ID - 66)))) !== 0)) {
 							{
 							this.state = 485;
 							(_localctx as FunctionExpressionContext)._expression = this.expression(0);
@@ -2312,7 +2312,7 @@ export class XonParser extends Parser {
 						this.state = 506;
 						this._errHandler.sync(this);
 						_la = this._input.LA(1);
-						if (((((_la - 22)) & ~0x1F) === 0 && ((1 << (_la - 22)) & ((1 << (XonParser.BitNot - 22)) | (1 << (XonParser.OpenBracket - 22)) | (1 << (XonParser.OpenParen - 22)) | (1 << (XonParser.OpenBrace - 22)) | (1 << (XonParser.Ad - 22)) | (1 << (XonParser.Add - 22)) | (1 << (XonParser.Substract - 22)) | (1 << (XonParser.Not - 22)))) !== 0) || ((((_la - 63)) & ~0x1F) === 0 && ((1 << (_la - 63)) & ((1 << (XonParser.LambdaStart - 63)) | (1 << (XonParser.NullLiteral - 63)) | (1 << (XonParser.BooleanLiteral - 63)) | (1 << (XonParser.NumberLiteral - 63)) | (1 << (XonParser.StringLiteral - 63)) | (1 << (XonParser.StringFormatStart - 63)) | (1 << (XonParser.ID - 63)))) !== 0)) {
+						if (((((_la - 22)) & ~0x1F) === 0 && ((1 << (_la - 22)) & ((1 << (XonParser.BitNot - 22)) | (1 << (XonParser.OpenBracket - 22)) | (1 << (XonParser.OpenParen - 22)) | (1 << (XonParser.OpenBrace - 22)) | (1 << (XonParser.Ad - 22)) | (1 << (XonParser.Plus - 22)) | (1 << (XonParser.Minus - 22)) | (1 << (XonParser.Exclamation - 22)))) !== 0) || ((((_la - 66)) & ~0x1F) === 0 && ((1 << (_la - 66)) & ((1 << (XonParser.LambdaStart - 66)) | (1 << (XonParser.NullLiteral - 66)) | (1 << (XonParser.BooleanLiteral - 66)) | (1 << (XonParser.NumberLiteral - 66)) | (1 << (XonParser.StringLiteral - 66)) | (1 << (XonParser.StringFormatStart - 66)) | (1 << (XonParser.ID - 66)))) !== 0)) {
 							{
 							this.state = 505;
 							(_localctx as SliceExpressionContext)._endPos = this.expression(0);
@@ -2660,9 +2660,9 @@ export class XonParser extends Parser {
 		"\x02\x02\xF4\xF6\x03\x02\x02\x02\xF5\xF1\x03\x02\x02\x02\xF6\xF7\x03\x02" +
 		"\x02\x02\xF7\xF5\x03\x02\x02\x02\xF7\xF8\x03\x02\x02\x02\xF8\xFA\x03\x02" +
 		"\x02\x02\xF9\xE7\x03\x02\x02\x02\xF9\xF5\x03\x02\x02\x02\xFA\x17\x03\x02" +
-		"\x02\x02\xFB\xFD\x07D\x02\x02\xFC\xFE\x07L\x02\x02\xFD\xFC\x03\x02\x02" +
+		"\x02\x02\xFB\xFD\x07C\x02\x02\xFC\xFE\x07L\x02\x02\xFD\xFC\x03\x02\x02" +
 		"\x02\xFD\xFE\x03\x02\x02\x02\xFE\u0106\x03\x02\x02\x02\xFF\u0100\x07\"" +
-		"\x02\x02\u0100\u0102\x07D\x02\x02\u0101\u0103\x07L\x02\x02\u0102\u0101" +
+		"\x02\x02\u0100\u0102\x07C\x02\x02\u0101\u0103\x07L\x02\x02\u0102\u0101" +
 		"\x03\x02\x02\x02\u0102\u0103\x03\x02\x02\x02\u0103\u0105\x03\x02\x02\x02" +
 		"\u0104\xFF\x03\x02\x02\x02\u0105\u0108\x03\x02\x02\x02\u0106\u0104\x03" +
 		"\x02\x02\x02\u0106\u0107\x03\x02\x02\x02\u0107\x19\x03\x02\x02\x02\u0108" +
@@ -2704,7 +2704,7 @@ export class XonParser extends Parser {
 		"\x03\x02\x02\x02\u0157\u0158\x03\x02\x02\x02\u0158\u0156\x03\x02\x02\x02" +
 		"\u0158\u0159\x03\x02\x02\x02\u0159\u015A\x03\x02\x02\x02\u015A\u015B\x07" +
 		"\x04\x02\x02\u015B\u015D\x03\x02\x02\x02\u015C\u0152\x03\x02\x02\x02\u015C" +
-		"\u0153\x03\x02\x02\x02\u015D#\x03\x02\x02\x02\u015E\u0160\x07D\x02\x02" +
+		"\u0153\x03\x02\x02\x02\u015D#\x03\x02\x02\x02\u015E\u0160\x07C\x02\x02" +
 		"\u015F\u015E\x03\x02\x02\x02\u015F\u0160\x03\x02\x02\x02\u0160\u0161\x03" +
 		"\x02\x02\x02\u0161\u0162\x05(\x15\x02\u0162%\x03\x02\x02\x02\u0163\u0169" +
 		"\x07L\x02\x02\u0164\u0165\x07\x1B\x02\x02\u0165\u0166\x05(\x15\x02\u0166" +
@@ -2738,7 +2738,7 @@ export class XonParser extends Parser {
 		"\u01A7\u019F\x03\x02\x02\x02\u01A7\u01A8\x03\x02\x02\x02\u01A8\u01A9\x03" +
 		"\x02\x02\x02\u01A9\u01BC\x07 \x02\x02\u01AA\u01AB\x07\x1D\x02\x02\u01AB" +
 		"\u01AC\x05(\x15\x02\u01AC\u01AD\x07\x1E\x02\x02\u01AD\u01BC\x03\x02\x02" +
-		"\x02\u01AE\u01B8\x07A\x02\x02\u01AF\u01B4\x07L\x02\x02\u01B0\u01B1\x07" +
+		"\x02\u01AE\u01B8\x07D\x02\x02\u01AF\u01B4\x07L\x02\x02\u01B0\u01B1\x07" +
 		"\"\x02\x02\u01B1\u01B3\x07L\x02\x02\u01B2\u01B0\x03\x02\x02\x02\u01B3" +
 		"\u01B6\x03\x02\x02\x02\u01B4\u01B2\x03\x02\x02\x02\u01B4\u01B5\x03\x02" +
 		"\x02\x02\u01B5\u01B7\x03\x02\x02\x02\u01B6\u01B4\x03\x02\x02\x02\u01B7" +
@@ -2761,7 +2761,7 @@ export class XonParser extends Parser {
 		"\x05(\x15\x10\u01D5\u01D6\f\x0E\x02\x02\u01D6\u01D7\x07\x16\x02\x02\u01D7" +
 		"\u020B\x05(\x15\x0F\u01D8\u01D9\f\r\x02\x02\u01D9\u01DA\x075\x02\x02\u01DA" +
 		"\u020B\x05(\x15\x0E\u01DB\u01DC\f\f\x02\x02\u01DC\u01DD\x076\x02\x02\u01DD" +
-		"\u020B\x05(\x15\r\u01DE\u01DF\f\x04\x02\x02\u01DF\u01E2\x07B\x02\x02\u01E0" +
+		"\u020B\x05(\x15\r\u01DE\u01DF\f\x04\x02\x02\u01DF\u01E2\x07A\x02\x02\u01E0" +
 		"\u01E1\x07L\x02\x02\u01E1\u01E3\x07%\x02\x02\u01E2\u01E0\x03\x02\x02\x02" +
 		"\u01E2\u01E3\x03\x02\x02\x02\u01E3\u01E4\x03\x02\x02\x02\u01E4\u020B\x05" +
 		"(\x15\x05\u01E5\u01E6\f\x1F\x02\x02\u01E6\u01EF\x07\x1D\x02\x02\u01E7" +
@@ -2894,14 +2894,14 @@ export class ImportPathContext extends ParserRuleContext {
 			return this.getToken(XonParser.ID, i);
 		}
 	}
-	public Divide(): TerminalNode { return this.getToken(XonParser.Divide, 0); }
-	public Substract(): TerminalNode[];
-	public Substract(i: number): TerminalNode;
-	public Substract(i?: number): TerminalNode | TerminalNode[] {
+	public Slash(): TerminalNode { return this.getToken(XonParser.Slash, 0); }
+	public Minus(): TerminalNode[];
+	public Minus(i: number): TerminalNode;
+	public Minus(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Substract);
+			return this.getTokens(XonParser.Minus);
 		} else {
-			return this.getToken(XonParser.Substract, i);
+			return this.getToken(XonParser.Minus, i);
 		}
 	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
@@ -3043,12 +3043,12 @@ export class LineBreakMemberContext extends MemberContext {
 
 
 export class OperatorContext extends ParserRuleContext {
-	public Add(): TerminalNode | undefined { return this.tryGetToken(XonParser.Add, 0); }
-	public Substract(): TerminalNode | undefined { return this.tryGetToken(XonParser.Substract, 0); }
-	public Multiply(): TerminalNode | undefined { return this.tryGetToken(XonParser.Multiply, 0); }
-	public Divide(): TerminalNode | undefined { return this.tryGetToken(XonParser.Divide, 0); }
+	public Plus(): TerminalNode | undefined { return this.tryGetToken(XonParser.Plus, 0); }
+	public Minus(): TerminalNode | undefined { return this.tryGetToken(XonParser.Minus, 0); }
+	public Asterisk(): TerminalNode | undefined { return this.tryGetToken(XonParser.Asterisk, 0); }
+	public Slash(): TerminalNode | undefined { return this.tryGetToken(XonParser.Slash, 0); }
 	public Modulo(): TerminalNode | undefined { return this.tryGetToken(XonParser.Modulo, 0); }
-	public Pow(): TerminalNode | undefined { return this.tryGetToken(XonParser.Pow, 0); }
+	public Caret(): TerminalNode | undefined { return this.tryGetToken(XonParser.Caret, 0); }
 	public And(): TerminalNode | undefined { return this.tryGetToken(XonParser.And, 0); }
 	public Or(): TerminalNode | undefined { return this.tryGetToken(XonParser.Or, 0); }
 	public BitAnd(): TerminalNode | undefined { return this.tryGetToken(XonParser.BitAnd, 0); }
@@ -3356,13 +3356,13 @@ export class LeftAssignmentsContext extends ParserRuleContext {
 
 
 export class MiddleAssignmentsContext extends ParserRuleContext {
-	public Spread(): TerminalNode[];
-	public Spread(i: number): TerminalNode;
-	public Spread(i?: number): TerminalNode | TerminalNode[] {
+	public Elipsis(): TerminalNode[];
+	public Elipsis(i: number): TerminalNode;
+	public Elipsis(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Spread);
+			return this.getTokens(XonParser.Elipsis);
 		} else {
-			return this.getToken(XonParser.Spread, i);
+			return this.getToken(XonParser.Elipsis, i);
 		}
 	}
 	public ID(): TerminalNode[];
@@ -3593,7 +3593,7 @@ export class SpreadItemContext extends ParserRuleContext {
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
-	public Spread(): TerminalNode | undefined { return this.tryGetToken(XonParser.Spread, 0); }
+	public Elipsis(): TerminalNode | undefined { return this.tryGetToken(XonParser.Elipsis, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
@@ -3742,7 +3742,7 @@ export class AsyncExpressionContext extends ExpressionContext {
 export class PowExpressionContext extends ExpressionContext {
 	public _base: ExpressionContext;
 	public _exponent: ExpressionContext;
-	public Pow(): TerminalNode { return this.getToken(XonParser.Pow, 0); }
+	public Caret(): TerminalNode { return this.getToken(XonParser.Caret, 0); }
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -3758,7 +3758,7 @@ export class PowExpressionContext extends ExpressionContext {
 	}
 }
 export class UnaryPlusExpressionContext extends ExpressionContext {
-	public Add(): TerminalNode { return this.getToken(XonParser.Add, 0); }
+	public Plus(): TerminalNode { return this.getToken(XonParser.Plus, 0); }
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
@@ -3768,7 +3768,7 @@ export class UnaryPlusExpressionContext extends ExpressionContext {
 	}
 }
 export class UnaryMinusExpressionContext extends ExpressionContext {
-	public Substract(): TerminalNode { return this.getToken(XonParser.Substract, 0); }
+	public Minus(): TerminalNode { return this.getToken(XonParser.Minus, 0); }
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
@@ -3788,7 +3788,7 @@ export class BitNotExpressionContext extends ExpressionContext {
 	}
 }
 export class LogicalNotExpressionContext extends ExpressionContext {
-	public Not(): TerminalNode { return this.getToken(XonParser.Not, 0); }
+	public Exclamation(): TerminalNode { return this.getToken(XonParser.Exclamation, 0); }
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
@@ -3810,8 +3810,8 @@ export class MulDivModExpressionContext extends ExpressionContext {
 			return this.getRuleContext(i, ExpressionContext);
 		}
 	}
-	public Multiply(): TerminalNode | undefined { return this.tryGetToken(XonParser.Multiply, 0); }
-	public Divide(): TerminalNode | undefined { return this.tryGetToken(XonParser.Divide, 0); }
+	public Asterisk(): TerminalNode | undefined { return this.tryGetToken(XonParser.Asterisk, 0); }
+	public Slash(): TerminalNode | undefined { return this.tryGetToken(XonParser.Slash, 0); }
 	public Modulo(): TerminalNode | undefined { return this.tryGetToken(XonParser.Modulo, 0); }
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
@@ -3831,8 +3831,8 @@ export class AddSubExpressionContext extends ExpressionContext {
 			return this.getRuleContext(i, ExpressionContext);
 		}
 	}
-	public Add(): TerminalNode | undefined { return this.tryGetToken(XonParser.Add, 0); }
-	public Substract(): TerminalNode | undefined { return this.tryGetToken(XonParser.Substract, 0); }
+	public Plus(): TerminalNode | undefined { return this.tryGetToken(XonParser.Plus, 0); }
+	public Minus(): TerminalNode | undefined { return this.tryGetToken(XonParser.Minus, 0); }
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);

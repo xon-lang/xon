@@ -20,7 +20,7 @@ export class ObjectExpressionTree extends ExpressionTree {
                 key:
                     (x._exprkey && getExpressionTree(x._exprkey)) ||
                     (x.ID() && this.getKeyByString(x.ID().text)),
-                hasSpread: !!x.spreadItem()?.Spread(),
+                hasSpread: !!x.spreadItem()?.Elipsis(),
             }))
             .map((x, i) => ({
                 value: x.value,
