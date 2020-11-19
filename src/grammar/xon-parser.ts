@@ -1,5 +1,8 @@
 // Generated from XonParser.g4 by ANTLR 4.7.3-SNAPSHOT
 
+ 
+// @ts-nocheck
+
 
 import { ATN } from "antlr4ts/atn/ATN";
 import { ATNDeserializer } from "antlr4ts/atn/ATNDeserializer";

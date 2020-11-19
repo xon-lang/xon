@@ -1,6 +1,7 @@
 // Generated from XonLexer.g4 by ANTLR 4.7.3-SNAPSHOT
 
  
+// @ts-nocheck
 import { XonLexerBase } from "./xon-lexer-base";
 
 

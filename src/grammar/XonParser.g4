@@ -4,6 +4,10 @@ options {
     tokenVocab = XonLexer;
 }
 
+@parser::header { 
+// @ts-nocheck
+}
+
 program: imports* statement* definition*;
 
 imports:      importPath ':' importMember (',' importMember)* | LineBreak;
