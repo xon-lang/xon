@@ -7,7 +7,8 @@ export class ArrayTypeTree extends TypeTree {
 
     constructor(public ctx?: ArrayTypeContext) {
         super();
-        this.baseType = getTypeTree(ctx?.type());
+        if (!ctx) return;
+        this.baseType = getTypeTree(ctx.type());
     }
 
     eq(anotherType: TypeTree) {

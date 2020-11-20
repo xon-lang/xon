@@ -7,6 +7,8 @@ export class ObjectTypeTree extends TypeTree {
 
     constructor(public ctx?: ObjectTypeContext) {
         super();
+        if (!ctx) return;
+        
         this.items = ctx.ID().map((x, i) => ({
             name: x.text,
             type: getTypeTree(ctx.type(i)),

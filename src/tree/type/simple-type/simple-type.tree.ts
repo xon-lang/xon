@@ -6,7 +6,9 @@ export class SimpleTypeTree extends TypeTree {
 
     constructor(public ctx?: SimpleTypeContext) {
         super();
-        this.name = ctx?.ID().text;
+        if (!ctx) return;
+
+        this.name = ctx.ID().text;
     }
 
     eq(anotherType: TypeTree) {
