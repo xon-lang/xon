@@ -18,7 +18,6 @@ definition: name = ID ':' LineBreak INDENT member+ DEDENT;
 member:
     name = ID type? ('=' value = expression)?                # propertyMember
     | function                                               # methodMember
-    // | '@' '(' (argument (',' argument)*)? ')' body           # initMember
     | 'pass'                                                 # passMember
     | operator '(' ID ',' ID type ')' returnType = type body # operatorMember
     | LineBreak                                              # lineBreakMember
@@ -62,7 +61,9 @@ spreadItem: '...'? expression;
 objectItem: (ID | '[' exprkey = expression ']') ':' exprVal = expression | spreadItem;
 
 expression:
-    '@' ID?                                                                                              # instanceExpression
+    ID                                                                                                   # idExpression
+    | '@'+ ID?                                                                                           # instanceExpression
+    | literal                                                                                            # literalExpression
     | object = expression '(' (args += expression (',' args += expression)*)? ')'                        # functionExpression
     | value = expression '[' index = expression ']'                                                      # indexExpression
     | value = expression '[' startPos = expression ':' endPos = expression? (':' step = expression)? ']' # sliceExpression
@@ -83,8 +84,6 @@ expression:
     | left = expression 'or' right = expression                                                          # bitOrExpression
     | left = expression '&&' right = expression                                                          # logicalAndExpression
     | left = expression '||' right = expression                                                          # logicalOrExpression
-    | ID                                                                                                 # idExpression
-    | literal                                                                                            # literalExpression
     | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd                      # stringFormatExpression
     | '[' startPos = expression ':' endPos = expression (':' step = expression)? ']'                     # rangeExpression
     | '[' (spreadItem (',' spreadItem)*)? ']'                                                            # arrayExpression
