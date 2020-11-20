@@ -30,9 +30,7 @@ Continue: 'continue';
 Break:    'break';
 Return:   'return';
 Select:   'select';
-Infix:    'infix';
-Prefix:   'prefix';
-Postfix:  'postfix';
+Init:     'init';
 
 Preprocessor: '#{' .*? '}';
 LineBreak:    ({this.atStartOfInput()}? SPACES | ( '\r'? '\n' | '\r') SPACES?) {this.handleLineBreak()};
@@ -49,6 +47,7 @@ OpenParen:                  '(' {this.opened++;};
 CloseParen:                 ')' {this.opened--;};
 OpenBrace:                  '{' {this.opened++;};
 CloseBrace:                 '}' {this.opened--;};
+Tilde:                      '~';
 Ad:                         '@';
 Comma:                      ',';
 Assign:                     '=';

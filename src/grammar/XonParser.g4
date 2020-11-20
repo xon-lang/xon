@@ -46,17 +46,15 @@ leftAssignments:   ID (',' ID?)* | (',' ID?)+;
 middleAssignments: '...' ID? (',' '...' ID?)*;
 rightAssignments:  (',' ID?)+;
 
+function: name = ID '(' (argument (',' argument)*)? ')' type? body;
+argument: name = ID type? ('=' expression)?;
 type:
     ID                                                              # simpleType
+    | type '?'                                                      # nullableType
     | type '[' ']'                                                  # arrayType
     | '{' ID type ( ',' ID type)* '}'                               # objectType
     | '(' (args += type (',' args += type)*)? ')' returnType = type # functionType
     ;
-
-function: name = ID '(' (argument (',' argument)*)? ')' type? body;
-
-argument: name = ID type? ('=' expression)?;
-
 body: ':' (statement | LineBreak INDENT statement+ DEDENT);
 
 spreadItem: '...'? expression;
@@ -66,8 +64,9 @@ expression:
     object = expression '(' (args += expression (',' args += expression)*)? ')'                          # functionExpression
     | value = expression '[' index = expression ']'                                                      # indexExpression
     | value = expression '[' startPos = expression ':' endPos = expression? (':' step = expression)? ']' # sliceExpression
+    | '@' ID?                                                                                            # instanceExpression
     | expression '?'? '.' ID                                                                             # memberExpression
-    | '@' expression                                                                                     # asyncExpression
+    | '~' expression                                                                                     # asyncExpression
     | base = expression '^' exponent = expression                                                        # powExpression
     | '+' expression                                                                                     # unaryPlusExpression
     | '-' expression                                                                                     # unaryMinusExpression
