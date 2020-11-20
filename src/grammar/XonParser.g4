@@ -18,6 +18,7 @@ definition: name = ID ':' LineBreak INDENT member+ DEDENT;
 member:
     name = ID type? ('=' value = expression)?                # propertyMember
     | function                                               # methodMember
+    // | '@' '(' (argument (',' argument)*)? ')' body           # initMember
     | 'pass'                                                 # passMember
     | operator '(' ID ',' ID type ')' returnType = type body # operatorMember
     | LineBreak                                              # lineBreakMember
@@ -47,7 +48,7 @@ middleAssignments: '...' ID? (',' '...' ID?)*;
 rightAssignments:  (',' ID?)+;
 
 function: name = ID '(' (argument (',' argument)*)? ')' type? body;
-argument: name = ID type? ('=' expression)?;
+argument: '@'? name = ID type? ('=' expression)?;
 type:
     ID                                                              # simpleType
     | type '?'                                                      # nullableType
