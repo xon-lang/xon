@@ -2279,8 +2279,8 @@ export class XonParser extends Parser {
 						(_localctx as FunctionExpressionContext)._object = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 489;
-						if (!(this.precpred(this._ctx, 30))) {
-							throw new FailedPredicateException(this, "this.precpred(this._ctx, 30)");
+						if (!(this.precpred(this._ctx, 29))) {
+							throw new FailedPredicateException(this, "this.precpred(this._ctx, 29)");
 						}
 						this.state = 490;
 						this.match(XonParser.OpenParen);
@@ -2323,8 +2323,8 @@ export class XonParser extends Parser {
 						(_localctx as IndexExpressionContext)._value = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 502;
-						if (!(this.precpred(this._ctx, 29))) {
-							throw new FailedPredicateException(this, "this.precpred(this._ctx, 29)");
+						if (!(this.precpred(this._ctx, 28))) {
+							throw new FailedPredicateException(this, "this.precpred(this._ctx, 28)");
 						}
 						this.state = 503;
 						this.match(XonParser.OpenBracket);
@@ -2341,8 +2341,8 @@ export class XonParser extends Parser {
 						(_localctx as SliceExpressionContext)._value = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 507;
-						if (!(this.precpred(this._ctx, 28))) {
-							throw new FailedPredicateException(this, "this.precpred(this._ctx, 28)");
+						if (!(this.precpred(this._ctx, 27))) {
+							throw new FailedPredicateException(this, "this.precpred(this._ctx, 27)");
 						}
 						this.state = 508;
 						this.match(XonParser.OpenBracket);
@@ -2542,13 +2542,13 @@ export class XonParser extends Parser {
 			return this.precpred(this._ctx, 2);
 
 		case 14:
-			return this.precpred(this._ctx, 30);
-
-		case 15:
 			return this.precpred(this._ctx, 29);
 
-		case 16:
+		case 15:
 			return this.precpred(this._ctx, 28);
+
+		case 16:
+			return this.precpred(this._ctx, 27);
 
 		case 17:
 			return this.precpred(this._ctx, 26);
@@ -2811,26 +2811,26 @@ export class XonParser extends Parser {
 		"\x075\x02\x02\u01E3\u0211\x05(\x15\r\u01E4\u01E5\f\x04\x02\x02\u01E5\u01E8" +
 		"\x07@\x02\x02\u01E6\u01E7\x07K\x02\x02\u01E7\u01E9\x07$\x02\x02\u01E8" +
 		"\u01E6\x03\x02\x02\x02\u01E8\u01E9\x03\x02\x02\x02\u01E9\u01EA\x03\x02" +
-		"\x02\x02\u01EA\u0211\x05(\x15\x05\u01EB\u01EC\f \x02\x02\u01EC\u01F5\x07" +
-		"\x1B\x02\x02\u01ED\u01F2\x05(\x15\x02\u01EE\u01EF\x07!\x02\x02\u01EF\u01F1" +
-		"\x05(\x15\x02\u01F0\u01EE\x03\x02\x02\x02\u01F1\u01F4\x03\x02\x02\x02" +
-		"\u01F2\u01F0\x03\x02\x02\x02\u01F2\u01F3\x03\x02\x02\x02\u01F3\u01F6\x03" +
-		"\x02\x02\x02\u01F4\u01F2\x03\x02\x02\x02\u01F5\u01ED\x03\x02\x02\x02\u01F5" +
-		"\u01F6\x03\x02\x02\x02\u01F6\u01F7\x03\x02\x02\x02\u01F7\u0211\x07\x1C" +
-		"\x02\x02\u01F8\u01F9\f\x1F\x02\x02\u01F9\u01FA\x07\x19\x02\x02\u01FA\u01FB" +
-		"\x05(\x15\x02\u01FB\u01FC\x07\x1A\x02\x02\u01FC\u0211\x03\x02\x02\x02" +
-		"\u01FD\u01FE\f\x1E\x02\x02\u01FE\u01FF\x07\x19\x02\x02\u01FF\u0200\x05" +
-		"(\x15\x02\u0200\u0202\x07$\x02\x02\u0201\u0203\x05(\x15\x02\u0202\u0201" +
-		"\x03\x02\x02\x02\u0202\u0203\x03\x02\x02\x02\u0203\u0206\x03\x02\x02\x02" +
-		"\u0204\u0205\x07$\x02\x02\u0205\u0207\x05(\x15\x02\u0206\u0204\x03\x02" +
-		"\x02\x02\u0206\u0207\x03\x02\x02\x02\u0207\u0208\x03\x02\x02\x02\u0208" +
-		"\u0209\x07\x1A\x02\x02\u0209\u0211\x03\x02\x02\x02\u020A\u020C\f\x1C\x02" +
-		"\x02\u020B\u020D\x07#\x02\x02\u020C\u020B\x03\x02\x02\x02\u020C\u020D" +
-		"\x03\x02\x02\x02\u020D\u020E\x03\x02\x02\x02\u020E\u020F\x07%\x02\x02" +
-		"\u020F\u0211\x07K\x02\x02\u0210\u01C3\x03\x02\x02\x02\u0210\u01C6\x03" +
-		"\x02\x02\x02\u0210\u01C9\x03\x02\x02\x02\u0210\u01CC\x03\x02\x02\x02\u0210" +
-		"\u01CF\x03\x02\x02\x02\u0210\u01D2\x03\x02\x02\x02\u0210\u01D5\x03\x02" +
-		"\x02\x02\u0210\u01D8\x03\x02\x02\x02\u0210\u01DB\x03\x02\x02\x02\u0210" +
+		"\x02\x02\u01EA\u0211\x05(\x15\x05\u01EB\u01EC\f\x1F\x02\x02\u01EC\u01F5" +
+		"\x07\x1B\x02\x02\u01ED\u01F2\x05(\x15\x02\u01EE\u01EF\x07!\x02\x02\u01EF" +
+		"\u01F1\x05(\x15\x02\u01F0\u01EE\x03\x02\x02\x02\u01F1\u01F4\x03\x02\x02" +
+		"\x02\u01F2\u01F0\x03\x02\x02\x02\u01F2\u01F3\x03\x02\x02\x02\u01F3\u01F6" +
+		"\x03\x02\x02\x02\u01F4\u01F2\x03\x02\x02\x02\u01F5\u01ED\x03\x02\x02\x02" +
+		"\u01F5\u01F6\x03\x02\x02\x02\u01F6\u01F7\x03\x02\x02\x02\u01F7\u0211\x07" +
+		"\x1C\x02\x02\u01F8\u01F9\f\x1E\x02\x02\u01F9\u01FA\x07\x19\x02\x02\u01FA" +
+		"\u01FB\x05(\x15\x02\u01FB\u01FC\x07\x1A\x02\x02\u01FC\u0211\x03\x02\x02" +
+		"\x02\u01FD\u01FE\f\x1D\x02\x02\u01FE\u01FF\x07\x19\x02\x02\u01FF\u0200" +
+		"\x05(\x15\x02\u0200\u0202\x07$\x02\x02\u0201\u0203\x05(\x15\x02\u0202" +
+		"\u0201\x03\x02\x02\x02\u0202\u0203\x03\x02\x02\x02\u0203\u0206\x03\x02" +
+		"\x02\x02\u0204\u0205\x07$\x02\x02\u0205\u0207\x05(\x15\x02\u0206\u0204" +
+		"\x03\x02\x02\x02\u0206\u0207\x03\x02\x02\x02\u0207\u0208\x03\x02\x02\x02" +
+		"\u0208\u0209\x07\x1A\x02\x02\u0209\u0211\x03\x02\x02\x02\u020A\u020C\f" +
+		"\x1C\x02\x02\u020B\u020D\x07#\x02\x02\u020C\u020B\x03\x02\x02\x02\u020C" +
+		"\u020D\x03\x02\x02\x02\u020D\u020E\x03\x02\x02\x02\u020E\u020F\x07%\x02" +
+		"\x02\u020F\u0211\x07K\x02\x02\u0210\u01C3\x03\x02\x02\x02\u0210\u01C6" +
+		"\x03\x02\x02\x02\u0210\u01C9\x03\x02\x02\x02\u0210\u01CC\x03\x02\x02\x02" +
+		"\u0210\u01CF\x03\x02\x02\x02\u0210\u01D2\x03\x02\x02\x02\u0210\u01D5\x03" +
+		"\x02\x02\x02\u0210\u01D8\x03\x02\x02\x02\u0210\u01DB\x03\x02\x02\x02\u0210" +
 		"\u01DE\x03\x02\x02\x02\u0210\u01E1\x03\x02\x02\x02\u0210\u01E4\x03\x02" +
 		"\x02\x02\u0210\u01EB\x03\x02\x02\x02\u0210\u01F8\x03\x02\x02\x02\u0210" +
 		"\u01FD\x03\x02\x02\x02\u0210\u020A\x03\x02\x02\x02\u0211\u0214\x03\x02" +
@@ -3697,6 +3697,14 @@ export class ExpressionContext extends ParserRuleContext {
 		super.copyFrom(ctx);
 	}
 }
+export class InstanceExpressionContext extends ExpressionContext {
+	public Ad(): TerminalNode { return this.getToken(XonParser.Ad, 0); }
+	public ID(): TerminalNode | undefined { return this.tryGetToken(XonParser.ID, 0); }
+	constructor(ctx: ExpressionContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
+	}
+}
 export class FunctionExpressionContext extends ExpressionContext {
 	public _object: ExpressionContext;
 	public _expression: ExpressionContext;
@@ -3770,14 +3778,6 @@ export class SliceExpressionContext extends ExpressionContext {
 			return this.getRuleContext(i, ExpressionContext);
 		}
 	}
-	constructor(ctx: ExpressionContext) {
-		super(ctx.parent, ctx.invokingState);
-		this.copyFrom(ctx);
-	}
-}
-export class InstanceExpressionContext extends ExpressionContext {
-	public Ad(): TerminalNode { return this.getToken(XonParser.Ad, 0); }
-	public ID(): TerminalNode | undefined { return this.tryGetToken(XonParser.ID, 0); }
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);

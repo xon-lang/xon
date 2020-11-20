@@ -11,6 +11,7 @@ import {
     FunctionExpressionContext,
     IdExpressionContext,
     IndexExpressionContext,
+    InstanceExpressionContext,
     LambdaExpressionContext,
     LiteralExpressionContext,
     LogicalAndExpressionContext,
@@ -43,6 +44,7 @@ import { ExpressionTree } from './expression.tree';
 import { FunctionExpressionTree } from './function-expression/function-expression.tree';
 import { IdExpressionTree } from './id-expression/id-expression.tree';
 import { IndexExpressionTree } from './index-expression/index-expression.tree';
+import { InstanceExpressionTree } from './instance-expression/instance-expression.tree';
 import { LambdaExpressionTree } from './lambda-expression/lambda-expression.tree';
 import { LessThanEqualsExpressionTree } from './less-than-equals-expression/less-than-equals-expression.tree';
 import { LessThanExpressionTree } from './less-than-expression/less-than-expression.tree';
@@ -93,6 +95,7 @@ export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
     if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
     if (ctx instanceof StringFormatExpressionContext) return new StringFormatExpressionTree(ctx);
     if (ctx instanceof ObjectExpressionContext) return new ObjectExpressionTree(ctx);
+    if (ctx instanceof InstanceExpressionContext) return new InstanceExpressionTree(ctx);
     if (ctx instanceof MulDivModExpressionContext) {
         if (ctx.Slash()) return new DivideExpressionTree(ctx);
         if (ctx.Modulo()) return new ModuloExpressionTree(ctx);

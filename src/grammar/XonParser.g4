@@ -61,10 +61,10 @@ spreadItem: '...'? expression;
 objectItem: (ID | '[' exprkey = expression ']') ':' exprVal = expression | spreadItem;
 
 expression:
-    object = expression '(' (args += expression (',' args += expression)*)? ')'                          # functionExpression
+    '@' ID?                                                                                              # instanceExpression
+    | object = expression '(' (args += expression (',' args += expression)*)? ')'                        # functionExpression
     | value = expression '[' index = expression ']'                                                      # indexExpression
     | value = expression '[' startPos = expression ':' endPos = expression? (':' step = expression)? ']' # sliceExpression
-    | '@' ID?                                                                                            # instanceExpression
     | expression '?'? '.' ID                                                                             # memberExpression
     | '~' expression                                                                                     # asyncExpression
     | base = expression '^' exponent = expression                                                        # powExpression
