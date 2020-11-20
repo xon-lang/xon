@@ -47,7 +47,7 @@ middleAssignments: '...' ID? (',' '...' ID?)*;
 rightAssignments:  (',' ID?)+;
 
 function: name = ID '(' (argument (',' argument)*)? ')' type? body;
-argument: '@'? name = ID type? ('=' expression)?;
+argument: name = ID type? ('=' expression)?;
 type:
     ID                                                              # simpleType
     | type '?'                                                      # nullableType
