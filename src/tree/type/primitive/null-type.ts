@@ -7,10 +7,4 @@ export class NullType extends SimpleTypeTree {
 
     name = 'null';
 
-    __add__ = {
-        null: NumType.instance,
-        bool: NumType.instance,
-        num: NumType.instance,
-        str: StrType.instance,
-    };
 }

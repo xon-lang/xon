@@ -9,8 +9,9 @@ export abstract class TypeTree extends BaseTree {
     ctx?: TypeContext;
     name: string | number = NaN;
 
-    __add__: { [key: string]: TypeTree } = {};
-    __substract__: { [key: string]: TypeTree } = {};
+    __add__(type: TypeTree) {
+        throw new Error('Not implemented');
+    }
 
     get asSimple() {
         return (this as any) as SimpleTypeTree;

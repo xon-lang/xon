@@ -8,11 +8,18 @@ export abstract class ExpressionTree extends BaseTree {
         return null;
     }
 
-    getInfixOperationType(operatorName: string, rightOperand: ExpressionTree): TypeTree {
-        return this.getType()[`__${operatorName}__`][rightOperand.getType().name];
+    getInfixOperationType(operator: string, left: ExpressionTree, right: ExpressionTree): TypeTree {
+        return left.getType()[`__${operator}__`](right.getType());
     }
 
     as<T extends ExpressionTree>() {
         return (this as any) as T;
+    }
+
+    toPlain() {
+        return {
+            ...super.toPlain(),
+            dataType: this.getType()?.name,
+        };
     }
 }
