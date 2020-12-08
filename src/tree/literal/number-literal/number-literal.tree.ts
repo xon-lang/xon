@@ -1,4 +1,6 @@
 import { NumberLiteralContext } from '../../../grammar/xon-parser';
+import { NumType } from '../../type/primitive/num-type';
+import { TypeTree } from '../../type/type.tree';
 import { LiteralTree } from '../literal.tree';
 
 export class NumberLiteralTree extends LiteralTree {
@@ -40,5 +42,9 @@ export class NumberLiteralTree extends LiteralTree {
             );
         }
         return parseInt(parts[0], radix);
+    }
+
+    getType(): TypeTree {
+        return NumType.instance;
     }
 }

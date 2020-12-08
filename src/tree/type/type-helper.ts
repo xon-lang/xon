@@ -38,6 +38,12 @@ export function createArrayTreeType(baseType: TypeTree) {
     return type;
 }
 
+export function createObjectTreeType(items: { name: string; type: TypeTree }[]) {
+    const type = new ObjectTypeTree();
+    type.items = items;
+    return type;
+}
+
 export function createFunctionTreeType(args: TypeTree[], returnType: TypeTree) {
     const type = new FunctionTypeTree();
     type.args = args;

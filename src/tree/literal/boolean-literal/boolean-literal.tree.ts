@@ -1,4 +1,6 @@
 import { BooleanLiteralContext } from '../../../grammar/xon-parser';
+import { BoolType } from '../../type/primitive/bool-type';
+import { TypeTree } from '../../type/type.tree';
 import { LiteralTree } from '../literal.tree';
 
 export class BooleanLiteralTree extends LiteralTree {
@@ -8,5 +10,9 @@ export class BooleanLiteralTree extends LiteralTree {
         super();
         this.isPositive = ctx.text == 'true';
         this.value = this.isPositive;
+    }
+
+    getType(): TypeTree {
+        return BoolType.instance;
     }
 }

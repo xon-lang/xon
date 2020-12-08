@@ -8,20 +8,22 @@ export class ObjectTypeTree extends TypeTree {
     constructor(public ctx?: ObjectTypeContext) {
         super();
         if (!ctx) return;
-        
+
         this.items = ctx.ID().map((x, i) => ({
             name: x.text,
             type: getTypeTree(ctx.type(i)),
         }));
+        this.name = '{' + this.items.map((x) => `${x.name} ${x.type.name}`).join(', ') + '}';
     }
 
     eq(anotherType: TypeTree) {
         return (
-            anotherType instanceof ObjectTypeTree &&
-            anotherType.items.length == this.items.length &&
-            anotherType.items.every(
-                (x, i) => x.name == this.items[i].name && x.type.eq(this.items[i].type)
-            )
+            this == anotherType ||
+            (anotherType instanceof ObjectTypeTree &&
+                anotherType.items.length == this.items.length &&
+                anotherType.items.every(
+                    (x, i) => x.name == this.items[i].name && x.type.eq(this.items[i].type)
+                ))
         );
     }
 

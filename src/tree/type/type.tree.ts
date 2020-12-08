@@ -7,6 +7,10 @@ import { SimpleTypeTree } from './simple-type/simple-type.tree';
 
 export abstract class TypeTree extends BaseTree {
     ctx?: TypeContext;
+    name: string | number = NaN;
+
+    __add__: { [key: string]: TypeTree } = {};
+    __substract__: { [key: string]: TypeTree } = {};
 
     get asSimple() {
         return (this as any) as SimpleTypeTree;

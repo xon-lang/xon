@@ -11,13 +11,16 @@ export class FunctionTypeTree extends TypeTree {
         if (!ctx) return;
         this.args = getTypesTree(ctx._args);
         this.returnType = getTypeTree(ctx._returnType);
+        this.name =
+            '(' + this.args.map((x) => `${x.name}`).join(', ') + ') ' + this.returnType.name;
     }
 
     eq(anotherType: TypeTree) {
         return (
-            anotherType instanceof FunctionTypeTree &&
-            anotherType.args.length == this.args.length &&
-            anotherType.args.every((x, i) => x.eq(this.args[i]))
+            this == anotherType ||
+            (anotherType instanceof FunctionTypeTree &&
+                anotherType.args.length == this.args.length &&
+                anotherType.args.every((x, i) => x.eq(this.args[i])))
         );
     }
 

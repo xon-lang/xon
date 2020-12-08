@@ -9,10 +9,14 @@ export class ArrayTypeTree extends TypeTree {
         super();
         if (!ctx) return;
         this.baseType = getTypeTree(ctx.type());
+        this.name = `${this.baseType.name}[]`;
     }
 
     eq(anotherType: TypeTree) {
-        return anotherType instanceof ArrayTypeTree && anotherType.baseType.eq(this.baseType);
+        return (
+            this == anotherType ||
+            (anotherType instanceof ArrayTypeTree && anotherType.baseType.eq(this.baseType))
+        );
     }
 
     toPlain() {
