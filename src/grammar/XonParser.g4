@@ -16,11 +16,11 @@ importMember: name = ID ('as' alias = ID)?;
 
 definition: name = ID ':' LineBreak INDENT member+ DEDENT;
 member:
-    name = ID type? ('=' value = expression)?                # propertyMember
-    | function                                               # methodMember
-    | 'pass'                                                 # passMember
-    | operator '(' ID ',' ID type ')' returnType = type body # operatorMember
-    | LineBreak                                              # lineBreakMember
+    name = ID type? ('=' value = expression)?                        # propertyMember
+    | function                                                       # methodMember
+    | 'pass'                                                         # passMember
+    | operator '(' ID operandType = type ')' returnType = type body? # infixOperatorMember
+    | LineBreak                                                      # lineBreakMember
     ;
 
 operator: '+' | '-' | '*' | '/' | '%' | '^' | '&&' | '||' | 'and' | 'xor' | 'or' | '>' | '<' | '>>' | '<<' | '==' | '!=';

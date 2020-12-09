@@ -1,4 +1,0 @@
-Number:
-    + (x Number) Number:#{
-        return `${translate(tree.left)} + ${translate(tree.right)}`;
-    }

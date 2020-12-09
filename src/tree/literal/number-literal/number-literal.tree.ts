@@ -1,5 +1,5 @@
 import { NumberLiteralContext } from '../../../grammar/xon-parser';
-import { NumType } from '../../type/primitive/num-type';
+import { createSimpleTreeType } from '../../type/type-helper';
 import { TypeTree } from '../../type/type.tree';
 import { LiteralTree } from '../literal.tree';
 
@@ -45,6 +45,6 @@ export class NumberLiteralTree extends LiteralTree {
     }
 
     getType(): TypeTree {
-        return NumType.instance;
+        return createSimpleTreeType('num');
     }
 }

@@ -1,7 +1,7 @@
 import { StringLiteralContext } from '../../../grammar/xon-parser';
+import { createSimpleTreeType } from '../../type/type-helper';
 import { TypeTree } from '../../type/type.tree';
 import { LiteralTree } from '../literal.tree';
-import { StrType } from './../../type/primitive/str-type';
 
 export class StringLiteralTree extends LiteralTree {
     constructor(public ctx?: StringLiteralContext) {
@@ -10,6 +10,6 @@ export class StringLiteralTree extends LiteralTree {
     }
 
     getType(): TypeTree {
-        return StrType.instance;
+        return createSimpleTreeType('str');
     }
 }

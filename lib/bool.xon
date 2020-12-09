@@ -1,0 +1,4 @@
+bool:
+    + (x bool) num
+    + (x num) num
+    + (x str) str

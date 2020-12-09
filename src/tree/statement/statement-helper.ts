@@ -40,7 +40,7 @@ export function getStatementTree(ctx: StatementContext): StatementTree {
 
 export function getStatementsTree(body: BodyContext) {
     return body
-        .statement()
-        .filter((x) => !(x instanceof LineBreakStatementContext))
+        ?.statement()
+        ?.filter((x) => !(x instanceof LineBreakStatementContext))
         .map(getStatementTree);
 }

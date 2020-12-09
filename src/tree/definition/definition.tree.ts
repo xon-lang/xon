@@ -1,5 +1,6 @@
 import {
     DefinitionContext,
+    InfixOperatorMemberContext,
     // InitMemberContext,
     MethodMemberContext,
     PropertyMemberContext,
@@ -8,6 +9,8 @@ import { BaseTree } from '../base.tree';
 import { getExpressionTree } from '../expression/expression-helper';
 import { ExpressionTree } from '../expression/expression.tree';
 import { FunctionTree } from '../function/function.tree';
+import { getStatementsTree } from '../statement/statement-helper';
+import { StatementTree } from '../statement/statement.tree';
 import { getTypeTree } from '../type/type-helper';
 import { TypeTree } from '../type/type.tree';
 
@@ -19,6 +22,15 @@ export class DefinitionTree extends BaseTree {
         value: ExpressionTree;
     }[];
     methods: FunctionTree[];
+    infixOperators: {
+        operator: string;
+        arg: {
+            name: string;
+            type: TypeTree;
+        };
+        returnType: string;
+        statements: StatementTree[];
+    }[];
     // initMethods: FunctionTree[];
 
     constructor(public ctx: DefinitionContext) {
@@ -34,11 +46,20 @@ export class DefinitionTree extends BaseTree {
             .filter((x) => x instanceof MethodMemberContext)
             .map((x) => x as MethodMemberContext)
             .map((x) => x.function());
-        // const initMethods = ctx
-        //     .member()
-        //     .filter((x) => x instanceof InitMemberContext)
-        //     .map((x) => x as InitMemberContext)
-        //     .map((x) => x.function());
+
+        this.infixOperators = ctx
+            .member()
+            .filter((x) => x instanceof InfixOperatorMemberContext)
+            .map((x) => x as InfixOperatorMemberContext)
+            .map((x) => ({
+                operator: x.operator().text,
+                arg: {
+                    name: x.ID().text,
+                    type: getTypeTree(x._operandType),
+                },
+                returnType: x._returnType.text,
+                statements: getStatementsTree(x.body()),
+            }));
 
         this.properties = properties.map((x) => {
             const expr = getExpressionTree(x._value);
@@ -49,7 +70,6 @@ export class DefinitionTree extends BaseTree {
             };
         });
         this.methods = methods.map((x) => new FunctionTree(x));
-        // this.initMethods = initMethods.map((x) => new FunctionTree(x));
     }
 
     toPlain() {
@@ -62,7 +82,15 @@ export class DefinitionTree extends BaseTree {
                 type: x.type?.toPlain(),
             })),
             methods: this.methods.map((x) => x.toPlain()),
-            // initMethods: this.initMethods.map((x) => x.toPlain()),
+            infixOperators: this.infixOperators.map((x) => ({
+                operator: x.operator,
+                arg: {
+                    name: x.arg.name,
+                    type: x.arg.type.toPlain(),
+                },
+                returnType: x.returnType,
+                statements: x.statements?.map((x) => x.toPlain()),
+            })),
         };
     }
 }

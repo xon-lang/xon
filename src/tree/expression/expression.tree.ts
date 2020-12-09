@@ -9,7 +9,7 @@ export abstract class ExpressionTree extends BaseTree {
     }
 
     getInfixOperationType(operator: string, left: ExpressionTree, right: ExpressionTree): TypeTree {
-        return left.getType()[`__${operator}__`](right.getType());
+        return left.getType().getInfixOperationType(operator, right.getType());
     }
 
     as<T extends ExpressionTree>() {

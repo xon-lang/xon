@@ -1,5 +1,5 @@
 import { BooleanLiteralContext } from '../../../grammar/xon-parser';
-import { BoolType } from '../../type/primitive/bool-type';
+import { createSimpleTreeType } from '../../type/type-helper';
 import { TypeTree } from '../../type/type.tree';
 import { LiteralTree } from '../literal.tree';
 
@@ -13,6 +13,6 @@ export class BooleanLiteralTree extends LiteralTree {
     }
 
     getType(): TypeTree {
-        return BoolType.instance;
+        return createSimpleTreeType('bool');
     }
 }

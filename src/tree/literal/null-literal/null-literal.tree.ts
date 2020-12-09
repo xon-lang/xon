@@ -1,5 +1,5 @@
 import { NullLiteralContext } from '../../../grammar/xon-parser';
-import { NullType } from '../../type/primitive/null-type';
+import { createSimpleTreeType } from '../../type/type-helper';
 import { TypeTree } from '../../type/type.tree';
 import { LiteralTree } from '../literal.tree';
 
@@ -10,6 +10,6 @@ export class NullLiteralTree extends LiteralTree {
     }
 
     getType(): TypeTree {
-        return NullType.instance;
+        return createSimpleTreeType('null');
     }
 }

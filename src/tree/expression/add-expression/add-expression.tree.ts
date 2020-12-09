@@ -15,7 +15,7 @@ export class AddExpressionTree extends ExpressionTree {
     }
 
     getType(): TypeTree {
-        return this.getInfixOperationType('add', this.left, this.right);
+        return this.getInfixOperationType('+', this.left, this.right);
     }
 
     toPlain() {
