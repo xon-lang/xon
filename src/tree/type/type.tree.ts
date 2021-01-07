@@ -37,18 +37,13 @@ export abstract class TypeTree extends BaseTree {
     getInfixOperationType(operator: string, operandType: TypeTree): TypeTree {
         if (!this.typeDefinition) {
             this.typeDefinition = parseProgram(
-                fs
-                    .readFileSync(path.resolve(__dirname, `../../../lib/${this.name}.xon`))
-                    .toString()
+                fs.readFileSync(path.resolve(__dirname, `../../../lib/${this.name}.xon`)).toString()
             ).definitions[0];
         }
 
         const infixMethodInfo = this.typeDefinition.infixOperators.find(
             (x) => x.operator == operator && x.arg.type.name == operandType.name
         );
-
-        console.log(operandType.name)
-        console.log(infixMethodInfo)
 
         return createSimpleTreeType(infixMethodInfo.returnType);
     }
