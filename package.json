@@ -38,7 +38,7 @@
     },
     "devDependencies": {
         "@types/jest": "^26.0.20",
-        "@types/node": "^14.14.21",
+        "@types/node": "^14.14.22",
         "antlr4ts-cli": "^0.5.0-alpha.4",
         "create-ts-index": "^1.13.6",
         "husky": "^4.3.8",
