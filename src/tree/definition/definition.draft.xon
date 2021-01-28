@@ -48,3 +48,17 @@ i like this method ():
 
 _i_do_not_like_this_method ():
     // do stuff
+
+Person:
+    firstName str
+    lastName str
+    age num
+
+
+    father(firstName, age) Man:
+        return Person{firstName, lastName, age}
+
+
+
+boy = Person{firstName = 'Rick', lastName = 'Smith', age = 25}
+father = boy.father('John', 45)

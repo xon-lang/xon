@@ -1,0 +1,9 @@
+Task:
+    id Number
+    name String
+    done Boolean
+    position Number
+    createDate Date
+
+    == (a Task, b Task):
+        a.id == b.id
