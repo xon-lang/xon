@@ -17,10 +17,7 @@ import {
   ParenthesizedExpressionContext,
   PipeExpressionContext,
   PowExpressionContext,
-  RangeExpressionContext,
   RelationalExpressionContext,
-  SliceExpressionContext,
-  StringFormatExpressionContext,
   UnaryMinusExpressionContext,
 } from '../../grammar/xon-parser';
 import { AddExpressionTree } from './add-expression/add-expression.tree';
@@ -48,9 +45,6 @@ import { ObjectExpressionTree } from './object-expression/object-expression.tree
 import { ParenthesizedExpressionTree } from './parenthesized-expression/parenthesized-expression.tree';
 import { PipeExpressionTree } from './pipe-expression/pipe-expression.tree';
 import { PowExpressionTree } from './pow-expression/pow-expression.tree';
-import { RangeExpressionTree } from './range-expression/range-expression.tree';
-import { SliceExpressionTree } from './slice-expression/slice-expression.tree';
-import { StringFormatExpressionTree } from './string-format-expression/string-format-expression.tree';
 import { SubstractExpressionTree } from './substract-expression/substract-expression.tree';
 import { UnaryMinusExpressionTree } from './unary-minus-expression/unary-minus-expression.tree';
 
@@ -61,8 +55,6 @@ export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
   if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);
   if (ctx instanceof LiteralExpressionContext) return new LiteralExpressionTree(ctx);
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
-  if (ctx instanceof RangeExpressionContext) return new RangeExpressionTree(ctx);
-  if (ctx instanceof SliceExpressionContext) return new SliceExpressionTree(ctx);
   if (ctx instanceof IndexExpressionContext) return new IndexExpressionTree(ctx);
   if (ctx instanceof PowExpressionContext) return new PowExpressionTree(ctx);
   if (ctx instanceof UnaryMinusExpressionContext) return new UnaryMinusExpressionTree(ctx);
@@ -73,7 +65,6 @@ export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
   if (ctx instanceof LogicalOrExpressionContext) return new LogicalOrExpressionTree(ctx);
   if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);
   if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
-  if (ctx instanceof StringFormatExpressionContext) return new StringFormatExpressionTree(ctx);
   if (ctx instanceof ObjectExpressionContext) return new ObjectExpressionTree(ctx);
   if (ctx instanceof MulDivModExpressionContext) {
     if (ctx.Slash()) return new DivideExpressionTree(ctx);

@@ -3,16 +3,13 @@ import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class MemberExpressionTree extends ExpressionTree {
-  hasElvis: boolean;
-
-  memberName: string;
+  name: string;
 
   object: ExpressionTree;
 
   constructor(public ctx: MemberExpressionContext) {
     super();
-    this.hasElvis = !!ctx.Question();
-    this.memberName = ctx.ID().text;
+    this.name = ctx.ID().text;
     this.object = getExpressionTree(ctx.expression());
   }
 }
