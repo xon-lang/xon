@@ -1,0 +1,9 @@
+String:
+    + (x Boolean) String:
+        // pass
+
+    + (x Number) String:
+        // pass
+
+    + (x String) String:
+        // pass

@@ -1,4 +1,0 @@
-str:
-    + (x bool) str
-    + (x num) str
-    + (x str) str

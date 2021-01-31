@@ -14,7 +14,6 @@ import { StatementTree } from './tree/statement/statement.tree';
 
 export function parse(code: string): XonParser {
   const inputStream = CharStreams.fromString(code);
-  // const inputStream = new ANTLRInputStream(code);
   const lexer = new XonLexer(inputStream);
   const tokenStream = new CommonTokenStream(lexer);
   return new XonParser(tokenStream);
