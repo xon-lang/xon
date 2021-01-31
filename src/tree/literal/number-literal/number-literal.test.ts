@@ -31,12 +31,6 @@ test('zero float number no base', () => {
   expect(tree.value).toBe(0.0);
 });
 
-test('zero float number', () => {
-  const code = '0.0';
-  const tree = parseLiteral<NumberLiteralTree>(code);
-  expect(tree.value).toBe(0.0);
-});
-
 test('underscore in number', () => {
   const code = '5_999_245.15463_64';
   const tree = parseLiteral<NumberLiteralTree>(code);

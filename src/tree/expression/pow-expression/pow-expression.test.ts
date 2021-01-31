@@ -6,10 +6,8 @@ test('pow positive', () => {
   const code = '2^5';
   const tree = parseExpression(code);
   expect(tree).toBeInstanceOf(PowExpressionTree);
-  if (tree instanceof PowExpressionTree) {
-    expect(evalExpression(tree.base)).toBe(2);
-    expect(evalExpression(tree.exponent)).toBe(5);
-  }
+  expect(evalExpression((tree as PowExpressionTree).base)).toBe(2);
+  expect(evalExpression((tree as PowExpressionTree).exponent)).toBe(5);
   expect(evalExpression(tree)).toBe(2 ** 5);
 });
 
