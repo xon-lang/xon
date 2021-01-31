@@ -62,26 +62,18 @@ objectItem: (ID | '[' exprkey = expression ']') ':' exprVal = expression | sprea
 
 expression:
     ID                                                                                                   # idExpression
-    | '@'+ ID?                                                                                           # instanceExpression
     | literal                                                                                            # literalExpression
     | object = expression '(' (args += expression (',' args += expression)*)? ')'                        # functionExpression
     | value = expression '[' index = expression ']'                                                      # indexExpression
     | value = expression '[' startPos = expression ':' endPos = expression? (':' step = expression)? ']' # sliceExpression
     | expression '?'? '.' ID                                                                             # memberExpression
-    | '~' expression                                                                                     # asyncExpression
     | base = expression '^' exponent = expression                                                        # powExpression
-    | '+' expression                                                                                     # unaryPlusExpression
     | '-' expression                                                                                     # unaryMinusExpression
-    | 'not' expression                                                                                   # bitNotExpression
     | '!' expression                                                                                     # logicalNotExpression
     | left = expression operation = ('*' | '/' | '%') right = expression                                 # mulDivModExpression
     | left = expression operation = ('+' | '-') right = expression                                       # addSubExpression
-    | left = expression operation = ('<<' | '>>') right = expression                                     # bitShiftExpression
     | left = expression operation = ('<' | '<=' | '>=' | '>') right = expression                         # relationalExpression
     | left = expression operation = ('==' | '!=') right = expression                                     # equalityExpression
-    | left = expression 'and' right = expression                                                         # bitAndExpression
-    | left = expression 'xor' right = expression                                                         # bitXorExpression
-    | left = expression 'or' right = expression                                                          # bitOrExpression
     | left = expression '&&' right = expression                                                          # logicalAndExpression
     | left = expression '||' right = expression                                                          # logicalOrExpression
     | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd                      # stringFormatExpression

@@ -1,17 +1,11 @@
 import {
   AddSubExpressionContext,
   ArrayExpressionContext,
-  BitAndExpressionContext,
-  BitNotExpressionContext,
-  BitOrExpressionContext,
-  BitShiftExpressionContext,
-  BitXorExpressionContext,
   EqualityExpressionContext,
   ExpressionContext,
   FunctionExpressionContext,
   IdExpressionContext,
   IndexExpressionContext,
-  InstanceExpressionContext,
   LambdaExpressionContext,
   LiteralExpressionContext,
   LogicalAndExpressionContext,
@@ -28,23 +22,15 @@ import {
   SliceExpressionContext,
   StringFormatExpressionContext,
   UnaryMinusExpressionContext,
-  UnaryPlusExpressionContext,
 } from '../../grammar/xon-parser';
 import { AddExpressionTree } from './add-expression/add-expression.tree';
 import { ArrayExpressionTree } from './array-expression/array-expression.tree';
-import { BitAndExpressionTree } from './bit-and-expression/bit-and-expression.tree';
-import { BitLeftShiftExpressionTree } from './bit-left-shift-expression/bit-left-shift-expression.tree';
-import { BitNotExpressionTree } from './bit-not-expression/bit-not-expression.tree';
-import { BitOrExpressionTree } from './bit-or-expression/bit-or-expression.tree';
-import { BitRightShiftExpressionTree } from './bit-right-shift-expression/bit-right-shift-expression.tree';
-import { BitXorExpressionTree } from './bit-xor-expression/bit-xor-expression.tree';
 import { DivideExpressionTree } from './divide-expression/divide-expression.tree';
 import { EqualsExpressionTree } from './equals-expression/equals-expression.tree';
 import { ExpressionTree } from './expression.tree';
 import { FunctionExpressionTree } from './function-expression/function-expression.tree';
 import { IdExpressionTree } from './id-expression/id-expression.tree';
 import { IndexExpressionTree } from './index-expression/index-expression.tree';
-import { InstanceExpressionTree } from './instance-expression/instance-expression.tree';
 import { LambdaExpressionTree } from './lambda-expression/lambda-expression.tree';
 import { LessThanEqualsExpressionTree } from './less-than-equals-expression/less-than-equals-expression.tree';
 import { LessThanExpressionTree } from './less-than-expression/less-than-expression.tree';
@@ -67,7 +53,6 @@ import { SliceExpressionTree } from './slice-expression/slice-expression.tree';
 import { StringFormatExpressionTree } from './string-format-expression/string-format-expression.tree';
 import { SubstractExpressionTree } from './substract-expression/substract-expression.tree';
 import { UnaryMinusExpressionTree } from './unary-minus-expression/unary-minus-expression.tree';
-import { UnaryPlusExpressionTree } from './unary-plus-expression/unary-plus-expression.tree';
 
 export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
   if (ctx === undefined) return undefined;
@@ -80,22 +65,16 @@ export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
   if (ctx instanceof SliceExpressionContext) return new SliceExpressionTree(ctx);
   if (ctx instanceof IndexExpressionContext) return new IndexExpressionTree(ctx);
   if (ctx instanceof PowExpressionContext) return new PowExpressionTree(ctx);
-  if (ctx instanceof UnaryPlusExpressionContext) return new UnaryPlusExpressionTree(ctx);
   if (ctx instanceof UnaryMinusExpressionContext) return new UnaryMinusExpressionTree(ctx);
   if (ctx instanceof LogicalNotExpressionContext) return new LogicalNotExpressionTree(ctx);
-  if (ctx instanceof BitNotExpressionContext) return new BitNotExpressionTree(ctx);
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
   if (ctx instanceof FunctionExpressionContext) return new FunctionExpressionTree(ctx);
-  if (ctx instanceof BitAndExpressionContext) return new BitAndExpressionTree(ctx);
-  if (ctx instanceof BitXorExpressionContext) return new BitXorExpressionTree(ctx);
-  if (ctx instanceof BitOrExpressionContext) return new BitOrExpressionTree(ctx);
   if (ctx instanceof LogicalAndExpressionContext) return new LogicalAndExpressionTree(ctx);
   if (ctx instanceof LogicalOrExpressionContext) return new LogicalOrExpressionTree(ctx);
   if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);
   if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
   if (ctx instanceof StringFormatExpressionContext) return new StringFormatExpressionTree(ctx);
   if (ctx instanceof ObjectExpressionContext) return new ObjectExpressionTree(ctx);
-  if (ctx instanceof InstanceExpressionContext) return new InstanceExpressionTree(ctx);
   if (ctx instanceof MulDivModExpressionContext) {
     if (ctx.Slash()) return new DivideExpressionTree(ctx);
     if (ctx.Modulo()) return new ModuloExpressionTree(ctx);
@@ -104,10 +83,6 @@ export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
   if (ctx instanceof AddSubExpressionContext) {
     if (ctx.Plus()) return new AddExpressionTree(ctx);
     if (ctx.Minus()) return new SubstractExpressionTree(ctx);
-  }
-  if (ctx instanceof BitShiftExpressionContext) {
-    if (ctx.LeftShiftArithmetic()) return new BitLeftShiftExpressionTree(ctx);
-    if (ctx.RightShiftArithmetic()) return new BitRightShiftExpressionTree(ctx);
   }
   if (ctx instanceof RelationalExpressionContext) {
     if (ctx.LessThan()) return new LessThanExpressionTree(ctx);
