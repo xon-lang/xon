@@ -5,5 +5,6 @@ import { BitLeftShiftExpressionTree } from './bit-left-shift-expression.tree';
 test('shift left arithmetic', () => {
     const code = '2<<14';
     const tree = parseExpression<BitLeftShiftExpressionTree>(code);
+    // eslint-disable-next-line no-bitwise
     expect(evalExpression(tree)).toBe(2 << 14);
 });

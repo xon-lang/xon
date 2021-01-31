@@ -3,12 +3,13 @@ import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class BitXorExpressionTree extends ExpressionTree {
-    left: ExpressionTree;
-    right: ExpressionTree;
+  left: ExpressionTree;
 
-    constructor(public ctx: BitXorExpressionContext) {
-        super();
-        this.left = getExpressionTree(ctx._left);
-        this.right = getExpressionTree(ctx._right);
-    }
+  right: ExpressionTree;
+
+  constructor(public ctx: BitXorExpressionContext) {
+    super();
+    this.left = getExpressionTree(ctx._left);
+    this.right = getExpressionTree(ctx._right);
+  }
 }

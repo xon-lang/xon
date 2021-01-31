@@ -3,10 +3,10 @@ import { FunctionTree } from '../../function/function.tree';
 import { StatementTree } from '../statement.tree';
 
 export class FunctionStatementTree extends StatementTree {
-    value: FunctionTree;
+  value: FunctionTree;
 
-    constructor(public ctx: FunctionStatementContext) {
-        super();
-        this.value = new FunctionTree(ctx.function());
-    }
+  constructor(public ctx: FunctionStatementContext) {
+    super();
+    this.value = new FunctionTree(ctx.function());
+  }
 }

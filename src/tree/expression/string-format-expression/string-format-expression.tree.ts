@@ -4,20 +4,21 @@ import { ExpressionTree } from '../expression.tree';
 import { ParenthesizedExpressionTree } from '../parenthesized-expression/parenthesized-expression.tree';
 
 export class StringFormatExpressionTree extends ExpressionTree {
-    valueString: string;
-    value: ParenthesizedExpressionTree;
+  valueString: string;
 
-    constructor(public ctx: StringFormatExpressionContext) {
-        super();
+  value: ParenthesizedExpressionTree;
 
-        this.valueString = ctx.text
-            .slice(1)
-            .replace(/\{(.*?)\}/g, (z, x) => "' + (" + x + ") + '")
-            .replace(/\+ '' \+/g, '+')
-            .replace(/'' \+/, '')
-            .replace(/\+ ''$/, '')
-            .trim();
+  constructor(public ctx: StringFormatExpressionContext) {
+    super();
 
-        this.value = parseExpression(`(${this.valueString})`);
-    }
+    this.valueString = ctx.text
+      .slice(1)
+      .replace(/\{(.*?)\}/g, (z, x) => `' + (${x}) + '`)
+      .replace(/\+ '' \+/g, '+')
+      .replace(/'' \+/, '')
+      .replace(/\+ ''$/, '')
+      .trim();
+
+    this.value = parseExpression(`(${this.valueString})`);
+  }
 }

@@ -6,5 +6,6 @@ test('bit not', () => {
     const code = 'not 34536';
     const tree = parseExpression<BitNotExpressionTree>(code);
     expect(tree).toBeInstanceOf(BitNotExpressionTree);
+    // eslint-disable-next-line no-bitwise
     expect(evalExpression(tree)).toBe(~34536);
 });

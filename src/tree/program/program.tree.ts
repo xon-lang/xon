@@ -7,22 +7,24 @@ import { getStatementTree } from '../statement/statement-helper';
 import { StatementTree } from '../statement/statement.tree';
 
 export class ProgramTree extends BaseTree {
-    imports: ImportsTree[];
-    statements: StatementTree[];
-    definitions: DefinitionTree[];
+  imports: ImportsTree[];
 
-    constructor(public ctx: ProgramContext) {
-        super();
+  statements: StatementTree[];
 
-        this.imports = ctx
-            .imports()
-            .filter((x) => !x.LineBreak())
-            .map((x) => new ImportsTree(x));
+  definitions: DefinitionTree[];
 
-        this.statements = ctx
-            .statement()
-            ?.map(getStatementTree)
-            .filter((x) => !(x instanceof LineBreakStatementTree));
-        this.definitions = ctx.definition()?.map((x) => new DefinitionTree(x));
-    }
+  constructor(public ctx: ProgramContext) {
+    super();
+
+    this.imports = ctx
+      .imports()
+      .filter((x) => !x.LineBreak())
+      .map((x) => new ImportsTree(x));
+
+    this.statements = ctx
+      .statement()
+      ?.map(getStatementTree)
+      .filter((x) => !(x instanceof LineBreakStatementTree));
+    this.definitions = ctx.definition()?.map((x) => new DefinitionTree(x));
+  }
 }

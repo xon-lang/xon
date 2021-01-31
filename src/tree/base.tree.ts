@@ -1,36 +1,36 @@
 import { ParserRuleContext } from 'antlr4ts';
 
 function treeToPlain(object) {
-    const treeType = object.constructor.name.replace(/Tree$/, '');
-    const plain = treeType ? { treeType } : {};
+  const treeType = object.constructor.name.replace(/Tree$/, '');
+  const plain = treeType ? { treeType } : {};
 
-    for (const key in object) {
-        const value = object[key];
+  const entries = Object.entries(object).filter(
+    ([k, v]) => typeof v !== 'function' && v !== null && v !== undefined && k !== 'ctx'
+  );
 
-        if (typeof value === 'function' || value === null || value === undefined || key === 'ctx') {
-            continue;
-        }
-
-        if (Array.isArray(value)) {
-            plain[key] = value.map(treeToPlain);
-        } else if (typeof value === 'object' || value instanceof BaseTree) {
-            plain[key] = treeToPlain(value);
-        } else {
-            plain[key] = value;
-        }
+  // eslint-disable-next-line no-restricted-syntax
+  for (const [key, value] of entries) {
+    if (Array.isArray(value)) {
+      plain[key] = value.map(treeToPlain);
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    } else if (typeof value === 'object' || value instanceof BaseTree) {
+      plain[key] = treeToPlain(value);
+    } else {
+      plain[key] = value;
     }
+  }
 
-    return plain;
+  return plain;
 }
 
 export abstract class BaseTree {
-    ctx?: ParserRuleContext;
+  ctx?: ParserRuleContext;
 
-    toPlain(): unknown {
-        return treeToPlain(this);
-    }
+  toPlain(): unknown {
+    return treeToPlain(this);
+  }
 
-    toJson(): string {
-        return JSON.stringify(this.toPlain(), null, 2);
-    }
+  toJson(): string {
+    return JSON.stringify(this.toPlain(), null, 2);
+  }
 }

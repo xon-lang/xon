@@ -1,50 +1,42 @@
 import { NumberLiteralContext } from '../../../grammar/xon-parser';
-import { createSimpleTreeType } from '../../type/type-helper';
-import { TypeTree } from '../../type/type.tree';
 import { LiteralTree } from '../literal.tree';
 
+function customParseFloat(str: string, radix: number): number {
+  if (!radix) return parseFloat(str);
+
+  const parts = str.split('.');
+  if (parts.length > 1) {
+    return parseInt(parts[0], radix) + parseInt(parts[1], radix) / radix ** parts[1].length;
+  }
+  return parseInt(parts[0], radix);
+}
+
 export class NumberLiteralTree extends LiteralTree<number> {
-    bitsCount: number;
-    base: number;
-    integerValue: string;
-    fractionValue: string;
+  bitsCount: number;
 
-    constructor(public ctx: NumberLiteralContext) {
-        super();
-        let strValue = ctx.NumberLiteral().text.replace(/_/g, '');
+  base: string;
 
-        if (strValue.includes('x')) {
-            const split = strValue.split('x');
-            this.base = +split[0];
-            strValue = split[1];
-        }
+  integerValue: string;
 
-        const split = strValue.split('.');
-        this.integerValue = split[0];
-        this.fractionValue = split[1];
-        this.bitsCount = (+this.integerValue).toString(2).length;
+  fractionValue: string;
 
-        if (split.length) {
-            this.value = this.parseFloat(strValue, this.base);
-        } else {
-            this.value = +strValue;
-        }
+  constructor(public ctx: NumberLiteralContext) {
+    super();
+    let strValue = ctx.NumberLiteral().text.replace(/_/g, '');
+
+    if (strValue.includes('x')) {
+      const split = strValue.split('x');
+      [this.base, strValue] = split;
     }
 
-    private parseFloat(str, radix) {
-        if (!radix) return parseFloat(str);
+    const split = strValue.split('.');
+    [this.integerValue, this.fractionValue] = split;
+    this.bitsCount = (+this.integerValue).toString(2).length;
 
-        const parts = str.split('.');
-        if (parts.length > 1) {
-            return (
-                parseInt(parts[0], radix) +
-                parseInt(parts[1], radix) / Math.pow(radix, parts[1].length)
-            );
-        }
-        return parseInt(parts[0], radix);
+    if (split.length) {
+      this.value = customParseFloat(strValue, +this.base);
+    } else {
+      this.value = +strValue;
     }
-
-    getType(): TypeTree {
-        return createSimpleTreeType('num');
-    }
+  }
 }

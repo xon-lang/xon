@@ -11,29 +11,29 @@ import { getStatementTree } from './tree/statement/statement-helper';
 import { StatementTree } from './tree/statement/statement.tree';
 
 export function parse(code: string): XonParser {
-    const inputStream = CharStreams.fromString(code);
-    // const inputStream = new ANTLRInputStream(code);
-    const lexer = new XonLexer(inputStream);
-    const tokenStream = new CommonTokenStream(lexer);
-    return new XonParser(tokenStream);
+  const inputStream = CharStreams.fromString(code);
+  // const inputStream = new ANTLRInputStream(code);
+  const lexer = new XonLexer(inputStream);
+  const tokenStream = new CommonTokenStream(lexer);
+  return new XonParser(tokenStream);
 }
 
 export function parseLiteral<T extends LiteralTree<unknown>>(code: string): T {
-    return getLiteralTree(parse(code).literal()) as T;
+  return getLiteralTree(parse(code).literal()) as T;
 }
 
 export function parseExpression<T extends ExpressionTree>(code: string): T {
-    return getExpressionTree(parse(code).expression()) as T;
+  return getExpressionTree(parse(code).expression()) as T;
 }
 
 export function parseStatement<T extends StatementTree>(code: string): T {
-    return getStatementTree(parse(code).statement()) as T;
+  return getStatementTree(parse(code).statement()) as T;
 }
 
 export function parseDefinition<T extends DefinitionTree>(code: string): T {
-    return new DefinitionTree(parse(code).definition()) as T;
+  return new DefinitionTree(parse(code).definition()) as T;
 }
 
 export function parseProgram<T extends ProgramTree>(code: string): T {
-    return new ProgramTree(parse(code).program()) as T;
+  return new ProgramTree(parse(code).program()) as T;
 }

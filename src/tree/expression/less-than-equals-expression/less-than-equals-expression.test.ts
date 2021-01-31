@@ -5,5 +5,6 @@ import { LessThanEqualsExpressionTree } from './less-than-equals-expression.tree
 test('less  equals', () => {
     const code = '234<=234';
     const tree = parseExpression<LessThanEqualsExpressionTree>(code);
+    // eslint-disable-next-line no-self-compare
     expect(evalExpression(tree)).toBe(234 <= 234);
 });

@@ -6,16 +6,16 @@ import { MemberExpressionTree } from '../member-expression/member-expression.tre
 import { IndexExpressionTree } from './index-expression.tree';
 
 test('string expression index', () => {
-    const code = "some_object.prop['ppp']";
-    const tree = parseExpression<IndexExpressionTree>(code);
-    expect(tree.value).toBeInstanceOf(MemberExpressionTree);
-    expect(tree.index).toBeInstanceOf(LiteralExpressionTree);
-    expect(tree.index['literal']).toBeInstanceOf(StringLiteralTree);
+  const code = "some_object.prop['ppp']";
+  const tree = parseExpression<IndexExpressionTree>(code);
+  expect(tree.value).toBeInstanceOf(MemberExpressionTree);
+  expect(tree.index).toBeInstanceOf(LiteralExpressionTree);
+  expect((tree.index as LiteralExpressionTree).literal).toBeInstanceOf(StringLiteralTree);
 });
 
 test('integer expression index', () => {
-    const code = 'some_object.prop[12+33]';
-    const tree = parseExpression<IndexExpressionTree>(code);
-    expect(tree.value).toBeInstanceOf(MemberExpressionTree);
-    expect(tree.index).toBeInstanceOf(AddExpressionTree);
+  const code = 'some_object.prop[12+33]';
+  const tree = parseExpression<IndexExpressionTree>(code);
+  expect(tree.value).toBeInstanceOf(MemberExpressionTree);
+  expect(tree.index).toBeInstanceOf(AddExpressionTree);
 });

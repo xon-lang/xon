@@ -1,3 +1,7 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable no-bitwise */
+/* eslint-disable no-param-reassign */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { AddExpressionTree } from './tree/expression/add-expression/add-expression.tree';
 import { BitAndExpressionTree } from './tree/expression/bit-and-expression/bit-and-expression.tree';
 import { BitLeftShiftExpressionTree } from './tree/expression/bit-left-shift-expression/bit-left-shift-expression.tree';
@@ -29,67 +33,74 @@ import { UnaryPlusExpressionTree } from './tree/expression/unary-plus-expression
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function evalExpression(tree: ExpressionTree, params = {}): any {
-    if (tree === undefined) return undefined;
-    if (tree instanceof ParenthesizedExpressionTree) return evalExpression(tree.value);
-    if (tree instanceof IdExpressionTree) {
-        if (tree.name in params) {
-            return params[tree.name];
-        }
-
-        throw Error('Undefined key: ' + tree.name);
+  if (tree === undefined) return undefined;
+  if (tree instanceof ParenthesizedExpressionTree) return evalExpression(tree.value);
+  if (tree instanceof IdExpressionTree) {
+    if (tree.name in params) {
+      return params[tree.name];
     }
 
-    if (tree instanceof LiteralExpressionTree) {
-        if (tree.literal.value == 'null') return 0;
-        return tree.literal.value;
-    }
+    throw Error(`Undefined key: ${tree.name}`);
+  }
 
-    if (tree instanceof UnaryPlusExpressionTree) return evalExpression(tree.value, params);
+  if (tree instanceof LiteralExpressionTree) {
+    if (tree.literal.value === 'null') return 0;
+    return tree.literal.value;
+  }
 
-    if (tree instanceof UnaryMinusExpressionTree) return -evalExpression(tree.value, params);
+  if (tree instanceof UnaryPlusExpressionTree) return evalExpression(tree.value, params);
 
-    if (tree instanceof LogicalNotExpressionTree) return !evalExpression(tree.value, params);
+  if (tree instanceof UnaryMinusExpressionTree) return -evalExpression(tree.value, params);
 
-    if (tree instanceof BitNotExpressionTree) return ~evalExpression(tree.value, params);
+  if (tree instanceof LogicalNotExpressionTree) return !evalExpression(tree.value, params);
 
-    if (tree instanceof PowExpressionTree)
-        return Math.pow(evalExpression(tree.base, params), evalExpression(tree.exponent, params));
+  if (tree instanceof BitNotExpressionTree) return ~evalExpression(tree.value, params);
 
-    if (tree instanceof PipeExpressionTree) {
-        const a = evalExpression(tree['left'], params);
-        if (tree.arg) params[tree.arg] = a;
-        return evalExpression(tree['right'], params);
-    }
+  if (tree instanceof PowExpressionTree) {
+    return evalExpression(tree.base, params) ** evalExpression(tree.exponent, params);
+  }
 
-    if (!tree['left'] || !tree['right']) return undefined;
+  if (tree instanceof PipeExpressionTree) {
+    const a = evalExpression(tree.left, params);
+    if (tree.arg) params[tree.arg] = a;
+    return evalExpression(tree.right, params);
+  }
 
-    const a = evalExpression(tree['left'], params);
-    const b = evalExpression(tree['right'], params);
+  if (!('left' in tree) || !('right' in tree)) return undefined;
 
-    if (tree instanceof MultiplyExpressionTree) return a * b;
-    if (tree instanceof DivideExpressionTree) return a / b;
-    if (tree instanceof ModuloExpressionTree) return a % b;
+  // @ts-ignore
+  const a = evalExpression(tree.left, params);
+  // @ts-ignore
+  const b = evalExpression(tree.right, params);
 
-    if (tree instanceof AddExpressionTree) return a + b;
-    if (tree instanceof SubstractExpressionTree) return a - b;
+  // eslint-disable-next-line no-param-reassign
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  tree = tree as any;
 
-    if (tree instanceof BitLeftShiftExpressionTree) return a << b;
-    if (tree instanceof BitRightShiftExpressionTree) return a >> b;
+  if (tree instanceof MultiplyExpressionTree) return a * b;
+  if (tree instanceof DivideExpressionTree) return a / b;
+  if (tree instanceof ModuloExpressionTree) return a % b;
 
-    if (tree instanceof LessThanExpressionTree) return a < b;
-    if (tree instanceof LessThanEqualsExpressionTree) return a <= b;
-    if (tree instanceof MoreThanExpressionTree) return a > b;
-    if (tree instanceof MoreThanEqualsExpressionTree) return a >= b;
+  if (tree instanceof AddExpressionTree) return a + b;
+  if (tree instanceof SubstractExpressionTree) return a - b;
 
-    if (tree instanceof EqualsExpressionTree) return a === b;
-    if (tree instanceof NotEqualsExpressionTree) return a !== b;
+  if (tree instanceof BitLeftShiftExpressionTree) return a << b;
+  if (tree instanceof BitRightShiftExpressionTree) return a >> b;
 
-    if (tree instanceof BitAndExpressionTree) return a & b;
-    if (tree instanceof BitXorExpressionTree) return a ^ b;
-    if (tree instanceof BitOrExpressionTree) return a | b;
+  if (tree instanceof LessThanExpressionTree) return a < b;
+  if (tree instanceof LessThanEqualsExpressionTree) return a <= b;
+  if (tree instanceof MoreThanExpressionTree) return a > b;
+  if (tree instanceof MoreThanEqualsExpressionTree) return a >= b;
 
-    if (tree instanceof LogicalAndExpressionTree) return a && b;
-    if (tree instanceof LogicalOrExpressionTree) return a || b;
+  if (tree instanceof EqualsExpressionTree) return a === b;
+  if (tree instanceof NotEqualsExpressionTree) return a !== b;
 
-    throw 'Unsupported operation';
+  if (tree instanceof BitAndExpressionTree) return a & b;
+  if (tree instanceof BitXorExpressionTree) return a ^ b;
+  if (tree instanceof BitOrExpressionTree) return a | b;
+
+  if (tree instanceof LogicalAndExpressionTree) return a && b;
+  if (tree instanceof LogicalOrExpressionTree) return a || b;
+
+  throw new Error('Unsupported operation');
 }

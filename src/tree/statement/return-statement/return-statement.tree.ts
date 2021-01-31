@@ -4,10 +4,10 @@ import { ExpressionTree } from '../../expression/expression.tree';
 import { StatementTree } from '../statement.tree';
 
 export class ReturnStatementTree extends StatementTree {
-    value: ExpressionTree;
+  value: ExpressionTree;
 
-    constructor(public ctx: ReturnStatementContext) {
-        super();
-        this.value = ctx.expression() && getExpressionTree(ctx.expression());
-    }
+  constructor(public ctx: ReturnStatementContext) {
+    super();
+    this.value = ctx.expression() && getExpressionTree(ctx.expression());
+  }
 }

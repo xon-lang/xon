@@ -8,27 +8,30 @@ import { getTypeTree } from '../type/type-helper';
 import { TypeTree } from '../type/type.tree';
 
 export class FunctionTree extends BaseTree {
+  name: string;
+
+  args: {
     name: string;
-    args: {
-        name: string;
-        type: TypeTree;
-        value: ExpressionTree;
-    }[];
-    returnType: TypeTree;
-    statements: StatementTree[];
+    type: TypeTree;
+    value: ExpressionTree;
+  }[];
 
-    constructor(public ctx: FunctionContext) {
-        super();
+  returnType: TypeTree;
 
-        this.name = ctx._name.text;
-        this.args =
-            ctx.argument()?.map((x) => ({
-                name: x._name.text,
-                type: x.type() && getTypeTree(x.type()),
-                value: getExpressionTree(x.expression()),
-            })) || [];
+  statements: StatementTree[];
 
-        this.returnType = ctx.type() && getTypeTree(ctx.type());
-        this.statements = getStatementsTree(ctx.body());
-    }
+  constructor(public ctx: FunctionContext) {
+    super();
+
+    this.name = ctx._name.text;
+    this.args =
+      ctx.argument()?.map((x) => ({
+        name: x._name.text,
+        type: x.type() && getTypeTree(x.type()),
+        value: getExpressionTree(x.expression()),
+      })) || [];
+
+    this.returnType = ctx.type() && getTypeTree(ctx.type());
+    this.statements = getStatementsTree(ctx.body());
+  }
 }
