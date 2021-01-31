@@ -34,17 +34,11 @@ statement:
     | 'break'                                                                                           # breakStatement
     | 'return' expression?                                                                              # returnStatement
     | function                                                                                          # functionStatement
-    | (assignmentsList '=')+ assignmentValue                                                            # assignmentStatement
+    | ID '=' expression                                                                                 # assignmentStatement
     | expression                                                                                        # expressionStatement
     | Preprocessor                                                                                      # preprocessorStatement
     | LineBreak                                                                                         # lineBreakStatement
     ;
-
-assignmentValue:   expression | spreadItem (',' spreadItem)*;
-assignmentsList:   leftAssignments | leftAssignments middleAssignments rightAssignments? | middleAssignments rightAssignments?;
-leftAssignments:   ID (',' ID?)* | (',' ID?)+;
-middleAssignments: '...' ID? (',' '...' ID?)*;
-rightAssignments:  (',' ID?)+;
 
 function: name = ID '(' (argument (',' argument)*)? ')' type? body;
 argument: name = ID type? ('=' expression)?;
