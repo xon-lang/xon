@@ -29,8 +29,6 @@ statement:
     'if' expression body ('elif' expression body)* ('else' body)?                                       # ifStatement
     | 'select' (value = expression)? ':' LineBreak INDENT (cases += expression body LineBreak?)+ DEDENT # selectStatement
     | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body                   # loopStatement
-    | 'pass'                                                                                            # passStatement
-    | 'continue'                                                                                        # continueStatement
     | 'break'                                                                                           # breakStatement
     | 'return' expression?                                                                              # returnStatement
     | function                                                                                          # functionStatement
