@@ -60,8 +60,7 @@ expression:
 objectItem: ID ':' expression;
 
 literal:
-    NullLiteral      # nullLiteral
-    | BooleanLiteral # booleanLiteral
-    | NumberLiteral  # numberLiteral
-    | StringLiteral  # stringLiteral
+    BooleanLiteral  # booleanLiteral
+    | NumberLiteral # numberLiteral
+    | StringLiteral # stringLiteral
     ;
