@@ -20,6 +20,7 @@
     "import/no-cycle": 0,
     "import/prefer-default-export": 0,
     "no-underscore-dangle": 0,
-    "quotes": [2, "single", "avoid-escape"]
+    "quotes": [2, "single", "avoid-escape"],
+    "no-inline-comments": 2
   }
 }
