@@ -26,7 +26,8 @@ import { PowExpressionTree } from './tree/expression/pow-expression/pow-expressi
 import { SubstractExpressionTree } from './tree/expression/substract-expression/substract-expression.tree';
 import { UnaryMinusExpressionTree } from './tree/expression/unary-minus-expression/unary-minus-expression.tree';
 import { UnaryPlusExpressionTree } from './tree/expression/unary-plus-expression/unary-plus-expression.tree';
- 
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function evalExpression(tree: ExpressionTree, params = {}): any {
     if (tree === undefined) return undefined;
     if (tree instanceof ParenthesizedExpressionTree) return evalExpression(tree.value);
