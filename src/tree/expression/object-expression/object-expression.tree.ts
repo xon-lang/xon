@@ -8,9 +8,9 @@ export class ObjectExpressionTree extends ExpressionTree {
   constructor(public ctx?: ObjectExpressionContext) {
     super();
     if (!ctx) return;
-    this.items = ctx.objectItem().map((x) => ({
-      key: x.ID().text,
-      value: getExpressionTree(x.expression()),
+    this.items = ctx.ID().map((x, i) => ({
+      key: x.text,
+      value: getExpressionTree(ctx.expression(i)),
     }));
   }
 }

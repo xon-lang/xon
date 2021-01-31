@@ -52,12 +52,11 @@ expression:
     | left = expression '&&' right = expression                                   # logicalAndExpression
     | left = expression '||' right = expression                                   # logicalOrExpression
     | '[' (expression (',' expression)*)? ']'                                     # arrayExpression
-    | '{' (objectItem (',' objectItem)*)? '}'                                     # objectExpression
+    | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                       # objectExpression
     | '(' expression ')'                                                          # parenthesizedExpression
     | left = expression '|' (ID ':')? right = expression                          # pipeExpression
     | '\\' (ID (',' ID)* ':')? expression                                         # lambdaExpression
     ;
-objectItem: ID ':' expression;
 
 literal:
     BooleanLiteral  # booleanLiteral
