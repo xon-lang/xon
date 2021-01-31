@@ -18,6 +18,18 @@ console.log(result); // output is 46668
 
 ## Development requirements
 
+If the following command:
+
+```bash
+brew upgrade git
+```
+
+return `Error: git not installed` do the next pls:
+
+```bash
+brew install git
+```
+
 Node.js v12+
 
 ## Generate grammar
