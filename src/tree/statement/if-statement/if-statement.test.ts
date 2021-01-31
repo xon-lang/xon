@@ -19,7 +19,7 @@ test('else only', () => {
 });
 
 test('else if', () => {
-  const code = 'if 12+45/9:\n    12+45/5\nelse:    2   *   4   ';
+  const code = 'if 12+45/9:\n    12+45/5\nelse:\n    2   *   4   ';
   const tree = parseStatement<IfStatementTree>(code);
 
   expect(evalExpression(tree.items[0].condition)).toBe(12 + 45 / 9);
@@ -33,7 +33,7 @@ test('else if', () => {
 });
 
 test('if', () => {
-  const code = 'if 12+45/9: 12+45/5';
+  const code = 'if 12+45/9:\n    12+45/5';
   const tree = parseStatement<IfStatementTree>(code);
 
   expect(evalExpression(tree.items[0].condition)).toBe(12 + 45 / 9);
@@ -53,7 +53,16 @@ test('if relational', () => {
 });
 
 test('complex if', () => {
-  const code = 'if a: b elif c: d elif e: f elif g: h else: i';
+  const code = `if a:
+  b
+elif c:
+  d
+elif e:
+  f
+elif g:
+  h
+else:
+  i`;
   const tree = parseStatement<IfStatementTree>(code);
   expect(tree.items.length).toBe(5);
   expect((tree.items[0].condition as IdExpressionTree).name).toBe('a');

@@ -4,7 +4,7 @@ import { ProgramTree } from './program.tree';
 test('two if', () => {
     const code = `if e1:
     7+7
-else if e2:
+elif e2:
     call3()
 `;
     const tree = new ProgramTree(parse(code).program());

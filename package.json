@@ -24,7 +24,7 @@
   "scripts": {
     "rimraf": "node_modules/rimraf/bin.js",
     "grammar": "scripts/grammar.sh",
-    "lint": "eslint . --max-warnings=0 --ext .js,.ts",
+    "lint": "eslint . --max-warnings=0",
     "test": "npm run grammar && jest --no-cache",
     "build": "scripts/build.sh",
     "pre-commit": "scripts/pre-commit.sh",

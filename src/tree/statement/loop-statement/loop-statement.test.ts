@@ -22,7 +22,7 @@ test('loop with value', () => {
 });
 
 test('loop with value and key', () => {
-    const code = 'loop val, key in object: 12+10';
+    const code = 'loop val, key in object:\n    12+10';
     const tree = parseStatement<LoopStatementTree>(code);
     expect(tree.valueName).toBe('val');
     expect(tree.keyName).toBe('key');
@@ -78,7 +78,7 @@ test('loop with expression only', () => {
 });
 
 test('infinity loop', () => {
-    const code = "loop: log('To infinity and beyond!')";
+    const code = "loop:\n   log('To infinity and beyond!')";
     const tree = parseStatement<LoopStatementTree>(code);
     expect(tree.valueName).toBeUndefined();
     expect(tree.keyName).toBeUndefined();

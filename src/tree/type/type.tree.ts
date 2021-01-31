@@ -1,13 +1,14 @@
 import { TypeContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
-import { DefinitionTree } from '../definition/definition.tree';
 
-export abstract class TypeTree extends BaseTree {
-  ctx?: TypeContext;
+export class TypeTree extends BaseTree {
+  name: string;
 
-  name: string | number = NaN;
+  isArray: boolean;
 
-  abstract eq(anotherType: TypeTree): boolean;
-
-  typeDefinition: DefinitionTree;
+  constructor(public ctx: TypeContext) {
+    super();
+    this.name = ctx.ID().text;
+    this.isArray = !!ctx.OpenBracket();
+  }
 }

@@ -1,50 +1,50 @@
 {
-    "antlr4.format": {
-        "alignActions": true,
-        "alignColons": "none",
-        "alignFirstTokens": true,
-        "alignLabels": true,
-        "alignLexerCommands": true,
-        "alignSemicolons": "hanging",
-        "alignTrailers": true,
-        "alignTrailingComments": true,
-        "allowShortBlocksOnASingleLine": true,
-        "allowShortRulesOnASingleLine": true,
-        "breakBeforeBraces": false,
-        "breakBeforeParens": false,
-        "columnLimit": 200,
-        "continuationIndentWidth": 4,
-        "groupedAlignments": true,
-        "indentWidth": 4,
-        "keepEmptyLinesAtTheStartOfBlocks": true,
-        "maxEmptyLinesToKeep": 1,
-        "minEmptyLines": 0,
-        "reflowComments": false,
-        "ruleInternalsOnSingleLine": false,
-        "singleLineOverrulesHangingColon": true,
-        "spaceBeforeAssignmentOperators": true,
-        "tabWidth": 4,
-        "useTab": false
-    },
-    "antlr4.generation": {
-        "mode": "none"
-    },
-    "git.postCommitCommand": "sync",
-    "workbench.colorCustomizations": {
-        "statusBar.background": "#054f6d"
-    },
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": true,
-        "source.fixAll": true
-    },
-    "files.autoSave": "afterDelay",
-    "prettier.tabWidth": 4,
-    "typescript.preferences.importModuleSpecifier": "relative",
-    "[typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+  "antlr4.format": {
+    "alignActions": true,
+    "alignColons": "none",
+    "alignFirstTokens": true,
+    "alignLabels": true,
+    "alignLexerCommands": true,
+    "alignSemicolons": "hanging",
+    "alignTrailers": true,
+    "alignTrailingComments": true,
+    "allowShortBlocksOnASingleLine": true,
+    "allowShortRulesOnASingleLine": true,
+    "breakBeforeBraces": false,
+    "breakBeforeParens": false,
+    "columnLimit": 100,
+    "continuationIndentWidth": 4,
+    "groupedAlignments": true,
+    "indentWidth": 4,
+    "keepEmptyLinesAtTheStartOfBlocks": true,
+    "maxEmptyLinesToKeep": 1,
+    "minEmptyLines": 0,
+    "reflowComments": false,
+    "ruleInternalsOnSingleLine": false,
+    "singleLineOverrulesHangingColon": true,
+    "spaceBeforeAssignmentOperators": true,
+    "tabWidth": 4,
+    "useTab": false
+  },
+  "antlr4.generation": {
+    "mode": "none"
+  },
+  "git.postCommitCommand": "sync",
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#054f6d"
+  },
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+    "source.fixAll": true
+  },
+  "files.autoSave": "afterDelay",
+  "prettier.tabWidth": 4,
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

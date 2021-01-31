@@ -1,11 +1,12 @@
 SomeClass:
 
-    property str
-    anotherProp = 234
-    typed_value number = 1
+    property String
+    anotherProp Number
+    typed_value Number
     
     method():
         hello()
         bye()
     
-    location(x num, y num = 6): coord(x, y)
+    location(x Number, y Number):
+        coord(x, y)
