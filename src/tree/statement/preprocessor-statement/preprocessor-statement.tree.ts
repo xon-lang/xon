@@ -8,11 +8,4 @@ export class PreprocessorStatementTree extends StatementTree {
         super();
         this.value = ctx.Preprocessor().text.trim().slice(2, -1);
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            value: this.value,
-        };
-    }
 }

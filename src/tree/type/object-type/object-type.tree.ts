@@ -16,7 +16,7 @@ export class ObjectTypeTree extends TypeTree {
         this.name = '{' + this.items.map((x) => `${x.name} ${x.type.name}`).join(', ') + '}';
     }
 
-    eq(anotherType: TypeTree) {
+    eq(anotherType: TypeTree): boolean {
         return (
             this == anotherType ||
             (anotherType instanceof ObjectTypeTree &&
@@ -25,15 +25,5 @@ export class ObjectTypeTree extends TypeTree {
                     (x, i) => x.name == this.items[i].name && x.type.eq(this.items[i].type)
                 ))
         );
-    }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            items: this.items.map((x) => ({
-                name: x.name,
-                type: x.type.toPlain(),
-            })),
-        };
     }
 }

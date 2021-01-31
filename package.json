@@ -24,6 +24,7 @@
     "scripts": {
         "rimraf": "node_modules/rimraf/bin.js",
         "grammar": "scripts/grammar.sh",
+        "lint": "eslint . --max-warnings=0 --ext .js,.ts",
         "test": "npm run grammar && jest --no-cache",
         "build": "scripts/build.sh",
         "pre-commit": "scripts/pre-commit.sh",
@@ -39,8 +40,11 @@
     "devDependencies": {
         "@types/jest": "^26.0.20",
         "@types/node": "^14.14.22",
+        "@typescript-eslint/eslint-plugin": "^4.14.1",
+        "@typescript-eslint/parser": "^4.14.1",
         "antlr4ts-cli": "^0.5.0-alpha.4",
         "create-ts-index": "^1.13.6",
+        "eslint": "^7.18.0",
         "husky": "^4.3.8",
         "jest": "^26.6.3",
         "rimraf": "^3.0.2",

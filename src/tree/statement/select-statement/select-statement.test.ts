@@ -8,6 +8,7 @@ import { SelectStatementTree } from './select-expression.tree';
 test('select with one case', () => {
     const code = 'select:\n    true: 6 + 7';
     const tree = parseStatement<SelectStatementTree>(code);
+    console.log(tree.toJson())
 
     expect(tree).toBeInstanceOf(SelectStatementTree);
     expect(tree.value).toBeUndefined();
@@ -53,7 +54,7 @@ test('select with value equality', () => {
         anotherMethod()`;
     const tree = parseStatement<SelectStatementTree>(code);
     expect(tree).toBeInstanceOf(SelectStatementTree);
-    expect(tree.value.as<IdExpressionTree>()).toBeInstanceOf(IdExpressionTree);
+    expect(tree.value).toBeInstanceOf(IdExpressionTree);
     expect(tree.cases.length).toBe(2);
 
     expect(evalExpression(tree.cases[0].value)).toBe(true);

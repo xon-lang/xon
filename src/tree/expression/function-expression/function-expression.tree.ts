@@ -11,12 +11,4 @@ export class FunctionExpressionTree extends ExpressionTree {
         this.args = ctx._args.map(getExpressionTree);
         this.object = getExpressionTree(ctx._object);
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            args: this.args.map((x) => x.toPlain()),
-            object: this.object.toPlain(),
-        };
-    }
 }

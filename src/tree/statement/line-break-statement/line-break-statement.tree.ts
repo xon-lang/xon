@@ -5,10 +5,4 @@ export class LineBreakStatementTree extends StatementTree {
     constructor(public ctx: LineBreakStatementContext) {
         super();
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-        };
-    }
 }

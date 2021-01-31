@@ -3,7 +3,7 @@ import { createSimpleTreeType } from '../../type/type-helper';
 import { TypeTree } from '../../type/type.tree';
 import { LiteralTree } from '../literal.tree';
 
-export class NumberLiteralTree extends LiteralTree {
+export class NumberLiteralTree extends LiteralTree<number> {
     bitsCount: number;
     base: number;
     integerValue: string;
@@ -34,7 +34,7 @@ export class NumberLiteralTree extends LiteralTree {
     private parseFloat(str, radix) {
         if (!radix) return parseFloat(str);
 
-        var parts = str.split('.');
+        const parts = str.split('.');
         if (parts.length > 1) {
             return (
                 parseInt(parts[0], radix) +

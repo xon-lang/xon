@@ -11,12 +11,4 @@ export class PowExpressionTree extends ExpressionTree {
         this.base = getExpressionTree(ctx._base);
         this.exponent = getExpressionTree(ctx._exponent);
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            base: this.base.toPlain(),
-            exponent: this.exponent.toPlain(),
-        };
-    }
 }

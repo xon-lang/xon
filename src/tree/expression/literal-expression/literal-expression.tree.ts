@@ -5,7 +5,7 @@ import { TypeTree } from '../../type/type.tree';
 import { ExpressionTree } from '../expression.tree';
 
 export class LiteralExpressionTree extends ExpressionTree {
-    literal: LiteralTree;
+    literal: LiteralTree<unknown>;
 
     constructor(public ctx?: LiteralExpressionContext) {
         super();
@@ -14,12 +14,5 @@ export class LiteralExpressionTree extends ExpressionTree {
 
     getType(): TypeTree {
         return this.literal.getType();
-    }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            literal: this.literal.toPlain(),
-        };
     }
 }

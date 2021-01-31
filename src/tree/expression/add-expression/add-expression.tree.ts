@@ -17,12 +17,4 @@ export class AddExpressionTree extends ExpressionTree {
     getType(): TypeTree {
         return this.getInfixOperationType('+', this.left, this.right);
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            left: this.left.toPlain(),
-            right: this.right.toPlain(),
-        };
-    }
 }

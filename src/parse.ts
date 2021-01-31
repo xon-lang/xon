@@ -1,4 +1,4 @@
-import { ANTLRInputStream, CommonTokenStream } from 'antlr4ts';
+import { CharStreams, CommonTokenStream } from 'antlr4ts';
 import { XonLexer } from './grammar/xon-lexer';
 import { XonParser } from './grammar/xon-parser';
 import { DefinitionTree } from './tree/definition/definition.tree';
@@ -10,14 +10,15 @@ import { ProgramTree } from './tree/program/program.tree';
 import { getStatementTree } from './tree/statement/statement-helper';
 import { StatementTree } from './tree/statement/statement.tree';
 
-export function parse(code: string) {
-    const inputStream = new ANTLRInputStream(code);
+export function parse(code: string): XonParser {
+    const inputStream = CharStreams.fromString(code);
+    // const inputStream = new ANTLRInputStream(code);
     const lexer = new XonLexer(inputStream);
     const tokenStream = new CommonTokenStream(lexer);
     return new XonParser(tokenStream);
 }
 
-export function parseLiteral<T extends LiteralTree>(code: string): T {
+export function parseLiteral<T extends LiteralTree<unknown>>(code: string): T {
     return getLiteralTree(parse(code).literal()) as T;
 }
 

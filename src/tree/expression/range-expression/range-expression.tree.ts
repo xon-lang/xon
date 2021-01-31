@@ -13,13 +13,4 @@ export class RangeExpressionTree extends ExpressionTree {
         this.end = getExpressionTree(ctx._endPos);
         this.step = ctx._step && getExpressionTree(ctx._step);
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            start: this.start.toPlain(),
-            end: this.end.toPlain(),
-            step: this.step?.toPlain(),
-        };
-    }
 }

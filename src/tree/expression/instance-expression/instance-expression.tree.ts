@@ -10,11 +10,4 @@ export class InstanceExpressionTree extends ExpressionTree {
         this.memberName = ctx.ID().text;
         this.level = ctx.Ad().length - 1;
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            memberName: this.memberName,
-        };
-    }
 }

@@ -11,12 +11,4 @@ export class LambdaExpressionTree extends ExpressionTree {
         this.args = ctx.ID().map((x) => x.text);
         this.body = getExpressionTree(ctx.expression());
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            args: this.args,
-            body: this.body.toPlain(),
-        };
-    }
 }

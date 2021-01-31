@@ -31,10 +31,10 @@ test('two items', () => {
     expect(dictType).toBeInstanceOf(ObjectTypeTree);
     expect(dictType.items.length).toBe(2);
     expect(dictType.items[0].name).toBe('key');
-    expect(dictType.items[0].type.asSimple.name).toBe('str');
+    expect(dictType.items[0].type.name).toBe('str');
 
     expect(dictType.items[1].name).toBe('another');
-    expect(dictType.items[1].type.asSimple.name).toBe('num');
+    expect(dictType.items[1].type.name).toBe('num');
 });
 
 test('complex dict type', () => {

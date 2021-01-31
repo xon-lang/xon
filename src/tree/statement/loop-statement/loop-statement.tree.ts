@@ -23,16 +23,4 @@ export class LoopStatementTree extends StatementTree {
         this.expression = ctx.expression() && getExpressionTree(ctx.expression());
         this.statements = getStatementsTree(ctx.body());
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            infinity: this.isInfinity,
-            indexName: this.indexName,
-            keyName: this.keyName,
-            valueName: this.valueName,
-            expression: this.expression.toPlain(),
-            statements: this.statements.map((x) => x.toPlain()),
-        };
-    }
 }

@@ -22,14 +22,14 @@ export class ObjectExpressionTree extends ExpressionTree {
                     (x.ID() && this.getKeyByString(x.ID().text)),
                 hasSpread: !!x.spreadItem()?.Elipsis(),
             }))
-            .map((x, i) => ({
+            .map((x) => ({
                 value: x.value,
                 key: x.hasSpread ? undefined : x.key || this.getKeyByValueExpression(x.value),
                 hasSpread: x.hasSpread,
             }));
     }
 
-    getKeyByString(name: string) {
+    getKeyByString(name: string): LiteralExpressionTree {
         const stringLiteral = new StringLiteralTree();
         stringLiteral.value = name;
         const literalExpression = new LiteralExpressionTree();
@@ -37,21 +37,10 @@ export class ObjectExpressionTree extends ExpressionTree {
         return literalExpression;
     }
 
-    getKeyByValueExpression(tree: ExpressionTree) {
+    getKeyByValueExpression(tree: ExpressionTree): LiteralExpressionTree {
         if (tree instanceof IdExpressionTree) return this.getKeyByString(tree.name);
         if (tree instanceof FunctionExpressionTree && tree.object instanceof IdExpressionTree)
             return this.getKeyByString(tree.object.name);
         return this.getKeyByString(tree.ctx.text);
-    }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            items: this.items.map((x) => ({
-                value: x.value.toPlain(),
-                key: x.key?.toPlain(),
-                hasSpread: x.hasSpread,
-            })),
-        };
     }
 }

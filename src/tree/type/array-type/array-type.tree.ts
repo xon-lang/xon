@@ -12,17 +12,10 @@ export class ArrayTypeTree extends TypeTree {
         this.name = `${this.baseType.name}[]`;
     }
 
-    eq(anotherType: TypeTree) {
+    eq(anotherType: TypeTree): boolean {
         return (
             this == anotherType ||
             (anotherType instanceof ArrayTypeTree && anotherType.baseType.eq(this.baseType))
         );
-    }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            baseType: this.baseType.toPlain(),
-        };
     }
 }

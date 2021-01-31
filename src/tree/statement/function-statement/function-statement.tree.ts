@@ -9,11 +9,4 @@ export class FunctionStatementTree extends StatementTree {
         super();
         this.value = new FunctionTree(ctx.function());
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            value: this.value.toPlain(),
-        };
-    }
 }

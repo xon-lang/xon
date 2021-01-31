@@ -17,12 +17,4 @@ export class SubstractExpressionTree extends ExpressionTree {
     getType(): TypeTree {
         return this.getInfixOperationType('substract', this.left, this.right);
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            left: this.left.toPlain(),
-            right: this.right.toPlain(),
-        };
-    }
 }

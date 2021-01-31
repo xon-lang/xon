@@ -11,15 +11,4 @@ export abstract class ExpressionTree extends BaseTree {
     getInfixOperationType(operator: string, left: ExpressionTree, right: ExpressionTree): TypeTree {
         return left.getType().getInfixOperationType(operator, right.getType());
     }
-
-    as<T extends ExpressionTree>() {
-        return (this as any) as T;
-    }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            dataType: this.getType()?.name,
-        };
-    }
 }

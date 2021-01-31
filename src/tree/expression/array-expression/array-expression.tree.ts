@@ -9,16 +9,6 @@ export class ArrayExpressionTree extends ExpressionTree {
         super();
         this.items = ctx
             ?.spreadItem()
-            .map((x, i) => ({ value: getExpressionTree(x.expression()), hasSpread: !!x.Elipsis() }));
-    }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            items: this.items.map((x) => ({
-                value: x.value.toPlain(),
-                hasSpread: x.hasSpread,
-            })),
-        };
+            .map((x) => ({ value: getExpressionTree(x.expression()), hasSpread: !!x.Elipsis() }));
     }
 }

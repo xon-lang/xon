@@ -9,11 +9,4 @@ export class ParenthesizedExpressionTree extends ExpressionTree {
         super();
         this.value = getExpressionTree(ctx.expression());
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            value: this.value.toPlain(),
-        };
-    }
 }

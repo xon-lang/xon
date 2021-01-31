@@ -11,7 +11,7 @@ test('simple assignment', () => {
     expect(tree.singleAssigments.length).toBe(1);
     expect(tree.arrayAssginments.length).toBe(0);
     expect(tree.singleAssigments[0].name).toBe('a');
-    expect(tree.value.as<LiteralExpressionTree>().literal.value).toBe(220);
+    expect((tree.value as LiteralExpressionTree).literal.value).toBe(220);
 });
 
 test('one assignment', () => {
@@ -22,10 +22,7 @@ test('one assignment', () => {
     expect(tree.arrayAssginments.length).toBe(0);
     expect(tree.singleAssigments[0].name).toBe('a');
     expect(
-        tree.value
-            .as<ArrayExpressionTree>()
-            .items.map((x) => evalExpression(x.value))
-            .join()
+        (tree.value as ArrayExpressionTree).items.map((x) => evalExpression(x.value)).join()
     ).toBe('1,2,3,v');
 });
 

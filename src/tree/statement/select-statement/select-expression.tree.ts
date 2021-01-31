@@ -19,15 +19,4 @@ export class SelectStatementTree extends StatementTree {
             statements: getStatementsTree(ctx.body(i)),
         }));
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            value: this.value?.toPlain(),
-            cases: this.cases.map((x) => ({
-                value: x.value.toPlain(),
-                statements: x.statements.map((x) => x.toPlain()),
-            })),
-        };
-    }
 }

@@ -11,12 +11,4 @@ export class IndexExpressionTree extends ExpressionTree {
         this.value = getExpressionTree(ctx._value);
         this.index = getExpressionTree(ctx._index);
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            value: this.value.toPlain(),
-            index: this.index.toPlain(),
-        };
-    }
 }

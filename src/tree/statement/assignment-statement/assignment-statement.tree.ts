@@ -59,25 +59,16 @@ export class AssignmentStatementTree extends StatementTree {
         }
     }
 
-    *getSingleAssigments(vars: string[], fromTheEnd) {
+    getSingleAssigments(vars: string[], fromTheEnd: boolean): { name: string; index: number }[] {
+        const assignments = [];
         for (const [index, v] of vars.entries()) {
             if (!v) continue;
 
-            yield {
+            assignments.push({
                 name: v.replace('...', ''),
                 index: fromTheEnd ? -(vars.length - index) : index,
-            };
+            });
         }
-    }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            value: this.value.toPlain(),
-            singleAssigments: this.singleAssigments,
-            arrayAssginments: this.arrayAssginments,
-            startArraysIndex: this.startArraysIndex,
-            endArraysIndex: this.endArraysIndex,
-        };
+        return assignments;
     }
 }

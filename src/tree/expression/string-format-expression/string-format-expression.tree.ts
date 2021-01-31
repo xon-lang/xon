@@ -20,12 +20,4 @@ export class StringFormatExpressionTree extends ExpressionTree {
 
         this.value = parseExpression(`(${this.valueString})`);
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            valueString: this.valueString,
-            value: this.value.toPlain(),
-        };
-    }
 }

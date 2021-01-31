@@ -11,7 +11,7 @@ import { NullLiteralTree } from './null-literal/null-literal.tree';
 import { NumberLiteralTree } from './number-literal/number-literal.tree';
 import { StringLiteralTree } from './string-literal/string-literal.tree';
 
-export function getLiteralTree(ctx: LiteralContext): LiteralTree {
+export function getLiteralTree(ctx: LiteralContext): LiteralTree<unknown> {
     if (ctx == undefined) return undefined;
 
     if (ctx instanceof NullLiteralContext) return new NullLiteralTree(ctx);

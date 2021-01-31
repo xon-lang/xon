@@ -22,29 +22,29 @@ export function getTypeTree(ctx: TypeContext): TypeTree {
     throw Error('No Statemenet found for ' + ctx.constructor.name);
 }
 
-export function getTypesTree(types: TypeContext[]) {
+export function getTypesTree(types: TypeContext[]): TypeTree[] {
     return types?.map(getTypeTree) || [];
 }
 
-export function createSimpleTreeType(name) {
+export function createSimpleTreeType(name: string): SimpleTypeTree {
     const type = new SimpleTypeTree();
     type.name = name;
     return type;
 }
 
-export function createArrayTreeType(baseType: TypeTree) {
+export function createArrayTreeType(baseType: TypeTree): ArrayTypeTree {
     const type = new ArrayTypeTree();
     type.baseType = baseType;
     return type;
 }
 
-export function createObjectTreeType(items: { name: string; type: TypeTree }[]) {
+export function createObjectTreeType(items: { name: string; type: TypeTree }[]): ObjectTypeTree {
     const type = new ObjectTypeTree();
     type.items = items;
     return type;
 }
 
-export function createFunctionTreeType(args: TypeTree[], returnType: TypeTree) {
+export function createFunctionTreeType(args: TypeTree[], returnType: TypeTree): FunctionTypeTree {
     const type = new FunctionTypeTree();
     type.args = args;
     type.returnType = returnType;

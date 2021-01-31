@@ -13,13 +13,4 @@ export class MemberExpressionTree extends ExpressionTree {
         this.memberName = ctx.ID().text;
         this.object = getExpressionTree(ctx.expression());
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            hasElvis: this.hasElvis,
-            name: this.memberName,
-            object: this.object.toPlain(),
-        };
-    }
 }

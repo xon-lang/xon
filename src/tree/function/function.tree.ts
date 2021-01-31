@@ -31,18 +31,4 @@ export class FunctionTree extends BaseTree {
         this.returnType = ctx.type() && getTypeTree(ctx.type());
         this.statements = getStatementsTree(ctx.body());
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            name: this.name,
-            args: this.args.map((x) => ({
-                name: x.name,
-                type: x.type?.toPlain(),
-                value: x.value?.toPlain(),
-            })),
-            returnType: this.returnType?.toPlain(),
-            statements: this.statements.map((x) => x.toPlain()),
-        };
-    }
 }

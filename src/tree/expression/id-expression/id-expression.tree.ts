@@ -8,11 +8,4 @@ export class IdExpressionTree extends ExpressionTree {
         super();
         this.name = ctx.ID().text;
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            name: this.name,
-        };
-    }
 }

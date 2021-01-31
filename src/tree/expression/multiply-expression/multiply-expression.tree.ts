@@ -11,12 +11,4 @@ export class MultiplyExpressionTree extends ExpressionTree {
         this.left = getExpressionTree(ctx._left);
         this.right = getExpressionTree(ctx._right);
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            left: this.left.toPlain(),
-            right: this.right.toPlain(),
-        };
-    }
 }

@@ -13,13 +13,4 @@ export class ImportsTree extends BaseTree {
         this.libName = ctx.importPath().text.split('/')[1];
         this.members = ctx.importMember().map((x) => new ImportMemberTree(x));
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            scopeName: this.scopeName,
-            libName: this.libName,
-            member: this.members.map((x) => x.toPlain()),
-        };
-    }
 }

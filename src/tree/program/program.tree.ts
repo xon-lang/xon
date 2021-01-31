@@ -25,13 +25,4 @@ export class ProgramTree extends BaseTree {
             .filter((x) => !(x instanceof LineBreakStatementTree));
         this.definitions = ctx.definition()?.map((x) => new DefinitionTree(x));
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            imports: this.imports.map((x) => x.toPlain()),
-            statements: this.statements.map((x) => x.toPlain()),
-            definitions: this.definitions.map((x) => x.toPlain()),
-        };
-    }
 }

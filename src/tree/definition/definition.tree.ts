@@ -71,26 +71,4 @@ export class DefinitionTree extends BaseTree {
         });
         this.methods = methods.map((x) => new FunctionTree(x));
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            name: this.name,
-            properties: this.properties.map((x) => ({
-                name: x.name,
-                value: x.value?.toPlain(),
-                type: x.type?.toPlain(),
-            })),
-            methods: this.methods.map((x) => x.toPlain()),
-            infixOperators: this.infixOperators.map((x) => ({
-                operator: x.operator,
-                arg: {
-                    name: x.arg.name,
-                    type: x.arg.type.toPlain(),
-                },
-                returnType: x.returnType,
-                statements: x.statements?.map((x) => x.toPlain()),
-            })),
-        };
-    }
 }

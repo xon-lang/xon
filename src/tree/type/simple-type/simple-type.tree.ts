@@ -8,17 +8,10 @@ export class SimpleTypeTree extends TypeTree {
         this.name = ctx.ID().text;
     }
 
-    eq(anotherType: TypeTree) {
+    eq(anotherType: TypeTree): boolean {
         return (
             this == anotherType ||
             (anotherType instanceof SimpleTypeTree && anotherType.name == this.name)
         );
-    }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            name: this.name,
-        };
     }
 }

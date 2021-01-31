@@ -10,12 +10,4 @@ export class ImportMemberTree extends BaseTree {
         this.name = ctx._name.text;
         this.alias = ctx._alias?.text;
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            name: this.name,
-            alias: this.alias,
-        };
-    }
 }

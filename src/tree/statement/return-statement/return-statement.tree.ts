@@ -10,11 +10,4 @@ export class ReturnStatementTree extends StatementTree {
         super();
         this.value = ctx.expression() && getExpressionTree(ctx.expression());
     }
-
-    toPlain() {
-        return {
-            ...super.toPlain(),
-            value: this.value.toPlain(),
-        };
-    }
 }

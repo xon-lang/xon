@@ -3,7 +3,7 @@ import { createSimpleTreeType } from '../../type/type-helper';
 import { TypeTree } from '../../type/type.tree';
 import { LiteralTree } from '../literal.tree';
 
-export class BooleanLiteralTree extends LiteralTree {
+export class BooleanLiteralTree extends LiteralTree<boolean> {
     isPositive: boolean;
 
     constructor(public ctx: BooleanLiteralContext) {
