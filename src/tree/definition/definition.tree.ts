@@ -6,6 +6,7 @@ import {
   PropertyMemberContext,
 } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
+import { TypeTree } from '../type/type.tree';
 import { InfixOperatorMemberTree } from './member/infix-operator-member/infix-operator-member.tree';
 import { InheritanceMemberTree } from './member/inheritance-member/inheritance-member.tree';
 import { MethodMemberTree } from './member/method-member/method-member.tree';
@@ -35,5 +36,11 @@ export class DefinitionTree extends BaseTree {
       if (member instanceof InfixOperatorMemberContext)
         this.infixOperators.push(new InfixOperatorMemberTree(member));
     });
+
+    if (!this.inheritances.length) {
+      const inheritance = new InheritanceMemberTree();
+      inheritance.type = TypeTree.create('Object');
+      this.inheritances.push(inheritance);
+    }
   }
 }
