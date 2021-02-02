@@ -1,6 +1,0 @@
-class Num:
-  #static
-    min = #js{max()}
-    max = #js{max()}
-  
-  bool signed

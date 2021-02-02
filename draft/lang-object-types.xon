@@ -1,9 +1,0 @@
-// class
-class A:
-  i32 intProp
-
-// enum
-enum Color:
-  White // is 0
-  Blue = 3
-  Green // is 4

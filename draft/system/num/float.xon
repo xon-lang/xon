@@ -1,3 +1,0 @@
-class Float: Num
-  i32 integer
-  u32 fractional
