@@ -23,7 +23,7 @@ export class InfixOperatorMemberTree extends MemberTree {
       type: new TypeTree(ctx.argument().type()),
     };
 
-    this.returnType = new TypeTree(ctx.type());
-    this.statements = getStatementsTree(ctx.body());
+    this.returnType = ctx.type() && new TypeTree(ctx.type());
+    this.statements = ctx.body() && getStatementsTree(ctx.body());
   }
 }
