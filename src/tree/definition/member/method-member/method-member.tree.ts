@@ -5,6 +5,8 @@ import { TypeTree } from '../../../type/type.tree';
 import { MemberTree } from '../member.tree';
 
 export class MethodMemberTree extends MemberTree {
+  name: string;
+
   args: {
     name: string;
     type: TypeTree;

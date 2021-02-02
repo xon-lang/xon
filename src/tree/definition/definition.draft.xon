@@ -1,4 +1,6 @@
 ConstructorClass:
+    ...String
+    
     .(x int, y str):
         pass
     

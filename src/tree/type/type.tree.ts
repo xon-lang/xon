@@ -47,14 +47,14 @@ export class TypeTree extends BaseTree {
     const { returnType } = left
       .getType()
       .definition()
-      .infixOperators.find((x) => x.name === operator && x.arg.type.equals(right.getType()));
+      .infixOperators.find((x) => x.operator === operator && x.arg.type.equals(right.getType()));
     return returnType;
   }
 
-  static create(name: string, ...generics:( TypeTree | string)[]): TypeTree {
+  static create(name: string, ...generics: (TypeTree | string)[]): TypeTree {
     const type = new TypeTree();
     type.name = name;
-    type.generics = generics.map((x) =>x instanceof TypeTree? x: TypeTree.create(x));
+    type.generics = generics.map((x) => (x instanceof TypeTree ? x : TypeTree.create(x)));
     return type;
   }
 }

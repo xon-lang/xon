@@ -66,6 +66,7 @@ PlusAssign:     '+=';
 MinusAssign:    '-=';
 Pipe:           '|';
 LambdaStart:    '\\';
+Elipsis:        '...';
 
 BooleanLiteral: 'true' | 'false';
 NumberLiteral:  NUMBER | (NUMBER? '.' NUMBER);
