@@ -1,10 +1,4 @@
 Boolean:
-    infix + (x Boolean) Number:
-        // pass
-    infix + (x Number) Number:
-        // pass
-    infix + (x String) String:
-        // pass
-
-
-
+    infix + (x Boolean) Number
+    infix + (x Number) Number
+    infix + (x String) String
