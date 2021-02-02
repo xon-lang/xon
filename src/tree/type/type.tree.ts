@@ -1,8 +1,17 @@
+import fs from 'fs';
+import path from 'path';
 import { TypeContext } from '../../grammar/xon-parser';
-import { getLibType } from '../../xon-lib/lib-type';
+import { parseDefinition } from '../../parse';
 import { BaseTree } from '../base.tree';
 import { DefinitionTree } from '../definition/definition.tree';
 import { ExpressionTree } from '../expression/expression.tree';
+
+const libPath = 'src/xon-lib/';
+
+export function getLibType(name: string): DefinitionTree {
+  const code = fs.readFileSync(path.resolve(libPath, `${name}.xon`)).toString();
+  return parseDefinition(code);
+}
 
 export class TypeTree extends BaseTree {
   name: string;
@@ -12,7 +21,7 @@ export class TypeTree extends BaseTree {
   constructor(public ctx?: TypeContext) {
     super();
     if (!ctx) return;
-    
+
     this.name = ctx.ID().text;
     this.isArray = !!ctx.OpenBracket();
   }
