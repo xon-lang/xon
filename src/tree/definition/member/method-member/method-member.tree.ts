@@ -23,7 +23,7 @@ export class MethodMemberTree extends MemberTree {
       type: new TypeTree(x.type()),
     }));
 
-    this.returnType = new TypeTree(ctx.type());
+    this.returnType = ctx.type() && new TypeTree(ctx.type());
     this.statements = getStatementsTree(ctx.body());
   }
 }

@@ -8,5 +8,5 @@ SomeClass:
         hello()
         bye()
     
-    location(x Number, y Number):
+    location(x Number, y Number) Position:
         coord(x, y)

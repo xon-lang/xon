@@ -5,7 +5,7 @@ import { DefinitionTree } from '../tree/definition/definition.tree';
 
 const libPath = 'src/xon-lib/';
 
-export function getType(name: string): DefinitionTree {
+export function getLibType(name: string): DefinitionTree {
   const code = fs.readFileSync(path.resolve(libPath, `${name}.xon`)).toString();
   return parseDefinition(code);
 }
