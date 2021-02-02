@@ -2,7 +2,7 @@ import { parseMember } from '../../../../parse';
 import { PropertyMemberTree } from './property-member.tree';
 
 test('array property', () => {
-  const code = 's String[]';
+  const code = 's Array<String>';
   const tree = parseMember<PropertyMemberTree>(code);
 
   expect(tree.name).toBe('s');

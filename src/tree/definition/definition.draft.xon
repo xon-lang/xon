@@ -54,7 +54,10 @@ _i_do_not_like_this_method ():
 Person:
     firstName str
     lastName str
-    age num
+    age Number
+
+    // relatives Relative[]
+    relatives Array<Relative>
 
 
     father(firstName, age) Man:

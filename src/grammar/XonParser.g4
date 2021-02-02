@@ -25,7 +25,7 @@ member:
 
 operator: '+' | '-' | '*' | '/';
 argument: ID type;
-type:     ID ('[' ']')?;
+type:     ID ('<' type (',' type)* '>')?;
 
 statement:
     'if' expression body ('elif' expression body)* ('else' body)?                     # ifStatement

@@ -27,12 +27,8 @@ export class TypeTree extends BaseTree {
     super();
     if (!ctx) return;
 
-    if (ctx.OpenBracket()) {
-      this.name = 'Array';
-      this.generics = [TypeTree.create(ctx.ID().text)];
-    } else {
-      this.name = ctx.ID().text;
-    }
+    this.name = ctx.ID().text;
+    this.generics = ctx.type().map((x) => new TypeTree(x));
   }
 
   definition(): DefinitionTree {
