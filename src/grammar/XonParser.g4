@@ -18,6 +18,7 @@ definition: ID ':' LineBreak INDENT member+ DEDENT;
 member:
     ID type                                            # propertyMember
     | ID '(' (argument (',' argument)*)? ')' type body # methodMember
+    | 'infix' '+' '(' argument ')' type body           # infixOperatorMember
     | LineBreak                                        # lineBreakMember
     ;
 argument: ID type;

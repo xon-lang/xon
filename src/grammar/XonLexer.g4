@@ -18,6 +18,7 @@ tokens {
 import { XonLexerBase } from "./xon-lexer-base";
 }
 
+Infix:  'infix';
 As:     'as';
 If:     'if';
 Else:   'else';
