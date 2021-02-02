@@ -5,8 +5,6 @@ import { TypeTree } from '../../../type/type.tree';
 import { MemberTree } from '../member.tree';
 
 export class InfixOperatorMemberTree extends MemberTree {
-  name: string;
-
   arg: {
     name: string;
     type: TypeTree;
@@ -19,7 +17,7 @@ export class InfixOperatorMemberTree extends MemberTree {
   constructor(public ctx: InfixOperatorMemberContext) {
     super();
 
-    this.name = '+';
+    this.name = ctx.operator().text;
     this.arg = {
       name: ctx.argument().ID().text,
       type: new TypeTree(ctx.argument().type()),
