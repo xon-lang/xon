@@ -1,0 +1,16 @@
+Object:
+    infix + (x Boolean) Number
+    infix + (x Number) Number
+    infix + (x String) String
+
+    infix - (x Boolean) Number
+    infix - (x Number) Number
+    // infix - (x String) String
+
+    infix * (x Boolean) Number
+    infix * (x Number) Number
+    // infix * (x String) String
+
+    infix / (x Boolean) Number
+    infix / (x Number) Number
+    // infix / (x String) String

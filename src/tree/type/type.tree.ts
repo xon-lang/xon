@@ -21,14 +21,18 @@ export function getLibType(name: string): DefinitionTree {
 export class TypeTree extends BaseTree {
   name: string;
 
-  isArray: boolean;
+  generics: TypeTree[];
 
   constructor(public ctx?: TypeContext) {
     super();
     if (!ctx) return;
 
-    this.name = ctx.ID().text;
-    this.isArray = !!ctx.OpenBracket();
+    if (ctx.OpenBracket()) {
+      this.name = 'Array';
+      this.generics = [TypeTree.create(ctx.ID().text)];
+    } else {
+      this.name = ctx.ID().text;
+    }
   }
 
   definition(): DefinitionTree {
@@ -45,5 +49,12 @@ export class TypeTree extends BaseTree {
       .definition()
       .infixOperators.find((x) => x.name === operator && x.arg.type.equals(right.getType()));
     return returnType;
+  }
+
+  static create(name: string, ...generics:( TypeTree | string)[]): TypeTree {
+    const type = new TypeTree();
+    type.name = name;
+    type.generics = generics.map((x) =>x instanceof TypeTree? x: TypeTree.create(x));
+    return type;
   }
 }
