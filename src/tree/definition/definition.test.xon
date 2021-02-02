@@ -14,5 +14,5 @@ SomeClass:
     location(x Number, y Number) Position:
         coord(x, y)
 
-    infix + (sc SomeClass):
+    infix + (sc SomeClass) SomeClass:
         log('fine!')

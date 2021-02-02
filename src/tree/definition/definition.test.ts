@@ -53,4 +53,12 @@ test('one scope', () => {
   const functionExpression = innerMethod.object as IdExpressionTree;
   expect(functionExpression.name).toBe('coord');
   expect(innerMethod.args.length).toBe(2);
+
+  expect(tree.infixOperators.length).toBe(1);
+  expect(tree.infixOperators[0].operator).toBe('+');
+  expect(tree.infixOperators[0].arg.name).toBe('sc');
+  expect(tree.infixOperators[0].arg.type.name).toBe('SomeClass');
+  expect(tree.infixOperators[0].arg.type.generics.length).toBe(0);
+  expect(tree.infixOperators[0].returnType.name).toBe('SomeClass');
+  expect(tree.infixOperators[0].returnType.generics.length).toBe(0);
 });
