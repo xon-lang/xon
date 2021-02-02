@@ -1,5 +1,8 @@
 SomeClass:
 
+    ...BaseClass<String, Boolean>
+    ...List<Number>
+
     property String
     anotherProp Number
     typed_value Number
@@ -10,3 +13,6 @@ SomeClass:
     
     location(x Number, y Number) Position:
         coord(x, y)
+
+    infix + (sc SomeClass):
+        log('fine!')
