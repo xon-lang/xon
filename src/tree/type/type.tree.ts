@@ -7,10 +7,15 @@ import { DefinitionTree } from '../definition/definition.tree';
 import { ExpressionTree } from '../expression/expression.tree';
 
 const libPath = 'src/xon-lib/';
+const cache = new Map<string, DefinitionTree>();
 
 export function getLibType(name: string): DefinitionTree {
   const code = fs.readFileSync(path.resolve(libPath, `${name}.xon`)).toString();
-  return parseDefinition(code);
+  if (cache.has(name)) return cache.get(name);
+
+  const definition = parseDefinition(code);
+  cache.set(name, definition);
+  return definition;
 }
 
 export class TypeTree extends BaseTree {

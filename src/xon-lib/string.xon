@@ -1,9 +1,16 @@
 String:
-    + (x Boolean) String:
-        // pass
+    infix + (x Boolean) String
+    infix + (x Number) String
+    infix + (x String) String
 
-    + (x Number) String:
-        // pass
+    // infix - (x Boolean) Number
+    // infix - (x Number) Number
+    // infix - (x String) String
 
-    + (x String) String:
-        // pass
+    // infix * (x Boolean) Number
+    // infix * (x Number) Number
+    // infix * (x String) String
+
+    // infix / (x Boolean) Number
+    // infix / (x Number) Number
+    // infix / (x String) String

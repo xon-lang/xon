@@ -22,7 +22,7 @@ member:
     | LineBreak                                         # lineBreakMember
     ;
 
-operator: '+';
+operator: '+' | '-' | '*' | '/';
 argument: ID type;
 type:     ID ('[' ']')?;
 
