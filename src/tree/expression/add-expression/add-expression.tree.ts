@@ -1,5 +1,5 @@
 import { AddSubExpressionContext } from '../../../grammar/xon-parser';
-import { DefinitionTree } from '../../definition/definition.tree';
+import { TypeTree } from '../../type/type.tree';
 import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
@@ -15,7 +15,7 @@ export class AddExpressionTree extends ExpressionTree {
     this.right = getExpressionTree(ctx._right);
   }
 
-  getType(): DefinitionTree {
-    return this.left.getType();
+  getType(): TypeTree {
+    return TypeTree.getInfixType('+', this.left, this.right);
   }
 }

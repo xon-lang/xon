@@ -1,8 +1,8 @@
 import { BaseTree } from '../base.tree';
-import { DefinitionTree } from '../definition/definition.tree';
+import { TypeTree } from '../type/type.tree';
 
 export abstract class ExpressionTree extends BaseTree {
-  getType(): DefinitionTree {
+  getType(): TypeTree {
     throw new Error(this.toJson());
   }
 }

@@ -19,7 +19,7 @@ export class InfixOperatorMemberTree extends MemberTree {
   constructor(public ctx: InfixOperatorMemberContext) {
     super();
 
-    this.name = 'infix +';
+    this.name = '+';
     this.arg = {
       name: ctx.argument().ID().text,
       type: new TypeTree(ctx.argument().type()),
