@@ -1,7 +1,4 @@
-SomeClass:
-
-    ...BaseClass<String, Boolean>
-    ...List<Number>
+SomeClass is BaseClass<String, Boolean>:
 
     property String
     anotherProp Number

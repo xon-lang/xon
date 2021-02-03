@@ -6,10 +6,7 @@ test('object clone method exists', () => {
   const tree = parseExpression<LiteralExpressionTree>(code);
   expect(tree.getType().name).toBe('Number');
   const definition = tree.getType().definition();
-  expect(definition.inheritances.length).toBe(1);
-  expect(definition.inheritances[0].type.name).toBe('Object');
-  expect(definition.inheritances[0].type.generics.length).toBe(0);
-  expect(definition.inheritances[0].type.definition().methods.some((x) => x.name === 'clone')).toBe(
-    true
-  );
+  expect(definition.inheritance.name).toBe('Object');
+  expect(definition.inheritance.generics.length).toBe(0);
+  expect(definition.inheritance.definition().methods.some((x) => x.name === 'clone')).toBe(true);
 });

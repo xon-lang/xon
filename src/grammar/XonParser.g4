@@ -14,10 +14,9 @@ imports:      importPath ':' importMember (',' importMember)* | LineBreak;
 importPath:   ID ('-' ID)* '/' ID ('-' ID)*;
 importMember: name = ID ('as' alias = ID)?;
 
-definition: ID ':' LineBreak INDENT member+ DEDENT;
+definition: ID ('is' type)? ':' LineBreak INDENT member+ DEDENT;
 member:
-    '...' type                                          # inheritanceMember
-    | ID type                                           # propertyMember
+    ID type                                             # propertyMember
     | ID '(' (argument (',' argument)*)? ')' type? body # methodMember
     | 'infix' operator '(' argument ')' type? body?     # infixOperatorMember
     | LineBreak                                         # lineBreakMember

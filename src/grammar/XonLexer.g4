@@ -19,6 +19,7 @@ import { XonLexerBase } from "./xon-lexer-base";
 }
 
 Infix:  'infix';
+Is:     'is';
 As:     'as';
 If:     'if';
 Else:   'else';
