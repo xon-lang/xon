@@ -6,6 +6,12 @@ XON AST is a library to parse XON code and to generate abstract syntax tree for 
 
 ## Usage example
 
+```bash
+npm i @xon/ast
+```
+
+`index.js`
+
 ```js
 import { evalExpression, parseExpression } from '@xon/ast';
 
@@ -14,6 +20,11 @@ const tree = parseExpression(code); // generating ast
 const result = evalExpression(tree); // something like js eval
 
 console.log(result); // output is 46668
+```
+
+```bash
+node index.js
+# output is 46668
 ```
 
 ## Development requirements
