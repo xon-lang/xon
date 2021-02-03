@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { glob } from 'glob';
 import path from 'path';
 import { TypeContext } from '../../grammar/xon-parser';
 import { parseDefinition } from '../../parse';
@@ -6,15 +7,23 @@ import { BaseTree } from '../base.tree';
 import { DefinitionTree } from '../definition/definition.tree';
 import { ExpressionTree } from '../expression/expression.tree';
 
-const libPath = 'src/xon-lib/';
-const cache = new Map<string, DefinitionTree>();
+const libTypePaths = {};
+glob.sync('src/xon-lib/**/*.xon').forEach((x) => {
+  const key = path
+    .basename(x, '.xon')
+    .replace(/^./, (z) => z.toUpperCase())
+    .replace(/-(.)/g, (z) => z.toUpperCase())
+    .replace(/-/g, '');
+  libTypePaths[key] = x;
+});
+const definitionCache = new Map<string, DefinitionTree>();
 
 export function getLibType(name: string): DefinitionTree {
-  const code = fs.readFileSync(path.resolve(libPath, `${name}.xon`)).toString();
-  if (cache.has(name)) return cache.get(name);
+  const code = fs.readFileSync(libTypePaths[name]).toString();
+  if (definitionCache.has(name)) return definitionCache.get(name);
 
   const definition = parseDefinition(code);
-  cache.set(name, definition);
+  definitionCache.set(name, definition);
   return definition;
 }
 
