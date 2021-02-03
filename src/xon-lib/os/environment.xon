@@ -1,0 +1,6 @@
+Environment is Map<String, String>:
+    get(name String)
+        //
+
+    set(name String, value String):
+        //
