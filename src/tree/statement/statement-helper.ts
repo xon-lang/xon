@@ -21,11 +21,12 @@ import { StatementTree } from './statement.tree';
 export function getStatementTree(ctx: StatementContext): StatementTree {
   if (ctx === undefined) return undefined;
 
+  if (ctx instanceof LineBreakStatementContext) return new LineBreakStatementTree(ctx);
+
   if (ctx instanceof AssignmentStatementContext) return new AssignmentStatementTree(ctx);
   if (ctx instanceof ExpressionStatementContext) return new ExpressionStatementTree(ctx);
   if (ctx instanceof PreprocessorStatementContext) return new PreprocessorStatementTree(ctx);
   if (ctx instanceof ReturnStatementContext) return new ReturnStatementTree(ctx);
-  if (ctx instanceof LineBreakStatementContext) return new LineBreakStatementTree(ctx);
   if (ctx instanceof IfStatementContext) return new IfStatementTree(ctx);
   if (ctx instanceof LoopStatementContext) return new LoopStatementTree(ctx);
 
