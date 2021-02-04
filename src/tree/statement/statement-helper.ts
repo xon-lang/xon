@@ -32,7 +32,7 @@ export function getStatementTree(ctx: StatementContext): StatementTree {
   throw Error(`No Statemenet found for ${ctx.constructor.name}`);
 }
 
-export function getStatementsTree(body: BodyContext): StatementTree[] {
+export function getStatementsTrees(body: BodyContext): StatementTree[] {
   return body
     ?.statement()
     ?.filter((x) => !(x instanceof LineBreakStatementContext))

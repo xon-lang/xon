@@ -1,5 +1,5 @@
 import { InfixOperatorMemberContext } from '../../../../grammar/xon-parser';
-import { getStatementsTree } from '../../../statement/statement-helper';
+import { getStatementsTrees } from '../../../statement/statement-helper';
 import { StatementTree } from '../../../statement/statement.tree';
 import { TypeTree } from '../../../type/type.tree';
 import { MemberTree } from '../member.tree';
@@ -26,6 +26,6 @@ export class InfixOperatorMemberTree extends MemberTree {
     };
 
     this.returnType = ctx.type() && new TypeTree(ctx.type());
-    this.statements = ctx.body() && getStatementsTree(ctx.body());
+    this.statements = ctx.body() && getStatementsTrees(ctx.body());
   }
 }
