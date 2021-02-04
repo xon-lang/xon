@@ -14,11 +14,11 @@ elif e2:
 
   expect(tree).toBeInstanceOf(ProgramTree);
 
-  expect(tree.imports.length).toBe(1);
-  expect(tree.imports[0].scopeName).toBe('xon');
-  expect(tree.imports[0].libName).toBe('os');
-  expect(tree.imports[0].members.length).toBe(1);
-  expect(tree.imports[0].members[0].name).toBe('Path');
-  expect(tree.imports[0].members[0].alias).toBeFalsy();
+  expect(tree.libraries.length).toBe(1);
+  expect(tree.libraries[0].scope).toBe('xon');
+  expect(tree.libraries[0].name).toBe('os');
+  expect(tree.libraries[0].members.length).toBe(1);
+  expect(tree.libraries[0].members[0].name).toBe('Path');
+  expect(tree.libraries[0].members[0].alias).toBeFalsy();
   expect(tree.statements.length).toBe(2);
 });

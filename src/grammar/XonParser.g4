@@ -8,13 +8,13 @@ options {
 // @ts-nocheck
 }
 
-program: imports* statement* definition*;
+program: library* statement* definition*;
 
-imports:      importPath ':' importMember (',' importMember)* | LineBreak;
-importPath:   ID ('-' ID)* '/' ID ('-' ID)*;
-importMember: name = ID ('as' alias = ID)?;
+library:       libraryPath ':' libraryMember (',' libraryMember)* | LineBreak;
+libraryPath:   ID ('-' ID)* '/' ID ('-' ID)*;
+libraryMember: name = ID ('as' alias = ID)?;
 
-definition: ID ('is' type)? ':' LineBreak INDENT member+ DEDENT;
+definition: ID ('is' type)? ':' LineBreak INDENT member+ DEDENT | LineBreak;
 member:
     ID type                                             # propertyMember
     | ID '(' (argument (',' argument)*)? ')' type? body # methodMember

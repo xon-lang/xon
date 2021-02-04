@@ -6,7 +6,7 @@ import { getMemberTree } from './tree/definition/member/member-helper';
 import { MemberTree } from './tree/definition/member/member.tree';
 import { getExpressionTree } from './tree/expression/expression-helper';
 import { ExpressionTree } from './tree/expression/expression.tree';
-import { ImportsTree } from './tree/imports/imports.tree';
+import { LibraryTree } from './tree/library/library.tree';
 import { getLiteralTree } from './tree/literal/literal-helper';
 import { LiteralTree } from './tree/literal/literal.tree';
 import { ProgramTree } from './tree/program/program.tree';
@@ -39,8 +39,8 @@ export function parseMember<T extends MemberTree>(code: string): T {
 export function parseDefinition(code: string): DefinitionTree {
   return new DefinitionTree(parse(code).definition());
 }
-export function parseImports(code: string): ImportsTree {
-  return new ImportsTree(parse(code).imports());
+export function parseLibrary(code: string): LibraryTree {
+  return new LibraryTree(parse(code).library());
 }
 
 export function parseProgram<T extends ProgramTree>(code: string): T {

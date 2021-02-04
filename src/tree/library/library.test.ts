@@ -1,10 +1,10 @@
-import { parseImports } from '../../parse';
+import { parseLibrary } from '../../parse';
 
 test('import with many members', () => {
   const code = 'org/lib: sqrt as s, log, ln, dnn as net \n';
-  const tree = parseImports(code);
-  expect(tree.scopeName).toBe('org');
-  expect(tree.libName).toBe('lib');
+  const tree = parseLibrary(code);
+  expect(tree.scope).toBe('org');
+  expect(tree.name).toBe('lib');
 
   expect(tree.members.length).toBe(4);
   expect(tree.members[0].name).toBe('sqrt');
