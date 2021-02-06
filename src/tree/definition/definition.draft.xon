@@ -1,5 +1,6 @@
-SomeClass(prop Number, _privProp String) is BaseClass<String, Boolean>:
-    (x int): // ctor
+SomeClass is BaseClass<String, Boolean>:
+    (x Number): // ctor
         //
-    _(x int, y str): // private ctor
+        
+    _(prop Number, _privProp String): // private ctor
         //
