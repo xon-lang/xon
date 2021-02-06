@@ -1,11 +1,8 @@
-loop {
-    // infinity loop
-}
+loop:
+    //
 
-loop value, key, index in [1, 2, 3, 4, 5] {
+loop value, key, index in [1, 2, 3, 4, 5]:
+    //
 
-}
-
-loop value,, index in [1, 2, 3, 4, 5] {
-
-}
+loop value,, index in [1, 2, 3, 4, 5]:
+    //
