@@ -40,25 +40,26 @@ statement:
 body: ':' LineBreak INDENT statement+ DEDENT;
 
 expression:
-    ID                                                                            # idExpression
-    | literal                                                                     # literalExpression
-    | object = expression '(' (args += expression (',' args += expression)*)? ')' # functionExpression
-    | value = expression '[' index = expression ']'                               # indexExpression
-    | expression '.' ID                                                           # memberExpression
-    | base = expression '^' exponent = expression                                 # powExpression
-    | '-' expression                                                              # unaryMinusExpression
-    | '!' expression                                                              # logicalNotExpression
-    | left = expression operation = ('*' | '/' | '%') right = expression          # mulDivModExpression
-    | left = expression operation = ('+' | '-') right = expression                # addSubExpression
-    | left = expression operation = ('<' | '<=' | '>=' | '>') right = expression  # relationalExpression
-    | left = expression operation = ('==' | '!=') right = expression              # equalityExpression
-    | left = expression '&&' right = expression                                   # logicalAndExpression
-    | left = expression '||' right = expression                                   # logicalOrExpression
-    | '[' (expression (',' expression)*)? ']'                                     # arrayExpression
-    | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                       # objectExpression
-    | '(' expression ')'                                                          # parenthesizedExpression
-    | left = expression '|' (ID ':')? right = expression                          # pipeExpression
-    | '\\' (ID (',' ID)* ':')? expression                                         # lambdaExpression
+    ID                                                                              # idExpression
+    | literal                                                                       # literalExpression
+    | object = expression '(' (args += expression (',' args += expression)*)? ')'   # functionExpression
+    | value = expression '[' index = expression ']'                                 # indexExpression
+    | expression '.' ID                                                             # memberExpression
+    | base = expression '^' exponent = expression                                   # powExpression
+    | '-' expression                                                                # unaryMinusExpression
+    | '!' expression                                                                # logicalNotExpression
+    | left = expression operation = ('*' | '/' | '%') right = expression            # mulDivModExpression
+    | left = expression operation = ('+' | '-') right = expression                  # addSubExpression
+    | left = expression operation = ('<' | '<=' | '>=' | '>') right = expression    # relationalExpression
+    | left = expression operation = ('==' | '!=') right = expression                # equalityExpression
+    | left = expression '&&' right = expression                                     # logicalAndExpression
+    | left = expression '||' right = expression                                     # logicalOrExpression
+    | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd # stringFormatExpression
+    | '[' (expression (',' expression)*)? ']'                                       # arrayExpression
+    | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                         # objectExpression
+    | '(' expression ')'                                                            # parenthesizedExpression
+    | left = expression '|' (ID ':')? right = expression                            # pipeExpression
+    | '\\' (ID (',' ID)* ':')? expression                                           # lambdaExpression
     ;
 
 literal:

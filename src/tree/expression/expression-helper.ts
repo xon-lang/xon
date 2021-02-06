@@ -18,6 +18,7 @@ import {
   PipeExpressionContext,
   PowExpressionContext,
   RelationalExpressionContext,
+  StringFormatExpressionContext,
   UnaryMinusExpressionContext,
 } from '../../grammar/xon-parser';
 import { AddExpressionTree } from './add-expression/add-expression.tree';
@@ -45,6 +46,7 @@ import { ObjectExpressionTree } from './object-expression/object-expression.tree
 import { ParenthesizedExpressionTree } from './parenthesized-expression/parenthesized-expression.tree';
 import { PipeExpressionTree } from './pipe-expression/pipe-expression.tree';
 import { PowExpressionTree } from './pow-expression/pow-expression.tree';
+import { StringFormatExpressionTree } from './string-format-expression/string-format-expression.tree';
 import { SubstractExpressionTree } from './substract-expression/substract-expression.tree';
 import { UnaryMinusExpressionTree } from './unary-minus-expression/unary-minus-expression.tree';
 
@@ -63,6 +65,7 @@ export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
   if (ctx instanceof FunctionExpressionContext) return new FunctionExpressionTree(ctx);
   if (ctx instanceof LogicalAndExpressionContext) return new LogicalAndExpressionTree(ctx);
   if (ctx instanceof LogicalOrExpressionContext) return new LogicalOrExpressionTree(ctx);
+  if (ctx instanceof StringFormatExpressionContext) return new StringFormatExpressionTree(ctx);
   if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);
   if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
   if (ctx instanceof ObjectExpressionContext) return new ObjectExpressionTree(ctx);

@@ -73,6 +73,10 @@ BooleanLiteral: 'true' | 'false';
 NumberLiteral:  NUMBER | (NUMBER? '.' NUMBER);
 StringLiteral:  '\'' CHARACTER* '\'';
 
+StringFormatStart:  '\'' CHARACTER* '{';
+StringFormatMiddle: '}' CHARACTER* '{';
+StringFormatEnd:    '}' CHARACTER* '\'';
+
 ID: [a-zA-Z_] [a-zA-Z0-9_]*;
 
 Skip: (SPACES | SINGLE_LINE_COMMENT | MULTI_LINE_COMMENT | LINE_JOINING) -> skip
@@ -86,4 +90,4 @@ fragment LINE_JOINING:        '\\' SPACES? ( '\r'? '\n' | '\r');
 fragment NUMBER: ([0-9][0-9]? 'x' [0-9a-zA-Z]+ ('_' [0-9a-zA-Z]+)*)
     | ( [0-9]+ ('_' [0-9]+)*)
     ;
-fragment CHARACTER: ~['] | '\\' ['"\\bfnrtv];
+fragment CHARACTER: ~['{] | '\\' ['{\\bfnrtv];
