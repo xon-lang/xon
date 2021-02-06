@@ -1,19 +1,13 @@
-a = b ? c
-a = b ? c : d
+a = if b { t } else { a }
+a = if b: t else: a
 
 
-a + b < 46 ?
-    do()
-: anDo()
+if a:
+    23: log('23 number')
+    45: log('45 number')
+    else: log('don\'t know')
 
-? a + b < 46: do(): anDo()
-? a + b < 46: do(): ? cond: anDo()
-
-
-a = ? n == 3: 3 : n - 1
-a = if n == 3: 3 else n - 1
-
-
-if expr:
-    doSomething()
-else: io()
+if:
+    a>b: log('more')
+    a<b: log('less')
+    a==b: log('equals')
