@@ -5,23 +5,23 @@ import { ParenthesizedExpressionTree } from '../parenthesized-expression/parenth
 import { StringFormatExpressionTree } from './string-format-expression.tree';
 
 test('format simple string', () => {
-  const code = "'2 + 2 = {2 + 2}'";
+  const code = '"2 + 2 = {2 + 2}"';
   const tree = parseExpression<StringFormatExpressionTree>(code);
   expect(tree).toBeInstanceOf(StringFormatExpressionTree);
   expect(tree.value).toBeInstanceOf(ParenthesizedExpressionTree);
   expect(evalExpression(tree.value)).toBe(`2 + 2 = ${2 + 2}`);
-}); 
+});
 
 test('format string', () => {
-  const code = "'1+1 = {1 + 1}; \\'2+2 = {2+2}'";
+  const code = '"1+1 = {1 + 1}; \\"2+2 = {2+2}"';
   const tree = parseExpression<StringFormatExpressionTree>(code);
   expect(tree).toBeInstanceOf(StringFormatExpressionTree);
   expect(tree.value).toBeInstanceOf(ParenthesizedExpressionTree);
-  expect(evalExpression(tree.value)).toBe(`1+1 = ${1 + 1}; '2+2 = ${2 + 2}`);
+  expect(evalExpression(tree.value)).toBe(`1+1 = ${1 + 1}; "2+2 = ${2 + 2}`);
 });
 
 test('another format string', () => {
-  const code = "'{color}{chargeIcon}{battery.percent}% | size=13'";
+  const code = '"{color}{chargeIcon}{battery.percent}% | size=13"';
   const tree = parseExpression<StringFormatExpressionTree>(code);
   expect(tree).toBeInstanceOf(StringFormatExpressionTree);
   expect(tree.value).toBeInstanceOf(ParenthesizedExpressionTree);

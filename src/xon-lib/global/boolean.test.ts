@@ -14,7 +14,7 @@ test('bool + num', () => {
 });
 
 test('bool + str', () => {
-  const code = "true +'str'";
+  const code = 'true +"str"';
   const tree = parseExpression<AddExpressionTree>(code);
   expect(tree.getType().name).toBe('String');
 });

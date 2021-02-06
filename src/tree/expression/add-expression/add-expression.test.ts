@@ -16,7 +16,7 @@ test('num plus bool', () => {
 });
 
 test('num plus str', () => {
-  const code = "1+ 'str'";
+  const code = '1+ "str"';
   const tree = parseExpression<AddExpressionTree>(code);
   expect(evalExpression(tree)).toBe('1str');
 });

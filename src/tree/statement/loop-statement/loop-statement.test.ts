@@ -77,7 +77,7 @@ test('loop with expression only', () => {
 });
 
 test('infinity loop', () => {
-  const code = "loop:\n   log('To infinity and beyond!')";
+  const code = 'loop:\n   log("To infinity and beyond!")';
   const tree = parseStatement<LoopStatementTree>(code);
   expect(tree.valueName).toBeUndefined();
   expect(tree.keyName).toBeUndefined();

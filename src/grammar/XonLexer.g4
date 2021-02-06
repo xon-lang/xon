@@ -71,11 +71,12 @@ Elipsis:        '...';
 
 BooleanLiteral: 'true' | 'false';
 NumberLiteral:  NUMBER | (NUMBER? '.' NUMBER);
-StringLiteral:  '\'' CHARACTER* '\'';
+CharLiteral:    '\'' ~['] '\'';
+StringLiteral:  '"' STRING_CHARACTER* '"';
 
-StringFormatStart:  '\'' CHARACTER* '{';
-StringFormatMiddle: '}' CHARACTER* '{';
-StringFormatEnd:    '}' CHARACTER* '\'';
+StringFormatStart:  '"' STRING_CHARACTER* '{';
+StringFormatMiddle: '}' STRING_CHARACTER* '{';
+StringFormatEnd:    '}' STRING_CHARACTER* '"';
 
 ID: [a-zA-Z_] [a-zA-Z0-9_]*;
 
@@ -90,4 +91,4 @@ fragment LINE_JOINING:        '\\' SPACES? ( '\r'? '\n' | '\r');
 fragment NUMBER: ([0-9][0-9]? 'x' [0-9a-zA-Z]+ ('_' [0-9a-zA-Z]+)*)
     | ( [0-9]+ ('_' [0-9]+)*)
     ;
-fragment CHARACTER: ~['{] | '\\' ['{\\bfnrtv];
+fragment STRING_CHARACTER: ~["{] | '\\' ["{\\bfnrtv];

@@ -65,5 +65,6 @@ expression:
 literal:
     BooleanLiteral  # booleanLiteral
     | NumberLiteral # numberLiteral
+    | CharLiteral   # charLiteral
     | StringLiteral # stringLiteral
     ;
