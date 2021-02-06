@@ -13,6 +13,6 @@ export class ArrayExpressionTree extends ExpressionTree {
   }
 
   getType(): TypeTree {
-    return TypeTree.create('Array', this.items.length ? this.items[0].getType() : 'Object');
+    return TypeTree.create('Array', this.items.length ? this.items[0].getType() : 'Any');
   }
 }

@@ -25,7 +25,7 @@ export class DefinitionTree extends BaseTree {
     super();
     this.name = ctx.ID().text;
 
-    this.inheritance = ctx.type() ? new TypeTree(ctx.type()) : TypeTree.create('Object');
+    this.inheritance = ctx.type() ? new TypeTree(ctx.type()) : TypeTree.create('Any');
 
     ctx.member().forEach((member) => {
       if (member instanceof PropertyMemberContext)
