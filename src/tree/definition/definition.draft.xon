@@ -1,4 +1,4 @@
-ConstructorClass:
+SomeClass(prop Number, _privProp String) is BaseClass<String, Boolean>:
     ...String
     
     .(x int, y str):
