@@ -60,7 +60,7 @@ expression:
     | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                         # objectExpression
     | '(' expression ')'                                                            # parenthesizedExpression
     | left = expression '|' (ID ':')? right = expression                            # pipeExpression
-    | '\\' (ID (',' ID)* ':')? expression                                           # lambdaExpression
+    | '(' (ID type? (',' ID type?)*)? ')' ':' expression                            # lambdaExpression
     ;
 
 literal:

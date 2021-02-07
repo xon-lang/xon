@@ -24,12 +24,12 @@ import { SubstractExpressionTree } from './tree/expression/substract-expression/
 import { UnaryMinusExpressionTree } from './tree/expression/unary-minus-expression/unary-minus-expression.tree';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function evalExpression(tree: ExpressionTree, params = {}): any {
+export function evalExpression(tree: ExpressionTree, argsMap = {}): any {
   if (tree === undefined) return undefined;
   if (tree instanceof ParenthesizedExpressionTree) return evalExpression(tree.value);
   if (tree instanceof IdExpressionTree) {
-    if (tree.name in params) {
-      return params[tree.name];
+    if (tree.name in argsMap) {
+      return argsMap[tree.name];
     }
 
     throw Error(`Undefined key: ${tree.name}`);
@@ -40,26 +40,26 @@ export function evalExpression(tree: ExpressionTree, params = {}): any {
     return tree.literal.value;
   }
 
-  if (tree instanceof UnaryMinusExpressionTree) return -evalExpression(tree.value, params);
+  if (tree instanceof UnaryMinusExpressionTree) return -evalExpression(tree.value, argsMap);
 
-  if (tree instanceof LogicalNotExpressionTree) return !evalExpression(tree.value, params);
+  if (tree instanceof LogicalNotExpressionTree) return !evalExpression(tree.value, argsMap);
 
   if (tree instanceof PowExpressionTree) {
-    return evalExpression(tree.base, params) ** evalExpression(tree.exponent, params);
+    return evalExpression(tree.base, argsMap) ** evalExpression(tree.exponent, argsMap);
   }
 
   if (tree instanceof PipeExpressionTree) {
-    const a = evalExpression(tree.left, params);
-    if (tree.arg) params[tree.arg] = a;
-    return evalExpression(tree.right, params);
+    const a = evalExpression(tree.left, argsMap);
+    if (tree.arg) argsMap[tree.arg] = a;
+    return evalExpression(tree.right, argsMap);
   }
 
   if (!('left' in tree) || !('right' in tree)) return undefined;
 
   // @ts-ignore
-  const a = evalExpression(tree.left, params);
+  const a = evalExpression(tree.left, argsMap);
   // @ts-ignore
-  const b = evalExpression(tree.right, params);
+  const b = evalExpression(tree.right, argsMap);
 
   // eslint-disable-next-line no-param-reassign
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

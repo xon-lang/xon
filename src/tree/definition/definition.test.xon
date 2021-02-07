@@ -1,5 +1,4 @@
 SomeClass is BaseClass<String, Boolean>:
-
     property String
     anotherProp Number
     typed_value Number
@@ -12,4 +11,4 @@ SomeClass is BaseClass<String, Boolean>:
         coord(x, y)
 
     infix + (sc SomeClass) SomeClass:
-        log('fine!')
+        log("fine!")
