@@ -54,6 +54,7 @@ expression:
     | left = expression operation = ('==' | '!=') right = expression                # equalityExpression
     | left = expression '&&' right = expression                                     # logicalAndExpression
     | left = expression '||' right = expression                                     # logicalOrExpression
+    | min = expression '..' max = expression                                        # rangeExpression
     | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd # stringFormatExpression
     | '[' (expression (',' expression)*)? ']'                                       # arrayExpression
     | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                         # objectExpression

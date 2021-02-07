@@ -67,6 +67,7 @@ PlusAssign:     '+=';
 MinusAssign:    '-=';
 Pipe:           '|';
 LambdaStart:    '\\';
+Range:          '..';
 Elipsis:        '...';
 
 BooleanLiteral: 'true' | 'false';
