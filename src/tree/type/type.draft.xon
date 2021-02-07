@@ -1,17 +1,17 @@
 method(a Integer): // simple
     //
 
-method(a Array<Integer>): // generic
+method(a Array<Integer>): // generic -> Array<T>
     //
 
-method(a {name String, age Number}): // object
+method(a {name String, age Number}): // object -> Any<...TArg>
     //
 
-method(a (x Number) Integer): // lambda
+method(a (x Number) Integer): // lambda -> Function<...TArg, TResult> or Action<...TArg> 
     //
 
-method(a Integer | String): // join?
+method(a Integer | String): // join? -> Join<...TArg>
     //
 
-method(a Integer & String): // union?
+method(a Integer & String): // union? -> Union<...TArg>
     //
