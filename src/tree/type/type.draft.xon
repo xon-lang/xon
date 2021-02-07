@@ -1,0 +1,17 @@
+method(a Integer): // simple
+    //
+
+method(a Array<Integer>): // generic
+    //
+
+method(a {name String, age Number}): // object
+    //
+
+method(a (x Number) Integer): // lambda
+    //
+
+method(a Integer | String): // join?
+    //
+
+method(a Integer & String): // union?
+    //
