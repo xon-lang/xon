@@ -16,10 +16,10 @@ libraryMember: name = ID ('as' alias = ID)?;
 
 definition: ID ('is' type)? ':' LineBreak INDENT member+ DEDENT | LineBreak;
 member:
-    ID type                                             # propertyMember
+    ID type                                            # propertyMember
     | ID '(' (argument (',' argument)*)? ')' type body # methodMember
     | 'infix' operator '(' argument ')' type body?     # infixOperatorMember
-    | LineBreak                                         # lineBreakMember
+    | LineBreak                                        # lineBreakMember
     ;
 
 operator: '+' | '-' | '*' | '/';
