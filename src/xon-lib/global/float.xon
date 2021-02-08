@@ -1,2 +1,24 @@
 Float is Number:
-    //
+    infix + (x Boolean) Float
+    infix + (x Integer) Float
+    infix + (x Float) Float
+    infix + (x Char) Float
+    infix + (x String) String
+
+    infix - (x Boolean) Float
+    infix - (x Integer) Float
+    infix - (x Float) Float
+    infix - (x Char) Float
+    // infix - (x String) String
+
+    infix * (x Boolean) Float
+    infix * (x Integer) Float
+    infix * (x Float) Float
+    infix * (x Char) Float
+    // infix * (x String) String
+
+    infix / (x Boolean) Float
+    infix / (x Integer) Float
+    infix / (x Float) Float
+    infix / (x Char) Float
+    // infix / (x String) String

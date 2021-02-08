@@ -1,4 +1,4 @@
-import { NumberLiteralContext } from '../../../grammar/xon-parser';
+import { FloatLiteralContext } from '../../../grammar/xon-parser';
 import { LiteralTree } from '../literal.tree';
 
 function customParseFloat(str: string, radix: number): number {
@@ -11,7 +11,7 @@ function customParseFloat(str: string, radix: number): number {
   return parseInt(parts[0], radix);
 }
 
-export class NumberLiteralTree extends LiteralTree<number> {
+export class FloatLiteralTree extends LiteralTree<number> {
   bitsCount: number;
 
   base: string;
@@ -20,9 +20,9 @@ export class NumberLiteralTree extends LiteralTree<number> {
 
   fractionValue: string;
 
-  constructor(public ctx: NumberLiteralContext) {
+  constructor(public ctx: FloatLiteralContext) {
     super();
-    let strValue = ctx.NumberLiteral().text.replace(/_/g, '');
+    let strValue = ctx.FloatLiteral().text.replace(/_/g, '');
 
     if (strValue.includes('x')) {
       const split = strValue.split('x');

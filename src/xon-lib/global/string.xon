@@ -1,6 +1,8 @@
 String:
     infix + (x Boolean) String
-    infix + (x Number) String
+    infix + (x Integer) String
+    infix + (x Float) String
+    infix + (x Char) String
     infix + (x String) String
 
     // infix - (x Boolean) Number

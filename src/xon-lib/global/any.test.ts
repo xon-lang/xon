@@ -4,9 +4,8 @@ import { LiteralExpressionTree } from '../../tree/expression/literal-expression/
 test('any clone method exists', () => {
   const code = '5';
   const tree = parseExpression<LiteralExpressionTree>(code);
-  expect(tree.getType().name).toBe('Number');
+  expect(tree.getType().name).toBe('Integer');
   const definition = tree.getType().definition();
-  expect(definition.inheritance.name).toBe('Any');
+  expect(definition.inheritance.name).toBe('Number');
   expect(definition.inheritance.generics.length).toBe(0);
-  expect(definition.inheritance.definition().methods.some((x) => x.name === 'clone')).toBe(true);
 });

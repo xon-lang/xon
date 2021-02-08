@@ -64,8 +64,9 @@ expression:
     ;
 
 literal:
-    BooleanLiteral  # booleanLiteral
-    | NumberLiteral # numberLiteral
-    | CharLiteral   # charLiteral
-    | StringLiteral # stringLiteral
+    BooleanLiteral   # booleanLiteral
+    | FloatLiteral   # floatLiteral
+    | IntegerLiteral # integerLiteral
+    | CharLiteral    # charLiteral
+    | StringLiteral  # stringLiteral
     ;

@@ -5,7 +5,7 @@ import { AddExpressionTree } from './add-expression.tree';
 test('num plus num', () => {
   const code = '1+1';
   const tree = parseExpression<AddExpressionTree>(code);
-  expect(tree.getType().name).toBe('Number');
+  expect(tree.getType().name).toBe('Integer');
   expect(evalExpression(tree)).toBe(2);
 });
 

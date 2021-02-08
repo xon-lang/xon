@@ -1,16 +1,24 @@
 Boolean:
-    infix + (x Boolean) Number
-    infix + (x Number) Number
+    infix + (x Boolean) Integer
+    infix + (x Integer) Integer
+    infix + (x Float) Float
+    infix + (x Char) Integer
     infix + (x String) String
 
-    infix - (x Boolean) Number
-    infix - (x Number) Number
+    infix - (x Boolean) Integer
+    infix - (x Integer) Integer
+    infix - (x Float) Float
+    infix - (x Char) Integer
     // infix - (x String) String
 
-    infix * (x Boolean) Number
-    infix * (x Number) Number
+    infix * (x Boolean) Integer
+    infix * (x Integer) Integer
+    infix * (x Float) Float
+    infix * (x Char) Integer
     // infix * (x String) String
 
-    infix / (x Boolean) Number
-    infix / (x Number) Number
+    infix / (x Boolean) Integer
+    infix / (x Integer) Integer
+    infix / (x Float) Float
+    infix / (x Char) Integer
     // infix / (x String) String

@@ -49,11 +49,14 @@ export class TypeTree extends BaseTree {
   }
 
   static getInfixType(operator: string, left: ExpressionTree, right: ExpressionTree): TypeTree {
-    const { returnType } = left
+    const foundInfixOperatorMethod = left
       .getType()
       .definition()
       .infixOperators.find((x) => x.operator === operator && x.arg.type.equals(right.getType()));
-    return returnType;
+    if (foundInfixOperatorMethod) {
+      return foundInfixOperatorMethod.returnType;
+    }
+    throw new Error(`No infix operator method for ${operator}`);
   }
 
   static create(name: string, ...generics: (TypeTree | string)[]): TypeTree {

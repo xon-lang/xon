@@ -4,5 +4,5 @@ import { AddExpressionTree } from '../../tree/expression/add-expression/add-expr
 test('float + float', () => {
   const code = '1.1+1.1';
   const tree = parseExpression<AddExpressionTree>(code);
-  expect(tree.getType().name).toBe('Number');
+  expect(tree.getType().name).toBe('Float');
 });

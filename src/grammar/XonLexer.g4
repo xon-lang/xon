@@ -71,7 +71,8 @@ Range:          '..';
 Elipsis:        '...';
 
 BooleanLiteral: 'true' | 'false';
-NumberLiteral:  NUMBER | (NUMBER? '.' NUMBER);
+FloatLiteral:   NUMBER? '.' NUMBER;
+IntegerLiteral: NUMBER;
 CharLiteral:    '\'' ~['] '\'';
 StringLiteral:  '"' STRING_CHARACTER* '"';
 
