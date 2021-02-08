@@ -71,8 +71,11 @@ Range:          '..';
 Elipsis:        '...';
 
 BooleanLiteral: 'true' | 'false';
-FloatLiteral:   NUMBER? '.' NUMBER;
-IntegerLiteral: NUMBER;
+FloatLiteral:
+    [0-9][0-9]? 'x' ALPHABET_NUMBER '.' ALPHABET_NUMBER
+    | DIGIT_NUMBER '.' DIGIT_NUMBER
+    ;
+IntegerLiteral: [0-9][0-9]? 'x' ALPHABET_NUMBER | DIGIT_NUMBER;
 CharLiteral:    '\'' ~['] '\'';
 StringLiteral:  '"' STRING_CHARACTER* '"';
 
@@ -90,7 +93,7 @@ fragment SPACES:              [ \t]+;
 fragment MULTI_LINE_COMMENT:  '/*' .*? '*/';
 fragment SINGLE_LINE_COMMENT: '//' ~[\r\n]*;
 fragment LINE_JOINING:        '\\' SPACES? ( '\r'? '\n' | '\r');
-fragment NUMBER: ([0-9][0-9]? 'x' [0-9a-zA-Z]+ ('_' [0-9a-zA-Z]+)*)
-    | ( [0-9]+ ('_' [0-9]+)*)
-    ;
+fragment ALPHABET_NUMBER:     [0-9a-zA-Z]+ ('_' [0-9a-zA-Z]+)*;
+fragment DIGIT_NUMBER:        [0-9]+ ('_' | [0-9]+)*;
+
 fragment STRING_CHARACTER: ~["{] | '\\' ["{\\bfnrtv];
