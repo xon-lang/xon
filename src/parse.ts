@@ -12,12 +12,17 @@ import { LiteralTree } from './tree/literal/literal.tree';
 import { ProgramTree } from './tree/program/program.tree';
 import { getStatementTree } from './tree/statement/statement-helper';
 import { StatementTree } from './tree/statement/statement.tree';
+import { TypeTree } from './tree/type/type.tree';
 
 export function parse(code: string): XonParser {
   const inputStream = CharStreams.fromString(code);
   const lexer = new XonLexer(inputStream);
   const tokenStream = new CommonTokenStream(lexer);
   return new XonParser(tokenStream);
+}
+
+export function parseType(code: string): TypeTree {
+  return new TypeTree(parse(code).type());
 }
 
 export function parseLiteral<T extends LiteralTree>(code: string): T {
