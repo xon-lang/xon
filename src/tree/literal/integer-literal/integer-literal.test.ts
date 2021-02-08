@@ -8,12 +8,12 @@ test('zero int number', () => {
 });
 
 test('positive int number', () => {
-  const code = '2523';
+  const code = '2x01110';
   const tree = parseLiteral<IntegerLiteralTree>(code);
-  expect(tree.value).toBe(2523);
+  expect(tree.value).toBe(0b01110);
 });
 test('radix int', () => {
-  const code = '16x1ABC';
+  const code = '16X1ABC';
   const tree = parseLiteral<IntegerLiteralTree>(code);
   expect(tree.value).toBe(0x1abc);
 });

@@ -8,7 +8,7 @@ export class IntegerLiteralTree extends LiteralTree<number> {
 
   constructor(public ctx: IntegerLiteralContext) {
     super();
-    const text = ctx.IntegerLiteral().text.replace(/_/g, '');
+    const text = ctx.IntegerLiteral().text.replace(/_/g, '').replace(/x/i, 'x');
     const [integer, radix] = text.split('x').reverse();
     this.integer = integer;
     this.radix = +radix;

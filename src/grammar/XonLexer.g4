@@ -72,10 +72,10 @@ Elipsis:        '...';
 
 BooleanLiteral: 'true' | 'false';
 FloatLiteral:
-    [0-9][0-9]? 'x' ALPHABET_NUMBER '.' ALPHABET_NUMBER
+    [0-9][0-9]? ('x' | 'X') ALPHABET_NUMBER '.' ALPHABET_NUMBER
     | DIGIT_NUMBER '.' DIGIT_NUMBER
     ;
-IntegerLiteral: [0-9][0-9]? 'x' ALPHABET_NUMBER | DIGIT_NUMBER;
+IntegerLiteral: [0-9][0-9]? ('x' | 'X') ALPHABET_NUMBER | DIGIT_NUMBER;
 CharLiteral:    '\'' ~['] '\'';
 StringLiteral:  '"' STRING_CHARACTER* '"';
 

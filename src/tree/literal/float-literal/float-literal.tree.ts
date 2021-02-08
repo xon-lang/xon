@@ -15,7 +15,7 @@ export class FloatLiteralTree extends LiteralTree<number> {
 
   constructor(public ctx: FloatLiteralContext) {
     super();
-    const text = ctx.FloatLiteral().text.replace(/_/g, '');
+    const text = ctx.FloatLiteral().text.replace(/_/g, '').replace(/x/i, 'x');
     [this.integer, this.fraction] = text.split('.');
     const [integer, radix] = this.integer.split('x').reverse();
     this.integer = integer;
