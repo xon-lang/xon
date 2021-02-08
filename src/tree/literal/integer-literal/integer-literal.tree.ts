@@ -10,7 +10,7 @@ export class IntegerLiteralTree extends LiteralTree {
 
   constructor(public ctx: IntegerLiteralContext) {
     super(ctx);
-    const text = ctx.IntegerLiteral().text.replace(/_/g, '').replace(/x/i, 'x');
+    const text = ctx.IntegerLiteral().text.replace(/x/i, 'x');
     const [integer, radix] = text.split('x').reverse();
     this.integer = integer;
     this.radix = +radix;
@@ -18,7 +18,7 @@ export class IntegerLiteralTree extends LiteralTree {
 
   getValue(): number {
     if (typeof this.value !== 'undefined') return this.value;
-    this.value = parseInt(this.integer, this.radix);
+    this.value = parseInt(this.integer.replace(/_/g, ''), this.radix);
     return this.value;
   }
 }

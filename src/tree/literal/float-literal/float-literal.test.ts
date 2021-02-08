@@ -16,6 +16,8 @@ test('zero float number', () => {
 test('underscore in number', () => {
   const code = '5_999_245.15463_64';
   const tree = parseLiteral<FloatLiteralTree>(code);
+  expect(tree.integer).toBe('5_999_245');
+  expect(tree.fraction).toBe('15463_64');
   expect(tree.getValue()).toBe(5999245.1546364);
 });
 

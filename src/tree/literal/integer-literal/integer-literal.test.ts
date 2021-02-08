@@ -13,7 +13,8 @@ test('positive int number', () => {
   expect(tree.getValue()).toBe(0b01110);
 });
 test('radix int', () => {
-  const code = '16X1ABC';
+  const code = '16X1A_B_C';
   const tree = parseLiteral<IntegerLiteralTree>(code);
+  expect(tree.integer).toBe('1A_B_C');
   expect(tree.getValue()).toBe(0x1abc);
 });
