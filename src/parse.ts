@@ -20,7 +20,7 @@ export function parse(code: string): XonParser {
   return new XonParser(tokenStream);
 }
 
-export function parseLiteral<T extends LiteralTree<unknown>>(code: string): T {
+export function parseLiteral<T extends LiteralTree>(code: string): T {
   return getLiteralTree(parse(code).literal()) as T;
 }
 

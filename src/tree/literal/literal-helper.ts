@@ -13,7 +13,7 @@ import { IntegerLiteralTree } from './integer-literal/integer-literal.tree';
 import { LiteralTree } from './literal.tree';
 import { StringLiteralTree } from './string-literal/string-literal.tree';
 
-export function getLiteralTree(ctx: LiteralContext): LiteralTree<unknown> {
+export function getLiteralTree(ctx: LiteralContext): LiteralTree {
   if (ctx === undefined) return undefined;
 
   if (ctx instanceof BooleanLiteralContext) return new BooleanLiteralTree(ctx);

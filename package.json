@@ -59,7 +59,6 @@
   },
   "dependencies": {
     "antlr4ts": "^0.5.0-alpha.4",
-    "glob": "^7.1.6",
-    "uuid": "^8.3.2"
+    "glob": "^7.1.6"
   }
 }

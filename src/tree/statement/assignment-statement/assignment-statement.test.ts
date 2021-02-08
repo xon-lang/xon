@@ -7,7 +7,5 @@ test('simple assignment', () => {
   const tree = parseStatement<AssignmentStatementTree>(code);
   expect(tree.name).toBe('a');
   expect(tree.value).toBeInstanceOf(LiteralExpressionTree);
-  expect((tree.value as LiteralExpressionTree).literal.value).toBe(
-    220
-  );
+  expect((tree.value as LiteralExpressionTree).literal.getValue()).toBe(220);
 });

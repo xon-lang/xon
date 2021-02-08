@@ -1,11 +1,10 @@
 import { LiteralContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
-import { TypeTree } from '../type/type.tree';
 
-export abstract class LiteralTree<T> extends BaseTree {
-  ctx?: LiteralContext;
+export abstract class LiteralTree extends BaseTree {
+  constructor(public ctx: LiteralContext) {
+    super();
+  }
 
-  value: T;
-
-  dataType: TypeTree;
+  abstract getValue(): unknown;
 }

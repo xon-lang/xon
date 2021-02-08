@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -23,7 +24,6 @@ import { PowExpressionTree } from './tree/expression/pow-expression/pow-expressi
 import { SubstractExpressionTree } from './tree/expression/substract-expression/substract-expression.tree';
 import { UnaryMinusExpressionTree } from './tree/expression/unary-minus-expression/unary-minus-expression.tree';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function evalExpression(tree: ExpressionTree, argsMap = {}): any {
   if (tree === undefined) return undefined;
   if (tree instanceof ParenthesizedExpressionTree) return evalExpression(tree.value);
@@ -36,8 +36,8 @@ export function evalExpression(tree: ExpressionTree, argsMap = {}): any {
   }
 
   if (tree instanceof LiteralExpressionTree) {
-    if (tree.literal.value === 'null') return 0;
-    return tree.literal.value;
+    if (tree.literal.getValue() === 'null') return 0;
+    return tree.literal.getValue();
   }
 
   if (tree instanceof UnaryMinusExpressionTree) return -evalExpression(tree.value, argsMap);
@@ -45,7 +45,9 @@ export function evalExpression(tree: ExpressionTree, argsMap = {}): any {
   if (tree instanceof LogicalNotExpressionTree) return !evalExpression(tree.value, argsMap);
 
   if (tree instanceof PowExpressionTree) {
-    return evalExpression(tree.base, argsMap) ** evalExpression(tree.exponent, argsMap);
+    const base = evalExpression(tree.base, argsMap) as number;
+    const exponent = evalExpression(tree.exponent, argsMap) as number;
+    return base ** exponent;
   }
 
   if (tree instanceof PipeExpressionTree) {
@@ -57,12 +59,10 @@ export function evalExpression(tree: ExpressionTree, argsMap = {}): any {
   if (!('left' in tree) || !('right' in tree)) return undefined;
 
   // @ts-ignore
-  const a = evalExpression(tree.left, argsMap);
+  const a = evalExpression(tree.left, argsMap) as number;
   // @ts-ignore
-  const b = evalExpression(tree.right, argsMap);
+  const b = evalExpression(tree.right, argsMap) as number;
 
-  // eslint-disable-next-line no-param-reassign
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tree = tree as any;
 
   if (tree instanceof MultiplyExpressionTree) return a * b;
