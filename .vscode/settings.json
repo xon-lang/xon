@@ -39,7 +39,6 @@
     "source.fixAll": true
   },
   "files.autoSave": "afterDelay",
-  "prettier.tabWidth": 4,
   "typescript.preferences.importModuleSpecifier": "relative",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
