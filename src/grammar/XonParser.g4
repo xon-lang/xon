@@ -8,18 +8,17 @@ options {
 // @ts-nocheck
 }
 
-program: library* statement* definition*;
+program: (library | statement | definition | LineBreak)*;
 
-library:       libraryPath ':' libraryMember (',' libraryMember)* | LineBreak;
+library:       libraryPath ':' libraryMember (',' libraryMember)*;
 libraryPath:   ID ('-' ID)* '/' ID ('-' ID)*;
 libraryMember: name = ID ('as' alias = ID)?;
 
-definition: ID ('is' type)? ':' LineBreak INDENT member+ DEDENT | LineBreak;
+definition: ID ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT;
 member:
     ID type                                            # propertyMember
     | ID '(' (argument (',' argument)*)? ')' type body # methodMember
     | 'infix' operator '(' argument ')' type body?     # infixOperatorMember
-    | LineBreak                                        # lineBreakMember
     ;
 
 operator: '+' | '-' | '*' | '/';
@@ -34,10 +33,9 @@ statement:
     | ID '=' expression                                                               # assignmentStatement
     | expression                                                                      # expressionStatement
     | Preprocessor                                                                    # preprocessorStatement
-    | LineBreak                                                                       # lineBreakStatement
     ;
 
-body: ':' LineBreak INDENT statement+ DEDENT;
+body: ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;
 
 expression:
     ID                                                                              # idExpression

@@ -3,7 +3,6 @@ import {
   BodyContext,
   ExpressionStatementContext,
   IfStatementContext,
-  LineBreakStatementContext,
   LoopStatementContext,
   PreprocessorStatementContext,
   ReturnStatementContext,
@@ -12,7 +11,6 @@ import {
 import { AssignmentStatementTree } from './assignment-statement/assignment-statement.tree';
 import { ExpressionStatementTree } from './expression-statement/expression-statement.tree';
 import { IfStatementTree } from './if-statement/if-statement.tree';
-import { LineBreakStatementTree } from './line-break-statement/line-break-statement.tree';
 import { LoopStatementTree } from './loop-statement/loop-statement.tree';
 import { PreprocessorStatementTree } from './preprocessor-statement/preprocessor-statement.tree';
 import { ReturnStatementTree } from './return-statement/return-statement.tree';
@@ -20,8 +18,6 @@ import { StatementTree } from './statement.tree';
 
 export function getStatementTree(ctx: StatementContext): StatementTree {
   if (ctx === undefined) return undefined;
-
-  if (ctx instanceof LineBreakStatementContext) return new LineBreakStatementTree(ctx);
 
   if (ctx instanceof AssignmentStatementContext) return new AssignmentStatementTree(ctx);
   if (ctx instanceof ExpressionStatementContext) return new ExpressionStatementTree(ctx);
@@ -34,8 +30,5 @@ export function getStatementTree(ctx: StatementContext): StatementTree {
 }
 
 export function getStatementsTrees(body: BodyContext): StatementTree[] {
-  return body
-    ?.statement()
-    ?.filter((x) => !(x instanceof LineBreakStatementContext))
-    .map(getStatementTree);
+  return body?.statement().map(getStatementTree);
 }

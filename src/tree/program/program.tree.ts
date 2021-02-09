@@ -1,4 +1,4 @@
-import { LineBreakStatementContext, ProgramContext } from '../../grammar/xon-parser';
+import { ProgramContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { DefinitionTree } from '../definition/definition.tree';
 import { LibraryTree } from '../library/library.tree';
@@ -15,15 +15,9 @@ export class ProgramTree extends BaseTree {
   constructor(public ctx: ProgramContext) {
     super();
 
-    this.libraries = ctx
-      .library()
-      .filter((x) => !x.LineBreak())
-      .map((x) => new LibraryTree(x));
+    this.libraries = ctx.library().map((x) => new LibraryTree(x));
 
-    this.statements = ctx
-      .statement()
-      .filter((x) => !(x instanceof LineBreakStatementContext))
-      .map(getStatementTree);
+    this.statements = ctx.statement().map(getStatementTree);
 
     this.definitions = ctx.definition().map((x) => new DefinitionTree(x));
   }
