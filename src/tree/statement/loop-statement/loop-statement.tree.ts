@@ -5,6 +5,8 @@ import { getStatementsTrees } from '../statement-helper';
 import { StatementTree } from '../statement.tree';
 
 export class LoopStatementTree extends StatementTree {
+  keyword: string;
+
   isInfinity: boolean;
 
   indexName: string;
@@ -19,6 +21,7 @@ export class LoopStatementTree extends StatementTree {
 
   constructor(public ctx: LoopStatementContext) {
     super();
+    this.keyword = ctx.Loop().text;
     this.isInfinity = !ctx.expression();
 
     this.indexName = ctx._index?.text;
