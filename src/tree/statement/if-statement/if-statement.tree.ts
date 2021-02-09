@@ -10,6 +10,7 @@ export class IfStatementTree extends StatementTree {
     condition: ExpressionTree;
     hasIf: boolean;
     hasElse: boolean;
+    operator: string;
   }[] = [];
 
   constructor(public ctx?: IfStatementContext) {
@@ -21,6 +22,7 @@ export class IfStatementTree extends StatementTree {
       condition: getExpressionTree(x),
       hasIf: true,
       hasElse: !!i,
+      operator: i ? 'elif' : 'if',
     }));
     if (ctx.Else()) {
       this.items.push({
@@ -28,6 +30,7 @@ export class IfStatementTree extends StatementTree {
         condition: null,
         hasIf: false,
         hasElse: true,
+        operator: 'else',
       });
     }
   }
