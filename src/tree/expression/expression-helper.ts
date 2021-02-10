@@ -52,6 +52,10 @@ import { StringFormatExpressionTree } from './string-format-expression/string-fo
 import { SubstractExpressionTree } from './substract-expression/substract-expression.tree';
 import { UnaryMinusExpressionTree } from './unary-minus-expression/unary-minus-expression.tree';
 
+// fix circular dependency for binary-expression
+// eslint-disable-next-line
+global['getExpressionTree'] = getExpressionTree;
+
 export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
   if (ctx === undefined) return undefined;
 

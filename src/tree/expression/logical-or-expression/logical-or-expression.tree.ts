@@ -1,15 +1,6 @@
 import { LogicalOrExpressionContext } from '../../../grammar/xon-parser';
-import { getExpressionTree } from '../expression-helper';
-import { ExpressionTree } from '../expression.tree';
+import { BinaryExpressionTree } from '../binary-expression.tree';
 
-export class LogicalOrExpressionTree extends ExpressionTree {
-  left: ExpressionTree;
-
-  right: ExpressionTree;
-
-  constructor(public ctx: LogicalOrExpressionContext) {
-    super();
-    this.left = getExpressionTree(ctx._left);
-    this.right = getExpressionTree(ctx._right);
-  }
+export class LogicalOrExpressionTree extends BinaryExpressionTree {
+  ctx: LogicalOrExpressionContext;
 }

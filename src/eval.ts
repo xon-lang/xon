@@ -44,12 +44,6 @@ export function evalExpression(tree: ExpressionTree, argsMap = {}): any {
 
   if (tree instanceof LogicalNotExpressionTree) return !evalExpression(tree.value, argsMap);
 
-  if (tree instanceof PowExpressionTree) {
-    const base = evalExpression(tree.base, argsMap) as number;
-    const exponent = evalExpression(tree.exponent, argsMap) as number;
-    return base ** exponent;
-  }
-
   if (tree instanceof PipeExpressionTree) {
     const a = evalExpression(tree.left, argsMap);
     if (tree.arg) argsMap[tree.arg] = a;
@@ -65,6 +59,7 @@ export function evalExpression(tree: ExpressionTree, argsMap = {}): any {
 
   tree = tree as any;
 
+  if (tree instanceof PowExpressionTree) return a ** b;
   if (tree instanceof MultiplyExpressionTree) return a * b;
   if (tree instanceof DivideExpressionTree) return a / b;
   if (tree instanceof ModuloExpressionTree) return a % b;

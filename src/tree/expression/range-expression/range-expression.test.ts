@@ -5,7 +5,7 @@ import { RangeExpressionTree } from './range-expression.tree';
 test('number range', () => {
   const code = '1..10';
   const tree = parseExpression<RangeExpressionTree>(code);
-  expect(evalExpression(tree.min)).toBe(1);
-  expect(evalExpression(tree.max)).toBe(10);
+  expect(evalExpression(tree.left)).toBe(1);
+  expect(evalExpression(tree.right)).toBe(10);
   expect(tree).toBeInstanceOf(RangeExpressionTree);
 });

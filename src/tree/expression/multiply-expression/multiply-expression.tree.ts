@@ -1,15 +1,6 @@
 import { MulDivModExpressionContext } from '../../../grammar/xon-parser';
-import { getExpressionTree } from '../expression-helper';
-import { ExpressionTree } from '../expression.tree';
+import { BinaryExpressionTree } from '../binary-expression.tree';
 
-export class MultiplyExpressionTree extends ExpressionTree {
-  left: ExpressionTree;
-
-  right: ExpressionTree;
-
-  constructor(public ctx: MulDivModExpressionContext) {
-    super();
-    this.left = getExpressionTree(ctx._left);
-    this.right = getExpressionTree(ctx._right);
-  }
+export class MultiplyExpressionTree extends BinaryExpressionTree {
+  ctx: MulDivModExpressionContext;
 }

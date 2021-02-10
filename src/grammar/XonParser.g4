@@ -43,16 +43,16 @@ expression:
     | object = expression '(' (args += expression (',' args += expression)*)? ')'   # functionExpression
     | value = expression '[' index = expression ']'                                 # indexExpression
     | expression '.' ID                                                             # memberExpression
-    | base = expression '^' exponent = expression                                   # powExpression
     | '-' expression                                                                # unaryMinusExpression
     | '!' expression                                                                # logicalNotExpression
+    | left = expression operation = '^' right = expression                          # powExpression
     | left = expression operation = ('*' | '/' | '%') right = expression            # mulDivModExpression
     | left = expression operation = ('+' | '-') right = expression                  # addSubExpression
     | left = expression operation = ('<' | '<=' | '>=' | '>') right = expression    # relationalExpression
     | left = expression operation = ('==' | '!=') right = expression                # equalityExpression
-    | left = expression '&&' right = expression                                     # logicalAndExpression
-    | left = expression '||' right = expression                                     # logicalOrExpression
-    | min = expression '..' max = expression                                        # rangeExpression
+    | left = expression operation = '&&' right = expression                         # logicalAndExpression
+    | left = expression operation = '||' right = expression                         # logicalOrExpression
+    | left = expression operation = '..' right = expression                         # rangeExpression
     | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd # stringFormatExpression
     | '[' (expression (',' expression)*)? ']'                                       # arrayExpression
     | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                         # objectExpression
