@@ -20,7 +20,7 @@ jobs:
         run: npm ci
 
       - name: Run tests and create clover.xml
-        run: npm test
+        run: npm test -- --collect-coverage
 
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@master
