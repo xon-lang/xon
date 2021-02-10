@@ -1,5 +1,4 @@
 .DS_Store
 dist
 node_modules
-coverage/*
-!coverage/clover.xml
+coverage
