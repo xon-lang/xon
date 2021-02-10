@@ -23,12 +23,12 @@ test('arithmetic and logic pipe', () => {
 });
 
 test('complex pipe', () => {
-  const code = '33 + 44 |x: x^x + x |z: z^x && x^z | z + x';
+  const code = '2 + 2 |x: x^x + x |z: z^x && x^z | z + x + 1';
   const tree = parseExpression<PipeExpressionTree>(code);
 
   // eslint-disable-next-line no-bitwise
-  const x = 33 + 44;
+  const x = 2 + 2;
   const z = x ** x + x;
-  const res = z + x;
+  const res = z + x + 1;
   expect(evalExpression(tree)).toBe(res);
 });
