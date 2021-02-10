@@ -985,7 +985,7 @@ export class XonParser extends Parser {
 				this.state = 192;
 				this.match(XonParser.Minus);
 				this.state = 193;
-				this.expression(15);
+				this.expression(16);
 				}
 				break;
 
@@ -997,7 +997,7 @@ export class XonParser extends Parser {
 				this.state = 194;
 				this.match(XonParser.Exclamation);
 				this.state = 195;
-				this.expression(14);
+				this.expression(15);
 				}
 				break;
 
@@ -1210,16 +1210,16 @@ export class XonParser extends Parser {
 					case 1:
 						{
 						_localctx = new PowExpressionContext(new ExpressionContext(_parentctx, _parentState));
-						(_localctx as PowExpressionContext)._base = _prevctx;
+						(_localctx as PowExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 262;
-						if (!(this.precpred(this._ctx, 16))) {
-							throw this.createFailedPredicateException("this.precpred(this._ctx, 16)");
+						if (!(this.precpred(this._ctx, 14))) {
+							throw this.createFailedPredicateException("this.precpred(this._ctx, 14)");
 						}
 						this.state = 263;
-						this.match(XonParser.Caret);
+						(_localctx as PowExpressionContext)._operation = this.match(XonParser.Caret);
 						this.state = 264;
-						(_localctx as PowExpressionContext)._exponent = this.expression(17);
+						(_localctx as PowExpressionContext)._right = this.expression(15);
 						}
 						break;
 
@@ -1341,7 +1341,7 @@ export class XonParser extends Parser {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 9)");
 						}
 						this.state = 278;
-						this.match(XonParser.And);
+						(_localctx as LogicalAndExpressionContext)._operation = this.match(XonParser.And);
 						this.state = 279;
 						(_localctx as LogicalAndExpressionContext)._right = this.expression(10);
 						}
@@ -1357,7 +1357,7 @@ export class XonParser extends Parser {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 8)");
 						}
 						this.state = 281;
-						this.match(XonParser.Or);
+						(_localctx as LogicalOrExpressionContext)._operation = this.match(XonParser.Or);
 						this.state = 282;
 						(_localctx as LogicalOrExpressionContext)._right = this.expression(9);
 						}
@@ -1366,16 +1366,16 @@ export class XonParser extends Parser {
 					case 8:
 						{
 						_localctx = new RangeExpressionContext(new ExpressionContext(_parentctx, _parentState));
-						(_localctx as RangeExpressionContext)._min = _prevctx;
+						(_localctx as RangeExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 283;
 						if (!(this.precpred(this._ctx, 7))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 7)");
 						}
 						this.state = 284;
-						this.match(XonParser.Range);
+						(_localctx as RangeExpressionContext)._operation = this.match(XonParser.Range);
 						this.state = 285;
-						(_localctx as RangeExpressionContext)._max = this.expression(8);
+						(_localctx as RangeExpressionContext)._right = this.expression(8);
 						}
 						break;
 
@@ -1583,7 +1583,7 @@ export class XonParser extends Parser {
 	private expression_sempred(_localctx: ExpressionContext, predIndex: number): boolean {
 		switch (predIndex) {
 		case 0:
-			return this.precpred(this._ctx, 16);
+			return this.precpred(this._ctx, 14);
 
 		case 1:
 			return this.precpred(this._ctx, 13);
@@ -1718,8 +1718,8 @@ export class XonParser extends Parser {
 		"\x03\x02\x02\x02\xBB\xB9\x03\x02\x02\x02\xBB\xBC\x03\x02\x02\x02\xBC\xBD" +
 		"\x03\x02\x02\x02\xBD\xBE\x07\x04\x02\x02\xBE\x17\x03\x02\x02\x02\xBF\xC0" +
 		"\b\r\x01\x02\xC0\u0107\x07=\x02\x02\xC1\u0107\x05\x1A\x0E\x02\xC2\xC3" +
-		"\x07\x1D\x02\x02\xC3\u0107\x05\x18\r\x11\xC4\xC5\x07\x1E\x02\x02\xC5\u0107" +
-		"\x05\x18\r\x10\xC6\xCC\x07:\x02\x02\xC7\xC8\x05\x18\r\x02\xC8\xC9\x07" +
+		"\x07\x1D\x02\x02\xC3\u0107\x05\x18\r\x12\xC4\xC5\x07\x1E\x02\x02\xC5\u0107" +
+		"\x05\x18\r\x11\xC6\xCC\x07:\x02\x02\xC7\xC8\x05\x18\r\x02\xC8\xC9\x07" +
 		";\x02\x02\xC9\xCB\x03\x02\x02\x02\xCA\xC7\x03\x02\x02\x02\xCB\xCE\x03" +
 		"\x02\x02\x02\xCC\xCA\x03\x02\x02\x02\xCC\xCD\x03\x02\x02\x02\xCD\xCF\x03" +
 		"\x02\x02\x02\xCE\xCC\x03\x02\x02\x02\xCF\xD0\x05\x18\r\x02\xD0\xD1\x07" +
@@ -1747,8 +1747,8 @@ export class XonParser extends Parser {
 		"\x03\x02\x02\x02\u0106\xC1\x03\x02\x02\x02\u0106\xC2\x03\x02\x02\x02\u0106" +
 		"\xC4\x03\x02\x02\x02\u0106\xC6\x03\x02\x02\x02\u0106\xD2\x03\x02\x02\x02" +
 		"\u0106\xDE\x03\x02\x02\x02\u0106\xEE\x03\x02\x02\x02\u0106\xF2\x03\x02" +
-		"\x02\x02\u0107\u013E\x03\x02\x02\x02\u0108\u0109\f\x12\x02\x02\u0109\u010A" +
-		"\x07\"\x02\x02\u010A\u013D\x05\x18\r\x13\u010B\u010C\f\x0F\x02\x02\u010C" +
+		"\x02\x02\u0107\u013E\x03\x02\x02\x02\u0108\u0109\f\x10\x02\x02\u0109\u010A" +
+		"\x07\"\x02\x02\u010A\u013D\x05\x18\r\x11\u010B\u010C\f\x0F\x02\x02\u010C" +
 		"\u010D\t\x03\x02\x02\u010D\u013D\x05\x18\r\x10\u010E\u010F\f\x0E\x02\x02" +
 		"\u010F\u0110\t\x04\x02\x02\u0110\u013D\x05\x18\r\x0F\u0111\u0112\f\r\x02" +
 		"\x02\u0112\u0113\t\x05\x02\x02\u0113\u013D\x05\x18\r\x0E\u0114\u0115\f" +
@@ -2325,24 +2325,6 @@ export class MemberExpressionContext extends ExpressionContext {
 		this.copyFrom(ctx);
 	}
 }
-export class PowExpressionContext extends ExpressionContext {
-	public _base!: ExpressionContext;
-	public _exponent!: ExpressionContext;
-	public Caret(): TerminalNode { return this.getToken(XonParser.Caret, 0); }
-	public expression(): ExpressionContext[];
-	public expression(i: number): ExpressionContext;
-	public expression(i?: number): ExpressionContext | ExpressionContext[] {
-		if (i === undefined) {
-			return this.getRuleContexts(ExpressionContext);
-		} else {
-			return this.getRuleContext(i, ExpressionContext);
-		}
-	}
-	constructor(ctx: ExpressionContext) {
-		super(ctx.parent, ctx.invokingState);
-		this.copyFrom(ctx);
-	}
-}
 export class UnaryMinusExpressionContext extends ExpressionContext {
 	public Minus(): TerminalNode { return this.getToken(XonParser.Minus, 0); }
 	public expression(): ExpressionContext {
@@ -2358,6 +2340,25 @@ export class LogicalNotExpressionContext extends ExpressionContext {
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
+	constructor(ctx: ExpressionContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
+	}
+}
+export class PowExpressionContext extends ExpressionContext {
+	public _left!: ExpressionContext;
+	public _operation!: Token;
+	public _right!: ExpressionContext;
+	public expression(): ExpressionContext[];
+	public expression(i: number): ExpressionContext;
+	public expression(i?: number): ExpressionContext | ExpressionContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(ExpressionContext);
+		} else {
+			return this.getRuleContext(i, ExpressionContext);
+		}
+	}
+	public Caret(): TerminalNode { return this.getToken(XonParser.Caret, 0); }
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
@@ -2448,8 +2449,8 @@ export class EqualityExpressionContext extends ExpressionContext {
 }
 export class LogicalAndExpressionContext extends ExpressionContext {
 	public _left!: ExpressionContext;
+	public _operation!: Token;
 	public _right!: ExpressionContext;
-	public And(): TerminalNode { return this.getToken(XonParser.And, 0); }
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -2459,6 +2460,7 @@ export class LogicalAndExpressionContext extends ExpressionContext {
 			return this.getRuleContext(i, ExpressionContext);
 		}
 	}
+	public And(): TerminalNode { return this.getToken(XonParser.And, 0); }
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
@@ -2466,8 +2468,8 @@ export class LogicalAndExpressionContext extends ExpressionContext {
 }
 export class LogicalOrExpressionContext extends ExpressionContext {
 	public _left!: ExpressionContext;
+	public _operation!: Token;
 	public _right!: ExpressionContext;
-	public Or(): TerminalNode { return this.getToken(XonParser.Or, 0); }
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -2477,15 +2479,16 @@ export class LogicalOrExpressionContext extends ExpressionContext {
 			return this.getRuleContext(i, ExpressionContext);
 		}
 	}
+	public Or(): TerminalNode { return this.getToken(XonParser.Or, 0); }
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
 }
 export class RangeExpressionContext extends ExpressionContext {
-	public _min!: ExpressionContext;
-	public _max!: ExpressionContext;
-	public Range(): TerminalNode { return this.getToken(XonParser.Range, 0); }
+	public _left!: ExpressionContext;
+	public _operation!: Token;
+	public _right!: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -2495,6 +2498,7 @@ export class RangeExpressionContext extends ExpressionContext {
 			return this.getRuleContext(i, ExpressionContext);
 		}
 	}
+	public Range(): TerminalNode { return this.getToken(XonParser.Range, 0); }
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);

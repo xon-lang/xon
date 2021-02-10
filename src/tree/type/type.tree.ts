@@ -1,31 +1,7 @@
-import fs from 'fs';
-import { glob } from 'glob';
-import path from 'path';
 import { TypeContext } from '../../grammar/xon-parser';
-import { parseDefinition } from '../../parse';
 import { BaseTree } from '../base.tree';
 import { DefinitionTree } from '../definition/definition.tree';
-import { ExpressionTree } from '../expression/expression.tree';
-
-const libTypePaths = {};
-glob.sync('src/xon-lib/**/*.xon').forEach((x) => {
-  const key = path
-    .basename(x, '.xon')
-    .replace(/^./, (z) => z.toUpperCase())
-    .replace(/-(.)/g, (z) => z.toUpperCase())
-    .replace(/-/g, '');
-  libTypePaths[key] = x;
-});
-const definitionCache = new Map<string, DefinitionTree>();
-
-export function getLibType(name: string): DefinitionTree {
-  const code = fs.readFileSync(libTypePaths[name]).toString();
-  if (definitionCache.has(name)) return definitionCache.get(name);
-
-  const definition = parseDefinition(code);
-  definitionCache.set(name, definition);
-  return definition;
-}
+import { getLibType } from './get-lib-type.util';
 
 export class TypeTree extends BaseTree {
   name: string;
@@ -46,17 +22,6 @@ export class TypeTree extends BaseTree {
 
   equals(other: TypeTree): boolean {
     return this.name === other.name;
-  }
-
-  static getInfixType(operator: string, left: ExpressionTree, right: ExpressionTree): TypeTree {
-    const foundInfixOperatorMethod = left
-      .getType()
-      .definition()
-      .infixOperators.find((x) => x.operator === operator && x.arg.type.equals(right.getType()));
-    if (foundInfixOperatorMethod) {
-      return foundInfixOperatorMethod.returnType;
-    }
-    throw new Error(`No infix operator method for ${operator}`);
   }
 
   static create(name: string, ...generics: (TypeTree | string)[]): TypeTree {
