@@ -10,6 +10,12 @@ jobs:
     name: codacy-coverage-reporter
     steps:
       - uses: actions/checkout@master
+      - name: Setup node
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+      - run: npm install
+      - run: npm test
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@master
         with:
