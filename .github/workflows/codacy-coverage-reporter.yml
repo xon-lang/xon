@@ -20,12 +20,13 @@ jobs:
     name: codacy-coverage-reporter
     steps:
       - uses: actions/checkout@v2
+      - name: Setup Node.js
       - uses: actions/setup-node@v2
+      - run: npm ci
+      - run: npm test
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@master
         with:
           node-version: '12'
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: clover.xml
-      - run: npm ci
-      - run: npm test
