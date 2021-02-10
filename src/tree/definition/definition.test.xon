@@ -3,7 +3,7 @@ SomeClass is BaseClass<String, Boolean>:
     anotherProp Number
     typed_value Number
     
-    method():
+    method() MyType:
         hello()
         bye()
     

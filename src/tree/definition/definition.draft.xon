@@ -2,5 +2,5 @@ SomeClass is BaseClass<String, Boolean>:
     (x Number): // ctor
         //
         
-    _(prop Number, _privProp String): // private ctor
+    _(prop Number, _privProp String) Boolean: // private ctor
         //

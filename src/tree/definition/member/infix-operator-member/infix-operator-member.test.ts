@@ -5,7 +5,7 @@ test('method member', () => {
   const code = 'infix +(other String) String:\n    log()';
   const tree = parseMember<InfixOperatorMemberTree>(code);
 
-  expect(tree.operator).toBe('-');
+  expect(tree.operator).toBe('+');
 
   expect(tree.arg.name).toBe('other');
   expect(tree.arg.type.name).toBe('String');
