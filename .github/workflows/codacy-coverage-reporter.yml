@@ -5,23 +5,13 @@ on:
     branches: [master]
 
 jobs:
-  # jest-tests:
-  #   runs-on: ubuntu-latest
-  #   name: jest-tests
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-node@v2
-  #       with:
-  #         node-version: '12'
-  #     - run: npm ci
-  #     - run: npm test
   codacy-coverage-reporter:
     runs-on: ubuntu-latest
     name: codacy-coverage-reporter
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@master
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@master
         with:
           node-version: '12'
       - name: Install dependencies
