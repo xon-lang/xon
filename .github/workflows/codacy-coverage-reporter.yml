@@ -1,0 +1,17 @@
+name: codacy-coverage-reporter
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  codacy-coverage-reporter:
+    runs-on: ubuntu-latest
+    name: codacy-coverage-reporter
+    steps:
+      - uses: actions/checkout@master
+      - name: Run codacy-coverage-reporter
+        uses: codacy/codacy-coverage-reporter-action@master
+        with:
+          project-token: ${{ secrets.928de65c61534df6b2d0b2aa5d86cbf7 }}
+          coverage-reports: clover.xml
