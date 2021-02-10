@@ -1,4 +1,6 @@
 {
+  "coverageReporters": ["clover"],
+  "coverageDirectory": "./",
   "roots": ["<rootDir>/src"],
   "testMatch": ["**/*.test.ts"],
   "transform": {
