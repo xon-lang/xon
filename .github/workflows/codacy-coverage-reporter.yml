@@ -2,7 +2,7 @@ name: codacy-coverage-reporter
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   codacy-coverage-reporter:
@@ -13,5 +13,5 @@ jobs:
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@master
         with:
-          project-token: ${{ secrets.928de65c61534df6b2d0b2aa5d86cbf7 }}
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: clover.xml
