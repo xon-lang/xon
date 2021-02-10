@@ -6,16 +6,16 @@ import { Token } from 'antlr4ts/Token';
 import { XonParser } from './xon-parser';
 
 export abstract class XonLexerBase extends Lexer {
+  token_queue: Token[] = [];
+  indents: number[] = [];
+  opened: number = 0;
+  last_token: Token | undefined = undefined;
+
   abstract get channelNames(): string[];
   abstract get modeNames(): string[];
   abstract get ruleNames(): string[];
   abstract get vocabulary(): Vocabulary;
   abstract get grammarFileName(): string;
-
-  token_queue: Token[] = [];
-  indents: number[] = [];
-  opened: number = 0;
-  last_token: Token | undefined = undefined;
 
   public reset(): void {
     // A queue where extra tokens are pushed on (see the LineBreak lexer rule).
@@ -28,13 +28,9 @@ export abstract class XonLexerBase extends Lexer {
   }
 
   public emit(token?: Token): Token {
-    if (token) {
-      token = super.emit(token);
-    } else {
-      token = super.emit();
-    }
-    this.token_queue.push(token);
-    return token;
+    const newToken = token ? super.emit(token) : super.emit();
+    this.token_queue.push(newToken);
+    return newToken;
   }
 
   /**
