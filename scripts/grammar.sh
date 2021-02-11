@@ -1,13 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 
 generate_grammar() {
-    npx antlr4ts -Werror -o .antlr -no-listener -no-visitor *.g4
+    npx -- antlr4ts -Werror -o .antlr -no-listener -no-visitor *.g4
     cp .antlr/XonLexer.ts xon-lexer.ts
     cp .antlr/XonParser.ts xon-parser.ts && clear
     npx rimraf .antlr
 }
 
-cd src/grammar
+cd src/grammar || exit
 
 lexer_date=$(date -r XonLexer.g4 "+%Y-%m-%d %H:%M:%S")
 lexer_ts_date=$(date -r xon-lexer.ts "+%Y-%m-%d %H:%M:%S")
