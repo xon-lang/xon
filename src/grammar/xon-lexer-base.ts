@@ -5,16 +5,35 @@ import { CommonToken } from 'antlr4ts/CommonToken';
 import { Token } from 'antlr4ts/Token';
 import { XonParser } from './xon-parser';
 
+function getIndentationCount(whitespace: string): number {
+  let count = 0;
+  for (let i = 0; i < whitespace.length; i += 1) {
+    if (whitespace[i] === '\t') {
+      count += 4 - (count % 4);
+    } else {
+      count += 1;
+    }
+  }
+  return count;
+}
+
 export abstract class XonLexerBase extends Lexer {
   token_queue: Token[] = [];
+
   indents: number[] = [];
-  opened: number = 0;
+
+  opened = 0;
+
   last_token: Token | undefined = undefined;
 
   abstract get channelNames(): string[];
+
   abstract get modeNames(): string[];
+
   abstract get ruleNames(): string[];
+
   abstract get vocabulary(): Vocabulary;
+
   abstract get grammarFileName(): string;
 
   public reset(): void {
@@ -44,9 +63,7 @@ export abstract class XonLexerBase extends Lexer {
     // Check if the end-of-file is ahead and there are still some DEDENTS expected.
     if (this.inputStream.LA(1) === XonParser.EOF && this.indents.length) {
       // Remove any trailing EOF tokens from our buffer.
-      this.token_queue = this.token_queue.filter(function (val) {
-        return val.type !== XonParser.EOF;
-      });
+      this.token_queue = this.token_queue.filter((val) => val.type !== XonParser.EOF);
 
       // First emit an extra line break that serves as the end of the statement.
       this.emit(this.commonToken(XonParser.LineBreak, '\n'));
@@ -61,9 +78,9 @@ export abstract class XonLexerBase extends Lexer {
       this.emit(this.commonToken(XonParser.EOF, '<EOF>'));
     }
 
-    let next = super.nextToken();
+    const next = super.nextToken();
 
-    if (next.channel == Token.DEFAULT_CHANNEL) {
+    if (next.channel === Token.DEFAULT_CHANNEL) {
       // Keep track of the last token on the default channel.
       this.last_token = next;
     }
@@ -72,7 +89,7 @@ export abstract class XonLexerBase extends Lexer {
   }
 
   createDedent(): Token {
-    let dedent = this.commonToken(XonParser.DEDENT, '');
+    const dedent = this.commonToken(XonParser.DEDENT, '');
     if (this.last_token) {
       dedent.line = this.last_token.line;
     }
@@ -80,8 +97,8 @@ export abstract class XonLexerBase extends Lexer {
   }
 
   commonToken(type: number, text: string): CommonToken {
-    let stop: number = this.charIndex - 1;
-    let start: number = text.length ? stop - text.length + 1 : stop;
+    const stop: number = this.charIndex - 1;
+    const start: number = text.length ? stop - text.length + 1 : stop;
     return new CommonToken(
       type,
       text,
@@ -100,41 +117,36 @@ export abstract class XonLexerBase extends Lexer {
   //  the replacement is a multiple of eight [...]"
   //
   //  -- https://docs.python.org/3.1/reference/lexical_analysis.html#indentation
-  getIndentationCount(whitespace: string): number {
-    let count = 0;
-    for (let i = 0; i < whitespace.length; i++) {
-      if (whitespace[i] === '\t') {
-        count += 4 - (count % 4);
-      } else {
-        count++;
-      }
-    }
-    return count;
-  }
 
   atStartOfInput(): boolean {
     return this.charIndex === 0;
   }
 
-  handleLineBreak() {
-    let newLine = this.text.replace(/[^\r\n]+/g, '');
-    let spaces = this.text.replace(/[\r\n]+/g, '');
+  handleLineBreak(): void {
+    const newLine = this.text.replace(/[^\r\n]+/g, '');
+    const spaces = this.text.replace(/[\r\n]+/g, '');
     // Strip newlines inside open clauses except if we are near EOF. We keep LineBreaks near EOF to
     // satisfy the final newline needed by the single_put rule used by the REPL.
-    let next = this.inputStream.LA(1);
-    let nextnext = this.inputStream.LA(2);
+    const next = this.inputStream.LA(1);
+    const nextnext = this.inputStream.LA(2);
     if (
       this.opened > 0 ||
-      (nextnext != -1 /* EOF */ &&
-        (next === 13 /* '\r' */ || next === 10 /* '\n' */ || next === 35)) /* '#' */
+      // EOF
+      (nextnext !== -1 &&
+        // '\r'
+        (next === 13 ||
+          // '\n'
+          next === 10 ||
+          // '#'
+          next === 35))
     ) {
       // If we're inside a list or on a blank line, ignore all indents,
       // dedents and line breaks.
       this.skip();
     } else {
       this.emit(this.commonToken(XonParser.LineBreak, newLine));
-      let indent = this.getIndentationCount(spaces);
-      let previous = this.indents.length ? this.indents[this.indents.length - 1] : 0;
+      const indent = getIndentationCount(spaces);
+      const previous = this.indents.length ? this.indents[this.indents.length - 1] : 0;
       if (indent === previous) {
         // skip indents of the same size as the present indent-size
         this.skip();
