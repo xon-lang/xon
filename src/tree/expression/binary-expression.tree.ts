@@ -5,17 +5,17 @@ import { TypeTree } from '../type/type.tree';
 import { ExpressionTree } from './expression.tree';
 
 export abstract class BinaryExpressionTree extends ExpressionTree {
-  left: ExpressionTree;
+  public left: ExpressionTree;
 
-  right: ExpressionTree;
+  public right: ExpressionTree;
 
-  constructor(public ctx: ExpressionContext) {
+  public constructor(public ctx: ExpressionContext) {
     super();
     this.left = global['getExpressionTree'](ctx['_left']);
     this.right = global['getExpressionTree'](ctx['_right']);
   }
 
-  getType(): TypeTree {
+  public getType(): TypeTree {
     return getInfixType('+', this.left, this.right);
   }
 }

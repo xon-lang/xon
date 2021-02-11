@@ -15,23 +15,23 @@ const getIndentationCount = (whitespace: string): number =>
   );
 
 export abstract class XonLexerBase extends Lexer {
-  token_queue: Token[] = [];
+  private token_queue: Token[] = [];
 
-  indents: number[] = [];
+  private indents: number[] = [];
 
-  opened = 0;
+  private opened = 0;
 
-  last_token: Token | undefined = undefined;
+  private last_token: Token | undefined = undefined;
 
-  abstract get channelNames(): string[];
+  public abstract get channelNames(): string[];
 
-  abstract get modeNames(): string[];
+  public abstract get modeNames(): string[];
 
-  abstract get ruleNames(): string[];
+  public abstract get ruleNames(): string[];
 
-  abstract get vocabulary(): Vocabulary;
+  public abstract get vocabulary(): Vocabulary;
 
-  abstract get grammarFileName(): string;
+  public abstract get grammarFileName(): string;
 
   public reset(): void {
     // A queue where extra tokens are pushed on (see the LineBreak lexer rule).
@@ -85,7 +85,7 @@ export abstract class XonLexerBase extends Lexer {
     return this.token_queue.shift() || next;
   }
 
-  createDedent(): Token {
+  private createDedent(): Token {
     const dedent = this.commonToken(XonParser.DEDENT, '');
     if (this.last_token) {
       dedent.line = this.last_token.line;
@@ -93,7 +93,7 @@ export abstract class XonLexerBase extends Lexer {
     return dedent;
   }
 
-  commonToken(type: number, text: string): CommonToken {
+  private commonToken(type: number, text: string): CommonToken {
     const stop: number = this.charIndex - 1;
     const start: number = text.length ? stop - text.length + 1 : stop;
     return new CommonToken(
@@ -115,11 +115,11 @@ export abstract class XonLexerBase extends Lexer {
   //
   //  -- https://docs.python.org/3.1/reference/lexical_analysis.html#indentation
 
-  atStartOfInput(): boolean {
+  private atStartOfInput(): boolean {
     return this.charIndex === 0;
   }
 
-  handleLineBreak(): void {
+  private handleLineBreak(): void {
     const newLine = this.text.replace(/[^\r\n]+/g, '');
     const spaces = this.text.replace(/[\r\n]+/g, '');
     // Strip newlines inside open clauses except if we are near EOF. We keep LineBreaks near EOF to

@@ -3,9 +3,9 @@ import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class ObjectExpressionTree extends ExpressionTree {
-  items: { key: string; value: ExpressionTree }[];
+  public items: { key: string; value: ExpressionTree }[];
 
-  constructor(public ctx?: ObjectExpressionContext) {
+  public constructor(public ctx?: ObjectExpressionContext) {
     super();
     if (!ctx) return;
     this.items = ctx.ID().map((x, i) => ({

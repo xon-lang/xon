@@ -24,13 +24,13 @@ function treeToPlain(object) {
 }
 
 export abstract class BaseTree {
-  ctx?: ParserRuleContext;
+  public ctx?: ParserRuleContext;
 
-  toPlain(): unknown {
+  public toPlain(): unknown {
     return treeToPlain(this);
   }
 
-  toJson(): string {
+  public toJson(): string {
     return JSON.stringify(this.toPlain(), null, 2);
   }
 }

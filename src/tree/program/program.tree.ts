@@ -6,13 +6,13 @@ import { getStatementTree } from '../statement/statement-helper';
 import { StatementTree } from '../statement/statement.tree';
 
 export class ProgramTree extends BaseTree {
-  libraries: LibraryTree[];
+  public libraries: LibraryTree[];
 
-  statements: StatementTree[];
+  public statements: StatementTree[];
 
-  definitions: DefinitionTree[];
+  public definitions: DefinitionTree[];
 
-  constructor(public ctx: ProgramContext) {
+  public constructor(public ctx: ProgramContext) {
     super();
 
     this.libraries = ctx.library().map((x) => new LibraryTree(x));

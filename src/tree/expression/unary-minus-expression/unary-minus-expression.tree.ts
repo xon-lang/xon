@@ -3,9 +3,9 @@ import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class UnaryMinusExpressionTree extends ExpressionTree {
-  value: ExpressionTree;
+  public value: ExpressionTree;
 
-  constructor(public ctx: UnaryMinusExpressionContext) {
+  public constructor(public ctx: UnaryMinusExpressionContext) {
     super();
     this.value = getExpressionTree(ctx.expression());
   }

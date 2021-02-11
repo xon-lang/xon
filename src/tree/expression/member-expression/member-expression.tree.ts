@@ -3,11 +3,11 @@ import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class MemberExpressionTree extends ExpressionTree {
-  name: string;
+  public name: string;
 
-  object: ExpressionTree;
+  public object: ExpressionTree;
 
-  constructor(public ctx: MemberExpressionContext) {
+  public constructor(public ctx: MemberExpressionContext) {
     super();
     this.name = ctx.ID().text;
     this.object = getExpressionTree(ctx.expression());

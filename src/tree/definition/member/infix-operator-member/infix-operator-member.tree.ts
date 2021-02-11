@@ -5,18 +5,18 @@ import { TypeTree } from '../../../type/type.tree';
 import { MemberTree } from '../member.tree';
 
 export class InfixOperatorMemberTree extends MemberTree {
-  operator: string;
+  public operator: string;
 
-  arg: {
+  public arg: {
     name: string;
     type: TypeTree;
   };
 
-  returnType: TypeTree;
+  public returnType: TypeTree;
 
-  statements: StatementTree[];
+  public statements: StatementTree[];
 
-  constructor(public ctx: InfixOperatorMemberContext) {
+  public constructor(public ctx: InfixOperatorMemberContext) {
     super();
 
     this.operator = ctx.operator().text;
