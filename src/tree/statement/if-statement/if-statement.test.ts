@@ -69,12 +69,12 @@ else:
   expect(tree.items[0].keyword).toBe('if');
 
   expect(
-    ((tree.items[0].statements[0] as ExpressionStatementTree).value as IdExpressionTree).name
+    ((tree.items[0].statements[0] as ExpressionStatementTree).value as IdExpressionTree).name,
   ).toBe('b');
   expect(tree.items[1].hasIf).toBe(true);
   expect(tree.items[1].hasElse).toBe(true);
   expect(tree.items[1].keyword).toBe('elif');
   expect(
-    ((tree.items[4].statements[0] as ExpressionStatementTree).value as IdExpressionTree).name
+    ((tree.items[4].statements[0] as ExpressionStatementTree).value as IdExpressionTree).name,
   ).toBe('i');
 });

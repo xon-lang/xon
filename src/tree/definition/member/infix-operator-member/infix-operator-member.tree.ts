@@ -22,7 +22,7 @@ export class InfixOperatorMemberTree extends MemberTree {
     this.operator = ctx.operator().text;
     this.arg = {
       name: ctx.argument().ID().text,
-      type: new TypeTree(ctx.argument().type())
+      type: new TypeTree(ctx.argument().type()),
     };
 
     this.returnType = ctx.type() && new TypeTree(ctx.type());

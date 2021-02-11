@@ -4,7 +4,7 @@ import { TypeTree } from './type.tree';
 export const getInfixType = (
   operator: string,
   left: ExpressionTree,
-  right: ExpressionTree
+  right: ExpressionTree,
 ): TypeTree => {
   const foundInfixOperatorMethod = left
     .getType()

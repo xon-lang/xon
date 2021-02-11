@@ -4,7 +4,7 @@ import {
   FloatLiteralContext,
   IntegerLiteralContext,
   LiteralContext,
-  StringLiteralContext
+  StringLiteralContext,
 } from '../../grammar/xon-parser';
 import { BooleanLiteralTree } from './boolean-literal/boolean-literal.tree';
 import { CharLiteralTree } from './char-literal/char-literal.tree';

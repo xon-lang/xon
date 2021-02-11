@@ -22,7 +22,7 @@ export class MethodMemberTree extends MemberTree {
     this.name = ctx.ID().text;
     this.args = ctx.argument().map((x) => ({
       name: x.ID().text,
-      type: new TypeTree(x.type())
+      type: new TypeTree(x.type()),
     }));
 
     this.returnType = ctx.type() && new TypeTree(ctx.type());
