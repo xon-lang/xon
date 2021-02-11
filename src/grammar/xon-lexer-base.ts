@@ -115,27 +115,33 @@ export abstract class XonLexerBase extends Lexer {
   //
   //  -- https://docs.python.org/3.1/reference/lexical_analysis.html#indentation
 
-  private atStartOfInput(): boolean {
+  protected atStartOfInput(): boolean {
     return this.charIndex === 0;
   }
 
-  private handleLineBreak(): void {
+  protected handleLineBreak(): void {
     const newLine = this.text.replace(/[^\r\n]+/g, '');
     const spaces = this.text.replace(/[\r\n]+/g, '');
     // Strip newlines inside open clauses except if we are near EOF. We keep LineBreaks near EOF to
     // satisfy the final newline needed by the single_put rule used by the REPL.
     const next = this.inputStream.LA(1);
+    // eslint-disable-next-line no-magic-numbers
     const nextnext = this.inputStream.LA(2);
+
+    const eofCode = -1;
+    const returnCode = 13;
+    const newLineCode = 10;
+    const hashCode = 35;
     if (
       this.opened > 0 ||
       // EOF
-      (nextnext !== -1 &&
+      (nextnext !== eofCode &&
         // '\r'
-        (next === 13 ||
+        (next === returnCode ||
           // '\n'
-          next === 10 ||
+          next === newLineCode ||
           // '#'
-          next === 35))
+          next === hashCode))
     ) {
       // If we're inside a list or on a blank line, ignore all indents,
       // dedents and line breaks.
