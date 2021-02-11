@@ -1,4 +1,5 @@
 node_modules
 dist
 coverage
-src/grammar
+src/grammar/*
+!xon-lexer-base.ts
