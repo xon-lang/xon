@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import { AddExpressionTree } from './tree/expression/add-expression/add-expression.tree';
 import { BinaryExpressionTree } from './tree/expression/binary-expression.tree';
 import { DivideExpressionTree } from './tree/expression/divide-expression/divide-expression.tree';
@@ -24,51 +25,46 @@ import { UnaryMinusExpressionTree } from './tree/expression/unary-minus-expressi
 export const evalExpression = (tree: ExpressionTree, argsMap = new Map()): unknown => {
   if (tree === undefined) return undefined;
   if (tree instanceof ParenthesizedExpressionTree) return evalExpression(tree.value);
-  if (tree instanceof IdExpressionTree) {
-    if (argsMap.has(tree.name)) {
-      return argsMap.get(tree.name);
-    }
+  if (tree instanceof LiteralExpressionTree) return tree.literal.getValue();
+  if (tree instanceof UnaryMinusExpressionTree) return -evalExpression(tree.value, argsMap);
+  if (tree instanceof LogicalNotExpressionTree) return !evalExpression(tree.value, argsMap);
+  if (tree instanceof BinaryExpressionTree) return evalBinaryExpression(tree, argsMap);
 
+  if (tree instanceof IdExpressionTree) {
+    if (argsMap.has(tree.name)) return argsMap.get(tree.name);
     throw Error(`Undefined key: ${tree.name}`);
   }
-
-  if (tree instanceof LiteralExpressionTree) {
-    return tree.literal.getValue();
-  }
-
-  if (tree instanceof UnaryMinusExpressionTree) return -evalExpression(tree.value, argsMap);
-
-  if (tree instanceof LogicalNotExpressionTree) return !evalExpression(tree.value, argsMap);
-
   if (tree instanceof PipeExpressionTree) {
     const a = evalExpression(tree.left, argsMap);
     if (tree.arg) argsMap.set(tree.arg, a);
     return evalExpression(tree.right, argsMap);
   }
 
-  if (tree instanceof BinaryExpressionTree) {
-    const a = evalExpression(tree.left, argsMap) as number;
-    const b = evalExpression(tree.right, argsMap) as number;
+  throw new Error('Unsupported operation');
+};
 
-    if (tree instanceof PowExpressionTree) return a ** b;
-    if (tree instanceof MultiplyExpressionTree) return a * b;
-    if (tree instanceof DivideExpressionTree) return a / b;
-    if (tree instanceof ModuloExpressionTree) return a % b;
+export const evalBinaryExpression = (tree: BinaryExpressionTree, argsMap = new Map()): unknown => {
+  const a = evalExpression(tree.left, argsMap) as number;
+  const b = evalExpression(tree.right, argsMap) as number;
 
-    if (tree instanceof AddExpressionTree) return a + b;
-    if (tree instanceof SubstractExpressionTree) return a - b;
+  if (tree instanceof PowExpressionTree) return a ** b;
+  if (tree instanceof MultiplyExpressionTree) return a * b;
+  if (tree instanceof DivideExpressionTree) return a / b;
+  if (tree instanceof ModuloExpressionTree) return a % b;
 
-    if (tree instanceof LessThanExpressionTree) return a < b;
-    if (tree instanceof LessThanEqualsExpressionTree) return a <= b;
-    if (tree instanceof MoreThanExpressionTree) return a > b;
-    if (tree instanceof MoreThanEqualsExpressionTree) return a >= b;
+  if (tree instanceof AddExpressionTree) return a + b;
+  if (tree instanceof SubstractExpressionTree) return a - b;
 
-    if (tree instanceof EqualsExpressionTree) return a === b;
-    if (tree instanceof NotEqualsExpressionTree) return a !== b;
+  if (tree instanceof LessThanExpressionTree) return a < b;
+  if (tree instanceof LessThanEqualsExpressionTree) return a <= b;
+  if (tree instanceof MoreThanExpressionTree) return a > b;
+  if (tree instanceof MoreThanEqualsExpressionTree) return a >= b;
 
-    if (tree instanceof LogicalAndExpressionTree) return a && b;
-    if (tree instanceof LogicalOrExpressionTree) return a || b;
-  }
+  if (tree instanceof EqualsExpressionTree) return a === b;
+  if (tree instanceof NotEqualsExpressionTree) return a !== b;
+
+  if (tree instanceof LogicalAndExpressionTree) return a && b;
+  if (tree instanceof LogicalOrExpressionTree) return a || b;
 
   throw new Error('Unsupported operation');
 };
