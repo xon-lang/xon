@@ -1,11 +1,11 @@
 import { ExpressionTree } from '../expression/expression.tree';
 import { TypeTree } from './type.tree';
 
-export function getInfixType(
+export const getInfixType = (
   operator: string,
   left: ExpressionTree,
   right: ExpressionTree
-): TypeTree {
+): TypeTree => {
   const foundInfixOperatorMethod = left
     .getType()
     .definition()
@@ -14,4 +14,4 @@ export function getInfixType(
     return foundInfixOperatorMethod.returnType;
   }
   throw new Error(`No infix operator method for ${operator}`);
-}
+};

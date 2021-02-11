@@ -1,6 +1,6 @@
 import { ParserRuleContext } from 'antlr4ts';
 
-function treeToPlain(object) {
+const treeToPlain = (object): unknown => {
   const treeType = object.constructor.name.replace(/Tree$/, '');
   const plain = treeType ? { treeType } : {};
 
@@ -21,7 +21,7 @@ function treeToPlain(object) {
   }
 
   return plain;
-}
+};
 
 export abstract class BaseTree {
   public ctx?: ParserRuleContext;

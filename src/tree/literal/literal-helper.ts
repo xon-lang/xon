@@ -13,7 +13,7 @@ import { IntegerLiteralTree } from './integer-literal/integer-literal.tree';
 import { LiteralTree } from './literal.tree';
 import { StringLiteralTree } from './string-literal/string-literal.tree';
 
-export function getLiteralTree(ctx: LiteralContext): LiteralTree {
+export const getLiteralTree = (ctx: LiteralContext): LiteralTree => {
   if (ctx === undefined) return undefined;
 
   if (ctx instanceof BooleanLiteralContext) return new BooleanLiteralTree(ctx);
@@ -23,4 +23,4 @@ export function getLiteralTree(ctx: LiteralContext): LiteralTree {
   if (ctx instanceof StringLiteralContext) return new StringLiteralTree(ctx);
 
   throw Error(`No Literal found for ${ctx.constructor.name}`);
-}
+};

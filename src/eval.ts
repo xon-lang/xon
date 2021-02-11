@@ -21,7 +21,7 @@ import { PowExpressionTree } from './tree/expression/pow-expression/pow-expressi
 import { SubstractExpressionTree } from './tree/expression/substract-expression/substract-expression.tree';
 import { UnaryMinusExpressionTree } from './tree/expression/unary-minus-expression/unary-minus-expression.tree';
 
-export function evalExpression(tree: ExpressionTree, argsMap = new Map()): unknown {
+export const evalExpression = (tree: ExpressionTree, argsMap = new Map()): unknown => {
   if (tree === undefined) return undefined;
   if (tree instanceof ParenthesizedExpressionTree) return evalExpression(tree.value);
   if (tree instanceof IdExpressionTree) {
@@ -72,4 +72,4 @@ export function evalExpression(tree: ExpressionTree, argsMap = new Map()): unkno
   }
 
   throw new Error('Unsupported operation');
-}
+};

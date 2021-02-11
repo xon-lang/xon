@@ -16,7 +16,7 @@ import { PreprocessorStatementTree } from './preprocessor-statement/preprocessor
 import { ReturnStatementTree } from './return-statement/return-statement.tree';
 import { StatementTree } from './statement.tree';
 
-export function getStatementTree(ctx: StatementContext): StatementTree {
+export const getStatementTree = (ctx: StatementContext): StatementTree => {
   if (ctx === undefined) return undefined;
 
   if (ctx instanceof AssignmentStatementContext) return new AssignmentStatementTree(ctx);
@@ -27,8 +27,7 @@ export function getStatementTree(ctx: StatementContext): StatementTree {
   if (ctx instanceof LoopStatementContext) return new LoopStatementTree(ctx);
 
   throw Error(`No Statemenet found for ${ctx.constructor.name}`);
-}
+};
 
-export function getStatementsTrees(body: BodyContext): StatementTree[] {
-  return body?.statement().map(getStatementTree);
-}
+export const getStatementsTrees = (body: BodyContext): StatementTree[] =>
+  body?.statement().map(getStatementTree);
