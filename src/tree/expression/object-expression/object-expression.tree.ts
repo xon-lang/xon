@@ -10,7 +10,7 @@ export class ObjectExpressionTree extends ExpressionTree {
     if (!ctx) return;
     this.items = ctx.ID().map((x, i) => ({
       key: x.text,
-      value: getExpressionTree(ctx.expression(i))
+      value: getExpressionTree(ctx.expression(i)),
     }));
   }
 }

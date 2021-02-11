@@ -6,7 +6,7 @@ import {
   LoopStatementContext,
   PreprocessorStatementContext,
   ReturnStatementContext,
-  StatementContext
+  StatementContext,
 } from '../../grammar/xon-parser';
 import { AssignmentStatementTree } from './assignment-statement/assignment-statement.tree';
 import { ExpressionStatementTree } from './expression-statement/expression-statement.tree';

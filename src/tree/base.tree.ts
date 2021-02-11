@@ -5,7 +5,7 @@ const treeToPlain = (object): unknown => {
   const plain = treeType ? { treeType } : {};
 
   const entries = Object.entries(object).filter(
-    ([k, v]) => typeof v !== 'function' && v !== null && v !== undefined && k !== 'ctx'
+    ([k, v]) => typeof v !== 'function' && v !== null && v !== undefined && k !== 'ctx',
   );
 
   // eslint-disable-next-line no-restricted-syntax

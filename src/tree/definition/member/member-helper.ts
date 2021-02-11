@@ -2,7 +2,7 @@ import {
   InfixOperatorMemberContext,
   MemberContext,
   MethodMemberContext,
-  PropertyMemberContext
+  PropertyMemberContext,
 } from '../../../grammar/xon-parser';
 import { InfixOperatorMemberTree } from './infix-operator-member/infix-operator-member.tree';
 import { MemberTree } from './member.tree';

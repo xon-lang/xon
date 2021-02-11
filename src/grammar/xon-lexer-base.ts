@@ -11,7 +11,7 @@ const tabWidth = 4;
 const getIndentationCount = (whitespace: string): number =>
   Array.from(whitespace).reduce(
     (sum, x) => sum + (x === '\t' ? tabWidth - (sum % tabWidth) : 1),
-    0
+    0,
   );
 
 export abstract class XonLexerBase extends Lexer {
@@ -162,7 +162,7 @@ export abstract class XonLexerBase extends Lexer {
       this._tokenFactorySourcePair,
       Lexer.DEFAULT_TOKEN_CHANNEL,
       start,
-      stop
+      stop,
     );
   }
 }

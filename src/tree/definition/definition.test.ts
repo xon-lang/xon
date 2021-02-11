@@ -28,10 +28,10 @@ test('one scope', () => {
   expect(tree.methods[0].args.length).toBe(0);
   expect(tree.methods[0].statements.length).toBe(2);
   expect((tree.methods[0].statements[0] as ExpressionStatementTree).value).toBeInstanceOf(
-    FunctionExpressionTree
+    FunctionExpressionTree,
   );
   expect((tree.methods[0].statements[1] as ExpressionStatementTree).value).toBeInstanceOf(
-    FunctionExpressionTree
+    FunctionExpressionTree,
   );
   expect(tree.methods[1].name).toBe('location');
   expect(tree.methods[1].args.length).toBe(2);
@@ -41,7 +41,7 @@ test('one scope', () => {
   expect(tree.methods[1].args[1].type.name).toBe('Number');
   expect(tree.methods[1].statements.length).toBe(1);
   expect((tree.methods[1].statements[0] as ExpressionStatementTree).value).toBeInstanceOf(
-    FunctionExpressionTree
+    FunctionExpressionTree,
   );
   const innerMethod = (tree.methods[1].statements[0] as ExpressionStatementTree)
     .value as FunctionExpressionTree;
