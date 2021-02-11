@@ -5,21 +5,21 @@ import { getStatementsTrees } from '../statement-helper';
 import { StatementTree } from '../statement.tree';
 
 export class LoopStatementTree extends StatementTree {
-  keyword: string;
+  public keyword: string;
 
-  isInfinity: boolean;
+  public isInfinity: boolean;
 
-  indexName: string;
+  public indexName: string;
 
-  keyName: string;
+  public keyName: string;
 
-  valueName: string;
+  public valueName: string;
 
-  expression: ExpressionTree;
+  public expression: ExpressionTree;
 
-  statements: StatementTree[];
+  public statements: StatementTree[];
 
-  constructor(public ctx: LoopStatementContext) {
+  public constructor(public ctx: LoopStatementContext) {
     super();
     this.keyword = ctx.Loop().text;
     this.isInfinity = !ctx.expression();

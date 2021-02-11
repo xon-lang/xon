@@ -11,17 +11,17 @@ import { MethodMemberTree } from './member/method-member/method-member.tree';
 import { PropertyMemberTree } from './member/property-member/property-member.tree';
 
 export class DefinitionTree extends BaseTree {
-  name: string;
+  public name: string;
 
-  inheritance: TypeTree;
+  public inheritance: TypeTree;
 
-  properties: PropertyMemberTree[] = [];
+  public properties: PropertyMemberTree[] = [];
 
-  methods: MethodMemberTree[] = [];
+  public methods: MethodMemberTree[] = [];
 
-  infixOperators: InfixOperatorMemberTree[] = [];
+  public infixOperators: InfixOperatorMemberTree[] = [];
 
-  constructor(public ctx: DefinitionContext) {
+  public constructor(public ctx: DefinitionContext) {
     super();
     this.name = ctx.ID().text;
 

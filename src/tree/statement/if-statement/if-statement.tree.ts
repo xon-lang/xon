@@ -5,7 +5,7 @@ import { getStatementsTrees } from '../statement-helper';
 import { StatementTree } from '../statement.tree';
 
 export class IfStatementTree extends StatementTree {
-  items: {
+  public items: {
     statements: StatementTree[];
     condition: ExpressionTree;
     hasIf: boolean;
@@ -13,7 +13,7 @@ export class IfStatementTree extends StatementTree {
     keyword: string;
   }[] = [];
 
-  constructor(public ctx?: IfStatementContext) {
+  public constructor(public ctx?: IfStatementContext) {
     super();
     if (!ctx) return;
 

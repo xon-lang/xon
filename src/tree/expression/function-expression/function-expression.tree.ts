@@ -3,11 +3,11 @@ import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class FunctionExpressionTree extends ExpressionTree {
-  args: ExpressionTree[];
+  public args: ExpressionTree[];
 
-  object: ExpressionTree;
+  public object: ExpressionTree;
 
-  constructor(public ctx: FunctionExpressionContext) {
+  public constructor(public ctx: FunctionExpressionContext) {
     super();
     this.args = ctx._args.map(getExpressionTree);
     this.object = getExpressionTree(ctx._object);

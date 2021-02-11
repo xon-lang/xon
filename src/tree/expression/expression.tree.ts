@@ -4,9 +4,9 @@ import { BaseTree } from '../base.tree';
 import { TypeTree } from '../type/type.tree';
 
 export abstract class ExpressionTree extends BaseTree {
-  ctx?: ExpressionContext;
+  public ctx?: ExpressionContext;
 
-  getType(): TypeTree {
+  public getType(): TypeTree {
     return null;
   }
 }

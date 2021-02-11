@@ -2,5 +2,5 @@ import { EqualityExpressionContext } from '../../../grammar/xon-parser';
 import { BinaryExpressionTree } from '../binary-expression.tree';
 
 export class NotEqualsExpressionTree extends BinaryExpressionTree {
-  ctx: EqualityExpressionContext;
+  public ctx: EqualityExpressionContext;
 }

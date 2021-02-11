@@ -5,14 +5,14 @@ import { TypeTree } from '../../type/type.tree';
 import { ExpressionTree } from '../expression.tree';
 
 export class LiteralExpressionTree extends ExpressionTree {
-  literal: LiteralTree;
+  public literal: LiteralTree;
 
-  constructor(public ctx?: LiteralExpressionContext) {
+  public constructor(public ctx?: LiteralExpressionContext) {
     super();
     this.literal = ctx && getLiteralTree(ctx.literal());
   }
 
-  getType(): TypeTree {
+  public getType(): TypeTree {
     const typeTree = new TypeTree();
     typeTree.name = this.literal.constructor.name.replace(/LiteralTree/, '');
     return typeTree;

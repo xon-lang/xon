@@ -3,13 +3,13 @@ import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class PipeExpressionTree extends ExpressionTree {
-  arg: string;
+  public arg: string;
 
-  left: ExpressionTree;
+  public left: ExpressionTree;
 
-  right: ExpressionTree;
+  public right: ExpressionTree;
 
-  constructor(public ctx: PipeExpressionContext) {
+  public constructor(public ctx: PipeExpressionContext) {
     super();
     this.arg = ctx.ID()?.text;
     this.left = getExpressionTree(ctx._left);

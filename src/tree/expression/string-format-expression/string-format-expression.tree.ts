@@ -4,9 +4,9 @@ import { ExpressionTree } from '../expression.tree';
 import { ParenthesizedExpressionTree } from '../parenthesized-expression/parenthesized-expression.tree';
 
 export class StringFormatExpressionTree extends ExpressionTree {
-  value: ParenthesizedExpressionTree;
+  public value: ParenthesizedExpressionTree;
 
-  constructor(public ctx: StringFormatExpressionContext) {
+  public constructor(public ctx: StringFormatExpressionContext) {
     super();
 
     const code = ctx.text

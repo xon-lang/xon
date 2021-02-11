@@ -3,13 +3,13 @@ import { BaseTree } from '../base.tree';
 import { LibraryMemberTree } from './library-member.tree';
 
 export class LibraryTree extends BaseTree {
-  scope: string;
+  public scope: string;
 
-  name: string;
+  public name: string;
 
-  members: LibraryMemberTree[];
+  public members: LibraryMemberTree[];
 
-  constructor(public ctx: LibraryContext) {
+  public constructor(public ctx: LibraryContext) {
     super();
     [this.scope, this.name] = ctx.libraryPath().text.split('/');
     this.members = ctx.libraryMember().map((x) => new LibraryMemberTree(x));

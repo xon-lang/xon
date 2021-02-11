@@ -4,11 +4,11 @@ import { ExpressionTree } from '../../expression/expression.tree';
 import { StatementTree } from '../statement.tree';
 
 export class AssignmentStatementTree extends StatementTree {
-  value: ExpressionTree;
+  public value: ExpressionTree;
 
-  name: string;
+  public name: string;
 
-  constructor(public ctx?: AssignmentStatementContext) {
+  public constructor(public ctx?: AssignmentStatementContext) {
     super();
     if (!ctx) return;
 
