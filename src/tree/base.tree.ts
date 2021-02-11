@@ -31,6 +31,7 @@ export abstract class BaseTree {
   }
 
   public toJson(): string {
-    return JSON.stringify(this.toPlain(), null, 2);
+    const tabWidth = 2;
+    return JSON.stringify(this.toPlain(), null, tabWidth);
   }
 }
