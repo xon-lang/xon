@@ -6,5 +6,5 @@ export abstract class LiteralTree extends BaseTree {
     super();
   }
 
-  abstract getValue(): unknown;
+  public abstract getValue(): unknown;
 }
