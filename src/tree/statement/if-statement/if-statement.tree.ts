@@ -22,7 +22,7 @@ export class IfStatementTree extends StatementTree {
       condition: getExpressionTree(x),
       hasIf: true,
       hasElse: !!i,
-      keyword: i ? 'elif' : 'if',
+      keyword: i ? 'elif' : 'if'
     }));
     if (ctx.Else()) {
       this.items.push({
@@ -30,7 +30,7 @@ export class IfStatementTree extends StatementTree {
         condition: null,
         hasIf: false,
         hasElse: true,
-        keyword: 'else',
+        keyword: 'else'
       });
     }
   }

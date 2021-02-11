@@ -20,7 +20,7 @@ import {
   RangeExpressionContext,
   RelationalExpressionContext,
   StringFormatExpressionContext,
-  UnaryMinusExpressionContext,
+  UnaryMinusExpressionContext
 } from '../../grammar/xon-parser';
 import { AddExpressionTree } from './add-expression/add-expression.tree';
 import { ArrayExpressionTree } from './array-expression/array-expression.tree';

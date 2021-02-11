@@ -15,7 +15,7 @@ export class LambdaExpressionTree extends ExpressionTree {
     super();
     this.args = ctx.ID().map((x, i) => ({
       name: x.text,
-      type: ctx.type(i) && new TypeTree(ctx.type(i)),
+      type: ctx.type(i) && new TypeTree(ctx.type(i))
     }));
     this.body = getExpressionTree(ctx.expression());
   }
