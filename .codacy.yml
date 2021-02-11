@@ -1,5 +1,5 @@
 ---
 exclude_paths:
-  - "xon-lexer.ts"
-  - "xon-parser.ts"
+  - "src/grammar/xon-lexer.ts"
+  - "src/grammar/xon-parser.ts"
   - "**/*.test.ts"
