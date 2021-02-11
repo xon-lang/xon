@@ -16,11 +16,11 @@ glob.sync('src/xon-lib/**/*.xon').forEach((x) => {
 
 const definitionCache = new Map<string, DefinitionTree>();
 
-export function getLibType(name: string): DefinitionTree {
+export const getLibType = (name: string): DefinitionTree => {
   const code = fs.readFileSync(libTypePaths[name]).toString();
   if (definitionCache.has(name)) return definitionCache.get(name);
 
   const definition = parseDefinition(code);
   definitionCache.set(name, definition);
   return definition;
-}
+};

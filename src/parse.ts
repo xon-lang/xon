@@ -14,40 +14,30 @@ import { getStatementTree } from './tree/statement/statement-helper';
 import { StatementTree } from './tree/statement/statement.tree';
 import { TypeTree } from './tree/type/type.tree';
 
-export function parse(code: string): XonParser {
+export const parse = (code: string): XonParser => {
   const inputStream = CharStreams.fromString(code);
   const lexer = new XonLexer(inputStream);
   const tokenStream = new CommonTokenStream(lexer);
   return new XonParser(tokenStream);
-}
+};
 
-export function parseType(code: string): TypeTree {
-  return new TypeTree(parse(code).type());
-}
+export const parseType = (code: string): TypeTree => new TypeTree(parse(code).type());
 
-export function parseLiteral<T extends LiteralTree>(code: string): T {
-  return getLiteralTree(parse(code).literal()) as T;
-}
+export const parseLiteral = <T extends LiteralTree>(code: string): T =>
+  getLiteralTree(parse(code).literal()) as T;
 
-export function parseExpression<T extends ExpressionTree>(code: string): T {
-  return getExpressionTree(parse(code).expression()) as T;
-}
+export const parseExpression = <T extends ExpressionTree>(code: string): T =>
+  getExpressionTree(parse(code).expression()) as T;
 
-export function parseStatement<T extends StatementTree>(code: string): T {
-  return getStatementTree(parse(code).statement()) as T;
-}
+export const parseStatement = <T extends StatementTree>(code: string): T =>
+  getStatementTree(parse(code).statement()) as T;
 
-export function parseMember<T extends MemberTree>(code: string): T {
-  return getMemberTree(parse(code).member()) as T;
-}
+export const parseMember = <T extends MemberTree>(code: string): T =>
+  getMemberTree(parse(code).member()) as T;
 
-export function parseDefinition(code: string): DefinitionTree {
-  return new DefinitionTree(parse(code).definition());
-}
-export function parseLibrary(code: string): LibraryTree {
-  return new LibraryTree(parse(code).library());
-}
+export const parseDefinition = (code: string): DefinitionTree =>
+  new DefinitionTree(parse(code).definition());
+export const parseLibrary = (code: string): LibraryTree => new LibraryTree(parse(code).library());
 
-export function parseProgram<T extends ProgramTree>(code: string): T {
-  return new ProgramTree(parse(code).program()) as T;
-}
+export const parseProgram = <T extends ProgramTree>(code: string): T =>
+  new ProgramTree(parse(code).program()) as T;

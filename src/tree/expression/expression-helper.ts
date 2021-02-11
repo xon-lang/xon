@@ -52,11 +52,7 @@ import { StringFormatExpressionTree } from './string-format-expression/string-fo
 import { SubstractExpressionTree } from './substract-expression/substract-expression.tree';
 import { UnaryMinusExpressionTree } from './unary-minus-expression/unary-minus-expression.tree';
 
-// fix circular dependency for binary-expression
-// eslint-disable-next-line
-global['getExpressionTree'] = getExpressionTree;
-
-export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
+export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx === undefined) return undefined;
 
   if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionTree(ctx);
@@ -97,8 +93,11 @@ export function getExpressionTree(ctx: ExpressionContext): ExpressionTree {
   }
 
   throw Error(`No Expression found for ${ctx?.constructor?.name}`);
-}
+};
 
-export function getExpressionsTrees(expressions: ExpressionContext[]): ExpressionTree[] {
-  return expressions.map(getExpressionTree);
-}
+export const getExpressionsTrees = (expressions: ExpressionContext[]): ExpressionTree[] =>
+  expressions.map(getExpressionTree);
+
+// fix circular dependency for binary-expression
+// eslint-disable-next-line
+global['getExpressionTree'] = getExpressionTree;
