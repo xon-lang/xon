@@ -43,7 +43,10 @@ export const evalExpression = (tree: ExpressionTree, argsMap = new Map()): unkno
   throw new Error('Unsupported operation');
 };
 
-export const evalBinaryExpression = (tree: BinaryExpressionTree, argsMap = new Map()): unknown => {
+export const evalBinaryExpression = (
+  tree: BinaryExpressionTree,
+  argsMap: Map<string, unknown>,
+): unknown => {
   const a = evalExpression(tree.left, argsMap) as number;
   const b = evalExpression(tree.right, argsMap) as number;
 
