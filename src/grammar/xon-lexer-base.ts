@@ -85,27 +85,6 @@ export abstract class XonLexerBase extends Lexer {
     return this.token_queue.shift() || next;
   }
 
-  private createDedent(): Token {
-    const dedent = this.commonToken(XonParser.DEDENT, '');
-    if (this.last_token) {
-      dedent.line = this.last_token.line;
-    }
-    return dedent;
-  }
-
-  private commonToken(type: number, text: string): CommonToken {
-    const stop: number = this.charIndex - 1;
-    const start: number = text.length ? stop - text.length + 1 : stop;
-    return new CommonToken(
-      type,
-      text,
-      this._tokenFactorySourcePair,
-      Lexer.DEFAULT_TOKEN_CHANNEL,
-      start,
-      stop
-    );
-  }
-
   // Calculates the indentation of the provided spaces, taking the
   // following rules into account:
   //
@@ -164,5 +143,26 @@ export abstract class XonLexerBase extends Lexer {
         }
       }
     }
+  }
+
+  private createDedent(): Token {
+    const dedent = this.commonToken(XonParser.DEDENT, '');
+    if (this.last_token) {
+      dedent.line = this.last_token.line;
+    }
+    return dedent;
+  }
+
+  private commonToken(type: number, text: string): CommonToken {
+    const stop: number = this.charIndex - 1;
+    const start: number = text.length ? stop - text.length + 1 : stop;
+    return new CommonToken(
+      type,
+      text,
+      this._tokenFactorySourcePair,
+      Lexer.DEFAULT_TOKEN_CHANNEL,
+      start,
+      stop
+    );
   }
 }
