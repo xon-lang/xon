@@ -16,18 +16,18 @@ export class TypeTree extends BaseTree {
     this.generics = ctx.type().map((x) => new TypeTree(x));
   }
 
+  public static create(name: string, ...generics: (TypeTree | string)[]): TypeTree {
+    const type = new TypeTree();
+    type.name = name;
+    type.generics = generics.map((x) => (x instanceof TypeTree ? x : TypeTree.create(x)));
+    return type;
+  }
+
   public definition(): DefinitionTree {
     return getLibType(this.name);
   }
 
   public equals(other: TypeTree): boolean {
     return this.name === other.name;
-  }
-
-  public static create(name: string, ...generics: (TypeTree | string)[]): TypeTree {
-    const type = new TypeTree();
-    type.name = name;
-    type.generics = generics.map((x) => (x instanceof TypeTree ? x : TypeTree.create(x)));
-    return type;
   }
 }
