@@ -2,7 +2,7 @@ import {
   DefinitionContext,
   InfixOperatorMemberContext,
   MethodMemberContext,
-  PropertyMemberContext,
+  PropertyMemberContext
 } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { TypeTree } from '../type/type.tree';
