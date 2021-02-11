@@ -6,11 +6,11 @@ import { StatementTree } from '../statement.tree';
 
 export class IfStatementTree extends StatementTree {
   public items: {
-    statements: StatementTree[];
     condition: ExpressionTree;
-    hasIf: boolean;
     hasElse: boolean;
+    hasIf: boolean;
     keyword: string;
+    statements: StatementTree[];
   }[] = [];
 
   public constructor(public ctx?: IfStatementContext) {
@@ -18,19 +18,19 @@ export class IfStatementTree extends StatementTree {
     if (!ctx) return;
 
     this.items = ctx.expression().map((x, i) => ({
-      statements: getStatementsTrees(ctx.body(i)),
       condition: getExpressionTree(x),
-      hasIf: true,
       hasElse: !!i,
+      hasIf: true,
       keyword: i ? 'elif' : 'if',
+      statements: getStatementsTrees(ctx.body(i)),
     }));
     if (ctx.Else()) {
       this.items.push({
-        statements: getStatementsTrees(ctx.body(ctx.body().length - 1)),
         condition: null,
-        hasIf: false,
         hasElse: true,
+        hasIf: false,
         keyword: 'else',
+        statements: getStatementsTrees(ctx.body(ctx.body().length - 1)),
       });
     }
   }
