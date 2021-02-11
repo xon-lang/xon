@@ -1,5 +1,5 @@
 ---
-engines:
-  duplication:
-    exclude_paths:
-      - '**/*.test.ts'
+exclude_paths:
+  - "xon-lexer.ts"
+  - "xon-parser.ts"
+  - "**/*.test.ts"
