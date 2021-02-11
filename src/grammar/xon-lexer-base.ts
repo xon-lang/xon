@@ -1,21 +1,18 @@
-// extract from https://github.com/antlr/grammars-v4/blob/6b520363786994d06993f9d1a6fc126893a11b04/python/python3-ts/Python3.g4
+// extract from https://github.com/antlr/grammars-v4/blob/
+// 6b520363786994d06993f9d1a6fc126893a11b04/python/python3-ts/Python3.g4
 
 import { Lexer, Vocabulary } from 'antlr4ts';
 import { CommonToken } from 'antlr4ts/CommonToken';
 import { Token } from 'antlr4ts/Token';
 import { XonParser } from './xon-parser';
 
-function getIndentationCount(whitespace: string): number {
-  let count = 0;
-  for (let i = 0; i < whitespace.length; i += 1) {
-    if (whitespace[i] === '\t') {
-      count += 4 - (count % 4);
-    } else {
-      count += 1;
-    }
-  }
-  return count;
-}
+const tabWidth = 4;
+
+const getIndentationCount = (whitespace: string): number =>
+  Array.from(whitespace).reduce(
+    (sum, x) => sum + (x === '\t' ? tabWidth - (sum % tabWidth) : 1),
+    0
+  );
 
 export abstract class XonLexerBase extends Lexer {
   token_queue: Token[] = [];
