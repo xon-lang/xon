@@ -33,7 +33,6 @@ export const evalExpression = (tree: ExpressionTree, argsMap = new Map()): unkno
   }
 
   if (tree instanceof LiteralExpressionTree) {
-    if (tree.literal.getValue() === 'null') return 0;
     return tree.literal.getValue();
   }
 
