@@ -7,25 +7,28 @@ import { MemberTree } from '../member.tree';
 export class MethodMemberTree extends MemberTree {
   public name: string;
 
+  public isAbstract: boolean;
+
   public args: {
     name: string;
     type: TypeTree;
   }[];
 
-  public returnType: TypeTree;
+  public returnType?: TypeTree;
 
-  public statements: StatementTree[];
+  public statements?: StatementTree[];
 
   public constructor(public ctx: MethodMemberContext) {
     super();
 
     this.name = ctx.ID().text;
+    this.isAbstract = !ctx.body();
     this.args = ctx.argument().map((x) => ({
       name: x.ID().text,
       type: new TypeTree(x.type()),
     }));
 
     this.returnType = ctx.type() && new TypeTree(ctx.type());
-    this.statements = getStatementsTrees(ctx.body());
+    this.statements = ctx.body() && getStatementsTrees(ctx.body());
   }
 }

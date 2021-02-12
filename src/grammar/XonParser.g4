@@ -60,9 +60,9 @@ literal:
 libraryPath:   ID ('-' ID)* '/' ID ('-' ID)*;
 libraryMember: name = ID ('as' alias = ID)?;
 member:
-    ID type                                            # propertyMember
-    | ID '(' (argument (',' argument)*)? ')' type body # methodMember
-    | 'infix' operator '(' argument ')' type body?     # infixOperatorMember
+    ID type                                              # propertyMember
+    | ID '(' (argument (',' argument)*)? ')' type? body? # methodMember
+    | 'infix' operator '(' argument ')' type body?       # infixOperatorMember
     ;
 operator: '+' | '-' | '*' | '/' | '<' | '==' | '>';
 argument: ID type;
