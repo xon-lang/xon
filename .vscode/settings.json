@@ -49,12 +49,16 @@
   "files.exclude": {
     "**/.git": true,
     "**/node_modules": true,
-    "**/.DS_Store": true
+    "**/.DS_Store": true,
+    "**/dist": true,
+    "**/package-lock.json": true
   },
   "search.exclude": {
     "**/.git": true,
     "**/node_modules": true,
-    "**/.DS_Store": true
+    "**/.DS_Store": true,
+    "**/dist": true,
+    "**/package-lock.json": true
   },
   "typescript.tsdk": "./node_modules/typescript/lib",
   "typescript.tsc.autoDetect": "off"
