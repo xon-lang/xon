@@ -10,20 +10,9 @@ options {
 
 program: (library | statement | definition | LineBreak)*;
 
-library:       libraryPath ':' libraryMember (',' libraryMember)*;
-libraryPath:   ID ('-' ID)* '/' ID ('-' ID)*;
-libraryMember: name = ID ('as' alias = ID)?;
+library: libraryPath ':' libraryMember (',' libraryMember)*;
 
 definition: ID ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT;
-member:
-    ID type                                            # propertyMember
-    | ID '(' (argument (',' argument)*)? ')' type body # methodMember
-    | 'infix' operator '(' argument ')' type body?     # infixOperatorMember
-    ;
-
-operator: '+' | '-' | '*' | '/';
-argument: ID type;
-type:     ID ('<' type (',' type)* '>')?;
 
 statement:
     'if' expression body ('elif' expression body)* ('else' body)?                     # ifStatement
@@ -34,10 +23,6 @@ statement:
     | expression                                                                      # expressionStatement
     | Preprocessor                                                                    # preprocessorStatement
     ;
-
-body: ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;
-
-fnArg: (ID '=')? expression;
 
 expression:
     ID                                                                              # idExpression
@@ -70,3 +55,17 @@ literal:
     | CharLiteral    # charLiteral
     | StringLiteral  # stringLiteral
     ;
+
+// helpful rules
+libraryPath:   ID ('-' ID)* '/' ID ('-' ID)*;
+libraryMember: name = ID ('as' alias = ID)?;
+member:
+    ID type                                            # propertyMember
+    | ID '(' (argument (',' argument)*)? ')' type body # methodMember
+    | 'infix' operator '(' argument ')' type body?     # infixOperatorMember
+    ;
+operator: '+' | '-' | '*' | '/';
+argument: ID type;
+type:     ID ('<' type (',' type)* '>')?;
+body:     ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;
+fnArg:    (ID '=')? expression;
