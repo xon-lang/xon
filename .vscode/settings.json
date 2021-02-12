@@ -50,5 +50,12 @@
     "**/.git": true,
     "**/node_modules": true,
     "**/.DS_Store": true
-  }
+  },
+  "search.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/.DS_Store": true
+  },
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "typescript.tsc.autoDetect": "off"
 }
