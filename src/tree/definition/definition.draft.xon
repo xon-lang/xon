@@ -4,3 +4,17 @@ SomeClass is BaseClass<String, Boolean>:
         
     _(prop Number, _privProp String) Boolean: // private ctor
         //
+
+    // overloading
+    sum(a Integer, b Integer):
+        //
+        
+    sum(a Float, b Float):
+        //
+
+    sum:
+        (a Integer, b Integer):
+            //
+
+        (a Float, b Float):
+            // 

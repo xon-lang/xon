@@ -37,10 +37,12 @@ statement:
 
 body: ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;
 
+fnArg: (ID '=')? expression;
+
 expression:
     ID                                                                              # idExpression
     | literal                                                                       # literalExpression
-    | object = expression '(' (args += expression (',' args += expression)*)? ')'   # functionExpression
+    | object = expression '(' (fnArg (',' fnArg)*)? ')'                             # functionExpression
     | value = expression '[' index = expression ']'                                 # indexExpression
     | expression '.' ID                                                             # memberExpression
     | '-' expression                                                                # unaryMinusExpression
