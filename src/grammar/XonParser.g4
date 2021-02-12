@@ -64,7 +64,7 @@ member:
     | ID '(' (argument (',' argument)*)? ')' type body # methodMember
     | 'infix' operator '(' argument ')' type body?     # infixOperatorMember
     ;
-operator: '+' | '-' | '*' | '/';
+operator: '+' | '-' | '*' | '/' | '<' | '==' | '>';
 argument: ID type;
 type:     ID ('<' type (',' type)* '>')?;
 body:     ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;
