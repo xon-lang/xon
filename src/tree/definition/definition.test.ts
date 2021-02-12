@@ -11,10 +11,10 @@ test('one scope', () => {
   expect(tree).toBeInstanceOf(DefinitionTree);
   expect(tree.name).toBe('SomeClass');
 
-  expect(tree.inheritance.name).toBe('BaseClass');
-  expect(tree.inheritance.generics.length).toBe(2);
-  expect(tree.inheritance.generics[0].name).toBe('String');
-  expect(tree.inheritance.generics[1].name).toBe('Boolean');
+  expect(tree.abstract.name).toBe('BaseClass');
+  expect(tree.abstract.generics.length).toBe(2);
+  expect(tree.abstract.generics[0].name).toBe('String');
+  expect(tree.abstract.generics[1].name).toBe('Boolean');
 
   expect(tree.properties.length).toBe(3);
   expect(tree.properties[0].name).toBe('property');

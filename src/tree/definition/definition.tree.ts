@@ -13,7 +13,9 @@ import { PropertyMemberTree } from './member/property-member/property-member.tre
 export class DefinitionTree extends BaseTree {
   public name: string;
 
-  public inheritance: TypeTree;
+  public isAbstract: boolean;
+
+  public abstract: TypeTree;
 
   public properties: PropertyMemberTree[] = [];
 
@@ -25,7 +27,7 @@ export class DefinitionTree extends BaseTree {
     super();
     this.name = ctx.ID().text;
 
-    this.inheritance = ctx.type() ? new TypeTree(ctx.type()) : TypeTree.create('Any');
+    this.abstract = ctx.type() ? new TypeTree(ctx.type()) : TypeTree.create('Any');
 
     ctx.member().forEach((member) => {
       if (member instanceof PropertyMemberContext)
@@ -34,5 +36,7 @@ export class DefinitionTree extends BaseTree {
       if (member instanceof InfixOperatorMemberContext)
         this.infixOperators.push(new InfixOperatorMemberTree(member));
     });
+
+    this.isAbstract = this.methods.some((x) => x.isAbstract);
   }
 }

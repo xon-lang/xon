@@ -6,6 +6,6 @@ test('any clone method exists', () => {
   const tree = parseExpression<LiteralExpressionTree>(code);
   expect(tree.getType().name).toBe('Integer');
   const definition = tree.getType().definition();
-  expect(definition.inheritance.name).toBe('Number');
-  expect(definition.inheritance.generics.length).toBe(0);
+  expect(definition.abstract.name).toBe('Number');
+  expect(definition.abstract.generics.length).toBe(0);
 });
