@@ -1,11 +1,11 @@
 User:
     rename(newName String) // so all class is abstract automatically
 
-User User :
+Author User:
     name String
     age Integer
 
-    rename(newName String):
+    @rename(newName String):
         //
     
 
