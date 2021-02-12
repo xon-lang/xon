@@ -1,9 +1,32 @@
-User:
-    rename(newName String) // so all class is abstract automatically
+Door:
+    openedTimes Integer = 0
+
+    open() // abstract
+        openedTimes+=1
+
+    close() // if one of members is abstract then entire class is.
+            // This class can only be inherit not created
+    
+Gate Door:
+    closedTimes Integer = 0
+
+    close():
+        closedTimes-=1
+
+
+Building:
+    mainGate: Door
+
+Shop Building: // cannot be inherit because Building is not abstract
+    name String
+
+
+
 
 Author User:
     name String
     age Integer
+    articles Array<Article>
 
     @rename(newName String):
         //
