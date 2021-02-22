@@ -53,3 +53,18 @@ SomeClass is BaseClass<String, Boolean>:
 
         (a Float, b Float):
             // 
+
+
+// operator overloading order
+Some:
+    #priority 1
+    infix +(a Integer):
+        //
+
+    #priority 10
+    infix *(a Integer):
+        //
+
+    #priority 10
+    infix /(a Integer):
+        //
