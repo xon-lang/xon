@@ -1,0 +1,3 @@
+LiteralTree(ctx LiteralContext) Tree:
+
+    getValue()
