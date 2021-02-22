@@ -18,6 +18,8 @@ tokens {
 import { XonLexerBase } from "./xon-lexer-base";
 }
 
+Prefix: 'prefix';
+Suffix: 'suffix';
 Infix:  'infix';
 Is:     'is';
 As:     'as';
@@ -65,6 +67,7 @@ SlashAssign:    '/=';
 PercentAssign:  '%=';
 PlusAssign:     '+=';
 MinusAssign:    '-=';
+Ampersand:      '&';
 Pipe:           '|';
 LambdaStart:    '\\';
 Range:          '..';
@@ -72,10 +75,10 @@ Elipsis:        '...';
 
 BooleanLiteral: 'true' | 'false';
 FloatLiteral:
-    [0-9][0-9]? ('x' | 'X') ALPHABET_NUMBER '.' ALPHABET_NUMBER
+    [0-9][0-9]? [xX] ALPHABET_NUMBER '.' ALPHABET_NUMBER
     | DIGIT_NUMBER '.' DIGIT_NUMBER
     ;
-IntegerLiteral: [0-9][0-9]? ('x' | 'X') ALPHABET_NUMBER | DIGIT_NUMBER;
+IntegerLiteral: [0-9][0-9]? [xX] ALPHABET_NUMBER | DIGIT_NUMBER;
 CharLiteral:    '\'' ~['] '\'';
 StringLiteral:  '"' STRING_CHARACTER* '"';
 
