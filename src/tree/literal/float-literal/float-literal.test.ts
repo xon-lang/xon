@@ -8,7 +8,7 @@ test('positive float number', () => {
 });
 
 test('zero float number', () => {
-  const code = '2X0.0';
+  const code = '2x0.0';
   const tree = parseLiteral<FloatLiteralTree>(code);
   expect(tree.value).toBe(0.0);
 });
