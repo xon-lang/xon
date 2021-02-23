@@ -5,6 +5,7 @@ import {
   IdExpressionContext,
   IndexExpressionContext,
   InfixExpressionContext,
+  InstanceMemberExpressionContext,
   LambdaExpressionContext,
   LiteralExpressionContext,
   ObjectExpressionContext,
@@ -19,6 +20,7 @@ import { FunctionExpressionTree } from './function-expression/function-expressio
 import { IdExpressionTree } from './id-expression/id-expression.tree';
 import { IndexExpressionTree } from './index-expression/index-expression.tree';
 import { InfixExpressionTree } from './infix-expression/infix-expression.tree';
+import { InstanceMemberExpressionTree } from './instance-member-expression/instance-member-expression.tree';
 import { LambdaExpressionTree } from './lambda-expression/lambda-expression.tree';
 import { LiteralExpressionTree } from './literal-expression/literal-expression.tree';
 import { ObjectExpressionTree } from './object-expression/object-expression.tree';
@@ -32,6 +34,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
 
   if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionTree(ctx);
   if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);
+  if (ctx instanceof InstanceMemberExpressionContext) return new InstanceMemberExpressionTree(ctx);
   if (ctx instanceof LiteralExpressionContext) return new LiteralExpressionTree(ctx);
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
   if (ctx instanceof IndexExpressionContext) return new IndexExpressionTree(ctx);

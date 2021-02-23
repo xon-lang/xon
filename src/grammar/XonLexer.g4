@@ -59,6 +59,7 @@ MoreThan:     '>';
 Ampersand:    '&';
 Pipe:         '|';
 Tilde:        '~';
+Ad:           '@';
 LambdaStart:  '\\';
 
 BooleanLiteral: 'true' | 'false';

@@ -26,6 +26,7 @@ statement:
 
 expression:
     ID                                                                              # idExpression
+    | '@' ID                                                                        # instanceMemberExpression
     | literal                                                                       # literalExpression
     | expression '(' (fnArg (',' fnArg)*)? ')'                                      # functionExpression
     | expression '[' expression ']'                                                 # indexExpression
@@ -53,6 +54,7 @@ libraryMember: name = ID ('as' alias = ID)?;
 member:
     ID type                                              # propertyMember
     | ID '(' (argument (',' argument)*)? ')' type? body? # methodMember
+    | '@' '(' (argument (',' argument)*)? ')' body?      # initMember
     | 'infix' operator+ '(' argument ')' type body?      # infixOperatorMember
     | 'prefix' operator+ '(' ')' type body?              # prefixOperatorMember
     | 'postfix' operator+ '(' ')' type body?             # postfixOperatorMember
