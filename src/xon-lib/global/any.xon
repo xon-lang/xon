@@ -1,3 +1,8 @@
 Any:
     clone():
         // pass
+
+    infix . (idTree #IdExpressionTree):
+        #{
+            ast.ctx.text + '.' + idTree.name
+        }
