@@ -1,6 +1,6 @@
 import { evalExpression } from '../../../eval';
 import { parseExpression } from '../../../parse';
-import { AddExpressionTree } from '../add-expression/add-expression.tree';
+import { InfixExpressionTree } from '../infix-expression/infix-expression.tree';
 import { ParenthesizedExpressionTree } from '../parenthesized-expression/parenthesized-expression.tree';
 import { StringFormatExpressionTree } from './string-format-expression.tree';
 
@@ -12,7 +12,7 @@ test('format simple string', () => {
   expect(evalExpression(tree.value)).toBe(`2 + 2 = ${2 + 2}`);
 });
 
-test('format string', () => {
+test('format escaped string', () => {
   const code = '"1+1 = {1 + 1}; \\"2+2 = {2+2}"';
   const tree = parseExpression<StringFormatExpressionTree>(code);
   expect(tree).toBeInstanceOf(StringFormatExpressionTree);
@@ -25,5 +25,5 @@ test('another format string', () => {
   const tree = parseExpression<StringFormatExpressionTree>(code);
   expect(tree).toBeInstanceOf(StringFormatExpressionTree);
   expect(tree.value).toBeInstanceOf(ParenthesizedExpressionTree);
-  expect(tree.value.value).toBeInstanceOf(AddExpressionTree);
+  expect(tree.value.value).toBeInstanceOf(InfixExpressionTree);
 });

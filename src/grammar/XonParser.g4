@@ -27,24 +27,15 @@ statement:
 expression:
     ID                                                                              # idExpression
     | literal                                                                       # literalExpression
-    | object = expression '(' (fnArg (',' fnArg)*)? ')'                             # functionExpression
-    | value = expression '[' index = expression ']'                                 # indexExpression
-    | expression '.' ID                                                             # memberExpression
-    | '-' expression                                                                # unaryMinusExpression
-    | '!' expression                                                                # logicalNotExpression
-    | left = expression operation = '^' right = expression                          # powExpression
-    | left = expression operation = ('*' | '/' | '%') right = expression            # mulDivModExpression
-    | left = expression operation = ('+' | '-') right = expression                  # addSubExpression
-    | left = expression operation = ('<' | '<=' | '>=' | '>') right = expression    # relationalExpression
-    | left = expression operation = ('==' | '!=') right = expression                # equalityExpression
-    | left = expression operation = '&&' right = expression                         # logicalAndExpression
-    | left = expression operation = '||' right = expression                         # logicalOrExpression
-    | left = expression operation = '..' right = expression                         # rangeExpression
+    | expression '(' (fnArg (',' fnArg)*)? ')'                                      # functionExpression
+    | expression '[' expression ']'                                                 # indexExpression
+    | expression operator+ expression                                               # infixExpression
+    | operator+ expression                                                          # prefixExpression
+    | expression operator+                                                          # postfixExpression
     | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd # stringFormatExpression
     | '[' (expression (',' expression)*)? ']'                                       # arrayExpression
     | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                         # objectExpression
     | '(' expression ')'                                                            # parenthesizedExpression
-    | left = expression '|' (ID ':')? right = expression                            # pipeExpression
     | '(' (ID type? (',' ID type?)*)? ')' ':' expression                            # lambdaExpression
     ;
 
@@ -62,10 +53,29 @@ libraryMember: name = ID ('as' alias = ID)?;
 member:
     ID type                                              # propertyMember
     | ID '(' (argument (',' argument)*)? ')' type? body? # methodMember
-    | 'infix' operator '(' argument ')' type body?       # infixOperatorMember
+    | 'infix' operator+ '(' argument ')' type body?      # infixOperatorMember
+    | 'prefix' operator+ '(' ')' type body?              # prefixOperatorMember
+    | 'postfix' operator+ '(' ')' type body?             # postfixOperatorMember
     ;
-operator: '+' | '-' | '*' | '/' | '<' | '==' | '>';
+
+operator:
+    '+'
+    | '-'
+    | '*'
+    | '/'
+    | '%'
+    | '<'
+    | '='
+    | '>'
+    | '!'
+    | '^'
+    | '&'
+    | '|'
+    | '.'
+    | ':'
+    | '~'
+    ;
 argument: ID type;
-type:     ID ('<' type (',' type)* '>')?;
+type:     ID ('<' type (',' type)* '>')? | '#' ID;
 body:     ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;
 fnArg:    (ID '=')? expression;

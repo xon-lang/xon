@@ -1,13 +1,13 @@
 import { evalExpression } from '../../../eval';
 import { parseExpression } from '../../../parse';
-import { AddExpressionTree } from '../add-expression/add-expression.tree';
+import { InfixExpressionTree } from '../infix-expression/infix-expression.tree';
 import { ParenthesizedExpressionTree } from './parenthesized-expression.tree';
 
 test('one parenthesized expression', () => {
   const code = '(1+1)';
   const tree = parseExpression(code);
   expect(tree).toBeInstanceOf(ParenthesizedExpressionTree);
-  expect((tree as ParenthesizedExpressionTree).value).toBeInstanceOf(AddExpressionTree);
+  expect((tree as ParenthesizedExpressionTree).value).toBeInstanceOf(InfixExpressionTree);
 });
 
 test('several parenthesized expression', () => {

@@ -4,6 +4,8 @@ import { DefinitionTree } from '../definition/definition.tree';
 import { getLibType } from './get-lib-type.util';
 
 export class TypeTree extends BaseTree {
+  public isMeta: boolean;
+
   public name: string;
 
   public generics: TypeTree[];
@@ -12,6 +14,7 @@ export class TypeTree extends BaseTree {
     super();
     if (!ctx) return;
 
+    this.isMeta = !!ctx.Hash();
     this.name = ctx.ID().text;
     this.generics = ctx.type().map((x) => new TypeTree(x));
   }

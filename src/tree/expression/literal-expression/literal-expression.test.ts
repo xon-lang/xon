@@ -4,5 +4,5 @@ import { LiteralExpressionTree } from './literal-expression.tree';
 test('check true', () => {
   const code = 'true';
   const tree = parseExpression<LiteralExpressionTree>(code);
-  expect(tree.literal.getValue()).toBe(true);
+  expect(tree.literal.value).toBe(true);
 });

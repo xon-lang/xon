@@ -7,7 +7,7 @@ import { ExpressionStatementTree } from '../expression-statement/expression-stat
 import { LoopStatementTree } from './loop-statement.tree';
 
 test('loop with value', () => {
-  const code = 'loop item in [1, 2, 3]:\n    12+45/5';
+  const code = 'loop item in [1, 2, 3]:\n    12+(45/5)';
   const tree = parseStatement<LoopStatementTree>(code);
   expect(tree.keyword).toBe('loop');
   expect(tree.valueName).toBe('item');

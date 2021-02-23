@@ -9,7 +9,7 @@ export class IndexExpressionTree extends ExpressionTree {
 
   public constructor(public ctx: IndexExpressionContext) {
     super();
-    this.value = getExpressionTree(ctx._value);
-    this.index = getExpressionTree(ctx._index);
+    this.value = getExpressionTree(ctx.expression(0));
+    this.index = getExpressionTree(ctx.expression(1));
   }
 }

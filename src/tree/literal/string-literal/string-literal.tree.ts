@@ -2,13 +2,10 @@ import { StringLiteralContext } from '../../../grammar/xon-parser';
 import { LiteralTree } from '../literal.tree';
 
 export class StringLiteralTree extends LiteralTree {
-  public ctx: StringLiteralContext;
+  public value: string;
 
-  private value: string;
-
-  public getValue(): string {
-    if (typeof this.value !== 'undefined') return this.value;
+  public constructor(public ctx: StringLiteralContext) {
+    super();
     this.value = this.ctx?.StringLiteral().text.slice(1, -1).replace(/\\"/g, '"');
-    return this.value;
   }
 }
