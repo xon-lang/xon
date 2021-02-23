@@ -5,7 +5,7 @@ test('method member', () => {
   const code = '_funcName(argA Integer, argB Float, argC String) String:\n    log(222)';
   const tree = parseMember<MethodMemberTree>(code);
 
-  expect(tree.name).toBe('funcName');
+  expect(tree.name).toBe('_funcName');
   expect(tree.isPrivate).toBe(true);
   expect(tree.isAbstract).toBe(false);
   expect(tree.returnType?.name).toBe('String');

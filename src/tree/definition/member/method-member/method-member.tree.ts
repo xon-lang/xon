@@ -24,7 +24,7 @@ export class MethodMemberTree extends MemberTree {
     super();
 
     this.name = ctx.ID().text;
-    this.isPrivate = !!ctx.Underscore();
+    this.isPrivate = this.name.startsWith('_');
     this.isAbstract = !ctx.body();
     this.args = ctx.argument().map((x) => ({
       name: x.ID().text,

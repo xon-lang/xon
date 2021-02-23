@@ -12,16 +12,11 @@ program: (library | statement | definition | LineBreak)*;
 
 library:       libraryPath ':' libraryMember (',' libraryMember)*;
 libraryPath:   ID ('-' ID)* '/' ID ('-' ID)*;
-libraryMember: name = TypeId ('as' alias = TypeId)?;
+libraryMember: name = ID ('as' alias = ID)?;
 
-type:
-    name = TypeId ('<' type (',' type)* '>')? ('#' meta = TypeId)?
-    | '#' meta = TypeId
-    ;
+type: name = ID ('<' type (',' type)* '>')? ('#' meta = ID)? | '#' meta = ID;
 
-definition:
-    TypeId ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT
-    ;
+definition: ID ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT;
 member:
     '_'? ID type                                              # propertyMember
     | '_'? ID '(' (argument (',' argument)*)? ')' type? body? # methodMember

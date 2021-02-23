@@ -76,8 +76,7 @@ StringFormatStart:  '"' STRING_CHARACTER* '{';
 StringFormatMiddle: '}' STRING_CHARACTER* '{';
 StringFormatEnd:    '}' STRING_CHARACTER* '"';
 
-ID:     [a-z] [a-zA-Z]*;
-TypeId: [A-Z] [a-zA-Z]*;
+ID: [a-zA-Z_]+;
 
 Spaces:              SPACES                           -> skip;
 Comment:             '//' ~[\r\n]*                    -> skip;
