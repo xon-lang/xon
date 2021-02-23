@@ -20,7 +20,7 @@ type:
     ;
 
 definition:
-    '_'? TypeId ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT
+    TypeId ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT
     ;
 member:
     '_'? ID type                                              # propertyMember

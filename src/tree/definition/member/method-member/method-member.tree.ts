@@ -7,6 +7,8 @@ import { MemberTree } from '../member.tree';
 export class MethodMemberTree extends MemberTree {
   public name: string;
 
+  public isPrivate: boolean;
+
   public isAbstract: boolean;
 
   public args: {
@@ -22,6 +24,7 @@ export class MethodMemberTree extends MemberTree {
     super();
 
     this.name = ctx.ID().text;
+    this.isPrivate = !!ctx.Underscore();
     this.isAbstract = !ctx.body();
     this.args = ctx.argument().map((x) => ({
       name: x.ID().text,

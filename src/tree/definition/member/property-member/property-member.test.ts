@@ -6,6 +6,16 @@ test('array property', () => {
   const tree = parseMember<PropertyMemberTree>(code);
 
   expect(tree.name).toBe('s');
+  expect(tree.isPrivate).toBe(false);
   expect(tree.type.name).toBe('Array');
   expect(tree.type.generics[0].name).toBe('String');
+});
+
+test('private integer', () => {
+  const code = '_a Integer';
+  const tree = parseMember<PropertyMemberTree>(code);
+
+  expect(tree.name).toBe('a');
+  expect(tree.isPrivate).toBe(true);
+  expect(tree.type.name).toBe('Integer');
 });
