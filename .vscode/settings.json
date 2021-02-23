@@ -29,7 +29,6 @@
   "antlr4.generation": {
     "mode": "none"
   },
-  "git.postCommitCommand": "sync",
   "workbench.colorCustomizations": {
     "statusBar.background": "#054f6d"
   },
@@ -45,13 +44,6 @@
   },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "files.exclude": {
-    "**/.git": true,
-    "**/node_modules": true,
-    "**/.DS_Store": true,
-    "**/dist": true,
-    "**/package-lock.json": true
   },
   "search.exclude": {
     "**/.git": true,
