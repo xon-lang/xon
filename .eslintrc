@@ -10,8 +10,7 @@
     "plugin:@typescript-eslint/recommended",
     "airbnb-typescript/base",
     "plugin:jest/recommended",
-    "prettier",
-    "prettier/@typescript-eslint"
+    "prettier"
   ],
   "parserOptions": {
     "project": ["./tsconfig.eslint.json"]
