@@ -65,10 +65,10 @@ LambdaStart:  '\\';
 
 BooleanLiteral: 'true' | 'false';
 FloatLiteral:
-    [0-9][0-9]? [xX] ALPHABET_NUMBER '.' ALPHABET_NUMBER
+    [0-9][0-9]? 'x' ALPHABET_NUMBER '.' ALPHABET_NUMBER
     | DIGIT_NUMBER '.' DIGIT_NUMBER
     ;
-IntegerLiteral: [0-9][0-9]? [xX] ALPHABET_NUMBER | DIGIT_NUMBER;
+IntegerLiteral: [0-9][0-9]? 'x' ALPHABET_NUMBER | DIGIT_NUMBER;
 CharLiteral:    '\'' ~['] '\'';
 StringLiteral:  '"' STRING_CHARACTER* '"';
 
@@ -86,5 +86,5 @@ UnexpectedCharacter: .                                -> channel(ERROR);
 
 fragment SPACES:           [ \t]+;
 fragment DIGIT_NUMBER:     [0-9]+ ('_' | [0-9]+)*;
-fragment ALPHABET_NUMBER:  [0-9a-zA-Z]+ ('_' [0-9a-zA-Z]+)*;
+fragment ALPHABET_NUMBER:  [0-9a-z]+ ('_' [0-9a-z]+)*;
 fragment STRING_CHARACTER: ~["{] | '\\' ["{\\bfnrtv];
