@@ -37,7 +37,7 @@ export class DefinitionTree extends BaseTree {
 
   public constructor(public ctx: DefinitionContext) {
     super();
-    this.name = ctx.TypeId().text;
+    this.name = ctx.ID().text;
 
     this.abstract = ctx.type() ? new TypeTree(ctx.type()) : TypeTree.create('Any');
 

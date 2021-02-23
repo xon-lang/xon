@@ -80,11 +80,10 @@ export class XonParser extends Parser {
 	public static readonly StringFormatMiddle = 50;
 	public static readonly StringFormatEnd = 51;
 	public static readonly ID = 52;
-	public static readonly TypeId = 53;
-	public static readonly Spaces = 54;
-	public static readonly Comment = 55;
-	public static readonly LineJoining = 56;
-	public static readonly UnexpectedCharacter = 57;
+	public static readonly Spaces = 53;
+	public static readonly Comment = 54;
+	public static readonly LineJoining = 55;
+	public static readonly UnexpectedCharacter = 56;
 	public static readonly RULE_program = 0;
 	public static readonly RULE_library = 1;
 	public static readonly RULE_libraryPath = 2;
@@ -122,7 +121,7 @@ export class XonParser extends Parser {
 		"Hash", "LessThan", "MoreThan", "Ampersand", "Pipe", "Tilde", "Ad", "Underscore", 
 		"LambdaStart", "BooleanLiteral", "FloatLiteral", "IntegerLiteral", "CharLiteral", 
 		"StringLiteral", "StringFormatStart", "StringFormatMiddle", "StringFormatEnd", 
-		"ID", "TypeId", "Spaces", "Comment", "LineJoining", "UnexpectedCharacter",
+		"ID", "Spaces", "Comment", "LineJoining", "UnexpectedCharacter",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(XonParser._LITERAL_NAMES, XonParser._SYMBOLIC_NAMES, []);
 
@@ -161,7 +160,7 @@ export class XonParser extends Parser {
 			this.state = 34;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.If) | (1 << XonParser.Loop) | (1 << XonParser.Break) | (1 << XonParser.Return) | (1 << XonParser.Preprocessor) | (1 << XonParser.LineBreak) | (1 << XonParser.OpenBracket) | (1 << XonParser.OpenParen) | (1 << XonParser.OpenBrace) | (1 << XonParser.Assign) | (1 << XonParser.Colon) | (1 << XonParser.Dot) | (1 << XonParser.Plus) | (1 << XonParser.Minus) | (1 << XonParser.Exclamation) | (1 << XonParser.Asterisk))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (XonParser.Slash - 32)) | (1 << (XonParser.Modulo - 32)) | (1 << (XonParser.Caret - 32)) | (1 << (XonParser.LessThan - 32)) | (1 << (XonParser.MoreThan - 32)) | (1 << (XonParser.Ampersand - 32)) | (1 << (XonParser.Pipe - 32)) | (1 << (XonParser.Tilde - 32)) | (1 << (XonParser.Ad - 32)) | (1 << (XonParser.LambdaStart - 32)) | (1 << (XonParser.BooleanLiteral - 32)) | (1 << (XonParser.FloatLiteral - 32)) | (1 << (XonParser.IntegerLiteral - 32)) | (1 << (XonParser.CharLiteral - 32)) | (1 << (XonParser.StringLiteral - 32)) | (1 << (XonParser.StringFormatStart - 32)) | (1 << (XonParser.ID - 32)) | (1 << (XonParser.TypeId - 32)))) !== 0)) {
+			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.If) | (1 << XonParser.Loop) | (1 << XonParser.Break) | (1 << XonParser.Return) | (1 << XonParser.Preprocessor) | (1 << XonParser.LineBreak) | (1 << XonParser.OpenBracket) | (1 << XonParser.OpenParen) | (1 << XonParser.OpenBrace) | (1 << XonParser.Assign) | (1 << XonParser.Colon) | (1 << XonParser.Dot) | (1 << XonParser.Plus) | (1 << XonParser.Minus) | (1 << XonParser.Exclamation) | (1 << XonParser.Asterisk))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (XonParser.Slash - 32)) | (1 << (XonParser.Modulo - 32)) | (1 << (XonParser.Caret - 32)) | (1 << (XonParser.LessThan - 32)) | (1 << (XonParser.MoreThan - 32)) | (1 << (XonParser.Ampersand - 32)) | (1 << (XonParser.Pipe - 32)) | (1 << (XonParser.Tilde - 32)) | (1 << (XonParser.Ad - 32)) | (1 << (XonParser.LambdaStart - 32)) | (1 << (XonParser.BooleanLiteral - 32)) | (1 << (XonParser.FloatLiteral - 32)) | (1 << (XonParser.IntegerLiteral - 32)) | (1 << (XonParser.CharLiteral - 32)) | (1 << (XonParser.StringLiteral - 32)) | (1 << (XonParser.StringFormatStart - 32)) | (1 << (XonParser.ID - 32)))) !== 0)) {
 				{
 				this.state = 32;
 				this._errHandler.sync(this);
@@ -332,7 +331,7 @@ export class XonParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			this.state = 64;
-			_localctx._name = this.match(XonParser.TypeId);
+			_localctx._name = this.match(XonParser.ID);
 			this.state = 67;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
@@ -341,7 +340,7 @@ export class XonParser extends Parser {
 				this.state = 65;
 				this.match(XonParser.As);
 				this.state = 66;
-				_localctx._alias = this.match(XonParser.TypeId);
+				_localctx._alias = this.match(XonParser.ID);
 				}
 			}
 
@@ -370,11 +369,11 @@ export class XonParser extends Parser {
 			this.state = 89;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
-			case XonParser.TypeId:
+			case XonParser.ID:
 				this.enterOuterAlt(_localctx, 1);
 				{
 				this.state = 69;
-				_localctx._name = this.match(XonParser.TypeId);
+				_localctx._name = this.match(XonParser.ID);
 				this.state = 81;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
@@ -413,7 +412,7 @@ export class XonParser extends Parser {
 					this.state = 83;
 					this.match(XonParser.Hash);
 					this.state = 84;
-					_localctx._meta = this.match(XonParser.TypeId);
+					_localctx._meta = this.match(XonParser.ID);
 					}
 				}
 
@@ -425,7 +424,7 @@ export class XonParser extends Parser {
 				this.state = 87;
 				this.match(XonParser.Hash);
 				this.state = 88;
-				_localctx._meta = this.match(XonParser.TypeId);
+				_localctx._meta = this.match(XonParser.ID);
 				}
 				break;
 			default:
@@ -455,7 +454,7 @@ export class XonParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			this.state = 91;
-			this.match(XonParser.TypeId);
+			this.match(XonParser.ID);
 			this.state = 94;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
@@ -603,14 +602,14 @@ export class XonParser extends Parser {
 				this.match(XonParser.CloseParen);
 				this.state = 129;
 				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-				if (_la === XonParser.Hash || _la === XonParser.TypeId) {
+				switch ( this.interpreter.adaptivePredict(this._input, 17, this._ctx) ) {
+				case 1:
 					{
 					this.state = 128;
 					this.type();
 					}
+					break;
 				}
-
 				this.state = 132;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
@@ -1736,7 +1735,7 @@ export class XonParser extends Parser {
 	}
 
 	public static readonly _serializedATN: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03;\u0184\x04\x02" +
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03:\u0184\x04\x02" +
 		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
 		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x04\f\t\f\x04\r\t\r\x04" +
 		"\x0E\t\x0E\x04\x0F\t\x0F\x03\x02\x03\x02\x03\x02\x03\x02\x07\x02#\n\x02" +
@@ -1792,14 +1791,14 @@ export class XonParser extends Parser {
 		"79\x03\x02\x02\x0286\x03\x02\x02\x029:\x07\"\x02\x02:?\x076\x02\x02;<" +
 		"\x07\x1F\x02\x02<>\x076\x02\x02=;\x03\x02\x02\x02>A\x03\x02\x02\x02?=" +
 		"\x03\x02\x02\x02?@\x03\x02\x02\x02@\x07\x03\x02\x02\x02A?\x03\x02\x02" +
-		"\x02BE\x077\x02\x02CD\x07\t\x02\x02DF\x077\x02\x02EC\x03\x02\x02\x02E" +
-		"F\x03\x02\x02\x02F\t\x03\x02\x02\x02GS\x077\x02\x02HI\x07&\x02\x02IN\x05" +
+		"\x02BE\x076\x02\x02CD\x07\t\x02\x02DF\x076\x02\x02EC\x03\x02\x02\x02E" +
+		"F\x03\x02\x02\x02F\t\x03\x02\x02\x02GS\x076\x02\x02HI\x07&\x02\x02IN\x05" +
 		"\n\x06\x02JK\x07\x19\x02\x02KM\x05\n\x06\x02LJ\x03\x02\x02\x02MP\x03\x02" +
 		"\x02\x02NL\x03\x02\x02\x02NO\x03\x02\x02\x02OQ\x03\x02\x02\x02PN\x03\x02" +
 		"\x02\x02QR\x07\'\x02\x02RT\x03\x02\x02\x02SH\x03\x02\x02\x02ST\x03\x02" +
-		"\x02\x02TW\x03\x02\x02\x02UV\x07%\x02\x02VX\x077\x02\x02WU\x03\x02\x02" +
-		"\x02WX\x03\x02\x02\x02X\\\x03\x02\x02\x02YZ\x07%\x02\x02Z\\\x077\x02\x02" +
-		"[G\x03\x02\x02\x02[Y\x03\x02\x02\x02\\\v\x03\x02\x02\x02]`\x077\x02\x02" +
+		"\x02\x02TW\x03\x02\x02\x02UV\x07%\x02\x02VX\x076\x02\x02WU\x03\x02\x02" +
+		"\x02WX\x03\x02\x02\x02X\\\x03\x02\x02\x02YZ\x07%\x02\x02Z\\\x076\x02\x02" +
+		"[G\x03\x02\x02\x02[Y\x03\x02\x02\x02\\\v\x03\x02\x02\x02]`\x076\x02\x02" +
 		"^_\x07\b\x02\x02_a\x05\n\x06\x02`^\x03\x02\x02\x02`a\x03\x02\x02\x02a" +
 		"b\x03\x02\x02\x02bc\x07\x1C\x02\x02cd\x07\x12\x02\x02dg\x07\x03\x02\x02" +
 		"eh\x05\x0E\b\x02fh\x07\x12\x02\x02ge\x03\x02\x02\x02gf\x03\x02\x02\x02" +
@@ -2047,13 +2046,13 @@ export class LibraryPathContext extends ParserRuleContext {
 export class LibraryMemberContext extends ParserRuleContext {
 	public _name!: Token;
 	public _alias!: Token;
-	public TypeId(): TerminalNode[];
-	public TypeId(i: number): TerminalNode;
-	public TypeId(i?: number): TerminalNode | TerminalNode[] {
+	public ID(): TerminalNode[];
+	public ID(i: number): TerminalNode;
+	public ID(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.TypeId);
+			return this.getTokens(XonParser.ID);
 		} else {
-			return this.getToken(XonParser.TypeId, i);
+			return this.getToken(XonParser.ID, i);
 		}
 	}
 	public As(): TerminalNode | undefined { return this.tryGetToken(XonParser.As, 0); }
@@ -2068,13 +2067,13 @@ export class LibraryMemberContext extends ParserRuleContext {
 export class TypeContext extends ParserRuleContext {
 	public _name!: Token;
 	public _meta!: Token;
-	public TypeId(): TerminalNode[];
-	public TypeId(i: number): TerminalNode;
-	public TypeId(i?: number): TerminalNode | TerminalNode[] {
+	public ID(): TerminalNode[];
+	public ID(i: number): TerminalNode;
+	public ID(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.TypeId);
+			return this.getTokens(XonParser.ID);
 		} else {
-			return this.getToken(XonParser.TypeId, i);
+			return this.getToken(XonParser.ID, i);
 		}
 	}
 	public LessThan(): TerminalNode | undefined { return this.tryGetToken(XonParser.LessThan, 0); }
@@ -2107,7 +2106,7 @@ export class TypeContext extends ParserRuleContext {
 
 
 export class DefinitionContext extends ParserRuleContext {
-	public TypeId(): TerminalNode { return this.getToken(XonParser.TypeId, 0); }
+	public ID(): TerminalNode { return this.getToken(XonParser.ID, 0); }
 	public Colon(): TerminalNode { return this.getToken(XonParser.Colon, 0); }
 	public LineBreak(): TerminalNode[];
 	public LineBreak(i: number): TerminalNode;

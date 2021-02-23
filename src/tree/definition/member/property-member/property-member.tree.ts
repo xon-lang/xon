@@ -12,7 +12,7 @@ export class PropertyMemberTree extends MemberTree {
   public constructor(public ctx: PropertyMemberContext) {
     super();
     this.name = ctx.ID().text;
-    this.isPrivate = !!ctx.Underscore();
+    this.isPrivate = this.name.startsWith('_');
     this.type = new TypeTree(ctx.type());
   }
 }

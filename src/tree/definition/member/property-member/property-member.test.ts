@@ -15,7 +15,7 @@ test('private integer', () => {
   const code = '_a Integer';
   const tree = parseMember<PropertyMemberTree>(code);
 
-  expect(tree.name).toBe('a');
+  expect(tree.name).toBe('_a');
   expect(tree.isPrivate).toBe(true);
   expect(tree.type.name).toBe('Integer');
 });
