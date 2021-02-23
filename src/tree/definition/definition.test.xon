@@ -3,6 +3,9 @@ SomeClass is BaseClass<String, Boolean>:
     anotherProp Number
     typed_value Number
     
+    @(name String):
+        //
+
     method() MyType:
         hello()
         bye()

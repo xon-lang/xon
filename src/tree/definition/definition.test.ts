@@ -23,6 +23,12 @@ test('one scope', () => {
   expect(tree.properties[2].name).toBe('typed_value');
   expect(tree.properties[2].type.name).toBe('Number');
 
+  expect(tree.inits.length).toBe(1);
+  expect(tree.inits[0].args.length).toBe(1);
+  expect(tree.inits[0].args[0].name).toBe('name');
+  expect(tree.inits[0].args[0].type.name).toBe('String');
+  expect(tree.inits[0].statements.length).toBe(0);
+
   expect(tree.methods.length).toBe(2);
   expect(tree.methods[0].name).toBe('method');
   expect(tree.methods[0].args.length).toBe(0);

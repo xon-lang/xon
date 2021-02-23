@@ -23,7 +23,5 @@ Integer is Number:
     infix / (x Char) Integer
     // infix / (x String) String
 
-
-
     // exprerimental
     postfix ~ () Boolean
