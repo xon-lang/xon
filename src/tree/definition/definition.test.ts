@@ -20,7 +20,7 @@ test('one scope', () => {
   expect(tree.properties[0].name).toBe('property');
   expect(tree.properties[0].type.name).toBe('String');
   expect(tree.properties[1].name).toBe('anotherProp');
-  expect(tree.properties[2].name).toBe('typed_value');
+  expect(tree.properties[2].name).toBe('typedValue');
   expect(tree.properties[2].type.name).toBe('Number');
 
   expect(tree.inits.length).toBe(1);
