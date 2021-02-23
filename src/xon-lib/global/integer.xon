@@ -22,3 +22,8 @@ Integer is Number:
     infix / (x Float) Float
     infix / (x Char) Integer
     // infix / (x String) String
+
+
+
+    // exprerimental
+    postfix ~ () Boolean

@@ -13,6 +13,6 @@ export class FunctionExpressionTree extends ExpressionTree {
       name: x.ID()?.text,
       value: getExpressionTree(x.expression()),
     }));
-    this.object = getExpressionTree(ctx._object);
+    this.object = getExpressionTree(ctx.expression());
   }
 }

@@ -11,9 +11,9 @@ test('function call', () => {
   expect(tree.args.length).toBe(2);
   expect(tree.args[0].name).toBe('count');
   expect((tree.args[0].value as LiteralExpressionTree).literal).toBeInstanceOf(IntegerLiteralTree);
-  expect((tree.args[0].value as LiteralExpressionTree).literal.getValue()).toBe(3);
+  expect((tree.args[0].value as LiteralExpressionTree).literal.value).toBe(3);
   expect((tree.args[1].value as LiteralExpressionTree).literal).toBeInstanceOf(StringLiteralTree);
-  expect((tree.args[1].value as LiteralExpressionTree).literal.getValue()).toBe('str');
+  expect((tree.args[1].value as LiteralExpressionTree).literal.value).toBe('str');
   expect(tree.object).toBeInstanceOf(IdExpressionTree);
 });
 
