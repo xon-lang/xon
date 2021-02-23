@@ -11,11 +11,11 @@ export class LambdaExpressionTree extends ExpressionTree {
 
   public body: ExpressionTree;
 
-  public constructor(public ctx: LambdaExpressionContext) {
+  public constructor(public ctx: LambdaExpressionContext, types?: TypeTree) {
     super();
     this.args = ctx.ID().map((x, i) => ({
       name: x.text,
-      type: ctx.type().length && new TypeTree(ctx.type(i)),
+      type: (ctx.type().length && new TypeTree(ctx.type(i))) || (types && types[i]),
     }));
     this.body = getExpressionTree(ctx.expression());
   }
