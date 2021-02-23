@@ -2,10 +2,11 @@ import { parseMember } from '../../../../parse';
 import { MethodMemberTree } from './method-member.tree';
 
 test('method member', () => {
-  const code = 'funcName(argA Integer, argB Float, argC String) String:\n    log(222)';
+  const code = '_funcName(argA Integer, argB Float, argC String) String:\n    log(222)';
   const tree = parseMember<MethodMemberTree>(code);
 
   expect(tree.name).toBe('funcName');
+  expect(tree.isPrivate).toBe(true);
   expect(tree.isAbstract).toBe(false);
   expect(tree.returnType?.name).toBe('String');
   expect(tree.args.length).toBe(3);
@@ -25,6 +26,7 @@ test('abstract method member', () => {
   const tree = parseMember<MethodMemberTree>(code);
 
   expect(tree.name).toBe('funcName');
+  expect(tree.isPrivate).toBe(false);
   expect(tree.isAbstract).toBe(true);
   expect(tree.returnType?.name).toBe('String');
 
@@ -38,6 +40,7 @@ test('no return type', () => {
   const tree = parseMember<MethodMemberTree>(code);
 
   expect(tree.name).toBe('funcName');
+  expect(tree.isPrivate).toBe(false);
   expect(tree.isAbstract).toBe(true);
   expect(tree.returnType).toBeFalsy();
 
