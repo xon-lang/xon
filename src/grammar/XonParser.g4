@@ -10,9 +10,26 @@ options {
 
 program: (library | statement | definition | LineBreak)*;
 
-library: libraryPath ':' libraryMember (',' libraryMember)*;
+library:       libraryPath ':' libraryMember (',' libraryMember)*;
+libraryPath:   ID ('-' ID)* '/' ID ('-' ID)*;
+libraryMember: name = TypeId ('as' alias = TypeId)?;
 
-definition: ID ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT;
+type:
+    name = TypeId ('<' type (',' type)* '>')? ('#' meta = TypeId)?
+    | '#' meta = TypeId
+    ;
+
+definition:
+    '_'? TypeId ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT
+    ;
+member:
+    '_'? ID type                                              # propertyMember
+    | '_'? ID '(' (argument (',' argument)*)? ')' type? body? # methodMember
+    | '@' '(' (argument (',' argument)*)? ')' body?           # initMember
+    | 'infix' operator+ '(' argument ')' type body?           # infixOperatorMember
+    | 'prefix' operator+ '(' ')' type body?                   # prefixOperatorMember
+    | 'postfix' operator+ '(' ')' type body?                  # postfixOperatorMember
+    ;
 
 statement:
     'if' expression body ('elif' expression body)* ('else' body)?                     # ifStatement
@@ -49,17 +66,6 @@ literal:
     ;
 
 // helpful rules
-libraryPath:   ID ('-' ID)* '/' ID ('-' ID)*;
-libraryMember: name = ID ('as' alias = ID)?;
-member:
-    ID type                                              # propertyMember
-    | ID '(' (argument (',' argument)*)? ')' type? body? # methodMember
-    | '@' '(' (argument (',' argument)*)? ')' body?      # initMember
-    | 'infix' operator+ '(' argument ')' type body?      # infixOperatorMember
-    | 'prefix' operator+ '(' ')' type body?              # prefixOperatorMember
-    | 'postfix' operator+ '(' ')' type body?             # postfixOperatorMember
-    ;
-
 operator:
     '+'
     | '-'
@@ -78,6 +84,5 @@ operator:
     | '~'
     ;
 argument: ID type;
-type:     name = ID ('<' type (',' type)* '>')? ('#' meta = ID)? | '#' meta = ID;
 body:     ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;
 fnArg:    (ID '=')? expression;

@@ -60,6 +60,7 @@ Ampersand:    '&';
 Pipe:         '|';
 Tilde:        '~';
 Ad:           '@';
+Underscore:   '_';
 LambdaStart:  '\\';
 
 BooleanLiteral: 'true' | 'false';
@@ -75,7 +76,8 @@ StringFormatStart:  '"' STRING_CHARACTER* '{';
 StringFormatMiddle: '}' STRING_CHARACTER* '{';
 StringFormatEnd:    '}' STRING_CHARACTER* '"';
 
-ID: [a-zA-Z_] [a-zA-Z0-9_]*;
+ID:     [a-z] [a-zA-Z]*;
+TypeId: [A-Z] [a-zA-Z]*;
 
 Spaces:              SPACES                           -> skip;
 Comment:             '//' ~[\r\n]*                    -> skip;
