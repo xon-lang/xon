@@ -41,8 +41,8 @@ expression:
 
 literal:
     BooleanLiteral   # booleanLiteral
-    | FloatLiteral   # floatLiteral
     | IntegerLiteral # integerLiteral
+    | FloatLiteral   # floatLiteral
     | CharLiteral    # charLiteral
     | StringLiteral  # stringLiteral
     ;
@@ -76,6 +76,6 @@ operator:
     | '~'
     ;
 argument: ID type;
-type:     ID ('<' type (',' type)* '>')? | '#' ID;
+type:     name = ID ('<' type (',' type)* '>')? ('#' meta = ID)? | '#' meta = ID;
 body:     ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;
 fnArg:    (ID '=')? expression;
