@@ -76,15 +76,12 @@ StringFormatEnd:    '}' STRING_CHARACTER* '"';
 
 ID: [a-zA-Z_] [a-zA-Z0-9_]*;
 
-Skip: (SPACES | SINGLE_LINE_COMMENT | MULTI_LINE_COMMENT | LINE_JOINING) -> skip
-    ;
-UnexpectedCharacter: . -> channel(ERROR);
+Spaces:              SPACES                           -> skip;
+Comment:             '//' ~[\r\n]*                    -> skip;
+LineJoining:         '\\' SPACES ( '\r'? '\n' | '\r') -> skip;
+UnexpectedCharacter: .                                -> channel(ERROR);
 
-fragment SPACES:              [ \t]+;
-fragment MULTI_LINE_COMMENT:  '/*' .*? '*/';
-fragment SINGLE_LINE_COMMENT: '//' ~[\r\n]*;
-fragment LINE_JOINING:        '\\' SPACES? ( '\r'? '\n' | '\r');
-fragment ALPHABET_NUMBER:     [0-9a-zA-Z]+ ('_' [0-9a-zA-Z]+)*;
-fragment DIGIT_NUMBER:        [0-9]+ ('_' | [0-9]+)*;
-
+fragment SPACES:           [ \t]+;
+fragment DIGIT_NUMBER:     [0-9]+ ('_' | [0-9]+)*;
+fragment ALPHABET_NUMBER:  [0-9a-zA-Z]+ ('_' [0-9a-zA-Z]+)*;
 fragment STRING_CHARACTER: ~["{] | '\\' ["{\\bfnrtv];
