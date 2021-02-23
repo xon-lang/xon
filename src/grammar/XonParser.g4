@@ -54,7 +54,7 @@ expression:
     | '[' (expression (',' expression)*)? ']'                                       # arrayExpression
     | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                         # objectExpression
     | '(' expression ')'                                                            # parenthesizedExpression
-    | '(' (ID type? (',' ID type?)*)? ')' ':' expression                            # lambdaExpression
+    | '\\' (ID type (',' ID type)* ':' | ID (',' ID)* ':')? expression              # lambdaExpression
     ;
 
 literal:
