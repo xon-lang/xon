@@ -84,6 +84,6 @@ LineJoining:         '\\' SPACES ( '\r'? '\n' | '\r') -> skip;
 UnexpectedCharacter: .                                -> channel(ERROR);
 
 fragment SPACES:           [ \t]+;
-fragment DIGIT_NUMBER:     [0-9]+ ('_' | [0-9]+)*;
+fragment DIGIT_NUMBER:     [0-9]+ ('_' [0-9]+)*;
 fragment ALPHABET_NUMBER:  [0-9a-z]+ ('_' [0-9a-z]+)*;
 fragment STRING_CHARACTER: ~["{] | '\\' ["{\\bfnrtv];
