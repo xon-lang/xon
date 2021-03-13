@@ -25,7 +25,8 @@
     "comma-dangle": [2, "always-multiline"],
     "sort-keys": [2],
     "@typescript-eslint/explicit-member-accessibility": 2,
-    "@typescript-eslint/member-ordering": 2
+    "@typescript-eslint/member-ordering": 2,
+    "@typescript-eslint/no-inferrable-types": 0
   },
   "overrides": [
     {
