@@ -15,13 +15,13 @@ const getIndentationCount = (whitespace: string): number =>
   );
 
 export abstract class XonLexerBase extends Lexer {
-  private token_queue: Token[] = [];
+  protected opened = 0;
+
+  private tokenQueue: Token[] = [];
 
   private indents: number[] = [];
 
-  private opened = 0;
-
-  private last_token: Token | undefined = undefined;
+  private lastToken: Token | undefined = undefined;
 
   public abstract get channelNames(): string[];
 
@@ -35,7 +35,7 @@ export abstract class XonLexerBase extends Lexer {
 
   public reset(): void {
     // A queue where extra tokens are pushed on (see the LineBreak lexer rule).
-    this.token_queue = [];
+    this.tokenQueue = [];
     // The stack that keeps track of the indentation level.
     this.indents = [];
     // The amount of opened braces, brackets and parenthesis.
@@ -45,7 +45,7 @@ export abstract class XonLexerBase extends Lexer {
 
   public emit(token?: Token): Token {
     const newToken = token ? super.emit(token) : super.emit();
-    this.token_queue.push(newToken);
+    this.tokenQueue.push(newToken);
     return newToken;
   }
 
@@ -60,7 +60,7 @@ export abstract class XonLexerBase extends Lexer {
     // Check if the end-of-file is ahead and there are still some DEDENTS expected.
     if (this.inputStream.LA(1) === XonParser.EOF && this.indents.length) {
       // Remove any trailing EOF tokens from our buffer.
-      this.token_queue = this.token_queue.filter((val) => val.type !== XonParser.EOF);
+      this.tokenQueue = this.tokenQueue.filter((val) => val.type !== XonParser.EOF);
 
       // First emit an extra line break that serves as the end of the statement.
       this.emit(this.commonToken(XonParser.LineBreak, '\n'));
@@ -79,10 +79,10 @@ export abstract class XonLexerBase extends Lexer {
 
     if (next.channel === Token.DEFAULT_CHANNEL) {
       // Keep track of the last token on the default channel.
-      this.last_token = next;
+      this.lastToken = next;
     }
 
-    return this.token_queue.shift() || next;
+    return this.tokenQueue.shift() || next;
   }
 
   // Calculates the indentation of the provided spaces, taking the
@@ -147,8 +147,8 @@ export abstract class XonLexerBase extends Lexer {
 
   private createDedent(): Token {
     const dedent = this.commonToken(XonParser.DEDENT, '');
-    if (this.last_token) {
-      dedent.line = this.last_token.line;
+    if (this.lastToken) {
+      dedent.line = this.lastToken.line;
     }
     return dedent;
   }
