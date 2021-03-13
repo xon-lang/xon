@@ -14,8 +14,7 @@ tokens {
 }
 
 @lexer::header { 
-// @ts-nocheck
-import { XonLexerBase } from "./xon-lexer-base";
+    import { XonLexerBase } from "./xon-lexer-base";
 }
 
 Prefix:  'prefix';

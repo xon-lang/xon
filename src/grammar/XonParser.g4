@@ -4,10 +4,6 @@ options {
     tokenVocab = XonLexer;
 }
 
-@parser::header { 
-// @ts-nocheck
-}
-
 program: (library | statement | definition | LineBreak)*;
 
 library:       libraryPath ':' libraryMember (',' libraryMember)*;
