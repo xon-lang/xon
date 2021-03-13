@@ -15,7 +15,7 @@ const getIndentationCount = (whitespace: string): number =>
   );
 
 export abstract class XonLexerBase extends Lexer {
-  protected opened = 0;
+  protected opened: number = 0;
 
   private tokenQueue: Token[] = [];
 
