@@ -14,12 +14,10 @@ type: name = ID ('<' type (',' type)* '>')? ('#' meta = ID)? | '#' meta = ID;
 
 definition: ID ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT;
 member:
-    '_'? ID type                                              # propertyMember
-    | '_'? ID '(' (argument (',' argument)*)? ')' type? body? # methodMember
-    | '@' '(' (argument (',' argument)*)? ')' body?           # initMember
-    | 'infix' operator+ '(' argument ')' type body?           # infixOperatorMember
-    | 'prefix' operator+ '(' ')' type body?                   # prefixOperatorMember
-    | 'postfix' operator+ '(' ')' type body?                  # postfixOperatorMember
+    '_'? ID type                                                            # propertyMember
+    | '_'? ID '(' (parameter (',' parameter)*)? ')' type? body?             # methodMember
+    | '@' '(' (parameter (',' parameter)*)? ')' body?                       # initMember
+    | 'operator' operator+ '(' (parameter (',' parameter)*)? ')' type body? # operatorMember
     ;
 
 statement:
@@ -36,11 +34,9 @@ expression:
     ID                                                                              # idExpression
     | '@' ID                                                                        # instanceMemberExpression
     | literal                                                                       # literalExpression
-    | expression '(' (fnArg (',' fnArg)*)? ')'                                      # functionExpression
+    | expression '(' (argument (',' argument)*)? ')'                                # functionExpression
     | expression '[' expression ']'                                                 # indexExpression
-    | expression operator+ expression                                               # infixExpression
-    | operator+ expression                                                          # prefixExpression
-    | expression operator+                                                          # postfixExpression
+    | value = expression operator+ args += expression*                              # operatorExpression
     | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd # stringFormatExpression
     | '[' (expression (',' expression)*)? ']'                                       # arrayExpression
     | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                         # objectExpression
@@ -74,6 +70,7 @@ operator:
     | ':'
     | '~'
     ;
-argument: ID type;
-body:     ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;
-fnArg:    (ID '=')? expression;
+
+parameter: ID type;
+argument:  (ID '=')? expression;
+body:      ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;

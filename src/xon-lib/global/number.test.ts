@@ -1,8 +1,8 @@
 import { parseExpression } from '../../parse';
-import { InfixExpressionTree } from '../../tree/expression/infix-expression/infix-expression.tree';
+import { OperatorExpressionTree } from '../../tree/expression/operator-expression/operator-expression.tree';
 
 test('num + num', () => {
   const code = '1.1+2x5';
-  const tree = parseExpression<InfixExpressionTree>(code);
+  const tree = parseExpression<OperatorExpressionTree>(code);
   expect(tree.getType().name).toBe('Float');
 });

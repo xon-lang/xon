@@ -17,18 +17,16 @@ tokens {
     import { XonLexerBase } from "./xon-lexer-base";
 }
 
-Prefix:  'prefix';
-Postfix: 'postfix';
-Infix:   'infix';
-Is:      'is';
-As:      'as';
-If:      'if';
-Else:    'else';
-ElseIf:  'elif';
-Loop:    'loop';
-In:      'in';
-Break:   'break';
-Return:  'return';
+Is:       'is';
+As:       'as';
+If:       'if';
+Else:     'else';
+ElseIf:   'elif';
+Loop:     'loop';
+In:       'in';
+Break:    'break';
+Return:   'return';
+Operator: 'operator';
 
 Preprocessor: '#{' .*? '}';
 LineBreak: ({this.atStartOfInput()}? SPACES | ( '\r'? '\n' | '\r') SPACES?) {this.handleLineBreak()}

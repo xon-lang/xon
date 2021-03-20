@@ -31,7 +31,7 @@ test('one scope', () => {
 
   expect(tree.methods.length).toBe(2);
   expect(tree.methods[0].name).toBe('method');
-  expect(tree.methods[0].args.length).toBe(0);
+  expect(tree.methods[0].parameters.length).toBe(0);
   expect(tree.methods[0].statements.length).toBe(2);
   expect((tree.methods[0].statements[0] as ExpressionStatementTree).value).toBeInstanceOf(
     FunctionExpressionTree,
@@ -40,11 +40,11 @@ test('one scope', () => {
     FunctionExpressionTree,
   );
   expect(tree.methods[1].name).toBe('location');
-  expect(tree.methods[1].args.length).toBe(2);
-  expect(tree.methods[1].args[0].name).toBe('x');
-  expect(tree.methods[1].args[0].type.name).toBe('Number');
-  expect(tree.methods[1].args[1].name).toBe('y');
-  expect(tree.methods[1].args[1].type.name).toBe('Number');
+  expect(tree.methods[1].parameters.length).toBe(2);
+  expect(tree.methods[1].parameters[0].name).toBe('x');
+  expect(tree.methods[1].parameters[0].type.name).toBe('Number');
+  expect(tree.methods[1].parameters[1].name).toBe('y');
+  expect(tree.methods[1].parameters[1].type.name).toBe('Number');
   expect(tree.methods[1].statements.length).toBe(1);
   expect((tree.methods[1].statements[0] as ExpressionStatementTree).value).toBeInstanceOf(
     FunctionExpressionTree,
@@ -55,11 +55,11 @@ test('one scope', () => {
   expect(functionExpression.name).toBe('coord');
   expect(innerMethod.args.length).toBe(2);
 
-  expect(tree.infixOperators.length).toBe(1);
-  expect(tree.infixOperators[0].operator).toBe('+');
-  expect(tree.infixOperators[0].arg.name).toBe('sc');
-  expect(tree.infixOperators[0].arg.type.name).toBe('SomeClass');
-  expect(tree.infixOperators[0].arg.type.generics.length).toBe(0);
-  expect(tree.infixOperators[0].returnType.name).toBe('SomeClass');
-  expect(tree.infixOperators[0].returnType.generics.length).toBe(0);
+  expect(tree.operators.length).toBe(1);
+  expect(tree.operators[0].operator).toBe('+');
+  expect(tree.operators[0].parameters[0].name).toBe('sc');
+  expect(tree.operators[0].parameters[0].type.name).toBe('SomeClass');
+  expect(tree.operators[0].parameters[0].type.generics.length).toBe(0);
+  expect(tree.operators[0].returnType.name).toBe('SomeClass');
+  expect(tree.operators[0].returnType.generics.length).toBe(0);
 });

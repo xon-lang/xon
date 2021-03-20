@@ -18,7 +18,7 @@ export class InitMemberTree extends MemberTree {
     super();
 
     this.isAbstract = !ctx.body();
-    this.args = ctx.argument().map((x) => ({
+    this.args = ctx.parameter().map((x) => ({
       name: x.ID().text,
       type: new TypeTree(x.type()),
     }));
