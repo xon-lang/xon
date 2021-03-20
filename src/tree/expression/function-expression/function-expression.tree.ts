@@ -9,7 +9,7 @@ export class FunctionExpressionTree extends ExpressionTree {
 
   public constructor(public ctx: FunctionExpressionContext) {
     super();
-    this.args = ctx.fnArg().map((x) => ({
+    this.args = ctx.argument().map((x) => ({
       name: x.ID()?.text,
       value: getExpressionTree(x.expression()),
     }));

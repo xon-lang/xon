@@ -1,4 +1,4 @@
-import { CharStreams, CommonTokenStream } from 'antlr4ts';
+import { ANTLRErrorListener, CharStreams, CommonTokenStream, Recognizer } from 'antlr4ts';
 import { XonLexer } from './grammar/xon-lexer';
 import { XonParser } from './grammar/xon-parser';
 import { DefinitionTree } from './tree/definition/definition.tree';
@@ -14,11 +14,32 @@ import { getStatementTree } from './tree/statement/statement-helper';
 import { StatementTree } from './tree/statement/statement.tree';
 import { TypeTree } from './tree/type/type.tree';
 
+export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbol> {
+  // eslint-disable-next-line class-methods-use-this
+  public syntaxError<T extends TSymbol>(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    _recognizer: Recognizer<T, any>,
+    _offendingSymbol: T | undefined,
+    line: number,
+    charPositionInLine: number,
+    msg: string,
+  ): void {
+    throw new Error(`syntax error in line ${line}:${charPositionInLine} ${msg}`);
+  }
+}
+
 export const parse = (code: string): XonParser => {
   const inputStream = CharStreams.fromString(code);
   const lexer = new XonLexer(inputStream);
+  lexer.removeErrorListeners();
+  lexer.addErrorListener(new ThrowingErrorListener());
+  
   const tokenStream = new CommonTokenStream(lexer);
-  return new XonParser(tokenStream);
+  const parser =  new XonParser(tokenStream);
+  parser.removeErrorListeners();
+  parser.addErrorListener(new ThrowingErrorListener());
+  
+  return parser;
 };
 
 export const parseType = (code: string): TypeTree => new TypeTree(parse(code).type());

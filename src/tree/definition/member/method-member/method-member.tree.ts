@@ -11,7 +11,7 @@ export class MethodMemberTree extends MemberTree {
 
   public isAbstract: boolean;
 
-  public args: {
+  public parameters: {
     name: string;
     type: TypeTree;
   }[];
@@ -26,7 +26,7 @@ export class MethodMemberTree extends MemberTree {
     this.name = ctx.ID().text;
     this.isPrivate = this.name.startsWith('_');
     this.isAbstract = !ctx.body();
-    this.args = ctx.argument().map((x) => ({
+    this.parameters = ctx.parameter().map((x) => ({
       name: x.ID().text,
       type: new TypeTree(x.type()),
     }));

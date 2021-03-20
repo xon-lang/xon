@@ -1,16 +1,16 @@
 Number: // abstract?
-    infix + (x Boolean) Number
-    infix + (x Number) Number
-    infix + (x String) String
+    operator + (x Boolean) Number
+    operator + (x Number) Number
+    operator + (x String) String
 
-    infix - (x Boolean) Number
-    infix - (x Number) Number
-    // infix - (x String) String
+    operator - (x Boolean) Number
+    operator - (x Number) Number
+    // operator - (x String) String
 
-    infix * (x Boolean) Number
-    infix * (x Number) Number
-    // infix * (x String) String
+    operator * (x Boolean) Number
+    operator * (x Number) Number
+    // operator * (x String) String
 
-    infix / (x Boolean) Number
-    infix / (x Number) Number
-    // infix / (x String) String
+    operator / (x Boolean) Number
+    operator / (x Number) Number
+    // operator / (x String) String

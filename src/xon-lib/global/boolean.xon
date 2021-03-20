@@ -1,24 +1,24 @@
 Boolean:
-    infix + (x Boolean) Integer
-    infix + (x Integer) Integer
-    infix + (x Float) Float
-    infix + (x Char) Integer
-    infix + (x String) String
+    operator + (x Boolean) Integer
+    operator + (x Integer) Integer
+    operator + (x Float) Float
+    operator + (x Char) Integer
+    operator + (x String) String
 
-    infix - (x Boolean) Integer
-    infix - (x Integer) Integer
-    infix - (x Float) Float
-    infix - (x Char) Integer
-    // infix - (x String) String
+    operator - (x Boolean) Integer
+    operator - (x Integer) Integer
+    operator - (x Float) Float
+    operator - (x Char) Integer
+    // operator - (x String) String
 
-    infix * (x Boolean) Integer
-    infix * (x Integer) Integer
-    infix * (x Float) Float
-    infix * (x Char) Integer
-    // infix * (x String) String
+    operator * (x Boolean) Integer
+    operator * (x Integer) Integer
+    operator * (x Float) Float
+    operator * (x Char) Integer
+    // operator * (x String) String
 
-    infix / (x Boolean) Integer
-    infix / (x Integer) Integer
-    infix / (x Float) Float
-    infix / (x Char) Integer
-    // infix / (x String) String
+    operator / (x Boolean) Integer
+    operator / (x Integer) Integer
+    operator / (x Float) Float
+    operator / (x Char) Integer
+    // operator / (x String) String

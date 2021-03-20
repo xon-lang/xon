@@ -58,13 +58,13 @@ SomeClass is BaseClass<String, Boolean>:
 // operator overloading order
 Some:
     #priority 1
-    infix +(a Integer):
+    operator +(a Integer):
         //
 
     #priority 10
-    infix *(a Integer):
+    operator *(a Integer):
         //
 
     #priority 10
-    infix /(a Integer):
+    operator /(a Integer):
         //
