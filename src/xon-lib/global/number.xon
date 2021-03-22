@@ -1,16 +1,16 @@
 Number: // abstract?
-    operator + (x Boolean) Number
-    operator + (x Number) Number
-    operator + (x String) String
+    + (x Boolean) Number
+    + (x Number) Number
+    + (x String) String
 
-    operator - (x Boolean) Number
-    operator - (x Number) Number
-    // operator - (x String) String
+    - (x Boolean) Number
+    - (x Number) Number
+    // - (x String) String
 
-    operator * (x Boolean) Number
-    operator * (x Number) Number
-    // operator * (x String) String
+    * (x Boolean) Number
+    * (x Number) Number
+    // * (x String) String
 
-    operator / (x Boolean) Number
-    operator / (x Number) Number
-    // operator / (x String) String
+    / (x Boolean) Number
+    / (x Number) Number
+    // / (x String) String

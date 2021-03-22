@@ -26,7 +26,6 @@ Loop:     'loop';
 In:       'in';
 Break:    'break';
 Return:   'return';
-Operator: 'operator';
 
 Preprocessor: '#{' .*? '}';
 LineBreak: ({this.atStartOfInput()}? SPACES | ( '\r'? '\n' | '\r') SPACES?) {this.handleLineBreak()}

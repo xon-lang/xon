@@ -1,18 +1,18 @@
 String:
-    operator + (x Boolean) String
-    operator + (x Integer) String
-    operator + (x Float) String
-    operator + (x Char) String
-    operator + (x String) String
+    + (x Boolean) String
+    + (x Integer) String
+    + (x Float) String
+    + (x Char) String
+    + (x String) String
 
-    // operator - (x Boolean) Number
-    // operator - (x Number) Number
-    // operator - (x String) String
+    // - (x Boolean) Number
+    // - (x Number) Number
+    // - (x String) String
 
-    // operator * (x Boolean) Number
-    // operator * (x Number) Number
-    // operator * (x String) String
+    // * (x Boolean) Number
+    // * (x Number) Number
+    // * (x String) String
 
-    // operator / (x Boolean) Number
-    // operator / (x Number) Number
-    // operator / (x String) String
+    // / (x Boolean) Number
+    // / (x Number) Number
+    // / (x String) String
