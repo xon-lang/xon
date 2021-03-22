@@ -2,7 +2,7 @@ Any:
     clone():
         // pass
 
-    operator . (idTree #IdExpressionTree):
+    . (idTree #IdExpressionTree):
         #{
             ast.ctx.text + '.' + idTree.name
         }

@@ -14,10 +14,10 @@ type: name = ID ('<' type (',' type)* '>')? ('#' meta = ID)? | '#' meta = ID;
 
 definition: ID ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT;
 member:
-    '_'? ID type                                                            # propertyMember
-    | '_'? ID '(' (parameter (',' parameter)*)? ')' type? body?             # methodMember
-    | '@' '(' (parameter (',' parameter)*)? ')' body?                       # initMember
-    | 'operator' operator+ '(' (parameter (',' parameter)*)? ')' type body? # operatorMember
+    ID type                                                      # propertyMember
+    | ID '(' (parameter (',' parameter)*)? ')' type? body?       # methodMember
+    | '@' '(' (parameter (',' parameter)*)? ')' body?            # initMember
+    | operator+ '(' (parameter (',' parameter)*)? ')' type body? # operatorMember
     ;
 
 statement:

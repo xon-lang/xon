@@ -1,24 +1,24 @@
 Boolean:
-    operator + (x Boolean) Integer
-    operator + (x Integer) Integer
-    operator + (x Float) Float
-    operator + (x Char) Integer
-    operator + (x String) String
+    + (x Boolean) Integer
+    + (x Integer) Integer
+    + (x Float) Float
+    + (x Char) Integer
+    + (x String) String
 
-    operator - (x Boolean) Integer
-    operator - (x Integer) Integer
-    operator - (x Float) Float
-    operator - (x Char) Integer
-    // operator - (x String) String
+    - (x Boolean) Integer
+    - (x Integer) Integer
+    - (x Float) Float
+    - (x Char) Integer
+    // - (x String) String
 
-    operator * (x Boolean) Integer
-    operator * (x Integer) Integer
-    operator * (x Float) Float
-    operator * (x Char) Integer
-    // operator * (x String) String
+    * (x Boolean) Integer
+    * (x Integer) Integer
+    * (x Float) Float
+    * (x Char) Integer
+    // * (x String) String
 
-    operator / (x Boolean) Integer
-    operator / (x Integer) Integer
-    operator / (x Float) Float
-    operator / (x Char) Integer
-    // operator / (x String) String
+    / (x Boolean) Integer
+    / (x Integer) Integer
+    / (x Float) Float
+    / (x Char) Integer
+    // / (x String) String

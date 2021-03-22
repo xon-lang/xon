@@ -2,7 +2,7 @@ import { parseMember } from '../../../../parse';
 import { OperatorMemberTree } from './operator-member.tree';
 
 test('method member', () => {
-  const code = 'operator +(other String) String:\n    log()';
+  const code = '+(other String) String:\n    log()';
   const tree = parseMember<OperatorMemberTree>(code);
 
   expect(tree.operator).toBe('+');

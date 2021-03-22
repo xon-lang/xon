@@ -1,24 +1,24 @@
 Float is Number:
-    operator + (x Boolean) Float
-    operator + (x Integer) Float
-    operator + (x Float) Float
-    operator + (x Char) Float
-    operator + (x String) String
+    + (x Boolean) Float
+    + (x Integer) Float
+    + (x Float) Float
+    + (x Char) Float
+    + (x String) String
 
-    operator - (x Boolean) Float
-    operator - (x Integer) Float
-    operator - (x Float) Float
-    operator - (x Char) Float
-    // operator - (x String) String
+    - (x Boolean) Float
+    - (x Integer) Float
+    - (x Float) Float
+    - (x Char) Float
+    // - (x String) String
 
-    operator * (x Boolean) Float
-    operator * (x Integer) Float
-    operator * (x Float) Float
-    operator * (x Char) Float
-    // operator * (x String) String
+    * (x Boolean) Float
+    * (x Integer) Float
+    * (x Float) Float
+    * (x Char) Float
+    // * (x String) String
 
-    operator / (x Boolean) Float
-    operator / (x Integer) Float
-    operator / (x Float) Float
-    operator / (x Char) Float
-    // operator / (x String) String
+    / (x Boolean) Float
+    / (x Integer) Float
+    / (x Float) Float
+    / (x Char) Float
+    // / (x String) String
