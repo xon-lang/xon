@@ -1,16 +1,13 @@
-Number: // abstract?
+Number:
     + (a, b Boolean) Number
     + (a, b Number) Number
     + (a, b String) String
 
     - (a, b Boolean) Number
     - (a, b Number) Number
-    // - (a, b String) String
 
     * (a, b Boolean) Number
     * (a, b Number) Number
-    // * (a, b String) String
 
     / (a, b Boolean) Number
     / (a, b Number) Number
-    // / (a, b String) String

@@ -9,16 +9,13 @@ Float is Number:
     - (a, b Integer) Float
     - (a, b Float) Float
     - (a, b Char) Float
-    // - (a, b String) String
 
     * (a, b Boolean) Float
     * (a, b Integer) Float
     * (a, b Float) Float
     * (a, b Char) Float
-    // * (a, b String) String
 
     / (a, b Boolean) Float
     / (a, b Integer) Float
     / (a, b Float) Float
     / (a, b Char) Float
-    // / (a, b String) String

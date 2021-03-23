@@ -9,16 +9,13 @@ Boolean:
     - (a, b Integer) Integer
     - (a, b Float) Float
     - (a, b Char) Integer
-    // - (a, b String) String
 
     * (a, b Boolean) Integer
     * (a, b Integer) Integer
     * (a, b Float) Float
     * (a, b Char) Integer
-    // * (a, b String) String
 
     / (a, b Boolean) Integer
     / (a, b Integer) Integer
     / (a, b Float) Float
     / (a, b Char) Integer
-    // / (a, b String) String
