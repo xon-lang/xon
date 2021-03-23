@@ -3,16 +3,13 @@ import { TypeTree } from './type.tree';
 
 export const getOperatorType = (
   operator: string,
-  value: ExpressionTree,
-  args: ExpressionTree[],
+  left: ExpressionTree,
+  right: ExpressionTree,
 ): TypeTree => {
-  const foundOperatorMethod = value
+  const foundOperatorMethod = left
     .getType()
     .definition()
-    .operators.find(
-      (x) =>
-        x.operator === operator && x.parameters.every((z, i) => z.type.equals(args[i].getType())),
-    );
+    .operators.find((x) => x.operator === operator && x.right.type.equals(right.getType()));
 
   if (foundOperatorMethod) {
     return foundOperatorMethod.returnType;

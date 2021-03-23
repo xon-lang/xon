@@ -57,9 +57,10 @@ test('one scope', () => {
 
   expect(tree.operators.length).toBe(1);
   expect(tree.operators[0].operator).toBe('+');
-  expect(tree.operators[0].parameters[0].name).toBe('sc');
-  expect(tree.operators[0].parameters[0].type.name).toBe('SomeClass');
-  expect(tree.operators[0].parameters[0].type.generics.length).toBe(0);
+  expect(tree.operators[0].left.name).toBe('it');
+  expect(tree.operators[0].right.name).toBe('sc');
+  expect(tree.operators[0].right.type.name).toBe('SomeClass');
+  expect(tree.operators[0].right.type.generics.length).toBe(0);
   expect(tree.operators[0].returnType.name).toBe('SomeClass');
   expect(tree.operators[0].returnType.generics.length).toBe(0);
 });

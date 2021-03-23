@@ -14,10 +14,10 @@ type: name = ID ('<' type (',' type)* '>')? ('#' meta = ID)? | '#' meta = ID;
 
 definition: ID ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT;
 member:
-    ID type                                                      # propertyMember
-    | ID '(' (parameter (',' parameter)*)? ')' type? body?       # methodMember
-    | '@' '(' (parameter (',' parameter)*)? ')' body?            # initMember
-    | operator+ '(' (parameter (',' parameter)*)? ')' type body? # operatorMember
+    ID type                                                # propertyMember
+    | ID '(' (parameter (',' parameter)*)? ')' type? body? # methodMember
+    | '@' '(' (parameter (',' parameter)*)? ')' body?      # initMember
+    | operator+ '(' parameter ',' parameter ')' type body? # operatorMember
     ;
 
 statement:
@@ -36,7 +36,7 @@ expression:
     | literal                                                                       # literalExpression
     | expression '(' (argument (',' argument)*)? ')'                                # functionExpression
     | expression '[' expression ']'                                                 # indexExpression
-    | value = expression operator+ args += expression*                              # operatorExpression
+    | expression operator+ expression                                               # operatorExpression
     | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd # stringFormatExpression
     | '[' (expression (',' expression)*)? ']'                                       # arrayExpression
     | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                         # objectExpression
@@ -71,6 +71,6 @@ operator:
     | '~'
     ;
 
-parameter: ID type;
+parameter: ID type?;
 argument:  (ID '=')? expression;
 body:      ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;

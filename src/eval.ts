@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { ExpressionTree } from './tree/expression/expression.tree';
 import { IdExpressionTree } from './tree/expression/id-expression/id-expression.tree';
-import { OperatorExpressionTree } from './tree/expression/operator-expression/operator-expression.tree';
 import { LiteralExpressionTree } from './tree/expression/literal-expression/literal-expression.tree';
+import { OperatorExpressionTree } from './tree/expression/operator-expression/operator-expression.tree';
 import { ParenthesizedExpressionTree } from './tree/expression/parenthesized-expression/parenthesized-expression.tree';
 
 export const evalExpression = (tree: ExpressionTree, argsMap = {}): unknown => {
@@ -11,7 +11,7 @@ export const evalExpression = (tree: ExpressionTree, argsMap = {}): unknown => {
 
   if (tree instanceof LiteralExpressionTree) return tree.literal.value;
   if (tree instanceof ParenthesizedExpressionTree) return evalExpression(tree.value);
-  if (tree instanceof OperatorExpressionTree) return evalInfixExpression(tree, argsMap);
+  if (tree instanceof OperatorExpressionTree) return evalOperatorExpression(tree, argsMap);
 
   if (tree instanceof IdExpressionTree) {
     if (tree.name in argsMap) return argsMap[tree.name];
@@ -23,9 +23,9 @@ export const evalExpression = (tree: ExpressionTree, argsMap = {}): unknown => {
 
 const escapeIfString = (s: unknown) => (typeof s === 'string' ? `\`${s}\`` : s);
 
-export const evalInfixExpression = (tree: OperatorExpressionTree, argsMap = {}): unknown => {
-  const a = evalExpression(tree.value, argsMap);
-  const b = evalExpression(tree.args[0], argsMap);
+export const evalOperatorExpression = (tree: OperatorExpressionTree, argsMap = {}): unknown => {
+  const a = evalExpression(tree.left, argsMap);
+  const b = evalExpression(tree.right, argsMap);
   const o = tree.operator === '^' ? '**' : tree.operator;
   return eval(`${escapeIfString(a)} ${o} ${escapeIfString(b)}`);
 };

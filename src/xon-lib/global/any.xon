@@ -1,8 +1,2 @@
 Any:
-    clone():
-        // pass
-
-    . (idTree #IdExpressionTree):
-        #{
-            ast.ctx.text + '.' + idTree.name
-        }
+    clone()
