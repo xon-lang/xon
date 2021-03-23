@@ -1,19 +1,12 @@
 JSON:
 
-    (object Object):
-        //
+    (object Object)
 
+    from(o Object)
 
+    to: String()
 
-    from(o Object):
-        //
-
-    to: String():
-        //
-
-    to: Number():
-        //
-
+    to: Number()
 
 
 o | JSON | String
