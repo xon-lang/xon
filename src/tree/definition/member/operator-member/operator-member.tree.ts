@@ -7,10 +7,15 @@ import { MemberTree } from '../member.tree';
 export class OperatorMemberTree extends MemberTree {
   public operator: string;
 
-  public parameters: {
+  public left: {
     name: string;
-    type: TypeTree;
-  }[];
+    type?: TypeTree;
+  };
+
+  public right: {
+    name: string;
+    type?: TypeTree;
+  };
 
   public returnType: TypeTree;
 
@@ -23,9 +28,9 @@ export class OperatorMemberTree extends MemberTree {
       .operator()
       .map((x) => x.text)
       .join('');
-    this.parameters = ctx.parameter().map((x) => ({
+    [this.left, this.right] = ctx.parameter().map((x) => ({
       name: x.ID().text,
-      type: new TypeTree(x.type()),
+      type: x.type() && new TypeTree(x.type()),
     }));
 
     this.returnType = ctx.type() && new TypeTree(ctx.type());

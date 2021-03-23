@@ -18,5 +18,5 @@ test('integer expression index', () => {
   const tree = parseExpression<IndexExpressionTree>(code);
   expect(tree.value).toBeInstanceOf(IdExpressionTree);
   expect(tree.index).toBeInstanceOf(OperatorExpressionTree);
-  expect((tree.index as OperatorExpressionTree).value).toBeInstanceOf(LiteralExpressionTree);
+  expect((tree.index as OperatorExpressionTree).left).toBeInstanceOf(LiteralExpressionTree);
 });

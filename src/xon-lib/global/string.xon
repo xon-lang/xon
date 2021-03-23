@@ -1,18 +1,18 @@
 String:
-    + (x Boolean) String
-    + (x Integer) String
-    + (x Float) String
-    + (x Char) String
-    + (x String) String
+    + (a, b Boolean) String
+    + (a, b Integer) String
+    + (a, b Float) String
+    + (a, b Char) String
+    + (a, b String) String
 
-    // - (x Boolean) Number
-    // - (x Number) Number
-    // - (x String) String
+    // - (a, b Boolean) Number
+    // - (a, b Number) Number
+    // - (a, b String) String
 
-    // * (x Boolean) Number
-    // * (x Number) Number
-    // * (x String) String
+    // * (a, b Boolean) Number
+    // * (a, b Number) Number
+    // * (a, b String) String
 
-    // / (x Boolean) Number
-    // / (x Number) Number
-    // / (x String) String
+    // / (a, b Boolean) Number
+    // / (a, b Number) Number
+    // / (a, b String) String

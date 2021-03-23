@@ -5,7 +5,7 @@ test('bool + bool', () => {
   const code = 'true + false';
   const tree = parseExpression<OperatorExpressionTree>(code);
   expect(tree.getType().name).toBe('Integer');
-  expect(tree.value.getType().definition().abstract.name).toBe('Any');
+  expect(tree.left.getType().definition().abstract.name).toBe('Any');
 });
 
 test('bool + num', () => {

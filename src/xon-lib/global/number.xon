@@ -1,16 +1,16 @@
 Number: // abstract?
-    + (x Boolean) Number
-    + (x Number) Number
-    + (x String) String
+    + (a, b Boolean) Number
+    + (a, b Number) Number
+    + (a, b String) String
 
-    - (x Boolean) Number
-    - (x Number) Number
-    // - (x String) String
+    - (a, b Boolean) Number
+    - (a, b Number) Number
+    // - (a, b String) String
 
-    * (x Boolean) Number
-    * (x Number) Number
-    // * (x String) String
+    * (a, b Boolean) Number
+    * (a, b Number) Number
+    // * (a, b String) String
 
-    / (x Boolean) Number
-    / (x Number) Number
-    // / (x String) String
+    / (a, b Boolean) Number
+    / (a, b Number) Number
+    // / (a, b String) String

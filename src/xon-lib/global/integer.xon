@@ -1,27 +1,21 @@
 Integer is Number:
-    + (x Boolean) Integer
-    + (x Integer) Integer
-    + (x Float) Float
-    + (x Char) Integer
-    + (x String) String
+    + (a, b Boolean) Integer
+    + (a, b Integer) Integer
+    + (a, b Float) Float
+    + (a, b Char) Integer
+    + (a, b String) String
 
-    - (x Boolean) Integer
-    - (x Integer) Integer
-    - (x Float) Float
-    - (x Char) Integer
-    // - (x String) String
+    - (a, b Boolean) Integer
+    - (a, b Integer) Integer
+    - (a, b Float) Float
+    - (a, b Char) Integer
 
-    * (x Boolean) Integer
-    * (x Integer) Integer
-    * (x Float) Float
-    * (x Char) Integer
-    // * (x String) String
+    * (a, b Boolean) Integer
+    * (a, b Integer) Integer
+    * (a, b Float) Float
+    * (a, b Char) Integer
 
-    / (x Boolean) Integer
-    / (x Integer) Integer
-    / (x Float) Float
-    / (x Char) Integer
-    // / (x String) String
-
-    // (Integer#Literal + Integer#Literal) Integer#Literal:
-    //     return a.value + b.value
+    / (a, b Boolean) Integer
+    / (a, b Integer) Integer
+    / (a, b Float) Float
+    / (a, b Char) Integer

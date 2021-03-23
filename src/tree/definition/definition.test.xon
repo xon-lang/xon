@@ -13,5 +13,5 @@ SomeClass is BaseClass<String, Boolean>:
     location(x Number, y Number) Position:
         coord(x, y)
 
-    + (sc SomeClass) SomeClass:
+    + (it, sc SomeClass) SomeClass:
         log("fine!")

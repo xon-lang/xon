@@ -535,9 +535,9 @@ export class XonParser extends Parser {
 		this.enterRule(_localctx, 12, XonParser.RULE_member);
 		let _la: number;
 		try {
-			this.state = 165;
+			this.state = 158;
 			this._errHandler.sync(this);
-			switch ( this.interpreter.adaptivePredict(this._input, 24, this._ctx) ) {
+			switch ( this.interpreter.adaptivePredict(this._input, 22, this._ctx) ) {
 			case 1:
 				_localctx = new PropertyMemberContext(_localctx);
 				this.enterOuterAlt(_localctx, 1);
@@ -677,42 +677,22 @@ export class XonParser extends Parser {
 				} while (((((_la - 21)) & ~0x1F) === 0 && ((1 << (_la - 21)) & ((1 << (XonParser.Assign - 21)) | (1 << (XonParser.Colon - 21)) | (1 << (XonParser.Dot - 21)) | (1 << (XonParser.Plus - 21)) | (1 << (XonParser.Minus - 21)) | (1 << (XonParser.Exclamation - 21)) | (1 << (XonParser.Asterisk - 21)) | (1 << (XonParser.Slash - 21)) | (1 << (XonParser.Modulo - 21)) | (1 << (XonParser.Caret - 21)) | (1 << (XonParser.LessThan - 21)) | (1 << (XonParser.MoreThan - 21)) | (1 << (XonParser.Ampersand - 21)) | (1 << (XonParser.Pipe - 21)) | (1 << (XonParser.Tilde - 21)))) !== 0));
 				this.state = 149;
 				this.match(XonParser.OpenParen);
-				this.state = 158;
-				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-				if (_la === XonParser.ID) {
-					{
-					this.state = 150;
-					this.parameter();
-					this.state = 155;
-					this._errHandler.sync(this);
-					_la = this._input.LA(1);
-					while (_la === XonParser.Comma) {
-						{
-						{
-						this.state = 151;
-						this.match(XonParser.Comma);
-						this.state = 152;
-						this.parameter();
-						}
-						}
-						this.state = 157;
-						this._errHandler.sync(this);
-						_la = this._input.LA(1);
-					}
-					}
-				}
-
-				this.state = 160;
+				this.state = 150;
+				this.parameter();
+				this.state = 151;
+				this.match(XonParser.Comma);
+				this.state = 152;
+				this.parameter();
+				this.state = 153;
 				this.match(XonParser.CloseParen);
-				this.state = 161;
+				this.state = 154;
 				this.type();
-				this.state = 163;
+				this.state = 156;
 				this._errHandler.sync(this);
-				switch ( this.interpreter.adaptivePredict(this._input, 23, this._ctx) ) {
+				switch ( this.interpreter.adaptivePredict(this._input, 21, this._ctx) ) {
 				case 1:
 					{
-					this.state = 162;
+					this.state = 155;
 					this.body();
 					}
 					break;
@@ -741,45 +721,45 @@ export class XonParser extends Parser {
 		this.enterRule(_localctx, 14, XonParser.RULE_statement);
 		let _la: number;
 		try {
-			this.state = 212;
+			this.state = 205;
 			this._errHandler.sync(this);
-			switch ( this.interpreter.adaptivePredict(this._input, 33, this._ctx) ) {
+			switch ( this.interpreter.adaptivePredict(this._input, 31, this._ctx) ) {
 			case 1:
 				_localctx = new IfStatementContext(_localctx);
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 167;
+				this.state = 160;
 				this.match(XonParser.If);
-				this.state = 168;
+				this.state = 161;
 				this.expression(0);
-				this.state = 169;
+				this.state = 162;
 				this.body();
-				this.state = 176;
+				this.state = 169;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				while (_la === XonParser.ElseIf) {
 					{
 					{
-					this.state = 170;
+					this.state = 163;
 					this.match(XonParser.ElseIf);
-					this.state = 171;
+					this.state = 164;
 					this.expression(0);
-					this.state = 172;
+					this.state = 165;
 					this.body();
 					}
 					}
-					this.state = 178;
+					this.state = 171;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 				}
-				this.state = 181;
+				this.state = 174;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === XonParser.Else) {
 					{
-					this.state = 179;
+					this.state = 172;
 					this.match(XonParser.Else);
-					this.state = 180;
+					this.state = 173;
 					this.body();
 					}
 				}
@@ -791,33 +771,33 @@ export class XonParser extends Parser {
 				_localctx = new LoopStatementContext(_localctx);
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 183;
+				this.state = 176;
 				this.match(XonParser.Loop);
-				this.state = 199;
+				this.state = 192;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OpenBracket) | (1 << XonParser.OpenParen) | (1 << XonParser.OpenBrace))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.Ad - 38)) | (1 << (XonParser.LambdaStart - 38)) | (1 << (XonParser.BooleanLiteral - 38)) | (1 << (XonParser.FloatLiteral - 38)) | (1 << (XonParser.IntegerLiteral - 38)) | (1 << (XonParser.CharLiteral - 38)) | (1 << (XonParser.StringLiteral - 38)) | (1 << (XonParser.StringFormatStart - 38)) | (1 << (XonParser.ID - 38)))) !== 0)) {
 					{
-					this.state = 196;
+					this.state = 189;
 					this._errHandler.sync(this);
-					switch ( this.interpreter.adaptivePredict(this._input, 30, this._ctx) ) {
+					switch ( this.interpreter.adaptivePredict(this._input, 28, this._ctx) ) {
 					case 1:
 						{
-						this.state = 184;
+						this.state = 177;
 						(_localctx as LoopStatementContext)._value = this.match(XonParser.ID);
-						this.state = 189;
+						this.state = 182;
 						this._errHandler.sync(this);
-						switch ( this.interpreter.adaptivePredict(this._input, 28, this._ctx) ) {
+						switch ( this.interpreter.adaptivePredict(this._input, 26, this._ctx) ) {
 						case 1:
 							{
-							this.state = 185;
+							this.state = 178;
 							this.match(XonParser.Comma);
-							this.state = 187;
+							this.state = 180;
 							this._errHandler.sync(this);
 							_la = this._input.LA(1);
 							if (_la === XonParser.ID) {
 								{
-								this.state = 186;
+								this.state = 179;
 								(_localctx as LoopStatementContext)._key = this.match(XonParser.ID);
 								}
 							}
@@ -825,29 +805,29 @@ export class XonParser extends Parser {
 							}
 							break;
 						}
-						this.state = 193;
+						this.state = 186;
 						this._errHandler.sync(this);
 						_la = this._input.LA(1);
 						if (_la === XonParser.Comma) {
 							{
-							this.state = 191;
+							this.state = 184;
 							this.match(XonParser.Comma);
-							this.state = 192;
+							this.state = 185;
 							(_localctx as LoopStatementContext)._index = this.match(XonParser.ID);
 							}
 						}
 
-						this.state = 195;
+						this.state = 188;
 						this.match(XonParser.In);
 						}
 						break;
 					}
-					this.state = 198;
+					this.state = 191;
 					this.expression(0);
 					}
 				}
 
-				this.state = 201;
+				this.state = 194;
 				this.body();
 				}
 				break;
@@ -856,7 +836,7 @@ export class XonParser extends Parser {
 				_localctx = new BreakStatementContext(_localctx);
 				this.enterOuterAlt(_localctx, 3);
 				{
-				this.state = 202;
+				this.state = 195;
 				this.match(XonParser.Break);
 				}
 				break;
@@ -865,14 +845,14 @@ export class XonParser extends Parser {
 				_localctx = new ReturnStatementContext(_localctx);
 				this.enterOuterAlt(_localctx, 4);
 				{
-				this.state = 203;
+				this.state = 196;
 				this.match(XonParser.Return);
-				this.state = 205;
+				this.state = 198;
 				this._errHandler.sync(this);
-				switch ( this.interpreter.adaptivePredict(this._input, 32, this._ctx) ) {
+				switch ( this.interpreter.adaptivePredict(this._input, 30, this._ctx) ) {
 				case 1:
 					{
-					this.state = 204;
+					this.state = 197;
 					this.expression(0);
 					}
 					break;
@@ -884,11 +864,11 @@ export class XonParser extends Parser {
 				_localctx = new AssignmentStatementContext(_localctx);
 				this.enterOuterAlt(_localctx, 5);
 				{
-				this.state = 207;
+				this.state = 200;
 				this.match(XonParser.ID);
-				this.state = 208;
+				this.state = 201;
 				this.match(XonParser.Assign);
-				this.state = 209;
+				this.state = 202;
 				this.expression(0);
 				}
 				break;
@@ -897,7 +877,7 @@ export class XonParser extends Parser {
 				_localctx = new ExpressionStatementContext(_localctx);
 				this.enterOuterAlt(_localctx, 6);
 				{
-				this.state = 210;
+				this.state = 203;
 				this.expression(0);
 				}
 				break;
@@ -906,7 +886,7 @@ export class XonParser extends Parser {
 				_localctx = new PreprocessorStatementContext(_localctx);
 				this.enterOuterAlt(_localctx, 7);
 				{
-				this.state = 211;
+				this.state = 204;
 				this.match(XonParser.Preprocessor);
 				}
 				break;
@@ -946,7 +926,7 @@ export class XonParser extends Parser {
 			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 288;
+			this.state = 281;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case XonParser.ID:
@@ -955,7 +935,7 @@ export class XonParser extends Parser {
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 
-				this.state = 215;
+				this.state = 208;
 				this.match(XonParser.ID);
 				}
 				break;
@@ -964,9 +944,9 @@ export class XonParser extends Parser {
 				_localctx = new InstanceMemberExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
-				this.state = 216;
+				this.state = 209;
 				this.match(XonParser.Ad);
-				this.state = 217;
+				this.state = 210;
 				this.match(XonParser.ID);
 				}
 				break;
@@ -979,7 +959,7 @@ export class XonParser extends Parser {
 				_localctx = new LiteralExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
-				this.state = 218;
+				this.state = 211;
 				this.literal();
 				}
 				break;
@@ -988,29 +968,29 @@ export class XonParser extends Parser {
 				_localctx = new StringFormatExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
-				this.state = 219;
+				this.state = 212;
 				this.match(XonParser.StringFormatStart);
-				this.state = 225;
+				this.state = 218;
 				this._errHandler.sync(this);
-				_alt = this.interpreter.adaptivePredict(this._input, 34, this._ctx);
+				_alt = this.interpreter.adaptivePredict(this._input, 32, this._ctx);
 				while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
 					if (_alt === 1) {
 						{
 						{
-						this.state = 220;
+						this.state = 213;
 						this.expression(0);
-						this.state = 221;
+						this.state = 214;
 						this.match(XonParser.StringFormatMiddle);
 						}
 						}
 					}
-					this.state = 227;
+					this.state = 220;
 					this._errHandler.sync(this);
-					_alt = this.interpreter.adaptivePredict(this._input, 34, this._ctx);
+					_alt = this.interpreter.adaptivePredict(this._input, 32, this._ctx);
 				}
-				this.state = 228;
+				this.state = 221;
 				this.expression(0);
-				this.state = 229;
+				this.state = 222;
 				this.match(XonParser.StringFormatEnd);
 				}
 				break;
@@ -1019,35 +999,35 @@ export class XonParser extends Parser {
 				_localctx = new ArrayExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
-				this.state = 231;
+				this.state = 224;
 				this.match(XonParser.OpenBracket);
-				this.state = 240;
+				this.state = 233;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OpenBracket) | (1 << XonParser.OpenParen) | (1 << XonParser.OpenBrace))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.Ad - 38)) | (1 << (XonParser.LambdaStart - 38)) | (1 << (XonParser.BooleanLiteral - 38)) | (1 << (XonParser.FloatLiteral - 38)) | (1 << (XonParser.IntegerLiteral - 38)) | (1 << (XonParser.CharLiteral - 38)) | (1 << (XonParser.StringLiteral - 38)) | (1 << (XonParser.StringFormatStart - 38)) | (1 << (XonParser.ID - 38)))) !== 0)) {
 					{
-					this.state = 232;
+					this.state = 225;
 					this.expression(0);
-					this.state = 237;
+					this.state = 230;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 					while (_la === XonParser.Comma) {
 						{
 						{
-						this.state = 233;
+						this.state = 226;
 						this.match(XonParser.Comma);
-						this.state = 234;
+						this.state = 227;
 						this.expression(0);
 						}
 						}
-						this.state = 239;
+						this.state = 232;
 						this._errHandler.sync(this);
 						_la = this._input.LA(1);
 					}
 					}
 				}
 
-				this.state = 242;
+				this.state = 235;
 				this.match(XonParser.CloseBracket);
 				}
 				break;
@@ -1056,43 +1036,43 @@ export class XonParser extends Parser {
 				_localctx = new ObjectExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
-				this.state = 243;
+				this.state = 236;
 				this.match(XonParser.OpenBrace);
-				this.state = 256;
+				this.state = 249;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === XonParser.ID) {
 					{
-					this.state = 244;
+					this.state = 237;
 					this.match(XonParser.ID);
-					this.state = 245;
+					this.state = 238;
 					this.match(XonParser.Colon);
-					this.state = 246;
+					this.state = 239;
 					this.expression(0);
-					this.state = 253;
+					this.state = 246;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 					while (_la === XonParser.Comma) {
 						{
 						{
-						this.state = 247;
+						this.state = 240;
 						this.match(XonParser.Comma);
-						this.state = 248;
+						this.state = 241;
 						this.match(XonParser.ID);
-						this.state = 249;
+						this.state = 242;
 						this.match(XonParser.Colon);
-						this.state = 250;
+						this.state = 243;
 						this.expression(0);
 						}
 						}
-						this.state = 255;
+						this.state = 248;
 						this._errHandler.sync(this);
 						_la = this._input.LA(1);
 					}
 					}
 				}
 
-				this.state = 258;
+				this.state = 251;
 				this.match(XonParser.CloseBrace);
 				}
 				break;
@@ -1101,11 +1081,11 @@ export class XonParser extends Parser {
 				_localctx = new ParenthesizedExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
-				this.state = 259;
+				this.state = 252;
 				this.match(XonParser.OpenParen);
-				this.state = 260;
+				this.state = 253;
 				this.expression(0);
-				this.state = 261;
+				this.state = 254;
 				this.match(XonParser.CloseParen);
 				}
 				break;
@@ -1114,66 +1094,66 @@ export class XonParser extends Parser {
 				_localctx = new LambdaExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
-				this.state = 263;
+				this.state = 256;
 				this.match(XonParser.LambdaStart);
-				this.state = 285;
+				this.state = 278;
 				this._errHandler.sync(this);
-				switch ( this.interpreter.adaptivePredict(this._input, 41, this._ctx) ) {
+				switch ( this.interpreter.adaptivePredict(this._input, 39, this._ctx) ) {
 				case 1:
 					{
-					this.state = 264;
+					this.state = 257;
 					this.match(XonParser.ID);
-					this.state = 265;
+					this.state = 258;
 					this.type();
-					this.state = 271;
+					this.state = 264;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 					while (_la === XonParser.Comma) {
 						{
 						{
-						this.state = 266;
+						this.state = 259;
 						this.match(XonParser.Comma);
-						this.state = 267;
+						this.state = 260;
 						this.match(XonParser.ID);
-						this.state = 268;
+						this.state = 261;
 						this.type();
 						}
 						}
-						this.state = 273;
+						this.state = 266;
 						this._errHandler.sync(this);
 						_la = this._input.LA(1);
 					}
-					this.state = 274;
+					this.state = 267;
 					this.match(XonParser.Colon);
 					}
 					break;
 
 				case 2:
 					{
-					this.state = 276;
+					this.state = 269;
 					this.match(XonParser.ID);
-					this.state = 281;
+					this.state = 274;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 					while (_la === XonParser.Comma) {
 						{
 						{
-						this.state = 277;
+						this.state = 270;
 						this.match(XonParser.Comma);
-						this.state = 278;
+						this.state = 271;
 						this.match(XonParser.ID);
 						}
 						}
-						this.state = 283;
+						this.state = 276;
 						this._errHandler.sync(this);
 						_la = this._input.LA(1);
 					}
-					this.state = 284;
+					this.state = 277;
 					this.match(XonParser.Colon);
 					}
 					break;
 				}
-				this.state = 287;
+				this.state = 280;
 				this.expression(1);
 				}
 				break;
@@ -1181,9 +1161,9 @@ export class XonParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			this._ctx._stop = this._input.tryLT(-1);
-			this.state = 322;
+			this.state = 311;
 			this._errHandler.sync(this);
-			_alt = this.interpreter.adaptivePredict(this._input, 48, this._ctx);
+			_alt = this.interpreter.adaptivePredict(this._input, 45, this._ctx);
 			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
 				if (_alt === 1) {
 					if (this._parseListeners != null) {
@@ -1191,121 +1171,99 @@ export class XonParser extends Parser {
 					}
 					_prevctx = _localctx;
 					{
-					this.state = 320;
+					this.state = 309;
 					this._errHandler.sync(this);
-					switch ( this.interpreter.adaptivePredict(this._input, 47, this._ctx) ) {
+					switch ( this.interpreter.adaptivePredict(this._input, 44, this._ctx) ) {
 					case 1:
+						{
+						_localctx = new OperatorExpressionContext(new ExpressionContext(_parentctx, _parentState));
+						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
+						this.state = 283;
+						if (!(this.precpred(this._ctx, 6))) {
+							throw this.createFailedPredicateException("this.precpred(this._ctx, 6)");
+						}
+						this.state = 285;
+						this._errHandler.sync(this);
+						_la = this._input.LA(1);
+						do {
+							{
+							{
+							this.state = 284;
+							this.operator();
+							}
+							}
+							this.state = 287;
+							this._errHandler.sync(this);
+							_la = this._input.LA(1);
+						} while (((((_la - 21)) & ~0x1F) === 0 && ((1 << (_la - 21)) & ((1 << (XonParser.Assign - 21)) | (1 << (XonParser.Colon - 21)) | (1 << (XonParser.Dot - 21)) | (1 << (XonParser.Plus - 21)) | (1 << (XonParser.Minus - 21)) | (1 << (XonParser.Exclamation - 21)) | (1 << (XonParser.Asterisk - 21)) | (1 << (XonParser.Slash - 21)) | (1 << (XonParser.Modulo - 21)) | (1 << (XonParser.Caret - 21)) | (1 << (XonParser.LessThan - 21)) | (1 << (XonParser.MoreThan - 21)) | (1 << (XonParser.Ampersand - 21)) | (1 << (XonParser.Pipe - 21)) | (1 << (XonParser.Tilde - 21)))) !== 0));
+						this.state = 289;
+						this.expression(7);
+						}
+						break;
+
+					case 2:
 						{
 						_localctx = new FunctionExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
-						this.state = 290;
+						this.state = 291;
 						if (!(this.precpred(this._ctx, 8))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 8)");
 						}
-						this.state = 291;
+						this.state = 292;
 						this.match(XonParser.OpenParen);
-						this.state = 300;
+						this.state = 301;
 						this._errHandler.sync(this);
 						_la = this._input.LA(1);
 						if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OpenBracket) | (1 << XonParser.OpenParen) | (1 << XonParser.OpenBrace))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.Ad - 38)) | (1 << (XonParser.LambdaStart - 38)) | (1 << (XonParser.BooleanLiteral - 38)) | (1 << (XonParser.FloatLiteral - 38)) | (1 << (XonParser.IntegerLiteral - 38)) | (1 << (XonParser.CharLiteral - 38)) | (1 << (XonParser.StringLiteral - 38)) | (1 << (XonParser.StringFormatStart - 38)) | (1 << (XonParser.ID - 38)))) !== 0)) {
 							{
-							this.state = 292;
+							this.state = 293;
 							this.argument();
-							this.state = 297;
+							this.state = 298;
 							this._errHandler.sync(this);
 							_la = this._input.LA(1);
 							while (_la === XonParser.Comma) {
 								{
 								{
-								this.state = 293;
-								this.match(XonParser.Comma);
 								this.state = 294;
+								this.match(XonParser.Comma);
+								this.state = 295;
 								this.argument();
 								}
 								}
-								this.state = 299;
+								this.state = 300;
 								this._errHandler.sync(this);
 								_la = this._input.LA(1);
 							}
 							}
 						}
 
-						this.state = 302;
-						this.match(XonParser.CloseParen);
-						}
-						break;
-
-					case 2:
-						{
-						_localctx = new IndexExpressionContext(new ExpressionContext(_parentctx, _parentState));
-						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 303;
-						if (!(this.precpred(this._ctx, 7))) {
-							throw this.createFailedPredicateException("this.precpred(this._ctx, 7)");
-						}
-						this.state = 304;
-						this.match(XonParser.OpenBracket);
-						this.state = 305;
-						this.expression(0);
-						this.state = 306;
-						this.match(XonParser.CloseBracket);
+						this.match(XonParser.CloseParen);
 						}
 						break;
 
 					case 3:
 						{
-						_localctx = new OperatorExpressionContext(new ExpressionContext(_parentctx, _parentState));
-						(_localctx as OperatorExpressionContext)._value = _prevctx;
+						_localctx = new IndexExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
-						this.state = 308;
-						if (!(this.precpred(this._ctx, 6))) {
-							throw this.createFailedPredicateException("this.precpred(this._ctx, 6)");
+						this.state = 304;
+						if (!(this.precpred(this._ctx, 7))) {
+							throw this.createFailedPredicateException("this.precpred(this._ctx, 7)");
 						}
-						this.state = 310;
-						this._errHandler.sync(this);
-						_alt = 1;
-						do {
-							switch (_alt) {
-							case 1:
-								{
-								{
-								this.state = 309;
-								this.operator();
-								}
-								}
-								break;
-							default:
-								throw new NoViableAltException(this);
-							}
-							this.state = 312;
-							this._errHandler.sync(this);
-							_alt = this.interpreter.adaptivePredict(this._input, 45, this._ctx);
-						} while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER);
-						this.state = 317;
-						this._errHandler.sync(this);
-						_alt = this.interpreter.adaptivePredict(this._input, 46, this._ctx);
-						while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
-							if (_alt === 1) {
-								{
-								{
-								this.state = 314;
-								(_localctx as OperatorExpressionContext)._expression = this.expression(0);
-								(_localctx as OperatorExpressionContext)._args.push((_localctx as OperatorExpressionContext)._expression);
-								}
-								}
-							}
-							this.state = 319;
-							this._errHandler.sync(this);
-							_alt = this.interpreter.adaptivePredict(this._input, 46, this._ctx);
-						}
+						this.state = 305;
+						this.match(XonParser.OpenBracket);
+						this.state = 306;
+						this.expression(0);
+						this.state = 307;
+						this.match(XonParser.CloseBracket);
 						}
 						break;
 					}
 					}
 				}
-				this.state = 324;
+				this.state = 313;
 				this._errHandler.sync(this);
-				_alt = this.interpreter.adaptivePredict(this._input, 48, this._ctx);
+				_alt = this.interpreter.adaptivePredict(this._input, 45, this._ctx);
 			}
 			}
 		}
@@ -1328,14 +1286,14 @@ export class XonParser extends Parser {
 		let _localctx: LiteralContext = new LiteralContext(this._ctx, this.state);
 		this.enterRule(_localctx, 18, XonParser.RULE_literal);
 		try {
-			this.state = 330;
+			this.state = 319;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case XonParser.BooleanLiteral:
 				_localctx = new BooleanLiteralContext(_localctx);
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 325;
+				this.state = 314;
 				this.match(XonParser.BooleanLiteral);
 				}
 				break;
@@ -1343,7 +1301,7 @@ export class XonParser extends Parser {
 				_localctx = new IntegerLiteralContext(_localctx);
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 326;
+				this.state = 315;
 				this.match(XonParser.IntegerLiteral);
 				}
 				break;
@@ -1351,7 +1309,7 @@ export class XonParser extends Parser {
 				_localctx = new FloatLiteralContext(_localctx);
 				this.enterOuterAlt(_localctx, 3);
 				{
-				this.state = 327;
+				this.state = 316;
 				this.match(XonParser.FloatLiteral);
 				}
 				break;
@@ -1359,7 +1317,7 @@ export class XonParser extends Parser {
 				_localctx = new CharLiteralContext(_localctx);
 				this.enterOuterAlt(_localctx, 4);
 				{
-				this.state = 328;
+				this.state = 317;
 				this.match(XonParser.CharLiteral);
 				}
 				break;
@@ -1367,7 +1325,7 @@ export class XonParser extends Parser {
 				_localctx = new StringLiteralContext(_localctx);
 				this.enterOuterAlt(_localctx, 5);
 				{
-				this.state = 329;
+				this.state = 318;
 				this.match(XonParser.StringLiteral);
 				}
 				break;
@@ -1397,7 +1355,7 @@ export class XonParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 332;
+			this.state = 321;
 			_la = this._input.LA(1);
 			if (!(((((_la - 21)) & ~0x1F) === 0 && ((1 << (_la - 21)) & ((1 << (XonParser.Assign - 21)) | (1 << (XonParser.Colon - 21)) | (1 << (XonParser.Dot - 21)) | (1 << (XonParser.Plus - 21)) | (1 << (XonParser.Minus - 21)) | (1 << (XonParser.Exclamation - 21)) | (1 << (XonParser.Asterisk - 21)) | (1 << (XonParser.Slash - 21)) | (1 << (XonParser.Modulo - 21)) | (1 << (XonParser.Caret - 21)) | (1 << (XonParser.LessThan - 21)) | (1 << (XonParser.MoreThan - 21)) | (1 << (XonParser.Ampersand - 21)) | (1 << (XonParser.Pipe - 21)) | (1 << (XonParser.Tilde - 21)))) !== 0))) {
 			this._errHandler.recoverInline(this);
@@ -1429,13 +1387,22 @@ export class XonParser extends Parser {
 	public parameter(): ParameterContext {
 		let _localctx: ParameterContext = new ParameterContext(this._ctx, this.state);
 		this.enterRule(_localctx, 22, XonParser.RULE_parameter);
+		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 334;
+			this.state = 323;
 			this.match(XonParser.ID);
-			this.state = 335;
-			this.type();
+			this.state = 325;
+			this._errHandler.sync(this);
+			_la = this._input.LA(1);
+			if (_la === XonParser.Hash || _la === XonParser.ID) {
+				{
+				this.state = 324;
+				this.type();
+				}
+			}
+
 			}
 		}
 		catch (re) {
@@ -1459,19 +1426,19 @@ export class XonParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 339;
+			this.state = 329;
 			this._errHandler.sync(this);
-			switch ( this.interpreter.adaptivePredict(this._input, 50, this._ctx) ) {
+			switch ( this.interpreter.adaptivePredict(this._input, 48, this._ctx) ) {
 			case 1:
 				{
-				this.state = 337;
+				this.state = 327;
 				this.match(XonParser.ID);
-				this.state = 338;
+				this.state = 328;
 				this.match(XonParser.Assign);
 				}
 				break;
 			}
-			this.state = 341;
+			this.state = 331;
 			this.expression(0);
 			}
 		}
@@ -1497,18 +1464,18 @@ export class XonParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 343;
+			this.state = 333;
 			this.match(XonParser.Colon);
-			this.state = 344;
+			this.state = 334;
 			this.match(XonParser.LineBreak);
-			this.state = 345;
+			this.state = 335;
 			this.match(XonParser.INDENT);
-			this.state = 348;
+			this.state = 338;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			do {
 				{
-				this.state = 348;
+				this.state = 338;
 				this._errHandler.sync(this);
 				switch (this._input.LA(1)) {
 				case XonParser.If:
@@ -1529,13 +1496,13 @@ export class XonParser extends Parser {
 				case XonParser.StringFormatStart:
 				case XonParser.ID:
 					{
-					this.state = 346;
+					this.state = 336;
 					this.statement();
 					}
 					break;
 				case XonParser.LineBreak:
 					{
-					this.state = 347;
+					this.state = 337;
 					this.match(XonParser.LineBreak);
 					}
 					break;
@@ -1543,11 +1510,11 @@ export class XonParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				this.state = 350;
+				this.state = 340;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.If) | (1 << XonParser.Loop) | (1 << XonParser.Break) | (1 << XonParser.Return) | (1 << XonParser.Preprocessor) | (1 << XonParser.LineBreak) | (1 << XonParser.OpenBracket) | (1 << XonParser.OpenParen) | (1 << XonParser.OpenBrace))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.Ad - 38)) | (1 << (XonParser.LambdaStart - 38)) | (1 << (XonParser.BooleanLiteral - 38)) | (1 << (XonParser.FloatLiteral - 38)) | (1 << (XonParser.IntegerLiteral - 38)) | (1 << (XonParser.CharLiteral - 38)) | (1 << (XonParser.StringLiteral - 38)) | (1 << (XonParser.StringFormatStart - 38)) | (1 << (XonParser.ID - 38)))) !== 0));
-			this.state = 352;
+			this.state = 342;
 			this.match(XonParser.DEDENT);
 			}
 		}
@@ -1576,19 +1543,19 @@ export class XonParser extends Parser {
 	private expression_sempred(_localctx: ExpressionContext, predIndex: number): boolean {
 		switch (predIndex) {
 		case 0:
-			return this.precpred(this._ctx, 8);
+			return this.precpred(this._ctx, 6);
 
 		case 1:
-			return this.precpred(this._ctx, 7);
+			return this.precpred(this._ctx, 8);
 
 		case 2:
-			return this.precpred(this._ctx, 6);
+			return this.precpred(this._ctx, 7);
 		}
 		return true;
 	}
 
 	public static readonly _serializedATN: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x037\u0165\x04\x02" +
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x037\u015B\x04\x02" +
 		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
 		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x04\f\t\f\x04\r\t\r\x04" +
 		"\x0E\t\x0E\x04\x0F\t\x0F\x03\x02\x03\x02\x03\x02\x03\x02\x07\x02#\n\x02" +
@@ -1603,33 +1570,32 @@ export class XonParser extends Parser {
 		"\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x07\bu\n\b\f\b\x0E\bx\v\b\x05\b" +
 		"z\n\b\x03\b\x03\b\x05\b~\n\b\x03\b\x05\b\x81\n\b\x03\b\x03\b\x03\b\x03" +
 		"\b\x03\b\x07\b\x88\n\b\f\b\x0E\b\x8B\v\b\x05\b\x8D\n\b\x03\b\x03\b\x05" +
-		"\b\x91\n\b\x03\b\x06\b\x94\n\b\r\b\x0E\b\x95\x03\b\x03\b\x03\b\x03\b\x07" +
-		"\b\x9C\n\b\f\b\x0E\b\x9F\v\b\x05\b\xA1\n\b\x03\b\x03\b\x03\b\x05\b\xA6" +
-		"\n\b\x05\b\xA8\n\b\x03\t\x03\t\x03\t\x03\t\x03\t\x03\t\x03\t\x07\t\xB1" +
-		"\n\t\f\t\x0E\t\xB4\v\t\x03\t\x03\t\x05\t\xB8\n\t\x03\t\x03\t\x03\t\x03" +
-		"\t\x05\t\xBE\n\t\x05\t\xC0\n\t\x03\t\x03\t\x05\t\xC4\n\t\x03\t\x05\t\xC7" +
-		"\n\t\x03\t\x05\t\xCA\n\t\x03\t\x03\t\x03\t\x03\t\x05\t\xD0\n\t\x03\t\x03" +
-		"\t\x03\t\x03\t\x03\t\x05\t\xD7\n\t\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n" +
-		"\x03\n\x03\n\x03\n\x07\n\xE2\n\n\f\n\x0E\n\xE5\v\n\x03\n\x03\n\x03\n\x03" +
-		"\n\x03\n\x03\n\x03\n\x07\n\xEE\n\n\f\n\x0E\n\xF1\v\n\x05\n\xF3\n\n\x03" +
-		"\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x07\n\xFE\n\n\f\n\x0E" +
-		"\n\u0101\v\n\x05\n\u0103\n\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n" +
-		"\x03\n\x03\n\x03\n\x03\n\x07\n\u0110\n\n\f\n\x0E\n\u0113\v\n\x03\n\x03" +
-		"\n\x03\n\x03\n\x03\n\x07\n\u011A\n\n\f\n\x0E\n\u011D\v\n\x03\n\x05\n\u0120" +
-		"\n\n\x03\n\x05\n\u0123\n\n\x03\n\x03\n\x03\n\x03\n\x03\n\x07\n\u012A\n" +
-		"\n\f\n\x0E\n\u012D\v\n\x05\n\u012F\n\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03" +
-		"\n\x03\n\x03\n\x06\n\u0139\n\n\r\n\x0E\n\u013A\x03\n\x07\n\u013E\n\n\f" +
-		"\n\x0E\n\u0141\v\n\x07\n\u0143\n\n\f\n\x0E\n\u0146\v\n\x03\v\x03\v\x03" +
-		"\v\x03\v\x03\v\x05\v\u014D\n\v\x03\f\x03\f\x03\r\x03\r\x03\r\x03\x0E\x03" +
-		"\x0E\x05\x0E\u0156\n\x0E\x03\x0E\x03\x0E\x03\x0F\x03\x0F\x03\x0F\x03\x0F" +
-		"\x03\x0F\x06\x0F\u015F\n\x0F\r\x0F\x0E\x0F\u0160\x03\x0F\x03\x0F\x03\x0F" +
+		"\b\x91\n\b\x03\b\x06\b\x94\n\b\r\b\x0E\b\x95\x03\b\x03\b\x03\b\x03\b\x03" +
+		"\b\x03\b\x03\b\x05\b\x9F\n\b\x05\b\xA1\n\b\x03\t\x03\t\x03\t\x03\t\x03" +
+		"\t\x03\t\x03\t\x07\t\xAA\n\t\f\t\x0E\t\xAD\v\t\x03\t\x03\t\x05\t\xB1\n" +
+		"\t\x03\t\x03\t\x03\t\x03\t\x05\t\xB7\n\t\x05\t\xB9\n\t\x03\t\x03\t\x05" +
+		"\t\xBD\n\t\x03\t\x05\t\xC0\n\t\x03\t\x05\t\xC3\n\t\x03\t\x03\t\x03\t\x03" +
+		"\t\x05\t\xC9\n\t\x03\t\x03\t\x03\t\x03\t\x03\t\x05\t\xD0\n\t\x03\n\x03" +
+		"\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x07\n\xDB\n\n\f\n\x0E\n\xDE" +
+		"\v\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x07\n\xE7\n\n\f\n\x0E\n" +
+		"\xEA\v\n\x05\n\xEC\n\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n" +
+		"\x03\n\x07\n\xF7\n\n\f\n\x0E\n\xFA\v\n\x05\n\xFC\n\n\x03\n\x03\n\x03\n" +
+		"\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x07\n\u0109\n\n\f\n\x0E" +
+		"\n\u010C\v\n\x03\n\x03\n\x03\n\x03\n\x03\n\x07\n\u0113\n\n\f\n\x0E\n\u0116" +
+		"\v\n\x03\n\x05\n\u0119\n\n\x03\n\x05\n\u011C\n\n\x03\n\x03\n\x06\n\u0120" +
+		"\n\n\r\n\x0E\n\u0121\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x07\n\u012B" +
+		"\n\n\f\n\x0E\n\u012E\v\n\x05\n\u0130\n\n\x03\n\x03\n\x03\n\x03\n\x03\n" +
+		"\x03\n\x07\n\u0138\n\n\f\n\x0E\n\u013B\v\n\x03\v\x03\v\x03\v\x03\v\x03" +
+		"\v\x05\v\u0142\n\v\x03\f\x03\f\x03\r\x03\r\x05\r\u0148\n\r\x03\x0E\x03" +
+		"\x0E\x05\x0E\u014C\n\x0E\x03\x0E\x03\x0E\x03\x0F\x03\x0F\x03\x0F\x03\x0F" +
+		"\x03\x0F\x06\x0F\u0155\n\x0F\r\x0F\x0E\x0F\u0156\x03\x0F\x03\x0F\x03\x0F" +
 		"\x02\x02\x03\x12\x10\x02\x02\x04\x02\x06\x02\b\x02\n\x02\f\x02\x0E\x02" +
 		"\x10\x02\x12\x02\x14\x02\x16\x02\x18\x02\x1A\x02\x1C\x02\x02\x03\x05\x02" +
-		"\x17\x17\x19!#\'\x02\u019F\x02$\x03\x02\x02\x02\x04\'\x03\x02\x02\x02" +
+		"\x17\x17\x19!#\'\x02\u0193\x02$\x03\x02\x02\x02\x04\'\x03\x02\x02\x02" +
 		"\x061\x03\x02\x02\x02\bB\x03\x02\x02\x02\n[\x03\x02\x02\x02\f]\x03\x02" +
-		"\x02\x02\x0E\xA7\x03\x02\x02\x02\x10\xD6\x03\x02\x02\x02\x12\u0122\x03" +
-		"\x02\x02\x02\x14\u014C\x03\x02\x02\x02\x16\u014E\x03\x02\x02\x02\x18\u0150" +
-		"\x03\x02\x02\x02\x1A\u0155\x03\x02\x02\x02\x1C\u0159\x03\x02\x02\x02\x1E" +
+		"\x02\x02\x0E\xA0\x03\x02\x02\x02\x10\xCF\x03\x02\x02\x02\x12\u011B\x03" +
+		"\x02\x02\x02\x14\u0141\x03\x02\x02\x02\x16\u0143\x03\x02\x02\x02\x18\u0145" +
+		"\x03\x02\x02\x02\x1A\u014B\x03\x02\x02\x02\x1C\u014F\x03\x02\x02\x02\x1E" +
 		"#\x05\x04\x03\x02\x1F#\x05\x10\t\x02 #\x05\f\x07\x02!#\x07\x0F\x02\x02" +
 		"\"\x1E\x03\x02\x02\x02\"\x1F\x03\x02\x02\x02\" \x03\x02\x02\x02\"!\x03" +
 		"\x02\x02\x02#&\x03\x02\x02\x02$\"\x03\x02\x02\x02$%\x03\x02\x02\x02%\x03" +
@@ -1653,115 +1619,111 @@ export class XonParser extends Parser {
 		"\x02\x02ab\x03\x02\x02\x02bc\x07\x19\x02\x02cd\x07\x0F\x02\x02dg\x07\x03" +
 		"\x02\x02eh\x05\x0E\b\x02fh\x07\x0F\x02\x02ge\x03\x02\x02\x02gf\x03\x02" +
 		"\x02\x02hi\x03\x02\x02\x02ig\x03\x02\x02\x02ij\x03\x02\x02\x02jk\x03\x02" +
-		"\x02\x02kl\x07\x04\x02\x02l\r\x03\x02\x02\x02mn\x073\x02\x02n\xA8\x05" +
+		"\x02\x02kl\x07\x04\x02\x02l\r\x03\x02\x02\x02mn\x073\x02\x02n\xA1\x05" +
 		"\n\x06\x02op\x073\x02\x02py\x07\x12\x02\x02qv\x05\x18\r\x02rs\x07\x16" +
 		"\x02\x02su\x05\x18\r\x02tr\x03\x02\x02\x02ux\x03\x02\x02\x02vt\x03\x02" +
 		"\x02\x02vw\x03\x02\x02\x02wz\x03\x02\x02\x02xv\x03\x02\x02\x02yq\x03\x02" +
 		"\x02\x02yz\x03\x02\x02\x02z{\x03\x02\x02\x02{}\x07\x13\x02\x02|~\x05\n" +
 		"\x06\x02}|\x03\x02\x02\x02}~\x03\x02\x02\x02~\x80\x03\x02\x02\x02\x7F" +
 		"\x81\x05\x1C\x0F\x02\x80\x7F\x03\x02\x02\x02\x80\x81\x03\x02\x02\x02\x81" +
-		"\xA8\x03\x02\x02\x02\x82\x83\x07(\x02\x02\x83\x8C\x07\x12\x02\x02\x84" +
+		"\xA1\x03\x02\x02\x02\x82\x83\x07(\x02\x02\x83\x8C\x07\x12\x02\x02\x84" +
 		"\x89\x05\x18\r\x02\x85\x86\x07\x16\x02\x02\x86\x88\x05\x18\r\x02\x87\x85" +
 		"\x03\x02\x02\x02\x88\x8B\x03\x02\x02\x02\x89\x87\x03\x02\x02\x02\x89\x8A" +
 		"\x03\x02\x02\x02\x8A\x8D\x03\x02\x02\x02\x8B\x89\x03\x02\x02\x02\x8C\x84" +
 		"\x03\x02\x02\x02\x8C\x8D\x03\x02\x02\x02\x8D\x8E\x03\x02\x02\x02\x8E\x90" +
 		"\x07\x13\x02\x02\x8F\x91\x05\x1C\x0F\x02\x90\x8F\x03\x02\x02\x02\x90\x91" +
-		"\x03\x02\x02\x02\x91\xA8\x03\x02\x02\x02\x92\x94\x05\x16\f\x02\x93\x92" +
+		"\x03\x02\x02\x02\x91\xA1\x03\x02\x02\x02\x92\x94\x05\x16\f\x02\x93\x92" +
 		"\x03\x02\x02\x02\x94\x95\x03\x02\x02\x02\x95\x93\x03\x02\x02\x02\x95\x96" +
-		"\x03\x02\x02\x02\x96\x97\x03\x02\x02\x02\x97\xA0\x07\x12\x02\x02\x98\x9D" +
-		"\x05\x18\r\x02\x99\x9A\x07\x16\x02\x02\x9A\x9C\x05\x18\r\x02\x9B\x99\x03" +
-		"\x02\x02\x02\x9C\x9F\x03\x02\x02\x02\x9D\x9B\x03\x02\x02\x02\x9D\x9E\x03" +
-		"\x02\x02\x02\x9E\xA1\x03\x02\x02\x02\x9F\x9D\x03\x02\x02\x02\xA0\x98\x03" +
-		"\x02\x02\x02\xA0\xA1\x03\x02\x02\x02\xA1\xA2\x03\x02\x02\x02\xA2\xA3\x07" +
-		"\x13\x02\x02\xA3\xA5\x05\n\x06\x02\xA4\xA6\x05\x1C\x0F\x02\xA5\xA4\x03" +
-		"\x02\x02\x02\xA5\xA6\x03\x02\x02\x02\xA6\xA8\x03\x02\x02\x02\xA7m\x03" +
-		"\x02\x02\x02\xA7o\x03\x02\x02\x02\xA7\x82\x03\x02\x02\x02\xA7\x93\x03" +
-		"\x02\x02\x02\xA8\x0F\x03\x02\x02\x02\xA9\xAA\x07\x07\x02\x02\xAA\xAB\x05" +
-		"\x12\n\x02\xAB\xB2\x05\x1C\x0F\x02\xAC\xAD\x07\t\x02\x02\xAD\xAE\x05\x12" +
-		"\n\x02\xAE\xAF\x05\x1C\x0F\x02\xAF\xB1\x03\x02\x02\x02\xB0\xAC\x03\x02" +
-		"\x02\x02\xB1\xB4\x03\x02\x02\x02\xB2\xB0\x03\x02\x02\x02\xB2\xB3\x03\x02" +
-		"\x02\x02\xB3\xB7\x03\x02\x02\x02\xB4\xB2\x03\x02\x02\x02\xB5\xB6\x07\b" +
-		"\x02\x02\xB6\xB8\x05\x1C\x0F\x02\xB7\xB5\x03\x02\x02\x02\xB7\xB8\x03\x02" +
-		"\x02\x02\xB8\xD7\x03\x02\x02\x02\xB9\xC9\x07\n\x02\x02\xBA\xBF\x073\x02" +
-		"\x02\xBB\xBD\x07\x16\x02\x02\xBC\xBE\x073\x02\x02\xBD\xBC\x03\x02\x02" +
-		"\x02\xBD\xBE\x03\x02\x02\x02\xBE\xC0\x03\x02\x02\x02\xBF\xBB\x03\x02\x02" +
-		"\x02\xBF\xC0\x03\x02\x02\x02\xC0\xC3\x03\x02\x02\x02\xC1\xC2\x07\x16\x02" +
-		"\x02\xC2\xC4\x073\x02\x02\xC3\xC1\x03\x02\x02\x02\xC3\xC4\x03\x02\x02" +
-		"\x02\xC4\xC5\x03\x02\x02\x02\xC5\xC7\x07\v\x02\x02\xC6\xBA\x03\x02\x02" +
-		"\x02\xC6\xC7\x03\x02\x02\x02\xC7\xC8\x03\x02\x02\x02\xC8\xCA\x05\x12\n" +
-		"\x02\xC9\xC6\x03\x02\x02\x02\xC9\xCA\x03\x02\x02\x02\xCA\xCB\x03\x02\x02" +
-		"\x02\xCB\xD7\x05\x1C\x0F\x02\xCC\xD7\x07\f\x02\x02\xCD\xCF\x07\r\x02\x02" +
-		"\xCE\xD0\x05\x12\n\x02\xCF\xCE\x03\x02\x02\x02\xCF\xD0\x03\x02\x02\x02" +
-		"\xD0\xD7\x03\x02\x02\x02\xD1\xD2\x073\x02\x02\xD2\xD3\x07\x17\x02\x02" +
-		"\xD3\xD7\x05\x12\n\x02\xD4\xD7\x05\x12\n\x02\xD5\xD7\x07\x0E\x02\x02\xD6" +
-		"\xA9\x03\x02\x02\x02\xD6\xB9\x03\x02\x02\x02\xD6\xCC\x03\x02\x02\x02\xD6" +
-		"\xCD\x03\x02\x02\x02\xD6\xD1\x03\x02\x02\x02\xD6\xD4\x03\x02\x02\x02\xD6" +
-		"\xD5\x03\x02\x02\x02\xD7\x11\x03\x02\x02\x02\xD8\xD9\b\n\x01\x02\xD9\u0123" +
-		"\x073\x02\x02\xDA\xDB\x07(\x02\x02\xDB\u0123\x073\x02\x02\xDC\u0123\x05" +
-		"\x14\v\x02\xDD\xE3\x070\x02\x02\xDE\xDF\x05\x12\n\x02\xDF\xE0\x071\x02" +
-		"\x02\xE0\xE2\x03\x02\x02\x02\xE1\xDE\x03\x02\x02\x02\xE2\xE5\x03\x02\x02" +
-		"\x02\xE3\xE1\x03\x02\x02\x02\xE3\xE4\x03\x02\x02\x02\xE4\xE6\x03\x02\x02" +
-		"\x02\xE5\xE3\x03\x02\x02\x02\xE6\xE7\x05\x12\n\x02\xE7\xE8\x072\x02\x02" +
-		"\xE8\u0123\x03\x02\x02\x02\xE9\xF2\x07\x10\x02\x02\xEA\xEF\x05\x12\n\x02" +
-		"\xEB\xEC\x07\x16\x02\x02\xEC\xEE\x05\x12\n\x02\xED\xEB\x03\x02\x02\x02" +
-		"\xEE\xF1\x03\x02\x02\x02\xEF\xED\x03\x02\x02\x02\xEF\xF0\x03\x02\x02\x02" +
-		"\xF0\xF3\x03\x02\x02\x02\xF1\xEF\x03\x02\x02\x02\xF2\xEA\x03\x02\x02\x02" +
-		"\xF2\xF3\x03\x02\x02\x02\xF3\xF4\x03\x02\x02\x02\xF4\u0123\x07\x11\x02" +
-		"\x02\xF5\u0102\x07\x14\x02\x02\xF6\xF7\x073\x02\x02\xF7\xF8\x07\x19\x02" +
-		"\x02\xF8\xFF\x05\x12\n\x02\xF9\xFA\x07\x16\x02\x02\xFA\xFB\x073\x02\x02" +
-		"\xFB\xFC\x07\x19\x02\x02\xFC\xFE\x05\x12\n\x02\xFD\xF9\x03\x02\x02\x02" +
-		"\xFE\u0101\x03\x02\x02\x02\xFF\xFD\x03\x02\x02\x02\xFF\u0100\x03\x02\x02" +
-		"\x02\u0100\u0103\x03\x02\x02\x02\u0101\xFF\x03\x02\x02\x02\u0102\xF6\x03" +
-		"\x02\x02\x02\u0102\u0103\x03\x02\x02\x02\u0103\u0104\x03\x02\x02\x02\u0104" +
-		"\u0123\x07\x15\x02\x02\u0105\u0106\x07\x12\x02\x02\u0106\u0107\x05\x12" +
-		"\n\x02\u0107\u0108\x07\x13\x02\x02\u0108\u0123\x03\x02\x02\x02\u0109\u011F" +
-		"\x07*\x02\x02\u010A\u010B\x073\x02\x02\u010B\u0111\x05\n\x06\x02\u010C" +
-		"\u010D\x07\x16\x02\x02\u010D\u010E\x073\x02\x02\u010E\u0110\x05\n\x06" +
-		"\x02\u010F\u010C\x03\x02\x02\x02\u0110\u0113\x03\x02\x02\x02\u0111\u010F" +
-		"\x03\x02\x02\x02\u0111\u0112\x03\x02\x02\x02\u0112\u0114\x03\x02\x02\x02" +
-		"\u0113\u0111\x03\x02\x02\x02\u0114\u0115\x07\x19\x02\x02\u0115\u0120\x03" +
-		"\x02\x02\x02\u0116\u011B\x073\x02\x02\u0117\u0118\x07\x16\x02\x02\u0118" +
-		"\u011A\x073\x02\x02\u0119\u0117\x03\x02\x02\x02\u011A\u011D\x03\x02\x02" +
-		"\x02\u011B\u0119\x03\x02\x02\x02\u011B\u011C\x03\x02\x02\x02\u011C\u011E" +
-		"\x03\x02\x02\x02\u011D\u011B\x03\x02\x02\x02\u011E\u0120\x07\x19\x02\x02" +
-		"\u011F\u010A\x03\x02\x02\x02\u011F\u0116\x03\x02\x02\x02\u011F\u0120\x03" +
-		"\x02\x02\x02\u0120\u0121\x03\x02\x02\x02\u0121\u0123\x05\x12\n\x03\u0122" +
-		"\xD8\x03\x02\x02\x02\u0122\xDA\x03\x02\x02\x02\u0122\xDC\x03\x02\x02\x02" +
-		"\u0122\xDD\x03\x02\x02\x02\u0122\xE9\x03\x02\x02\x02\u0122\xF5\x03\x02" +
-		"\x02\x02\u0122\u0105\x03\x02\x02\x02\u0122\u0109\x03\x02\x02\x02\u0123" +
-		"\u0144\x03\x02\x02\x02\u0124\u0125\f\n\x02\x02\u0125\u012E\x07\x12\x02" +
-		"\x02\u0126\u012B\x05\x1A\x0E\x02\u0127\u0128\x07\x16\x02\x02\u0128\u012A" +
-		"\x05\x1A\x0E\x02\u0129\u0127\x03\x02\x02\x02\u012A\u012D\x03\x02\x02\x02" +
-		"\u012B\u0129\x03\x02\x02\x02\u012B\u012C\x03\x02\x02\x02\u012C\u012F\x03" +
-		"\x02\x02\x02\u012D\u012B\x03\x02\x02\x02\u012E\u0126\x03\x02\x02\x02\u012E" +
-		"\u012F\x03\x02\x02\x02\u012F\u0130\x03\x02\x02\x02\u0130\u0143\x07\x13" +
-		"\x02\x02\u0131\u0132\f\t\x02\x02\u0132\u0133\x07\x10\x02\x02\u0133\u0134" +
-		"\x05\x12\n\x02\u0134\u0135\x07\x11\x02\x02\u0135\u0143\x03\x02\x02\x02" +
-		"\u0136\u0138\f\b\x02\x02\u0137\u0139\x05\x16\f\x02\u0138\u0137\x03\x02" +
-		"\x02\x02\u0139\u013A\x03\x02\x02\x02\u013A\u0138\x03\x02\x02\x02\u013A" +
-		"\u013B\x03\x02\x02\x02\u013B\u013F\x03\x02\x02\x02\u013C\u013E\x05\x12" +
-		"\n\x02\u013D\u013C\x03\x02\x02\x02\u013E\u0141\x03\x02\x02\x02\u013F\u013D" +
-		"\x03\x02\x02\x02\u013F\u0140\x03\x02\x02\x02\u0140\u0143\x03\x02\x02\x02" +
-		"\u0141\u013F\x03\x02\x02\x02\u0142\u0124\x03\x02\x02\x02\u0142\u0131\x03" +
-		"\x02\x02\x02\u0142\u0136\x03\x02\x02\x02\u0143\u0146\x03\x02\x02\x02\u0144" +
-		"\u0142\x03\x02\x02\x02\u0144\u0145\x03\x02\x02\x02\u0145\x13\x03\x02\x02" +
-		"\x02\u0146\u0144\x03\x02\x02\x02\u0147\u014D\x07+\x02\x02\u0148\u014D" +
-		"\x07-\x02\x02\u0149\u014D\x07,\x02\x02\u014A\u014D\x07.\x02\x02\u014B" +
-		"\u014D\x07/\x02\x02\u014C\u0147\x03\x02\x02\x02\u014C\u0148\x03\x02\x02" +
-		"\x02\u014C\u0149\x03\x02\x02\x02\u014C\u014A\x03\x02\x02\x02\u014C\u014B" +
-		"\x03\x02\x02\x02\u014D\x15\x03\x02\x02\x02\u014E\u014F\t\x02\x02\x02\u014F" +
-		"\x17\x03\x02\x02\x02\u0150\u0151\x073\x02\x02\u0151\u0152\x05\n\x06\x02" +
-		"\u0152\x19\x03\x02\x02\x02\u0153\u0154\x073\x02\x02\u0154\u0156\x07\x17" +
-		"\x02\x02\u0155\u0153\x03\x02\x02\x02\u0155\u0156\x03\x02\x02\x02\u0156" +
-		"\u0157\x03\x02\x02\x02\u0157\u0158\x05\x12\n\x02\u0158\x1B\x03\x02\x02" +
-		"\x02\u0159\u015A\x07\x19\x02\x02\u015A\u015B\x07\x0F\x02\x02\u015B\u015E" +
-		"\x07\x03\x02\x02\u015C\u015F\x05\x10\t\x02\u015D\u015F\x07\x0F\x02\x02" +
-		"\u015E\u015C\x03\x02\x02\x02\u015E\u015D\x03\x02\x02\x02\u015F\u0160\x03" +
-		"\x02\x02\x02\u0160\u015E\x03\x02\x02\x02\u0160\u0161\x03\x02\x02\x02\u0161" +
-		"\u0162\x03\x02\x02\x02\u0162\u0163\x07\x04\x02\x02\u0163\x1D\x03\x02\x02" +
-		"\x027\"$.6?ENSW[`givy}\x80\x89\x8C\x90\x95\x9D\xA0\xA5\xA7\xB2\xB7\xBD" +
-		"\xBF\xC3\xC6\xC9\xCF\xD6\xE3\xEF\xF2\xFF\u0102\u0111\u011B\u011F\u0122" +
-		"\u012B\u012E\u013A\u013F\u0142\u0144\u014C\u0155\u015E\u0160";
+		"\x03\x02\x02\x02\x96\x97\x03\x02\x02\x02\x97\x98\x07\x12\x02\x02\x98\x99" +
+		"\x05\x18\r\x02\x99\x9A\x07\x16\x02\x02\x9A\x9B\x05\x18\r\x02\x9B\x9C\x07" +
+		"\x13\x02\x02\x9C\x9E\x05\n\x06\x02\x9D\x9F\x05\x1C\x0F\x02\x9E\x9D\x03" +
+		"\x02\x02\x02\x9E\x9F\x03\x02\x02\x02\x9F\xA1\x03\x02\x02\x02\xA0m\x03" +
+		"\x02\x02\x02\xA0o\x03\x02\x02\x02\xA0\x82\x03\x02\x02\x02\xA0\x93\x03" +
+		"\x02\x02\x02\xA1\x0F\x03\x02\x02\x02\xA2\xA3\x07\x07\x02\x02\xA3\xA4\x05" +
+		"\x12\n\x02\xA4\xAB\x05\x1C\x0F\x02\xA5\xA6\x07\t\x02\x02\xA6\xA7\x05\x12" +
+		"\n\x02\xA7\xA8\x05\x1C\x0F\x02\xA8\xAA\x03\x02\x02\x02\xA9\xA5\x03\x02" +
+		"\x02\x02\xAA\xAD\x03\x02\x02\x02\xAB\xA9\x03\x02\x02\x02\xAB\xAC\x03\x02" +
+		"\x02\x02\xAC\xB0\x03\x02\x02\x02\xAD\xAB\x03\x02\x02\x02\xAE\xAF\x07\b" +
+		"\x02\x02\xAF\xB1\x05\x1C\x0F\x02\xB0\xAE\x03\x02\x02\x02\xB0\xB1\x03\x02" +
+		"\x02\x02\xB1\xD0\x03\x02\x02\x02\xB2\xC2\x07\n\x02\x02\xB3\xB8\x073\x02" +
+		"\x02\xB4\xB6\x07\x16\x02\x02\xB5\xB7\x073\x02\x02\xB6\xB5\x03\x02\x02" +
+		"\x02\xB6\xB7\x03\x02\x02\x02\xB7\xB9\x03\x02\x02\x02\xB8\xB4\x03\x02\x02" +
+		"\x02\xB8\xB9\x03\x02\x02\x02\xB9\xBC\x03\x02\x02\x02\xBA\xBB\x07\x16\x02" +
+		"\x02\xBB\xBD\x073\x02\x02\xBC\xBA\x03\x02\x02\x02\xBC\xBD\x03\x02\x02" +
+		"\x02\xBD\xBE\x03\x02\x02\x02\xBE\xC0\x07\v\x02\x02\xBF\xB3\x03\x02\x02" +
+		"\x02\xBF\xC0\x03\x02\x02\x02\xC0\xC1\x03\x02\x02\x02\xC1\xC3\x05\x12\n" +
+		"\x02\xC2\xBF\x03\x02\x02\x02\xC2\xC3\x03\x02\x02\x02\xC3\xC4\x03\x02\x02" +
+		"\x02\xC4\xD0\x05\x1C\x0F\x02\xC5\xD0\x07\f\x02\x02\xC6\xC8\x07\r\x02\x02" +
+		"\xC7\xC9\x05\x12\n\x02\xC8\xC7\x03\x02\x02\x02\xC8\xC9\x03\x02\x02\x02" +
+		"\xC9\xD0\x03\x02\x02\x02\xCA\xCB\x073\x02\x02\xCB\xCC\x07\x17\x02\x02" +
+		"\xCC\xD0\x05\x12\n\x02\xCD\xD0\x05\x12\n\x02\xCE\xD0\x07\x0E\x02\x02\xCF" +
+		"\xA2\x03\x02\x02\x02\xCF\xB2\x03\x02\x02\x02\xCF\xC5\x03\x02\x02\x02\xCF" +
+		"\xC6\x03\x02\x02\x02\xCF\xCA\x03\x02\x02\x02\xCF\xCD\x03\x02\x02\x02\xCF" +
+		"\xCE\x03\x02\x02\x02\xD0\x11\x03\x02\x02\x02\xD1\xD2\b\n\x01\x02\xD2\u011C" +
+		"\x073\x02\x02\xD3\xD4\x07(\x02\x02\xD4\u011C\x073\x02\x02\xD5\u011C\x05" +
+		"\x14\v\x02\xD6\xDC\x070\x02\x02\xD7\xD8\x05\x12\n\x02\xD8\xD9\x071\x02" +
+		"\x02\xD9\xDB\x03\x02\x02\x02\xDA\xD7\x03\x02\x02\x02\xDB\xDE\x03\x02\x02" +
+		"\x02\xDC\xDA\x03\x02\x02\x02\xDC\xDD\x03\x02\x02\x02\xDD\xDF\x03\x02\x02" +
+		"\x02\xDE\xDC\x03\x02\x02\x02\xDF\xE0\x05\x12\n\x02\xE0\xE1\x072\x02\x02" +
+		"\xE1\u011C\x03\x02\x02\x02\xE2\xEB\x07\x10\x02\x02\xE3\xE8\x05\x12\n\x02" +
+		"\xE4\xE5\x07\x16\x02\x02\xE5\xE7\x05\x12\n\x02\xE6\xE4\x03\x02\x02\x02" +
+		"\xE7\xEA\x03\x02\x02\x02\xE8\xE6\x03\x02\x02\x02\xE8\xE9\x03\x02\x02\x02" +
+		"\xE9\xEC\x03\x02\x02\x02\xEA\xE8\x03\x02\x02\x02\xEB\xE3\x03\x02\x02\x02" +
+		"\xEB\xEC\x03\x02\x02\x02\xEC\xED\x03\x02\x02\x02\xED\u011C\x07\x11\x02" +
+		"\x02\xEE\xFB\x07\x14\x02\x02\xEF\xF0\x073\x02\x02\xF0\xF1\x07\x19\x02" +
+		"\x02\xF1\xF8\x05\x12\n\x02\xF2\xF3\x07\x16\x02\x02\xF3\xF4\x073\x02\x02" +
+		"\xF4\xF5\x07\x19\x02\x02\xF5\xF7\x05\x12\n\x02\xF6\xF2\x03\x02\x02\x02" +
+		"\xF7\xFA\x03\x02\x02\x02\xF8\xF6\x03\x02\x02\x02\xF8\xF9\x03\x02\x02\x02" +
+		"\xF9\xFC\x03\x02\x02\x02\xFA\xF8\x03\x02\x02\x02\xFB\xEF\x03\x02\x02\x02" +
+		"\xFB\xFC\x03\x02\x02\x02\xFC\xFD\x03\x02\x02\x02\xFD\u011C\x07\x15\x02" +
+		"\x02\xFE\xFF\x07\x12\x02\x02\xFF\u0100\x05\x12\n\x02\u0100\u0101\x07\x13" +
+		"\x02\x02\u0101\u011C\x03\x02\x02\x02\u0102\u0118\x07*\x02\x02\u0103\u0104" +
+		"\x073\x02\x02\u0104\u010A\x05\n\x06\x02\u0105\u0106\x07\x16\x02\x02\u0106" +
+		"\u0107\x073\x02\x02\u0107\u0109\x05\n\x06\x02\u0108\u0105\x03\x02\x02" +
+		"\x02\u0109\u010C\x03\x02\x02\x02\u010A\u0108\x03\x02\x02\x02\u010A\u010B" +
+		"\x03\x02\x02\x02\u010B\u010D\x03\x02\x02\x02\u010C\u010A\x03\x02\x02\x02" +
+		"\u010D\u010E\x07\x19\x02\x02\u010E\u0119\x03\x02\x02\x02\u010F\u0114\x07" +
+		"3\x02\x02\u0110\u0111\x07\x16\x02\x02\u0111\u0113\x073\x02\x02\u0112\u0110" +
+		"\x03\x02\x02\x02\u0113\u0116\x03\x02\x02\x02\u0114\u0112\x03\x02\x02\x02" +
+		"\u0114\u0115\x03\x02\x02\x02\u0115\u0117\x03\x02\x02\x02\u0116\u0114\x03" +
+		"\x02\x02\x02\u0117\u0119\x07\x19\x02\x02\u0118\u0103\x03\x02\x02\x02\u0118" +
+		"\u010F\x03\x02\x02\x02\u0118\u0119\x03\x02\x02\x02\u0119\u011A\x03\x02" +
+		"\x02\x02\u011A\u011C\x05\x12\n\x03\u011B\xD1\x03\x02\x02\x02\u011B\xD3" +
+		"\x03\x02\x02\x02\u011B\xD5\x03\x02\x02\x02\u011B\xD6\x03\x02\x02\x02\u011B" +
+		"\xE2\x03\x02\x02\x02\u011B\xEE\x03\x02\x02\x02\u011B\xFE\x03\x02\x02\x02" +
+		"\u011B\u0102\x03\x02\x02\x02\u011C\u0139\x03\x02\x02\x02\u011D\u011F\f" +
+		"\b\x02\x02\u011E\u0120\x05\x16\f\x02\u011F\u011E\x03\x02\x02\x02\u0120" +
+		"\u0121\x03\x02\x02\x02\u0121\u011F\x03\x02\x02\x02\u0121\u0122\x03\x02" +
+		"\x02\x02\u0122\u0123\x03\x02\x02\x02\u0123\u0124\x05\x12\n\t\u0124\u0138" +
+		"\x03\x02\x02\x02\u0125\u0126\f\n\x02\x02\u0126\u012F\x07\x12\x02\x02\u0127" +
+		"\u012C\x05\x1A\x0E\x02\u0128\u0129\x07\x16\x02\x02\u0129\u012B\x05\x1A" +
+		"\x0E\x02\u012A\u0128\x03\x02\x02\x02\u012B\u012E\x03\x02\x02\x02\u012C" +
+		"\u012A\x03\x02\x02\x02\u012C\u012D\x03\x02\x02\x02\u012D\u0130\x03\x02" +
+		"\x02\x02\u012E\u012C\x03\x02\x02\x02\u012F\u0127\x03\x02\x02\x02\u012F" +
+		"\u0130\x03\x02\x02\x02\u0130\u0131\x03\x02\x02\x02\u0131\u0138\x07\x13" +
+		"\x02\x02\u0132\u0133\f\t\x02\x02\u0133\u0134\x07\x10\x02\x02\u0134\u0135" +
+		"\x05\x12\n\x02\u0135\u0136\x07\x11\x02\x02\u0136\u0138\x03\x02\x02\x02" +
+		"\u0137\u011D\x03\x02\x02\x02\u0137\u0125\x03\x02\x02\x02\u0137\u0132\x03" +
+		"\x02\x02\x02\u0138\u013B\x03\x02\x02\x02\u0139\u0137\x03\x02\x02\x02\u0139" +
+		"\u013A\x03\x02\x02\x02\u013A\x13\x03\x02\x02\x02\u013B\u0139\x03\x02\x02" +
+		"\x02\u013C\u0142\x07+\x02\x02\u013D\u0142\x07-\x02\x02\u013E\u0142\x07" +
+		",\x02\x02\u013F\u0142\x07.\x02\x02\u0140\u0142\x07/\x02\x02\u0141\u013C" +
+		"\x03\x02\x02\x02\u0141\u013D\x03\x02\x02\x02\u0141\u013E\x03\x02\x02\x02" +
+		"\u0141\u013F\x03\x02\x02\x02\u0141\u0140\x03\x02\x02\x02\u0142\x15\x03" +
+		"\x02\x02\x02\u0143\u0144\t\x02\x02\x02\u0144\x17\x03\x02\x02\x02\u0145" +
+		"\u0147\x073\x02\x02\u0146\u0148\x05\n\x06\x02\u0147\u0146\x03\x02\x02" +
+		"\x02\u0147\u0148\x03\x02\x02\x02\u0148\x19\x03\x02\x02\x02\u0149\u014A" +
+		"\x073\x02\x02\u014A\u014C\x07\x17\x02\x02\u014B\u0149\x03\x02\x02\x02" +
+		"\u014B\u014C\x03\x02\x02\x02\u014C\u014D\x03\x02\x02\x02\u014D\u014E\x05" +
+		"\x12\n\x02\u014E\x1B\x03\x02\x02\x02\u014F\u0150\x07\x19\x02\x02\u0150" +
+		"\u0151\x07\x0F\x02\x02\u0151\u0154\x07\x03\x02\x02\u0152\u0155\x05\x10" +
+		"\t\x02\u0153\u0155\x07\x0F\x02\x02\u0154\u0152\x03\x02\x02\x02\u0154\u0153" +
+		"\x03\x02\x02\x02\u0155\u0156\x03\x02\x02\x02\u0156\u0154\x03\x02\x02\x02" +
+		"\u0156\u0157\x03\x02\x02\x02\u0157\u0158\x03\x02\x02\x02\u0158\u0159\x07" +
+		"\x04\x02\x02\u0159\x1D\x03\x02\x02\x025\"$.6?ENSW[`givy}\x80\x89\x8C\x90" +
+		"\x95\x9E\xA0\xAB\xB0\xB6\xB8\xBC\xBF\xC2\xC8\xCF\xDC\xE8\xEB\xF8\xFB\u010A" +
+		"\u0114\u0118\u011B\u0121\u012C\u012F\u0137\u0139\u0141\u0147\u014B\u0154" +
+		"\u0156";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!XonParser.__ATN) {
@@ -2059,6 +2021,16 @@ export class InitMemberContext extends MemberContext {
 }
 export class OperatorMemberContext extends MemberContext {
 	public OpenParen(): TerminalNode { return this.getToken(XonParser.OpenParen, 0); }
+	public parameter(): ParameterContext[];
+	public parameter(i: number): ParameterContext;
+	public parameter(i?: number): ParameterContext | ParameterContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(ParameterContext);
+		} else {
+			return this.getRuleContext(i, ParameterContext);
+		}
+	}
+	public Comma(): TerminalNode { return this.getToken(XonParser.Comma, 0); }
 	public CloseParen(): TerminalNode { return this.getToken(XonParser.CloseParen, 0); }
 	public type(): TypeContext {
 		return this.getRuleContext(0, TypeContext);
@@ -2072,26 +2044,8 @@ export class OperatorMemberContext extends MemberContext {
 			return this.getRuleContext(i, OperatorContext);
 		}
 	}
-	public parameter(): ParameterContext[];
-	public parameter(i: number): ParameterContext;
-	public parameter(i?: number): ParameterContext | ParameterContext[] {
-		if (i === undefined) {
-			return this.getRuleContexts(ParameterContext);
-		} else {
-			return this.getRuleContext(i, ParameterContext);
-		}
-	}
 	public body(): BodyContext | undefined {
 		return this.tryGetRuleContext(0, BodyContext);
-	}
-	public Comma(): TerminalNode[];
-	public Comma(i: number): TerminalNode;
-	public Comma(i?: number): TerminalNode | TerminalNode[] {
-		if (i === undefined) {
-			return this.getTokens(XonParser.Comma);
-		} else {
-			return this.getToken(XonParser.Comma, i);
-		}
 	}
 	constructor(ctx: MemberContext) {
 		super(ctx.parent, ctx.invokingState);
@@ -2307,9 +2261,6 @@ export class IndexExpressionContext extends ExpressionContext {
 	}
 }
 export class OperatorExpressionContext extends ExpressionContext {
-	public _value!: ExpressionContext;
-	public _expression!: ExpressionContext;
-	public _args: ExpressionContext[] = [];
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -2553,8 +2504,8 @@ export class OperatorContext extends ParserRuleContext {
 
 export class ParameterContext extends ParserRuleContext {
 	public ID(): TerminalNode { return this.getToken(XonParser.ID, 0); }
-	public type(): TypeContext {
-		return this.getRuleContext(0, TypeContext);
+	public type(): TypeContext | undefined {
+		return this.tryGetRuleContext(0, TypeContext);
 	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
