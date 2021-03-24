@@ -19,3 +19,7 @@ Integer is Number:
     / (a, b Integer) Integer
     / (a, b Float) Float
     / (a, b Char) Integer
+
+
+    + (a#Index, b Integer#Literal) TestIndex
+    + (a#Funtion, b Integer#Literal) TestFunction
