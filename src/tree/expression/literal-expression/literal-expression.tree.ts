@@ -13,8 +13,8 @@ export class LiteralExpressionTree extends ExpressionTree {
   }
 
   public getType(): TypeTree {
-    const typeTree = new TypeTree();
-    typeTree.name = this.literal.constructor.name.replace(/LiteralTree/, '');
-    return typeTree;
+    return TypeTree.create(this.literal.constructor.name.replace(/LiteralTree/, '')).setMetaName(
+      this,
+    );
   }
 }

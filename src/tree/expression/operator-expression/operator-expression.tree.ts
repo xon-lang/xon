@@ -14,11 +14,7 @@ export class OperatorExpressionTree extends ExpressionTree {
   public constructor(public ctx: OperatorExpressionContext) {
     super();
 
-    this.operator = ctx
-      .operator()
-      .map((x) => x.text)
-      .join('');
-
+    this.operator = ctx.operator().text;
     this.left = getExpressionTree(ctx.expression(0));
     this.right = getExpressionTree(ctx.expression(1));
   }

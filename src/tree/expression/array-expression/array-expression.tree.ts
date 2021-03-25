@@ -8,11 +8,12 @@ export class ArrayExpressionTree extends ExpressionTree {
 
   public constructor(public ctx?: ArrayExpressionContext) {
     super();
-    this.items = ctx.expression().map(getExpressionTree);
-    // check items type consistency
+    this.items = ctx.expression().map(getExpressionTree) || [];
+    if (!this.items.every((x) => x.getType().name === this.items[0].getType().name))
+      throw new Error('All items should be the same type');
   }
 
   public getType(): TypeTree {
-    return TypeTree.create('Array', this.items.length ? this.items[0].getType() : 'Any');
+    return TypeTree.create('Array', this.items[0].getType());
   }
 }
