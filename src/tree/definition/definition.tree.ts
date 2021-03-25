@@ -42,7 +42,7 @@ export class DefinitionTree extends BaseTree {
       if (member instanceof InitMemberContext) this.inits.push(new InitMemberTree(member));
 
       if (member instanceof OperatorMemberContext)
-        this.operators.push(new OperatorMemberTree(member));
+        this.operators.push(new OperatorMemberTree(member, this));
     });
 
     this.isAbstract = this.methods.some((x) => x.isAbstract);

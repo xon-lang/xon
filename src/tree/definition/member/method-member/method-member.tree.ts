@@ -23,6 +23,8 @@ export class MethodMemberTree extends MemberTree {
   public constructor(public ctx: MethodMemberContext) {
     super();
 
+    this.identifierStack.pushScope()
+
     this.name = ctx.ID().text;
     this.isPrivate = this.name.startsWith('_');
     this.isAbstract = !ctx.body();
@@ -30,8 +32,11 @@ export class MethodMemberTree extends MemberTree {
       name: x.ID().text,
       type: new TypeTree(x.type()),
     }));
+    this.parameters.forEach((x) => this.identifierStack.add({ name: x.name, type: x.type }));
 
     this.returnType = ctx.type() && new TypeTree(ctx.type());
+
     this.statements = ctx.body() && getStatementsTrees(ctx.body());
+    this.identifierStack.popScope()
   }
 }

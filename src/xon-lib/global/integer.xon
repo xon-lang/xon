@@ -1,25 +1,25 @@
 Integer is Number:
-    + (a, b Boolean) Integer
-    + (a, b Integer) Integer
-    + (a, b Float) Float
-    + (a, b Char) Integer
-    + (a, b String) String
+    + (a Integer, b Boolean) Integer
+    + (a Integer, b Integer) Integer
+    + (a Integer, b Float) Float
+    + (a Integer, b Char) Integer
+    + (a Integer, b String) String
 
-    - (a, b Boolean) Integer
-    - (a, b Integer) Integer
-    - (a, b Float) Float
-    - (a, b Char) Integer
+    - (a Integer, b Boolean) Integer
+    - (a Integer, b Integer) Integer
+    - (a Integer, b Float) Float
+    - (a Integer, b Char) Integer
 
-    * (a, b Boolean) Integer
-    * (a, b Integer) Integer
-    * (a, b Float) Float
-    * (a, b Char) Integer
+    * (a Integer, b Boolean) Integer
+    * (a Integer, b Integer) Integer
+    * (a Integer, b Float) Float
+    * (a Integer, b Char) Integer
 
-    / (a, b Boolean) Integer
-    / (a, b Integer) Integer
-    / (a, b Float) Float
-    / (a, b Char) Integer
+    / (a Integer, b Boolean) Integer
+    / (a Integer, b Integer) Integer
+    / (a Integer, b Float) Float
+    / (a Integer, b Char) Integer
 
 
-    + (a#Index, b Integer#Literal) TestIndex
-    + (a#Funtion, b Integer#Literal) TestFunction
+    + (a Integer#Index, b Integer#Literal) TestIndex
+    + (a Integer#Funtion, b Integer#Literal) TestFunction

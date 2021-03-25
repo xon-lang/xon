@@ -1,21 +1,21 @@
 Float is Number:
-    + (a, b Boolean) Float
-    + (a, b Integer) Float
-    + (a, b Float) Float
-    + (a, b Char) Float
-    + (a, b String) String
+    + (a Float, b Boolean) Float
+    + (a Float, b Integer) Float
+    + (a Float, b Float) Float
+    + (a Float, b Char) Float
+    + (a Float, b String) String
 
-    - (a, b Boolean) Float
-    - (a, b Integer) Float
-    - (a, b Float) Float
-    - (a, b Char) Float
+    - (a Float, b Boolean) Float
+    - (a Float, b Integer) Float
+    - (a Float, b Float) Float
+    - (a Float, b Char) Float
 
-    * (a, b Boolean) Float
-    * (a, b Integer) Float
-    * (a, b Float) Float
-    * (a, b Char) Float
+    * (a Float, b Boolean) Float
+    * (a Float, b Integer) Float
+    * (a Float, b Float) Float
+    * (a Float, b Char) Float
 
-    / (a, b Boolean) Float
-    / (a, b Integer) Float
-    / (a, b Float) Float
-    / (a, b Char) Float
+    / (a Float, b Boolean) Float
+    / (a Float, b Integer) Float
+    / (a Float, b Float) Float
+    / (a Float, b Char) Float

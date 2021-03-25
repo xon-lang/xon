@@ -1,5 +1,11 @@
+import { IdentifierStack } from '../../../../identifier-stack';
 import { parseMember } from '../../../../parse';
+import { BaseTree } from '../../../base.tree';
 import { MethodMemberTree } from './method-member.tree';
+
+beforeEach(() => {
+  BaseTree.identifierStack = new IdentifierStack();
+});
 
 test('method member', () => {
   const code = '_funcName(argA Integer, argB Float, argC String) String:\n    log(222)';

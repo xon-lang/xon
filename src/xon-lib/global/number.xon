@@ -1,13 +1,13 @@
 Number:
-    + (a, b Boolean) Number
-    + (a, b Number) Number
-    + (a, b String) String
+    + (a Number, b Boolean) Number
+    + (a Number, b Number) Number
+    + (a Number, b String) String
 
-    - (a, b Boolean) Number
-    - (a, b Number) Number
+    - (a Number, b Boolean) Number
+    - (a Number, b Number) Number
 
-    * (a, b Boolean) Number
-    * (a, b Number) Number
+    * (a Number, b Boolean) Number
+    * (a Number, b Number) Number
 
-    / (a, b Boolean) Number
-    / (a, b Number) Number
+    / (a Number, b Boolean) Number
+    / (a Number, b Number) Number
