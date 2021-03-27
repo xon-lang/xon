@@ -63,6 +63,6 @@ export const parseLibrary = (code: string): LibraryTree => new LibraryTree(parse
 
 export function parseProgram<T extends ProgramTree>(code: string): T {
   const tree = new ProgramTree(parse(code).program()) as T;
-  // new ProgramValidator(tree).issues().forEach((x) => console.error(x.toString()));
+  // issues.forEach(x=>console.error(x.toString()));
   return tree;
 }
