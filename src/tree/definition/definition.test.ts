@@ -52,8 +52,8 @@ test('one scope', () => {
   const innerMethod = (tree.methods[1].statements[0] as ExpressionStatementTree)
     .value as FunctionExpressionTree;
   const functionExpression = innerMethod.object as IdExpressionTree;
-  expect(functionExpression.name).toBe('coord');
-  expect(innerMethod.args.length).toBe(2);
+  expect(functionExpression.name).toBe('pos');
+  expect(innerMethod.arguments.length).toBe(2);
 
   expect(tree.operators.length).toBe(1);
   expect(tree.operators[0].name).toBe('+');

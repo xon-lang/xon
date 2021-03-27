@@ -1,4 +1,5 @@
 import { MethodMemberContext } from '../../../../grammar/xon-parser';
+import { ParameterTree } from '../../../parameter/parameter.tree';
 import { getStatementsTrees } from '../../../statement/statement-helper';
 import { StatementTree } from '../../../statement/statement.tree';
 import { TypeTree } from '../../../type/type.tree';
@@ -11,10 +12,7 @@ export class MethodMemberTree extends MemberTree {
 
   public isAbstract: boolean;
 
-  public parameters: {
-    name: string;
-    type: TypeTree;
-  }[];
+  public parameters: ParameterTree[];
 
   public returnType?: TypeTree;
 
@@ -23,20 +21,14 @@ export class MethodMemberTree extends MemberTree {
   public constructor(public ctx: MethodMemberContext) {
     super();
 
-    this.identifierStorage.pushScope()
-
+    this.identifierStorage.pushScope();
     this.name = ctx.ID().text;
     this.isPrivate = this.name.startsWith('_');
     this.isAbstract = !ctx.body();
-    this.parameters = ctx.parameter().map((x) => ({
-      name: x.ID().text,
-      type: new TypeTree(x.type()),
-    }));
-    this.parameters.forEach((x) => this.identifierStorage.add({ name: x.name, type: x.type }));
-
+    this.parameters = ctx.parameter().map((x) => new ParameterTree(x));
+    this.parameters.forEach((x) => this.identifierStorage.addParameter(x));
     this.returnType = ctx.type() && new TypeTree(ctx.type());
-
     this.statements = ctx.body() && getStatementsTrees(ctx.body());
-    this.identifierStorage.popScope()
+    this.identifierStorage.popScope();
   }
 }
