@@ -1,4 +1,5 @@
 import { MethodMemberContext } from '../../../../grammar/xon-parser';
+import { IdService } from '../../../../id-service/id-service';
 import { ParameterTree } from '../../../parameter/parameter.tree';
 import { getStatementsTrees } from '../../../statement/statement-helper';
 import { StatementTree } from '../../../statement/statement.tree';
@@ -21,14 +22,14 @@ export class MethodMemberTree extends MemberTree {
   public constructor(public ctx: MethodMemberContext) {
     super();
 
-    this.identifierStorage.pushScope();
+    IdService.instance.pushScope();
     this.name = ctx.ID().text;
     this.isPrivate = this.name.startsWith('_');
     this.isAbstract = !ctx.body();
     this.parameters = ctx.parameter().map((x) => new ParameterTree(x));
-    this.parameters.forEach((x) => this.identifierStorage.addParameter(x));
+    this.parameters.forEach((x) => IdService.instance.addParameter(x));
     this.returnType = ctx.type() && new TypeTree(ctx.type());
     this.statements = ctx.body() && getStatementsTrees(ctx.body());
-    this.identifierStorage.popScope();
+    IdService.instance.popScope();
   }
 }

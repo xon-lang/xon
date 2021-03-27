@@ -5,7 +5,7 @@ import {
   OperatorMemberContext,
   PropertyMemberContext,
 } from '../../grammar/xon-parser';
-import { addIssue } from '../../issue/issue-service';
+import { IssueService } from '../../issue-service/issue-service';
 import { BaseTree } from '../base.tree';
 import { TypeTree } from '../type/type.tree';
 import { InitMemberTree } from './member/init-member/init-member.tree';
@@ -53,14 +53,17 @@ export class DefinitionTree extends BaseTree {
   private validate() {
     // definition name
     if (this.name[0] === this.name[0].toLowerCase())
-      addIssue(this.ctx, `Definition name "${this.name}" must start from uppercase letter`);
+      IssueService.instance.add(
+        this,
+        `Definition name "${this.name}" must start from uppercase letter`,
+      );
 
     // first param of operator overloading
     this.operators
       .filter((x) => x.parameters[0].type.name !== this.name)
       .forEach((x) =>
-        addIssue(
-          x.ctx,
+        IssueService.instance.add(
+          x,
           `The first operator overload "${x.name}" parameter "${x.parameters[0].name}" must be "${this.name}"`,
         ),
       );

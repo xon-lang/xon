@@ -1,4 +1,5 @@
 import { IdExpressionContext } from '../../../grammar/xon-parser';
+import { IdService } from '../../../id-service/id-service';
 import { TypeTree } from '../../type/type.tree';
 import { ExpressionTree } from '../expression.tree';
 
@@ -11,6 +12,6 @@ export class IdExpressionTree extends ExpressionTree {
   }
 
   public getType(): TypeTree {
-    return this.identifierStorage.find(this.name).type.setMetaName(this);
+    return IdService.instance.find(this.name).type.setMetaName(this);
   }
 }

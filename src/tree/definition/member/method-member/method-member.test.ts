@@ -1,11 +1,9 @@
-import { IdentifierStorage } from '../../../../identifier-storage';
 import { parseMember } from '../../../../parse';
-import { BaseTree } from '../../../base.tree';
 import { MethodMemberTree } from './method-member.tree';
 
-beforeEach(() => {
-  BaseTree.identifierStorage = new IdentifierStorage();
-});
+// beforeEach(() => {
+//   BaseTree.identifierStorage = new IdentifierStorage();
+// });
 
 test('method member', () => {
   const code = '_funcName(argA Integer, argB Float, argC String) String:\n    log(222)';
