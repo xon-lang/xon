@@ -1,18 +1,20 @@
-import { ParserRuleContext } from 'antlr4ts';
-import { addIssue } from './issue/issue-service';
-import { ExpressionTree } from './tree/expression/expression.tree';
-import { ParameterTree } from './tree/parameter/parameter.tree';
-import { AssignmentStatementTree } from './tree/statement/assignment-statement/assignment-statement.tree';
-import { TypeTree } from './tree/type/type.tree';
+import { IssueService } from '../issue-service/issue-service';
+import { BaseTree } from '../tree/base.tree';
+import { ExpressionTree } from '../tree/expression/expression.tree';
+import { ParameterTree } from '../tree/parameter/parameter.tree';
+import { AssignmentStatementTree } from '../tree/statement/assignment-statement/assignment-statement.tree';
+import { TypeTree } from '../tree/type/type.tree';
 
 export type IdentifierItem = {
-  ctx: ParserRuleContext;
+  tree: BaseTree;
   name: string;
   type: TypeTree;
   value?: ExpressionTree;
 };
 
-export class IdentifierStorage {
+export class IdService {
+  public static instance = new IdService();
+
   private scopes: IdentifierItem[][] = [[]];
 
   private get lastScope(): IdentifierItem[] {
@@ -34,20 +36,20 @@ export class IdentifierStorage {
 
   public add(item: IdentifierItem): void {
     if (this.find(item.name))
-      addIssue(item.ctx, `"${item.name}" already exists in the current scope`);
+      IssueService.instance.add(item.tree, `"${item.name}" already exists in the current scope`);
     this.lastScope.unshift(item);
   }
 
   public addAssignment(assignment: AssignmentStatementTree): void {
     this.lastScope.unshift({
-      ctx: assignment.ctx,
       name: assignment.name,
+      tree: assignment,
       type: assignment.value.getType(),
       value: assignment.value,
     });
   }
 
   public addParameter(parameter: ParameterTree): void {
-    this.add({ ctx: parameter.ctx, name: parameter.name, type: parameter.type });
+    this.add({ name: parameter.name, tree: parameter, type: parameter.type });
   }
 }

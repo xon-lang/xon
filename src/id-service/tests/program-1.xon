@@ -1,0 +1,15 @@
+SimpleClass:
+    _prop Integer
+    tryped Number
+    only_typed String
+
+    method(t Number, v Integer, vt String):
+        // if t+v+vt:
+        render_plugin()
+
+    location(a Complex, b Number):
+        @_coord(x.z, y)
+
+    _coord(x Number, y Number):
+        console.log(1)
+        console.log(222)
