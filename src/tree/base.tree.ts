@@ -1,5 +1,5 @@
 import { ParserRuleContext } from 'antlr4ts';
-import { IdentifierStack } from '../identifier-stack';
+import { IdentifierStorage } from '../identifier-storage';
 
 const treeToPlain = (object): unknown => {
   const treeType = object.constructor.name.replace(/Tree$/, '');
@@ -25,9 +25,9 @@ const treeToPlain = (object): unknown => {
 };
 
 export abstract class BaseTree {
-  public static identifierStack = new IdentifierStack();
+  public static identifierStorage = new IdentifierStorage();
 
-  public identifierStack = BaseTree.identifierStack;
+  public identifierStorage = BaseTree.identifierStorage;
 
   public ctx?: ParserRuleContext;
 

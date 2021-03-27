@@ -3,7 +3,7 @@ import { TypeTree } from './tree/type/type.tree';
 
 export type IdentifierItem = { name: string; type?: TypeTree; value?: ExpressionTree };
 
-export class IdentifierStack {
+export class IdentifierStorage {
   private scopes: IdentifierItem[][] = [[]];
 
   public pushScope(): void {

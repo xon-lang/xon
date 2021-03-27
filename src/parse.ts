@@ -33,12 +33,12 @@ export const parse = (code: string): XonParser => {
   const lexer = new XonLexer(inputStream);
   lexer.removeErrorListeners();
   lexer.addErrorListener(new ThrowingErrorListener());
-  
+
   const tokenStream = new CommonTokenStream(lexer);
-  const parser =  new XonParser(tokenStream);
+  const parser = new XonParser(tokenStream);
   parser.removeErrorListeners();
   parser.addErrorListener(new ThrowingErrorListener());
-  
+
   return parser;
 };
 
@@ -58,7 +58,11 @@ export const parseMember = <T extends MemberTree>(code: string): T =>
 
 export const parseDefinition = (code: string): DefinitionTree =>
   new DefinitionTree(parse(code).definition());
+
 export const parseLibrary = (code: string): LibraryTree => new LibraryTree(parse(code).library());
 
-export const parseProgram = <T extends ProgramTree>(code: string): T =>
-  new ProgramTree(parse(code).program()) as T;
+export function parseProgram<T extends ProgramTree>(code: string): T {
+  const tree = new ProgramTree(parse(code).program()) as T;
+  // new ProgramValidator(tree).issues().forEach((x) => console.error(x.toString()));
+  return tree;
+}
