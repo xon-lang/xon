@@ -29,7 +29,7 @@ export class DefinitionTree extends BaseTree {
 
   public constructor(public ctx: DefinitionContext) {
     super();
-    this.name = ctx.ID().text;
+    this.name = ctx.id().text;
 
     this.abstract = ctx.type() ? new TypeTree(ctx.type()) : TypeTree.create('Any');
 
@@ -42,7 +42,7 @@ export class DefinitionTree extends BaseTree {
       if (member instanceof InitMemberContext) this.inits.push(new InitMemberTree(member));
 
       if (member instanceof OperatorMemberContext)
-        this.operators.push(new OperatorMemberTree(member, this));
+        this.operators.push(new OperatorMemberTree(member));
     });
 
     this.isAbstract = this.methods.some((x) => x.isAbstract);

@@ -2,7 +2,6 @@ import { OperatorMemberContext } from '../../../../grammar/xon-parser';
 import { getStatementsTrees } from '../../../statement/statement-helper';
 import { StatementTree } from '../../../statement/statement.tree';
 import { TypeTree } from '../../../type/type.tree';
-import { DefinitionTree } from '../../definition.tree';
 import { MemberTree } from '../member.tree';
 
 export class OperatorMemberTree extends MemberTree {
@@ -17,7 +16,7 @@ export class OperatorMemberTree extends MemberTree {
 
   public statements: StatementTree[];
 
-  public constructor(public ctx: OperatorMemberContext, definition?: DefinitionTree) {
+  public constructor(public ctx: OperatorMemberContext) {
     super();
 
     this.name = ctx.operator().text;
@@ -25,12 +24,6 @@ export class OperatorMemberTree extends MemberTree {
       name: x.ID().text,
       type: new TypeTree(x.type()),
     }));
-
-    if (definition && this.parameters[0].type.name !== definition.name) {
-      throw new Error(
-        `The first parameter type must be "${definition.name}" but "${this.parameters[0].type.name}"`,
-      );
-    }
 
     this.returnType = ctx.type() && new TypeTree(ctx.type());
     this.statements = ctx.body() && getStatementsTrees(ctx.body());

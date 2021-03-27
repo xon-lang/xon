@@ -1,10 +1,10 @@
-import { IdentifierStack } from '../../../../identifier-stack';
+import { IdentifierStorage } from '../../../../identifier-storage';
 import { parseMember } from '../../../../parse';
 import { BaseTree } from '../../../base.tree';
 import { MethodMemberTree } from './method-member.tree';
 
 beforeEach(() => {
-  BaseTree.identifierStack = new IdentifierStack();
+  BaseTree.identifierStorage = new IdentifierStorage();
 });
 
 test('method member', () => {

@@ -10,7 +10,7 @@ library:       libraryPath ':' libraryMember (',' libraryMember)*;
 libraryPath:   ID ('-' ID)* '/' ID ('-' ID)*;
 libraryMember: name = ID ('as' alias = ID)?;
 
-definition: ID ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT;
+definition: id ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT;
 member:
     ID type                                                # propertyMember
     | ID '(' (parameter (',' parameter)*)? ')' type? body? # methodMember
@@ -74,4 +74,4 @@ parameter: ID type;
 argument:  (ID '=')? expression;
 body:      ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;
 type:      name = ID ('<' type (',' type)* '>')? ('#' meta = ID)?;
-
+id:        ID;

@@ -18,7 +18,7 @@ Integer is Number:
     / (a Integer, b Boolean) Integer
     / (a Integer, b Integer) Integer
     / (a Integer, b Float) Float
-    / (a Integer, b Char) Integer
+    / (a String, b Char) Integer
 
 
     + (a Integer#Index, b Integer#Literal) TestIndex

@@ -11,6 +11,6 @@ export class IdExpressionTree extends ExpressionTree {
   }
 
   public getType(): TypeTree {
-    return this.identifierStack.find(this.name).type.setMetaName(this);
+    return this.identifierStorage.find(this.name).type.setMetaName(this);
   }
 }

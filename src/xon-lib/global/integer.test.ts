@@ -11,6 +11,9 @@ test('integer + integer', () => {
 
 test('index + literal', () => {
   const code = `
+ded:
+  //
+
 val = [1, 2, 3]
 val[1] + 2`;
   const tree = parseProgram(code);

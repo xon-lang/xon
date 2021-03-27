@@ -15,6 +15,6 @@ export class AssignmentStatementTree extends StatementTree {
     this.name = ctx.ID().text;
     this.value = getExpressionTree(ctx.expression());
 
-    this.identifierStack.add({ name: this.name, type: this.value.getType(), value: this.value });
+    this.identifierStorage.add({ name: this.name, type: this.value.getType(), value: this.value });
   }
 }
