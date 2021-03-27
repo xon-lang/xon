@@ -11,7 +11,7 @@ SomeClass is BaseClass<String, Boolean>:
         bye()
     
     location(x Number, y Number) Position:
-        coord(x, y)
+        pos(x, y)
 
     + (it SomeClass, sc SomeClass) SomeClass:
         log("fine!")
