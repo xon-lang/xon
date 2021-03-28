@@ -1,11 +1,12 @@
 import { evalExpression } from '../../../eval';
 import { parseExpression } from '../../../parse';
+import { PlainTypeTree } from '../../type/plain-type/plain-type.tree';
 import { OperatorExpressionTree } from './operator-expression.tree';
 
 test('num plus num', () => {
   const code = '1+1';
   const tree = parseExpression<OperatorExpressionTree>(code);
-  expect(tree.getType().name).toBe('Integer');
+  expect((tree.getType() as PlainTypeTree).name).toBe('Integer');
   expect(evalExpression(tree)).toBe(2);
 });
 

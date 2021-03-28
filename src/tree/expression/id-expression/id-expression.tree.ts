@@ -12,6 +12,6 @@ export class IdExpressionTree extends ExpressionTree {
   }
 
   public getType(): TypeTree {
-    return IdService.instance.find(this.name).type.setMetaName(this);
+    return IdService.instance.find(this.name).type;
   }
 }

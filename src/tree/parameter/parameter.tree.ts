@@ -1,5 +1,6 @@
 import { ParameterContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
+import { getTypeTree } from '../type/type-helper';
 import { TypeTree } from '../type/type.tree';
 
 export class ParameterTree extends BaseTree {
@@ -11,6 +12,6 @@ export class ParameterTree extends BaseTree {
     super();
 
     this.name = ctx.ID().text;
-    this.type = new TypeTree(ctx.type());
+    this.type = getTypeTree(ctx.type());
   }
 }

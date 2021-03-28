@@ -36,7 +36,7 @@ export class IdService {
 
   public add(item: IdentifierItem): void {
     if (this.find(item.name))
-      IssueService.instance.add(item.tree, `"${item.name}" already exists in the current scope`);
+      IssueService.instance.addWarning(item.tree, `"${item.name}" already exists in the current scope`);
     this.lastScope.unshift(item);
   }
 

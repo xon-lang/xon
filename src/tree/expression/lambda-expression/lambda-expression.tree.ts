@@ -1,22 +1,16 @@
 import { LambdaExpressionContext } from '../../../grammar/xon-parser';
-import { TypeTree } from '../../type/type.tree';
+import { ParameterTree } from '../../parameter/parameter.tree';
 import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class LambdaExpressionTree extends ExpressionTree {
-  public args: {
-    name: string;
-    type?: TypeTree;
-  }[];
+  public parameters: ParameterTree[];
 
   public body: ExpressionTree;
 
-  public constructor(public ctx: LambdaExpressionContext, types?: TypeTree) {
+  public constructor(public ctx: LambdaExpressionContext) {
     super();
-    this.args = ctx.ID().map((x, i) => ({
-      name: x.text,
-      type: (ctx.type().length && new TypeTree(ctx.type(i))) || (types && types[i]),
-    }));
+    this.parameters = ctx.parameter().map((x) => new ParameterTree(x));
     this.body = getExpressionTree(ctx.expression());
   }
 }

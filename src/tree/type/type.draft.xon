@@ -10,8 +10,13 @@ method(a {name String, age Number}): // object -> Any<...TArg>
 method(a (x Number) Integer): // lambda -> Function<...TArg, TResult> or Action<...TArg> 
     //
 
-method(a Integer | String): // join? -> Join<...TArg>
+method(a Integer | String): // union -> Join<...TArg>
     //
 
-method(a Integer & String): // union? -> Union<...TArg>
+method(a Integer & String): // intersection -> Union<...TArg>
+    //
+
+
+
+filter<T>(predicate (x T) Boolean):
     //

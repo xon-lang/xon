@@ -12,11 +12,21 @@ libraryMember: name = ID ('as' alias = ID)?;
 
 definition: id ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT;
 member:
-    ID type                                                # propertyMember
-    | ID '(' (parameter (',' parameter)*)? ')' type? body? # methodMember
-    | '@' '(' (parameter (',' parameter)*)? ')' body?      # initMember
-    | '@' '[' parameter (',' parameter)* ']' type body?    # indexMember
-    | operator '(' parameter ',' parameter ')' type body?  # operatorMember
+    ID '(' (parameter (',' parameter)*)? ')' type? body?  # methodMember
+    | '@' '(' (parameter (',' parameter)*)? ')' body?     # initMember
+    | '@' '[' parameter (',' parameter)* ']' type body?   # indexMember
+    | operator '(' parameter ',' parameter ')' type body? # operatorMember
+    | ID type                                             # propertyMember
+    ;
+
+type:
+    id                                           # plainType
+    | id '<' type (',' type)* '>'                # genericType
+    | type '[' ']'                               # arrayType
+    | type '#' id                                # metaType
+    | '(' (parameter (',' parameter)*)? ')' type # functionType
+    | type '|' type                              # unionType
+    | '(' type ')'                               # parenthesizedType
     ;
 
 statement:
@@ -40,7 +50,7 @@ expression:
     | '[' expression (',' expression)* ']'                                          # arrayExpression
     | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                         # objectExpression
     | '(' expression ')'                                                            # parenthesizedExpression
-    | '\\' (ID type (',' ID type)* ':' | ID (',' ID)* ':')? expression              # lambdaExpression
+    | '\\' (parameter (',' parameter)* ':')? expression                             # lambdaExpression
     ;
 
 literal:
@@ -70,8 +80,7 @@ operator:
     | '~'
     ;
 
-parameter: ID type;
+parameter: ID type?;
 argument:  (ID '=')? expression;
 body:      ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;
-type:      name = ID ('<' type (',' type)* '>')? ('#' meta = ID)?;
 id:        ID;
