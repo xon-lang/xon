@@ -1,6 +1,7 @@
 import { LiteralExpressionContext } from '../../../grammar/xon-parser';
 import { getLiteralTree } from '../../literal/literal-helper';
 import { LiteralTree } from '../../literal/literal.tree';
+import { createPlainType } from '../../type/type-helper';
 import { TypeTree } from '../../type/type.tree';
 import { ExpressionTree } from '../expression.tree';
 
@@ -13,8 +14,6 @@ export class LiteralExpressionTree extends ExpressionTree {
   }
 
   public getType(): TypeTree {
-    return TypeTree.create(this.literal.constructor.name.replace(/LiteralTree/, '')).setMetaName(
-      this,
-    );
+    return createPlainType(this.literal.constructor.name.replace(/LiteralTree/, ''));
   }
 }

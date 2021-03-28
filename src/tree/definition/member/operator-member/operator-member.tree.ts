@@ -1,16 +1,15 @@
 import { OperatorMemberContext } from '../../../../grammar/xon-parser';
+import { ParameterTree } from '../../../parameter/parameter.tree';
 import { getStatementsTrees } from '../../../statement/statement-helper';
 import { StatementTree } from '../../../statement/statement.tree';
+import { getTypeTree } from '../../../type/type-helper';
 import { TypeTree } from '../../../type/type.tree';
 import { MemberTree } from '../member.tree';
 
 export class OperatorMemberTree extends MemberTree {
   public name: string;
 
-  public parameters: {
-    name: string;
-    type: TypeTree;
-  }[];
+  public parameters: ParameterTree[];
 
   public returnType: TypeTree;
 
@@ -20,12 +19,8 @@ export class OperatorMemberTree extends MemberTree {
     super();
 
     this.name = ctx.operator().text;
-    this.parameters = ctx.parameter().map((x) => ({
-      name: x.ID().text,
-      type: new TypeTree(x.type()),
-    }));
-
-    this.returnType = ctx.type() && new TypeTree(ctx.type());
+    this.parameters = ctx.parameter().map(x=>new ParameterTree(x));
+    this.returnType = ctx.type() && getTypeTree(ctx.type());
     this.statements = ctx.body() && getStatementsTrees(ctx.body());
   }
 }

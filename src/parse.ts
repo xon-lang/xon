@@ -12,6 +12,7 @@ import { LiteralTree } from './tree/literal/literal.tree';
 import { ProgramTree } from './tree/program/program.tree';
 import { getStatementTree } from './tree/statement/statement-helper';
 import { StatementTree } from './tree/statement/statement.tree';
+import { getTypeTree } from './tree/type/type-helper';
 import { TypeTree } from './tree/type/type.tree';
 
 export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbol> {
@@ -42,7 +43,8 @@ export const parse = (code: string): XonParser => {
   return parser;
 };
 
-export const parseType = (code: string): TypeTree => new TypeTree(parse(code).type());
+export const parseType = <T extends TypeTree>(code: string): T =>
+  getTypeTree(parse(code).type()) as T;
 
 export const parseLiteral = <T extends LiteralTree>(code: string): T =>
   getLiteralTree(parse(code).literal()) as T;
