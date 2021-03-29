@@ -8,8 +8,8 @@ SimpleClass:
         render_plugin()
 
     location(a Complex, b Number):
-        @_coord(x.z, y)
+        @_coord(x, y)
 
     _coord(x Number, y Number):
-        console.log(1)
-        console.log(222)
+        // console.log(1)
+        // console.log(222)

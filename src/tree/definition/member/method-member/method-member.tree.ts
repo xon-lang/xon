@@ -23,6 +23,7 @@ export class MethodMemberTree extends MemberTree {
   public constructor(public ctx: MethodMemberContext) {
     super();
 
+    IdService.instance.popScope();
     IdService.instance.pushScope();
     this.name = ctx.ID().text;
     this.isPrivate = this.name.startsWith('_');

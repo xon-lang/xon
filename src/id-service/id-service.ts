@@ -36,7 +36,10 @@ export class IdService {
 
   public add(item: IdentifierItem): void {
     if (this.find(item.name))
-      IssueService.instance.addWarning(item.tree, `"${item.name}" already exists in the current scope`);
+      IssueService.instance.addWarning(
+        item.tree,
+        `"${item.name}" already exists in the current scope`,
+      );
     this.lastScope.unshift(item);
   }
 
@@ -44,7 +47,7 @@ export class IdService {
     this.lastScope.unshift({
       name: assignment.name,
       tree: assignment,
-      type: assignment.value.getType(),
+      type: assignment.value.dataType,
       value: assignment.value,
     });
   }

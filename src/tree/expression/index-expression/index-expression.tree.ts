@@ -1,6 +1,5 @@
 import { IndexExpressionContext } from '../../../grammar/xon-parser';
 import { ArrayTypeTree } from '../../type/array-type/array-type.tree';
-import { TypeTree } from '../../type/type.tree';
 import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
@@ -13,9 +12,7 @@ export class IndexExpressionTree extends ExpressionTree {
     super();
     this.value = getExpressionTree(ctx.expression(0));
     this.index = getExpressionTree(ctx.expression(1));
-  }
 
-  public getType(): TypeTree {
-    return (this.value.getType() as ArrayTypeTree).itemType;
+    this.dataType = (this.value.dataType as ArrayTypeTree)?.itemType;
   }
 }

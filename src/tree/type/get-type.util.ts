@@ -19,7 +19,7 @@ export function findTheBestMethod(
       weight: x.parameters.map((z, i) => z.type.fitWeight(args[i])).reduce((p, c) => p * c, 1),
     }))
     .filter((x) => x.weight > 0)
-    .sort((a, b) => a.weight - b.weight);
+    .sort((a, b) => b.weight - a.weight);
 
   if (candidates.length) return candidates[0].method;
   if (definition.inheritanceType && definition.inheritanceType instanceof PlainTypeTree)
@@ -32,11 +32,15 @@ export const getOperatorType = (
   left: ExpressionTree,
   right: ExpressionTree,
 ): TypeTree => {
-  const foundMethod = findTheBestMethod(getTypeDefinition(left.getType()), operator, [left, right]);
+  // console.log(left.ctx.text, operator, right.ctx.text);
+  if (!left.dataType)
+    IssueService.instance.addError(left, `Set "${left.metaType}" expression data type`);
+
+  const foundMethod = findTheBestMethod(getTypeDefinition(left.dataType), operator, [left, right]);
 
   if (foundMethod) {
     return foundMethod.returnType;
   }
 
-  throw IssueService.instance.addError(left, `No operator method found for operator "${operator}"`);
+  throw IssueService.instance.addError(left, `No method found for operator "${operator}"`);
 };

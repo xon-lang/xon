@@ -6,7 +6,7 @@ import { OperatorExpressionTree } from './operator-expression.tree';
 test('num plus num', () => {
   const code = '1+1';
   const tree = parseExpression<OperatorExpressionTree>(code);
-  expect((tree.getType() as PlainTypeTree).name).toBe('Integer');
+  expect((tree.dataType as PlainTypeTree).name).toBe('Integer');
   expect(evalExpression(tree)).toBe(2);
 });
 

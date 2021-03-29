@@ -1,6 +1,5 @@
 import { evalExpression } from '../../../eval';
 import { parseExpression } from '../../../parse';
-import { OperatorExpressionTree } from '../operator-expression/operator-expression.tree';
 import { ParenthesizedExpressionTree } from '../parenthesized-expression/parenthesized-expression.tree';
 import { StringFormatExpressionTree } from './string-format-expression.tree';
 
@@ -18,12 +17,4 @@ test('format escaped string', () => {
   expect(tree).toBeInstanceOf(StringFormatExpressionTree);
   expect(tree.value).toBeInstanceOf(ParenthesizedExpressionTree);
   expect(evalExpression(tree.value)).toBe(`1+1 = ${1 + 1}; "2+2 = ${2 + 2}`);
-});
-
-test('another format string', () => {
-  const code = '"{color}{chargeIcon}{battery.percent}% | size=13"';
-  const tree = parseExpression<StringFormatExpressionTree>(code);
-  expect(tree).toBeInstanceOf(StringFormatExpressionTree);
-  expect(tree.value).toBeInstanceOf(ParenthesizedExpressionTree);
-  expect(tree.value.value).toBeInstanceOf(OperatorExpressionTree);
 });

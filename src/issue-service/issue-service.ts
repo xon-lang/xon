@@ -5,26 +5,43 @@ import { IssueLevel } from './issue-level';
 export class IssueService {
   public static instance = new IssueService();
 
-  public raiseWarning: boolean = false;
+  public raiseWarning: boolean = true;
 
-  public path: string;
+  private scopes: Issue[][] = [[]];
 
-  public issues: Issue[] = [];
+  private paths: string[] = [];
+
+  public get lastScope(): Issue[] {
+    return this.scopes[this.scopes.length - 1];
+  }
+
+  public get lastPath(): string {
+    return this.paths[this.paths.length - 1];
+  }
+
+  public pushScope(path?: string): void {
+    this.paths.unshift(path);
+    this.scopes.unshift([]);
+  }
+
+  public popScope(): void {
+    this.paths.shift();
+    this.scopes.shift();
+  }
 
   public add(tree: BaseTree, level: IssueLevel, message: string): Issue {
-    const issue = Issue.fromTree(tree, this.path || 'line', level, message);
-    this.issues.push(issue);
+    const issue = Issue.fromTree(tree, this.lastPath, level, message);
+    this.lastScope.push(issue);
     return issue;
   }
 
   public addWarning(tree: BaseTree, message: string): void {
     const issue = this.add(tree, IssueLevel.Warning, message);
-
-    if (this.raiseWarning) throw new Error(issue.toString());
+    if (this.raiseWarning) throw issue.toError();
   }
 
   public addError(tree: BaseTree, message: string): Error {
     const issue = this.add(tree, IssueLevel.Error, message);
-    throw new Error(issue.toString());
+    throw issue.toError();
   }
 }

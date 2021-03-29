@@ -12,8 +12,8 @@ export class UnionTypeTree extends TypeTree {
     this.types = getTypesTrees(ctx.type());
   }
 
-  public equals(other: TypeTree): boolean {
-    return other instanceof UnionTypeTree && this.types.every((x, i) => x.equals(other.types[i]));
+  public equalsDataType(other: TypeTree): boolean {
+    return other instanceof UnionTypeTree && this.types.every((x, i) => x.equalsDataType(other.types[i]));
   }
 
   public is(other: TypeTree): boolean {

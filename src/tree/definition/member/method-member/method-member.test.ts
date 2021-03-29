@@ -1,4 +1,5 @@
-import { parseMember } from '../../../../parse';
+import { parseMember, parseProgram } from '../../../../parse';
+import { ProgramTree } from '../../../program/program.tree';
 import { PlainTypeTree } from '../../../type/plain-type/plain-type.tree';
 import { MethodMemberTree } from './method-member.tree';
 
@@ -40,6 +41,7 @@ test('no return type', () => {
   const code = 'funcName(a Integer)';
   const tree = parseMember<MethodMemberTree>(code);
 
+  expect(tree).toBeInstanceOf(MethodMemberTree);
   expect(tree.name).toBe('funcName');
   expect(tree.isPrivate).toBe(false);
   expect(tree.isAbstract).toBe(true);
@@ -48,4 +50,10 @@ test('no return type', () => {
   expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].name).toBe('a');
   expect((tree.parameters[0].type as PlainTypeTree).name).toBe('Integer');
+});
+
+test('several abstract methods', () => {
+  const code = 'T:\n    f(a Integer)\n    f(a Integer)';
+  const tree = parseProgram(code);
+  expect(tree).toBeInstanceOf(ProgramTree);
 });
