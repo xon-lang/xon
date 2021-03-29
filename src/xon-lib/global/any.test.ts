@@ -6,7 +6,7 @@ import { PlainTypeTree } from '../../tree/type/plain-type/plain-type.tree';
 test('any clone method exists', () => {
   const code = '5';
   const tree = parseExpression<LiteralExpressionTree>(code);
-  expect((tree.getType() as PlainTypeTree).name).toBe('Integer');
-  const definition = getTypeDefinition(tree.getType());
+  expect((tree.dataType as PlainTypeTree).name).toBe('Integer');
+  const definition = getTypeDefinition(tree.dataType);
   expect((definition.inheritanceType as PlainTypeTree).name).toBe('Number');
 });

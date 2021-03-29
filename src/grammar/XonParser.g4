@@ -23,10 +23,10 @@ type:
     id                                           # plainType
     | id '<' type (',' type)* '>'                # genericType
     | type '[' ']'                               # arrayType
-    | type '#' id                                # metaType
     | '(' (parameter (',' parameter)*)? ')' type # functionType
     | type '|' type                              # unionType
     | '(' type ')'                               # parenthesizedType
+    | type '#' id                                # metaType
     ;
 
 statement:
@@ -43,6 +43,7 @@ expression:
     ID                                                                              # idExpression
     | '@' ID                                                                        # instanceMemberExpression
     | literal                                                                       # literalExpression
+    | expression '.' id                                                             # memberExpression
     | expression '(' (argument (',' argument)*)? ')'                                # functionExpression
     | expression '[' expression ']'                                                 # indexExpression
     | expression operator expression                                                # operatorExpression
@@ -68,16 +69,14 @@ operator:
     | '*'
     | '/'
     | '%'
-    | '<'
-    | '='
-    | '>'
-    | '!'
+    | '<' '='?
+    | '=' '='
+    | '>' '='?
+    | '!' '='?
     | '^'
-    | '&'
-    | '|'
-    | '.'
-    | ':'
-    | '~'
+    | '&' '&'?
+    | '|' '|'?
+    | '.' '.' '.'?
     ;
 
 parameter: ID type?;

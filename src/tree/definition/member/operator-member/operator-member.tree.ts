@@ -19,7 +19,7 @@ export class OperatorMemberTree extends MemberTree {
     super();
 
     this.name = ctx.operator().text;
-    this.parameters = ctx.parameter().map(x=>new ParameterTree(x));
+    this.parameters = ctx.parameter().map((x) => new ParameterTree(x));
     this.returnType = ctx.type() && getTypeTree(ctx.type());
     this.statements = ctx.body() && getStatementsTrees(ctx.body());
   }

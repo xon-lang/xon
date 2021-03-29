@@ -11,7 +11,6 @@ import {
 import { ArrayTypeTree } from './array-type/array-type.tree';
 import { FunctionTypeTree } from './function-type/function-type.tree';
 import { GenericTypeTree } from './generic-type/generic-type.tree';
-import { MetaTypeTree } from './meta-type/meta-type.tree';
 import { PlainTypeTree } from './plain-type/plain-type.tree';
 import { TypeTree } from './type.tree';
 import { UnionTypeTree } from './union-type/union-type.tree';
@@ -24,7 +23,11 @@ export const getTypeTree = (ctx: TypeContext): TypeTree => {
   if (ctx instanceof GenericTypeContext) return new GenericTypeTree(ctx);
   if (ctx instanceof FunctionTypeContext) return new FunctionTypeTree(ctx);
   if (ctx instanceof UnionTypeContext) return new UnionTypeTree(ctx);
-  if (ctx instanceof MetaTypeContext) return new MetaTypeTree(ctx);
+  if (ctx instanceof MetaTypeContext) {
+    const type = getTypeTree(ctx.type());
+    type.metaType = ctx.id().text;
+    return type;
+  }
 
   if (ctx instanceof ParenthesizedTypeContext) return getTypeTree(ctx.type());
 

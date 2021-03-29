@@ -1,5 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable no-magic-numbers */
 import { TypeContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
+import { ExpressionTree } from '../expression/expression.tree';
 import { GenericTypeTree } from './generic-type/generic-type.tree';
 import { PlainTypeTree } from './plain-type/plain-type.tree';
 import { typeAny } from './type-helper';
@@ -7,20 +11,29 @@ import { typeAny } from './type-helper';
 export abstract class TypeTree extends BaseTree {
   public ctx?: TypeContext;
 
+  public metaType: string;
+
   public inheritance: PlainTypeTree | GenericTypeTree = typeAny;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-  public fitWeight(expression: any): number {
-    const expressionType = expression.getType();
-    // eslint-disable-next-line no-magic-numbers
-    if (expressionType.equals(this)) return 2;
-    if (expressionType.is(this)) return 1;
+  public setMetaType(expression: ExpressionTree): TypeTree {
+    this.metaType = expression.constructor.name.replace(/ExpressionTree/, '');
+    return this;
+  }
+
+  public fitWeight(expression: ExpressionTree): number {
+    let metaWeight = 0;
+    if (this.metaType) {
+      if (this.metaType === expression.metaType) metaWeight = 3;
+      else if (this.metaType === 'Any') metaWeight = 2;
+      else return 0;
+    }
+
+    if (this.equalsDataType(expression.dataType)) return 2 + metaWeight;
+    if (expression.dataType.is(this)) return 1 + metaWeight;
     return 0;
   }
 
-  public abstract equals(other: TypeTree): boolean;
+  public abstract equalsDataType(other: TypeTree): boolean;
 
   public abstract is(other: TypeTree): boolean;
-
-  // public abstract fitWeight(expression: ExpressionTree): number;
 }

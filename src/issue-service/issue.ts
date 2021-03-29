@@ -12,7 +12,7 @@ export class Issue {
 
   public column: number;
 
-  public tree: BaseTree;
+  public tree?: BaseTree;
 
   public static fromTree(tree: BaseTree, path: string, level: IssueLevel, message: string): Issue {
     const issue = new Issue();
@@ -26,6 +26,18 @@ export class Issue {
   }
 
   public toString(): string {
-    return `${this.message} ${this.path}:${this.line}:${this.column + 1}`;
+    const codeLine = this.tree?.ctx?.start.inputStream.toString().split('\n')[this.line - 1];
+    const source = this.path || 'line';
+
+    if (codeLine)
+      return `${this.message}. ${source}:${this.line}:${this.column}\n${codeLine}\n${' '.repeat(
+        this.column,
+      )}^`;
+
+    return `${this.message}. ${source}:${this.line}:${this.column}`;
+  }
+
+  public toError(): Error {
+    return new Error(this.toString());
   }
 }

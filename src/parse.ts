@@ -1,6 +1,10 @@
+/* eslint-disable max-classes-per-file */
 import { ANTLRErrorListener, CharStreams, CommonTokenStream, Recognizer } from 'antlr4ts';
 import { XonLexer } from './grammar/xon-lexer';
 import { XonParser } from './grammar/xon-parser';
+import { Issue } from './issue-service/issue';
+import { IssueLevel } from './issue-service/issue-level';
+import { IssueService } from './issue-service/issue-service';
 import { DefinitionTree } from './tree/definition/definition.tree';
 import { getMemberTree } from './tree/definition/member/member-helper';
 import { MemberTree } from './tree/definition/member/member.tree';
@@ -22,10 +26,17 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
     _recognizer: Recognizer<T, any>,
     _offendingSymbol: T | undefined,
     line: number,
-    charPositionInLine: number,
-    msg: string,
+    column: number,
+    message: string,
   ): void {
-    throw new Error(`syntax error in line ${line}:${charPositionInLine} ${msg}`);
+    const issue = new Issue();
+    issue.level = IssueLevel.Error;
+    issue.message = message;
+    issue.line = line;
+    issue.column = column;
+    issue.path = IssueService.instance.lastPath;
+    IssueService.instance.lastScope.push(issue);
+    throw issue.toError();
   }
 }
 
