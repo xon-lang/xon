@@ -19,7 +19,7 @@ glob.sync('src/xon-lib/**/*.xon').forEach((x) => {
 
 const definitionCache = new Map<string, DefinitionTree>();
 
-export const getTypeDefinition = (type: TypeTree): DefinitionTree => {
+export function getTypeDefinition(type: TypeTree): DefinitionTree {
   if (type instanceof PlainTypeTree) {
     if (definitionCache.has(type.name)) return definitionCache.get(type.name);
 
@@ -32,4 +32,11 @@ export const getTypeDefinition = (type: TypeTree): DefinitionTree => {
   }
 
   throw new Error(`Wrong argument type ${type.toJson()}`);
-};
+}
+
+// export function getTypeMember(type: TypeTree, name:string): MemberTree{
+//   const definition = getTypeDefinition(type)
+//   const property = definition.properties.find(x=>x.name === name)
+//   if(property) return property;
+
+// }

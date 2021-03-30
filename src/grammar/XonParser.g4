@@ -41,11 +41,11 @@ statement:
 
 expression:
     ID                                                                              # idExpression
-    | '@' ID                                                                        # instanceMemberExpression
+    | '@'                                                                           # instanceExpression
     | literal                                                                       # literalExpression
-    | expression '.' id                                                             # memberExpression
-    | expression '(' (argument (',' argument)*)? ')'                                # functionExpression
-    | expression '[' expression ']'                                                 # indexExpression
+    | expression ('.' id)? '(' (argument (',' argument)*)? ')'                      # methodExpression
+    | expression ('.' id)? '[' (argument (',' argument)*)? ']'                      # indexExpression
+    | expression '.' id                                                             # propertyExpression
     | expression operator expression                                                # operatorExpression
     | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd # stringFormatExpression
     | '[' expression (',' expression)* ']'                                          # arrayExpression
