@@ -59,7 +59,8 @@ export class DefinitionTree extends BaseTree {
     if (this.name[0] === this.name[0].toLowerCase())
       IssueService.instance.addWarning(
         this,
-        `Definition name "${this.name}" must start from uppercase letter`,
+        `Definition name "${this.name}" start from lowercase`,
+        `Definition name must be ${this.name[0].toUpperCase() + this.name.slice(1)}`,
       );
 
     // first param of operator overloading
@@ -68,7 +69,18 @@ export class DefinitionTree extends BaseTree {
       .forEach((x) =>
         IssueService.instance.addWarning(
           x,
-          `The first operator overload "${x.name}" parameter "${x.parameters[0].name}" must be "${this.name}"`,
+          `First operator "${x.name}" overload type  is wrong`,
+          `First parameter "${x.parameters[0].name}" must be "${this.name}"`,
+        ),
+      );
+
+    this.methods
+      .filter((x) => this.properties.some((z) => z.name === x.name))
+      .forEach((x) =>
+        IssueService.instance.addWarning(
+          x,
+          `Method name "${x.name}" is the same as property`,
+          'Use another name for method or property',
         ),
       );
   }

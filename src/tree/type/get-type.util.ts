@@ -34,7 +34,11 @@ export const getOperatorType = (
 ): TypeTree => {
   // console.log(left.ctx.text, operator, right.ctx.text);
   if (!left.dataType)
-    IssueService.instance.addError(left, `Set "${left.metaType}" expression data type`);
+    IssueService.instance.addError(
+      left,
+      'Left operand has not data type',
+      `Set "${left.metaType}" expression data type`,
+    );
 
   const foundMethod = findTheBestMethod(getTypeDefinition(left.dataType), operator, [left, right]);
 
@@ -42,5 +46,9 @@ export const getOperatorType = (
     return foundMethod.returnType;
   }
 
-  throw IssueService.instance.addError(left, `No method found for operator "${operator}"`);
+  throw IssueService.instance.addError(
+    left,
+    `No method found for operator "${operator}"`,
+    `Add "${operator}" operator method for "${left.metaType}"`,
+  );
 };

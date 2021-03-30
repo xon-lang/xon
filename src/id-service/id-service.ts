@@ -39,6 +39,7 @@ export class IdService {
       IssueService.instance.addWarning(
         item.tree,
         `"${item.name}" already exists in the current scope`,
+        'User another name',
       );
     this.lastScope.unshift(item);
   }

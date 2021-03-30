@@ -35,13 +35,13 @@ export class IssueService {
     return issue;
   }
 
-  public addWarning(tree: BaseTree, message: string): void {
-    const issue = this.add(tree, IssueLevel.Warning, message);
+  public addWarning(tree: BaseTree, issueMessage: string, resolveMessage: string): void {
+    const issue = this.add(tree, IssueLevel.Warning, `${issueMessage}. ${resolveMessage}.`);
     if (this.raiseWarning) throw issue.toError();
   }
 
-  public addError(tree: BaseTree, message: string): Error {
-    const issue = this.add(tree, IssueLevel.Error, message);
+  public addError(tree: BaseTree, issueMessage: string, resolveMessage: string): Error {
+    const issue = this.add(tree, IssueLevel.Error, `${issueMessage}. ${resolveMessage}.`);
     throw issue.toError();
   }
 }
