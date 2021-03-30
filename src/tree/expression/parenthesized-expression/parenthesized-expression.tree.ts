@@ -10,11 +10,16 @@ export class ParenthesizedExpressionTree extends ExpressionTree {
     super();
     this.value = getExpressionTree(ctx.expression());
 
+    this.dataType = this.value.dataType;
+    this.validate();
+  }
+
+  private validate() {
     if (!this.value.dataType)
       IssueService.instance.addError(
         this.value,
+        'Parenthesized expression has not data type',
         `Set "${this.value.metaType}" expression data type`,
       );
-    this.dataType = this.value.dataType;
   }
 }
