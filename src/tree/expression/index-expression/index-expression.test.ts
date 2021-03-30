@@ -1,5 +1,4 @@
 import { parseExpression } from '../../../parse';
-import { StringLiteralTree } from '../../literal/string-literal/string-literal.tree';
 import { IdExpressionTree } from '../id-expression/id-expression.tree';
 import { LiteralExpressionTree } from '../literal-expression/literal-expression.tree';
 import { OperatorExpressionTree } from '../operator-expression/operator-expression.tree';
@@ -9,14 +8,21 @@ test('string expression index', () => {
   const code = 'prop["ppp"]';
   const tree = parseExpression<IndexExpressionTree>(code);
   expect(tree.value).toBeInstanceOf(IdExpressionTree);
-  expect(tree.index).toBeInstanceOf(LiteralExpressionTree);
-  expect((tree.index as LiteralExpressionTree).literal).toBeInstanceOf(StringLiteralTree);
+
+  expect(tree.arguments.length).toBe(1);
+  expect(tree.arguments[0].value).toBeInstanceOf(LiteralExpressionTree);
+  expect(tree.arguments[0].name).toBeFalsy();
+  expect((tree.arguments[0].value as LiteralExpressionTree).literal.value).toBe('ppp');
 });
 
 test('integer expression index', () => {
   const code = 'prop[12+33]';
   const tree = parseExpression<IndexExpressionTree>(code);
   expect(tree.value).toBeInstanceOf(IdExpressionTree);
-  expect(tree.index).toBeInstanceOf(OperatorExpressionTree);
-  expect((tree.index as OperatorExpressionTree).left).toBeInstanceOf(LiteralExpressionTree);
+  expect(tree.arguments.length).toBe(1);
+  expect(tree.arguments[0].value).toBeInstanceOf(OperatorExpressionTree);
+  expect(tree.arguments[0].name).toBeFalsy();
+  expect((tree.arguments[0].value as OperatorExpressionTree).left).toBeInstanceOf(
+    LiteralExpressionTree,
+  );
 });

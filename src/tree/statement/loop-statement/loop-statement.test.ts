@@ -1,8 +1,8 @@
 import { evalExpression } from '../../../eval';
 import { parseStatement } from '../../../parse';
 import { ArrayExpressionTree } from '../../expression/array-expression/array-expression.tree';
-import { FunctionExpressionTree } from '../../expression/function-expression/function-expression.tree';
 import { IdExpressionTree } from '../../expression/id-expression/id-expression.tree';
+import { MethodExpressionTree } from '../../expression/method-expression/method-expression.tree';
 import { ExpressionStatementTree } from '../expression-statement/expression-statement.tree';
 import { LoopStatementTree } from './loop-statement.tree';
 
@@ -87,5 +87,5 @@ test('infinity loop', () => {
 
   expect(tree.statements.length).toBe(1);
   const statement = tree.statements[0] as ExpressionStatementTree;
-  expect(statement.value).toBeInstanceOf(FunctionExpressionTree);
+  expect(statement.value).toBeInstanceOf(MethodExpressionTree);
 });
