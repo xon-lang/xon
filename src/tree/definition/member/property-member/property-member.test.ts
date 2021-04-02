@@ -1,4 +1,6 @@
 import { parseMember } from '../../../../parse';
+import { LiteralExpressionTree } from '../../../expression/literal-expression/literal-expression.tree';
+import { ExpressionStatementTree } from '../../../statement/expression-statement/expression-statement.tree';
 import { GenericTypeTree } from '../../../type/generic-type/generic-type.tree';
 import { PlainTypeTree } from '../../../type/plain-type/plain-type.tree';
 import { PropertyMemberTree } from './property-member.tree';
@@ -9,8 +11,9 @@ test('array property', () => {
 
   expect(tree.name).toBe('s');
   expect(tree.isPrivate).toBe(false);
-  expect((tree.type as GenericTypeTree).mainType.name).toBe('Array');
-  expect(((tree.type as GenericTypeTree).generics[0] as PlainTypeTree).name).toBe('String');
+  expect((tree.returnType as GenericTypeTree).mainType.name).toBe('Array');
+  expect(((tree.returnType as GenericTypeTree).generics[0] as PlainTypeTree).name).toBe('String');
+  expect(tree.body()).toBeUndefined();
 });
 
 test('private integer', () => {
@@ -19,5 +22,18 @@ test('private integer', () => {
 
   expect(tree.name).toBe('_a');
   expect(tree.isPrivate).toBe(true);
-  expect((tree.type as PlainTypeTree).name).toBe('Integer');
+  expect((tree.returnType as PlainTypeTree).name).toBe('Integer');
+  expect(tree.body()).toBeUndefined();
+});
+
+test('integer value', () => {
+  const code = '_a Integer:\n    9';
+  const tree = parseMember<PropertyMemberTree>(code);
+
+  expect(tree.name).toBe('_a');
+  expect(tree.isPrivate).toBe(true);
+  expect((tree.returnType as PlainTypeTree).name).toBe('Integer');
+  expect(
+    ((tree.body()[0] as ExpressionStatementTree).value as LiteralExpressionTree).literal.value,
+  ).toBe(9);
 });

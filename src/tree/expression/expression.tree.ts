@@ -6,7 +6,7 @@ import { TypeTree } from '../type/type.tree';
 export abstract class ExpressionTree extends BaseTree {
   public ctx?: ExpressionContext;
 
-  public dataType: TypeTree;
-
   public metaType: string = this.constructor.name.replace(/ExpressionTree/, '');
+
+  abstract getType(): TypeTree;
 }

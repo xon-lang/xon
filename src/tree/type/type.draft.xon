@@ -20,3 +20,36 @@ method(a Integer & String): // intersection -> Union<...TArg>
 
 filter<T>(predicate (x T) Boolean):
     //
+
+
+
+
+
+Function<Parameter[], Result>:
+    parameters: 
+    
+
+
+method (String, Number) Integer
+
+
+
+Integer: [0-9]
+
+literal None: 0
+
+0-1
+
+0-256
+
+-128-127
+
+2.5
+
+'A'
+
+"ABC"
+
+true
+
+false

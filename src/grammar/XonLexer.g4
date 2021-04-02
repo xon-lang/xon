@@ -17,15 +17,15 @@ tokens {
     import { XonLexerBase } from "./xon-lexer-base";
 }
 
-Is:       'is';
-As:       'as';
-If:       'if';
-Else:     'else';
-ElseIf:   'elif';
-Loop:     'loop';
-In:       'in';
-Break:    'break';
-Return:   'return';
+Is:     'is';
+As:     'as';
+If:     'if';
+Else:   'else';
+ElseIf: 'elif';
+Loop:   'loop';
+In:     'in';
+Break:  'break';
+Return: 'return';
 
 Preprocessor: '#{' .*? '}';
 LineBreak: ({this.atStartOfInput()}? SPACES | ( '\r'? '\n' | '\r') SPACES?) {this.handleLineBreak()}
@@ -81,5 +81,5 @@ UnexpectedCharacter: .                                -> channel(ERROR);
 
 fragment SPACES:           [ \t]+;
 fragment DIGIT_NUMBER:     [0-9]+ ('_' [0-9]+)*;
-fragment ALPHABET_NUMBER:  [0-9a-z]+ ('_' [0-9a-z]+)*;
+fragment ALPHABET_NUMBER:  [0-9a-zA-Z]+ ('_' [0-9a-zA-Z]+)*;
 fragment STRING_CHARACTER: ~["{] | '\\' ["{\\bfnrtv];

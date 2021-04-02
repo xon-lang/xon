@@ -10,19 +10,25 @@ library:       libraryPath ':' libraryMember (',' libraryMember)*;
 libraryPath:   ID ('-' ID)* '/' ID ('-' ID)*;
 libraryMember: name = ID ('as' alias = ID)?;
 
-definition: id ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT;
+definition:
+    name = id ('<' generics += id (',' generics += id)* '>')? ('is' type)? ':' LineBreak INDENT (
+        member
+        | LineBreak
+    )+ DEDENT
+    ;
 member:
-    ID '(' (parameter (',' parameter)*)? ')' type? body?  # methodMember
-    | '@' '(' (parameter (',' parameter)*)? ')' body?     # initMember
-    | '@' '[' parameter (',' parameter)* ']' type body?   # indexMember
-    | operator '(' parameter ',' parameter ')' type body? # operatorMember
-    | ID type                                             # propertyMember
+    name = ID '(' (parameter (',' parameter)*)? ')' type? body?  # methodMember
+    | name = '@' '(' (parameter (',' parameter)*)? ')' body?     # initMember
+    | name = '@' '[' parameter (',' parameter)* ']' type body?   # indexMember
+    | name = operator '(' parameter ',' parameter ')' type body? # operatorMember
+    | name = id type body?                                       # propertyMember
     ;
 
 type:
     id                                           # plainType
     | id '<' type (',' type)* '>'                # genericType
     | type '[' ']'                               # arrayType
+    | '{' (parameter (',' parameter)*)? '}'      # objectType
     | '(' (parameter (',' parameter)*)? ')' type # functionType
     | type '|' type                              # unionType
     | '(' type ')'                               # parenthesizedType
@@ -43,13 +49,12 @@ expression:
     ID                                                                              # idExpression
     | '@'                                                                           # instanceExpression
     | literal                                                                       # literalExpression
-    | expression ('.' id)? '(' (argument (',' argument)*)? ')'                      # methodExpression
-    | expression ('.' id)? '[' (argument (',' argument)*)? ']'                      # indexExpression
-    | expression '.' id                                                             # propertyExpression
+    | expression '.' id                                                             # memberExpression
+    | expression '(' (argument (',' argument)*)? ')'                                # methodExpression
+    | expression '[' (argument (',' argument)*)? ']'                                # indexExpression
     | expression operator expression                                                # operatorExpression
     | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd # stringFormatExpression
-    | '[' expression (',' expression)* ']'                                          # arrayExpression
-    | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                         # objectExpression
+    | '[' (argument (',' argument)*)? ']'                                           # arrayExpression
     | '(' expression ')'                                                            # parenthesizedExpression
     | '\\' (parameter (',' parameter)* ':')? expression                             # lambdaExpression
     ;

@@ -12,15 +12,19 @@ export class PlainTypeTree extends TypeTree {
     this.name = ctx.id().text;
   }
 
-  public equalsDataType(other: TypeTree): boolean {
+  public equals(other: TypeTree): boolean {
     return other instanceof PlainTypeTree && this.name === other.name;
   }
 
   public is(other: TypeTree): boolean {
     return !!(
-      other.equalsDataType(typeAny) ||
-      this.equalsDataType(other) ||
+      other.equals(typeAny) ||
+      this.equals(other) ||
       (this.inheritance && this.inheritance.is(other))
     );
+  }
+
+  public toString(): string {
+    return `${this.name}`;
   }
 }

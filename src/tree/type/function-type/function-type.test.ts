@@ -12,8 +12,8 @@ test('number return function', () => {
   expect(tree.parametersTypes[0].name).toBe('s');
   expect((tree.parametersTypes[0].type as PlainTypeTree).name).toBe('String');
   expect(tree.parametersTypes[1].name).toBe('i');
-  expect(((tree.parametersTypes[1].type as ArrayTypeTree).itemType as PlainTypeTree).name).toBe(
-    'Integer',
-  );
+  expect(
+    ((tree.parametersTypes[1].type as ArrayTypeTree).itemType as PlainTypeTree).name,
+  ).toBe('Integer');
   expect((tree.returnType as PlainTypeTree).name).toBe('Number');
 });

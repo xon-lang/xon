@@ -1,5 +1,5 @@
 import { AssignmentStatementContext } from '../../../grammar/xon-parser';
-import { IdService } from '../../../id-service/id-service';
+import { NamingService } from '../../../naming-service/naming-service';
 import { getExpressionTree } from '../../expression/expression-helper';
 import { ExpressionTree } from '../../expression/expression.tree';
 import { StatementTree } from '../statement.tree';
@@ -16,6 +16,6 @@ export class AssignmentStatementTree extends StatementTree {
     this.name = ctx.ID().text;
     this.value = getExpressionTree(ctx.expression());
 
-    IdService.instance.addAssignment(this);
+    NamingService.instance.addAssignment(this);
   }
 }
