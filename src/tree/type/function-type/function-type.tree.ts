@@ -16,11 +16,11 @@ export class FunctionTypeTree extends TypeTree {
     this.returnType = getTypeTree(ctx.type());
   }
 
-  public equalsDataType(other: TypeTree): boolean {
+  public equals(other: TypeTree): boolean {
     return (
       other instanceof FunctionTypeTree &&
-      this.returnType.equalsDataType(other.returnType) &&
-      this.parametersTypes.every((x, i) => x.type.equalsDataType(other.parametersTypes[i].type))
+      this.returnType.equals(other.returnType) &&
+      this.parametersTypes.every((x, i) => x.type.equals(other.parametersTypes[i].type))
     );
   }
 
@@ -30,5 +30,11 @@ export class FunctionTypeTree extends TypeTree {
       this.returnType.is(other.returnType) &&
       this.parametersTypes.every((x, i) => x.type.is(other.parametersTypes[i].type))
     );
+  }
+
+  public toString(): string {
+    return `(${this.parametersTypes
+      .map((x) => x.type.toString())
+      .join(', ')}) ${this.returnType.toString()}`;
   }
 }

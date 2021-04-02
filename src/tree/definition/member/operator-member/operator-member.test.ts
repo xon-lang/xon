@@ -16,5 +16,5 @@ test('method member', () => {
   expect((tree.parameters[1].type as PlainTypeTree).name).toBe('String');
 
   expect((tree.returnType as PlainTypeTree).name).toBe('String');
-  expect(tree.statements.length).toBe(1);
+  expect(tree.body().length).toBe(1);
 });

@@ -28,12 +28,14 @@ export abstract class TypeTree extends BaseTree {
       else return 0;
     }
 
-    if (this.equalsDataType(expression.dataType)) return 2 + metaWeight;
-    if (expression.dataType.is(this)) return 1 + metaWeight;
+    if (this.equals(expression.getType())) return 2 + metaWeight;
+    if (expression.getType().is(this)) return 1 + metaWeight;
     return 0;
   }
 
-  public abstract equalsDataType(other: TypeTree): boolean;
+  public abstract equals(other: TypeTree): boolean;
 
   public abstract is(other: TypeTree): boolean;
+
+  public abstract toString(): string;
 }

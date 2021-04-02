@@ -16,11 +16,11 @@ export class GenericTypeTree extends TypeTree {
     this.generics = getTypesTrees(ctx.type());
   }
 
-  public equalsDataType(other: TypeTree): boolean {
+  public equals(other: TypeTree): boolean {
     return (
       other instanceof GenericTypeTree &&
-      this.mainType.equalsDataType(other) &&
-      this.generics.every((x, i) => x.equalsDataType(other.generics[i]))
+      this.mainType.equals(other) &&
+      this.generics.every((x, i) => x.equals(other.generics[i]))
     );
   }
 
@@ -30,5 +30,9 @@ export class GenericTypeTree extends TypeTree {
       this.mainType.is(other) &&
       this.generics.every((x, i) => x.is(other.generics[i]))
     );
+  }
+
+  public toString(): string {
+    return `${this.mainType.toString()}<${this.generics.map((x) => x.toString()).join(', ')}>`;
   }
 }

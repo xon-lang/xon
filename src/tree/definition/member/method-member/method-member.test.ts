@@ -45,7 +45,7 @@ test('no return type', () => {
   expect(tree.name).toBe('funcName');
   expect(tree.isPrivate).toBe(false);
   expect(tree.isAbstract).toBe(true);
-  expect(tree.returnType).toBeFalsy();
+  expect(tree.returnType.ctx).toBeFalsy();
 
   expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].name).toBe('a');

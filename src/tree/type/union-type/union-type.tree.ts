@@ -12,11 +12,15 @@ export class UnionTypeTree extends TypeTree {
     this.types = getTypesTrees(ctx.type());
   }
 
-  public equalsDataType(other: TypeTree): boolean {
-    return other instanceof UnionTypeTree && this.types.every((x, i) => x.equalsDataType(other.types[i]));
+  public equals(other: TypeTree): boolean {
+    return other instanceof UnionTypeTree && this.types.every((x, i) => x.equals(other.types[i]));
   }
 
   public is(other: TypeTree): boolean {
     return other instanceof UnionTypeTree && this.types.every((x, i) => x.is(other.types[i]));
+  }
+
+  public toString(): string {
+    return `${this.types.map((x) => x.toString()).join(' | ')}`;
   }
 }

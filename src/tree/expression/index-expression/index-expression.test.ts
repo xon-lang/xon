@@ -7,7 +7,7 @@ import { IndexExpressionTree } from './index-expression.tree';
 test('string expression index', () => {
   const code = 'prop["ppp"]';
   const tree = parseExpression<IndexExpressionTree>(code);
-  expect(tree.value).toBeInstanceOf(IdExpressionTree);
+  expect(tree.object).toBeInstanceOf(IdExpressionTree);
 
   expect(tree.arguments.length).toBe(1);
   expect(tree.arguments[0].value).toBeInstanceOf(LiteralExpressionTree);
@@ -18,7 +18,7 @@ test('string expression index', () => {
 test('integer expression index', () => {
   const code = 'prop[12+33]';
   const tree = parseExpression<IndexExpressionTree>(code);
-  expect(tree.value).toBeInstanceOf(IdExpressionTree);
+  expect(tree.object).toBeInstanceOf(IdExpressionTree);
   expect(tree.arguments.length).toBe(1);
   expect(tree.arguments[0].value).toBeInstanceOf(OperatorExpressionTree);
   expect(tree.arguments[0].name).toBeFalsy();

@@ -8,6 +8,7 @@ import {
   TypeContext,
   UnionTypeContext,
 } from '../../grammar/xon-parser';
+import { ParameterTree } from '../parameter/parameter.tree';
 import { ArrayTypeTree } from './array-type/array-type.tree';
 import { FunctionTypeTree } from './function-type/function-type.tree';
 import { GenericTypeTree } from './generic-type/generic-type.tree';
@@ -54,6 +55,19 @@ export function createArrayType(itemType: TypeTree): ArrayTypeTree {
   type.itemType = itemType;
   return type;
 }
+
+export function createFunctionType(
+  parametersTypes: ParameterTree[],
+  returnType: TypeTree,
+): FunctionTypeTree {
+  const type = new FunctionTypeTree();
+  type.parametersTypes = parametersTypes;
+  type.returnType = returnType;
+  return type;
+}
+
+export const typeVoid = createPlainType('Void');
+typeVoid.inheritance = null;
 
 export const typeAny = createPlainType('Any');
 typeAny.inheritance = null;
