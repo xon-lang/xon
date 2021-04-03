@@ -20,7 +20,7 @@ export class FunctionTypeTree extends TypeTree {
     return (
       other instanceof FunctionTypeTree &&
       this.returnType.equals(other.returnType) &&
-      this.parametersTypes.every((x, i) => x.type.equals(other.parametersTypes[i].type))
+      this.parametersTypes.every((x, i) => x.getType().equals(other.parametersTypes[i].getType()))
     );
   }
 
@@ -28,13 +28,13 @@ export class FunctionTypeTree extends TypeTree {
     return (
       other instanceof FunctionTypeTree &&
       this.returnType.is(other.returnType) &&
-      this.parametersTypes.every((x, i) => x.type.is(other.parametersTypes[i].type))
+      this.parametersTypes.every((x, i) => x.getType().is(other.parametersTypes[i].getType()))
     );
   }
 
   public toString(): string {
     return `(${this.parametersTypes
-      .map((x) => x.type.toString())
+      .map((x) => x.getType().toString())
       .join(', ')}) ${this.returnType.toString()}`;
   }
 }

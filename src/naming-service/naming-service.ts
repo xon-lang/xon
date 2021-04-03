@@ -9,7 +9,7 @@ import { AssignmentStatementTree } from '../tree/statement/assignment-statement/
 import { TypeTree } from '../tree/type/type.tree';
 
 export enum NameType {
-  Type,
+  // Type,
   Definition,
   Property,
   Init,
@@ -108,7 +108,7 @@ export class NamingService {
       name: tree.name,
       nameType: NameType.Parameter,
       tree,
-      type: tree.type,
+      type: tree.getType(),
     });
   }
 

@@ -13,6 +13,7 @@ import {
   getTypeTree,
   typeAny,
 } from '../type/type-helper';
+import { TypeTree } from '../type/type.tree';
 import { IndexMemberTree } from './member/index-member/index-member.tree';
 import { InitMemberTree } from './member/init-member/init-member.tree';
 import { getMemberTree } from './member/member-helper';
@@ -27,6 +28,8 @@ export class DefinitionTree extends BaseTree {
   public generics: string[];
 
   public inheritanceType?: PlainTypeTree | GenericTypeTree;
+
+  private _generics: Map<string, TypeTree> = new Map();
 
   private _members: MemberTree[];
 
@@ -61,7 +64,10 @@ export class DefinitionTree extends BaseTree {
   public constructor(public ctx: DefinitionContext) {
     super();
     this.name = ctx._name.text;
-    this.generics = ctx._generics.map((x) => x.text);
+    this.generics = ctx
+      .generics()
+      ?.id()
+      .map((x) => x.text);
     this.inheritanceType =
       ctx.type() && (getTypeTree(ctx.type()) as PlainTypeTree | GenericTypeTree);
     if (this.name !== 'Any' && !this.inheritanceType) this.inheritanceType = typeAny;
@@ -76,10 +82,7 @@ export class DefinitionTree extends BaseTree {
   public body(): MemberTree[] {
     if (!this._members) {
       NamingService.instance.pushScope();
-      this._members = this.ctx.member().map((x) => getMemberTree(x));
-      this.inits.forEach((x) => {
-        x.returnType = this.getType().returnType;
-      });
+      this._members = this.ctx.member().map((x) => getMemberTree(x).useGenerics(this._generics));
       this._members.forEach((x) => x.body());
 
       this.validate();
@@ -87,6 +90,11 @@ export class DefinitionTree extends BaseTree {
     }
 
     return this._members;
+  }
+
+  public useGenerics(generics: Map<string, TypeTree>): DefinitionTree {
+    this._generics = generics;
+    return this;
   }
 
   private validate() {
@@ -98,7 +106,7 @@ export class DefinitionTree extends BaseTree {
       );
 
     this.operators
-      .filter((x) => (x.parameters[0].type as PlainTypeTree).name !== this.name)
+      .filter((x) => (x.parameters[0].getType() as PlainTypeTree).name !== this.name)
       .forEach((x) =>
         IssueService.instance.addWarning(
           x,

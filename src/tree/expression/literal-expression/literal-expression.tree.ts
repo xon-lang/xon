@@ -1,8 +1,8 @@
 import { LiteralExpressionContext } from '../../../grammar/xon-parser';
 import { getLiteralTree } from '../../literal/literal-helper';
 import { LiteralTree } from '../../literal/literal.tree';
+import { PlainTypeTree } from '../../type/plain-type/plain-type.tree';
 import { createPlainType } from '../../type/type-helper';
-import { TypeTree } from '../../type/type.tree';
 import { ExpressionTree } from '../expression.tree';
 
 export class LiteralExpressionTree extends ExpressionTree {
@@ -13,7 +13,7 @@ export class LiteralExpressionTree extends ExpressionTree {
     this.literal = ctx && getLiteralTree(ctx.literal());
   }
 
-  public getType(): TypeTree {
+  public getType(): PlainTypeTree {
     return createPlainType(this.literal.constructor.name.replace(/LiteralTree/, ''));
   }
 }

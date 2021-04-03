@@ -66,8 +66,5 @@ export function createFunctionType(
   return type;
 }
 
-export const typeVoid = createPlainType('Void');
-typeVoid.inheritance = null;
-
 export const typeAny = createPlainType('Any');
 typeAny.inheritance = null;

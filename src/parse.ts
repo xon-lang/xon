@@ -75,7 +75,5 @@ export const parseDefinition = (code: string): DefinitionTree =>
 export const parseLibrary = (code: string): LibraryTree => new LibraryTree(parse(code).library());
 
 export function parseProgram<T extends ProgramTree>(code: string): T {
-  const tree = new ProgramTree(parse(code).program()) as T;
-  // issues.forEach(x=>console.error(x.toString()));
-  return tree;
+  return new ProgramTree(parse(code).program()) as T;
 }

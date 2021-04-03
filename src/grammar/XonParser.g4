@@ -11,17 +11,14 @@ libraryPath:   ID ('-' ID)* '/' ID ('-' ID)*;
 libraryMember: name = ID ('as' alias = ID)?;
 
 definition:
-    name = id ('<' generics += id (',' generics += id)* '>')? ('is' type)? ':' LineBreak INDENT (
-        member
-        | LineBreak
-    )+ DEDENT
+    name = id generics? ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT
     ;
 member:
-    name = ID '(' (parameter (',' parameter)*)? ')' type? body?  # methodMember
-    | name = '@' '(' (parameter (',' parameter)*)? ')' body?     # initMember
-    | name = '@' '[' parameter (',' parameter)* ']' type body?   # indexMember
-    | name = operator '(' parameter ',' parameter ')' type body? # operatorMember
-    | name = id type body?                                       # propertyMember
+    name = id generics? '(' (parameter (',' parameter)*)? ')' type? body?    # methodMember
+    | name = '@' generics? '(' (parameter (',' parameter)*)? ')' type? body? # initMember
+    | name = '@' generics? '[' parameter (',' parameter)* ']' type body?     # indexMember
+    | name = operator generics? '(' parameter ',' parameter ')' type body?   # operatorMember
+    | name = id generics? type body?                                         # propertyMember
     ;
 
 type:
@@ -86,5 +83,6 @@ operator:
 
 parameter: ID type?;
 argument:  (ID '=')? expression;
+generics:  '<' id (',' id)* '>';
 body:      ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;
 id:        ID;
