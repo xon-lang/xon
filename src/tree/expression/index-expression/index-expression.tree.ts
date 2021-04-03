@@ -1,5 +1,6 @@
 import { IndexExpressionContext } from '../../../grammar/xon-parser';
 import { ArgumentTree } from '../../argument/argument.tree';
+import { FunctionTypeTree } from '../../type/function-type/function-type.tree';
 import { findIndexMember } from '../../type/get-type.util';
 import { TypeTree } from '../../type/type.tree';
 import { getExpressionTree } from '../expression-helper';
@@ -18,7 +19,7 @@ export class IndexExpressionTree extends ExpressionTree {
 
   public getType(): TypeTree {
     const type = this.object.getType();
-    const member = findIndexMember(type, this.arguments);
-    return member.returnType;
+    const indexMember = findIndexMember(type, this.arguments);
+    return (indexMember.getType() as FunctionTypeTree).returnType;
   }
 }

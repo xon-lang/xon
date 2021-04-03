@@ -23,7 +23,9 @@ export function findTheBestMethod<T extends MethodType>(
     .filter((x) => x.parameters.length === fitArgs.length)
     .map((x) => ({
       method: x,
-      weight: x.parameters.map((z, i) => z.type.fitWeight(fitArgs[i])).reduce((p, c) => p * c, 1),
+      weight: x.parameters
+        .map((z, i) => z.getType().fitWeight(fitArgs[i]))
+        .reduce((p, c) => p * c, 1),
     }))
     .filter((x) => x.weight > 0)
     .sort((a, b) => b.weight - a.weight);
@@ -60,8 +62,10 @@ export const getOperatorType = (
 
   throw IssueService.instance.addError(
     left,
-    `No method found for operator "${operator}"`,
-    `Add "${operator}" operator method for "${left.metaType}"`,
+    `Wrong operation "${left.getType().toString()} ${operator} ${right.getType().toString()}"`,
+    `Add "${operator}" operator in "${left
+      .getType()
+      .toString()}" with "${right.getType().toString()}" parameter`,
   );
 };
 

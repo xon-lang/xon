@@ -1,8 +1,8 @@
 import { LambdaExpressionContext } from '../../../grammar/xon-parser';
 import { NamingService } from '../../../naming-service/naming-service';
 import { ParameterTree } from '../../parameter/parameter.tree';
+import { FunctionTypeTree } from '../../type/function-type/function-type.tree';
 import { createFunctionType } from '../../type/type-helper';
-import { TypeTree } from '../../type/type.tree';
 import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
@@ -20,7 +20,7 @@ export class LambdaExpressionTree extends ExpressionTree {
     NamingService.instance.popScope();
   }
 
-  public getType(): TypeTree {
+  public getType(): FunctionTypeTree {
     return createFunctionType(this.parameters, this.body.getType());
   }
 }

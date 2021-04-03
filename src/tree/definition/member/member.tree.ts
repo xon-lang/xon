@@ -10,7 +10,7 @@ import { BaseTree } from '../../base.tree';
 import { ParameterTree } from '../../parameter/parameter.tree';
 import { getStatementsTrees } from '../../statement/statement-helper';
 import { StatementTree } from '../../statement/statement.tree';
-import { createFunctionType, getTypeTree, typeVoid } from '../../type/type-helper';
+import { createFunctionType, getTypeTree } from '../../type/type-helper';
 import { TypeTree } from '../../type/type.tree';
 
 export abstract class MemberTree extends BaseTree {
@@ -20,11 +20,13 @@ export abstract class MemberTree extends BaseTree {
 
   public isAbstract: boolean;
 
-  public parameters?: ParameterTree[];
+  public parameters?: ParameterTree[] = [];
 
-  public returnType?: TypeTree;
+  public generics: string[];
 
-  private _dataType: TypeTree;
+  private _generics: Map<string, TypeTree> = new Map();
+
+  private _returnType?: TypeTree;
 
   private _statements?: StatementTree[];
 
@@ -39,17 +41,23 @@ export abstract class MemberTree extends BaseTree {
     super();
 
     this.name = ctx._name.text;
+    this.generics = ctx
+      .generics()
+      ?.id()
+      .map((x) => x.text);
     this.isPrivate = this.name.startsWith('_');
     this.isAbstract = !(ctx instanceof PropertyMemberContext) && !ctx.body();
-    if (!(ctx instanceof PropertyMemberContext))
-      this.parameters = ctx.parameter().map((x) => new ParameterTree(x));
-
-    if (!(ctx instanceof InitMemberContext)) this.returnType = getTypeTree(ctx.type());
-
-    if (this.ctx instanceof MethodMemberContext && !this.returnType) this.returnType = typeVoid;
   }
 
   public body(): StatementTree[] {
+    if (!(this.ctx instanceof PropertyMemberContext))
+      this.parameters = this.ctx
+        .parameter()
+        .map((x) => new ParameterTree(x).useGenerics(this._generics));
+
+    this._returnType =
+      (this.ctx.type() && this._generics.get(this.ctx.type().text)) || getTypeTree(this.ctx.type());
+
     NamingService.instance.pushScope();
 
     if (!this._statements && this.ctx.body())
@@ -59,12 +67,14 @@ export abstract class MemberTree extends BaseTree {
     return this._statements;
   }
 
-  public getType(): TypeTree {
-    if (!this._dataType) {
-      if (this.ctx instanceof PropertyMemberContext) this._dataType = this.returnType;
-      else this._dataType = createFunctionType(this.parameters, this.returnType);
-    }
+  public useGenerics(generics: Map<string, TypeTree>): MemberTree {
+    this._generics = generics;
+    return this;
+  }
 
-    return this._dataType;
+  public getType(): TypeTree {
+    return this.ctx instanceof PropertyMemberContext
+      ? this._returnType
+      : createFunctionType(this.parameters, this._returnType);
   }
 }

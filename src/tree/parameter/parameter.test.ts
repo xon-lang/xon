@@ -6,5 +6,5 @@ test('simple param', () => {
   const code = 'b String';
   const tree = new ParameterTree(parse(code).parameter());
   expect(tree.name).toBe('b');
-  expect((tree.type as PlainTypeTree).name).toBe('String');
+  expect((tree.getType() as PlainTypeTree).name).toBe('String');
 });

@@ -1,7 +1,7 @@
 import { StringFormatExpressionContext } from '../../../grammar/xon-parser';
 import { parseExpression } from '../../../parse';
+import { PlainTypeTree } from '../../type/plain-type/plain-type.tree';
 import { createPlainType } from '../../type/type-helper';
-import { TypeTree } from '../../type/type.tree';
 import { ExpressionTree } from '../expression.tree';
 import { ParenthesizedExpressionTree } from '../parenthesized-expression/parenthesized-expression.tree';
 
@@ -22,7 +22,7 @@ export class StringFormatExpressionTree extends ExpressionTree {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  public getType(): TypeTree {
+  public getType(): PlainTypeTree {
     return createPlainType('String');
   }
 }

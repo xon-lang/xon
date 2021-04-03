@@ -1,3 +1,2 @@
 Array<T>:
     @[index Integer] T
-

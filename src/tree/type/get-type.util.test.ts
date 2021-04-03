@@ -29,11 +29,11 @@ test('findTheBestMethod', () => {
   expect(foundMethod.name).toBe('+');
   expect(foundMethod.parameters.length).toBe(2);
   expect(foundMethod.parameters[0].name).toBe('a');
-  expect(foundMethod.parameters[0].type).toBeInstanceOf(PlainTypeTree);
-  expect(foundMethod.parameters[0].type.toString()).toBe('Integer');
-  expect(foundMethod.parameters[0].type.metaType).toBeUndefined();
+  expect(foundMethod.parameters[0].getType()).toBeInstanceOf(PlainTypeTree);
+  expect(foundMethod.parameters[0].getType().toString()).toBe('Integer');
+  expect(foundMethod.parameters[0].getType().metaType).toBeUndefined();
   expect(foundMethod.parameters[1].name).toBe('b');
-  expect(foundMethod.parameters[1].type).toBeInstanceOf(PlainTypeTree);
-  expect(foundMethod.parameters[1].type.toString()).toBe('Integer');
-  expect(foundMethod.parameters[1].type.metaType).toBeUndefined();
+  expect(foundMethod.parameters[1].getType()).toBeInstanceOf(PlainTypeTree);
+  expect(foundMethod.parameters[1].getType().toString()).toBe('Integer');
+  expect(foundMethod.parameters[1].getType().metaType).toBeUndefined();
 });
