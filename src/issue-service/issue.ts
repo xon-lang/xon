@@ -30,7 +30,7 @@ export class Issue {
     const source = this.path || 'line';
 
     if (codeLine)
-      return `${this.message}. ${source}:${this.line}:${this.column}\n${codeLine}\n${' '.repeat(
+      return `${this.message}\n${source}:${this.line}:${this.column}\n${codeLine}\n${' '.repeat(
         this.column,
       )}^`;
 
