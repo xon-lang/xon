@@ -29,7 +29,6 @@
     "test": "npm run grammar && npm run lint && jest --no-cache",
     "build": "scripts/build.sh",
     "pre-commit": "scripts/pre-commit.sh",
-    "preversion": "npm run test",
     "version": "npm run build",
     "postversion": "git push && cd dist && npm publish --access public && rimraf ../dist",
     "postinstall": "husky install",
