@@ -7,22 +7,25 @@ options {
 program: (library | statement | definition | LineBreak)*;
 
 library:       libraryPath ':' libraryMember (',' libraryMember)*;
-libraryPath:   ID ('-' ID)* '/' ID ('-' ID)*;
-libraryMember: name = ID ('as' alias = ID)?;
+libraryPath:   id ('-' id)* '/' id ('-' id)*;
+libraryMember: name = id ('as' alias = id)?;
 
-definition: id ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT;
+definition:
+    name = id generics? ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT
+    ;
 member:
-    ID '(' (parameter (',' parameter)*)? ')' type? body?  # methodMember
-    | '@' '(' (parameter (',' parameter)*)? ')' body?     # initMember
-    | '@' '[' parameter (',' parameter)* ']' type body?   # indexMember
-    | operator '(' parameter ',' parameter ')' type body? # operatorMember
-    | ID type                                             # propertyMember
+    name = id generics? '(' (parameter (',' parameter)*)? ')' type? body?    # methodMember
+    | name = '@' generics? '(' (parameter (',' parameter)*)? ')' type? body? # initMember
+    | name = '@' generics? '[' parameter (',' parameter)* ']' type body?     # indexMember
+    | name = operator generics? '(' parameter ',' parameter ')' type body?   # operatorMember
+    | name = id generics? type body?                                         # propertyMember
     ;
 
 type:
     id                                           # plainType
     | id '<' type (',' type)* '>'                # genericType
     | type '[' ']'                               # arrayType
+    | '{' (parameter (',' parameter)*)? '}'      # objectType
     | '(' (parameter (',' parameter)*)? ')' type # functionType
     | type '|' type                              # unionType
     | '(' type ')'                               # parenthesizedType
@@ -31,25 +34,24 @@ type:
 
 statement:
     'if' expression body ('elif' expression body)* ('else' body)?                     # ifStatement
-    | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body # loopStatement
+    | 'loop' ((value = id (',' key = id?)? (',' index = id)? 'in')? expression)? body # loopStatement
     | 'break'                                                                         # breakStatement
     | 'return' expression?                                                            # returnStatement
-    | ID '=' expression                                                               # assignmentStatement
+    | id '=' expression                                                               # assignmentStatement
     | expression                                                                      # expressionStatement
     | Preprocessor                                                                    # preprocessorStatement
     ;
 
 expression:
-    ID                                                                              # idExpression
+    id                                                                              # idExpression
     | '@'                                                                           # instanceExpression
     | literal                                                                       # literalExpression
-    | expression ('.' id)? '(' (argument (',' argument)*)? ')'                      # methodExpression
-    | expression ('.' id)? '[' (argument (',' argument)*)? ']'                      # indexExpression
-    | expression '.' id                                                             # propertyExpression
+    | expression '.' id                                                             # memberExpression
+    | expression '(' (argument (',' argument)*)? ')'                                # methodExpression
+    | expression '[' (argument (',' argument)*)? ']'                                # indexExpression
     | expression operator expression                                                # operatorExpression
     | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd # stringFormatExpression
-    | '[' expression (',' expression)* ']'                                          # arrayExpression
-    | '{' (ID ':' expression (',' ID ':' expression)*)? '}'                         # objectExpression
+    | '[' (argument (',' argument)*)? ']'                                           # arrayExpression
     | '(' expression ')'                                                            # parenthesizedExpression
     | '\\' (parameter (',' parameter)* ':')? expression                             # lambdaExpression
     ;
@@ -79,7 +81,8 @@ operator:
     | '.' '.' '.'?
     ;
 
-parameter: ID type?;
-argument:  (ID '=')? expression;
+parameter: id type?;
+argument:  (id '=')? expression;
+generics:  '<' id (',' id)* '>';
 body:      ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;
 id:        ID;

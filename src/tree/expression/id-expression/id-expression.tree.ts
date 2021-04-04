@@ -1,5 +1,7 @@
 import { IdExpressionContext } from '../../../grammar/xon-parser';
-import { IdService } from '../../../id-service/id-service';
+import { NamingService } from '../../../naming-service/naming-service';
+import { DefinitionTree } from '../../definition/definition.tree';
+import { TypeTree } from '../../type/type.tree';
 import { ExpressionTree } from '../expression.tree';
 
 export class IdExpressionTree extends ExpressionTree {
@@ -7,8 +9,13 @@ export class IdExpressionTree extends ExpressionTree {
 
   public constructor(public ctx: IdExpressionContext) {
     super();
-    this.name = ctx.ID().text;
+    this.name = ctx.id().text;
+  }
 
-    this.dataType = IdService.instance.find(this.name)?.type;
+  public getType(): TypeTree {
+    if (this.name[0].toUpperCase() === this.name[0])
+      return (NamingService.instance.find(this.name).tree as DefinitionTree).getType();
+
+    return NamingService.instance.find(this.name).type;
   }
 }
