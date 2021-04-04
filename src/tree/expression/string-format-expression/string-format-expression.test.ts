@@ -18,3 +18,11 @@ test('format escaped string', () => {
   expect(tree.value).toBeInstanceOf(ParenthesizedExpressionTree);
   expect(evalExpression(tree.value)).toBe(`1+1 = ${1 + 1}; "2+2 = ${2 + 2}`);
 });
+
+test('format string from translator', () => {
+  const code = '"My name is {"John"} and age is {20+7}"';
+  const tree = parseExpression<StringFormatExpressionTree>(code);
+  expect(tree).toBeInstanceOf(StringFormatExpressionTree);
+  expect(tree.value).toBeInstanceOf(ParenthesizedExpressionTree);
+  expect(evalExpression(tree.value)).toBe('My name is John and age is 27');
+});
