@@ -13,7 +13,7 @@ export class AssignmentStatementTree extends StatementTree {
     super();
     if (!ctx) return;
 
-    this.name = ctx.ID().text;
+    this.name = ctx.id().text;
     this.value = getExpressionTree(ctx.expression());
 
     NamingService.instance.addAssignment(this);

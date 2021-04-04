@@ -15,7 +15,7 @@ export class ParameterTree extends BaseTree {
     super();
     if (!ctx) return;
 
-    this.name = ctx.ID().text;
+    this.name = ctx.id().text;
     this._type = getTypeTree(ctx.type());
   }
 
