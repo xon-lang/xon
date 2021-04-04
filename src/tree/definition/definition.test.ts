@@ -3,6 +3,7 @@ import { parseDefinition } from '../../parse';
 import { IdExpressionTree } from '../expression/id-expression/id-expression.tree';
 import { MethodExpressionTree } from '../expression/method-expression/method-expression.tree';
 import { ExpressionStatementTree } from '../statement/expression-statement/expression-statement.tree';
+import { FunctionTypeTree } from '../type/function-type/function-type.tree';
 import { GenericTypeTree } from '../type/generic-type/generic-type.tree';
 import { PlainTypeTree } from '../type/plain-type/plain-type.tree';
 import { DefinitionTree } from './definition.tree';
@@ -68,5 +69,7 @@ test('one scope', () => {
   expect(tree.operators[0].parameters[1].name).toBe('sc');
   expect((tree.operators[0].parameters[1].getType() as PlainTypeTree).name).toBe('SomeClass');
   // TODO uncomment
-  // expect((tree.operators[0].getType() as PlainTypeTree).name).toBe('SomeClass');
+  expect(((tree.operators[0].getType() as FunctionTypeTree).returnType as PlainTypeTree).name).toBe(
+    'SomeClass',
+  );
 });
