@@ -40,6 +40,9 @@ export function getTypeDefinition(type: TypeTree): DefinitionTree {
   if (name) {
     if (definitionCache.has(name)) return definitionCache.get(name);
 
+    if (!fs.existsSync(libTypePaths[name]))
+      throw new Error(`File "${libTypePaths[name]}" doesn't exists`);
+
     const code = fs.readFileSync(libTypePaths[name]).toString();
     const definition = parseDefinition(code);
     getTypeGenerics(type).forEach((x, i) => generics.set(definition.generics[i], x));
