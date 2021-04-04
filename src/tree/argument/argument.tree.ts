@@ -15,7 +15,7 @@ export class ArgumentTree extends BaseTree {
     super();
 
     this.value = getExpressionTree(ctx.expression());
-    this.name = ctx.ID()?.text || this.valueName();
+    this.name = ctx.id()?.text || this.valueName();
   }
 
   public getType(): TypeTree {

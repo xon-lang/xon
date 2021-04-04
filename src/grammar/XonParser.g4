@@ -7,8 +7,8 @@ options {
 program: (library | statement | definition | LineBreak)*;
 
 library:       libraryPath ':' libraryMember (',' libraryMember)*;
-libraryPath:   ID ('-' ID)* '/' ID ('-' ID)*;
-libraryMember: name = ID ('as' alias = ID)?;
+libraryPath:   id ('-' id)* '/' id ('-' id)*;
+libraryMember: name = id ('as' alias = id)?;
 
 definition:
     name = id generics? ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT
@@ -34,16 +34,16 @@ type:
 
 statement:
     'if' expression body ('elif' expression body)* ('else' body)?                     # ifStatement
-    | 'loop' ((value = ID (',' key = ID?)? (',' index = ID)? 'in')? expression)? body # loopStatement
+    | 'loop' ((value = id (',' key = id?)? (',' index = id)? 'in')? expression)? body # loopStatement
     | 'break'                                                                         # breakStatement
     | 'return' expression?                                                            # returnStatement
-    | ID '=' expression                                                               # assignmentStatement
+    | id '=' expression                                                               # assignmentStatement
     | expression                                                                      # expressionStatement
     | Preprocessor                                                                    # preprocessorStatement
     ;
 
 expression:
-    ID                                                                              # idExpression
+    id                                                                              # idExpression
     | '@'                                                                           # instanceExpression
     | literal                                                                       # literalExpression
     | expression '.' id                                                             # memberExpression
@@ -81,8 +81,8 @@ operator:
     | '.' '.' '.'?
     ;
 
-parameter: ID type?;
-argument:  (ID '=')? expression;
+parameter: id type?;
+argument:  (id '=')? expression;
 generics:  '<' id (',' id)* '>';
 body:      ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;
 id:        ID;

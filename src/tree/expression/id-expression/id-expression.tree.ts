@@ -9,7 +9,7 @@ export class IdExpressionTree extends ExpressionTree {
 
   public constructor(public ctx: IdExpressionContext) {
     super();
-    this.name = ctx.ID().text;
+    this.name = ctx.id().text;
   }
 
   public getType(): TypeTree {
