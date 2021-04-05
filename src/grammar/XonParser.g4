@@ -32,6 +32,7 @@ type:
     | '(' (parameter (',' parameter)*)? ')' type # functionType
     | type '|' type                              # unionType
     | '(' type ')'                               # parenthesizedType
+    | literal                                    # literalType
     | type '#' id                                # metaType
     ;
 

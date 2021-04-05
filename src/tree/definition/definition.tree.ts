@@ -83,6 +83,7 @@ export class DefinitionTree extends BaseTree {
     if (!this._members) {
       NamingService.instance.pushScope();
       this._members = this.ctx.member().map((x) => getMemberTree(x).useGenerics(this._generics));
+      // does it really need?
       this._members.forEach((x) => x.body());
 
       this.validate();
