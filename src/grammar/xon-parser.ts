@@ -73,7 +73,6 @@ export class XonParser extends Parser {
 	public static readonly NL = 46;
 	public static readonly WS = 47;
 	public static readonly COMMENT = 48;
-	public static readonly UNEXPECTED_CHARACTER = 49;
 	public static readonly RULE_program = 0;
 	public static readonly RULE_library = 1;
 	public static readonly RULE_libraryPath = 2;
@@ -112,7 +111,7 @@ export class XonParser extends Parser {
 		"CARET", "HASH", "LESS_THAN", "MORE_THAN", "AMPERSAND", "PIPE", "TILDE", 
 		"AD", "UNDERSCORE", "LAMBDA_START", "BOOLEAN_LITERAL", "FLOAT_LITERAL", 
 		"INTEGER_LITERAL", "CHAR_LITERAL", "STRING_LITERAL", "ID", "PREPROCESSOR", 
-		"NL", "WS", "COMMENT", "UNEXPECTED_CHARACTER",
+		"NL", "WS", "COMMENT",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(XonParser._LITERAL_NAMES, XonParser._SYMBOLIC_NAMES, []);
 
@@ -1979,7 +1978,7 @@ export class XonParser extends Parser {
 	}
 
 	public static readonly _serializedATN: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x033\u01B8\x04\x02" +
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x032\u01B8\x04\x02" +
 		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
 		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x04\f\t\f\x04\r\t\r\x04" +
 		"\x0E\t\x0E\x04\x0F\t\x0F\x04\x10\t\x10\x04\x11\t\x11\x03\x02\x03\x02\x03" +

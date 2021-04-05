@@ -55,25 +55,22 @@ AD:            '@';
 UNDERSCORE:    '_';
 LAMBDA_START:  '\\';
 
-BOOLEAN_LITERAL: 'true' | 'false';
 FLOAT_LITERAL:
     [0-9][0-9]? 'x' AlphabetNumber '.' AlphabetNumber
     | DigitNumber '.' DigitNumber
     ;
 INTEGER_LITERAL: [0-9][0-9]? 'x' AlphabetNumber | DigitNumber;
+BOOLEAN_LITERAL: 'true' | 'false';
 CHAR_LITERAL:    '\'' ~['] '\'';
-STRING_LITERAL:  '"' StringCharacter* '"';
-
-ID: [a-zA-Z_]+;
-
-PREPROCESSOR: '#{' .*? '}';
+STRING_LITERAL:  '"' (~["] | '\\' ["\\bfnrtv])* '"';
+PREPROCESSOR:    '#{' .*? '}';
+ID:              [a-zA-Z_]+;
 
 NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
     ;
-WS:                   [ \t]+        -> skip;
-COMMENT:              '//' ~[\r\n]* -> skip;
-UNEXPECTED_CHARACTER: .             -> channel(ERROR);
 
-fragment DigitNumber:     [0-9]+ ('_' [0-9]+)*;
-fragment AlphabetNumber:  [0-9a-zA-Z]+ ('_' [0-9a-zA-Z]+)*;
-fragment StringCharacter: ~["] | '\\' ["\\bfnrtv];
+WS:      [ \t]+        -> skip;
+COMMENT: '//' ~[\r\n]* -> skip;
+
+fragment DigitNumber:    [0-9]+ ('_' [0-9]+)*;
+fragment AlphabetNumber: [0-9a-zA-Z]+ ('_' [0-9a-zA-Z]+)*;
