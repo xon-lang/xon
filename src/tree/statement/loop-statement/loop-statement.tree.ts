@@ -21,7 +21,7 @@ export class LoopStatementTree extends StatementTree {
 
   public constructor(public ctx: LoopStatementContext) {
     super();
-    this.keyword = ctx.Loop().text;
+    this.keyword = ctx.LOOP().text;
     this.isInfinity = !ctx.expression();
 
     this.indexName = ctx._index?.text;

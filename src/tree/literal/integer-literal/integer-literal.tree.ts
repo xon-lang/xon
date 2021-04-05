@@ -10,7 +10,7 @@ export class IntegerLiteralTree extends LiteralTree {
 
   public constructor(public ctx: IntegerLiteralContext) {
     super();
-    const [integer, radix] = ctx.IntegerLiteral().text.split('x').reverse();
+    const [integer, radix] = ctx.text.split('x').reverse();
     this.integer = integer;
     this.radix = +radix;
 

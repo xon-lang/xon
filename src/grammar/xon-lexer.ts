@@ -21,57 +21,57 @@ import * as Utils from "antlr4ts/misc/Utils";
 export class XonLexer extends XonLexerBase {
 	public static readonly INDENT = 1;
 	public static readonly DEDENT = 2;
-	public static readonly Is = 3;
-	public static readonly As = 4;
-	public static readonly If = 5;
-	public static readonly Else = 6;
-	public static readonly ElseIf = 7;
-	public static readonly Loop = 8;
-	public static readonly In = 9;
-	public static readonly Break = 10;
-	public static readonly Return = 11;
-	public static readonly Preprocessor = 12;
-	public static readonly LineBreak = 13;
-	public static readonly OpenBracket = 14;
-	public static readonly CloseBracket = 15;
-	public static readonly OpenParen = 16;
-	public static readonly CloseParen = 17;
-	public static readonly OpenBrace = 18;
-	public static readonly CloseBrace = 19;
-	public static readonly Comma = 20;
-	public static readonly Assign = 21;
-	public static readonly Question = 22;
-	public static readonly Colon = 23;
-	public static readonly Dot = 24;
-	public static readonly Plus = 25;
-	public static readonly Minus = 26;
-	public static readonly Exclamation = 27;
-	public static readonly Asterisk = 28;
-	public static readonly Slash = 29;
-	public static readonly Modulo = 30;
-	public static readonly Caret = 31;
-	public static readonly Hash = 32;
-	public static readonly LessThan = 33;
-	public static readonly MoreThan = 34;
-	public static readonly Ampersand = 35;
-	public static readonly Pipe = 36;
-	public static readonly Tilde = 37;
-	public static readonly Ad = 38;
-	public static readonly Underscore = 39;
-	public static readonly LambdaStart = 40;
-	public static readonly BooleanLiteral = 41;
-	public static readonly FloatLiteral = 42;
-	public static readonly IntegerLiteral = 43;
-	public static readonly CharLiteral = 44;
-	public static readonly StringLiteral = 45;
-	public static readonly StringFormatStart = 46;
-	public static readonly StringFormatMiddle = 47;
-	public static readonly StringFormatEnd = 48;
+	public static readonly IS = 3;
+	public static readonly AS = 4;
+	public static readonly IF = 5;
+	public static readonly ELSE = 6;
+	public static readonly ELSE_IF = 7;
+	public static readonly LOOP = 8;
+	public static readonly IN = 9;
+	public static readonly BREAK = 10;
+	public static readonly RETURN = 11;
+	public static readonly PREPROCESSOR = 12;
+	public static readonly LINE_BREAK = 13;
+	public static readonly OPEN_BRACKET = 14;
+	public static readonly CLOSE_BRACKET = 15;
+	public static readonly OPEN_PAREN = 16;
+	public static readonly CLOSE_PAREN = 17;
+	public static readonly OPEN_BRACE = 18;
+	public static readonly CLOSE_BRACE = 19;
+	public static readonly COMMA = 20;
+	public static readonly ASSIGN = 21;
+	public static readonly QUESTION = 22;
+	public static readonly COLON = 23;
+	public static readonly DOT = 24;
+	public static readonly PLUS = 25;
+	public static readonly MINUS = 26;
+	public static readonly EXCLAMATION = 27;
+	public static readonly ASTERISK = 28;
+	public static readonly SLASH = 29;
+	public static readonly MODULO = 30;
+	public static readonly CARET = 31;
+	public static readonly HASH = 32;
+	public static readonly LESS_THAN = 33;
+	public static readonly MORE_THAN = 34;
+	public static readonly AMPERSAND = 35;
+	public static readonly PIPE = 36;
+	public static readonly TILDE = 37;
+	public static readonly AD = 38;
+	public static readonly UNDERSCORE = 39;
+	public static readonly LAMBDA_START = 40;
+	public static readonly BOOLEAN_LITERAL = 41;
+	public static readonly FLOAT_LITERAL = 42;
+	public static readonly INTEGER_LITERAL = 43;
+	public static readonly CHAR_LITERAL = 44;
+	public static readonly STRING_LITERAL = 45;
+	public static readonly STRING_FORMAT_START = 46;
+	public static readonly STRING_FORMAT_MIDDLE = 47;
+	public static readonly STRING_FORMAT_END = 48;
 	public static readonly ID = 49;
-	public static readonly Spaces = 50;
-	public static readonly Comment = 51;
-	public static readonly LineJoining = 52;
-	public static readonly UnexpectedCharacter = 53;
+	public static readonly SPACES = 50;
+	public static readonly COMMENT = 51;
+	public static readonly LINE_JOINING = 52;
+	public static readonly UNEXPECTED_CHARACTER = 53;
 	public static readonly ERROR = 2;
 
 	// tslint:disable:no-trailing-whitespace
@@ -85,15 +85,16 @@ export class XonLexer extends XonLexerBase {
 	];
 
 	public static readonly ruleNames: string[] = [
-		"Is", "As", "If", "Else", "ElseIf", "Loop", "In", "Break", "Return", "Preprocessor", 
-		"LineBreak", "OpenBracket", "CloseBracket", "OpenParen", "CloseParen", 
-		"OpenBrace", "CloseBrace", "Comma", "Assign", "Question", "Colon", "Dot", 
-		"Plus", "Minus", "Exclamation", "Asterisk", "Slash", "Modulo", "Caret", 
-		"Hash", "LessThan", "MoreThan", "Ampersand", "Pipe", "Tilde", "Ad", "Underscore", 
-		"LambdaStart", "BooleanLiteral", "FloatLiteral", "IntegerLiteral", "CharLiteral", 
-		"StringLiteral", "StringFormatStart", "StringFormatMiddle", "StringFormatEnd", 
-		"ID", "Spaces", "Comment", "LineJoining", "UnexpectedCharacter", "SPACES", 
-		"DIGIT_NUMBER", "ALPHABET_NUMBER", "STRING_CHARACTER",
+		"IS", "AS", "IF", "ELSE", "ELSE_IF", "LOOP", "IN", "BREAK", "RETURN", 
+		"PREPROCESSOR", "LINE_BREAK", "OPEN_BRACKET", "CLOSE_BRACKET", "OPEN_PAREN", 
+		"CLOSE_PAREN", "OPEN_BRACE", "CLOSE_BRACE", "COMMA", "ASSIGN", "QUESTION", 
+		"COLON", "DOT", "PLUS", "MINUS", "EXCLAMATION", "ASTERISK", "SLASH", "MODULO", 
+		"CARET", "HASH", "LESS_THAN", "MORE_THAN", "AMPERSAND", "PIPE", "TILDE", 
+		"AD", "UNDERSCORE", "LAMBDA_START", "BOOLEAN_LITERAL", "FLOAT_LITERAL", 
+		"INTEGER_LITERAL", "CHAR_LITERAL", "STRING_LITERAL", "STRING_FORMAT_START", 
+		"STRING_FORMAT_MIDDLE", "STRING_FORMAT_END", "ID", "SPACES", "COMMENT", 
+		"LINE_JOINING", "UNEXPECTED_CHARACTER", "Spaces", "DigitNumber", "AlphabetNumber", 
+		"StringCharacter",
 	];
 
 	private static readonly _LITERAL_NAMES: Array<string | undefined> = [
@@ -104,15 +105,15 @@ export class XonLexer extends XonLexerBase {
 		"'&'", "'|'", "'~'", "'@'", "'_'", "'\\'",
 	];
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
-		undefined, "INDENT", "DEDENT", "Is", "As", "If", "Else", "ElseIf", "Loop", 
-		"In", "Break", "Return", "Preprocessor", "LineBreak", "OpenBracket", "CloseBracket", 
-		"OpenParen", "CloseParen", "OpenBrace", "CloseBrace", "Comma", "Assign", 
-		"Question", "Colon", "Dot", "Plus", "Minus", "Exclamation", "Asterisk", 
-		"Slash", "Modulo", "Caret", "Hash", "LessThan", "MoreThan", "Ampersand", 
-		"Pipe", "Tilde", "Ad", "Underscore", "LambdaStart", "BooleanLiteral", 
-		"FloatLiteral", "IntegerLiteral", "CharLiteral", "StringLiteral", "StringFormatStart", 
-		"StringFormatMiddle", "StringFormatEnd", "ID", "Spaces", "Comment", "LineJoining", 
-		"UnexpectedCharacter",
+		undefined, "INDENT", "DEDENT", "IS", "AS", "IF", "ELSE", "ELSE_IF", "LOOP", 
+		"IN", "BREAK", "RETURN", "PREPROCESSOR", "LINE_BREAK", "OPEN_BRACKET", 
+		"CLOSE_BRACKET", "OPEN_PAREN", "CLOSE_PAREN", "OPEN_BRACE", "CLOSE_BRACE", 
+		"COMMA", "ASSIGN", "QUESTION", "COLON", "DOT", "PLUS", "MINUS", "EXCLAMATION", 
+		"ASTERISK", "SLASH", "MODULO", "CARET", "HASH", "LESS_THAN", "MORE_THAN", 
+		"AMPERSAND", "PIPE", "TILDE", "AD", "UNDERSCORE", "LAMBDA_START", "BOOLEAN_LITERAL", 
+		"FLOAT_LITERAL", "INTEGER_LITERAL", "CHAR_LITERAL", "STRING_LITERAL", 
+		"STRING_FORMAT_START", "STRING_FORMAT_MIDDLE", "STRING_FORMAT_END", "ID", 
+		"SPACES", "COMMENT", "LINE_JOINING", "UNEXPECTED_CHARACTER",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(XonLexer._LITERAL_NAMES, XonLexer._SYMBOLIC_NAMES, []);
 
@@ -148,77 +149,77 @@ export class XonLexer extends XonLexerBase {
 	public action(_localctx: RuleContext, ruleIndex: number, actionIndex: number): void {
 		switch (ruleIndex) {
 		case 10:
-			this.LineBreak_action(_localctx, actionIndex);
+			this.LINE_BREAK_action(_localctx, actionIndex);
 			break;
 
 		case 11:
-			this.OpenBracket_action(_localctx, actionIndex);
+			this.OPEN_BRACKET_action(_localctx, actionIndex);
 			break;
 
 		case 12:
-			this.CloseBracket_action(_localctx, actionIndex);
+			this.CLOSE_BRACKET_action(_localctx, actionIndex);
 			break;
 
 		case 13:
-			this.OpenParen_action(_localctx, actionIndex);
+			this.OPEN_PAREN_action(_localctx, actionIndex);
 			break;
 
 		case 14:
-			this.CloseParen_action(_localctx, actionIndex);
+			this.CLOSE_PAREN_action(_localctx, actionIndex);
 			break;
 
 		case 15:
-			this.OpenBrace_action(_localctx, actionIndex);
+			this.OPEN_BRACE_action(_localctx, actionIndex);
 			break;
 
 		case 16:
-			this.CloseBrace_action(_localctx, actionIndex);
+			this.CLOSE_BRACE_action(_localctx, actionIndex);
 			break;
 		}
 	}
-	private LineBreak_action(_localctx: RuleContext, actionIndex: number): void {
+	private LINE_BREAK_action(_localctx: RuleContext, actionIndex: number): void {
 		switch (actionIndex) {
 		case 0:
 			this.handleLineBreak()
 			break;
 		}
 	}
-	private OpenBracket_action(_localctx: RuleContext, actionIndex: number): void {
+	private OPEN_BRACKET_action(_localctx: RuleContext, actionIndex: number): void {
 		switch (actionIndex) {
 		case 1:
 			this.opened++;
 			break;
 		}
 	}
-	private CloseBracket_action(_localctx: RuleContext, actionIndex: number): void {
+	private CLOSE_BRACKET_action(_localctx: RuleContext, actionIndex: number): void {
 		switch (actionIndex) {
 		case 2:
 			this.opened--;
 			break;
 		}
 	}
-	private OpenParen_action(_localctx: RuleContext, actionIndex: number): void {
+	private OPEN_PAREN_action(_localctx: RuleContext, actionIndex: number): void {
 		switch (actionIndex) {
 		case 3:
 			this.opened++;
 			break;
 		}
 	}
-	private CloseParen_action(_localctx: RuleContext, actionIndex: number): void {
+	private CLOSE_PAREN_action(_localctx: RuleContext, actionIndex: number): void {
 		switch (actionIndex) {
 		case 4:
 			this.opened--;
 			break;
 		}
 	}
-	private OpenBrace_action(_localctx: RuleContext, actionIndex: number): void {
+	private OPEN_BRACE_action(_localctx: RuleContext, actionIndex: number): void {
 		switch (actionIndex) {
 		case 5:
 			this.opened++;
 			break;
 		}
 	}
-	private CloseBrace_action(_localctx: RuleContext, actionIndex: number): void {
+	private CLOSE_BRACE_action(_localctx: RuleContext, actionIndex: number): void {
 		switch (actionIndex) {
 		case 6:
 			this.opened--;
@@ -229,11 +230,11 @@ export class XonLexer extends XonLexerBase {
 	public sempred(_localctx: RuleContext, ruleIndex: number, predIndex: number): boolean {
 		switch (ruleIndex) {
 		case 10:
-			return this.LineBreak_sempred(_localctx, predIndex);
+			return this.LINE_BREAK_sempred(_localctx, predIndex);
 		}
 		return true;
 	}
-	private LineBreak_sempred(_localctx: RuleContext, predIndex: number): boolean {
+	private LINE_BREAK_sempred(_localctx: RuleContext, predIndex: number): boolean {
 		switch (predIndex) {
 		case 0:
 			return this.atStartOfInput();

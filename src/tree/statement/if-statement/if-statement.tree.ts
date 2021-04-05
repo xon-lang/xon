@@ -24,7 +24,7 @@ export class IfStatementTree extends StatementTree {
       keyword: i ? 'elif' : 'if',
       statements: getStatementsTrees(ctx.body(i)),
     }));
-    if (ctx.Else()) {
+    if (ctx.ELSE()) {
       this.items.push({
         condition: null,
         hasElse: true,

@@ -27,57 +27,57 @@ import * as Utils from "antlr4ts/misc/Utils";
 export class XonParser extends Parser {
 	public static readonly INDENT = 1;
 	public static readonly DEDENT = 2;
-	public static readonly Is = 3;
-	public static readonly As = 4;
-	public static readonly If = 5;
-	public static readonly Else = 6;
-	public static readonly ElseIf = 7;
-	public static readonly Loop = 8;
-	public static readonly In = 9;
-	public static readonly Break = 10;
-	public static readonly Return = 11;
-	public static readonly Preprocessor = 12;
-	public static readonly LineBreak = 13;
-	public static readonly OpenBracket = 14;
-	public static readonly CloseBracket = 15;
-	public static readonly OpenParen = 16;
-	public static readonly CloseParen = 17;
-	public static readonly OpenBrace = 18;
-	public static readonly CloseBrace = 19;
-	public static readonly Comma = 20;
-	public static readonly Assign = 21;
-	public static readonly Question = 22;
-	public static readonly Colon = 23;
-	public static readonly Dot = 24;
-	public static readonly Plus = 25;
-	public static readonly Minus = 26;
-	public static readonly Exclamation = 27;
-	public static readonly Asterisk = 28;
-	public static readonly Slash = 29;
-	public static readonly Modulo = 30;
-	public static readonly Caret = 31;
-	public static readonly Hash = 32;
-	public static readonly LessThan = 33;
-	public static readonly MoreThan = 34;
-	public static readonly Ampersand = 35;
-	public static readonly Pipe = 36;
-	public static readonly Tilde = 37;
-	public static readonly Ad = 38;
-	public static readonly Underscore = 39;
-	public static readonly LambdaStart = 40;
-	public static readonly BooleanLiteral = 41;
-	public static readonly FloatLiteral = 42;
-	public static readonly IntegerLiteral = 43;
-	public static readonly CharLiteral = 44;
-	public static readonly StringLiteral = 45;
-	public static readonly StringFormatStart = 46;
-	public static readonly StringFormatMiddle = 47;
-	public static readonly StringFormatEnd = 48;
+	public static readonly IS = 3;
+	public static readonly AS = 4;
+	public static readonly IF = 5;
+	public static readonly ELSE = 6;
+	public static readonly ELSE_IF = 7;
+	public static readonly LOOP = 8;
+	public static readonly IN = 9;
+	public static readonly BREAK = 10;
+	public static readonly RETURN = 11;
+	public static readonly PREPROCESSOR = 12;
+	public static readonly LINE_BREAK = 13;
+	public static readonly OPEN_BRACKET = 14;
+	public static readonly CLOSE_BRACKET = 15;
+	public static readonly OPEN_PAREN = 16;
+	public static readonly CLOSE_PAREN = 17;
+	public static readonly OPEN_BRACE = 18;
+	public static readonly CLOSE_BRACE = 19;
+	public static readonly COMMA = 20;
+	public static readonly ASSIGN = 21;
+	public static readonly QUESTION = 22;
+	public static readonly COLON = 23;
+	public static readonly DOT = 24;
+	public static readonly PLUS = 25;
+	public static readonly MINUS = 26;
+	public static readonly EXCLAMATION = 27;
+	public static readonly ASTERISK = 28;
+	public static readonly SLASH = 29;
+	public static readonly MODULO = 30;
+	public static readonly CARET = 31;
+	public static readonly HASH = 32;
+	public static readonly LESS_THAN = 33;
+	public static readonly MORE_THAN = 34;
+	public static readonly AMPERSAND = 35;
+	public static readonly PIPE = 36;
+	public static readonly TILDE = 37;
+	public static readonly AD = 38;
+	public static readonly UNDERSCORE = 39;
+	public static readonly LAMBDA_START = 40;
+	public static readonly BOOLEAN_LITERAL = 41;
+	public static readonly FLOAT_LITERAL = 42;
+	public static readonly INTEGER_LITERAL = 43;
+	public static readonly CHAR_LITERAL = 44;
+	public static readonly STRING_LITERAL = 45;
+	public static readonly STRING_FORMAT_START = 46;
+	public static readonly STRING_FORMAT_MIDDLE = 47;
+	public static readonly STRING_FORMAT_END = 48;
 	public static readonly ID = 49;
-	public static readonly Spaces = 50;
-	public static readonly Comment = 51;
-	public static readonly LineJoining = 52;
-	public static readonly UnexpectedCharacter = 53;
+	public static readonly SPACES = 50;
+	public static readonly COMMENT = 51;
+	public static readonly LINE_JOINING = 52;
+	public static readonly UNEXPECTED_CHARACTER = 53;
 	public static readonly RULE_program = 0;
 	public static readonly RULE_library = 1;
 	public static readonly RULE_libraryPath = 2;
@@ -109,15 +109,15 @@ export class XonParser extends Parser {
 		"'&'", "'|'", "'~'", "'@'", "'_'", "'\\'",
 	];
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
-		undefined, "INDENT", "DEDENT", "Is", "As", "If", "Else", "ElseIf", "Loop", 
-		"In", "Break", "Return", "Preprocessor", "LineBreak", "OpenBracket", "CloseBracket", 
-		"OpenParen", "CloseParen", "OpenBrace", "CloseBrace", "Comma", "Assign", 
-		"Question", "Colon", "Dot", "Plus", "Minus", "Exclamation", "Asterisk", 
-		"Slash", "Modulo", "Caret", "Hash", "LessThan", "MoreThan", "Ampersand", 
-		"Pipe", "Tilde", "Ad", "Underscore", "LambdaStart", "BooleanLiteral", 
-		"FloatLiteral", "IntegerLiteral", "CharLiteral", "StringLiteral", "StringFormatStart", 
-		"StringFormatMiddle", "StringFormatEnd", "ID", "Spaces", "Comment", "LineJoining", 
-		"UnexpectedCharacter",
+		undefined, "INDENT", "DEDENT", "IS", "AS", "IF", "ELSE", "ELSE_IF", "LOOP", 
+		"IN", "BREAK", "RETURN", "PREPROCESSOR", "LINE_BREAK", "OPEN_BRACKET", 
+		"CLOSE_BRACKET", "OPEN_PAREN", "CLOSE_PAREN", "OPEN_BRACE", "CLOSE_BRACE", 
+		"COMMA", "ASSIGN", "QUESTION", "COLON", "DOT", "PLUS", "MINUS", "EXCLAMATION", 
+		"ASTERISK", "SLASH", "MODULO", "CARET", "HASH", "LESS_THAN", "MORE_THAN", 
+		"AMPERSAND", "PIPE", "TILDE", "AD", "UNDERSCORE", "LAMBDA_START", "BOOLEAN_LITERAL", 
+		"FLOAT_LITERAL", "INTEGER_LITERAL", "CHAR_LITERAL", "STRING_LITERAL", 
+		"STRING_FORMAT_START", "STRING_FORMAT_MIDDLE", "STRING_FORMAT_END", "ID", 
+		"SPACES", "COMMENT", "LINE_JOINING", "UNEXPECTED_CHARACTER",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(XonParser._LITERAL_NAMES, XonParser._SYMBOLIC_NAMES, []);
 
@@ -156,7 +156,7 @@ export class XonParser extends Parser {
 			this.state = 38;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.If) | (1 << XonParser.Loop) | (1 << XonParser.Break) | (1 << XonParser.Return) | (1 << XonParser.Preprocessor) | (1 << XonParser.LineBreak) | (1 << XonParser.OpenBracket) | (1 << XonParser.OpenParen))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.Ad - 38)) | (1 << (XonParser.LambdaStart - 38)) | (1 << (XonParser.BooleanLiteral - 38)) | (1 << (XonParser.FloatLiteral - 38)) | (1 << (XonParser.IntegerLiteral - 38)) | (1 << (XonParser.CharLiteral - 38)) | (1 << (XonParser.StringLiteral - 38)) | (1 << (XonParser.StringFormatStart - 38)) | (1 << (XonParser.ID - 38)))) !== 0)) {
+			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.IF) | (1 << XonParser.LOOP) | (1 << XonParser.BREAK) | (1 << XonParser.RETURN) | (1 << XonParser.PREPROCESSOR) | (1 << XonParser.LINE_BREAK) | (1 << XonParser.OPEN_BRACKET) | (1 << XonParser.OPEN_PAREN))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.AD - 38)) | (1 << (XonParser.LAMBDA_START - 38)) | (1 << (XonParser.BOOLEAN_LITERAL - 38)) | (1 << (XonParser.FLOAT_LITERAL - 38)) | (1 << (XonParser.INTEGER_LITERAL - 38)) | (1 << (XonParser.CHAR_LITERAL - 38)) | (1 << (XonParser.STRING_LITERAL - 38)) | (1 << (XonParser.STRING_FORMAT_START - 38)) | (1 << (XonParser.ID - 38)))) !== 0)) {
 				{
 				this.state = 36;
 				this._errHandler.sync(this);
@@ -185,7 +185,7 @@ export class XonParser extends Parser {
 				case 4:
 					{
 					this.state = 35;
-					this.match(XonParser.LineBreak);
+					this.match(XonParser.LINE_BREAK);
 					}
 					break;
 				}
@@ -221,17 +221,17 @@ export class XonParser extends Parser {
 			this.state = 41;
 			this.libraryPath();
 			this.state = 42;
-			this.match(XonParser.Colon);
+			this.match(XonParser.COLON);
 			this.state = 43;
 			this.libraryMember();
 			this.state = 48;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while (_la === XonParser.Comma) {
+			while (_la === XonParser.COMMA) {
 				{
 				{
 				this.state = 44;
-				this.match(XonParser.Comma);
+				this.match(XonParser.COMMA);
 				this.state = 45;
 				this.libraryMember();
 				}
@@ -269,11 +269,11 @@ export class XonParser extends Parser {
 			this.state = 56;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while (_la === XonParser.Minus) {
+			while (_la === XonParser.MINUS) {
 				{
 				{
 				this.state = 52;
-				this.match(XonParser.Minus);
+				this.match(XonParser.MINUS);
 				this.state = 53;
 				this.id();
 				}
@@ -283,17 +283,17 @@ export class XonParser extends Parser {
 				_la = this._input.LA(1);
 			}
 			this.state = 59;
-			this.match(XonParser.Slash);
+			this.match(XonParser.SLASH);
 			this.state = 60;
 			this.id();
 			this.state = 65;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while (_la === XonParser.Minus) {
+			while (_la === XonParser.MINUS) {
 				{
 				{
 				this.state = 61;
-				this.match(XonParser.Minus);
+				this.match(XonParser.MINUS);
 				this.state = 62;
 				this.id();
 				}
@@ -331,10 +331,10 @@ export class XonParser extends Parser {
 			this.state = 71;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if (_la === XonParser.As) {
+			if (_la === XonParser.AS) {
 				{
 				this.state = 69;
-				this.match(XonParser.As);
+				this.match(XonParser.AS);
 				this.state = 70;
 				_localctx._alias = this.id();
 				}
@@ -369,7 +369,7 @@ export class XonParser extends Parser {
 			this.state = 75;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if (_la === XonParser.LessThan) {
+			if (_la === XonParser.LESS_THAN) {
 				{
 				this.state = 74;
 				this.generics();
@@ -379,19 +379,19 @@ export class XonParser extends Parser {
 			this.state = 79;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if (_la === XonParser.Is) {
+			if (_la === XonParser.IS) {
 				{
 				this.state = 77;
-				this.match(XonParser.Is);
+				this.match(XonParser.IS);
 				this.state = 78;
 				this.type(0);
 				}
 			}
 
 			this.state = 81;
-			this.match(XonParser.Colon);
+			this.match(XonParser.COLON);
 			this.state = 82;
-			this.match(XonParser.LineBreak);
+			this.match(XonParser.LINE_BREAK);
 			this.state = 83;
 			this.match(XonParser.INDENT);
 			this.state = 86;
@@ -402,30 +402,30 @@ export class XonParser extends Parser {
 				this.state = 86;
 				this._errHandler.sync(this);
 				switch (this._input.LA(1)) {
-				case XonParser.Assign:
-				case XonParser.Dot:
-				case XonParser.Plus:
-				case XonParser.Minus:
-				case XonParser.Exclamation:
-				case XonParser.Asterisk:
-				case XonParser.Slash:
-				case XonParser.Modulo:
-				case XonParser.Caret:
-				case XonParser.LessThan:
-				case XonParser.MoreThan:
-				case XonParser.Ampersand:
-				case XonParser.Pipe:
-				case XonParser.Ad:
+				case XonParser.ASSIGN:
+				case XonParser.DOT:
+				case XonParser.PLUS:
+				case XonParser.MINUS:
+				case XonParser.EXCLAMATION:
+				case XonParser.ASTERISK:
+				case XonParser.SLASH:
+				case XonParser.MODULO:
+				case XonParser.CARET:
+				case XonParser.LESS_THAN:
+				case XonParser.MORE_THAN:
+				case XonParser.AMPERSAND:
+				case XonParser.PIPE:
+				case XonParser.AD:
 				case XonParser.ID:
 					{
 					this.state = 84;
 					this.member();
 					}
 					break;
-				case XonParser.LineBreak:
+				case XonParser.LINE_BREAK:
 					{
 					this.state = 85;
-					this.match(XonParser.LineBreak);
+					this.match(XonParser.LINE_BREAK);
 					}
 					break;
 				default:
@@ -435,7 +435,7 @@ export class XonParser extends Parser {
 				this.state = 88;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.LineBreak) | (1 << XonParser.Assign) | (1 << XonParser.Dot) | (1 << XonParser.Plus) | (1 << XonParser.Minus) | (1 << XonParser.Exclamation) | (1 << XonParser.Asterisk) | (1 << XonParser.Slash) | (1 << XonParser.Modulo) | (1 << XonParser.Caret))) !== 0) || ((((_la - 33)) & ~0x1F) === 0 && ((1 << (_la - 33)) & ((1 << (XonParser.LessThan - 33)) | (1 << (XonParser.MoreThan - 33)) | (1 << (XonParser.Ampersand - 33)) | (1 << (XonParser.Pipe - 33)) | (1 << (XonParser.Ad - 33)) | (1 << (XonParser.ID - 33)))) !== 0));
+			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.LINE_BREAK) | (1 << XonParser.ASSIGN) | (1 << XonParser.DOT) | (1 << XonParser.PLUS) | (1 << XonParser.MINUS) | (1 << XonParser.EXCLAMATION) | (1 << XonParser.ASTERISK) | (1 << XonParser.SLASH) | (1 << XonParser.MODULO) | (1 << XonParser.CARET))) !== 0) || ((((_la - 33)) & ~0x1F) === 0 && ((1 << (_la - 33)) & ((1 << (XonParser.LESS_THAN - 33)) | (1 << (XonParser.MORE_THAN - 33)) | (1 << (XonParser.AMPERSAND - 33)) | (1 << (XonParser.PIPE - 33)) | (1 << (XonParser.AD - 33)) | (1 << (XonParser.ID - 33)))) !== 0));
 			this.state = 90;
 			this.match(XonParser.DEDENT);
 			}
@@ -472,7 +472,7 @@ export class XonParser extends Parser {
 				this.state = 94;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.LessThan) {
+				if (_la === XonParser.LESS_THAN) {
 					{
 					this.state = 93;
 					this.generics();
@@ -480,7 +480,7 @@ export class XonParser extends Parser {
 				}
 
 				this.state = 96;
-				this.match(XonParser.OpenParen);
+				this.match(XonParser.OPEN_PAREN);
 				this.state = 105;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
@@ -491,11 +491,11 @@ export class XonParser extends Parser {
 					this.state = 102;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
-					while (_la === XonParser.Comma) {
+					while (_la === XonParser.COMMA) {
 						{
 						{
 						this.state = 98;
-						this.match(XonParser.Comma);
+						this.match(XonParser.COMMA);
 						this.state = 99;
 						this.parameter();
 						}
@@ -508,7 +508,7 @@ export class XonParser extends Parser {
 				}
 
 				this.state = 107;
-				this.match(XonParser.CloseParen);
+				this.match(XonParser.CLOSE_PAREN);
 				this.state = 109;
 				this._errHandler.sync(this);
 				switch ( this.interpreter.adaptivePredict(this._input, 13, this._ctx) ) {
@@ -522,7 +522,7 @@ export class XonParser extends Parser {
 				this.state = 112;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.Colon) {
+				if (_la === XonParser.COLON) {
 					{
 					this.state = 111;
 					this.body();
@@ -537,11 +537,11 @@ export class XonParser extends Parser {
 				this.enterOuterAlt(_localctx, 2);
 				{
 				this.state = 114;
-				(_localctx as InitMemberContext)._name = this.match(XonParser.Ad);
+				(_localctx as InitMemberContext)._name = this.match(XonParser.AD);
 				this.state = 116;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.LessThan) {
+				if (_la === XonParser.LESS_THAN) {
 					{
 					this.state = 115;
 					this.generics();
@@ -549,7 +549,7 @@ export class XonParser extends Parser {
 				}
 
 				this.state = 118;
-				this.match(XonParser.OpenParen);
+				this.match(XonParser.OPEN_PAREN);
 				this.state = 127;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
@@ -560,11 +560,11 @@ export class XonParser extends Parser {
 					this.state = 124;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
-					while (_la === XonParser.Comma) {
+					while (_la === XonParser.COMMA) {
 						{
 						{
 						this.state = 120;
-						this.match(XonParser.Comma);
+						this.match(XonParser.COMMA);
 						this.state = 121;
 						this.parameter();
 						}
@@ -577,7 +577,7 @@ export class XonParser extends Parser {
 				}
 
 				this.state = 129;
-				this.match(XonParser.CloseParen);
+				this.match(XonParser.CLOSE_PAREN);
 				this.state = 131;
 				this._errHandler.sync(this);
 				switch ( this.interpreter.adaptivePredict(this._input, 18, this._ctx) ) {
@@ -591,7 +591,7 @@ export class XonParser extends Parser {
 				this.state = 134;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.Colon) {
+				if (_la === XonParser.COLON) {
 					{
 					this.state = 133;
 					this.body();
@@ -606,11 +606,11 @@ export class XonParser extends Parser {
 				this.enterOuterAlt(_localctx, 3);
 				{
 				this.state = 136;
-				(_localctx as IndexMemberContext)._name = this.match(XonParser.Ad);
+				(_localctx as IndexMemberContext)._name = this.match(XonParser.AD);
 				this.state = 138;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.LessThan) {
+				if (_la === XonParser.LESS_THAN) {
 					{
 					this.state = 137;
 					this.generics();
@@ -618,17 +618,17 @@ export class XonParser extends Parser {
 				}
 
 				this.state = 140;
-				this.match(XonParser.OpenBracket);
+				this.match(XonParser.OPEN_BRACKET);
 				this.state = 141;
 				this.parameter();
 				this.state = 146;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				while (_la === XonParser.Comma) {
+				while (_la === XonParser.COMMA) {
 					{
 					{
 					this.state = 142;
-					this.match(XonParser.Comma);
+					this.match(XonParser.COMMA);
 					this.state = 143;
 					this.parameter();
 					}
@@ -638,13 +638,13 @@ export class XonParser extends Parser {
 					_la = this._input.LA(1);
 				}
 				this.state = 149;
-				this.match(XonParser.CloseBracket);
+				this.match(XonParser.CLOSE_BRACKET);
 				this.state = 150;
 				this.type(0);
 				this.state = 152;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.Colon) {
+				if (_la === XonParser.COLON) {
 					{
 					this.state = 151;
 					this.body();
@@ -663,7 +663,7 @@ export class XonParser extends Parser {
 				this.state = 156;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.LessThan) {
+				if (_la === XonParser.LESS_THAN) {
 					{
 					this.state = 155;
 					this.generics();
@@ -671,21 +671,21 @@ export class XonParser extends Parser {
 				}
 
 				this.state = 158;
-				this.match(XonParser.OpenParen);
+				this.match(XonParser.OPEN_PAREN);
 				this.state = 159;
 				this.parameter();
 				this.state = 160;
-				this.match(XonParser.Comma);
+				this.match(XonParser.COMMA);
 				this.state = 161;
 				this.parameter();
 				this.state = 162;
-				this.match(XonParser.CloseParen);
+				this.match(XonParser.CLOSE_PAREN);
 				this.state = 163;
 				this.type(0);
 				this.state = 165;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.Colon) {
+				if (_la === XonParser.COLON) {
 					{
 					this.state = 164;
 					this.body();
@@ -704,7 +704,7 @@ export class XonParser extends Parser {
 				this.state = 169;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.LessThan) {
+				if (_la === XonParser.LESS_THAN) {
 					{
 					this.state = 168;
 					this.generics();
@@ -716,7 +716,7 @@ export class XonParser extends Parser {
 				this.state = 173;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.Colon) {
+				if (_la === XonParser.COLON) {
 					{
 					this.state = 172;
 					this.body();
@@ -783,17 +783,17 @@ export class XonParser extends Parser {
 				this.state = 179;
 				this.id();
 				this.state = 180;
-				this.match(XonParser.LessThan);
+				this.match(XonParser.LESS_THAN);
 				this.state = 181;
 				this.type(0);
 				this.state = 186;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				while (_la === XonParser.Comma) {
+				while (_la === XonParser.COMMA) {
 					{
 					{
 					this.state = 182;
-					this.match(XonParser.Comma);
+					this.match(XonParser.COMMA);
 					this.state = 183;
 					this.type(0);
 					}
@@ -803,7 +803,7 @@ export class XonParser extends Parser {
 					_la = this._input.LA(1);
 				}
 				this.state = 189;
-				this.match(XonParser.MoreThan);
+				this.match(XonParser.MORE_THAN);
 				}
 				break;
 
@@ -813,7 +813,7 @@ export class XonParser extends Parser {
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 191;
-				this.match(XonParser.OpenBrace);
+				this.match(XonParser.OPEN_BRACE);
 				this.state = 200;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
@@ -824,11 +824,11 @@ export class XonParser extends Parser {
 					this.state = 197;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
-					while (_la === XonParser.Comma) {
+					while (_la === XonParser.COMMA) {
 						{
 						{
 						this.state = 193;
-						this.match(XonParser.Comma);
+						this.match(XonParser.COMMA);
 						this.state = 194;
 						this.parameter();
 						}
@@ -841,7 +841,7 @@ export class XonParser extends Parser {
 				}
 
 				this.state = 202;
-				this.match(XonParser.CloseBrace);
+				this.match(XonParser.CLOSE_BRACE);
 				}
 				break;
 
@@ -851,7 +851,7 @@ export class XonParser extends Parser {
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 203;
-				this.match(XonParser.OpenParen);
+				this.match(XonParser.OPEN_PAREN);
 				this.state = 212;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
@@ -862,11 +862,11 @@ export class XonParser extends Parser {
 					this.state = 209;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
-					while (_la === XonParser.Comma) {
+					while (_la === XonParser.COMMA) {
 						{
 						{
 						this.state = 205;
-						this.match(XonParser.Comma);
+						this.match(XonParser.COMMA);
 						this.state = 206;
 						this.parameter();
 						}
@@ -879,7 +879,7 @@ export class XonParser extends Parser {
 				}
 
 				this.state = 214;
-				this.match(XonParser.CloseParen);
+				this.match(XonParser.CLOSE_PAREN);
 				this.state = 215;
 				this.type(4);
 				}
@@ -891,11 +891,11 @@ export class XonParser extends Parser {
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 216;
-				this.match(XonParser.OpenParen);
+				this.match(XonParser.OPEN_PAREN);
 				this.state = 217;
 				this.type(0);
 				this.state = 218;
-				this.match(XonParser.CloseParen);
+				this.match(XonParser.CLOSE_PAREN);
 				}
 				break;
 			}
@@ -922,7 +922,7 @@ export class XonParser extends Parser {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 3)");
 						}
 						this.state = 223;
-						this.match(XonParser.Pipe);
+						this.match(XonParser.PIPE);
 						this.state = 224;
 						this.type(4);
 						}
@@ -937,9 +937,9 @@ export class XonParser extends Parser {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 6)");
 						}
 						this.state = 226;
-						this.match(XonParser.OpenBracket);
+						this.match(XonParser.OPEN_BRACKET);
 						this.state = 227;
-						this.match(XonParser.CloseBracket);
+						this.match(XonParser.CLOSE_BRACKET);
 						}
 						break;
 
@@ -952,7 +952,7 @@ export class XonParser extends Parser {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 1)");
 						}
 						this.state = 229;
-						this.match(XonParser.Hash);
+						this.match(XonParser.HASH);
 						this.state = 230;
 						this.id();
 						}
@@ -994,7 +994,7 @@ export class XonParser extends Parser {
 				this.enterOuterAlt(_localctx, 1);
 				{
 				this.state = 236;
-				this.match(XonParser.If);
+				this.match(XonParser.IF);
 				this.state = 237;
 				this.expression(0);
 				this.state = 238;
@@ -1002,11 +1002,11 @@ export class XonParser extends Parser {
 				this.state = 245;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				while (_la === XonParser.ElseIf) {
+				while (_la === XonParser.ELSE_IF) {
 					{
 					{
 					this.state = 239;
-					this.match(XonParser.ElseIf);
+					this.match(XonParser.ELSE_IF);
 					this.state = 240;
 					this.expression(0);
 					this.state = 241;
@@ -1020,10 +1020,10 @@ export class XonParser extends Parser {
 				this.state = 250;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.Else) {
+				if (_la === XonParser.ELSE) {
 					{
 					this.state = 248;
-					this.match(XonParser.Else);
+					this.match(XonParser.ELSE);
 					this.state = 249;
 					this.body();
 					}
@@ -1037,11 +1037,11 @@ export class XonParser extends Parser {
 				this.enterOuterAlt(_localctx, 2);
 				{
 				this.state = 252;
-				this.match(XonParser.Loop);
+				this.match(XonParser.LOOP);
 				this.state = 269;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.OpenBracket || _la === XonParser.OpenParen || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.Ad - 38)) | (1 << (XonParser.LambdaStart - 38)) | (1 << (XonParser.BooleanLiteral - 38)) | (1 << (XonParser.FloatLiteral - 38)) | (1 << (XonParser.IntegerLiteral - 38)) | (1 << (XonParser.CharLiteral - 38)) | (1 << (XonParser.StringLiteral - 38)) | (1 << (XonParser.StringFormatStart - 38)) | (1 << (XonParser.ID - 38)))) !== 0)) {
+				if (_la === XonParser.OPEN_BRACKET || _la === XonParser.OPEN_PAREN || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.AD - 38)) | (1 << (XonParser.LAMBDA_START - 38)) | (1 << (XonParser.BOOLEAN_LITERAL - 38)) | (1 << (XonParser.FLOAT_LITERAL - 38)) | (1 << (XonParser.INTEGER_LITERAL - 38)) | (1 << (XonParser.CHAR_LITERAL - 38)) | (1 << (XonParser.STRING_LITERAL - 38)) | (1 << (XonParser.STRING_FORMAT_START - 38)) | (1 << (XonParser.ID - 38)))) !== 0)) {
 					{
 					this.state = 266;
 					this._errHandler.sync(this);
@@ -1056,7 +1056,7 @@ export class XonParser extends Parser {
 						case 1:
 							{
 							this.state = 254;
-							this.match(XonParser.Comma);
+							this.match(XonParser.COMMA);
 							this.state = 256;
 							this._errHandler.sync(this);
 							_la = this._input.LA(1);
@@ -1073,17 +1073,17 @@ export class XonParser extends Parser {
 						this.state = 262;
 						this._errHandler.sync(this);
 						_la = this._input.LA(1);
-						if (_la === XonParser.Comma) {
+						if (_la === XonParser.COMMA) {
 							{
 							this.state = 260;
-							this.match(XonParser.Comma);
+							this.match(XonParser.COMMA);
 							this.state = 261;
 							(_localctx as LoopStatementContext)._index = this.id();
 							}
 						}
 
 						this.state = 264;
-						this.match(XonParser.In);
+						this.match(XonParser.IN);
 						}
 						break;
 					}
@@ -1102,7 +1102,7 @@ export class XonParser extends Parser {
 				this.enterOuterAlt(_localctx, 3);
 				{
 				this.state = 272;
-				this.match(XonParser.Break);
+				this.match(XonParser.BREAK);
 				}
 				break;
 
@@ -1111,7 +1111,7 @@ export class XonParser extends Parser {
 				this.enterOuterAlt(_localctx, 4);
 				{
 				this.state = 273;
-				this.match(XonParser.Return);
+				this.match(XonParser.RETURN);
 				this.state = 275;
 				this._errHandler.sync(this);
 				switch ( this.interpreter.adaptivePredict(this._input, 43, this._ctx) ) {
@@ -1132,7 +1132,7 @@ export class XonParser extends Parser {
 				this.state = 277;
 				this.id();
 				this.state = 278;
-				this.match(XonParser.Assign);
+				this.match(XonParser.ASSIGN);
 				this.state = 279;
 				this.expression(0);
 				}
@@ -1152,7 +1152,7 @@ export class XonParser extends Parser {
 				this.enterOuterAlt(_localctx, 7);
 				{
 				this.state = 282;
-				this.match(XonParser.Preprocessor);
+				this.match(XonParser.PREPROCESSOR);
 				}
 				break;
 			}
@@ -1204,20 +1204,20 @@ export class XonParser extends Parser {
 				this.id();
 				}
 				break;
-			case XonParser.Ad:
+			case XonParser.AD:
 				{
 				_localctx = new InstanceExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 287;
-				this.match(XonParser.Ad);
+				this.match(XonParser.AD);
 				}
 				break;
-			case XonParser.BooleanLiteral:
-			case XonParser.FloatLiteral:
-			case XonParser.IntegerLiteral:
-			case XonParser.CharLiteral:
-			case XonParser.StringLiteral:
+			case XonParser.BOOLEAN_LITERAL:
+			case XonParser.FLOAT_LITERAL:
+			case XonParser.INTEGER_LITERAL:
+			case XonParser.CHAR_LITERAL:
+			case XonParser.STRING_LITERAL:
 				{
 				_localctx = new LiteralExpressionContext(_localctx);
 				this._ctx = _localctx;
@@ -1226,13 +1226,13 @@ export class XonParser extends Parser {
 				this.literal();
 				}
 				break;
-			case XonParser.StringFormatStart:
+			case XonParser.STRING_FORMAT_START:
 				{
 				_localctx = new StringFormatExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 289;
-				this.match(XonParser.StringFormatStart);
+				this.match(XonParser.STRING_FORMAT_START);
 				this.state = 295;
 				this._errHandler.sync(this);
 				_alt = this.interpreter.adaptivePredict(this._input, 45, this._ctx);
@@ -1243,7 +1243,7 @@ export class XonParser extends Parser {
 						this.state = 290;
 						this.expression(0);
 						this.state = 291;
-						this.match(XonParser.StringFormatMiddle);
+						this.match(XonParser.STRING_FORMAT_MIDDLE);
 						}
 						}
 					}
@@ -1254,31 +1254,31 @@ export class XonParser extends Parser {
 				this.state = 298;
 				this.expression(0);
 				this.state = 299;
-				this.match(XonParser.StringFormatEnd);
+				this.match(XonParser.STRING_FORMAT_END);
 				}
 				break;
-			case XonParser.OpenBracket:
+			case XonParser.OPEN_BRACKET:
 				{
 				_localctx = new ArrayExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 301;
-				this.match(XonParser.OpenBracket);
+				this.match(XonParser.OPEN_BRACKET);
 				this.state = 310;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.OpenBracket || _la === XonParser.OpenParen || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.Ad - 38)) | (1 << (XonParser.LambdaStart - 38)) | (1 << (XonParser.BooleanLiteral - 38)) | (1 << (XonParser.FloatLiteral - 38)) | (1 << (XonParser.IntegerLiteral - 38)) | (1 << (XonParser.CharLiteral - 38)) | (1 << (XonParser.StringLiteral - 38)) | (1 << (XonParser.StringFormatStart - 38)) | (1 << (XonParser.ID - 38)))) !== 0)) {
+				if (_la === XonParser.OPEN_BRACKET || _la === XonParser.OPEN_PAREN || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.AD - 38)) | (1 << (XonParser.LAMBDA_START - 38)) | (1 << (XonParser.BOOLEAN_LITERAL - 38)) | (1 << (XonParser.FLOAT_LITERAL - 38)) | (1 << (XonParser.INTEGER_LITERAL - 38)) | (1 << (XonParser.CHAR_LITERAL - 38)) | (1 << (XonParser.STRING_LITERAL - 38)) | (1 << (XonParser.STRING_FORMAT_START - 38)) | (1 << (XonParser.ID - 38)))) !== 0)) {
 					{
 					this.state = 302;
 					this.argument();
 					this.state = 307;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
-					while (_la === XonParser.Comma) {
+					while (_la === XonParser.COMMA) {
 						{
 						{
 						this.state = 303;
-						this.match(XonParser.Comma);
+						this.match(XonParser.COMMA);
 						this.state = 304;
 						this.argument();
 						}
@@ -1291,29 +1291,29 @@ export class XonParser extends Parser {
 				}
 
 				this.state = 312;
-				this.match(XonParser.CloseBracket);
+				this.match(XonParser.CLOSE_BRACKET);
 				}
 				break;
-			case XonParser.OpenParen:
+			case XonParser.OPEN_PAREN:
 				{
 				_localctx = new ParenthesizedExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 313;
-				this.match(XonParser.OpenParen);
+				this.match(XonParser.OPEN_PAREN);
 				this.state = 314;
 				this.expression(0);
 				this.state = 315;
-				this.match(XonParser.CloseParen);
+				this.match(XonParser.CLOSE_PAREN);
 				}
 				break;
-			case XonParser.LambdaStart:
+			case XonParser.LAMBDA_START:
 				{
 				_localctx = new LambdaExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 317;
-				this.match(XonParser.LambdaStart);
+				this.match(XonParser.LAMBDA_START);
 				this.state = 328;
 				this._errHandler.sync(this);
 				switch ( this.interpreter.adaptivePredict(this._input, 49, this._ctx) ) {
@@ -1324,11 +1324,11 @@ export class XonParser extends Parser {
 					this.state = 323;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
-					while (_la === XonParser.Comma) {
+					while (_la === XonParser.COMMA) {
 						{
 						{
 						this.state = 319;
-						this.match(XonParser.Comma);
+						this.match(XonParser.COMMA);
 						this.state = 320;
 						this.parameter();
 						}
@@ -1338,7 +1338,7 @@ export class XonParser extends Parser {
 						_la = this._input.LA(1);
 					}
 					this.state = 326;
-					this.match(XonParser.Colon);
+					this.match(XonParser.COLON);
 					}
 					break;
 				}
@@ -1387,7 +1387,7 @@ export class XonParser extends Parser {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 8)");
 						}
 						this.state = 338;
-						this.match(XonParser.Dot);
+						this.match(XonParser.DOT);
 						this.state = 339;
 						this.id();
 						}
@@ -1402,22 +1402,22 @@ export class XonParser extends Parser {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 7)");
 						}
 						this.state = 341;
-						this.match(XonParser.OpenParen);
+						this.match(XonParser.OPEN_PAREN);
 						this.state = 350;
 						this._errHandler.sync(this);
 						_la = this._input.LA(1);
-						if (_la === XonParser.OpenBracket || _la === XonParser.OpenParen || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.Ad - 38)) | (1 << (XonParser.LambdaStart - 38)) | (1 << (XonParser.BooleanLiteral - 38)) | (1 << (XonParser.FloatLiteral - 38)) | (1 << (XonParser.IntegerLiteral - 38)) | (1 << (XonParser.CharLiteral - 38)) | (1 << (XonParser.StringLiteral - 38)) | (1 << (XonParser.StringFormatStart - 38)) | (1 << (XonParser.ID - 38)))) !== 0)) {
+						if (_la === XonParser.OPEN_BRACKET || _la === XonParser.OPEN_PAREN || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.AD - 38)) | (1 << (XonParser.LAMBDA_START - 38)) | (1 << (XonParser.BOOLEAN_LITERAL - 38)) | (1 << (XonParser.FLOAT_LITERAL - 38)) | (1 << (XonParser.INTEGER_LITERAL - 38)) | (1 << (XonParser.CHAR_LITERAL - 38)) | (1 << (XonParser.STRING_LITERAL - 38)) | (1 << (XonParser.STRING_FORMAT_START - 38)) | (1 << (XonParser.ID - 38)))) !== 0)) {
 							{
 							this.state = 342;
 							this.argument();
 							this.state = 347;
 							this._errHandler.sync(this);
 							_la = this._input.LA(1);
-							while (_la === XonParser.Comma) {
+							while (_la === XonParser.COMMA) {
 								{
 								{
 								this.state = 343;
-								this.match(XonParser.Comma);
+								this.match(XonParser.COMMA);
 								this.state = 344;
 								this.argument();
 								}
@@ -1430,7 +1430,7 @@ export class XonParser extends Parser {
 						}
 
 						this.state = 352;
-						this.match(XonParser.CloseParen);
+						this.match(XonParser.CLOSE_PAREN);
 						}
 						break;
 
@@ -1443,22 +1443,22 @@ export class XonParser extends Parser {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 6)");
 						}
 						this.state = 354;
-						this.match(XonParser.OpenBracket);
+						this.match(XonParser.OPEN_BRACKET);
 						this.state = 363;
 						this._errHandler.sync(this);
 						_la = this._input.LA(1);
-						if (_la === XonParser.OpenBracket || _la === XonParser.OpenParen || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.Ad - 38)) | (1 << (XonParser.LambdaStart - 38)) | (1 << (XonParser.BooleanLiteral - 38)) | (1 << (XonParser.FloatLiteral - 38)) | (1 << (XonParser.IntegerLiteral - 38)) | (1 << (XonParser.CharLiteral - 38)) | (1 << (XonParser.StringLiteral - 38)) | (1 << (XonParser.StringFormatStart - 38)) | (1 << (XonParser.ID - 38)))) !== 0)) {
+						if (_la === XonParser.OPEN_BRACKET || _la === XonParser.OPEN_PAREN || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.AD - 38)) | (1 << (XonParser.LAMBDA_START - 38)) | (1 << (XonParser.BOOLEAN_LITERAL - 38)) | (1 << (XonParser.FLOAT_LITERAL - 38)) | (1 << (XonParser.INTEGER_LITERAL - 38)) | (1 << (XonParser.CHAR_LITERAL - 38)) | (1 << (XonParser.STRING_LITERAL - 38)) | (1 << (XonParser.STRING_FORMAT_START - 38)) | (1 << (XonParser.ID - 38)))) !== 0)) {
 							{
 							this.state = 355;
 							this.argument();
 							this.state = 360;
 							this._errHandler.sync(this);
 							_la = this._input.LA(1);
-							while (_la === XonParser.Comma) {
+							while (_la === XonParser.COMMA) {
 								{
 								{
 								this.state = 356;
-								this.match(XonParser.Comma);
+								this.match(XonParser.COMMA);
 								this.state = 357;
 								this.argument();
 								}
@@ -1471,7 +1471,7 @@ export class XonParser extends Parser {
 						}
 
 						this.state = 365;
-						this.match(XonParser.CloseBracket);
+						this.match(XonParser.CLOSE_BRACKET);
 						}
 						break;
 					}
@@ -1505,44 +1505,44 @@ export class XonParser extends Parser {
 			this.state = 376;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
-			case XonParser.BooleanLiteral:
+			case XonParser.BOOLEAN_LITERAL:
 				_localctx = new BooleanLiteralContext(_localctx);
 				this.enterOuterAlt(_localctx, 1);
 				{
 				this.state = 371;
-				this.match(XonParser.BooleanLiteral);
+				this.match(XonParser.BOOLEAN_LITERAL);
 				}
 				break;
-			case XonParser.IntegerLiteral:
+			case XonParser.INTEGER_LITERAL:
 				_localctx = new IntegerLiteralContext(_localctx);
 				this.enterOuterAlt(_localctx, 2);
 				{
 				this.state = 372;
-				this.match(XonParser.IntegerLiteral);
+				this.match(XonParser.INTEGER_LITERAL);
 				}
 				break;
-			case XonParser.FloatLiteral:
+			case XonParser.FLOAT_LITERAL:
 				_localctx = new FloatLiteralContext(_localctx);
 				this.enterOuterAlt(_localctx, 3);
 				{
 				this.state = 373;
-				this.match(XonParser.FloatLiteral);
+				this.match(XonParser.FLOAT_LITERAL);
 				}
 				break;
-			case XonParser.CharLiteral:
+			case XonParser.CHAR_LITERAL:
 				_localctx = new CharLiteralContext(_localctx);
 				this.enterOuterAlt(_localctx, 4);
 				{
 				this.state = 374;
-				this.match(XonParser.CharLiteral);
+				this.match(XonParser.CHAR_LITERAL);
 				}
 				break;
-			case XonParser.StringLiteral:
+			case XonParser.STRING_LITERAL:
 				_localctx = new StringLiteralContext(_localctx);
 				this.enterOuterAlt(_localctx, 5);
 				{
 				this.state = 375;
-				this.match(XonParser.StringLiteral);
+				this.match(XonParser.STRING_LITERAL);
 				}
 				break;
 			default:
@@ -1572,156 +1572,156 @@ export class XonParser extends Parser {
 			this.state = 411;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
-			case XonParser.Plus:
+			case XonParser.PLUS:
 				this.enterOuterAlt(_localctx, 1);
 				{
 				this.state = 378;
-				this.match(XonParser.Plus);
+				this.match(XonParser.PLUS);
 				}
 				break;
-			case XonParser.Minus:
+			case XonParser.MINUS:
 				this.enterOuterAlt(_localctx, 2);
 				{
 				this.state = 379;
-				this.match(XonParser.Minus);
+				this.match(XonParser.MINUS);
 				}
 				break;
-			case XonParser.Asterisk:
+			case XonParser.ASTERISK:
 				this.enterOuterAlt(_localctx, 3);
 				{
 				this.state = 380;
-				this.match(XonParser.Asterisk);
+				this.match(XonParser.ASTERISK);
 				}
 				break;
-			case XonParser.Slash:
+			case XonParser.SLASH:
 				this.enterOuterAlt(_localctx, 4);
 				{
 				this.state = 381;
-				this.match(XonParser.Slash);
+				this.match(XonParser.SLASH);
 				}
 				break;
-			case XonParser.Modulo:
+			case XonParser.MODULO:
 				this.enterOuterAlt(_localctx, 5);
 				{
 				this.state = 382;
-				this.match(XonParser.Modulo);
+				this.match(XonParser.MODULO);
 				}
 				break;
-			case XonParser.LessThan:
+			case XonParser.LESS_THAN:
 				this.enterOuterAlt(_localctx, 6);
 				{
 				this.state = 383;
-				this.match(XonParser.LessThan);
+				this.match(XonParser.LESS_THAN);
 				this.state = 385;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.Assign) {
+				if (_la === XonParser.ASSIGN) {
 					{
 					this.state = 384;
-					this.match(XonParser.Assign);
+					this.match(XonParser.ASSIGN);
 					}
 				}
 
 				}
 				break;
-			case XonParser.Assign:
+			case XonParser.ASSIGN:
 				this.enterOuterAlt(_localctx, 7);
 				{
 				this.state = 387;
-				this.match(XonParser.Assign);
+				this.match(XonParser.ASSIGN);
 				this.state = 388;
-				this.match(XonParser.Assign);
+				this.match(XonParser.ASSIGN);
 				}
 				break;
-			case XonParser.MoreThan:
+			case XonParser.MORE_THAN:
 				this.enterOuterAlt(_localctx, 8);
 				{
 				this.state = 389;
-				this.match(XonParser.MoreThan);
+				this.match(XonParser.MORE_THAN);
 				this.state = 391;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.Assign) {
+				if (_la === XonParser.ASSIGN) {
 					{
 					this.state = 390;
-					this.match(XonParser.Assign);
+					this.match(XonParser.ASSIGN);
 					}
 				}
 
 				}
 				break;
-			case XonParser.Exclamation:
+			case XonParser.EXCLAMATION:
 				this.enterOuterAlt(_localctx, 9);
 				{
 				this.state = 393;
-				this.match(XonParser.Exclamation);
+				this.match(XonParser.EXCLAMATION);
 				this.state = 395;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.Assign) {
+				if (_la === XonParser.ASSIGN) {
 					{
 					this.state = 394;
-					this.match(XonParser.Assign);
+					this.match(XonParser.ASSIGN);
 					}
 				}
 
 				}
 				break;
-			case XonParser.Caret:
+			case XonParser.CARET:
 				this.enterOuterAlt(_localctx, 10);
 				{
 				this.state = 397;
-				this.match(XonParser.Caret);
+				this.match(XonParser.CARET);
 				}
 				break;
-			case XonParser.Ampersand:
+			case XonParser.AMPERSAND:
 				this.enterOuterAlt(_localctx, 11);
 				{
 				this.state = 398;
-				this.match(XonParser.Ampersand);
+				this.match(XonParser.AMPERSAND);
 				this.state = 400;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.Ampersand) {
+				if (_la === XonParser.AMPERSAND) {
 					{
 					this.state = 399;
-					this.match(XonParser.Ampersand);
+					this.match(XonParser.AMPERSAND);
 					}
 				}
 
 				}
 				break;
-			case XonParser.Pipe:
+			case XonParser.PIPE:
 				this.enterOuterAlt(_localctx, 12);
 				{
 				this.state = 402;
-				this.match(XonParser.Pipe);
+				this.match(XonParser.PIPE);
 				this.state = 404;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.Pipe) {
+				if (_la === XonParser.PIPE) {
 					{
 					this.state = 403;
-					this.match(XonParser.Pipe);
+					this.match(XonParser.PIPE);
 					}
 				}
 
 				}
 				break;
-			case XonParser.Dot:
+			case XonParser.DOT:
 				this.enterOuterAlt(_localctx, 13);
 				{
 				this.state = 406;
-				this.match(XonParser.Dot);
+				this.match(XonParser.DOT);
 				this.state = 407;
-				this.match(XonParser.Dot);
+				this.match(XonParser.DOT);
 				this.state = 409;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (_la === XonParser.Dot) {
+				if (_la === XonParser.DOT) {
 					{
 					this.state = 408;
-					this.match(XonParser.Dot);
+					this.match(XonParser.DOT);
 					}
 				}
 
@@ -1758,7 +1758,7 @@ export class XonParser extends Parser {
 			this.state = 415;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if (_la === XonParser.OpenParen || _la === XonParser.OpenBrace || _la === XonParser.ID) {
+			if (_la === XonParser.OPEN_PAREN || _la === XonParser.OPEN_BRACE || _la === XonParser.ID) {
 				{
 				this.state = 414;
 				this.type(0);
@@ -1796,7 +1796,7 @@ export class XonParser extends Parser {
 				this.state = 417;
 				this.id();
 				this.state = 418;
-				this.match(XonParser.Assign);
+				this.match(XonParser.ASSIGN);
 				}
 				break;
 			}
@@ -1827,17 +1827,17 @@ export class XonParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			this.state = 424;
-			this.match(XonParser.LessThan);
+			this.match(XonParser.LESS_THAN);
 			this.state = 425;
 			this.id();
 			this.state = 430;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while (_la === XonParser.Comma) {
+			while (_la === XonParser.COMMA) {
 				{
 				{
 				this.state = 426;
-				this.match(XonParser.Comma);
+				this.match(XonParser.COMMA);
 				this.state = 427;
 				this.id();
 				}
@@ -1847,7 +1847,7 @@ export class XonParser extends Parser {
 				_la = this._input.LA(1);
 			}
 			this.state = 433;
-			this.match(XonParser.MoreThan);
+			this.match(XonParser.MORE_THAN);
 			}
 		}
 		catch (re) {
@@ -1873,9 +1873,9 @@ export class XonParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			this.state = 435;
-			this.match(XonParser.Colon);
+			this.match(XonParser.COLON);
 			this.state = 436;
-			this.match(XonParser.LineBreak);
+			this.match(XonParser.LINE_BREAK);
 			this.state = 437;
 			this.match(XonParser.INDENT);
 			this.state = 440;
@@ -1886,31 +1886,31 @@ export class XonParser extends Parser {
 				this.state = 440;
 				this._errHandler.sync(this);
 				switch (this._input.LA(1)) {
-				case XonParser.If:
-				case XonParser.Loop:
-				case XonParser.Break:
-				case XonParser.Return:
-				case XonParser.Preprocessor:
-				case XonParser.OpenBracket:
-				case XonParser.OpenParen:
-				case XonParser.Ad:
-				case XonParser.LambdaStart:
-				case XonParser.BooleanLiteral:
-				case XonParser.FloatLiteral:
-				case XonParser.IntegerLiteral:
-				case XonParser.CharLiteral:
-				case XonParser.StringLiteral:
-				case XonParser.StringFormatStart:
+				case XonParser.IF:
+				case XonParser.LOOP:
+				case XonParser.BREAK:
+				case XonParser.RETURN:
+				case XonParser.PREPROCESSOR:
+				case XonParser.OPEN_BRACKET:
+				case XonParser.OPEN_PAREN:
+				case XonParser.AD:
+				case XonParser.LAMBDA_START:
+				case XonParser.BOOLEAN_LITERAL:
+				case XonParser.FLOAT_LITERAL:
+				case XonParser.INTEGER_LITERAL:
+				case XonParser.CHAR_LITERAL:
+				case XonParser.STRING_LITERAL:
+				case XonParser.STRING_FORMAT_START:
 				case XonParser.ID:
 					{
 					this.state = 438;
 					this.statement();
 					}
 					break;
-				case XonParser.LineBreak:
+				case XonParser.LINE_BREAK:
 					{
 					this.state = 439;
-					this.match(XonParser.LineBreak);
+					this.match(XonParser.LINE_BREAK);
 					}
 					break;
 				default:
@@ -1920,7 +1920,7 @@ export class XonParser extends Parser {
 				this.state = 442;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.If) | (1 << XonParser.Loop) | (1 << XonParser.Break) | (1 << XonParser.Return) | (1 << XonParser.Preprocessor) | (1 << XonParser.LineBreak) | (1 << XonParser.OpenBracket) | (1 << XonParser.OpenParen))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.Ad - 38)) | (1 << (XonParser.LambdaStart - 38)) | (1 << (XonParser.BooleanLiteral - 38)) | (1 << (XonParser.FloatLiteral - 38)) | (1 << (XonParser.IntegerLiteral - 38)) | (1 << (XonParser.CharLiteral - 38)) | (1 << (XonParser.StringLiteral - 38)) | (1 << (XonParser.StringFormatStart - 38)) | (1 << (XonParser.ID - 38)))) !== 0));
+			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.IF) | (1 << XonParser.LOOP) | (1 << XonParser.BREAK) | (1 << XonParser.RETURN) | (1 << XonParser.PREPROCESSOR) | (1 << XonParser.LINE_BREAK) | (1 << XonParser.OPEN_BRACKET) | (1 << XonParser.OPEN_PAREN))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.AD - 38)) | (1 << (XonParser.LAMBDA_START - 38)) | (1 << (XonParser.BOOLEAN_LITERAL - 38)) | (1 << (XonParser.FLOAT_LITERAL - 38)) | (1 << (XonParser.INTEGER_LITERAL - 38)) | (1 << (XonParser.CHAR_LITERAL - 38)) | (1 << (XonParser.STRING_LITERAL - 38)) | (1 << (XonParser.STRING_FORMAT_START - 38)) | (1 << (XonParser.ID - 38)))) !== 0));
 			this.state = 444;
 			this.match(XonParser.DEDENT);
 			}
@@ -2280,13 +2280,13 @@ export class ProgramContext extends ParserRuleContext {
 			return this.getRuleContext(i, DefinitionContext);
 		}
 	}
-	public LineBreak(): TerminalNode[];
-	public LineBreak(i: number): TerminalNode;
-	public LineBreak(i?: number): TerminalNode | TerminalNode[] {
+	public LINE_BREAK(): TerminalNode[];
+	public LINE_BREAK(i: number): TerminalNode;
+	public LINE_BREAK(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.LineBreak);
+			return this.getTokens(XonParser.LINE_BREAK);
 		} else {
-			return this.getToken(XonParser.LineBreak, i);
+			return this.getToken(XonParser.LINE_BREAK, i);
 		}
 	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
@@ -2301,7 +2301,7 @@ export class LibraryContext extends ParserRuleContext {
 	public libraryPath(): LibraryPathContext {
 		return this.getRuleContext(0, LibraryPathContext);
 	}
-	public Colon(): TerminalNode { return this.getToken(XonParser.Colon, 0); }
+	public COLON(): TerminalNode { return this.getToken(XonParser.COLON, 0); }
 	public libraryMember(): LibraryMemberContext[];
 	public libraryMember(i: number): LibraryMemberContext;
 	public libraryMember(i?: number): LibraryMemberContext | LibraryMemberContext[] {
@@ -2311,13 +2311,13 @@ export class LibraryContext extends ParserRuleContext {
 			return this.getRuleContext(i, LibraryMemberContext);
 		}
 	}
-	public Comma(): TerminalNode[];
-	public Comma(i: number): TerminalNode;
-	public Comma(i?: number): TerminalNode | TerminalNode[] {
+	public COMMA(): TerminalNode[];
+	public COMMA(i: number): TerminalNode;
+	public COMMA(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Comma);
+			return this.getTokens(XonParser.COMMA);
 		} else {
-			return this.getToken(XonParser.Comma, i);
+			return this.getToken(XonParser.COMMA, i);
 		}
 	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
@@ -2338,14 +2338,14 @@ export class LibraryPathContext extends ParserRuleContext {
 			return this.getRuleContext(i, IdContext);
 		}
 	}
-	public Slash(): TerminalNode { return this.getToken(XonParser.Slash, 0); }
-	public Minus(): TerminalNode[];
-	public Minus(i: number): TerminalNode;
-	public Minus(i?: number): TerminalNode | TerminalNode[] {
+	public SLASH(): TerminalNode { return this.getToken(XonParser.SLASH, 0); }
+	public MINUS(): TerminalNode[];
+	public MINUS(i: number): TerminalNode;
+	public MINUS(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Minus);
+			return this.getTokens(XonParser.MINUS);
 		} else {
-			return this.getToken(XonParser.Minus, i);
+			return this.getToken(XonParser.MINUS, i);
 		}
 	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
@@ -2368,7 +2368,7 @@ export class LibraryMemberContext extends ParserRuleContext {
 			return this.getRuleContext(i, IdContext);
 		}
 	}
-	public As(): TerminalNode | undefined { return this.tryGetToken(XonParser.As, 0); }
+	public AS(): TerminalNode | undefined { return this.tryGetToken(XonParser.AS, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
@@ -2379,14 +2379,14 @@ export class LibraryMemberContext extends ParserRuleContext {
 
 export class DefinitionContext extends ParserRuleContext {
 	public _name!: IdContext;
-	public Colon(): TerminalNode { return this.getToken(XonParser.Colon, 0); }
-	public LineBreak(): TerminalNode[];
-	public LineBreak(i: number): TerminalNode;
-	public LineBreak(i?: number): TerminalNode | TerminalNode[] {
+	public COLON(): TerminalNode { return this.getToken(XonParser.COLON, 0); }
+	public LINE_BREAK(): TerminalNode[];
+	public LINE_BREAK(i: number): TerminalNode;
+	public LINE_BREAK(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.LineBreak);
+			return this.getTokens(XonParser.LINE_BREAK);
 		} else {
-			return this.getToken(XonParser.LineBreak, i);
+			return this.getToken(XonParser.LINE_BREAK, i);
 		}
 	}
 	public INDENT(): TerminalNode { return this.getToken(XonParser.INDENT, 0); }
@@ -2397,7 +2397,7 @@ export class DefinitionContext extends ParserRuleContext {
 	public generics(): GenericsContext | undefined {
 		return this.tryGetRuleContext(0, GenericsContext);
 	}
-	public Is(): TerminalNode | undefined { return this.tryGetToken(XonParser.Is, 0); }
+	public IS(): TerminalNode | undefined { return this.tryGetToken(XonParser.IS, 0); }
 	public type(): TypeContext | undefined {
 		return this.tryGetRuleContext(0, TypeContext);
 	}
@@ -2430,8 +2430,8 @@ export class MemberContext extends ParserRuleContext {
 }
 export class MethodMemberContext extends MemberContext {
 	public _name!: IdContext;
-	public OpenParen(): TerminalNode { return this.getToken(XonParser.OpenParen, 0); }
-	public CloseParen(): TerminalNode { return this.getToken(XonParser.CloseParen, 0); }
+	public OPEN_PAREN(): TerminalNode { return this.getToken(XonParser.OPEN_PAREN, 0); }
+	public CLOSE_PAREN(): TerminalNode { return this.getToken(XonParser.CLOSE_PAREN, 0); }
 	public id(): IdContext {
 		return this.getRuleContext(0, IdContext);
 	}
@@ -2453,13 +2453,13 @@ export class MethodMemberContext extends MemberContext {
 	public body(): BodyContext | undefined {
 		return this.tryGetRuleContext(0, BodyContext);
 	}
-	public Comma(): TerminalNode[];
-	public Comma(i: number): TerminalNode;
-	public Comma(i?: number): TerminalNode | TerminalNode[] {
+	public COMMA(): TerminalNode[];
+	public COMMA(i: number): TerminalNode;
+	public COMMA(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Comma);
+			return this.getTokens(XonParser.COMMA);
 		} else {
-			return this.getToken(XonParser.Comma, i);
+			return this.getToken(XonParser.COMMA, i);
 		}
 	}
 	constructor(ctx: MemberContext) {
@@ -2469,9 +2469,9 @@ export class MethodMemberContext extends MemberContext {
 }
 export class InitMemberContext extends MemberContext {
 	public _name!: Token;
-	public OpenParen(): TerminalNode { return this.getToken(XonParser.OpenParen, 0); }
-	public CloseParen(): TerminalNode { return this.getToken(XonParser.CloseParen, 0); }
-	public Ad(): TerminalNode { return this.getToken(XonParser.Ad, 0); }
+	public OPEN_PAREN(): TerminalNode { return this.getToken(XonParser.OPEN_PAREN, 0); }
+	public CLOSE_PAREN(): TerminalNode { return this.getToken(XonParser.CLOSE_PAREN, 0); }
+	public AD(): TerminalNode { return this.getToken(XonParser.AD, 0); }
 	public generics(): GenericsContext | undefined {
 		return this.tryGetRuleContext(0, GenericsContext);
 	}
@@ -2490,13 +2490,13 @@ export class InitMemberContext extends MemberContext {
 	public body(): BodyContext | undefined {
 		return this.tryGetRuleContext(0, BodyContext);
 	}
-	public Comma(): TerminalNode[];
-	public Comma(i: number): TerminalNode;
-	public Comma(i?: number): TerminalNode | TerminalNode[] {
+	public COMMA(): TerminalNode[];
+	public COMMA(i: number): TerminalNode;
+	public COMMA(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Comma);
+			return this.getTokens(XonParser.COMMA);
 		} else {
-			return this.getToken(XonParser.Comma, i);
+			return this.getToken(XonParser.COMMA, i);
 		}
 	}
 	constructor(ctx: MemberContext) {
@@ -2506,7 +2506,7 @@ export class InitMemberContext extends MemberContext {
 }
 export class IndexMemberContext extends MemberContext {
 	public _name!: Token;
-	public OpenBracket(): TerminalNode { return this.getToken(XonParser.OpenBracket, 0); }
+	public OPEN_BRACKET(): TerminalNode { return this.getToken(XonParser.OPEN_BRACKET, 0); }
 	public parameter(): ParameterContext[];
 	public parameter(i: number): ParameterContext;
 	public parameter(i?: number): ParameterContext | ParameterContext[] {
@@ -2516,21 +2516,21 @@ export class IndexMemberContext extends MemberContext {
 			return this.getRuleContext(i, ParameterContext);
 		}
 	}
-	public CloseBracket(): TerminalNode { return this.getToken(XonParser.CloseBracket, 0); }
+	public CLOSE_BRACKET(): TerminalNode { return this.getToken(XonParser.CLOSE_BRACKET, 0); }
 	public type(): TypeContext {
 		return this.getRuleContext(0, TypeContext);
 	}
-	public Ad(): TerminalNode { return this.getToken(XonParser.Ad, 0); }
+	public AD(): TerminalNode { return this.getToken(XonParser.AD, 0); }
 	public generics(): GenericsContext | undefined {
 		return this.tryGetRuleContext(0, GenericsContext);
 	}
-	public Comma(): TerminalNode[];
-	public Comma(i: number): TerminalNode;
-	public Comma(i?: number): TerminalNode | TerminalNode[] {
+	public COMMA(): TerminalNode[];
+	public COMMA(i: number): TerminalNode;
+	public COMMA(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Comma);
+			return this.getTokens(XonParser.COMMA);
 		} else {
-			return this.getToken(XonParser.Comma, i);
+			return this.getToken(XonParser.COMMA, i);
 		}
 	}
 	public body(): BodyContext | undefined {
@@ -2543,7 +2543,7 @@ export class IndexMemberContext extends MemberContext {
 }
 export class OperatorMemberContext extends MemberContext {
 	public _name!: OperatorContext;
-	public OpenParen(): TerminalNode { return this.getToken(XonParser.OpenParen, 0); }
+	public OPEN_PAREN(): TerminalNode { return this.getToken(XonParser.OPEN_PAREN, 0); }
 	public parameter(): ParameterContext[];
 	public parameter(i: number): ParameterContext;
 	public parameter(i?: number): ParameterContext | ParameterContext[] {
@@ -2553,8 +2553,8 @@ export class OperatorMemberContext extends MemberContext {
 			return this.getRuleContext(i, ParameterContext);
 		}
 	}
-	public Comma(): TerminalNode { return this.getToken(XonParser.Comma, 0); }
-	public CloseParen(): TerminalNode { return this.getToken(XonParser.CloseParen, 0); }
+	public COMMA(): TerminalNode { return this.getToken(XonParser.COMMA, 0); }
+	public CLOSE_PAREN(): TerminalNode { return this.getToken(XonParser.CLOSE_PAREN, 0); }
 	public type(): TypeContext {
 		return this.getRuleContext(0, TypeContext);
 	}
@@ -2616,7 +2616,7 @@ export class GenericTypeContext extends TypeContext {
 	public id(): IdContext {
 		return this.getRuleContext(0, IdContext);
 	}
-	public LessThan(): TerminalNode { return this.getToken(XonParser.LessThan, 0); }
+	public LESS_THAN(): TerminalNode { return this.getToken(XonParser.LESS_THAN, 0); }
 	public type(): TypeContext[];
 	public type(i: number): TypeContext;
 	public type(i?: number): TypeContext | TypeContext[] {
@@ -2626,14 +2626,14 @@ export class GenericTypeContext extends TypeContext {
 			return this.getRuleContext(i, TypeContext);
 		}
 	}
-	public MoreThan(): TerminalNode { return this.getToken(XonParser.MoreThan, 0); }
-	public Comma(): TerminalNode[];
-	public Comma(i: number): TerminalNode;
-	public Comma(i?: number): TerminalNode | TerminalNode[] {
+	public MORE_THAN(): TerminalNode { return this.getToken(XonParser.MORE_THAN, 0); }
+	public COMMA(): TerminalNode[];
+	public COMMA(i: number): TerminalNode;
+	public COMMA(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Comma);
+			return this.getTokens(XonParser.COMMA);
 		} else {
-			return this.getToken(XonParser.Comma, i);
+			return this.getToken(XonParser.COMMA, i);
 		}
 	}
 	constructor(ctx: TypeContext) {
@@ -2645,16 +2645,16 @@ export class ArrayTypeContext extends TypeContext {
 	public type(): TypeContext {
 		return this.getRuleContext(0, TypeContext);
 	}
-	public OpenBracket(): TerminalNode { return this.getToken(XonParser.OpenBracket, 0); }
-	public CloseBracket(): TerminalNode { return this.getToken(XonParser.CloseBracket, 0); }
+	public OPEN_BRACKET(): TerminalNode { return this.getToken(XonParser.OPEN_BRACKET, 0); }
+	public CLOSE_BRACKET(): TerminalNode { return this.getToken(XonParser.CLOSE_BRACKET, 0); }
 	constructor(ctx: TypeContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
 }
 export class ObjectTypeContext extends TypeContext {
-	public OpenBrace(): TerminalNode { return this.getToken(XonParser.OpenBrace, 0); }
-	public CloseBrace(): TerminalNode { return this.getToken(XonParser.CloseBrace, 0); }
+	public OPEN_BRACE(): TerminalNode { return this.getToken(XonParser.OPEN_BRACE, 0); }
+	public CLOSE_BRACE(): TerminalNode { return this.getToken(XonParser.CLOSE_BRACE, 0); }
 	public parameter(): ParameterContext[];
 	public parameter(i: number): ParameterContext;
 	public parameter(i?: number): ParameterContext | ParameterContext[] {
@@ -2664,13 +2664,13 @@ export class ObjectTypeContext extends TypeContext {
 			return this.getRuleContext(i, ParameterContext);
 		}
 	}
-	public Comma(): TerminalNode[];
-	public Comma(i: number): TerminalNode;
-	public Comma(i?: number): TerminalNode | TerminalNode[] {
+	public COMMA(): TerminalNode[];
+	public COMMA(i: number): TerminalNode;
+	public COMMA(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Comma);
+			return this.getTokens(XonParser.COMMA);
 		} else {
-			return this.getToken(XonParser.Comma, i);
+			return this.getToken(XonParser.COMMA, i);
 		}
 	}
 	constructor(ctx: TypeContext) {
@@ -2679,8 +2679,8 @@ export class ObjectTypeContext extends TypeContext {
 	}
 }
 export class FunctionTypeContext extends TypeContext {
-	public OpenParen(): TerminalNode { return this.getToken(XonParser.OpenParen, 0); }
-	public CloseParen(): TerminalNode { return this.getToken(XonParser.CloseParen, 0); }
+	public OPEN_PAREN(): TerminalNode { return this.getToken(XonParser.OPEN_PAREN, 0); }
+	public CLOSE_PAREN(): TerminalNode { return this.getToken(XonParser.CLOSE_PAREN, 0); }
 	public type(): TypeContext {
 		return this.getRuleContext(0, TypeContext);
 	}
@@ -2693,13 +2693,13 @@ export class FunctionTypeContext extends TypeContext {
 			return this.getRuleContext(i, ParameterContext);
 		}
 	}
-	public Comma(): TerminalNode[];
-	public Comma(i: number): TerminalNode;
-	public Comma(i?: number): TerminalNode | TerminalNode[] {
+	public COMMA(): TerminalNode[];
+	public COMMA(i: number): TerminalNode;
+	public COMMA(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Comma);
+			return this.getTokens(XonParser.COMMA);
 		} else {
-			return this.getToken(XonParser.Comma, i);
+			return this.getToken(XonParser.COMMA, i);
 		}
 	}
 	constructor(ctx: TypeContext) {
@@ -2717,18 +2717,18 @@ export class UnionTypeContext extends TypeContext {
 			return this.getRuleContext(i, TypeContext);
 		}
 	}
-	public Pipe(): TerminalNode { return this.getToken(XonParser.Pipe, 0); }
+	public PIPE(): TerminalNode { return this.getToken(XonParser.PIPE, 0); }
 	constructor(ctx: TypeContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
 }
 export class ParenthesizedTypeContext extends TypeContext {
-	public OpenParen(): TerminalNode { return this.getToken(XonParser.OpenParen, 0); }
+	public OPEN_PAREN(): TerminalNode { return this.getToken(XonParser.OPEN_PAREN, 0); }
 	public type(): TypeContext {
 		return this.getRuleContext(0, TypeContext);
 	}
-	public CloseParen(): TerminalNode { return this.getToken(XonParser.CloseParen, 0); }
+	public CLOSE_PAREN(): TerminalNode { return this.getToken(XonParser.CLOSE_PAREN, 0); }
 	constructor(ctx: TypeContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
@@ -2738,7 +2738,7 @@ export class MetaTypeContext extends TypeContext {
 	public type(): TypeContext {
 		return this.getRuleContext(0, TypeContext);
 	}
-	public Hash(): TerminalNode { return this.getToken(XonParser.Hash, 0); }
+	public HASH(): TerminalNode { return this.getToken(XonParser.HASH, 0); }
 	public id(): IdContext {
 		return this.getRuleContext(0, IdContext);
 	}
@@ -2760,7 +2760,7 @@ export class StatementContext extends ParserRuleContext {
 	}
 }
 export class IfStatementContext extends StatementContext {
-	public If(): TerminalNode { return this.getToken(XonParser.If, 0); }
+	public IF(): TerminalNode { return this.getToken(XonParser.IF, 0); }
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -2779,16 +2779,16 @@ export class IfStatementContext extends StatementContext {
 			return this.getRuleContext(i, BodyContext);
 		}
 	}
-	public ElseIf(): TerminalNode[];
-	public ElseIf(i: number): TerminalNode;
-	public ElseIf(i?: number): TerminalNode | TerminalNode[] {
+	public ELSE_IF(): TerminalNode[];
+	public ELSE_IF(i: number): TerminalNode;
+	public ELSE_IF(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.ElseIf);
+			return this.getTokens(XonParser.ELSE_IF);
 		} else {
-			return this.getToken(XonParser.ElseIf, i);
+			return this.getToken(XonParser.ELSE_IF, i);
 		}
 	}
-	public Else(): TerminalNode | undefined { return this.tryGetToken(XonParser.Else, 0); }
+	public ELSE(): TerminalNode | undefined { return this.tryGetToken(XonParser.ELSE, 0); }
 	constructor(ctx: StatementContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
@@ -2798,14 +2798,14 @@ export class LoopStatementContext extends StatementContext {
 	public _value!: IdContext;
 	public _key!: IdContext;
 	public _index!: IdContext;
-	public Loop(): TerminalNode { return this.getToken(XonParser.Loop, 0); }
+	public LOOP(): TerminalNode { return this.getToken(XonParser.LOOP, 0); }
 	public body(): BodyContext {
 		return this.getRuleContext(0, BodyContext);
 	}
 	public expression(): ExpressionContext | undefined {
 		return this.tryGetRuleContext(0, ExpressionContext);
 	}
-	public In(): TerminalNode | undefined { return this.tryGetToken(XonParser.In, 0); }
+	public IN(): TerminalNode | undefined { return this.tryGetToken(XonParser.IN, 0); }
 	public id(): IdContext[];
 	public id(i: number): IdContext;
 	public id(i?: number): IdContext | IdContext[] {
@@ -2815,13 +2815,13 @@ export class LoopStatementContext extends StatementContext {
 			return this.getRuleContext(i, IdContext);
 		}
 	}
-	public Comma(): TerminalNode[];
-	public Comma(i: number): TerminalNode;
-	public Comma(i?: number): TerminalNode | TerminalNode[] {
+	public COMMA(): TerminalNode[];
+	public COMMA(i: number): TerminalNode;
+	public COMMA(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Comma);
+			return this.getTokens(XonParser.COMMA);
 		} else {
-			return this.getToken(XonParser.Comma, i);
+			return this.getToken(XonParser.COMMA, i);
 		}
 	}
 	constructor(ctx: StatementContext) {
@@ -2830,14 +2830,14 @@ export class LoopStatementContext extends StatementContext {
 	}
 }
 export class BreakStatementContext extends StatementContext {
-	public Break(): TerminalNode { return this.getToken(XonParser.Break, 0); }
+	public BREAK(): TerminalNode { return this.getToken(XonParser.BREAK, 0); }
 	constructor(ctx: StatementContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
 }
 export class ReturnStatementContext extends StatementContext {
-	public Return(): TerminalNode { return this.getToken(XonParser.Return, 0); }
+	public RETURN(): TerminalNode { return this.getToken(XonParser.RETURN, 0); }
 	public expression(): ExpressionContext | undefined {
 		return this.tryGetRuleContext(0, ExpressionContext);
 	}
@@ -2850,7 +2850,7 @@ export class AssignmentStatementContext extends StatementContext {
 	public id(): IdContext {
 		return this.getRuleContext(0, IdContext);
 	}
-	public Assign(): TerminalNode { return this.getToken(XonParser.Assign, 0); }
+	public ASSIGN(): TerminalNode { return this.getToken(XonParser.ASSIGN, 0); }
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
@@ -2869,7 +2869,7 @@ export class ExpressionStatementContext extends StatementContext {
 	}
 }
 export class PreprocessorStatementContext extends StatementContext {
-	public Preprocessor(): TerminalNode { return this.getToken(XonParser.Preprocessor, 0); }
+	public PREPROCESSOR(): TerminalNode { return this.getToken(XonParser.PREPROCESSOR, 0); }
 	constructor(ctx: StatementContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
@@ -2897,7 +2897,7 @@ export class IdExpressionContext extends ExpressionContext {
 	}
 }
 export class InstanceExpressionContext extends ExpressionContext {
-	public Ad(): TerminalNode { return this.getToken(XonParser.Ad, 0); }
+	public AD(): TerminalNode { return this.getToken(XonParser.AD, 0); }
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
@@ -2916,7 +2916,7 @@ export class MemberExpressionContext extends ExpressionContext {
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
-	public Dot(): TerminalNode { return this.getToken(XonParser.Dot, 0); }
+	public DOT(): TerminalNode { return this.getToken(XonParser.DOT, 0); }
 	public id(): IdContext {
 		return this.getRuleContext(0, IdContext);
 	}
@@ -2929,8 +2929,8 @@ export class MethodExpressionContext extends ExpressionContext {
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
-	public OpenParen(): TerminalNode { return this.getToken(XonParser.OpenParen, 0); }
-	public CloseParen(): TerminalNode { return this.getToken(XonParser.CloseParen, 0); }
+	public OPEN_PAREN(): TerminalNode { return this.getToken(XonParser.OPEN_PAREN, 0); }
+	public CLOSE_PAREN(): TerminalNode { return this.getToken(XonParser.CLOSE_PAREN, 0); }
 	public argument(): ArgumentContext[];
 	public argument(i: number): ArgumentContext;
 	public argument(i?: number): ArgumentContext | ArgumentContext[] {
@@ -2940,13 +2940,13 @@ export class MethodExpressionContext extends ExpressionContext {
 			return this.getRuleContext(i, ArgumentContext);
 		}
 	}
-	public Comma(): TerminalNode[];
-	public Comma(i: number): TerminalNode;
-	public Comma(i?: number): TerminalNode | TerminalNode[] {
+	public COMMA(): TerminalNode[];
+	public COMMA(i: number): TerminalNode;
+	public COMMA(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Comma);
+			return this.getTokens(XonParser.COMMA);
 		} else {
-			return this.getToken(XonParser.Comma, i);
+			return this.getToken(XonParser.COMMA, i);
 		}
 	}
 	constructor(ctx: ExpressionContext) {
@@ -2958,8 +2958,8 @@ export class IndexExpressionContext extends ExpressionContext {
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
-	public OpenBracket(): TerminalNode { return this.getToken(XonParser.OpenBracket, 0); }
-	public CloseBracket(): TerminalNode { return this.getToken(XonParser.CloseBracket, 0); }
+	public OPEN_BRACKET(): TerminalNode { return this.getToken(XonParser.OPEN_BRACKET, 0); }
+	public CLOSE_BRACKET(): TerminalNode { return this.getToken(XonParser.CLOSE_BRACKET, 0); }
 	public argument(): ArgumentContext[];
 	public argument(i: number): ArgumentContext;
 	public argument(i?: number): ArgumentContext | ArgumentContext[] {
@@ -2969,13 +2969,13 @@ export class IndexExpressionContext extends ExpressionContext {
 			return this.getRuleContext(i, ArgumentContext);
 		}
 	}
-	public Comma(): TerminalNode[];
-	public Comma(i: number): TerminalNode;
-	public Comma(i?: number): TerminalNode | TerminalNode[] {
+	public COMMA(): TerminalNode[];
+	public COMMA(i: number): TerminalNode;
+	public COMMA(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Comma);
+			return this.getTokens(XonParser.COMMA);
 		} else {
-			return this.getToken(XonParser.Comma, i);
+			return this.getToken(XonParser.COMMA, i);
 		}
 	}
 	constructor(ctx: ExpressionContext) {
@@ -3002,7 +3002,7 @@ export class OperatorExpressionContext extends ExpressionContext {
 	}
 }
 export class StringFormatExpressionContext extends ExpressionContext {
-	public StringFormatStart(): TerminalNode { return this.getToken(XonParser.StringFormatStart, 0); }
+	public STRING_FORMAT_START(): TerminalNode { return this.getToken(XonParser.STRING_FORMAT_START, 0); }
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -3012,14 +3012,14 @@ export class StringFormatExpressionContext extends ExpressionContext {
 			return this.getRuleContext(i, ExpressionContext);
 		}
 	}
-	public StringFormatEnd(): TerminalNode { return this.getToken(XonParser.StringFormatEnd, 0); }
-	public StringFormatMiddle(): TerminalNode[];
-	public StringFormatMiddle(i: number): TerminalNode;
-	public StringFormatMiddle(i?: number): TerminalNode | TerminalNode[] {
+	public STRING_FORMAT_END(): TerminalNode { return this.getToken(XonParser.STRING_FORMAT_END, 0); }
+	public STRING_FORMAT_MIDDLE(): TerminalNode[];
+	public STRING_FORMAT_MIDDLE(i: number): TerminalNode;
+	public STRING_FORMAT_MIDDLE(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.StringFormatMiddle);
+			return this.getTokens(XonParser.STRING_FORMAT_MIDDLE);
 		} else {
-			return this.getToken(XonParser.StringFormatMiddle, i);
+			return this.getToken(XonParser.STRING_FORMAT_MIDDLE, i);
 		}
 	}
 	constructor(ctx: ExpressionContext) {
@@ -3028,8 +3028,8 @@ export class StringFormatExpressionContext extends ExpressionContext {
 	}
 }
 export class ArrayExpressionContext extends ExpressionContext {
-	public OpenBracket(): TerminalNode { return this.getToken(XonParser.OpenBracket, 0); }
-	public CloseBracket(): TerminalNode { return this.getToken(XonParser.CloseBracket, 0); }
+	public OPEN_BRACKET(): TerminalNode { return this.getToken(XonParser.OPEN_BRACKET, 0); }
+	public CLOSE_BRACKET(): TerminalNode { return this.getToken(XonParser.CLOSE_BRACKET, 0); }
 	public argument(): ArgumentContext[];
 	public argument(i: number): ArgumentContext;
 	public argument(i?: number): ArgumentContext | ArgumentContext[] {
@@ -3039,13 +3039,13 @@ export class ArrayExpressionContext extends ExpressionContext {
 			return this.getRuleContext(i, ArgumentContext);
 		}
 	}
-	public Comma(): TerminalNode[];
-	public Comma(i: number): TerminalNode;
-	public Comma(i?: number): TerminalNode | TerminalNode[] {
+	public COMMA(): TerminalNode[];
+	public COMMA(i: number): TerminalNode;
+	public COMMA(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Comma);
+			return this.getTokens(XonParser.COMMA);
 		} else {
-			return this.getToken(XonParser.Comma, i);
+			return this.getToken(XonParser.COMMA, i);
 		}
 	}
 	constructor(ctx: ExpressionContext) {
@@ -3054,18 +3054,18 @@ export class ArrayExpressionContext extends ExpressionContext {
 	}
 }
 export class ParenthesizedExpressionContext extends ExpressionContext {
-	public OpenParen(): TerminalNode { return this.getToken(XonParser.OpenParen, 0); }
+	public OPEN_PAREN(): TerminalNode { return this.getToken(XonParser.OPEN_PAREN, 0); }
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
-	public CloseParen(): TerminalNode { return this.getToken(XonParser.CloseParen, 0); }
+	public CLOSE_PAREN(): TerminalNode { return this.getToken(XonParser.CLOSE_PAREN, 0); }
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
 }
 export class LambdaExpressionContext extends ExpressionContext {
-	public LambdaStart(): TerminalNode { return this.getToken(XonParser.LambdaStart, 0); }
+	public LAMBDA_START(): TerminalNode { return this.getToken(XonParser.LAMBDA_START, 0); }
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
@@ -3078,14 +3078,14 @@ export class LambdaExpressionContext extends ExpressionContext {
 			return this.getRuleContext(i, ParameterContext);
 		}
 	}
-	public Colon(): TerminalNode | undefined { return this.tryGetToken(XonParser.Colon, 0); }
-	public Comma(): TerminalNode[];
-	public Comma(i: number): TerminalNode;
-	public Comma(i?: number): TerminalNode | TerminalNode[] {
+	public COLON(): TerminalNode | undefined { return this.tryGetToken(XonParser.COLON, 0); }
+	public COMMA(): TerminalNode[];
+	public COMMA(i: number): TerminalNode;
+	public COMMA(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Comma);
+			return this.getTokens(XonParser.COMMA);
 		} else {
-			return this.getToken(XonParser.Comma, i);
+			return this.getToken(XonParser.COMMA, i);
 		}
 	}
 	constructor(ctx: ExpressionContext) {
@@ -3106,35 +3106,35 @@ export class LiteralContext extends ParserRuleContext {
 	}
 }
 export class BooleanLiteralContext extends LiteralContext {
-	public BooleanLiteral(): TerminalNode { return this.getToken(XonParser.BooleanLiteral, 0); }
+	public BOOLEAN_LITERAL(): TerminalNode { return this.getToken(XonParser.BOOLEAN_LITERAL, 0); }
 	constructor(ctx: LiteralContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
 }
 export class IntegerLiteralContext extends LiteralContext {
-	public IntegerLiteral(): TerminalNode { return this.getToken(XonParser.IntegerLiteral, 0); }
+	public INTEGER_LITERAL(): TerminalNode { return this.getToken(XonParser.INTEGER_LITERAL, 0); }
 	constructor(ctx: LiteralContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
 }
 export class FloatLiteralContext extends LiteralContext {
-	public FloatLiteral(): TerminalNode { return this.getToken(XonParser.FloatLiteral, 0); }
+	public FLOAT_LITERAL(): TerminalNode { return this.getToken(XonParser.FLOAT_LITERAL, 0); }
 	constructor(ctx: LiteralContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
 }
 export class CharLiteralContext extends LiteralContext {
-	public CharLiteral(): TerminalNode { return this.getToken(XonParser.CharLiteral, 0); }
+	public CHAR_LITERAL(): TerminalNode { return this.getToken(XonParser.CHAR_LITERAL, 0); }
 	constructor(ctx: LiteralContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
 }
 export class StringLiteralContext extends LiteralContext {
-	public StringLiteral(): TerminalNode { return this.getToken(XonParser.StringLiteral, 0); }
+	public STRING_LITERAL(): TerminalNode { return this.getToken(XonParser.STRING_LITERAL, 0); }
 	constructor(ctx: LiteralContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
@@ -3143,49 +3143,49 @@ export class StringLiteralContext extends LiteralContext {
 
 
 export class OperatorContext extends ParserRuleContext {
-	public Plus(): TerminalNode | undefined { return this.tryGetToken(XonParser.Plus, 0); }
-	public Minus(): TerminalNode | undefined { return this.tryGetToken(XonParser.Minus, 0); }
-	public Asterisk(): TerminalNode | undefined { return this.tryGetToken(XonParser.Asterisk, 0); }
-	public Slash(): TerminalNode | undefined { return this.tryGetToken(XonParser.Slash, 0); }
-	public Modulo(): TerminalNode | undefined { return this.tryGetToken(XonParser.Modulo, 0); }
-	public LessThan(): TerminalNode | undefined { return this.tryGetToken(XonParser.LessThan, 0); }
-	public Assign(): TerminalNode[];
-	public Assign(i: number): TerminalNode;
-	public Assign(i?: number): TerminalNode | TerminalNode[] {
+	public PLUS(): TerminalNode | undefined { return this.tryGetToken(XonParser.PLUS, 0); }
+	public MINUS(): TerminalNode | undefined { return this.tryGetToken(XonParser.MINUS, 0); }
+	public ASTERISK(): TerminalNode | undefined { return this.tryGetToken(XonParser.ASTERISK, 0); }
+	public SLASH(): TerminalNode | undefined { return this.tryGetToken(XonParser.SLASH, 0); }
+	public MODULO(): TerminalNode | undefined { return this.tryGetToken(XonParser.MODULO, 0); }
+	public LESS_THAN(): TerminalNode | undefined { return this.tryGetToken(XonParser.LESS_THAN, 0); }
+	public ASSIGN(): TerminalNode[];
+	public ASSIGN(i: number): TerminalNode;
+	public ASSIGN(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Assign);
+			return this.getTokens(XonParser.ASSIGN);
 		} else {
-			return this.getToken(XonParser.Assign, i);
+			return this.getToken(XonParser.ASSIGN, i);
 		}
 	}
-	public MoreThan(): TerminalNode | undefined { return this.tryGetToken(XonParser.MoreThan, 0); }
-	public Exclamation(): TerminalNode | undefined { return this.tryGetToken(XonParser.Exclamation, 0); }
-	public Caret(): TerminalNode | undefined { return this.tryGetToken(XonParser.Caret, 0); }
-	public Ampersand(): TerminalNode[];
-	public Ampersand(i: number): TerminalNode;
-	public Ampersand(i?: number): TerminalNode | TerminalNode[] {
+	public MORE_THAN(): TerminalNode | undefined { return this.tryGetToken(XonParser.MORE_THAN, 0); }
+	public EXCLAMATION(): TerminalNode | undefined { return this.tryGetToken(XonParser.EXCLAMATION, 0); }
+	public CARET(): TerminalNode | undefined { return this.tryGetToken(XonParser.CARET, 0); }
+	public AMPERSAND(): TerminalNode[];
+	public AMPERSAND(i: number): TerminalNode;
+	public AMPERSAND(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Ampersand);
+			return this.getTokens(XonParser.AMPERSAND);
 		} else {
-			return this.getToken(XonParser.Ampersand, i);
+			return this.getToken(XonParser.AMPERSAND, i);
 		}
 	}
-	public Pipe(): TerminalNode[];
-	public Pipe(i: number): TerminalNode;
-	public Pipe(i?: number): TerminalNode | TerminalNode[] {
+	public PIPE(): TerminalNode[];
+	public PIPE(i: number): TerminalNode;
+	public PIPE(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Pipe);
+			return this.getTokens(XonParser.PIPE);
 		} else {
-			return this.getToken(XonParser.Pipe, i);
+			return this.getToken(XonParser.PIPE, i);
 		}
 	}
-	public Dot(): TerminalNode[];
-	public Dot(i: number): TerminalNode;
-	public Dot(i?: number): TerminalNode | TerminalNode[] {
+	public DOT(): TerminalNode[];
+	public DOT(i: number): TerminalNode;
+	public DOT(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Dot);
+			return this.getTokens(XonParser.DOT);
 		} else {
-			return this.getToken(XonParser.Dot, i);
+			return this.getToken(XonParser.DOT, i);
 		}
 	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
@@ -3218,7 +3218,7 @@ export class ArgumentContext extends ParserRuleContext {
 	public id(): IdContext | undefined {
 		return this.tryGetRuleContext(0, IdContext);
 	}
-	public Assign(): TerminalNode | undefined { return this.tryGetToken(XonParser.Assign, 0); }
+	public ASSIGN(): TerminalNode | undefined { return this.tryGetToken(XonParser.ASSIGN, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
@@ -3228,7 +3228,7 @@ export class ArgumentContext extends ParserRuleContext {
 
 
 export class GenericsContext extends ParserRuleContext {
-	public LessThan(): TerminalNode { return this.getToken(XonParser.LessThan, 0); }
+	public LESS_THAN(): TerminalNode { return this.getToken(XonParser.LESS_THAN, 0); }
 	public id(): IdContext[];
 	public id(i: number): IdContext;
 	public id(i?: number): IdContext | IdContext[] {
@@ -3238,14 +3238,14 @@ export class GenericsContext extends ParserRuleContext {
 			return this.getRuleContext(i, IdContext);
 		}
 	}
-	public MoreThan(): TerminalNode { return this.getToken(XonParser.MoreThan, 0); }
-	public Comma(): TerminalNode[];
-	public Comma(i: number): TerminalNode;
-	public Comma(i?: number): TerminalNode | TerminalNode[] {
+	public MORE_THAN(): TerminalNode { return this.getToken(XonParser.MORE_THAN, 0); }
+	public COMMA(): TerminalNode[];
+	public COMMA(i: number): TerminalNode;
+	public COMMA(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.Comma);
+			return this.getTokens(XonParser.COMMA);
 		} else {
-			return this.getToken(XonParser.Comma, i);
+			return this.getToken(XonParser.COMMA, i);
 		}
 	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
@@ -3257,14 +3257,14 @@ export class GenericsContext extends ParserRuleContext {
 
 
 export class BodyContext extends ParserRuleContext {
-	public Colon(): TerminalNode { return this.getToken(XonParser.Colon, 0); }
-	public LineBreak(): TerminalNode[];
-	public LineBreak(i: number): TerminalNode;
-	public LineBreak(i?: number): TerminalNode | TerminalNode[] {
+	public COLON(): TerminalNode { return this.getToken(XonParser.COLON, 0); }
+	public LINE_BREAK(): TerminalNode[];
+	public LINE_BREAK(i: number): TerminalNode;
+	public LINE_BREAK(i?: number): TerminalNode | TerminalNode[] {
 		if (i === undefined) {
-			return this.getTokens(XonParser.LineBreak);
+			return this.getTokens(XonParser.LINE_BREAK);
 		} else {
-			return this.getToken(XonParser.LineBreak, i);
+			return this.getToken(XonParser.LINE_BREAK, i);
 		}
 	}
 	public INDENT(): TerminalNode { return this.getToken(XonParser.INDENT, 0); }

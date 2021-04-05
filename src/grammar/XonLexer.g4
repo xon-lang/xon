@@ -17,69 +17,69 @@ tokens {
     import { XonLexerBase } from "./xon-lexer-base";
 }
 
-Is:     'is';
-As:     'as';
-If:     'if';
-Else:   'else';
-ElseIf: 'elif';
-Loop:   'loop';
-In:     'in';
-Break:  'break';
-Return: 'return';
+IS:      'is';
+AS:      'as';
+IF:      'if';
+ELSE:    'else';
+ELSE_IF: 'elif';
+LOOP:    'loop';
+IN:      'in';
+BREAK:   'break';
+RETURN:  'return';
 
-Preprocessor: '#{' .*? '}';
-LineBreak: ({this.atStartOfInput()}? SPACES | ( '\r'? '\n' | '\r') SPACES?) {this.handleLineBreak()}
+PREPROCESSOR: '#{' .*? '}';
+LINE_BREAK: ({this.atStartOfInput()}? Spaces | ( '\r'? '\n' | '\r') Spaces?) {this.handleLineBreak()}
     ;
 
-OpenBracket:  '[' {this.opened++;};
-CloseBracket: ']' {this.opened--;};
-OpenParen:    '(' {this.opened++;};
-CloseParen:   ')' {this.opened--;};
-OpenBrace:    '{' {this.opened++;};
-CloseBrace:   '}' {this.opened--;};
-Comma:        ',';
-Assign:       '=';
-Question:     '?';
-Colon:        ':';
-Dot:          '.';
-Plus:         '+';
-Minus:        '-';
-Exclamation:  '!';
-Asterisk:     '*';
-Slash:        '/';
-Modulo:       '%';
-Caret:        '^';
-Hash:         '#';
-LessThan:     '<';
-MoreThan:     '>';
-Ampersand:    '&';
-Pipe:         '|';
-Tilde:        '~';
-Ad:           '@';
-Underscore:   '_';
-LambdaStart:  '\\';
+OPEN_BRACKET:  '[' {this.opened++;};
+CLOSE_BRACKET: ']' {this.opened--;};
+OPEN_PAREN:    '(' {this.opened++;};
+CLOSE_PAREN:   ')' {this.opened--;};
+OPEN_BRACE:    '{' {this.opened++;};
+CLOSE_BRACE:   '}' {this.opened--;};
+COMMA:         ',';
+ASSIGN:        '=';
+QUESTION:      '?';
+COLON:         ':';
+DOT:           '.';
+PLUS:          '+';
+MINUS:         '-';
+EXCLAMATION:   '!';
+ASTERISK:      '*';
+SLASH:         '/';
+MODULO:        '%';
+CARET:         '^';
+HASH:          '#';
+LESS_THAN:     '<';
+MORE_THAN:     '>';
+AMPERSAND:     '&';
+PIPE:          '|';
+TILDE:         '~';
+AD:            '@';
+UNDERSCORE:    '_';
+LAMBDA_START:  '\\';
 
-BooleanLiteral: 'true' | 'false';
-FloatLiteral:
-    [0-9][0-9]? 'x' ALPHABET_NUMBER '.' ALPHABET_NUMBER
-    | DIGIT_NUMBER '.' DIGIT_NUMBER
+BOOLEAN_LITERAL: 'true' | 'false';
+FLOAT_LITERAL:
+    [0-9][0-9]? 'x' AlphabetNumber '.' AlphabetNumber
+    | DigitNumber '.' DigitNumber
     ;
-IntegerLiteral: [0-9][0-9]? 'x' ALPHABET_NUMBER | DIGIT_NUMBER;
-CharLiteral:    '\'' ~['] '\'';
-StringLiteral:  '"' STRING_CHARACTER* '"';
+INTEGER_LITERAL: [0-9][0-9]? 'x' AlphabetNumber | DigitNumber;
+CHAR_LITERAL:    '\'' ~['] '\'';
+STRING_LITERAL:  '"' StringCharacter* '"';
 
-StringFormatStart:  '"' STRING_CHARACTER* '{';
-StringFormatMiddle: '}' STRING_CHARACTER* '{';
-StringFormatEnd:    '}' STRING_CHARACTER* '"';
+STRING_FORMAT_START:  '"' StringCharacter* '{';
+STRING_FORMAT_MIDDLE: '}' StringCharacter* '{';
+STRING_FORMAT_END:    '}' StringCharacter* '"';
 
 ID: [a-zA-Z_]+;
 
-Spaces:              SPACES                           -> skip;
-Comment:             '//' ~[\r\n]*                    -> skip;
-LineJoining:         '\\' SPACES ( '\r'? '\n' | '\r') -> skip;
-UnexpectedCharacter: .                                -> channel(ERROR);
+SPACES:               Spaces                           -> skip;
+COMMENT:              '//' ~[\r\n]*                    -> skip;
+LINE_JOINING:         '\\' Spaces ( '\r'? '\n' | '\r') -> skip;
+UNEXPECTED_CHARACTER: .                                -> channel(ERROR);
 
-fragment SPACES:           [ \t]+;
-fragment DIGIT_NUMBER:     [0-9]+ ('_' [0-9]+)*;
-fragment ALPHABET_NUMBER:  [0-9a-zA-Z]+ ('_' [0-9a-zA-Z]+)*;
-fragment STRING_CHARACTER: ~["{] | '\\' ["{\\bfnrtv];
+fragment Spaces:          [ \t]+;
+fragment DigitNumber:     [0-9]+ ('_' [0-9]+)*;
+fragment AlphabetNumber:  [0-9a-zA-Z]+ ('_' [0-9a-zA-Z]+)*;
+fragment StringCharacter: ~["{] | '\\' ["{\\bfnrtv];

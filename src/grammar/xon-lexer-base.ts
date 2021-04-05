@@ -63,7 +63,7 @@ export abstract class XonLexerBase extends Lexer {
       this.tokenQueue = this.tokenQueue.filter((val) => val.type !== XonParser.EOF);
 
       // First emit an extra line break that serves as the end of the statement.
-      this.emit(this.commonToken(XonParser.LineBreak, '\n'));
+      this.emit(this.commonToken(XonParser.LINE_BREAK, '\n'));
 
       // Now emit as much DEDENT tokens as needed.
       while (this.indents.length) {
@@ -126,7 +126,7 @@ export abstract class XonLexerBase extends Lexer {
       // dedents and line breaks.
       this.skip();
     } else {
-      this.emit(this.commonToken(XonParser.LineBreak, newLine));
+      this.emit(this.commonToken(XonParser.LINE_BREAK, newLine));
       const indent = getIndentationCount(spaces);
       const previous = this.indents.length ? this.indents[this.indents.length - 1] : 0;
       if (indent === previous) {

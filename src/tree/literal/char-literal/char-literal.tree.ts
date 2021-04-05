@@ -6,6 +6,6 @@ export class CharLiteralTree extends LiteralTree {
 
   public constructor(public ctx: CharLiteralContext) {
     super();
-    this.value = this.ctx?.CharLiteral().text.slice(1, -1).replace(/\\'/g, "'");
+    this.value = this.ctx?.text.slice(1, -1).replace(/\\'/g, "'");
   }
 }

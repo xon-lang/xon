@@ -4,14 +4,17 @@ options {
     tokenVocab = XonLexer;
 }
 
-program: (library | statement | definition | LineBreak)*;
+program: (library | statement | definition | LINE_BREAK)*;
 
 library:       libraryPath ':' libraryMember (',' libraryMember)*;
 libraryPath:   id ('-' id)* '/' id ('-' id)*;
 libraryMember: name = id ('as' alias = id)?;
 
 definition:
-    name = id generics? ('is' type)? ':' LineBreak INDENT (member | LineBreak)+ DEDENT
+    name = id generics? ('is' type)? ':' LINE_BREAK INDENT (
+        member
+        | LINE_BREAK
+    )+ DEDENT
     ;
 member:
     name = id generics? '(' (parameter (',' parameter)*)? ')' type? body?    # methodMember
@@ -39,29 +42,29 @@ statement:
     | 'return' expression?                                                            # returnStatement
     | id '=' expression                                                               # assignmentStatement
     | expression                                                                      # expressionStatement
-    | Preprocessor                                                                    # preprocessorStatement
+    | PREPROCESSOR                                                                    # preprocessorStatement
     ;
 
 expression:
-    id                                                                              # idExpression
-    | '@'                                                                           # instanceExpression
-    | literal                                                                       # literalExpression
-    | expression '.' id                                                             # memberExpression
-    | expression '(' (argument (',' argument)*)? ')'                                # methodExpression
-    | expression '[' (argument (',' argument)*)? ']'                                # indexExpression
-    | expression operator expression                                                # operatorExpression
-    | StringFormatStart (expression StringFormatMiddle)* expression StringFormatEnd # stringFormatExpression
-    | '[' (argument (',' argument)*)? ']'                                           # arrayExpression
-    | '(' expression ')'                                                            # parenthesizedExpression
-    | '\\' (parameter (',' parameter)* ':')? expression                             # lambdaExpression
+    id                                                                                    # idExpression
+    | '@'                                                                                 # instanceExpression
+    | literal                                                                             # literalExpression
+    | expression '.' id                                                                   # memberExpression
+    | expression '(' (argument (',' argument)*)? ')'                                      # methodExpression
+    | expression '[' (argument (',' argument)*)? ']'                                      # indexExpression
+    | expression operator expression                                                      # operatorExpression
+    | STRING_FORMAT_START (expression STRING_FORMAT_MIDDLE)* expression STRING_FORMAT_END # stringFormatExpression
+    | '[' (argument (',' argument)*)? ']'                                                 # arrayExpression
+    | '(' expression ')'                                                                  # parenthesizedExpression
+    | '\\' (parameter (',' parameter)* ':')? expression                                   # lambdaExpression
     ;
 
 literal:
-    BooleanLiteral   # booleanLiteral
-    | IntegerLiteral # integerLiteral
-    | FloatLiteral   # floatLiteral
-    | CharLiteral    # charLiteral
-    | StringLiteral  # stringLiteral
+    BOOLEAN_LITERAL   # booleanLiteral
+    | INTEGER_LITERAL # integerLiteral
+    | FLOAT_LITERAL   # floatLiteral
+    | CHAR_LITERAL    # charLiteral
+    | STRING_LITERAL  # stringLiteral
     ;
 
 // helpful rules
@@ -84,5 +87,5 @@ operator:
 parameter: id type?;
 argument:  (id '=')? expression;
 generics:  '<' id (',' id)* '>';
-body:      ':' LineBreak INDENT (statement | LineBreak)+ DEDENT;
+body:      ':' LINE_BREAK INDENT (statement | LINE_BREAK)+ DEDENT;
 id:        ID;
