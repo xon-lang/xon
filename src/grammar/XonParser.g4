@@ -45,17 +45,16 @@ statement:
     ;
 
 expression:
-    id                                                                                    # idExpression
-    | '@'                                                                                 # instanceExpression
-    | literal                                                                             # literalExpression
-    | expression '.' id                                                                   # memberExpression
-    | expression '(' (argument (',' argument)*)? ')'                                      # methodExpression
-    | expression '[' (argument (',' argument)*)? ']'                                      # indexExpression
-    | expression operator expression                                                      # operatorExpression
-    | STRING_FORMAT_START (expression STRING_FORMAT_MIDDLE)* expression STRING_FORMAT_END # stringFormatExpression
-    | '[' (argument (',' argument)*)? ']'                                                 # arrayExpression
-    | '(' expression ')'                                                                  # parenthesizedExpression
-    | '\\' (parameter (',' parameter)* ':')? expression                                   # lambdaExpression
+    id                                                  # idExpression
+    | '@'                                               # instanceExpression
+    | literal                                           # literalExpression
+    | expression '.' id                                 # memberExpression
+    | expression '(' (argument (',' argument)*)? ')'    # methodExpression
+    | expression '[' (argument (',' argument)*)? ']'    # indexExpression
+    | expression operator expression                    # operatorExpression
+    | '[' (argument (',' argument)*)? ']'               # arrayExpression
+    | '(' expression ')'                                # parenthesizedExpression
+    | '\\' (parameter (',' parameter)* ':')? expression # lambdaExpression
     ;
 
 literal:

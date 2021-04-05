@@ -64,10 +64,6 @@ INTEGER_LITERAL: [0-9][0-9]? 'x' AlphabetNumber | DigitNumber;
 CHAR_LITERAL:    '\'' ~['] '\'';
 STRING_LITERAL:  '"' StringCharacter* '"';
 
-STRING_FORMAT_START:  '"' StringCharacter* '{';
-STRING_FORMAT_MIDDLE: '}' StringCharacter* '{';
-STRING_FORMAT_END:    '}' StringCharacter* '"';
-
 ID: [a-zA-Z_]+;
 
 PREPROCESSOR: '#{' .*? '}';
@@ -80,4 +76,4 @@ UNEXPECTED_CHARACTER: .             -> channel(ERROR);
 
 fragment DigitNumber:     [0-9]+ ('_' [0-9]+)*;
 fragment AlphabetNumber:  [0-9a-zA-Z]+ ('_' [0-9a-zA-Z]+)*;
-fragment StringCharacter: ~["{] | '\\' ["{\\bfnrtv];
+fragment StringCharacter: ~["] | '\\' ["\\bfnrtv];
