@@ -4,18 +4,16 @@ options {
     tokenVocab = XonLexer;
 }
 
-program: (library | statement | definition | LINE_BREAK)*;
+program: (library | statement | definition | NL)*;
 
 library:       libraryPath ':' libraryMember (',' libraryMember)*;
 libraryPath:   id ('-' id)* '/' id ('-' id)*;
 libraryMember: name = id ('as' alias = id)?;
 
 definition:
-    name = id generics? ('is' type)? ':' LINE_BREAK INDENT (
-        member
-        | LINE_BREAK
-    )+ DEDENT
+    name = id generics? ('is' type)? ':' NL INDENT (member | NL)+ DEDENT
     ;
+
 member:
     name = id generics? '(' (parameter (',' parameter)*)? ')' type? body?    # methodMember
     | name = '@' generics? '(' (parameter (',' parameter)*)? ')' type? body? # initMember
@@ -88,5 +86,5 @@ operator:
 parameter: id type?;
 argument:  (id '=')? expression;
 generics:  '<' id (',' id)* '>';
-body:      ':' LINE_BREAK INDENT (statement | LINE_BREAK)+ DEDENT;
+body:      ':' NL INDENT (statement | NL)+ DEDENT;
 id:        ID;

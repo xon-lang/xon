@@ -63,7 +63,7 @@ export abstract class XonLexerBase extends Lexer {
       this.tokenQueue = this.tokenQueue.filter((val) => val.type !== XonParser.EOF);
 
       // First emit an extra line break that serves as the end of the statement.
-      this.emit(this.commonToken(XonParser.LINE_BREAK, '\n'));
+      this.emit(this.commonToken(XonParser.NL, '\n'));
 
       // Now emit as much DEDENT tokens as needed.
       while (this.indents.length) {
@@ -105,7 +105,7 @@ export abstract class XonLexerBase extends Lexer {
     // satisfy the final newline needed by the single_put rule used by the REPL.
     const next = this.inputStream.LA(1);
     // eslint-disable-next-line no-magic-numbers
-    const nextnext = this.inputStream.LA(2);
+    const nextNext = this.inputStream.LA(2);
 
     const eofCode = -1;
     const returnCode = 13;
@@ -114,7 +114,7 @@ export abstract class XonLexerBase extends Lexer {
     if (
       this.opened > 0 ||
       // EOF
-      (nextnext !== eofCode &&
+      (nextNext !== eofCode &&
         // '\r'
         (next === returnCode ||
           // '\n'
@@ -126,7 +126,7 @@ export abstract class XonLexerBase extends Lexer {
       // dedents and line breaks.
       this.skip();
     } else {
-      this.emit(this.commonToken(XonParser.LINE_BREAK, newLine));
+      this.emit(this.commonToken(XonParser.NL, newLine));
       const indent = getIndentationCount(spaces);
       const previous = this.indents.length ? this.indents[this.indents.length - 1] : 0;
       if (indent === previous) {

@@ -27,10 +27,6 @@ IN:      'in';
 BREAK:   'break';
 RETURN:  'return';
 
-PREPROCESSOR: '#{' .*? '}';
-LINE_BREAK: ({this.atStartOfInput()}? Spaces | ( '\r'? '\n' | '\r') Spaces?) {this.handleLineBreak()}
-    ;
-
 OPEN_BRACKET:  '[' {this.opened++;};
 CLOSE_BRACKET: ']' {this.opened--;};
 OPEN_PAREN:    '(' {this.opened++;};
@@ -74,12 +70,14 @@ STRING_FORMAT_END:    '}' StringCharacter* '"';
 
 ID: [a-zA-Z_]+;
 
-SPACES:               Spaces                           -> skip;
-COMMENT:              '//' ~[\r\n]*                    -> skip;
-LINE_JOINING:         '\\' Spaces ( '\r'? '\n' | '\r') -> skip;
-UNEXPECTED_CHARACTER: .                                -> channel(ERROR);
+PREPROCESSOR: '#{' .*? '}';
 
-fragment Spaces:          [ \t]+;
+NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
+    ;
+WS:                   [ \t]+        -> skip;
+COMMENT:              '//' ~[\r\n]* -> skip;
+UNEXPECTED_CHARACTER: .             -> channel(ERROR);
+
 fragment DigitNumber:     [0-9]+ ('_' [0-9]+)*;
 fragment AlphabetNumber:  [0-9a-zA-Z]+ ('_' [0-9a-zA-Z]+)*;
 fragment StringCharacter: ~["{] | '\\' ["{\\bfnrtv];
