@@ -8,10 +8,10 @@ program: (library | statement | definition | NL)*;
 
 library:       libraryPath ':' libraryMember (',' libraryMember)*;
 libraryPath:   id ('-' id)* '/' id ('-' id)*;
-libraryMember: name = id ('as' alias = id)?;
+libraryMember: name = id (AS alias = id)?;
 
 definition:
-    name = id generics? ('is' type)? ':' NL INDENT (member | NL)+ DEDENT
+    name = id generics? (IS type)? ':' NL INDENT (member | NL)+ DEDENT
     ;
 
 member:
@@ -37,16 +37,16 @@ type:
     ;
 
 statement:
-    'loop' ((value = id (',' key = id?)? (',' index = id)? 'in')? expression)? ':' body # loopStatement
-    | 'break'                                                                           # breakStatement
-    | 'return' expression?                                                              # returnStatement
-    | id '=' expression                                                                 # assignmentStatement
-    | expression                                                                        # expressionStatement
-    | PREPROCESSOR                                                                      # preprocessorStatement
+    LOOP ((value = id (',' key = id?)? (',' index = id)? IN)? expression)? ':' body # loopStatement
+    | BREAK                                                                         # breakStatement
+    | RETURN expression?                                                            # returnStatement
+    | id '=' expression                                                             # assignmentStatement
+    | expression                                                                    # expressionStatement
+    | PREPROCESSOR                                                                  # preprocessorStatement
     ;
 
 expression:
-    'if' expression ':' body ('else' body)?             # ifExpression
+    IF expression ':' body (ELSE body)?                 # ifExpression
     | id                                                # idExpression
     | '@'                                               # instanceExpression
     | literal                                           # literalExpression
