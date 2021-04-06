@@ -15,11 +15,13 @@ definition:
     ;
 
 member:
-    name = id generics? '(' (parameter (',' parameter)*)? ')' type? body?    # methodMember
-    | name = '@' generics? '(' (parameter (',' parameter)*)? ')' type? body? # initMember
-    | name = '@' generics? '[' parameter (',' parameter)* ']' type body?     # indexMember
-    | name = operator generics? '(' parameter ',' parameter ')' type body?   # operatorMember
-    | name = id generics? type body?                                         # propertyMember
+    name = id generics? '(' (parameter (',' parameter)*)? ')' type? (':' body)? # methodMember
+    | name = '@' generics? '(' (parameter (',' parameter)*)? ')' type? (
+        ':' body
+    )?                                                                           # initMember
+    | name = '@' generics? '[' parameter (',' parameter)* ']' type (':' body)?   # indexMember
+    | name = operator generics? '(' parameter ',' parameter ')' type (':' body)? # operatorMember
+    | name = id generics? type (':' body)?                                       # propertyMember
     ;
 
 type:
@@ -35,17 +37,17 @@ type:
     ;
 
 statement:
-    'if' expression body ('elif' expression body)* ('else' body)?                     # ifStatement
-    | 'loop' ((value = id (',' key = id?)? (',' index = id)? 'in')? expression)? body # loopStatement
-    | 'break'                                                                         # breakStatement
-    | 'return' expression?                                                            # returnStatement
-    | id '=' expression                                                               # assignmentStatement
-    | expression                                                                      # expressionStatement
-    | PREPROCESSOR                                                                    # preprocessorStatement
+    'loop' ((value = id (',' key = id?)? (',' index = id)? 'in')? expression)? ':' body # loopStatement
+    | 'break'                                                                           # breakStatement
+    | 'return' expression?                                                              # returnStatement
+    | id '=' expression                                                                 # assignmentStatement
+    | expression                                                                        # expressionStatement
+    | PREPROCESSOR                                                                      # preprocessorStatement
     ;
 
 expression:
-    id                                                  # idExpression
+    'if' expression ':' body ('else' body)?             # ifExpression
+    | id                                                # idExpression
     | '@'                                               # instanceExpression
     | literal                                           # literalExpression
     | expression '.' id                                 # memberExpression
@@ -85,5 +87,5 @@ operator:
 parameter: id type?;
 argument:  (id '=')? expression;
 generics:  '<' id (',' id)* '>';
-body:      ':' NL INDENT (statement | NL)+ DEDENT;
+body:      statement | NL INDENT (statement | NL)+ DEDENT;
 id:        ID;
