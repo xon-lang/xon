@@ -74,18 +74,18 @@ operator:
     | '*'
     | '/'
     | '%'
-    | '<' '='?
+    | '^'
     | '=' '='
+    | '<' '='?
     | '>' '='?
     | '!' '='?
-    | '^'
     | '&' '&'?
     | '|' '|'?
     | '.' '.' '.'?
     ;
 
+id:        ID;
 parameter: id type?;
 argument:  (id '=')? expression;
 generics:  '<' id (',' id)* '>';
 body:      statement | NL INDENT (statement | NL)+ DEDENT;
-id:        ID;
