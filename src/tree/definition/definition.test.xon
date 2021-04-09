@@ -4,7 +4,7 @@ SomeClass is BaseClass<String, Boolean>:
     typedValue Number
     
     @(name String):
-        //
+        --
 
     method() MyType:
         hello()

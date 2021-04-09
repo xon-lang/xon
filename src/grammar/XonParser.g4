@@ -38,6 +38,7 @@ type:
 
 statement:
     LOOP ((value = id (',' key = id?)? (',' index = id)? IN)? expression)? ':' body # loopStatement
+    | IF expression THEN body (ELSE body)?                                          # ifStatement
     | BREAK                                                                         # breakStatement
     | RETURN expression?                                                            # returnStatement
     | id '=' expression                                                             # assignmentStatement
@@ -46,8 +47,7 @@ statement:
     ;
 
 expression:
-    IF expression ':' body (ELSE body)?                 # ifExpression
-    | id                                                # idExpression
+    id                                                  # idExpression
     | '@'                                               # instanceExpression
     | literal                                           # literalExpression
     | expression '.' id                                 # memberExpression

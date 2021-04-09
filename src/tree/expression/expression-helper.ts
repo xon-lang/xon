@@ -2,7 +2,6 @@ import {
   ArrayExpressionContext,
   ExpressionContext,
   IdExpressionContext,
-  IfExpressionContext,
   IndexExpressionContext,
   InstanceExpressionContext,
   LambdaExpressionContext,
@@ -15,7 +14,6 @@ import {
 import { ArrayExpressionTree } from './array-expression/array-expression.tree';
 import { ExpressionTree } from './expression.tree';
 import { IdExpressionTree } from './id-expression/id-expression.tree';
-import { IfExpressionTree } from './if-expression/if-expression.tree';
 import { IndexExpressionTree } from './index-expression/index-expression.tree';
 import { InstanceExpressionTree } from './instance-expression/instance-expression.tree';
 import { LambdaExpressionTree } from './lambda-expression/lambda-expression.tree';
@@ -27,8 +25,6 @@ import { ParenthesizedExpressionTree } from './parenthesized-expression/parenthe
 
 export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx === undefined) return undefined;
-
-  if (ctx instanceof IfExpressionContext) return new IfExpressionTree(ctx);
 
   if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionTree(ctx);
   if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);

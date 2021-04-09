@@ -17,15 +17,16 @@ tokens {
     import { XonLexerBase } from "./xon-lexer-base";
 }
 
-IS:      'is';
-AS:      'as';
-IF:      'if';
-ELSE:    'else';
-ELSE_IF: 'elif';
-LOOP:    'loop';
-IN:      'in';
-BREAK:   'break';
-RETURN:  'return';
+IS:     'is';
+NOT:    'not';
+AS:     'as';
+IF:     'if';
+ELSE:   'else';
+THEN:   'then';
+LOOP:   'loop';
+IN:     'in';
+BREAK:  'break';
+RETURN: 'return';
 
 OPEN_BRACKET:  '[' {this.opened++;};
 CLOSE_BRACKET: ']' {this.opened--;};
@@ -70,7 +71,7 @@ NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBre
     ;
 
 WS:      [ \t]+        -> skip;
-COMMENT: '//' ~[\r\n]* -> skip;
+COMMENT: '--' ~[\r\n]* -> skip;
 
 fragment DigitNumber:    [0-9]+ ('_' [0-9]+)*;
 fragment AlphabetNumber: [0-9a-zA-Z]+ ('_' [0-9a-zA-Z]+)*;

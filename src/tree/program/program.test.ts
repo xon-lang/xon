@@ -5,9 +5,9 @@ test('two if', () => {
   const code = `xon/os: Path
 
 1+1
-if e:
+if e then
     7+7
-elif d:
+else if d then
     call()
 `;
   const tree = new ProgramTree(parse(code).program());
