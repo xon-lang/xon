@@ -1,4 +1,4 @@
-import { parseLiteral } from '../../../parse';
+import { parseLiteral } from '../../parse';
 import { BooleanLiteralTree } from './boolean-literal.tree';
 
 test('check true', () => {

@@ -1,6 +1,6 @@
-import { parseExpression } from '../../../parse';
 import { IntegerLiteralTree } from '../../literal/integer-literal/integer-literal.tree';
 import { StringLiteralTree } from '../../literal/string-literal/string-literal.tree';
+import { parseExpression } from '../../parse';
 import { IdExpressionTree } from '../id-expression/id-expression.tree';
 import { LiteralExpressionTree } from '../literal-expression/literal-expression.tree';
 import { MethodExpressionTree } from './method-expression.tree';

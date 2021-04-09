@@ -1,4 +1,4 @@
-import { parse } from '../../parse';
+import { parse } from '../parse';
 import { ProgramTree } from './program.tree';
 
 test('two if', () => {

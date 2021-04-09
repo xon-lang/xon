@@ -1,6 +1,6 @@
-import { parseArgument } from '../../parse';
 import { IdExpressionTree } from '../expression/id-expression/id-expression.tree';
 import { LiteralExpressionTree } from '../expression/literal-expression/literal-expression.tree';
+import { parseArgument } from '../parse';
 import { ArgumentTree } from './argument.tree';
 
 test('simple param', () => {

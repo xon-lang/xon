@@ -1,4 +1,4 @@
-import { parseMember } from '../../../../parse';
+import { parseMember } from '../../../parse';
 import { PlainTypeTree } from '../../../type/plain-type/plain-type.tree';
 import { OperatorMemberTree } from './operator-member.tree';
 

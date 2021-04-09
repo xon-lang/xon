@@ -1,8 +1,8 @@
-import { ExpressionTree } from './tree/expression/expression.tree';
-import { IdExpressionTree } from './tree/expression/id-expression/id-expression.tree';
-import { LiteralExpressionTree } from './tree/expression/literal-expression/literal-expression.tree';
-import { OperatorExpressionTree } from './tree/expression/operator-expression/operator-expression.tree';
-import { ParenthesizedExpressionTree } from './tree/expression/parenthesized-expression/parenthesized-expression.tree';
+import { ExpressionTree } from './expression/expression.tree';
+import { IdExpressionTree } from './expression/id-expression/id-expression.tree';
+import { LiteralExpressionTree } from './expression/literal-expression/literal-expression.tree';
+import { OperatorExpressionTree } from './expression/operator-expression/operator-expression.tree';
+import { ParenthesizedExpressionTree } from './expression/parenthesized-expression/parenthesized-expression.tree';
 
 const escapeIfString = (s: unknown) => (typeof s === 'string' ? `\`${s}\`` : s);
 

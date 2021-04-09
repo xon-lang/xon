@@ -1,8 +1,8 @@
-import { parseExpression, parseProgram } from '../../parse';
 import { IdExpressionTree } from '../../tree/expression/id-expression/id-expression.tree';
 import { IndexExpressionTree } from '../../tree/expression/index-expression/index-expression.tree';
 import { LiteralExpressionTree } from '../../tree/expression/literal-expression/literal-expression.tree';
 import { OperatorExpressionTree } from '../../tree/expression/operator-expression/operator-expression.tree';
+import { parseExpression, parseProgram } from '../../tree/parse';
 import { ExpressionStatementTree } from '../../tree/statement/expression-statement/expression-statement.tree';
 
 test('integer + integer', () => {

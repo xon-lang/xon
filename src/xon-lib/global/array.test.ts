@@ -1,5 +1,5 @@
-import { parseExpression } from '../../parse';
 import { LiteralExpressionTree } from '../../tree/expression/literal-expression/literal-expression.tree';
+import { parseExpression } from '../../tree/parse';
 
 test('any clone method exists', () => {
   const code = '3';

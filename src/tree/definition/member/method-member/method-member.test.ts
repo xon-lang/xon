@@ -1,4 +1,4 @@
-import { parseMember, parseProgram } from '../../../../parse';
+import { parseMember, parseProgram } from '../../../parse';
 import { ProgramTree } from '../../../program/program.tree';
 import { PlainTypeTree } from '../../../type/plain-type/plain-type.tree';
 import { MethodMemberTree } from './method-member.tree';

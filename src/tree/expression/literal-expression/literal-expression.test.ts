@@ -1,4 +1,4 @@
-import { parseExpression } from '../../../parse';
+import { parseExpression } from '../../parse';
 import { LiteralExpressionTree } from './literal-expression.tree';
 
 test('check true', () => {

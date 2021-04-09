@@ -1,4 +1,4 @@
-import { parseParameter } from '../../parse';
+import { parseParameter } from '../parse';
 import { PlainTypeTree } from '../type/plain-type/plain-type.tree';
 import { ParameterTree } from './parameter.tree';
 

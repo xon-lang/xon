@@ -1,5 +1,5 @@
-import { evalExpression } from '../../../eval';
-import { parseExpression } from '../../../parse';
+import { evalExpression } from '../../eval';
+import { parseExpression } from '../../parse';
 import { PlainTypeTree } from '../../type/plain-type/plain-type.tree';
 import { LambdaExpressionTree } from './lambda-expression.tree';
 

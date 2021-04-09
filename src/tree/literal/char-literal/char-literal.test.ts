@@ -1,4 +1,4 @@
-import { parseLiteral } from '../../../parse';
+import { parseLiteral } from '../../parse';
 import { CharLiteralTree } from './char-literal.tree';
 
 test('char a', () => {

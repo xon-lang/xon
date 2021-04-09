@@ -1,7 +1,7 @@
 // import fs from 'fs';
 // import { glob } from 'glob';
 // import path from 'path';
-// import { parseDefinition } from '../../parse';
+// import { parseDefinition } from '../parse';
 // import { DefinitionTree } from '../definition/definition.tree';
 // import { ArrayTypeTree } from './array-type/array-type.tree';
 // import { GenericTypeTree } from './generic-type/generic-type.tree';

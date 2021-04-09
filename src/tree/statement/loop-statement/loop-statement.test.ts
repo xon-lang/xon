@@ -1,8 +1,8 @@
-import { evalExpression } from '../../../eval';
-import { parseStatement } from '../../../parse';
+import { evalExpression } from '../../eval';
 import { ArrayExpressionTree } from '../../expression/array-expression/array-expression.tree';
 import { IdExpressionTree } from '../../expression/id-expression/id-expression.tree';
 import { MethodExpressionTree } from '../../expression/method-expression/method-expression.tree';
+import { parseStatement } from '../../parse';
 import { ExpressionStatementTree } from '../expression-statement/expression-statement.tree';
 import { LoopStatementTree } from './loop-statement.tree';
 

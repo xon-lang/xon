@@ -1,4 +1,4 @@
-import { parseType } from '../../../parse';
+import { parseType } from '../../parse';
 import { LiteralTypeTree } from './literal-type.tree';
 
 test('plain string type', () => {

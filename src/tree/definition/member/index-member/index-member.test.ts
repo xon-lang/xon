@@ -1,7 +1,7 @@
-import { parseMember } from '../../../../parse';
 import { IdExpressionTree } from '../../../expression/id-expression/id-expression.tree';
 import { LiteralExpressionTree } from '../../../expression/literal-expression/literal-expression.tree';
 import { MethodExpressionTree } from '../../../expression/method-expression/method-expression.tree';
+import { parseMember } from '../../../parse';
 import { ExpressionStatementTree } from '../../../statement/expression-statement/expression-statement.tree';
 import { PlainTypeTree } from '../../../type/plain-type/plain-type.tree';
 import { IndexMemberTree } from './index-member.tree';

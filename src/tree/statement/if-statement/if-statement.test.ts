@@ -1,5 +1,5 @@
-import { evalExpression } from '../../../eval';
-import { parseStatement } from '../../../parse';
+import { evalExpression } from '../../eval';
+import { parseStatement } from '../../parse';
 import { ExpressionStatementTree } from '../expression-statement/expression-statement.tree';
 import { IfStatementTree } from './if-statement.tree';
 

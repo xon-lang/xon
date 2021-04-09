@@ -1,5 +1,5 @@
-import { evalExpression } from '../../../eval';
-import { parseStatement } from '../../../parse';
+import { evalExpression } from '../../eval';
+import { parseStatement } from '../../parse';
 import { ReturnStatementTree } from './return-statement.tree';
 
 test('return in scope', () => {

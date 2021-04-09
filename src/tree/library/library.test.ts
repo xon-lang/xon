@@ -1,4 +1,4 @@
-import { parseLibrary } from '../../parse';
+import { parseLibrary } from '../parse';
 import { LibraryTree } from './library.tree';
 
 test('import with many members', () => {

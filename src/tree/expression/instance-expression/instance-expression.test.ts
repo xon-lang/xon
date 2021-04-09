@@ -1,4 +1,4 @@
-import { parseExpression } from '../../../parse';
+import { parseExpression } from '../../parse';
 import { InstanceExpressionTree } from './instance-expression.tree';
 
 test('instance pointer', () => {

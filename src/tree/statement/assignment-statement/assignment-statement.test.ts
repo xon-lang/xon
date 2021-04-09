@@ -1,5 +1,5 @@
-import { parseStatement } from '../../../parse';
 import { LiteralExpressionTree } from '../../expression/literal-expression/literal-expression.tree';
+import { parseStatement } from '../../parse';
 import { AssignmentStatementTree } from './assignment-statement.tree';
 
 test('simple assignment', () => {

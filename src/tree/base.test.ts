@@ -1,5 +1,5 @@
-import { parseExpression } from '../parse';
 import { LiteralExpressionTree } from './expression/literal-expression/literal-expression.tree';
+import { parseExpression } from './parse';
 
 test('check to json', () => {
   const code = 'true';

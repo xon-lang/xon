@@ -1,5 +1,5 @@
-import { evalExpression } from '../../../eval';
-import { parseStatement } from '../../../parse';
+import { evalExpression } from '../../eval';
+import { parseStatement } from '../../parse';
 import { ExpressionStatementTree } from './expression-statement.tree';
 
 test('variable assignment', () => {

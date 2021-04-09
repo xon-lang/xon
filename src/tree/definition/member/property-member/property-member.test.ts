@@ -1,5 +1,5 @@
-import { parseMember } from '../../../../parse';
 import { LiteralExpressionTree } from '../../../expression/literal-expression/literal-expression.tree';
+import { parseMember } from '../../../parse';
 import { GenericTypeTree } from '../../../type/generic-type/generic-type.tree';
 import { PlainTypeTree } from '../../../type/plain-type/plain-type.tree';
 import { PropertyMemberTree } from './property-member.tree';

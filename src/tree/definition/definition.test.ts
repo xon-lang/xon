@@ -1,7 +1,7 @@
 import * as fs from 'fs';
-import { parseDefinition } from '../../parse';
 import { IdExpressionTree } from '../expression/id-expression/id-expression.tree';
 import { MethodExpressionTree } from '../expression/method-expression/method-expression.tree';
+import { parseDefinition } from '../parse';
 import { ExpressionStatementTree } from '../statement/expression-statement/expression-statement.tree';
 import { GenericTypeTree } from '../type/generic-type/generic-type.tree';
 import { PlainTypeTree } from '../type/plain-type/plain-type.tree';

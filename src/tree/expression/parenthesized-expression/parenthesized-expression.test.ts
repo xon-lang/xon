@@ -1,5 +1,5 @@
-import { evalExpression } from '../../../eval';
-import { parseExpression } from '../../../parse';
+import { evalExpression } from '../../eval';
+import { parseExpression } from '../../parse';
 import { OperatorExpressionTree } from '../operator-expression/operator-expression.tree';
 import { ParenthesizedExpressionTree } from './parenthesized-expression.tree';
 

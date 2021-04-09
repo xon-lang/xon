@@ -1,4 +1,4 @@
-import { parseProgram, parseStatement } from '../../../parse';
+import { parseProgram, parseStatement } from '../../parse';
 import { ProgramTree } from '../../program/program.tree';
 import { PreprocessorStatementTree } from './preprocessor-statement.tree';
 

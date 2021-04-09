@@ -1,4 +1,4 @@
-import { parseType } from '../../../parse';
+import { parseType } from '../../parse';
 import { PlainTypeTree } from '../plain-type/plain-type.tree';
 import { ArrayTypeTree } from './array-type.tree';
 

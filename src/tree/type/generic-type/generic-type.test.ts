@@ -1,4 +1,4 @@
-import { parseType } from '../../../parse';
+import { parseType } from '../../parse';
 import { FunctionTypeTree } from '../function-type/function-type.tree';
 import { PlainTypeTree } from '../plain-type/plain-type.tree';
 import { GenericTypeTree } from './generic-type.tree';
