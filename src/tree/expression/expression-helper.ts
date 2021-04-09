@@ -42,7 +42,3 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
 
 export const getExpressionsTrees = (expressions: ExpressionContext[]): ExpressionTree[] =>
   expressions.map(getExpressionTree);
-
-// fix circular dependency for binary-expression
-// eslint-disable-next-line
-global['getExpressionTree'] = getExpressionTree;

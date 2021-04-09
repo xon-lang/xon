@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import { ExpressionContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 

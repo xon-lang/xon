@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { DefinitionContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { ParameterTree } from '../parameter/parameter.tree';
