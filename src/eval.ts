@@ -1,5 +1,3 @@
-/* eslint-disable no-eval */
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import { ExpressionTree } from './tree/expression/expression.tree';
 import { IdExpressionTree } from './tree/expression/id-expression/id-expression.tree';
 import { LiteralExpressionTree } from './tree/expression/literal-expression/literal-expression.tree';
@@ -11,6 +9,7 @@ export const evalExpression = (tree: ExpressionTree, argsMap = {}): unknown => {
 
   if (tree instanceof LiteralExpressionTree) return tree.literal.value;
   if (tree instanceof ParenthesizedExpressionTree) return evalExpression(tree.value);
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   if (tree instanceof OperatorExpressionTree) return evalOperatorExpression(tree, argsMap);
 
   if (tree instanceof IdExpressionTree) {
@@ -27,5 +26,6 @@ export const evalOperatorExpression = (tree: OperatorExpressionTree, argsMap = {
   const a = evalExpression(tree.left, argsMap);
   const b = evalExpression(tree.right, argsMap);
   const o = tree.operator === '^' ? '**' : tree.operator;
+  // eslint-disable-next-line no-eval
   return eval(`${escapeIfString(a)} ${o} ${escapeIfString(b)}`);
 };
