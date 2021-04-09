@@ -103,24 +103,25 @@ export abstract class XonLexerBase extends Lexer {
     const spaces = this.text.replace(/[\r\n]+/g, '');
     // Strip newlines inside open clauses except if we are near EOF. We keep LineBreaks near EOF to
     // satisfy the final newline needed by the single_put rule used by the REPL.
-    const next = this.inputStream.LA(1);
-    // eslint-disable-next-line no-magic-numbers
-    const nextNext = this.inputStream.LA(2);
+    const NEXT = 1;
+    const next = this.inputStream.LA(NEXT);
+    const NEXT_NEXT = 2;
+    const nextNext = this.inputStream.LA(NEXT_NEXT);
 
-    const eofCode = -1;
-    const returnCode = 13;
-    const newLineCode = 10;
-    const hashCode = 35;
+    const EOF_CODE = -1;
+    const RETURN_CODE = 13;
+    const NEW_LINE_CODE = 10;
+    const HASH_CODE = 35;
     if (
       this.opened > 0 ||
       // EOF
-      (nextNext !== eofCode &&
+      (nextNext !== EOF_CODE &&
         // '\r'
-        (next === returnCode ||
+        (next === RETURN_CODE ||
           // '\n'
-          next === newLineCode ||
+          next === NEW_LINE_CODE ||
           // '#'
-          next === hashCode))
+          next === HASH_CODE))
     ) {
       // If we're inside a list or on a blank line, ignore all indents,
       // dedents and line breaks.
