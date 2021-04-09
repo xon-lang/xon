@@ -1,10 +1,7 @@
-/* eslint-disable max-classes-per-file */
-import { ANTLRErrorListener, CharStreams, CommonTokenStream, Recognizer } from 'antlr4ts';
+import { CharStreams, CommonTokenStream } from 'antlr4ts';
 import { XonLexer } from './grammar/xon-lexer';
 import { XonParser } from './grammar/xon-parser';
-import { Issue } from './issue-service/issue';
-import { IssueLevel } from './issue-service/issue-level';
-import { IssueService } from './issue-service/issue-service';
+import { ThrowingErrorListener } from './throwing-error-listener';
 import { ArgumentTree } from './tree/argument/argument.tree';
 import { DefinitionTree } from './tree/definition/definition.tree';
 import { getMemberTree } from './tree/definition/member/member-helper';
@@ -20,27 +17,6 @@ import { getStatementTree } from './tree/statement/statement-helper';
 import { StatementTree } from './tree/statement/statement.tree';
 import { getTypeTree } from './tree/type/type-helper';
 import { TypeTree } from './tree/type/type.tree';
-
-export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbol> {
-  // eslint-disable-next-line class-methods-use-this
-  public syntaxError<T extends TSymbol>(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    _recognizer: Recognizer<T, any>,
-    _offendingSymbol: T | undefined,
-    line: number,
-    column: number,
-    message: string,
-  ): void {
-    const issue = new Issue();
-    issue.level = IssueLevel.Error;
-    issue.message = message;
-    issue.line = line;
-    issue.column = column;
-    issue.path = IssueService.instance.lastPath;
-    IssueService.instance.lastScope.push(issue);
-    throw issue.toError();
-  }
-}
 
 export const parse = (code: string): XonParser => {
   const inputStream = CharStreams.fromString(code);
