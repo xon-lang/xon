@@ -29,7 +29,7 @@ test('private integer', () => {
 });
 
 test('integer value', () => {
-  const code = '_a Integer:\n    9';
+  const code = '_a Integer =  9';
   const tree = parseMember<PropertyMemberTree>(code);
   tree.body();
 

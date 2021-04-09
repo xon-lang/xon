@@ -4,7 +4,7 @@ import { PlainTypeTree } from '../../../type/plain-type/plain-type.tree';
 import { IndexMemberTree } from './index-member.tree';
 
 test('index', () => {
-  const code = '@[argA Integer, argB Float, argC String] String:\n    log(222)';
+  const code = '@[argA Integer, argB Float, argC String] String\n    log(222)';
   const tree = parseMember<IndexMemberTree>(code);
   tree.body();
 

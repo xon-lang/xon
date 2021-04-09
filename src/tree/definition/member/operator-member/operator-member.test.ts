@@ -4,7 +4,7 @@ import { PlainTypeTree } from '../../../type/plain-type/plain-type.tree';
 import { OperatorMemberTree } from './operator-member.tree';
 
 test('method member', () => {
-  const code = '+(left String, right String) String:\n    log()';
+  const code = '+(left String, right String) String\n    log()';
   const tree = parseMember<OperatorMemberTree>(code);
   tree.body();
 

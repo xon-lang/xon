@@ -5,7 +5,7 @@ import { PlainTypeTree } from '../../../type/plain-type/plain-type.tree';
 import { MethodMemberTree } from './method-member.tree';
 
 test('method member', () => {
-  const code = '_funcName(argA Integer, argB Float, argC String) String:\n    log(222)';
+  const code = '_funcName(argA Integer, argB Float, argC String) String\n    log(222)';
   const tree = parseMember<MethodMemberTree>(code);
   tree.body();
 

@@ -3,7 +3,7 @@ import { PlainTypeTree } from '../../../type/plain-type/plain-type.tree';
 import { InitMemberTree } from './init-member.tree';
 
 test('method member', () => {
-  const code = '@(argA Integer, argB Float, argC String):\n    log(222)';
+  const code = '@(argA Integer, argB Float, argC String)\n    log(222)';
   const tree = parseMember<InitMemberTree>(code);
   tree.body();
 

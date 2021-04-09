@@ -15,13 +15,11 @@ definition:
     ;
 
 member:
-    name = id generics? '(' (parameter (',' parameter)*)? ')' type? (':' body)? # methodMember
-    | name = '@' generics? '(' (parameter (',' parameter)*)? ')' type? (
-        ':' body
-    )?                                                                           # initMember
-    | name = '@' generics? '[' parameter (',' parameter)* ']' type (':' body)?   # indexMember
-    | name = operator generics? '(' parameter ',' parameter ')' type (':' body)? # operatorMember
-    | name = id generics? type (':' body)?                                       # propertyMember
+    name = id generics? '(' (parameter (',' parameter)*)? ')' type? body?    # methodMember
+    | name = '@' generics? '(' (parameter (',' parameter)*)? ')' type? body? # initMember
+    | name = '@' generics? '[' parameter (',' parameter)* ']' type body?     # indexMember
+    | name = operator generics? '(' parameter ',' parameter ')' type body?   # operatorMember
+    | name = id generics? type ('=' body)?                                   # propertyMember
     ;
 
 type:
