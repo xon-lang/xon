@@ -6,9 +6,9 @@ import { GenericTypeTree } from './generic-type.tree';
 test('map string to function', () => {
   const code = 'Map<String, () Integer>';
   const tree = parseType<GenericTypeTree>(code);
-
   expect(tree).toBeInstanceOf(GenericTypeTree);
-  expect(tree.mainType.name).toBe('Map');
+
+  expect(tree.name).toBe('Map');
   expect(tree.generics.length).toBe(2);
   expect((tree.generics[0] as PlainTypeTree).name).toBe('String');
   expect((tree.generics[1] as FunctionTypeTree).parametersTypes.length).toBe(0);

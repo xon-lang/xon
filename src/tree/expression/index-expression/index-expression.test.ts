@@ -19,6 +19,7 @@ test('integer expression index', () => {
   const code = 'prop[12+33]';
   const tree = parseExpression<IndexExpressionTree>(code);
   expect(tree.object).toBeInstanceOf(IdExpressionTree);
+  
   expect(tree.arguments.length).toBe(1);
   expect(tree.arguments[0].value).toBeInstanceOf(OperatorExpressionTree);
   expect(tree.arguments[0].name).toBeFalsy();

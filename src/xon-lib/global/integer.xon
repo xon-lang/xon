@@ -1,4 +1,4 @@
-Integer is Number:
+Integer(a Integer, b Integer)
     + (a Integer, b Boolean) Integer
     + (a Integer, b Integer) Integer
     + (a Integer, b Float) Float

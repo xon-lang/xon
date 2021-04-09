@@ -11,16 +11,4 @@ export class ArrayTypeTree extends TypeTree {
 
     this.itemType = getTypeTree(ctx.type());
   }
-
-  public equals(other: TypeTree): boolean {
-    return other instanceof ArrayTypeTree && this.itemType.equals(other.itemType);
-  }
-
-  public is(other: TypeTree): boolean {
-    return this.equals(other) || (this.inheritance && this.inheritance.is(other));
-  }
-
-  public toString(): string {
-    return `${this.itemType.toString()}[]`;
-  }
 }

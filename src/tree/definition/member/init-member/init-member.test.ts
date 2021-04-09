@@ -1,21 +1,20 @@
 import { parseMember } from '../../../../parse';
-import { PlainTypeTree } from '../../../type/plain-type/plain-type.tree';
+import { IdExpressionTree } from '../../../expression/id-expression/id-expression.tree';
+import { LiteralExpressionTree } from '../../../expression/literal-expression/literal-expression.tree';
+import { MethodExpressionTree } from '../../../expression/method-expression/method-expression.tree';
+import { ExpressionStatementTree } from '../../../statement/expression-statement/expression-statement.tree';
 import { InitMemberTree } from './init-member.tree';
 
 test('method member', () => {
-  const code = '@(argA Integer, argB Float, argC String)\n    log(222)';
+  const code = 'init\n    log(222)';
   const tree = parseMember<InitMemberTree>(code);
-  tree.body();
+  expect(tree).toBeInstanceOf(InitMemberTree);
 
-  expect(tree.isAbstract).toBe(false);
-  expect(tree.parameters.length).toBe(3);
+  const statement = tree.statements[0] as ExpressionStatementTree;
+  const expression = statement.value as MethodExpressionTree;
+  expect(expression.arguments.length).toBe(1);
+  expect((expression.arguments[0].value as LiteralExpressionTree).literal.value).toBe(222);
 
-  expect(tree.parameters[0].name).toBe('argA');
-  expect((tree.parameters[0].getType() as PlainTypeTree).name).toBe('Integer');
-
-  expect(tree.parameters[1].name).toBe('argB');
-  expect((tree.parameters[1].getType() as PlainTypeTree).name).toBe('Float');
-
-  expect(tree.parameters[2].name).toBe('argC');
-  expect((tree.parameters[2].getType() as PlainTypeTree).name).toBe('String');
+  const idExpression = expression.object as IdExpressionTree;
+  expect(idExpression.name).toBe('log');
 });

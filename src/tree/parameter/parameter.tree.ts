@@ -1,5 +1,4 @@
-import { ParameterContext } from '../../grammar/xon-parser';
-import { ArgumentTree } from '../argument/argument.tree';
+import { ParameterContext, ParametersContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { getTypeTree } from '../type/type-helper';
 import { TypeTree } from '../type/type.tree';
@@ -7,31 +6,20 @@ import { TypeTree } from '../type/type.tree';
 export class ParameterTree extends BaseTree {
   public name: string;
 
-  private _generics: Map<string, TypeTree> = new Map();
+  public type: TypeTree;
 
-  private _type: TypeTree;
+  public meta?: string;
 
   public constructor(public ctx?: ParameterContext) {
     super();
     if (!ctx) return;
 
-    this.name = ctx.id().text;
-    this._type = getTypeTree(ctx.type());
+    this.name = ctx._name.text;
+    this.type = getTypeTree(ctx.type());
+    this.meta = ctx._meta?.text;
   }
 
-  public static fromArgument(argument: ArgumentTree): ParameterTree {
-    const parameter = new ParameterTree();
-    parameter.name = argument.name;
-    parameter._type = argument.value.getType();
-    return parameter;
-  }
-
-  public useGenerics(generics: Map<string, TypeTree>): ParameterTree {
-    this._generics = generics;
-    return this;
-  }
-
-  public getType(): TypeTree {
-    return this._generics.get(this.name) || this._type;
+  public static fromContext(ctx: ParametersContext): ParameterTree[] {
+    return ctx.parameter()?.map((x) => new ParameterTree(x)) || [];
   }
 }

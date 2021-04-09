@@ -11,27 +11,15 @@ libraryPath:   id ('-' id)* '/' id ('-' id)*;
 libraryMember: name = id (AS alias = id)?;
 
 definition:
-    name = id generics? (IS type)? ':' NL INDENT (member | NL)+ DEDENT
+    id generics? parameters (IS type)? NL INDENT (member | NL)+ DEDENT
     ;
 
 member:
-    name = id generics? '(' (parameter (',' parameter)*)? ')' type? body?    # methodMember
-    | name = '@' generics? '(' (parameter (',' parameter)*)? ')' type? body? # initMember
-    | name = '@' generics? '[' parameter (',' parameter)* ']' type body?     # indexMember
-    | name = operator generics? '(' parameter ',' parameter ')' type body?   # operatorMember
-    | name = id generics? type ('=' body)?                                   # propertyMember
-    ;
-
-type:
-    id                                           # plainType
-    | id '<' type (',' type)* '>'                # genericType
-    | type '[' ']'                               # arrayType
-    | '{' (parameter (',' parameter)*)? '}'      # objectType
-    | '(' (parameter (',' parameter)*)? ')' type # functionType
-    | type '|' type                              # unionType
-    | '(' type ')'                               # parenthesizedType
-    | literal                                    # literalType
-    | type '#' id                                # metaType
+    id type ('=' expression)?                     # propertyMember
+    | 'init' body                                 # initMember
+    | '@' generics? '[' parameter ']' type? body? # indexMember
+    | operator generics? parameters type? body?   # operatorMember
+    | id generics? parameters type? body?         # methodMember
     ;
 
 statement:
@@ -49,10 +37,10 @@ expression:
     | '@'                                               # instanceExpression
     | literal                                           # literalExpression
     | expression '.' id                                 # memberExpression
-    | expression '(' (argument (',' argument)*)? ')'    # methodExpression
-    | expression '[' (argument (',' argument)*)? ']'    # indexExpression
+    | expression '(' arguments? ')'                     # methodExpression
+    | expression '[' arguments? ']'                     # indexExpression
     | expression operator expression                    # operatorExpression
-    | '[' (argument (',' argument)*)? ']'               # arrayExpression
+    | '[' arguments? ']'                                # arrayExpression
     | '(' expression ')'                                # parenthesizedExpression
     | '\\' (parameter (',' parameter)* ':')? expression # lambdaExpression
     ;
@@ -65,7 +53,16 @@ literal:
     | STRING_LITERAL  # stringLiteral
     ;
 
-// helpful rules
+type:
+    id                                                                  # plainType
+    | id '<' type (',' type)* '>'                                       # genericType
+    | literal                                                           # literalType
+    | type '[' ']'                                                      # arrayType
+    | type '|' type                                                     # unionType
+    | '(' (params += type (',' params += type)*)? ')' returnType = type # functionType
+    | '(' type ')'                                                      # parenthesizedType
+    ;
+
 operator:
     '+'
     | '-'
@@ -82,8 +79,10 @@ operator:
     | '.' '.' '.'?
     ;
 
-id:        ID;
-parameter: id type?;
-argument:  (id '=')? expression;
-generics:  '<' id (',' id)* '>';
-body:      statement | NL INDENT (statement | NL)+ DEDENT;
+id:         ID;
+parameter:  name = id type ('#' meta = id)?;
+parameters: '(' (parameter (',' parameter)*)? ')';
+argument:   (id '=')? expression;
+arguments:  argument (',' argument)*;
+generics:   '<' id (',' id)* '>';
+body:       statement | NL INDENT (statement | NL)+ DEDENT;

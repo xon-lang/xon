@@ -1,10 +1,13 @@
-import { parse } from '../../parse';
+import { parseParameter } from '../../parse';
 import { PlainTypeTree } from '../type/plain-type/plain-type.tree';
 import { ParameterTree } from './parameter.tree';
 
 test('simple param', () => {
   const code = 'b String';
-  const tree = new ParameterTree(parse(code).parameter());
+  const tree = parseParameter(code);
+  expect(tree).toBeInstanceOf(ParameterTree);
+
   expect(tree.name).toBe('b');
-  expect((tree.getType() as PlainTypeTree).name).toBe('String');
+  expect(tree.meta).toBeUndefined();
+  expect((tree.type as PlainTypeTree).name).toBe('String');
 });

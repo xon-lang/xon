@@ -1,7 +1,6 @@
 import { LiteralTypeContext } from '../../../grammar/xon-parser';
 import { getLiteralTree } from '../../literal/literal-helper';
 import { LiteralTree } from '../../literal/literal.tree';
-import { typeAny } from '../type-helper';
 import { TypeTree } from '../type.tree';
 
 export class LiteralTypeTree extends TypeTree {
@@ -12,17 +11,5 @@ export class LiteralTypeTree extends TypeTree {
     if (!ctx) return;
 
     this.literal = getLiteralTree(ctx.literal());
-  }
-
-  public equals(other: TypeTree): boolean {
-    return other instanceof LiteralTypeTree && this.literal.value === other.literal.value;
-  }
-
-  public is(other: TypeTree): boolean {
-    return other.equals(typeAny) || this.equals(other);
-  }
-
-  public toString(): string {
-    return `${this.literal.value}`;
   }
 }

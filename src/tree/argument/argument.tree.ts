@@ -1,10 +1,9 @@
-import { ArgumentContext } from '../../grammar/xon-parser';
+import { ArgumentContext, ArgumentsContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { getExpressionTree } from '../expression/expression-helper';
 import { ExpressionTree } from '../expression/expression.tree';
 import { IdExpressionTree } from '../expression/id-expression/id-expression.tree';
 import { MemberExpressionTree } from '../expression/member-expression/member-expression.tree';
-import { TypeTree } from '../type/type.tree';
 
 export class ArgumentTree extends BaseTree {
   public name?: string;
@@ -18,8 +17,8 @@ export class ArgumentTree extends BaseTree {
     this.name = ctx.id()?.text || this.valueName();
   }
 
-  public getType(): TypeTree {
-    return this.value.getType();
+  public static fromContext(ctx: ArgumentsContext): ArgumentTree[] {
+    return ctx?.argument()?.map((x) => new ArgumentTree(x)) || [];
   }
 
   private valueName(): string {

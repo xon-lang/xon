@@ -5,6 +5,7 @@ import { XonParser } from './grammar/xon-parser';
 import { Issue } from './issue-service/issue';
 import { IssueLevel } from './issue-service/issue-level';
 import { IssueService } from './issue-service/issue-service';
+import { ArgumentTree } from './tree/argument/argument.tree';
 import { DefinitionTree } from './tree/definition/definition.tree';
 import { getMemberTree } from './tree/definition/member/member-helper';
 import { MemberTree } from './tree/definition/member/member.tree';
@@ -13,6 +14,7 @@ import { ExpressionTree } from './tree/expression/expression.tree';
 import { LibraryTree } from './tree/library/library.tree';
 import { getLiteralTree } from './tree/literal/literal-helper';
 import { LiteralTree } from './tree/literal/literal.tree';
+import { ParameterTree } from './tree/parameter/parameter.tree';
 import { ProgramTree } from './tree/program/program.tree';
 import { getStatementTree } from './tree/statement/statement-helper';
 import { StatementTree } from './tree/statement/statement.tree';
@@ -56,6 +58,12 @@ export const parse = (code: string): XonParser => {
 
 export const parseType = <T extends TypeTree>(code: string): T =>
   getTypeTree(parse(code).type()) as T;
+
+export const parseParameter = (code: string): ParameterTree =>
+  new ParameterTree(parse(code).parameter());
+
+export const parseArgument = (code: string): ArgumentTree =>
+  new ArgumentTree(parse(code).argument());
 
 export const parseLiteral = <T extends LiteralTree>(code: string): T =>
   getLiteralTree(parse(code).literal()) as T;

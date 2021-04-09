@@ -1,6 +1,4 @@
 import { OperatorExpressionContext } from '../../../grammar/xon-parser';
-import { getOperatorType } from '../../type/get-type.util';
-import { TypeTree } from '../../type/type.tree';
 import { getExpressionTree } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
@@ -17,9 +15,5 @@ export class OperatorExpressionTree extends ExpressionTree {
     this.operator = ctx.operator().text;
     this.left = getExpressionTree(ctx.expression(0));
     this.right = getExpressionTree(ctx.expression(1));
-  }
-
-  public getType(): TypeTree {
-    return getOperatorType(this.operator, this.left, this.right);
   }
 }

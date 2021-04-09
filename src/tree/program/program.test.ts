@@ -11,7 +11,6 @@ else if d then
     call()
 `;
   const tree = new ProgramTree(parse(code).program());
-
   expect(tree).toBeInstanceOf(ProgramTree);
 
   expect(tree.libraries.length).toBe(1);

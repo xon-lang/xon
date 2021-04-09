@@ -6,6 +6,7 @@ import { IfStatementTree } from './if-statement.tree';
 test('if else if', () => {
   const code = 'if 12+(45/9) then\n    12+(45/5)\nelse if 2+2 then\n    2 * 4';
   const tree = parseStatement<IfStatementTree>(code);
+  expect(tree).toBeInstanceOf(IfStatementTree);
 
   expect(evalExpression(tree.condition)).toBe(12 + 45 / 9);
   const ifStatement = tree.ifStatements[0] as ExpressionStatementTree;
@@ -22,6 +23,7 @@ test('if else if', () => {
 test('if else', () => {
   const code = 'if 12+(45/9) then\n    12+(45/5)\nelse\n    2   *   4   ';
   const tree = parseStatement<IfStatementTree>(code);
+  expect(tree).toBeInstanceOf(IfStatementTree);
 
   expect(evalExpression(tree.condition)).toBe(12 + 45 / 9);
   const ifStatement = tree.ifStatements[0] as ExpressionStatementTree;
@@ -34,6 +36,7 @@ test('if else', () => {
 test('if', () => {
   const code = 'if 12+(45/9) then\n    12+(45/5)';
   const tree = parseStatement<IfStatementTree>(code);
+  expect(tree).toBeInstanceOf(IfStatementTree);
 
   expect(evalExpression(tree.condition)).toBe(12 + 45 / 9);
   const ifStatement = tree.ifStatements[0] as ExpressionStatementTree;
@@ -43,6 +46,7 @@ test('if', () => {
 test('if relational', () => {
   const code = 'if 6 > 4 then\n    12+(45^  5)';
   const tree = parseStatement<IfStatementTree>(code);
+  expect(tree).toBeInstanceOf(IfStatementTree);
 
   expect(evalExpression(tree.condition)).toBe(6 > 4);
   const ifStatement = tree.ifStatements[0] as ExpressionStatementTree;

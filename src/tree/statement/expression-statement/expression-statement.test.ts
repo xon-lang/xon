@@ -3,7 +3,9 @@ import { parseStatement } from '../../../parse';
 import { ExpressionStatementTree } from './expression-statement.tree';
 
 test('variable assignment', () => {
-    const code = '5 + 5\n';
-    const tree = parseStatement<ExpressionStatementTree>(code);
-    expect(evalExpression(tree.value)).toBe(10);
+  const code = '5 + 5\n';
+  const tree = parseStatement<ExpressionStatementTree>(code);
+  expect(tree).toBeInstanceOf(ExpressionStatementTree);
+
+  expect(evalExpression(tree.value)).toBe(10);
 });

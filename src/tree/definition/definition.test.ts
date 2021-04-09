@@ -3,7 +3,6 @@ import { parseDefinition } from '../../parse';
 import { IdExpressionTree } from '../expression/id-expression/id-expression.tree';
 import { MethodExpressionTree } from '../expression/method-expression/method-expression.tree';
 import { ExpressionStatementTree } from '../statement/expression-statement/expression-statement.tree';
-import { FunctionTypeTree } from '../type/function-type/function-type.tree';
 import { GenericTypeTree } from '../type/generic-type/generic-type.tree';
 import { PlainTypeTree } from '../type/plain-type/plain-type.tree';
 import { DefinitionTree } from './definition.tree';
@@ -12,10 +11,13 @@ test('one scope', () => {
   const code = fs.readFileSync('src/tree/definition/definition.test.xon').toString();
   const tree = parseDefinition(code);
   expect(tree).toBeInstanceOf(DefinitionTree);
-  tree.body();
-  expect(tree.name).toBe('SomeClass');
 
-  expect((tree.inheritanceType as GenericTypeTree).mainType.name).toBe('BaseClass');
+  expect(tree.name).toBe('SomeClass');
+  expect(tree.parameters.length).toBe(1);
+  expect(tree.parameters[0].name).toBe('name');
+  expect((tree.parameters[0].type as PlainTypeTree).name).toBe('String');
+
+  expect((tree.inheritanceType as GenericTypeTree).name).toBe('BaseClass');
   expect((tree.inheritanceType as GenericTypeTree).generics.length).toBe(2);
   expect(((tree.inheritanceType as GenericTypeTree).generics[0] as PlainTypeTree).name).toBe(
     'String',
@@ -26,38 +28,34 @@ test('one scope', () => {
 
   expect(tree.properties.length).toBe(3);
   expect(tree.properties[0].name).toBe('property');
-  expect((tree.properties[0].getType() as PlainTypeTree).name).toBe('String');
+  expect((tree.properties[0].type as PlainTypeTree).name).toBe('String');
   expect(tree.properties[1].name).toBe('anotherProp');
   expect(tree.properties[2].name).toBe('typedValue');
-  expect((tree.properties[2].getType() as PlainTypeTree).name).toBe('Number');
+  expect((tree.properties[2].type as PlainTypeTree).name).toBe('Number');
 
-  expect(tree.inits.length).toBe(1);
-  expect(tree.inits[0].parameters.length).toBe(1);
-  expect(tree.inits[0].parameters[0].name).toBe('name');
-  expect((tree.inits[0].parameters[0].getType() as PlainTypeTree).name).toBe('String');
-  expect(tree.inits[0].body().length).toBe(0);
+  expect(tree.inits.length).toBe(0);
 
   expect(tree.methods.length).toBe(2);
   expect(tree.methods[0].name).toBe('method');
   expect(tree.methods[0].parameters.length).toBe(0);
-  expect(tree.methods[0].body().length).toBe(2);
-  expect((tree.methods[0].body()[0] as ExpressionStatementTree).value).toBeInstanceOf(
+  expect(tree.methods[0].statements.length).toBe(2);
+  expect((tree.methods[0].statements[0] as ExpressionStatementTree).value).toBeInstanceOf(
     MethodExpressionTree,
   );
-  expect((tree.methods[0].body()[1] as ExpressionStatementTree).value).toBeInstanceOf(
+  expect((tree.methods[0].statements[1] as ExpressionStatementTree).value).toBeInstanceOf(
     MethodExpressionTree,
   );
   expect(tree.methods[1].name).toBe('location');
   expect(tree.methods[1].parameters.length).toBe(2);
   expect(tree.methods[1].parameters[0].name).toBe('x');
-  expect((tree.methods[1].parameters[0].getType() as PlainTypeTree).name).toBe('Number');
+  expect((tree.methods[1].parameters[0].type as PlainTypeTree).name).toBe('Number');
   expect(tree.methods[1].parameters[1].name).toBe('y');
-  expect((tree.methods[1].parameters[1].getType() as PlainTypeTree).name).toBe('Number');
-  expect(tree.methods[1].body().length).toBe(1);
-  expect((tree.methods[1].body()[0] as ExpressionStatementTree).value).toBeInstanceOf(
+  expect((tree.methods[1].parameters[1].type as PlainTypeTree).name).toBe('Number');
+  expect(tree.methods[1].statements.length).toBe(1);
+  expect((tree.methods[1].statements[0] as ExpressionStatementTree).value).toBeInstanceOf(
     MethodExpressionTree,
   );
-  const innerMethod = (tree.methods[1].body()[0] as ExpressionStatementTree)
+  const innerMethod = (tree.methods[1].statements[0] as ExpressionStatementTree)
     .value as MethodExpressionTree;
   const MethodExpression = innerMethod.object as IdExpressionTree;
   expect(MethodExpression.name).toBe('pos');
@@ -67,9 +65,5 @@ test('one scope', () => {
   expect(tree.operators[0].name).toBe('+');
   expect(tree.operators[0].parameters[0].name).toBe('it');
   expect(tree.operators[0].parameters[1].name).toBe('sc');
-  expect((tree.operators[0].parameters[1].getType() as PlainTypeTree).name).toBe('SomeClass');
-  // TODO uncomment
-  expect(((tree.operators[0].getType() as FunctionTypeTree).returnType as PlainTypeTree).name).toBe(
-    'SomeClass',
-  );
+  expect((tree.operators[0].parameters[1].type as PlainTypeTree).name).toBe('SomeClass');
 });

@@ -1,9 +1,8 @@
 import { parseExpression } from '../../parse';
-import { OperatorExpressionTree } from '../../tree/expression/operator-expression/operator-expression.tree';
-import { PlainTypeTree } from '../../tree/type/plain-type/plain-type.tree';
+import { LiteralExpressionTree } from '../../tree/expression/literal-expression/literal-expression.tree';
 
 test('float + float', () => {
-  const code = '1.1+1.1';
-  const tree = parseExpression<OperatorExpressionTree>(code);
-  expect((tree.getType() as PlainTypeTree).name).toBe('Float');
+  const code = '1.1';
+  const tree = parseExpression<LiteralExpressionTree>(code);
+  expect(tree.literal.value).toBe(1.1);
 });

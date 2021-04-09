@@ -1,7 +1,6 @@
 import { IfStatementContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../../expression/expression-helper';
 import { ExpressionTree } from '../../expression/expression.tree';
-import { TypeTree } from '../../type/type.tree';
 import { getStatementsTrees } from '../statement-helper';
 import { StatementTree } from '../statement.tree';
 
@@ -19,9 +18,5 @@ export class IfStatementTree extends ExpressionTree {
     this.condition = getExpressionTree(ctx.expression());
     this.ifStatements = getStatementsTrees(ctx.body(0));
     if (ctx.ELSE()) this.elseStatements = getStatementsTrees(ctx.body(1));
-  }
-
-  public getType(): TypeTree {
-    throw new Error(`${this}method not implemented.`);
   }
 }
