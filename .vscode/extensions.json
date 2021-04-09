@@ -1,3 +1,8 @@
 {
-  "recommendations": ["mike-lischke.vscode-antlr4", "esbenp.prettier-vscode", "nizami.xon"]
+  "recommendations": [
+    "mike-lischke.vscode-antlr4",
+    "esbenp.prettier-vscode",
+    "nizami.xon",
+    "streetsidesoftware.code-spell-checker"
+  ]
 }
