@@ -7,7 +7,7 @@ import { StatementTree } from '../statement.tree';
 export class IfStatementTree extends StatementTree {
   public condition: ExpressionTree;
 
-  public ifStatements: StatementTree[];
+  public thenStatements: StatementTree[];
 
   public elseStatements: StatementTree[];
 
@@ -16,7 +16,7 @@ export class IfStatementTree extends StatementTree {
     if (!ctx) return;
 
     this.condition = getExpressionTree(ctx.expression());
-    this.ifStatements = getStatementsTrees(ctx.body(0));
+    this.thenStatements = getStatementsTrees(ctx.body(0));
     this.elseStatements = ctx.ELSE() && getStatementsTrees(ctx.body(1));
   }
 }
