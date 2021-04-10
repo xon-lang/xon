@@ -8,6 +8,8 @@ export class StringLiteralTree extends LiteralTree {
     super();
     if (!ctx) return;
 
-    this.value = this.ctx.text.slice(1, -1).replace(/\\"/g, '"');
+    const CHAR_START = 1;
+    const CHAR_END = -1;
+    this.value = this.ctx.text.slice(CHAR_START, CHAR_END).replace(/\\"/g, '"');
   }
 }
