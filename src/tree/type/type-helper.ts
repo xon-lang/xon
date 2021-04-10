@@ -61,3 +61,9 @@ export function createFunctionType(
   type.returnType = returnType;
   return type;
 }
+
+export function createUnionType(types: TypeTree[]): UnionTypeTree {
+  const type = new UnionTypeTree();
+  type.types = types.filter((x) => x === types.find((z) => z.equals(x)));
+  return type;
+}
