@@ -12,4 +12,8 @@ export class LiteralTypeTree extends TypeTree {
 
     this.literal = getLiteralTree(ctx.literal());
   }
+
+  public equals(other: TypeTree): boolean {
+    return other instanceof LiteralTypeTree && this.literal.value === other.literal.value;
+  }
 }

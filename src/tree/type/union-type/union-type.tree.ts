@@ -11,4 +11,12 @@ export class UnionTypeTree extends TypeTree {
 
     this.types = getTypesTrees(ctx.type());
   }
+
+  public equals(other: TypeTree): boolean {
+    return (
+      other instanceof UnionTypeTree &&
+      this.types.length === other.types.length &&
+      this.types.every((x, i) => x.equals(other.types[i]))
+    );
+  }
 }

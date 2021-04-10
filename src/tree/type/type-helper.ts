@@ -32,3 +32,32 @@ export const getTypeTree = (ctx: TypeContext): TypeTree => {
 };
 
 export const getTypesTrees = (ctx: TypeContext[]): TypeTree[] => ctx?.map(getTypeTree) || [];
+
+export function createPlainType(name: string): PlainTypeTree {
+  const type = new PlainTypeTree();
+  type.name = name;
+  return type;
+}
+
+export function createGenericType(name: string, generics: TypeTree[]): GenericTypeTree {
+  const type = new GenericTypeTree();
+  type.name = name;
+  type.generics = generics;
+  return type;
+}
+
+export function createArrayType(itemType: TypeTree): ArrayTypeTree {
+  const type = new ArrayTypeTree();
+  type.itemType = itemType;
+  return type;
+}
+
+export function createFunctionType(
+  parametersTypes: TypeTree[],
+  returnType: TypeTree,
+): FunctionTypeTree {
+  const type = new FunctionTypeTree();
+  type.parametersTypes = parametersTypes;
+  type.returnType = returnType;
+  return type;
+}

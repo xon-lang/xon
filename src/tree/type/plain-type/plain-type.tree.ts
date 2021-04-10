@@ -10,4 +10,8 @@ export class PlainTypeTree extends TypeTree {
 
     this.name = ctx.id().text;
   }
+
+  public equals(other: TypeTree): boolean {
+    return other instanceof PlainTypeTree && this.name === other.name;
+  }
 }

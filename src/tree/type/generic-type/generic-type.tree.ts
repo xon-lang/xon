@@ -14,4 +14,13 @@ export class GenericTypeTree extends TypeTree {
     this.name = ctx.id().text;
     this.generics = getTypesTrees(ctx.type());
   }
+
+  public equals(other: TypeTree): boolean {
+    return (
+      other instanceof GenericTypeTree &&
+      this.name === other.name &&
+      this.generics.length === other.generics.length &&
+      this.generics.every((x, i) => x.equals(other.generics[i]))
+    );
+  }
 }
