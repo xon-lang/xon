@@ -4,7 +4,7 @@ import { ExpressionTree } from '../../expression/expression.tree';
 import { getStatementsTrees } from '../statement-helper';
 import { StatementTree } from '../statement.tree';
 
-export class IfStatementTree extends ExpressionTree {
+export class IfStatementTree extends StatementTree {
   public condition: ExpressionTree;
 
   public ifStatements: StatementTree[];
