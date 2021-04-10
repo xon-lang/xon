@@ -37,10 +37,10 @@ expression:
     | '@'                                               # instanceExpression
     | literal                                           # literalExpression
     | expression '.' id                                 # memberExpression
-    | expression '(' arguments? ')'                     # methodExpression
-    | expression '[' arguments? ']'                     # indexExpression
+    | expression arguments                              # methodExpression
+    | expression '[' expression ']'                     # indexExpression
     | expression operator expression                    # operatorExpression
-    | '[' arguments? ']'                                # arrayExpression
+    | '[' (expression (',' expression)*)? ']'           # arrayExpression
     | '(' expression ')'                                # parenthesizedExpression
     | '\\' (parameter (',' parameter)* ':')? expression # lambdaExpression
     ;
@@ -83,6 +83,6 @@ id:         ID;
 parameter:  name = id type ('#' meta = id)?;
 parameters: '(' (parameter (',' parameter)*)? ')';
 argument:   (id '=')? expression;
-arguments:  argument (',' argument)*;
+arguments:  '(' (argument (',' argument)*)? ')';
 generics:   '<' id (',' id)* '>';
 body:       statement | NL INDENT (statement | NL)+ DEDENT;

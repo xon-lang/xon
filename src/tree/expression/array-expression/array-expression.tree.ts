@@ -1,14 +1,14 @@
 import { ArrayExpressionContext } from '../../../grammar/xon-parser';
-import { ArgumentTree } from '../../argument/argument.tree';
+import { getExpressionsTrees } from '../expression-helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class ArrayExpressionTree extends ExpressionTree {
-  public arguments: ArgumentTree[];
+  public items: ExpressionTree[];
 
   public constructor(public ctx?: ArrayExpressionContext) {
     super();
     if (!ctx) return;
 
-    this.arguments = ArgumentTree.fromContext(ctx.arguments());
+    this.items = getExpressionsTrees(ctx.expression());
   }
 }

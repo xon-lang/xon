@@ -9,10 +9,8 @@ test('string expression index', () => {
   const tree = parseExpression<IndexExpressionTree>(code);
   expect(tree.object).toBeInstanceOf(IdExpressionTree);
 
-  expect(tree.arguments.length).toBe(1);
-  expect(tree.arguments[0].value).toBeInstanceOf(LiteralExpressionTree);
-  expect(tree.arguments[0].name).toBeFalsy();
-  expect((tree.arguments[0].value as LiteralExpressionTree).literal.value).toBe('ppp');
+  expect(tree.index).toBeInstanceOf(LiteralExpressionTree);
+  expect((tree.index as LiteralExpressionTree).literal.value).toBe('ppp');
 });
 
 test('integer expression index', () => {
@@ -20,10 +18,6 @@ test('integer expression index', () => {
   const tree = parseExpression<IndexExpressionTree>(code);
   expect(tree.object).toBeInstanceOf(IdExpressionTree);
 
-  expect(tree.arguments.length).toBe(1);
-  expect(tree.arguments[0].value).toBeInstanceOf(OperatorExpressionTree);
-  expect(tree.arguments[0].name).toBeFalsy();
-  expect((tree.arguments[0].value as OperatorExpressionTree).left).toBeInstanceOf(
-    LiteralExpressionTree,
-  );
+  expect(tree.index).toBeInstanceOf(OperatorExpressionTree);
+  expect((tree.index as OperatorExpressionTree).left).toBeInstanceOf(LiteralExpressionTree);
 });
