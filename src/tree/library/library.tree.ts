@@ -9,8 +9,10 @@ export class LibraryTree extends BaseTree {
 
   public members: LibraryMemberTree[];
 
-  public constructor(public ctx: LibraryContext) {
+  public constructor(public ctx?: LibraryContext) {
     super();
+    if (!ctx) return;
+
     [this.scope, this.name] = ctx.libraryPath().text.split('/');
     this.members = ctx.libraryMember().map((x) => new LibraryMemberTree(x));
   }

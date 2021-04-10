@@ -8,8 +8,10 @@ export class LambdaExpressionTree extends ExpressionTree {
 
   public body: ExpressionTree;
 
-  public constructor(public ctx: LambdaExpressionContext) {
+  public constructor(public ctx?: LambdaExpressionContext) {
     super();
+    if (!ctx) return;
+
     this.parameters = ctx.parameter().map((x) => new ParameterTree(x));
     this.body = getExpressionTree(ctx.expression());
   }

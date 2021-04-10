@@ -6,6 +6,7 @@ export class IdExpressionTree extends ExpressionTree {
 
   public constructor(public ctx: IdExpressionContext) {
     super();
+    if (!ctx) return;
 
     this.name = ctx.id().text;
   }

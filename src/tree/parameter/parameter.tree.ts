@@ -20,6 +20,6 @@ export class ParameterTree extends BaseTree {
   }
 
   public static fromContext(ctx: ParametersContext): ParameterTree[] {
-    return ctx.parameter()?.map((x) => new ParameterTree(x)) || [];
+    return ctx?.parameter()?.map((x) => new ParameterTree(x)) || [];
   }
 }

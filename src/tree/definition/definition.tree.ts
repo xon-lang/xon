@@ -29,8 +29,10 @@ export class DefinitionTree extends BaseTree {
 
   public methods: MethodMemberTree[] = [];
 
-  public constructor(public ctx: DefinitionContext) {
+  public constructor(public ctx?: DefinitionContext) {
     super();
+    if (!ctx) return;
+
     this.name = ctx.id().text;
     this.generics = ctx
       .generics()

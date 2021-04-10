@@ -5,8 +5,9 @@ import { ExpressionTree } from '../expression.tree';
 export class ParenthesizedExpressionTree extends ExpressionTree {
   public value: ExpressionTree;
 
-  public constructor(public ctx: ParenthesizedExpressionContext) {
+  public constructor(public ctx?: ParenthesizedExpressionContext) {
     super();
+    if (!ctx) return;
 
     this.value = getExpressionTree(ctx.expression());
   }

@@ -8,8 +8,10 @@ export class IntegerLiteralTree extends LiteralTree {
 
   public value: number;
 
-  public constructor(public ctx: IntegerLiteralContext) {
+  public constructor(public ctx?: IntegerLiteralContext) {
     super();
+    if (!ctx) return;
+
     const [integer, radix] = ctx.text.split('x').reverse();
     this.integer = integer;
     this.radix = +radix;

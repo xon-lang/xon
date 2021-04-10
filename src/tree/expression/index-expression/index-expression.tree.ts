@@ -10,6 +10,8 @@ export class IndexExpressionTree extends ExpressionTree {
 
   public constructor(public ctx: IndexExpressionContext) {
     super();
+    if (!ctx) return;
+    
     this.object = getExpressionTree(ctx.expression());
     this.arguments = ArgumentTree.fromContext(ctx.arguments());
   }

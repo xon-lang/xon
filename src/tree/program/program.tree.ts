@@ -12,13 +12,12 @@ export class ProgramTree extends BaseTree {
 
   public definitions: DefinitionTree[];
 
-  public constructor(public ctx: ProgramContext) {
+  public constructor(public ctx?: ProgramContext) {
     super();
+    if (!ctx) return;
 
     this.libraries = ctx.library().map((x) => new LibraryTree(x));
-
     this.statements = ctx.statement().map(getStatementTree);
-
     this.definitions = ctx.definition().map((x) => new DefinitionTree(x));
   }
 }

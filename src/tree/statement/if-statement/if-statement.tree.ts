@@ -9,7 +9,7 @@ export class IfStatementTree extends StatementTree {
 
   public ifStatements: StatementTree[];
 
-  public elseStatements?: StatementTree[];
+  public elseStatements: StatementTree[];
 
   public constructor(public ctx?: IfStatementContext) {
     super();
@@ -17,6 +17,6 @@ export class IfStatementTree extends StatementTree {
 
     this.condition = getExpressionTree(ctx.expression());
     this.ifStatements = getStatementsTrees(ctx.body(0));
-    if (ctx.ELSE()) this.elseStatements = getStatementsTrees(ctx.body(1));
+    this.elseStatements = ctx.ELSE() && getStatementsTrees(ctx.body(1));
   }
 }

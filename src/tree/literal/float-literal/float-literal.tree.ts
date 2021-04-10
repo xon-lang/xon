@@ -10,8 +10,10 @@ export class FloatLiteralTree extends LiteralTree {
 
   public value: number;
 
-  public constructor(public ctx: FloatLiteralContext) {
+  public constructor(public ctx?: FloatLiteralContext) {
     super();
+    if (!ctx) return;
+
     [this.integer, this.fraction] = ctx.text.split('.');
     const [integer, radix] = this.integer.split('x').reverse();
     this.integer = integer;

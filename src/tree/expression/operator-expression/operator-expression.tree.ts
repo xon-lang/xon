@@ -9,8 +9,9 @@ export class OperatorExpressionTree extends ExpressionTree {
 
   public right: ExpressionTree;
 
-  public constructor(public ctx: OperatorExpressionContext) {
+  public constructor(public ctx?: OperatorExpressionContext) {
     super();
+    if (!ctx) return;
 
     this.operator = ctx.operator().text;
     this.left = getExpressionTree(ctx.expression(0));

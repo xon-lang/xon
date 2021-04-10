@@ -6,8 +6,10 @@ export class LibraryMemberTree extends BaseTree {
 
   public alias: string;
 
-  public constructor(public ctx: LibraryMemberContext) {
+  public constructor(public ctx?: LibraryMemberContext) {
     super();
+    if (!ctx) return;
+
     this.name = ctx._name.text;
     this.alias = ctx._alias?.text;
   }

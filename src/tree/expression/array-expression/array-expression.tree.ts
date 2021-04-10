@@ -7,6 +7,7 @@ export class ArrayExpressionTree extends ExpressionTree {
 
   public constructor(public ctx?: ArrayExpressionContext) {
     super();
+    if (!ctx) return;
 
     this.arguments = ArgumentTree.fromContext(ctx.arguments());
   }

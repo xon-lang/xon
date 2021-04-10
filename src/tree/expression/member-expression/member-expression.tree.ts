@@ -7,8 +7,10 @@ export class MemberExpressionTree extends ExpressionTree {
 
   public name: string;
 
-  public constructor(public ctx: MemberExpressionContext) {
+  public constructor(public ctx?: MemberExpressionContext) {
     super();
+    if (!ctx) return;
+
     this.object = getExpressionTree(ctx.expression());
     this.name = ctx.id().text;
   }

@@ -8,8 +8,9 @@ export class MethodExpressionTree extends ExpressionTree {
 
   public object: ExpressionTree;
 
-  public constructor(public ctx: MethodExpressionContext) {
+  public constructor(public ctx?: MethodExpressionContext) {
     super();
+    if (!ctx) return;
 
     this.arguments = ArgumentTree.fromContext(ctx.arguments());
     this.object = getExpressionTree(ctx.expression());

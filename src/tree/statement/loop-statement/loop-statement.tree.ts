@@ -19,11 +19,12 @@ export class LoopStatementTree extends StatementTree {
 
   public statements: StatementTree[];
 
-  public constructor(public ctx: LoopStatementContext) {
+  public constructor(public ctx?: LoopStatementContext) {
     super();
+    if (!ctx) return;
+
     this.keyword = ctx.LOOP().text;
     this.isInfinity = !ctx.expression();
-
     this.indexName = ctx._index?.text;
     this.keyName = ctx._key?.text;
     this.valueName = ctx._value?.text;

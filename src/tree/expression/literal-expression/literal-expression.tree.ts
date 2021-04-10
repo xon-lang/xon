@@ -8,6 +8,8 @@ export class LiteralExpressionTree extends ExpressionTree {
 
   public constructor(public ctx?: LiteralExpressionContext) {
     super();
+    if (!ctx) return;
+    
     this.literal = ctx && getLiteralTree(ctx.literal());
   }
 }

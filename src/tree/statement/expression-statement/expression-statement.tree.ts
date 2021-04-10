@@ -6,8 +6,10 @@ import { StatementTree } from '../statement.tree';
 export class ExpressionStatementTree extends StatementTree {
   public value: ExpressionTree;
 
-  public constructor(public ctx: ExpressionStatementContext) {
+  public constructor(public ctx?: ExpressionStatementContext) {
     super();
+    if (!ctx) return;
+
     this.value = getExpressionTree(ctx.expression());
   }
 }

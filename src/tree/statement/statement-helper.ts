@@ -30,4 +30,4 @@ export const getStatementTree = (ctx: StatementContext): StatementTree => {
 };
 
 export const getStatementsTrees = (body: BodyContext): StatementTree[] =>
-  body?.statement().map(getStatementTree) || [];
+  body?.statement()?.map(getStatementTree) || [];

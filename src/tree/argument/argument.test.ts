@@ -17,6 +17,6 @@ test('value name', () => {
   const tree = parseArgument(code);
   expect(tree).toBeInstanceOf(ArgumentTree);
 
-  expect(tree.name).toBe('t');
+  expect(tree.name).toBeUndefined();
   expect((tree.value as IdExpressionTree).name).toBe('t');
 });
