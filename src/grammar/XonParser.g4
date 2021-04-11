@@ -54,15 +54,15 @@ literal:
     ;
 
 type:
-    id                                                                            # plainType
-    | id '<' type (',' type)* '>'                                                 # genericType
-    | literal                                                                     # literalType
-    | type '?'                                                                    # nullableType
-    | type '[' ']'                                                                # arrayType
-    | type '|' type                                                               # unionType
-    | generics? '(' (params += type (',' params += type)*)? ')' returnType = type # functionType
-    | generics? '(' (params += type (',' params += type)*)? ')'                   # actionType
-    | '(' type ')'                                                                # parenthesizedType
+    id                                                                  # plainType
+    | id '<' type (',' type)* '>'                                       # genericType
+    | literal                                                           # literalType
+    | type '?'                                                          # nullableType
+    | type '[' ']'                                                      # arrayType
+    | type '|' type                                                     # unionType
+    | '(' (params += type (',' params += type)*)? ')' returnType = type # functionType
+    | '(' (params += type (',' params += type)*)? ')'                   # actionType
+    | '(' type ')'                                                      # parenthesizedType
     ;
 
 operator:
