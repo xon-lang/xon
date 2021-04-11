@@ -9,7 +9,7 @@ test('has data type', () => {
 
   expect(tree.name).toBe('b');
   expect(tree.metaType).toBeUndefined();
-  expect((tree.dataType as PlainTypeTree).name).toBe('String');
+  expect((tree.typeTree as PlainTypeTree).name).toBe('String');
 });
 
 test('has data and meta types', () => {
@@ -19,5 +19,5 @@ test('has data and meta types', () => {
 
   expect(tree.name).toBe('b');
   expect(tree.metaType).toBe('Literal');
-  expect((tree.dataType as PlainTypeTree).name).toBe('String');
+  expect((tree.typeTree as PlainTypeTree).name).toBe('String');
 });
