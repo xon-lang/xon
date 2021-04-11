@@ -6,18 +6,19 @@ import { IfStatementTree } from '../tree/statement/if-statement/if-statement.tre
 import { LoopStatementTree } from '../tree/statement/loop-statement/loop-statement.tree';
 import { ReturnStatementTree } from '../tree/statement/return-statement/return-statement.tree';
 import { StatementTree } from '../tree/statement/statement.tree';
-import { ArrayTypeTree } from '../tree/type/array-type/array-type.tree';
-import { createPlainType } from '../tree/type/type-helper';
+import { DataType } from './data-type';
 import { processExpression } from './expression-typing';
 import { addToScope, popScope, pushScope } from './typing';
 
 export function processAssignmentStatement(tree: AssignmentStatementTree): void {
   processExpression(tree.value);
+  tree.dataType = tree.value.dataType;
   addToScope(tree.name, tree.value.dataType);
 }
 
 export function processExpressionStatement(tree: ExpressionStatementTree): void {
   processExpression(tree.value);
+  tree.dataType = tree.value.dataType;
 }
 
 export function processIfStatement(tree: IfStatementTree): void {
@@ -26,21 +27,32 @@ export function processIfStatement(tree: IfStatementTree): void {
   tree.thenStatements.forEach(processStatement);
   tree.elseStatements.forEach(processStatement);
   popScope();
+  const thenDataType = tree.thenStatements[tree.thenStatements.length - 1].dataType;
+  const elseDataType = tree.elseStatements[tree.elseStatements.length - 1].dataType;
+  if (thenDataType.equals(elseDataType)) tree.dataType = thenDataType;
+  else tree.dataType = new DataType('Union', [thenDataType, elseDataType]);
 }
 
 export function processLoopStatement(tree: LoopStatementTree): void {
   pushScope();
   processExpression(tree.expression);
-  if (!(tree.expression.dataType instanceof ArrayTypeTree)) throw new Error('Not array');
-  addToScope(tree.valueName, tree.expression.dataType.itemType);
-  // addToScope(tree.keyName)
-  addToScope(tree.indexName, createPlainType('Integer'));
+  if (tree.expression.dataType.name !== 'Array') throw new Error('Not an array');
+  if (!tree.expression.dataType.generics.length) throw new Error('Generics not found');
+
+  const expressionDataType =
+    tree.expression.dataType.generics.length > 1
+      ? new DataType('Union', tree.expression.dataType.generics)
+      : tree.expression.dataType.generics[0];
+  addToScope(tree.valueName, expressionDataType);
+  addToScope(tree.indexName, new DataType('Integer'));
   tree.statements.forEach(processStatement);
   popScope();
+  tree.dataType = tree.statements[tree.statements.length - 1].dataType;
 }
 
 export function processReturnStatement(tree: ReturnStatementTree): void {
   if (tree.value) processExpression(tree.value);
+  tree.dataType = tree.value.dataType;
 }
 
 export function processStatement(tree: StatementTree): void {
