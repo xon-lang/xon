@@ -1,4 +1,4 @@
-SomeClass(name String) is BaseClass<String, Boolean>
+SomeClass<T>(name String) is BaseClass<String, Boolean>
     property String
     anotherProp Number
     typedValue Number

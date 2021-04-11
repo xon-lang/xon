@@ -11,7 +11,7 @@ libraryPath:   id ('-' id)* '/' id ('-' id)*;
 libraryMember: name = id (AS alias = id)?;
 
 definition:
-    id generics? parameters (IS type)? NL INDENT (member | NL)+ DEDENT
+    id generics? parameters? (IS type)? NL INDENT (member | NL)+ DEDENT
     ;
 
 member:

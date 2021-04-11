@@ -18,6 +18,8 @@ export class DefinitionTree extends BaseTree {
 
   public parameters: ParameterTree[];
 
+  public hasConstructor: boolean;
+
   public inheritanceType?: TypeTree;
 
   public members: MemberTree[] = [];
@@ -42,6 +44,7 @@ export class DefinitionTree extends BaseTree {
       ?.id()
       .map((x) => x.text);
     this.parameters = ParameterTree.fromContext(ctx.parameters());
+    this.hasConstructor = !!ctx.parameters();
     this.inheritanceType = getTypeTree(ctx.type());
     this.members = this.ctx.member().map((x) => getMemberTree(x));
     this.members.forEach((x) => {
