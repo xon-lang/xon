@@ -9,7 +9,11 @@ export class DataType {
 
   public members: MemberTree[];
 
-  public constructor(public name: string, public generics: DataType[] = []) {}
+  public constructor(
+    public name: string,
+    public generics: DataType[] = [],
+    public parameters: DataType[] = [],
+  ) {}
 
   // public static fromTypeTree(typeTree: TypeTree):DataType{
   //   if (tree instanceof PlainTypeTree) {
