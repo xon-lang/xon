@@ -1,4 +1,5 @@
 import {
+  ActionTypeContext,
   ArrayTypeContext,
   FunctionTypeContext,
   GenericTypeContext,
@@ -9,6 +10,7 @@ import {
   TypeContext,
   UnionTypeContext,
 } from '../../grammar/xon-parser';
+import { ActionTypeTree } from './action-type/action-type.tree';
 import { ArrayTypeTree } from './array-type/array-type.tree';
 import { FunctionTypeTree } from './function-type/function-type.tree';
 import { GenericTypeTree } from './generic-type/generic-type.tree';
@@ -25,6 +27,7 @@ export const getTypeTree = (ctx: TypeContext): TypeTree => {
   if (ctx instanceof ArrayTypeContext) return new ArrayTypeTree(ctx);
   if (ctx instanceof GenericTypeContext) return new GenericTypeTree(ctx);
   if (ctx instanceof FunctionTypeContext) return new FunctionTypeTree(ctx);
+  if (ctx instanceof ActionTypeContext) return new ActionTypeTree(ctx);
   if (ctx instanceof UnionTypeContext) return new UnionTypeTree(ctx);
   if (ctx instanceof LiteralTypeContext) return new LiteralTypeTree(ctx);
   if (ctx instanceof NullableTypeContext) return new NullableTypeTree(ctx);

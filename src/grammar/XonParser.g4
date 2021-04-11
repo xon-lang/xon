@@ -61,6 +61,7 @@ type:
     | type '[' ']'                                                                # arrayType
     | type '|' type                                                               # unionType
     | generics? '(' (params += type (',' params += type)*)? ')' returnType = type # functionType
+    | generics? '(' (params += type (',' params += type)*)? ')'                   # actionType
     | '(' type ')'                                                                # parenthesizedType
     ;
 
