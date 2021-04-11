@@ -6,8 +6,10 @@ import { MemberTree } from '../member.tree';
 export class InitMemberTree extends MemberTree {
   public statements: StatementTree[];
 
-  public constructor(public ctx: InitMemberContext) {
+  public constructor(public ctx?: InitMemberContext) {
     super();
+    if (!ctx) return;
+
     this.statements = getStatementsTrees(ctx.body());
   }
 }

@@ -7,6 +7,8 @@ import { TypeTree } from '../../../type/type.tree';
 import { MemberTree } from '../member.tree';
 
 export class IndexMemberTree extends MemberTree {
+  public name: string;
+
   public generics: string[];
 
   public parameter: ParameterTree;
@@ -15,9 +17,11 @@ export class IndexMemberTree extends MemberTree {
 
   public statements?: StatementTree[];
 
-  public constructor(public ctx: IndexMemberContext) {
+  public constructor(public ctx?: IndexMemberContext) {
     super();
+    if (!ctx) return;
 
+    this.name = ctx.AD().text;
     this.generics = ctx
       .generics()
       ?.id()

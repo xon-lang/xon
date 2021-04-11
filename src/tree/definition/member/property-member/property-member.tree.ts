@@ -12,8 +12,10 @@ export class PropertyMemberTree extends MemberTree {
 
   public value?: ExpressionTree;
 
-  public constructor(public ctx: PropertyMemberContext) {
+  public constructor(public ctx?: PropertyMemberContext) {
     super();
+    if (!ctx) return;
+
     this.name = ctx.id().text;
     this.type = getTypeTree(ctx.type());
     this.value = getExpressionTree(ctx.expression());

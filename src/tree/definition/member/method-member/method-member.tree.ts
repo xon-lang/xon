@@ -19,8 +19,9 @@ export class MethodMemberTree extends MemberTree {
 
   public statements: StatementTree[];
 
-  public constructor(public ctx: MethodMemberContext) {
+  public constructor(public ctx?: MethodMemberContext) {
     super();
+    if (!ctx) return;
 
     this.name = ctx.id().text;
     this.isPrivate = this.name.startsWith('_');

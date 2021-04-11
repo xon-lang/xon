@@ -17,8 +17,9 @@ export class OperatorMemberTree extends MemberTree {
 
   public statements?: StatementTree[];
 
-  public constructor(public ctx: OperatorMemberContext) {
+  public constructor(public ctx?: OperatorMemberContext) {
     super();
+    if (!ctx) return;
 
     this.name = ctx.operator().text;
     this.generics = ctx
