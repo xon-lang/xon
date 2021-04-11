@@ -7,6 +7,7 @@ import { IndexExpressionTree } from '../tree/expression/index-expression/index-e
 import { InstanceExpressionTree } from '../tree/expression/instance-expression/instance-expression.tree';
 import { LambdaExpressionTree } from '../tree/expression/lambda-expression/lambda-expression.tree';
 import { LiteralExpressionTree } from '../tree/expression/literal-expression/literal-expression.tree';
+import { MemberExpressionTree } from '../tree/expression/member-expression/member-expression.tree';
 import { BooleanLiteralTree } from '../tree/literal/boolean-literal/boolean-literal.tree';
 import { CharLiteralTree } from '../tree/literal/char-literal/char-literal.tree';
 import { FloatLiteralTree } from '../tree/literal/float-literal/float-literal.tree';
@@ -83,6 +84,11 @@ export function processLiteralExpression(tree: LiteralExpressionTree): void {
   if (tree.literal instanceof CharLiteralTree) tree.dataType = new DataType('Char');
   if (tree.literal instanceof StringLiteralTree) tree.dataType = new DataType('String');
   tree.dataType.isLiteral = true;
+}
+
+export function processMemberExpression(tree: MemberExpressionTree): void {
+  processExpression(tree.object);
+  tree.dataType = tree.object.dataType.getMemberType(tree.name);
 }
 
 export function processExpression(tree: ExpressionTree): void {
