@@ -7,4 +7,6 @@ export abstract class TypeTree extends BaseTree {
   public isGeneric: boolean;
 
   abstract equals(other: TypeTree): boolean;
+
+  abstract replaceGenerics(map: Map<string, string>): TypeTree;
 }

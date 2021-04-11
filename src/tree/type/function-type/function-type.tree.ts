@@ -3,7 +3,7 @@ import { getTypeTree } from '../type-helper';
 import { TypeTree } from '../type.tree';
 
 export class FunctionTypeTree extends TypeTree {
-  public parametersTypes: TypeTree[];
+  public parameters: TypeTree[];
 
   public returnType: TypeTree;
 
@@ -11,7 +11,7 @@ export class FunctionTypeTree extends TypeTree {
     super();
     if (!ctx) return;
 
-    this.parametersTypes = ctx._params.map(getTypeTree);
+    this.parameters = ctx._params.map(getTypeTree);
     this.returnType = getTypeTree(ctx._returnType);
   }
 
@@ -19,8 +19,15 @@ export class FunctionTypeTree extends TypeTree {
     return (
       other instanceof FunctionTypeTree &&
       this.returnType.equals(other.returnType) &&
-      this.parametersTypes.length === other.parametersTypes.length &&
-      this.parametersTypes.every((x, i) => x.equals(other.parametersTypes[i]))
+      this.parameters.length === other.parameters.length &&
+      this.parameters.every((x, i) => x.equals(other.parameters[i]))
     );
+  }
+
+  public replaceGenerics(map: Map<string, string> = new Map()): FunctionTypeTree {
+    const type = new FunctionTypeTree();
+    type.parameters = this.parameters.map((x) => x.replaceGenerics(map));
+    type.returnType = this.returnType.replaceGenerics(map);
+    return type;
   }
 }

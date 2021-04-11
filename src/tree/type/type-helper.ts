@@ -36,9 +36,10 @@ export const getTypeTree = (ctx: TypeContext): TypeTree => {
 
 export const getTypesTrees = (ctx: TypeContext[]): TypeTree[] => ctx?.map(getTypeTree) || [];
 
-export function createPlainType(name: string): PlainTypeTree {
+export function createPlainType(name: string, generics: TypeTree[]): PlainTypeTree {
   const type = new PlainTypeTree();
   type.name = name;
+  type.generics = generics;
   return type;
 }
 
@@ -48,19 +49,16 @@ export function createArrayType(itemType: TypeTree): ArrayTypeTree {
   return type;
 }
 
-export function createFunctionType(
-  parametersTypes: TypeTree[],
-  returnType: TypeTree,
-): FunctionTypeTree {
+export function createFunctionType(parameters: TypeTree[], returnType: TypeTree): FunctionTypeTree {
   const type = new FunctionTypeTree();
-  type.parametersTypes = parametersTypes;
+  type.parameters = parameters;
   type.returnType = returnType;
   return type;
 }
 
 export function createUnionType(types: TypeTree[]): UnionTypeTree {
   const type = new UnionTypeTree();
-  type.dataTypes = types.filter((x) => x === types.find((z) => z.equals(x)));
+  type.types = types.filter((x) => x === types.find((z) => z.equals(x)));
   return type;
 }
 

@@ -7,7 +7,7 @@ test('union types', () => {
   const tree = parseType<UnionTypeTree>(code);
   expect(tree).toBeInstanceOf(UnionTypeTree);
 
-  expect(tree.dataTypes.length).toBe(2);
-  expect((tree.dataTypes[0] as PlainTypeTree).name).toBe('Float');
-  expect((tree.dataTypes[1] as PlainTypeTree).name).toBe('Integer');
+  expect(tree.types.length).toBe(2);
+  expect((tree.types[0] as PlainTypeTree).name).toBe('Float');
+  expect((tree.types[1] as PlainTypeTree).name).toBe('Integer');
 });

@@ -23,4 +23,11 @@ export class PlainTypeTree extends TypeTree {
       this.generics.every((x, i) => x.equals(other.generics[i]))
     );
   }
+
+  public replaceGenerics(map: Map<string, string> = new Map()): PlainTypeTree {
+    const type = new PlainTypeTree();
+    type.name = map.get(this.name) || this.name;
+    type.generics = this.generics.map((x) => x.replaceGenerics(map));
+    return type;
+  }
 }

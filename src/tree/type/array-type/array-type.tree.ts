@@ -15,4 +15,10 @@ export class ArrayTypeTree extends TypeTree {
   public equals(other: TypeTree): boolean {
     return other instanceof ArrayTypeTree && this.itemType.equals(other.itemType);
   }
+
+  public replaceGenerics(map: Map<string, string> = new Map()): ArrayTypeTree {
+    const type = new ArrayTypeTree();
+    type.itemType = this.itemType.replaceGenerics(map);
+    return type;
+  }
 }

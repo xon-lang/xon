@@ -18,6 +18,6 @@ test('has id with generics', () => {
   expect(tree.name).toBe('Map');
   expect(tree.generics.length).toBe(2);
   expect((tree.generics[0] as PlainTypeTree).name).toBe('String');
-  expect((tree.generics[1] as FunctionTypeTree).parametersTypes.length).toBe(0);
+  expect((tree.generics[1] as FunctionTypeTree).parameters.length).toBe(0);
   expect(((tree.generics[1] as FunctionTypeTree).returnType as PlainTypeTree).name).toBe('Integer');
 });

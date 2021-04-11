@@ -3,20 +3,26 @@ import { getTypesTrees } from '../type-helper';
 import { TypeTree } from '../type.tree';
 
 export class UnionTypeTree extends TypeTree {
-  public dataTypes: TypeTree[];
+  public types: TypeTree[];
 
   public constructor(public ctx?: UnionTypeContext) {
     super();
     if (!ctx) return;
 
-    this.dataTypes = getTypesTrees(ctx.type());
+    this.types = getTypesTrees(ctx.type());
   }
 
   public equals(other: TypeTree): boolean {
     return (
       other instanceof UnionTypeTree &&
-      this.dataTypes.length === other.dataTypes.length &&
-      this.dataTypes.every((x, i) => x.equals(other.dataTypes[i]))
+      this.types.length === other.types.length &&
+      this.types.every((x, i) => x.equals(other.types[i]))
     );
+  }
+
+  public replaceGenerics(map: Map<string, string> = new Map()): UnionTypeTree {
+    const type = new UnionTypeTree();
+    type.types = this.types.map((x) => x.replaceGenerics(map));
+    return type;
   }
 }

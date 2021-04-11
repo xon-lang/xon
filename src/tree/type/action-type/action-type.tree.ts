@@ -3,20 +3,26 @@ import { getTypeTree } from '../type-helper';
 import { TypeTree } from '../type.tree';
 
 export class ActionTypeTree extends TypeTree {
-  public parametersTypes: TypeTree[];
+  public parameters: TypeTree[];
 
   public constructor(public ctx?: ActionTypeContext) {
     super();
     if (!ctx) return;
 
-    this.parametersTypes = ctx._params.map(getTypeTree);
+    this.parameters = ctx._params.map(getTypeTree);
   }
 
   public equals(other: TypeTree): boolean {
     return (
       other instanceof ActionTypeTree &&
-      this.parametersTypes.length === other.parametersTypes.length &&
-      this.parametersTypes.every((x, i) => x.equals(other.parametersTypes[i]))
+      this.parameters.length === other.parameters.length &&
+      this.parameters.every((x, i) => x.equals(other.parameters[i]))
     );
+  }
+
+  public replaceGenerics(map: Map<string, string> = new Map()): ActionTypeTree {
+    const type = new ActionTypeTree();
+    type.parameters = this.parameters.map((x) => x.replaceGenerics(map));
+    return type;
   }
 }
