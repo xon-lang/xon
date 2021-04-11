@@ -6,6 +6,7 @@ import { TypeTree } from '../type/type.tree';
 import { IndexMemberTree } from './member/index-member/index-member.tree';
 import { InitMemberTree } from './member/init-member/init-member.tree';
 import { getMemberTree } from './member/member-helper';
+import { MemberTree } from './member/member.tree';
 import { MethodMemberTree } from './member/method-member/method-member.tree';
 import { OperatorMemberTree } from './member/operator-member/operator-member.tree';
 import { PropertyMemberTree } from './member/property-member/property-member.tree';
@@ -18,6 +19,8 @@ export class DefinitionTree extends BaseTree {
   public parameters: ParameterTree[];
 
   public inheritanceType?: TypeTree;
+
+  public members: MemberTree[] = [];
 
   public properties: PropertyMemberTree[] = [];
 
@@ -40,16 +43,13 @@ export class DefinitionTree extends BaseTree {
       .map((x) => x.text);
     this.parameters = ParameterTree.fromContext(ctx.parameters());
     this.inheritanceType = getTypeTree(ctx.type());
-
-    this.ctx
-      .member()
-      .map((x) => getMemberTree(x))
-      .forEach((x) => {
-        if (x instanceof PropertyMemberTree) this.properties.push(x);
-        if (x instanceof InitMemberTree) this.inits.push(x);
-        if (x instanceof IndexMemberTree) this.indexes.push(x);
-        if (x instanceof OperatorMemberTree) this.operators.push(x);
-        if (x instanceof MethodMemberTree) this.methods.push(x);
-      });
+    this.members = this.ctx.member().map((x) => getMemberTree(x));
+    this.members.forEach((x) => {
+      if (x instanceof PropertyMemberTree) this.properties.push(x);
+      if (x instanceof InitMemberTree) this.inits.push(x);
+      if (x instanceof IndexMemberTree) this.indexes.push(x);
+      if (x instanceof OperatorMemberTree) this.operators.push(x);
+      if (x instanceof MethodMemberTree) this.methods.push(x);
+    });
   }
 }
