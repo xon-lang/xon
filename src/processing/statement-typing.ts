@@ -4,6 +4,7 @@ import { AssignmentStatementTree } from '../tree/statement/assignment-statement/
 import { ExpressionStatementTree } from '../tree/statement/expression-statement/expression-statement.tree';
 import { IfStatementTree } from '../tree/statement/if-statement/if-statement.tree';
 import { LoopStatementTree } from '../tree/statement/loop-statement/loop-statement.tree';
+import { PreprocessorStatementTree } from '../tree/statement/preprocessor-statement/preprocessor-statement.tree';
 import { ReturnStatementTree } from '../tree/statement/return-statement/return-statement.tree';
 import { StatementTree } from '../tree/statement/statement.tree';
 import { DataType } from './data-type';
@@ -48,6 +49,10 @@ export function processLoopStatement(tree: LoopStatementTree): void {
   tree.statements.forEach(processStatement);
   popScope();
   tree.dataType = tree.statements[tree.statements.length - 1].dataType;
+}
+
+export function processPreprocessorStatement(tree: PreprocessorStatementTree): void {
+  tree.dataType = undefined;
 }
 
 export function processReturnStatement(tree: ReturnStatementTree): void {
