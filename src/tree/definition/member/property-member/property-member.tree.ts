@@ -8,7 +8,7 @@ import { MemberTree } from '../member.tree';
 export class PropertyMemberTree extends MemberTree {
   public name: string;
 
-  public type?: TypeTree;
+  public dataType?: TypeTree;
 
   public value?: ExpressionTree;
 
@@ -17,7 +17,7 @@ export class PropertyMemberTree extends MemberTree {
     if (!ctx) return;
 
     this.name = ctx.id().text;
-    this.type = getTypeTree(ctx.type());
+    this.dataType = getTypeTree(ctx.type());
     this.value = getExpressionTree(ctx.expression());
   }
 }

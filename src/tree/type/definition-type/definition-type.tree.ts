@@ -17,7 +17,7 @@ export class DefinitionTypeTree extends TypeTree {
     if (generics.length !== tree.generics.length) throw new Error('Wrong generics count');
 
     this.name = tree.name;
-    this.parametersTypes = tree.parameters.map((x) => x.type);
+    this.parametersTypes = tree.parameters.map((x) => x.dataType);
     this.returnType = generics.length
       ? createGenericType(this.name, generics)
       : createPlainType(tree.name);

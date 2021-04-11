@@ -13,13 +13,13 @@ test('method member', () => {
   expect(tree.parameters.length).toBe(3);
 
   expect(tree.parameters[0].name).toBe('argA');
-  expect((tree.parameters[0].type as PlainTypeTree).name).toBe('Integer');
+  expect((tree.parameters[0].dataType as PlainTypeTree).name).toBe('Integer');
 
   expect(tree.parameters[1].name).toBe('argB');
-  expect((tree.parameters[1].type as PlainTypeTree).name).toBe('Float');
+  expect((tree.parameters[1].dataType as PlainTypeTree).name).toBe('Float');
 
   expect(tree.parameters[2].name).toBe('argC');
-  expect((tree.parameters[2].type as PlainTypeTree).name).toBe('String');
+  expect((tree.parameters[2].dataType as PlainTypeTree).name).toBe('String');
 
   expect((tree.returnType as PlainTypeTree).name).toBe('String');
 });

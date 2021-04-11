@@ -24,7 +24,7 @@
 //     .map((x) => ({
 //       method: x,
 //       weight: x.parameters
-//         .map((z, i) => z.type.fitWeight(fitArgs[i]))
+//         .map((z, i) => z.dataType.fitWeight(fitArgs[i]))
 //         .reduce((p, c) => p * c, 1),
 //     }))
 //     .filter((x) => x.weight > 0)
@@ -41,7 +41,7 @@
 //   left: ExpressionTree,
 //   right: ExpressionTree,
 // ): TypeTree => {
-//   if (!left.type)
+//   if (!left.dataType)
 //     IssueService.instance.addError(
 //       left,
 //       'Left operand has not data type',

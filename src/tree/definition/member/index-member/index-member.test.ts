@@ -12,7 +12,7 @@ test('index', () => {
   expect(tree).toBeInstanceOf(IndexMemberTree);
 
   expect(tree.parameter.name).toBe('argA');
-  expect((tree.parameter.type as PlainTypeTree).name).toBe('Integer');
+  expect((tree.parameter.dataType as PlainTypeTree).name).toBe('Integer');
   expect((tree.returnType as PlainTypeTree).name).toBe('String');
 
   const statement = tree.statements[0] as ExpressionStatementTree;

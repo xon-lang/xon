@@ -10,8 +10,8 @@ test('array property', () => {
   expect(tree).toBeInstanceOf(PropertyMemberTree);
 
   expect(tree.name).toBe('s');
-  expect((tree.type as GenericTypeTree).name).toBe('Array');
-  expect(((tree.type as GenericTypeTree).generics[0] as PlainTypeTree).name).toBe('String');
+  expect((tree.dataType as GenericTypeTree).name).toBe('Array');
+  expect(((tree.dataType as GenericTypeTree).generics[0] as PlainTypeTree).name).toBe('String');
   expect(tree.value).toBeUndefined();
 });
 
@@ -21,7 +21,7 @@ test('private integer', () => {
   expect(tree).toBeInstanceOf(PropertyMemberTree);
 
   expect(tree.name).toBe('_a');
-  expect((tree.type as PlainTypeTree).name).toBe('Integer');
+  expect((tree.dataType as PlainTypeTree).name).toBe('Integer');
   expect(tree.value).toBeUndefined();
 });
 
@@ -31,6 +31,6 @@ test('integer value', () => {
   expect(tree).toBeInstanceOf(PropertyMemberTree);
 
   expect(tree.name).toBe('_a');
-  expect((tree.type as PlainTypeTree).name).toBe('Integer');
+  expect((tree.dataType as PlainTypeTree).name).toBe('Integer');
   expect((tree.value as LiteralExpressionTree).literal.value).toBe(9);
 });

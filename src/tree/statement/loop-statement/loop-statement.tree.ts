@@ -15,7 +15,7 @@ export class LoopStatementTree extends StatementTree {
 
   public valueName: string;
 
-  public expression: ExpressionTree;
+  public expression?: ExpressionTree;
 
   public statements: StatementTree[];
 

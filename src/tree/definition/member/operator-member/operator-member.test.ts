@@ -11,10 +11,10 @@ test('method member', () => {
   expect(tree.parameters.length).toBe(2);
 
   expect(tree.parameters[0].name).toBe('left');
-  expect((tree.parameters[0].type as PlainTypeTree).name).toBe('String');
+  expect((tree.parameters[0].dataType as PlainTypeTree).name).toBe('String');
 
   expect(tree.parameters[1].name).toBe('right');
-  expect((tree.parameters[0].type as PlainTypeTree).name).toBe('String');
+  expect((tree.parameters[0].dataType as PlainTypeTree).name).toBe('String');
 
   expect(tree.statements.length).toBe(1);
 });
