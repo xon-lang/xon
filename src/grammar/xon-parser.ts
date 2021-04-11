@@ -955,7 +955,7 @@ export class XonParser extends Parser {
 					break;
 				}
 				this.state = 216;
-				this.expression(1);
+				this.statement();
 				}
 				break;
 			default:
@@ -2099,7 +2099,7 @@ export class XonParser extends Parser {
 		"\xD1\x03\x02\x02\x02\xD3\xD4\x03\x02\x02\x02\xD4\xD6\x03\x02\x02\x02\xD5" +
 		"\xD3\x03\x02\x02\x02\xD6\xD7\x07\x1B\x02\x02\xD7\xD9\x03\x02\x02\x02\xD8" +
 		"\xCE\x03\x02\x02\x02\xD8\xD9\x03\x02\x02\x02\xD9\xDA\x03\x02\x02\x02\xDA" +
-		"\xDC\x05\x10\t\x03\xDB\xB9\x03\x02\x02\x02\xDB\xBB\x03\x02\x02\x02\xDB" +
+		"\xDC\x05\x0E\b\x02\xDB\xB9\x03\x02\x02\x02\xDB\xBB\x03\x02\x02\x02\xDB" +
 		"\xBC\x03\x02\x02\x02\xDB\xBD\x03\x02\x02\x02\xDB\xC9\x03\x02\x02\x02\xDB" +
 		"\xCD\x03\x02\x02\x02\xDC\xED\x03\x02\x02\x02\xDD\xDE\f\x06\x02\x02\xDE" +
 		"\xDF\x05\x16\f\x02\xDF\xE0\x05\x10\t\x07\xE0\xEC\x03\x02\x02\x02\xE1\xE2" +
@@ -2725,8 +2725,8 @@ export class ParenthesizedExpressionContext extends ExpressionContext {
 }
 export class LambdaExpressionContext extends ExpressionContext {
 	public LAMBDA_START(): TerminalNode { return this.getToken(XonParser.LAMBDA_START, 0); }
-	public expression(): ExpressionContext {
-		return this.getRuleContext(0, ExpressionContext);
+	public statement(): StatementContext {
+		return this.getRuleContext(0, StatementContext);
 	}
 	public parameter(): ParameterContext[];
 	public parameter(i: number): ParameterContext;
