@@ -2,7 +2,6 @@ import {
   ActionTypeContext,
   ArrayTypeContext,
   FunctionTypeContext,
-  GenericTypeContext,
   LiteralTypeContext,
   NullableTypeContext,
   ParenthesizedTypeContext,
@@ -13,7 +12,6 @@ import {
 import { ActionTypeTree } from './action-type/action-type.tree';
 import { ArrayTypeTree } from './array-type/array-type.tree';
 import { FunctionTypeTree } from './function-type/function-type.tree';
-import { GenericTypeTree } from './generic-type/generic-type.tree';
 import { LiteralTypeTree } from './literal-type/literal-type.tree';
 import { NullableTypeTree } from './nullable-type/nullable-type.tree';
 import { PlainTypeTree } from './plain-type/plain-type.tree';
@@ -25,7 +23,6 @@ export const getTypeTree = (ctx: TypeContext): TypeTree => {
 
   if (ctx instanceof PlainTypeContext) return new PlainTypeTree(ctx);
   if (ctx instanceof ArrayTypeContext) return new ArrayTypeTree(ctx);
-  if (ctx instanceof GenericTypeContext) return new GenericTypeTree(ctx);
   if (ctx instanceof FunctionTypeContext) return new FunctionTypeTree(ctx);
   if (ctx instanceof ActionTypeContext) return new ActionTypeTree(ctx);
   if (ctx instanceof UnionTypeContext) return new UnionTypeTree(ctx);
@@ -45,13 +42,6 @@ export function createPlainType(name: string): PlainTypeTree {
   return type;
 }
 
-export function createGenericType(name: string, generics: TypeTree[]): GenericTypeTree {
-  const type = new GenericTypeTree();
-  type.name = name;
-  type.generics = generics;
-  return type;
-}
-
 export function createArrayType(itemType: TypeTree): ArrayTypeTree {
   const type = new ArrayTypeTree();
   type.itemType = itemType;
@@ -59,12 +49,10 @@ export function createArrayType(itemType: TypeTree): ArrayTypeTree {
 }
 
 export function createFunctionType(
-  generics: string[],
   parametersTypes: TypeTree[],
   returnType: TypeTree,
 ): FunctionTypeTree {
   const type = new FunctionTypeTree();
-  type.generics = generics;
   type.parametersTypes = parametersTypes;
   type.returnType = returnType;
   return type;

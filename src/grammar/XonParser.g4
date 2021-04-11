@@ -36,8 +36,8 @@ expression:
     id ('<' type (',' type)* '>')?                     # idExpression
     | '@'                                              # instanceExpression
     | literal                                          # literalExpression
-    | expression '.' id                                # memberExpression
-    | expression ('<' type (',' type)* '>')? arguments # methodExpression
+    | expression '.' id ('<' type (',' type)* '>')?    # memberExpression
+    | expression arguments                             # methodExpression
     | expression '[' expression ']'                    # indexExpression
     | expression operator expression                   # operatorExpression
     | '[' (expression (',' expression)*)? ']'          # arrayExpression
@@ -54,8 +54,7 @@ literal:
     ;
 
 type:
-    id                                                                  # plainType
-    | id '<' type (',' type)* '>'                                       # genericType
+    id '<' type (',' type)* '>'                                         # plainType
     | literal                                                           # literalType
     | type '?'                                                          # nullableType
     | type '[' ']'                                                      # arrayType
