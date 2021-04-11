@@ -54,7 +54,7 @@ literal:
     ;
 
 type:
-    id '<' type (',' type)* '>'                                         # plainType
+    id ('<' type (',' type)* '>')?                                      # plainType
     | literal                                                           # literalType
     | type '?'                                                          # nullableType
     | type '[' ']'                                                      # arrayType
