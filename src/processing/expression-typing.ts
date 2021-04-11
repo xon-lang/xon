@@ -124,5 +124,14 @@ export function processParenthesizedExpression(tree: ParenthesizedExpressionTree
 export function processExpression(tree: ExpressionTree, parameters?: DataType[]): void {
   if (tree instanceof ArrayExpressionTree) processArrayExpression(tree);
   if (tree instanceof IdExpressionTree) processIdExpression(tree);
+  if (tree instanceof IndexExpressionTree) processIndexExpression(tree);
+  if (tree instanceof InstanceExpressionTree) processInstanceExpression(tree);
+  if (tree instanceof LambdaExpressionTree) processLambdaExpression(tree, parameters);
   if (tree instanceof LiteralExpressionTree) processLiteralExpression(tree);
+  if (tree instanceof MemberExpressionTree) processMemberExpression(tree);
+  if (tree instanceof MethodExpressionTree) processMethodExpression(tree);
+  if (tree instanceof OperatorExpressionTree) processOperatorExpression(tree);
+  if (tree instanceof ParenthesizedExpressionTree) processParenthesizedExpression(tree);
+
+  throw Error(`No DataType found for ${tree?.constructor?.name}`);
 }
