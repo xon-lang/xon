@@ -1,4 +1,4 @@
-# XON Abstract Syntax Tree
+# XON Abstract Syntax Tree (alpha)
 
 [![npm](https://img.shields.io/npm/v/@xon/ast)](https://www.npmjs.com/package/@xon/ast)
 [![codebeat badge](https://codebeat.co/badges/23a2e0a2-b327-4715-a1b1-8a81c821a785)](https://codebeat.co/projects/github-com-xon-lang-ast-master)
