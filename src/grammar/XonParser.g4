@@ -57,6 +57,7 @@ type:
     id                                                                            # plainType
     | id '<' type (',' type)* '>'                                                 # genericType
     | literal                                                                     # literalType
+    | type '?'                                                                    # nullableType
     | type '[' ']'                                                                # arrayType
     | type '|' type                                                               # unionType
     | generics? '(' (params += type (',' params += type)*)? ')' returnType = type # functionType

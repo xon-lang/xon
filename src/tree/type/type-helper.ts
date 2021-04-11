@@ -3,6 +3,7 @@ import {
   FunctionTypeContext,
   GenericTypeContext,
   LiteralTypeContext,
+  NullableTypeContext,
   ParenthesizedTypeContext,
   PlainTypeContext,
   TypeContext,
@@ -12,6 +13,7 @@ import { ArrayTypeTree } from './array-type/array-type.tree';
 import { FunctionTypeTree } from './function-type/function-type.tree';
 import { GenericTypeTree } from './generic-type/generic-type.tree';
 import { LiteralTypeTree } from './literal-type/literal-type.tree';
+import { NullableTypeTree } from './nullable-type/nullable-type.tree';
 import { PlainTypeTree } from './plain-type/plain-type.tree';
 import { TypeTree } from './type.tree';
 import { UnionTypeTree } from './union-type/union-type.tree';
@@ -25,6 +27,7 @@ export const getTypeTree = (ctx: TypeContext): TypeTree => {
   if (ctx instanceof FunctionTypeContext) return new FunctionTypeTree(ctx);
   if (ctx instanceof UnionTypeContext) return new UnionTypeTree(ctx);
   if (ctx instanceof LiteralTypeContext) return new LiteralTypeTree(ctx);
+  if (ctx instanceof NullableTypeContext) return new NullableTypeTree(ctx);
 
   if (ctx instanceof ParenthesizedTypeContext) return getTypeTree(ctx.type());
 
@@ -67,5 +70,11 @@ export function createFunctionType(
 export function createUnionType(types: TypeTree[]): UnionTypeTree {
   const type = new UnionTypeTree();
   type.dataTypes = types.filter((x) => x === types.find((z) => z.equals(x)));
+  return type;
+}
+
+export function createNullableType(baseType: TypeTree): NullableTypeTree {
+  const type = new NullableTypeTree();
+  type.type = baseType;
   return type;
 }
