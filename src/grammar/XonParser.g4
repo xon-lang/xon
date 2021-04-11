@@ -82,7 +82,7 @@ operator:
     ;
 
 id:         ID;
-parameter:  name = id type ('#' meta = id)?;
+parameter:  name = id type? ('#' meta = id)?;
 parameters: '(' (parameter (',' parameter)*)? ')';
 argument:   (id '=')? expression;
 arguments:  '(' (argument (',' argument)*)? ')';
