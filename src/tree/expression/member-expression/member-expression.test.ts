@@ -7,7 +7,8 @@ test('string expression index', () => {
   const tree = parseExpression<MemberExpressionTree>(code);
   expect(tree).toBeInstanceOf(MemberExpressionTree);
 
+  expect(tree.name).toBe('def');
+  expect(tree.generics.length).toBe(0);
   expect(tree.object).toBeInstanceOf(IdExpressionTree);
   expect((tree.object as IdExpressionTree).name).toBe('abc');
-  expect(tree.name).toBe('def');
 });
