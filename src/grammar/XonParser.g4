@@ -33,16 +33,16 @@ statement:
     ;
 
 expression:
-    id                                        # idExpression
-    | '@'                                     # instanceExpression
-    | literal                                 # literalExpression
-    | expression '.' id                       # memberExpression
-    | expression arguments                    # methodExpression
-    | expression '[' expression ']'           # indexExpression
-    | expression operator expression          # operatorExpression
-    | '[' (expression (',' expression)*)? ']' # arrayExpression
-    | '(' expression ')'                      # parenthesizedExpression
-    | '\\' (id (',' id)* ':')? statement      # lambdaExpression
+    id                                                 # idExpression
+    | '@'                                              # instanceExpression
+    | literal                                          # literalExpression
+    | expression '.' id                                # memberExpression
+    | expression arguments                             # methodExpression
+    | expression '[' expression ']'                    # indexExpression
+    | expression operator expression                   # operatorExpression
+    | '[' (expression (',' expression)*)? ']'          # arrayExpression
+    | '(' expression ')'                               # parenthesizedExpression
+    | '\\' (parameter (',' parameter)* ':')? statement # lambdaExpression
     ;
 
 literal:
