@@ -33,7 +33,7 @@ statement:
     ;
 
 expression:
-    id                                                 # idExpression
+    id ('<' type (',' type)* '>')?                     # idExpression
     | '@'                                              # instanceExpression
     | literal                                          # literalExpression
     | expression '.' id                                # memberExpression
