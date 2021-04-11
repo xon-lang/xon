@@ -54,13 +54,13 @@ literal:
     ;
 
 type:
-    id                                                                  # plainType
-    | id '<' type (',' type)* '>'                                       # genericType
-    | literal                                                           # literalType
-    | type '[' ']'                                                      # arrayType
-    | type '|' type                                                     # unionType
-    | '(' (params += type (',' params += type)*)? ')' returnType = type # functionType
-    | '(' type ')'                                                      # parenthesizedType
+    id                                                                            # plainType
+    | id '<' type (',' type)* '>'                                                 # genericType
+    | literal                                                                     # literalType
+    | type '[' ']'                                                                # arrayType
+    | type '|' type                                                               # unionType
+    | generics? '(' (params += type (',' params += type)*)? ')' returnType = type # functionType
+    | '(' type ')'                                                                # parenthesizedType
     ;
 
 operator:

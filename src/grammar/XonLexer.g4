@@ -70,7 +70,7 @@ CHAR_LITERAL:    '\'' ~['] '\'';
 STRING_LITERAL:  '"' (~["] | '\\' ["\\bfnrtv])* '"';
 PREPROCESSOR:    '#{' .*? '}';
 
-ID: [a-zA-Z_]+;
+ID: [a-zA-Z]+ ('_' [a-zA-Z])*;
 
 NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
     ;
