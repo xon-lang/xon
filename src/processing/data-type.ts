@@ -49,4 +49,8 @@ export class DataType {
   public definition(): DefinitionTree {
     return findDefinition(this.name);
   }
+
+  public getMemberType(name: string): DataType {
+    return this.definition().members.find((x) => x.name === name)?.dataType;
+  }
 }

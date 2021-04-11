@@ -8,11 +8,14 @@ import { InstanceExpressionTree } from '../tree/expression/instance-expression/i
 import { LambdaExpressionTree } from '../tree/expression/lambda-expression/lambda-expression.tree';
 import { LiteralExpressionTree } from '../tree/expression/literal-expression/literal-expression.tree';
 import { MemberExpressionTree } from '../tree/expression/member-expression/member-expression.tree';
+import { MethodExpressionTree } from '../tree/expression/method-expression/method-expression.tree';
+import { OperatorExpressionTree } from '../tree/expression/operator-expression/operator-expression.tree';
 import { BooleanLiteralTree } from '../tree/literal/boolean-literal/boolean-literal.tree';
 import { CharLiteralTree } from '../tree/literal/char-literal/char-literal.tree';
 import { FloatLiteralTree } from '../tree/literal/float-literal/float-literal.tree';
 import { IntegerLiteralTree } from '../tree/literal/integer-literal/integer-literal.tree';
 import { StringLiteralTree } from '../tree/literal/string-literal/string-literal.tree';
+import { processArgument } from './argument-typing';
 import { DataType } from './data-type';
 import { processStatement } from './statement-typing';
 import { addToScope, findInScopes, popScope, pushScope } from './typing';
@@ -56,25 +59,22 @@ export function processInstanceExpression(tree: InstanceExpressionTree): void {
   tree.dataType = findInScopes(tree.name).dataType;
 }
 
-export function processLambdaExpression(
-  tree: LambdaExpressionTree,
-  parametersTypes: DataType[],
-): void {
+export function processLambdaExpression(tree: LambdaExpressionTree, parameters: DataType[]): void {
   pushScope();
-  if (tree.parameters.length !== parametersTypes.length) throw new Error('Wrong parameters count');
+  if (tree.parameters.length !== parameters.length) throw new Error('Wrong parameters count');
   if (tree.parameters.some((x) => x.typeTree))
     throw new Error('Lambda parameters must be without types');
   if (tree.parameters.some((x) => x.value))
     throw new Error('Lambda parameters must be without value');
 
   tree.parameters.forEach((x, i) => {
-    x.dataType = parametersTypes[i];
+    x.dataType = parameters[i];
   });
 
   tree.parameters.forEach((x) => addToScope(x.name, x.dataType));
   processStatement(tree.statement);
   popScope();
-  tree.dataType = new DataType('Function', parametersTypes);
+  tree.dataType = new DataType('Function', parameters);
 }
 
 export function processLiteralExpression(tree: LiteralExpressionTree): void {
@@ -89,9 +89,33 @@ export function processLiteralExpression(tree: LiteralExpressionTree): void {
 export function processMemberExpression(tree: MemberExpressionTree): void {
   processExpression(tree.object);
   tree.dataType = tree.object.dataType.getMemberType(tree.name);
+  if (!tree.dataType) throw new Error('Member type not found');
 }
 
-export function processExpression(tree: ExpressionTree): void {
+export function processMethodExpression(tree: MethodExpressionTree): void {
+  tree.arguments.forEach(processArgument);
+  processExpression(
+    tree.object,
+    tree.arguments.map((x) => x.dataType),
+  );
+
+  if (tree.object.dataType.name === 'Function') {
+    if (tree.object.dataType.generics.length === 0) throw new Error('Function has not return type');
+    tree.dataType = tree.object.dataType.generics[tree.object.dataType.generics.length - 1];
+  } else if (tree.object.dataType.name !== 'Action')
+    throw new Error('Expression is not Function or Action');
+}
+
+export function processOperatorExpression(tree: OperatorExpressionTree): void {
+  processExpression(tree.left);
+  processExpression(tree.right);
+  const memberType = tree.left.dataType.getMemberType(tree.operator);
+  if (!memberType) throw new Error('Member type not found');
+  if (memberType.name !== 'Function') throw new Error('Operator member is not a Function');
+  tree.dataType = memberType.generics[memberType.generics.length - 1];
+}
+
+export function processExpression(tree: ExpressionTree, parameters?: DataType[]): void {
   if (tree instanceof ArrayExpressionTree) processArrayExpression(tree);
   if (tree instanceof IdExpressionTree) processIdExpression(tree);
   if (tree instanceof LiteralExpressionTree) processLiteralExpression(tree);
