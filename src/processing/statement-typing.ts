@@ -65,5 +65,6 @@ export function processStatement(tree: StatementTree): void {
   if (tree instanceof ExpressionStatementTree) processExpressionStatement(tree);
   if (tree instanceof IfStatementTree) processIfStatement(tree);
   if (tree instanceof LoopStatementTree) processLoopStatement(tree);
+  if (tree instanceof PreprocessorStatementTree) processPreprocessorStatement(tree);
   if (tree instanceof ReturnStatementTree) processReturnStatement(tree);
 }
