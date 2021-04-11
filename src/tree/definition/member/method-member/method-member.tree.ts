@@ -7,8 +7,6 @@ import { TypeTree } from '../../../type/type.tree';
 import { MemberTree } from '../member.tree';
 
 export class MethodMemberTree extends MemberTree {
-  public name: string;
-
   public isPrivate: boolean;
 
   public generics: string[];

@@ -7,8 +7,6 @@ import { TypeTree } from '../../../type/type.tree';
 import { MemberTree } from '../member.tree';
 
 export class OperatorMemberTree extends MemberTree {
-  public name: string;
-
   public parameters: ParameterTree[];
 
   public generics: string[];

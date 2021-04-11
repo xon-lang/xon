@@ -6,8 +6,6 @@ import { TypeTree } from '../../../type/type.tree';
 import { MemberTree } from '../member.tree';
 
 export class PropertyMemberTree extends MemberTree {
-  public name: string;
-
   public typeTree?: TypeTree;
 
   public value?: ExpressionTree;

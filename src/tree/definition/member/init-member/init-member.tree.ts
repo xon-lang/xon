@@ -4,8 +4,6 @@ import { StatementTree } from '../../../statement/statement.tree';
 import { MemberTree } from '../member.tree';
 
 export class InitMemberTree extends MemberTree {
-  public name: string;
-
   public statements: StatementTree[];
 
   public constructor(public ctx?: InitMemberContext) {
