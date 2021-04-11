@@ -10,6 +10,7 @@ import { LiteralExpressionTree } from '../tree/expression/literal-expression/lit
 import { MemberExpressionTree } from '../tree/expression/member-expression/member-expression.tree';
 import { MethodExpressionTree } from '../tree/expression/method-expression/method-expression.tree';
 import { OperatorExpressionTree } from '../tree/expression/operator-expression/operator-expression.tree';
+import { ParenthesizedExpressionTree } from '../tree/expression/parenthesized-expression/parenthesized-expression.tree';
 import { BooleanLiteralTree } from '../tree/literal/boolean-literal/boolean-literal.tree';
 import { CharLiteralTree } from '../tree/literal/char-literal/char-literal.tree';
 import { FloatLiteralTree } from '../tree/literal/float-literal/float-literal.tree';
@@ -113,6 +114,11 @@ export function processOperatorExpression(tree: OperatorExpressionTree): void {
   if (!memberType) throw new Error('Member type not found');
   if (memberType.name !== 'Function') throw new Error('Operator member is not a Function');
   tree.dataType = memberType.generics[memberType.generics.length - 1];
+}
+
+export function processParenthesizedExpression(tree: ParenthesizedExpressionTree): void {
+  processExpression(tree.value);
+  tree.dataType = tree.value.dataType;
 }
 
 export function processExpression(tree: ExpressionTree, parameters?: DataType[]): void {
