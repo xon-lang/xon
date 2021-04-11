@@ -33,10 +33,10 @@ statement:
     ;
 
 expression:
-    id                                                 # idExpression
+    id ('<' type (',' type)* '>')?                     # idExpression
     | '@'                                              # instanceExpression
     | literal                                          # literalExpression
-    | expression '.' id                                # memberExpression
+    | expression '.' id ('<' type (',' type)* '>')?    # memberExpression
     | expression arguments                             # methodExpression
     | expression '[' expression ']'                    # indexExpression
     | expression operator expression                   # operatorExpression
