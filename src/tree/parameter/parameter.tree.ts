@@ -6,17 +6,17 @@ import { TypeTree } from '../type/type.tree';
 export class ParameterTree extends BaseTree {
   public name: string;
 
-  public type: TypeTree;
+  public dataType: TypeTree;
 
-  public meta?: string;
+  public metaType?: string;
 
   public constructor(public ctx?: ParameterContext) {
     super();
     if (!ctx) return;
 
     this.name = ctx._name.text;
-    this.type = getTypeTree(ctx.type());
-    this.meta = ctx._meta?.text;
+    this.dataType = getTypeTree(ctx.type());
+    this.metaType = ctx._meta?.text;
   }
 
   public static fromContext(ctx: ParametersContext): ParameterTree[] {
