@@ -33,12 +33,11 @@ statement:
     ;
 
 expression:
-    type                                               # typeExpression
-    | id                                               # idExpression
+    id                                                 # idExpression
     | '@'                                              # instanceExpression
     | literal                                          # literalExpression
-    | expression '.' id ('<' type (',' type)* '>')?    # memberExpression
-    | expression arguments                             # methodExpression
+    | expression '.' id                                # memberExpression
+    | expression ('<' type (',' type)* '>')? arguments # methodExpression
     | expression '[' expression ']'                    # indexExpression
     | expression operator expression                   # operatorExpression
     | '[' (expression (',' expression)*)? ']'          # arrayExpression
