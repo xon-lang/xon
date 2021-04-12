@@ -27,13 +27,14 @@ statement:
     | IF expression THEN body (ELSE body)?                                          # ifStatement
     | BREAK                                                                         # breakStatement
     | RETURN expression?                                                            # returnStatement
-    | id '=' expression                                                             # assignmentStatement
+    | id type? '=' expression                                                       # assignmentStatement
     | expression                                                                    # expressionStatement
     | PREPROCESSOR                                                                  # preprocessorStatement
     ;
 
 expression:
-    id ('<' type (',' type)* '>')?                     # idExpression
+    type                                               # typeExpression
+    | id                                               # idExpression
     | '@'                                              # instanceExpression
     | literal                                          # literalExpression
     | expression '.' id ('<' type (',' type)* '>')?    # memberExpression
