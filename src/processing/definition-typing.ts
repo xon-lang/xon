@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { DefinitionTree } from '../tree/definition/definition.tree';
 import { createFunctionType } from '../tree/type/type-helper';
+import { DataType } from './data-type';
 import { processExpression } from './expression-typing';
 import {
   processIndexMember,
@@ -10,11 +11,14 @@ import {
 } from './member-typing';
 import { addToScope, popScope, pushScope } from './typing';
 
-export function processDefinition(tree: DefinitionTree): void {
+// make data type from definition
+export function processDefinition(tree: DefinitionTree, generics: DataType[]): void {
   pushScope();
+  addToScope('@', new DataType(tree.name, generics));
+
   tree.indexes.forEach((x) => {
     const type = createFunctionType([], [x.parameter.dataType], x.returnType);
-    addToScope(x.name, type);
+    addToScope('__index__', type);
   });
   tree.operators.forEach((x) => {
     const type = createFunctionType(
