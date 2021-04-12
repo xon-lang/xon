@@ -8,5 +8,5 @@ export abstract class TypeTree extends BaseTree {
 
   abstract equals(other: TypeTree): boolean;
 
-  abstract replaceGenerics(map: Map<string, string>): TypeTree;
+  abstract replaceGenerics(map: Map<string, TypeTree>): TypeTree;
 }

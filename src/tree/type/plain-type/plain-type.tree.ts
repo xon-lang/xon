@@ -24,9 +24,13 @@ export class PlainTypeTree extends TypeTree {
     );
   }
 
-  public replaceGenerics(map: Map<string, string> = new Map()): PlainTypeTree {
+  public replaceGenerics(map: Map<string, TypeTree> = new Map()): TypeTree {
+    if (map.has(this.name)) {
+      if (this.generics.length) throw new Error('Generic type must not generics');
+      return map.get(this.name);
+    }
     const type = new PlainTypeTree();
-    type.name = map.get(this.name) || this.name;
+    type.name = this.name;
     type.generics = this.generics.map((x) => x.replaceGenerics(map));
     return type;
   }

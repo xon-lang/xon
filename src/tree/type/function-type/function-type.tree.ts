@@ -24,7 +24,7 @@ export class FunctionTypeTree extends TypeTree {
     );
   }
 
-  public replaceGenerics(map: Map<string, string> = new Map()): FunctionTypeTree {
+  public replaceGenerics(map: Map<string, TypeTree> = new Map()): FunctionTypeTree {
     const type = new FunctionTypeTree();
     type.parameters = this.parameters.map((x) => x.replaceGenerics(map));
     type.returnType = this.returnType.replaceGenerics(map);

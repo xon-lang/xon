@@ -20,7 +20,7 @@ export class UnionTypeTree extends TypeTree {
     );
   }
 
-  public replaceGenerics(map: Map<string, string> = new Map()): UnionTypeTree {
+  public replaceGenerics(map: Map<string, TypeTree> = new Map()): UnionTypeTree {
     const type = new UnionTypeTree();
     type.types = this.types.map((x) => x.replaceGenerics(map));
     return type;

@@ -20,7 +20,7 @@ export class ActionTypeTree extends TypeTree {
     );
   }
 
-  public replaceGenerics(map: Map<string, string> = new Map()): ActionTypeTree {
+  public replaceGenerics(map: Map<string, TypeTree> = new Map()): ActionTypeTree {
     const type = new ActionTypeTree();
     type.parameters = this.parameters.map((x) => x.replaceGenerics(map));
     return type;
