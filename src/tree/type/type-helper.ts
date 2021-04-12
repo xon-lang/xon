@@ -36,7 +36,7 @@ export const getTypeTree = (ctx: TypeContext): TypeTree => {
 
 export const getTypesTrees = (ctx: TypeContext[]): TypeTree[] => ctx?.map(getTypeTree) || [];
 
-export function createPlainType(name: string, generics: TypeTree[]): PlainTypeTree {
+export function createPlainType(name: string, generics: TypeTree[] = []): PlainTypeTree {
   const type = new PlainTypeTree();
   type.name = name;
   type.generics = generics;

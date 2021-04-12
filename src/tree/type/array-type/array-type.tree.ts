@@ -16,9 +16,9 @@ export class ArrayTypeTree extends TypeTree {
     return other instanceof ArrayTypeTree && this.itemType.equals(other.itemType);
   }
 
-  public replaceGenerics(map: Map<string, TypeTree> = new Map()): ArrayTypeTree {
+  public replaceGenerics(genericsMap: Map<string, TypeTree> = new Map()): ArrayTypeTree {
     const type = new ArrayTypeTree();
-    type.itemType = this.itemType.replaceGenerics(map);
+    type.itemType = this.itemType.replaceGenerics(genericsMap);
     return type;
   }
 }

@@ -24,10 +24,10 @@ export class FunctionTypeTree extends TypeTree {
     );
   }
 
-  public replaceGenerics(map: Map<string, TypeTree> = new Map()): FunctionTypeTree {
+  public replaceGenerics(genericsMap: Map<string, TypeTree> = new Map()): FunctionTypeTree {
     const type = new FunctionTypeTree();
-    type.parameters = this.parameters.map((x) => x.replaceGenerics(map));
-    type.returnType = this.returnType.replaceGenerics(map);
+    type.parameters = this.parameters.map((x) => x.replaceGenerics(genericsMap));
+    type.returnType = this.returnType.replaceGenerics(genericsMap);
     return type;
   }
 }

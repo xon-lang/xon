@@ -16,9 +16,9 @@ export class NullableTypeTree extends TypeTree {
     return other instanceof NullableTypeTree && this.type.equals(other);
   }
 
-  public replaceGenerics(map: Map<string, TypeTree> = new Map()): NullableTypeTree {
+  public replaceGenerics(genericsMap: Map<string, TypeTree> = new Map()): NullableTypeTree {
     const type = new NullableTypeTree();
-    type.type = this.type.replaceGenerics(map);
+    type.type = this.type.replaceGenerics(genericsMap);
     return type;
   }
 }

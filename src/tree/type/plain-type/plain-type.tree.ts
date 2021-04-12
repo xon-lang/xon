@@ -3,8 +3,6 @@ import { getTypesTrees } from '../type-helper';
 import { TypeTree } from '../type.tree';
 
 export class PlainTypeTree extends TypeTree {
-  public name: string;
-
   public generics: TypeTree[];
 
   public constructor(public ctx?: PlainTypeContext) {
@@ -24,14 +22,14 @@ export class PlainTypeTree extends TypeTree {
     );
   }
 
-  public replaceGenerics(map: Map<string, TypeTree> = new Map()): TypeTree {
-    if (map.has(this.name)) {
+  public replaceGenerics(genericsMap: Map<string, TypeTree> = new Map()): TypeTree {
+    if (genericsMap.has(this.name)) {
       if (this.generics.length) throw new Error('Generic type must not generics');
-      return map.get(this.name);
+      return genericsMap.get(this.name);
     }
     const type = new PlainTypeTree();
     type.name = this.name;
-    type.generics = this.generics.map((x) => x.replaceGenerics(map));
+    type.generics = this.generics.map((x) => x.replaceGenerics(genericsMap));
     return type;
   }
 }

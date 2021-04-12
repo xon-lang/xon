@@ -1,10 +1,7 @@
 import { ParserRuleContext } from 'antlr4ts';
-import { DataType } from '../processing/data-type';
 
 export abstract class BaseTree {
   public ctx?: ParserRuleContext;
-
-  public dataType: DataType;
 
   public toPlain(object?: unknown): unknown {
     const entries = Object.entries(object || this)
