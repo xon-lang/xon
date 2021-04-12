@@ -17,10 +17,10 @@ export class LiteralTypeTree extends TypeTree {
     return other instanceof LiteralTypeTree && this.literal.value === other.literal.value;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public replaceGenerics(_map: Map<string, TypeTree> = new Map()): LiteralTypeTree {
+  public replaceGenerics(genericsMap: Map<string, TypeTree> = new Map()): LiteralTypeTree {
     const type = new LiteralTypeTree();
     type.literal = this.literal;
+    type.generics = this.generics.map((x) => x.replaceGenerics(genericsMap));
     return type;
   }
 }

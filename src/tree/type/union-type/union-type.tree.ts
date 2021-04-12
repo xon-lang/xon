@@ -10,6 +10,7 @@ export class UnionTypeTree extends TypeTree {
     if (!ctx) return;
 
     this.types = getTypesTrees(ctx.type());
+    this.generics = this.types;
   }
 
   public equals(other: TypeTree): boolean {
@@ -23,6 +24,7 @@ export class UnionTypeTree extends TypeTree {
   public replaceGenerics(genericsMap: Map<string, TypeTree> = new Map()): UnionTypeTree {
     const type = new UnionTypeTree();
     type.types = this.types.map((x) => x.replaceGenerics(genericsMap));
+    type.generics = this.generics.map((x) => x.replaceGenerics(genericsMap));
     return type;
   }
 }

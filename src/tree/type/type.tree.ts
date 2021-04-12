@@ -6,6 +6,8 @@ export abstract class TypeTree extends BaseTree {
 
   public name = this.constructor.name.replace(/TypeTree/, '');
 
+  public generics: TypeTree[] = [];
+
   abstract equals(other: TypeTree): boolean;
 
   abstract replaceGenerics(genericsMap: Map<string, TypeTree>): TypeTree;

@@ -10,6 +10,7 @@ export class NullableTypeTree extends TypeTree {
     if (!ctx) return;
 
     this.type = getTypeTree(ctx.type());
+    this.generics = [this.type];
   }
 
   public equals(other: TypeTree): boolean {
@@ -19,6 +20,7 @@ export class NullableTypeTree extends TypeTree {
   public replaceGenerics(genericsMap: Map<string, TypeTree> = new Map()): NullableTypeTree {
     const type = new NullableTypeTree();
     type.type = this.type.replaceGenerics(genericsMap);
+    type.generics = this.generics.map((x) => x.replaceGenerics(genericsMap));
     return type;
   }
 }

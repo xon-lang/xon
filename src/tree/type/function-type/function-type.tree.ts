@@ -13,6 +13,7 @@ export class FunctionTypeTree extends TypeTree {
 
     this.parameters = ctx._params.map(getTypeTree);
     this.returnType = getTypeTree(ctx._returnType);
+    this.generics = [...this.parameters, this.returnType];
   }
 
   public equals(other: TypeTree): boolean {
@@ -28,6 +29,7 @@ export class FunctionTypeTree extends TypeTree {
     const type = new FunctionTypeTree();
     type.parameters = this.parameters.map((x) => x.replaceGenerics(genericsMap));
     type.returnType = this.returnType.replaceGenerics(genericsMap);
+    type.generics = this.generics.map((x) => x.replaceGenerics(genericsMap));
     return type;
   }
 }

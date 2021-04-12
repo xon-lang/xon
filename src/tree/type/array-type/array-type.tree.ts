@@ -10,6 +10,7 @@ export class ArrayTypeTree extends TypeTree {
     if (!ctx) return;
 
     this.itemType = getTypeTree(ctx.type());
+    this.generics = [this.itemType];
   }
 
   public equals(other: TypeTree): boolean {
@@ -19,6 +20,7 @@ export class ArrayTypeTree extends TypeTree {
   public replaceGenerics(genericsMap: Map<string, TypeTree> = new Map()): ArrayTypeTree {
     const type = new ArrayTypeTree();
     type.itemType = this.itemType.replaceGenerics(genericsMap);
+    type.generics = this.generics.map((x) => x.replaceGenerics(genericsMap));
     return type;
   }
 }

@@ -10,6 +10,7 @@ export class ActionTypeTree extends TypeTree {
     if (!ctx) return;
 
     this.parameters = ctx._params.map(getTypeTree);
+    this.generics = this.parameters;
   }
 
   public equals(other: TypeTree): boolean {
@@ -23,6 +24,7 @@ export class ActionTypeTree extends TypeTree {
   public replaceGenerics(genericsMap: Map<string, TypeTree> = new Map()): ActionTypeTree {
     const type = new ActionTypeTree();
     type.parameters = this.parameters.map((x) => x.replaceGenerics(genericsMap));
+    type.generics = this.generics.map((x) => x.replaceGenerics(genericsMap));
     return type;
   }
 }
