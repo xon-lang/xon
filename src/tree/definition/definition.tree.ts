@@ -3,7 +3,6 @@ import { BaseTree } from '../base.tree';
 import { ParameterTree } from '../parameter/parameter.tree';
 import { getTypeTree } from '../type/type-helper';
 import { TypeTree } from '../type/type.tree';
-import { IndexMemberTree } from './member/index-member/index-member.tree';
 import { InitMemberTree } from './member/init-member/init-member.tree';
 import { getMemberTree } from './member/member-helper';
 import { MemberTree } from './member/member.tree';
@@ -28,8 +27,6 @@ export class DefinitionTree extends BaseTree {
 
   public inits: InitMemberTree[] = [];
 
-  public indexes: IndexMemberTree[] = [];
-
   public operators: OperatorMemberTree[] = [];
 
   public methods: MethodMemberTree[] = [];
@@ -50,7 +47,6 @@ export class DefinitionTree extends BaseTree {
     this.members.forEach((x) => {
       if (x instanceof PropertyMemberTree) this.properties.push(x);
       if (x instanceof InitMemberTree) this.inits.push(x);
-      if (x instanceof IndexMemberTree) this.indexes.push(x);
       if (x instanceof OperatorMemberTree) this.operators.push(x);
       if (x instanceof MethodMemberTree) this.methods.push(x);
     });

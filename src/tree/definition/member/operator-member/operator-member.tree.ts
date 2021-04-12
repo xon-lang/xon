@@ -9,8 +9,6 @@ import { MemberTree } from '../member.tree';
 export class OperatorMemberTree extends MemberTree {
   public parameters: ParameterTree[];
 
-  public generics: string[];
-
   public returnType?: TypeTree;
 
   public statements?: StatementTree[];
@@ -20,10 +18,6 @@ export class OperatorMemberTree extends MemberTree {
     if (!ctx) return;
 
     this.name = ctx.operator().text;
-    this.generics = ctx
-      .generics()
-      ?.id()
-      .map((x) => x.text);
     this.parameters = ParameterTree.fromContext(ctx.parameters());
     this.returnType = getTypeTree(ctx.type());
     this.statements = getStatementsTrees(ctx.body());

@@ -15,11 +15,10 @@ definition:
     ;
 
 member:
-    id type ('=' expression)?                     # propertyMember
-    | 'init' body                                 # initMember
-    | '@' generics? '[' parameter ']' type? body? # indexMember
-    | operator generics? parameters type? body?   # operatorMember
-    | id generics? parameters type? body?         # methodMember
+    id type ('=' expression)?             # propertyMember
+    | 'init' body                         # initMember
+    | operator parameters type? body?     # operatorMember
+    | id generics? parameters type? body? # methodMember
     ;
 
 statement:
