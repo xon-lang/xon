@@ -3,7 +3,6 @@ import { IdExpressionTree } from '../expression/id-expression/id-expression.tree
 import { MethodExpressionTree } from '../expression/method-expression/method-expression.tree';
 import { parseDefinition } from '../parse';
 import { ExpressionStatementTree } from '../statement/expression-statement/expression-statement.tree';
-import { GenericTypeTree } from '../type/generic-type/generic-type.tree';
 import { PlainTypeTree } from '../type/plain-type/plain-type.tree';
 import { DefinitionTree } from './definition.tree';
 
@@ -22,21 +21,21 @@ test('one scope', () => {
   expect(tree.parameters[0].name).toBe('name');
   expect((tree.parameters[0].typeTree as PlainTypeTree).name).toBe('String');
 
-  expect((tree.inheritanceType as GenericTypeTree).name).toBe('BaseClass');
-  expect((tree.inheritanceType as GenericTypeTree).generics.length).toBe(2);
-  expect(((tree.inheritanceType as GenericTypeTree).generics[0] as PlainTypeTree).name).toBe(
+  expect((tree.inheritanceType as PlainTypeTree).name).toBe('BaseClass');
+  expect((tree.inheritanceType as PlainTypeTree).generics.length).toBe(2);
+  expect(((tree.inheritanceType as PlainTypeTree).generics[0] as PlainTypeTree).name).toBe(
     'String',
   );
-  expect(((tree.inheritanceType as GenericTypeTree).generics[1] as PlainTypeTree).name).toBe(
+  expect(((tree.inheritanceType as PlainTypeTree).generics[1] as PlainTypeTree).name).toBe(
     'Boolean',
   );
 
   expect(tree.properties.length).toBe(3);
   expect(tree.properties[0].name).toBe('property');
-  expect((tree.properties[0].typeTree as PlainTypeTree).name).toBe('String');
+  expect((tree.properties[0].returnType as PlainTypeTree).name).toBe('String');
   expect(tree.properties[1].name).toBe('anotherProp');
   expect(tree.properties[2].name).toBe('typedValue');
-  expect((tree.properties[2].typeTree as PlainTypeTree).name).toBe('Number');
+  expect((tree.properties[2].returnType as PlainTypeTree).name).toBe('Number');
 
   expect(tree.inits.length).toBe(0);
 

@@ -3,14 +3,9 @@ import { ParameterTree } from '../../../parameter/parameter.tree';
 import { getStatementsTrees } from '../../../statement/statement-helper';
 import { StatementTree } from '../../../statement/statement.tree';
 import { getTypeTree } from '../../../type/type-helper';
-import { TypeTree } from '../../../type/type.tree';
 import { MemberTree } from '../member.tree';
 
 export class OperatorMemberTree extends MemberTree {
-  public parameters: ParameterTree[];
-
-  public returnType?: TypeTree;
-
   public statements?: StatementTree[];
 
   public constructor(public ctx?: OperatorMemberContext) {

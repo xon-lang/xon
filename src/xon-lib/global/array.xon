@@ -1,2 +1,2 @@
-Array<T>
-    @[index Integer] T
+Array<T>:
+    -- 

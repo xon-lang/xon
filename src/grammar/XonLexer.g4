@@ -17,19 +17,20 @@ tokens {
     import { XonLexerBase } from "./xon-lexer-base";
 }
 
-IS: 'is';
-AS: 'as';
-IF: 'if';
-IN: 'in';
+IS:     'is';
+AS:     'as';
+IF:     'if';
+IN:     'in';
+ELSE:   'else';
+LOOP:   'loop';
+INIT:   'init';
+VOID:   'void';
+BREAK:  'break';
+RETURN: 'return';
+
 // NOT: 'not';
 // and: 'and';
 // or:   'or';
-ELSE:   'else';
-THEN:   'then';
-LOOP:   'loop';
-INIT:   'init';
-BREAK:  'break';
-RETURN: 'return';
 
 OPEN_BRACKET:  '[' {this.opened++;};
 CLOSE_BRACKET: ']' {this.opened--;};

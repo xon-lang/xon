@@ -11,37 +11,37 @@ libraryPath:   id ('-' id)* '/' id ('-' id)*;
 libraryMember: name = id (AS alias = id)?;
 
 definition:
-    id generics? parameters? (IS type)? NL INDENT (member | NL)+ DEDENT
+    id generics? parameters? (IS type)? ':' NL INDENT (member | NL)+ DEDENT
     ;
 
 member:
-    id type ('=' expression)?             # propertyMember
-    | 'init' body                         # initMember
-    | operator parameters type? body?     # operatorMember
-    | id generics? parameters type? body? # methodMember
+    id type ('=' expression)?                     # propertyMember
+    | 'init' body                                 # initMember
+    | operator parameters type body?              # operatorMember
+    | id generics? parameters (type | VOID) body? # methodMember
     ;
 
 statement:
-    LOOP ((value = id (',' key = id?)? (',' index = id)? IN)? expression)? ':' body # loopStatement
-    | IF expression THEN body (ELSE body)?                                          # ifStatement
-    | BREAK                                                                         # breakStatement
-    | RETURN expression?                                                            # returnStatement
-    | id type? '=' expression                                                       # assignmentStatement
-    | expression                                                                    # expressionStatement
-    | PREPROCESSOR                                                                  # preprocessorStatement
+    LOOP ((value = id (',' key = id?)? (',' index = id)? IN)? expression)? body # loopStatement
+    | IF expression body (ELSE body)?                                           # ifStatement
+    | BREAK                                                                     # breakStatement
+    | RETURN expression?                                                        # returnStatement
+    | id type? '=' expression                                                   # assignmentStatement
+    | expression                                                                # expressionStatement
+    | PREPROCESSOR                                                              # preprocessorStatement
     ;
 
 expression:
-    id                                                 # idExpression
-    | '@'                                              # instanceExpression
-    | literal                                          # literalExpression
-    | expression '.' id                                # memberExpression
-    | expression ('<' type (',' type)* '>')? arguments # methodExpression
-    | expression '[' expression ']'                    # indexExpression
-    | expression operator expression                   # operatorExpression
-    | '[' (expression (',' expression)*)? ']'          # arrayExpression
-    | '(' expression ')'                               # parenthesizedExpression
-    | '\\' (parameter (',' parameter)* ':')? statement # lambdaExpression
+    id                                                  # idExpression
+    | '@'                                               # instanceExpression
+    | literal                                           # literalExpression
+    | expression '.' id                                 # memberExpression
+    | expression ('<' type (',' type)* '>')? arguments  # methodExpression
+    | expression '[' expression ']'                     # indexExpression
+    | expression operator expression                    # operatorExpression
+    | '[' (expression (',' expression)*)? ']'           # arrayExpression
+    | '(' expression ')'                                # parenthesizedExpression
+    | '\\' (parameter (',' parameter)* ':')? expression # lambdaExpression
     ;
 
 literal:
@@ -80,9 +80,9 @@ operator:
     ;
 
 id:         ID;
-parameter:  name = id type? ('#' meta = id)? ('=' expression);
+parameter:  name = id type? ('#' meta = id)? ('=' expression)?;
 parameters: '(' (parameter (',' parameter)*)? ')';
 argument:   (id '=')? expression;
 arguments:  '(' (argument (',' argument)*)? ')';
 generics:   '<' id (',' id)* '>';
-body:       statement | NL INDENT (statement | NL)+ DEDENT;
+body:       ':' statement | ':' NL INDENT (statement | NL)+ DEDENT;

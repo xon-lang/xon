@@ -4,7 +4,7 @@ import { PropertyMemberTree } from '../tree/definition/member/property-member/pr
 import { createFunctionType } from '../tree/type/type-helper';
 import { TypeTree } from '../tree/type/type.tree';
 import { findDefinition } from './definition-storage';
-import { GenericsMap } from './expression.type';
+import { GenericsMap } from './expression/expression.type';
 
 export function findDefinitionByType(type: TypeTree): DefinitionTree {
   return findDefinition(type.name);
@@ -19,18 +19,22 @@ export function findOperatorMember(
   if (leftType.generics.length !== definition.generics.length)
     throw new Error('Wrong generics count');
 
-  const genericsMap: GenericsMap = new Map(
+  const definitionGenericsMap: GenericsMap = new Map(
     definition.generics.map((x, i) => [x, leftType.generics[i]]),
   );
   const operatorMembers = definition.operators.filter(
     (x) =>
-      x.name === name && x.parameters[1].typeTree.replaceGenerics(genericsMap).equals(rightType),
+      x.name === name &&
+      x.parameters[1].typeTree.fromExplicitTypes(definitionGenericsMap).equals(rightType),
   );
   if (operatorMembers.length === 0) throw new Error(`Operator "${name}" not found`);
-  if (operatorMembers.length > 0) throw new Error(`Cannot choose right operator "${name}"`);
+  if (operatorMembers.length > 1)
+    throw new Error(
+      `Cannot choose right operator "${name}" from ${operatorMembers.length} overloads`,
+    );
   if (!operatorMembers[0].returnType) throw new Error(`Operator "${name}" must have return type`);
 
-  return operatorMembers[0].returnType.replaceGenerics(genericsMap);
+  return operatorMembers[0].returnType.fromExplicitTypes(definitionGenericsMap);
 }
 
 export function findMember(type: TypeTree, name: string): TypeTree {
@@ -48,12 +52,12 @@ export function findMember(type: TypeTree, name: string): TypeTree {
   const member = members[0];
 
   if (member instanceof PropertyMemberTree) {
-    return member.typeTree.replaceGenerics(genericsMap);
+    return member.returnType.fromExplicitTypes(genericsMap);
   }
   if (member instanceof MethodMemberTree) {
     return createFunctionType(
-      member.parameters.map((x) => x.typeTree.replaceGenerics(genericsMap)),
-      member.returnType.replaceGenerics(genericsMap),
+      member.parameters.map((x) => x.typeTree.fromExplicitTypes(genericsMap)),
+      member.returnType.fromExplicitTypes(genericsMap),
     );
   }
 

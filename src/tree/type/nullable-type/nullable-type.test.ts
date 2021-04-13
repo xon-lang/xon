@@ -7,5 +7,5 @@ test('plain string type', () => {
   const tree = parseType<NullableTypeTree>(code);
   expect(tree).toBeInstanceOf(NullableTypeTree);
 
-  expect((tree.type as PlainTypeTree).name).toBe('String');
+  expect((tree.baseType as PlainTypeTree).name).toBe('String');
 });

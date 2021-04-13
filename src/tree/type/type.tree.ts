@@ -8,7 +8,17 @@ export abstract class TypeTree extends BaseTree {
 
   public generics: TypeTree[] = [];
 
+  public markGenerics(generics: string[]): void {
+    this.generics.forEach((x) => x.markGenerics(generics));
+  }
+
   abstract equals(other: TypeTree): boolean;
 
-  abstract replaceGenerics(genericsMap: Map<string, TypeTree>): TypeTree;
+  abstract fromExplicitTypes(explicitTypes: Map<string, TypeTree>): TypeTree;
+
+  abstract fromImplicitType(implicitType: TypeTree): TypeTree;
+
+  abstract getGenericsMap(type: TypeTree): Map<string, TypeTree>;
+
+  abstract toString(): string;
 }

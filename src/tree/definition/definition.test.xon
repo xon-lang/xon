@@ -1,14 +1,14 @@
-SomeClass<T>(name String) is BaseClass<String, Boolean>
+SomeClass<T>(name String) is BaseClass<String, Boolean>:
     property String
     anotherProp Number
     typedValue Number
 
-    method() MyType
+    method() MyType:
         hello()
         bye()
 
-    location(x Number, y Number) Position
+    location(x Number, y Number) Position:
         pos(x, y)
 
-    + (it SomeClass, sc SomeClass) SomeClass
+    + (it SomeClass, sc SomeClass) SomeClass:
         log("fine!")

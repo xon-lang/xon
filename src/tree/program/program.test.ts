@@ -5,10 +5,9 @@ test('two if', () => {
   const code = `xon/os: Path
 
 1+1
-if e then
+if e:
     7+7
-else if d then
-    call()
+else: if d: call()
 `;
   const tree = new ProgramTree(parse(code).program());
   expect(tree).toBeInstanceOf(ProgramTree);

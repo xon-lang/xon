@@ -36,10 +36,11 @@ export class DefinitionTree extends BaseTree {
     if (!ctx) return;
 
     this.name = ctx.id().text;
-    this.generics = ctx
-      .generics()
-      ?.id()
-      .map((x) => x.text);
+    this.generics =
+      ctx
+        .generics()
+        ?.id()
+        .map((x) => x.text) || [];
     this.parameters = ParameterTree.fromContext(ctx.parameters());
     this.hasConstructor = !!ctx.parameters();
     this.inheritanceType = getTypeTree(ctx.type());
@@ -50,5 +51,7 @@ export class DefinitionTree extends BaseTree {
       if (x instanceof OperatorMemberTree) this.operators.push(x);
       if (x instanceof MethodMemberTree) this.methods.push(x);
     });
+
+    this.members.forEach((x) => x.markGenerics(this.generics));
   }
 }

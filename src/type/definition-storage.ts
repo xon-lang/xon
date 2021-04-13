@@ -1,12 +1,13 @@
 import fs from 'fs';
-import { glob } from 'glob';
 import { DefinitionTree } from '../tree/definition/definition.tree';
 import { parseProgram } from '../tree/parse';
 import { ProgramTree } from '../tree/program/program.tree';
 
-const definitionCache = new Map<string, DefinitionTree>();
+// const definitionCache = new Map<string, DefinitionTree>();
 
 function loadProgramByPath(filePath: string): ProgramTree {
+  // eslint-disable-next-line @typescript-eslint/dot-notation
+  global['currentDefinitionFilePath'] = filePath;
   if (!fs.existsSync(filePath)) throw new Error(`File "${filePath}" not found`);
 
   const code = fs.readFileSync(filePath).toString();
@@ -14,18 +15,19 @@ function loadProgramByPath(filePath: string): ProgramTree {
 }
 
 // load libraries
-glob
-  .sync('src/xon-lib/**/*.xon')
-  .map(loadProgramByPath)
-  .map((x) => x.definitions)
-  .forEach((x) =>
-    x.forEach((z) => {
-      definitionCache.set(z.name, z);
-    }),
-  );
+// glob
+//   .sync('src/xon-lib/**/*.xon')
+//   .map(loadProgramByPath)
+//   .map((x) => x.definitions)
+//   .forEach((x) =>
+//     x.forEach((z) => {
+//       definitionCache.set(z.name, z);
+//     }),
+//   );
 
 export function findDefinition(name: string): DefinitionTree {
-  return definitionCache.get(name);
+  return loadProgramByPath(`src/xon-lib/global/${name}.xon`).definitions[0];
+  // return definitionCache.get(name);
 }
 
 // function getTypeGenerics(type: TypeTree): TypeTree[] {

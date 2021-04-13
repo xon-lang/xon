@@ -4,7 +4,7 @@ import { ExpressionStatementTree } from '../expression-statement/expression-stat
 import { IfStatementTree } from './if-statement.tree';
 
 test('if else if', () => {
-  const code = 'if 12+(45/9) then\n    12+(45/5)\nelse if 2+2 then\n    2 * 4';
+  const code = 'if 12+(45/9) :\n    12+(45/5)\nelse: if 2+2 : 2 * 4';
   const tree = parseStatement<IfStatementTree>(code);
   expect(tree).toBeInstanceOf(IfStatementTree);
 
@@ -21,7 +21,7 @@ test('if else if', () => {
 });
 
 test('if else', () => {
-  const code = 'if 12+(45/9) then\n    12+(45/5)\nelse\n    2   *   4   ';
+  const code = 'if 12+(45/9) :\n    12+(45/5)\nelse:2   *   4   ';
   const tree = parseStatement<IfStatementTree>(code);
   expect(tree).toBeInstanceOf(IfStatementTree);
 
@@ -33,8 +33,8 @@ test('if else', () => {
   expect(evalExpression(elseStatement.value)).toBe(2 * 4);
 });
 
-test('if', () => {
-  const code = 'if 12+(45/9) then\n    12+(45/5)';
+test('if expression', () => {
+  const code = 'if 12+(45/9):\n    12+(45/5)';
   const tree = parseStatement<IfStatementTree>(code);
   expect(tree).toBeInstanceOf(IfStatementTree);
 
@@ -44,7 +44,7 @@ test('if', () => {
 });
 
 test('if relational', () => {
-  const code = 'if 6 > 4 then\n    12+(45^  5)';
+  const code = 'if 6 > 4:\n    12+(45^  5)';
   const tree = parseStatement<IfStatementTree>(code);
   expect(tree).toBeInstanceOf(IfStatementTree);
 

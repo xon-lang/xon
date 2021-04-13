@@ -1,4 +1,4 @@
-Integer(value Integer)
+Integer(value Integer):
     + (a Integer, b Boolean) Integer
     + (a Integer, b Integer) Integer
     + (a Integer, b Float) Float
@@ -31,6 +31,3 @@ Integer(value Integer)
 
     != (a Integer, b Integer) Boolean
     != (a Integer, b Float) Boolean
-
-    + (a Integer#Index, b Integer#Literal) TestIndex
-    + (a Integer#Funtion, b Integer#Literal) TestFunction

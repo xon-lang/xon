@@ -26,9 +26,9 @@ export class XonLexer extends XonLexerBase {
 	public static readonly IF = 5;
 	public static readonly IN = 6;
 	public static readonly ELSE = 7;
-	public static readonly THEN = 8;
-	public static readonly LOOP = 9;
-	public static readonly INIT = 10;
+	public static readonly LOOP = 8;
+	public static readonly INIT = 9;
+	public static readonly VOID = 10;
 	public static readonly BREAK = 11;
 	public static readonly RETURN = 12;
 	public static readonly OPEN_BRACKET = 13;
@@ -81,7 +81,7 @@ export class XonLexer extends XonLexerBase {
 	];
 
 	public static readonly ruleNames: string[] = [
-		"IS", "AS", "IF", "IN", "ELSE", "THEN", "LOOP", "INIT", "BREAK", "RETURN", 
+		"IS", "AS", "IF", "IN", "ELSE", "LOOP", "INIT", "VOID", "BREAK", "RETURN", 
 		"OPEN_BRACKET", "CLOSE_BRACKET", "OPEN_PAREN", "CLOSE_PAREN", "OPEN_BRACE", 
 		"CLOSE_BRACE", "AD", "DOT", "PLUS", "HASH", "PIPE", "COMMA", "COLON", 
 		"MINUS", "SLASH", "CARET", "TILDE", "ASSIGN", "MODULO", "QUESTION", "ASTERISK", 
@@ -93,14 +93,14 @@ export class XonLexer extends XonLexerBase {
 
 	private static readonly _LITERAL_NAMES: Array<string | undefined> = [
 		undefined, undefined, undefined, "'is'", "'as'", "'if'", "'in'", "'else'", 
-		"'then'", "'loop'", "'init'", "'break'", "'return'", "'['", "']'", "'('", 
+		"'loop'", "'init'", "'void'", "'break'", "'return'", "'['", "']'", "'('", 
 		"')'", "'{'", "'}'", "'@'", "'.'", "'+'", "'#'", "'|'", "','", "':'", 
 		"'-'", "'/'", "'^'", "'~'", "'='", "'%'", "'?'", "'*'", "'<'", "'>'", 
 		"'&'", "'_'", "'!'", "'\\'",
 	];
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
-		undefined, "INDENT", "DEDENT", "IS", "AS", "IF", "IN", "ELSE", "THEN", 
-		"LOOP", "INIT", "BREAK", "RETURN", "OPEN_BRACKET", "CLOSE_BRACKET", "OPEN_PAREN", 
+		undefined, "INDENT", "DEDENT", "IS", "AS", "IF", "IN", "ELSE", "LOOP", 
+		"INIT", "VOID", "BREAK", "RETURN", "OPEN_BRACKET", "CLOSE_BRACKET", "OPEN_PAREN", 
 		"CLOSE_PAREN", "OPEN_BRACE", "CLOSE_BRACE", "AD", "DOT", "PLUS", "HASH", 
 		"PIPE", "COMMA", "COLON", "MINUS", "SLASH", "CARET", "TILDE", "ASSIGN", 
 		"MODULO", "QUESTION", "ASTERISK", "LESS_THAN", "MORE_THAN", "AMPERSAND", 
@@ -307,10 +307,10 @@ export class XonLexer extends XonLexerBase {
 		"\x03\x02\x02\x02hi\x07c\x02\x02ij\x07u\x02\x02j\x06\x03\x02\x02\x02kl" +
 		"\x07k\x02\x02lm\x07h\x02\x02m\b\x03\x02\x02\x02no\x07k\x02\x02op\x07p" +
 		"\x02\x02p\n\x03\x02\x02\x02qr\x07g\x02\x02rs\x07n\x02\x02st\x07u\x02\x02" +
-		"tu\x07g\x02\x02u\f\x03\x02\x02\x02vw\x07v\x02\x02wx\x07j\x02\x02xy\x07" +
-		"g\x02\x02yz\x07p\x02\x02z\x0E\x03\x02\x02\x02{|\x07n\x02\x02|}\x07q\x02" +
-		"\x02}~\x07q\x02\x02~\x7F\x07r\x02\x02\x7F\x10\x03\x02\x02\x02\x80\x81" +
-		"\x07k\x02\x02\x81\x82\x07p\x02\x02\x82\x83\x07k\x02\x02\x83\x84\x07v\x02" +
+		"tu\x07g\x02\x02u\f\x03\x02\x02\x02vw\x07n\x02\x02wx\x07q\x02\x02xy\x07" +
+		"q\x02\x02yz\x07r\x02\x02z\x0E\x03\x02\x02\x02{|\x07k\x02\x02|}\x07p\x02" +
+		"\x02}~\x07k\x02\x02~\x7F\x07v\x02\x02\x7F\x10\x03\x02\x02\x02\x80\x81" +
+		"\x07x\x02\x02\x81\x82\x07q\x02\x02\x82\x83\x07k\x02\x02\x83\x84\x07f\x02" +
 		"\x02\x84\x12\x03\x02\x02\x02\x85\x86\x07d\x02\x02\x86\x87\x07t\x02\x02" +
 		"\x87\x88\x07g\x02\x02\x88\x89\x07c\x02\x02\x89\x8A\x07m\x02\x02\x8A\x14" +
 		"\x03\x02\x02\x02\x8B\x8C\x07t\x02\x02\x8C\x8D\x07g\x02\x02\x8D\x8E\x07" +

@@ -1,32 +1,32 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { ArrayExpressionTree } from '../tree/expression/array-expression/array-expression.tree';
-import { ExpressionTree } from '../tree/expression/expression.tree';
-import { IdExpressionTree } from '../tree/expression/id-expression/id-expression.tree';
-import { IndexExpressionTree } from '../tree/expression/index-expression/index-expression.tree';
-import { InstanceExpressionTree } from '../tree/expression/instance-expression/instance-expression.tree';
-import { LambdaExpressionTree } from '../tree/expression/lambda-expression/lambda-expression.tree';
-import { LiteralExpressionTree } from '../tree/expression/literal-expression/literal-expression.tree';
-import { MemberExpressionTree } from '../tree/expression/member-expression/member-expression.tree';
-import { MethodExpressionTree } from '../tree/expression/method-expression/method-expression.tree';
-import { OperatorExpressionTree } from '../tree/expression/operator-expression/operator-expression.tree';
-import { ParenthesizedExpressionTree } from '../tree/expression/parenthesized-expression/parenthesized-expression.tree';
-import { BooleanLiteralTree } from '../tree/literal/boolean-literal/boolean-literal.tree';
-import { CharLiteralTree } from '../tree/literal/char-literal/char-literal.tree';
-import { FloatLiteralTree } from '../tree/literal/float-literal/float-literal.tree';
-import { IntegerLiteralTree } from '../tree/literal/integer-literal/integer-literal.tree';
-import { StringLiteralTree } from '../tree/literal/string-literal/string-literal.tree';
-import { ArrayTypeTree } from '../tree/type/array-type/array-type.tree';
-import { FunctionTypeTree } from '../tree/type/function-type/function-type.tree';
+import { ArrayExpressionTree } from '../../tree/expression/array-expression/array-expression.tree';
+import { ExpressionTree } from '../../tree/expression/expression.tree';
+import { IdExpressionTree } from '../../tree/expression/id-expression/id-expression.tree';
+import { IndexExpressionTree } from '../../tree/expression/index-expression/index-expression.tree';
+import { InstanceExpressionTree } from '../../tree/expression/instance-expression/instance-expression.tree';
+import { LambdaExpressionTree } from '../../tree/expression/lambda-expression/lambda-expression.tree';
+import { LiteralExpressionTree } from '../../tree/expression/literal-expression/literal-expression.tree';
+import { MemberExpressionTree } from '../../tree/expression/member-expression/member-expression.tree';
+import { MethodExpressionTree } from '../../tree/expression/method-expression/method-expression.tree';
+import { OperatorExpressionTree } from '../../tree/expression/operator-expression/operator-expression.tree';
+import { ParenthesizedExpressionTree } from '../../tree/expression/parenthesized-expression/parenthesized-expression.tree';
+import { BooleanLiteralTree } from '../../tree/literal/boolean-literal/boolean-literal.tree';
+import { CharLiteralTree } from '../../tree/literal/char-literal/char-literal.tree';
+import { FloatLiteralTree } from '../../tree/literal/float-literal/float-literal.tree';
+import { IntegerLiteralTree } from '../../tree/literal/integer-literal/integer-literal.tree';
+import { StringLiteralTree } from '../../tree/literal/string-literal/string-literal.tree';
+import { ActionTypeTree } from '../../tree/type/action-type/action-type.tree';
+import { ArrayTypeTree } from '../../tree/type/array-type/array-type.tree';
+import { FunctionTypeTree } from '../../tree/type/function-type/function-type.tree';
 import {
   createArrayType,
   createFunctionType,
   createPlainType,
   createUnionType,
-} from '../tree/type/type-helper';
-import { TypeTree } from '../tree/type/type.tree';
-import { findOperatorMember } from './find-type-member';
-import { find } from './id-scope';
-import { getStatementType } from './statement.type';
+} from '../../tree/type/type-helper';
+import { TypeTree } from '../../tree/type/type.tree';
+import { findMember, findOperatorMember } from '../find-type-member';
+import { find } from '../id-scope';
 
 export type GenericsMap = Map<string, TypeTree>;
 
@@ -68,9 +68,9 @@ export function getLambdaExpressionType(
   genericsMap: GenericsMap,
 ): TypeTree {
   const parametersTypes = tree.parameters.map(
-    (x) => x.typeTree.replaceGenerics(genericsMap) || createPlainType('Any'),
+    (x) => x.typeTree.fromExplicitTypes(genericsMap) || createPlainType('Any'),
   );
-  const returnType = getStatementType(tree.statement, genericsMap);
+  const returnType = getExpressionType(tree.expression, genericsMap);
   return createFunctionType(parametersTypes, returnType);
 }
 
@@ -84,33 +84,32 @@ export function getLiteralExpressionType(tree: LiteralExpressionTree): TypeTree 
   return null;
 }
 
-export function getMemberExpressionType(tree: MemberExpressionTree,  genericsMap: GenericsMap): TypeTree {
+export function getMemberExpressionType(
+  tree: MemberExpressionTree,
+  genericsMap: GenericsMap,
+): TypeTree {
   const objectType = getExpressionType(tree.object, genericsMap);
-  tree.dataType = tree.object.dataType.getMemberType(tree.name);
-  if (!tree.dataType) throw new Error('Member type not found');
+  return findMember(objectType, tree.name);
 }
 
-// export function getMethodExpressionType(
-//   tree: MethodExpressionTree,
-//   genericsMap: GenericsMap,
-// ): TypeTree {
-//   const objectType = getExpressionType(tree.object, genericsMap);
-//   if (!(objectType instanceof FunctionTypeTree)) throw new Error('Object is not a function');
+export function getMethodExpressionType(
+  tree: MethodExpressionTree,
+  genericsMap: GenericsMap,
+): TypeTree {
+  const objectType = getExpressionType(tree.object, genericsMap);
+  if (objectType instanceof ActionTypeTree) return null;
+  if (!(objectType instanceof FunctionTypeTree))
+    throw new Error('Object is not a function and not an action');
 
+  const argumentsTypes = tree.arguments.map((x) => getExpressionType(x.value, genericsMap));
 
-
-//   tree.arguments.forEach(processArgument);
-//   processExpression(
-//     tree.object,
-//     tree.arguments.map((x) => x.dataType),
-//   );
-
-//   if (tree.object.dataType.name === 'Function') {
-//     if (tree.object.dataType.generics.length === 0) throw new Error('Function has not return type');
-//     tree.dataType = tree.object.dataType.generics[tree.object.dataType.generics.length - 1];
-//   } else if (tree.object.dataType.name !== 'Action')
-//     throw new Error('Expression is not Function or Action');
-// }
+  const argumentsGenericsEntries = argumentsTypes
+    .map((x) => x.getGenericsMap(x).entries())
+    .map((x) => Array.from(x))
+    .flat();
+  const argumentsGenerics = new Map(argumentsGenericsEntries);
+  return objectType.returnType.fromExplicitTypes(argumentsGenerics);
+}
 
 export function getOperatorExpressionType(
   tree: OperatorExpressionTree,
@@ -128,7 +127,10 @@ export function getParenthesizedExpressionType(
   return getExpressionType(tree.value, genericsMap);
 }
 
-export function getExpressionType(tree: ExpressionTree, genericsMap: GenericsMap): TypeTree {
+export function getExpressionType(
+  tree: ExpressionTree,
+  genericsMap: GenericsMap = new Map(),
+): TypeTree {
   if (tree instanceof ArrayExpressionTree) return getArrayExpressionType(tree, genericsMap);
   if (tree instanceof IdExpressionTree) return getIdExpressionType(tree);
   if (tree instanceof IndexExpressionTree) return getIndexExpressionType(tree, genericsMap);

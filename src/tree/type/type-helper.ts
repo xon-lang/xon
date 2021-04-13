@@ -2,7 +2,6 @@ import {
   ActionTypeContext,
   ArrayTypeContext,
   FunctionTypeContext,
-  LiteralTypeContext,
   NullableTypeContext,
   ParenthesizedTypeContext,
   PlainTypeContext,
@@ -12,7 +11,6 @@ import {
 import { ActionTypeTree } from './action-type/action-type.tree';
 import { ArrayTypeTree } from './array-type/array-type.tree';
 import { FunctionTypeTree } from './function-type/function-type.tree';
-import { LiteralTypeTree } from './literal-type/literal-type.tree';
 import { NullableTypeTree } from './nullable-type/nullable-type.tree';
 import { PlainTypeTree } from './plain-type/plain-type.tree';
 import { TypeTree } from './type.tree';
@@ -26,7 +24,6 @@ export const getTypeTree = (ctx: TypeContext): TypeTree => {
   if (ctx instanceof FunctionTypeContext) return new FunctionTypeTree(ctx);
   if (ctx instanceof ActionTypeContext) return new ActionTypeTree(ctx);
   if (ctx instanceof UnionTypeContext) return new UnionTypeTree(ctx);
-  if (ctx instanceof LiteralTypeContext) return new LiteralTypeTree(ctx);
   if (ctx instanceof NullableTypeContext) return new NullableTypeTree(ctx);
 
   if (ctx instanceof ParenthesizedTypeContext) return getTypeTree(ctx.type());
@@ -46,6 +43,7 @@ export function createPlainType(name: string, generics: TypeTree[] = []): PlainT
 export function createArrayType(itemType: TypeTree): ArrayTypeTree {
   const type = new ArrayTypeTree();
   type.itemType = itemType;
+  type.generics = [itemType];
   return type;
 }
 
@@ -53,17 +51,27 @@ export function createFunctionType(parameters: TypeTree[], returnType: TypeTree)
   const type = new FunctionTypeTree();
   type.parameters = parameters;
   type.returnType = returnType;
+  type.generics = [...parameters, returnType];
+  return type;
+}
+
+export function createActionType(parameters: TypeTree[]): FunctionTypeTree {
+  const type = new FunctionTypeTree();
+  type.parameters = parameters;
+  type.generics = parameters;
   return type;
 }
 
 export function createUnionType(types: TypeTree[]): UnionTypeTree {
   const type = new UnionTypeTree();
   type.types = types.filter((x) => x === types.find((z) => z.equals(x)));
+  type.generics = types;
   return type;
 }
 
 export function createNullableType(baseType: TypeTree): NullableTypeTree {
   const type = new NullableTypeTree();
-  type.type = baseType;
+  type.baseType = baseType;
+  type.generics = [baseType];
   return type;
 }

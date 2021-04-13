@@ -4,7 +4,7 @@ import { PlainTypeTree } from '../../../type/plain-type/plain-type.tree';
 import { MethodMemberTree } from './method-member.tree';
 
 test('method member', () => {
-  const code = '_funcName(argA Integer, argB Float, argC String) String\n    log(222)';
+  const code = '_funcName(argA Integer, argB Float, argC String) String:\n    log(222)';
   const tree = parseMember<MethodMemberTree>(code);
   expect(tree).toBeInstanceOf(MethodMemberTree);
 
@@ -13,13 +13,13 @@ test('method member', () => {
   expect(tree.parameters.length).toBe(3);
 
   expect(tree.parameters[0].name).toBe('argA');
-  expect((tree.parameters[0].dataType as PlainTypeTree).name).toBe('Integer');
+  expect((tree.parameters[0].typeTree as PlainTypeTree).name).toBe('Integer');
 
   expect(tree.parameters[1].name).toBe('argB');
-  expect((tree.parameters[1].dataType as PlainTypeTree).name).toBe('Float');
+  expect((tree.parameters[1].typeTree as PlainTypeTree).name).toBe('Float');
 
   expect(tree.parameters[2].name).toBe('argC');
-  expect((tree.parameters[2].dataType as PlainTypeTree).name).toBe('String');
+  expect((tree.parameters[2].typeTree as PlainTypeTree).name).toBe('String');
 
   expect((tree.returnType as PlainTypeTree).name).toBe('String');
 });
@@ -39,7 +39,7 @@ test('abstract method member', () => {
 });
 
 test('no return type', () => {
-  const code = 'funcName(a Integer)';
+  const code = 'funcName(a Integer) void';
   const tree = parseMember<MethodMemberTree>(code);
   expect(tree).toBeInstanceOf(MethodMemberTree);
 

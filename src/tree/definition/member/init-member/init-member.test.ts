@@ -6,7 +6,7 @@ import { ExpressionStatementTree } from '../../../statement/expression-statement
 import { InitMemberTree } from './init-member.tree';
 
 test('method member', () => {
-  const code = 'init\n    log(222)';
+  const code = 'init:\n    log(222)';
   const tree = parseMember<InitMemberTree>(code);
   expect(tree).toBeInstanceOf(InitMemberTree);
 

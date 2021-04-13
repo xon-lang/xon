@@ -27,7 +27,8 @@ export class Issue {
 
   public toString(): string {
     const codeLine = this.tree?.ctx?.start.inputStream.toString().split('\n')[this.line - 1];
-    const source = this.path || 'line';
+    // eslint-disable-next-line @typescript-eslint/dot-notation
+    const source = this.path || global['currentDefinitionFilePath'] || 'line';
 
     if (codeLine)
       return `${this.message}\n${source}:${this.line}:${this.column}\n${codeLine}\n${' '.repeat(
