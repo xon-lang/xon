@@ -1,13 +1,8 @@
 /* eslint-disable max-classes-per-file */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { ExpressionTree } from '../../tree/expression/expression.tree';
-import { TypeTree } from '../../tree/type/type.tree';
-import { GenericsMap } from '../generics-map';
+import { BaseType } from '../base.type';
 
-export abstract class ExpressionType {
+export abstract class ExpressionType extends BaseType {
   abstract tree: ExpressionTree;
-
-  abstract genericsMap: GenericsMap;
-
-  abstract type(): TypeTree;
 }

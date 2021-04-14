@@ -5,6 +5,10 @@
 // import { TypeTree } from '../tree/type/type.tree';
 // import { GenericsMap } from './expression/expression.type';
 
+import { BaseType } from '../base.type';
+
+export abstract class StatementType extends BaseType {}
+
 // export function getAssignmentStatementType(tree: AssignmentStatementTree): TypeTree {
 //   return null;
 //   // if (tree.type) processExpression(tree.value);
