@@ -27,26 +27,10 @@ export class PlainTypeTree extends TypeTree {
     else if (generics.includes(this.name)) this.isGeneric = true;
   }
 
-  public fromExplicitTypes(explicitTypes: Map<string, TypeTree> = new Map()): TypeTree {
+  public useGenericsMap(genericsMap: Map<string, TypeTree>): TypeTree {
     return createPlainType(
       this.name,
-      this.generics.map((x) => x.fromExplicitTypes(explicitTypes)),
-    );
-  }
-
-  public fromImplicitType(implicitType: TypeTree): TypeTree {
-    if (this.isGeneric) return implicitType;
-    if (implicitType.name !== this.name)
-      throw new Error(`Type "${implicitType.name}" is not "${this.name}"`);
-
-    if (implicitType.generics.length !== this.generics.length)
-      throw new Error(
-        `Type "${implicitType.name}" generics count is ${implicitType.generics.length} but expected ${this.generics.length}`,
-      );
-
-    return createPlainType(
-      this.name,
-      this.generics.map((x) => x.fromImplicitType(implicitType)),
+      this.generics.map((x) => x.useGenericsMap(genericsMap)),
     );
   }
 

@@ -31,3 +31,6 @@ Integer(value Integer):
 
     != (a Integer, b Integer) Boolean
     != (a Integer, b Float) Boolean
+
+    toString() String:
+        --

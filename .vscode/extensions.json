@@ -3,6 +3,7 @@
     "mike-lischke.vscode-antlr4",
     "esbenp.prettier-vscode",
     "nizami.xon",
-    "streetsidesoftware.code-spell-checker"
+    "streetsidesoftware.code-spell-checker",
+    "cantonios.project-templates"
   ]
 }

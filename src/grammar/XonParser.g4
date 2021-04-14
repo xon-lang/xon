@@ -15,10 +15,10 @@ definition:
     ;
 
 member:
-    id type ('=' expression)?                     # propertyMember
-    | 'init' body                                 # initMember
-    | operator parameters type body?              # operatorMember
-    | id generics? parameters (type | VOID) body? # methodMember
+    id type ('=' expression)?            # propertyMember
+    | 'init' body                        # initMember
+    | operator parameters type body?     # operatorMember
+    | id generics? parameters type body? # methodMember
     ;
 
 statement:
@@ -53,7 +53,8 @@ literal:
     ;
 
 type:
-    id ('<' type (',' type)* '>')?                                      # plainType
+    'void'                                                              # voidType
+    | id ('<' type (',' type)* '>')?                                    # plainType
     | literal                                                           # literalType
     | type '?'                                                          # nullableType
     | type '[' ']'                                                      # arrayType

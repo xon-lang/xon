@@ -21,24 +21,12 @@ export class UnionTypeTree extends TypeTree {
     );
   }
 
-  public markIfGeneric(generics: string[]): void {
+  public markGenerics(generics: string[]): void {
     this.types.forEach((x) => x.markGenerics(generics));
   }
 
-  public fromExplicitTypes(explicitTypes: Map<string, TypeTree> = new Map()): UnionTypeTree {
-    return createUnionType(this.types.map((x) => x.fromExplicitTypes(explicitTypes)));
-  }
-
-  public fromImplicitType(implicitType: TypeTree): TypeTree {
-    if (!(implicitType instanceof UnionTypeTree))
-      throw new Error(`Type "${implicitType.name}" is not a "${this.name}" type`);
-
-    if (implicitType.types.length !== this.types.length)
-      throw new Error(
-        `Type "${implicitType.name}" has ${implicitType.types.length} type but this type has ${this.types.length}`,
-      );
-
-    return createUnionType(this.types.map((x, i) => x.fromImplicitType(implicitType.types[i])));
+  public useGenericsMap(explicitTypes: Map<string, TypeTree> = new Map()): UnionTypeTree {
+    return createUnionType(this.types.map((x) => x.useGenericsMap(explicitTypes)));
   }
 
   // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars

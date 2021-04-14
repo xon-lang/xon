@@ -1,6 +1,6 @@
-import { parseStatement } from '../../tree/parse';
-import { ExpressionStatementTree } from '../../tree/statement/expression-statement/expression-statement.tree';
-import { getExpressionType } from './expression.type';
+import { parseStatement } from '../../../tree/parse';
+import { ExpressionStatementTree } from '../../../tree/statement/expression-statement/expression-statement.tree';
+import { getExpressionType } from '../expression-type.helper';
 
 test('all array items are integer literals', () => {
   const code = '[1, 2, 3, 4]';

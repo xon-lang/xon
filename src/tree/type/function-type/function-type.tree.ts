@@ -1,5 +1,5 @@
 import { FunctionTypeContext } from '../../../grammar/xon-parser';
-import { createFunctionType, getTypeTree } from '../type-helper';
+import { getTypeTree } from '../type-helper';
 import { TypeTree } from '../type.tree';
 
 export class FunctionTypeTree extends TypeTree {
@@ -25,27 +25,12 @@ export class FunctionTypeTree extends TypeTree {
     );
   }
 
-  public fromExplicitTypes(explicitTypes: Map<string, TypeTree> = new Map()): FunctionTypeTree {
+  public useGenericsMap(genericsMap: Map<string, TypeTree> = new Map()): FunctionTypeTree {
     const type = new FunctionTypeTree();
-    type.parameters = this.parameters.map((x) => x.fromExplicitTypes(explicitTypes));
-    type.returnType = this.returnType.fromExplicitTypes(explicitTypes);
-    type.generics = this.generics.map((x) => x.fromExplicitTypes(explicitTypes));
+    type.parameters = this.parameters.map((x) => x.useGenericsMap(genericsMap));
+    type.returnType = this.returnType.useGenericsMap(genericsMap);
+    type.generics = this.generics.map((x) => x.useGenericsMap(genericsMap));
     return type;
-  }
-
-  public fromImplicitType(implicitType: TypeTree): TypeTree {
-    if (!(implicitType instanceof FunctionTypeTree))
-      throw new Error(`Type "${implicitType.name}" is not a "${this.name}" type`);
-
-    if (implicitType.parameters.length !== this.parameters.length)
-      throw new Error(
-        `Type "${implicitType.name}" has ${implicitType.parameters.length} parameters but this type has ${this.parameters.length}`,
-      );
-
-    return createFunctionType(
-      this.parameters.map((x, i) => x.fromImplicitType(implicitType.parameters[i])),
-      this.returnType.fromImplicitType(implicitType.returnType),
-    );
   }
 
   public getGenericsMap(type: TypeTree): Map<string, TypeTree> {
@@ -66,9 +51,8 @@ export class FunctionTypeTree extends TypeTree {
   }
 
   public toString(): string {
-    const generics = this.generics.map((x) => x.toString()).join(', ');
     const parameters = this.parameters.map((x) => x.toString()).join(', ');
     const returnType = this.returnType?.toString();
-    return `${generics ? `<${generics}>` : ''}(${parameters}) ${returnType}`;
+    return `(${parameters}) ${returnType}`;
   }
 }

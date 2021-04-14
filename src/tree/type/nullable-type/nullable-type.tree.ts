@@ -1,7 +1,6 @@
 import { NullableTypeContext } from '../../../grammar/xon-parser';
-import { ActionTypeTree } from '../action-type/action-type.tree';
 import { FunctionTypeTree } from '../function-type/function-type.tree';
-import { createNullableType, getTypeTree } from '../type-helper';
+import { getTypeTree } from '../type-helper';
 import { TypeTree } from '../type.tree';
 import { UnionTypeTree } from '../union-type/union-type.tree';
 
@@ -20,18 +19,11 @@ export class NullableTypeTree extends TypeTree {
     return other instanceof NullableTypeTree && this.baseType.equals(other);
   }
 
-  public fromExplicitTypes(explicitTypes: Map<string, TypeTree> = new Map()): NullableTypeTree {
+  public useGenericsMap(genericsMap: Map<string, TypeTree>): NullableTypeTree {
     const type = new NullableTypeTree();
-    type.baseType = this.baseType.fromExplicitTypes(explicitTypes);
-    type.generics = this.generics.map((x) => x.fromExplicitTypes(explicitTypes));
+    type.baseType = this.baseType.useGenericsMap(genericsMap);
+    type.generics = this.generics.map((x) => x.useGenericsMap(genericsMap));
     return type;
-  }
-
-  public fromImplicitType(implicitType: TypeTree): TypeTree {
-    if (implicitType instanceof NullableTypeTree)
-      return createNullableType(this.baseType.fromImplicitType(implicitType.baseType));
-
-    return createNullableType(this.baseType.fromImplicitType(implicitType));
   }
 
   public getGenericsMap(type: TypeTree): Map<string, TypeTree> {
@@ -40,11 +32,7 @@ export class NullableTypeTree extends TypeTree {
   }
 
   public toString(): string {
-    if (
-      this.baseType instanceof ActionTypeTree ||
-      this.baseType instanceof FunctionTypeTree ||
-      this.baseType instanceof UnionTypeTree
-    ) {
+    if (this.baseType instanceof FunctionTypeTree || this.baseType instanceof UnionTypeTree) {
       const baseType = `(${this.baseType.toString()})`;
       return `${baseType}?`;
     }

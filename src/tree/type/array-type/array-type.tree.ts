@@ -1,5 +1,4 @@
 import { ArrayTypeContext } from '../../../grammar/xon-parser';
-import { ActionTypeTree } from '../action-type/action-type.tree';
 import { FunctionTypeTree } from '../function-type/function-type.tree';
 import { createArrayType, getTypeTree } from '../type-helper';
 import { TypeTree } from '../type.tree';
@@ -20,15 +19,8 @@ export class ArrayTypeTree extends TypeTree {
     return other instanceof ArrayTypeTree && this.itemType.equals(other.itemType);
   }
 
-  public fromExplicitTypes(explicitTypes: Map<string, TypeTree> = new Map()): ArrayTypeTree {
-    return createArrayType(this.itemType.fromExplicitTypes(explicitTypes));
-  }
-
-  public fromImplicitType(implicitType: TypeTree): TypeTree {
-    if (!(implicitType instanceof ArrayTypeTree))
-      throw new Error(`Type "${implicitType.name}" is not an "${this.name}" type`);
-
-    return createArrayType(this.itemType.fromImplicitType(implicitType.itemType));
+  public useGenericsMap(genericsMap: Map<string, TypeTree>): ArrayTypeTree {
+    return createArrayType(this.itemType.useGenericsMap(genericsMap));
   }
 
   public getGenericsMap(type: TypeTree): Map<string, TypeTree> {
@@ -43,11 +35,7 @@ export class ArrayTypeTree extends TypeTree {
   }
 
   public toString(): string {
-    if (
-      this.itemType instanceof ActionTypeTree ||
-      this.itemType instanceof FunctionTypeTree ||
-      this.itemType instanceof UnionTypeTree
-    ) {
+    if (this.itemType instanceof FunctionTypeTree || this.itemType instanceof UnionTypeTree) {
       const itemType = `(${this.itemType.toString()})`;
       return `${itemType}[]`;
     }
