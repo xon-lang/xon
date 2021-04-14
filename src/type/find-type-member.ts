@@ -64,3 +64,25 @@ export function findMember(type: TypeTree, name: string): TypeTree {
 
   throw new Error(`Couldn't find member ${name}`);
 }
+
+// export function findTheBestMethod<T extends MethodType>(
+//   definition: DefinitionTree,
+//   members: T[],
+//   fitArgs: ExpressionTree[],
+// ): T {
+//   const candidates = members
+//     .filter((x) => x.parameters.length === fitArgs.length)
+//     .map((x) => ({
+//       method: x,
+//       weight: x.parameters
+//         .map((z, i) => z.dataType.fitWeight(fitArgs[i]))
+//         .reduce((p, c) => p * c, 1),
+//     }))
+//     .filter((x) => x.weight > 0)
+//     .sort((a, b) => b.weight - a.weight);
+
+//   if (candidates.length) return candidates[0].method;
+//   if (definition.inheritanceType && definition.inheritanceType instanceof PlainTypeTree)
+//     return findTheBestMethod(getTypeDefinition(definition.inheritanceType), members, fitArgs);
+//   return null;
+// }
