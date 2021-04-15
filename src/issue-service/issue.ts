@@ -25,6 +25,16 @@ export class Issue {
     return issue;
   }
 
+  public static errorFromTree(tree: BaseTree, message: string): Issue {
+    const issue = new Issue();
+    issue.tree = tree;
+    issue.level = IssueLevel.Error;
+    issue.message = message;
+    issue.line = tree.ctx.start.line;
+    issue.column = tree.ctx.start.charPositionInLine;
+    return issue;
+  }
+
   public toString(): string {
     const codeLine = this.tree?.ctx?.start.inputStream.toString().split('\n')[this.line - 1];
     // eslint-disable-next-line @typescript-eslint/dot-notation
