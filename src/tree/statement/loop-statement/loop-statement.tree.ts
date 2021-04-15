@@ -1,7 +1,7 @@
 import { LoopStatementContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../../expression/expression-helper';
 import { ExpressionTree } from '../../expression/expression.tree';
-import { getStatementsTrees } from '../statement-helper';
+import { getBody } from '../statement-helper';
 import { StatementTree } from '../statement.tree';
 
 export class LoopStatementTree extends StatementTree {
@@ -17,7 +17,7 @@ export class LoopStatementTree extends StatementTree {
 
   public expression?: ExpressionTree;
 
-  public statements: StatementTree[];
+  public body: StatementTree[];
 
   public constructor(public ctx?: LoopStatementContext) {
     super();
@@ -29,6 +29,6 @@ export class LoopStatementTree extends StatementTree {
     this.keyName = ctx._key?.text;
     this.valueName = ctx._value?.text;
     this.expression = ctx.expression() && getExpressionTree(ctx.expression());
-    this.statements = getStatementsTrees(ctx.body());
+    this.body = getBody(ctx.body());
   }
 }

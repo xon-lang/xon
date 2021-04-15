@@ -1,7 +1,7 @@
 import { DefinitionTree } from '../tree/definition/definition.tree';
 import { MethodMemberTree } from '../tree/definition/member/method-member/method-member.tree';
 import { PropertyMemberTree } from '../tree/definition/member/property-member/property-member.tree';
-import { createFunctionType } from '../tree/type/type-helper';
+import { createActionType, createFunctionType } from '../tree/type/type-helper';
 import { TypeTree } from '../tree/type/type.tree';
 import { findDefinition } from './definition-storage';
 import { GenericsMap } from './generics-map';
@@ -56,10 +56,12 @@ export function findMember(type: TypeTree, name: string): TypeTree {
     return member.returnType.useGenericsMap(genericsMap);
   }
   if (member instanceof MethodMemberTree) {
-    return createFunctionType(
-      member.parameters.map((x) => x.typeTree.useGenericsMap(genericsMap)),
-      member.returnType.useGenericsMap(genericsMap),
-    );
+    if (member.returnType)
+      return createFunctionType(
+        member.parameters.map((x) => x.typeTree.useGenericsMap(genericsMap)),
+        member.returnType.useGenericsMap(genericsMap),
+      );
+    return createActionType(member.parameters.map((x) => x.typeTree.useGenericsMap(genericsMap)));
   }
 
   throw new Error(`Couldn't find member ${name}`);

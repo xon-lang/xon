@@ -15,10 +15,10 @@ definition:
     ;
 
 member:
-    id type ('=' expression)?            # propertyMember
-    | 'init' body                        # initMember
-    | operator parameters type body?     # operatorMember
-    | id generics? parameters type body? # methodMember
+    id type ('=' expression)?             # propertyMember
+    | 'init' body                         # initMember
+    | operator parameters type body?      # operatorMember
+    | id generics? parameters type? body? # methodMember
     ;
 
 statement:
@@ -32,16 +32,16 @@ statement:
     ;
 
 expression:
-    id                                                  # idExpression
-    | '@'                                               # instanceExpression
-    | literal                                           # literalExpression
-    | expression '.' id                                 # memberExpression
-    | expression ('<' type (',' type)* '>')? arguments  # methodExpression
-    | expression '[' expression ']'                     # indexExpression
-    | expression operator expression                    # operatorExpression
-    | '[' (expression (',' expression)*)? ']'           # arrayExpression
-    | '(' expression ')'                                # parenthesizedExpression
-    | '\\' (parameter (',' parameter)* ':')? expression # lambdaExpression
+    id                                                 # idExpression
+    | '@'                                              # instanceExpression
+    | literal                                          # literalExpression
+    | expression '.' id                                # memberExpression
+    | expression ('<' type (',' type)* '>')? arguments # methodExpression
+    | expression '[' expression ']'                    # indexExpression
+    | expression operator expression                   # operatorExpression
+    | '[' (expression (',' expression)*)? ']'          # arrayExpression
+    | '(' expression ')'                               # parenthesizedExpression
+    | '\\' (id (',' id)* ':')? expression              # lambdaExpression
     ;
 
 literal:
@@ -53,14 +53,13 @@ literal:
     ;
 
 type:
-    'void'                                                              # voidType
-    | id ('<' type (',' type)* '>')?                                    # plainType
+    id ('<' type (',' type)* '>')?                                      # plainType
     | literal                                                           # literalType
     | type '?'                                                          # nullableType
     | type '[' ']'                                                      # arrayType
     | type '|' type                                                     # unionType
     | '(' (params += type (',' params += type)*)? ')' returnType = type # functionType
-    | '(' (params += type (',' params += type)*)? ')'                   # actionType
+    | '(' ( type (',' type)*)? ')'                                      # actionType
     | '(' type ')'                                                      # parenthesizedType
     ;
 
@@ -81,7 +80,7 @@ operator:
     ;
 
 id:         ID;
-parameter:  name = id type? ('#' meta = id)? ('=' expression)?;
+parameter:  name = id type ('#' meta = id)? ('=' expression)?;
 parameters: '(' (parameter (',' parameter)*)? ')';
 argument:   (id '=')? expression;
 arguments:  '(' (argument (',' argument)*)? ')';

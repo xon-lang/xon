@@ -11,7 +11,7 @@ test('method member', () => {
   expect(tree).toBeInstanceOf(InitMemberTree);
 
   expect(tree.name).toBe('init');
-  const statement = tree.statements[0] as ExpressionStatementTree;
+  const statement = tree.body[0] as ExpressionStatementTree;
   const expression = statement.value as MethodExpressionTree;
   expect(expression.arguments.length).toBe(1);
   expect((expression.arguments[0].value as LiteralExpressionTree).literal.value).toBe(222);

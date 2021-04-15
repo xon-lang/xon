@@ -49,11 +49,11 @@ export abstract class StatementType extends BaseType {}
 // export function processIfStatement(tree: IfStatementTree): void {
 //   pushScope();
 //   processExpression(tree.condition);
-//   tree.thenStatements.forEach(processStatement);
-//   tree.elseStatements.forEach(processStatement);
+//   tree.thenBody.forEach(processStatement);
+//   tree.elseBody.forEach(processStatement);
 //   popScope();
-//   const thenDataType = tree.thenStatements[tree.thenStatements.length - 1].dataType;
-//   const elseDataType = tree.elseStatements[tree.elseStatements.length - 1].dataType;
+//   const thenDataType = tree.thenBody[tree.thenBody.length - 1].dataType;
+//   const elseDataType = tree.elseBody[tree.elseBody.length - 1].dataType;
 //   if (thenDataType.equals(elseDataType)) tree.dataType = thenDataType;
 //   else tree.dataType = new DataType('Union', [thenDataType, elseDataType]);
 // }
@@ -70,9 +70,9 @@ export abstract class StatementType extends BaseType {}
 //       : tree.expression.dataType.generics[0];
 //   addToScope(tree.valueName, expressionDataType);
 //   addToScope(tree.indexName, new DataType('Integer'));
-//   tree.statements.forEach(processStatement);
+//   tree.body.forEach(processStatement);
 //   popScope();
-//   tree.dataType = tree.statements[tree.statements.length - 1].dataType;
+//   tree.dataType = tree.body[tree.body.length - 1].dataType;
 // }
 
 // export function processPreprocessorStatement(tree: PreprocessorStatementTree): void {

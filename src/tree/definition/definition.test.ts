@@ -42,11 +42,11 @@ test('one scope', () => {
   expect(tree.methods.length).toBe(2);
   expect(tree.methods[0].name).toBe('method');
   expect(tree.methods[0].parameters.length).toBe(0);
-  expect(tree.methods[0].statements.length).toBe(2);
-  expect((tree.methods[0].statements[0] as ExpressionStatementTree).value).toBeInstanceOf(
+  expect(tree.methods[0].body.length).toBe(2);
+  expect((tree.methods[0].body[0] as ExpressionStatementTree).value).toBeInstanceOf(
     MethodExpressionTree,
   );
-  expect((tree.methods[0].statements[1] as ExpressionStatementTree).value).toBeInstanceOf(
+  expect((tree.methods[0].body[1] as ExpressionStatementTree).value).toBeInstanceOf(
     MethodExpressionTree,
   );
   expect(tree.methods[1].name).toBe('location');
@@ -55,11 +55,11 @@ test('one scope', () => {
   expect((tree.methods[1].parameters[0].typeTree as PlainTypeTree).name).toBe('Number');
   expect(tree.methods[1].parameters[1].name).toBe('y');
   expect((tree.methods[1].parameters[1].typeTree as PlainTypeTree).name).toBe('Number');
-  expect(tree.methods[1].statements.length).toBe(1);
-  expect((tree.methods[1].statements[0] as ExpressionStatementTree).value).toBeInstanceOf(
+  expect(tree.methods[1].body.length).toBe(1);
+  expect((tree.methods[1].body[0] as ExpressionStatementTree).value).toBeInstanceOf(
     MethodExpressionTree,
   );
-  const innerMethod = (tree.methods[1].statements[0] as ExpressionStatementTree)
+  const innerMethod = (tree.methods[1].body[0] as ExpressionStatementTree)
     .value as MethodExpressionTree;
   const MethodExpression = innerMethod.object as IdExpressionTree;
   expect(MethodExpression.name).toBe('pos');

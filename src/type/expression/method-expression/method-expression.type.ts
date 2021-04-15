@@ -1,4 +1,5 @@
 import { MethodExpressionTree } from '../../../tree/expression/method-expression/method-expression.tree';
+import { ActionTypeTree } from '../../../tree/type/action-type/action-type.tree';
 import { FunctionTypeTree } from '../../../tree/type/function-type/function-type.tree';
 import { TypeTree } from '../../../tree/type/type.tree';
 import { GenericsMap } from '../../generics-map';
@@ -12,6 +13,7 @@ export class MethodExpressionType extends ExpressionType {
 
   public type(): TypeTree {
     const objectType = getExpressionType(this.tree.object, this.genericsMap);
+    if (objectType instanceof ActionTypeTree) return null;
     if (!(objectType instanceof FunctionTypeTree))
       throw new Error('Object is not a function and not an action');
 

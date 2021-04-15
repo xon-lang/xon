@@ -1,17 +1,15 @@
 import { evalExpression } from '../../eval';
 import { parseExpression } from '../../parse';
-import { PlainTypeTree } from '../../type/plain-type/plain-type.tree';
 import { LambdaExpressionTree } from './lambda-expression.tree';
 
 test('with arg type', () => {
-  const code = '\\x Integer: x + 42';
+  const code = '\\x: x + 42';
   const tree = parseExpression<LambdaExpressionTree>(code);
   expect(tree).toBeInstanceOf(LambdaExpressionTree);
 
   expect(tree.parameters.length).toBe(1);
-  expect(tree.parameters[0].name).toBe('x');
-  expect((tree.parameters[0].typeTree as PlainTypeTree).name).toBe('Integer');
-  expect(evalExpression(tree.expression, { x: 37 })).toBe(37 + 42);
+  expect(tree.parameters[0]).toBe('x');
+  expect(evalExpression(tree.body, { x: 37 })).toBe(37 + 42);
 });
 
 test('no args', () => {
@@ -20,5 +18,5 @@ test('no args', () => {
   expect(tree).toBeInstanceOf(LambdaExpressionTree);
 
   expect(tree.parameters.length).toBe(0);
-  expect(evalExpression(tree.expression)).toBe(42 + 45);
+  expect(evalExpression(tree.body)).toBe(42 + 45);
 });

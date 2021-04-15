@@ -1,40 +1,35 @@
-import { FunctionTypeContext } from '../../../grammar/xon-parser';
+import { ActionTypeContext } from '../../../grammar/xon-parser';
 import { getTypeTree } from '../type-helper';
 import { TypeTree } from '../type.tree';
 
-export class FunctionTypeTree extends TypeTree {
+export class ActionTypeTree extends TypeTree {
   public parameters: TypeTree[];
 
-  public returnType: TypeTree;
-
-  public constructor(public ctx?: FunctionTypeContext) {
+  public constructor(public ctx?: ActionTypeContext) {
     super();
     if (!ctx) return;
 
-    this.parameters = ctx._params.map(getTypeTree);
-    this.returnType = getTypeTree(ctx._returnType);
-    this.generics = [...this.parameters, this.returnType];
+    this.parameters = ctx.type().map(getTypeTree);
+    this.generics = this.parameters;
   }
 
   public equals(other: TypeTree): boolean {
     return (
-      other instanceof FunctionTypeTree &&
-      this.returnType.equals(other.returnType) &&
+      other instanceof ActionTypeTree &&
       this.parameters.length === other.parameters.length &&
       this.parameters.every((x, i) => x.equals(other.parameters[i]))
     );
   }
 
-  public useGenericsMap(genericsMap: Map<string, TypeTree> = new Map()): FunctionTypeTree {
-    const type = new FunctionTypeTree();
+  public useGenericsMap(genericsMap: Map<string, TypeTree> = new Map()): ActionTypeTree {
+    const type = new ActionTypeTree();
     type.parameters = this.parameters.map((x) => x.useGenericsMap(genericsMap));
-    type.returnType = this.returnType.useGenericsMap(genericsMap);
     type.generics = this.generics.map((x) => x.useGenericsMap(genericsMap));
     return type;
   }
 
   public getGenericsMap(type: TypeTree): Map<string, TypeTree> {
-    if (!(type instanceof FunctionTypeTree))
+    if (!(type instanceof ActionTypeTree))
       throw new Error(`Type "${type.name}" is not a "${this.name}" type`);
 
     if (type.parameters.length !== this.parameters.length)
@@ -52,8 +47,6 @@ export class FunctionTypeTree extends TypeTree {
 
   public toString(): string {
     const parameters = this.parameters.map((x) => x.toString()).join(', ');
-    const returnType = this.returnType.toString();
-
-    return `(${parameters}) ${returnType}`;
+    return `(${parameters})`;
   }
 }

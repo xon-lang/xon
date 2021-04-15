@@ -1,22 +1,22 @@
 import { IfStatementContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../../expression/expression-helper';
 import { ExpressionTree } from '../../expression/expression.tree';
-import { getStatementsTrees } from '../statement-helper';
+import { getBody } from '../statement-helper';
 import { StatementTree } from '../statement.tree';
 
 export class IfStatementTree extends StatementTree {
   public condition: ExpressionTree;
 
-  public thenStatements: StatementTree[];
+  public thenBody: StatementTree[];
 
-  public elseStatements: StatementTree[];
+  public elseBody: StatementTree[];
 
   public constructor(public ctx?: IfStatementContext) {
     super();
     if (!ctx) return;
 
     this.condition = getExpressionTree(ctx.expression());
-    this.thenStatements = getStatementsTrees(ctx.body(0));
-    this.elseStatements = (ctx.ELSE() && getStatementsTrees(ctx.body(1))) || [];
+    this.thenBody = getBody(ctx.body(0));
+    this.elseBody = (ctx.ELSE() && getBody(ctx.body(1))) || [];
   }
 }

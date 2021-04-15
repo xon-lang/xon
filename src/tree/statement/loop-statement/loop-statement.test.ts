@@ -18,8 +18,8 @@ test('loop with value', () => {
   expect(tree.isInfinity).toBe(false);
   expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
-  expect(tree.statements.length).toBe(1);
-  const statement = tree.statements[0] as ExpressionStatementTree;
+  expect(tree.body.length).toBe(1);
+  const statement = tree.body[0] as ExpressionStatementTree;
   expect(evalExpression(statement.value)).toBe(12 + 45 / 5);
 });
 
@@ -34,8 +34,8 @@ test('loop with value and key', () => {
   expect(tree.isInfinity).toBe(false);
   expect(tree.expression).toBeInstanceOf(IdExpressionTree);
 
-  expect(tree.statements.length).toBe(1);
-  const statement = tree.statements[0] as ExpressionStatementTree;
+  expect(tree.body.length).toBe(1);
+  const statement = tree.body[0] as ExpressionStatementTree;
   expect(evalExpression(statement.value)).toBe(12 + 10);
 });
 
@@ -50,8 +50,8 @@ test('loop with value, key and index', () => {
   expect(tree.isInfinity).toBe(false);
   expect(tree.expression).toBeInstanceOf(IdExpressionTree);
 
-  expect(tree.statements.length).toBe(1);
-  const statement = tree.statements[0] as ExpressionStatementTree;
+  expect(tree.body.length).toBe(1);
+  const statement = tree.body[0] as ExpressionStatementTree;
   expect(evalExpression(statement.value)).toBe(12 + 10);
 });
 
@@ -66,8 +66,8 @@ test('loop with value and index', () => {
   expect(tree.isInfinity).toBe(false);
   expect(tree.expression).toBeInstanceOf(IdExpressionTree);
 
-  expect(tree.statements.length).toBe(1);
-  const statement = tree.statements[0] as ExpressionStatementTree;
+  expect(tree.body.length).toBe(1);
+  const statement = tree.body[0] as ExpressionStatementTree;
   expect(evalExpression(statement.value)).toBe(12 + 10);
 });
 
@@ -82,8 +82,8 @@ test('loop with expression only', () => {
   expect(tree.isInfinity).toBe(false);
   expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
-  expect(tree.statements.length).toBe(1);
-  const statement = tree.statements[0] as ExpressionStatementTree;
+  expect(tree.body.length).toBe(1);
+  const statement = tree.body[0] as ExpressionStatementTree;
   expect(evalExpression(statement.value)).toBe(1 + 1);
 });
 
@@ -97,7 +97,7 @@ test('infinity loop', () => {
   expect(tree.indexName).toBeUndefined();
   expect(tree.expression).toBeUndefined();
 
-  expect(tree.statements.length).toBe(1);
-  const statement = tree.statements[0] as ExpressionStatementTree;
+  expect(tree.body.length).toBe(1);
+  const statement = tree.body[0] as ExpressionStatementTree;
   expect(statement.value).toBeInstanceOf(MethodExpressionTree);
 });

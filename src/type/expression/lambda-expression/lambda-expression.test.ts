@@ -3,10 +3,10 @@ import { ExpressionStatementTree } from '../../../tree/statement/expression-stat
 import { getExpressionType } from '../expression-type.helper';
 
 test('all array items are integer literals', () => {
-  const code = '[1, 2, 3, 4]';
+  const code = '\\x: 1 + 1';
   const tree = parseStatement<ExpressionStatementTree>(code);
   expect(tree).toBeInstanceOf(ExpressionStatementTree);
 
   const type = getExpressionType(tree.value);
-  expect('Integer[]').toBe(type.toString());
+  expect('(Any) Integer').toBe(type.toString());
 });
