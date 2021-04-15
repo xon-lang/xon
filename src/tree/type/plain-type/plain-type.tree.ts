@@ -28,6 +28,10 @@ export class PlainTypeTree extends TypeTree {
   }
 
   public useGenericsMap(genericsMap: Map<string, TypeTree>): TypeTree {
+    if (this.isGeneric) {
+      if (this.generics.length) throw new Error('Generic type must not contains generics');
+      if (genericsMap.has(this.name)) return genericsMap.get(this.name);
+    }
     return createPlainType(
       this.name,
       this.generics.map((x) => x.useGenericsMap(genericsMap)),
