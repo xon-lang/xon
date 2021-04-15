@@ -4,7 +4,7 @@ import { LoopStatementTree } from '../../../tree/statement/loop-statement/loop-s
 import { fillStatementTypes } from '../statement-type.helper';
 
 test('has Integer type', () => {
-  const code = "loop item, index in [1, true]: 'A'";
+  const code = 'loop item, index in [1, true]: index + 2';
   const tree = parseStatement<LoopStatementTree>(code);
   expect(tree).toBeInstanceOf(LoopStatementTree);
 
@@ -12,5 +12,5 @@ test('has Integer type', () => {
   expect(tree.value.type.toString()).toBe('Integer | Boolean');
   expect(tree.index.type.toString()).toBe('Integer');
   expect(tree.expression.type.toString()).toBe('(Integer | Boolean)[]');
-  expect((tree.body[0] as ExpressionStatementTree).value.type.toString()).toBe('Char');
+  expect((tree.body[0] as ExpressionStatementTree).value.type.toString()).toBe('Integer');
 });
