@@ -10,11 +10,6 @@ export class MethodMemberType extends MemberType {
   }
 
   public fillTypes(): void {
-    // if(this.tree.returnType)
-    // addToScope(this.tree.name, createFunctionType(this.tree.parameters.map(x=>x.type), this.tree.returnType));
-    // else
-    // addToScope(this.tree.name, createActionType(this.tree.parameters.map(x=>x.type)));
-
     pushScope();
 
     this.tree.parameters.forEach((x) => {
