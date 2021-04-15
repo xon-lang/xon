@@ -6,7 +6,7 @@ import { TypeTree } from '../type/type.tree';
 export class ParameterTree extends BaseTree {
   public name: string;
 
-  public type?: TypeTree;
+  public type: TypeTree;
 
   public metaType?: string;
 
