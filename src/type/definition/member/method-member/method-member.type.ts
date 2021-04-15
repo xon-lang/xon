@@ -10,19 +10,20 @@ export class MethodMemberType extends MemberType {
   }
 
   public fillTypes(): void {
-    this.tree.parameters.forEach((x) => {
-      // eslint-disable-next-line no-param-reassign
-      x.type = x.type.useGenericsMap(this.genericsMap);
-      addToScope(x.name, x.type);
-    });
-
     // if(this.tree.returnType)
     // addToScope(this.tree.name, createFunctionType(this.tree.parameters.map(x=>x.type), this.tree.returnType));
     // else
     // addToScope(this.tree.name, createActionType(this.tree.parameters.map(x=>x.type)));
 
     pushScope();
+
+    this.tree.parameters.forEach((x) => {
+      // eslint-disable-next-line no-param-reassign
+      x.type = x.type.useGenericsMap(this.genericsMap);
+      addToScope(x.name, x.type);
+    });
     this.tree.body.forEach((x) => fillStatementTypes(x, this.genericsMap));
+
     popScope();
   }
 }
