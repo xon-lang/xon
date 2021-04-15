@@ -1,6 +1,5 @@
 import { LiteralExpressionTree } from '../../expression/literal-expression/literal-expression.tree';
 import { parseStatement } from '../../parse';
-import { PlainTypeTree } from '../../type/plain-type/plain-type.tree';
 import { AssignmentStatementTree } from './assignment-statement.tree';
 
 test('has value', () => {
@@ -20,7 +19,7 @@ test('has type and value', () => {
   expect(tree).toBeInstanceOf(AssignmentStatementTree);
 
   expect(tree.name).toBe('a');
-  expect((tree.type as PlainTypeTree).name).toBe('Integer');
+  expect(tree.type.name).toBe('Integer');
   expect(tree.value).toBeInstanceOf(LiteralExpressionTree);
   expect((tree.value as LiteralExpressionTree).literal.value).toBe(220);
 });

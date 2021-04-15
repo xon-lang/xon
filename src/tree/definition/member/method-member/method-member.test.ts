@@ -1,6 +1,5 @@
 import { parseMember, parseProgram } from '../../../parse';
 import { ProgramTree } from '../../../program/program.tree';
-import { PlainTypeTree } from '../../../type/plain-type/plain-type.tree';
 import { MethodMemberTree } from './method-member.tree';
 
 test('method member', () => {
@@ -13,15 +12,15 @@ test('method member', () => {
   expect(tree.parameters.length).toBe(3);
 
   expect(tree.parameters[0].name).toBe('argA');
-  expect((tree.parameters[0].typeTree as PlainTypeTree).name).toBe('Integer');
+  expect(tree.parameters[0].type.name).toBe('Integer');
 
   expect(tree.parameters[1].name).toBe('argB');
-  expect((tree.parameters[1].typeTree as PlainTypeTree).name).toBe('Float');
+  expect(tree.parameters[1].type.name).toBe('Float');
 
   expect(tree.parameters[2].name).toBe('argC');
-  expect((tree.parameters[2].typeTree as PlainTypeTree).name).toBe('String');
+  expect(tree.parameters[2].type.name).toBe('String');
 
-  expect((tree.returnType as PlainTypeTree).name).toBe('String');
+  expect(tree.returnType.name).toBe('String');
 });
 
 test('abstract method member', () => {

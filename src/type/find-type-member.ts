@@ -25,7 +25,7 @@ export function findOperatorMember(
   const operatorMembers = definition.operators.filter(
     (x) =>
       x.name === name &&
-      x.parameters[1].typeTree.useGenericsMap(definitionGenericsMap).equals(rightType),
+      x.parameters[1].type.useGenericsMap(definitionGenericsMap).equals(rightType),
   );
   if (operatorMembers.length === 0) throw new Error(`Operator "${name}" not found`);
   if (operatorMembers.length > 1)
@@ -58,10 +58,10 @@ export function findMember(type: TypeTree, name: string): TypeTree {
   if (member instanceof MethodMemberTree) {
     if (member.returnType)
       return createFunctionType(
-        member.parameters.map((x) => x.typeTree.useGenericsMap(genericsMap)),
+        member.parameters.map((x) => x.type.useGenericsMap(genericsMap)),
         member.returnType.useGenericsMap(genericsMap),
       );
-    return createActionType(member.parameters.map((x) => x.typeTree.useGenericsMap(genericsMap)));
+    return createActionType(member.parameters.map((x) => x.type.useGenericsMap(genericsMap)));
   }
 
   throw new Error(`Couldn't find member ${name}`);

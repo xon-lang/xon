@@ -1,5 +1,4 @@
 import { parseType } from '../../parse';
-import { PlainTypeTree } from '../plain-type/plain-type.tree';
 import { NullableTypeTree } from './nullable-type.tree';
 
 test('plain string type', () => {
@@ -7,5 +6,5 @@ test('plain string type', () => {
   const tree = parseType<NullableTypeTree>(code);
   expect(tree).toBeInstanceOf(NullableTypeTree);
 
-  expect((tree.baseType as PlainTypeTree).name).toBe('String');
+  expect(tree.baseType.name).toBe('String');
 });

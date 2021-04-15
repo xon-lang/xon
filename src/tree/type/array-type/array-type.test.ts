@@ -1,5 +1,4 @@
 import { parseType } from '../../parse';
-import { PlainTypeTree } from '../plain-type/plain-type.tree';
 import { ArrayTypeTree } from './array-type.tree';
 
 test('string array', () => {
@@ -7,5 +6,5 @@ test('string array', () => {
   const tree = parseType<ArrayTypeTree>(code);
   expect(tree).toBeInstanceOf(ArrayTypeTree);
 
-  expect((tree.itemType as PlainTypeTree).name).toBe('String');
+  expect(tree.itemType.name).toBe('String');
 });

@@ -12,8 +12,8 @@ test('array property', () => {
 
   expect(tree.name).toBe('s');
   expect(tree.isPrivate).toBe(false);
-  expect((tree.returnType as PlainTypeTree).name).toBe('Array');
-  expect(((tree.returnType as PlainTypeTree).generics[0] as PlainTypeTree).name).toBe('String');
+  expect(tree.returnType.name).toBe('Array');
+  expect((tree.returnType as PlainTypeTree).generics[0].name).toBe('String');
   expect(tree.value).toBeUndefined();
 });
 
@@ -24,7 +24,7 @@ test('private integer', () => {
 
   expect(tree.name).toBe('_a');
   expect(tree.isPrivate).toBe(true);
-  expect((tree.returnType as PlainTypeTree).name).toBe('Integer');
+  expect(tree.returnType.name).toBe('Integer');
   expect(tree.value).toBeUndefined();
 });
 
@@ -35,7 +35,7 @@ test('integer value', () => {
 
   expect(tree.name).toBe('_a');
   expect(tree.isPrivate).toBe(true);
-  expect((tree.returnType as PlainTypeTree).name).toBe('Integer');
+  expect(tree.returnType.name).toBe('Integer');
   expect((tree.value as LiteralExpressionTree).literal.value).toBe(9);
 });
 
