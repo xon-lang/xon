@@ -44,3 +44,8 @@ export function getExpressionType(tree: ExpressionTree, genericsMap: GenericsMap
 
   throw new Error(`${tree.constructor.name} not found`);
 }
+
+export function fillExpressionTypes(tree: ExpressionTree, genericsMap: GenericsMap): void {
+  // eslint-disable-next-line no-param-reassign
+  tree.type = getExpressionType(tree, genericsMap);
+}
