@@ -22,6 +22,7 @@ export class MethodMemberType extends MemberType {
       x.type = x.type.useGenericsMap(this.genericsMap);
       addToScope(x.name, x.type);
     });
+    this.tree.returnType = this.tree.returnType.useGenericsMap(this.genericsMap);
     this.tree.body.forEach((x) => fillStatementTypes(x, this.genericsMap));
 
     popScope();
