@@ -1,12 +1,10 @@
 import { TypeTree } from '../tree/type/type.tree';
 
-export type IdScope = Map<string, TypeTree>;
-
-const scopes: IdScope[] = [];
+const scopes: Map<string, TypeTree>[] = [];
 
 export const pushScope = (): number => scopes.push(new Map());
 
-export const popScope = (): IdScope => scopes.pop();
+export const popScope = (): Map<string, TypeTree> => scopes.pop();
 
 export const find = (name: string): TypeTree =>
   scopes

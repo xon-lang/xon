@@ -46,6 +46,8 @@ export function getExpressionType(tree: ExpressionTree, genericsMap: GenericsMap
 }
 
 export function fillExpressionTypes(tree: ExpressionTree, genericsMap: GenericsMap): void {
+  if (!tree) return;
+
   // eslint-disable-next-line no-param-reassign
   tree.type = getExpressionType(tree, genericsMap);
 }
