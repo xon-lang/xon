@@ -7,7 +7,9 @@
 
 import { BaseType } from '../base.type';
 
-export abstract class StatementType extends BaseType {}
+export abstract class StatementType extends BaseType {
+    
+}
 
 // export function getAssignmentStatementType(tree: AssignmentStatementTree): TypeTree {
 //   return null;

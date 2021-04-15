@@ -14,7 +14,7 @@ export class IndexExpressionType extends ExpressionType {
     const objectType = getExpressionType(this.tree.object, this.genericsMap);
     if (!(objectType instanceof ArrayTypeTree)) throw new Error('Object is not array');
 
-    const indexType = getExpressionType(this.tree.index);
+    const indexType = getExpressionType(this.tree.index, new Map());
     if (indexType.name !== 'Integer') throw new Error('Index must be Integer type');
 
     return objectType.itemType;

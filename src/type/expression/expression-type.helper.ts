@@ -22,10 +22,7 @@ import { MethodExpressionType } from './method-expression/method-expression.type
 import { OperatorExpressionType } from './operator-expression/operator-expression.type';
 import { ParenthesizedExpressionType } from './parenthesized-expression/parenthesized-expression.type';
 
-export function getExpressionType(
-  tree: ExpressionTree,
-  genericsMap: GenericsMap = new Map(),
-): TypeTree {
+export function getExpressionType(tree: ExpressionTree, genericsMap: GenericsMap): TypeTree {
   if (tree instanceof ArrayExpressionTree) return new ArrayExpressionType(tree, genericsMap).type();
   if (tree instanceof IdExpressionTree) return new IdExpressionType(tree, genericsMap).type();
   if (tree instanceof IndexExpressionTree) return new IndexExpressionType(tree, genericsMap).type();

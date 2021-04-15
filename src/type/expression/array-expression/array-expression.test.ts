@@ -7,7 +7,7 @@ test('all array items are integer literals', () => {
   const tree = parseStatement<ExpressionStatementTree>(code);
   expect(tree).toBeInstanceOf(ExpressionStatementTree);
 
-  const type = getExpressionType(tree.value);
+  const type = getExpressionType(tree.value, new Map());
   expect('Integer[]').toBe(type.toString());
 });
 
@@ -16,6 +16,6 @@ test('array items are float, string, integer and boolean literals', () => {
   const tree = parseStatement<ExpressionStatementTree>(code);
   expect(tree).toBeInstanceOf(ExpressionStatementTree);
 
-  const type = getExpressionType(tree.value);
+  const type = getExpressionType(tree.value, new Map());
   expect('(Integer | Boolean | String | Float)[]').toBe(type.toString());
 });

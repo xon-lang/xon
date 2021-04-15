@@ -7,7 +7,7 @@ test('index type is Integer', () => {
   const tree = parseStatement<ExpressionStatementTree>(code);
   expect(tree).toBeInstanceOf(ExpressionStatementTree);
 
-  const type = getExpressionType(tree.value);
+  const type = getExpressionType(tree.value, new Map());
   expect('Integer').toBe(type.toString());
 });
 
@@ -16,6 +16,6 @@ test('index type is Union', () => {
   const tree = parseStatement<ExpressionStatementTree>(code);
   expect(tree).toBeInstanceOf(ExpressionStatementTree);
 
-  const type = getExpressionType(tree.value);
+  const type = getExpressionType(tree.value, new Map());
   expect('String | Integer').toBe(type.toString());
 });

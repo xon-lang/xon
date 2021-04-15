@@ -7,6 +7,6 @@ test('integer has toString member', () => {
   const tree = parseStatement<ExpressionStatementTree>(code);
   expect(tree).toBeInstanceOf(ExpressionStatementTree);
 
-  const type = getExpressionType(tree.value);
+  const type = getExpressionType(tree.value, new Map());
   expect(type.toString()).toBe('() String');
 });

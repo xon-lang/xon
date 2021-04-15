@@ -21,6 +21,6 @@ export class LiteralExpressionType extends ExpressionType {
     if (this.tree.literal instanceof CharLiteralTree) return createPlainType('Char');
     if (this.tree.literal instanceof StringLiteralTree) return createPlainType('String');
 
-    return null;
+    throw new Error('Wrong literal type');
   }
 }

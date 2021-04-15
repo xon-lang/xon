@@ -7,6 +7,6 @@ test('has integer value', () => {
   const tree = parseStatement<ExpressionStatementTree>(code);
   expect(tree).toBeInstanceOf(ExpressionStatementTree);
 
-  const type = getExpressionType(tree.value);
+  const type = getExpressionType(tree.value, new Map());
   expect('Integer').toBe(type.toString());
 });
