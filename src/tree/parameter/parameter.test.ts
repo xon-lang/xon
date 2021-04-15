@@ -1,6 +1,4 @@
-import { LiteralExpressionTree } from '../expression/literal-expression/literal-expression.tree';
 import { parseParameter } from '../parse';
-import { PlainTypeTree } from '../type/plain-type/plain-type.tree';
 import { ParameterTree } from './parameter.tree';
 
 test('has data type', () => {
@@ -10,8 +8,7 @@ test('has data type', () => {
 
   expect(tree.name).toBe('b');
   expect(tree.metaType).toBeUndefined();
-  expect((tree.typeTree as PlainTypeTree).name).toBe('String');
-  expect((tree.value as LiteralExpressionTree).literal.value).toBe(3);
+  expect(tree.type.name).toBe('String');
 });
 
 test('has data and meta types', () => {
@@ -21,5 +18,5 @@ test('has data and meta types', () => {
 
   expect(tree.name).toBe('b');
   expect(tree.metaType).toBe('Literal');
-  expect((tree.typeTree as PlainTypeTree).name).toBe('String');
+  expect(tree.type.name).toBe('String');
 });
