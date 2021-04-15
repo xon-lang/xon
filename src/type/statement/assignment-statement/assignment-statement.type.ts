@@ -1,6 +1,7 @@
 import { AssignmentStatementTree } from '../../../tree/statement/assignment-statement/assignment-statement.tree';
 import { getExpressionType } from '../../expression/expression-type.helper';
 import { GenericsMap } from '../../generics-map';
+import { addToScope } from '../../id-scope';
 import { StatementType } from '../statement.type';
 
 export class AssignmentStatementType extends StatementType {
@@ -13,5 +14,7 @@ export class AssignmentStatementType extends StatementType {
 
     if (this.tree.type) this.tree.type = this.tree.type.useGenericsMap(this.genericsMap);
     else this.tree.type = this.tree.value.type;
+
+    addToScope(this.tree.name, this.tree.type);
   }
 }

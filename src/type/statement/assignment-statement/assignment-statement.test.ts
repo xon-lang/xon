@@ -13,7 +13,7 @@ test('has integer value', () => {
 });
 
 test('has integer type', () => {
-  const code = 'a Integer = 5';
+  const code = 'b Integer = 5';
   const tree = parseStatement<AssignmentStatementTree>(code);
   expect(tree).toBeInstanceOf(AssignmentStatementTree);
 
@@ -23,7 +23,7 @@ test('has integer type', () => {
 });
 
 test('has array type', () => {
-  const code = 'a Integer[] = []';
+  const code = 'c Integer[] = []';
   const tree = parseStatement<AssignmentStatementTree>(code);
   expect(tree).toBeInstanceOf(AssignmentStatementTree);
 

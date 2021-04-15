@@ -1,6 +1,6 @@
 import { TypeTree } from '../tree/type/type.tree';
 
-const scopes: Map<string, TypeTree>[] = [];
+const scopes: Map<string, TypeTree>[] = [new Map()];
 
 export const pushScope = (): number => scopes.push(new Map());
 
