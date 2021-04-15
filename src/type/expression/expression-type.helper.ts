@@ -42,7 +42,7 @@ export function getExpressionType(tree: ExpressionTree, genericsMap: GenericsMap
   if (tree instanceof ParenthesizedExpressionTree)
     return new ParenthesizedExpressionType(tree, genericsMap).type();
 
-  throw new Error(`${tree.constructor.name} not found`);
+  throw new Error('Expression type not found');
 }
 
 export function fillExpressionTypes(tree: ExpressionTree, genericsMap: GenericsMap): void {

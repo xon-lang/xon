@@ -23,5 +23,5 @@ export function fillStatementTypes(tree: StatementTree, genericsMap: GenericsMap
   else if (tree instanceof LoopStatementTree) new LoopStatementType(tree, genericsMap).fillTypes();
   else if (tree instanceof ReturnStatementTree)
     new ReturnStatementType(tree, genericsMap).fillTypes();
-  else throw new Error('StatementType not found');
+  else throw new Error('Statement type not found');
 }
