@@ -22,13 +22,13 @@ member:
     ;
 
 statement:
-    LOOP ((value = id (',' key = id?)? (',' index = id)? IN)? expression)? body # loopStatement
-    | IF expression body (ELSE body)?                                           # ifStatement
-    | BREAK                                                                     # breakStatement
-    | RETURN expression?                                                        # returnStatement
-    | id type? '=' expression                                                   # assignmentStatement
-    | expression                                                                # expressionStatement
-    | PREPROCESSOR                                                              # preprocessorStatement
+    LOOP ((value = id (',' index = id)? IN)? expression)? body # loopStatement
+    | IF expression body (ELSE body)?                          # ifStatement
+    | BREAK                                                    # breakStatement
+    | RETURN expression?                                       # returnStatement
+    | id type? '=' expression                                  # assignmentStatement
+    | expression                                               # expressionStatement
+    | PREPROCESSOR                                             # preprocessorStatement
     ;
 
 expression:

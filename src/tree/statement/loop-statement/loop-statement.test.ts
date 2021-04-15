@@ -12,9 +12,8 @@ test('loop with value', () => {
   expect(tree).toBeInstanceOf(LoopStatementTree);
 
   expect(tree.keyword).toBe('loop');
-  expect(tree.valueName).toBe('item');
-  expect(tree.keyName).toBeUndefined();
-  expect(tree.indexName).toBeUndefined();
+  expect(tree.value.name).toBe('item');
+  expect(tree.index.name).toBeUndefined();
   expect(tree.isInfinity).toBe(false);
   expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
@@ -23,46 +22,13 @@ test('loop with value', () => {
   expect(evalExpression(statement.value)).toBe(12 + 45 / 5);
 });
 
-test('loop with value and key', () => {
-  const code = 'loop val, key in object:\n    12+10';
-  const tree = parseStatement<LoopStatementTree>(code);
-  expect(tree).toBeInstanceOf(LoopStatementTree);
-
-  expect(tree.valueName).toBe('val');
-  expect(tree.keyName).toBe('key');
-  expect(tree.indexName).toBeUndefined();
-  expect(tree.isInfinity).toBe(false);
-  expect(tree.expression).toBeInstanceOf(IdExpressionTree);
-
-  expect(tree.body.length).toBe(1);
-  const statement = tree.body[0] as ExpressionStatementTree;
-  expect(evalExpression(statement.value)).toBe(12 + 10);
-});
-
-test('loop with value, key and index', () => {
-  const code = 'loop value, key, i in object:\n    12+10';
-  const tree = parseStatement<LoopStatementTree>(code);
-  expect(tree).toBeInstanceOf(LoopStatementTree);
-
-  expect(tree.valueName).toBe('value');
-  expect(tree.keyName).toBe('key');
-  expect(tree.indexName).toBe('i');
-  expect(tree.isInfinity).toBe(false);
-  expect(tree.expression).toBeInstanceOf(IdExpressionTree);
-
-  expect(tree.body.length).toBe(1);
-  const statement = tree.body[0] as ExpressionStatementTree;
-  expect(evalExpression(statement.value)).toBe(12 + 10);
-});
-
 test('loop with value and index', () => {
-  const code = 'loop value, key, i in object:\n    12+10';
+  const code = 'loop value, i in object:\n    12+10';
   const tree = parseStatement<LoopStatementTree>(code);
   expect(tree).toBeInstanceOf(LoopStatementTree);
 
-  expect(tree.valueName).toBe('value');
-  expect(tree.keyName).toBe('key');
-  expect(tree.indexName).toBe('i');
+  expect(tree.value.name).toBe('value');
+  expect(tree.index.name).toBe('i');
   expect(tree.isInfinity).toBe(false);
   expect(tree.expression).toBeInstanceOf(IdExpressionTree);
 
@@ -76,9 +42,8 @@ test('loop with expression only', () => {
   const tree = parseStatement<LoopStatementTree>(code);
   expect(tree).toBeInstanceOf(LoopStatementTree);
 
-  expect(tree.valueName).toBeUndefined();
-  expect(tree.keyName).toBeUndefined();
-  expect(tree.indexName).toBeUndefined();
+  expect(tree.value.name).toBeUndefined();
+  expect(tree.index.name).toBeUndefined();
   expect(tree.isInfinity).toBe(false);
   expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
@@ -92,9 +57,8 @@ test('infinity loop', () => {
   const tree = parseStatement<LoopStatementTree>(code);
   expect(tree).toBeInstanceOf(LoopStatementTree);
 
-  expect(tree.valueName).toBeUndefined();
-  expect(tree.keyName).toBeUndefined();
-  expect(tree.indexName).toBeUndefined();
+  expect(tree.value.name).toBeUndefined();
+  expect(tree.index.name).toBeUndefined();
   expect(tree.expression).toBeUndefined();
 
   expect(tree.body.length).toBe(1);
