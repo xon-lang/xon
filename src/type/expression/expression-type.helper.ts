@@ -40,5 +40,5 @@ export function fillExpressionTypes(tree: ExpressionTree, genericsMap: GenericsM
     new OperatorExpressionType(tree, genericsMap).fillTypes();
   else if (tree instanceof ParenthesizedExpressionTree)
     new ParenthesizedExpressionType(tree, genericsMap).fillTypes();
-  else throw new Error('Expression type not found');
+  else throw new Error(`Expression type not found for "${tree.constructor.name}"`);
 }

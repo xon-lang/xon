@@ -12,8 +12,8 @@ export function findDefinitionByType(type: TypeTree): DefinitionTree {
 }
 
 export function findOperatorMember(
-  leftType: TypeTree,
   name: string,
+  leftType: TypeTree,
   rightType: TypeTree,
 ): TypeTree {
   const definition = findDefinitionByType(leftType);
@@ -28,11 +28,17 @@ export function findOperatorMember(
       x.name === name &&
       x.parameters[1].type.useGenericsMap(definitionGenericsMap).equals(rightType),
   );
-  if (operatorMembers.length === 0) throw new Error(`Operator "${name}" not found`);
+
+  if (operatorMembers.length === 0)
+    throw Issue.errorFromTree(
+      leftType,
+      `Operator "${name}" not found in the class "${leftType.name}"`,
+    ).toError();
+
   if (operatorMembers.length > 1)
     throw Issue.errorFromTree(
       operatorMembers[0],
-      `Cannot choose right operator "${name}" from ${operatorMembers.length} overloads`,
+      `Cannot choose right operator "${name}" from ${operatorMembers.length} overloads in the class "${leftType.name}"`,
     ).toError();
 
   if (!operatorMembers[0].returnType)

@@ -30,8 +30,8 @@ export class Issue {
     issue.tree = tree;
     issue.level = IssueLevel.Error;
     issue.message = message;
-    issue.line = tree.ctx.start.line;
-    issue.column = tree.ctx.start.charPositionInLine;
+    issue.line = tree.ctx?.start.line;
+    issue.column = tree.ctx?.start.charPositionInLine;
     return issue;
   }
 
@@ -45,7 +45,9 @@ export class Issue {
         this.column,
       )}^`;
 
-    return `${this.message}. ${source}:${this.line}:${this.column}`;
+    const line = this.line ? `:${this.line}` : '';
+    const column = this.column ? `:${this.column}` : '';
+    return `${this.message}. ${source}${line}${column}`;
   }
 
   public toError(): Error {

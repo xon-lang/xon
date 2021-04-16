@@ -1,5 +1,5 @@
 import { AssignmentStatementTree } from '../../../tree/statement/assignment-statement/assignment-statement.tree';
-import { getExpressionType } from '../../expression/expression-type.helper';
+import { fillExpressionTypes } from '../../expression/expression-type.helper';
 import { GenericsMap } from '../../generics-map';
 import { addToScope } from '../../id-scope';
 import { StatementType } from '../statement.type';
@@ -10,7 +10,7 @@ export class AssignmentStatementType extends StatementType {
   }
 
   public fillTypes(): void {
-    this.tree.value.type = getExpressionType(this.tree.value, this.genericsMap);
+    fillExpressionTypes(this.tree.value, this.genericsMap);
 
     if (this.tree.type) this.tree.type = this.tree.type.useGenericsMap(this.genericsMap);
     else this.tree.type = this.tree.value.type;

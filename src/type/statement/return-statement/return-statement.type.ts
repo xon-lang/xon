@@ -9,6 +9,6 @@ export class ReturnStatementType extends StatementType {
   }
 
   public fillTypes(): void {
-    fillExpressionTypes(this.tree.value, this.genericsMap);
+    if (this.tree.value) fillExpressionTypes(this.tree.value, this.genericsMap);
   }
 }

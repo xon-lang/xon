@@ -11,10 +11,10 @@ export class OperatorExpressionType extends ExpressionType {
 
   public fillTypes(): void {
     fillExpressionTypes(this.tree.left, this.genericsMap);
-    fillExpressionTypes(this.tree.left, this.genericsMap);
+    fillExpressionTypes(this.tree.right, this.genericsMap);
     this.tree.type = findOperatorMember(
-      this.tree.left.type,
       this.tree.operator,
+      this.tree.left.type,
       this.tree.right.type,
     );
   }

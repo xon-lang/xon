@@ -16,5 +16,5 @@ export function fillMemberTypes(tree: MemberTree, genericsMap: GenericsMap): voi
     new OperatorMemberType(tree, genericsMap).fillTypes();
   else if (tree instanceof PropertyMemberTree)
     new PropertyMemberType(tree, genericsMap).fillTypes();
-  else throw new Error('Member type not found');
+  else throw new Error(`Member type not found for "${tree.constructor.name}"`);
 }
