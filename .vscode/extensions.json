@@ -3,7 +3,6 @@
     "mike-lischke.vscode-antlr4",
     "esbenp.prettier-vscode",
     "nizami.xon",
-    "streetsidesoftware.code-spell-checker",
-    "yuanhjty.code-template-tool"
+    "streetsidesoftware.code-spell-checker"
   ]
 }

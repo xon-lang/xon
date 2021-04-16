@@ -44,7 +44,7 @@ export function findOperatorMember(
   return operatorMembers[0].returnType.useGenericsMap(definitionGenericsMap);
 }
 
-export function findMember(type: TypeTree, name: string): TypeTree {
+export function getMemberType(type: TypeTree, name: string): TypeTree {
   const definition = findDefinitionByType(type);
   if (type.generics.length !== definition.generics.length)
     throw Issue.errorFromTree(definition, 'Wrong generics count').toError();

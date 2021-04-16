@@ -1,5 +1,5 @@
 import { ExpressionStatementTree } from '../../../tree/statement/expression-statement/expression-statement.tree';
-import { getExpressionType } from '../../expression/expression-type.helper';
+import { fillExpressionTypes } from '../../expression/expression-type.helper';
 import { GenericsMap } from '../../generics-map';
 import { StatementType } from '../statement.type';
 
@@ -9,6 +9,6 @@ export class ExpressionStatementType extends StatementType {
   }
 
   public fillTypes(): void {
-    this.tree.value.type = getExpressionType(this.tree.value, this.genericsMap);
+    fillExpressionTypes(this.tree.value, this.genericsMap);
   }
 }

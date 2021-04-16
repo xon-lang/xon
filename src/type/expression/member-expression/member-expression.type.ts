@@ -1,8 +1,7 @@
 import { MemberExpressionTree } from '../../../tree/expression/member-expression/member-expression.tree';
-import { TypeTree } from '../../../tree/type/type.tree';
-import { findMember } from '../../find-type-member';
+import { getMemberType } from '../../find-type-member';
 import { GenericsMap } from '../../generics-map';
-import { getExpressionType } from '../expression-type.helper';
+import { fillExpressionTypes } from '../expression-type.helper';
 import { ExpressionType } from '../expression.type';
 
 export class MemberExpressionType extends ExpressionType {
@@ -10,8 +9,8 @@ export class MemberExpressionType extends ExpressionType {
     super();
   }
 
-  public type(): TypeTree {
-    const objectType = getExpressionType(this.tree.object, this.genericsMap);
-    return findMember(objectType, this.tree.name);
+  public fillTypes(): void {
+    fillExpressionTypes(this.tree.object, this.genericsMap);
+    this.tree.type = getMemberType(this.tree.object.type, this.tree.name);
   }
 }

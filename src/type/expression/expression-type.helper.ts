@@ -1,4 +1,3 @@
-import { Issue } from '../../issue-service/issue';
 import { ArrayExpressionTree } from '../../tree/expression/array-expression/array-expression.tree';
 import { ExpressionTree } from '../../tree/expression/expression.tree';
 import { IdExpressionTree } from '../../tree/expression/id-expression/id-expression.tree';
@@ -10,7 +9,6 @@ import { MemberExpressionTree } from '../../tree/expression/member-expression/me
 import { MethodExpressionTree } from '../../tree/expression/method-expression/method-expression.tree';
 import { OperatorExpressionTree } from '../../tree/expression/operator-expression/operator-expression.tree';
 import { ParenthesizedExpressionTree } from '../../tree/expression/parenthesized-expression/parenthesized-expression.tree';
-import { TypeTree } from '../../tree/type/type.tree';
 import { GenericsMap } from '../generics-map';
 import { ArrayExpressionType } from './array-expression/array-expression.type';
 import { IdExpressionType } from './id-expression/id-expression.type';
@@ -23,41 +21,24 @@ import { MethodExpressionType } from './method-expression/method-expression.type
 import { OperatorExpressionType } from './operator-expression/operator-expression.type';
 import { ParenthesizedExpressionType } from './parenthesized-expression/parenthesized-expression.type';
 
-export function getExpressionType(tree: ExpressionTree, genericsMap: GenericsMap): TypeTree {
-  try {
-    if (tree instanceof ArrayExpressionTree)
-      return new ArrayExpressionType(tree, genericsMap).type();
-    if (tree instanceof IdExpressionTree) return new IdExpressionType(tree, genericsMap).type();
-    if (tree instanceof IndexExpressionTree)
-      return new IndexExpressionType(tree, genericsMap).type();
-    if (tree instanceof InstanceExpressionTree)
-      return new InstanceExpressionType(tree, genericsMap).type();
-    if (tree instanceof LambdaExpressionTree)
-      return new LambdaExpressionType(tree, genericsMap).type();
-    if (tree instanceof LiteralExpressionTree)
-      return new LiteralExpressionType(tree, genericsMap).type();
-    if (tree instanceof MemberExpressionTree)
-      return new MemberExpressionType(tree, genericsMap).type();
-    if (tree instanceof MethodExpressionTree)
-      return new MethodExpressionType(tree, genericsMap).type();
-    if (tree instanceof OperatorExpressionTree)
-      return new OperatorExpressionType(tree, genericsMap).type();
-
-    if (tree instanceof ParenthesizedExpressionTree)
-      return new ParenthesizedExpressionType(tree, genericsMap).type();
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.log(Issue.errorFromTree(tree,'').toError());
-
-    throw error;
-  }
-
-  throw new Error('Expression type not found');
-}
-
 export function fillExpressionTypes(tree: ExpressionTree, genericsMap: GenericsMap): void {
-  if (!tree) return;
-
-  // eslint-disable-next-line no-param-reassign
-  tree.type = getExpressionType(tree, genericsMap);
+  if (tree instanceof ArrayExpressionTree) new ArrayExpressionType(tree, genericsMap).fillTypes();
+  else if (tree instanceof IdExpressionTree) new IdExpressionType(tree, genericsMap).fillTypes();
+  else if (tree instanceof IndexExpressionTree)
+    new IndexExpressionType(tree, genericsMap).fillTypes();
+  else if (tree instanceof InstanceExpressionTree)
+    new InstanceExpressionType(tree, genericsMap).fillTypes();
+  else if (tree instanceof LambdaExpressionTree)
+    new LambdaExpressionType(tree, genericsMap).fillTypes();
+  else if (tree instanceof LiteralExpressionTree)
+    new LiteralExpressionType(tree, genericsMap).fillTypes();
+  else if (tree instanceof MemberExpressionTree)
+    new MemberExpressionType(tree, genericsMap).fillTypes();
+  else if (tree instanceof MethodExpressionTree)
+    new MethodExpressionType(tree, genericsMap).fillTypes();
+  else if (tree instanceof OperatorExpressionTree)
+    new OperatorExpressionType(tree, genericsMap).fillTypes();
+  else if (tree instanceof ParenthesizedExpressionTree)
+    new ParenthesizedExpressionType(tree, genericsMap).fillTypes();
+  else throw new Error('Expression type not found');
 }

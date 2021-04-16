@@ -1,8 +1,7 @@
 import { ArrayExpressionTree } from '../../../tree/expression/array-expression/array-expression.tree';
 import { createArrayType, createPlainType, createUnionType } from '../../../tree/type/type-helper';
-import { TypeTree } from '../../../tree/type/type.tree';
 import { GenericsMap } from '../../generics-map';
-import { getExpressionType } from '../expression-type.helper';
+import { fillExpressionTypes } from '../expression-type.helper';
 import { ExpressionType } from '../expression.type';
 
 export class ArrayExpressionType extends ExpressionType {
@@ -10,12 +9,17 @@ export class ArrayExpressionType extends ExpressionType {
     super();
   }
 
-  public type(): TypeTree {
-    if (!this.tree.items.length) return createArrayType(createPlainType('Any'));
+  public fillTypes(): void {
+    if (!this.tree.items.length) {
+      this.tree.type = createArrayType(createPlainType('Any'));
+      return;
+    }
 
-    const itemsTypes = this.tree.items.map((x) => getExpressionType(x, this.genericsMap));
-    if (itemsTypes.every((x) => x.equals(itemsTypes[0]))) return createArrayType(itemsTypes[0]);
+    this.tree.items.forEach((x) => fillExpressionTypes(x, this.genericsMap));
 
-    return createArrayType(createUnionType(itemsTypes));
+    const itemsTypes = this.tree.items.map((x) => x.type);
+    if (itemsTypes.every((x) => x.equals(itemsTypes[0])))
+      this.tree.type = createArrayType(itemsTypes[0]);
+    else this.tree.type = createArrayType(createUnionType(itemsTypes));
   }
 }

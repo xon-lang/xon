@@ -5,7 +5,7 @@ import { ActionTypeTree } from '../../../tree/type/action-type/action-type.tree'
 import { FunctionTypeTree } from '../../../tree/type/function-type/function-type.tree';
 import { TypeTree } from '../../../tree/type/type.tree';
 import { GenericsMap } from '../../generics-map';
-import { getExpressionType } from '../expression-type.helper';
+import { fillExpressionTypes } from '../expression-type.helper';
 import { ExpressionType } from '../expression.type';
 
 export class MethodExpressionType extends ExpressionType {
@@ -13,30 +13,32 @@ export class MethodExpressionType extends ExpressionType {
     super();
   }
 
-  public type(): TypeTree {
-    const objectType = getExpressionType(this.tree.object, this.genericsMap);
-    if (objectType instanceof ActionTypeTree) return null;
-    if (!(objectType instanceof FunctionTypeTree))
+  public fillTypes(): void {
+    fillExpressionTypes(this.tree.object, this.genericsMap);
+
+    if (this.tree.object.type instanceof ActionTypeTree) return;
+
+    if (!(this.tree.object.type instanceof FunctionTypeTree))
       throw Issue.fromTree(
         this.tree.object,
         null,
         IssueLevel.Error,
-        `Object is "${objectType.toString()}" but not a function or an action`,
+        `Object is "${this.tree.object.type.toString()}" but not a function or an action`,
       ).toError();
 
-    const argumentsTypes = this.tree.arguments.map((x) =>
-      getExpressionType(x.value, this.genericsMap),
-    );
+    this.tree.arguments.forEach((x) => fillExpressionTypes(x.value, this.genericsMap));
 
-    const argumentsGenericsEntries = objectType.parameters
-      .map((x, i) => x.getGenericsMap(argumentsTypes[i]).entries())
+    const argumentsGenericsEntries = this.tree.object.type.parameters
+      .map((x, i) => x.getGenericsMap(this.tree.arguments.map((z) => z.value.type)[i]).entries())
       .map((x) => Array.from(x))
       .flat();
 
     const genericsMap = this.tree.generics
-      ? objectType.declaredGenerics.map((x, i) => [x, this.tree.generics[i]])
+      ? this.tree.object.type.declaredGenerics.map((x, i) => [x, this.tree.generics[i]])
       : argumentsGenericsEntries;
 
-    return objectType.returnType.useGenericsMap(new Map(genericsMap as [string, TypeTree][]));
+    this.tree.type = this.tree.object.type.returnType.useGenericsMap(
+      new Map(genericsMap as [string, TypeTree][]),
+    );
   }
 }

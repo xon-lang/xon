@@ -5,7 +5,6 @@ import { FloatLiteralTree } from '../../../tree/literal/float-literal/float-lite
 import { IntegerLiteralTree } from '../../../tree/literal/integer-literal/integer-literal.tree';
 import { StringLiteralTree } from '../../../tree/literal/string-literal/string-literal.tree';
 import { createPlainType } from '../../../tree/type/type-helper';
-import { TypeTree } from '../../../tree/type/type.tree';
 import { GenericsMap } from '../../generics-map';
 import { ExpressionType } from '../expression.type';
 
@@ -14,13 +13,16 @@ export class LiteralExpressionType extends ExpressionType {
     super();
   }
 
-  public type(): TypeTree {
-    if (this.tree.literal instanceof BooleanLiteralTree) return createPlainType('Boolean');
-    if (this.tree.literal instanceof IntegerLiteralTree) return createPlainType('Integer');
-    if (this.tree.literal instanceof FloatLiteralTree) return createPlainType('Float');
-    if (this.tree.literal instanceof CharLiteralTree) return createPlainType('Char');
-    if (this.tree.literal instanceof StringLiteralTree) return createPlainType('String');
-
-    throw new Error('Wrong literal type');
+  public fillTypes(): void {
+    if (this.tree.literal instanceof BooleanLiteralTree)
+      this.tree.type = createPlainType('Boolean');
+    else if (this.tree.literal instanceof IntegerLiteralTree)
+      this.tree.type = createPlainType('Integer');
+    else if (this.tree.literal instanceof FloatLiteralTree)
+      this.tree.type = createPlainType('Float');
+    else if (this.tree.literal instanceof CharLiteralTree) this.tree.type = createPlainType('Char');
+    else if (this.tree.literal instanceof StringLiteralTree)
+      this.tree.type = createPlainType('String');
+    else throw new Error('Wrong literal type');
   }
 }

@@ -1,8 +1,7 @@
 import { LambdaExpressionTree } from '../../../tree/expression/lambda-expression/lambda-expression.tree';
 import { createFunctionType, createPlainType } from '../../../tree/type/type-helper';
-import { TypeTree } from '../../../tree/type/type.tree';
 import { GenericsMap } from '../../generics-map';
-import { getExpressionType } from '../expression-type.helper';
+import { fillExpressionTypes } from '../expression-type.helper';
 import { ExpressionType } from '../expression.type';
 
 export class LambdaExpressionType extends ExpressionType {
@@ -10,9 +9,12 @@ export class LambdaExpressionType extends ExpressionType {
     super();
   }
 
-  public type(): TypeTree {
-    const parametersTypes = this.tree.parameters.map(() => createPlainType('Any'));
-    const returnType = getExpressionType(this.tree.body, this.genericsMap);
-    return createFunctionType([],parametersTypes, returnType);
+  public fillTypes(): void {
+    fillExpressionTypes(this.tree.body, this.genericsMap);
+    this.tree.type = createFunctionType(
+      [],
+      this.tree.parameters.map(() => createPlainType('Any')),
+      this.tree.body.type,
+    );
   }
 }

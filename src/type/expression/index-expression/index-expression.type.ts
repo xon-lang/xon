@@ -1,8 +1,7 @@
 import { IndexExpressionTree } from '../../../tree/expression/index-expression/index-expression.tree';
 import { ArrayTypeTree } from '../../../tree/type/array-type/array-type.tree';
-import { TypeTree } from '../../../tree/type/type.tree';
 import { GenericsMap } from '../../generics-map';
-import { getExpressionType } from '../expression-type.helper';
+import { fillExpressionTypes } from '../expression-type.helper';
 import { ExpressionType } from '../expression.type';
 
 export class IndexExpressionType extends ExpressionType {
@@ -10,13 +9,13 @@ export class IndexExpressionType extends ExpressionType {
     super();
   }
 
-  public type(): TypeTree {
-    const objectType = getExpressionType(this.tree.object, this.genericsMap);
-    if (!(objectType instanceof ArrayTypeTree)) throw new Error('Object is not array');
+  public fillTypes(): void {
+    fillExpressionTypes(this.tree.object, this.genericsMap);
+    if (!(this.tree.object.type instanceof ArrayTypeTree)) throw new Error('Object is not array');
 
-    const indexType = getExpressionType(this.tree.index, new Map());
-    if (indexType.name !== 'Integer') throw new Error('Index must be Integer type');
+    fillExpressionTypes(this.tree.index, this.genericsMap);
+    if (this.tree.index.type.name !== 'Integer') throw new Error('Index must be Integer type');
 
-    return objectType.itemType;
+    this.tree.type = this.tree.object.type.itemType;
   }
 }

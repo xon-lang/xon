@@ -1,5 +1,4 @@
 import { InstanceExpressionTree } from '../../../tree/expression/instance-expression/instance-expression.tree';
-import { TypeTree } from '../../../tree/type/type.tree';
 import { GenericsMap } from '../../generics-map';
 import { find } from '../../id-scope';
 import { ExpressionType } from '../expression.type';
@@ -9,7 +8,7 @@ export class InstanceExpressionType extends ExpressionType {
     super();
   }
 
-  public type(): TypeTree {
-    return find(this.tree.name);
+  public fillTypes(): void {
+    this.tree.type = find(this.tree.name);
   }
 }

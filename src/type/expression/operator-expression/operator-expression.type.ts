@@ -1,8 +1,7 @@
 import { OperatorExpressionTree } from '../../../tree/expression/operator-expression/operator-expression.tree';
-import { TypeTree } from '../../../tree/type/type.tree';
 import { findOperatorMember } from '../../find-type-member';
 import { GenericsMap } from '../../generics-map';
-import { getExpressionType } from '../expression-type.helper';
+import { fillExpressionTypes } from '../expression-type.helper';
 import { ExpressionType } from '../expression.type';
 
 export class OperatorExpressionType extends ExpressionType {
@@ -10,9 +9,13 @@ export class OperatorExpressionType extends ExpressionType {
     super();
   }
 
-  public type(): TypeTree {
-    const leftType = getExpressionType(this.tree.left, this.genericsMap);
-    const rightType = getExpressionType(this.tree.left, this.genericsMap);
-    return findOperatorMember(leftType, this.tree.operator, rightType);
+  public fillTypes(): void {
+    fillExpressionTypes(this.tree.left, this.genericsMap);
+    fillExpressionTypes(this.tree.left, this.genericsMap);
+    this.tree.type = findOperatorMember(
+      this.tree.left.type,
+      this.tree.operator,
+      this.tree.right.type,
+    );
   }
 }

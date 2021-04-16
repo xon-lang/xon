@@ -5,4 +5,6 @@ export abstract class BaseType {
   abstract tree: BaseTree;
 
   abstract genericsMap: GenericsMap;
+
+  abstract fillTypes(): void;
 }
