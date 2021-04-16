@@ -47,16 +47,18 @@ export function createArrayType(itemType: TypeTree): ArrayTypeTree {
   return type;
 }
 
-export function createFunctionType(parameters: TypeTree[], returnType: TypeTree): FunctionTypeTree {
+export function createFunctionType(declaredGenerics: string[], parameters: TypeTree[], returnType: TypeTree): FunctionTypeTree {
   const type = new FunctionTypeTree();
+  type.declaredGenerics = declaredGenerics;
   type.parameters = parameters;
   type.returnType = returnType;
   type.generics = [...parameters, returnType];
   return type;
 }
 
-export function createActionType(parameters: TypeTree[]): ActionTypeTree {
+export function createActionType(declaredGenerics: string[],parameters: TypeTree[]): ActionTypeTree {
   const type = new ActionTypeTree();
+  type.declaredGenerics = declaredGenerics;
   type.parameters = parameters;
   type.generics = parameters;
   return type;

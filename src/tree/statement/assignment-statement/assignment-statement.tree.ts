@@ -8,7 +8,7 @@ import { StatementTree } from '../statement.tree';
 export class AssignmentStatementTree extends StatementTree {
   public name: string;
 
-  public type: TypeTree;
+  public type?: TypeTree;
 
   public value: ExpressionTree;
 

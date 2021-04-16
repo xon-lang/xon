@@ -3,7 +3,7 @@ import { DefinitionTree } from '../tree/definition/definition.tree';
 import { parseProgram } from '../tree/parse';
 import { ProgramTree } from '../tree/program/program.tree';
 
-// const definitionCache = new Map<string, DefinitionTree>();
+export const definitionCache = new Map<string, DefinitionTree>();
 
 function loadProgramByPath(filePath: string): ProgramTree {
   // eslint-disable-next-line @typescript-eslint/dot-notation
@@ -26,7 +26,10 @@ function loadProgramByPath(filePath: string): ProgramTree {
 //   );
 
 export function findDefinition(name: string): DefinitionTree {
-  return loadProgramByPath(`src/xon-lib/global/${name}.xon`).definitions[0];
+  if (definitionCache.has(name)) return definitionCache.get(name);
+  return loadProgramByPath(`src/xon-lib/global/${name}.xon`).definitions.find(
+    (x) => x.name === name,
+  );
   // return definitionCache.get(name);
 }
 

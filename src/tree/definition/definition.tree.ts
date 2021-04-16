@@ -51,7 +51,5 @@ export class DefinitionTree extends BaseTree {
       if (x instanceof OperatorMemberTree) this.operators.push(x);
       if (x instanceof MethodMemberTree) this.methods.push(x);
     });
-
-    this.members.forEach((x) => x.markGenerics(this.generics));
   }
 }

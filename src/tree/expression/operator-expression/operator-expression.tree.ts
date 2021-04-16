@@ -1,20 +1,13 @@
-import { OperatorExpressionContext } from '../../../grammar/xon-parser';
-import { getExpressionTree } from '../expression-helper';
+import { ExpressionContext } from '../../../grammar/xon-parser';
 import { ExpressionTree } from '../expression.tree';
 
 export class OperatorExpressionTree extends ExpressionTree {
-  public operator: string;
-
-  public left: ExpressionTree;
-
-  public right: ExpressionTree;
-
-  public constructor(public ctx?: OperatorExpressionContext) {
+  public constructor(
+    public ctx: ExpressionContext,
+    public operator: string,
+    public left: ExpressionTree,
+    public right: ExpressionTree,
+  ) {
     super();
-    if (!ctx) return;
-
-    this.operator = ctx.operator().text;
-    this.left = getExpressionTree(ctx.expression(0));
-    this.right = getExpressionTree(ctx.expression(1));
   }
 }

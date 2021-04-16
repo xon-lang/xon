@@ -1,8 +1,13 @@
 import { TypeTree } from '../tree/type/type.tree';
 
-const scopes: Map<string, TypeTree>[] = [new Map()];
+const scopes: Map<string, TypeTree>[] = [];
 
-export const pushScope = (): number => scopes.push(new Map());
+export const clearScopes = (): void => {
+  scopes.splice(0);
+};
+
+export const pushScope = (): Map<string, TypeTree> =>
+  scopes.push(new Map()) && scopes[scopes.length - 1];
 
 export const popScope = (): Map<string, TypeTree> => scopes.pop();
 
@@ -13,7 +18,7 @@ export const find = (name: string): TypeTree =>
     ?.get(name);
 
 export const addToScope = (name: string, type: TypeTree): void => {
-  const lastScope = scopes[scopes.length - 1];
+  const lastScope = scopes[scopes.length - 1] || pushScope();
   if (lastScope.has(name)) throw new Error(`"${name}" already exists in the scope`);
   lastScope.set(name, type);
 };

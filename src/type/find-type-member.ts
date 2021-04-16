@@ -1,3 +1,4 @@
+import { Issue } from '../issue-service/issue';
 import { DefinitionTree } from '../tree/definition/definition.tree';
 import { MethodMemberTree } from '../tree/definition/member/method-member/method-member.tree';
 import { PropertyMemberTree } from '../tree/definition/member/property-member/property-member.tree';
@@ -17,7 +18,7 @@ export function findOperatorMember(
 ): TypeTree {
   const definition = findDefinitionByType(leftType);
   if (leftType.generics.length !== definition.generics.length)
-    throw new Error('Wrong generics count');
+    throw Issue.errorFromTree(definition, 'Wrong generics count').toError();
 
   const definitionGenericsMap: GenericsMap = new Map(
     definition.generics.map((x, i) => [x, leftType.generics[i]]),
@@ -29,22 +30,35 @@ export function findOperatorMember(
   );
   if (operatorMembers.length === 0) throw new Error(`Operator "${name}" not found`);
   if (operatorMembers.length > 1)
-    throw new Error(
+    throw Issue.errorFromTree(
+      operatorMembers[0],
       `Cannot choose right operator "${name}" from ${operatorMembers.length} overloads`,
-    );
-  if (!operatorMembers[0].returnType) throw new Error(`Operator "${name}" must have return type`);
+    ).toError();
+
+  if (!operatorMembers[0].returnType)
+    throw Issue.errorFromTree(
+      operatorMembers[0],
+      `Operator "${name}" must have return type`,
+    ).toError();
 
   return operatorMembers[0].returnType.useGenericsMap(definitionGenericsMap);
 }
 
 export function findMember(type: TypeTree, name: string): TypeTree {
   const definition = findDefinitionByType(type);
-  if (type.generics.length !== definition.generics.length) throw new Error('Wrong generics count');
+  if (type.generics.length !== definition.generics.length)
+    throw Issue.errorFromTree(definition, 'Wrong generics count').toError();
 
   const members = definition.members.filter((x) => x.name === name);
-  if (members.length === 0) throw new Error(`Member "${name}" not found`);
+
+  if (members.length === 0)
+    throw Issue.errorFromTree(definition, `Member "${name}" not found`).toError();
+
   if (members.length > 1)
-    throw new Error(`Cannot choose right member "${name}" of ${members.length}`);
+    throw Issue.errorFromTree(
+      members[0],
+      `Cannot choose right member "${name}" of ${members.length}`,
+    ).toError();
 
   const genericsMap: GenericsMap = new Map(
     definition.generics.map((x, i) => [x, type.generics[i]]),
@@ -58,13 +72,17 @@ export function findMember(type: TypeTree, name: string): TypeTree {
   if (member instanceof MethodMemberTree) {
     if (member.returnType)
       return createFunctionType(
+        member.generics,
         member.parameters.map((x) => x.type.useGenericsMap(genericsMap)),
         member.returnType.useGenericsMap(genericsMap),
       );
-    return createActionType(member.parameters.map((x) => x.type.useGenericsMap(genericsMap)));
+    return createActionType(
+      member.generics,
+      member.parameters.map((x) => x.type.useGenericsMap(genericsMap)),
+    );
   }
 
-  throw new Error(`Couldn't find member ${name}`);
+  throw Issue.errorFromTree(definition, `Couldn't find member ${name}`).toError();
 }
 
 // export function findTheBestMethod<T extends MethodType>(

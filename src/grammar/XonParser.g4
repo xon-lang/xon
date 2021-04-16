@@ -32,16 +32,26 @@ statement:
     ;
 
 expression:
-    id                                                 # idExpression
-    | '@'                                              # instanceExpression
-    | literal                                          # literalExpression
-    | expression '.' id                                # memberExpression
-    | expression ('<' type (',' type)* '>')? arguments # methodExpression
-    | expression '[' expression ']'                    # indexExpression
-    | expression operator expression                   # operatorExpression
-    | '[' (expression (',' expression)*)? ']'          # arrayExpression
-    | '(' expression ')'                               # parenthesizedExpression
-    | '\\' (id (',' id)* ':')? expression              # lambdaExpression
+    '@'                                                                        # instanceExpression
+    | id                                                                       # idExpression
+    | literal                                                                  # literalExpression
+    | expression '.' id                                                        # memberExpression
+    | expression ('<' type (',' type)* '>')? arguments                         # methodExpression
+    | expression '[' expression ']'                                            # indexExpression
+    | left = expression op = '^' right = expression                            # powExpression
+    | '-' expression                                                           # negativeExpression
+    | NOT expression                                                           # logicalNotExpression
+    | left = expression op = ('*' | '/' | '%') right = expression              # mulDivModExpression
+    | left = expression op = ('+' | '-') right = expression                    # addSubExpression
+    | left = expression op = '..' right = expression                           # rangeExpression
+    | left = expression (op += ('<' | '<=' | '>=' | '>') right += expression)+ # relationalExpression
+    | left = expression op = ('==' | '!=') right = expression                  # equalityExpression
+    | left = expression AND right = expression                                 # logicalAndExpression
+    | left = expression OR right = expression                                  # logicalOrExpression
+    | '[' (expression (',' expression)*)? ']'                                  # arrayExpression
+    | '(' expression ')'                                                       # parenthesizedExpression
+    // |  id+ ':')? expression                         # lambdaExpression
+    | '\\' (id (',' id)* ':')? expression # lambdaExpression
     ;
 
 literal:
@@ -64,19 +74,19 @@ type:
     ;
 
 operator:
-    '+'
-    | '-'
+    '^'
     | '*'
     | '/'
     | '%'
-    | '^'
-    | '=' '='
-    | '<' '='?
-    | '>' '='?
-    | '!' '='?
-    | '&' '&'?
-    | '|' '|'?
-    | '.' '.' '.'?
+    | '+'
+    | '-'
+    | '<'
+    | '>'
+    | '=='
+    | '&&'
+    | '||'
+    | '^^'
+    | '..'
     ;
 
 id:         ID;

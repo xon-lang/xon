@@ -1,9 +1,11 @@
 import { FunctionTypeContext } from '../../../grammar/xon-parser';
-import { getTypeTree } from '../type-helper';
+import { createFunctionType, getTypeTree } from '../type-helper';
 import { TypeTree } from '../type.tree';
 
 export class FunctionTypeTree extends TypeTree {
-  public parameters: TypeTree[];
+  public declaredGenerics: string[] = [];
+
+  public parameters: TypeTree[] = [];
 
   public returnType: TypeTree;
 
@@ -26,11 +28,11 @@ export class FunctionTypeTree extends TypeTree {
   }
 
   public useGenericsMap(genericsMap: Map<string, TypeTree> = new Map()): FunctionTypeTree {
-    const type = new FunctionTypeTree();
-    type.parameters = this.parameters.map((x) => x.useGenericsMap(genericsMap));
-    type.returnType = this.returnType.useGenericsMap(genericsMap);
-    type.generics = this.generics.map((x) => x.useGenericsMap(genericsMap));
-    return type;
+    return createFunctionType(
+      this.declaredGenerics,
+      this.parameters.map((x) => x.useGenericsMap(genericsMap)),
+      this.returnType.useGenericsMap(genericsMap),
+    );
   }
 
   public getGenericsMap(type: TypeTree): Map<string, TypeTree> {
@@ -51,9 +53,10 @@ export class FunctionTypeTree extends TypeTree {
   }
 
   public toString(): string {
+    const declaredGenerics = this.declaredGenerics?.join(', ');
     const parameters = this.parameters.map((x) => x.toString()).join(', ');
     const returnType = this.returnType.toString();
 
-    return `(${parameters}) ${returnType}`;
+    return `${declaredGenerics ? `<${declaredGenerics}>` : ''}(${parameters}) ${returnType}`;
   }
 }

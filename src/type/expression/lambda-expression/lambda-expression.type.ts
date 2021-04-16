@@ -13,6 +13,6 @@ export class LambdaExpressionType extends ExpressionType {
   public type(): TypeTree {
     const parametersTypes = this.tree.parameters.map(() => createPlainType('Any'));
     const returnType = getExpressionType(this.tree.body, this.genericsMap);
-    return createFunctionType(parametersTypes, returnType);
+    return createFunctionType([],parametersTypes, returnType);
   }
 }

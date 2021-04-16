@@ -1,6 +1,10 @@
 import { ExpressionTree } from './expression/expression.tree';
 import { IdExpressionTree } from './expression/id-expression/id-expression.tree';
 import { LiteralExpressionTree } from './expression/literal-expression/literal-expression.tree';
+import { LogicalAndExpressionTree } from './expression/logical-and-expression/logical-and-expression.tree';
+import { LogicalNotExpressionTree } from './expression/logical-not-expression/logical-not-expression.tree';
+import { LogicalOrExpressionTree } from './expression/logical-or-expression/logical-or-expression.tree';
+import { NegativeExpressionTree } from './expression/negative-expression/negative-expression.tree';
 import { OperatorExpressionTree } from './expression/operator-expression/operator-expression.tree';
 import { ParenthesizedExpressionTree } from './expression/parenthesized-expression/parenthesized-expression.tree';
 
@@ -11,6 +15,16 @@ export const evalExpression = (tree: ExpressionTree, argsMap = {}): unknown => {
 
   if (tree instanceof LiteralExpressionTree) return tree.literal.value;
   if (tree instanceof ParenthesizedExpressionTree) return evalExpression(tree.value);
+  if (tree instanceof LogicalAndExpressionTree)
+    return evalExpression(tree.left, argsMap) && evalExpression(tree.right, argsMap);
+
+  if (tree instanceof LogicalOrExpressionTree)
+    return evalExpression(tree.left, argsMap) || evalExpression(tree.right, argsMap);
+
+  if (tree instanceof NegativeExpressionTree) return -evalExpression(tree.value, argsMap);
+
+  if (tree instanceof LogicalNotExpressionTree) return !evalExpression(tree.value, argsMap);
+
   if (tree instanceof OperatorExpressionTree) {
     const a = evalExpression(tree.left, argsMap);
     const b = evalExpression(tree.right, argsMap);

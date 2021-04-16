@@ -3,8 +3,6 @@ import { createPlainType, getTypesTrees } from '../type-helper';
 import { TypeTree } from '../type.tree';
 
 export class PlainTypeTree extends TypeTree {
-  public isGeneric: boolean;
-
   public constructor(public ctx?: PlainTypeContext) {
     super();
     if (!ctx) return;
@@ -22,16 +20,8 @@ export class PlainTypeTree extends TypeTree {
     );
   }
 
-  public markGenerics(generics: string[]): void {
-    if (this.generics.length) super.markGenerics(generics);
-    else if (generics.includes(this.name)) this.isGeneric = true;
-  }
-
   public useGenericsMap(genericsMap: Map<string, TypeTree>): TypeTree {
-    if (this.isGeneric) {
-      if (this.generics.length) throw new Error('Generic type must not contains generics');
-      if (genericsMap.has(this.name)) return genericsMap.get(this.name);
-    }
+    if (genericsMap.has(this.name)) return genericsMap.get(this.name);
     return createPlainType(
       this.name,
       this.generics.map((x) => x.useGenericsMap(genericsMap)),
@@ -39,9 +29,7 @@ export class PlainTypeTree extends TypeTree {
   }
 
   public getGenericsMap(type: TypeTree): Map<string, TypeTree> {
-    if (this.isGeneric) return new Map([[type.name, type]]);
-
-    if (type.name !== this.name) throw new Error(`Type "${type.name}" is not "${this.name}"`);
+    if (type.name === this.name) return new Map([[type.name, type]]);
 
     if (type.generics.length !== this.generics.length)
       throw new Error(

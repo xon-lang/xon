@@ -21,16 +21,15 @@ IS:     'is';
 AS:     'as';
 IF:     'if';
 IN:     'in';
+OR:     'or';
+NOT:    'not';
+AND:    'and';
 ELSE:   'else';
 LOOP:   'loop';
 INIT:   'init';
 VOID:   'void';
 BREAK:  'break';
 RETURN: 'return';
-
-// NOT: 'not';
-// and: 'and';
-// or:   'or';
 
 OPEN_BRACKET:  '[' {this.opened++;};
 CLOSE_BRACKET: ']' {this.opened--;};
@@ -39,27 +38,40 @@ CLOSE_PAREN:   ')' {this.opened--;};
 OPEN_BRACE:    '{' {this.opened++;};
 CLOSE_BRACE:   '}' {this.opened--;};
 
-AD:           '@';
-DOT:          '.';
-PLUS:         '+';
-HASH:         '#';
-PIPE:         '|';
-COMMA:        ',';
-COLON:        ':';
-MINUS:        '-';
-SLASH:        '/';
-CARET:        '^';
-TILDE:        '~';
-ASSIGN:       '=';
-MODULO:       '%';
-QUESTION:     '?';
-ASTERISK:     '*';
-LESS_THAN:    '<';
-MORE_THAN:    '>';
-AMPERSAND:    '&';
-UNDERSCORE:   '_';
-EXCLAMATION:  '!';
-LAMBDA_START: '\\';
+AD:    '@';
+PLUS:  '+';
+HASH:  '#';
+PIPE:  '|';
+COMMA: ',';
+COLON: ':';
+MINUS: '-';
+SLASH: '/';
+CARET: '^';
+TILDE: '~';
+
+SPREAD: '...';
+RANGE:  '..';
+DOT:    '.';
+
+LESS_THAN_EQUAL: '<=';
+MORE_THAN_EQUAL: '>=';
+LESS_THAN:       '<';
+MORE_THAN:       '>';
+
+ASSIGN:    '=';
+EQUAL:     '==';
+NOT_EQUAL: '!=';
+
+BIT_AND: '&&';
+BIT_OR:  '||';
+BIT_XOR: '^^';
+
+LAMBDA:      '\\';
+MODULO:      '%';
+QUESTION:    '?';
+ASTERISK:    '*';
+UNDERSCORE:  '_';
+EXCLAMATION: '!';
 
 FLOAT_LITERAL:
     [0-9][0-9]? 'x' AlphabetNumber '.' AlphabetNumber

@@ -1,9 +1,11 @@
 import { ActionTypeContext } from '../../../grammar/xon-parser';
-import { getTypeTree } from '../type-helper';
+import { createActionType, getTypeTree } from '../type-helper';
 import { TypeTree } from '../type.tree';
 
 export class ActionTypeTree extends TypeTree {
-  public parameters: TypeTree[];
+  public declaredGenerics: string[] = [];
+
+  public parameters: TypeTree[] = [];
 
   public constructor(public ctx?: ActionTypeContext) {
     super();
@@ -22,10 +24,10 @@ export class ActionTypeTree extends TypeTree {
   }
 
   public useGenericsMap(genericsMap: Map<string, TypeTree> = new Map()): ActionTypeTree {
-    const type = new ActionTypeTree();
-    type.parameters = this.parameters.map((x) => x.useGenericsMap(genericsMap));
-    type.generics = this.generics.map((x) => x.useGenericsMap(genericsMap));
-    return type;
+    return createActionType(
+      this.declaredGenerics,
+      this.parameters.map((x) => x.useGenericsMap(genericsMap)),
+    );
   }
 
   public getGenericsMap(type: TypeTree): Map<string, TypeTree> {
@@ -46,7 +48,8 @@ export class ActionTypeTree extends TypeTree {
   }
 
   public toString(): string {
+    const declaredGenerics = this.declaredGenerics?.join(', ');
     const parameters = this.parameters.map((x) => x.toString()).join(', ');
-    return `(${parameters})`;
+    return `${declaredGenerics ? `<${declaredGenerics}>` : ''}(${parameters})`;
   }
 }

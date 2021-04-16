@@ -24,11 +24,19 @@ export class DefinitionType extends BaseType {
         addToScope(
           x.name,
           createFunctionType(
+            x.generics,
             x.parameters.map((z) => z.type),
             x.returnType,
           ),
         );
-      else addToScope(x.name, createActionType(x.parameters.map((z) => z.type)));
+      else
+        addToScope(
+          x.name,
+          createActionType(
+            x.generics,
+            x.parameters.map((z) => z.type),
+          ),
+        );
     });
 
     this.tree.properties.forEach((x) => addToScope(x.name, x.returnType));

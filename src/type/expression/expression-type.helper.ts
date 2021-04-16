@@ -1,3 +1,4 @@
+import { Issue } from '../../issue-service/issue';
 import { ArrayExpressionTree } from '../../tree/expression/array-expression/array-expression.tree';
 import { ExpressionTree } from '../../tree/expression/expression.tree';
 import { IdExpressionTree } from '../../tree/expression/id-expression/id-expression.tree';
@@ -23,24 +24,33 @@ import { OperatorExpressionType } from './operator-expression/operator-expressio
 import { ParenthesizedExpressionType } from './parenthesized-expression/parenthesized-expression.type';
 
 export function getExpressionType(tree: ExpressionTree, genericsMap: GenericsMap): TypeTree {
-  if (tree instanceof ArrayExpressionTree) return new ArrayExpressionType(tree, genericsMap).type();
-  if (tree instanceof IdExpressionTree) return new IdExpressionType(tree, genericsMap).type();
-  if (tree instanceof IndexExpressionTree) return new IndexExpressionType(tree, genericsMap).type();
-  if (tree instanceof InstanceExpressionTree)
-    return new InstanceExpressionType(tree, genericsMap).type();
-  if (tree instanceof LambdaExpressionTree)
-    return new LambdaExpressionType(tree, genericsMap).type();
-  if (tree instanceof LiteralExpressionTree)
-    return new LiteralExpressionType(tree, genericsMap).type();
-  if (tree instanceof MemberExpressionTree)
-    return new MemberExpressionType(tree, genericsMap).type();
-  if (tree instanceof MethodExpressionTree)
-    return new MethodExpressionType(tree, genericsMap).type();
-  if (tree instanceof OperatorExpressionTree)
-    return new OperatorExpressionType(tree, genericsMap).type();
+  try {
+    if (tree instanceof ArrayExpressionTree)
+      return new ArrayExpressionType(tree, genericsMap).type();
+    if (tree instanceof IdExpressionTree) return new IdExpressionType(tree, genericsMap).type();
+    if (tree instanceof IndexExpressionTree)
+      return new IndexExpressionType(tree, genericsMap).type();
+    if (tree instanceof InstanceExpressionTree)
+      return new InstanceExpressionType(tree, genericsMap).type();
+    if (tree instanceof LambdaExpressionTree)
+      return new LambdaExpressionType(tree, genericsMap).type();
+    if (tree instanceof LiteralExpressionTree)
+      return new LiteralExpressionType(tree, genericsMap).type();
+    if (tree instanceof MemberExpressionTree)
+      return new MemberExpressionType(tree, genericsMap).type();
+    if (tree instanceof MethodExpressionTree)
+      return new MethodExpressionType(tree, genericsMap).type();
+    if (tree instanceof OperatorExpressionTree)
+      return new OperatorExpressionType(tree, genericsMap).type();
 
-  if (tree instanceof ParenthesizedExpressionTree)
-    return new ParenthesizedExpressionType(tree, genericsMap).type();
+    if (tree instanceof ParenthesizedExpressionTree)
+      return new ParenthesizedExpressionType(tree, genericsMap).type();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(Issue.errorFromTree(tree,'').toError());
+
+    throw error;
+  }
 
   throw new Error('Expression type not found');
 }

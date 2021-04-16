@@ -11,9 +11,4 @@ export abstract class MemberTree extends BaseTree {
   public returnType?: TypeTree;
 
   abstract ctx?: MemberContext;
-
-  public markGenerics(generics: string[]): void {
-    this.parameters?.forEach((x) => x.type?.markGenerics(generics));
-    this.returnType?.markGenerics(generics);
-  }
 }

@@ -26,7 +26,5 @@ export class MethodMemberTree extends MemberTree {
     this.parameters = ParameterTree.fromContext(ctx.parameters());
     this.returnType = getTypeTree(ctx.type());
     this.body = getBody(ctx.body());
-
-    this.markGenerics(this.generics);
   }
 }

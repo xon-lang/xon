@@ -28,11 +28,15 @@ export class MethodExpressionType extends ExpressionType {
       getExpressionType(x.value, this.genericsMap),
     );
 
-    const argumentsGenericsEntries = argumentsTypes
-      .map((x) => x.getGenericsMap(x).entries())
+    const argumentsGenericsEntries = objectType.parameters
+      .map((x, i) => x.getGenericsMap(argumentsTypes[i]).entries())
       .map((x) => Array.from(x))
       .flat();
-    const argumentsGenerics = new Map(argumentsGenericsEntries);
-    return objectType.returnType.useGenericsMap(argumentsGenerics);
+
+    const genericsMap = this.tree.generics
+      ? objectType.declaredGenerics.map((x, i) => [x, this.tree.generics[i]])
+      : argumentsGenericsEntries;
+
+    return objectType.returnType.useGenericsMap(new Map(genericsMap as [string, TypeTree][]));
   }
 }
