@@ -9,7 +9,7 @@ export class PropertyMemberType extends MemberType {
   }
 
   public fillTypes(): void {
-    this.tree.returnType = this.tree.returnType.useGenericsMap(this.genericsMap);
+    this.tree.type = this.tree.type.useGenericsMap(this.genericsMap);
     if (this.tree.value) fillExpressionTypes(this.tree.value, this.genericsMap);
   }
 }

@@ -28,10 +28,10 @@ test('one scope', () => {
 
   expect(tree.properties.length).toBe(3);
   expect(tree.properties[0].name).toBe('property');
-  expect(tree.properties[0].returnType.name).toBe('String');
+  expect(tree.properties[0].type.name).toBe('String');
   expect(tree.properties[1].name).toBe('anotherProp');
   expect(tree.properties[2].name).toBe('typedValue');
-  expect(tree.properties[2].returnType.name).toBe('Number');
+  expect(tree.properties[2].type.name).toBe('Number');
 
   expect(tree.inits.length).toBe(0);
 

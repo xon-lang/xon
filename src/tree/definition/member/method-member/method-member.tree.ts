@@ -3,6 +3,7 @@ import { ParameterTree } from '../../../parameter/parameter.tree';
 import { getBody } from '../../../statement/statement-helper';
 import { StatementTree } from '../../../statement/statement.tree';
 import { getTypeTree } from '../../../type/type-helper';
+import { TypeTree } from '../../../type/type.tree';
 import { MemberTree } from '../member.tree';
 
 export class MethodMemberTree extends MemberTree {
@@ -10,7 +11,11 @@ export class MethodMemberTree extends MemberTree {
 
   public generics: string[];
 
-  public body: StatementTree[];
+  public parameters: ParameterTree[] = [];
+
+  public returnType?: TypeTree;
+
+  public body?: StatementTree[];
 
   public constructor(public ctx?: MethodMemberContext) {
     super();

@@ -9,7 +9,7 @@ test('has one statement no generics', () => {
   expect(tree).toBeInstanceOf(DefinitionTree);
 
   fillDefinitionTypes(tree, new Map());
-  expect(tree.properties[0].returnType.toString()).toBe('Integer');
+  expect(tree.properties[0].type.toString()).toBe('Integer');
 });
 
 test('has one statement with generics', () => {

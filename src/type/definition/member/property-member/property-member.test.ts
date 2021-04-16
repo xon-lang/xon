@@ -8,7 +8,7 @@ test('has no value', () => {
   expect(tree).toBeInstanceOf(PropertyMemberTree);
 
   fillMemberTypes(tree, new Map());
-  expect(tree.returnType.toString()).toBe('Integer');
+  expect(tree.type.toString()).toBe('Integer');
 });
 
 test('has value', () => {
@@ -17,6 +17,6 @@ test('has value', () => {
   expect(tree).toBeInstanceOf(PropertyMemberTree);
 
   fillMemberTypes(tree, new Map());
-  expect(tree.returnType.toString()).toBe('Integer');
+  expect(tree.type.toString()).toBe('Integer');
   expect(tree.value.type.toString()).toBe('Integer');
 });

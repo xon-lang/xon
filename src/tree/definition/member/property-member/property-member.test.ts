@@ -12,8 +12,8 @@ test('array property', () => {
 
   expect(tree.name).toBe('s');
   expect(tree.isPrivate).toBe(false);
-  expect(tree.returnType.name).toBe('Array');
-  expect((tree.returnType as PlainTypeTree).generics[0].name).toBe('String');
+  expect(tree.type.name).toBe('Array');
+  expect((tree.type as PlainTypeTree).generics[0].name).toBe('String');
   expect(tree.value).toBeUndefined();
 });
 
@@ -24,7 +24,7 @@ test('private integer', () => {
 
   expect(tree.name).toBe('_a');
   expect(tree.isPrivate).toBe(true);
-  expect(tree.returnType.name).toBe('Integer');
+  expect(tree.type.name).toBe('Integer');
   expect(tree.value).toBeUndefined();
 });
 
@@ -35,7 +35,7 @@ test('integer value', () => {
 
   expect(tree.name).toBe('_a');
   expect(tree.isPrivate).toBe(true);
-  expect(tree.returnType.name).toBe('Integer');
+  expect(tree.type.name).toBe('Integer');
   expect((tree.value as LiteralExpressionTree).literal.value).toBe(9);
 });
 
@@ -46,7 +46,7 @@ test('has function type', () => {
 
   expect(tree.name).toBe('_a');
   expect(tree.isPrivate).toBe(true);
-  const type = tree.returnType as FunctionTypeTree;
+  const type = tree.type as FunctionTypeTree;
   expect(type.name).toBe('Function');
   expect(type.parameters.length).toBe(1);
   expect(type.parameters[0].name).toBe('Integer');
@@ -61,7 +61,7 @@ test('has action type', () => {
 
   expect(tree.name).toBe('_a');
   expect(tree.isPrivate).toBe(true);
-  const type = tree.returnType as ActionTypeTree;
+  const type = tree.type as ActionTypeTree;
   expect(type.name).toBe('Action');
   expect(type.parameters.length).toBe(1);
   expect(type.parameters[0].name).toBe('Integer');

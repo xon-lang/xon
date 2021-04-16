@@ -39,7 +39,7 @@ export class DefinitionType extends BaseType {
         );
     });
 
-    this.tree.properties.forEach((x) => addToScope(x.name, x.returnType));
+    this.tree.properties.forEach((x) => addToScope(x.name, x.type));
 
     [
       ...this.tree.properties,

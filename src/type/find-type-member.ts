@@ -73,7 +73,7 @@ export function getMemberType(type: TypeTree, name: string): TypeTree {
   const member = members[0];
 
   if (member instanceof PropertyMemberTree) {
-    return member.returnType.useGenericsMap(genericsMap);
+    return member.type.useGenericsMap(genericsMap);
   }
   if (member instanceof MethodMemberTree) {
     if (member.returnType)

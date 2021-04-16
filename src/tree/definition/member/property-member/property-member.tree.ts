@@ -2,10 +2,13 @@ import { PropertyMemberContext } from '../../../../grammar/xon-parser';
 import { getExpressionTree } from '../../../expression/expression-helper';
 import { ExpressionTree } from '../../../expression/expression.tree';
 import { getTypeTree } from '../../../type/type-helper';
+import { TypeTree } from '../../../type/type.tree';
 import { MemberTree } from '../member.tree';
 
 export class PropertyMemberTree extends MemberTree {
   public isPrivate: boolean;
+
+  public type: TypeTree;
 
   public value?: ExpressionTree;
 
@@ -15,7 +18,7 @@ export class PropertyMemberTree extends MemberTree {
 
     this.name = ctx.id().text;
     this.isPrivate = this.name.startsWith('_');
-    this.returnType = getTypeTree(ctx.type());
+    this.type = getTypeTree(ctx.type());
     this.value = getExpressionTree(ctx.expression());
   }
 }
