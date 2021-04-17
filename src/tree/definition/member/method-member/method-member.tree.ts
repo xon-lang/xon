@@ -9,7 +9,7 @@ import { MemberTree } from '../member.tree';
 export class MethodMemberTree extends MemberTree {
   public isPrivate: boolean;
 
-  public generics: string[];
+  public declaredGenerics: string[];
 
   public parameters: ParameterTree[] = [];
 
@@ -23,10 +23,10 @@ export class MethodMemberTree extends MemberTree {
 
     this.name = ctx.id().text;
     this.isPrivate = this.name.startsWith('_');
-    this.generics =
+    this.declaredGenerics =
       ctx
-        .generics()
-        ?.id()
+        .declaredGenerics()
+        ?.DEFINITION_ID()
         .map((x) => x.text) || [];
     this.parameters = ParameterTree.fromContext(ctx.parameters());
     this.returnType = getTypeTree(ctx.type());
