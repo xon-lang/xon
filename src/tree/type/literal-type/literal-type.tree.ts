@@ -27,6 +27,7 @@ export class LiteralTypeTree extends TypeTree {
   }
 
   public toString(): string {
+    if (typeof this.value === 'string') return `"${this.value}"`;
     return `${this.value}`;
   }
 }
