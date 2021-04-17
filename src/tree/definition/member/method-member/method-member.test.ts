@@ -55,5 +55,4 @@ test('several abstract methods', () => {
   const code = 'T:\n    f(a Integer)\n    f(a Integer)';
   const tree = parseProgram(code);
   expect(tree).toBeInstanceOf(ProgramTree);
-  expect(tree.statements.length).toBe(1);
 });
