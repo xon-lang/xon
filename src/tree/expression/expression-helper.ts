@@ -7,6 +7,7 @@ import {
   IdExpressionContext,
   IndexExpressionContext,
   InstanceExpressionContext,
+  InstantiationExpressionContext,
   LambdaExpressionContext,
   LiteralExpressionContext,
   LogicalAndExpressionContext,
@@ -26,6 +27,7 @@ import { ExpressionTree } from './expression.tree';
 import { IdExpressionTree } from './id-expression/id-expression.tree';
 import { IndexExpressionTree } from './index-expression/index-expression.tree';
 import { InstanceExpressionTree } from './instance-expression/instance-expression.tree';
+import { InstantiationExpressionTree } from './instantiation-expression/instantiation-expression.tree';
 import { LambdaExpressionTree } from './lambda-expression/lambda-expression.tree';
 import { LiteralExpressionTree } from './literal-expression/literal-expression.tree';
 import { LogicalAndExpressionTree } from './logical-and-expression/logical-and-expression.tree';
@@ -41,6 +43,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx === undefined) return undefined;
 
   if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionTree(ctx);
+  if (ctx instanceof InstantiationExpressionContext) return new InstantiationExpressionTree(ctx);
   if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);
   if (ctx instanceof InstanceExpressionContext) return new InstanceExpressionTree(ctx);
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
@@ -65,21 +68,13 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   }
 
   if (ctx instanceof RelationalExpressionContext) {
-    const expression = getOperatorExpression(ctx._op[0].text, ctx, ctx._left, ctx._right[0]);
-    if (ctx._op.length === 1) return expression;
+    if (!(ctx._left instanceof RelationalExpressionContext))
+      return getOperatorExpression(ctx._op.text, ctx, ctx._left, ctx._right);
 
-    return ctx._right.slice(1).reduce((prev, current, i) => {
-      const relationalExpression = getOperatorExpression(
-        ctx._op[i].text,
-        current,
-        ctx._right[i - 1],
-        current,
-      );
-      const andExpression = new LogicalAndExpressionTree();
-      andExpression.left = prev;
-      andExpression.right = relationalExpression;
-      return andExpression;
-    }, expression);
+    const andExpression = new LogicalAndExpressionTree();
+    andExpression.left = getExpressionTree(ctx._left);
+    andExpression.right = getOperatorExpression(ctx._op.text, ctx, ctx._left._right, ctx._right);
+    return andExpression;
   }
 
   throw Error(`No Expression found for ${ctx?.constructor?.name}`);
