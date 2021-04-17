@@ -1,7 +1,6 @@
 import { Issue } from '../../../issue-service/issue';
 import { IssueLevel } from '../../../issue-service/issue-level';
 import { MethodExpressionTree } from '../../../tree/expression/method-expression/method-expression.tree';
-import { ActionTypeTree } from '../../../tree/type/action-type/action-type.tree';
 import { FunctionTypeTree } from '../../../tree/type/function-type/function-type.tree';
 import { TypeTree } from '../../../tree/type/type.tree';
 import { GenericsMap } from '../../generics-map';
@@ -16,14 +15,12 @@ export class MethodExpressionType extends ExpressionType {
   public fillTypes(): void {
     fillExpressionTypes(this.tree.object, this.genericsMap);
 
-    if (this.tree.object.type instanceof ActionTypeTree) return;
-
     if (!(this.tree.object.type instanceof FunctionTypeTree))
       throw Issue.fromTree(
         this.tree.object,
         null,
         IssueLevel.Error,
-        `Object is "${this.tree.object.type.toString()}" but not a function or an action`,
+        `Object is "${this.tree.object.type.toString()}" but not a function`,
       ).toError();
 
     this.tree.arguments.forEach((x) => fillExpressionTypes(x.value, this.genericsMap));

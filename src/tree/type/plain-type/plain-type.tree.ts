@@ -46,6 +46,7 @@ export class PlainTypeTree extends TypeTree {
 
   public toString(): string {
     const generics = this.generics.map((x) => x.toString()).join(', ');
-    return `${this.name}${generics ? `<${generics}>` : ''}`;
+    if (this.generics.length) return `${this.name}<${generics}>`;
+    return this.name;
   }
 }

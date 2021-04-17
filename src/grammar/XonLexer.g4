@@ -27,7 +27,6 @@ AND:    'and';
 ELSE:   'else';
 LOOP:   'loop';
 INIT:   'init';
-VOID:   'void';
 BREAK:  'break';
 RETURN: 'return';
 
@@ -73,6 +72,7 @@ ASTERISK:    '*';
 UNDERSCORE:  '_';
 EXCLAMATION: '!';
 
+NULL_LITERAL: 'null';
 FLOAT_LITERAL:
     [0-9][0-9]? 'x' AlphabetNumber '.' AlphabetNumber
     | DigitNumber '.' DigitNumber

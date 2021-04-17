@@ -1,6 +1,5 @@
 import { LiteralExpressionTree } from '../../../expression/literal-expression/literal-expression.tree';
 import { parseMember } from '../../../parse';
-import { ActionTypeTree } from '../../../type/action-type/action-type.tree';
 import { FunctionTypeTree } from '../../../type/function-type/function-type.tree';
 import { PlainTypeTree } from '../../../type/plain-type/plain-type.tree';
 import { PropertyMemberTree } from './property-member.tree';
@@ -51,19 +50,5 @@ test('has function type', () => {
   expect(type.parameters.length).toBe(1);
   expect(type.parameters[0].name).toBe('Integer');
   expect(type.returnType.name).toBe('String');
-  expect(tree.value).toBeUndefined();
-});
-
-test('has action type', () => {
-  const code = '_a (Integer)';
-  const tree = parseMember<PropertyMemberTree>(code);
-  expect(tree).toBeInstanceOf(PropertyMemberTree);
-
-  expect(tree.name).toBe('_a');
-  expect(tree.isPrivate).toBe(true);
-  const type = tree.type as ActionTypeTree;
-  expect(type.name).toBe('Action');
-  expect(type.parameters.length).toBe(1);
-  expect(type.parameters[0].name).toBe('Integer');
   expect(tree.value).toBeUndefined();
 });

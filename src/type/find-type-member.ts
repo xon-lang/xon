@@ -2,7 +2,7 @@ import { Issue } from '../issue-service/issue';
 import { DefinitionTree } from '../tree/definition/definition.tree';
 import { MethodMemberTree } from '../tree/definition/member/method-member/method-member.tree';
 import { PropertyMemberTree } from '../tree/definition/member/property-member/property-member.tree';
-import { createActionType, createFunctionType } from '../tree/type/type-helper';
+import { createFunctionType } from '../tree/type/type-helper';
 import { TypeTree } from '../tree/type/type.tree';
 import { findDefinition } from './definition-storage';
 import { GenericsMap } from './generics-map';
@@ -76,15 +76,10 @@ export function getMemberType(type: TypeTree, name: string): TypeTree {
     return member.type.useGenericsMap(genericsMap);
   }
   if (member instanceof MethodMemberTree) {
-    if (member.returnType)
-      return createFunctionType(
-        member.declaredGenerics,
-        member.parameters.map((x) => x.type.useGenericsMap(genericsMap)),
-        member.returnType.useGenericsMap(genericsMap),
-      );
-    return createActionType(
+    return createFunctionType(
       member.declaredGenerics,
       member.parameters.map((x) => x.type.useGenericsMap(genericsMap)),
+      member.returnType.useGenericsMap(genericsMap),
     );
   }
 

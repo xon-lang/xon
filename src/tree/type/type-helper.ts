@@ -1,17 +1,18 @@
 import {
-  ActionTypeContext,
   ArrayTypeContext,
   FunctionTypeContext,
+  LiteralTypeContext,
   NullableTypeContext,
   ParenthesizedTypeContext,
   PlainTypeContext,
   TypeContext,
   UnionTypeContext,
 } from '../../grammar/xon-parser';
-import { ActionTypeTree } from './action-type/action-type.tree';
 import { ArrayTypeTree } from './array-type/array-type.tree';
 import { FunctionTypeTree } from './function-type/function-type.tree';
+import { LiteralTypeTree } from './literal-type/literal-type.tree';
 import { NullableTypeTree } from './nullable-type/nullable-type.tree';
+import { ParenthesizedTypeTree } from './parenthesized-type/parenthesized-type.tree';
 import { PlainTypeTree } from './plain-type/plain-type.tree';
 import { TypeTree } from './type.tree';
 import { UnionTypeTree } from './union-type/union-type.tree';
@@ -19,14 +20,13 @@ import { UnionTypeTree } from './union-type/union-type.tree';
 export const getTypeTree = (ctx: TypeContext): TypeTree => {
   if (ctx === undefined) return undefined;
 
-  if (ctx instanceof PlainTypeContext) return new PlainTypeTree(ctx);
   if (ctx instanceof ArrayTypeContext) return new ArrayTypeTree(ctx);
   if (ctx instanceof FunctionTypeContext) return new FunctionTypeTree(ctx);
-  if (ctx instanceof ActionTypeContext) return new ActionTypeTree(ctx);
-  if (ctx instanceof UnionTypeContext) return new UnionTypeTree(ctx);
+  if (ctx instanceof LiteralTypeContext) return new LiteralTypeTree(ctx);
   if (ctx instanceof NullableTypeContext) return new NullableTypeTree(ctx);
-
-  if (ctx instanceof ParenthesizedTypeContext) return getTypeTree(ctx.type());
+  if (ctx instanceof ParenthesizedTypeContext) return new ParenthesizedTypeTree(ctx);
+  if (ctx instanceof PlainTypeContext) return new PlainTypeTree(ctx);
+  if (ctx instanceof UnionTypeContext) return new UnionTypeTree(ctx);
 
   throw Error(`No Type found for ${ctx?.constructor?.name}`);
 };
@@ -40,6 +40,13 @@ export function createPlainType(name: string, generics: TypeTree[] = []): PlainT
   return type;
 }
 
+export function createParenthesizedType(baseType: TypeTree): ParenthesizedTypeTree {
+  const type = new ParenthesizedTypeTree();
+  type.baseType = baseType;
+  type.generics = [baseType];
+  return type;
+}
+
 export function createArrayType(itemType: TypeTree): ArrayTypeTree {
   const type = new ArrayTypeTree();
   type.itemType = itemType;
@@ -47,7 +54,11 @@ export function createArrayType(itemType: TypeTree): ArrayTypeTree {
   return type;
 }
 
-export function createFunctionType(declaredGenerics: string[], parameters: TypeTree[], returnType: TypeTree): FunctionTypeTree {
+export function createFunctionType(
+  declaredGenerics: string[],
+  parameters: TypeTree[],
+  returnType: TypeTree,
+): FunctionTypeTree {
   const type = new FunctionTypeTree();
   type.declaredGenerics = declaredGenerics;
   type.parameters = parameters;
@@ -56,11 +67,9 @@ export function createFunctionType(declaredGenerics: string[], parameters: TypeT
   return type;
 }
 
-export function createActionType(declaredGenerics: string[],parameters: TypeTree[]): ActionTypeTree {
-  const type = new ActionTypeTree();
-  type.declaredGenerics = declaredGenerics;
-  type.parameters = parameters;
-  type.generics = parameters;
+export function createLiteralType(value: unknown): LiteralTypeTree {
+  const type = new LiteralTypeTree();
+  type.value = value;
   return type;
 }
 

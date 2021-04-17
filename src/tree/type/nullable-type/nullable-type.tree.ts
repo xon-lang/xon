@@ -1,8 +1,6 @@
 import { NullableTypeContext } from '../../../grammar/xon-parser';
-import { FunctionTypeTree } from '../function-type/function-type.tree';
-import { getTypeTree } from '../type-helper';
+import { createNullableType, getTypeTree } from '../type-helper';
 import { TypeTree } from '../type.tree';
-import { UnionTypeTree } from '../union-type/union-type.tree';
 
 export class NullableTypeTree extends TypeTree {
   public baseType: TypeTree;
@@ -20,10 +18,7 @@ export class NullableTypeTree extends TypeTree {
   }
 
   public useGenericsMap(genericsMap: Map<string, TypeTree>): NullableTypeTree {
-    const type = new NullableTypeTree();
-    type.baseType = this.baseType.useGenericsMap(genericsMap);
-    type.generics = this.generics.map((x) => x.useGenericsMap(genericsMap));
-    return type;
+    return createNullableType(this.baseType.useGenericsMap(genericsMap));
   }
 
   public getGenericsMap(type: TypeTree): Map<string, TypeTree> {
@@ -32,10 +27,6 @@ export class NullableTypeTree extends TypeTree {
   }
 
   public toString(): string {
-    if (this.baseType instanceof FunctionTypeTree || this.baseType instanceof UnionTypeTree) {
-      const baseType = `(${this.baseType.toString()})`;
-      return `${baseType}?`;
-    }
     return `${this.baseType.toString()}?`;
   }
 }

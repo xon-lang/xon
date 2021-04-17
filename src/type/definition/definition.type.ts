@@ -1,5 +1,5 @@
 import { DefinitionTree } from '../../tree/definition/definition.tree';
-import { createActionType, createFunctionType } from '../../tree/type/type-helper';
+import { createFunctionType } from '../../tree/type/type-helper';
 import { BaseType } from '../base.type';
 import { GenericsMap } from '../generics-map';
 import { addToScope, popScope, pushScope } from '../id-scope';
@@ -20,23 +20,14 @@ export class DefinitionType extends BaseType {
     });
 
     this.tree.methods.forEach((x) => {
-      if (x.returnType)
-        addToScope(
-          x.name,
-          createFunctionType(
-            x.declaredGenerics,
-            x.parameters.map((z) => z.type),
-            x.returnType,
-          ),
-        );
-      else
-        addToScope(
-          x.name,
-          createActionType(
-            x.declaredGenerics,
-            x.parameters.map((z) => z.type),
-          ),
-        );
+      addToScope(
+        x.name,
+        createFunctionType(
+          x.declaredGenerics,
+          x.parameters.map((z) => z.type),
+          x.returnType,
+        ),
+      );
     });
 
     this.tree.properties.forEach((x) => addToScope(x.name, x.type));

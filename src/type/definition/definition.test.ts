@@ -13,10 +13,11 @@ test('has one statement no generics', () => {
 });
 
 test('has one statement with generics', () => {
-  const code = 'Animal<T>:\n    eat(food T)';
+  const code = 'Animal<T>:\n    eat(food T) null';
   const tree = parseDefinition(code);
   expect(tree).toBeInstanceOf(DefinitionTree);
 
-  fillDefinitionTypes(tree, new Map([['T', createPlainType('Meat')]]));
-  expect(tree.methods[0].parameters[0].type.toString()).toBe('Meat');
+  fillDefinitionTypes(tree, new Map([['T', createPlainType('Grass')]]));
+  expect(tree.methods[0].parameters[0].type.toString()).toBe('Grass');
+  expect(tree.methods[0].returnType.toString()).toBe('null');
 });

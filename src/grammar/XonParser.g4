@@ -18,10 +18,10 @@ definition:
     ;
 
 member:
-    id type ('=' expression)?                     # propertyMember
-    | 'init' body                                 # initMember
-    | operator parameters type body?              # operatorMember
-    | id declaredGenerics? parameters type? body? # methodMember
+    id type ('=' expression)?                    # propertyMember
+    | 'init' body                                # initMember
+    | operator parameters type body?             # operatorMember
+    | id declaredGenerics? parameters type body? # methodMember
     ;
 
 statement:
@@ -59,7 +59,8 @@ expression:
     ;
 
 literal:
-    BOOLEAN_LITERAL   # booleanLiteral
+    NULL_LITERAL      # nullLiteral
+    | BOOLEAN_LITERAL # booleanLiteral
     | INTEGER_LITERAL # integerLiteral
     | FLOAT_LITERAL   # floatLiteral
     | CHAR_LITERAL    # charLiteral
@@ -73,7 +74,6 @@ type:
     | type '[' ']'                                                      # arrayType
     | type '|' type                                                     # unionType
     | '(' (params += type (',' params += type)*)? ')' returnType = type # functionType
-    | '(' ( type (',' type)*)? ')'                                      # actionType
     | '(' type ')'                                                      # parenthesizedType
     ;
 

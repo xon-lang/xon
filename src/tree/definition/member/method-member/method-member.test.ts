@@ -33,12 +33,13 @@ test('abstract method member', () => {
 
   expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].name).toBe('a');
+  expect(tree.returnType.toString()).toBe('String');
 
   expect(tree.body.length).toBe(0);
 });
 
 test('no return type', () => {
-  const code = 'funcName(a Integer)';
+  const code = 'funcName(a Integer) null';
   const tree = parseMember<MethodMemberTree>(code);
   expect(tree).toBeInstanceOf(MethodMemberTree);
 
@@ -47,12 +48,13 @@ test('no return type', () => {
 
   expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].name).toBe('a');
+  expect(tree.returnType.toString()).toBe('null');
 
   expect(tree.body.length).toBe(0);
 });
 
 test('several abstract methods', () => {
-  const code = 'T:\n    f(a Integer)\n    f(a Integer)';
+  const code = 'T:\n    f(a Integer) null\n    f(a Integer) null';
   const tree = parseProgram(code);
   expect(tree).toBeInstanceOf(ProgramTree);
 });
