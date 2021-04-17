@@ -4,7 +4,7 @@ import { ExpressionTree } from '../expression.tree';
 export class IdExpressionTree extends ExpressionTree {
   public name: string;
 
-  public constructor(public ctx: IdExpressionContext) {
+  public constructor(public ctx?: IdExpressionContext) {
     super();
     if (!ctx) return;
 
