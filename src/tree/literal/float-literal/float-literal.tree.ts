@@ -27,4 +27,8 @@ export class FloatLiteralTree extends LiteralTree {
         parseInt(fraction, this.radix) / this.radix ** fraction.length
       : parseFloat(`${integerClean}.${fraction}`);
   }
+
+  public toString(): string {
+    return `${this.value}`;
+  }
 }

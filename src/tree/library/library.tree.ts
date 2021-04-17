@@ -16,4 +16,8 @@ export class LibraryTree extends BaseTree {
     [this.scope, this.name] = ctx.libraryPath().text.split('/');
     this.members = ctx.libraryMember().map((x) => new LibraryMemberTree(x));
   }
+
+  public toString(): string {
+    throw new Error(`ToString not implemented for "${this.constructor.name}"`);
+  }
 }

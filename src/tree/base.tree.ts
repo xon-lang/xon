@@ -20,4 +20,6 @@ export abstract class BaseTree {
     const tabWidth = 2;
     return JSON.stringify(this.toPlain(), null, tabWidth);
   }
+
+  abstract toString(): string;
 }

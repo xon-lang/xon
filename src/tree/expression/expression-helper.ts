@@ -89,21 +89,28 @@ function getOperatorExpression(
   left: ExpressionContext,
   right: ExpressionContext,
 ): ExpressionTree {
+  if (!operator) throw new Error('Operator is undefined');
+  if (!left) throw new Error('left operand is undefined');
+  if (!right) throw new Error('right operand is undefined');
+
   if (operator === '<=') {
     const expression = new LogicalOrExpressionTree();
     expression.left = getOperatorExpression('<', ctx, left, right);
-    expression.left = getOperatorExpression('==', ctx, left, right);
-    return expression;
+    expression.right = getOperatorExpression('==', ctx, left, right);
+
+    return ParenthesizedExpressionTree.fromValue(expression);
   }
   if (operator === '>=') {
     const expression = new LogicalOrExpressionTree();
     expression.left = getOperatorExpression('>', ctx, left, right);
-    expression.left = getOperatorExpression('==', ctx, left, right);
-    return expression;
+    expression.right = getOperatorExpression('==', ctx, left, right);
+    return ParenthesizedExpressionTree.fromValue(expression);
   }
   if (operator === '!=') {
     const expression = new LogicalNotExpressionTree();
-    expression.value = getOperatorExpression('==', ctx, left, right);
+    expression.value = ParenthesizedExpressionTree.fromValue(
+      getOperatorExpression('==', ctx, left, right),
+    );
     return expression;
   }
 

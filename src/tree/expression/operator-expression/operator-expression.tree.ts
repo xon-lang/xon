@@ -10,4 +10,8 @@ export class OperatorExpressionTree extends ExpressionTree {
   ) {
     super();
   }
+
+  public toString(): string {
+    return `${this.left.toString()} ${this.operator} ${this.right.toString()}`;
+  }
 }

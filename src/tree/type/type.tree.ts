@@ -17,6 +17,4 @@ export abstract class TypeTree extends BaseTree {
   abstract useGenericsMap(genericsMap: Map<string, TypeTree>): TypeTree;
 
   abstract getGenericsMap(type: TypeTree): Map<string, TypeTree>;
-
-  abstract toString(): string;
 }

@@ -14,4 +14,9 @@ export class MemberExpressionTree extends ExpressionTree {
     this.name = ctx.id().text;
     this.object = getExpressionTree(ctx.expression());
   }
+
+  public toString(): string {
+    const object = this.object.toString();
+    return `${object}${this.name}`;
+  }
 }

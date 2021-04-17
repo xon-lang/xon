@@ -14,4 +14,8 @@ export class LogicalAndExpressionTree extends ExpressionTree {
     this.left = getExpressionTree(ctx._left);
     this.right = getExpressionTree(ctx._right);
   }
+
+  public toString(): string {
+    return `${this.left.toString()} and ${this.right.toString()}`;
+  }
 }

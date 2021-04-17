@@ -19,4 +19,8 @@ export class ArgumentTree extends BaseTree {
   public static fromContext(ctx: ArgumentsContext): ArgumentTree[] {
     return ctx?.argument()?.map((x) => new ArgumentTree(x)) || [];
   }
+
+  public toString(): string {
+    throw new Error(`ToString not implemented for "${this.constructor.name}"`);
+  }
 }

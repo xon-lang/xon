@@ -11,4 +11,8 @@ export class ArrayExpressionTree extends ExpressionTree {
 
     this.items = getExpressionsTrees(ctx.expression());
   }
+
+  public toString(): string {
+    return `[${this.items.map((x) => x.toString()).join(', ')}]`;
+  }
 }

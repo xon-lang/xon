@@ -10,4 +10,8 @@ export class InstanceExpressionTree extends ExpressionTree {
 
     this.name = ctx.AD().text;
   }
+
+  public toString(): string {
+    return `${this.name}`;
+  }
 }

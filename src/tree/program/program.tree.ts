@@ -20,4 +20,9 @@ export class ProgramTree extends BaseTree {
     this.statements = ctx.statement().map(getStatementTree);
     this.definitions = ctx.definition().map((x) => new DefinitionTree(x));
   }
+
+
+  public toString(): string {
+    throw new Error(`ToString not implemented for "${this.constructor.name}"`);
+  }
 }

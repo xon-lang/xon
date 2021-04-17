@@ -22,4 +22,8 @@ export class ParameterTree extends BaseTree {
   public static fromContext(ctx: ParametersContext): ParameterTree[] {
     return ctx?.parameter()?.map((x) => new ParameterTree(x)) || [];
   }
+
+  public toString(): string {
+    return `${this.name} ${this.type.toString()}`;
+  }
 }

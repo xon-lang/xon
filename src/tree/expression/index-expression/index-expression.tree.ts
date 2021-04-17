@@ -14,4 +14,8 @@ export class IndexExpressionTree extends ExpressionTree {
     this.object = getExpressionTree(ctx.expression(0));
     this.index = getExpressionTree(ctx.expression(1));
   }
+
+  public toString(): string {
+    return `${this.object.toString()}[${this.index.toString()}]`;
+  }
 }

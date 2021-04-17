@@ -10,4 +10,8 @@ export class BooleanLiteralTree extends LiteralTree {
 
     this.value = this.ctx.text === 'true';
   }
+
+  public toString(): string {
+    return `${this.value}`;
+  }
 }

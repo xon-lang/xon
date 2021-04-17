@@ -52,4 +52,8 @@ export class DefinitionTree extends BaseTree {
       if (x instanceof MethodMemberTree) this.methods.push(x);
     });
   }
+
+  public toString(): string {
+    throw new Error(`ToString not implemented for "${this.constructor.name}"`);
+  }
 }

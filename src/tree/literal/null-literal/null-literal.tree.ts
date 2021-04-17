@@ -7,4 +7,8 @@ export class NullLiteralTree extends LiteralTree {
   public constructor(public ctx?: NullLiteralContext) {
     super();
   }
+
+  public toString(): string {
+    return `${this.value}`;
+  }
 }

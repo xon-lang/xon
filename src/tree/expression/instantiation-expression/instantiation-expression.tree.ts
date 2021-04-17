@@ -17,4 +17,11 @@ export class InstantiationExpressionTree extends ExpressionTree {
     this.type = createPlainType(this.ctx.DEFINITION_ID().text, generics);
     this.arguments = ArgumentTree.fromContext(ctx.arguments());
   }
+
+  public toString(): string {
+    const args = this.arguments.length
+      ? `(${this.arguments.map((x) => x.toString()).join(', ')})`
+      : '';
+    return `${this.type.toString()}(${args})`;
+  }
 }

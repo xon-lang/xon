@@ -10,4 +10,8 @@ export class IdExpressionTree extends ExpressionTree {
 
     this.name = ctx.id().text;
   }
+
+  public toString(): string {
+    return `${this.name}`;
+  }
 }

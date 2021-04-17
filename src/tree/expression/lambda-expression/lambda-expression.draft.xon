@@ -1,5 +1,0 @@
-\a, b, c: lalalla
-
-
-reduce((a, b): a+b, 0)
-reduce(\a, b: a+b, 0)

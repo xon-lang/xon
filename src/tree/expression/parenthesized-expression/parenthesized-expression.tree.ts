@@ -11,4 +11,14 @@ export class ParenthesizedExpressionTree extends ExpressionTree {
 
     this.value = getExpressionTree(ctx.expression());
   }
+
+  public static fromValue(value: ExpressionTree): ParenthesizedExpressionTree {
+    const expression = new ParenthesizedExpressionTree();
+    expression.value = value;
+    return expression;
+  }
+
+  public toString(): string {
+    return `(${this.value.toString()})`;
+  }
 }

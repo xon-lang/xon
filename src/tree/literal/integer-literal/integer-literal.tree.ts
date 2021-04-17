@@ -18,4 +18,8 @@ export class IntegerLiteralTree extends LiteralTree {
 
     this.value = parseInt(this.integer.replace(/_/g, ''), this.radix);
   }
+
+  public toString(): string {
+    return `${this.value}`;
+  }
 }

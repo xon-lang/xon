@@ -11,4 +11,8 @@ export class LogicalNotExpressionTree extends ExpressionTree {
 
     this.value = getExpressionTree(ctx.expression());
   }
+
+  public toString(): string {
+    return `not ${this.value.toString()}`;
+  }
 }
