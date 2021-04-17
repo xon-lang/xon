@@ -48,8 +48,9 @@ export class Issue {
     const line = chalk.yellow(this.line ? `:${this.line}` : '');
     const column = chalk.yellow(this.column ? `:${this.column}` : '');
     const message = `${chalk.redBright('error')} ${this.message}`;
-    const lineNumber = chalk.gray(`${this.line} | `);
-    const caret = ' '.repeat(this.column + lineNumber.length) + chalk.red('^');
+    const lineNumberBeforeGrayed = `${this.line} | `;
+    const lineNumber = chalk.gray(lineNumberBeforeGrayed);
+    const caret = ' '.repeat(this.column + lineNumberBeforeGrayed.length) + chalk.red('^');
 
     return `${source}${line}${column} - ${message}\n${lineNumber}${code}\n${caret}`;
   }

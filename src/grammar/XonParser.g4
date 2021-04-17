@@ -68,13 +68,13 @@ literal:
     ;
 
 type:
-    DEFINITION_ID generics?                                             # plainType
-    | literal                                                           # literalType
-    | type '?'                                                          # nullableType
-    | type '[' ']'                                                      # arrayType
-    | type '|' type                                                     # unionType
-    | '(' (params += type (',' params += type)*)? ')' returnType = type # functionType
-    | '(' type ')'                                                      # parenthesizedType
+    DEFINITION_ID generics?                 # plainType
+    | literal                               # literalType
+    | type '?'                              # nullableType
+    | type '[' ']'                          # arrayType
+    | type '|' type                         # unionType
+    | declaredGenerics? typeParameters type # functionType
+    | '(' type ')'                          # parenthesizedType
     ;
 
 operator:
@@ -98,6 +98,7 @@ parameter:        name = id type ('#' meta = DEFINITION_ID)?;
 parameters:       '(' (parameter (',' parameter)*)? ')';
 argument:         (id '=')? expression;
 arguments:        '(' (argument (',' argument)*)? ')';
+typeParameters:   '(' (type (',' type)*)? ')';
 generics:         '<' type (',' type)* '>';
 declaredGenerics: '<' DEFINITION_ID (',' DEFINITION_ID)* '>';
 body:             ':' statement | ':' NL INDENT (statement | NL)+ DEDENT;
