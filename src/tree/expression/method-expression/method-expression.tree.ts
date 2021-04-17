@@ -17,7 +17,7 @@ export class MethodExpressionTree extends ExpressionTree {
     if (!ctx) return;
 
     this.object = getExpressionTree(ctx.expression());
-    this.generics = getTypesTrees(ctx.type());
+    this.generics = getTypesTrees(ctx.generics()?.type());
     this.arguments = ArgumentTree.fromContext(ctx.arguments());
   }
 }
