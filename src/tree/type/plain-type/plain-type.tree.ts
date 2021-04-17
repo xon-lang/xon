@@ -7,8 +7,8 @@ export class PlainTypeTree extends TypeTree {
     super();
     if (!ctx) return;
 
-    this.name = ctx.id().text;
-    this.generics = getTypesTrees(ctx.type());
+    this.name = ctx.DEFINITION_ID().text;
+    this.generics = getTypesTrees(ctx.generics()?.type());
   }
 
   public equals(other: TypeTree): boolean {

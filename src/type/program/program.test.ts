@@ -1,3 +1,4 @@
+import { MethodExpressionTree } from '../../tree/expression/method-expression/method-expression.tree';
 import { parseProgram } from '../../tree/parse';
 import { ProgramTree } from '../../tree/program/program.tree';
 import { AssignmentStatementTree } from '../../tree/statement/assignment-statement/assignment-statement.tree';
@@ -23,7 +24,6 @@ Animal:
 
 test('has one statement with generics', () => {
   const code = `
-
 a = Animal<Float>()
 b = a.weight
 c = a.get<String>(b)
@@ -34,9 +34,12 @@ Animal<T>:
 
   get<V>(a T) V:
     -- 
-`;
+`.trim();
   const tree = parseProgram(code);
   expect(tree).toBeInstanceOf(ProgramTree);
+
+  const cValue = (tree.statements[2] as AssignmentStatementTree).value as MethodExpressionTree;
+  expect(cValue).toBeInstanceOf(MethodExpressionTree);
 
   clearScopes();
   fillProgramTypes(tree, new Map());

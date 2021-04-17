@@ -3,6 +3,7 @@ import { ExpressionTree } from '../../tree/expression/expression.tree';
 import { IdExpressionTree } from '../../tree/expression/id-expression/id-expression.tree';
 import { IndexExpressionTree } from '../../tree/expression/index-expression/index-expression.tree';
 import { InstanceExpressionTree } from '../../tree/expression/instance-expression/instance-expression.tree';
+import { InstantiationExpressionTree } from '../../tree/expression/instantiation-expression/instantiation-expression.tree';
 import { LambdaExpressionTree } from '../../tree/expression/lambda-expression/lambda-expression.tree';
 import { LiteralExpressionTree } from '../../tree/expression/literal-expression/literal-expression.tree';
 import { LogicalAndExpressionTree } from '../../tree/expression/logical-and-expression/logical-and-expression.tree';
@@ -18,6 +19,7 @@ import { ArrayExpressionType } from './array-expression/array-expression.type';
 import { IdExpressionType } from './id-expression/id-expression.type';
 import { IndexExpressionType } from './index-expression/index-expression.type';
 import { InstanceExpressionType } from './instance-expression/instance-expression.type';
+import { InstantiationExpressionType } from './instantiation-expression/instantiation-expression.type';
 import { LambdaExpressionType } from './lambda-expression/lambda-expression.type';
 import { LiteralExpressionType } from './literal-expression/literal-expression.type';
 import { LogicalAndExpressionType } from './logical-and-expression/logical-and-expression.type';
@@ -32,6 +34,8 @@ import { ParenthesizedExpressionType } from './parenthesized-expression/parenthe
 export function fillExpressionTypes(tree: ExpressionTree, genericsMap: GenericsMap): void {
   if (tree instanceof ArrayExpressionTree) new ArrayExpressionType(tree, genericsMap).fillTypes();
   else if (tree instanceof IdExpressionTree) new IdExpressionType(tree, genericsMap).fillTypes();
+  else if (tree instanceof InstantiationExpressionTree)
+    new InstantiationExpressionType(tree, genericsMap).fillTypes();
   else if (tree instanceof IndexExpressionTree)
     new IndexExpressionType(tree, genericsMap).fillTypes();
   else if (tree instanceof InstanceExpressionTree)
