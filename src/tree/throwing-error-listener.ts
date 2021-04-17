@@ -7,13 +7,15 @@ import { IssueService } from '../issue-service/issue-service';
 export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbol> {
   // eslint-disable-next-line class-methods-use-this
   public syntaxError<T extends TSymbol>(
-    _recognizer: Recognizer<T, ATNSimulator>,
+    recognizer: Recognizer<T, ATNSimulator>,
     _offendingSymbol: T | undefined,
     line: number,
     column: number,
     message: string,
   ): void {
     const issue = new Issue();
+    // eslint-disable-next-line @typescript-eslint/dot-notation
+    issue.ctx = recognizer['_ctx'];
     issue.level = IssueLevel.Error;
     issue.message = message;
     issue.line = line;

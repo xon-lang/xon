@@ -1,3 +1,5 @@
+import { ParserRuleContext } from 'antlr4ts';
+import chalk from 'chalk';
 import { BaseTree } from '../tree/base.tree';
 import { IssueLevel } from './issue-level';
 
@@ -11,6 +13,8 @@ export class Issue {
   public line: number;
 
   public column: number;
+
+  public ctx?: ParserRuleContext;
 
   public tree?: BaseTree;
 
@@ -36,18 +40,18 @@ export class Issue {
   }
 
   public toString(): string {
-    const codeLine = this.tree?.ctx?.start.inputStream.toString().split('\n')[this.line - 1];
+    const code = (this.ctx || this.tree?.ctx)?.start.inputStream.toString().split('\n')[
+      this.line - 1
+    ];
     // eslint-disable-next-line @typescript-eslint/dot-notation
-    const source = this.path || global['currentDefinitionFilePath'] || 'line';
+    const source = chalk.cyan(this.path || global['currentDefinitionFilePath'] || 'line');
+    const line = chalk.yellow(this.line ? `:${this.line}` : '');
+    const column = chalk.yellow(this.column ? `:${this.column}` : '');
+    const message = `${chalk.redBright('error')} ${this.message}`;
+    const caret = ' '.repeat(this.column) + chalk.red('^');
+    const lineNumber = chalk.gray(`${this.line} | `);
 
-    if (codeLine)
-      return `${this.message}\n${source}:${this.line}:${this.column}\n${codeLine}\n${' '.repeat(
-        this.column,
-      )}^`;
-
-    const line = this.line ? `:${this.line}` : '';
-    const column = this.column ? `:${this.column}` : '';
-    return `${this.message}. ${source}${line}${column}`;
+    return `${source}${line}${column} - ${message}\n${lineNumber}${code}\n${caret}`;
   }
 
   public toError(): Error {
