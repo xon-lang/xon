@@ -83,7 +83,8 @@ CHAR_LITERAL:    '\'' ~['] '\'';
 STRING_LITERAL:  '"' (~["] | '\\' ["\\bfnrtv])* '"';
 PREPROCESSOR:    '#{' .*? '}';
 
-ID: [_a-zA-Z]+;
+ID:            [_a-z] [_a-zA-Z]*;
+DEFINITION_ID: [A-Z] [_a-zA-Z]*;
 
 NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
     ;

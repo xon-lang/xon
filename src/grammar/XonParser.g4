@@ -8,17 +8,20 @@ program: (library | statement | definition | NL)*;
 
 library:       libraryPath ':' libraryMember (',' libraryMember)*;
 libraryPath:   id ('-' id)* '/' id ('-' id)*;
-libraryMember: name = id (AS alias = id)?;
+libraryMember: name = DEFINITION_ID (AS alias = DEFINITION_ID)?;
 
 definition:
-    id generics? parameters? (IS type)? ':' NL INDENT (member | NL)+ DEDENT
+    DEFINITION_ID declaredGenerics? parameters? (IS type)? ':' NL INDENT (
+        member
+        | NL
+    )+ DEDENT
     ;
 
 member:
-    id type ('=' expression)?             # propertyMember
-    | 'init' body                         # initMember
-    | operator parameters type body?      # operatorMember
-    | id generics? parameters type? body? # methodMember
+    id type ('=' expression)?                     # propertyMember
+    | 'init' body                                 # initMember
+    | operator parameters type body?              # operatorMember
+    | id declaredGenerics? parameters type? body? # methodMember
     ;
 
 statement:
@@ -32,24 +35,25 @@ statement:
     ;
 
 expression:
-    '@'                                                                        # instanceExpression
-    | id                                                                       # idExpression
-    | literal                                                                  # literalExpression
-    | expression '.' id                                                        # memberExpression
-    | expression ('<' type (',' type)* '>')? arguments                         # methodExpression
-    | expression '[' expression ']'                                            # indexExpression
-    | left = expression op = '^' right = expression                            # powExpression
-    | '-' expression                                                           # negativeExpression
-    | NOT expression                                                           # logicalNotExpression
-    | left = expression op = ('*' | '/' | '%') right = expression              # mulDivModExpression
-    | left = expression op = ('+' | '-') right = expression                    # addSubExpression
-    | left = expression op = '..' right = expression                           # rangeExpression
-    | left = expression (op += ('<' | '<=' | '>=' | '>') right += expression)+ # relationalExpression
-    | left = expression op = ('==' | '!=') right = expression                  # equalityExpression
-    | left = expression AND right = expression                                 # logicalAndExpression
-    | left = expression OR right = expression                                  # logicalOrExpression
-    | '[' (expression (',' expression)*)? ']'                                  # arrayExpression
-    | '(' expression ')'                                                       # parenthesizedExpression
+    '@'                                                                   # instanceExpression
+    | DEFINITION_ID generics? arguments                                   # instantiationExpression
+    | id                                                                  # idExpression
+    | literal                                                             # literalExpression
+    | expression '.' id                                                   # memberExpression
+    | expression generics? arguments                                      # methodExpression
+    | expression '[' expression ']'                                       # indexExpression
+    | left = expression op = '^' right = expression                       # powExpression
+    | '-' expression                                                      # negativeExpression
+    | NOT expression                                                      # logicalNotExpression
+    | left = expression op = ('*' | '/' | '%') right = expression         # mulDivModExpression
+    | left = expression op = ('+' | '-') right = expression               # addSubExpression
+    | left = expression op = '..' right = expression                      # rangeExpression
+    | left = expression op = ('<' | '<=' | '>=' | '>') right = expression # relationalExpression
+    | left = expression op = ('==' | '!=') right = expression             # equalityExpression
+    | left = expression AND right = expression                            # logicalAndExpression
+    | left = expression OR right = expression                             # logicalOrExpression
+    | '[' (expression (',' expression)*)? ']'                             # arrayExpression
+    | '(' expression ')'                                                  # parenthesizedExpression
     // |  id+ ':')? expression                         # lambdaExpression
     | '\\' (id (',' id)* ':')? expression # lambdaExpression
     ;
@@ -63,7 +67,7 @@ literal:
     ;
 
 type:
-    id ('<' type (',' type)* '>')?                                      # plainType
+    DEFINITION_ID generics?                                             # plainType
     | literal                                                           # literalType
     | type '?'                                                          # nullableType
     | type '[' ']'                                                      # arrayType
@@ -89,10 +93,11 @@ operator:
     | '..'
     ;
 
-id:         ID;
-parameter:  name = id type ('#' meta = id)?;
-parameters: '(' (parameter (',' parameter)*)? ')';
-argument:   (id '=')? expression;
-arguments:  '(' (argument (',' argument)*)? ')';
-generics:   '<' id (',' id)* '>';
-body:       ':' statement | ':' NL INDENT (statement | NL)+ DEDENT;
+id:               ID;
+parameter:        name = id type ('#' meta = DEFINITION_ID)?;
+parameters:       '(' (parameter (',' parameter)*)? ')';
+argument:         (id '=')? expression;
+arguments:        '(' (argument (',' argument)*)? ')';
+generics:         '<' type (',' type)* '>';
+declaredGenerics: '<' DEFINITION_ID (',' DEFINITION_ID)* '>';
+body:             ':' statement | ':' NL INDENT (statement | NL)+ DEDENT;
