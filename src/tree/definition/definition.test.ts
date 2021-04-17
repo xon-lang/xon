@@ -14,8 +14,8 @@ test('one scope', () => {
   expect(tree.name).toBe('SomeClass');
   expect(tree.hasConstructor).toBe(true);
 
-  expect(tree.generics.length).toBe(1);
-  expect(tree.generics[0]).toBe('T');
+  expect(tree.declaredGenerics.length).toBe(1);
+  expect(tree.declaredGenerics[0]).toBe('T');
 
   expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].name).toBe('name');

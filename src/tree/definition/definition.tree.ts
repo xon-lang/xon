@@ -13,7 +13,7 @@ import { PropertyMemberTree } from './member/property-member/property-member.tre
 export class DefinitionTree extends BaseTree {
   public name: string;
 
-  public generics: string[];
+  public declaredGenerics: string[];
 
   public parameters: ParameterTree[];
 
@@ -35,11 +35,11 @@ export class DefinitionTree extends BaseTree {
     super();
     if (!ctx) return;
 
-    this.name = ctx.id().text;
-    this.generics =
+    this.name = ctx.DEFINITION_ID().text;
+    this.declaredGenerics =
       ctx
-        .generics()
-        ?.id()
+        .declaredGenerics()
+        ?.DEFINITION_ID()
         .map((x) => x.text) || [];
     this.parameters = ParameterTree.fromContext(ctx.parameters());
     this.hasConstructor = !!ctx.parameters();

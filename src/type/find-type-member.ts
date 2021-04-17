@@ -17,11 +17,11 @@ export function findOperatorMember(
   rightType: TypeTree,
 ): TypeTree {
   const definition = findDefinitionByType(leftType);
-  if (leftType.generics.length !== definition.generics.length)
+  if (leftType.generics.length !== definition.declaredGenerics.length)
     throw Issue.errorFromTree(definition, 'Wrong generics count').toError();
 
   const definitionGenericsMap: GenericsMap = new Map(
-    definition.generics.map((x, i) => [x, leftType.generics[i]]),
+    definition.declaredGenerics.map((x, i) => [x, leftType.generics[i]]),
   );
   const operatorMembers = definition.operators.filter(
     (x) =>
@@ -52,7 +52,7 @@ export function findOperatorMember(
 
 export function getMemberType(type: TypeTree, name: string): TypeTree {
   const definition = findDefinitionByType(type);
-  if (type.generics.length !== definition.generics.length)
+  if (type.generics.length !== definition.declaredGenerics.length)
     throw Issue.errorFromTree(definition, 'Wrong generics count').toError();
 
   const members = definition.members.filter((x) => x.name === name);
@@ -67,7 +67,7 @@ export function getMemberType(type: TypeTree, name: string): TypeTree {
     ).toError();
 
   const genericsMap: GenericsMap = new Map(
-    definition.generics.map((x, i) => [x, type.generics[i]]),
+    definition.declaredGenerics.map((x, i) => [x, type.generics[i]]),
   );
 
   const member = members[0];
@@ -78,12 +78,12 @@ export function getMemberType(type: TypeTree, name: string): TypeTree {
   if (member instanceof MethodMemberTree) {
     if (member.returnType)
       return createFunctionType(
-        member.generics,
+        member.declaredGenerics,
         member.parameters.map((x) => x.type.useGenericsMap(genericsMap)),
         member.returnType.useGenericsMap(genericsMap),
       );
     return createActionType(
-      member.generics,
+      member.declaredGenerics,
       member.parameters.map((x) => x.type.useGenericsMap(genericsMap)),
     );
   }

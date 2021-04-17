@@ -14,11 +14,11 @@ export class ProgramType extends BaseType {
 
   public fillTypes(): void {
     this.tree.definitions.forEach((x) => {
-      const generics = x.generics.map((z) => createPlainType(z));
+      const generics = x.declaredGenerics.map((z) => createPlainType(z));
       const returnType = createPlainType(x.name, generics);
 
       const type = createFunctionType(
-        x.generics,
+        x.declaredGenerics,
         x.parameters.map((z) => z.type),
         returnType,
       ).useGenericsMap(this.genericsMap);
