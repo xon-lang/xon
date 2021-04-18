@@ -33,7 +33,7 @@ test('one scope', () => {
   expect(tree.properties[2].name).toBe('typedValue');
   expect(tree.properties[2].type.name).toBe('Number');
 
-  expect(tree.inits.length).toBe(0);
+  expect(tree.init).toBeUndefined();
 
   expect(tree.methods.length).toBe(2);
   expect(tree.methods[0].name).toBe('method');

@@ -33,10 +33,10 @@ export class DefinitionType extends BaseType {
     this.tree.properties.forEach((x) => addToScope(x.name, x.type));
 
     [
-      ...this.tree.properties,
-      ...this.tree.inits,
-      ...this.tree.operators,
+      ...(this.tree.init ? [this.tree.init] : []),
       ...this.tree.methods,
+      ...this.tree.operators,
+      ...this.tree.properties,
     ].forEach((x) => fillMemberTypes(x, this.genericsMap));
 
     popScope();

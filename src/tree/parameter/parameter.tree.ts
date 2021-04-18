@@ -6,6 +6,8 @@ import { TypeTree } from '../type/type.tree';
 export class ParameterTree extends BaseTree {
   public name: string;
 
+  public isPrivate: boolean;
+
   public type: TypeTree;
 
   public metaType?: string;
@@ -15,6 +17,7 @@ export class ParameterTree extends BaseTree {
     if (!ctx) return;
 
     this.name = ctx._name.text;
+    this.isPrivate = this.name.startsWith('_');
     this.type = getTypeTree(ctx.type());
     this.metaType = ctx._meta?.text;
   }

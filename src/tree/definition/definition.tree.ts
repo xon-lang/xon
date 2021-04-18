@@ -1,4 +1,5 @@
 import { DefinitionContext } from '../../grammar/xon-parser';
+import { Issue } from '../../issue-service/issue';
 import { BaseTree } from '../base.tree';
 import { ParameterTree } from '../parameter/parameter.tree';
 import { getTypeTree } from '../type/type-helper';
@@ -25,7 +26,7 @@ export class DefinitionTree extends BaseTree {
 
   public properties: PropertyMemberTree[] = [];
 
-  public inits: InitMemberTree[] = [];
+  public init: InitMemberTree;
 
   public operators: OperatorMemberTree[] = [];
 
@@ -46,10 +47,13 @@ export class DefinitionTree extends BaseTree {
     this.inheritanceType = getTypeTree(ctx.type());
     this.members = this.ctx.member().map((x) => getMemberTree(x));
     this.members.forEach((x) => {
-      if (x instanceof PropertyMemberTree) this.properties.push(x);
-      if (x instanceof InitMemberTree) this.inits.push(x);
-      if (x instanceof OperatorMemberTree) this.operators.push(x);
+      if (x instanceof InitMemberTree) {
+        if (this.init) throw Issue.errorFromTree(x, 'Init member already exists').toError();
+        this.init = x;
+      }
       if (x instanceof MethodMemberTree) this.methods.push(x);
+      if (x instanceof OperatorMemberTree) this.operators.push(x);
+      if (x instanceof PropertyMemberTree) this.properties.push(x);
     });
   }
 
