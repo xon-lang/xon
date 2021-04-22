@@ -22,12 +22,14 @@ AS:     'as';
 IF:     'if';
 IN:     'in';
 OR:     'or';
+FOR:    'for';
 NOT:    'not';
 AND:    'and';
 ELSE:   'else';
-LOOP:   'loop';
 INIT:   'init';
+LOOP:   'loop';
 BREAK:  'break';
+WHILE:  'while';
 RETURN: 'return';
 
 OPEN_BRACKET:  '[' {this.opened++;};
