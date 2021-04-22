@@ -1,5 +1,5 @@
 import { LoopStatementContext } from '../../../grammar/xon-parser';
-import { getBody } from '../statement-helper';
+import { getBody } from '../statement-tree.helper';
 import { StatementTree } from '../statement.tree';
 
 export class LoopStatementTree extends StatementTree {

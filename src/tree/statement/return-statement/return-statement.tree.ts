@@ -1,5 +1,5 @@
 import { ReturnStatementContext } from '../../../grammar/xon-parser';
-import { getExpressionTree } from '../../expression/expression-helper';
+import { getExpressionTree } from '../../expression/expression-tree.helper';
 import { ExpressionTree } from '../../expression/expression.tree';
 import { StatementTree } from '../statement.tree';
 

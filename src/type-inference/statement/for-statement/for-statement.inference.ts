@@ -1,6 +1,6 @@
 import { ForStatementTree } from '../../../tree/statement/for-statement/for-statement.tree';
 import { ArrayTypeTree } from '../../../tree/type/array-type/array-type.tree';
-import { createPlainType } from '../../../tree/type/type-helper';
+import { createPlainType } from '../../../tree/type/type-tree.helper';
 import { TypeTree } from '../../../tree/type/type.tree';
 import { getExpressionInference } from '../../expression/expression-inference.helper';
 import { ExpressionInference } from '../../expression/expression.inference';

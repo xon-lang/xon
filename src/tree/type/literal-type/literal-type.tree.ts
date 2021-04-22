@@ -1,5 +1,5 @@
 import { LiteralTypeContext } from '../../../grammar/xon-parser';
-import { getLiteralTree } from '../../literal/literal-helper';
+import { getLiteralTree } from '../../literal/literal-tree.helper';
 import { TypeTree } from '../type.tree';
 
 export class LiteralTypeTree extends TypeTree {

@@ -1,5 +1,5 @@
 import { PlainTypeContext } from '../../../grammar/xon-parser';
-import { createPlainType, getTypesTrees } from '../type-helper';
+import { createPlainType, getTypesTrees } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
 export class PlainTypeTree extends TypeTree {

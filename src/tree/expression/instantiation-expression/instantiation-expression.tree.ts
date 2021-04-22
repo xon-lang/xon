@@ -1,7 +1,7 @@
 import { InstantiationExpressionContext } from '../../../grammar/xon-parser';
 import { ArgumentTree } from '../../argument/argument.tree';
 import { PlainTypeTree } from '../../type/plain-type/plain-type.tree';
-import { createPlainType, getTypesTrees } from '../../type/type-helper';
+import { createPlainType, getTypesTrees } from '../../type/type-tree.helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class InstantiationExpressionTree extends ExpressionTree {

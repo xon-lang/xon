@@ -1,5 +1,5 @@
 import { ArrayExpressionTree } from '../../../tree/expression/array-expression/array-expression.tree';
-import { createArrayType, createPlainType, createUnionType } from '../../../tree/type/type-helper';
+import { createArrayType, createPlainType, createUnionType } from '../../../tree/type/type-tree.helper';
 import { GenericsMap } from '../../generics-map';
 import { getExpressionInference } from '../expression-inference.helper';
 import { ExpressionInference } from '../expression.inference';

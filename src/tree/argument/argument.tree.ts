@@ -1,6 +1,6 @@
 import { ArgumentContext, ArgumentsContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
-import { getExpressionTree } from '../expression/expression-helper';
+import { getExpressionTree } from '../expression/expression-tree.helper';
 import { ExpressionTree } from '../expression/expression.tree';
 
 export class ArgumentTree extends BaseTree {

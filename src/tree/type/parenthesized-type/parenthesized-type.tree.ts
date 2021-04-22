@@ -1,5 +1,5 @@
 import { ParenthesizedTypeContext } from '../../../grammar/xon-parser';
-import { createParenthesizedType, getTypeTree } from '../type-helper';
+import { createParenthesizedType, getTypeTree } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
 export class ParenthesizedTypeTree extends TypeTree {

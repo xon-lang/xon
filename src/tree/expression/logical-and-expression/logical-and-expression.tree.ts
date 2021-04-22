@@ -1,5 +1,5 @@
 import { LogicalAndExpressionContext } from '../../../grammar/xon-parser';
-import { getExpressionTree } from '../expression-helper';
+import { getExpressionTree } from '../expression-tree.helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class LogicalAndExpressionTree extends ExpressionTree {

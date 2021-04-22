@@ -1,6 +1,6 @@
 import { MethodMemberTree } from '../../../../tree/definition/member/method-member/method-member.tree';
 import { parseMember } from '../../../../tree/parse';
-import { createPlainType } from '../../../../tree/type/type-helper';
+import { createPlainType } from '../../../../tree/type/type-tree.helper';
 import { ExpressionStatementInference } from '../../../statement/expression-statement/expression-statement.inference';
 import { getMemberInference } from '../member-inference.helper';
 import { MethodMemberInference } from './method-member.inference.type';

@@ -1,6 +1,6 @@
 import { ArrayTypeContext } from '../../../grammar/xon-parser';
 import { FunctionTypeTree } from '../function-type/function-type.tree';
-import { createArrayType, getTypeTree } from '../type-helper';
+import { createArrayType, getTypeTree } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 import { UnionTypeTree } from '../union-type/union-type.tree';
 

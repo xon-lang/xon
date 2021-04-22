@@ -1,6 +1,6 @@
 import { ParameterContext, ParametersContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
-import { getTypeTree } from '../type/type-helper';
+import { getTypeTree } from '../type/type-tree.helper';
 import { TypeTree } from '../type/type.tree';
 
 export class ParameterTree extends BaseTree {

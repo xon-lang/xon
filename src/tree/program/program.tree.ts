@@ -2,7 +2,7 @@ import { ProgramContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { DefinitionTree } from '../definition/definition.tree';
 import { LibraryTree } from '../library/library.tree';
-import { getStatementTree } from '../statement/statement-helper';
+import { getStatementTree } from '../statement/statement-tree.helper';
 import { StatementTree } from '../statement/statement.tree';
 
 export class ProgramTree extends BaseTree {

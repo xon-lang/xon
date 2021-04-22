@@ -1,5 +1,5 @@
 import { LogicalNotExpressionTree } from '../../../tree/expression/logical-not-expression/logical-not-expression.tree';
-import { createPlainType } from '../../../tree/type/type-helper';
+import { createPlainType } from '../../../tree/type/type-tree.helper';
 import { GenericsMap } from '../../generics-map';
 import { getExpressionInference } from '../expression-inference.helper';
 import { ExpressionInference } from '../expression.inference';

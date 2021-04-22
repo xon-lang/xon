@@ -1,5 +1,5 @@
 import { LogicalAndExpressionTree } from '../../../tree/expression/logical-and-expression/logical-and-expression.tree';
-import { createPlainType } from '../../../tree/type/type-helper';
+import { createPlainType } from '../../../tree/type/type-tree.helper';
 import { GenericsMap } from '../../generics-map';
 import { getExpressionInference } from '../expression-inference.helper';
 import { ExpressionInference } from '../expression.inference';

@@ -1,5 +1,5 @@
 import { UnionTypeContext } from '../../../grammar/xon-parser';
-import { createUnionType, getTypesTrees } from '../type-helper';
+import { createUnionType, getTypesTrees } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
 export class UnionTypeTree extends TypeTree {

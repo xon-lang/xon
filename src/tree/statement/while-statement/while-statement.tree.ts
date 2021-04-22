@@ -1,7 +1,7 @@
 import { WhileStatementContext } from '../../../grammar/xon-parser';
-import { getExpressionTree } from '../../expression/expression-helper';
+import { getExpressionTree } from '../../expression/expression-tree.helper';
 import { ExpressionTree } from '../../expression/expression.tree';
-import { getBody } from '../statement-helper';
+import { getBody } from '../statement-tree.helper';
 import { StatementTree } from '../statement.tree';
 
 export class WhileStatementTree extends StatementTree {

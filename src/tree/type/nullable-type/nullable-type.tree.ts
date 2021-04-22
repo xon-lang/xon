@@ -1,5 +1,5 @@
 import { NullableTypeContext } from '../../../grammar/xon-parser';
-import { createNullableType, getTypeTree } from '../type-helper';
+import { createNullableType, getTypeTree } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
 export class NullableTypeTree extends TypeTree {

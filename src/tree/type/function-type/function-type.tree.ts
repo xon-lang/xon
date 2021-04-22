@@ -1,5 +1,5 @@
 import { FunctionTypeContext } from '../../../grammar/xon-parser';
-import { createFunctionType, getTypeTree } from '../type-helper';
+import { createFunctionType, getTypeTree } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
 export class FunctionTypeTree extends TypeTree {

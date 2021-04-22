@@ -1,8 +1,8 @@
 import { MethodMemberContext } from '../../../../grammar/xon-parser';
 import { ParameterTree } from '../../../parameter/parameter.tree';
-import { getBody } from '../../../statement/statement-helper';
+import { getBody } from '../../../statement/statement-tree.helper';
 import { StatementTree } from '../../../statement/statement.tree';
-import { getTypeTree } from '../../../type/type-helper';
+import { getTypeTree } from '../../../type/type-tree.helper';
 import { TypeTree } from '../../../type/type.tree';
 import { MemberTree } from '../member.tree';
 

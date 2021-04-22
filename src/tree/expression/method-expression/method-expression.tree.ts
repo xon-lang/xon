@@ -1,8 +1,8 @@
 import { MethodExpressionContext } from '../../../grammar/xon-parser';
 import { ArgumentTree } from '../../argument/argument.tree';
-import { getTypesTrees } from '../../type/type-helper';
+import { getTypesTrees } from '../../type/type-tree.helper';
 import { TypeTree } from '../../type/type.tree';
-import { getExpressionTree } from '../expression-helper';
+import { getExpressionTree } from '../expression-tree.helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class MethodExpressionTree extends ExpressionTree {

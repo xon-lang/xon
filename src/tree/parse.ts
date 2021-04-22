@@ -3,19 +3,19 @@ import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
 import { ArgumentTree } from './argument/argument.tree';
 import { DefinitionTree } from './definition/definition.tree';
-import { getMemberTree } from './definition/member/member-helper';
+import { getMemberTree } from './definition/member/member-tree.helper';
 import { MemberTree } from './definition/member/member.tree';
-import { getExpressionTree } from './expression/expression-helper';
+import { getExpressionTree } from './expression/expression-tree.helper';
 import { ExpressionTree } from './expression/expression.tree';
 import { LibraryTree } from './library/library.tree';
-import { getLiteralTree } from './literal/literal-helper';
+import { getLiteralTree } from './literal/literal-tree.helper';
 import { LiteralTree } from './literal/literal.tree';
 import { ParameterTree } from './parameter/parameter.tree';
 import { ProgramTree } from './program/program.tree';
-import { getStatementTree } from './statement/statement-helper';
+import { getStatementTree } from './statement/statement-tree.helper';
 import { StatementTree } from './statement/statement.tree';
 import { ThrowingErrorListener } from './throwing-error-listener';
-import { getTypeTree } from './type/type-helper';
+import { getTypeTree } from './type/type-tree.helper';
 import { TypeTree } from './type/type.tree';
 
 export const parse = (code: string): XonParser => {

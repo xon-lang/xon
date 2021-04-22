@@ -1,6 +1,6 @@
 import { DefinitionTree } from '../../tree/definition/definition.tree';
 import { parseDefinition } from '../../tree/parse';
-import { createPlainType } from '../../tree/type/type-helper';
+import { createPlainType } from '../../tree/type/type-tree.helper';
 import { clearScopes } from '../id-scope';
 import { getDefinitionInference } from './definition-inference.helper';
 

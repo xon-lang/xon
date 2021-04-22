@@ -1,7 +1,7 @@
 import { PropertyMemberContext } from '../../../../grammar/xon-parser';
-import { getExpressionTree } from '../../../expression/expression-helper';
+import { getExpressionTree } from '../../../expression/expression-tree.helper';
 import { ExpressionTree } from '../../../expression/expression.tree';
-import { getTypeTree } from '../../../type/type-helper';
+import { getTypeTree } from '../../../type/type-tree.helper';
 import { TypeTree } from '../../../type/type.tree';
 import { MemberTree } from '../member.tree';
 

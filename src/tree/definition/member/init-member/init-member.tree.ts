@@ -1,5 +1,5 @@
 import { InitMemberContext } from '../../../../grammar/xon-parser';
-import { getBody } from '../../../statement/statement-helper';
+import { getBody } from '../../../statement/statement-tree.helper';
 import { StatementTree } from '../../../statement/statement.tree';
 import { MemberTree } from '../member.tree';
 

@@ -5,7 +5,7 @@ import { FloatLiteralTree } from '../../../tree/literal/float-literal/float-lite
 import { IntegerLiteralTree } from '../../../tree/literal/integer-literal/integer-literal.tree';
 import { LiteralTree } from '../../../tree/literal/literal.tree';
 import { StringLiteralTree } from '../../../tree/literal/string-literal/string-literal.tree';
-import { createPlainType } from '../../../tree/type/type-helper';
+import { createPlainType } from '../../../tree/type/type-tree.helper';
 import { GenericsMap } from '../../generics-map';
 import { ExpressionInference } from '../expression.inference';
 
