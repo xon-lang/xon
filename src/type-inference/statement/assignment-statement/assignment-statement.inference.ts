@@ -1,0 +1,20 @@
+import { AssignmentStatementTree } from '../../../tree/statement/assignment-statement/assignment-statement.tree';
+import { fillExpressionTypes } from '../../expression/expression-inference.helper';
+import { GenericsMap } from '../../generics-map';
+import { addToScope } from '../../id-scope';
+import { StatementInference } from '../statement.inference';
+
+export class AssignmentStatementInference extends StatementInference {
+  public constructor(public tree: AssignmentStatementTree, public genericsMap: GenericsMap) {
+    super();
+  }
+
+  public fillTypes(): void {
+    fillExpressionTypes(this.tree.value, this.genericsMap);
+
+    if (this.tree.type) this.tree.type = this.tree.type.useGenericsMap(this.genericsMap);
+    else this.tree.type = this.tree.value.type;
+
+    addToScope(this.tree.name, this.tree.type);
+  }
+}
