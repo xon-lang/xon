@@ -3,7 +3,8 @@ import { parseProgram } from '../../tree/parse';
 import { ProgramTree } from '../../tree/program/program.tree';
 import { AssignmentStatementTree } from '../../tree/statement/assignment-statement/assignment-statement.tree';
 import { clearScopes } from '../id-scope';
-import { fillProgramTypes } from './program-inference.helper';
+import { AssignmentStatementInference } from '../statement/assignment-statement/assignment-statement.inference';
+import { getProgramInference } from './program-inference.helper';
 
 test('has one statement no generics', () => {
   const code = `
@@ -18,8 +19,9 @@ Animal:
   expect(tree).toBeInstanceOf(ProgramTree);
 
   clearScopes();
-  fillProgramTypes(tree, new Map());
-  expect((tree.statements[0] as AssignmentStatementTree).type.toString()).toBe('Animal');
+  const inference = getProgramInference(tree, new Map());
+
+  expect((inference.statements[0] as AssignmentStatementInference).type.toString()).toBe('Animal');
 });
 
 test('has one statement with generics', () => {
@@ -42,8 +44,10 @@ Animal<T>:
   expect(cValue).toBeInstanceOf(MethodExpressionTree);
 
   clearScopes();
-  fillProgramTypes(tree, new Map());
-  expect((tree.statements[0] as AssignmentStatementTree).type.toString()).toBe('Animal<Float>');
-  expect((tree.statements[1] as AssignmentStatementTree).type.toString()).toBe('Float');
-  expect((tree.statements[2] as AssignmentStatementTree).type.toString()).toBe('String');
+  const inference = getProgramInference(tree, new Map());
+  expect((inference.statements[0] as AssignmentStatementInference).type.toString()).toBe(
+    'Animal<Float>',
+  );
+  expect((inference.statements[1] as AssignmentStatementInference).type.toString()).toBe('Float');
+  expect((inference.statements[2] as AssignmentStatementInference).type.toString()).toBe('String');
 });

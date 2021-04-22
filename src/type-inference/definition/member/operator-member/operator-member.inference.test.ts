@@ -1,13 +1,14 @@
 import { OperatorMemberTree } from '../../../../tree/definition/member/operator-member/operator-member.tree';
 import { parseMember } from '../../../../tree/parse';
-import { ExpressionStatementTree } from '../../../../tree/statement/expression-statement/expression-statement.tree';
-import { fillMemberTypes } from '../member-inference.helper';
+import { ExpressionStatementInference } from '../../../statement/expression-statement/expression-statement.inference';
+import { getMemberInference } from '../member-inference.helper';
+import { OperatorMemberInference } from './operator-member.inference';
 
 test('has return Float type', () => {
   const code = '+(a Integer, b Float) Float:\n    b';
   const tree = parseMember<OperatorMemberTree>(code);
   expect(tree).toBeInstanceOf(OperatorMemberTree);
 
-  fillMemberTypes(tree, new Map());
-  expect((tree.body[0] as ExpressionStatementTree).value.type.toString()).toBe('Float');
+  const inference = getMemberInference(tree, new Map()) as OperatorMemberInference;
+  expect((inference.body[0] as ExpressionStatementInference).value.type.toString()).toBe('Float');
 });

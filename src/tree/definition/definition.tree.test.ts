@@ -12,8 +12,6 @@ test('one scope', () => {
   expect(tree).toBeInstanceOf(DefinitionTree);
 
   expect(tree.name).toBe('SomeClass');
-  expect(tree.hasConstructor).toBe(true);
-
   expect(tree.declaredGenerics.length).toBe(1);
   expect(tree.declaredGenerics[0]).toBe('T');
 

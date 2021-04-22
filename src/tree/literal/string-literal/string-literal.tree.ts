@@ -10,7 +10,7 @@ export class StringLiteralTree extends LiteralTree {
 
     const CHAR_START = 1;
     const CHAR_END = -1;
-    this.value = this.ctx.text.slice(CHAR_START, CHAR_END).replace(/\\"/g, '"');
+    this.value = ctx.text.slice(CHAR_START, CHAR_END).replace(/\\"/g, '"');
   }
 
   public toString(): string {

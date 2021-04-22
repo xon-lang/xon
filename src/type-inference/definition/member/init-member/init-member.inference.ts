@@ -1,17 +1,19 @@
 import { InitMemberTree } from '../../../../tree/definition/member/init-member/init-member.tree';
 import { GenericsMap } from '../../../generics-map';
 import { popScope, pushScope } from '../../../id-scope';
-import { fillStatementTypes } from '../../../statement/statement-inference.helper';
+import { getStatementInference } from '../../../statement/statement-inference.helper';
+import { StatementInference } from '../../../statement/statement.inference';
 import { MemberInference } from '../member.inference';
 
 export class InitMemberInference extends MemberInference {
+  public body?: StatementInference[];
+
   public constructor(public tree: InitMemberTree, public genericsMap: GenericsMap) {
     super();
-  }
 
-  public fillTypes(): void {
+    this.name = tree.name;
     pushScope();
-    this.tree.body.forEach((x) => fillStatementTypes(x, this.genericsMap));
+    this.body = tree.body.map((x) => getStatementInference(x, this.genericsMap));
     popScope();
   }
 }

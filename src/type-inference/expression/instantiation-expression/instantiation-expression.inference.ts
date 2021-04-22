@@ -1,35 +1,35 @@
 import { InstantiationExpressionTree } from '../../../tree/expression/instantiation-expression/instantiation-expression.tree';
-import { PlainTypeTree } from '../../../tree/type/plain-type/plain-type.tree';
 import { TypeTree } from '../../../tree/type/type.tree';
+import { getArgumentInference } from '../../argument/argument-inference.helper';
+import { ArgumentInference } from '../../argument/argument.inference';
 import { findDefinitionByType } from '../../find-type-member';
 import { GenericsMap } from '../../generics-map';
-import { fillExpressionTypes } from '../expression-inference.helper';
 import { ExpressionInference } from '../expression.inference';
 
 export class InstantiationExpressionInference extends ExpressionInference {
+  public type: TypeTree;
+
+  public arguments: ArgumentInference[];
+
   public constructor(public tree: InstantiationExpressionTree, public genericsMap: GenericsMap) {
     super();
-  }
+    this.arguments = tree.arguments.map((x) => getArgumentInference(x, this.genericsMap));
 
-  public fillTypes(): void {
-    this.tree.arguments.forEach((x) => fillExpressionTypes(x.value, this.genericsMap));
-    const argumentsTypes = this.tree.arguments.map((x) => x.value.type);
-
-    const type = this.tree.type as PlainTypeTree;
-    const typeDefinition = findDefinitionByType(type);
+    const argumentsTypes = this.arguments.map((x) => x.value.type);
+    const typeDefinition = findDefinitionByType(tree.type);
     const argumentsGenericsEntries = typeDefinition.parameters
       .map((x, i) => x.type.getGenericsMap(argumentsTypes[i]).entries())
       .map((x) => Array.from(x))
       .flat();
     const declaredGenericsEntries = typeDefinition.declaredGenerics.map((x, i) => [
       x,
-      this.tree.type.generics[i].useGenericsMap(this.genericsMap),
+      tree.type.generics[i].useGenericsMap(this.genericsMap),
     ]);
 
-    const genericsMap = (typeDefinition.declaredGenerics
+    const genericsMap2 = (typeDefinition.declaredGenerics
       ? declaredGenericsEntries
       : argumentsGenericsEntries) as [string, TypeTree][];
 
-    this.tree.type = this.tree.type.useGenericsMap(new Map(genericsMap));
+    this.type = tree.type.useGenericsMap(new Map(genericsMap2));
   }
 }

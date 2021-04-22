@@ -1,25 +1,36 @@
 import { MethodMemberTree } from '../../../../tree/definition/member/method-member/method-member.tree';
+import { TypeTree } from '../../../../tree/type/type.tree';
 import { GenericsMap } from '../../../generics-map';
 import { addToScope, popScope, pushScope } from '../../../id-scope';
-import { fillStatementTypes } from '../../../statement/statement-inference.helper';
+import { getParameterInference } from '../../../parameter/parameter-inference.helper';
+import { ParameterInference } from '../../../parameter/parameter.inference';
+import { getStatementInference } from '../../../statement/statement-inference.helper';
+import { StatementInference } from '../../../statement/statement.inference';
 import { MemberInference } from '../member.inference';
 
 export class MethodMemberInference extends MemberInference {
+  public isPrivate: boolean;
+
+  public declaredGenerics: string[];
+
+  public parameters: ParameterInference[] = [];
+
+  public returnType: TypeTree;
+
+  public body?: StatementInference[];
+
   public constructor(public tree: MethodMemberTree, public genericsMap: GenericsMap) {
     super();
-  }
 
-  public fillTypes(): void {
+    this.name = tree.name;
+    this.isPrivate = tree.isPrivate;
+    this.declaredGenerics = tree.declaredGenerics;
     pushScope();
 
-    this.tree.parameters.forEach((x) => {
-      // eslint-disable-next-line no-param-reassign
-      x.type = x.type.useGenericsMap(this.genericsMap);
-      addToScope(x.name, x.type);
-    });
-    this.tree.returnType = this.tree.returnType?.useGenericsMap(this.genericsMap);
-    this.tree.body.forEach((x) => fillStatementTypes(x, this.genericsMap));
-
+    this.parameters = tree.parameters.map((x) => getParameterInference(x, genericsMap));
+    this.parameters.forEach((x) => addToScope(x.name, x.type));
+    this.returnType = tree.returnType.useGenericsMap(this.genericsMap);
+    this.body = tree.body.map((x) => getStatementInference(x, this.genericsMap));
     popScope();
   }
 }

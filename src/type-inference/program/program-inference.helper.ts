@@ -2,6 +2,6 @@ import { ProgramTree } from '../../tree/program/program.tree';
 import { GenericsMap } from '../generics-map';
 import { ProgramInference } from './program.inference';
 
-export function fillProgramTypes(tree: ProgramTree, genericsMap: GenericsMap): void {
-  new ProgramInference(tree, genericsMap).fillTypes();
+export function getProgramInference(tree: ProgramTree, genericsMap: GenericsMap): ProgramInference {
+  return new ProgramInference(tree, genericsMap);
 }

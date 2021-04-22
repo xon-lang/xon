@@ -1,14 +1,15 @@
 import { parseStatement } from '../../../tree/parse';
 import { ExpressionStatementTree } from '../../../tree/statement/expression-statement/expression-statement.tree';
-import { fillExpressionTypes } from '../expression-inference.helper';
+import { ExpressionStatementInference } from '../../statement/expression-statement/expression-statement.inference';
+import { getStatementInference } from '../../statement/statement-inference.helper';
 
 test('index type is Integer', () => {
   const code = '[1, 2, 3][1]';
   const tree = parseStatement<ExpressionStatementTree>(code);
   expect(tree).toBeInstanceOf(ExpressionStatementTree);
 
-  fillExpressionTypes(tree.value, new Map());
-  expect('Integer').toBe(tree.value.type.toString());
+  const inference = getStatementInference(tree, new Map()) as ExpressionStatementInference;
+  expect(inference.value.type.toString()).toBe('Integer');
 });
 
 test('index type is Union', () => {
@@ -16,6 +17,6 @@ test('index type is Union', () => {
   const tree = parseStatement<ExpressionStatementTree>(code);
   expect(tree).toBeInstanceOf(ExpressionStatementTree);
 
-  fillExpressionTypes(tree.value, new Map());
-  expect('String | Integer').toBe(tree.value.type.toString());
+  const inference = getStatementInference(tree, new Map()) as ExpressionStatementInference;
+  expect(inference.value.type.toString()).toBe('String | Integer');
 });

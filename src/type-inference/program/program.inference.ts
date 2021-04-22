@@ -1,31 +1,27 @@
 import { ProgramTree } from '../../tree/program/program.tree';
-import { createFunctionType, createPlainType } from '../../tree/type/type-helper';
 import { BaseInference } from '../base.inference';
 import { definitionCache } from '../definition-storage';
-import { fillDefinitionTypes } from '../definition/definition-inference.helper';
+import { getDefinitionInference } from '../definition/definition-inference.helper';
+import { DefinitionInference } from '../definition/definition.inference';
 import { GenericsMap } from '../generics-map';
-import { addToScope } from '../id-scope';
-import { fillStatementTypes } from '../statement/statement-inference.helper';
+import { getLibraryInference } from '../library/library-inference.helper';
+import { LibraryInference } from '../library/library.inference';
+import { getStatementInference } from '../statement/statement-inference.helper';
+import { StatementInference } from '../statement/statement.inference';
 
 export class ProgramInference extends BaseInference {
+  public libraries: LibraryInference[];
+
+  public statements: StatementInference[];
+
+  public definitions: DefinitionInference[];
+
   public constructor(public tree: ProgramTree, public genericsMap: GenericsMap) {
     super();
-  }
 
-  public fillTypes(): void {
-    this.tree.definitions.forEach((x) => {
-      const generics = x.declaredGenerics.map((z) => createPlainType(z));
-      const returnType = createPlainType(x.name, generics);
-
-      const type = createFunctionType(
-        x.declaredGenerics,
-        x.parameters.map((z) => z.type),
-        returnType,
-      ).useGenericsMap(this.genericsMap);
-      addToScope(x.name, type);
-      definitionCache.set(x.name, x);
-    });
-    this.tree.definitions.forEach((x) => fillDefinitionTypes(x, this.genericsMap));
-    this.tree.statements.forEach((x) => fillStatementTypes(x, this.genericsMap));
+    this.libraries = tree.libraries.map((x) => getLibraryInference(x, genericsMap));
+    tree.definitions.forEach((x) => definitionCache.set(x.name, x));
+    this.definitions = tree.definitions.map((x) => getDefinitionInference(x, this.genericsMap));
+    this.statements = tree.statements.map((x) => getStatementInference(x, this.genericsMap));
   }
 }

@@ -1,15 +1,23 @@
 import { PropertyMemberTree } from '../../../../tree/definition/member/property-member/property-member.tree';
-import { fillExpressionTypes } from '../../../expression/expression-inference.helper';
+import { TypeTree } from '../../../../tree/type/type.tree';
+import { getExpressionInference } from '../../../expression/expression-inference.helper';
+import { ExpressionInference } from '../../../expression/expression.inference';
 import { GenericsMap } from '../../../generics-map';
 import { MemberInference } from '../member.inference';
 
 export class PropertyMemberInference extends MemberInference {
+  public isPrivate: boolean;
+
+  public type: TypeTree;
+
+  public value?: ExpressionInference;
+
   public constructor(public tree: PropertyMemberTree, public genericsMap: GenericsMap) {
     super();
-  }
 
-  public fillTypes(): void {
-    this.tree.type = this.tree.type.useGenericsMap(this.genericsMap);
-    if (this.tree.value) fillExpressionTypes(this.tree.value, this.genericsMap);
+    this.name = tree.name;
+    this.isPrivate = tree.isPrivate;
+    this.type = tree.type.useGenericsMap(this.genericsMap);
+    this.value = getExpressionInference(tree.value, genericsMap);
   }
 }

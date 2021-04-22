@@ -1,15 +1,16 @@
 import { parseStatement } from '../../../tree/parse';
 import { AssignmentStatementTree } from '../../../tree/statement/assignment-statement/assignment-statement.tree';
-import { fillStatementTypes } from '../statement-inference.helper';
+import { getStatementInference } from '../statement-inference.helper';
+import { AssignmentStatementInference } from './assignment-statement.inference';
 
 test('has integer value', () => {
   const code = 'a = 5';
   const tree = parseStatement<AssignmentStatementTree>(code);
   expect(tree).toBeInstanceOf(AssignmentStatementTree);
 
-  fillStatementTypes(tree, new Map());
-  expect(tree.value.type.name).toBe('Integer');
-  expect(tree.type.name).toBe('Integer');
+  const inference = getStatementInference(tree, new Map()) as AssignmentStatementInference;
+  expect(inference.value.type.name).toBe('Integer');
+  expect(inference.type.name).toBe('Integer');
 });
 
 test('has integer type', () => {
@@ -17,9 +18,9 @@ test('has integer type', () => {
   const tree = parseStatement<AssignmentStatementTree>(code);
   expect(tree).toBeInstanceOf(AssignmentStatementTree);
 
-  fillStatementTypes(tree, new Map());
-  expect(tree.value.type.name).toBe('Integer');
-  expect(tree.type.name).toBe('Integer');
+  const inference = getStatementInference(tree, new Map()) as AssignmentStatementInference;
+  expect(inference.value.type.name).toBe('Integer');
+  expect(inference.type.name).toBe('Integer');
 });
 
 test('has array type', () => {
@@ -27,7 +28,7 @@ test('has array type', () => {
   const tree = parseStatement<AssignmentStatementTree>(code);
   expect(tree).toBeInstanceOf(AssignmentStatementTree);
 
-  fillStatementTypes(tree, new Map());
-  expect(tree.value.type.toString()).toBe('Any[]');
-  expect(tree.type.toString()).toBe('Integer[]');
+  const inference = getStatementInference(tree, new Map()) as AssignmentStatementInference;
+  expect(inference.value.type.toString()).toBe('Any[]');
+  expect(inference.type.toString()).toBe('Integer[]');
 });

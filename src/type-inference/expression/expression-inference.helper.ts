@@ -16,6 +16,7 @@ import { OperatorExpressionTree } from '../../tree/expression/operator-expressio
 import { ParenthesizedExpressionTree } from '../../tree/expression/parenthesized-expression/parenthesized-expression.tree';
 import { GenericsMap } from '../generics-map';
 import { ArrayExpressionInference } from './array-expression/array-expression.inference';
+import { ExpressionInference } from './expression.inference';
 import { IdExpressionInference } from './id-expression/id-expression.inference';
 import { IndexExpressionInference } from './index-expression/index-expression.inference';
 import { InstanceExpressionInference } from './instance-expression/instance-expression.inference';
@@ -31,34 +32,36 @@ import { NegativeExpressionInference } from './negative-expression/negative-expr
 import { OperatorExpressionInference } from './operator-expression/operator-expression.inference';
 import { ParenthesizedExpressionInference } from './parenthesized-expression/parenthesized-expression.inference';
 
-export function fillExpressionTypes(tree: ExpressionTree, genericsMap: GenericsMap): void {
-  if (tree instanceof ArrayExpressionTree) new ArrayExpressionInference(tree, genericsMap).fillTypes();
-  else if (tree instanceof IdExpressionTree) new IdExpressionInference(tree, genericsMap).fillTypes();
-  else if (tree instanceof InstantiationExpressionTree)
-    new InstantiationExpressionInference(tree, genericsMap).fillTypes();
-  else if (tree instanceof IndexExpressionTree)
-    new IndexExpressionInference(tree, genericsMap).fillTypes();
-  else if (tree instanceof InstanceExpressionTree)
-    new InstanceExpressionInference(tree, genericsMap).fillTypes();
-  else if (tree instanceof LambdaExpressionTree)
-    new LambdaExpressionInference(tree, genericsMap).fillTypes();
-  else if (tree instanceof LiteralExpressionTree)
-    new LiteralExpressionInference(tree, genericsMap).fillTypes();
-  else if (tree instanceof MemberExpressionTree)
-    new MemberExpressionInference(tree, genericsMap).fillTypes();
-  else if (tree instanceof MethodExpressionTree)
-    new MethodExpressionInference(tree, genericsMap).fillTypes();
-  else if (tree instanceof OperatorExpressionTree)
-    new OperatorExpressionInference(tree, genericsMap).fillTypes();
-  else if (tree instanceof ParenthesizedExpressionTree)
-    new ParenthesizedExpressionInference(tree, genericsMap).fillTypes();
-  else if (tree instanceof LogicalAndExpressionTree)
-    new LogicalAndExpressionInference(tree, genericsMap).fillTypes();
-  else if (tree instanceof LogicalOrExpressionTree)
-    new LogicalOrExpressionInference(tree, genericsMap).fillTypes();
-  else if (tree instanceof LogicalNotExpressionTree)
-    new LogicalNotExpressionInference(tree, genericsMap).fillTypes();
-  else if (tree instanceof NegativeExpressionTree)
-    new NegativeExpressionInference(tree, genericsMap).fillTypes();
-  else throw new Error(`Expression type not found for "${tree.constructor.name}"`);
+export function getExpressionInference(
+  tree: ExpressionTree,
+  genericsMap: GenericsMap,
+): ExpressionInference {
+  if (tree === undefined) return undefined;
+
+  if (tree instanceof ArrayExpressionTree) return new ArrayExpressionInference(tree, genericsMap);
+  if (tree instanceof IdExpressionTree) return new IdExpressionInference(tree, genericsMap);
+  if (tree instanceof InstantiationExpressionTree)
+    return new InstantiationExpressionInference(tree, genericsMap);
+  if (tree instanceof IndexExpressionTree) return new IndexExpressionInference(tree, genericsMap);
+  if (tree instanceof InstanceExpressionTree)
+    return new InstanceExpressionInference(tree, genericsMap);
+  if (tree instanceof LambdaExpressionTree) return new LambdaExpressionInference(tree, genericsMap);
+  if (tree instanceof LiteralExpressionTree)
+    return new LiteralExpressionInference(tree, genericsMap);
+  if (tree instanceof MemberExpressionTree) return new MemberExpressionInference(tree, genericsMap);
+  if (tree instanceof MethodExpressionTree) return new MethodExpressionInference(tree, genericsMap);
+  if (tree instanceof OperatorExpressionTree)
+    return new OperatorExpressionInference(tree, genericsMap);
+  if (tree instanceof ParenthesizedExpressionTree)
+    return new ParenthesizedExpressionInference(tree, genericsMap);
+  if (tree instanceof LogicalAndExpressionTree)
+    return new LogicalAndExpressionInference(tree, genericsMap);
+  if (tree instanceof LogicalOrExpressionTree)
+    return new LogicalOrExpressionInference(tree, genericsMap);
+  if (tree instanceof LogicalNotExpressionTree)
+    return new LogicalNotExpressionInference(tree, genericsMap);
+  if (tree instanceof NegativeExpressionTree)
+    return new NegativeExpressionInference(tree, genericsMap);
+
+  throw new Error(`Expression inference not found for "${tree.constructor.name}"`);
 }

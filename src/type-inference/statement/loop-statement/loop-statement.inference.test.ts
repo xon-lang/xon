@@ -1,16 +1,17 @@
 import { parseStatement } from '../../../tree/parse';
-import { ExpressionStatementTree } from '../../../tree/statement/expression-statement/expression-statement.tree';
 import { LoopStatementTree } from '../../../tree/statement/loop-statement/loop-statement.tree';
-import { fillStatementTypes } from '../statement-inference.helper';
+import { ExpressionStatementInference } from '../expression-statement/expression-statement.inference';
+import { getStatementInference } from '../statement-inference.helper';
+import { LoopStatementInference } from './loop-statement.inference';
 
 test('has Integer type', () => {
   const code = 'loop item, index in [1, true]: index + 2';
   const tree = parseStatement<LoopStatementTree>(code);
   expect(tree).toBeInstanceOf(LoopStatementTree);
 
-  fillStatementTypes(tree, new Map());
-  expect(tree.value.type.toString()).toBe('Integer | Boolean');
-  expect(tree.index.type.toString()).toBe('Integer');
-  expect(tree.expression.type.toString()).toBe('(Integer | Boolean)[]');
-  expect((tree.body[0] as ExpressionStatementTree).value.type.toString()).toBe('Integer');
+  const inference = getStatementInference(tree, new Map()) as LoopStatementInference;
+  expect(inference.value.type.toString()).toBe('Integer | Boolean');
+  expect(inference.index.type.toString()).toBe('Integer');
+  expect(inference.expression.type.toString()).toBe('(Integer | Boolean)[]');
+  expect((inference.body[0] as ExpressionStatementInference).value.type.toString()).toBe('Integer');
 });

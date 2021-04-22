@@ -8,7 +8,7 @@ export class BooleanLiteralTree extends LiteralTree {
     super();
     if (!ctx) return;
 
-    this.value = this.ctx.text === 'true';
+    this.value = ctx.text === 'true';
   }
 
   public toString(): string {

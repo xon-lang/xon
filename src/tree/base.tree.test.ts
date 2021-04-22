@@ -8,7 +8,6 @@ test('check to json', () => {
 
   expect(tree.toJson()).toBe(`{
   "treeType": "LiteralExpression",
-  "metaType": "Literal",
   "literal": {
     "treeType": "BooleanLiteral",
     "value": true
