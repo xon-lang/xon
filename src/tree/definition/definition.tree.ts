@@ -6,7 +6,7 @@ import { ParameterTree } from '../parameter/parameter.tree';
 import { getTypeTree } from '../type/type-tree.helper';
 import { TypeTree } from '../type/type.tree';
 import { InitMemberTree } from './member/init-member/init-member.tree';
-import { getMemberTree } from './member/member-tree.helper';
+import { getMembersTrees } from './member/member-tree.helper';
 import { MemberTree } from './member/member.tree';
 import { MethodMemberTree } from './member/method-member/method-member.tree';
 import { OperatorMemberTree } from './member/operator-member/operator-member.tree';
@@ -43,7 +43,7 @@ export class DefinitionTree extends BaseTree {
         .map((x) => x.text) || [];
     this.parameters = getParametersTrees(ctx.parameters());
     this.inheritanceType = getTypeTree(ctx.type());
-    this.members = ctx.member().map((x) => getMemberTree(x));
+    this.members = getMembersTrees(ctx.member());
     this.members.forEach((x) => {
       if (x instanceof InitMemberTree) {
         if (this.init) throw Issue.errorFromTree(x, 'Init member already exists').toError();

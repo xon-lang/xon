@@ -21,3 +21,6 @@ export const getMemberTree = (ctx: MemberContext): MemberTree => {
 
   throw Error(`No statement found for ${ctx.constructor.name}`);
 };
+
+export const getMembersTrees = (members: MemberContext[]): MemberTree[] =>
+  members?.map(getMemberTree) || [];

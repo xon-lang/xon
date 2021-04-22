@@ -1,5 +1,5 @@
 import { LoopStatementContext } from '../../../grammar/xon-parser';
-import { getBody } from '../statement-tree.helper';
+import { getStatementsTrees } from '../statement-tree.helper';
 import { StatementTree } from '../statement.tree';
 
 export class LoopStatementTree extends StatementTree {
@@ -9,6 +9,6 @@ export class LoopStatementTree extends StatementTree {
     super();
     if (!ctx) return;
 
-    this.body = getBody(ctx.body());
+    this.body = getStatementsTrees(ctx.body());
   }
 }

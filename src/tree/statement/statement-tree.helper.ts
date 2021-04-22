@@ -35,5 +35,9 @@ export const getStatementTree = (ctx: StatementContext): StatementTree => {
   throw Error(`Statement tree not found for "${ctx.constructor.name}"`);
 };
 
-export const getBody = (body: BodyContext): StatementTree[] =>
-  body?.statement()?.map(getStatementTree) || [];
+export const getStatementsTrees = (
+  statements: BodyContext | StatementContext[],
+): StatementTree[] => {
+  if (statements instanceof BodyContext) return statements.statement().map(getStatementTree);
+  return statements?.map(getStatementTree) || [];
+};

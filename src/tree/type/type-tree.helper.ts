@@ -31,7 +31,7 @@ export const getTypeTree = (ctx: TypeContext): TypeTree => {
   throw Error(`Type tree not found for "${ctx?.constructor?.name}"`);
 };
 
-export const getTypesTrees = (ctx: TypeContext[]): TypeTree[] => ctx?.map(getTypeTree) || [];
+export const getTypesTrees = (types: TypeContext[]): TypeTree[] => types?.map(getTypeTree) || [];
 
 export function createPlainType(name: string, generics: TypeTree[] = []): PlainTypeTree {
   const type = new PlainTypeTree();

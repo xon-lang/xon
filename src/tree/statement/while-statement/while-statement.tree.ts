@@ -1,7 +1,7 @@
 import { WhileStatementContext } from '../../../grammar/xon-parser';
 import { getExpressionTree } from '../../expression/expression-tree.helper';
 import { ExpressionTree } from '../../expression/expression.tree';
-import { getBody } from '../statement-tree.helper';
+import { getStatementsTrees } from '../statement-tree.helper';
 import { StatementTree } from '../statement.tree';
 
 export class WhileStatementTree extends StatementTree {
@@ -14,6 +14,6 @@ export class WhileStatementTree extends StatementTree {
     if (!ctx) return;
 
     this.expression = getExpressionTree(ctx.expression());
-    this.body = getBody(ctx.body());
+    this.body = getStatementsTrees(ctx.body());
   }
 }
