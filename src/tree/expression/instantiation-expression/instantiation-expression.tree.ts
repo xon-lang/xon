@@ -1,4 +1,5 @@
 import { InstantiationExpressionContext } from '../../../grammar/xon-parser';
+import { getArgumentsTrees } from '../../argument/argument-tree.helper';
 import { ArgumentTree } from '../../argument/argument.tree';
 import { PlainTypeTree } from '../../type/plain-type/plain-type.tree';
 import { createPlainType, getTypesTrees } from '../../type/type-tree.helper';
@@ -15,7 +16,7 @@ export class InstantiationExpressionTree extends ExpressionTree {
 
     const generics = getTypesTrees(ctx.generics()?.type());
     this.type = createPlainType(ctx.DEFINITION_ID().text, generics);
-    this.arguments = ArgumentTree.fromContext(ctx.arguments());
+    this.arguments = getArgumentsTrees(ctx.arguments());
   }
 
   public toString(): string {

@@ -1,4 +1,5 @@
 import { MethodMemberContext } from '../../../../grammar/xon-parser';
+import { getParametersTrees } from '../../../parameter/parameter-tree.helper';
 import { ParameterTree } from '../../../parameter/parameter.tree';
 import { getBody } from '../../../statement/statement-tree.helper';
 import { StatementTree } from '../../../statement/statement.tree';
@@ -28,7 +29,7 @@ export class MethodMemberTree extends MemberTree {
         .declaredGenerics()
         ?.DEFINITION_ID()
         .map((x) => x.text) || [];
-    this.parameters = ParameterTree.fromContext(ctx.parameters());
+    this.parameters = getParametersTrees(ctx.parameters());
     this.returnType = getTypeTree(ctx.type());
     this.body = getBody(ctx.body());
   }

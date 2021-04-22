@@ -42,27 +42,27 @@ import { ParenthesizedExpressionTree } from './parenthesized-expression/parenthe
 export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx === undefined) return undefined;
 
-  if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionTree(ctx);
-  if (ctx instanceof InstantiationExpressionContext) return new InstantiationExpressionTree(ctx);
-  if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);
-  if (ctx instanceof InstanceExpressionContext) return new InstanceExpressionTree(ctx);
-  if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
-  if (ctx instanceof LiteralExpressionContext) return new LiteralExpressionTree(ctx);
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
+  if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);
   if (ctx instanceof IndexExpressionContext) return new IndexExpressionTree(ctx);
-  if (ctx instanceof MethodExpressionContext) return new MethodExpressionTree(ctx);
+  if (ctx instanceof InstanceExpressionContext) return new InstanceExpressionTree(ctx);
+  if (ctx instanceof InstantiationExpressionContext) return new InstantiationExpressionTree(ctx);
   if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
+  if (ctx instanceof LiteralExpressionContext) return new LiteralExpressionTree(ctx);
   if (ctx instanceof LogicalAndExpressionContext) return new LogicalAndExpressionTree(ctx);
-  if (ctx instanceof LogicalOrExpressionContext) return new LogicalOrExpressionTree(ctx);
   if (ctx instanceof LogicalNotExpressionContext) return new LogicalNotExpressionTree(ctx);
+  if (ctx instanceof LogicalOrExpressionContext) return new LogicalOrExpressionTree(ctx);
+  if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
+  if (ctx instanceof MethodExpressionContext) return new MethodExpressionTree(ctx);
   if (ctx instanceof NegativeExpressionContext) return new NegativeExpressionTree(ctx);
+  if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionTree(ctx);
 
   if (
-    ctx instanceof PowExpressionContext ||
-    ctx instanceof MulDivModExpressionContext ||
     ctx instanceof AddSubExpressionContext ||
-    ctx instanceof RangeExpressionContext ||
-    ctx instanceof EqualityExpressionContext
+    ctx instanceof EqualityExpressionContext ||
+    ctx instanceof MulDivModExpressionContext ||
+    ctx instanceof PowExpressionContext ||
+    ctx instanceof RangeExpressionContext
   ) {
     return getOperatorExpression(ctx._op.text, ctx, ctx._left, ctx._right);
   }
@@ -77,7 +77,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
     return andExpression;
   }
 
-  throw Error(`No Expression found for ${ctx?.constructor?.name}`);
+  throw Error(`Expression tree not found for "${ctx?.constructor?.name}"`);
 };
 
 export const getExpressionsTrees = (expressions: ExpressionContext[]): ExpressionTree[] =>

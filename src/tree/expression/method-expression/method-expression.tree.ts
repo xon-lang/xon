@@ -1,4 +1,5 @@
 import { MethodExpressionContext } from '../../../grammar/xon-parser';
+import { getArgumentsTrees } from '../../argument/argument-tree.helper';
 import { ArgumentTree } from '../../argument/argument.tree';
 import { getTypesTrees } from '../../type/type-tree.helper';
 import { TypeTree } from '../../type/type.tree';
@@ -18,7 +19,7 @@ export class MethodExpressionTree extends ExpressionTree {
 
     this.generics = getTypesTrees(ctx.generics()?.type());
     this.object = getExpressionTree(ctx.expression());
-    this.arguments = ArgumentTree.fromContext(ctx.arguments());
+    this.arguments = getArgumentsTrees(ctx.arguments());
   }
 
   public toString(): string {

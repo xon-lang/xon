@@ -1,6 +1,7 @@
 import { DefinitionContext } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
 import { BaseTree } from '../base.tree';
+import { getParametersTrees } from '../parameter/parameter-tree.helper';
 import { ParameterTree } from '../parameter/parameter.tree';
 import { getTypeTree } from '../type/type-tree.helper';
 import { TypeTree } from '../type/type.tree';
@@ -40,7 +41,7 @@ export class DefinitionTree extends BaseTree {
         .declaredGenerics()
         ?.DEFINITION_ID()
         .map((x) => x.text) || [];
-    this.parameters = ParameterTree.fromContext(ctx.parameters());
+    this.parameters = getParametersTrees(ctx.parameters());
     this.inheritanceType = getTypeTree(ctx.type());
     this.members = ctx.member().map((x) => getMemberTree(x));
     this.members.forEach((x) => {

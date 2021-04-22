@@ -25,5 +25,5 @@ export const getLiteralTree = (ctx: LiteralContext): LiteralTree => {
   if (ctx instanceof NullLiteralContext) return new NullLiteralTree(ctx);
   if (ctx instanceof StringLiteralContext) return new StringLiteralTree(ctx);
 
-  throw Error(`No Literal found for ${ctx.constructor.name}`);
+  throw Error(`Literal tree not found for "${ctx.constructor.name}"`);
 };
