@@ -1,5 +1,4 @@
 import { Issue } from '../../../issue-service/issue';
-import { IssueLevel } from '../../../issue-service/issue-level';
 import { MethodExpressionTree } from '../../../tree/expression/method-expression/method-expression.tree';
 import { FunctionTypeTree } from '../../../tree/type/function-type/function-type.tree';
 import { TypeTree } from '../../../tree/type/type.tree';
@@ -23,12 +22,10 @@ export class MethodExpressionInference extends ExpressionInference {
     this.object = getExpressionInference(tree.object, this.genericsMap);
 
     if (!(this.object.type instanceof FunctionTypeTree))
-      throw Issue.fromTree(
+      throw Issue.errorFromTree(
         tree.object,
-        null,
-        IssueLevel.Error,
         `Object is "${this.object.type.toString()}" but not a function`,
-      ).toError();
+      );
 
     this.arguments = tree.arguments.map((x) => getArgumentInference(x, this.genericsMap));
 

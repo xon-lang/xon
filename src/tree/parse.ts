@@ -1,4 +1,5 @@
 import { CharStreams, CommonTokenStream } from 'antlr4ts';
+import * as fs from 'fs';
 import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
 import { ArgumentTree } from './argument/argument.tree';
@@ -18,8 +19,8 @@ import { ThrowingErrorListener } from './throwing-error-listener';
 import { getTypeTree } from './type/type-tree.helper';
 import { TypeTree } from './type/type.tree';
 
-export const parse = (code: string): XonParser => {
-  const inputStream = CharStreams.fromString(code);
+export const parse = (code: string, sourceName: string = undefined): XonParser => {
+  const inputStream = CharStreams.fromString(code, sourceName);
   const lexer = new XonLexer(inputStream);
   lexer.removeErrorListeners();
   lexer.addErrorListener(new ThrowingErrorListener());
@@ -58,6 +59,11 @@ export const parseDefinition = (code: string): DefinitionTree =>
 
 export const parseLibrary = (code: string): LibraryTree => new LibraryTree(parse(code).library());
 
-export function parseProgram<T extends ProgramTree>(code: string): T {
-  return new ProgramTree(parse(code).program()) as T;
+export function parseProgram(code: string, sourceName: string = undefined): ProgramTree {
+  return new ProgramTree(parse(code, sourceName).program());
+}
+
+export function parseProgramFromFile(sourceName: string = undefined): ProgramTree {
+  const code = fs.readFileSync(sourceName).toString();
+  return new ProgramTree(parse(code, sourceName).program());
 }

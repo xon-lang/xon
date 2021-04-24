@@ -9,28 +9,20 @@ export class IssueService {
 
   private scopes: Issue[][] = [[]];
 
-  private paths: string[] = [];
-
   public get lastScope(): Issue[] {
     return this.scopes[this.scopes.length - 1];
   }
 
-  public get lastPath(): string {
-    return this.paths[this.paths.length - 1];
-  }
-
-  public pushScope(path?: string): void {
-    this.paths.unshift(path);
+  public pushScope(): void {
     this.scopes.unshift([]);
   }
 
   public popScope(): void {
-    this.paths.shift();
     this.scopes.shift();
   }
 
   public add(tree: BaseTree, level: IssueLevel, message: string): Issue {
-    const issue = Issue.fromTree(tree, this.lastPath, level, message);
+    const issue = Issue.fromTree(tree, level, message);
     this.lastScope.push(issue);
     return issue;
   }

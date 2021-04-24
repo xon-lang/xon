@@ -20,7 +20,6 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
     issue.message = message;
     issue.line = line;
     issue.column = column;
-    issue.path = IssueService.instance.lastPath;
     IssueService.instance.lastScope.push(issue);
     throw issue.toError();
   }

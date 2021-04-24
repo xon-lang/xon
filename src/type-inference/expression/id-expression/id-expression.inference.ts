@@ -12,6 +12,6 @@ export class IdExpressionInference extends ExpressionInference {
 
     this.name = tree.name;
     this.type = find(tree.name);
-    if (!this.type) throw Issue.errorFromTree(tree, `Couldn't find "${tree.name}"`).toError();
+    if (!this.type) throw Issue.errorFromTree(tree, `Couldn't find "${tree.name}"`);
   }
 }

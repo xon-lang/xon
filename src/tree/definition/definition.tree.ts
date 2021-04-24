@@ -46,7 +46,7 @@ export class DefinitionTree extends BaseTree {
     this.members = getMembersTrees(ctx.member());
     this.members.forEach((x) => {
       if (x instanceof InitMemberTree) {
-        if (this.init) throw Issue.errorFromTree(x, 'Init member already exists').toError();
+        if (this.init) throw Issue.errorFromTree(x, 'Init member already exists');
         this.init = x;
       }
       if (x instanceof MethodMemberTree) this.methods.push(x);
