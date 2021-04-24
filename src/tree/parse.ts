@@ -8,6 +8,8 @@ import { getMemberTree } from './definition/member/member-tree.helper';
 import { MemberTree } from './definition/member/member.tree';
 import { getExpressionTree } from './expression/expression-tree.helper';
 import { ExpressionTree } from './expression/expression.tree';
+import { getFunctionTree } from './function/function-tree.helper';
+import { FunctionTree } from './function/function.tree';
 import { LibraryTree } from './library/library.tree';
 import { getLiteralTree } from './literal/literal-tree.helper';
 import { LiteralTree } from './literal/literal.tree';
@@ -50,6 +52,9 @@ export const parseExpression = <T extends ExpressionTree>(code: string): T =>
 
 export const parseStatement = <T extends StatementTree>(code: string): T =>
   getStatementTree(parse(code).statement()) as T;
+
+export const parseFunction = <T extends FunctionTree>(code: string): T =>
+  getFunctionTree(parse(code).function()) as T;
 
 export const parseMember = <T extends MemberTree>(code: string): T =>
   getMemberTree(parse(code).member()) as T;
