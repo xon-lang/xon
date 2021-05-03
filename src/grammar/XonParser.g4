@@ -56,10 +56,10 @@ expression:
     | left = expression op = ('==' | '!=') right = expression             # equalityExpression
     | left = expression AND right = expression                            # logicalAndExpression
     | left = expression OR right = expression                             # logicalOrExpression
+    | left = expression '|' (id ':')? right = expression                  # pipeExpression
     | '[' (expression (',' expression)*)? ']'                             # arrayExpression
     | '(' expression ')'                                                  # parenthesizedExpression
-    // |  id+ ':')? expression                         # lambdaExpression
-    | '\\' (id (',' id)* ':')? expression # lambdaExpression
+    | '\\' (id (',' id)* ':')? expression                                 # lambdaExpression
     ;
 
 literal:

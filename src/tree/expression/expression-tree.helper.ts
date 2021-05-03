@@ -18,6 +18,7 @@ import {
   MulDivModExpressionContext,
   NegativeExpressionContext,
   ParenthesizedExpressionContext,
+  PipeExpressionContext,
   PowExpressionContext,
   RangeExpressionContext,
   RelationalExpressionContext,
@@ -38,6 +39,7 @@ import { MethodExpressionTree } from './method-expression/method-expression.tree
 import { NegativeExpressionTree } from './negative-expression/negative-expression.tree';
 import { OperatorExpressionTree } from './operator-expression/operator-expression.tree';
 import { ParenthesizedExpressionTree } from './parenthesized-expression/parenthesized-expression.tree';
+import { PipeExpressionTree } from './pipe-expression/pipe-expression.tree';
 
 export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx === undefined) return undefined;
@@ -56,6 +58,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof MethodExpressionContext) return new MethodExpressionTree(ctx);
   if (ctx instanceof NegativeExpressionContext) return new NegativeExpressionTree(ctx);
   if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionTree(ctx);
+  if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);
 
   if (
     ctx instanceof AddSubExpressionContext ||

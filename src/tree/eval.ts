@@ -7,6 +7,7 @@ import { LogicalOrExpressionTree } from './expression/logical-or-expression/logi
 import { NegativeExpressionTree } from './expression/negative-expression/negative-expression.tree';
 import { OperatorExpressionTree } from './expression/operator-expression/operator-expression.tree';
 import { ParenthesizedExpressionTree } from './expression/parenthesized-expression/parenthesized-expression.tree';
+import { PipeExpressionTree } from './expression/pipe-expression/pipe-expression.tree';
 
 const escapeIfString = (s: unknown) => (typeof s === 'string' ? `\`${s}\`` : s);
 
@@ -17,14 +18,12 @@ export const evalExpression = (tree: ExpressionTree, argsMap = {}): unknown => {
   if (tree instanceof ParenthesizedExpressionTree) return evalExpression(tree.value);
   if (tree instanceof LogicalAndExpressionTree)
     return evalExpression(tree.left, argsMap) && evalExpression(tree.right, argsMap);
-
   if (tree instanceof LogicalOrExpressionTree)
     return evalExpression(tree.left, argsMap) || evalExpression(tree.right, argsMap);
-
   if (tree instanceof NegativeExpressionTree) return -evalExpression(tree.value, argsMap);
-
   if (tree instanceof LogicalNotExpressionTree) return !evalExpression(tree.value, argsMap);
-
+  if (tree instanceof PipeExpressionTree)
+    return evalExpression(tree.right, { [tree.arg]: evalExpression(tree.left) });
   if (tree instanceof OperatorExpressionTree) {
     const a = evalExpression(tree.left, argsMap);
     const b = evalExpression(tree.right, argsMap);
@@ -32,7 +31,6 @@ export const evalExpression = (tree: ExpressionTree, argsMap = {}): unknown => {
     // eslint-disable-next-line no-eval
     return eval(`${escapeIfString(a)} ${o} ${escapeIfString(b)}`);
   }
-
   if (tree instanceof IdExpressionTree) {
     if (tree.name in argsMap) return argsMap[tree.name];
     throw Error(`Undefined key: ${tree.name}`);
