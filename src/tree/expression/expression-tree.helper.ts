@@ -80,7 +80,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
     return andExpression;
   }
 
-  throw Error(`Expression tree not found for "${ctx?.constructor?.name}"`);
+  throw Error(`Expression tree not found for "${ctx.constructor.name}"`);
 };
 
 export const getExpressionsTrees = (expressions: ExpressionContext[]): ExpressionTree[] =>

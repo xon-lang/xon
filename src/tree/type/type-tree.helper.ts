@@ -28,7 +28,7 @@ export const getTypeTree = (ctx: TypeContext): TypeTree => {
   if (ctx instanceof PlainTypeContext) return new PlainTypeTree(ctx);
   if (ctx instanceof UnionTypeContext) return new UnionTypeTree(ctx);
 
-  throw Error(`Type tree not found for "${ctx?.constructor?.name}"`);
+  throw Error(`Type tree not found for "${ctx.constructor.name}"`);
 };
 
 export const getTypesTrees = (types: TypeContext[]): TypeTree[] => types?.map(getTypeTree) || [];

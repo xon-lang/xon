@@ -19,7 +19,7 @@ export const getMemberTree = (ctx: MemberContext): MemberTree => {
   if (ctx instanceof MethodMemberContext) return new MethodMemberTree(ctx);
   if (ctx instanceof OperatorMemberContext) return new OperatorMemberTree(ctx);
 
-  throw Error(`No statement found for ${ctx.constructor.name}`);
+  throw Error(`Member tree not found for "${ctx.constructor.name}"`);
 };
 
 export const getMembersTrees = (members: MemberContext[]): MemberTree[] =>
