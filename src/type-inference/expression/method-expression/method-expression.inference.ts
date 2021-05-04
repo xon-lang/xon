@@ -11,7 +11,7 @@ import { ExpressionInference } from '../expression.inference';
 export class MethodExpressionInference extends ExpressionInference {
   public generics: TypeTree[];
 
-  public object: ExpressionInference;
+  public instance: ExpressionInference;
 
   public arguments: ArgumentInference[];
 
@@ -19,26 +19,26 @@ export class MethodExpressionInference extends ExpressionInference {
     super();
 
     this.generics = tree.generics;
-    this.object = getExpressionInference(tree.object, this.genericsMap);
+    this.instance = getExpressionInference(tree.instance, this.genericsMap);
 
-    if (!(this.object.type instanceof FunctionTypeTree))
+    if (!(this.instance.type instanceof FunctionTypeTree))
       throw Issue.errorFromTree(
-        tree.object,
-        `Object is "${this.object.type.toString()}" but not a function`,
+        tree.instance,
+        `Instance is "${this.instance.type.toString()}" but not a function`,
       );
 
     this.arguments = tree.arguments.map((x) => getArgumentInference(x, this.genericsMap));
 
-    const argumentsGenericsEntries = this.object.type.parameters
+    const argumentsGenericsEntries = this.instance.type.parameters
       .map((x, i) => x.getGenericsMap(this.arguments.map((z) => z.value.type)[i]).entries())
       .map((x) => Array.from(x))
       .flat();
 
     const genericsMap2 = tree.generics
-      ? this.object.type.declaredGenerics.map((x, i) => [x, tree.generics[i]])
+      ? this.instance.type.declaredGenerics.map((x, i) => [x, tree.generics[i]])
       : argumentsGenericsEntries;
 
-    this.type = this.object.type.returnType.useGenericsMap(
+    this.type = this.instance.type.returnType.useGenericsMap(
       new Map(genericsMap2 as [string, TypeTree][]),
     );
   }

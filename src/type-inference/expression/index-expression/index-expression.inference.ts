@@ -5,19 +5,19 @@ import { getExpressionInference } from '../expression-inference.helper';
 import { ExpressionInference } from '../expression.inference';
 
 export class IndexExpressionInference extends ExpressionInference {
-  public object: ExpressionInference;
+  public instance: ExpressionInference;
 
   public index: ExpressionInference;
 
   public constructor(public tree: IndexExpressionTree, public genericsMap: GenericsMap) {
     super();
 
-    this.object = getExpressionInference(tree.object, this.genericsMap);
-    if (!(this.object.type instanceof ArrayTypeTree)) throw new Error('Object is not array');
+    this.instance = getExpressionInference(tree.instance, this.genericsMap);
+    if (!(this.instance.type instanceof ArrayTypeTree)) throw new Error('Instance is not an array');
 
     this.index = getExpressionInference(tree.index, this.genericsMap);
     if (this.index.type.name !== 'Integer') throw new Error('Index must be Integer type');
 
-    this.type = this.object.type.itemType;
+    this.type = this.instance.type.itemType;
   }
 }

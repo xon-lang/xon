@@ -56,7 +56,7 @@ test('one scope', () => {
   );
   const innerMethod = (definition.methods[1].body[0] as ExpressionStatementTree)
     .value as MethodExpressionTree;
-  const MethodExpression = innerMethod.object as IdExpressionTree;
+  const MethodExpression = innerMethod.instance as IdExpressionTree;
   expect(MethodExpression.name).toBe('pos');
   expect(innerMethod.arguments.length).toBe(2);
 

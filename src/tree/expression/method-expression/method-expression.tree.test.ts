@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable class-methods-use-this */
 import { IntegerLiteralTree } from '../../literal/integer-literal/integer-literal.tree';
 import { StringLiteralTree } from '../../literal/string-literal/string-literal.tree';
 import { parseExpression } from '../../parse';
@@ -23,7 +21,7 @@ test('function call', () => {
     StringLiteralTree,
   );
   expect((tree.arguments[1].value as LiteralExpressionTree).literal.value).toBe('str');
-  expect(tree.object).toBeInstanceOf(IdExpressionTree);
+  expect(tree.instance).toBeInstanceOf(IdExpressionTree);
 });
 
 test('function on several lines', () => {
@@ -37,12 +35,8 @@ test('function on several lines', () => {
   const [arg1, arg2] = tree.arguments.map((x) => x.value as LiteralExpressionTree);
   expect(arg1.literal).toBeInstanceOf(IntegerLiteralTree);
   expect(arg2.literal).toBeInstanceOf(StringLiteralTree);
-  expect(tree.object).toBeInstanceOf(IdExpressionTree);
+  expect(tree.instance).toBeInstanceOf(IdExpressionTree);
 });
-
-class A {
-  public get: number;
-}
 
 test('can call with generics', () => {
   const code = 'a.get<String > (1)';
@@ -52,5 +46,5 @@ test('can call with generics', () => {
   expect(tree.arguments.length).toBe(1);
   const [arg] = tree.arguments.map((x) => x.value as LiteralExpressionTree);
   expect(arg.literal).toBeInstanceOf(IntegerLiteralTree);
-  expect(tree.object).toBeInstanceOf(MemberExpressionTree);
+  expect(tree.instance).toBeInstanceOf(MemberExpressionTree);
 });

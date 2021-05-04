@@ -5,18 +5,17 @@ import { ExpressionTree } from '../expression.tree';
 export class MemberExpressionTree extends ExpressionTree {
   public name: string;
 
-  public object: ExpressionTree;
+  public instance: ExpressionTree;
 
   public constructor(public ctx?: MemberExpressionContext) {
     super();
     if (!ctx) return;
 
     this.name = ctx.id().text;
-    this.object = getExpressionTree(ctx.expression());
+    this.instance = getExpressionTree(ctx.expression());
   }
 
   public toString(): string {
-    const object = this.object.toString();
-    return `${object}${this.name}`;
+    return `${this.instance.toString()}${this.name}`;
   }
 }

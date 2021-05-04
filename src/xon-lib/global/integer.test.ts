@@ -22,5 +22,5 @@ val[1] + 2`;
   expect(operatorExpression).toBeInstanceOf(OperatorExpressionTree);
 
   const { left } = operatorExpression;
-  expect((left as IndexExpressionTree).object).toBeInstanceOf(IdExpressionTree);
+  expect((left as IndexExpressionTree).instance).toBeInstanceOf(IdExpressionTree);
 });

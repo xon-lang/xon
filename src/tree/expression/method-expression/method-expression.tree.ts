@@ -9,7 +9,7 @@ import { ExpressionTree } from '../expression.tree';
 export class MethodExpressionTree extends ExpressionTree {
   public generics: TypeTree[];
 
-  public object: ExpressionTree;
+  public instance: ExpressionTree;
 
   public arguments: ArgumentTree[];
 
@@ -18,7 +18,7 @@ export class MethodExpressionTree extends ExpressionTree {
     if (!ctx) return;
 
     this.generics = getTypesTrees(ctx.generics()?.type());
-    this.object = getExpressionTree(ctx.expression());
+    this.instance = getExpressionTree(ctx.expression());
     this.arguments = getArgumentsTrees(ctx.arguments());
   }
 
@@ -26,10 +26,10 @@ export class MethodExpressionTree extends ExpressionTree {
     const generics = this.generics.length
       ? `<${this.generics.map((x) => x.toString()).join(', ')}>`
       : '';
-    const object = this.object.toString();
+    const instance = this.instance.toString();
     const args = this.arguments.length
       ? `(${this.arguments.map((x) => x.toString()).join(', ')})`
       : '';
-    return `${generics}${object}${args}`;
+    return `${generics}${instance}${args}`;
   }
 }

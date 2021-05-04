@@ -8,6 +8,6 @@ test('string expression index', () => {
   expect(tree).toBeInstanceOf(MemberExpressionTree);
 
   expect(tree.name).toBe('def');
-  expect(tree.object).toBeInstanceOf(IdExpressionTree);
-  expect((tree.object as IdExpressionTree).name).toBe('abc');
+  expect(tree.instance).toBeInstanceOf(IdExpressionTree);
+  expect((tree.instance as IdExpressionTree).name).toBe('abc');
 });
