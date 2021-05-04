@@ -1,4 +1,5 @@
 import { MethodMemberTree } from '../../../../tree/definition/member/method-member/method-member.tree';
+import { createFunctionType } from '../../../../tree/type/type-tree.helper';
 import { TypeTree } from '../../../../tree/type/type.tree';
 import { GenericsMap } from '../../../generics-map';
 import { addToScope, popScope, pushScope } from '../../../id-scope';
@@ -22,14 +23,20 @@ export class MethodMemberInference extends MemberInference {
   public constructor(public tree: MethodMemberTree, public genericsMap: GenericsMap) {
     super();
 
+    pushScope();
     this.name = tree.name;
     this.isPrivate = tree.isPrivate;
     this.declaredGenerics = tree.declaredGenerics;
-    pushScope();
-
     this.parameters = tree.parameters.map((x) => getParameterInference(x, genericsMap));
     this.parameters.forEach((x) => addToScope(x.name, x.type));
     this.returnType = tree.returnType.useGenericsMap(this.genericsMap);
+
+    this.type = createFunctionType(
+      this.declaredGenerics,
+      this.parameters.map((x) => x.type),
+      this.returnType,
+    );
+
     this.body = tree.body.map((x) => getStatementInference(x, this.genericsMap));
     popScope();
   }

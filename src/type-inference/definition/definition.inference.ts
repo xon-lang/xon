@@ -1,8 +1,9 @@
 import { DefinitionTree } from '../../tree/definition/definition.tree';
+import { createFunctionType, createPlainType } from '../../tree/type/type-tree.helper';
 import { TypeTree } from '../../tree/type/type.tree';
 import { BaseInference } from '../base.inference';
 import { GenericsMap } from '../generics-map';
-import { addToScope } from '../id-scope';
+import { addToScope, popScope, pushScope } from '../id-scope';
 import { getParameterInference } from '../parameter/parameter-inference.helper';
 import { ParameterInference } from '../parameter/parameter.inference';
 import { InitMemberInference } from './member/init-member/init-member.inference';
@@ -34,12 +35,24 @@ export class DefinitionInference extends BaseInference {
   public constructor(public tree: DefinitionTree, public genericsMap: GenericsMap) {
     super();
 
+    pushScope();
     this.name = tree.name;
     this.declaredGenerics = tree.declaredGenerics;
     this.inheritanceType = tree.inheritanceType;
-
     this.parameters = tree.parameters.map((x) => getParameterInference(x, genericsMap));
     this.parameters.forEach((x) => addToScope(x.name, x.type));
+
+    const returnType = createPlainType(
+      this.name,
+      tree.declaredGenerics.map((x) => createPlainType(x).useGenericsMap(genericsMap)),
+    );
+    this.type = createFunctionType(
+      this.declaredGenerics,
+      this.parameters.map((x) => x.type),
+      returnType,
+    );
+
+    addToScope('this', returnType);
 
     this.members = tree.members.map((x) => getMemberInference(x, genericsMap));
     this.members.forEach((x) => {
@@ -48,5 +61,6 @@ export class DefinitionInference extends BaseInference {
       if (x instanceof OperatorMemberInference) this.operators.push(x);
       if (x instanceof PropertyMemberInference) this.properties.push(x);
     });
+    popScope();
   }
 }

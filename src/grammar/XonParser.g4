@@ -24,7 +24,8 @@ member:
     | id declaredGenerics? parameters type body? # methodMember
     ;
 
-function: id declaredGenerics? parameters type body?;
+function:        id declaredGenerics? parameters type body?;
+extensionMethod: type '.' id declaredGenerics? parameters type body?;
 
 statement:
     FOR (value = id (',' index = id)? IN)? expression body # forStatement
@@ -39,7 +40,7 @@ statement:
     ;
 
 expression:
-    '@'                                                                   # instanceExpression
+    THIS                                                                  # instanceExpression
     | DEFINITION_ID generics? arguments                                   # instantiationExpression
     | id                                                                  # idExpression
     | literal                                                             # literalExpression

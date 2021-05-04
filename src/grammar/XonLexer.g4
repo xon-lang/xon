@@ -28,6 +28,7 @@ AND:    'and';
 ELSE:   'else';
 INIT:   'init';
 LOOP:   'loop';
+THIS:   'this';
 BREAK:  'break';
 WHILE:  'while';
 RETURN: 'return';

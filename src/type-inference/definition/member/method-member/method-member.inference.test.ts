@@ -11,6 +11,7 @@ test('has return type', () => {
   expect(tree).toBeInstanceOf(MethodMemberTree);
 
   const inference = getMemberInference(tree, new Map()) as MethodMemberInference;
+  expect(inference.type.toString()).toBe('(Integer) Integer');
   expect((inference.body[0] as ExpressionStatementInference).value.type.toString()).toBe('Integer');
 });
 
@@ -23,5 +24,6 @@ test('has generics', () => {
     tree,
     new Map([['T', createPlainType('Boolean')]]),
   ) as MethodMemberInference;
+  expect(inference.type.toString()).toBe('<T>(Boolean) Boolean');
   expect((inference.body[0] as ExpressionStatementInference).value.type.toString()).toBe('Boolean');
 });

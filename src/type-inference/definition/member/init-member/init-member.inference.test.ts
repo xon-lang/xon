@@ -10,5 +10,6 @@ test('has one statement', () => {
   expect(tree).toBeInstanceOf(InitMemberTree);
 
   const inference = getMemberInference(tree, new Map()) as InitMemberInference;
+  expect(inference.type.toString()).toBe('() null');
   expect((inference.body[0] as ExpressionStatementInference).value.type.toString()).toBe('Integer');
 });

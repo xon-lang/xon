@@ -10,5 +10,6 @@ test('has return Float type', () => {
   expect(tree).toBeInstanceOf(OperatorMemberTree);
 
   const inference = getMemberInference(tree, new Map()) as OperatorMemberInference;
+  expect(inference.type.toString()).toBe('(Integer, Float) Float');
   expect((inference.body[0] as ExpressionStatementInference).value.type.toString()).toBe('Float');
 });

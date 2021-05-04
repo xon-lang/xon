@@ -2,6 +2,7 @@ import { DefinitionTree } from '../../tree/definition/definition.tree';
 import { parseDefinition } from '../../tree/parse';
 import { createPlainType } from '../../tree/type/type-tree.helper';
 import { clearScopes } from '../id-scope';
+import { ExpressionStatementInference } from '../statement/expression-statement/expression-statement.inference';
 import { getDefinitionInference } from './definition-inference.helper';
 
 test('has one statement no generics', () => {
@@ -15,7 +16,7 @@ test('has one statement no generics', () => {
 });
 
 test('has one statement with generics', () => {
-  const code = 'Animal<T>:\n    eat(food T) null';
+  const code = 'Animal<T>:\n    eat(food T) null: this';
   const tree = parseDefinition(code);
   expect(tree).toBeInstanceOf(DefinitionTree);
 
@@ -23,4 +24,7 @@ test('has one statement with generics', () => {
   const inference = getDefinitionInference(tree, new Map([['T', createPlainType('Grass')]]));
   expect(inference.methods[0].parameters[0].type.toString()).toBe('Grass');
   expect(inference.methods[0].returnType.toString()).toBe('null');
+  expect((inference.methods[0].body[0] as ExpressionStatementInference).value.type.toString()).toBe(
+    'Animal<Grass>',
+  );
 });

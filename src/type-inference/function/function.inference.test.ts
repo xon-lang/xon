@@ -5,9 +5,10 @@ import { getFunctionInference } from './function-inference.helper';
 
 test('has return type', () => {
   const code = 'f(a Integer) Integer:\n    a';
-  const tree = parseFunction<FunctionTree>(code);
+  const tree = parseFunction(code);
   expect(tree).toBeInstanceOf(FunctionTree);
 
   const inference = getFunctionInference(tree, new Map());
+  expect(inference.type.toString()).toBe('(Integer) Integer');
   expect((inference.body[0] as ExpressionStatementInference).value.type.toString()).toBe('Integer');
 });
