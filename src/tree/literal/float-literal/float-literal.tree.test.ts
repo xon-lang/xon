@@ -37,3 +37,14 @@ test('radix float', () => {
   expect(tree.fraction).toBe('011001100110011001100110011001100110011001100110011');
   expect(tree.value).toBe(3.4);
 });
+
+test('16x123ABC_123.DDD12', () => {
+  const code = '16x123ABC_123.DDD12';
+  const tree = parseLiteral<FloatLiteralTree>(code);
+  expect(tree).toBeInstanceOf(FloatLiteralTree);
+
+  expect(tree.radix).toBe(16);
+  expect(tree.integer).toBe('123ABC_123');
+  expect(tree.fraction).toBe('DDD12');
+  // expect(tree.value).toBe(3.4);
+});

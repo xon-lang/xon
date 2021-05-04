@@ -16,6 +16,7 @@ test('positive int number', () => {
 
   expect(tree.value).toBe(0b01110);
 });
+
 test('radix int', () => {
   const code = '16x1a_b_c';
   const tree = parseLiteral<IntegerLiteralTree>(code);
