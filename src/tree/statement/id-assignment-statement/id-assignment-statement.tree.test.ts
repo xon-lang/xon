@@ -1,11 +1,11 @@
 import { LiteralExpressionTree } from '../../expression/literal-expression/literal-expression.tree';
 import { parseStatement } from '../../parse';
-import { AssignmentStatementTree } from './assignment-statement.tree';
+import { IdAssignmentStatementTree } from './id-assignment-statement.tree';
 
 test('has value', () => {
   const code = 'a = 220';
-  const tree = parseStatement<AssignmentStatementTree>(code);
-  expect(tree).toBeInstanceOf(AssignmentStatementTree);
+  const tree = parseStatement<IdAssignmentStatementTree>(code);
+  expect(tree).toBeInstanceOf(IdAssignmentStatementTree);
 
   expect(tree.name).toBe('a');
   expect(tree.type).toBeUndefined();
@@ -15,8 +15,8 @@ test('has value', () => {
 
 test('has type and value', () => {
   const code = 'a Integer = 220';
-  const tree = parseStatement<AssignmentStatementTree>(code);
-  expect(tree).toBeInstanceOf(AssignmentStatementTree);
+  const tree = parseStatement<IdAssignmentStatementTree>(code);
+  expect(tree).toBeInstanceOf(IdAssignmentStatementTree);
 
   expect(tree.name).toBe('a');
   expect(tree.type.name).toBe('Integer');

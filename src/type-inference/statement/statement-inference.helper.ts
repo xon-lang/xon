@@ -1,6 +1,6 @@
-import { AssignmentStatementTree } from '../../tree/statement/assignment-statement/assignment-statement.tree';
 import { ExpressionStatementTree } from '../../tree/statement/expression-statement/expression-statement.tree';
 import { ForStatementTree } from '../../tree/statement/for-statement/for-statement.tree';
+import { IdAssignmentStatementTree } from '../../tree/statement/id-assignment-statement/id-assignment-statement.tree';
 import { IfStatementTree } from '../../tree/statement/if-statement/if-statement.tree';
 import { LoopStatementTree } from '../../tree/statement/loop-statement/loop-statement.tree';
 import { PreprocessorStatementTree } from '../../tree/statement/preprocessor-statement/preprocessor-statement.tree';
@@ -8,9 +8,9 @@ import { ReturnStatementTree } from '../../tree/statement/return-statement/retur
 import { StatementTree } from '../../tree/statement/statement.tree';
 import { WhileStatementTree } from '../../tree/statement/while-statement/while-statement.tree';
 import { GenericsMap } from '../generics-map';
-import { AssignmentStatementInference } from './assignment-statement/assignment-statement.inference';
 import { ExpressionStatementInference } from './expression-statement/expression-statement.inference';
 import { ForStatementInference } from './for-statement/for-statement.inference';
+import { IdAssignmentStatementInference } from './id-assignment-statement/id-assignment-statement.inference';
 import { IfStatementInference } from './if-statement/if-statement.inference';
 import { LoopStatementInference } from './loop-statement/loop-statement.inference';
 import { ReturnStatementInference } from './return-statement/return-statement.inference';
@@ -25,8 +25,8 @@ export function getStatementInference(
 
   if (tree instanceof PreprocessorStatementTree) return null;
 
-  if (tree instanceof AssignmentStatementTree)
-    return new AssignmentStatementInference(tree, genericsMap);
+  if (tree instanceof IdAssignmentStatementTree)
+    return new IdAssignmentStatementInference(tree, genericsMap);
   if (tree instanceof ExpressionStatementTree)
     return new ExpressionStatementInference(tree, genericsMap);
   if (tree instanceof ForStatementTree) return new ForStatementInference(tree, genericsMap);

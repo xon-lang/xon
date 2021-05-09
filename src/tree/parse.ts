@@ -1,4 +1,4 @@
-import { CharStreams, CommonTokenStream } from 'antlr4ts';
+import { CharStreams, CommonTokenStream} from 'antlr4ts';
 import * as fs from 'fs';
 import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';

@@ -1,8 +1,8 @@
 import {
-  AssignmentStatementContext,
   BodyContext,
   ExpressionStatementContext,
   ForStatementContext,
+  IdAssignmentStatementContext,
   IfStatementContext,
   LoopStatementContext,
   PreprocessorStatementContext,
@@ -10,9 +10,9 @@ import {
   StatementContext,
   WhileStatementContext,
 } from '../../grammar/xon-parser';
-import { AssignmentStatementTree } from './assignment-statement/assignment-statement.tree';
 import { ExpressionStatementTree } from './expression-statement/expression-statement.tree';
 import { ForStatementTree } from './for-statement/for-statement.tree';
+import { IdAssignmentStatementTree } from './id-assignment-statement/id-assignment-statement.tree';
 import { IfStatementTree } from './if-statement/if-statement.tree';
 import { LoopStatementTree } from './loop-statement/loop-statement.tree';
 import { PreprocessorStatementTree } from './preprocessor-statement/preprocessor-statement.tree';
@@ -23,7 +23,7 @@ import { WhileStatementTree } from './while-statement/while-statement.tree';
 export const getStatementTree = (ctx: StatementContext): StatementTree => {
   if (ctx === undefined) return undefined;
 
-  if (ctx instanceof AssignmentStatementContext) return new AssignmentStatementTree(ctx);
+  if (ctx instanceof IdAssignmentStatementContext) return new IdAssignmentStatementTree(ctx);
   if (ctx instanceof ExpressionStatementContext) return new ExpressionStatementTree(ctx);
   if (ctx instanceof ForStatementContext) return new ForStatementTree(ctx);
   if (ctx instanceof IfStatementContext) return new IfStatementTree(ctx);

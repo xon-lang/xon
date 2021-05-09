@@ -34,9 +34,11 @@ statement:
     | IF expression body (ELSE body)?                      # ifStatement
     | BREAK                                                # breakStatement
     | RETURN expression?                                   # returnStatement
-    | id type? '=' expression                              # assignmentStatement
     | expression                                           # expressionStatement
-    | PREPROCESSOR                                         # preprocessorStatement
+    | id type? '=' expression                              # idAssignmentStatement
+    // | expression '.' id '=' expression                     # memberAssignmentStatement
+    // | expression '[' expression ']' '=' expression         # indexAssignmentStatement
+    | PREPROCESSOR # preprocessorStatement
     ;
 
 expression:
