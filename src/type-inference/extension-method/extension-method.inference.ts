@@ -9,7 +9,7 @@ import { ParameterInference } from '../parameter/parameter.inference';
 import { getStatementInference } from '../statement/statement-inference.helper';
 import { StatementInference } from '../statement/statement.inference';
 
-export class FunctionInference extends BaseInference {
+export class ExtensionMethodInference extends BaseInference {
   public name: string;
 
   public extensionType: TypeTree;
