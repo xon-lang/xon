@@ -2,6 +2,8 @@ import { ProgramContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { getDefinitionsTrees } from '../definition/definition-tree.helper';
 import { DefinitionTree } from '../definition/definition.tree';
+import { getExtensionMethodsTrees } from '../extension-method/extension-method-tree.helper';
+import { ExtensionMethodTree } from '../extension-method/extension-method.tree';
 import { getFunctionsTrees } from '../function/function-tree.helper';
 import { FunctionTree } from '../function/function.tree';
 import { getLibrariesTrees } from '../library/library-tree.helper';
@@ -16,6 +18,8 @@ export class ProgramTree extends BaseTree {
 
   public functions: FunctionTree[];
 
+  public extensionMethods: ExtensionMethodTree[];
+
   public definitions: DefinitionTree[];
 
   public constructor(public ctx?: ProgramContext) {
@@ -25,6 +29,7 @@ export class ProgramTree extends BaseTree {
     this.libraries = getLibrariesTrees(ctx.library());
     this.statements = getStatementsTrees(ctx.statement());
     this.functions = getFunctionsTrees(ctx.function());
+    this.extensionMethods = getExtensionMethodsTrees(ctx.extensionMethod());
     this.definitions = getDefinitionsTrees(ctx.definition());
   }
 

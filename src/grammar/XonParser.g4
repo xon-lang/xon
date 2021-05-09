@@ -4,7 +4,8 @@ options {
     tokenVocab = XonLexer;
 }
 
-program: (library | statement | function | definition | NL)*;
+program: (library | statement | function | extensionMethod | definition | NL)*
+    ;
 
 library:       libraryPath ':' libraryMember (',' libraryMember)*;
 libraryPath:   id ('-' id)* '/' id ('-' id)*;

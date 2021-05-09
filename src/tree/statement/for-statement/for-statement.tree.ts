@@ -5,9 +5,9 @@ import { getStatementsTrees } from '../statement-tree.helper';
 import { StatementTree } from '../statement.tree';
 
 export class ForStatementTree extends StatementTree {
-  public indexVarName?: string;
-
   public valueVarName?: string;
+
+  public indexVarName?: string;
 
   public expression: ExpressionTree;
 
@@ -17,8 +17,8 @@ export class ForStatementTree extends StatementTree {
     super();
     if (!ctx) return;
 
-    this.indexVarName = ctx._index?.text;
     this.valueVarName = ctx._value?.text;
+    this.indexVarName = ctx._index?.text;
     this.expression = getExpressionTree(ctx.expression());
     this.body = getStatementsTrees(ctx.body());
   }
