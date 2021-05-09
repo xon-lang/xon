@@ -77,10 +77,10 @@ EXCLAMATION: '!';
 
 NULL_LITERAL: 'null';
 FLOAT_LITERAL:
-    [0-9][0-9]? 'x' AlphabetNumber '.' AlphabetNumber
+    [0-9][0-9]? [xX] AlphabetNumber '.' AlphabetNumber
     | DigitNumber '.' DigitNumber
     ;
-INTEGER_LITERAL: [0-9][0-9]? 'x' AlphabetNumber | DigitNumber;
+INTEGER_LITERAL: [0-9][0-9]? [xX] AlphabetNumber | DigitNumber;
 BOOLEAN_LITERAL: 'true' | 'false';
 CHAR_LITERAL:    '\'' ~['] '\'';
 STRING_LITERAL:  '"' (~["] | '\\' ["\\bfnrtv])* '"';
