@@ -36,8 +36,10 @@ export const getStatementTree = (ctx: StatementContext): StatementTree => {
 };
 
 export const getStatementsTrees = (
-  statements: BodyContext | StatementContext[],
+  bodyOrStatements: BodyContext | StatementContext[],
 ): StatementTree[] => {
-  if (statements instanceof BodyContext) return statements.statement().map(getStatementTree);
-  return statements?.map(getStatementTree) || [];
+  if (bodyOrStatements instanceof BodyContext)
+    return bodyOrStatements.statement().map(getStatementTree);
+
+  return bodyOrStatements?.map(getStatementTree);
 };
