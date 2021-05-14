@@ -1,3 +1,4 @@
+import { AssertStatementTree } from '../../tree/statement/assert-statement/assert-statement.tree';
 import { ExpressionStatementTree } from '../../tree/statement/expression-statement/expression-statement.tree';
 import { ForStatementTree } from '../../tree/statement/for-statement/for-statement.tree';
 import { IdAssignmentStatementTree } from '../../tree/statement/id-assignment-statement/id-assignment-statement.tree';
@@ -8,6 +9,7 @@ import { ReturnStatementTree } from '../../tree/statement/return-statement/retur
 import { StatementTree } from '../../tree/statement/statement.tree';
 import { WhileStatementTree } from '../../tree/statement/while-statement/while-statement.tree';
 import { GenericsMap } from '../generics-map';
+import { AssertStatementInference } from './assert-statement/assert-statement.inference';
 import { ExpressionStatementInference } from './expression-statement/expression-statement.inference';
 import { ForStatementInference } from './for-statement/for-statement.inference';
 import { IdAssignmentStatementInference } from './id-assignment-statement/id-assignment-statement.inference';
@@ -25,11 +27,12 @@ export function getStatementInference(
 
   if (tree instanceof PreprocessorStatementTree) return null;
 
-  if (tree instanceof IdAssignmentStatementTree)
-    return new IdAssignmentStatementInference(tree, genericsMap);
+  if (tree instanceof AssertStatementTree) return new AssertStatementInference(tree, genericsMap);
   if (tree instanceof ExpressionStatementTree)
     return new ExpressionStatementInference(tree, genericsMap);
   if (tree instanceof ForStatementTree) return new ForStatementInference(tree, genericsMap);
+  if (tree instanceof IdAssignmentStatementTree)
+    return new IdAssignmentStatementInference(tree, genericsMap);
   if (tree instanceof IfStatementTree) return new IfStatementInference(tree, genericsMap);
   if (tree instanceof LoopStatementTree) return new LoopStatementInference(tree, genericsMap);
   if (tree instanceof ReturnStatementTree) return new ReturnStatementInference(tree, genericsMap);
