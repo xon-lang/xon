@@ -36,12 +36,12 @@ statement:
     | IF expression body (ELSE body)?                      # ifStatement
     | BREAK                                                # breakStatement
     | RETURN expression?                                   # returnStatement
-    | expression                                           # expressionStatement
     | id type? '=' expression                              # idAssignmentStatement
     // | expression '.' id '=' expression                     # memberAssignmentStatement
     // | expression '[' expression ']' '=' expression         # indexAssignmentStatement
-    | ACTUAL ':' expression NL+ EXPECT ':' expression # assertStatement
-    | PREPROCESSOR                                    # preprocessorStatement
+    | ACTUAL ':' actual = expression NL+ EXPECT ':' expect = expression # assertStatement
+    | PREPROCESSOR                                                      # preprocessorStatement
+    | expression                                                        # expressionStatement
     ;
 
 expression:
@@ -103,7 +103,7 @@ operator:
     | '..'
     ;
 
-id:               ID | ACTUAL | EXPECT;
+id:               ID;
 parameter:        name = id type ('#' meta = DEFINITION_ID)?;
 parameters:       '(' (parameter (',' parameter)*)? ')';
 argument:         (id '=')? expression;

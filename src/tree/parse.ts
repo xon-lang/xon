@@ -1,4 +1,4 @@
-import { CharStreams, CommonTokenStream} from 'antlr4ts';
+import { CharStreams, CommonTokenStream } from 'antlr4ts';
 import * as fs from 'fs';
 import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
@@ -19,6 +19,8 @@ import { ParameterTree } from './parameter/parameter.tree';
 import { ProgramTree } from './program/program.tree';
 import { getStatementTree } from './statement/statement-tree.helper';
 import { StatementTree } from './statement/statement.tree';
+import { getTestTree } from './test/test-tree.helper';
+import { TestTree } from './test/test.tree';
 import { ThrowingErrorListener } from './throwing-error-listener';
 import { getTypeTree } from './type/type-tree.helper';
 import { TypeTree } from './type/type.tree';
@@ -54,6 +56,8 @@ export const parseExpression = <T extends ExpressionTree>(code: string): T =>
 
 export const parseStatement = <T extends StatementTree>(code: string): T =>
   getStatementTree(parse(code).statement()) as T;
+
+export const parseTest = (code: string): TestTree => getTestTree(parse(code).test());
 
 export const parseFunction = (code: string): FunctionTree =>
   getFunctionTree(parse(code).function());
