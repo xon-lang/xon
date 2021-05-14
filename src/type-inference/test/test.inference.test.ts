@@ -10,7 +10,7 @@ test('has single assert pair', () => {
 
   const inference = getTestInference(tree, new Map());
   expect(inference.type.toString()).toBe('(String) null');
-  expect(inference.name.toString()).toBe('String');
+  expect(inference.name.type.toString()).toBe('String');
   const assert = inference.body[0] as AssertStatementInference;
   expect(assert.actual.type.toString()).toBe('Integer');
   expect(assert.expect.type.toString()).toBe('Boolean');
