@@ -28,9 +28,12 @@ AND:    'and';
 ELSE:   'else';
 INIT:   'init';
 LOOP:   'loop';
+TEST:   'test';
 THIS:   'this';
 BREAK:  'break';
 WHILE:  'while';
+ACTUAL: 'actual';
+EXPECT: 'expect';
 RETURN: 'return';
 
 OPEN_BRACKET:  '[' {this.opened++;};

@@ -25,6 +25,7 @@ member:
     | id declaredGenerics? parameters type body? # methodMember
     ;
 
+test:            TEST expression body;
 function:        id declaredGenerics? parameters type body?;
 extensionMethod: type '.' id declaredGenerics? parameters type body?;
 
@@ -39,7 +40,8 @@ statement:
     | id type? '=' expression                              # idAssignmentStatement
     // | expression '.' id '=' expression                     # memberAssignmentStatement
     // | expression '[' expression ']' '=' expression         # indexAssignmentStatement
-    | PREPROCESSOR # preprocessorStatement
+    | ACTUAL ':' expression NL+ EXPECT ':' expression # assertStatement
+    | PREPROCESSOR                                    # preprocessorStatement
     ;
 
 expression:
@@ -101,7 +103,7 @@ operator:
     | '..'
     ;
 
-id:               ID;
+id:               ID | ACTUAL | EXPECT;
 parameter:        name = id type ('#' meta = DEFINITION_ID)?;
 parameters:       '(' (parameter (',' parameter)*)? ')';
 argument:         (id '=')? expression;
