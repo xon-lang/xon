@@ -7,9 +7,8 @@ options {
 program: (library | statement | function | extensionMethod | definition | NL)*
     ;
 
-library:       libraryPath ':' libraryMember (',' libraryMember)*;
-libraryPath:   id ('-' id)* '/' id ('-' id)*;
-libraryMember: name = DEFINITION_ID (AS alias = DEFINITION_ID)?;
+library:       scope = id '.' name = id ':' libraryMember (',' libraryMember)*;
+libraryMember: name = commonId (AS alias = commonId)?;
 
 definition:
     DEFINITION_ID declaredGenerics? parameters? (IS type)? ':' NL INDENT (
@@ -103,7 +102,29 @@ operator:
     | '..'
     ;
 
-id:               ID;
+id:
+    ID
+    | IS
+    | AS
+    | IF
+    | IN
+    | OR
+    | FOR
+    | NOT
+    | AND
+    | ELSE
+    | INIT
+    | LOOP
+    | TEST
+    | THIS
+    | BREAK
+    | WHILE
+    | ACTUAL
+    | EXPECT
+    | RETURN
+    ;
+commonId: id | DEFINITION_ID;
+
 parameter:        name = id type ('#' meta = DEFINITION_ID)?;
 parameters:       '(' (parameter (',' parameter)*)? ')';
 argument:         (id '=')? expression;
