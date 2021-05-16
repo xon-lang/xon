@@ -2,7 +2,7 @@ import { parseLibrary } from '../parse';
 import { LibraryTree } from './library.tree';
 
 test('import with many members', () => {
-  const code = 'org/lib: Dnn as Net, Bigint \n';
+  const code = 'org.lib: Dnn as Net, Bigint \n';
   const tree = parseLibrary(code);
   expect(tree).toBeInstanceOf(LibraryTree);
 

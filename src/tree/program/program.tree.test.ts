@@ -2,7 +2,7 @@ import { parse } from '../parse';
 import { ProgramTree } from './program.tree';
 
 test('two if', () => {
-  const code = `xon/os: Path
+  const code = `xon.os: Path
 
 1+1
 if e:

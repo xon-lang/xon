@@ -13,11 +13,12 @@ export class LibraryTree extends BaseTree {
     super();
     if (!ctx) return;
 
-    [this.scope, this.name] = ctx.libraryPath().text.split('/');
+    this.scope = ctx._scope.text;
+    this.name = ctx._name.text;
     this.members = ctx.libraryMember().map((x) => new LibraryMemberTree(x));
   }
 
   public toString(): string {
-    throw new Error(`ToString not implemented for "${this.constructor.name}"`);
+    return `${this.scope}.${this.name}: ${this.members.map((x) => x.toString()).join(', ')}`;
   }
 }

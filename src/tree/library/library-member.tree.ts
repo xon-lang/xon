@@ -15,6 +15,8 @@ export class LibraryMemberTree extends BaseTree {
   }
 
   public toString(): string {
-    throw new Error(`ToString not implemented for "${this.constructor.name}"`);
+    if (this.alias) return `${this.name} as ${this.alias}`;
+
+    return `${this.name}`;
   }
 }
