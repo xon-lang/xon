@@ -92,7 +92,7 @@ export class XonParser extends Parser {
 	public static readonly NL = 65;
 	public static readonly WS = 66;
 	public static readonly COMMENT = 67;
-	public static readonly RULE_program = 0;
+	public static readonly RULE_module = 0;
 	public static readonly RULE_library = 1;
 	public static readonly RULE_libraryMember = 2;
 	public static readonly RULE_definition = 3;
@@ -117,7 +117,7 @@ export class XonParser extends Parser {
 	public static readonly RULE_body = 22;
 	// tslint:disable:no-trailing-whitespace
 	public static readonly ruleNames: string[] = [
-		"program", "library", "libraryMember", "definition", "member", "test", 
+		"module", "library", "libraryMember", "definition", "member", "test", 
 		"function", "extensionMethod", "statement", "expression", "literal", "type", 
 		"operator", "id", "commonId", "parameter", "parameters", "argument", "arguments", 
 		"typeParameters", "generics", "declaredGenerics", "body",
@@ -171,9 +171,9 @@ export class XonParser extends Parser {
 		this._interp = new ParserATNSimulator(XonParser._ATN, this);
 	}
 	// @RuleVersion(0)
-	public program(): ProgramContext {
-		let _localctx: ProgramContext = new ProgramContext(this._ctx, this.state);
-		this.enterRule(_localctx, 0, XonParser.RULE_program);
+	public module(): ModuleContext {
+		let _localctx: ModuleContext = new ModuleContext(this._ctx, this.state);
+		this.enterRule(_localctx, 0, XonParser.RULE_module);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
@@ -2509,7 +2509,7 @@ export class XonParser extends Parser {
 
 }
 
-export class ProgramContext extends ParserRuleContext {
+export class ModuleContext extends ParserRuleContext {
 	public library(): LibraryContext[];
 	public library(i: number): LibraryContext;
 	public library(i?: number): LibraryContext | LibraryContext[] {
@@ -2568,7 +2568,7 @@ export class ProgramContext extends ParserRuleContext {
 		super(parent, invokingState);
 	}
 	// @Override
-	public get ruleIndex(): number { return XonParser.RULE_program; }
+	public get ruleIndex(): number { return XonParser.RULE_module; }
 }
 
 

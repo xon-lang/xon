@@ -1,13 +1,13 @@
 import { IdExpressionTree } from '../expression/id-expression/id-expression.tree';
 import { MethodExpressionTree } from '../expression/method-expression/method-expression.tree';
-import { parseProgramFromFile } from '../parse';
-import { ProgramTree } from '../program/program.tree';
+import { ModuleTree } from '../module/module.tree';
+import { parseModuleFromFile } from '../parse';
 import { ExpressionStatementTree } from '../statement/expression-statement/expression-statement.tree';
 import { PlainTypeTree } from '../type/plain-type/plain-type.tree';
 
 test('one scope', () => {
-  const tree = parseProgramFromFile('src/tree/definition/definition.test.xon');
-  expect(tree).toBeInstanceOf(ProgramTree);
+  const tree = parseModuleFromFile('src/tree/definition/definition.test.xon');
+  expect(tree).toBeInstanceOf(ModuleTree);
 
   expect(tree.definitions.length).toBe(1);
   const definition = tree.definitions[0];

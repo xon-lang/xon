@@ -22,7 +22,7 @@ test('if else if', () => {
 
 test('if else', () => {
   const code = 'if 12+(45/9) :\n    12+(45/5)\nelse:2   *   4   ';
-  // const prog = parseProgram(code);
+  // const prog = parseModule(code);
   // console.log(prog.statements[0]);
 
   const tree = parseStatement<IfStatementTree>(code);

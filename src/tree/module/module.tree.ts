@@ -1,4 +1,4 @@
-import { ProgramContext } from '../../grammar/xon-parser';
+import { ModuleContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { getDefinitionsTrees } from '../definition/definition-tree.helper';
 import { DefinitionTree } from '../definition/definition.tree';
@@ -11,7 +11,7 @@ import { LibraryTree } from '../library/library.tree';
 import { getStatementsTrees } from '../statement/statement-tree.helper';
 import { StatementTree } from '../statement/statement.tree';
 
-export class ProgramTree extends BaseTree {
+export class ModuleTree extends BaseTree {
   public libraries: LibraryTree[];
 
   public statements: StatementTree[];
@@ -22,7 +22,7 @@ export class ProgramTree extends BaseTree {
 
   public definitions: DefinitionTree[];
 
-  public constructor(public ctx?: ProgramContext) {
+  public constructor(public ctx?: ModuleContext) {
     super();
     if (!ctx) return;
 

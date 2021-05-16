@@ -1,23 +1,23 @@
 import fs from 'fs';
 import { DefinitionTree } from '../tree/definition/definition.tree';
-import { parseProgram } from '../tree/parse';
-import { ProgramTree } from '../tree/program/program.tree';
+import { ModuleTree } from '../tree/module/module.tree';
+import { parseModule } from '../tree/parse';
 
 export const definitionCache = new Map<string, DefinitionTree>();
 
-function loadProgramByPath(filePath: string): ProgramTree {
+function loadModuleByPath(filePath: string): ModuleTree {
   // eslint-disable-next-line @typescript-eslint/dot-notation
   global['currentDefinitionFilePath'] = filePath;
   if (!fs.existsSync(filePath)) throw new Error(`File "${filePath}" not found`);
 
   const code = fs.readFileSync(filePath).toString();
-  return parseProgram(code);
+  return parseModule(code);
 }
 
 // load libraries
 // glob
 //   .sync('src/xon-lib/**/*.xon')
-//   .map(loadProgramByPath)
+//   .map(loadModuleByPath)
 //   .map((x) => x.definitions)
 //   .forEach((x) =>
 //     x.forEach((z) => {
@@ -27,7 +27,7 @@ function loadProgramByPath(filePath: string): ProgramTree {
 
 export function findDefinition(name: string): DefinitionTree {
   if (definitionCache.has(name)) return definitionCache.get(name);
-  return loadProgramByPath(`src/xon-lib/global/${name}.xon`).definitions.find(
+  return loadModuleByPath(`src/xon-lib/global/${name}.xon`).definitions.find(
     (x) => x.name === name,
   );
   // return definitionCache.get(name);

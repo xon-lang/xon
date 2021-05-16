@@ -1,10 +1,10 @@
 import { MethodExpressionTree } from '../../tree/expression/method-expression/method-expression.tree';
-import { parseProgram } from '../../tree/parse';
-import { ProgramTree } from '../../tree/program/program.tree';
+import { ModuleTree } from '../../tree/module/module.tree';
+import { parseModule } from '../../tree/parse';
 import { IdAssignmentStatementTree } from '../../tree/statement/id-assignment-statement/id-assignment-statement.tree';
 import { clearScopes } from '../id-scope';
 import { IdAssignmentStatementInference } from '../statement/id-assignment-statement/id-assignment-statement.inference';
-import { getProgramInference } from './program-inference.helper';
+import { getModuleInference } from './module-inference.helper';
 
 test('has one statement no generics', () => {
   const code = `
@@ -15,11 +15,11 @@ a = Animal()
 Animal:
   weigh Integer
 `;
-  const tree = parseProgram(code);
-  expect(tree).toBeInstanceOf(ProgramTree);
+  const tree = parseModule(code);
+  expect(tree).toBeInstanceOf(ModuleTree);
 
   clearScopes();
-  const inference = getProgramInference(tree, new Map());
+  const inference = getModuleInference(tree, new Map());
 
   expect((inference.statements[0] as IdAssignmentStatementInference).type.toString()).toBe(
     'Animal',
@@ -39,14 +39,14 @@ Animal<T>:
   get<V>(a T) V:
     -- 
 `.trim();
-  const tree = parseProgram(code);
-  expect(tree).toBeInstanceOf(ProgramTree);
+  const tree = parseModule(code);
+  expect(tree).toBeInstanceOf(ModuleTree);
 
   const cValue = (tree.statements[2] as IdAssignmentStatementTree).value as MethodExpressionTree;
   expect(cValue).toBeInstanceOf(MethodExpressionTree);
 
   clearScopes();
-  const inference = getProgramInference(tree, new Map());
+  const inference = getModuleInference(tree, new Map());
   expect((inference.statements[0] as IdAssignmentStatementInference).type.toString()).toBe(
     'Animal<Float>',
   );

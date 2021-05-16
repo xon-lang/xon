@@ -1,4 +1,4 @@
-import { ProgramTree } from '../../tree/program/program.tree';
+import { ModuleTree } from '../../tree/module/module.tree';
 import { BaseInference } from '../base.inference';
 import { definitionCache } from '../definition-storage';
 import { getDefinitionInference } from '../definition/definition-inference.helper';
@@ -13,7 +13,7 @@ import { LibraryInference } from '../library/library.inference';
 import { getStatementInference } from '../statement/statement-inference.helper';
 import { StatementInference } from '../statement/statement.inference';
 
-export class ProgramInference extends BaseInference {
+export class ModuleInference extends BaseInference {
   public libraries: LibraryInference[];
 
   public statements: StatementInference[];
@@ -24,7 +24,7 @@ export class ProgramInference extends BaseInference {
 
   public definitions: DefinitionInference[];
 
-  public constructor(public tree: ProgramTree, public genericsMap: GenericsMap) {
+  public constructor(public tree: ModuleTree, public genericsMap: GenericsMap) {
     super();
 
     this.libraries = tree.libraries.map((x) => getLibraryInference(x, genericsMap));

@@ -1,5 +1,5 @@
-import { parseMember, parseProgram } from '../../../parse';
-import { ProgramTree } from '../../../program/program.tree';
+import { ModuleTree } from '../../../module/module.tree';
+import { parseMember, parseModule } from '../../../parse';
 import { MethodMemberTree } from './method-member.tree';
 
 test('method member', () => {
@@ -55,6 +55,6 @@ test('no return type', () => {
 
 test('several abstract methods', () => {
   const code = 'T:\n    f(a Integer) null\n    f(a Integer) null';
-  const tree = parseProgram(code);
-  expect(tree).toBeInstanceOf(ProgramTree);
+  const tree = parseModule(code);
+  expect(tree).toBeInstanceOf(ModuleTree);
 });

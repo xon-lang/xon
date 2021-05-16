@@ -15,8 +15,8 @@ import { FunctionTree } from './function/function.tree';
 import { LibraryTree } from './library/library.tree';
 import { getLiteralTree } from './literal/literal-tree.helper';
 import { LiteralTree } from './literal/literal.tree';
+import { ModuleTree } from './module/module.tree';
 import { ParameterTree } from './parameter/parameter.tree';
-import { ProgramTree } from './program/program.tree';
 import { getStatementTree } from './statement/statement-tree.helper';
 import { StatementTree } from './statement/statement.tree';
 import { getTestTree } from './test/test-tree.helper';
@@ -73,11 +73,11 @@ export const parseDefinition = (code: string): DefinitionTree =>
 
 export const parseLibrary = (code: string): LibraryTree => new LibraryTree(parse(code).library());
 
-export function parseProgram(code: string, sourceName: string = undefined): ProgramTree {
-  return new ProgramTree(parse(code, sourceName).program());
+export function parseModule(code: string, sourceName: string = undefined): ModuleTree {
+  return new ModuleTree(parse(code, sourceName).module());
 }
 
-export function parseProgramFromFile(sourceName: string = undefined): ProgramTree {
+export function parseModuleFromFile(sourceName: string = undefined): ModuleTree {
   const code = fs.readFileSync(sourceName).toString();
-  return new ProgramTree(parse(code, sourceName).program());
+  return new ModuleTree(parse(code, sourceName).module());
 }

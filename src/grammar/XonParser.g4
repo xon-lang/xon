@@ -4,8 +4,7 @@ options {
     tokenVocab = XonLexer;
 }
 
-program: (library | statement | function | extensionMethod | definition | NL)*
-    ;
+module: (library | statement | function | extensionMethod | definition | NL)*;
 
 library:       scope = id '.' name = id ':' libraryMember (',' libraryMember)*;
 libraryMember: name = commonId (AS alias = commonId)?;
