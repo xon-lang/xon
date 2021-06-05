@@ -5,6 +5,8 @@ import { getDefinitionInference } from '../definition/definition-inference.helpe
 import { DefinitionInference } from '../definition/definition.inference';
 import { getExtensionMethodInference } from '../extension-method/extension-method-inference.helper';
 import { ExtensionMethodInference } from '../extension-method/extension-method.inference';
+import { getExtensionPropertyInference } from '../extension-property/extension-property-inference.helper';
+import { ExtensionPropertyInference } from '../extension-property/extension-property.inference';
 import { getFunctionInference } from '../function/function-inference.helper';
 import { FunctionInference } from '../function/function.inference';
 import { GenericsMap } from '../generics-map';
@@ -22,6 +24,8 @@ export class ModuleInference extends BaseInference {
 
   public extensionMethods: ExtensionMethodInference[];
 
+  public extensionProperties: ExtensionPropertyInference[];
+
   public definitions: DefinitionInference[];
 
   public constructor(public tree: ModuleTree, public genericsMap: GenericsMap) {
@@ -32,6 +36,9 @@ export class ModuleInference extends BaseInference {
     this.definitions = tree.definitions.map((x) => getDefinitionInference(x, this.genericsMap));
     this.extensionMethods = tree.extensionMethods.map((x) =>
       getExtensionMethodInference(x, this.genericsMap),
+    );
+    this.extensionProperties = tree.extensionProperties.map((x) =>
+      getExtensionPropertyInference(x, this.genericsMap),
     );
     this.functions = tree.functions.map((x) => getFunctionInference(x, this.genericsMap));
     this.statements = tree.statements.map((x) => getStatementInference(x, this.genericsMap));
