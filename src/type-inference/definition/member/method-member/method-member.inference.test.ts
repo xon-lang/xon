@@ -6,12 +6,12 @@ import { getMemberInference } from '../member-inference.helper';
 import { MethodMemberInference } from './method-member.inference.type';
 
 test('has return type', () => {
-  const code = 'f(a Integer) Integer:\n    a';
+  const code = 'f(a Integer):\n    a';
   const tree = parseMember<MethodMemberTree>(code);
   expect(tree).toBeInstanceOf(MethodMemberTree);
 
   const inference = getMemberInference(tree, new Map()) as MethodMemberInference;
-  expect(inference.type.toString()).toBe('(Integer) Integer');
+  expect(inference.type.toString()).toBe('(Integer) null');
   expect((inference.body[0] as ExpressionStatementInference).value.type.toString()).toBe('Integer');
 });
 

@@ -1,5 +1,5 @@
 import { ExtensionMethodTree } from '../../tree/extension-method/extension-method.tree';
-import { createFunctionType } from '../../tree/type/type-tree.helper';
+import { createFunctionType, createLiteralType } from '../../tree/type/type-tree.helper';
 import { TypeTree } from '../../tree/type/type.tree';
 import { BaseInference } from '../base.inference';
 import { GenericsMap } from '../generics-map';
@@ -32,7 +32,7 @@ export class ExtensionMethodInference extends BaseInference {
     addToScope('this', this.extensionType);
     this.parameters = tree.parameters.map((x) => getParameterInference(x, genericsMap));
     this.parameters.forEach((x) => addToScope(x.name, x.type));
-    this.returnType = tree.returnType.useGenericsMap(this.genericsMap);
+    this.returnType = tree.returnType?.useGenericsMap(this.genericsMap) || createLiteralType(null);
 
     this.type = createFunctionType(
       this.declaredGenerics,

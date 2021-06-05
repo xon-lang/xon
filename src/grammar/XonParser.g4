@@ -27,15 +27,15 @@ definition:
     ;
 
 member:
-    id type ('=' expression)?                    # propertyMember
-    | 'init' body                                # initMember
-    | operator parameters type body?             # operatorMember
-    | id declaredGenerics? parameters type body? # methodMember
+    id type ('=' expression)?                     # propertyMember
+    | 'init' body                                 # initMember
+    | operator parameters type body?              # operatorMember
+    | id declaredGenerics? parameters type? body? # methodMember
     ;
 
 test:              TEST expression body;
-function:          id declaredGenerics? parameters type body?;
-extensionMethod:   type '.' id declaredGenerics? parameters type body?;
+function:          id declaredGenerics? parameters type? body?;
+extensionMethod:   type '.' id declaredGenerics? parameters type? body?;
 extensionProperty: type '.' id type body?;
 
 statement:

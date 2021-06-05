@@ -14,7 +14,7 @@ export class MethodMemberTree extends MemberTree {
 
   public parameters: ParameterTree[] = [];
 
-  public returnType: TypeTree;
+  public returnType?: TypeTree;
 
   public body?: StatementTree[];
 

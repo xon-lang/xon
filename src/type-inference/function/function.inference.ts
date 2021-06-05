@@ -1,5 +1,5 @@
 import { FunctionTree } from '../../tree/function/function.tree';
-import { createFunctionType } from '../../tree/type/type-tree.helper';
+import { createFunctionType, createLiteralType } from '../../tree/type/type-tree.helper';
 import { TypeTree } from '../../tree/type/type.tree';
 import { BaseInference } from '../base.inference';
 import { GenericsMap } from '../generics-map';
@@ -31,14 +31,14 @@ export class FunctionInference extends BaseInference {
     this.declaredGenerics = tree.declaredGenerics;
     this.parameters = tree.parameters.map((x) => getParameterInference(x, genericsMap));
     this.parameters.forEach((x) => addToScope(x.name, x.type));
-    this.returnType = tree.returnType.useGenericsMap(this.genericsMap);
+    this.returnType = tree.returnType?.useGenericsMap(this.genericsMap) || createLiteralType(null);
 
     this.type = createFunctionType(
       this.declaredGenerics,
       this.parameters.map((x) => x.type),
       this.returnType,
     );
-    
+
     this.body = tree.body.map((x) => getStatementInference(x, this.genericsMap));
     popScope();
   }
