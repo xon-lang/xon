@@ -15,8 +15,9 @@ module: (
     )*
     ;
 
-library:       scope = id '.' name = id ':' libraryMember (',' libraryMember)*;
-libraryMember: name = commonId (AS alias = commonId)?;
+library:           scope = id '.' name = id ':' libraryMember (',' libraryMember)*;
+libraryMember:     name = librartMemberName (AS alias = librartMemberName)?;
+librartMemberName: id | DEFINITION_ID;
 
 definition:
     DEFINITION_ID declaredGenerics? parameters? (IS type)? ':' NL INDENT (
@@ -132,7 +133,6 @@ id:
     | EXPECT
     | RETURN
     ;
-commonId: id | DEFINITION_ID;
 
 parameter:        name = id type ('#' meta = DEFINITION_ID)?;
 parameters:       '(' (parameter (',' parameter)*)? ')';
