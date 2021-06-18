@@ -4,7 +4,7 @@ import { BaseTree } from '../base.tree';
 export class LibraryMemberTree extends BaseTree {
   public name: string;
 
-  public alias: string;
+  public alias?: string;
 
   public constructor(public ctx?: LibraryMemberContext) {
     super();

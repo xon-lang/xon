@@ -1,5 +1,5 @@
 import { OperatorExpressionTree } from '../../../tree/expression/operator-expression/operator-expression.tree';
-import { findOperatorMember } from '../../find-type-member';
+import { findOperatorMember } from '../../../provider/find-type-member';
 import { GenericsMap } from '../../generics-map';
 import { getExpressionInference } from '../expression-inference.helper';
 import { ExpressionInference } from '../expression.inference';

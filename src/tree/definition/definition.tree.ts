@@ -56,6 +56,6 @@ export class DefinitionTree extends BaseTree {
   }
 
   public toString(): string {
-    throw new Error(`ToString not implemented for "${this.constructor.name}"`);
+    throw new Error(`toString not implemented for "${this.constructor.name}"`);
   }
 }

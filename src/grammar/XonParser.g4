@@ -4,17 +4,7 @@ options {
     tokenVocab = XonLexer;
 }
 
-module: (
-        library
-        | statement
-        | function
-        | extensionMethod
-        | extensionProperty
-        | definition
-        | NL
-    )*
-    ;
-
+module:            ( library | statement | function | definition | NL)*;
 library:           scope = id '.' name = id ':' libraryMember (',' libraryMember)*;
 libraryMember:     name = librartMemberName (AS alias = librartMemberName)?;
 librartMemberName: id | DEFINITION_ID;
@@ -33,10 +23,8 @@ member:
     | id declaredGenerics? parameters type? body? # methodMember
     ;
 
-test:              TEST expression body;
-function:          id declaredGenerics? parameters type? body?;
-extensionMethod:   type '.' id declaredGenerics? parameters type? body?;
-extensionProperty: type '.' id type body?;
+test:     TEST expression body;
+function: id declaredGenerics? parameters type? body?;
 
 statement:
     FOR (value = id (',' index = id)? IN)? expression body # forStatement

@@ -18,6 +18,9 @@ export const find = (name: string): TypeTree =>
     ?.get(name);
 
 export const addToScope = (name: string, type: TypeTree): void => {
+  if (!name) throw new Error('No name to add in scope');
+  if (!type) throw new Error('No type to add in scope');
+
   const lastScope = scopes[scopes.length - 1] || pushScope();
   if (lastScope.has(name)) throw new Error(`"${name}" already exists in the scope`);
   lastScope.set(name, type);

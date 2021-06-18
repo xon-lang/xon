@@ -2,7 +2,7 @@ import { InstantiationExpressionTree } from '../../../tree/expression/instantiat
 import { TypeTree } from '../../../tree/type/type.tree';
 import { getArgumentInference } from '../../argument/argument-inference.helper';
 import { ArgumentInference } from '../../argument/argument.inference';
-import { findDefinitionByType } from '../../find-type-member';
+import { findDefinitionByType } from '../../../provider/find-type-member';
 import { GenericsMap } from '../../generics-map';
 import { ExpressionInference } from '../expression.inference';
 

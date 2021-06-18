@@ -2,10 +2,6 @@ import { ModuleContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { getDefinitionsTrees } from '../definition/definition-tree.helper';
 import { DefinitionTree } from '../definition/definition.tree';
-import { getExtensionMethodsTrees } from '../extension-method/extension-method-tree.helper';
-import { ExtensionMethodTree } from '../extension-method/extension-method.tree';
-import { getExtensionPropertiesTrees } from '../extension-property/extension-property-tree.helper';
-import { ExtensionPropertyTree } from '../extension-property/extension-property.tree';
 import { getFunctionsTrees } from '../function/function-tree.helper';
 import { FunctionTree } from '../function/function.tree';
 import { getLibrariesTrees } from '../library/library-tree.helper';
@@ -20,10 +16,6 @@ export class ModuleTree extends BaseTree {
 
   public functions: FunctionTree[];
 
-  public extensionMethods: ExtensionMethodTree[];
-
-  public extensionProperties: ExtensionPropertyTree[];
-
   public definitions: DefinitionTree[];
 
   public constructor(public ctx?: ModuleContext) {
@@ -33,12 +25,10 @@ export class ModuleTree extends BaseTree {
     this.libraries = getLibrariesTrees(ctx.library());
     this.statements = getStatementsTrees(ctx.statement());
     this.functions = getFunctionsTrees(ctx.function());
-    this.extensionMethods = getExtensionMethodsTrees(ctx.extensionMethod());
-    this.extensionProperties = getExtensionPropertiesTrees(ctx.extensionProperty());
     this.definitions = getDefinitionsTrees(ctx.definition());
   }
 
   public toString(): string {
-    throw new Error(`ToString not implemented for "${this.constructor.name}"`);
+    throw new Error(`toString not implemented for "${this.constructor.name}"`);
   }
 }

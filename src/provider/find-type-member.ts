@@ -1,11 +1,68 @@
+/* eslint-disable max-classes-per-file */
+import * as fs from 'fs';
+import * as glob from 'glob';
+import * as path from 'path';
 import { Issue } from '../issue-service/issue';
 import { DefinitionTree } from '../tree/definition/definition.tree';
 import { MethodMemberTree } from '../tree/definition/member/method-member/method-member.tree';
 import { PropertyMemberTree } from '../tree/definition/member/property-member/property-member.tree';
+import { FunctionTree } from '../tree/function/function.tree';
+import { ModuleTree } from '../tree/module/module.tree';
+import { parseModule } from '../tree/parse';
 import { createFunctionType } from '../tree/type/type-tree.helper';
 import { TypeTree } from '../tree/type/type.tree';
-import { findDefinition } from './definition-storage';
-import { GenericsMap } from './generics-map';
+import { GenericsMap } from '../type-inference/generics-map';
+
+export interface DependencyProvider {
+  get(scope: string, name: string): Dependency;
+}
+
+export class Dependency {
+  public definitions: DefinitionTree[] = [];
+
+  public functions: FunctionTree[] = [];
+
+  public constructor(public modules: ModuleTree[]) {
+    modules.forEach((x) => {
+      this.definitions.push(...x.definitions);
+      this.functions.push(...x.functions);
+    });
+  }
+
+  public findDefinition(name: string): DefinitionTree {
+    return this.definitions.find((x) => x.name === name);
+  }
+
+  public findFunction(name: string): FunctionTree {
+    return this.functions.find((x) => x.name === name);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  public dependencies(): Dependency[] {
+    return [];
+  }
+}
+
+export class DirectoryDependencyProvider implements DependencyProvider {
+  public constructor(public libraryDirectory: string) {}
+
+  public get(scope: string, name: string): Dependency {
+    const libPath = path.resolve(this.libraryDirectory, scope, name);
+    const codeFiles = glob.sync(`${libPath}/**/*.xon`);
+    const modulesTrees = codeFiles.map((x) => parseModule(fs.readFileSync(x).toString(), x));
+    return new Dependency(modulesTrees);
+  }
+}
+
+export const dependencyProvider = new DirectoryDependencyProvider('xon-project-sample');
+export const coreDependency = dependencyProvider.get('lib/xon', 'core');
+export const srcDependency = dependencyProvider.get('src', '');
+
+export function findDefinition(name: string): DefinitionTree {
+  const definition = srcDependency.findDefinition(name) || coreDependency.findDefinition(name);
+  if (!definition) throw new Error(`Couldn't find type "${name}"`);
+  return definition;
+}
 
 export function findDefinitionByType(type: TypeTree): DefinitionTree {
   return findDefinition(type.name);
@@ -81,25 +138,3 @@ export function getMemberType(type: TypeTree, name: string): TypeTree {
 
   throw Issue.errorFromTree(definition, `Couldn't find member ${name}`);
 }
-
-// export function findTheBestMethod<T extends MethodType>(
-//   definition: DefinitionTree,
-//   members: T[],
-//   fitArgs: ExpressionTree[],
-// ): T {
-//   const candidates = members
-//     .filter((x) => x.parameters.length === fitArgs.length)
-//     .map((x) => ({
-//       method: x,
-//       weight: x.parameters
-//         .map((z, i) => z.dataType.fitWeight(fitArgs[i]))
-//         .reduce((p, c) => p * c, 1),
-//     }))
-//     .filter((x) => x.weight > 0)
-//     .sort((a, b) => b.weight - a.weight);
-
-//   if (candidates.length) return candidates[0].method;
-//   if (definition.inheritanceType && definition.inheritanceType instanceof PlainTypeTree)
-//     return findTheBestMethod(getTypeDefinition(definition.inheritanceType), members, fitArgs);
-//   return null;
-// }

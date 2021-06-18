@@ -1,5 +1,5 @@
 import { MemberExpressionTree } from '../../../tree/expression/member-expression/member-expression.tree';
-import { getMemberType } from '../../find-type-member';
+import { getMemberType } from '../../../provider/find-type-member';
 import { GenericsMap } from '../../generics-map';
 import { getExpressionInference } from '../expression-inference.helper';
 import { ExpressionInference } from '../expression.inference';

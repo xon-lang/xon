@@ -1,5 +1,4 @@
 import { IdAssignmentStatementTree } from '../../../tree/statement/id-assignment-statement/id-assignment-statement.tree';
-import { TypeTree } from '../../../tree/type/type.tree';
 import { getExpressionInference } from '../../expression/expression-inference.helper';
 import { ExpressionInference } from '../../expression/expression.inference';
 import { GenericsMap } from '../../generics-map';
@@ -10,8 +9,6 @@ export class IdAssignmentStatementInference extends StatementInference {
   public name: string;
 
   public value: ExpressionInference;
-
-  public type: TypeTree;
 
   public constructor(public tree: IdAssignmentStatementTree, public genericsMap: GenericsMap) {
     super();
