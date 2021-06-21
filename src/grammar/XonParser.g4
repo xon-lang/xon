@@ -34,7 +34,7 @@ statement:
     | BREAK                                                # breakStatement
     | RETURN expression?                                   # returnStatement
     | id type? '=' expression                              # idAssignmentStatement
-    // | expression '.' id '=' expression                     # memberAssignmentStatement
+    | THIS '.' id '=' expression                           # memberAssignmentStatement
     // | expression '[' expression ']' '=' expression         # indexAssignmentStatement
     | ACTUAL ':' actual = expression NL+ EXPECT ':' expect = expression # assertStatement
     | PREPROCESSOR                                                      # preprocessorStatement
