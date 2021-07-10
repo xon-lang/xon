@@ -8,9 +8,9 @@ export class StringLiteralTree extends LiteralTree {
     super();
     if (!ctx) return;
 
-    const CHAR_START = 1;
-    const CHAR_END = -1;
-    this.value = ctx.text.slice(CHAR_START, CHAR_END).replace(/\\"/g, '"');
+    const QUOTE_START = 1;
+    const QUOTE_END = -1;
+    this.value = ctx.text.slice(QUOTE_START, QUOTE_END).replace(/\\"/g, '"');
   }
 
   public toString(): string {

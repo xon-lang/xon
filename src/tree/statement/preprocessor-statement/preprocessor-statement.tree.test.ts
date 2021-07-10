@@ -1,5 +1,4 @@
-import { ModuleTree } from '../../module/module.tree';
-import { parseModule, parseStatement } from '../../parse';
+import { parseStatement } from '../../parse';
 import { PreprocessorStatementTree } from './preprocessor-statement.tree';
 
 test('preprocessor test for any symbol', () => {
@@ -20,11 +19,8 @@ test('preprocessor value test', () => {
 
 test('preprocessor complex', () => {
   const code = '#{const battery = await si.battery();\nif a: log(0)}';
-  const tree = parseModule(code);
-  expect(tree).toBeInstanceOf(ModuleTree);
+  const tree = parseStatement<PreprocessorStatementTree>(code);
+  expect(tree).toBeInstanceOf(PreprocessorStatementTree);
 
-  expect(tree.statements.length).toBe(1);
-  const preprocessor = tree.statements[0] as PreprocessorStatementTree;
-  expect(preprocessor).toBeInstanceOf(PreprocessorStatementTree);
-  expect(preprocessor.value).toBe('const battery = await si.battery();\nif a: log(0)');
+  expect(tree.value).toBe('const battery = await si.battery();\nif a: log(0)');
 });

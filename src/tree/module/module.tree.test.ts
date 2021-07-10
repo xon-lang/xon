@@ -18,5 +18,4 @@ else: if d: call()
   expect(tree.libraries[0].members.length).toBe(1);
   expect(tree.libraries[0].members[0].name).toBe('Path');
   expect(tree.libraries[0].members[0].alias).toBeFalsy();
-  expect(tree.statements.length).toBe(2);
 });

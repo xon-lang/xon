@@ -6,7 +6,6 @@ import { Issue } from '../issue-service/issue';
 import { DefinitionTree } from '../tree/definition/definition.tree';
 import { MethodMemberTree } from '../tree/definition/member/method-member/method-member.tree';
 import { PropertyMemberTree } from '../tree/definition/member/property-member/property-member.tree';
-import { FunctionTree } from '../tree/function/function.tree';
 import { ModuleTree } from '../tree/module/module.tree';
 import { parseModule } from '../tree/parse';
 import { createFunctionType } from '../tree/type/type-tree.helper';
@@ -20,21 +19,14 @@ export interface DependencyProvider {
 export class Dependency {
   public definitions: DefinitionTree[] = [];
 
-  public functions: FunctionTree[] = [];
-
   public constructor(public modules: ModuleTree[]) {
     modules.forEach((x) => {
       this.definitions.push(...x.definitions);
-      this.functions.push(...x.functions);
     });
   }
 
   public findDefinition(name: string): DefinitionTree {
     return this.definitions.find((x) => x.name === name);
-  }
-
-  public findFunction(name: string): FunctionTree {
-    return this.functions.find((x) => x.name === name);
   }
 
   // eslint-disable-next-line class-methods-use-this

@@ -4,7 +4,7 @@ options {
     tokenVocab = XonLexer;
 }
 
-module:            ( library | statement | function | definition | NL)*;
+module:            (library | NL)* ( definition | NL)*;
 library:           scope = id '.' name = id ':' libraryMember (',' libraryMember)*;
 libraryMember:     name = librartMemberName (AS alias = librartMemberName)?;
 librartMemberName: id | DEFINITION_ID;
@@ -21,10 +21,8 @@ member:
     | 'init' body                                 # initMember
     | operator parameters type body?              # operatorMember
     | id declaredGenerics? parameters type? body? # methodMember
+    | TEST STRING_LITERAL body?                   # testMember
     ;
-
-test:     TEST expression body;
-function: id declaredGenerics? parameters type? body?;
 
 statement:
     FOR (value = id (',' index = id)? IN)? expression body # forStatement
@@ -113,7 +111,6 @@ id:
     | ELSE
     | INIT
     | LOOP
-    | TEST
     | THIS
     | BREAK
     | WHILE
