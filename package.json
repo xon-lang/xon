@@ -39,12 +39,12 @@
   "devDependencies": {
     "@types/glob": "^7.1.4",
     "@types/jest": "^26.0.24",
-    "@types/node": "^16.4.3",
+    "@types/node": "^16.4.8",
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
     "antlr4ts-cli": "^0.5.0-alpha.4",
     "create-ts-index": "^1.13.6",
-    "eslint": "^7.31.0",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "antlr4ts": "^0.5.0-alpha.4",
-    "chalk": "^4.1.1",
+    "chalk": "^4.1.2",
     "glob": "^7.1.7"
   }
 }
