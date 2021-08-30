@@ -27,7 +27,6 @@ member:
 statement:
     FOR (value = id (',' index = id)? IN)? expression body # forStatement
     | WHILE expression body                                # whileStatement
-    | LOOP body                                            # loopStatement
     | IF expression body (ELSE body)?                      # ifStatement
     | BREAK                                                # breakStatement
     | RETURN expression?                                   # returnStatement

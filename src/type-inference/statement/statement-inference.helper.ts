@@ -3,7 +3,6 @@ import { ExpressionStatementTree } from '../../tree/statement/expression-stateme
 import { ForStatementTree } from '../../tree/statement/for-statement/for-statement.tree';
 import { IdAssignmentStatementTree } from '../../tree/statement/id-assignment-statement/id-assignment-statement.tree';
 import { IfStatementTree } from '../../tree/statement/if-statement/if-statement.tree';
-import { LoopStatementTree } from '../../tree/statement/loop-statement/loop-statement.tree';
 import { MemberAssignmentStatementTree } from '../../tree/statement/member-assignment-statement/member-assignment-statement.tree';
 import { PreprocessorStatementTree } from '../../tree/statement/preprocessor-statement/preprocessor-statement.tree';
 import { ReturnStatementTree } from '../../tree/statement/return-statement/return-statement.tree';
@@ -15,7 +14,6 @@ import { ExpressionStatementInference } from './expression-statement/expression-
 import { ForStatementInference } from './for-statement/for-statement.inference';
 import { IdAssignmentStatementInference } from './id-assignment-statement/id-assignment-statement.inference';
 import { IfStatementInference } from './if-statement/if-statement.inference';
-import { LoopStatementInference } from './loop-statement/loop-statement.inference';
 import { MemberAssignmentStatementInference } from './member-assignment-statement/member-assignment-statement.inference';
 import { ReturnStatementInference } from './return-statement/return-statement.inference';
 import { StatementInference } from './statement.inference';
@@ -38,7 +36,6 @@ export function getStatementInference(
   if (tree instanceof MemberAssignmentStatementTree)
     return new MemberAssignmentStatementInference(tree, genericsMap);
   if (tree instanceof IfStatementTree) return new IfStatementInference(tree, genericsMap);
-  if (tree instanceof LoopStatementTree) return new LoopStatementInference(tree, genericsMap);
   if (tree instanceof ReturnStatementTree) return new ReturnStatementInference(tree, genericsMap);
   if (tree instanceof WhileStatementTree) return new WhileStatementInference(tree, genericsMap);
 
