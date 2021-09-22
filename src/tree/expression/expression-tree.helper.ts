@@ -2,6 +2,7 @@
 import {
   AddSubExpressionContext,
   ArrayExpressionContext,
+  CallExpressionContext,
   EqualityExpressionContext,
   ExpressionContext,
   IdExpressionContext,
@@ -14,7 +15,6 @@ import {
   LogicalNotExpressionContext,
   LogicalOrExpressionContext,
   MemberExpressionContext,
-  MethodExpressionContext,
   MulDivModExpressionContext,
   NegativeExpressionContext,
   ParenthesizedExpressionContext,
@@ -24,6 +24,7 @@ import {
   RelationalExpressionContext,
 } from '../../grammar/xon-parser';
 import { ArrayExpressionTree } from './array-expression/array-expression.tree';
+import { CallExpressionTree } from './call-expression/call-expression.tree';
 import { ExpressionTree } from './expression.tree';
 import { IdExpressionTree } from './id-expression/id-expression.tree';
 import { IndexExpressionTree } from './index-expression/index-expression.tree';
@@ -35,7 +36,6 @@ import { LogicalAndExpressionTree } from './logical-and-expression/logical-and-e
 import { LogicalNotExpressionTree } from './logical-not-expression/logical-not-expression.tree';
 import { LogicalOrExpressionTree } from './logical-or-expression/logical-or-expression.tree';
 import { MemberExpressionTree } from './member-expression/member-expression.tree';
-import { MethodExpressionTree } from './method-expression/method-expression.tree';
 import { NegativeExpressionTree } from './negative-expression/negative-expression.tree';
 import { OperatorExpressionTree } from './operator-expression/operator-expression.tree';
 import { ParenthesizedExpressionTree } from './parenthesized-expression/parenthesized-expression.tree';
@@ -55,7 +55,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof LogicalNotExpressionContext) return new LogicalNotExpressionTree(ctx);
   if (ctx instanceof LogicalOrExpressionContext) return new LogicalOrExpressionTree(ctx);
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
-  if (ctx instanceof MethodExpressionContext) return new MethodExpressionTree(ctx);
+  if (ctx instanceof CallExpressionContext) return new CallExpressionTree(ctx);
   if (ctx instanceof NegativeExpressionContext) return new NegativeExpressionTree(ctx);
   if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionTree(ctx);
   if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);

@@ -1,6 +1,6 @@
+import { CallExpressionTree } from '../../../expression/call-expression/call-expression.tree';
 import { IdExpressionTree } from '../../../expression/id-expression/id-expression.tree';
 import { LiteralExpressionTree } from '../../../expression/literal-expression/literal-expression.tree';
-import { MethodExpressionTree } from '../../../expression/method-expression/method-expression.tree';
 import { parseMember } from '../../../parse';
 import { ExpressionStatementTree } from '../../../statement/expression-statement/expression-statement.tree';
 import { InitMemberTree } from './init-member.tree';
@@ -12,7 +12,7 @@ test('method member', () => {
 
   expect(tree.name).toBe('init');
   const statement = tree.body[0] as ExpressionStatementTree;
-  const expression = statement.value as MethodExpressionTree;
+  const expression = statement.value as CallExpressionTree;
   expect(expression.arguments.length).toBe(1);
   expect((expression.arguments[0].value as LiteralExpressionTree).literal.value).toBe(222);
 

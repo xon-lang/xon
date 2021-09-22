@@ -1,4 +1,4 @@
-import { MethodExpressionContext } from '../../../grammar/xon-parser';
+import { CallExpressionContext } from '../../../grammar/xon-parser';
 import { getArgumentsTrees } from '../../argument/argument-tree.helper';
 import { ArgumentTree } from '../../argument/argument.tree';
 import { getTypesTrees } from '../../type/type-tree.helper';
@@ -6,14 +6,14 @@ import { TypeTree } from '../../type/type.tree';
 import { getExpressionTree } from '../expression-tree.helper';
 import { ExpressionTree } from '../expression.tree';
 
-export class MethodExpressionTree extends ExpressionTree {
+export class CallExpressionTree extends ExpressionTree {
   public generics: TypeTree[];
 
   public instance: ExpressionTree;
 
   public arguments: ArgumentTree[];
 
-  public constructor(public ctx?: MethodExpressionContext) {
+  public constructor(public ctx?: CallExpressionContext) {
     super();
     if (!ctx) return;
 

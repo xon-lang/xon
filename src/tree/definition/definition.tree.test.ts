@@ -1,5 +1,5 @@
+import { CallExpressionTree } from '../expression/call-expression/call-expression.tree';
 import { IdExpressionTree } from '../expression/id-expression/id-expression.tree';
-import { MethodExpressionTree } from '../expression/method-expression/method-expression.tree';
 import { ModuleTree } from '../module/module.tree';
 import { parseModuleFromFile } from '../parse';
 import { ExpressionStatementTree } from '../statement/expression-statement/expression-statement.tree';
@@ -39,10 +39,10 @@ test('one scope', () => {
   expect(definition.methods[0].parameters.length).toBe(0);
   expect(definition.methods[0].body.length).toBe(2);
   expect((definition.methods[0].body[0] as ExpressionStatementTree).value).toBeInstanceOf(
-    MethodExpressionTree,
+    CallExpressionTree,
   );
   expect((definition.methods[0].body[1] as ExpressionStatementTree).value).toBeInstanceOf(
-    MethodExpressionTree,
+    CallExpressionTree,
   );
   expect(definition.methods[1].name).toBe('location');
   expect(definition.methods[1].parameters.length).toBe(2);
@@ -52,12 +52,12 @@ test('one scope', () => {
   expect(definition.methods[1].parameters[1].type.name).toBe('Number');
   expect(definition.methods[1].body.length).toBe(1);
   expect((definition.methods[1].body[0] as ExpressionStatementTree).value).toBeInstanceOf(
-    MethodExpressionTree,
+    CallExpressionTree,
   );
   const innerMethod = (definition.methods[1].body[0] as ExpressionStatementTree)
-    .value as MethodExpressionTree;
-  const MethodExpression = innerMethod.instance as IdExpressionTree;
-  expect(MethodExpression.name).toBe('pos');
+    .value as CallExpressionTree;
+  const CallExpression = innerMethod.instance as IdExpressionTree;
+  expect(CallExpression.name).toBe('pos');
   expect(innerMethod.arguments.length).toBe(2);
 
   expect(definition.operators.length).toBe(1);

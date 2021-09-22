@@ -1320,7 +1320,7 @@ export class XonParser extends Parser {
 
 					case 11:
 						{
-						_localctx = new MethodExpressionContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new CallExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 267;
 						if (!(this.precpred(this._ctx, 16))) {
@@ -2890,7 +2890,7 @@ export class MemberExpressionContext extends ExpressionContext {
 		this.copyFrom(ctx);
 	}
 }
-export class MethodExpressionContext extends ExpressionContext {
+export class CallExpressionContext extends ExpressionContext {
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}

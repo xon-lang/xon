@@ -44,7 +44,7 @@ expression:
     | id                                                                  # idExpression
     | literal                                                             # literalExpression
     | expression '.' id                                                   # memberExpression
-    | expression generics? arguments                                      # methodExpression
+    | expression generics? arguments                                      # callExpression
     | expression '[' expression ']'                                       # indexExpression
     | left = expression op = '^' right = expression                       # powExpression
     | '-' expression                                                      # negativeExpression

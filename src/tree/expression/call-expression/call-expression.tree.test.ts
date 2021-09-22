@@ -4,12 +4,12 @@ import { parseExpression } from '../../parse';
 import { IdExpressionTree } from '../id-expression/id-expression.tree';
 import { LiteralExpressionTree } from '../literal-expression/literal-expression.tree';
 import { MemberExpressionTree } from '../member-expression/member-expression.tree';
-import { MethodExpressionTree } from './method-expression.tree';
+import { CallExpressionTree } from './call-expression.tree';
 
 test('function call', () => {
   const code = 'f(count = 3, "str")';
-  const tree = parseExpression<MethodExpressionTree>(code);
-  expect(tree).toBeInstanceOf(MethodExpressionTree);
+  const tree = parseExpression<CallExpressionTree>(code);
+  expect(tree).toBeInstanceOf(CallExpressionTree);
 
   expect(tree.arguments.length).toBe(2);
   expect(tree.arguments[0].name).toBe('count');
@@ -28,8 +28,8 @@ test('function on several lines', () => {
   const code = `f(3,
         "str", 123, 
     415)`;
-  const tree = parseExpression<MethodExpressionTree>(code);
-  expect(tree).toBeInstanceOf(MethodExpressionTree);
+  const tree = parseExpression<CallExpressionTree>(code);
+  expect(tree).toBeInstanceOf(CallExpressionTree);
 
   expect(tree.arguments.length).toBe(4);
   const [arg1, arg2] = tree.arguments.map((x) => x.value as LiteralExpressionTree);
@@ -40,8 +40,8 @@ test('function on several lines', () => {
 
 test('can call with generics', () => {
   const code = 'a.get<String > (1)';
-  const tree = parseExpression<MethodExpressionTree>(code);
-  expect(tree).toBeInstanceOf(MethodExpressionTree);
+  const tree = parseExpression<CallExpressionTree>(code);
+  expect(tree).toBeInstanceOf(CallExpressionTree);
 
   expect(tree.arguments.length).toBe(1);
   const [arg] = tree.arguments.map((x) => x.value as LiteralExpressionTree);
