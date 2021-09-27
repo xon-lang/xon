@@ -1,2 +1,2 @@
 Any:
-  to:String()
+    clone()
