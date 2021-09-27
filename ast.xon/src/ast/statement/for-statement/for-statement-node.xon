@@ -1,0 +1,5 @@
+ForStatementNode(context) is StatementNode 
+  valueVarName = ctx._value?.text
+  indexVarName = ctx._index?.text
+  expression = ctx.expression().toNode()
+  body = ctx.body().toNodes()

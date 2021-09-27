@@ -1,0 +1,3 @@
+ArgumentNode(context) is Node
+  name = context.id()?.text
+  value = context.expression().toNode()

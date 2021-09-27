@@ -1,0 +1,28 @@
+PlainTypeNode(context) is TypeNode
+  name = ctx.DEFINITION_ID().text
+  generics = ctx.generics()?.type().toNodes()
+
+  infix ==(other TypeNode) =
+      other is PlainTypeNode and
+      $name === other.name and
+      $generics.length === other.generics.length and
+      $generics.every(\x, i: => x == other.generics[i])
+
+  useGenericsMap(genericsMap Map<string, TypeNode>) = if genericsMap.has($name):
+    genericsMap.get($name)
+    else createPlainType($name, $generics.map(\x: x.useGenericsMap(genericsMap)))
+
+  getGenericsMap(type TypeNode) Map<string, TypeNode>
+    if type.name === $name: return Map([[type.name, type]])
+
+    if type.generics.length !== $generics.length:
+      throw Error(`Type "{type.name}" generics count is {type.generics.length} but expected {$generics.length}`)
+
+    entries = $generics
+      .map(\x, i: => x.getGenericsMap(type.generics[i]).entries())
+      .map(\x: Array.from(x))
+      .flat()
+
+    return Map<string, TypeNode>(entries)
+
+  toString() = if $generics: `{$name}<{$generics.join(', ')}>` else $name

@@ -1,0 +1,11 @@
+LiteralNode is Node:
+  context LiteralContext
+
+LiteralContext.toNode() = select $:
+  is BooleanLiteralContext: BooleanLiteralNode($)
+  is CharLiteralContext: CharLiteralNode($)
+  is FloatLiteralContext: FloatLiteralNode($)
+  is IntegerLiteralContext: IntegerLiteralNode($)
+  is NullLiteralContext: NullLiteralNode($)
+  is StringLiteralContext: StringLiteralNode($)
+  else throw Error("Literal node not found for {$::type.name}")

@@ -1,0 +1,16 @@
+UnionType is Type
+  types = ctx.type().toNodes()
+  generics = $types
+
+  infix ==(other Type) = other is UnionType and
+      $types.length === other.types.length and
+      $types.every((x, i) => x == other.types[i])
+
+  markGenerics(generics String[]): $types.forEach(\x: x.markGenerics(generics))
+
+  useGenericsMap(explicitTypes Map<string, Type> = new Map()) =
+    createUnionType($types.map(\x: x.useGenericsMap(explicitTypes)))
+
+  getGenericsMap(type Type) = new Map()
+
+  toString() = $types.join(' | ')

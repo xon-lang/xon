@@ -1,0 +1,2 @@
+MemberNode is Node
+  name String

@@ -1,0 +1,4 @@
+IdAssignmentStatementNode(context) is StatementNode
+  name = ctx.id().text
+  type = ctx.type().toNode()
+  value = ctx.expression().toNode()

@@ -1,0 +1,5 @@
+InstantiationExpressionNode(context) is ExpressionNode
+  type = createPlainType(context.DEFINITION_ID().text, context.generics()?.type().toNodes())
+  arguments = context.arguments().toNodes()
+
+  toString() = `{$type}({$arguments.join(', ')})`

@@ -1,0 +1,4 @@
+ParenthesizedExpressionNode(context) is ExpressionNode
+  value = context.expression().toNode()
+
+  toString() "({$value})"

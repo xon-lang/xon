@@ -1,0 +1,6 @@
+InfixExpressionNode is ExpressionNode
+  name = context._name.text
+  left = context._left.toNode()
+  right = context._right.toNode()
+
+  toString() = `{$left} {$name} {$right}`

@@ -1,0 +1,3 @@
+AssertStatementNode(context) is StatementNode
+  actual = ctx._actual.toNode()
+  expect = ctx._expect.toNode()

@@ -1,0 +1,4 @@
+IdExpressionNode(context) is ExpressionNode
+  name = context.id().text
+
+  toString() = `{$name}`

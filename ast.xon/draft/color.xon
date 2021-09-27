@@ -1,0 +1,11 @@
+Color is Enum
+  green
+  blue
+  red
+
+select color:
+  green: console.log("Grass is green")
+  blue: console.log("Sky is blue")
+  red: console.log("Blood is red")
+
+if color == red: "It's time to gone"

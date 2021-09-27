@@ -1,0 +1,12 @@
+DefinitionNode(context) is Node
+  name = context.DEFINITION_ID().text
+  baseType = context.type()?.toNode()
+  generics = context.declaredGenerics()?.DEFINITION_ID().map(\x: x.text) || []
+  members = context.member().toNodes()
+  properties = properties.filter(\x: x is PropertyMemberNode)
+  inits = properties.filter(\x: x is InitMemberNode)
+  methods = properties.filter(\x: x is MethodMemberNode)
+  operators = properties.filter(\x: x is OperatorMemberNode)
+
+
+DefinitionContext.toNode() = DefinitionNode($)

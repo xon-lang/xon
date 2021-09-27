@@ -1,0 +1,6 @@
+Error
+  message String
+
+  $($message): --
+
+  $(): $("")

@@ -1,0 +1,3 @@
+ListingNode(context) is Node<ListingContext>:
+  libraries = context.library().toNodes()
+  definitions = context.definition().toNodes()

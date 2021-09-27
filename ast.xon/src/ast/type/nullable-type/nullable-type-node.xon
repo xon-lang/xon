@@ -1,0 +1,14 @@
+NullableTypeNode(context) is TypeNode
+  baseType = context.type().toNode()
+  generics = [$baseType]
+
+  infix ==(other TypeNode) = other is NullableTypeNode && $baseType == other
+
+  useGenericsMap(genericsMap Map<String, TypeNode>) =
+    createNullableType($baseType.useGenericsMap(genericsMap))
+
+  getGenericsMap(type TypeNode) = if type is NullableTypeNode:
+    $baseType.getGenericsMap(type.baseType)
+    else $baseType.getGenericsMap(type)
+
+  toString() = `{$baseType}?`

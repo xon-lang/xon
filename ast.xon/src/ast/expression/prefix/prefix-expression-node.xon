@@ -1,0 +1,5 @@
+PrefixExpressionNode(context) is ExpressionNode
+  name = context._name.text
+  value = context._value.toNode()
+
+  toString() = `{$name} {$value}`

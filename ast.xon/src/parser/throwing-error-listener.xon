@@ -1,0 +1,16 @@
+ThrowingErrorListener<TSymbol> is ANTLRErrorListener<TSymbol>:
+  syntaxError<T is TSymbol>(
+    recognizer Recognizer<T, ATNSimulator>,
+    offendingSymbol T,
+    line Integer,
+    column Integer,
+    message String
+  ):
+    issue = Issue
+      ctx = recognizer["_ctx"]
+      level = IssueLevel.error
+      message = message
+      line = line
+      column = column
+    IssueService.instance.lastScope.push(issue)
+    throw issue.toString()

@@ -1,0 +1,3 @@
+InitMemberNode(context) is MemberNode
+  name = context.INIT().text
+  body = context.body().toNodes()

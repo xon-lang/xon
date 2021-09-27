@@ -1,0 +1,2 @@
+ReturnStatementNode extends StatementNode {
+  value = ctx.expression()?.toNode();

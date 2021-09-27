@@ -1,0 +1,4 @@
+LiteralExpressionNode(context) is ExpressionNode
+  literal = context.literal().toNode()
+
+  toString() = $literal.toString()

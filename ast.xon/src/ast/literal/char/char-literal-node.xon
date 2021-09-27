@@ -1,0 +1,12 @@
+CharLiteral is LiteralNode:
+  context CharLiteralContext
+  value Char
+
+  $(context): $value = context.text[1:-1]
+
+  $(parser XonParser):
+    context = parser.literal()
+    if context is CharLiteralContext: $(context)
+    else: throw WrongExpectContext(context, context)
+
+  toString() = "\"{$value}\""

@@ -1,0 +1,14 @@
+test "can be lowercase"
+  code = "'a'"
+  node = XonCode(code).literal() as CharLiteral
+  
+  actual: node.value
+  expect: 'a'
+
+test "can be lowercase"
+  code = "'A'"
+  node = XonCode(code).literal() as CharLiteral
+  
+  actual: node.value
+  expect: 'A'
+ 

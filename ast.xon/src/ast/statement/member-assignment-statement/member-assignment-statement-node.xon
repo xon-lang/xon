@@ -1,0 +1,3 @@
+MemberAssignmentStatementNode is StatementNode
+  name = context.id().text
+  value = context.expression().toNode()

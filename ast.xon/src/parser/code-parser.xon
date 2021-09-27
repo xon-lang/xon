@@ -1,0 +1,14 @@
+XonCode:
+  code String
+  sourceName String?
+  lexer XonLexer
+  parser XonParser
+
+  $($code, $sourceName = null):
+    $lexer = XonLexer(CharStreams.fromString(code, sourceName))
+    $lexer.removeErrorListeners()
+    $lexer.addErrorListener(ThrowingErrorListener())
+
+    $parser = XonParser(CommonTokenStream(lexer))
+    $xonParser.removeErrorListeners()
+    $xonParser.addErrorListener(ThrowingErrorListener())

@@ -1,0 +1,9 @@
+CallExpressionNode(context) is ExpressionNode
+  caller = context.expression().toNode()
+  generics = context.generics()?.type().toNodes()
+  arguments = getArgumentsNodes(context.arguments())
+
+
+  toString() = if $generics:
+    `{$caller}{generics}({$arguments.join(', ')})`
+    else `{$caller}<{$generics.join(', ')}>({$arguments.join(', ')})`

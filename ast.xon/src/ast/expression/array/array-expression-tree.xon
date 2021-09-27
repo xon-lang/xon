@@ -1,0 +1,4 @@
+ArrayExpressionNode(context) is ExpressionNode
+  items ExpressionNode[] = context.expression().toNodes()
+
+  toString() = `[{$items.join(', ')}]`

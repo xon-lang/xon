@@ -1,0 +1,5 @@
+OperatorMemberNode(context) is MemberNode
+  name = context.operator().text
+  parameters = context.parameters().toNodes()
+  returnType = context.type().toNode()
+  body = context.body().toNodes()
