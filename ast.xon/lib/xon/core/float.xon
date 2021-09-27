@@ -1,22 +1,22 @@
 -- R
-Float:
-    + (a Float, b Boolean) Float
-    + (a Float, b Integer) Float
-    + (a Float, b Float) Float
-    + (a Float, b Char) Float
-    + (a Float, b String) String
+Float
+  + (a Float, b Boolean) Float
+  + (a Float, b Integer) Float
+  + (a Float, b Float) Float
+  + (a Float, b Char) Float
+  + (a Float, b String) String
 
-    - (a Float, b Boolean) Float
-    - (a Float, b Integer) Float
-    - (a Float, b Float) Float
-    - (a Float, b Char) Float
+  - (a Float, b Boolean) Float
+  - (a Float, b Integer) Float
+  - (a Float, b Float) Float
+  - (a Float, b Char) Float
 
-    * (a Float, b Boolean) Float
-    * (a Float, b Integer) Float
-    * (a Float, b Float) Float
-    * (a Float, b Char) Float
+  * (a Float, b Boolean) Float
+  * (a Float, b Integer) Float
+  * (a Float, b Float) Float
+  * (a Float, b Char) Float
 
-    / (a Float, b Boolean) Float
-    / (a Float, b Integer) Float
-    / (a Float, b Float) Float
-    / (a Float, b Char) Float
+  / (a Float, b Boolean) Float
+  / (a Float, b Integer) Float
+  / (a Float, b Float) Float
+  / (a Float, b Char) Float

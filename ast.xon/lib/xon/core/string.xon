@@ -1,6 +1,6 @@
-String:
-    + (a String, b Boolean) String
-    + (a String, b Integer) String
-    + (a String, b Float) String
-    + (a String, b Char) String
-    + (a String, b String) String
+String
+  + (a String, b Boolean) String
+  + (a String, b Integer) String
+  + (a String, b Float) String
+  + (a String, b Char) String
+  + (a String, b String) String

@@ -24,22 +24,17 @@
     "ruleInternalsOnSingleLine": false,
     "singleLineOverrulesHangingColon": true,
     "spaceBeforeAssignmentOperators": true,
-    "tabWidth": 4,
+    "tabWidth": 2,
     "useTab": false
   },
   "antlr4.generation": {
     "mode": "none"
   },
-  // templates
-  "codeTemplateTool.configFile": ".template.json",
-  "codeTemplateTool.templatesPath": "{workspace}/.vscode/templates",
-  "codeTemplateTool.variable.leftBoundary": "_",
-  "codeTemplateTool.variable.rightBoundary": "_",
-  "codeTemplateTool.userInput.confirmOnEnter": true,
   // editor
   "workbench.colorCustomizations": {
     "statusBar.background": "#054f6d"
   },
+  "editor.tabSize": 2,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports": true,
