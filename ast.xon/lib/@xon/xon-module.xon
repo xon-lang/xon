@@ -1,9 +1,19 @@
 XonModule
-  meta
-    name String
-    description String
-    author String
-    version String
-
-  config
-    defaultImports String[]
+  name String
+  author String
+  version = "0.0.0"
+  description String
+  bugs
+    url String
+  homepage String
+  repository
+    type String
+    url String
+  keywords String[]
+  license String
+  private Boolean
+  main = "main.xon"
+  scripts {String: String}
+  defaultImports String[]
+  devDependencies {String: String}
+  dependencies {String: String}

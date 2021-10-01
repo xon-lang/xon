@@ -1,6 +1,4 @@
 Module is XonModule
-  meta
-    name = "xon library"
-    author = "Nizami",
-  config
-    defaultImports = []
+  name = "xon library"
+  author = "Nizami",
+  defaultImports = []
