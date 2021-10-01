@@ -1,1 +1,1 @@
-UInt16 is NaturalNumber
+UInt16 is NaturalNumber, Bit[16]

@@ -1,1 +1,1 @@
-Int8 is IntegerNumber
+Int8 is IntegerNumber, Bit[8]

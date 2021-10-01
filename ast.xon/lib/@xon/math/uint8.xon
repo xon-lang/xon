@@ -1,1 +1,1 @@
-UInt8 is NaturalNumber
+UInt8 is NaturalNumber, Bit[8]
