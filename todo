@@ -8,3 +8,9 @@ check excess useGenerics methods
 
 добавить not для типов (f(f not String): --)
 добавить binding на уровне языка чтобы отловить изменения свойств (React, Angular)
+
+TimeSpan(nanoseconds)
+  nanoseconds Float64
+  milliseconds = ns * 10^3
+  seconds = ns * 10^6
+  minutes = ns * 10^6

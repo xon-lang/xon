@@ -1,0 +1,22 @@
+lib.xon.abstract.math
+
+TimeSpan(totalNanoseconds)
+  totalNanoseconds Float64
+  totalMilliseconds: ns * 10^3
+  totalSeconds: ns * 10^6
+  totalMinutes: ns * 10^6 * 60
+  totalHours: ns * 10^6 * 60 * 60
+  totalDays: ns * 10^6 * 60 * 60 * 24
+
+
+postfix Number.ns() = TimeSpan($)
+
+postfix Number.us() = TimeSpan($ * 10^3)
+
+postfix Number.ms() = TimeSpan($ * 10^6)
+
+postfix Number.s() = TimeSpan($ * 10^9)
+
+postfix Number.m() = TimeSpan($ * 10^9 * 60)
+
+postfix Number.hr() = TimeSpan($ * 10^9 * 60 * 60)
