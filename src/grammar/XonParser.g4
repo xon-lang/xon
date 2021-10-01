@@ -4,16 +4,13 @@ options {
     tokenVocab = XonLexer;
 }
 
-listing:           (library | NL)* ( definition | function | statement | NL)*;
-library:           scope = id '.' name = id (':' libraryMember (',' libraryMember)*)?;
-libraryMember:     name = librartMemberName (AS alias = librartMemberName)?;
-librartMemberName: id | DEFINITION_ID;
+listing:       (library | NL)* ( definition | function | statement | NL)*;
+library:       IMPORT libraryPath (':' libraryMember (',' libraryMember)*)?;
+libraryPath:   '.'* id ('.' id)*;
+libraryMember: id | AS id?;
 
 definition:
-    DEFINITION_ID genericParameters? parameters? (IS type)? ':' NL INDENT (
-        member
-        | NL
-    )+ DEDENT
+    id genericParameters? parameters? (IS type)? ':' NL INDENT (member | NL)+ DEDENT
     ;
 
 member:
@@ -53,7 +50,6 @@ assignment:
 
 expression:
     THIS                                        # instanceExpression
-    | DEFINITION_ID genericArguments? arguments # instantiationExpression
     | id                                        # idExpression
     | literal                                   # literalExpression
     | expression genericArguments? arguments    # callExpression
@@ -87,7 +83,7 @@ literal:
     ;
 
 type:
-    DEFINITION_ID genericArguments?          # plainType
+    id genericArguments?                     # plainType
     | literal                                # literalType
     | type '?'                               # nullableType
     | type '[' ']'                           # arrayType
@@ -136,12 +132,12 @@ id:
     | RETURN
     ;
 
-parameter:         id type ('#' DEFINITION_ID)?;
+parameter:         id type ('#' id)?;
 parameters:        '(' (parameter (',' parameter)*)? ')';
 argument:          (id '=')? expression;
 arguments:         '(' (argument (',' argument)*)? ')';
 typeParameters:    '(' (type (',' type)*)? ')';
 genericArguments:  '<' type (',' type)* '>';
-genericParameters: '<' DEFINITION_ID (',' DEFINITION_ID)* '>';
+genericParameters: '<' id (',' id)* '>';
 body:              ':' statement | ':' NL INDENT (statement | NL)+ DEDENT;
 functionBody:      body | NL? '=' NL? expression;

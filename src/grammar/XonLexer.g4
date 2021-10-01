@@ -42,6 +42,8 @@ INFIX:   'infix';
 WHILE:   'while';
 ACTUAL:  'actual';
 EXPECT:  'expect';
+EXPORT:  'export';
+IMPORT:  'import';
 PREFIX:  'prefix';
 RETURN:  'return';
 POSTFIX: 'postfix';
@@ -80,8 +82,7 @@ CHAR_LITERAL:    '\'' ~['] '\'';
 STRING_LITERAL:  '"' (~["] | '\\' ["\\bfnrtv])* '"';
 PREPROCESSOR:    '#{' .*? '}';
 
-ID:            [_a-z] [_a-zA-Z]*;
-DEFINITION_ID: [A-Z] [_a-zA-Z]*;
+ID: [_a-zA-Z] [_a-zA-Z0-9]*;
 
 NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
     ;
