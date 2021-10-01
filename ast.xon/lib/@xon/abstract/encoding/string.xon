@@ -1,4 +1,4 @@
-String
+String is Char[]
   + (a String, b Boolean) String
   + (a String, b Integer) String
   + (a String, b Float) String
