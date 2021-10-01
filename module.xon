@@ -1,0 +1,11 @@
+lib.xon
+
+Module is XonModule
+  meta
+    name = "xon ast"
+    author = "Nizami",
+    version = "1.21.0",
+    description = "xon is an open-source programming language",
+
+  config
+    defaultImports = "lib.xon"

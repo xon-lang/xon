@@ -1,0 +1,9 @@
+XonModule
+  meta
+    name String
+    description String
+    author String
+    version String
+
+  config
+    defaultImports String[]
