@@ -1,1 +1,10 @@
 check excess useGenerics methods
+
+многострочные комментарии
+"""
+    |a
+    |b
+"""
+
+добавить not для типов (f(f not String): --)
+добавить binding на уровне языка чтобы отловить изменения свойств (React, Angular)
