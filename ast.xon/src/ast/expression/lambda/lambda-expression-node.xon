@@ -3,4 +3,3 @@ LambdaExpressionNode(context) is ExpressionNode
   body = context.expression().toNode()
 
   toString() = `\\{$parameters.join(', ')}: {$body}`
-
