@@ -17,25 +17,6 @@ tokens {
     import { XonLexerBase } from "./xon-lexer-base";
 }
 
-IS:     'is';
-AS:     'as';
-IF:     'if';
-IN:     'in';
-OR:     'or';
-FOR:    'for';
-NOT:    'not';
-AND:    'and';
-ELSE:   'else';
-INIT:   'init';
-LOOP:   'loop';
-TEST:   'test';
-THIS:   'this';
-BREAK:  'break';
-WHILE:  'while';
-ACTUAL: 'actual';
-EXPECT: 'expect';
-RETURN: 'return';
-
 OPEN_BRACKET:  '[' {this.opened++;};
 CLOSE_BRACKET: ']' {this.opened--;};
 OPEN_PAREN:    '(' {this.opened++;};
@@ -43,40 +24,50 @@ CLOSE_PAREN:   ')' {this.opened--;};
 OPEN_BRACE:    '{' {this.opened++;};
 CLOSE_BRACE:   '}' {this.opened--;};
 
-AD:    '@';
-PLUS:  '+';
-HASH:  '#';
-PIPE:  '|';
-COMMA: ',';
-COLON: ':';
-MINUS: '-';
-SLASH: '/';
-CARET: '^';
-TILDE: '~';
+IS:      'is';
+AS:      'as';
+IF:      'if';
+IN:      'in';
+OR:      'or';
+FOR:     'for';
+NOT:     'not';
+AND:     'and';
+ELSE:    'else';
+INIT:    'init';
+LOOP:    'loop';
+TEST:    'test';
+THIS:    'this';
+BREAK:   'break';
+INFIX:   'infix';
+WHILE:   'while';
+ACTUAL:  'actual';
+EXPECT:  'expect';
+PREFIX:  'prefix';
+RETURN:  'return';
+POSTFIX: 'postfix';
 
-SPREAD: '...';
-RANGE:  '..';
-DOT:    '.';
-
-LESS_THAN_EQUAL: '<=';
-MORE_THAN_EQUAL: '>=';
-LESS_THAN:       '<';
-MORE_THAN:       '>';
-
-ASSIGN:    '=';
-EQUAL:     '==';
-NOT_EQUAL: '!=';
-
-BIT_AND: '&&';
-BIT_OR:  '||';
-BIT_XOR: '^^';
-
-LAMBDA:      '\\';
+AT:          '@';
+DOT:         '.';
+PLUS:        '+';
+HASH:        '#';
+PIPE:        '|';
+LESS:        '<';
+COMMA:       ',';
+COLON:       ':';
+GREAT:       '>';
+MINUS:       '-';
+SLASH:       '/';
+CARET:       '^';
+TILDE:       '~';
+EQUAL:       '=';
 MODULO:      '%';
 QUESTION:    '?';
 ASTERISK:    '*';
+AMPERSAND:   '&';
 UNDERSCORE:  '_';
 EXCLAMATION: '!';
+
+BACK_SLASH: '\\';
 
 NULL_LITERAL: 'null';
 FLOAT_LITERAL:
