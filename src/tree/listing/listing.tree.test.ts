@@ -1,5 +1,5 @@
 import { parse } from '../parse';
-import { ModuleTree } from './module.tree';
+import { ListingTree } from './listing.tree';
 
 test('two if', () => {
   const code = `xon.os: Path
@@ -9,8 +9,8 @@ if e:
     7+7
 else: if d: call()
 `;
-  const tree = new ModuleTree(parse(code).module());
-  expect(tree).toBeInstanceOf(ModuleTree);
+  const tree = new ListingTree(parse(code).module());
+  expect(tree).toBeInstanceOf(ListingTree);
 
   expect(tree.libraries.length).toBe(1);
   expect(tree.libraries[0].scope).toBe('xon');

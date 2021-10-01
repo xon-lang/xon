@@ -21,5 +21,7 @@ export abstract class BaseTree {
     return JSON.stringify(this.toPlain(), null, tabWidth);
   }
 
-  abstract toString(): string;
+  toString(): string {
+    return null;
+  }
 }

@@ -1,7 +1,7 @@
-import { ModuleTree } from '../../tree/module/module.tree';
+import { ListingTree } from '../../tree/module/listing.tree';
 import { GenericsMap } from '../generics-map';
 import { ModuleInference } from './module.inference';
 
-export function getModuleInference(tree: ModuleTree, genericsMap: GenericsMap): ModuleInference {
+export function getModuleInference(tree: ListingTree, genericsMap: GenericsMap): ModuleInference {
   return new ModuleInference(tree, genericsMap);
 }

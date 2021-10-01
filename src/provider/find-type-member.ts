@@ -6,7 +6,7 @@ import { Issue } from '../issue-service/issue';
 import { DefinitionTree } from '../tree/definition/definition.tree';
 import { MethodMemberTree } from '../tree/definition/member/method-member/method-member.tree';
 import { PropertyMemberTree } from '../tree/definition/member/property-member/property-member.tree';
-import { ModuleTree } from '../tree/module/module.tree';
+import { ListingTree } from '../tree/module/listing.tree';
 import { parseModule } from '../tree/parse';
 import { createFunctionType } from '../tree/type/type-tree.helper';
 import { TypeTree } from '../tree/type/type.tree';
@@ -19,7 +19,7 @@ export interface DependencyProvider {
 export class Dependency {
   public definitions: DefinitionTree[] = [];
 
-  public constructor(public modules: ModuleTree[]) {
+  public constructor(public modules: ListingTree[]) {
     modules.forEach((x) => {
       this.definitions.push(...x.definitions);
     });

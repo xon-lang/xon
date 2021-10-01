@@ -1,4 +1,4 @@
-import { ModuleTree } from '../../tree/module/module.tree';
+import { ListingTree } from '../../tree/module/listing.tree';
 import { BaseInference } from '../base.inference';
 import { getDefinitionInference } from '../definition/definition-inference.helper';
 import { DefinitionInference } from '../definition/definition.inference';
@@ -11,7 +11,7 @@ export class ModuleInference extends BaseInference {
 
   public definitions: DefinitionInference[];
 
-  public constructor(public tree: ModuleTree, public genericsMap: GenericsMap) {
+  public constructor(public tree: ListingTree, public genericsMap: GenericsMap) {
     super();
 
     this.libraries = tree.libraries.map((x) => getLibraryInference(x, genericsMap));
