@@ -14,12 +14,14 @@ definition:
     ;
 
 member:
-    id type ('=' expression)?                                    # propertyMember
+    id type? ('=' expression)?                                   # propertyMember
+    | id type? NL INDENT (assignment | NL)+ DEDENT               # hierarchyMember
     | INIT body                                                  # initMember
     | (INFIX | PREFIX | POSTFIX) operator parameters type? body? # operatorMember
     | id genericParameters? parameters type? body?               # methodMember
-    | TEST expression body?                                      # testMember
     ;
+
+testFunction: TEST expression body?;
 
 function: id genericParameters? parameters result = type? body?;
 
@@ -41,16 +43,18 @@ statement:
 
 assignment:
     id type? '=' expression                        # idAssignment
+    | id type? NL INDENT (assignment | NL)+ DEDENT # hierarchyAssignment
     | '[' id (',' id)* ']' '=' expression          # arrayAssignment
     | '{' id (',' id)* '}' '=' expression          # objectAssignment
-    | THIS id '=' expression                       # thisMemberAssignment
+    | '$' id '=' expression                        # thisMemberAssignment
     | expression '.' id '=' expression             # memberAssignment
     | expression '[' expression ']' '=' expression # indexAssignment
     ;
 
 expression:
-    THIS                                        # instanceExpression
-    | id                                        # idExpression
+    id                                          # idExpression
+    | '$'                                       # instanceExpression
+    | '$' id                                    # instanceMemberExpression
     | literal                                   # literalExpression
     | expression genericArguments? arguments    # callExpression
     | expression '[' expression ']'             # indexExpression
@@ -124,11 +128,15 @@ id:
     | ELSE
     | INIT
     | LOOP
-    | THIS
     | BREAK
     | WHILE
     | ACTUAL
     | EXPECT
+    | IMPORT
+    | EXPORT
+    | CLASS
+    | INTERFACE
+    | LITERAL
     | RETURN
     ;
 
