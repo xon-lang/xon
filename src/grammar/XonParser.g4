@@ -10,7 +10,7 @@ libraryPath:   '.'* id ('.' id)*;
 libraryMember: id | AS id?;
 
 definition:
-    id genericParameters? parameters? (IS type)? ':' NL INDENT (member | NL)+ DEDENT
+    id genericParameters? parameters? (IS type)? NL INDENT (member | NL)+ DEDENT
     ;
 
 member:
