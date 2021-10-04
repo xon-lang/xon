@@ -1,7 +1,4 @@
-BooleanLiteralNode is Literal:
-  context BooleanLiteralContext
-  value Boolean
-
-  $(context): $value = context.text == "true"
+BooleanLiteralNode($context) is Literal:
+  value = $context.text == "true"
 
   toString() = "$value"

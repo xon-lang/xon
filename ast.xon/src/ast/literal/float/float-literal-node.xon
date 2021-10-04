@@ -1,5 +1,4 @@
-FloatLiteralNode is LiteralNode:
-  context FloatLiteralContext
+FloatLiteralNode($context) is LiteralNode:
   value Float
   radix Number
   integer String
@@ -13,15 +12,9 @@ FloatLiteralNode is LiteralNode:
       + js.parseInt(fraction, $radix) / $radix ^ fraction.size
     else $value = js.parseFloat("{integer}.{fraction}")
 
-
   $(context):
     $integer, $fraction = context.text.split('.')
     $integer, $radix = $integer.split('x')[::-1]
     $($radix, $integer, $fraction)
-
-  $(parser XonParser):
-    context = parser.literal()
-    if context is FloatLiteralContext: $(context)
-    else throw WrongExpectContext(context, context)
 
   toString() = "{$value}"

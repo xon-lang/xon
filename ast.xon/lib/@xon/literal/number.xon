@@ -1,0 +1,5 @@
+#NullLiteralNode.to:Null() = Null
+
+#BooleanLiteral.to:Boolean() = Boolean(if $.text == "true": 1 else 0)
+
+#CharLiteral.to:Char() = Char()
