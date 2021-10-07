@@ -72,8 +72,8 @@ expression:
     | expression genericArguments? arguments             # callExpression
     | expression '[' expression ']'                      # indexExpression
     | expression '?'? '.' id                             # memberExpression
-    | (operator+ | ID) expression                        # prefixExpression
-    | expression (operator+ | ID)                        # postfixExpression
+    | operator expression                                # prefixExpression
+    | expression operator                                # postfixExpression
     | expression op += '^' expression                    # powExpression
     | expression op += ('*' | '/' | '%') expression      # mulDivModExpression
     | expression op += ('+' | '-') expression            # addSubExpression
@@ -112,20 +112,22 @@ type:
 
 operator:
     ID
-    | '~'
-    | '!'
-    | '^'
-    | '*'
-    | '/'
-    | '%'
-    | '+'
-    | '-'
-    | '<'
-    | '>'
-    | '='
-    | '&'
-    | '|'
-    | '.'
+    | (
+        '~'
+        | '!'
+        | '^'
+        | '*'
+        | '/'
+        | '%'
+        | '+'
+        | '-'
+        | '<'
+        | '>'
+        | '='
+        | '&'
+        | '|'
+        | '.'
+    )+
     ;
 
 id: ID | INIT | ACTUAL | EXPECT | IMPORT | EXPORT;
