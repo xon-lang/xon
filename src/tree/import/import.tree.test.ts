@@ -1,10 +1,10 @@
-import { parseLibrary } from '../parse';
+import { parseImport } from '../parse';
 import { ImportTree } from './import.tree';
 
 test('import with many members', () => {
-  const code = 'org.lib: Dnn as Net, Bigint';
-  const tree = parseLibrary(code);
+  const code = 'import lib.org: Dnn as Net, Bigint';
+  const tree = parseImport(code);
   expect(tree).toBeInstanceOf(ImportTree);
 
-  expect(tree.toString()).toBe('org.lib: Dnn as Net, Bigint');
+  expect(tree.toString()).toBe('import lib.org: Dnn as Net, Bigint');
 });

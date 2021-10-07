@@ -8,6 +8,7 @@ import { AssignmentTree } from './assignment/assignment.tree';
 import { DefinitionTree } from './definition/definition.tree';
 import { getMemberTree } from './definition/member/member-tree.helper';
 import { MemberTree } from './definition/member/member.tree';
+import { ExportTree } from './export/export.tree';
 import { getExpressionTree } from './expression/expression-tree.helper';
 import { ExpressionTree } from './expression/expression.tree';
 import { ExtensionMemberTree } from './extension-member/extension-member.tree';
@@ -65,7 +66,9 @@ export const parseMember = <T extends MemberTree>(code: string): T =>
 export const parseDefinition = (code: string): DefinitionTree =>
   new DefinitionTree(parse(code).definition());
 
-export const parseLibrary = (code: string): ImportTree => new ImportTree(parse(code).library());
+export const parseImport = (code: string): ImportTree => new ImportTree(parse(code).library());
+
+export const parseExport = (code: string): ExportTree => new ExportTree(parse(code).export());
 
 export const parseTest = (code: string): TestTree => new TestTree(parse(code).test());
 

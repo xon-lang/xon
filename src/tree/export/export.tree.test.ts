@@ -1,9 +1,9 @@
-import { parseLibrary } from '../parse';
+import { parseExport } from '../parse';
 import { ExportTree } from './export.tree';
 
 test('1', () => {
   const code = 'export lib.org';
-  const tree = parseLibrary(code);
+  const tree = parseExport(code);
   expect(tree).toBeInstanceOf(ExportTree);
 
   expect(tree.path).toBe('lib.org');
