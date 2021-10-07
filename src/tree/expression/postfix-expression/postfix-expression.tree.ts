@@ -10,10 +10,7 @@ export class PostfixExpressionTree extends ExpressionTree {
     super();
     if (!ctx) return;
 
-    this.operator = ctx
-      .operator()
-      .map((x) => x.text)
-      .join('');
+    this.operator = ctx.operator().text;
     this.value = getExpressionTree(ctx.expression());
   }
 
