@@ -12,7 +12,7 @@ test('array property', () => {
   expect(tree.name).toBe('s');
   expect(tree.isPrivate).toBe(false);
   expect(tree.type.name).toBe('Array');
-  expect((tree.type as PlainTypeTree).generics[0].name).toBe('String');
+  expect((tree.type as PlainTypeTree).genericArguments[0].name).toBe('String');
   expect(tree.value).toBeUndefined();
 });
 

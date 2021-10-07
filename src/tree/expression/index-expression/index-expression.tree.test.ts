@@ -1,7 +1,7 @@
 import { parseExpression } from '../../parse';
 import { IdExpressionTree } from '../id-expression/id-expression.tree';
+import { InfixExpressionTree } from '../infix-expression/infix-expression.tree';
 import { LiteralExpressionTree } from '../literal-expression/literal-expression.tree';
-import { OperatorExpressionTree } from '../operator-expression/operator-expression.tree';
 import { IndexExpressionTree } from './index-expression.tree';
 
 test('string expression index', () => {
@@ -18,6 +18,6 @@ test('integer expression index', () => {
   const tree = parseExpression<IndexExpressionTree>(code);
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
 
-  expect(tree.index).toBeInstanceOf(OperatorExpressionTree);
-  expect((tree.index as OperatorExpressionTree).left).toBeInstanceOf(LiteralExpressionTree);
+  expect(tree.index).toBeInstanceOf(InfixExpressionTree);
+  expect((tree.index as InfixExpressionTree).left).toBeInstanceOf(LiteralExpressionTree);
 });

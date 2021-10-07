@@ -21,9 +21,9 @@ test('one scope', () => {
   expect(definition.parameters[0].type.name).toBe('String');
 
   expect(definition.inheritanceType.name).toBe('BaseClass');
-  expect((definition.inheritanceType as PlainTypeTree).generics.length).toBe(2);
-  expect((definition.inheritanceType as PlainTypeTree).generics[0].name).toBe('String');
-  expect((definition.inheritanceType as PlainTypeTree).generics[1].name).toBe('Boolean');
+  expect((definition.inheritanceType as PlainTypeTree).genericArguments.length).toBe(2);
+  expect((definition.inheritanceType as PlainTypeTree).genericArguments[0].name).toBe('String');
+  expect((definition.inheritanceType as PlainTypeTree).genericArguments[1].name).toBe('Boolean');
 
   expect(definition.properties.length).toBe(3);
   expect(definition.properties[0].name).toBe('property');

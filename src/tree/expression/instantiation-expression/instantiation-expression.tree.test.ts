@@ -9,8 +9,8 @@ test('has generics', () => {
 
   expect(tree.type.name).toBe('Animal');
 
-  expect(tree.type.generics.length).toBe(1);
-  expect(tree.type.generics[0].name).toBe('Float');
+  expect(tree.type.genericArguments.length).toBe(1);
+  expect(tree.type.genericArguments[0].name).toBe('Float');
 
   expect(tree.arguments.length).toBe(1);
   expect((tree.arguments[0].value as LiteralExpressionTree).literal.value).toBe('gav-gav');

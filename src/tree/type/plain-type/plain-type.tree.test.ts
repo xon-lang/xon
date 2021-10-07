@@ -16,8 +16,8 @@ test('has id with generics', () => {
   expect(tree).toBeInstanceOf(PlainTypeTree);
 
   expect(tree.name).toBe('Map');
-  expect(tree.generics.length).toBe(2);
-  expect(tree.generics[0].name).toBe('String');
-  expect((tree.generics[1] as FunctionTypeTree).parameters.length).toBe(0);
-  expect((tree.generics[1] as FunctionTypeTree).returnType.name).toBe('Integer');
+  expect(tree.genericArguments.length).toBe(2);
+  expect(tree.genericArguments[0].name).toBe('String');
+  expect((tree.genericArguments[1] as FunctionTypeTree).parameters.length).toBe(0);
+  expect((tree.genericArguments[1] as FunctionTypeTree).returnType.name).toBe('Integer');
 });
