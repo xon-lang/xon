@@ -1,10 +1,10 @@
 import { ExpressionContext } from '../../../grammar/xon-parser';
 import { ExpressionTree } from '../expression.tree';
 
-export class OperatorExpressionTree extends ExpressionTree {
+export class InfixExpressionTree extends ExpressionTree {
   public constructor(
     public ctx: ExpressionContext,
-    public operator: string,
+    public name: string,
     public left: ExpressionTree,
     public right: ExpressionTree,
   ) {
@@ -12,6 +12,6 @@ export class OperatorExpressionTree extends ExpressionTree {
   }
 
   public toString(): string {
-    return `${this.left.toString()} ${this.operator} ${this.right.toString()}`;
+    return `${this.left.toString()} ${this.name} ${this.right.toString()}`;
   }
 }

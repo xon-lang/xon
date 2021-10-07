@@ -3,9 +3,11 @@ import {
   BodyContext,
   ExpressionStatementContext,
   ForStatementContext,
+  FunctionBodyContext,
   IdAssignmentStatementContext,
   IfStatementContext,
   MemberAssignmentStatementContext,
+  OperatorBodyContext,
   PreprocessorStatementContext,
   ReturnStatementContext,
   StatementContext,
@@ -40,10 +42,13 @@ export const getStatementTree = (ctx: StatementContext): StatementTree => {
 };
 
 export const getStatementsTrees = (
-  bodyOrStatements: BodyContext | StatementContext[],
+  body: BodyContext | FunctionBodyContext | OperatorBodyContext | StatementContext[],
 ): StatementTree[] => {
-  if (bodyOrStatements instanceof BodyContext)
-    return bodyOrStatements.statement().map(getStatementTree);
+  if (body instanceof BodyContext) return body.statement().map(getStatementTree);
 
-  return bodyOrStatements?.map(getStatementTree);
+  if (body instanceof FunctionBodyContext || body instanceof OperatorBodyContext)
+    if (body.statement()) return [getStatementTree(body.statement())];
+    else return body.body().statement().map(getStatementTree);
+
+  return body?.map(getStatementTree);
 };

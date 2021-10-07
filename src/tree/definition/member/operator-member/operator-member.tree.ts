@@ -9,9 +9,7 @@ import { MemberTree } from '../member.tree';
 
 export class OperatorMemberTree extends MemberTree {
   public parameters: ParameterTree[];
-
   public returnType: TypeTree;
-
   public body?: StatementTree[];
 
   public constructor(public ctx?: OperatorMemberContext) {
@@ -21,6 +19,6 @@ export class OperatorMemberTree extends MemberTree {
     this.name = ctx.operator().text;
     this.parameters = getParametersTrees(ctx.parameters());
     this.returnType = getTypeTree(ctx.type());
-    this.body = getStatementsTrees(ctx.body());
+    this.body = getStatementsTrees(ctx.functionBody());
   }
 }

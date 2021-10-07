@@ -1,5 +1,5 @@
 PlainTypeNode(context) is TypeNode
-  name = ctx.DEFINITION_ID().text
+  name = ctx.id().text
   generics = ctx.generics()?.type().toNodes()
 
   infix ==(other TypeNode) =

@@ -18,8 +18,8 @@ test('from translator-ts', () => {
   const tree = parseType<FunctionTypeTree>(code);
   expect(tree).toBeInstanceOf(FunctionTypeTree);
 
-  expect(tree.declaredGenerics.length).toBe(1);
-  expect(tree.declaredGenerics[0]).toBe('T');
+  expect(tree.genericParameters.length).toBe(1);
+  expect(tree.genericParameters[0]).toBe('T');
   expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].name).toBe('Integer');
   expect(tree.returnType.name).toBe('T');

@@ -1,4 +1,4 @@
-import { OperatorExpressionTree } from '../../../tree/expression/operator-expression/operator-expression.tree';
+import { OperatorExpressionTree } from '../../../tree/expression/infix-expression/infix-expression.tree';
 import { findOperatorMember } from '../../../provider/find-type-member';
 import { GenericsMap } from '../../generics-map';
 import { getExpressionInference } from '../expression-inference.helper';

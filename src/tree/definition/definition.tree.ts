@@ -14,32 +14,24 @@ import { PropertyMemberTree } from './member/property-member/property-member.tre
 
 export class DefinitionTree extends BaseTree {
   public name: string;
-
-  public declaredGenerics: string[];
-
+  public genericParameters: string[];
   public parameters: ParameterTree[];
-
   public inheritanceType?: TypeTree;
-
   public members: MemberTree[] = [];
-
   public properties: PropertyMemberTree[] = [];
-
   public init: InitMemberTree;
-
   public operators: OperatorMemberTree[] = [];
-
   public methods: MethodMemberTree[] = [];
 
   public constructor(public ctx?: DefinitionContext) {
     super();
     if (!ctx) return;
 
-    this.name = ctx.DEFINITION_ID().text;
-    this.declaredGenerics =
+    this.name = ctx.id().text;
+    this.genericParameters =
       ctx
-        .declaredGenerics()
-        ?.DEFINITION_ID()
+        .genericParameters()
+        ?.id()
         .map((x) => x.text) || [];
     this.parameters = getParametersTrees(ctx.parameters());
     this.inheritanceType = getTypeTree(ctx.type());

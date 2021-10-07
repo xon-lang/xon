@@ -1,4 +1,4 @@
-import { ListingTree } from '../../tree/module/listing.tree';
+import { ListingTree } from '../../tree/listing/listing.tree';
 import { GenericsMap } from '../generics-map';
 import { ModuleInference } from './module.inference';
 

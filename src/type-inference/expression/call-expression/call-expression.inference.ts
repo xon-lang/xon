@@ -35,7 +35,7 @@ export class CallExpressionInference extends ExpressionInference {
       .flat();
 
     const genericsMap2 = tree.generics
-      ? this.instance.type.declaredGenerics.map((x, i) => [x, tree.generics[i]])
+      ? this.instance.type.genericParameters.map((x, i) => [x, tree.generics[i]])
       : argumentsGenericsEntries;
 
     this.type = this.instance.type.returnType.useGenericsMap(

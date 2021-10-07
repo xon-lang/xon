@@ -10,13 +10,9 @@ import { TypeTree } from '../type/type.tree';
 export class FunctionTree extends BaseTree {
   public name: string;
   public isPrivate: boolean;
-
-  public declaredGenerics: string[];
-
+  public genericParameters: string[];
   public parameters: ParameterTree[] = [];
-
   public returnType?: TypeTree;
-
   public body?: StatementTree[];
 
   public constructor(public ctx?: FunctionContext) {
@@ -25,13 +21,13 @@ export class FunctionTree extends BaseTree {
 
     this.name = ctx.id().text;
     this.isPrivate = this.name.startsWith('_');
-    this.declaredGenerics =
+    this.genericParameters =
       ctx
         .genericParameters()
-        ?.DEFINITION_ID()
+        ?.id()
         .map((x) => x.text) || [];
     this.parameters = getParametersTrees(ctx.parameters());
-    this.returnType = getTypeTree(ctx._result);
-    this.body = getStatementsTrees(ctx.body());
+    this.returnType = getTypeTree(ctx.type());
+    this.body = getStatementsTrees(ctx.functionBody());
   }
 }

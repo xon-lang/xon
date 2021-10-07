@@ -1,4 +1,4 @@
-import { ExtensionMethodContext } from '../../grammar/xon-parser';
+import { ExtensionMemberContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { getParametersTrees } from '../parameter/parameter-tree.helper';
 import { ParameterTree } from '../parameter/parameter.tree';
@@ -7,33 +7,29 @@ import { StatementTree } from '../statement/statement.tree';
 import { getTypeTree } from '../type/type-tree.helper';
 import { TypeTree } from '../type/type.tree';
 
-export class FunctionTree extends BaseTree {
+export class ExtensionMemberTree extends BaseTree {
   public receiver: TypeTree;
   public name: string;
   public isPrivate: boolean;
-
-  public declaredGenerics: string[];
-
-  public parameters: ParameterTree[] = [];
-
+  public genericParameters: string[];
+  public parameters?: ParameterTree[] = [];
   public returnType?: TypeTree;
-
   public body?: StatementTree[];
 
-  public constructor(public ctx?: ExtensionMethodContext) {
+  public constructor(public ctx?: ExtensionMemberContext) {
     super();
     if (!ctx) return;
 
     this.receiver = getTypeTree(ctx._receiver);
     this.name = ctx.id().text;
     this.isPrivate = this.name.startsWith('_');
-    this.declaredGenerics =
+    this.genericParameters =
       ctx
         .genericParameters()
-        ?.DEFINITION_ID()
+        ?.id()
         .map((x) => x.text) || [];
-    this.parameters = getParametersTrees(ctx.parameters());
+    this.parameters = ctx.parameters() && getParametersTrees(ctx.parameters());
     this.returnType = getTypeTree(ctx._result);
-    this.body = getStatementsTrees(ctx.body());
+    this.body = getStatementsTrees(ctx.functionBody());
   }
 }

@@ -1,20 +1,20 @@
 import { CallExpressionTree } from '../expression/call-expression/call-expression.tree';
 import { IdExpressionTree } from '../expression/id-expression/id-expression.tree';
-import { ListingTree } from '../module/listing.tree';
-import { parseModuleFromFile } from '../parse';
+import { ListingTree } from '../listing/listing.tree';
+import { parseListingFromFile } from '../parse';
 import { ExpressionStatementTree } from '../statement/expression-statement/expression-statement.tree';
 import { PlainTypeTree } from '../type/plain-type/plain-type.tree';
 
 test('one scope', () => {
-  const tree = parseModuleFromFile('src/tree/definition/definition.test.xon');
+  const tree = parseListingFromFile('src/tree/definition/definition.test.xon');
   expect(tree).toBeInstanceOf(ListingTree);
 
   expect(tree.definitions.length).toBe(1);
   const definition = tree.definitions[0];
 
   expect(definition.name).toBe('SomeClass');
-  expect(definition.declaredGenerics.length).toBe(1);
-  expect(definition.declaredGenerics[0]).toBe('T');
+  expect(definition.genericParameters.length).toBe(1);
+  expect(definition.genericParameters[0]).toBe('T');
 
   expect(definition.parameters.length).toBe(1);
   expect(definition.parameters[0].name).toBe('name');

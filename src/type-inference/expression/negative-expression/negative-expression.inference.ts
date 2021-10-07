@@ -1,4 +1,4 @@
-import { NegativeExpressionTree } from '../../../tree/expression/negative-expression/negative-expression.tree';
+import { NegativeExpressionTree } from '../../../tree/expression/prefix-expression/prefix-expression.tree';
 import { GenericsMap } from '../../generics-map';
 import { getExpressionInference } from '../expression-inference.helper';
 import { ExpressionInference } from '../expression.inference';

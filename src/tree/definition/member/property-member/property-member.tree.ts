@@ -7,9 +7,7 @@ import { MemberTree } from '../member.tree';
 
 export class PropertyMemberTree extends MemberTree {
   public isPrivate: boolean;
-
   public type: TypeTree;
-
   public value?: ExpressionTree;
 
   public constructor(public ctx?: PropertyMemberContext) {

@@ -1,4 +1,4 @@
-import { ListingTree } from '../../tree/module/listing.tree';
+import { ListingTree } from '../../tree/listing/listing.tree';
 import { BaseInference } from '../base.inference';
 import { getDefinitionInference } from '../definition/definition-inference.helper';
 import { DefinitionInference } from '../definition/definition.inference';

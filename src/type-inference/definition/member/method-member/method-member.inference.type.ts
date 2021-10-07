@@ -12,7 +12,7 @@ import { MemberInference } from '../member.inference';
 export class MethodMemberInference extends MemberInference {
   public isPrivate: boolean;
 
-  public declaredGenerics: string[];
+  public genericParameters: string[];
 
   public parameters: ParameterInference[] = [];
 
@@ -26,13 +26,13 @@ export class MethodMemberInference extends MemberInference {
     pushScope();
     this.name = tree.name;
     this.isPrivate = tree.isPrivate;
-    this.declaredGenerics = tree.declaredGenerics;
+    this.genericParameters = tree.genericParameters;
     this.parameters = tree.parameters.map((x) => getParameterInference(x, genericsMap));
     this.parameters.forEach((x) => addToScope(x.name, x.type));
     this.returnType = tree.returnType?.useGenericsMap(this.genericsMap) || createLiteralType(null);
 
     this.type = createFunctionType(
-      this.declaredGenerics,
+      this.genericParameters,
       this.parameters.map((x) => x.type),
       this.returnType,
     );

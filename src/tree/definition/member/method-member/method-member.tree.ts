@@ -9,13 +9,9 @@ import { MemberTree } from '../member.tree';
 
 export class MethodMemberTree extends MemberTree {
   public isPrivate: boolean;
-
-  public declaredGenerics: string[];
-
+  public genericParameters: string[];
   public parameters: ParameterTree[] = [];
-
   public returnType?: TypeTree;
-
   public body?: StatementTree[];
 
   public constructor(public ctx?: MethodMemberContext) {
@@ -24,13 +20,13 @@ export class MethodMemberTree extends MemberTree {
 
     this.name = ctx.id().text;
     this.isPrivate = this.name.startsWith('_');
-    this.declaredGenerics =
+    this.genericParameters =
       ctx
-        .declaredGenerics()
-        ?.DEFINITION_ID()
+        .genericParameters()
+        ?.id()
         .map((x) => x.text) || [];
     this.parameters = getParametersTrees(ctx.parameters());
     this.returnType = getTypeTree(ctx.type());
-    this.body = getStatementsTrees(ctx.body());
+    this.body = getStatementsTrees(ctx.functionBody());
   }
 }

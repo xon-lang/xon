@@ -1,5 +1,5 @@
 FunctionTypeNode(context) extends TypeNode
-  declaredGenerics = context.declaredGenerics()?.DEFINITION_ID().map(\x: x.text) or []
+  genericParameters = context.genericParameters()?.id().map(\x: x.text) or []
   parameters = context.typeParameters().type().toNodes()
   returnType = context.type().toNode()
   generics= [...$parameters, $returnType]
@@ -10,7 +10,7 @@ FunctionTypeNode(context) extends TypeNode
     $parameters.every(\x, i: x == other.parameters[i])
 
   useGenericsMap(genericsMap Map<String, TypeNode> = new Map()) = createFunctionType(
-      $declaredGenerics,
+      $genericParameters,
       $parameters.map(\x: x.useGenericsMap(genericsMap)),
       $returnType.useGenericsMap(genericsMap))
 
@@ -28,6 +28,6 @@ FunctionTypeNode(context) extends TypeNode
     return Map<String, TypeNode>(entries)
 
   toString() String
-    declaredGenerics = $declaredGenerics?.join(', ')
-    return if declaredGenerics:`<{declaredGenerics}>({$parameters.join(', ')}) {$returnType}`
+    genericParameters = $genericParameters?.join(', ')
+    return if genericParameters:`<{genericParameters}>({$parameters.join(', ')}) {$returnType}`
     else `({$parameters.join(', ')}) {$returnType}`

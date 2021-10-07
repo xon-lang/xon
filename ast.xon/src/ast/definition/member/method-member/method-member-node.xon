@@ -1,7 +1,7 @@
 MethodMemberNode(context) is MemberNode
   name = context.id().text
   isPrivate = name.startsWith('_')
-  declaredGenerics = context.declaredGenerics()?.DEFINITION_ID().map(\x: x.text) || []
+  genericParameters = context.genericParameters()?.id().map(\x: x.text) || []
   parameters = context.parameters().toNodes()
   returnType = context.type().toNode()
   body = context.body().toNodes()

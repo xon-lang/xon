@@ -55,12 +55,12 @@ export function createArrayType(itemType: TypeTree): ArrayTypeTree {
 }
 
 export function createFunctionType(
-  declaredGenerics: string[],
+  genericParameters: string[],
   parameters: TypeTree[],
   returnType: TypeTree,
 ): FunctionTypeTree {
   const type = new FunctionTypeTree();
-  type.declaredGenerics = declaredGenerics;
+  type.genericParameters = genericParameters;
   type.parameters = parameters;
   type.returnType = returnType;
   type.generics = [...parameters, returnType];

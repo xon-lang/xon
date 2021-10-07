@@ -8,15 +8,10 @@ import {
   IdExpressionContext,
   IndexExpressionContext,
   InstanceExpressionContext,
-  InstantiationExpressionContext,
   LambdaExpressionContext,
   LiteralExpressionContext,
-  LogicalAndExpressionContext,
-  LogicalNotExpressionContext,
-  LogicalOrExpressionContext,
   MemberExpressionContext,
   MulDivModExpressionContext,
-  NegativeExpressionContext,
   ParenthesizedExpressionContext,
   PipeExpressionContext,
   PowExpressionContext,
@@ -36,8 +31,8 @@ import { LogicalAndExpressionTree } from './logical-and-expression/logical-and-e
 import { LogicalNotExpressionTree } from './logical-not-expression/logical-not-expression.tree';
 import { LogicalOrExpressionTree } from './logical-or-expression/logical-or-expression.tree';
 import { MemberExpressionTree } from './member-expression/member-expression.tree';
-import { NegativeExpressionTree } from './negative-expression/negative-expression.tree';
-import { OperatorExpressionTree } from './operator-expression/operator-expression.tree';
+import { NegativeExpressionTree } from './prefix-expression/prefix-expression.tree';
+import { OperatorExpressionTree } from './infix-expression/infix-expression.tree';
 import { ParenthesizedExpressionTree } from './parenthesized-expression/parenthesized-expression.tree';
 import { PipeExpressionTree } from './pipe-expression/pipe-expression.tree';
 

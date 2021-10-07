@@ -4,35 +4,48 @@ options {
     tokenVocab = XonLexer;
 }
 
-listing:       (library | NL)* ( definition | function | statement | NL)*;
-library:       IMPORT libraryPath (':' libraryMember (',' libraryMember)*)?;
+listing: (library | export | NL)* (
+        definition
+        | extensionMember
+        | test
+        | function
+        | statement
+        | NL
+    )*
+    ;
+
+export: EXPORT libraryPath;
+library:
+    IMPORT libraryPath (AS id | (':' libraryMember (',' libraryMember)*)?)
+    ;
 libraryPath:   '.'* id ('.' id)*;
-libraryMember: id | AS id?;
+libraryMember: name = id | AS alias = id?;
 
 definition:
-    id genericParameters? parameters? (IS type)? NL INDENT (member | NL)+ DEDENT
+    id genericParameters? parameters? (IS type)? ':' NL INDENT (member | NL)+ DEDENT
     ;
 
 member:
-    id type? ('=' expression)?                                   # propertyMember
-    | id type? NL INDENT (assignment | NL)+ DEDENT               # hierarchyMember
-    | INIT body                                                  # initMember
-    | (INFIX | PREFIX | POSTFIX) operator parameters type? body? # operatorMember
-    | id genericParameters? parameters type? body?               # methodMember
+    id type? (('=' | ':') expression)?                                   # propertyMember
+    | id type? NL INDENT (assignment | NL)+ DEDENT                       # hierarchyMember
+    | INIT body                                                          # initMember
+    | (INFIX | PREFIX | POSTFIX) operator parameters type? functionBody? # operatorMember
+    | id genericParameters? parameters type? functionBody?               # methodMember
     ;
 
-testFunction: TEST expression body?;
-
-function: id genericParameters? parameters result = type? body?;
-
-extensionMethod:
-    receiver = type '.' id genericParameters? parameters result = type? body?
+extensionMember:
+    receiver = type '.' id genericParameters? parameters? result = type? functionBody?
     ;
+
+test: TEST expression? body?;
+
+function: id genericParameters? parameters type? functionBody?;
 
 statement:
     FOR (value = id (',' index = id)? IN)? expression body # forStatement
     | WHILE expression body                                # whileStatement
-    | IF expression body (ELSE body)?                      # ifStatement
+    | DO operatorBody WHILE expression                     # doWhileStatement
+    | IF expression body (ELSE operatorBody)?              # ifStatement
     | BREAK                                                # breakStatement
     | RETURN expression?                                   # returnStatement
     | ACTUAL ':' expression NL+ EXPECT ':' expression      # assertStatement
@@ -88,7 +101,7 @@ literal:
 
 type:
     id genericArguments?                     # plainType
-    | literal                                # literalType
+    | expression                             # literalType
     | type '?'                               # nullableType
     | type '[' ']'                           # arrayType
     | type '&' type                          # intersectionType
@@ -115,30 +128,7 @@ operator:
     | '.'
     ;
 
-id:
-    ID
-    | IS
-    | AS
-    | IF
-    | IN
-    | OR
-    | FOR
-    | NOT
-    | AND
-    | ELSE
-    | INIT
-    | LOOP
-    | BREAK
-    | WHILE
-    | ACTUAL
-    | EXPECT
-    | IMPORT
-    | EXPORT
-    | CLASS
-    | INTERFACE
-    | LITERAL
-    | RETURN
-    ;
+id: ID | INIT | ACTUAL | EXPECT | IMPORT | EXPORT;
 
 parameter:         id type ('#' id)?;
 parameters:        '(' (parameter (',' parameter)*)? ')';
@@ -147,5 +137,6 @@ arguments:         '(' (argument (',' argument)*)? ')';
 typeParameters:    '(' (type (',' type)*)? ')';
 genericArguments:  '<' type (',' type)* '>';
 genericParameters: '<' id (',' id)* '>';
-body:              ':' statement | ':' NL INDENT (statement | NL)+ DEDENT;
-functionBody:      body | NL? '=' NL? expression;
+body:              ':' statement | ':' NL* INDENT (statement | NL)+ DEDENT;
+operatorBody:      body | statement;
+functionBody:      body | NL* '=' NL* statement;

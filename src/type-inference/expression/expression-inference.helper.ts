@@ -11,8 +11,8 @@ import { LogicalAndExpressionTree } from '../../tree/expression/logical-and-expr
 import { LogicalNotExpressionTree } from '../../tree/expression/logical-not-expression/logical-not-expression.tree';
 import { LogicalOrExpressionTree } from '../../tree/expression/logical-or-expression/logical-or-expression.tree';
 import { MemberExpressionTree } from '../../tree/expression/member-expression/member-expression.tree';
-import { NegativeExpressionTree } from '../../tree/expression/negative-expression/negative-expression.tree';
-import { OperatorExpressionTree } from '../../tree/expression/operator-expression/operator-expression.tree';
+import { NegativeExpressionTree } from '../../tree/expression/prefix-expression/prefix-expression.tree';
+import { OperatorExpressionTree } from '../../tree/expression/infix-expression/infix-expression.tree';
 import { ParenthesizedExpressionTree } from '../../tree/expression/parenthesized-expression/parenthesized-expression.tree';
 import { PipeExpressionTree } from '../../tree/expression/pipe-expression/pipe-expression.tree';
 import { GenericsMap } from '../generics-map';

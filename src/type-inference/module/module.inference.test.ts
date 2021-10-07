@@ -1,12 +1,12 @@
-import { ListingTree } from '../../tree/module/listing.tree';
-import { parseModule } from '../../tree/parse';
+import { ListingTree } from '../../tree/listing/listing.tree';
+import { parseListing } from '../../tree/parse';
 
 test('has one statement no generics', () => {
   const code = `
 Animal:
   weigh Integer
 `;
-  const tree = parseModule(code);
+  const tree = parseListing(code);
   expect(tree).toBeInstanceOf(ListingTree);
 });
 
@@ -18,6 +18,6 @@ Animal<T>:
   get<V>(a T) V:
     -- 
 `.trim();
-  const tree = parseModule(code);
+  const tree = parseListing(code);
   expect(tree).toBeInstanceOf(ListingTree);
 });

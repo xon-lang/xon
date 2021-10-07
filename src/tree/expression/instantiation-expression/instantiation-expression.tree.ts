@@ -15,7 +15,7 @@ export class InstantiationExpressionTree extends ExpressionTree {
     if (!ctx) return;
 
     const generics = getTypesTrees(ctx.generics()?.type());
-    this.type = createPlainType(ctx.DEFINITION_ID().text, generics);
+    this.type = createPlainType(ctx.id().text, generics);
     this.arguments = getArgumentsTrees(ctx.arguments());
   }
 

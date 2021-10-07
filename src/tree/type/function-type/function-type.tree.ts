@@ -3,7 +3,7 @@ import { createFunctionType, getTypeTree } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
 export class FunctionTypeTree extends TypeTree {
-  public declaredGenerics: string[] = [];
+  public genericParameters: string[] = [];
 
   public parameters: TypeTree[] = [];
 
@@ -13,10 +13,10 @@ export class FunctionTypeTree extends TypeTree {
     super();
     if (!ctx) return;
 
-    this.declaredGenerics =
+    this.genericParameters =
       ctx
-        .declaredGenerics()
-        ?.DEFINITION_ID()
+        .genericParameters()
+        ?.id()
         .map((x) => x.text) || [];
     this.parameters = ctx.typeParameters().type().map(getTypeTree);
     this.returnType = getTypeTree(ctx.type());
@@ -34,7 +34,7 @@ export class FunctionTypeTree extends TypeTree {
 
   public useGenericsMap(genericsMap: Map<string, TypeTree> = new Map()): FunctionTypeTree {
     return createFunctionType(
-      this.declaredGenerics,
+      this.genericParameters,
       this.parameters.map((x) => x.useGenericsMap(genericsMap)),
       this.returnType.useGenericsMap(genericsMap),
     );
@@ -58,10 +58,10 @@ export class FunctionTypeTree extends TypeTree {
   }
 
   public toString(): string {
-    const declaredGenerics = this.declaredGenerics?.join(', ');
+    const genericParameters = this.genericParameters?.join(', ');
     const parameters = this.parameters.map((x) => x.toString()).join(', ');
     const returnType = this.returnType.toString();
 
-    return `${declaredGenerics ? `<${declaredGenerics}>` : ''}(${parameters}) ${returnType}`;
+    return `${genericParameters ? `<${genericParameters}>` : ''}(${parameters}) ${returnType}`;
   }
 }

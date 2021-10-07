@@ -7,7 +7,7 @@ export class PlainTypeTree extends TypeTree {
     super();
     if (!ctx) return;
 
-    this.name = ctx.DEFINITION_ID().text;
+    this.name = ctx.id().text;
     this.generics = getTypesTrees(ctx.generics()?.type());
   }
 

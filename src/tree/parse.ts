@@ -8,13 +8,16 @@ import { getMemberTree } from './definition/member/member-tree.helper';
 import { MemberTree } from './definition/member/member.tree';
 import { getExpressionTree } from './expression/expression-tree.helper';
 import { ExpressionTree } from './expression/expression.tree';
-import { LibraryTree } from './library/library.tree';
+import { ExtensionMemberTree } from './extension-member/extension-member.tree';
+import { FunctionTree } from './function/function.tree';
+import { ImportTree } from './import/import.tree';
+import { ListingTree } from './listing/listing.tree';
 import { getLiteralTree } from './literal/literal-tree.helper';
 import { LiteralTree } from './literal/literal.tree';
-import { ListingTree } from './module/listing.tree';
 import { ParameterTree } from './parameter/parameter.tree';
 import { getStatementTree } from './statement/statement-tree.helper';
 import { StatementTree } from './statement/statement.tree';
+import { TestTree } from './test/test.tree';
 import { ThrowingErrorListener } from './throwing-error-listener';
 import { getTypeTree } from './type/type-tree.helper';
 import { TypeTree } from './type/type.tree';
@@ -57,13 +60,21 @@ export const parseMember = <T extends MemberTree>(code: string): T =>
 export const parseDefinition = (code: string): DefinitionTree =>
   new DefinitionTree(parse(code).definition());
 
-export const parseLibrary = (code: string): LibraryTree => new LibraryTree(parse(code).library());
+export const parseLibrary = (code: string): ImportTree => new ImportTree(parse(code).library());
 
-export function parseModule(code: string, sourceName: string = undefined): ListingTree {
-  return new ListingTree(parse(code, sourceName).module());
+export const parseTest = (code: string): TestTree => new TestTree(parse(code).test());
+
+export const parseFunction = (code: string): FunctionTree =>
+  new FunctionTree(parse(code).function());
+
+export const parseExtensionMember = (code: string): ExtensionMemberTree =>
+  new ExtensionMemberTree(parse(code).extensionMember());
+
+export function parseListing(code: string, sourceName: string = undefined): ListingTree {
+  return new ListingTree(parse(code, sourceName).listing());
 }
 
-export function parseModuleFromFile(sourceName: string = undefined): ListingTree {
+export function parseListingFromFile(sourceName: string = undefined): ListingTree {
   const code = fs.readFileSync(sourceName).toString();
-  return new ListingTree(parse(code, sourceName).module());
+  return new ListingTree(parse(code, sourceName).listing());
 }

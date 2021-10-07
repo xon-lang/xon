@@ -1,11 +1,12 @@
-import { parseFunction } from '../parse';
-import { FunctionTree } from './function.tree';
+import { parseExtensionMember } from '../parse';
+import { ExtensionMemberTree } from './extension-member.tree';
 
-test('method member', () => {
-  const code = '_funcName(argA Integer, argB Float, argC String) String:\n    log(222)';
-  const tree = parseFunction(code);
-  expect(tree).toBeInstanceOf(FunctionTree);
+test('1', () => {
+  const code = 'A._funcName(argA Integer, argB Float, argC String) String:\n    log(222)';
+  const tree = parseExtensionMember(code);
+  expect(tree).toBeInstanceOf(ExtensionMemberTree);
 
+  expect(tree.receiver.name).toBe('A');
   expect(tree.name).toBe('_funcName');
   expect(tree.isPrivate).toBe(true);
   expect(tree.parameters.length).toBe(3);

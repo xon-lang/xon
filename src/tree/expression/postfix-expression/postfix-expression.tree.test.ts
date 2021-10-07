@@ -1,6 +1,6 @@
 import { evalExpression } from '../../eval';
 import { parseExpression } from '../../parse';
-import { NegativeExpressionTree } from './negative-expression.tree';
+import { NegativeExpressionTree } from './postfix-expression.tree';
 
 test('negative integer', () => {
   const code = '-1';

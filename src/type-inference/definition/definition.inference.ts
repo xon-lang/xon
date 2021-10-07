@@ -16,7 +16,7 @@ import { PropertyMemberInference } from './member/property-member/property-membe
 export class DefinitionInference extends BaseInference {
   public name: string;
 
-  public declaredGenerics: string[];
+  public genericParameters: string[];
 
   public parameters: ParameterInference[];
 
@@ -37,17 +37,17 @@ export class DefinitionInference extends BaseInference {
 
     pushScope();
     this.name = tree.name;
-    this.declaredGenerics = tree.declaredGenerics;
+    this.genericParameters = tree.genericParameters;
     this.inheritanceType = tree.inheritanceType;
     this.parameters = tree.parameters.map((x) => getParameterInference(x, genericsMap));
     this.parameters.forEach((x) => addToScope(x.name, x.type));
 
     const returnType = createPlainType(
       this.name,
-      tree.declaredGenerics.map((x) => createPlainType(x).useGenericsMap(genericsMap)),
+      tree.genericParameters.map((x) => createPlainType(x).useGenericsMap(genericsMap)),
     );
     this.type = createFunctionType(
-      this.declaredGenerics,
+      this.genericParameters,
       this.parameters.map((x) => x.type),
       returnType,
     );

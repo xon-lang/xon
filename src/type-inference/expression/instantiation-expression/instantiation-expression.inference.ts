@@ -1,8 +1,8 @@
+import { findDefinitionByType } from '../../../provider/find-type-member';
 import { InstantiationExpressionTree } from '../../../tree/expression/instantiation-expression/instantiation-expression.tree';
 import { TypeTree } from '../../../tree/type/type.tree';
 import { getArgumentInference } from '../../argument/argument-inference.helper';
 import { ArgumentInference } from '../../argument/argument.inference';
-import { findDefinitionByType } from '../../../provider/find-type-member';
 import { GenericsMap } from '../../generics-map';
 import { ExpressionInference } from '../expression.inference';
 
@@ -21,14 +21,14 @@ export class InstantiationExpressionInference extends ExpressionInference {
       .map((x, i) => x.type.getGenericsMap(argumentsTypes[i]).entries())
       .map((x) => Array.from(x))
       .flat();
-    const declaredGenericsEntries = typeDefinition.declaredGenerics.map((x, i) => [
+    const genericParametersEntries = typeDefinition.genericParameters.map((x, i) => [
       x,
       tree.type.generics[i].useGenericsMap(this.genericsMap),
     ]);
 
-    const genericsMap2 = (typeDefinition.declaredGenerics
-      ? declaredGenericsEntries
-      : argumentsGenericsEntries) as [string, TypeTree][];
+    const genericsMap2 = (
+      typeDefinition.genericParameters ? genericParametersEntries : argumentsGenericsEntries
+    ) as [string, TypeTree][];
 
     this.type = tree.type.useGenericsMap(new Map(genericsMap2));
   }

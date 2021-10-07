@@ -1,6 +1,6 @@
 import { Dependency, dependencyProvider } from '../../provider/find-type-member';
-import { LibraryMemberTree } from '../../tree/library/library-member.tree';
-import { LibraryTree } from '../../tree/library/library.tree';
+import { ImportMemberTree } from '../../tree/import/import-member.tree';
+import { ImportTree } from '../../tree/import/import.tree';
 import { getDefinitionInference } from '../definition/definition-inference.helper';
 import { getFunctionInference } from '../function/function-inference.helper';
 import { GenericsMap } from '../generics-map';
@@ -12,11 +12,11 @@ export class LibraryInference extends StatementInference {
 
   public name: string;
 
-  public members: LibraryMemberTree[];
+  public members: ImportMemberTree[];
 
   public dependency: Dependency;
 
-  public constructor(public tree: LibraryTree, public genericsMap: GenericsMap) {
+  public constructor(public tree: ImportTree, public genericsMap: GenericsMap) {
     super();
 
     this.name = tree.name;

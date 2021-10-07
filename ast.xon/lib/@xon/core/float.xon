@@ -1,5 +1,4 @@
--- R
-Float
+Float:
   + (a Float, b Boolean) Float
   + (a Float, b Integer) Float
   + (a Float, b Float) Float

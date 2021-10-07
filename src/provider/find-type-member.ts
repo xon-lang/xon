@@ -6,8 +6,8 @@ import { Issue } from '../issue-service/issue';
 import { DefinitionTree } from '../tree/definition/definition.tree';
 import { MethodMemberTree } from '../tree/definition/member/method-member/method-member.tree';
 import { PropertyMemberTree } from '../tree/definition/member/property-member/property-member.tree';
-import { ListingTree } from '../tree/module/listing.tree';
-import { parseModule } from '../tree/parse';
+import { ListingTree } from '../tree/listing/listing.tree';
+import { parseListing } from '../tree/parse';
 import { createFunctionType } from '../tree/type/type-tree.helper';
 import { TypeTree } from '../tree/type/type.tree';
 import { GenericsMap } from '../type-inference/generics-map';
@@ -41,7 +41,7 @@ export class DirectoryDependencyProvider implements DependencyProvider {
   public get(scope: string, name: string): Dependency {
     const libPath = path.resolve(this.libraryDirectory, scope, name);
     const codeFiles = glob.sync(`${libPath}/**/*.xon`);
-    const modulesTrees = codeFiles.map((x) => parseModule(fs.readFileSync(x).toString(), x));
+    const modulesTrees = codeFiles.map((x) => parseListing(fs.readFileSync(x).toString(), x));
     return new Dependency(modulesTrees);
   }
 }
@@ -66,11 +66,11 @@ export function findOperatorMember(
   rightType: TypeTree,
 ): TypeTree {
   const definition = findDefinitionByType(leftType);
-  if (leftType.generics.length !== definition.declaredGenerics.length)
+  if (leftType.generics.length !== definition.genericParameters.length)
     throw Issue.errorFromTree(definition, 'Wrong generics count');
 
   const definitionGenericsMap: GenericsMap = new Map(
-    definition.declaredGenerics.map((x, i) => [x, leftType.generics[i]]),
+    definition.genericParameters.map((x, i) => [x, leftType.generics[i]]),
   );
   const operatorMembers = definition.operators.filter(
     (x) =>
@@ -98,7 +98,7 @@ export function findOperatorMember(
 
 export function getMemberType(type: TypeTree, name: string): TypeTree {
   const definition = findDefinitionByType(type);
-  if (type.generics.length !== definition.declaredGenerics.length)
+  if (type.generics.length !== definition.genericParameters.length)
     throw Issue.errorFromTree(definition, 'Wrong generics count');
 
   const members = definition.members.filter((x) => x.name === name);
@@ -112,7 +112,7 @@ export function getMemberType(type: TypeTree, name: string): TypeTree {
     );
 
   const genericsMap: GenericsMap = new Map(
-    definition.declaredGenerics.map((x, i) => [x, type.generics[i]]),
+    definition.genericParameters.map((x, i) => [x, type.generics[i]]),
   );
 
   const member = members[0];
@@ -122,7 +122,7 @@ export function getMemberType(type: TypeTree, name: string): TypeTree {
   }
   if (member instanceof MethodMemberTree) {
     return createFunctionType(
-      member.declaredGenerics,
+      member.genericParameters,
       member.parameters.map((x) => x.type.useGenericsMap(genericsMap)),
       member.returnType.useGenericsMap(genericsMap),
     );

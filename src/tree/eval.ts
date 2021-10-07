@@ -4,8 +4,8 @@ import { LiteralExpressionTree } from './expression/literal-expression/literal-e
 import { LogicalAndExpressionTree } from './expression/logical-and-expression/logical-and-expression.tree';
 import { LogicalNotExpressionTree } from './expression/logical-not-expression/logical-not-expression.tree';
 import { LogicalOrExpressionTree } from './expression/logical-or-expression/logical-or-expression.tree';
-import { NegativeExpressionTree } from './expression/negative-expression/negative-expression.tree';
-import { OperatorExpressionTree } from './expression/operator-expression/operator-expression.tree';
+import { NegativeExpressionTree } from './expression/prefix-expression/prefix-expression.tree';
+import { OperatorExpressionTree } from './expression/infix-expression/infix-expression.tree';
 import { ParenthesizedExpressionTree } from './expression/parenthesized-expression/parenthesized-expression.tree';
 import { PipeExpressionTree } from './expression/pipe-expression/pipe-expression.tree';
 
