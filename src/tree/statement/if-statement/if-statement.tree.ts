@@ -16,7 +16,7 @@ export class IfStatementTree extends StatementTree {
     if (!ctx) return;
 
     this.condition = getExpressionTree(ctx.expression());
-    this.thenBody = getStatementsTrees(ctx.body(0));
-    this.elseBody = (ctx.ELSE() && getStatementsTrees(ctx.body(1))) || [];
+    this.thenBody = getStatementsTrees(ctx.body());
+    this.elseBody = (ctx.ELSE() && getStatementsTrees(ctx.operatorBody())) || [];
   }
 }
