@@ -12,7 +12,7 @@ export class ArrayTypeTree extends TypeTree {
     if (!ctx) return;
 
     this.itemType = getTypeTree(ctx.type());
-    this.generics = [this.itemType];
+    this.genericArguments = [this.itemType];
   }
 
   public equals(other: TypeTree): boolean {
@@ -27,8 +27,8 @@ export class ArrayTypeTree extends TypeTree {
     if (!(type instanceof ArrayTypeTree))
       throw new Error(`Type "${type.name}" is not an "${this.name}" type`);
 
-    const entries = this.generics
-      .map((x, i) => x.getGenericsMap(type.generics[i]).entries())
+    const entries = this.genericArguments
+      .map((x, i) => x.getGenericsMap(type.genericArguments[i]).entries())
       .map((x) => Array.from(x))
       .flat();
     return new Map<string, TypeTree>(entries);

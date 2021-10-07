@@ -1,15 +1,19 @@
 import { LiteralTypeContext } from '../../../grammar/xon-parser';
-import { getLiteralTree } from '../../literal/literal-tree.helper';
+import { evalExpression } from '../../eval';
+import { getExpressionTree } from '../../expression/expression-tree.helper';
+import { ExpressionTree } from '../../expression/expression.tree';
 import { TypeTree } from '../type.tree';
 
 export class LiteralTypeTree extends TypeTree {
+  public expression: ExpressionTree;
   public value: unknown;
 
   public constructor(public ctx?: LiteralTypeContext) {
     super();
     if (!ctx) return;
 
-    this.value = getLiteralTree(ctx.literal()).value;
+    this.expression = getExpressionTree(ctx.expression());
+    this.value = evalExpression(this.expression);
   }
 
   public equals(other: TypeTree): boolean {

@@ -20,7 +20,7 @@ export class FunctionTypeTree extends TypeTree {
         .map((x) => x.text) || [];
     this.parameters = ctx.typeParameters().type().map(getTypeTree);
     this.returnType = getTypeTree(ctx.type());
-    this.generics = [...this.parameters, this.returnType];
+    this.genericArguments = [...this.parameters, this.returnType];
   }
 
   public equals(other: TypeTree): boolean {
@@ -49,8 +49,8 @@ export class FunctionTypeTree extends TypeTree {
         `Type "${type.name}" has ${type.parameters.length} parameters but this type has ${this.parameters.length}`,
       );
 
-    const entries = this.generics
-      .map((x, i) => x.getGenericsMap(type.generics[i]).entries())
+    const entries = this.genericArguments
+      .map((x, i) => x.getGenericsMap(type.genericArguments[i]).entries())
       .map((x) => Array.from(x))
       .flat();
 

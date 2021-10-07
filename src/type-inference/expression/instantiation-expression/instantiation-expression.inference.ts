@@ -23,7 +23,7 @@ export class InstantiationExpressionInference extends ExpressionInference {
       .flat();
     const genericParametersEntries = typeDefinition.genericParameters.map((x, i) => [
       x,
-      tree.type.generics[i].useGenericsMap(this.genericsMap),
+      tree.type.genericArguments[i].useGenericsMap(this.genericsMap),
     ]);
 
     const genericsMap2 = (

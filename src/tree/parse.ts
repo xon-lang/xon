@@ -3,6 +3,8 @@ import * as fs from 'fs';
 import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
 import { ArgumentTree } from './argument/argument.tree';
+import { getAssignmentTree } from './assignment/assignment-tree.helper';
+import { AssignmentTree } from './assignment/assignment.tree';
 import { DefinitionTree } from './definition/definition.tree';
 import { getMemberTree } from './definition/member/member-tree.helper';
 import { MemberTree } from './definition/member/member.tree';
@@ -53,6 +55,9 @@ export const parseExpression = <T extends ExpressionTree>(code: string): T =>
 
 export const parseStatement = <T extends StatementTree>(code: string): T =>
   getStatementTree(parse(code).statement()) as T;
+
+export const parseAssignment = <T extends AssignmentTree>(code: string): T =>
+  getAssignmentTree(parse(code).assignment()) as T;
 
 export const parseMember = <T extends MemberTree>(code: string): T =>
   getMemberTree(parse(code).member()) as T;

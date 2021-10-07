@@ -4,9 +4,7 @@ import {
   ExpressionStatementContext,
   ForStatementContext,
   FunctionBodyContext,
-  IdAssignmentStatementContext,
   IfStatementContext,
-  MemberAssignmentStatementContext,
   OperatorBodyContext,
   PreprocessorStatementContext,
   ReturnStatementContext,
@@ -16,9 +14,7 @@ import {
 import { AssertStatementTree } from './assert-statement/assert-statement.tree';
 import { ExpressionStatementTree } from './expression-statement/expression-statement.tree';
 import { ForStatementTree } from './for-statement/for-statement.tree';
-import { IdAssignmentStatementTree } from './id-assignment-statement/id-assignment-statement.tree';
 import { IfStatementTree } from './if-statement/if-statement.tree';
-import { MemberAssignmentStatementTree } from './member-assignment-statement/member-assignment-statement.tree';
 import { PreprocessorStatementTree } from './preprocessor-statement/preprocessor-statement.tree';
 import { ReturnStatementTree } from './return-statement/return-statement.tree';
 import { StatementTree } from './statement.tree';
@@ -30,9 +26,6 @@ export const getStatementTree = (ctx: StatementContext): StatementTree => {
   if (ctx instanceof AssertStatementContext) return new AssertStatementTree(ctx);
   if (ctx instanceof ExpressionStatementContext) return new ExpressionStatementTree(ctx);
   if (ctx instanceof ForStatementContext) return new ForStatementTree(ctx);
-  if (ctx instanceof IdAssignmentStatementContext) return new IdAssignmentStatementTree(ctx);
-  if (ctx instanceof MemberAssignmentStatementContext)
-    return new MemberAssignmentStatementTree(ctx);
   if (ctx instanceof IfStatementContext) return new IfStatementTree(ctx);
   if (ctx instanceof PreprocessorStatementContext) return new PreprocessorStatementTree(ctx);
   if (ctx instanceof ReturnStatementContext) return new ReturnStatementTree(ctx);

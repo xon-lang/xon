@@ -4,16 +4,14 @@ import { ExpressionTree } from '../expression.tree';
 
 export class PipeExpressionTree extends ExpressionTree {
   public arg: string;
-
   public left: ExpressionTree;
-
   public right: ExpressionTree;
 
   public constructor(public ctx: PipeExpressionContext) {
     super();
     this.arg = ctx.id()?.text;
-    this.left = getExpressionTree(ctx._left);
-    this.right = getExpressionTree(ctx._right);
+    this.left = getExpressionTree(ctx.expression(0));
+    this.right = getExpressionTree(ctx.expression(1));
   }
 
   public toString(): string {

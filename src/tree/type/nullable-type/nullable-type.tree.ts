@@ -10,7 +10,7 @@ export class NullableTypeTree extends TypeTree {
     if (!ctx) return;
 
     this.baseType = getTypeTree(ctx.type());
-    this.generics = [this.baseType];
+    this.genericArguments = [this.baseType];
   }
 
   public equals(other: TypeTree): boolean {

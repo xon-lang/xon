@@ -48,7 +48,7 @@ statement:
     | IF expression body (ELSE operatorBody)?              # ifStatement
     | BREAK                                                # breakStatement
     | RETURN expression?                                   # returnStatement
-    | ACTUAL ':' expression NL+ EXPECT ':' expression      # assertStatement
+    | ACTUAL expression NL+ EXPECT expression              # assertStatement
     | PREPROCESSOR                                         # preprocessorStatement
     | assignment                                           # assignmentStatement
     | expression                                           # expressionStatement
@@ -65,29 +65,29 @@ assignment:
     ;
 
 expression:
-    id                                          # idExpression
-    | '$'                                       # instanceExpression
-    | '$' id                                    # instanceMemberExpression
-    | literal                                   # literalExpression
-    | expression genericArguments? arguments    # callExpression
-    | expression '[' expression ']'             # indexExpression
-    | expression '?'? '.' expression            # memberExpression
-    | (operator+ | ID) expression               # prefixExpression
-    | expression (operator+ | ID)               # postfixExpression
-    | expression '^' expression                 # powExpression
-    | expression ('*' | '/' | '%') expression   # mulDivModExpression
-    | expression ('+' | '-') expression         # addSubExpression
-    | expression '.' '.' expression             # rangeExpression
-    | expression ID expression                  # infixExpression
-    | expression '?' expression                 # elvisExpression
-    | expression ('<' | '>') '='? expression    # relationalExpression
-    | expression ('=' '=' | '!' '=') expression # equalityExpression
-    | expression '&' '&'? expression            # conjunctionExpression
-    | expression '|' '|'? expression            # disjunctionExpression
-    | expression '|' id ':' expression          # pipeExpression
-    | '[' (expression (',' expression)*)? ']'   # arrayExpression
-    | '(' expression ')'                        # parenthesizedExpression
-    | '\\' (id (',' id)* ':')? expression       # lambdaExpression
+    id                                                   # idExpression
+    | '$'                                                # instanceExpression
+    | '$' id                                             # instanceMemberExpression
+    | literal                                            # literalExpression
+    | expression genericArguments? arguments             # callExpression
+    | expression '[' expression ']'                      # indexExpression
+    | expression '?'? '.' id                             # memberExpression
+    | (operator+ | ID) expression                        # prefixExpression
+    | expression (operator+ | ID)                        # postfixExpression
+    | expression op += '^' expression                    # powExpression
+    | expression op += ('*' | '/' | '%') expression      # mulDivModExpression
+    | expression op += ('+' | '-') expression            # addSubExpression
+    | expression op += '.' op += '.' expression          # rangeExpression
+    | expression op += ID expression                     # infixExpression
+    | expression op += '?' expression                    # elvisExpression
+    | expression op += ('<' | '>') op += '='? expression # relationalExpression
+    | expression op += ('=' | '!') op += '=' expression  # equalityExpression
+    | expression op += '&' op += '&' expression          # conjunctionExpression
+    | expression op += '|' op += '|' expression          # disjunctionExpression
+    | expression '|' id ':' expression                   # pipeExpression
+    | '[' (expression (',' expression)*)? ']'            # arrayExpression
+    | '(' expression ')'                                 # parenthesizedExpression
+    | '\\' (id (',' id)* ':')? expression                # lambdaExpression
     ;
 
 literal:

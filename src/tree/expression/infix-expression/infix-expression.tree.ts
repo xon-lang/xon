@@ -4,7 +4,7 @@ import { ExpressionTree } from '../expression.tree';
 export class InfixExpressionTree extends ExpressionTree {
   public constructor(
     public ctx: ExpressionContext,
-    public name: string,
+    public operator: string,
     public left: ExpressionTree,
     public right: ExpressionTree,
   ) {
@@ -12,6 +12,6 @@ export class InfixExpressionTree extends ExpressionTree {
   }
 
   public toString(): string {
-    return `${this.left.toString()} ${this.name} ${this.right.toString()}`;
+    return `${this.left.toString()} ${this.operator} ${this.right.toString()}`;
   }
 }

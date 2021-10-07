@@ -18,7 +18,7 @@ export class CallExpressionInference extends ExpressionInference {
   public constructor(public tree: CallExpressionTree, public genericsMap: GenericsMap) {
     super();
 
-    this.generics = tree.generics;
+    this.generics = tree.genericArguments;
     this.instance = getExpressionInference(tree.instance, this.genericsMap);
 
     if (!(this.instance.type instanceof FunctionTypeTree))
@@ -34,8 +34,8 @@ export class CallExpressionInference extends ExpressionInference {
       .map((x) => Array.from(x))
       .flat();
 
-    const genericsMap2 = tree.generics
-      ? this.instance.type.genericParameters.map((x, i) => [x, tree.generics[i]])
+    const genericsMap2 = tree.genericArguments
+      ? this.instance.type.genericParameters.map((x, i) => [x, tree.genericArguments[i]])
       : argumentsGenericsEntries;
 
     this.type = this.instance.type.returnType.useGenericsMap(

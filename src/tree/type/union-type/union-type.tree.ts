@@ -10,7 +10,7 @@ export class UnionTypeTree extends TypeTree {
     if (!ctx) return;
 
     this.types = getTypesTrees(ctx.type());
-    this.generics = this.types;
+    this.genericArguments = this.types;
   }
 
   public equals(other: TypeTree): boolean {

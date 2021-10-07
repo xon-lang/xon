@@ -36,21 +36,21 @@ export const getTypesTrees = (types: TypeContext[]): TypeTree[] => types?.map(ge
 export function createPlainType(name: string, generics: TypeTree[] = []): PlainTypeTree {
   const type = new PlainTypeTree();
   type.name = name;
-  type.generics = generics;
+  type.genericArguments = generics;
   return type;
 }
 
 export function createParenthesizedType(baseType: TypeTree): ParenthesizedTypeTree {
   const type = new ParenthesizedTypeTree();
   type.baseType = baseType;
-  type.generics = [baseType];
+  type.genericArguments = [baseType];
   return type;
 }
 
 export function createArrayType(itemType: TypeTree): ArrayTypeTree {
   const type = new ArrayTypeTree();
   type.itemType = itemType;
-  type.generics = [itemType];
+  type.genericArguments = [itemType];
   return type;
 }
 
@@ -63,7 +63,7 @@ export function createFunctionType(
   type.genericParameters = genericParameters;
   type.parameters = parameters;
   type.returnType = returnType;
-  type.generics = [...parameters, returnType];
+  type.genericArguments = [...parameters, returnType];
   return type;
 }
 
@@ -76,13 +76,13 @@ export function createLiteralType(value: unknown): LiteralTypeTree {
 export function createUnionType(types: TypeTree[]): UnionTypeTree {
   const type = new UnionTypeTree();
   type.types = types.filter((x) => x === types.find((z) => z.equals(x)));
-  type.generics = types;
+  type.genericArguments = types;
   return type;
 }
 
 export function createNullableType(baseType: TypeTree): NullableTypeTree {
   const type = new NullableTypeTree();
   type.baseType = baseType;
-  type.generics = [baseType];
+  type.genericArguments = [baseType];
   return type;
 }

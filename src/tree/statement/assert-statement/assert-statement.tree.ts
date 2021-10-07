@@ -12,7 +12,7 @@ export class AssertStatementTree extends StatementTree {
     super();
     if (!ctx) return;
 
-    this.actual = getExpressionTree(ctx._actual);
-    this.expect = getExpressionTree(ctx._expect);
+    this.actual = getExpressionTree(ctx.expression(0));
+    this.expect = getExpressionTree(ctx.expression(1));
   }
 }

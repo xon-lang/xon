@@ -3,7 +3,7 @@ import { ExpressionStatementTree } from '../../tree/statement/expression-stateme
 import { ForStatementTree } from '../../tree/statement/for-statement/for-statement.tree';
 import { IdAssignmentStatementTree } from '../../tree/statement/id-assignment-statement/id-assignment-statement.tree';
 import { IfStatementTree } from '../../tree/statement/if-statement/if-statement.tree';
-import { MemberAssignmentStatementTree } from '../../tree/statement/member-assignment-statement/member-assignment-statement.tree';
+import { MemberAssignmentStatementTree } from '../../tree/assignment/member-assignment/member-assignment-statement.tree';
 import { PreprocessorStatementTree } from '../../tree/statement/preprocessor-statement/preprocessor-statement.tree';
 import { ReturnStatementTree } from '../../tree/statement/return-statement/return-statement.tree';
 import { StatementTree } from '../../tree/statement/statement.tree';

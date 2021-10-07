@@ -1,4 +1,4 @@
-import { MemberAssignmentStatementTree } from '../../../tree/statement/member-assignment-statement/member-assignment-statement.tree';
+import { MemberAssignmentStatementTree } from '../../../tree/assignment/member-assignment/member-assignment-statement.tree';
 import { getExpressionInference } from '../../expression/expression-inference.helper';
 import { ExpressionInference } from '../../expression/expression.inference';
 import { GenericsMap } from '../../generics-map';

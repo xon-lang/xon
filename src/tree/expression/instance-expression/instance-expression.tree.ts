@@ -8,7 +8,7 @@ export class InstanceExpressionTree extends ExpressionTree {
     super();
     if (!ctx) return;
 
-    this.name = ctx.THIS().text;
+    this.name = ctx.DOLLAR().text;
   }
 
   public toString(): string {

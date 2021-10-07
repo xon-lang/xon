@@ -16,10 +16,10 @@ export class ParameterTree extends BaseTree {
     super();
     if (!ctx) return;
 
-    this.name = ctx._name.text;
+    this.name = ctx.id(0).text;
     this.isPrivate = this.name.startsWith('_');
     this.type = getTypeTree(ctx.type());
-    this.metaType = ctx._meta?.text;
+    this.metaType = ctx.id(1)?.text;
   }
 
   public toString(): string {

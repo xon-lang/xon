@@ -7,7 +7,7 @@ import { getExpressionTree } from '../expression-tree.helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class CallExpressionTree extends ExpressionTree {
-  public generics: TypeTree[];
+  public genericArguments: TypeTree[];
 
   public instance: ExpressionTree;
 
@@ -17,14 +17,14 @@ export class CallExpressionTree extends ExpressionTree {
     super();
     if (!ctx) return;
 
-    this.generics = getTypesTrees(ctx.generics()?.type());
+    this.genericArguments = getTypesTrees(ctx.genericArguments()?.type());
     this.instance = getExpressionTree(ctx.expression());
     this.arguments = getArgumentsTrees(ctx.arguments());
   }
 
   public toString(): string {
-    const generics = this.generics.length
-      ? `<${this.generics.map((x) => x.toString()).join(', ')}>`
+    const generics = this.genericArguments.length
+      ? `<${this.genericArguments.map((x) => x.toString()).join(', ')}>`
       : '';
     const instance = this.instance.toString();
     const args = this.arguments.length

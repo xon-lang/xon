@@ -1,11 +1,10 @@
-import { evalExpression } from '../../eval';
 import { parseExpression } from '../../parse';
-import { NegativeExpressionTree } from './postfix-expression.tree';
+import { PostfixExpressionTree } from './postfix-expression.tree';
 
 test('negative integer', () => {
-  const code = '-1';
-  const tree = parseExpression<NegativeExpressionTree>(code);
-  expect(tree).toBeInstanceOf(NegativeExpressionTree);
+  const code = '1++';
+  const tree = parseExpression<PostfixExpressionTree>(code);
+  expect(tree).toBeInstanceOf(PostfixExpressionTree);
 
-  expect(evalExpression(tree)).toBe(-1);
+  expect(tree.toString()).toBe('1++');
 });
