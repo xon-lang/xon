@@ -71,9 +71,10 @@ expression:
     | literal                                            # literalExpression
     | expression genericArguments? arguments             # callExpression
     | expression '[' expression ']'                      # indexExpression
+    | '(' expression ')'                                 # parenthesizedExpression
+    | '[' (expression (',' expression)*)? ']'            # arrayExpression
     | expression '?'? '.' id                             # memberExpression
     | operator expression                                # prefixExpression
-    | expression operator                                # postfixExpression
     | expression op += '^' expression                    # powExpression
     | expression op += ('*' | '/' | '%') expression      # mulDivModExpression
     | expression op += ('+' | '-') expression            # addSubExpression
@@ -85,8 +86,6 @@ expression:
     | expression op += '&' op += '&' expression          # conjunctionExpression
     | expression op += '|' op += '|' expression          # disjunctionExpression
     | expression '|' id ':' expression                   # pipeExpression
-    | '[' (expression (',' expression)*)? ']'            # arrayExpression
-    | '(' expression ')'                                 # parenthesizedExpression
     | '\\' (id (',' id)* ':')? expression                # lambdaExpression
     ;
 

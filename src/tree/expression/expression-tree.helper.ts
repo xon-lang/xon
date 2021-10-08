@@ -18,7 +18,6 @@ import {
   MulDivModExpressionContext,
   ParenthesizedExpressionContext,
   PipeExpressionContext,
-  PostfixExpressionContext,
   PowExpressionContext,
   PrefixExpressionContext,
   RangeExpressionContext,
@@ -36,7 +35,6 @@ import { LiteralExpressionTree } from './literal-expression/literal-expression.t
 import { MemberExpressionTree } from './member-expression/member-expression.tree';
 import { ParenthesizedExpressionTree } from './parenthesized-expression/parenthesized-expression.tree';
 import { PipeExpressionTree } from './pipe-expression/pipe-expression.tree';
-import { PostfixExpressionTree } from './postfix-expression/postfix-expression.tree';
 import { PrefixExpressionTree } from './prefix-expression/prefix-expression.tree';
 
 export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
@@ -51,7 +49,6 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
   if (ctx instanceof CallExpressionContext) return new CallExpressionTree(ctx);
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
-  if (ctx instanceof PostfixExpressionContext) return new PostfixExpressionTree(ctx);
   if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionTree(ctx);
   if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);
 

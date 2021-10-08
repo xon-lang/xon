@@ -4,7 +4,6 @@ import { InfixExpressionTree } from './expression/infix-expression/infix-express
 import { LiteralExpressionTree } from './expression/literal-expression/literal-expression.tree';
 import { ParenthesizedExpressionTree } from './expression/parenthesized-expression/parenthesized-expression.tree';
 import { PipeExpressionTree } from './expression/pipe-expression/pipe-expression.tree';
-import { PostfixExpressionTree } from './expression/postfix-expression/postfix-expression.tree';
 import { PrefixExpressionTree } from './expression/prefix-expression/prefix-expression.tree';
 
 const escapeIfString = (s: unknown) => (typeof s === 'string' ? `\`${s}\`` : s);
@@ -27,11 +26,6 @@ export const evalExpression = (tree: ExpressionTree, argsMap = {}): unknown => {
     const a = evalExpression(tree.value, argsMap);
     // eslint-disable-next-line no-eval
     return eval(`${tree.operator}${escapeIfString(a)}`);
-  }
-  if (tree instanceof PostfixExpressionTree) {
-    const a = evalExpression(tree.value, argsMap);
-    // eslint-disable-next-line no-eval
-    return eval(`${escapeIfString(a)}${tree.operator}`);
   }
   if (tree instanceof IdExpressionTree) {
     if (tree.name in argsMap) return argsMap[tree.name];
