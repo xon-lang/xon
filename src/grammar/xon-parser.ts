@@ -1688,6 +1688,7 @@ export class XonParser extends Parser {
 					case 1:
 						{
 						_localctx = new PowExpressionContext(new ExpressionContext(_parentctx, _parentState));
+						(_localctx as PowExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 372;
 						if (!(this.precpred(this._ctx, 12))) {
@@ -1697,23 +1698,24 @@ export class XonParser extends Parser {
 						(_localctx as PowExpressionContext)._s39 = this.match(XonParser.CARET);
 						(_localctx as PowExpressionContext)._op.push((_localctx as PowExpressionContext)._s39);
 						this.state = 374;
-						this.expression(13);
+						(_localctx as PowExpressionContext)._right = this.expression(13);
 						}
 						break;
 
 					case 2:
 						{
 						_localctx = new MulDivModExpressionContext(new ExpressionContext(_parentctx, _parentState));
+						(_localctx as MulDivModExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 375;
 						if (!(this.precpred(this._ctx, 11))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 11)");
 						}
 						this.state = 376;
-						(_localctx as MulDivModExpressionContext).__tset235 = this._input.LT(1);
+						(_localctx as MulDivModExpressionContext).__tset239 = this._input.LT(1);
 						_la = this._input.LA(1);
 						if (!(((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.SLASH - 38)) | (1 << (XonParser.MODULO - 38)) | (1 << (XonParser.ASTERISK - 38)))) !== 0))) {
-							(_localctx as MulDivModExpressionContext).__tset235 = this._errHandler.recoverInline(this);
+							(_localctx as MulDivModExpressionContext).__tset239 = this._errHandler.recoverInline(this);
 						} else {
 							if (this._input.LA(1) === Token.EOF) {
 								this.matchedEOF = true;
@@ -1722,25 +1724,26 @@ export class XonParser extends Parser {
 							this._errHandler.reportMatch(this);
 							this.consume();
 						}
-						(_localctx as MulDivModExpressionContext)._op.push((_localctx as MulDivModExpressionContext).__tset235);
+						(_localctx as MulDivModExpressionContext)._op.push((_localctx as MulDivModExpressionContext).__tset239);
 						this.state = 377;
-						this.expression(12);
+						(_localctx as MulDivModExpressionContext)._right = this.expression(12);
 						}
 						break;
 
 					case 3:
 						{
 						_localctx = new AddSubExpressionContext(new ExpressionContext(_parentctx, _parentState));
+						(_localctx as AddSubExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 378;
 						if (!(this.precpred(this._ctx, 10))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 10)");
 						}
 						this.state = 379;
-						(_localctx as AddSubExpressionContext).__tset286 = this._input.LT(1);
+						(_localctx as AddSubExpressionContext).__tset294 = this._input.LT(1);
 						_la = this._input.LA(1);
 						if (!(_la === XonParser.PLUS || _la === XonParser.MINUS)) {
-							(_localctx as AddSubExpressionContext).__tset286 = this._errHandler.recoverInline(this);
+							(_localctx as AddSubExpressionContext).__tset294 = this._errHandler.recoverInline(this);
 						} else {
 							if (this._input.LA(1) === Token.EOF) {
 								this.matchedEOF = true;
@@ -1749,15 +1752,16 @@ export class XonParser extends Parser {
 							this._errHandler.reportMatch(this);
 							this.consume();
 						}
-						(_localctx as AddSubExpressionContext)._op.push((_localctx as AddSubExpressionContext).__tset286);
+						(_localctx as AddSubExpressionContext)._op.push((_localctx as AddSubExpressionContext).__tset294);
 						this.state = 380;
-						this.expression(11);
+						(_localctx as AddSubExpressionContext)._right = this.expression(11);
 						}
 						break;
 
 					case 4:
 						{
 						_localctx = new RangeExpressionContext(new ExpressionContext(_parentctx, _parentState));
+						(_localctx as RangeExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 381;
 						if (!(this.precpred(this._ctx, 9))) {
@@ -1770,13 +1774,14 @@ export class XonParser extends Parser {
 						(_localctx as RangeExpressionContext)._s29 = this.match(XonParser.DOT);
 						(_localctx as RangeExpressionContext)._op.push((_localctx as RangeExpressionContext)._s29);
 						this.state = 384;
-						this.expression(10);
+						(_localctx as RangeExpressionContext)._right = this.expression(10);
 						}
 						break;
 
 					case 5:
 						{
 						_localctx = new InfixExpressionContext(new ExpressionContext(_parentctx, _parentState));
+						(_localctx as InfixExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 385;
 						if (!(this.precpred(this._ctx, 8))) {
@@ -1786,13 +1791,14 @@ export class XonParser extends Parser {
 						(_localctx as InfixExpressionContext)._ID = this.match(XonParser.ID);
 						(_localctx as InfixExpressionContext)._op.push((_localctx as InfixExpressionContext)._ID);
 						this.state = 387;
-						this.expression(9);
+						(_localctx as InfixExpressionContext)._right = this.expression(9);
 						}
 						break;
 
 					case 6:
 						{
 						_localctx = new ElvisExpressionContext(new ExpressionContext(_parentctx, _parentState));
+						(_localctx as ElvisExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 388;
 						if (!(this.precpred(this._ctx, 7))) {
@@ -1802,23 +1808,24 @@ export class XonParser extends Parser {
 						(_localctx as ElvisExpressionContext)._s44 = this.match(XonParser.QUESTION);
 						(_localctx as ElvisExpressionContext)._op.push((_localctx as ElvisExpressionContext)._s44);
 						this.state = 390;
-						this.expression(8);
+						(_localctx as ElvisExpressionContext)._right = this.expression(8);
 						}
 						break;
 
 					case 7:
 						{
 						_localctx = new RelationalExpressionContext(new ExpressionContext(_parentctx, _parentState));
+						(_localctx as RelationalExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 391;
 						if (!(this.precpred(this._ctx, 6))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 6)");
 						}
 						this.state = 392;
-						(_localctx as RelationalExpressionContext).__tset432 = this._input.LT(1);
+						(_localctx as RelationalExpressionContext).__tset456 = this._input.LT(1);
 						_la = this._input.LA(1);
 						if (!(_la === XonParser.LESS || _la === XonParser.GREAT)) {
-							(_localctx as RelationalExpressionContext).__tset432 = this._errHandler.recoverInline(this);
+							(_localctx as RelationalExpressionContext).__tset456 = this._errHandler.recoverInline(this);
 						} else {
 							if (this._input.LA(1) === Token.EOF) {
 								this.matchedEOF = true;
@@ -1827,7 +1834,7 @@ export class XonParser extends Parser {
 							this._errHandler.reportMatch(this);
 							this.consume();
 						}
-						(_localctx as RelationalExpressionContext)._op.push((_localctx as RelationalExpressionContext).__tset432);
+						(_localctx as RelationalExpressionContext)._op.push((_localctx as RelationalExpressionContext).__tset456);
 						this.state = 394;
 						this._errHandler.sync(this);
 						switch ( this.interpreter.adaptivePredict(this._input, 54, this._ctx) ) {
@@ -1840,23 +1847,24 @@ export class XonParser extends Parser {
 							break;
 						}
 						this.state = 396;
-						this.expression(7);
+						(_localctx as RelationalExpressionContext)._right = this.expression(7);
 						}
 						break;
 
 					case 8:
 						{
 						_localctx = new EqualityExpressionContext(new ExpressionContext(_parentctx, _parentState));
+						(_localctx as EqualityExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 397;
 						if (!(this.precpred(this._ctx, 5))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 5)");
 						}
 						this.state = 398;
-						(_localctx as EqualityExpressionContext).__tset486 = this._input.LT(1);
+						(_localctx as EqualityExpressionContext).__tset514 = this._input.LT(1);
 						_la = this._input.LA(1);
 						if (!(_la === XonParser.EQUAL || _la === XonParser.EXCLAMATION)) {
-							(_localctx as EqualityExpressionContext).__tset486 = this._errHandler.recoverInline(this);
+							(_localctx as EqualityExpressionContext).__tset514 = this._errHandler.recoverInline(this);
 						} else {
 							if (this._input.LA(1) === Token.EOF) {
 								this.matchedEOF = true;
@@ -1865,18 +1873,19 @@ export class XonParser extends Parser {
 							this._errHandler.reportMatch(this);
 							this.consume();
 						}
-						(_localctx as EqualityExpressionContext)._op.push((_localctx as EqualityExpressionContext).__tset486);
+						(_localctx as EqualityExpressionContext)._op.push((_localctx as EqualityExpressionContext).__tset514);
 						this.state = 399;
 						(_localctx as EqualityExpressionContext)._s41 = this.match(XonParser.EQUAL);
 						(_localctx as EqualityExpressionContext)._op.push((_localctx as EqualityExpressionContext)._s41);
 						this.state = 400;
-						this.expression(6);
+						(_localctx as EqualityExpressionContext)._right = this.expression(6);
 						}
 						break;
 
 					case 9:
 						{
 						_localctx = new ConjunctionExpressionContext(new ExpressionContext(_parentctx, _parentState));
+						(_localctx as ConjunctionExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 401;
 						if (!(this.precpred(this._ctx, 4))) {
@@ -1889,13 +1898,14 @@ export class XonParser extends Parser {
 						(_localctx as ConjunctionExpressionContext)._s46 = this.match(XonParser.AMPERSAND);
 						(_localctx as ConjunctionExpressionContext)._op.push((_localctx as ConjunctionExpressionContext)._s46);
 						this.state = 404;
-						this.expression(5);
+						(_localctx as ConjunctionExpressionContext)._right = this.expression(5);
 						}
 						break;
 
 					case 10:
 						{
 						_localctx = new DisjunctionExpressionContext(new ExpressionContext(_parentctx, _parentState));
+						(_localctx as DisjunctionExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 405;
 						if (!(this.precpred(this._ctx, 3))) {
@@ -1908,7 +1918,7 @@ export class XonParser extends Parser {
 						(_localctx as DisjunctionExpressionContext)._s32 = this.match(XonParser.PIPE);
 						(_localctx as DisjunctionExpressionContext)._op.push((_localctx as DisjunctionExpressionContext)._s32);
 						this.state = 408;
-						this.expression(4);
+						(_localctx as DisjunctionExpressionContext)._right = this.expression(4);
 						}
 						break;
 
@@ -4283,8 +4293,10 @@ export class PrefixExpressionContext extends ExpressionContext {
 	}
 }
 export class PowExpressionContext extends ExpressionContext {
+	public _left!: ExpressionContext;
 	public _s39!: Token;
 	public _op: Token[] = [];
+	public _right!: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -4301,11 +4313,13 @@ export class PowExpressionContext extends ExpressionContext {
 	}
 }
 export class MulDivModExpressionContext extends ExpressionContext {
+	public _left!: ExpressionContext;
 	public _s45!: Token;
 	public _op: Token[] = [];
 	public _s38!: Token;
 	public _s43!: Token;
-	public __tset235!: Token;
+	public __tset239!: Token;
+	public _right!: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -4324,10 +4338,12 @@ export class MulDivModExpressionContext extends ExpressionContext {
 	}
 }
 export class AddSubExpressionContext extends ExpressionContext {
+	public _left!: ExpressionContext;
 	public _s30!: Token;
 	public _op: Token[] = [];
 	public _s37!: Token;
-	public __tset286!: Token;
+	public __tset294!: Token;
+	public _right!: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -4345,8 +4361,10 @@ export class AddSubExpressionContext extends ExpressionContext {
 	}
 }
 export class RangeExpressionContext extends ExpressionContext {
+	public _left!: ExpressionContext;
 	public _s29!: Token;
 	public _op: Token[] = [];
+	public _right!: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -4371,8 +4389,10 @@ export class RangeExpressionContext extends ExpressionContext {
 	}
 }
 export class InfixExpressionContext extends ExpressionContext {
+	public _left!: ExpressionContext;
 	public _ID!: Token;
 	public _op: Token[] = [];
+	public _right!: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -4389,8 +4409,10 @@ export class InfixExpressionContext extends ExpressionContext {
 	}
 }
 export class ElvisExpressionContext extends ExpressionContext {
+	public _left!: ExpressionContext;
 	public _s44!: Token;
 	public _op: Token[] = [];
+	public _right!: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -4407,11 +4429,13 @@ export class ElvisExpressionContext extends ExpressionContext {
 	}
 }
 export class RelationalExpressionContext extends ExpressionContext {
+	public _left!: ExpressionContext;
 	public _s33!: Token;
 	public _op: Token[] = [];
 	public _s36!: Token;
-	public __tset432!: Token;
+	public __tset456!: Token;
 	public _s41!: Token;
+	public _right!: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -4430,10 +4454,12 @@ export class RelationalExpressionContext extends ExpressionContext {
 	}
 }
 export class EqualityExpressionContext extends ExpressionContext {
+	public _left!: ExpressionContext;
 	public _s41!: Token;
 	public _op: Token[] = [];
 	public _s48!: Token;
-	public __tset486!: Token;
+	public __tset514!: Token;
+	public _right!: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -4459,8 +4485,10 @@ export class EqualityExpressionContext extends ExpressionContext {
 	}
 }
 export class ConjunctionExpressionContext extends ExpressionContext {
+	public _left!: ExpressionContext;
 	public _s46!: Token;
 	public _op: Token[] = [];
+	public _right!: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -4485,8 +4513,10 @@ export class ConjunctionExpressionContext extends ExpressionContext {
 	}
 }
 export class DisjunctionExpressionContext extends ExpressionContext {
+	public _left!: ExpressionContext;
 	public _s32!: Token;
 	public _op: Token[] = [];
+	public _right!: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {

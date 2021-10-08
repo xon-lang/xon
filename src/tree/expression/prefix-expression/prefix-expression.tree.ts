@@ -1,17 +1,13 @@
-import { PrefixExpressionContext } from '../../../grammar/xon-parser';
-import { getExpressionTree } from '../expression-tree.helper';
+import { ExpressionContext } from '../../../grammar/xon-parser';
 import { ExpressionTree } from '../expression.tree';
 
 export class PrefixExpressionTree extends ExpressionTree {
-  public operator: string;
-  public value: ExpressionTree;
-
-  public constructor(public ctx?: PrefixExpressionContext) {
+  public constructor(
+    public ctx: ExpressionContext,
+    public operator: string,
+    public value: ExpressionTree,
+  ) {
     super();
-    if (!ctx) return;
-
-    this.operator = ctx.operator().text;
-    this.value = getExpressionTree(ctx.expression());
   }
 
   public toString(): string {

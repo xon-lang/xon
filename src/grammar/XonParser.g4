@@ -65,28 +65,28 @@ assignment:
     ;
 
 expression:
-    id                                                   # idExpression
-    | '$'                                                # instanceExpression
-    | '$' id                                             # instanceMemberExpression
-    | literal                                            # literalExpression
-    | expression genericArguments? arguments             # callExpression
-    | expression '[' expression ']'                      # indexExpression
-    | '(' expression ')'                                 # parenthesizedExpression
-    | '[' (expression (',' expression)*)? ']'            # arrayExpression
-    | expression '?'? '.' id                             # memberExpression
-    | operator expression                                # prefixExpression
-    | expression op += '^' expression                    # powExpression
-    | expression op += ('*' | '/' | '%') expression      # mulDivModExpression
-    | expression op += ('+' | '-') expression            # addSubExpression
-    | expression op += '.' op += '.' expression          # rangeExpression
-    | expression op += ID expression                     # infixExpression
-    | expression op += '?' expression                    # elvisExpression
-    | expression op += ('<' | '>') op += '='? expression # relationalExpression
-    | expression op += ('=' | '!') op += '=' expression  # equalityExpression
-    | expression op += '&' op += '&' expression          # conjunctionExpression
-    | expression op += '|' op += '|' expression          # disjunctionExpression
-    | expression '|' id ':' expression                   # pipeExpression
-    | '\\' (id (',' id)* ':')? expression                # lambdaExpression
+    id                                                                  # idExpression
+    | '$'                                                               # instanceExpression
+    | '$' id                                                            # instanceMemberExpression
+    | literal                                                           # literalExpression
+    | expression genericArguments? arguments                            # callExpression
+    | expression '[' expression ']'                                     # indexExpression
+    | '(' expression ')'                                                # parenthesizedExpression
+    | '[' (expression (',' expression)*)? ']'                           # arrayExpression
+    | expression '?'? '.' id                                            # memberExpression
+    | operator expression                                               # prefixExpression
+    | left = expression op += '^' right = expression                    # powExpression
+    | left = expression op += ('*' | '/' | '%') right = expression      # mulDivModExpression
+    | left = expression op += ('+' | '-') right = expression            # addSubExpression
+    | left = expression op += '.' op += '.' right = expression          # rangeExpression
+    | left = expression op += ID right = expression                     # infixExpression
+    | left = expression op += '?' right = expression                    # elvisExpression
+    | left = expression op += ('<' | '>') op += '='? right = expression # relationalExpression
+    | left = expression op += ('=' | '!') op += '=' right = expression  # equalityExpression
+    | left = expression op += '&' op += '&' right = expression          # conjunctionExpression
+    | left = expression op += '|' op += '|' right = expression          # disjunctionExpression
+    | expression '|' id ':' expression                                  # pipeExpression
+    | '\\' (id (',' id)* ':')? expression                               # lambdaExpression
     ;
 
 literal:

@@ -64,24 +64,26 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
     ctx instanceof ConjunctionExpressionContext ||
     ctx instanceof DisjunctionExpressionContext
   ) {
-    return new InfixExpressionTree(
-      ctx,
-      ctx._op.map((x) => x.text).join(''),
-      getExpressionTree(ctx.expression()[0]),
-      getExpressionTree(ctx.expression()[1]),
-    );
-    // return getOperatorExpression(ctx._op.text, ctx, ctx._left, ctx._right);
+    // return new InfixExpressionTree(
+    //   ctx,
+    //   ctx._op.map((x) => x.text).join(''),
+    //   getExpressionTree(ctx.expression()[0]),
+    //   getExpressionTree(ctx.expression()[1]),
+    // );
+    return getOperatorExpression(ctx, ctx._op.map((x) => x.text).join(''), ctx._left, ctx._right);
   }
 
-  // if (ctx instanceof RelationalExpressionContext) {
-  //   if (!(ctx._left instanceof RelationalExpressionContext))
-  //     return getOperatorExpression(ctx._op.text, ctx, ctx._left, ctx._right);
+  if (ctx instanceof RelationalExpressionContext) {
+    if (!(ctx._left instanceof RelationalExpressionContext))
+      return getOperatorExpression(ctx, ctx._op.map((x) => x.text).join(''), ctx._left, ctx._right);
 
-  //   const andExpression = new LogicalAndExpressionTree();
-  //   andExpression.left = getExpressionTree(ctx._left);
-  //   andExpression.right = getOperatorExpression(ctx._op.text, ctx, ctx._left._right, ctx._right);
-  //   return andExpression;
-  // }
+    return new InfixExpressionTree(
+      ctx,
+      '&&',
+      getExpressionTree(ctx._left),
+      getOperatorExpression(ctx, ctx._op.map((x) => x.text).join(''), ctx._left._right, ctx._right),
+    );
+  }
 
   throw Error(`Expression tree not found for "${ctx.constructor.name}"`);
 };
@@ -89,41 +91,34 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
 export const getExpressionsTrees = (expressions: ExpressionContext[]): ExpressionTree[] =>
   expressions.map(getExpressionTree);
 
-// function getOperatorExpression(
-//   operator: string,
-//   ctx: ExpressionContext,
-//   left: ExpressionContext,
-//   right: ExpressionContext,
-// ): ExpressionTree {
-//   if (!operator) throw new Error('Operator is undefined');
-//   if (!left) throw new Error('left operand is undefined');
-//   if (!right) throw new Error('right operand is undefined');
+function getOperatorExpression(
+  ctx: ExpressionContext,
+  operator: string,
+  left: ExpressionContext,
+  right: ExpressionContext,
+): ExpressionTree {
+  if (!operator) throw new Error('Operator is undefined');
+  if (!left) throw new Error('left operand is undefined');
+  if (!right) throw new Error('right operand is undefined');
 
-//   if (operator === '<=') {
-//     const expression = new LogicalOrExpressionTree();
-//     expression.left = getOperatorExpression('<', ctx, left, right);
-//     expression.right = getOperatorExpression('==', ctx, left, right);
+  if (operator === '<=') {
+    const expression = new InfixExpressionTree(
+      ctx,
+      '||',
+      getOperatorExpression(ctx, '<', left, right),
+      getOperatorExpression(ctx, '==', left, right),
+    );
+    return ParenthesizedExpressionTree.fromValue(expression);
+  }
+  if (operator === '>=') {
+    const expression = new InfixExpressionTree(
+      ctx,
+      '||',
+      getOperatorExpression(ctx, '>', left, right),
+      getOperatorExpression(ctx, '==', left, right),
+    );
+    return ParenthesizedExpressionTree.fromValue(expression);
+  }
 
-//     return ParenthesizedExpressionTree.fromValue(expression);
-//   }
-//   if (operator === '>=') {
-//     const expression = new LogicalOrExpressionTree();
-//     expression.left = getOperatorExpression('>', ctx, left, right);
-//     expression.right = getOperatorExpression('==', ctx, left, right);
-//     return ParenthesizedExpressionTree.fromValue(expression);
-//   }
-//   if (operator === '!=') {
-//     const expression = new LogicalNotExpressionTree();
-//     expression.value = ParenthesizedExpressionTree.fromValue(
-//       getOperatorExpression('==', ctx, left, right),
-//     );
-//     return expression;
-//   }
-
-//   return new OperatorExpressionTree(
-//     ctx,
-//     operator,
-//     getExpressionTree(left),
-//     getExpressionTree(right),
-//   );
-// }
+  return new InfixExpressionTree(ctx, operator, getExpressionTree(left), getExpressionTree(right));
+}
