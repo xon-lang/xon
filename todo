@@ -14,3 +14,5 @@ TimeSpan(nanoseconds)
   milliseconds = ns * 10^3
   seconds = ns * 10^6
   minutes = ns * 10^6
+
+Посмотреть как в 1С сделаны multiline c dsl для запросов
