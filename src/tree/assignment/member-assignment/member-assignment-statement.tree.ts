@@ -13,7 +13,7 @@ export class MemberAssignmentTree extends AssignmentTree {
     if (!ctx) return;
 
     this.instance = getExpressionTree(ctx.expression(0));
-    this.name = ctx.id().text;
+    this.name = ctx._name.text;
     this.value = getExpressionTree(ctx.expression(1));
   }
 }

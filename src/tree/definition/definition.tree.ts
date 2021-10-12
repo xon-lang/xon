@@ -27,12 +27,8 @@ export class DefinitionTree extends BaseTree {
     super();
     if (!ctx) return;
 
-    this.name = ctx.id().text;
-    this.genericParameters =
-      ctx
-        .genericParameters()
-        ?.id()
-        .map((x) => x.text) || [];
+    this.name = ctx._name.text;
+    this.genericParameters = ctx.genericParameters()?._names.map((x) => x.text) || [];
     this.parameters = getParametersTrees(ctx.parameters());
     this.inheritanceType = getTypeTree(ctx.type());
     this.members = getMembersTrees(ctx.member());

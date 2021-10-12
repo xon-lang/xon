@@ -79,7 +79,8 @@ CHAR_LITERAL:    '\'' ~['] '\'';
 STRING_LITERAL:  '"' (~["] | '\\' ["\\bfnrtv])* '"';
 PREPROCESSOR:    '#{' .*? '}';
 
-ID: [_a-zA-Z] [_a-zA-Z0-9]*;
+UPPER_ID: [A-Z] [_a-zA-Z0-9]*;
+LOWER_ID: [_a-z] [_a-zA-Z0-9]*;
 
 NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
     ;

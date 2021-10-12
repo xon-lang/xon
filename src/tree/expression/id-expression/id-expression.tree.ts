@@ -8,7 +8,7 @@ export class IdExpressionTree extends ExpressionTree {
     super();
     if (!ctx) return;
 
-    this.name = ctx.id().text;
+    this.name = ctx._name.text;
   }
 
   public toString(): string {

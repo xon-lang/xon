@@ -11,7 +11,7 @@ export class MemberExpressionTree extends ExpressionTree {
     super();
     if (!ctx) return;
 
-    this.name = ctx.id().text;
+    this.name = ctx._name.text;
     this.instance = getExpressionTree(ctx.expression());
   }
 

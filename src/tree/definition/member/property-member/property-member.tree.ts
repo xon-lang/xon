@@ -14,7 +14,7 @@ export class PropertyMemberTree extends MemberTree {
     super();
     if (!ctx) return;
 
-    this.name = ctx.id().text;
+    this.name = ctx._name.text;
     this.isPrivate = this.name.startsWith('_');
     this.type = getTypeTree(ctx.type());
     this.value = getExpressionTree(ctx.expression());

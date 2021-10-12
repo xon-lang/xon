@@ -12,7 +12,7 @@ export class ImportTree extends BaseTree {
     if (!ctx) return;
 
     this.path = ctx.libraryPath().text;
-    this.alias = ctx.id()?.text;
+    this.alias = ctx._alias?.text;
     this.members = ctx.libraryMember().map((x) => new ImportMemberTree(x));
   }
 

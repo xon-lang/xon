@@ -13,11 +13,7 @@ export class FunctionTypeTree extends TypeTree {
     super();
     if (!ctx) return;
 
-    this.genericParameters =
-      ctx
-        .genericParameters()
-        ?.id()
-        .map((x) => x.text) || [];
+    this.genericParameters = ctx.genericParameters()?._name.map((x) => x.text) || [];
     this.parameters = ctx.typeParameters().type().map(getTypeTree);
     this.returnType = getTypeTree(ctx.type());
     this.genericArguments = [...this.parameters, this.returnType];

@@ -21,13 +21,9 @@ export class ExtensionMemberTree extends BaseTree {
     if (!ctx) return;
 
     this.receiver = getTypeTree(ctx._receiver);
-    this.name = ctx.id().text;
+    this.name = ctx._name.text;
     this.isPrivate = this.name.startsWith('_');
-    this.genericParameters =
-      ctx
-        .genericParameters()
-        ?.id()
-        .map((x) => x.text) || [];
+    this.genericParameters = ctx.genericParameters()?._names.map((x) => x.text) || [];
     this.parameters = ctx.parameters() && getParametersTrees(ctx.parameters());
     this.returnType = getTypeTree(ctx._result);
     this.body = getStatementsTrees(ctx.functionBody());

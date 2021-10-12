@@ -16,81 +16,88 @@ listing: (library | export | NL)* (
 
 export: EXPORT libraryPath;
 library:
-    IMPORT libraryPath (AS id | (':' libraryMember (',' libraryMember)*)?)
+    IMPORT libraryPath (
+        AS alias = LOWER_ID
+        | (':' libraryMember (',' libraryMember)*)?
+    )
     ;
-libraryPath:   '.'* id ('.' id)*;
-libraryMember: name = id | AS alias = id?;
+libraryPath:   '.'* names += LOWER_ID ('.' names += LOWER_ID)*;
+libraryMember: name = id | AS alias = id;
 
 definition:
-    id genericParameters? parameters? (IS type)? ':' NL INDENT (member | NL)+ DEDENT
+    name = UPPER_ID genericParameters? parameters? (IS type)? ':' NL INDENT (
+        member
+        | NL
+    )+ DEDENT
     ;
 
 member:
-    id type? (('=' | ':') expression)?                                   # propertyMember
-    | id type? NL INDENT (assignment | NL)+ DEDENT                       # hierarchyMember
+    name = LOWER_ID type? (('=' | ':') expression)?                      # propertyMember
+    | name = LOWER_ID type? NL INDENT (assignment | NL)+ DEDENT          # hierarchyMember
     | INIT body                                                          # initMember
     | (INFIX | PREFIX | POSTFIX) operator parameters type? functionBody? # operatorMember
-    | id genericParameters? parameters type? functionBody?               # methodMember
+    | name = LOWER_ID genericParameters? parameters type? functionBody?  # methodMember
     ;
 
 extensionMember:
-    receiver = type '.' id genericParameters? parameters? result = type? functionBody?
+    receiver = type '.' name = LOWER_ID genericParameters? parameters? result = type? functionBody?
     ;
 
 test: TEST expression? body?;
 
-function: id genericParameters? parameters type? functionBody?;
+function: name = LOWER_ID genericParameters? parameters type? functionBody?;
 
 statement:
-    FOR (value = id (',' index = id)? IN)? expression body # forStatement
-    | WHILE expression body                                # whileStatement
-    | DO operatorBody WHILE expression                     # doWhileStatement
-    | IF expression body (ELSE operatorBody)?              # ifStatement
-    | BREAK                                                # breakStatement
-    | RETURN expression?                                   # returnStatement
-    | ACTUAL expression NL+ EXPECT expression              # assertStatement
-    | PREPROCESSOR                                         # preprocessorStatement
-    | assignment                                           # assignmentStatement
-    | expression                                           # expressionStatement
+    FOR (value = LOWER_ID (',' index = LOWER_ID)? IN)? expression body # forStatement
+    | WHILE expression body                                            # whileStatement
+    | DO operatorBody WHILE expression                                 # doWhileStatement
+    | IF expression body (ELSE operatorBody)?                          # ifStatement
+    | BREAK                                                            # breakStatement
+    | RETURN expression?                                               # returnStatement
+    | ACTUAL expression NL+ EXPECT expression                          # assertStatement
+    | PREPROCESSOR                                                     # preprocessorStatement
+    | assignment                                                       # assignmentStatement
+    | expression                                                       # expressionStatement
     ;
 
 assignment:
-    id type? '=' expression                        # idAssignment
-    | id type? NL INDENT (assignment | NL)+ DEDENT # hierarchyAssignment
-    | '[' id (',' id)* ']' '=' expression          # arrayAssignment
-    | '{' id (',' id)* '}' '=' expression          # objectAssignment
-    | '$' id '=' expression                        # thisMemberAssignment
-    | expression '.' id '=' expression             # memberAssignment
-    | expression '[' expression ']' '=' expression # indexAssignment
+    name = UPPER_ID '=' type                                            # typeAssignment
+    | name = LOWER_ID type? '=' expression                              # idAssignment
+    | name = LOWER_ID type? NL INDENT (assignment | NL)+ DEDENT         # hierarchyAssignment
+    | '[' names += LOWER_ID (',' names += LOWER_ID)* ']' '=' expression # arrayAssignment
+    | '{' names += LOWER_ID (',' names += LOWER_ID)* '}' '=' expression # objectAssignment
+    | '$' name = LOWER_ID '=' expression                                # thisMemberAssignment
+    | expression '.' name = LOWER_ID '=' expression                     # memberAssignment
+    | expression '[' expression ']' '=' expression                      # indexAssignment
     ;
 
 expression:
-    id                                                                  # idExpression
+    name = LOWER_ID                                                     # idExpression
     | '$'                                                               # instanceExpression
-    | '$' id                                                            # instanceMemberExpression
+    | '$' name = LOWER_ID                                               # instanceMemberExpression
     | literal                                                           # literalExpression
     | expression genericArguments? arguments                            # callExpression
     | expression '[' expression ']'                                     # indexExpression
     | '(' expression ')'                                                # parenthesizedExpression
     | '[' (expression (',' expression)*)? ']'                           # arrayExpression
-    | expression '?'? '.' id                                            # memberExpression
+    | expression '?'? '.' name = LOWER_ID                               # memberExpression
     | operator expression                                               # prefixExpression
     | left = expression op += '^' right = expression                    # powExpression
     | left = expression op += ('*' | '/' | '%') right = expression      # mulDivModExpression
     | left = expression op += ('+' | '-') right = expression            # addSubExpression
     | left = expression op += '.' op += '.' right = expression          # rangeExpression
-    | left = expression op += ID right = expression                     # infixExpression
+    | left = expression op += LOWER_ID right = expression               # infixExpression
     | left = expression op += '?' right = expression                    # elvisExpression
     | left = expression op += ('<' | '>') op += '='? right = expression # relationalExpression
     | left = expression op += ('=' | '!') op += '=' right = expression  # equalityExpression
     | left = expression op += '&' op += '&' right = expression          # conjunctionExpression
     | left = expression op += '|' op += '|' right = expression          # disjunctionExpression
-    | expression '|' id ':' expression                                  # pipeExpression
-    | '\\' (id (',' id)* ':')? expression                               # lambdaExpression
+    | expression '|' name = LOWER_ID ':' expression                     # pipeExpression
+    | '\\' (parameter (',' parameter)*)? expression                     # lambdaExpression
     ;
 
 type:
-    id genericArguments?                     # plainType
+    name = UPPER_ID genericArguments?        # plainType
     | literal                                # literalType
     | type '?'                               # nullableType
     | type '[' ']'                           # arrayType
@@ -110,7 +117,7 @@ literal:
     ;
 
 operator:
-    ID
+    LOWER_ID
     | (
         '~'
         | '!'
@@ -129,16 +136,16 @@ operator:
     )+
     ;
 
-id: ID | INIT | ACTUAL | EXPECT | IMPORT | EXPORT;
+id: UPPER_ID | LOWER_ID; // | INIT | ACTUAL | EXPECT | IMPORT | EXPORT;
 
 // mb type always shoud be an interface?
-parameter:         name = id type ('#' meta = id)?;
+parameter:         name = LOWER_ID type? ('#' meta = LOWER_ID)?;
 parameters:        '(' (parameter (',' parameter)*)? ')';
-argument:          (id '=')? expression;
+argument:          (name = LOWER_ID '=')? expression;
 arguments:         '(' (argument (',' argument)*)? ')';
 typeParameters:    '(' (type (',' type)*)? ')';
 genericArguments:  '<' type (',' type)* '>';
-genericParameters: '<' id (',' id)* '>';
+genericParameters: '<' names += UPPER_ID (',' names += UPPER_ID)* '>';
 body:              ':' statement | ':' NL* INDENT (statement | NL)+ DEDENT;
 operatorBody:      body | statement;
 functionBody:      body | NL* '=' NL* statement;

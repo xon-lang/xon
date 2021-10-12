@@ -14,7 +14,7 @@ export class IdAssignmentTree extends AssignmentTree {
     super();
     if (!ctx) return;
 
-    this.name = ctx.id().text;
+    this.name = ctx._name.text;
     this.type = getTypeTree(ctx.type());
     this.value = getExpressionTree(ctx.expression());
   }

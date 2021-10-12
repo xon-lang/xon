@@ -9,7 +9,7 @@ export class PipeExpressionTree extends ExpressionTree {
 
   public constructor(public ctx: PipeExpressionContext) {
     super();
-    this.arg = ctx.id()?.text;
+    this.arg = ctx._name?.text;
     this.left = getExpressionTree(ctx.expression(0));
     this.right = getExpressionTree(ctx.expression(1));
   }
