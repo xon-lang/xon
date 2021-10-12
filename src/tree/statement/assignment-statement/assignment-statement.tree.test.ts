@@ -8,5 +8,5 @@ test('variable assignment', () => {
   expect(tree).toBeInstanceOf(IdAssignmentTree);
 
   expect(tree.name).toBe('a');
-  expect((tree.value as LiteralExpressionTree).literal.value).toBe(2);
+  expect((tree.value as LiteralExpressionTree).literal.value).toBe(1);
 });
