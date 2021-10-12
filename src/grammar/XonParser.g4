@@ -89,6 +89,17 @@ expression:
     | '\\' (id (',' id)* ':')? expression                               # lambdaExpression
     ;
 
+type:
+    id genericArguments?                     # plainType
+    | literal                                # literalType
+    | type '?'                               # nullableType
+    | type '[' ']'                           # arrayType
+    | type '&' type                          # intersectionType
+    | type '|' type                          # unionType
+    | genericParameters? typeParameters type # functionType
+    | '(' type ')'                           # parenthesizedType
+    ;
+
 literal:
     NULL_LITERAL      # nullLiteral
     | BOOLEAN_LITERAL # booleanLiteral
@@ -96,17 +107,6 @@ literal:
     | FLOAT_LITERAL   # floatLiteral
     | CHAR_LITERAL    # charLiteral
     | STRING_LITERAL  # stringLiteral
-    ;
-
-type:
-    id genericArguments?                     # plainType
-    | expression                             # literalType
-    | type '?'                               # nullableType
-    | type '[' ']'                           # arrayType
-    | type '&' type                          # intersectionType
-    | type '|' type                          # unionType
-    | genericParameters? typeParameters type # functionType
-    | '(' type ')'                           # parenthesizedType
     ;
 
 operator:
