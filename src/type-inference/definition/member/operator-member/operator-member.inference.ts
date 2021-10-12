@@ -24,7 +24,7 @@ export class OperatorMemberInference extends MemberInference {
     this.parameters = tree.parameters.map((x) => getParameterInference(x, genericsMap));
     this.parameters.forEach((x) => addToScope(x.name, x.type));
     this.returnType = tree.returnType.useGenericsMap(this.genericsMap);
-    
+
     this.type = createFunctionType(
       [],
       this.parameters.map((x) => x.type),
