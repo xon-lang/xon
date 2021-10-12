@@ -101,20 +101,11 @@ function getOperatorExpression(
   if (!left) throw new Error('left operand is undefined');
   if (!right) throw new Error('right operand is undefined');
 
-  if (operator === '<=') {
+  if (operator === '<=' || operator === '>=') {
     const expression = new InfixExpressionTree(
       ctx,
       '||',
-      getOperatorExpression(ctx, '<', left, right),
-      getOperatorExpression(ctx, '==', left, right),
-    );
-    return ParenthesizedExpressionTree.fromValue(expression);
-  }
-  if (operator === '>=') {
-    const expression = new InfixExpressionTree(
-      ctx,
-      '||',
-      getOperatorExpression(ctx, '>', left, right),
+      getOperatorExpression(ctx, operator[0], left, right),
       getOperatorExpression(ctx, '==', left, right),
     );
     return ParenthesizedExpressionTree.fromValue(expression);
