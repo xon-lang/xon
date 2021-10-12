@@ -4,8 +4,6 @@ import { GenericsMap } from './generics-map';
 
 export abstract class BaseInference {
   public type: TypeTree;
-
-  abstract tree: BaseTree;
-
-  abstract genericsMap: GenericsMap;
+  public abstract tree: BaseTree;
+  public abstract genericsMap: GenericsMap;
 }
