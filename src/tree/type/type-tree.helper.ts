@@ -67,11 +67,11 @@ export function createFunctionType(
   return type;
 }
 
-export function createLiteralType(value: unknown): LiteralTypeTree {
-  const type = new LiteralTypeTree();
-  type.value = value;
-  return type;
-}
+// export function createLiteralType(value: unknown): LiteralTypeTree {
+//   const type = new LiteralTypeTree();
+//   type.literal = value;
+//   return type;
+// }
 
 export function createUnionType(types: TypeTree[]): UnionTypeTree {
   const type = new UnionTypeTree();
