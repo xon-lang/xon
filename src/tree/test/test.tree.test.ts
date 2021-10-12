@@ -17,7 +17,7 @@ test('2', () => {
   const tree = parseTest(code);
   expect(tree).toBeInstanceOf(TestTree);
 
-  expect(tree.expression).toBeNull();
+  expect(tree.expression).toBeUndefined();
   expect(tree.body.length).toBe(1);
   expect(tree.body[0]).toBeInstanceOf(ExpressionStatementTree);
 });
