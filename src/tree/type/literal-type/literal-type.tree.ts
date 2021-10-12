@@ -1,23 +1,20 @@
 import { LiteralTypeContext } from '../../../grammar/xon-parser';
-import { evalExpression } from '../../eval';
-import { getExpressionTree } from '../../expression/expression-tree.helper';
-import { ExpressionTree } from '../../expression/expression.tree';
+import { getLiteralTree } from '../../literal/literal-tree.helper';
+import { LiteralTree } from '../../literal/literal.tree';
 import { TypeTree } from '../type.tree';
 
 export class LiteralTypeTree extends TypeTree {
-  public expression: ExpressionTree;
-  public value: unknown;
+  public literal: LiteralTree;
 
   public constructor(public ctx?: LiteralTypeContext) {
     super();
     if (!ctx) return;
 
-    this.expression = getExpressionTree(ctx.expression());
-    this.value = evalExpression(this.expression);
+    this.literal = getLiteralTree(ctx.literal());
   }
 
   public equals(other: TypeTree): boolean {
-    return other instanceof LiteralTypeTree && this.value === other.value;
+    return other instanceof LiteralTypeTree && this.literal.value === other.literal.value;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -31,7 +28,7 @@ export class LiteralTypeTree extends TypeTree {
   }
 
   public toString(): string {
-    if (typeof this.value === 'string') return `"${this.value}"`;
-    return `${this.value}`;
+    if (typeof this.literal.value === 'string') return `"${this.literal.value}"`;
+    return `${this.literal.value}`;
   }
 }
