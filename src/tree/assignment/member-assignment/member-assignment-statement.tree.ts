@@ -4,14 +4,16 @@ import { ExpressionTree } from '../../expression/expression.tree';
 import { AssignmentTree } from '../assignment.tree';
 
 export class MemberAssignmentTree extends AssignmentTree {
-  public member: ExpressionTree;
+  public instance: ExpressionTree;
+  public name: string;
   public value: ExpressionTree;
 
   public constructor(public ctx?: MemberAssignmentContext) {
     super();
     if (!ctx) return;
 
-    this.member = getExpressionTree(ctx.expression(0));
+    this.instance = getExpressionTree(ctx.expression(0));
+    this.name = ctx.id().text;
     this.value = getExpressionTree(ctx.expression(1));
   }
 }
