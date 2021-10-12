@@ -131,7 +131,8 @@ operator:
 
 id: ID | INIT | ACTUAL | EXPECT | IMPORT | EXPORT;
 
-parameter:         id type ('#' id)?; // mb type always shoud be an interface?
+// mb type always shoud be an interface?
+parameter:         name = id type ('#' meta = id)?;
 parameters:        '(' (parameter (',' parameter)*)? ')';
 argument:          (id '=')? expression;
 arguments:         '(' (argument (',' argument)*)? ')';

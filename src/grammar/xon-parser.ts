@@ -2414,7 +2414,7 @@ export class XonParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			this.state = 488;
-			this.id();
+			_localctx._name = this.id();
 			this.state = 489;
 			this.type(0);
 			this.state = 492;
@@ -2425,7 +2425,7 @@ export class XonParser extends Parser {
 				this.state = 490;
 				this.match(XonParser.HASH);
 				this.state = 491;
-				this.id();
+				_localctx._meta = this.id();
 				}
 			}
 
@@ -4909,6 +4909,11 @@ export class IdContext extends ParserRuleContext {
 
 
 export class ParameterContext extends ParserRuleContext {
+	public _name!: IdContext;
+	public _meta!: IdContext;
+	public type(): TypeContext {
+		return this.getRuleContext(0, TypeContext);
+	}
 	public id(): IdContext[];
 	public id(i: number): IdContext;
 	public id(i?: number): IdContext | IdContext[] {
@@ -4917,9 +4922,6 @@ export class ParameterContext extends ParserRuleContext {
 		} else {
 			return this.getRuleContext(i, IdContext);
 		}
-	}
-	public type(): TypeContext {
-		return this.getRuleContext(0, TypeContext);
 	}
 	public HASH(): TerminalNode | undefined { return this.tryGetToken(XonParser.HASH, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {

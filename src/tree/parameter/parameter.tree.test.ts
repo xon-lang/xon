@@ -2,7 +2,7 @@ import { parseParameter } from '../parse';
 import { ParameterTree } from './parameter.tree';
 
 test('has data type', () => {
-  const code = 'b String = 3';
+  const code = 'b String';
   const tree = parseParameter(code);
   expect(tree).toBeInstanceOf(ParameterTree);
 
