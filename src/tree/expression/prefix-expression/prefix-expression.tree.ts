@@ -10,7 +10,7 @@ export class PrefixExpressionTree extends ExpressionTree {
     super();
     if (!ctx) return;
 
-    this.operator = ctx.operator().text;
+    this.operator = ctx._op.map((x) => x.text).join('');
     this.value = getExpressionTree(ctx.expression());
   }
 
