@@ -8,7 +8,7 @@ import { getFunctionTrees } from '../function/function-tree.helper';
 import { FunctionTree } from '../function/function.tree';
 import { getLibrariesTrees } from '../import/import-tree.helper';
 import { ImportTree } from '../import/import.tree';
-import { getStatementsTrees } from '../statement/statement-tree.helper';
+import { getStatementTree } from '../statement/statement-tree.helper';
 import { StatementTree } from '../statement/statement.tree';
 import { getTestTrees } from '../test/test-tree.helper';
 import { TestTree } from '../test/test.tree';
@@ -30,7 +30,7 @@ export class ListingTree extends BaseTree {
     this.extensionMembers = getExtensionMemberTrees(ctx.extensionMember());
     this.tests = getTestTrees(ctx.test());
     this.functions = getFunctionTrees(ctx.function());
-    this.statements = getStatementsTrees(ctx.statement());
+    this.statements = ctx.statement().map(getStatementTree);
   }
 
   public toString(): string {

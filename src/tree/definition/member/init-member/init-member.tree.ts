@@ -1,5 +1,5 @@
 import { InitMemberContext } from '../../../../grammar/xon-parser';
-import { getStatementsTrees } from '../../../statement/statement-tree.helper';
+import { getStatementsFromBodyContext } from '../../../statement/statement-tree.helper';
 import { StatementTree } from '../../../statement/statement.tree';
 import { MemberTree } from '../member.tree';
 
@@ -11,6 +11,6 @@ export class InitMemberTree extends MemberTree {
     if (!ctx) return;
 
     this.name = ctx.INIT().text;
-    this.body = getStatementsTrees(ctx.body());
+    this.body = getStatementsFromBodyContext(ctx.body());
   }
 }
