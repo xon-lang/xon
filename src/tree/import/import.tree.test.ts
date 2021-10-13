@@ -6,5 +6,6 @@ test('import with many members', () => {
   const tree = parseImport(code);
   expect(tree).toBeInstanceOf(ImportTree);
 
+  expect(tree.members.length).toBe(2);
   expect(tree.toString()).toBe('import lib.org: Dnn as Net, Bigint');
 });
