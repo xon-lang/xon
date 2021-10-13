@@ -10,7 +10,6 @@ import {
   ExpressionContext,
   IdExpressionContext,
   IndexExpressionContext,
-  InfixExpressionContext,
   InstanceExpressionContext,
   LambdaExpressionContext,
   LiteralExpressionContext,
@@ -57,31 +56,34 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
     ctx instanceof MulDivModExpressionContext ||
     ctx instanceof AddSubExpressionContext ||
     ctx instanceof RangeExpressionContext ||
-    ctx instanceof InfixExpressionContext ||
     ctx instanceof ElvisExpressionContext ||
     ctx instanceof RelationalExpressionContext ||
     ctx instanceof EqualityExpressionContext ||
     ctx instanceof ConjunctionExpressionContext ||
-    ctx instanceof DisjunctionExpressionContext
+    ctx instanceof DisjunctionExpressionContext ||
+    ctx instanceof RelationalExpressionContext
   ) {
-    // return new InfixExpressionTree(
-    //   ctx,
-    //   ctx._op.map((x) => x.text).join(''),
-    //   getExpressionTree(ctx.expression()[0]),
-    //   getExpressionTree(ctx.expression()[1]),
-    // );
-    return getOperatorExpression(ctx, ctx._op.map((x) => x.text).join(''), ctx._left, ctx._right);
-  }
-
-  if (ctx instanceof RelationalExpressionContext) {
-    if (!(ctx._left instanceof RelationalExpressionContext))
-      return getOperatorExpression(ctx, ctx._op.map((x) => x.text).join(''), ctx._left, ctx._right);
+    if (
+      ctx instanceof RelationalExpressionContext &&
+      ctx._left instanceof RelationalExpressionContext
+    )
+      return new InfixExpressionTree(
+        ctx,
+        '&&',
+        getExpressionTree(ctx._left),
+        new InfixExpressionTree(
+          ctx,
+          ctx._op.map((x) => x.text).join(''),
+          getExpressionTree(ctx._left._right),
+          getExpressionTree(ctx._right),
+        ),
+      );
 
     return new InfixExpressionTree(
       ctx,
-      '&&',
+      ctx._op.map((x) => x.text).join(''),
       getExpressionTree(ctx._left),
-      getOperatorExpression(ctx, ctx._op.map((x) => x.text).join(''), ctx._left._right, ctx._right),
+      getExpressionTree(ctx._right),
     );
   }
 
@@ -90,26 +92,3 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
 
 export const getExpressionsTrees = (expressions: ExpressionContext[]): ExpressionTree[] =>
   expressions.map(getExpressionTree);
-
-function getOperatorExpression(
-  ctx: ExpressionContext,
-  operator: string,
-  left: ExpressionContext,
-  right: ExpressionContext,
-): ExpressionTree {
-  if (!operator) throw new Error('Operator is undefined');
-  if (!left) throw new Error('left operand is undefined');
-  if (!right) throw new Error('right operand is undefined');
-
-  if (operator === '<=' || operator === '>=') {
-    const expression = new InfixExpressionTree(
-      ctx,
-      '||',
-      getOperatorExpression(ctx, operator[0], left, right),
-      getOperatorExpression(ctx, '==', left, right),
-    );
-    return ParenthesizedExpressionTree.fromValue(expression);
-  }
-
-  return new InfixExpressionTree(ctx, operator, getExpressionTree(left), getExpressionTree(right));
-}
