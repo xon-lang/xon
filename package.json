@@ -30,7 +30,7 @@
     "build": "scripts/build.sh",
     "pre-commit": "scripts/pre-commit.sh",
     "version": "npm run build",
-    "postversion": "git push && cd dist && npm publish --access public && rimraf ../dist",
+    "postversion": "git push && cd dist && npm publish --access public",
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable",
