@@ -19,7 +19,7 @@ export class DefinitionTree extends BaseTree {
   public inheritanceType?: TypeTree;
   public members: MemberTree[] = [];
   public properties: PropertyMemberTree[] = [];
-  public init: InitMemberTree;
+  public init?: InitMemberTree = null;
   public operators: OperatorMemberTree[] = [];
   public methods: MethodMemberTree[] = [];
 

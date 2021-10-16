@@ -32,7 +32,7 @@ test('one scope', () => {
   expect(definition.properties[2].name).toBe('typedValue');
   expect(definition.properties[2].type.name).toBe('Number');
 
-  expect(definition.init).toBeUndefined();
+  expect(definition.init).toBe(null);
 
   expect(definition.methods.length).toBe(2);
   expect(definition.methods[0].name).toBe('method');

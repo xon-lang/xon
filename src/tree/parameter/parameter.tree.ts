@@ -16,7 +16,7 @@ export class ParameterTree extends BaseTree {
     this.name = ctx._name.text;
     this.isPrivate = this.name.startsWith('_');
     this.type = getTypeTree(ctx.type());
-    this.metaType = ctx._meta?.text;
+    this.metaType = ctx._meta?.text || null;
   }
 
   public toString(): string {

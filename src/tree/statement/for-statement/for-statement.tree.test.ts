@@ -10,7 +10,7 @@ test('for with value', () => {
   const tree = parseStatement<ForStatementTree>(code);
   expect(tree).toBeInstanceOf(ForStatementTree);
 
-  expect(tree.indexVarName).toBeUndefined();
+  expect(tree.indexVarName).toBe(null);
   expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
   expect(tree.body.length).toBe(1);
@@ -37,8 +37,8 @@ test('for with expression only', () => {
   const tree = parseStatement<ForStatementTree>(code);
   expect(tree).toBeInstanceOf(ForStatementTree);
 
-  expect(tree.valueVarName).toBeUndefined();
-  expect(tree.indexVarName).toBeUndefined();
+  expect(tree.valueVarName).toBe(null);
+  expect(tree.indexVarName).toBe(null);
   expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
   expect(tree.body.length).toBe(1);

@@ -23,6 +23,6 @@ export class MethodMemberTree extends MemberTree {
     this.genericParameters = ctx.genericParameters()?._names.map((x) => x.text) || [];
     this.parameters = getParametersTrees(ctx.parameters());
     this.returnType = getTypeTree(ctx.type());
-    this.body = getStatementsFromFunctionContext(ctx.functionBody());
+    this.body = getStatementsFromFunctionContext(ctx.functionBody()) || null;
   }
 }

@@ -13,7 +13,7 @@ test('array property', () => {
   expect(tree.isPrivate).toBe(false);
   expect(tree.type.name).toBe('Array');
   expect((tree.type as PlainTypeTree).genericArguments[0].name).toBe('String');
-  expect(tree.value).toBeUndefined();
+  expect(tree.value).toBe(null);
 });
 
 test('private integer', () => {
@@ -24,7 +24,7 @@ test('private integer', () => {
   expect(tree.name).toBe('_a');
   expect(tree.isPrivate).toBe(true);
   expect(tree.type.name).toBe('Integer');
-  expect(tree.value).toBeUndefined();
+  expect(tree.value).toBe(null);
 });
 
 test('integer value', () => {
@@ -50,5 +50,5 @@ test('has function type', () => {
   expect(type.parameters.length).toBe(1);
   expect(type.parameters[0].name).toBe('Integer');
   expect(type.returnType.name).toBe('String');
-  expect(tree.value).toBeUndefined();
+  expect(tree.value).toBe(null);
 });

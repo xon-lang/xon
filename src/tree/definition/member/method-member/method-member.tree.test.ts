@@ -35,7 +35,7 @@ test('abstract method member', () => {
   expect(tree.parameters[0].name).toBe('a');
   expect(tree.returnType.toString()).toBe('String');
 
-  expect(tree.body).toBeUndefined();
+  expect(tree.body).toBe(null);
 });
 
 test('no return type', () => {
@@ -50,7 +50,7 @@ test('no return type', () => {
   expect(tree.parameters[0].name).toBe('a');
   expect(tree.returnType.toString()).toBe('null');
 
-  expect(tree.body).toBeUndefined();
+  expect(tree.body).toBe(null);
 });
 
 test('several abstract methods', () => {

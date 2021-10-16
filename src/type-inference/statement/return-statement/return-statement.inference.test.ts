@@ -18,5 +18,5 @@ test('has no value', () => {
   expect(tree).toBeInstanceOf(ReturnStatementTree);
 
   const inference = getStatementInference(tree, new Map()) as ReturnStatementInference;
-  expect(inference.value).toBeUndefined();
+  expect(inference.value).toBe(null);
 });

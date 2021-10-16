@@ -7,9 +7,7 @@ import { StatementInference } from '../statement/statement.inference';
 
 export class ArgumentInference extends StatementInference {
   public name?: string;
-
   public value: ExpressionInference;
-
   public type: TypeTree;
 
   public constructor(public tree: ArgumentTree, public genericsMap: GenericsMap) {

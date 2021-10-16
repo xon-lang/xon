@@ -8,7 +8,7 @@ test('has value', () => {
   expect(tree).toBeInstanceOf(IdAssignmentTree);
 
   expect(tree.name).toBe('a');
-  expect(tree.type).toBeUndefined();
+  expect(tree.type).toBe(null);
   expect(tree.value).toBeInstanceOf(LiteralExpressionTree);
   expect((tree.value as LiteralExpressionTree).literal.value).toBe(123);
 });

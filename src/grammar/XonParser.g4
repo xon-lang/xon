@@ -75,6 +75,7 @@ expression:
     name = LOWER_ID                                                     # idExpression
     | '$'                                                               # instanceExpression
     | '$' name = LOWER_ID                                               # instanceMemberExpression
+    | name = UPPER_ID genericArguments? arguments                       # instantiationExpression
     | literal                                                           # literalExpression
     | expression genericArguments? arguments                            # callExpression
     | expression '[' expression ']'                                     # indexExpression

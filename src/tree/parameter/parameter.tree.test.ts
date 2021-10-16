@@ -8,7 +8,7 @@ test('has data type', () => {
 
   expect(tree.name).toBe('b');
   expect(tree.isPrivate).toBe(false);
-  expect(tree.metaType).toBeUndefined();
+  expect(tree.metaType).toBe(null);
   expect(tree.type.name).toBe('String');
 });
 

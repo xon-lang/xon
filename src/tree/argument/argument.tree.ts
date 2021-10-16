@@ -5,7 +5,6 @@ import { ExpressionTree } from '../expression/expression.tree';
 
 export class ArgumentTree extends BaseTree {
   public name?: string;
-
   public value: ExpressionTree;
 
   public constructor(public ctx?: ArgumentContext) {
@@ -13,7 +12,7 @@ export class ArgumentTree extends BaseTree {
     if (!ctx) return;
 
     this.value = getExpressionTree(ctx.expression());
-    this.name = ctx._name?.text;
+    this.name = ctx._name?.text || null;
   }
 
   public toString(): string {

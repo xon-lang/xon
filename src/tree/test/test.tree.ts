@@ -13,7 +13,7 @@ export class TestTree extends BaseTree {
     super();
     if (!ctx) return;
 
-    this.expression = getExpressionTree(ctx.expression());
+    this.expression = getExpressionTree(ctx.expression()) || null;
     this.body = getStatementsFromBodyContext(ctx.body());
   }
 }
