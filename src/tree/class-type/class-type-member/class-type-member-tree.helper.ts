@@ -4,7 +4,7 @@ import {
   MethodClassTypeMemberContext,
   OperatorClassTypeMemberContext,
   PropertyClassTypeMemberContext,
-} from '../../../../../grammar/xon-parser';
+} from '../../../grammar/xon-parser';
 import { ClassTypeMemberTree } from './class-type-member.tree';
 import { InitClassTypeMemberTree } from './init-class-type-member/init-class-type-member-tree';
 import { MethodClassTypeMemberTree } from './method-class-type-member/method-class-type-member-tree';

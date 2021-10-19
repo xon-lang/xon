@@ -1,8 +1,10 @@
 import {
+  ClassTypeListingMemberContext,
   ListingMemberContext,
   MethodListingMemberContext,
   PropertyListingMemberContext,
 } from '../../../grammar/xon-parser';
+import { ClassTypeListingMemberTree } from './class-type-listing-member/class-type-listing-member-tree';
 import { ListingMemberTree } from './listing-member.tree';
 import { MethodListingMemberTree } from './method-listing-member/method-listing-member-tree';
 import { PropertyListingMemberTree } from './property-listing-member/property-listing-member-tree';
@@ -12,6 +14,7 @@ export const getListingMemberTree = (ctx: ListingMemberContext): ListingMemberTr
 
   if (ctx instanceof PropertyListingMemberContext) return new PropertyListingMemberTree(ctx);
   if (ctx instanceof MethodListingMemberContext) return new MethodListingMemberTree(ctx);
+  if (ctx instanceof ClassTypeListingMemberContext) return new ClassTypeListingMemberTree(ctx);
 
   throw Error(`ListingMember tree not found for "${ctx.constructor.name}"`);
 };

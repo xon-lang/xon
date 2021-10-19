@@ -1,8 +1,8 @@
-import { CallExpressionTree } from '../../../../../expression/call-expression/call-expression.tree';
-import { IdExpressionTree } from '../../../../../expression/id-expression/id-expression.tree';
-import { LiteralExpressionTree } from '../../../../../expression/literal-expression/literal-expression.tree';
-import { parseMember } from '../../../../../parse';
-import { ExpressionStatementTree } from '../../../../../statement/expression-statement/expression-statement.tree';
+import { CallExpressionTree } from '../../../expression/call-expression/call-expression.tree';
+import { IdExpressionTree } from '../../../expression/id-expression/id-expression.tree';
+import { LiteralExpressionTree } from '../../../expression/literal-expression/literal-expression.tree';
+import { parseMember } from '../../../parse';
+import { ExpressionStatementTree } from '../../../statement/expression-statement/expression-statement.tree';
 import { InitClassTypeMemberTree } from './init-class-type-member-tree';
 
 test('method member', () => {

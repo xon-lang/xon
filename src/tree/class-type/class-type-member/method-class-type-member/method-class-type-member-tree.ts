@@ -1,5 +1,5 @@
-import { MethodClassTypeMemberContext } from '../../../../../../grammar/xon-parser';
-import { MethodTree } from '../../../../../method/method-tree';
+import { MethodClassTypeMemberContext } from '../../../../grammar/xon-parser';
+import { MethodTree } from '../../../method/method-tree';
 import { ClassTypeMemberTree } from '../class-type-member.tree';
 
 export class MethodClassTypeMemberTree extends ClassTypeMemberTree {

@@ -1,4 +1,4 @@
-import { parseMember } from '../../../../../parse';
+import { parseMember } from '../../../parse';
 import { OperatorClassTypeMemberTree } from './operator-class-type-member-tree';
 
 test('method member', () => {

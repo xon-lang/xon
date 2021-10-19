@@ -1,5 +1,5 @@
-import { PropertyClassTypeMemberContext } from '../../../../../../grammar/xon-parser';
-import { PropertyTree } from '../../../../../property/property-tree';
+import { PropertyClassTypeMemberContext } from '../../../../grammar/xon-parser';
+import { PropertyTree } from '../../../property/property-tree';
 import { ClassTypeMemberTree } from '../class-type-member.tree';
 
 export class PropertyClassTypeMemberTree extends ClassTypeMemberTree {

@@ -31,9 +31,8 @@ classType:
     ;
 
 classTypeMember:
-    property # propertyClassTypeMember
-    | method # methodClassTypeMember
-    // | name = LOWER_ID type? NL INDENT (assignment | NL)+ DEDENT       # hierarchyClassTypeMember
+    property                                                           # propertyClassTypeMember
+    | method                                                           # methodClassTypeMember
     | INIT body                                                        # initClassTypeMember
     | (INFIX | PREFIX | POSTFIX) operator parameters type? methodBody? # operatorClassTypeMember
     ;
