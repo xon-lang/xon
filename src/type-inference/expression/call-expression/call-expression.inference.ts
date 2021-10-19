@@ -9,16 +9,14 @@ import { getExpressionInference } from '../expression-inference.helper';
 import { ExpressionInference } from '../expression.inference';
 
 export class CallExpressionInference extends ExpressionInference {
-  public generics: TypeTree[];
-
+  public genericArguments: TypeTree[];
   public instance: ExpressionInference;
-
   public arguments: ArgumentInference[];
 
   public constructor(public tree: CallExpressionTree, public genericsMap: GenericsMap) {
     super();
 
-    this.generics = tree.genericArguments;
+    this.genericArguments = tree.genericArguments;
     this.instance = getExpressionInference(tree.instance, this.genericsMap);
 
     if (!(this.instance.type instanceof FunctionTypeTree))

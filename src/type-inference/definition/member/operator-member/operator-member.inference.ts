@@ -1,4 +1,4 @@
-import { OperatorMemberTree } from '../../../../tree/definition/member/operator-member/operator-member.tree';
+import { OperatorDefinitionMemberTree } from '../../../../tree/definition/definition-member/operator-definition-member/operator-definition-member-tree';
 import { createFunctionType } from '../../../../tree/type/type-tree.helper';
 import { TypeTree } from '../../../../tree/type/type.tree';
 import { GenericsMap } from '../../../generics-map';
@@ -16,7 +16,7 @@ export class OperatorMemberInference extends MemberInference {
 
   public body?: StatementInference[];
 
-  public constructor(public tree: OperatorMemberTree, public genericsMap: GenericsMap) {
+  public constructor(public tree: OperatorDefinitionMemberTree, public genericsMap: GenericsMap) {
     super();
 
     pushScope();

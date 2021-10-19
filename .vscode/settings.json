@@ -57,5 +57,6 @@
   },
   "typescript.tsdk": "./node_modules/typescript/lib",
   "typescript.tsc.autoDetect": "off",
-  "cSpell.words": ["pinst", "postpublish", "postversion"]
+  "cSpell.words": ["pinst", "postpublish", "postversion"],
+  "git.postCommitCommand": "none"
 }

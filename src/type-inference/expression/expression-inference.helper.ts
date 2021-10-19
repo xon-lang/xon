@@ -7,8 +7,6 @@ import { InstanceExpressionTree } from '../../tree/expression/instance-expressio
 import { InstantiationExpressionTree } from '../../tree/expression/instantiation-expression/instantiation-expression.tree';
 import { LambdaExpressionTree } from '../../tree/expression/lambda-expression/lambda-expression.tree';
 import { LiteralExpressionTree } from '../../tree/expression/literal-expression/literal-expression.tree';
-import { LogicalNotExpressionTree } from '../../tree/expression/logical-not-expression/logical-not-expression.tree';
-import { LogicalOrExpressionTree } from '../../tree/expression/logical-or-expression/logical-or-expression.tree';
 import { MemberExpressionTree } from '../../tree/expression/member-expression/member-expression.tree';
 import { ParenthesizedExpressionTree } from '../../tree/expression/parenthesized-expression/parenthesized-expression.tree';
 import { PipeExpressionTree } from '../../tree/expression/pipe-expression/pipe-expression.tree';
@@ -22,12 +20,7 @@ import { InstanceExpressionInference } from './instance-expression/instance-expr
 import { InstantiationExpressionInference } from './instantiation-expression/instantiation-expression.inference';
 import { LambdaExpressionInference } from './lambda-expression/lambda-expression.inference';
 import { LiteralExpressionInference } from './literal-expression/literal-expression.inference';
-import { LogicalAndExpressionInference } from './logical-and-expression/logical-and-expression.inference';
-import { LogicalNotExpressionInference } from './logical-not-expression/logical-not-expression.inference';
-import { LogicalOrExpressionInference } from './logical-or-expression/logical-or-expression.inference';
 import { MemberExpressionInference } from './member-expression/member-expression.inference';
-import { NegativeExpressionInference } from './negative-expression/negative-expression.inference';
-import { OperatorExpressionInference } from './infix-expression/infix-expression.inference';
 import { ParenthesizedExpressionInference } from './parenthesized-expression/parenthesized-expression.inference';
 import { PipeExpressionInference } from './pipe-expression/pipe-expression.inference';
 
@@ -49,18 +42,10 @@ export function getExpressionInference(
     return new LiteralExpressionInference(tree, genericsMap);
   if (tree instanceof MemberExpressionTree) return new MemberExpressionInference(tree, genericsMap);
   if (tree instanceof CallExpressionTree) return new CallExpressionInference(tree, genericsMap);
-  if (tree instanceof OperatorExpressionTree)
-    return new OperatorExpressionInference(tree, genericsMap);
+  // if (tree instanceof InfixExpressionTree)
+  //   return new InfixExpressionInference(tree, genericsMap);
   if (tree instanceof ParenthesizedExpressionTree)
     return new ParenthesizedExpressionInference(tree, genericsMap);
-  if (tree instanceof LogicalAndExpressionTree)
-    return new LogicalAndExpressionInference(tree, genericsMap);
-  if (tree instanceof LogicalOrExpressionTree)
-    return new LogicalOrExpressionInference(tree, genericsMap);
-  if (tree instanceof LogicalNotExpressionTree)
-    return new LogicalNotExpressionInference(tree, genericsMap);
-  if (tree instanceof NegativeExpressionTree)
-    return new NegativeExpressionInference(tree, genericsMap);
   if (tree instanceof PipeExpressionTree) return new PipeExpressionInference(tree, genericsMap);
 
   throw new Error(`Expression inference not found for "${tree.constructor.name}"`);

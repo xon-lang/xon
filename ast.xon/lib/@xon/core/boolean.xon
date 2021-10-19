@@ -1,4 +1,4 @@
-Boolean
+Boolean:
   infix + (a Boolean, b Boolean) Integer
   + (a Boolean, b Integer) Integer
   + (a Boolean, b Float) Float

@@ -4,14 +4,13 @@ options {
     tokenVocab = XonLexer;
 }
 
-listing: (library | export | NL)* (
-        definition
-        | extensionMember
-        | test
-        | function
-        | statement
-        | NL
-    )*
+listing: (library | export | NL)* ( listingMember | NL)*;
+listingMember:
+    classType       # classTypeListingMember
+    | extensionType # extensionTypeListingMember
+    | property      # propertyListingMember
+    | method        # methodListingMember
+    | test          # testListingMember
     ;
 
 export: EXPORT libraryPath;
@@ -21,31 +20,41 @@ library:
         | ':' libraryMember (',' libraryMember)*
     )?
     ;
-libraryPath:   '.'* names += LOWER_ID ('.' names += LOWER_ID)*;
+libraryPath:   points += '.'* names += LOWER_ID ('.' names += LOWER_ID)*;
 libraryMember: name = id | name = id AS alias = id;
 
-definition:
+classType:
     name = UPPER_ID genericParameters? parameters? (IS type)? ':' (
-        member
-        | NL INDENT ( member | NL)+ DEDENT
+        classTypeMember
+        | NL INDENT ( classTypeMember | NL)+ DEDENT
     )?
     ;
 
-member:
-    name = LOWER_ID type? (('=' | ':') expression)?                      # propertyMember
-    | name = LOWER_ID type? NL INDENT (assignment | NL)+ DEDENT          # hierarchyMember
-    | INIT body                                                          # initMember
-    | (INFIX | PREFIX | POSTFIX) operator parameters type? functionBody? # operatorMember
-    | name = LOWER_ID genericParameters? parameters type? functionBody?  # methodMember
+classTypeMember:
+    property # propertyClassTypeMember
+    | method # methodClassTypeMember
+    // | name = LOWER_ID type? NL INDENT (assignment | NL)+ DEDENT       # hierarchyClassTypeMember
+    | INIT body                                                        # initClassTypeMember
+    | (INFIX | PREFIX | POSTFIX) operator parameters type? methodBody? # operatorClassTypeMember
     ;
 
-extensionMember:
-    receiver = type '.' name = LOWER_ID genericParameters? parameters? result = type? functionBody?
+extensionType:
+    EXTENSION name = UPPER_ID genericParameters? ':' (
+        extensionTypeMember
+        | NL INDENT ( extensionTypeMember | NL)+ DEDENT
+    )?
+    ;
+
+extensionTypeMember:
+    property # propertyExtensionTypeMember
+    | method # methodExtensionTypeMember
     ;
 
 test: TEST expression? body?;
 
-function: name = LOWER_ID genericParameters? parameters type? functionBody?;
+property: name = LOWER_ID type? (('=' | ':') expression)?;
+
+method: name = LOWER_ID genericParameters? parameters type? methodBody?;
 
 statement:
     FOR (value = LOWER_ID (',' index = LOWER_ID)? IN)? expression body # forStatement
@@ -146,4 +155,4 @@ typeParameters:    '(' (type (',' type)*)? ')';
 genericArguments:  '<' (type (',' type)*)? '>';
 genericParameters: '<' names += UPPER_ID (',' names += UPPER_ID)* '>';
 body:              ':' statement? | ':' NL* INDENT (statement | NL)* DEDENT;
-functionBody:      NL* '=' NL* statement | body;
+methodBody:        NL* '=' NL* statement | body;

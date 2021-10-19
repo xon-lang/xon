@@ -1,9 +1,7 @@
 import { AssertStatementTree } from '../../tree/statement/assert-statement/assert-statement.tree';
 import { ExpressionStatementTree } from '../../tree/statement/expression-statement/expression-statement.tree';
 import { ForStatementTree } from '../../tree/statement/for-statement/for-statement.tree';
-import { IdAssignmentStatementTree } from '../../tree/statement/id-assignment-statement/id-assignment-statement.tree';
 import { IfStatementTree } from '../../tree/statement/if-statement/if-statement.tree';
-import { MemberAssignmentStatementTree } from '../../tree/assignment/member-assignment/member-assignment-statement.tree';
 import { PreprocessorStatementTree } from '../../tree/statement/preprocessor-statement/preprocessor-statement.tree';
 import { ReturnStatementTree } from '../../tree/statement/return-statement/return-statement.tree';
 import { StatementTree } from '../../tree/statement/statement.tree';
@@ -12,9 +10,7 @@ import { GenericsMap } from '../generics-map';
 import { AssertStatementInference } from './assert-statement/assert-statement.inference';
 import { ExpressionStatementInference } from './expression-statement/expression-statement.inference';
 import { ForStatementInference } from './for-statement/for-statement.inference';
-import { IdAssignmentStatementInference } from './id-assignment-statement/id-assignment-statement.inference';
 import { IfStatementInference } from './if-statement/if-statement.inference';
-import { MemberAssignmentStatementInference } from './member-assignment-statement/member-assignment-statement.inference';
 import { ReturnStatementInference } from './return-statement/return-statement.inference';
 import { StatementInference } from './statement.inference';
 import { WhileStatementInference } from './while-statement/while-statement.inference';
@@ -31,10 +27,6 @@ export function getStatementInference(
   if (tree instanceof ExpressionStatementTree)
     return new ExpressionStatementInference(tree, genericsMap);
   if (tree instanceof ForStatementTree) return new ForStatementInference(tree, genericsMap);
-  if (tree instanceof IdAssignmentStatementTree)
-    return new IdAssignmentStatementInference(tree, genericsMap);
-  if (tree instanceof MemberAssignmentStatementTree)
-    return new MemberAssignmentStatementInference(tree, genericsMap);
   if (tree instanceof IfStatementTree) return new IfStatementInference(tree, genericsMap);
   if (tree instanceof ReturnStatementTree) return new ReturnStatementInference(tree, genericsMap);
   if (tree instanceof WhileStatementTree) return new WhileStatementInference(tree, genericsMap);

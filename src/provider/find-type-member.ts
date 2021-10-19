@@ -4,9 +4,9 @@ import * as glob from 'glob';
 import * as path from 'path';
 import { Issue } from '../issue-service/issue';
 import { DefinitionTree } from '../tree/definition/definition.tree';
-import { MethodMemberTree } from '../tree/definition/member/method-member/method-member.tree';
-import { PropertyMemberTree } from '../tree/definition/member/property-member/property-member.tree';
-import { ListingTree } from '../tree/listing/listing.tree';
+import { MethodDefinitionMemberTree } from '../tree/definition/definition-member/method-definition-member/method-definition-member-tree';
+import { PropertyDefinitionMemberTree } from '../tree/definition/definition-member/property-definition-member/property-definition-member-tree';
+import { ListingTree } from '../tree/listing/listing-tree';
 import { parseListing } from '../tree/parse';
 import { createFunctionType } from '../tree/type/type-tree.helper';
 import { TypeTree } from '../tree/type/type.tree';
@@ -117,10 +117,10 @@ export function getMemberType(type: TypeTree, name: string): TypeTree {
 
   const member = members[0];
 
-  if (member instanceof PropertyMemberTree) {
+  if (member instanceof PropertyDefinitionMemberTree) {
     return member.type.useGenericsMap(genericsMap);
   }
-  if (member instanceof MethodMemberTree) {
+  if (member instanceof MethodDefinitionMemberTree) {
     return createFunctionType(
       member.genericParameters,
       member.parameters.map((x) => x.type.useGenericsMap(genericsMap)),

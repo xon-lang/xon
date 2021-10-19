@@ -1,4 +1,4 @@
-import { MethodMemberTree } from '../../../../tree/definition/member/method-member/method-member.tree';
+import { MethodDefinitionMemberTree } from '../../../../tree/definition/definition-member/method-definition-member/method-definition-member-tree';
 import { createFunctionType, createLiteralType } from '../../../../tree/type/type-tree.helper';
 import { TypeTree } from '../../../../tree/type/type.tree';
 import { GenericsMap } from '../../../generics-map';
@@ -20,7 +20,7 @@ export class MethodMemberInference extends MemberInference {
 
   public body?: StatementInference[];
 
-  public constructor(public tree: MethodMemberTree, public genericsMap: GenericsMap) {
+  public constructor(public tree: MethodDefinitionMemberTree, public genericsMap: GenericsMap) {
     super();
 
     pushScope();

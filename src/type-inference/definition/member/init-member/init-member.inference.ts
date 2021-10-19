@@ -1,4 +1,4 @@
-import { InitMemberTree } from '../../../../tree/definition/member/init-member/init-member.tree';
+import { InitDefinitionMemberTree } from '../../../../tree/definition/definition-member/init-definition-member/init-definition-member-tree';
 import { createFunctionType, createLiteralType } from '../../../../tree/type/type-tree.helper';
 import { GenericsMap } from '../../../generics-map';
 import { popScope, pushScope } from '../../../id-scope';
@@ -9,7 +9,7 @@ import { MemberInference } from '../member.inference';
 export class InitMemberInference extends MemberInference {
   public body?: StatementInference[];
 
-  public constructor(public tree: InitMemberTree, public genericsMap: GenericsMap) {
+  public constructor(public tree: InitDefinitionMemberTree, public genericsMap: GenericsMap) {
     super();
 
     pushScope();

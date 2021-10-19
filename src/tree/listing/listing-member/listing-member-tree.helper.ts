@@ -1,0 +1,20 @@
+import {
+  ListingMemberContext,
+  MethodListingMemberContext,
+  PropertyListingMemberContext,
+} from '../../../grammar/xon-parser';
+import { ListingMemberTree } from './listing-member.tree';
+import { MethodListingMemberTree } from './method-listing-member/method-listing-member-tree';
+import { PropertyListingMemberTree } from './property-listing-member/property-listing-member-tree';
+
+export const getListingMemberTree = (ctx: ListingMemberContext): ListingMemberTree => {
+  if (ctx === undefined) return undefined;
+
+  if (ctx instanceof PropertyListingMemberContext) return new PropertyListingMemberTree(ctx);
+  if (ctx instanceof MethodListingMemberContext) return new MethodListingMemberTree(ctx);
+
+  throw Error(`ListingMember tree not found for "${ctx.constructor.name}"`);
+};
+
+export const getListingMembersTrees = (members: ListingMemberContext[]): ListingMemberTree[] =>
+  members?.map(getListingMemberTree) || [];

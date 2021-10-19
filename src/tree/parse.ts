@@ -6,18 +6,20 @@ import { ArgumentTree } from './argument/argument.tree';
 import { getAssignmentTree } from './assignment/assignment-tree.helper';
 import { AssignmentTree } from './assignment/assignment.tree';
 import { DefinitionTree } from './definition/definition.tree';
-import { getMemberTree } from './definition/member/member-tree.helper';
-import { MemberTree } from './definition/member/member.tree';
+import { getMemberTree } from './definition/definition-member/definition-member-tree.helper';
+import { MemberTree } from './definition/definition-member/definition-member.tree';
 import { ExportTree } from './export/export.tree';
 import { getExpressionTree } from './expression/expression-tree.helper';
 import { ExpressionTree } from './expression/expression.tree';
-import { ExtensionMemberTree } from './extension-member/extension-member.tree';
-import { FunctionTree } from './function/function.tree';
+import { DefinitionExtensionTree } from './definition-extension/definition-extension-tree';
+import { getExtensionMemberTree } from './definition-extension/definition-definition-extension.helper';
 import { ImportTree } from './import/import.tree';
-import { ListingTree } from './listing/listing.tree';
+import { ListingTree } from './listing/listing-tree';
 import { getLiteralTree } from './literal/literal-tree.helper';
 import { LiteralTree } from './literal/literal.tree';
+import { MethodTree } from './method/method.tree';
 import { ParameterTree } from './parameter/parameter.tree';
+import { PropertyTree } from './property/property.tree';
 import { getStatementTree } from './statement/statement-tree.helper';
 import { StatementTree } from './statement/statement.tree';
 import { TestTree } from './test/test.tree';
@@ -66,21 +68,21 @@ export const parseMember = <T extends MemberTree>(code: string): T =>
 export const parseDefinition = (code: string): DefinitionTree =>
   new DefinitionTree(parse(code).definition());
 
-export const parseImport = (code: string): ImportTree => new ImportTree(parse(code).library());
+export const parseImport = (code: string) => new ImportTree(parse(code).library());
 
-export const parseExport = (code: string): ExportTree => new ExportTree(parse(code).export());
+export const parseExport = (code: string) => new ExportTree(parse(code).export());
 
-export const parseTest = (code: string): TestTree => new TestTree(parse(code).test());
+export const parseTest = (code: string) => new TestTree(parse(code).test());
 
-export const parseFunction = (code: string): FunctionTree =>
-  new FunctionTree(parse(code).function());
+export const parseMethod = (code: string) => new MethodTree(parse(code).method());
 
-export const parseExtensionMember = (code: string): ExtensionMemberTree =>
-  new ExtensionMemberTree(parse(code).extensionMember());
+export const parseProperty = (code: string) => new PropertyTree(parse(code).property());
 
-export function parseListing(code: string, sourceName: string = undefined): ListingTree {
-  return new ListingTree(parse(code, sourceName).listing());
-}
+export const parseExtensionMember = <T extends DefinitionExtensionTree>(code: string): T =>
+  getExtensionMemberTree(parse(code).extensionMember()) as T;
+
+export const parseListing = (code: string, sourceName: string = undefined) =>
+  new ListingTree(parse(code, sourceName).listing());
 
 export function parseListingFromFile(sourceName: string = undefined): ListingTree {
   const code = fs.readFileSync(sourceName).toString();

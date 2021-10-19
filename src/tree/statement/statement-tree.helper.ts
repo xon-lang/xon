@@ -3,8 +3,8 @@ import {
   BodyContext,
   ExpressionStatementContext,
   ForStatementContext,
-  FunctionBodyContext,
   IfStatementContext,
+  MethodBodyContext,
   PreprocessorStatementContext,
   ReturnStatementContext,
   StatementContext,
@@ -38,7 +38,7 @@ export const getStatementsFromBodyContext = (body: BodyContext): StatementTree[]
   return body.statement()?.map(getStatementTree);
 };
 
-export const getStatementsFromFunctionContext = (body: FunctionBodyContext): StatementTree[] => {
+export const getStatementsFromMethodContext = (body: MethodBodyContext): StatementTree[] => {
   if (!body) return undefined;
   if (body.statement()) return [getStatementTree(body.statement())];
   else return getStatementsFromBodyContext(body.body());

@@ -1,4 +1,4 @@
-import { PropertyMemberTree } from '../../../../tree/definition/member/property-member/property-member.tree';
+import { PropertyDefinitionMemberTree } from '../../../../tree/definition/definition-member/property-definition-member/property-definition-member-tree';
 import { getExpressionInference } from '../../../expression/expression-inference.helper';
 import { ExpressionInference } from '../../../expression/expression.inference';
 import { GenericsMap } from '../../../generics-map';
@@ -9,7 +9,7 @@ export class PropertyMemberInference extends MemberInference {
 
   public value?: ExpressionInference;
 
-  public constructor(public tree: PropertyMemberTree, public genericsMap: GenericsMap) {
+  public constructor(public tree: PropertyDefinitionMemberTree, public genericsMap: GenericsMap) {
     super();
 
     this.name = tree.name;
