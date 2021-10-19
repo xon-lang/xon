@@ -6,7 +6,7 @@ test('1', () => {
   const tree = parseClassTypeMember<PropertyClassTypeMemberTree>(code);
   expect(tree).toBeInstanceOf(PropertyClassTypeMemberTree);
 
-  expect(tree.name).toBe('a');
+  expect(tree.property.name).toBe('a');
   expect(tree.property.type.toString()).toBe('((String) Integer)[]');
 });
 
@@ -15,6 +15,6 @@ test('2', () => {
   const tree = parseClassTypeMember<PropertyClassTypeMemberTree>(code);
   expect(tree).toBeInstanceOf(PropertyClassTypeMemberTree);
 
-  expect(tree.name).toBe('a');
+  expect(tree.property.name).toBe('a');
   expect(tree.property.type.toString()).toBe('((String | null) Integer | "hello")[]');
 });

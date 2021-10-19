@@ -8,6 +8,7 @@ import { TypeTree } from '../../../type/type.tree';
 import { ClassTypeMemberTree } from '../class-type-member.tree';
 
 export class OperatorClassTypeMemberTree extends ClassTypeMemberTree {
+  public name: string;
   public parameters: ParameterTree[];
   public returnType: TypeTree;
   public body?: StatementTree[];

@@ -1,9 +1,9 @@
-import { parseMember } from '../../../parse';
+import { parseClassTypeMember } from '../../../parse';
 import { OperatorClassTypeMemberTree } from './operator-class-type-member-tree';
 
 test('method member', () => {
   const code = 'infix +(left String, right String) String:\n    log()';
-  const tree = parseMember<OperatorClassTypeMemberTree>(code);
+  const tree = parseClassTypeMember<OperatorClassTypeMemberTree>(code);
   expect(tree).toBeInstanceOf(OperatorClassTypeMemberTree);
 
   expect(tree.name).toBe('+');

@@ -10,7 +10,6 @@ export class InitClassTypeMemberTree extends ClassTypeMemberTree {
     super();
     if (!ctx) return;
 
-    this.name = ctx.INIT().text;
     this.body = getStatementsFromBodyContext(ctx.body());
   }
 }

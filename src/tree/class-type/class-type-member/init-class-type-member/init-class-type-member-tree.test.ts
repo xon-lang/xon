@@ -10,7 +10,6 @@ test('method member', () => {
   const tree = parseClassTypeMember<InitClassTypeMemberTree>(code);
   expect(tree).toBeInstanceOf(InitClassTypeMemberTree);
 
-  expect(tree.name).toBe('init');
   const statement = tree.body[0] as ExpressionStatementTree;
   const expression = statement.value as CallExpressionTree;
   expect(expression.arguments.length).toBe(1);
