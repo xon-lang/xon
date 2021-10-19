@@ -1,20 +1,20 @@
-import { PropertyMemberTree } from '../definition/member/property-member/property-member.tree';
-import { parseMember } from '../parse';
+import { PropertyClassTypeMemberTree } from '../class-type/class-type-member/property-definition-member/property-class-type-member-tree';
+import { parseClassTypeMember } from '../parse';
 
 test('1', () => {
   const code = 'a ((String ) Integer) []';
-  const tree = parseMember<PropertyMemberTree>(code);
-  expect(tree).toBeInstanceOf(PropertyMemberTree);
+  const tree = parseClassTypeMember<PropertyClassTypeMemberTree>(code);
+  expect(tree).toBeInstanceOf(PropertyClassTypeMemberTree);
 
   expect(tree.name).toBe('a');
-  expect(tree.type.toString()).toBe('((String) Integer)[]');
+  expect(tree.property.type.toString()).toBe('((String) Integer)[]');
 });
 
 test('2', () => {
   const code = 'a ((String | null ) Integer |  "hello") []';
-  const tree = parseMember<PropertyMemberTree>(code);
-  expect(tree).toBeInstanceOf(PropertyMemberTree);
+  const tree = parseClassTypeMember<PropertyClassTypeMemberTree>(code);
+  expect(tree).toBeInstanceOf(PropertyClassTypeMemberTree);
 
   expect(tree.name).toBe('a');
-  expect(tree.type.toString()).toBe('((String | null) Integer | "hello")[]');
+  expect(tree.property.type.toString()).toBe('((String | null) Integer | "hello")[]');
 });

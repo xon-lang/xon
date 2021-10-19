@@ -1,13 +1,13 @@
 import { CallExpressionTree } from '../../../expression/call-expression/call-expression.tree';
 import { IdExpressionTree } from '../../../expression/id-expression/id-expression.tree';
 import { LiteralExpressionTree } from '../../../expression/literal-expression/literal-expression.tree';
-import { parseMember } from '../../../parse';
+import { parseClassTypeMember } from '../../../parse';
 import { ExpressionStatementTree } from '../../../statement/expression-statement/expression-statement.tree';
 import { InitClassTypeMemberTree } from './init-class-type-member-tree';
 
 test('method member', () => {
   const code = 'init:\n    log(222)';
-  const tree = parseMember<InitClassTypeMemberTree>(code);
+  const tree = parseClassTypeMember<InitClassTypeMemberTree>(code);
   expect(tree).toBeInstanceOf(InitClassTypeMemberTree);
 
   expect(tree.name).toBe('init');

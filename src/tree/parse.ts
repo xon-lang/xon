@@ -5,21 +5,24 @@ import { XonParser } from '../grammar/xon-parser';
 import { ArgumentTree } from './argument/argument.tree';
 import { getAssignmentTree } from './assignment/assignment-tree.helper';
 import { AssignmentTree } from './assignment/assignment.tree';
-import { DefinitionTree } from './definition/definition.tree';
-import { getMemberTree } from './definition/definition-member/definition-member-tree.helper';
-import { MemberTree } from './definition/definition-member/definition-member.tree';
+import { getClassTypeTree } from './class-type/class-type-helper';
+import { getClassTypeMemberTree } from './class-type/class-type-member/class-type-member-tree.helper';
+import { ClassTypeMemberTree } from './class-type/class-type-member/class-type-member.tree';
+import { ClassTypeTree } from './class-type/class-type-tree';
 import { ExportTree } from './export/export.tree';
 import { getExpressionTree } from './expression/expression-tree.helper';
 import { ExpressionTree } from './expression/expression.tree';
-import { DefinitionExtensionTree } from './definition-extension/definition-extension-tree';
-import { getExtensionMemberTree } from './definition-extension/definition-definition-extension.helper';
+import { getExtensionTypeTree } from './extension-type/extension-type-helper';
+import { getExtensionTypeMemberTree } from './extension-type/extension-type-member/extension-type-member-tree.helper';
+import { ExtensionTypeMemberTree } from './extension-type/extension-type-member/extension-type-member.tree';
+import { ExtensionTypeTree } from './extension-type/extension-type-tree';
 import { ImportTree } from './import/import.tree';
 import { ListingTree } from './listing/listing-tree';
 import { getLiteralTree } from './literal/literal-tree.helper';
 import { LiteralTree } from './literal/literal.tree';
-import { MethodTree } from './method/method.tree';
+import { getMethodTree } from './method/method-tree.helper';
 import { ParameterTree } from './parameter/parameter.tree';
-import { PropertyTree } from './property/property.tree';
+import { getPropertyTree } from './property/property-tree.helper';
 import { getStatementTree } from './statement/statement-tree.helper';
 import { StatementTree } from './statement/statement.tree';
 import { TestTree } from './test/test.tree';
@@ -62,11 +65,17 @@ export const parseStatement = <T extends StatementTree>(code: string): T =>
 export const parseAssignment = <T extends AssignmentTree>(code: string): T =>
   getAssignmentTree(parse(code).assignment()) as T;
 
-export const parseMember = <T extends MemberTree>(code: string): T =>
-  getMemberTree(parse(code).member()) as T;
+export const parseClassTypeMember = <T extends ClassTypeMemberTree>(code: string): T =>
+  getClassTypeMemberTree(parse(code).classTypeMember()) as T;
 
-export const parseDefinition = (code: string): DefinitionTree =>
-  new DefinitionTree(parse(code).definition());
+export const parseClassType = (code: string): ClassTypeTree =>
+  getClassTypeTree(parse(code).classType());
+
+export const parseExtensionTypeMember = <T extends ExtensionTypeMemberTree>(code: string): T =>
+  getExtensionTypeMemberTree(parse(code).classTypeMember()) as T;
+
+export const parseExtensionType = (code: string): ExtensionTypeTree =>
+  getExtensionTypeTree(parse(code).extensionType());
 
 export const parseImport = (code: string) => new ImportTree(parse(code).library());
 
@@ -74,12 +83,9 @@ export const parseExport = (code: string) => new ExportTree(parse(code).export()
 
 export const parseTest = (code: string) => new TestTree(parse(code).test());
 
-export const parseMethod = (code: string) => new MethodTree(parse(code).method());
+export const parseMethod = (code: string) => getMethodTree(parse(code).method());
 
-export const parseProperty = (code: string) => new PropertyTree(parse(code).property());
-
-export const parseExtensionMember = <T extends DefinitionExtensionTree>(code: string): T =>
-  getExtensionMemberTree(parse(code).extensionMember()) as T;
+export const parseProperty = (code: string) => getPropertyTree(parse(code).property());
 
 export const parseListing = (code: string, sourceName: string = undefined) =>
   new ListingTree(parse(code, sourceName).listing());
