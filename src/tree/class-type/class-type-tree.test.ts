@@ -1,5 +1,6 @@
 import { CallExpressionTree } from '../expression/call-expression/call-expression.tree';
 import { IdExpressionTree } from '../expression/id-expression/id-expression.tree';
+import { ClassTypeListingMemberTree } from '../listing/listing-member/class-type-listing-member/class-type-listing-member-tree';
 import { ListingTree } from '../listing/listing-tree';
 import { parseListingFromFile } from '../parse';
 import { ExpressionStatementTree } from '../statement/expression-statement/expression-statement.tree';
@@ -8,17 +9,16 @@ import { InitClassTypeMemberTree } from './class-type-member/init-class-type-mem
 import { MethodClassTypeMemberTree } from './class-type-member/method-class-type-member/method-class-type-member-tree';
 import { OperatorClassTypeMemberTree } from './class-type-member/operator-class-type-member/operator-class-type-member-tree';
 import { PropertyClassTypeMemberTree } from './class-type-member/property-definition-member/property-class-type-member-tree';
-import { ClassTypeTree } from './class-type-tree';
 
 test('one scope', () => {
   const tree = parseListingFromFile('src/tree/class-type/class-type-test-file.xon');
   expect(tree).toBeInstanceOf(ListingTree);
 
   const classTypes = tree.members
-    .filter((x) => x instanceof ClassTypeTree)
-    .map((x) => x as ClassTypeTree);
+    .filter((x) => x instanceof ClassTypeListingMemberTree)
+    .map((x) => x as ClassTypeListingMemberTree);
   expect(classTypes.length).toBe(1);
-  const definition = classTypes[0];
+  const definition = classTypes[0].classType;
 
   expect(definition.name).toBe('SomeClass');
   expect(definition.genericParameters.length).toBe(1);

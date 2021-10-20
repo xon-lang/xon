@@ -16,4 +16,8 @@ export class ListingTree extends BaseTree {
     this.imports = getLibrariesTrees(ctx.library());
     this.members = getListingMembersTrees(ctx.listingMember());
   }
+
+  toString(): string {
+    return `<Members ${this.members.length}>`;
+  }
 }
