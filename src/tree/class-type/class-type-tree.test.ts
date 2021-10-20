@@ -11,7 +11,7 @@ import { PropertyClassTypeMemberTree } from './class-type-member/property-defini
 import { ClassTypeTree } from './class-type-tree';
 
 test('one scope', () => {
-  const tree = parseListingFromFile('src/tree/definition/definition.test.xon');
+  const tree = parseListingFromFile('src/tree/class-type/class-type-test-file.xon');
   expect(tree).toBeInstanceOf(ListingTree);
 
   const classTypes = tree.members
