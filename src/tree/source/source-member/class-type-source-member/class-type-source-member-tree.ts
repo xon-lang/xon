@@ -1,12 +1,12 @@
-import { ClassTypeListingMemberContext } from '../../../../grammar/xon-parser';
+import { ClassTypeSourceMemberContext } from '../../../../grammar/xon-parser';
 import { getClassTypeTree } from '../../../class-type/class-type-helper';
 import { ClassTypeTree } from '../../../class-type/class-type-tree';
-import { ListingMemberTree } from '../listing-member.tree';
+import { SourceMemberTree } from '../source-member.tree';
 
-export class ClassTypeListingMemberTree extends ListingMemberTree {
+export class ClassTypeSourceMemberTree extends SourceMemberTree {
   public classType: ClassTypeTree;
 
-  public constructor(public ctx?: ClassTypeListingMemberContext) {
+  public constructor(public ctx?: ClassTypeSourceMemberContext) {
     super();
     if (!ctx) return;
 

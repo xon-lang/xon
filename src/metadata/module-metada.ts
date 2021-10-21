@@ -1,7 +1,7 @@
 import { glob } from 'glob';
 import * as path from 'path';
-import { ListingTree } from '../tree/listing/listing-tree';
-import { parseListingFromFile } from '../tree/parse';
+import { SourceTree } from '../tree/source/source-tree';
+import { parseSourceFromFile } from '../tree/parse';
 import { ModuleMember } from './module-member/module-member-metadata';
 import { TypeMetadata } from './module-member/type-metadata';
 
@@ -12,12 +12,12 @@ export class Module {
     const files = glob.sync(path.resolve(modulePath, '**/*.xon'));
     for (const file of files) {
       const sourceFile = path.resolve(__dirname, file);
-      const sourceTree = parseListingFromFile(sourceFile);
+      const sourceTree = parseSourceFromFile(sourceFile);
       this.handleSourceFile(file, sourceTree);
     }
   }
 
-  private handleSourceFile(sourcePath: string, source: ListingTree) {
+  private handleSourceFile(sourcePath: string, source: SourceTree) {
     const importPath = path.dirname(sourcePath).replace(/[\/\\]/, '.');
     for (const member of source.members) {
       this.addMember(importPath, new TypeMetadata(member));

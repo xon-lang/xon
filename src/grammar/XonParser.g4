@@ -4,13 +4,13 @@ options {
     tokenVocab = XonLexer;
 }
 
-listing: (library | export | NL)* ( listingMember | NL)*;
-listingMember:
-    classType       # classTypeListingMember
-    | extensionType # extensionTypeListingMember
-    | property      # propertyListingMember
-    | method        # methodListingMember
-    | test          # testListingMember
+source: (library | export | NL)* ( sourceMember | NL)*;
+sourceMember:
+    classType       # classTypeSourceMember
+    | extensionType # extensionTypeSourceMember
+    | property      # propertySourceMember
+    | method        # methodSourceMember
+    | test          # testSourceMember
     ;
 
 export: EXPORT libraryPath;

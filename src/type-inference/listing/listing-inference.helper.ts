@@ -1,7 +1,7 @@
-import { ListingTree } from '../../tree/listing/listing-tree';
+import { SourceTree } from '../../tree/source/source-tree';
 import { GenericsMap } from '../generics-map';
-import { ListingInference } from './listing.inference';
+import { SourceInference } from './source.inference';
 
-export function getListingInference(tree: ListingTree, genericsMap: GenericsMap): ListingInference {
-  return new ListingInference(tree, genericsMap);
+export function getSourceInference(tree: SourceTree, genericsMap: GenericsMap): SourceInference {
+  return new SourceInference(tree, genericsMap);
 }

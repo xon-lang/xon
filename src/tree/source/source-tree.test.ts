@@ -1,5 +1,5 @@
 import { parse } from '../parse';
-import { ListingTree } from './listing-tree';
+import { SourceTree } from './source-tree';
 
 test('two if', () => {
   const code = `import xon.os: Path
@@ -9,8 +9,8 @@ if e:
     7+7
 else: if d: call()
 `;
-  const tree = new ListingTree(parse(code).listing());
-  expect(tree).toBeInstanceOf(ListingTree);
+  const tree = new SourceTree(parse(code).source());
+  expect(tree).toBeInstanceOf(SourceTree);
 
   expect(tree.imports.length).toBe(1);
   expect(tree.imports[0].path).toBe('xon.os');

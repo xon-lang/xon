@@ -17,12 +17,12 @@ import { getExtensionTypeMemberTree } from './extension-type/extension-type-memb
 import { ExtensionTypeMemberTree } from './extension-type/extension-type-member/extension-type-member.tree';
 import { ExtensionTypeTree } from './extension-type/extension-type-tree';
 import { ImportTree } from './import/import.tree';
-import { ListingTree } from './listing/listing-tree';
 import { getLiteralTree } from './literal/literal-tree.helper';
 import { LiteralTree } from './literal/literal.tree';
 import { getMethodTree } from './method/method-tree.helper';
 import { ParameterTree } from './parameter/parameter.tree';
 import { getPropertyTree } from './property/property-tree.helper';
+import { SourceTree } from './source/source-tree';
 import { getStatementTree } from './statement/statement-tree.helper';
 import { StatementTree } from './statement/statement.tree';
 import { TestTree } from './test/test.tree';
@@ -87,10 +87,10 @@ export const parseMethod = (code: string) => getMethodTree(parse(code).method())
 
 export const parseProperty = (code: string) => getPropertyTree(parse(code).property());
 
-export const parseListing = (code: string, sourceName: string = undefined) =>
-  new ListingTree(parse(code, sourceName).listing());
+export const parseSource = (code: string, sourceName: string = undefined) =>
+  new SourceTree(parse(code, sourceName).source());
 
-export function parseListingFromFile(sourceName: string = undefined): ListingTree {
+export function parseSourceFromFile(sourceName: string = undefined): SourceTree {
   const code = fs.readFileSync(sourceName).toString();
-  return new ListingTree(parse(code, sourceName).listing());
+  return new SourceTree(parse(code, sourceName).source());
 }

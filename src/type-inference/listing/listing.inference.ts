@@ -1,4 +1,4 @@
-import { ListingTree } from '../../tree/listing/listing-tree';
+import { SourceTree } from '../../tree/source/source-tree';
 import { BaseInference } from '../base.inference';
 import { getDefinitionInference } from '../definition/definition-inference.helper';
 import { DefinitionInference } from '../definition/definition.inference';
@@ -6,12 +6,12 @@ import { GenericsMap } from '../generics-map';
 import { getLibraryInference } from '../library/library-inference.helper';
 import { LibraryInference } from '../library/library.inference';
 
-export class ListingInference extends BaseInference {
+export class SourceInference extends BaseInference {
   public libraries: LibraryInference[];
 
   public definitions: DefinitionInference[];
 
-  public constructor(public tree: ListingTree, public genericsMap: GenericsMap) {
+  public constructor(public tree: SourceTree, public genericsMap: GenericsMap) {
     super();
 
     this.libraries = tree.imports.map((x) => getLibraryInference(x, genericsMap));

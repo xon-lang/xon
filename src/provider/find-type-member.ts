@@ -6,8 +6,8 @@ import { Issue } from '../issue-service/issue';
 import { DefinitionTree } from '../tree/definition/definition.tree';
 import { MethodDefinitionMemberTree } from '../tree/definition/definition-member/method-definition-member/method-definition-member-tree';
 import { PropertyDefinitionMemberTree } from '../tree/definition/definition-member/property-definition-member/property-definition-member-tree';
-import { ListingTree } from '../tree/listing/listing-tree';
-import { parseListing } from '../tree/parse';
+import { SourceTree } from '../tree/source/source-tree';
+import { parseSource } from '../tree/parse';
 import { createFunctionType } from '../tree/type/type-tree.helper';
 import { TypeTree } from '../tree/type/type.tree';
 import { GenericsMap } from '../type-inference/generics-map';
@@ -19,7 +19,7 @@ export interface DependencyProvider {
 export class Dependency {
   public definitions: DefinitionTree[] = [];
 
-  public constructor(public modules: ListingTree[]) {
+  public constructor(public modules: SourceTree[]) {
     modules.forEach((x) => {
       this.definitions.push(...x.definitions);
     });
@@ -41,7 +41,7 @@ export class DirectoryDependencyProvider implements DependencyProvider {
   public get(scope: string, name: string): Dependency {
     const libPath = path.resolve(this.libraryDirectory, scope, name);
     const codeFiles = glob.sync(`${libPath}/**/*.xon`);
-    const modulesTrees = codeFiles.map((x) => parseListing(fs.readFileSync(x).toString(), x));
+    const modulesTrees = codeFiles.map((x) => parseSource(fs.readFileSync(x).toString(), x));
     return new Dependency(modulesTrees);
   }
 }

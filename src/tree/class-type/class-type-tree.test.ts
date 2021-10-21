@@ -1,8 +1,8 @@
 import { CallExpressionTree } from '../expression/call-expression/call-expression.tree';
 import { IdExpressionTree } from '../expression/id-expression/id-expression.tree';
-import { ClassTypeListingMemberTree } from '../listing/listing-member/class-type-listing-member/class-type-listing-member-tree';
-import { ListingTree } from '../listing/listing-tree';
-import { parseListingFromFile } from '../parse';
+import { parseSourceFromFile } from '../parse';
+import { ClassTypeSourceMemberTree } from '../source/source-member/class-type-source-member/class-type-source-member-tree';
+import { SourceTree } from '../source/source-tree';
 import { ExpressionStatementTree } from '../statement/expression-statement/expression-statement.tree';
 import { PlainTypeTree } from '../type/plain-type/plain-type.tree';
 import { InitClassTypeMemberTree } from './class-type-member/init-class-type-member/init-class-type-member-tree';
@@ -11,12 +11,12 @@ import { OperatorClassTypeMemberTree } from './class-type-member/operator-class-
 import { PropertyClassTypeMemberTree } from './class-type-member/property-definition-member/property-class-type-member-tree';
 
 test('one scope', () => {
-  const tree = parseListingFromFile('src/tree/class-type/class-type-test-file.xon');
-  expect(tree).toBeInstanceOf(ListingTree);
+  const tree = parseSourceFromFile('src/tree/class-type/class-type-test-file.xon');
+  expect(tree).toBeInstanceOf(SourceTree);
 
   const classTypes = tree.members
-    .filter((x) => x instanceof ClassTypeListingMemberTree)
-    .map((x) => x as ClassTypeListingMemberTree);
+    .filter((x) => x instanceof ClassTypeSourceMemberTree)
+    .map((x) => x as ClassTypeSourceMemberTree);
   expect(classTypes.length).toBe(1);
   const definition = classTypes[0].classType;
 
