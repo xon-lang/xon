@@ -1,4 +1,4 @@
-import { ParameterTree } from '../tree/parameter/parameter.tree';
+import { ParameterTree } from '../../tree/parameter/parameter.tree';
 import { TypeMetadata } from './type-metadata';
 
 export class ParameterMetadata {
@@ -7,6 +7,6 @@ export class ParameterMetadata {
 
   public constructor(tree: ParameterTree) {
     this.name = tree.name;
-    this.type = TypeMetadata();
+    this.type = ...TypeMetadata();
   }
 }

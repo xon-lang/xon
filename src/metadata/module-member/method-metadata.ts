@@ -1,4 +1,4 @@
-import { MethodTree } from '../../tree/method/method.tree';
+import { MethodTree } from '../../tree/method/method-tree';
 import { ModuleMember } from './module-member-metadata';
 import { ParameterMetadata } from './parameter-metadata';
 
