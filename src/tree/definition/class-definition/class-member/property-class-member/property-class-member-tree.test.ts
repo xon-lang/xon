@@ -1,13 +1,13 @@
-import { LiteralExpressionTree } from '../expression/literal-expression/literal-expression.tree';
-import { parseProperty } from '../parse';
-import { FunctionTypeTree } from '../type/function-type/function-type.tree';
-import { PlainTypeTree } from '../type/plain-type/plain-type.tree';
-import { PropertyTree } from './property-tree';
+import { LiteralExpressionTree } from '../../../../expression/literal-expression/literal-expression.tree';
+import { parseClassMember } from '../../../../parse';
+import { FunctionTypeTree } from '../../../../type/function-type/function-type.tree';
+import { PlainTypeTree } from '../../../../type/plain-type/plain-type.tree';
+import { PropertyClassMemberTree } from './property-class-member-tree';
 
 test('array property', () => {
   const code = 's Array<String>';
-  const tree = parseProperty(code);
-  expect(tree).toBeInstanceOf(PropertyTree);
+  const tree = parseClassMember<PropertyClassMemberTree>(code);
+  expect(tree).toBeInstanceOf(PropertyClassMemberTree);
 
   expect(tree.name).toBe('s');
   expect(tree.isPrivate).toBe(false);
@@ -18,8 +18,8 @@ test('array property', () => {
 
 test('private integer', () => {
   const code = '_a Integer';
-  const tree = parseProperty(code);
-  expect(tree).toBeInstanceOf(PropertyTree);
+  const tree = parseClassMember<PropertyClassMemberTree>(code);
+  expect(tree).toBeInstanceOf(PropertyClassMemberTree);
 
   expect(tree.name).toBe('_a');
   expect(tree.isPrivate).toBe(true);
@@ -29,8 +29,8 @@ test('private integer', () => {
 
 test('integer value', () => {
   const code = '_a Integer =  9';
-  const tree = parseProperty(code);
-  expect(tree).toBeInstanceOf(PropertyTree);
+  const tree = parseClassMember<PropertyClassMemberTree>(code);
+  expect(tree).toBeInstanceOf(PropertyClassMemberTree);
 
   expect(tree.name).toBe('_a');
   expect(tree.isPrivate).toBe(true);
@@ -40,8 +40,8 @@ test('integer value', () => {
 
 test('has function type', () => {
   const code = '_a (Integer) String';
-  const tree = parseProperty(code);
-  expect(tree).toBeInstanceOf(PropertyTree);
+  const tree = parseClassMember<PropertyClassMemberTree>(code);
+  expect(tree).toBeInstanceOf(PropertyClassMemberTree);
 
   expect(tree.name).toBe('_a');
   expect(tree.isPrivate).toBe(true);

@@ -1,10 +1,10 @@
-import { parseClassTypeMember } from '../../../parse';
-import { OperatorClassTypeMemberTree } from './operator-class-type-member-tree';
+import { parseClassMember } from '../../../../parse';
+import { OperatorClassMemberTree } from './operator-class-member-tree';
 
 test('method member', () => {
   const code = 'infix +(left String, right String) String:\n    log()';
-  const tree = parseClassTypeMember<OperatorClassTypeMemberTree>(code);
-  expect(tree).toBeInstanceOf(OperatorClassTypeMemberTree);
+  const tree = parseClassMember<OperatorClassMemberTree>(code);
+  expect(tree).toBeInstanceOf(OperatorClassMemberTree);
 
   expect(tree.name).toBe('+');
   expect(tree.parameters.length).toBe(2);

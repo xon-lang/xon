@@ -4,14 +4,8 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: (library | export | NL)* ( sourceMember | NL)*;
-sourceMember:
-    classType       # classTypeSourceMember
-    | extensionType # extensionTypeSourceMember
-    | property      # propertySourceMember
-    | method        # methodSourceMember
-    | test          # testSourceMember
-    ;
+source:       (library | export | NL)* ( sourceMember | NL)*;
+sourceMember: definition # definitionSourceMember | test # testSourceMember;
 
 export: EXPORT libraryPath;
 library:
@@ -24,39 +18,22 @@ libraryPath:     points += '.'* libraryPathPart ('.' libraryPathPart)*;
 libraryPathPart: '@'? LOWER_ID;
 libraryMember:   name = id | name = id AS alias = id;
 
-classType:
+definition:
     name = UPPER_ID genericParameters? parameters? (IS type)? ':' (
-        classTypeMember
-        | NL INDENT ( classTypeMember | NL)+ DEDENT
-    )?
+        classMember
+        | NL INDENT ( classMember | NL)+ DEDENT
+    )? # classDefinition
     ;
 
-classTypeMember:
-    '.' '.' '.' name = UPPER_ID arguments                              # includeClassTypeMember
-    | property                                                         # propertyClassTypeMember
-    | method                                                           # methodClassTypeMember
-    | INIT body                                                        # initClassTypeMember
-    | (INFIX | PREFIX | POSTFIX) operator parameters type? methodBody? # operatorClassTypeMember
-    ;
-
-extensionType:
-    EXTENSION name = UPPER_ID genericParameters? ':' (
-        extensionTypeMember
-        | NL INDENT ( extensionTypeMember | NL)+ DEDENT
-    )?
-    ;
-
-extensionTypeMember:
-    '.' '.' '.' name = UPPER_ID arguments # includeExtensionTypeMember
-    | property                            # propertyExtensionTypeMember
-    | method                              # methodExtensionTypeMember
+classMember:
+    '.' '.' '.' name = UPPER_ID arguments                              # includeClassMember
+    | name = LOWER_ID type? (('=' | ':') expression)?                  # propertyClassMember
+    | name = LOWER_ID genericParameters? parameters type? methodBody?  # methodClassMember
+    | INIT body                                                        # initClassMember
+    | (INFIX | PREFIX | POSTFIX) operator parameters type? methodBody? # operatorClassMember
     ;
 
 test: TEST expression? body?;
-
-property: name = LOWER_ID type? (('=' | ':') expression)?;
-
-method: name = LOWER_ID genericParameters? parameters type? methodBody?;
 
 statement:
     FOR (value = LOWER_ID (',' index = LOWER_ID)? IN)? expression body # forStatement

@@ -5,10 +5,10 @@ import { ClassTypeSourceMemberTree } from '../source/source-member/class-type-so
 import { SourceTree } from '../source/source-tree';
 import { ExpressionStatementTree } from '../statement/expression-statement/expression-statement.tree';
 import { PlainTypeTree } from '../type/plain-type/plain-type.tree';
-import { InitClassTypeMemberTree } from './class-type-member/init-class-type-member/init-class-type-member-tree';
-import { MethodClassTypeMemberTree } from './class-type-member/method-class-type-member/method-class-type-member-tree';
-import { OperatorClassTypeMemberTree } from './class-type-member/operator-class-type-member/operator-class-type-member-tree';
-import { PropertyClassTypeMemberTree } from './class-type-member/property-definition-member/property-class-type-member-tree';
+import { InitClassMemberTree } from './class-type-member/init-class-type-member/init-class-type-member-tree';
+import { MethodClassMemberTree } from './class-type-member/method-class-type-member/method-class-type-member-tree';
+import { OperatorClassMemberTree } from './class-type-member/operator-class-type-member/operator-class-type-member-tree';
+import { PropertyClassMemberTree } from './class-type-member/property-definition-member/property-class-type-member-tree';
 
 test('one scope', () => {
   const tree = parseSourceFromFile('src/tree/class-type/class-type-test-file.xon');
@@ -34,8 +34,8 @@ test('one scope', () => {
   expect((definition.baseType as PlainTypeTree).genericArguments[1].name).toBe('Boolean');
 
   const properties = definition.members
-    .filter((x) => x instanceof PropertyClassTypeMemberTree)
-    .map((x) => x as PropertyClassTypeMemberTree)
+    .filter((x) => x instanceof PropertyClassMemberTree)
+    .map((x) => x as PropertyClassMemberTree)
     .map((x) => x.property);
   expect(properties.length).toBe(3);
   expect(properties[0].name).toBe('property');
@@ -45,13 +45,13 @@ test('one scope', () => {
   expect(properties[2].type.name).toBe('Number');
 
   const inits = definition.members
-    .filter((x) => x instanceof InitClassTypeMemberTree)
-    .map((x) => x as InitClassTypeMemberTree);
+    .filter((x) => x instanceof InitClassMemberTree)
+    .map((x) => x as InitClassMemberTree);
   expect(inits.length).toBe(0);
 
   const methods = definition.members
-    .filter((x) => x instanceof MethodClassTypeMemberTree)
-    .map((x) => x as MethodClassTypeMemberTree)
+    .filter((x) => x instanceof MethodClassMemberTree)
+    .map((x) => x as MethodClassMemberTree)
     .map((x) => x.method);
   expect(methods.length).toBe(2);
   expect(methods[0].name).toBe('method');
@@ -73,8 +73,8 @@ test('one scope', () => {
   expect(innerMethod.arguments.length).toBe(2);
 
   const operators = definition.members
-    .filter((x) => x instanceof OperatorClassTypeMemberTree)
-    .map((x) => x as OperatorClassTypeMemberTree);
+    .filter((x) => x instanceof OperatorClassMemberTree)
+    .map((x) => x as OperatorClassMemberTree);
   expect(operators.length).toBe(1);
   expect(operators[0].name).toBe('+');
   expect(operators[0].parameters[0].name).toBe('it');

@@ -1,10 +1,10 @@
-import { parseMethod } from '../parse';
-import { MethodTree } from './method-tree';
+import { parseClassMember } from '../../../../parse';
+import { MethodClassMemberTree } from './method-class-member-tree';
 
 test('method member', () => {
   const code = '_funcName(argA Integer, argB Float, argC String) String:\n    log(222)';
-  const tree = parseMethod(code);
-  expect(tree).toBeInstanceOf(MethodTree);
+  const tree = parseClassMember<MethodClassMemberTree>(code);
+  expect(tree).toBeInstanceOf(MethodClassMemberTree);
 
   expect(tree.name).toBe('_funcName');
   expect(tree.isPrivate).toBe(true);

@@ -1,5 +1,5 @@
-import { MethodClassTypeMemberTree } from '../../tree/class-type/class-type-member/method-class-type-member/method-class-type-member-tree';
-import { PropertyClassTypeMemberTree } from '../../tree/class-type/class-type-member/property-definition-member/property-class-type-member-tree';
+import { MethodClassMemberTree } from '../../tree/class-type/class-type-member/method-class-type-member/method-class-type-member-tree';
+import { PropertyClassMemberTree } from '../../tree/class-type/class-type-member/property-definition-member/property-class-type-member-tree';
 import { ClassTypeTree } from '../../tree/class-type/class-type-tree';
 import { MethodModuleMemberMetadata } from '../module/module-member/method-module-member-metadata';
 import { ParameterMetadata } from '../module/module-member/parameter-module-member-metadata';
@@ -19,8 +19,8 @@ export class ClassTypeMetadata extends TypeMetadata {
   public get properties(): PropertyModuleMemberMetadata[] {
     if (this._properties) return this._properties;
     this._properties = this.tree.members
-      .filter((x) => x instanceof PropertyClassTypeMemberTree)
-      .map((x) => (x as PropertyClassTypeMemberTree).property)
+      .filter((x) => x instanceof PropertyClassMemberTree)
+      .map((x) => (x as PropertyClassMemberTree).property)
       .map((x) => new PropertyModuleMemberMetadata(this.sourcePath, x));
     return this._properties;
   }
@@ -29,13 +29,13 @@ export class ClassTypeMetadata extends TypeMetadata {
   public get methods(): MethodModuleMemberMetadata[] {
     if (this._methods) return this._methods;
     this._methods = this.tree.members
-      .filter((x) => x instanceof MethodClassTypeMemberTree)
-      .map((x) => (x as MethodClassTypeMemberTree).method)
+      .filter((x) => x instanceof MethodClassMemberTree)
+      .map((x) => (x as MethodClassMemberTree).method)
       .map((x) => new MethodModuleMemberMetadata(this.sourcePath, x));
     return this._methods;
   }
 
-  public constructor(public sourcePath: string, public tree: ClassTypeTree) {
+  public constructor(public tree: ClassTypeTree) {
     super();
   }
 

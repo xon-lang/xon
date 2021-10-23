@@ -7,7 +7,7 @@ import { SourceMemberTree } from './source-member/source-member.tree';
 
 export class SourceTree extends BaseTree {
   public imports: ImportTree[];
-  public members: SourceMemberTree[];
+  public definition: Definition[];
 
   public constructor(public ctx?: SourceContext) {
     super();
