@@ -1,24 +1,21 @@
-import { CallExpressionTree } from '../expression/call-expression/call-expression.tree';
-import { IdExpressionTree } from '../expression/id-expression/id-expression.tree';
-import { parseSourceFromFile } from '../parse';
-import { ClassTypeSourceMemberTree } from '../source/source-member/class-type-source-member/class-type-source-member-tree';
-import { SourceTree } from '../source/source-tree';
-import { ExpressionStatementTree } from '../statement/expression-statement/expression-statement.tree';
-import { PlainTypeTree } from '../type/plain-type/plain-type.tree';
-import { InitClassMemberTree } from './class-type-member/init-class-type-member/init-class-type-member-tree';
-import { MethodClassMemberTree } from './class-type-member/method-class-type-member/method-class-type-member-tree';
-import { OperatorClassMemberTree } from './class-type-member/operator-class-type-member/operator-class-type-member-tree';
-import { PropertyClassMemberTree } from './class-type-member/property-definition-member/property-class-type-member-tree';
+import { CallExpressionTree } from '../../expression/call-expression/call-expression.tree';
+import { IdExpressionTree } from '../../expression/id-expression/id-expression.tree';
+import { parseSourceFile } from '../../parse';
+import { SourceTree } from '../../source/source-tree';
+import { ExpressionStatementTree } from '../../statement/expression-statement/expression-statement.tree';
+import { PlainTypeTree } from '../../type/plain-type/plain-type.tree';
+import { ClassDefinitionTree } from './class-definition-tree';
+import { InitClassMemberTree } from './class-member/init-class-member/init-class-member-tree';
+import { MethodClassMemberTree } from './class-member/method-class-member/method-class-member-tree';
+import { OperatorClassMemberTree } from './class-member/operator-class-member/operator-class-member-tree';
+import { PropertyClassMemberTree } from './class-member/property-class-member/property-class-member-tree';
 
 test('one scope', () => {
-  const tree = parseSourceFromFile('src/tree/class-type/class-type-test-file.xon');
+  const tree = parseSourceFile('src/tree/class-type/class-type-test-file.xon');
   expect(tree).toBeInstanceOf(SourceTree);
 
-  const classTypes = tree.members
-    .filter((x) => x instanceof ClassTypeSourceMemberTree)
-    .map((x) => x as ClassTypeSourceMemberTree);
-  expect(classTypes.length).toBe(1);
-  const definition = classTypes[0].classType;
+  expect(tree.definitions.length).toBe(1);
+  const definition = tree.definitions[0] as ClassDefinitionTree;
 
   expect(definition.name).toBe('SomeClass');
   expect(definition.genericParameters.length).toBe(1);
@@ -35,8 +32,7 @@ test('one scope', () => {
 
   const properties = definition.members
     .filter((x) => x instanceof PropertyClassMemberTree)
-    .map((x) => x as PropertyClassMemberTree)
-    .map((x) => x.property);
+    .map((x) => x as PropertyClassMemberTree);
   expect(properties.length).toBe(3);
   expect(properties[0].name).toBe('property');
   expect(properties[0].type.name).toBe('String');
@@ -51,8 +47,7 @@ test('one scope', () => {
 
   const methods = definition.members
     .filter((x) => x instanceof MethodClassMemberTree)
-    .map((x) => x as MethodClassMemberTree)
-    .map((x) => x.method);
+    .map((x) => x as MethodClassMemberTree);
   expect(methods.length).toBe(2);
   expect(methods[0].name).toBe('method');
   expect(methods[0].parameters.length).toBe(0);

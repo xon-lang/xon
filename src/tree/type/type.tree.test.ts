@@ -1,4 +1,4 @@
-import { PropertyClassMemberTree } from '../class-type/class-type-member/property-definition-member/property-class-type-member-tree';
+import { PropertyClassMemberTree } from '../definition/class-definition/class-member/property-class-member/property-class-member-tree';
 import { parseClassMember } from '../parse';
 
 test('1', () => {
@@ -6,8 +6,8 @@ test('1', () => {
   const tree = parseClassMember<PropertyClassMemberTree>(code);
   expect(tree).toBeInstanceOf(PropertyClassMemberTree);
 
-  expect(tree.property.name).toBe('a');
-  expect(tree.property.type.toString()).toBe('((String) Integer)[]');
+  expect(tree.name).toBe('a');
+  expect(tree.type.toString()).toBe('((String) Integer)[]');
 });
 
 test('2', () => {
@@ -15,6 +15,6 @@ test('2', () => {
   const tree = parseClassMember<PropertyClassMemberTree>(code);
   expect(tree).toBeInstanceOf(PropertyClassMemberTree);
 
-  expect(tree.property.name).toBe('a');
-  expect(tree.property.type.toString()).toBe('((String | null) Integer | "hello")[]');
+  expect(tree.name).toBe('a');
+  expect(tree.type.toString()).toBe('((String | null) Integer | "hello")[]');
 });
