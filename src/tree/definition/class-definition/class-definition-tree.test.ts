@@ -11,7 +11,7 @@ import { OperatorClassMemberTree } from './class-member/operator-class-member/op
 import { PropertyClassMemberTree } from './class-member/property-class-member/property-class-member-tree';
 
 test('one scope', () => {
-  const tree = parseSourceFile('src/tree/class-type/class-type-test-file.xon');
+  const tree = parseSourceFile('src/tree/definition/class-definition/class-definition-test-file.xon');
   expect(tree).toBeInstanceOf(SourceTree);
 
   expect(tree.definitions.length).toBe(1);
