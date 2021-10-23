@@ -90,7 +90,7 @@ export const parseProperty = (code: string) => getPropertyTree(parse(code).prope
 export const parseSource = (code: string, sourceName: string = undefined) =>
   new SourceTree(parse(code, sourceName).source());
 
-export function parseSourceFromFile(sourceName: string = undefined): SourceTree {
+export function parseSourceFile(sourceName: string = undefined): SourceTree {
   const code = fs.readFileSync(sourceName).toString();
   return new SourceTree(parse(code, sourceName).source());
 }
