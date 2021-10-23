@@ -20,8 +20,9 @@ library:
         | ':' libraryMember (',' libraryMember)*
     )?
     ;
-libraryPath:   points += '.'* names += LOWER_ID ('.' names += LOWER_ID)*;
-libraryMember: name = id | name = id AS alias = id;
+libraryPath:     points += '.'* libraryPathPart ('.' libraryPathPart)*;
+libraryPathPart: '@'? LOWER_ID;
+libraryMember:   name = id | name = id AS alias = id;
 
 classType:
     name = UPPER_ID genericParameters? parameters? (IS type)? ':' (
@@ -31,7 +32,8 @@ classType:
     ;
 
 classTypeMember:
-    property                                                           # propertyClassTypeMember
+    '.' '.' '.' name = UPPER_ID arguments                              # includeClassTypeMember
+    | property                                                         # propertyClassTypeMember
     | method                                                           # methodClassTypeMember
     | INIT body                                                        # initClassTypeMember
     | (INFIX | PREFIX | POSTFIX) operator parameters type? methodBody? # operatorClassTypeMember
@@ -45,8 +47,9 @@ extensionType:
     ;
 
 extensionTypeMember:
-    property # propertyExtensionTypeMember
-    | method # methodExtensionTypeMember
+    '.' '.' '.' name = UPPER_ID arguments # includeExtensionTypeMember
+    | property                            # propertyExtensionTypeMember
+    | method                              # methodExtensionTypeMember
     ;
 
 test: TEST expression? body?;
