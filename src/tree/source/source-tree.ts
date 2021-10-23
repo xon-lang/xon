@@ -1,23 +1,24 @@
-import { SourceContext } from '../../grammar/xon-parser';
+import { DefinitionSourceMemberContext, SourceContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
+import { DefinitionTree } from '../definition/definition-tree';
+import { getDefinitionsTrees } from '../definition/definition-tree-helper';
 import { getLibrariesTrees } from '../import/import-tree.helper';
 import { ImportTree } from '../import/import.tree';
-import { getSourceMembersTrees } from './source-member/source-member-tree.helper';
-import { SourceMemberTree } from './source-member/source-member.tree';
 
 export class SourceTree extends BaseTree {
   public imports: ImportTree[];
-  public definition: Definition[];
+  public definitions: DefinitionTree[];
 
   public constructor(public ctx?: SourceContext) {
     super();
     if (!ctx) return;
 
     this.imports = getLibrariesTrees(ctx.library());
-    this.members = getSourceMembersTrees(ctx.sourceMember());
-  }
-
-  toString(): string {
-    return `<Members ${this.members.length}>`;
+    this.definitions = getDefinitionsTrees(
+      ctx
+        .sourceMember()
+        .filter((x) => x instanceof DefinitionSourceMemberContext)
+        .map((x) => (x as DefinitionSourceMemberContext).definition()),
+    );
   }
 }
