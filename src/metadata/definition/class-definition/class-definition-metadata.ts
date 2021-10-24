@@ -1,12 +1,12 @@
-import { MethodClassMemberTree } from '../../tree/class-type/class-type-member/method-class-type-member/method-class-type-member-tree';
-import { PropertyClassMemberTree } from '../../tree/class-type/class-type-member/property-definition-member/property-class-type-member-tree';
-import { ClassTypeTree } from '../../tree/class-type/class-type-tree';
-import { MethodModuleMemberMetadata } from '../module/module-member/method-module-member-metadata';
-import { ParameterMetadata } from '../module/module-member/parameter-module-member-metadata';
-import { PropertyModuleMemberMetadata } from '../module/module-member/property-module-member-metadata';
-import { TypeMetadata } from './type-metadata';
+import { ClassDefinitionTree } from '../../../tree/definition/class-definition/class-definition-tree';
+import { MethodClassMemberTree } from '../../../tree/definition/class-definition/class-member/method-class-member/method-class-member-tree';
+import { PropertyClassMemberTree } from '../../../tree/definition/class-definition/class-member/property-class-member/property-class-member-tree';
+import { MethodModuleMemberMetadata } from '../../module/module-member/method-module-member-metadata';
+import { ParameterMetadata } from '../../module/module-member/parameter-module-member-metadata';
+import { PropertyModuleMemberMetadata } from '../../module/module-member/property-module-member-metadata';
+import { DefinitionMetadata } from '../definition-metadata';
 
-export class ClassTypeMetadata extends TypeMetadata {
+export class ClassDefinitionMetadata extends DefinitionMetadata {
   public get name() {
     return this.tree.name;
   }
@@ -35,7 +35,7 @@ export class ClassTypeMetadata extends TypeMetadata {
     return this._methods;
   }
 
-  public constructor(public tree: ClassTypeTree) {
+  public constructor(public tree: ClassDefinitionTree) {
     super();
   }
 

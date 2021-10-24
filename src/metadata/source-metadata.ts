@@ -1,6 +1,6 @@
 import { SourceTree } from '../tree/source/source-tree';
 import { ModuleMetadata } from './module-metadata';
-import { TypeMetadata } from './type/type-metadata';
+import { TypeMetadata } from './definition/definition-metadata';
 
 export class SourceMetadata {
   public importMembers = new Map<string, TypeMetadata>();

@@ -2,7 +2,7 @@ import { ClassTypeSourceMemberTree } from '../../tree/source/source-member/class
 import { MethodSourceMemberTree } from '../../tree/source/source-member/method-source-member/method-source-member-tree';
 import { SourceMemberTree } from '../../tree/source/source-member/source-member.tree';
 import { ModuleMemberMetadata } from './module-member-metadata';
-import { ClassTypeMetadata } from '../type/class-type-metadata';
+import { ClassTypeMetadata } from '../definition/class-definition/class-definition-metadata';
 import { MethodModuleMemberMetadata } from './module-member/method-module-member-metadata';
 
 export function getModuleMemberMetadata(

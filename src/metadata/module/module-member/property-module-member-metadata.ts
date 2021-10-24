@@ -1,5 +1,5 @@
 import { PropertyTree } from '../../../tree/property/property-tree';
-import { TypeMetadata } from '../../type/type-metadata';
+import { TypeMetadata } from '../../definition/definition-metadata';
 import { ModuleMemberMetadata } from '../module-member-metadata';
 
 export class PropertyModuleMemberMetadata extends ModuleMemberMetadata {
