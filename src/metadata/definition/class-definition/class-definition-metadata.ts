@@ -3,7 +3,7 @@ import { MethodClassMemberTree } from '../../../tree/definition/class-definition
 import { PropertyClassMemberTree } from '../../../tree/definition/class-definition/class-member/property-class-member/property-class-member-tree';
 import { MethodModuleMemberMetadata } from '../../module/module-member/method-module-member-metadata';
 import { ParameterMetadata } from '../../module/module-member/parameter-module-member-metadata';
-import { PropertyModuleMemberMetadata } from '../../module/module-member/property-module-member-metadata';
+import { PropertyModuleMemberMetadata } from './class-member/property-class-member-metadata';
 import { DefinitionMetadata } from '../definition-metadata';
 
 export class ClassDefinitionMetadata extends DefinitionMetadata {

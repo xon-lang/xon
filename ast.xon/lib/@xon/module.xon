@@ -1,4 +1,4 @@
-Module is XonModule
+Module is XonModule:
   name = "xon library"
   author = "Nizami",
   defaultImports = []
