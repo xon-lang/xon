@@ -1,5 +1,12 @@
+import { ClassDefinitionTree } from '../tree/definition/class-definition/class-definition-tree';
 import { DefinitionTree } from '../tree/definition/definition-tree';
 import { ImportTree } from '../tree/import/import.tree';
+import { BooleanLiteralTree } from '../tree/literal/boolean-literal/boolean-literal.tree';
+import { CharLiteralTree } from '../tree/literal/char-literal/char-literal.tree';
+import { FloatLiteralTree } from '../tree/literal/float-literal/float-literal.tree';
+import { IntegerLiteralTree } from '../tree/literal/integer-literal/integer-literal.tree';
+import { LiteralTree } from '../tree/literal/literal.tree';
+import { StringLiteralTree } from '../tree/literal/string-literal/string-literal.tree';
 import { SourceTree } from '../tree/source/source-tree';
 import { DefinitionMetadata } from './definition/definition-metadata';
 import { ModuleMetadata } from './module-metadata';
@@ -56,13 +63,16 @@ export class SourceMetadata {
     return ModuleMetadata.modules.get(importTree.path.replace('.', '/'));
   }
 
-  findDefinition(name: string){
-    if(this.definitions.has(name)) return this.definitions.get(name)
-    throw new Error(`Not found '${name}'`);
-    
-  }
 
   setDefinitionMetadata(tree: DefinitionTree) {
-    tree.metadata = 
+    tree.metadata = this.findDefinition(tree.name);
+    if (tree instanceof ClassDefinitionTree) {
+      this.setClassPropertiesMetadata(tree);
+      this.setClassMethodsMetadata(tree);
+    }
   }
+
+
+
+ 
 }
