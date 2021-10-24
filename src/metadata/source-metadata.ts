@@ -14,6 +14,7 @@ export class SourceMetadata {
   ) {
     this.addDefaultDefinitions();
     this.addImportsDefinitions();
+    this.addSourceDefinitions();
 
     for (const definitionTree of sourceTree.definitions) {
       this.setDefinitionMetadata(definitionTree);
@@ -43,11 +44,25 @@ export class SourceMetadata {
     }
   }
 
+  addSourceDefinitions() {
+    for (const definitionTree of this.sourceTree.definitions) {
+      if (!this.defaultDefinitions.has(definitionTree.name))
+        throw new Error(`Not found '${definitionTree.name}'`);
+      this.definitions.set(definitionTree.name, this.defaultDefinitions.get(definitionTree.name));
+    }
+  }
+
   findModuleImport(importTree: ImportTree) {
     return ModuleMetadata.modules.get(importTree.path.replace('.', '/'));
   }
 
-  setDefinitionMetadata(tree: DefinitionTree) {
+  findDefinition(name: string){
+    if(this.definitions.has(name)) return this.definitions.get(name)
+    throw new Error(`Not found '${name}'`);
     
+  }
+
+  setDefinitionMetadata(tree: DefinitionTree) {
+    tree.metadata = 
   }
 }
