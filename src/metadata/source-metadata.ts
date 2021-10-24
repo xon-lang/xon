@@ -1,10 +1,53 @@
+import { DefinitionTree } from '../tree/definition/definition-tree';
+import { ImportTree } from '../tree/import/import.tree';
 import { SourceTree } from '../tree/source/source-tree';
+import { DefinitionMetadata } from './definition/definition-metadata';
 import { ModuleMetadata } from './module-metadata';
-import { TypeMetadata } from './type-metadata';
 
 export class SourceMetadata {
-  public importMembers = new Map<string, TypeMetadata>();
-  public importModules = new Map<string, ModuleMetadata>();
+  public definitions = new Map<string, DefinitionMetadata>();
 
-  public constructor(public tree: SourceTree) {}
+  public constructor(
+    public sourceTree: SourceTree,
+    public baseDir: string,
+    public defaultDefinitions: Map<string, DefinitionMetadata>,
+  ) {
+    this.addDefaultDefinitions();
+    this.addImportsDefinitions();
+
+    for (const definitionTree of sourceTree.definitions) {
+      this.setDefinitionMetadata(definitionTree);
+    }
+  }
+
+  addDefaultDefinitions() {
+    for (const definition of this.defaultDefinitions.values()) {
+      this.definitions.set(definition.name, definition);
+    }
+  }
+
+  addImportsDefinitions() {
+    for (const importTree of this.sourceTree.imports.filter((x) => !x.members)) {
+      for (const definition of this.findModuleImport(importTree).definitions.values()) {
+        this.definitions.set(definition.name, definition);
+      }
+    }
+    for (const importTree of this.sourceTree.imports.filter((x) => x.members)) {
+      const moduleDefinitions = this.findModuleImport(importTree).definitions;
+      for (const member of importTree.members) {
+        if (!moduleDefinitions.has(member.name))
+          throw new Error(`Not found '${member.name}' in '${importTree.path}'`);
+
+        this.definitions.set(member.alias || member.name, moduleDefinitions.get(member.name));
+      }
+    }
+  }
+
+  findModuleImport(importTree: ImportTree) {
+    return ModuleMetadata.modules.get(importTree.path.replace('.', '/'));
+  }
+
+  setDefinitionMetadata(tree: DefinitionTree) {
+    
+  }
 }

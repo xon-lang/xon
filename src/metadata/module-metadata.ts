@@ -2,32 +2,53 @@ import { glob } from 'glob';
 import * as path from 'path';
 import { ClassDefinitionTree } from '../tree/definition/class-definition/class-definition-tree';
 import { parseSourceFile } from '../tree/parse';
+import { SourceTree } from '../tree/source/source-tree';
 import { ClassDefinitionMetadata } from './definition/class-definition/class-definition-metadata';
-import { TypeMetadata } from './type-metadata';
+import { DefinitionMetadata } from './definition/definition-metadata';
+import { SourceMetadata } from './source-metadata';
 
 export class ModuleMetadata {
-  public baseDir: string;
-  private defaultDefinition = new Map<string, TypeMetadata>();
-  public definitions = new Map<string, TypeMetadata>();
+  public get baseDir() {
+    return path.dirname(this.modulePath);
+  }
+  public static modules = new Map<string, ModuleMetadata>();
+
+  public sourceTrees: SourceTree[];
+  public definitions = new Map<string, DefinitionMetadata>();
 
   constructor(public modulePath: string, public defaultModules: ModuleMetadata[]) {
-    this.baseDir = path.dirname(modulePath);
+    ModuleMetadata.modules.set(modulePath, this);
 
-    for (const defaultModule of defaultModules) {
-      for (const definition of defaultModule.definitions.values()) {
-        this.defaultDefinition.set(definition.name, definition);
-      }
-    }
-
-    const definitionsMatrix = glob
+    this.sourceTrees = glob
       .sync(path.resolve(modulePath, '**/*.xon'))
       .map((x) => path.resolve(__dirname, x))
-      .map((x) => parseSourceFile(x).definitions);
+      .map((x) => parseSourceFile(x));
 
-    for (const definitions of definitionsMatrix)
-      for (const definition of definitions) {
-        if (!(definition instanceof ClassDefinitionTree)) continue;
-        this.definitions.set(definition.name, new ClassDefinitionMetadata(definition));
+    this.addDefaultModulesDefinitions();
+    this.addCurrentModuleDefinitions();
+    this.fillSourceTreesMetadata();
+  }
+
+  addDefaultModulesDefinitions() {
+    for (const defaultModule of this.defaultModules) {
+      for (const definition of defaultModule.definitions.values()) {
+        this.definitions.set(definition.name, definition);
       }
+    }
+  }
+
+  addCurrentModuleDefinitions() {
+    for (const sourceTree of this.sourceTrees) {
+      for (const definition of sourceTree.definitions) {
+        if (definition instanceof ClassDefinitionTree)
+          this.definitions.set(definition.name, new ClassDefinitionMetadata(definition));
+      }
+    }
+  }
+
+  fillSourceTreesMetadata() {
+    for (const sourceTree of this.sourceTrees) {
+      new SourceMetadata(sourceTree, this.baseDir, this.definitions);
+    }
   }
 }
