@@ -16,9 +16,6 @@ export class PipeExpressionTree extends ExpressionTree {
 
   public toString(): string {
     const arg = this.arg ? `${this.arg}:` : '';
-    const left = this.left.toString();
-    const right = this.right.toString();
-
-    return `${left} |${arg} ${right}`;
+    return `${this.left} |${arg} ${this.right}`;
   }
 }

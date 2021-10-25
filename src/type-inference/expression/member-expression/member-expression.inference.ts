@@ -12,8 +12,8 @@ export class MemberExpressionInference extends ExpressionInference {
   public constructor(public tree: MemberExpressionTree, public genericsMap: GenericsMap) {
     super();
 
-    this.name = tree.name;
+    this.name = tree.id;
     this.instance = getExpressionInference(tree.instance, this.genericsMap);
-    this.type = getMemberType(this.instance.type, tree.name);
+    this.type = getMemberType(this.instance.type, tree.id);
   }
 }

@@ -10,8 +10,8 @@ export class IdExpressionInference extends ExpressionInference {
   public constructor(public tree: IdExpressionTree, public genericsMap: GenericsMap) {
     super();
 
-    this.name = tree.name;
-    this.type = find(tree.name);
-    if (!this.type) throw Issue.errorFromTree(tree, `Couldn't find "${tree.name}"`);
+    this.name = tree.id;
+    this.type = find(tree.id);
+    if (!this.type) throw Issue.errorFromTree(tree, `Couldn't find "${tree.id}"`);
   }
 }

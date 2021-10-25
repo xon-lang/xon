@@ -16,6 +16,6 @@ export class IndexExpressionTree extends ExpressionTree {
   }
 
   public toString(): string {
-    return `${this.instance.toString()}[${this.index.toString()}]`;
+    return `${this.instance}[${this.index}]`;
   }
 }

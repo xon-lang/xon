@@ -36,9 +36,8 @@ export class ArrayTypeTree extends TypeTree {
 
   public toString(): string {
     if (this.itemType instanceof FunctionTypeTree || this.itemType instanceof UnionTypeTree) {
-      const itemType = `(${this.itemType.toString()})`;
-      return `${itemType}[]`;
+      return `(${this.itemType})[]`;
     }
-    return `${this.itemType.toString()}[]`;
+    return `${this.itemType}[]`;
   }
 }

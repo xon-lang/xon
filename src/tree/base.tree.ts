@@ -1,7 +1,15 @@
 import { ParserRuleContext } from 'antlr4ts';
+import { SourceReference } from './source-reference';
 
 export abstract class BaseTree {
   public ctx?: ParserRuleContext;
+  _sourceReference: SourceReference;
+  get sourceReference() {
+    if (this._sourceReference) {
+      this._sourceReference = SourceReference.fromContext(this.ctx);
+    }
+    return this._sourceReference;
+  }
 
   public toPlain(object?: unknown): unknown {
     const entries = Object.entries(object || this)

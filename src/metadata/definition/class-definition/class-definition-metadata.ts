@@ -7,7 +7,7 @@ import { DefinitionMetadata } from '../definition-metadata';
 
 export class ClassDefinitionMetadata extends DefinitionMetadata {
   public get name() {
-    return this.tree.name;
+    return this.tree.id;
   }
 
   public get genericParameters() {

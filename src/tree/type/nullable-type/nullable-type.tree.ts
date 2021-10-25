@@ -27,6 +27,6 @@ export class NullableTypeTree extends TypeTree {
   }
 
   public toString(): string {
-    return `${this.baseType.toString()}?`;
+    return `${this.baseType}?`;
   }
 }

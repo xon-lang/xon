@@ -55,9 +55,8 @@ export class FunctionTypeTree extends TypeTree {
 
   public toString(): string {
     const genericParameters = this.genericParameters?.join(', ');
-    const parameters = this.parameters.map((x) => x.toString()).join(', ');
-    const returnType = this.returnType.toString();
-
+    const parameters = this.parameters.join(', ');
+    const returnType = this.returnType;
     return `${genericParameters ? `<${genericParameters}>` : ''}(${parameters}) ${returnType}`;
   }
 }

@@ -15,6 +15,7 @@ export class ExpressionHandler extends MetadataHandler {
   }
 
   handle(tree: ExpressionTree) {
+    const a = 1 + ""
     if (tree instanceof IdExpressionTree) ;
     else if (tree instanceof IntegerLiteralTree) tree.metadata = this.findDefinition('Integer');
     else if (tree instanceof FloatLiteralTree) tree.metadata = this.findDefinition('Float');

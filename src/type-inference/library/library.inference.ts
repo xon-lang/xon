@@ -25,15 +25,15 @@ export class LibraryInference extends StatementInference {
     this.dependency = dependencyProvider.get(this.name, this.scope);
 
     tree.members.forEach((x) => {
-      if (x.name.startsWith(x.name[0].toLowerCase())) {
-        const { type } = getFunctionInference(this.dependency.findFunction(x.name), genericsMap);
-        addToScope(x.alias || x.name, type);
+      if (x.id.startsWith(x.id[0].toLowerCase())) {
+        const { type } = getFunctionInference(this.dependency.findFunction(x.id), genericsMap);
+        addToScope(x.alias || x.id, type);
       } else {
         const { type } = getDefinitionInference(
-          this.dependency.findDefinition(x.name),
+          this.dependency.findDefinition(x.id),
           genericsMap,
         );
-        addToScope(x.alias || x.name, type);
+        addToScope(x.alias || x.id, type);
       }
     });
   }

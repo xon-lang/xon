@@ -24,8 +24,7 @@ export class CallExpressionTree extends ExpressionTree {
 
   public toString(): string {
     const generics = this.genericArguments.length ? `<${this.genericArguments.join(', ')}>` : '';
-    const instance = this.instance.toString();
     const args = this.arguments.length ? `(${this.arguments.join(', ')})` : '';
-    return `${instance}${generics}${args}`;
+    return `${this.instance}${generics}${args}`;
   }
 }

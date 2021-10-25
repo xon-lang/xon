@@ -41,7 +41,7 @@ export class ModuleMetadata {
     for (const sourceTree of this.sourceTrees) {
       for (const definition of sourceTree.definitions) {
         if (definition instanceof ClassDefinitionTree)
-          this.definitions.set(definition.name, new ClassDefinitionMetadata(definition));
+          this.definitions.set(definition.id, new ClassDefinitionMetadata(definition));
       }
     }
   }

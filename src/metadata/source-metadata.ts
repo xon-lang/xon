@@ -43,19 +43,19 @@ export class SourceMetadata {
     for (const importTree of this.sourceTree.imports.filter((x) => x.members)) {
       const moduleDefinitions = this.findModuleImport(importTree).definitions;
       for (const member of importTree.members) {
-        if (!moduleDefinitions.has(member.name))
-          throw new Error(`Not found '${member.name}' in '${importTree.path}'`);
+        if (!moduleDefinitions.has(member.id))
+          throw new Error(`Not found '${member.id}' in '${importTree.path}'`);
 
-        this.definitions.set(member.alias || member.name, moduleDefinitions.get(member.name));
+        this.definitions.set(member.alias || member.id, moduleDefinitions.get(member.id));
       }
     }
   }
 
   addSourceDefinitions() {
     for (const definitionTree of this.sourceTree.definitions) {
-      if (!this.defaultDefinitions.has(definitionTree.name))
-        throw new Error(`Not found '${definitionTree.name}'`);
-      this.definitions.set(definitionTree.name, this.defaultDefinitions.get(definitionTree.name));
+      if (!this.defaultDefinitions.has(definitionTree.id))
+        throw new Error(`Not found '${definitionTree.id}'`);
+      this.definitions.set(definitionTree.id, this.defaultDefinitions.get(definitionTree.id));
     }
   }
 
@@ -65,7 +65,7 @@ export class SourceMetadata {
 
 
   setDefinitionMetadata(tree: DefinitionTree) {
-    tree.metadata = this.findDefinition(tree.name);
+    tree.metadata = this.findDefinition(tree.id);
     if (tree instanceof ClassDefinitionTree) {
       this.setClassPropertiesMetadata(tree);
       this.setClassMethodsMetadata(tree);

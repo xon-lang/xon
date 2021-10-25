@@ -35,6 +35,6 @@ export class UnionTypeTree extends TypeTree {
   }
 
   public toString(): string {
-    return this.types.map((x) => x.toString()).join(' | ');
+    return this.types.join(' | ');
   }
 }

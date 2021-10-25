@@ -18,18 +18,18 @@ export const evalExpression = (tree: ExpressionTree, argsMap = {}): unknown => {
   if (tree instanceof InfixExpressionTree) {
     const a = evalExpression(tree.left, argsMap);
     const b = evalExpression(tree.right, argsMap);
-    const o = tree.operator === '^' ? '**' : tree.operator;
+    const o = tree.id === '^' ? '**' : tree.id;
     // eslint-disable-next-line no-eval
     return eval(`${escapeIfString(a)} ${o} ${escapeIfString(b)}`);
   }
   if (tree instanceof PrefixExpressionTree) {
     const a = evalExpression(tree.value, argsMap);
     // eslint-disable-next-line no-eval
-    return eval(`${tree.operator}${escapeIfString(a)}`);
+    return eval(`${tree.id}${escapeIfString(a)}`);
   }
   if (tree instanceof IdExpressionTree) {
-    if (tree.name in argsMap) return argsMap[tree.name];
-    throw Error(`Undefined key: ${tree.name}`);
+    if (tree.id in argsMap) return argsMap[tree.id];
+    throw Error(`Undefined key: ${tree.id}`);
   }
 
   throw new Error('Unsupported operation');

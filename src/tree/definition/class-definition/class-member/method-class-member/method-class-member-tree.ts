@@ -1,4 +1,5 @@
 import { MethodClassMemberContext } from '../../../../../grammar/xon-parser';
+import { IdToken } from '../../../../id-token';
 import { getParametersTrees } from '../../../../parameter/parameter-tree.helper';
 import { ParameterTree } from '../../../../parameter/parameter.tree';
 import { getStatementsFromMethodContext } from '../../../../statement/statement-tree.helper';
@@ -8,7 +9,6 @@ import { TypeTree } from '../../../../type/type.tree';
 import { ClassMemberTree } from '../class-member.tree';
 
 export class MethodClassMemberTree extends ClassMemberTree {
-  public name: string;
   public isPrivate: boolean;
   public genericParameters: string[];
   public parameters: ParameterTree[] = [];
@@ -19,8 +19,8 @@ export class MethodClassMemberTree extends ClassMemberTree {
     super();
     if (!ctx) return;
 
-    this.name = ctx._name.text;
-    this.isPrivate = this.name.startsWith('_');
+    this.id = new IdToken(ctx._name);
+    this.isPrivate = this.id.text.startsWith('_');
     this.genericParameters = ctx.genericParameters()?._names.map((x) => x.text) || [];
     this.parameters = getParametersTrees(ctx.parameters());
     this.returnType = getTypeTree(ctx.type());

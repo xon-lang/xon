@@ -9,7 +9,7 @@ export class InstanceExpressionInference extends ExpressionInference {
   public constructor(public tree: InstanceExpressionTree, public genericsMap: GenericsMap) {
     super();
 
-    this.name = tree.name;
+    this.name = tree.id;
     this.type = find(this.name);
   }
 }

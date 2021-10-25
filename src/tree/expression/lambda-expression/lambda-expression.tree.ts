@@ -18,6 +18,6 @@ export class LambdaExpressionTree extends ExpressionTree {
   }
 
   public toString(): string {
-    return `\\${this.parameters.join(', ')}: ${this.body.toString()}`;
+    return `\\${this.parameters.join(', ')}: ${this.body}`;
   }
 }

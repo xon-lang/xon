@@ -24,6 +24,7 @@ import {
   RangeExpressionContext,
   RelationalExpressionContext,
 } from '../../grammar/xon-parser';
+import { IdToken } from '../id-token';
 import { ArrayExpressionTree } from './array-expression/array-expression.tree';
 import { CallExpressionTree } from './call-expression/call-expression.tree';
 import { ExpressionTree } from './expression.tree';
@@ -75,11 +76,11 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
     )
       return new InfixExpressionTree(
         ctx,
-        '&&',
+        IdToken.fromText('&&'),
         getExpressionTree(ctx._left),
         new InfixExpressionTree(
           ctx,
-          ctx._op.map((x) => x.text).join(''),
+          IdToken.fromTokens(ctx._op),
           getExpressionTree(ctx._left._right),
           getExpressionTree(ctx._right),
         ),
@@ -87,7 +88,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
 
     return new InfixExpressionTree(
       ctx,
-      ctx._op.map((x) => x.text).join(''),
+      IdToken.fromTokens(ctx._op),
       getExpressionTree(ctx._left),
       getExpressionTree(ctx._right),
     );

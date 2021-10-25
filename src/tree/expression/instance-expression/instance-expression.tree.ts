@@ -1,17 +1,18 @@
 import { InstanceExpressionContext } from '../../../grammar/xon-parser';
+import { IdToken } from '../../id-token';
 import { ExpressionTree } from '../expression.tree';
 
 export class InstanceExpressionTree extends ExpressionTree {
-  public name: string;
+  public id: IdToken;
 
   public constructor(public ctx?: InstanceExpressionContext) {
     super();
     if (!ctx) return;
 
-    this.name = ctx.DOLLAR().text;
+    this.id = new IdToken(ctx._name);
   }
 
   public toString(): string {
-    return `${this.name}`;
+    return `${this.id}`;
   }
 }

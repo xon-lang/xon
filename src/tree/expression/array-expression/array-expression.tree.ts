@@ -13,6 +13,6 @@ export class ArrayExpressionTree extends ExpressionTree {
   }
 
   public toString(): string {
-    return `[${this.items.map((x) => x.toString()).join(', ')}]`;
+    return `[${this.items.join(', ')}]`;
   }
 }

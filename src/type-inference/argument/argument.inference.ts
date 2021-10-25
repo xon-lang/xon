@@ -13,7 +13,7 @@ export class ArgumentInference extends StatementInference {
   public constructor(public tree: ArgumentTree, public genericsMap: GenericsMap) {
     super();
 
-    this.name = tree.name;
+    this.name = tree.id;
     this.value = getExpressionInference(tree.value, genericsMap);
     this.type = this.value.type;
   }

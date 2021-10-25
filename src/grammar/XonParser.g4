@@ -61,7 +61,7 @@ assignment:
 
 expression:
     name = LOWER_ID                                                     # idExpression
-    | '$'                                                               # instanceExpression
+    | name = '$'                                                        # instanceExpression
     | '$' name = LOWER_ID                                               # instanceMemberExpression
     | name = UPPER_ID genericArguments? arguments                       # instantiationExpression
     | literal                                                           # literalExpression
@@ -70,7 +70,7 @@ expression:
     | '(' expression ')'                                                # parenthesizedExpression
     | '[' (expression (',' expression)*)? ']'                           # arrayExpression
     | expression '?'? '.' name = LOWER_ID                               # memberExpression
-    | op += ('!' | '-' | '+') expression                                # prefixExpression
+    | op = ('!' | '-' | '+') expression                                 # prefixExpression
     | left = expression op += '^' right = expression                    # powExpression
     | left = expression op += ('*' | '/' | '%') right = expression      # mulDivModExpression
     | left = expression op += ('+' | '-') right = expression            # addSubExpression

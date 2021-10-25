@@ -17,7 +17,7 @@ export class InstantiationExpressionInference extends ExpressionInference {
     this.genericArguments = tree.genericArguments;
 
     const argumentsTypes = this.arguments.map((x) => x.value.type);
-    const typeDefinition = findDefinition(tree.name);
+    const typeDefinition = findDefinition(tree.id);
     const argumentsGenericsEntries = typeDefinition.parameters
       .map((x, i) => x.type.getGenericsMap(argumentsTypes[i]).entries())
       .map((x) => Array.from(x))

@@ -19,6 +19,6 @@ export class ParenthesizedExpressionTree extends ExpressionTree {
   }
 
   public toString(): string {
-    return `(${this.value.toString()})`;
+    return `(${this.value})`;
   }
 }

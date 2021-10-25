@@ -14,6 +14,6 @@ export class OperatorExpressionInference extends ExpressionInference {
 
     this.left = getExpressionInference(tree.left, this.genericsMap);
     this.right = getExpressionInference(tree.right, this.genericsMap);
-    this.type = findOperatorMember(tree.operator, this.left.type, this.right.type);
+    this.type = findOperatorMember(tree.id, this.left.type, this.right.type);
   }
 }

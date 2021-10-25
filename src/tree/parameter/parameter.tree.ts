@@ -20,6 +20,6 @@ export class ParameterTree extends BaseTree {
   }
 
   public toString(): string {
-    return `${this.name} ${this.type.toString()}`;
+    return `${this.name} ${this.type}`;
   }
 }

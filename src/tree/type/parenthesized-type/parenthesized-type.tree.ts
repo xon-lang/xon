@@ -26,6 +26,6 @@ export class ParenthesizedTypeTree extends TypeTree {
   }
 
   public toString(): string {
-    return `(${this.baseType.toString()})`;
+    return `(${this.baseType})`;
   }
 }

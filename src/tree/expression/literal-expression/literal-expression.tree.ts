@@ -14,6 +14,6 @@ export class LiteralExpressionTree extends ExpressionTree {
   }
 
   public toString(): string {
-    return `${this.literal.toString()}`;
+    return `${this.literal}`;
   }
 }
