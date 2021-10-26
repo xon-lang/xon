@@ -5,5 +5,5 @@ import { BaseTree } from '../base.tree';
 export abstract class LiteralTree extends BaseTree {
   public abstract ctx?: LiteralContext;
   public abstract value: unknown;
-  public metadata: DefinitionMetadata;
+  public definitionMetadata: DefinitionMetadata;
 }
