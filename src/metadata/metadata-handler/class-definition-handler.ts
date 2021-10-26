@@ -2,8 +2,8 @@ import { ClassDefinitionTree } from '../../tree/definition/class-definition/clas
 import { MetadataHandler, Scope } from './metadata-handler';
 
 export class ClassDefinitionHandler extends MetadataHandler {
-  constructor(scope: Scope) {
-    super(new Scope(scope));
+  constructor(parentScope: Scope) {
+    super(new Scope(parentScope));
   }
 
   handle(tree: ClassDefinitionTree) {}

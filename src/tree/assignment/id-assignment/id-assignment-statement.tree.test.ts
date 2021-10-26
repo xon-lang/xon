@@ -8,18 +8,16 @@ test('has value', () => {
   expect(tree).toBeInstanceOf(IdAssignmentTree);
 
   expect(tree.id.text).toBe('a');
-  expect(tree.type).toBe(null);
   expect(tree.value).toBeInstanceOf(LiteralExpressionTree);
   expect((tree.value as LiteralExpressionTree).literal.value).toBe(123);
 });
 
 test('has type and value', () => {
-  const code = 'a Integer = 123';
+  const code = 'a = 123';
   const tree = parseAssignment<IdAssignmentTree>(code);
   expect(tree).toBeInstanceOf(IdAssignmentTree);
 
   expect(tree.id.text).toBe('a');
-  expect(tree.type.name).toBe('Integer');
   expect(tree.value).toBeInstanceOf(LiteralExpressionTree);
   expect((tree.value as LiteralExpressionTree).literal.value).toBe(123);
 });

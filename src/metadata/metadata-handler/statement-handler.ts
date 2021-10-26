@@ -5,8 +5,15 @@ import { MetadataHandler } from './metadata-handler';
 
 export class StatementHandler extends MetadataHandler {
   handle(tree: StatementTree) {
-    if (tree instanceof AssignmentStatementTree)
+    if (tree instanceof AssignmentStatementTree) {
       new AssignmentHandler(this.scope).handle(tree.assignment);
-    else throw new Error('Wrong expression tree');
+      return;
+    }
+    if (tree instanceof AssignmentStatementTree) {
+      new AssignmentHandler(this.scope).handle(tree.assignment);
+      return;
+    }
+
+    throw new Error('Wrong statement tree');
   }
 }

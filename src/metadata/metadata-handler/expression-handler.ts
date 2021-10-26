@@ -11,8 +11,11 @@ export class ExpressionHandler extends MetadataHandler {
       const assignmentTree = this.scope.find(tree.id.text) as AssignmentTree;
       tree.definitionMetadata = assignmentTree.definitionMetadata;
       tree.id.declarationReference = assignmentTree.sourceReference.clone();
-    } else if (tree instanceof LiteralExpressionTree)
-      new LiteralHandler(this.scope).handle(tree.literal);
-    else throw new Error('Wrong expression tree');
+      return;
+    }
+
+    if (tree instanceof LiteralExpressionTree) new LiteralHandler(this.scope).handle(tree.literal);
+
+    throw new Error('Wrong expression tree');
   }
 }

@@ -36,22 +36,23 @@ classMember:
 test: TEST expression? body?;
 
 statement:
-    FOR (value = LOWER_ID (',' index = LOWER_ID)? IN)? expression body # forStatement
-    | WHILE expression body                                            # whileStatement
-    | DO body WHILE expression                                         # doWhileStatement
-    | IF expression thenBody = body (ELSE elseBody = body)?            # ifStatement
-    | BREAK                                                            # breakStatement
-    | RETURN expression?                                               # returnStatement
-    | ACTUAL actual = expression NL+ EXPECT expect = expression        # assertStatement
-    | PREPROCESSOR                                                     # preprocessorStatement
-    | assignment                                                       # assignmentStatement
-    | expression                                                       # expressionStatement
+    name = LOWER_ID type? ':' '=' expression                             # variableDeclarationStatement
+    | FOR (value = LOWER_ID (',' index = LOWER_ID)? IN)? expression body # forStatement
+    | WHILE expression body                                              # whileStatement
+    | DO body WHILE expression                                           # doWhileStatement
+    | IF expression thenBody = body (ELSE elseBody = body)?              # ifStatement
+    | BREAK                                                              # breakStatement
+    | RETURN expression?                                                 # returnStatement
+    | ACTUAL actual = expression NL+ EXPECT expect = expression          # assertStatement
+    | PREPROCESSOR                                                       # preprocessorStatement
+    | assignment                                                         # assignmentStatement
+    | expression                                                         # expressionStatement
     ;
 
 assignment:
-    name = UPPER_ID '=' type                                            # typeAssignment
-    | name = LOWER_ID type? '=' expression                              # idAssignment
-    | name = LOWER_ID type? NL INDENT (assignment | NL)+ DEDENT         # hierarchyAssignment
+    // name = UPPER_ID '=' type                                            # typeAssignment
+    // | name = LOWER_ID type? NL INDENT (assignment | NL)+ DEDENT         # hierarchyAssignment
+    name = LOWER_ID '=' expression                                      # idAssignment
     | '[' names += LOWER_ID (',' names += LOWER_ID)* ']' '=' expression # arrayAssignment
     | '{' names += LOWER_ID (',' names += LOWER_ID)* '}' '=' expression # objectAssignment
     | '$' name = LOWER_ID '=' expression                                # thisMemberAssignment
