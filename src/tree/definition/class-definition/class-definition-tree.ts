@@ -9,7 +9,7 @@ import { getClassMembersTrees } from './class-member/class-member-tree.helper';
 import { ClassMemberTree } from './class-member/class-member.tree';
 
 export class ClassDefinitionTree extends DefinitionTree {
-  public genericParameters: string[];
+  public genericParameters: IdToken[] = [];
   public parameters: ParameterTree[];
   public baseType?: TypeTree;
   public members: ClassMemberTree[] = [];
@@ -19,7 +19,8 @@ export class ClassDefinitionTree extends DefinitionTree {
     if (!ctx) return;
 
     this.id = new IdToken(ctx._name);
-    this.genericParameters = ctx.genericParameters()?._names.map((x) => x.text) || [];
+    this.genericParameters =
+      (ctx.genericParameters() && ctx.genericParameters()._names.map((x) => new IdToken(x))) || [];
     this.parameters = getParametersTrees(ctx.parameters());
     this.baseType = getTypeTree(ctx.type());
     this.members = getClassMembersTrees(ctx.classMember());

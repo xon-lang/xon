@@ -10,7 +10,7 @@ import { ClassMemberTree } from '../class-member.tree';
 
 export class MethodClassMemberTree extends ClassMemberTree {
   public isPrivate: boolean;
-  public genericParameters: string[];
+  public genericParameters: IdToken[] = [];
   public parameters: ParameterTree[] = [];
   public returnType?: TypeTree;
   public body?: StatementTree[];
@@ -21,7 +21,8 @@ export class MethodClassMemberTree extends ClassMemberTree {
 
     this.id = new IdToken(ctx._name);
     this.isPrivate = this.id.text.startsWith('_');
-    this.genericParameters = ctx.genericParameters()?._names.map((x) => x.text) || [];
+    this.genericParameters =
+      (ctx.genericParameters() && ctx.genericParameters()._names.map((x) => new IdToken(x))) || [];
     this.parameters = getParametersTrees(ctx.parameters());
     this.returnType = getTypeTree(ctx.type());
     this.body = getStatementsFromMethodContext(ctx.methodBody());

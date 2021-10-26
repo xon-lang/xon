@@ -2,14 +2,17 @@ import { parseClassMember } from '../../../../parse';
 import { MethodClassMemberTree } from './method-class-member-tree';
 
 test('method member', () => {
-  const code = '_funcName(argA Integer, argB Float, argC String) String:\n    log(222)';
+  const code = '_funcName<T>(argA Integer, argB Float, argC String) String:\n    log(222)';
   const tree = parseClassMember<MethodClassMemberTree>(code);
   expect(tree).toBeInstanceOf(MethodClassMemberTree);
 
   expect(tree.id.text).toBe('_funcName');
   expect(tree.isPrivate).toBe(true);
-  expect(tree.parameters.length).toBe(3);
 
+  expect(tree.genericParameters.length).toBe(1);
+  expect(tree.genericParameters[0].text).toBe('T');
+
+  expect(tree.parameters.length).toBe(3);
   expect(tree.parameters[0].id.text).toBe('argA');
   expect(tree.parameters[0].type.name).toBe('Integer');
 

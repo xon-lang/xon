@@ -18,6 +18,6 @@ export class LiteralHandler extends MetadataHandler {
     else if (tree instanceof FloatLiteralTree) tree.metadata = this.findDefinition('Float');
     else if (tree instanceof CharLiteralTree) tree.metadata = this.findDefinition('Char');
     else if (tree instanceof StringLiteralTree) tree.metadata = this.findDefinition('String');
-    else throw new Error('Wrong literal type');
+    else throw new Error('Wrong literal tree');
   }
 }
