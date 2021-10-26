@@ -3,7 +3,7 @@ import { SourceReference } from './source-reference';
 
 export class IdToken {
   text: string;
-  declarationReference: SourceReference;
+  declarationReference?: SourceReference;
   sourceReference?: SourceReference;
 
   public constructor(public token?: Token) {

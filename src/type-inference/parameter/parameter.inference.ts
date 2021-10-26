@@ -12,7 +12,7 @@ export class ParameterInference extends StatementInference {
   public constructor(public tree: ParameterTree, public genericsMap: GenericsMap) {
     super();
 
-    this.name = tree.name;
+    this.name = tree.id;
     this.isPrivate = tree.isPrivate;
     this.type = tree.type.useGenericsMap(genericsMap);
     this.metaType = tree.metaType;

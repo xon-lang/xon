@@ -6,5 +6,5 @@ test('has this keyword', () => {
   const tree = parseExpression<InstanceMemberExpressionTree>(code);
   expect(tree).toBeInstanceOf(InstanceMemberExpressionTree);
 
-  expect(tree.name).toBe('someProp');
+  expect(tree.id.text).toBe('someProp');
 });

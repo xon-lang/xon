@@ -7,6 +7,6 @@ test('variable assignment', () => {
   const tree = parseAssignment<IdAssignmentTree>(code);
   expect(tree).toBeInstanceOf(IdAssignmentTree);
 
-  expect(tree.name).toBe('a');
+  expect(tree.id.text).toBe('a');
   expect((tree.value as LiteralExpressionTree).literal.value).toBe(1);
 });

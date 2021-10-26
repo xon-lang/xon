@@ -8,7 +8,7 @@ test('with arg type', () => {
   expect(tree).toBeInstanceOf(LambdaExpressionTree);
 
   expect(tree.parameters.length).toBe(1);
-  expect(tree.parameters[0].name).toBe('x');
+  expect(tree.parameters[0].id.text).toBe('x');
   expect(evalExpression(tree.body, { x: 37 })).toBe(37 + 42);
 });
 

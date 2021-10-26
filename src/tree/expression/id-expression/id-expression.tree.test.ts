@@ -6,5 +6,5 @@ test('variable', () => {
   const tree = parseExpression<IdExpressionTree>(code);
   expect(tree).toBeInstanceOf(IdExpressionTree);
 
-  expect(tree.name).toBe(code);
+  expect(tree.id.text).toBe(code);
 });

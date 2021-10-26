@@ -6,13 +6,13 @@ test('method member', () => {
   const tree = parseClassMember<OperatorClassMemberTree>(code);
   expect(tree).toBeInstanceOf(OperatorClassMemberTree);
 
-  expect(tree.name).toBe('+');
+  expect(tree.id.text).toBe('+');
   expect(tree.parameters.length).toBe(2);
 
-  expect(tree.parameters[0].name).toBe('left');
+  expect(tree.parameters[0].id.text).toBe('left');
   expect(tree.parameters[0].type.name).toBe('String');
 
-  expect(tree.parameters[1].name).toBe('right');
+  expect(tree.parameters[1].id.text).toBe('right');
   expect(tree.parameters[0].type.name).toBe('String');
 
   expect(tree.body.length).toBe(1);

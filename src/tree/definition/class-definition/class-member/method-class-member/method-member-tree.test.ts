@@ -6,17 +6,17 @@ test('method member', () => {
   const tree = parseClassMember<MethodClassMemberTree>(code);
   expect(tree).toBeInstanceOf(MethodClassMemberTree);
 
-  expect(tree.name).toBe('_funcName');
+  expect(tree.id.text).toBe('_funcName');
   expect(tree.isPrivate).toBe(true);
   expect(tree.parameters.length).toBe(3);
 
-  expect(tree.parameters[0].name).toBe('argA');
+  expect(tree.parameters[0].id.text).toBe('argA');
   expect(tree.parameters[0].type.name).toBe('Integer');
 
-  expect(tree.parameters[1].name).toBe('argB');
+  expect(tree.parameters[1].id.text).toBe('argB');
   expect(tree.parameters[1].type.name).toBe('Float');
 
-  expect(tree.parameters[2].name).toBe('argC');
+  expect(tree.parameters[2].id.text).toBe('argC');
   expect(tree.parameters[2].type.name).toBe('String');
 
   expect(tree.returnType.name).toBe('String');

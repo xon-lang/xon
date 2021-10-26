@@ -12,7 +12,7 @@ test('function call', () => {
   expect(tree).toBeInstanceOf(CallExpressionTree);
 
   expect(tree.arguments.length).toBe(2);
-  expect(tree.arguments[0].name).toBe('count');
+  expect(tree.arguments[0].id.text).toBe('count');
   expect((tree.arguments[0].value as LiteralExpressionTree).literal).toBeInstanceOf(
     IntegerLiteralTree,
   );

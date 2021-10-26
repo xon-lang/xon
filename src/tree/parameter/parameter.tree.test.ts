@@ -6,7 +6,7 @@ test('has data type', () => {
   const tree = parseParameter(code);
   expect(tree).toBeInstanceOf(ParameterTree);
 
-  expect(tree.name).toBe('b');
+  expect(tree.id.text).toBe('b');
   expect(tree.isPrivate).toBe(false);
   expect(tree.metaType).toBe(null);
   expect(tree.type.name).toBe('String');
@@ -17,7 +17,7 @@ test('has data and meta types', () => {
   const tree = parseParameter(code);
   expect(tree).toBeInstanceOf(ParameterTree);
 
-  expect(tree.name).toBe('_b');
+  expect(tree.id.text).toBe('_b');
   expect(tree.isPrivate).toBe(true);
   expect(tree.metaType).toBe('Literal');
   expect(tree.type.name).toBe('String');

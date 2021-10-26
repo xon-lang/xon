@@ -7,7 +7,7 @@ test('has value', () => {
   const code = 'object.a = 1';
   const tree = parseAssignment<MemberAssignmentTree>(code);
 
-  expect((tree.instance as IdExpressionTree).name).toBe('object');
-  expect(tree.name).toBe('a');
+  expect((tree.instance as IdExpressionTree).id.text).toBe('object');
+  expect(tree.id.text).toBe('a');
   expect((tree.value as LiteralExpressionTree).literal.value).toBe(1);
 });

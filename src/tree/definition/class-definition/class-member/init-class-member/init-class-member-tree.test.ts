@@ -16,5 +16,5 @@ test('method member', () => {
   expect((expression.arguments[0].value as LiteralExpressionTree).literal.value).toBe(222);
 
   const idExpression = expression.instance as IdExpressionTree;
-  expect(idExpression.name).toBe('log');
+  expect(idExpression.id.text).toBe('log');
 });

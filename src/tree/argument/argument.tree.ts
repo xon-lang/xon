@@ -13,7 +13,7 @@ export class ArgumentTree extends BaseTree {
     if (!ctx) return;
 
     this.value = getExpressionTree(ctx.expression());
-    this.id = ctx._name && new IdToken(ctx._name);
+    this.id = (ctx._name && new IdToken(ctx._name)) || null;
   }
 
   public toString(): string {

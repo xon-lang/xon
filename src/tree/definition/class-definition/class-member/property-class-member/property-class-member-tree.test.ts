@@ -9,7 +9,7 @@ test('array property', () => {
   const tree = parseClassMember<PropertyClassMemberTree>(code);
   expect(tree).toBeInstanceOf(PropertyClassMemberTree);
 
-  expect(tree.name).toBe('s');
+  expect(tree.id.text).toBe('s');
   expect(tree.isPrivate).toBe(false);
   expect(tree.type.name).toBe('Array');
   expect((tree.type as PlainTypeTree).genericArguments[0].name).toBe('String');
@@ -21,7 +21,7 @@ test('private integer', () => {
   const tree = parseClassMember<PropertyClassMemberTree>(code);
   expect(tree).toBeInstanceOf(PropertyClassMemberTree);
 
-  expect(tree.name).toBe('_a');
+  expect(tree.id.text).toBe('_a');
   expect(tree.isPrivate).toBe(true);
   expect(tree.type.name).toBe('Integer');
   expect(tree.value).toBe(null);
@@ -32,7 +32,7 @@ test('integer value', () => {
   const tree = parseClassMember<PropertyClassMemberTree>(code);
   expect(tree).toBeInstanceOf(PropertyClassMemberTree);
 
-  expect(tree.name).toBe('_a');
+  expect(tree.id.text).toBe('_a');
   expect(tree.isPrivate).toBe(true);
   expect(tree.type.name).toBe('Integer');
   expect((tree.value as LiteralExpressionTree).literal.value).toBe(9);
@@ -43,7 +43,7 @@ test('has function type', () => {
   const tree = parseClassMember<PropertyClassMemberTree>(code);
   expect(tree).toBeInstanceOf(PropertyClassMemberTree);
 
-  expect(tree.name).toBe('_a');
+  expect(tree.id.text).toBe('_a');
   expect(tree.isPrivate).toBe(true);
   const type = tree.type as FunctionTypeTree;
   expect(type.name).toBe('Function');

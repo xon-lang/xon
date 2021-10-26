@@ -1,13 +1,17 @@
 import { PlainTypeContext } from '../../../grammar/xon-parser';
+import { IdToken } from '../../id-token';
 import { createPlainType, getTypesTrees } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
 export class PlainTypeTree extends TypeTree {
+  id: IdToken;
+
   public constructor(public ctx?: PlainTypeContext) {
     super();
     if (!ctx) return;
 
     this.name = ctx._name.text;
+    this.id = new IdToken(ctx._name);
     this.genericArguments = getTypesTrees(ctx.genericArguments()?.type());
   }
 

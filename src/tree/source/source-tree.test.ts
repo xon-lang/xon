@@ -15,6 +15,6 @@ else: if d: call()
   expect(tree.imports.length).toBe(1);
   expect(tree.imports[0].path).toBe('xon.os');
   expect(tree.imports[0].members.length).toBe(1);
-  expect(tree.imports[0].members[0].name).toBe('Path');
+  expect(tree.imports[0].members[0].id.text).toBe('Path');
   expect(tree.imports[0].members[0].alias).toBeFalsy();
 });
