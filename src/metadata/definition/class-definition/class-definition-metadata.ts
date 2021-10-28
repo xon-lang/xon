@@ -1,41 +1,21 @@
 import { ClassDefinitionTree } from '../../../tree/definition/class-definition/class-definition-tree';
-import { MethodClassMemberTree } from '../../../tree/definition/class-definition/class-member/method-class-member/method-class-member-tree';
-import { PropertyClassMemberTree } from '../../../tree/definition/class-definition/class-member/property-class-member/property-class-member-tree';
 import { MethodModuleMemberMetadata } from '../../module/module-member/method-module-member-metadata';
 import { ParameterMetadata } from '../../module/module-member/parameter-module-member-metadata';
 import { DefinitionMetadata } from '../definition-metadata';
+import { MethodClassMemberMetadata } from './method-class-member-metadata';
+import { PropertyClassMemberMetadata } from './property-class-member-metadata';
 
 export class ClassDefinitionMetadata extends DefinitionMetadata {
-  public get name() {
-    return this.tree.id;
-  }
+  public name: string;
+  public properties: PropertyClassMemberMetadata[] = [];
+  public methods: MethodClassMemberMetadata[] = [];
 
-  public get genericParameters() {
-    return this.tree.genericParameters;
-  }
-
-  private _properties: PropertyModuleMemberMetadata[];
-  public get properties(): PropertyModuleMemberMetadata[] {
-    if (this._properties) return this._properties;
-    this._properties = this.tree.members
-      .filter((x) => x instanceof PropertyClassMemberTree)
-      .map((x) => (x as PropertyClassMemberTree).property)
-      .map((x) => new PropertyModuleMemberMetadata(this.sourcePath, x));
-    return this._properties;
-  }
-
-  private _methods: MethodModuleMemberMetadata[];
-  public get methods(): MethodModuleMemberMetadata[] {
-    if (this._methods) return this._methods;
-    this._methods = this.tree.members
-      .filter((x) => x instanceof MethodClassMemberTree)
-      .map((x) => (x as MethodClassMemberTree).method)
-      .map((x) => new MethodModuleMemberMetadata(this.sourcePath, x));
-    return this._methods;
-  }
-
-  public constructor(public tree: ClassDefinitionTree) {
+  public constructor(
+    public tree: ClassDefinitionTree,
+    public genericParameters: DefinitionMetadata[] = [],
+  ) {
     super();
+    this.name = tree.id.text;
   }
 
   // well no optional and rest parameters at now
@@ -66,7 +46,7 @@ export class ClassDefinitionMetadata extends DefinitionMetadata {
     return null;
   }
 
-  public equals(other: ClassTypeMetadata) {
+  public equals(other: ClassDefinitionMetadata) {
     return (
       this.sourcePath === other.sourcePath &&
       this.name === other.name &&

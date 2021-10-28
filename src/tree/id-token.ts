@@ -1,9 +1,11 @@
 import { ParserRuleContext, Token } from 'antlr4ts';
+import { ParameterTree } from './parameter/parameter.tree';
 import { SourceReference } from './source-reference';
+import { VariableDeclarationStatementTree } from './statement/variable-declaration-statement/variable-declaration-statement.tree';
 
 export class IdToken {
   text: string;
-  declarationLink?: SourceReference;
+  declarationLink?: VariableDeclarationStatementTree | ParameterTree;
   sourceReference?: SourceReference;
 
   public constructor(public token?: Token) {
@@ -11,10 +13,6 @@ export class IdToken {
 
     this.text = token.text;
     this.sourceReference = SourceReference.fromToken(token);
-  }
-
-  setDeclarationLink(declarationLink: SourceReference) {
-    this.declarationLink = declarationLink;
   }
 
   toString(): string {

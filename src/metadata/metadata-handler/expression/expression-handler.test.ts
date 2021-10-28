@@ -1,8 +1,7 @@
 import * as path from 'path';
-import { IntegerLiteralTree } from '../../tree/literal/integer-literal/integer-literal.tree';
-import { parseLiteral } from '../../tree/parse';
-import { LiteralHandler } from './literal-handler';
-import { createScopeGlobPath } from './temp-helper';
+import { IntegerLiteralTree } from '../../../tree/literal/integer-literal/integer-literal.tree';
+import { parseLiteral } from '../../../tree/parse';
+import { HandlerScope } from '../handler-scope';
 
 test('integer', () => {
   const code = '123';
@@ -10,7 +9,7 @@ test('integer', () => {
   expect(tree).toBeInstanceOf(IntegerLiteralTree);
 
   const globPath = path.resolve('ast.xon/lib/@xon/core', '**/*.xon');
-  const scope = createScopeGlobPath(globPath);
+  const scope = HandlerScope.fromGlobPath(globPath);
   new LiteralHandler(scope).handle(tree);
   expect(tree.value).toBe(123);
   expect(tree.definitionLink.id.text).toBe('Integer');

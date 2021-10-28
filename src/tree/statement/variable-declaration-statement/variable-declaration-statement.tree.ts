@@ -1,4 +1,5 @@
 import { VariableDeclarationStatementContext } from '../../../grammar/xon-parser';
+import { DefinitionMetadata } from '../../../metadata/definition/definition-metadata';
 import { getExpressionTree } from '../../expression/expression-tree.helper';
 import { ExpressionTree } from '../../expression/expression.tree';
 import { IdToken } from '../../id-token';
@@ -10,6 +11,7 @@ export class VariableDeclarationStatementTree extends StatementTree {
   public id: IdToken;
   public type?: TypeTree;
   public value?: ExpressionTree;
+  public definitionMetadata: DefinitionMetadata;
 
   public constructor(public ctx?: VariableDeclarationStatementContext) {
     super();
