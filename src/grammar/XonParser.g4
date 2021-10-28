@@ -19,9 +19,8 @@ libraryPathPart: '@'? LOWER_ID;
 libraryMember:   name = id | name = id AS alias = id;
 
 definition:
-    name = UPPER_ID genericParameters? parameters? (IS type)? ':' (
-        classMember
-        | NL INDENT ( classMember | NL)+ DEDENT
+    name = UPPER_ID genericParameters? parameters? (IS type)? (
+        ':' NL INDENT ( classMember | NL)+ DEDENT
     )? # classDefinition
     ;
 

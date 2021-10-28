@@ -1,4 +1,2 @@
-import a.cg.
-
 Any:
-  clone()
+  clone() Any

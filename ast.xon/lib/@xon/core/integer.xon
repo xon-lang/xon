@@ -1,34 +1,32 @@
--- Z
-Integer
-  + (a Integer, b Boolean) Integer
-  + (a Integer, b Integer) Integer
-  + (a Integer, b Float) Float
-  + (a Integer, b Char) Integer
-  + (a Integer, b String) String
+Integer:
+  infix + (a Integer, b Boolean) Integer
+  infix + (a Integer, b Integer) Integer
+  infix + (a Integer, b Float) Float
+  infix + (a Integer, b Char) Integer
+  infix + (a Integer, b String) String
 
-  - (a Integer, b Integer) Integer
-  - (a Integer, b Float) Float
+  infix - (a Integer, b Integer) Integer
+  infix - (a Integer, b Float) Float
 
-  * (a Integer, b Integer) Integer
-  * (a Integer, b Float) Float
+  infix * (a Integer, b Integer) Integer
+  infix * (a Integer, b Float) Float
 
-  / (a Integer, b Integer) Integer
-  / (a Integer, b Float) Float
+  infix / (a Integer, b Integer) Integer
+  infix / (a Integer, b Float) Float
 
-  ^ (a Integer, b Integer) Integer
-  ^ (a Integer, b Float) Float
+  infix ^ (a Integer, b Integer) Integer
+  infix ^ (a Integer, b Float) Float
 
-  > (a Integer, b Integer) Boolean
-  > (a Integer, b Float) Boolean
+  infix > (a Integer, b Integer) Boolean
+  infix > (a Integer, b Float) Boolean
 
-  < (a Integer, b Integer) Boolean
-  < (a Integer, b Float) Boolean
+  infix < (a Integer, b Integer) Boolean
+  infix < (a Integer, b Float) Boolean
 
-  < (a Integer, b Integer) Boolean
-  < (a Integer, b Float) Boolean
+  infix < (a Integer, b Integer) Boolean
+  infix < (a Integer, b Float) Boolean
 
-  == (a Integer, b Integer) Boolean
-  == (a Integer, b Float) Boolean
+  infix == (a Integer, b Integer) Boolean
+  infix == (a Integer, b Float) Boolean
 
-  toString() String:
-    --
+  toString() String

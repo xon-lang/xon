@@ -1,12 +1,12 @@
 import { TypeContext } from '../../grammar/xon-parser';
-import { DefinitionMetadata } from '../../metadata/definition/definition-metadata';
 import { BaseTree } from '../base.tree';
+import { DefinitionTree } from '../definition/definition-tree';
 
 export abstract class TypeTree extends BaseTree {
   public name = this.constructor.name.replace(/TypeTree/, '');
   public genericArguments: TypeTree[] = [];
   public abstract ctx?: TypeContext;
-  public metadata: DefinitionMetadata;
+  public definitionLink: DefinitionTree;
 
   public markGenerics(generics: string[]): void {
     this.genericArguments.forEach((x) => x.markGenerics(generics));

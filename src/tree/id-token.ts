@@ -3,7 +3,7 @@ import { SourceReference } from './source-reference';
 
 export class IdToken {
   text: string;
-  declarationReference?: SourceReference;
+  declarationLink?: SourceReference;
   sourceReference?: SourceReference;
 
   public constructor(public token?: Token) {
@@ -13,8 +13,8 @@ export class IdToken {
     this.sourceReference = SourceReference.fromToken(token);
   }
 
-  setDeclarationReference(declarationReference: SourceReference) {
-    this.declarationReference = declarationReference;
+  setDeclarationLink(declarationLink: SourceReference) {
+    this.declarationLink = declarationLink;
   }
 
   toString(): string {

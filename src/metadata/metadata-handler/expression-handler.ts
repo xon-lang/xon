@@ -10,7 +10,7 @@ export class ExpressionHandler extends MetadataHandler {
     if (tree instanceof IdExpressionTree) {
       const assignmentTree = this.scope.find(tree.id.text) as AssignmentTree;
       tree.definitionMetadata = assignmentTree.definitionMetadata;
-      tree.id.declarationReference = assignmentTree.sourceReference.clone();
+      tree.id.declarationLink = assignmentTree.sourceReference.clone();
       return;
     }
 

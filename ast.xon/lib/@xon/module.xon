@@ -1,4 +1,4 @@
 Module is XonModule:
   name = "xon library"
-  author = "Nizami",
+  author = "Nizami"
   defaultImports = []

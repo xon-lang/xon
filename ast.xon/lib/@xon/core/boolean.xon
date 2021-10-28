@@ -1,21 +1,21 @@
 Boolean:
   infix + (a Boolean, b Boolean) Integer
-  + (a Boolean, b Integer) Integer
-  + (a Boolean, b Float) Float
-  + (a Boolean, b Char) Integer
-  + (a Boolean, b String) String
+  infix + (a Boolean, b Integer) Integer
+  infix + (a Boolean, b Float) Float
+  infix + (a Boolean, b Char) Integer
+  infix + (a Boolean, b String) String
 
-  - (a Boolean, b Boolean) Integer
-  - (a Boolean, b Integer) Integer
-  - (a Boolean, b Float) Float
-  - (a Boolean, b Char) Integer
+  infix - (a Boolean, b Boolean) Integer
+  infix - (a Boolean, b Integer) Integer
+  infix - (a Boolean, b Float) Float
+  infix - (a Boolean, b Char) Integer
 
-  * (a Boolean, b Boolean) Integer
-  * (a Boolean, b Integer) Integer
-  * (a Boolean, b Float) Float
-  * (a Boolean, b Char) Integer
+  infix * (a Boolean, b Boolean) Integer
+  infix * (a Boolean, b Integer) Integer
+  infix * (a Boolean, b Float) Float
+  infix * (a Boolean, b Char) Integer
 
-  / (a Boolean, b Boolean) Integer
-  / (a Boolean, b Integer) Integer
-  / (a Boolean, b Float) Float
-  / (a Boolean, b Char) Integer
+  infix / (a Boolean, b Boolean) Integer
+  infix / (a Boolean, b Integer) Integer
+  infix / (a Boolean, b Float) Float
+  infix / (a Boolean, b Char) Integer

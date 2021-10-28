@@ -11,12 +11,28 @@ check excess useGenerics methods
 
 TimeSpan(nanoseconds)
   nanoseconds Float64
-  milliseconds = ns * 10^3
-  seconds = ns * 10^6
-  minutes = ns * 10^6
+  milliseconds = nanoseconds * 10^3
+  seconds = nanoseconds * 10^6
+  minutes = nanoseconds * 10^6
 
 Посмотреть как в 1С сделаны multiline c dsl для запросов
 
 
 expression-literal
 type-literal
+
+
+code docs
+class A:
+  doc:
+    $value is ....
+    example: ....
+  inc(value number):
+    --
+
+
+A:
+  prop (enum:
+    a
+    b
+    c) = a
