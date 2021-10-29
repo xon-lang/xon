@@ -1,17 +1,18 @@
 import * as path from 'path';
 import { LiteralExpressionTree } from '../../../tree/expression/literal-expression/literal-expression.tree';
-import { parseExpression } from '../../../tree/parse';
+import { parseStatement } from '../../../tree/parse';
+import { ExpressionStatementTree } from '../../../tree/statement/expression-statement/expression-statement.tree';
 import { HandlerScope } from '../handler-scope';
-import { ExpressionHandler } from './statement-handler';
+import { StatementHandler } from './statement-handler';
 
 test('integer literal', () => {
   const code = '123';
-  const tree = parseExpression<LiteralExpressionTree>(code);
-  expect(tree).toBeInstanceOf(LiteralExpressionTree);
+  const tree = parseStatement<ExpressionStatementTree>(code);
+  expect(tree).toBeInstanceOf(ExpressionStatementTree);
 
   const globPath = path.resolve('ast.xon/lib/@xon/core', '**/*.xon');
   const scope = HandlerScope.fromGlobPath(globPath);
-  new ExpressionHandler(scope).handle(tree);
-  expect(tree.literal.value).toBe(123);
-  expect(tree.definitionMetadata.name).toBe('Integer');
+  new StatementHandler(scope).handle(tree);
+  expect((tree.expression as LiteralExpressionTree).literal.value).toBe(123);
+  expect(tree.expression.definitionMetadata.name).toBe('Integer');
 });

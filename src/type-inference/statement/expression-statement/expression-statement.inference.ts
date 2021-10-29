@@ -10,6 +10,6 @@ export class ExpressionStatementInference extends StatementInference {
   public constructor(public tree: ExpressionStatementTree, public genericsMap: GenericsMap) {
     super();
 
-    this.value = getExpressionInference(tree.value, genericsMap);
+    this.value = getExpressionInference(tree.expression, genericsMap);
   }
 }

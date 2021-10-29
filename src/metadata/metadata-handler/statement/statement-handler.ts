@@ -1,12 +1,12 @@
+import { ExpressionStatementTree } from '../../../tree/statement/expression-statement/expression-statement.tree';
 import { StatementTree } from '../../../tree/statement/statement.tree';
-import { LiteralHandler } from '../literal/literal-handler';
+import { ExpressionHandler } from '../expression/expression-handler';
 import { MetadataHandler } from '../metadata-handler';
 
 export class StatementHandler extends MetadataHandler {
   handle(tree: StatementTree) {
     if (tree instanceof ExpressionStatementTree) {
-      new LiteralHandler(this.scope).handle(tree.literal);
-      tree.definitionMetadata = tree.literal.definitionMetadata;
+      new ExpressionHandler(this.scope).handle(tree.expression);
       return;
     }
 
