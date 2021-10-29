@@ -1,25 +1,26 @@
 import * as glob from 'glob';
 import { DefinitionTree } from '../../tree/definition/definition-tree';
+import { IdToken } from '../../tree/id-token';
 import { parseSourceFile } from '../../tree/parse';
-import { DeclarationMetadata } from '../declaration-metadata';
-import { ClassTypeMetadata } from '../type/class-type/class-type-metadata';
+import { ClassTypeMetadata } from '../type/id-type/class-type/class-type-metadata';
+import { DefinitionTypeMetadata } from '../type/id-type/definition-type-metadata';
 import { TypeMetadata } from '../type/type-metadata';
 import { getDefinitionMetadata } from '../type/type-metadata-helper';
 
 export class HandlerScope {
-  private definitions = new Map<string, TypeMetadata>();
-  private declarations = new Map<string, DeclarationMetadata>();
+  private definitions = new Map<string, DefinitionTypeMetadata>();
+  private declarations = new Map<string, TypeMetadata>();
 
   constructor(public parent?: HandlerScope) {}
 
-  findDefinition(name: string, genericsCount = 0): TypeMetadata {
+  findDefinition(name: string, genericsCount = 0): DefinitionTypeMetadata {
     const compoundName = `${name}<${genericsCount}>`;
     if (this.definitions.has(compoundName)) return this.definitions.get(compoundName);
     if (this.parent) return this.parent.findDefinition(compoundName, genericsCount);
     throw new Error(`'${name}' with ${genericsCount} generics not found`);
   }
 
-  findDeclaration(name: string): DeclarationMetadata {
+  findDeclaration(name: string): TypeMetadata {
     if (this.declarations.has(name)) return this.declarations.get(name);
     if (this.parent) return this.parent.findDeclaration(name);
     throw new Error(`'${name}' not found`);
@@ -39,10 +40,10 @@ export class HandlerScope {
     }
   }
 
-  addDeclaration(value: DeclarationMetadata) {
+  addDeclaration(value: { id: IdToken; typeMetadata: TypeMetadata }) {
     const name = value.id.text;
     if (this.declarations.has(name)) throw new Error(`'${name}' already exists`);
-    this.declarations.set(name, value);
+    this.declarations.set(name, value.typeMetadata);
   }
 
   static fromGlobPath(globPath: string): HandlerScope {

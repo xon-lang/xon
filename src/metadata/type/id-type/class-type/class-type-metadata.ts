@@ -1,17 +1,21 @@
-import { ClassDefinitionTree } from '../../../tree/definition/class-definition/class-definition-tree';
-import { TypeMetadata } from '../type-metadata';
-import { GenericTypeMetadata } from '../generic-type/generic-type-metadata';
+import { ClassDefinitionTree } from '../../../../tree/definition/class-definition/class-definition-tree';
+import { IdToken } from '../../../../tree/id-token';
+import { GenericTypeMetadata } from '../../generic-type/generic-type-metadata';
+import { TypeMetadata } from '../../type-metadata';
+import { DefinitionTypeMetadata } from '../definition-type-metadata';
 import { MethodClassMemberMetadata } from './method-class-member-metadata';
 import { PropertyClassMemberMetadata } from './property-class-member-metadata';
 
-export class ClassTypeMetadata extends TypeMetadata {
+export class ClassTypeMetadata extends DefinitionTypeMetadata {
+  id: IdToken;
   name: string;
   genericParameters: TypeMetadata[] = [];
   properties: PropertyClassMemberMetadata[] = [];
   methods: MethodClassMemberMetadata[] = [];
 
-  constructor(public tree: ClassDefinitionTree) {
+  constructor(tree: ClassDefinitionTree) {
     super();
+    this.id = tree.id;
     this.name = tree.id.text;
     this.genericParameters = tree.genericParameters.map((x) => new GenericTypeMetadata(x));
   }

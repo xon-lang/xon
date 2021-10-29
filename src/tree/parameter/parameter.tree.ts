@@ -1,5 +1,5 @@
 import { ParameterContext } from '../../grammar/xon-parser';
-import { DeclarationMetadata } from '../../metadata/declaration-metadata';
+import { TypeMetadata } from '../../metadata/type/type-metadata';
 import { BaseTree } from '../base.tree';
 import { IdToken } from '../id-token';
 import { getTypeTree } from '../type/type-tree.helper';
@@ -10,7 +10,7 @@ export class ParameterTree extends BaseTree {
   public isPrivate: boolean;
   public type: TypeTree;
   public metaType?: string;
-  public declarationMetadata: DeclarationMetadata;
+  public typeMetadata: TypeMetadata;
 
   public constructor(public ctx?: ParameterContext) {
     super();
