@@ -3,7 +3,7 @@ import * as path from 'path';
 import { ClassDefinitionTree } from '../tree/definition/class-definition/class-definition-tree';
 import { parseSourceFile } from '../tree/parse';
 import { SourceTree } from '../tree/source/source-tree';
-import { ClassTypeMetadata } from './type/id-type/class-type/class-type-metadata';
+import { ClassTypeMetadata } from './type/class-type/class-type-metadata';
 import { TypeMetadata } from './type/type-metadata';
 import { SourceMetadata } from './source-metadata';
 

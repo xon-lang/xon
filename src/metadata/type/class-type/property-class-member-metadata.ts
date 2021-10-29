@@ -1,5 +1,5 @@
-import { PropertyClassMemberTree } from '../../../../tree/definition/class-definition/class-member/property-class-member/property-class-member-tree';
-import { TypeMetadata } from '../../type-metadata';
+import { PropertyClassMemberTree } from '../../../tree/definition/class-definition/class-member/property-class-member/property-class-member-tree';
+import { TypeMetadata } from '../type-metadata';
 
 export class PropertyClassMemberMetadata {
   isPrivate: boolean;

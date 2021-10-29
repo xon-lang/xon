@@ -1,4 +1,4 @@
-import { MethodClassMemberTree } from '../../../../tree/definition/class-definition/class-member/method-class-member/method-class-member-tree';
+import { MethodClassMemberTree } from '../../../tree/definition/class-definition/class-member/method-class-member/method-class-member-tree';
 
 export class MethodClassMemberMetadata {
   isPrivate: boolean;

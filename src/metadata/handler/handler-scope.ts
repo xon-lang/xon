@@ -2,6 +2,7 @@ import * as glob from 'glob';
 import { DefinitionTree } from '../../tree/definition/definition-tree';
 import { parseSourceFile } from '../../tree/parse';
 import { DeclarationMetadata } from '../declaration-metadata';
+import { ClassTypeMetadata } from '../type/class-type/class-type-metadata';
 import { TypeMetadata } from '../type/type-metadata';
 import { getDefinitionMetadata } from '../type/type-metadata-helper';
 
@@ -12,9 +13,10 @@ export class HandlerScope {
   constructor(public parent?: HandlerScope) {}
 
   findDefinition(name: string, genericsCount = 0): TypeMetadata {
-    if (this.definitions.has(name)) return this.definitions.get(name);
-    if (this.parent) return this.parent.findDefinition(name, genericsCount);
-    throw new Error(`'${name}' not found`);
+    const compoundName = `${name}<${genericsCount}>`;
+    if (this.definitions.has(compoundName)) return this.definitions.get(compoundName);
+    if (this.parent) return this.parent.findDefinition(compoundName, genericsCount);
+    throw new Error(`'${name}' with ${genericsCount} generics not found`);
   }
 
   findDeclaration(name: string): DeclarationMetadata {
@@ -24,9 +26,17 @@ export class HandlerScope {
   }
 
   addDefinition(value: DefinitionTree) {
-    const name = value.id.text;
-    if (this.declarations.has(name)) throw new Error(`'${name}' already exists`);
-    this.definitions.set(name, getDefinitionMetadata(value));
+    if (value instanceof ClassTypeMetadata) {
+      const genericsCount = value.genericParameters.length;
+      const name = `${value.id.text}<${genericsCount}>`;
+      if (this.declarations.has(name))
+        throw new Error(`'${name}' with ${genericsCount} generics already exists`);
+      this.definitions.set(name, getDefinitionMetadata(value));
+    } else {
+      const name = value.id.text;
+      if (this.declarations.has(name)) throw new Error(`'${name}' already exists`);
+      this.definitions.set(name, getDefinitionMetadata(value));
+    }
   }
 
   addDeclaration(value: DeclarationMetadata) {
