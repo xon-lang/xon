@@ -9,7 +9,7 @@ export class ExpressionHandler extends MetadataHandler {
     if (tree instanceof IdExpressionTree) {
       const declaration = this.scope.findDeclaration(tree.id.text);
       tree.definitionMetadata = declaration.definition;
-      tree.id.declarationLink = declaration.id;
+      tree.id.declarationLink = declaration.id.sourceReference;
       return;
     }
 

@@ -4,6 +4,7 @@ import { SourceReference } from './source-reference';
 export class IdToken {
   text: string;
   sourceReference?: SourceReference;
+  declarationLink?: SourceReference;
 
   public constructor(public token?: Token) {
     if (!token) return;
