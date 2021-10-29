@@ -13,8 +13,12 @@ export class ExpressionHandler extends MetadataHandler {
       return;
     }
 
-    if (tree instanceof LiteralExpressionTree) new LiteralHandler(this.scope).handle(tree.literal);
+    if (tree instanceof LiteralExpressionTree) {
+      new LiteralHandler(this.scope).handle(tree.literal);
+      tree.definitionMetadata = tree.literal.definitionMetadata
+      return;
+    }
 
-    throw new Error('Wrong expression tree');
+    throw new Error(`'${tree.constructor.name}' not found`);
   }
 }
