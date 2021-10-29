@@ -1,9 +1,9 @@
 import { ClassDefinitionTree } from '../../tree/definition/class-definition/class-definition-tree';
-import { MetadataHandler, Scope } from './metadata-handler';
+import { HandlerScope } from './handler-scope';
 
-export class ClassDefinitionHandler extends MetadataHandler {
-  constructor(parentScope: Scope) {
-    super(new Scope(parentScope));
+export class ClassTypeHandler extends MetadataHandler {
+  constructor(parentScope: HandlerScope) {
+    super(new HandlerScope(parentScope));
   }
 
   handle(tree: ClassDefinitionTree) {}
@@ -13,6 +13,6 @@ export class ClassDefinitionHandler extends MetadataHandler {
   }
 
   setClassMethodsMetadata(tree: ClassDefinitionTree) {
-    const scope = new Scope(this.scope);
+    const scope = new HandlerScope(this.scope);
   }
 }

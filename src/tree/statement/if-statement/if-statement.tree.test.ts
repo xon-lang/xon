@@ -10,12 +10,12 @@ test('if else if', () => {
 
   expect(evalExpression(tree.condition)).toBe(12 + 45 / 9);
   const ifStatement = tree.thenBody[0] as ExpressionStatementTree;
-  expect(evalExpression(ifStatement.value)).toBe(12 + 45 / 5);
+  expect(evalExpression(ifStatement.expression)).toBe(12 + 45 / 5);
 
   const nextIfStatement = tree.elseBody[0] as IfStatementTree;
 
   expect(evalExpression(nextIfStatement.condition)).toBe(2 + 2);
-  expect(evalExpression((nextIfStatement.thenBody[0] as ExpressionStatementTree).value)).toBe(
+  expect(evalExpression((nextIfStatement.thenBody[0] as ExpressionStatementTree).expression)).toBe(
     2 * 4,
   );
 });
@@ -27,10 +27,10 @@ test('if else', () => {
 
   expect(evalExpression(tree.condition)).toBe(12 + 45 / 9);
   const ifStatement = tree.thenBody[0] as ExpressionStatementTree;
-  expect(evalExpression(ifStatement.value)).toBe(12 + 45 / 5);
+  expect(evalExpression(ifStatement.expression)).toBe(12 + 45 / 5);
 
   const elseStatement = tree.elseBody[0] as ExpressionStatementTree;
-  expect(evalExpression(elseStatement.value)).toBe(2 * 4);
+  expect(evalExpression(elseStatement.expression)).toBe(2 * 4);
 });
 
 test('if expression', () => {
@@ -40,7 +40,7 @@ test('if expression', () => {
 
   expect(evalExpression(tree.condition)).toBe(12 + 45 / 9);
   const ifStatement = tree.thenBody[0] as ExpressionStatementTree;
-  expect(evalExpression(ifStatement.value)).toBe(12 + 45 / 5);
+  expect(evalExpression(ifStatement.expression)).toBe(12 + 45 / 5);
 });
 
 test('if relational', () => {
@@ -50,5 +50,5 @@ test('if relational', () => {
 
   expect(evalExpression(tree.condition)).toBe(6 > 4);
   const ifStatement = tree.thenBody[0] as ExpressionStatementTree;
-  expect(evalExpression(ifStatement.value)).toBe(12 + 45 ** 5);
+  expect(evalExpression(ifStatement.expression)).toBe(12 + 45 ** 5);
 });

@@ -13,5 +13,5 @@ test('has boolean value', () => {
 
   expect(tree.body.length).toBe(1);
   const statement = tree.body[0] as ExpressionStatementTree;
-  expect(evalExpression(statement.value)).toBe(12 + 45 / 5);
+  expect(evalExpression(statement.expression)).toBe(12 + 45 / 5);
 });

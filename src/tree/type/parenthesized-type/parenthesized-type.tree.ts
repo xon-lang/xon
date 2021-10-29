@@ -1,31 +1,20 @@
 import { ParenthesizedTypeContext } from '../../../grammar/xon-parser';
-import { createParenthesizedType, getTypeTree } from '../type-tree.helper';
+import { getTypeTree } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
 export class ParenthesizedTypeTree extends TypeTree {
-  public baseType: TypeTree;
+  name: string;
+  innerType: TypeTree;
 
-  public constructor(public ctx?: ParenthesizedTypeContext) {
+  constructor(public ctx?: ParenthesizedTypeContext) {
     super();
     if (!ctx) return;
 
-    this.baseType = getTypeTree(ctx.type());
-    this.genericArguments = [this.baseType];
+    this.name = this.constructor.name.replace(TypeTree.name, '');
+    this.innerType = getTypeTree(ctx.type());
   }
 
-  public equals(other: TypeTree): boolean {
-    return other instanceof ParenthesizedTypeTree && this.baseType.equals(other);
-  }
-
-  public useGenericsMap(genericsMap: Map<string, TypeTree>): ParenthesizedTypeTree {
-    return createParenthesizedType(this.baseType.useGenericsMap(genericsMap));
-  }
-
-  public getGenericsMap(type: TypeTree): Map<string, TypeTree> {
-    return this.baseType.getGenericsMap(type);
-  }
-
-  public toString(): string {
-    return `(${this.baseType})`;
+  toString(): string {
+    return `(${this.innerType})`;
   }
 }

@@ -7,5 +7,5 @@ test('plain string type', () => {
   expect(tree).toBeInstanceOf(ParenthesizedTypeTree);
 
   expect(tree.toString()).toBe('(String?)');
-  expect(tree.baseType.toString()).toBe('String?');
+  expect(tree.innerType.toString()).toBe('String?');
 });

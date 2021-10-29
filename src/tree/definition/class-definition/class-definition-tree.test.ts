@@ -3,7 +3,7 @@ import { IdExpressionTree } from '../../expression/id-expression/id-expression.t
 import { parseSourceFile } from '../../parse';
 import { SourceTree } from '../../source/source-tree';
 import { ExpressionStatementTree } from '../../statement/expression-statement/expression-statement.tree';
-import { PlainTypeTree } from '../../type/plain-type/plain-type.tree';
+import { IdTypeTree } from '../../type/id-type/id-type.tree';
 import { ClassDefinitionTree } from './class-definition-tree';
 import { InitClassMemberTree } from './class-member/init-class-member/init-class-member-tree';
 import { MethodClassMemberTree } from './class-member/method-class-member/method-class-member-tree';
@@ -28,9 +28,9 @@ test('one scope', () => {
   expect(definition.parameters[0].type.name).toBe('String');
 
   expect(definition.baseType.name).toBe('BaseClass');
-  expect((definition.baseType as PlainTypeTree).genericArguments.length).toBe(2);
-  expect((definition.baseType as PlainTypeTree).genericArguments[0].name).toBe('String');
-  expect((definition.baseType as PlainTypeTree).genericArguments[1].name).toBe('Boolean');
+  expect((definition.baseType as IdTypeTree).genericArguments.length).toBe(2);
+  expect((definition.baseType as IdTypeTree).genericArguments[0].name).toBe('String');
+  expect((definition.baseType as IdTypeTree).genericArguments[1].name).toBe('Boolean');
 
   const properties = definition.members
     .filter((x) => x instanceof PropertyClassMemberTree)
@@ -54,8 +54,12 @@ test('one scope', () => {
   expect(methods[0].id.text).toBe('method');
   expect(methods[0].parameters.length).toBe(0);
   expect(methods[0].body.length).toBe(2);
-  expect((methods[0].body[0] as ExpressionStatementTree).value).toBeInstanceOf(CallExpressionTree);
-  expect((methods[0].body[1] as ExpressionStatementTree).value).toBeInstanceOf(CallExpressionTree);
+  expect((methods[0].body[0] as ExpressionStatementTree).expression).toBeInstanceOf(
+    CallExpressionTree,
+  );
+  expect((methods[0].body[1] as ExpressionStatementTree).expression).toBeInstanceOf(
+    CallExpressionTree,
+  );
   expect(methods[1].id.text).toBe('location');
   expect(methods[1].parameters.length).toBe(2);
   expect(methods[1].parameters[0].id.text).toBe('x');
@@ -63,8 +67,11 @@ test('one scope', () => {
   expect(methods[1].parameters[1].id.text).toBe('y');
   expect(methods[1].parameters[1].type.name).toBe('Number');
   expect(methods[1].body.length).toBe(1);
-  expect((methods[1].body[0] as ExpressionStatementTree).value).toBeInstanceOf(CallExpressionTree);
-  const innerMethod = (methods[1].body[0] as ExpressionStatementTree).value as CallExpressionTree;
+  expect((methods[1].body[0] as ExpressionStatementTree).expression).toBeInstanceOf(
+    CallExpressionTree,
+  );
+  const innerMethod = (methods[1].body[0] as ExpressionStatementTree)
+    .expression as CallExpressionTree;
   const CallExpression = innerMethod.instance as IdExpressionTree;
   expect(CallExpression.id.text).toBe('pos');
   expect(innerMethod.arguments.length).toBe(2);

@@ -15,7 +15,7 @@ test('for with value', () => {
 
   expect(tree.body.length).toBe(1);
   const statement = tree.body[0] as ExpressionStatementTree;
-  expect(evalExpression(statement.value)).toBe(12 + 45 / 5);
+  expect(evalExpression(statement.expression)).toBe(12 + 45 / 5);
 });
 
 test('for with value and index', () => {
@@ -29,7 +29,7 @@ test('for with value and index', () => {
 
   expect(tree.body.length).toBe(1);
   const statement = tree.body[0] as ExpressionStatementTree;
-  expect(evalExpression(statement.value)).toBe(12 + 10);
+  expect(evalExpression(statement.expression)).toBe(12 + 10);
 });
 
 test('for with expression only', () => {
@@ -43,5 +43,5 @@ test('for with expression only', () => {
 
   expect(tree.body.length).toBe(1);
   const statement = tree.body[0] as ExpressionStatementTree;
-  expect(evalExpression(statement.value)).toBe(1 + 1);
+  expect(evalExpression(statement.expression)).toBe(1 + 1);
 });

@@ -3,14 +3,12 @@ import * as fs from 'fs';
 import * as glob from 'glob';
 import * as path from 'path';
 import { Issue } from '../issue-service/issue';
-import { DefinitionTree } from '../tree/definition/definition.tree';
-import { MethodDefinitionMemberTree } from '../tree/definition/definition-member/method-definition-member/method-definition-member-tree';
-import { PropertyDefinitionMemberTree } from '../tree/definition/definition-member/property-definition-member/property-definition-member-tree';
 import { SourceTree } from '../tree/source/source-tree';
 import { parseSource } from '../tree/parse';
 import { createFunctionType } from '../tree/type/type-tree.helper';
 import { TypeTree } from '../tree/type/type.tree';
 import { GenericsMap } from '../type-inference/generics-map';
+import { DefinitionTree } from '../tree/definition/definition-tree';
 
 export interface DependencyProvider {
   get(scope: string, name: string): Dependency;

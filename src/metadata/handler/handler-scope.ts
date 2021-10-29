@@ -11,9 +11,9 @@ export class HandlerScope {
 
   constructor(public parent?: HandlerScope) {}
 
-  findDefinition(name: string, genericCount = 0): TypeMetadata {
+  findDefinition(name: string, genericsCount = 0): TypeMetadata {
     if (this.definitions.has(name)) return this.definitions.get(name);
-    if (this.parent) return this.parent.findDefinition(name, genericCount);
+    if (this.parent) return this.parent.findDefinition(name, genericsCount);
     throw new Error(`'${name}' not found`);
   }
 

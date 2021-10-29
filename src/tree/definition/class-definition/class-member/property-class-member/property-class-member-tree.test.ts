@@ -1,7 +1,7 @@
 import { LiteralExpressionTree } from '../../../../expression/literal-expression/literal-expression.tree';
 import { parseClassMember } from '../../../../parse';
 import { FunctionTypeTree } from '../../../../type/function-type/function-type.tree';
-import { PlainTypeTree } from '../../../../type/plain-type/plain-type.tree';
+import { IdTypeTree } from '../../../../type/id-type/id-type.tree';
 import { PropertyClassMemberTree } from './property-class-member-tree';
 
 test('array property', () => {
@@ -12,7 +12,7 @@ test('array property', () => {
   expect(tree.id.text).toBe('s');
   expect(tree.isPrivate).toBe(false);
   expect(tree.type.name).toBe('Array');
-  expect((tree.type as PlainTypeTree).genericArguments[0].name).toBe('String');
+  expect((tree.type as IdTypeTree).genericArguments[0].name).toBe('String');
   expect(tree.value).toBe(null);
 });
 
