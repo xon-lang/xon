@@ -1,6 +1,6 @@
-import { ClassDefinitionTree } from '../../../tree/definition/class-definition/class-definition-tree';
-import { TypeMetadata } from '../type-metadata';
-import { GenericTypeMetadata } from '../generic-type/generic-type-metadata';
+import { ClassDefinitionTree } from '../../../../tree/definition/class-definition/class-definition-tree';
+import { TypeMetadata } from '../../type-metadata';
+import { GenericTypeMetadata } from '../../generic-type/generic-type-metadata';
 import { MethodClassMemberMetadata } from './method-class-member-metadata';
 import { PropertyClassMemberMetadata } from './property-class-member-metadata';
 
