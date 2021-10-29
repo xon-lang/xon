@@ -20,30 +20,26 @@ export class HandlerScope {
     throw new Error(`'${name}' with ${genericsCount} generics not found`);
   }
 
-  findDeclaration(name: string): TypeMetadata {
-    if (this.declarations.has(name)) return this.declarations.get(name);
-    if (this.parent) return this.parent.findDeclaration(name);
-    throw new Error(`'${name}' not found`);
-  }
-
   addDefinition(value: DefinitionTree) {
-    if (value instanceof ClassTypeMetadata) {
-      const genericsCount = value.genericParameters.length;
-      const name = `${value.id.text}<${genericsCount}>`;
-      if (this.declarations.has(name))
-        throw new Error(`'${name}' with ${genericsCount} generics already exists`);
-      this.definitions.set(name, getDefinitionMetadata(value));
-    } else {
-      const name = value.id.text;
-      if (this.declarations.has(name)) throw new Error(`'${name}' already exists`);
-      this.definitions.set(name, getDefinitionMetadata(value));
-    }
+    const genericsCount = value instanceof ClassTypeMetadata ? value.genericParameters.length : 0;
+    const name = `${value.id.text}<${genericsCount}>`;
+    console.log(name);
+    
+    if (this.definitions.has(name))
+      throw new Error(`'${name}' with ${genericsCount} generics already exists`);
+    this.definitions.set(name, getDefinitionMetadata(value));
   }
 
   addDeclaration(value: { id: IdToken; typeMetadata: TypeMetadata }) {
     const name = value.id.text;
     if (this.declarations.has(name)) throw new Error(`'${name}' already exists`);
     this.declarations.set(name, value.typeMetadata);
+  }
+
+  findDeclaration(name: string): TypeMetadata {
+    if (this.declarations.has(name)) return this.declarations.get(name);
+    if (this.parent) return this.parent.findDeclaration(name);
+    throw new Error(`'${name}' not found`);
   }
 
   static fromGlobPath(globPath: string): HandlerScope {

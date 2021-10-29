@@ -1,0 +1,6 @@
+String is Char[]:
+  infix + (a String, b Boolean) String
+  infix + (a String, b Integer) String
+  infix + (a String, b Float) String
+  infix + (a String, b Char) String
+  infix + (a String, b String) String
