@@ -85,7 +85,7 @@ expression:
     ;
 
 type:
-    name = UPPER_ID genericArguments?        # plainType
+    name = UPPER_ID genericArguments?        # idType
     | literal                                # literalType
     | type '?'                               # nullableType
     | type '[' ']'                           # arrayType

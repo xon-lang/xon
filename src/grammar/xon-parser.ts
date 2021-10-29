@@ -1816,12 +1816,12 @@ export class XonParser extends Parser {
 			switch ( this.interpreter.adaptivePredict(this._input, 50, this._ctx) ) {
 			case 1:
 				{
-				_localctx = new PlainTypeContext(_localctx);
+				_localctx = new IdTypeContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 
 				this.state = 389;
-				(_localctx as PlainTypeContext)._name = this.match(XonParser.UPPER_ID);
+				(_localctx as IdTypeContext)._name = this.match(XonParser.UPPER_ID);
 				this.state = 391;
 				this._errHandler.sync(this);
 				switch ( this.interpreter.adaptivePredict(this._input, 48, this._ctx) ) {
@@ -4161,7 +4161,7 @@ export class TypeContext extends ParserRuleContext {
 		super.copyFrom(ctx);
 	}
 }
-export class PlainTypeContext extends TypeContext {
+export class IdTypeContext extends TypeContext {
 	public _name!: Token;
 	public UPPER_ID(): TerminalNode { return this.getToken(XonParser.UPPER_ID, 0); }
 	public genericArguments(): GenericArgumentsContext | undefined {

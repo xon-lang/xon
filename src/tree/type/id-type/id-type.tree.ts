@@ -1,12 +1,12 @@
-import { PlainTypeContext } from '../../../grammar/xon-parser';
+import { IdTypeContext } from '../../../grammar/xon-parser';
 import { IdToken } from '../../id-token';
-import { createPlainType, getTypesTrees } from '../type-tree.helper';
+import { createIdType, getTypesTrees } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
-export class PlainTypeTree extends TypeTree {
+export class IdTypeTree extends TypeTree {
   id: IdToken;
 
-  public constructor(public ctx?: PlainTypeContext) {
+  public constructor(public ctx?: IdTypeContext) {
     super();
     if (!ctx) return;
 
@@ -17,7 +17,7 @@ export class PlainTypeTree extends TypeTree {
 
   public equals(other: TypeTree): boolean {
     return (
-      other instanceof PlainTypeTree &&
+      other instanceof IdTypeTree &&
       this.name === other.name &&
       this.genericArguments.length === other.genericArguments.length &&
       this.genericArguments.every((x, i) => x.equals(other.genericArguments[i]))
@@ -26,7 +26,7 @@ export class PlainTypeTree extends TypeTree {
 
   public useGenericsMap(genericsMap: Map<string, TypeTree>): TypeTree {
     if (genericsMap.has(this.name)) return genericsMap.get(this.name);
-    return createPlainType(
+    return createIdType(
       this.name,
       this.genericArguments.map((x) => x.useGenericsMap(genericsMap)),
     );
