@@ -19,6 +19,6 @@ export class ExpressionHandler extends MetadataHandler {
       return;
     }
 
-    throw new Error(`'${tree.constructor.name}' not found`);
+    throw new Error(`'${tree.constructor.name}' handler not found`);
   }
 }
