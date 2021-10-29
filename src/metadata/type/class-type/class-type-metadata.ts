@@ -1,19 +1,19 @@
 import { ClassDefinitionTree } from '../../../tree/definition/class-definition/class-definition-tree';
-import { DefinitionMetadata } from '../definition-metadata';
-import { GenericDefinition } from '../generic-definition/generic-definition-metadata';
+import { TypeMetadata } from '../type-metadata';
+import { GenericTypeMetadata } from '../generic-type/generic-type-metadata';
 import { MethodClassMemberMetadata } from './method-class-member-metadata';
 import { PropertyClassMemberMetadata } from './property-class-member-metadata';
 
-export class ClassDefinitionMetadata extends DefinitionMetadata {
+export class ClassTypeMetadata extends TypeMetadata {
   name: string;
-  genericParameters: DefinitionMetadata[] = [];
+  genericParameters: TypeMetadata[] = [];
   properties: PropertyClassMemberMetadata[] = [];
   methods: MethodClassMemberMetadata[] = [];
 
   constructor(public tree: ClassDefinitionTree) {
     super();
     this.name = tree.id.text;
-    this.genericParameters = tree.genericParameters.map((x) => new GenericDefinition(x));
+    this.genericParameters = tree.genericParameters.map((x) => new GenericTypeMetadata(x));
   }
 
   // well no optional and rest parameters at now

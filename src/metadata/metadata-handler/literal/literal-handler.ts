@@ -4,6 +4,6 @@ import { MetadataHandler } from '../metadata-handler';
 export class LiteralHandler extends MetadataHandler {
   handle(tree: LiteralTree) {
     const definitionName = tree.constructor.name.replace('LiteralTree', '');
-    tree.definitionMetadata = this.scope.findDefinition(definitionName);
+    tree.typeMetadata = this.scope.findDefinition(definitionName);
   }
 }

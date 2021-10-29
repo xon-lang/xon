@@ -1,7 +1,7 @@
 import { IdToken } from '../tree/id-token';
-import { DefinitionMetadata } from './definition/definition-metadata';
+import { TypeMetadata } from './type/type-metadata';
 
 export interface DeclarationMetadata {
   id: IdToken;
-  definition: DefinitionMetadata;
+  definition: TypeMetadata;
 }

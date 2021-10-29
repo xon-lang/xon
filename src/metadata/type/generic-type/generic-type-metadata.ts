@@ -1,7 +1,7 @@
 import { IdToken } from '../../../tree/id-token';
-import { DefinitionMetadata } from '../definition-metadata';
+import { TypeMetadata } from '../type-metadata';
 
-export class GenericDefinition extends DefinitionMetadata {
+export class GenericTypeMetadata extends TypeMetadata {
   name: string;
 
   constructor(public idToken: IdToken) {

@@ -14,5 +14,5 @@ test('integer literal', () => {
   const scope = HandlerScope.fromGlobPath(globPath);
   new StatementHandler(scope).handle(tree);
   expect((tree.expression as LiteralExpressionTree).literal.value).toBe(123);
-  expect(tree.expression.definitionMetadata.name).toBe('Integer');
+  expect(tree.expression.typeMetadata.name).toBe('Integer');
 });

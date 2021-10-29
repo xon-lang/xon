@@ -3,8 +3,8 @@ import * as path from 'path';
 import { ClassDefinitionTree } from '../tree/definition/class-definition/class-definition-tree';
 import { parseSourceFile } from '../tree/parse';
 import { SourceTree } from '../tree/source/source-tree';
-import { ClassDefinitionMetadata } from './definition/class-definition/class-definition-metadata';
-import { DefinitionMetadata } from './definition/definition-metadata';
+import { ClassTypeMetadata } from './type/class-type/class-type-metadata';
+import { TypeMetadata } from './type/type-metadata';
 import { SourceMetadata } from './source-metadata';
 
 export class ModuleMetadata {
@@ -14,7 +14,7 @@ export class ModuleMetadata {
   public static modules = new Map<string, ModuleMetadata>();
 
   public sourceTrees: SourceTree[];
-  public definitions = new Map<string, DefinitionMetadata>();
+  public definitions = new Map<string, TypeMetadata>();
 
   constructor(public modulePath: string, public defaultModules: ModuleMetadata[]) {
     ModuleMetadata.modules.set(modulePath, this);
@@ -41,7 +41,7 @@ export class ModuleMetadata {
     for (const sourceTree of this.sourceTrees) {
       for (const definition of sourceTree.definitions) {
         if (definition instanceof ClassDefinitionTree)
-          this.definitions.set(definition.id, new ClassDefinitionMetadata(definition));
+          this.definitions.set(definition.id, new ClassTypeMetadata(definition));
       }
     }
   }

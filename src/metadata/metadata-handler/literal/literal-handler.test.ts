@@ -13,5 +13,5 @@ test('integer', () => {
   const scope = HandlerScope.fromGlobPath(globPath);
   new LiteralHandler(scope).handle(tree);
   expect(tree.value).toBe(123);
-  expect(tree.definitionMetadata.name).toBe('Integer');
+  expect(tree.typeMetadata.name).toBe('Integer');
 });

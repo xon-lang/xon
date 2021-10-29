@@ -8,16 +8,16 @@ import { IntegerLiteralTree } from '../tree/literal/integer-literal/integer-lite
 import { LiteralTree } from '../tree/literal/literal.tree';
 import { StringLiteralTree } from '../tree/literal/string-literal/string-literal.tree';
 import { SourceTree } from '../tree/source/source-tree';
-import { DefinitionMetadata } from './definition/definition-metadata';
+import { TypeMetadata } from './type/type-metadata';
 import { ModuleMetadata } from './module-metadata';
 
 export class SourceMetadata {
-  public definitions = new Map<string, DefinitionMetadata>();
+  public definitions = new Map<string, TypeMetadata>();
 
   public constructor(
     public sourceTree: SourceTree,
     public baseDir: string,
-    public defaultDefinitions: Map<string, DefinitionMetadata>,
+    public defaultDefinitions: Map<string, TypeMetadata>,
   ) {
     this.addDefaultDefinitions();
     this.addImportsDefinitions();
