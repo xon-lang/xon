@@ -1,1 +1,3 @@
-export abstract class TypeMetadata {}
+export abstract class TypeMetadata {
+  public abstract name: string;
+}
