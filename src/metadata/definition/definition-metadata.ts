@@ -1,1 +1,3 @@
-export class DefinitionMetadata {}
+export abstract class DefinitionMetadata {
+  public abstract name: string;
+}

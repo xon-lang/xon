@@ -3,9 +3,7 @@ import { LiteralTree } from '../literal.tree';
 
 export class IntegerLiteralTree extends LiteralTree {
   public radix: number;
-
   public integer: string;
-
   public value: number;
 
   public constructor(public ctx?: IntegerLiteralContext) {
