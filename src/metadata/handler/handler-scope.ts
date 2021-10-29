@@ -1,8 +1,8 @@
 import * as glob from 'glob';
+import { ClassDefinitionTree } from '../../tree/definition/class-definition/class-definition-tree';
 import { DefinitionTree } from '../../tree/definition/definition-tree';
 import { IdToken } from '../../tree/id-token';
 import { parseSourceFile } from '../../tree/parse';
-import { ClassTypeMetadata } from '../type/id-type/class-type/class-type-metadata';
 import { DefinitionTypeMetadata } from '../type/id-type/definition-type-metadata';
 import { TypeMetadata } from '../type/type-metadata';
 import { getDefinitionMetadata } from '../type/type-metadata-helper';
@@ -21,10 +21,8 @@ export class HandlerScope {
   }
 
   addDefinition(value: DefinitionTree) {
-    const genericsCount = value instanceof ClassTypeMetadata ? value.genericParameters.length : 0;
+    const genericsCount = value instanceof ClassDefinitionTree ? value.genericParameters.length : 0;
     const name = `${value.id.text}<${genericsCount}>`;
-    console.log(name);
-    
     if (this.definitions.has(name))
       throw new Error(`'${name}' with ${genericsCount} generics already exists`);
     this.definitions.set(name, getDefinitionMetadata(value));
