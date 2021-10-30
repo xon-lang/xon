@@ -12,7 +12,11 @@ test('class type', () => {
   const scope = HandlerScope.fromCoreModule();
   const handler = new ClassTypeHandler(scope);
   handler.handle(tree);
+  
   const classTypeMetadata = handler.scope.findIdType('A') as ClassTypeMetadata
+  expect(classTypeMetadata).toBeInstanceOf(ClassTypeMetadata);
+  
   expect(classTypeMetadata.name).toBe('A');
-  expect(classTypeMetadata.properties).toBe('A');
+  expect(classTypeMetadata.properties.length).toBe(1);
+  expect(classTypeMetadata.properties[0].).toBe('A');
 });

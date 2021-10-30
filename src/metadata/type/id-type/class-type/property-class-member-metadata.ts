@@ -6,10 +6,12 @@ export class PropertyClassMemberMetadata {
   id: IdToken;
   isPrivate: boolean;
   name: string;
+  type: TypeMetadata;
 
-  public constructor(tree: PropertyClassMemberTree, type: TypeMetadata) {
+  public constructor(tree: PropertyClassMemberTree) {
     this.id = tree.id;
     this.name = tree.id.text;
     this.isPrivate = tree.isPrivate;
+    
   }
 }
