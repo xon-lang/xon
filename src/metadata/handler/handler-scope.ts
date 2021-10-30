@@ -4,20 +4,20 @@ import { ClassDefinitionTree } from '../../tree/definition/class-definition/clas
 import { DefinitionTree } from '../../tree/definition/definition-tree';
 import { IdToken } from '../../tree/id-token';
 import { parseSourceFile } from '../../tree/parse';
-import { DefinitionTypeMetadata } from '../type/id-type/definition-type-metadata';
+import { IdTypeMetadata } from '../type/id-type/id-type-metadata';
 import { TypeMetadata } from '../type/type-metadata';
 import { getDefinitionMetadata } from '../type/type-metadata-helper';
 
 export class HandlerScope {
-  private definitions = new Map<string, DefinitionTypeMetadata>();
+  private definitions = new Map<string, IdTypeMetadata>();
   private declarations = new Map<string, DeclarationMetadata>();
 
   constructor(public parent?: HandlerScope) {}
 
-  findDefinition(name: string, genericsCount = 0): DefinitionTypeMetadata {
+  findIdType(name: string, genericsCount = 0): IdTypeMetadata {
     const compoundName = `${name}<${genericsCount}>`;
     if (this.definitions.has(compoundName)) return this.definitions.get(compoundName);
-    if (this.parent) return this.parent.findDefinition(compoundName, genericsCount);
+    if (this.parent) return this.parent.findIdType(compoundName, genericsCount);
     throw new Error(`'${name}' with ${genericsCount} generics not found`);
   }
 

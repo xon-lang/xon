@@ -1,11 +1,11 @@
 import { ClassDefinitionTree } from '../../../../tree/definition/class-definition/class-definition-tree';
 import { SourceReference } from '../../../../tree/source-reference';
 import { TypeMetadata } from '../../type-metadata';
-import { DefinitionTypeMetadata } from '../definition-type-metadata';
+import { IdTypeMetadata } from '../id-type-metadata';
 import { MethodClassMemberMetadata } from './method-class-member-metadata';
 import { PropertyClassMemberMetadata } from './property-class-member-metadata';
 
-export class ClassTypeMetadata extends DefinitionTypeMetadata {
+export class ClassTypeMetadata extends IdTypeMetadata {
   sourceReference: SourceReference;
   name: string;
   genericArguments: TypeMetadata[] = [];
