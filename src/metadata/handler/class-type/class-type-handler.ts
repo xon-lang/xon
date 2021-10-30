@@ -12,9 +12,7 @@ export class ClassTypeHandler extends MetadataHandler {
   handle(tree: ClassDefinitionTree) {
     this.scope.addDefinition(tree);
 
-    this.handleProperties(
-      tree.members.filter((x) => x instanceof PropertyClassMemberTree) as PropertyClassMemberTree[],
-    );
+    this.handleProperties(tree.properties);
   }
 
   handleProperties(properties: PropertyClassMemberTree[]) {

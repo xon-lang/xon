@@ -17,5 +17,6 @@ test('class type', () => {
 
   expect(classTypeMetadata.name).toBe('A');
   expect(classTypeMetadata.properties.length).toBe(1);
-  // expect(classTypeMetadata.properties[0].).toBe('A');
+  expect(classTypeMetadata.properties[0].name).toBe('p');
+  expect(classTypeMetadata.properties[0].type.name).toBe('Integer');
 });

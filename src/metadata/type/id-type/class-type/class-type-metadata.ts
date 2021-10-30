@@ -2,7 +2,6 @@ import { ClassDefinitionTree } from '../../../../tree/definition/class-definitio
 import { SourceReference } from '../../../../tree/source-reference';
 import { TypeMetadata } from '../../type-metadata';
 import { IdTypeMetadata } from '../id-type-metadata';
-import { MethodClassMemberMetadata } from './method-class-member-metadata';
 import { PropertyClassMemberMetadata } from './property-class-member-metadata';
 
 export class ClassTypeMetadata extends IdTypeMetadata {
@@ -10,21 +9,14 @@ export class ClassTypeMetadata extends IdTypeMetadata {
   name: string;
   genericArguments: TypeMetadata[] = [];
   properties: PropertyClassMemberMetadata[] = [];
-  methods: MethodClassMemberMetadata[] = [];
+  // methods: MethodClassMemberMetadata[] = [];
 
   constructor(tree: ClassDefinitionTree, genericArguments: TypeMetadata[]) {
     super();
     this.sourceReference = tree.id.sourceReference;
     this.name = tree.id.text;
     this.genericArguments = genericArguments;
-    const classGenericArguments = tree.genericParameters.reduce(
-      (o, x, i) => ((o[x.text] = genericArguments[i]), o),
-      {},
-    );
-    this.properties = tree.properties.map(
-      (x) => new PropertyClassMemberMetadata(x, classGenericArguments),
-    );
-    this.methods = tree.methods.map((x) => new MethodClassMemberMetadata(x, classGenericArguments));
+    this.properties = tree.properties.map((x) => new PropertyClassMemberMetadata(x));
   }
 
   // well no optional and rest parameters at now
