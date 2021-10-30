@@ -10,12 +10,12 @@ import { getDefinitionMetadata } from '../type/type-metadata-helper';
 import { DeclarationMetadata } from './declaration-metadata';
 
 export class HandlerScope {
-  parent?: HandlerScope;
+  parent: HandlerScope;
   private definitions = new Map<string, IdTypeMetadata>();
   private declarations = new Map<string, DeclarationMetadata>();
 
-  constructor(parent?: HandlerScope) {
-    this.parent = parent;
+  constructor(parent: HandlerScope = null) {
+    this.parent = parent || this.defaultScope();
   }
 
   findIdType(name: string, genericsCount = 0): IdTypeMetadata {
@@ -45,7 +45,8 @@ export class HandlerScope {
     throw new Error(`'${name}' not found`);
   }
 
-  static fromGlobPath(globPath: string): HandlerScope {
+  private defaultScope(): HandlerScope {
+    const globPath = path.resolve('ast.xon/lib/@xon/core', '**/*.xon');
     const sourceTrees = glob.sync(globPath).map((x) => parseSourceFile(x));
     const scope = new HandlerScope();
     for (const sourceTree of sourceTrees) {
@@ -53,12 +54,6 @@ export class HandlerScope {
         scope.addDefinition(definitionTree);
       }
     }
-
     return scope;
-  }
-
-  static fromCoreModule(): HandlerScope {
-    const globPath = path.resolve('ast.xon/lib/@xon/core', '**/*.xon');
-    return HandlerScope.fromGlobPath(globPath);
   }
 }

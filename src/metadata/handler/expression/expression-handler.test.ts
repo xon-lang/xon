@@ -8,8 +8,7 @@ test('integer literal', () => {
   const tree = parseExpression<LiteralExpressionTree>(code);
   expect(tree).toBeInstanceOf(LiteralExpressionTree);
 
-  const scope = HandlerScope.fromCoreModule();
-  new ExpressionHandler(scope).handle(tree);
+  new ExpressionHandler(new HandlerScope()).handle(tree);
   expect(tree.literal.value).toBe(123);
   expect(tree.typeMetadata.name).toBe('Integer');
 });

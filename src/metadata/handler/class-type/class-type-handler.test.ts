@@ -9,8 +9,7 @@ test('class type', () => {
   const tree = parseDefinition<ClassDefinitionTree>(code);
   expect(tree).toBeInstanceOf(ClassDefinitionTree);
 
-  const scope = HandlerScope.fromCoreModule();
-  const handler = new ClassTypeHandler(scope);
+  const handler = new ClassTypeHandler(new HandlerScope());
   handler.handle(tree);
   
   const classTypeMetadata = handler.scope.findIdType('A') as ClassTypeMetadata

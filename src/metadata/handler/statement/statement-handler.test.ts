@@ -10,8 +10,7 @@ test('expression', () => {
   const tree = parseStatement<ExpressionStatementTree>(code);
   expect(tree).toBeInstanceOf(ExpressionStatementTree);
 
-  const scope = HandlerScope.fromCoreModule();
-  new StatementHandler(scope).handle(tree);
+  new StatementHandler(new HandlerScope()).handle(tree);
   expect((tree.expression as LiteralExpressionTree).literal.value).toBe(123);
   expect(tree.expression.typeMetadata.name).toBe('Integer');
 });
@@ -21,8 +20,7 @@ test('variable declaration: type from value', () => {
   const tree = parseStatement<VariableDeclarationStatementTree>(code);
   expect(tree).toBeInstanceOf(VariableDeclarationStatementTree);
 
-  const scope = HandlerScope.fromCoreModule();
-  new StatementHandler(scope).handle(tree);
+  new StatementHandler(new HandlerScope()).handle(tree);
   expect(tree.id.declarationLink).toBe(tree.id.sourceReference);
   expect(tree.typeMetadata.name).toBe('Integer');
   expect(tree.type).toBe(null);

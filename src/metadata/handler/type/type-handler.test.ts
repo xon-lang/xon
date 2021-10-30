@@ -9,8 +9,7 @@ test('string type', () => {
   const tree = parseType<IdTypeTree>(code);
   expect(tree).toBeInstanceOf(IdTypeTree);
 
-  const scope = HandlerScope.fromCoreModule();
-  new TypeHandler(scope).handle(tree);
+  new TypeHandler(new HandlerScope()).handle(tree);
   expect(tree.typeMetadata.name).toBe('String');
   expect(tree.id.declarationLink.line).toBe(1);
 });
@@ -20,8 +19,7 @@ test('array generic type', () => {
   const tree = parseType<IdTypeTree>(code);
   expect(tree).toBeInstanceOf(IdTypeTree);
 
-  const scope = HandlerScope.fromCoreModule();
-  new TypeHandler(scope).handle(tree);
+  new TypeHandler(new HandlerScope()).handle(tree);
   const type = tree.typeMetadata as ClassTypeMetadata;
   expect(type.name).toBe('Array');
   expect(type.genericArguments[0].name).toBe('String');
