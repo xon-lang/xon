@@ -8,10 +8,12 @@ export class PropertyClassMemberMetadata {
   name: string;
   type: TypeMetadata;
 
-  public constructor(tree: PropertyClassMemberTree) {
+  public constructor(
+    tree: PropertyClassMemberTree,
+    classGenericArguments: { [key: string]: TypeMetadata },
+  ) {
     this.id = tree.id;
     this.name = tree.id.text;
     this.isPrivate = tree.isPrivate;
-    
   }
 }

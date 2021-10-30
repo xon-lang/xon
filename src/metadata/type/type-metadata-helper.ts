@@ -6,7 +6,7 @@ import { IdTypeMetadata } from './id-type/id-type-metadata';
 export const getDefinitionMetadata = (tree: DefinitionTree): IdTypeMetadata => {
   if (tree === undefined) return undefined;
 
-  if (tree instanceof ClassDefinitionTree) return new ClassTypeMetadata(tree);
+  if (tree instanceof ClassDefinitionTree) return new ClassTypeMetadata(tree, []);
 
   throw Error(`'${tree.constructor.name}' definition not found`);
 };

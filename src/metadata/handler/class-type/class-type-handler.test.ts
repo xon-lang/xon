@@ -10,12 +10,12 @@ test('class type', () => {
   expect(tree).toBeInstanceOf(ClassDefinitionTree);
 
   const handler = new ClassTypeHandler(new HandlerScope());
-  // handler.handle(tree);
-  
-  // const classTypeMetadata = handler.scope.findIdType('A') as ClassTypeMetadata
-  // expect(classTypeMetadata).toBeInstanceOf(ClassTypeMetadata);
-  
-  // expect(classTypeMetadata.name).toBe('A');
-  // expect(classTypeMetadata.properties.length).toBe(1);
+  handler.handle(tree);
+
+  const classTypeMetadata = handler.scope.findIdType('A') as ClassTypeMetadata;
+  expect(classTypeMetadata).toBeInstanceOf(ClassTypeMetadata);
+
+  expect(classTypeMetadata.name).toBe('A');
+  expect(classTypeMetadata.properties.length).toBe(1);
   // expect(classTypeMetadata.properties[0].).toBe('A');
 });
