@@ -1,4 +1,3 @@
-import * as path from 'path';
 import { parseType } from '../../../tree/parse';
 import { IdTypeTree } from '../../../tree/type/id-type/id-type.tree';
 import { ClassTypeMetadata } from '../../type/id-type/class-type/class-type-metadata';
@@ -10,8 +9,7 @@ test('string type', () => {
   const tree = parseType<IdTypeTree>(code);
   expect(tree).toBeInstanceOf(IdTypeTree);
 
-  const globPath = path.resolve('ast.xon/lib/@xon/core', '**/*.xon');
-  const scope = HandlerScope.fromGlobPath(globPath);
+  const scope = HandlerScope.fromCoreModule();
   new TypeHandler(scope).handle(tree);
   expect(tree.typeMetadata.name).toBe('String');
   expect(tree.id.declarationLink.line).toBe(1);
@@ -22,8 +20,7 @@ test('array generic type', () => {
   const tree = parseType<IdTypeTree>(code);
   expect(tree).toBeInstanceOf(IdTypeTree);
 
-  const globPath = path.resolve('ast.xon/lib/@xon/core', '**/*.xon');
-  const scope = HandlerScope.fromGlobPath(globPath);
+  const scope = HandlerScope.fromCoreModule();
   new TypeHandler(scope).handle(tree);
   const type = tree.typeMetadata as ClassTypeMetadata;
   expect(type.name).toBe('Array');

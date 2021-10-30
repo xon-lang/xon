@@ -1,4 +1,3 @@
-import * as path from 'path';
 import { LiteralExpressionTree } from '../../../tree/expression/literal-expression/literal-expression.tree';
 import { parseExpression } from '../../../tree/parse';
 import { HandlerScope } from '../handler-scope';
@@ -9,8 +8,7 @@ test('integer literal', () => {
   const tree = parseExpression<LiteralExpressionTree>(code);
   expect(tree).toBeInstanceOf(LiteralExpressionTree);
 
-  const globPath = path.resolve('ast.xon/lib/@xon/core', '**/*.xon');
-  const scope = HandlerScope.fromGlobPath(globPath);
+  const scope = HandlerScope.fromCoreModule();
   new ExpressionHandler(scope).handle(tree);
   expect(tree.literal.value).toBe(123);
   expect(tree.typeMetadata.name).toBe('Integer');
