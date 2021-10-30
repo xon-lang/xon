@@ -7,9 +7,9 @@ import { MetadataHandler } from '../metadata-handler';
 export class ExpressionHandler extends MetadataHandler {
   handle(tree: ExpressionTree) {
     if (tree instanceof IdExpressionTree) {
-      const declaration = this.scope.findDeclaration(tree.id.text);
-      tree.typeMetadata = declaration.type;
-      tree.id.declarationLink = declaration.id.sourceReference;
+      const declarationMetadata = this.scope.findDeclaration(tree.id.text);
+      tree.typeMetadata = declarationMetadata.type;
+      tree.id.declarationLink = declarationMetadata.id.sourceReference;
       return;
     }
 
