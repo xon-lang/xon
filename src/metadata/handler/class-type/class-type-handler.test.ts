@@ -4,7 +4,7 @@ import { ClassTypeMetadata } from '../../type/id-type/class-type/class-type-meta
 import { HandlerScope } from '../handler-scope';
 import { ClassTypeHandler } from './class-type-handler';
 
-test('integer', () => {
+test('class type', () => {
   const code = 'A:\n  p = 123';
   const tree = parseDefinition<ClassDefinitionTree>(code);
   expect(tree).toBeInstanceOf(ClassDefinitionTree);

@@ -10,15 +10,18 @@ import { getDefinitionMetadata } from '../type/type-metadata-helper';
 import { DeclarationMetadata } from './declaration-metadata';
 
 export class HandlerScope {
+  parent?: HandlerScope;
   private definitions = new Map<string, IdTypeMetadata>();
   private declarations = new Map<string, DeclarationMetadata>();
 
-  constructor(public parent?: HandlerScope) {}
+  constructor(parent?: HandlerScope) {
+    this.parent = parent;
+  }
 
   findIdType(name: string, genericsCount = 0): IdTypeMetadata {
     const compoundName = `${name}<${genericsCount}>`;
     if (this.definitions.has(compoundName)) return this.definitions.get(compoundName);
-    if (this.parent) return this.parent.findIdType(compoundName, genericsCount);
+    if (this.parent) return this.parent.findIdType(name, genericsCount);
     throw new Error(`'${name}' with ${genericsCount} generics not found`);
   }
 
