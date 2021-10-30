@@ -16,6 +16,7 @@ export class StatementHandler extends MetadataHandler {
       if (tree.type) new TypeHandler(this.scope).handle(tree.type);
       if (tree.value) new ExpressionHandler(this.scope).handle(tree.value);
       tree.typeMetadata = tree.type?.typeMetadata || tree.value.typeMetadata;
+      this.scope.addDeclaration(tree);
       return;
     }
 

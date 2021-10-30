@@ -8,14 +8,14 @@ export class ExpressionHandler extends MetadataHandler {
   handle(tree: ExpressionTree) {
     if (tree instanceof IdExpressionTree) {
       const declaration = this.scope.findDeclaration(tree.id.text);
-      tree.typeMetadata = declaration.definition;
+      tree.typeMetadata = declaration.type;
       tree.id.declarationLink = declaration.id.sourceReference;
       return;
     }
 
     if (tree instanceof LiteralExpressionTree) {
       new LiteralHandler(this.scope).handle(tree.literal);
-      tree.typeMetadata = tree.literal.typeMetadata
+      tree.typeMetadata = tree.literal.typeMetadata;
       return;
     }
 

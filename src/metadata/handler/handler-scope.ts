@@ -10,7 +10,7 @@ import { getDefinitionMetadata } from '../type/type-metadata-helper';
 
 export class HandlerScope {
   private definitions = new Map<string, DefinitionTypeMetadata>();
-  private declarations = new Map<string, TypeMetadata>();
+  private declarations = new Map<string, DeclarationMetadata>();
 
   constructor(public parent?: HandlerScope) {}
 
@@ -32,10 +32,10 @@ export class HandlerScope {
   addDeclaration(value: { id: IdToken; typeMetadata: TypeMetadata }) {
     const name = value.id.text;
     if (this.declarations.has(name)) throw new Error(`'${name}' already exists`);
-    this.declarations.set(name, value.typeMetadata);
+    this.declarations.set(name, new DeclarationMetadata(value.id, value.typeMetadata));
   }
 
-  findDeclaration(name: string): TypeMetadata {
+  findDeclaration(name: string): DeclarationMetadata {
     if (this.declarations.has(name)) return this.declarations.get(name);
     if (this.parent) return this.parent.findDeclaration(name);
     throw new Error(`'${name}' not found`);
@@ -57,4 +57,8 @@ export class HandlerScope {
     const globPath = path.resolve('ast.xon/lib/@xon/core', '**/*.xon');
     return HandlerScope.fromGlobPath(globPath);
   }
+}
+
+export class DeclarationMetadata {
+  public constructor(public id: IdToken, public type: TypeMetadata) {}
 }
