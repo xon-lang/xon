@@ -6,7 +6,7 @@ import { MetadataHandler } from '../metadata-handler';
 export class TypeHandler extends MetadataHandler {
   handle(tree: TypeTree) {
     if (tree instanceof IdTypeTree) {
-      tree.typeMetadata = this.scope.findIdType(tree.name, tree.genericArguments.length);
+      tree.typeMetadata = this.scope.findDefinition(tree.name, tree.genericArguments.length);
       if (tree.typeMetadata instanceof ClassTypeMetadata) {
         tree.typeMetadata.genericArguments = tree.genericArguments.map((x) => {
           this.handle(x);

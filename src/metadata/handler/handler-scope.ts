@@ -4,18 +4,17 @@ import { ClassDefinitionTree } from '../../tree/definition/class-definition/clas
 import { DefinitionTree } from '../../tree/definition/definition-tree';
 import { IdToken } from '../../tree/id-token';
 import { parseSourceFile } from '../../tree/parse';
-import { IdTypeMetadata } from '../type/id-type/id-type-metadata';
 import { TypeMetadata } from '../type/type-metadata';
-import { getDefinitionMetadata } from '../type/type-metadata-helper';
 import { DeclarationMetadata } from './declaration-metadata';
 
 export class HandlerScope {
   parent?: HandlerScope;
-  private definitions = new Map<string, IdTypeMetadata>();
+  private definitions = new Map<string, DefinitionTree>();
   private declarations = new Map<string, DeclarationMetadata>();
 
   constructor(parent: HandlerScope = null) {
     this.parent = parent;
+    // temp solution
     if (!parent) {
       const globPath = path.resolve('ast.xon/lib/@xon/core', '**/*.xon');
       const sourceTrees = glob.sync(globPath).map((x) => parseSourceFile(x));
@@ -27,10 +26,10 @@ export class HandlerScope {
     }
   }
 
-  findIdType(name: string, genericsCount = 0): IdTypeMetadata {
+  findDefinition(name: string, genericsCount = 0): DefinitionTree {
     const compoundName = `${name}<${genericsCount}>`;
     if (this.definitions.has(compoundName)) return this.definitions.get(compoundName);
-    if (this.parent) return this.parent.findIdType(name, genericsCount);
+    if (this.parent) return this.parent.findDefinition(name, genericsCount);
     throw new Error(`'${name}' with ${genericsCount} generics not found`);
   }
 
@@ -39,7 +38,7 @@ export class HandlerScope {
     const name = `${value.id.text}<${genericsCount}>`;
     if (this.definitions.has(name))
       throw new Error(`'${name}' with ${genericsCount} generics already exists`);
-    this.definitions.set(name, getDefinitionMetadata(value));
+    this.definitions.set(name, value);
   }
 
   addDeclaration(value: { id: IdToken; typeMetadata: TypeMetadata }) {
