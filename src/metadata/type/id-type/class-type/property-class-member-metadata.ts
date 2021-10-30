@@ -7,7 +7,7 @@ export class PropertyClassMemberMetadata {
   isPrivate: boolean;
   name: string;
 
-  public constructor(public tree: PropertyClassMemberTree, public type: TypeMetadata) {
+  public constructor(tree: PropertyClassMemberTree, type: TypeMetadata) {
     this.id = tree.id;
     this.name = tree.id.text;
     this.isPrivate = tree.isPrivate;

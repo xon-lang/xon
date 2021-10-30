@@ -13,5 +13,6 @@ test('integer', () => {
   const handler = new ClassTypeHandler(scope);
   handler.handle(tree);
   const classTypeMetadata = handler.scope.findIdType('A') as ClassTypeMetadata
-  expect(.name).toBe('A');
+  expect(classTypeMetadata.name).toBe('A');
+  expect(classTypeMetadata.properties).toBe('A');
 });

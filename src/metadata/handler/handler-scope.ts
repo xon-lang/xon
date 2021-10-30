@@ -7,6 +7,7 @@ import { parseSourceFile } from '../../tree/parse';
 import { IdTypeMetadata } from '../type/id-type/id-type-metadata';
 import { TypeMetadata } from '../type/type-metadata';
 import { getDefinitionMetadata } from '../type/type-metadata-helper';
+import { DeclarationMetadata } from './declaration-metadata';
 
 export class HandlerScope {
   private definitions = new Map<string, IdTypeMetadata>();
@@ -57,8 +58,4 @@ export class HandlerScope {
     const globPath = path.resolve('ast.xon/lib/@xon/core', '**/*.xon');
     return HandlerScope.fromGlobPath(globPath);
   }
-}
-
-export class DeclarationMetadata {
-  public constructor(public id: IdToken, public type: TypeMetadata) {}
 }
