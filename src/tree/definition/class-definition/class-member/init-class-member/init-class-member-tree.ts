@@ -5,6 +5,7 @@ import { StatementTree } from '../../../../statement/statement.tree';
 import { ClassMemberTree } from '../class-member.tree';
 
 export class InitClassMemberTree extends ClassMemberTree {
+  id: IdToken;
   public body: StatementTree[];
 
   public constructor(public ctx?: InitClassMemberContext) {
