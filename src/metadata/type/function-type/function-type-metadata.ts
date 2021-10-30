@@ -1,11 +1,15 @@
-import { IdToken } from '../../../tree/id-token';
+import { SourceReference } from '../../../tree/source-reference';
+import { FunctionTypeTree } from '../../../tree/type/function-type/function-type.tree';
 import { TypeMetadata } from '../type-metadata';
 
 export class FunctionTypeMetadata extends TypeMetadata {
-  public name: string;
+  sourceReference: SourceReference;
+  name: string;
 
-  constructor(public idToken: IdToken) {
+  constructor(tree: FunctionTypeTree) {
     super();
+
+    this.sourceReference = tree.sourceReference;
     this.name = this.constructor.name.replace(TypeMetadata.name, '');
   }
 }

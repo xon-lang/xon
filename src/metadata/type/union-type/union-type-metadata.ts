@@ -1,11 +1,15 @@
-import { IdToken } from '../../../tree/id-token';
+import { SourceReference } from '../../../tree/source-reference';
+import { UnionTypeTree } from '../../../tree/type/union-type/union-type.tree';
 import { TypeMetadata } from '../type-metadata';
 
 export class UnionTypeMetadata extends TypeMetadata {
-  public name: string;
+  sourceReference: SourceReference;
+  name: string;
 
-  constructor(public idToken: IdToken) {
+  constructor(tree: UnionTypeTree) {
     super();
+
+    this.sourceReference = tree.sourceReference;
     this.name = this.constructor.name.replace(TypeMetadata.name, '');
   }
 }

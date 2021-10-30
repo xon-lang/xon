@@ -1,12 +1,12 @@
 import { ClassDefinitionTree } from '../../../../tree/definition/class-definition/class-definition-tree';
-import { IdToken } from '../../../../tree/id-token';
+import { SourceReference } from '../../../../tree/source-reference';
 import { TypeMetadata } from '../../type-metadata';
 import { DefinitionTypeMetadata } from '../definition-type-metadata';
 import { MethodClassMemberMetadata } from './method-class-member-metadata';
 import { PropertyClassMemberMetadata } from './property-class-member-metadata';
 
 export class ClassTypeMetadata extends DefinitionTypeMetadata {
-  id: IdToken;
+  sourceReference: SourceReference;
   name: string;
   genericArguments: TypeMetadata[] = [];
   properties: PropertyClassMemberMetadata[] = [];
@@ -14,7 +14,7 @@ export class ClassTypeMetadata extends DefinitionTypeMetadata {
 
   constructor(tree: ClassDefinitionTree) {
     super();
-    this.id = tree.id;
+    this.sourceReference = tree.id.sourceReference;
     this.name = tree.id.text;
     // this.genericParameters = tree.genericParameters.map((x) => new GenericTypeMetadata(x));
   }
