@@ -16,6 +16,7 @@ export class ClassTypeMetadata extends IdTypeMetadata {
     super();
     this.sourceReference = tree.id.sourceReference;
     this.name = tree.id.text;
+    // this.properties = 
     // this.genericParameters = tree.genericParameters.map((x) => new GenericTypeMetadata(x));
   }
 

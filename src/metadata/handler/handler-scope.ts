@@ -10,12 +10,21 @@ import { getDefinitionMetadata } from '../type/type-metadata-helper';
 import { DeclarationMetadata } from './declaration-metadata';
 
 export class HandlerScope {
-  parent: HandlerScope;
+  parent?: HandlerScope;
   private definitions = new Map<string, IdTypeMetadata>();
   private declarations = new Map<string, DeclarationMetadata>();
 
   constructor(parent: HandlerScope = null) {
-    this.parent = parent || this.defaultScope();
+    this.parent = parent;
+    if (!parent) {
+      const globPath = path.resolve('ast.xon/lib/@xon/core', '**/*.xon');
+      const sourceTrees = glob.sync(globPath).map((x) => parseSourceFile(x));
+      for (const sourceTree of sourceTrees) {
+        for (const definitionTree of sourceTree.definitions) {
+          this.addDefinition(definitionTree);
+        }
+      }
+    }
   }
 
   findIdType(name: string, genericsCount = 0): IdTypeMetadata {
@@ -43,17 +52,5 @@ export class HandlerScope {
     if (this.declarations.has(name)) return this.declarations.get(name);
     if (this.parent) return this.parent.findDeclaration(name);
     throw new Error(`'${name}' not found`);
-  }
-
-  private defaultScope(): HandlerScope {
-    const globPath = path.resolve('ast.xon/lib/@xon/core', '**/*.xon');
-    const sourceTrees = glob.sync(globPath).map((x) => parseSourceFile(x));
-    const scope = new HandlerScope();
-    for (const sourceTree of sourceTrees) {
-      for (const definitionTree of sourceTree.definitions) {
-        scope.addDefinition(definitionTree);
-      }
-    }
-    return scope;
   }
 }
