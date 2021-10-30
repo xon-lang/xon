@@ -3,6 +3,7 @@ import { StatementTree } from '../../../tree/statement/statement.tree';
 import { VariableDeclarationStatementTree } from '../../../tree/statement/variable-declaration-statement/variable-declaration-statement.tree';
 import { ExpressionHandler } from '../expression/expression-handler';
 import { MetadataHandler } from '../metadata-handler';
+import { TypeHandler } from '../type/type-handler';
 
 export class StatementHandler extends MetadataHandler {
   handle(tree: StatementTree) {
@@ -11,9 +12,10 @@ export class StatementHandler extends MetadataHandler {
       return;
     }
     if (tree instanceof VariableDeclarationStatementTree) {
-      tree.id.declarationLink = tree.id.sourceReference
-      
-      new ExpressionHandler(this.scope).handle(tree.expression);
+      tree.id.declarationLink = tree.id.sourceReference;
+      if (tree.type) new TypeHandler(this.scope).handle(tree.type);
+      if (tree.value) new ExpressionHandler(this.scope).handle(tree.value);
+      tree.typeMetadata = tree.type?.typeMetadata || tree.value.typeMetadata;
       return;
     }
 

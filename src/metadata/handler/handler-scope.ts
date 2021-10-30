@@ -1,4 +1,5 @@
 import * as glob from 'glob';
+import * as path from 'path';
 import { ClassDefinitionTree } from '../../tree/definition/class-definition/class-definition-tree';
 import { DefinitionTree } from '../../tree/definition/definition-tree';
 import { IdToken } from '../../tree/id-token';
@@ -50,5 +51,10 @@ export class HandlerScope {
     }
 
     return scope;
+  }
+
+  static fromCoreModule(): HandlerScope {
+    const globPath = path.resolve('ast.xon/lib/@xon/core', '**/*.xon');
+    return HandlerScope.fromGlobPath(globPath);
   }
 }
