@@ -5,6 +5,7 @@ import { LiteralExpressionTree } from '../../../tree/expression/literal-expressi
 import { getDefinitionMetadata } from '../../type/type-metadata-helper';
 import { LiteralHandler } from '../literal/literal-handler';
 import { MetadataHandler } from '../metadata-handler';
+import { TypeHandler } from '../type/type-handler';
 
 export class ExpressionHandler extends MetadataHandler {
   handle(tree: ExpressionTree) {
@@ -22,7 +23,7 @@ export class ExpressionHandler extends MetadataHandler {
     }
 
     if (tree instanceof InstantiationExpressionTree) {
-      tree.genericArguments.forEach((x) => this.handle(x));
+      tree.genericArguments.forEach((x) => new TypeHandler(this.scope).handle(x));
       const genericArguments = tree.genericArguments.map((x) => x.typeMetadata);
       const definitionTree = this.scope.findDefinition(tree.id.text, genericArguments.length);
       tree.typeMetadata = getDefinitionMetadata(definitionTree, genericArguments);
