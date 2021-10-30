@@ -1,4 +1,5 @@
 import { PropertyClassMemberContext } from '../../../../../grammar/xon-parser';
+import { TypeMetadata } from '../../../../../metadata/type/type-metadata';
 import { getExpressionTree } from '../../../../expression/expression-tree.helper';
 import { ExpressionTree } from '../../../../expression/expression.tree';
 import { IdToken } from '../../../../id-token';
@@ -7,11 +8,13 @@ import { TypeTree } from '../../../../type/type.tree';
 import { ClassMemberTree } from '../class-member.tree';
 
 export class PropertyClassMemberTree extends ClassMemberTree {
-  public isPrivate: boolean;
-  public type?: TypeTree;
-  public value?: ExpressionTree;
+  id: IdToken;
+  isPrivate: boolean;
+  type?: TypeTree;
+  value?: ExpressionTree;
+  typeMetadata: TypeMetadata;
 
-  public constructor(public ctx?: PropertyClassMemberContext) {
+  constructor(public ctx?: PropertyClassMemberContext) {
     super();
     if (!ctx) return;
 
