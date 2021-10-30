@@ -1,4 +1,5 @@
 import { MethodClassMemberContext } from '../../../../../grammar/xon-parser';
+import { TypeMetadata } from '../../../../../metadata/type/type-metadata';
 import { IdToken } from '../../../../id-token';
 import { getParametersTrees } from '../../../../parameter/parameter-tree.helper';
 import { ParameterTree } from '../../../../parameter/parameter.tree';
@@ -9,11 +10,13 @@ import { TypeTree } from '../../../../type/type.tree';
 import { ClassMemberTree } from '../class-member.tree';
 
 export class MethodClassMemberTree extends ClassMemberTree {
+  id: IdToken;
   public isPrivate: boolean;
   public genericParameters: IdToken[] = [];
   public parameters: ParameterTree[] = [];
   public returnType?: TypeTree;
   public body?: StatementTree[];
+  typeMetadata: TypeMetadata;
 
   public constructor(public ctx?: MethodClassMemberContext) {
     super();
