@@ -13,7 +13,7 @@ export class TypeHandler extends MetadataHandler {
           return x.typeMetadata;
         });
       }
-      tree.id.declarationLink = tree.typeMetadata.id.sourceReference;
+      tree.id.declarationLink = tree.typeMetadata.sourceReference;
       return;
     }
 

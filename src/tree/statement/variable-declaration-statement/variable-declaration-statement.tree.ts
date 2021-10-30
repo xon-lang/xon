@@ -18,7 +18,7 @@ export class VariableDeclarationStatementTree extends StatementTree {
     if (!ctx) return;
 
     this.id = new IdToken(ctx._name);
-    this.type = getTypeTree(ctx.type());
+    this.type = getTypeTree(ctx.type()) || null;
     this.value = getExpressionTree(ctx.expression());
   }
 }
