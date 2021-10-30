@@ -1,7 +1,6 @@
 import { ClassDefinitionTree } from '../../../tree/definition/class-definition/class-definition-tree';
 import { parseDefinition } from '../../../tree/parse';
 import { ClassTypeMetadata } from '../../type/id-type/class-type/class-type-metadata';
-import { HandlerScope } from '../handler-scope';
 import { ClassTypeHandler } from './class-type-handler';
 
 test('class type', () => {
@@ -9,7 +8,7 @@ test('class type', () => {
   const tree = parseDefinition<ClassDefinitionTree>(code);
   expect(tree).toBeInstanceOf(ClassDefinitionTree);
 
-  const handler = new ClassTypeHandler(new HandlerScope());
+  const handler = new ClassTypeHandler();
   handler.handle(tree);
 
   const classTypeMetadata = handler.scope.findDefinition('A') as ClassTypeMetadata;

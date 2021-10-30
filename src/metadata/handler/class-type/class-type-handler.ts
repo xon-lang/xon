@@ -5,8 +5,8 @@ import { HandlerScope } from '../handler-scope';
 import { MetadataHandler } from '../metadata-handler';
 
 export class ClassTypeHandler extends MetadataHandler {
-  public constructor(scope: HandlerScope) {
-    super(new HandlerScope(scope));
+  public constructor(scope: HandlerScope = null) {
+    super(new HandlerScope(scope || new HandlerScope()));
   }
 
   handle(tree: ClassDefinitionTree) {

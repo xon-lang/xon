@@ -1,14 +1,27 @@
-import { LiteralExpressionTree } from '../../../tree/expression/literal-expression/literal-expression.tree';
-import { parseExpression } from '../../../tree/parse';
-import { HandlerScope } from '../handler-scope';
+import { parseStatement } from '../../../tree/parse';
+import { ExpressionStatementTree } from '../../../tree/statement/expression-statement/expression-statement.tree';
 import { ExpressionHandler } from './expression-handler';
 
-test('integer literal', () => {
+test('literal', () => {
   const code = '123';
-  const tree = parseExpression<LiteralExpressionTree>(code);
-  expect(tree).toBeInstanceOf(LiteralExpressionTree);
+  const tree = parseStatement<ExpressionStatementTree>(code);
 
-  new ExpressionHandler(new HandlerScope()).handle(tree);
-  expect(tree.literal.value).toBe(123);
-  expect(tree.typeMetadata.name).toBe('Integer');
+  new ExpressionHandler().handle(tree.expression);
+  expect(tree.expression.typeMetadata.name).toBe('Integer');
+});
+
+test('instantiation string', () => {
+  const code = 'String()';
+  const tree = parseStatement<ExpressionStatementTree>(code);
+
+  new ExpressionHandler().handle(tree.expression);
+  expect(tree.expression.typeMetadata.name).toBe('String');
+});
+
+test('instantiation array', () => {
+  const code = 'Array<Integer>()';
+  const tree = parseStatement<ExpressionStatementTree>(code);
+
+  new ExpressionHandler().handle(tree.expression);
+  expect(tree.expression.typeMetadata.name).toBe('Array');
 });
