@@ -7,7 +7,7 @@ test('1', () => {
   expect(tree).toBeInstanceOf(PropertyClassMemberTree);
 
   expect(tree.id.text).toBe('a');
-  expect(tree.type.toString()).toBe('((String) Integer)[]');
+  expect(tree.type.toString()).toBe('((s String) Integer)[]');
 });
 
 test('2', () => {
@@ -16,5 +16,5 @@ test('2', () => {
   expect(tree).toBeInstanceOf(PropertyClassMemberTree);
 
   expect(tree.id.text).toBe('a');
-  expect(tree.type.toString()).toBe('((String | null) Integer | "hello")[]');
+  expect(tree.type.toString()).toBe('((s String | null) Integer | "hello")[]');
 });
