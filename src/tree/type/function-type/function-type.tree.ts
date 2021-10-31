@@ -1,12 +1,14 @@
 import { FunctionTypeContext } from '../../../grammar/xon-parser';
+import { getParametersTrees } from '../../parameter/parameter-tree.helper';
+import { ParameterTree } from '../../parameter/parameter.tree';
 import { getTypeTree } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
 export class FunctionTypeTree extends TypeTree {
   name: string;
   genericParameters: string[] = [];
-  parameters: TypeTree[] = [];
-  returnType: TypeTree;
+  parameters: ParameterTree[] = [];
+  returnType?: TypeTree;
 
   constructor(public ctx?: FunctionTypeContext) {
     super();
@@ -14,8 +16,8 @@ export class FunctionTypeTree extends TypeTree {
 
     this.name = this.constructor.name.replace(TypeTree.name, '');
     this.genericParameters = ctx.genericParameters()?._names.map((x) => x.text) || [];
-    this.parameters = ctx.typeParameters().type().map(getTypeTree);
-    this.returnType = getTypeTree(ctx.type());
+    this.parameters = getParametersTrees(ctx.parameters());
+    this.returnType = (ctx.type() && getTypeTree(ctx.type())) || null;
   }
 
   toString(): string {

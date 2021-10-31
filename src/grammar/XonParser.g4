@@ -85,14 +85,14 @@ expression:
     ;
 
 type:
-    name = UPPER_ID genericArguments?        # idType
-    | literal                                # literalType
-    | type '?'                               # nullableType
-    | type '[' size = INTEGER_LITERAL? ']'   # arrayType
-    | type '&' type                          # intersectionType
-    | type '|' type                          # unionType
-    | genericParameters? typeParameters type # functionType
-    | '(' type ')'                           # parenthesizedType
+    name = UPPER_ID genericArguments?      # idType
+    | literal                              # literalType
+    | type '?'                             # nullableType
+    | type '[' size = INTEGER_LITERAL? ']' # arrayType
+    | type '&' type                        # intersectionType
+    | type '|' type                        # unionType
+    | genericParameters? parameters type?  # functionType
+    | '(' type ')'                         # parenthesizedType
     ;
 
 literal:
@@ -130,7 +130,6 @@ parameter:         name = LOWER_ID type? ('#' meta = UPPER_ID)?;
 parameters:        '(' (parameter (',' parameter)*)? ')';
 argument:          (name = LOWER_ID '=')? expression;
 arguments:         '(' (argument (',' argument)*)? ')';
-typeParameters:    '(' (type (',' type)*)? ')';
 genericArguments:  '<' (type (',' type)*)? '>';
 genericParameters: '<' names += UPPER_ID (',' names += UPPER_ID)* '>';
 body:              ':' statement? | ':' NL* INDENT (statement | NL)* DEDENT;
