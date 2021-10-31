@@ -1,6 +1,6 @@
 import { ClassDefinitionTree } from '../../../tree/definition/class-definition/class-definition-tree';
 import { AttributeClassMemberTree } from '../../../tree/definition/class-definition/class-member/attribute-class-member/attribute-class-member-tree';
-import { DeclarationHandler } from '../declaration-handler/declaration-handler';
+import { DeclarationHandler } from '../attribute/attribute-handler';
 import { HandlerScope } from '../handler-scope';
 import { MetadataHandler } from '../metadata-handler';
 
