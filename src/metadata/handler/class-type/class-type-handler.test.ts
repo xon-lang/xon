@@ -1,6 +1,6 @@
-import { ClassDefinitionTree } from '../../../../tree/definition/class-definition/class-definition-tree';
-import { parseDefinition } from '../../../../tree/parse';
-import { FunctionTypeMetadata } from '../../../type/function-type/function-type-metadata';
+import { ClassDefinitionTree } from '../../../tree/definition/class-definition/class-definition-tree';
+import { parseDefinition } from '../../../tree/parse';
+import { FunctionTypeMetadata } from '../../type/function-type/function-type-metadata';
 import { ClassTypeHandler } from './class-type-handler';
 
 test('class type', () => {

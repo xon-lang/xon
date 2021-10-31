@@ -2,7 +2,7 @@ import { ParserRuleContext, Token } from 'antlr4ts';
 import * as fs from 'fs';
 
 export class SourceReference {
-  path: string;
+  filePath: string;
   startIndex: number;
   stopIndex: number;
   line: number;
@@ -16,12 +16,12 @@ export class SourceReference {
   }
 
   get text() {
-    return fs.readFileSync(this.path);
+    return fs.readFileSync(this.filePath);
   }
 
   clone() {
     const ref = new SourceReference();
-    ref.path = this.path;
+    ref.filePath = this.filePath;
     ref.startIndex = this.startIndex;
     ref.stopIndex = this.stopIndex;
     ref.line = this.line;
@@ -39,7 +39,7 @@ export class SourceReference {
 
   static fromTwoTokens(start: Token, stop: Token) {
     const ref = new SourceReference();
-    ref.path = start.inputStream.sourceName;
+    ref.filePath = start.inputStream.sourceName;
     ref.startIndex = start.startIndex;
     ref.stopIndex = stop.stopIndex;
     ref.line = start.line;

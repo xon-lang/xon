@@ -7,14 +7,11 @@ import { MetadataHandler } from '../metadata-handler';
 export class TypeHandler extends MetadataHandler {
   handle(tree: TypeTree) {
     if (tree instanceof IdTypeTree) {
-      const definitionTree = this.scope.findDefinition(tree.name, tree.genericArguments.length);
-      if (definitionTree instanceof ClassDefinitionTree) {
-        const genericArguments = tree.genericArguments.map((x) => {
-          this.handle(x);
-          return x.typeMetadata;
-        });
+      tree.genericArguments.forEach((x) => this.handle(x));
+      const genericArguments = tree.genericArguments.map((x) => x.typeMetadata);
+      const definitionTree = this.scope.findDefinition(tree.name, genericArguments.length);
+      if (definitionTree instanceof ClassDefinitionTree)
         tree.typeMetadata = getDefinitionMetadata(definitionTree, genericArguments);
-      }
       tree.id.declarationLink = tree.typeMetadata.sourceReference;
       return;
     }
