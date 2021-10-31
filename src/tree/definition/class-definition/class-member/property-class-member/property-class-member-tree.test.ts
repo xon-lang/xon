@@ -48,7 +48,7 @@ test('has function type', () => {
   const type = tree.type as FunctionTypeTree;
   expect(type.name).toBe('Function');
   expect(type.parameters.length).toBe(1);
-  expect(type.parameters[0].name).toBe('Integer');
+  expect(type.parameters[0].id.text).toBe('Integer');
   expect(type.returnType.name).toBe('String');
   expect(tree.value).toBe(null);
 });
