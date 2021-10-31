@@ -1,6 +1,6 @@
+import { AttributeStatementTree } from '../../../tree/statement/attribute-statement/attribute-statement.tree';
 import { ExpressionStatementTree } from '../../../tree/statement/expression-statement/expression-statement.tree';
 import { StatementTree } from '../../../tree/statement/statement.tree';
-import { VariableDeclarationStatementTree } from '../../../tree/statement/attribute-statement/attribute-statement.tree';
 import { DeclarationHandler } from '../declaration-handler/declaration-handler';
 import { ExpressionHandler } from '../expression/expression-handler';
 import { MetadataHandler } from '../metadata-handler';
@@ -11,7 +11,7 @@ export class StatementHandler extends MetadataHandler {
       new ExpressionHandler(this.scope).handle(tree.expression);
       return;
     }
-    if (tree instanceof VariableDeclarationStatementTree) {
+    if (tree instanceof AttributeStatementTree) {
       new DeclarationHandler(this.scope).handle(tree);
       return;
     }
