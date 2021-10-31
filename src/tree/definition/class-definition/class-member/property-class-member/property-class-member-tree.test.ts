@@ -39,7 +39,7 @@ test('integer value', () => {
 });
 
 test('has function type', () => {
-  const code = '_a (Integer) String';
+  const code = '_a (i Integer) String';
   const tree = parseClassMember<PropertyClassMemberTree>(code);
   expect(tree).toBeInstanceOf(PropertyClassMemberTree);
 
@@ -48,7 +48,7 @@ test('has function type', () => {
   const type = tree.type as FunctionTypeTree;
   expect(type.name).toBe('Function');
   expect(type.parameters.length).toBe(1);
-  expect(type.parameters[0].id.text).toBe('Integer');
+  expect(type.parameters[0].type.name).toBe('Integer');
   expect(type.returnType.name).toBe('String');
   expect(tree.value).toBe(null);
 });
