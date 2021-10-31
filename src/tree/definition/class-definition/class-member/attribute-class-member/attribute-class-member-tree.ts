@@ -21,6 +21,6 @@ export class AttributeClassMemberTree extends ClassMemberTree {
     this.id = new IdToken(ctx._name);
     this.isPrivate = this.id.text.startsWith('_');
     this.type = getTypeTree(ctx.type()) || null;
-    this.body = getStatements(ctx.body());
+    this.body = getStatements(ctx.body()) || null;
   }
 }
