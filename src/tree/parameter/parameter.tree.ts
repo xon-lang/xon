@@ -23,6 +23,7 @@ export class ParameterTree extends BaseTree {
   }
 
   public toString(): string {
+    if(this.type)
     return `${this.id} ${this.type}`;
   }
 }

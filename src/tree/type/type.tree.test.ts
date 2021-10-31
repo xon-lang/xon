@@ -2,7 +2,7 @@ import { PropertyClassMemberTree } from '../definition/class-definition/class-me
 import { parseClassMember } from '../parse';
 
 test('1', () => {
-  const code = 'a ((String ) Integer) []';
+  const code = 'a ((s String) Integer) []';
   const tree = parseClassMember<PropertyClassMemberTree>(code);
   expect(tree).toBeInstanceOf(PropertyClassMemberTree);
 
@@ -11,7 +11,7 @@ test('1', () => {
 });
 
 test('2', () => {
-  const code = 'a ((String | null ) Integer |  "hello") []';
+  const code = 'a ((s String | null ) Integer |  "hello") []';
   const tree = parseClassMember<PropertyClassMemberTree>(code);
   expect(tree).toBeInstanceOf(PropertyClassMemberTree);
 
