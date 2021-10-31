@@ -34,17 +34,17 @@ classMember:
 test: TEST expression? body?;
 
 statement:
-    expression                                                           # expressionStatement
-    | FOR (value = LOWER_ID (',' index = LOWER_ID)? IN)? expression body # forStatement
-    | WHILE expression body                                              # whileStatement
-    | DO body WHILE expression                                           # doWhileStatement
-    | IF expression thenBody = body (ELSE elseBody = body)?              # ifStatement
-    | BREAK                                                              # breakStatement
-    | RETURN expression?                                                 # returnStatement
-    | ACTUAL actual = expression NL+ EXPECT expect = expression          # assertStatement
-    | PREPROCESSOR                                                       # preprocessorStatement
-    | assignment                                                         # assignmentStatement
-    | attribute                                                          # attributeStatement
+    FOR (value = LOWER_ID (',' index = LOWER_ID)? IN)? expression body # forStatement
+    | WHILE expression body                                            # whileStatement
+    | DO body WHILE expression                                         # doWhileStatement
+    | IF expression thenBody = body (ELSE elseBody = body)?            # ifStatement
+    | BREAK                                                            # breakStatement
+    | RETURN expression?                                               # returnStatement
+    | ACTUAL actual = expression NL+ EXPECT expect = expression        # assertStatement
+    | PREPROCESSOR                                                     # preprocessorStatement
+    | attribute                                                        # attributeStatement
+    | assignment                                                       # assignmentStatement
+    | expression                                                       # expressionStatement
     ;
 
 attribute: name = LOWER_ID type? body?;
@@ -84,14 +84,16 @@ expression:
     ;
 
 type:
-    name = UPPER_ID genericArguments?      # idType
-    | literal                              # literalType
-    | type '?'                             # nullableType
-    | type '[' size = INTEGER_LITERAL? ']' # arrayType
-    | type '&' type                        # intersectionType
-    | type '|' type                        # unionType
-    | genericParameters? parameters type?  # functionType
-    | '(' type ')'                         # parenthesizedType
+    name = UPPER_ID genericArguments?             # idType
+    | literal                                     # literalType
+    | type '?'                                    # nullableType
+    | type '[' size = INTEGER_LITERAL? ']'        # arrayType
+    | type '&' type                               # intersectionType
+    | '(' type '&' type ')'                       # intersectionParenthesizedType
+    | type '|' type                               # unionType
+    | '(' type '|' type ')'                       # unionParenthesizedType
+    | genericParameters? parameters type?         # functionType
+    | '(' genericParameters? parameters type? ')' # functionParenthesizedType
     ;
 
 literal:

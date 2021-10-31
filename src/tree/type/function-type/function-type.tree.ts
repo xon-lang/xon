@@ -1,4 +1,4 @@
-import { FunctionTypeContext } from '../../../grammar/xon-parser';
+import { FunctionParenthesizedTypeContext, FunctionTypeContext } from '../../../grammar/xon-parser';
 import { IdToken } from '../../id-token';
 import { getParametersTrees } from '../../parameter/parameter-tree.helper';
 import { ParameterTree } from '../../parameter/parameter.tree';
@@ -11,7 +11,7 @@ export class FunctionTypeTree extends TypeTree {
   parameters: ParameterTree[] = [];
   returnType?: TypeTree;
 
-  constructor(public ctx?: FunctionTypeContext) {
+  constructor(public ctx?: FunctionTypeContext | FunctionParenthesizedTypeContext) {
     super();
     if (!ctx) return;
 
