@@ -6,12 +6,14 @@ import { ExpressionStatementTree } from '../../../../statement/expression-statem
 import { InitClassMemberTree } from './init-class-member-tree';
 
 test('method member', () => {
-  const code = 'init:\n    log(222)';
+  const code = 'init:\n    log (222)';
   const tree = parseClassMember<InitClassMemberTree>(code);
   expect(tree).toBeInstanceOf(InitClassMemberTree);
 
+  expect(tree.body.length).toBe(1);
   const statement = tree.body[0] as ExpressionStatementTree;
   const expression = statement.expression as CallExpressionTree;
+  expect(expression).toBeInstanceOf(CallExpressionTree);
   expect(expression.arguments.length).toBe(1);
   expect((expression.arguments[0].value as LiteralExpressionTree).literal.value).toBe(222);
 
