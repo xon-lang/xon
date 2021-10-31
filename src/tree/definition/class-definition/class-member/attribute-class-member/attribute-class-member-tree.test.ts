@@ -29,7 +29,7 @@ test('private integer', () => {
 });
 
 test('integer value', () => {
-  const code = '_a Integer =  9';
+  const code = '_a Integer: 9';
   const tree = parseClassMember<AttributeClassMemberTree>(code);
   expect(tree).toBeInstanceOf(AttributeClassMemberTree);
 
