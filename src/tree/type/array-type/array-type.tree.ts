@@ -7,6 +7,7 @@ import { UnionTypeTree } from '../union-type/union-type.tree';
 export class ArrayTypeTree extends TypeTree {
   name: string;
   itemType: TypeTree;
+  size?: number;
 
   constructor(public ctx?: ArrayTypeContext) {
     super();
@@ -14,6 +15,7 @@ export class ArrayTypeTree extends TypeTree {
 
     this.name = this.constructor.name.replace(TypeTree.name, '');
     this.itemType = getTypeTree(ctx.type());
+    this.size = (ctx._size && +ctx._size.text) || null;
   }
 
   toString(): string {

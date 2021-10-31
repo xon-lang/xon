@@ -88,7 +88,7 @@ type:
     name = UPPER_ID genericArguments?        # idType
     | literal                                # literalType
     | type '?'                               # nullableType
-    | type '[' size = INTEGER_LITERAL ']'    # arrayType
+    | type '[' size = INTEGER_LITERAL? ']'   # arrayType
     | type '&' type                          # intersectionType
     | type '|' type                          # unionType
     | genericParameters? typeParameters type # functionType
