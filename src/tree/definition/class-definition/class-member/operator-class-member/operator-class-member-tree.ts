@@ -20,7 +20,7 @@ export class OperatorClassMemberTree extends ClassMemberTree {
     super();
     if (!ctx) return;
 
-    this.id = IdToken.fromContext(ctx.operator());
+    this.id = IdToken.fromContext(ctx._name);
     this.parameters = getParametersTrees(ctx.parameters());
     this.returnType = getTypeTree(ctx.type());
     this.body = getStatementsFromMethodContext(ctx.methodBody());
