@@ -4,7 +4,7 @@ import { FunctionTypeMetadata } from '../../type/function-type/function-type-met
 import { ClassTypeHandler } from './class-type-handler';
 
 test('class type', () => {
-  const code = 'A:\n  p = 123';
+  const code = 'A:\n  p: 123';
   const tree = parseDefinition<ClassDefinitionTree>(code);
   expect(tree).toBeInstanceOf(ClassDefinitionTree);
 
