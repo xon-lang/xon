@@ -14,12 +14,12 @@ test('number return function', () => {
 });
 
 test('from translator-ts', () => {
-  const code = '<T>(Integer) T';
+  const code = '<T>(i Integer) T';
   const tree = parseType<FunctionTypeTree>(code);
   expect(tree).toBeInstanceOf(FunctionTypeTree);
 
   expect(tree.genericParameters.length).toBe(1);
-  expect(tree.genericParameters[0]).toBe('T');
+  expect(tree.genericParameters[0].text).toBe('T');
   expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].type.name).toBe('Integer');
   expect(tree.returnType.name).toBe('T');

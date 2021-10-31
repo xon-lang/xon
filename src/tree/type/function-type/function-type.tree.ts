@@ -1,4 +1,5 @@
 import { FunctionTypeContext } from '../../../grammar/xon-parser';
+import { IdToken } from '../../id-token';
 import { getParametersTrees } from '../../parameter/parameter-tree.helper';
 import { ParameterTree } from '../../parameter/parameter.tree';
 import { getTypeTree } from '../type-tree.helper';
@@ -6,7 +7,7 @@ import { TypeTree } from '../type.tree';
 
 export class FunctionTypeTree extends TypeTree {
   name: string;
-  genericParameters: string[] = [];
+  genericParameters: IdToken[] = [];
   parameters: ParameterTree[] = [];
   returnType?: TypeTree;
 
@@ -15,7 +16,7 @@ export class FunctionTypeTree extends TypeTree {
     if (!ctx) return;
 
     this.name = this.constructor.name.replace(TypeTree.name, '');
-    this.genericParameters = ctx.genericParameters()?._names.map((x) => x.text) || [];
+    this.genericParameters = ctx.genericParameters()?._names.map((x) => new IdToken(x)) || [];
     this.parameters = getParametersTrees(ctx.parameters());
     this.returnType = (ctx.type() && getTypeTree(ctx.type())) || null;
   }
