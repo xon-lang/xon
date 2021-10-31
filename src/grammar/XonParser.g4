@@ -34,7 +34,7 @@ classMember:
 test: TEST expression? body?;
 
 statement:
-    name = LOWER_ID type? ':' expression                                 # variableDeclarationStatement
+    name = LOWER_ID type? body                                           # variableDeclarationStatement
     | FOR (value = LOWER_ID (',' index = LOWER_ID)? IN)? expression body # forStatement
     | WHILE expression body                                              # whileStatement
     | DO body WHILE expression                                           # doWhileStatement
