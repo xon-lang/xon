@@ -47,7 +47,7 @@ statement:
     | expression                                                         # expressionStatement
     ;
 
-attribute: name = LOWER_ID type? body;
+attribute: name = LOWER_ID type? body?;
 
 assignment:
     name = LOWER_ID '=' expression                                      # idAssignment
