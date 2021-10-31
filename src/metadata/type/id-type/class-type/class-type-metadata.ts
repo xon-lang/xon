@@ -16,7 +16,7 @@ export class ClassTypeMetadata extends IdTypeMetadata {
     this.sourceReference = tree.id.sourceReference;
     this.name = tree.id.text;
     this.genericArguments = genericArguments;
-    this.properties = tree.properties.map((x) => new PropertyClassMemberMetadata(x));
+    this.properties = tree.attributes.map((x) => new PropertyClassMemberMetadata(x));
   }
 
   // well no optional and rest parameters at now

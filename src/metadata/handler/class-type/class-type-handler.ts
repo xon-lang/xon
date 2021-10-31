@@ -12,7 +12,7 @@ export class ClassTypeHandler extends MetadataHandler {
   handle(tree: ClassDefinitionTree) {
     this.scope.addDefinition(tree);
 
-    this.handleProperties(tree.properties);
+    this.handleProperties(tree.attributes);
   }
 
   handleProperties(properties: AttributeClassMemberTree[]) {
