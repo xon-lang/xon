@@ -1,7 +1,5 @@
 import { VariableDeclarationStatementContext } from '../../../grammar/xon-parser';
 import { TypeMetadata } from '../../../metadata/type/type-metadata';
-import { getExpressionTree } from '../../expression/expression-tree.helper';
-import { ExpressionTree } from '../../expression/expression.tree';
 import { IdToken } from '../../id-token';
 import { getTypeTree } from '../../type/type-tree.helper';
 import { TypeTree } from '../../type/type.tree';
