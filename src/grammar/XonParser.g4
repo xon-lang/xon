@@ -42,12 +42,12 @@ statement:
     | RETURN expression?                                               # returnStatement
     | ACTUAL actual = expression NL+ EXPECT expect = expression        # assertStatement
     | PREPROCESSOR                                                     # preprocessorStatement
+    | expression                                                       # expressionStatement
     | attribute                                                        # attributeStatement
     | assignment                                                       # assignmentStatement
-    | expression                                                       # expressionStatement
     ;
 
-attribute: name = LOWER_ID (type body? | type? body);
+attribute: name = LOWER_ID (type | body | type body);
 
 assignment:
     name = LOWER_ID '=' expression                                      # idAssignment
