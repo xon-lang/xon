@@ -5,7 +5,7 @@ import { parseClassMember } from '../../../../parse';
 import { ExpressionStatementTree } from '../../../../statement/expression-statement/expression-statement.tree';
 import { InitClassMemberTree } from './init-class-member-tree';
 
-test('method member', () => {
+test('init member', () => {
   const code = 'init:\n    log (222)';
   const tree = parseClassMember<InitClassMemberTree>(code);
   expect(tree).toBeInstanceOf(InitClassMemberTree);
