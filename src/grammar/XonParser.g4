@@ -20,7 +20,7 @@ libraryMember:   name = id | name = id AS alias = id;
 
 definition:
     name = UPPER_ID genericParameters? parameters? (IS type)? (
-        ':' NL INDENT ( classMember | NL)+ DEDENT
+        ':' NL+ INDENT ( classMember | NL)+ DEDENT
     )? # classDefinition
     ;
 
@@ -135,4 +135,4 @@ arguments: '(' (argument (',' argument)*)? ')';
 genericArguments:  '<' (type (',' type)*)? '>';
 genericParameters: '<' names += UPPER_ID (',' names += UPPER_ID)* '>';
 
-body: ':' statement? | ':' NL* INDENT (statement | NL)* DEDENT;
+body: ':' statement? | ':' NL+ INDENT (statement | NL)* DEDENT;
