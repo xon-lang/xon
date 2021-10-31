@@ -8,7 +8,7 @@ import { TypeTree } from '../type/type.tree';
 export class ParameterTree extends BaseTree {
   public id: IdToken;
   public isPrivate: boolean;
-  public type: TypeTree;
+  public type?: TypeTree;
   public metaType?: string;
   public typeMetadata: TypeMetadata;
 
@@ -18,12 +18,11 @@ export class ParameterTree extends BaseTree {
 
     this.id = new IdToken(ctx._name);
     this.isPrivate = this.id.text.startsWith('_');
-    this.type = getTypeTree(ctx.type());
+    this.type = getTypeTree(ctx.type()) || null;
     this.metaType = ctx._meta?.text || null;
   }
 
   public toString(): string {
-    if(this.type)
-    return `${this.id} ${this.type}`;
+    if (this.type) return `${this.id} ${this.type}`;
   }
 }

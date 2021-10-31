@@ -126,7 +126,7 @@ operator:
 id: UPPER_ID | LOWER_ID; // | INIT | ACTUAL | EXPECT | IMPORT | EXPORT;
 
 // mb type always shoud be an interface?
-parameter:         name = LOWER_ID type ('#' meta = UPPER_ID)?;
+parameter:         name = LOWER_ID type? ('#' meta = UPPER_ID)?;
 parameters:        '(' (parameter (',' parameter)*)? ')';
 argument:          (name = LOWER_ID '=')? expression;
 arguments:         '(' (argument (',' argument)*)? ')';
