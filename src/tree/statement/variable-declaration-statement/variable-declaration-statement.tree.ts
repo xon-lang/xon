@@ -5,12 +5,13 @@ import { ExpressionTree } from '../../expression/expression.tree';
 import { IdToken } from '../../id-token';
 import { getTypeTree } from '../../type/type-tree.helper';
 import { TypeTree } from '../../type/type.tree';
+import { getStatements } from '../statement-tree.helper';
 import { StatementTree } from '../statement.tree';
 
 export class VariableDeclarationStatementTree extends StatementTree {
   public id: IdToken;
   public type?: TypeTree;
-  public value?: ExpressionTree;
+  public body?: StatementTree[];
   public typeMetadata: TypeMetadata;
 
   public constructor(public ctx?: VariableDeclarationStatementContext) {
@@ -19,6 +20,6 @@ export class VariableDeclarationStatementTree extends StatementTree {
 
     this.id = new IdToken(ctx._name);
     this.type = getTypeTree(ctx.type()) || null;
-    this.value = getExpressionTree(ctx.expression());
+    this.body = getStatements(ctx.body());
   }
 }
