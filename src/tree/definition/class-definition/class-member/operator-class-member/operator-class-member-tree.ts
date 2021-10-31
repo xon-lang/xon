@@ -3,7 +3,7 @@ import { TypeMetadata } from '../../../../../metadata/type/type-metadata';
 import { IdToken } from '../../../../id-token';
 import { getParametersTrees } from '../../../../parameter/parameter-tree.helper';
 import { ParameterTree } from '../../../../parameter/parameter.tree';
-import { getStatementsFromMethodContext } from '../../../../statement/statement-tree.helper';
+import { getStatements } from '../../../../statement/statement-tree.helper';
 import { StatementTree } from '../../../../statement/statement.tree';
 import { getTypeTree } from '../../../../type/type-tree.helper';
 import { TypeTree } from '../../../../type/type.tree';
@@ -23,6 +23,6 @@ export class OperatorClassMemberTree extends ClassMemberTree {
     this.id = IdToken.fromContext(ctx._name);
     this.parameters = getParametersTrees(ctx.parameters());
     this.returnType = getTypeTree(ctx.type());
-    this.body = getStatementsFromMethodContext(ctx.methodBody());
+    this.body = getStatements(ctx.body());
   }
 }
