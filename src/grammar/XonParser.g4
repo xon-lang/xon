@@ -25,11 +25,10 @@ definition:
     ;
 
 classMember:
-    '.' '.' '.' name = UPPER_ID arguments                                     # includeClassMember
-    | INIT body                                                               # initClassMember
-    | name = LOWER_ID type? (('=' | ':') expression)?                         # propertyClassMember
-    | name = LOWER_ID genericParameters? parameters type? methodBody?         # methodClassMember
-    | (INFIX | PREFIX | POSTFIX) name = operator parameters type? methodBody? # operatorClassMember
+    '.' '.' '.' name = UPPER_ID arguments                               # includeClassMember
+    | INIT body                                                         # initClassMember
+    | name = LOWER_ID type? body?                                       # attributeClassMember
+    | (INFIX | PREFIX | POSTFIX) name = operator parameters type? body? # operatorClassMember
     ;
 
 test: TEST expression? body?;
@@ -133,4 +132,3 @@ arguments:         '(' (argument (',' argument)*)? ')';
 genericArguments:  '<' (type (',' type)*)? '>';
 genericParameters: '<' names += UPPER_ID (',' names += UPPER_ID)* '>';
 body:              ':' statement? | ':' NL* INDENT (statement | NL)* DEDENT;
-methodBody:        NL* '=' NL* statement | body;

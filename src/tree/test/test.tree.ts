@@ -2,7 +2,7 @@ import { TestContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { getExpressionTree } from '../expression/expression-tree.helper';
 import { ExpressionTree } from '../expression/expression.tree';
-import { getStatementsFromBodyContext } from '../statement/statement-tree.helper';
+import { getStatements } from '../statement/statement-tree.helper';
 import { StatementTree } from '../statement/statement.tree';
 
 export class TestTree extends BaseTree {
@@ -14,6 +14,6 @@ export class TestTree extends BaseTree {
     if (!ctx) return;
 
     this.expression = getExpressionTree(ctx.expression()) || null;
-    this.body = getStatementsFromBodyContext(ctx.body());
+    this.body = getStatements(ctx.body());
   }
 }

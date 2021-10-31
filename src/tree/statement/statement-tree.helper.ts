@@ -4,7 +4,6 @@ import {
   ExpressionStatementContext,
   ForStatementContext,
   IfStatementContext,
-  MethodBodyContext,
   PreprocessorStatementContext,
   ReturnStatementContext,
   StatementContext,
@@ -37,13 +36,7 @@ export const getStatementTree = (ctx: StatementContext): StatementTree => {
   throw Error(`Statement tree not found for "${ctx.constructor.name}"`);
 };
 
-export const getStatementsFromBodyContext = (body: BodyContext): StatementTree[] => {
+export const getStatements = (body: BodyContext): StatementTree[] => {
   if (!body) return undefined;
   return body.statement()?.map(getStatementTree);
-};
-
-export const getStatementsFromMethodContext = (body: MethodBodyContext): StatementTree[] => {
-  if (!body) return undefined;
-  if (body.statement()) return [getStatementTree(body.statement())];
-  else return getStatementsFromBodyContext(body.body());
 };

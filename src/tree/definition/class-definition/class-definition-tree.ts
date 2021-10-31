@@ -10,14 +10,14 @@ import { ClassMemberTree } from './class-member/class-member.tree';
 import { InitClassMemberTree } from './class-member/init-class-member/init-class-member-tree';
 import { MethodClassMemberTree } from './class-member/method-class-member/method-class-member-tree';
 import { OperatorClassMemberTree } from './class-member/operator-class-member/operator-class-member-tree';
-import { PropertyClassMemberTree } from './class-member/property-class-member/property-class-member-tree';
+import { AttributeClassMemberTree } from './class-member/attribute-class-member/attribute-class-member-tree';
 
 export class ClassDefinitionTree extends DefinitionTree {
   public genericParameters: IdToken[] = [];
   public parameters: ParameterTree[];
   public baseType?: TypeTree;
   public members: ClassMemberTree[] = [];
-  public properties: PropertyClassMemberTree[] = [];
+  public properties: AttributeClassMemberTree[] = [];
   public inits: InitClassMemberTree[] = [];
   public methods: MethodClassMemberTree[] = [];
   public operators: OperatorClassMemberTree[] = [];
@@ -34,7 +34,7 @@ export class ClassDefinitionTree extends DefinitionTree {
     this.members = getClassMembersTrees(ctx.classMember());
 
     for (const member of this.members) {
-      if (member instanceof PropertyClassMemberTree) this.properties.push(member);
+      if (member instanceof AttributeClassMemberTree) this.properties.push(member);
       if (member instanceof InitClassMemberTree) this.inits.push(member);
       if (member instanceof MethodClassMemberTree) this.methods.push(member);
       if (member instanceof OperatorClassMemberTree) this.operators.push(member);
