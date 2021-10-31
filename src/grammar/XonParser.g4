@@ -34,7 +34,7 @@ classMember:
 test: TEST expression? body?;
 
 statement:
-    attribute                                                            # attributeStatement
+    expression                                                           # expressionStatement
     | FOR (value = LOWER_ID (',' index = LOWER_ID)? IN)? expression body # forStatement
     | WHILE expression body                                              # whileStatement
     | DO body WHILE expression                                           # doWhileStatement
@@ -44,7 +44,7 @@ statement:
     | ACTUAL actual = expression NL+ EXPECT expect = expression          # assertStatement
     | PREPROCESSOR                                                       # preprocessorStatement
     | assignment                                                         # assignmentStatement
-    | expression                                                         # expressionStatement
+    | attribute                                                          # attributeStatement
     ;
 
 attribute: name = LOWER_ID type? body?;

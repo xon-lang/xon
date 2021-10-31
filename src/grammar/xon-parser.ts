@@ -804,11 +804,11 @@ export class XonParser extends Parser {
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 27, this._ctx) ) {
 			case 1:
-				_localctx = new AttributeStatementContext(_localctx);
+				_localctx = new ExpressionStatementContext(_localctx);
 				this.enterOuterAlt(_localctx, 1);
 				{
 				this.state = 162;
-				this.attribute();
+				this.expression(0);
 				}
 				break;
 
@@ -978,11 +978,11 @@ export class XonParser extends Parser {
 				break;
 
 			case 11:
-				_localctx = new ExpressionStatementContext(_localctx);
+				_localctx = new AttributeStatementContext(_localctx);
 				this.enterOuterAlt(_localctx, 11);
 				{
 				this.state = 208;
-				this.expression(0);
+				this.attribute();
 				}
 				break;
 			}
@@ -2701,7 +2701,7 @@ export class XonParser extends Parser {
 		"\x13\x03\x02\x02\x02\x9D\x9F\x07\x13\x02\x02\x9E\xA0\x05\x1C\x0F\x02\x9F" +
 		"\x9E\x03\x02\x02\x02\x9F\xA0\x03\x02\x02\x02\xA0\xA2\x03\x02\x02\x02\xA1" +
 		"\xA3\x052\x1A\x02\xA2\xA1\x03\x02\x02\x02\xA2\xA3\x03\x02\x02\x02\xA3" +
-		"\x15\x03\x02\x02\x02\xA4\xD4\x05\x18\r\x02\xA5\xAC\x07\x10\x02\x02\xA6" +
+		"\x15\x03\x02\x02\x02\xA4\xD4\x05\x1C\x0F\x02\xA5\xAC\x07\x10\x02\x02\xA6" +
 		"\xA9\x07=\x02\x02\xA7\xA8\x07%\x02\x02\xA8\xAA\x07=\x02\x02\xA9\xA7\x03" +
 		"\x02\x02\x02\xA9\xAA\x03\x02\x02\x02\xAA\xAB\x03\x02\x02\x02\xAB\xAD\x07" +
 		"\x0F\x02\x02\xAC\xA6\x03\x02\x02\x02\xAC\xAD\x03\x02\x02\x02\xAD\xAE\x03" +
@@ -2718,7 +2718,7 @@ export class XonParser extends Parser {
 		"\x02\xCA\xCB\x03\x02\x02\x02\xCB\xC9\x03\x02\x02\x02\xCB\xCC\x03\x02\x02" +
 		"\x02\xCC\xCD\x03\x02\x02\x02\xCD\xCE\x07\x18\x02\x02\xCE\xCF\x05\x1C\x0F" +
 		"\x02\xCF\xD4\x03\x02\x02\x02\xD0\xD4\x07;\x02\x02\xD1\xD4\x05\x1A\x0E" +
-		"\x02\xD2\xD4\x05\x1C\x0F\x02\xD3\xA4\x03\x02\x02\x02\xD3\xA5\x03\x02\x02" +
+		"\x02\xD2\xD4\x05\x18\r\x02\xD3\xA4\x03\x02\x02\x02\xD3\xA5\x03\x02\x02" +
 		"\x02\xD3\xB1\x03\x02\x02\x02\xD3\xB5\x03\x02\x02\x02\xD3\xBA\x03\x02\x02" +
 		"\x02\xD3\xC1\x03\x02\x02\x02\xD3\xC2\x03\x02\x02\x02\xD3\xC6\x03\x02\x02" +
 		"\x02\xD3\xD0\x03\x02\x02\x02\xD3\xD1\x03\x02\x02\x02\xD3\xD2\x03\x02\x02" +
@@ -3209,9 +3209,9 @@ export class StatementContext extends ParserRuleContext {
 		super.copyFrom(ctx);
 	}
 }
-export class AttributeStatementContext extends StatementContext {
-	public attribute(): AttributeContext {
-		return this.getRuleContext(0, AttributeContext);
+export class ExpressionStatementContext extends StatementContext {
+	public expression(): ExpressionContext {
+		return this.getRuleContext(0, ExpressionContext);
 	}
 	constructor(ctx: StatementContext) {
 		super(ctx.parent, ctx.invokingState);
@@ -3354,9 +3354,9 @@ export class AssignmentStatementContext extends StatementContext {
 		this.copyFrom(ctx);
 	}
 }
-export class ExpressionStatementContext extends StatementContext {
-	public expression(): ExpressionContext {
-		return this.getRuleContext(0, ExpressionContext);
+export class AttributeStatementContext extends StatementContext {
+	public attribute(): AttributeContext {
+		return this.getRuleContext(0, AttributeContext);
 	}
 	constructor(ctx: StatementContext) {
 		super(ctx.parent, ctx.invokingState);
