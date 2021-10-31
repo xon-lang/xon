@@ -48,8 +48,6 @@ statement:
     ;
 
 assignment:
-    // name = UPPER_ID '=' type                                            # typeAssignment
-    // | name = LOWER_ID type? NL INDENT (assignment | NL)+ DEDENT         # hierarchyAssignment
     name = LOWER_ID '=' expression                                      # idAssignment
     | '[' names += LOWER_ID (',' names += LOWER_ID)* ']' '=' expression # arrayAssignment
     | '{' names += LOWER_ID (',' names += LOWER_ID)* '}' '=' expression # objectAssignment
@@ -122,9 +120,8 @@ operator:
     )+
     ;
 
-id: UPPER_ID | LOWER_ID; // | INIT | ACTUAL | EXPECT | IMPORT | EXPORT;
+id: UPPER_ID | LOWER_ID;
 
-// mb type always shoud be an interface?
 parameter:  name = LOWER_ID type? ('#' meta = UPPER_ID)?;
 parameters: '(' (parameter (',' parameter)*)? ')';
 
