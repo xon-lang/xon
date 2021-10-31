@@ -27,14 +27,14 @@ definition:
 classMember:
     '.' '.' '.' name = UPPER_ID arguments                               # includeClassMember
     | INIT body                                                         # initClassMember
-    | name = LOWER_ID type? body?                                       # attributeClassMember
+    | attribute                                                         # attributeClassMember
     | (INFIX | PREFIX | POSTFIX) name = operator parameters type? body? # operatorClassMember
     ;
 
 test: TEST expression? body?;
 
 statement:
-    name = LOWER_ID type? body                                           # variableDeclarationStatement
+    attribute                                                            # attributeStatement
     | FOR (value = LOWER_ID (',' index = LOWER_ID)? IN)? expression body # forStatement
     | WHILE expression body                                              # whileStatement
     | DO body WHILE expression                                           # doWhileStatement
@@ -46,6 +46,8 @@ statement:
     | assignment                                                         # assignmentStatement
     | expression                                                         # expressionStatement
     ;
+
+attribute: name = LOWER_ID type? body;
 
 assignment:
     name = LOWER_ID '=' expression                                      # idAssignment

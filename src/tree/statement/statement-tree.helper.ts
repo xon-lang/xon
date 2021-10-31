@@ -17,7 +17,7 @@ import { IfStatementTree } from './if-statement/if-statement.tree';
 import { PreprocessorStatementTree } from './preprocessor-statement/preprocessor-statement.tree';
 import { ReturnStatementTree } from './return-statement/return-statement.tree';
 import { StatementTree } from './statement.tree';
-import { VariableDeclarationStatementTree } from './variable-declaration-statement/variable-declaration-statement.tree';
+import { VariableDeclarationStatementTree } from './attribute-statement/attribute-statement.tree';
 import { WhileStatementTree } from './while-statement/while-statement.tree';
 
 export const getStatementTree = (ctx: StatementContext): StatementTree => {

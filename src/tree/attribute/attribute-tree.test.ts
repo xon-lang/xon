@@ -1,14 +1,14 @@
-import { LiteralExpressionTree } from '../../../../expression/literal-expression/literal-expression.tree';
-import { parseClassMember } from '../../../../parse';
-import { ExpressionStatementTree } from '../../../../statement/expression-statement/expression-statement.tree';
-import { FunctionTypeTree } from '../../../../type/function-type/function-type.tree';
-import { IdTypeTree } from '../../../../type/id-type/id-type.tree';
-import { AttributeClassMemberTree } from './attribute-class-member-tree';
+import { LiteralExpressionTree } from '../expression/literal-expression/literal-expression.tree';
+import { parseAttribute } from '../parse';
+import { ExpressionStatementTree } from '../statement/expression-statement/expression-statement.tree';
+import { FunctionTypeTree } from '../type/function-type/function-type.tree';
+import { IdTypeTree } from '../type/id-type/id-type.tree';
+import { AttributeTree } from './attribute-tree';
 
 test('array property', () => {
   const code = 's Array<String>';
-  const tree = parseClassMember<AttributeClassMemberTree>(code);
-  expect(tree).toBeInstanceOf(AttributeClassMemberTree);
+  const tree = parseAttribute(code);
+  expect(tree).toBeInstanceOf(AttributeTree);
 
   expect(tree.id.text).toBe('s');
   expect(tree.isPrivate).toBe(false);
@@ -19,8 +19,8 @@ test('array property', () => {
 
 test('private integer', () => {
   const code = '_a Integer';
-  const tree = parseClassMember<AttributeClassMemberTree>(code);
-  expect(tree).toBeInstanceOf(AttributeClassMemberTree);
+  const tree = parseAttribute(code);
+  expect(tree).toBeInstanceOf(AttributeTree);
 
   expect(tree.id.text).toBe('_a');
   expect(tree.isPrivate).toBe(true);
@@ -30,8 +30,8 @@ test('private integer', () => {
 
 test('integer value', () => {
   const code = '_a Integer: 9';
-  const tree = parseClassMember<AttributeClassMemberTree>(code);
-  expect(tree).toBeInstanceOf(AttributeClassMemberTree);
+  const tree = parseAttribute(code);
+  expect(tree).toBeInstanceOf(AttributeTree);
 
   expect(tree.id.text).toBe('_a');
   expect(tree.isPrivate).toBe(true);
@@ -43,8 +43,8 @@ test('integer value', () => {
 
 test('has function type', () => {
   const code = '_a (i Integer) String';
-  const tree = parseClassMember<AttributeClassMemberTree>(code);
-  expect(tree).toBeInstanceOf(AttributeClassMemberTree);
+  const tree = parseAttribute(code);
+  expect(tree).toBeInstanceOf(AttributeTree);
 
   expect(tree.id.text).toBe('_a');
   expect(tree.isPrivate).toBe(true);
@@ -58,8 +58,8 @@ test('has function type', () => {
 
 test('method member', () => {
   const code = '_funcName<T>(argA Integer, argB Float, argC String) String:\n    log(222)';
-  const tree = parseClassMember<AttributeClassMemberTree>(code);
-  expect(tree).toBeInstanceOf(AttributeClassMemberTree);
+  const tree = parseAttribute(code);
+  expect(tree).toBeInstanceOf(AttributeTree);
 
   expect(tree.id.text).toBe('_funcName');
   expect(tree.isPrivate).toBe(true);

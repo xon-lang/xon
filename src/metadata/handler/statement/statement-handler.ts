@@ -1,6 +1,6 @@
 import { ExpressionStatementTree } from '../../../tree/statement/expression-statement/expression-statement.tree';
 import { StatementTree } from '../../../tree/statement/statement.tree';
-import { VariableDeclarationStatementTree } from '../../../tree/statement/variable-declaration-statement/variable-declaration-statement.tree';
+import { VariableDeclarationStatementTree } from '../../../tree/statement/attribute-statement/attribute-statement.tree';
 import { DeclarationHandler } from '../declaration-handler/declaration-handler';
 import { ExpressionHandler } from '../expression/expression-handler';
 import { MetadataHandler } from '../metadata-handler';
