@@ -23,4 +23,12 @@ export class AttributeTree extends BaseTree {
     this.type = getTypeTree(ctx.type()) || null;
     this.body = getStatements(ctx.body()) || null;
   }
+
+  static fromFields(id: IdToken, type: TypeTree, body: StatementTree[]): AttributeTree {
+    const attribute = new AttributeTree();
+    attribute.id = id;
+    attribute.type = type;
+    attribute.body = body;
+    return attribute;
+  }
 }

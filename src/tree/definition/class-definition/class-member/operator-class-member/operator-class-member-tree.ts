@@ -1,28 +1,34 @@
 import { OperatorClassMemberContext } from '../../../../../grammar/xon-parser';
 import { TypeMetadata } from '../../../../../metadata/type/type-metadata';
+import { AttributeTree } from '../../../../attribute/attribute-tree';
 import { IdToken } from '../../../../id-token';
-import { getParametersTrees } from '../../../../parameter/parameter-tree.helper';
-import { ParameterTree } from '../../../../parameter/parameter.tree';
 import { getStatements } from '../../../../statement/statement-tree.helper';
-import { StatementTree } from '../../../../statement/statement.tree';
+import { FunctionTypeTree } from '../../../../type/function-type/function-type.tree';
 import { getTypeTree } from '../../../../type/type-tree.helper';
-import { TypeTree } from '../../../../type/type.tree';
 import { ClassMemberTree } from '../class-member.tree';
 
 export class OperatorClassMemberTree extends ClassMemberTree {
-  id: IdToken;
-  public parameters: ParameterTree[];
-  public returnType: TypeTree;
-  public body?: StatementTree[];
+  isInfix: boolean;
+  isPrefix: boolean;
+  isPostfix: boolean;
+  attribute: AttributeTree;
   typeMetadata: TypeMetadata;
 
   public constructor(public ctx?: OperatorClassMemberContext) {
     super();
     if (!ctx) return;
 
-    this.id = IdToken.fromContext(ctx._name);
-    this.parameters = getParametersTrees(ctx.parameters());
-    this.returnType = getTypeTree(ctx.type());
-    this.body = getStatements(ctx.body());
+    const type = getTypeTree(ctx.type());
+    if (!(type instanceof FunctionTypeTree)) throw new Error('Type should be a function');
+
+    this.isInfix = !!ctx.INFIX();
+    this.isPrefix = !!ctx.PREFIX();
+    this.isPostfix = !!ctx.POSTFIX();
+
+    this.attribute = AttributeTree.fromFields(
+      IdToken.fromContext(ctx.operator()),
+      type,
+      getStatements(ctx.body()),
+    );
   }
 }

@@ -25,9 +25,8 @@ definition:
     ;
 
 classMember:
-    '.' '.' '.' name = UPPER_ID arguments                               # includeClassMember
-    | attribute                                                         # attributeClassMember
-    | (INFIX | PREFIX | POSTFIX) name = operator parameters type? body? # operatorClassMember
+    attribute                                               # attributeClassMember
+    | (INFIX | PREFIX | POSTFIX) name = operator type body? # operatorClassMember
     ;
 
 test: TEST expression? body?;
