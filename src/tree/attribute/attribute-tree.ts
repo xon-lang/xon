@@ -8,6 +8,7 @@ import { getTypeTree } from '../type/type-tree.helper';
 import { TypeTree } from '../type/type.tree';
 
 export class AttributeTree extends BaseTree {
+  modifiers: IdToken[];
   id: IdToken;
   isPrivate: boolean;
   type?: TypeTree;
@@ -24,8 +25,14 @@ export class AttributeTree extends BaseTree {
     this.body = getStatements(ctx.body()) || null;
   }
 
-  static fromFields(id: IdToken, type: TypeTree, body: StatementTree[]): AttributeTree {
+  static fromFields(
+    modifiers: IdToken[],
+    id: IdToken,
+    type: TypeTree,
+    body: StatementTree[],
+  ): AttributeTree {
     const attribute = new AttributeTree();
+    attribute.modifiers = modifiers;
     attribute.id = id;
     attribute.type = type;
     attribute.body = body;

@@ -12,4 +12,10 @@ export class AttributeClassMemberTree extends ClassMemberTree {
 
     this.attribute = getAttributeTree(ctx.attribute());
   }
+
+  static fromAttribute(attribute: AttributeTree): AttributeClassMemberTree {
+    const member = new AttributeClassMemberTree();
+    member.attribute = attribute;
+    return member;
+  }
 }

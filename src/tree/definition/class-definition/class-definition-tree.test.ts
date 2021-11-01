@@ -31,40 +31,42 @@ test('one scope', () => {
 
   const attrs = definition.attributes;
   expect(attrs.length).toBe(5);
-  expect(attrs[0].attribute.id.text).toBe('property');
-  expect(attrs[0].attribute.type.name).toBe('String');
-  expect(attrs[1].attribute.id.text).toBe('anotherProp');
-  expect(attrs[2].attribute.id.text).toBe('typedValue');
-  expect(attrs[2].attribute.type.name).toBe('Number');
+  expect(attrs[0].id.text).toBe('property');
+  expect(attrs[0].type.name).toBe('String');
+  expect(attrs[1].id.text).toBe('anotherProp');
+  expect(attrs[2].id.text).toBe('typedValue');
+  expect(attrs[2].type.name).toBe('Number');
 
-  expect(attrs[3].attribute.id.text).toBe('method');
-  expect((attrs[3].attribute.type as FunctionTypeTree).parameters.length).toBe(0);
-  expect(attrs[3].attribute.body.length).toBe(2);
-  expect((attrs[3].attribute.body[0] as ExpressionStatementTree).expression).toBeInstanceOf(
+  expect(attrs[3].id.text).toBe('method');
+  expect((attrs[3].type as FunctionTypeTree).parameters.length).toBe(0);
+  expect(attrs[3].body.length).toBe(2);
+  expect((attrs[3].body[0] as ExpressionStatementTree).expression).toBeInstanceOf(
     CallExpressionTree,
   );
-  expect((attrs[3].attribute.body[1] as ExpressionStatementTree).expression).toBeInstanceOf(
+  expect((attrs[3].body[1] as ExpressionStatementTree).expression).toBeInstanceOf(
     CallExpressionTree,
   );
-  expect(attrs[4].attribute.id.text).toBe('location');
-  expect((attrs[4].attribute.type as FunctionTypeTree).parameters.length).toBe(2);
-  expect((attrs[4].attribute.type as FunctionTypeTree).parameters[0].id.text).toBe('x');
-  expect((attrs[4].attribute.type as FunctionTypeTree).parameters[0].type.name).toBe('Number');
-  expect((attrs[4].attribute.type as FunctionTypeTree).parameters[1].id.text).toBe('y');
-  expect((attrs[4].attribute.type as FunctionTypeTree).parameters[1].type.name).toBe('Number');
-  expect(attrs[4].attribute.body.length).toBe(1);
-  expect((attrs[4].attribute.body[0] as ExpressionStatementTree).expression).toBeInstanceOf(
+  expect(attrs[4].id.text).toBe('location');
+  expect((attrs[4].type as FunctionTypeTree).parameters.length).toBe(2);
+  expect((attrs[4].type as FunctionTypeTree).parameters[0].id.text).toBe('x');
+  expect((attrs[4].type as FunctionTypeTree).parameters[0].type.name).toBe('Number');
+  expect((attrs[4].type as FunctionTypeTree).parameters[1].id.text).toBe('y');
+  expect((attrs[4].type as FunctionTypeTree).parameters[1].type.name).toBe('Number');
+  expect(attrs[4].body.length).toBe(1);
+  expect((attrs[4].body[0] as ExpressionStatementTree).expression).toBeInstanceOf(
     CallExpressionTree,
   );
-  const innerMethod = (attrs[4].attribute.body[0] as ExpressionStatementTree)
+  const innerMethod = (attrs[4].body[0] as ExpressionStatementTree)
     .expression as CallExpressionTree;
   const CallExpression = innerMethod.instance as IdExpressionTree;
   expect(CallExpression.id.text).toBe('pos');
   expect(innerMethod.arguments.length).toBe(2);
 
-  expect(definition.operators.length).toBe(1);
-  expect(definition.operators[0].id.text).toBe('+');
-  expect(definition.operators[0].parameters[0].id.text).toBe('it');
-  expect(definition.operators[0].parameters[1].id.text).toBe('sc');
-  expect(definition.operators[0].parameters[1].type.name).toBe('SomeClass');
+  expect(attrs.length).toBe(1);
+  expect(attrs[5].id.text).toBe('+');
+  const operatorType = attrs[5].type as FunctionTypeTree;
+  expect(operatorType.parameters[0].id.text).toBe('it');
+  expect(operatorType.parameters[1].id.text).toBe('sc');
+  expect(operatorType.parameters[1].type.name).toBe('SomeClass');
+  expect(operatorType.returnType.name).toBe('SomeClass');
 });
