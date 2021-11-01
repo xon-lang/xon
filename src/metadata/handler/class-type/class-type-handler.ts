@@ -11,7 +11,7 @@ export class ClassTypeHandler extends MetadataHandler {
   handle(tree: ClassDefinitionTree) {
     tree.id.declarationLink = tree.id.sourceReference;
     for (const attribute of tree.attributes) {
-      new AttributeHandler(this.scope).handle(attribute.attribute);
+      new AttributeHandler(this.scope).handle(attribute);
     }
   }
 }
