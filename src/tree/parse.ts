@@ -6,8 +6,8 @@ import { ArgumentTree } from './argument/argument.tree';
 import { getAssignmentTree } from './assignment/assignment-tree.helper';
 import { AssignmentTree } from './assignment/assignment.tree';
 import { AttributeTree } from './attribute/attribute-tree';
+import { AttributeClassMemberTree } from './definition/class-definition/class-member/attribute-class-member/attribute-class-member-tree';
 import { getClassMemberTree } from './definition/class-definition/class-member/class-member-tree.helper';
-import { ClassMemberTree } from './definition/class-definition/class-member/class-member.tree';
 import { DefinitionTree } from './definition/definition-tree';
 import { getDefinitionTree } from './definition/definition-tree-helper';
 import { ExportTree } from './export/export.tree';
@@ -63,8 +63,8 @@ export const parseStatement = <T extends StatementTree>(code: string): T =>
 export const parseAssignment = <T extends AssignmentTree>(code: string): T =>
   getAssignmentTree(parse(code).assignment()) as T;
 
-export const parseClassMember = <T extends ClassMemberTree>(code: string): T =>
-  getClassMemberTree(parse(code).classMember()) as T;
+export const parseClassMember = (code: string): AttributeClassMemberTree =>
+  getClassMemberTree(parse(code).classMember());
 
 export const parseDefinition = <T extends DefinitionTree>(code: string): T =>
   getDefinitionTree(parse(code).definition()) as T;
