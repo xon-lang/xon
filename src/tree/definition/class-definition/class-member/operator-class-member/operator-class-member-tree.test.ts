@@ -18,7 +18,7 @@ test('method member', () => {
   expect(type.parameters[0].type.name).toBe('Integer');
 
   expect(type.parameters[1].id.text).toBe('right');
-  expect(type.parameters[0].type.name).toBe('Float');
+  expect(type.parameters[1].type.name).toBe('Float');
 
   expect(type.returnType.name).toBe('Number');
 
