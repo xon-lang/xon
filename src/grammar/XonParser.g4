@@ -25,8 +25,8 @@ definition:
     ;
 
 classMember:
-    attribute                                               # attributeClassMember
-    | (INFIX | PREFIX | POSTFIX) name = operator type body? # operatorClassMember
+    attribute                              # attributeClassMember
+    | modifier* name = operator type body? # operatorClassMember
     ;
 
 test: TEST expression? body?;
@@ -45,7 +45,7 @@ statement:
     | assignment                                                       # assignmentStatement
     ;
 
-attribute: name = LOWER_ID (type | body | type body);
+attribute: modifier* name = LOWER_ID (type | body | type body);
 
 assignment:
     name = LOWER_ID '=' expression                                      # idAssignment
@@ -121,6 +121,8 @@ operator:
         | '.'
     )+
     ;
+
+modifier: INFIX | PREFIX | POSTFIX;
 
 id: UPPER_ID | LOWER_ID;
 
