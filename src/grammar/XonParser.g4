@@ -26,7 +26,6 @@ definition:
 
 classMember:
     '.' '.' '.' name = UPPER_ID arguments                               # includeClassMember
-    | INIT body                                                         # initClassMember
     | attribute                                                         # attributeClassMember
     | (INFIX | PREFIX | POSTFIX) name = operator parameters type? body? # operatorClassMember
     ;

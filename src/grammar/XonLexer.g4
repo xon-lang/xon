@@ -31,7 +31,6 @@ IF:        'if';
 IN:        'in';
 FOR:       'for';
 ELSE:      'else';
-INIT:      'init';
 TEST:      'test';
 BREAK:     'break';
 INFIX:     'infix';
