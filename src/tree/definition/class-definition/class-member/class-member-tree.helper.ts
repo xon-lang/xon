@@ -1,19 +1,16 @@
 import {
   AttributeClassMemberContext,
   ClassMemberContext,
-  InitClassMemberContext,
   OperatorClassMemberContext,
 } from '../../../../grammar/xon-parser';
 import { AttributeClassMemberTree } from './attribute-class-member/attribute-class-member-tree';
 import { ClassMemberTree } from './class-member.tree';
-import { InitClassMemberTree } from './init-class-member/init-class-member-tree';
 import { OperatorClassMemberTree } from './operator-class-member/operator-class-member-tree';
 
 export const getClassMemberTree = (ctx: ClassMemberContext): ClassMemberTree => {
   if (ctx === undefined) return undefined;
 
   if (ctx instanceof AttributeClassMemberContext) return new AttributeClassMemberTree(ctx);
-  if (ctx instanceof InitClassMemberContext) return new InitClassMemberTree(ctx);
   if (ctx instanceof OperatorClassMemberContext) return new OperatorClassMemberTree(ctx);
 
   throw Error(`ClassMember tree not found for "${ctx.constructor.name}"`);

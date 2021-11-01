@@ -29,8 +29,6 @@ test('one scope', () => {
   expect((definition.baseType as IdTypeTree).genericArguments[0].name).toBe('String');
   expect((definition.baseType as IdTypeTree).genericArguments[1].name).toBe('Boolean');
 
-  expect(definition.inits.length).toBe(0);
-
   const attrs = definition.attributes;
   expect(attrs.length).toBe(5);
   expect(attrs[0].attribute.id.text).toBe('property');
