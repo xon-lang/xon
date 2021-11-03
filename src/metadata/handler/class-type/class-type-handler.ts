@@ -12,7 +12,6 @@ export class ClassTypeHandler extends MetadataHandler {
 
   handle(tree: ClassDefinitionTree) {
     const genericArguments = tree.genericParameters.map((x) => new GenericTypeMetadata(x));
-    this.scope.addDeclaration
     tree.typeMetadata = FunctionTypeMetadata.fromClassDefinitionTree(tree, genericArguments);
     tree.id.declarationLink = tree.id.sourceReference;
     for (const attribute of tree.attributes) {

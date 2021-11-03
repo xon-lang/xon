@@ -9,6 +9,7 @@ test('class type', () => {
   expect(tree).toBeInstanceOf(ClassDefinitionTree);
 
   const handler = new ClassTypeHandler();
+  handler.scope.addDefinition(tree)
   handler.handle(tree);
 
   expect(tree.typeMetadata).toBeInstanceOf(FunctionTypeMetadata);
