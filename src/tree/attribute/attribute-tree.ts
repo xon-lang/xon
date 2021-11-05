@@ -1,9 +1,9 @@
 import { AttributeContext } from '../../grammar/xon-parser';
 import { TypeMetadata } from '../../metadata/type/type-metadata';
 import { BaseTree } from '../base.tree';
-import { BodyTree } from '../body/body-tree';
-import { getBodyTree } from '../body/body-tree.helper';
 import { IdToken } from '../id-token';
+import { getStatementsFromBody } from '../statement/statement-tree.helper';
+import { StatementTree } from '../statement/statement.tree';
 import { getTypeTree } from '../type/type-tree.helper';
 import { TypeTree } from '../type/type.tree';
 
@@ -12,7 +12,7 @@ export class AttributeTree extends BaseTree {
   id: IdToken;
   isPrivate: boolean;
   type?: TypeTree;
-  body?: BodyTree;
+  body?: StatementTree[];
   typeMetadata: TypeMetadata;
 
   constructor(public ctx?: AttributeContext) {
@@ -22,7 +22,7 @@ export class AttributeTree extends BaseTree {
     this.id = new IdToken(ctx._name);
     this.isPrivate = this.id.text.startsWith('_');
     this.type = getTypeTree(ctx.type()) || null;
-    this.body = (ctx.body() && getBodyTree(ctx.body())) || null;
+    this.body = getStatementsFromBody(ctx.body()) || null;
   }
 
   static fromFields(

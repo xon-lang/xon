@@ -5,7 +5,7 @@ import {
 } from '../../../../grammar/xon-parser';
 import { AttributeTree } from '../../../attribute/attribute-tree';
 import { IdToken } from '../../../id-token';
-import { getStatements } from '../../../statement/statement-tree.helper';
+import { getStatementsFromBody } from '../../../statement/statement-tree.helper';
 import { FunctionTypeTree } from '../../../type/function-type/function-type.tree';
 import { getTypeTree } from '../../../type/type-tree.helper';
 import { AttributeClassMemberTree } from './attribute-class-member/attribute-class-member-tree';
@@ -26,7 +26,7 @@ export const getClassMemberTree = (ctx: ClassMemberContext): AttributeClassMembe
       modifiers,
       IdToken.fromContext(ctx.operator()),
       type,
-      getStatements(ctx.body()),
+      getStatementsFromBody(ctx.body()),
     );
 
     return AttributeClassMemberTree.fromAttribute(attribute);

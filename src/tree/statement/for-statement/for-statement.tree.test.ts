@@ -13,7 +13,7 @@ test('for with value', () => {
   expect(tree.indexVarName).toBe(null);
   expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
-  expect(tree.body.statements.length).toBe(1);
+  expect(tree.body.length).toBe(1);
   const statement = tree.body[0] as ExpressionStatementTree;
   expect(evalExpression(statement.expression)).toBe(12 + 45 / 5);
 });
@@ -27,7 +27,7 @@ test('for with value and index', () => {
   expect(tree.indexVarName).toBe('i');
   expect(tree.expression).toBeInstanceOf(IdExpressionTree);
 
-  expect(tree.body.statements.length).toBe(1);
+  expect(tree.body.length).toBe(1);
   const statement = tree.body[0] as ExpressionStatementTree;
   expect(evalExpression(statement.expression)).toBe(12 + 10);
 });
@@ -41,7 +41,7 @@ test('for with expression only', () => {
   expect(tree.indexVarName).toBe(null);
   expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
-  expect(tree.body.statements.length).toBe(1);
+  expect(tree.body.length).toBe(1);
   const statement = tree.body[0] as ExpressionStatementTree;
   expect(evalExpression(statement.expression)).toBe(1 + 1);
 });
