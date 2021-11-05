@@ -13,16 +13,14 @@ test('no generics no arguments', () => {
 });
 
 test('no generics', () => {
-  const code = 'SomeClass(1, name="John")';
+  const code = 'SomeClass(1, "John")';
   const tree = parseExpression<InstantiationExpressionTree>(code);
   expect(tree).toBeInstanceOf(InstantiationExpressionTree);
 
   expect(tree.id.text).toBe('SomeClass');
   expect(tree.genericArguments.length).toBe(0);
   expect(tree.arguments.length).toBe(2);
-  expect(tree.arguments[0].id).toBe(null);
   expect((tree.arguments[0].value as LiteralExpressionTree).literal.value).toBe(1);
-  expect(tree.arguments[1].id.text).toBe('name');
   expect((tree.arguments[1].value as LiteralExpressionTree).literal.value).toBe('John');
 });
 
@@ -38,7 +36,7 @@ test('no arguments', () => {
 });
 
 test('generics and arguments', () => {
-  const code = 'SomeClass<Integer>(1, name="John")';
+  const code = 'SomeClass<Integer>(1, "John")';
   const tree = parseExpression<InstantiationExpressionTree>(code);
   expect(tree).toBeInstanceOf(InstantiationExpressionTree);
 
@@ -46,8 +44,6 @@ test('generics and arguments', () => {
   expect(tree.genericArguments.length).toBe(1);
   expect(tree.genericArguments[0].name).toBe('Integer');
   expect(tree.arguments.length).toBe(2);
-  expect(tree.arguments[0].id).toBe(null);
   expect((tree.arguments[0].value as LiteralExpressionTree).literal.value).toBe(1);
-  expect(tree.arguments[1].id.text).toBe('name');
   expect((tree.arguments[1].value as LiteralExpressionTree).literal.value).toBe('John');
 });
