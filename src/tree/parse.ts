@@ -6,6 +6,7 @@ import { ArgumentTree } from './argument/argument.tree';
 import { getAssignmentTree } from './assignment/assignment-tree.helper';
 import { AssignmentTree } from './assignment/assignment.tree';
 import { AttributeTree } from './attribute/attribute-tree';
+import { BodyTree } from './body/body-tree';
 import { AttributeClassMemberTree } from './definition/class-definition/class-member/attribute-class-member/attribute-class-member-tree';
 import { getClassMemberTree } from './definition/class-definition/class-member/class-member-tree.helper';
 import { DefinitionTree } from './definition/definition-tree';
@@ -50,6 +51,8 @@ export const parseArgument = (code: string): ArgumentTree =>
 
 export const parseAttribute = (code: string): AttributeTree =>
   new AttributeTree(parse(code).attribute());
+
+export const parseBody = (code: string): BodyTree => new BodyTree(parse(code).body());
 
 export const parseLiteral = <T extends LiteralTree>(code: string): T =>
   getLiteralTree(parse(code).literal()) as T;

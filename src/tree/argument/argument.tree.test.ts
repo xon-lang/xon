@@ -7,6 +7,5 @@ test('value name', () => {
   const tree = parseArgument(code);
   expect(tree).toBeInstanceOf(ArgumentTree);
 
-  expect(tree.id).toBe(null);
   expect((tree.value as IdExpressionTree).id.text).toBe('t');
 });

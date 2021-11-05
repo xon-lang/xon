@@ -129,10 +129,10 @@ id: UPPER_ID | LOWER_ID;
 parameter:  name = LOWER_ID type? ('#' meta = UPPER_ID)?;
 parameters: '(' (parameter (',' parameter)*)? ')';
 
-argument:  (name = LOWER_ID '=')? expression;
+argument:  expression;
 arguments: '(' (argument (',' argument)*)? ')';
 
 genericArguments:  '<' (type (',' type)*)? '>';
 genericParameters: '<' names += UPPER_ID (',' names += UPPER_ID)* '>';
 
-body: ':' statement? | ':' NL+ INDENT (statement | NL)* DEDENT;
+body: (':' | '=') statement | ':' NL+ INDENT (statement | NL)+ DEDENT;

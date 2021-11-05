@@ -1,7 +1,6 @@
 import {
   AssertStatementContext,
   AttributeStatementContext,
-  BodyContext,
   ExpressionStatementContext,
   ForStatementContext,
   IfStatementContext,
@@ -33,9 +32,4 @@ export const getStatementTree = (ctx: StatementContext): StatementTree => {
   if (ctx instanceof WhileStatementContext) return new WhileStatementTree(ctx);
 
   throw Error(`Statement tree not found for "${ctx.constructor.name}"`);
-};
-
-export const getStatements = (body: BodyContext): StatementTree[] => {
-  if (!body) return undefined;
-  return body.statement()?.map(getStatementTree);
 };
