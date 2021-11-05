@@ -29,7 +29,7 @@ export class AttributeTree extends BaseTree {
     modifiers: IdToken[],
     id: IdToken,
     type: TypeTree,
-    body: BodyTree,
+    body: StatementTree[],
   ): AttributeTree {
     const attribute = new AttributeTree();
     attribute.modifiers = modifiers;
