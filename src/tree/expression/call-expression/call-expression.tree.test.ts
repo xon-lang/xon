@@ -7,12 +7,11 @@ import { MemberExpressionTree } from '../member-expression/member-expression.tre
 import { CallExpressionTree } from './call-expression.tree';
 
 test('function call', () => {
-  const code = 'f(count = 3, "str")';
+  const code = 'f(3, "str")';
   const tree = parseExpression<CallExpressionTree>(code);
   expect(tree).toBeInstanceOf(CallExpressionTree);
 
   expect(tree.arguments.length).toBe(2);
-  expect(tree.arguments[0].id.text).toBe('count');
   expect((tree.arguments[0].value as LiteralExpressionTree).literal).toBeInstanceOf(
     IntegerLiteralTree,
   );
