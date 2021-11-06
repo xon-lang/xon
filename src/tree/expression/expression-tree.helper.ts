@@ -80,7 +80,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
         getExpressionTree(ctx._left),
         new InfixExpressionTree(
           ctx,
-          IdToken.fromTokens(ctx._op),
+          new IdToken(ctx._op),
           getExpressionTree(ctx._left._right),
           getExpressionTree(ctx._right),
         ),
@@ -88,7 +88,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
 
     return new InfixExpressionTree(
       ctx,
-      IdToken.fromTokens(ctx._op),
+      new IdToken(ctx._op),
       getExpressionTree(ctx._left),
       getExpressionTree(ctx._right),
     );
