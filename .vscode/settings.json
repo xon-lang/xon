@@ -57,5 +57,5 @@
   },
   "typescript.tsdk": "./node_modules/typescript/lib",
   "typescript.tsc.autoDetect": "off",
-  "cSpell.words": ["pinst", "postpublish", "postversion"]
+  "cSpell.words": ["PAREN", "pinst", "postpublish", "postversion"]
 }
