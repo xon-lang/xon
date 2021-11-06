@@ -21,13 +21,13 @@ test('if else if', () => {
 });
 
 test('if else', () => {
-  const code = 'if 12+(45/9) :    12+(45/5) else: 2   *   4   ';
+  const code = 'if 12+(45/9) :    14+(144/12) else: 2   *   4   ';
   const tree = parseStatement<IfStatementTree>(code);
   expect(tree).toBeInstanceOf(IfStatementTree);
 
   expect(evalExpression(tree.condition)).toBe(12 + 45 / 9);
   const ifStatement = tree.thenBody[0] as ExpressionStatementTree;
-  expect(evalExpression(ifStatement.expression)).toBe(12 + 45 / 5);
+  expect(evalExpression(ifStatement.expression)).toBe(14 + 144 / 12);
 
   const elseStatement = tree.elseBody[0] as ExpressionStatementTree;
   expect(evalExpression(elseStatement.expression)).toBe(2 * 4);
