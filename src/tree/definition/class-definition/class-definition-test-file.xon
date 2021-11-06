@@ -1,5 +1,5 @@
 SomeClass<T>(name String) is BaseClass<String, Boolean>:
-    property String
+    property: 123
     anotherProp Number
     typedValue Number
 

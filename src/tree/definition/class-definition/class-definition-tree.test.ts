@@ -1,5 +1,6 @@
 import { CallExpressionTree } from '../../expression/call-expression/call-expression.tree';
 import { IdExpressionTree } from '../../expression/id-expression/id-expression.tree';
+import { LiteralExpressionTree } from '../../expression/literal-expression/literal-expression.tree';
 import { parseSourceFile } from '../../parse';
 import { SourceTree } from '../../source/source-tree';
 import { ExpressionStatementTree } from '../../statement/expression-statement/expression-statement.tree';
@@ -32,7 +33,11 @@ test('one scope', () => {
   const attrs = definition.attributes.map((x) => x.attribute);
   expect(attrs.length).toBe(5);
   expect(attrs[0].id.text).toBe('property');
-  expect(attrs[0].type.name).toBe('String');
+  expect(attrs[0].type).toBe(null);
+  expect(
+    ((attrs[0].body[0] as ExpressionStatementTree).expression as LiteralExpressionTree).literal
+      .value,
+  ).toBe(123);
   expect(attrs[1].id.text).toBe('anotherProp');
   expect(attrs[2].id.text).toBe('typedValue');
   expect(attrs[2].type.name).toBe('Number');
