@@ -24,13 +24,6 @@ export class IdToken {
     return id;
   }
 
-  static fromTokens(tokens: Token[]): IdToken {
-    const id = new IdToken();
-    id.text = tokens.map((x) => x.text).join('');
-    id.sourceReference = SourceReference.fromTwoTokens(tokens[0], tokens[tokens.length - 1]);
-    return id;
-  }
-
   static fromText(text: string): IdToken {
     const id = new IdToken();
     id.text = text;
