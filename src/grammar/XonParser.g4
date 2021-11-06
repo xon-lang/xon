@@ -16,7 +16,9 @@ library:
     ;
 libraryPath:     points += '.'* libraryPathPart ('.' libraryPathPart)*;
 libraryPathPart: '@'? LOWER_ID;
-libraryMember:   name = id | name = id AS alias = id;
+libraryMember:   name = UPPER_ID (AS alias = UPPER_ID)?;
+
+test: TEST expression? body?;
 
 definition:
     name = UPPER_ID genericParameters? parameters? (IS type)? (
@@ -25,11 +27,9 @@ definition:
     ;
 
 classMember:
-    attribute                              # attributeClassMember
-    | modifier* name = operator type body? # operatorClassMember
+    attribute                                                    # attributeClassMember
+    | (INFIX | PREFIX | POSTFIX) operator parameters type? body? # operatorClassMember
     ;
-
-test: TEST expression? body?;
 
 statement:
     FOR (value = LOWER_ID (',' index = LOWER_ID)? IN)? expression body # forStatement
@@ -45,7 +45,7 @@ statement:
     | assignment                                                       # assignmentStatement
     ;
 
-attribute: modifier* name = LOWER_ID (type | body | type body);
+attribute: name = LOWER_ID (type body? | type? body);
 
 assignment:
     name = LOWER_ID '=' expression                                      # idAssignment
@@ -122,10 +122,6 @@ operator:
     )+
     ;
 
-modifier: INFIX | PREFIX | POSTFIX;
-
-id: UPPER_ID | LOWER_ID;
-
 parameter:  name = LOWER_ID type? ('#' meta = UPPER_ID)?;
 parameters: '(' (parameter (',' parameter)*)? ')';
 
@@ -135,4 +131,4 @@ arguments: '(' (argument (',' argument)*)? ')';
 genericArguments:  '<' (type (',' type)*)? '>';
 genericParameters: '<' names += UPPER_ID (',' names += UPPER_ID)* '>';
 
-body: ':' statement? | ':' NL+ INDENT (statement | NL)* DEDENT;
+body: ':' (statement | NL+ INDENT (statement | NL)+ DEDENT)?;
