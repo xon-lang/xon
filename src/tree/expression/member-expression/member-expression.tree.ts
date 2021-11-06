@@ -4,19 +4,20 @@ import { getExpressionTree } from '../expression-tree.helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class MemberExpressionTree extends ExpressionTree {
-  public id: IdToken;
+  instance: ExpressionTree;
+  isSafe: boolean;
+  id: IdToken;
 
-  public instance: ExpressionTree;
-
-  public constructor(public ctx?: MemberExpressionContext) {
+  constructor(public ctx?: MemberExpressionContext) {
     super();
     if (!ctx) return;
 
-    this.id = new IdToken(ctx._name);
     this.instance = getExpressionTree(ctx.expression());
+    this.isSafe = ctx.QUESTION() !== null;
+    this.id = new IdToken(ctx._name);
   }
 
-  public toString(): string {
+  toString(): string {
     return `${this.instance}${this.id}`;
   }
 }

@@ -7,7 +7,19 @@ test('string expression index', () => {
   const tree = parseExpression<MemberExpressionTree>(code);
   expect(tree).toBeInstanceOf(MemberExpressionTree);
 
-  expect(tree.id.text).toBe('def');
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
   expect((tree.instance as IdExpressionTree).id.text).toBe('abc');
+  expect(tree.isSafe).toBe(false);
+  expect(tree.id.text).toBe('def');
+});
+
+test('coalescing', () => {
+  const code = 'abc?.def';
+  const tree = parseExpression<MemberExpressionTree>(code);
+  expect(tree).toBeInstanceOf(MemberExpressionTree);
+
+  expect(tree.instance).toBeInstanceOf(IdExpressionTree);
+  expect((tree.instance as IdExpressionTree).id.text).toBe('abc');
+  expect(tree.isSafe).toBe(true);
+  expect(tree.id.text).toBe('def');
 });
