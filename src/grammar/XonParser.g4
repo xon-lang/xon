@@ -78,7 +78,7 @@ expression:
     | left = expression op += '&' op += '&' right = expression          # conjunctionExpression
     | left = expression op += '|' op += '|' right = expression          # disjunctionExpression
     | expression '|' name = LOWER_ID ':' expression                     # pipeExpression
-    | '\\' (parameter (',' parameter)* ':')? expression                 # lambdaExpression
+    | parameters body                                                   # lambdaExpression
     ;
 
 type:
@@ -126,7 +126,7 @@ modifier: INFIX | PREFIX | POSTFIX;
 
 id: UPPER_ID | LOWER_ID;
 
-parameter:  name = LOWER_ID type ('#' meta = UPPER_ID)?;
+parameter:  name = LOWER_ID type? ('#' meta = UPPER_ID)?;
 parameters: '(' (parameter (',' parameter)*)? ')';
 
 argument:  expression;
