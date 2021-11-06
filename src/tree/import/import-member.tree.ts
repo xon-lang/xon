@@ -4,19 +4,19 @@ import { IdToken } from '../id-token';
 
 export class ImportMemberTree extends BaseTree {
   public id: IdToken;
-  public alias?: string;
+  public alias?: IdToken;
 
   public constructor(public ctx?: LibraryMemberContext) {
     super();
     if (!ctx) return;
 
-    this.id = IdToken.fromContext(ctx._name);
-    this.alias = ctx._alias?.text;
+    this.id = new IdToken(ctx._name);
+    this.alias = ctx._alias && new IdToken(ctx._alias);
   }
 
   public toString(): string {
-    if (this.alias) return `${this.id} as ${this.alias}`;
+    if (this.alias) return `${this.id.text} as ${this.alias.text}`;
 
-    return `${this.id}`;
+    return `${this.id.text}`;
   }
 }

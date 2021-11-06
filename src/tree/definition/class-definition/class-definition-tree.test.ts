@@ -29,8 +29,8 @@ test('one scope', () => {
   expect((definition.baseType as IdTypeTree).genericArguments[0].name).toBe('String');
   expect((definition.baseType as IdTypeTree).genericArguments[1].name).toBe('Boolean');
 
-  const attrs = definition.attributes;
-  expect(attrs.length).toBe(6);
+  const attrs = definition.attributes.map((x) => x.attribute);
+  expect(attrs.length).toBe(5);
   expect(attrs[0].id.text).toBe('property');
   expect(attrs[0].type.name).toBe('String');
   expect(attrs[1].id.text).toBe('anotherProp');
@@ -62,10 +62,10 @@ test('one scope', () => {
   expect(CallExpression.id.text).toBe('pos');
   expect(innerMethod.arguments.length).toBe(2);
 
-  expect(attrs[5].id.text).toBe('+');
-  const operatorType = attrs[5].type as FunctionTypeTree;
-  expect(operatorType.parameters[0].id.text).toBe('it');
-  expect(operatorType.parameters[1].id.text).toBe('sc');
-  expect(operatorType.parameters[1].type.name).toBe('SomeClass');
-  expect(operatorType.returnType.name).toBe('SomeClass');
+  expect(definition.operators.length).toBe(1);
+  expect(definition.operators[0].id.text).toBe('+');
+  expect(definition.operators[0].parameters[0].id.text).toBe('it');
+  expect(definition.operators[0].parameters[1].id.text).toBe('sc');
+  expect(definition.operators[0].parameters[1].type.name).toBe('SomeClass');
+  expect(definition.operators[0].returnType.name).toBe('SomeClass');
 });
