@@ -66,7 +66,7 @@ expression:
     | expression '[' expression ']'                                       # indexExpression
     | '(' expression ')'                                                  # parenthesizedExpression
     | '[' (expression (',' expression)*)? ']'                             # arrayExpression
-    | expression '?'? '.' name = LOWER_ID                                 # memberExpression
+    | expression ('?.' | '.') name = LOWER_ID                             # memberExpression
     | op = ('!' | '-' | '+') expression                                   # prefixExpression
     | left = expression op = '^' right = expression                       # powExpression
     | left = expression op = ('*' | '/' | '%') right = expression         # mulDivModExpression

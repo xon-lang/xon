@@ -66,6 +66,7 @@ NOT_EQUAL:   '!=';
 DOLLAR:      '$';
 MODULO:      '%';
 QUESTION:    '?';
+COALESCING:  '?.';
 ASTERISK:    '*';
 AMPERSAND:   '&';
 AND:         '&&';
