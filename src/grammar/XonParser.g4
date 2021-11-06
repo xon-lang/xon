@@ -57,28 +57,28 @@ assignment:
     ;
 
 expression:
-    name = LOWER_ID                                                     # idExpression
-    | name = '$'                                                        # instanceExpression
-    | '$' name = LOWER_ID                                               # instanceMemberExpression
-    | name = UPPER_ID genericArguments? arguments                       # instantiationExpression
-    | literal                                                           # literalExpression
-    | expression genericArguments? arguments                            # callExpression
-    | expression '[' expression ']'                                     # indexExpression
-    | '(' expression ')'                                                # parenthesizedExpression
-    | '[' (expression (',' expression)*)? ']'                           # arrayExpression
-    | expression '?'? '.' name = LOWER_ID                               # memberExpression
-    | op = ('!' | '-' | '+') expression                                 # prefixExpression
-    | left = expression op += '^' right = expression                    # powExpression
-    | left = expression op += ('*' | '/' | '%') right = expression      # mulDivModExpression
-    | left = expression op += ('+' | '-') right = expression            # addSubExpression
-    | left = expression op += '.' op += '.' right = expression          # rangeExpression
-    | left = expression op += '?' right = expression                    # elvisExpression
-    | left = expression op += ('<' | '>') op += '='? right = expression # relationalExpression
-    | left = expression op += ('=' | '!') op += '=' right = expression  # equalityExpression
-    | left = expression op += '&' op += '&' right = expression          # conjunctionExpression
-    | left = expression op += '|' op += '|' right = expression          # disjunctionExpression
-    | expression '|' name = LOWER_ID ':' expression                     # pipeExpression
-    | '\\' ((parameter (',' parameter)*)? ':')? expression              # lambdaExpression
+    name = LOWER_ID                                                       # idExpression
+    | name = '$'                                                          # instanceExpression
+    | '$' name = LOWER_ID                                                 # instanceMemberExpression
+    | name = UPPER_ID genericArguments? arguments                         # instantiationExpression
+    | literal                                                             # literalExpression
+    | expression genericArguments? arguments                              # callExpression
+    | expression '[' expression ']'                                       # indexExpression
+    | '(' expression ')'                                                  # parenthesizedExpression
+    | '[' (expression (',' expression)*)? ']'                             # arrayExpression
+    | expression '?'? '.' name = LOWER_ID                                 # memberExpression
+    | op = ('!' | '-' | '+') expression                                   # prefixExpression
+    | left = expression op = '^' right = expression                       # powExpression
+    | left = expression op = ('*' | '/' | '%') right = expression         # mulDivModExpression
+    | left = expression op = ('+' | '-') right = expression               # addSubExpression
+    | left = expression op = '..' right = expression                      # rangeExpression
+    | left = expression op = '?' right = expression                       # elvisExpression
+    | left = expression op = ('<' | '<=' | '>=' | '>') right = expression # relationalExpression
+    | left = expression op = ('==' | '!=') right = expression             # equalityExpression
+    | left = expression op = '&&' right = expression                      # conjunctionExpression
+    | left = expression op = '||' right = expression                      # disjunctionExpression
+    | expression '|' name = LOWER_ID ':' expression                       # pipeExpression
+    | '\\' ((parameter (',' parameter)*)? ':')? expression                # lambdaExpression
     ;
 
 type:
@@ -104,22 +104,24 @@ literal:
     ;
 
 operator:
-    (
-        '~'
-        | '!'
-        | '^'
-        | '*'
-        | '/'
-        | '%'
-        | '+'
-        | '-'
-        | '<'
-        | '>'
-        | '='
-        | '&'
-        | '|'
-        | '.'
-    )+
+    '~'
+    | '!'
+    | '^'
+    | '*'
+    | '/'
+    | '%'
+    | '+'
+    | '-'
+    | '<'
+    | '<='
+    | '>'
+    | '>='
+    | '='
+    | '=='
+    | '!='
+    | '&&'
+    | '||'
+    | '..'
     ;
 
 parameter:  name = LOWER_ID type? ('#' meta = UPPER_ID)?;
