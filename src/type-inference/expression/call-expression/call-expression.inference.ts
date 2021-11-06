@@ -9,11 +9,11 @@ import { getExpressionInference } from '../expression-inference.helper';
 import { ExpressionInference } from '../expression.inference';
 
 export class CallExpressionInference extends ExpressionInference {
-  public genericArguments: TypeTree[];
-  public instance: ExpressionInference;
-  public arguments: ArgumentInference[];
+  genericArguments: TypeTree[];
+  instance: ExpressionInference;
+  arguments: ArgumentInference[];
 
-  public constructor(public tree: CallExpressionTree, public genericsMap: GenericsMap) {
+  constructor(public tree: CallExpressionTree, public genericsMap: GenericsMap) {
     super();
 
     this.genericArguments = tree.genericArguments;

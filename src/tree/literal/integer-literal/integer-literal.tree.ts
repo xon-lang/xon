@@ -2,11 +2,11 @@ import { IntegerLiteralContext } from '../../../grammar/xon-parser';
 import { LiteralTree } from '../literal.tree';
 
 export class IntegerLiteralTree extends LiteralTree {
-  public radix: number;
-  public integer: string;
-  public value: number;
-
-  public constructor(public ctx?: IntegerLiteralContext) {
+  radix: number;
+  integer: string;
+  value: number;
+  
+  constructor(public ctx?: IntegerLiteralContext) {
     super();
     if (!ctx) return;
 
@@ -17,7 +17,7 @@ export class IntegerLiteralTree extends LiteralTree {
     this.value = parseInt(this.integer.replace(/_/g, ''), this.radix);
   }
 
-  public toString(): string {
+  toString(): string {
     return `${this.value}`;
   }
 }

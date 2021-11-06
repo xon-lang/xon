@@ -5,10 +5,10 @@ import { getExpressionInference } from '../expression-inference.helper';
 import { ExpressionInference } from '../expression.inference';
 
 export class LambdaExpressionInference extends ExpressionInference {
-  public parameters: string[];
-  public body: ExpressionInference;
+  parameters: string[];
+  body: ExpressionInference;
 
-  public constructor(public tree: LambdaExpressionTree, public genericsMap: GenericsMap) {
+  constructor(public tree: LambdaExpressionTree, public genericsMap: GenericsMap) {
     super();
 
     this.parameters = tree.parameters;

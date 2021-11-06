@@ -4,9 +4,9 @@ import { TypeTree } from '../type.tree';
 
 export class NullableTypeTree extends TypeTree {
   name: string;
-  public baseType: TypeTree;
-
-  public constructor(public ctx?: NullableTypeContext) {
+  baseType: TypeTree;
+  
+  constructor(public ctx?: NullableTypeContext) {
     super();
     if (!ctx) return;
 

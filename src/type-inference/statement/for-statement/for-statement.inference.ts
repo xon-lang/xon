@@ -10,15 +10,15 @@ import { getStatementInference } from '../statement-inference.helper';
 import { StatementInference } from '../statement.inference';
 
 export class ForStatementInference extends StatementInference {
-  public value: { name: string; type: TypeTree };
-
-  public index: { name: string; type: TypeTree };
-
-  public expression: ExpressionInference;
+  value: { name: string; type: TypeTree };
+  
+  index: { name: string; type: Type
+  
+  expression: ExpressionInference;
 
   public body: StatementInference[];
 
-  public constructor(public tree: ForStatementTree, public genericsMap: GenericsMap) {
+  constructor(public tree: ForStatementTree, public genericsMap: GenericsMap) {
     super();
 
     this.expression = getExpressionInference(tree.expression, this.genericsMap);

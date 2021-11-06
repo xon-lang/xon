@@ -5,11 +5,11 @@ import { GenericsMap } from '../../generics-map';
 import { StatementInference } from '../statement.inference';
 
 export class AssertStatementInference extends StatementInference {
-  public actual: ExpressionInference;
+  actual: ExpressionInference;
 
-  public expect: ExpressionInference;
+  expect: ExpressionInference;
 
-  public constructor(public tree: AssertStatementTree, public genericsMap: GenericsMap) {
+  constructor(public tree: AssertStatementTree, public genericsMap: GenericsMap) {
     super();
 
     this.actual = getExpressionInference(tree.actual, genericsMap);

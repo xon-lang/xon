@@ -3,7 +3,7 @@ import { IdToken } from '../../id-token';
 import { ExpressionTree } from '../expression.tree';
 
 export class InfixExpressionTree extends ExpressionTree {
-  public constructor(
+  constructor(
     public ctx: ExpressionContext,
     public id: IdToken,
     public left: ExpressionTree,
@@ -12,7 +12,7 @@ export class InfixExpressionTree extends ExpressionTree {
     super();
   }
 
-  public toString(): string {
+  toString(): string {
     return `${this.left} ${this.id} ${this.right}`;
   }
 }

@@ -7,9 +7,9 @@ import { StatementInference } from '../../../statement/statement.inference';
 import { MemberInference } from '../member.inference';
 
 export class InitMemberInference extends MemberInference {
-  public body?: StatementInference[];
+  body?: StatementInference[];
 
-  public constructor(public tree: InitDefinitionMemberTree, public genericsMap: GenericsMap) {
+  constructor(public tree: InitDefinitionMemberTree, public genericsMap: GenericsMap) {
     super();
 
     pushScope();

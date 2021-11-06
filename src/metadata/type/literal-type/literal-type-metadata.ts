@@ -4,7 +4,7 @@ import { TypeMetadata } from '../type-metadata';
 
 export class LiteralTypeMetadata extends TypeMetadata {
   sourceReference: SourceReference;
-  public name: string;
+  name: string;
 
   constructor(public tree: LiteralTypeTree) {
     super();

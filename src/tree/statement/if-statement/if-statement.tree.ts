@@ -5,13 +5,13 @@ import { getStatementsFromBody } from '../statement-tree.helper';
 import { StatementTree } from '../statement.tree';
 
 export class IfStatementTree extends StatementTree {
-  public condition: ExpressionTree;
-
-  public thenBody: StatementTree[];
-
+  condition: ExpressionTree;
+  
+  thenBody: StatementTree[];
+  
   public elseBody?: StatementTree[];
 
-  public constructor(public ctx?: IfStatementContext) {
+  constructor(public ctx?: IfStatementContext) {
     super();
     if (!ctx) return;
 

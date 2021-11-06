@@ -4,9 +4,9 @@ import { AssignmentTree } from '../../assignment/assignment.tree';
 import { StatementTree } from '../statement.tree';
 
 export class AssignmentStatementTree extends StatementTree {
-  public assignment: AssignmentTree;
+  assignment: AssignmentTree;
 
-  public constructor(public ctx?: AssignmentStatementContext) {
+  constructor(public ctx?: AssignmentStatementContext) {
     super();
     if (!ctx) return;
 

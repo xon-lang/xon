@@ -6,7 +6,7 @@ export class IdToken {
   sourceReference?: SourceReference;
   declarationLink?: SourceReference;
 
-  public constructor(token?: Token) {
+  constructor(token?: Token) {
     if (!token) return;
 
     this.text = token.text;

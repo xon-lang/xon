@@ -5,10 +5,10 @@ import { IdToken } from '../../id-token';
 import { AssignmentTree } from '../assignment.tree';
 
 export class IdAssignmentTree extends AssignmentTree {
-  public id: IdToken;
-  public value: ExpressionTree;
+  id: IdToken;
+  value: ExpressionTree;
 
-  public constructor(public ctx?: IdAssignmentContext) {
+  constructor(public ctx?: IdAssignmentContext) {
     super();
     if (!ctx) return;
 

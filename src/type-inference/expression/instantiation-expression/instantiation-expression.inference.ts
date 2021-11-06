@@ -1,4 +1,4 @@
-import { findDefinition, findDefinitionByType } from '../../../provider/find-type-member';
+import { findDefinition } from '../../../provider/find-type-member';
 import { InstantiationExpressionTree } from '../../../tree/expression/instantiation-expression/instantiation-expression.tree';
 import { TypeTree } from '../../../tree/type/type.tree';
 import { getArgumentInference } from '../../argument/argument-inference.helper';
@@ -7,11 +7,11 @@ import { GenericsMap } from '../../generics-map';
 import { ExpressionInference } from '../expression.inference';
 
 export class InstantiationExpressionInference extends ExpressionInference {
-  public name: string;
-  public genericArguments: TypeTree[];
-  public arguments: ArgumentInference[];
+  name: string;
+  genericArguments: TypeTree[];
+  arguments: ArgumentInference[];
 
-  public constructor(public tree: InstantiationExpressionTree, public genericsMap: GenericsMap) {
+  constructor(public tree: InstantiationExpressionTree, public genericsMap: GenericsMap) {
     super();
     this.arguments = tree.arguments.map((x) => getArgumentInference(x, this.genericsMap));
     this.genericArguments = tree.genericArguments;

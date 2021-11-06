@@ -10,13 +10,13 @@ import { getClassMembersTrees } from './class-member/class-member-tree.helper';
 import { OperatorClassMemberTree } from './class-member/operator-class-member/operator-class-member-tree';
 
 export class ClassDefinitionTree extends DefinitionTree {
-  public genericParameters: IdToken[] = [];
-  public parameters: ParameterTree[];
-  public baseType?: TypeTree;
-  public attributes: AttributeClassMemberTree[] = [];
-  public operators: OperatorClassMemberTree[] = [];
+  genericParameters: IdToken[] = [];
+  parameters: ParameterTree[];
+  baseType?: TypeTree;
+  attributes: AttributeClassMemberTree[] = [];
+  operators: OperatorClassMemberTree[] = [];
 
-  public constructor(public ctx?: ClassDefinitionContext) {
+  constructor(public ctx?: ClassDefinitionContext) {
     super();
     if (!ctx) return;
 

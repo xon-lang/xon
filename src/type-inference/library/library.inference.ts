@@ -8,15 +8,15 @@ import { addToScope } from '../id-scope';
 import { StatementInference } from '../statement/statement.inference';
 
 export class LibraryInference extends StatementInference {
-  public scope: string;
+  scope: string;
 
-  public name: string;
+  name: string;
 
-  public members: ImportMemberTree[];
+  members: ImportMemberTree[];
 
   public dependency: Dependency;
 
-  public constructor(public tree: ImportTree, public genericsMap: GenericsMap) {
+  constructor(public tree: ImportTree, public genericsMap: GenericsMap) {
     super();
 
     this.name = tree.name;
@@ -29,10 +29,7 @@ export class LibraryInference extends StatementInference {
         const { type } = getFunctionInference(this.dependency.findFunction(x.id), genericsMap);
         addToScope(x.alias || x.id, type);
       } else {
-        const { type } = getDefinitionInference(
-          this.dependency.findDefinition(x.id),
-          genericsMap,
-        );
+        const { type } = getDefinitionInference(this.dependency.findDefinition(x.id), genericsMap);
         addToScope(x.alias || x.id, type);
       }
     });

@@ -1,6 +1,6 @@
-import { BaseTree } from "../../tree/base.tree";
+import { BaseTree } from '../../tree/base.tree';
 
 export class ModuleMemberMetadata {
-  public sourcePath: string;
-  public tree: BaseTree;
+  sourcePath: string;
+  tree: BaseTree;
 }

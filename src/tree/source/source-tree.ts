@@ -6,10 +6,10 @@ import { getLibrariesTrees } from '../import/import-tree.helper';
 import { ImportTree } from '../import/import.tree';
 
 export class SourceTree extends BaseTree {
-  public imports: ImportTree[];
-  public definitions: DefinitionTree[];
-
-  public constructor(public ctx?: SourceContext) {
+  imports: ImportTree[];
+  definitions: DefinitionTree[];
+  
+  constructor(public ctx?: SourceContext) {
     super();
     if (!ctx) return;
 

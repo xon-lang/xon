@@ -7,13 +7,13 @@ import { getStatementInference } from '../statement-inference.helper';
 import { StatementInference } from '../statement.inference';
 
 export class IfStatementInference extends StatementInference {
-  public condition: ExpressionInference;
+  condition: ExpressionInference;
 
-  public thenBody: StatementInference[];
+  thenBody: StatementInference[];
 
   public elseBody: StatementInference[];
 
-  public constructor(public tree: IfStatementTree, public genericsMap: GenericsMap) {
+  constructor(public tree: IfStatementTree, public genericsMap: GenericsMap) {
     super();
 
     this.condition = getExpressionInference(tree.condition, genericsMap);

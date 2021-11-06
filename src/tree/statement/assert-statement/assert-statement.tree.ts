@@ -4,11 +4,11 @@ import { ExpressionTree } from '../../expression/expression.tree';
 import { StatementTree } from '../statement.tree';
 
 export class AssertStatementTree extends StatementTree {
-  public actual: ExpressionTree;
+  actual: ExpressionTree;
+  
+  expect: ExpressionTree;
 
-  public expect: ExpressionTree;
-
-  public constructor(public ctx?: AssertStatementContext) {
+  constructor(public ctx?: AssertStatementContext) {
     super();
     if (!ctx) return;
 

@@ -6,11 +6,11 @@ import { GenericsMap } from '../generics-map';
 import { StatementInference } from '../statement/statement.inference';
 
 export class ArgumentInference extends StatementInference {
-  public name?: string;
-  public value: ExpressionInference;
-  public type: TypeTree;
+  name?: string;
+  value: ExpressionInference;
+  type: TypeTree;
 
-  public constructor(public tree: ArgumentTree, public genericsMap: GenericsMap) {
+  constructor(public tree: ArgumentTree, public genericsMap: GenericsMap) {
     super();
 
     this.name = tree.id;

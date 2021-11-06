@@ -9,9 +9,9 @@ import { getExpressionInference } from '../expression-inference.helper';
 import { ExpressionInference } from '../expression.inference';
 
 export class ArrayExpressionInference extends ExpressionInference {
-  public items: ExpressionInference[];
+  items: ExpressionInference[];
 
-  public constructor(public tree: ArrayExpressionTree, public genericsMap: GenericsMap) {
+  constructor(public tree: ArrayExpressionTree, public genericsMap: GenericsMap) {
     super();
 
     if (!tree.items.length) {

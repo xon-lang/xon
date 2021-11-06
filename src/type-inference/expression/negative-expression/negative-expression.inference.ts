@@ -4,9 +4,9 @@ import { getExpressionInference } from '../expression-inference.helper';
 import { ExpressionInference } from '../expression.inference';
 
 export class NegativeExpressionInference extends ExpressionInference {
-  public value: ExpressionInference;
+  value: ExpressionInference;
 
-  public constructor(public tree: NegativeExpressionTree, public genericsMap: GenericsMap) {
+  constructor(public tree: NegativeExpressionTree, public genericsMap: GenericsMap) {
     super();
 
     this.value = getExpressionInference(tree.value, this.genericsMap);

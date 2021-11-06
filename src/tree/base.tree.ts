@@ -10,7 +10,7 @@ export abstract class BaseTree {
     this.sourceReference = SourceReference.fromContext(ctx);
   }
 
-  public toPlain(object?: unknown): unknown {
+  toPlain(object?: unknown): unknown {
     const entries = Object.entries(object || this)
       .filter(([k, v]) => typeof v !== 'function' && v !== null && v !== undefined && k !== 'ctx')
       .map(([k, v]) => {
@@ -23,12 +23,12 @@ export abstract class BaseTree {
     return { treeType, ...Object.fromEntries(entries) };
   }
 
-  public toJson(): string {
+  toJson(): string {
     const tabWidth = 2;
     return JSON.stringify(this.toPlain(), null, tabWidth);
   }
 
-  public toString(): string {
+  toString(): string {
     return null;
   }
 }

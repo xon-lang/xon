@@ -14,15 +14,15 @@ import { OperatorMemberInference } from './member/operator-member/operator-membe
 import { PropertyMemberInference } from './member/property-member/property-member.inference';
 
 export class DefinitionInference extends BaseInference {
-  public name: string;
+  name: string;
 
-  public genericParameters: string[];
+  genericParameters: string[];
 
-  public parameters: ParameterInference[];
+  parameters: ParameterInference[];
 
-  public inheritanceType?: TypeTree;
+  inheritanceType?: TypeTree;
 
-  public members: MemberInference[] = [];
+  members: MemberInference[] = [];
 
   public properties: PropertyMemberInference[] = [];
 
@@ -32,7 +32,7 @@ export class DefinitionInference extends BaseInference {
 
   public methods: MethodMemberInference[] = [];
 
-  public constructor(public tree: DefinitionTree, public genericsMap: GenericsMap) {
+  constructor(public tree: DefinitionTree, public genericsMap: GenericsMap) {
     super();
 
     pushScope();

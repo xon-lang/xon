@@ -4,23 +4,22 @@ import { TypeTree } from '../../../../tree/type/type.tree';
 import { GenericsMap } from '../../../generics-map';
 import { addToScope, popScope, pushScope } from '../../../id-scope';
 import { getParameterInference } from '../../../parameter/parameter-inference.helper';
-import { ParameterInference } from '../../../parameter/parameter.inference';
 import { getStatementInference } from '../../../statement/statement-inference.helper';
 import { StatementInference } from '../../../statement/statement.inference';
 import { MemberInference } from '../member.inference';
 
 export class MethodMemberInference extends MemberInference {
-  public isPrivate: boolean;
+  isPrivate: boolean;
 
-  public genericParameters: string[];
+  genericParameters: string[];
 
-  public parameters: ParameterInference[] = [];
+  parameters: ParameterInferenc;
 
   public returnType: TypeTree;
 
   public body?: StatementInference[];
 
-  public constructor(public tree: MethodDefinitionMemberTree, public genericsMap: GenericsMap) {
+  constructor(public tree: MethodDefinitionMemberTree, public genericsMap: GenericsMap) {
     super();
 
     pushScope();

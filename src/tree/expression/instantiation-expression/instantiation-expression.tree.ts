@@ -7,11 +7,11 @@ import { TypeTree } from '../../type/type.tree';
 import { ExpressionTree } from '../expression.tree';
 
 export class InstantiationExpressionTree extends ExpressionTree {
-  public id: IdToken;
-  public genericArguments: TypeTree[];
-  public arguments: ArgumentTree[];
+  id: IdToken;
+  genericArguments: TypeTree[];
+  arguments: ArgumentTree[];
 
-  public constructor(public ctx?: InstantiationExpressionContext) {
+  constructor(public ctx?: InstantiationExpressionContext) {
     super();
     if (!ctx) return;
 
@@ -20,7 +20,7 @@ export class InstantiationExpressionTree extends ExpressionTree {
     this.arguments = getArgumentsTrees(ctx.arguments());
   }
 
-  public toString(): string {
+  toString(): string {
     const generics = this.genericArguments.length ? `<${this.genericArguments.join(', ')}>` : '';
     const args = this.arguments.length ? `(${this.arguments.join(', ')})` : '';
     return `${this.id}${generics}${args}`;

@@ -5,9 +5,9 @@ import { find } from '../../id-scope';
 import { ExpressionInference } from '../expression.inference';
 
 export class IdExpressionInference extends ExpressionInference {
-  public name: string;
+  name: string;
 
-  public constructor(public tree: IdExpressionTree, public genericsMap: GenericsMap) {
+  constructor(public tree: IdExpressionTree, public genericsMap: GenericsMap) {
     super();
 
     this.name = tree.id;

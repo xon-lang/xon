@@ -7,13 +7,13 @@ import { getExpressionTree } from '../expression-tree.helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class CallExpressionTree extends ExpressionTree {
-  public genericArguments: TypeTree[];
+  genericArguments: TypeTree[];
 
-  public instance: ExpressionTree;
+  instance: ExpressionTree;
 
   public arguments: ArgumentTree[];
 
-  public constructor(public ctx?: CallExpressionContext) {
+  constructor(public ctx?: CallExpressionContext) {
     super();
     if (!ctx) return;
 
@@ -22,7 +22,7 @@ export class CallExpressionTree extends ExpressionTree {
     this.arguments = getArgumentsTrees(ctx.arguments());
   }
 
-  public toString(): string {
+  toString(): string {
     const generics = this.genericArguments.length ? `<${this.genericArguments.join(', ')}>` : '';
     const args = this.arguments.length ? `(${this.arguments.join(', ')})` : '';
     return `${this.instance}${generics}${args}`;

@@ -4,7 +4,7 @@ import { TypeMetadata } from '../type-metadata';
 
 export class ArrayTypeMetadata extends TypeMetadata {
   sourceReference: SourceReference;
-  public name: string;
+  name: string;
 
   constructor(tree: ArrayTypeTree) {
     super();

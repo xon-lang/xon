@@ -2,9 +2,9 @@ import { CharLiteralContext } from '../../../grammar/xon-parser';
 import { LiteralTree } from '../literal.tree';
 
 export class CharLiteralTree extends LiteralTree {
-  public value: string;
-
-  public constructor(public ctx?: CharLiteralContext) {
+  value: string;
+  
+  constructor(public ctx?: CharLiteralContext) {
     super();
     if (!ctx) return;
 
@@ -13,7 +13,7 @@ export class CharLiteralTree extends LiteralTree {
     this.value = ctx.text.slice(STRING_START, STRING_END).replace(/\\'/g, "'");
   }
 
-  public toString(): string {
+  toString(): string {
     return `'${this.value}'`;
   }
 }

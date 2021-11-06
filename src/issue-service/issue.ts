@@ -4,17 +4,13 @@ import { BaseTree } from '../tree/base.tree';
 import { IssueLevel } from './issue-level';
 
 export class Issue {
-  public message: string;
+  message: string;
+  level: IssueLevel;
+  line: number;
+  column: number;
+  ctx: ParserRuleContext;
 
-  public level: IssueLevel;
-
-  public line: number;
-
-  public column: number;
-
-  public ctx: ParserRuleContext;
-
-  public static fromTree(tree: BaseTree, level: IssueLevel, message: string): Issue {
+  static fromTree(tree: BaseTree, level: IssueLevel, message: string): Issue {
     const issue = new Issue();
     issue.ctx = tree.ctx;
     issue.level = level;
@@ -24,12 +20,12 @@ export class Issue {
     return issue;
   }
 
-  public static errorFromTree(tree: BaseTree, message: string): Error {
+  static errorFromTree(tree: BaseTree, message: string): Error {
     const issue = this.fromTree(tree, IssueLevel.Error, message);
     return issue.toError();
   }
 
-  public toString(): string {
+  toString(): string {
     const code = this.ctx.start.inputStream.toString().split('\n')[this.line - 1];
     const source = chalk.cyan(this.ctx.start.inputStream.sourceName);
     const line = chalk.yellow(this.line);
@@ -42,7 +38,7 @@ export class Issue {
     return `${source}:${line}:${column} - ${message}\n${lineNumber}${code}\n${caret}`;
   }
 
-  public toError(): Error {
+  toError(): Error {
     return new Error(this.toString());
   }
 }

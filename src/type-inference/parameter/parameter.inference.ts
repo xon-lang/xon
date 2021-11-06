@@ -3,13 +3,13 @@ import { GenericsMap } from '../generics-map';
 import { StatementInference } from '../statement/statement.inference';
 
 export class ParameterInference extends StatementInference {
-  public name: string;
+  name: string;
 
-  public isPrivate: boolean;
+  isPrivate: boolean;
 
   public metaType?: string;
 
-  public constructor(public tree: ParameterTree, public genericsMap: GenericsMap) {
+  constructor(public tree: ParameterTree, public genericsMap: GenericsMap) {
     super();
 
     this.name = tree.id;

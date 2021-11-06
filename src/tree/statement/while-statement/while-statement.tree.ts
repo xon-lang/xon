@@ -5,11 +5,11 @@ import { getStatementsFromBody } from '../statement-tree.helper';
 import { StatementTree } from '../statement.tree';
 
 export class WhileStatementTree extends StatementTree {
-  public expression: ExpressionTree;
+  expression: ExpressionTree;
+  
+  body: StatementTree[];
 
-  public body: StatementTree[];
-
-  public constructor(public ctx?: WhileStatementContext) {
+  constructor(public ctx?: WhileStatementContext) {
     super();
     if (!ctx) return;
 

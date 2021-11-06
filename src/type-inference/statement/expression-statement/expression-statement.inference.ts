@@ -5,9 +5,9 @@ import { GenericsMap } from '../../generics-map';
 import { StatementInference } from '../statement.inference';
 
 export class ExpressionStatementInference extends StatementInference {
-  public value: ExpressionInference;
-
-  public constructor(public tree: ExpressionStatementTree, public genericsMap: GenericsMap) {
+  value: ExpressionInference;
+  
+  constructor(public tree: ExpressionStatementTree, public genericsMap: GenericsMap) {
     super();
 
     this.value = getExpressionInference(tree.expression, genericsMap);

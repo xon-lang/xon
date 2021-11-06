@@ -6,7 +6,7 @@ import { IssueService } from '../issue-service/issue-service';
 
 export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbol> {
   // eslint-disable-next-line class-methods-use-this
-  public syntaxError<T extends TSymbol>(
+  syntaxError<T extends TSymbol>(
     recognizer: Recognizer<T, ATNSimulator>,
     _offendingSymbol: T | undefined,
     line: number,

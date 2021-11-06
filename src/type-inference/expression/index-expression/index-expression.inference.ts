@@ -5,11 +5,11 @@ import { getExpressionInference } from '../expression-inference.helper';
 import { ExpressionInference } from '../expression.inference';
 
 export class IndexExpressionInference extends ExpressionInference {
-  public instance: ExpressionInference;
+  instance: ExpressionInference;
 
-  public index: ExpressionInference;
+  index: ExpressionInference;
 
-  public constructor(public tree: IndexExpressionTree, public genericsMap: GenericsMap) {
+  constructor(public tree: IndexExpressionTree, public genericsMap: GenericsMap) {
     super();
 
     this.instance = getExpressionInference(tree.instance, this.genericsMap);

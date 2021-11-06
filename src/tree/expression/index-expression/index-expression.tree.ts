@@ -3,11 +3,11 @@ import { getExpressionTree } from '../expression-tree.helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class IndexExpressionTree extends ExpressionTree {
-  public instance: ExpressionTree;
+  instance: ExpressionTree;
 
-  public index: ExpressionTree;
+  index: ExpressionTree;
 
-  public constructor(public ctx: IndexExpressionContext) {
+  constructor(public ctx: IndexExpressionContext) {
     super();
     if (!ctx) return;
 
@@ -15,7 +15,7 @@ export class IndexExpressionTree extends ExpressionTree {
     this.index = getExpressionTree(ctx.expression(1));
   }
 
-  public toString(): string {
+  toString(): string {
     return `${this.instance}[${this.index}]`;
   }
 }

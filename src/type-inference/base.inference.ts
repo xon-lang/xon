@@ -3,7 +3,7 @@ import { TypeTree } from '../tree/type/type.tree';
 import { GenericsMap } from './generics-map';
 
 export abstract class BaseInference {
-  public type: TypeTree;
-  public abstract tree: BaseTree;
-  public abstract genericsMap: GenericsMap;
+  type: TypeTree;
+  abstract tree: BaseTree;
+  abstract genericsMap: GenericsMap;
 }

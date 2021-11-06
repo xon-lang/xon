@@ -6,7 +6,7 @@ export class AttributeClassMemberMetadata {
   name: string;
   type: TypeMetadata;
 
-  public constructor(tree: AttributeClassMemberTree) {
+  constructor(tree: AttributeClassMemberTree) {
     this.isPrivate = tree.attribute.isPrivate;
     this.name = tree.attribute.id.text;
     this.type = tree.attribute.typeMetadata;

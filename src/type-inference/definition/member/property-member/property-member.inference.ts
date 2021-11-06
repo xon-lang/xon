@@ -5,11 +5,11 @@ import { GenericsMap } from '../../../generics-map';
 import { MemberInference } from '../member.inference';
 
 export class PropertyMemberInference extends MemberInference {
-  public isPrivate: boolean;
+  isPrivate: boolean;
 
-  public value?: ExpressionInference;
+  value?: ExpressionInference;
 
-  public constructor(public tree: PropertyDefinitionMemberTree, public genericsMap: GenericsMap) {
+  constructor(public tree: PropertyDefinitionMemberTree, public genericsMap: GenericsMap) {
     super();
 
     this.name = tree.name;

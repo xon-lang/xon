@@ -4,10 +4,10 @@ import { getExpressionTree } from '../expression-tree.helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class PrefixExpressionTree extends ExpressionTree {
-  public id: IdToken;
-  public value: ExpressionTree;
+  id: IdToken;
+  value: ExpressionTree;
 
-  public constructor(public ctx?: PrefixExpressionContext) {
+  constructor(public ctx?: PrefixExpressionContext) {
     super();
     if (!ctx) return;
 
@@ -15,7 +15,7 @@ export class PrefixExpressionTree extends ExpressionTree {
     this.value = getExpressionTree(ctx.expression());
   }
 
-  public toString(): string {
+  toString(): string {
     return `${this.id}${this.value}`;
   }
 }

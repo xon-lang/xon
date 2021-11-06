@@ -3,20 +3,25 @@ import * as path from 'path';
 import { ClassDefinitionTree } from '../tree/definition/class-definition/class-definition-tree';
 import { parseSourceFile } from '../tree/parse';
 import { SourceTree } from '../tree/source/source-tree';
+import { SourceMetadata } from './source-metadata';
 import { ClassTypeMetadata } from './type/id-type/class-type/class-type-metadata';
 import { TypeMetadata } from './type/type-metadata';
-import { SourceMetadata } from './source-metadata';
 
 export class ModuleMetadata {
-  public get baseDir() {
+  static modules = new Map<string, ModuleMetadata>();
+
+  modulePath: string;
+  defaultModules: ModuleMetadata[];
+  sourceTrees: SourceTree[];
+  definitions = new Map<string, TypeMetadata>();
+
+  get baseDir() {
     return path.dirname(this.modulePath);
   }
-  public static modules = new Map<string, ModuleMetadata>();
 
-  public sourceTrees: SourceTree[];
-  public definitions = new Map<string, TypeMetadata>();
-
-  constructor(public modulePath: string, public defaultModules: ModuleMetadata[]) {
+  constructor(modulePath: string, defaultModules: ModuleMetadata[]) {
+    this.modulePath = modulePath;
+    this.defaultModules = defaultModules;
     ModuleMetadata.modules.set(modulePath, this);
 
     this.sourceTrees = glob

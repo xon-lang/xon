@@ -5,12 +5,12 @@ import { getStatementsFromBody } from '../statement-tree.helper';
 import { StatementTree } from '../statement.tree';
 
 export class ForStatementTree extends StatementTree {
-  public valueVarName?: string;
-  public indexVarName?: string;
-  public expression: ExpressionTree;
-  public body: StatementTree[];
-
-  public constructor(public ctx?: ForStatementContext) {
+  valueVarName?: string;
+  indexVarName?: string;
+  expression: ExpressionTree;
+  body: StatementTree[];
+  
+  constructor(public ctx?: ForStatementContext) {
     super();
     if (!ctx) return;
 

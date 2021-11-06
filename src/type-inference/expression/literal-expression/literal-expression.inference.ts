@@ -10,9 +10,9 @@ import { GenericsMap } from '../../generics-map';
 import { ExpressionInference } from '../expression.inference';
 
 export class LiteralExpressionInference extends ExpressionInference {
-  public literal: LiteralTree;
+  literal: LiteralTree;
 
-  public constructor(public tree: LiteralExpressionTree, public genericsMap: GenericsMap) {
+  constructor(public tree: LiteralExpressionTree, public genericsMap: GenericsMap) {
     super();
 
     this.literal = tree.literal;

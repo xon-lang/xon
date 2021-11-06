@@ -1,15 +1,15 @@
-import { MemberExpressionTree } from '../../../tree/expression/member-expression/member-expression.tree';
 import { getMemberType } from '../../../provider/find-type-member';
+import { MemberExpressionTree } from '../../../tree/expression/member-expression/member-expression.tree';
 import { GenericsMap } from '../../generics-map';
 import { getExpressionInference } from '../expression-inference.helper';
 import { ExpressionInference } from '../expression.inference';
 
 export class MemberExpressionInference extends ExpressionInference {
-  public name: string;
+  name: string;
 
-  public instance: ExpressionInference;
+  instance: ExpressionInference;
 
-  public constructor(public tree: MemberExpressionTree, public genericsMap: GenericsMap) {
+  constructor(public tree: MemberExpressionTree, public genericsMap: GenericsMap) {
     super();
 
     this.name = tree.id;

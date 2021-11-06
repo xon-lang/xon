@@ -7,11 +7,11 @@ import { getStatementInference } from '../statement-inference.helper';
 import { StatementInference } from '../statement.inference';
 
 export class WhileStatementInference extends StatementInference {
-  public expression: ExpressionInference;
+  expression: ExpressionInference;
 
-  public body: StatementInference[];
+  body: StatementInference[];
 
-  public constructor(public tree: WhileStatementTree, public genericsMap: GenericsMap) {
+  constructor(public tree: WhileStatementTree, public genericsMap: GenericsMap) {
     super();
 
     this.expression = getExpressionInference(tree.expression, this.genericsMap);

@@ -6,10 +6,10 @@ import { getStatementsFromBody } from '../statement/statement-tree.helper';
 import { StatementTree } from '../statement/statement.tree';
 
 export class TestTree extends BaseTree {
-  public expression?: ExpressionTree;
-  public body?: StatementTree[];
+  expression?: ExpressionTree;
+  body?: StatementTree[];
 
-  public constructor(public ctx?: TestContext) {
+  constructor(public ctx?: TestContext) {
     super();
     if (!ctx) return;
 

@@ -4,7 +4,7 @@ import { BaseTree } from '../base.tree';
 import { IdToken } from '../id-token';
 
 export abstract class DefinitionTree extends BaseTree {
-  public abstract ctx?: DefinitionContext;
-  public id: IdToken;
-  public typeMetadata: TypeMetadata;
+  abstract ctx?: DefinitionContext;
+  id: IdToken;
+  typeMetadata: TypeMetadata;
 }

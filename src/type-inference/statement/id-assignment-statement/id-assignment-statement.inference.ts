@@ -6,11 +6,11 @@ import { addToScope } from '../../id-scope';
 import { StatementInference } from '../statement.inference';
 
 export class IdAssignmentStatementInference extends StatementInference {
-  public name: string;
+  name: string;
 
-  public value: ExpressionInference;
+  value: ExpressionInference;
 
-  public constructor(public tree: IdAssignmentStatementTree, public genericsMap: GenericsMap) {
+  constructor(public tree: IdAssignmentStatementTree, public genericsMap: GenericsMap) {
     super();
 
     this.name = tree.name;

@@ -3,38 +3,38 @@ import * as fs from 'fs';
 import * as glob from 'glob';
 import * as path from 'path';
 import { Issue } from '../issue-service/issue';
-import { SourceTree } from '../tree/source/source-tree';
+import { DefinitionTree } from '../tree/definition/definition-tree';
 import { parseSource } from '../tree/parse';
+import { SourceTree } from '../tree/source/source-tree';
 import { createFunctionType } from '../tree/type/type-tree.helper';
 import { TypeTree } from '../tree/type/type.tree';
 import { GenericsMap } from '../type-inference/generics-map';
-import { DefinitionTree } from '../tree/definition/definition-tree';
 
 export interface DependencyProvider {
   get(scope: string, name: string): Dependency;
 }
 
 export class Dependency {
-  public definitions: DefinitionTree[] = [];
+  definitions: DefinitionTree[] = [];
 
-  public constructor(public modules: SourceTree[]) {
+  constructor(public modules: SourceTree[]) {
     modules.forEach((x) => {
       this.definitions.push(...x.definitions);
     });
   }
 
-  public findDefinition(name: string): DefinitionTree {
+  findDefinition(name: string): DefinitionTree {
     return this.definitions.find((x) => x.name === name);
   }
 
   // eslint-disable-next-line class-methods-use-this
-  public dependencies(): Dependency[] {
+  dependencies(): Dependency[] {
     return [];
   }
 }
 
 export class DirectoryDependencyProvider implements DependencyProvider {
-  public constructor(public libraryDirectory: string) {}
+  constructor(public libraryDirectory: string) {}
 
   public get(scope: string, name: string): Dependency {
     const libPath = path.resolve(this.libraryDirectory, scope, name);

@@ -10,13 +10,13 @@ import { StatementInference } from '../../../statement/statement.inference';
 import { MemberInference } from '../member.inference';
 
 export class OperatorMemberInference extends MemberInference {
-  public parameters: ParameterInference[];
+  parameters: ParameterInference[];
 
-  public returnType: TypeTree;
+  returnType: TypeTree;
 
   public body?: StatementInference[];
 
-  public constructor(public tree: OperatorDefinitionMemberTree, public genericsMap: GenericsMap) {
+  constructor(public tree: OperatorDefinitionMemberTree, public genericsMap: GenericsMap) {
     super();
 
     pushScope();

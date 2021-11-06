@@ -6,13 +6,13 @@ import { getTypeTree } from '../type/type-tree.helper';
 import { TypeTree } from '../type/type.tree';
 
 export class ParameterTree extends BaseTree {
-  public id: IdToken;
-  public isPrivate: boolean;
-  public type?: TypeTree;
-  public metaType?: string;
-  public typeMetadata: TypeMetadata;
+  id: IdToken;
+  isPrivate: boolean;
+  type?: TypeTree;
+  metaType?: string;
+  typeMetadata: TypeMetadata;
 
-  public constructor(public ctx?: ParameterContext) {
+  constructor(public ctx?: ParameterContext) {
     super();
     if (!ctx) return;
 
@@ -22,7 +22,7 @@ export class ParameterTree extends BaseTree {
     this.metaType = ctx._meta?.text || null;
   }
 
-  public toString(): string {
+  toString(): string {
     if (this.type) return `${this.id} ${this.type}`;
   }
 }

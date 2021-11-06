@@ -7,11 +7,11 @@ import { getLibraryInference } from '../library/library-inference.helper';
 import { LibraryInference } from '../library/library.inference';
 
 export class SourceInference extends BaseInference {
-  public libraries: LibraryInference[];
+  libraries: LibraryInference[];
 
-  public definitions: DefinitionInference[];
+  definitions: DefinitionInference[];
 
-  public constructor(public tree: SourceTree, public genericsMap: GenericsMap) {
+  constructor(public tree: SourceTree, public genericsMap: GenericsMap) {
     super();
 
     this.libraries = tree.imports.map((x) => getLibraryInference(x, genericsMap));

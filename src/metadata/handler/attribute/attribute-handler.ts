@@ -7,7 +7,7 @@ import { StatementHandler } from '../statement/statement-handler';
 import { TypeHandler } from '../type/type-handler';
 
 export class AttributeHandler extends MetadataHandler {
-  public constructor(scope: HandlerScope = null) {
+  constructor(scope: HandlerScope = null) {
     super(new HandlerScope(scope));
   }
   handle(tree: AttributeTree) {

@@ -5,13 +5,13 @@ import { getExpressionInference } from '../expression-inference.helper';
 import { ExpressionInference } from '../expression.inference';
 
 export class PipeExpressionInference extends ExpressionInference {
-  public arg: string;
+  arg: string;
 
-  public left: ExpressionInference;
+  left: ExpressionInference;
 
   public right: ExpressionInference;
 
-  public constructor(public tree: PipeExpressionTree, public genericsMap: GenericsMap) {
+  constructor(public tree: PipeExpressionTree, public genericsMap: GenericsMap) {
     super();
 
     const left = getExpressionInference(tree.left, genericsMap);

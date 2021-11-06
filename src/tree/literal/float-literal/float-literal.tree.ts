@@ -2,15 +2,15 @@ import { FloatLiteralContext } from '../../../grammar/xon-parser';
 import { LiteralTree } from '../literal.tree';
 
 export class FloatLiteralTree extends LiteralTree {
-  public radix: number;
-
-  public integer: string;
-
-  public fraction: string;
+  radix: number;
+  
+  integer: string;
+  
+  fraction: string;
 
   public value: number;
 
-  public constructor(public ctx?: FloatLiteralContext) {
+  constructor(public ctx?: FloatLiteralContext) {
     super();
     if (!ctx) return;
 
@@ -28,7 +28,7 @@ export class FloatLiteralTree extends LiteralTree {
       : parseFloat(`${integerClean}.${fraction}`);
   }
 
-  public toString(): string {
+  toString(): string {
     return `${this.value}`;
   }
 }
