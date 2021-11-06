@@ -1,5 +1,6 @@
 import { AttributeTree } from '../../../tree/attribute/attribute-tree';
 import { ExpressionStatementTree } from '../../../tree/statement/expression-statement/expression-statement.tree';
+import { FunctionTypeTree } from '../../../tree/type/function-type/function-type.tree';
 import { HandlerScope } from '../handler-scope';
 import { MetadataHandler } from '../metadata-handler';
 import { StatementHandler } from '../statement/statement-handler';
@@ -18,7 +19,7 @@ export class AttributeHandler extends MetadataHandler {
     if (tree.body) {
       tree.body.forEach((x) => new StatementHandler(this.scope).handle(x));
       const lastStatement = tree.body[tree.body.length - 1];
-      if (lastStatement instanceof ExpressionStatementTree)
+      if (tree.type instanceof FunctionTypeTree && lastStatement instanceof ExpressionStatementTree)
         tree.typeMetadata = lastStatement.expression.typeMetadata;
     }
     this.scope.addDeclaration(tree);
