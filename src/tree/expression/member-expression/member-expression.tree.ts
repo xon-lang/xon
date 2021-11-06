@@ -13,7 +13,7 @@ export class MemberExpressionTree extends ExpressionTree {
     if (!ctx) return;
 
     this.instance = getExpressionTree(ctx.expression());
-    this.isSafe = ctx.QUESTION() !== null;
+    this.isSafe = !!ctx.COALESCING();
     this.id = new IdToken(ctx._name);
   }
 

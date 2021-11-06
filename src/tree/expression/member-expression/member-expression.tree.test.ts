@@ -2,7 +2,7 @@ import { parseExpression } from '../../parse';
 import { IdExpressionTree } from '../id-expression/id-expression.tree';
 import { MemberExpressionTree } from './member-expression.tree';
 
-test('string expression index', () => {
+test('not safe', () => {
   const code = 'abc.def';
   const tree = parseExpression<MemberExpressionTree>(code);
   expect(tree).toBeInstanceOf(MemberExpressionTree);
@@ -13,7 +13,7 @@ test('string expression index', () => {
   expect(tree.id.text).toBe('def');
 });
 
-test('coalescing', () => {
+test('safe', () => {
   const code = 'abc?.def';
   const tree = parseExpression<MemberExpressionTree>(code);
   expect(tree).toBeInstanceOf(MemberExpressionTree);
