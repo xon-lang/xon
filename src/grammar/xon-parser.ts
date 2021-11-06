@@ -1419,7 +1419,7 @@ export class XonParser extends Parser {
 					break;
 				}
 				this.state = 315;
-				this.body();
+				this.expression(1);
 				}
 				break;
 			}
@@ -1464,10 +1464,10 @@ export class XonParser extends Parser {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 10)");
 						}
 						this.state = 322;
-						(_localctx as MulDivModExpressionContext).__tset302 = this._input.LT(1);
+						(_localctx as MulDivModExpressionContext).__tset306 = this._input.LT(1);
 						_la = this._input.LA(1);
 						if (!(((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.SLASH - 38)) | (1 << (XonParser.MODULO - 38)) | (1 << (XonParser.ASTERISK - 38)))) !== 0))) {
-							(_localctx as MulDivModExpressionContext).__tset302 = this._errHandler.recoverInline(this);
+							(_localctx as MulDivModExpressionContext).__tset306 = this._errHandler.recoverInline(this);
 						} else {
 							if (this._input.LA(1) === Token.EOF) {
 								this.matchedEOF = true;
@@ -1476,7 +1476,7 @@ export class XonParser extends Parser {
 							this._errHandler.reportMatch(this);
 							this.consume();
 						}
-						(_localctx as MulDivModExpressionContext)._op.push((_localctx as MulDivModExpressionContext).__tset302);
+						(_localctx as MulDivModExpressionContext)._op.push((_localctx as MulDivModExpressionContext).__tset306);
 						this.state = 323;
 						(_localctx as MulDivModExpressionContext)._right = this.expression(11);
 						}
@@ -1492,10 +1492,10 @@ export class XonParser extends Parser {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 9)");
 						}
 						this.state = 325;
-						(_localctx as AddSubExpressionContext).__tset357 = this._input.LT(1);
+						(_localctx as AddSubExpressionContext).__tset361 = this._input.LT(1);
 						_la = this._input.LA(1);
 						if (!(_la === XonParser.PLUS || _la === XonParser.MINUS)) {
-							(_localctx as AddSubExpressionContext).__tset357 = this._errHandler.recoverInline(this);
+							(_localctx as AddSubExpressionContext).__tset361 = this._errHandler.recoverInline(this);
 						} else {
 							if (this._input.LA(1) === Token.EOF) {
 								this.matchedEOF = true;
@@ -1504,7 +1504,7 @@ export class XonParser extends Parser {
 							this._errHandler.reportMatch(this);
 							this.consume();
 						}
-						(_localctx as AddSubExpressionContext)._op.push((_localctx as AddSubExpressionContext).__tset357);
+						(_localctx as AddSubExpressionContext)._op.push((_localctx as AddSubExpressionContext).__tset361);
 						this.state = 326;
 						(_localctx as AddSubExpressionContext)._right = this.expression(10);
 						}
@@ -1557,10 +1557,10 @@ export class XonParser extends Parser {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 6)");
 						}
 						this.state = 335;
-						(_localctx as RelationalExpressionContext).__tset484 = this._input.LT(1);
+						(_localctx as RelationalExpressionContext).__tset488 = this._input.LT(1);
 						_la = this._input.LA(1);
 						if (!(_la === XonParser.LESS || _la === XonParser.GREAT)) {
-							(_localctx as RelationalExpressionContext).__tset484 = this._errHandler.recoverInline(this);
+							(_localctx as RelationalExpressionContext).__tset488 = this._errHandler.recoverInline(this);
 						} else {
 							if (this._input.LA(1) === Token.EOF) {
 								this.matchedEOF = true;
@@ -1569,7 +1569,7 @@ export class XonParser extends Parser {
 							this._errHandler.reportMatch(this);
 							this.consume();
 						}
-						(_localctx as RelationalExpressionContext)._op.push((_localctx as RelationalExpressionContext).__tset484);
+						(_localctx as RelationalExpressionContext)._op.push((_localctx as RelationalExpressionContext).__tset488);
 						this.state = 337;
 						this._errHandler.sync(this);
 						_la = this._input.LA(1);
@@ -1596,10 +1596,10 @@ export class XonParser extends Parser {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 5)");
 						}
 						this.state = 341;
-						(_localctx as EqualityExpressionContext).__tset542 = this._input.LT(1);
+						(_localctx as EqualityExpressionContext).__tset546 = this._input.LT(1);
 						_la = this._input.LA(1);
 						if (!(_la === XonParser.EQUAL || _la === XonParser.EXCLAMATION)) {
-							(_localctx as EqualityExpressionContext).__tset542 = this._errHandler.recoverInline(this);
+							(_localctx as EqualityExpressionContext).__tset546 = this._errHandler.recoverInline(this);
 						} else {
 							if (this._input.LA(1) === Token.EOF) {
 								this.matchedEOF = true;
@@ -1608,7 +1608,7 @@ export class XonParser extends Parser {
 							this._errHandler.reportMatch(this);
 							this.consume();
 						}
-						(_localctx as EqualityExpressionContext)._op.push((_localctx as EqualityExpressionContext).__tset542);
+						(_localctx as EqualityExpressionContext)._op.push((_localctx as EqualityExpressionContext).__tset546);
 						this.state = 342;
 						(_localctx as EqualityExpressionContext)._s41 = this.match(XonParser.EQUAL);
 						(_localctx as EqualityExpressionContext)._op.push((_localctx as EqualityExpressionContext)._s41);
@@ -2865,7 +2865,7 @@ export class XonParser extends Parser {
 		"\u0136\u0139\x03\x02\x02\x02\u0137\u0135\x03\x02\x02\x02\u0138\u0130\x03" +
 		"\x02\x02\x02\u0138\u0139\x03\x02\x02\x02\u0139\u013A\x03\x02\x02\x02\u013A" +
 		"\u013C\x07%\x02\x02\u013B\u0138\x03\x02\x02\x02\u013B\u013C\x03\x02\x02" +
-		"\x02\u013C\u013D\x03\x02\x02\x02\u013D\u013F\x054\x1B\x02\u013E\u0112" +
+		"\x02\u013C\u013D\x03\x02\x02\x02\u013D\u013F\x05\x1C\x0F\x03\u013E\u0112" +
 		"\x03\x02\x02\x02\u013E\u0114\x03\x02\x02\x02\u013E\u0115\x03\x02\x02\x02" +
 		"\u013E\u0117\x03\x02\x02\x02\u013E\u011C\x03\x02\x02\x02\u013E\u011D\x03" +
 		"\x02\x02\x02\u013E\u0121\x03\x02\x02\x02\u013E\u012D\x03\x02\x02\x02\u013E" +
@@ -3798,7 +3798,7 @@ export class MulDivModExpressionContext extends ExpressionContext {
 	public _op: Token[] = [];
 	public _s38!: Token;
 	public _s43!: Token;
-	public __tset302!: Token;
+	public __tset306!: Token;
 	public _right!: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
@@ -3822,7 +3822,7 @@ export class AddSubExpressionContext extends ExpressionContext {
 	public _s30!: Token;
 	public _op: Token[] = [];
 	public _s37!: Token;
-	public __tset357!: Token;
+	public __tset361!: Token;
 	public _right!: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
@@ -3893,7 +3893,7 @@ export class RelationalExpressionContext extends ExpressionContext {
 	public _s33!: Token;
 	public _op: Token[] = [];
 	public _s36!: Token;
-	public __tset484!: Token;
+	public __tset488!: Token;
 	public _s41!: Token;
 	public _right!: ExpressionContext;
 	public expression(): ExpressionContext[];
@@ -3918,7 +3918,7 @@ export class EqualityExpressionContext extends ExpressionContext {
 	public _s41!: Token;
 	public _op: Token[] = [];
 	public _s48!: Token;
-	public __tset542!: Token;
+	public __tset546!: Token;
 	public _right!: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
@@ -4021,8 +4021,8 @@ export class PipeExpressionContext extends ExpressionContext {
 }
 export class LambdaExpressionContext extends ExpressionContext {
 	public BACK_SLASH(): TerminalNode { return this.getToken(XonParser.BACK_SLASH, 0); }
-	public body(): BodyContext {
-		return this.getRuleContext(0, BodyContext);
+	public expression(): ExpressionContext {
+		return this.getRuleContext(0, ExpressionContext);
 	}
 	public COLON(): TerminalNode | undefined { return this.tryGetToken(XonParser.COLON, 0); }
 	public parameter(): ParameterContext[];
