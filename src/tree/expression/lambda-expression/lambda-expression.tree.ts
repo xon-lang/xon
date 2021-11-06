@@ -1,23 +1,24 @@
 import { LambdaExpressionContext } from '../../../grammar/xon-parser';
 import { getParametersTrees } from '../../parameter/parameter-tree.helper';
 import { ParameterTree } from '../../parameter/parameter.tree';
-import { getExpressionTree } from '../expression-tree.helper';
+import { getStatementsFromBody } from '../../statement/statement-tree.helper';
+import { StatementTree } from '../../statement/statement.tree';
 import { ExpressionTree } from '../expression.tree';
 
 export class LambdaExpressionTree extends ExpressionTree {
-  public parameters: ParameterTree[];
+  parameters: ParameterTree[];
+  body: StatementTree[];
 
-  public body: ExpressionTree;
-
-  public constructor(public ctx?: LambdaExpressionContext) {
+  constructor(public ctx?: LambdaExpressionContext) {
     super();
     if (!ctx) return;
 
-    this.parameters = getParametersTrees(ctx.parameter());
-    this.body = getExpressionTree(ctx.expression());
+    this.parameters = getParametersTrees(ctx.parameters());
+    this.body = getStatementsFromBody(ctx.body());
+    if (this.body.length !== 1) throw new Error('Lambda should be with single expression');
   }
 
-  public toString(): string {
-    return `\\${this.parameters.join(', ')}: ${this.body}`;
+  toString(): string {
+    return `(${this.parameters.join(', ')}): ${this.body[0]}`;
   }
 }

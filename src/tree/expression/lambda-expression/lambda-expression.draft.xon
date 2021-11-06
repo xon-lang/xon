@@ -1,3 +1,6 @@
 x y z: ...
 
 [1, 2, 3].filter(\x, i: x+i)
+
+
+[1, 2, 3].filter((): x+i)
