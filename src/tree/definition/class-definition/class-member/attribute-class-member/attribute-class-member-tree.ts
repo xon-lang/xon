@@ -19,3 +19,5 @@ export class AttributeClassMemberTree extends ClassMemberTree {
     return member;
   }
 }
+
+

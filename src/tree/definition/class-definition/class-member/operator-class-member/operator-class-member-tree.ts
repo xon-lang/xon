@@ -10,8 +10,6 @@ export class OperatorClassMemberTree extends ClassMemberTree {
   id: IdToken;
   parameters: ParameterTree[];
   returnType: TypeTree;
-  isInfix: boolean;
-  isPostfix: boolean;
 
   constructor(public ctx?: OperatorClassMemberContext) {
     super();
@@ -21,8 +19,6 @@ export class OperatorClassMemberTree extends ClassMemberTree {
 
     this.id = IdToken.fromContext(ctx.operator());
     this.parameters = getParametersTrees(ctx.parameters());
-    this.isInfix = ctx.INFIX() !== null;
-    this.isPostfix = ctx.POSTFIX() !== null;
     this.returnType = getTypeTree(ctx.type());
   }
 }

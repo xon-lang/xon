@@ -7,9 +7,10 @@ import { StatementTree } from '../statement/statement.tree';
 import { FunctionTypeTree } from '../type/function-type/function-type.tree';
 import { getTypeTree } from '../type/type-tree.helper';
 import { TypeTree } from '../type/type.tree';
+import { AttributeModifierTree } from './attribute-modifier-tree';
 
 export class AttributeTree extends BaseTree {
-  modifiers: IdToken[];
+  modifiers: AttributeModifierTree[];
   id: IdToken;
   isPrivate: boolean;
   type?: TypeTree;
@@ -20,7 +21,8 @@ export class AttributeTree extends BaseTree {
     super();
     if (!ctx) return;
 
-    this.id = new IdToken(ctx._name);
+    this.modifiers = ctx.attributeModifier().map((x) => new AttributeModifierTree(x));
+    this.id = IdToken.fromContext(ctx.attributeName());
     this.isPrivate = this.id.text.startsWith('_');
     this.type = getTypeTree(ctx.type()) || null;
     this.body = getStatementsFromBody(ctx.body()) || null;
@@ -34,7 +36,7 @@ export class AttributeTree extends BaseTree {
   }
 
   static fromFields(
-    modifiers: IdToken[],
+    modifiers: AttributeModifierTree[],
     id: IdToken,
     type: TypeTree,
     body: StatementTree[],

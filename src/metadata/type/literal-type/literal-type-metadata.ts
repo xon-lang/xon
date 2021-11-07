@@ -11,5 +11,6 @@ export class LiteralTypeMetadata extends TypeMetadata {
 
     this.sourceReference = tree.sourceReference;
     this.name = this.constructor.name.replace(TypeMetadata.name, '');
+    this.value = 
   }
 }
