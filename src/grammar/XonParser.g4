@@ -21,15 +21,12 @@ libraryMember:   name = UPPER_ID (AS alias = UPPER_ID)?;
 test: TEST expression? body?;
 
 definition:
-    name = UPPER_ID genericParameters? parameters? (IS type)? (
+    name = UPPER_ID genericParameters? functionParameters? (IS type)? (
         ':' NL+ INDENT ( classMember | NL)+ DEDENT
     )? # classDefinition
     ;
 
-classMember:
-    attribute                                                    # attributeClassMember
-    | (INFIX | PREFIX | POSTFIX) operator parameters type? body? # operatorClassMember
-    ;
+classMember: attribute # attributeClassMember;
 
 statement:
     FOR (value = LOWER_ID (',' index = LOWER_ID)? IN)? expression body # forStatement
@@ -45,7 +42,15 @@ statement:
     | assignment                                                       # assignmentStatement
     ;
 
-attribute: name = LOWER_ID (type body? | type? body);
+attribute:
+    attributeModifier* attributeName (
+        type body?
+        | type? body
+        | type? '=' expression
+    )
+    ;
+attributeName:     LOWER_ID | operator | '$';
+attributeModifier: INFIX | PREFIX | POSTFIX;
 
 assignment:
     name = LOWER_ID '=' expression                                      # idAssignment
@@ -78,20 +83,22 @@ expression:
     | left = expression op = '&&' right = expression                      # conjunctionExpression
     | left = expression op = '||' right = expression                      # disjunctionExpression
     | expression '|' name = LOWER_ID ':' expression                       # pipeExpression
-    | '\\' ((parameter (',' parameter)*)? ':')? expression                # lambdaExpression
+    | '\\' (lambdaParameters ':')? expression                             # lambdaExpression
     ;
 
 type:
-    name = UPPER_ID genericArguments?             # idType
-    | literal                                     # literalType
-    | type '?'                                    # nullableType
-    | type '[' size = INTEGER_LITERAL? ']'        # arrayType
-    | type '&' type                               # intersectionType
-    | '(' type '&' type ')'                       # intersectionParenthesizedType
-    | type '|' type                               # unionType
-    | '(' type '|' type ')'                       # unionParenthesizedType
-    | genericParameters? parameters type?         # functionType
-    | '(' genericParameters? parameters type? ')' # functionParenthesizedType
+    name = UPPER_ID genericArguments?                     # idType
+    | literal                                             # literalType
+    | type '?'                                            # nullableType
+    | type '[' size = INTEGER_LITERAL? ']'                # arrayType
+    | type '&' type                                       # intersectionType
+    | '(' type '&' type ')'                               # intersectionParenthesizedType
+    | type '|' type                                       # unionType
+    | '(' type '|' type ')'                               # unionParenthesizedType
+    | genericParameters? functionParameters type?         # functionType
+    | '(' genericParameters? functionParameters type? ')' # functionParenthesizedType
+    | genericParameters? indexParameters type?            # indexType
+    | '(' genericParameters? indexParameters type? ')'    # indexParenthesizedType
     ;
 
 literal:
@@ -104,8 +111,7 @@ literal:
     ;
 
 operator:
-    '~'
-    | '!'
+    '!'
     | '^'
     | '*'
     | '/'
@@ -113,19 +119,17 @@ operator:
     | '+'
     | '-'
     | '<'
-    | '<='
     | '>'
-    | '>='
-    | '='
     | '=='
-    | '!='
     | '&&'
     | '||'
     | '..'
     ;
 
-parameter:  name = LOWER_ID type? ('#' meta = UPPER_ID)?;
-parameters: '(' (parameter (',' parameter)*)? ')';
+parameter:          name = LOWER_ID type? ('#' meta = UPPER_ID)?;
+functionParameters: '(' (parameter (',' parameter)*)? ')';
+indexParameters:    '[' (parameter (',' parameter)*)? ']';
+lambdaParameters:   parameter (',' parameter)*;
 
 argument:  expression;
 arguments: '(' (argument (',' argument)*)? ')';
