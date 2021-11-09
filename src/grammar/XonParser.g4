@@ -42,13 +42,7 @@ statement:
     | assignment                                                       # assignmentStatement
     ;
 
-attribute:
-    attributeModifier* attributeName (
-        type body?
-        | type? body
-        | type? '=' expression
-    )
-    ;
+attribute:         attributeModifier* attributeName ( type body? | type? body);
 attributeName:     LOWER_ID | operator | '$';
 attributeModifier: INFIX | PREFIX | POSTFIX;
 
