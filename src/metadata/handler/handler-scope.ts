@@ -34,11 +34,13 @@ export class HandlerScope {
   }
 
   addDefinition(value: DefinitionTree) {
+    // console.log(`'${value.id.text}' added to scope`);
+
     const genericsCount = value instanceof ClassDefinitionTree ? value.genericParameters.length : 0;
-    const name = `${value.id.text}<${genericsCount}>`;
-    if (this.definitions.has(name))
-      throw new Error(`'${name}' with ${genericsCount} generics already exists`);
-    this.definitions.set(name, value);
+    const compoundName = `${value.id.text}<${genericsCount}>`;
+    if (this.definitions.has(compoundName))
+      throw new Error(`'${compoundName}' with ${genericsCount} generics already exists`);
+    this.definitions.set(compoundName, value);
   }
 
   addDeclaration(value: { id: IdToken; typeMetadata: TypeMetadata }) {

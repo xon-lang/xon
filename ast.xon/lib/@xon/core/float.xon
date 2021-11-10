@@ -1,4 +1,4 @@
-Float:
+Float is Number:
   infix + (a Float, b Boolean) Float
   infix + (a Float, b Integer) Float
   infix + (a Float, b Float) Float

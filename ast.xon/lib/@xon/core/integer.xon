@@ -1,4 +1,4 @@
-Integer:
+Integer is Number:
   infix + (a Integer, b Boolean) Integer
   infix + (a Integer, b Integer) Integer
   infix + (a Integer, b Float) Float
