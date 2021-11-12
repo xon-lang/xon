@@ -20,6 +20,8 @@ export class ParameterTree extends BaseTree {
     this.isPrivate = this.id.text.startsWith('_');
     this.type = getTypeTree(ctx.type()) || null;
     this.metaType = ctx._meta?.text || null;
+
+    if (!this.type) throw new Error('Parameter type required');
   }
 
   toString(): string {
