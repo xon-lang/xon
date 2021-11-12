@@ -27,6 +27,13 @@ export class AttributeTree extends BaseTree {
     this.type = getTypeTree(ctx.type()) || null;
     this.body = getStatementsFromBody(ctx.body()) || null;
 
+    if (!this.type) {
+      if (!this.body || this.body.length === 0) throw new Error('Attribute must have a value');
+
+      if (this.body.length > 1)
+        throw new Error('Attribute must have only value if it is no function');
+    }
+
     if (
       this.type &&
       this.type instanceof FunctionTypeTree &&
