@@ -18,7 +18,7 @@ export class TypeHandler extends MetadataHandler {
     }
 
     if (tree instanceof FunctionTypeTree) {
-      tree.genericArguments.forEach((x) => this.handle(x));
+      tree.genericParameters.forEach((x) => this.handle(x));
       const genericArguments = tree.genericArguments.map((x) => x.typeMetadata);
       const definitionTree = this.scope.findDefinition(tree.name, genericArguments.length);
       if (definitionTree instanceof ClassDefinitionTree)
