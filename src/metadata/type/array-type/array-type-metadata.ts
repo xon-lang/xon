@@ -10,6 +10,5 @@ export class ArrayTypeMetadata extends TypeMetadata {
     super();
 
     this.sourceReference = tree.sourceReference;
-    this.name = this.constructor.name.replace(TypeMetadata.name, '');
   }
 }
