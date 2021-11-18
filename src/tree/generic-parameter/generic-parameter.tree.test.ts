@@ -15,6 +15,6 @@ test('has data and meta types', () => {
   const tree = parseGenericParameter(code);
   expect(tree).toBeInstanceOf(GenericParameterTree);
 
-  expect(tree.id.text).toBe('_b');
+  expect(tree.id.text).toBe('T');
   expect(tree.hasSpread).toBe(true);
 });
