@@ -9,7 +9,7 @@ export class MemberExpressionTree extends ExpressionTree {
   instance: ExpressionTree;
   isSafe: boolean;
   id: IdToken;
-  genericArguments: TypeTree[];
+  typeArguments: TypeTree[];
 
   constructor(public ctx?: MemberExpressionContext) {
     super();
@@ -18,12 +18,11 @@ export class MemberExpressionTree extends ExpressionTree {
     this.instance = getExpressionTree(ctx.expression());
     this.isSafe = !!ctx.COALESCING();
     this.id = new IdToken(ctx._name);
-    this.genericArguments = getTypesTrees(ctx.genericArguments()?.type());
+    this.typeArguments = getTypesTrees(ctx.typeArguments()?.type());
   }
 
   toString(): string {
-    if (this.genericArguments)
-      return `${this.instance}.${this.id}<${this.genericArguments.join(', ')}>`;
+    if (this.typeArguments) return `${this.instance}.${this.id}<${this.typeArguments.join(', ')}>`;
     return `${this.instance}.${this.id}`;
   }
 }
