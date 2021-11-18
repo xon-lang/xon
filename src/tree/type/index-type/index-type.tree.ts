@@ -13,7 +13,7 @@ export class IndexTypeTree extends TypeTree {
     super();
     if (!ctx) return;
     if (!ctx.type()) throw new Error('Index method must have return value');
-    if (ctx.indexParameters().parameter().length === 0)
+    if (ctx.indexParameters().expressionParameter().length === 0)
       throw new Error('Index method must have at least one parameter');
 
     this.name = this.constructor.name.replace(TypeTree.name, '');
