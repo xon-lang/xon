@@ -47,3 +47,14 @@ test('can call with generics', () => {
   expect(arg.literal).toBeInstanceOf(IntegerLiteralTree);
   expect(tree.instance).toBeInstanceOf(MemberExpressionTree);
 });
+
+test('can call with generics', () => {
+  const code = 'A<String > (1)';
+  const tree = parseExpression<CallExpressionTree>(code);
+  expect(tree).toBeInstanceOf(CallExpressionTree);
+
+  expect(tree.arguments.length).toBe(1);
+  const [arg] = tree.arguments.map((x) => x.value as LiteralExpressionTree);
+  expect(arg.literal).toBeInstanceOf(IntegerLiteralTree);
+  expect(tree.instance).toBeInstanceOf(IdExpressionTree);
+});
