@@ -1,4 +1,4 @@
-import { ParameterTree } from '../../tree/parameter/parameter.tree';
+import { ExpressionParameterTree } from '../../tree/expression-parameter/expression-parameter.tree';
 import { GenericsMap } from '../generics-map';
 import { StatementInference } from '../statement/statement.inference';
 
@@ -9,7 +9,7 @@ export class ParameterInference extends StatementInference {
 
   public metaType?: string;
 
-  constructor(public tree: ParameterTree, public genericsMap: GenericsMap) {
+  constructor(public tree: ExpressionParameterTree, public genericsMap: GenericsMap) {
     super();
 
     this.name = tree.id;

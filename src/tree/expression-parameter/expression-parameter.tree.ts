@@ -1,18 +1,18 @@
-import { ParameterContext } from '../../grammar/xon-parser';
+import { ExpressionParameterContext } from '../../grammar/xon-parser';
 import { TypeMetadata } from '../../metadata/type/type-metadata';
 import { BaseTree } from '../base.tree';
 import { IdToken } from '../id-token';
 import { getTypeTree } from '../type/type-tree.helper';
 import { TypeTree } from '../type/type.tree';
 
-export class ParameterTree extends BaseTree {
+export class ExpressionParameterTree extends BaseTree {
   id: IdToken;
   isPrivate: boolean;
   type?: TypeTree;
   metaType?: string;
   typeMetadata: TypeMetadata;
 
-  constructor(public ctx?: ParameterContext) {
+  constructor(public ctx?: ExpressionParameterContext) {
     super();
     if (!ctx) return;
 

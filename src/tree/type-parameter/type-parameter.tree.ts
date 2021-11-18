@@ -1,12 +1,12 @@
-import { GenericParameterContext } from '../../grammar/xon-parser';
+import { TypeParameterContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { IdToken } from '../id-token';
 
-export class GenericParameterTree extends BaseTree {
+export class TypeParameterTree extends BaseTree {
   id: IdToken;
   hasSpread: boolean;
 
-  constructor(public ctx?: GenericParameterContext) {
+  constructor(public ctx?: TypeParameterContext) {
     super();
     if (!ctx) return;
 

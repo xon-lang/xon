@@ -6,7 +6,7 @@ import { ExpressionTree } from '../expression.tree';
 
 export class IndexExpressionTree extends ExpressionTree {
   instance: ExpressionTree;
-  arguments: ArgumentTree[];
+  arguments: ExpressionTree[];
 
   constructor(public ctx?: IndexExpressionContext) {
     super();

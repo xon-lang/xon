@@ -1,4 +1,4 @@
-import { ParameterTree } from '../../../tree/parameter/parameter.tree';
+import { ExpressionParameterTree } from '../../../tree/expression-parameter/expression-parameter.tree';
 import { SourceReference } from '../../../tree/source-reference';
 import { TypeMetadata } from '../type-metadata';
 
@@ -7,7 +7,7 @@ export class ParameterTypeMetadata extends TypeMetadata {
   name: string;
   type: TypeMetadata;
 
-  constructor(tree: ParameterTree) {
+  constructor(tree: ExpressionParameterTree) {
     super();
 
     this.sourceReference = tree.id.sourceReference;
