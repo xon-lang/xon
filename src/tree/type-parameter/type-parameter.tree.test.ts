@@ -8,7 +8,7 @@ test('parameter name', () => {
 
   expect(tree.hasSpread).toBe(false);
   expect(tree.id.text).toBe('T');
-  expect(tree.typeRestrict.name).toBe(null);
+  expect(tree.typeRestrict).toBe(null);
   expect(tree.metaRestrict).toBe(null);
 });
 
@@ -19,7 +19,7 @@ test('spread and parameter name', () => {
 
   expect(tree.hasSpread).toBe(true);
   expect(tree.id.text).toBe('T');
-  expect(tree.typeRestrict.name).toBe(null);
+  expect(tree.typeRestrict).toBe(null);
   expect(tree.metaRestrict).toBe(null);
 });
 
