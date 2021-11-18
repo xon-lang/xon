@@ -22,13 +22,6 @@ export class ExpressionHandler extends MetadataHandler {
       return;
     }
 
-    if (tree instanceof InstantiationExpressionTree) {
-      tree.genericArguments.forEach((x) => new TypeHandler(this.scope).handle(x));
-      const genericArguments = tree.genericArguments.map((x) => x.typeMetadata);
-      const definitionTree = this.scope.findDefinition(tree.id.text, genericArguments.length);
-      tree.typeMetadata = getDefinitionMetadata(definitionTree, genericArguments);
-      return;
-    }
 
     throw new Error(`'${tree.constructor.name}' handler not found`);
   }

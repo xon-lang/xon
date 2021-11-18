@@ -7,7 +7,6 @@ import { AttributeMetadata } from './attribute-metadata';
 export class ClassTypeMetadata extends IdTypeMetadata {
   sourceReference: SourceReference;
   name: string;
-  genericArguments: TypeMetadata[] = [];
   attributes: AttributeMetadata[] = [];
 
   constructor(tree: ClassDefinitionTree) {

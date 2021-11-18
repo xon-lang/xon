@@ -5,7 +5,6 @@ import { TypeMetadata } from '../type-metadata';
 export class LiteralTypeMetadata extends TypeMetadata {
   sourceReference: SourceReference;
   name: string;
-  genericArguments: TypeMetadata[] = [];
   value: any;
 
   constructor(tree: LiteralTree) {
