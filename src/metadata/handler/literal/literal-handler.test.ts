@@ -21,7 +21,7 @@ test('null', () => {
   expect(tree).toBeInstanceOf(NullLiteralTree);
 
   new LiteralHandler().handle(tree);
-  expect(tree.value).toBe(123);
+  expect(tree.value).toBe(null);
   expect(tree.typeMetadata.name).toBe('Null');
   expect(tree.typeMetadata.genericArguments.length).toBe(0);
 });
