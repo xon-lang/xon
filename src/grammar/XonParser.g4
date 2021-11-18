@@ -129,7 +129,7 @@ lambdaParameters:    expressionParameter (',' expressionParameter)*;
 functionArguments: '(' (expression (',' expression)*)? ')';
 indexArguments:    '[' (expression (',' expression)*)? ']';
 
-typeParameter:  '...'? name = UPPER_ID;
+typeParameter:  '...'? name = UPPER_ID (IS type? ('#' meta = UPPER_ID)?);
 typeParameters: '<' typeParameter (',' typeParameter)* '>';
 typeArguments:  '<' (type (',' type)*)? '>';
 
