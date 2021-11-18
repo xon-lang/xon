@@ -8,8 +8,8 @@ import { MetadataHandler } from '../metadata-handler';
 export class TypeHandler extends MetadataHandler {
   handle(tree: TypeTree) {
     if (tree instanceof IdTypeTree) {
-      tree.genericArguments.forEach((x) => this.handle(x));
-      const genericArguments = tree.genericArguments.map((x) => x.typeMetadata);
+      tree.typeArguments.forEach((x) => this.handle(x));
+      const genericArguments = tree.typeArguments.map((x) => x.typeMetadata);
       const definitionTree = this.scope.findDefinition(tree.name, genericArguments.length);
       if (definitionTree instanceof ClassDefinitionTree)
         tree.typeMetadata = getDefinitionMetadata(definitionTree, genericArguments);
