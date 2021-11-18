@@ -19,7 +19,7 @@ test('one scope', () => {
 
   expect(definition.id.text).toBe('SomeClass');
   expect(definition.genericParameters.length).toBe(1);
-  expect(definition.genericParameters[0].text).toBe('T');
+  expect(definition.genericParameters[0].id.text).toBe('T');
 
   expect(definition.parameters.length).toBe(1);
   expect(definition.parameters[0].id.text).toBe('name');
