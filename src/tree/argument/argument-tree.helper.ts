@@ -1,4 +1,8 @@
-import { ArgumentContext, ArgumentsContext } from '../../grammar/xon-parser';
+import {
+  ArgumentContext,
+  FunctionArgumentsContext,
+  IndexArgumentsContext,
+} from '../../grammar/xon-parser';
 import { ArgumentTree } from './argument.tree';
 
 export const getArgumentTree = (ctx: ArgumentContext): ArgumentTree => {
@@ -6,7 +10,10 @@ export const getArgumentTree = (ctx: ArgumentContext): ArgumentTree => {
   return new ArgumentTree(ctx);
 };
 
-export const getArgumentsTrees = (args: ArgumentContext[] | ArgumentsContext): ArgumentTree[] => {
-  if (args instanceof ArgumentsContext) return args.argument().map(getArgumentTree);
+export const getArgumentsTrees = (
+  args: ArgumentContext[] | FunctionArgumentsContext | IndexArgumentsContext,
+): ArgumentTree[] => {
+  if (args instanceof FunctionArgumentsContext || args instanceof IndexArgumentsContext)
+    return args.argument().map(getArgumentTree);
   return args?.map(getArgumentTree) || [];
 };
