@@ -18,17 +18,17 @@ test('one scope', () => {
   const definition = tree.definitions[0] as ClassDefinitionTree;
 
   expect(definition.id.text).toBe('SomeClass');
-  expect(definition.genericParameters.length).toBe(1);
-  expect(definition.genericParameters[0].id.text).toBe('T');
+  expect(definition.typeParameters.length).toBe(1);
+  expect(definition.typeParameters[0].id.text).toBe('T');
 
   expect(definition.parameters.length).toBe(1);
   expect(definition.parameters[0].id.text).toBe('name');
   expect(definition.parameters[0].type.name).toBe('String');
 
   expect(definition.baseType.name).toBe('BaseClass');
-  expect((definition.baseType as IdTypeTree).genericArguments.length).toBe(2);
-  expect((definition.baseType as IdTypeTree).genericArguments[0].name).toBe('String');
-  expect((definition.baseType as IdTypeTree).genericArguments[1].name).toBe('Boolean');
+  expect((definition.baseType as IdTypeTree).typeArguments.length).toBe(2);
+  expect((definition.baseType as IdTypeTree).typeArguments[0].name).toBe('String');
+  expect((definition.baseType as IdTypeTree).typeArguments[1].name).toBe('Boolean');
 
   const attrs = definition.attributes;
   expect(attrs.length).toBe(6);

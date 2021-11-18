@@ -6,18 +6,18 @@ import { ExpressionTree } from '../expression.tree';
 
 export class IdExpressionTree extends ExpressionTree {
   id: IdToken;
-  genericArguments: TypeTree[];
+  typeArguments: TypeTree[];
 
   constructor(public ctx?: IdExpressionContext) {
     super();
     if (!ctx) return;
 
     this.id = new IdToken(ctx._name);
-    this.genericArguments = getTypesTrees(ctx.genericArguments()?.type());
+    this.typeArguments = getTypesTrees(ctx.typeArguments()?.type());
   }
 
   toString(): string {
-    if (this.genericArguments) return `${this.id}<${this.genericArguments.join(', ')}>`;
+    if (this.typeArguments) return `${this.id}<${this.typeArguments.join(', ')}>`;
     return this.id.toString();
   }
 }

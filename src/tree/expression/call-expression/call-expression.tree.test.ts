@@ -35,7 +35,7 @@ test('function on several lines', () => {
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
 });
 
-test('can call with generics', () => {
+test('can call with type parameter', () => {
   const code = 'a.get<String > (1)';
   const tree = parseExpression<CallExpressionTree>(code);
   expect(tree).toBeInstanceOf(CallExpressionTree);
@@ -47,7 +47,7 @@ test('can call with generics', () => {
   expect(tree.instance).toBeInstanceOf(MemberExpressionTree);
 });
 
-test('call with generics', () => {
+test('call with type parameter', () => {
   const code = 'A<String > (1)';
   const tree = parseExpression<CallExpressionTree>(code);
   expect(tree).toBeInstanceOf(CallExpressionTree);
@@ -59,7 +59,7 @@ test('call with generics', () => {
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
 });
 
-test('index call with generics', () => {
+test('index call with type parameter', () => {
   const code = 'abc[1]';
   const tree = parseExpression<CallExpressionTree>(code);
   expect(tree).toBeInstanceOf(CallExpressionTree);

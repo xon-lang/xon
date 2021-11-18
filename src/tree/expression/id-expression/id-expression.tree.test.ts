@@ -9,13 +9,13 @@ test('id', () => {
   expect(tree.id.text).toBe('myVariable');
 });
 
-test('id with generics', () => {
+test('id with type parameters', () => {
   const code = 'abc<String, Number>';
   const tree = parseExpression<IdExpressionTree>(code);
   expect(tree).toBeInstanceOf(IdExpressionTree);
 
   expect(tree.id.text).toBe('abc');
-  expect(tree.genericArguments.length).toBe(2);
-  expect(tree.genericArguments[0].toString()).toBe('String');
-  expect(tree.genericArguments[1].toString()).toBe('Number');
+  expect(tree.typeArguments.length).toBe(2);
+  expect(tree.typeArguments[0].toString()).toBe('String');
+  expect(tree.typeArguments[1].toString()).toBe('Number');
 });
