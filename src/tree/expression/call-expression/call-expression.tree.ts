@@ -8,10 +8,8 @@ import { ExpressionTree } from '../expression.tree';
 
 export class CallExpressionTree extends ExpressionTree {
   genericArguments: TypeTree[];
-
   instance: ExpressionTree;
-
-  public arguments: ArgumentTree[];
+  arguments: ArgumentTree[];
 
   constructor(public ctx?: CallExpressionContext) {
     super();
@@ -19,7 +17,7 @@ export class CallExpressionTree extends ExpressionTree {
 
     this.genericArguments = getTypesTrees(ctx.genericArguments()?.type());
     this.instance = getExpressionTree(ctx.expression());
-    this.arguments = getArgumentsTrees(ctx.arguments());
+    this.arguments = getArgumentsTrees(ctx.functionArguments());
   }
 
   toString(): string {
