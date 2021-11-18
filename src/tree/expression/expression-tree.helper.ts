@@ -9,6 +9,7 @@ import {
   EqualityExpressionContext,
   ExpressionContext,
   IdExpressionContext,
+  IndexExpressionContext,
   InstanceExpressionContext,
   InstanceMemberExpressionContext,
   LambdaExpressionContext,
@@ -47,10 +48,11 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
   if (ctx instanceof LiteralExpressionContext) return new LiteralExpressionTree(ctx);
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
-  if (ctx instanceof CallExpressionContext) return new CallExpressionTree(ctx);
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
   if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionTree(ctx);
   if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);
+  if (ctx instanceof CallExpressionContext || ctx instanceof IndexExpressionContext)
+    return new CallExpressionTree(ctx);
 
   if (
     ctx instanceof PowExpressionContext ||
