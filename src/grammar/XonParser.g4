@@ -42,7 +42,12 @@ statement:
     | assignment                                                       # assignmentStatement
     ;
 
-attribute:         attributeModifier* attributeName ( type body? | type? body);
+attribute:
+    attributeModifier* attributeName genericParameters? (
+        type body?
+        | type? body
+    )
+    ;
 attributeName:     LOWER_ID | operator | '$';
 attributeModifier: INFIX | PREFIX | POSTFIX;
 
@@ -56,13 +61,12 @@ assignment:
     ;
 
 expression:
-    name = LOWER_ID                                                       # idExpression
+    name = (LOWER_ID | UPPER_ID)                                          # idExpression
     | name = '$'                                                          # instanceExpression
     | '$' name = LOWER_ID                                                 # instanceMemberExpression
-    | name = UPPER_ID genericArguments? arguments                         # instantiationExpression
     | literal                                                             # literalExpression
-    | expression genericArguments? arguments                              # callExpression
-    | expression '[' expression ']'                                       # indexExpression
+    | expression genericArguments? functionArguments                      # callExpression
+    | expression genericArguments? indexArguments                         # indexExpression
     | '(' expression ')'                                                  # parenthesizedExpression
     | '[' (expression (',' expression)*)? ']'                             # arrayExpression
     | expression ('?.' | '.') name = LOWER_ID                             # memberExpression
@@ -81,18 +85,18 @@ expression:
     ;
 
 type:
-    name = UPPER_ID genericArguments?                     # idType
-    | literal                                             # literalType
-    | type '?'                                            # nullableType
-    | type '[' size = INTEGER_LITERAL? ']'                # arrayType
-    | type '&' type                                       # intersectionType
-    | '(' type '&' type ')'                               # intersectionParenthesizedType
-    | type '|' type                                       # unionType
-    | '(' type '|' type ')'                               # unionParenthesizedType
-    | genericParameters? functionParameters type?         # functionType
-    | '(' genericParameters? functionParameters type? ')' # functionParenthesizedType
-    | genericParameters? indexParameters type?            # indexType
-    | '(' genericParameters? indexParameters type? ')'    # indexParenthesizedType
+    name = UPPER_ID genericArguments?      # idType
+    | literal                              # literalType
+    | type '?'                             # nullableType
+    | type '[' size = INTEGER_LITERAL? ']' # arrayType
+    | type '&' type                        # intersectionType
+    | '(' type '&' type ')'                # intersectionParenthesizedType
+    | type '|' type                        # unionType
+    | '(' type '|' type ')'                # unionParenthesizedType
+    | functionParameters type?             # functionType
+    | '(' functionParameters type? ')'     # functionParenthesizedType
+    | indexParameters type?                # indexType
+    | '(' indexParameters type? ')'        # indexParenthesizedType
     ;
 
 literal:
@@ -125,8 +129,9 @@ functionParameters: '(' (parameter (',' parameter)*)? ')';
 indexParameters:    '[' (parameter (',' parameter)*)? ']';
 lambdaParameters:   parameter (',' parameter)*;
 
-argument:  expression;
-arguments: '(' (argument (',' argument)*)? ')';
+argument:          expression;
+functionArguments: '(' (argument (',' argument)*)? ')';
+indexArguments:    '[' (argument (',' argument)*)? ']';
 
 genericArguments: '<' (type (',' type)*)? '>';
 genericParameters:
