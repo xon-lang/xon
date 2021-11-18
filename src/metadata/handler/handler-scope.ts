@@ -1,6 +1,5 @@
 import { IdToken } from '../../tree/id-token';
 import { TypeParameterTree } from '../../tree/type-parameter/type-parameter.tree';
-import { TypeTree } from '../../tree/type/type.tree';
 import { TypeMetadata } from '../type/type-metadata';
 
 export class HandlerScope {
@@ -25,16 +24,10 @@ export class HandlerScope {
     this.declarations.set(name, typeMetadata);
   }
 
-  findDeclaration({
-    id,
-    typeArguments = [],
-  }: {
-    id: IdToken;
-    typeArguments?: TypeTree[];
-  }): TypeMetadata {
-    const name = `${id.text}<${typeArguments.length}>`;
+  findDeclaration(id: string, typeArgumentsCount: number = 0): TypeMetadata {
+    const name = `${id}<${typeArgumentsCount}>`;
     if (this.declarations.has(name)) return this.declarations.get(name);
-    if (this.parent) return this.parent.findDeclaration({ id, typeArguments });
+    if (this.parent) return this.parent.findDeclaration(id, typeArgumentsCount);
     throw new Error(`'${name}' not found`);
   }
 }

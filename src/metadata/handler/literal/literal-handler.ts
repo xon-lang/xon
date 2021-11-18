@@ -1,11 +1,11 @@
 import { LiteralTree } from '../../../tree/literal/literal.tree';
-import { getDefinitionMetadata } from '../../type/type-metadata-helper';
+import { NullLiteralTree } from '../../../tree/literal/null-literal/null-literal.tree';
 import { MetadataHandler } from '../metadata-handler';
 
 export class LiteralHandler extends MetadataHandler {
   handle(tree: LiteralTree) {
-    const definitionName = tree.constructor.name.replace('LiteralTree', '');
-    const definitionTree = this.scope.findDefinition(definitionName);
-    tree.typeMetadata = getDefinitionMetadata(definitionTree, []);
+    const literalName = tree.constructor.name.replace('LiteralTree', '');
+    const typeArgumentsCount = tree instanceof NullLiteralTree ? 0 : 1;
+    tree.typeMetadata = this.scope.findDeclaration(literalName, typeArgumentsCount);
   }
 }
