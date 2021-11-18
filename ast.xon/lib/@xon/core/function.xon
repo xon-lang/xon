@@ -1,1 +1,2 @@
-Function
+Function<...T, R>
+  $(parameters ...T) R
