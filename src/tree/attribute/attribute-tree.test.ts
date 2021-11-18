@@ -65,8 +65,8 @@ test('method member', () => {
   expect(tree.isPrivate).toBe(true);
 
   const type = tree.type as FunctionTypeTree;
-  expect(tree.genericParameters.length).toBe(1);
-  expect(tree.genericParameters[0].id.text).toBe('T');
+  expect(tree.typeParameters.length).toBe(1);
+  expect(tree.typeParameters[0].id.text).toBe('T');
 
   expect(type.parameters.length).toBe(3);
   expect(type.parameters[0].id.text).toBe('argA');

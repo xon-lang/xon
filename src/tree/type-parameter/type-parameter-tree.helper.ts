@@ -1,4 +1,4 @@
-import { TypeParameterContext } from '../../grammar/xon-parser';
+import { TypeParameterContext, TypeParametersContext } from '../../grammar/xon-parser';
 import { TypeParameterTree } from './type-parameter.tree';
 
 export const getTypeParameterTree = (ctx: TypeParameterContext): TypeParameterTree => {
@@ -8,7 +8,10 @@ export const getTypeParameterTree = (ctx: TypeParameterContext): TypeParameterTr
 };
 
 export const getTypeParametersTrees = (
-  parameters?: TypeParameterContext[],
+  parameters?: TypeParameterContext[] | TypeParametersContext,
 ): TypeParameterTree[] => {
-  return parameters?.map(getTypeParameterTree) || [];
+  if (!parameters) return [];
+
+  if (Array.isArray(parameters)) return parameters.map(getTypeParameterTree);
+  return parameters.typeParameter().map(getTypeParameterTree);
 };

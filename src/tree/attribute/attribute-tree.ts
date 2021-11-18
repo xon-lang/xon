@@ -13,7 +13,7 @@ import { AttributeModifierTree } from './attribute-modifier-tree';
 
 export class AttributeTree extends BaseTree {
   modifiers: AttributeModifierTree[];
-  genericParameters: TypeParameterTree[];
+  typeParameters: TypeParameterTree[];
   id: IdToken;
   isPrivate: boolean;
   type?: TypeTree;
@@ -25,7 +25,7 @@ export class AttributeTree extends BaseTree {
     if (!ctx) return;
 
     this.modifiers = ctx.attributeModifier().map((x) => new AttributeModifierTree(x));
-    this.genericParameters = getTypeParametersTrees(ctx.genericParameters()?.genericParameter());
+    this.typeParameters = getTypeParametersTrees(ctx.typeParameters()?.genericParameter());
     this.id = IdToken.fromContext(ctx.attributeName());
     this.isPrivate = this.id.text.startsWith('_');
     this.type = getTypeTree(ctx.type()) || null;
@@ -55,7 +55,7 @@ export class AttributeTree extends BaseTree {
   ): AttributeTree {
     const attribute = new AttributeTree();
     attribute.modifiers = modifiers;
-    attribute.genericParameters = genericParameters;
+    attribute.typeParameters = genericParameters;
     attribute.id = id;
     attribute.type = type;
     attribute.body = body;

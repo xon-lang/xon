@@ -14,12 +14,14 @@ export const getExpressionParameterTree = (
 };
 
 export const getExpressionParametersTrees = (
-  args:
+  parameters:
     | ExpressionParameterContext[]
     | FunctionParametersContext
     | IndexParametersContext
     | LambdaParametersContext,
 ): ExpressionParameterTree[] => {
-  if (Array.isArray(args)) return args?.map(getExpressionParameterTree) || [];
-  return args.expressionParameter().map(getExpressionParameterTree);
+  if (!parameters) return [];
+
+  if (Array.isArray(parameters)) return parameters.map(getExpressionParameterTree);
+  return parameters.expressionParameter().map(getExpressionParameterTree);
 };
