@@ -12,9 +12,13 @@ export class CallExpressionTree extends ExpressionTree {
     if (!ctx) return;
 
     this.instance = getExpressionTree(ctx.expression());
-    if (ctx instanceof CallExpressionContext)
+    if (ctx instanceof CallExpressionContext) {
+      this.isIndexCall = false;
       this.arguments = getExpressionsTrees(ctx.functionArguments().expression());
-    else this.arguments = getExpressionsTrees(ctx.indexArguments().expression());
+    } else {
+      this.isIndexCall = true;
+      this.arguments = getExpressionsTrees(ctx.indexArguments().expression());
+    }
   }
 
   toString(): string {
