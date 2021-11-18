@@ -33,4 +33,4 @@ Integer is Number:
 
 
 Integer<T is #IntegerLiteral> is Integer:
-  value = T
+  value: T

@@ -7,4 +7,4 @@ String is Char[]:
 
 
 String<T is #StringLiteral> is String:
-  value = T
+  value: T

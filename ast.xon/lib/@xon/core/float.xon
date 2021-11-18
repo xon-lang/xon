@@ -22,4 +22,4 @@ Float is Number:
 
 
 Float<T is #FloatLiteral> is Float:
-  value = T
+  value: T

@@ -22,4 +22,4 @@ Boolean:
 
 
 Boolean<T is #BooleanLiteral> is Boolean:
-  value = T
+  value: T
