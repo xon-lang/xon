@@ -21,5 +21,5 @@ Boolean:
   infix / (a Boolean, b Char) Integer
 
 
-  Boolean<T is #BooleanLiteral> is Boolean:
-    value = T
+Boolean<T is #BooleanLiteral> is Boolean:
+  value = T
