@@ -7,7 +7,7 @@ export const getGenericParameterTree = (ctx: GenericParameterContext): GenericPa
 };
 
 export const getGenericParametersTrees = (
-  parameters: GenericParameterContext[],
+  parameters?: GenericParameterContext[],
 ): GenericParameterTree[] => {
-  return parameters.map(getGenericParameterTree) || [];
+  return parameters?.map(getGenericParameterTree) || [];
 };

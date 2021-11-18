@@ -22,9 +22,7 @@ export class ClassDefinitionTree extends DefinitionTree {
     if (!ctx) return;
 
     this.id = new IdToken(ctx._name);
-    this.genericParameters = getGenericParametersTrees(
-      ctx.genericParameters()?.genericParameter() || [],
-    );
+    this.genericParameters = getGenericParametersTrees(ctx.genericParameters()?.genericParameter());
     this.parameters = getParametersTrees(ctx.functionParameters());
     this.baseType = getTypeTree(ctx.type());
     this.attributes = getClassMembersTrees(ctx.classMember()).map(

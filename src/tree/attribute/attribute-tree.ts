@@ -25,9 +25,7 @@ export class AttributeTree extends BaseTree {
     if (!ctx) return;
 
     this.modifiers = ctx.attributeModifier().map((x) => new AttributeModifierTree(x));
-    this.genericParameters = getGenericParametersTrees(
-      ctx.genericParameters()?.genericParameter() || [],
-    );
+    this.genericParameters = getGenericParametersTrees(ctx.genericParameters()?.genericParameter());
     this.id = IdToken.fromContext(ctx.attributeName());
     this.isPrivate = this.id.text.startsWith('_');
     this.type = getTypeTree(ctx.type()) || null;
