@@ -47,6 +47,7 @@ EXTENSION: 'extension';
 AT:          '@';
 DOT:         '.';
 RANGE:       '..';
+SPREAD:      '...';
 PLUS:        '+';
 HASH:        '#';
 PIPE:        '|';

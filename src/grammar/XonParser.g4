@@ -128,7 +128,9 @@ lambdaParameters:   parameter (',' parameter)*;
 argument:  expression;
 arguments: '(' (argument (',' argument)*)? ')';
 
-genericArguments:  '<' (type (',' type)*)? '>';
-genericParameters: '<' names += UPPER_ID (',' names += UPPER_ID)* '>';
+genericArguments: '<' (type (',' type)*)? '>';
+genericParameters:
+    '<' '...'? names += UPPER_ID (',' '...'? names += UPPER_ID)* '>'
+    ;
 
 body: ':' (statement | NL+ INDENT (statement | NL)+ DEDENT)?;
