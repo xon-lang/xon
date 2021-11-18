@@ -19,3 +19,7 @@ Float is Number:
   infix / (a Float, b Integer) Float
   infix / (a Float, b Float) Float
   infix / (a Float, b Char) Float
+
+
+Float<T is #FloatLiteral> is Float:
+  value = T

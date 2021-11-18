@@ -19,3 +19,7 @@ Boolean:
   infix / (a Boolean, b Integer) Integer
   infix / (a Boolean, b Float) Float
   infix / (a Boolean, b Char) Integer
+
+
+  Boolean<T is #BooleanLiteral> is Boolean:
+    value = T

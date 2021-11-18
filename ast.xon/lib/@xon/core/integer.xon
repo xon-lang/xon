@@ -30,3 +30,7 @@ Integer is Number:
   infix == (a Integer, b Float) Boolean
 
   toString() String
+
+
+Integer<T is #IntegerLiteral> is Integer:
+  value = T
