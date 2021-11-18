@@ -133,9 +133,8 @@ argument:          expression;
 functionArguments: '(' (argument (',' argument)*)? ')';
 indexArguments:    '[' (argument (',' argument)*)? ']';
 
-genericArguments: '<' (type (',' type)*)? '>';
-genericParameters:
-    '<' '...'? names += UPPER_ID (',' '...'? names += UPPER_ID)* '>'
-    ;
+genericParameter:  '...'? name = UPPER_ID;
+genericParameters: '<' genericParameter (',' genericParameter)* '>';
+genericArguments:  '<' (type (',' type)*)? '>';
 
 body: ':' (statement | NL+ INDENT (statement | NL)+ DEDENT)?;
