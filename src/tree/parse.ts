@@ -13,6 +13,7 @@ import { getDefinitionTree } from './definition/definition-tree-helper';
 import { ExportTree } from './export/export.tree';
 import { getExpressionTree } from './expression/expression-tree.helper';
 import { ExpressionTree } from './expression/expression.tree';
+import { GenericParameterTree } from './generic-parameter/generic-parameter.tree';
 import { ImportTree } from './import/import.tree';
 import { getLiteralTree } from './literal/literal-tree.helper';
 import { LiteralTree } from './literal/literal.tree';
@@ -44,6 +45,9 @@ export const parseType = <T extends TypeTree>(code: string): T =>
 
 export const parseParameter = (code: string): ParameterTree =>
   new ParameterTree(parse(code).parameter());
+
+export const parseGenericParameter = (code: string): GenericParameterTree =>
+  new GenericParameterTree(parse(code).genericParameter());
 
 export const parseArgument = (code: string): ArgumentTree =>
   new ArgumentTree(parse(code).argument());
