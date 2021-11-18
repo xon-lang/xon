@@ -61,16 +61,15 @@ assignment:
     ;
 
 expression:
-    name = LOWER_ID                                                       # idExpression
+    name = (LOWER_ID | UPPER_ID) genericArguments?                        # idExpression
     | name = '$'                                                          # instanceExpression
     | '$' name = LOWER_ID                                                 # instanceMemberExpression
     | literal                                                             # literalExpression
-    | name = UPPER_ID genericArguments? functionArguments                 # instantiationExpression
-    | expression genericArguments? functionArguments                      # callExpression
-    | expression genericArguments? indexArguments                         # indexExpression
+    | expression functionArguments                                        # callExpression
+    | expression indexArguments                                           # indexExpression
+    | expression ('?.' | '.') name = LOWER_ID genericArguments?           # memberExpression
     | '(' expression ')'                                                  # parenthesizedExpression
     | '[' (expression (',' expression)*)? ']'                             # arrayExpression
-    | expression ('?.' | '.') name = LOWER_ID                             # memberExpression
     | op = ('!' | '-' | '+') expression                                   # prefixExpression
     | left = expression op = '^' right = expression                       # powExpression
     | left = expression op = ('*' | '/' | '%') right = expression         # mulDivModExpression
