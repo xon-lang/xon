@@ -10,14 +10,14 @@ test('has id name', () => {
   expect(tree.name).toBe('String');
 });
 
-test('has id with generics', () => {
+test('has id with type parameters', () => {
   const code = 'Map<String, () Integer>';
   const tree = parseType<IdTypeTree>(code);
   expect(tree).toBeInstanceOf(IdTypeTree);
 
   expect(tree.name).toBe('Map');
-  expect(tree.genericArguments.length).toBe(2);
-  expect(tree.genericArguments[0].name).toBe('String');
-  expect((tree.genericArguments[1] as FunctionTypeTree).parameters.length).toBe(0);
-  expect((tree.genericArguments[1] as FunctionTypeTree).returnType.name).toBe('Integer');
+  expect(tree.typeArguments.length).toBe(2);
+  expect(tree.typeArguments[0].name).toBe('String');
+  expect((tree.typeArguments[1] as FunctionTypeTree).parameters.length).toBe(0);
+  expect((tree.typeArguments[1] as FunctionTypeTree).returnType.name).toBe('Integer');
 });

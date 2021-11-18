@@ -20,8 +20,8 @@ export class IdTypeTree extends TypeTree {
   }
 
   toString(): string {
-    const generics = this.typeArguments.join(', ');
-    if (this.typeArguments.length) return `${this.name}<${generics}>`;
+    const typeParameters = this.typeArguments.join(', ');
+    if (this.typeArguments.length) return `${this.name}<${typeParameters}>`;
     return this.name;
   }
 }
