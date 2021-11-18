@@ -9,14 +9,12 @@ export class ClassTypeMetadata extends IdTypeMetadata {
   name: string;
   genericArguments: TypeMetadata[] = [];
   attributes: AttributeMetadata[] = [];
-  // methods: MethodClassMemberMetadata[] = [];
 
-  constructor(tree: ClassDefinitionTree, genericArguments: TypeMetadata[]) {
+  constructor(tree: ClassDefinitionTree) {
     super();
     this.sourceReference = tree.id.sourceReference;
     this.name = tree.id.text;
-    this.genericArguments = genericArguments;
-    this.attributes = tree.attributes.map((x) => new AttributeMetadata(x));
+    // this.attributes = tree.attributes.map((x) => new AttributeMetadata(x));
   }
 
   // well no optional and rest parameters at now
