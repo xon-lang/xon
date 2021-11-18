@@ -1,5 +1,7 @@
 import { ClassDefinitionContext } from '../../../grammar/xon-parser';
 import { AttributeTree } from '../../attribute/attribute-tree';
+import { getGenericParametersTrees } from '../../generic-parameter/generic-parameter-tree.helper';
+import { GenericParameterTree } from '../../generic-parameter/generic-parameter.tree';
 import { IdToken } from '../../id-token';
 import { getParametersTrees } from '../../parameter/parameter-tree.helper';
 import { ParameterTree } from '../../parameter/parameter.tree';
@@ -10,7 +12,7 @@ import { AttributeClassMemberTree } from './class-member/attribute-class-member/
 import { getClassMembersTrees } from './class-member/class-member-tree.helper';
 
 export class ClassDefinitionTree extends DefinitionTree {
-  genericParameters: IdToken[] = [];
+  genericParameters: GenericParameterTree[] = [];
   parameters: ParameterTree[];
   baseType?: TypeTree;
   attributes: AttributeTree[] = [];
@@ -20,8 +22,9 @@ export class ClassDefinitionTree extends DefinitionTree {
     if (!ctx) return;
 
     this.id = new IdToken(ctx._name);
-    this.genericParameters =
-      (ctx.genericParameters() && ctx.genericParameters()._names.map((x) => new IdToken(x))) || [];
+    this.genericParameters = getGenericParametersTrees(
+      ctx.genericParameters()?.genericParameter() || [],
+    );
     this.parameters = getParametersTrees(ctx.functionParameters());
     this.baseType = getTypeTree(ctx.type());
     this.attributes = getClassMembersTrees(ctx.classMember()).map(
