@@ -21,7 +21,7 @@ libraryMember:   name = UPPER_ID (AS alias = UPPER_ID)?;
 test: TEST expression? body?;
 
 definition:
-    name = UPPER_ID genericParameters? functionParameters? (IS type)? (
+    name = UPPER_ID typeParameters? functionParameters? (IS type)? (
         ':' NL+ INDENT ( classMember | NL)+ DEDENT
     )? # classDefinition
     ;
@@ -43,10 +43,7 @@ statement:
     ;
 
 attribute:
-    attributeModifier* attributeName genericParameters? (
-        type body?
-        | type? body
-    )
+    attributeModifier* attributeName typeParameters? (type body? | type? body)
     ;
 attributeName:     LOWER_ID | operator | '$';
 attributeModifier: INFIX | PREFIX | POSTFIX;
@@ -61,13 +58,13 @@ assignment:
     ;
 
 expression:
-    name = (LOWER_ID | UPPER_ID) genericArguments?                        # idExpression
+    name = (LOWER_ID | UPPER_ID) typeArguments?                           # idExpression
     | name = '$'                                                          # instanceExpression
     | '$' name = LOWER_ID                                                 # instanceMemberExpression
     | literal                                                             # literalExpression
     | expression functionArguments                                        # callExpression
     | expression indexArguments                                           # indexExpression
-    | expression ('?.' | '.') name = LOWER_ID genericArguments?           # memberExpression
+    | expression ('?.' | '.') name = LOWER_ID typeArguments?              # memberExpression
     | '(' expression ')'                                                  # parenthesizedExpression
     | '[' (expression (',' expression)*)? ']'                             # arrayExpression
     | op = ('!' | '-' | '+') expression                                   # prefixExpression
@@ -85,7 +82,7 @@ expression:
     ;
 
 type:
-    name = UPPER_ID genericArguments?      # idType
+    name = UPPER_ID typeArguments?         # idType
     | literal                              # literalType
     | type '?'                             # nullableType
     | type '[' size = INTEGER_LITERAL? ']' # arrayType
@@ -124,17 +121,16 @@ operator:
     | '..'
     ;
 
-parameter:          name = LOWER_ID type? ('#' meta = UPPER_ID)?;
-functionParameters: '(' (parameter (',' parameter)*)? ')';
-indexParameters:    '[' (parameter (',' parameter)*)? ']';
-lambdaParameters:   parameter (',' parameter)*;
+expressionParameter: name = LOWER_ID type? ('#' meta = UPPER_ID)?;
+functionParameters:  '(' (expressionParameter (',' expressionParameter)*)? ')';
+indexParameters:     '[' (expressionParameter (',' expressionParameter)*)? ']';
+lambdaParameters:    expressionParameter (',' expressionParameter)*;
 
-argument:          expression;
-functionArguments: '(' (argument (',' argument)*)? ')';
-indexArguments:    '[' (argument (',' argument)*)? ']';
+functionArguments: '(' (expression (',' expression)*)? ')';
+indexArguments:    '[' (expression (',' expression)*)? ']';
 
-genericParameter:  '...'? name = UPPER_ID;
-genericParameters: '<' genericParameter (',' genericParameter)* '>';
-genericArguments:  '<' (type (',' type)*)? '>';
+typeParameter:  '...'? name = UPPER_ID;
+typeParameters: '<' typeParameter (',' typeParameter)* '>';
+typeArguments:  '<' (type (',' type)*)? '>';
 
 body: ':' (statement | NL+ INDENT (statement | NL)+ DEDENT)?;
