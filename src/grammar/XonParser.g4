@@ -61,10 +61,11 @@ assignment:
     ;
 
 expression:
-    name = (LOWER_ID | UPPER_ID)                                          # idExpression
+    name = LOWER_ID                                                       # idExpression
     | name = '$'                                                          # instanceExpression
     | '$' name = LOWER_ID                                                 # instanceMemberExpression
     | literal                                                             # literalExpression
+    | name = UPPER_ID genericArguments? functionArguments                 # instantiationExpression
     | expression genericArguments? functionArguments                      # callExpression
     | expression genericArguments? indexArguments                         # indexExpression
     | '(' expression ')'                                                  # parenthesizedExpression
