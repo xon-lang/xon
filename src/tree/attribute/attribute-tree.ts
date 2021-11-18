@@ -1,6 +1,8 @@
 import { AttributeContext } from '../../grammar/xon-parser';
 import { TypeMetadata } from '../../metadata/type/type-metadata';
 import { BaseTree } from '../base.tree';
+import { getGenericParametersTrees } from '../generic-parameter/generic-parameter-tree.helper';
+import { GenericParameterTree } from '../generic-parameter/generic-parameter.tree';
 import { IdToken } from '../id-token';
 import { getStatementsFromBody } from '../statement/statement-tree.helper';
 import { StatementTree } from '../statement/statement.tree';
@@ -11,6 +13,7 @@ import { AttributeModifierTree } from './attribute-modifier-tree';
 
 export class AttributeTree extends BaseTree {
   modifiers: AttributeModifierTree[];
+  genericParameters: GenericParameterTree[];
   id: IdToken;
   isPrivate: boolean;
   type?: TypeTree;
@@ -22,6 +25,9 @@ export class AttributeTree extends BaseTree {
     if (!ctx) return;
 
     this.modifiers = ctx.attributeModifier().map((x) => new AttributeModifierTree(x));
+    this.genericParameters = getGenericParametersTrees(
+      ctx.genericParameters()?.genericParameter() || [],
+    );
     this.id = IdToken.fromContext(ctx.attributeName());
     this.isPrivate = this.id.text.startsWith('_');
     this.type = getTypeTree(ctx.type()) || null;
@@ -44,12 +50,14 @@ export class AttributeTree extends BaseTree {
 
   static fromFields(
     modifiers: AttributeModifierTree[],
+    genericParameters: GenericParameterTree[],
     id: IdToken,
     type: TypeTree,
     body: StatementTree[],
   ): AttributeTree {
     const attribute = new AttributeTree();
     attribute.modifiers = modifiers;
+    attribute.genericParameters = genericParameters;
     attribute.id = id;
     attribute.type = type;
     attribute.body = body;
