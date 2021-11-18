@@ -48,14 +48,14 @@ export class AttributeTree extends BaseTree {
 
   static fromFields(
     modifiers: AttributeModifierTree[],
-    genericParameters: TypeParameterTree[],
+    typeParameters: TypeParameterTree[],
     id: IdToken,
     type: TypeTree,
     body: StatementTree[],
   ): AttributeTree {
     const attribute = new AttributeTree();
     attribute.modifiers = modifiers;
-    attribute.typeParameters = genericParameters;
+    attribute.typeParameters = typeParameters;
     attribute.id = id;
     attribute.type = type;
     attribute.body = body;
