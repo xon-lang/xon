@@ -1,9 +1,9 @@
-import { parseGenericParameter } from '../parse';
+import { parseTypeParameter } from '../parse';
 import { TypeParameterTree } from './type-parameter.tree';
 
 test('has data type', () => {
   const code = 'T';
-  const tree = parseGenericParameter(code);
+  const tree = parseTypeParameter(code);
   expect(tree).toBeInstanceOf(TypeParameterTree);
 
   expect(tree.id.text).toBe('T');
@@ -12,7 +12,7 @@ test('has data type', () => {
 
 test('has data and meta types', () => {
   const code = '...T';
-  const tree = parseGenericParameter(code);
+  const tree = parseTypeParameter(code);
   expect(tree).toBeInstanceOf(TypeParameterTree);
 
   expect(tree.id.text).toBe('T');

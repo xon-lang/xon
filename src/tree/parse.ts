@@ -2,7 +2,6 @@ import { CharStreams, CommonTokenStream } from 'antlr4ts';
 import * as fs from 'fs';
 import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
-import { ArgumentTree } from './argument/argument.tree';
 import { getAssignmentTree } from './assignment/assignment-tree.helper';
 import { AssignmentTree } from './assignment/assignment.tree';
 import { AttributeTree } from './attribute/attribute-tree';
@@ -11,18 +10,18 @@ import { ClassMemberTree } from './definition/class-definition/class-member/clas
 import { DefinitionTree } from './definition/definition-tree';
 import { getDefinitionTree } from './definition/definition-tree-helper';
 import { ExportTree } from './export/export.tree';
+import { ExpressionParameterTree } from './expression-parameter/expression-parameter.tree';
 import { getExpressionTree } from './expression/expression-tree.helper';
 import { ExpressionTree } from './expression/expression.tree';
-import { TypeParameterTree } from './type-parameter/type-parameter.tree';
 import { ImportTree } from './import/import.tree';
 import { getLiteralTree } from './literal/literal-tree.helper';
 import { LiteralTree } from './literal/literal.tree';
-import { ExpressionParameterTree } from './expression-parameter/expression-parameter.tree';
 import { SourceTree } from './source/source-tree';
 import { getStatementTree } from './statement/statement-tree.helper';
 import { StatementTree } from './statement/statement.tree';
 import { TestTree } from './test/test.tree';
 import { ThrowingErrorListener } from './throwing-error-listener';
+import { TypeParameterTree } from './type-parameter/type-parameter.tree';
 import { getTypeTree } from './type/type-tree.helper';
 import { TypeTree } from './type/type.tree';
 
@@ -43,14 +42,11 @@ export const parse = (code: string, sourceName: string = undefined): XonParser =
 export const parseType = <T extends TypeTree>(code: string): T =>
   getTypeTree(parse(code).type()) as T;
 
-export const parseParameter = (code: string): ExpressionParameterTree =>
-  new ExpressionParameterTree(parse(code).parameter());
+export const parseExpressionParameter = (code: string): ExpressionParameterTree =>
+  new ExpressionParameterTree(parse(code).expressionParameter());
 
-export const parseGenericParameter = (code: string): TypeParameterTree =>
-  new TypeParameterTree(parse(code).genericParameter());
-
-export const parseArgument = (code: string): ArgumentTree =>
-  new ArgumentTree(parse(code).argument());
+export const parseTypeParameter = (code: string): TypeParameterTree =>
+  new TypeParameterTree(parse(code).typeParameter());
 
 export const parseAttribute = (code: string): AttributeTree =>
   new AttributeTree(parse(code).attribute());
