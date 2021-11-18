@@ -11,7 +11,7 @@ export class LiteralTypeMetadata extends TypeMetadata {
   constructor(tree: LiteralTree) {
     super();
 
-    this.name = tree.constructor.name.replace('LiteralTree', '');
+    this.name = '#' + tree.constructor.name.replace('Tree', '');
     this.value = tree.value;
   }
 }
