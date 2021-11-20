@@ -6,6 +6,7 @@ import { TypeMetadata } from '../type-metadata';
 
 export class FunctionTypeMetadata extends TypeMetadata {
   sourceReference: SourceReference;
+  name: string;
   parameters: ParameterTypeMetadata[] = [];
   returnType?: TypeMetadata;
 
@@ -14,6 +15,7 @@ export class FunctionTypeMetadata extends TypeMetadata {
 
     if (!tree) return;
     this.sourceReference = tree.sourceReference;
+    this.name = 'Function';
     this.parameters = tree.parameters.map((x) => new ParameterTypeMetadata(x));
     if (tree instanceof FunctionTypeTree) this.returnType = tree.returnType?.typeMetadata;
   }
