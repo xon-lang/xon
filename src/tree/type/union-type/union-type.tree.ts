@@ -15,6 +15,6 @@ export class UnionTypeTree extends TypeTree {
   }
 
   toString(): string {
-    return this.types.join(' | ');
+    return this.types.join(` ${this.ctx.OR().text} `);
   }
 }

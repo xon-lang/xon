@@ -78,7 +78,7 @@ expression:
     | left = expression op = '&&' right = expression                      # conjunctionExpression
     | left = expression op = '||' right = expression                      # disjunctionExpression
     | expression '|' name = LOWER_ID ':' expression                       # pipeExpression
-    | '\\' (lambdaParameters ':')? expression                             # lambdaExpression
+    | functionParameters ':' expression                                   # lambdaExpression
     ;
 
 type:
