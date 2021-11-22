@@ -1868,7 +1868,7 @@ export class XonParser extends Parser {
 				this.state = 373;
 				this.type(0);
 				this.state = 374;
-				this.match(XonParser.PIPE);
+				this.match(XonParser.OR);
 				this.state = 375;
 				this.type(0);
 				this.state = 376;
@@ -2002,7 +2002,7 @@ export class XonParser extends Parser {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 6)");
 						}
 						this.state = 406;
-						this.match(XonParser.PIPE);
+						this.match(XonParser.OR);
 						this.state = 407;
 						this.type(7);
 						}
@@ -3053,7 +3053,7 @@ export class XonParser extends Parser {
 		"\u0193\x03\x02\x02\x02\u016F\u0193\x05$\x13\x02\u0170\u0171\x07\x07\x02" +
 		"\x02\u0171\u0172\x05\"\x12\x02\u0172\u0173\x077\x02\x02\u0173\u0174\x05" +
 		"\"\x12\x02\u0174\u0175\x07\b\x02\x02\u0175\u0193\x03\x02\x02\x02\u0176" +
-		"\u0177\x07\x07\x02\x02\u0177\u0178\x05\"\x12\x02\u0178\u0179\x07$\x02" +
+		"\u0177\x07\x07\x02\x02\u0177\u0178\x05\"\x12\x02\u0178\u0179\x079\x02" +
 		"\x02\u0179\u017A\x05\"\x12\x02\u017A\u017B\x07\b\x02\x02\u017B\u0193\x03" +
 		"\x02\x02\x02\u017C\u017E\x05*\x16\x02\u017D\u017F\x05\"\x12\x02\u017E" +
 		"\u017D\x03\x02\x02\x02\u017E\u017F\x03\x02\x02\x02\u017F\u0193\x03\x02" +
@@ -3070,7 +3070,7 @@ export class XonParser extends Parser {
 		"\x02\x02\u0192\u0180\x03\x02\x02\x02\u0192\u0187\x03\x02\x02\x02\u0192" +
 		"\u018B\x03\x02\x02\x02\u0193\u01A4\x03\x02\x02\x02\u0194\u0195\f\n\x02" +
 		"\x02\u0195\u0196\x077\x02\x02\u0196\u01A3\x05\"\x12\v\u0197\u0198\f\b" +
-		"\x02\x02\u0198\u0199\x07$\x02\x02\u0199\u01A3\x05\"\x12\t\u019A\u019B" +
+		"\x02\x02\u0198\u0199\x079\x02\x02\u0199\u01A3\x05\"\x12\t\u019A\u019B" +
 		"\f\f\x02\x02\u019B\u01A3\x074\x02\x02\u019C\u019D\f\v\x02\x02\u019D\u019F" +
 		"\x07\x05\x02\x02\u019E\u01A0\x07?\x02\x02\u019F\u019E\x03\x02\x02\x02" +
 		"\u019F\u01A0\x03\x02\x02\x02\u01A0\u01A1\x03\x02\x02\x02\u01A1\u01A3\x07" +
@@ -4243,7 +4243,7 @@ export class UnionTypeContext extends TypeContext {
 			return this.getRuleContext(i, TypeContext);
 		}
 	}
-	public PIPE(): TerminalNode { return this.getToken(XonParser.PIPE, 0); }
+	public OR(): TerminalNode { return this.getToken(XonParser.OR, 0); }
 	constructor(ctx: TypeContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
@@ -4260,7 +4260,7 @@ export class UnionParenthesizedTypeContext extends TypeContext {
 			return this.getRuleContext(i, TypeContext);
 		}
 	}
-	public PIPE(): TerminalNode { return this.getToken(XonParser.PIPE, 0); }
+	public OR(): TerminalNode { return this.getToken(XonParser.OR, 0); }
 	public CLOSE_PAREN(): TerminalNode { return this.getToken(XonParser.CLOSE_PAREN, 0); }
 	constructor(ctx: TypeContext) {
 		super(ctx.parent, ctx.invokingState);
