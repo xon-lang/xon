@@ -10,6 +10,8 @@ test('check to json', () => {
   "treeType": "LiteralExpression",
   "literal": {
     "treeType": "IntegerLiteral",
+    "integer": "123",
+    "radix": null,
     "value": 123
   }
 }`);
