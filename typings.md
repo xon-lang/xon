@@ -2,44 +2,59 @@
 
 ## `is` operator decomposition
 
-```js
+```ts
 x is String -> x::type.is<String>()
 ```
 
 ## ID
 
-```js
+```ts
 String -> x is String
 ```
 
 ## Union
 
-```js
+```ts
 null || String -> x is String || x == null
 ```
 
 ## Nullable
 
-```js
+```ts
 String? -> null || String
 ```
 
 ## Array
 
-```js
-String[] -> xx is Array<String>
+```typescript
+String[] ->
+  x is Array && x.size == 0 || x is Array<String>
+```
+
+## Tuple
+
+```ts
+[Number, String] ->
+  x is Tuple<[Number, String]>
 ```
 
 ## Function
 
-```js
-(Integer, Char) String
-  -> x is Function<[Integer, Char], String>
+```ts
+(Number, Boolean) String ->
+  x is Function<[Number, Boolean], String>
+```
+
+## Indexer
+
+```ts
+[Number, Boolean] String ->
+  x is Function<[Number, Boolean], String>
 ```
 
 ## Literal
 
-```js
+```ts
 123   -> x == 123
 'abc' -> x == 'abc'
 ```
