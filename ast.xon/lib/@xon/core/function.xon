@@ -1,2 +1,2 @@
-Function<T is Tuple, R>:
+Function<T is Array#Expression, R>:
   parameters T
