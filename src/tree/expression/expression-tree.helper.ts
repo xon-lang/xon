@@ -2,12 +2,12 @@
 import {
   AddSubExpressionContext,
   ArrayExpressionContext,
-  CallExpressionContext,
   ConjunctionExpressionContext,
   DisjunctionExpressionContext,
   ElvisExpressionContext,
   EqualityExpressionContext,
   ExpressionContext,
+  FunctionExpressionContext,
   IdExpressionContext,
   IndexerExpressionContext,
   InstanceMemberExpressionContext,
@@ -48,7 +48,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
   if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionTree(ctx);
   if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);
-  if (ctx instanceof CallExpressionContext || ctx instanceof IndexerExpressionContext)
+  if (ctx instanceof FunctionExpressionContext || ctx instanceof IndexerExpressionContext)
     return new CallExpressionTree(ctx);
 
   if (
