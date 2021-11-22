@@ -1,18 +1,20 @@
 import { ClassDefinitionTree } from '../../../../tree/definition/class-definition/class-definition-tree';
 import { SourceReference } from '../../../../tree/source-reference';
-import { TypeMetadata } from '../../type-metadata';
+import { ParameterTypeMetadata } from '../../parameter-type/parameter-type-metadata';
 import { IdTypeMetadata } from '../id-type-metadata';
 import { AttributeMetadata } from './attribute-metadata';
 
 export class ClassTypeMetadata extends IdTypeMetadata {
   sourceReference: SourceReference;
   name: string;
+  parameters: ParameterTypeMetadata[] = [];
   attributes: AttributeMetadata[] = [];
 
   constructor(tree: ClassDefinitionTree) {
     super();
     this.sourceReference = tree.id.sourceReference;
     this.name = tree.id.text;
+    this.parameters = tree.parameters.map((x) => new ParameterTypeMetadata(x));
     // this.attributes = tree.attributes.map((x) => new AttributeMetadata(x));
   }
 

@@ -1,6 +1,8 @@
+import { CallExpressionTree } from '../../../tree/expression/call-expression/call-expression.tree';
 import { ExpressionTree } from '../../../tree/expression/expression.tree';
 import { IdExpressionTree } from '../../../tree/expression/id-expression/id-expression.tree';
 import { LiteralExpressionTree } from '../../../tree/expression/literal-expression/literal-expression.tree';
+import { ClassTypeMetadata } from '../../type/id-type/class-type/class-type-metadata';
 import { LiteralHandler } from '../literal/literal-handler';
 import { MetadataHandler } from '../metadata-handler';
 
@@ -13,6 +15,13 @@ export class ExpressionHandler extends MetadataHandler {
     }
     if (tree instanceof IdExpressionTree) {
       tree.typeMetadata = this.scope.findDeclaration(tree.id.text, tree.typeArguments.length);
+      tree.id.declarationLink = tree.typeMetadata.sourceReference;
+      return;
+    }
+    if (tree instanceof CallExpressionTree) {
+      this.handle(tree.instance)
+      if(tree.instance.typeMetadata instanceof ClassTypeMetadata)
+      tree.typeMetadata = this.scope.findDeclaration(tree);
       tree.id.declarationLink = tree.typeMetadata.sourceReference;
       return;
     }

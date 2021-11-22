@@ -2,7 +2,7 @@ import { parseType } from '../../parse';
 import { UnionTypeTree } from './union-type.tree';
 
 test('union types', () => {
-  const code = 'Float | Integer';
+  const code = 'Float || Integer';
   const tree = parseType<UnionTypeTree>(code);
   expect(tree).toBeInstanceOf(UnionTypeTree);
 
