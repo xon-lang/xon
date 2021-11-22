@@ -4,8 +4,12 @@ options {
     tokenVocab = XonLexer;
 }
 
-source:       (library | export | NL)* ( sourceMember | NL)*;
-sourceMember: definition # definitionSourceMember | test # testSourceMember;
+source: (library | export | NL)* ( sourceMember | NL)*;
+sourceMember:
+    definition  # definitionSourceMember
+    | attribute # attributeSourceMember
+    | test      # testSourceMember
+    ;
 
 export: EXPORT libraryPath;
 library:
@@ -93,12 +97,10 @@ type:
     ;
 
 literal:
-    NULL_LITERAL      # nullLiteral
-    | BOOLEAN_LITERAL # booleanLiteral
-    | INTEGER_LITERAL # integerLiteral
-    | FLOAT_LITERAL   # floatLiteral
-    | CHAR_LITERAL    # charLiteral
-    | STRING_LITERAL  # stringLiteral
+    INTEGER_LITERAL  # integerLiteral
+    | FLOAT_LITERAL  # floatLiteral
+    | CHAR_LITERAL   # charLiteral
+    | STRING_LITERAL # stringLiteral
     ;
 
 operator:
