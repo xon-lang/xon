@@ -1,4 +1,4 @@
-import { CallExpressionContext, IndexExpressionContext } from '../../../grammar/xon-parser';
+import { CallExpressionContext, IndexerExpressionContext } from '../../../grammar/xon-parser';
 import { getExpressionsTrees, getExpressionTree } from '../expression-tree.helper';
 import { ExpressionTree } from '../expression.tree';
 
@@ -7,7 +7,7 @@ export class CallExpressionTree extends ExpressionTree {
   arguments: ExpressionTree[];
   isIndexCall: boolean;
 
-  constructor(public ctx?: CallExpressionContext | IndexExpressionContext) {
+  constructor(public ctx?: CallExpressionContext | IndexerExpressionContext) {
     super();
     if (!ctx) return;
 
@@ -17,7 +17,7 @@ export class CallExpressionTree extends ExpressionTree {
       this.arguments = getExpressionsTrees(ctx.functionArguments().expression());
     } else {
       this.isIndexCall = true;
-      this.arguments = getExpressionsTrees(ctx.indexArguments().expression());
+      this.arguments = getExpressionsTrees(ctx.indexerArguments().expression());
     }
   }
 

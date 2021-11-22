@@ -2,7 +2,7 @@ import {
   ArrayTypeContext,
   FunctionTypeContext,
   IdTypeContext,
-  IndexTypeContext,
+  IndexerTypeContext,
   LiteralTypeContext,
   NullableTypeContext,
   ParenthesizedTypeContext,
@@ -12,7 +12,7 @@ import {
 import { ArrayTypeTree } from './array-type/array-type.tree';
 import { FunctionTypeTree } from './function-type/function-type.tree';
 import { IdTypeTree } from './id-type/id-type.tree';
-import { IndexTypeTree } from './index-type/index-type.tree';
+import { IndexerTypeTree } from './indexer-type/indexer-type.tree';
 import { LiteralTypeTree } from './literal-type/literal-type.tree';
 import { NullableTypeTree } from './nullable-type/nullable-type.tree';
 import { TypeTree } from './type.tree';
@@ -25,7 +25,7 @@ export const getTypeTree = (ctx: TypeContext): TypeTree => {
   if (ctx instanceof ArrayTypeContext) return new ArrayTypeTree(ctx);
   if (ctx instanceof FunctionTypeContext) return new FunctionTypeTree(ctx);
   if (ctx instanceof IdTypeContext) return new IdTypeTree(ctx);
-  if (ctx instanceof IndexTypeContext) return new IndexTypeTree(ctx);
+  if (ctx instanceof IndexerTypeContext) return new IndexerTypeTree(ctx);
   if (ctx instanceof LiteralTypeContext) return new LiteralTypeTree(ctx);
   if (ctx instanceof NullableTypeContext) return new NullableTypeTree(ctx);
   if (ctx instanceof UnionTypeContext) return new UnionTypeTree(ctx);
