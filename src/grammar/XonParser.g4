@@ -65,7 +65,7 @@ expression:
     name = (LOWER_ID | UPPER_ID | '$') typeArguments?                     # idExpression
     | '$' name = LOWER_ID                                                 # instanceMemberExpression
     | literal                                                             # literalExpression
-    | expression functionArguments                                        # callExpression
+    | expression functionArguments                                        # functionExpression
     | expression indexerArguments                                         # indexerExpression
     | expression ('?.' | '.') name = LOWER_ID typeArguments?              # memberExpression
     | '(' expression ')'                                                  # parenthesizedExpression
