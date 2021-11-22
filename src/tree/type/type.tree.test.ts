@@ -11,10 +11,10 @@ test('1', () => {
 });
 
 test('2', () => {
-  const code = 'a ((s String | null ) Integer |  "hello") []';
+  const code = 'a ((s String | null ) Integer ||  "hello") []';
   const tree = parseAttribute(code);
   expect(tree).toBeInstanceOf(AttributeTree);
 
   expect(tree.id.text).toBe('a');
-  expect(tree.type.toString()).toBe('((s String | null) Integer | "hello")[]');
+  expect(tree.type.toString()).toBe('((s String || null) Integer || "hello")[]');
 });
