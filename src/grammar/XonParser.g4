@@ -62,8 +62,7 @@ assignment:
     ;
 
 expression:
-    name = (LOWER_ID | UPPER_ID) typeArguments?                           # idExpression
-    | name = '$'                                                          # instanceExpression
+    name = (LOWER_ID | UPPER_ID | '$') typeArguments?                     # idExpression
     | '$' name = LOWER_ID                                                 # instanceMemberExpression
     | literal                                                             # literalExpression
     | expression functionArguments                                        # callExpression
