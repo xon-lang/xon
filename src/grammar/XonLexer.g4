@@ -77,13 +77,11 @@ EXCLAMATION: '!';
 
 BACK_SLASH: '\\';
 
-NULL_LITERAL: 'null';
 FLOAT_LITERAL:
     [0-9][0-9]? [xX] AlphabetNumber '.' AlphabetNumber
     | DigitNumber '.' DigitNumber
     ;
 INTEGER_LITERAL: [0-9][0-9]? [xX] AlphabetNumber | DigitNumber;
-BOOLEAN_LITERAL: 'true' | 'false';
 CHAR_LITERAL:    '\'' ~['] '\'';
 STRING_LITERAL:  '"' (~["] | '\\' ["\\bfnrtv])* '"';
 PREPROCESSOR:    '#{' .*? '}';
