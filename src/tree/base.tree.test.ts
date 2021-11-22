@@ -2,15 +2,15 @@ import { LiteralExpressionTree } from './expression/literal-expression/literal-e
 import { parseExpression } from './parse';
 
 test('check to json', () => {
-  const code = 'true';
+  const code = '123';
   const tree = parseExpression<LiteralExpressionTree>(code);
   expect(tree).toBeInstanceOf(LiteralExpressionTree);
 
   expect(tree.toJson()).toBe(`{
   "treeType": "LiteralExpression",
   "literal": {
-    "treeType": "BooleanLiteral",
-    "value": true
+    "treeType": "IntegerLiteral",
+    "value": 123
   }
 }`);
 });

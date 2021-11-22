@@ -11,14 +11,6 @@ test('num plus num', () => {
   expect(evalExpression(tree)).toBe(2);
 });
 
-test('num plus bool', () => {
-  const code = '1+ true';
-  const tree = parseExpression<InfixExpressionTree>(code);
-  expect(tree).toBeInstanceOf(InfixExpressionTree);
-
-  expect(evalExpression(tree)).toBe(2);
-});
-
 test('num plus str', () => {
   const code = '1  + "str"';
   const tree = parseExpression<InfixExpressionTree>(code);
