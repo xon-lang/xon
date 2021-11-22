@@ -58,7 +58,7 @@ assignment:
     | '{' names += LOWER_ID (',' names += LOWER_ID)* '}' '=' expression # objectAssignment
     | '$' name = LOWER_ID '=' expression                                # thisMemberAssignment
     | expression '.' name = LOWER_ID '=' expression                     # memberAssignment
-    | expression '[' expression ']' '=' expression                      # indexAssignment
+    | expression '[' expression ']' '=' expression                      # indexerAssignment
     ;
 
 expression:
@@ -66,7 +66,7 @@ expression:
     | '$' name = LOWER_ID                                                 # instanceMemberExpression
     | literal                                                             # literalExpression
     | expression functionArguments                                        # callExpression
-    | expression indexArguments                                           # indexExpression
+    | expression indexerArguments                                         # indexerExpression
     | expression ('?.' | '.') name = LOWER_ID typeArguments?              # memberExpression
     | '(' expression ')'                                                  # parenthesizedExpression
     | '[' (expression (',' expression)*)? ']'                             # arrayExpression
@@ -91,7 +91,7 @@ type:
     | type '[' size = INTEGER_LITERAL? ']' # arrayType
     | type '||' type                       # unionType
     | functionParameters type?             # functionType
-    | indexParameters type?                # indexType
+    | indexerParameters type?              # indexerType
     | '(' type ')'                         # parenthesizedType
     ;
 
@@ -120,11 +120,11 @@ operator:
 
 expressionParameter: name = LOWER_ID type? ('#' meta = UPPER_ID)?;
 functionParameters:  '(' (expressionParameter (',' expressionParameter)*)? ')';
-indexParameters:     '[' (expressionParameter (',' expressionParameter)*)? ']';
+indexerParameters:   '[' (expressionParameter (',' expressionParameter)*)? ']';
 lambdaParameters:    expressionParameter (',' expressionParameter)*;
 
 functionArguments: '(' (expression (',' expression)*)? ')';
-indexArguments:    '[' (expression (',' expression)*)? ']';
+indexerArguments:  '[' (expression (',' expression)*)? ']';
 
 typeParameter:  '...'? name = UPPER_ID (IS type? ('#' meta = UPPER_ID)?)?;
 typeParameters: '<' typeParameter (',' typeParameter)* '>';

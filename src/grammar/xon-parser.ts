@@ -114,10 +114,10 @@ export class XonParser extends Parser {
 	public static readonly RULE_operator = 18;
 	public static readonly RULE_expressionParameter = 19;
 	public static readonly RULE_functionParameters = 20;
-	public static readonly RULE_indexParameters = 21;
+	public static readonly RULE_indexerParameters = 21;
 	public static readonly RULE_lambdaParameters = 22;
 	public static readonly RULE_functionArguments = 23;
-	public static readonly RULE_indexArguments = 24;
+	public static readonly RULE_indexerArguments = 24;
 	public static readonly RULE_typeParameter = 25;
 	public static readonly RULE_typeParameters = 26;
 	public static readonly RULE_typeArguments = 27;
@@ -127,8 +127,8 @@ export class XonParser extends Parser {
 		"source", "sourceMember", "export", "library", "libraryPath", "libraryPathPart", 
 		"libraryMember", "test", "definition", "classMember", "statement", "attribute", 
 		"attributeName", "attributeModifier", "assignment", "expression", "type", 
-		"literal", "operator", "expressionParameter", "functionParameters", "indexParameters", 
-		"lambdaParameters", "functionArguments", "indexArguments", "typeParameter", 
+		"literal", "operator", "expressionParameter", "functionParameters", "indexerParameters", 
+		"lambdaParameters", "functionArguments", "indexerArguments", "typeParameter", 
 		"typeParameters", "typeArguments", "body",
 	];
 
@@ -1321,7 +1321,7 @@ export class XonParser extends Parser {
 				break;
 
 			case 6:
-				_localctx = new IndexAssignmentContext(_localctx);
+				_localctx = new IndexerAssignmentContext(_localctx);
 				this.enterOuterAlt(_localctx, 6);
 				{
 				this.state = 269;
@@ -1756,14 +1756,14 @@ export class XonParser extends Parser {
 
 					case 12:
 						{
-						_localctx = new IndexExpressionContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new IndexerExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 344;
 						if (!(this.precpred(this._ctx, 16))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 16)");
 						}
 						this.state = 345;
-						this.indexArguments();
+						this.indexerArguments();
 						}
 						break;
 
@@ -1900,11 +1900,11 @@ export class XonParser extends Parser {
 
 			case 4:
 				{
-				_localctx = new IndexTypeContext(_localctx);
+				_localctx = new IndexerTypeContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 367;
-				this.indexParameters();
+				this.indexerParameters();
 				this.state = 369;
 				this._errHandler.sync(this);
 				switch ( this.interpreter.adaptivePredict(this._input, 44, this._ctx) ) {
@@ -2218,9 +2218,9 @@ export class XonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public indexParameters(): IndexParametersContext {
-		let _localctx: IndexParametersContext = new IndexParametersContext(this._ctx, this.state);
-		this.enterRule(_localctx, 42, XonParser.RULE_indexParameters);
+	public indexerParameters(): IndexerParametersContext {
+		let _localctx: IndexerParametersContext = new IndexerParametersContext(this._ctx, this.state);
+		this.enterRule(_localctx, 42, XonParser.RULE_indexerParameters);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
@@ -2368,9 +2368,9 @@ export class XonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public indexArguments(): IndexArgumentsContext {
-		let _localctx: IndexArgumentsContext = new IndexArgumentsContext(this._ctx, this.state);
-		this.enterRule(_localctx, 48, XonParser.RULE_indexArguments);
+	public indexerArguments(): IndexerArgumentsContext {
+		let _localctx: IndexerArgumentsContext = new IndexerArgumentsContext(this._ctx, this.state);
+		this.enterRule(_localctx, 48, XonParser.RULE_indexerArguments);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
@@ -3697,7 +3697,7 @@ export class MemberAssignmentContext extends AssignmentContext {
 		this.copyFrom(ctx);
 	}
 }
-export class IndexAssignmentContext extends AssignmentContext {
+export class IndexerAssignmentContext extends AssignmentContext {
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -3770,12 +3770,12 @@ export class CallExpressionContext extends ExpressionContext {
 		this.copyFrom(ctx);
 	}
 }
-export class IndexExpressionContext extends ExpressionContext {
+export class IndexerExpressionContext extends ExpressionContext {
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
-	public indexArguments(): IndexArgumentsContext {
-		return this.getRuleContext(0, IndexArgumentsContext);
+	public indexerArguments(): IndexerArgumentsContext {
+		return this.getRuleContext(0, IndexerArgumentsContext);
 	}
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
@@ -4141,9 +4141,9 @@ export class FunctionTypeContext extends TypeContext {
 		this.copyFrom(ctx);
 	}
 }
-export class IndexTypeContext extends TypeContext {
-	public indexParameters(): IndexParametersContext {
-		return this.getRuleContext(0, IndexParametersContext);
+export class IndexerTypeContext extends TypeContext {
+	public indexerParameters(): IndexerParametersContext {
+		return this.getRuleContext(0, IndexerParametersContext);
 	}
 	public type(): TypeContext | undefined {
 		return this.tryGetRuleContext(0, TypeContext);
@@ -4274,7 +4274,7 @@ export class FunctionParametersContext extends ParserRuleContext {
 }
 
 
-export class IndexParametersContext extends ParserRuleContext {
+export class IndexerParametersContext extends ParserRuleContext {
 	public OPEN_BRACKET(): TerminalNode { return this.getToken(XonParser.OPEN_BRACKET, 0); }
 	public CLOSE_BRACKET(): TerminalNode { return this.getToken(XonParser.CLOSE_BRACKET, 0); }
 	public expressionParameter(): ExpressionParameterContext[];
@@ -4299,7 +4299,7 @@ export class IndexParametersContext extends ParserRuleContext {
 		super(parent, invokingState);
 	}
 	// @Override
-	public get ruleIndex(): number { return XonParser.RULE_indexParameters; }
+	public get ruleIndex(): number { return XonParser.RULE_indexerParameters; }
 }
 
 
@@ -4359,7 +4359,7 @@ export class FunctionArgumentsContext extends ParserRuleContext {
 }
 
 
-export class IndexArgumentsContext extends ParserRuleContext {
+export class IndexerArgumentsContext extends ParserRuleContext {
 	public OPEN_BRACKET(): TerminalNode { return this.getToken(XonParser.OPEN_BRACKET, 0); }
 	public CLOSE_BRACKET(): TerminalNode { return this.getToken(XonParser.CLOSE_BRACKET, 0); }
 	public expression(): ExpressionContext[];
@@ -4384,7 +4384,7 @@ export class IndexArgumentsContext extends ParserRuleContext {
 		super(parent, invokingState);
 	}
 	// @Override
-	public get ruleIndex(): number { return XonParser.RULE_indexArguments; }
+	public get ruleIndex(): number { return XonParser.RULE_indexerArguments; }
 }
 
 
