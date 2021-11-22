@@ -1,7 +1,7 @@
 import {
   ExpressionParameterContext,
   FunctionParametersContext,
-  IndexParametersContext,
+  IndexerParametersContext,
   LambdaParametersContext,
 } from '../../grammar/xon-parser';
 import { ExpressionParameterTree } from './expression-parameter.tree';
@@ -17,7 +17,7 @@ export const getExpressionParametersTrees = (
   parameters:
     | ExpressionParameterContext[]
     | FunctionParametersContext
-    | IndexParametersContext
+    | IndexerParametersContext
     | LambdaParametersContext,
 ): ExpressionParameterTree[] => {
   if (!parameters) return [];
