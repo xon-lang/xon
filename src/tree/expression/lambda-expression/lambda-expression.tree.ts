@@ -12,7 +12,7 @@ export class LambdaExpressionTree extends ExpressionTree {
     super();
     if (!ctx) return;
 
-    this.parameters = getExpressionParametersTrees(ctx.lambdaParameters());
+    this.parameters = getExpressionParametersTrees(ctx.functionParameters());
     this.expression = getExpressionTree(ctx.expression());
   }
 
