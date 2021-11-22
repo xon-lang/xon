@@ -48,13 +48,20 @@ String[] ->
 ## Indexer
 
 ```ts
-[Number, Boolean] String ->
-  x is Function<[Number, Boolean], String>
+[Number] String ->
+  x is Function<[Number], String>
 ```
 
 ## Literal
 
 ```ts
-123   -> x == 123
-'abc' -> x == 'abc'
+123   -> x is 123::type   -> x is Integer<123>
+"abc" -> x is "abc"::type -> x is String<"abc">
+```
+
+## Expression
+
+```ts
+true -> x is true::type     -> x is Boolean<1>
+2^3  -> evaluate(2^3)::type -> x is Integer<8>
 ```
