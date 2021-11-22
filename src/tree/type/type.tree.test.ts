@@ -11,7 +11,7 @@ test('1', () => {
 });
 
 test('2', () => {
-  const code = 'a ((s String | null ) Integer ||  "hello") []';
+  const code = 'a ((s String || null ) Integer ||  "hello") []';
   const tree = parseAttribute(code);
   expect(tree).toBeInstanceOf(AttributeTree);
 
