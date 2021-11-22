@@ -86,14 +86,10 @@ type:
     | literal                              # literalType
     | type '?'                             # nullableType
     | type '[' size = INTEGER_LITERAL? ']' # arrayType
-    | type '&' type                        # intersectionType
-    | '(' type '&' type ')'                # intersectionParenthesizedType
     | type '||' type                       # unionType
-    | '(' type '||' type ')'               # unionParenthesizedType
     | functionParameters type?             # functionType
-    | '(' functionParameters type? ')'     # functionParenthesizedType
     | indexParameters type?                # indexType
-    | '(' indexParameters type? ')'        # indexParenthesizedType
+    | '(' type ')'                         # parenthesizedType
     ;
 
 literal:

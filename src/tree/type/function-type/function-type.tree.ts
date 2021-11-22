@@ -1,4 +1,4 @@
-import { FunctionParenthesizedTypeContext, FunctionTypeContext } from '../../../grammar/xon-parser';
+import { FunctionTypeContext } from '../../../grammar/xon-parser';
 import { getExpressionParametersTrees } from '../../expression-parameter/expression-parameter-tree.helper';
 import { ExpressionParameterTree } from '../../expression-parameter/expression-parameter.tree';
 import { getTypeTree } from '../type-tree.helper';
@@ -9,7 +9,7 @@ export class FunctionTypeTree extends TypeTree {
   parameters: ExpressionParameterTree[] = [];
   returnType?: TypeTree;
 
-  constructor(public ctx?: FunctionTypeContext | FunctionParenthesizedTypeContext) {
+  constructor(public ctx?: FunctionTypeContext) {
     super();
     if (!ctx) return;
 

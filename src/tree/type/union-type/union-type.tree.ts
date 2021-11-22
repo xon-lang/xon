@@ -1,4 +1,4 @@
-import { UnionParenthesizedTypeContext, UnionTypeContext } from '../../../grammar/xon-parser';
+import { UnionTypeContext } from '../../../grammar/xon-parser';
 import { getTypesTrees } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
@@ -6,7 +6,7 @@ export class UnionTypeTree extends TypeTree {
   name: string;
   types: TypeTree[];
 
-  constructor(public ctx?: UnionTypeContext | UnionParenthesizedTypeContext) {
+  constructor(public ctx?: UnionTypeContext) {
     super();
     if (!ctx) return;
 
