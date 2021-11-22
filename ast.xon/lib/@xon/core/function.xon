@@ -1,2 +1,2 @@
-Function<...T, R>
-  $(parameters ...T) R
+Function<T is Tuple, R>:
+  parameters T

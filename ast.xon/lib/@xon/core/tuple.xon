@@ -1,0 +1,2 @@
+Tuple<T is Array>:
+  items T
