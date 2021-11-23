@@ -1,10 +1,6 @@
 String is Char[]:
-  infix + (a String, b Boolean) String
-  infix + (a String, b Integer) String
-  infix + (a String, b Float) String
-  infix + (a String, b Char) String
-  infix + (a String, b String) String
-
-
-String<T is #StringLiteral> is String:
-  value: T
+  infix + (other Boolean) String
+  infix + (other Integer) String
+  infix + (other Float) String
+  infix + (other Char) String
+  infix + (other String) String

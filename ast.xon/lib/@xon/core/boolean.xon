@@ -1,28 +1,7 @@
-Boolean:
-  infix + (a Boolean, b Boolean) Integer
-  infix + (a Boolean, b Integer) Integer
-  infix + (a Boolean, b Float) Float
-  infix + (a Boolean, b Char) Integer
-  infix + (a Boolean, b String) String
+Boolean(value 0 || 1):
+  _value = value
 
-  infix - (a Boolean, b Boolean) Integer
-  infix - (a Boolean, b Integer) Integer
-  infix - (a Boolean, b Float) Float
-  infix - (a Boolean, b Char) Integer
+  infix ==()
 
-  infix * (a Boolean, b Boolean) Integer
-  infix * (a Boolean, b Integer) Integer
-  infix * (a Boolean, b Float) Float
-  infix * (a Boolean, b Char) Integer
-
-  infix / (a Boolean, b Boolean) Integer
-  infix / (a Boolean, b Integer) Integer
-  infix / (a Boolean, b Float) Float
-  infix / (a Boolean, b Char) Integer
-
-
-Boolean<T is Boolean#Literal> is Boolean:
-  value: T
-
-false: Boolean<0>()
-true: Boolean<1>()
+false: Boolean(0)
+true:  Boolean(1)

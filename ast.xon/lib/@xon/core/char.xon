@@ -1,5 +1,1 @@
 Char
-
-
-Char<T is #CharLiteral> is Char:
-  value: T

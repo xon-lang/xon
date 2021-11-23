@@ -1,20 +1,20 @@
 Number:
-  infix + (a Number, b Boolean) Number
-  infix + (a Number, b Number) Number
-  infix + (a Number, b Char) Number
-  infix + (a Number, b String) String
+  infix + (other Boolean) Number
+  infix + (other Number) Number
+  infix + (other Char) Number
+  infix + (other String) String
 
-  infix - (a Number, b Number) Number
+  infix - (other Number) Number
 
-  infix * (a Number, b Number) Number
+  infix * (other Number) Number
 
-  infix / (a Number, b Number) Number
+  infix / (other Number) Number
 
-  infix ^ (a Number, b Number) Number
+  infix ^ (other Number) Number
 
-  infix > (a Number, b Number) Boolean
+  infix > (other Number) Boolean
 
-  infix < (a Number, b Number) Boolean
-  infix == (a Number, b Number) Boolean
+  infix < (other Number) Boolean
+  infix == (other Number) Boolean
 
   toString() String

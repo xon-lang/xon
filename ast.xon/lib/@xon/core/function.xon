@@ -1,2 +1,1 @@
-Function<T is Array#Expression, R>:
-  parameters T
+Function<T is Array, R>(parameters Map<String,Any>)
