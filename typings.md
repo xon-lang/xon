@@ -59,9 +59,15 @@ String[] ->
 "abc" -> x is "abc"::type -> x is String<"abc">
 ```
 
-## Expression
+## Expression must return a predicate
 
 ```ts
-true -> x is true::type     -> x is Boolean<1>
-2^3  -> evaluate(2^3)::type -> x is Integer<8>
+// declaration
+true -> x == true
+
+// pow
+2^3  -> x == 2^3
+
+// range
+in 1..5 -> x in 1..5
 ```
