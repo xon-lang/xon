@@ -86,12 +86,12 @@ expression:
 
 type:
     name = UPPER_ID typeArguments?         # idType
-    | literal                              # literalType
     | type '?'                             # nullableType
     | type '[' size = INTEGER_LITERAL? ']' # arrayType
     | type '||' type                       # unionType
     | functionParameters type?             # functionType
     | indexerParameters type?              # indexerType
+    | expression                           # expressionType
     | '(' type ')'                         # parenthesizedType
     ;
 
