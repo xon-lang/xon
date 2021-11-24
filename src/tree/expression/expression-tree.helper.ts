@@ -10,6 +10,7 @@ import {
   FunctionExpressionContext,
   IdExpressionContext,
   IndexerExpressionContext,
+  InfixExpressionContext,
   InstanceMemberExpressionContext,
   LambdaExpressionContext,
   LiteralExpressionContext,
@@ -52,6 +53,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
     return new CallExpressionTree(ctx);
 
   if (
+    ctx instanceof InfixExpressionContext ||
     ctx instanceof PowExpressionContext ||
     ctx instanceof MulDivModExpressionContext ||
     ctx instanceof AddSubExpressionContext ||
