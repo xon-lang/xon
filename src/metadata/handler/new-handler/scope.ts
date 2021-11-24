@@ -38,8 +38,10 @@ export class Scope {
     for (const sourceTree of sourceTrees) {
       for (const definitionTree of sourceTree.definitions) {
         if (definitionTree instanceof ClassDefinitionTree) {
-          definitionTree.parameters.forEach((x) => parameterHandle(this, x));
+          definitionTree.parameters.forEach((x) => parameterHandle(x, this));
           definitionTree.typeMetadata = new ClassTypeMetadata(definitionTree);
+          console.log(definitionTree.id.text);
+
           this.addDeclaration(definitionTree);
         } else throw new Error('Not implemented');
       }

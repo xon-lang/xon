@@ -2,7 +2,7 @@ import { ExpressionParameterTree } from '../../../tree/expression-parameter/expr
 import { Scope } from './scope';
 import { typeHandle } from './type/type-handle';
 
-export function parameterHandle(scope: Scope, tree: ExpressionParameterTree) {
-  typeHandle(scope, tree.type);
+export function parameterHandle(tree: ExpressionParameterTree, scope: Scope) {
+  typeHandle(tree.type, scope);
   tree.typeMetadata = tree.type.typeMetadata;
 }
