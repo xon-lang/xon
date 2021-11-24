@@ -1,5 +1,5 @@
 import { IntegerLiteralTree } from '../../../tree/literal/integer-literal/integer-literal.tree';
-import { NullLiteralTree } from '../../../tree/literal/null-literal/null-literal.tree';
+import { StringLiteralTree } from '../../../tree/literal/string-literal/string-literal.tree';
 import { parseLiteral } from '../../../tree/parse';
 import { LiteralHandler } from './literal-handler';
 
@@ -15,13 +15,13 @@ test('integer', () => {
   expect(tree.typeMetadata.genericArguments[0].name).toBe('#IntegerLiteral');
 });
 
-test('null', () => {
-  const code = 'null';
-  const tree = parseLiteral<NullLiteralTree>(code);
-  expect(tree).toBeInstanceOf(NullLiteralTree);
+test('string', () => {
+  const code = '"ABC"';
+  const tree = parseLiteral<StringLiteralTree>(code);
+  expect(tree).toBeInstanceOf(StringLiteralTree);
 
   new LiteralHandler().handle(tree);
-  expect(tree.value).toBe(null);
-  expect(tree.typeMetadata.name).toBe('Null');
+  expect(tree.value).toBe('ABC');
+  expect(tree.typeMetadata.name).toBe('String');
   expect(tree.typeMetadata.genericArguments.length).toBe(0);
 });
