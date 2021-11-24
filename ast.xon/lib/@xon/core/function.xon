@@ -1,1 +1,1 @@
-Function<#p1, R>(parameters Map<String,Any>)
+Function<T, R>(parameters Map<String, Any>)

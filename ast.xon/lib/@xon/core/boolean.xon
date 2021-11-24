@@ -1,7 +1,4 @@
-Boolean(value 0 || 1):
-  _value = value
-
-  infix ==()
+Boolean:
 
 false: Boolean(0)
 true:  Boolean(1)
