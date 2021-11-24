@@ -68,9 +68,11 @@ expression:
     | expression functionArguments                                        # functionExpression
     | expression indexerArguments                                         # indexerExpression
     | expression ('?.' | '.') name = LOWER_ID typeArguments?              # memberExpression
+    | expression ('?.' | '.') name = LOWER_ID typeArguments?              # memberExpression
     | '(' expression ')'                                                  # parenthesizedExpression
     | '[' (expression (',' expression)*)? ']'                             # arrayExpression
     | op = ('!' | '-' | '+') expression                                   # prefixExpression
+    | left = expression op = LOWER_ID right = expression                  # infixExpression
     | left = expression op = '^' right = expression                       # powExpression
     | left = expression op = ('*' | '/' | '%') right = expression         # mulDivModExpression
     | left = expression op = ('+' | '-') right = expression               # addSubExpression
