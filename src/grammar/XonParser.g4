@@ -72,7 +72,7 @@ expression:
     | '(' expression ')'                                                  # parenthesizedExpression
     | '[' (expression (',' expression)*)? ']'                             # arrayExpression
     | op = ('!' | '-' | '+') expression                                   # prefixExpression
-    | left = expression op = LOWER_ID right = expression                  # infixExpression
+    | left = expression op = (LOWER_ID | AS | IS | IN) right = expression # infixExpression
     | left = expression op = '^' right = expression                       # powExpression
     | left = expression op = ('*' | '/' | '%') right = expression         # mulDivModExpression
     | left = expression op = ('+' | '-') right = expression               # addSubExpression
