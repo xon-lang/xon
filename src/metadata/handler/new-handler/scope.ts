@@ -4,8 +4,8 @@ import { ClassDefinitionTree } from '../../../tree/definition/class-definition/c
 import { IdToken } from '../../../tree/id-token';
 import { parseSourceFile } from '../../../tree/parse';
 import { TypeParameterTree } from '../../../tree/type-parameter/type-parameter.tree';
-import { ClassMetadata } from '../../type/class-metadata';
-import { TypeMetadata } from '../../type/metadata';
+import { ClassTypeInfo } from '../../type/class-type-info';
+import { TypeInfo } from '../../type/type-info';
 import { HandlerScope } from '../handler-scope';
 import { parameterHandle } from './parameter/parameter-handle';
 
@@ -15,12 +15,12 @@ export class Scope {
   addDeclaration(declaration: {
     id: IdToken;
     typeParameters?: TypeParameterTree[];
-    typeMetadata: TypeMetadata;
+    typeMetadata: TypeInfo;
   }) {
     this.current.addDeclaration(declaration);
   }
 
-  findDeclaration(id: string, typeArgumentsCount: number = 0): TypeMetadata {
+  findDeclaration(id: string, typeArgumentsCount: number = 0): TypeInfo {
     return this.current.findDeclaration(id, typeArgumentsCount);
   }
 
@@ -53,7 +53,7 @@ export class Scope {
       for (const definitionTree of sourceTree.definitions) {
         if (definitionTree instanceof ClassDefinitionTree) {
           definitionTree.parameters.forEach((x) => parameterHandle(x, this));
-          definitionTree.typeMetadata = new ClassMetadata(definitionTree);
+          definitionTree.typeMetadata = new ClassTypeInfo(definitionTree);
           this.addDeclaration(definitionTree);
         } else throw new Error('Not implemented');
       }

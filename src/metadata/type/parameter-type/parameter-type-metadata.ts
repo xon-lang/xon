@@ -1,11 +1,11 @@
 import { ExpressionParameterTree } from '../../../tree/expression-parameter/expression-parameter.tree';
 import { SourceReference } from '../../../tree/source-reference';
-import { TypeMetadata } from '../metadata';
+import { TypeInfo } from '../type-info';
 
-export class ParameterTypeMetadata extends TypeMetadata {
+export class ParameterTypeMetadata extends TypeInfo {
   sourceReference: SourceReference;
   name: string;
-  type: TypeMetadata;
+  type: TypeInfo;
 
   constructor(tree: ExpressionParameterTree) {
     super();

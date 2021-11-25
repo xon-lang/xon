@@ -1,10 +1,10 @@
 import { AttributeTree } from '../../tree/attribute/attribute-tree';
-import { Metadata } from './metadata';
+import { TypeInfo } from './type-info';
 
 export class AttributeMetadata {
   isPrivate: boolean;
   name: string;
-  type: Metadata;
+  type: TypeInfo;
 
   constructor(tree: AttributeTree) {
     this.isPrivate = tree.isPrivate;

@@ -1,10 +1,10 @@
 import { DefinitionContext } from '../../grammar/xon-parser';
-import { TypeMetadata } from '../../metadata/type/metadata';
+import { TypeInfo } from '../../metadata/type/type-info';
 import { BaseTree } from '../base.tree';
 import { IdToken } from '../id-token';
 
 export abstract class DefinitionTree extends BaseTree {
   abstract ctx?: DefinitionContext;
   id: IdToken;
-  typeMetadata: TypeMetadata;
+  typeMetadata: TypeInfo;
 }

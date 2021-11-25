@@ -2,13 +2,13 @@ import { ClassDefinitionTree } from '../../../tree/definition/class-definition/c
 import { SourceReference } from '../../../tree/source-reference';
 import { FunctionTypeTree } from '../../../tree/type/function-type/function-type.tree';
 import { ParameterTypeMetadata } from '../parameter-type/parameter-type-metadata';
-import { TypeMetadata } from '../metadata';
+import { TypeInfo } from '../type-info';
 
-export class FunctionTypeMetadata extends TypeMetadata {
+export class FunctionTypeMetadata extends TypeInfo {
   sourceReference: SourceReference;
   name: string;
   parameters: ParameterTypeMetadata[] = [];
-  returnType?: TypeMetadata;
+  returnType?: TypeInfo;
 
   constructor(tree: FunctionTypeTree | ClassDefinitionTree) {
     super();

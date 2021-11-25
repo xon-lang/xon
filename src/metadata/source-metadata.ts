@@ -3,18 +3,18 @@ import { DefinitionTree } from '../tree/definition/definition-tree';
 import { ImportTree } from '../tree/import/import.tree';
 import { SourceTree } from '../tree/source/source-tree';
 import { ModuleMetadata } from './handler/module/module-metadata';
-import { TypeMetadata } from './type/metadata';
+import { TypeInfo } from './type/type-info';
 
 export class SourceMetadata {
   sourceTree: SourceTree;
   baseDir: string;
-  defaultDefinitions: Map<string, TypeMetadata>;
-  definitions = new Map<string, TypeMetadata>();
+  defaultDefinitions: Map<string, TypeInfo>;
+  definitions = new Map<string, TypeInfo>();
 
   constructor(
     sourceTree: SourceTree,
     baseDir: string,
-    defaultDefinitions: Map<string, TypeMetadata>,
+    defaultDefinitions: Map<string, TypeInfo>,
   ) {
     this.sourceTree = sourceTree;
     this.baseDir = baseDir;

@@ -1,5 +1,5 @@
 import { AttributeContext } from '../../grammar/xon-parser';
-import { TypeMetadata } from '../../metadata/type/metadata';
+import { TypeInfo } from '../../metadata/type/type-info';
 import { BaseTree } from '../base.tree';
 import { IdToken } from '../id-token';
 import { getStatementsFromBody } from '../statement/statement-tree.helper';
@@ -18,7 +18,7 @@ export class AttributeTree extends BaseTree {
   isPrivate: boolean;
   type?: TypeTree;
   body?: StatementTree[];
-  typeMetadata: TypeMetadata;
+  typeMetadata: TypeInfo;
 
   constructor(public ctx?: AttributeContext) {
     super();

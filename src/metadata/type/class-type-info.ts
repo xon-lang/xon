@@ -1,10 +1,10 @@
 import { ClassDefinitionTree } from '../../tree/definition/class-definition/class-definition-tree';
 import { SourceReference } from '../../tree/source-reference';
 import { AttributeMetadata } from './attribute-metadata';
-import { Metadata } from './metadata';
+import { TypeInfo } from './type-info';
 import { ParameterTypeMetadata } from './parameter-type/parameter-type-metadata';
 
-export class ClassMetadata extends Metadata {
+export class ClassTypeInfo extends TypeInfo {
   sourceReference: SourceReference;
   name: string;
   parameters: ParameterTypeMetadata[] = [];
