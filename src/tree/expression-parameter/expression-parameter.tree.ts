@@ -1,5 +1,5 @@
 import { ExpressionParameterContext } from '../../grammar/xon-parser';
-import { TypeMetadata } from '../../metadata/type/type-metadata';
+import { TypeMetadata } from '../../metadata/type/metadata';
 import { BaseTree } from '../base.tree';
 import { IdToken } from '../id-token';
 import { getTypeTree } from '../type/type-tree.helper';

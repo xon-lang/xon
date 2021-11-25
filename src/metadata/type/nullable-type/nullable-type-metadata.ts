@@ -1,6 +1,6 @@
 import { SourceReference } from '../../../tree/source-reference';
 import { NullableTypeTree } from '../../../tree/type/nullable-type/nullable-type.tree';
-import { TypeMetadata } from '../type-metadata';
+import { TypeMetadata } from '../metadata';
 
 export class NullableTypeMetadata extends TypeMetadata {
   sourceReference: SourceReference;

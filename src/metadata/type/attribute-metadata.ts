@@ -1,5 +1,5 @@
-import { AttributeTree } from '../../../../tree/attribute/attribute-tree';
-import { TypeMetadata } from '../../type-metadata';
+import { AttributeTree } from '../../tree/attribute/attribute-tree';
+import { TypeMetadata } from './metadata';
 
 export class AttributeMetadata {
   isPrivate: boolean;

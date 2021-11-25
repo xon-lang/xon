@@ -1,11 +1,11 @@
 import { SourceReference } from '../../tree/source-reference';
 
-export abstract class TypeMetadata {
+export abstract class Metadata {
   abstract sourceReference: SourceReference;
   abstract name: string;
-  genericArguments: TypeMetadata[];
+  genericArguments: Metadata[];
 
-  useGenerics(genericArguments: TypeMetadata[]) {
+  useGenerics(genericArguments: Metadata[]) {
     this.genericArguments = genericArguments;
   }
 }

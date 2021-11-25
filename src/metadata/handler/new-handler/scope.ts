@@ -4,8 +4,8 @@ import { ClassDefinitionTree } from '../../../tree/definition/class-definition/c
 import { IdToken } from '../../../tree/id-token';
 import { parseSourceFile } from '../../../tree/parse';
 import { TypeParameterTree } from '../../../tree/type-parameter/type-parameter.tree';
-import { ClassTypeMetadata } from '../../type/id-type/class-type/class-type-metadata';
-import { TypeMetadata } from '../../type/type-metadata';
+import { ClassTypeMetadata } from '../../type/class-type-metadata';
+import { TypeMetadata } from '../../type/metadata';
 import { HandlerScope } from '../handler-scope';
 import { parameterHandle } from './parameter/parameter-handle';
 

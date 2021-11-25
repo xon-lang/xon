@@ -1,10 +1,10 @@
-import { ClassDefinitionTree } from '../../../../tree/definition/class-definition/class-definition-tree';
-import { SourceReference } from '../../../../tree/source-reference';
-import { ParameterTypeMetadata } from '../../parameter-type/parameter-type-metadata';
-import { IdTypeMetadata } from '../id-type-metadata';
+import { ClassDefinitionTree } from '../../tree/definition/class-definition/class-definition-tree';
+import { SourceReference } from '../../tree/source-reference';
+import { ParameterTypeMetadata } from './parameter-type/parameter-type-metadata';
+import { IdTypeMetadata } from './id-type/id-type-metadata';
 import { AttributeMetadata } from './attribute-metadata';
 
-export class ClassTypeMetadata extends IdTypeMetadata {
+export class ClassTypeMetadata extends Metadata {
   sourceReference: SourceReference;
   name: string;
   parameters: ParameterTypeMetadata[] = [];

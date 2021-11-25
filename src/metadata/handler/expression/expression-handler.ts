@@ -2,7 +2,7 @@ import { CallExpressionTree } from '../../../tree/expression/call-expression/cal
 import { ExpressionTree } from '../../../tree/expression/expression.tree';
 import { IdExpressionTree } from '../../../tree/expression/id-expression/id-expression.tree';
 import { LiteralExpressionTree } from '../../../tree/expression/literal-expression/literal-expression.tree';
-import { ClassTypeMetadata } from '../../type/id-type/class-type/class-type-metadata';
+import { ClassTypeMetadata } from '../../type/class-type-metadata';
 import { LiteralHandler } from '../literal/literal-handler';
 import { MetadataHandler } from '../metadata-handler';
 

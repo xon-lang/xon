@@ -1,7 +1,7 @@
 import { ClassDefinitionTree } from '../../tree/definition/class-definition/class-definition-tree';
 import { DefinitionTree } from '../../tree/definition/definition-tree';
-import { ClassTypeMetadata } from './id-type/class-type/class-type-metadata';
-import { TypeMetadata } from './type-metadata';
+import { ClassTypeMetadata } from './class-type-metadata';
+import { TypeMetadata } from './metadata';
 
 export const getDefinitionMetadata = (
   tree: DefinitionTree,

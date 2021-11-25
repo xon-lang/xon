@@ -1,8 +1,8 @@
 import { LiteralTree } from '../../../tree/literal/literal.tree';
 import { SourceReference } from '../../../tree/source-reference';
-import { TypeMetadata } from '../type-metadata';
+import { Metadata } from '../metadata';
 
-export class LiteralTypeMetadata extends TypeMetadata {
+export class LiteralMetadata extends Metadata {
   sourceReference: SourceReference;
   name: string;
   value: any;

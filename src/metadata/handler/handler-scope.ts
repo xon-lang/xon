@@ -1,7 +1,7 @@
 import { ClassDefinitionTree } from '../../tree/definition/class-definition/class-definition-tree';
 import { IdToken } from '../../tree/id-token';
 import { TypeParameterTree } from '../../tree/type-parameter/type-parameter.tree';
-import { TypeMetadata } from '../type/type-metadata';
+import { TypeMetadata } from '../type/metadata';
 
 export class HandlerScope {
   private declarations = new Map<string, TypeMetadata>();

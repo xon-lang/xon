@@ -1,6 +1,6 @@
 import { SourceReference } from '../../../tree/source-reference';
 import { UnionTypeTree } from '../../../tree/type/union-type/union-type.tree';
-import { TypeMetadata } from '../type-metadata';
+import { TypeMetadata } from '../metadata';
 
 export class UnionTypeMetadata extends TypeMetadata {
   sourceReference: SourceReference;

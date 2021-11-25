@@ -1,6 +1,6 @@
 import { ExpressionParameterTree } from '../../../tree/expression-parameter/expression-parameter.tree';
 import { SourceReference } from '../../../tree/source-reference';
-import { TypeMetadata } from '../type-metadata';
+import { TypeMetadata } from '../metadata';
 
 export class ParameterTypeMetadata extends TypeMetadata {
   sourceReference: SourceReference;

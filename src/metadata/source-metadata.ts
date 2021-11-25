@@ -3,7 +3,7 @@ import { DefinitionTree } from '../tree/definition/definition-tree';
 import { ImportTree } from '../tree/import/import.tree';
 import { SourceTree } from '../tree/source/source-tree';
 import { ModuleMetadata } from './handler/module/module-metadata';
-import { TypeMetadata } from './type/type-metadata';
+import { TypeMetadata } from './type/metadata';
 
 export class SourceMetadata {
   sourceTree: SourceTree;

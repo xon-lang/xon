@@ -2,7 +2,7 @@ import { ClassDefinitionTree } from '../../../tree/definition/class-definition/c
 import { SourceReference } from '../../../tree/source-reference';
 import { FunctionTypeTree } from '../../../tree/type/function-type/function-type.tree';
 import { ParameterTypeMetadata } from '../parameter-type/parameter-type-metadata';
-import { TypeMetadata } from '../type-metadata';
+import { TypeMetadata } from '../metadata';
 
 export class FunctionTypeMetadata extends TypeMetadata {
   sourceReference: SourceReference;
