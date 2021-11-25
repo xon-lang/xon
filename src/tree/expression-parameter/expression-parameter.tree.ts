@@ -1,5 +1,4 @@
 import { ExpressionParameterContext } from '../../grammar/xon-parser';
-import { TypeInfo } from '../../metadata/type/type-info';
 import { BaseTree } from '../base.tree';
 import { IdToken } from '../id-token';
 import { getTypeTree } from '../type/type-tree.helper';
@@ -10,7 +9,6 @@ export class ExpressionParameterTree extends BaseTree {
   isPrivate: boolean;
   type?: TypeTree;
   metaType?: string;
-  typeMetadata: TypeInfo;
 
   constructor(public ctx?: ExpressionParameterContext) {
     super();
