@@ -93,7 +93,6 @@ type:
     | type '||' type                       # unionType
     | functionParameters type?             # functionType
     | indexerParameters type?              # indexerType
-    | expression                           # expressionType
     | '(' type ')'                         # parenthesizedType
     ;
 
