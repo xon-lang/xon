@@ -8,7 +8,7 @@ import { parseSource } from '../tree/parse';
 import { SourceTree } from '../tree/source/source-tree';
 import { createFunctionType } from '../tree/type/type-tree.helper';
 import { TypeTree } from '../tree/type/type.tree';
-import { GenericsMap } from '../type-inference/generics-map';
+import { GenericsMap } from '../inference/generics-map';
 
 export interface DependencyProvider {
   get(scope: string, name: string): Dependency;
