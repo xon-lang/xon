@@ -1,10 +1,8 @@
+import { DeclarationScope } from '../../metadata/handler/new-handler/scope';
 import { ArrayExpressionTree } from '../../tree/expression/array-expression/array-expression.tree';
 import { CallExpressionTree } from '../../tree/expression/call-expression/call-expression.tree';
 import { ExpressionTree } from '../../tree/expression/expression.tree';
 import { IdExpressionTree } from '../../tree/expression/id-expression/id-expression.tree';
-import { IndexExpressionTree } from '../../tree/expression/index-expression/index-expression.tree';
-import { InstanceExpressionTree } from '../../tree/expression/instance-expression/instance-expression.tree';
-import { InstantiationExpressionTree } from '../../tree/expression/instantiation-expression/instantiation-expression.tree';
 import { LambdaExpressionTree } from '../../tree/expression/lambda-expression/lambda-expression.tree';
 import { LiteralExpressionTree } from '../../tree/expression/literal-expression/literal-expression.tree';
 import { MemberExpressionTree } from '../../tree/expression/member-expression/member-expression.tree';
@@ -15,9 +13,6 @@ import { ArrayExpressionInference } from './array-expression/array-expression.in
 import { CallExpressionInference } from './call-expression/call-expression.inference';
 import { ExpressionInference } from './expression.inference';
 import { IdExpressionInference } from './id-expression/id-expression.inference';
-import { IndexExpressionInference } from './index-expression/index-expression.inference';
-import { InstanceExpressionInference } from './instance-expression/instance-expression.inference';
-import { InstantiationExpressionInference } from './instantiation-expression/instantiation-expression.inference';
 import { LambdaExpressionInference } from './lambda-expression/lambda-expression.inference';
 import { LiteralExpressionInference } from './literal-expression/literal-expression.inference';
 import { MemberExpressionInference } from './member-expression/member-expression.inference';
@@ -26,20 +21,15 @@ import { PipeExpressionInference } from './pipe-expression/pipe-expression.infer
 
 export function getExpressionInference(
   tree: ExpressionTree,
-  genericsMap: GenericsMap,
+  scope: DeclarationScope,
+  genericsMap: GenericsMap = new GenericsMap(),
 ): ExpressionInference {
   if (tree === undefined) return undefined;
 
   if (tree instanceof ArrayExpressionTree) return new ArrayExpressionInference(tree, genericsMap);
   if (tree instanceof IdExpressionTree) return new IdExpressionInference(tree, genericsMap);
-  if (tree instanceof InstantiationExpressionTree)
-    return new InstantiationExpressionInference(tree, genericsMap);
-  if (tree instanceof IndexExpressionTree) return new IndexExpressionInference(tree, genericsMap);
-  if (tree instanceof InstanceExpressionTree)
-    return new InstanceExpressionInference(tree, genericsMap);
   if (tree instanceof LambdaExpressionTree) return new LambdaExpressionInference(tree, genericsMap);
-  if (tree instanceof LiteralExpressionTree)
-    return new LiteralExpressionInference(tree, genericsMap);
+  if (tree instanceof LiteralExpressionTree) return new LiteralExpressionInference(tree, scope);
   if (tree instanceof MemberExpressionTree) return new MemberExpressionInference(tree, genericsMap);
   if (tree instanceof CallExpressionTree) return new CallExpressionInference(tree, genericsMap);
   // if (tree instanceof InfixExpressionTree)
