@@ -7,20 +7,15 @@ import { TypeParameterTree } from '../../../tree/type-parameter/type-parameter.t
 import { ClassTypeInfo } from '../../type/class-type-info';
 import { TypeInfo } from '../../type/type-info';
 import { HandlerScope } from '../handler-scope';
-import { parameterHandle } from './parameter/parameter-handle';
 
-export class Scope {
+export class DeclarationScope {
   private current = new HandlerScope();
 
-  addDeclaration(declaration: {
-    id: IdToken;
-    typeParameters?: TypeParameterTree[];
-    typeMetadata: TypeInfo;
-  }) {
+  set(declaration: { id: IdToken; typeParameters?: TypeParameterTree[]; typeMetadata: TypeInfo }) {
     this.current.addDeclaration(declaration);
   }
 
-  findDeclaration(id: string, typeArgumentsCount: number = 0): TypeInfo {
+  get(id: string, typeArgumentsCount: number = 0): TypeInfo {
     return this.current.findDeclaration(id, typeArgumentsCount);
   }
 
@@ -44,17 +39,16 @@ export class Scope {
         new Map<string, ClassDefinitionTree>(),
       );
 
-      for (const definition of definitionsMap.values()) {
-        
-      }
+    for (const definition of definitionsMap.values()) {
+    }
 
     for (const sourceTree of sourceTrees) {
       console.log(sourceTree.ctx.text.substr(0, 10), sourceTree.definitions.length);
       for (const definitionTree of sourceTree.definitions) {
         if (definitionTree instanceof ClassDefinitionTree) {
           definitionTree.parameters.forEach((x) => parameterHandle(x, this));
-          definitionTree.typeMetadata = new ClassTypeInfo(definitionTree);
-          this.addDeclaration(definitionTree);
+          definitionTree.typeMetadata = new ClassTypeInfo();
+          this.set(definitionTree);
         } else throw new Error('Not implemented');
       }
     }

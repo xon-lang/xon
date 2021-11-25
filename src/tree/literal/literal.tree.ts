@@ -4,6 +4,6 @@ import { BaseTree } from '../base.tree';
 
 export abstract class LiteralTree extends BaseTree {
   abstract ctx?: LiteralContext;
-  abstract value: unknown;
+  abstract value: string | number;
   typeMetadata: TypeInfo;
 }

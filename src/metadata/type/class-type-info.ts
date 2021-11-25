@@ -7,6 +7,7 @@ import { ParameterTypeMetadata } from './parameter-type/parameter-type-metadata'
 export class ClassTypeInfo extends TypeInfo {
   sourceReference: SourceReference;
   name: string;
+  generics: GenericTypeInfo[] = [] 
   parameters: ParameterTypeMetadata[] = [];
   attributes: AttributeMetadata[] = [];
 
