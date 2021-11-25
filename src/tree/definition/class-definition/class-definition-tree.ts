@@ -2,8 +2,6 @@ import { ClassDefinitionContext } from '../../../grammar/xon-parser';
 import { AttributeTree } from '../../attribute/attribute-tree';
 import { getExpressionParametersTrees } from '../../expression-parameter/expression-parameter-tree.helper';
 import { ExpressionParameterTree } from '../../expression-parameter/expression-parameter.tree';
-import { ArrayExpressionTree } from '../../expression/array-expression/array-expression.tree';
-import { ExpressionTree } from '../../expression/expression.tree';
 import { IdToken } from '../../id-token';
 import { getTypeParametersTrees } from '../../type-parameter/type-parameter-tree.helper';
 import { TypeParameterTree } from '../../type-parameter/type-parameter.tree';
@@ -31,9 +29,4 @@ export class ClassDefinitionTree extends DefinitionTree {
       (x) => (x as AttributeClassMemberTree).attribute,
     );
   }
-}
-
-class ArrayExpressionTypedNode extends ArrayExpressionTree{
-  items: B[];
-
 }
