@@ -74,3 +74,12 @@ test('one scope', () => {
   expect(operatorType.parameters[1].type.name).toBe('SomeClass');
   expect(operatorType.returnType.name).toBe('SomeClass');
 });
+
+test('string core', () => {
+  const tree = parseSourceFile('ast.xon/lib/@xon/core/string.xon');
+  expect(tree).toBeInstanceOf(SourceTree);
+
+  expect(tree.definitions.length).toBe(1);
+  expect(tree.definitions[0]).toBeInstanceOf(ClassDefinitionTree);
+  expect(tree.definitions[0].id.text).toBe('String');
+});

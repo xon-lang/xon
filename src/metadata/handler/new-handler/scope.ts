@@ -7,7 +7,7 @@ import { TypeParameterTree } from '../../../tree/type-parameter/type-parameter.t
 import { ClassTypeMetadata } from '../../type/id-type/class-type/class-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
 import { HandlerScope } from '../handler-scope';
-import { parameterHandle } from './parameter-handle';
+import { parameterHandle } from './parameter/parameter-handle';
 
 export class Scope {
   private current = new HandlerScope();
@@ -35,13 +35,25 @@ export class Scope {
   loadModule(moduleDir: string) {
     const globPath = path.resolve(moduleDir, '**/*.xon');
     const sourceTrees = glob.sync(globPath).map((x) => parseSourceFile(x));
+    const definitionsMap = sourceTrees
+      .flatMap((x) => x.definitions)
+      .filter((x) => x instanceof ClassDefinitionTree)
+      .map((x) => x as ClassDefinitionTree)
+      .reduce(
+        (map, x) => (map.set(`${x.id}<${x.typeParameters.length}>`, x), map),
+        new Map<string, ClassDefinitionTree>(),
+      );
+
+      for (const definition of definitionsMap.values()) {
+        
+      }
+
     for (const sourceTree of sourceTrees) {
+      console.log(sourceTree.ctx.text.substr(0, 10), sourceTree.definitions.length);
       for (const definitionTree of sourceTree.definitions) {
         if (definitionTree instanceof ClassDefinitionTree) {
           definitionTree.parameters.forEach((x) => parameterHandle(x, this));
           definitionTree.typeMetadata = new ClassTypeMetadata(definitionTree);
-          console.log(definitionTree.id.text);
-
           this.addDeclaration(definitionTree);
         } else throw new Error('Not implemented');
       }
