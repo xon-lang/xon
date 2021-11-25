@@ -1,5 +1,3 @@
-import { TypeMetadata } from "../type-metadata";
+import { TypeMetadata } from '../type-metadata';
 
-export class IdTypeMetadata  extends TypeMetadata{
-    
-}
+export class IdTypeMetadata extends TypeMetadata {}
