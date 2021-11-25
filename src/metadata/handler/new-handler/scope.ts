@@ -4,7 +4,7 @@ import { ClassDefinitionTree } from '../../../tree/definition/class-definition/c
 import { IdToken } from '../../../tree/id-token';
 import { parseSourceFile } from '../../../tree/parse';
 import { TypeParameterTree } from '../../../tree/type-parameter/type-parameter.tree';
-import { ClassTypeMetadata } from '../../type/class-type-metadata';
+import { ClassMetadata } from '../../type/class-metadata';
 import { TypeMetadata } from '../../type/metadata';
 import { HandlerScope } from '../handler-scope';
 import { parameterHandle } from './parameter/parameter-handle';
@@ -53,7 +53,7 @@ export class Scope {
       for (const definitionTree of sourceTree.definitions) {
         if (definitionTree instanceof ClassDefinitionTree) {
           definitionTree.parameters.forEach((x) => parameterHandle(x, this));
-          definitionTree.typeMetadata = new ClassTypeMetadata(definitionTree);
+          definitionTree.typeMetadata = new ClassMetadata(definitionTree);
           this.addDeclaration(definitionTree);
         } else throw new Error('Not implemented');
       }

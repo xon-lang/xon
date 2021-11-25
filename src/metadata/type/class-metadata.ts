@@ -1,22 +1,22 @@
 import { ClassDefinitionTree } from '../../tree/definition/class-definition/class-definition-tree';
 import { SourceReference } from '../../tree/source-reference';
-import { ParameterTypeMetadata } from './parameter-type/parameter-type-metadata';
-import { IdTypeMetadata } from './id-type/id-type-metadata';
 import { AttributeMetadata } from './attribute-metadata';
+import { Metadata } from './metadata';
+import { ParameterTypeMetadata } from './parameter-type/parameter-type-metadata';
 
-export class ClassTypeMetadata extends Metadata {
+export class ClassMetadata extends Metadata {
   sourceReference: SourceReference;
   name: string;
   parameters: ParameterTypeMetadata[] = [];
   attributes: AttributeMetadata[] = [];
 
-  constructor(tree: ClassDefinitionTree) {
-    super();
-    this.sourceReference = tree.id.sourceReference;
-    this.name = tree.id.text;
-    this.parameters = tree.parameters.map((x) => new ParameterTypeMetadata(x));
+  // constructor(tree: ClassDefinitionTree) {
+  //   super();
+    // this.sourceReference = tree.id.sourceReference;
+    // this.name = tree.id.text;
+    // this.parameters = tree.parameters.map((x) => new ParameterTypeMetadata(x));
     // this.attributes = tree.attributes.map((x) => new AttributeMetadata(x));
-  }
+  // }
 
   // well no optional and rest parameters at now
   // public findMethodBySignature(

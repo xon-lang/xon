@@ -1,6 +1,6 @@
 import { ClassDefinitionTree } from '../../tree/definition/class-definition/class-definition-tree';
 import { DefinitionTree } from '../../tree/definition/definition-tree';
-import { ClassTypeMetadata } from './class-type-metadata';
+import { ClassMetadata } from './class-metadata';
 import { TypeMetadata } from './metadata';
 
 export const getDefinitionMetadata = (
@@ -9,7 +9,7 @@ export const getDefinitionMetadata = (
 ): TypeMetadata => {
   if (tree === undefined) return undefined;
 
-  if (tree instanceof ClassDefinitionTree) return new ClassTypeMetadata(tree, genericArguments);
+  if (tree instanceof ClassDefinitionTree) return new ClassMetadata(tree, genericArguments);
 
   throw Error(`'${tree.constructor.name}' definition not found`);
 };
