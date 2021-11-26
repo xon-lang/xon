@@ -1,7 +1,7 @@
-import { parseExpression } from '../../tree/parse';
-import { IdTypeMetadata } from '../type/id/id-type-metadata';
+import { parseExpression } from '../../../tree/parse';
+import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { expressionHandler } from './expression-handler';
-import { TestHandlerScope } from './test-handler-scope';
+import { TestHandlerScope } from '../test-handler-scope';
 
 test('array property', () => {
   const code = '123';

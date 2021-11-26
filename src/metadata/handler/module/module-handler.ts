@@ -1,11 +1,11 @@
 import * as glob from 'glob';
 import * as path from 'path';
-import { ClassDefinitionTree } from '../../tree/definition/class-definition/class-definition-tree';
-import { parseSourceFile } from '../../tree/parse';
-import { ModuleMetadata } from '../module-metadata';
-import { FunctionTypeMetadata } from '../type/function/function-type-metadata';
-import { IdTypeMetadata } from '../type/id/id-type-metadata';
-import { DeclarationScope } from './declaration-scope';
+import { ClassDefinitionTree } from '../../../tree/definition/class-definition/class-definition-tree';
+import { parseSourceFile } from '../../../tree/parse';
+import { ModuleMetadata } from '../../module-metadata';
+import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';
+import { IdTypeMetadata } from '../../type/id/id-type-metadata';
+import { DeclarationScope } from '../declaration-scope';
 
 export function moduleHandler(
   moduleDir: string,

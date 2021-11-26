@@ -1,5 +1,5 @@
 import { DeclarationScope } from './declaration-scope';
-import { moduleHandler } from './module-handler';
+import { moduleHandler } from './module/module-handler';
 
 export class TestHandlerScope extends DeclarationScope {
   constructor() {
