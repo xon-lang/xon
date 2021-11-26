@@ -11,7 +11,7 @@ export function expressionHandler(
 ): ExpressionMetadata {
   if (tree instanceof LiteralExpressionTree) {
     const literalName = tree.literal.constructor.name.replace('LiteralTree', '');
-    tree.metadata = new ExpressionMetadata(scope.get(literalName));
+    tree.metadata = new ExpressionMetadata(scope.get(literalName).type);
   } else if (tree instanceof IdExpressionTree) {
     const declaration = scope.get(tree.id.text);
     tree.metadata = new ExpressionMetadata(declaration.type);
