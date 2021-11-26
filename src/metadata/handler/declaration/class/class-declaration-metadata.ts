@@ -10,7 +10,7 @@ import { DeclarationMetadata } from '../declaration-metadata';
 export class ClassDeclarationMetadata extends DeclarationMetadata {
   id: IdToken;
 
-  constructor(private tree: ClassDefinitionTree, scope: DeclarationScope) {
+  constructor(private tree: ClassDefinitionTree) {
     super();
 
     this.id = tree.id;
