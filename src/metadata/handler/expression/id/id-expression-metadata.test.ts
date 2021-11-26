@@ -10,8 +10,6 @@ test('null', () => {
   const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
   expect(metadata).toBeInstanceOf(IdExpressionMetadata);
 
-  console.log(metadata);
-  
   expect(metadata.type).toBeInstanceOf(IdTypeMetadata);
   const type = metadata.type as IdTypeMetadata;
   expect(type.name).toBe('Null');
