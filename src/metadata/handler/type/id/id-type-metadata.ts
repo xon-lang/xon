@@ -11,6 +11,7 @@ export class IdTypeMetadata extends TypeMetadata {
 
   constructor(tree?: IdTypeTree, scope?: DeclarationScope) {
     super();
+    if (!tree) return;
 
     this.name = tree.id.text;
     this.declaration = scope.get(tree.id.text) as ClassDeclarationMetadata;
