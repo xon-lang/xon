@@ -9,11 +9,23 @@ export class IdTypeMetadata extends TypeMetadata {
   declaration: ClassDeclarationMetadata;
   typeArguments: TypeMetadata[] = [];
 
-  constructor(tree: IdTypeTree, scope: DeclarationScope) {
+  constructor(tree?: IdTypeTree, scope?: DeclarationScope) {
     super();
 
     this.name = tree.id.text;
     this.declaration = scope.get(tree.id.text) as ClassDeclarationMetadata;
     this.typeArguments = tree.typeArguments.map((x) => getTypeMetadata(tree, scope));
+  }
+
+  static fromParams(
+    name: string,
+    declaration: ClassDeclarationMetadata,
+    typeArguments: TypeMetadata[] = [],
+  ): IdTypeMetadata {
+    const metadata = new IdTypeMetadata();
+    metadata.name = name;
+    metadata.declaration = declaration;
+    metadata.typeArguments = typeArguments;
+    return metadata;
   }
 }

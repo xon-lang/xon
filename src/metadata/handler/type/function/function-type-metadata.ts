@@ -10,8 +10,9 @@ export class FunctionTypeMetadata extends TypeMetadata {
   parameters: { name?: string; type: TypeMetadata }[];
   resultType?: TypeMetadata;
 
-  constructor(tree: FunctionTypeTree, scope: DeclarationScope) {
+  constructor(tree?: FunctionTypeTree, scope?: DeclarationScope) {
     super();
+    if (!tree) return;
 
     this.name = tree.name;
     this.declaration = scope.get(this.name) as ClassDeclarationMetadata;
@@ -20,5 +21,19 @@ export class FunctionTypeMetadata extends TypeMetadata {
       type: getTypeMetadata(x.type, scope),
     }));
     this.resultType = tree.resultType ? getTypeMetadata(tree.resultType, scope) : null;
+  }
+
+  static fromParams(
+    name: string,
+    declaration: ClassDeclarationMetadata,
+    parameters: { name?: string; type: TypeMetadata }[],
+    resultType?: TypeMetadata,
+  ): FunctionTypeMetadata {
+    const metadata = new FunctionTypeMetadata();
+    metadata.name = name;
+    metadata.declaration = declaration;
+    metadata.parameters = parameters;
+    metadata.resultType = resultType;
+    return metadata;
   }
 }
