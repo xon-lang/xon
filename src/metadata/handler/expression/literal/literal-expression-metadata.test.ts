@@ -1,6 +1,6 @@
 import { parseExpression } from '../../../../tree/parse';
 import { TestDeclarationScope } from '../../test-declaration-scope';
-import { IdTypeMetadata } from '../../type/id/id-type-metadata';
+import { LiteralTypeMetadata } from '../../type/literal/literal-type-metadata';
 import { getExpressionMetadata } from '../expression-metadata-helper';
 
 test('literal', () => {
@@ -8,6 +8,8 @@ test('literal', () => {
   const tree = parseExpression(code);
   const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
 
-  expect(metadata.type).toBeInstanceOf(IdTypeMetadata);
-  expect((metadata.type as IdTypeMetadata).name).toBe('Integer');
+  expect(metadata.type).toBeInstanceOf(LiteralTypeMetadata);
+  const type = metadata.type as LiteralTypeMetadata;
+  expect(type.name).toBe('Integer');
+  expect(type.value).toBe(123);
 });
