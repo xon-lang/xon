@@ -1,11 +1,9 @@
 import { ParserRuleContext, Token } from 'antlr4ts';
-import { IdTokenMetadata } from '../metadata/id-token-metadata';
 import { SourceReference } from './source-reference';
 
 export class IdToken {
   text: string;
   sourceReference: SourceReference;
-  metadata: IdTokenMetadata;
 
   constructor(token?: Token) {
     if (!token) return;
