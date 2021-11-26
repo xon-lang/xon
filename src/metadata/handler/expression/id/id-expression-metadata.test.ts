@@ -10,8 +10,8 @@ test('null', () => {
   const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
 
   expect(metadata.type).toBeInstanceOf(FunctionTypeMetadata);
-  expect((metadata.type as FunctionTypeMetadata).resultType).toBeInstanceOf(IdTypeMetadata);
-  expect(((metadata.type as FunctionTypeMetadata).resultType as IdTypeMetadata).name).toBe(
+  expect((metadata.type as FunctionTypeMetadata).returnType).toBeInstanceOf(IdTypeMetadata);
+  expect(((metadata.type as FunctionTypeMetadata).returnType as IdTypeMetadata).name).toBe(
     'String',
   );
 });
@@ -22,8 +22,8 @@ test('true', () => {
   const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
 
   expect(metadata.type).toBeInstanceOf(FunctionTypeMetadata);
-  expect((metadata.type as FunctionTypeMetadata).resultType).toBeInstanceOf(IdTypeMetadata);
-  expect(((metadata.type as FunctionTypeMetadata).resultType as IdTypeMetadata).name).toBe(
+  expect((metadata.type as FunctionTypeMetadata).returnType).toBeInstanceOf(IdTypeMetadata);
+  expect(((metadata.type as FunctionTypeMetadata).returnType as IdTypeMetadata).name).toBe(
     'String',
   );
 });
