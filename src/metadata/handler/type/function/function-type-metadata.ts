@@ -8,7 +8,7 @@ export class FunctionTypeMetadata extends TypeMetadata {
   name: string;
   declaration: ClassDeclarationMetadata;
   parameters: { name?: string; type: TypeMetadata }[];
-  returnType?: TypeMetadata;
+  resultType?: TypeMetadata;
 
   constructor(tree: FunctionTypeTree, scope: DeclarationScope) {
     super();
@@ -19,6 +19,6 @@ export class FunctionTypeMetadata extends TypeMetadata {
       name: x.id.text,
       type: getTypeMetadata(x.type, scope),
     }));
-    this.returnType = tree.returnType ? getTypeMetadata(tree.returnType, scope) : null;
+    this.resultType = tree.resultType ? getTypeMetadata(tree.resultType, scope) : null;
   }
 }

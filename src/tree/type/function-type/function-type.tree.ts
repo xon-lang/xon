@@ -7,7 +7,7 @@ import { TypeTree } from '../type.tree';
 export class FunctionTypeTree extends TypeTree {
   name: string;
   parameters: ExpressionParameterTree[] = [];
-  returnType?: TypeTree;
+  resultType?: TypeTree;
 
   constructor(public ctx?: FunctionTypeContext) {
     super();
@@ -15,12 +15,12 @@ export class FunctionTypeTree extends TypeTree {
 
     this.name = this.constructor.name.replace(TypeTree.name, '');
     this.parameters = getExpressionParametersTrees(ctx.functionParameters());
-    this.returnType = (ctx.type() && getTypeTree(ctx.type())) || null;
+    this.resultType = (ctx.type() && getTypeTree(ctx.type())) || null;
   }
 
   toString(): string {
     const parameters = this.parameters.join(', ');
-    const returnType = this.returnType;
+    const returnType = this.resultType;
     return `(${parameters}) ${returnType}`;
   }
 }

@@ -72,7 +72,7 @@ test('one scope', () => {
   expect(operatorType.parameters[0].id.text).toBe('it');
   expect(operatorType.parameters[1].id.text).toBe('sc');
   expect(operatorType.parameters[1].type.name).toBe('SomeClass');
-  expect(operatorType.returnType.name).toBe('SomeClass');
+  expect(operatorType.resultType.name).toBe('SomeClass');
 });
 
 test('string core', () => {
