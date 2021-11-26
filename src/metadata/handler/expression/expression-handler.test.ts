@@ -22,5 +22,5 @@ test('id', () => {
   expect((metadata.type as FunctionTypeMetadata).resultType).toBeInstanceOf(IdTypeMetadata);
   expect(
     ((metadata.type as FunctionTypeMetadata).resultType as IdTypeMetadata).name,
-  ).toBeInstanceOf('String');
+  ).toBe('String');
 });
