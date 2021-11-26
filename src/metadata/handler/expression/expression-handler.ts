@@ -28,9 +28,12 @@ export function expressionHandler(
     tree.id.metadata = new DeclarationMetadata(declaration.id, tree.metadata.type);
   }
 
-  if (!tree.metadata) throw new Error(`Metadata not found for '${tree.constructor.name}'`);
-  if ('id' in tree && tree['id'] instanceof IdToken && !tree['id'].metadata)
+  if (!tree.metadata) {
+    throw new Error(`Metadata not found for '${tree.constructor.name}'`);
+  }
+  if ('id' in tree && tree['id'] instanceof IdToken && !tree['id'].metadata) {
     throw new Error(`Metadata not set for id token in '${tree.constructor.name}'`);
+  }
 
   return tree.metadata;
 }
