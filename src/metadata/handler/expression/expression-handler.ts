@@ -1,10 +1,13 @@
-import { ExpressionTree } from '../../tree/expression/expression.tree';
-import { LiteralExpressionTree } from '../../tree/expression/literal-expression/literal-expression.tree';
-import { IdToken } from '../../tree/id-token';
-import { ExpressionMetadata } from '../expression-metadata';
-import { DeclarationScope } from './declaration-scope';
+import { ExpressionTree } from '../../../tree/expression/expression.tree';
+import { LiteralExpressionTree } from '../../../tree/expression/literal-expression/literal-expression.tree';
+import { IdToken } from '../../../tree/id-token';
+import { ExpressionMetadata } from './expression-metadata';
+import { DeclarationScope } from '../declaration-scope';
 
-export function expressionHandler(tree: ExpressionTree, scope: DeclarationScope): ExpressionMetadata {
+export function expressionHandler(
+  tree: ExpressionTree,
+  scope: DeclarationScope,
+): ExpressionMetadata {
   if (tree instanceof LiteralExpressionTree) {
     const literalName = tree.literal.constructor.name.replace('LiteralTree', '');
     const type = scope.get(literalName);
