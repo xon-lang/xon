@@ -5,7 +5,9 @@ import { DeclarationMetadata } from '../declaration-metadata';
 export class ClassDeclarationMetadata extends DeclarationMetadata {
   id: IdToken;
 
-  constructor(tree: ClassDefinitionTree) {
+  constructor(private tree: ClassDefinitionTree) {
     super();
+
+    this.id = tree.id;
   }
 }
