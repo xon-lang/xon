@@ -16,8 +16,9 @@ export class IdExpressionMetadata extends ExpressionMetadata {
     const typeArguments = tree.typeArguments.map((x) => getTypeMetadata(x, scope));
     tree.id.metadata = declaration;
 
-    if (declaration instanceof AttributeDeclarationMetadata) this.type = declaration.type;
-    else if (declaration instanceof ClassDeclarationMetadata) {
+    if (declaration instanceof AttributeDeclarationMetadata) {
+      this.type = declaration.type;
+    } else if (declaration instanceof ClassDeclarationMetadata) {
       this.type = declaration.init(typeArguments, scope);
     }
   }

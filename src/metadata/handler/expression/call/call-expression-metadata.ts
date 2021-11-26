@@ -1,7 +1,5 @@
 import { CallExpressionTree } from '../../../../tree/expression/call-expression/call-expression.tree';
-import { IdExpressionTree } from '../../../../tree/expression/id-expression/id-expression.tree';
 import { DeclarationScope } from '../../declaration-scope';
-import { AttributeDeclarationMetadata } from '../../declaration/attribute/attribute-declaration-metadata';
 import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
@@ -15,6 +13,12 @@ export class CallExpressionMetadata extends ExpressionMetadata {
   constructor(tree: CallExpressionTree, scope: DeclarationScope) {
     super();
 
-    const instanceType = getExpressionMetadata(tree.instance, scope)
+    const instanceType = getExpressionMetadata(tree.instance, scope).type;
+    if (!(instanceType instanceof FunctionTypeMetadata))
+      throw new Error(`Instance type is not a function but '${instanceType.constructor.name}'`);
+
+    if (!instanceType.resultType) throw new Error('Function has not result');
+
+    this.type = instanceType.resultType;
   }
 }
