@@ -6,26 +6,16 @@ import { DeclarationMetadata } from '../../declaration-metadata';
 import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { DeclarationScope } from '../declaration-scope';
 import { ExpressionMetadata } from './expression-metadata';
+import { LiteralExpressionMetadata } from './literal/literal-expression-handler';
 
-export function expressionHandler(
+export function getExpressionMetadata(
   tree: ExpressionTree,
   scope: DeclarationScope,
 ): ExpressionMetadata {
-  if (tree instanceof LiteralExpressionTree) {
-    const literalName = tree.literal.constructor.name.replace('LiteralTree', '');
-    tree.metadata = new ExpressionMetadata(scope.get(literalName).type);
-  } else if (tree instanceof IdExpressionTree) {
-    const declaration = scope.get(tree.id.text);
-    // todo fix it later
-    if (
-      tree.id.text[0] == tree.id.text[0].toUpperCase() &&
-      declaration.type instanceof IdTypeMetadata
-    ) {
-      tree.metadata = new ExpressionMetadata(declaration.type.constructorType);
-    } else {
-      tree.metadata = new ExpressionMetadata(declaration.type);
-    }
-    tree.id.metadata = new DeclarationMetadata(declaration.id, tree.metadata.type);
+  if (tree instanceof LiteralExpressionTree)
+    return (tree.metadata = new LiteralExpressionMetadata(tree, scope));
+  else if (tree instanceof IdExpressionTree) {
+  
   }
 
   if (!tree.metadata) {
