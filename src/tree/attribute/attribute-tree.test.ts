@@ -52,7 +52,7 @@ test('has function type', () => {
   expect(type.name).toBe('Function');
   expect(type.parameters.length).toBe(1);
   expect(type.parameters[0].type.name).toBe('Integer');
-  expect(type.returnType.name).toBe('String');
+  expect(type.resultType.name).toBe('String');
   expect(tree.body).toBe(null);
 });
 
