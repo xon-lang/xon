@@ -1,12 +1,12 @@
-Module is XonModule
+Module is XonModule:
   name = "@xon/ast"
   author = "Nizami"
   version = "1.21.0"
   description = "XON is an open-source programming language"
-  bugs
+  bugs:
     url = "https://github.com/xon-lang/ast/issues"
   homepage = "https://github.com/xon-lang/ast#readme"
-  repository
+  repository:
     type = "git"
     url = "git+https://github.com/xon-lang/ast.git"
   keywords = [
