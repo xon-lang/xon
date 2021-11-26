@@ -18,6 +18,6 @@ export class IdExpressionMetadata extends ExpressionMetadata {
       this.type = declaration.type.constructorType;
     else this.type = declaration.type;
 
-    tree.id.metadata = new DeclarationMetadata(declaration.id, tree.metadata.type);
+    tree.id.metadata = new DeclarationMetadata(declaration.id, this.type);
   }
 }

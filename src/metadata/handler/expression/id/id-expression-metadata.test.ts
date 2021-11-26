@@ -2,7 +2,7 @@ import { parseExpression } from '../../../../tree/parse';
 import { FunctionTypeMetadata } from '../../../type/function/function-type-metadata';
 import { IdTypeMetadata } from '../../../type/id/id-type-metadata';
 import { TestHandlerScope } from '../../test-handler-scope';
-import { getExpressionMetadata } from '../expression-handler';
+import { getExpressionMetadata } from '../expression-metadata-helper';
 
 test('id', () => {
   const code = 'String';
