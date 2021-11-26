@@ -1,5 +1,5 @@
 import { LiteralExpressionTree } from '../../../../tree/expression/literal-expression/literal-expression.tree';
-import { IdTypeMetadata } from '../../../type/id/id-type-metadata';
+import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { DeclarationScope } from '../../declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
 

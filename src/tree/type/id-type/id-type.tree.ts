@@ -1,4 +1,5 @@
 import { IdTypeContext } from '../../../grammar/xon-parser';
+import { TypeMetadata } from '../../../metadata/handler/type/type-metadata';
 import { IdToken } from '../../id-token';
 import { getTypesTrees } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
@@ -7,6 +8,7 @@ export class IdTypeTree extends TypeTree {
   name: string;
   id: IdToken;
   typeArguments: TypeTree[] = [];
+  metadata: TypeMetadata;
 
   constructor(public ctx?: IdTypeContext) {
     super();

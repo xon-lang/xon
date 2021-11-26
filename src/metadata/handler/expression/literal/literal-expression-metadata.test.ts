@@ -1,5 +1,5 @@
 import { parseExpression } from '../../../../tree/parse';
-import { IdTypeMetadata } from '../../../type/id/id-type-metadata';
+import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { TestHandlerScope } from '../../test-handler-scope';
 import { getExpressionMetadata } from '../expression-metadata-helper';
 
