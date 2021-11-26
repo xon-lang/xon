@@ -2,18 +2,16 @@ import * as glob from 'glob';
 import * as path from 'path';
 import { ClassDefinitionTree } from '../../../tree/definition/class-definition/class-definition-tree';
 import { parseSourceFile } from '../../../tree/parse';
-import { DeclarationScope } from '../declaration-scope';
 import { AttributeDeclarationMetadata } from '../declaration/attribute/attribute-declaration-metadata';
 import { ClassDeclarationMetadata } from '../declaration/class/class-declaration-metadata';
 import { DeclarationMetadata } from '../declaration/declaration-metadata';
 
 export class ModuleMetadata {
-  declarations: Map<string, DeclarationMetadata>;
+  declarations: DeclarationMetadata[] = [];
 
   constructor(moduleDir: string, defaultModules: ModuleMetadata[] = []) {
-    const scope = new DeclarationScope();
-    for (const declarations of defaultModules.flatMap((x) => x.declarations)) {
-      scope.merge(declarations);
+    for (const declaration of defaultModules.flatMap((x) => x.declarations)) {
+      this.declarations.push(declaration);
     }
 
     const globPath = path.resolve(moduleDir, '**/*.xon');
@@ -23,12 +21,12 @@ export class ModuleMetadata {
       x.definitions.map((x) => x as ClassDefinitionTree),
     )) {
       const declaration = new ClassDeclarationMetadata(definition);
-      scope.set(declaration);
+      this.declarations.push(declaration);
     }
 
     for (const attribute of sources.flatMap((x) => x.attributes)) {
       const declaration = new AttributeDeclarationMetadata(attribute);
-      scope.set(declaration);
+      this.declarations.push(declaration);
     }
   }
 }

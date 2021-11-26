@@ -16,8 +16,4 @@ export class DeclarationScope {
     if (this.parent) return this.parent.get(name);
     throw new Error(`'${name}' not found`);
   }
-
-  merge(declarations: Map<string, DeclarationMetadata>) {
-    this.declarations = new Map([...this.declarations.entries(), ...declarations.entries()]);
-  }
 }

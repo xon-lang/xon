@@ -1,6 +1,6 @@
 import { parseExpression } from '../../../../tree/parse';
-import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { TestDeclarationScope } from '../../test-declaration-scope';
+import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { getExpressionMetadata } from '../expression-metadata-helper';
 
 test('literal', () => {

@@ -5,6 +5,8 @@ export class TestDeclarationScope extends DeclarationScope {
   constructor() {
     super();
     const metadata = new ModuleMetadata('ast.xon/lib/@xon/core');
-    this.merge(metadata.declarations);
+    for (const declaration of metadata.declarations) {
+      this.set(declaration);
+    }
   }
 }
