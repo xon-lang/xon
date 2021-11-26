@@ -16,10 +16,14 @@ export class AttributeDeclarationMetadata extends DeclarationMetadata {
 
     this.id = tree.id;
     if (tree.type) this.type = getTypeMetadata(tree.type, scope);
-    else
-      this.type = getExpressionMetadata(
-        (tree.body[0] as ExpressionStatementTree).expression,
-        scope,
-      ).type;
+    else {
+      if (tree.body.length > 1) throw new Error('Body must have only expression');
+
+      const statement = tree.body[0] as ExpressionStatementTree;
+      if (!(statement instanceof ExpressionStatementTree))
+        throw new Error('Statement must be an expression');
+
+      this.type = getExpressionMetadata(statement.expression, scope).type;
+    }
   }
 }
