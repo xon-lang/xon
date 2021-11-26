@@ -19,5 +19,5 @@ test('has id with type parameters', () => {
   expect(tree.typeArguments.length).toBe(2);
   expect(tree.typeArguments[0].name).toBe('String');
   expect((tree.typeArguments[1] as FunctionTypeTree).parameters.length).toBe(0);
-  expect((tree.typeArguments[1] as FunctionTypeTree).returnType.name).toBe('Integer');
+  expect((tree.typeArguments[1] as FunctionTypeTree).resultType.name).toBe('Integer');
 });

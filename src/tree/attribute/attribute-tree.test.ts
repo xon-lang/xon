@@ -78,5 +78,5 @@ test('method member', () => {
   expect(type.parameters[2].id.text).toBe('argC');
   expect(type.parameters[2].type.name).toBe('String');
 
-  expect(type.returnType.name).toBe('String');
+  expect(type.resultType.name).toBe('String');
 });

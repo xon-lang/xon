@@ -10,7 +10,7 @@ test('number return function', () => {
   expect(tree.parameters.length).toBe(2);
   expect(tree.parameters[0].type.name).toBe('String');
   expect((tree.parameters[1].type as ArrayTypeTree).itemType.name).toBe('Integer');
-  expect(tree.returnType.name).toBe('Number');
+  expect(tree.resultType.name).toBe('Number');
 });
 
 test('from translator-ts', () => {
@@ -20,5 +20,5 @@ test('from translator-ts', () => {
 
   expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].type.name).toBe('Integer');
-  expect(tree.returnType.name).toBe('T');
+  expect(tree.resultType.name).toBe('T');
 });
