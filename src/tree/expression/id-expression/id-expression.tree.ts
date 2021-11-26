@@ -1,10 +1,12 @@
 import { IdExpressionContext } from '../../../grammar/xon-parser';
+import { IdExpressionMetadata } from '../../../metadata/handler/expression/id/id-expression-metadata';
 import { IdToken } from '../../id-token';
 import { getTypesTrees } from '../../type/type-tree.helper';
 import { TypeTree } from '../../type/type.tree';
 import { ExpressionTree } from '../expression.tree';
 
 export class IdExpressionTree extends ExpressionTree {
+  metadata: IdExpressionMetadata;
   id: IdToken;
   typeArguments: TypeTree[];
 
