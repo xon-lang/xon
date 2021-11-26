@@ -62,12 +62,12 @@ assignment:
     ;
 
 expression:
-    name = (LOWER_ID | UPPER_ID | '$') typeArguments?                     # idExpression
+    name = (LOWER_ID | '$')                                               # idExpression
     | '$' name = LOWER_ID                                                 # instanceMemberExpression
     | literal                                                             # literalExpression
+    | name = UPPER_ID typeArguments?                                      # instantiationExpression
     | expression functionArguments                                        # functionExpression
     | expression indexerArguments                                         # indexerExpression
-    | expression ('?.' | '.') name = LOWER_ID typeArguments?              # memberExpression
     | expression ('?.' | '.') name = LOWER_ID typeArguments?              # memberExpression
     | '(' expression ')'                                                  # parenthesizedExpression
     | '[' (expression (',' expression)*)? ']'                             # arrayExpression
