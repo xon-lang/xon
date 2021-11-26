@@ -1,5 +1,5 @@
-import { TypeMetadata } from "./type/type-metadata";
+import { TypeMetadata } from './type/type-metadata';
 
 export class ExpressionMetadata {
-  type: TypeMetadata
+  constructor(public type: TypeMetadata) {}
 }
