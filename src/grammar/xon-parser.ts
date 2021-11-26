@@ -672,14 +672,14 @@ export class XonParser extends Parser {
 			}
 			this.state = 132;
 			this._errHandler.sync(this);
-			_la = this._input.LA(1);
-			if (_la === XonParser.OPEN_PAREN) {
+			switch ( this.interpreter.adaptivePredict(this._input, 14, this._ctx) ) {
+			case 1:
 				{
 				this.state = 131;
-				this.functionParameters();
+				(_localctx as ClassDefinitionContext)._init = this.type(0);
 				}
+				break;
 			}
-
 			this.state = 136;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
@@ -688,7 +688,7 @@ export class XonParser extends Parser {
 				this.state = 134;
 				this.match(XonParser.IS);
 				this.state = 135;
-				this.type(0);
+				(_localctx as ClassDefinitionContext)._base = this.type(0);
 				}
 			}
 
@@ -2896,7 +2896,7 @@ export class XonParser extends Parser {
 		"\x02\x02~\x80\x05:\x1E\x02\x7F~\x03\x02\x02\x02\x7F\x80\x03\x02\x02\x02" +
 		"\x80\x11\x03\x02\x02\x02\x81\x83\x07B\x02\x02\x82\x84\x056\x1C\x02\x83" +
 		"\x82\x03\x02\x02\x02\x83\x84\x03\x02\x02\x02\x84\x86\x03\x02\x02\x02\x85" +
-		"\x87\x05*\x16\x02\x86\x85\x03\x02\x02\x02\x86\x87\x03\x02\x02\x02\x87" +
+		"\x87\x05\"\x12\x02\x86\x85\x03\x02\x02\x02\x86\x87\x03\x02\x02\x02\x87" +
 		"\x8A\x03\x02\x02\x02\x88\x89\x07\v\x02\x02\x89\x8B\x05\"\x12\x02\x8A\x88" +
 		"\x03\x02\x02\x02\x8A\x8B\x03\x02\x02\x02\x8B\x9A\x03\x02\x02\x02\x8C\x8E" +
 		"\x07(\x02\x02\x8D\x8F\x07D\x02\x02\x8E\x8D\x03\x02\x02\x02\x8F\x90\x03" +
@@ -3318,20 +3318,25 @@ export class DefinitionContext extends ParserRuleContext {
 }
 export class ClassDefinitionContext extends DefinitionContext {
 	public _name!: Token;
+	public _init!: TypeContext;
+	public _base!: TypeContext;
 	public UPPER_ID(): TerminalNode { return this.getToken(XonParser.UPPER_ID, 0); }
 	public typeParameters(): TypeParametersContext | undefined {
 		return this.tryGetRuleContext(0, TypeParametersContext);
 	}
-	public functionParameters(): FunctionParametersContext | undefined {
-		return this.tryGetRuleContext(0, FunctionParametersContext);
-	}
 	public IS(): TerminalNode | undefined { return this.tryGetToken(XonParser.IS, 0); }
-	public type(): TypeContext | undefined {
-		return this.tryGetRuleContext(0, TypeContext);
-	}
 	public COLON(): TerminalNode | undefined { return this.tryGetToken(XonParser.COLON, 0); }
 	public INDENT(): TerminalNode | undefined { return this.tryGetToken(XonParser.INDENT, 0); }
 	public DEDENT(): TerminalNode | undefined { return this.tryGetToken(XonParser.DEDENT, 0); }
+	public type(): TypeContext[];
+	public type(i: number): TypeContext;
+	public type(i?: number): TypeContext | TypeContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(TypeContext);
+		} else {
+			return this.getRuleContext(i, TypeContext);
+		}
+	}
 	public NL(): TerminalNode[];
 	public NL(i: number): TerminalNode;
 	public NL(i?: number): TerminalNode | TerminalNode[] {
