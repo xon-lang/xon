@@ -2,10 +2,10 @@ import * as glob from 'glob';
 import * as path from 'path';
 import { ClassDefinitionTree } from '../../../tree/definition/class-definition/class-definition-tree';
 import { parseSourceFile } from '../../../tree/parse';
-import { ModuleMetadata } from './module-metadata';
 import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';
 import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { DeclarationScope } from '../declaration-scope';
+import { ModuleMetadata } from './module-metadata';
 
 export function moduleHandler(
   moduleDir: string,
@@ -25,13 +25,14 @@ export function moduleHandler(
     x.definitions.map((x) => x as ClassDefinitionTree),
   )) {
     scope.set(
-      definition.id.text,
+      definition.id,
       new IdTypeMetadata(definition.id.text, definition.typeParameters.length),
     );
   }
   for (const definition of sources.flatMap((x) => x.definitions)) {
-    const type = scope.get(definition.id.text) as IdTypeMetadata;
-    type.setInit(new FunctionTypeMetadata([], type));
+    const declaration = scope.get(definition.id.text);
+    if (declaration.type instanceof IdTypeMetadata)
+      declaration.type.setInit(new FunctionTypeMetadata([], declaration.type));
   }
 
   // for (const attribute of sources.flatMap((x) => x.attributes)) {

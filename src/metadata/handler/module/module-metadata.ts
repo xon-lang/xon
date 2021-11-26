@@ -1,5 +1,5 @@
-import { TypeMetadata } from '../../type/type-metadata';
+import { DeclarationMetadata } from '../../declaration-metadata';
 
 export class ModuleMetadata {
-  constructor(public declarations: Map<string, TypeMetadata>) {}
+  constructor(public declarations: Map<string, DeclarationMetadata>) {}
 }
