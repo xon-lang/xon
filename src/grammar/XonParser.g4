@@ -25,7 +25,7 @@ libraryMember:   name = UPPER_ID (AS alias = UPPER_ID)?;
 test: TEST expression? body?;
 
 definition:
-    name = UPPER_ID typeParameters? init = type? (IS base = type)? (
+    name = UPPER_ID typeParameters? functionParameters? (IS type)? (
         ':' NL+ INDENT ( classMember | NL)+ DEDENT
     )? # classDefinition
     ;

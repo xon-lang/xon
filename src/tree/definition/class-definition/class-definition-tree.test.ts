@@ -21,9 +21,9 @@ test('one scope', () => {
   expect(definition.typeParameters.length).toBe(1);
   expect(definition.typeParameters[0].id.text).toBe('T');
 
-  expect(definition.initType.parameters.length).toBe(1);
-  expect(definition.initType.parameters[0].id.text).toBe('name');
-  expect(definition.initType.parameters[0].type.name).toBe('String');
+  expect(definition.parameters.length).toBe(1);
+  expect(definition.parameters[0].id.text).toBe('name');
+  expect(definition.parameters[0].type.name).toBe('String');
 
   expect(definition.baseType.name).toBe('BaseClass');
   expect((definition.baseType as IdTypeTree).typeArguments.length).toBe(2);
