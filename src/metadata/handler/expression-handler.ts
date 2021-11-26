@@ -2,9 +2,9 @@ import { ExpressionTree } from '../../tree/expression/expression.tree';
 import { LiteralExpressionTree } from '../../tree/expression/literal-expression/literal-expression.tree';
 import { IdToken } from '../../tree/id-token';
 import { ExpressionMetadata } from '../expression-metadata';
-import { HandlerScope } from './handler-scope';
+import { DeclarationScope } from './declaration-scope';
 
-export function expressionHandler(tree: ExpressionTree, scope: HandlerScope): ExpressionMetadata {
+export function expressionHandler(tree: ExpressionTree, scope: DeclarationScope): ExpressionMetadata {
   if (tree instanceof LiteralExpressionTree) {
     const literalName = tree.literal.constructor.name.replace('LiteralTree', '');
     const type = scope.get(literalName);

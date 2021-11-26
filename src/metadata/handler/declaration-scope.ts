@@ -1,9 +1,9 @@
 import { TypeMetadata } from '../type/type-metadata';
 
-export class HandlerScope {
+export class DeclarationScope {
   declarations = new Map<string, TypeMetadata>();
 
-  constructor(public parent?: HandlerScope) {}
+  constructor(public parent?: DeclarationScope) {}
 
   set(name: string, type: TypeMetadata) {
     if (this.declarations.has(name)) throw new Error(`'${name}' already exists`);

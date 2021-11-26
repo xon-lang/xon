@@ -1,8 +1,9 @@
-import { DeclarationScope } from './scope';
+import { DeclarationScope } from './declaration-scope';
+import { moduleHandler } from './module-handler';
 
 export class TestHandlerScope extends DeclarationScope {
   constructor() {
     super();
-    this.loadModule('ast.xon/lib/@xon/core');
+    moduleHandler('ast.xon/lib/@xon/core');
   }
 }

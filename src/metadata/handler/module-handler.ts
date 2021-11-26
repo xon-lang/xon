@@ -5,9 +5,19 @@ import { parseSourceFile } from '../../tree/parse';
 import { ModuleMetadata } from '../module-metadata';
 import { FunctionTypeMetadata } from '../type/function/function-type-metadata';
 import { IdTypeMetadata } from '../type/id/id-type-metadata';
-import { HandlerScope } from './handler-scope';
+import { DeclarationScope } from './declaration-scope';
 
-export function moduleHandler(moduleDir: string, scope: HandlerScope): ModuleMetadata {
+export function moduleHandler(
+  moduleDir: string,
+  defaultModules: ModuleMetadata[] = [],
+): ModuleMetadata {
+  const scope = new DeclarationScope();
+  const defaultScopeEntries = defaultModules
+    .flatMap((x) => x.declarations)
+    .flatMap((x) => Array.from(x.entries()));
+  // todo remove assign
+  scope.declarations = new Map(defaultScopeEntries);
+
   const globPath = path.resolve(moduleDir, '**/*.xon');
   const sources = glob.sync(globPath).map((x) => parseSourceFile(x));
 
