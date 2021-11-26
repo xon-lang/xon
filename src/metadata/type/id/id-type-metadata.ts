@@ -2,7 +2,7 @@ import { FunctionTypeMetadata } from '../function/function-type-metadata';
 import { TypeMetadata } from '../type-metadata';
 
 export class IdTypeMetadata extends TypeMetadata {
-  init: FunctionTypeMetadata;
+  constructorType: FunctionTypeMetadata;
   generics: TypeMetadata[] = [];
 
   constructor(public name: string, public genericsCount: number) {
@@ -10,12 +10,12 @@ export class IdTypeMetadata extends TypeMetadata {
   }
 
   setInit(init: FunctionTypeMetadata) {
-    this.init = init;
+    this.constructorType = init;
   }
 
   cloneWithGenerics(generics: TypeMetadata[]): IdTypeMetadata {
     const type = new IdTypeMetadata(this.name, this.genericsCount);
-    this.init = this.init;
+    this.constructorType = this.constructorType;
     this.generics = generics;
     return type;
   }
