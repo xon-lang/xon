@@ -1,14 +1,13 @@
 import { LiteralExpressionTree } from '../../../../tree/expression/literal-expression/literal-expression.tree';
-import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { DeclarationScope } from '../../declaration-scope';
+import { LiteralTypeMetadata } from '../../type/literal/literal-type-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
 
 export class LiteralExpressionMetadata extends ExpressionMetadata {
-  type: IdTypeMetadata;
+  type: LiteralTypeMetadata;
 
   constructor(tree: LiteralExpressionTree, scope: DeclarationScope) {
     super();
-    const literalName = tree.literal.constructor.name.replace('LiteralTree', '');
-    this.type = scope.get(literalName).type as IdTypeMetadata;
+    this.type = new LiteralTypeMetadata(tree.literal, scope);
   }
 }
