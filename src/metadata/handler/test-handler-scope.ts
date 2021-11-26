@@ -4,6 +4,7 @@ import { moduleHandler } from './module-handler';
 export class TestHandlerScope extends DeclarationScope {
   constructor() {
     super();
-    moduleHandler('ast.xon/lib/@xon/core');
+    const metadata = moduleHandler('ast.xon/lib/@xon/core');
+    this.declarations = metadata.declarations;
   }
 }
