@@ -5,19 +5,19 @@ import { ExpressionTree } from '../expression.tree';
 
 export class PipeExpressionTree extends ExpressionTree {
   metadata: PipeExpressionMetadata;
-  arg: string;
+  parameter?: string;
   left: ExpressionTree;
   right: ExpressionTree;
 
   constructor(public ctx: PipeExpressionContext) {
     super();
-    this.arg = ctx._name?.text;
+    this.parameter = ctx._name?.text;
     this.left = getExpressionTree(ctx.expression(0));
     this.right = getExpressionTree(ctx.expression(1));
   }
 
   toString(): string {
-    const arg = this.arg ? `${this.arg}:` : '';
+    const arg = this.parameter ? `${this.parameter}:` : '';
     return `${this.left} |${arg} ${this.right}`;
   }
 }
