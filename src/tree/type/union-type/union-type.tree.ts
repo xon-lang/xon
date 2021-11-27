@@ -1,10 +1,10 @@
 import { UnionTypeContext } from '../../../grammar/xon-parser';
-import { TypeMetadata } from '../../../metadata/type/type-metadata';
+import { UnionTypeMetadata } from '../../../metadata/type/union/union-type-metadata';
 import { getTypesTrees } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
 export class UnionTypeTree extends TypeTree {
-  metadata: TypeMetadata;
+  metadata: UnionTypeMetadata;
   name: string;
   types: TypeTree[];
 
