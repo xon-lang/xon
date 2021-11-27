@@ -9,4 +9,5 @@ test('integer plus integer', () => {
   const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
 
   expect(metadata.type).toBeInstanceOf(IdTypeMetadata);
+  expect(metadata.type.declaration.name).toBe('Integer');
 });
