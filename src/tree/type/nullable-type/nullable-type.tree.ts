@@ -1,8 +1,10 @@
 import { NullableTypeContext } from '../../../grammar/xon-parser';
+import { TypeMetadata } from '../../../metadata/type/type-metadata';
 import { getTypeTree } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
 export class NullableTypeTree extends TypeTree {
+  metadata: TypeMetadata;
   name: string;
   baseType: TypeTree;
   

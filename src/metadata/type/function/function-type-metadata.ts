@@ -5,35 +5,23 @@ import { TypeMetadata } from '../type-metadata';
 import { getTypeMetadata } from '../type-metadata-helper';
 
 export class FunctionTypeMetadata extends TypeMetadata {
-  name: string;
-  declaration: ClassDeclarationMetadata;
-  parameters: { name?: string; type: TypeMetadata }[];
-  resultType?: TypeMetadata;
-
-  constructor(tree?: FunctionTypeTree, scope?: DeclarationScope) {
+  constructor(
+    public parameters: { name?: string; type: TypeMetadata }[],
+    public resultType: TypeMetadata,
+    public declaration: ClassDeclarationMetadata,
+    public scope: DeclarationScope,
+  ) {
     super();
-    if (!tree) return;
+  }
 
-    this.name = tree.name;
-    this.declaration = scope.get(this.name) as ClassDeclarationMetadata;
-    this.parameters = tree.parameters.map((x) => ({
+  static fromTree(tree: FunctionTypeTree, scope: DeclarationScope) {
+    const parameters = tree.parameters.map((x) => ({
       name: x.id.text,
       type: getTypeMetadata(x.type, scope),
     }));
-    this.resultType = tree.resultType ? getTypeMetadata(tree.resultType, scope) : null;
-  }
-
-  static fromParams(
-    name: string,
-    declaration: ClassDeclarationMetadata,
-    parameters: { name?: string; type: TypeMetadata }[],
-    resultType?: TypeMetadata,
-  ): FunctionTypeMetadata {
-    const metadata = new FunctionTypeMetadata();
-    metadata.name = name;
-    metadata.declaration = declaration;
-    metadata.parameters = parameters;
-    metadata.resultType = resultType;
+    const resultType = tree.resultType ? getTypeMetadata(tree.resultType, scope) : null;
+    const declaration = scope.get(tree.name) as ClassDeclarationMetadata;
+    const metadata = new FunctionTypeMetadata(parameters, resultType, declaration, scope);
     return metadata;
   }
 }

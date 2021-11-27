@@ -4,15 +4,18 @@ import { ClassDeclarationMetadata } from '../../declaration/class/class-declarat
 import { TypeMetadata } from '../type-metadata';
 
 export class LiteralTypeMetadata extends TypeMetadata {
-  name: string;
-  declaration: ClassDeclarationMetadata;
-  value: number | string;
-
-  constructor(tree: LiteralTree, scope: DeclarationScope) {
+  constructor(
+    public value: number | string,
+    public declaration: ClassDeclarationMetadata,
+    public scope: DeclarationScope,
+  ) {
     super();
+  }
 
-    this.name = tree.constructor.name.replace('LiteralTree', '');
-    this.declaration = scope.get(this.name) as ClassDeclarationMetadata;
-    this.value = tree.value;
+  static fromTree(tree: LiteralTree, scope: DeclarationScope) {
+    const name = tree.constructor.name.replace('LiteralTree', '');
+    const declaration = scope.get(name) as ClassDeclarationMetadata;
+    const metadata = new LiteralTypeMetadata(tree.value, declaration, scope);
+    return metadata;
   }
 }

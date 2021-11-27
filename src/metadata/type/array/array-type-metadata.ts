@@ -5,31 +5,18 @@ import { TypeMetadata } from '../type-metadata';
 import { getTypeMetadata } from '../type-metadata-helper';
 
 export class ArrayTypeMetadata extends TypeMetadata {
-  name: string;
-  declaration: ClassDeclarationMetadata;
-  itemType: TypeMetadata;
-  size?: number;
-
-  constructor(tree?: ArrayTypeTree, scope?: DeclarationScope) {
+  constructor(
+    public itemType: TypeMetadata,
+    public declaration: ClassDeclarationMetadata,
+    public scope: DeclarationScope,
+  ) {
     super();
-    if (!tree) return;
-
-    this.name = tree.name;
-    this.declaration = scope.get(this.name) as ClassDeclarationMetadata;
-    this.itemType = getTypeMetadata(tree.itemType, scope);
   }
 
-  static fromParams(
-    name: string,
-    declaration: ClassDeclarationMetadata,
-    itemType: TypeMetadata,
-    size?: number,
-  ): ArrayTypeMetadata {
-    const metadata = new ArrayTypeMetadata();
-    metadata.name = name;
-    metadata.declaration = declaration;
-    metadata.itemType = itemType;
-    metadata.size = size;
+  static fromTree(tree: ArrayTypeTree, scope: DeclarationScope) {
+    const itemType = getTypeMetadata(tree.itemType, scope);
+    const declaration = scope.get(tree.name) as ClassDeclarationMetadata;
+    const metadata = new ArrayTypeMetadata(itemType, declaration, scope);
     return metadata;
   }
 }
