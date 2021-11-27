@@ -3,6 +3,7 @@ import { DeclarationScope } from '../../declaration-scope';
 import { ClassDeclarationMetadata } from '../../declaration/class/class-declaration-metadata';
 import { TypeMetadata } from '../type-metadata';
 import { getTypeMetadata } from '../type-metadata-helper';
+import { UnionTypeMetadata } from '../union/union-type-metadata';
 
 export class ArrayTypeMetadata extends TypeMetadata {
   declaration: ClassDeclarationMetadata;
@@ -13,6 +14,7 @@ export class ArrayTypeMetadata extends TypeMetadata {
   }
 
   is(other: TypeMetadata): boolean {
+    if (other instanceof UnionTypeMetadata) return other.has(this);
     if (!(other instanceof ArrayTypeMetadata)) return false;
     return this.itemType.is(other.itemType);
   }

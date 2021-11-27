@@ -2,6 +2,7 @@ import { LiteralTree } from '../../../tree/literal/literal.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { ClassDeclarationMetadata } from '../../declaration/class/class-declaration-metadata';
 import { TypeMetadata } from '../type-metadata';
+import { UnionTypeMetadata } from '../union/union-type-metadata';
 
 export class LiteralTypeMetadata extends TypeMetadata {
   declaration: ClassDeclarationMetadata;
@@ -12,6 +13,7 @@ export class LiteralTypeMetadata extends TypeMetadata {
   }
 
   is(other: TypeMetadata): boolean {
+    if (other instanceof UnionTypeMetadata) return other.has(this);
     if (!(other instanceof LiteralTypeMetadata)) return false;
     return this.name === other.name && this.value === other.value;
   }

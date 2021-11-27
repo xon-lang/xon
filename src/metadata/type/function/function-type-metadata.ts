@@ -3,6 +3,7 @@ import { DeclarationScope } from '../../declaration-scope';
 import { ClassDeclarationMetadata } from '../../declaration/class/class-declaration-metadata';
 import { TypeMetadata } from '../type-metadata';
 import { getTypeMetadata } from '../type-metadata-helper';
+import { UnionTypeMetadata } from '../union/union-type-metadata';
 
 export class FunctionTypeMetadata extends TypeMetadata {
   declaration: ClassDeclarationMetadata;
@@ -17,6 +18,7 @@ export class FunctionTypeMetadata extends TypeMetadata {
   }
 
   is(other: TypeMetadata): boolean {
+    if (other instanceof UnionTypeMetadata) return other.has(this);
     if (!(other instanceof FunctionTypeMetadata)) return false;
     return (
       this.parameters.length === other.parameters.length &&
