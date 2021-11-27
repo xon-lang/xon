@@ -1,13 +1,13 @@
 import { NullableTypeContext } from '../../../grammar/xon-parser';
-import { TypeMetadata } from '../../../metadata/type/type-metadata';
+import { NullableTypeMetadata } from '../../../metadata/type/nullable/nullable-type-metadata';
 import { getTypeTree } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
 export class NullableTypeTree extends TypeTree {
-  metadata: TypeMetadata;
+  metadata: NullableTypeMetadata;
   name: string;
   baseType: TypeTree;
-  
+
   constructor(public ctx?: NullableTypeContext) {
     super();
     if (!ctx) return;
