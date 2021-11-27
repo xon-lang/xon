@@ -40,7 +40,7 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
     return new FunctionTypeMetadata(initParameters, initResultType, this.scope);
   }
 
-  getAttribute(name: string, typeArguments: TypeMetadata[]): AttributeDeclarationMetadata[] {
+  getAttributes(name: string, typeArguments: TypeMetadata[]): AttributeDeclarationMetadata[] {
     const attributesByName = this.tree.attributes.filter((x) => x.id.text === name);
     if (!attributesByName.length)
       throw new Error(`'${name}' attribute not found in '${this.name}' declaration`);
@@ -61,7 +61,7 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
     typeArguments: TypeMetadata[],
     expressionParameters: TypeMetadata[],
   ): AttributeDeclarationMetadata {
-    const attributesByFunctionType = this.getAttribute(methodName, typeArguments).filter(
+    const attributesByFunctionType = this.getAttributes(methodName, typeArguments).filter(
       (x) => x.type instanceof FunctionTypeMetadata,
     );
     if (!attributesByFunctionType.length)

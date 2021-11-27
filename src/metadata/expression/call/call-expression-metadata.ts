@@ -1,7 +1,9 @@
 import { CallExpressionTree } from '../../../tree/expression/call-expression/call-expression.tree';
+import { MemberExpressionTree } from '../../../tree/expression/member-expression/member-expression.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
+import { getTypeMetadata } from '../../type/type-metadata-helper';
 import { ExpressionMetadata } from '../expression-metadata';
 import { getExpressionMetadata } from '../expression-metadata-helper';
 
@@ -12,11 +14,23 @@ export class CallExpressionMetadata extends ExpressionMetadata {
     super();
 
     const instanceType = getExpressionMetadata(tree.instance, scope).type;
-    if (!(instanceType instanceof FunctionTypeMetadata))
-      throw new Error(`Instance type is not a function but '${instanceType.constructor.name}'`);
+    const expressionParameters = tree.arguments
+      .map((x) => getExpressionMetadata(x, scope))
+      .map((x) => x.type);
+    if (tree.instance instanceof MemberExpressionTree) {
+      const declaration = instanceType.declaration;
+      const typeArguments = tree.instance.typeArguments.map((x) => getTypeMetadata(x, scope));
+      const attribute = declaration.getMethodAttribute(
+        tree.instance.id.text,
+        typeArguments,
+        expressionParameters,
+      );
+      this.type = attribute.type;
+    } else {
+      if (!(instanceType instanceof FunctionTypeMetadata))
+        throw new Error(`Instance type is not a function but '${instanceType.constructor.name}'`);
 
-    if (!instanceType.resultType) throw new Error('Function has not result');
-
-    this.type = instanceType.resultType;
+      this.type = instanceType.resultType;
+    }
   }
 }

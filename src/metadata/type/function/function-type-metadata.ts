@@ -10,7 +10,7 @@ export class FunctionTypeMetadata extends TypeMetadata {
 
   constructor(
     public parameters: { name?: string; type: TypeMetadata }[],
-    public resultType: TypeMetadata,
+    public resultType: TypeMetadata | null,
     public scope: DeclarationScope,
   ) {
     super();
