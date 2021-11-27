@@ -14,7 +14,7 @@ export class FunctionTypeMetadata extends TypeMetadata {
   ) {
     super();
     this.declaration = scope.get(
-      this.constructor.name.replace(TypeMetadata.constructor.name, ''),
+      this.constructor.name.replace('TypeMetadata', ''),
     ) as ClassDeclarationMetadata;
   }
 

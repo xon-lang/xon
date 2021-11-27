@@ -11,7 +11,6 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
 
   constructor(private tree: ClassDefinitionTree) {
     super();
-
     this.name = tree.id.text;
   }
 
