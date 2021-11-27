@@ -4,7 +4,7 @@ import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { getExpressionMetadata } from '../expression-metadata-helper';
 
 test('member', () => {
-  const code = 'a.b';
+  const code = 'true.toString()';
   const tree = parseExpression(code);
   const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
 
