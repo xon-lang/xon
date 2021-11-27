@@ -19,7 +19,7 @@ export class IdExpressionMetadata extends ExpressionMetadata {
     if (declaration instanceof AttributeDeclarationMetadata) {
       this.type = declaration.type;
     } else if (declaration instanceof ClassDeclarationMetadata) {
-      this.type = declaration.init(typeArguments, scope);
+      this.type = declaration.init(typeArguments);
     }
   }
 }

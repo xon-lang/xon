@@ -23,7 +23,7 @@ export class ModuleMetadata {
     for (const definition of sources.flatMap((x) =>
       x.definitions.map((x) => x as ClassDefinitionTree),
     )) {
-      const declaration = new ClassDeclarationMetadata(definition);
+      const declaration = new ClassDeclarationMetadata(definition, scope);
       scope.set(declaration);
     }
 
