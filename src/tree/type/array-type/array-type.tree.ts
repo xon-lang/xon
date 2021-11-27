@@ -20,8 +20,8 @@ export class ArrayTypeTree extends TypeTree {
 
   toString(): string {
     if (this.itemType instanceof FunctionTypeTree || this.itemType instanceof UnionTypeTree) {
-      return `(${this.itemType})[]`;
+      return `(${this.itemType})[${this.size || ''}]`;
     }
-    return `${this.itemType}[]`;
+    return `${this.itemType}[${this.size || ''}]`;
   }
 }

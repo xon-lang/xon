@@ -8,4 +8,5 @@ test('string array', () => {
 
   expect(tree.itemType.name).toBe('String');
   expect(tree.size).toBe(32);
+  expect(tree.toString()).toBe('String[32]');
 });
