@@ -2,6 +2,7 @@ import { InfixExpressionTree } from '../../../tree/expression/infix-expression/i
 import { DeclarationScope } from '../../declaration-scope';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
+import { getExpressionMetadata } from '../expression-metadata-helper';
 
 export class InfixExpressionMetadata extends ExpressionMetadata {
   type: TypeMetadata;
@@ -9,6 +10,8 @@ export class InfixExpressionMetadata extends ExpressionMetadata {
   constructor(tree: InfixExpressionTree, scope: DeclarationScope) {
     super();
 
-    // this.type = ;
+    const leftDeclaration = getExpressionMetadata(tree.left, scope).type.declaration;
+    const rightType = getExpressionMetadata(tree.right, scope).type;
+    this.type = leftDeclaration.get(tree.id.text);
   }
 }
