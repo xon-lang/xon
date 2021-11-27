@@ -1,4 +1,7 @@
 Integer is Number:
+  prefix + () Integer
+  prefix - () Integer
+
   infix + (other Integer) Integer
   infix + (other Float) Float
   infix + (other Char) Integer
