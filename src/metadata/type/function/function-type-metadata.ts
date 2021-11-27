@@ -5,13 +5,17 @@ import { TypeMetadata } from '../type-metadata';
 import { getTypeMetadata } from '../type-metadata-helper';
 
 export class FunctionTypeMetadata extends TypeMetadata {
+  declaration: ClassDeclarationMetadata;
+
   constructor(
     public parameters: { name?: string; type: TypeMetadata }[],
     public resultType: TypeMetadata,
-    public declaration: ClassDeclarationMetadata,
     public scope: DeclarationScope,
   ) {
     super();
+    this.declaration = scope.get(
+      this.constructor.name.replace(TypeMetadata.constructor.name, ''),
+    ) as ClassDeclarationMetadata;
   }
 
   static fromTree(tree: FunctionTypeTree, scope: DeclarationScope) {
@@ -20,8 +24,7 @@ export class FunctionTypeMetadata extends TypeMetadata {
       type: getTypeMetadata(x.type, scope),
     }));
     const resultType = tree.resultType ? getTypeMetadata(tree.resultType, scope) : null;
-    const declaration = scope.get(tree.name) as ClassDeclarationMetadata;
-    const metadata = new FunctionTypeMetadata(parameters, resultType, declaration, scope);
+    const metadata = new FunctionTypeMetadata(parameters, resultType, scope);
     return metadata;
   }
 }

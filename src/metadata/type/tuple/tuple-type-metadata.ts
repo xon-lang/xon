@@ -5,18 +5,18 @@ import { TypeMetadata } from '../type-metadata';
 import { getTypeMetadata } from '../type-metadata-helper';
 
 export class TupleTypeMetadata extends TypeMetadata {
-  constructor(
-    public itemsTypes: TypeMetadata[],
-    public declaration: ClassDeclarationMetadata,
-    public scope: DeclarationScope,
-  ) {
+  declaration: ClassDeclarationMetadata;
+
+  constructor(public itemsTypes: TypeMetadata[], public scope: DeclarationScope) {
     super();
+    this.declaration = scope.get(
+      this.constructor.name.replace(TypeMetadata.constructor.name, ''),
+    ) as ClassDeclarationMetadata;
   }
 
   static fromTree(tree: TupleTypeTree, scope: DeclarationScope) {
     const itemsTypes = tree.itemsTypes.map((x) => getTypeMetadata(x, scope));
-    const declaration = scope.get(tree.name) as ClassDeclarationMetadata;
-    const metadata = new TupleTypeMetadata(itemsTypes, declaration, scope);
+    const metadata = new TupleTypeMetadata(itemsTypes, scope);
     return metadata;
   }
 }

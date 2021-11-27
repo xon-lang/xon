@@ -15,14 +15,14 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
     this.name = tree.id.text;
   }
 
-  init(typeArguments: TypeMetadata[], scope: DeclarationScope) {
+  init(typeArguments: TypeMetadata[], scope: DeclarationScope): FunctionTypeMetadata {
     const initParameters = this.tree.parameters
       ? this.tree.parameters.map((x) => ({
           name: x.id.text,
           type: getTypeMetadata(x.type, scope),
         }))
       : [];
-    const initResultType = IdTypeMetadata.fromParams(this.id.text, this, typeArguments);
-    return FunctionTypeMetadata.fromParams(this.id.text, this, initParameters, initResultType);
+    const initResultType = new IdTypeMetadata(typeArguments, this, scope);
+    return new FunctionTypeMetadata(initParameters, initResultType, this, );
   }
 }
