@@ -1,1 +1,28 @@
-Float is Number
+Float is Number:
+  infix + (other Integer) Float
+  infix + (other Float) Float
+  infix + (other Char) Float
+  infix + (other String) String
+
+  infix - (other Integer) Float
+  infix - (other Float) Float
+
+  infix * (other Integer) Float
+  infix * (other Float) Float
+
+  infix / (other Integer) Float
+  infix / (other Float) Float
+
+  infix ^ (other Integer) Float
+  infix ^ (other Float) Float
+
+  infix > (other Integer) Boolean
+  infix > (other Float) Boolean
+
+  infix < (other Integer) Boolean
+  infix < (other Float) Boolean
+
+  infix == (other Integer) Boolean
+  infix == (other Float) Boolean
+
+  toString() String
