@@ -28,7 +28,7 @@ export class ModuleMetadata {
     }
 
     for (const attribute of sources.flatMap((x) => x.attributes)) {
-      const declaration = new AttributeDeclarationMetadata(attribute, scope);
+      const declaration = AttributeDeclarationMetadata.fromTree(attribute, scope);
       scope.set(declaration);
     }
     this.declarations = [...scope.declarations.values()];

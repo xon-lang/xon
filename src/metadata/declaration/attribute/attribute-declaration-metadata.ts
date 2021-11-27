@@ -7,15 +7,20 @@ import { getTypeMetadata } from '../../type/type-metadata-helper';
 import { DeclarationMetadata } from '../declaration-metadata';
 
 export class AttributeDeclarationMetadata extends DeclarationMetadata {
-  name: string;
-  type: TypeMetadata;
   typeParameters: TypeMetadata[];
 
-  constructor(tree: AttributeTree, scope: DeclarationScope) {
+  constructor(public name: string, public type: TypeMetadata, public scope: DeclarationScope) {
     super();
+  }
 
-    this.name = tree.id.text;
-    if (tree.type) this.type = getTypeMetadata(tree.type, scope);
+  useTypeParameters(typeParameters: TypeMetadata[]): AttributeDeclarationMetadata {
+    this.typeParameters = typeParameters;
+    return this;
+  }
+
+  static fromTree(tree: AttributeTree, scope: DeclarationScope): AttributeDeclarationMetadata {
+    let type: TypeMetadata;
+    if (tree.type) type = getTypeMetadata(tree.type, scope);
     else {
       if (tree.body.length > 1) throw new Error('Body must have only expression');
 
@@ -23,12 +28,8 @@ export class AttributeDeclarationMetadata extends DeclarationMetadata {
       if (!(statement instanceof ExpressionStatementTree))
         throw new Error('Statement must be an expression');
 
-      this.type = getExpressionMetadata(statement.expression, scope).type;
+      type = getExpressionMetadata(statement.expression, scope).type;
     }
-  }
-
-  useTypeParameters(typeParameters: TypeMetadata[]): AttributeDeclarationMetadata {
-    this.typeParameters = typeParameters;
-    return this;
+    return new AttributeDeclarationMetadata(tree.id.text, type, scope);
   }
 }
