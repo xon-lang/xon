@@ -7,8 +7,6 @@ import { getExpressionMetadata } from '../expression-metadata-helper';
 
 export class CallExpressionMetadata extends ExpressionMetadata {
   type: TypeMetadata;
-  // instance: FunctionTypeMetadata;
-  // arguments: TypeMetadata[];
 
   constructor(tree: CallExpressionTree, scope: DeclarationScope) {
     super();
