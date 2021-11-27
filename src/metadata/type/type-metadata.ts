@@ -5,7 +5,6 @@ export abstract class TypeMetadata {
   abstract declaration: ClassDeclarationMetadata;
   abstract scope: DeclarationScope;
 
-  abstract equals(other: TypeMetadata): boolean;
-
-  is(other: TypeMetadata) {}
+  // abstract equals(other: TypeMetadata): boolean;
+  abstract is(other: TypeMetadata): boolean;
 }

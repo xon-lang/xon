@@ -16,6 +16,14 @@ export class IdTypeMetadata extends TypeMetadata {
     this.declaration = scope.get(name) as ClassDeclarationMetadata;
   }
 
+  is(other: TypeMetadata): boolean {
+    if (!(other instanceof IdTypeMetadata)) return false;
+    return (
+      this.declaration === other.declaration ||
+      (this.declaration.baseType() && this.declaration.baseType().is(other))
+    );
+  }
+
   static fromTree(tree: IdTypeTree, scope: DeclarationScope) {
     const typeArguments = tree.typeArguments.map((x) => getTypeMetadata(tree, scope));
     const metadata = new IdTypeMetadata(tree.id.text, typeArguments, scope);

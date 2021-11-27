@@ -12,9 +12,9 @@ export class ArrayTypeMetadata extends TypeMetadata {
     this.declaration = scope.get('Array') as ClassDeclarationMetadata;
   }
 
-  equals(other: TypeMetadata): boolean {
+  is(other: TypeMetadata): boolean {
     if (!(other instanceof ArrayTypeMetadata)) return false;
-    return this.itemType.equals(other);
+    return this.itemType.is(other.itemType);
   }
 
   static fromTree(tree: ArrayTypeTree, scope: DeclarationScope) {

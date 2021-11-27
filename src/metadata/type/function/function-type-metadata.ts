@@ -16,6 +16,14 @@ export class FunctionTypeMetadata extends TypeMetadata {
     this.declaration = scope.get('Function') as ClassDeclarationMetadata;
   }
 
+  is(other: TypeMetadata): boolean {
+    if (!(other instanceof FunctionTypeMetadata)) return false;
+    return (
+      this.parameters.length === other.parameters.length &&
+      this.parameters.every((x, i) => x.type.is(other.parameters[i].type))
+    );
+  }
+
   static fromTree(tree: FunctionTypeTree, scope: DeclarationScope) {
     const parameters = tree.parameters.map((x) => ({
       name: x.id.text,

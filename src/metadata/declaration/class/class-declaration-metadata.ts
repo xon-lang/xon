@@ -9,23 +9,32 @@ import { DeclarationMetadata } from '../declaration-metadata';
 export class ClassDeclarationMetadata extends DeclarationMetadata {
   name: string;
 
-  constructor(private tree: ClassDefinitionTree) {
+  constructor(private tree: ClassDefinitionTree, private scope: DeclarationScope) {
     super();
     this.name = tree.id.text;
   }
 
-  init(typeArguments: TypeMetadata[], scope: DeclarationScope): FunctionTypeMetadata {
+  baseType(): IdTypeMetadata | null {
+    if (!this.tree.baseType) return null;
+    return getTypeMetadata(this.tree.baseType, this.scope) as IdTypeMetadata;
+  }
+
+  init(typeArguments: TypeMetadata[]): FunctionTypeMetadata {
     const initParameters = this.tree.parameters
       ? this.tree.parameters.map((x) => ({
           name: x.id.text,
-          type: getTypeMetadata(x.type, scope),
+          type: getTypeMetadata(x.type, this.scope),
         }))
       : [];
-    const initResultType = new IdTypeMetadata(this.name, typeArguments, scope);
-    return new FunctionTypeMetadata(initParameters, initResultType, scope);
+    const initResultType = new IdTypeMetadata(this.name, typeArguments, this.scope);
+    return new FunctionTypeMetadata(initParameters, initResultType, this.scope);
   }
 
-  get(name: string): TypeMetadata {
-    return null;
+  get(
+    name: string,
+    typeParametersCount: number,
+    expressionParameters: TypeMetadata[],
+  ): TypeMetadata {
+    this.tree.attributes.filter((x) => x.id.text === name);
   }
 }

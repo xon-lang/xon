@@ -11,6 +11,11 @@ export class LiteralTypeMetadata extends TypeMetadata {
     this.declaration = scope.get(name) as ClassDeclarationMetadata;
   }
 
+  is(other: TypeMetadata): boolean {
+    if (!(other instanceof LiteralTypeMetadata)) return false;
+    return this.name === other.name && this.value === other.value;
+  }
+
   static fromTree(tree: LiteralTree, scope: DeclarationScope) {
     const name = tree.constructor.name.replace('LiteralTree', '');
     const metadata = new LiteralTypeMetadata(name, tree.value, scope);

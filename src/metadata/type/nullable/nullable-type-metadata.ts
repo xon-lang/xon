@@ -12,6 +12,11 @@ export class NullableTypeMetadata extends TypeMetadata {
     this.declaration = type.declaration;
   }
 
+  is(other: TypeMetadata): boolean {
+    if (!(other instanceof NullableTypeMetadata)) return false;
+    return this.type.is(other);
+  }
+
   static fromTree(tree: NullableTypeTree, scope: DeclarationScope) {
     const type = getTypeMetadata(tree.baseType, scope);
     const metadata = new NullableTypeMetadata(type, scope);
