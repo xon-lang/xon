@@ -13,11 +13,11 @@ export class CallExpressionMetadata extends ExpressionMetadata {
   constructor(tree: CallExpressionTree, scope: DeclarationScope) {
     super();
 
-    const instanceType = getExpressionMetadata(tree.instance, scope).type;
     const expressionParameters = tree.arguments
       .map((x) => getExpressionMetadata(x, scope))
       .map((x) => x.type);
     if (tree.instance instanceof MemberExpressionTree) {
+      const instanceType = getExpressionMetadata(tree.instance.instance, scope).type;
       const declaration = instanceType.declaration;
       const typeArguments = tree.instance.typeArguments.map((x) => getTypeMetadata(x, scope));
       const attribute = declaration.getMethodAttribute(
@@ -27,6 +27,7 @@ export class CallExpressionMetadata extends ExpressionMetadata {
       );
       this.type = attribute.type;
     } else {
+      const instanceType = getExpressionMetadata(tree.instance, scope).type;
       if (!(instanceType instanceof FunctionTypeMetadata))
         throw new Error(`Instance type is not a function but '${instanceType.constructor.name}'`);
 
