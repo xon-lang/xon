@@ -9,6 +9,7 @@ import { DeclarationMetadata } from '../declaration-metadata';
 export class AttributeDeclarationMetadata extends DeclarationMetadata {
   name: string;
   type: TypeMetadata;
+  typeParameters: TypeMetadata[];
 
   constructor(tree: AttributeTree, scope: DeclarationScope) {
     super();
@@ -24,5 +25,10 @@ export class AttributeDeclarationMetadata extends DeclarationMetadata {
 
       this.type = getExpressionMetadata(statement.expression, scope).type;
     }
+  }
+
+  useTypeParameters(typeParameters: TypeMetadata[]): AttributeDeclarationMetadata {
+    this.typeParameters = typeParameters;
+    return this;
   }
 }

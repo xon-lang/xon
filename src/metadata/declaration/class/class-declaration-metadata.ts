@@ -4,6 +4,7 @@ import { FunctionTypeMetadata } from '../../type/function/function-type-metadata
 import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
 import { getTypeMetadata } from '../../type/type-metadata-helper';
+import { AttributeDeclarationMetadata } from '../attribute/attribute-declaration-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
 
 export class ClassDeclarationMetadata extends DeclarationMetadata {
@@ -30,11 +31,45 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
     return new FunctionTypeMetadata(initParameters, initResultType, this.scope);
   }
 
-  get(
+  getAttribute(name: string, typeArguments: TypeMetadata[]): AttributeDeclarationMetadata[] {
+    const attributesByName = this.tree.attributes.filter((x) => x.id.text === name);
+    if (!attributesByName.length) throw new Error(`'${name}' attribute not found`);
+
+    const attributesByTypeArguments = attributesByName.filter(
+      (x) => x.typeParameters.length === typeArguments.length,
+    );
+    if (!attributesByTypeArguments.length)
+      throw new Error(`${name}' attribute for '${typeArguments.length}' type parameters not found`);
+
+    return attributesByTypeArguments.map((x) =>
+      new AttributeDeclarationMetadata(x, this.scope).useTypeParameters(typeArguments),
+    );
+  }
+
+  getMethodAttribute(
     name: string,
-    typeParametersCount: number,
+    typeArguments: TypeMetadata[],
     expressionParameters: TypeMetadata[],
-  ): TypeMetadata {
-    this.tree.attributes.filter((x) => x.id.text === name);
+  ): AttributeDeclarationMetadata {
+    const attributesByFunctionType = this.getAttribute(name, typeArguments).filter(
+      (x) => x.type instanceof FunctionTypeMetadata,
+    );
+    if (!attributesByFunctionType.length) throw new Error(`'${name}' attribute method not found`);
+
+    const attributesByExpressionParameters = attributesByFunctionType
+      .map((x) => ({
+        type: x.type as FunctionTypeMetadata,
+        attribute: x,
+      }))
+      .filter(
+        (x) =>
+          x.type.parameters.length === expressionParameters.length &&
+          x.type.parameters.every((x, i) => x.type.is(expressionParameters[i])),
+      );
+
+    if (attributesByExpressionParameters.length > 1)
+      throw new Error(`Too many attribute with name '${name}'`);
+
+    return attributesByExpressionParameters[0].attribute;
   }
 }

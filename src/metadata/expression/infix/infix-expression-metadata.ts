@@ -12,6 +12,6 @@ export class InfixExpressionMetadata extends ExpressionMetadata {
 
     const declaration = getExpressionMetadata(tree.left, scope).type.declaration;
     const rightType = getExpressionMetadata(tree.right, scope).type;
-    this.type = declaration.get(tree.id.text);
+    // this.type = declaration.get(tree.id.text);
   }
 }
