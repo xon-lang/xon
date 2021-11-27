@@ -24,4 +24,8 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
     const initResultType = new IdTypeMetadata(this.name, typeArguments, scope);
     return new FunctionTypeMetadata(initParameters, initResultType, scope);
   }
+
+  get(name: string): TypeMetadata {
+    return null;
+  }
 }
