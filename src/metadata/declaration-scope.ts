@@ -6,9 +6,9 @@ export class DeclarationScope {
   constructor(public parent?: DeclarationScope) {}
 
   set(declaration: DeclarationMetadata) {
-    const name = declaration.id.text;
-    if (this.declarations.has(name)) throw new Error(`'${name}' already exists`);
-    this.declarations.set(name, declaration);
+    if (this.declarations.has(declaration.name))
+      throw new Error(`'${declaration.name}' already exists`);
+    this.declarations.set(declaration.name, declaration);
   }
 
   get(name: string): DeclarationMetadata {
