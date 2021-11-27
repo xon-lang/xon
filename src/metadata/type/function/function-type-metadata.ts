@@ -1,4 +1,4 @@
-import { FunctionTypeTree } from '../../../../tree/type/function-type/function-type.tree';
+import { FunctionTypeTree } from '../../../tree/type/function-type/function-type.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { ClassDeclarationMetadata } from '../../declaration/class/class-declaration-metadata';
 import { TypeMetadata } from '../type-metadata';

@@ -1,4 +1,4 @@
-import { IdTypeTree } from '../../../../tree/type/id-type/id-type.tree';
+import { IdTypeTree } from '../../../tree/type/id-type/id-type.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { ClassDeclarationMetadata } from '../../declaration/class/class-declaration-metadata';
 import { TypeMetadata } from '../type-metadata';

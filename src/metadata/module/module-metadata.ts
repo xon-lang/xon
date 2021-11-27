@@ -1,7 +1,7 @@
 import * as glob from 'glob';
 import * as path from 'path';
-import { ClassDefinitionTree } from '../../../tree/definition/class-definition/class-definition-tree';
-import { parseSourceFile } from '../../../tree/parse';
+import { ClassDefinitionTree } from '../../tree/definition/class-definition/class-definition-tree';
+import { parseSourceFile } from '../../tree/parse';
 import { DeclarationScope } from '../declaration-scope';
 import { AttributeDeclarationMetadata } from '../declaration/attribute/attribute-declaration-metadata';
 import { ClassDeclarationMetadata } from '../declaration/class/class-declaration-metadata';

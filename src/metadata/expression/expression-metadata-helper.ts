@@ -1,7 +1,7 @@
-import { CallExpressionTree } from '../../../tree/expression/call-expression/call-expression.tree';
-import { ExpressionTree } from '../../../tree/expression/expression.tree';
-import { IdExpressionTree } from '../../../tree/expression/id-expression/id-expression.tree';
-import { LiteralExpressionTree } from '../../../tree/expression/literal-expression/literal-expression.tree';
+import { CallExpressionTree } from '../../tree/expression/call-expression/call-expression.tree';
+import { ExpressionTree } from '../../tree/expression/expression.tree';
+import { IdExpressionTree } from '../../tree/expression/id-expression/id-expression.tree';
+import { LiteralExpressionTree } from '../../tree/expression/literal-expression/literal-expression.tree';
 import { DeclarationScope } from '../declaration-scope';
 import { CallExpressionMetadata } from './call/call-expression-metadata';
 import { ExpressionMetadata } from './expression-metadata';

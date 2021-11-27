@@ -1,5 +1,5 @@
 import { FunctionExpressionContext, IndexerExpressionContext } from '../../../grammar/xon-parser';
-import { CallExpressionMetadata } from '../../../metadata/handler/expression/call/call-expression-metadata';
+import { CallExpressionMetadata } from '../../../metadata/expression/call/call-expression-metadata';
 import { getExpressionsTrees, getExpressionTree } from '../expression-tree.helper';
 import { ExpressionTree } from '../expression.tree';
 

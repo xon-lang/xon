@@ -1,4 +1,4 @@
-import { CallExpressionTree } from '../../../../tree/expression/call-expression/call-expression.tree';
+import { CallExpressionTree } from '../../../tree/expression/call-expression/call-expression.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';

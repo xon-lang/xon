@@ -1,5 +1,5 @@
 import { IdExpressionContext } from '../../../grammar/xon-parser';
-import { IdExpressionMetadata } from '../../../metadata/handler/expression/id/id-expression-metadata';
+import { IdExpressionMetadata } from '../../../metadata/expression/id/id-expression-metadata';
 import { IdToken } from '../../id-token';
 import { getTypesTrees } from '../../type/type-tree.helper';
 import { TypeTree } from '../../type/type.tree';

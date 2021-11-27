@@ -1,4 +1,4 @@
-import { LiteralTree } from '../../../../tree/literal/literal.tree';
+import { LiteralTree } from '../../../tree/literal/literal.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { ClassDeclarationMetadata } from '../../declaration/class/class-declaration-metadata';
 import { TypeMetadata } from '../type-metadata';

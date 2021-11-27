@@ -1,4 +1,4 @@
-import { IdExpressionTree } from '../../../../tree/expression/id-expression/id-expression.tree';
+import { IdExpressionTree } from '../../../tree/expression/id-expression/id-expression.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { AttributeDeclarationMetadata } from '../../declaration/attribute/attribute-declaration-metadata';
 import { ClassDeclarationMetadata } from '../../declaration/class/class-declaration-metadata';
