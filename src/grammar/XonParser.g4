@@ -89,7 +89,6 @@ type:
     | type '[' ']'                 # arrayType
     | type '||' type               # unionType
     | functionParameters type?     # functionType
-    | indexerParameters type?      # indexerType
     | '[' type (',' type)* ']'     # tupleType
     | '(' type ')'                 # parenthesizedType
     ;
