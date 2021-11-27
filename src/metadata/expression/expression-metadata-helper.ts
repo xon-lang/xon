@@ -5,6 +5,7 @@ import { InfixExpressionTree } from '../../tree/expression/infix-expression/infi
 import { LambdaExpressionTree } from '../../tree/expression/lambda-expression/lambda-expression.tree';
 import { LiteralExpressionTree } from '../../tree/expression/literal-expression/literal-expression.tree';
 import { MemberExpressionTree } from '../../tree/expression/member-expression/member-expression.tree';
+import { ParenthesizedExpressionTree } from '../../tree/expression/parenthesized-expression/parenthesized-expression.tree';
 import { DeclarationScope } from '../declaration-scope';
 import { CallExpressionMetadata } from './call/call-expression-metadata';
 import { ExpressionMetadata } from './expression-metadata';
@@ -18,6 +19,9 @@ export function getExpressionMetadata(
   tree: ExpressionTree,
   scope: DeclarationScope,
 ): ExpressionMetadata {
+  if (tree instanceof ParenthesizedExpressionTree)
+    return (tree.metadata = getExpressionMetadata(tree.value, scope));
+
   if (tree instanceof CallExpressionTree)
     return (tree.metadata = new CallExpressionMetadata(tree, scope));
   if (tree instanceof IdExpressionTree)
