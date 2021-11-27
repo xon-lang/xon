@@ -81,7 +81,7 @@ expression:
     | left = expression op = ('==' | '!=') right = expression                # equalityExpression
     | left = expression op = '&&' right = expression                         # conjunctionExpression
     | left = expression op = '||' right = expression                         # disjunctionExpression
-    | expression '|' name = LOWER_ID ':' expression                          # pipeExpression
+    | expression '|' (name = LOWER_ID ':')? expression                        # pipeExpression
     | functionParameters ':' expression                                      # lambdaExpression
     ;
 
