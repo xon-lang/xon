@@ -13,9 +13,7 @@ export class FunctionTypeMetadata extends TypeMetadata {
     public scope: DeclarationScope,
   ) {
     super();
-    this.declaration = scope.get(
-      this.constructor.name.replace('TypeMetadata', ''),
-    ) as ClassDeclarationMetadata;
+    this.declaration = scope.get('Function') as ClassDeclarationMetadata;
   }
 
   static fromTree(tree: FunctionTypeTree, scope: DeclarationScope) {
