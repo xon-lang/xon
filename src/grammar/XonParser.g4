@@ -66,10 +66,12 @@ expression:
     | literal                                                                # literalExpression
     | expression (functionArguments | indexerArguments)                      # callExpression
     | expression ('?.' | '.') name = LOWER_ID typeArguments?                 # memberExpression
+    | expression IS type                                                     # isExpression
+    | expression AS type                                                     # asExpression
     | '(' expression ')'                                                     # parenthesizedExpression
     | '[' (expression (',' expression)*)? ']'                                # arrayExpression
     | op = ('!' | '-' | '+') expression                                      # prefixExpression
-    | left = expression op = (LOWER_ID | AS | IS | IN) right = expression    # infixExpression
+    | left = expression op = (LOWER_ID | IN) right = expression              # infixExpression
     | left = expression op = '^' right = expression                          # powExpression
     | left = expression op = ('*' | '/' | '%') right = expression            # mulDivModExpression
     | left = expression op = ('+' | '-') right = expression                  # addSubExpression
