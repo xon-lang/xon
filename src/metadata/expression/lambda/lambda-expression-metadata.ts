@@ -2,6 +2,7 @@ import { LambdaExpressionTree } from '../../../tree/expression/lambda-expression
 import { DeclarationScope } from '../../declaration-scope';
 import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
+import { getExpressionMetadata } from '../expression-metadata-helper';
 
 export class LambdaExpressionMetadata extends ExpressionMetadata {
   type: FunctionTypeMetadata;
@@ -9,6 +10,10 @@ export class LambdaExpressionMetadata extends ExpressionMetadata {
   constructor(tree: LambdaExpressionTree, scope: DeclarationScope) {
     super();
 
-    // this.type = ;
+    this.type = new FunctionTypeMetadata(
+      [],
+      getExpressionMetadata(tree.expression, scope).type,
+      scope,
+    );
   }
 }
