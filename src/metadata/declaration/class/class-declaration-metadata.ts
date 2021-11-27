@@ -1,5 +1,5 @@
-import { ClassDefinitionTree } from '../../../../tree/definition/class-definition/class-definition-tree';
-import { IdToken } from '../../../../tree/id-token';
+import { ClassDefinitionTree } from '../../../tree/definition/class-definition/class-definition-tree';
+import { IdToken } from '../../../tree/id-token';
 import { DeclarationScope } from '../../declaration-scope';
 import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';
 import { IdTypeMetadata } from '../../type/id/id-type-metadata';
