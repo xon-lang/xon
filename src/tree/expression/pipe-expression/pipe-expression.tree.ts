@@ -1,8 +1,10 @@
 import { PipeExpressionContext } from '../../../grammar/xon-parser';
+import { PipeExpressionMetadata } from '../../../metadata/expression/pipe/pipe-expression-metadata';
 import { getExpressionTree } from '../expression-tree.helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class PipeExpressionTree extends ExpressionTree {
+  metadata: PipeExpressionMetadata;
   arg: string;
   left: ExpressionTree;
   right: ExpressionTree;

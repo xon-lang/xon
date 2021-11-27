@@ -1,4 +1,5 @@
 import { MemberExpressionContext } from '../../../grammar/xon-parser';
+import { MemberExpressionMetadata } from '../../../metadata/expression/member/member-expression-metadata';
 import { IdToken } from '../../id-token';
 import { getTypesTrees } from '../../type/type-tree.helper';
 import { TypeTree } from '../../type/type.tree';
@@ -6,6 +7,7 @@ import { getExpressionTree } from '../expression-tree.helper';
 import { ExpressionTree } from '../expression.tree';
 
 export class MemberExpressionTree extends ExpressionTree {
+  metadata: MemberExpressionMetadata;
   instance: ExpressionTree;
   isSafe: boolean;
   id: IdToken;
