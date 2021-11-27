@@ -22,7 +22,7 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
           type: getTypeMetadata(x.type, scope),
         }))
       : [];
-    const initResultType = new IdTypeMetadata(typeArguments, this, scope);
-    return new FunctionTypeMetadata(initParameters, initResultType, this, );
+    const initResultType = new IdTypeMetadata(this.name, typeArguments, scope);
+    return new FunctionTypeMetadata(initParameters, initResultType, scope);
   }
 }
