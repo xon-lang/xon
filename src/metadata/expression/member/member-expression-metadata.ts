@@ -11,6 +11,6 @@ export class MemberExpressionMetadata extends ExpressionMetadata {
     super();
 
     const declaration = getExpressionMetadata(tree.instance, scope).type.declaration;
-    this.type = declaration.get(tree.id.text);
+    // this.type = declaration.get(tree.id.text);
   }
 }

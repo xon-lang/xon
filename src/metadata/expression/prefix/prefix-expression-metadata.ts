@@ -11,6 +11,6 @@ export class PrefixExpressionMetadata extends ExpressionMetadata {
     super();
 
     const declaration = getExpressionMetadata(tree.value, scope).type.declaration;
-    this.type = declaration.get(tree.id.text);
+    // this.type = declaration.get(tree.id.text);
   }
 }
