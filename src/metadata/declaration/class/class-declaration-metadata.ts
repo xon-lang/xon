@@ -15,10 +15,19 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
     this.name = tree.id.text;
   }
 
-  baseType(): IdTypeMetadata | null {
+  ancestor(): IdTypeMetadata {
     if (!this.tree.baseType) return null;
     return getTypeMetadata(this.tree.baseType, this.scope) as IdTypeMetadata;
   }
+
+  // ancestors() {
+  //   const result = [];
+  //   let ancestor = null;
+  //   while ((ancestor = this.ancestor())) {
+  //     result.push(ancestor);
+  //   }
+  //   return result;
+  // }
 
   init(typeArguments: TypeMetadata[]): FunctionTypeMetadata {
     const initParameters = this.tree.parameters
@@ -33,7 +42,8 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
 
   getAttribute(name: string, typeArguments: TypeMetadata[]): AttributeDeclarationMetadata[] {
     const attributesByName = this.tree.attributes.filter((x) => x.id.text === name);
-    if (!attributesByName.length) throw new Error(`'${name}' attribute not found`);
+    if (!attributesByName.length)
+      throw new Error(`'${name}' attribute not found in '${this.name}' declaration`);
 
     const attributesByTypeArguments = attributesByName.filter(
       (x) => x.typeParameters.length === typeArguments.length,
@@ -47,14 +57,15 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
   }
 
   getMethodAttribute(
-    name: string,
+    methodName: string,
     typeArguments: TypeMetadata[],
     expressionParameters: TypeMetadata[],
   ): AttributeDeclarationMetadata {
-    const attributesByFunctionType = this.getAttribute(name, typeArguments).filter(
+    const attributesByFunctionType = this.getAttribute(methodName, typeArguments).filter(
       (x) => x.type instanceof FunctionTypeMetadata,
     );
-    if (!attributesByFunctionType.length) throw new Error(`'${name}' attribute method not found`);
+    if (!attributesByFunctionType.length)
+      throw new Error(`'${methodName}' attribute method not found`);
 
     const attributesByExpressionParameters = attributesByFunctionType
       .map((x) => ({
@@ -67,8 +78,11 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
           x.type.parameters.every((x, i) => x.type.is(expressionParameters[i])),
       );
 
+    if (!attributesByExpressionParameters.length)
+      throw new Error(`'${methodName}' attribute method not found`);
+
     if (attributesByExpressionParameters.length > 1)
-      throw new Error(`Too many attribute with name '${name}'`);
+      throw new Error(`Too many attribute with name '${methodName}'`);
 
     return attributesByExpressionParameters[0].attribute;
   }
