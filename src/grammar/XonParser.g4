@@ -62,26 +62,26 @@ assignment:
     ;
 
 expression:
-    name = (LOWER_ID | UPPER_ID | INSTANCE_MEMBER | '$') typeArguments?   # idExpression
-    | literal                                                             # literalExpression
-    | expression functionArguments                                        # functionExpression
-    | expression indexerArguments                                         # indexerExpression
-    | expression ('?.' | '.') name = LOWER_ID typeArguments?              # memberExpression
-    | '(' expression ')'                                                  # parenthesizedExpression
-    | '[' (expression (',' expression)*)? ']'                             # arrayExpression
-    | op = ('!' | '-' | '+') expression                                   # prefixExpression
-    | left = expression op = (LOWER_ID | AS | IS | IN) right = expression # infixExpression
-    | left = expression op = '^' right = expression                       # powExpression
-    | left = expression op = ('*' | '/' | '%') right = expression         # mulDivModExpression
-    | left = expression op = ('+' | '-') right = expression               # addSubExpression
-    | left = expression op = '..' right = expression                      # rangeExpression
-    | left = expression op = '?' right = expression                       # elvisExpression
-    | left = expression op = ('<' | '<=' | '>=' | '>') right = expression # relationalExpression
-    | left = expression op = ('==' | '!=') right = expression             # equalityExpression
-    | left = expression op = '&&' right = expression                      # conjunctionExpression
-    | left = expression op = '||' right = expression                      # disjunctionExpression
-    | expression '|' name = LOWER_ID ':' expression                       # pipeExpression
-    | functionParameters ':' expression                                   # lambdaExpression
+    name = (LOWER_ID | UPPER_ID | INSTANCE | INSTANCE_MEMBER) typeArguments? # idExpression
+    | literal                                                                # literalExpression
+    | expression functionArguments                                           # functionExpression
+    | expression indexerArguments                                            # indexerExpression
+    | expression ('?.' | '.') name = LOWER_ID typeArguments?                 # memberExpression
+    | '(' expression ')'                                                     # parenthesizedExpression
+    | '[' (expression (',' expression)*)? ']'                                # arrayExpression
+    | op = ('!' | '-' | '+') expression                                      # prefixExpression
+    | left = expression op = (LOWER_ID | AS | IS | IN) right = expression    # infixExpression
+    | left = expression op = '^' right = expression                          # powExpression
+    | left = expression op = ('*' | '/' | '%') right = expression            # mulDivModExpression
+    | left = expression op = ('+' | '-') right = expression                  # addSubExpression
+    | left = expression op = '..' right = expression                         # rangeExpression
+    | left = expression op = '?' right = expression                          # elvisExpression
+    | left = expression op = ('<' | '<=' | '>=' | '>') right = expression    # relationalExpression
+    | left = expression op = ('==' | '!=') right = expression                # equalityExpression
+    | left = expression op = '&&' right = expression                         # conjunctionExpression
+    | left = expression op = '||' right = expression                         # disjunctionExpression
+    | expression '|' name = LOWER_ID ':' expression                          # pipeExpression
+    | functionParameters ':' expression                                      # lambdaExpression
     ;
 
 type:

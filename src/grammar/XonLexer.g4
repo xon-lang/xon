@@ -64,7 +64,6 @@ TILDE:       '~';
 ASSIGN:      '=';
 EQUAL:       '==';
 NOT_EQUAL:   '!=';
-DOLLAR:      '$';
 MODULO:      '%';
 QUESTION:    '?';
 COALESCING:  '?.';
@@ -76,7 +75,8 @@ UNDERSCORE:  '_';
 EXCLAMATION: '!';
 BACK_SLASH:  '\\';
 
-INSTANCE_MEMBER: '$' LOWER_ID;
+INSTANCE:        '$';
+INSTANCE_MEMBER: INSTANCE LOWER_ID;
 
 FLOAT_LITERAL:
     [0-9][0-9]? [xX] AlphabetNumber '.' AlphabetNumber
