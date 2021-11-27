@@ -1,5 +1,4 @@
 import { AttributeTree } from '../../../tree/attribute/attribute-tree';
-import { IdToken } from '../../../tree/id-token';
 import { ExpressionStatementTree } from '../../../tree/statement/expression-statement/expression-statement.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { getExpressionMetadata } from '../../expression/expression-metadata-helper';
@@ -8,13 +7,13 @@ import { getTypeMetadata } from '../../type/type-metadata-helper';
 import { DeclarationMetadata } from '../declaration-metadata';
 
 export class AttributeDeclarationMetadata extends DeclarationMetadata {
-  id: IdToken;
+  name: string;
   type: TypeMetadata;
 
   constructor(tree: AttributeTree, scope: DeclarationScope) {
     super();
 
-    this.id = tree.id;
+    this.name = tree.id.text;
     if (tree.type) this.type = getTypeMetadata(tree.type, scope);
     else {
       if (tree.body.length > 1) throw new Error('Body must have only expression');

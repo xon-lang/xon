@@ -12,7 +12,7 @@ test('null', () => {
 
   expect(metadata.type).toBeInstanceOf(IdTypeMetadata);
   const type = metadata.type as IdTypeMetadata;
-  expect(type.name).toBe('Null');
+  expect(type.declaration.name).toBe('Null');
 });
 
 test('true', () => {
@@ -23,5 +23,5 @@ test('true', () => {
 
   expect(metadata.type).toBeInstanceOf(IdTypeMetadata);
   const type = metadata.type as IdTypeMetadata;
-  expect(type.name).toBe('Boolean');
+  expect(type.declaration.name).toBe('Boolean');
 });

@@ -1,5 +1,4 @@
 import { ClassDefinitionTree } from '../../../tree/definition/class-definition/class-definition-tree';
-import { IdToken } from '../../../tree/id-token';
 import { DeclarationScope } from '../../declaration-scope';
 import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';
 import { IdTypeMetadata } from '../../type/id/id-type-metadata';
@@ -8,12 +7,12 @@ import { getTypeMetadata } from '../../type/type-metadata-helper';
 import { DeclarationMetadata } from '../declaration-metadata';
 
 export class ClassDeclarationMetadata extends DeclarationMetadata {
-  id: IdToken;
+  name: string;
 
   constructor(private tree: ClassDefinitionTree) {
     super();
 
-    this.id = tree.id;
+    this.name = tree.id.text;
   }
 
   init(typeArguments: TypeMetadata[], scope: DeclarationScope) {
