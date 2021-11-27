@@ -74,8 +74,9 @@ AND:         '&&';
 OR:          '||';
 UNDERSCORE:  '_';
 EXCLAMATION: '!';
+BACK_SLASH:  '\\';
 
-BACK_SLASH: '\\';
+INSTANCE_MEMBER: '$' LOWER_ID;
 
 FLOAT_LITERAL:
     [0-9][0-9]? [xX] AlphabetNumber '.' AlphabetNumber
