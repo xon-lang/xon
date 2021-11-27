@@ -64,8 +64,7 @@ assignment:
 expression:
     name = (LOWER_ID | UPPER_ID | INSTANCE | INSTANCE_MEMBER) typeArguments? # idExpression
     | literal                                                                # literalExpression
-    | expression functionArguments                                           # functionExpression
-    | expression indexerArguments                                            # indexerExpression
+    | expression (functionArguments | indexerArguments)                      # callExpression
     | expression ('?.' | '.') name = LOWER_ID typeArguments?                 # memberExpression
     | '(' expression ')'                                                     # parenthesizedExpression
     | '[' (expression (',' expression)*)? ']'                                # arrayExpression
