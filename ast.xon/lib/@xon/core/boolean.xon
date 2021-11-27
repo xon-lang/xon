@@ -1,4 +1,6 @@
-Boolean
+Boolean:
+  prefix not () Boolean
+
 
 false: Boolean(0)
 true:  Boolean(1)
