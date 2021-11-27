@@ -84,14 +84,14 @@ expression:
     ;
 
 type:
-    name = UPPER_ID typeArguments?         # idType
-    | type '?'                             # nullableType
-    | type '[' size = INTEGER_LITERAL? ']' # arrayType
-    | type '||' type                       # unionType
-    | functionParameters type?             # functionType
-    | indexerParameters type?              # indexerType
-    | '[' type (',' type)* ']'             # tupleType
-    | '(' type ')'                         # parenthesizedType
+    name = UPPER_ID typeArguments? # idType
+    | type '?'                     # nullableType
+    | type '[' ']'                 # arrayType
+    | type '||' type               # unionType
+    | functionParameters type?     # functionType
+    | indexerParameters type?      # indexerType
+    | '[' type (',' type)* ']'     # tupleType
+    | '(' type ')'                 # parenthesizedType
     ;
 
 literal:
