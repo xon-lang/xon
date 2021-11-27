@@ -18,14 +18,13 @@ export class CallExpressionMetadata extends ExpressionMetadata {
       .map((x) => x.type);
     if (tree.instance instanceof MemberExpressionTree) {
       const instanceType = getExpressionMetadata(tree.instance.instance, scope).type;
-      const declaration = instanceType.declaration;
       const typeArguments = tree.instance.typeArguments.map((x) => getTypeMetadata(x, scope));
-      const attribute = declaration.getMethodAttribute(
+      const attribute = instanceType.declaration.getMethodAttribute(
         tree.instance.id.text,
         typeArguments,
         expressionParameters,
       );
-      this.type = attribute.type;
+      this.type = (attribute.type as FunctionTypeMetadata).resultType;
     } else {
       const instanceType = getExpressionMetadata(tree.instance, scope).type;
       if (!(instanceType instanceof FunctionTypeMetadata))
