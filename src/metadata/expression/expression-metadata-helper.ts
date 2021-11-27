@@ -6,6 +6,7 @@ import { LambdaExpressionTree } from '../../tree/expression/lambda-expression/la
 import { LiteralExpressionTree } from '../../tree/expression/literal-expression/literal-expression.tree';
 import { MemberExpressionTree } from '../../tree/expression/member-expression/member-expression.tree';
 import { ParenthesizedExpressionTree } from '../../tree/expression/parenthesized-expression/parenthesized-expression.tree';
+import { PipeExpressionTree } from '../../tree/expression/pipe-expression/pipe-expression.tree';
 import { DeclarationScope } from '../declaration-scope';
 import { CallExpressionMetadata } from './call/call-expression-metadata';
 import { ExpressionMetadata } from './expression-metadata';
@@ -14,6 +15,7 @@ import { InfixExpressionMetadata } from './infix/infix-expression-metadata';
 import { LambdaExpressionMetadata } from './lambda/lambda-expression-metadata';
 import { LiteralExpressionMetadata } from './literal/literal-expression-metadata';
 import { MemberExpressionMetadata } from './member/member-expression-metadata';
+import { PipeExpressionMetadata } from './pipe/pipe-expression-metadata';
 
 export function getExpressionMetadata(
   tree: ExpressionTree,
@@ -34,4 +36,6 @@ export function getExpressionMetadata(
     return (tree.metadata = new LiteralExpressionMetadata(tree, scope));
   if (tree instanceof MemberExpressionTree)
     return (tree.metadata = new MemberExpressionMetadata(tree, scope));
+  if (tree instanceof PipeExpressionTree)
+    return (tree.metadata = new PipeExpressionMetadata(tree, scope));
 }
