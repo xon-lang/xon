@@ -10,6 +10,7 @@ import {
   ExpressionContext,
   IdExpressionContext,
   InfixExpressionContext,
+  IsExpressionContext,
   LambdaExpressionContext,
   LiteralExpressionContext,
   MemberExpressionContext,
@@ -27,6 +28,7 @@ import { CallExpressionTree } from './call-expression/call-expression.tree';
 import { ExpressionTree } from './expression.tree';
 import { IdExpressionTree } from './id-expression/id-expression.tree';
 import { InfixExpressionTree } from './infix-expression/infix-expression.tree';
+import { IsExpressionTree } from './is-expression/is-expression.tree';
 import { LambdaExpressionTree } from './lambda-expression/lambda-expression.tree';
 import { LiteralExpressionTree } from './literal-expression/literal-expression.tree';
 import { MemberExpressionTree } from './member-expression/member-expression.tree';
@@ -38,14 +40,15 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx === undefined) return undefined;
 
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
+  if (ctx instanceof CallExpressionContext) return new CallExpressionTree(ctx);
   if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);
+  if (ctx instanceof IsExpressionContext) return new IsExpressionTree(ctx);
   if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
   if (ctx instanceof LiteralExpressionContext) return new LiteralExpressionTree(ctx);
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
-  if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
   if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionTree(ctx);
   if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);
-  if (ctx instanceof CallExpressionContext) return new CallExpressionTree(ctx);
+  if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
 
   if (
     ctx instanceof InfixExpressionContext ||
