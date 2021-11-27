@@ -11,7 +11,6 @@ import {
   IdExpressionContext,
   IndexerExpressionContext,
   InfixExpressionContext,
-  InstanceMemberExpressionContext,
   LambdaExpressionContext,
   LiteralExpressionContext,
   MemberExpressionContext,
@@ -29,7 +28,6 @@ import { CallExpressionTree } from './call-expression/call-expression.tree';
 import { ExpressionTree } from './expression.tree';
 import { IdExpressionTree } from './id-expression/id-expression.tree';
 import { InfixExpressionTree } from './infix-expression/infix-expression.tree';
-import { InstanceMemberExpressionTree } from './instance-member-expression/instance-member-expression.tree';
 import { LambdaExpressionTree } from './lambda-expression/lambda-expression.tree';
 import { LiteralExpressionTree } from './literal-expression/literal-expression.tree';
 import { MemberExpressionTree } from './member-expression/member-expression.tree';
@@ -42,7 +40,6 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
 
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
   if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);
-  if (ctx instanceof InstanceMemberExpressionContext) return new InstanceMemberExpressionTree(ctx);
   if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
   if (ctx instanceof LiteralExpressionContext) return new LiteralExpressionTree(ctx);
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
