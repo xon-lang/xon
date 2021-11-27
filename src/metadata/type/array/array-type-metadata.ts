@@ -10,11 +10,26 @@ export class ArrayTypeMetadata extends TypeMetadata {
   itemType: TypeMetadata;
   size?: number;
 
-  constructor(tree: ArrayTypeTree, scope: DeclarationScope) {
+  constructor(tree?: ArrayTypeTree, scope?: DeclarationScope) {
     super();
+    if (!tree) return;
 
     this.name = tree.name;
     this.declaration = scope.get(this.name) as ClassDeclarationMetadata;
     this.itemType = getTypeMetadata(tree.itemType, scope);
+  }
+
+  static fromParams(
+    name: string,
+    declaration: ClassDeclarationMetadata,
+    itemType: TypeMetadata,
+    size?: number,
+  ): ArrayTypeMetadata {
+    const metadata = new ArrayTypeMetadata();
+    metadata.name = name;
+    metadata.declaration = declaration;
+    metadata.itemType = itemType;
+    metadata.size = size;
+    return metadata;
   }
 }
