@@ -10,7 +10,7 @@ export class MemberExpressionMetadata extends ExpressionMetadata {
   constructor(tree: MemberExpressionTree, scope: DeclarationScope) {
     super();
 
-    const instanceDeclaration = getExpressionMetadata(tree.instance, scope).type.declaration;
-    this.type = instanceDeclaration.get(tree.id.text);
+    const declaration = getExpressionMetadata(tree.instance, scope).type.declaration;
+    this.type = declaration.get(tree.id.text);
   }
 }

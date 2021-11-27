@@ -10,8 +10,8 @@ export class InfixExpressionMetadata extends ExpressionMetadata {
   constructor(tree: InfixExpressionTree, scope: DeclarationScope) {
     super();
 
-    const leftDeclaration = getExpressionMetadata(tree.left, scope).type.declaration;
+    const declaration = getExpressionMetadata(tree.left, scope).type.declaration;
     const rightType = getExpressionMetadata(tree.right, scope).type;
-    this.type = leftDeclaration.get(tree.id.text);
+    this.type = declaration.get(tree.id.text);
   }
 }
