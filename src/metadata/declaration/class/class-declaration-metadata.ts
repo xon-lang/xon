@@ -70,7 +70,7 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
 
     const attributesByExpressionParameters = attributesByFunctionType
       .map((x) => ({
-        type: x.type() as FunctionTypeMetadata,
+        type: x.type(typeArguments) as FunctionTypeMetadata,
         attribute: x,
       }))
       .filter(

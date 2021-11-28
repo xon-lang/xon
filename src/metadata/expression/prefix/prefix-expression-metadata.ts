@@ -12,7 +12,7 @@ export class PrefixExpressionMetadata extends ExpressionMetadata {
     super();
 
     const declaration = getExpressionMetadata(tree.value, scope).type.declaration;
-    const attributeType = declaration.getMethodAttribute(tree.id.text, [], []).type();
+    const attributeType = declaration.getMethodAttribute(tree.id.text, [], []).type([]);
     if (attributeType instanceof FunctionTypeMetadata) this.type = attributeType.resultType;
     else throw new Error('Wrong method type');
   }
