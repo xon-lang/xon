@@ -22,3 +22,13 @@ test('private value with type', () => {
   expect(tree.isPrivate).toBe(true);
   expect(tree.type.name).toBe('Integer');
 });
+
+test('array value', () => {
+  const code = 'a<T> T[] = []';
+  const tree = parseAttribute<ValueAttributeTree>(code);
+  expect(tree).toBeInstanceOf(ValueAttributeTree);
+
+  expect(tree.id.text).toBe('_a');
+  expect(tree.isPrivate).toBe(true);
+  expect(tree.type.name).toBe('Integer');
+});
