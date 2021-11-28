@@ -41,5 +41,5 @@ export const getStatementsTrees = (statements: StatementContext[]): StatementTre
 };
 
 export const getStatementsFromBody = (body: BodyContext): StatementTree[] => {
-  return getStatementsTrees(body.statement());
+  return getStatementsTrees(body?.statement());
 };

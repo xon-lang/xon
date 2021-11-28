@@ -7,7 +7,7 @@ test('value', () => {
   const tree = parseAttribute<ValueAttributeTree>(code);
   expect(tree).toBeInstanceOf(ValueAttributeTree);
 
-  expect(tree.id.text).toBe('s');
+  expect(tree.id.text).toBe('a');
   expect(tree.isPrivate).toBe(false);
   expect(tree.type.name).toBe('Array');
   expect((tree.type as IdTypeTree).typeArguments[0].name).toBe('String');
@@ -28,7 +28,7 @@ test('array value', () => {
   const tree = parseAttribute<ValueAttributeTree>(code);
   expect(tree).toBeInstanceOf(ValueAttributeTree);
 
-  expect(tree.id.text).toBe('_a');
+  expect(tree.id.text).toBe('a');
   expect(tree.isPrivate).toBe(true);
   expect(tree.type.name).toBe('Integer');
 });

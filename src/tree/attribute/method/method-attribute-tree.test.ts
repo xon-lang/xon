@@ -7,9 +7,9 @@ test('value', () => {
   const tree = parseAttribute<MethodAttributeTree>(code);
   expect(tree).toBeInstanceOf(MethodAttributeTree);
 
-  expect(tree.id.text).toBe('s');
+  expect(tree.id.text).toBe('a');
   expect(tree.isPrivate).toBe(false);
-  expect(tree.type.name).toBe('Array');
+  expect(tree.type.name).toBe('Integer');
   expect((tree.type as IdTypeTree).typeArguments[0].name).toBe('String');
 });
 
@@ -20,7 +20,7 @@ test('private value with type', () => {
 
   expect(tree.id.text).toBe('_a');
   expect(tree.isPrivate).toBe(true);
-  expect(tree.type.name).toBe('Integer');
+  expect(tree.type.name).toBe('Function');
 });
 
 test('array value', () => {
@@ -28,7 +28,7 @@ test('array value', () => {
   const tree = parseAttribute<MethodAttributeTree>(code);
   expect(tree).toBeInstanceOf(MethodAttributeTree);
 
-  expect(tree.id.text).toBe('_a');
+  expect(tree.id.text).toBe('a');
   expect(tree.isPrivate).toBe(true);
   expect(tree.type.name).toBe('Integer');
 });
