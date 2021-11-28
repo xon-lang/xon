@@ -34,3 +34,8 @@ A:
     a
     b
     c) = a
+
+
+tasks:
+  consistent helper methods (|| null || [])
+  remove complex folder names (definition/class-definition/class-definition-tree.ts)
