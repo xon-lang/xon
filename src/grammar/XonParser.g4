@@ -4,12 +4,7 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: (library | export | NL)* ( sourceMember | NL)*;
-sourceMember:
-    definition  # definitionSourceMember
-    | attribute # attributeSourceMember
-    | test      # testSourceMember
-    ;
+source: (library | export | NL)* ( definition | attribute | NL)*;
 
 export: EXPORT libraryPath;
 library:
@@ -22,15 +17,21 @@ libraryPath:     points += '.'* libraryPathPart ('.' libraryPathPart)*;
 libraryPathPart: '@'? LOWER_ID;
 libraryMember:   name = UPPER_ID (AS alias = UPPER_ID)?;
 
-test: TEST expression? body?;
-
 definition:
     name = UPPER_ID typeParameters? functionParameters? (IS type)? (
-        ':' NL+ INDENT ( classMember | NL)+ DEDENT
-    )? # classDefinition
+        NL+ INDENT ( attribute | NL)+ DEDENT
+    )?                         # classDefinition
+    | name = UPPER_ID '=' type # aliasDefinition
     ;
 
-classMember: attribute # attributeClassMember;
+attribute:
+    attributeHeader type? '=' expression                              # valueAttribute
+    | attributeHeader type? NL+ INDENT (statement | NL)+ DEDENT       # methodAttribute
+    | attributeHeader IS type (NL+ INDENT ( attribute | NL)+ DEDENT)? # definitionAttribute
+    ;
+attributeHeader:   attributeModifier* attributeName typeParameters?;
+attributeName:     (LOWER_ID | operator | INSTANCE);
+attributeModifier: INFIX | PREFIX | POSTFIX;
 
 statement:
     FOR (value = LOWER_ID (',' index = LOWER_ID)? IN)? expression body # forStatement
@@ -45,12 +46,6 @@ statement:
     | attribute                                                        # attributeStatement
     | assignment                                                       # assignmentStatement
     ;
-
-attribute:
-    attributeModifier* attributeName typeParameters? (type body? | type? body)
-    ;
-attributeName:     LOWER_ID | operator | '$';
-attributeModifier: INFIX | PREFIX | POSTFIX;
 
 assignment:
     name = LOWER_ID '=' expression                                      # idAssignment
@@ -68,8 +63,6 @@ expression:
     | expression ('?.' | '.') name = LOWER_ID typeArguments?                 # memberExpression
     | expression IS type                                                     # isExpression
     | expression AS type                                                     # asExpression
-    | '(' expression ')'                                                     # parenthesizedExpression
-    | '[' (expression (',' expression)*)? ']'                                # arrayExpression
     | op = ('!' | '-' | '+' | LOWER_ID | IN) expression                      # prefixExpression
     | left = expression op = (LOWER_ID | IN) right = expression              # infixExpression
     | left = expression op = '^' right = expression                          # powExpression
@@ -81,17 +74,22 @@ expression:
     | left = expression op = ('==' | '!=') right = expression                # equalityExpression
     | left = expression op = '&&' right = expression                         # conjunctionExpression
     | left = expression op = '||' right = expression                         # disjunctionExpression
-    | expression '|' (name = LOWER_ID ':')? expression                        # pipeExpression
+    | expression '|' (name = LOWER_ID ':')? expression                       # pipeExpression
     | functionParameters ':' expression                                      # lambdaExpression
+    | '{' (mapArgument (',' mapArgument)*)? '}'                              # mapExpression
+    | '[' (expression (',' expression)*)? ']'                                # arrayExpression
+    | '(' expression ')'                                                     # parenthesizedExpression
     ;
 
 type:
     name = UPPER_ID typeArguments? # idType
+    | literal                      # literalType
     | type '?'                     # nullableType
     | type '[' ']'                 # arrayType
     | type '||' type               # unionType
     | functionParameters type?     # functionType
-    | '[' type (',' type)* ']'     # tupleType
+    | '{' type ':' type '}'        # mapType
+    | '[' (type (',' type)*)? ']'  # tupleType
     | '(' type ')'                 # parenthesizedType
     ;
 
@@ -100,6 +98,8 @@ literal:
     | FLOAT_LITERAL  # floatLiteral
     | CHAR_LITERAL   # charLiteral
     | STRING_LITERAL # stringLiteral
+    | REGEX_LITERAL  # regexLiteral
+    // | literal '..' literal  # rangeLiteral
     ;
 
 operator:
@@ -120,9 +120,8 @@ operator:
 
 expressionParameter: name = LOWER_ID type? ('#' meta = UPPER_ID)?;
 functionParameters:  '(' (expressionParameter (',' expressionParameter)*)? ')';
-indexerParameters:   '[' (expressionParameter (',' expressionParameter)*)? ']';
-lambdaParameters:    expressionParameter (',' expressionParameter)*;
 
+mapArgument:       name = LOWER_ID ':' expression;
 functionArguments: '(' (expression (',' expression)*)? ')';
 indexerArguments:  '[' (expression (',' expression)*)? ']';
 
