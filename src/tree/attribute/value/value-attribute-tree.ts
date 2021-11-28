@@ -23,8 +23,8 @@ export class ValueAttributeTree extends AttributeTree {
     const header = ctx.attributeHeader();
     this.modifiers = header.attributeModifier().map((x) => new AttributeModifierTree(x));
     this.id = IdToken.fromContext(header.attributeName());
+    this.typeParameters = getTypeParametersTrees(header.typeParameters()) || [];
     this.type = getTypeTree(ctx.type()) || null;
     this.expression = getExpressionTree(ctx.expression()) || null;
-    this.typeParameters = getTypeParametersTrees(header.typeParameters()) || [];
   }
 }
