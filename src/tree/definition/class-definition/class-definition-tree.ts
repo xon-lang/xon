@@ -1,5 +1,6 @@
 import { ClassDefinitionContext } from '../../../grammar/xon-parser';
 import { AttributeTree } from '../../attribute/attribute-tree';
+import { getAttributeTree } from '../../attribute/attribute-tree.helper';
 import { getExpressionParametersTrees } from '../../expression-parameter/expression-parameter-tree.helper';
 import { ExpressionParameterTree } from '../../expression-parameter/expression-parameter.tree';
 import { IdToken } from '../../id-token';
@@ -8,8 +9,6 @@ import { TypeParameterTree } from '../../type-parameter/type-parameter.tree';
 import { getTypeTree } from '../../type/type-tree.helper';
 import { TypeTree } from '../../type/type.tree';
 import { DefinitionTree } from '../definition-tree';
-import { AttributeClassMemberTree } from './class-member/attribute-class-member/attribute-class-member-tree';
-import { getClassMembersTrees } from './class-member/class-member-tree.helper';
 
 export class ClassDefinitionTree extends DefinitionTree {
   typeParameters: TypeParameterTree[] = [];
@@ -25,8 +24,6 @@ export class ClassDefinitionTree extends DefinitionTree {
     this.typeParameters = getTypeParametersTrees(ctx.typeParameters());
     this.parameters = getExpressionParametersTrees(ctx.functionParameters());
     this.baseType = getTypeTree(ctx.type());
-    this.attributes = getClassMembersTrees(ctx.classMember()).map(
-      (x) => (x as AttributeClassMemberTree).attribute,
-    );
+    this.attributes = ctx.attribute().map((x) => getAttributeTree(x));
   }
 }
