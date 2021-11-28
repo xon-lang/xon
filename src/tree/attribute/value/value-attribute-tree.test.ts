@@ -28,5 +28,5 @@ test('array value', () => {
 
   expect(tree.id.text).toBe('a');
   expect(tree.isPrivate).toBe(false);
-  expect(tree.type.name).toBe('Integer');
+  expect(tree.type.name).toBe('Array');
 });
