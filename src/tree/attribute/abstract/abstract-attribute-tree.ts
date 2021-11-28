@@ -11,7 +11,7 @@ export class AbstractAttributeTree extends AttributeTree {
   modifiers: AttributeModifierTree[] = [];
   id: IdToken;
   typeParameters: TypeParameterTree[] = [];
-  type?: TypeTree;
+  type: TypeTree;
 
   constructor(public ctx?: AbstractAttributeContext) {
     super();
@@ -21,6 +21,6 @@ export class AbstractAttributeTree extends AttributeTree {
     this.modifiers = header.attributeModifier().map((x) => new AttributeModifierTree(x));
     this.id = IdToken.fromContext(header.attributeName());
     this.typeParameters = getTypeParametersTrees(header.typeParameters()) || [];
-    this.type = getTypeTree(ctx.type()) || null;
+    this.type = getTypeTree(ctx.type());
   }
 }

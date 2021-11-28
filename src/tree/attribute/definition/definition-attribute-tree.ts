@@ -12,7 +12,7 @@ export class DefinitionAttributeTree extends AttributeTree {
   modifiers: AttributeModifierTree[] = [];
   id: IdToken;
   typeParameters: TypeParameterTree[] = [];
-  baseType: TypeTree;
+  baseType?: TypeTree;
   attributes: AttributeTree[] = [];
 
   constructor(public ctx?: DefinitionAttributeContext) {
