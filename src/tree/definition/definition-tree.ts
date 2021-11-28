@@ -4,5 +4,9 @@ import { IdToken } from '../id-token';
 
 export abstract class DefinitionTree extends BaseTree {
   abstract ctx?: DefinitionContext;
-  id: IdToken;
+  abstract id: IdToken;
+
+  get isPrivate(): boolean {
+    return this.id.text.startsWith('_');
+  }
 }
