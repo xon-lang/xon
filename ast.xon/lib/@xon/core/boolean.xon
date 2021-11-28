@@ -4,5 +4,5 @@ Boolean
   toString() String
 
 
-false: Boolean(0)
-true:  Boolean(1)
+false is Boolean
+true is Boolean
