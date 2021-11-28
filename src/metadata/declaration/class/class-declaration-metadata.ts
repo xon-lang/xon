@@ -12,6 +12,7 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
 
   constructor(private tree: ClassDefinitionTree, private scope: DeclarationScope) {
     super();
+
     this.name = tree.id.text;
   }
 
@@ -52,7 +53,7 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
       throw new Error(`${name}' attribute for '${typeArguments.length}' type parameters not found`);
 
     return attributesByTypeArguments.map((x) =>
-      AttributeDeclarationMetadata.fromTree(x, this.scope).useTypeParameters(typeArguments),
+      new AttributeDeclarationMetadata(x, this.scope).useTypeParameters(typeArguments),
     );
   }
 
@@ -69,7 +70,7 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
 
     const attributesByExpressionParameters = attributesByFunctionType
       .map((x) => ({
-        type: x.type as FunctionTypeMetadata,
+        type: x.type() as FunctionTypeMetadata,
         attribute: x,
       }))
       .filter(
