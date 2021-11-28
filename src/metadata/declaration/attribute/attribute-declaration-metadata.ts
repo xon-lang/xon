@@ -27,7 +27,7 @@ export class AttributeDeclarationMetadata extends DeclarationMetadata {
       return getExpressionMetadata(this.tree.expression, this.scope).type;
     }
 
-    throw new Error('Not implemented');
+    throw new Error(`Not implemented '${this.tree.constructor.name}'`);
   }
 
   useTypeParameters(typeParameters: TypeMetadata[]): AttributeDeclarationMetadata {
