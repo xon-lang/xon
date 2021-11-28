@@ -1,5 +1,4 @@
 import { parseAttribute } from '../../parse';
-import { IdTypeTree } from '../../type/id-type/id-type.tree';
 import { ValueAttributeTree } from './value-attribute-tree';
 
 test('value', () => {
@@ -9,8 +8,7 @@ test('value', () => {
 
   expect(tree.id.text).toBe('a');
   expect(tree.isPrivate).toBe(false);
-  expect(tree.type.name).toBe('Array');
-  expect((tree.type as IdTypeTree).typeArguments[0].name).toBe('String');
+  expect(tree.type).toBe(null);
 });
 
 test('private value with type', () => {
@@ -29,6 +27,6 @@ test('array value', () => {
   expect(tree).toBeInstanceOf(ValueAttributeTree);
 
   expect(tree.id.text).toBe('a');
-  expect(tree.isPrivate).toBe(true);
+  expect(tree.isPrivate).toBe(false);
   expect(tree.type.name).toBe('Integer');
 });
