@@ -11,6 +11,7 @@ import { TypeTree } from '../../type/type.tree';
 import { DefinitionTree } from '../definition-tree';
 
 export class ClassDefinitionTree extends DefinitionTree {
+  id: IdToken;
   typeParameters: TypeParameterTree[] = [];
   parameters: ExpressionParameterTree[];
   baseType?: TypeTree;
