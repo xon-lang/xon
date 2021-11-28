@@ -1,10 +1,8 @@
 import { DeclarationScope } from '../declaration-scope';
-import { ClassDeclarationMetadata } from '../declaration/class/class-declaration-metadata';
+import { DeclarationMetadata } from '../declaration/declaration-metadata';
 
 export abstract class TypeMetadata {
-  abstract declaration: ClassDeclarationMetadata;
+  abstract declaration: DeclarationMetadata;
   abstract scope: DeclarationScope;
-
-  // abstract equals(other: TypeMetadata): boolean;
   abstract is(other: TypeMetadata): boolean;
 }
