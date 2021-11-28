@@ -85,7 +85,7 @@ FLOAT_LITERAL:
 INTEGER_LITERAL: [0-9][0-9]? [xX] AlphabetNumber | DigitNumber;
 CHAR_LITERAL:    '\'' ~['] '\'';
 STRING_LITERAL:  '"' (~["] | '\\' ["\\bfnrtv])* '"';
-REGEX_LITERAL:   '/' (~[/] | '\\' [/\\])* '/';
+REGEX_LITERAL:   '`' (~[`] | '\\' [`\\])* '`';
 PREPROCESSOR:    '#{' .*? '}';
 
 UPPER_ID: [A-Z] [_a-zA-Z0-9]*;
