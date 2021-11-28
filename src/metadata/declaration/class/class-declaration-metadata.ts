@@ -52,9 +52,7 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
     if (!attributesByTypeArguments.length)
       throw new Error(`${name}' attribute for '${typeArguments.length}' type parameters not found`);
 
-    return attributesByTypeArguments.map((x) =>
-      new AttributeDeclarationMetadata(x, this.scope).useTypeParameters(typeArguments),
-    );
+    return attributesByTypeArguments.map((x) => new AttributeDeclarationMetadata(x, this.scope));
   }
 
   getMethodAttribute(

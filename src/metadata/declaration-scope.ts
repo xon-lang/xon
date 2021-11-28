@@ -6,8 +6,6 @@ export class DeclarationScope {
   constructor(public parent?: DeclarationScope) {}
 
   set(declaration: DeclarationMetadata) {
-    console.log(declaration.name);
-    
     if (this.declarations.has(declaration.name))
       throw new Error(`'${declaration.name}' already exists`);
     this.declarations.set(declaration.name, declaration);

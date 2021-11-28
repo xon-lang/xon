@@ -32,10 +32,4 @@ export class AttributeDeclarationMetadata extends DeclarationMetadata {
 
     throw new Error(`Not implemented '${this.tree.constructor.name}'`);
   }
-
-  useTypeParameters(typeParameters: TypeMetadata[]): AttributeDeclarationMetadata {
-    const metadata = new AttributeDeclarationMetadata(this.tree, this.scope);
-    metadata.typeParameters = typeParameters;
-    return metadata;
-  }
 }
