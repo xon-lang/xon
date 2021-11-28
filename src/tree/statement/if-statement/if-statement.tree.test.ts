@@ -44,7 +44,7 @@ test('if expression', () => {
 });
 
 test('if relational', () => {
-  const code = 'if 6 > 4:\n    12+(45^  5)';
+  const code = 'if 6 > 4:\n  12+(45^  5)';
   const tree = parseStatement<IfStatementTree>(code);
   expect(tree).toBeInstanceOf(IfStatementTree);
 

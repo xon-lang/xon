@@ -2,7 +2,7 @@ import { parseLiteral } from '../../parse';
 import { RegexLiteralTree } from './regex-literal.tree';
 
 test('single line string', () => {
-  const code = '/abc/';
+  const code = '`abc`';
   const tree = parseLiteral<RegexLiteralTree>(code);
   expect(tree).toBeInstanceOf(RegexLiteralTree);
 
