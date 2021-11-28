@@ -9,7 +9,7 @@ import { TypeTree } from '../../type/type.tree';
 import { AttributeModifierTree } from '../attribute-modifier-tree';
 import { AttributeTree } from '../attribute-tree';
 
-export class ValueAttributeTree extends AttributeTree {
+export class MethodAttributeTree extends AttributeTree {
   modifiers: AttributeModifierTree[] = [];
   id: IdToken;
   typeParameters: TypeParameterTree[] = [];
