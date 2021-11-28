@@ -4,6 +4,7 @@ import { IdToken } from '../id-token';
 
 export class AttributeModifierTree extends BaseTree {
   id: IdToken;
+  isPrefix: boolean;
   isInfix: boolean;
   isPostfix: boolean;
 
@@ -12,6 +13,7 @@ export class AttributeModifierTree extends BaseTree {
     if (!ctx) return;
 
     this.id = IdToken.fromContext(ctx);
+    this.isPrefix = !!ctx.PREFIX();
     this.isInfix = !!ctx.INFIX();
     this.isPostfix = !!ctx.POSTFIX();
   }
