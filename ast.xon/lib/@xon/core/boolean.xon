@@ -1,4 +1,4 @@
-Boolean:
+Boolean
   prefix not () Boolean
 
   toString() String

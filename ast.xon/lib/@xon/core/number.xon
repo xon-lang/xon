@@ -1,4 +1,4 @@
-Number:
+Number
   infix + (other Boolean) Number
   infix + (other Number) Number
   infix + (other Char) Number

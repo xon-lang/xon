@@ -1,2 +1,2 @@
-Tuple<T is Array#Expression, R>:
+Tuple<T is Array#Expression, R>
   parameters T
