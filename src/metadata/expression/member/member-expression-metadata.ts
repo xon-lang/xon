@@ -16,6 +16,6 @@ export class MemberExpressionMetadata extends ExpressionMetadata {
     const attributes = declaration.getAttributes(tree.id.text, typeArguments);
 
     if (attributes.length > 1) throw new Error(`To many '${tree.id.text}' attributes`);
-    this.type = attributes[0].type;
+    this.type = attributes[0].type();
   }
 }
