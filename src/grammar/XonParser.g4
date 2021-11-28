@@ -25,10 +25,10 @@ definition:
     ;
 
 attribute:
-    attributeHeader type?                                             # abstractAttribute
-    | attributeHeader type? '=' expression                            # valueAttribute
-    | attributeHeader type? NL+ INDENT (statement | NL)+ DEDENT       # methodAttribute
-    | attributeHeader IS type (NL+ INDENT ( attribute | NL)+ DEDENT)? # definitionAttribute
+    attributeHeader type                                                 # abstractAttribute
+    | attributeHeader type? '=' expression                               # valueAttribute
+    | attributeHeader type NL+ INDENT (statement | NL)+ DEDENT           # methodAttribute
+    | attributeHeader (IS type)? (NL+ INDENT ( attribute | NL)+ DEDENT)? # definitionAttribute
     ;
 attributeHeader:   attributeModifier* attributeName typeParameters?;
 attributeName:     (LOWER_ID | operator | INSTANCE);
