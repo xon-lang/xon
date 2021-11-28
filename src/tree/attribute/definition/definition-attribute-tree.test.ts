@@ -6,7 +6,7 @@ test('value', () => {
   const tree = parseAttribute<DefinitionAttributeTree>(code);
   expect(tree).toBeInstanceOf(DefinitionAttributeTree);
 
-  expect(tree.id.text).toBe('s');
+  expect(tree.id.text).toBe('a');
   expect(tree.isPrivate).toBe(false);
 });
 
@@ -15,6 +15,6 @@ test('value', () => {
   const tree = parseAttribute<DefinitionAttributeTree>(code);
   expect(tree).toBeInstanceOf(DefinitionAttributeTree);
 
-  expect(tree.id.text).toBe('s');
+  expect(tree.id.text).toBe('a');
   expect(tree.isPrivate).toBe(false);
 });
