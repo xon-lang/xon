@@ -13,8 +13,8 @@ export class InfixExpressionMetadata extends ExpressionMetadata {
 
     const declaration = getExpressionMetadata(tree.left, scope).type.declaration;
     const rightType = getExpressionMetadata(tree.right, scope).type;
-    const attribute = declaration.getMethodAttribute(tree.id.text, [], [rightType]);
-    if (attribute.type instanceof FunctionTypeMetadata) this.type = attribute.type.resultType;
+    const attributeType = declaration.getMethodAttribute(tree.id.text, [], [rightType]).type();
+    if (attributeType instanceof FunctionTypeMetadata) this.type = attributeType.resultType;
     else throw new Error('Wrong method type');
   }
 }
