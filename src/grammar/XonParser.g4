@@ -20,8 +20,8 @@ libraryMember:   name = UPPER_ID (AS alias = UPPER_ID)?;
 definition:
     name = UPPER_ID typeParameters? functionParameters? (IS type)? (
         NL+ INDENT ( attribute | NL)+ DEDENT
-    )?                         # classDefinition
-    | name = UPPER_ID '=' type # aliasDefinition
+    )?                                         # classDefinition
+    | name = UPPER_ID typeParameters? '=' type # aliasDefinition
     ;
 
 attribute:
