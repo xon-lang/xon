@@ -25,7 +25,8 @@ definition:
     ;
 
 attribute:
-    attributeHeader type? '=' expression                              # valueAttribute
+    attributeHeader type?                                             # abstractAttribute
+    | attributeHeader type? '=' expression                            # valueAttribute
     | attributeHeader type? NL+ INDENT (statement | NL)+ DEDENT       # methodAttribute
     | attributeHeader IS type (NL+ INDENT ( attribute | NL)+ DEDENT)? # definitionAttribute
     ;
