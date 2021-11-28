@@ -1,4 +1,4 @@
-Package:
+package Package
   name = "@xon/ast"
   author = "Nizami"
   version = "1.21.0"
