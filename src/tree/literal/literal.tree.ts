@@ -3,5 +3,5 @@ import { BaseTree } from '../base.tree';
 
 export abstract class LiteralTree extends BaseTree {
   abstract ctx?: LiteralContext;
-  abstract value: string | number;
+  abstract value: string | number | RegExp;
 }
