@@ -24,7 +24,7 @@ export class CallExpressionMetadata extends ExpressionMetadata {
         typeArguments,
         expressionParameters,
       );
-      this.type = (attribute.type() as FunctionTypeMetadata).resultType;
+      this.type = (attribute.type(typeArguments) as FunctionTypeMetadata).resultType;
     } else {
       const instanceType = getExpressionMetadata(tree.instance, scope).type;
       if (!(instanceType instanceof FunctionTypeMetadata))

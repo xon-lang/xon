@@ -17,9 +17,9 @@ export class IdExpressionMetadata extends ExpressionMetadata {
     tree.id.metadata = declaration;
 
     if (declaration instanceof AttributeDeclarationMetadata) {
-      this.type = declaration.type();
+      this.type = declaration.type(typeArguments);
     } else if (declaration instanceof ClassDeclarationMetadata) {
-      this.type = declaration.init(typeArguments);
+      this.type = declaration.type(typeArguments);
     }
   }
 }

@@ -30,7 +30,7 @@ export class ClassDeclarationMetadata extends DeclarationMetadata {
   //   return result;
   // }
 
-  init(typeArguments: TypeMetadata[]): FunctionTypeMetadata {
+  type(typeArguments: TypeMetadata[]): FunctionTypeMetadata {
     const initParameters = this.tree.parameters
       ? this.tree.parameters.map((x) => ({
           name: x.id.text,
