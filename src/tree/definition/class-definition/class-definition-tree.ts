@@ -6,15 +6,14 @@ import { ExpressionParameterTree } from '../../expression-parameter/expression-p
 import { IdToken } from '../../id-token';
 import { getTypeParametersTrees } from '../../type-parameter/type-parameter-tree.helper';
 import { TypeParameterTree } from '../../type-parameter/type-parameter.tree';
-import { getTypeTree } from '../../type/type-tree.helper';
-import { TypeTree } from '../../type/type.tree';
+import { DefinitionBaseTypeTree } from '../definition-base-type-tree';
 import { DefinitionTree } from '../definition-tree';
 
 export class ClassDefinitionTree extends DefinitionTree {
   id: IdToken;
   typeParameters: TypeParameterTree[] = [];
   parameters: ExpressionParameterTree[] = [];
-  baseType?: TypeTree;
+  baseType?: DefinitionBaseTypeTree;
   attributes: AttributeTree[] = [];
 
   constructor(public ctx?: ClassDefinitionContext) {
@@ -24,7 +23,7 @@ export class ClassDefinitionTree extends DefinitionTree {
     this.id = new IdToken(ctx._name);
     this.typeParameters = getTypeParametersTrees(ctx.typeParameters());
     this.parameters = getExpressionParametersTrees(ctx.functionParameters());
-    this.baseType = getTypeTree(ctx.type());
+    this.baseType = new DefinitionBaseTypeTree(ctx.definitionBaseType());
     this.attributes = getAttributesTrees(ctx.attribute());
   }
 }
