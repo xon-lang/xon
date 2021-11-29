@@ -16,6 +16,6 @@ export class DefinitionBaseTypeTree extends BaseTree {
     if (!(type instanceof IdTypeTree)) throw new Error(`'${type.constructor.name}' is not id type`);
 
     this.type = type;
-    this.arguments = getExpressionsTrees(ctx.functionArguments().expression());
+    this.arguments = getExpressionsTrees(ctx.functionArguments()?.expression()) || [];
   }
 }

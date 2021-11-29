@@ -91,4 +91,4 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
 };
 
 export const getExpressionsTrees = (expressions: ExpressionContext[]): ExpressionTree[] =>
-  expressions.map(getExpressionTree);
+  expressions?.map(getExpressionTree);
