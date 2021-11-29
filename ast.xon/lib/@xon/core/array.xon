@@ -1,1 +1,3 @@
 Array<T>
+  infix + (other T[]) T[]
+  infix * (other Integer) T[][]

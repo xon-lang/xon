@@ -1,19 +1,12 @@
 Number
-  infix + (other Boolean) Number
+  prefix + () Number
+  prefix - () Number
   infix + (other Number) Number
-  infix + (other Char) Number
-  infix + (other String) String
-
   infix - (other Number) Number
-
   infix * (other Number) Number
-
   infix / (other Number) Number
-
   infix ^ (other Number) Number
-
   infix > (other Number) Boolean
-
   infix < (other Number) Boolean
   infix == (other Number) Boolean
 

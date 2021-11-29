@@ -1,6 +1,3 @@
-String is Array<Char>
-  infix + (other Boolean) String
-  infix + (other Integer) String
-  infix + (other Float) String
-  infix + (other Char) String
+String is Char[]
   infix + (other String) String
+  infix + (other Number) String
