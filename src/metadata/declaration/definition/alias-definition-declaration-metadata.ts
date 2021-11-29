@@ -6,6 +6,7 @@ import { TypeMetadata } from '../../type/type-metadata';
 import { DefinitionDeclarationMetadata } from './definition-declaration-metadata';
 
 export class AliasDefinitionDeclarationMetadata extends DefinitionDeclarationMetadata {
+  ancestor: IdTypeMetadata = null;
   attributes: AttributeTree[] = [];
   name: string;
 
@@ -15,9 +16,6 @@ export class AliasDefinitionDeclarationMetadata extends DefinitionDeclarationMet
     this.name = tree.id.text;
   }
 
-  ancestor(): IdTypeMetadata {
-    throw new Error('Method not implemented.');
-  }
   type(typeArguments: TypeMetadata[]): TypeMetadata {
     throw new Error('Method not implemented.');
   }

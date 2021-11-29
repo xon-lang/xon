@@ -11,16 +11,27 @@ export abstract class DefinitionDeclarationMetadata extends DeclarationMetadata 
   protected abstract tree: DefinitionTree;
   protected abstract scope: DeclarationScope;
   abstract attributes: AttributeTree[];
-  abstract ancestor(): IdTypeMetadata;
+  abstract ancestor: IdTypeMetadata;
 
-  getAttributes(name: string, typeArguments: TypeMetadata[]): AttributeDeclarationMetadata[] {
+  attributesByTypeArguments(
+    name: string,
+    typeArguments: TypeMetadata[],
+  ): AttributeDeclarationMetadata[] {
     const attributesByName = this.attributes.filter((x) => x.id.text === name);
+
+    if (!attributesByName.length && this.ancestor)
+      return this.ancestor.declaration.attributesByTypeArguments(name, typeArguments);
+
     if (!attributesByName.length)
       throw new Error(`'${name}' attribute not found in '${this.name}' declaration`);
 
     const attributesByTypeArguments = attributesByName.filter(
       (x) => x.typeParameters.length === typeArguments.length,
     );
+
+    if (!attributesByTypeArguments.length && this.ancestor)
+      return this.ancestor.declaration.attributesByTypeArguments(name, typeArguments);
+
     if (!attributesByTypeArguments.length)
       throw new Error(`${name}' attribute for '${typeArguments.length}' type parameters not found`);
 
@@ -32,7 +43,7 @@ export abstract class DefinitionDeclarationMetadata extends DeclarationMetadata 
     typeArguments: TypeMetadata[],
     expressionParameters: TypeMetadata[],
   ): AttributeDeclarationMetadata {
-    const attributes = this.getAttributes(methodName, typeArguments);
+    const attributes = this.attributesByTypeArguments(methodName, typeArguments);
     const attributesByFunctionType = attributes.filter(
       (x) => x.type(typeArguments) instanceof FunctionTypeMetadata,
     );

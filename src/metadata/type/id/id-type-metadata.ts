@@ -24,7 +24,7 @@ export class IdTypeMetadata extends TypeMetadata {
     if (!(other instanceof IdTypeMetadata) && !(other instanceof LiteralTypeMetadata)) return false;
     return (
       this.declaration === other.declaration ||
-      (this.declaration.ancestor() && this.declaration.ancestor().is(other))
+      (this.declaration.ancestor && this.declaration.ancestor.is(other))
     );
   }
 
