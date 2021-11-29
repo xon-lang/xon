@@ -10,9 +10,8 @@ export class ExpressionParameterTree extends BaseTree {
   type?: TypeTree;
   metaType?: string;
 
-  constructor(public ctx?: ExpressionParameterContext) {
+  constructor(public ctx: ExpressionParameterContext) {
     super();
-    if (!ctx) return;
 
     this.id = new IdToken(ctx._name);
     this.isPrivate = this.id.text.startsWith('_');

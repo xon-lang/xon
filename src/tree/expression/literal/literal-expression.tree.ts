@@ -8,9 +8,8 @@ export class LiteralExpressionTree extends ExpressionTree {
   metadata: LiteralExpressionMetadata;
   literal: LiteralTree;
 
-  constructor(public ctx?: LiteralExpressionContext) {
+  constructor(public ctx: LiteralExpressionContext) {
     super();
-    if (!ctx) return;
 
     this.literal = ctx && getLiteralTree(ctx.literal());
   }

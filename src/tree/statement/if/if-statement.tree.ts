@@ -6,14 +6,13 @@ import { StatementTree } from '../statement.tree';
 
 export class IfStatementTree extends StatementTree {
   condition: ExpressionTree;
-  
+
   thenBody: StatementTree[];
-  
+
   public elseBody?: StatementTree[];
 
-  constructor(public ctx?: IfStatementContext) {
+  constructor(public ctx: IfStatementContext) {
     super();
-    if (!ctx) return;
 
     this.condition = getExpressionTree(ctx.expression());
     this.thenBody = getStatementsFromBody(ctx._thenBody);

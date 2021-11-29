@@ -13,9 +13,8 @@ export class MemberExpressionTree extends ExpressionTree {
   id: IdToken;
   typeArguments: TypeTree[];
 
-  constructor(public ctx?: MemberExpressionContext) {
+  constructor(public ctx: MemberExpressionContext) {
     super();
-    if (!ctx) return;
 
     this.instance = getExpressionTree(ctx.expression());
     this.isSafe = !!ctx.COALESCING();

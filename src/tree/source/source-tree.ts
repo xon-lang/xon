@@ -12,9 +12,8 @@ export class SourceTree extends BaseTree {
   definitions: DefinitionTree[] = [];
   attributes: AttributeTree[] = [];
 
-  constructor(public ctx?: SourceContext) {
+  constructor(public ctx: SourceContext) {
     super();
-    if (!ctx) return;
 
     this.imports = getLibrariesTrees(ctx.library());
     this.definitions = getDefinitionsTrees(ctx.definition());

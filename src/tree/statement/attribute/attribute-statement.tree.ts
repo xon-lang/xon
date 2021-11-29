@@ -6,9 +6,8 @@ import { StatementTree } from '../statement.tree';
 export class AttributeStatementTree extends StatementTree {
   attribute: AttributeTree;
 
-  constructor(public ctx?: AttributeStatementContext) {
+  constructor(public ctx: AttributeStatementContext) {
     super();
-    if (!ctx) return;
 
     this.attribute = getAttributeTree(ctx.attribute());
   }

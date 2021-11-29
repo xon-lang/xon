@@ -2,12 +2,9 @@ import { ParserRuleContext } from 'antlr4ts';
 import { SourceReference } from './source-reference';
 
 export abstract class BaseTree {
-  sourceReference?: SourceReference;
-
-  constructor(public ctx?: ParserRuleContext) {
-    if (!ctx) return;
-
-    this.sourceReference = SourceReference.fromContext(ctx);
+  ctx: ParserRuleContext;
+  get sourceReference(): SourceReference {
+    return SourceReference.fromContext(this.ctx);
   }
 
   toPlain(object?: unknown): unknown {

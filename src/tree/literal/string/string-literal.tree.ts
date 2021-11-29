@@ -3,10 +3,9 @@ import { LiteralTree } from '../literal.tree';
 
 export class StringLiteralTree extends LiteralTree {
   value: string;
-  
-  constructor(public ctx?: StringLiteralContext) {
+
+  constructor(public ctx: StringLiteralContext) {
     super();
-    if (!ctx) return;
 
     const QUOTE_START = 1;
     const QUOTE_END = -1;

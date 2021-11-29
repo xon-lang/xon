@@ -9,9 +9,8 @@ export class CallExpressionTree extends ExpressionTree {
   arguments: ExpressionTree[];
   isIndexCall: boolean;
 
-  constructor(public ctx?: CallExpressionContext) {
+  constructor(public ctx: CallExpressionContext) {
     super();
-    if (!ctx) return;
 
     this.instance = getExpressionTree(ctx.expression());
     this.arguments = getExpressionsTrees(

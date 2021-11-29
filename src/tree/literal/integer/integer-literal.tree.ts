@@ -5,10 +5,9 @@ export class IntegerLiteralTree extends LiteralTree {
   radix: number;
   integer: string;
   value: number;
-  
-  constructor(public ctx?: IntegerLiteralContext) {
+
+  constructor(public ctx: IntegerLiteralContext) {
     super();
-    if (!ctx) return;
 
     const [integer, radix] = ctx.text.split('x').reverse();
     this.integer = integer;

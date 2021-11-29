@@ -8,9 +8,8 @@ export class AttributeModifierTree extends BaseTree {
   isInfix: boolean;
   isPostfix: boolean;
 
-  constructor(public ctx?: AttributeModifierContext) {
+  constructor(public ctx: AttributeModifierContext) {
     super();
-    if (!ctx) return;
 
     this.id = IdToken.fromContext(ctx);
     this.isPrefix = !!ctx.PREFIX();

@@ -16,9 +16,8 @@ export class MethodAttributeTree extends AttributeTree {
   type: TypeTree;
   body: StatementTree[] = [];
 
-  constructor(public ctx?: MethodAttributeContext) {
+  constructor(public ctx: MethodAttributeContext) {
     super();
-    if (!ctx) return;
 
     const header = ctx.attributeHeader();
     this.modifiers = header.attributeModifier().map((x) => new AttributeModifierTree(x));

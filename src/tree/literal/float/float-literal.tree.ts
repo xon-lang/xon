@@ -3,16 +3,12 @@ import { LiteralTree } from '../literal.tree';
 
 export class FloatLiteralTree extends LiteralTree {
   radix: number;
-  
   integer: string;
-  
   fraction: string;
+  value: number;
 
-  public value: number;
-
-  constructor(public ctx?: FloatLiteralContext) {
+  constructor(public ctx: FloatLiteralContext) {
     super();
-    if (!ctx) return;
 
     [this.integer, this.fraction] = ctx.text.split('.');
     const [integer, radix] = this.integer.split('x').reverse();

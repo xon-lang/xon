@@ -13,9 +13,8 @@ export class AbstractAttributeTree extends AttributeTree {
   typeParameters: TypeParameterTree[] = [];
   type: TypeTree;
 
-  constructor(public ctx?: AbstractAttributeContext) {
+  constructor(public ctx: AbstractAttributeContext) {
     super();
-    if (!ctx) return;
 
     const header = ctx.attributeHeader();
     this.modifiers = header.attributeModifier().map((x) => new AttributeModifierTree(x));

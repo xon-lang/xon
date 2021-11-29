@@ -3,7 +3,7 @@ import { BaseTree } from '../base.tree';
 import { IdToken } from '../id-token';
 
 export abstract class DefinitionTree extends BaseTree {
-  abstract ctx?: DefinitionContext;
+  abstract ctx: DefinitionContext;
   abstract id: IdToken;
 
   get isPrivate(): boolean {

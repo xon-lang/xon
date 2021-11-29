@@ -16,9 +16,8 @@ export class ValueAttributeTree extends AttributeTree {
   type?: TypeTree;
   expression: ExpressionTree;
 
-  constructor(public ctx?: ValueAttributeContext) {
+  constructor(public ctx: ValueAttributeContext) {
     super();
-    if (!ctx) return;
 
     const header = ctx.attributeHeader();
     this.modifiers = header.attributeModifier().map((x) => new AttributeModifierTree(x));

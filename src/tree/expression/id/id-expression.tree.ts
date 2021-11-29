@@ -10,9 +10,8 @@ export class IdExpressionTree extends ExpressionTree {
   id: IdToken;
   typeArguments: TypeTree[];
 
-  constructor(public ctx?: IdExpressionContext) {
+  constructor(public ctx: IdExpressionContext) {
     super();
-    if (!ctx) return;
 
     this.id = new IdToken(ctx._name);
     this.typeArguments = getTypesTrees(ctx.typeArguments()?.type());

@@ -16,9 +16,8 @@ export class ClassDefinitionTree extends DefinitionTree {
   ancestor?: DefinitionAncestorTree;
   attributes: AttributeTree[] = [];
 
-  constructor(public ctx?: ClassDefinitionContext) {
+  constructor(public ctx: ClassDefinitionContext) {
     super();
-    if (!ctx) return;
 
     this.id = new IdToken(ctx._name);
     this.typeParameters = getTypeParametersTrees(ctx.typeParameters());

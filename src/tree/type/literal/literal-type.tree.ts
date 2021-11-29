@@ -9,9 +9,8 @@ export class LiteralTypeTree extends TypeTree {
   name: string;
   literal: LiteralTree;
 
-  constructor(public ctx?: LiteralTypeContext) {
+  constructor(public ctx: LiteralTypeContext) {
     super();
-    if (!ctx) return;
 
     this.literal = getLiteralTree(ctx.literal());
   }

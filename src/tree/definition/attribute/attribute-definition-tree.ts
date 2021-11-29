@@ -13,9 +13,8 @@ export class AttributeDefinitionTree extends DefinitionTree {
   ancestor?: DefinitionAncestorTree;
   attributes: AttributeTree[] = [];
 
-  constructor(public ctx?: AttributeDefinitionContext) {
+  constructor(public ctx: AttributeDefinitionContext) {
     super();
-    if (!ctx) return;
 
     this.id = new IdToken(ctx._name);
     this.typeParameters = getTypeParametersTrees(ctx.typeParameters());

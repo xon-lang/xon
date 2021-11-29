@@ -9,9 +9,8 @@ export class MemberAssignmentTree extends AssignmentTree {
   id: IdToken;
   value: ExpressionTree;
 
-  constructor(public ctx?: MemberAssignmentContext) {
+  constructor(public ctx: MemberAssignmentContext) {
     super();
-    if (!ctx) return;
 
     this.instance = getExpressionTree(ctx.expression(0));
     this.id = new IdToken(ctx._name);

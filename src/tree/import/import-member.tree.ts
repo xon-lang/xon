@@ -6,9 +6,8 @@ export class ImportMemberTree extends BaseTree {
   id: IdToken;
   alias?: IdToken;
 
-  constructor(public ctx?: LibraryMemberContext) {
+  constructor(public ctx: LibraryMemberContext) {
     super();
-    if (!ctx) return;
 
     this.id = new IdToken(ctx._name);
     this.alias = ctx._alias && new IdToken(ctx._alias);

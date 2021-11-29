@@ -9,9 +9,8 @@ export class PrefixExpressionTree extends ExpressionTree {
   id: IdToken;
   value: ExpressionTree;
 
-  constructor(public ctx?: PrefixExpressionContext) {
+  constructor(public ctx: PrefixExpressionContext) {
     super();
-    if (!ctx) return;
 
     this.id = new IdToken(ctx._op);
     this.value = getExpressionTree(ctx.expression());

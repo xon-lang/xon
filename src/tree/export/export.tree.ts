@@ -4,9 +4,8 @@ import { BaseTree } from '../base.tree';
 export class ExportTree extends BaseTree {
   path: string;
 
-  constructor(public ctx?: ExportContext) {
+  constructor(public ctx: ExportContext) {
     super();
-    if (!ctx) return;
 
     this.path = ctx.libraryPath().text;
   }

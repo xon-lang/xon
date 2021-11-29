@@ -5,12 +5,11 @@ import { StatementTree } from '../statement.tree';
 
 export class AssertStatementTree extends StatementTree {
   actual: ExpressionTree;
-  
+
   expect: ExpressionTree;
 
-  constructor(public ctx?: AssertStatementContext) {
+  constructor(public ctx: AssertStatementContext) {
     super();
-    if (!ctx) return;
 
     this.actual = getExpressionTree(ctx.expression(0));
     this.expect = getExpressionTree(ctx.expression(1));

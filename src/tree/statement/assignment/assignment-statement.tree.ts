@@ -6,9 +6,8 @@ import { StatementTree } from '../statement.tree';
 export class AssignmentStatementTree extends StatementTree {
   assignment: AssignmentTree;
 
-  constructor(public ctx?: AssignmentStatementContext) {
+  constructor(public ctx: AssignmentStatementContext) {
     super();
-    if (!ctx) return;
 
     this.assignment = getAssignmentTree(ctx.assignment());
   }

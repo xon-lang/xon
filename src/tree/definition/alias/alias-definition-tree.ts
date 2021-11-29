@@ -11,9 +11,8 @@ export class AliasDefinitionTree extends DefinitionTree {
   type: TypeTree;
   typeParameters: TypeParameterTree[] = [];
 
-  constructor(public ctx?: AliasDefinitionContext) {
+  constructor(public ctx: AliasDefinitionContext) {
     super();
-    if (!ctx) return;
 
     this.id = new IdToken(ctx._name);
     this.type = getTypeTree(ctx.type());

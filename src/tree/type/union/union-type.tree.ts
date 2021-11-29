@@ -8,9 +8,8 @@ export class UnionTypeTree extends TypeTree {
   name: string;
   types: TypeTree[];
 
-  constructor(public ctx?: UnionTypeContext) {
+  constructor(public ctx: UnionTypeContext) {
     super();
-    if (!ctx) return;
 
     this.name = this.constructor.name.replace(TypeTree.name, '');
     this.types = getTypesTrees(ctx.type());

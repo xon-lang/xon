@@ -10,9 +10,8 @@ export class ArrayTypeTree extends TypeTree {
   name: string;
   itemType: TypeTree;
 
-  constructor(public ctx?: ArrayTypeContext) {
+  constructor(public ctx: ArrayTypeContext) {
     super();
-    if (!ctx) return;
 
     this.name = this.constructor.name.replace(TypeTree.name, '');
     this.itemType = getTypeTree(ctx.type());

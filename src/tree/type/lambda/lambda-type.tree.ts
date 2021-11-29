@@ -11,9 +11,8 @@ export class LambdaTypeTree extends TypeTree {
   parameters: ExpressionParameterTree[] = [];
   resultType?: TypeTree;
 
-  constructor(public ctx?: LambdaTypeContext) {
+  constructor(public ctx: LambdaTypeContext) {
     super();
-    if (!ctx) return;
 
     this.name = this.constructor.name.replace(TypeTree.name, '');
     this.parameters = getExpressionParametersTrees(ctx.methodParameters());

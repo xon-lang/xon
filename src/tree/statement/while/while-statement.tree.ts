@@ -6,12 +6,11 @@ import { StatementTree } from '../statement.tree';
 
 export class WhileStatementTree extends StatementTree {
   expression: ExpressionTree;
-  
+
   body: StatementTree[];
 
-  constructor(public ctx?: WhileStatementContext) {
+  constructor(public ctx: WhileStatementContext) {
     super();
-    if (!ctx) return;
 
     this.expression = getExpressionTree(ctx.expression());
     this.body = getStatementsFromBody(ctx.body());

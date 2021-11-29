@@ -10,9 +10,8 @@ export class TypeParameterTree extends BaseTree {
   typeRestrict: TypeTree;
   metaRestrict: string;
 
-  constructor(public ctx?: TypeParameterContext) {
+  constructor(public ctx: TypeParameterContext) {
     super();
-    if (!ctx) return;
 
     this.hasSpread = !!ctx.SPREAD();
     this.id = new IdToken(ctx._name);

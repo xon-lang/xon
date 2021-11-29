@@ -7,9 +7,8 @@ export class ArrayExpressionTree extends ExpressionTree {
   metadata: ArrayExpressionMetadata;
   items: ExpressionTree[];
 
-  constructor(public ctx?: ArrayExpressionContext) {
+  constructor(public ctx: ArrayExpressionContext) {
     super();
-    if (!ctx) return;
 
     this.items = getExpressionsTrees(ctx.expression());
   }

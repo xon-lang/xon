@@ -9,7 +9,7 @@ export class DefinitionAncestorTree extends BaseTree {
   type: TypeTree;
   arguments: ExpressionTree[] = [];
 
-  constructor(public ctx?: DefinitionAncestorContext) {
+  constructor(public ctx: DefinitionAncestorContext) {
     super();
 
     this.type = getTypeTree(ctx.type());

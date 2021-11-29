@@ -6,9 +6,8 @@ export class ImportTree extends BaseTree {
   path: string;
   members?: ImportMemberTree[];
 
-  constructor(public ctx?: LibraryContext) {
+  constructor(public ctx: LibraryContext) {
     super();
-    if (!ctx) return;
 
     this.path = ctx.libraryPath().text;
     this.members = ctx.libraryMember()?.map((x) => new ImportMemberTree(x));

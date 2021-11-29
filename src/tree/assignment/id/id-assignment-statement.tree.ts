@@ -8,9 +8,8 @@ export class IdAssignmentTree extends AssignmentTree {
   id: IdToken;
   value: ExpressionTree;
 
-  constructor(public ctx?: IdAssignmentContext) {
+  constructor(public ctx: IdAssignmentContext) {
     super();
-    if (!ctx) return;
 
     this.id = new IdToken(ctx._name);
     this.value = getExpressionTree(ctx.expression());

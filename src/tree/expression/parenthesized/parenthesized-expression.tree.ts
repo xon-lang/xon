@@ -7,17 +7,10 @@ export class ParenthesizedExpressionTree extends ExpressionTree {
   metadata: ExpressionMetadata;
   value: ExpressionTree;
 
-  constructor(public ctx?: ParenthesizedExpressionContext) {
+  constructor(public ctx: ParenthesizedExpressionContext) {
     super();
-    if (!ctx) return;
 
     this.value = getExpressionTree(ctx.expression());
-  }
-
-  static fromValue(value: ExpressionTree): ParenthesizedExpressionTree {
-    const expression = new ParenthesizedExpressionTree();
-    expression.value = value;
-    return expression;
   }
 
   toString(): string {

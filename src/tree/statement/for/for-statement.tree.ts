@@ -9,10 +9,9 @@ export class ForStatementTree extends StatementTree {
   indexVarName?: string;
   expression: ExpressionTree;
   body: StatementTree[];
-  
-  constructor(public ctx?: ForStatementContext) {
+
+  constructor(public ctx: ForStatementContext) {
     super();
-    if (!ctx) return;
 
     this.valueVarName = ctx._value?.text || null;
     this.indexVarName = ctx._index?.text || null;

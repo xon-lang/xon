@@ -1,6 +1,5 @@
 import { TupleTypeContext } from '../../../grammar/xon-parser';
 import { TupleTypeMetadata } from '../../../metadata/type/tuple/tuple-type-metadata';
-import { TypeMetadata } from '../../../metadata/type/type-metadata';
 import { getTypeTree } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
@@ -9,9 +8,8 @@ export class TupleTypeTree extends TypeTree {
   name: string;
   itemsTypes: TypeTree[];
 
-  constructor(public ctx?: TupleTypeContext) {
+  constructor(public ctx: TupleTypeContext) {
     super();
-    if (!ctx) return;
 
     this.name = this.constructor.name.replace(TypeTree.name, '');
     this.itemsTypes = ctx.type().map((x) => getTypeTree(x));

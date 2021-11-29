@@ -3,6 +3,6 @@ import { ExpressionMetadata } from '../../metadata/expression/expression-metadat
 import { BaseTree } from '../base.tree';
 
 export abstract class ExpressionTree extends BaseTree {
-  abstract ctx?: ExpressionContext;
+  abstract ctx: ExpressionContext;
   abstract metadata: ExpressionMetadata;
 }

@@ -8,9 +8,8 @@ export class NullableTypeTree extends TypeTree {
   name: string;
   baseType: TypeTree;
 
-  constructor(public ctx?: NullableTypeContext) {
+  constructor(public ctx: NullableTypeContext) {
     super();
-    if (!ctx) return;
 
     this.name = this.constructor.name.replace(TypeTree.name, '');
     this.baseType = getTypeTree(ctx.type());
