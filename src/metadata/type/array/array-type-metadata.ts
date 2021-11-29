@@ -1,16 +1,16 @@
 import { ArrayTypeTree } from '../../../tree/type/array-type/array-type.tree';
 import { DeclarationScope } from '../../declaration-scope';
-import { ClassDeclarationMetadata } from '../../declaration/class/class-declaration-metadata';
+import { ClassDefinitionDeclarationMetadata } from '../../declaration/definition/class-definition-declaration-metadata';
 import { TypeMetadata } from '../type-metadata';
 import { getTypeMetadata } from '../type-metadata-helper';
 import { UnionTypeMetadata } from '../union/union-type-metadata';
 
 export class ArrayTypeMetadata extends TypeMetadata {
-  declaration: ClassDeclarationMetadata;
+  declaration: ClassDefinitionDeclarationMetadata;
 
   constructor(public itemType: TypeMetadata, public scope: DeclarationScope) {
     super();
-    this.declaration = scope.get('Array') as ClassDeclarationMetadata;
+    this.declaration = scope.get('Array') as ClassDefinitionDeclarationMetadata;
   }
 
   is(other: TypeMetadata): boolean {

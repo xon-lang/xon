@@ -1,11 +1,11 @@
 import { LiteralTree } from '../../../tree/literal/literal.tree';
 import { DeclarationScope } from '../../declaration-scope';
-import { ClassDeclarationMetadata } from '../../declaration/class/class-declaration-metadata';
+import { ClassDefinitionDeclarationMetadata } from '../../declaration/definition/class-definition-declaration-metadata';
 import { TypeMetadata } from '../type-metadata';
 import { UnionTypeMetadata } from '../union/union-type-metadata';
 
 export class LiteralTypeMetadata extends TypeMetadata {
-  declaration: ClassDeclarationMetadata;
+  declaration: ClassDefinitionDeclarationMetadata;
 
   constructor(
     public name: string,
@@ -13,7 +13,7 @@ export class LiteralTypeMetadata extends TypeMetadata {
     public scope: DeclarationScope,
   ) {
     super();
-    this.declaration = scope.get(name) as ClassDeclarationMetadata;
+    this.declaration = scope.get(name) as ClassDefinitionDeclarationMetadata;
   }
 
   is(other: TypeMetadata): boolean {

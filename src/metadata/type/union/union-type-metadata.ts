@@ -1,15 +1,15 @@
 import { UnionTypeTree } from '../../../tree/type/union-type/union-type.tree';
 import { DeclarationScope } from '../../declaration-scope';
-import { ClassDeclarationMetadata } from '../../declaration/class/class-declaration-metadata';
+import { ClassDefinitionDeclarationMetadata } from '../../declaration/definition/class-definition-declaration-metadata';
 import { TypeMetadata } from '../type-metadata';
 import { getTypeMetadata } from '../type-metadata-helper';
 
 export class UnionTypeMetadata extends TypeMetadata {
-  declaration: ClassDeclarationMetadata;
+  declaration: ClassDefinitionDeclarationMetadata;
 
   constructor(public types: TypeMetadata[], public scope: DeclarationScope) {
     super();
-    this.declaration = scope.get('Union') as ClassDeclarationMetadata;
+    this.declaration = scope.get('Union') as ClassDefinitionDeclarationMetadata;
   }
 
   is(other: TypeMetadata): boolean {

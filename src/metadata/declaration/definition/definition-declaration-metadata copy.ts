@@ -1,48 +1,21 @@
-import { ClassDefinitionTree } from '../../../tree/definition/class-definition/class-definition-tree';
+import { AttributeTree } from '../../../tree/attribute/attribute-tree';
+import { DefinitionTree } from '../../../tree/definition/definition-tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';
 import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
-import { getTypeMetadata } from '../../type/type-metadata-helper';
 import { AttributeDeclarationMetadata } from '../attribute/attribute-declaration-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
 
-export class ClassDeclarationMetadata extends DeclarationMetadata {
-  name: string;
-
-  constructor(private tree: ClassDefinitionTree, private scope: DeclarationScope) {
-    super();
-
-    this.name = tree.id.text;
-  }
-
-  ancestor(): IdTypeMetadata {
-    if (!this.tree.baseType) return null;
-    return getTypeMetadata(this.tree.baseType, this.scope) as IdTypeMetadata;
-  }
-
-  // ancestors() {
-  //   const result = [];
-  //   let ancestor = null;
-  //   while ((ancestor = this.ancestor())) {
-  //     result.push(ancestor);
-  //   }
-  //   return result;
-  // }
-
-  type(typeArguments: TypeMetadata[]): FunctionTypeMetadata {
-    const initParameters = this.tree.parameters
-      ? this.tree.parameters.map((x) => ({
-          name: x.id.text,
-          type: getTypeMetadata(x.type, this.scope),
-        }))
-      : [];
-    const initResultType = new IdTypeMetadata(this.name, typeArguments, this.scope);
-    return new FunctionTypeMetadata(initParameters, initResultType, this.scope);
-  }
+export abstract class DefinitionDeclarationMetadata extends DeclarationMetadata {
+  protected abstract tree: DefinitionTree;
+  protected abstract scope: DeclarationScope;
+  abstract attributes: AttributeTree[];
+  abstract ancestor(): IdTypeMetadata;
+  abstract type(typeArguments: TypeMetadata[]): TypeMetadata;
 
   getAttributes(name: string, typeArguments: TypeMetadata[]): AttributeDeclarationMetadata[] {
-    const attributesByName = this.tree.attributes.filter((x) => x.id.text === name);
+    const attributesByName = this.attributes.filter((x) => x.id.text === name);
     if (!attributesByName.length)
       throw new Error(`'${name}' attribute not found in '${this.name}' declaration`);
 

@@ -1,16 +1,16 @@
 import { TupleTypeTree } from '../../../tree/type/tuple-type/tuple-type.tree';
 import { DeclarationScope } from '../../declaration-scope';
-import { ClassDeclarationMetadata } from '../../declaration/class/class-declaration-metadata';
+import { ClassDefinitionDeclarationMetadata } from '../../declaration/definition/class-definition-declaration-metadata';
 import { TypeMetadata } from '../type-metadata';
 import { getTypeMetadata } from '../type-metadata-helper';
 import { UnionTypeMetadata } from '../union/union-type-metadata';
 
 export class TupleTypeMetadata extends TypeMetadata {
-  declaration: ClassDeclarationMetadata;
+  declaration: ClassDefinitionDeclarationMetadata;
 
   constructor(public itemsTypes: TypeMetadata[], public scope: DeclarationScope) {
     super();
-    this.declaration = scope.get('Tuple') as ClassDeclarationMetadata;
+    this.declaration = scope.get('Tuple') as ClassDefinitionDeclarationMetadata;
   }
 
   is(other: TypeMetadata): boolean {

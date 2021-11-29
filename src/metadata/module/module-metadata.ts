@@ -4,7 +4,7 @@ import { ClassDefinitionTree } from '../../tree/definition/class-definition/clas
 import { parseSourceFile } from '../../tree/parse';
 import { DeclarationScope } from '../declaration-scope';
 import { AttributeDeclarationMetadata } from '../declaration/attribute/attribute-declaration-metadata';
-import { ClassDeclarationMetadata } from '../declaration/class/class-declaration-metadata';
+import { ClassDefinitionDeclarationMetadata } from '../declaration/definition/class-definition-declaration-metadata';
 import { DeclarationMetadata } from '../declaration/declaration-metadata';
 
 export class ModuleMetadata {
@@ -23,7 +23,7 @@ export class ModuleMetadata {
     for (const definition of sources.flatMap((x) =>
       x.definitions.map((x) => x as ClassDefinitionTree),
     )) {
-      const declaration = new ClassDeclarationMetadata(definition, scope);
+      const declaration = new ClassDefinitionDeclarationMetadata(definition, scope);
       scope.set(declaration);
     }
 
