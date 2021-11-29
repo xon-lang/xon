@@ -7,8 +7,8 @@ import { LiteralExpressionTree } from '../../expression/literal/literal-expressi
 import { parseSourceFile } from '../../parse';
 import { SourceTree } from '../../source/source-tree';
 import { ExpressionStatementTree } from '../../statement/expression/expression-statement.tree';
-import { FunctionTypeTree } from '../../type/function/function-type.tree';
 import { IdTypeTree } from '../../type/id/id-type.tree';
+import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
 import { AttributeDefinitionTree } from './attribute-definition-tree';
 
 test('one scope', () => {
@@ -52,7 +52,7 @@ test('one scope', () => {
   const methodAttribute = attrs[3] as MethodAttributeTree;
   expect(methodAttribute).toBeInstanceOf(MethodAttributeTree);
   expect(methodAttribute.id.text).toBe('method');
-  expect((methodAttribute.type as FunctionTypeTree).parameters.length).toBe(0);
+  expect((methodAttribute.type as LambdaTypeTree).parameters.length).toBe(0);
   expect(methodAttribute.body.length).toBe(2);
   expect((methodAttribute.body[0] as ExpressionStatementTree).expression).toBeInstanceOf(
     CallExpressionTree,
@@ -64,11 +64,11 @@ test('one scope', () => {
   const locationAttribute = attrs[4] as MethodAttributeTree;
   expect(locationAttribute).toBeInstanceOf(MethodAttributeTree);
   expect(locationAttribute.id.text).toBe('location');
-  expect((locationAttribute.type as FunctionTypeTree).parameters.length).toBe(2);
-  expect((locationAttribute.type as FunctionTypeTree).parameters[0].id.text).toBe('x');
-  expect((locationAttribute.type as FunctionTypeTree).parameters[0].type.name).toBe('Number');
-  expect((locationAttribute.type as FunctionTypeTree).parameters[1].id.text).toBe('y');
-  expect((locationAttribute.type as FunctionTypeTree).parameters[1].type.name).toBe('Number');
+  expect((locationAttribute.type as LambdaTypeTree).parameters.length).toBe(2);
+  expect((locationAttribute.type as LambdaTypeTree).parameters[0].id.text).toBe('x');
+  expect((locationAttribute.type as LambdaTypeTree).parameters[0].type.name).toBe('Number');
+  expect((locationAttribute.type as LambdaTypeTree).parameters[1].id.text).toBe('y');
+  expect((locationAttribute.type as LambdaTypeTree).parameters[1].type.name).toBe('Number');
   expect(locationAttribute.body.length).toBe(1);
   expect((locationAttribute.body[0] as ExpressionStatementTree).expression).toBeInstanceOf(
     CallExpressionTree,
@@ -84,7 +84,7 @@ test('one scope', () => {
   expect(plusAttribute.modifiers.length).toBe(1);
   expect(plusAttribute.modifiers[0].id.text).toBe('infix');
   expect(plusAttribute.id.text).toBe('+');
-  const operatorType = plusAttribute.type as FunctionTypeTree;
+  const operatorType = plusAttribute.type as LambdaTypeTree;
   expect(operatorType.parameters[0].id.text).toBe('it');
   expect(operatorType.parameters[0].type.name).toBe('SomeClass');
   expect(operatorType.resultType.name).toBe('AnotherClass');

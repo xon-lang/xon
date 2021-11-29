@@ -10,7 +10,9 @@ export class ArrayTypeMetadata extends TypeMetadata {
 
   constructor(public itemType: TypeMetadata, public scope: DeclarationScope) {
     super();
-    this.declaration = scope.get('Array') as ClassDefinitionDeclarationMetadata;
+    this.declaration = scope.get(
+      this.constructor.name.replace('TypeMetadata', ''),
+    ) as ClassDefinitionDeclarationMetadata;
   }
 
   is(other: TypeMetadata): boolean {

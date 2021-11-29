@@ -1,7 +1,7 @@
 import {
   ArrayTypeContext,
-  FunctionTypeContext,
   IdTypeContext,
+  LambdaTypeContext,
   LiteralTypeContext,
   NullableTypeContext,
   ParenthesizedTypeContext,
@@ -10,8 +10,8 @@ import {
   UnionTypeContext,
 } from '../../grammar/xon-parser';
 import { ArrayTypeTree } from './array/array-type.tree';
-import { FunctionTypeTree } from './function/function-type.tree';
 import { IdTypeTree } from './id/id-type.tree';
+import { LambdaTypeTree } from './lambda/lambda-type.tree';
 import { LiteralTypeTree } from './literal/literal-type.tree';
 import { NullableTypeTree } from './nullable/nullable-type.tree';
 import { TupleTypeTree } from './tuple/tuple-type.tree';
@@ -24,8 +24,8 @@ export const getTypeTree = (ctx: TypeContext): TypeTree => {
   if (ctx instanceof ParenthesizedTypeContext) return getTypeTree(ctx.type());
 
   if (ctx instanceof ArrayTypeContext) return new ArrayTypeTree(ctx);
-  if (ctx instanceof FunctionTypeContext) return new FunctionTypeTree(ctx);
   if (ctx instanceof IdTypeContext) return new IdTypeTree(ctx);
+  if (ctx instanceof LambdaTypeContext) return new LambdaTypeTree(ctx);
   if (ctx instanceof LiteralTypeContext) return new LiteralTypeTree(ctx);
   if (ctx instanceof NullableTypeContext) return new NullableTypeTree(ctx);
   if (ctx instanceof TupleTypeContext) return new TupleTypeTree(ctx);

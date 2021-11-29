@@ -1,5 +1,5 @@
 import { parseType } from '../../parse';
-import { FunctionTypeTree } from '../function/function-type.tree';
+import { LambdaTypeTree } from '../lambda/lambda-type.tree';
 import { IdTypeTree } from './id-type.tree';
 
 test('has id name', () => {
@@ -18,6 +18,6 @@ test('has id with type parameters', () => {
   expect(tree.name).toBe('Map');
   expect(tree.typeArguments.length).toBe(2);
   expect(tree.typeArguments[0].name).toBe('String');
-  expect((tree.typeArguments[1] as FunctionTypeTree).parameters.length).toBe(0);
-  expect((tree.typeArguments[1] as FunctionTypeTree).resultType.name).toBe('Integer');
+  expect((tree.typeArguments[1] as LambdaTypeTree).parameters.length).toBe(0);
+  expect((tree.typeArguments[1] as LambdaTypeTree).resultType.name).toBe('Integer');
 });

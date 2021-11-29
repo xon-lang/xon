@@ -1,12 +1,12 @@
 import { NullableTypeTree } from '../../../tree/type/nullable/nullable-type.tree';
 import { DeclarationScope } from '../../declaration-scope';
-import { ClassDefinitionDeclarationMetadata } from '../../declaration/definition/class-definition-declaration-metadata';
+import { DefinitionDeclarationMetadata } from '../../declaration/definition/definition-declaration-metadata';
 import { TypeMetadata } from '../type-metadata';
 import { getTypeMetadata } from '../type-metadata-helper';
 import { UnionTypeMetadata } from '../union/union-type-metadata';
 
 export class NullableTypeMetadata extends TypeMetadata {
-  public declaration: ClassDefinitionDeclarationMetadata;
+  public declaration: DefinitionDeclarationMetadata;
 
   constructor(public type: TypeMetadata, public scope: DeclarationScope) {
     super();

@@ -10,7 +10,9 @@ export class TupleTypeMetadata extends TypeMetadata {
 
   constructor(public itemsTypes: TypeMetadata[], public scope: DeclarationScope) {
     super();
-    this.declaration = scope.get('Tuple') as ClassDefinitionDeclarationMetadata;
+    this.declaration = scope.get(
+      this.constructor.name.replace('TypeMetadata', ''),
+    ) as ClassDefinitionDeclarationMetadata;
   }
 
   is(other: TypeMetadata): boolean {

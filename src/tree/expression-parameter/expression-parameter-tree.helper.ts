@@ -1,4 +1,4 @@
-import { ExpressionParameterContext, FunctionParametersContext } from '../../grammar/xon-parser';
+import { ExpressionParameterContext, MethodParametersContext } from '../../grammar/xon-parser';
 import { ExpressionParameterTree } from './expression-parameter.tree';
 
 export const getExpressionParameterTree = (
@@ -9,7 +9,7 @@ export const getExpressionParameterTree = (
 };
 
 export const getExpressionParametersTrees = (
-  contexts: ExpressionParameterContext[] | FunctionParametersContext,
+  contexts: ExpressionParameterContext[] | MethodParametersContext,
 ): ExpressionParameterTree[] => {
   if (Array.isArray(contexts)) return contexts.map(getExpressionParameterTree);
   return contexts?.expressionParameter().map(getExpressionParameterTree) || [];

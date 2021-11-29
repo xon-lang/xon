@@ -13,6 +13,6 @@ export class DefinitionAncestorTree extends BaseTree {
     super();
 
     this.type = getTypeTree(ctx.type());
-    this.arguments = getExpressionsTrees(ctx.functionArguments()?.expression());
+    this.arguments = getExpressionsTrees(ctx.methodArguments()?.expression());
   }
 }

@@ -9,7 +9,9 @@ export class UnionTypeMetadata extends TypeMetadata {
 
   constructor(public types: TypeMetadata[], public scope: DeclarationScope) {
     super();
-    this.declaration = scope.get('Union') as ClassDefinitionDeclarationMetadata;
+    this.declaration = scope.get(
+      this.constructor.name.replace('TypeMetadata', ''),
+    ) as ClassDefinitionDeclarationMetadata;
   }
 
   is(other: TypeMetadata): boolean {

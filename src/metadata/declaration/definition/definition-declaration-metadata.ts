@@ -1,7 +1,7 @@
 import { AttributeTree } from '../../../tree/attribute/attribute-tree';
 import { DefinitionTree } from '../../../tree/definition/definition-tree';
 import { DeclarationScope } from '../../declaration-scope';
-import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';
+import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';
 import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
 import { AttributeDeclarationMetadata } from '../attribute/attribute-declaration-metadata';
@@ -46,7 +46,7 @@ export abstract class DefinitionDeclarationMetadata extends DeclarationMetadata 
     const bySignature = byTypeArguments.filter((x) => {
       const metadata = new AttributeDeclarationMetadata(x, this.scope);
       const type = metadata.type(typeArguments);
-      if (type instanceof FunctionTypeMetadata) {
+      if (type instanceof LambdaTypeMetadata) {
         return (
           expressionArguments.length === type.parameters.length &&
           expressionArguments.every((x, i) => x.is(type.parameters[i].type)) &&

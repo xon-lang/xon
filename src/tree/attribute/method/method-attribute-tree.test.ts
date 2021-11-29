@@ -18,7 +18,7 @@ test('with parameters', () => {
 
   expect(tree.id.text).toBe('_a');
   expect(tree.isPrivate).toBe(true);
-  expect(tree.type.name).toBe('Function');
+  expect(tree.type.name).toBe('Lambda');
 });
 
 test('with type parameters', () => {
@@ -28,5 +28,5 @@ test('with type parameters', () => {
 
   expect(tree.id.text).toBe('a');
   expect(tree.isPrivate).toBe(false);
-  expect(tree.type.name).toBe('Function');
+  expect(tree.type.name).toBe('Lambda');
 });

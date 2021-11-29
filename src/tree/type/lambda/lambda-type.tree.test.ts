@@ -1,11 +1,11 @@
 import { parseType } from '../../parse';
 import { ArrayTypeTree } from '../array/array-type.tree';
-import { FunctionTypeTree } from './function-type.tree';
+import { LambdaTypeTree } from './lambda-type.tree';
 
-test('number return function', () => {
+test('number return method', () => {
   const code = '(s String, i Integer[]) Number';
-  const tree = parseType<FunctionTypeTree>(code);
-  expect(tree).toBeInstanceOf(FunctionTypeTree);
+  const tree = parseType<LambdaTypeTree>(code);
+  expect(tree).toBeInstanceOf(LambdaTypeTree);
 
   expect(tree.parameters.length).toBe(2);
   expect(tree.parameters[0].type.name).toBe('String');
@@ -15,8 +15,8 @@ test('number return function', () => {
 
 test('from translator-ts', () => {
   const code = '(i Integer) T';
-  const tree = parseType<FunctionTypeTree>(code);
-  expect(tree).toBeInstanceOf(FunctionTypeTree);
+  const tree = parseType<LambdaTypeTree>(code);
+  expect(tree).toBeInstanceOf(LambdaTypeTree);
 
   expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].type.name).toBe('Integer');

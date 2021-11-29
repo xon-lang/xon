@@ -1,12 +1,12 @@
 import { LambdaExpressionTree } from '../../../tree/expression/lambda/lambda-expression.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { ExpressionParameterMetadata } from '../../declaration/expression-parameter/expression-parameter-declaration-metadata';
-import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';
+import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
 import { getExpressionMetadata } from '../expression-metadata-helper';
 
 export class LambdaExpressionMetadata extends ExpressionMetadata {
-  type: FunctionTypeMetadata;
+  type: LambdaTypeMetadata;
 
   constructor(tree: LambdaExpressionTree, scope: DeclarationScope) {
     super();
@@ -15,7 +15,7 @@ export class LambdaExpressionMetadata extends ExpressionMetadata {
       scope.set(new ExpressionParameterMetadata(parameter, scope));
     }
 
-    this.type = new FunctionTypeMetadata(
+    this.type = new LambdaTypeMetadata(
       [],
       getExpressionMetadata(tree.expression, scope).type,
       scope,

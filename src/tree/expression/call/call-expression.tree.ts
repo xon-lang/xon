@@ -15,7 +15,7 @@ export class CallExpressionTree extends ExpressionTree {
 
     this.instance = getExpressionTree(ctx.expression());
     this.arguments = getExpressionsTrees(
-      (ctx.functionArguments() || ctx.indexerArguments()).expression(),
+      (ctx.methodArguments() || ctx.indexerArguments()).expression(),
     );
     this.isIndexCall = !!ctx.indexerArguments();
   }

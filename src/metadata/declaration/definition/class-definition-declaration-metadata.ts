@@ -1,7 +1,7 @@
 import { AttributeTree } from '../../../tree/attribute/attribute-tree';
 import { ClassDefinitionTree } from '../../../tree/definition/class/class-definition-tree';
 import { DeclarationScope } from '../../declaration-scope';
-import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';
+import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';
 import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
 import { getTypeMetadata } from '../../type/type-metadata-helper';
@@ -28,7 +28,7 @@ export class ClassDefinitionDeclarationMetadata extends DefinitionDeclarationMet
     this.attributes = tree.attributes;
   }
 
-  type(typeArguments: TypeMetadata[]): FunctionTypeMetadata {
+  type(typeArguments: TypeMetadata[]): LambdaTypeMetadata {
     const initParameters = this.tree.parameters
       ? this.tree.parameters.map((x) => ({
           name: x.id.text,
@@ -36,6 +36,6 @@ export class ClassDefinitionDeclarationMetadata extends DefinitionDeclarationMet
         }))
       : [];
     const initResultType = new IdTypeMetadata(this.name, typeArguments, this.scope);
-    return new FunctionTypeMetadata(initParameters, initResultType, this.scope);
+    return new LambdaTypeMetadata(initParameters, initResultType, this.scope);
   }
 }

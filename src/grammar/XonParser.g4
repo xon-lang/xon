@@ -18,7 +18,7 @@ libraryPathPart: '@'? LOWER_ID;
 libraryMember:   name = UPPER_ID (AS alias = UPPER_ID)?;
 
 definition:
-    name = UPPER_ID typeParameters? functionParameters? definitionAncestor? (
+    name = UPPER_ID typeParameters? methodParameters? definitionAncestor? (
         NL+ INDENT ( attribute | NL)+ DEDENT
     )? # classDefinition
     | name = LOWER_ID typeParameters? definitionAncestor? (
@@ -26,7 +26,7 @@ definition:
     )?                                         # attributeDefinition
     | name = UPPER_ID typeParameters? '=' type # aliasDefinition
     ;
-definitionAncestor: IS type functionArguments?;
+definitionAncestor: IS type methodArguments?;
 
 attribute:
     attributeHeader type                                       # abstractAttribute
@@ -63,7 +63,7 @@ assignment:
 expression:
     name = (LOWER_ID | UPPER_ID | INSTANCE | INSTANCE_MEMBER) typeArguments? # idExpression
     | literal                                                                # literalExpression
-    | expression (functionArguments | indexerArguments)                      # callExpression
+    | expression (methodArguments | indexerArguments)                        # callExpression
     | expression ('?.' | '.') name = LOWER_ID typeArguments?                 # memberExpression
     | expression IS type                                                     # isExpression
     | expression AS type                                                     # asExpression
@@ -79,7 +79,7 @@ expression:
     | left = expression op = '&&' right = expression                         # conjunctionExpression
     | left = expression op = '||' right = expression                         # disjunctionExpression
     | expression '|' (name = LOWER_ID ':')? expression                       # pipeExpression
-    | functionParameters ':' expression                                      # lambdaExpression
+    | methodParameters ':' expression                                        # lambdaExpression
     | '{' (mapArgument (',' mapArgument)*)? '}'                              # mapExpression
     | '[' (expression (',' expression)*)? ']'                                # arrayExpression
     | '(' expression ')'                                                     # parenthesizedExpression
@@ -91,7 +91,7 @@ type:
     | type '?'                     # nullableType
     | type '[' ']'                 # arrayType
     | type '||' type               # unionType
-    | functionParameters type?     # functionType
+    | methodParameters type?       # lambdaType
     | '{' type ':' type '}'        # mapType
     | '[' (type (',' type)*)? ']'  # tupleType
     | '(' type ')'                 # parenthesizedType
@@ -123,11 +123,11 @@ operator:
     ;
 
 expressionParameter: name = LOWER_ID type? ('#' meta = UPPER_ID)?;
-functionParameters:  '(' (expressionParameter (',' expressionParameter)*)? ')';
+methodParameters:    '(' (expressionParameter (',' expressionParameter)*)? ')';
 
-mapArgument:       name = LOWER_ID ':' expression;
-functionArguments: '(' (expression (',' expression)*)? ')';
-indexerArguments:  '[' (expression (',' expression)*)? ']';
+mapArgument:      name = LOWER_ID ':' expression;
+methodArguments:  '(' (expression (',' expression)*)? ')';
+indexerArguments: '[' (expression (',' expression)*)? ']';
 
 typeParameter:  '...'? name = UPPER_ID (IS type? ('#' meta = UPPER_ID)?)?;
 typeParameters: '<' typeParameter (',' typeParameter)* '>';

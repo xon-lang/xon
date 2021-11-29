@@ -6,7 +6,7 @@ import { LiteralExpressionTree } from '../literal/literal-expression.tree';
 import { MemberExpressionTree } from '../member/member-expression.tree';
 import { CallExpressionTree } from './call-expression.tree';
 
-test('function call', () => {
+test('method call', () => {
   const code = 'f(3, "str")';
   const tree = parseExpression<CallExpressionTree>(code);
   expect(tree).toBeInstanceOf(CallExpressionTree);
@@ -20,7 +20,7 @@ test('function call', () => {
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
 });
 
-test('function on several lines', () => {
+test('method on several lines', () => {
   const code = `f(3,
         "str", 123, 
     415)`;

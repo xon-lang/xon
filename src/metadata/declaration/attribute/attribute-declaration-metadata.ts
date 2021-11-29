@@ -2,10 +2,10 @@ import { AbstractAttributeTree } from '../../../tree/attribute/abstract/abstract
 import { AttributeTree } from '../../../tree/attribute/attribute-tree';
 import { MethodAttributeTree } from '../../../tree/attribute/method/method-attribute-tree';
 import { ValueAttributeTree } from '../../../tree/attribute/value/value-attribute-tree';
-import { FunctionTypeTree } from '../../../tree/type/function/function-type.tree';
+import { LambdaTypeTree } from '../../../tree/type/lambda/lambda-type.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { getExpressionMetadata } from '../../expression/expression-metadata-helper';
-import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';
+import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
 import { getTypeMetadata } from '../../type/type-metadata-helper';
 import { DeclarationMetadata } from '../declaration-metadata';
@@ -24,16 +24,16 @@ export class AttributeDeclarationMetadata extends DeclarationMetadata {
     if (this.tree instanceof AbstractAttributeTree)
       return getTypeMetadata(this.tree.type, this.scope);
     if (this.tree instanceof MethodAttributeTree) {
-      if (this.tree.type instanceof FunctionTypeTree) {
+      if (this.tree.type instanceof LambdaTypeTree) {
         const parameters = this.tree.type.parameters.map((x) => ({
           name: x.id.text,
           type: getTypeMetadata(x.type, this.scope),
         }));
         const resultType = getTypeMetadata(this.tree.type.resultType, this.scope);
-        return new FunctionTypeMetadata(parameters, resultType, this.scope);
+        return new LambdaTypeMetadata(parameters, resultType, this.scope);
       }
       const resultType = getTypeMetadata(this.tree.type, this.scope);
-      return new FunctionTypeMetadata([], resultType, this.scope);
+      return new LambdaTypeMetadata([], resultType, this.scope);
     }
     if (this.tree instanceof ValueAttributeTree) {
       if (this.tree.type) return getTypeMetadata(this.tree.type, this.scope);

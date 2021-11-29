@@ -1,22 +1,22 @@
-import { FunctionTypeContext } from '../../../grammar/xon-parser';
-import { FunctionTypeMetadata } from '../../../metadata/type/function/function-type-metadata';
+import { LambdaTypeContext } from '../../../grammar/xon-parser';
+import { LambdaTypeMetadata } from '../../../metadata/type/lambda/lambda-type-metadata';
 import { getExpressionParametersTrees } from '../../expression-parameter/expression-parameter-tree.helper';
 import { ExpressionParameterTree } from '../../expression-parameter/expression-parameter.tree';
 import { getTypeTree } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
-export class FunctionTypeTree extends TypeTree {
-  metadata: FunctionTypeMetadata;
+export class LambdaTypeTree extends TypeTree {
+  metadata: LambdaTypeMetadata;
   name: string;
   parameters: ExpressionParameterTree[] = [];
   resultType?: TypeTree;
 
-  constructor(public ctx?: FunctionTypeContext) {
+  constructor(public ctx?: LambdaTypeContext) {
     super();
     if (!ctx) return;
 
     this.name = this.constructor.name.replace(TypeTree.name, '');
-    this.parameters = getExpressionParametersTrees(ctx.functionParameters());
+    this.parameters = getExpressionParametersTrees(ctx.methodParameters());
     this.resultType = (ctx.type() && getTypeTree(ctx.type())) || null;
   }
 
