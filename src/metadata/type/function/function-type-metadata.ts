@@ -19,14 +19,16 @@ export class FunctionTypeMetadata extends TypeMetadata {
 
   is(other: TypeMetadata): boolean {
     if (other instanceof UnionTypeMetadata) return other.has(this);
-    if (!(other instanceof FunctionTypeMetadata)) return false;
-    return (
-      this.parameters.length === other.parameters.length &&
-      this.parameters.every((x, i) => x.type.is(other.parameters[i].type))
-    );
+    if (other instanceof FunctionTypeMetadata)
+      return (
+        this.parameters.length === other.parameters.length &&
+        this.parameters.every((x, i) => x.type.is(other.parameters[i].type)) &&
+        (!this.resultType || this.resultType.is(other.resultType))
+      );
+    return false;
   }
 
-  static fromTree(tree: FunctionTypeTree, scope: DeclarationScope) {
+  static fromTree(tree: FunctionTypeTree, scope: DeclarationScope): FunctionTypeMetadata {
     const parameters = tree.parameters.map((x) => ({
       name: x.id.text,
       type: getTypeMetadata(x.type, scope),

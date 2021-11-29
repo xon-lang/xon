@@ -64,7 +64,7 @@ export abstract class DefinitionDeclarationMetadata extends DeclarationMetadata 
       );
     if (!bySignature.length)
       throw new Error(
-        `'${name}' attribute not found in '${this.name}' declaration with the same signature`,
+        `'${name}' attribute not found in '${this.name}' declaration with the signature ...`,
       );
 
     if (bySignature.length > 1)

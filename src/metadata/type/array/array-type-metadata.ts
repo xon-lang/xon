@@ -15,11 +15,11 @@ export class ArrayTypeMetadata extends TypeMetadata {
 
   is(other: TypeMetadata): boolean {
     if (other instanceof UnionTypeMetadata) return other.has(this);
-    if (!(other instanceof ArrayTypeMetadata)) return false;
-    return this.itemType.is(other.itemType);
+    if (other instanceof ArrayTypeMetadata) return this.itemType.is(other.itemType);
+    return false;
   }
 
-  static fromTree(tree: ArrayTypeTree, scope: DeclarationScope) {
+  static fromTree(tree: ArrayTypeTree, scope: DeclarationScope): ArrayTypeMetadata {
     const itemType = getTypeMetadata(tree.itemType, scope);
     const metadata = new ArrayTypeMetadata(itemType, scope);
     return metadata;
