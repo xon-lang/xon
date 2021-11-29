@@ -39,3 +39,4 @@ A:
 tasks:
   consistent helper methods (|| null || [])
   remove complex folder names (definition/class-definition/class-definition-tree.ts)
+  rename function to method
