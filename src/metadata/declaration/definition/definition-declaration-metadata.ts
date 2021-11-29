@@ -32,11 +32,12 @@ export abstract class DefinitionDeclarationMetadata extends DeclarationMetadata 
     typeArguments: TypeMetadata[],
     expressionParameters: TypeMetadata[],
   ): AttributeDeclarationMetadata {
-    const attributesByFunctionType = this.getAttributes(methodName, typeArguments).filter(
-      (x) => x.type instanceof FunctionTypeMetadata,
+    const attributes = this.getAttributes(methodName, typeArguments);
+    const attributesByFunctionType = attributes.filter(
+      (x) => x.type(typeArguments) instanceof FunctionTypeMetadata,
     );
     if (!attributesByFunctionType.length)
-      throw new Error(`'${methodName}' attribute method not found`);
+      throw new Error(`'${methodName}' attribute method not found in '${this.name}'`);
 
     const attributesByExpressionParameters = attributesByFunctionType
       .map((x) => ({
