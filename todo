@@ -1,37 +1,3 @@
-многострочные комментарии
-"""
-    |a
-    |b
-"""
-
-добавить not для типов (f(f not String): --)
-добавить binding на уровне языка чтобы отловить изменения свойств (React, Angular)
-
-TimeSpan(nanoseconds)
-  nanoseconds Float64
-  milliseconds = nanoseconds * 10^3
-  seconds = nanoseconds * 10^6
-  minutes = nanoseconds * 10^6
-
-Посмотреть как в 1С сделаны multiline c dsl для запросов
-
-
-expression-literal
-type-literal
-
-
-code docs
-class A:
-  doc:
-    $value is ....
-    example: ....
-  inc(value number):
-    --
-
-
-A:
-  prop (enum:
-    a
-    b
-    c) = a
+tasks
+  add documentation grammar
 
