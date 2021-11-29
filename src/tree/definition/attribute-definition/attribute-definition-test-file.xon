@@ -1,4 +1,4 @@
-attr<T> is BaseClass<String, Boolean>
+attr<T> is BaseClass<String, Boolean>(1, 2, 3)
     property = 123
     anotherProp String
     typedValue Number
