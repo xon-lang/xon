@@ -35,6 +35,3 @@ A:
     b
     c) = a
 
-
-tasks:
-  rename function to method
