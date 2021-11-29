@@ -102,7 +102,7 @@ export class XonParser extends Parser {
 	public static readonly RULE_libraryPathPart = 4;
 	public static readonly RULE_libraryMember = 5;
 	public static readonly RULE_definition = 6;
-	public static readonly RULE_definitionBaseType = 7;
+	public static readonly RULE_definitionAncestor = 7;
 	public static readonly RULE_attribute = 8;
 	public static readonly RULE_attributeHeader = 9;
 	public static readonly RULE_attributeName = 10;
@@ -125,7 +125,7 @@ export class XonParser extends Parser {
 	// tslint:disable:no-trailing-whitespace
 	public static readonly ruleNames: string[] = [
 		"source", "export", "library", "libraryPath", "libraryPathPart", "libraryMember", 
-		"definition", "definitionBaseType", "attribute", "attributeHeader", "attributeName", 
+		"definition", "definitionAncestor", "attribute", "attributeHeader", "attributeName", 
 		"attributeModifier", "statement", "assignment", "expression", "type", 
 		"literal", "operator", "expressionParameter", "functionParameters", "mapArgument", 
 		"functionArguments", "indexerArguments", "typeParameter", "typeParameters", 
@@ -564,7 +564,7 @@ export class XonParser extends Parser {
 				if (_la === XonParser.IS) {
 					{
 					this.state = 119;
-					this.definitionBaseType();
+					this.definitionAncestor();
 					}
 				}
 
@@ -664,7 +664,7 @@ export class XonParser extends Parser {
 				if (_la === XonParser.IS) {
 					{
 					this.state = 141;
-					this.definitionBaseType();
+					this.definitionAncestor();
 					}
 				}
 
@@ -781,9 +781,9 @@ export class XonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public definitionBaseType(): DefinitionBaseTypeContext {
-		let _localctx: DefinitionBaseTypeContext = new DefinitionBaseTypeContext(this._ctx, this.state);
-		this.enterRule(_localctx, 14, XonParser.RULE_definitionBaseType);
+	public definitionAncestor(): DefinitionAncestorContext {
+		let _localctx: DefinitionAncestorContext = new DefinitionAncestorContext(this._ctx, this.state);
+		this.enterRule(_localctx, 14, XonParser.RULE_definitionAncestor);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
@@ -3487,8 +3487,8 @@ export class ClassDefinitionContext extends DefinitionContext {
 	public functionParameters(): FunctionParametersContext | undefined {
 		return this.tryGetRuleContext(0, FunctionParametersContext);
 	}
-	public definitionBaseType(): DefinitionBaseTypeContext | undefined {
-		return this.tryGetRuleContext(0, DefinitionBaseTypeContext);
+	public definitionAncestor(): DefinitionAncestorContext | undefined {
+		return this.tryGetRuleContext(0, DefinitionAncestorContext);
 	}
 	public INDENT(): TerminalNode | undefined { return this.tryGetToken(XonParser.INDENT, 0); }
 	public DEDENT(): TerminalNode | undefined { return this.tryGetToken(XonParser.DEDENT, 0); }
@@ -3521,8 +3521,8 @@ export class AttributeDefinitionContext extends DefinitionContext {
 	public typeParameters(): TypeParametersContext | undefined {
 		return this.tryGetRuleContext(0, TypeParametersContext);
 	}
-	public definitionBaseType(): DefinitionBaseTypeContext | undefined {
-		return this.tryGetRuleContext(0, DefinitionBaseTypeContext);
+	public definitionAncestor(): DefinitionAncestorContext | undefined {
+		return this.tryGetRuleContext(0, DefinitionAncestorContext);
 	}
 	public INDENT(): TerminalNode | undefined { return this.tryGetToken(XonParser.INDENT, 0); }
 	public DEDENT(): TerminalNode | undefined { return this.tryGetToken(XonParser.DEDENT, 0); }
@@ -3566,7 +3566,7 @@ export class AliasDefinitionContext extends DefinitionContext {
 }
 
 
-export class DefinitionBaseTypeContext extends ParserRuleContext {
+export class DefinitionAncestorContext extends ParserRuleContext {
 	public IS(): TerminalNode { return this.getToken(XonParser.IS, 0); }
 	public type(): TypeContext {
 		return this.getRuleContext(0, TypeContext);
@@ -3578,7 +3578,7 @@ export class DefinitionBaseTypeContext extends ParserRuleContext {
 		super(parent, invokingState);
 	}
 	// @Override
-	public get ruleIndex(): number { return XonParser.RULE_definitionBaseType; }
+	public get ruleIndex(): number { return XonParser.RULE_definitionAncestor; }
 }
 
 
