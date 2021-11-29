@@ -13,9 +13,8 @@ export class MemberExpressionMetadata extends ExpressionMetadata {
 
     const declaration = getExpressionMetadata(tree.instance, scope).type.declaration;
     const typeArguments = tree.typeArguments.map((x) => getTypeMetadata(x, scope));
-    const attributes = declaration.attributesByTypeArguments(tree.id.text, typeArguments);
+    const attribute = declaration.attribute(tree.id.text, typeArguments, [], null);
 
-    if (attributes.length > 1) throw new Error(`To many '${tree.id.text}' attributes`);
-    this.type = attributes[0].type(typeArguments);
+    this.type = attribute.type(typeArguments);
   }
 }
