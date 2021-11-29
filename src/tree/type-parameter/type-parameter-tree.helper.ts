@@ -8,10 +8,8 @@ export const getTypeParameterTree = (ctx: TypeParameterContext): TypeParameterTr
 };
 
 export const getTypeParametersTrees = (
-  parameters?: TypeParameterContext[] | TypeParametersContext,
+  contexts: TypeParameterContext[] | TypeParametersContext,
 ): TypeParameterTree[] => {
-  if (!parameters) return [];
-
-  if (Array.isArray(parameters)) return parameters.map(getTypeParameterTree);
-  return parameters.typeParameter().map(getTypeParameterTree);
+  if (Array.isArray(contexts)) return contexts.map(getTypeParameterTree);
+  return contexts?.typeParameter().map(getTypeParameterTree) || [];
 };

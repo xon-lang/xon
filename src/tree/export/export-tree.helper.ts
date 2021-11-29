@@ -6,5 +6,5 @@ export const getExportTree = (ctx: ExportContext): ExportTree => {
   return new ExportTree(ctx);
 };
 
-export const getLibrariesTrees = (definitions: ExportContext[]): ExportTree[] =>
-  definitions?.map(getExportTree) || [];
+export const getLibrariesTrees = (contexts: ExportContext[]): ExportTree[] =>
+  contexts?.map(getExportTree) || [];

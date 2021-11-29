@@ -9,10 +9,8 @@ export const getExpressionParameterTree = (
 };
 
 export const getExpressionParametersTrees = (
-  parameters: ExpressionParameterContext[] | FunctionParametersContext,
+  contexts: ExpressionParameterContext[] | FunctionParametersContext,
 ): ExpressionParameterTree[] => {
-  if (!parameters) return [];
-
-  if (Array.isArray(parameters)) return parameters.map(getExpressionParameterTree);
-  return parameters.expressionParameter().map(getExpressionParameterTree);
+  if (Array.isArray(contexts)) return contexts.map(getExpressionParameterTree);
+  return contexts?.expressionParameter().map(getExpressionParameterTree) || [];
 };

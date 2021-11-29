@@ -25,6 +25,6 @@ export class MethodAttributeTree extends AttributeTree {
     this.id = IdToken.fromContext(header.attributeName());
     this.typeParameters = getTypeParametersTrees(header.typeParameters()) || [];
     this.type = getTypeTree(ctx.type());
-    this.body = getStatementsTrees(ctx.statement()) || [];
+    this.body = getStatementsTrees(ctx.statement());
   }
 }

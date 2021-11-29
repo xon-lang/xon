@@ -90,5 +90,5 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   throw Error(`Expression tree not found for "${ctx.constructor.name}"`);
 };
 
-export const getExpressionsTrees = (expressions: ExpressionContext[]): ExpressionTree[] =>
-  expressions?.map(getExpressionTree);
+export const getExpressionsTrees = (contexts: ExpressionContext[]): ExpressionTree[] =>
+  contexts?.map(getExpressionTree) || [];

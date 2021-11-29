@@ -17,6 +17,6 @@ export const getAttributeTree = (ctx: AttributeContext): AttributeTree => {
   if (ctx instanceof MethodAttributeContext) return new MethodAttributeTree(ctx);
 };
 
-export const getAttributesTrees = (ctx: AttributeContext[]): AttributeTree[] => {
-  return ctx?.map((x) => getAttributeTree(x));
+export const getAttributesTrees = (contexts: AttributeContext[]): AttributeTree[] => {
+  return contexts?.map((x) => getAttributeTree(x));
 };

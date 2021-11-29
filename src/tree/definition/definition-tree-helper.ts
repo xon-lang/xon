@@ -19,5 +19,5 @@ export const getDefinitionTree = (ctx: DefinitionContext): DefinitionTree => {
   throw Error(`Definition tree not found for "${ctx.constructor.name}"`);
 };
 
-export const getDefinitionsTrees = (members: DefinitionContext[]): DefinitionTree[] =>
-  members?.map(getDefinitionTree) || [];
+export const getDefinitionsTrees = (contexts: DefinitionContext[]): DefinitionTree[] =>
+  contexts?.map(getDefinitionTree) || [];
