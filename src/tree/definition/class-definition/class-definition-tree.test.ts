@@ -8,6 +8,7 @@ import { parseSourceFile } from '../../parse';
 import { SourceTree } from '../../source/source-tree';
 import { ExpressionStatementTree } from '../../statement/expression-statement/expression-statement.tree';
 import { FunctionTypeTree } from '../../type/function-type/function-type.tree';
+import { IdTypeTree } from '../../type/id-type/id-type.tree';
 import { ClassDefinitionTree } from './class-definition-tree';
 
 test('one scope', () => {
@@ -28,10 +29,12 @@ test('one scope', () => {
   expect(definition.parameters[0].id.text).toBe('name');
   expect(definition.parameters[0].type.name).toBe('String');
 
-  expect(definition.ancestor.type.name).toBe('BaseClass');
-  expect(definition.ancestor.type.typeArguments.length).toBe(2);
-  expect(definition.ancestor.type.typeArguments[0].name).toBe('String');
-  expect(definition.ancestor.type.typeArguments[1].name).toBe('Boolean');
+  const ancestorType = definition.ancestor.type as IdTypeTree;
+  expect(ancestorType).toBeInstanceOf(IdTypeTree);
+  expect(ancestorType.name).toBe('BaseClass');
+  expect(ancestorType.typeArguments.length).toBe(2);
+  expect(ancestorType.typeArguments[0].name).toBe('String');
+  expect(ancestorType.typeArguments[1].name).toBe('Boolean');
   expect(definition.ancestor.arguments.length).toBe(2);
 
   const attrs = definition.attributes;

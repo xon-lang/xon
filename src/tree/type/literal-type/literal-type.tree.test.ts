@@ -6,7 +6,7 @@ test('integer', () => {
   const tree = parseType<LiteralTypeTree>(code);
   expect(tree).toBeInstanceOf(LiteralTypeTree);
 
-  expect(tree.literal.value).toBe('123');
+  expect(tree.literal.value).toBe(123);
 });
 
 test('string', () => {
@@ -14,5 +14,6 @@ test('string', () => {
   const tree = parseType<LiteralTypeTree>(code);
   expect(tree).toBeInstanceOf(LiteralTypeTree);
 
-  expect(tree.literal.value).toBe('"hi"');
+  expect(tree.literal.value).toBe('hi');
+  expect(tree.literal.toString()).toBe('"hi"');
 });
