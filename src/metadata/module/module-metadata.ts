@@ -7,7 +7,7 @@ import { parseSourceFile } from '../../tree/parse';
 import { DeclarationScope } from '../declaration-scope';
 import { AttributeDeclarationMetadata } from '../declaration/attribute/attribute-declaration-metadata';
 import { DeclarationMetadata } from '../declaration/declaration-metadata';
-import { AliasDefinitionDeclarationMetadata } from '../declaration/definition/alias-definition-declaration-metadata copy';
+import { AliasDefinitionDeclarationMetadata } from '../declaration/definition/alias-definition-declaration-metadata';
 import { AttributeDefinitionDeclarationMetadata } from '../declaration/definition/attribute-definition-declaration-metadata';
 import { ClassDefinitionDeclarationMetadata } from '../declaration/definition/class-definition-declaration-metadata';
 

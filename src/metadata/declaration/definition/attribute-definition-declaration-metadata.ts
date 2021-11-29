@@ -4,7 +4,7 @@ import { DeclarationScope } from '../../declaration-scope';
 import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
 import { getTypeMetadata } from '../../type/type-metadata-helper';
-import { DefinitionDeclarationMetadata } from './definition-declaration-metadata copy';
+import { DefinitionDeclarationMetadata } from './definition-declaration-metadata';
 
 export class AttributeDefinitionDeclarationMetadata extends DefinitionDeclarationMetadata {
   attributes: AttributeTree[] = [];

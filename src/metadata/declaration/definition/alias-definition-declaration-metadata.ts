@@ -3,7 +3,7 @@ import { AliasDefinitionTree } from '../../../tree/definition/alias-definition/a
 import { DeclarationScope } from '../../declaration-scope';
 import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
-import { DefinitionDeclarationMetadata } from './definition-declaration-metadata copy';
+import { DefinitionDeclarationMetadata } from './definition-declaration-metadata';
 
 export class AliasDefinitionDeclarationMetadata extends DefinitionDeclarationMetadata {
   attributes: AttributeTree[] = [];

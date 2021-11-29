@@ -1,5 +1,5 @@
 import { DeclarationScope } from '../declaration-scope';
-import { DefinitionDeclarationMetadata } from '../declaration/definition/definition-declaration-metadata copy';
+import { DefinitionDeclarationMetadata } from '../declaration/definition/definition-declaration-metadata';
 
 export abstract class TypeMetadata {
   abstract declaration: DefinitionDeclarationMetadata;

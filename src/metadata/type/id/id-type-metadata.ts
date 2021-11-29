@@ -1,6 +1,6 @@
 import { IdTypeTree } from '../../../tree/type/id-type/id-type.tree';
 import { DeclarationScope } from '../../declaration-scope';
-import { DefinitionDeclarationMetadata } from '../../declaration/definition/definition-declaration-metadata copy';
+import { DefinitionDeclarationMetadata } from '../../declaration/definition/definition-declaration-metadata';
 import { LiteralTypeMetadata } from '../literal/literal-type-metadata';
 import { TypeMetadata } from '../type-metadata';
 import { getTypeMetadata } from '../type-metadata-helper';
