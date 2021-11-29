@@ -1,8 +1,8 @@
-Boolean
+Boolean(value 0 | 1)
   prefix not () Boolean
 
   toString() String
 
 
-false is Boolean
-true is Boolean
+false is Boolean(0)
+true is Boolean(1)

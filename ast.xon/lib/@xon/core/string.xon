@@ -1,4 +1,4 @@
-String is Char[]
+String is Array<Char>
   infix + (other Boolean) String
   infix + (other Integer) String
   infix + (other Float) String
