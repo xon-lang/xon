@@ -18,7 +18,7 @@ export class LiteralTypeMetadata extends TypeMetadata {
   is(other: TypeMetadata): boolean {
     if (other instanceof LiteralTypeMetadata)
       return this.declaration === other.declaration && this.value === other.value;
-    return this.declaration.type([]).is(other);
+    return this.declaration.type([]).resultType.is(other);
   }
 
   static fromTree(tree: LiteralTree, scope: DeclarationScope): LiteralTypeMetadata {
