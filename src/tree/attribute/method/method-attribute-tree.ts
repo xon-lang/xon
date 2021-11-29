@@ -30,7 +30,7 @@ export class MethodAttributeTree extends AttributeTree {
   toString(): string {
     const modifiers = this.modifiers.length ? this.modifiers.join(' ') + ' ' : '';
     const typeParameters = this.typeParameters.length
-      ? '<' + this.typeParameters.join(' ') + '>'
+      ? '<' + this.typeParameters.join(', ') + '>'
       : '';
     const statements = this.body.join('\n').replace(/^/gm, '  ');
     return `${modifiers}${this.id}${typeParameters} ${this.type}\n${statements}`;

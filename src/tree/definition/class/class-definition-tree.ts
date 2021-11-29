@@ -1,6 +1,9 @@
 import { ClassDefinitionContext } from '../../../grammar/xon-parser';
+import { AbstractAttributeTree } from '../../attribute/abstract/abstract-attribute-tree';
 import { AttributeTree } from '../../attribute/attribute-tree';
 import { getAttributesTrees } from '../../attribute/attribute-tree.helper';
+import { MethodAttributeTree } from '../../attribute/method/method-attribute-tree';
+import { ValueAttributeTree } from '../../attribute/value/value-attribute-tree';
 import { getExpressionParametersTrees } from '../../expression-parameter/expression-parameter-tree.helper';
 import { ExpressionParameterTree } from '../../expression-parameter/expression-parameter.tree';
 import { IdToken } from '../../id-token';
@@ -29,13 +32,28 @@ export class ClassDefinitionTree extends DefinitionTree {
 
   toString(): string {
     const typeParameters = this.typeParameters.length
-      ? '<' + this.typeParameters.join(' ') + '>'
+      ? '<' + this.typeParameters.join(', ') + '>'
       : '';
     const expressionParameters = this.expressionParameters.length
-      ? '(' + this.expressionParameters.join(' ') + ')'
+      ? '(' + this.expressionParameters.join(', ') + ')'
       : '';
     const ancestor = this.ancestor ? ' ' + this.ancestor.toString() : '';
-    const attributes = this.attributes.join('\n').replace(/^/gm, '  ');
-    return `${this.id}${typeParameters}${expressionParameters}${this.ancestor}\n${this.attributes}`;
+    const abstractAttributes = this.attributes
+      .filter((x) => x instanceof AbstractAttributeTree)
+      .join('\n');
+    const valueAttributes = this.attributes
+      .filter((x) => x instanceof ValueAttributeTree)
+      .join('\n');
+    const methodAttributes = this.attributes
+      .filter((x) => x instanceof MethodAttributeTree && !x.modifiers.length)
+      .join('\n\n');
+    const operatorAttributes = this.attributes
+      .filter((x) => x instanceof MethodAttributeTree && x.modifiers.length)
+      .join('\n\n');
+    const attributes = [abstractAttributes, valueAttributes, methodAttributes, operatorAttributes]
+      .filter((x) => x)
+      .join('\n\n')
+      .replace(/(^[^\n])/gm, '  $1');
+    return `${this.id}${typeParameters}${expressionParameters}${ancestor}\n${attributes}`;
   }
 }

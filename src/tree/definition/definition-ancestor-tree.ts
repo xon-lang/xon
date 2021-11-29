@@ -17,7 +17,7 @@ export class DefinitionAncestorTree extends BaseTree {
   }
 
   toString(): string {
-    const args = this.arguments.length ? '(' + this.arguments.join(' ') + ')' : '';
-    return `${this.type}${args}`;
+    const args = this.arguments.length ? '(' + this.arguments.join(', ') + ')' : '';
+    return `is ${this.type}${args}`;
   }
 }

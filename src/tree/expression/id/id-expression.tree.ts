@@ -18,7 +18,7 @@ export class IdExpressionTree extends ExpressionTree {
   }
 
   toString(): string {
-    if (this.typeArguments) return `${this.id}<${this.typeArguments.join(', ')}>`;
+    if (this.typeArguments.length) return `${this.id}<${this.typeArguments.join(', ')}>`;
     return this.id.toString();
   }
 }

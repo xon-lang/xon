@@ -26,7 +26,7 @@ export class AbstractAttributeTree extends AttributeTree {
   toString(): string {
     const modifiers = this.modifiers.length ? this.modifiers.join(' ') + ' ' : '';
     const typeParameters = this.typeParameters.length
-      ? '<' + this.typeParameters.join(' ') + '>'
+      ? '<' + this.typeParameters.join(', ') + '>'
       : '';
     return `${modifiers}${this.id}${typeParameters} ${this.type}`;
   }

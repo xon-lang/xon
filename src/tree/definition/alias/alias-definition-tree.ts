@@ -21,7 +21,7 @@ export class AliasDefinitionTree extends DefinitionTree {
 
   toString(): string {
     const typeParameters = this.typeParameters.length
-      ? '<' + this.typeParameters.join(' ') + '>'
+      ? '<' + this.typeParameters.join(', ') + '>'
       : '';
     return `${this.id}${typeParameters} = ${this.type}`;
   }

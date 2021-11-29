@@ -21,9 +21,10 @@ export class SourceTree extends BaseTree {
   }
 
   toString(): string {
-    const imports = this.imports.join('\n').replace(/^/gm, '  ');
-    const definitions = this.definitions.join('\n').replace(/^/gm, '  ');
-    const attributes = this.attributes.join('\n').replace(/^/gm, '  ');
-    return [imports, definitions, attributes].join('\n') + '\n';
+    const imports = this.imports.join('\n');
+    const definitions = this.definitions.join('\n\n');
+    const attributes = this.attributes.join('\n\n');
+    const members = [imports, definitions, attributes].filter((x) => x).join('\n\n');
+    return members ? members + '\n' : '';
   }
 }

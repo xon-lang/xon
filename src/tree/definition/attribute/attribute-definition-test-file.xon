@@ -1,14 +1,14 @@
 attr<T> is BaseClass<String, Boolean>(1, 2, 3)
-    property = 123
-    anotherProp String
-    typedValue Number
+  property = 123
+  anotherProp String
+  typedValue Number
 
-    method() MyType
-        hello()
-        bye()
+  method() MyType
+    hello()
+    bye()
 
-    location(x Number, y Number) Position
-        pos(x, y)
+  location(x Number, y Number) Position
+    pos(x, y)
 
-    infix + (it SomeClass) AnotherClass
-        log("fine!")
+  infix + (it SomeClass) AnotherClass
+    log("fine!")

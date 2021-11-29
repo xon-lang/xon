@@ -30,8 +30,9 @@ export class ValueAttributeTree extends AttributeTree {
   toString(): string {
     const modifiers = this.modifiers.length ? this.modifiers.join(' ') + ' ' : '';
     const typeParameters = this.typeParameters.length
-      ? '<' + this.typeParameters.join(' ') + '>'
+      ? '<' + this.typeParameters.join(', ') + '>'
       : '';
-    return `${modifiers}${this.id}${typeParameters} ${this.type}\n${this.expression}`;
+    const type = this.type ? ' ' + this.type : '';
+    return `${modifiers}${this.id}${typeParameters}${type} = ${this.expression}`;
   }
 }
