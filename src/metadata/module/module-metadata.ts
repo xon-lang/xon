@@ -1,11 +1,15 @@
 import * as glob from 'glob';
 import * as path from 'path';
+import { AliasDefinitionTree } from '../../tree/definition/alias-definition/alias-definition-tree';
+import { AttributeDefinitionTree } from '../../tree/definition/attribute-definition/attribute-definition-tree';
 import { ClassDefinitionTree } from '../../tree/definition/class-definition/class-definition-tree';
 import { parseSourceFile } from '../../tree/parse';
 import { DeclarationScope } from '../declaration-scope';
 import { AttributeDeclarationMetadata } from '../declaration/attribute/attribute-declaration-metadata';
-import { ClassDefinitionDeclarationMetadata } from '../declaration/definition/class-definition-declaration-metadata';
 import { DeclarationMetadata } from '../declaration/declaration-metadata';
+import { AliasDefinitionDeclarationMetadata } from '../declaration/definition/alias-definition-declaration-metadata copy';
+import { AttributeDefinitionDeclarationMetadata } from '../declaration/definition/attribute-definition-declaration-metadata';
+import { ClassDefinitionDeclarationMetadata } from '../declaration/definition/class-definition-declaration-metadata';
 
 export class ModuleMetadata {
   declarations: DeclarationMetadata[] = [];
@@ -23,13 +27,16 @@ export class ModuleMetadata {
     for (const definition of sources.flatMap((x) =>
       x.definitions.map((x) => x as ClassDefinitionTree),
     )) {
-      const declaration = new ClassDefinitionDeclarationMetadata(definition, scope);
-      scope.set(declaration);
+      if (definition instanceof AliasDefinitionTree)
+        scope.set(new AliasDefinitionDeclarationMetadata(definition, scope));
+      else if (definition instanceof AttributeDefinitionTree)
+        scope.set(new AttributeDefinitionDeclarationMetadata(definition, scope));
+      else if (definition instanceof ClassDefinitionTree)
+        scope.set(new ClassDefinitionDeclarationMetadata(definition, scope));
     }
 
     for (const attribute of sources.flatMap((x) => x.attributes)) {
-      const declaration = new AttributeDeclarationMetadata(attribute, scope);
-      scope.set(declaration);
+      scope.set(new AttributeDeclarationMetadata(attribute, scope));
     }
     this.declarations = [...scope.declarations.values()];
   }
