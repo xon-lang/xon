@@ -16,9 +16,7 @@ export class IdTypeMetadata extends TypeMetadata {
   ) {
     super();
 
-    const declaration = scope.get(name) as DefinitionDeclarationMetadata;
-    if (declaration instanceof DefinitionDeclarationMetadata) this.declaration = declaration;
-    throw new Error(`'${declaration.constructor.name}' is not definition`);
+    this.declaration = scope.get(name) as DefinitionDeclarationMetadata;
   }
 
   is(other: TypeMetadata): boolean {
