@@ -10,7 +10,7 @@ import { DefinitionTree } from '../definition-tree';
 export class AttributeDefinitionTree extends DefinitionTree {
   id: IdToken;
   typeParameters: TypeParameterTree[] = [];
-  baseType?: DefinitionBaseTypeTree;
+  ancestor?: DefinitionBaseTypeTree;
   attributes: AttributeTree[] = [];
 
   constructor(public ctx?: AttributeDefinitionContext) {
@@ -19,7 +19,7 @@ export class AttributeDefinitionTree extends DefinitionTree {
 
     this.id = new IdToken(ctx._name);
     this.typeParameters = getTypeParametersTrees(ctx.typeParameters());
-    this.baseType = new DefinitionBaseTypeTree(ctx.definitionBaseType());
+    this.ancestor = new DefinitionBaseTypeTree(ctx.definitionBaseType());
     this.attributes = getAttributesTrees(ctx.attribute());
   }
 }

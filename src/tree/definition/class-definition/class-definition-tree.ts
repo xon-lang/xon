@@ -13,7 +13,7 @@ export class ClassDefinitionTree extends DefinitionTree {
   id: IdToken;
   typeParameters: TypeParameterTree[] = [];
   parameters: ExpressionParameterTree[] = [];
-  baseType?: DefinitionBaseTypeTree;
+  ancestor?: DefinitionBaseTypeTree;
   attributes: AttributeTree[] = [];
 
   constructor(public ctx?: ClassDefinitionContext) {
@@ -23,7 +23,7 @@ export class ClassDefinitionTree extends DefinitionTree {
     this.id = new IdToken(ctx._name);
     this.typeParameters = getTypeParametersTrees(ctx.typeParameters());
     this.parameters = getExpressionParametersTrees(ctx.functionParameters());
-    this.baseType = new DefinitionBaseTypeTree(ctx.definitionBaseType());
+    this.ancestor = new DefinitionBaseTypeTree(ctx.definitionBaseType());
     this.attributes = getAttributesTrees(ctx.attribute());
   }
 }
