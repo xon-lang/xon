@@ -18,14 +18,15 @@ libraryPathPart: '@'? LOWER_ID;
 libraryMember:   name = UPPER_ID (AS alias = UPPER_ID)?;
 
 definition:
-    name = UPPER_ID typeParameters? functionParameters? (IS type)? (
+    name = UPPER_ID typeParameters? functionParameters? definitionBaseType? (
         NL+ INDENT ( attribute | NL)+ DEDENT
     )? # classDefinition
-    | name = LOWER_ID typeParameters? (IS type)? (
+    | name = LOWER_ID typeParameters? definitionBaseType? (
         NL+ INDENT ( attribute | NL)+ DEDENT
     )?                                         # attributeDefinition
     | name = UPPER_ID typeParameters? '=' type # aliasDefinition
     ;
+definitionBaseType: IS type functionArguments?;
 
 attribute:
     attributeHeader type                                       # abstractAttribute
