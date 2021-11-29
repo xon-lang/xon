@@ -1,8 +1,8 @@
 import { DeclarationScope } from '../declaration-scope';
-import { DeclarationMetadata } from '../declaration/declaration-metadata';
+import { DefinitionDeclarationMetadata } from '../declaration/definition/definition-declaration-metadata copy';
 
 export abstract class TypeMetadata {
-  abstract declaration: DeclarationMetadata;
+  abstract declaration: DefinitionDeclarationMetadata;
   abstract scope: DeclarationScope;
   abstract is(other: TypeMetadata): boolean;
 }
