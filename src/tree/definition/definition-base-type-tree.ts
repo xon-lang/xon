@@ -1,4 +1,4 @@
-import { DefinitionBaseTypeContext } from '../../grammar/xon-parser';
+import { DefinitionAncestorContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { getExpressionsTrees } from '../expression/expression-tree.helper';
 import { ExpressionTree } from '../expression/expression.tree';
@@ -9,7 +9,7 @@ export class DefinitionBaseTypeTree extends BaseTree {
   type: IdTypeTree;
   arguments: ExpressionTree[] = [];
 
-  constructor(public ctx?: DefinitionBaseTypeContext) {
+  constructor(public ctx?: DefinitionAncestorContext) {
     super();
 
     const type = getTypeTree(ctx.type());
