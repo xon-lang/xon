@@ -20,15 +20,17 @@ libraryMember:   name = UPPER_ID (AS alias = UPPER_ID)?;
 definition:
     name = UPPER_ID typeParameters? functionParameters? (IS type)? (
         NL+ INDENT ( attribute | NL)+ DEDENT
-    )?                                         # classDefinition
+    )? # classDefinition
+    | name = LOWER_ID typeParameters? (IS type)? (
+        NL+ INDENT ( attribute | NL)+ DEDENT
+    )?                                         # attributeDefinition
     | name = UPPER_ID typeParameters? '=' type # aliasDefinition
     ;
 
 attribute:
-    attributeHeader type                                                 # abstractAttribute
-    | attributeHeader type? '=' expression                               # valueAttribute
-    | attributeHeader type NL+ INDENT (statement | NL)+ DEDENT           # methodAttribute
-    | attributeHeader (IS type)? (NL+ INDENT ( attribute | NL)+ DEDENT)? # definitionAttribute
+    attributeHeader type                                       # abstractAttribute
+    | attributeHeader type? '=' expression                     # valueAttribute
+    | attributeHeader type NL+ INDENT (statement | NL)+ DEDENT # methodAttribute
     ;
 attributeHeader:   attributeModifier* attributeName typeParameters?;
 attributeName:     (LOWER_ID | operator | INSTANCE);
