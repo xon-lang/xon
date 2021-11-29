@@ -19,7 +19,7 @@ export class AttributeDefinitionDeclarationMetadata extends DefinitionDeclaratio
 
   ancestor(): IdTypeMetadata {
     if (!this.tree.ancestor) return null;
-    return getTypeMetadata(this.tree.ancestor, this.scope) as IdTypeMetadata;
+    return getTypeMetadata(this.tree.ancestor.type, this.scope) as IdTypeMetadata;
   }
 
   type(typeArguments: TypeMetadata[]): IdTypeMetadata {

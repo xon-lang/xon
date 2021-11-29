@@ -23,7 +23,8 @@ export class ClassDefinitionTree extends DefinitionTree {
     this.id = new IdToken(ctx._name);
     this.typeParameters = getTypeParametersTrees(ctx.typeParameters());
     this.parameters = getExpressionParametersTrees(ctx.functionParameters());
-    this.ancestor = new DefinitionBaseTypeTree(ctx.definitionBaseType());
+    const ancestor = ctx.definitionBaseType();
+    this.ancestor = (ancestor && new DefinitionBaseTypeTree(ancestor)) || null;
     this.attributes = getAttributesTrees(ctx.attribute());
   }
 }
