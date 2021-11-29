@@ -10,15 +10,15 @@ import {
   StatementContext,
   WhileStatementContext,
 } from '../../grammar/xon-parser';
-import { AssertStatementTree } from './assert-statement/assert-statement.tree';
-import { AttributeStatementTree } from './attribute-statement/attribute-statement.tree';
-import { ExpressionStatementTree } from './expression-statement/expression-statement.tree';
-import { ForStatementTree } from './for-statement/for-statement.tree';
-import { IfStatementTree } from './if-statement/if-statement.tree';
-import { PreprocessorStatementTree } from './preprocessor-statement/preprocessor-statement.tree';
-import { ReturnStatementTree } from './return-statement/return-statement.tree';
+import { AssertStatementTree } from './assert/assert-statement.tree';
+import { AttributeStatementTree } from './attribute/attribute-statement.tree';
+import { ExpressionStatementTree } from './expression/expression-statement.tree';
+import { ForStatementTree } from './for/for-statement.tree';
+import { IfStatementTree } from './if/if-statement.tree';
+import { PreprocessorStatementTree } from './preprocessor/preprocessor-statement.tree';
+import { ReturnStatementTree } from './return/return-statement.tree';
 import { StatementTree } from './statement.tree';
-import { WhileStatementTree } from './while-statement/while-statement.tree';
+import { WhileStatementTree } from './while/while-statement.tree';
 
 export const getStatementTree = (ctx: StatementContext): StatementTree => {
   if (ctx === undefined) return undefined;

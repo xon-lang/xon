@@ -1,8 +1,8 @@
 import * as glob from 'glob';
 import * as path from 'path';
-import { AliasDefinitionTree } from '../../tree/definition/alias-definition/alias-definition-tree';
-import { AttributeDefinitionTree } from '../../tree/definition/attribute-definition/attribute-definition-tree';
-import { ClassDefinitionTree } from '../../tree/definition/class-definition/class-definition-tree';
+import { AliasDefinitionTree } from '../../tree/definition/alias/alias-definition-tree';
+import { AttributeDefinitionTree } from '../../tree/definition/attribute/attribute-definition-tree';
+import { ClassDefinitionTree } from '../../tree/definition/class/class-definition-tree';
 import { parseSourceFile } from '../../tree/parse';
 import { DeclarationScope } from '../declaration-scope';
 import { AttributeDeclarationMetadata } from '../declaration/attribute/attribute-declaration-metadata';

@@ -1,4 +1,4 @@
-import { LambdaExpressionTree } from '../../../tree/expression/lambda-expression/lambda-expression.tree';
+import { LambdaExpressionTree } from '../../../tree/expression/lambda/lambda-expression.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { ExpressionParameterMetadata } from '../../declaration/expression-parameter/expression-parameter-declaration-metadata';
 import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';

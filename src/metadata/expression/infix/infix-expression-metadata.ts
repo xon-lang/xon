@@ -1,4 +1,4 @@
-import { InfixExpressionTree } from '../../../tree/expression/infix-expression/infix-expression.tree';
+import { InfixExpressionTree } from '../../../tree/expression/infix/infix-expression.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';

@@ -4,8 +4,8 @@ import {
   MemberAssignmentContext,
 } from '../../grammar/xon-parser';
 import { AssignmentTree } from './assignment.tree';
-import { IdAssignmentTree } from './id-assignment/id-assignment-statement.tree';
-import { MemberAssignmentTree } from './member-assignment/member-assignment-statement.tree';
+import { IdAssignmentTree } from './id/id-assignment-statement.tree';
+import { MemberAssignmentTree } from './member/member-assignment-statement.tree';
 
 export const getAssignmentTree = (ctx: AssignmentContext): AssignmentTree => {
   if (ctx === undefined) return undefined;

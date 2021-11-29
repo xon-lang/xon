@@ -1,4 +1,4 @@
-import { UnionTypeTree } from '../../../tree/type/union-type/union-type.tree';
+import { UnionTypeTree } from '../../../tree/type/union/union-type.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { ClassDefinitionDeclarationMetadata } from '../../declaration/definition/class-definition-declaration-metadata';
 import { TypeMetadata } from '../type-metadata';

@@ -2,7 +2,7 @@ import { AbstractAttributeTree } from '../../../tree/attribute/abstract/abstract
 import { AttributeTree } from '../../../tree/attribute/attribute-tree';
 import { MethodAttributeTree } from '../../../tree/attribute/method/method-attribute-tree';
 import { ValueAttributeTree } from '../../../tree/attribute/value/value-attribute-tree';
-import { FunctionTypeTree } from '../../../tree/type/function-type/function-type.tree';
+import { FunctionTypeTree } from '../../../tree/type/function/function-type.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { getExpressionMetadata } from '../../expression/expression-metadata-helper';
 import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';

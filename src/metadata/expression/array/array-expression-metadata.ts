@@ -1,4 +1,4 @@
-import { ArrayExpressionTree } from '../../../tree/expression/array-expression/array-expression.tree';
+import { ArrayExpressionTree } from '../../../tree/expression/array/array-expression.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { TupleTypeMetadata } from '../../type/tuple/tuple-type-metadata';
 import { ExpressionMetadata } from '../expression-metadata';

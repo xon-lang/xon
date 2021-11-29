@@ -1,4 +1,4 @@
-import { MemberExpressionTree } from '../../../tree/expression/member-expression/member-expression.tree';
+import { MemberExpressionTree } from '../../../tree/expression/member/member-expression.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { TypeMetadata } from '../../type/type-metadata';
 import { getTypeMetadata } from '../../type/type-metadata-helper';

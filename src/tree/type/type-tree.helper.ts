@@ -9,14 +9,14 @@ import {
   TypeContext,
   UnionTypeContext,
 } from '../../grammar/xon-parser';
-import { ArrayTypeTree } from './array-type/array-type.tree';
-import { FunctionTypeTree } from './function-type/function-type.tree';
-import { IdTypeTree } from './id-type/id-type.tree';
-import { LiteralTypeTree } from './literal-type/literal-type.tree';
-import { NullableTypeTree } from './nullable-type/nullable-type.tree';
-import { TupleTypeTree } from './tuple-type/tuple-type.tree';
+import { ArrayTypeTree } from './array/array-type.tree';
+import { FunctionTypeTree } from './function/function-type.tree';
+import { IdTypeTree } from './id/id-type.tree';
+import { LiteralTypeTree } from './literal/literal-type.tree';
+import { NullableTypeTree } from './nullable/nullable-type.tree';
+import { TupleTypeTree } from './tuple/tuple-type.tree';
 import { TypeTree } from './type.tree';
-import { UnionTypeTree } from './union-type/union-type.tree';
+import { UnionTypeTree } from './union/union-type.tree';
 
 export const getTypeTree = (ctx: TypeContext): TypeTree => {
   if (ctx === undefined) return undefined;

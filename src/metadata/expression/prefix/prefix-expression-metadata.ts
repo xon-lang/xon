@@ -1,4 +1,4 @@
-import { PrefixExpressionTree } from '../../../tree/expression/prefix-expression/prefix-expression.tree';
+import { PrefixExpressionTree } from '../../../tree/expression/prefix/prefix-expression.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';

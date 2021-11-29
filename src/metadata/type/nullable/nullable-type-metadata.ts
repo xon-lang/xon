@@ -1,4 +1,4 @@
-import { NullableTypeTree } from '../../../tree/type/nullable-type/nullable-type.tree';
+import { NullableTypeTree } from '../../../tree/type/nullable/nullable-type.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { ClassDefinitionDeclarationMetadata } from '../../declaration/definition/class-definition-declaration-metadata';
 import { TypeMetadata } from '../type-metadata';

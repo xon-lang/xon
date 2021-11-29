@@ -1,5 +1,5 @@
 import { AttributeTree } from '../../../tree/attribute/attribute-tree';
-import { AliasDefinitionTree } from '../../../tree/definition/alias-definition/alias-definition-tree';
+import { AliasDefinitionTree } from '../../../tree/definition/alias/alias-definition-tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';

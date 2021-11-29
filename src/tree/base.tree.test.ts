@@ -1,4 +1,4 @@
-import { LiteralExpressionTree } from './expression/literal-expression/literal-expression.tree';
+import { LiteralExpressionTree } from './expression/literal/literal-expression.tree';
 import { parseExpression } from './parse';
 
 test('check to json', () => {

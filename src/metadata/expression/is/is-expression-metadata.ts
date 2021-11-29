@@ -1,5 +1,5 @@
-import { InfixExpressionTree } from '../../../tree/expression/infix-expression/infix-expression.tree';
-import { IsExpressionTree } from '../../../tree/expression/is-expression/is-expression.tree';
+import { InfixExpressionTree } from '../../../tree/expression/infix/infix-expression.tree';
+import { IsExpressionTree } from '../../../tree/expression/is/is-expression.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ExpressionMetadata } from '../expression-metadata';

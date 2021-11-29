@@ -1,7 +1,7 @@
-import { ArrayTypeTree } from '../../tree/type/array-type/array-type.tree';
-import { FunctionTypeTree } from '../../tree/type/function-type/function-type.tree';
-import { IdTypeTree } from '../../tree/type/id-type/id-type.tree';
-import { TupleTypeTree } from '../../tree/type/tuple-type/tuple-type.tree';
+import { ArrayTypeTree } from '../../tree/type/array/array-type.tree';
+import { FunctionTypeTree } from '../../tree/type/function/function-type.tree';
+import { IdTypeTree } from '../../tree/type/id/id-type.tree';
+import { TupleTypeTree } from '../../tree/type/tuple/tuple-type.tree';
 import { TypeTree } from '../../tree/type/type.tree';
 import { DeclarationScope } from '../declaration-scope';
 import { ArrayTypeMetadata } from './array/array-type-metadata';

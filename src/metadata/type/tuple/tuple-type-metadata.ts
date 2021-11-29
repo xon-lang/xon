@@ -1,4 +1,4 @@
-import { TupleTypeTree } from '../../../tree/type/tuple-type/tuple-type.tree';
+import { TupleTypeTree } from '../../../tree/type/tuple/tuple-type.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { ClassDefinitionDeclarationMetadata } from '../../declaration/definition/class-definition-declaration-metadata';
 import { TypeMetadata } from '../type-metadata';

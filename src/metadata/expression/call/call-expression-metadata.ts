@@ -1,5 +1,5 @@
-import { CallExpressionTree } from '../../../tree/expression/call-expression/call-expression.tree';
-import { MemberExpressionTree } from '../../../tree/expression/member-expression/member-expression.tree';
+import { CallExpressionTree } from '../../../tree/expression/call/call-expression.tree';
+import { MemberExpressionTree } from '../../../tree/expression/member/member-expression.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { FunctionTypeMetadata } from '../../type/function/function-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';

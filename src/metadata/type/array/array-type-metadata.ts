@@ -1,4 +1,4 @@
-import { ArrayTypeTree } from '../../../tree/type/array-type/array-type.tree';
+import { ArrayTypeTree } from '../../../tree/type/array/array-type.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { ClassDefinitionDeclarationMetadata } from '../../declaration/definition/class-definition-declaration-metadata';
 import { TypeMetadata } from '../type-metadata';

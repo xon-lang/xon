@@ -1,10 +1,10 @@
 import { ExpressionTree } from './expression/expression.tree';
-import { IdExpressionTree } from './expression/id-expression/id-expression.tree';
-import { InfixExpressionTree } from './expression/infix-expression/infix-expression.tree';
-import { LiteralExpressionTree } from './expression/literal-expression/literal-expression.tree';
-import { ParenthesizedExpressionTree } from './expression/parenthesized-expression/parenthesized-expression.tree';
-import { PipeExpressionTree } from './expression/pipe-expression/pipe-expression.tree';
-import { PrefixExpressionTree } from './expression/prefix-expression/prefix-expression.tree';
+import { IdExpressionTree } from './expression/id/id-expression.tree';
+import { InfixExpressionTree } from './expression/infix/infix-expression.tree';
+import { LiteralExpressionTree } from './expression/literal/literal-expression.tree';
+import { ParenthesizedExpressionTree } from './expression/parenthesized/parenthesized-expression.tree';
+import { PipeExpressionTree } from './expression/pipe/pipe-expression.tree';
+import { PrefixExpressionTree } from './expression/prefix/prefix-expression.tree';
 
 const escapeIfString = (s: unknown) => (typeof s === 'string' ? `\`${s}\`` : s);
 

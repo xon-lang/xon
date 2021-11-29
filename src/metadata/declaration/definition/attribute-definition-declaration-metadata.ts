@@ -1,5 +1,5 @@
 import { AttributeTree } from '../../../tree/attribute/attribute-tree';
-import { AttributeDefinitionTree } from '../../../tree/definition/attribute-definition/attribute-definition-tree';
+import { AttributeDefinitionTree } from '../../../tree/definition/attribute/attribute-definition-tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';

@@ -23,18 +23,18 @@ import {
   RelationalExpressionContext,
 } from '../../grammar/xon-parser';
 import { IdToken } from '../id-token';
-import { ArrayExpressionTree } from './array-expression/array-expression.tree';
-import { CallExpressionTree } from './call-expression/call-expression.tree';
+import { ArrayExpressionTree } from './array/array-expression.tree';
+import { CallExpressionTree } from './call/call-expression.tree';
 import { ExpressionTree } from './expression.tree';
-import { IdExpressionTree } from './id-expression/id-expression.tree';
-import { InfixExpressionTree } from './infix-expression/infix-expression.tree';
-import { IsExpressionTree } from './is-expression/is-expression.tree';
-import { LambdaExpressionTree } from './lambda-expression/lambda-expression.tree';
-import { LiteralExpressionTree } from './literal-expression/literal-expression.tree';
-import { MemberExpressionTree } from './member-expression/member-expression.tree';
-import { ParenthesizedExpressionTree } from './parenthesized-expression/parenthesized-expression.tree';
-import { PipeExpressionTree } from './pipe-expression/pipe-expression.tree';
-import { PrefixExpressionTree } from './prefix-expression/prefix-expression.tree';
+import { IdExpressionTree } from './id/id-expression.tree';
+import { InfixExpressionTree } from './infix/infix-expression.tree';
+import { IsExpressionTree } from './is/is-expression.tree';
+import { LambdaExpressionTree } from './lambda/lambda-expression.tree';
+import { LiteralExpressionTree } from './literal/literal-expression.tree';
+import { MemberExpressionTree } from './member/member-expression.tree';
+import { ParenthesizedExpressionTree } from './parenthesized/parenthesized-expression.tree';
+import { PipeExpressionTree } from './pipe/pipe-expression.tree';
+import { PrefixExpressionTree } from './prefix/prefix-expression.tree';
 
 export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx === undefined) return undefined;
