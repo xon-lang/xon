@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { parse, parseSourceFile } from '../parse';
+import { parse, parseSource } from '../parse';
 import { SourceTree } from './source-tree';
 
 test('two if', () => {
@@ -21,10 +21,11 @@ else: if d: call()
 });
 
 test('formatted 1.xon', () => {
-  const tree = parseSourceFile('src/tree/source/test-files/1.xon');
+  const code = fs.readFileSync('src/tree/source/test-files/1.xon').toString();
+  const tree = parseSource(code);
   expect(tree).toBeInstanceOf(SourceTree);
 
   const formatted = tree.toString();
   fs.writeFileSync('src/tree/source/test-files/1.fmt.xon', formatted);
-  expect(tree.ctx.text).toBe(formatted);
+  expect(code).toBe(formatted);
 });
