@@ -12,7 +12,6 @@ export abstract class DefinitionDeclarationMetadata extends DeclarationMetadata 
   protected abstract scope: DeclarationScope;
   abstract attributes: AttributeTree[];
   abstract ancestor(): IdTypeMetadata;
-  abstract type(typeArguments: TypeMetadata[]): TypeMetadata;
 
   getAttributes(name: string, typeArguments: TypeMetadata[]): AttributeDeclarationMetadata[] {
     const attributesByName = this.attributes.filter((x) => x.id.text === name);
