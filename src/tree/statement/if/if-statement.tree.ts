@@ -6,10 +6,8 @@ import { StatementTree } from '../statement.tree';
 
 export class IfStatementTree extends StatementTree {
   condition: ExpressionTree;
-
   thenBody: StatementTree[];
-
-  public elseBody?: StatementTree[];
+  elseBody?: StatementTree[];
 
   constructor(public ctx: IfStatementContext) {
     super();
@@ -17,5 +15,13 @@ export class IfStatementTree extends StatementTree {
     this.condition = getExpressionTree(ctx.expression());
     this.thenBody = getStatementsFromBody(ctx._thenBody);
     this.elseBody = getStatementsFromBody(ctx._elseBody);
+  }
+
+  toString(): string {
+    const thenStatements = this.thenBody.join('\n').replace(/^/gm, '  ');
+    const elseStatements = this.elseBody.join('\n').replace(/^/gm, '  ');
+    return `if ${this.condition}:\n${thenStatements}${
+      this.elseBody ? '\nelse:\n' + elseStatements : ''
+    }`;
   }
 }

@@ -23,9 +23,9 @@ test('one scope', () => {
   expect(definition.typeParameters.length).toBe(1);
   expect(definition.typeParameters[0].id.text).toBe('T');
 
-  expect(definition.parameters.length).toBe(1);
-  expect(definition.parameters[0].id.text).toBe('name');
-  expect(definition.parameters[0].type.name).toBe('String');
+  expect(definition.expressionParameters.length).toBe(1);
+  expect(definition.expressionParameters[0].id.text).toBe('name');
+  expect(definition.expressionParameters[0].type.name).toBe('String');
 
   const ancestorType = definition.ancestor.type as IdTypeTree;
   expect(ancestorType).toBeInstanceOf(IdTypeTree);

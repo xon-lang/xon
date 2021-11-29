@@ -26,4 +26,13 @@ export class MethodAttributeTree extends AttributeTree {
     this.type = getTypeTree(ctx.type());
     this.body = getStatementsTrees(ctx.statement());
   }
+
+  toString(): string {
+    const modifiers = this.modifiers.length ? this.modifiers.join(' ') + ' ' : '';
+    const typeParameters = this.typeParameters.length
+      ? '<' + this.typeParameters.join(' ') + '>'
+      : '';
+    const statements = this.body.join('\n').replace(/^/gm, '  ');
+    return `${modifiers}${this.id}${typeParameters} ${this.type}\n${statements}`;
+  }
 }

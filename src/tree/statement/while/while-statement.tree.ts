@@ -6,7 +6,6 @@ import { StatementTree } from '../statement.tree';
 
 export class WhileStatementTree extends StatementTree {
   expression: ExpressionTree;
-
   body: StatementTree[];
 
   constructor(public ctx: WhileStatementContext) {
@@ -14,5 +13,10 @@ export class WhileStatementTree extends StatementTree {
 
     this.expression = getExpressionTree(ctx.expression());
     this.body = getStatementsFromBody(ctx.body());
+  }
+
+  toString(): string {
+    const statements = this.body.join('\n').replace(/^/gm, '  ');
+    return `while ${this.expression}:\n${statements}`;
   }
 }

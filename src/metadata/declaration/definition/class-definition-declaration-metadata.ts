@@ -29,8 +29,8 @@ export class ClassDefinitionDeclarationMetadata extends DefinitionDeclarationMet
   }
 
   type(typeArguments: TypeMetadata[]): LambdaTypeMetadata {
-    const initParameters = this.tree.parameters
-      ? this.tree.parameters.map((x) => ({
+    const initParameters = this.tree.expressionParameters
+      ? this.tree.expressionParameters.map((x) => ({
           name: x.id.text,
           type: getTypeMetadata(x.type, this.scope),
         }))

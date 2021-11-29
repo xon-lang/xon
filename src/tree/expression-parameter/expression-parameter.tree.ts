@@ -20,6 +20,7 @@ export class ExpressionParameterTree extends BaseTree {
   }
 
   toString(): string {
-    if (this.type) return `${this.id} ${this.type}`;
+    const metaType = this.metaType ? '#' + this.metaType : '';
+    return `${this.id} ${this.type}${metaType}`;
   }
 }

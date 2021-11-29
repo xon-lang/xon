@@ -18,4 +18,11 @@ export class AliasDefinitionTree extends DefinitionTree {
     this.type = getTypeTree(ctx.type());
     this.typeParameters = getTypeParametersTrees(ctx.typeParameters());
   }
+
+  toString(): string {
+    const typeParameters = this.typeParameters.length
+      ? '<' + this.typeParameters.join(' ') + '>'
+      : '';
+    return `${this.id}${typeParameters} = ${this.type}`;
+  }
 }

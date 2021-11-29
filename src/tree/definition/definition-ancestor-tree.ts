@@ -15,4 +15,9 @@ export class DefinitionAncestorTree extends BaseTree {
     this.type = getTypeTree(ctx.type());
     this.arguments = getExpressionsTrees(ctx.methodArguments()?.expression());
   }
+
+  toString(): string {
+    const args = this.arguments.length ? '(' + this.arguments.join(' ') + ')' : '';
+    return `${this.type}${args}`;
+  }
 }

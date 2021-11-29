@@ -16,4 +16,8 @@ export class AttributeModifierTree extends BaseTree {
     this.isInfix = !!ctx.INFIX();
     this.isPostfix = !!ctx.POSTFIX();
   }
+
+  toString(): string {
+    return this.id.toString();
+  }
 }

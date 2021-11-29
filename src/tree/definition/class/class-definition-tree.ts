@@ -12,7 +12,7 @@ import { DefinitionTree } from '../definition-tree';
 export class ClassDefinitionTree extends DefinitionTree {
   id: IdToken;
   typeParameters: TypeParameterTree[] = [];
-  parameters: ExpressionParameterTree[] = [];
+  expressionParameters: ExpressionParameterTree[] = [];
   ancestor?: DefinitionAncestorTree;
   attributes: AttributeTree[] = [];
 
@@ -21,9 +21,21 @@ export class ClassDefinitionTree extends DefinitionTree {
 
     this.id = new IdToken(ctx._name);
     this.typeParameters = getTypeParametersTrees(ctx.typeParameters());
-    this.parameters = getExpressionParametersTrees(ctx.methodParameters());
+    this.expressionParameters = getExpressionParametersTrees(ctx.methodParameters());
     const ancestor = ctx.definitionAncestor();
     this.ancestor = (ancestor && new DefinitionAncestorTree(ancestor)) || null;
     this.attributes = getAttributesTrees(ctx.attribute());
+  }
+
+  toString(): string {
+    const typeParameters = this.typeParameters.length
+      ? '<' + this.typeParameters.join(' ') + '>'
+      : '';
+    const expressionParameters = this.expressionParameters.length
+      ? '(' + this.expressionParameters.join(' ') + ')'
+      : '';
+    const ancestor = this.ancestor ? ' ' + this.ancestor.toString() : '';
+    const attributes = this.attributes.join('\n').replace(/^/gm, '  ');
+    return `${this.id}${typeParameters}${expressionParameters}${this.ancestor}\n${this.attributes}`;
   }
 }

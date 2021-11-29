@@ -11,4 +11,8 @@ export class AssignmentStatementTree extends StatementTree {
 
     this.assignment = getAssignmentTree(ctx.assignment());
   }
+
+  toString(): string {
+    return this.assignment.toString();
+  }
 }

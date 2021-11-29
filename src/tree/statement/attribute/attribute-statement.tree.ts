@@ -11,4 +11,8 @@ export class AttributeStatementTree extends StatementTree {
 
     this.attribute = getAttributeTree(ctx.attribute());
   }
+
+  toString(): string {
+    return this.attribute.toString();
+  }
 }

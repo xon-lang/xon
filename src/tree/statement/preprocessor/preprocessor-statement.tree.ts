@@ -10,4 +10,8 @@ export class PreprocessorStatementTree extends StatementTree {
     const beforeSymbolsCount = 2;
     this.value = ctx.PREPROCESSOR().text.trim().slice(beforeSymbolsCount, -1);
   }
+
+  toString(): string {
+    return this.ctx.text;
+  }
 }

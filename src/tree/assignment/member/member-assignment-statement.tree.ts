@@ -16,4 +16,8 @@ export class MemberAssignmentTree extends AssignmentTree {
     this.id = new IdToken(ctx._name);
     this.value = getExpressionTree(ctx.expression(1));
   }
+
+  toString(): string {
+    return `${this.instance}.${this.id} = ${this.value}`;
+  }
 }

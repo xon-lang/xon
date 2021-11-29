@@ -2,9 +2,13 @@ import { ParserRuleContext } from 'antlr4ts';
 import { SourceReference } from './source-reference';
 
 export abstract class BaseTree {
-  ctx: ParserRuleContext;
+  abstract ctx: ParserRuleContext;
+  abstract toString(): string;
+
+  _sourceReference: SourceReference;
   get sourceReference(): SourceReference {
-    return SourceReference.fromContext(this.ctx);
+    if (this._sourceReference) return this._sourceReference;
+    return (this._sourceReference = SourceReference.fromContext(this.ctx));
   }
 
   toPlain(object?: unknown): unknown {
@@ -23,9 +27,5 @@ export abstract class BaseTree {
   toJson(): string {
     const tabWidth = 2;
     return JSON.stringify(this.toPlain(), null, tabWidth);
-  }
-
-  toString(): string {
-    return null;
   }
 }

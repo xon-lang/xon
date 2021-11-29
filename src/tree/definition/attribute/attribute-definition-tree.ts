@@ -22,4 +22,13 @@ export class AttributeDefinitionTree extends DefinitionTree {
     this.ancestor = (ancestor && new DefinitionAncestorTree(ancestor)) || null;
     this.attributes = getAttributesTrees(ctx.attribute());
   }
+
+  toString(): string {
+    const typeParameters = this.typeParameters.length
+      ? '<' + this.typeParameters.join(' ') + '>'
+      : '';
+    const ancestor = this.ancestor ? ' ' + this.ancestor.toString() : '';
+    const attributes = this.attributes.join('\n').replace(/^/gm, '  ');
+    return `${this.id}${typeParameters}${this.ancestor}\n${this.attributes}`;
+  }
 }

@@ -13,6 +13,6 @@ export class RegexLiteralTree extends LiteralTree {
   }
 
   toString(): string {
-    return `"${this.pattern}"`;
+    return `\`${this.pattern}\``;
   }
 }

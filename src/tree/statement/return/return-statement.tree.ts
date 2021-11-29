@@ -11,4 +11,8 @@ export class ReturnStatementTree extends StatementTree {
 
     this.value = ctx.expression() && getExpressionTree(ctx.expression());
   }
+
+  toString(): string {
+    return `return${this.value ? ' ' + this.value : ''}`;
+  }
 }

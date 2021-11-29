@@ -26,4 +26,12 @@ export class ValueAttributeTree extends AttributeTree {
     this.type = getTypeTree(ctx.type()) || null;
     this.expression = getExpressionTree(ctx.expression()) || null;
   }
+
+  toString(): string {
+    const modifiers = this.modifiers.length ? this.modifiers.join(' ') + ' ' : '';
+    const typeParameters = this.typeParameters.length
+      ? '<' + this.typeParameters.join(' ') + '>'
+      : '';
+    return `${modifiers}${this.id}${typeParameters} ${this.type}\n${this.expression}`;
+  }
 }

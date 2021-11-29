@@ -18,4 +18,10 @@ export class ForStatementTree extends StatementTree {
     this.expression = getExpressionTree(ctx.expression());
     this.body = getStatementsFromBody(ctx.body());
   }
+
+  toString(): string {
+    const vars = [this.valueVarName, this.indexVarName].filter((x) => x).join(',');
+    const statements = this.body.join('\n').replace(/^/gm, '  ');
+    return `for ${vars ? vars + ' ' : ''}${this.expression}\n${statements}`;
+  }
 }

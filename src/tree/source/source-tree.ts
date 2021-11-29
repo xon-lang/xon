@@ -19,4 +19,11 @@ export class SourceTree extends BaseTree {
     this.definitions = getDefinitionsTrees(ctx.definition());
     this.attributes = getAttributesTrees(ctx.attribute());
   }
+
+  toString(): string {
+    const imports = this.imports.join('\n').replace(/^/gm, '  ');
+    const definitions = this.definitions.join('\n').replace(/^/gm, '  ');
+    const attributes = this.attributes.join('\n').replace(/^/gm, '  ');
+    return [imports, definitions, attributes].join('\n') + '\n';
+  }
 }

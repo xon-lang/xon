@@ -15,7 +15,6 @@ export class ImportMemberTree extends BaseTree {
 
   toString(): string {
     if (this.alias) return `${this.id.text} as ${this.alias.text}`;
-
     return `${this.id.text}`;
   }
 }

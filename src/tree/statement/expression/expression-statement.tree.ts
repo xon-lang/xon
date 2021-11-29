@@ -11,4 +11,8 @@ export class ExpressionStatementTree extends StatementTree {
 
     this.expression = getExpressionTree(ctx.expression());
   }
+
+  toString(): string {
+    return this.expression.toString();
+  }
 }

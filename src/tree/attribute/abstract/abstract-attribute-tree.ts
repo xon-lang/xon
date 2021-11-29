@@ -22,4 +22,12 @@ export class AbstractAttributeTree extends AttributeTree {
     this.typeParameters = getTypeParametersTrees(header.typeParameters()) || [];
     this.type = getTypeTree(ctx.type());
   }
+
+  toString(): string {
+    const modifiers = this.modifiers.length ? this.modifiers.join(' ') + ' ' : '';
+    const typeParameters = this.typeParameters.length
+      ? '<' + this.typeParameters.join(' ') + '>'
+      : '';
+    return `${modifiers}${this.id}${typeParameters} ${this.type}`;
+  }
 }
