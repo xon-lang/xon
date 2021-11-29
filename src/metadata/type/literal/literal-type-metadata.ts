@@ -1,4 +1,4 @@
-import { LiteralTypeTree } from '../../../tree/type/literal-type/literal-type.tree';
+import { LiteralTree } from '../../../tree/literal/literal.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { ClassDefinitionDeclarationMetadata } from '../../declaration/definition/class-definition-declaration-metadata';
 import { TypeMetadata } from '../type-metadata';
@@ -21,9 +21,9 @@ export class LiteralTypeMetadata extends TypeMetadata {
     return this.declaration.type([]).is(other);
   }
 
-  static fromTree(tree: LiteralTypeTree, scope: DeclarationScope): LiteralTypeMetadata {
-    const name = tree.literal.constructor.name.replace('LiteralTree', '');
-    const metadata = new LiteralTypeMetadata(name, tree.literal.value, scope);
+  static fromTree(tree: LiteralTree, scope: DeclarationScope): LiteralTypeMetadata {
+    const name = tree.constructor.name.replace('LiteralTree', '');
+    const metadata = new LiteralTypeMetadata(name, tree.value, scope);
     return metadata;
   }
 }
