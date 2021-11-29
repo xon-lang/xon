@@ -19,6 +19,7 @@ test('one scope', () => {
 
   expect(tree.definitions.length).toBe(1);
   const definition = tree.definitions[0] as ClassDefinitionTree;
+  expect(definition).toBeInstanceOf(ClassDefinitionTree);
 
   expect(definition.id.text).toBe('SomeClass');
   expect(definition.typeParameters.length).toBe(1);
