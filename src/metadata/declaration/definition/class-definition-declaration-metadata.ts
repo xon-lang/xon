@@ -11,16 +11,21 @@ export class ClassDefinitionDeclarationMetadata extends DefinitionDeclarationMet
   attributes: AttributeTree[] = [];
   name: string;
 
+  _ancestor: IdTypeMetadata;
+  get ancestor(): IdTypeMetadata {
+    if (this._ancestor !== undefined) return this._ancestor;
+    if (!this.tree.ancestor) return (this._ancestor = null);
+    return (this._ancestor = getTypeMetadata(
+      this.tree.ancestor.type,
+      this.scope,
+    ) as IdTypeMetadata);
+  }
+
   constructor(protected tree: ClassDefinitionTree, protected scope: DeclarationScope) {
     super();
 
     this.name = tree.id.text;
     this.attributes = tree.attributes;
-  }
-
-  ancestor(): IdTypeMetadata {
-    if (!this.tree.ancestor) return null;
-    return getTypeMetadata(this.tree.ancestor.type, this.scope) as IdTypeMetadata;
   }
 
   type(typeArguments: TypeMetadata[]): FunctionTypeMetadata {
