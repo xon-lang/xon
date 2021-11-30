@@ -10,3 +10,7 @@ cp -- *.md dist
 npx cti create -e tests, test-helper, .antlr -i .test.ts -w -f ./dist
 npx tsc -p tsconfig.dist.json
 find dist -name "*.ts" -a ! -name "*.d.ts" -exec rm -rf {} \;
+
+cd dist
+git init
+cd ..
