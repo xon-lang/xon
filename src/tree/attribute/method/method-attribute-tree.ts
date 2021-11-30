@@ -4,6 +4,7 @@ import { getStatementsTrees } from '../../statement/statement-tree.helper';
 import { StatementTree } from '../../statement/statement.tree';
 import { getTypeParametersTrees } from '../../type-parameter/type-parameter-tree.helper';
 import { TypeParameterTree } from '../../type-parameter/type-parameter.tree';
+import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
 import { getTypeTree } from '../../type/type-tree.helper';
 import { TypeTree } from '../../type/type.tree';
 import { AttributeModifierTree } from '../attribute-modifier-tree';
@@ -33,6 +34,7 @@ export class MethodAttributeTree extends AttributeTree {
       ? '<' + this.typeParameters.join(', ') + '>'
       : '';
     const statements = this.body.join('\n').replace(/^/gm, '  ');
-    return `${modifiers}${this.id}${typeParameters} ${this.type}\n${statements}`;
+    const type = this.type instanceof LambdaTypeTree ? this.type : ' ' + this.type;
+    return `${modifiers}${this.id}${typeParameters}${type}\n${statements}`;
   }
 }

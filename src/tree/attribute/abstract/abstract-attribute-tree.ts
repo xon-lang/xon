@@ -2,6 +2,7 @@ import { AbstractAttributeContext } from '../../../grammar/xon-parser';
 import { IdToken } from '../../id-token';
 import { getTypeParametersTrees } from '../../type-parameter/type-parameter-tree.helper';
 import { TypeParameterTree } from '../../type-parameter/type-parameter.tree';
+import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
 import { getTypeTree } from '../../type/type-tree.helper';
 import { TypeTree } from '../../type/type.tree';
 import { AttributeModifierTree } from '../attribute-modifier-tree';
@@ -28,6 +29,7 @@ export class AbstractAttributeTree extends AttributeTree {
     const typeParameters = this.typeParameters.length
       ? '<' + this.typeParameters.join(', ') + '>'
       : '';
-    return `${modifiers}${this.id}${typeParameters} ${this.type}`;
+    const type = this.type instanceof LambdaTypeTree ? this.type : ' ' + this.type;
+    return `${modifiers}${this.id}${typeParameters}${type}`;
   }
 }
