@@ -83,8 +83,8 @@ FLOAT_LITERAL:
     | DigitNumber '.' DigitNumber
     ;
 INTEGER_LITERAL: [0-9][0-9]? [xX] AlphabetNumber | DigitNumber;
-CHAR_LITERAL:    '\'' ~['] '\'';
-STRING_LITERAL:  '"' (~["] | '\\' ["\\bfnrtv])* '"';
+CHAR_LITERAL:    '"' ~["] '"';
+STRING_LITERAL:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 REGEX_LITERAL:   '`' (~[`] | '\\' [`\\])* '`';
 PREPROCESSOR:    '#{' .*? '}';
 

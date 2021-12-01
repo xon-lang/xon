@@ -4,7 +4,7 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: (library | export | NL)* ( definition | attribute | NL)*;
+source: (library | export | NL)* ( definition | NL)*;
 
 export: EXPORT libraryPath;
 library:
@@ -18,24 +18,25 @@ libraryPathPart: '@'? LOWER_ID;
 libraryMember:   name = UPPER_ID (AS alias = UPPER_ID)?;
 
 definition:
-    name = UPPER_ID typeParameters? methodParameters? definitionAncestor? (
-        NL+ INDENT ( attribute | NL)+ DEDENT
+    name = UPPER_ID typeParameters? methodParameters definitionAncestor? (
+        NL+ INDENT (attribute | NL)+ DEDENT
     )? # classDefinition
-    | name = LOWER_ID typeParameters? definitionAncestor? (
-        NL+ INDENT ( attribute | NL)+ DEDENT
-    )?                                         # attributeDefinition
-    | name = UPPER_ID typeParameters? '=' type # aliasDefinition
+    | name = UPPER_ID typeParameters? definitionAncestor? (
+        NL+ INDENT (attribute | NL)+ DEDENT
+    )?                                         # objectDefinition
+    | name = UPPER_ID typeParameters? ':' type # aliasDefinition
     ;
 definitionAncestor: IS type methodArguments?;
 
 attribute:
     attributeHeader type                                       # abstractAttribute
-    | attributeHeader type? '=' expression                     # valueAttribute
+    | attributeHeader type? ':' expression                     # valueAttribute
     | attributeHeader type NL+ INDENT (statement | NL)+ DEDENT # methodAttribute
+    | attributeHeader NL+ INDENT (attribute | NL)+ DEDENT      # objectAttribute
     ;
 attributeHeader:   attributeModifier* attributeName typeParameters?;
-attributeName:     (LOWER_ID | operator | INSTANCE);
-attributeModifier: INFIX | PREFIX | POSTFIX;
+attributeModifier: PREFIX | INFIX | POSTFIX;
+attributeName:     LOWER_ID | operator | INSTANCE;
 
 statement:
     FOR (value = LOWER_ID (',' index = LOWER_ID)? IN)? expression body # forStatement
@@ -47,8 +48,8 @@ statement:
     | ACTUAL actual = expression NL+ EXPECT expect = expression        # assertStatement
     | PREPROCESSOR                                                     # preprocessorStatement
     | expression                                                       # expressionStatement
-    | attribute                                                        # attributeStatement
-    | assignment                                                       # assignmentStatement
+    // | attribute                                                        # attributeStatement
+    | assignment # assignmentStatement
     ;
 
 assignment:
@@ -63,7 +64,7 @@ assignment:
 expression:
     name = (LOWER_ID | UPPER_ID | INSTANCE | INSTANCE_MEMBER) typeArguments? # idExpression
     | literal                                                                # literalExpression
-    | expression (methodArguments | indexerArguments)                        # callExpression
+    | expression methodArguments                                             # methodExpression
     | expression ('?.' | '.') name = LOWER_ID typeArguments?                 # memberExpression
     | expression IS type                                                     # isExpression
     | expression AS type                                                     # asExpression
@@ -79,21 +80,26 @@ expression:
     | left = expression op = '&&' right = expression                         # conjunctionExpression
     | left = expression op = '||' right = expression                         # disjunctionExpression
     | expression '|' (name = LOWER_ID ':')? expression                       # pipeExpression
-    | methodParameters ':' expression                                        # lambdaExpression
-    | '{' (mapArgument (',' mapArgument)*)? '}'                              # mapExpression
-    | '[' (expression (',' expression)*)? ']'                                # arrayExpression
+    | lambdaParameters ':' expression                                        # lambdaExpression
+    | arrayArguments                                                         # arrayExpression
+    | mapArguments                                                           # mapExpression
+    | objectArguments                                                        # objectExpression
     | '(' expression ')'                                                     # parenthesizedExpression
     ;
 
 type:
     name = UPPER_ID typeArguments? # idType
     | literal                      # literalType
+    | type '#' name = UPPER_ID     # metaType
     | type '?'                     # nullableType
-    | type '[' ']'                 # arrayType
     | type '||' type               # unionType
-    | methodParameters type?       # lambdaType
-    | '{' type ':' type '}'        # mapType
-    | '[' (type (',' type)*)? ']'  # tupleType
+    | type '&&' type               # intersectionType
+    | methodParameters type?       # methodType
+    | '[' (type (',' type)*)? ']'  # arrayFixedType
+    | type '[' ']'                 # arrayType
+    | mapParameters                # mapFixedType
+    | type ':' type '{' '}'        # mapType
+    | objectParameters             # objectType
     | '(' type ')'                 # parenthesizedType
     ;
 
@@ -103,7 +109,6 @@ literal:
     | CHAR_LITERAL   # charLiteral
     | STRING_LITERAL # stringLiteral
     | REGEX_LITERAL  # regexLiteral
-    // | literal '..' literal  # rangeLiteral
     ;
 
 operator:
@@ -122,14 +127,25 @@ operator:
     | '..'
     ;
 
-expressionParameter: name = LOWER_ID type? ('#' meta = UPPER_ID)?;
-methodParameters:    '(' (expressionParameter (',' expressionParameter)*)? ')';
+lambdaParameters: '(' (name += LOWER_ID (',' name += LOWER_ID)*)? ')';
 
-mapArgument:      name = LOWER_ID ':' expression;
+methodParameter:  name = LOWER_ID type;
+methodParameters: '(' (methodParameter (',' methodParameter)*)? ')';
 methodArguments:  '(' (expression (',' expression)*)? ')';
-indexerArguments: '[' (expression (',' expression)*)? ']';
 
-typeParameter:  '...'? name = UPPER_ID (IS type? ('#' meta = UPPER_ID)?)?;
+mapParameter:  type ':' type;
+mapParameters: '{' (mapParameter (',' mapParameter)*)? '}';
+mapArgument:   expression ':' expression;
+mapArguments:  '{' (mapArgument (',' mapArgument)*)? '}';
+
+objectParameter:  name = LOWER_ID type;
+objectParameters: '{' (objectParameter (',' objectParameter)*)? '}';
+objectArgument:   (name = LOWER_ID ':')? expression;
+objectArguments:  '{' (objectArgument (',' objectArgument)*)? '}';
+
+arrayArguments: '[' (expression (',' expression)*)? ']';
+
+typeParameter:  '...'? name = UPPER_ID (IS type)?;
 typeParameters: '<' typeParameter (',' typeParameter)* '>';
 typeArguments:  '<' (type (',' type)*)? '>';
 
