@@ -57,5 +57,5 @@
   },
   "typescript.tsdk": "./node_modules/typescript/lib",
   "typescript.tsc.autoDetect": "off",
-  "cSpell.words": ["codacy", "PAREN", "pinst", "postpublish", "postversion"]
+  "cSpell.words": ["bfnrtv", "codacy", "PAREN", "pinst", "postpublish", "postversion"]
 }
