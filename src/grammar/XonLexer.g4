@@ -43,6 +43,12 @@ PREFIX:    'prefix';
 RETURN:    'return';
 POSTFIX:   'postfix';
 EXTENSION: 'extension';
+TYPE:      'type';
+CLASS:     'class';
+OBJECT:    'object';
+ENUM:      'enum';
+INTERFACE: 'interface';
+NOT:       'not';
 
 AT:          '@';
 DOT:         '.';
@@ -80,9 +86,9 @@ INSTANCE_MEMBER: INSTANCE LOWER_ID;
 
 FLOAT_LITERAL:
     [0-9][0-9]? [xX] AlphabetNumber '.' AlphabetNumber
-    | DigitNumber '.' DigitNumber
+    | DigitNumber '.' DigitNumber [a-zA-Z]*
     ;
-INTEGER_LITERAL: [0-9][0-9]? [xX] AlphabetNumber | DigitNumber;
+INTEGER_LITERAL: [0-9][0-9]? [xX] AlphabetNumber | DigitNumber [a-zA-Z]*;
 CHAR_LITERAL:    '"' ~["] '"';
 STRING_LITERAL:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 REGEX_LITERAL:   '`' (~[`] | '\\' [`\\])* '`';
