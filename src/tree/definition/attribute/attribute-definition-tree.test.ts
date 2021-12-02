@@ -4,7 +4,7 @@ import { ValueAttributeTree } from '../../attribute/value/value-attribute-tree';
 import { CallExpressionTree } from '../../expression/call/call-expression.tree';
 import { IdExpressionTree } from '../../expression/id/id-expression.tree';
 import { LiteralExpressionTree } from '../../expression/literal/literal-expression.tree';
-import { parseSourceFile } from '../../parse';
+import { parseDefinition, parseSourceFile } from '../../parse';
 import { SourceTree } from '../../source/source-tree';
 import { ExpressionStatementTree } from '../../statement/expression/expression-statement.tree';
 import { IdTypeTree } from '../../type/id/id-type.tree';
@@ -88,4 +88,22 @@ test('one scope', () => {
   expect(operatorType.parameters[0].id.text).toBe('it');
   expect(operatorType.parameters[0].type.name).toBe('SomeClass');
   expect(operatorType.resultType.name).toBe('AnotherClass');
+});
+
+test('single name', () => {
+  const code = 'abc';
+  const tree = parseDefinition<AttributeDefinitionTree>(code);
+  expect(tree).toBeInstanceOf(AttributeDefinitionTree);
+
+  expect(tree.id.text).toBe('abc');
+});
+
+test('hierarchy', () => {
+  const code = 'abc\n  def\n    ghi = 123';
+  const tree = parseDefinition<AttributeDefinitionTree>(code);
+  expect(tree).toBeInstanceOf(AttributeDefinitionTree);
+
+  expect(tree.id.text).toBe('abc');
+  expect(tree.definitions.length).toBe(0);
+  expect(tree.attributes.length).toBe(1);
 });

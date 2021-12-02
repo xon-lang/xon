@@ -1,11 +1,10 @@
-import * as fs from 'fs';
 import { AbstractAttributeTree } from '../../attribute/abstract/abstract-attribute-tree';
 import { MethodAttributeTree } from '../../attribute/method/method-attribute-tree';
 import { ValueAttributeTree } from '../../attribute/value/value-attribute-tree';
 import { CallExpressionTree } from '../../expression/call/call-expression.tree';
 import { IdExpressionTree } from '../../expression/id/id-expression.tree';
 import { LiteralExpressionTree } from '../../expression/literal/literal-expression.tree';
-import { parseSourceFile } from '../../parse';
+import { parseDefinition, parseSourceFile } from '../../parse';
 import { SourceTree } from '../../source/source-tree';
 import { ExpressionStatementTree } from '../../statement/expression/expression-statement.tree';
 import { IdTypeTree } from '../../type/id/id-type.tree';
@@ -102,4 +101,14 @@ test('string core', () => {
   expect(tree.definitions.length).toBe(1);
   expect(tree.definitions[0]).toBeInstanceOf(ClassDefinitionTree);
   expect(tree.definitions[0].id.text).toBe('String');
+});
+
+test('hierarchy', () => {
+  const code = 'Animal\n  Type\n    value = 123\n  value = "hi"';
+  const tree = parseDefinition<ClassDefinitionTree>(code);
+  expect(tree).toBeInstanceOf(ClassDefinitionTree);
+
+  expect(tree.id.text).toBe('Animal');
+  expect(tree.definitions.length).toBe(1);
+  expect(tree.attributes.length).toBe(1);
 });

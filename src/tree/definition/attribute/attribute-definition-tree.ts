@@ -9,11 +9,13 @@ import { getTypeParametersTrees } from '../../type-parameter/type-parameter-tree
 import { TypeParameterTree } from '../../type-parameter/type-parameter.tree';
 import { DefinitionAncestorTree } from '../definition-ancestor-tree';
 import { DefinitionTree } from '../definition-tree';
+import { getDefinitionsTrees } from '../definition-tree-helper';
 
 export class AttributeDefinitionTree extends DefinitionTree {
   id: IdToken;
   typeParameters: TypeParameterTree[] = [];
   ancestor?: DefinitionAncestorTree;
+  definitions: DefinitionTree[] = [];
   attributes: AttributeTree[] = [];
 
   constructor(public ctx: AttributeDefinitionContext) {
@@ -23,6 +25,7 @@ export class AttributeDefinitionTree extends DefinitionTree {
     this.typeParameters = getTypeParametersTrees(ctx.typeParameters());
     const ancestor = ctx.definitionAncestor();
     this.ancestor = (ancestor && new DefinitionAncestorTree(ancestor)) || null;
+    this.definitions = getDefinitionsTrees(ctx.definition());
     this.attributes = getAttributesTrees(ctx.attribute());
   }
 
@@ -31,6 +34,7 @@ export class AttributeDefinitionTree extends DefinitionTree {
       ? '<' + this.typeParameters.join(', ') + '>'
       : '';
     const ancestor = this.ancestor ? ' ' + this.ancestor.toString() : '';
+    const definitions = this.definitions.join('\n');
     const abstractAttributes = this.attributes
       .filter((x) => x instanceof AbstractAttributeTree)
       .join('\n');
@@ -43,7 +47,13 @@ export class AttributeDefinitionTree extends DefinitionTree {
     const operatorAttributes = this.attributes
       .filter((x) => x instanceof MethodAttributeTree && x.modifiers.length)
       .join('\n\n');
-    const attributes = [abstractAttributes, valueAttributes, methodAttributes, operatorAttributes]
+    const attributes = [
+      definitions,
+      abstractAttributes,
+      valueAttributes,
+      methodAttributes,
+      operatorAttributes,
+    ]
       .filter((x) => x)
       .join('\n\n')
       .replace(/(^[^\n])/gm, '  $1');
