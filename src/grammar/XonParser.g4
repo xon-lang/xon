@@ -20,9 +20,9 @@ definition:
     | EXTENSION definitionHeader? definitionBody? # extensionDefinition
     ;
 definitionHeader:
-    UPPER_ID typeParameters? '(' parameters? ')' definitionAncestor?
+    UPPER_ID typeParameters? methodParameters? definitionAncestor?
     ;
-definitionAncestor: IS type ('(' expressions? ')')?;
+definitionAncestor: IS type methodArguments?;
 definitionBody:     NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
@@ -54,7 +54,7 @@ assignment:
 expression:
     id typeArguments?                                                     # idExpression
     | literal                                                             # literalExpression
-    | expression '(' (expression (',' expression)*)? ')'                  # methodExpression
+    | expression methodArguments                                          # methodExpression
     | expression ('?.' | '.') id typeArguments?                           # memberExpression
     | expression IS type                                                  # isExpression
     | expression AS type                                                  # asExpression
@@ -72,23 +72,23 @@ expression:
     | left = expression op = '||' right = expression                      # disjunctionExpression
     | expression '|' (id ':')? expression                                 # pipeExpression
     | '(' (id (',' id)*)? ')' ':' expression                              # lambdaExpression
-    | '[' expressions? ']'                                                # arrayExpression
-    | '{' attributes? '}'                                                 # objectExpression
+    | arrayArguments                                                      # arrayExpression
+    | objectArguments                                                     # objectExpression
     | '(' expression ')'                                                  # parenthesizedExpression
     ;
 
 type:
-    UPPER_ID typeArguments?                 # idType
-    | literal                               # literalType
-    | type '#' UPPER_ID                     # metaType
-    | type '?'                              # nullableType
-    | type '||' type                        # unionType
-    | type '&&' type                        # intersectionType
-    | type '[' ']'                          # arrayType
-    | '[' (type (',' type)*)? ']'           # arrayFixedType
-    | '(' parameters? ')' type?             # methodType
-    | '{' (parameter (',' parameter)*)? '}' # objectType
-    | '(' type ')'                          # parenthesizedType
+    UPPER_ID typeArguments?  # idType
+    | literal                # literalType
+    | type '#' UPPER_ID      # metaType
+    | type '?'               # nullableType
+    | type '||' type         # unionType
+    | type '&&' type         # intersectionType
+    | type '[' ']'           # arrayType
+    | arrayParameters        # arrayFixedType
+    | methodParameters type? # methodType
+    | objectParameters       # objectType
+    | '(' type ')'           # parenthesizedType
     ;
 
 literal:
@@ -99,10 +99,14 @@ literal:
     | REGEX_LITERAL  # regexLiteral
     ;
 
-parameter:   id type;
-parameters:  parameter (',' parameter)*;
-attributes:  attribute (',' attribute)*;
-expressions: expression (',' expression)*;
+parameter:        id type;
+arrayParameters:  '[' (type (',' type)*)? ']';
+methodParameters: '(' (parameter (',' parameter)*)? ')';
+objectParameters: '{' (parameter (',' parameter)*)? '}';
+
+arrayArguments:  '[' (expression (',' expression)*)? ']';
+methodArguments: '(' (expression (',' expression)*)? ')';
+objectArguments: '{' ( attribute (',' attribute)*)? '}';
 
 typeParameter:  UPPER_ID (IS type)?;
 typeParameters: '<' typeParameter (',' typeParameter)* '>';
