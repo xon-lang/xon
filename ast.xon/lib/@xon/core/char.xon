@@ -1,1 +1,1 @@
-Char is Integer
+interface Char is Integer

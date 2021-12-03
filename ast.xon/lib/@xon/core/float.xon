@@ -1,4 +1,4 @@
-Float is Number
+interface Float is Number
   prefix + () Float
   prefix - () Float
   infix + (other Float) Float

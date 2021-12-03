@@ -1,4 +1,4 @@
-Integer is Float
+interface Integer is Float
   prefix + () Integer
   prefix - () Integer
   infix + (other Integer) Integer

@@ -1,1 +1,1 @@
-Nullable<T>
+interface Nullable<T>

@@ -1,8 +1,6 @@
-Boolean(value 0 || 1)
-  prefix not () Boolean
-
+interface Boolean(value 0 || 1 || Integer)
   toString() String
 
 
-false is Boolean(0)
-true is Boolean(1)
+object False is Boolean(0)
+object True is Boolean(1)

@@ -1,1 +1,1 @@
-Union<T>
+interface Union<T>

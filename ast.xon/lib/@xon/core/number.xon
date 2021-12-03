@@ -1,4 +1,4 @@
-Number
+interface Number
   prefix + () Number
   prefix - () Number
   infix + (other Number) Number

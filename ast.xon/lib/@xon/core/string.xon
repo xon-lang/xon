@@ -1,3 +1,3 @@
-String is Char[]
+interface String is Char[]
   infix + (other String) String
   infix + (other Number) String
