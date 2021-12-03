@@ -12,25 +12,19 @@ libraryPath:   id ('.' id)*;
 libraryMember: name = UPPER_ID (AS alias = UPPER_ID)?;
 
 definition:
-    TYPE definitionHeader? ':' type               # aliasDefinition
-    | CLASS definitionHeader? definitionBody?     # classDefinition
-    | ENUM definitionHeader? definitionBody?      # enumDefinition
-    | INTERFACE definitionHeader? definitionBody? # interfaceDefinition
-    | OBJECT definitionHeader? definitionBody?    # objectDefinition
-    | EXTENSION definitionHeader? definitionBody? # extensionDefinition
+    TYPE definitionHeader? ':' type                        # aliasDefinition
+    | definitionModifier definitionHeader? definitionBody? # typeDefinition
     ;
-definitionHeader:
-    UPPER_ID typeParameters? methodParameters? definitionAncestor?
-    ;
-definitionAncestor: IS type methodArguments?;
+definitionModifier: CLASS | ENUM | INTERFACE | OBJECT | EXTENSION;
+definitionHeader:   UPPER_ID type? IS expression;
 definitionBody:     NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
-    operator type (NL+ INDENT (statement | NL)+ DEDENT)                              # operatorAttribute
-    | (id | STRING_LITERAL) typeParameters? type                                     # abstractAttribute
-    | (id | STRING_LITERAL) typeParameters? type? ':' expression                     # valueAttribute
-    | (id | STRING_LITERAL) typeParameters? type NL+ INDENT (statement | NL)+ DEDENT # methodAttribute
-    | (id | STRING_LITERAL) typeParameters? NL+ INDENT (attribute | NL)+ DEDENT      # objectAttribute
+    operator type (NL+ INDENT (statement | NL)+ DEDENT)              # operatorAttribute
+    | (id | STRING_LITERAL) type                                     # abstractAttribute
+    | (id | STRING_LITERAL) type? ':' expression                     # valueAttribute
+    | (id | STRING_LITERAL) type NL+ INDENT (statement | NL)+ DEDENT # methodAttribute
+    | (id | STRING_LITERAL) NL+ INDENT (attribute | NL)+ DEDENT      # objectAttribute
     ;
 
 statement:
@@ -42,20 +36,15 @@ statement:
     | RETURN expression?                                        # returnStatement
     | ACTUAL actual = expression NL+ EXPECT expect = expression # assertStatement
     | PREPROCESSOR                                              # preprocessorStatement
+    | expression (',' expression)* '=' expression               # assignmentStatement
     | expression                                                # expressionStatement
-    | assignment                                                # assignmentStatement
-    ;
-
-assignment:
-    id (',' id)* '=' expression        # idAssignment
-    | expression '.' id '=' expression # memberAssignment
     ;
 
 expression:
-    id typeArguments?                                                     # idExpression
+    id                                                                    # idExpression
     | literal                                                             # literalExpression
-    | expression methodArguments                                          # methodExpression
-    | expression ('?.' | '.') id typeArguments?                           # memberExpression
+    | expression typeArguments? methodArguments                           # callExpression
+    | expression ('?.' | '.') id                                          # memberExpression
     | expression IS type                                                  # isExpression
     | expression AS type                                                  # asExpression
     | expression IN type                                                  # asExpression
@@ -71,24 +60,24 @@ expression:
     | left = expression op = '&&' right = expression                      # conjunctionExpression
     | left = expression op = '||' right = expression                      # disjunctionExpression
     | expression '|' (id ':')? expression                                 # pipeExpression
-    | '(' (id (',' id)*)? ')' ':' expression                              # lambdaExpression
+    | methodParameters ':' expression                                     # lambdaExpression
     | arrayArguments                                                      # arrayExpression
     | objectArguments                                                     # objectExpression
     | '(' expression ')'                                                  # parenthesizedExpression
     ;
 
 type:
-    UPPER_ID typeArguments?  # idType
-    | literal                # literalType
-    | type '#' UPPER_ID      # metaType
-    | type '?'               # nullableType
-    | type '||' type         # unionType
-    | type '&&' type         # intersectionType
-    | type '[' ']'           # arrayType
-    | arrayParameters        # arrayFixedType
-    | methodParameters type? # methodType
-    | objectParameters       # objectType
-    | '(' type ')'           # parenthesizedType
+    UPPER_ID typeArguments?                  # idType
+    | literal                                # literalType
+    | type '#' UPPER_ID                      # metaType
+    | type '?'                               # nullableType
+    | type '||' type                         # unionType
+    | type '&&' type                         # intersectionType
+    | type '[' ']'                           # arrayType
+    | typeParameters? methodParameters type? # methodType
+    | arrayParameters                        # arrayFixedType
+    | objectParameters                       # objectType
+    | '(' type ')'                           # parenthesizedType
     ;
 
 literal:
@@ -99,18 +88,19 @@ literal:
     | REGEX_LITERAL  # regexLiteral
     ;
 
-parameter:        id type;
-arrayParameters:  '[' (type (',' type)*)? ']';
-methodParameters: '(' (parameter (',' parameter)*)? ')';
-objectParameters: '{' (parameter (',' parameter)*)? '}';
+parameter:        id type? | id? type;
+methodParameters: '(' (parameter (',' parameter)*)? ','? ')';
+arrayParameters:  '[' (parameter (',' parameter)*)? ','? ']';
+objectParameters: '{' (parameter (',' parameter)*)? ','? '}';
 
-arrayArguments:  '[' (expression (',' expression)*)? ']';
-methodArguments: '(' (expression (',' expression)*)? ')';
-objectArguments: '{' ( attribute (',' attribute)*)? '}';
+methodArguments: '(' (expression (',' expression)*)? ','? ')';
+arrayArguments:  '[' (expression (',' expression)*)? ','? ']';
+objectArguments: '{' ( objectArgument (',' objectArgument)*)? ','? '}';
+objectArgument:  attribute | expression;
 
 typeParameter:  UPPER_ID (IS type)?;
-typeParameters: '<' typeParameter (',' typeParameter)* '>';
-typeArguments:  '<' (type (',' type)*)? '>';
+typeParameters: '<' typeParameter (',' typeParameter)* ','? '>';
+typeArguments:  '<' (type (',' type)*)? ','? '>';
 
 body: ':' (statement | NL+ INDENT (statement | NL)+ DEDENT)?;
 
