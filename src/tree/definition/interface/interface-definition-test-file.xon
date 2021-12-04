@@ -1,15 +1,8 @@
-SomeClass<T>() is BaseClass<String, Boolean>(name, 1)
-  property = 123
+interface SomeClass<T> is Base<String, Boolean>
+  property
   anotherProp String
   typedValue Number
 
-
-  method () MyType
-    hello()
-    bye()
-
-  location (x Number, y Number) Position
-    pos(x, y)
-
-  infix + (it SomeClass) AnotherClass
-    log("fine!")
+  method() MyType
+  location(x Number, y Number) Position
+  + (it SomeClass) AnotherClass

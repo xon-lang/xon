@@ -101,5 +101,5 @@ test('hierarchy', () => {
   expect(tree).toBeInstanceOf(ObjectDefinitionTree);
 
   expect(tree.id.text).toBe('Animal');
-  expect(tree.attributes.length).toBe(1);
+  expect(tree.attributes.length).toBe(2);
 });
