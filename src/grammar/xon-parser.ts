@@ -452,7 +452,7 @@ export class XonParser extends Parser {
 				this.state = 100;
 				this.match(XonParser.TYPE);
 				this.state = 101;
-				this.match(XonParser.UPPER_ID);
+				(_localctx as AliasDefinitionContext)._name = this.match(XonParser.UPPER_ID);
 				this.state = 103;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
@@ -528,7 +528,7 @@ export class XonParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			this.state = 116;
-			this.match(XonParser.UPPER_ID);
+			_localctx._name = this.match(XonParser.UPPER_ID);
 			this.state = 118;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
@@ -1667,7 +1667,7 @@ export class XonParser extends Parser {
 				_prevctx = _localctx;
 
 				this.state = 335;
-				this.match(XonParser.UPPER_ID);
+				(_localctx as IdTypeContext)._name = this.match(XonParser.UPPER_ID);
 				this.state = 337;
 				this._errHandler.sync(this);
 				switch ( this.interpreter.adaptivePredict(this._input, 39, this._ctx) ) {
@@ -1810,7 +1810,7 @@ export class XonParser extends Parser {
 						this.state = 362;
 						this.match(XonParser.HASH);
 						this.state = 363;
-						this.match(XonParser.UPPER_ID);
+						(_localctx as MetaTypeContext)._name = this.match(XonParser.UPPER_ID);
 						}
 						break;
 
@@ -2440,7 +2440,7 @@ export class XonParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			this.state = 491;
-			this.match(XonParser.UPPER_ID);
+			_localctx._name = this.match(XonParser.UPPER_ID);
 			this.state = 494;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
@@ -3414,12 +3414,13 @@ export class DefinitionContext extends ParserRuleContext {
 	}
 }
 export class AliasDefinitionContext extends DefinitionContext {
+	public _name!: Token;
 	public TYPE(): TerminalNode { return this.getToken(XonParser.TYPE, 0); }
-	public UPPER_ID(): TerminalNode { return this.getToken(XonParser.UPPER_ID, 0); }
 	public COLON(): TerminalNode { return this.getToken(XonParser.COLON, 0); }
 	public type(): TypeContext {
 		return this.getRuleContext(0, TypeContext);
 	}
+	public UPPER_ID(): TerminalNode { return this.getToken(XonParser.UPPER_ID, 0); }
 	public typeParameters(): TypeParametersContext | undefined {
 		return this.tryGetRuleContext(0, TypeParametersContext);
 	}
@@ -3446,6 +3447,7 @@ export class TypeDefinitionContext extends DefinitionContext {
 
 
 export class DefinitionHeaderContext extends ParserRuleContext {
+	public _name!: Token;
 	public UPPER_ID(): TerminalNode { return this.getToken(XonParser.UPPER_ID, 0); }
 	public type(): TypeContext | undefined {
 		return this.tryGetRuleContext(0, TypeContext);
@@ -4170,6 +4172,7 @@ export class TypeContext extends ParserRuleContext {
 	}
 }
 export class IdTypeContext extends TypeContext {
+	public _name!: Token;
 	public UPPER_ID(): TerminalNode { return this.getToken(XonParser.UPPER_ID, 0); }
 	public typeArguments(): TypeArgumentsContext | undefined {
 		return this.tryGetRuleContext(0, TypeArgumentsContext);
@@ -4189,6 +4192,7 @@ export class LiteralTypeContext extends TypeContext {
 	}
 }
 export class MetaTypeContext extends TypeContext {
+	public _name!: Token;
 	public type(): TypeContext {
 		return this.getRuleContext(0, TypeContext);
 	}
@@ -4550,6 +4554,7 @@ export class ObjectArgumentContext extends ParserRuleContext {
 
 
 export class TypeParameterContext extends ParserRuleContext {
+	public _name!: Token;
 	public UPPER_ID(): TerminalNode { return this.getToken(XonParser.UPPER_ID, 0); }
 	public IS(): TerminalNode | undefined { return this.tryGetToken(XonParser.IS, 0); }
 	public type(): TypeContext | undefined {

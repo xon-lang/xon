@@ -12,10 +12,10 @@ libraryPath:   id ('.' id)*;
 libraryMember: name = UPPER_ID (AS alias = UPPER_ID)?;
 
 definition:
-    TYPE UPPER_ID typeParameters? ':' type                 # aliasDefinition
+    TYPE name = UPPER_ID typeParameters? ':' type          # aliasDefinition
     | definitionModifier definitionHeader? definitionBody? # typeDefinition
     ;
-definitionHeader: UPPER_ID type? (IS expression)?;
+definitionHeader: name = UPPER_ID type? (IS expression)?;
 definitionBody:   NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
@@ -66,9 +66,9 @@ expression:
     ;
 
 type:
-    UPPER_ID typeArguments?                  # idType
+    name = UPPER_ID typeArguments?           # idType
     | literal                                # literalType
-    | type '#' UPPER_ID                      # metaType
+    | type '#' name = UPPER_ID               # metaType
     | type '?'                               # nullableType
     | type '||' type                         # unionType
     | type '&&' type                         # intersectionType
@@ -97,7 +97,7 @@ arrayArguments:  '[' (expression (',' expression)*)? ','? ']';
 objectArguments: '{' ( objectArgument (',' objectArgument)*)? ','? '}';
 objectArgument:  attribute | expression;
 
-typeParameter:  UPPER_ID (IS type)?;
+typeParameter:  name = UPPER_ID (IS type)?;
 typeParameters: '<' typeParameter (',' typeParameter)* ','? '>';
 typeArguments:  '<' (type (',' type)*)? ','? '>';
 
