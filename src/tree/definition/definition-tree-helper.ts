@@ -1,20 +1,23 @@
 import {
   AliasDefinitionContext,
-  AttributeDefinitionContext,
-  ClassDefinitionContext,
   DefinitionContext,
+  TypeDefinitionContext,
 } from '../../grammar/xon-parser';
 import { AliasDefinitionTree } from './alias/alias-definition-tree';
-import { AttributeDefinitionTree } from './object/attribute-definition-tree';
 import { ClassDefinitionTree } from './class/class-definition-tree';
 import { DefinitionTree } from './definition-tree';
+import { InterfaceDefinitionTree } from './interface/interface-definition-tree';
+import { ObjectDefinitionTree } from './object/object-definition-tree';
 
 export const getDefinitionTree = (ctx: DefinitionContext): DefinitionTree => {
   if (ctx === undefined) return undefined;
 
   if (ctx instanceof AliasDefinitionContext) return new AliasDefinitionTree(ctx);
-  if (ctx instanceof AttributeDefinitionContext) return new AttributeDefinitionTree(ctx);
-  if (ctx instanceof ClassDefinitionContext) return new ClassDefinitionTree(ctx);
+  if (ctx instanceof TypeDefinitionContext) {
+    if (ctx.definitionModifier().CLASS()) return new ClassDefinitionTree(ctx);
+    if (ctx.definitionModifier().INTERFACE()) return new InterfaceDefinitionTree(ctx);
+    if (ctx.definitionModifier().OBJECT()) return new ObjectDefinitionTree(ctx);
+  }
 
   throw Error(`Definition tree not found for "${ctx.constructor.name}"`);
 };

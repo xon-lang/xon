@@ -2,7 +2,7 @@ import { parseDefinition } from '../../parse';
 import { AliasDefinitionTree } from './alias-definition-tree';
 
 test('number', () => {
-  const code = 'Number = Integer || Float';
+  const code = 'type Number: Integer || Float';
   const tree = parseDefinition<AliasDefinitionTree>(code);
   expect(tree).toBeInstanceOf(AliasDefinitionTree);
 

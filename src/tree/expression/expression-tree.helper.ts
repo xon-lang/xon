@@ -50,8 +50,14 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
 
+  if (ctx instanceof InfixExpressionContext)
+    return new InfixExpressionTree(
+      ctx,
+      IdToken.fromContext(ctx._op),
+      getExpressionTree(ctx._left),
+      getExpressionTree(ctx._right),
+    );
   if (
-    ctx instanceof InfixExpressionContext ||
     ctx instanceof PowExpressionContext ||
     ctx instanceof MulDivModExpressionContext ||
     ctx instanceof AddSubExpressionContext ||

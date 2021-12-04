@@ -6,28 +6,12 @@ export class IdToken {
   text: string;
   sourceReference: SourceReference;
   metadata: DeclarationMetadata;
-  isOperator: boolean;
 
   constructor(token?: Token) {
     if (!token) return;
 
     this.text = token.text;
     this.sourceReference = SourceReference.fromToken(token);
-    this.isOperator = [
-      '!',
-      '^',
-      '*',
-      '/',
-      '%',
-      '+',
-      '-',
-      '<',
-      '>',
-      '==',
-      '&&',
-      '||',
-      '..',
-    ].includes(this.text);
   }
 
   toString(): string {
