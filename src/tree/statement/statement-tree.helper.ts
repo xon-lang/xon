@@ -1,5 +1,6 @@
 import {
   AssertStatementContext,
+  AssignmentStatementContext,
   BodyContext,
   ExpressionStatementContext,
   ForStatementContext,
@@ -10,6 +11,7 @@ import {
   WhileStatementContext,
 } from '../../grammar/xon-parser';
 import { AssertStatementTree } from './assert/assert-statement.tree';
+import { AssignmentStatementTree } from './assignment/assignment-statement.tree';
 import { ExpressionStatementTree } from './expression/expression-statement.tree';
 import { ForStatementTree } from './for/for-statement.tree';
 import { IfStatementTree } from './if/if-statement.tree';
@@ -22,6 +24,7 @@ export const getStatementTree = (ctx: StatementContext): StatementTree => {
   if (ctx === undefined) return undefined;
 
   if (ctx instanceof AssertStatementContext) return new AssertStatementTree(ctx);
+  if (ctx instanceof AssignmentStatementContext) return new AssignmentStatementTree(ctx);
   if (ctx instanceof ExpressionStatementContext) return new ExpressionStatementTree(ctx);
   if (ctx instanceof ForStatementContext) return new ForStatementTree(ctx);
   if (ctx instanceof IfStatementContext) return new IfStatementTree(ctx);
