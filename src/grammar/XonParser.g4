@@ -19,11 +19,11 @@ definitionHeader: UPPER_ID type? IS expression;
 definitionBody:   NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
-    operator type (NL+ INDENT (statement | NL)+ DEDENT)     # operatorAttribute
-    | attributeId type?                                     # abstractAttribute
-    | attributeId type? ':' expression                      # valueAttribute
-    | attributeId type? NL+ INDENT (statement | NL)+ DEDENT # methodAttribute
-    | attributeId type? NL+ INDENT (attribute | NL)+ DEDENT # objectAttribute
+    operator type (NL+ INDENT (statement | NL)+ DEDENT)    # operatorAttribute
+    | attributeId type                                     # abstractAttribute
+    | attributeId type? ':' expression                     # valueAttribute
+    | attributeId type NL+ INDENT (statement | NL)+ DEDENT # methodAttribute
+    | attributeId NL+ INDENT (attribute | NL)+ DEDENT      # objectAttribute
     ;
 
 statement:
