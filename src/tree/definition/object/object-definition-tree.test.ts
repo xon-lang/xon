@@ -22,8 +22,7 @@ test('one scope', () => {
   expect(definition.id.text).toBe('SomeClass');
 
   const ancestor = definition.ancestor;
-  expect(ancestor).toBeInstanceOf(IdTypeTree);
-  expect(ancestor.id.text).toBe('BaseClass');
+  expect(ancestor.id.text).toBe('Base');
   expect(ancestor.typeArguments.length).toBe(2);
   expect(ancestor.typeArguments[0].name).toBe('String');
   expect(ancestor.typeArguments[1].name).toBe('Boolean');
