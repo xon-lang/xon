@@ -16,7 +16,7 @@ export class ValueAttributeTree extends AttributeTree {
     super();
 
     this.id = IdToken.fromContext(ctx.attributeId());
-    this.type = getTypeTree(ctx.type()) as LambdaTypeTree;
+    this.type = (getTypeTree(ctx.type()) as LambdaTypeTree) || null;
     this.expression = getExpressionTree(ctx.expression());
   }
 
