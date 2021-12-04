@@ -11,7 +11,6 @@ test('method call', () => {
   const tree = parseExpression<CallExpressionTree>(code);
   expect(tree).toBeInstanceOf(CallExpressionTree);
 
-  expect(tree.isIndexCall).toBe(false);
   expect(tree.arguments.length).toBe(2);
   expect((tree.arguments[0] as LiteralExpressionTree).literal).toBeInstanceOf(IntegerLiteralTree);
   expect((tree.arguments[0] as LiteralExpressionTree).literal.value).toBe(3);
@@ -27,7 +26,6 @@ test('method on several lines', () => {
   const tree = parseExpression<CallExpressionTree>(code);
   expect(tree).toBeInstanceOf(CallExpressionTree);
 
-  expect(tree.isIndexCall).toBe(false);
   expect(tree.arguments.length).toBe(4);
   const [arg1, arg2] = tree.arguments.map((x) => x as LiteralExpressionTree);
   expect(arg1.literal).toBeInstanceOf(IntegerLiteralTree);
@@ -40,7 +38,6 @@ test('can call with type parameter', () => {
   const tree = parseExpression<CallExpressionTree>(code);
   expect(tree).toBeInstanceOf(CallExpressionTree);
 
-  expect(tree.isIndexCall).toBe(false);
   expect(tree.arguments.length).toBe(1);
   const [arg] = tree.arguments.map((x) => x as LiteralExpressionTree);
   expect(arg.literal).toBeInstanceOf(IntegerLiteralTree);
@@ -52,7 +49,6 @@ test('call with type parameter', () => {
   const tree = parseExpression<CallExpressionTree>(code);
   expect(tree).toBeInstanceOf(CallExpressionTree);
 
-  expect(tree.isIndexCall).toBe(false);
   expect(tree.arguments.length).toBe(1);
   const [arg] = tree.arguments.map((x) => x as LiteralExpressionTree);
   expect(arg.literal).toBeInstanceOf(IntegerLiteralTree);
@@ -64,7 +60,6 @@ test('index call with type parameter', () => {
   const tree = parseExpression<CallExpressionTree>(code);
   expect(tree).toBeInstanceOf(CallExpressionTree);
 
-  expect(tree.isIndexCall).toBe(true);
   expect(tree.arguments.length).toBe(1);
   const [arg] = tree.arguments.map((x) => x as LiteralExpressionTree);
   expect(arg.literal.value).toBe(1);

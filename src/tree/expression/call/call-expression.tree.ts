@@ -7,16 +7,12 @@ export class CallExpressionTree extends ExpressionTree {
   metadata: CallExpressionMetadata;
   instance: ExpressionTree;
   arguments: ExpressionTree[];
-  isIndexCall: boolean;
 
   constructor(public ctx: CallExpressionContext) {
     super();
 
     this.instance = getExpressionTree(ctx.expression());
-    this.arguments = getExpressionsTrees(
-      (ctx.methodArguments() || ctx.indexerArguments()).expression(),
-    );
-    this.isIndexCall = !!ctx.indexerArguments();
+    this.arguments = getExpressionsTrees(ctx.methodArguments().expression());
   }
 
   toString(): string {

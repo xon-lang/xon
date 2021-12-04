@@ -10,7 +10,7 @@ export class ArrayExpressionTree extends ExpressionTree {
   constructor(public ctx: ArrayExpressionContext) {
     super();
 
-    this.items = getExpressionsTrees(ctx.expression());
+    this.items = getExpressionsTrees(ctx.arrayArguments().expression());
   }
 
   toString(): string {
