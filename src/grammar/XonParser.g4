@@ -12,7 +12,7 @@ libraryPath:   id ('.' id)*;
 libraryMember: name = UPPER_ID (AS alias = UPPER_ID)?;
 
 definition:
-    TYPE definitionHeader? ':' type                        # aliasDefinition
+    TYPE UPPER_ID typeParameters? ':' type                 # aliasDefinition
     | definitionModifier definitionHeader? definitionBody? # typeDefinition
     ;
 definitionHeader: UPPER_ID type? (IS expression)?;
