@@ -2,7 +2,7 @@ import { parseAttribute } from '../../parse';
 import { ValueAttributeTree } from './value-attribute-tree';
 
 test('value', () => {
-  const code = 'a = 123';
+  const code = 'a: 123';
   const tree = parseAttribute<ValueAttributeTree>(code);
   expect(tree).toBeInstanceOf(ValueAttributeTree);
 
@@ -12,7 +12,7 @@ test('value', () => {
 });
 
 test('private value with type', () => {
-  const code = '_a Integer = 123';
+  const code = '_a Integer: 123';
   const tree = parseAttribute<ValueAttributeTree>(code);
   expect(tree).toBeInstanceOf(ValueAttributeTree);
 
@@ -22,7 +22,7 @@ test('private value with type', () => {
 });
 
 test('array value', () => {
-  const code = 'a<T> T[] = []';
+  const code = 'a T[]: []';
   const tree = parseAttribute<ValueAttributeTree>(code);
   expect(tree).toBeInstanceOf(ValueAttributeTree);
 
