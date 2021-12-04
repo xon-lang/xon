@@ -25,7 +25,7 @@ attribute:
     | attributeHeader NL+ INDENT (statement | NL)+ DEDENT # methodAttribute
     | attributeHeader NL+ INDENT (attribute | NL)+ DEDENT # objectAttribute
     ;
-attributeHeader: (id | STRING_LITERAL) type?;
+attributeHeader: (id | string = STRING_LITERAL) type?;
 
 statement:
     FOR (value = id (',' index = id)? IN)? expression body      # forStatement
@@ -103,6 +103,6 @@ typeParameters: '<' typeParameter (',' typeParameter)* ','? '>';
 typeArguments:  '<' (type (',' type)*)? ','? '>';
 
 body:               ':' (statement | NL+ INDENT (statement | NL)+ DEDENT)?;
-id:                 LOWER_ID | INSTANCE | definitionModifier;
+id:                 LOWER_ID | definitionModifier;
 definitionModifier: CLASS | ENUM | INTERFACE | OBJECT | EXTENSION;
 operator:           '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';

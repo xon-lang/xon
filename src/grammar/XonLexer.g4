@@ -81,8 +81,6 @@ UNDERSCORE:  '_';
 EXCLAMATION: '!';
 BACK_SLASH:  '\\';
 
-INSTANCE: '$' LOWER_ID?;
-
 FLOAT_LITERAL:
     [0-9][0-9]? [xX] AlphabetNumber '.' AlphabetNumber
     | DigitNumber '.' DigitNumber [a-zA-Z]*
