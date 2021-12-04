@@ -1,10 +1,10 @@
 import { parseExpressionParameter } from '../parse';
-import { ExpressionParameterTree } from './expression-parameter.tree';
+import { ParameterTree } from './parameter.tree';
 
 test('has data type', () => {
   const code = 'b String';
   const tree = parseExpressionParameter(code);
-  expect(tree).toBeInstanceOf(ExpressionParameterTree);
+  expect(tree).toBeInstanceOf(ParameterTree);
 
   expect(tree.id.text).toBe('b');
   expect(tree.isPrivate).toBe(false);
@@ -15,7 +15,7 @@ test('has data type', () => {
 test('has data and meta types', () => {
   const code = '_b String#Literal';
   const tree = parseExpressionParameter(code);
-  expect(tree).toBeInstanceOf(ExpressionParameterTree);
+  expect(tree).toBeInstanceOf(ParameterTree);
 
   expect(tree.id.text).toBe('_b');
   expect(tree.isPrivate).toBe(true);

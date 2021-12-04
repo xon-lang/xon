@@ -1,14 +1,14 @@
 import { LambdaTypeContext } from '../../../grammar/xon-parser';
 import { LambdaTypeMetadata } from '../../../metadata/type/lambda/lambda-type-metadata';
-import { getExpressionParametersTrees } from '../../expression-parameter/expression-parameter-tree.helper';
-import { ExpressionParameterTree } from '../../expression-parameter/expression-parameter.tree';
+import { getExpressionParametersTrees } from '../../parameter/parameter-tree.helper';
+import { ParameterTree } from '../../parameter/parameter.tree';
 import { getTypeTree } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
 export class LambdaTypeTree extends TypeTree {
   metadata: LambdaTypeMetadata;
   name: string;
-  parameters: ExpressionParameterTree[] = [];
+  parameters: ParameterTree[] = [];
   resultType?: TypeTree;
 
   constructor(public ctx: LambdaTypeContext) {

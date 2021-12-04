@@ -7,7 +7,7 @@ import { getAttributeTree } from './attribute/attribute-tree.helper';
 import { DefinitionTree } from './definition/definition-tree';
 import { getDefinitionTree } from './definition/definition-tree-helper';
 import { ExportTree } from './export/export.tree';
-import { ParameterTree } from './expression-parameter/expression-parameter.tree';
+import { ParameterTree } from './parameter/parameter.tree';
 import { getExpressionTree } from './expression/expression-tree.helper';
 import { ExpressionTree } from './expression/expression.tree';
 import { ImportTree } from './import/import.tree';
