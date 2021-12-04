@@ -9,14 +9,14 @@ source: (library | export | NL)* ( definition | NL)*;
 export:        EXPORT libraryPath;
 library:       IMPORT libraryPath ':' libraryMember (',' libraryMember)*;
 libraryPath:   id ('.' id)*;
-libraryMember: name = UPPER_ID (AS alias = UPPER_ID)?;
+libraryMember: name = id (AS alias = id)?;
 
 definition:
-    TYPE name = UPPER_ID typeParameters? ':' type          # aliasDefinition
+    TYPE id typeParameters? ':' type                       # aliasDefinition
     | definitionModifier definitionHeader? definitionBody? # typeDefinition
     ;
-definitionHeader:   name = UPPER_ID type? definitionAncestor?;
-definitionAncestor: IS name = UPPER_ID typeArguments? lambdaArguments;
+definitionHeader:   id type? definitionAncestor?;
+definitionAncestor: IS id typeArguments? lambdaArguments;
 definitionBody:     NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
@@ -67,9 +67,9 @@ expression:
     ;
 
 type:
-    name = UPPER_ID typeArguments?           # idType
+    id typeArguments?                        # idType
     | literal                                # literalType
-    | type '#' name = UPPER_ID               # metaType
+    | type '#' id                            # metaType
     | type '?'                               # nullableType
     | type '||' type                         # unionType
     | type '&&' type                         # intersectionType
@@ -98,12 +98,12 @@ arrayArguments:  '[' (expression (',' expression)*)? ','? ']';
 objectArguments: '{' ( objectArgument (',' objectArgument)*)? ','? '}';
 objectArgument:  attribute | expression;
 
-typeParameter:  name = UPPER_ID (IS type)?;
+typeParameter:  id (IS type)?;
 typeParameters: '<' typeParameter (',' typeParameter)* ','? '>';
 typeArguments:  '<' (type (',' type)*)? ','? '>';
 
 body:               ':' (statement | NL+ INDENT (statement | NL)+ DEDENT)?;
 attributeId:        id | STRING_LITERAL;
-id:                 LOWER_ID | definitionModifier;
+id:                 ID | definitionModifier;
 definitionModifier: CLASS | ENUM | INTERFACE | OBJECT | EXTENSION;
 operator:           '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';

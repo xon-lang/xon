@@ -91,9 +91,7 @@ STRING_LITERAL:  '"' (~["] | '\\' ["\\bfnrtv])* '"';
 REGEX_LITERAL:   '`' (~[`] | '\\' [`\\])* '`';
 PREPROCESSOR:    '#{' .*? '}';
 
-UPPER_ID: [A-Z] [_a-zA-Z0-9]*;
-LOWER_ID: [_a-z] [_a-zA-Z0-9]*;
-
+ID: [_a-zA-Z] [_a-zA-Z0-9]*;
 NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
     ;
 
