@@ -75,7 +75,7 @@ type:
     | type '&&' type                         # intersectionType
     | type '[' ']'                           # arrayType
     | typeParameters? methodParameters type? # methodType
-    | arrayParameters                        # arrayFixedType
+    | arrayParameters                        # tupleType
     | objectParameters                       # objectType
     | '(' type ')'                           # parenthesizedType
     ;

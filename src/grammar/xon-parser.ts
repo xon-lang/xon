@@ -1747,7 +1747,7 @@ export class XonParser extends Parser {
 
 			case 4:
 				{
-				_localctx = new ArrayFixedTypeContext(_localctx);
+				_localctx = new TupleTypeContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 348;
@@ -4301,7 +4301,7 @@ export class MethodTypeContext extends TypeContext {
 		this.copyFrom(ctx);
 	}
 }
-export class ArrayFixedTypeContext extends TypeContext {
+export class TupleTypeContext extends TypeContext {
 	public arrayParameters(): ArrayParametersContext {
 		return this.getRuleContext(0, ArrayParametersContext);
 	}
