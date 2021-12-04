@@ -15,8 +15,9 @@ definition:
     TYPE name = UPPER_ID typeParameters? ':' type          # aliasDefinition
     | definitionModifier definitionHeader? definitionBody? # typeDefinition
     ;
-definitionHeader: name = UPPER_ID type? (IS expression)?;
-definitionBody:   NL+ INDENT (attribute | NL)+ DEDENT;
+definitionHeader:   name = UPPER_ID type? definitionAncestor?;
+definitionAncestor: IS name = UPPER_ID typeArguments? methodArguments;
+definitionBody:     NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
     operator type (NL+ INDENT (statement | NL)+ DEDENT)    # operatorAttribute
