@@ -16,5 +16,5 @@ test('has data and meta types', () => {
   expect(tree).toBeInstanceOf(ParameterTree);
 
   expect(tree.id.text).toBe('_b');
-  expect(tree.type.name).toBe('String');
+  expect(tree.type.name).toBe('Literal');
 });

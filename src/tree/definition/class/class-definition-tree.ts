@@ -17,7 +17,10 @@ export class ClassDefinitionTree extends DefinitionTree {
     super();
 
     const header = ctx.definitionHeader();
-    this.id = new IdToken(header._name);
+    this.id = IdToken.fromContext(header.id());
+    if (this.id.text[0] !== this.id.text[0].toUpperCase())
+      throw new Error(`Definition name '${this.id.text}' must start with upper letter`);
+
     this.type = getTypeTree(header.type()) as LambdaTypeTree;
     if (!(this.type instanceof LambdaTypeTree) || this.type.resultType)
       throw new Error('Type must be a LambdaType');

@@ -13,8 +13,8 @@ export class IdTypeTree extends TypeTree {
   constructor(public ctx: IdTypeContext) {
     super();
 
-    this.name = ctx._name.text;
-    this.id = new IdToken(ctx._name);
+    this.name = ctx.id().text;
+    this.id = IdToken.fromContext(ctx.id());
     this.typeArguments = getTypesTrees(ctx.typeArguments()?.type());
   }
 

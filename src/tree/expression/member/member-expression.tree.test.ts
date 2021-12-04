@@ -33,7 +33,4 @@ test('safe with type parameters', () => {
   expect((tree.instance as IdExpressionTree).id.text).toBe('abc');
   expect(tree.isSafe).toBe(true);
   expect(tree.id.text).toBe('def');
-  expect(tree.typeArguments.length).toBe(2);
-  expect(tree.typeArguments[0].name).toBe('String');
-  expect(tree.typeArguments[1].name).toBe('Float');
 });

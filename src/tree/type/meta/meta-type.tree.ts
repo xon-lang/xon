@@ -13,8 +13,8 @@ export class MetaTypeTree extends TypeTree {
   constructor(public ctx: MetaTypeContext) {
     super();
 
-    this.name = ctx._name.text;
-    this.id = new IdToken(ctx._name);
+    this.name = ctx.id().text;
+    this.id = IdToken.fromContext(ctx.id());
     this.type = getTypeTree(ctx.type());
   }
 

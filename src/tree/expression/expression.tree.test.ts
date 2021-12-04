@@ -23,9 +23,9 @@ test('3', () => {
 });
 
 test('4', () => {
-  const code = '2>=1<=3 || 4!=5 && !6';
+  const code = '2>=1<=3 || 4!=5 && 6';
   const tree = parseExpression(code);
-  expect(tree.toString()).toBe('2 >= 1 && 1 <= 3 || 4 != 5 && !6');
+  expect(tree.toString()).toBe('2 >= 1 && 1 <= 3 || 4 != 5 && 6');
   // expect(evalExpression(tree)).toBe((1 * (2 + (3 - 4))) / 5);
 });
 

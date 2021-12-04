@@ -14,7 +14,10 @@ export class AliasDefinitionTree extends DefinitionTree {
   constructor(public ctx: AliasDefinitionContext) {
     super();
 
-    this.id = new IdToken(ctx._name);
+    this.id = IdToken.fromContext(ctx.id());
+    if (this.id.text[0] !== this.id.text[0].toUpperCase())
+      throw new Error(`Definition name '${this.id.text}' must start with upper letter`);
+
     this.typeParameters = getTypeParametersTrees(ctx.typeParameters());
     this.type = getTypeTree(ctx.type());
   }
