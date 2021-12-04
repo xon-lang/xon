@@ -19,13 +19,12 @@ definitionHeader: UPPER_ID type? IS expression;
 definitionBody:   NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
-    operator type (NL+ INDENT (statement | NL)+ DEDENT)   # operatorAttribute
-    | attributeHeader                                     # abstractAttribute
-    | attributeHeader ':' expression                      # valueAttribute
-    | attributeHeader NL+ INDENT (statement | NL)+ DEDENT # methodAttribute
-    | attributeHeader NL+ INDENT (attribute | NL)+ DEDENT # objectAttribute
+    operator type (NL+ INDENT (statement | NL)+ DEDENT)     # operatorAttribute
+    | attributeId type?                                     # abstractAttribute
+    | attributeId type? ':' expression                      # valueAttribute
+    | attributeId type? NL+ INDENT (statement | NL)+ DEDENT # methodAttribute
+    | attributeId type? NL+ INDENT (attribute | NL)+ DEDENT # objectAttribute
     ;
-attributeHeader: (id | string = STRING_LITERAL) type?;
 
 statement:
     FOR (value = id (',' index = id)? IN)? expression body      # forStatement
@@ -43,8 +42,8 @@ statement:
 expression:
     id                                                                    # idExpression
     | literal                                                             # literalExpression
+    | expression ('?.' | '.') attributeId                                 # memberExpression
     | expression typeArguments? methodArguments                           # callExpression
-    | expression ('?.' | '.') id                                          # memberExpression
     | expression IS type                                                  # isExpression
     | expression AS type                                                  # asExpression
     | expression IN type                                                  # asExpression
@@ -103,6 +102,7 @@ typeParameters: '<' typeParameter (',' typeParameter)* ','? '>';
 typeArguments:  '<' (type (',' type)*)? ','? '>';
 
 body:               ':' (statement | NL+ INDENT (statement | NL)+ DEDENT)?;
+attributeId:        id | STRING_LITERAL;
 id:                 LOWER_ID | definitionModifier;
 definitionModifier: CLASS | ENUM | INTERFACE | OBJECT | EXTENSION;
 operator:           '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
