@@ -6,6 +6,6 @@ test('string and union', () => {
   const tree = parseType<TupleTypeTree>(code);
   expect(tree).toBeInstanceOf(TupleTypeTree);
 
-  expect(tree.itemsTypes.length).toBe(2);
+  expect(tree.parameters.length).toBe(2);
   expect(tree.toString()).toBe('[String, Integer || Float]');
 });
