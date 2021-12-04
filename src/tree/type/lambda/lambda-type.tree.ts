@@ -15,7 +15,7 @@ export class LambdaTypeTree extends TypeTree {
     super();
 
     this.name = this.constructor.name.replace(TypeTree.name, '');
-    this.parameters = getParametersTrees(ctx.lambdaParameters());
+    this.parameters = getParametersTrees(ctx.lambdaParameters().parameter());
     this.resultType = (ctx.type() && getTypeTree(ctx.type())) || null;
   }
 
