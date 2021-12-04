@@ -1324,7 +1324,7 @@ export class XonParser extends Parser {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 15)");
 						}
 						this.state = 275;
-						this.id();
+						(_localctx as InfixExpressionContext)._op = this.id();
 						this.state = 276;
 						(_localctx as InfixExpressionContext)._right = this.expression(16);
 						}
@@ -3929,10 +3929,8 @@ export class PrefixExpressionContext extends ExpressionContext {
 }
 export class InfixExpressionContext extends ExpressionContext {
 	public _left!: ExpressionContext;
+	public _op!: IdContext;
 	public _right!: ExpressionContext;
-	public id(): IdContext {
-		return this.getRuleContext(0, IdContext);
-	}
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -3941,6 +3939,9 @@ export class InfixExpressionContext extends ExpressionContext {
 		} else {
 			return this.getRuleContext(i, ExpressionContext);
 		}
+	}
+	public id(): IdContext {
+		return this.getRuleContext(0, IdContext);
 	}
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);

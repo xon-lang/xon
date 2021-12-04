@@ -49,7 +49,7 @@ expression:
     | expression AS type                                                  # asExpression
     | expression IN type                                                  # asExpression
     | op = ('-' | '+' | NOT) expression                                   # prefixExpression
-    | left = expression id right = expression                             # infixExpression
+    | left = expression op = id right = expression                        # infixExpression
     | left = expression op = '^' right = expression                       # powExpression
     | left = expression op = ('*' | '/' | '%') right = expression         # mulDivModExpression
     | left = expression op = ('+' | '-') right = expression               # addSubExpression
