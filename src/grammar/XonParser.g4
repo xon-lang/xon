@@ -15,9 +15,8 @@ definition:
     TYPE definitionHeader? ':' type                        # aliasDefinition
     | definitionModifier definitionHeader? definitionBody? # typeDefinition
     ;
-definitionModifier: CLASS | ENUM | INTERFACE | OBJECT | EXTENSION;
-definitionHeader:   UPPER_ID type? IS expression;
-definitionBody:     NL+ INDENT (attribute | NL)+ DEDENT;
+definitionHeader: UPPER_ID type? IS expression;
+definitionBody:   NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
     operator type (NL+ INDENT (statement | NL)+ DEDENT)   # operatorAttribute
@@ -37,7 +36,7 @@ statement:
     | RETURN expression?                                        # returnStatement
     | ACTUAL actual = expression NL+ EXPECT expect = expression # assertStatement
     | PREPROCESSOR                                              # preprocessorStatement
-    | expression (',' expression)* '=' expression               # assignmentStatement
+    | id (',' id)* '=' expression                               # assignmentStatement
     | expression                                                # expressionStatement
     ;
 
@@ -103,6 +102,7 @@ typeParameter:  UPPER_ID (IS type)?;
 typeParameters: '<' typeParameter (',' typeParameter)* ','? '>';
 typeArguments:  '<' (type (',' type)*)? ','? '>';
 
-body:     ':' (statement | NL+ INDENT (statement | NL)+ DEDENT)?;
-id:       LOWER_ID | INSTANCE | CLASS | OBJECT | INTERFACE | TYPE | ENUM;
-operator: '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
+body:               ':' (statement | NL+ INDENT (statement | NL)+ DEDENT)?;
+id:                 LOWER_ID | INSTANCE | definitionModifier;
+definitionModifier: CLASS | ENUM | INTERFACE | OBJECT | EXTENSION;
+operator:           '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
