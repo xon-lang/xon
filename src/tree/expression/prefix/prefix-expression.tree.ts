@@ -17,7 +17,7 @@ export class PrefixExpressionTree extends ExpressionTree {
   }
 
   toString(): string {
-    if (this.id.isOperator) return `${this.id}${this.value}`;
+    if (['+', '-'].includes(this.id.text)) return `${this.id}${this.value}`;
     return `${this.id} ${this.value}`;
   }
 }

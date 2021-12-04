@@ -15,8 +15,6 @@ export class AliasDefinitionTree extends DefinitionTree {
     super();
 
     this.id = new IdToken(ctx._name);
-    console.log(ctx._name.constructor.name);
-
     this.typeParameters = getTypeParametersTrees(ctx.typeParameters());
     this.type = getTypeTree(ctx.type());
   }
