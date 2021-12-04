@@ -15,7 +15,4 @@ test('id with type parameters', () => {
   expect(tree).toBeInstanceOf(IdExpressionTree);
 
   expect(tree.id.text).toBe('abc');
-  expect(tree.typeArguments.length).toBe(2);
-  expect(tree.typeArguments[0].toString()).toBe('String');
-  expect(tree.typeArguments[1].toString()).toBe('Number');
 });
