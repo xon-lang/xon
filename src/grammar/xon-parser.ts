@@ -114,10 +114,10 @@ export class XonParser extends Parser {
 	public static readonly RULE_type = 12;
 	public static readonly RULE_literal = 13;
 	public static readonly RULE_parameter = 14;
-	public static readonly RULE_methodParameters = 15;
+	public static readonly RULE_lambdaParameters = 15;
 	public static readonly RULE_arrayParameters = 16;
 	public static readonly RULE_objectParameters = 17;
-	public static readonly RULE_methodArguments = 18;
+	public static readonly RULE_lambdaArguments = 18;
 	public static readonly RULE_arrayArguments = 19;
 	public static readonly RULE_objectArguments = 20;
 	public static readonly RULE_objectArgument = 21;
@@ -133,8 +133,8 @@ export class XonParser extends Parser {
 	public static readonly ruleNames: string[] = [
 		"source", "export", "library", "libraryPath", "libraryMember", "definition", 
 		"definitionHeader", "definitionAncestor", "definitionBody", "attribute", 
-		"statement", "expression", "type", "literal", "parameter", "methodParameters", 
-		"arrayParameters", "objectParameters", "methodArguments", "arrayArguments", 
+		"statement", "expression", "type", "literal", "parameter", "lambdaParameters", 
+		"arrayParameters", "objectParameters", "lambdaArguments", "arrayArguments", 
 		"objectArguments", "objectArgument", "typeParameter", "typeParameters", 
 		"typeArguments", "body", "attributeId", "id", "definitionModifier", "operator",
 	];
@@ -589,7 +589,7 @@ export class XonParser extends Parser {
 			}
 
 			this.state = 130;
-			this.methodArguments();
+			this.lambdaArguments();
 			}
 		}
 		catch (re) {
@@ -1258,7 +1258,7 @@ export class XonParser extends Parser {
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 262;
-				this.methodParameters();
+				this.lambdaParameters();
 				this.state = 263;
 				this.match(XonParser.COLON);
 				this.state = 264;
@@ -1590,7 +1590,7 @@ export class XonParser extends Parser {
 						}
 
 						this.state = 320;
-						this.methodArguments();
+						this.lambdaArguments();
 						}
 						break;
 
@@ -1717,7 +1717,7 @@ export class XonParser extends Parser {
 
 			case 3:
 				{
-				_localctx = new MethodTypeContext(_localctx);
+				_localctx = new LambdaTypeContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 342;
@@ -1731,7 +1731,7 @@ export class XonParser extends Parser {
 				}
 
 				this.state = 344;
-				this.methodParameters();
+				this.lambdaParameters();
 				this.state = 346;
 				this._errHandler.sync(this);
 				switch ( this.interpreter.adaptivePredict(this._input, 41, this._ctx) ) {
@@ -2015,9 +2015,9 @@ export class XonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public methodParameters(): MethodParametersContext {
-		let _localctx: MethodParametersContext = new MethodParametersContext(this._ctx, this.state);
-		this.enterRule(_localctx, 30, XonParser.RULE_methodParameters);
+	public lambdaParameters(): LambdaParametersContext {
+		let _localctx: LambdaParametersContext = new LambdaParametersContext(this._ctx, this.state);
+		this.enterRule(_localctx, 30, XonParser.RULE_lambdaParameters);
 		let _la: number;
 		try {
 			let _alt: number;
@@ -2216,9 +2216,9 @@ export class XonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public methodArguments(): MethodArgumentsContext {
-		let _localctx: MethodArgumentsContext = new MethodArgumentsContext(this._ctx, this.state);
-		this.enterRule(_localctx, 36, XonParser.RULE_methodArguments);
+	public lambdaArguments(): LambdaArgumentsContext {
+		let _localctx: LambdaArgumentsContext = new LambdaArgumentsContext(this._ctx, this.state);
+		this.enterRule(_localctx, 36, XonParser.RULE_lambdaArguments);
 		let _la: number;
 		try {
 			let _alt: number;
@@ -3492,8 +3492,8 @@ export class DefinitionHeaderContext extends ParserRuleContext {
 export class DefinitionAncestorContext extends ParserRuleContext {
 	public _name!: Token;
 	public IS(): TerminalNode { return this.getToken(XonParser.IS, 0); }
-	public methodArguments(): MethodArgumentsContext {
-		return this.getRuleContext(0, MethodArgumentsContext);
+	public lambdaArguments(): LambdaArgumentsContext {
+		return this.getRuleContext(0, LambdaArgumentsContext);
 	}
 	public UPPER_ID(): TerminalNode { return this.getToken(XonParser.UPPER_ID, 0); }
 	public typeArguments(): TypeArgumentsContext | undefined {
@@ -3876,8 +3876,8 @@ export class CallExpressionContext extends ExpressionContext {
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
-	public methodArguments(): MethodArgumentsContext {
-		return this.getRuleContext(0, MethodArgumentsContext);
+	public lambdaArguments(): LambdaArgumentsContext {
+		return this.getRuleContext(0, LambdaArgumentsContext);
 	}
 	public typeArguments(): TypeArgumentsContext | undefined {
 		return this.tryGetRuleContext(0, TypeArgumentsContext);
@@ -4148,8 +4148,8 @@ export class PipeExpressionContext extends ExpressionContext {
 	}
 }
 export class LambdaExpressionContext extends ExpressionContext {
-	public methodParameters(): MethodParametersContext {
-		return this.getRuleContext(0, MethodParametersContext);
+	public lambdaParameters(): LambdaParametersContext {
+		return this.getRuleContext(0, LambdaParametersContext);
 	}
 	public COLON(): TerminalNode { return this.getToken(XonParser.COLON, 0); }
 	public expression(): ExpressionContext {
@@ -4286,9 +4286,9 @@ export class ArrayTypeContext extends TypeContext {
 		this.copyFrom(ctx);
 	}
 }
-export class MethodTypeContext extends TypeContext {
-	public methodParameters(): MethodParametersContext {
-		return this.getRuleContext(0, MethodParametersContext);
+export class LambdaTypeContext extends TypeContext {
+	public lambdaParameters(): LambdaParametersContext {
+		return this.getRuleContext(0, LambdaParametersContext);
 	}
 	public typeParameters(): TypeParametersContext | undefined {
 		return this.tryGetRuleContext(0, TypeParametersContext);
@@ -4394,7 +4394,7 @@ export class ParameterContext extends ParserRuleContext {
 }
 
 
-export class MethodParametersContext extends ParserRuleContext {
+export class LambdaParametersContext extends ParserRuleContext {
 	public OPEN_PAREN(): TerminalNode { return this.getToken(XonParser.OPEN_PAREN, 0); }
 	public CLOSE_PAREN(): TerminalNode { return this.getToken(XonParser.CLOSE_PAREN, 0); }
 	public parameter(): ParameterContext[];
@@ -4419,7 +4419,7 @@ export class MethodParametersContext extends ParserRuleContext {
 		super(parent, invokingState);
 	}
 	// @Override
-	public get ruleIndex(): number { return XonParser.RULE_methodParameters; }
+	public get ruleIndex(): number { return XonParser.RULE_lambdaParameters; }
 }
 
 
@@ -4481,7 +4481,7 @@ export class ObjectParametersContext extends ParserRuleContext {
 }
 
 
-export class MethodArgumentsContext extends ParserRuleContext {
+export class LambdaArgumentsContext extends ParserRuleContext {
 	public OPEN_PAREN(): TerminalNode { return this.getToken(XonParser.OPEN_PAREN, 0); }
 	public CLOSE_PAREN(): TerminalNode { return this.getToken(XonParser.CLOSE_PAREN, 0); }
 	public expression(): ExpressionContext[];
@@ -4506,7 +4506,7 @@ export class MethodArgumentsContext extends ParserRuleContext {
 		super(parent, invokingState);
 	}
 	// @Override
-	public get ruleIndex(): number { return XonParser.RULE_methodArguments; }
+	public get ruleIndex(): number { return XonParser.RULE_lambdaArguments; }
 }
 
 

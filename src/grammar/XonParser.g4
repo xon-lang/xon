@@ -16,7 +16,7 @@ definition:
     | definitionModifier definitionHeader? definitionBody? # typeDefinition
     ;
 definitionHeader:   name = UPPER_ID type? definitionAncestor?;
-definitionAncestor: IS name = UPPER_ID typeArguments? methodArguments;
+definitionAncestor: IS name = UPPER_ID typeArguments? lambdaArguments;
 definitionBody:     NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
@@ -44,7 +44,7 @@ expression:
     id                                                                    # idExpression
     | literal                                                             # literalExpression
     | expression ('?.' | '.') attributeId                                 # memberExpression
-    | expression typeArguments? methodArguments                           # callExpression
+    | expression typeArguments? lambdaArguments                           # callExpression
     | expression IS type                                                  # isExpression
     | expression AS type                                                  # asExpression
     | expression IN type                                                  # asExpression
@@ -60,7 +60,7 @@ expression:
     | left = expression op = '&&' right = expression                      # conjunctionExpression
     | left = expression op = '||' right = expression                      # disjunctionExpression
     | left = expression '|' (id ':')? right = expression                  # pipeExpression
-    | methodParameters ':' expression                                     # lambdaExpression
+    | lambdaParameters ':' expression                                     # lambdaExpression
     | arrayArguments                                                      # arrayExpression
     | objectArguments                                                     # objectExpression
     | '(' expression ')'                                                  # parenthesizedExpression
@@ -74,7 +74,7 @@ type:
     | type '||' type                         # unionType
     | type '&&' type                         # intersectionType
     | type '[' ']'                           # arrayType
-    | typeParameters? methodParameters type? # methodType
+    | typeParameters? lambdaParameters type? # lambdaType
     | arrayParameters                        # tupleType
     | objectParameters                       # objectType
     | '(' type ')'                           # parenthesizedType
@@ -89,11 +89,11 @@ literal:
     ;
 
 parameter:        id type? | id? type;
-methodParameters: '(' (parameter (',' parameter)*)? ','? ')';
+lambdaParameters: '(' (parameter (',' parameter)*)? ','? ')';
 arrayParameters:  '[' (parameter (',' parameter)*)? ','? ']';
 objectParameters: '{' (parameter (',' parameter)*)? ','? '}';
 
-methodArguments: '(' (expression (',' expression)*)? ','? ')';
+lambdaArguments: '(' (expression (',' expression)*)? ','? ')';
 arrayArguments:  '[' (expression (',' expression)*)? ','? ']';
 objectArguments: '{' ( objectArgument (',' objectArgument)*)? ','? '}';
 objectArgument:  attribute | expression;
