@@ -11,7 +11,7 @@ export class TypeParameterTree extends BaseTree {
   constructor(public ctx: TypeParameterContext) {
     super();
 
-    this.id = new IdToken(ctx._name);
+    this.id = IdToken.fromContext(ctx.id());
     this.restrictionType = getTypeTree(ctx.type()) || null;
   }
 

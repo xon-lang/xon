@@ -14,7 +14,7 @@ export class ObjectDefinitionTree extends DefinitionTree {
     super();
 
     const header = ctx.definitionHeader();
-    this.id = new IdToken(header._name);
+    this.id = IdToken.fromContext(header.id());
     if (this.id.text[0] !== this.id.text[0].toUpperCase())
       throw new Error(`Definition name '${this.id.text}' must start with upper letter`);
 

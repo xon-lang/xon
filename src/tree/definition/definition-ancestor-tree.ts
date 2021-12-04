@@ -14,7 +14,7 @@ export class DefinitionAncestorTree extends BaseTree {
   constructor(public ctx: DefinitionAncestorContext) {
     super();
 
-    this.id = new IdToken(ctx._name);
+    this.id = IdToken.fromContext(ctx.id());
     this.typeArguments = getTypesTrees(ctx.typeArguments()?.type());
     this.arguments = getExpressionsTrees(ctx.lambdaArguments()?.expression());
   }
