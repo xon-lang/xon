@@ -1,21 +1,22 @@
 import { TupleTypeContext } from '../../../grammar/xon-parser';
 import { TupleTypeMetadata } from '../../../metadata/type/tuple/tuple-type-metadata';
-import { getTypeTree } from '../type-tree.helper';
+import { getParametersTrees } from '../../parameter/parameter-tree.helper';
+import { ParameterTree } from '../../parameter/parameter.tree';
 import { TypeTree } from '../type.tree';
 
 export class TupleTypeTree extends TypeTree {
   metadata: TupleTypeMetadata;
   name: string;
-  itemsTypes: TypeTree[];
+  parameters: ParameterTree[];
 
   constructor(public ctx: TupleTypeContext) {
     super();
 
     this.name = this.constructor.name.replace(TypeTree.name, '');
-    this.itemsTypes = ctx.type().map((x) => getTypeTree(x));
+    this.parameters = getParametersTrees(ctx.arrayParameters().parameter());
   }
 
   toString(): string {
-    return `[${this.itemsTypes.join(', ')}]`;
+    return `[${this.parameters.join(', ')}]`;
   }
 }

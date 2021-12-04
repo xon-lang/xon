@@ -5,22 +5,17 @@ import { getTypeTree } from '../type/type-tree.helper';
 import { TypeTree } from '../type/type.tree';
 
 export class TypeParameterTree extends BaseTree {
-  hasSpread: boolean;
   id: IdToken;
-  typeRestrict: TypeTree;
-  metaRestrict: string;
+  restrictionType: TypeTree;
 
   constructor(public ctx: TypeParameterContext) {
     super();
 
-    this.hasSpread = !!ctx.SPREAD();
     this.id = new IdToken(ctx._name);
-    this.typeRestrict = getTypeTree(ctx.type()) || null;
-    this.metaRestrict = ctx._meta?.text || null;
+    this.restrictionType = getTypeTree(ctx.type()) || null;
   }
 
   toString(): string {
-    if (this.hasSpread) return `...${this.id}`;
-    return `${this.id}`;
+    return this.id.toString();
   }
 }

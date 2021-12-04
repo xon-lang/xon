@@ -6,10 +6,8 @@ test('parameter name', () => {
   const tree = parseTypeParameter(code);
   expect(tree).toBeInstanceOf(TypeParameterTree);
 
-  expect(tree.hasSpread).toBe(false);
   expect(tree.id.text).toBe('T');
-  expect(tree.typeRestrict).toBe(null);
-  expect(tree.metaRestrict).toBe(null);
+  expect(tree.restrictionType).toBe(null);
 });
 
 test('spread and parameter name', () => {
@@ -17,10 +15,8 @@ test('spread and parameter name', () => {
   const tree = parseTypeParameter(code);
   expect(tree).toBeInstanceOf(TypeParameterTree);
 
-  expect(tree.hasSpread).toBe(true);
   expect(tree.id.text).toBe('T');
-  expect(tree.typeRestrict).toBe(null);
-  expect(tree.metaRestrict).toBe(null);
+  expect(tree.restrictionType).toBe(null);
 });
 
 test('restricts', () => {
@@ -28,8 +24,6 @@ test('restricts', () => {
   const tree = parseTypeParameter(code);
   expect(tree).toBeInstanceOf(TypeParameterTree);
 
-  expect(tree.hasSpread).toBe(true);
   expect(tree.id.text).toBe('T');
-  expect(tree.typeRestrict.name).toBe('String');
-  expect(tree.metaRestrict).toBe('StringLiteral');
+  expect(tree.restrictionType.name).toBe('String');
 });

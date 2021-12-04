@@ -12,7 +12,7 @@ export class CallExpressionTree extends ExpressionTree {
     super();
 
     this.instance = getExpressionTree(ctx.expression());
-    this.arguments = getExpressionsTrees(ctx.methodArguments().expression());
+    this.arguments = getExpressionsTrees(ctx.lambdaArguments().expression());
   }
 
   toString(): string {
