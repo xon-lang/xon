@@ -18,7 +18,8 @@ export class MethodAttributeTree extends AttributeTree {
     this.type = getTypeTree(ctx.type()) as LambdaTypeTree;
     this.body = getStatementsTrees(ctx.statement());
 
-    if (!(this.type instanceof LambdaTypeTree)) throw new Error('Type must be a LambdaType');
+    if (!(this.type instanceof LambdaTypeTree))
+      throw new Error(`Type must be a LambdaType but ${this.type}`);
   }
 
   toString(): string {

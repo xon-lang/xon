@@ -12,7 +12,7 @@ test('private value with type', () => {
 });
 
 test('array value', () => {
-  const code = 'a<T> T[]';
+  const code = 'a T[]';
   const tree = parseAttribute<AbstractAttributeTree>(code);
   expect(tree).toBeInstanceOf(AbstractAttributeTree);
 
