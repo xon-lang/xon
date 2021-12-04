@@ -2,22 +2,27 @@ import { DefinitionAncestorContext } from '../../grammar/xon-parser';
 import { BaseTree } from '../base.tree';
 import { getExpressionsTrees } from '../expression/expression-tree.helper';
 import { ExpressionTree } from '../expression/expression.tree';
-import { getTypeTree } from '../type/type-tree.helper';
+import { IdToken } from '../id-token';
+import { getTypesTrees } from '../type/type-tree.helper';
 import { TypeTree } from '../type/type.tree';
 
 export class DefinitionAncestorTree extends BaseTree {
-  type: TypeTree;
+  id: IdToken;
+  typeArguments: TypeTree[] = [];
   arguments: ExpressionTree[] = [];
 
   constructor(public ctx: DefinitionAncestorContext) {
     super();
 
-    this.type = getTypeTree(ctx.type());
+    this.id = new IdToken(ctx._name);
+    this.typeArguments = getTypesTrees(ctx.typeArguments()?.type());
     this.arguments = getExpressionsTrees(ctx.methodArguments()?.expression());
   }
 
   toString(): string {
-    const args = this.arguments.length ? '(' + this.arguments.join(', ') + ')' : '';
-    return `is ${this.type}${args}`;
+    const typeArguments = this.typeArguments.length
+      ? '<' + this.typeArguments.join(', ') + '>'
+      : '';
+    return `is ${this.id}${typeArguments}(${this.arguments.join(', ')})`;
   }
 }

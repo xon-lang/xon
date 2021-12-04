@@ -5,7 +5,7 @@ import {
   DefinitionContext,
 } from '../../grammar/xon-parser';
 import { AliasDefinitionTree } from './alias/alias-definition-tree';
-import { AttributeDefinitionTree } from './attribute/attribute-definition-tree';
+import { AttributeDefinitionTree } from './object/attribute-definition-tree';
 import { ClassDefinitionTree } from './class/class-definition-tree';
 import { DefinitionTree } from './definition-tree';
 

@@ -9,27 +9,25 @@ import { SourceTree } from '../../source/source-tree';
 import { ExpressionStatementTree } from '../../statement/expression/expression-statement.tree';
 import { IdTypeTree } from '../../type/id/id-type.tree';
 import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
-import { AttributeDefinitionTree } from './attribute-definition-tree';
+import { InterfaceDefinitionTree } from './interface-definition-tree';
 
 test('one scope', () => {
-  const tree = parseSourceFile('src/tree/definition/attribute/attribute-definition-test-file.xon');
+  const tree = parseSourceFile('src/tree/definition/class/class-definition-test-file.xon');
   expect(tree).toBeInstanceOf(SourceTree);
 
-  expect(tree.definitions.length).toBe(1);
-  const definition = tree.definitions[0] as AttributeDefinitionTree;
-  expect(definition).toBeInstanceOf(AttributeDefinitionTree);
+  // expect(tree.definitions.length).toBe(1);
+  const definition = tree.definitions[0] as InterfaceDefinitionTree;
+  expect(definition).toBeInstanceOf(InterfaceDefinitionTree);
 
-  expect(definition.id.text).toBe('attr');
-  expect(definition.typeParameters.length).toBe(1);
-  expect(definition.typeParameters[0].id.text).toBe('T');
+  expect(definition.id.text).toBe('SomeClass');
 
-  const ancestorType = definition.ancestor.type as IdTypeTree;
-  expect(ancestorType).toBeInstanceOf(IdTypeTree);
-  expect(ancestorType.name).toBe('BaseClass');
-  expect(ancestorType.typeArguments.length).toBe(2);
-  expect(ancestorType.typeArguments[0].name).toBe('String');
-  expect(ancestorType.typeArguments[1].name).toBe('Boolean');
-  expect(definition.ancestor.arguments.length).toBe(3);
+  const ancestor = definition.ancestor;
+  expect(ancestor).toBeInstanceOf(IdTypeTree);
+  expect(ancestor.id.text).toBe('BaseClass');
+  expect(ancestor.typeArguments.length).toBe(2);
+  expect(ancestor.typeArguments[0].name).toBe('String');
+  expect(ancestor.typeArguments[1].name).toBe('Boolean');
+  expect(definition.ancestor.arguments.length).toBe(2);
 
   const attrs = definition.attributes;
   const propertyAttribute = attrs[0] as ValueAttributeTree;
@@ -81,8 +79,6 @@ test('one scope', () => {
 
   const plusAttribute = attrs[5] as MethodAttributeTree;
   expect(plusAttribute).toBeInstanceOf(MethodAttributeTree);
-  expect(plusAttribute.modifiers.length).toBe(1);
-  expect(plusAttribute.modifiers[0].id.text).toBe('infix');
   expect(plusAttribute.id.text).toBe('+');
   const operatorType = plusAttribute.type as LambdaTypeTree;
   expect(operatorType.parameters[0].id.text).toBe('it');
@@ -90,20 +86,20 @@ test('one scope', () => {
   expect(operatorType.resultType.name).toBe('AnotherClass');
 });
 
-test('single name', () => {
-  const code = 'abc';
-  const tree = parseDefinition<AttributeDefinitionTree>(code);
-  expect(tree).toBeInstanceOf(AttributeDefinitionTree);
+test('string core', () => {
+  const tree = parseSourceFile('ast.xon/lib/@xon/core/string.xon');
+  expect(tree).toBeInstanceOf(SourceTree);
 
-  expect(tree.id.text).toBe('abc');
+  expect(tree.definitions.length).toBe(1);
+  expect(tree.definitions[0]).toBeInstanceOf(InterfaceDefinitionTree);
+  expect(tree.definitions[0].id.text).toBe('String');
 });
 
 test('hierarchy', () => {
-  const code = 'abc\n  def\n    ghi = 123';
-  const tree = parseDefinition<AttributeDefinitionTree>(code);
-  expect(tree).toBeInstanceOf(AttributeDefinitionTree);
+  const code = 'Animal\n  Type\n    value = 123\n  value = "hi"';
+  const tree = parseDefinition<InterfaceDefinitionTree>(code);
+  expect(tree).toBeInstanceOf(InterfaceDefinitionTree);
 
-  expect(tree.id.text).toBe('abc');
-  expect(tree.definitions.length).toBe(0);
+  expect(tree.id.text).toBe('Animal');
   expect(tree.attributes.length).toBe(1);
 });

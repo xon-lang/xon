@@ -8,21 +8,21 @@ import { DefinitionTree } from '../definition-tree';
 
 export class AliasDefinitionTree extends DefinitionTree {
   id: IdToken;
-  type: TypeTree;
   typeParameters: TypeParameterTree[] = [];
+  type: TypeTree;
 
   constructor(public ctx: AliasDefinitionContext) {
     super();
 
     this.id = new IdToken(ctx._name);
-    this.type = getTypeTree(ctx.type());
     this.typeParameters = getTypeParametersTrees(ctx.typeParameters());
+    this.type = getTypeTree(ctx.type());
   }
 
   toString(): string {
     const typeParameters = this.typeParameters.length
       ? '<' + this.typeParameters.join(', ') + '>'
       : '';
-    return `${this.id}${typeParameters} = ${this.type}`;
+    return `${this.id}${typeParameters}: ${this.type}`;
   }
 }

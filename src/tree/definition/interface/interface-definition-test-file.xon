@@ -1,13 +1,14 @@
-attr<T> is BaseClass<String, Boolean>(1, 2, 3)
+SomeClass<T>() is BaseClass<String, Boolean>(name, 1)
   property = 123
   anotherProp String
   typedValue Number
 
-  method() MyType
+
+  method () MyType
     hello()
     bye()
 
-  location(x Number, y Number) Position
+  location (x Number, y Number) Position
     pos(x, y)
 
   infix + (it SomeClass) AnotherClass

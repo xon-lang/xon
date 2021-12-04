@@ -9,15 +9,15 @@ import { SourceTree } from '../../source/source-tree';
 import { ExpressionStatementTree } from '../../statement/expression/expression-statement.tree';
 import { IdTypeTree } from '../../type/id/id-type.tree';
 import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
-import { ClassDefinitionTree } from './class-definition-tree';
+import { ObjectDefinitionTree } from './object-definition-tree';
 
 test('one scope', () => {
   const tree = parseSourceFile('src/tree/definition/class/class-definition-test-file.xon');
   expect(tree).toBeInstanceOf(SourceTree);
 
   // expect(tree.definitions.length).toBe(1);
-  const definition = tree.definitions[0] as ClassDefinitionTree;
-  expect(definition).toBeInstanceOf(ClassDefinitionTree);
+  const definition = tree.definitions[0] as ObjectDefinitionTree;
+  expect(definition).toBeInstanceOf(ObjectDefinitionTree);
 
   expect(definition.id.text).toBe('SomeClass');
 
@@ -91,14 +91,14 @@ test('string core', () => {
   expect(tree).toBeInstanceOf(SourceTree);
 
   expect(tree.definitions.length).toBe(1);
-  expect(tree.definitions[0]).toBeInstanceOf(ClassDefinitionTree);
+  expect(tree.definitions[0]).toBeInstanceOf(ObjectDefinitionTree);
   expect(tree.definitions[0].id.text).toBe('String');
 });
 
 test('hierarchy', () => {
   const code = 'Animal\n  Type\n    value = 123\n  value = "hi"';
-  const tree = parseDefinition<ClassDefinitionTree>(code);
-  expect(tree).toBeInstanceOf(ClassDefinitionTree);
+  const tree = parseDefinition<ObjectDefinitionTree>(code);
+  expect(tree).toBeInstanceOf(ObjectDefinitionTree);
 
   expect(tree.id.text).toBe('Animal');
   expect(tree.attributes.length).toBe(1);
