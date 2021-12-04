@@ -96,7 +96,7 @@ test('string core', () => {
 });
 
 test('hierarchy', () => {
-  const code = 'object Animal\n  Type\n    value = 123\n  value = "hi"';
+  const code = 'object Animal\n  Type\n    value: 123\n  value: "hi"';
   const tree = parseDefinition<ObjectDefinitionTree>(code);
   expect(tree).toBeInstanceOf(ObjectDefinitionTree);
 

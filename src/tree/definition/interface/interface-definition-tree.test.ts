@@ -4,7 +4,7 @@ import { ValueAttributeTree } from '../../attribute/value/value-attribute-tree';
 import { CallExpressionTree } from '../../expression/call/call-expression.tree';
 import { IdExpressionTree } from '../../expression/id/id-expression.tree';
 import { LiteralExpressionTree } from '../../expression/literal/literal-expression.tree';
-import { parseDefinition, parseSourceFile } from '../../parse';
+import { parseSourceFile } from '../../parse';
 import { SourceTree } from '../../source/source-tree';
 import { ExpressionStatementTree } from '../../statement/expression/expression-statement.tree';
 import { IdTypeTree } from '../../type/id/id-type.tree';
@@ -93,13 +93,4 @@ test('string core', () => {
   expect(tree.definitions.length).toBe(1);
   expect(tree.definitions[0]).toBeInstanceOf(InterfaceDefinitionTree);
   expect(tree.definitions[0].id.text).toBe('String');
-});
-
-test('hierarchy', () => {
-  const code = 'Animal\n  Type\n    value = 123\n  value = "hi"';
-  const tree = parseDefinition<InterfaceDefinitionTree>(code);
-  expect(tree).toBeInstanceOf(InterfaceDefinitionTree);
-
-  expect(tree.id.text).toBe('Animal');
-  expect(tree.attributes.length).toBe(1);
 });
