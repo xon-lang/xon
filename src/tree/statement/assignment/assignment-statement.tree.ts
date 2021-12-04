@@ -5,17 +5,17 @@ import { IdToken } from '../../id-token';
 import { StatementTree } from '../statement.tree';
 
 export class AssignmentStatementTree extends StatementTree {
-  ids: IdToken[];
+  id: IdToken;
   value: ExpressionTree;
 
   constructor(public ctx: AssignmentStatementContext) {
     super();
 
-    this.ids = ctx.id().map((x) => IdToken.fromContext(x));
+    this.id = IdToken.fromContext(ctx.id());
     this.value = getExpressionTree(ctx.expression());
   }
 
   toString(): string {
-    return `${this.ids.join(', ')} = ${this.value}`;
+    return `${this.id} = ${this.value}`;
   }
 }
