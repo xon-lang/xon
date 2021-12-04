@@ -59,7 +59,7 @@ expression:
     | left = expression op = ('==' | '!=') right = expression             # equalityExpression
     | left = expression op = '&&' right = expression                      # conjunctionExpression
     | left = expression op = '||' right = expression                      # disjunctionExpression
-    | expression '|' (id ':')? expression                                 # pipeExpression
+    | left = expression '|' (id ':')? right = expression                  # pipeExpression
     | methodParameters ':' expression                                     # lambdaExpression
     | arrayArguments                                                      # arrayExpression
     | objectArguments                                                     # objectExpression

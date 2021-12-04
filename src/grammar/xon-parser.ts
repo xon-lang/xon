@@ -1537,6 +1537,7 @@ export class XonParser extends Parser {
 					case 11:
 						{
 						_localctx = new PipeExpressionContext(new ExpressionContext(_parentctx, _parentState));
+						(_localctx as PipeExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 312;
 						if (!(this.precpred(this._ctx, 5))) {
@@ -1557,7 +1558,7 @@ export class XonParser extends Parser {
 							break;
 						}
 						this.state = 319;
-						this.expression(6);
+						(_localctx as PipeExpressionContext)._right = this.expression(6);
 						}
 						break;
 
@@ -4160,6 +4161,9 @@ export class DisjunctionExpressionContext extends ExpressionContext {
 	}
 }
 export class PipeExpressionContext extends ExpressionContext {
+	public _left!: ExpressionContext;
+	public _right!: ExpressionContext;
+	public PIPE(): TerminalNode { return this.getToken(XonParser.PIPE, 0); }
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -4169,7 +4173,6 @@ export class PipeExpressionContext extends ExpressionContext {
 			return this.getRuleContext(i, ExpressionContext);
 		}
 	}
-	public PIPE(): TerminalNode { return this.getToken(XonParser.PIPE, 0); }
 	public id(): IdContext | undefined {
 		return this.tryGetRuleContext(0, IdContext);
 	}
