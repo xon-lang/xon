@@ -1,3 +1,4 @@
 interface String is Char[]
-  infix + (other String) String
-  infix + (other Number) String
+  + (other String) String
+  + (other Char) String
+  + (other Number) String

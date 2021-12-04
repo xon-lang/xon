@@ -1,13 +1,11 @@
 interface Integer is Float
-  prefix + () Integer
-  prefix - () Integer
-  infix + (other Integer) Integer
-  infix - (other Integer) Integer
-  infix * (other Integer) Integer
-  infix / (other Integer) Float
-  infix ^ (other Integer) Integer
-  infix > (other Integer) Boolean
-  infix < (other Integer) Boolean
-  infix == (other Integer) Boolean
+  + (other Integer) Integer
+  - (other Integer) Integer
+  * (other Integer) Integer
+  / (other Integer) Float
+  ^ (other Integer) Integer
+  > (other Integer) Boolean
+  < (other Integer) Boolean
+  = (other Integer) Boolean
 
   toString() String
