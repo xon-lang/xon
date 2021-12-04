@@ -3,6 +3,7 @@ import {
   IdTypeContext,
   LambdaTypeContext,
   LiteralTypeContext,
+  MetaTypeContext,
   NullableTypeContext,
   ParenthesizedTypeContext,
   TupleTypeContext,
@@ -13,6 +14,7 @@ import { ArrayTypeTree } from './array/array-type.tree';
 import { IdTypeTree } from './id/id-type.tree';
 import { LambdaTypeTree } from './lambda/lambda-type.tree';
 import { LiteralTypeTree } from './literal/literal-type.tree';
+import { MetaTypeTree } from './meta/meta-type.tree';
 import { NullableTypeTree } from './nullable/nullable-type.tree';
 import { TupleTypeTree } from './tuple/tuple-type.tree';
 import { TypeTree } from './type.tree';
@@ -27,6 +29,7 @@ export const getTypeTree = (ctx: TypeContext): TypeTree => {
   if (ctx instanceof IdTypeContext) return new IdTypeTree(ctx);
   if (ctx instanceof LambdaTypeContext) return new LambdaTypeTree(ctx);
   if (ctx instanceof LiteralTypeContext) return new LiteralTypeTree(ctx);
+  if (ctx instanceof MetaTypeContext) return new MetaTypeTree(ctx);
   if (ctx instanceof NullableTypeContext) return new NullableTypeTree(ctx);
   if (ctx instanceof TupleTypeContext) return new TupleTypeTree(ctx);
   if (ctx instanceof UnionTypeContext) return new UnionTypeTree(ctx);
