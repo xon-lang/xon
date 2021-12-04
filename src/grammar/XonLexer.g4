@@ -81,8 +81,7 @@ UNDERSCORE:  '_';
 EXCLAMATION: '!';
 BACK_SLASH:  '\\';
 
-INSTANCE:        '$';
-INSTANCE_MEMBER: INSTANCE LOWER_ID;
+INSTANCE: '$' LOWER_ID?;
 
 FLOAT_LITERAL:
     [0-9][0-9]? [xX] AlphabetNumber '.' AlphabetNumber

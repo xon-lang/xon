@@ -103,21 +103,6 @@ typeParameter:  UPPER_ID (IS type)?;
 typeParameters: '<' typeParameter (',' typeParameter)* ','? '>';
 typeArguments:  '<' (type (',' type)*)? ','? '>';
 
-body: ':' (statement | NL+ INDENT (statement | NL)+ DEDENT)?;
-
-id:
-    LOWER_ID
-    | INSTANCE
-    | INSTANCE_MEMBER
-    | CLASS
-    | OBJECT
-    | INTERFACE
-    | TYPE
-    | ENUM
-    | IN
-    | IS
-    | AS
-    | NOT
-    ;
-
+body:     ':' (statement | NL+ INDENT (statement | NL)+ DEDENT)?;
+id:       LOWER_ID | INSTANCE | CLASS | OBJECT | INTERFACE | TYPE | ENUM;
 operator: '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
