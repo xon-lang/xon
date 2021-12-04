@@ -10,21 +10,18 @@ import { ImportTree } from '../import/import.tree';
 export class SourceTree extends BaseTree {
   imports: ImportTree[];
   definitions: DefinitionTree[] = [];
-  attributes: AttributeTree[] = [];
 
   constructor(public ctx: SourceContext) {
     super();
 
     this.imports = getImportsTrees(ctx.library());
     this.definitions = getDefinitionsTrees(ctx.definition());
-    this.attributes = getAttributesTrees(ctx.attribute());
   }
 
   toString(): string {
     const imports = this.imports.join('\n');
     const definitions = this.definitions.join('\n\n');
-    const attributes = this.attributes.join('\n\n');
-    const members = [imports, definitions, attributes].filter((x) => x).join('\n\n');
+    const members = [imports, definitions].filter((x) => x).join('\n\n');
     return members ? members + '\n' : '';
   }
 }
