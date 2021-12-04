@@ -15,7 +15,7 @@ definition:
     TYPE definitionHeader? ':' type                        # aliasDefinition
     | definitionModifier definitionHeader? definitionBody? # typeDefinition
     ;
-definitionHeader: UPPER_ID type? IS expression;
+definitionHeader: UPPER_ID type? (IS expression)?;
 definitionBody:   NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
