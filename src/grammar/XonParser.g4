@@ -36,7 +36,7 @@ statement:
     | RETURN expression?                                        # returnStatement
     | ACTUAL actual = expression NL+ EXPECT expect = expression # assertStatement
     | PREPROCESSOR                                              # preprocessorStatement
-    | id (',' id)* '=' expression                               # assignmentStatement
+    | id '=' expression                                         # assignmentStatement
     | expression                                                # expressionStatement
     ;
 
