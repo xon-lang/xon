@@ -20,12 +20,13 @@ definitionHeader:   UPPER_ID type? IS expression;
 definitionBody:     NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
-    operator type (NL+ INDENT (statement | NL)+ DEDENT)              # operatorAttribute
-    | (id | STRING_LITERAL) type                                     # abstractAttribute
-    | (id | STRING_LITERAL) type? ':' expression                     # valueAttribute
-    | (id | STRING_LITERAL) type NL+ INDENT (statement | NL)+ DEDENT # methodAttribute
-    | (id | STRING_LITERAL) NL+ INDENT (attribute | NL)+ DEDENT      # objectAttribute
+    operator type (NL+ INDENT (statement | NL)+ DEDENT)   # operatorAttribute
+    | attributeHeader                                     # abstractAttribute
+    | attributeHeader ':' expression                      # valueAttribute
+    | attributeHeader NL+ INDENT (statement | NL)+ DEDENT # methodAttribute
+    | attributeHeader NL+ INDENT (attribute | NL)+ DEDENT # objectAttribute
     ;
+attributeHeader: (id | STRING_LITERAL) type?;
 
 statement:
     FOR (value = id (',' index = id)? IN)? expression body      # forStatement
