@@ -1,18 +1,21 @@
 import { AssignmentStatementContext } from '../../../grammar/xon-parser';
-import { getAssignmentTree } from '../../assignment/assignment-tree.helper';
-import { AssignmentTree } from '../../assignment/assignment.tree';
+import { getExpressionTree } from '../../expression/expression-tree.helper';
+import { ExpressionTree } from '../../expression/expression.tree';
+import { IdToken } from '../../id-token';
 import { StatementTree } from '../statement.tree';
 
 export class AssignmentStatementTree extends StatementTree {
-  assignment: AssignmentTree;
+  ids: IdToken[];
+  value: ExpressionTree;
 
   constructor(public ctx: AssignmentStatementContext) {
     super();
 
-    this.assignment = getAssignmentTree(ctx.assignment());
+    this.ids = ctx.id().map((x) => IdToken.fromContext(x));
+    this.value = getExpressionTree(ctx.expression());
   }
 
   toString(): string {
-    return this.assignment.toString();
+    return `${this.ids.join(', ')} = ${this.value}`;
   }
 }

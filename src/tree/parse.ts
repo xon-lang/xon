@@ -2,14 +2,12 @@ import { CharStreams, CommonTokenStream } from 'antlr4ts';
 import * as fs from 'fs';
 import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
-import { getAssignmentTree } from './assignment/assignment-tree.helper';
-import { AssignmentTree } from './assignment/assignment.tree';
 import { AttributeTree } from './attribute/attribute-tree';
 import { getAttributeTree } from './attribute/attribute-tree.helper';
 import { DefinitionTree } from './definition/definition-tree';
 import { getDefinitionTree } from './definition/definition-tree-helper';
 import { ExportTree } from './export/export.tree';
-import { ExpressionParameterTree } from './expression-parameter/expression-parameter.tree';
+import { ParameterTree } from './expression-parameter/expression-parameter.tree';
 import { getExpressionTree } from './expression/expression-tree.helper';
 import { ExpressionTree } from './expression/expression.tree';
 import { ImportTree } from './import/import.tree';
@@ -40,8 +38,8 @@ export const parse = (code: string, sourceName: string = undefined): XonParser =
 export const parseType = <T extends TypeTree>(code: string): T =>
   getTypeTree(parse(code).type()) as T;
 
-export const parseExpressionParameter = (code: string): ExpressionParameterTree =>
-  new ExpressionParameterTree(parse(code).expressionParameter());
+export const parseParameter = (code: string): ParameterTree =>
+  new ParameterTree(parse(code).parameter());
 
 export const parseTypeParameter = (code: string): TypeParameterTree =>
   new TypeParameterTree(parse(code).typeParameter());
@@ -57,9 +55,6 @@ export const parseExpression = <T extends ExpressionTree>(code: string): T =>
 
 export const parseStatement = <T extends StatementTree>(code: string): T =>
   getStatementTree(parse(code).statement()) as T;
-
-export const parseAssignment = <T extends AssignmentTree>(code: string): T =>
-  getAssignmentTree(parse(code).assignment()) as T;
 
 export const parseDefinition = <T extends DefinitionTree>(code: string): T =>
   getDefinitionTree(parse(code).definition()) as T;
