@@ -33,8 +33,11 @@ export class ClassDefinitionTree extends DefinitionTree {
   }
 
   toString(): string {
+    const typeParameters = this.typeParameters.length
+      ? '<' + this.typeParameters.join(', ') + '>'
+      : '';
     const ancestor = this.ancestor ? ' ' + this.ancestor : '';
     const attributes = this.attributes.join('\n\n').replace(/(^[^\n])/gm, '  $1');
-    return `${this.id}${this.type}${ancestor}\n${attributes}`;
+    return `${this.id}${typeParameters}(${this.parameters.join(', ')})${ancestor}\n${attributes}`;
   }
 }
