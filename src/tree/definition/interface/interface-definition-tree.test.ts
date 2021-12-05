@@ -1,12 +1,6 @@
 import { AbstractAttributeTree } from '../../attribute/abstract/abstract-attribute-tree';
-import { MethodAttributeTree } from '../../attribute/method/method-attribute-tree';
-import { ValueAttributeTree } from '../../attribute/value/value-attribute-tree';
-import { CallExpressionTree } from '../../expression/call/call-expression.tree';
-import { IdExpressionTree } from '../../expression/id/id-expression.tree';
-import { LiteralExpressionTree } from '../../expression/literal/literal-expression.tree';
 import { parseSourceFile } from '../../parse';
 import { SourceTree } from '../../source/source-tree';
-import { ExpressionStatementTree } from '../../statement/expression/expression-statement.tree';
 import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
 import { InterfaceDefinitionTree } from './interface-definition-tree';
 
@@ -28,12 +22,10 @@ test('interface file', () => {
   expect(definition.ancestor.arguments.length).toBe(0);
 
   const attrs = definition.attributes;
-  const propertyAttribute = attrs[0] as ValueAttributeTree;
-  expect(propertyAttribute).toBeInstanceOf(ValueAttributeTree);
+  const propertyAttribute = attrs[0] as AbstractAttributeTree;
+  expect(propertyAttribute).toBeInstanceOf(AbstractAttributeTree);
   expect(attrs.length).toBe(6);
   expect(propertyAttribute.id.text).toBe('property');
-  expect(propertyAttribute.type).toBe(null);
-  expect((propertyAttribute.expression as LiteralExpressionTree).literal.value).toBe(123);
 
   const anotherPropAttribute = attrs[1] as AbstractAttributeTree;
   expect(anotherPropAttribute).toBeInstanceOf(AbstractAttributeTree);
@@ -45,38 +37,22 @@ test('interface file', () => {
   expect(typedValueAttribute.id.text).toBe('typedValue');
   expect(typedValueAttribute.type.name).toBe('Number');
 
-  const methodAttribute = attrs[3] as MethodAttributeTree;
-  expect(methodAttribute).toBeInstanceOf(MethodAttributeTree);
+  const methodAttribute = attrs[3] as AbstractAttributeTree;
+  expect(methodAttribute).toBeInstanceOf(AbstractAttributeTree);
   expect(methodAttribute.id.text).toBe('method');
   expect((methodAttribute.type as LambdaTypeTree).parameters.length).toBe(0);
-  expect(methodAttribute.body.length).toBe(2);
-  expect((methodAttribute.body[0] as ExpressionStatementTree).expression).toBeInstanceOf(
-    CallExpressionTree,
-  );
-  expect((methodAttribute.body[1] as ExpressionStatementTree).expression).toBeInstanceOf(
-    CallExpressionTree,
-  );
 
-  const locationAttribute = attrs[4] as MethodAttributeTree;
-  expect(locationAttribute).toBeInstanceOf(MethodAttributeTree);
+  const locationAttribute = attrs[4] as AbstractAttributeTree;
+  expect(locationAttribute).toBeInstanceOf(AbstractAttributeTree);
   expect(locationAttribute.id.text).toBe('location');
   expect((locationAttribute.type as LambdaTypeTree).parameters.length).toBe(2);
   expect((locationAttribute.type as LambdaTypeTree).parameters[0].id.text).toBe('x');
   expect((locationAttribute.type as LambdaTypeTree).parameters[0].type.name).toBe('Number');
   expect((locationAttribute.type as LambdaTypeTree).parameters[1].id.text).toBe('y');
   expect((locationAttribute.type as LambdaTypeTree).parameters[1].type.name).toBe('Number');
-  expect(locationAttribute.body.length).toBe(1);
-  expect((locationAttribute.body[0] as ExpressionStatementTree).expression).toBeInstanceOf(
-    CallExpressionTree,
-  );
-  const innerMethod = (locationAttribute.body[0] as ExpressionStatementTree)
-    .expression as CallExpressionTree;
-  const callExpression = innerMethod.instance as IdExpressionTree;
-  expect(callExpression.id.text).toBe('pos');
-  expect(innerMethod.arguments.length).toBe(2);
 
-  const plusAttribute = attrs[5] as MethodAttributeTree;
-  expect(plusAttribute).toBeInstanceOf(MethodAttributeTree);
+  const plusAttribute = attrs[5] as AbstractAttributeTree;
+  expect(plusAttribute).toBeInstanceOf(AbstractAttributeTree);
   expect(plusAttribute.id.text).toBe('+');
   const operatorType = plusAttribute.type as LambdaTypeTree;
   expect(operatorType.parameters[0].id.text).toBe('it');
