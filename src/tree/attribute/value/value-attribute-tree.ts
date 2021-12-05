@@ -21,7 +21,10 @@ export class ValueAttributeTree extends AttributeTree {
   }
 
   toString(): string {
-    const type = this.type instanceof LambdaTypeTree ? this.type : ' ' + this.type;
-    return `${this.id}${type}: ${this.expression}`;
+    if (this.type) {
+      const type = this.type instanceof LambdaTypeTree ? this.type : ' ' + this.type;
+      return `${this.id}${type}: ${this.expression}`;
+    }
+    return `${this.id}: ${this.expression}`;
   }
 }

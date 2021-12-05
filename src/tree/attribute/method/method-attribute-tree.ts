@@ -24,7 +24,6 @@ export class MethodAttributeTree extends AttributeTree {
 
   toString(): string {
     const body = this.body.join('\n').replace(/^/gm, '  ');
-    const type = this.type instanceof LambdaTypeTree ? this.type : ' ' + this.type;
-    return `${this.id}${type}\n${body}`;
+    return `${this.id}${this.type}\n${body}`;
   }
 }

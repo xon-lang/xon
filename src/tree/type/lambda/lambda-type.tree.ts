@@ -21,7 +21,7 @@ export class LambdaTypeTree extends TypeTree {
 
   toString(): string {
     const parameters = this.parameters.join(', ');
-    const returnType = this.resultType;
-    return `(${parameters}) ${returnType}`;
+    const resultType = this.resultType ? ' ' + this.resultType : '';
+    return `(${parameters})${resultType}`;
   }
 }

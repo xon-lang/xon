@@ -29,9 +29,11 @@ test('one scope', () => {
   expect(definition.ancestor.arguments.length).toBe(2);
 
   const attrs = definition.attributes;
+  console.log(attrs.join(',\n'));
+  expect(attrs.length).toBe(6);
+
   const propertyAttribute = attrs[0] as ValueAttributeTree;
   expect(propertyAttribute).toBeInstanceOf(ValueAttributeTree);
-  expect(attrs.length).toBe(6);
   expect(propertyAttribute.id.text).toBe('property');
   expect(propertyAttribute.type).toBe(null);
   expect((propertyAttribute.expression as LiteralExpressionTree).literal.value).toBe(123);
