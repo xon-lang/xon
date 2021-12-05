@@ -19,6 +19,6 @@ export const getParametersTrees = (
     | ArrayParametersContext,
 ): ParameterTree[] => {
   if (!contexts) return [];
-  if (Array.isArray(contexts)) return contexts.map(getParameterTree);
+  if (Array.isArray(contexts)) return contexts.map((x) => getParameterTree(x));
   return getParametersTrees(contexts.parameter());
 };
