@@ -23,7 +23,7 @@ attribute:
     attributeId type? ':' expression                       # valueAttribute
     | attributeId type NL+ INDENT (statement | NL)+ DEDENT # methodAttribute
     | attributeId NL+ INDENT (attribute | NL)+ DEDENT      # objectAttribute
-    | attributeId type                                     # abstractAttribute
+    | attributeId type?                                    # abstractAttribute
     ;
 
 statement:
