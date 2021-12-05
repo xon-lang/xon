@@ -1,5 +1,5 @@
 interface SomeClass<T> is Base<String, Boolean>
-  property
+  property Integer
   anotherProp String
   typedValue Number
 

@@ -14,6 +14,8 @@ export class AbstractAttributeTree extends AttributeTree {
     super();
 
     this.id = IdToken.fromContext(ctx.attributeId());
+    if (!ctx.type()) throw new Error(`Attribute '${this.id.text}' must have a type`);
+
     this.isOperator = !!ctx.attributeId().operator();
     this.type = getTypeTree(ctx.type()) as LambdaTypeTree;
   }
