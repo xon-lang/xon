@@ -20,8 +20,7 @@ definitionAncestor: IS id typeArguments? lambdaArguments;
 definitionBody:     NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
-    operator type NL+ INDENT (statement | NL)+ DEDENT      # operatorAttribute
-    | (attributeId | operator) type                        # abstractAttribute
+    attributeId type                                       # abstractAttribute
     | attributeId type? ':' expression                     # valueAttribute
     | attributeId type NL+ INDENT (statement | NL)+ DEDENT # methodAttribute
     | attributeId NL+ INDENT (attribute | NL)+ DEDENT      # objectAttribute
@@ -103,7 +102,7 @@ typeParameters: '<' typeParameter (',' typeParameter)* ','? '>';
 typeArguments:  '<' (type (',' type)*)? ','? '>';
 
 body:               ':' (statement | NL+ INDENT (statement | NL)+ DEDENT)?;
-attributeId:        id | STRING_LITERAL;
+attributeId:        id | operator | STRING_LITERAL;
 id:                 ID | definitionModifier;
 definitionModifier: CLASS | ENUM | INTERFACE | OBJECT | EXTENSION;
 operator:           '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
