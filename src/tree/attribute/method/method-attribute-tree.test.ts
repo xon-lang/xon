@@ -1,4 +1,8 @@
+import { LiteralExpressionTree } from '../../expression/literal/literal-expression.tree';
 import { parseAttribute } from '../../parse';
+import { ExpressionStatementTree } from '../../statement/expression/expression-statement.tree';
+import { ArrayTypeTree } from '../../type/array/array-type.tree';
+import { IdTypeTree } from '../../type/id/id-type.tree';
 import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
 import { MethodAttributeTree } from './method-attribute-tree';
 
@@ -9,7 +13,14 @@ test('no parameters', () => {
 
   expect(tree.id.text).toBe('a');
   expect(tree.isPrivate).toBe(false);
-  expect(tree.type.name).toBe('Lambda');
+  expect(tree.type.typeParameters.length).toBe(0);
+  expect(tree.type.parameters.length).toBe(0);
+  expect((tree.type.resultType as IdTypeTree).id.text).toBe('Integer');
+
+  expect(tree.body.length).toBe(1);
+  expect(
+    ((tree.body[0] as ExpressionStatementTree).expression as LiteralExpressionTree).literal.value,
+  ).toBe(123);
 });
 
 test('with parameters', () => {
@@ -20,7 +31,12 @@ test('with parameters', () => {
   expect(tree.id.text).toBe('_a');
   expect(tree.isPrivate).toBe(true);
   expect(tree.type).toBeInstanceOf(LambdaTypeTree);
-  expect((tree.type as LambdaTypeTree).resultType.name).toBe('Integer');
+  expect(((tree.type as LambdaTypeTree).resultType as IdTypeTree).id.text).toBe('Integer');
+
+  expect(tree.body.length).toBe(1);
+  expect(
+    ((tree.body[0] as ExpressionStatementTree).expression as LiteralExpressionTree).literal.value,
+  ).toBe(123);
 });
 
 test('with type parameters', () => {
@@ -30,5 +46,15 @@ test('with type parameters', () => {
 
   expect(tree.id.text).toBe('a');
   expect(tree.isPrivate).toBe(false);
-  expect(tree.type.name).toBe('Lambda');
+  expect(tree.type.typeParameters.length).toBe(1);
+  expect(tree.type.typeParameters[0].id.text).toBe('T');
+  expect(tree.type.parameters.length).toBe(1);
+  expect(tree.type.parameters[0].id.text).toBe('x');
+  expect((tree.type.parameters[0].type as IdTypeTree).id.text).toBe('Integer');
+  expect(((tree.type.resultType as ArrayTypeTree).itemType as IdTypeTree).id.text).toBe('T');
+
+  expect(tree.body.length).toBe(1);
+  expect(
+    ((tree.body[0] as ExpressionStatementTree).expression as LiteralExpressionTree).literal.value,
+  ).toBe(123);
 });

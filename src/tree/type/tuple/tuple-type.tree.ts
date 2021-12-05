@@ -1,6 +1,6 @@
 import { TupleTypeContext } from '../../../grammar/xon-parser';
 import { TupleTypeMetadata } from '../../../metadata/type/tuple/tuple-type-metadata';
-import { getParametersTrees } from '../../parameter/parameter-tree.helper';
+import { getTypesTrees } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
 export class TupleTypeTree extends TypeTree {
@@ -10,7 +10,7 @@ export class TupleTypeTree extends TypeTree {
   constructor(public ctx: TupleTypeContext) {
     super();
 
-    this.types = getParametersTrees(ctx.arrayParameters()).map((x) => x.type);
+    this.types = getTypesTrees(ctx.arrayParameters().type());
   }
 
   toString(): string {

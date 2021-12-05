@@ -1,5 +1,4 @@
 import {
-  ArrayParametersContext,
   LambdaParametersContext,
   ObjectParametersContext,
   ParameterContext,
@@ -12,11 +11,7 @@ export const getParameterTree = (ctx: ParameterContext): ParameterTree => {
 };
 
 export const getParametersTrees = (
-  contexts:
-    | ParameterContext[]
-    | LambdaParametersContext
-    | ObjectParametersContext
-    | ArrayParametersContext,
+  contexts: ParameterContext[] | LambdaParametersContext | ObjectParametersContext,
 ): ParameterTree[] => {
   if (!contexts) return [];
   if (Array.isArray(contexts)) return contexts.map((x) => getParameterTree(x));

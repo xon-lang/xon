@@ -9,6 +9,8 @@ test('string and union', () => {
   expect(tree).toBeInstanceOf(TupleTypeTree);
 
   expect(tree.types.length).toBe(2);
+  console.log(tree.types[0].toString());
+  
   expect(tree.types[0]).toBeInstanceOf(IdTypeTree);
   expect((tree.types[0] as IdTypeTree).id.text).toBe('String');
 

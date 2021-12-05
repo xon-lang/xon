@@ -1,6 +1,7 @@
 import { AbstractAttributeTree } from '../../attribute/abstract/abstract-attribute-tree';
 import { parseSourceFile } from '../../parse';
 import { SourceTree } from '../../source/source-tree';
+import { IdTypeTree } from '../../type/id/id-type.tree';
 import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
 import { InterfaceDefinitionTree } from './interface-definition-tree';
 
@@ -17,8 +18,8 @@ test('interface file', () => {
   const ancestor = definition.ancestor;
   expect(ancestor.id.text).toBe('Base');
   expect(ancestor.typeArguments.length).toBe(2);
-  expect(ancestor.typeArguments[0].name).toBe('String');
-  expect(ancestor.typeArguments[1].name).toBe('Boolean');
+  expect((ancestor.typeArguments[0] as IdTypeTree).id.text).toBe('String');
+  expect((ancestor.typeArguments[1] as IdTypeTree).id.text).toBe('Boolean');
   expect(definition.ancestor.arguments.length).toBe(0);
 
   const attrs = definition.attributes;
@@ -30,12 +31,12 @@ test('interface file', () => {
   const anotherPropAttribute = attrs[1] as AbstractAttributeTree;
   expect(anotherPropAttribute).toBeInstanceOf(AbstractAttributeTree);
   expect(anotherPropAttribute.id.text).toBe('anotherProp');
-  expect(anotherPropAttribute.type.name).toBe('String');
+  expect((anotherPropAttribute.type as IdTypeTree).id.text).toBe('String');
 
   const typedValueAttribute = attrs[2] as AbstractAttributeTree;
   expect(typedValueAttribute).toBeInstanceOf(AbstractAttributeTree);
   expect(typedValueAttribute.id.text).toBe('typedValue');
-  expect(typedValueAttribute.type.name).toBe('Number');
+  expect((typedValueAttribute.type as IdTypeTree).id.text).toBe('Number');
 
   const methodAttribute = attrs[3] as AbstractAttributeTree;
   expect(methodAttribute).toBeInstanceOf(AbstractAttributeTree);
@@ -47,17 +48,21 @@ test('interface file', () => {
   expect(locationAttribute.id.text).toBe('location');
   expect((locationAttribute.type as LambdaTypeTree).parameters.length).toBe(2);
   expect((locationAttribute.type as LambdaTypeTree).parameters[0].id.text).toBe('x');
-  expect((locationAttribute.type as LambdaTypeTree).parameters[0].type.name).toBe('Number');
+  expect(
+    ((locationAttribute.type as LambdaTypeTree).parameters[0].type as IdTypeTree).id.text,
+  ).toBe('Number');
   expect((locationAttribute.type as LambdaTypeTree).parameters[1].id.text).toBe('y');
-  expect((locationAttribute.type as LambdaTypeTree).parameters[1].type.name).toBe('Number');
+  expect(
+    ((locationAttribute.type as LambdaTypeTree).parameters[1].type as IdTypeTree).id.text,
+  ).toBe('Number');
 
   const plusAttribute = attrs[5] as AbstractAttributeTree;
   expect(plusAttribute).toBeInstanceOf(AbstractAttributeTree);
   expect(plusAttribute.id.text).toBe('+');
   const operatorType = plusAttribute.type as LambdaTypeTree;
   expect(operatorType.parameters[0].id.text).toBe('it');
-  expect(operatorType.parameters[0].type.name).toBe('SomeClass');
-  expect(operatorType.resultType.name).toBe('AnotherClass');
+  expect((operatorType.parameters[0].type as IdTypeTree).id.text).toBe('SomeClass');
+  expect((operatorType.resultType as IdTypeTree).id.text).toBe('AnotherClass');
 });
 
 test('string core', () => {
