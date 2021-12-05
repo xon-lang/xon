@@ -12,7 +12,7 @@ import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
 import { ObjectDefinitionTree } from './object-definition-tree';
 
 test('one scope', () => {
-  const tree = parseSourceFile('src/tree/definition/class/class-definition-test-file.xon');
+  const tree = parseSourceFile('src/tree/definition/interface/interface-definition-test-file.xon');
   expect(tree).toBeInstanceOf(SourceTree);
 
   // expect(tree.definitions.length).toBe(1);
@@ -83,15 +83,6 @@ test('one scope', () => {
   expect(operatorType.parameters[0].id.text).toBe('it');
   expect(operatorType.parameters[0].type.name).toBe('SomeClass');
   expect(operatorType.resultType.name).toBe('AnotherClass');
-});
-
-test('string core', () => {
-  const tree = parseSourceFile('ast.xon/lib/@xon/core/string.xon');
-  expect(tree).toBeInstanceOf(SourceTree);
-
-  expect(tree.definitions.length).toBe(1);
-  expect(tree.definitions[0]).toBeInstanceOf(ObjectDefinitionTree);
-  expect(tree.definitions[0].id.text).toBe('String');
 });
 
 test('hierarchy', () => {
