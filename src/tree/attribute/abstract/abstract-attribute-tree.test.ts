@@ -1,4 +1,5 @@
 import { parseAttribute } from '../../parse';
+import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
 import { AbstractAttributeTree } from './abstract-attribute-tree';
 
 test('private value with type', () => {
@@ -29,5 +30,5 @@ test('operator', () => {
   expect(tree.id.text).toBe('+');
   expect(tree.isPrivate).toBe(false);
   expect(tree.type.name).toBe('Lambda');
-  expect(tree.type ).toBe('Lambda');
+  expect((tree.type as LambdaTypeTree).resultType.name).toBe('Integer');
 });
