@@ -1469,7 +1469,7 @@ export class XonParser extends Parser {
 						case 1:
 							{
 							this.state = 296;
-							this.id();
+							this.parameter();
 							this.state = 297;
 							this.match(XonParser.COLON);
 							}
@@ -3087,7 +3087,7 @@ export class XonParser extends Parser {
 		"\f\n\x02\x02\u0120\u0121\t\x06\x02\x02\u0121\u0142\x05\x18\r\v\u0122\u0123" +
 		"\f\t\x02\x02\u0123\u0124\x07=\x02\x02\u0124\u0142\x05\x18\r\n\u0125\u0126" +
 		"\f\b\x02\x02\u0126\u0127\x07>\x02\x02\u0127\u0142\x05\x18\r\t\u0128\u0129" +
-		"\f\x07\x02\x02\u0129\u012D\x07*\x02\x02\u012A\u012B\x058\x1D\x02\u012B" +
+		"\f\x07\x02\x02\u0129\u012D\x07*\x02\x02\u012A\u012B\x05\x1E\x10\x02\u012B" +
 		"\u012C\x07.\x02\x02\u012C\u012E\x03\x02\x02\x02\u012D\u012A\x03\x02\x02" +
 		"\x02\u012D\u012E\x03\x02\x02\x02\u012E\u012F\x03\x02\x02\x02\u012F\u0142" +
 		"\x05\x18\r\b\u0130\u0131\f\x17\x02\x02\u0131\u0132\t\x07\x02\x02\u0132" +
@@ -4056,8 +4056,8 @@ export class PipeExpressionContext extends ExpressionContext {
 			return this.getRuleContext(i, ExpressionContext);
 		}
 	}
-	public id(): IdContext | undefined {
-		return this.tryGetRuleContext(0, IdContext);
+	public parameter(): ParameterContext | undefined {
+		return this.tryGetRuleContext(0, ParameterContext);
 	}
 	public COLON(): TerminalNode | undefined { return this.tryGetToken(XonParser.COLON, 0); }
 	constructor(ctx: ExpressionContext) {

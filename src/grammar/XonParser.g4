@@ -58,7 +58,7 @@ expression:
     | left = expression op = ('==' | '!=') right = expression             # equalityExpression
     | left = expression op = '&&' right = expression                      # conjunctionExpression
     | left = expression op = '||' right = expression                      # disjunctionExpression
-    | left = expression '|' (id ':')? right = expression                  # pipeExpression
+    | left = expression '|' (parameter ':')? right = expression           # pipeExpression
     | lambdaParameters ':' expression                                     # lambdaExpression
     | arrayArguments                                                      # arrayExpression
     | objectArguments                                                     # objectExpression
