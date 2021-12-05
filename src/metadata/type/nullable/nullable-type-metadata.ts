@@ -1,6 +1,6 @@
 import { NullableTypeTree } from '../../../tree/type/nullable/nullable-type.tree';
 import { DeclarationScope } from '../../declaration-scope';
-import { DefinitionDeclarationMetadata } from '../../declaration/definition/definition-declaration-metadata';
+import { DefinitionDeclarationMetadata } from '../../declaration/definition/definition-metadata';
 import { TypeMetadata } from '../type-metadata';
 import { getTypeMetadata } from '../type-metadata-helper';
 import { UnionTypeMetadata } from '../union/union-type-metadata';

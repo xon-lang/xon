@@ -1,17 +1,13 @@
-import { AttributeTree } from '../../../tree/attribute/attribute-tree';
 import { DefinitionTree } from '../../../tree/definition/definition-tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';
-import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
 import { AttributeDeclarationMetadata } from '../attribute/attribute-declaration-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
 
-export abstract class DefinitionDeclarationMetadata extends DeclarationMetadata {
+export abstract class DefinitionMetadata extends DeclarationMetadata {
   protected abstract tree: DefinitionTree;
   protected abstract scope: DeclarationScope;
-  abstract attributes: AttributeTree[];
-  abstract ancestor: IdTypeMetadata;
 
   attribute(
     name: string,

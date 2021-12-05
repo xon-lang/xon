@@ -1,15 +1,9 @@
 import * as glob from 'glob';
 import * as path from 'path';
-import { AliasDefinitionTree } from '../../tree/definition/alias/alias-definition-tree';
-import { AttributeDefinitionTree } from '../../tree/definition/object/attribute-definition-tree';
-import { ClassDefinitionTree } from '../../tree/definition/class/class-definition-tree';
 import { parseSourceFile } from '../../tree/parse';
 import { DeclarationScope } from '../declaration-scope';
-import { AttributeDeclarationMetadata } from '../declaration/attribute/attribute-declaration-metadata';
 import { DeclarationMetadata } from '../declaration/declaration-metadata';
-import { AliasDefinitionDeclarationMetadata } from '../declaration/definition/alias-definition-declaration-metadata';
-import { AttributeDefinitionDeclarationMetadata } from '../declaration/definition/attribute-definition-declaration-metadata';
-import { ClassDefinitionDeclarationMetadata } from '../declaration/definition/class-definition-declaration-metadata';
+import { getDefinitionMetadata } from '../declaration/definition/definition-metadata-helper';
 
 export class ModuleMetadata {
   declarations: DeclarationMetadata[] = [];
@@ -23,21 +17,15 @@ export class ModuleMetadata {
 
     const globPath = path.resolve(moduleDir, '**/*.xon');
     const sources = glob.sync(globPath).map((x) => parseSourceFile(x));
-
-    for (const definition of sources.flatMap((x) =>
-      x.definitions.map((x) => x as ClassDefinitionTree),
-    )) {
-      if (definition instanceof AliasDefinitionTree)
-        scope.set(new AliasDefinitionDeclarationMetadata(definition, scope));
-      else if (definition instanceof AttributeDefinitionTree)
-        scope.set(new AttributeDefinitionDeclarationMetadata(definition, scope));
-      else if (definition instanceof ClassDefinitionTree)
-        scope.set(new ClassDefinitionDeclarationMetadata(definition, scope));
+    for (const source of sources) {
+      for (const library of source.imports) {
+        // imports
+      }
+      for (const definition of source.definitions) {
+        scope.set(getDefinitionMetadata(definition, scope));
+      }
     }
 
-    for (const attribute of sources.flatMap((x) => x.attributes)) {
-      scope.set(new AttributeDeclarationMetadata(attribute, scope));
-    }
     this.declarations = [...scope.declarations.values()];
   }
 }

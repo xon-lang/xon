@@ -1,6 +1,6 @@
 import { TupleTypeTree } from '../../../tree/type/tuple/tuple-type.tree';
 import { DeclarationScope } from '../../declaration-scope';
-import { ClassDefinitionDeclarationMetadata } from '../../declaration/definition/class-definition-declaration-metadata';
+import { ClassDefinitionDeclarationMetadata } from '../../declaration/definition/class/class-definition-metadata';
 import { TypeMetadata } from '../type-metadata';
 import { getTypeMetadata } from '../type-metadata-helper';
 import { UnionTypeMetadata } from '../union/union-type-metadata';

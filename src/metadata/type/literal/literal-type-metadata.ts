@@ -1,6 +1,6 @@
 import { LiteralTree } from '../../../tree/literal/literal.tree';
 import { DeclarationScope } from '../../declaration-scope';
-import { ClassDefinitionDeclarationMetadata } from '../../declaration/definition/class-definition-declaration-metadata';
+import { ClassDefinitionDeclarationMetadata } from '../../declaration/definition/class/class-definition-metadata';
 import { TypeMetadata } from '../type-metadata';
 
 export class LiteralTypeMetadata extends TypeMetadata {

@@ -1,13 +1,13 @@
-import { AttributeTree } from '../../../tree/attribute/attribute-tree';
-import { ClassDefinitionTree } from '../../../tree/definition/class/class-definition-tree';
-import { DeclarationScope } from '../../declaration-scope';
-import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';
-import { IdTypeMetadata } from '../../type/id/id-type-metadata';
-import { TypeMetadata } from '../../type/type-metadata';
-import { getTypeMetadata } from '../../type/type-metadata-helper';
-import { DefinitionDeclarationMetadata } from './definition-declaration-metadata';
+import { AttributeTree } from '../../../../tree/attribute/attribute-tree';
+import { ClassDefinitionTree } from '../../../../tree/definition/class/class-definition-tree';
+import { DeclarationScope } from '../../../declaration-scope';
+import { IdTypeMetadata } from '../../../type/id/id-type-metadata';
+import { LambdaTypeMetadata } from '../../../type/lambda/lambda-type-metadata';
+import { TypeMetadata } from '../../../type/type-metadata';
+import { getTypeMetadata } from '../../../type/type-metadata-helper';
+import { DefinitionMetadata } from '../definition-metadata';
 
-export class ClassDefinitionDeclarationMetadata extends DefinitionDeclarationMetadata {
+export class ClassDefinitionMetadata extends DefinitionMetadata {
   attributes: AttributeTree[] = [];
   name: string;
 
