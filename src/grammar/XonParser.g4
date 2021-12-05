@@ -89,8 +89,8 @@ literal:
 
 parameter:        id | type | id type;
 lambdaParameters: '(' (parameter (',' parameter)*)? ','? ')';
-arrayParameters:  '[' (parameter (',' parameter)*)? ','? ']';
 objectParameters: '{' (parameter (',' parameter)*)? ','? '}';
+arrayParameters:  '[' (type (',' type)*)? ','? ']';
 
 lambdaArguments: '(' (expression (',' expression)*)? ','? ')';
 arrayArguments:  '[' (expression (',' expression)*)? ','? ']';

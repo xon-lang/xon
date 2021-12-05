@@ -114,8 +114,8 @@ export class XonParser extends Parser {
 	public static readonly RULE_literal = 13;
 	public static readonly RULE_parameter = 14;
 	public static readonly RULE_lambdaParameters = 15;
-	public static readonly RULE_arrayParameters = 16;
-	public static readonly RULE_objectParameters = 17;
+	public static readonly RULE_objectParameters = 16;
+	public static readonly RULE_arrayParameters = 17;
 	public static readonly RULE_lambdaArguments = 18;
 	public static readonly RULE_arrayArguments = 19;
 	public static readonly RULE_objectArguments = 20;
@@ -133,7 +133,7 @@ export class XonParser extends Parser {
 		"source", "export", "library", "libraryPath", "libraryMember", "definition", 
 		"definitionHeader", "definitionAncestor", "definitionBody", "attribute", 
 		"statement", "expression", "type", "literal", "parameter", "lambdaParameters", 
-		"arrayParameters", "objectParameters", "lambdaArguments", "arrayArguments", 
+		"objectParameters", "arrayParameters", "lambdaArguments", "arrayArguments", 
 		"objectArguments", "objectArgument", "typeParameter", "typeParameters", 
 		"typeArguments", "body", "attributeId", "id", "definitionModifier", "operator",
 	];
@@ -2013,16 +2013,16 @@ export class XonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public arrayParameters(): ArrayParametersContext {
-		let _localctx: ArrayParametersContext = new ArrayParametersContext(this._ctx, this.state);
-		this.enterRule(_localctx, 32, XonParser.RULE_arrayParameters);
+	public objectParameters(): ObjectParametersContext {
+		let _localctx: ObjectParametersContext = new ObjectParametersContext(this._ctx, this.state);
+		this.enterRule(_localctx, 32, XonParser.RULE_objectParameters);
 		let _la: number;
 		try {
 			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
 			this.state = 395;
-			this.match(XonParser.OPEN_BRACKET);
+			this.match(XonParser.OPEN_BRACE);
 			this.state = 404;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
@@ -2062,7 +2062,7 @@ export class XonParser extends Parser {
 			}
 
 			this.state = 409;
-			this.match(XonParser.CLOSE_BRACKET);
+			this.match(XonParser.CLOSE_BRACE);
 			}
 		}
 		catch (re) {
@@ -2080,23 +2080,23 @@ export class XonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public objectParameters(): ObjectParametersContext {
-		let _localctx: ObjectParametersContext = new ObjectParametersContext(this._ctx, this.state);
-		this.enterRule(_localctx, 34, XonParser.RULE_objectParameters);
+	public arrayParameters(): ArrayParametersContext {
+		let _localctx: ArrayParametersContext = new ArrayParametersContext(this._ctx, this.state);
+		this.enterRule(_localctx, 34, XonParser.RULE_arrayParameters);
 		let _la: number;
 		try {
 			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
 			this.state = 411;
-			this.match(XonParser.OPEN_BRACE);
+			this.match(XonParser.OPEN_BRACKET);
 			this.state = 420;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (((((_la - 3)) & ~0x1F) === 0 && ((1 << (_la - 3)) & ((1 << (XonParser.OPEN_BRACKET - 3)) | (1 << (XonParser.OPEN_PAREN - 3)) | (1 << (XonParser.OPEN_BRACE - 3)) | (1 << (XonParser.EXTENSION - 3)) | (1 << (XonParser.CLASS - 3)) | (1 << (XonParser.OBJECT - 3)) | (1 << (XonParser.ENUM - 3)) | (1 << (XonParser.INTERFACE - 3)))) !== 0) || ((((_la - 41)) & ~0x1F) === 0 && ((1 << (_la - 41)) & ((1 << (XonParser.LESS - 41)) | (1 << (XonParser.FLOAT_LITERAL - 41)) | (1 << (XonParser.INTEGER_LITERAL - 41)) | (1 << (XonParser.CHAR_LITERAL - 41)) | (1 << (XonParser.STRING_LITERAL - 41)) | (1 << (XonParser.REGEX_LITERAL - 41)) | (1 << (XonParser.ID - 41)))) !== 0)) {
 				{
 				this.state = 412;
-				this.parameter();
+				this.type(0);
 				this.state = 417;
 				this._errHandler.sync(this);
 				_alt = this.interpreter.adaptivePredict(this._input, 53, this._ctx);
@@ -2107,7 +2107,7 @@ export class XonParser extends Parser {
 						this.state = 413;
 						this.match(XonParser.COMMA);
 						this.state = 414;
-						this.parameter();
+						this.type(0);
 						}
 						}
 					}
@@ -2129,7 +2129,7 @@ export class XonParser extends Parser {
 			}
 
 			this.state = 425;
-			this.match(XonParser.CLOSE_BRACE);
+			this.match(XonParser.CLOSE_BRACKET);
 			}
 		}
 		catch (re) {
@@ -3105,7 +3105,7 @@ export class XonParser extends Parser {
 		"\x19\x03\x02\x02\x02\u0146\u0144\x03\x02\x02\x02\u0147\u0148\b\x0E\x01" +
 		"\x02\u0148\u014A\x058\x1D\x02\u0149\u014B\x052\x1A\x02\u014A\u0149\x03" +
 		"\x02\x02\x02\u014A\u014B\x03\x02\x02\x02\u014B\u015B\x03\x02\x02\x02\u014C" +
-		"\u015B\x05\x1C\x0F\x02\u014D\u015B\x05\"\x12\x02\u014E\u015B\x05$\x13" +
+		"\u015B\x05\x1C\x0F\x02\u014D\u015B\x05$\x13\x02\u014E\u015B\x05\"\x12" +
 		"\x02\u014F\u0151\x050\x19\x02\u0150\u014F\x03\x02\x02\x02\u0150\u0151" +
 		"\x03\x02\x02\x02\u0151\u0152\x03\x02\x02\x02\u0152\u0154\x05 \x11\x02" +
 		"\u0153\u0155\x05\x1A\x0E\x02\u0154\u0153\x03\x02\x02\x02\u0154\u0155\x03" +
@@ -3137,21 +3137,21 @@ export class XonParser extends Parser {
 		"\x02\x02\x02\u0186\u017E\x03\x02\x02\x02\u0186\u0187\x03\x02\x02\x02\u0187" +
 		"\u0189\x03\x02\x02\x02\u0188\u018A\x07-\x02\x02\u0189\u0188\x03\x02\x02" +
 		"\x02\u0189\u018A\x03\x02\x02\x02\u018A\u018B\x03\x02\x02\x02\u018B\u018C" +
-		"\x07\b\x02\x02\u018C!\x03\x02\x02\x02\u018D\u0196\x07\x05\x02\x02\u018E" +
+		"\x07\b\x02\x02\u018C!\x03\x02\x02\x02\u018D\u0196\x07\t\x02\x02\u018E" +
 		"\u0193\x05\x1E\x10\x02\u018F\u0190\x07-\x02\x02\u0190\u0192\x05\x1E\x10" +
 		"\x02\u0191\u018F\x03\x02\x02\x02\u0192\u0195\x03\x02\x02\x02\u0193\u0191" +
 		"\x03\x02\x02\x02\u0193\u0194\x03\x02\x02\x02\u0194\u0197\x03\x02\x02\x02" +
 		"\u0195\u0193\x03\x02\x02\x02\u0196\u018E\x03\x02\x02\x02\u0196\u0197\x03" +
 		"\x02\x02\x02\u0197\u0199\x03\x02\x02\x02\u0198\u019A\x07-\x02\x02\u0199" +
 		"\u0198\x03\x02\x02\x02\u0199\u019A\x03\x02\x02\x02\u019A\u019B\x03\x02" +
-		"\x02\x02\u019B\u019C\x07\x06\x02\x02\u019C#\x03\x02\x02\x02\u019D\u01A6" +
-		"\x07\t\x02\x02\u019E\u01A3\x05\x1E\x10\x02\u019F\u01A0\x07-\x02\x02\u01A0" +
-		"\u01A2\x05\x1E\x10\x02\u01A1\u019F\x03\x02\x02\x02\u01A2\u01A5\x03\x02" +
-		"\x02\x02\u01A3\u01A1\x03\x02\x02\x02\u01A3\u01A4\x03\x02\x02\x02\u01A4" +
+		"\x02\x02\u019B\u019C\x07\n\x02\x02\u019C#\x03\x02\x02\x02\u019D\u01A6" +
+		"\x07\x05\x02\x02\u019E\u01A3\x05\x1A\x0E\x02\u019F\u01A0\x07-\x02\x02" +
+		"\u01A0\u01A2\x05\x1A\x0E\x02\u01A1\u019F\x03\x02\x02\x02\u01A2\u01A5\x03" +
+		"\x02\x02\x02\u01A3\u01A1\x03\x02\x02\x02\u01A3\u01A4\x03\x02\x02\x02\u01A4" +
 		"\u01A7\x03\x02\x02\x02\u01A5\u01A3\x03\x02\x02\x02\u01A6\u019E\x03\x02" +
 		"\x02\x02\u01A6\u01A7\x03\x02\x02\x02\u01A7\u01A9\x03\x02\x02\x02\u01A8" +
 		"\u01AA\x07-\x02\x02\u01A9\u01A8\x03\x02\x02\x02\u01A9\u01AA\x03\x02\x02" +
-		"\x02\u01AA\u01AB\x03\x02\x02\x02\u01AB\u01AC\x07\n\x02\x02\u01AC%\x03" +
+		"\x02\u01AA\u01AB\x03\x02\x02\x02\u01AB\u01AC\x07\x06\x02\x02\u01AC%\x03" +
 		"\x02\x02\x02\u01AD\u01B6\x07\x07\x02\x02\u01AE\u01B3\x05\x18\r\x02\u01AF" +
 		"\u01B0\x07-\x02\x02\u01B0\u01B2\x05\x18\r\x02\u01B1\u01AF\x03\x02\x02" +
 		"\x02\u01B2\u01B5\x03\x02\x02\x02\u01B3\u01B1\x03\x02\x02\x02\u01B3\u01B4" +
@@ -4339,35 +4339,6 @@ export class LambdaParametersContext extends ParserRuleContext {
 }
 
 
-export class ArrayParametersContext extends ParserRuleContext {
-	public OPEN_BRACKET(): TerminalNode { return this.getToken(XonParser.OPEN_BRACKET, 0); }
-	public CLOSE_BRACKET(): TerminalNode { return this.getToken(XonParser.CLOSE_BRACKET, 0); }
-	public parameter(): ParameterContext[];
-	public parameter(i: number): ParameterContext;
-	public parameter(i?: number): ParameterContext | ParameterContext[] {
-		if (i === undefined) {
-			return this.getRuleContexts(ParameterContext);
-		} else {
-			return this.getRuleContext(i, ParameterContext);
-		}
-	}
-	public COMMA(): TerminalNode[];
-	public COMMA(i: number): TerminalNode;
-	public COMMA(i?: number): TerminalNode | TerminalNode[] {
-		if (i === undefined) {
-			return this.getTokens(XonParser.COMMA);
-		} else {
-			return this.getToken(XonParser.COMMA, i);
-		}
-	}
-	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
-		super(parent, invokingState);
-	}
-	// @Override
-	public get ruleIndex(): number { return XonParser.RULE_arrayParameters; }
-}
-
-
 export class ObjectParametersContext extends ParserRuleContext {
 	public OPEN_BRACE(): TerminalNode { return this.getToken(XonParser.OPEN_BRACE, 0); }
 	public CLOSE_BRACE(): TerminalNode { return this.getToken(XonParser.CLOSE_BRACE, 0); }
@@ -4394,6 +4365,35 @@ export class ObjectParametersContext extends ParserRuleContext {
 	}
 	// @Override
 	public get ruleIndex(): number { return XonParser.RULE_objectParameters; }
+}
+
+
+export class ArrayParametersContext extends ParserRuleContext {
+	public OPEN_BRACKET(): TerminalNode { return this.getToken(XonParser.OPEN_BRACKET, 0); }
+	public CLOSE_BRACKET(): TerminalNode { return this.getToken(XonParser.CLOSE_BRACKET, 0); }
+	public type(): TypeContext[];
+	public type(i: number): TypeContext;
+	public type(i?: number): TypeContext | TypeContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(TypeContext);
+		} else {
+			return this.getRuleContext(i, TypeContext);
+		}
+	}
+	public COMMA(): TerminalNode[];
+	public COMMA(i: number): TerminalNode;
+	public COMMA(i?: number): TerminalNode | TerminalNode[] {
+		if (i === undefined) {
+			return this.getTokens(XonParser.COMMA);
+		} else {
+			return this.getToken(XonParser.COMMA, i);
+		}
+	}
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return XonParser.RULE_arrayParameters; }
 }
 
 
