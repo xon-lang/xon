@@ -90,4 +90,6 @@ test('class with 2 attributes', () => {
   const code = `class A()\n  method() MyType\n    hello()`;
   const tree = parseDefinition<ClassDefinitionTree>(code);
   expect(tree).toBeInstanceOf(ClassDefinitionTree);
+
+  expect(tree.attributes.length).toBe(1);
 });

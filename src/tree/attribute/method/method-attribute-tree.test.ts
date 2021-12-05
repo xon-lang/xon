@@ -1,4 +1,5 @@
 import { parseAttribute } from '../../parse';
+import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
 import { MethodAttributeTree } from './method-attribute-tree';
 
 test('no parameters', () => {
@@ -18,7 +19,8 @@ test('with parameters', () => {
 
   expect(tree.id.text).toBe('_a');
   expect(tree.isPrivate).toBe(true);
-  expect(tree.type.name).toBe('Lambda');
+  expect(tree.type).toBeInstanceOf(LambdaTypeTree);
+  expect((tree.type as LambdaTypeTree).resultType.name).toBe('Integer');
 });
 
 test('with type parameters', () => {
