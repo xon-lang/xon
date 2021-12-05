@@ -86,17 +86,8 @@ test('one scope', () => {
   expect(operatorType.resultType.name).toBe('AnotherClass');
 });
 
-test('string core', () => {
-  const tree = parseSourceFile('ast.xon/lib/@xon/core/string.xon');
-  expect(tree).toBeInstanceOf(SourceTree);
-
-  expect(tree.definitions.length).toBe(1);
-  expect(tree.definitions[0]).toBeInstanceOf(ClassDefinitionTree);
-  expect(tree.definitions[0].id.text).toBe('String');
-});
-
-test('string core', () => {
-  const code = `class A\n  method() MyType\n    hello()`;
+test('class with 2 attributes', () => {
+  const code = `class A()\n  method() MyType\n    hello()`;
   const tree = parseDefinition<ClassDefinitionTree>(code);
   expect(tree).toBeInstanceOf(ClassDefinitionTree);
 });
