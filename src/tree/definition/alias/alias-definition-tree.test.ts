@@ -13,7 +13,7 @@ test('number', () => {
 });
 
 test('string map', () => {
-  const code = 'StringMap<T>: Map<String, T>';
+  const code = 'type StringMap<T>: Map<String, T>';
   const tree = parseDefinition<AliasDefinitionTree>(code);
   expect(tree).toBeInstanceOf(AliasDefinitionTree);
 
