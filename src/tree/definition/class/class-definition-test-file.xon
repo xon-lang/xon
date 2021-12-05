@@ -10,5 +10,5 @@ class SomeClass<T>() is Base<String, Boolean>(name, 1)
   location(x Number, y Number) Position
     pos(x, y)
 
-  +(it SomeClass) AnotherClass
+  + (it SomeClass) AnotherClass
     log("fine!")

@@ -8,6 +8,7 @@ import { AttributeTree } from '../attribute-tree';
 
 export class MethodAttributeTree extends AttributeTree {
   id: IdToken;
+  isOperator: boolean;
   type: LambdaTypeTree;
   body: StatementTree[] = [];
 
@@ -15,6 +16,7 @@ export class MethodAttributeTree extends AttributeTree {
     super();
 
     this.id = IdToken.fromContext(ctx.attributeId());
+    this.isOperator = !!ctx.attributeId().operator();
     this.type = getTypeTree(ctx.type()) as LambdaTypeTree;
     this.body = getStatementsTrees(ctx.statement());
 

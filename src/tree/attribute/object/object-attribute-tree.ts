@@ -10,6 +10,9 @@ export class ObjectAttributeTree extends AttributeTree {
   constructor(public ctx: ObjectAttributeContext) {
     super();
 
+    if (ctx.attributeId().operator())
+      throw new Error(`Must not be operator but '${ctx.attributeId().text}`);
+
     this.id = IdToken.fromContext(ctx.attributeId());
     this.body = getAttributesTrees(ctx.attribute());
   }

@@ -9,6 +9,7 @@ import { AttributeTree } from '../attribute-tree';
 
 export class ValueAttributeTree extends AttributeTree {
   id: IdToken;
+  isOperator: boolean;
   type?: TypeTree;
   expression: ExpressionTree;
 
@@ -16,6 +17,7 @@ export class ValueAttributeTree extends AttributeTree {
     super();
 
     this.id = IdToken.fromContext(ctx.attributeId());
+    this.isOperator = !!ctx.attributeId().operator();
     this.type = (getTypeTree(ctx.type()) as LambdaTypeTree) || null;
     this.expression = getExpressionTree(ctx.expression());
   }

@@ -4,10 +4,9 @@ import { ValueAttributeTree } from '../../attribute/value/value-attribute-tree';
 import { CallExpressionTree } from '../../expression/call/call-expression.tree';
 import { IdExpressionTree } from '../../expression/id/id-expression.tree';
 import { LiteralExpressionTree } from '../../expression/literal/literal-expression.tree';
-import { parseSourceFile } from '../../parse';
+import { parseDefinition, parseSourceFile } from '../../parse';
 import { SourceTree } from '../../source/source-tree';
 import { ExpressionStatementTree } from '../../statement/expression/expression-statement.tree';
-import { IdTypeTree } from '../../type/id/id-type.tree';
 import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
 import { ClassDefinitionTree } from './class-definition-tree';
 
@@ -94,4 +93,10 @@ test('string core', () => {
   expect(tree.definitions.length).toBe(1);
   expect(tree.definitions[0]).toBeInstanceOf(ClassDefinitionTree);
   expect(tree.definitions[0].id.text).toBe('String');
+});
+
+test('string core', () => {
+  const code = `class A\n  method() MyType\n    hello()`;
+  const tree = parseDefinition<ClassDefinitionTree>(code);
+  expect(tree).toBeInstanceOf(ClassDefinitionTree);
 });

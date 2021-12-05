@@ -20,3 +20,14 @@ test('array value', () => {
   expect(tree.isPrivate).toBe(false);
   expect(tree.type.name).toBe('Array');
 });
+
+test('operator', () => {
+  const code = '+ (a Integer) Integer';
+  const tree = parseAttribute<AbstractAttributeTree>(code);
+  expect(tree).toBeInstanceOf(AbstractAttributeTree);
+
+  expect(tree.id.text).toBe('+');
+  expect(tree.isPrivate).toBe(false);
+  expect(tree.type.name).toBe('Lambda');
+  expect(tree.type ).toBe('Lambda');
+});
