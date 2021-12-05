@@ -700,69 +700,58 @@ export class XonParser extends Parser {
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 24, this._ctx) ) {
 			case 1:
-				_localctx = new AbstractAttributeContext(_localctx);
+				_localctx = new ValueAttributeContext(_localctx);
 				this.enterOuterAlt(_localctx, 1);
 				{
 				this.state = 147;
 				this.attributeId();
-				this.state = 148;
-				this.type(0);
-				}
-				break;
-
-			case 2:
-				_localctx = new ValueAttributeContext(_localctx);
-				this.enterOuterAlt(_localctx, 2);
-				{
-				this.state = 150;
-				this.attributeId();
-				this.state = 152;
+				this.state = 149;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (((((_la - 3)) & ~0x1F) === 0 && ((1 << (_la - 3)) & ((1 << (XonParser.OPEN_BRACKET - 3)) | (1 << (XonParser.OPEN_PAREN - 3)) | (1 << (XonParser.OPEN_BRACE - 3)) | (1 << (XonParser.EXTENSION - 3)) | (1 << (XonParser.CLASS - 3)) | (1 << (XonParser.OBJECT - 3)) | (1 << (XonParser.ENUM - 3)) | (1 << (XonParser.INTERFACE - 3)))) !== 0) || ((((_la - 41)) & ~0x1F) === 0 && ((1 << (_la - 41)) & ((1 << (XonParser.LESS - 41)) | (1 << (XonParser.FLOAT_LITERAL - 41)) | (1 << (XonParser.INTEGER_LITERAL - 41)) | (1 << (XonParser.CHAR_LITERAL - 41)) | (1 << (XonParser.STRING_LITERAL - 41)) | (1 << (XonParser.REGEX_LITERAL - 41)) | (1 << (XonParser.ID - 41)))) !== 0)) {
 					{
-					this.state = 151;
+					this.state = 148;
 					this.type(0);
 					}
 				}
 
-				this.state = 154;
+				this.state = 151;
 				this.match(XonParser.COLON);
-				this.state = 155;
+				this.state = 152;
 				this.expression(0);
 				}
 				break;
 
-			case 3:
+			case 2:
 				_localctx = new MethodAttributeContext(_localctx);
-				this.enterOuterAlt(_localctx, 3);
+				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 157;
+				this.state = 154;
 				this.attributeId();
-				this.state = 158;
+				this.state = 155;
 				this.type(0);
-				this.state = 160;
+				this.state = 157;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				do {
 					{
 					{
-					this.state = 159;
+					this.state = 156;
 					this.match(XonParser.NL);
 					}
 					}
-					this.state = 162;
+					this.state = 159;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 				} while (_la === XonParser.NL);
-				this.state = 164;
+				this.state = 161;
 				this.match(XonParser.INDENT);
-				this.state = 167;
+				this.state = 164;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				do {
 					{
-					this.state = 167;
+					this.state = 164;
 					this._errHandler.sync(this);
 					switch (this._input.LA(1)) {
 					case XonParser.OPEN_BRACKET:
@@ -791,13 +780,13 @@ export class XonParser extends Parser {
 					case XonParser.PREPROCESSOR:
 					case XonParser.ID:
 						{
-						this.state = 165;
+						this.state = 162;
 						this.statement();
 						}
 						break;
 					case XonParser.NL:
 						{
-						this.state = 166;
+						this.state = 163;
 						this.match(XonParser.NL);
 						}
 						break;
@@ -805,43 +794,43 @@ export class XonParser extends Parser {
 						throw new NoViableAltException(this);
 					}
 					}
-					this.state = 169;
+					this.state = 166;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 				} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN_BRACKET) | (1 << XonParser.OPEN_PAREN) | (1 << XonParser.OPEN_BRACE) | (1 << XonParser.DO) | (1 << XonParser.IF) | (1 << XonParser.FOR) | (1 << XonParser.BREAK) | (1 << XonParser.WHILE) | (1 << XonParser.ACTUAL) | (1 << XonParser.RETURN) | (1 << XonParser.EXTENSION) | (1 << XonParser.CLASS) | (1 << XonParser.OBJECT) | (1 << XonParser.ENUM))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (XonParser.INTERFACE - 32)) | (1 << (XonParser.NOT - 32)) | (1 << (XonParser.PLUS - 32)) | (1 << (XonParser.MINUS - 32)))) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & ((1 << (XonParser.FLOAT_LITERAL - 64)) | (1 << (XonParser.INTEGER_LITERAL - 64)) | (1 << (XonParser.CHAR_LITERAL - 64)) | (1 << (XonParser.STRING_LITERAL - 64)) | (1 << (XonParser.REGEX_LITERAL - 64)) | (1 << (XonParser.PREPROCESSOR - 64)) | (1 << (XonParser.ID - 64)) | (1 << (XonParser.NL - 64)))) !== 0));
-				this.state = 171;
+				this.state = 168;
 				this.match(XonParser.DEDENT);
 				}
 				break;
 
-			case 4:
+			case 3:
 				_localctx = new ObjectAttributeContext(_localctx);
-				this.enterOuterAlt(_localctx, 4);
+				this.enterOuterAlt(_localctx, 3);
 				{
-				this.state = 173;
+				this.state = 170;
 				this.attributeId();
-				this.state = 175;
+				this.state = 172;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				do {
 					{
 					{
-					this.state = 174;
+					this.state = 171;
 					this.match(XonParser.NL);
 					}
 					}
-					this.state = 177;
+					this.state = 174;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 				} while (_la === XonParser.NL);
-				this.state = 179;
+				this.state = 176;
 				this.match(XonParser.INDENT);
-				this.state = 182;
+				this.state = 179;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				do {
 					{
-					this.state = 182;
+					this.state = 179;
 					this._errHandler.sync(this);
 					switch (this._input.LA(1)) {
 					case XonParser.EXTENSION:
@@ -861,13 +850,13 @@ export class XonParser extends Parser {
 					case XonParser.STRING_LITERAL:
 					case XonParser.ID:
 						{
-						this.state = 180;
+						this.state = 177;
 						this.attribute();
 						}
 						break;
 					case XonParser.NL:
 						{
-						this.state = 181;
+						this.state = 178;
 						this.match(XonParser.NL);
 						}
 						break;
@@ -875,12 +864,23 @@ export class XonParser extends Parser {
 						throw new NoViableAltException(this);
 					}
 					}
-					this.state = 184;
+					this.state = 181;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 				} while (((((_la - 27)) & ~0x1F) === 0 && ((1 << (_la - 27)) & ((1 << (XonParser.EXTENSION - 27)) | (1 << (XonParser.CLASS - 27)) | (1 << (XonParser.OBJECT - 27)) | (1 << (XonParser.ENUM - 27)) | (1 << (XonParser.INTERFACE - 27)) | (1 << (XonParser.PLUS - 27)) | (1 << (XonParser.LESS - 27)) | (1 << (XonParser.GREAT - 27)) | (1 << (XonParser.MINUS - 27)) | (1 << (XonParser.SLASH - 27)) | (1 << (XonParser.CARET - 27)) | (1 << (XonParser.ASSIGN - 27)) | (1 << (XonParser.MODULO - 27)) | (1 << (XonParser.ASTERISK - 27)))) !== 0) || ((((_la - 67)) & ~0x1F) === 0 && ((1 << (_la - 67)) & ((1 << (XonParser.STRING_LITERAL - 67)) | (1 << (XonParser.ID - 67)) | (1 << (XonParser.NL - 67)))) !== 0));
-				this.state = 186;
+				this.state = 183;
 				this.match(XonParser.DEDENT);
+				}
+				break;
+
+			case 4:
+				_localctx = new AbstractAttributeContext(_localctx);
+				this.enterOuterAlt(_localctx, 4);
+				{
+				this.state = 185;
+				this.attributeId();
+				this.state = 186;
+				this.type(0);
 				}
 				break;
 			}
@@ -2922,11 +2922,11 @@ export class XonParser extends Parser {
 		"\x03\x07\x03\x07\x05\x07s\n\x07\x03\x07\x05\x07v\n\x07\x05\x07x\n\x07" +
 		"\x03\b\x03\b\x05\b|\n\b\x03\b\x05\b\x7F\n\b\x03\t\x03\t\x03\t\x05\t\x84" +
 		"\n\t\x03\t\x03\t\x03\n\x06\n\x89\n\n\r\n\x0E\n\x8A\x03\n\x03\n\x03\n\x06" +
-		"\n\x90\n\n\r\n\x0E\n\x91\x03\n\x03\n\x03\v\x03\v\x03\v\x03\v\x03\v\x05" +
-		"\v\x9B\n\v\x03\v\x03\v\x03\v\x03\v\x03\v\x03\v\x06\v\xA3\n\v\r\v\x0E\v" +
-		"\xA4\x03\v\x03\v\x03\v\x06\v\xAA\n\v\r\v\x0E\v\xAB\x03\v\x03\v\x03\v\x03" +
-		"\v\x06\v\xB2\n\v\r\v\x0E\v\xB3\x03\v\x03\v\x03\v\x06\v\xB9\n\v\r\v\x0E" +
-		"\v\xBA\x03\v\x03\v\x05\v\xBF\n\v\x03\f\x03\f\x03\f\x03\f\x05\f\xC5\n\f" +
+		"\n\x90\n\n\r\n\x0E\n\x91\x03\n\x03\n\x03\v\x03\v\x05\v\x98\n\v\x03\v\x03" +
+		"\v\x03\v\x03\v\x03\v\x03\v\x06\v\xA0\n\v\r\v\x0E\v\xA1\x03\v\x03\v\x03" +
+		"\v\x06\v\xA7\n\v\r\v\x0E\v\xA8\x03\v\x03\v\x03\v\x03\v\x06\v\xAF\n\v\r" +
+		"\v\x0E\v\xB0\x03\v\x03\v\x03\v\x06\v\xB6\n\v\r\v\x0E\v\xB7\x03\v\x03\v" +
+		"\x03\v\x03\v\x03\v\x05\v\xBF\n\v\x03\f\x03\f\x03\f\x03\f\x05\f\xC5\n\f" +
 		"\x03\f\x03\f\x05\f\xC9\n\f\x03\f\x03\f\x03\f\x03\f\x03\f\x03\f\x03\f\x03" +
 		"\f\x03\f\x03\f\x03\f\x03\f\x03\f\x03\f\x03\f\x03\f\x03\f\x05\f\xDC\n\f" +
 		"\x03\f\x03\f\x03\f\x05\f\xE1\n\f\x03\f\x03\f\x03\f\x06\f\xE6\n\f\r\f\x0E" +
@@ -3008,24 +3008,24 @@ export class XonParser extends Parser {
 		"\x8F\x07\x03\x02\x02\x8D\x90\x05\x14\v\x02\x8E\x90\x07I\x02\x02\x8F\x8D" +
 		"\x03\x02\x02\x02\x8F\x8E\x03\x02\x02\x02\x90\x91\x03\x02\x02\x02\x91\x8F" +
 		"\x03\x02\x02\x02\x91\x92\x03\x02\x02\x02\x92\x93\x03\x02\x02\x02\x93\x94" +
-		"\x07\x04\x02\x02\x94\x13\x03\x02\x02\x02\x95\x96\x056\x1C\x02\x96\x97" +
-		"\x05\x1A\x0E\x02\x97\xBF\x03\x02\x02\x02\x98\x9A\x056\x1C\x02\x99\x9B" +
-		"\x05\x1A\x0E\x02\x9A\x99\x03\x02\x02\x02\x9A\x9B\x03\x02\x02\x02\x9B\x9C" +
-		"\x03\x02\x02\x02\x9C\x9D\x07.\x02\x02\x9D\x9E\x05\x18\r\x02\x9E\xBF\x03" +
-		"\x02\x02\x02\x9F\xA0\x056\x1C\x02\xA0\xA2\x05\x1A\x0E\x02\xA1\xA3\x07" +
-		"I\x02\x02\xA2\xA1\x03\x02\x02\x02\xA3\xA4\x03\x02\x02\x02\xA4\xA2\x03" +
-		"\x02\x02\x02\xA4\xA5\x03\x02\x02\x02\xA5\xA6\x03\x02\x02\x02\xA6\xA9\x07" +
-		"\x03\x02\x02\xA7\xAA\x05\x16\f\x02\xA8\xAA\x07I\x02\x02\xA9\xA7\x03\x02" +
-		"\x02\x02\xA9\xA8\x03\x02\x02\x02\xAA\xAB\x03\x02\x02\x02\xAB\xA9\x03\x02" +
-		"\x02\x02\xAB\xAC\x03\x02\x02\x02\xAC\xAD\x03\x02\x02\x02\xAD\xAE\x07\x04" +
-		"\x02\x02\xAE\xBF\x03\x02\x02\x02\xAF\xB1\x056\x1C\x02\xB0\xB2\x07I\x02" +
-		"\x02\xB1\xB0\x03\x02\x02\x02\xB2\xB3\x03\x02\x02\x02\xB3\xB1\x03\x02\x02" +
-		"\x02\xB3\xB4\x03\x02\x02\x02\xB4\xB5\x03\x02\x02\x02\xB5\xB8\x07\x03\x02" +
-		"\x02\xB6\xB9\x05\x14\v\x02\xB7\xB9\x07I\x02\x02\xB8\xB6\x03\x02\x02\x02" +
-		"\xB8\xB7\x03\x02\x02\x02\xB9\xBA\x03\x02\x02\x02\xBA\xB8\x03\x02\x02\x02" +
-		"\xBA\xBB\x03\x02\x02\x02\xBB\xBC\x03\x02\x02\x02\xBC\xBD\x07\x04\x02\x02" +
-		"\xBD\xBF\x03\x02\x02\x02\xBE\x95\x03\x02\x02\x02\xBE\x98\x03\x02\x02\x02" +
-		"\xBE\x9F\x03\x02\x02\x02\xBE\xAF\x03\x02\x02\x02\xBF\x15\x03\x02\x02\x02" +
+		"\x07\x04\x02\x02\x94\x13\x03\x02\x02\x02\x95\x97\x056\x1C\x02\x96\x98" +
+		"\x05\x1A\x0E\x02\x97\x96\x03\x02\x02\x02\x97\x98\x03\x02\x02\x02\x98\x99" +
+		"\x03\x02\x02\x02\x99\x9A\x07.\x02\x02\x9A\x9B\x05\x18\r\x02\x9B\xBF\x03" +
+		"\x02\x02\x02\x9C\x9D\x056\x1C\x02\x9D\x9F\x05\x1A\x0E\x02\x9E\xA0\x07" +
+		"I\x02\x02\x9F\x9E\x03\x02\x02\x02\xA0\xA1\x03\x02\x02\x02\xA1\x9F\x03" +
+		"\x02\x02\x02\xA1\xA2\x03\x02\x02\x02\xA2\xA3\x03\x02\x02\x02\xA3\xA6\x07" +
+		"\x03\x02\x02\xA4\xA7\x05\x16\f\x02\xA5\xA7\x07I\x02\x02\xA6\xA4\x03\x02" +
+		"\x02\x02\xA6\xA5\x03\x02\x02\x02\xA7\xA8\x03\x02\x02\x02\xA8\xA6\x03\x02" +
+		"\x02\x02\xA8\xA9\x03\x02\x02\x02\xA9\xAA\x03\x02\x02\x02\xAA\xAB\x07\x04" +
+		"\x02\x02\xAB\xBF\x03\x02\x02\x02\xAC\xAE\x056\x1C\x02\xAD\xAF\x07I\x02" +
+		"\x02\xAE\xAD\x03\x02\x02\x02\xAF\xB0\x03\x02\x02\x02\xB0\xAE\x03\x02\x02" +
+		"\x02\xB0\xB1\x03\x02\x02\x02\xB1\xB2\x03\x02\x02\x02\xB2\xB5\x07\x03\x02" +
+		"\x02\xB3\xB6\x05\x14\v\x02\xB4\xB6\x07I\x02\x02\xB5\xB3\x03\x02\x02\x02" +
+		"\xB5\xB4\x03\x02\x02\x02\xB6\xB7\x03\x02\x02\x02\xB7\xB5\x03\x02\x02\x02" +
+		"\xB7\xB8\x03\x02\x02\x02\xB8\xB9\x03\x02\x02\x02\xB9\xBA\x07\x04\x02\x02" +
+		"\xBA\xBF\x03\x02\x02\x02\xBB\xBC\x056\x1C\x02\xBC\xBD\x05\x1A\x0E\x02" +
+		"\xBD\xBF\x03\x02\x02\x02\xBE\x95\x03\x02\x02\x02\xBE\x9C\x03\x02\x02\x02" +
+		"\xBE\xAC\x03\x02\x02\x02\xBE\xBB\x03\x02\x02\x02\xBF\x15\x03\x02\x02\x02" +
 		"\xC0\xC8\x07\x10\x02\x02\xC1\xC4\x058\x1D\x02\xC2\xC3\x07-\x02\x02\xC3" +
 		"\xC5\x058\x1D\x02\xC4\xC2\x03\x02\x02\x02\xC4\xC5\x03\x02\x02\x02\xC5" +
 		"\xC6\x03\x02\x02\x02\xC6\xC7\x07\x0F\x02\x02\xC7\xC9\x03\x02\x02\x02\xC8" +
@@ -3190,8 +3190,8 @@ export class XonParser extends Parser {
 		"\x02\x02\u0218\u021B\x07H\x02\x02\u0219\u021B\x05:\x1E\x02\u021A\u0218" +
 		"\x03\x02\x02\x02\u021A\u0219\x03\x02\x02\x02\u021B9\x03\x02\x02\x02\u021C" +
 		"\u021D\t\b\x02\x02\u021D;\x03\x02\x02\x02\u021E\u021F\t\t\x02\x02\u021F" +
-		"=\x03\x02\x02\x02OACHJX`fkruw{~\x83\x8A\x8F\x91\x9A\xA4\xA9\xAB\xB3\xB8" +
-		"\xBA\xBE\xC4\xC8\xDB\xE0\xE7\xF2\u0103\u0129\u0131\u013D\u013F\u0145\u0149" +
+		"=\x03\x02\x02\x02OACHJX`fkruw{~\x83\x8A\x8F\x91\x97\xA1\xA6\xA8\xB0\xB5" +
+		"\xB7\xBE\xC4\xC8\xDB\xE0\xE7\xF2\u0103\u0129\u0131\u013D\u013F\u0145\u0149" +
 		"\u014D\u0155\u0165\u0167\u016F\u0173\u0176\u0179\u0181\u0184\u0187\u0191" +
 		"\u0194\u0197\u01A1\u01A4\u01A7\u01B1\u01B4\u01B7\u01C1\u01C4\u01C7\u01D1" +
 		"\u01D4\u01D7\u01DD\u01E2\u01EA\u01EE\u01F8\u01FB\u01FE\u0207\u020C\u020E" +
@@ -3472,18 +3472,6 @@ export class AttributeContext extends ParserRuleContext {
 		super.copyFrom(ctx);
 	}
 }
-export class AbstractAttributeContext extends AttributeContext {
-	public attributeId(): AttributeIdContext {
-		return this.getRuleContext(0, AttributeIdContext);
-	}
-	public type(): TypeContext {
-		return this.getRuleContext(0, TypeContext);
-	}
-	constructor(ctx: AttributeContext) {
-		super(ctx.parent, ctx.invokingState);
-		this.copyFrom(ctx);
-	}
-}
 export class ValueAttributeContext extends AttributeContext {
 	public attributeId(): AttributeIdContext {
 		return this.getRuleContext(0, AttributeIdContext);
@@ -3555,6 +3543,18 @@ export class ObjectAttributeContext extends AttributeContext {
 		} else {
 			return this.getRuleContext(i, AttributeContext);
 		}
+	}
+	constructor(ctx: AttributeContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
+	}
+}
+export class AbstractAttributeContext extends AttributeContext {
+	public attributeId(): AttributeIdContext {
+		return this.getRuleContext(0, AttributeIdContext);
+	}
+	public type(): TypeContext {
+		return this.getRuleContext(0, TypeContext);
 	}
 	constructor(ctx: AttributeContext) {
 		super(ctx.parent, ctx.invokingState);
