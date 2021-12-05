@@ -25,12 +25,15 @@ test('number return method', () => {
 });
 
 test('from translator-ts', () => {
-  const code = '(i Integer) T';
+  const code = '<T, V>(i Integer) T';
   const tree = parseType<LambdaTypeTree>(code);
   expect(tree).toBeInstanceOf(LambdaTypeTree);
 
-  expect(tree.parameters.length).toBe(1);
+  expect(tree.typeParameters.length).toBe(2);
+  expect(tree.typeParameters[0].id.text).toBe('T');
+  expect(tree.typeParameters[1].id.text).toBe('V');
 
+  expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].id.text).toBe('i');
   expect(tree.parameters[0].type).toBeInstanceOf(IdTypeTree);
   expect((tree.parameters[0].type as IdTypeTree).id.text).toBe('Integer');
