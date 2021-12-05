@@ -1,4 +1,6 @@
 import { parseParameter } from '../parse';
+import { IdTypeTree } from '../type/id/id-type.tree';
+import { MetaTypeTree } from '../type/meta/meta-type.tree';
 import { ParameterTree } from './parameter.tree';
 
 test('has data type', () => {
@@ -7,7 +9,7 @@ test('has data type', () => {
   expect(tree).toBeInstanceOf(ParameterTree);
 
   expect(tree.id.text).toBe('b');
-  expect(tree.type.name).toBe('String');
+  expect(tree.type).toBeInstanceOf(IdTypeTree);
 });
 
 test('has data and meta types', () => {
@@ -16,5 +18,5 @@ test('has data and meta types', () => {
   expect(tree).toBeInstanceOf(ParameterTree);
 
   expect(tree.id.text).toBe('_b');
-  expect(tree.type.name).toBe('Literal');
+  expect(tree.type).toBeInstanceOf(MetaTypeTree);
 });

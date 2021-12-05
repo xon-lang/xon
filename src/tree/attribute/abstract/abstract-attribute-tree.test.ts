@@ -1,4 +1,6 @@
 import { parseAttribute } from '../../parse';
+import { ArrayTypeTree } from '../../type/array/array-type.tree';
+import { IdTypeTree } from '../../type/id/id-type.tree';
 import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
 import { AbstractAttributeTree } from './abstract-attribute-tree';
 
@@ -9,7 +11,7 @@ test('private value with type', () => {
 
   expect(tree.id.text).toBe('_a');
   expect(tree.isPrivate).toBe(true);
-  expect(tree.type.name).toBe('Integer');
+  expect(tree.type).toBeInstanceOf(IdTypeTree);
 });
 
 test('array value', () => {
@@ -19,7 +21,7 @@ test('array value', () => {
 
   expect(tree.id.text).toBe('a');
   expect(tree.isPrivate).toBe(false);
-  expect(tree.type.name).toBe('Array');
+  expect(tree.type).toBeInstanceOf(ArrayTypeTree);
 });
 
 test('operator', () => {
@@ -29,6 +31,6 @@ test('operator', () => {
 
   expect(tree.id.text).toBe('+');
   expect(tree.isPrivate).toBe(false);
-  expect(tree.type.name).toBe('Lambda');
-  expect((tree.type as LambdaTypeTree).resultType.name).toBe('Integer');
+  expect(tree.type).toBeInstanceOf(LambdaTypeTree);
+  expect((tree.type as LambdaTypeTree).resultType).toBeInstanceOf(IdTypeTree);
 });

@@ -9,7 +9,7 @@ test('number return method', () => {
   expect(tree).toBeInstanceOf(LambdaTypeTree);
 
   expect(tree.parameters.length).toBe(2);
-  expect(tree.parameters[0].id.text).toBe('a');
+  expect(tree.parameters[0].id.text).toBe('s');
   expect(tree.parameters[0].type).toBeInstanceOf(IdTypeTree);
   expect((tree.parameters[0].type as IdTypeTree).id.text).toBe('String');
 

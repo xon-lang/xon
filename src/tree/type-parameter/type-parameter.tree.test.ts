@@ -1,4 +1,5 @@
 import { parseTypeParameter } from '../parse';
+import { MetaTypeTree } from '../type/meta/meta-type.tree';
 import { TypeParameterTree } from './type-parameter.tree';
 
 test('parameter name', () => {
@@ -16,5 +17,5 @@ test('restricts', () => {
   expect(tree).toBeInstanceOf(TypeParameterTree);
 
   expect(tree.id.text).toBe('T');
-  expect(tree.restrictionType.name).toBe('StringLiteral');
+  expect(tree.restrictionType).toBeInstanceOf(MetaTypeTree);
 });

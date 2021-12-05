@@ -7,6 +7,7 @@ import { LiteralExpressionTree } from '../../expression/literal/literal-expressi
 import { parseDefinition, parseSourceFile } from '../../parse';
 import { SourceTree } from '../../source/source-tree';
 import { ExpressionStatementTree } from '../../statement/expression/expression-statement.tree';
+import { IdTypeTree } from '../../type/id/id-type.tree';
 import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
 import { ClassDefinitionTree } from './class-definition-tree';
 
@@ -23,8 +24,8 @@ test('one scope', () => {
   const ancestor = definition.ancestor;
   expect(ancestor.id.text).toBe('Base');
   expect(ancestor.typeArguments.length).toBe(2);
-  expect(ancestor.typeArguments[0].name).toBe('String');
-  expect(ancestor.typeArguments[1].name).toBe('Boolean');
+  expect((ancestor.typeArguments[0] as IdTypeTree).id.text).toBe('String');
+  expect((ancestor.typeArguments[1] as IdTypeTree).id.text).toBe('Boolean');
   expect(definition.ancestor.arguments.length).toBe(2);
 
   const attrs = definition.attributes;
@@ -40,12 +41,12 @@ test('one scope', () => {
   const anotherPropAttribute = attrs[1] as AbstractAttributeTree;
   expect(anotherPropAttribute).toBeInstanceOf(AbstractAttributeTree);
   expect(anotherPropAttribute.id.text).toBe('anotherProp');
-  expect(anotherPropAttribute.type.name).toBe('String');
+  expect((anotherPropAttribute.type as IdTypeTree).id.text).toBe('String');
 
   const typedValueAttribute = attrs[2] as AbstractAttributeTree;
   expect(typedValueAttribute).toBeInstanceOf(AbstractAttributeTree);
   expect(typedValueAttribute.id.text).toBe('typedValue');
-  expect(typedValueAttribute.type.name).toBe('Number');
+  expect((typedValueAttribute.type as IdTypeTree).id.text).toBe('Number');
 
   const methodAttribute = attrs[3] as MethodAttributeTree;
   expect(methodAttribute).toBeInstanceOf(MethodAttributeTree);
@@ -64,9 +65,13 @@ test('one scope', () => {
   expect(locationAttribute.id.text).toBe('location');
   expect((locationAttribute.type as LambdaTypeTree).parameters.length).toBe(2);
   expect((locationAttribute.type as LambdaTypeTree).parameters[0].id.text).toBe('x');
-  expect((locationAttribute.type as LambdaTypeTree).parameters[0].type.name).toBe('Number');
+  expect(
+    ((locationAttribute.type as LambdaTypeTree).parameters[0].type as IdTypeTree).id.text,
+  ).toBe('Number');
   expect((locationAttribute.type as LambdaTypeTree).parameters[1].id.text).toBe('y');
-  expect((locationAttribute.type as LambdaTypeTree).parameters[1].type.name).toBe('Number');
+  expect(
+    ((locationAttribute.type as LambdaTypeTree).parameters[1].type as IdTypeTree).id.text,
+  ).toBe('Number');
   expect(locationAttribute.body.length).toBe(1);
   expect((locationAttribute.body[0] as ExpressionStatementTree).expression).toBeInstanceOf(
     CallExpressionTree,
@@ -82,8 +87,8 @@ test('one scope', () => {
   expect(plusAttribute.id.text).toBe('+');
   const operatorType = plusAttribute.type as LambdaTypeTree;
   expect(operatorType.parameters[0].id.text).toBe('it');
-  expect(operatorType.parameters[0].type.name).toBe('SomeClass');
-  expect(operatorType.resultType.name).toBe('AnotherClass');
+  expect((operatorType.parameters[0].type as IdTypeTree).id.text).toBe('SomeClass');
+  expect((operatorType.resultType as IdTypeTree).id.text).toBe('AnotherClass');
 });
 
 test('class with 2 attributes', () => {
