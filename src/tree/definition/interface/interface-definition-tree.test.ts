@@ -7,12 +7,11 @@ import { LiteralExpressionTree } from '../../expression/literal/literal-expressi
 import { parseSourceFile } from '../../parse';
 import { SourceTree } from '../../source/source-tree';
 import { ExpressionStatementTree } from '../../statement/expression/expression-statement.tree';
-import { IdTypeTree } from '../../type/id/id-type.tree';
 import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
 import { InterfaceDefinitionTree } from './interface-definition-tree';
 
-test('one scope', () => {
-  const tree = parseSourceFile('src/tree/definition/class/class-definition-test-file.xon');
+test('interface file', () => {
+  const tree = parseSourceFile('src/tree/definition/interface/interface-definition-test-file.xon');
   expect(tree).toBeInstanceOf(SourceTree);
 
   // expect(tree.definitions.length).toBe(1);
