@@ -70,12 +70,12 @@ type:
     | literal                                # literalType
     | type '#' id                            # metaType
     | type '?'                               # nullableType
-    | type '||' type                         # unionType
-    | type '&&' type                         # intersectionType
     | type '[' ']'                           # arrayType
-    | typeParameters? lambdaParameters type? # lambdaType
     | arrayParameters                        # tupleType
     | objectParameters                       # objectType
+    | type '&&' type                         # intersectionType
+    | type '||' type                         # unionType
+    | typeParameters? lambdaParameters type? # lambdaType
     | '(' type ')'                           # parenthesizedType
     ;
 

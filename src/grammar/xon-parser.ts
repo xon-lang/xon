@@ -1659,51 +1659,51 @@ export class XonParser extends Parser {
 
 			case 3:
 				{
-				_localctx = new LambdaTypeContext(_localctx);
+				_localctx = new TupleTypeContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
-				this.state = 332;
-				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-				if (_la === XonParser.LESS) {
-					{
-					this.state = 331;
-					this.typeParameters();
-					}
-				}
-
-				this.state = 334;
-				this.lambdaParameters();
-				this.state = 336;
-				this._errHandler.sync(this);
-				switch ( this.interpreter.adaptivePredict(this._input, 41, this._ctx) ) {
-				case 1:
-					{
-					this.state = 335;
-					this.type(0);
-					}
-					break;
-				}
+				this.state = 331;
+				this.arrayParameters();
 				}
 				break;
 
 			case 4:
 				{
-				_localctx = new TupleTypeContext(_localctx);
+				_localctx = new ObjectTypeContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
-				this.state = 338;
-				this.arrayParameters();
+				this.state = 332;
+				this.objectParameters();
 				}
 				break;
 
 			case 5:
 				{
-				_localctx = new ObjectTypeContext(_localctx);
+				_localctx = new LambdaTypeContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
-				this.state = 339;
-				this.objectParameters();
+				this.state = 334;
+				this._errHandler.sync(this);
+				_la = this._input.LA(1);
+				if (_la === XonParser.LESS) {
+					{
+					this.state = 333;
+					this.typeParameters();
+					}
+				}
+
+				this.state = 336;
+				this.lambdaParameters();
+				this.state = 338;
+				this._errHandler.sync(this);
+				switch ( this.interpreter.adaptivePredict(this._input, 41, this._ctx) ) {
+				case 1:
+					{
+					this.state = 337;
+					this.type(0);
+					}
+					break;
+				}
 				}
 				break;
 
@@ -1737,31 +1737,31 @@ export class XonParser extends Parser {
 					switch ( this.interpreter.adaptivePredict(this._input, 43, this._ctx) ) {
 					case 1:
 						{
-						_localctx = new UnionTypeContext(new TypeContext(_parentctx, _parentState));
+						_localctx = new IntersectionTypeContext(new TypeContext(_parentctx, _parentState));
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_type);
 						this.state = 346;
-						if (!(this.precpred(this._ctx, 7))) {
-							throw this.createFailedPredicateException("this.precpred(this._ctx, 7)");
+						if (!(this.precpred(this._ctx, 4))) {
+							throw this.createFailedPredicateException("this.precpred(this._ctx, 4)");
 						}
 						this.state = 347;
-						this.match(XonParser.OR);
+						this.match(XonParser.AND);
 						this.state = 348;
-						this.type(8);
+						this.type(5);
 						}
 						break;
 
 					case 2:
 						{
-						_localctx = new IntersectionTypeContext(new TypeContext(_parentctx, _parentState));
+						_localctx = new UnionTypeContext(new TypeContext(_parentctx, _parentState));
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_type);
 						this.state = 349;
-						if (!(this.precpred(this._ctx, 6))) {
-							throw this.createFailedPredicateException("this.precpred(this._ctx, 6)");
+						if (!(this.precpred(this._ctx, 3))) {
+							throw this.createFailedPredicateException("this.precpred(this._ctx, 3)");
 						}
 						this.state = 350;
-						this.match(XonParser.AND);
+						this.match(XonParser.OR);
 						this.state = 351;
-						this.type(7);
+						this.type(4);
 						}
 						break;
 
@@ -1798,8 +1798,8 @@ export class XonParser extends Parser {
 						_localctx = new ArrayTypeContext(new TypeContext(_parentctx, _parentState));
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_type);
 						this.state = 357;
-						if (!(this.precpred(this._ctx, 5))) {
-							throw this.createFailedPredicateException("this.precpred(this._ctx, 5)");
+						if (!(this.precpred(this._ctx, 7))) {
+							throw this.createFailedPredicateException("this.precpred(this._ctx, 7)");
 						}
 						this.state = 358;
 						this.match(XonParser.OPEN_BRACKET);
@@ -2914,10 +2914,10 @@ export class XonParser extends Parser {
 	private type_sempred(_localctx: TypeContext, predIndex: number): boolean {
 		switch (predIndex) {
 		case 16:
-			return this.precpred(this._ctx, 7);
+			return this.precpred(this._ctx, 4);
 
 		case 17:
-			return this.precpred(this._ctx, 6);
+			return this.precpred(this._ctx, 3);
 
 		case 18:
 			return this.precpred(this._ctx, 9);
@@ -2926,7 +2926,7 @@ export class XonParser extends Parser {
 			return this.precpred(this._ctx, 8);
 
 		case 20:
-			return this.precpred(this._ctx, 5);
+			return this.precpred(this._ctx, 7);
 		}
 		return true;
 	}
@@ -2965,8 +2965,8 @@ export class XonParser extends Parser {
 		"\r\x03\r\x03\r\x05\r\u012F\n\r\x03\r\x03\r\x03\r\x03\r\x03\r\x03\r\x05" +
 		"\r\u0137\n\r\x03\r\x03\r\x03\r\x03\r\x03\r\x03\r\x03\r\x03\r\x03\r\x03" +
 		"\r\x07\r\u0143\n\r\f\r\x0E\r\u0146\v\r\x03\x0E\x03\x0E\x03\x0E\x05\x0E" +
-		"\u014B\n\x0E\x03\x0E\x03\x0E\x05\x0E\u014F\n\x0E\x03\x0E\x03\x0E\x05\x0E" +
-		"\u0153\n\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x05\x0E\u015B" +
+		"\u014B\n\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x05\x0E\u0151\n\x0E\x03\x0E" +
+		"\x03\x0E\x05\x0E\u0155\n\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x05\x0E\u015B" +
 		"\n\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E" +
 		"\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x07\x0E\u016B\n\x0E\f" +
 		"\x0E\x0E\x0E\u016E\v\x0E\x03\x0F\x03\x0F\x03\x0F\x03\x0F\x03\x0F\x05\x0F" +
@@ -3116,22 +3116,22 @@ export class XonParser extends Parser {
 		"\x02\x02\u0144\u0145\x03\x02\x02\x02\u0145\x19\x03\x02\x02\x02\u0146\u0144" +
 		"\x03\x02\x02\x02\u0147\u0148\b\x0E\x01\x02\u0148\u014A\x058\x1D\x02\u0149" +
 		"\u014B\x052\x1A\x02\u014A\u0149\x03\x02\x02\x02\u014A\u014B\x03\x02\x02" +
-		"\x02\u014B\u015B\x03\x02\x02\x02\u014C\u015B\x05\x1C\x0F\x02\u014D\u014F" +
-		"\x050\x19\x02\u014E\u014D\x03\x02\x02\x02\u014E\u014F\x03\x02\x02\x02" +
-		"\u014F\u0150\x03\x02\x02\x02\u0150\u0152\x05 \x11\x02\u0151\u0153\x05" +
-		"\x1A\x0E\x02\u0152\u0151\x03\x02\x02\x02\u0152\u0153\x03\x02\x02\x02\u0153" +
-		"\u015B\x03\x02\x02\x02\u0154\u015B\x05\"\x12\x02\u0155\u015B\x05$\x13" +
-		"\x02\u0156\u0157\x07\x07\x02\x02\u0157\u0158\x05\x1A\x0E\x02\u0158\u0159" +
-		"\x07\b\x02\x02\u0159\u015B\x03\x02\x02\x02\u015A\u0147\x03\x02\x02\x02" +
-		"\u015A\u014C\x03\x02\x02\x02\u015A\u014E\x03\x02\x02\x02\u015A\u0154\x03" +
-		"\x02\x02\x02\u015A\u0155\x03\x02\x02\x02\u015A\u0156\x03\x02\x02\x02\u015B" +
-		"\u016C\x03\x02\x02\x02\u015C\u015D\f\t\x02\x02\u015D\u015E\x07>\x02\x02" +
-		"\u015E\u016B\x05\x1A\x0E\n\u015F\u0160\f\b\x02\x02\u0160\u0161\x07=\x02" +
-		"\x02\u0161\u016B\x05\x1A\x0E\t\u0162\u0163\f\v\x02\x02\u0163\u0164\x07" +
-		")\x02\x02\u0164\u016B\x058\x1D\x02\u0165\u0166\f\n\x02\x02\u0166\u016B" +
-		"\x079\x02\x02\u0167\u0168\f\x07\x02\x02\u0168\u0169\x07\x05\x02\x02\u0169" +
-		"\u016B\x07\x06\x02\x02\u016A\u015C\x03\x02\x02\x02\u016A\u015F\x03\x02" +
-		"\x02\x02\u016A\u0162\x03\x02\x02\x02\u016A\u0165\x03\x02\x02\x02\u016A" +
+		"\x02\u014B\u015B\x03\x02\x02\x02\u014C\u015B\x05\x1C\x0F\x02\u014D\u015B" +
+		"\x05\"\x12\x02\u014E\u015B\x05$\x13\x02\u014F\u0151\x050\x19\x02\u0150" +
+		"\u014F\x03\x02\x02\x02\u0150\u0151\x03\x02\x02\x02\u0151\u0152\x03\x02" +
+		"\x02\x02\u0152\u0154\x05 \x11\x02\u0153\u0155\x05\x1A\x0E\x02\u0154\u0153" +
+		"\x03\x02\x02\x02\u0154\u0155\x03\x02\x02\x02\u0155\u015B\x03\x02\x02\x02" +
+		"\u0156\u0157\x07\x07\x02\x02\u0157\u0158\x05\x1A\x0E\x02\u0158\u0159\x07" +
+		"\b\x02\x02\u0159\u015B\x03\x02\x02\x02\u015A\u0147\x03\x02\x02\x02\u015A" +
+		"\u014C\x03\x02\x02\x02\u015A\u014D\x03\x02\x02\x02\u015A\u014E\x03\x02" +
+		"\x02\x02\u015A\u0150\x03\x02\x02\x02\u015A\u0156\x03\x02\x02\x02\u015B" +
+		"\u016C\x03\x02\x02\x02\u015C\u015D\f\x06\x02\x02\u015D\u015E\x07=\x02" +
+		"\x02\u015E\u016B\x05\x1A\x0E\x07\u015F\u0160\f\x05\x02\x02\u0160\u0161" +
+		"\x07>\x02\x02\u0161\u016B\x05\x1A\x0E\x06\u0162\u0163\f\v\x02\x02\u0163" +
+		"\u0164\x07)\x02\x02\u0164\u016B\x058\x1D\x02\u0165\u0166\f\n\x02\x02\u0166" +
+		"\u016B\x079\x02\x02\u0167\u0168\f\t\x02\x02\u0168\u0169\x07\x05\x02\x02" +
+		"\u0169\u016B\x07\x06\x02\x02\u016A\u015C\x03\x02\x02\x02\u016A\u015F\x03" +
+		"\x02\x02\x02\u016A\u0162\x03\x02\x02\x02\u016A\u0165\x03\x02\x02\x02\u016A" +
 		"\u0167\x03\x02\x02\x02\u016B\u016E\x03\x02\x02\x02\u016C\u016A\x03\x02" +
 		"\x02\x02\u016C\u016D\x03\x02\x02\x02\u016D\x1B\x03\x02\x02\x02\u016E\u016C" +
 		"\x03\x02\x02\x02\u016F\u0175\x07C\x02\x02\u0170\u0175\x07B\x02\x02\u0171" +
@@ -3221,7 +3221,7 @@ export class XonParser extends Parser {
 		"\u0222\t\b\x02\x02\u0222;\x03\x02\x02\x02\u0223\u0224\t\t\x02\x02\u0224" +
 		"=\x03\x02\x02\x02RACHJX`fkruw{~\x81\x86\x89\x8E\x93\x95\x9B\xA5\xAA\xAC" +
 		"\xB4\xB9\xBB\xC1\xC3\xC9\xCD\xE0\xE5\xEC\xF7\u0108\u012E\u0136\u0142\u0144" +
-		"\u014A\u014E\u0152\u015A\u016A\u016C\u0174\u0178\u017B\u017E\u0186\u0189" +
+		"\u014A\u0150\u0154\u015A\u016A\u016C\u0174\u0178\u017B\u017E\u0186\u0189" +
 		"\u018C\u0196\u0199\u019C\u01A6\u01A9\u01AC\u01B6\u01B9\u01BC\u01C6\u01C9" +
 		"\u01CC\u01D6\u01D9\u01DC\u01E2\u01E7\u01EF\u01F3\u01FD\u0200\u0203\u020C" +
 		"\u0211\u0213\u0216\u021B\u021F";
@@ -4172,17 +4172,30 @@ export class NullableTypeContext extends TypeContext {
 		this.copyFrom(ctx);
 	}
 }
-export class UnionTypeContext extends TypeContext {
-	public type(): TypeContext[];
-	public type(i: number): TypeContext;
-	public type(i?: number): TypeContext | TypeContext[] {
-		if (i === undefined) {
-			return this.getRuleContexts(TypeContext);
-		} else {
-			return this.getRuleContext(i, TypeContext);
-		}
+export class ArrayTypeContext extends TypeContext {
+	public type(): TypeContext {
+		return this.getRuleContext(0, TypeContext);
 	}
-	public OR(): TerminalNode { return this.getToken(XonParser.OR, 0); }
+	public OPEN_BRACKET(): TerminalNode { return this.getToken(XonParser.OPEN_BRACKET, 0); }
+	public CLOSE_BRACKET(): TerminalNode { return this.getToken(XonParser.CLOSE_BRACKET, 0); }
+	constructor(ctx: TypeContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
+	}
+}
+export class TupleTypeContext extends TypeContext {
+	public arrayParameters(): ArrayParametersContext {
+		return this.getRuleContext(0, ArrayParametersContext);
+	}
+	constructor(ctx: TypeContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
+	}
+}
+export class ObjectTypeContext extends TypeContext {
+	public objectParameters(): ObjectParametersContext {
+		return this.getRuleContext(0, ObjectParametersContext);
+	}
 	constructor(ctx: TypeContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
@@ -4204,12 +4217,17 @@ export class IntersectionTypeContext extends TypeContext {
 		this.copyFrom(ctx);
 	}
 }
-export class ArrayTypeContext extends TypeContext {
-	public type(): TypeContext {
-		return this.getRuleContext(0, TypeContext);
+export class UnionTypeContext extends TypeContext {
+	public type(): TypeContext[];
+	public type(i: number): TypeContext;
+	public type(i?: number): TypeContext | TypeContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(TypeContext);
+		} else {
+			return this.getRuleContext(i, TypeContext);
+		}
 	}
-	public OPEN_BRACKET(): TerminalNode { return this.getToken(XonParser.OPEN_BRACKET, 0); }
-	public CLOSE_BRACKET(): TerminalNode { return this.getToken(XonParser.CLOSE_BRACKET, 0); }
+	public OR(): TerminalNode { return this.getToken(XonParser.OR, 0); }
 	constructor(ctx: TypeContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
@@ -4224,24 +4242,6 @@ export class LambdaTypeContext extends TypeContext {
 	}
 	public type(): TypeContext | undefined {
 		return this.tryGetRuleContext(0, TypeContext);
-	}
-	constructor(ctx: TypeContext) {
-		super(ctx.parent, ctx.invokingState);
-		this.copyFrom(ctx);
-	}
-}
-export class TupleTypeContext extends TypeContext {
-	public arrayParameters(): ArrayParametersContext {
-		return this.getRuleContext(0, ArrayParametersContext);
-	}
-	constructor(ctx: TypeContext) {
-		super(ctx.parent, ctx.invokingState);
-		this.copyFrom(ctx);
-	}
-}
-export class ObjectTypeContext extends TypeContext {
-	public objectParameters(): ObjectParametersContext {
-		return this.getRuleContext(0, ObjectParametersContext);
 	}
 	constructor(ctx: TypeContext) {
 		super(ctx.parent, ctx.invokingState);
