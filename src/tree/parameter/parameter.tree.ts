@@ -11,7 +11,7 @@ export class ParameterTree extends BaseTree {
   constructor(public ctx: ParameterContext) {
     super();
 
-    this.id = IdToken.fromContext(ctx.id());
+    this.id = (ctx.id() && IdToken.fromContext(ctx.id())) || null;
     this.type = getTypeTree(ctx.type()) || null;
   }
 
