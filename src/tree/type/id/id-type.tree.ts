@@ -6,21 +6,19 @@ import { TypeTree } from '../type.tree';
 
 export class IdTypeTree extends TypeTree {
   metadata: IdTypeMetadata;
-  name: string;
   id: IdToken;
   typeArguments: TypeTree[] = [];
 
   constructor(public ctx: IdTypeContext) {
     super();
 
-    this.name = ctx.id().text;
     this.id = IdToken.fromContext(ctx.id());
     this.typeArguments = getTypesTrees(ctx.typeArguments()?.type());
   }
 
   toString(): string {
     const typeParameters = this.typeArguments.join(', ');
-    if (this.typeArguments.length) return `${this.name}<${typeParameters}>`;
-    return this.name;
+    if (this.typeArguments.length) return `${this.id.text}<${typeParameters}>`;
+    return this.id.text;
   }
 }

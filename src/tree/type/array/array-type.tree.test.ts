@@ -1,4 +1,5 @@
 import { parseType } from '../../parse';
+import { IdTypeTree } from '../id/id-type.tree';
 import { ArrayTypeTree } from './array-type.tree';
 
 test('string array', () => {
@@ -6,6 +7,6 @@ test('string array', () => {
   const tree = parseType<ArrayTypeTree>(code);
   expect(tree).toBeInstanceOf(ArrayTypeTree);
 
-  expect(tree.itemType.name).toBe('String');
-  expect(tree.toString()).toBe('String[]');
+  expect(tree.itemType).toBeInstanceOf(IdTypeTree);
+  expect((tree.itemType as IdTypeTree).id.text).toBe('String');
 });

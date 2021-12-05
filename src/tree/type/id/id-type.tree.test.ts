@@ -7,7 +7,7 @@ test('has id name', () => {
   const tree = parseType<IdTypeTree>(code);
   expect(tree).toBeInstanceOf(IdTypeTree);
 
-  expect(tree.name).toBe('String');
+  expect(tree.id.text).toBe('String');
 });
 
 test('has id with type parameters', () => {
@@ -15,9 +15,11 @@ test('has id with type parameters', () => {
   const tree = parseType<IdTypeTree>(code);
   expect(tree).toBeInstanceOf(IdTypeTree);
 
-  expect(tree.name).toBe('Map');
+  expect(tree.id.text).toBe('Map');
   expect(tree.typeArguments.length).toBe(2);
-  expect(tree.typeArguments[0].name).toBe('String');
+  expect((tree.typeArguments[0] as IdTypeTree).id.text).toBe('String');
   expect((tree.typeArguments[1] as LambdaTypeTree).parameters.length).toBe(0);
-  expect((tree.typeArguments[1] as LambdaTypeTree).resultType.name).toBe('Integer');
+  expect(((tree.typeArguments[1] as LambdaTypeTree).resultType as IdTypeTree).id.text).toBe(
+    'Integer',
+  );
 });

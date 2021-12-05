@@ -6,7 +6,6 @@ import { TypeTree } from '../type.tree';
 
 export class LiteralTypeTree extends TypeTree {
   metadata: LiteralTypeMetadata;
-  name: string;
   literal: LiteralTree;
 
   constructor(public ctx: LiteralTypeContext) {

@@ -20,7 +20,7 @@ export class NullableTypeMetadata extends TypeMetadata {
   }
 
   static fromTree(tree: NullableTypeTree, scope: DeclarationScope) {
-    const type = getTypeMetadata(tree.baseType, scope);
+    const type = getTypeMetadata(tree.type, scope);
     const metadata = new NullableTypeMetadata(type, scope);
     return metadata;
   }

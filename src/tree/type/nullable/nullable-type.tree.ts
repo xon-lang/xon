@@ -5,17 +5,15 @@ import { TypeTree } from '../type.tree';
 
 export class NullableTypeTree extends TypeTree {
   metadata: NullableTypeMetadata;
-  name: string;
-  baseType: TypeTree;
+  type: TypeTree;
 
   constructor(public ctx: NullableTypeContext) {
     super();
 
-    this.name = this.constructor.name.replace(TypeTree.name, '');
-    this.baseType = getTypeTree(ctx.type());
+    this.type = getTypeTree(ctx.type());
   }
 
   toString(): string {
-    return `${this.baseType}?`;
+    return `${this.type}?`;
   }
 }

@@ -6,19 +6,17 @@ import { TypeTree } from '../type.tree';
 
 export class MetaTypeTree extends TypeTree {
   metadata: TypeMetadata;
-  name: string;
   id: IdToken;
   type: TypeTree;
 
   constructor(public ctx: MetaTypeContext) {
     super();
 
-    this.name = ctx.id().text;
     this.id = IdToken.fromContext(ctx.id());
     this.type = getTypeTree(ctx.type());
   }
 
   toString(): string {
-    return `${this.type.name}#${this.name}`;
+    return `${this.type}#${this.id.text}`;
   }
 }

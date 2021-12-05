@@ -15,5 +15,4 @@ test('string', () => {
   expect(tree).toBeInstanceOf(LiteralTypeTree);
 
   expect(tree.literal.value).toBe('hi');
-  expect(tree.literal.toString()).toBe('"hi"');
 });

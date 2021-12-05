@@ -7,14 +7,12 @@ import { TypeTree } from '../type.tree';
 
 export class LambdaTypeTree extends TypeTree {
   metadata: LambdaTypeMetadata;
-  name: string;
   parameters: ParameterTree[] = [];
   resultType?: TypeTree;
 
   constructor(public ctx: LambdaTypeContext) {
     super();
 
-    this.name = this.constructor.name.replace(TypeTree.name, '');
     this.parameters = getParametersTrees(ctx.lambdaParameters().parameter());
     this.resultType = (ctx.type() && getTypeTree(ctx.type())) || null;
   }

@@ -5,13 +5,11 @@ import { TypeTree } from '../type.tree';
 
 export class UnionTypeTree extends TypeTree {
   metadata: UnionTypeMetadata;
-  name: string;
   types: TypeTree[];
 
   constructor(public ctx: UnionTypeContext) {
     super();
 
-    this.name = this.constructor.name.replace(TypeTree.name, '');
     this.types = getTypesTrees(ctx.type());
   }
 

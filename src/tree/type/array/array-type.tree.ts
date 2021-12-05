@@ -7,13 +7,11 @@ import { UnionTypeTree } from '../union/union-type.tree';
 
 export class ArrayTypeTree extends TypeTree {
   metadata: ArrayTypeMetadata;
-  name: string;
   itemType: TypeTree;
 
   constructor(public ctx: ArrayTypeContext) {
     super();
 
-    this.name = this.constructor.name.replace(TypeTree.name, '');
     this.itemType = getTypeTree(ctx.type());
   }
 
