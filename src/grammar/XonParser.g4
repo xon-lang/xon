@@ -20,10 +20,10 @@ definitionAncestor: IS id typeArguments? lambdaArguments;
 definitionBody:     NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
-    attributeId type                                       # abstractAttribute
-    | attributeId type? ':' expression                     # valueAttribute
+    attributeId type? ':' expression                       # valueAttribute
     | attributeId type NL+ INDENT (statement | NL)+ DEDENT # methodAttribute
     | attributeId NL+ INDENT (attribute | NL)+ DEDENT      # objectAttribute
+    | attributeId type                                     # abstractAttribute
     ;
 
 statement:
