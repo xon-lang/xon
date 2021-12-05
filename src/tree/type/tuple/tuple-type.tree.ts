@@ -13,7 +13,7 @@ export class TupleTypeTree extends TypeTree {
     super();
 
     this.name = this.constructor.name.replace(TypeTree.name, '');
-    this.parameters = getParametersTrees(ctx.arrayParameters().parameter());
+    this.parameters = getParametersTrees(ctx.arrayParameters());
   }
 
   toString(): string {

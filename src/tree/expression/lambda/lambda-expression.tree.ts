@@ -13,7 +13,7 @@ export class LambdaExpressionTree extends ExpressionTree {
   constructor(public ctx: LambdaExpressionContext) {
     super();
 
-    this.parameters = getParametersTrees(ctx.lambdaParameters().parameter());
+    this.parameters = getParametersTrees(ctx.lambdaParameters());
     this.expression = getExpressionTree(ctx.expression());
   }
 

@@ -1,4 +1,9 @@
-import { ParameterContext } from '../../grammar/xon-parser';
+import {
+  ArrayParametersContext,
+  LambdaParametersContext,
+  ObjectParametersContext,
+  ParameterContext,
+} from '../../grammar/xon-parser';
 import { ParameterTree } from './parameter.tree';
 
 export const getParameterTree = (ctx: ParameterContext): ParameterTree => {
@@ -6,6 +11,14 @@ export const getParameterTree = (ctx: ParameterContext): ParameterTree => {
   return new ParameterTree(ctx);
 };
 
-export const getParametersTrees = (contexts: ParameterContext[]): ParameterTree[] => {
-  return contexts?.map(getParameterTree) || [];
+export const getParametersTrees = (
+  contexts:
+    | ParameterContext[]
+    | LambdaParametersContext
+    | ObjectParametersContext
+    | ArrayParametersContext,
+): ParameterTree[] => {
+  if (!contexts) return [];
+  if (Array.isArray(contexts)) return contexts.map(getParameterTree);
+  return getParametersTrees(contexts.parameter());
 };

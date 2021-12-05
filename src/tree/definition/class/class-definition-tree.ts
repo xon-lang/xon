@@ -2,14 +2,17 @@ import { TypeDefinitionContext } from '../../../grammar/xon-parser';
 import { AttributeTree } from '../../attribute/attribute-tree';
 import { getAttributesTrees } from '../../attribute/attribute-tree.helper';
 import { IdToken } from '../../id-token';
-import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
-import { getTypeTree } from '../../type/type-tree.helper';
+import { getParametersTrees } from '../../parameter/parameter-tree.helper';
+import { ParameterTree } from '../../parameter/parameter.tree';
+import { getTypeParametersTrees } from '../../type-parameter/type-parameter-tree.helper';
+import { TypeParameterTree } from '../../type-parameter/type-parameter.tree';
 import { DefinitionAncestorTree } from '../definition-ancestor-tree';
 import { DefinitionTree } from '../definition-tree';
 
 export class ClassDefinitionTree extends DefinitionTree {
   id: IdToken;
-  type: LambdaTypeTree;
+  typeParameters: TypeParameterTree[] = [];
+  parameters: ParameterTree[] = [];
   ancestor?: DefinitionAncestorTree;
   attributes: AttributeTree[] = [];
 
@@ -21,9 +24,8 @@ export class ClassDefinitionTree extends DefinitionTree {
     if (this.id.text[0] !== this.id.text[0].toUpperCase())
       throw new Error(`Definition name '${this.id.text}' must start with upper letter`);
 
-    this.type = getTypeTree(header.type()) as LambdaTypeTree;
-    if (!(this.type instanceof LambdaTypeTree) || this.type.resultType)
-      throw new Error('Type must be a LambdaType');
+    this.typeParameters = getTypeParametersTrees(header.typeParameters());
+    this.parameters = getParametersTrees(header.lambdaParameters());
 
     const ancestor = header.definitionAncestor();
     this.ancestor = (ancestor && new DefinitionAncestorTree(ancestor)) || null;

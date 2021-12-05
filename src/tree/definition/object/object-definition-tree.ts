@@ -18,6 +18,9 @@ export class ObjectDefinitionTree extends DefinitionTree {
     if (this.id.text[0] !== this.id.text[0].toUpperCase())
       throw new Error(`Definition name '${this.id.text}' must start with upper letter`);
 
+    if (header.typeParameters()) throw new Error('Object must not have a type parameters');
+    if (header.lambdaParameters()) throw new Error('Object must not have a constructor');
+
     const ancestor = header.definitionAncestor();
     this.ancestor = (ancestor && new DefinitionAncestorTree(ancestor)) || null;
     this.attributes = getAttributesTrees(ctx.definitionBody()?.attribute());
