@@ -15,7 +15,7 @@ definition:
     TYPE id typeParameters? ':' type                       # aliasDefinition
     | definitionModifier definitionHeader? definitionBody? # typeDefinition
     ;
-definitionHeader:    id typeParameters? lambdaParameters? definitionAncestors?;
+definitionHeader:    id typeParameters? parameters? definitionAncestors?;
 definitionAncestors: IS type (',' type)*;
 definitionBody:      NL+ INDENT (attribute | NL)+ DEDENT;
 
@@ -66,17 +66,17 @@ expression:
     ;
 
 type:
-    id typeArguments?                        # idType
-    | literal                                # literalType
-    | type '#' id                            # metaType
-    | type '?'                               # nullableType
-    | type '[' ']'                           # arrayType
-    | arrayParameters                        # tupleType
-    | objectParameters                       # objectType
-    | type '&&' type                         # intersectionType
-    | type '||' type                         # unionType
-    | typeParameters? lambdaParameters type? # lambdaType
-    | '(' type ')'                           # parenthesizedType
+    id typeArguments?                  # idType
+    | literal                          # literalType
+    | type '#' id                      # metaType
+    | type '?'                         # nullableType
+    | type '[' ']'                     # arrayType
+    | arrayParameters                  # tupleType
+    | objectParameters                 # objectType
+    | type '&&' type                   # intersectionType
+    | type '||' type                   # unionType
+    | typeParameters? parameters type? # lambdaType
+    | '(' type ')'                     # parenthesizedType
     ;
 
 literal:
@@ -88,6 +88,7 @@ literal:
     ;
 
 parameter:        id type;
+parameters:       '(' (parameter (',' parameter)*)? ','? ')';
 objectParameters: '{' (parameter (',' parameter)*)? ','? '}';
 arrayParameters:  '[' (type (',' type)*)? ','? ']';
 lambdaParameter:  id type?;
