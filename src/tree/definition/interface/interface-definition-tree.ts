@@ -23,7 +23,7 @@ export class InterfaceDefinitionTree extends DefinitionTree {
       throw new Error(`Definition name '${this.id.text}' must start with upper letter`);
     this.typeParameters = getTypeParametersTrees(header.typeParameters());
 
-    if (header.lambdaParameters()) throw new Error('Interface must not have a constructor');
+    if (header.parameters()) throw new Error('Interface must not have a constructor');
 
     this.ancestors = getTypesTrees(header.definitionAncestors()?.type());
     this.attributes = getAttributesTrees(ctx.definitionBody()?.attribute());
