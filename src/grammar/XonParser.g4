@@ -16,7 +16,7 @@ definition:
     | definitionModifier definitionHeader? definitionBody? # typeDefinition
     ;
 definitionHeader:   id typeParameters? lambdaParameters? definitionAncestor?;
-definitionAncestor: IS id typeArguments? lambdaArguments?;
+definitionAncestor: IS id typeArguments?;
 definitionBody:     NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
