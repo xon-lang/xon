@@ -15,9 +15,9 @@ definition:
     TYPE id typeParameters? ':' type                       # aliasDefinition
     | definitionModifier definitionHeader? definitionBody? # typeDefinition
     ;
-definitionHeader:   id typeParameters? lambdaParameters? definitionAncestor?;
-definitionAncestor: IS id typeArguments?;
-definitionBody:     NL+ INDENT (attribute | NL)+ DEDENT;
+definitionHeader:    id typeParameters? lambdaParameters? definitionAncestors?;
+definitionAncestors: IS type (',' type)*;
+definitionBody:      NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
     attributeId type? ':' expression                       # valueAttribute
