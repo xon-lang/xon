@@ -5,15 +5,15 @@ import { TypeTree } from '../type.tree';
 
 export class NullableTypeTree extends TypeTree {
   metadata: NullableTypeMetadata;
-  type: TypeTree;
+  innerType: TypeTree;
 
   constructor(public ctx: NullableTypeContext) {
     super();
 
-    this.type = getTypeTree(ctx.type());
+    this.innerType = getTypeTree(ctx.type());
   }
 
   toString(): string {
-    return `${this.type}?`;
+    return `${this.innerType}?`;
   }
 }
