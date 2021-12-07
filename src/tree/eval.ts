@@ -14,7 +14,7 @@ export const evalExpression = (tree: ExpressionTree, argsMap = {}): unknown => {
   if (tree instanceof LiteralExpressionTree) return tree.literal.value;
   if (tree instanceof ParenthesizedExpressionTree) return evalExpression(tree.value);
   if (tree instanceof PipeExpressionTree)
-    return evalExpression(tree.right, { [tree.parameter.id.text]: evalExpression(tree.left) });
+    return evalExpression(tree.right, { [tree.id.text]: evalExpression(tree.left) });
   if (tree instanceof InfixExpressionTree) {
     const a = evalExpression(tree.left, argsMap);
     const b = evalExpression(tree.right, argsMap);
