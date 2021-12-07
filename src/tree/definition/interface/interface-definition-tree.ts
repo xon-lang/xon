@@ -26,9 +26,6 @@ export class InterfaceDefinitionTree extends DefinitionTree {
 
     const ancestor = header.definitionAncestor();
     this.ancestor = (ancestor && new DefinitionAncestorTree(ancestor)) || null;
-    if (this.ancestor.arguments.length)
-      throw new Error(`Interface cannot call '${this.ancestor.id}`);
-
     this.attributes = getAttributesTrees(ctx.definitionBody()?.attribute());
   }
 

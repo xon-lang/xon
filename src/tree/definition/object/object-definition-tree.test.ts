@@ -26,7 +26,6 @@ test('one scope', () => {
   expect(ancestor.typeArguments.length).toBe(2);
   expect((ancestor.typeArguments[0] as IdTypeTree).id.text).toBe('String');
   expect((ancestor.typeArguments[1] as IdTypeTree).id.text).toBe('Boolean');
-  expect(definition.ancestor.arguments.length).toBe(0);
 
   const attrs = definition.attributes;
   const propertyAttribute = attrs[0] as ValueAttributeTree;
