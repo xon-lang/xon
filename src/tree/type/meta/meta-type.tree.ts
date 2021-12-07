@@ -1,11 +1,9 @@
 import { MetaTypeContext } from '../../../grammar/xon-parser';
-import { TypeMetadata } from '../../../metadata/type/type-metadata';
 import { IdToken } from '../../id-token';
 import { getTypeTree } from '../type-tree.helper';
 import { TypeTree } from '../type.tree';
 
 export class MetaTypeTree extends TypeTree {
-  metadata: TypeMetadata;
   id: IdToken;
   type: TypeTree;
 
