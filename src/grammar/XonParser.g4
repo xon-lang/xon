@@ -58,7 +58,7 @@ expression:
     | left = expression op = ('==' | '!=') right = expression             # equalityExpression
     | left = expression op = '&&' right = expression                      # conjunctionExpression
     | left = expression op = '||' right = expression                      # disjunctionExpression
-    | left = expression '|' (parameter ':')? right = expression           # pipeExpression
+    | left = expression '|' (id ':')? right = expression                  # pipeExpression
     | lambdaParameters ':' expression                                     # lambdaExpression
     | arrayArguments                                                      # arrayExpression
     | objectArguments                                                     # objectExpression
@@ -87,10 +87,11 @@ literal:
     | REGEX_LITERAL  # regexLiteral
     ;
 
-parameter:        id | type | id type;
-lambdaParameters: '(' (parameter (',' parameter)*)? ','? ')';
+parameter:        id type;
 objectParameters: '{' (parameter (',' parameter)*)? ','? '}';
 arrayParameters:  '[' (type (',' type)*)? ','? ']';
+lambdaParameter:  id type?;
+lambdaParameters: '(' (lambdaParameter (',' lambdaParameter)*)? ','? ')';
 
 lambdaArguments: '(' (expression (',' expression)*)? ','? ')';
 arrayArguments:  '[' (expression (',' expression)*)? ','? ']';
