@@ -3,6 +3,7 @@ import {
   LambdaParametersContext,
   ObjectParametersContext,
   ParameterContext,
+  ParametersContext,
 } from '../../grammar/xon-parser';
 import { ParameterTree } from './parameter.tree';
 
@@ -12,14 +13,18 @@ export const getParameterTree = (ctx: ParameterContext | LambdaParameterContext)
 };
 
 export const getParametersTrees = (
-  contexts: ParameterContext[] | LambdaParametersContext | ObjectParametersContext,
+  contexts:
+    | ParameterContext[]
+    | ParametersContext
+    | LambdaParametersContext
+    | ObjectParametersContext,
 ): ParameterTree[] => {
   if (!contexts) return [];
 
   if (contexts instanceof LambdaParametersContext)
     return contexts.lambdaParameter().map((x) => getParameterTree(x));
 
-  if (contexts instanceof ObjectParametersContext)
+  if (contexts instanceof ObjectParametersContext || contexts instanceof ParametersContext)
     return contexts.parameter().map((x) => getParameterTree(x));
 
   return contexts.map((x) => getParameterTree(x));

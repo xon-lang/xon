@@ -26,7 +26,7 @@ export class ClassDefinitionTree extends DefinitionTree {
       throw new Error(`Definition name '${this.id.text}' must start with upper letter`);
 
     this.typeParameters = getTypeParametersTrees(header.typeParameters());
-    this.parameters = getParametersTrees(header.lambdaParameters());
+    this.parameters = getParametersTrees(header.parameters());
     this.ancestors = getTypesTrees(header.definitionAncestors()?.type());
     this.attributes = getAttributesTrees(ctx.definitionBody()?.attribute());
   }
