@@ -1,6 +1,7 @@
 import {
   ArrayTypeContext,
   IdTypeContext,
+  IntersectionTypeContext,
   LambdaTypeContext,
   LiteralTypeContext,
   MetaTypeContext,
@@ -12,6 +13,7 @@ import {
 } from '../../grammar/xon-parser';
 import { ArrayTypeTree } from './array/array-type.tree';
 import { IdTypeTree } from './id/id-type.tree';
+import { IntersectionTypeTree } from './intersection/intersection-type.tree';
 import { LambdaTypeTree } from './lambda/lambda-type.tree';
 import { LiteralTypeTree } from './literal/literal-type.tree';
 import { MetaTypeTree } from './meta/meta-type.tree';
@@ -26,6 +28,7 @@ export const getTypeTree = (ctx: TypeContext): TypeTree => {
 
   if (ctx instanceof ArrayTypeContext) return new ArrayTypeTree(ctx);
   if (ctx instanceof IdTypeContext) return new IdTypeTree(ctx);
+  if (ctx instanceof IntersectionTypeContext) return new IntersectionTypeTree(ctx);
   if (ctx instanceof LambdaTypeContext) return new LambdaTypeTree(ctx);
   if (ctx instanceof LiteralTypeContext) return new LiteralTypeTree(ctx);
   if (ctx instanceof MetaTypeContext) return new MetaTypeTree(ctx);
