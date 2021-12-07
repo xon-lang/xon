@@ -1,29 +1,22 @@
-import { LiteralTree } from '../../../tree/literal/literal.tree';
 import { DeclarationScope } from '../../declaration-scope';
-import { ClassDefinitionDeclarationMetadata } from '../../declaration/definition/class/class-definition-metadata';
 import { TypeMetadata } from '../type-metadata';
 
 export class LiteralTypeMetadata extends TypeMetadata {
-  declaration: ClassDefinitionDeclarationMetadata;
+  ancestor: TypeMetadata;
 
   constructor(
     public name: string,
     public value: number | string | RegExp,
-    public scope: DeclarationScope,
+    scope: DeclarationScope,
   ) {
     super();
-    this.declaration = scope.get(name) as ClassDefinitionDeclarationMetadata;
+
+    this.ancestor = scope.get(name).type;
   }
 
   is(other: TypeMetadata): boolean {
     if (other instanceof LiteralTypeMetadata)
-      return this.declaration === other.declaration && this.value === other.value;
-    return this.declaration.type([]).resultType.is(other);
-  }
-
-  static fromTree(tree: LiteralTree, scope: DeclarationScope): LiteralTypeMetadata {
-    const name = tree.constructor.name.replace('LiteralTree', '');
-    const metadata = new LiteralTypeMetadata(name, tree.value, scope);
-    return metadata;
+      return this.name === other.name && this.value === other.value;
+    return this.ancestor.is(other);
   }
 }
