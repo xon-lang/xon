@@ -6,14 +6,15 @@ import { getParametersTrees } from '../../parameter/parameter-tree.helper';
 import { ParameterTree } from '../../parameter/parameter.tree';
 import { getTypeParametersTrees } from '../../type-parameter/type-parameter-tree.helper';
 import { TypeParameterTree } from '../../type-parameter/type-parameter.tree';
-import { DefinitionAncestorTree } from '../definition-ancestor-tree';
+import { getTypesTrees } from '../../type/type-tree.helper';
+import { TypeTree } from '../../type/type.tree';
 import { DefinitionTree } from '../definition-tree';
 
 export class ClassDefinitionTree extends DefinitionTree {
   id: IdToken;
   typeParameters: TypeParameterTree[] = [];
   parameters: ParameterTree[] = [];
-  ancestor?: DefinitionAncestorTree;
+  ancestors: TypeTree[] = [];
   attributes: AttributeTree[] = [];
 
   constructor(public ctx: TypeDefinitionContext) {
@@ -26,9 +27,7 @@ export class ClassDefinitionTree extends DefinitionTree {
 
     this.typeParameters = getTypeParametersTrees(header.typeParameters());
     this.parameters = getParametersTrees(header.lambdaParameters());
-
-    const ancestor = header.definitionAncestor();
-    this.ancestor = (ancestor && new DefinitionAncestorTree(ancestor)) || null;
+    this.ancestors = getTypesTrees(header.definitionAncestors()?.type());
     this.attributes = getAttributesTrees(ctx.definitionBody()?.attribute());
   }
 
@@ -36,8 +35,8 @@ export class ClassDefinitionTree extends DefinitionTree {
     const typeParameters = this.typeParameters.length
       ? '<' + this.typeParameters.join(', ') + '>'
       : '';
-    const ancestor = this.ancestor ? ' ' + this.ancestor : '';
+    const ancestors = this.ancestors.length ? ' is ' + this.ancestors.join(', ') : '';
     const attributes = this.attributes.join('\n\n').replace(/(^[^\n])/gm, '  $1');
-    return `${this.id}${typeParameters}(${this.parameters.join(', ')})${ancestor}\n${attributes}`;
+    return `${this.id}${typeParameters}(${this.parameters.join(', ')})${ancestors}\n${attributes}`;
   }
 }

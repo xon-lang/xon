@@ -2,12 +2,13 @@ import { TypeDefinitionContext } from '../../../grammar/xon-parser';
 import { AttributeTree } from '../../attribute/attribute-tree';
 import { getAttributesTrees } from '../../attribute/attribute-tree.helper';
 import { IdToken } from '../../id-token';
-import { DefinitionAncestorTree } from '../definition-ancestor-tree';
+import { getTypesTrees } from '../../type/type-tree.helper';
+import { TypeTree } from '../../type/type.tree';
 import { DefinitionTree } from '../definition-tree';
 
 export class ObjectDefinitionTree extends DefinitionTree {
   id: IdToken;
-  ancestor?: DefinitionAncestorTree;
+  ancestors: TypeTree[] = [];
   attributes: AttributeTree[] = [];
 
   constructor(public ctx: TypeDefinitionContext) {
@@ -21,14 +22,13 @@ export class ObjectDefinitionTree extends DefinitionTree {
     if (header.typeParameters()) throw new Error('Object must not have a type parameters');
     if (header.lambdaParameters()) throw new Error('Object must not have a constructor');
 
-    const ancestor = header.definitionAncestor();
-    this.ancestor = (ancestor && new DefinitionAncestorTree(ancestor)) || null;
+    this.ancestors = getTypesTrees(header.definitionAncestors()?.type());
     this.attributes = getAttributesTrees(ctx.definitionBody()?.attribute());
   }
 
   toString(): string {
-    const ancestor = this.ancestor ? ' ' + this.ancestor : '';
+    const ancestors = this.ancestors.length ? ' is ' + this.ancestors.join(', ') : '';
     const attributes = this.attributes.join('\n\n').replace(/(^[^\n])/gm, '  $1');
-    return `${this.id}${ancestor}\n${attributes}`;
+    return `${this.id}${ancestors}\n${attributes}`;
   }
 }
