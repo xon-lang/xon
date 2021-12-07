@@ -1,6 +1,7 @@
 import { ArrayTypeTree } from '../../tree/type/array/array-type.tree';
 import { IdTypeTree } from '../../tree/type/id/id-type.tree';
 import { IntersectionTypeTree } from '../../tree/type/intersection/intersection-type.tree';
+import { LambdaTypeTree } from '../../tree/type/lambda/lambda-type.tree';
 import { LiteralTypeTree } from '../../tree/type/literal/literal-type.tree';
 import { NullableTypeTree } from '../../tree/type/nullable/nullable-type.tree';
 import { ParenthesizedTypeTree } from '../../tree/type/parenthesized/parenthesized-type.tree';
@@ -37,12 +38,15 @@ export function getTypeMetadata(tree: TypeTree, scope: DeclarationScope): TypeMe
       scope,
     ));
 
-  // if (tree instanceof LambdaTypeTree)
-  //   return (tree.metadata = new IdTypeMetadata(
-  //     'Lambda',
-  //     [ tree.parameters.map((x) => getTypeMetadata(x.type, scope))],
-  //     scope,
-  //   ));
+  if (tree instanceof LambdaTypeTree)
+    return (tree.metadata = new IdTypeMetadata(
+      'Lambda',
+      [
+        ...tree.parameters.map((x) => getTypeMetadata(x.type, scope)),
+        tree.resultType ? getTypeMetadata(tree.resultType, scope) : null,
+      ].filter((x) => x),
+      scope,
+    ));
 
   if (tree instanceof LiteralTypeTree)
     return (tree.metadata = new LiteralTypeMetadata(
