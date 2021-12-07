@@ -1,0 +1,1 @@
+interface Tuple<T> is Array<T>
