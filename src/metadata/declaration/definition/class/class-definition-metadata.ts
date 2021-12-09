@@ -28,12 +28,12 @@ export class ClassDefinitionMetadata extends DefinitionMetadata {
     this.attributes = tree.attributes;
   }
 
-  type(typeArguments: TypeMetadata[]): LambdaTypeMetadata {
-    const initParameters = this.tree.parameters.map((x) => ({
-          name: x.id.text,
-          type: getTypeMetadata(x.type, this.scope),
-        }))
-    const initResultType = new IdTypeMetadata(this.name, typeArguments, this.scope);
-    return new LambdaTypeMetadata(initParameters, initResultType, this.scope);
-  }
+  // type(typeArguments: TypeMetadata[]): LambdaTypeMetadata {
+  //   const initParameters = this.tree.parameters.map((x) => ({
+  //         name: x.id.text,
+  //         type: getTypeMetadata(x.type, this.scope),
+  //       }))
+  //   const initResultType = new IdTypeMetadata(this.name, typeArguments, this.scope);
+  //   return new LambdaTypeMetadata(initParameters, initResultType, this.scope);
+  // }
 }

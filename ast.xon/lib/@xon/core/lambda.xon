@@ -1,2 +1,3 @@
-interface Lambda<T, R>
-  $(T) R
+interface Lambda<...T, R>
+-- $invoke([1, "123"])
+  $(parameters T) R
