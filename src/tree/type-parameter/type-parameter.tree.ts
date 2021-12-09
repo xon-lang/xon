@@ -6,14 +6,14 @@ import { TypeTree } from '../type/type.tree';
 
 export class TypeParameterTree extends BaseTree {
   id: IdToken;
-  isArray: boolean;
+  hasSpread: boolean;
   restrictionType: TypeTree;
 
   constructor(public ctx: TypeParameterContext) {
     super();
 
     this.id = IdToken.fromContext(ctx.id());
-    this.isArray = !!ctx.OPEN_BRACKET();
+    this.hasSpread = !!ctx.SPREAD();
     this.restrictionType = getTypeTree(ctx.type()) || null;
   }
 
