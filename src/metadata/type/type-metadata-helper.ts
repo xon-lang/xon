@@ -68,6 +68,12 @@ export function getTypeMetadata(tree: TypeTree, scope: DeclarationScope): TypeMe
       scope,
     ));
 
+  // if (tree instanceof ObjectTypeTree)
+  //   return (tree.metadata = new NullableTypeMetadata(
+  //     getTypeMetadata(tree.innerType, scope),
+  //     scope,
+  //   ));
+
   if (tree instanceof TupleTypeTree)
     return (tree.metadata = new TupleTypeMetadata(
       tree.types.map((x) => getTypeMetadata(x, scope)),

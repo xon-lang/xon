@@ -1,10 +1,7 @@
+import { AttributeMetadata } from '../declaration/attribute/attribute-metadata';
+
 export abstract class TypeMetadata {
+  abstract attributes: AttributeMetadata[];
   abstract is(other: TypeMetadata): boolean;
   abstract toString(): string;
-
-  private _signature: string;
-  get signature(): string {
-    if (!this._signature) return this._signature;
-    return (this._signature = this.toString());
-  }
 }

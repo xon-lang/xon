@@ -1,16 +1,26 @@
 import { DeclarationScope } from '../../declaration-scope';
+import { AttributeMetadata } from '../../declaration/attribute/attribute-metadata';
 import { AliasDefinitionMetadata } from '../../declaration/definition/alias/alias-definition-metadata';
 import { ClassDefinitionMetadata } from '../../declaration/definition/class/class-definition-metadata';
 import { DefinitionMetadata } from '../../declaration/definition/definition-metadata';
 import { InterfaceDefinitionMetadata } from '../../declaration/definition/interface/interface-definition-metadata';
 import { ObjectDefinitionMetadata } from '../../declaration/definition/object/object-definition-metadata';
-import { GenericMetadata } from '../../declaration/generic/generic-metadata';
+import { checkGenerics } from '../../util';
 import { SetTypeMetadata } from '../set/set-type-metadata';
 import { TypeMetadata } from '../type-metadata';
 
 export class IdTypeMetadata extends TypeMetadata {
-  public declaration: DefinitionMetadata;
+  declaration: DefinitionMetadata;
   ancestors: TypeMetadata[];
+
+  _attributes: AttributeMetadata[];
+  get attributes(): AttributeMetadata[] {
+    if (this._attributes) return this._attributes;
+    if (!(this.declaration instanceof AliasDefinitionMetadata))
+      return (this._attributes = this.declaration.attributes);
+
+    throw new Error('Not implemented for alias type');
+  }
 
   constructor(public name: string, public typeArguments: TypeMetadata[], scope: DeclarationScope) {
     super();
@@ -22,22 +32,10 @@ export class IdTypeMetadata extends TypeMetadata {
         x instanceof ClassDefinitionMetadata ||
         x instanceof InterfaceDefinitionMetadata
       ) {
-        return this.checkGenerics(x.generics, typeArguments);
+        return checkGenerics(x.generics, typeArguments);
       }
       return x instanceof ObjectDefinitionMetadata && !typeArguments.length;
     }) as DefinitionMetadata;
-  }
-
-  checkGenerics(parameters: GenericMetadata[], args: TypeMetadata[]) {
-    const spreadGenericIndex = parameters.findIndex((x) => x.hasSpread);
-    if (spreadGenericIndex >= 0) {
-      if (parameters.length - 1 > args.length) return false;
-      const normalizeParameters = parameters
-        .map((x) => (x.hasSpread ? args.slice(parameters.length - 1).map(() => x) : [x]))
-        .flat();
-      return normalizeParameters.every((x, i) => x.is(args[i]));
-    }
-    return parameters.length === args.length && parameters.every((x, i) => x.is(args[i]));
   }
 
   is(other: TypeMetadata): boolean {
