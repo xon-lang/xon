@@ -1,6 +1,6 @@
-interface Boolean(value 0 || 1 || Integer)
+interface Boolean
   toString() String
 
 
-object False is Boolean(0)
-object True is Boolean(1)
+object False is Boolean
+object True is Boolean

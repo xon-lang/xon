@@ -1,4 +1,5 @@
 Module is XonModule:
-  name = "xon library"
-  author = "Nizami"
-  defaultImports = []
+  name: "xon library"
+  author: "Nizami"
+  defaultImports: []
+  defaultType: Object::type

@@ -1,7 +1,7 @@
 XonModule
   name String
   author String
-  version = "0.0.0"
+  version: 1.0.0
   description String
   bugs
     url String
