@@ -15,7 +15,7 @@ export class CallExpressionTree extends ExpressionTree {
     super();
 
     this.instance = getExpressionTree(ctx.expression());
-    this.typeArguments = getTypesTrees(ctx.typeArguments().type());
+    this.typeArguments = getTypesTrees(ctx.typeArguments()?.type());
     this.arguments = getExpressionsTrees(ctx.lambdaArguments().expression());
   }
 
