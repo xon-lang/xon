@@ -1,8 +1,9 @@
+import { DeclarationScope } from '../../declaration-scope';
 import { ParameterMetadata } from '../../declaration/parameter/parameter-metadata';
 import { TypeMetadata } from '../type-metadata';
 
 export class ObjectTypeMetadata extends TypeMetadata {
-  constructor(public parameters: ParameterMetadata[]) {
+  constructor(public parameters: ParameterMetadata[], scope: DeclarationScope) {
     super();
   }
 

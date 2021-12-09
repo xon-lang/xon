@@ -1,14 +1,18 @@
+import { DeclarationScope } from '../../declaration-scope';
 import { DefinitionMetadata } from '../../declaration/definition/definition-metadata';
 import { SetTypeMetadata } from '../set/set-type-metadata';
 import { TypeMetadata } from '../type-metadata';
 
 export class IdTypeMetadata extends TypeMetadata {
-  constructor(
+    public declaration: DefinitionMetadata
+
+    constructor(
     public name: string,
     public typeArguments: TypeMetadata[],
-    public declaration: DefinitionMetadata,
+    scope: DeclarationScope,
   ) {
     super();
+    this.declaration = scope.find(x=>x.name === name && x.)
   }
 
   is(other: TypeMetadata): boolean {

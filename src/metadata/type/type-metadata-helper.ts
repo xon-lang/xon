@@ -9,12 +9,16 @@ import { TupleTypeTree } from '../../tree/type/tuple/tuple-type.tree';
 import { TypeTree } from '../../tree/type/type.tree';
 import { UnionTypeTree } from '../../tree/type/union/union-type.tree';
 import { DeclarationScope } from '../declaration-scope';
-import { AnyTypeMetadata } from './id/any/any-type-metadata';
+import { GenericMetadata } from '../declaration/generic/generic-metadata';
+import { ArrayTypeMetadata } from './array/array-type-metadata';
 import { IdTypeMetadata } from './id/id-type-metadata';
-import { NoneTypeMetadata } from './id/none/none-type-metadata';
+import { LambdaTypeMetadata } from './lambda/lambda-type-metadata';
 import { LiteralTypeMetadata } from './literal/literal-type-metadata';
+import { NoneTypeMetadata } from './none/none-type-metadata';
+import { NullableTypeMetadata } from './nullable/nullable-type-metadata';
 import { IntersectionTypeMetadata } from './set/intersection/intersection-type-metadata';
 import { UnionTypeMetadata } from './set/union/union-type-metadata';
+import { TupleTypeMetadata } from './tuple/tuple-type-metadata';
 import { TypeMetadata } from './type-metadata';
 
 export function getTypeMetadata(tree: TypeTree, scope: DeclarationScope): TypeMetadata {
@@ -22,8 +26,6 @@ export function getTypeMetadata(tree: TypeTree, scope: DeclarationScope): TypeMe
     return (tree.metadata = getTypeMetadata(tree.type, scope));
 
   if (tree instanceof IdTypeTree) {
-    if (tree.id.text === 'Any') return (tree.metadata = new AnyTypeMetadata(scope));
-    if (tree.id.text === 'None') return (tree.metadata = new NoneTypeMetadata(scope));
     return (tree.metadata = new IdTypeMetadata(
       tree.id.text,
       tree.typeArguments.map((x) => getTypeMetadata(x, scope)),
@@ -32,21 +34,21 @@ export function getTypeMetadata(tree: TypeTree, scope: DeclarationScope): TypeMe
   }
 
   if (tree instanceof ArrayTypeTree)
-    return (tree.metadata = new IdTypeMetadata(
-      'Array',
-      [getTypeMetadata(tree.itemType, scope)],
-      scope,
-    ));
+    return (tree.metadata = new ArrayTypeMetadata(getTypeMetadata(tree.itemType, scope), scope));
 
-  if (tree instanceof LambdaTypeTree)
-    return (tree.metadata = new IdTypeMetadata(
-      'Lambda',
-      [
-        ...tree.parameters.map((x) => getTypeMetadata(x.type, scope)),
-        tree.resultType ? getTypeMetadata(tree.resultType, scope) : null,
-      ].filter((x) => x),
-      scope,
-    ));
+  if (tree instanceof LambdaTypeTree) {
+    const typeScope = new DeclarationScope(scope);
+    tree.typeParameters.forEach((x) =>
+      typeScope.add(
+        new GenericMetadata(x.id.text, getTypeMetadata(x.restrictionType, scope), scope),
+      ),
+    );
+    const parameters = tree.parameters.map((x) => getTypeMetadata(x.type, typeScope));
+    const resultType = tree.resultType
+      ? getTypeMetadata(tree.resultType, typeScope)
+      : new NoneTypeMetadata(scope);
+    return (tree.metadata = new LambdaTypeMetadata([...parameters, resultType], scope));
+  }
 
   if (tree instanceof LiteralTypeTree)
     return (tree.metadata = new LiteralTypeMetadata(
@@ -56,14 +58,13 @@ export function getTypeMetadata(tree: TypeTree, scope: DeclarationScope): TypeMe
     ));
 
   if (tree instanceof NullableTypeTree)
-    return (tree.metadata = new UnionTypeMetadata(
-      [getTypeMetadata(tree.innerType, scope), new NoneTypeMetadata(scope)],
+    return (tree.metadata = new NullableTypeMetadata(
+      getTypeMetadata(tree.innerType, scope),
       scope,
     ));
 
   if (tree instanceof TupleTypeTree)
-    return (tree.metadata = new IdTypeMetadata(
-      'Tuple',
+    return (tree.metadata = new TupleTypeMetadata(
       tree.types.map((x) => getTypeMetadata(x, scope)),
       scope,
     ));
