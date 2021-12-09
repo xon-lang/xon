@@ -11,15 +11,15 @@ export class ClassDefinitionMetadata extends DefinitionMetadata {
   attributes: AttributeTree[] = [];
   name: string;
 
-  _ancestor: IdTypeMetadata;
-  get ancestor(): IdTypeMetadata {
-    if (this._ancestor !== undefined) return this._ancestor;
-    if (!this.tree.ancestor) return (this._ancestor = null);
-    return (this._ancestor = getTypeMetadata(
-      this.tree.ancestor.type,
-      this.scope,
-    ) as IdTypeMetadata);
-  }
+  // _ancestor: IdTypeMetadata;
+  // get ancestor(): IdTypeMetadata {
+  //   if (this._ancestor !== undefined) return this._ancestor;
+  //   if (!this.tree.ancestor) return (this._ancestor = null);
+  //   return (this._ancestor = getTypeMetadata(
+  //     this.tree.ancestor.type,
+  //     this.scope,
+  //   ) as IdTypeMetadata);
+  // }
 
   constructor(protected tree: ClassDefinitionTree, protected scope: DeclarationScope) {
     super();
@@ -29,12 +29,10 @@ export class ClassDefinitionMetadata extends DefinitionMetadata {
   }
 
   type(typeArguments: TypeMetadata[]): LambdaTypeMetadata {
-    const initParameters = this.tree.expressionParameters
-      ? this.tree.expressionParameters.map((x) => ({
+    const initParameters = this.tree.parameters.map((x) => ({
           name: x.id.text,
           type: getTypeMetadata(x.type, this.scope),
         }))
-      : [];
     const initResultType = new IdTypeMetadata(this.name, typeArguments, this.scope);
     return new LambdaTypeMetadata(initParameters, initResultType, this.scope);
   }

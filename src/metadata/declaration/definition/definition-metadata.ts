@@ -1,20 +1,25 @@
+import { AttributeTree } from '../../../tree/attribute/attribute-tree';
 import { DefinitionTree } from '../../../tree/definition/definition-tree';
 import { DeclarationScope } from '../../declaration-scope';
+import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
-import { AttributeDeclarationMetadata } from '../attribute/attribute-declaration-metadata';
+import { AttributeMetadata } from '../attribute/attribute-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
 
-export abstract class DefinitionMetadata extends DeclarationMetadata {
-  protected abstract tree: DefinitionTree;
+export abstract class DefinitionMetadata extends DeclarationMetadata{
+  abstract attributes: AttributeTree[];
+  abstract get ancestor(): IdTypeMetadata;
+  
   protected abstract scope: DeclarationScope;
+  protected abstract tree: DefinitionTree;
 
   attribute(
     name: string,
     typeArguments: TypeMetadata[],
     expressionArguments: TypeMetadata[],
     resultType: TypeMetadata,
-  ): AttributeDeclarationMetadata {
+  ): AttributeMetadata {
     const byName = this.attributes.filter((x) => x.id.text === name);
     if (!byName.length && this.ancestor)
       return this.ancestor.declaration.attribute(
@@ -40,7 +45,7 @@ export abstract class DefinitionMetadata extends DeclarationMetadata {
       );
 
     const bySignature = byTypeArguments.filter((x) => {
-      const metadata = new AttributeDeclarationMetadata(x, this.scope);
+      const metadata = new AttributeMetadata(x, this.scope);
       const type = metadata.type(typeArguments);
       if (type instanceof LambdaTypeMetadata) {
         return (
@@ -66,6 +71,6 @@ export abstract class DefinitionMetadata extends DeclarationMetadata {
     if (bySignature.length > 1)
       throw new Error(`Too many '${name}' attributes in '${this.name}' declaration`);
 
-    return new AttributeDeclarationMetadata(bySignature[0], this.scope);
+    return new AttributeMetadata(bySignature[0], this.scope);
   }
 }
