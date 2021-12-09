@@ -99,7 +99,7 @@ arrayArguments:  '[' (expression (',' expression)*)? ','? ']';
 objectArguments: '{' ( objectArgument (',' objectArgument)*)? ','? '}';
 objectArgument:  attribute | expression;
 
-typeParameter:  id (IS type)?;
+typeParameter:  id ('[' ']')? (IS type)?;
 typeParameters: '<' typeParameter (',' typeParameter)* ','? '>';
 typeArguments:  '<' (type (',' type)*)? ','? '>';
 
