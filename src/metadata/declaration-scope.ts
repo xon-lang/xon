@@ -1,19 +1,27 @@
 import { DeclarationMetadata } from './declaration/declaration-metadata';
 
 export class DeclarationScope {
-  declarations = new Map<string, DeclarationMetadata>();
+  declarations: DeclarationMetadata[] = [];
 
   constructor(public parent?: DeclarationScope) {}
 
-  set(declaration: DeclarationMetadata) {
-    if (this.declarations.has(declaration.name))
-      throw new Error(`'${declaration.name}' already exists`);
-    this.declarations.set(declaration.name, declaration);
+  add(declaration: DeclarationMetadata) {
+    this.declarations.push(declaration);
   }
 
-  get(name: string): DeclarationMetadata {
-    if (this.declarations.has(name)) return this.declarations.get(name);
-    if (this.parent) return this.parent.get(name);
-    throw new Error(`'${name}' not found`);
+  find(predicate: (x: DeclarationMetadata) => boolean): DeclarationMetadata {
+    const results: DeclarationMetadata[] = [];
+    for (const declaration of this.declarations) {
+      if (predicate(declaration)) results.push(declaration);
+    }
+    if (results.length > 1) {
+      throw new Error(`Too many declarations found in the current scope`);
+    }
+
+    if (!results.length && this.parent) {
+      return this.parent.find(predicate);
+    }
+
+    throw new Error(`Declaration not found`);
   }
 }
