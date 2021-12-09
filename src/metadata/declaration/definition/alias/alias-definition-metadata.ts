@@ -2,12 +2,14 @@ import { AliasDefinitionTree } from '../../../../tree/definition/alias/alias-def
 import { DeclarationScope } from '../../../declaration-scope';
 import { TypeMetadata } from '../../../type/type-metadata';
 import { getTypeMetadata } from '../../../type/type-metadata-helper';
+import { AttributeMetadata } from '../../attribute/attribute-metadata';
 import { GenericMetadata } from '../../generic/generic-metadata';
 import { DefinitionMetadata } from '../definition-metadata';
 
 export class AliasDefinitionMetadata extends DefinitionMetadata {
-  ancestors: TypeMetadata[] = [];
   name: string;
+  ancestors: TypeMetadata[] = [];
+  attributes: AttributeMetadata[] = [];
 
   _generics: GenericMetadata[];
   get generics(): GenericMetadata[] {
@@ -24,12 +26,11 @@ export class AliasDefinitionMetadata extends DefinitionMetadata {
     this.name = tree.id.text;
   }
 
-  // type(typeArguments: TypeMetadata[]): LambdaTypeMetadata {
-  //   const initParameters = this.tree.parameters.map((x) => ({
-  //         name: x.id.text,
-  //         type: getTypeMetadata(x.type, this.scope),
-  //       }))
-  //   const initResultType = new IdTypeMetadata(this.name, typeArguments, this.scope);
-  //   return new LambdaTypeMetadata(initParameters, initResultType, this.scope);
+  // type(typeArguments: TypeMetadata[]): TypeMetadata {
+  //   if (!checkGenerics(this.generics, typeArguments)) throw new Error('Wrong generics');
+
+  //   // todo <...T>: Some<T> | Another<...V>
+  //   const aliasScope = new DeclarationScope(this.scope)
+  //   this.generics.forEach((x, i)=>aliasScope.add())
   // }
 }
