@@ -8,6 +8,10 @@ export class LiteralExpressionMetadata extends ExpressionMetadata {
 
   constructor(tree: LiteralExpressionTree, scope: DeclarationScope) {
     super();
-    this.type = LiteralTypeMetadata.fromTree(tree.literal, scope);
+    this.type = new LiteralTypeMetadata(
+      tree.literal.constructor.name.replace('LiteralTree', ''),
+      tree.literal.value,
+      scope,
+    );
   }
 }

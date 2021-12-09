@@ -40,7 +40,12 @@ export function getTypeMetadata(tree: TypeTree, scope: DeclarationScope): TypeMe
     const typeScope = new DeclarationScope(scope);
     tree.typeParameters.forEach((x) =>
       typeScope.add(
-        new GenericMetadata(x.id.text, getTypeMetadata(x.restrictionType, scope), scope),
+        new GenericMetadata(
+          x.id.text,
+          x.hasSpread,
+          getTypeMetadata(x.restrictionType, scope),
+          scope,
+        ),
       ),
     );
     const parameters = tree.parameters.map((x) => getTypeMetadata(x.type, typeScope));
