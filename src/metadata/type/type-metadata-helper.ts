@@ -47,7 +47,7 @@ export function getTypeMetadata(tree: TypeTree, scope: DeclarationScope): TypeMe
     const resultType = tree.resultType
       ? getTypeMetadata(tree.resultType, typeScope)
       : new NoneTypeMetadata(scope);
-    return (tree.metadata = new LambdaTypeMetadata([...parameters, resultType], scope));
+    return (tree.metadata = new LambdaTypeMetadata(parameters, resultType, scope));
   }
 
   if (tree instanceof LiteralTypeTree)
