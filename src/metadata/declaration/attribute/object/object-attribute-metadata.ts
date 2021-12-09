@@ -1,11 +1,11 @@
-import { AbstractAttributeTree } from '../../../../tree/attribute/abstract/abstract-attribute-tree';
 import { ObjectAttributeTree } from '../../../../tree/attribute/object/object-attribute-tree';
 import { DeclarationScope } from '../../../declaration-scope';
-import { TypeMetadata } from '../../../type/type-metadata';
-import { getTypeMetadata } from '../../../type/type-metadata-helper';
-import { DeclarationMetadata } from '../../declaration-metadata';
+import { ObjectTypeMetadata } from '../../../type/object/object-type-metadata';
+import { ParameterMetadata } from '../../parameter/parameter-metadata';
+import { AttributeMetadata } from '../attribute-metadata';
+import { getAttributeMetadata } from '../attribute-metadata-helper';
 
-export class ObjectAttributeMetadata extends DeclarationMetadata {
+export class ObjectAttributeMetadata extends AttributeMetadata {
   name: string;
 
   constructor(private tree: ObjectAttributeTree, private scope: DeclarationScope) {
@@ -14,7 +14,12 @@ export class ObjectAttributeMetadata extends DeclarationMetadata {
     this.name = tree.id.text;
   }
 
-  type(): TypeMetadata {
-    return getTypeMetadata(th is.tree.type, this.scope);
+  type(): ObjectTypeMetadata {
+    const parameters = this.tree.body.map((x) => {
+      const attribute = getAttributeMetadata(x, this.scope);
+      return new ParameterMetadata(attribute.name, attribute.type(), this.scope);
+    });
+
+    return new ObjectTypeMetadata(parameters, this.scope);
   }
 }

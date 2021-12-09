@@ -2,9 +2,9 @@ import { AbstractAttributeTree } from '../../../../tree/attribute/abstract/abstr
 import { DeclarationScope } from '../../../declaration-scope';
 import { TypeMetadata } from '../../../type/type-metadata';
 import { getTypeMetadata } from '../../../type/type-metadata-helper';
-import { DeclarationMetadata } from '../../declaration-metadata';
+import { AttributeMetadata } from '../attribute-metadata';
 
-export class AbstractAttributeMetadata extends DeclarationMetadata {
+export class AbstractAttributeMetadata extends AttributeMetadata {
   name: string;
 
   constructor(private tree: AbstractAttributeTree, private scope: DeclarationScope) {

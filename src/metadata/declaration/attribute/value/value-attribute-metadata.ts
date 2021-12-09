@@ -3,9 +3,9 @@ import { DeclarationScope } from '../../../declaration-scope';
 import { getExpressionMetadata } from '../../../expression/expression-metadata-helper';
 import { TypeMetadata } from '../../../type/type-metadata';
 import { getTypeMetadata } from '../../../type/type-metadata-helper';
-import { DeclarationMetadata } from '../../declaration-metadata';
+import { AttributeMetadata } from '../attribute-metadata';
 
-export class ValueAttributeMetadata extends DeclarationMetadata {
+export class ValueAttributeMetadata extends AttributeMetadata {
   name: string;
 
   constructor(private tree: ValueAttributeTree, private scope: DeclarationScope) {

@@ -2,9 +2,9 @@ import { MethodAttributeTree } from '../../../../tree/attribute/method/method-at
 import { DeclarationScope } from '../../../declaration-scope';
 import { TypeMetadata } from '../../../type/type-metadata';
 import { getTypeMetadata } from '../../../type/type-metadata-helper';
-import { DeclarationMetadata } from '../../declaration-metadata';
+import { AttributeMetadata } from '../attribute-metadata';
 
-export class MethodAttributeMetadata extends DeclarationMetadata {
+export class MethodAttributeMetadata extends AttributeMetadata {
   name: string;
 
   constructor(private tree: MethodAttributeTree, private scope: DeclarationScope) {
