@@ -19,4 +19,8 @@ export class LiteralTypeMetadata extends TypeMetadata {
       return this.name === other.name && this.value === other.value;
     return this.ancestor.is(other);
   }
+
+  toString() {
+    return `${this.name}<${this.value}>`;
+  }
 }

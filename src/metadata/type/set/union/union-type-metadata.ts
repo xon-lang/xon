@@ -17,4 +17,8 @@ export class UnionTypeMetadata extends SetTypeMetadata {
   has(other: TypeMetadata): boolean {
     return this.types.some((x) => other.is(x));
   }
+
+  toString() {
+    return this.types.join(' || ');
+  }
 }

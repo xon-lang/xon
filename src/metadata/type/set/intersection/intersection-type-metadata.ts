@@ -21,4 +21,8 @@ export class IntersectionTypeMetadata extends SetTypeMetadata {
   has(other: TypeMetadata): boolean {
     return this.types.every((x) => other.is(x));
   }
+
+  toString() {
+    return this.types.join(' && ');
+  }
 }

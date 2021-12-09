@@ -1,6 +1,6 @@
 import { LambdaExpressionTree } from '../../../tree/expression/lambda/lambda-expression.tree';
 import { DeclarationScope } from '../../declaration-scope';
-import { ExpressionParameterMetadata } from '../../declaration/expression-parameter/expression-parameter-declaration-metadata';
+import { ParameterMetadata } from '../../declaration/parameter/parameter-metadata';
 import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
 import { getExpressionMetadata } from '../expression-metadata-helper';
@@ -12,7 +12,7 @@ export class LambdaExpressionMetadata extends ExpressionMetadata {
     super();
 
     for (const parameter of tree.parameters) {
-      scope.set(new ExpressionParameterMetadata(parameter, scope));
+      scope.set(new ParameterMetadata(parameter, scope));
     }
 
     this.type = new LambdaTypeMetadata(

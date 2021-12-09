@@ -1,19 +1,14 @@
-import { DeclarationScope } from '../../declaration-scope';
 import { DefinitionMetadata } from '../../declaration/definition/definition-metadata';
 import { SetTypeMetadata } from '../set/set-type-metadata';
 import { TypeMetadata } from '../type-metadata';
 
 export class IdTypeMetadata extends TypeMetadata {
-  public declaration: DefinitionMetadata;
-
   constructor(
     public name: string,
     public typeArguments: TypeMetadata[],
-    public scope: DeclarationScope,
+    public declaration: DefinitionMetadata,
   ) {
     super();
-
-    this.declaration = scope.get(name) as DefinitionMetadata;
   }
 
   is(other: TypeMetadata): boolean {
@@ -26,5 +21,9 @@ export class IdTypeMetadata extends TypeMetadata {
       return this.typeArguments.every((x, i) => x.is(other.typeArguments[i]));
     }
     return false;
+  }
+
+  toString() {
+    return `${this.name}${this.typeArguments.join(', ')}`;
   }
 }
