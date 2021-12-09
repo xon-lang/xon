@@ -10,7 +10,7 @@ import { TypeMetadata } from '../../type/type-metadata';
 import { getTypeMetadata } from '../../type/type-metadata-helper';
 import { DeclarationMetadata } from '../declaration-metadata';
 
-export class AttributeDeclarationMetadata extends DeclarationMetadata {
+export class AttributeMetadata extends DeclarationMetadata {
   name: string;
   typeParameters: TypeMetadata[];
 
