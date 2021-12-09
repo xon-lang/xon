@@ -1,1 +1,1 @@
-interface Tuple<T> is Array<T>
+interface Tuple<T> is T[]
