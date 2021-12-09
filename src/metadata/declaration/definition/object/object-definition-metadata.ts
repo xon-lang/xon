@@ -1,21 +1,21 @@
 import { AttributeTree } from '../../../../tree/attribute/attribute-tree';
 import { ObjectDefinitionTree } from '../../../../tree/definition/object/object-definition-tree';
 import { DeclarationScope } from '../../../declaration-scope';
+import { TypeMetadata } from '../../../type/type-metadata';
+import { getTypeMetadata } from '../../../type/type-metadata-helper';
+import { GenericMetadata } from '../../generic/generic-metadata';
 import { DefinitionMetadata } from '../definition-metadata';
 
 export class ObjectDefinitionMetadata extends DefinitionMetadata {
-  attributes: AttributeTree[] = [];
   name: string;
+  generics: GenericMetadata[] = [];
+  attributes: AttributeTree[] = [];
 
-  // _ancestor: IdTypeMetadata;
-  // get ancestor(): IdTypeMetadata {
-  //   if (this._ancestor !== undefined) return this._ancestor;
-  //   if (!this.tree.ancestor) return (this._ancestor = null);
-  //   return (this._ancestor = getTypeMetadata(
-  //     this.tree.ancestor.type,
-  //     this.scope,
-  //   ) as IdTypeMetadata);
-  // }
+  _ancestors: TypeMetadata[];
+  get ancestors(): TypeMetadata[] {
+    if (this._ancestors) return this._ancestors;
+    return (this._ancestors = this.tree.ancestors.map((x) => getTypeMetadata(x, this.scope)));
+  }
 
   constructor(protected tree: ObjectDefinitionTree, protected scope: DeclarationScope) {
     super();

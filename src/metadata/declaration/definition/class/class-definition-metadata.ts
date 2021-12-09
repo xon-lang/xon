@@ -1,25 +1,29 @@
 import { AttributeTree } from '../../../../tree/attribute/attribute-tree';
 import { ClassDefinitionTree } from '../../../../tree/definition/class/class-definition-tree';
 import { DeclarationScope } from '../../../declaration-scope';
-import { IdTypeMetadata } from '../../../type/id/id-type-metadata';
-import { LambdaTypeMetadata } from '../../../type/lambda/lambda-type-metadata';
 import { TypeMetadata } from '../../../type/type-metadata';
 import { getTypeMetadata } from '../../../type/type-metadata-helper';
+import { GenericMetadata } from '../../generic/generic-metadata';
 import { DefinitionMetadata } from '../definition-metadata';
 
 export class ClassDefinitionMetadata extends DefinitionMetadata {
-  attributes: AttributeTree[] = [];
   name: string;
+  attributes: AttributeTree[] = [];
 
-  // _ancestor: IdTypeMetadata;
-  // get ancestor(): IdTypeMetadata {
-  //   if (this._ancestor !== undefined) return this._ancestor;
-  //   if (!this.tree.ancestor) return (this._ancestor = null);
-  //   return (this._ancestor = getTypeMetadata(
-  //     this.tree.ancestor.type,
-  //     this.scope,
-  //   ) as IdTypeMetadata);
-  // }
+  _generics: GenericMetadata[];
+  get generics(): GenericMetadata[] {
+    if (this._generics) return this._generics;
+    return (this._generics = this.tree.typeParameters.map((x) => {
+      const restrictionType = getTypeMetadata(x.restrictionType, this.scope);
+      return new GenericMetadata(x.id.text, x.hasSpread, restrictionType, this.scope);
+    }));
+  }
+
+  _ancestors: TypeMetadata[];
+  get ancestors(): TypeMetadata[] {
+    if (this._ancestors) return this._ancestors;
+    return (this._ancestors = this.tree.ancestors.map((x) => getTypeMetadata(x, this.scope)));
+  }
 
   constructor(protected tree: ClassDefinitionTree, protected scope: DeclarationScope) {
     super();
