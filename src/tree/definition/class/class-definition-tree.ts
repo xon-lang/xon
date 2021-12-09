@@ -26,6 +26,10 @@ export class ClassDefinitionTree extends DefinitionTree {
       throw new Error(`Definition name '${this.id.text}' must start with upper letter`);
 
     this.typeParameters = getTypeParametersTrees(header.typeParameters());
+    const spreadParameters = this.typeParameters.filter((x) => x.hasSpread);
+    if (spreadParameters.length > 1) {
+      throw new Error(`Spread generic parameter must be only but '${spreadParameters.length}'`);
+    }
     this.parameters = getParametersTrees(header.parameters());
     this.ancestors = getTypesTrees(header.definitionAncestors()?.type());
     this.attributes = getAttributesTrees(ctx.definitionBody()?.attribute());
