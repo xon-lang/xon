@@ -1,0 +1,18 @@
+interface Number is -infinity..+infinity
+  + (other Number) Number
+  - (other Number) Number
+  * (other Number) Number
+  / (other Number) Number
+  ^ (other Number) Number
+  > (other Number) Boolean
+  < (other Number) Boolean
+  = (other Number) Boolean
+
+  toString() String
+
+
+literal Real(m Integer, n Natural) -- R
+literal Irrational(n Real) is Real -- I
+literal Rational(m Integer, n Natural) is Real-- Q
+literal Integer(n Natural, signed Boolean) is Rational-- Z
+abstract Natural is Integer -- N

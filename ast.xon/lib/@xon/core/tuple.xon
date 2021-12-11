@@ -1,2 +1,2 @@
 interface Tuple<...T>
-  -- $[index 0..T.size]
+  $[index 0..T.size]
