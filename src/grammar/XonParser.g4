@@ -87,7 +87,7 @@ literal:
     | REGEX_LITERAL  # regexLiteral
     ;
 
-parameter:        id type;
+parameter:        '...'? id type;
 parameters:       '(' (parameter (',' parameter)*)? ','? ')';
 objectParameters: '{' (parameter (',' parameter)*)? ','? '}';
 arrayParameters:  '[' (type (',' type)*)? ','? ']';
