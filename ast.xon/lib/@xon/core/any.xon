@@ -1,1 +1,1 @@
-abstract Any
+interface Any

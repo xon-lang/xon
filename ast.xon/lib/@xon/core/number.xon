@@ -11,8 +11,24 @@ interface Number is -infinity..+infinity
   toString() String
 
 
-literal Real(m Integer, n Natural) -- R
-literal Irrational(n Real) is Real -- I
-literal Rational(m Integer, n Natural) is Real-- Q
-literal Integer(n Natural, signed Boolean) is Rational-- Z
-abstract Natural is Integer -- N
+interface NaturalNumber is Number -- N
+
+interface IntegerNumber is Number -- Z
+  signed Boolean
+  value NaturalNumber
+
+interface RationalNumber is Number -- Q
+  numerator IntegerNumber
+  deminator NaturalNumber
+
+interface IrrationalNumber is Number -- I
+  value RealNumber
+
+interface RealNumber is Number -- R
+  integer IntegerNumber
+  fraction NaturalNumber
+
+interface ComplexNumber is Number -- C
+  real RealNumber
+  imaginary RealNumber
+
