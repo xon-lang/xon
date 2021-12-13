@@ -4,21 +4,22 @@ import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { getExpressionMetadata } from '../expression-metadata-helper';
 import { IdExpressionMetadata } from './id-expression-metadata';
 
-test('null', () => {
-  const code = 'null';
-  const tree = parseExpression(code);
-  const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
-
-  expect(metadata).toBeInstanceOf(IdExpressionMetadata);
-  expect(metadata.type.declaration.name).toBe('null');
-});
-
-test('true', () => {
-  const code = 'true';
+test('none', () => {
+  const code = 'None';
   const tree = parseExpression(code);
   const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
 
   expect(metadata).toBeInstanceOf(IdExpressionMetadata);
   expect(metadata.type).toBeInstanceOf(IdTypeMetadata);
-  expect(metadata.type.declaration.name).toBe('true');
+  expect((metadata.type as IdTypeMetadata).name).toBe('None');
+});
+
+test('true', () => {
+  const code = 'True';
+  const tree = parseExpression(code);
+  const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
+
+  expect(metadata).toBeInstanceOf(IdExpressionMetadata);
+  expect(metadata.type).toBeInstanceOf(IdTypeMetadata);
+  expect((metadata.type as IdTypeMetadata).name).toBe('True');
 });
