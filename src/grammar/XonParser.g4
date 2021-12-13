@@ -41,7 +41,7 @@ statement:
     ;
 
 expression:
-    id                                                                    # idExpression
+    id typeArguments?                                                     # idExpression
     | literal                                                             # literalExpression
     | expression ('?.' | '.') attributeId                                 # memberExpression
     | expression typeArguments? lambdaArguments                           # callExpression
