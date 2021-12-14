@@ -19,7 +19,7 @@ interface IntegerNumber is Number -- Z
 
 interface RationalNumber is Number -- Q
   numerator IntegerNumber
-  deminator NaturalNumber
+  denominator NaturalNumber
 
 interface IrrationalNumber is Number -- I
   value RealNumber
