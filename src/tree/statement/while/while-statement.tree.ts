@@ -1,8 +1,8 @@
 import { WhileStatementContext } from '../../../grammar/xon-parser';
-import { getExpressionNode } from '../../expression/expression-node-helper';
 import { ExpressionNode } from '../../expression/expression-node';
-import { getStatementsFromBody } from '../statement-node-helper';
+import { getExpressionNode } from '../../expression/expression-node-helper';
 import { StatementNode } from '../statement-node';
+import { getStatementsFromBody } from '../statement-node-helper';
 
 export class WhileStatementTree extends StatementNode {
   expression: ExpressionNode;
@@ -11,7 +11,7 @@ export class WhileStatementTree extends StatementNode {
   constructor(public ctx: WhileStatementContext) {
     super();
 
-    this.expression = getExpressionNode(ctx.expression());
+    this.expression = getExpressionNode(ctx.expr());
     this.body = getStatementsFromBody(ctx.body());
   }
 

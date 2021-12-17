@@ -12,7 +12,7 @@ export class AssignmentStatementTree extends StatementNode {
     super();
 
     this.id = IdToken.fromContext(ctx.id());
-    this.value = getExpressionNode(ctx.expression());
+    this.value = getExpressionNode(ctx.expr());
   }
 
   toString(): string {

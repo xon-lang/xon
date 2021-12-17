@@ -1,8 +1,8 @@
 import { IfStatementContext } from '../../../grammar/xon-parser';
-import { getExpressionNode } from '../../expression/expression-node-helper';
 import { ExpressionNode } from '../../expression/expression-node';
-import { getStatementsFromBody } from '../statement-node-helper';
+import { getExpressionNode } from '../../expression/expression-node-helper';
 import { StatementNode } from '../statement-node';
+import { getStatementsFromBody } from '../statement-node-helper';
 
 export class IfStatementTree extends StatementNode {
   condition: ExpressionNode;
@@ -12,7 +12,7 @@ export class IfStatementTree extends StatementNode {
   constructor(public ctx: IfStatementContext) {
     super();
 
-    this.condition = getExpressionNode(ctx.expression());
+    this.condition = getExpressionNode(ctx.expr());
     this.thenBody = getStatementsFromBody(ctx._thenBody);
     this.elseBody = getStatementsFromBody(ctx._elseBody);
   }

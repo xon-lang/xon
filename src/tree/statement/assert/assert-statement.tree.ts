@@ -10,8 +10,8 @@ export class AssertStatementTree extends StatementNode {
   constructor(public ctx: AssertStatementContext) {
     super();
 
-    this.actual = getExpressionNode(ctx.expression(0));
-    this.expect = getExpressionNode(ctx.expression(1));
+    this.actual = getExpressionNode(ctx.expr(0));
+    this.expect = getExpressionNode(ctx.expr(1));
   }
 
   toString(): string {

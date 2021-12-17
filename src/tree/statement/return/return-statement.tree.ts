@@ -1,6 +1,6 @@
 import { ReturnStatementContext } from '../../../grammar/xon-parser';
-import { getExpressionNode } from '../../expression/expression-node-helper';
 import { ExpressionNode } from '../../expression/expression-node';
+import { getExpressionNode } from '../../expression/expression-node-helper';
 import { StatementNode } from '../statement-node';
 
 export class ReturnStatementTree extends StatementNode {
@@ -9,7 +9,7 @@ export class ReturnStatementTree extends StatementNode {
   constructor(public ctx: ReturnStatementContext) {
     super();
 
-    this.value = ctx.expression() && getExpressionNode(ctx.expression());
+    this.value = ctx.expr() && getExpressionNode(ctx.expr());
   }
 
   toString(): string {

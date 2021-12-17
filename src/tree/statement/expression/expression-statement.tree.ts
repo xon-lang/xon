@@ -9,7 +9,7 @@ export class ExpressionStatementTree extends StatementNode {
   constructor(public ctx: ExpressionStatementContext) {
     super();
 
-    this.expression = getExpressionNode(ctx.expression());
+    this.expression = getExpressionNode(ctx.expr());
   }
 
   toString(): string {
