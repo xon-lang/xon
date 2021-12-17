@@ -1,4 +1,4 @@
-object SomeClass is Base<String, Boolean>
+object SomeClass is Base<|String, Boolean|>
   property: 123
   anotherProp String
   typedValue Number

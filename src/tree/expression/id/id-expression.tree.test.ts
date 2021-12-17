@@ -11,7 +11,7 @@ test('id', () => {
 });
 
 test('call with type parameter', () => {
-  const code = 'A<String > (1)';
+  const code = 'A<|String| >';
   const tree = parseExpression<IdExpressionTree>(code);
   expect(tree).toBeInstanceOf(IdExpressionTree);
 
