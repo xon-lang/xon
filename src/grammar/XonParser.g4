@@ -103,8 +103,8 @@ objectArguments: '{' ( objectArgument (',' objectArgument)*)? ','? '}';
 objectArgument:  attribute | expression;
 
 typeParameter:  '...'? id (IS type)?;
-typeParameters: '<' typeParameter (',' typeParameter)* ','? '>';
-typeArguments:  '<' (type (',' type)*)? ','? '>';
+typeParameters: '<' '|' typeParameter (',' typeParameter)* ','? '|' '>';
+typeArguments:  '<' '|' (type (',' type)*)? ','? '|' '>';
 
 body:               ':' (statement | NL+ INDENT (statement | NL)+ DEDENT)?;
 attributeId:        id | operator | STRING_LITERAL;
