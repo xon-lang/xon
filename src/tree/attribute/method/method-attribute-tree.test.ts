@@ -40,7 +40,7 @@ test('with parameters', () => {
 });
 
 test('with type parameters', () => {
-  const code = 'a<T>(x Integer) T[]\n 123';
+  const code = 'a<|T|>(x Integer) T[]\n 123';
   const tree = parseAttribute<MethodAttributeTree>(code);
   expect(tree).toBeInstanceOf(MethodAttributeTree);
 

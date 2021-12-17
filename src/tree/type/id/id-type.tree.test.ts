@@ -11,7 +11,7 @@ test('has id name', () => {
 });
 
 test('has id with type parameters', () => {
-  const code = 'Map<String, () Integer>';
+  const code = 'Map<|String, () Integer|>';
   const tree = parseType<IdTypeTree>(code);
   expect(tree).toBeInstanceOf(IdTypeTree);
 

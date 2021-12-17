@@ -34,7 +34,7 @@ test('method on several lines', () => {
 });
 
 test('can call with type parameter', () => {
-  const code = 'a.get<String > (1)';
+  const code = 'a.get (1)';
   const tree = parseExpression<CallExpressionTree>(code);
   expect(tree).toBeInstanceOf(CallExpressionTree);
 
@@ -43,25 +43,3 @@ test('can call with type parameter', () => {
   expect(arg.literal).toBeInstanceOf(IntegerLiteralTree);
   expect(tree.instance).toBeInstanceOf(MemberExpressionTree);
 });
-
-test('call with type parameter', () => {
-  const code = 'A<String > (1)';
-  const tree = parseExpression<CallExpressionTree>(code);
-  expect(tree).toBeInstanceOf(CallExpressionTree);
-
-  expect(tree.arguments.length).toBe(1);
-  const [arg] = tree.arguments.map((x) => x as LiteralExpressionTree);
-  expect(arg.literal).toBeInstanceOf(IntegerLiteralTree);
-  expect(tree.instance).toBeInstanceOf(IdExpressionTree);
-});
-
-// test('index call with type parameter', () => {
-//   const code = 'abc[1]';
-//   const tree = parseExpression<CallExpressionTree>(code);
-//   expect(tree).toBeInstanceOf(CallExpressionTree);
-
-//   expect(tree.arguments.length).toBe(1);
-//   const [arg] = tree.arguments.map((x) => x as LiteralExpressionTree);
-//   expect(arg.literal.value).toBe(1);
-//   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
-// });

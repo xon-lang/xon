@@ -1,4 +1,4 @@
-interface SomeClass<T> is Base<String, Boolean>
+interface SomeClass<|T|> is Base<|String, Boolean|>
   property Integer
   anotherProp String
   typedValue Number

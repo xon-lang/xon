@@ -25,7 +25,7 @@ test('number return method', () => {
 });
 
 test('from translator-ts', () => {
-  const code = '<T, V>[i Integer] T';
+  const code = '<|T, V|>[i Integer] T';
   const tree = parseType<IndexerTypeTree>(code);
   expect(tree).toBeInstanceOf(IndexerTypeTree);
 
