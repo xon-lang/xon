@@ -40,11 +40,11 @@ statement:
     ;
 
 expression:
-    id                                          # idExpression
-    | literal                                   # literalExpression
-    | expression ('?.' | '.') attributeId       # memberExpression
-    | expression typeArguments? lambdaArguments # callExpression
-    // | expression typeArguments? indexerArguments                           # indexerExpression
+    id typeArguments?                                                     # idExpression
+    | literal                                                             # literalExpression
+    | expression ('?.' | '.') attributeId                                 # memberExpression
+    | expression lambdaArguments                                          # callExpression
+    | expression arrayArguments                                           # indexerExpression
     | expression IS type                                                  # isExpression
     | expression AS type                                                  # asExpression
     | expression IN type                                                  # asExpression
