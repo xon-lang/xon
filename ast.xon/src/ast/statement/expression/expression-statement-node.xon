@@ -1,4 +1,0 @@
-ExpressionStatementNode(context) is StatementNode
-  value = context.expression().toNode()
-
-  toString() = $value.toString()

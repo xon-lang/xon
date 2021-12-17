@@ -1,9 +1,0 @@
-StringLiteralNode is LiteralNode:
-  context StringLiteralContext
-  value String
-
-  #($value): --
-
-  $(context): $value = context.text[1:-1]
-
-  toString() = "\"{$value}\""

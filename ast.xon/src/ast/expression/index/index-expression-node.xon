@@ -1,5 +1,0 @@
-IndexExpressionNode(context) is ExpressionNode
-  instance = context.expression(0).toNode()
-  index = context.expression(1).toNode()
-
-  toString() = `{$instance}[${$index}]`

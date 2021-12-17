@@ -1,3 +1,0 @@
-WhileStatementNode(context) is StatementNode {
-  expression = ctx.expression().toNode()
-  body = ctx.body().toNode()

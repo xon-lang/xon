@@ -1,5 +1,0 @@
-WrongExpectContext<TActual, TExpect> is Error
-  actual TActual
-  expect TExpect
-
-  $($actual, $expect): $$("'{$expect::type.name}' expected but '{$actual::type.name}'")

@@ -1,4 +1,0 @@
-IfStatementNode extends StatementNode
-  condition = context.expression().toNode()
-  thenBody = context.body(0).toNodes()
-  elseBody = context.body(1)?.toNodes() or [] -- TODO: auto calculating type of array

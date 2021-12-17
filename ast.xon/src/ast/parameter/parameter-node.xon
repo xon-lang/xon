@@ -1,7 +1,0 @@
-ParameterTree(context) is Node<ParameterContext>:
-  name = context._name.text
-  type = context.type().toNode()
-  isPrivate = $name.startsWith('_')
-  metaType = context._meta?.text
-
-  toString() = `{$name} {$type}`

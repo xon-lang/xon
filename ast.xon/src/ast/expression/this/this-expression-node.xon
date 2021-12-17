@@ -1,2 +1,0 @@
-ThisExpressionNode(context) is ExpressionNode
-  toString() = context.THIS().text

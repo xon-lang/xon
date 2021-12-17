@@ -1,5 +1,0 @@
-MemberExpressionNode(context) is ExpressionNode
-  name = context.id().text
-  instance = context.expression().toNode()
-
-  toString() = `{$instance}.{$name}`

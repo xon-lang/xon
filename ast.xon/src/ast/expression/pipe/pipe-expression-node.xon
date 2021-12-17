@@ -1,8 +1,0 @@
-PipeExpressionNode(context) is ExpressionNode
-  argument = context.id()?.text
-  left = context._left.toNode()
-  right = context._right.toNode()
-
-  toString() = if $argument:
-    `{$left} |{argument}: {$right}`
-    else `{$left} | {$right}`

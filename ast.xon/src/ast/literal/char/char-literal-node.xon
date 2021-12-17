@@ -1,4 +1,0 @@
-CharLiteral($context) is LiteralNode:
-  value = $context.text[1:-1]
-
-  toString() = "'{$value}'"

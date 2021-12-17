@@ -1,2 +1,0 @@
-PreprocessorStatementNode(context) is StatementNode
-  value = context.PREPROCESSOR().text.trim().slice(2, -1)

@@ -1,5 +1,0 @@
-PropertyMemberNode(context) is MemberNode
-  name = context.id().text
-  isPrivate = name.startsWith('_')
-  type = context.type().toNode()
-  value = context.expression().toNode()
