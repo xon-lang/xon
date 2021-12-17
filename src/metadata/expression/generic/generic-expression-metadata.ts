@@ -1,4 +1,5 @@
 import { CallExpressionTree } from '../../../tree/expression/call/call-expression.tree';
+import { GenericExpressionTree } from '../../../tree/expression/generic/call-expression.tree';
 import { MemberExpressionTree } from '../../../tree/expression/member/member-expression.tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';
@@ -7,16 +8,16 @@ import { getTypeMetadata } from '../../type/type-metadata-helper';
 import { ExpressionMetadata } from '../expression-metadata';
 import { getExpressionMetadata } from '../expression-metadata-helper';
 
-export class CallExpressionMetadata extends ExpressionMetadata {
+export class GenericExpressionMetadata extends ExpressionMetadata {
   type: TypeMetadata;
 
-  constructor(tree: CallExpressionTree, scope: DeclarationScope) {
+  constructor(tree: GenericExpressionTree, scope: DeclarationScope) {
     super();
 
     // const args = tree.arguments.map((x) => getExpressionMetadata(x, scope)).map((x) => x.type);
     // const instanceType = getExpressionMetadata(tree.instance, scope).type;
     // if (tree.instance instanceof MemberExpressionTree) {
-    //   const member = tree.instance.instance as MemberExpressionTree;
+    //   const member = tree. instance.instance as MemberExpressionTree;
     //   const memberType = getExpressionMetadata(member, scope).type;
     //   const typeArguments = tree.typeArguments.map((x) => getTypeMetadata(x, scope));
     //   const attributes = instanceType.attributes.filter((x) => {

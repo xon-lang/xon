@@ -14,6 +14,6 @@ export class AbstractAttributeMetadata extends AttributeMetadata {
   }
 
   type(): TypeMetadata {
-    return getTypeMetadata(this.tree.type, this.scope);
+    return getTypeMetadata(this.tree.type);
   }
 }

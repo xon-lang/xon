@@ -1,14 +1,10 @@
-import { DeclarationScope } from '../../declaration-scope';
+import { LiteralTree } from '../../../tree/literal/literal.tree';
 import { IdTypeMetadata } from '../id/id-type-metadata';
 import { TypeMetadata } from '../type-metadata';
 
 export class LiteralTypeMetadata extends IdTypeMetadata {
-  constructor(
-    public name: string,
-    public value: number | string | RegExp,
-    scope: DeclarationScope,
-  ) {
-    super(name, [], scope);
+  constructor(public name: string, public value: number | string | RegExp) {
+    super(name, []);
   }
 
   is(other: TypeMetadata): boolean {
@@ -19,5 +15,9 @@ export class LiteralTypeMetadata extends IdTypeMetadata {
 
   toString() {
     return `${this.name}<${this.value}>`;
+  }
+
+  static fromTree(tree: LiteralTree) {
+    return new LiteralTypeMetadata(tree.constructor.name.replace('LiteralTree', ''), tree.value);
   }
 }

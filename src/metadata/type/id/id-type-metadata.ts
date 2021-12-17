@@ -1,41 +1,37 @@
-import { DeclarationScope } from '../../declaration-scope';
-import { AttributeMetadata } from '../../declaration/attribute/attribute-metadata';
-import { AliasDefinitionMetadata } from '../../declaration/definition/alias/alias-definition-metadata';
-import { ClassDefinitionMetadata } from '../../declaration/definition/class/class-definition-metadata';
-import { DefinitionMetadata } from '../../declaration/definition/definition-metadata';
-import { InterfaceDefinitionMetadata } from '../../declaration/definition/interface/interface-definition-metadata';
-import { ObjectDefinitionMetadata } from '../../declaration/definition/object/object-definition-metadata';
-import { checkGenerics } from '../../util';
 import { SetTypeMetadata } from '../set/set-type-metadata';
 import { TypeMetadata } from '../type-metadata';
 
 export class IdTypeMetadata extends TypeMetadata {
-  declaration: DefinitionMetadata;
-  ancestors: TypeMetadata[];
+  // declaration: DefinitionMetadata;
+  // ancestors: TypeMetadata[];
 
-  _attributes: AttributeMetadata[];
-  get attributes(): AttributeMetadata[] {
-    if (this._attributes) return this._attributes;
-    if (!(this.declaration instanceof AliasDefinitionMetadata))
-      return (this._attributes = this.declaration.attributes);
+  // _attributes: AttributeMetadata[];
+  // get attributes(): AttributeMetadata[] {
+  //   if (this._attributes) return this._attributes;
+  //   if (!(this.declaration instanceof AliasDefinitionMetadata))
+  //     return (this._attributes = this.declaration.attributes);
 
-    throw new Error('Not implemented for alias type');
-  }
+  //   throw new Error('Not implemented for alias type');
+  // }
 
-  constructor(public name: string, public typeArguments: TypeMetadata[], scope: DeclarationScope) {
+  constructor(
+    public name: string,
+    // lib: string,
+    public typeArguments: TypeMetadata[], // scope: DeclarationScope,
+  ) {
     super();
-    this.declaration = scope.find((x) => {
-      if (!(x instanceof DefinitionMetadata)) return false;
-      if (x.name !== name) return false;
-      if (
-        x instanceof AliasDefinitionMetadata ||
-        x instanceof ClassDefinitionMetadata ||
-        x instanceof InterfaceDefinitionMetadata
-      ) {
-        return checkGenerics(x.generics, typeArguments);
-      }
-      return x instanceof ObjectDefinitionMetadata && !typeArguments.length;
-    }) as DefinitionMetadata;
+    // this.declaration = scope.find((x) => {
+    //   if (!(x instanceof DefinitionMetadata)) return false;
+    //   if (x.name !== name) return false;
+    //   if (
+    //     x instanceof AliasDefinitionMetadata ||
+    //     x instanceof ClassDefinitionMetadata ||
+    //     x instanceof InterfaceDefinitionMetadata
+    //   ) {
+    //     return checkGenerics(x.generics, typeArguments);
+    //   }
+    //   return x instanceof ObjectDefinitionMetadata && !typeArguments.length;
+    // }) as DefinitionMetadata;
   }
 
   is(other: TypeMetadata): boolean {
@@ -43,14 +39,14 @@ export class IdTypeMetadata extends TypeMetadata {
     if (other instanceof IdTypeMetadata) {
       if (this.typeArguments.length !== other.typeArguments.length) return false;
       if (
-        this.declaration === other.declaration &&
+        // this.declaration === other.declaration &&
         this.typeArguments.every((x, i) => x.is(other.typeArguments[i]))
       )
         return true;
 
-      if (this.declaration.ancestors.length) {
-        return this.declaration.ancestors.some((x) => x.is(other));
-      }
+      // if (this.declaration.ancestors.length) {
+      //   return this.declaration.ancestors.some((x) => x.is(other));
+      // }
     }
     return false;
   }

@@ -11,14 +11,14 @@ export class LambdaExpressionMetadata extends ExpressionMetadata {
   constructor(tree: LambdaExpressionTree, scope: DeclarationScope) {
     super();
 
-    for (const parameter of tree.parameters) {
-      scope.set(new ParameterMetadata(parameter, scope));
-    }
+    // for (const parameter of tree.parameters) {
+    //   scope.set(new ParameterMetadata(parameter, scope));
+    // }
 
-    this.type = new LambdaTypeMetadata(
-      [],
-      getExpressionMetadata(tree.expression, scope).type,
-      scope,
-    );
+    // this.type = new LambdaTypeMetadata(
+    //   [],
+    //   getExpressionMetadata(tree.expression, scope).type,
+    //   scope,
+    // );
   }
 }

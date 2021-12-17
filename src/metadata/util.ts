@@ -1,7 +1,7 @@
-import { GenericMetadata } from './declaration/generic/generic-metadata';
+import { TypeParameterMetadata } from './declaration/type-parameter/type-parameter-metadata';
 import { TypeMetadata } from './type/type-metadata';
 
-export function checkGenerics(parameters: GenericMetadata[], args: TypeMetadata[]) {
+export function checkGenerics(parameters: TypeParameterMetadata[], args: TypeMetadata[]) {
   const spreadGenericIndex = parameters.findIndex((x) => x.hasSpread);
   if (spreadGenericIndex >= 0) {
     if (parameters.length - 1 > args.length) return false;

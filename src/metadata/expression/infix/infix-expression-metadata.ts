@@ -11,10 +11,10 @@ export class InfixExpressionMetadata extends ExpressionMetadata {
   constructor(tree: InfixExpressionTree, scope: DeclarationScope) {
     super();
 
-    const declaration = getExpressionMetadata(tree.left, scope).type.declaration;
-    const rightType = getExpressionMetadata(tree.right, scope).type;
-    const attributeType = declaration.attribute(tree.id.text, [], [rightType], null).type([]);
-    if (attributeType instanceof LambdaTypeMetadata) this.type = attributeType.resultType;
-    else throw new Error('Wrong method type');
+    // const declaration = getExpressionMetadata(tree.left, scope).type.declaration;
+    // const rightType = getExpressionMetadata(tree.right, scope).type;
+    // const attributeType = declaration.attribute(tree.id.text, [], [rightType], null).type([]);
+    // if (attributeType instanceof LambdaTypeMetadata) this.type = attributeType.resultType;
+    // else throw new Error('Wrong method type');
   }
 }

@@ -9,6 +9,28 @@ export class DeclarationScope {
     this.declarations.push(declaration);
   }
 
+  filterByName(name: string): DeclarationMetadata[] {
+    const results: DeclarationMetadata[] = [
+      ...this.declarations.filter((x) => x.name === name),
+      ...(this.parent?.filterByName(name) || []),
+    ];
+
+    return results;
+  }
+
+  findByName(name: string): DeclarationMetadata {
+    const results = this.filterByName(name);
+
+    if (results.length > 1) {
+      throw new Error(`Too many '${name}' declarations found`);
+    }
+    if (!results.length) {
+      throw new Error(`Declaration '${name}' not found`);
+    }
+
+    return results[0];
+  }
+
   find(predicate: (x: DeclarationMetadata) => boolean): DeclarationMetadata {
     const results: DeclarationMetadata[] = [];
     for (const declaration of this.declarations) {

@@ -1,10 +1,9 @@
-import { DeclarationScope } from '../../../declaration-scope';
 import { TypeMetadata } from '../../type-metadata';
 import { SetTypeMetadata } from '../set-type-metadata';
 import { UnionTypeMetadata } from '../union/union-type-metadata';
 
 export class IntersectionTypeMetadata extends SetTypeMetadata {
-  constructor(public types: TypeMetadata[], public scope: DeclarationScope) {
+  constructor(public types: TypeMetadata[]) {
     super();
   }
 

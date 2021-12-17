@@ -11,6 +11,6 @@ export class ArrayExpressionMetadata extends ExpressionMetadata {
     super();
 
     const itemsTypes = tree.items.map((x) => getExpressionMetadata(x, scope).type);
-    this.type = new TupleTypeMetadata(itemsTypes, scope);
+    this.type = new TupleTypeMetadata(itemsTypes);
   }
 }

@@ -17,9 +17,9 @@ export class ObjectAttributeMetadata extends AttributeMetadata {
   type(): ObjectTypeMetadata {
     const parameters = this.tree.body.map((x) => {
       const attribute = getAttributeMetadata(x, this.scope);
-      return new ParameterMetadata(attribute.name, attribute.type(), this.scope);
+      return new ParameterMetadata(attribute.name, attribute.type());
     });
 
-    return new ObjectTypeMetadata(parameters, this.scope);
+    return new ObjectTypeMetadata(parameters);
   }
 }

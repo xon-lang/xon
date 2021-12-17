@@ -11,10 +11,10 @@ export class MemberExpressionMetadata extends ExpressionMetadata {
   constructor(tree: MemberExpressionTree, scope: DeclarationScope) {
     super();
 
-    const declaration = getExpressionMetadata(tree.instance, scope).type.declaration;
-    const typeArguments = tree.typeArguments.map((x) => getTypeMetadata(x, scope));
-    const attribute = declaration.attribute(tree.id.text, typeArguments, [], null);
+    // const declaration = getExpressionMetadata(tree.instance, scope).type.declaration;
+    // const typeArguments = tree.typeArguments.map((x) => getTypeMetadata(x, scope));
+    // const attribute = declaration.attribute(tree.id.text, typeArguments, [], null);
 
-    this.type = attribute.type(typeArguments);
+    // this.type = attribute.type(typeArguments);
   }
 }

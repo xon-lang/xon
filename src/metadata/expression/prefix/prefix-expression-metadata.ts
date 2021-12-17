@@ -11,9 +11,9 @@ export class PrefixExpressionMetadata extends ExpressionMetadata {
   constructor(tree: PrefixExpressionTree, scope: DeclarationScope) {
     super();
 
-    const declaration = getExpressionMetadata(tree.value, scope).type.declaration;
-    const attributeType = declaration.attribute(tree.id.text, [], [], null).type([]);
-    if (attributeType instanceof LambdaTypeMetadata) this.type = attributeType.resultType;
-    else throw new Error('Wrong method type');
+    // const declaration = getExpressionMetadata(tree.value, scope).type.declaration;
+    // const attributeType = declaration.attribute(tree.id.text, [], [], null).type([]);
+    // if (attributeType instanceof LambdaTypeMetadata) this.type = attributeType.resultType;
+    // else throw new Error('Wrong method type');
   }
 }
