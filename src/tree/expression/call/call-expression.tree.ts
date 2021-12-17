@@ -23,6 +23,8 @@ export class CallExpressionTree extends ExpressionTree {
     const typeArguments = this.typeArguments.length
       ? '<' + this.typeArguments.join(', ') + '>'
       : '';
+    if (typeArguments)
+      return `${this.instance}<${this.typeArguments.join(', ')}>(${this.arguments.join(', ')})`;
     return `${this.instance}(${this.arguments.join(', ')})`;
   }
 }

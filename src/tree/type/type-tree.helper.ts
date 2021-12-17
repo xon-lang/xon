@@ -1,6 +1,7 @@
 import {
   ArrayTypeContext,
   IdTypeContext,
+  IndexerTypeContext,
   IntersectionTypeContext,
   LambdaTypeContext,
   LiteralTypeContext,
@@ -11,8 +12,10 @@ import {
   TypeContext,
   UnionTypeContext,
 } from '../../grammar/xon-parser';
+import { Issue } from '../../issue-service/issue';
 import { ArrayTypeTree } from './array/array-type.tree';
 import { IdTypeTree } from './id/id-type.tree';
+import { IndexerTypeTree } from './indexer/indexer-type.tree';
 import { IntersectionTypeTree } from './intersection/intersection-type.tree';
 import { LambdaTypeTree } from './lambda/lambda-type.tree';
 import { LiteralTypeTree } from './literal/literal-type.tree';
@@ -28,6 +31,7 @@ export const getTypeTree = (ctx: TypeContext): TypeTree => {
 
   if (ctx instanceof ArrayTypeContext) return new ArrayTypeTree(ctx);
   if (ctx instanceof IdTypeContext) return new IdTypeTree(ctx);
+  if (ctx instanceof IndexerTypeContext) return new IndexerTypeTree(ctx);
   if (ctx instanceof IntersectionTypeContext) return new IntersectionTypeTree(ctx);
   if (ctx instanceof LambdaTypeContext) return new LambdaTypeTree(ctx);
   if (ctx instanceof LiteralTypeContext) return new LiteralTypeTree(ctx);
@@ -37,7 +41,7 @@ export const getTypeTree = (ctx: TypeContext): TypeTree => {
   if (ctx instanceof TupleTypeContext) return new TupleTypeTree(ctx);
   if (ctx instanceof UnionTypeContext) return new UnionTypeTree(ctx);
 
-  throw Error(`Type tree not found for "${ctx.constructor.name}"`);
+  throw Issue.errorFromContext(ctx, `Type tree not found for '${ctx.constructor.name}'`);
 };
 
 export const getTypesTrees = (contexts: TypeContext[]): TypeTree[] =>

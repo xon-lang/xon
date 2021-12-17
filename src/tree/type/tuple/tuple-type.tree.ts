@@ -8,7 +8,7 @@ export class TupleTypeTree extends TypeTree {
   constructor(public ctx: TupleTypeContext) {
     super();
 
-    this.types = getTypesTrees(ctx.arrayParameters().type());
+    this.types = getTypesTrees(ctx.tupleParameters().type());
   }
 
   toString(): string {

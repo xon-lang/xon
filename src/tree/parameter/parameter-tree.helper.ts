@@ -1,4 +1,5 @@
 import {
+  IndexerParametersContext,
   LambdaParameterContext,
   LambdaParametersContext,
   ObjectParametersContext,
@@ -17,14 +18,19 @@ export const getParametersTrees = (
     | ParameterContext[]
     | ParametersContext
     | LambdaParametersContext
-    | ObjectParametersContext,
+    | ObjectParametersContext
+    | IndexerParametersContext,
 ): ParameterTree[] => {
   if (!contexts) return [];
 
   if (contexts instanceof LambdaParametersContext)
     return contexts.lambdaParameter().map((x) => getParameterTree(x));
 
-  if (contexts instanceof ObjectParametersContext || contexts instanceof ParametersContext)
+  if (
+    contexts instanceof ObjectParametersContext ||
+    contexts instanceof ParametersContext ||
+    contexts instanceof IndexerParametersContext
+  )
     return contexts.parameter().map((x) => getParameterTree(x));
 
   return contexts.map((x) => getParameterTree(x));
