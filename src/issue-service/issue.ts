@@ -10,18 +10,23 @@ export class Issue {
   column: number;
   ctx: ParserRuleContext;
 
-  static fromTree(tree: BaseTree, level: IssueLevel, message: string): Issue {
+  static fromContext(ctx: ParserRuleContext, level: IssueLevel, message: string): Issue {
     const issue = new Issue();
-    issue.ctx = tree.ctx;
+    issue.ctx = ctx;
     issue.level = level;
     issue.message = message;
-    issue.line = tree.ctx.start.line;
-    issue.column = tree.ctx.start.charPositionInLine;
+    issue.line = ctx.start.line;
+    issue.column = ctx.start.charPositionInLine;
     return issue;
   }
 
   static errorFromTree(tree: BaseTree, message: string): Error {
-    const issue = this.fromTree(tree, IssueLevel.Error, message);
+    const issue = this.fromContext(tree.ctx, IssueLevel.Error, message);
+    return issue.toError();
+  }
+
+  static errorFromContext(ctx: ParserRuleContext, message: string): Error {
+    const issue = this.fromContext(ctx, IssueLevel.Error, message);
     return issue.toError();
   }
 

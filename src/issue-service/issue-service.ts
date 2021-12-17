@@ -21,7 +21,7 @@ export class IssueService {
   }
 
   add(tree: BaseTree, level: IssueLevel, message: string): Issue {
-    const issue = Issue.fromTree(tree, level, message);
+    const issue = Issue.fromContext(tree.ctx, level, message);
     this.lastScope.push(issue);
     return issue;
   }
