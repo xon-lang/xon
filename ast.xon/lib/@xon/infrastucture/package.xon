@@ -14,9 +14,9 @@ Package
   private Boolean
   main String
   types String
-  scripts Map<String, String>
-  devDependencies Map<String, DependencyVersion>
-  dependencies Map<String, DependencyVersion>
+  scripts Map<|String, String|>
+  devDependencies Map<|String, DependencyVersion|>
+  dependencies Map<|String, DependencyVersion|>
 
 
 DependencyVersion = /@[~^]?([\dvx*]+(?:[-.](?:[\dx*]+|alpha|beta))*)/

@@ -1,4 +1,4 @@
-interface String is Array<Char>
+interface String is Char[]
   + (other String) String
   + (other Char) String
   + (other Number) String
