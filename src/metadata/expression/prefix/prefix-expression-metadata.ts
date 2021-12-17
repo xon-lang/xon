@@ -1,4 +1,4 @@
-import { PrefixExpressionTree } from '../../../tree/expression/prefix/prefix-expression.tree';
+import { PrefixExpressionNode } from '../../../tree/expression/prefix/prefix-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
@@ -8,7 +8,7 @@ import { getExpressionMetadata } from '../expression-metadata-helper';
 export class PrefixExpressionMetadata extends ExpressionMetadata {
   type: TypeMetadata;
 
-  constructor(tree: PrefixExpressionTree, scope: DeclarationScope) {
+  constructor(tree: PrefixExpressionNode, scope: DeclarationScope) {
     super();
 
     // const declaration = getExpressionMetadata(tree.value, scope).type.declaration;

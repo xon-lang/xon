@@ -1,15 +1,15 @@
 import { ReturnStatementContext } from '../../../grammar/xon-parser';
-import { getExpressionTree } from '../../expression/expression-tree.helper';
-import { ExpressionTree } from '../../expression/expression.tree';
-import { StatementTree } from '../statement.tree';
+import { getExpressionNode } from '../../expression/expression-node-helper';
+import { ExpressionNode } from '../../expression/expression-node';
+import { StatementNode } from '../statement-node';
 
-export class ReturnStatementTree extends StatementTree {
-  value?: ExpressionTree;
+export class ReturnStatementTree extends StatementNode {
+  value?: ExpressionNode;
 
   constructor(public ctx: ReturnStatementContext) {
     super();
 
-    this.value = ctx.expression() && getExpressionTree(ctx.expression());
+    this.value = ctx.expression() && getExpressionNode(ctx.expression());
   }
 
   toString(): string {

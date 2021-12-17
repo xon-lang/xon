@@ -1,4 +1,4 @@
-import { MemberExpressionTree } from '../../../tree/expression/member/member-expression.tree';
+import { MemberExpressionNode } from '../../../tree/expression/member/member-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { TypeMetadata } from '../../type/type-metadata';
 import { getTypeMetadata } from '../../type/type-metadata-helper';
@@ -8,7 +8,7 @@ import { getExpressionMetadata } from '../expression-metadata-helper';
 export class MemberExpressionMetadata extends ExpressionMetadata {
   type: TypeMetadata;
 
-  constructor(tree: MemberExpressionTree, scope: DeclarationScope) {
+  constructor(tree: MemberExpressionNode, scope: DeclarationScope) {
     super();
 
     // const declaration = getExpressionMetadata(tree.instance, scope).type.declaration;

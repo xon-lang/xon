@@ -1,13 +1,13 @@
 import { SourceContext } from '../../grammar/xon-parser';
-import { AttributeTree } from '../attribute/attribute-tree';
-import { getAttributesTrees } from '../attribute/attribute-tree.helper';
-import { BaseTree } from '../base.tree';
+import { AttributeTree } from '../attribute/attribute-node';
+import { getAttributeNodes } from '../attribute/attribute-node-helper';
+import { Node } from '../node';
 import { DefinitionTree } from '../definition/definition-tree';
 import { getDefinitionsTrees } from '../definition/definition-tree-helper';
 import { getImportsTrees } from '../import/import-tree.helper';
 import { ImportTree } from '../import/import.tree';
 
-export class SourceTree extends BaseTree {
+export class SourceTree extends Node {
   imports: ImportTree[];
   definitions: DefinitionTree[] = [];
 

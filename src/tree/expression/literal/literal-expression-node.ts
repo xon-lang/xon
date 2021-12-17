@@ -1,0 +1,20 @@
+import { LiteralExpressionContext } from '../../../grammar/xon-parser';
+import { LiteralExpressionMetadata } from '../../../metadata/expression/literal/literal-expression-metadata';
+import { getLiteralTree } from '../../literal/literal-tree.helper';
+import { LiteralTree } from '../../literal/literal.tree';
+import { ExpressionNode } from '../expression-node';
+
+export class LiteralExpressionNode extends ExpressionNode {
+  metadata: LiteralExpressionMetadata;
+  literal: LiteralTree;
+
+  constructor(public ctx: LiteralExpressionContext) {
+    super();
+
+    this.literal = ctx && getLiteralTree(ctx.literal());
+  }
+
+  toString(): string {
+    return `${this.literal}`;
+  }
+}

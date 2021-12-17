@@ -1,4 +1,4 @@
-import { LiteralExpressionTree } from '../../expression/literal/literal-expression.tree';
+import { LiteralExpressionNode } from '../../expression/literal/literal-expression-node';
 import { parseStatement } from '../../parse';
 import { AssignmentStatementTree } from './assignment-statement.tree';
 
@@ -8,5 +8,5 @@ test('variable assignment', () => {
   expect(tree).toBeInstanceOf(AssignmentStatementTree);
 
   expect(tree.id.text).toBe('a');
-  expect((tree.value as LiteralExpressionTree).literal.value).toBe(1);
+  expect((tree.value as LiteralExpressionNode).literal.value).toBe(1);
 });

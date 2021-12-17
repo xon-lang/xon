@@ -1,8 +1,8 @@
 import { AbstractAttributeTree } from '../../../tree/attribute/abstract/abstract-attribute-tree';
-import { AttributeTree } from '../../../tree/attribute/attribute-tree';
-import { MethodAttributeTree } from '../../../tree/attribute/method/method-attribute-tree';
-import { ObjectAttributeTree } from '../../../tree/attribute/object/object-attribute-tree';
-import { ValueAttributeTree } from '../../../tree/attribute/value/value-attribute-tree';
+import { AttributeTree } from '../../../tree/attribute/attribute-node';
+import { MethodAttributeTree } from '../../../tree/attribute/method/method-attribute-node';
+import { ObjectAttributeNode } from '../../../tree/attribute/object/object-attribute-node';
+import { ValueAttributeNode } from '../../../tree/attribute/value/value-attribute-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { AbstractAttributeMetadata } from './abstract/abstract-attribute-metadata';
 import { AttributeMetadata } from './attribute-metadata';
@@ -15,8 +15,8 @@ export function getAttributeMetadata(
   scope: DeclarationScope,
 ): AttributeMetadata {
   if (tree instanceof AbstractAttributeTree) return new AbstractAttributeMetadata(tree, scope);
-  if (tree instanceof ObjectAttributeTree) return new ObjectAttributeMetadata(tree, scope);
-  if (tree instanceof ValueAttributeTree) return new ValueAttributeMetadata(tree, scope);
+  if (tree instanceof ObjectAttributeNode) return new ObjectAttributeMetadata(tree, scope);
+  if (tree instanceof ValueAttributeNode) return new ValueAttributeMetadata(tree, scope);
   if (tree instanceof MethodAttributeTree) return new MethodAttributeMetadata(tree, scope);
 
   throw Error(`Attribute metadata not found for "${tree.constructor.name}"`);

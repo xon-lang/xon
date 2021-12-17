@@ -1,4 +1,4 @@
-import { InfixExpressionTree } from '../../../tree/expression/infix/infix-expression.tree';
+import { InfixExpressionNode } from '../../../tree/expression/infix/infix-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
@@ -8,7 +8,7 @@ import { getExpressionMetadata } from '../expression-metadata-helper';
 export class InfixExpressionMetadata extends ExpressionMetadata {
   type: TypeMetadata;
 
-  constructor(tree: InfixExpressionTree, scope: DeclarationScope) {
+  constructor(tree: InfixExpressionNode, scope: DeclarationScope) {
     super();
 
     // const declaration = getExpressionMetadata(tree.left, scope).type.declaration;

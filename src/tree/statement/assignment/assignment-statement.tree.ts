@@ -1,18 +1,18 @@
 import { AssignmentStatementContext } from '../../../grammar/xon-parser';
-import { getExpressionTree } from '../../expression/expression-tree.helper';
-import { ExpressionTree } from '../../expression/expression.tree';
+import { getExpressionNode } from '../../expression/expression-node-helper';
+import { ExpressionNode } from '../../expression/expression-node';
 import { IdToken } from '../../id-token';
-import { StatementTree } from '../statement.tree';
+import { StatementNode } from '../statement-node';
 
-export class AssignmentStatementTree extends StatementTree {
+export class AssignmentStatementTree extends StatementNode {
   id: IdToken;
-  value: ExpressionTree;
+  value: ExpressionNode;
 
   constructor(public ctx: AssignmentStatementContext) {
     super();
 
     this.id = IdToken.fromContext(ctx.id());
-    this.value = getExpressionTree(ctx.expression());
+    this.value = getExpressionNode(ctx.expression());
   }
 
   toString(): string {

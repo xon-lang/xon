@@ -1,9 +1,9 @@
 import { AbstractAttributeTree } from '../../attribute/abstract/abstract-attribute-tree';
-import { MethodAttributeTree } from '../../attribute/method/method-attribute-tree';
-import { ValueAttributeTree } from '../../attribute/value/value-attribute-tree';
-import { CallExpressionTree } from '../../expression/call/call-expression.tree';
-import { IdExpressionTree } from '../../expression/id/id-expression.tree';
-import { LiteralExpressionTree } from '../../expression/literal/literal-expression.tree';
+import { MethodAttributeTree } from '../../attribute/method/method-attribute-node';
+import { ValueAttributeNode } from '../../attribute/value/value-attribute-node';
+import { CallExpressionTree } from '../../expression/invoke/invoke-expression-node';
+import { IdExpressionNode } from '../../expression/id/id-expression-node';
+import { LiteralExpressionNode } from '../../expression/literal/literal-expression-node';
 import { parseDefinition, parseSourceFile } from '../../parse';
 import { SourceTree } from '../../source/source-tree';
 import { ExpressionStatementTree } from '../../statement/expression/expression-statement.tree';
@@ -31,11 +31,11 @@ test('one scope', () => {
   console.log(attrs.join(',\n'));
   expect(attrs.length).toBe(6);
 
-  const propertyAttribute = attrs[0] as ValueAttributeTree;
-  expect(propertyAttribute).toBeInstanceOf(ValueAttributeTree);
+  const propertyAttribute = attrs[0] as ValueAttributeNode;
+  expect(propertyAttribute).toBeInstanceOf(ValueAttributeNode);
   expect(propertyAttribute.id.text).toBe('property');
   expect(propertyAttribute.type).toBe(null);
-  expect((propertyAttribute.expression as LiteralExpressionTree).literal.value).toBe(123);
+  expect((propertyAttribute.value as LiteralExpressionNode).literal.value).toBe(123);
 
   const anotherPropAttribute = attrs[1] as AbstractAttributeTree;
   expect(anotherPropAttribute).toBeInstanceOf(AbstractAttributeTree);
@@ -77,7 +77,7 @@ test('one scope', () => {
   );
   const innerMethod = (locationAttribute.body[0] as ExpressionStatementTree)
     .expression as CallExpressionTree;
-  const callExpression = innerMethod.instance as IdExpressionTree;
+  const callExpression = innerMethod.instance as IdExpressionNode;
   expect(callExpression.id.text).toBe('pos');
   expect(innerMethod.arguments.length).toBe(2);
 

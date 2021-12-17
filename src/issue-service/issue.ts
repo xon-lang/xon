@@ -1,6 +1,6 @@
 import { ParserRuleContext } from 'antlr4ts';
 import chalk from 'chalk';
-import { BaseTree } from '../tree/base.tree';
+import { Node } from '../tree/node';
 import { IssueLevel } from './issue-level';
 
 export class Issue {
@@ -20,7 +20,7 @@ export class Issue {
     return issue;
   }
 
-  static errorFromTree(tree: BaseTree, message: string): Error {
+  static errorFromTree(tree: Node, message: string): Error {
     const issue = this.fromContext(tree.ctx, IssueLevel.Error, message);
     return issue.toError();
   }

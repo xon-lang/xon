@@ -1,8 +1,8 @@
 import { LibraryMemberContext } from '../../grammar/xon-parser';
-import { BaseTree } from '../base.tree';
+import { Node } from '../node';
 import { IdToken } from '../id-token';
 
-export class ImportMemberTree extends BaseTree {
+export class ImportMemberTree extends Node {
   id: IdToken;
   alias?: IdToken;
 

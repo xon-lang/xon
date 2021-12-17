@@ -1,6 +1,6 @@
 import { evalExpression } from '../../eval';
-import { ArrayExpressionTree } from '../../expression/array/array-expression.tree';
-import { IdExpressionTree } from '../../expression/id/id-expression.tree';
+import { ArrayExpressionNode } from '../../expression/array/array-expression-node';
+import { IdExpressionNode } from '../../expression/id/id-expression-node';
 import { parseStatement } from '../../parse';
 import { ExpressionStatementTree } from '../expression/expression-statement.tree';
 import { ForStatementTree } from './for-statement.tree';
@@ -11,7 +11,7 @@ test('for with value', () => {
   expect(tree).toBeInstanceOf(ForStatementTree);
 
   expect(tree.indexVarName).toBe(null);
-  expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
+  expect(tree.expression).toBeInstanceOf(ArrayExpressionNode);
 
   expect(tree.body.length).toBe(1);
   const statement = tree.body[0] as ExpressionStatementTree;
@@ -25,7 +25,7 @@ test('for with value and index', () => {
 
   expect(tree.valueVarName).toBe('value');
   expect(tree.indexVarName).toBe('i');
-  expect(tree.expression).toBeInstanceOf(IdExpressionTree);
+  expect(tree.expression).toBeInstanceOf(IdExpressionNode);
 
   expect(tree.body.length).toBe(1);
   const statement = tree.body[0] as ExpressionStatementTree;
@@ -39,7 +39,7 @@ test('for with expression only', () => {
 
   expect(tree.valueVarName).toBe(null);
   expect(tree.indexVarName).toBe(null);
-  expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
+  expect(tree.expression).toBeInstanceOf(ArrayExpressionNode);
 
   expect(tree.body.length).toBe(1);
   const statement = tree.body[0] as ExpressionStatementTree;

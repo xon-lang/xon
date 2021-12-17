@@ -1,16 +1,16 @@
 import { TypeDefinitionContext } from '../../../grammar/xon-parser';
-import { AttributeTree } from '../../attribute/attribute-tree';
-import { getAttributesTrees } from '../../attribute/attribute-tree.helper';
+import { AttributeTree } from '../../attribute/attribute-node';
+import { getAttributeNodes } from '../../attribute/attribute-node-helper';
 import { IdToken } from '../../id-token';
-import { getTypeParametersTrees } from '../../type-parameter/type-parameter-tree.helper';
-import { TypeParameterTree } from '../../type-parameter/type-parameter.tree';
+import { getGenericNodes } from '../../generic/generic-node-helper';
+import { GenericNode } from '../../generic/generic-node';
 import { getTypesTrees } from '../../type/type-tree.helper';
 import { TypeTree } from '../../type/type.tree';
 import { DefinitionTree } from '../definition-tree';
 
 export class InterfaceDefinitionTree extends DefinitionTree {
   id: IdToken;
-  typeParameters: TypeParameterTree[] = [];
+  typeParameters: GenericNode[] = [];
   ancestors: TypeTree[] = [];
   attributes: AttributeTree[] = [];
 
@@ -21,7 +21,7 @@ export class InterfaceDefinitionTree extends DefinitionTree {
     this.id = IdToken.fromContext(header.id());
     if (this.id.text[0] !== this.id.text[0].toUpperCase())
       throw new Error(`Definition name '${this.id.text}' must start with upper letter`);
-    this.typeParameters = getTypeParametersTrees(header.typeParameters());
+    this.typeParameters = getGenericNodes(header.typeParameters());
     const spreadParameters = this.typeParameters.filter((x) => x.hasSpread);
     if (spreadParameters.length > 1) {
       throw new Error(`Spread generic parameter must be only but '${spreadParameters.length}'`);
@@ -30,7 +30,7 @@ export class InterfaceDefinitionTree extends DefinitionTree {
     if (header.parameters()) throw new Error('Interface must not have a constructor');
 
     this.ancestors = getTypesTrees(header.definitionAncestors()?.type());
-    this.attributes = getAttributesTrees(ctx.definitionBody()?.attribute());
+    this.attributes = getAttributeNodes(ctx.definitionBody()?.attribute());
   }
 
   toString(): string {

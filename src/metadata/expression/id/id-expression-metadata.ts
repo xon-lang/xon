@@ -1,4 +1,4 @@
-import { IdExpressionTree } from '../../../tree/expression/id/id-expression.tree';
+import { IdExpressionNode } from '../../../tree/expression/id/id-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { DefinitionMetadata } from '../../declaration/definition/definition-metadata';
 import { ObjectDefinitionMetadata } from '../../declaration/definition/object/object-definition-metadata';
@@ -8,7 +8,7 @@ import { ExpressionMetadata } from '../expression-metadata';
 export class IdExpressionMetadata extends ExpressionMetadata {
   type: TypeMetadata;
 
-  constructor(tree: IdExpressionTree, scope: DeclarationScope) {
+  constructor(tree: IdExpressionNode, scope: DeclarationScope) {
     super();
 
     // this.type  = declaration.type

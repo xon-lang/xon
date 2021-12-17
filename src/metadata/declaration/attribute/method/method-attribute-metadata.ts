@@ -1,4 +1,4 @@
-import { MethodAttributeTree } from '../../../../tree/attribute/method/method-attribute-tree';
+import { MethodAttributeTree } from '../../../../tree/attribute/method/method-attribute-node';
 import { DeclarationScope } from '../../../declaration-scope';
 import { TypeMetadata } from '../../../type/type-metadata';
 import { getTypeMetadata } from '../../../type/type-metadata-helper';

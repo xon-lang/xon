@@ -1,4 +1,4 @@
-import { TypeParameterTree } from '../../../tree/type-parameter/type-parameter.tree';
+import { GenericNode } from '../../../tree/generic/generic-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { getTypeDefinition } from '../../type/type-metadata-helper';
 import { DeclarationMetadata } from '../declaration-metadata';
@@ -10,7 +10,7 @@ export class TypeParameterMetadata extends DeclarationMetadata {
   hasSpread: boolean;
   restrictionTypeDefinition: DefinitionMetadata;
 
-  constructor(private tree: TypeParameterTree, private scope: DeclarationScope) {
+  constructor(private tree: GenericNode, private scope: DeclarationScope) {
     super();
 
     this.name = tree.id.text;

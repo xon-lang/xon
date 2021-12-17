@@ -1,7 +1,7 @@
 import { ExportContext } from '../../grammar/xon-parser';
-import { BaseTree } from '../base.tree';
+import { Node } from '../node';
 
-export class ExportTree extends BaseTree {
+export class ExportTree extends Node {
   path: string;
 
   constructor(public ctx: ExportContext) {

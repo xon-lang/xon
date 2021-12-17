@@ -1,8 +1,8 @@
 import { LibraryContext } from '../../grammar/xon-parser';
-import { BaseTree } from '../base.tree';
+import { Node } from '../node';
 import { ImportMemberTree } from './import-member.tree';
 
-export class ImportTree extends BaseTree {
+export class ImportTree extends Node {
   path: string;
   members?: ImportMemberTree[];
 

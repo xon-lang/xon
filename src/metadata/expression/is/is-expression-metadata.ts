@@ -1,5 +1,5 @@
-import { InfixExpressionTree } from '../../../tree/expression/infix/infix-expression.tree';
-import { IsExpressionTree } from '../../../tree/expression/is/is-expression.tree';
+import { InfixExpressionNode } from '../../../tree/expression/infix/infix-expression-node';
+import { IsExpressionNode } from '../../../tree/expression/is/is-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
@@ -8,7 +8,7 @@ import { getExpressionMetadata } from '../expression-metadata-helper';
 export class IsExpressionMetadata extends ExpressionMetadata {
   type: TypeMetadata;
 
-  constructor(tree: IsExpressionTree, scope: DeclarationScope) {
+  constructor(tree: IsExpressionNode, scope: DeclarationScope) {
     super();
 
     // const declaration = getExpressionMetadata(tree.left, scope).type.declaration;

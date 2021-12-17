@@ -1,15 +1,15 @@
-import { ArrayExpressionTree } from '../../tree/expression/array/array-expression.tree';
-import { CallExpressionTree } from '../../tree/expression/call/call-expression.tree';
-import { ExpressionTree } from '../../tree/expression/expression.tree';
-import { IdExpressionTree } from '../../tree/expression/id/id-expression.tree';
-import { InfixExpressionTree } from '../../tree/expression/infix/infix-expression.tree';
-import { IsExpressionTree } from '../../tree/expression/is/is-expression.tree';
-import { LambdaExpressionTree } from '../../tree/expression/lambda/lambda-expression.tree';
-import { LiteralExpressionTree } from '../../tree/expression/literal/literal-expression.tree';
-import { MemberExpressionTree } from '../../tree/expression/member/member-expression.tree';
-import { ParenthesizedExpressionTree } from '../../tree/expression/parenthesized/parenthesized-expression.tree';
-import { PipeExpressionTree } from '../../tree/expression/pipe/pipe-expression.tree';
-import { PrefixExpressionTree } from '../../tree/expression/prefix/prefix-expression.tree';
+import { ArrayExpressionNode } from '../../tree/expression/array/array-expression-node';
+import { CallExpressionTree } from '../../tree/expression/invoke/invoke-expression-node';
+import { ExpressionNode } from '../../tree/expression/expression-node';
+import { IdExpressionNode } from '../../tree/expression/id/id-expression-node';
+import { InfixExpressionNode } from '../../tree/expression/infix/infix-expression-node';
+import { IsExpressionNode } from '../../tree/expression/is/is-expression-node';
+import { IndexerExpressionNode } from '../../tree/expression/indexer/indexer-expression-node';
+import { LiteralExpressionNode } from '../../tree/expression/literal/literal-expression-node';
+import { MemberExpressionNode } from '../../tree/expression/member/member-expression-node';
+import { ParenthesizedExpressionNode } from '../../tree/expression/parenthesized/parenthesized-expression-node';
+import { PipeExpressionTree } from '../../tree/expression/pipe/pipe-expression-node';
+import { PrefixExpressionNode } from '../../tree/expression/prefix/prefix-expression-node';
 import { DeclarationScope } from '../declaration-scope';
 import { ArrayExpressionMetadata } from './array/array-expression-metadata';
 import { CallExpressionMetadata } from './call/call-expression-metadata';
@@ -24,30 +24,30 @@ import { PipeExpressionMetadata } from './pipe/pipe-expression-metadata';
 import { PrefixExpressionMetadata } from './prefix/prefix-expression-metadata';
 
 export function getExpressionMetadata(
-  tree: ExpressionTree,
+  tree: ExpressionNode,
   scope: DeclarationScope,
 ): ExpressionMetadata {
-  if (tree instanceof ParenthesizedExpressionTree)
-    return (tree.metadata = getExpressionMetadata(tree.value, scope));
+  if (tree instanceof ParenthesizedExpressionNode)
+    return (tree.metadata = getExpressionMetadata(tree.expression, scope));
 
-  if (tree instanceof ArrayExpressionTree)
+  if (tree instanceof ArrayExpressionNode)
     return (tree.metadata = new ArrayExpressionMetadata(tree, scope));
   if (tree instanceof CallExpressionTree)
     return (tree.metadata = new CallExpressionMetadata(tree, scope));
-  if (tree instanceof IdExpressionTree)
+  if (tree instanceof IdExpressionNode)
     return (tree.metadata = new IdExpressionMetadata(tree, scope));
-  if (tree instanceof InfixExpressionTree)
+  if (tree instanceof InfixExpressionNode)
     return (tree.metadata = new InfixExpressionMetadata(tree, scope));
-  if (tree instanceof IsExpressionTree)
+  if (tree instanceof IsExpressionNode)
     return (tree.metadata = new IsExpressionMetadata(tree, scope));
-  if (tree instanceof LambdaExpressionTree)
+  if (tree instanceof IndexerExpressionNode)
     return (tree.metadata = new LambdaExpressionMetadata(tree, scope));
-  if (tree instanceof LiteralExpressionTree)
+  if (tree instanceof LiteralExpressionNode)
     return (tree.metadata = new LiteralExpressionMetadata(tree, scope));
-  if (tree instanceof MemberExpressionTree)
+  if (tree instanceof MemberExpressionNode)
     return (tree.metadata = new MemberExpressionMetadata(tree, scope));
   if (tree instanceof PipeExpressionTree)
     return (tree.metadata = new PipeExpressionMetadata(tree, scope));
-  if (tree instanceof PrefixExpressionTree)
+  if (tree instanceof PrefixExpressionNode)
     return (tree.metadata = new PrefixExpressionMetadata(tree, scope));
 }

@@ -1,10 +1,10 @@
-import { LiteralExpressionTree } from './expression/literal/literal-expression.tree';
+import { LiteralExpressionNode } from './expression/literal/literal-expression-node';
 import { parseExpression } from './parse';
 
 test('check to json', () => {
   const code = '123';
-  const tree = parseExpression<LiteralExpressionTree>(code);
-  expect(tree).toBeInstanceOf(LiteralExpressionTree);
+  const tree = parseExpression<LiteralExpressionNode>(code);
+  expect(tree).toBeInstanceOf(LiteralExpressionNode);
 
   expect(tree.toJson()).toBe(`{
   "treeType": "LiteralExpression",

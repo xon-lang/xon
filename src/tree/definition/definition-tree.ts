@@ -1,8 +1,8 @@
 import { DefinitionContext } from '../../grammar/xon-parser';
-import { BaseTree } from '../base.tree';
+import { Node } from '../node';
 import { IdToken } from '../id-token';
 
-export abstract class DefinitionTree extends BaseTree {
+export abstract class DefinitionTree extends Node {
   abstract ctx: DefinitionContext;
   abstract id: IdToken;
 

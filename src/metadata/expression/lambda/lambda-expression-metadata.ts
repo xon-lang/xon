@@ -1,4 +1,4 @@
-import { LambdaExpressionTree } from '../../../tree/expression/lambda/lambda-expression.tree';
+import { IndexerExpressionNode } from '../../../tree/expression/indexer/indexer-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { ParameterMetadata } from '../../declaration/parameter/parameter-metadata';
 import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';
@@ -8,7 +8,7 @@ import { getExpressionMetadata } from '../expression-metadata-helper';
 export class LambdaExpressionMetadata extends ExpressionMetadata {
   type: LambdaTypeMetadata;
 
-  constructor(tree: LambdaExpressionTree, scope: DeclarationScope) {
+  constructor(tree: IndexerExpressionNode, scope: DeclarationScope) {
     super();
 
     // for (const parameter of tree.parameters) {

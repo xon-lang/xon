@@ -1,6 +1,6 @@
 import { TypeDefinitionContext } from '../../../grammar/xon-parser';
-import { AttributeTree } from '../../attribute/attribute-tree';
-import { getAttributesTrees } from '../../attribute/attribute-tree.helper';
+import { AttributeTree } from '../../attribute/attribute-node';
+import { getAttributeNodes } from '../../attribute/attribute-node-helper';
 import { IdToken } from '../../id-token';
 import { getTypesTrees } from '../../type/type-tree.helper';
 import { TypeTree } from '../../type/type.tree';
@@ -23,7 +23,7 @@ export class ObjectDefinitionTree extends DefinitionTree {
     if (header.parameters()) throw new Error('Object must not have a constructor');
 
     this.ancestors = getTypesTrees(header.definitionAncestors()?.type());
-    this.attributes = getAttributesTrees(ctx.definitionBody()?.attribute());
+    this.attributes = getAttributeNodes(ctx.definitionBody()?.attribute());
   }
 
   toString(): string {

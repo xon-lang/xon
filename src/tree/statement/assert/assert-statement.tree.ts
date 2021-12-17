@@ -1,17 +1,17 @@
 import { AssertStatementContext } from '../../../grammar/xon-parser';
-import { getExpressionTree } from '../../expression/expression-tree.helper';
-import { ExpressionTree } from '../../expression/expression.tree';
-import { StatementTree } from '../statement.tree';
+import { getExpressionNode } from '../../expression/expression-node-helper';
+import { ExpressionNode } from '../../expression/expression-node';
+import { StatementNode } from '../statement-node';
 
-export class AssertStatementTree extends StatementTree {
-  actual: ExpressionTree;
-  expect: ExpressionTree;
+export class AssertStatementTree extends StatementNode {
+  actual: ExpressionNode;
+  expect: ExpressionNode;
 
   constructor(public ctx: AssertStatementContext) {
     super();
 
-    this.actual = getExpressionTree(ctx.expression(0));
-    this.expect = getExpressionTree(ctx.expression(1));
+    this.actual = getExpressionNode(ctx.expression(0));
+    this.expect = getExpressionNode(ctx.expression(1));
   }
 
   toString(): string {
