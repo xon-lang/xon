@@ -17,6 +17,9 @@ interface IntegerNumber is Number -- Z
   signed Boolean
   value NaturalNumber
 
+-- todo fix it
+interface Integer is IntegerNumber
+
 interface RationalNumber is Number -- Q
   numerator IntegerNumber
   denominator NaturalNumber
