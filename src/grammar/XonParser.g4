@@ -12,73 +12,61 @@ libraryPath:   id ('.' id)*;
 libraryMember: name = id (AS alias = id)?;
 
 definition:
-    TYPE id typeParameters? ':' type                       # aliasDefinition
+    TYPE id generics? ':' expr                             # aliasDefinition
     | definitionModifier definitionHeader? definitionBody? # typeDefinition
     ;
-definitionHeader:    id typeParameters? parameters? definitionAncestors?;
-definitionAncestors: IS type (',' type)*;
+definitionHeader:    id methodHeader? definitionAncestors?;
+definitionAncestors: IS expr (',' expr)*;
 definitionBody:      NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
-    attributeId type? ':' expression                       # valueAttribute
-    | attributeId type NL+ INDENT (statement | NL)+ DEDENT # methodAttribute
-    | attributeId NL+ INDENT (attribute | NL)+ DEDENT      # objectAttribute
-    | attributeId type?                                    # abstractAttribute
+    attrId type = expr? (':' value = expr)?      # valueAttribute
+    | attrId methodHeader result = expr? body?   # methodAttribute
+    | attrId indexerHeader result = expr? body?  # indexerAttribute
+    | attrId NL+ INDENT (attribute | NL)+ DEDENT # objectAttribute
     ;
 
 statement:
-    FOR (value = id (',' index = id)? IN)? expression body      # forStatement
-    | WHILE expression body                                     # whileStatement
-    | DO body WHILE expression                                  # doWhileStatement
-    | IF expression thenBody = body (ELSE elseBody = body)?     # ifStatement
-    | BREAK                                                     # breakStatement
-    | RETURN expression?                                        # returnStatement
-    | ACTUAL actual = expression NL+ EXPECT expect = expression # assertStatement
-    | PREPROCESSOR                                              # preprocessorStatement
-    | id '=' expression                                         # assignmentStatement
-    | expression                                                # expressionStatement
+    FOR (value = id (',' index = id)? IN)? expr body  # forStatement
+    | WHILE expr body                                 # whileStatement
+    | DO body WHILE expr                              # doWhileStatement
+    | IF expr thenBody = body (ELSE elseBody = body)? # ifStatement
+    | BREAK                                           # breakStatement
+    | RETURN expr?                                    # returnStatement
+    | ACTUAL actual = expr NL+ EXPECT expect = expr   # assertStatement
+    | PREPROCESSOR                                    # preprocessorStatement
+    | id '=' expr                                     # assignmentStatement
+    | expr                                            # expressionStatement
     ;
 
-expression:
-    id typeArguments?                                                     # idExpression
-    | literal                                                             # literalExpression
-    | expression ('?.' | '.') attributeId                                 # memberExpression
-    | expression lambdaArguments                                          # callExpression
-    | expression arrayArguments                                           # indexerExpression
-    | expression IS type                                                  # isExpression
-    | expression AS type                                                  # asExpression
-    | expression IN type                                                  # asExpression
-    | op = ('-' | '+' | NOT) expression                                   # prefixExpression
-    | left = expression op = id right = expression                        # infixExpression
-    | left = expression op = '^' right = expression                       # powExpression
-    | left = expression op = ('*' | '/' | '%') right = expression         # mulDivModExpression
-    | left = expression op = ('+' | '-') right = expression               # addSubExpression
-    | left = expression op = '..' right = expression                      # rangeExpression
-    | left = expression op = '?' right = expression                       # elvisExpression
-    | left = expression op = ('<' | '<=' | '>=' | '>') right = expression # relationalExpression
-    | left = expression op = ('==' | '!=') right = expression             # equalityExpression
-    | left = expression op = '&&' right = expression                      # conjunctionExpression
-    | left = expression op = '||' right = expression                      # disjunctionExpression
-    | left = expression '|' (id ':')? right = expression                  # pipeExpression
-    | lambdaParameters ':' expression                                     # lambdaExpression
-    | arrayArguments                                                      # arrayExpression
-    | objectArguments                                                     # objectExpression
-    | '(' expression ')'                                                  # parenthesizedExpression
-    ;
-
-type:
-    id typeArguments?                         # idType
-    | literal                                 # literalType
-    | type '#' id                             # metaType
-    | type '?'                                # nullableType
-    | type '[' ']'                            # arrayType
-    | tupleParameters                         # tupleType
-    | objectParameters                        # objectType
-    | type '&&' type                          # intersectionType
-    | type '||' type                          # unionType
-    | typeParameters? parameters type?        # lambdaType
-    | typeParameters? indexerParameters type? # indexerType
-    | '(' type ')'                            # parenthesizedType
+expr:
+    '(' expr ')'                                              # parenthesizedExpression
+    | id generics?                                            # idExpression
+    | indexerHeader ':' expr                                  # indexerExpression
+    | methodHeader ':' expr                                   # methodExpression
+    | '[' arguments? ']'                                      # arrayExpression
+    | '{' (objectArgument (',' objectArgument)*)? ','? '}'    # objectExpression
+    | expr '[' arguments? ']'                                 # indexExpression
+    | expr '(' arguments? ')'                                 # invokeExpression
+    | expr '?'                                                # nullableExpression
+    | expr '.' attrId                                         # memberExpression
+    | '...' expr                                              # spreadExpression
+    | left = expr IS right = expr                             # isExpression
+    | left = expr AS right = expr                             # asExpression
+    | left = expr IN right = expr                             # inExpression
+    | op = ('-' | '+' | NOT) expr                             # prefixExpression
+    | left = expr op = id right = expr                        # infixExpression
+    | left = expr op = '^' right = expr                       # powExpression
+    | left = expr op = ('*' | '/' | '%') right = expr         # mulDivModExpression
+    | left = expr op = ('+' | '-') right = expr               # addSubExpression
+    | left = expr op = '..' right = expr                      # rangeExpression
+    | left = expr op = '?' right = expr                       # elvisExpression
+    | left = expr op = ('<' | '<=' | '>=' | '>') right = expr # relationalExpression
+    | left = expr op = ('==' | '!=') right = expr             # equalityExpression
+    | left = expr op = '&&' right = expr                      # conjunctionExpression
+    | left = expr op = '||' right = expr                      # disjunctionExpression
+    | left = expr '|' (id ':')? right = expr                  # pipeExpression
+    | literal                                                 # literalExpression
     ;
 
 literal:
@@ -89,25 +77,15 @@ literal:
     | REGEX_LITERAL  # regexLiteral
     ;
 
-parameter:         '...'? id type;
-parameters:        '(' (parameter (',' parameter)*)? ','? ')';
-indexerParameters: '[' (parameter (',' parameter)*)? ','? ']';
-objectParameters:  '{' (parameter (',' parameter)*)? ','? '}';
-tupleParameters:   '[' (type (',' type)*)? ','? ']';
-lambdaParameter:   id type?;
-lambdaParameters:  '(' (lambdaParameter (',' lambdaParameter)*)? ','? ')';
+arguments:      expr (',' expr)* ','?;
+parameter:      '...'? name = id expr? ('#' meta = id)?;
+methodHeader:   generics?  '(' (parameter (',' parameter)*)? ','? ')';
+indexerHeader:  generics? '[' (parameter (',' parameter)*)? ','? ']';
+objectArgument: parameter (':' expr)?;
+generics:       '<' '|' arguments '|' '>';
 
-lambdaArguments: '(' (expression (',' expression)*)? ','? ')';
-arrayArguments:  '[' (expression (',' expression)*)? ','? ']';
-objectArguments: '{' ( objectArgument (',' objectArgument)*)? ','? '}';
-objectArgument:  attribute | expression;
-
-typeParameter:  '...'? id (IS type)?;
-typeParameters: '<' '|' typeParameter (',' typeParameter)* ','? '|' '>';
-typeArguments:  '<' '|' (type (',' type)*)? ','? '|' '>';
-
-body:               ':' (statement | NL+ INDENT (statement | NL)+ DEDENT)?;
-attributeId:        id | operator | STRING_LITERAL;
+body:               ':' statement | NL+ INDENT (statement | NL)+ DEDENT;
+attrId:             id | operator | STRING_LITERAL;
 id:                 ID | definitionModifier;
 definitionModifier: CLASS | ENUM | INTERFACE | OBJECT | EXTENSION;
 operator:           '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
