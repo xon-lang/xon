@@ -20,11 +20,10 @@ definitionAncestors: IS type (',' type)*;
 definitionBody:      NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
-    attributeId type? ':' expression                              # valueAttribute
-    | attributeId '[' (parameter (',' parameter)*)? ','? ']' type # indexerAttribute
-    | attributeId type NL+ INDENT (statement | NL)+ DEDENT        # methodAttribute
-    | attributeId NL+ INDENT (attribute | NL)+ DEDENT             # objectAttribute
-    | attributeId type?                                           # abstractAttribute
+    attributeId type? ':' expression                       # valueAttribute
+    | attributeId type NL+ INDENT (statement | NL)+ DEDENT # methodAttribute
+    | attributeId NL+ INDENT (attribute | NL)+ DEDENT      # objectAttribute
+    | attributeId type?                                    # abstractAttribute
     ;
 
 statement:
@@ -41,10 +40,11 @@ statement:
     ;
 
 expression:
-    id typeArguments?                                                     # idExpression
-    | literal                                                             # literalExpression
-    | expression ('?.' | '.') attributeId                                 # memberExpression
-    | expression typeArguments? lambdaArguments                           # callExpression
+    id                                          # idExpression
+    | literal                                   # literalExpression
+    | expression ('?.' | '.') attributeId       # memberExpression
+    | expression typeArguments? lambdaArguments # callExpression
+    // | expression typeArguments? indexerArguments                           # indexerExpression
     | expression IS type                                                  # isExpression
     | expression AS type                                                  # asExpression
     | expression IN type                                                  # asExpression
@@ -67,17 +67,18 @@ expression:
     ;
 
 type:
-    id typeArguments?                  # idType
-    | literal                          # literalType
-    | type '#' id                      # metaType
-    | type '?'                         # nullableType
-    | type '[' ']'                     # arrayType
-    | arrayParameters                  # tupleType
-    | objectParameters                 # objectType
-    | type '&&' type                   # intersectionType
-    | type '||' type                   # unionType
-    | typeParameters? parameters type? # lambdaType
-    | '(' type ')'                     # parenthesizedType
+    id typeArguments?                         # idType
+    | literal                                 # literalType
+    | type '#' id                             # metaType
+    | type '?'                                # nullableType
+    | type '[' ']'                            # arrayType
+    | tupleParameters                         # tupleType
+    | objectParameters                        # objectType
+    | type '&&' type                          # intersectionType
+    | type '||' type                          # unionType
+    | typeParameters? parameters type?        # lambdaType
+    | typeParameters? indexerParameters type? # indexerType
+    | '(' type ')'                            # parenthesizedType
     ;
 
 literal:
@@ -88,12 +89,13 @@ literal:
     | REGEX_LITERAL  # regexLiteral
     ;
 
-parameter:        '...'? id type;
-parameters:       '(' (parameter (',' parameter)*)? ','? ')';
-objectParameters: '{' (parameter (',' parameter)*)? ','? '}';
-arrayParameters:  '[' (type (',' type)*)? ','? ']';
-lambdaParameter:  id type?;
-lambdaParameters: '(' (lambdaParameter (',' lambdaParameter)*)? ','? ')';
+parameter:         '...'? id type;
+parameters:        '(' (parameter (',' parameter)*)? ','? ')';
+indexerParameters: '[' (parameter (',' parameter)*)? ','? ']';
+objectParameters:  '{' (parameter (',' parameter)*)? ','? '}';
+tupleParameters:   '[' (type (',' type)*)? ','? ']';
+lambdaParameter:   id type?;
+lambdaParameters:  '(' (lambdaParameter (',' lambdaParameter)*)? ','? ')';
 
 lambdaArguments: '(' (expression (',' expression)*)? ','? ')';
 arrayArguments:  '[' (expression (',' expression)*)? ','? ']';
