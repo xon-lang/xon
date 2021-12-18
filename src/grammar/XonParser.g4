@@ -15,6 +15,7 @@ definition:
     TYPE id generics? ':' type = expr                      # aliasDefinition
     | definitionModifier definitionHeader? definitionBody? # typeDefinition
     ;
+definitionModifier:  CLASS | ENUM | INTERFACE | OBJECT | EXTENSION;
 definitionHeader:    id methodHeader? definitionAncestors?;
 definitionAncestors: IS expr (',' expr)*;
 definitionBody:      NL+ INDENT (attribute | NL)+ DEDENT;
@@ -84,8 +85,7 @@ indexerHeader:  generics? '[' (parameter (',' parameter)*)? ','? ']';
 objectArgument: parameter (':' expr)?;
 generics:       '<' '|' arguments '|' '>';
 
-body:               ':' statement | NL+ INDENT (statement | NL)+ DEDENT;
-attrId:             id | operator | STRING_LITERAL;
-id:                 ID | definitionModifier;
-definitionModifier: CLASS | ENUM | INTERFACE | OBJECT | EXTENSION;
-operator:           '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
+body:     ':' statement | NL+ INDENT (statement | NL)+ DEDENT;
+attrId:   id | operator | STRING_LITERAL;
+id:       ID | definitionModifier;
+operator: '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
