@@ -3,7 +3,6 @@ import {
   AddSubExpressionContext,
   ArgumentsContext,
   ArrayExpressionContext,
-  AsExpressionContext,
   ConjunctionExpressionContext,
   DisjunctionExpressionContext,
   ElvisExpressionContext,
@@ -13,10 +12,8 @@ import {
   IdExpressionContext,
   IndexerExpressionContext,
   IndexExpressionContext,
-  InExpressionContext,
   InfixExpressionContext,
   InvokeExpressionContext,
-  IsExpressionContext,
   LiteralExpressionContext,
   MemberExpressionContext,
   MethodExpressionContext,
@@ -31,15 +28,12 @@ import {
 import { Issue } from '../../issue-service/issue';
 import { IdToken } from '../id-token';
 import { ArrayExpressionNode } from './array/array-expression-node';
-import { AsExpressionNode } from './as/as-expression-node';
 import { ExpressionNode } from './expression-node';
 import { IdExpressionNode } from './id/id-expression-node';
-import { InExpressionNode } from './in/in-expression-node';
 import { IndexExpressionNode } from './index/index-expression-node';
 import { IndexerExpressionNode } from './indexer/indexer-expression-node';
 import { InfixExpressionNode } from './infix/infix-expression-node';
 import { InvokeExpressionNode } from './invoke/invoke-expression-node';
-import { IsExpressionNode } from './is/is-expression-node';
 import { LiteralExpressionNode } from './literal/literal-expression-node';
 import { MemberExpressionNode } from './member/member-expression-node';
 import { MethodExpressionNode } from './method/method-expression-node';
@@ -51,14 +45,11 @@ export const getExpressionNode = (ctx: ExprContext): ExpressionNode => {
   if (ctx === undefined) return undefined;
 
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionNode(ctx);
-  if (ctx instanceof AsExpressionContext) return new AsExpressionNode(ctx);
-  if (ctx instanceof InExpressionContext) return new InExpressionNode(ctx);
   if (ctx instanceof IndexExpressionContext) return new IndexExpressionNode(ctx);
   if (ctx instanceof IndexerExpressionContext) return new IndexerExpressionNode(ctx);
   if (ctx instanceof InvokeExpressionContext) return new InvokeExpressionNode(ctx);
   if (ctx instanceof MethodExpressionContext) return new MethodExpressionNode(ctx);
   if (ctx instanceof IdExpressionContext) return new IdExpressionNode(ctx);
-  if (ctx instanceof IsExpressionContext) return new IsExpressionNode(ctx);
   if (ctx instanceof LiteralExpressionContext) return new LiteralExpressionNode(ctx);
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionNode(ctx);
   if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionNode(ctx);
