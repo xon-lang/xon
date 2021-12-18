@@ -1,6 +1,6 @@
 import { ParserRuleContext } from 'antlr4ts';
 import chalk from 'chalk';
-import { Node } from '../tree/node';
+import { Node } from '../ast/node';
 import { IssueLevel } from './issue-level';
 
 export class Issue {

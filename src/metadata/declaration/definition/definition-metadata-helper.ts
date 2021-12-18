@@ -1,8 +1,8 @@
-import { AliasDefinitionTree } from '../../../tree/definition/alias/alias-definition-tree';
-import { ClassDefinitionTree } from '../../../tree/definition/class/class-definition-tree';
-import { DefinitionTree } from '../../../tree/definition/definition-tree';
-import { InterfaceDefinitionTree } from '../../../tree/definition/interface/interface-definition-tree';
-import { ObjectDefinitionNode } from '../../../tree/definition/object/object-definition-node';
+import { AliasDefinitionTree } from '../../../ast/definition/alias/alias-definition-tree';
+import { ClassDefinitionTree } from '../../../ast/definition/class/class-definition-tree';
+import { DefinitionTree } from '../../../ast/definition/definition-tree';
+import { InterfaceDefinitionTree } from '../../../ast/definition/interface/interface-definition-tree';
+import { ObjectDefinitionNode } from '../../../ast/definition/object/object-definition-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { AliasDefinitionMetadata } from './alias/alias-definition-metadata';
 import { ClassDefinitionMetadata } from './class/class-definition-metadata';

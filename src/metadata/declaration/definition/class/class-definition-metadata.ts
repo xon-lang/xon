@@ -1,4 +1,4 @@
-import { ClassDefinitionTree } from '../../../../tree/definition/class/class-definition-tree';
+import { ClassDefinitionTree } from '../../../../ast/definition/class/class-definition-tree';
 import { DeclarationScope } from '../../../declaration-scope';
 import { TypeParameterMetadata } from '../../type-parameter/type-parameter-metadata';
 import { DefinitionMetadata } from '../definition-metadata';

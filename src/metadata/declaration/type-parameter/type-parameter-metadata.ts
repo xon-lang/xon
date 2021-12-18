@@ -1,4 +1,4 @@
-import { GenericNode } from '../../../tree/generic/generic-node';
+import { GenericNode } from '../../../ast/generic/generic-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { getTypeDefinition } from '../../type/type-metadata-helper';
 import { DeclarationMetadata } from '../declaration-metadata';

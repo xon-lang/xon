@@ -1,4 +1,4 @@
-import { Node } from '../tree/node';
+import { Node } from '../ast/node';
 import { Issue } from './issue';
 import { IssueLevel } from './issue-level';
 

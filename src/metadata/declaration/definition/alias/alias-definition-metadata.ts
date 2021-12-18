@@ -1,4 +1,4 @@
-import { AliasDefinitionTree } from '../../../../tree/definition/alias/alias-definition-tree';
+import { AliasDefinitionTree } from '../../../../ast/definition/alias/alias-definition-tree';
 import { DeclarationScope } from '../../../declaration-scope';
 import { DefinitionMetadata } from '../definition-metadata';
 

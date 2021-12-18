@@ -1,4 +1,4 @@
-import { MemberExpressionNode } from '../../../tree/expression/member/member-expression-node';
+import { MemberExpressionNode } from '../../../ast/expression/member/member-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { TypeMetadata } from '../../type/type-metadata';
 import { getTypeMetadata } from '../../type/type-metadata-helper';

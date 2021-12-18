@@ -1,8 +1,8 @@
-import { AbstractAttributeTree } from '../../../tree/attribute/abstract/abstract-attribute-tree';
-import { AttributeTree } from '../../../tree/attribute/attribute-node';
-import { MethodAttributeNode } from '../../../tree/attribute/method/method-attribute-node';
-import { ObjectAttributeNode } from '../../../tree/attribute/object/object-attribute-node';
-import { ValueAttributeNode } from '../../../tree/attribute/value/value-attribute-node';
+import { AbstractAttributeTree } from '../../../ast/attribute/abstract/abstract-attribute-tree';
+import { AttributeTree } from '../../../ast/attribute/attribute-node';
+import { MethodAttributeNode } from '../../../ast/attribute/method/method-attribute-node';
+import { ObjectAttributeNode } from '../../../ast/attribute/object/object-attribute-node';
+import { ValueAttributeNode } from '../../../ast/attribute/value/value-attribute-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { AbstractAttributeMetadata } from './abstract/abstract-attribute-metadata';
 import { AttributeMetadata } from './attribute-metadata';

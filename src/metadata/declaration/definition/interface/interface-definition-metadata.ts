@@ -1,4 +1,4 @@
-import { InterfaceDefinitionTree } from '../../../../tree/definition/interface/interface-definition-tree';
+import { InterfaceDefinitionTree } from '../../../../ast/definition/interface/interface-definition-tree';
 import { DeclarationScope } from '../../../declaration-scope';
 import { IdTypeMetadata } from '../../../type/id/id-type-metadata';
 import { getTypeMetadata } from '../../../type/type-metadata-helper';

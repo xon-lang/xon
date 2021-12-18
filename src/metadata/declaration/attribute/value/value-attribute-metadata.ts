@@ -1,4 +1,4 @@
-import { ValueAttributeNode } from '../../../../tree/attribute/value/value-attribute-node';
+import { ValueAttributeNode } from '../../../../ast/attribute/value/value-attribute-node';
 import { DeclarationScope } from '../../../declaration-scope';
 import { getExpressionMetadata } from '../../../expression/expression-metadata-helper';
 import { TypeMetadata } from '../../../type/type-metadata';

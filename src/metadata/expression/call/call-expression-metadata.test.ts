@@ -1,4 +1,4 @@
-import { parseExpression } from '../../../tree/parse';
+import { parseExpression } from '../../../ast/parse';
 import { TestDeclarationScope } from '../../test-declaration-scope';
 import { IdTypeMetadata } from '../../type/id/id-type-metadata';
 import { getExpressionMetadata } from '../expression-metadata-helper';

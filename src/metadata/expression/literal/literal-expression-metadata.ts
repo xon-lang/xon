@@ -1,4 +1,4 @@
-import { LiteralExpressionNode } from '../../../tree/expression/literal/literal-expression-node';
+import { LiteralExpressionNode } from '../../../ast/expression/literal/literal-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { LiteralTypeMetadata } from '../../type/literal/literal-type-metadata';
 import { ExpressionMetadata } from '../expression-metadata';

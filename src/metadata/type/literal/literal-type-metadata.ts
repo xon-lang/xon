@@ -1,4 +1,4 @@
-import { LiteralTree } from '../../../tree/literal/literal.tree';
+import { LiteralTree } from '../../../ast/literal/literal.tree';
 import { IdTypeMetadata } from '../id/id-type-metadata';
 import { TypeMetadata } from '../type-metadata';
 

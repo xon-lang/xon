@@ -1,4 +1,4 @@
-import { IndexerExpressionNode } from '../../../tree/expression/indexer/indexer-expression-node';
+import { IndexerExpressionNode } from '../../../ast/expression/indexer/indexer-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { ParameterMetadata } from '../../declaration/parameter/parameter-metadata';
 import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';

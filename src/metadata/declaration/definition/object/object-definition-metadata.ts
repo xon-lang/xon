@@ -1,4 +1,4 @@
-import { ObjectDefinitionNode } from '../../../../tree/definition/object/object-definition-node';
+import { ObjectDefinitionNode } from '../../../../ast/definition/object/object-definition-node';
 import { DeclarationScope } from '../../../declaration-scope';
 import { IdTypeMetadata } from '../../../type/id/id-type-metadata';
 import { TypeMetadata } from '../../../type/type-metadata';

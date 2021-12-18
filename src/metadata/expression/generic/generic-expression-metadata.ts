@@ -1,6 +1,6 @@
-import { CallExpressionTree } from '../../../tree/expression/invoke/invoke-expression-node';
-import { GenericExpressionTree } from '../../../tree/expression/generic/call-expression.tree';
-import { MemberExpressionNode } from '../../../tree/expression/member/member-expression-node';
+import { CallExpressionTree } from '../../../ast/expression/invoke/invoke-expression-node';
+import { GenericExpressionTree } from '../../../ast/expression/generic/call-expression.tree';
+import { MemberExpressionNode } from '../../../ast/expression/member/member-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';

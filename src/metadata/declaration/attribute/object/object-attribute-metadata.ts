@@ -1,4 +1,4 @@
-import { ObjectAttributeNode } from '../../../../tree/attribute/object/object-attribute-node';
+import { ObjectAttributeNode } from '../../../../ast/attribute/object/object-attribute-node';
 import { DeclarationScope } from '../../../declaration-scope';
 import { ObjectTypeMetadata } from '../../../type/object/object-type-metadata';
 import { ParameterMetadata } from '../../parameter/parameter-metadata';

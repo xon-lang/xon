@@ -1,4 +1,4 @@
-import { PrefixExpressionNode } from '../../../tree/expression/prefix/prefix-expression-node';
+import { PrefixExpressionNode } from '../../../ast/expression/prefix/prefix-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';

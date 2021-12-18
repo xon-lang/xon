@@ -1,4 +1,4 @@
-import { InfixExpressionNode } from '../../../tree/expression/infix/infix-expression-node';
+import { InfixExpressionNode } from '../../../ast/expression/infix/infix-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';

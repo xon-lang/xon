@@ -1,4 +1,4 @@
-import { AbstractAttributeTree } from '../../../../tree/attribute/abstract/abstract-attribute-tree';
+import { AbstractAttributeTree } from '../../../../ast/attribute/abstract/abstract-attribute-tree';
 import { DeclarationScope } from '../../../declaration-scope';
 import { TypeMetadata } from '../../../type/type-metadata';
 import { getTypeMetadata } from '../../../type/type-metadata-helper';

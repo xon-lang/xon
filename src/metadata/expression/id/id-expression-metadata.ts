@@ -1,4 +1,4 @@
-import { IdExpressionNode } from '../../../tree/expression/id/id-expression-node';
+import { IdExpressionNode } from '../../../ast/expression/id/id-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { DefinitionMetadata } from '../../declaration/definition/definition-metadata';
 import { ObjectDefinitionMetadata } from '../../declaration/definition/object/object-definition-metadata';
