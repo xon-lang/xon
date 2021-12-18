@@ -9,7 +9,7 @@ import { ExpressionStatementTree } from '../../statement/expression/expression-s
 import { ObjectDefinitionNode } from './object-definition-node';
 
 test('one scope', () => {
-  const tree = parseSourceFile('src/tree/definition/object/object-definition-test-file.xon');
+  const tree = parseSourceFile('src/node/definition/object/object-definition-test-file.xon');
   expect(tree).toBeInstanceOf(SourceTree);
 
   // expect(tree.definitions.length).toBe(1);
