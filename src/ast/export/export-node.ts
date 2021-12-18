@@ -1,13 +1,14 @@
 import { ExportContext } from '../../grammar/xon-parser';
 import { Node } from '../node';
 
-export class ExportTree extends Node {
+export class ExportNode extends Node {
   path: string;
 
   constructor(public ctx: ExportContext) {
     super();
 
-    this.path = ctx.libraryPath().text;
+    // todo check if it is member expr
+    this.path = ctx._path.text;
   }
 
   toString(): string {

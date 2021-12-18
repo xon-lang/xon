@@ -6,10 +6,10 @@ import { AttributeTree } from './attribute/attribute-node';
 import { getAttributeNode } from './attribute/attribute-node-helper';
 import { DefinitionTree } from './definition/definition-tree';
 import { getDefinitionTree } from './definition/definition-tree-helper';
-import { ExportTree } from './export/export.tree';
+import { ExportNode } from './export/export-node';
 import { ExpressionNode } from './expression/expression-node';
 import { getExpressionNode } from './expression/expression-node-helper';
-import { ImportTree } from './import/import.tree';
+import { ImportNode } from './import/import-node';
 import { getLiteralTree } from './literal/literal-tree.helper';
 import { LiteralTree } from './literal/literal.tree';
 import { ParameterNode } from './parameter/parameter-node';
@@ -50,9 +50,9 @@ export const parseStatement = <T extends StatementNode>(code: string): T =>
 export const parseDefinition = <T extends DefinitionTree>(code: string): T =>
   getDefinitionTree(parse(code).definition()) as T;
 
-export const parseImport = (code: string) => new ImportTree(parse(code).library());
+export const parseImport = (code: string) => new ImportNode(parse(code).library());
 
-export const parseExport = (code: string) => new ExportTree(parse(code).export());
+export const parseExport = (code: string) => new ExportNode(parse(code).export());
 
 export const parseSource = (code: string, sourceName: string = undefined) =>
   new SourceTree(parse(code, sourceName).source());

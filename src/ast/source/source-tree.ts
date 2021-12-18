@@ -4,11 +4,11 @@ import { getAttributeNodes } from '../attribute/attribute-node-helper';
 import { Node } from '../node';
 import { DefinitionTree } from '../definition/definition-tree';
 import { getDefinitionsTrees } from '../definition/definition-tree-helper';
-import { getImportsTrees } from '../import/import-tree.helper';
-import { ImportTree } from '../import/import.tree';
+import { getImportsTrees } from '../import/import-node-helper';
+import { ImportNode } from '../import/import-node';
 
 export class SourceTree extends Node {
-  imports: ImportTree[];
+  imports: ImportNode[];
   definitions: DefinitionTree[] = [];
 
   constructor(public ctx: SourceContext) {
