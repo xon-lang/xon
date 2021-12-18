@@ -107,5 +107,5 @@ export const getExpressionNodes = (
 ): ExpressionNode[] => {
   if (contexts instanceof ArgumentsContext) return getExpressionNodes(contexts.expr());
   if (contexts instanceof GenericsContext) return getExpressionNodes(contexts.arguments());
-  contexts?.map(getExpressionNode) || [];
+  return contexts?.map(getExpressionNode) || [];
 };
