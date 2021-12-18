@@ -9,7 +9,7 @@ test('number', () => {
   expect(tree).toBeInstanceOf(AliasDefinitionTree);
 
   expect(tree.id.text).toBe('Number');
-  expect(tree.typeParameters.length).toBe(0);
+  expect(tree.generics.length).toBe(0);
   expect(tree.type).toBeInstanceOf(UnionTypeTree);
   expect(tree.type.toString()).toBe('Integer || Float');
 });
@@ -20,8 +20,8 @@ test('string map', () => {
   expect(tree).toBeInstanceOf(AliasDefinitionTree);
 
   expect(tree.id.text).toBe('StringMap');
-  expect(tree.typeParameters.length).toBe(1);
-  expect(tree.typeParameters[0].id.text).toBe('T');
+  expect(tree.generics.length).toBe(1);
+  expect(tree.generics[0].id.text).toBe('T');
   expect((tree.type as IdTypeTree).id.text).toBe('Map');
   expect(tree.type.toString()).toBe('Map<String, T>');
 });
