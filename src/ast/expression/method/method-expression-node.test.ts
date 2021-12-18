@@ -1,11 +1,11 @@
 import { evalExpression } from '../../eval';
 import { parseExpression } from '../../parse';
-import { IndexerExpressionNode } from './method-expression-node';
+import { MethodExpressionNode } from './method-expression-node';
 
 test('has argument', () => {
   const code = '(x): x + 42';
-  const tree = parseExpression<IndexerExpressionNode>(code);
-  expect(tree).toBeInstanceOf(IndexerExpressionNode);
+  const tree = parseExpression<MethodExpressionNode>(code);
+  expect(tree).toBeInstanceOf(MethodExpressionNode);
 
   expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].id.text).toBe('x');
@@ -14,8 +14,8 @@ test('has argument', () => {
 
 test('no arguments', () => {
   const code = '(): 42+45';
-  const tree = parseExpression<IndexerExpressionNode>(code);
-  expect(tree).toBeInstanceOf(IndexerExpressionNode);
+  const tree = parseExpression<MethodExpressionNode>(code);
+  expect(tree).toBeInstanceOf(MethodExpressionNode);
 
   expect(tree.parameters.length).toBe(0);
   expect(evalExpression(tree.body)).toBe(42 + 45);

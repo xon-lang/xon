@@ -5,7 +5,7 @@ import { getParameterNodes } from '../../parameter/parameter-node-helper';
 import { ExpressionNode } from '../expression-node';
 import { getExpressionNode, getExpressionNodes } from '../expression-node-helper';
 
-export class IndexerExpressionNode extends ExpressionNode {
+export class MethodExpressionNode extends ExpressionNode {
   metadata: ExpressionMetadata;
   generics: ExpressionNode[];
   parameters: ParameterNode[];

@@ -1,14 +1,14 @@
-import { AsExpressionContext } from '../../../grammar/xon-parser';
+import { InExpressionContext } from '../../../grammar/xon-parser';
 import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
 import { ExpressionNode } from '../expression-node';
 import { getExpressionNode } from '../expression-node-helper';
 
-export class AsExpressionNode extends ExpressionNode {
+export class InExpressionNode extends ExpressionNode {
   metadata: ExpressionMetadata;
   value: ExpressionNode;
   type: ExpressionNode;
 
-  constructor(public ctx: AsExpressionContext) {
+  constructor(public ctx: InExpressionContext) {
     super();
 
     this.value = getExpressionNode(ctx._left);
@@ -16,6 +16,6 @@ export class AsExpressionNode extends ExpressionNode {
   }
 
   toString(): string {
-    return `${this.value} ${this.ctx.AS().text} ${this.type}`;
+    return `${this.value} ${this.ctx.IN().text} ${this.type}`;
   }
 }
