@@ -12,7 +12,7 @@ libraryPath:   id ('.' id)*;
 libraryMember: name = id (AS alias = id)?;
 
 definition:
-    TYPE id generics? ':' expr                             # aliasDefinition
+    TYPE id generics? ':' type = expr                      # aliasDefinition
     | definitionModifier definitionHeader? definitionBody? # typeDefinition
     ;
 definitionHeader:    id methodHeader? definitionAncestors?;
@@ -79,7 +79,7 @@ literal:
 
 arguments:      expr (',' expr)* ','?;
 parameter:      '...'? name = id expr? ('#' meta = id)?;
-methodHeader:   generics?  '(' (parameter (',' parameter)*)? ','? ')';
+methodHeader:   generics? '(' (parameter (',' parameter)*)? ','? ')';
 indexerHeader:  generics? '[' (parameter (',' parameter)*)? ','? ']';
 objectArgument: parameter (':' expr)?;
 generics:       '<' '|' arguments '|' '>';

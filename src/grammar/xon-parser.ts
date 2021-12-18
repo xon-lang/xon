@@ -460,7 +460,7 @@ export class XonParser extends Parser {
 				this.state = 95;
 				this.match(XonParser.COLON);
 				this.state = 96;
-				this.expr(0);
+				(_localctx as AliasDefinitionContext)._type = this.expr(0);
 				}
 				break;
 			case XonParser.CLASS:
@@ -2829,6 +2829,7 @@ export class DefinitionContext extends ParserRuleContext {
 	}
 }
 export class AliasDefinitionContext extends DefinitionContext {
+	public _type!: ExprContext;
 	public TYPE(): TerminalNode { return this.getToken(XonParser.TYPE, 0); }
 	public id(): IdContext {
 		return this.getRuleContext(0, IdContext);
