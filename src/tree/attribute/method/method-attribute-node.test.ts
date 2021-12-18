@@ -3,12 +3,12 @@ import { IndexExpressionNode } from '../../expression/index/index-expression-nod
 import { LiteralExpressionNode } from '../../expression/literal/literal-expression-node';
 import { parseAttribute } from '../../parse';
 import { ExpressionStatementTree } from '../../statement/expression/expression-statement.tree';
-import { MethodAttributeTree } from './method-attribute-node';
+import { MethodAttributeNode } from './method-attribute-node';
 
 test('no parameters', () => {
   const code = 'a() Integer\n  123';
-  const tree = parseAttribute<MethodAttributeTree>(code);
-  expect(tree).toBeInstanceOf(MethodAttributeTree);
+  const tree = parseAttribute<MethodAttributeNode>(code);
+  expect(tree).toBeInstanceOf(MethodAttributeNode);
 
   expect(tree.id.text).toBe('a');
   expect(tree.isPrivate).toBe(false);
@@ -24,8 +24,8 @@ test('no parameters', () => {
 
 test('with parameters', () => {
   const code = '_a(x String) Integer\n  123';
-  const tree = parseAttribute<MethodAttributeTree>(code);
-  expect(tree).toBeInstanceOf(MethodAttributeTree);
+  const tree = parseAttribute<MethodAttributeNode>(code);
+  expect(tree).toBeInstanceOf(MethodAttributeNode);
 
   expect(tree.id.text).toBe('_a');
   expect(tree.isPrivate).toBe(true);
@@ -39,8 +39,8 @@ test('with parameters', () => {
 
 test('with type parameters', () => {
   const code = 'a<|T|>(x Integer) T[]\n 123';
-  const tree = parseAttribute<MethodAttributeTree>(code);
-  expect(tree).toBeInstanceOf(MethodAttributeTree);
+  const tree = parseAttribute<MethodAttributeNode>(code);
+  expect(tree).toBeInstanceOf(MethodAttributeNode);
 
   expect(tree.id.text).toBe('a');
   expect(tree.isPrivate).toBe(false);

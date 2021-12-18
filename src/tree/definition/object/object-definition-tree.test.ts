@@ -1,5 +1,5 @@
 import { AbstractAttributeTree } from '../../attribute/abstract/abstract-attribute-tree';
-import { MethodAttributeTree } from '../../attribute/method/method-attribute-node';
+import { MethodAttributeNode } from '../../attribute/method/method-attribute-node';
 import { ValueAttributeNode } from '../../attribute/value/value-attribute-node';
 import { CallExpressionTree } from '../../expression/invoke/invoke-expression-node';
 import { IdExpressionNode } from '../../expression/id/id-expression-node';
@@ -45,8 +45,8 @@ test('one scope', () => {
   expect(typedValueAttribute.id.text).toBe('typedValue');
   expect((typedValueAttribute.type as IdTypeTree).id.text).toBe('Number');
 
-  const methodAttribute = attrs[3] as MethodAttributeTree;
-  expect(methodAttribute).toBeInstanceOf(MethodAttributeTree);
+  const methodAttribute = attrs[3] as MethodAttributeNode;
+  expect(methodAttribute).toBeInstanceOf(MethodAttributeNode);
   expect(methodAttribute.id.text).toBe('method');
   expect((methodAttribute.type as LambdaTypeTree).parameters.length).toBe(0);
   expect(methodAttribute.body.length).toBe(2);
@@ -57,8 +57,8 @@ test('one scope', () => {
     CallExpressionTree,
   );
 
-  const locationAttribute = attrs[4] as MethodAttributeTree;
-  expect(locationAttribute).toBeInstanceOf(MethodAttributeTree);
+  const locationAttribute = attrs[4] as MethodAttributeNode;
+  expect(locationAttribute).toBeInstanceOf(MethodAttributeNode);
   expect(locationAttribute.id.text).toBe('location');
   expect((locationAttribute.type as LambdaTypeTree).parameters.length).toBe(2);
   expect((locationAttribute.type as LambdaTypeTree).parameters[0].id.text).toBe('x');
@@ -79,8 +79,8 @@ test('one scope', () => {
   expect(callExpression.id.text).toBe('pos');
   expect(innerMethod.arguments.length).toBe(2);
 
-  const plusAttribute = attrs[5] as MethodAttributeTree;
-  expect(plusAttribute).toBeInstanceOf(MethodAttributeTree);
+  const plusAttribute = attrs[5] as MethodAttributeNode;
+  expect(plusAttribute).toBeInstanceOf(MethodAttributeNode);
   expect(plusAttribute.id.text).toBe('+');
   const operatorType = plusAttribute.type as LambdaTypeTree;
   expect(operatorType.parameters[0].id.text).toBe('it');

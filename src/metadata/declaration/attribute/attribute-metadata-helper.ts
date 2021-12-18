@@ -1,6 +1,6 @@
 import { AbstractAttributeTree } from '../../../tree/attribute/abstract/abstract-attribute-tree';
 import { AttributeTree } from '../../../tree/attribute/attribute-node';
-import { MethodAttributeTree } from '../../../tree/attribute/method/method-attribute-node';
+import { MethodAttributeNode } from '../../../tree/attribute/method/method-attribute-node';
 import { ObjectAttributeNode } from '../../../tree/attribute/object/object-attribute-node';
 import { ValueAttributeNode } from '../../../tree/attribute/value/value-attribute-node';
 import { DeclarationScope } from '../../declaration-scope';
@@ -17,7 +17,7 @@ export function getAttributeMetadata(
   if (tree instanceof AbstractAttributeTree) return new AbstractAttributeMetadata(tree, scope);
   if (tree instanceof ObjectAttributeNode) return new ObjectAttributeMetadata(tree, scope);
   if (tree instanceof ValueAttributeNode) return new ValueAttributeMetadata(tree, scope);
-  if (tree instanceof MethodAttributeTree) return new MethodAttributeMetadata(tree, scope);
+  if (tree instanceof MethodAttributeNode) return new MethodAttributeMetadata(tree, scope);
 
   throw Error(`Attribute metadata not found for "${tree.constructor.name}"`);
 }

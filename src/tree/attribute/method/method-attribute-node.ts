@@ -8,7 +8,7 @@ import { StatementNode } from '../../statement/statement-node';
 import { getStatementsFromBody } from '../../statement/statement-node-helper';
 import { AttributeTree } from '../attribute-node';
 
-export class MethodAttributeTree extends AttributeTree {
+export class MethodAttributeNode extends AttributeTree {
   id: IdToken;
   isOperator: boolean;
   generics: ExpressionNode[] = [];
