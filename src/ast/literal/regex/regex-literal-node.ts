@@ -1,7 +1,7 @@
 import { RegexLiteralContext } from '../../../grammar/xon-parser';
-import { LiteralTree } from '../literal.tree';
+import { LiteralNode } from '../literal-node';
 
-export class RegexLiteralTree extends LiteralTree {
+export class RegexLiteralNode extends LiteralNode {
   value: RegExp;
   pattern: string;
 

@@ -1,7 +1,7 @@
 import { StringLiteralContext } from '../../../grammar/xon-parser';
-import { LiteralTree } from '../literal.tree';
+import { LiteralNode } from '../literal-node';
 
-export class StringLiteralTree extends LiteralTree {
+export class StringLiteralNode extends LiteralNode {
   value: string;
 
   constructor(public ctx: StringLiteralContext) {

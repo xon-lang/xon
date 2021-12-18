@@ -1,7 +1,7 @@
 import { IntegerLiteralContext } from '../../../grammar/xon-parser';
-import { LiteralTree } from '../literal.tree';
+import { LiteralNode } from '../literal-node';
 
-export class IntegerLiteralTree extends LiteralTree {
+export class IntegerLiteralNode extends LiteralNode {
   radix: number;
   integer: string;
   value: number;

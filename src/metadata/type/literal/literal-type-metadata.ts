@@ -1,4 +1,4 @@
-import { LiteralTree } from '../../../ast/literal/literal.tree';
+import { LiteralNode } from '../../../ast/literal/literal-node';
 import { IdTypeMetadata } from '../id/id-type-metadata';
 import { TypeMetadata } from '../type-metadata';
 
@@ -17,7 +17,7 @@ export class LiteralTypeMetadata extends IdTypeMetadata {
     return `${this.name}<${this.value}>`;
   }
 
-  static fromTree(tree: LiteralTree) {
+  static fromTree(tree: LiteralNode) {
     return new LiteralTypeMetadata(tree.constructor.name.replace('LiteralTree', ''), tree.value);
   }
 }

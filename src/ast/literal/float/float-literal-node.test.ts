@@ -1,26 +1,26 @@
 import { parseLiteral } from '../../parse';
-import { FloatLiteralTree } from './float-literal.tree';
+import { FloatLiteralNode } from './float-literal-node';
 
 test('positive float number', () => {
   const code = '123.123';
-  const tree = parseLiteral<FloatLiteralTree>(code);
-  expect(tree).toBeInstanceOf(FloatLiteralTree);
+  const tree = parseLiteral<FloatLiteralNode>(code);
+  expect(tree).toBeInstanceOf(FloatLiteralNode);
 
   expect(tree.value).toBe(123.123);
 });
 
 test('zero float number', () => {
   const code = '2x0.0';
-  const tree = parseLiteral<FloatLiteralTree>(code);
-  expect(tree).toBeInstanceOf(FloatLiteralTree);
+  const tree = parseLiteral<FloatLiteralNode>(code);
+  expect(tree).toBeInstanceOf(FloatLiteralNode);
 
   expect(tree.value).toBe(0.0);
 });
 
 test('underscore in number', () => {
   const code = '5_999_245.15463_64';
-  const tree = parseLiteral<FloatLiteralTree>(code);
-  expect(tree).toBeInstanceOf(FloatLiteralTree);
+  const tree = parseLiteral<FloatLiteralNode>(code);
+  expect(tree).toBeInstanceOf(FloatLiteralNode);
 
   expect(tree.integer).toBe('5_999_245');
   expect(tree.fraction).toBe('15463_64');
@@ -29,8 +29,8 @@ test('underscore in number', () => {
 
 test('radix float', () => {
   const code = '2x11.011001100110011001100110011001100110011001100110011';
-  const tree = parseLiteral<FloatLiteralTree>(code);
-  expect(tree).toBeInstanceOf(FloatLiteralTree);
+  const tree = parseLiteral<FloatLiteralNode>(code);
+  expect(tree).toBeInstanceOf(FloatLiteralNode);
 
   expect(tree.radix).toBe(2);
   expect(tree.integer).toBe('11');
@@ -40,8 +40,8 @@ test('radix float', () => {
 
 test('16x123ABC_123.DDD12', () => {
   const code = '16x123ABC_123.DDD12';
-  const tree = parseLiteral<FloatLiteralTree>(code);
-  expect(tree).toBeInstanceOf(FloatLiteralTree);
+  const tree = parseLiteral<FloatLiteralNode>(code);
+  expect(tree).toBeInstanceOf(FloatLiteralNode);
 
   expect(tree.radix).toBe(16);
   expect(tree.integer).toBe('123ABC_123');

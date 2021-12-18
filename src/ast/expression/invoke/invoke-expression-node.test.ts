@@ -1,5 +1,5 @@
-import { IntegerLiteralTree } from '../../literal/integer/integer-literal.tree';
-import { StringLiteralTree } from '../../literal/string/string-literal.tree';
+import { IntegerLiteralNode } from '../../literal/integer/integer-literal-node';
+import { StringLiteralNode } from '../../literal/string/string-literal-node';
 import { parseExpression } from '../../parse';
 import { IdExpressionNode } from '../id/id-expression-node';
 import { LiteralExpressionNode } from '../literal/literal-expression-node';
@@ -12,9 +12,9 @@ test('method call', () => {
   expect(tree).toBeInstanceOf(InvokeExpressionNode);
 
   expect(tree.arguments.length).toBe(2);
-  expect((tree.arguments[0] as LiteralExpressionNode).literal).toBeInstanceOf(IntegerLiteralTree);
+  expect((tree.arguments[0] as LiteralExpressionNode).literal).toBeInstanceOf(IntegerLiteralNode);
   expect((tree.arguments[0] as LiteralExpressionNode).literal.value).toBe(3);
-  expect((tree.arguments[1] as LiteralExpressionNode).literal).toBeInstanceOf(StringLiteralTree);
+  expect((tree.arguments[1] as LiteralExpressionNode).literal).toBeInstanceOf(StringLiteralNode);
   expect((tree.arguments[1] as LiteralExpressionNode).literal.value).toBe('str');
   expect(tree.instance).toBeInstanceOf(IdExpressionNode);
 });
@@ -28,8 +28,8 @@ test('method on several lines', () => {
 
   expect(tree.arguments.length).toBe(4);
   const [arg1, arg2] = tree.arguments.map((x) => x as LiteralExpressionNode);
-  expect(arg1.literal).toBeInstanceOf(IntegerLiteralTree);
-  expect(arg2.literal).toBeInstanceOf(StringLiteralTree);
+  expect(arg1.literal).toBeInstanceOf(IntegerLiteralNode);
+  expect(arg2.literal).toBeInstanceOf(StringLiteralNode);
   expect(tree.instance).toBeInstanceOf(IdExpressionNode);
 });
 
@@ -40,6 +40,6 @@ test('can call with type parameter', () => {
 
   expect(tree.arguments.length).toBe(1);
   const [arg] = tree.arguments.map((x) => x as LiteralExpressionNode);
-  expect(arg.literal).toBeInstanceOf(IntegerLiteralTree);
+  expect(arg.literal).toBeInstanceOf(IntegerLiteralNode);
   expect(tree.instance).toBeInstanceOf(MemberExpressionNode);
 });

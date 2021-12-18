@@ -1,4 +1,4 @@
-import { LiteralTree } from '../../ast/literal/literal.tree';
+import { LiteralNode } from '../../ast/literal/literal-node';
 import { ArrayTypeTree } from '../../ast/type/array/array-type.tree';
 import { IdTypeTree } from '../../ast/type/id/id-type.tree';
 import { IntersectionTypeTree } from '../../ast/type/intersection/intersection-type.tree';
@@ -21,11 +21,11 @@ import { TupleTypeMetadata } from './tuple/tuple-type-metadata';
 import { TypeMetadata } from './type-metadata';
 
 export function getTypeDefinition(
-  tree: TypeTree | LiteralTree,
+  tree: TypeTree | LiteralNode,
   scope: DeclarationScope,
 ): DefinitionMetadata {
   if (tree instanceof ParenthesizedTypeTree) return getTypeDefinition(tree.type, scope);
-  if (tree instanceof LiteralTree) {
+  if (tree instanceof LiteralNode) {
     const name = tree.constructor.name.replace('LiteralTree', '');
     return scope.findByName(name) as DefinitionMetadata;
   }

@@ -1,7 +1,7 @@
 import { FloatLiteralContext } from '../../../grammar/xon-parser';
-import { LiteralTree } from '../literal.tree';
+import { LiteralNode } from '../literal-node';
 
-export class FloatLiteralTree extends LiteralTree {
+export class FloatLiteralNode extends LiteralNode {
   radix: number;
   integer: string;
   fraction: string;

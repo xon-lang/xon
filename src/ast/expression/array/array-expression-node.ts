@@ -9,6 +9,7 @@ export class ArrayExpressionNode extends ExpressionNode {
 
   constructor(public ctx: ArrayExpressionContext) {
     super();
+console.log(ctx.text);
 
     this.items = getExpressionNodes(ctx.arguments());
   }

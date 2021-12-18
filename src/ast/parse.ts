@@ -10,8 +10,8 @@ import { ExportNode } from './export/export-node';
 import { ExpressionNode } from './expression/expression-node';
 import { getExpressionNode } from './expression/expression-node-helper';
 import { ImportNode } from './import/import-node';
-import { getLiteralTree } from './literal/literal-tree.helper';
-import { LiteralTree } from './literal/literal.tree';
+import { getLiteralTree } from './literal/literal-node-helper';
+import { LiteralNode } from './literal/literal-node';
 import { ParameterNode } from './parameter/parameter-node';
 import { SourceTree } from './source/source-tree';
 import { StatementNode } from './statement/statement-node';
@@ -38,7 +38,7 @@ export const parseParameter = (code: string): ParameterNode =>
 export const parseAttribute = <T extends AttributeTree>(code: string): T =>
   getAttributeNode(parse(code).attribute()) as T;
 
-export const parseLiteral = <T extends LiteralTree>(code: string): T =>
+export const parseLiteral = <T extends LiteralNode>(code: string): T =>
   getLiteralTree(parse(code).literal()) as T;
 
 export const parseExpression = <T extends ExpressionNode>(code: string): T =>
