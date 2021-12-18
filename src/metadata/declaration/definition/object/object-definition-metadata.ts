@@ -1,4 +1,4 @@
-import { ObjectDefinitionTree } from '../../../../tree/definition/object/object-definition-tree';
+import { ObjectDefinitionNode } from '../../../../tree/definition/object/object-definition-node';
 import { DeclarationScope } from '../../../declaration-scope';
 import { IdTypeMetadata } from '../../../type/id/id-type-metadata';
 import { TypeMetadata } from '../../../type/type-metadata';
@@ -26,7 +26,7 @@ export class ObjectDefinitionMetadata extends DefinitionMetadata {
   //   ]);
   // }
 
-  constructor(tree: ObjectDefinitionTree, protected scope: DeclarationScope) {
+  constructor(tree: ObjectDefinitionNode, protected scope: DeclarationScope) {
     super();
 
     this.name = tree.id.text;

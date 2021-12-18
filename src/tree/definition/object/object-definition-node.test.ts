@@ -1,31 +1,28 @@
-import { AbstractAttributeTree } from '../../attribute/abstract/abstract-attribute-tree';
 import { MethodAttributeNode } from '../../attribute/method/method-attribute-node';
 import { ValueAttributeNode } from '../../attribute/value/value-attribute-node';
-import { CallExpressionTree } from '../../expression/invoke/invoke-expression-node';
 import { IdExpressionNode } from '../../expression/id/id-expression-node';
+import { InvokeExpressionNode } from '../../expression/invoke/invoke-expression-node';
 import { LiteralExpressionNode } from '../../expression/literal/literal-expression-node';
 import { parseDefinition, parseSourceFile } from '../../parse';
 import { SourceTree } from '../../source/source-tree';
 import { ExpressionStatementTree } from '../../statement/expression/expression-statement.tree';
-import { IdTypeTree } from '../../type/id/id-type.tree';
-import { LambdaTypeTree } from '../../type/lambda/lambda-type.tree';
-import { ObjectDefinitionTree } from './object-definition-tree';
+import { ObjectDefinitionNode } from './object-definition-node';
 
 test('one scope', () => {
   const tree = parseSourceFile('src/tree/definition/object/object-definition-test-file.xon');
   expect(tree).toBeInstanceOf(SourceTree);
 
   // expect(tree.definitions.length).toBe(1);
-  const definition = tree.definitions[0] as ObjectDefinitionTree;
-  expect(definition).toBeInstanceOf(ObjectDefinitionTree);
+  const definition = tree.definitions[0] as ObjectDefinitionNode;
+  expect(definition).toBeInstanceOf(ObjectDefinitionNode);
 
   expect(definition.id.text).toBe('SomeClass');
 
-  const ancestor = definition.ancestors[0] as IdTypeTree;
+  const ancestor = definition.ancestors[0] as IdExpressionNode;
   expect(ancestor.id.text).toBe('Base');
-  expect(ancestor.typeArguments.length).toBe(2);
-  expect((ancestor.typeArguments[0] as IdTypeTree).id.text).toBe('String');
-  expect((ancestor.typeArguments[1] as IdTypeTree).id.text).toBe('Boolean');
+  expect(ancestor.generics.length).toBe(2);
+  expect((ancestor.generics[0] as IdExpressionNode).id.text).toBe('String');
+  expect((ancestor.generics[1] as IdExpressionNode).id.text).toBe('Boolean');
 
   const attrs = definition.attributes;
   const propertyAttribute = attrs[0] as ValueAttributeNode;
@@ -35,46 +32,42 @@ test('one scope', () => {
   expect(propertyAttribute.type).toBe(null);
   expect((propertyAttribute.value as LiteralExpressionNode).literal.value).toBe(123);
 
-  const anotherPropAttribute = attrs[1] as AbstractAttributeTree;
-  expect(anotherPropAttribute).toBeInstanceOf(AbstractAttributeTree);
+  const anotherPropAttribute = attrs[1] as ValueAttributeNode;
+  expect(anotherPropAttribute).toBeInstanceOf(ValueAttributeNode);
   expect(anotherPropAttribute.id.text).toBe('anotherProp');
-  expect((anotherPropAttribute.type as IdTypeTree).id.text).toBe('String');
+  expect((anotherPropAttribute.type as IdExpressionNode).id.text).toBe('String');
 
-  const typedValueAttribute = attrs[2] as AbstractAttributeTree;
-  expect(typedValueAttribute).toBeInstanceOf(AbstractAttributeTree);
+  const typedValueAttribute = attrs[2] as ValueAttributeNode;
+  expect(typedValueAttribute).toBeInstanceOf(ValueAttributeNode);
   expect(typedValueAttribute.id.text).toBe('typedValue');
-  expect((typedValueAttribute.type as IdTypeTree).id.text).toBe('Number');
+  expect((typedValueAttribute.type as IdExpressionNode).id.text).toBe('Number');
 
   const methodAttribute = attrs[3] as MethodAttributeNode;
   expect(methodAttribute).toBeInstanceOf(MethodAttributeNode);
   expect(methodAttribute.id.text).toBe('method');
-  expect((methodAttribute.type as LambdaTypeTree).parameters.length).toBe(0);
+  expect(methodAttribute.parameters.length).toBe(0);
   expect(methodAttribute.body.length).toBe(2);
   expect((methodAttribute.body[0] as ExpressionStatementTree).expression).toBeInstanceOf(
-    CallExpressionTree,
+    InvokeExpressionNode,
   );
   expect((methodAttribute.body[1] as ExpressionStatementTree).expression).toBeInstanceOf(
-    CallExpressionTree,
+    InvokeExpressionNode,
   );
 
   const locationAttribute = attrs[4] as MethodAttributeNode;
   expect(locationAttribute).toBeInstanceOf(MethodAttributeNode);
   expect(locationAttribute.id.text).toBe('location');
-  expect((locationAttribute.type as LambdaTypeTree).parameters.length).toBe(2);
-  expect((locationAttribute.type as LambdaTypeTree).parameters[0].id.text).toBe('x');
-  expect(
-    ((locationAttribute.type as LambdaTypeTree).parameters[0].type as IdTypeTree).id.text,
-  ).toBe('Number');
-  expect((locationAttribute.type as LambdaTypeTree).parameters[1].id.text).toBe('y');
-  expect(
-    ((locationAttribute.type as LambdaTypeTree).parameters[1].type as IdTypeTree).id.text,
-  ).toBe('Number');
+  expect(locationAttribute.parameters.length).toBe(2);
+  expect(locationAttribute.parameters[0].id.text).toBe('x');
+  expect((locationAttribute.parameters[0].type as IdExpressionNode).id.text).toBe('Number');
+  expect(locationAttribute.parameters[1].id.text).toBe('y');
+  expect((locationAttribute.parameters[1].type as IdExpressionNode).id.text).toBe('Number');
   expect(locationAttribute.body.length).toBe(1);
   expect((locationAttribute.body[0] as ExpressionStatementTree).expression).toBeInstanceOf(
-    CallExpressionTree,
+    InvokeExpressionNode,
   );
   const innerMethod = (locationAttribute.body[0] as ExpressionStatementTree)
-    .expression as CallExpressionTree;
+    .expression as InvokeExpressionNode;
   const callExpression = innerMethod.instance as IdExpressionNode;
   expect(callExpression.id.text).toBe('pos');
   expect(innerMethod.arguments.length).toBe(2);
@@ -82,16 +75,16 @@ test('one scope', () => {
   const plusAttribute = attrs[5] as MethodAttributeNode;
   expect(plusAttribute).toBeInstanceOf(MethodAttributeNode);
   expect(plusAttribute.id.text).toBe('+');
-  const operatorType = plusAttribute.type as LambdaTypeTree;
+  const operatorType = plusAttribute;
   expect(operatorType.parameters[0].id.text).toBe('it');
-  expect((operatorType.parameters[0].type as IdTypeTree).id.text).toBe('SomeClass');
-  expect((operatorType.resultType as IdTypeTree).id.text).toBe('AnotherClass');
+  expect((operatorType.parameters[0].type as IdExpressionNode).id.text).toBe('SomeClass');
+  expect((operatorType.resultType as IdExpressionNode).id.text).toBe('AnotherClass');
 });
 
 test('hierarchy', () => {
   const code = 'object Animal\n  Type\n    value: 123\n  value: "hi"';
-  const tree = parseDefinition<ObjectDefinitionTree>(code);
-  expect(tree).toBeInstanceOf(ObjectDefinitionTree);
+  const tree = parseDefinition<ObjectDefinitionNode>(code);
+  expect(tree).toBeInstanceOf(ObjectDefinitionNode);
 
   expect(tree.id.text).toBe('Animal');
   expect(tree.attributes.length).toBe(2);

@@ -7,7 +7,7 @@ import { AliasDefinitionTree } from './alias/alias-definition-tree';
 import { ClassDefinitionTree } from './class/class-definition-tree';
 import { DefinitionTree } from './definition-tree';
 import { InterfaceDefinitionTree } from './interface/interface-definition-tree';
-import { ObjectDefinitionTree } from './object/object-definition-tree';
+import { ObjectDefinitionNode } from './object/object-definition-node';
 
 export const getDefinitionTree = (ctx: DefinitionContext): DefinitionTree => {
   if (ctx === undefined) return undefined;
@@ -16,7 +16,7 @@ export const getDefinitionTree = (ctx: DefinitionContext): DefinitionTree => {
   if (ctx instanceof TypeDefinitionContext) {
     if (ctx.definitionModifier().CLASS()) return new ClassDefinitionTree(ctx);
     if (ctx.definitionModifier().INTERFACE()) return new InterfaceDefinitionTree(ctx);
-    if (ctx.definitionModifier().OBJECT()) return new ObjectDefinitionTree(ctx);
+    if (ctx.definitionModifier().OBJECT()) return new ObjectDefinitionNode(ctx);
   }
 
   throw Error(`Definition tree not found for "${ctx.constructor.name}"`);

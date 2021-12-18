@@ -1,14 +1,14 @@
 import { TypeDefinitionContext } from '../../../grammar/xon-parser';
 import { AttributeTree } from '../../attribute/attribute-node';
 import { getAttributeNodes } from '../../attribute/attribute-node-helper';
+import { ExpressionNode } from '../../expression/expression-node';
+import { getExpressionNodes } from '../../expression/expression-node-helper';
 import { IdToken } from '../../id-token';
-import { getTypesTrees } from '../../type/type-tree.helper';
-import { TypeTree } from '../../type/type.tree';
 import { DefinitionTree } from '../definition-tree';
 
-export class ObjectDefinitionTree extends DefinitionTree {
+export class ObjectDefinitionNode extends DefinitionTree {
   id: IdToken;
-  ancestors: TypeTree[] = [];
+  ancestors: ExpressionNode[] = [];
   attributes: AttributeTree[] = [];
 
   constructor(public ctx: TypeDefinitionContext) {
@@ -19,10 +19,10 @@ export class ObjectDefinitionTree extends DefinitionTree {
     if (this.id.text[0] !== this.id.text[0].toUpperCase())
       throw new Error(`Definition name '${this.id.text}' must start with upper letter`);
 
-    if (header.typeParameters()) throw new Error('Object must not have a type parameters');
-    if (header.parameters()) throw new Error('Object must not have a constructor');
+    if (header.methodHeader().generics()) throw new Error('Object must not have a type parameters');
+    if (header.methodHeader().parameter()) throw new Error('Object must not have a constructor');
 
-    this.ancestors = getTypesTrees(header.definitionAncestors()?.type());
+    this.ancestors = getExpressionNodes(header.definitionAncestors()?.expr());
     this.attributes = getAttributeNodes(ctx.definitionBody()?.attribute());
   }
 
