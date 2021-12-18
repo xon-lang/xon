@@ -18,6 +18,7 @@ import {
   MemberExpressionContext,
   MethodExpressionContext,
   MulDivModExpressionContext,
+  NullableExpressionContext,
   ParenthesizedExpressionContext,
   PipeExpressionContext,
   PowExpressionContext,
@@ -37,6 +38,7 @@ import { InvokeExpressionNode } from './invoke/invoke-expression-node';
 import { LiteralExpressionNode } from './literal/literal-expression-node';
 import { MemberExpressionNode } from './member/member-expression-node';
 import { MethodExpressionNode } from './method/method-expression-node';
+import { NullableExpressionNode } from './nullable/nullable-expression-node';
 import { ParenthesizedExpressionNode } from './parenthesized/parenthesized-expression-node';
 import { PipeExpressionTree } from './pipe/pipe-expression-node';
 import { PrefixExpressionNode } from './prefix/prefix-expression-node';
@@ -45,13 +47,14 @@ export const getExpressionNode = (ctx: ExprContext): ExpressionNode => {
   if (ctx === undefined) return undefined;
 
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionNode(ctx);
-  if (ctx instanceof IndexExpressionContext) return new IndexExpressionNode(ctx);
-  if (ctx instanceof IndexerExpressionContext) return new IndexerExpressionNode(ctx);
-  if (ctx instanceof InvokeExpressionContext) return new InvokeExpressionNode(ctx);
-  if (ctx instanceof MethodExpressionContext) return new MethodExpressionNode(ctx);
   if (ctx instanceof IdExpressionContext) return new IdExpressionNode(ctx);
+  if (ctx instanceof IndexerExpressionContext) return new IndexerExpressionNode(ctx);
+  if (ctx instanceof IndexExpressionContext) return new IndexExpressionNode(ctx);
+  if (ctx instanceof InvokeExpressionContext) return new InvokeExpressionNode(ctx);
   if (ctx instanceof LiteralExpressionContext) return new LiteralExpressionNode(ctx);
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionNode(ctx);
+  if (ctx instanceof MethodExpressionContext) return new MethodExpressionNode(ctx);
+  if (ctx instanceof NullableExpressionContext) return new NullableExpressionNode(ctx);
   if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionNode(ctx);
   if (ctx instanceof PipeExpressionContext) return new PipeExpressionTree(ctx);
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionNode(ctx);
