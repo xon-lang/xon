@@ -14,7 +14,7 @@ export class ParameterNode extends Node {
 
     this.id = IdToken.fromContext(ctx._name);
     this.type = getExpressionNode(ctx.expr()) || null;
-    this.meta = IdToken.fromContext(ctx._meta);
+    this.meta = (ctx._meta && IdToken.fromContext(ctx._meta)) || null;
   }
 
   toString(): string {
