@@ -6,10 +6,8 @@ options {
 
 source: (library | export | NL)* ( definition | NL)*;
 
-export:        EXPORT libraryPath;
-library:       IMPORT libraryPath ':' libraryMember (',' libraryMember)*;
-libraryPath:   id ('.' id)*;
-libraryMember: name = id (AS alias = id)?;
+export:  EXPORT path = expr;
+library: IMPORT path = expr ':' members += expr (',' members += expr)*;
 
 definition:
     TYPE id generics? ':' type = expr                      # aliasDefinition
@@ -52,9 +50,6 @@ expr:
     | expr '?'                                                # nullableExpression
     | expr '.' attrId                                         # memberExpression
     | '...' expr                                              # spreadExpression
-    | left = expr IS right = expr                             # isExpression
-    | left = expr AS right = expr                             # asExpression
-    | left = expr IN right = expr                             # inExpression
     | op = ('-' | '+' | NOT) expr                             # prefixExpression
     | left = expr op = id right = expr                        # infixExpression
     | left = expr op = '^' right = expr                       # powExpression
