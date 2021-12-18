@@ -1,6 +1,6 @@
+import { IdExpressionNode } from '../../expression/id/id-expression-node';
+import { InfixExpressionNode } from '../../expression/infix/infix-expression-node';
 import { parseDefinition } from '../../parse';
-import { IdTypeTree } from '../../type/id/id-type.tree';
-import { UnionTypeTree } from '../../type/union/union-type.tree';
 import { AliasDefinitionTree } from './alias-definition-tree';
 
 test('number', () => {
@@ -10,7 +10,7 @@ test('number', () => {
 
   expect(tree.id.text).toBe('Number');
   expect(tree.generics.length).toBe(0);
-  expect(tree.type).toBeInstanceOf(UnionTypeTree);
+  expect(tree.type).toBeInstanceOf(InfixExpressionNode);
   expect(tree.type.toString()).toBe('Integer || Float');
 });
 
@@ -21,7 +21,7 @@ test('string map', () => {
 
   expect(tree.id.text).toBe('StringMap');
   expect(tree.generics.length).toBe(1);
-  expect(tree.generics[0].id.text).toBe('T');
-  expect((tree.type as IdTypeTree).id.text).toBe('Map');
+  expect((tree.generics[0] as IdExpressionNode).id.text).toBe('T');
+  expect((tree.type as IdExpressionNode).id.text).toBe('Map');
   expect(tree.type.toString()).toBe('Map<String, T>');
 });
