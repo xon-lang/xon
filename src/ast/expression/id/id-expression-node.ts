@@ -18,7 +18,7 @@ export class IdExpressionNode extends ExpressionNode {
 
   toString(): string {
     const generics = this.generics.length ? '<' + this.generics.join(', ') + '>' : '';
-    if (generics) return `${this.id}<${this.generics}>`;
+    if (generics) return `${this.id}<${generics}>`;
     return this.id.toString();
   }
 }
