@@ -20,8 +20,8 @@ definitionBody:      NL+ INDENT (attribute | NL)+ DEDENT;
 
 attribute:
     attrId type = expr? (':' value = expr)?      # valueAttribute
-    | attrId methodHeader result = expr? body?   # methodAttribute
-    | attrId indexerHeader result = expr? body?  # indexerAttribute
+    | attrId methodHeader body?                  # methodAttribute
+    | attrId indexerHeader body?                 # indexerAttribute
     | attrId NL+ INDENT (attribute | NL)+ DEDENT # objectAttribute
     ;
 
@@ -74,9 +74,9 @@ literal:
     ;
 
 arguments:      expr (',' expr)* ','?;
-parameter:      '...'? name = id expr? ('#' meta = id)?;
-methodHeader:   generics? '(' (parameter (',' parameter)*)? ','? ')';
-indexerHeader:  generics? '[' (parameter (',' parameter)*)? ','? ']';
+parameter:      '...'? attrId expr? ('#' meta = id)?;
+methodHeader:   generics? '(' (parameter (',' parameter)*)? ','? ')' expr?;
+indexerHeader:  generics? '[' (parameter (',' parameter)*)? ','? ']' expr?;
 objectArgument: parameter (':' expr)?;
 generics:       '<' '|' arguments '|' '>';
 
