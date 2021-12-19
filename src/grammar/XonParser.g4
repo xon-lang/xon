@@ -4,17 +4,10 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: (library | export | NL)* ( definition | NL)*;
-
-export:  EXPORT path = expr;
-library: IMPORT path = expr ':' members += expr (',' members += expr)*;
-
-definition:
-    TYPE parameter                               # aliasDefinition
-    | definitionModifier definitionHeader? body? # typeDefinition
-    ;
-definitionModifier: CLASS | ENUM | INTERFACE | OBJECT | EXTENSION;
-definitionHeader:   id methodHeader? (IS arguments)?;
+source:     (library | export | NL)* (definition | NL)*;
+export:     EXPORT path = expr;
+library:    IMPORT path = expr ':' members += expr (',' members += expr)*;
+definition: definitionModifier parameter;
 
 statement:
     FOR (value = id (',' index = id)? IN)? expr body  # forStatement
@@ -40,7 +33,7 @@ expr:
     | expr '[' arguments? ']'                                 # indexExpression
     | expr '(' arguments? ')'                                 # invokeExpression
     | expr '?'                                                # nullableExpression
-    | expr '.' attrId                                         # memberExpression
+    | expr '.' id                                             # memberExpression
     | '...' expr                                              # spreadExpression
     | op = ('-' | '+' | NOT) expr                             # prefixExpression
     | left = expr op = id right = expr                        # infixExpression
@@ -70,13 +63,13 @@ body:
     | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-parameter:     '...'? attrId generics? (type = expr)? body?;
+parameter:     '...'? id generics? (type = expr)? (IS arguments)? body?;
 parameters:    parameter (',' parameter)* ','?;
 arguments:     expr (',' expr)* ','?;
 methodHeader:  '(' parameters? ')' expr?;
 indexerHeader: '[' parameters? ']' expr?;
 generics:      '<' '|' arguments '|' '>';
 
-attrId:   id | operator | STRING_LITERAL;
-id:       ID | definitionModifier;
-operator: '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
+id:                 ID | operator | definitionModifier | STRING_LITERAL;
+operator:           '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
+definitionModifier: TYPE | CLASS | ENUM | INTERFACE | OBJECT | EXTENSION;
