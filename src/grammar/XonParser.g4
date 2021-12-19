@@ -10,20 +10,11 @@ export:  EXPORT path = expr;
 library: IMPORT path = expr ':' members += expr (',' members += expr)*;
 
 definition:
-    TYPE id generics? ':' type = expr                      # aliasDefinition
-    | definitionModifier definitionHeader? definitionBody? # typeDefinition
+    TYPE parameter                               # aliasDefinition
+    | definitionModifier definitionHeader? body? # typeDefinition
     ;
-definitionModifier:  CLASS | ENUM | INTERFACE | OBJECT | EXTENSION;
-definitionHeader:    id methodHeader? definitionAncestors?;
-definitionAncestors: IS expr (',' expr)*;
-definitionBody:      NL+ INDENT (attribute | NL)+ DEDENT;
-
-attribute:
-    attrId type = expr? (':' value = expr)?      # valueAttribute
-    | attrId methodHeader body?                  # methodAttribute
-    | attrId indexerHeader body?                 # indexerAttribute
-    | attrId NL+ INDENT (attribute | NL)+ DEDENT # objectAttribute
-    ;
+definitionModifier: CLASS | ENUM | INTERFACE | OBJECT | EXTENSION;
+definitionHeader:   id methodHeader? (IS arguments)?;
 
 statement:
     FOR (value = id (',' index = id)? IN)? expr body  # forStatement
@@ -35,16 +26,17 @@ statement:
     | ACTUAL actual = expr NL+ EXPECT expect = expr   # assertStatement
     | PREPROCESSOR                                    # preprocessorStatement
     | id '=' expr                                     # assignmentStatement
+    | parameter                                       # parameterStatement
     | expr                                            # expressionStatement
     ;
 
 expr:
     '(' expr ')'                                              # parenthesizedExpression
     | id generics?                                            # idExpression
-    | indexerHeader ':' expr                                  # indexerExpression
-    | methodHeader ':' expr                                   # methodExpression
+    | indexerHeader body                                      # indexerExpression
+    | methodHeader body                                       # methodExpression
     | '[' arguments? ']'                                      # arrayExpression
-    | '{' (objectArgument (',' objectArgument)*)? ','? '}'    # objectExpression
+    | '{' parameters? '}'                                     # objectExpression
     | expr '[' arguments? ']'                                 # indexExpression
     | expr '(' arguments? ')'                                 # invokeExpression
     | expr '?'                                                # nullableExpression
@@ -73,14 +65,18 @@ literal:
     | REGEX_LITERAL  # regexLiteral
     ;
 
-arguments:      expr (',' expr)* ','?;
-parameter:      '...'? attrId expr? ('#' meta = id)?;
-methodHeader:   generics? '(' (parameter (',' parameter)*)? ','? ')' expr?;
-indexerHeader:  generics? '[' (parameter (',' parameter)*)? ','? ']' expr?;
-objectArgument: parameter (':' expr)?;
-generics:       '<' '|' arguments '|' '>';
+body:
+    ':' statement                              # singleBody
+    | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
+    ;
 
-body:     ':' statement | NL+ INDENT (statement | NL)+ DEDENT;
+parameter:     attrId generics? (type = expr)? body?;
+parameters:    parameter (',' parameter)* ','?;
+arguments:     expr (',' expr)* ','?;
+methodHeader:  '(' parameters? ')' expr?;
+indexerHeader: '[' parameters? ']' expr?;
+generics:      '<' '|' arguments '|' '>';
+
 attrId:   id | operator | STRING_LITERAL;
 id:       ID | definitionModifier;
 operator: '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
