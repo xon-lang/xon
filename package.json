@@ -43,7 +43,7 @@
     "@typescript-eslint/parser": "^5.7.0",
     "antlr4ts-cli": "^0.5.0-alpha.4",
     "create-ts-index": "^1.13.7",
-    "eslint": "^8.4.1",
+    "eslint": "^8.5.0",
     "eslint-config-airbnb-typescript": "^16.1.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.3",
