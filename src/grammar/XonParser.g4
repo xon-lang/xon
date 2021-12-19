@@ -70,7 +70,7 @@ body:
     | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-parameter:     attrId generics? (type = expr)? body?;
+parameter:     '...'? attrId generics? (type = expr)? body?;
 parameters:    parameter (',' parameter)* ','?;
 arguments:     expr (',' expr)* ','?;
 methodHeader:  '(' parameters? ')' expr?;
