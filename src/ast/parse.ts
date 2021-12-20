@@ -4,8 +4,8 @@ import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
 import { AttributeTree } from './attribute/attribute-node';
 import { getAttributeNode } from './attribute/attribute-node-helper';
-import { DefinitionTree } from './definition/definition-tree';
-import { getDefinitionTree } from './definition/definition-tree-helper';
+import { DefinitionNode } from './definition/definition-node';
+import { getDefinitionNode } from './definition/definition-node-helper';
 import { ExportNode } from './export/export-node';
 import { ExpressionNode } from './expression/expression-node';
 import { getExpressionNode } from './expression/expression-node-helper';
@@ -47,8 +47,8 @@ export const parseExpression = <T extends ExpressionNode>(code: string): T =>
 export const parseStatement = <T extends StatementNode>(code: string): T =>
   getStatementTree(parse(code).statement()) as T;
 
-export const parseDefinition = <T extends DefinitionTree>(code: string): T =>
-  getDefinitionTree(parse(code).definition()) as T;
+export const parseDefinition = <T extends DefinitionNode>(code: string): T =>
+  getDefinitionNode(parse(code).definition()) as T;
 
 export const parseImport = (code: string) => new ImportNode(parse(code).library());
 

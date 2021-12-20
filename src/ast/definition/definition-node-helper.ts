@@ -1,19 +1,15 @@
-import {
-  AliasDefinitionContext,
-  DefinitionContext,
-  TypeDefinitionContext,
-} from '../../grammar/xon-parser';
-import { AliasDefinitionTree } from './alias/alias-definition-tree';
+import { DefinitionContext } from '../../grammar/xon-parser';
+import { AliasDefinitionNode } from './alias/alias-definition-tree';
 import { ClassDefinitionTree } from './class/class-definition-tree';
-import { DefinitionTree } from './definition-tree';
+import { DefinitionNode } from './definition-node';
 import { InterfaceDefinitionTree } from './interface/interface-definition-tree';
 import { ObjectDefinitionNode } from './object/object-definition-node';
 
-export const getDefinitionTree = (ctx: DefinitionContext): DefinitionTree => {
+export const getDefinitionNode = (ctx: DefinitionContext): DefinitionNode => {
   if (ctx === undefined) return undefined;
 
-  if (ctx instanceof AliasDefinitionContext) return new AliasDefinitionTree(ctx);
-  if (ctx instanceof TypeDefinitionContext) {
+  if (ctx instanceof DefinitionContext) {
+    if (ctx.definitionModifier().TYPE()) return new AliasDefinitionNode(ctx);
     if (ctx.definitionModifier().CLASS()) return new ClassDefinitionTree(ctx);
     if (ctx.definitionModifier().INTERFACE()) return new InterfaceDefinitionTree(ctx);
     if (ctx.definitionModifier().OBJECT()) return new ObjectDefinitionNode(ctx);
@@ -22,5 +18,5 @@ export const getDefinitionTree = (ctx: DefinitionContext): DefinitionTree => {
   throw Error(`Definition tree not found for "${ctx.constructor.name}"`);
 };
 
-export const getDefinitionsTrees = (contexts: DefinitionContext[]): DefinitionTree[] =>
-  contexts?.map(getDefinitionTree) || [];
+export const getDefinitionNodes = (contexts: DefinitionContext[]): DefinitionNode[] =>
+  contexts?.map(getDefinitionNode) || [];

@@ -1,4 +1,4 @@
-import { AliasDefinitionTree } from '../../../../ast/definition/alias/alias-definition-tree';
+import { AliasDefinitionNode } from '../../../../ast/definition/alias/alias-definition-tree';
 import { DeclarationScope } from '../../../declaration-scope';
 import { DefinitionMetadata } from '../definition-metadata';
 
@@ -15,7 +15,7 @@ export class AliasDefinitionMetadata extends DefinitionMetadata {
   //   }));
   // }
 
-  constructor(tree: AliasDefinitionTree, protected scope: DeclarationScope) {
+  constructor(tree: AliasDefinitionNode, protected scope: DeclarationScope) {
     super();
 
     this.name = tree.id.text;

@@ -1,15 +1,15 @@
-import { AliasDefinitionContext } from '../../../grammar/xon-parser';
+import { ParameterContext } from '../../../grammar/xon-parser';
 import { ExpressionNode } from '../../expression/expression-node';
 import { getExpressionNode, getExpressionNodes } from '../../expression/expression-node-helper';
 import { IdToken } from '../../id-token';
-import { DefinitionTree } from '../definition-tree';
+import { DefinitionNode } from '../definition-node';
 
-export class AliasDefinitionTree extends DefinitionTree {
+export class AliasDefinitionNode extends DefinitionNode {
   id: IdToken;
   generics: ExpressionNode[] = [];
   type: ExpressionNode;
 
-  constructor(public ctx: AliasDefinitionContext) {
+  constructor(public ctx: ParameterContext) {
     super();
 
     this.id = IdToken.fromContext(ctx.id());

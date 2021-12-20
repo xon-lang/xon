@@ -6,9 +6,9 @@ import { getExpressionNodes } from '../../expression/expression-node-helper';
 import { IdToken } from '../../id-token';
 import { ParameterNode } from '../../parameter/parameter-node';
 import { getParameterNodes } from '../../parameter/parameter-node-helper';
-import { DefinitionTree } from '../definition-tree';
+import { DefinitionNode } from '../definition-node';
 
-export class ClassDefinitionTree extends DefinitionTree {
+export class ClassDefinitionTree extends DefinitionNode {
   id: IdToken;
   generics: ExpressionNode[] = [];
   parameters: ParameterNode[] = [];

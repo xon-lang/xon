@@ -1,12 +1,12 @@
 import { IdExpressionNode } from '../../expression/id/id-expression-node';
 import { InfixExpressionNode } from '../../expression/infix/infix-expression-node';
 import { parseDefinition } from '../../parse';
-import { AliasDefinitionTree } from './alias-definition-tree';
+import { AliasDefinitionNode } from './alias-definition-tree';
 
 test('number', () => {
   const code = 'type Number: Integer || Float';
-  const tree = parseDefinition<AliasDefinitionTree>(code);
-  expect(tree).toBeInstanceOf(AliasDefinitionTree);
+  const tree = parseDefinition<AliasDefinitionNode>(code);
+  expect(tree).toBeInstanceOf(AliasDefinitionNode);
 
   expect(tree.id.text).toBe('Number');
   expect(tree.generics.length).toBe(0);
@@ -16,8 +16,8 @@ test('number', () => {
 
 test('string map', () => {
   const code = 'type StringMap<|T|>: Map<|String, T|>';
-  const tree = parseDefinition<AliasDefinitionTree>(code);
-  expect(tree).toBeInstanceOf(AliasDefinitionTree);
+  const tree = parseDefinition<AliasDefinitionNode>(code);
+  expect(tree).toBeInstanceOf(AliasDefinitionNode);
 
   expect(tree.id.text).toBe('StringMap');
   expect(tree.generics.length).toBe(1);

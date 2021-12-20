@@ -4,9 +4,9 @@ import { getAttributeNodes } from '../../attribute/attribute-node-helper';
 import { ExpressionNode } from '../../expression/expression-node';
 import { getExpressionNodes } from '../../expression/expression-node-helper';
 import { IdToken } from '../../id-token';
-import { DefinitionTree } from '../definition-tree';
+import { DefinitionNode } from '../definition-node';
 
-export class ObjectDefinitionNode extends DefinitionTree {
+export class ObjectDefinitionNode extends DefinitionNode {
   id: IdToken;
   ancestors: ExpressionNode[] = [];
   attributes: AttributeTree[] = [];
