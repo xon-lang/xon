@@ -1,2 +1,0 @@
-interface Function<|...T, R|>
-  $(...parameters T) R
