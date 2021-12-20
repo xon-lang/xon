@@ -36,7 +36,7 @@ expr:
     | expr ':' expr                                           # pairExpression
     | '...' expr                                              # spreadExpression
     | op = ('-' | '+' | NOT) expr                             # prefixExpression
-    | left = expr op = operator right = expr                  # infixExpression
+    | left = expr op = id right = expr                        # infixExpression
     | left = expr op = '^' right = expr                       # powExpression
     | left = expr op = ('*' | '/' | '%') right = expr         # mulDivModExpression
     | left = expr op = ('+' | '-') right = expr               # addSubExpression
@@ -67,6 +67,6 @@ arguments:    expr (',' expr)* ','?;
 methodHeader: '(' parameters? ')' resultType = expr?;
 generics:     '<' '|' arguments '|' '>';
 
-id:                 ID | operator | definitionModifier | STRING_LITERAL;
-operator:           IS | AS | IN | '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
+id:                 ID | IS | AS | IN | definitionModifier | STRING_LITERAL;
+operator:           '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
 definitionModifier: TYPE | CLASS | ENUM | INTERFACE | OBJECT | EXTENSION;
