@@ -66,6 +66,6 @@ parameter: '...'? id generics? type = expr?;
 arguments: expr (',' expr)* ','?;
 generics:  '<' '|' arguments '|' '>';
 
-id:          ID | IS | AS | IN;
 attributeId: id | operator;
 operator:    '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
+id:          ID | IS | AS | IN;
