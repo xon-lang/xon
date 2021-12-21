@@ -8,8 +8,9 @@ source:  (library | export | NL)* (definition | NL)*;
 export:  EXPORT path = expr;
 library: IMPORT path = expr ':' members += expr (',' members += expr)*;
 
-definition: parameter (IS arguments)? ( NL+ INDENT (attribute | NL)+ DEDENT)?;
-attribute:  parameter body?;
+definition:  parameter (IS arguments)? (NL+ INDENT (attribute | NL)+ DEDENT)?;
+attribute:   attributeId generics? type = expr? body?;
+attributeId: id | operator;
 
 statement:
     expr                                               # expressionStatement
@@ -29,15 +30,15 @@ expr:
     | id generics?                                            # idExpression
     | '(' expr ')'                                            # parenthesizedExpression
     | '[' arguments? ']'                                      # arrayExpression
-    | '{' arguments? '}'                                      # objectExpression
-    | '(' parameters? ')' expr                                # methodExpression
+    | '{' (attribute (',' attribute)* ','?)? '}'              # objectExpression
+    | '(' (parameter (',' parameter)* ','?)? ')' expr         # methodExpression
     | expr '(' arguments? ')'                                 # invokeExpression
     | expr '?'                                                # nullableExpression
     | expr '.' id                                             # memberExpression
     | expr ':' expr                                           # pairExpression
     | '...' expr                                              # spreadExpression
     | op = ('-' | '+' | NOT) expr                             # prefixExpression
-    | left = expr op = id right = expr                        # infixExpression
+    | left = expr op = (IS | AS | IN) right = expr                        # infixExpression
     | left = expr op = '^' right = expr                       # powExpression
     | left = expr op = ('*' | '/' | '%') right = expr         # mulDivModExpression
     | left = expr op = ('+' | '-') right = expr               # addSubExpression
@@ -62,10 +63,9 @@ body:
     | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-parameter:  '...'? id generics? (type = expr)?;
-parameters: parameter (',' parameter)* ','?;
-arguments:  expr (',' expr)* ','?;
-generics:   '<' '|' arguments '|' '>';
+parameter: '...'? id generics? type = expr?;
+arguments: expr (',' expr)* ','?;
+generics:  '<' '|' arguments '|' '>';
 
-id:       ID | IS | AS | IN | STRING_LITERAL;
+id:       ID | IS | AS | IN;
 operator: '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
