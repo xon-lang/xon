@@ -8,9 +8,8 @@ source:  (library | export | NL)* (definition | NL)*;
 export:  EXPORT path = expr;
 library: IMPORT path = expr ':' members += expr (',' members += expr)*;
 
-definition:  parameter (IS arguments)? (NL+ INDENT (attribute | NL)+ DEDENT)?;
-attribute:   attributeId generics? type = expr? body?;
-attributeId: id | operator;
+definition: parameter (IS arguments)? (NL+ INDENT (attribute | NL)+ DEDENT)?;
+attribute:  attributeId generics? type = expr? body?;
 
 statement:
     expr                                               # expressionStatement
@@ -38,7 +37,7 @@ expr:
     | expr ':' expr                                           # pairExpression
     | '...' expr                                              # spreadExpression
     | op = ('-' | '+' | NOT) expr                             # prefixExpression
-    | left = expr op = (IS | AS | IN) right = expr                        # infixExpression
+    | left = expr op = (IS | AS | IN) right = expr            # infixExpression
     | left = expr op = '^' right = expr                       # powExpression
     | left = expr op = ('*' | '/' | '%') right = expr         # mulDivModExpression
     | left = expr op = ('+' | '-') right = expr               # addSubExpression
@@ -67,5 +66,6 @@ parameter: '...'? id generics? type = expr?;
 arguments: expr (',' expr)* ','?;
 generics:  '<' '|' arguments '|' '>';
 
-id:       ID | IS | AS | IN;
-operator: '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
+id:          ID | IS | AS | IN;
+attributeId: id | operator;
+operator:    '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
