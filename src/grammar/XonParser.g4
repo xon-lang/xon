@@ -8,8 +8,7 @@ source:  (library | export | NL)* (definition | NL)*;
 export:  EXPORT path = expr;
 library: IMPORT path = expr ':' members += expr (',' members += expr)*;
 
-definition: parameter (IS arguments)? (NL+ INDENT (attribute | NL)+ DEDENT)?;
-attribute:  attributeId generics? type = expr? body?;
+definition: modifier? parameter (NL+ INDENT (parameter | NL)+ DEDENT)?;
 
 statement:
     expr                                               # expressionStatement
@@ -29,12 +28,11 @@ expr:
     | id generics?                                            # idExpression
     | '(' expr ')'                                            # parenthesizedExpression
     | '[' arguments? ']'                                      # arrayExpression
-    | '{' (attribute (',' attribute)* ','?)? '}'              # objectExpression
-    | '(' (parameter (',' parameter)* ','?)? ')' expr         # methodExpression
+    | '{' (parameter (',' parameter)* ','?)? '}'              # objectExpression
+    | '(' (parameter (',' parameter)* ','?)? ')' expr? body   # methodExpression
     | expr '(' arguments? ')'                                 # invokeExpression
     | expr '?'                                                # nullableExpression
     | expr '.' id                                             # memberExpression
-    | expr ':' expr                                           # pairExpression
     | '...' expr                                              # spreadExpression
     | op = ('-' | '+' | NOT) expr                             # prefixExpression
     | left = expr op = (IS | AS | IN) right = expr            # infixExpression
@@ -62,10 +60,11 @@ body:
     | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-parameter: '...'? id generics? type = expr?;
+parameter: '...'? parameterId generics? type = expr? (IS arguments)? body?;
 arguments: expr (',' expr)* ','?;
 generics:  '<' '|' arguments '|' '>';
 
-attributeId: id | operator;
+parameterId: id | STRING_LITERAL | operator;
+modifier:    TYPE | CLASS | INTERFACE | OBJECT | ENUM;
 operator:    '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
 id:          ID | IS | AS | IN;
