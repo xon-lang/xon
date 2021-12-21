@@ -4,10 +4,12 @@ options {
     tokenVocab = XonLexer;
 }
 
-source:     (library | export | NL)* (definition | NL)*;
-export:     EXPORT path = expr;
-library:    IMPORT path = expr ':' members += expr (',' members += expr)*;
-definition: definitionModifier parameter;
+source:  (library | export | NL)* (definition | NL)*;
+export:  EXPORT path = expr;
+library: IMPORT path = expr ':' members += expr (',' members += expr)*;
+
+definition: parameter (IS arguments)? ( NL+ INDENT (attribute | NL)+ DEDENT)?;
+attribute:  parameter body?;
 
 statement:
     expr                                               # expressionStatement
@@ -20,16 +22,15 @@ statement:
     | ACTUAL actual = expr NL+ EXPECT expect = expr    # assertStatement
     | PREPROCESSOR                                     # preprocessorStatement
     | id '=' expr                                      # assignmentStatement
-    | parameter                                        # parameterStatement
     ;
 
 expr:
     literal                                                   # literalExpression
+    | id generics?                                            # idExpression
     | '(' expr ')'                                            # parenthesizedExpression
     | '[' arguments? ']'                                      # arrayExpression
     | '{' arguments? '}'                                      # objectExpression
-    | id generics?                                            # idExpression
-    | methodHeader body                                       # methodExpression
+    | '(' parameters? ')' expr                                # methodExpression
     | expr '(' arguments? ')'                                 # invokeExpression
     | expr '?'                                                # nullableExpression
     | expr '.' id                                             # memberExpression
@@ -61,12 +62,10 @@ body:
     | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-parameter:    '...'? id generics? (type = expr)? (IS arguments)? body?;
-parameters:   parameter (',' parameter)* ','?;
-arguments:    expr (',' expr)* ','?;
-methodHeader: '(' parameters? ')' resultType = expr?;
-generics:     '<' '|' arguments '|' '>';
+parameter:  '...'? id generics? (type = expr)?;
+parameters: parameter (',' parameter)* ','?;
+arguments:  expr (',' expr)* ','?;
+generics:   '<' '|' arguments '|' '>';
 
-id:                 ID | IS | AS | IN | definitionModifier | STRING_LITERAL;
-operator:           '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
-definitionModifier: TYPE | CLASS | ENUM | INTERFACE | OBJECT | EXTENSION;
+id:       ID | IS | AS | IN | STRING_LITERAL;
+operator: '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
