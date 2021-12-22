@@ -66,22 +66,6 @@ export const getExpressionNode = (ctx: ExprContext): ExpressionNode => {
     ctx instanceof DisjunctionExpressionContext ||
     ctx instanceof RelationalExpressionContext
   ) {
-    if (
-      ctx instanceof RelationalExpressionContext &&
-      ctx._left instanceof RelationalExpressionContext
-    )
-      return new InfixExpressionNode(
-        ctx,
-        IdToken.fromText('&&'),
-        getExpressionNode(ctx._left),
-        new InfixExpressionNode(
-          ctx,
-          new IdToken(ctx._op),
-          getExpressionNode(ctx._left._right),
-          getExpressionNode(ctx._right),
-        ),
-      );
-
     return new InfixExpressionNode(
       ctx,
       new IdToken(ctx._op),
