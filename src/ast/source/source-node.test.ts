@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import { parse, parseSource } from '../parse';
+import { ImportStatementNode } from '../statement/import/import-statement-node';
 import { SourceNode } from './source-node';
 
 test('two if', () => {
@@ -13,12 +14,12 @@ else: if d: call()
   const tree = new SourceNode(parse(code).source());
   expect(tree).toBeInstanceOf(SourceNode);
 
-  const imports = tree.statements.map(x=>)
-  expect(tree.imports.length).toBe(1);
-  expect(tree.imports[0].path).toBe('xon.os');
-  expect(tree.imports[0].members.length).toBe(1);
-  expect(tree.imports[0].members[0].id.text).toBe('Path');
-  expect(tree.imports[0].members[0].alias).toBeFalsy();
+  const imports = tree.statements.map((x) => x as ImportStatementNode);
+  expect(imports.length).toBe(1);
+  expect(imports[0].path).toBe('xon.os');
+  expect(imports[0].members.length).toBe(1);
+  expect(imports[0].members[0].id.text).toBe('Path');
+  expect(imports[0].members[0].alias).toBeFalsy();
 });
 
 test('formatted 1.xon', () => {
