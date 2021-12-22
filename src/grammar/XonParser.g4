@@ -33,7 +33,6 @@ expr:
     | expr '.' id generics?                                            # memberExpression
     | '...' expr                                                       # spreadExpression
     | op = ('-' | '+' | NOT) expr                                      # prefixExpression
-    | left = expr op = (IS | AS | IN) right = expr                     # infixExpression
     | left = expr op = '^' right = expr                                # powExpression
     | left = expr op = ('*' | '/' | '%') right = expr                  # mulDivModExpression
     | left = expr op = ('+' | '-') right = expr                        # addSubExpression
@@ -42,6 +41,7 @@ expr:
     | left = expr op = ('==' | '!=') right = expr                      # equalityExpression
     | left = expr op = '&&' right = expr                               # conjunctionExpression
     | left = expr op = '||' right = expr                               # disjunctionExpression
+    | left = expr op = (IS | AS | IN) right = expr                     # infixExpression
     | literal                                                          # literalExpression
     ;
 

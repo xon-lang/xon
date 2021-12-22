@@ -811,57 +811,30 @@ export class XonParser extends Parser {
 					switch ( this.interpreter.adaptivePredict(this._input, 27, this._ctx) ) {
 					case 1:
 						{
-						_localctx = new InfixExpressionContext(new ExprContext(_parentctx, _parentState));
-						(_localctx as InfixExpressionContext)._left = _prevctx;
+						_localctx = new PowExpressionContext(new ExprContext(_parentctx, _parentState));
+						(_localctx as PowExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expr);
 						this.state = 165;
 						if (!(this.precpred(this._ctx, 10))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 10)");
 						}
 						this.state = 166;
-						(_localctx as InfixExpressionContext)._op = this._input.LT(1);
-						_la = this._input.LA(1);
-						if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.AS) | (1 << XonParser.IN) | (1 << XonParser.IS))) !== 0))) {
-							(_localctx as InfixExpressionContext)._op = this._errHandler.recoverInline(this);
-						} else {
-							if (this._input.LA(1) === Token.EOF) {
-								this.matchedEOF = true;
-							}
-
-							this._errHandler.reportMatch(this);
-							this.consume();
-						}
+						(_localctx as PowExpressionContext)._op = this.match(XonParser.CARET);
 						this.state = 167;
-						(_localctx as InfixExpressionContext)._right = this.expr(11);
+						(_localctx as PowExpressionContext)._right = this.expr(11);
 						}
 						break;
 
 					case 2:
 						{
-						_localctx = new PowExpressionContext(new ExprContext(_parentctx, _parentState));
-						(_localctx as PowExpressionContext)._left = _prevctx;
+						_localctx = new MulDivModExpressionContext(new ExprContext(_parentctx, _parentState));
+						(_localctx as MulDivModExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expr);
 						this.state = 168;
 						if (!(this.precpred(this._ctx, 9))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 9)");
 						}
 						this.state = 169;
-						(_localctx as PowExpressionContext)._op = this.match(XonParser.CARET);
-						this.state = 170;
-						(_localctx as PowExpressionContext)._right = this.expr(10);
-						}
-						break;
-
-					case 3:
-						{
-						_localctx = new MulDivModExpressionContext(new ExprContext(_parentctx, _parentState));
-						(_localctx as MulDivModExpressionContext)._left = _prevctx;
-						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expr);
-						this.state = 171;
-						if (!(this.precpred(this._ctx, 8))) {
-							throw this.createFailedPredicateException("this.precpred(this._ctx, 8)");
-						}
-						this.state = 172;
 						(_localctx as MulDivModExpressionContext)._op = this._input.LT(1);
 						_la = this._input.LA(1);
 						if (!(((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (XonParser.ASTERISK - 38)) | (1 << (XonParser.MODULO - 38)) | (1 << (XonParser.SLASH - 38)))) !== 0))) {
@@ -874,21 +847,21 @@ export class XonParser extends Parser {
 							this._errHandler.reportMatch(this);
 							this.consume();
 						}
-						this.state = 173;
-						(_localctx as MulDivModExpressionContext)._right = this.expr(9);
+						this.state = 170;
+						(_localctx as MulDivModExpressionContext)._right = this.expr(10);
 						}
 						break;
 
-					case 4:
+					case 3:
 						{
 						_localctx = new AddSubExpressionContext(new ExprContext(_parentctx, _parentState));
 						(_localctx as AddSubExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expr);
-						this.state = 174;
-						if (!(this.precpred(this._ctx, 7))) {
-							throw this.createFailedPredicateException("this.precpred(this._ctx, 7)");
+						this.state = 171;
+						if (!(this.precpred(this._ctx, 8))) {
+							throw this.createFailedPredicateException("this.precpred(this._ctx, 8)");
 						}
-						this.state = 175;
+						this.state = 172;
 						(_localctx as AddSubExpressionContext)._op = this._input.LT(1);
 						_la = this._input.LA(1);
 						if (!(_la === XonParser.MINUS || _la === XonParser.PLUS)) {
@@ -901,37 +874,37 @@ export class XonParser extends Parser {
 							this._errHandler.reportMatch(this);
 							this.consume();
 						}
+						this.state = 173;
+						(_localctx as AddSubExpressionContext)._right = this.expr(9);
+						}
+						break;
+
+					case 4:
+						{
+						_localctx = new RangeExpressionContext(new ExprContext(_parentctx, _parentState));
+						(_localctx as RangeExpressionContext)._left = _prevctx;
+						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expr);
+						this.state = 174;
+						if (!(this.precpred(this._ctx, 7))) {
+							throw this.createFailedPredicateException("this.precpred(this._ctx, 7)");
+						}
+						this.state = 175;
+						(_localctx as RangeExpressionContext)._op = this.match(XonParser.RANGE);
 						this.state = 176;
-						(_localctx as AddSubExpressionContext)._right = this.expr(8);
+						(_localctx as RangeExpressionContext)._right = this.expr(8);
 						}
 						break;
 
 					case 5:
 						{
-						_localctx = new RangeExpressionContext(new ExprContext(_parentctx, _parentState));
-						(_localctx as RangeExpressionContext)._left = _prevctx;
+						_localctx = new RelationalExpressionContext(new ExprContext(_parentctx, _parentState));
+						(_localctx as RelationalExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expr);
 						this.state = 177;
 						if (!(this.precpred(this._ctx, 6))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 6)");
 						}
 						this.state = 178;
-						(_localctx as RangeExpressionContext)._op = this.match(XonParser.RANGE);
-						this.state = 179;
-						(_localctx as RangeExpressionContext)._right = this.expr(7);
-						}
-						break;
-
-					case 6:
-						{
-						_localctx = new RelationalExpressionContext(new ExprContext(_parentctx, _parentState));
-						(_localctx as RelationalExpressionContext)._left = _prevctx;
-						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expr);
-						this.state = 180;
-						if (!(this.precpred(this._ctx, 5))) {
-							throw this.createFailedPredicateException("this.precpred(this._ctx, 5)");
-						}
-						this.state = 181;
 						(_localctx as RelationalExpressionContext)._op = this._input.LT(1);
 						_la = this._input.LA(1);
 						if (!(((((_la - 48)) & ~0x1F) === 0 && ((1 << (_la - 48)) & ((1 << (XonParser.GREAT_EQUAL - 48)) | (1 << (XonParser.GREAT - 48)) | (1 << (XonParser.LESS_EQUAL - 48)) | (1 << (XonParser.LESS - 48)))) !== 0))) {
@@ -944,21 +917,21 @@ export class XonParser extends Parser {
 							this._errHandler.reportMatch(this);
 							this.consume();
 						}
-						this.state = 182;
-						(_localctx as RelationalExpressionContext)._right = this.expr(6);
+						this.state = 179;
+						(_localctx as RelationalExpressionContext)._right = this.expr(7);
 						}
 						break;
 
-					case 7:
+					case 6:
 						{
 						_localctx = new EqualityExpressionContext(new ExprContext(_parentctx, _parentState));
 						(_localctx as EqualityExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expr);
-						this.state = 183;
-						if (!(this.precpred(this._ctx, 4))) {
-							throw this.createFailedPredicateException("this.precpred(this._ctx, 4)");
+						this.state = 180;
+						if (!(this.precpred(this._ctx, 5))) {
+							throw this.createFailedPredicateException("this.precpred(this._ctx, 5)");
 						}
-						this.state = 184;
+						this.state = 181;
 						(_localctx as EqualityExpressionContext)._op = this._input.LT(1);
 						_la = this._input.LA(1);
 						if (!(_la === XonParser.EQUAL || _la === XonParser.NOT_EQUAL)) {
@@ -971,40 +944,67 @@ export class XonParser extends Parser {
 							this._errHandler.reportMatch(this);
 							this.consume();
 						}
+						this.state = 182;
+						(_localctx as EqualityExpressionContext)._right = this.expr(6);
+						}
+						break;
+
+					case 7:
+						{
+						_localctx = new ConjunctionExpressionContext(new ExprContext(_parentctx, _parentState));
+						(_localctx as ConjunctionExpressionContext)._left = _prevctx;
+						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expr);
+						this.state = 183;
+						if (!(this.precpred(this._ctx, 4))) {
+							throw this.createFailedPredicateException("this.precpred(this._ctx, 4)");
+						}
+						this.state = 184;
+						(_localctx as ConjunctionExpressionContext)._op = this.match(XonParser.AND);
 						this.state = 185;
-						(_localctx as EqualityExpressionContext)._right = this.expr(5);
+						(_localctx as ConjunctionExpressionContext)._right = this.expr(5);
 						}
 						break;
 
 					case 8:
 						{
-						_localctx = new ConjunctionExpressionContext(new ExprContext(_parentctx, _parentState));
-						(_localctx as ConjunctionExpressionContext)._left = _prevctx;
+						_localctx = new DisjunctionExpressionContext(new ExprContext(_parentctx, _parentState));
+						(_localctx as DisjunctionExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expr);
 						this.state = 186;
 						if (!(this.precpred(this._ctx, 3))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 3)");
 						}
 						this.state = 187;
-						(_localctx as ConjunctionExpressionContext)._op = this.match(XonParser.AND);
+						(_localctx as DisjunctionExpressionContext)._op = this.match(XonParser.OR);
 						this.state = 188;
-						(_localctx as ConjunctionExpressionContext)._right = this.expr(4);
+						(_localctx as DisjunctionExpressionContext)._right = this.expr(4);
 						}
 						break;
 
 					case 9:
 						{
-						_localctx = new DisjunctionExpressionContext(new ExprContext(_parentctx, _parentState));
-						(_localctx as DisjunctionExpressionContext)._left = _prevctx;
+						_localctx = new InfixExpressionContext(new ExprContext(_parentctx, _parentState));
+						(_localctx as InfixExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expr);
 						this.state = 189;
 						if (!(this.precpred(this._ctx, 2))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 2)");
 						}
 						this.state = 190;
-						(_localctx as DisjunctionExpressionContext)._op = this.match(XonParser.OR);
+						(_localctx as InfixExpressionContext)._op = this._input.LT(1);
+						_la = this._input.LA(1);
+						if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.AS) | (1 << XonParser.IN) | (1 << XonParser.IS))) !== 0))) {
+							(_localctx as InfixExpressionContext)._op = this._errHandler.recoverInline(this);
+						} else {
+							if (this._input.LA(1) === Token.EOF) {
+								this.matchedEOF = true;
+							}
+
+							this._errHandler.reportMatch(this);
+							this.consume();
+						}
 						this.state = 191;
-						(_localctx as DisjunctionExpressionContext)._right = this.expr(3);
+						(_localctx as InfixExpressionContext)._right = this.expr(3);
 						}
 						break;
 
@@ -1762,8 +1762,8 @@ export class XonParser extends Parser {
 		"\t\x05\t\u0122\n\t\x03\n\x03\n\x03\n\x03\n\x03\n\x05\n\u0129\n\n\x03\v" +
 		"\x03\v\x03\f\x03\f\x03\f\x02\x02\x03\x06\r\x02\x02\x04\x02\x06\x02\b\x02" +
 		"\n\x02\f\x02\x0E\x02\x10\x02\x12\x02\x14\x02\x16\x02\x02\n\x05\x02\x1D" +
-		"\x1D77<<\x05\x02\r\r\x19\x19\x1C\x1C\x05\x02((88??\x04\x0277<<\x04\x02" +
-		"2356\x04\x020099\x07\x02\x0F\x0F\x12\x12\x1B\x1B\x1E\x1E##\b\x02\'(++" +
+		"\x1D77<<\x05\x02((88??\x04\x0277<<\x04\x022356\x04\x020099\x05\x02\r\r" +
+		"\x19\x19\x1C\x1C\x07\x02\x0F\x0F\x12\x12\x1B\x1B\x1E\x1E##\b\x02\'(++" +
 		"3368<<??\x02\u0172\x02\x1C\x03\x02\x02\x02\x04b\x03\x02\x02\x02\x06\xA5" +
 		"\x03\x02\x02\x02\b\xE4\x03\x02\x02\x02\n\xF8\x03\x02\x02\x02\f\xFB\x03" +
 		"\x02\x02\x02\x0E\u010E\x03\x02\x02\x02\x10\u0121\x03\x02\x02\x02\x12\u0128" +
@@ -1819,14 +1819,14 @@ export class XonParser extends Parser {
 		"\xA5d\x03\x02\x02\x02\xA5i\x03\x02\x02\x02\xA5m\x03\x02\x02\x02\xA5|\x03" +
 		"\x02\x02\x02\xA5\x8B\x03\x02\x02\x02\xA5\xA0\x03\x02\x02\x02\xA5\xA2\x03" +
 		"\x02\x02\x02\xA5\xA4\x03\x02\x02\x02\xA6\xDC\x03\x02\x02\x02\xA7\xA8\f" +
-		"\f\x02\x02\xA8\xA9\t\x03\x02\x02\xA9\xDB\x05\x06\x04\r\xAA\xAB\f\v\x02" +
-		"\x02\xAB\xAC\x07+\x02\x02\xAC\xDB\x05\x06\x04\f\xAD\xAE\f\n\x02\x02\xAE" +
-		"\xAF\t\x04\x02\x02\xAF\xDB\x05\x06\x04\v\xB0\xB1\f\t\x02\x02\xB1\xB2\t" +
-		"\x05\x02\x02\xB2\xDB\x05\x06\x04\n\xB3\xB4\f\b\x02\x02\xB4\xB5\x07>\x02" +
+		"\f\x02\x02\xA8\xA9\x07+\x02\x02\xA9\xDB\x05\x06\x04\r\xAA\xAB\f\v\x02" +
+		"\x02\xAB\xAC\t\x03\x02\x02\xAC\xDB\x05\x06\x04\f\xAD\xAE\f\n\x02\x02\xAE" +
+		"\xAF\t\x04\x02\x02\xAF\xDB\x05\x06\x04\v\xB0\xB1\f\t\x02\x02\xB1\xB2\x07" +
+		">\x02\x02\xB2\xDB\x05\x06\x04\n\xB3\xB4\f\b\x02\x02\xB4\xB5\t\x05\x02" +
 		"\x02\xB5\xDB\x05\x06\x04\t\xB6\xB7\f\x07\x02\x02\xB7\xB8\t\x06\x02\x02" +
-		"\xB8\xDB\x05\x06\x04\b\xB9\xBA\f\x06\x02\x02\xBA\xBB\t\x07\x02\x02\xBB" +
-		"\xDB\x05\x06\x04\x07\xBC\xBD\f\x05\x02\x02\xBD\xBE\x07&\x02\x02\xBE\xDB" +
-		"\x05\x06\x04\x06\xBF\xC0\f\x04\x02\x02\xC0\xC1\x07:\x02\x02\xC1\xDB\x05" +
+		"\xB8\xDB\x05\x06\x04\b\xB9\xBA\f\x06\x02\x02\xBA\xBB\x07&\x02\x02\xBB" +
+		"\xDB\x05\x06\x04\x07\xBC\xBD\f\x05\x02\x02\xBD\xBE\x07:\x02\x02\xBE\xDB" +
+		"\x05\x06\x04\x06\xBF\xC0\f\x04\x02\x02\xC0\xC1\t\x07\x02\x02\xC1\xDB\x05" +
 		"\x06\x04\x05\xC2\xC3\f\x11\x02\x02\xC3\xCF\x07\x07\x02\x02\xC4\xC9\x05" +
 		"\x06\x04\x02\xC5\xC6\x07.\x02\x02\xC6\xC8\x05\x06\x04\x02\xC7\xC5\x03" +
 		"\x02\x02\x02\xC8\xCB\x03\x02\x02\x02\xC9\xC7\x03\x02\x02\x02\xC9\xCA\x03" +
@@ -2324,27 +2324,6 @@ export class PrefixExpressionContext extends ExprContext {
 		this.copyFrom(ctx);
 	}
 }
-export class InfixExpressionContext extends ExprContext {
-	public _left!: ExprContext;
-	public _op!: Token;
-	public _right!: ExprContext;
-	public expr(): ExprContext[];
-	public expr(i: number): ExprContext;
-	public expr(i?: number): ExprContext | ExprContext[] {
-		if (i === undefined) {
-			return this.getRuleContexts(ExprContext);
-		} else {
-			return this.getRuleContext(i, ExprContext);
-		}
-	}
-	public IS(): TerminalNode | undefined { return this.tryGetToken(XonParser.IS, 0); }
-	public AS(): TerminalNode | undefined { return this.tryGetToken(XonParser.AS, 0); }
-	public IN(): TerminalNode | undefined { return this.tryGetToken(XonParser.IN, 0); }
-	constructor(ctx: ExprContext) {
-		super(ctx.parent, ctx.invokingState);
-		this.copyFrom(ctx);
-	}
-}
 export class PowExpressionContext extends ExprContext {
 	public _left!: ExprContext;
 	public _op!: Token;
@@ -2499,6 +2478,27 @@ export class DisjunctionExpressionContext extends ExprContext {
 		}
 	}
 	public OR(): TerminalNode { return this.getToken(XonParser.OR, 0); }
+	constructor(ctx: ExprContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
+	}
+}
+export class InfixExpressionContext extends ExprContext {
+	public _left!: ExprContext;
+	public _op!: Token;
+	public _right!: ExprContext;
+	public expr(): ExprContext[];
+	public expr(i: number): ExprContext;
+	public expr(i?: number): ExprContext | ExprContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(ExprContext);
+		} else {
+			return this.getRuleContext(i, ExprContext);
+		}
+	}
+	public IS(): TerminalNode | undefined { return this.tryGetToken(XonParser.IS, 0); }
+	public AS(): TerminalNode | undefined { return this.tryGetToken(XonParser.AS, 0); }
+	public IN(): TerminalNode | undefined { return this.tryGetToken(XonParser.IN, 0); }
 	constructor(ctx: ExprContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
