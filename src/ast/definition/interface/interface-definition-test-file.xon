@@ -1,8 +1,0 @@
-interface SomeClass<|T|> is Base<|String, Boolean|>
-  property Integer
-  anotherProp String
-  typedValue Number
-
-  method() MyType
-  location(x Number, y Number) Position
-  + (it SomeClass) AnotherClass
