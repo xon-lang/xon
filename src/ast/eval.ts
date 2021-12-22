@@ -3,7 +3,6 @@ import { IdExpressionNode } from './expression/id/id-expression-node';
 import { InfixExpressionNode } from './expression/infix/infix-expression-node';
 import { LiteralExpressionNode } from './expression/literal/literal-expression-node';
 import { ParenthesizedExpressionNode } from './expression/parenthesized/parenthesized-expression-node';
-import { PipeExpressionTree } from './expression/pipe/pipe-expression-node';
 import { PrefixExpressionNode } from './expression/prefix/prefix-expression-node';
 
 const escapeIfString = (s: unknown) => (typeof s === 'string' ? `\`${s}\`` : s);
@@ -13,8 +12,6 @@ export const evalExpression = (tree: ExpressionNode, argsMap = {}): unknown => {
 
   if (tree instanceof LiteralExpressionNode) return tree.literal.value;
   if (tree instanceof ParenthesizedExpressionNode) return evalExpression(tree.expression);
-  if (tree instanceof PipeExpressionTree)
-    return evalExpression(tree.right, { [tree.id.text]: evalExpression(tree.left) });
   if (tree instanceof InfixExpressionNode) {
     const a = evalExpression(tree.left, argsMap);
     const b = evalExpression(tree.right, argsMap);

@@ -1,3 +1,4 @@
+import { SingleBodyNode } from '../../body/single/single-body-node';
 import { evalExpression } from '../../eval';
 import { parseStatement } from '../../parse';
 import { ExpressionStatementNode } from '../expression/expression-statement-node';
@@ -49,6 +50,6 @@ test('if relational', () => {
   expect(tree).toBeInstanceOf(IfStatementNode);
 
   expect(evalExpression(tree.condition)).toBe(6 > 4);
-  const ifStatement = tree.thenBody[0] as ExpressionStatementNode;
+  const ifStatement = (tree.thenBody as SingleBodyNode).statement as ExpressionStatementNode;
   expect(evalExpression(ifStatement.expression)).toBe(12 + 45 ** 5);
 });
