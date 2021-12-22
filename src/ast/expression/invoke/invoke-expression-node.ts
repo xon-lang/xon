@@ -11,8 +11,8 @@ export class InvokeExpressionNode extends ExpressionNode {
   constructor(public ctx: InvokeExpressionContext) {
     super();
 
-    this.instance = getExpressionNode(ctx.expr());
-    this.arguments = getExpressionNodes(ctx.arguments().expr());
+    this.instance = getExpressionNode(ctx._instance);
+    this.arguments = getExpressionNodes(ctx._args);
   }
 
   toString(): string {
