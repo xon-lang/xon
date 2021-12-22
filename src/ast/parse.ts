@@ -2,20 +2,14 @@ import { CharStreams, CommonTokenStream } from 'antlr4ts';
 import * as fs from 'fs';
 import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
-import { AttributeTree } from './attribute/attribute-node';
-import { getAttributeNode } from './attribute/attribute-node-helper';
-import { DefinitionNode } from './definition/definition-node';
-import { getDefinitionNode } from './definition/definition-node-helper';
-import { ExportNode } from './export/export-node';
 import { ExpressionNode } from './expression/expression-node';
 import { getExpressionNode } from './expression/expression-node-helper';
-import { ImportNode } from './import/import-node';
-import { getLiteralTree } from './literal/literal-node-helper';
 import { LiteralNode } from './literal/literal-node';
+import { getLiteralTree } from './literal/literal-node-helper';
 import { ParameterNode } from './parameter/parameter-node';
-import { SourceTree } from './source/source-tree';
+import { SourceNode } from './source/source-node';
 import { StatementNode } from './statement/statement-node';
-import { getStatementTree } from './statement/statement-node-helper';
+import { getStatementNode } from './statement/statement-node-helper';
 import { ThrowingErrorListener } from './throwing-error-listener';
 
 export const parse = (code: string, sourceName: string = undefined): XonParser => {
@@ -35,9 +29,6 @@ export const parse = (code: string, sourceName: string = undefined): XonParser =
 export const parseParameter = (code: string): ParameterNode =>
   new ParameterNode(parse(code).parameter());
 
-export const parseAttribute = <T extends AttributeTree>(code: string): T =>
-  getAttributeNode(parse(code).attribute()) as T;
-
 export const parseLiteral = <T extends LiteralNode>(code: string): T =>
   getLiteralTree(parse(code).literal()) as T;
 
@@ -45,19 +36,12 @@ export const parseExpression = <T extends ExpressionNode>(code: string): T =>
   getExpressionNode(parse(code).expr()) as T;
 
 export const parseStatement = <T extends StatementNode>(code: string): T =>
-  getStatementTree(parse(code).statement()) as T;
-
-export const parseDefinition = <T extends DefinitionNode>(code: string): T =>
-  getDefinitionNode(parse(code).definition()) as T;
-
-export const parseImport = (code: string) => new ImportNode(parse(code).library());
-
-export const parseExport = (code: string) => new ExportNode(parse(code).export());
+  getStatementNode(parse(code).statement()) as T;
 
 export const parseSource = (code: string, sourceName: string = undefined) =>
-  new SourceTree(parse(code, sourceName).source());
+  new SourceNode(parse(code, sourceName).source());
 
-export function parseSourceFile(sourceName: string = undefined): SourceTree {
+export function parseSourceFile(sourceName: string = undefined): SourceNode {
   const code = fs.readFileSync(sourceName).toString();
-  return new SourceTree(parse(code, sourceName).source());
+  return new SourceNode(parse(code, sourceName).source());
 }
