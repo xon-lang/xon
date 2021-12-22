@@ -9,7 +9,9 @@ export:  EXPORT path = expr;
 library: IMPORT path = expr ':' members += expr (',' members += expr)*;
 
 statement:
-    expr                                               # expressionStatement
+    parameter                                          # parameterStatement
+    | expr                                             # expressionStatement
+    | id '=' expr                                      # assignmentStatement
     | FOR (value = id (',' index = id)? IN)? expr body # forStatement
     | WHILE expr body                                  # whileStatement
     | DO body WHILE expr                               # doWhileStatement
@@ -18,8 +20,6 @@ statement:
     | RETURN expr?                                     # returnStatement
     | ACTUAL actual = expr NL+ EXPECT expect = expr    # assertStatement
     | PREPROCESSOR                                     # preprocessorStatement
-    | id '=' expr                                      # assignmentStatement
-    | parameter                                        # parameterStatement
     ;
 
 expr:
