@@ -4,9 +4,10 @@ options {
     tokenVocab = XonLexer;
 }
 
-source:  (library | export | NL)* (modifier? parameter | NL)*;
-export:  EXPORT path = expr;
-library: IMPORT path = expr ':' members += expr (',' members += expr)*;
+source:     (library | export | NL)* ( definition | NL)*;
+export:     EXPORT path = expr;
+library:    IMPORT path = expr ':' members += expr (',' members += expr)*;
+definition: modifier id generics? type = expr? (IS arguments)? body?;
 
 statement:
     parameter                                          # parameterStatement
@@ -31,7 +32,7 @@ expr:
     | '(' (parameter (',' parameter)* ','?)? ')' expr? body   # methodExpression
     | expr '(' arguments? ')'                                 # invokeExpression
     | expr '?'                                                # nullableExpression
-    | expr '.' id                                             # memberExpression
+    | expr '.' id generics?                                   # memberExpression
     | '...' expr                                              # spreadExpression
     | op = ('-' | '+' | NOT) expr                             # prefixExpression
     | left = expr op = (IS | AS | IN) right = expr            # infixExpression
@@ -62,7 +63,7 @@ parameter: '...'? parameterId generics? type = expr? (IS arguments)? body?;
 arguments: expr (',' expr)* ','?;
 generics:  '<' '|' arguments '|' '>';
 
-parameterId: id | STRING_LITERAL | operator;
+parameterId: id | STRING_LITERAL;
 id:          modifier | ID | IS | AS | IN;
 modifier:    TYPE | CLASS | INTERFACE | OBJECT | ENUM;
 operator:    '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
