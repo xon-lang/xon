@@ -3,7 +3,7 @@ import { getExpressionNode } from '../../expression/expression-node-helper';
 import { ExpressionNode } from '../../expression/expression-node';
 import { StatementNode } from '../statement-node';
 
-export class ExpressionStatementTree extends StatementNode {
+export class ExpressionStatementNode extends StatementNode {
   expression: ExpressionNode;
 
   constructor(public ctx: ExpressionStatementContext) {

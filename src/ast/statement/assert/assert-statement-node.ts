@@ -3,7 +3,7 @@ import { getExpressionNode } from '../../expression/expression-node-helper';
 import { ExpressionNode } from '../../expression/expression-node';
 import { StatementNode } from '../statement-node';
 
-export class AssertStatementTree extends StatementNode {
+export class AssertStatementNode extends StatementNode {
   actual: ExpressionNode;
   expect: ExpressionNode;
 

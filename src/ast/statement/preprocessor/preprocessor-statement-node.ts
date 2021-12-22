@@ -1,7 +1,7 @@
 import { PreprocessorStatementContext } from '../../../grammar/xon-parser';
 import { StatementNode } from '../statement-node';
 
-export class PreprocessorStatementTree extends StatementNode {
+export class PreprocessorStatementNode extends StatementNode {
   value: string;
 
   constructor(public ctx: PreprocessorStatementContext) {

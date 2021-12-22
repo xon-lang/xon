@@ -4,7 +4,7 @@ import { ExpressionNode } from '../../expression/expression-node';
 import { IdToken } from '../../id-token';
 import { StatementNode } from '../statement-node';
 
-export class AssignmentStatementTree extends StatementNode {
+export class AssignmentStatementNode extends StatementNode {
   id: IdToken;
   value: ExpressionNode;
 
