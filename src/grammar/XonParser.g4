@@ -39,7 +39,6 @@ expr:
     | left = expr op = ('*' | '/' | '%') right = expr         # mulDivModExpression
     | left = expr op = ('+' | '-') right = expr               # addSubExpression
     | left = expr op = '..' right = expr                      # rangeExpression
-    | left = expr op = '?' right = expr                       # elvisExpression
     | left = expr op = ('<' | '<=' | '>=' | '>') right = expr # relationalExpression
     | left = expr op = ('==' | '!=') right = expr             # equalityExpression
     | left = expr op = '&&' right = expr                      # conjunctionExpression
