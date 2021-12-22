@@ -63,6 +63,6 @@ arguments: expr (',' expr)* ','?;
 generics:  '<' '|' arguments '|' '>';
 
 parameterId: id | STRING_LITERAL | operator;
+id:          modifier | ID | IS | AS | IN;
 modifier:    TYPE | CLASS | INTERFACE | OBJECT | ENUM;
 operator:    '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
-id:          ID | IS | AS | IN;
