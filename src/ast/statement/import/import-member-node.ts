@@ -15,14 +15,14 @@ export class ImportMemberNode extends Node {
     if (node instanceof IdExpressionNode) {
       this.id = node.id;
     } else if (node instanceof InfixExpressionNode) {
-      if (node.id.text !== 'as') throw new Error("Must be 'as' operator");
-      if (!(node.left instanceof IdExpressionNode)) throw new Error('Must be id');
-      if (!(node.right instanceof IdExpressionNode)) throw new Error('Must be id');
+      if (node.id.text !== 'as') this.raiseError("Must be 'as' operator");
+      if (!(node.left instanceof IdExpressionNode)) this.raiseError('Must be id');
+      if (!(node.right instanceof IdExpressionNode)) this.raiseError('Must be id');
 
       this.id = node.left.id;
       this.alias = node.right.id;
     } else {
-      throw new Error('Wrong expression type');
+      this.raiseError('Wrong expression type');
     }
   }
 

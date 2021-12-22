@@ -6,6 +6,7 @@ import {
   RegexLiteralContext,
   StringLiteralContext,
 } from '../../grammar/xon-parser';
+import { Issue } from '../../issue-service/issue';
 import { CharLiteralNode } from './char/char-literal-node';
 import { FloatLiteralNode } from './float/float-literal-node';
 import { IntegerLiteralNode } from './integer/integer-literal-node';
@@ -22,5 +23,5 @@ export const getLiteralTree = (ctx: LiteralContext): LiteralNode => {
   if (ctx instanceof RegexLiteralContext) return new RegexLiteralNode(ctx);
   if (ctx instanceof StringLiteralContext) return new StringLiteralNode(ctx);
 
-  throw Error(`Literal tree not found for "${ctx.constructor.name}"`);
+  throw Issue.errorFromContext(ctx, `Literal node not found for "${ctx.constructor.name}"`);
 };
