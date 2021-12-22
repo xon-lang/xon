@@ -4,33 +4,34 @@ options {
     tokenVocab = XonLexer;
 }
 
-source:     (library | export | NL)* ( definition | NL)*;
-export:     EXPORT path = expr;
-library:    IMPORT path = expr ':' members += expr (',' members += expr)*;
-definition: modifier id generics? type = expr? (IS arguments)? body?;
+body:
+    ':' statement                              # singleBody
+    | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
+    ;
 
 statement:
-    parameter                                          # parameterStatement
-    | expr                                             # expressionStatement
-    | id '=' expr                                      # assignmentStatement
-    | FOR (value = id (',' index = id)? IN)? expr body # forStatement
-    | WHILE expr body                                  # whileStatement
-    | DO body WHILE expr                               # doWhileStatement
-    | IF expr thenBody = body (ELSE elseBody = body)?  # ifStatement
-    | BREAK                                            # breakStatement
-    | RETURN expr?                                     # returnStatement
-    | ACTUAL actual = expr NL+ EXPECT expect = expr    # assertStatement
-    | PREPROCESSOR                                     # preprocessorStatement
+    parameter                                                            # parameterStatement
+    | id '=' expr                                                        # assignmentStatement
+    | IMPORT path = expr ':' members += expr (',' members += expr)* ','? # importStatement
+    | EXPORT path = expr                                                 # exportStatement
+    | FOR (value = id (',' index = id)? IN)? expr body                   # forStatement
+    | WHILE expr body                                                    # whileStatement
+    | DO body WHILE expr                                                 # doWhileStatement
+    | IF expr thenBody = body (ELSE elseBody = body)?                    # ifStatement
+    | BREAK                                                              # breakStatement
+    | RETURN expr?                                                       # returnStatement
+    | ACTUAL actual = expr NL+ EXPECT expect = expr                      # assertStatement
+    | PREPROCESSOR                                                       # preprocessorStatement
+    | expr                                                               # expressionStatement
     ;
 
 expr:
-    literal                                                   # literalExpression
-    | id generics?                                            # idExpression
+    id generics?                                              # idExpression
     | '(' expr ')'                                            # parenthesizedExpression
-    | '[' arguments? ']'                                      # arrayExpression
+    | '[' (expr (',' expr)* ','?)? ']'                        # arrayExpression
     | '{' (parameter (',' parameter)* ','?)? '}'              # objectExpression
     | '(' (parameter (',' parameter)* ','?)? ')' expr? body?  # methodExpression
-    | expr '(' arguments? ')'                                 # invokeExpression
+    | expr '(' (expr (',' expr)* ','?)? ')'                   # invokeExpression
     | expr '?'                                                # nullableExpression
     | expr '.' id generics?                                   # memberExpression
     | '...' expr                                              # spreadExpression
@@ -44,6 +45,7 @@ expr:
     | left = expr op = ('==' | '!=') right = expr             # equalityExpression
     | left = expr op = '&&' right = expr                      # conjunctionExpression
     | left = expr op = '||' right = expr                      # disjunctionExpression
+    | literal                                                 # literalExpression
     ;
 
 literal:
@@ -54,16 +56,10 @@ literal:
     | REGEX_LITERAL  # regexLiteral
     ;
 
-body:
-    ':' statement                              # singleBody
-    | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
-    ;
+parameter: '...'? modifier? parameterId generics? type = expr? body?;
+generics:  '<' '|' expr (',' expr)* ','? '|' '>';
 
-parameter: '...'? parameterId generics? type = expr? (IS arguments)? body?;
-arguments: expr (',' expr)* ','?;
-generics:  '<' '|' arguments '|' '>';
-
-parameterId: id | STRING_LITERAL;
+parameterId: id | operator | STRING_LITERAL;
 id:          modifier | ID | IS | AS | IN;
 modifier:    TYPE | CLASS | INTERFACE | OBJECT | ENUM;
 operator:    '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
