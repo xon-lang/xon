@@ -29,7 +29,7 @@ expr:
     | '(' expr ')'                                            # parenthesizedExpression
     | '[' arguments? ']'                                      # arrayExpression
     | '{' (parameter (',' parameter)* ','?)? '}'              # objectExpression
-    | '(' (parameter (',' parameter)* ','?)? ')' expr? body   # methodExpression
+    | '(' (parameter (',' parameter)* ','?)? ')' expr? body?  # methodExpression
     | expr '(' arguments? ')'                                 # invokeExpression
     | expr '?'                                                # nullableExpression
     | expr '.' id generics?                                   # memberExpression
