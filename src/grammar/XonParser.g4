@@ -23,26 +23,26 @@ statement:
     ;
 
 expr:
-    id generics?                                              # idExpression
-    | '(' expr ')'                                            # parenthesizedExpression
-    | '[' (expr (',' expr)* ','?)? ']'                        # arrayExpression
-    | '{' (parameter (',' parameter)* ','?)? '}'              # objectExpression
-    | '(' (parameter (',' parameter)* ','?)? ')' expr? body?  # methodExpression
-    | expr '(' (expr (',' expr)* ','?)? ')'                   # invokeExpression
-    | expr '?'                                                # nullableExpression
-    | expr '.' id generics?                                   # memberExpression
-    | '...' expr                                              # spreadExpression
-    | op = ('-' | '+' | NOT) expr                             # prefixExpression
-    | left = expr op = (IS | AS | IN) right = expr            # infixExpression
-    | left = expr op = '^' right = expr                       # powExpression
-    | left = expr op = ('*' | '/' | '%') right = expr         # mulDivModExpression
-    | left = expr op = ('+' | '-') right = expr               # addSubExpression
-    | left = expr op = '..' right = expr                      # rangeExpression
-    | left = expr op = ('<' | '<=' | '>=' | '>') right = expr # relationalExpression
-    | left = expr op = ('==' | '!=') right = expr             # equalityExpression
-    | left = expr op = '&&' right = expr                      # conjunctionExpression
-    | left = expr op = '||' right = expr                      # disjunctionExpression
-    | literal                                                 # literalExpression
+    id generics?                                                       # idExpression
+    | '(' expr ')'                                                     # parenthesizedExpression
+    | '[' (expr (',' expr)* ','?)? ']'                                 # arrayExpression
+    | '{' (parameter (',' parameter)* ','?)? '}'                       # objectExpression
+    | '(' (parameter (',' parameter)* ','?)? ')' expr? body?           # methodExpression
+    | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
+    | expr '?'                                                         # nullableExpression
+    | expr '.' id generics?                                            # memberExpression
+    | '...' expr                                                       # spreadExpression
+    | op = ('-' | '+' | NOT) expr                                      # prefixExpression
+    | left = expr op = (IS | AS | IN) right = expr                     # infixExpression
+    | left = expr op = '^' right = expr                                # powExpression
+    | left = expr op = ('*' | '/' | '%') right = expr                  # mulDivModExpression
+    | left = expr op = ('+' | '-') right = expr                        # addSubExpression
+    | left = expr op = '..' right = expr                               # rangeExpression
+    | left = expr op = ('<' | '<=' | '>=' | '>') right = expr          # relationalExpression
+    | left = expr op = ('==' | '!=') right = expr                      # equalityExpression
+    | left = expr op = '&&' right = expr                               # conjunctionExpression
+    | left = expr op = '||' right = expr                               # disjunctionExpression
+    | literal                                                          # literalExpression
     ;
 
 literal:
