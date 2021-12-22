@@ -23,11 +23,11 @@ else: if d: call()
 });
 
 test('formatted 1.xon', () => {
-  const code = fs.readFileSync('src/tree/source/test-files/1.xon').toString();
+  const code = fs.readFileSync('src/ast/source/test-files/1.xon').toString();
   const tree = parseSource(code);
   expect(tree).toBeInstanceOf(SourceNode);
 
   // const formatted = tree.toString();
-  // fs.writeFileSync('src/tree/source/test-files/1.fmt.xon', formatted);
+  // fs.writeFileSync('src/ast/source/test-files/1.fmt.xon', formatted);
   // expect(code).toBe(formatted);
 });
