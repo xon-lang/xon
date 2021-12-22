@@ -4,10 +4,7 @@ options {
     tokenVocab = XonLexer;
 }
 
-body:
-    ':' statement                              # singleBody
-    | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
-    ;
+source: (statement | NL)*;
 
 statement:
     parameter                                                            # parameterStatement
@@ -54,6 +51,11 @@ literal:
     | CHAR_LITERAL   # charLiteral
     | STRING_LITERAL # stringLiteral
     | REGEX_LITERAL  # regexLiteral
+    ;
+
+body:
+    ':' statement                              # singleBody
+    | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
 parameter: '...'? modifier? parameterId generics? type = expr? body?;
