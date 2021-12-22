@@ -1,12 +1,12 @@
-import { LibraryContext } from '../../grammar/xon-parser';
-import { Node } from '../node';
+import { ImportStatementContext } from '../../../grammar/xon-parser';
+import { Node } from '../../node';
 import { ImportMemberNode } from './import-member-node';
 
-export class ImportNode extends Node {
+export class ImportStatementNode extends Node {
   path: string;
   members?: ImportMemberNode[];
 
-  constructor(public ctx: LibraryContext) {
+  constructor(public ctx: ImportStatementContext) {
     super();
 
     // todo check if it is member expr
