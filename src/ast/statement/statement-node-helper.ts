@@ -6,6 +6,7 @@ import {
   ForStatementContext,
   IfStatementContext,
   ImportStatementContext,
+  ParameterStatementContext,
   PreprocessorStatementContext,
   ReturnStatementContext,
   StatementContext,
@@ -19,6 +20,7 @@ import { ExpressionStatementNode } from './expression/expression-statement-node'
 import { ForStatementNode } from './for/for-statement-node';
 import { IfStatementNode } from './if/if-statement-node';
 import { ImportStatementNode } from './import/import-statement-node';
+import { ParameterStatementNode } from './parameter/parameter-statement-node';
 import { PreprocessorStatementNode } from './preprocessor/preprocessor-statement-node';
 import { ReturnStatementNode } from './return/return-statement-node';
 import { StatementNode } from './statement-node';
@@ -34,6 +36,7 @@ export const getStatementNode = (ctx: StatementContext): StatementNode => {
   if (ctx instanceof ForStatementContext) return new ForStatementNode(ctx);
   if (ctx instanceof IfStatementContext) return new IfStatementNode(ctx);
   if (ctx instanceof ImportStatementContext) return new ImportStatementNode(ctx);
+  if (ctx instanceof ParameterStatementContext) return new ParameterStatementNode(ctx);
   if (ctx instanceof PreprocessorStatementContext) return new PreprocessorStatementNode(ctx);
   if (ctx instanceof ReturnStatementContext) return new ReturnStatementNode(ctx);
   if (ctx instanceof WhileStatementContext) return new WhileStatementNode(ctx);
