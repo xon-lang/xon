@@ -10,7 +10,7 @@ export class ArrayExpressionNode extends ExpressionNode {
   constructor(public ctx: ArrayExpressionContext) {
     super();
 
-    this.items = getExpressionNodes(ctx.arguments());
+    this.items = getExpressionNodes(ctx.expr());
   }
 
   toString(): string {
