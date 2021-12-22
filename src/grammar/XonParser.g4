@@ -58,8 +58,10 @@ body:
     | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-parameter: '...'? modifier? parameterId generics? type = expr? body?;
-generics:  '<' '|' expr (',' expr)* ','? '|' '>';
+parameter:
+    '...'? modifier? parameterId generics? type = expr? ('#' meta = ID)? body?
+    ;
+generics: '<' '|' expr (',' expr)* ','? '|' '>';
 
 parameterId: id | operator | STRING_LITERAL;
 id:          modifier | ID | IS | AS | IN;
