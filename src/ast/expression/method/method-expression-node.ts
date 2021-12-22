@@ -3,27 +3,23 @@ import { ExpressionMetadata } from '../../../metadata/expression/expression-meta
 import { ParameterNode } from '../../parameter/parameter-node';
 import { getParameterNodes } from '../../parameter/parameter-node-helper';
 import { ExpressionNode } from '../expression-node';
-import { getExpressionNode, getExpressionNodes } from '../expression-node-helper';
+import { getExpressionNode } from '../expression-node-helper';
 
 export class MethodExpressionNode extends ExpressionNode {
   metadata: ExpressionMetadata;
-  generics: ExpressionNode[];
-  parameters: ParameterNode[];
-  body: ExpressionNode;
+  parameters: ParameterNode[] = [];
+  resultType?: ExpressionNode;
+  body?: ExpressionNode;
 
   constructor(public ctx: MethodExpressionContext) {
     super();
 
-    this.generics = getExpressionNodes(ctx.methodHeader().generics());
-    this.parameters = getParameterNodes(ctx.methodHeader().parameter());
-    this.body = getExpressionNode(ctx.expr());
+    this.parameters = getParameterNodes(ctx.parameter());
+    this.resultType = getExpressionNode(ctx.expr());
+    this.body = getExpressionNode(ctx.expr()) || null;
   }
 
   toString(): string {
-    const generics = this.generics.length ? '<' + this.generics.join(', ') + '>' : '';
-    if (generics) {
-      return `<${this.generics}>(${this.parameters.join(', ')}): ${this.body}`;
-    }
     return `(${this.parameters.join(', ')}): ${this.body}`;
   }
 }
