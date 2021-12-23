@@ -1,3 +1,4 @@
+import { MultipleBodyNode } from '../../body/multiple/multiple-body-node';
 import { SingleBodyNode } from '../../body/single/single-body-node';
 import { evalExpression } from '../../eval';
 import { ArrayExpressionNode } from '../../expression/array/array-expression-node';
@@ -40,6 +41,6 @@ test('for with expression only', () => {
   expect(node.indexVarName).toBe(null);
   expect(node.expression).toBeInstanceOf(ArrayExpressionNode);
 
-  const body = node.body as SingleBodyNode;
-  expect(evalExpression((body.statement as ExpressionStatementNode).expression)).toBe(1 + 1);
+  const body = node.body as MultipleBodyNode;
+  expect(evalExpression((body.statements[0] as ExpressionStatementNode).expression)).toBe(1 + 1);
 });
