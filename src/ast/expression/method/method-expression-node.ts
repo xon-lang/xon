@@ -17,7 +17,7 @@ export class MethodExpressionNode extends ExpressionNode {
     super();
 
     this.parameters = getParameterNodes(ctx.parameter());
-    this.resultType = getExpressionNode(ctx.expr());
+    this.resultType = getExpressionNode(ctx.expr()) || null;
     this.body = getBodyNode(ctx.body()) || null;
   }
 
