@@ -26,7 +26,7 @@ expr:
     id                                                                 # idExpression
     | '(' expr ')'                                                     # parenthesizedExpression
     | '[' (expr (',' expr)* ','?)? ']'                                 # arrayExpression
-    | '{' (expr (',' expr)* ','?)? '}'                                 # objectExpression
+    | '{' (statement (',' statement)* ','?)? '}'                       # objectExpression
     | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
     | expr '?'                                                         # nullableExpression
     | expr '.' id                                                      # memberExpression
@@ -41,7 +41,6 @@ expr:
     | left = expr op = '&&' right = expr                               # conjunctionExpression
     | left = expr op = '||' right = expr                               # disjunctionExpression
     | left = expr op = (IS | AS | IN) right = expr                     # infixExpression
-    | left = expr op = ':' right = expr                                # pairExpression
     | literal                                                          # literalExpression
     | '(' (parameter (',' parameter)* ','?)? ')' expr                  # methodExpression
     | '[' (parameter (',' parameter)* ','?)? ']' expr                  # indexerExpression
