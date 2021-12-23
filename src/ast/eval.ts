@@ -1,3 +1,4 @@
+import { Issue } from '../issue-service/issue';
 import { ExpressionNode } from './expression/expression-node';
 import { IdExpressionNode } from './expression/id/id-expression-node';
 import { InfixExpressionNode } from './expression/infix/infix-expression-node';
@@ -26,8 +27,8 @@ export const evalExpression = (node: ExpressionNode, argsMap = {}): unknown => {
   }
   if (node instanceof IdExpressionNode) {
     if (node.id.name.text in argsMap) return argsMap[node.id.name.text];
-    node.raiseError(`Undefined key: ${node.id}`);
+    Issue.error(node.ctx,`Undefined key: ${node.id}`);
   }
 
-  node.raiseError('Unsupported operation');
+  Issue.error(node.ctx,'Unsupported operation');
 };
