@@ -60,7 +60,7 @@ body:
     | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-parameter: id expr? ('#' meta = ID)?;
+parameter: '...'? id expr? ('#' meta = ID)?;
 
 id:
     name = (
