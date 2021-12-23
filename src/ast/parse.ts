@@ -4,10 +4,12 @@ import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
 import { ExpressionNode } from './expression/expression-node';
 import { getExpressionNode } from './expression/expression-node-helper';
+import { getIdNode } from './id/id-node-helper';
 import { LiteralNode } from './literal/literal-node';
 import { getLiteralTree } from './literal/literal-node-helper';
 import { ParameterNode } from './parameter/parameter-node';
 import { SourceNode } from './source/source-node';
+import { getSourceNode } from './source/source-node-helper';
 import { StatementNode } from './statement/statement-node';
 import { getStatementNode } from './statement/statement-node-helper';
 import { ThrowingErrorListener } from './throwing-error-listener';
@@ -38,10 +40,12 @@ export const parseExpression = <T extends ExpressionNode>(code: string): T =>
 export const parseStatement = <T extends StatementNode>(code: string): T =>
   getStatementNode(parse(code).statement()) as T;
 
+export const parseId = (code: string) => getIdNode(parse(code).id());
+
 export const parseSource = (code: string, sourceName: string = undefined) =>
-  new SourceNode(parse(code, sourceName).source());
+  getSourceNode(parse(code, sourceName).source());
 
 export function parseSourceFile(sourceName: string = undefined): SourceNode {
   const code = fs.readFileSync(sourceName).toString();
-  return new SourceNode(parse(code, sourceName).source());
+  return getSourceNode(parse(code, sourceName).source());
 }
