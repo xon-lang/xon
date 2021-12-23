@@ -7,6 +7,7 @@ import { getExpressionNode } from './expression/expression-node-helper';
 import { getIdNode } from './id/id-node-helper';
 import { LiteralNode } from './literal/literal-node';
 import { getLiteralNode } from './literal/literal-node-helper';
+import { getParameterNode } from './parameter/parameter-node-helper';
 import { SourceNode } from './source/source-node';
 import { getSourceNode } from './source/source-node-helper';
 import { StatementNode } from './statement/statement-node';
@@ -37,6 +38,8 @@ export const parseStatement = <T extends StatementNode>(code: string): T =>
   getStatementNode(parse(code).statement()) as T;
 
 export const parseId = (code: string) => getIdNode(parse(code).id());
+
+export const parseParameter = (code: string) => getParameterNode(parse(code).parameter());
 
 export const parseSource = (code: string, sourceName: string = undefined) =>
   getSourceNode(parse(code, sourceName).source());
