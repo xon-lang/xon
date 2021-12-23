@@ -8,17 +8,17 @@ import { getExpressionNode } from '../expression-node-helper';
 export class MethodExpressionNode extends ExpressionNode {
   metadata: ExpressionMetadata;
   parameters: ParameterNode[] = [];
-  resultType?: ExpressionNode;
+  result?: ExpressionNode;
 
   constructor(public ctx: MethodExpressionContext) {
     super();
 
     this.parameters = getParameterNodes(ctx.parameter());
-    this.resultType = getExpressionNode(ctx.expr()) || null;
+    this.result = getExpressionNode(ctx.expr()) || null;
   }
 
   toString(): string {
-    const resultType = this.resultType ? ' ' + this.resultType : '';
-    return `(${this.parameters.join(', ')})${resultType}`;
+    const result = this.result ? ' ' + this.result : '';
+    return `(${this.parameters.join(', ')})${result}`;
   }
 }
