@@ -17,17 +17,24 @@ statement:
     | RETURN expr?                                                     # returnStatement
     | ACTUAL actual = expr NL+ EXPECT expect = expr                    # assertStatement
     | PREPROCESSOR                                                     # preprocessorStatement
-    | id type = expr? body                                             # attributeStatement
+    | attr                                                             # attributeStatement
     | id '=' expr                                                      # assignmentStatement
     | expr                                                             # expressionStatement
     ;
+
+attr:
+    id (type body? | body)                            # valueAttribute
+    | id '(' (attr (',' attr)* ','?)? ')' type? body? # methodAttribute
+    | id '[' (attr (',' attr)* ','?)? ']' type? body? # indexerAttribute
+    ;
+type: expr ('#' meta = ID)?;
 
 expr:
     id                                                                 # idExpression
     | '(' expr ')'                                                     # parenthesizedExpression
     | '[' (expr (',' expr)* ','?)? ']'                                 # arrayExpression
     | '{' (expr (',' expr)* ','?)? '}'                                 # objectExpression
-    | '(' (parameter (',' parameter)* ','?)? ')' expr?                 # methodExpression
+    | '(' (expr (',' expr)* ','?)? ')' ':' expr                        # methodExpression
     | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
     | expr '?'                                                         # nullableExpression
     | expr '.' id                                                      # memberExpression
@@ -58,8 +65,6 @@ body:
     ':' statement                              # singleBody
     | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
     ;
-
-parameter: '...'? id type = expr? ('#' meta = ID)?;
 
 id:
     name = (
