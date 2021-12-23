@@ -25,14 +25,4 @@ export class IssueService {
     this.lastScope.push(issue);
     return issue;
   }
-
-  addWarning(tree: Node, issueMessage: string, resolveMessage: string): void {
-    const issue = this.add(tree, IssueLevel.Warning, `${issueMessage}. ${resolveMessage}.`);
-    if (this.raiseWarning) throw issue.toError();
-  }
-
-  addError(tree: Node, issueMessage: string, resolveMessage: string): Error {
-    const issue = this.add(tree, IssueLevel.Error, `${issueMessage}. ${resolveMessage}.`);
-    throw issue.toError();
-  }
 }
