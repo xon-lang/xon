@@ -2,12 +2,13 @@ import { CharStreams, CommonTokenStream } from 'antlr4ts';
 import * as fs from 'fs';
 import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
+import { AttributeNode } from './attribute/attribute-node';
+import { getAttributeNode } from './attribute/attribute-node-helper';
 import { ExpressionNode } from './expression/expression-node';
 import { getExpressionNode } from './expression/expression-node-helper';
 import { getIdNode } from './id/id-node-helper';
 import { LiteralNode } from './literal/literal-node';
 import { getLiteralNode } from './literal/literal-node-helper';
-import { ParameterNode } from './parameter/parameter-node';
 import { SourceNode } from './source/source-node';
 import { getSourceNode } from './source/source-node-helper';
 import { StatementNode } from './statement/statement-node';
@@ -28,8 +29,7 @@ export const parse = (code: string, sourceName: string = undefined): XonParser =
   return parser;
 };
 
-export const parseParameter = (code: string): ParameterNode =>
-  new ParameterNode(parse(code).parameter());
+export const parseAttribute = (code: string): AttributeNode => getAttributeNode(parse(code).attr());
 
 export const parseLiteral = <T extends LiteralNode>(code: string): T =>
   getLiteralNode(parse(code).literal()) as T;

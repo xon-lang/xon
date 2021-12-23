@@ -14,7 +14,7 @@ export const getAttributeNode = (ctx: AttrContext): AttributeNode => {
   if (ctx instanceof ValueAttributeContext) return new ValueAttributeNode(ctx);
   if (ctx instanceof MethodAttributeContext) return new MethodAttributeNode(ctx);
 
-  throw Issue.error(ctx, `Attribute node not found for '${ctx.constructor.name}'`);
+  Issue.error(ctx, `Attribute node not found for '${ctx.constructor.name}'`);
 };
 
 export const getAttributeNodes = (contexts: AttrContext[]): AttributeNode[] => {
