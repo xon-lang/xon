@@ -7,19 +7,19 @@ options {
 source: (statement | NL)*;
 
 statement:
-    parameter                                                            # parameterStatement
-    | id '=' expr                                                        # assignmentStatement
-    | IMPORT path = expr ':' members += expr (',' members += expr)* ','? # importStatement
-    | EXPORT path = expr                                                 # exportStatement
-    | FOR (value = id (',' index = id)? IN)? expr body                   # forStatement
-    | WHILE expr body                                                    # whileStatement
-    | DO body WHILE expr                                                 # doWhileStatement
-    | IF expr thenBody = body (ELSE elseBody = body)?                    # ifStatement
-    | BREAK                                                              # breakStatement
-    | RETURN expr?                                                       # returnStatement
-    | ACTUAL actual = expr NL+ EXPECT expect = expr                      # assertStatement
-    | PREPROCESSOR                                                       # preprocessorStatement
-    | expr                                                               # expressionStatement
+    IMPORT path = expr ':' members += expr (',' members += expr)* ','? # importStatement
+    | EXPORT path = expr                                               # exportStatement
+    | FOR (value = id (',' index = id)? IN)? expr body                 # forStatement
+    | WHILE expr body                                                  # whileStatement
+    | DO body WHILE expr                                               # doWhileStatement
+    | IF expr thenBody = body (ELSE elseBody = body)?                  # ifStatement
+    | BREAK                                                            # breakStatement
+    | RETURN expr?                                                     # returnStatement
+    | ACTUAL actual = expr NL+ EXPECT expect = expr                    # assertStatement
+    | PREPROCESSOR                                                     # preprocessorStatement
+    | parameter                                                        # parameterStatement
+    | id '=' expr                                                      # assignmentStatement
+    | expr                                                             # expressionStatement
     ;
 
 expr:
