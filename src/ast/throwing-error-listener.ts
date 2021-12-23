@@ -21,6 +21,6 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
     issue.line = line;
     issue.column = column;
     IssueService.instance.lastScope.push(issue);
-    throw issue.toError();
+    throw new Error(issue.toString());
   }
 }
