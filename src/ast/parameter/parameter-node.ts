@@ -2,15 +2,15 @@ import { ParameterContext } from '../../grammar/xon-parser';
 import { BodyNode } from '../body/body-node';
 import { getBodyNode } from '../body/body-node-helper';
 import { ExpressionNode } from '../expression/expression-node';
-import { getExpressionNode, getExpressionNodes } from '../expression/expression-node-helper';
+import { getExpressionNode } from '../expression/expression-node-helper';
 import { IdToken } from '../id-token';
+import { IdNode } from '../id/id-node';
+import { getIdNode } from '../id/id-node-helper';
 import { Node } from '../node';
 
 export class ParameterNode extends Node {
-  modifier: IdToken;
   hasSpread: boolean;
-  id: IdToken;
-  generics?: ExpressionNode[];
+  id: IdNode;
   type?: ExpressionNode;
   body?: BodyNode;
   meta?: IdToken;
@@ -18,10 +18,8 @@ export class ParameterNode extends Node {
   constructor(public ctx: ParameterContext) {
     super();
 
-    this.modifier = (ctx.modifier() && IdToken.fromContext(ctx.modifier())) || null;
     this.hasSpread = !!ctx.SPREAD();
-    this.id = IdToken.fromContext(ctx.parameterId());
-    this.generics = getExpressionNodes(ctx.generics()) || null;
+    this.id = getIdNode(ctx.id());
     this.type = getExpressionNode(ctx.expr()) || null;
     this.body = getBodyNode(ctx.body()) || null;
     this.meta = (ctx._meta && new IdToken(ctx._meta)) || null;

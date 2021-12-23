@@ -7,7 +7,7 @@ test('has data type', () => {
   const tree = parseParameter(code);
   expect(tree).toBeInstanceOf(ParameterNode);
 
-  expect(tree.id.text).toBe('b');
+  expect(tree.id.name.text).toBe('b');
   expect(tree.type).toBeInstanceOf(IdExpressionNode);
 });
 
@@ -16,6 +16,6 @@ test('has data and meta types', () => {
   const tree = parseParameter(code);
   expect(tree).toBeInstanceOf(ParameterNode);
 
-  expect(tree.id.text).toBe('_b');
+  expect(tree.id.name.text).toBe('_b');
   expect(tree.meta.text).toBe('Literal');
 });
