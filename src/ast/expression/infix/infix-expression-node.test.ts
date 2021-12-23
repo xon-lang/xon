@@ -20,7 +20,6 @@ test('num plus str', () => {
 });
 
 test('has several relational operators', () => {
-  // a < b and b > c
   const code = 'a<b>c';
   const node = parseExpression<InfixExpressionNode>(code);
   expect(node).toBeInstanceOf(InfixExpressionNode);

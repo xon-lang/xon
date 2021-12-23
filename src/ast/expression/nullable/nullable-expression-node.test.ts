@@ -8,5 +8,5 @@ test('nullable', () => {
   expect(node).toBeInstanceOf(NullableExpressionNode);
 
   expect(node.value).toBeInstanceOf(IdExpressionNode);
-  expect((node.value as IdExpressionNode).id.text).toBe('abc');
+  expect((node.value as IdExpressionNode).id.name.text).toBe('abc');
 });
