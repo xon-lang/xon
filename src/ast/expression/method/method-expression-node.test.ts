@@ -9,7 +9,7 @@ test('has argument', () => {
   expect(node).toBeInstanceOf(MethodExpressionNode);
 
   expect(node.parameters.length).toBe(1);
-  expect(node.parameters[0].id.text).toBe('x');
+  expect(node.parameters[0].id.name.text).toBe('x');
   expect(node.resultType).toBe(null);
   expect(evalExpression(node.body, { x: 37 })).toBe(37 + 42);
 });
@@ -20,6 +20,6 @@ test('no arguments', () => {
   expect(node).toBeInstanceOf(MethodExpressionNode);
 
   expect(node.parameters.length).toBe(0);
-  expect((node.resultType as IdExpressionNode).id.text).toBe('Integer');
+  expect((node.resultType as IdExpressionNode).id.name.text).toBe('Integer');
   expect(evalExpression(node.body)).toBe(42 + 45);
 });
