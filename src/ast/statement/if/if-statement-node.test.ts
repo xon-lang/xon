@@ -16,9 +16,12 @@ test('if else if', () => {
 
   const nextIfStatement = (node.elseBody as SingleBodyNode).statement as IfStatementNode;
   expect(evalExpression(nextIfStatement.condition)).toBe(2 + 2);
-  expect(evalExpression((nextIfStatement.thenBody[0] as ExpressionStatementNode).expression)).toBe(
-    2 * 4,
-  );
+  expect(
+    evalExpression(
+      ((nextIfStatement.thenBody as SingleBodyNode).statement as ExpressionStatementNode)
+        .expression,
+    ),
+  ).toBe(2 * 4);
 });
 
 test('if else', () => {
