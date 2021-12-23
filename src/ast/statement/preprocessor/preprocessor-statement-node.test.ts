@@ -1,4 +1,4 @@
-import { parseStatement } from '../../parse';
+import { parseStatement } from '../../util/parse';
 import { PreprocessorStatementNode } from './preprocessor-statement-node';
 
 test('preprocessor test for any symbol', () => {

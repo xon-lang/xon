@@ -1,5 +1,5 @@
-import { evalExpression } from '../../eval';
-import { parseStatement } from '../../parse';
+import { evalExpression } from '../../util/eval';
+import { parseStatement } from '../../util/parse';
 import { AssertStatementNode } from './assert-statement-node';
 
 test('variable assignment', () => {

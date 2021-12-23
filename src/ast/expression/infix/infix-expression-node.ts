@@ -1,6 +1,6 @@
 import { ExprContext } from '../../../grammar/xon-parser';
 import { InfixExpressionMetadata } from '../../../metadata/expression/infix/infix-expression-metadata';
-import { IdToken } from '../../id-token';
+import { IdToken } from '../../util/id-token';
 import { ExpressionNode } from '../expression-node';
 
 export class InfixExpressionNode extends ExpressionNode {

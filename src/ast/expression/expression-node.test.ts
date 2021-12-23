@@ -1,5 +1,5 @@
-import { evalExpression } from '../eval';
-import { parseExpression } from '../parse';
+import { evalExpression } from '../util/eval';
+import { parseExpression } from '../util/parse';
 
 test('1', () => {
   const code = '1+2+3+4+5';

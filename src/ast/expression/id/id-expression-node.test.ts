@@ -1,4 +1,4 @@
-import { parseExpression } from '../../parse';
+import { parseExpression } from '../../util/parse';
 import { IdExpressionNode } from './id-expression-node';
 
 test('id', () => {

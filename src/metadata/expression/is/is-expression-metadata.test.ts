@@ -1,4 +1,4 @@
-import { parseExpression } from '../../../ast/parse';
+import { parseExpression } from '../../../ast/util/parse';
 import { TestDeclarationScope } from '../../test-declaration-scope';
 import { getExpressionMetadata } from '../expression-metadata-helper';
 

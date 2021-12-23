@@ -1,4 +1,4 @@
-import { parseExpression } from '../../parse';
+import { parseExpression } from '../../util/parse';
 import { PrefixExpressionNode } from './prefix-expression-node';
 
 test('negative integer', () => {

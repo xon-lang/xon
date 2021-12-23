@@ -3,7 +3,7 @@ import { Issue } from '../../../issue-service/issue';
 import { getExpressionNode } from '../../expression/expression-node-helper';
 import { IdExpressionNode } from '../../expression/id/id-expression-node';
 import { InfixExpressionNode } from '../../expression/infix/infix-expression-node';
-import { IdToken } from '../../id-token';
+import { IdToken } from '../../util/id-token';
 import { Node } from '../../node';
 
 export class ImportMemberNode extends Node {

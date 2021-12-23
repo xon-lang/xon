@@ -21,7 +21,7 @@ import {
   RelationalExpressionContext,
 } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
-import { IdToken } from '../id-token';
+import { IdToken } from '../util/id-token';
 import { ArrayExpressionNode } from './array/array-expression-node';
 import { ExpressionNode } from './expression-node';
 import { IdExpressionNode } from './id/id-expression-node';

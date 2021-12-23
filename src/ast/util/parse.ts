@@ -1,17 +1,17 @@
 import { CharStreams, CommonTokenStream } from 'antlr4ts';
 import * as fs from 'fs';
-import { XonLexer } from '../grammar/xon-lexer';
-import { XonParser } from '../grammar/xon-parser';
-import { ExpressionNode } from './expression/expression-node';
-import { getExpressionNode } from './expression/expression-node-helper';
-import { getIdNode } from './id/id-node-helper';
-import { LiteralNode } from './literal/literal-node';
-import { getLiteralNode } from './literal/literal-node-helper';
-import { getParameterNode } from './parameter/parameter-node-helper';
-import { SourceNode } from './source/source-node';
-import { getSourceNode } from './source/source-node-helper';
-import { StatementNode } from './statement/statement-node';
-import { getStatementNode } from './statement/statement-node-helper';
+import { XonLexer } from '../../grammar/xon-lexer';
+import { XonParser } from '../../grammar/xon-parser';
+import { ExpressionNode } from '../expression/expression-node';
+import { getExpressionNode } from '../expression/expression-node-helper';
+import { getIdNode } from '../id/id-node-helper';
+import { LiteralNode } from '../literal/literal-node';
+import { getLiteralNode } from '../literal/literal-node-helper';
+import { getParameterNode } from '../parameter/parameter-node-helper';
+import { SourceNode } from '../source/source-node';
+import { getSourceNode } from '../source/source-node-helper';
+import { StatementNode } from '../statement/statement-node';
+import { getStatementNode } from '../statement/statement-node-helper';
 import { ThrowingErrorListener } from './throwing-error-listener';
 
 export const parse = (code: string, sourceName: string = undefined): XonParser => {

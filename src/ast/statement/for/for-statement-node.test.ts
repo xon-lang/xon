@@ -1,9 +1,9 @@
 import { MultipleBodyNode } from '../../body/multiple/multiple-body-node';
 import { SingleBodyNode } from '../../body/single/single-body-node';
-import { evalExpression } from '../../eval';
+import { evalExpression } from '../../util/eval';
 import { ArrayExpressionNode } from '../../expression/array/array-expression-node';
 import { IdExpressionNode } from '../../expression/id/id-expression-node';
-import { parseStatement } from '../../parse';
+import { parseStatement } from '../../util/parse';
 import { ExpressionStatementNode } from '../expression/expression-statement-node';
 import { ForStatementNode } from './for-statement-node';
 

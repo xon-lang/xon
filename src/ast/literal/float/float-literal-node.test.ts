@@ -1,4 +1,4 @@
-import { parseLiteral } from '../../parse';
+import { parseLiteral } from '../../util/parse';
 import { FloatLiteralNode } from './float-literal-node';
 
 test('positive float number', () => {

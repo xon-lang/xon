@@ -1,7 +1,7 @@
 import { MultipleBodyNode } from '../../body/multiple/multiple-body-node';
 import { SingleBodyNode } from '../../body/single/single-body-node';
-import { evalExpression } from '../../eval';
-import { parseStatement } from '../../parse';
+import { evalExpression } from '../../util/eval';
+import { parseStatement } from '../../util/parse';
 import { ExpressionStatementNode } from '../expression/expression-statement-node';
 import { IfStatementNode } from './if-statement-node';
 

@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { parse, parseSource } from '../parse';
+import { parse, parseSource } from '../util/parse';
 import { ImportStatementNode } from '../statement/import/import-statement-node';
 import { SourceNode } from './source-node';
 

@@ -1,4 +1,4 @@
-import { parseExpression } from '../../parse';
+import { parseExpression } from '../../util/parse';
 import { IdExpressionNode } from '../id/id-expression-node';
 import { MemberExpressionNode } from './member-expression-node';
 

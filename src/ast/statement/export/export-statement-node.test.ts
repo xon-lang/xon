@@ -1,4 +1,4 @@
-import { parseStatement } from '../../parse';
+import { parseStatement } from '../../util/parse';
 import { ExportStatementNode } from './export-statement-node';
 
 test('1', () => {

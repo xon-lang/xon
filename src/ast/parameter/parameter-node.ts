@@ -1,7 +1,7 @@
 import { ParameterContext } from '../../grammar/xon-parser';
 import { ExpressionNode } from '../expression/expression-node';
 import { getExpressionNode } from '../expression/expression-node-helper';
-import { IdToken } from '../id-token';
+import { IdToken } from '../util/id-token';
 import { IdNode } from '../id/id-node';
 import { getIdNode } from '../id/id-node-helper';
 import { Node } from '../node';

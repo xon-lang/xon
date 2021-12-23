@@ -1,10 +1,10 @@
-import { Issue } from '../issue-service/issue';
-import { ExpressionNode } from './expression/expression-node';
-import { IdExpressionNode } from './expression/id/id-expression-node';
-import { InfixExpressionNode } from './expression/infix/infix-expression-node';
-import { LiteralExpressionNode } from './expression/literal/literal-expression-node';
-import { ParenthesizedExpressionNode } from './expression/parenthesized/parenthesized-expression-node';
-import { PrefixExpressionNode } from './expression/prefix/prefix-expression-node';
+import { Issue } from '../../issue-service/issue';
+import { ExpressionNode } from '../expression/expression-node';
+import { IdExpressionNode } from '../expression/id/id-expression-node';
+import { InfixExpressionNode } from '../expression/infix/infix-expression-node';
+import { LiteralExpressionNode } from '../expression/literal/literal-expression-node';
+import { ParenthesizedExpressionNode } from '../expression/parenthesized/parenthesized-expression-node';
+import { PrefixExpressionNode } from '../expression/prefix/prefix-expression-node';
 
 const escapeIfString = (s: unknown) => (typeof s === 'string' ? `\`${s}\`` : s);
 

@@ -1,6 +1,6 @@
 import { IntegerLiteralNode } from '../../literal/integer/integer-literal-node';
 import { StringLiteralNode } from '../../literal/string/string-literal-node';
-import { parseExpression } from '../../parse';
+import { parseExpression } from '../../util/parse';
 import { IdExpressionNode } from '../id/id-expression-node';
 import { LiteralExpressionNode } from '../literal/literal-expression-node';
 import { MemberExpressionNode } from '../member/member-expression-node';

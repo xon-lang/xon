@@ -1,7 +1,7 @@
 import { SingleBodyNode } from '../../body/single/single-body-node';
 import { IdExpressionNode } from '../../expression/id/id-expression-node';
 import { LiteralExpressionNode } from '../../expression/literal/literal-expression-node';
-import { parseStatement } from '../../parse';
+import { parseStatement } from '../../util/parse';
 import { ExpressionStatementNode } from '../expression/expression-statement-node';
 import { AttributeStatementNode } from './attribute-statement-node';
 

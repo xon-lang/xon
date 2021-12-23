@@ -1,5 +1,5 @@
 import { LiteralExpressionNode } from '../../expression/literal/literal-expression-node';
-import { parseStatement } from '../../parse';
+import { parseStatement } from '../../util/parse';
 import { AssignmentStatementNode } from './assignment-statement-node';
 
 test('variable assignment', () => {

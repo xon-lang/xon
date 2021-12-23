@@ -1,5 +1,5 @@
 import { IdExpressionNode } from '../expression/id/id-expression-node';
-import { parseParameter } from '../parse';
+import { parseParameter } from '../util/parse';
 import { ParameterNode } from './parameter-node';
 
 test('has data type', () => {

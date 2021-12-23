@@ -1,4 +1,4 @@
-import { parseLiteral } from '../../parse';
+import { parseLiteral } from '../../util/parse';
 import { IntegerLiteralNode } from './integer-literal-node';
 
 test('zero int number', () => {

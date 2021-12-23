@@ -1,5 +1,5 @@
-import { evalExpression } from '../../eval';
-import { parseExpression } from '../../parse';
+import { evalExpression } from '../../util/eval';
+import { parseExpression } from '../../util/parse';
 import { InfixExpressionNode } from '../infix/infix-expression-node';
 import { ParenthesizedExpressionNode } from './parenthesized-expression-node';
 

@@ -1,4 +1,4 @@
-import { parseExpression } from '../../../ast/parse';
+import { parseExpression } from '../../../ast/util/parse';
 import { TestDeclarationScope } from '../../test-declaration-scope';
 import { TupleTypeMetadata } from '../../type/tuple/tuple-type-metadata';
 import { getExpressionMetadata } from '../expression-metadata-helper';

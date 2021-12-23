@@ -1,5 +1,5 @@
 import { ParserRuleContext, Token } from 'antlr4ts';
-import { DeclarationMetadata } from '../metadata/declaration/declaration-metadata';
+import { DeclarationMetadata } from '../../metadata/declaration/declaration-metadata';
 import { SourceReference } from './source-reference';
 
 export class IdToken {

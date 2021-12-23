@@ -1,7 +1,7 @@
 import { IdContext } from '../../grammar/xon-parser';
 import { ExpressionNode } from '../expression/expression-node';
 import { getExpressionNodes } from '../expression/expression-node-helper';
-import { IdToken } from '../id-token';
+import { IdToken } from '../util/id-token';
 import { Node } from '../node';
 
 export class IdNode extends Node {
