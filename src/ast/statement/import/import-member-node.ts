@@ -13,14 +13,14 @@ export class ImportMemberNode extends Node {
     super();
     const node = getExpressionNode(ctx);
     if (node instanceof IdExpressionNode) {
-      this.id = node.id;
+      this.id = node.id.name;
     } else if (node instanceof InfixExpressionNode) {
       if (node.id.text !== 'as') this.raiseError("Must be 'as' operator");
       if (!(node.left instanceof IdExpressionNode)) this.raiseError('Must be id');
       if (!(node.right instanceof IdExpressionNode)) this.raiseError('Must be id');
 
-      this.id = node.left.id;
-      this.alias = node.right.id;
+      this.id = node.left.id.name;
+      this.alias = node.right.id.name;
     } else {
       this.raiseError('Wrong expression type');
     }
