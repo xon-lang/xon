@@ -8,7 +8,7 @@ import { ExpressionStatementNode } from '../expression/expression-statement-node
 import { ForStatementNode } from './for-statement-node';
 
 test('for with value', () => {
-  const code = 'for item in [1, 2, 3]:\n    12+(45/5)';
+  const code = 'for item in [1, 2, 3]:   12+(45/5)';
   const node = parseStatement<ForStatementNode>(code);
   expect(node).toBeInstanceOf(ForStatementNode);
 
@@ -28,8 +28,8 @@ test('for with value and index', () => {
   expect(node.indexVarName).toBe('i');
   expect(node.expression).toBeInstanceOf(IdExpressionNode);
 
-  const body = node.body as SingleBodyNode;
-  expect(evalExpression((body.statement as ExpressionStatementNode).expression)).toBe(12 + 10);
+  const body = node.body as MultipleBodyNode;
+  expect(evalExpression((body.statements[0] as ExpressionStatementNode).expression)).toBe(12 + 10);
 });
 
 test('for with expression only', () => {
