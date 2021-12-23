@@ -27,7 +27,7 @@ expr:
     | '(' expr ')'                                                     # parenthesizedExpression
     | '[' (expr (',' expr)* ','?)? ']'                                 # arrayExpression
     | '{' (expr (',' expr)* ','?)? '}'                                 # objectExpression
-    | '(' (parameter (',' parameter)* ','?)? ')' expr? body?           # methodExpression
+    | '(' (parameter (',' parameter)* ','?)? ')' expr?                 # methodExpression
     | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
     | expr '?'                                                         # nullableExpression
     | expr '.' id                                                      # memberExpression
