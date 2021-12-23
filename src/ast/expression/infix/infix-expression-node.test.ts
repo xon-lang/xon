@@ -26,15 +26,13 @@ test('has several relational operators', () => {
   expect(node).toBeInstanceOf(InfixExpressionNode);
 
   expect(node.left).toBeInstanceOf(InfixExpressionNode);
-  expect(node.right).toBeInstanceOf(InfixExpressionNode);
+  expect(node.right).toBeInstanceOf(IdExpressionNode);
 
   const left = node.left as InfixExpressionNode;
   expect(left.id.text).toBe('<');
   expect((left.left as IdExpressionNode).id.name.text).toBe('a');
   expect((left.right as IdExpressionNode).id.name.text).toBe('b');
 
-  const right = node.right as InfixExpressionNode;
-  expect(right.id.text).toBe('>');
-  expect((right.left as IdExpressionNode).id.name.text).toBe('b');
-  expect((right.right as IdExpressionNode).id.name.text).toBe('c');
+  const right = node.right as IdExpressionNode;
+  expect(right.id.name.text).toBe('c');
 });
