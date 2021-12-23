@@ -23,14 +23,14 @@ statement:
     ;
 
 expr:
-    id generics?                                                       # idExpression
+    id                                                                 # idExpression
     | '(' expr ')'                                                     # parenthesizedExpression
     | '[' (expr (',' expr)* ','?)? ']'                                 # arrayExpression
     | '{' (parameter (',' parameter)* ','?)? '}'                       # objectExpression
     | '(' (parameter (',' parameter)* ','?)? ')' expr? body?           # methodExpression
     | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
     | expr '?'                                                         # nullableExpression
-    | expr '.' id generics?                                            # memberExpression
+    | expr '.' id                                                      # memberExpression
     | '...' expr                                                       # spreadExpression
     | op = ('-' | '+' | NOT) expr                                      # prefixExpression
     | left = expr op = '^' right = expr                                # powExpression
@@ -58,12 +58,22 @@ body:
     | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-parameter:
-    '...'? modifier? parameterId generics? type = expr? ('#' meta = ID)? body?
-    ;
-generics: '<' '|' expr (',' expr)* ','? '|' '>';
+parameter: '...'? id type = expr? ('#' meta = ID)? body?;
 
-parameterId: id | operator | STRING_LITERAL;
-id:          modifier | ID | IS | AS | IN;
-modifier:    TYPE | CLASS | INTERFACE | OBJECT | ENUM;
-operator:    '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
+id: ('<' '|' expr (',' expr)* ','? '|' '>')? name = (
+        ID
+        | IS
+        | AS
+        | IN
+        | '^'
+        | '*'
+        | '/'
+        | '%'
+        | '+'
+        | '-'
+        | '<'
+        | '>'
+        | '='
+    )
+    ;
+// modifier: TYPE | CLASS | INTERFACE | OBJECT | ENUM;
