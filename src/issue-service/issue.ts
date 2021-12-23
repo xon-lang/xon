@@ -1,6 +1,5 @@
 import { ParserRuleContext } from 'antlr4ts';
 import chalk from 'chalk';
-import { Node } from '../ast/node';
 import { IssueLevel } from './issue-level';
 
 export class Issue {
@@ -9,26 +8,6 @@ export class Issue {
   line: number;
   column: number;
   ctx: ParserRuleContext;
-
-  static fromContext(ctx: ParserRuleContext, level: IssueLevel, message: string): Issue {
-    const issue = new Issue();
-    issue.ctx = ctx;
-    issue.level = level;
-    issue.message = message;
-    issue.line = ctx.start.line;
-    issue.column = ctx.start.charPositionInLine;
-    return issue;
-  }
-
-  static errorFromTree(tree: Node, message: string): Error {
-    const issue = this.fromContext(tree.ctx, IssueLevel.Error, message);
-    return issue.toError();
-  }
-
-  static errorFromContext(ctx: ParserRuleContext, message: string): Error {
-    const issue = this.fromContext(ctx, IssueLevel.Error, message);
-    return issue.toError();
-  }
 
   toString(): string {
     const code = this.ctx.start.inputStream.toString().split('\n')[this.line - 1];
@@ -43,7 +22,18 @@ export class Issue {
     return `${source}:${line}:${column} - ${message}\n${lineNumber}${code}\n${caret}`;
   }
 
-  toError(): Error {
-    return new Error(this.toString());
+  static fromContext(ctx: ParserRuleContext, level: IssueLevel, message: string): Issue {
+    const issue = new Issue();
+    issue.ctx = ctx;
+    issue.level = level;
+    issue.message = message;
+    issue.line = ctx.start.line;
+    issue.column = ctx.start.charPositionInLine;
+    return issue;
+  }
+
+  static error(ctx: ParserRuleContext, message: string): never {
+    const issue = Issue.fromContext(ctx, IssueLevel.Error, message);
+    throw new Error(issue.toString());
   }
 }

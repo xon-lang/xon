@@ -1,5 +1,4 @@
 import { ParserRuleContext } from 'antlr4ts';
-import { Issue } from '../issue-service/issue';
 import { SourceReference } from './source-reference';
 
 export abstract class Node {
@@ -28,9 +27,5 @@ export abstract class Node {
   toJson(): string {
     const tabWidth = 2;
     return JSON.stringify(this.toPlain(), null, tabWidth);
-  }
-
-  raiseError(message: string): never {
-    throw Issue.errorFromContext(this.ctx, message);
   }
 }
