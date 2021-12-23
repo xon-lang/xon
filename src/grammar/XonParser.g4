@@ -17,7 +17,7 @@ statement:
     | RETURN expr?                                                     # returnStatement
     | ACTUAL actual = expr NL+ EXPECT expect = expr                    # assertStatement
     | PREPROCESSOR                                                     # preprocessorStatement
-    | parameter                                                        # parameterStatement
+    | id type = expr? body                                             # attributeStatement
     | id '=' expr                                                      # assignmentStatement
     | expr                                                             # expressionStatement
     ;
@@ -26,7 +26,7 @@ expr:
     id                                                                 # idExpression
     | '(' expr ')'                                                     # parenthesizedExpression
     | '[' (expr (',' expr)* ','?)? ']'                                 # arrayExpression
-    | '{' (parameter (',' parameter)* ','?)? '}'                       # objectExpression
+    | '{' (expr (',' expr)* ','?)? '}'                                 # objectExpression
     | '(' (parameter (',' parameter)* ','?)? ')' expr? body?           # methodExpression
     | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
     | expr '?'                                                         # nullableExpression
@@ -42,6 +42,7 @@ expr:
     | left = expr op = '&&' right = expr                               # conjunctionExpression
     | left = expr op = '||' right = expr                               # disjunctionExpression
     | left = expr op = (IS | AS | IN) right = expr                     # infixExpression
+    | left = expr op = ':' right = expr                                # pairExpression
     | literal                                                          # literalExpression
     ;
 
@@ -58,7 +59,7 @@ body:
     | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-parameter: '...'? id type = expr? ('#' meta = ID)? body?;
+parameter: '...'? id type = expr? ('#' meta = ID)?;
 
 id:
     name = (

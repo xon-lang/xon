@@ -16,12 +16,12 @@ export const evalExpression = (node: ExpressionNode, argsMap = {}): unknown => {
     const a = evalExpression(node.left, argsMap);
     const b = evalExpression(node.right, argsMap);
     const o = node.id.text === '^' ? '**' : node.id.text;
-    // eslint-disable-next-line no-eval
+    console.log(node.ctx.text);
+    
     return eval(`${escapeIfString(a)} ${o} ${escapeIfString(b)}`);
   }
   if (node instanceof PrefixExpressionNode) {
     const a = evalExpression(node.value, argsMap);
-    // eslint-disable-next-line no-eval
     return eval(`${node.id.text}${escapeIfString(a)}`);
   }
   if (node instanceof IdExpressionNode) {

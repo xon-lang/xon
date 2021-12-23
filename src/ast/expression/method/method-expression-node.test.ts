@@ -18,7 +18,7 @@ test('has argument', () => {
       ((node.body as SingleBodyNode).statement as ExpressionStatementNode).expression,
       { x: 37 },
     ),
-  ).toBe(42 + 45);
+  ).toBe(37 + 42);
 });
 
 test('no arguments', () => {

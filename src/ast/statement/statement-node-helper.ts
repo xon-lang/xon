@@ -1,6 +1,7 @@
 import {
   AssertStatementContext,
   AssignmentStatementContext,
+  AttributeStatementContext,
   ExportStatementContext,
   ExpressionStatementContext,
   ForStatementContext,
@@ -15,6 +16,7 @@ import {
 import { Issue } from '../../issue-service/issue';
 import { AssertStatementNode } from './assert/assert-statement-node';
 import { AssignmentStatementNode } from './assignment/assignment-statement-node';
+import { AttributeStatementNode } from './attribute/attribute-statement-node';
 import { ExportStatementNode } from './export/export-statement-node';
 import { ExpressionStatementNode } from './expression/expression-statement-node';
 import { ForStatementNode } from './for/for-statement-node';
@@ -31,6 +33,7 @@ export const getStatementNode = (ctx: StatementContext): StatementNode => {
 
   if (ctx instanceof AssertStatementContext) return new AssertStatementNode(ctx);
   if (ctx instanceof AssignmentStatementContext) return new AssignmentStatementNode(ctx);
+  if (ctx instanceof AttributeStatementContext) return new AttributeStatementNode(ctx);
   if (ctx instanceof ExportStatementContext) return new ExportStatementNode(ctx);
   if (ctx instanceof ExpressionStatementContext) return new ExpressionStatementNode(ctx);
   if (ctx instanceof ForStatementContext) return new ForStatementNode(ctx);
