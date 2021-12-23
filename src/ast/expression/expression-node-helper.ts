@@ -6,7 +6,6 @@ import {
   DisjunctionExpressionContext,
   EqualityExpressionContext,
   ExprContext,
-  GenericsContext,
   IdExpressionContext,
   InfixExpressionContext,
   InvokeExpressionContext,
@@ -77,7 +76,6 @@ export const getExpressionNode = (ctx: ExprContext): ExpressionNode => {
   throw Issue.errorFromContext(ctx, `Expression tree not found for '${ctx.constructor.name}'`);
 };
 
-export const getExpressionNodes = (contexts: ExprContext[] | GenericsContext): ExpressionNode[] => {
-  if (contexts instanceof GenericsContext) return getExpressionNodes(contexts.expr());
+export const getExpressionNodes = (contexts: ExprContext[]): ExpressionNode[] => {
   return contexts?.map(getExpressionNode) || [];
 };

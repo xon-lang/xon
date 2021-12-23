@@ -77,4 +77,3 @@ id:
         | '='
     ) ('<' '|' expr (',' expr)* ','? '|' '>')?
     ;
-// modifier: TYPE | CLASS | INTERFACE | OBJECT | ENUM;
