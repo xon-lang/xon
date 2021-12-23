@@ -60,7 +60,8 @@ body:
 
 parameter: '...'? id type = expr? ('#' meta = ID)? body?;
 
-id: ('<' '|' expr (',' expr)* ','? '|' '>')? name = (
+id:
+    name = (
         ID
         | IS
         | AS
@@ -74,6 +75,6 @@ id: ('<' '|' expr (',' expr)* ','? '|' '>')? name = (
         | '<'
         | '>'
         | '='
-    )
+    ) ('<' '|' expr (',' expr)* ','? '|' '>')?
     ;
 // modifier: TYPE | CLASS | INTERFACE | OBJECT | ENUM;
