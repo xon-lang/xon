@@ -1,17 +1,18 @@
 import { AssignmentStatementContext } from '../../../grammar/xon-parser';
-import { getExpressionNode } from '../../expression/expression-node-helper';
 import { ExpressionNode } from '../../expression/expression-node';
-import { IdToken } from '../../id-token';
+import { getExpressionNode } from '../../expression/expression-node-helper';
+import { IdNode } from '../../id/id-node';
+import { getIdNode } from '../../id/id-node-helper';
 import { StatementNode } from '../statement-node';
 
 export class AssignmentStatementNode extends StatementNode {
-  id: IdToken;
+  id: IdNode;
   value: ExpressionNode;
 
   constructor(public ctx: AssignmentStatementContext) {
     super();
 
-    this.id = IdToken.fromContext(ctx.id());
+    this.id = getIdNode(ctx.id());
     this.value = getExpressionNode(ctx.expr());
   }
 

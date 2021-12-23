@@ -7,6 +7,6 @@ test('variable assignment', () => {
   const node = parseStatement<AssignmentStatementNode>(code);
   expect(node).toBeInstanceOf(AssignmentStatementNode);
 
-  expect(node.id.text).toBe('a');
+  expect(node.id.name.text).toBe('a');
   expect((node.value as LiteralExpressionNode).literal.value).toBe(1);
 });
