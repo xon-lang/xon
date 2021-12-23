@@ -3,8 +3,8 @@ import { ExportStatementNode } from './export-statement-node';
 
 test('1', () => {
   const code = 'export lib.org';
-  const tree = parseExport(code);
-  expect(tree).toBeInstanceOf(ExportStatementNode);
+  const node = parseExport(code);
+  expect(node).toBeInstanceOf(ExportStatementNode);
 
-  expect(tree.path).toBe('lib.org');
+  expect(node.path).toBe('lib.org');
 });

@@ -4,10 +4,10 @@ import { MemberExpressionNode } from './member-expression-node';
 
 test('not safe', () => {
   const code = 'abc.def';
-  const tree = parseExpression<MemberExpressionNode>(code);
-  expect(tree).toBeInstanceOf(MemberExpressionNode);
+  const node = parseExpression<MemberExpressionNode>(code);
+  expect(node).toBeInstanceOf(MemberExpressionNode);
 
-  expect(tree.instance).toBeInstanceOf(IdExpressionNode);
-  expect((tree.instance as IdExpressionNode).id.text).toBe('abc');
-  expect(tree.id.text).toBe('def');
+  expect(node.instance).toBeInstanceOf(IdExpressionNode);
+  expect((node.instance as IdExpressionNode).id.text).toBe('abc');
+  expect(node.id.text).toBe('def');
 });

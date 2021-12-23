@@ -4,9 +4,9 @@ import { NullableExpressionNode } from './nullable-expression-node';
 
 test('nullable', () => {
   const code = 'abc?';
-  const tree = parseExpression<NullableExpressionNode>(code);
-  expect(tree).toBeInstanceOf(NullableExpressionNode);
+  const node = parseExpression<NullableExpressionNode>(code);
+  expect(node).toBeInstanceOf(NullableExpressionNode);
 
-  expect(tree.value).toBeInstanceOf(IdExpressionNode);
-  expect((tree.value as IdExpressionNode).id.text).toBe('abc');
+  expect(node.value).toBeInstanceOf(IdExpressionNode);
+  expect((node.value as IdExpressionNode).id.text).toBe('abc');
 });

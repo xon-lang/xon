@@ -3,8 +3,8 @@ import { LiteralExpressionNode } from './literal-expression-node';
 
 test('check true', () => {
   const code = '123';
-  const tree = parseExpression<LiteralExpressionNode>(code);
-  expect(tree).toBeInstanceOf(LiteralExpressionNode);
+  const node = parseExpression<LiteralExpressionNode>(code);
+  expect(node).toBeInstanceOf(LiteralExpressionNode);
 
-  expect(tree.literal.value).toBe(123);
+  expect(node.literal.value).toBe(123);
 });

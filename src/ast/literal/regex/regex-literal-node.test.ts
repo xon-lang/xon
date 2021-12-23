@@ -3,9 +3,9 @@ import { RegexLiteralNode } from './regex-literal-node';
 
 test('single line string', () => {
   const code = '`abc`';
-  const tree = parseLiteral<RegexLiteralNode>(code);
-  expect(tree).toBeInstanceOf(RegexLiteralNode);
+  const node = parseLiteral<RegexLiteralNode>(code);
+  expect(node).toBeInstanceOf(RegexLiteralNode);
 
-  expect(tree.value.test('abc')).toBe(true);
-  expect(tree.value.test('abcd')).toBe(false);
+  expect(node.value.test('abc')).toBe(true);
+  expect(node.value.test('abcd')).toBe(false);
 });

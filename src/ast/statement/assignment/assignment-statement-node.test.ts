@@ -4,9 +4,9 @@ import { AssignmentStatementNode } from './assignment-statement-node';
 
 test('variable assignment', () => {
   const code = 'a = 1';
-  const tree = parseStatement<AssignmentStatementNode>(code);
-  expect(tree).toBeInstanceOf(AssignmentStatementNode);
+  const node = parseStatement<AssignmentStatementNode>(code);
+  expect(node).toBeInstanceOf(AssignmentStatementNode);
 
-  expect(tree.id.text).toBe('a');
-  expect((tree.value as LiteralExpressionNode).literal.value).toBe(1);
+  expect(node.id.text).toBe('a');
+  expect((node.value as LiteralExpressionNode).literal.value).toBe(1);
 });

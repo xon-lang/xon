@@ -21,8 +21,8 @@ export abstract class Node {
         return [k, v];
       });
 
-    const treeType = (object || this).constructor.name.replace(/Tree$/, '');
-    return { treeType, ...Object.fromEntries(entries) };
+    const nodeType = (object || this).constructor.name.replace(/Node$/, '');
+    return { nodeType, ...Object.fromEntries(entries) };
   }
 
   toJson(): string {

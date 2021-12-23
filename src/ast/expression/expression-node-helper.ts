@@ -73,7 +73,7 @@ export const getExpressionNode = (ctx: ExprContext): ExpressionNode => {
     );
   }
 
-  throw Issue.errorFromContext(ctx, `Expression tree not found for '${ctx.constructor.name}'`);
+  throw Issue.errorFromContext(ctx, `Expression node not found for '${ctx.constructor.name}'`);
 };
 
 export const getExpressionNodes = (contexts: ExprContext[]): ExpressionNode[] => {

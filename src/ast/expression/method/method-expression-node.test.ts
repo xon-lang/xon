@@ -5,21 +5,21 @@ import { MethodExpressionNode } from './method-expression-node';
 
 test('has argument', () => {
   const code = '(x): x + 42';
-  const tree = parseExpression<MethodExpressionNode>(code);
-  expect(tree).toBeInstanceOf(MethodExpressionNode);
+  const node = parseExpression<MethodExpressionNode>(code);
+  expect(node).toBeInstanceOf(MethodExpressionNode);
 
-  expect(tree.parameters.length).toBe(1);
-  expect(tree.parameters[0].id.text).toBe('x');
-  expect(tree.resultType).toBe(null);
-  expect(evalExpression(tree.body, { x: 37 })).toBe(37 + 42);
+  expect(node.parameters.length).toBe(1);
+  expect(node.parameters[0].id.text).toBe('x');
+  expect(node.resultType).toBe(null);
+  expect(evalExpression(node.body, { x: 37 })).toBe(37 + 42);
 });
 
 test('no arguments', () => {
   const code = '()Integer: 42+45';
-  const tree = parseExpression<MethodExpressionNode>(code);
-  expect(tree).toBeInstanceOf(MethodExpressionNode);
+  const node = parseExpression<MethodExpressionNode>(code);
+  expect(node).toBeInstanceOf(MethodExpressionNode);
 
-  expect(tree.parameters.length).toBe(0);
-  expect((tree.resultType as IdExpressionNode).id.text).toBe('Integer');
-  expect(evalExpression(tree.body)).toBe(42 + 45);
+  expect(node.parameters.length).toBe(0);
+  expect((node.resultType as IdExpressionNode).id.text).toBe('Integer');
+  expect(evalExpression(node.body)).toBe(42 + 45);
 });

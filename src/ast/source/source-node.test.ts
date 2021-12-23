@@ -11,10 +11,12 @@ if e:
     7+7
 else: if d: call()
 `;
-  const tree = new SourceNode(parse(code).source());
-  expect(tree).toBeInstanceOf(SourceNode);
+  const node = new SourceNode(parse(code).source());
+  expect(node).toBeInstanceOf(SourceNode);
 
-  const imports = tree.statements.map((x) => x as ImportStatementNode);
+  const imports = node.statements
+    .filter((x) => x instanceof ImportStatementNode)
+    .map((x) => x as ImportStatementNode);
   expect(imports.length).toBe(1);
   expect(imports[0].path).toBe('xon.os');
   expect(imports[0].members.length).toBe(1);
@@ -24,10 +26,10 @@ else: if d: call()
 
 test('formatted 1.xon', () => {
   const code = fs.readFileSync('src/ast/source/test-files/1.xon').toString();
-  const tree = parseSource(code);
-  expect(tree).toBeInstanceOf(SourceNode);
+  const node = parseSource(code);
+  expect(node).toBeInstanceOf(SourceNode);
 
-  // const formatted = tree.toString();
+  // const formatted = node.toString();
   // fs.writeFileSync('src/ast/source/test-files/1.fmt.xon', formatted);
   // expect(code).toBe(formatted);
 });

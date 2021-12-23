@@ -3,13 +3,13 @@ import { parseExpression } from './parse';
 
 test('check to json', () => {
   const code = '123';
-  const tree = parseExpression<LiteralExpressionNode>(code);
-  expect(tree).toBeInstanceOf(LiteralExpressionNode);
+  const node = parseExpression<LiteralExpressionNode>(code);
+  expect(node).toBeInstanceOf(LiteralExpressionNode);
 
-  expect(tree.toJson()).toBe(`{
-  "treeType": "LiteralExpression",
+  expect(node.toJson()).toBe(`{
+  "nodeType": "LiteralExpression",
   "literal": {
-    "treeType": "IntegerLiteral",
+    "nodeType": "IntegerLiteral",
     "integer": "123",
     "radix": null,
     "value": 123

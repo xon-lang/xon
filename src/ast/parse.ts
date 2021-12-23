@@ -6,7 +6,7 @@ import { ExpressionNode } from './expression/expression-node';
 import { getExpressionNode } from './expression/expression-node-helper';
 import { getIdNode } from './id/id-node-helper';
 import { LiteralNode } from './literal/literal-node';
-import { getLiteralTree } from './literal/literal-node-helper';
+import { getLiteralNode } from './literal/literal-node-helper';
 import { ParameterNode } from './parameter/parameter-node';
 import { SourceNode } from './source/source-node';
 import { getSourceNode } from './source/source-node-helper';
@@ -32,7 +32,7 @@ export const parseParameter = (code: string): ParameterNode =>
   new ParameterNode(parse(code).parameter());
 
 export const parseLiteral = <T extends LiteralNode>(code: string): T =>
-  getLiteralTree(parse(code).literal()) as T;
+  getLiteralNode(parse(code).literal()) as T;
 
 export const parseExpression = <T extends ExpressionNode>(code: string): T =>
   getExpressionNode(parse(code).expr()) as T;

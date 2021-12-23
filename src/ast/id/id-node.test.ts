@@ -3,8 +3,8 @@ import { IdNode } from './id-node';
 
 test('abc', () => {
   const code = `abc`;
-  const tree = parseId(code);
-  expect(tree).toBeInstanceOf(IdNode);
+  const node = parseId(code);
+  expect(node).toBeInstanceOf(IdNode);
 
-  expect(tree.name.text).toBe('abc');
+  expect(node.name.text).toBe('abc');
 });

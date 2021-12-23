@@ -6,13 +6,13 @@ import { WhileStatementNode } from './while-statement-node';
 
 test('has boolean value', () => {
   const code = 'while true:\n    12+(45/5)';
-  const tree = parseStatement<WhileStatementNode>(code);
-  expect(tree).toBeInstanceOf(WhileStatementNode);
+  const node = parseStatement<WhileStatementNode>(code);
+  expect(node).toBeInstanceOf(WhileStatementNode);
 
-  expect(tree.expression).toBeInstanceOf(IdExpressionNode);
-  expect((tree.expression as IdExpressionNode).id.text).toBe('true');
+  expect(node.expression).toBeInstanceOf(IdExpressionNode);
+  expect((node.expression as IdExpressionNode).id.text).toBe('true');
 
-  expect(tree.body.length).toBe(1);
-  const statement = tree.body[0] as ExpressionStatementNode;
+  expect(node.body.length).toBe(1);
+  const statement = node.body[0] as ExpressionStatementNode;
   expect(evalExpression(statement.expression)).toBe(12 + 45 / 5);
 });

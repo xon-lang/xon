@@ -3,8 +3,8 @@ import { CharLiteralNode } from './char-literal-node';
 
 test('char a', () => {
   const code = "'a'";
-  const tree = parseLiteral<CharLiteralNode>(code);
-  expect(tree).toBeInstanceOf(CharLiteralNode);
+  const node = parseLiteral<CharLiteralNode>(code);
+  expect(node).toBeInstanceOf(CharLiteralNode);
 
-  expect(tree.value).toBe(code.replace(/'/g, ''));
+  expect(node.value).toBe(code.replace(/'/g, ''));
 });

@@ -14,7 +14,7 @@ import { LiteralNode } from './literal-node';
 import { RegexLiteralNode } from './regex/regex-literal-node';
 import { StringLiteralNode } from './string/string-literal-node';
 
-export const getLiteralTree = (ctx: LiteralContext): LiteralNode => {
+export const getLiteralNode = (ctx: LiteralContext): LiteralNode => {
   if (ctx === undefined) return undefined;
 
   if (ctx instanceof CharLiteralContext) return new CharLiteralNode(ctx);

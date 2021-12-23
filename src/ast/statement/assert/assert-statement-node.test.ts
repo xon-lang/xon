@@ -4,9 +4,9 @@ import { AssertStatementNode } from './assert-statement-node';
 
 test('variable assignment', () => {
   const code = 'actual 1+1\nexpect 2';
-  const tree = parseStatement<AssertStatementNode>(code);
-  expect(tree).toBeInstanceOf(AssertStatementNode);
+  const node = parseStatement<AssertStatementNode>(code);
+  expect(node).toBeInstanceOf(AssertStatementNode);
 
-  expect(evalExpression(tree.actual)).toBe(2);
-  expect(evalExpression(tree.expect)).toBe(2);
+  expect(evalExpression(node.actual)).toBe(2);
+  expect(evalExpression(node.expect)).toBe(2);
 });

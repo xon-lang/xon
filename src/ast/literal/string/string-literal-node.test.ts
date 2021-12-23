@@ -3,24 +3,24 @@ import { StringLiteralNode } from './string-literal-node';
 
 test('single line string', () => {
   const code = '"some string"';
-  const tree = parseLiteral<StringLiteralNode>(code);
-  expect(tree).toBeInstanceOf(StringLiteralNode);
+  const node = parseLiteral<StringLiteralNode>(code);
+  expect(node).toBeInstanceOf(StringLiteralNode);
 
-  expect(tree.value).toBe(code.replace(/"/g, ''));
+  expect(node.value).toBe(code.replace(/"/g, ''));
 });
 
 test('multiline string', () => {
   const code = '"some\nmultiline\n\t\n\t\nstring\n"';
-  const tree = parseLiteral<StringLiteralNode>(code);
-  expect(tree).toBeInstanceOf(StringLiteralNode);
+  const node = parseLiteral<StringLiteralNode>(code);
+  expect(node).toBeInstanceOf(StringLiteralNode);
 
-  expect(tree.value).toBe(code.replace(/"/g, ''));
+  expect(node.value).toBe(code.replace(/"/g, ''));
 });
 
 test('empty string', () => {
   const code = '""';
-  const tree = parseLiteral<StringLiteralNode>(code);
-  expect(tree).toBeInstanceOf(StringLiteralNode);
+  const node = parseLiteral<StringLiteralNode>(code);
+  expect(node).toBeInstanceOf(StringLiteralNode);
 
-  expect(tree.value).toBe('');
+  expect(node.value).toBe('');
 });

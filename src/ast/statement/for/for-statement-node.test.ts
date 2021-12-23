@@ -8,38 +8,38 @@ import { ForStatementNode } from './for-statement-node';
 
 test('for with value', () => {
   const code = 'for item in [1, 2, 3]:\n    12+(45/5)';
-  const tree = parseStatement<ForStatementNode>(code);
-  expect(tree).toBeInstanceOf(ForStatementNode);
+  const node = parseStatement<ForStatementNode>(code);
+  expect(node).toBeInstanceOf(ForStatementNode);
 
-  expect(tree.indexVarName).toBe(null);
-  expect(tree.expression).toBeInstanceOf(ArrayExpressionNode);
+  expect(node.indexVarName).toBe(null);
+  expect(node.expression).toBeInstanceOf(ArrayExpressionNode);
 
-  const body = tree.body as SingleBodyNode;
+  const body = node.body as SingleBodyNode;
   expect(evalExpression((body.statement as ExpressionStatementNode).expression)).toBe(12 + 45 / 5);
 });
 
 test('for with value and index', () => {
   const code = 'for value, i in array:\n    12+10';
-  const tree = parseStatement<ForStatementNode>(code);
-  expect(tree).toBeInstanceOf(ForStatementNode);
+  const node = parseStatement<ForStatementNode>(code);
+  expect(node).toBeInstanceOf(ForStatementNode);
 
-  expect(tree.valueVarName).toBe('value');
-  expect(tree.indexVarName).toBe('i');
-  expect(tree.expression).toBeInstanceOf(IdExpressionNode);
+  expect(node.valueVarName).toBe('value');
+  expect(node.indexVarName).toBe('i');
+  expect(node.expression).toBeInstanceOf(IdExpressionNode);
 
-  const body = tree.body as SingleBodyNode;
+  const body = node.body as SingleBodyNode;
   expect(evalExpression((body.statement as ExpressionStatementNode).expression)).toBe(12 + 10);
 });
 
 test('for with expression only', () => {
   const code = 'for [1, 2, 3]:\n    1+1';
-  const tree = parseStatement<ForStatementNode>(code);
-  expect(tree).toBeInstanceOf(ForStatementNode);
+  const node = parseStatement<ForStatementNode>(code);
+  expect(node).toBeInstanceOf(ForStatementNode);
 
-  expect(tree.valueVarName).toBe(null);
-  expect(tree.indexVarName).toBe(null);
-  expect(tree.expression).toBeInstanceOf(ArrayExpressionNode);
+  expect(node.valueVarName).toBe(null);
+  expect(node.indexVarName).toBe(null);
+  expect(node.expression).toBeInstanceOf(ArrayExpressionNode);
 
-  const body = tree.body as SingleBodyNode;
+  const body = node.body as SingleBodyNode;
   expect(evalExpression((body.statement as ExpressionStatementNode).expression)).toBe(1 + 1);
 });

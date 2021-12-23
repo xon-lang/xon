@@ -6,12 +6,12 @@ import { ParameterStatementNode } from './parameter-statement-node';
 
 test('variable assignment', () => {
   const code = 'a: 1';
-  const tree = parseStatement<ParameterStatementNode>(code);
-  expect(tree).toBeInstanceOf(ParameterStatementNode);
+  const node = parseStatement<ParameterStatementNode>(code);
+  expect(node).toBeInstanceOf(ParameterStatementNode);
 
   expect(
     evalExpression(
-      ((tree.parameter.body as SingleBodyNode).statement as ExpressionStatementNode).expression,
+      ((node.parameter.body as SingleBodyNode).statement as ExpressionStatementNode).expression,
     ),
   ).toBe(1);
 });

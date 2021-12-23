@@ -5,16 +5,16 @@ import { ParenthesizedExpressionNode } from './parenthesized-expression-node';
 
 test('one parenthesized expression', () => {
   const code = '(1+1)';
-  const tree = parseExpression(code);
-  expect(tree).toBeInstanceOf(ParenthesizedExpressionNode);
+  const node = parseExpression(code);
+  expect(node).toBeInstanceOf(ParenthesizedExpressionNode);
 
-  expect((tree as ParenthesizedExpressionNode).expression).toBeInstanceOf(InfixExpressionNode);
+  expect((node as ParenthesizedExpressionNode).expression).toBeInstanceOf(InfixExpressionNode);
 });
 
 test('several parenthesized expression', () => {
   const code = '(((123)))';
-  const tree = parseExpression(code);
-  expect(tree).toBeInstanceOf(ParenthesizedExpressionNode);
+  const node = parseExpression(code);
+  expect(node).toBeInstanceOf(ParenthesizedExpressionNode);
 
-  expect(evalExpression(tree)).toBe(123);
+  expect(evalExpression(node)).toBe(123);
 });

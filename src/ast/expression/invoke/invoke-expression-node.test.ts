@@ -8,38 +8,38 @@ import { InvokeExpressionNode } from './invoke-expression-node';
 
 test('method call', () => {
   const code = 'f(3, "str")';
-  const tree = parseExpression<InvokeExpressionNode>(code);
-  expect(tree).toBeInstanceOf(InvokeExpressionNode);
+  const node = parseExpression<InvokeExpressionNode>(code);
+  expect(node).toBeInstanceOf(InvokeExpressionNode);
 
-  expect(tree.arguments.length).toBe(2);
-  expect((tree.arguments[0] as LiteralExpressionNode).literal).toBeInstanceOf(IntegerLiteralNode);
-  expect((tree.arguments[0] as LiteralExpressionNode).literal.value).toBe(3);
-  expect((tree.arguments[1] as LiteralExpressionNode).literal).toBeInstanceOf(StringLiteralNode);
-  expect((tree.arguments[1] as LiteralExpressionNode).literal.value).toBe('str');
-  expect(tree.instance).toBeInstanceOf(IdExpressionNode);
+  expect(node.arguments.length).toBe(2);
+  expect((node.arguments[0] as LiteralExpressionNode).literal).toBeInstanceOf(IntegerLiteralNode);
+  expect((node.arguments[0] as LiteralExpressionNode).literal.value).toBe(3);
+  expect((node.arguments[1] as LiteralExpressionNode).literal).toBeInstanceOf(StringLiteralNode);
+  expect((node.arguments[1] as LiteralExpressionNode).literal.value).toBe('str');
+  expect(node.instance).toBeInstanceOf(IdExpressionNode);
 });
 
 test('method on several lines', () => {
   const code = `f(3,
         "str", 123, 
     415)`;
-  const tree = parseExpression<InvokeExpressionNode>(code);
-  expect(tree).toBeInstanceOf(InvokeExpressionNode);
+  const node = parseExpression<InvokeExpressionNode>(code);
+  expect(node).toBeInstanceOf(InvokeExpressionNode);
 
-  expect(tree.arguments.length).toBe(4);
-  const [arg1, arg2] = tree.arguments.map((x) => x as LiteralExpressionNode);
+  expect(node.arguments.length).toBe(4);
+  const [arg1, arg2] = node.arguments.map((x) => x as LiteralExpressionNode);
   expect(arg1.literal).toBeInstanceOf(IntegerLiteralNode);
   expect(arg2.literal).toBeInstanceOf(StringLiteralNode);
-  expect(tree.instance).toBeInstanceOf(IdExpressionNode);
+  expect(node.instance).toBeInstanceOf(IdExpressionNode);
 });
 
 test('can call with type parameter', () => {
   const code = 'a.get (1)';
-  const tree = parseExpression<InvokeExpressionNode>(code);
-  expect(tree).toBeInstanceOf(InvokeExpressionNode);
+  const node = parseExpression<InvokeExpressionNode>(code);
+  expect(node).toBeInstanceOf(InvokeExpressionNode);
 
-  expect(tree.arguments.length).toBe(1);
-  const [arg] = tree.arguments.map((x) => x as LiteralExpressionNode);
+  expect(node.arguments.length).toBe(1);
+  const [arg] = node.arguments.map((x) => x as LiteralExpressionNode);
   expect(arg.literal).toBeInstanceOf(IntegerLiteralNode);
-  expect(tree.instance).toBeInstanceOf(MemberExpressionNode);
+  expect(node.instance).toBeInstanceOf(MemberExpressionNode);
 });
