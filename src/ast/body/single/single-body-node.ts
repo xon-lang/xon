@@ -13,6 +13,6 @@ export class SingleBodyNode extends BodyNode {
   }
 
   toString(): string {
-    return `  ${this.statement}`;
+    return `: ${this.statement}`;
   }
 }
