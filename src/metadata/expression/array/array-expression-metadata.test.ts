@@ -5,8 +5,8 @@ import { getExpressionMetadata } from '../expression-metadata-helper';
 
 test('empty', () => {
   const code = '[]';
-  const tree = parseExpression(code);
-  const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
+  const node = parseExpression(code);
+  const metadata = getExpressionMetadata(node, new TestDeclarationScope());
 
   expect(metadata.type).toBeInstanceOf(TupleTypeMetadata);
   const type = metadata.type as TupleTypeMetadata;
@@ -15,8 +15,8 @@ test('empty', () => {
 
 test('123', () => {
   const code = '[1, 2, 3]';
-  const tree = parseExpression(code);
-  const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
+  const node = parseExpression(code);
+  const metadata = getExpressionMetadata(node, new TestDeclarationScope());
 
   expect(metadata.type).toBeInstanceOf(TupleTypeMetadata);
   const type = metadata.type as TupleTypeMetadata;

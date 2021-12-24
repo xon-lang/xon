@@ -20,8 +20,8 @@ export class IssueService {
     this.scopes.shift();
   }
 
-  add(tree: Node, level: IssueLevel, message: string): Issue {
-    const issue = Issue.fromContext(tree.ctx, level, message);
+  add(node: Node, level: IssueLevel, message: string): Issue {
+    const issue = Issue.fromContext(node.ctx, level, message);
     this.lastScope.push(issue);
     return issue;
   }

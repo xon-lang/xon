@@ -5,8 +5,8 @@ import { getExpressionMetadata } from '../expression-metadata-helper';
 
 test('prefix', () => {
   const code = '+1';
-  const tree = parseExpression(code);
-  const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
+  const node = parseExpression(code);
+  const metadata = getExpressionMetadata(node, new TestDeclarationScope());
 
   expect(metadata.type).toBeInstanceOf(IdTypeMetadata);
 });

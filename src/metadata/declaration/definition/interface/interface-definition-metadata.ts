@@ -1,8 +1,5 @@
-import { InterfaceDefinitionTree } from '../../../../ast/definition/interface/interface-definition-tree';
+import { InterfaceDefinitionNode } from '../../../../ast/definition/interface/interface-definition-node';
 import { DeclarationScope } from '../../../declaration-scope';
-import { IdTypeMetadata } from '../../../type/id/id-type-metadata';
-import { getTypeMetadata } from '../../../type/type-metadata-helper';
-import { TypeParameterMetadata } from '../../type-parameter/type-parameter-metadata';
 import { DefinitionMetadata } from '../definition-metadata';
 
 export class InterfaceDefinitionMetadata extends DefinitionMetadata {
@@ -11,7 +8,7 @@ export class InterfaceDefinitionMetadata extends DefinitionMetadata {
   // _generics: GenericMetadata[];
   // get generics(): GenericMetadata[] {
   //   if (this._generics) return this._generics;
-  //   return (this._generics = this.tree.typeParameters.map((x) => {
+  //   return (this._generics = this.node.typeParameters.map((x) => {
   //     const restrictionType = getTypeMetadata(x.restrictionType, this.scope);
   //     return new GenericMetadata(x.id.text, x.hasSpread, restrictionType, this.scope);
   //   }));
@@ -20,25 +17,25 @@ export class InterfaceDefinitionMetadata extends DefinitionMetadata {
   // _ancestors: TypeMetadata[];
   // get ancestors(): TypeMetadata[] {
   //   if (this._ancestors) return this._ancestors;
-  //   return (this._ancestors = this.tree.ancestors.map((x) => getTypeMetadata(x, this.scope)));
+  //   return (this._ancestors = this.node.ancestors.map((x) => getTypeMetadata(x, this.scope)));
   // }
 
   // _attributes: AttributeMetadata[];
   // get attributes(): AttributeMetadata[] {
   //   if (this._attributes) return this._attributes;
 
-  //   this._attributes = this.tree.attributes.map((x) => getAttributeMetadata(x, this.scope));
+  //   this._attributes = this.node.attributes.map((x) => getAttributeMetadata(x, this.scope));
   //   return (this._attributes = [
   //     ...this._attributes,
   //     ...this.ancestors.flatMap((x) => x.attributes),
   //   ]);
   // }
 
-  constructor(tree: InterfaceDefinitionTree, protected scope: DeclarationScope) {
+  constructor(node: InterfaceDefinitionNode, protected scope: DeclarationScope) {
     super();
 
-    this.name = tree.id.text;
-    // const typeArguments = tree.typeParameters.map(
+    this.name = node.id.text;
+    // const typeArguments = node.typeParameters.map(
     //   (x) =>
     //     new TypeParameterMetadata(
     //       x.id.text,
@@ -54,8 +51,8 @@ export class InterfaceDefinitionMetadata extends DefinitionMetadata {
   // }
 
   // type(typeArguments: TypeMetadata[]): LambdaTypeMetadata {
-  //   const initParameters = this.tree.expressionParameters
-  //     ? this.tree.expressionParameters.map((x) => ({
+  //   const initParameters = this.node.expressionParameters
+  //     ? this.node.expressionParameters.map((x) => ({
   //         name: x.id.text,
   //         type: getTypeMetadata(x.type, this.scope),
   //       }))

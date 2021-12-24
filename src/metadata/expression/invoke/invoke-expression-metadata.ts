@@ -1,18 +1,17 @@
-import { GenericExpressionNode } from '../../../ast/expression/generic/call-expression.node';
 import { DeclarationScope } from '../../declaration-scope';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
 
-export class GenericExpressionMetadata extends ExpressionMetadata {
+export class InvokelExpressionMetadata extends ExpressionMetadata {
   type: TypeMetadata;
 
-  constructor(node: GenericExpressionNode, scope: DeclarationScope) {
+  constructor(node: InvokelExpressionNode, scope: DeclarationScope) {
     super();
 
     // const args = node.arguments.map((x) => getExpressionMetadata(x, scope)).map((x) => x.type);
     // const instanceType = getExpressionMetadata(node.instance, scope).type;
     // if (node.instance instanceof MemberExpressionNode) {
-    //   const member = node. instance.instance as MemberExpressionNode;
+    //   const member = node.instance.instance as MemberExpressionNode;
     //   const memberType = getExpressionMetadata(member, scope).type;
     //   const typeArguments = node.typeArguments.map((x) => getTypeMetadata(x, scope));
     //   const attributes = instanceType.attributes.filter((x) => {

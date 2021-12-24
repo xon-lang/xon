@@ -8,16 +8,16 @@ import { AttributeMetadata } from '../attribute-metadata';
 export class ValueAttributeMetadata extends AttributeMetadata {
   name: string;
 
-  constructor(private tree: ValueAttributeNode, private scope: DeclarationScope) {
+  constructor(private node: ValueAttributeNode, private scope: DeclarationScope) {
     super();
 
-    this.name = tree.id.text;
+    this.name = node.id.text;
   }
 
   type(): TypeMetadata {
-    if (this.tree.type) return getTypeMetadata(this.tree.type, this.scope);
+    if (this.node.type) return getTypeMetadata(this.node.type, this.scope);
 
-    const expression = getExpressionMetadata(this.tree.value, this.scope);
+    const expression = getExpressionMetadata(this.node.value, this.scope);
     return expression.type;
   }
 }

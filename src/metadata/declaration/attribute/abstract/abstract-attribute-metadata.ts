@@ -1,4 +1,4 @@
-import { AbstractAttributeTree } from '../../../../ast/attribute/abstract/abstract-attribute-tree';
+import { AbstractAttributeNode } from '../../../../ast/attribute/abstract/abstract-attribute-node';
 import { DeclarationScope } from '../../../declaration-scope';
 import { TypeMetadata } from '../../../type/type-metadata';
 import { getTypeMetadata } from '../../../type/type-metadata-helper';
@@ -7,13 +7,13 @@ import { AttributeMetadata } from '../attribute-metadata';
 export class AbstractAttributeMetadata extends AttributeMetadata {
   name: string;
 
-  constructor(private tree: AbstractAttributeTree, private scope: DeclarationScope) {
+  constructor(private node: AbstractAttributeNode, private scope: DeclarationScope) {
     super();
 
-    this.name = tree.id.text;
+    this.name = node.id.text;
   }
 
   type(): TypeMetadata {
-    return getTypeMetadata(this.tree.type);
+    return getTypeMetadata(this.node.type);
   }
 }

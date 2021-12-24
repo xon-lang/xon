@@ -8,14 +8,14 @@ import { getAttributeMetadata } from '../attribute-metadata-helper';
 export class ObjectAttributeMetadata extends AttributeMetadata {
   name: string;
 
-  constructor(private tree: ObjectAttributeNode, private scope: DeclarationScope) {
+  constructor(private node: ObjectAttributeNode, private scope: DeclarationScope) {
     super();
 
-    this.name = tree.id.text;
+    this.name = node.id.text;
   }
 
   type(): ObjectTypeMetadata {
-    const parameters = this.tree.body.map((x) => {
+    const parameters = this.node.body.map((x) => {
       const attribute = getAttributeMetadata(x, this.scope);
       return new ParameterMetadata(attribute.name, attribute.type());
     });

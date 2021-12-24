@@ -1,18 +1,16 @@
-import { InfixExpressionNode } from '../../../ast/expression/infix/infix-expression-node';
 import { IsExpressionNode } from '../../../ast/expression/is/is-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
-import { getExpressionMetadata } from '../expression-metadata-helper';
 
 export class IsExpressionMetadata extends ExpressionMetadata {
   type: TypeMetadata;
 
-  constructor(tree: IsExpressionNode, scope: DeclarationScope) {
+  constructor(node: IsExpressionNode, scope: DeclarationScope) {
     super();
 
-    // const declaration = getExpressionMetadata(tree.left, scope).type.declaration;
-    // const rightType = getExpressionMetadata(tree.right, scope).type;
-    // this.type = declaration.get(tree.id.text);
+    // const declaration = getExpressionMetadata(node.left, scope).type.declaration;
+    // const rightType = getExpressionMetadata(node.right, scope).type;
+    // this.type = declaration.get(node.id.text);
   }
 }

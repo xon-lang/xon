@@ -1,4 +1,4 @@
-import { PipeExpressionTree } from '../../../ast/expression/pipe/pipe-expression-node';
+import { PipeExpressionNode } from '../../../ast/expression/pipe/pipe-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
@@ -6,7 +6,7 @@ import { ExpressionMetadata } from '../expression-metadata';
 export class PipeExpressionMetadata extends ExpressionMetadata {
   type: TypeMetadata;
 
-  constructor(tree: PipeExpressionTree, scope: DeclarationScope) {
+  constructor(node: PipeExpressionNode, scope: DeclarationScope) {
     super();
 
     // this.type = ;

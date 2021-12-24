@@ -10,16 +10,16 @@ export class TypeParameterMetadata extends DeclarationMetadata {
   hasSpread: boolean;
   restrictionTypeDefinition: DefinitionMetadata;
 
-  constructor(private tree: GenericNode, private scope: DeclarationScope) {
+  constructor(private node: GenericNode, private scope: DeclarationScope) {
     super();
 
-    this.name = tree.id.text;
-    this.hasSpread = tree.hasSpread;
-    this.restrictionTypeDefinition = getTypeDefinition(tree.restrictionType, scope);
+    this.name = node.id.text;
+    this.hasSpread = node.hasSpread;
+    this.restrictionTypeDefinition = getTypeDefinition(node.restrictionType, scope);
   }
 
   resolveDefinition(definition: DefinitionMetadata) {
-    const metadata = new TypeParameterMetadata(this.tree, this.scope);
+    const metadata = new TypeParameterMetadata(this.node, this.scope);
     metadata.definition = definition;
     return metadata;
   }

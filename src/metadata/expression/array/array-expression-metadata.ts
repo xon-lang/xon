@@ -7,10 +7,10 @@ import { getExpressionMetadata } from '../expression-metadata-helper';
 export class ArrayExpressionMetadata extends ExpressionMetadata {
   type: TupleTypeMetadata;
 
-  constructor(tree: ArrayExpressionNode, scope: DeclarationScope) {
+  constructor(node: ArrayExpressionNode, scope: DeclarationScope) {
     super();
 
-    const itemsTypes = tree.items.map((x) => getExpressionMetadata(x, scope).type);
+    const itemsTypes = node.items.map((x) => getExpressionMetadata(x, scope).type);
     this.type = new TupleTypeMetadata(itemsTypes);
   }
 }

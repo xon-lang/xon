@@ -7,13 +7,13 @@ import { AttributeMetadata } from '../attribute-metadata';
 export class MethodAttributeMetadata extends AttributeMetadata {
   name: string;
 
-  constructor(private tree: MethodAttributeNode, private scope: DeclarationScope) {
+  constructor(private node: MethodAttributeNode, private scope: DeclarationScope) {
     super();
 
-    this.name = tree.id.text;
+    this.name = node.id.text;
   }
 
   type(): TypeMetadata {
-    return getTypeMetadata(this.tree.type);
+    return getTypeMetadata(this.node.type);
   }
 }

@@ -27,7 +27,7 @@
     "grammar": "scripts/grammar.sh",
     "eslint": "eslint . --max-warnings=0",
     "test": "jest --no-cache",
-    "test-tree": "jest src/tree --no-cache",
+    "test-ast": "jest src/ast --no-cache",
     "test-metadata": "jest src/metadata --no-cache",
     "build": "scripts/build.sh",
     "pre-commit": "scripts/pre-commit.sh",

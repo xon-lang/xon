@@ -1,4 +1,4 @@
-import { AliasDefinitionNode } from '../../../../ast/definition/alias/alias-definition-tree';
+import { AliasDefinitionNode } from '../../../../ast/definition/alias/alias-definition-node';
 import { DeclarationScope } from '../../../declaration-scope';
 import { DefinitionMetadata } from '../definition-metadata';
 
@@ -9,16 +9,16 @@ export class AliasDefinitionMetadata extends DefinitionMetadata {
   // _generics: GenericMetadata[];
   // get generics(): GenericMetadata[] {
   //   if (this._generics) return this._generics;
-  //   return (this._generics = this.tree.typeParameters.map((x) => {
+  //   return (this._generics = this.node.typeParameters.map((x) => {
   //     const restrictionType = getTypeMetadata(x.restrictionType, this.scope);
   //     return new GenericMetadata(x.id.text, x.hasSpread, restrictionType, this.scope);
   //   }));
   // }
 
-  constructor(tree: AliasDefinitionNode, protected scope: DeclarationScope) {
+  constructor(node: AliasDefinitionNode, protected scope: DeclarationScope) {
     super();
 
-    this.name = tree.id.text;
+    this.name = node.id.text;
   }
 
   // useTypeArguments(args: DefinitionMetadata[]): DefinitionMetadata {

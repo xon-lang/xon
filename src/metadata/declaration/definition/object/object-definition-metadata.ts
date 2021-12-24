@@ -12,24 +12,24 @@ export class ObjectDefinitionMetadata extends DefinitionMetadata {
   // _ancestors: TypeMetadata[];
   // get ancestors(): TypeMetadata[] {
   //   if (this._ancestors) return this._ancestors;
-  //   return (this._ancestors = this.tree.ancestors.map((x) => getTypeMetadata(x, this.scope)));
+  //   return (this._ancestors = this.node.ancestors.map((x) => getTypeMetadata(x, this.scope)));
   // }
 
   // _attributes: AttributeMetadata[];
   // get attributes(): AttributeMetadata[] {
   //   if (this._attributes) return this._attributes;
 
-  //   this._attributes = this.tree.attributes.map((x) => getAttributeMetadata(x, this.scope));
+  //   this._attributes = this.node.attributes.map((x) => getAttributeMetadata(x, this.scope));
   //   return (this._attributes = [
   //     ...this._attributes,
   //     ...this.ancestors.flatMap((x) => x.attributes),
   //   ]);
   // }
 
-  constructor(tree: ObjectDefinitionNode, protected scope: DeclarationScope) {
+  constructor(node: ObjectDefinitionNode, protected scope: DeclarationScope) {
     super();
 
-    this.name = tree.id.text;
+    this.name = node.id.text;
     this.type = new IdTypeMetadata(this.name, []);
   }
   useTypeArguments(args: DefinitionMetadata[]): DefinitionMetadata {

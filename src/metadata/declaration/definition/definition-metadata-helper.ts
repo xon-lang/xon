@@ -1,7 +1,7 @@
-import { AliasDefinitionNode } from '../../../ast/definition/alias/alias-definition-tree';
-import { ClassDefinitionTree } from '../../../ast/definition/class/class-definition-tree';
+import { AliasDefinitionNode } from '../../../ast/definition/alias/alias-definition-node';
+import { ClassDefinitionNode } from '../../../ast/definition/class/class-definition-node';
 import { DefinitionNode } from '../../../ast/definition/definition-node';
-import { InterfaceDefinitionTree } from '../../../ast/definition/interface/interface-definition-tree';
+import { InterfaceDefinitionNode } from '../../../ast/definition/interface/interface-definition-node';
 import { ObjectDefinitionNode } from '../../../ast/definition/object/object-definition-node';
 import { DeclarationScope } from '../../declaration-scope';
 import { AliasDefinitionMetadata } from './alias/alias-definition-metadata';
@@ -11,13 +11,13 @@ import { InterfaceDefinitionMetadata } from './interface/interface-definition-me
 import { ObjectDefinitionMetadata } from './object/object-definition-metadata';
 
 export function getDefinitionMetadata(
-  tree: DefinitionNode,
+  node: DefinitionNode,
   scope: DeclarationScope,
 ): DefinitionMetadata {
-  if (tree instanceof AliasDefinitionNode) return new AliasDefinitionMetadata(tree, scope);
-  if (tree instanceof ClassDefinitionTree) return new ClassDefinitionMetadata(tree, scope);
-  if (tree instanceof InterfaceDefinitionTree) return new InterfaceDefinitionMetadata(tree, scope);
-  if (tree instanceof ObjectDefinitionNode) return new ObjectDefinitionMetadata(tree, scope);
+  if (node instanceof AliasDefinitionNode) return new AliasDefinitionMetadata(node, scope);
+  if (node instanceof ClassDefinitionNode) return new ClassDefinitionMetadata(node, scope);
+  if (node instanceof InterfaceDefinitionNode) return new InterfaceDefinitionMetadata(node, scope);
+  if (node instanceof ObjectDefinitionNode) return new ObjectDefinitionMetadata(node, scope);
 
-  throw Error(`Definition metadata not found for "${tree.constructor.name}"`);
+  throw Error(`Definition metadata not found for "${node.constructor.name}"`);
 }
