@@ -16,6 +16,10 @@ export class SourceReference {
     return 0;
   }
 
+  get link(): string {
+    return `${this.sourceName}:${this.line}:${this.column}`;
+  }
+
   // clone() {
   //   const ref = new SourceReference();
   //   ref.filePath = this.filePath;
