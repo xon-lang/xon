@@ -1,29 +1,38 @@
-import { ParameterContext } from '../../grammar/xon-parser';
+import { AttributeContext } from '../../grammar/xon-parser';
+import { BodyNode } from '../body/body-node';
+import { getBodyNode } from '../body/body-node-helper';
 import { ExpressionNode } from '../expression/expression-node';
 import { getExpressionNode } from '../expression/expression-node-helper';
 import { IdNode } from '../id/id-node';
 import { getIdNode } from '../id/id-node-helper';
 import { Node } from '../node';
-import { IdToken } from '../util/id-token';
 import { SourceReference } from '../util/source-reference';
 
-export class ParameterNode implements Node {
+export class AttributeNode implements Node {
   sourceReference: SourceReference;
+  modifier?: Modifier;
   hasSpread: boolean;
   id: IdNode;
   type?: ExpressionNode;
-  meta?: IdToken;
+  body?: BodyNode;
 
-  constructor(ctx: ParameterContext) {
+  constructor(ctx: AttributeContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
+    this.modifier = (ctx.modifier() && Modifier[ctx.modifier().text]) || null;
     this.hasSpread = !!ctx.SPREAD();
     this.id = getIdNode(ctx.id());
     this.type = getExpressionNode(ctx.expr()) || null;
-    this.meta = (ctx._meta && new IdToken(ctx._meta)) || null;
+    this.body = getBodyNode(ctx.body()) || null;
   }
 
   toString(): string {
     if (this.type) return `${this.id} ${this.type}`;
     return this.id.toString();
   }
+}
+
+export enum Modifier {
+  class,
+  interface,
+  object,
 }
