@@ -1,14 +1,15 @@
 import { ExpressionStatementContext } from '../../../grammar/xon-parser';
-import { getExpressionNode } from '../../expression/expression-node-helper';
 import { ExpressionNode } from '../../expression/expression-node';
+import { getExpressionNode } from '../../expression/expression-node-helper';
+import { SourceReference } from '../../util/source-reference';
 import { StatementNode } from '../statement-node';
 
-export class ExpressionStatementNode extends StatementNode {
+export class ExpressionStatementNode implements StatementNode {
+  sourceReference: SourceReference;
   expression: ExpressionNode;
 
   constructor(public ctx: ExpressionStatementContext) {
-    super();
-
+    this.sourceReference = SourceReference.fromContext(this.ctx);
     this.expression = getExpressionNode(ctx.expr());
   }
 

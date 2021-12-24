@@ -1,15 +1,16 @@
 import { AssertStatementContext } from '../../../grammar/xon-parser';
-import { getExpressionNode } from '../../expression/expression-node-helper';
 import { ExpressionNode } from '../../expression/expression-node';
+import { getExpressionNode } from '../../expression/expression-node-helper';
+import { SourceReference } from '../../util/source-reference';
 import { StatementNode } from '../statement-node';
 
-export class AssertStatementNode extends StatementNode {
+export class AssertStatementNode implements StatementNode {
+  sourceReference: SourceReference;
   actual: ExpressionNode;
   expect: ExpressionNode;
 
   constructor(public ctx: AssertStatementContext) {
-    super();
-
+    this.sourceReference = SourceReference.fromContext(this.ctx);
     this.actual = getExpressionNode(ctx.expr(0));
     this.expect = getExpressionNode(ctx.expr(1));
   }

@@ -3,16 +3,17 @@ import { BodyNode } from '../../body/body-node';
 import { getBodyNode } from '../../body/body-node-helper';
 import { ExpressionNode } from '../../expression/expression-node';
 import { getExpressionNode } from '../../expression/expression-node-helper';
+import { SourceReference } from '../../util/source-reference';
 import { StatementNode } from '../statement-node';
 
-export class IfStatementNode extends StatementNode {
+export class IfStatementNode implements StatementNode {
+  sourceReference: SourceReference;
   condition: ExpressionNode;
   thenBody: BodyNode;
   elseBody?: BodyNode;
 
   constructor(public ctx: IfStatementContext) {
-    super();
-
+    this.sourceReference = SourceReference.fromContext(this.ctx);
     this.condition = getExpressionNode(ctx.expr());
     this.thenBody = getBodyNode(ctx._thenBody);
     this.elseBody = getBodyNode(ctx._elseBody);
