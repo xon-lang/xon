@@ -4,10 +4,7 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: (declaration | NL)*;
-
-declaration: modifier? '...'? id expr? body?;
-modifier:    TYPE | CLASS | INTERFACE | OBJECT | ENUM;
+source: (statement | NL)*;
 
 statement:
     IMPORT path = expr ':' members += expr (',' members += expr)* ','?   # importStatement
@@ -62,6 +59,8 @@ body:
     | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
+declaration: modifier? '...'? id expr? body?;
+modifier:    TYPE | CLASS | INTERFACE | OBJECT | ENUM;
 id:
     name = (
         ID
