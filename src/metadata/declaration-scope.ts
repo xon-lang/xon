@@ -19,7 +19,7 @@ export class DeclarationScope {
     return results;
   }
 
-  findByName<T extends DeclarationMetadata>(name: string): T {
+  findByName(name: string): DeclarationMetadata {
     const results = this.filterByName(name);
 
     if (results.length > 1) {
@@ -32,7 +32,7 @@ export class DeclarationScope {
       throw new Error(`Declaration '${name}' not found`);
     }
 
-    return results[0] as T;
+    return results[0];
   }
 
   find(predicate: (x: DeclarationMetadata) => boolean): DeclarationMetadata {
