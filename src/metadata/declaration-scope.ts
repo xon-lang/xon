@@ -23,8 +23,8 @@ export class DeclarationScope {
     const results = this.filterByName(name);
 
     if (results.length > 1) {
-      Issue.errorFromNode(
-        results[results.length - 1].node,
+      Issue.errorFromSourceReference(
+        results[results.length - 1].sourceReference,
         `Too many '${name}' declarations found`,
       );
     }
