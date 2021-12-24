@@ -1,6 +1,8 @@
-import { TypeMetadata } from '../type/type-metadata';
+import { SourceReference } from '../../ast/util/source-reference';
+import { ExpressionMetadata } from '../expression/expression-metadata';
 
-export abstract class DeclarationMetadata {
-  abstract name: string;
-  // /* abstract */ type: TypeMetadata;
+export interface DeclarationMetadata {
+  sourceReference: SourceReference;
+  name: string;
+  generics: ExpressionMetadata[];
 }
