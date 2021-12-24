@@ -1,4 +1,5 @@
 import { FloatLiteralContext } from '../../../grammar/xon-parser';
+import { SourceReference } from '../../util/source-reference';
 import { LiteralNode } from '../literal-node';
 
 export class FloatLiteralNode implements LiteralNode {

@@ -1,6 +1,4 @@
-import { Node } from '../ast/node';
 import { Issue } from './issue';
-import { IssueLevel } from './issue-level';
 
 export class IssueService {
   static instance = new IssueService();
@@ -18,11 +16,5 @@ export class IssueService {
 
   popScope(): void {
     this.scopes.shift();
-  }
-
-  add(node: Node, level: IssueLevel, message: string): Issue {
-    const issue = Issue.fromContext(node.ctx, level, message);
-    this.lastScope.push(issue);
-    return issue;
   }
 }

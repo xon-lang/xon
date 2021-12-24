@@ -5,6 +5,7 @@ import { IdExpressionNode } from '../../expression/id/id-expression-node';
 import { InfixExpressionNode } from '../../expression/infix/infix-expression-node';
 import { Node } from '../../node';
 import { IdToken } from '../../util/id-token';
+import { SourceReference } from '../../util/source-reference';
 
 export class ImportMemberNode implements Node {
   sourceReference: SourceReference;

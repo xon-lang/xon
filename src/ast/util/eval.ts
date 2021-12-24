@@ -17,8 +17,6 @@ export const evalExpression = (node: ExpressionNode, argsMap = {}): unknown => {
     const a = evalExpression(node.left, argsMap);
     const b = evalExpression(node.right, argsMap);
     const o = node.id.text === '^' ? '**' : node.id.text;
-    console.log(node.ctx.text);
-    
     return eval(`${escapeIfString(a)} ${o} ${escapeIfString(b)}`);
   }
   if (node instanceof PrefixExpressionNode) {
@@ -27,8 +25,8 @@ export const evalExpression = (node: ExpressionNode, argsMap = {}): unknown => {
   }
   if (node instanceof IdExpressionNode) {
     if (node.id.name.text in argsMap) return argsMap[node.id.name.text];
-    Issue.error(node.ctx,`Undefined key: ${node.id}`);
+    Issue.error(node.ctx, `Undefined key: ${node.id}`);
   }
 
-  Issue.error(node.ctx,'Unsupported operation');
+  Issue.error(node['ctx'], 'Unsupported operation');
 };

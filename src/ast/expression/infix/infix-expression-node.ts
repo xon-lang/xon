@@ -12,9 +12,7 @@ export class InfixExpressionNode implements ExpressionNode {
     public id: IdToken,
     public left: ExpressionNode,
     public right: ExpressionNode,
-  ) {
-    super();
-  }
+  ) {}
 
   toString(): string {
     return `${this.left} ${this.id} ${this.right}`;
