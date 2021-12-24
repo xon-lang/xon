@@ -1,3 +1,4 @@
+import { Issue } from '../issue-service/issue';
 import { DeclarationMetadata } from './declaration/declaration-metadata';
 
 export class DeclarationScope {
@@ -18,17 +19,20 @@ export class DeclarationScope {
     return results;
   }
 
-  findByName(name: string): DeclarationMetadata {
+  findByName<T extends DeclarationMetadata>(name: string): T {
     const results = this.filterByName(name);
 
     if (results.length > 1) {
-      throw new Error(`Too many '${name}' declarations found`);
+      Issue.errorFromNode(
+        results[results.length - 1].node,
+        `Too many '${name}' declarations found`,
+      );
     }
     if (!results.length) {
       throw new Error(`Declaration '${name}' not found`);
     }
 
-    return results[0];
+    return results[0] as T;
   }
 
   find(predicate: (x: DeclarationMetadata) => boolean): DeclarationMetadata {

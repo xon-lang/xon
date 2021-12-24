@@ -1,12 +1,12 @@
 import { DeclarationScope } from './declaration-scope';
 import { ModuleMetadata } from './module/module-metadata';
 
-export class TestDeclarationScope extends DeclarationScope {
+export class CoreDeclarationScope extends DeclarationScope {
   constructor() {
     super();
     this.declarations = new ModuleMetadata(
-      'ast.xon/lib/@xon/core',
+      'lib/@xon/core',
       new DeclarationScope(),
-    ).definitions;
+    ).declarations;
   }
 }

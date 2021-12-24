@@ -1,4 +1,4 @@
 export class ModuleConfig {
-  defaultImports = ['ast.xon/lib/@xon/core'];
+  defaultImports = ['lib/@xon/core'];
   defaultType = 'Object';
 }
