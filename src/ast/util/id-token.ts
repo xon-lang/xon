@@ -8,7 +8,6 @@ export class IdToken {
   metadata: DeclarationMetadata;
 
   constructor(token?: Token) {
-    if (!token) return;
     this.sourceReference = SourceReference.fromToken(token);
     this.text = token.text;
   }
