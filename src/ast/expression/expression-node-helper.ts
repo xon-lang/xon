@@ -7,6 +7,7 @@ import {
   EqualityExpressionContext,
   ExprContext,
   IdExpressionContext,
+  IndexExpressionContext,
   InfixExpressionContext,
   InvokeExpressionContext,
   LiteralExpressionContext,
@@ -25,6 +26,7 @@ import { IdToken } from '../util/id-token';
 import { ArrayExpressionNode } from './array/array-expression-node';
 import { ExpressionNode } from './expression-node';
 import { IdExpressionNode } from './id/id-expression-node';
+import { IndexExpressionNode } from './index/index-expression-node';
 import { InfixExpressionNode } from './infix/infix-expression-node';
 import { InvokeExpressionNode } from './invoke/invoke-expression-node';
 import { LiteralExpressionNode } from './literal/literal-expression-node';
@@ -38,6 +40,7 @@ export const getExpressionNode = (ctx: ExprContext): ExpressionNode => {
   if (ctx === undefined) return undefined;
 
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionNode(ctx);
+  if (ctx instanceof IndexExpressionContext) return new IndexExpressionNode(ctx);
   if (ctx instanceof IdExpressionContext) return new IdExpressionNode(ctx);
   if (ctx instanceof InvokeExpressionContext) return new InvokeExpressionNode(ctx);
   if (ctx instanceof LiteralExpressionContext) return new LiteralExpressionNode(ctx);

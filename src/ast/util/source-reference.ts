@@ -38,7 +38,7 @@ export class SourceReference {
     const ref = new SourceReference();
     ref.sourceName = start.inputStream.sourceName;
     ref.startIndex = start.startIndex;
-    ref.stopIndex = stop.stopIndex;
+    ref.stopIndex = stop?.stopIndex || start.startIndex;
     ref.line = start.line;
     ref.column = start.charPositionInLine + 1;
     ref.text = text;
