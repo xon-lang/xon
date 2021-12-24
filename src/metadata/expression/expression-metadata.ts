@@ -1,5 +1,5 @@
-import { TypeMetadata } from '../type/type-metadata';
+import { DeclarationMetadata } from '../declaration/declaration-metadata';
 
-export abstract class ExpressionMetadata {
-  abstract type: TypeMetadata;
+export interface ExpressionMetadata {
+  attributes(): DeclarationMetadata[];
 }

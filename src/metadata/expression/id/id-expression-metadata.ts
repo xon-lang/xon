@@ -1,17 +1,14 @@
 import { IdExpressionNode } from '../../../ast/expression/id/id-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
-import { TypeMetadata } from '../../type/type-metadata';
+import { DeclarationMetadata } from '../../declaration/declaration-metadata';
+import { InterfaceDeclarationMetadata } from '../../declaration/interface/interface-declaration-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
 
-export class IdExpressionMetadata extends ExpressionMetadata {
-  type: TypeMetadata;
+export class IdExpressionMetadata implements ExpressionMetadata {
+  constructor(private node: IdExpressionNode, private scope: DeclarationScope) {}
 
-  constructor(node: IdExpressionNode, scope: DeclarationScope) {
-    super();
-
-    // this.type  = declaration.type
-    // const typeArguments = node.typeArguments.map((x) => getTypeMetadata(x, scope));
-    // node.id.metadata = declaration;
-    // this.type = declaration.type(typeArguments);
+  attributes(): DeclarationMetadata[] {
+    const declaration = this.scope.findByName<InterfaceDeclarationMetadata>(this.node.id.name.text);
+    return declaration.attributes();
   }
 }

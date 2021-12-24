@@ -1,13 +1,10 @@
+import { InvokeExpressionNode } from '../../../ast/expression/invoke/invoke-expression-node';
 import { DeclarationScope } from '../../declaration-scope';
-import { TypeMetadata } from '../../type/type-metadata';
+import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
 
-export class InvokelExpressionMetadata extends ExpressionMetadata {
-  type: TypeMetadata;
-
-  constructor(node: InvokelExpressionNode, scope: DeclarationScope) {
-    super();
-
+export class InvokeExpressionMetadata implements ExpressionMetadata {
+  constructor(node: InvokeExpressionNode, scope: DeclarationScope) {
     // const args = node.arguments.map((x) => getExpressionMetadata(x, scope)).map((x) => x.type);
     // const instanceType = getExpressionMetadata(node.instance, scope).type;
     // if (node.instance instanceof MemberExpressionNode) {
@@ -28,8 +25,11 @@ export class InvokelExpressionMetadata extends ExpressionMetadata {
     //   const instanceType = getExpressionMetadata(node.instance, scope).type;
     //   if (!(instanceType instanceof LambdaTypeMetadata))
     //     throw new Error(`Instance type is not a method but '${instanceType.constructor.name}'`);
-
     //   this.type = instanceType.resultType;
     // }
+  }
+
+  attributes(): DeclarationMetadata[] {
+    throw new Error('Method not implemented.');
   }
 }
