@@ -1,4 +1,4 @@
-import { evalExpression } from '../../util/eval';
+import { evaluate } from '../../util/evaluate';
 import { parseExpression } from '../../util/parse';
 import { IdExpressionNode } from '../id/id-expression-node';
 import { InfixExpressionNode } from './infix-expression-node';
@@ -8,7 +8,7 @@ test('num plus num', () => {
   const node = parseExpression<InfixExpressionNode>(code);
   expect(node).toBeInstanceOf(InfixExpressionNode);
 
-  expect(evalExpression(node)).toBe(2);
+  expect(evaluate(node)).toBe(2);
 });
 
 test('num plus str', () => {
@@ -16,7 +16,7 @@ test('num plus str', () => {
   const node = parseExpression<InfixExpressionNode>(code);
   expect(node).toBeInstanceOf(InfixExpressionNode);
 
-  expect(evalExpression(node)).toBe('1str');
+  expect(evaluate(node)).toBe('1str');
 });
 
 test('has several relational operators', () => {

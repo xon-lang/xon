@@ -1,5 +1,5 @@
 import { MultipleBodyNode } from '../../body/multiple/multiple-body-node';
-import { evalExpression } from '../../util/eval';
+import { evaluate } from '../../util/evaluate';
 import { IdExpressionNode } from '../../expression/id/id-expression-node';
 import { parseStatement } from '../../util/parse';
 import { ExpressionStatementNode } from '../expression/expression-statement-node';
@@ -14,5 +14,5 @@ test('has boolean value', () => {
   expect((node.expression as IdExpressionNode).id.name.text).toBe('true');
 
   const statement = (node.body as MultipleBodyNode).statements[0] as ExpressionStatementNode;
-  expect(evalExpression(statement.expression)).toBe(12 + 45 / 5);
+  expect(evaluate(statement.expression)).toBe(12 + 45 / 5);
 });

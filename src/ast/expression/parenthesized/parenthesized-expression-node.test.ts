@@ -1,4 +1,4 @@
-import { evalExpression } from '../../util/eval';
+import { evaluate } from '../../util/evaluate';
 import { parseExpression } from '../../util/parse';
 import { InfixExpressionNode } from '../infix/infix-expression-node';
 import { ParenthesizedExpressionNode } from './parenthesized-expression-node';
@@ -16,5 +16,5 @@ test('several parenthesized expression', () => {
   const node = parseExpression(code);
   expect(node).toBeInstanceOf(ParenthesizedExpressionNode);
 
-  expect(evalExpression(node)).toBe(123);
+  expect(evaluate(node)).toBe(123);
 });

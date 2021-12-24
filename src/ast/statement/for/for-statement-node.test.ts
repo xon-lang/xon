@@ -1,6 +1,6 @@
 import { MultipleBodyNode } from '../../body/multiple/multiple-body-node';
 import { SingleBodyNode } from '../../body/single/single-body-node';
-import { evalExpression } from '../../util/eval';
+import { evaluate } from '../../util/evaluate';
 import { ArrayExpressionNode } from '../../expression/array/array-expression-node';
 import { IdExpressionNode } from '../../expression/id/id-expression-node';
 import { parseStatement } from '../../util/parse';
@@ -16,7 +16,7 @@ test('for with value', () => {
   expect(node.expression).toBeInstanceOf(ArrayExpressionNode);
 
   const body = node.body as SingleBodyNode;
-  expect(evalExpression((body.statement as ExpressionStatementNode).expression)).toBe(12 + 45 / 5);
+  expect(evaluate((body.statement as ExpressionStatementNode).expression)).toBe(12 + 45 / 5);
 });
 
 test('for with value and index', () => {
@@ -29,7 +29,7 @@ test('for with value and index', () => {
   expect(node.expression).toBeInstanceOf(IdExpressionNode);
 
   const body = node.body as MultipleBodyNode;
-  expect(evalExpression((body.statements[0] as ExpressionStatementNode).expression)).toBe(12 + 10);
+  expect(evaluate((body.statements[0] as ExpressionStatementNode).expression)).toBe(12 + 10);
 });
 
 test('for with expression only', () => {
@@ -42,5 +42,5 @@ test('for with expression only', () => {
   expect(node.expression).toBeInstanceOf(ArrayExpressionNode);
 
   const body = node.body as MultipleBodyNode;
-  expect(evalExpression((body.statements[0] as ExpressionStatementNode).expression)).toBe(1 + 1);
+  expect(evaluate((body.statements[0] as ExpressionStatementNode).expression)).toBe(1 + 1);
 });

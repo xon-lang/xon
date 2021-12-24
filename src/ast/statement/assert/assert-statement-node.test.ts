@@ -1,4 +1,4 @@
-import { evalExpression } from '../../util/eval';
+import { evaluate } from '../../util/evaluate';
 import { parseStatement } from '../../util/parse';
 import { AssertStatementNode } from './assert-statement-node';
 
@@ -7,6 +7,6 @@ test('variable assignment', () => {
   const node = parseStatement<AssertStatementNode>(code);
   expect(node).toBeInstanceOf(AssertStatementNode);
 
-  expect(evalExpression(node.actual)).toBe(2);
-  expect(evalExpression(node.expect)).toBe(2);
+  expect(evaluate(node.actual)).toBe(2);
+  expect(evaluate(node.expect)).toBe(2);
 });
