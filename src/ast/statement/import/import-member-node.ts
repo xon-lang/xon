@@ -12,20 +12,20 @@ export class ImportMemberNode implements Node {
   id: IdToken;
   alias?: IdToken;
 
-  constructor(public ctx: ExprContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: ExprContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     const node = getExpressionNode(ctx);
     if (node instanceof IdExpressionNode) {
       this.id = node.id.name;
     } else if (node instanceof InfixExpressionNode) {
-      if (node.id.text !== 'as') Issue.error(ctx, "Must be 'as' operator");
-      if (!(node.left instanceof IdExpressionNode)) Issue.error(ctx, 'Must be id');
-      if (!(node.right instanceof IdExpressionNode)) Issue.error(ctx, 'Must be id');
+      if (node.id.text !== 'as') Issue.errorFromContext(ctx, "Must be 'as' operator");
+      if (!(node.left instanceof IdExpressionNode)) Issue.errorFromContext(ctx, 'Must be id');
+      if (!(node.right instanceof IdExpressionNode)) Issue.errorFromContext(ctx, 'Must be id');
 
       this.id = node.left.id.name;
       this.alias = node.right.id.name;
     } else {
-      Issue.error(ctx, 'Wrong expression type');
+      Issue.errorFromContext(ctx, 'Wrong expression type');
     }
   }
 

@@ -23,5 +23,5 @@ export const getLiteralNode = (ctx: LiteralContext): LiteralNode => {
   if (ctx instanceof RegexLiteralContext) return new RegexLiteralNode(ctx);
   if (ctx instanceof StringLiteralContext) return new StringLiteralNode(ctx);
 
-  Issue.error(ctx, `Literal node not found for "${ctx.constructor.name}"`);
+  Issue.errorFromContext(ctx, `Literal node not found for "${ctx.constructor.name}"`);
 };

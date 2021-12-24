@@ -7,8 +7,8 @@ export class RegexLiteralNode implements LiteralNode {
   value: RegExp;
   pattern: string;
 
-  constructor(public ctx: RegexLiteralContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: RegexLiteralContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.pattern = ctx.text.slice(1, -1).replace(/\\\//g, '/');
     this.value = new RegExp(this.pattern, 'g');
   }

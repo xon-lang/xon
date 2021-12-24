@@ -9,8 +9,8 @@ export class FloatLiteralNode implements LiteralNode {
   fraction: string;
   value: number;
 
-  constructor(public ctx: FloatLiteralContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: FloatLiteralContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     [this.integer, this.fraction] = ctx.text.split('.');
     const [integer, radix] = this.integer.split('x').reverse();
     this.integer = integer;

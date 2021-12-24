@@ -12,8 +12,8 @@ export class IfStatementNode implements StatementNode {
   thenBody: BodyNode;
   elseBody?: BodyNode;
 
-  constructor(public ctx: IfStatementContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: IfStatementContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.condition = getExpressionNode(ctx.expr());
     this.thenBody = getBodyNode(ctx._thenBody);
     this.elseBody = getBodyNode(ctx._elseBody);

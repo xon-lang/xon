@@ -1,5 +1,7 @@
 import { ParserRuleContext } from 'antlr4ts';
 import chalk from 'chalk';
+import { Node } from '../ast/node';
+import { SourceReference } from '../ast/util/source-reference';
 import { IssueLevel } from './issue-level';
 
 export class Issue {
@@ -7,11 +9,12 @@ export class Issue {
   level: IssueLevel;
   line: number;
   column: number;
-  ctx: ParserRuleContext;
+  inputText: string;
+  sourceName: string;
 
   toString(): string {
-    const code = this.ctx.start.inputStream.toString().split('\n')[this.line - 1];
-    const source = chalk.cyan(this.ctx.start.inputStream.sourceName);
+    const code = this.inputText.split('\n')[this.line - 1];
+    const source = chalk.cyan(this.sourceName);
     const line = chalk.yellow(this.line);
     const column = chalk.yellow(this.column);
     const message = `${chalk.redBright('error')} ${this.message}`;
@@ -22,18 +25,28 @@ export class Issue {
     return `${source}:${line}:${column} - ${message}\n${lineNumber}${code}\n${caret}`;
   }
 
-  static fromContext(ctx: ParserRuleContext, level: IssueLevel, message: string): Issue {
+  static fromSourceReference(ref: SourceReference, level: IssueLevel, message: string): Issue {
     const issue = new Issue();
-    issue.ctx = ctx;
     issue.level = level;
     issue.message = message;
-    issue.line = ctx.start.line;
-    issue.column = ctx.start.charPositionInLine;
+    issue.line = ref.line;
+    issue.column = ref.column;
+    issue.inputText = ref.inputText;
+    issue.sourceName = ref.sourceName;
     return issue;
   }
 
-  static error(ctx: ParserRuleContext, message: string): never {
-    const issue = Issue.fromContext(ctx, IssueLevel.Error, message);
+  static errorFromContext(ctx: ParserRuleContext, message: string): never {
+    const issue = Issue.fromSourceReference(
+      SourceReference.fromContext(ctx),
+      IssueLevel.Error,
+      message,
+    );
+    throw new Error(issue.toString());
+  }
+
+  static errorFromNode(node: Node, message: string): never {
+    const issue = Issue.fromSourceReference(node.sourceReference, IssueLevel.Error, message);
     throw new Error(issue.toString());
   }
 }

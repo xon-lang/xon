@@ -10,8 +10,8 @@ export class LiteralExpressionNode implements ExpressionNode {
   metadata: LiteralExpressionMetadata;
   literal: LiteralNode;
 
-  constructor(public ctx: LiteralExpressionContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: LiteralExpressionContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.literal = ctx && getLiteralNode(ctx.literal());
   }
 

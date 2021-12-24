@@ -8,8 +8,8 @@ export class MultipleBodyNode implements BodyNode {
   sourceReference: SourceReference;
   statements: StatementNode[];
 
-  constructor(public ctx: MultipleBodyContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: MultipleBodyContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.statements = getStatementNodes(ctx.statement());
   }
 

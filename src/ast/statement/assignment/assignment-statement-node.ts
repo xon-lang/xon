@@ -11,8 +11,8 @@ export class AssignmentStatementNode implements StatementNode {
   id: IdNode;
   value: ExpressionNode;
 
-  constructor(public ctx: AssignmentStatementContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: AssignmentStatementContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.id = getIdNode(ctx.id());
     this.value = getExpressionNode(ctx.expr());
   }

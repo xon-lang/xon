@@ -10,8 +10,8 @@ export class IdExpressionNode implements ExpressionNode {
   metadata: IdExpressionMetadata;
   id: IdNode;
 
-  constructor(public ctx: IdExpressionContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: IdExpressionContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.id = getIdNode(ctx.id());
   }
 

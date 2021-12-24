@@ -14,8 +14,8 @@ export class AttributeStatementNode implements StatementNode {
   type: ExpressionNode;
   body: BodyNode;
 
-  constructor(public ctx: AttributeStatementContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: AttributeStatementContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.id = getIdNode(ctx.id());
     this.type = getExpressionNode(ctx.expr()) || null;
     this.body = getBodyNode(ctx.body()) || null;

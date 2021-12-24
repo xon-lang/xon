@@ -11,8 +11,8 @@ export class PrefixExpressionNode implements ExpressionNode {
   id: IdToken;
   value: ExpressionNode;
 
-  constructor(public ctx: PrefixExpressionContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: PrefixExpressionContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.id = new IdToken(ctx._op);
     this.value = getExpressionNode(ctx.expr());
   }

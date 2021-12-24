@@ -13,8 +13,8 @@ export class ForStatementNode implements StatementNode {
   expression: ExpressionNode;
   body: BodyNode;
 
-  constructor(public ctx: ForStatementContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: ForStatementContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.valueVarName = ctx._value?.text || null;
     this.indexVarName = ctx._index?.text || null;
     this.expression = getExpressionNode(ctx.expr());

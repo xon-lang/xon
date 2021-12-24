@@ -12,8 +12,8 @@ export class MemberExpressionNode implements ExpressionNode {
   instance: ExpressionNode;
   id: IdNode;
 
-  constructor(public ctx: MemberExpressionContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: MemberExpressionContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.instance = getExpressionNode(ctx.expr());
     this.id = getIdNode(ctx.id());
   }

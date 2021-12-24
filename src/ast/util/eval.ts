@@ -25,8 +25,8 @@ export const evalExpression = (node: ExpressionNode, argsMap = {}): unknown => {
   }
   if (node instanceof IdExpressionNode) {
     if (node.id.name.text in argsMap) return argsMap[node.id.name.text];
-    Issue.error(node.ctx, `Undefined key: ${node.id}`);
+    Issue.errorFromNode(node, `Undefined key: ${node.id}`);
   }
 
-  Issue.error(node['ctx'], 'Unsupported operation');
+  Issue.errorFromNode(node, 'Unsupported operation');
 };

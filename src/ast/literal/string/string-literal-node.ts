@@ -6,8 +6,8 @@ export class StringLiteralNode implements LiteralNode {
   sourceReference: SourceReference;
   value: string;
 
-  constructor(public ctx: StringLiteralContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: StringLiteralContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     const QUOTE_START = 1;
     const QUOTE_END = -1;
     this.value = ctx.text.slice(QUOTE_START, QUOTE_END).replace(/\\"/g, '"');

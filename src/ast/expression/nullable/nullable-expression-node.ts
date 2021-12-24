@@ -9,8 +9,8 @@ export class NullableExpressionNode implements ExpressionNode {
   metadata: ExpressionMetadata;
   value: ExpressionNode;
 
-  constructor(public ctx: NullableExpressionContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: NullableExpressionContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.value = getExpressionNode(ctx.expr());
   }
 

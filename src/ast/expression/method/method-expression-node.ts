@@ -12,8 +12,8 @@ export class MethodExpressionNode implements ExpressionNode {
   parameters: ParameterNode[] = [];
   result?: ExpressionNode;
 
-  constructor(public ctx: MethodExpressionContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: MethodExpressionContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.parameters = getParameterNodes(ctx.parameter());
     this.result = getExpressionNode(ctx.expr()) || null;
   }

@@ -9,8 +9,8 @@ export class ArrayExpressionNode implements ExpressionNode {
   metadata: ArrayExpressionMetadata;
   items: ExpressionNode[];
 
-  constructor(public ctx: ArrayExpressionContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: ArrayExpressionContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.items = getExpressionNodes(ctx.expr());
   }
 

@@ -8,8 +8,8 @@ export class ImportStatementNode implements StatementNode {
   path: string;
   members?: ImportMemberNode[];
 
-  constructor(public ctx: ImportStatementContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: ImportStatementContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
 
     // todo check if it is member expr
     this.path = ctx._path.text;

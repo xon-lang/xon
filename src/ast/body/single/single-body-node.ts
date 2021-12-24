@@ -8,8 +8,8 @@ export class SingleBodyNode implements BodyNode {
   sourceReference: SourceReference;
   statement: StatementNode;
 
-  constructor(public ctx: SingleBodyContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: SingleBodyContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.statement = getStatementNode(ctx.statement());
   }
 

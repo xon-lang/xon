@@ -6,14 +6,14 @@ export class PreprocessorStatementNode implements StatementNode {
   sourceReference: SourceReference;
   value: string;
 
-  constructor(public ctx: PreprocessorStatementContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: PreprocessorStatementContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
 
     const beforeSymbolsCount = 2;
     this.value = ctx.PREPROCESSOR().text.trim().slice(beforeSymbolsCount, -1);
   }
 
   toString(): string {
-    return this.ctx.text;
+    return this.sourceReference.text;
   }
 }

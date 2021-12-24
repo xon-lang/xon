@@ -11,8 +11,8 @@ export class WhileStatementNode implements StatementNode {
   expression: ExpressionNode;
   body: BodyNode;
 
-  constructor(public ctx: WhileStatementContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: WhileStatementContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.expression = getExpressionNode(ctx.expr());
     this.body = getBodyNode(ctx.body());
   }

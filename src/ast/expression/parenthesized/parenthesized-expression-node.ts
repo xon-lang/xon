@@ -9,8 +9,8 @@ export class ParenthesizedExpressionNode implements ExpressionNode {
   metadata: ExpressionMetadata;
   expression: ExpressionNode;
 
-  constructor(public ctx: ParenthesizedExpressionContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: ParenthesizedExpressionContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.expression = getExpressionNode(ctx.expr());
   }
 

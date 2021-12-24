@@ -6,8 +6,8 @@ export class CharLiteralNode implements LiteralNode {
   sourceReference: SourceReference;
   value: string;
 
-  constructor(public ctx: CharLiteralContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: CharLiteralContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     const STRING_START = 1;
     const STRING_END = -1;
     this.value = ctx.text.slice(STRING_START, STRING_END).replace(/\\'/g, "'");

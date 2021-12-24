@@ -10,8 +10,8 @@ export class IdNode implements Node {
   name: IdToken;
   generics: ExpressionNode[] = [];
 
-  constructor(public ctx: IdContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: IdContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.name = new IdToken(ctx._name);
     this.generics = getExpressionNodes(ctx.expr());
   }

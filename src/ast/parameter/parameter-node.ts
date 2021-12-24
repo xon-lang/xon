@@ -14,8 +14,8 @@ export class ParameterNode implements Node {
   type?: ExpressionNode;
   meta?: IdToken;
 
-  constructor(public ctx: ParameterContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: ParameterContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.hasSpread = !!ctx.SPREAD();
     this.id = getIdNode(ctx.id());
     this.type = getExpressionNode(ctx.expr()) || null;

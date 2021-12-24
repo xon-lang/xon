@@ -8,7 +8,7 @@ export class InfixExpressionNode implements ExpressionNode {
   sourceReference: SourceReference;
   metadata: InfixExpressionMetadata;
   constructor(
-    public ctx: ExprContext,
+    ctx: ExprContext,
     public id: IdToken,
     public left: ExpressionNode,
     public right: ExpressionNode,

@@ -8,8 +8,8 @@ export class SourceNode implements Node {
   sourceReference: SourceReference;
   statements: StatementNode[] = [];
 
-  constructor(public ctx: SourceContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: SourceContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.statements = getStatementNodes(ctx.statement());
   }
 

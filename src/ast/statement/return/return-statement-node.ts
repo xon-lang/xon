@@ -8,8 +8,8 @@ export class ReturnStatementNode implements StatementNode {
   sourceReference: SourceReference;
   value?: ExpressionNode;
 
-  constructor(public ctx: ReturnStatementContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: ReturnStatementContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.value = ctx.expr() && getExpressionNode(ctx.expr());
   }
 

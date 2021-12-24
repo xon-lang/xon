@@ -9,8 +9,8 @@ export class AssertStatementNode implements StatementNode {
   actual: ExpressionNode;
   expect: ExpressionNode;
 
-  constructor(public ctx: AssertStatementContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: AssertStatementContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.actual = getExpressionNode(ctx.expr(0));
     this.expect = getExpressionNode(ctx.expr(1));
   }

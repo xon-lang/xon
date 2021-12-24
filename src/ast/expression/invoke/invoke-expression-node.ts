@@ -10,8 +10,8 @@ export class InvokeExpressionNode implements ExpressionNode {
   instance: ExpressionNode;
   arguments: ExpressionNode[];
 
-  constructor(public ctx: InvokeExpressionContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: InvokeExpressionContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     this.instance = getExpressionNode(ctx._instance);
     this.arguments = getExpressionNodes(ctx._args);
   }

@@ -8,8 +8,8 @@ export class IntegerLiteralNode implements LiteralNode {
   integer: string;
   value: number;
 
-  constructor(public ctx: IntegerLiteralContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: IntegerLiteralContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     const [integer, radix] = ctx.text.split('x').reverse();
     this.integer = integer;
     this.radix = +radix;

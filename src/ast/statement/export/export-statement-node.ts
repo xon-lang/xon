@@ -6,8 +6,8 @@ export class ExportStatementNode implements StatementNode {
   sourceReference: SourceReference;
   path: string;
 
-  constructor(public ctx: ExportStatementContext) {
-    this.sourceReference = SourceReference.fromContext(this.ctx);
+  constructor(ctx: ExportStatementContext) {
+    this.sourceReference = SourceReference.fromContext(ctx);
     // todo check if it is member expr
     this.path = ctx._path.text;
   }
