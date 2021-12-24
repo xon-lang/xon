@@ -1,6 +1,0 @@
-interface Boolean
-  toString() String
-
-
-object False is Boolean
-object True is Boolean

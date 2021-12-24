@@ -1,0 +1,13 @@
+-- under question
+interface Any
+  in (other Range) Boolean
+  is (other Any) Boolean
+  as <T>(other T) T
+
+object None
+
+interface Never
+
+type Boolean: False || True
+object False
+object True
