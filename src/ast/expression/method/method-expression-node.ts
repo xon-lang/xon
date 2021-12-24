@@ -2,10 +2,12 @@ import { MethodExpressionContext } from '../../../grammar/xon-parser';
 import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
 import { ParameterNode } from '../../parameter/parameter-node';
 import { getParameterNodes } from '../../parameter/parameter-node-helper';
+import { SourceReference } from '../../util/source-reference';
 import { ExpressionNode } from '../expression-node';
 import { getExpressionNode } from '../expression-node-helper';
 
-export class MethodExpressionNode extends ExpressionNode {
+export class MethodExpressionNode implements ExpressionNode {
+  sourceReference: SourceReference;
   metadata: ExpressionMetadata;
   parameters: ParameterNode[] = [];
   result?: ExpressionNode;

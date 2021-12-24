@@ -1,10 +1,12 @@
 import { PrefixExpressionContext } from '../../../grammar/xon-parser';
 import { PrefixExpressionMetadata } from '../../../metadata/expression/prefix/prefix-expression-metadata';
 import { IdToken } from '../../util/id-token';
+import { SourceReference } from '../../util/source-reference';
 import { ExpressionNode } from '../expression-node';
 import { getExpressionNode } from '../expression-node-helper';
 
-export class PrefixExpressionNode extends ExpressionNode {
+export class PrefixExpressionNode implements ExpressionNode {
+  sourceReference: SourceReference;
   metadata: PrefixExpressionMetadata;
   id: IdToken;
   value: ExpressionNode;

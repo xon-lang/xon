@@ -1,9 +1,11 @@
 import { InvokeExpressionContext } from '../../../grammar/xon-parser';
 import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
+import { SourceReference } from '../../util/source-reference';
 import { ExpressionNode } from '../expression-node';
 import { getExpressionNode, getExpressionNodes } from '../expression-node-helper';
 
-export class InvokeExpressionNode extends ExpressionNode {
+export class InvokeExpressionNode implements ExpressionNode {
+  sourceReference: SourceReference;
   metadata: ExpressionMetadata;
   instance: ExpressionNode;
   arguments: ExpressionNode[];
