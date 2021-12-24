@@ -6,10 +6,13 @@ options {
 
 source: (statement | NL)*;
 
+attribute: modifier? '...'? id expr? body?;
+modifier:  TYPE | CLASS | INTERFACE | OBJECT | ENUM;
+
 statement:
     IMPORT path = expr ':' members += expr (',' members += expr)* ','? # importStatement
     | EXPORT path = expr                                               # exportStatement
-    | FOR (value = id (',' index = id)? IN)? expr body                 # forStatement
+    | FOR (value = attribute (',' index = attribute)? IN)? expr body   # forStatement
     | WHILE expr body                                                  # whileStatement
     | DO body WHILE expr                                               # doWhileStatement
     | IF expr thenBody = body (ELSE elseBody = body)?                  # ifStatement
@@ -17,7 +20,7 @@ statement:
     | RETURN expr?                                                     # returnStatement
     | ACTUAL actual = expr NL+ EXPECT expect = expr                    # assertStatement
     | PREPROCESSOR                                                     # preprocessorStatement
-    | modifier? id (expr body? | body)                                 # attributeStatement
+    | attribute                                                        # attributeStatement
     | id '=' expr                                                      # assignmentStatement
     | expr                                                             # expressionStatement
     ;
@@ -26,7 +29,7 @@ expr:
     id                                                                 # idExpression
     | '(' expr ')'                                                     # parenthesizedExpression
     | '[' (expr (',' expr)* ','?)? ']'                                 # arrayExpression
-    | '{' (statement (',' statement)* ','?)? '}'                       # objectExpression
+    | '{' (attribute (',' attribute)* ','?)? '}'                       # objectExpression
     | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
     | expr '?'                                                         # nullableExpression
     | expr '.' id                                                      # memberExpression
@@ -42,8 +45,8 @@ expr:
     | left = expr op = '||' right = expr                               # disjunctionExpression
     | left = expr op = (IS | AS | IN) right = expr                     # infixExpression
     | literal                                                          # literalExpression
-    | '(' (parameter (',' parameter)* ','?)? ')' expr                  # methodExpression
-    | '[' (parameter (',' parameter)* ','?)? ']' expr                  # indexerExpression
+    | '(' (attribute (',' attribute)* ','?)? ')' expr                  # methodExpression
+    | '[' (attribute (',' attribute)* ','?)? ']' expr                  # indexerExpression
     ;
 
 literal:
@@ -59,8 +62,6 @@ body:
     | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-parameter: '...'? id expr? ('#' meta = ID)?;
-modifier:  TYPE | CLASS | INTERFACE | OBJECT | ENUM;
 id:
     name = (
         ID
