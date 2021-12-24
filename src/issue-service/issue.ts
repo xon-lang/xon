@@ -49,4 +49,9 @@ export class Issue {
     const issue = Issue.fromSourceReference(node.sourceReference, IssueLevel.Error, message);
     throw new Error(issue.toString());
   }
+
+  static errorFromSourceReference(sourceReference: SourceReference, message: string): never {
+    const issue = Issue.fromSourceReference(sourceReference, IssueLevel.Error, message);
+    throw new Error(issue.toString());
+  }
 }
