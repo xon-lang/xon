@@ -17,7 +17,7 @@ statement:
     | RETURN expr?                                                     # returnStatement
     | ACTUAL actual = expr NL+ EXPECT expect = expr                    # assertStatement
     | PREPROCESSOR                                                     # preprocessorStatement
-    | id (expr body? | body)                                           # attributeStatement
+    | modifier? id (expr body? | body)                                 # attributeStatement
     | id '=' expr                                                      # assignmentStatement
     | expr                                                             # expressionStatement
     ;
@@ -60,7 +60,7 @@ body:
     ;
 
 parameter: '...'? id expr? ('#' meta = ID)?;
-
+modifier:  TYPE | CLASS | INTERFACE | OBJECT | ENUM;
 id:
     name = (
         ID
