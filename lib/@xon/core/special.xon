@@ -2,7 +2,7 @@
 interface Any
   in (other Range) Boolean
   is (other Any) Boolean
-  as <T>(other T) T
+  as <|T|>(other T) T
 
 object None
 

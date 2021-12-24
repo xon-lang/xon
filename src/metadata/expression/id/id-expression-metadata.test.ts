@@ -13,10 +13,10 @@ test('none', () => {
   expect(metadata).toBeInstanceOf(IdExpressionMetadata);
   expect(metadata.declaration()).toBeInstanceOf(ObjectDeclarationMetadata);
   expect(metadata.declaration().name).toBe('None');
-  expect(metadata.attributes.length).toBe(0);
+  expect(metadata.attributes().length).toBe(0);
 });
 
-test('none', () => {
+test('any', () => {
   const code = 'Any';
   const node = parseExpression(code);
   const metadata = getExpressionMetadata(node, new CoreDeclarationScope()) as IdExpressionMetadata;
@@ -24,7 +24,7 @@ test('none', () => {
   expect(metadata).toBeInstanceOf(IdExpressionMetadata);
   expect(metadata.declaration()).toBeInstanceOf(InterfaceDeclarationMetadata);
   expect(metadata.declaration().name).toBe('Any');
-  expect(metadata.attributes.length).toBe(3);
+  expect(metadata.attributes().length).toBe(3);
 });
 
 // test('id with type arguments', () => {
