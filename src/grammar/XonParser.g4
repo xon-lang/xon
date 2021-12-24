@@ -61,9 +61,11 @@ body:
     ;
 
 declaration:
-    modifier? '...'? id type = expr? (
-        IS ancestors += expr (',' ancestors += expr)*
-    )? body?
+    modifier '...'? id type = expr? IS ancestors += expr (
+        ',' ancestors += expr
+    )* body?
+    | modifier '...'? id type = expr? body?
+    | id type = expr? body?
     ;
 modifier: TYPE | CLASS | INTERFACE | OBJECT | ENUM;
 id:
