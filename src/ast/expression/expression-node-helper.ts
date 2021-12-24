@@ -47,22 +47,16 @@ export const getExpressionNode = (ctx: ExprContext): ExpressionNode => {
   if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionNode(ctx);
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionNode(ctx);
 
-  if (ctx instanceof InfixExpressionContext)
-    return new InfixExpressionNode(
-      ctx,
-      new IdToken(ctx._op),
-      getExpressionNode(ctx._left),
-      getExpressionNode(ctx._right),
-    );
   if (
-    ctx instanceof PowExpressionContext ||
-    ctx instanceof MulDivModExpressionContext ||
     ctx instanceof AddSubExpressionContext ||
-    ctx instanceof RangeExpressionContext ||
-    ctx instanceof RelationalExpressionContext ||
-    ctx instanceof EqualityExpressionContext ||
     ctx instanceof ConjunctionExpressionContext ||
     ctx instanceof DisjunctionExpressionContext ||
+    ctx instanceof EqualityExpressionContext ||
+    ctx instanceof InfixExpressionContext ||
+    ctx instanceof MulDivModExpressionContext ||
+    ctx instanceof PowExpressionContext ||
+    ctx instanceof RangeExpressionContext ||
+    ctx instanceof RelationalExpressionContext ||
     ctx instanceof RelationalExpressionContext
   ) {
     return new InfixExpressionNode(
