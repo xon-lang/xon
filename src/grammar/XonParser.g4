@@ -4,32 +4,32 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: (statement | NL)*;
+source: (declaration | NL)*;
 
-attribute: modifier? '...'? id expr? body?;
-modifier:  TYPE | CLASS | INTERFACE | OBJECT | ENUM;
+declaration: modifier? '...'? id expr? body?;
+modifier:    TYPE | CLASS | INTERFACE | OBJECT | ENUM;
 
 statement:
-    IMPORT path = expr ':' members += expr (',' members += expr)* ','? # importStatement
-    | EXPORT path = expr                                               # exportStatement
-    | FOR (value = attribute (',' index = attribute)? IN)? expr body   # forStatement
-    | WHILE expr body                                                  # whileStatement
-    | DO body WHILE expr                                               # doWhileStatement
-    | IF expr thenBody = body (ELSE elseBody = body)?                  # ifStatement
-    | BREAK                                                            # breakStatement
-    | RETURN expr?                                                     # returnStatement
-    | ACTUAL actual = expr NL+ EXPECT expect = expr                    # assertStatement
-    | PREPROCESSOR                                                     # preprocessorStatement
-    | attribute                                                        # attributeStatement
-    | id '=' expr                                                      # assignmentStatement
-    | expr                                                             # expressionStatement
+    IMPORT path = expr ':' members += expr (',' members += expr)* ','?   # importStatement
+    | EXPORT path = expr                                                 # exportStatement
+    | FOR (value = declaration (',' index = declaration)? IN)? expr body # forStatement
+    | WHILE expr body                                                    # whileStatement
+    | DO body WHILE expr                                                 # doWhileStatement
+    | IF expr thenBody = body (ELSE elseBody = body)?                    # ifStatement
+    | BREAK                                                              # breakStatement
+    | RETURN expr?                                                       # returnStatement
+    | ACTUAL actual = expr NL+ EXPECT expect = expr                      # assertStatement
+    | PREPROCESSOR                                                       # preprocessorStatement
+    | declaration                                                        # declarationStatement
+    | id '=' expr                                                        # assignmentStatement
+    | expr                                                               # expressionStatement
     ;
 
 expr:
     id                                                                 # idExpression
     | '(' expr ')'                                                     # parenthesizedExpression
     | '[' (expr (',' expr)* ','?)? ']'                                 # arrayExpression
-    | '{' (attribute (',' attribute)* ','?)? '}'                       # objectExpression
+    | '{' (declaration (',' declaration)* ','?)? '}'                   # objectExpression
     | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
     | expr '?'                                                         # nullableExpression
     | expr '.' id                                                      # memberExpression
@@ -45,8 +45,8 @@ expr:
     | left = expr op = '||' right = expr                               # disjunctionExpression
     | left = expr op = (IS | AS | IN) right = expr                     # infixExpression
     | literal                                                          # literalExpression
-    | '(' (attribute (',' attribute)* ','?)? ')' expr                  # methodExpression
-    | '[' (attribute (',' attribute)* ','?)? ']' expr                  # indexerExpression
+    | '(' (declaration (',' declaration)* ','?)? ')' expr              # methodExpression
+    | '[' (declaration (',' declaration)* ','?)? ']' expr              # indexerExpression
     ;
 
 literal:

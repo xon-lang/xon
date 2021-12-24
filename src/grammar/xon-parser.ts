@@ -100,7 +100,7 @@ export class XonParser extends Parser {
 	public static readonly WS = 73;
 	public static readonly COMMENT = 74;
 	public static readonly RULE_source = 0;
-	public static readonly RULE_attribute = 1;
+	public static readonly RULE_declaration = 1;
 	public static readonly RULE_modifier = 2;
 	public static readonly RULE_statement = 3;
 	public static readonly RULE_expr = 4;
@@ -109,7 +109,7 @@ export class XonParser extends Parser {
 	public static readonly RULE_id = 7;
 	// tslint:disable:no-trailing-whitespace
 	public static readonly ruleNames: string[] = [
-		"source", "attribute", "modifier", "statement", "expr", "literal", "body", 
+		"source", "declaration", "modifier", "statement", "expr", "literal", "body", 
 		"id",
 	];
 
@@ -173,32 +173,19 @@ export class XonParser extends Parser {
 			this.state = 20;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN_BRACKET) | (1 << XonParser.OPEN_PAREN) | (1 << XonParser.OPEN_BRACE) | (1 << XonParser.ACTUAL) | (1 << XonParser.AS) | (1 << XonParser.BREAK) | (1 << XonParser.CLASS) | (1 << XonParser.DO) | (1 << XonParser.ENUM) | (1 << XonParser.EXPORT) | (1 << XonParser.FOR) | (1 << XonParser.IF) | (1 << XonParser.IMPORT) | (1 << XonParser.IN) | (1 << XonParser.INTERFACE) | (1 << XonParser.IS) | (1 << XonParser.NOT) | (1 << XonParser.OBJECT) | (1 << XonParser.RETURN))) !== 0) || ((((_la - 33)) & ~0x1F) === 0 && ((1 << (_la - 33)) & ((1 << (XonParser.TYPE - 33)) | (1 << (XonParser.WHILE - 33)) | (1 << (XonParser.ASSIGN - 33)) | (1 << (XonParser.ASTERISK - 33)) | (1 << (XonParser.CARET - 33)) | (1 << (XonParser.GREAT - 33)) | (1 << (XonParser.LESS - 33)) | (1 << (XonParser.MINUS - 33)) | (1 << (XonParser.MODULO - 33)) | (1 << (XonParser.PLUS - 33)) | (1 << (XonParser.SLASH - 33)) | (1 << (XonParser.SPREAD - 33)))) !== 0) || ((((_la - 65)) & ~0x1F) === 0 && ((1 << (_la - 65)) & ((1 << (XonParser.FLOAT_LITERAL - 65)) | (1 << (XonParser.INTEGER_LITERAL - 65)) | (1 << (XonParser.CHAR_LITERAL - 65)) | (1 << (XonParser.STRING_LITERAL - 65)) | (1 << (XonParser.REGEX_LITERAL - 65)) | (1 << (XonParser.PREPROCESSOR - 65)) | (1 << (XonParser.ID - 65)) | (1 << (XonParser.NL - 65)))) !== 0)) {
+			while (((((_la - 11)) & ~0x1F) === 0 && ((1 << (_la - 11)) & ((1 << (XonParser.AS - 11)) | (1 << (XonParser.CLASS - 11)) | (1 << (XonParser.ENUM - 11)) | (1 << (XonParser.IN - 11)) | (1 << (XonParser.INTERFACE - 11)) | (1 << (XonParser.IS - 11)) | (1 << (XonParser.OBJECT - 11)) | (1 << (XonParser.TYPE - 11)) | (1 << (XonParser.ASSIGN - 11)) | (1 << (XonParser.ASTERISK - 11)) | (1 << (XonParser.CARET - 11)))) !== 0) || ((((_la - 49)) & ~0x1F) === 0 && ((1 << (_la - 49)) & ((1 << (XonParser.GREAT - 49)) | (1 << (XonParser.LESS - 49)) | (1 << (XonParser.MINUS - 49)) | (1 << (XonParser.MODULO - 49)) | (1 << (XonParser.PLUS - 49)) | (1 << (XonParser.SLASH - 49)) | (1 << (XonParser.SPREAD - 49)) | (1 << (XonParser.ID - 49)) | (1 << (XonParser.NL - 49)))) !== 0)) {
 				{
 				this.state = 18;
 				this._errHandler.sync(this);
 				switch (this._input.LA(1)) {
-				case XonParser.OPEN_BRACKET:
-				case XonParser.OPEN_PAREN:
-				case XonParser.OPEN_BRACE:
-				case XonParser.ACTUAL:
 				case XonParser.AS:
-				case XonParser.BREAK:
 				case XonParser.CLASS:
-				case XonParser.DO:
 				case XonParser.ENUM:
-				case XonParser.EXPORT:
-				case XonParser.FOR:
-				case XonParser.IF:
-				case XonParser.IMPORT:
 				case XonParser.IN:
 				case XonParser.INTERFACE:
 				case XonParser.IS:
-				case XonParser.NOT:
 				case XonParser.OBJECT:
-				case XonParser.RETURN:
 				case XonParser.TYPE:
-				case XonParser.WHILE:
 				case XonParser.ASSIGN:
 				case XonParser.ASTERISK:
 				case XonParser.CARET:
@@ -209,16 +196,10 @@ export class XonParser extends Parser {
 				case XonParser.PLUS:
 				case XonParser.SLASH:
 				case XonParser.SPREAD:
-				case XonParser.FLOAT_LITERAL:
-				case XonParser.INTEGER_LITERAL:
-				case XonParser.CHAR_LITERAL:
-				case XonParser.STRING_LITERAL:
-				case XonParser.REGEX_LITERAL:
-				case XonParser.PREPROCESSOR:
 				case XonParser.ID:
 					{
 					this.state = 16;
-					this.statement();
+					this.declaration();
 					}
 					break;
 				case XonParser.NL:
@@ -252,9 +233,9 @@ export class XonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public attribute(): AttributeContext {
-		let _localctx: AttributeContext = new AttributeContext(this._ctx, this.state);
-		this.enterRule(_localctx, 2, XonParser.RULE_attribute);
+	public declaration(): DeclarationContext {
+		let _localctx: DeclarationContext = new DeclarationContext(this._ctx, this.state);
+		this.enterRule(_localctx, 2, XonParser.RULE_declaration);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
@@ -431,7 +412,7 @@ export class XonParser extends Parser {
 				case 1:
 					{
 					this.state = 55;
-					(_localctx as ForStatementContext)._value = this.attribute();
+					(_localctx as ForStatementContext)._value = this.declaration();
 					this.state = 58;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
@@ -440,7 +421,7 @@ export class XonParser extends Parser {
 						this.state = 56;
 						this.match(XonParser.COMMA);
 						this.state = 57;
-						(_localctx as ForStatementContext)._index = this.attribute();
+						(_localctx as ForStatementContext)._index = this.declaration();
 						}
 					}
 
@@ -576,11 +557,11 @@ export class XonParser extends Parser {
 				break;
 
 			case 11:
-				_localctx = new AttributeStatementContext(_localctx);
+				_localctx = new DeclarationStatementContext(_localctx);
 				this.enterOuterAlt(_localctx, 11);
 				{
 				this.state = 99;
-				this.attribute();
+				this.declaration();
 				}
 				break;
 
@@ -732,7 +713,7 @@ export class XonParser extends Parser {
 				if (((((_la - 11)) & ~0x1F) === 0 && ((1 << (_la - 11)) & ((1 << (XonParser.AS - 11)) | (1 << (XonParser.CLASS - 11)) | (1 << (XonParser.ENUM - 11)) | (1 << (XonParser.IN - 11)) | (1 << (XonParser.INTERFACE - 11)) | (1 << (XonParser.IS - 11)) | (1 << (XonParser.OBJECT - 11)) | (1 << (XonParser.TYPE - 11)) | (1 << (XonParser.ASSIGN - 11)) | (1 << (XonParser.ASTERISK - 11)) | (1 << (XonParser.CARET - 11)))) !== 0) || ((((_la - 49)) & ~0x1F) === 0 && ((1 << (_la - 49)) & ((1 << (XonParser.GREAT - 49)) | (1 << (XonParser.LESS - 49)) | (1 << (XonParser.MINUS - 49)) | (1 << (XonParser.MODULO - 49)) | (1 << (XonParser.PLUS - 49)) | (1 << (XonParser.SLASH - 49)) | (1 << (XonParser.SPREAD - 49)) | (1 << (XonParser.ID - 49)))) !== 0)) {
 					{
 					this.state = 129;
-					this.attribute();
+					this.declaration();
 					this.state = 134;
 					this._errHandler.sync(this);
 					_alt = this.interpreter.adaptivePredict(this._input, 17, this._ctx);
@@ -743,7 +724,7 @@ export class XonParser extends Parser {
 							this.state = 130;
 							this.match(XonParser.COMMA);
 							this.state = 131;
-							this.attribute();
+							this.declaration();
 							}
 							}
 						}
@@ -827,7 +808,7 @@ export class XonParser extends Parser {
 				if (((((_la - 11)) & ~0x1F) === 0 && ((1 << (_la - 11)) & ((1 << (XonParser.AS - 11)) | (1 << (XonParser.CLASS - 11)) | (1 << (XonParser.ENUM - 11)) | (1 << (XonParser.IN - 11)) | (1 << (XonParser.INTERFACE - 11)) | (1 << (XonParser.IS - 11)) | (1 << (XonParser.OBJECT - 11)) | (1 << (XonParser.TYPE - 11)) | (1 << (XonParser.ASSIGN - 11)) | (1 << (XonParser.ASTERISK - 11)) | (1 << (XonParser.CARET - 11)))) !== 0) || ((((_la - 49)) & ~0x1F) === 0 && ((1 << (_la - 49)) & ((1 << (XonParser.GREAT - 49)) | (1 << (XonParser.LESS - 49)) | (1 << (XonParser.MINUS - 49)) | (1 << (XonParser.MODULO - 49)) | (1 << (XonParser.PLUS - 49)) | (1 << (XonParser.SLASH - 49)) | (1 << (XonParser.SPREAD - 49)) | (1 << (XonParser.ID - 49)))) !== 0)) {
 					{
 					this.state = 149;
-					this.attribute();
+					this.declaration();
 					this.state = 154;
 					this._errHandler.sync(this);
 					_alt = this.interpreter.adaptivePredict(this._input, 20, this._ctx);
@@ -838,7 +819,7 @@ export class XonParser extends Parser {
 							this.state = 150;
 							this.match(XonParser.COMMA);
 							this.state = 151;
-							this.attribute();
+							this.declaration();
 							}
 							}
 						}
@@ -879,7 +860,7 @@ export class XonParser extends Parser {
 				if (((((_la - 11)) & ~0x1F) === 0 && ((1 << (_la - 11)) & ((1 << (XonParser.AS - 11)) | (1 << (XonParser.CLASS - 11)) | (1 << (XonParser.ENUM - 11)) | (1 << (XonParser.IN - 11)) | (1 << (XonParser.INTERFACE - 11)) | (1 << (XonParser.IS - 11)) | (1 << (XonParser.OBJECT - 11)) | (1 << (XonParser.TYPE - 11)) | (1 << (XonParser.ASSIGN - 11)) | (1 << (XonParser.ASTERISK - 11)) | (1 << (XonParser.CARET - 11)))) !== 0) || ((((_la - 49)) & ~0x1F) === 0 && ((1 << (_la - 49)) & ((1 << (XonParser.GREAT - 49)) | (1 << (XonParser.LESS - 49)) | (1 << (XonParser.MINUS - 49)) | (1 << (XonParser.MODULO - 49)) | (1 << (XonParser.PLUS - 49)) | (1 << (XonParser.SLASH - 49)) | (1 << (XonParser.SPREAD - 49)) | (1 << (XonParser.ID - 49)))) !== 0)) {
 					{
 					this.state = 165;
-					this.attribute();
+					this.declaration();
 					this.state = 170;
 					this._errHandler.sync(this);
 					_alt = this.interpreter.adaptivePredict(this._input, 23, this._ctx);
@@ -890,7 +871,7 @@ export class XonParser extends Parser {
 							this.state = 166;
 							this.match(XonParser.COMMA);
 							this.state = 167;
-							this.attribute();
+							this.declaration();
 							}
 							}
 						}
@@ -1610,7 +1591,7 @@ export class XonParser extends Parser {
 		"\x1C\f\x02\r\r\x19\x19\x1C\x1C\'(++3368<<??II\x02\u015B\x02\x16\x03\x02" +
 		"\x02\x02\x04\x1A\x03\x02\x02\x02\x06&\x03\x02\x02\x02\bk\x03\x02\x02\x02" +
 		"\n\xB6\x03\x02\x02\x02\f\xF2\x03\x02\x02\x02\x0E\u0106\x03\x02\x02\x02" +
-		"\x10\u0108\x03\x02\x02\x02\x12\x15\x05\b\x05\x02\x13\x15\x07J\x02\x02" +
+		"\x10\u0108\x03\x02\x02\x02\x12\x15\x05\x04\x03\x02\x13\x15\x07J\x02\x02" +
 		"\x14\x12\x03\x02\x02\x02\x14\x13\x03\x02\x02\x02\x15\x18\x03\x02\x02\x02" +
 		"\x16\x14\x03\x02\x02\x02\x16\x17\x03\x02\x02\x02\x17\x03\x03\x02\x02\x02" +
 		"\x18\x16\x03\x02\x02\x02\x19\x1B\x05\x06\x04\x02\x1A\x19\x03\x02\x02\x02" +
@@ -1727,13 +1708,13 @@ export class XonParser extends Parser {
 }
 
 export class SourceContext extends ParserRuleContext {
-	public statement(): StatementContext[];
-	public statement(i: number): StatementContext;
-	public statement(i?: number): StatementContext | StatementContext[] {
+	public declaration(): DeclarationContext[];
+	public declaration(i: number): DeclarationContext;
+	public declaration(i?: number): DeclarationContext | DeclarationContext[] {
 		if (i === undefined) {
-			return this.getRuleContexts(StatementContext);
+			return this.getRuleContexts(DeclarationContext);
 		} else {
-			return this.getRuleContext(i, StatementContext);
+			return this.getRuleContext(i, DeclarationContext);
 		}
 	}
 	public NL(): TerminalNode[];
@@ -1753,7 +1734,7 @@ export class SourceContext extends ParserRuleContext {
 }
 
 
-export class AttributeContext extends ParserRuleContext {
+export class DeclarationContext extends ParserRuleContext {
 	public id(): IdContext {
 		return this.getRuleContext(0, IdContext);
 	}
@@ -1771,7 +1752,7 @@ export class AttributeContext extends ParserRuleContext {
 		super(parent, invokingState);
 	}
 	// @Override
-	public get ruleIndex(): number { return XonParser.RULE_attribute; }
+	public get ruleIndex(): number { return XonParser.RULE_declaration; }
 }
 
 
@@ -1840,8 +1821,8 @@ export class ExportStatementContext extends StatementContext {
 	}
 }
 export class ForStatementContext extends StatementContext {
-	public _value!: AttributeContext;
-	public _index!: AttributeContext;
+	public _value!: DeclarationContext;
+	public _index!: DeclarationContext;
 	public FOR(): TerminalNode { return this.getToken(XonParser.FOR, 0); }
 	public expr(): ExprContext {
 		return this.getRuleContext(0, ExprContext);
@@ -1850,13 +1831,13 @@ export class ForStatementContext extends StatementContext {
 		return this.getRuleContext(0, BodyContext);
 	}
 	public IN(): TerminalNode | undefined { return this.tryGetToken(XonParser.IN, 0); }
-	public attribute(): AttributeContext[];
-	public attribute(i: number): AttributeContext;
-	public attribute(i?: number): AttributeContext | AttributeContext[] {
+	public declaration(): DeclarationContext[];
+	public declaration(i: number): DeclarationContext;
+	public declaration(i?: number): DeclarationContext | DeclarationContext[] {
 		if (i === undefined) {
-			return this.getRuleContexts(AttributeContext);
+			return this.getRuleContexts(DeclarationContext);
 		} else {
-			return this.getRuleContext(i, AttributeContext);
+			return this.getRuleContext(i, DeclarationContext);
 		}
 	}
 	public COMMA(): TerminalNode | undefined { return this.tryGetToken(XonParser.COMMA, 0); }
@@ -1966,9 +1947,9 @@ export class PreprocessorStatementContext extends StatementContext {
 		this.copyFrom(ctx);
 	}
 }
-export class AttributeStatementContext extends StatementContext {
-	public attribute(): AttributeContext {
-		return this.getRuleContext(0, AttributeContext);
+export class DeclarationStatementContext extends StatementContext {
+	public declaration(): DeclarationContext {
+		return this.getRuleContext(0, DeclarationContext);
 	}
 	constructor(ctx: StatementContext) {
 		super(ctx.parent, ctx.invokingState);
@@ -2058,13 +2039,13 @@ export class ArrayExpressionContext extends ExprContext {
 export class ObjectExpressionContext extends ExprContext {
 	public OPEN_BRACE(): TerminalNode { return this.getToken(XonParser.OPEN_BRACE, 0); }
 	public CLOSE_BRACE(): TerminalNode { return this.getToken(XonParser.CLOSE_BRACE, 0); }
-	public attribute(): AttributeContext[];
-	public attribute(i: number): AttributeContext;
-	public attribute(i?: number): AttributeContext | AttributeContext[] {
+	public declaration(): DeclarationContext[];
+	public declaration(i: number): DeclarationContext;
+	public declaration(i?: number): DeclarationContext | DeclarationContext[] {
 		if (i === undefined) {
-			return this.getRuleContexts(AttributeContext);
+			return this.getRuleContexts(DeclarationContext);
 		} else {
-			return this.getRuleContext(i, AttributeContext);
+			return this.getRuleContext(i, DeclarationContext);
 		}
 	}
 	public COMMA(): TerminalNode[];
@@ -2351,13 +2332,13 @@ export class MethodExpressionContext extends ExprContext {
 	public expr(): ExprContext {
 		return this.getRuleContext(0, ExprContext);
 	}
-	public attribute(): AttributeContext[];
-	public attribute(i: number): AttributeContext;
-	public attribute(i?: number): AttributeContext | AttributeContext[] {
+	public declaration(): DeclarationContext[];
+	public declaration(i: number): DeclarationContext;
+	public declaration(i?: number): DeclarationContext | DeclarationContext[] {
 		if (i === undefined) {
-			return this.getRuleContexts(AttributeContext);
+			return this.getRuleContexts(DeclarationContext);
 		} else {
-			return this.getRuleContext(i, AttributeContext);
+			return this.getRuleContext(i, DeclarationContext);
 		}
 	}
 	public COMMA(): TerminalNode[];
@@ -2380,13 +2361,13 @@ export class IndexerExpressionContext extends ExprContext {
 	public expr(): ExprContext {
 		return this.getRuleContext(0, ExprContext);
 	}
-	public attribute(): AttributeContext[];
-	public attribute(i: number): AttributeContext;
-	public attribute(i?: number): AttributeContext | AttributeContext[] {
+	public declaration(): DeclarationContext[];
+	public declaration(i: number): DeclarationContext;
+	public declaration(i?: number): DeclarationContext | DeclarationContext[] {
 		if (i === undefined) {
-			return this.getRuleContexts(AttributeContext);
+			return this.getRuleContexts(DeclarationContext);
 		} else {
-			return this.getRuleContext(i, AttributeContext);
+			return this.getRuleContext(i, DeclarationContext);
 		}
 	}
 	public COMMA(): TerminalNode[];
