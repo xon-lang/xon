@@ -4,6 +4,7 @@ import { DeclarationScope } from '../declaration-scope';
 import { AttributeDeclarationMetadata } from './attribute/attribute-declaration-metadata';
 import { DeclarationMetadata } from './declaration-metadata';
 import { InterfaceDeclarationMetadata } from './interface/interface-declaration-metadata';
+import { ObjectDeclarationMetadata } from './object/object-declaration-metadata';
 
 export const getDeclarationMetadata = (
   node: DeclarationNode,
@@ -12,6 +13,7 @@ export const getDeclarationMetadata = (
   if (node === undefined) return undefined;
 
   if (node.modifier === Modifier.interface) return new InterfaceDeclarationMetadata(node, scope);
+  if (node.modifier === Modifier.object) return new ObjectDeclarationMetadata(node, scope);
   // todo replace with exact class, make it abstract
   if (node) return new AttributeDeclarationMetadata(node, scope);
   Issue.errorFromNode(node, `Expression node not found for "${node.constructor.name}"`);

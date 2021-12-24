@@ -10,28 +10,28 @@ import { DeclarationMetadata } from '../declaration-metadata';
 export class AttributeDeclarationMetadata implements DeclarationMetadata {
   sourceReference: SourceReference;
   name: string;
-  generics: ExpressionMetadata[];
-  type: ExpressionMetadata;
 
-  constructor(public node: DeclarationNode, scope: DeclarationScope) {
+  constructor(private node: DeclarationNode, private scope: DeclarationScope) {
     this.sourceReference = node.sourceReference;
     this.name = node.id.name.text;
-    this.generics = node.id.generics.map((x) => getExpressionMetadata(x, scope));
-    this.type = this.getType(node, scope);
   }
 
-  private getType(node: DeclarationNode, scope: DeclarationScope): ExpressionMetadata {
-    if (node.type) {
-      return getExpressionMetadata(node.type, scope);
-    } else if (node.body) {
-      if (node.body instanceof SingleBodyNode) {
-        if (node.body.statement instanceof ExpressionStatementNode) {
-          return getExpressionMetadata(node.body.statement.expression, scope);
+  generics(): ExpressionMetadata[] {
+    return this.node.id.generics.map((x) => getExpressionMetadata(x, this.scope));
+  }
+
+  type(): ExpressionMetadata {
+    if (this.node.type) {
+      return getExpressionMetadata(this.node.type, this.scope);
+    } else if (this.node.body) {
+      if (this.node.body instanceof SingleBodyNode) {
+        if (this.node.body.statement instanceof ExpressionStatementNode) {
+          return getExpressionMetadata(this.node.body.statement.expression, this.scope);
         }
       } else {
         // todo join all return expressions
       }
     }
-    // Issue.errorFromNode(node, `Attribute '${node.id}' must have a type`);
+    // Issue.errorFromNode(node, `Attribute '${this.node.id}' must have a type`);
   }
 }
