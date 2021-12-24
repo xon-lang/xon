@@ -1,5 +1,5 @@
 interface Array<|T|>
-  $[index Integer] T
+  -- $[index Integer] T
 
   + (other T[]) T[]
   * (other Integer) T[][]

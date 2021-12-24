@@ -18,7 +18,7 @@ interface IntegerNumber is Number -- Z
   value NaturalNumber
 
 -- todo fix it
-interface Integer is IntegerNumber
+-- interface Integer is IntegerNumber
 
 interface RationalNumber is Number -- Q
   numerator IntegerNumber
@@ -34,4 +34,3 @@ interface RealNumber is Number -- R
 interface ComplexNumber is Number -- C
   real RealNumber
   imaginary RealNumber
-
