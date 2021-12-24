@@ -10,12 +10,14 @@ import { StatementNode } from '../statement-node';
 
 export class AttributeStatementNode implements StatementNode {
   sourceReference: SourceReference;
+  modifier?: Modifier;
   id: IdNode;
-  type: ExpressionNode;
-  body: BodyNode;
+  type?: ExpressionNode;
+  body?: BodyNode;
 
   constructor(ctx: AttributeStatementContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
+    this.modifier = (ctx.modifier() && Modifier[ctx.modifier().text]) || null;
     this.id = getIdNode(ctx.id());
     this.type = getExpressionNode(ctx.expr()) || null;
     this.body = getBodyNode(ctx.body()) || null;
@@ -24,4 +26,10 @@ export class AttributeStatementNode implements StatementNode {
   toString(): string {
     throw new Error('Not implemented');
   }
+}
+
+export enum Modifier {
+  class,
+  interface,
+  object,
 }

@@ -3,13 +3,14 @@ import { IdExpressionNode } from '../../expression/id/id-expression-node';
 import { LiteralExpressionNode } from '../../expression/literal/literal-expression-node';
 import { parseStatement } from '../../util/parse';
 import { ExpressionStatementNode } from '../expression/expression-statement-node';
-import { AttributeStatementNode } from './attribute-statement-node';
+import { AttributeStatementNode, Modifier } from './attribute-statement-node';
 
 test('type and value', () => {
   const code = 'a Integer: 1';
   const node = parseStatement<AttributeStatementNode>(code);
   expect(node).toBeInstanceOf(AttributeStatementNode);
 
+  expect(node.modifier).toBe(null);
   expect(node.id.name.text).toBe('a');
   expect((node.type as IdExpressionNode).id.name.text).toBe('Integer');
   expect(
@@ -21,10 +22,11 @@ test('type and value', () => {
 });
 
 test('type', () => {
-  const code = 'a Integer';
+  const code = 'object a Integer';
   const node = parseStatement<AttributeStatementNode>(code);
   expect(node).toBeInstanceOf(AttributeStatementNode);
 
+  expect(node.modifier).toBe(Modifier.object);
   expect(node.id.name.text).toBe('a');
   expect((node.type as IdExpressionNode).id.name.text).toBe('Integer');
   expect(node.body).toBe(null);
@@ -35,6 +37,7 @@ test('value', () => {
   const node = parseStatement<AttributeStatementNode>(code);
   expect(node).toBeInstanceOf(AttributeStatementNode);
 
+  expect(node.modifier).toBe(null);
   expect(node.id.name.text).toBe('a');
   expect(node.type).toBe(null);
   expect(

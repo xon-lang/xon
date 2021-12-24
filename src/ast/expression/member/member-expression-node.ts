@@ -1,5 +1,5 @@
 import { MemberExpressionContext } from '../../../grammar/xon-parser';
-import { MemberExpressionMetadata } from '../../../metadata/expression/member/member-expression-metadata';
+import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
 import { IdNode } from '../../id/id-node';
 import { getIdNode } from '../../id/id-node-helper';
 import { SourceReference } from '../../util/source-reference';
@@ -8,7 +8,7 @@ import { getExpressionNode } from '../expression-node-helper';
 
 export class MemberExpressionNode implements ExpressionNode {
   sourceReference: SourceReference;
-  metadata: MemberExpressionMetadata;
+  metadata: ExpressionMetadata;
   instance: ExpressionNode;
   id: IdNode;
 

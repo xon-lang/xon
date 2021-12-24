@@ -1,12 +1,12 @@
 import { ArrayExpressionContext } from '../../../grammar/xon-parser';
-import { ArrayExpressionMetadata } from '../../../metadata/expression/array/array-expression-metadata';
+import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
 import { SourceReference } from '../../util/source-reference';
 import { ExpressionNode } from '../expression-node';
 import { getExpressionNodes } from '../expression-node-helper';
 
 export class ArrayExpressionNode implements ExpressionNode {
   sourceReference: SourceReference;
-  metadata: ArrayExpressionMetadata;
+  metadata: ExpressionMetadata;
   items: ExpressionNode[];
 
   constructor(ctx: ArrayExpressionContext) {

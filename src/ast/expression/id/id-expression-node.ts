@@ -1,5 +1,5 @@
 import { IdExpressionContext } from '../../../grammar/xon-parser';
-import { IdExpressionMetadata } from '../../../metadata/expression/id/id-expression-metadata';
+import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
 import { IdNode } from '../../id/id-node';
 import { getIdNode } from '../../id/id-node-helper';
 import { SourceReference } from '../../util/source-reference';
@@ -7,7 +7,7 @@ import { ExpressionNode } from '../expression-node';
 
 export class IdExpressionNode implements ExpressionNode {
   sourceReference: SourceReference;
-  metadata: IdExpressionMetadata;
+  metadata: ExpressionMetadata;
   id: IdNode;
 
   constructor(ctx: IdExpressionContext) {
