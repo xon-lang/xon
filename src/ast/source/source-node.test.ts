@@ -14,7 +14,7 @@ else: if d: call()
   const node = new SourceNode(parse(code).source());
   expect(node).toBeInstanceOf(SourceNode);
 
-  const imports = node.statements
+  const imports = node.declarations
     .filter((x) => x instanceof ImportStatementNode)
     .map((x) => x as ImportStatementNode);
   expect(imports.length).toBe(1);

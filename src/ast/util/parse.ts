@@ -2,7 +2,7 @@ import { CharStreams, CommonTokenStream } from 'antlr4ts';
 import * as fs from 'fs';
 import { XonLexer } from '../../grammar/xon-lexer';
 import { XonParser } from '../../grammar/xon-parser';
-import { getAttributeNode } from '../attribute/attribute-node-helper';
+import { getDeclarationNode } from '../declaration/declaration-node-helper';
 import { ExpressionNode } from '../expression/expression-node';
 import { getExpressionNode } from '../expression/expression-node-helper';
 import { getIdNode } from '../id/id-node-helper';
@@ -39,7 +39,7 @@ export const parseStatement = <T extends StatementNode>(code: string): T =>
 
 export const parseId = (code: string) => getIdNode(parse(code).id());
 
-export const parseAttribute = (code: string) => getAttributeNode(parse(code).attribute());
+export const parseDeclaration = (code: string) => getDeclarationNode(parse(code).declaration());
 
 export const parseSource = (code: string, sourceName: string = undefined) =>
   getSourceNode(parse(code, sourceName).source());

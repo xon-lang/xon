@@ -1,4 +1,4 @@
-import { AttributeContext } from '../../grammar/xon-parser';
+import { DeclarationContext } from '../../grammar/xon-parser';
 import { BodyNode } from '../body/body-node';
 import { getBodyNode } from '../body/body-node-helper';
 import { ExpressionNode } from '../expression/expression-node';
@@ -8,7 +8,7 @@ import { getIdNode } from '../id/id-node-helper';
 import { Node } from '../node';
 import { SourceReference } from '../util/source-reference';
 
-export class AttributeNode implements Node {
+export class DeclarationNode implements Node {
   sourceReference: SourceReference;
   modifier?: Modifier;
   hasSpread: boolean;
@@ -16,7 +16,7 @@ export class AttributeNode implements Node {
   type?: ExpressionNode;
   body?: BodyNode;
 
-  constructor(ctx: AttributeContext) {
+  constructor(ctx: DeclarationContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
     this.modifier = (ctx.modifier() && Modifier[ctx.modifier().text]) || null;
     this.hasSpread = !!ctx.SPREAD();

@@ -1,5 +1,3 @@
 import { Node } from '../node';
 
-export interface StatementNode {
-  sourceReference: SourceReference;
-}
+export interface StatementNode extends Node {}
