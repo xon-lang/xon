@@ -1,14 +1,15 @@
 import { IntegerLiteralContext } from '../../../grammar/xon-parser';
+import { SourceReference } from '../../util/source-reference';
 import { LiteralNode } from '../literal-node';
 
-export class IntegerLiteralNode extends LiteralNode {
+export class IntegerLiteralNode implements LiteralNode {
+  sourceReference: SourceReference;
   radix: number;
   integer: string;
   value: number;
 
   constructor(public ctx: IntegerLiteralContext) {
-    super();
-
+    this.sourceReference = SourceReference.fromContext(this.ctx);
     const [integer, radix] = ctx.text.split('x').reverse();
     this.integer = integer;
     this.radix = +radix;

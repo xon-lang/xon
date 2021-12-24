@@ -9,8 +9,7 @@ export class InvokeExpressionNode extends ExpressionNode {
   arguments: ExpressionNode[];
 
   constructor(public ctx: InvokeExpressionContext) {
-    super();
-
+    this.sourceReference = SourceReference.fromContext(this.ctx);
     this.instance = getExpressionNode(ctx._instance);
     this.arguments = getExpressionNodes(ctx._args);
   }

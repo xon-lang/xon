@@ -9,8 +9,7 @@ export class IdExpressionNode extends ExpressionNode {
   id: IdNode;
 
   constructor(public ctx: IdExpressionContext) {
-    super();
-
+    this.sourceReference = SourceReference.fromContext(this.ctx);
     this.id = getIdNode(ctx.id());
   }
 

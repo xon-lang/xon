@@ -2,13 +2,14 @@ import { SourceContext } from '../../grammar/xon-parser';
 import { Node } from '../node';
 import { StatementNode } from '../statement/statement-node';
 import { getStatementNodes } from '../statement/statement-node-helper';
+import { SourceReference } from '../util/source-reference';
 
-export class SourceNode extends Node {
+export class SourceNode implements Node {
+  sourceReference: SourceReference;
   statements: StatementNode[] = [];
 
   constructor(public ctx: SourceContext) {
-    super();
-
+    this.sourceReference = SourceReference.fromContext(this.ctx);
     this.statements = getStatementNodes(ctx.statement());
   }
 

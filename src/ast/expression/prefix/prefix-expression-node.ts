@@ -10,8 +10,7 @@ export class PrefixExpressionNode extends ExpressionNode {
   value: ExpressionNode;
 
   constructor(public ctx: PrefixExpressionContext) {
-    super();
-
+    this.sourceReference = SourceReference.fromContext(this.ctx);
     this.id = new IdToken(ctx._op);
     this.value = getExpressionNode(ctx.expr());
   }

@@ -1,12 +1,13 @@
 import { CharLiteralContext } from '../../../grammar/xon-parser';
+import { SourceReference } from '../../util/source-reference';
 import { LiteralNode } from '../literal-node';
 
-export class CharLiteralNode extends LiteralNode {
+export class CharLiteralNode implements LiteralNode {
+  sourceReference: SourceReference;
   value: string;
 
   constructor(public ctx: CharLiteralContext) {
-    super();
-
+    this.sourceReference = SourceReference.fromContext(this.ctx);
     const STRING_START = 1;
     const STRING_END = -1;
     this.value = ctx.text.slice(STRING_START, STRING_END).replace(/\\'/g, "'");

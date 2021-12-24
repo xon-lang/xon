@@ -8,8 +8,7 @@ export class NullableExpressionNode extends ExpressionNode {
   value: ExpressionNode;
 
   constructor(public ctx: NullableExpressionContext) {
-    super();
-
+    this.sourceReference = SourceReference.fromContext(this.ctx);
     this.value = getExpressionNode(ctx.expr());
   }
 

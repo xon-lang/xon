@@ -8,8 +8,7 @@ export class ParenthesizedExpressionNode extends ExpressionNode {
   expression: ExpressionNode;
 
   constructor(public ctx: ParenthesizedExpressionContext) {
-    super();
-
+    this.sourceReference = SourceReference.fromContext(this.ctx);
     this.expression = getExpressionNode(ctx.expr());
   }
 

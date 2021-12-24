@@ -1,13 +1,14 @@
 import { RegexLiteralContext } from '../../../grammar/xon-parser';
+import { SourceReference } from '../../util/source-reference';
 import { LiteralNode } from '../literal-node';
 
-export class RegexLiteralNode extends LiteralNode {
+export class RegexLiteralNode implements LiteralNode {
+  sourceReference: SourceReference;
   value: RegExp;
   pattern: string;
 
   constructor(public ctx: RegexLiteralContext) {
-    super();
-
+    this.sourceReference = SourceReference.fromContext(this.ctx);
     this.pattern = ctx.text.slice(1, -1).replace(/\\\//g, '/');
     this.value = new RegExp(this.pattern, 'g');
   }

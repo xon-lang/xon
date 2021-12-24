@@ -11,8 +11,7 @@ export class MethodExpressionNode extends ExpressionNode {
   result?: ExpressionNode;
 
   constructor(public ctx: MethodExpressionContext) {
-    super();
-
+    this.sourceReference = SourceReference.fromContext(this.ctx);
     this.parameters = getParameterNodes(ctx.parameter());
     this.result = getExpressionNode(ctx.expr()) || null;
   }

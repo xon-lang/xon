@@ -1,7 +1,7 @@
 import { LiteralExpressionContext } from '../../../grammar/xon-parser';
 import { LiteralExpressionMetadata } from '../../../metadata/expression/literal/literal-expression-metadata';
-import { getLiteralNode } from '../../literal/literal-node-helper';
 import { LiteralNode } from '../../literal/literal-node';
+import { getLiteralNode } from '../../literal/literal-node-helper';
 import { ExpressionNode } from '../expression-node';
 
 export class LiteralExpressionNode extends ExpressionNode {
@@ -9,8 +9,7 @@ export class LiteralExpressionNode extends ExpressionNode {
   literal: LiteralNode;
 
   constructor(public ctx: LiteralExpressionContext) {
-    super();
-
+    this.sourceReference = SourceReference.fromContext(this.ctx);
     this.literal = ctx && getLiteralNode(ctx.literal());
   }
 

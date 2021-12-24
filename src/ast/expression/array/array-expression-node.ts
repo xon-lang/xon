@@ -8,8 +8,7 @@ export class ArrayExpressionNode extends ExpressionNode {
   items: ExpressionNode[];
 
   constructor(public ctx: ArrayExpressionContext) {
-    super();
-
+    this.sourceReference = SourceReference.fromContext(this.ctx);
     this.items = getExpressionNodes(ctx.expr());
   }
 

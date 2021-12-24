@@ -1,15 +1,15 @@
 import { FloatLiteralContext } from '../../../grammar/xon-parser';
 import { LiteralNode } from '../literal-node';
 
-export class FloatLiteralNode extends LiteralNode {
+export class FloatLiteralNode implements LiteralNode {
+  sourceReference: SourceReference;
   radix: number;
   integer: string;
   fraction: string;
   value: number;
 
   constructor(public ctx: FloatLiteralContext) {
-    super();
-
+    this.sourceReference = SourceReference.fromContext(this.ctx);
     [this.integer, this.fraction] = ctx.text.split('.');
     const [integer, radix] = this.integer.split('x').reverse();
     this.integer = integer;
