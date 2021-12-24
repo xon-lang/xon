@@ -28,6 +28,7 @@ expr:
     | '[' (expr (',' expr)* ','?)? ']'                                 # arrayExpression
     | '{' (declaration (',' declaration)* ','?)? '}'                   # objectExpression
     | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
+    | instance = expr '[' (args += expr (',' args += expr)* ','?)? ']' # indexExpression
     | expr '?'                                                         # nullableExpression
     | expr '.' id                                                      # memberExpression
     | '...' expr                                                       # spreadExpression
@@ -42,8 +43,8 @@ expr:
     | left = expr op = '||' right = expr                               # disjunctionExpression
     | left = expr op = (IS | AS | IN) right = expr                     # infixExpression
     | literal                                                          # literalExpression
-    | '(' (declaration (',' declaration)* ','?)? ')' expr              # methodExpression
-    | '[' (declaration (',' declaration)* ','?)? ']' expr              # indexerExpression
+    | '(' (declaration (',' declaration)* ','?)? ')' expr?             # methodExpression
+    | '[' (declaration (',' declaration)* ','?)? ']' expr?             # indexerExpression
     ;
 
 literal:
