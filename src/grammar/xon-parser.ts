@@ -1445,7 +1445,7 @@ export class XonParser extends Parser {
 			case 1:
 				{
 				this.state = 274;
-				this.expr(0);
+				_localctx._type = this.expr(0);
 				}
 				break;
 			}
@@ -1457,7 +1457,8 @@ export class XonParser extends Parser {
 				this.state = 277;
 				this.match(XonParser.IS);
 				this.state = 278;
-				this.match(XonParser.ID);
+				_localctx._expr = this.expr(0);
+				_localctx._ancestors.push(_localctx._expr);
 				this.state = 283;
 				this._errHandler.sync(this);
 				_alt = this.interpreter.adaptivePredict(this._input, 42, this._ctx);
@@ -1468,7 +1469,8 @@ export class XonParser extends Parser {
 						this.state = 279;
 						this.match(XonParser.COMMA);
 						this.state = 280;
-						this.match(XonParser.ID);
+						_localctx._expr = this.expr(0);
+						_localctx._ancestors.push(_localctx._expr);
 						}
 						}
 					}
@@ -1823,24 +1825,24 @@ export class XonParser extends Parser {
 		"\x02\x02\x02\u0111\u0112\x03\x02\x02\x02\u0112\u0113\x03\x02\x02\x02\u0113" +
 		"\u0115\x05\x10\t\x02\u0114\u0116\x05\x06\x04\x02\u0115\u0114\x03\x02\x02" +
 		"\x02\u0115\u0116\x03\x02\x02\x02\u0116\u0120\x03\x02\x02\x02\u0117\u0118" +
-		"\x07\x1C\x02\x02\u0118\u011D\x07I\x02\x02\u0119\u011A\x07.\x02\x02\u011A" +
-		"\u011C\x07I\x02\x02\u011B\u0119\x03\x02\x02\x02\u011C\u011F\x03\x02\x02" +
-		"\x02\u011D\u011B\x03\x02\x02\x02\u011D\u011E\x03\x02\x02\x02\u011E\u0121" +
-		"\x03\x02\x02\x02\u011F\u011D\x03\x02\x02\x02\u0120\u0117\x03\x02\x02\x02" +
-		"\u0120\u0121\x03\x02\x02\x02\u0121\u0123\x03\x02\x02\x02\u0122\u0124\x05" +
-		"\n\x06\x02\u0123\u0122\x03\x02\x02\x02\u0123\u0124\x03\x02\x02\x02\u0124" +
-		"\r\x03\x02\x02\x02\u0125\u0126\t\b\x02\x02\u0126\x0F\x03\x02\x02\x02\u0127" +
-		"\u0138\t\t\x02\x02\u0128\u0129\x076\x02\x02\u0129\u012A\x07;\x02\x02\u012A" +
-		"\u012F\x05\x06\x04\x02\u012B\u012C\x07.\x02\x02\u012C\u012E\x05\x06\x04" +
-		"\x02\u012D\u012B\x03\x02\x02\x02\u012E\u0131\x03\x02\x02\x02\u012F\u012D" +
-		"\x03\x02\x02\x02\u012F\u0130\x03\x02\x02\x02\u0130\u0133\x03\x02\x02\x02" +
-		"\u0131\u012F\x03\x02\x02\x02\u0132\u0134\x07.\x02\x02\u0133\u0132\x03" +
-		"\x02\x02\x02\u0133\u0134\x03\x02\x02\x02\u0134\u0135\x03\x02\x02\x02\u0135" +
-		"\u0136\x07;\x02\x02\u0136\u0137\x073\x02\x02\u0137\u0139\x03\x02\x02\x02" +
-		"\u0138\u0128\x03\x02\x02\x02\u0138\u0139\x03\x02\x02\x02\u0139\x11\x03" +
-		"\x02\x02\x022\x14\x16!%-1DIP\\jnpy}\x7F\x8D\x91\x93\x97\x9F\xA3\xA5\xA9" +
-		"\xAB\xCF\xD3\xD5\xDF\xE3\xE5\xED\xEF\xF7\xFC\u0101\u0106\u0108\u010B\u010E" +
-		"\u0111\u0115\u011D\u0120\u0123\u012F\u0133\u0138";
+		"\x07\x1C\x02\x02\u0118\u011D\x05\x06\x04\x02\u0119\u011A\x07.\x02\x02" +
+		"\u011A\u011C\x05\x06\x04\x02\u011B\u0119\x03\x02\x02\x02\u011C\u011F\x03" +
+		"\x02\x02\x02\u011D\u011B\x03\x02\x02\x02\u011D\u011E\x03\x02\x02\x02\u011E" +
+		"\u0121\x03\x02\x02\x02\u011F\u011D\x03\x02\x02\x02\u0120\u0117\x03\x02" +
+		"\x02\x02\u0120\u0121\x03\x02\x02\x02\u0121\u0123\x03\x02\x02\x02\u0122" +
+		"\u0124\x05\n\x06\x02\u0123\u0122\x03\x02\x02\x02\u0123\u0124\x03\x02\x02" +
+		"\x02\u0124\r\x03\x02\x02\x02\u0125\u0126\t\b\x02\x02\u0126\x0F\x03\x02" +
+		"\x02\x02\u0127\u0138\t\t\x02\x02\u0128\u0129\x076\x02\x02\u0129\u012A" +
+		"\x07;\x02\x02\u012A\u012F\x05\x06\x04\x02\u012B\u012C\x07.\x02\x02\u012C" +
+		"\u012E\x05\x06\x04\x02\u012D\u012B\x03\x02\x02\x02\u012E\u0131\x03\x02" +
+		"\x02\x02\u012F\u012D\x03\x02\x02\x02\u012F\u0130\x03\x02\x02\x02\u0130" +
+		"\u0133\x03\x02\x02\x02\u0131\u012F\x03\x02\x02\x02\u0132\u0134\x07.\x02" +
+		"\x02\u0133\u0132\x03\x02\x02\x02\u0133\u0134\x03\x02\x02\x02\u0134\u0135" +
+		"\x03\x02\x02\x02\u0135\u0136\x07;\x02\x02\u0136\u0137\x073\x02\x02\u0137" +
+		"\u0139\x03\x02\x02\x02\u0138\u0128\x03\x02\x02\x02\u0138\u0139\x03\x02" +
+		"\x02\x02\u0139\x11\x03\x02\x02\x022\x14\x16!%-1DIP\\jnpy}\x7F\x8D\x91" +
+		"\x93\x97\x9F\xA3\xA5\xA9\xAB\xCF\xD3\xD5\xDF\xE3\xE5\xED\xEF\xF7\xFC\u0101" +
+		"\u0106\u0108\u010B\u010E\u0111\u0115\u011D\u0120\u0123\u012F\u0133\u0138";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!XonParser.__ATN) {
@@ -2621,6 +2623,9 @@ export class MultipleBodyContext extends BodyContext {
 
 
 export class DeclarationContext extends ParserRuleContext {
+	public _type!: ExprContext;
+	public _expr!: ExprContext;
+	public _ancestors: ExprContext[] = [];
 	public id(): IdContext {
 		return this.getRuleContext(0, IdContext);
 	}
@@ -2628,21 +2633,18 @@ export class DeclarationContext extends ParserRuleContext {
 		return this.tryGetRuleContext(0, ModifierContext);
 	}
 	public SPREAD(): TerminalNode | undefined { return this.tryGetToken(XonParser.SPREAD, 0); }
-	public expr(): ExprContext | undefined {
-		return this.tryGetRuleContext(0, ExprContext);
-	}
 	public IS(): TerminalNode | undefined { return this.tryGetToken(XonParser.IS, 0); }
-	public ID(): TerminalNode[];
-	public ID(i: number): TerminalNode;
-	public ID(i?: number): TerminalNode | TerminalNode[] {
-		if (i === undefined) {
-			return this.getTokens(XonParser.ID);
-		} else {
-			return this.getToken(XonParser.ID, i);
-		}
-	}
 	public body(): BodyContext | undefined {
 		return this.tryGetRuleContext(0, BodyContext);
+	}
+	public expr(): ExprContext[];
+	public expr(i: number): ExprContext;
+	public expr(i?: number): ExprContext | ExprContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(ExprContext);
+		} else {
+			return this.getRuleContext(i, ExprContext);
+		}
 	}
 	public COMMA(): TerminalNode[];
 	public COMMA(i: number): TerminalNode;
