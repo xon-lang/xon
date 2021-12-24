@@ -15,12 +15,12 @@ export class Issue {
   toString(): string {
     const code = this.inputText.split('\n')[this.line - 1];
     const source = chalk.cyan(this.sourceName);
-    const line = chalk.yellow(this.line);
-    const column = chalk.yellow(this.column);
+    const line = chalk.cyan(this.line);
+    const column = chalk.cyan(this.column);
     const message = `${chalk.redBright('error')} ${this.message}`;
     const lineNumberBeforeGrayed = `${this.line} | `;
     const lineNumber = chalk.gray(lineNumberBeforeGrayed);
-    const caret = ' '.repeat(this.column + lineNumberBeforeGrayed.length) + chalk.red('^');
+    const caret = ' '.repeat(this.column + lineNumberBeforeGrayed.length - 1) + chalk.red('^');
 
     return `${source}:${line}:${column} - ${message}\n${lineNumber}${code}\n${caret}`;
   }
