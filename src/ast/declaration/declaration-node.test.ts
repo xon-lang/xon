@@ -22,13 +22,14 @@ test('type and value', () => {
 });
 
 test('type', () => {
-  const code = 'object a Integer';
+  const code = 'interface Integer is Number, AnotherOne';
   const node = parseDeclaration(code);
   expect(node).toBeInstanceOf(DeclarationNode);
 
-  expect(node.modifier).toBe(Modifier.object);
-  expect(node.id.name.text).toBe('a');
-  expect((node.type as IdExpressionNode).id.name.text).toBe('Integer');
+  expect(node.modifier).toBe(Modifier.interface);
+  expect(node.id.name.text).toBe('Integer');
+  expect(node.type).toBe(null);
+  expect(node.ancestors.join(', ')).toBe('Number, AnotherOne');
   expect(node.body).toBe(null);
 });
 

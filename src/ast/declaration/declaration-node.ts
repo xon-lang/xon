@@ -14,6 +14,7 @@ export class DeclarationNode implements Node {
   hasSpread: boolean;
   id: IdNode;
   type?: ExpressionNode;
+  ancestors: string[] = [];
   body?: BodyNode;
 
   constructor(ctx: DeclarationContext) {
@@ -22,6 +23,7 @@ export class DeclarationNode implements Node {
     this.hasSpread = !!ctx.SPREAD();
     this.id = getIdNode(ctx.id());
     this.type = getExpressionNode(ctx.expr()) || null;
+    this.ancestors = ctx.ID().map((x) => x.text);
     this.body = getBodyNode(ctx.body()) || null;
   }
 
