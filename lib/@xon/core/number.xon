@@ -11,26 +11,26 @@ interface Number
   toString() String
 
 
-interface NaturalNumber is Number -- N
+interface Integer is Number
+interface Float is Number
 
-interface IntegerNumber is Number -- Z
-  signed Boolean
-  value NaturalNumber
+-- interface NaturalNumber is Number -- N
 
--- todo fix it
--- interface Integer is IntegerNumber
+-- interface IntegerNumber is Number -- Z
+--   signed Boolean
+--   value NaturalNumber
 
-interface RationalNumber is Number -- Q
-  numerator IntegerNumber
-  denominator NaturalNumber
+-- interface RationalNumber is Number -- Q
+--   numerator IntegerNumber
+--   denominator NaturalNumber
 
-interface IrrationalNumber is Number -- I
-  value RealNumber
+-- interface IrrationalNumber is Number -- I
+--   value RealNumber
 
-interface RealNumber is Number -- R
-  integer IntegerNumber
-  fraction NaturalNumber
+-- interface RealNumber is Number -- R
+--   integer IntegerNumber
+--   fraction NaturalNumber
 
-interface ComplexNumber is Number -- C
-  real RealNumber
-  imaginary RealNumber
+-- interface ComplexNumber is Number -- C
+--   real RealNumber
+--   imaginary RealNumber
