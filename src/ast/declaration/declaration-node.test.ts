@@ -33,7 +33,7 @@ test('type', () => {
   const { left, right } = node.base as InfixExpressionNode;
   expect((left as IdExpressionNode).id.name.text).toBe('Number');
   expect((right as IdExpressionNode).id.name.text).toBe('AnotherOne');
-  expect(((right as IdExpressionNode).id.generics[0] as IdExpressionNode).id.name.text).toBe('T');
+  expect((right as IdExpressionNode).id.generics[0].id.name.text).toBe('T');
   expect(node.body).toBe(null);
 });
 

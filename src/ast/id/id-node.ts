@@ -1,6 +1,6 @@
 import { IdContext } from '../../grammar/xon-parser';
-import { ExpressionNode } from '../expression/expression-node';
-import { getExpressionNodes } from '../expression/expression-node-helper';
+import { DeclarationNode } from '../declaration/declaration-node';
+import { getDeclarationNodes } from '../declaration/declaration-node-helper';
 import { Node } from '../node';
 import { IdToken } from '../util/id-token';
 import { SourceReference } from '../util/source-reference';
@@ -8,12 +8,12 @@ import { SourceReference } from '../util/source-reference';
 export class IdNode implements Node {
   sourceReference: SourceReference;
   name: IdToken;
-  generics: ExpressionNode[] = [];
+  generics: DeclarationNode[] = [];
 
   constructor(ctx: IdContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
     this.name = new IdToken(ctx._name);
-    this.generics = getExpressionNodes(ctx.expr());
+    this.generics = getDeclarationNodes(ctx.declaration());
   }
 
   toString(): string {
