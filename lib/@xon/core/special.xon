@@ -6,6 +6,7 @@ interface Any
 
 object None
 
+interface Unknown
 interface Never
 
 type Boolean: False || True

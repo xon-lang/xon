@@ -12,7 +12,12 @@ interface Number
 
 
 interface Integer is Number
+  test String
 interface Float is Number
+  test String
+  test String
+  test String
+
 
 -- interface NaturalNumber is Number -- N
 
