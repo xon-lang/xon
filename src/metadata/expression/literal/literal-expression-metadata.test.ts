@@ -7,5 +7,13 @@ test('literal', () => {
   const node = parseExpression(code);
   const metadata = getExpressionMetadata(node, new CoreDeclarationScope());
 
-  expect(metadata.attributes().length > 0).toBe(true);
+  expect(metadata.attributes().length).toBe(10);
+});
+
+test('literal', () => {
+  const code = '1.23';
+  const node = parseExpression(code);
+  const metadata = getExpressionMetadata(node, new CoreDeclarationScope());
+
+  expect(metadata.attributes().length).toBe(12);
 });

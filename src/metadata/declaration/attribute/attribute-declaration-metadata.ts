@@ -2,6 +2,7 @@ import { SingleBodyNode } from '../../../ast/body/single/single-body-node';
 import { DeclarationNode } from '../../../ast/declaration/declaration-node';
 import { ExpressionStatementNode } from '../../../ast/statement/expression/expression-statement-node';
 import { SourceReference } from '../../../ast/util/source-reference';
+import { Issue } from '../../../issue-service/issue';
 import { DeclarationScope } from '../../declaration-scope';
 import { ExpressionMetadata } from '../../expression/expression-metadata';
 import { getExpressionMetadata } from '../../expression/expression-metadata-helper';
@@ -32,6 +33,10 @@ export class AttributeDeclarationMetadata implements DeclarationMetadata {
         // todo join all return expressions
       }
     }
-    // Issue.errorFromNode(node, `Attribute '${this.node.id}' must have a type`);
+    Issue.errorFromNode(this.node, `Attribute '${this.node.id}' must have a type`);
+  }
+
+  attributes(): DeclarationMetadata[] {
+    return this.type().attributes();
   }
 }

@@ -2,7 +2,7 @@ import { DeclarationContext } from '../../grammar/xon-parser';
 import { BodyNode } from '../body/body-node';
 import { getBodyNode } from '../body/body-node-helper';
 import { ExpressionNode } from '../expression/expression-node';
-import { getExpressionNode, getExpressionNodes } from '../expression/expression-node-helper';
+import { getExpressionNode } from '../expression/expression-node-helper';
 import { IdNode } from '../id/id-node';
 import { getIdNode } from '../id/id-node-helper';
 import { Node } from '../node';
@@ -14,7 +14,7 @@ export class DeclarationNode implements Node {
   hasSpread: boolean;
   id: IdNode;
   type?: ExpressionNode;
-  ancestors: ExpressionNode[] = [];
+  base: ExpressionNode;
   body?: BodyNode;
 
   constructor(ctx: DeclarationContext) {
@@ -23,7 +23,7 @@ export class DeclarationNode implements Node {
     this.hasSpread = !!ctx.SPREAD();
     this.id = getIdNode(ctx.id());
     this.type = getExpressionNode(ctx._type) || null;
-    this.ancestors = getExpressionNodes(ctx._ancestors);
+    this.base = getExpressionNode(ctx._base);
     this.body = getBodyNode(ctx.body()) || null;
   }
 

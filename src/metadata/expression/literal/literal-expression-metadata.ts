@@ -15,6 +15,6 @@ export class LiteralExpressionMetadata implements ExpressionMetadata {
     if (declaration instanceof InterfaceDeclarationMetadata) {
       return declaration.attributes();
     }
-    Issue.errorFromNode(this.node, `Couldn't find literal type`);
+    Issue.errorFromNode(this.node, `Couldn't find suitable literal type`);
   }
 }

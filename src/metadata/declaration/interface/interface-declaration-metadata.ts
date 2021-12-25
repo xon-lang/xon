@@ -11,12 +11,14 @@ import { getDeclarationsMetadata } from '../declaration-metadata-helper';
 export class InterfaceDeclarationMetadata implements DeclarationMetadata {
   sourceReference: SourceReference;
   name: string;
-  generics: ExpressionMetadata[];
 
   constructor(private node: DeclarationNode, private scope: DeclarationScope) {
     this.sourceReference = node.sourceReference;
     this.name = node.id.name.text;
-    this.generics = node.id.generics.map((x) => getExpressionMetadata(x, scope));
+  }
+
+  generics(): ExpressionMetadata[] {
+    return this.node.id.generics.map((x) => getExpressionMetadata(x, this.scope));
   }
 
   attributes(): DeclarationMetadata[] {
@@ -37,4 +39,22 @@ export class InterfaceDeclarationMetadata implements DeclarationMetadata {
   ancestors(): ExpressionMetadata[] {
     return this.node.ancestors.map((x) => getExpressionMetadata(x, this.scope));
   }
+}
+
+interface A{
+  f()
+}
+
+interface B extends A{
+  f2(n:number): any
+}
+
+class C implements B{
+  f2(n: number) {
+    throw new Error('Method not implemented.');
+  }
+  f() {
+    throw new Error('Method not implemented.');
+  }
+
 }

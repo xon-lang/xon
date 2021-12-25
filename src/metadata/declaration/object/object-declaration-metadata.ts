@@ -17,6 +17,10 @@ export class ObjectDeclarationMetadata implements DeclarationMetadata {
     this.name = node.id.name.text;
   }
 
+  generics(): ExpressionMetadata[] {
+    return [];
+  }
+
   attributes(): DeclarationMetadata[] {
     const ancestorsAttributes = this.ancestors().flatMap((x) => x.attributes());
     if (this.node.body instanceof MultipleBodyNode) {
