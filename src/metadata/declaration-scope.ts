@@ -36,18 +36,21 @@ export class DeclarationScope {
   }
 
   find(predicate: (x: DeclarationMetadata) => boolean): DeclarationMetadata {
-    const results: DeclarationMetadata[] = [];
-    for (const declaration of this.declarations) {
-      if (predicate(declaration)) results.push(declaration);
-    }
+    const results = this.filter(predicate);
+
+    if (results.length === 1) return results[0];
     if (results.length > 1) {
-      throw new Error(`Too many declarations found in the current scope`);
+      throw new Error(`Too many declarations found`);
     }
-
-    if (!results.length && this.parent) {
-      return this.parent.find(predicate);
-    }
-
     throw new Error(`Declaration not found`);
+  }
+
+  filter(predicate: (x: DeclarationMetadata) => boolean): DeclarationMetadata[] {
+    const declarations: DeclarationMetadata[] = [];
+    for (const declaration of this.declarations) {
+      if (predicate(declaration)) declarations.push(declaration);
+    }
+    const parentDeclarations = this.parent.filter(predicate);
+    return [...declarations, ...parentDeclarations];
   }
 }
