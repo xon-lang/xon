@@ -2,9 +2,10 @@ import { InfixExpressionNode } from '../../../ast/expression/infix/infix-express
 import { DeclarationScope } from '../../declaration-scope';
 import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
+import { getExpressionMetadata } from '../expression-metadata-helper';
 
 export class InfixExpressionMetadata implements ExpressionMetadata {
-  constructor(node: InfixExpressionNode, scope: DeclarationScope) {
+  constructor(private node: InfixExpressionNode, private scope: DeclarationScope) {
     // const declaration = getExpressionMetadata(node.left, scope).type.declaration;
     // const rightType = getExpressionMetadata(node.right, scope).type;
     // const attributeType = declaration.attribute(node.id.text, [], [rightType], null).type([]);
@@ -13,6 +14,8 @@ export class InfixExpressionMetadata implements ExpressionMetadata {
   }
 
   attributes(): DeclarationMetadata[] {
-    throw new Error('Method not implemented.');
+    const left  = getExpressionMetadata(this.node.left, this.scope)
+    const right  = getExpressionMetadata(this.node.right, this.scope)
+    left.attributes().filter(x=>)
   }
 }

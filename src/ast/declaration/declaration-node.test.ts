@@ -1,5 +1,6 @@
 import { SingleBodyNode } from '../body/single/single-body-node';
 import { IdExpressionNode } from '../expression/id/id-expression-node';
+import { InfixExpressionNode } from '../expression/infix/infix-expression-node';
 import { LiteralExpressionNode } from '../expression/literal/literal-expression-node';
 import { ExpressionStatementNode } from '../statement/expression/expression-statement-node';
 import { parseDeclaration } from '../util/parse';
@@ -22,19 +23,17 @@ test('type and value', () => {
 });
 
 test('type', () => {
-  const code = 'interface Integer is Number, AnotherOne<|T|>';
+  const code = 'interface Integer is Number && AnotherOne<|T|>';
   const node = parseDeclaration(code);
   expect(node).toBeInstanceOf(DeclarationNode);
 
   expect(node.modifier).toBe(Modifier.interface);
   expect(node.id.name.text).toBe('Integer');
   expect(node.type).toBe(null);
-  expect(node.ancestors.length).toBe(2);
-  expect((node.ancestors[0] as IdExpressionNode).id.name.text).toBe('Number');
-  expect((node.ancestors[1] as IdExpressionNode).id.name.text).toBe('AnotherOne');
-  expect(
-    ((node.ancestors[1] as IdExpressionNode).id.generics[0] as IdExpressionNode).id.name.text,
-  ).toBe('T');
+  const { left, right } = node.base as InfixExpressionNode;
+  expect((left as IdExpressionNode).id.name.text).toBe('Number');
+  expect((right as IdExpressionNode).id.name.text).toBe('AnotherOne');
+  expect(((right as IdExpressionNode).id.generics[0] as IdExpressionNode).id.name.text).toBe('T');
   expect(node.body).toBe(null);
 });
 
