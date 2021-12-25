@@ -1553,7 +1553,7 @@ export class XonParser extends Parser {
 				this.state = 288;
 				this.match(XonParser.PIPE);
 				this.state = 289;
-				this.expr(0);
+				this.declaration();
 				this.state = 294;
 				this._errHandler.sync(this);
 				_alt = this.interpreter.adaptivePredict(this._input, 44, this._ctx);
@@ -1564,7 +1564,7 @@ export class XonParser extends Parser {
 						this.state = 290;
 						this.match(XonParser.COMMA);
 						this.state = 291;
-						this.expr(0);
+						this.declaration();
 						}
 						}
 					}
@@ -1807,16 +1807,16 @@ export class XonParser extends Parser {
 		"\u011D\x05\n\x06\x02\u011C\u011B\x03\x02\x02\x02\u011C\u011D\x03\x02\x02" +
 		"\x02\u011D\r\x03\x02\x02\x02\u011E\u011F\t\b\x02\x02\u011F\x0F\x03\x02" +
 		"\x02\x02\u0120\u0131\t\t\x02\x02\u0121\u0122\x075\x02\x02\u0122\u0123" +
-		"\x07:\x02\x02\u0123\u0128\x05\x06\x04\x02\u0124\u0125\x07-\x02\x02\u0125" +
-		"\u0127\x05\x06\x04\x02\u0126\u0124\x03\x02\x02\x02\u0127\u012A\x03\x02" +
-		"\x02\x02\u0128\u0126\x03\x02\x02\x02\u0128\u0129\x03\x02\x02\x02\u0129" +
-		"\u012C\x03\x02\x02\x02\u012A\u0128\x03\x02\x02\x02\u012B\u012D\x07-\x02" +
-		"\x02\u012C\u012B\x03\x02\x02\x02\u012C\u012D\x03\x02\x02\x02\u012D\u012E" +
-		"\x03\x02\x02\x02\u012E\u012F\x07:\x02\x02\u012F\u0130\x072\x02\x02\u0130" +
-		"\u0132\x03\x02\x02\x02\u0131\u0121\x03\x02\x02\x02\u0131\u0132\x03\x02" +
-		"\x02\x02\u0132\x11\x03\x02\x02\x021\x14\x16!%-1DIP\\jnpy}\x7F\x8D\x91" +
-		"\x93\x97\x9F\xA3\xA5\xA9\xAB\xCF\xD3\xD5\xDF\xE3\xE5\xED\xEF\xF7\xFC\u0101" +
-		"\u0106\u0108\u010B\u010E\u0111\u0115\u0119\u011C\u0128\u012C\u0131";
+		"\x07:\x02\x02\u0123\u0128\x05\f\x07\x02\u0124\u0125\x07-\x02\x02\u0125" +
+		"\u0127\x05\f\x07\x02\u0126\u0124\x03\x02\x02\x02\u0127\u012A\x03\x02\x02" +
+		"\x02\u0128\u0126\x03\x02\x02\x02\u0128\u0129\x03\x02\x02\x02\u0129\u012C" +
+		"\x03\x02\x02\x02\u012A\u0128\x03\x02\x02\x02\u012B\u012D\x07-\x02\x02" +
+		"\u012C\u012B\x03\x02\x02\x02\u012C\u012D\x03\x02\x02\x02\u012D\u012E\x03" +
+		"\x02\x02\x02\u012E\u012F\x07:\x02\x02\u012F\u0130\x072\x02\x02\u0130\u0132" +
+		"\x03\x02\x02\x02\u0131\u0121\x03\x02\x02\x02\u0131\u0132\x03\x02\x02\x02" +
+		"\u0132\x11\x03\x02\x02\x021\x14\x16!%-1DIP\\jnpy}\x7F\x8D\x91\x93\x97" +
+		"\x9F\xA3\xA5\xA9\xAB\xCF\xD3\xD5\xDF\xE3\xE5\xED\xEF\xF7\xFC\u0101\u0106" +
+		"\u0108\u010B\u010E\u0111\u0115\u0119\u011C\u0128\u012C\u0131";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!XonParser.__ATN) {
@@ -2681,13 +2681,13 @@ export class IdContext extends ParserRuleContext {
 			return this.getToken(XonParser.PIPE, i);
 		}
 	}
-	public expr(): ExprContext[];
-	public expr(i: number): ExprContext;
-	public expr(i?: number): ExprContext | ExprContext[] {
+	public declaration(): DeclarationContext[];
+	public declaration(i: number): DeclarationContext;
+	public declaration(i?: number): DeclarationContext | DeclarationContext[] {
 		if (i === undefined) {
-			return this.getRuleContexts(ExprContext);
+			return this.getRuleContexts(DeclarationContext);
 		} else {
-			return this.getRuleContext(i, ExprContext);
+			return this.getRuleContext(i, DeclarationContext);
 		}
 	}
 	public COMMA(): TerminalNode[];
