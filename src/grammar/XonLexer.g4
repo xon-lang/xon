@@ -47,7 +47,6 @@ OBJECT:    'object';
 POSTFIX:   'postfix';
 PREFIX:    'prefix';
 RETURN:    'return';
-TEST:      'test';
 TYPE:      'type';
 WHILE:     'while';
 
