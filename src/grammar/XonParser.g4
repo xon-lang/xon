@@ -60,12 +60,8 @@ body:
     | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-declaration:
-    modifier id type = expr? IS base = expr body?
-    | modifier id type = expr? body?
-    | '...'? id type = expr? body?
-    ;
-modifier: TYPE | CLASS | INTERFACE | OBJECT | ENUM;
+declaration: modifier? '...'? id type = expr? (IS base = expr)? body?;
+modifier:    TYPE | CLASS | INTERFACE | OBJECT | ENUM;
 id:
     name = (
         ID
