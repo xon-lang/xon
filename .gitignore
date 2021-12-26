@@ -1,9 +1,7 @@
 .DS_Store
 .idea
-.antlr
-dist
-node_modules
-coverage
-XonLexer.interp
-XonLexer.java
-XonLexer.tokens
+
+/dist
+/node_modules
+/coverage
+/gen
