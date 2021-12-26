@@ -48,7 +48,6 @@ npm t
 
 ## Documentation is not ready yet
 
-MIT License
-
 [MIT License](https://github.com/xon-lang/ast/blob/main/LICENSE)
+
 22022022
