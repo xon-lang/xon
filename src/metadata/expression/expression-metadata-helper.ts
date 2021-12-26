@@ -1,13 +1,13 @@
-import { ArrayExpressionNode } from '../../ast/expression/array/array-expression-node';
-import { ExpressionNode } from '../../ast/expression/expression-node';
-import { IdExpressionNode } from '../../ast/expression/id/id-expression-node';
-import { InfixExpressionNode } from '../../ast/expression/infix/infix-expression-node';
-import { InvokeExpressionNode } from '../../ast/expression/invoke/invoke-expression-node';
-import { LiteralExpressionNode } from '../../ast/expression/literal/literal-expression-node';
-import { MemberExpressionNode } from '../../ast/expression/member/member-expression-node';
-import { MethodExpressionNode } from '../../ast/expression/method/method-expression-node';
-import { ParenthesizedExpressionNode } from '../../ast/expression/parenthesized/parenthesized-expression-node';
-import { PrefixExpressionNode } from '../../ast/expression/prefix/prefix-expression-node';
+import { ArrayExpressionTree } from '../../tree/expression/array/array-expression-tree';
+import { ExpressionTree } from '../../tree/expression/expression-tree';
+import { IdExpressionTree } from '../../tree/expression/id/id-expression-tree';
+import { InfixExpressionTree } from '../../tree/expression/infix/infix-expression-tree';
+import { InvokeExpressionTree } from '../../tree/expression/invoke/invoke-expression-tree';
+import { LiteralExpressionTree } from '../../tree/expression/literal/literal-expression-tree';
+import { MemberExpressionTree } from '../../tree/expression/member/member-expression-tree';
+import { MethodExpressionTree } from '../../tree/expression/method/method-expression-tree';
+import { ParenthesizedExpressionTree } from '../../tree/expression/parenthesized/parenthesized-expression-tree';
+import { PrefixExpressionTree } from '../../tree/expression/prefix/prefix-expression-tree';
 import { Issue } from '../../issue-service/issue';
 import { DeclarationScope } from '../declaration-scope';
 import { ArrayExpressionMetadata } from './array/array-expression-metadata';
@@ -21,29 +21,29 @@ import { MethodExpressionMetadata } from './method/method-expression-metadata';
 import { PrefixExpressionMetadata } from './prefix/prefix-expression-metadata';
 
 export function getExpressionMetadata(
-  node: ExpressionNode,
+  node: ExpressionTree,
   scope: DeclarationScope,
 ): ExpressionMetadata {
   try {
-    if (node instanceof ParenthesizedExpressionNode)
+    if (node instanceof ParenthesizedExpressionTree)
       return (node.metadata = getExpressionMetadata(node.expression, scope));
-    if (node instanceof ArrayExpressionNode)
+    if (node instanceof ArrayExpressionTree)
       return (node.metadata = new ArrayExpressionMetadata(node, scope));
-    if (node instanceof InvokeExpressionNode)
+    if (node instanceof InvokeExpressionTree)
       return (node.metadata = new InvokeExpressionMetadata(node, scope));
-    if (node instanceof IdExpressionNode)
+    if (node instanceof IdExpressionTree)
       return (node.metadata = new IdExpressionMetadata(node, scope));
-    if (node instanceof InfixExpressionNode)
+    if (node instanceof InfixExpressionTree)
       return (node.metadata = new InfixExpressionMetadata(node, scope));
-    if (node instanceof MethodExpressionNode)
+    if (node instanceof MethodExpressionTree)
       return (node.metadata = new MethodExpressionMetadata(node, scope));
-    if (node instanceof LiteralExpressionNode)
+    if (node instanceof LiteralExpressionTree)
       return (node.metadata = new LiteralExpressionMetadata(node, scope));
-    if (node instanceof MemberExpressionNode)
+    if (node instanceof MemberExpressionTree)
       return (node.metadata = new MemberExpressionMetadata(node, scope));
-    if (node instanceof PrefixExpressionNode)
+    if (node instanceof PrefixExpressionTree)
       return (node.metadata = new PrefixExpressionMetadata(node, scope));
   } catch (error) {
-    Issue.errorFromNode(node, error.toString());
+    Issue.errorFromTree(node, error.toString());
   }
 }

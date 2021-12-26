@@ -1,4 +1,4 @@
-import { LiteralExpressionNode } from '../../../ast/expression/literal/literal-expression-node';
+import { LiteralExpressionTree } from '../../../tree/expression/literal/literal-expression-tree';
 import { Issue } from '../../../issue-service/issue';
 import { DeclarationScope } from '../../declaration-scope';
 import { DeclarationMetadata } from '../../declaration/declaration-metadata';
@@ -6,7 +6,7 @@ import { InterfaceDeclarationMetadata } from '../../declaration/interface/interf
 import { ExpressionMetadata } from '../expression-metadata';
 
 export class LiteralExpressionMetadata implements ExpressionMetadata {
-  constructor(private node: LiteralExpressionNode, private scope: DeclarationScope) {}
+  constructor(private node: LiteralExpressionTree, private scope: DeclarationScope) {}
 
   attributes(): DeclarationMetadata[] {
     const declaration = this.scope.findByName(
@@ -15,6 +15,6 @@ export class LiteralExpressionMetadata implements ExpressionMetadata {
     if (declaration instanceof InterfaceDeclarationMetadata) {
       return declaration.attributes();
     }
-    Issue.errorFromNode(this.node, `Couldn't find suitable literal type`);
+    Issue.errorFromTree(this.node, `Couldn't find suitable literal type`);
   }
 }

@@ -1,4 +1,4 @@
-import { IdExpressionNode } from '../../../ast/expression/id/id-expression-node';
+import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { AttributeDeclarationMetadata } from '../../declaration/attribute/attribute-declaration-metadata';
 import { DeclarationMetadata } from '../../declaration/declaration-metadata';
@@ -7,7 +7,7 @@ import { ObjectDeclarationMetadata } from '../../declaration/object/object-decla
 import { ExpressionMetadata } from '../expression-metadata';
 
 export class IdExpressionMetadata implements ExpressionMetadata {
-  constructor(private node: IdExpressionNode, private scope: DeclarationScope) {}
+  constructor(private node: IdExpressionTree, private scope: DeclarationScope) {}
 
   declaration(): DeclarationMetadata {
     return this.scope.findByName(this.node.id.name.text);

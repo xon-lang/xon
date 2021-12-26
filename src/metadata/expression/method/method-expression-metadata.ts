@@ -1,10 +1,10 @@
-import { MethodExpressionNode } from '../../../ast/expression/method/method-expression-node';
+import { MethodExpressionTree } from '../../../tree/expression/method/method-expression-tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
 
 export class MethodExpressionMetadata implements ExpressionMetadata {
-  constructor(node: MethodExpressionNode, scope: DeclarationScope) {
+  constructor(node: MethodExpressionTree, scope: DeclarationScope) {
     // for (const parameter of node.parameters) {
     //   scope.set(new ParameterMetadata(parameter, scope));
     // }

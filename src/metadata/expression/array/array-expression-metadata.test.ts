@@ -1,12 +1,12 @@
-import { parseExpression } from '../../../ast/util/parse';
+import { parseExpression } from '../../../tree/util/parse';
 import { CoreDeclarationScope } from '../../core-declaration-scope';
 import { TupleTypeMetadata } from '../../type/tuple/tuple-type-metadata';
 import { getExpressionMetadata } from '../expression-metadata-helper';
 
 test('empty', () => {
   const code = '[]';
-  const node = parseExpression(code);
-  const metadata = getExpressionMetadata(node, new CoreDeclarationScope());
+  const tree = parseExpression(code);
+  const metadata = getExpressionMetadata(tree, new CoreDeclarationScope());
 
   expect(metadata.type).toBeInstanceOf(TupleTypeMetadata);
   const type = metadata.type as TupleTypeMetadata;
@@ -15,8 +15,8 @@ test('empty', () => {
 
 test('123', () => {
   const code = '[1, 2, 3]';
-  const node = parseExpression(code);
-  const metadata = getExpressionMetadata(node, new CoreDeclarationScope());
+  const tree = parseExpression(code);
+  const metadata = getExpressionMetadata(tree, new CoreDeclarationScope());
 
   expect(metadata.type).toBeInstanceOf(TupleTypeMetadata);
   const type = metadata.type as TupleTypeMetadata;

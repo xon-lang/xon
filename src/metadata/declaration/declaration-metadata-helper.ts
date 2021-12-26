@@ -1,4 +1,4 @@
-import { DeclarationNode, Modifier } from '../../ast/declaration/declaration-node';
+import { DeclarationTree, Modifier } from '../../tree/declaration/declaration-tree';
 import { Issue } from '../../issue-service/issue';
 import { DeclarationScope } from '../declaration-scope';
 import { AttributeDeclarationMetadata } from './attribute/attribute-declaration-metadata';
@@ -7,7 +7,7 @@ import { InterfaceDeclarationMetadata } from './interface/interface-declaration-
 import { ObjectDeclarationMetadata } from './object/object-declaration-metadata';
 
 export const getDeclarationMetadata = (
-  node: DeclarationNode,
+  node: DeclarationTree,
   scope: DeclarationScope,
 ): DeclarationMetadata => {
   if (node === undefined) return undefined;
@@ -16,11 +16,11 @@ export const getDeclarationMetadata = (
   if (node.modifier === Modifier.object) return new ObjectDeclarationMetadata(node, scope);
   // todo replace with exact class, make it abstract
   if (node) return new AttributeDeclarationMetadata(node, scope);
-  Issue.errorFromNode(node, `Expression node not found for "${node.constructor.name}"`);
+  Issue.errorFromTree(node, `Expression node not found for "${node.constructor.name}"`);
 };
 
 export const getDeclarationsMetadata = (
-  nodes: DeclarationNode[],
+  nodes: DeclarationTree[],
   scope: DeclarationScope,
 ): DeclarationMetadata[] => {
   return nodes?.map((x) => getDeclarationMetadata(x, scope)) || [];

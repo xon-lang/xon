@@ -1,4 +1,4 @@
-import { parseExpression } from '../../../ast/util/parse';
+import { parseExpression } from '../../../tree/util/parse';
 import { CoreDeclarationScope } from '../../core-declaration-scope';
 import { InterfaceDeclarationMetadata } from '../../declaration/interface/interface-declaration-metadata';
 import { ObjectDeclarationMetadata } from '../../declaration/object/object-declaration-metadata';
@@ -7,8 +7,8 @@ import { IdExpressionMetadata } from './id-expression-metadata';
 
 test('none', () => {
   const code = 'None';
-  const node = parseExpression(code);
-  const metadata = getExpressionMetadata(node, new CoreDeclarationScope()) as IdExpressionMetadata;
+  const tree = parseExpression(code);
+  const metadata = getExpressionMetadata(tree, new CoreDeclarationScope()) as IdExpressionMetadata;
 
   expect(metadata).toBeInstanceOf(IdExpressionMetadata);
   expect(metadata.declaration()).toBeInstanceOf(ObjectDeclarationMetadata);
@@ -18,8 +18,8 @@ test('none', () => {
 
 test('any', () => {
   const code = 'Any';
-  const node = parseExpression(code);
-  const metadata = getExpressionMetadata(node, new CoreDeclarationScope()) as IdExpressionMetadata;
+  const tree = parseExpression(code);
+  const metadata = getExpressionMetadata(tree, new CoreDeclarationScope()) as IdExpressionMetadata;
 
   expect(metadata).toBeInstanceOf(IdExpressionMetadata);
   expect(metadata.declaration()).toBeInstanceOf(InterfaceDeclarationMetadata);
@@ -29,8 +29,8 @@ test('any', () => {
 
 // test('id with type arguments', () => {
 //   const code = 'Map<String, Char>';
-//   const node = parseExpression(code);
-//   const metadata = getExpressionMetadata(node, new TestDeclarationScope());
+//   const tree = parseExpression(code);
+//   const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
 
 //   expect(metadata).toBeInstanceOf(IdExpressionMetadata);
 //   expect(metadata.type).toBeInstanceOf(IdTypeMetadata);

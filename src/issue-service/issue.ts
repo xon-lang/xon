@@ -1,7 +1,7 @@
 import { ParserRuleContext } from 'antlr4ts';
 import chalk from 'chalk';
-import { Node } from '../ast/node';
-import { SourceReference } from '../ast/util/source-reference';
+import { Tree } from '../tree/tree';
+import { SourceReference } from '../tree/util/source-reference';
 import { IssueLevel } from './issue-level';
 
 export class Issue {
@@ -45,8 +45,8 @@ export class Issue {
     throw new Error(issue.toString());
   }
 
-  static errorFromNode(node: Node, message: string): never {
-    const issue = Issue.fromSourceReference(node.sourceReference, IssueLevel.Error, message);
+  static errorFromTree(tree: Tree, message: string): never {
+    const issue = Issue.fromSourceReference(tree.sourceReference, IssueLevel.Error, message);
     throw new Error(issue.toString());
   }
 

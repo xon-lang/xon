@@ -1,7 +1,7 @@
-import { MultipleBodyNode } from '../../../ast/body/multiple/multiple-body-node';
-import { DeclarationNode } from '../../../ast/declaration/declaration-node';
-import { DeclarationStatementNode } from '../../../ast/statement/declaration/declaration-statement-node';
-import { SourceReference } from '../../../ast/util/source-reference';
+import { MultipleBodyTree } from '../../../tree/body/multiple/multiple-body-tree';
+import { DeclarationTree } from '../../../tree/declaration/declaration-tree';
+import { DeclarationStatementTree } from '../../../tree/statement/declaration/declaration-statement-tree';
+import { SourceReference } from '../../../tree/util/source-reference';
 import { DeclarationScope } from '../../declaration-scope';
 import { ExpressionMetadata } from '../../expression/expression-metadata';
 import { getExpressionMetadata } from '../../expression/expression-metadata-helper';
@@ -12,7 +12,7 @@ export class InterfaceDeclarationMetadata implements DeclarationMetadata {
   sourceReference: SourceReference;
   name: string;
 
-  constructor(private node: DeclarationNode, private scope: DeclarationScope) {
+  constructor(private node: DeclarationTree, private scope: DeclarationScope) {
     this.sourceReference = node.sourceReference;
     this.name = node.id.name.text;
   }
@@ -24,11 +24,11 @@ export class InterfaceDeclarationMetadata implements DeclarationMetadata {
 
   attributes(): DeclarationMetadata[] {
     const ancestorsAttributes = this.ancestors().flatMap((x) => x.attributes());
-    if (this.node.body instanceof MultipleBodyNode) {
+    if (this.node.body instanceof MultipleBodyTree) {
       const currentAttributes = getDeclarationsMetadata(
         this.node.body.statements
-          .filter((x) => x instanceof DeclarationStatementNode)
-          .map((x) => x as DeclarationStatementNode)
+          .filter((x) => x instanceof DeclarationStatementTree)
+          .map((x) => x as DeclarationStatementTree)
           .map((x) => x.declaration),
         this.scope,
       );

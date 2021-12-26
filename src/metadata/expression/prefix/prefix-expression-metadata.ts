@@ -1,10 +1,10 @@
-import { PrefixExpressionNode } from '../../../ast/expression/prefix/prefix-expression-node';
+import { PrefixExpressionTree } from '../../../tree/expression/prefix/prefix-expression-tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
 
 export class PrefixExpressionMetadata implements ExpressionMetadata {
-  constructor(node: PrefixExpressionNode, scope: DeclarationScope) {
+  constructor(node: PrefixExpressionTree, scope: DeclarationScope) {
     // const declaration = getExpressionMetadata(node.value, scope).type.declaration;
     // const attributeType = declaration.attribute(node.id.text, [], [], null).type([]);
     // if (attributeType instanceof LambdaTypeMetadata) this.type = attributeType.resultType;

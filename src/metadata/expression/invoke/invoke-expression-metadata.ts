@@ -1,10 +1,10 @@
-import { InvokeExpressionNode } from '../../../ast/expression/invoke/invoke-expression-node';
+import { InvokeExpressionTree } from '../../../tree/expression/invoke/invoke-expression-tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
 
 export class InvokeExpressionMetadata implements ExpressionMetadata {
-  constructor(node: InvokeExpressionNode, scope: DeclarationScope) {
+  constructor(node: InvokeExpressionTree, scope: DeclarationScope) {
     // const args = node.arguments.map((x) => getExpressionMetadata(x, scope)).map((x) => x.type);
     // const instanceType = getExpressionMetadata(node.instance, scope).type;
     // if (node.instance instanceof MemberExpressionNode) {

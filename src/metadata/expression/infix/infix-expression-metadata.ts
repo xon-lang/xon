@@ -1,11 +1,11 @@
-import { InfixExpressionNode } from '../../../ast/expression/infix/infix-expression-node';
+import { InfixExpressionTree } from '../../../tree/expression/infix/infix-expression-tree';
 import { DeclarationScope } from '../../declaration-scope';
 import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
 import { getExpressionMetadata } from '../expression-metadata-helper';
 
 export class InfixExpressionMetadata implements ExpressionMetadata {
-  constructor(private node: InfixExpressionNode, private scope: DeclarationScope) {
+  constructor(private node: InfixExpressionTree, private scope: DeclarationScope) {
     // const declaration = getExpressionMetadata(node.left, scope).type.declaration;
     // const rightType = getExpressionMetadata(node.right, scope).type;
     // const attributeType = declaration.attribute(node.id.text, [], [rightType], null).type([]);

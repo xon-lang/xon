@@ -1,7 +1,7 @@
 import * as glob from 'glob';
 import * as path from 'path';
-import { DeclarationStatementNode } from '../../ast/statement/declaration/declaration-statement-node';
-import { parseSourceFile } from '../../ast/util/parse';
+import { DeclarationStatementTree } from '../../tree/statement/declaration/declaration-statement-tree';
+import { parseSourceFile } from '../../tree/util/parse';
 import { DeclarationScope } from '../declaration-scope';
 import { DeclarationMetadata } from '../declaration/declaration-metadata';
 import { getDeclarationMetadata } from '../declaration/declaration-metadata-helper';
@@ -16,7 +16,7 @@ export class ModuleMetadata {
 
     for (const source of sources) {
       for (const statement of source.statements) {
-        if (statement instanceof DeclarationStatementNode) {
+        if (statement instanceof DeclarationStatementTree) {
           const declaration = getDeclarationMetadata(statement.declaration, innerScope);
           this.declarations.push(declaration);
         }

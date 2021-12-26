@@ -1,7 +1,7 @@
-import { SingleBodyNode } from '../../../ast/body/single/single-body-node';
-import { DeclarationNode } from '../../../ast/declaration/declaration-node';
-import { ExpressionStatementNode } from '../../../ast/statement/expression/expression-statement-node';
-import { SourceReference } from '../../../ast/util/source-reference';
+import { SingleBodyTree } from '../../../tree/body/single/single-body-tree';
+import { DeclarationTree } from '../../../tree/declaration/declaration-tree';
+import { ExpressionStatementTree } from '../../../tree/statement/expression/expression-statement-tree';
+import { SourceReference } from '../../../tree/util/source-reference';
 import { Issue } from '../../../issue-service/issue';
 import { DeclarationScope } from '../../declaration-scope';
 import { ExpressionMetadata } from '../../expression/expression-metadata';
@@ -12,7 +12,7 @@ export class AttributeDeclarationMetadata implements DeclarationMetadata {
   sourceReference: SourceReference;
   name: string;
 
-  constructor(private node: DeclarationNode, private scope: DeclarationScope) {
+  constructor(private node: DeclarationTree, private scope: DeclarationScope) {
     this.sourceReference = node.sourceReference;
     this.name = node.id.name.text;
   }
@@ -26,15 +26,15 @@ export class AttributeDeclarationMetadata implements DeclarationMetadata {
     if (this.node.type) {
       return getExpressionMetadata(this.node.type, this.scope);
     } else if (this.node.body) {
-      if (this.node.body instanceof SingleBodyNode) {
-        if (this.node.body.statement instanceof ExpressionStatementNode) {
+      if (this.node.body instanceof SingleBodyTree) {
+        if (this.node.body.statement instanceof ExpressionStatementTree) {
           return getExpressionMetadata(this.node.body.statement.expression, this.scope);
         }
       } else {
         // todo join all return expressions
       }
     }
-    Issue.errorFromNode(this.node, `Attribute '${this.node.id}' must have a type`);
+    Issue.errorFromTree(this.node, `Attribute '${this.node.id}' must have a type`);
   }
 
   attributes(): DeclarationMetadata[] {
