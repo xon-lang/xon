@@ -6,7 +6,7 @@ mkdir dist
 find src -name "*.ts" -a ! -name "*.test.ts" | cpio -p -dumv dist
 cp package.json dist
 cp README.md dist
-# cp -- *.md dist
+cp LICENSE dist
 
 npx cti create -e tests, test-helper, .antlr -i .test.ts -w -f ./dist
 npx tsc -p tsconfig.dist.json
