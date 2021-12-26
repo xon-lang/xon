@@ -18,7 +18,8 @@ export class AttributeDeclarationMetadata implements DeclarationMetadata {
   }
 
   generics(): ExpressionMetadata[] {
-    return this.node.id.generics.map((x) => getExpressionMetadata(x, this.scope));
+    throw new Error('Not implemented');
+    // return this.node.id.generics.map((x) => getExpressionMetadata(x, this.scope));
   }
 
   type(): ExpressionMetadata {

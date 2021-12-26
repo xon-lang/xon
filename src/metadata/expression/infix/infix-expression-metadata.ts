@@ -14,8 +14,9 @@ export class InfixExpressionMetadata implements ExpressionMetadata {
   }
 
   attributes(): DeclarationMetadata[] {
-    const left  = getExpressionMetadata(this.node.left, this.scope)
-    const right  = getExpressionMetadata(this.node.right, this.scope)
-    left.attributes().filter(x=>)
+    return []
+    // const left  = getExpressionMetadata(this.node.left, this.scope)
+    // const right  = getExpressionMetadata(this.node.right, this.scope)
+    // left.attributes().filter(x=>)
   }
 }

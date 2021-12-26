@@ -37,6 +37,7 @@ export class ObjectDeclarationMetadata implements DeclarationMetadata {
   }
 
   ancestors(): ExpressionMetadata[] {
-    return this.node.ancestors.map((x) => getExpressionMetadata(x, this.scope));
+    throw new Error('Not implemented');
+    // return this.node.ancestors.map((x) => getExpressionMetadata(x, this.scope));
   }
 }

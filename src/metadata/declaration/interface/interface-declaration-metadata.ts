@@ -18,7 +18,8 @@ export class InterfaceDeclarationMetadata implements DeclarationMetadata {
   }
 
   generics(): ExpressionMetadata[] {
-    return this.node.id.generics.map((x) => getExpressionMetadata(x, this.scope));
+    throw new Error('Not implemented');
+    // return this.node.id.generics.map((x) => getExpressionMetadata(x, this.scope));
   }
 
   attributes(): DeclarationMetadata[] {
@@ -37,7 +38,8 @@ export class InterfaceDeclarationMetadata implements DeclarationMetadata {
   }
 
   ancestors(): ExpressionMetadata[] {
-    return this.node.ancestors.map((x) => getExpressionMetadata(x, this.scope));
+    throw new Error('Not implemented');
+    // return this.node.ancestors.map((x) => getExpressionMetadata(x, this.scope));
   }
 }
 
