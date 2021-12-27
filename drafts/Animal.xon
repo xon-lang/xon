@@ -1,0 +1,21 @@
+Animal
+  name String
+  weight 1..20
+  height 10..30
+
+
+
+Dog is Animal
+  breed
+
+dog() Dog
+    breed: "Husky"
+
+
+bran Dog
+  name: "Bran"
+  weight: 123
+  height 321
+  breed: "Husky"
+
+
