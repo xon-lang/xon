@@ -4,15 +4,17 @@ Animal
   height 10..30
 
 
-
 Dog is Animal
   breed
 
-dog() Dog
+class dog() Dog
     breed: "Husky"
 
+dog() Dog: {
+  breed: "Husky"
+}
 
-bran Dog
+object bran Dog
   name: "Bran"
   weight: 123
   height 321
