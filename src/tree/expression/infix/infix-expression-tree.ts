@@ -11,9 +11,11 @@ export class InfixExpressionTree implements ExpressionTree {
     public id: IdToken,
     public left: ExpressionTree,
     public right: ExpressionTree,
-  ) {}
+  ) {
+    this.sourceReference = SourceReference.fromContext(ctx);
+  }
 
   toString(): string {
-    return `${this.left} ${this.id} ${this.right}`;
+    return ;
   }
 }
