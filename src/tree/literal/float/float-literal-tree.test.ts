@@ -1,4 +1,4 @@
-import { parseLiteral } from '../../util/parse';
+import { parseLiteral } from '../../../util/parse';
 import { FloatLiteralTree } from './float-literal-tree';
 
 test('positive float number', () => {

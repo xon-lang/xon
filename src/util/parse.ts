@@ -1,14 +1,14 @@
 import { CharStreams, CommonTokenStream } from 'antlr4ts';
 import * as fs from 'fs';
-import { XonLexer } from '../../grammar/xon-lexer';
-import { XonParser } from '../../grammar/xon-parser';
-import { getDeclarationTree } from '../declaration/declaration-tree-helper';
-import { getExpressionTree } from '../expression/expression-tree-helper';
-import { getIdTree } from '../id/id-tree-helper';
-import { getLiteralNode } from '../literal/literal-tree-helper';
-import { SourceTree } from '../source/source-tree';
-import { getSourceTree } from '../source/source-tree-helper';
-import { getStatementTree } from '../statement/statement-tree-helper';
+import { XonLexer } from '../grammar/xon-lexer';
+import { XonParser } from '../grammar/xon-parser';
+import { getDeclarationTree } from '../tree/declaration/declaration-tree-helper';
+import { getExpressionTree } from '../tree/expression/expression-tree-helper';
+import { getIdTree } from '../tree/id/id-tree-helper';
+import { getLiteralNode } from '../tree/literal/literal-tree-helper';
+import { SourceTree } from '../tree/source/source-tree';
+import { getSourceTree } from '../tree/source/source-tree-helper';
+import { getStatementTree } from '../tree/statement/statement-tree-helper';
 import { ThrowingErrorListener } from './throwing-error-listener';
 
 export const parse = (code: string, sourceName: string = undefined): XonParser => {

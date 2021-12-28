@@ -1,4 +1,4 @@
-import { parseExpression } from '../../../tree/util/parse';
+import { parseExpression } from '../../../util/parse';
 import { CoreDeclarationScope } from '../../core-declaration-scope';
 import { getExpressionMetadata } from '../expression-metadata-helper';
 

@@ -1,5 +1,5 @@
-import { evaluate } from '../../util/evaluate';
-import { parseExpression } from '../../util/parse';
+import { evaluate } from '../../../util/evaluate';
+import { parseExpression } from '../../../util/parse';
 import { ArrayExpressionTree } from './array-expression-tree';
 
 test('check array', () => {

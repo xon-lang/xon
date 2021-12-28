@@ -3,7 +3,7 @@ import { IdExpressionTree } from '../expression/id/id-expression-tree';
 import { InfixExpressionTree } from '../expression/infix/infix-expression-tree';
 import { LiteralExpressionTree } from '../expression/literal/literal-expression-tree';
 import { ExpressionStatementTree } from '../statement/expression/expression-statement-tree';
-import { parseDeclaration } from '../util/parse';
+import { parseDeclaration } from '../../util/parse';
 import { DeclarationTree, Modifier } from './declaration-tree';
 
 test('type and value', () => {

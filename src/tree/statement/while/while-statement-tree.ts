@@ -3,7 +3,7 @@ import { BodyTree } from '../../body/body-tree';
 import { getBodyTree } from '../../body/body-tree-helper';
 import { ExpressionTree } from '../../expression/expression-tree';
 import { getExpressionTree } from '../../expression/expression-tree-helper';
-import { SourceReference } from '../../util/source-reference';
+import { SourceReference } from '../../../util/source-reference';
 import { StatementTree } from '../statement-tree';
 
 export class WhileStatementTree implements StatementTree {

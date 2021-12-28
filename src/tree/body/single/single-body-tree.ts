@@ -1,7 +1,7 @@
 import { SingleBodyContext } from '../../../grammar/xon-parser';
 import { StatementTree } from '../../statement/statement-tree';
 import { getStatementTree } from '../../statement/statement-tree-helper';
-import { SourceReference } from '../../util/source-reference';
+import { SourceReference } from '../../../util/source-reference';
 import { BodyTree } from '../body-tree';
 
 export class SingleBodyTree implements BodyTree {

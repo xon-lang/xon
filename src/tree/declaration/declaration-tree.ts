@@ -6,7 +6,7 @@ import { getExpressionTree } from '../expression/expression-tree-helper';
 import { IdTree } from '../id/id-tree';
 import { getIdTree } from '../id/id-tree-helper';
 import { Tree } from '../tree';
-import { SourceReference } from '../util/source-reference';
+import { SourceReference } from '../../util/source-reference';
 
 export class DeclarationTree implements Tree {
   sourceReference: SourceReference;

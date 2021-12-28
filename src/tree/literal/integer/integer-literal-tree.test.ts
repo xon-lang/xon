@@ -1,4 +1,4 @@
-import { parseLiteral } from '../../util/parse';
+import { parseLiteral } from '../../../util/parse';
 import { IntegerLiteralTree } from './integer-literal-tree';
 
 test('zero int number', () => {

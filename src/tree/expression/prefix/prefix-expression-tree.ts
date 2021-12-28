@@ -1,6 +1,6 @@
 import { PrefixExpressionContext } from '../../../grammar/xon-parser';
-import { IdToken } from '../../util/id-token';
-import { SourceReference } from '../../util/source-reference';
+import { IdToken } from '../../../util/id-token';
+import { SourceReference } from '../../../util/source-reference';
 import { ExpressionTree } from '../expression-tree';
 import { getExpressionTree } from '../expression-tree-helper';
 

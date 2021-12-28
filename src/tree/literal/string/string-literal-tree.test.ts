@@ -1,4 +1,4 @@
-import { parseLiteral } from '../../util/parse';
+import { parseLiteral } from '../../../util/parse';
 import { StringLiteralTree } from './string-literal-tree';
 
 test('single line string', () => {

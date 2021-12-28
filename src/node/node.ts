@@ -1,14 +1,14 @@
 import { ParserRuleContext } from 'antlr4ts';
-import { ExpressionMetadata } from '../metadata/expression/expression-metadata';
+import { Metadata } from '../metadata/metadata';
 import { Tree } from '../tree/tree';
-import { SourceReference } from '../tree/util/source-reference';
+import { SourceReference } from '../util/source-reference';
 
 export interface ExpressionNode {
-  context: ParserRuleContext;
+  parserRuleContext: ParserRuleContext;
   sourceReference: SourceReference;
+  formatter: Formatter;
   tree: Tree;
-  metadata: ExpressionMetadata;
+  metadata: Metadata;
 
-  format(): string;
   evaluate(): unknown;
 }

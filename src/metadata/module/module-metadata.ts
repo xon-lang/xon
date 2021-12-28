@@ -1,7 +1,7 @@
 import * as glob from 'glob';
 import * as path from 'path';
 import { DeclarationStatementTree } from '../../tree/statement/declaration/declaration-statement-tree';
-import { parseSourceFile } from '../../tree/util/parse';
+import { parseSourceFile } from '../../util/parse';
 import { DeclarationScope } from '../declaration-scope';
 import { DeclarationMetadata } from '../declaration/declaration-metadata';
 import { getDeclarationMetadata } from '../declaration/declaration-metadata-helper';

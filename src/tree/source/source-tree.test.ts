@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { ImportStatementTree } from '../statement/import/import-statement-tree';
-import { parse, parseSource } from '../util/parse';
+import { parse, parseSource } from '../../util/parse';
 import { SourceTree } from './source-tree';
 
 test('two if', () => {

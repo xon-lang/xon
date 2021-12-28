@@ -4,8 +4,8 @@ import { getExpressionTree } from '../../expression/expression-tree-helper';
 import { IdExpressionTree } from '../../expression/id/id-expression-tree';
 import { InfixExpressionTree } from '../../expression/infix/infix-expression-tree';
 import { Tree } from '../../tree';
-import { IdToken } from '../../util/id-token';
-import { SourceReference } from '../../util/source-reference';
+import { IdToken } from '../../../util/id-token';
+import { SourceReference } from '../../../util/source-reference';
 
 export class ImportMemberTree implements Tree {
   sourceReference: SourceReference;

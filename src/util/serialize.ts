@@ -1,4 +1,4 @@
-import { Tree } from '../tree';
+import { Tree } from '../tree/tree';
 
 export function nodeToPlain(node: Tree): unknown {
   const entries = Object.entries(node)

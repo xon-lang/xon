@@ -1,4 +1,4 @@
-import { SourceReference } from '../../tree/util/source-reference';
+import { SourceReference } from '../../util/source-reference';
 import { ExpressionMetadata } from '../expression/expression-metadata';
 
 export interface DeclarationMetadata {

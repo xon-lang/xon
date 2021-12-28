@@ -1,4 +1,4 @@
-import { parseStatement } from '../../util/parse';
+import { parseStatement } from '../../../util/parse';
 import { ImportStatementTree } from './import-statement-tree';
 
 test('import with many members', () => {

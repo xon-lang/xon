@@ -1,7 +1,7 @@
 import { DeclarationStatementContext } from '../../../grammar/xon-parser';
 import { DeclarationTree } from '../../declaration/declaration-tree';
 import { getDeclarationTree } from '../../declaration/declaration-tree-helper';
-import { SourceReference } from '../../util/source-reference';
+import { SourceReference } from '../../../util/source-reference';
 import { StatementTree } from '../statement-tree';
 
 export class DeclarationStatementTree implements StatementTree {

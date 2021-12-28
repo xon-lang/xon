@@ -1,5 +1,5 @@
 import { PreprocessorStatementContext } from '../../../grammar/xon-parser';
-import { SourceReference } from '../../util/source-reference';
+import { SourceReference } from '../../../util/source-reference';
 import { StatementTree } from '../statement-tree';
 
 export class PreprocessorStatementTree implements StatementTree {

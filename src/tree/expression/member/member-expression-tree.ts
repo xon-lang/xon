@@ -1,7 +1,7 @@
 import { MemberExpressionContext } from '../../../grammar/xon-parser';
 import { IdTree } from '../../id/id-tree';
 import { getIdTree } from '../../id/id-tree-helper';
-import { SourceReference } from '../../util/source-reference';
+import { SourceReference } from '../../../util/source-reference';
 import { ExpressionTree } from '../expression-tree';
 import { getExpressionTree } from '../expression-tree-helper';
 

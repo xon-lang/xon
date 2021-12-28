@@ -1,6 +1,6 @@
 import { ExprContext } from '../../../grammar/xon-parser';
-import { IdToken } from '../../util/id-token';
-import { SourceReference } from '../../util/source-reference';
+import { IdToken } from '../../../util/id-token';
+import { SourceReference } from '../../../util/source-reference';
 import { ExpressionTree } from '../expression-tree';
 
 export class InfixExpressionTree implements ExpressionTree {

@@ -1,4 +1,4 @@
-import { parseId } from '../util/parse';
+import { parseId } from '../../util/parse';
 import { IdTree } from './id-tree';
 
 test('abc', () => {

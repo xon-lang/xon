@@ -1,7 +1,7 @@
 import { MultipleBodyTree } from '../../body/multiple/multiple-body-tree';
 import { SingleBodyTree } from '../../body/single/single-body-tree';
-import { evaluate } from '../../util/evaluate';
-import { parseStatement } from '../../util/parse';
+import { evaluate } from '../../../util/evaluate';
+import { parseStatement } from '../../../util/parse';
 import { ExpressionStatementTree } from '../expression/expression-statement-tree';
 import { IfStatementTree } from './if-statement-tree';
 

@@ -2,8 +2,8 @@ import { IdContext } from '../../grammar/xon-parser';
 import { DeclarationTree } from '../declaration/declaration-tree';
 import { getDeclarationTrees } from '../declaration/declaration-tree-helper';
 import { Tree } from '../tree';
-import { IdToken } from '../util/id-token';
-import { SourceReference } from '../util/source-reference';
+import { IdToken } from '../../util/id-token';
+import { SourceReference } from '../../util/source-reference';
 
 export class IdTree implements Tree {
   sourceReference: SourceReference;

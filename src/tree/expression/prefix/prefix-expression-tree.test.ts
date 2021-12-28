@@ -1,4 +1,4 @@
-import { parseExpression } from '../../util/parse';
+import { parseExpression } from '../../../util/parse';
 import { PrefixExpressionTree } from './prefix-expression-tree';
 
 test('negative integer', () => {

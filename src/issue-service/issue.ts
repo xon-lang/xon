@@ -1,7 +1,7 @@
 import { ParserRuleContext } from 'antlr4ts';
 import chalk from 'chalk';
 import { Tree } from '../tree/tree';
-import { SourceReference } from '../tree/util/source-reference';
+import { SourceReference } from '../util/source-reference';
 import { IssueLevel } from './issue-level';
 
 export class Issue {

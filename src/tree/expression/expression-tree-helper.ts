@@ -22,7 +22,7 @@ import {
   RelationalExpressionContext,
 } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
-import { IdToken } from '../util/id-token';
+import { IdToken } from '../../util/id-token';
 import { ArrayExpressionTree } from './array/array-expression-tree';
 import { ExpressionTree } from './expression-tree';
 import { IdExpressionTree } from './id/id-expression-tree';

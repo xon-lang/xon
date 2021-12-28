@@ -1,5 +1,5 @@
 import { RegexLiteralContext } from '../../../grammar/xon-parser';
-import { SourceReference } from '../../util/source-reference';
+import { SourceReference } from '../../../util/source-reference';
 import { LiteralTree } from '../literal-tree';
 
 export class RegexLiteralTree implements LiteralTree {

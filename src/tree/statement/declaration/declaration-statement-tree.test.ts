@@ -1,7 +1,7 @@
 import { SingleBodyTree } from '../../body/single/single-body-tree';
 import { IdExpressionTree } from '../../expression/id/id-expression-tree';
 import { LiteralExpressionTree } from '../../expression/literal/literal-expression-tree';
-import { parseStatement } from '../../util/parse';
+import { parseStatement } from '../../../util/parse';
 import { ExpressionStatementTree } from '../expression/expression-statement-tree';
 import { DeclarationStatementTree } from './declaration-statement-tree';
 

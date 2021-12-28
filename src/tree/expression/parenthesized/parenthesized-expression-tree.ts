@@ -1,5 +1,5 @@
 import { ParenthesizedExpressionContext } from '../../../grammar/xon-parser';
-import { SourceReference } from '../../util/source-reference';
+import { SourceReference } from '../../../util/source-reference';
 import { ExpressionTree } from '../expression-tree';
 import { getExpressionTree } from '../expression-tree-helper';
 

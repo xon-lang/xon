@@ -1,5 +1,5 @@
-import { evaluate } from '../../util/evaluate';
-import { parseExpression } from '../../util/parse';
+import { evaluate } from '../../../util/evaluate';
+import { parseExpression } from '../../../util/parse';
 import { IdExpressionTree } from '../id/id-expression-tree';
 import { InfixExpressionTree } from './infix-expression-tree';
 

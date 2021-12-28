@@ -1,4 +1,4 @@
-import { SourceReference } from './util/source-reference';
+import { SourceReference } from '../util/source-reference';
 
 export interface Tree {
   toString(): string;

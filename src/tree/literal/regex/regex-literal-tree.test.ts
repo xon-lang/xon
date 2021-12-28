@@ -1,4 +1,4 @@
-import { parseLiteral } from '../../util/parse';
+import { parseLiteral } from '../../../util/parse';
 import { RegexLiteralTree } from './regex-literal-tree';
 
 test('single line string', () => {

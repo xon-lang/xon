@@ -1,7 +1,7 @@
 import { MultipleBodyTree } from '../../body/multiple/multiple-body-tree';
 import { IdExpressionTree } from '../../expression/id/id-expression-tree';
-import { evaluate } from '../../util/evaluate';
-import { parseStatement } from '../../util/parse';
+import { evaluate } from '../../../util/evaluate';
+import { parseStatement } from '../../../util/parse';
 import { ExpressionStatementTree } from '../expression/expression-statement-tree';
 import { WhileStatementTree } from './while-statement-tree';
 
