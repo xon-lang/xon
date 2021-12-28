@@ -4,7 +4,7 @@ import { AssignmentStatementTree } from './assignment-statement-tree';
 
 test('variable assignment', () => {
   const code = 'a = 1';
-  const tree = parseStatement<AssignmentStatementTree>(code);
+  const tree = parseStatement(code) as AssignmentStatementTree;
   expect(tree).toBeInstanceOf(AssignmentStatementTree);
 
   expect(tree.id.name.text).toBe('a');

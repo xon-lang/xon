@@ -4,7 +4,7 @@ import { ArrayExpressionTree } from './array-expression-tree';
 
 test('check array', () => {
   const code = '[1, 2+2, 4, 6+6]';
-  const tree = parseExpression<ArrayExpressionTree>(code);
+  const tree = parseExpression(code) as ArrayExpressionTree;
   expect(tree).toBeInstanceOf(ArrayExpressionTree);
 
   expect(tree.items.length).toBe(4);
@@ -17,7 +17,7 @@ test('array on several lines', () => {
   const code = `[1,
                 2+2,
      4,    6+6]`;
-  const tree = parseExpression<ArrayExpressionTree>(code);
+  const tree = parseExpression(code) as ArrayExpressionTree;
   expect(tree).toBeInstanceOf(ArrayExpressionTree);
 
   expect(tree.items.length).toBe(4);

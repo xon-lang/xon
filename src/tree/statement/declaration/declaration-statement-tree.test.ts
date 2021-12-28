@@ -7,7 +7,7 @@ import { DeclarationStatementTree } from './declaration-statement-tree';
 
 test('type and value', () => {
   const code = 'a Integer: 1';
-  const tree = parseStatement<DeclarationStatementTree>(code);
+  const tree = parseStatement(code) as DeclarationStatementTree;
   expect(tree).toBeInstanceOf(DeclarationStatementTree);
 
   expect(tree.declaration.modifier).toBe(null);

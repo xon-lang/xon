@@ -4,7 +4,7 @@ import { MemberExpressionTree } from './member-expression-tree';
 
 test('not safe', () => {
   const code = 'abc.def';
-  const tree = parseExpression<MemberExpressionTree>(code);
+  const tree = parseExpression(code) as MemberExpressionTree;
   expect(tree).toBeInstanceOf(MemberExpressionTree);
 
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);

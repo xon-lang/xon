@@ -5,7 +5,7 @@ import { InfixExpressionTree } from './infix-expression-tree';
 
 test('num plus num', () => {
   const code = '1+1';
-  const tree = parseExpression<InfixExpressionTree>(code);
+  const tree = parseExpression(code) as InfixExpressionTree;
   expect(tree).toBeInstanceOf(InfixExpressionTree);
 
   expect(evaluate(tree)).toBe(2);
@@ -13,7 +13,7 @@ test('num plus num', () => {
 
 test('num plus str', () => {
   const code = '1  + "str"';
-  const tree = parseExpression<InfixExpressionTree>(code);
+  const tree = parseExpression(code) as InfixExpressionTree;
   expect(tree).toBeInstanceOf(InfixExpressionTree);
 
   expect(evaluate(tree)).toBe('1str');
@@ -21,7 +21,7 @@ test('num plus str', () => {
 
 test('has several relational operators', () => {
   const code = 'a<b>c';
-  const tree = parseExpression<InfixExpressionTree>(code);
+  const tree = parseExpression(code) as InfixExpressionTree;
   expect(tree).toBeInstanceOf(InfixExpressionTree);
 
   expect(tree.left).toBeInstanceOf(InfixExpressionTree);

@@ -4,7 +4,7 @@ import { NullableExpressionTree } from './nullable-expression-tree';
 
 test('nullable', () => {
   const code = 'abc?';
-  const tree = parseExpression<NullableExpressionTree>(code);
+  const tree = parseExpression(code) as NullableExpressionTree;
   expect(tree).toBeInstanceOf(NullableExpressionTree);
 
   expect(tree.value).toBeInstanceOf(IdExpressionTree);

@@ -7,7 +7,7 @@ import { IndexExpressionTree } from './index-expression-tree';
 
 test('method call', () => {
   const code = 'f[3, "str"]';
-  const tree = parseExpression<IndexExpressionTree>(code);
+  const tree = parseExpression(code) as IndexExpressionTree;
   expect(tree).toBeInstanceOf(IndexExpressionTree);
 
   expect(tree.arguments.length).toBe(2);
@@ -22,7 +22,7 @@ test('method on several lines', () => {
   const code = `f[3,
         "str", 123, 
     415]`;
-  const tree = parseExpression<IndexExpressionTree>(code);
+  const tree = parseExpression(code) as IndexExpressionTree;
   expect(tree).toBeInstanceOf(IndexExpressionTree);
 
   expect(tree.arguments.length).toBe(4);
@@ -34,7 +34,7 @@ test('method on several lines', () => {
 
 test('no args', () => {
   const code = 'A[]';
-  const tree = parseExpression<IndexExpressionTree>(code);
+  const tree = parseExpression(code) as IndexExpressionTree;
   expect(tree).toBeInstanceOf(IndexExpressionTree);
 
   expect(tree.arguments.length).toBe(0);

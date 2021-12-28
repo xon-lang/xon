@@ -4,7 +4,7 @@ import { ReturnStatementTree } from './return-statement-tree';
 
 test('return in scope', () => {
   const code = 'return 6+6';
-  const tree = parseStatement<ReturnStatementTree>(code);
+  const tree = parseStatement(code) as ReturnStatementTree;
   expect(tree).toBeInstanceOf(ReturnStatementTree);
 
   const returnStatement = tree as ReturnStatementTree;

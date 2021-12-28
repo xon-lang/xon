@@ -8,7 +8,7 @@ import { InvokeExpressionTree } from './invoke-expression-tree';
 
 test('method call', () => {
   const code = 'f(3, "str")';
-  const tree = parseExpression<InvokeExpressionTree>(code);
+  const tree = parseExpression(code) as InvokeExpressionTree;
   expect(tree).toBeInstanceOf(InvokeExpressionTree);
 
   expect(tree.arguments.length).toBe(2);
@@ -23,7 +23,7 @@ test('method on several lines', () => {
   const code = `f(3,
         "str", 123, 
     415)`;
-  const tree = parseExpression<InvokeExpressionTree>(code);
+  const tree = parseExpression(code) as InvokeExpressionTree;
   expect(tree).toBeInstanceOf(InvokeExpressionTree);
 
   expect(tree.arguments.length).toBe(4);
@@ -35,7 +35,7 @@ test('method on several lines', () => {
 
 test('can call with type parameter', () => {
   const code = 'a.get (1)';
-  const tree = parseExpression<InvokeExpressionTree>(code);
+  const tree = parseExpression(code) as InvokeExpressionTree;
   expect(tree).toBeInstanceOf(InvokeExpressionTree);
 
   expect(tree.arguments.length).toBe(1);
