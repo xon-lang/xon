@@ -6,7 +6,6 @@ import { getExpressionTrees } from '../expression-tree-helper';
 
 export class ArrayExpressionTree implements ExpressionTree {
   sourceReference: SourceReference;
-  metadata: ExpressionMetadata;
   items: ExpressionTree[];
 
   constructor(ctx: ArrayExpressionContext) {

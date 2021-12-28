@@ -1,5 +1,4 @@
 import { MethodExpressionContext } from '../../../grammar/xon-parser';
-import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
 import { DeclarationTree } from '../../declaration/declaration-tree';
 import { getDeclarationTrees } from '../../declaration/declaration-tree-helper';
 import { SourceReference } from '../../util/source-reference';
@@ -8,7 +7,6 @@ import { getExpressionTree } from '../expression-tree-helper';
 
 export class MethodExpressionTree implements ExpressionTree {
   sourceReference: SourceReference;
-  metadata: ExpressionMetadata;
   parameters: DeclarationTree[] = [];
   result?: ExpressionTree;
 

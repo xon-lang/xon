@@ -1,12 +1,10 @@
 import { ExprContext } from '../../../grammar/xon-parser';
-import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
 import { IdToken } from '../../util/id-token';
 import { SourceReference } from '../../util/source-reference';
 import { ExpressionTree } from '../expression-tree';
 
 export class InfixExpressionTree implements ExpressionTree {
   sourceReference: SourceReference;
-  metadata: ExpressionMetadata;
 
   constructor(
     ctx: ExprContext,
