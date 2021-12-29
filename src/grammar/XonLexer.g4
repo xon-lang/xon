@@ -1,7 +1,8 @@
 lexer grammar XonLexer;
 
 channels {
-    ERROR
+    ERROR,
+    COMMENT_CHANNEL,
 }
 
 options {
@@ -95,7 +96,7 @@ ID: [$_a-zA-Z] [_a-zA-Z0-9]*;
 NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
     ;
 
-COMMENT: '--' ~[\r\n]* -> channel(2);
+COMMENT: '--' ~[\r\n]* -> channel(COMMENT_CHANNEL);
 WS:      [ \t]+        -> skip;
 
 fragment Radix:          [0-9][0-9]? [xX];
