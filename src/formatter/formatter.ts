@@ -1,3 +1,0 @@
-interface Formatter {
-  format(): string;
-}
