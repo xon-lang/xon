@@ -95,8 +95,8 @@ ID: [$_a-zA-Z] [_a-zA-Z0-9]*;
 NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
     ;
 
-COMMENT: '--' ~[\r\n]*;
-WS:      [ \t]+ -> skip;
+COMMENT: '--' ~[\r\n]* -> channel(2);
+WS:      [ \t]+        -> skip;
 
 fragment Radix:          [0-9][0-9]? [xX];
 fragment DigitNumber:    [0-9] ('_' | [0-9])*;
