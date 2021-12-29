@@ -1,4 +1,4 @@
-interface Array<|T|>
+model Array<|T|>
   -- $[index Integer] T
 
   + (other T[]) T[]

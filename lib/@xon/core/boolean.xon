@@ -1,0 +1,5 @@
+model Boolean
+  --
+
+object false is Boolean
+object true is Boolean

@@ -1,14 +1,9 @@
 -- under question
-interface Any
+model Any
   in (other Range) Boolean
   is (other Any) Boolean
   as <|T|>(other T) T
 
-object None
-
-interface Unknown
-interface Never
-
-type Boolean: False || True
-object False
-object True
+model Unknown
+model Never
+model None

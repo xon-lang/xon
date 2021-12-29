@@ -1,4 +1,4 @@
-interface Number
+model Number
   + (other Number) Number
   - (other Number) Number
   * (other Number) Number
@@ -11,31 +11,31 @@ interface Number
   toString() String
 
 
-interface Integer is Number
+model Integer is Number
   test String
-interface Float is Number
+model Float is Number
   test String
   test String
   test String
 
 
--- interface NaturalNumber is Number -- N
+-- model NaturalNumber is Number -- N
 
--- interface IntegerNumber is Number -- Z
+-- model IntegerNumber is Number -- Z
 --   signed Boolean
 --   value NaturalNumber
 
--- interface RationalNumber is Number -- Q
+-- model RationalNumber is Number -- Q
 --   numerator IntegerNumber
 --   denominator NaturalNumber
 
--- interface IrrationalNumber is Number -- I
+-- model IrrationalNumber is Number -- I
 --   value RealNumber
 
--- interface RealNumber is Number -- R
+-- model RealNumber is Number -- R
 --   integer IntegerNumber
 --   fraction NaturalNumber
 
--- interface ComplexNumber is Number -- C
+-- model ComplexNumber is Number -- C
 --   real RealNumber
 --   imaginary RealNumber

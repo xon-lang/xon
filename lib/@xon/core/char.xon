@@ -1,1 +1,1 @@
-interface Char is Integer
+model Char is Integer

@@ -1,4 +1,4 @@
-interface String is Char[]
+model String is Char[]
   + (other String) String
   + (other Char) String
   + (other Number) String
