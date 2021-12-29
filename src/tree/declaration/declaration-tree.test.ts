@@ -1,9 +1,9 @@
+import { parseDeclaration } from '../../util/parse';
 import { SingleBodyTree } from '../body/single/single-body-tree';
 import { IdExpressionTree } from '../expression/id/id-expression-tree';
 import { InfixExpressionTree } from '../expression/infix/infix-expression-tree';
 import { LiteralExpressionTree } from '../expression/literal/literal-expression-tree';
 import { ExpressionStatementTree } from '../statement/expression/expression-statement-tree';
-import { parseDeclaration } from '../../util/parse';
 import { DeclarationTree, Modifier } from './declaration-tree';
 
 test('type and value', () => {
@@ -23,11 +23,11 @@ test('type and value', () => {
 });
 
 test('type', () => {
-  const code = 'interface Integer is Number && AnotherOne<|T|>';
+  const code = 'model Integer is Number && AnotherOne<|T|>';
   const tree = parseDeclaration(code);
   expect(tree).toBeInstanceOf(DeclarationTree);
 
-  expect(tree.modifier).toBe(Modifier.interface);
+  expect(tree.modifier).toBe(Modifier.model);
   expect(tree.id.name.text).toBe('Integer');
   expect(tree.type).toBe(null);
   const { left, right } = tree.base as InfixExpressionTree;

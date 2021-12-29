@@ -1,4 +1,5 @@
 import { DeclarationContext } from '../../grammar/xon-parser';
+import { SourceReference } from '../../util/source-reference';
 import { BodyTree } from '../body/body-tree';
 import { getBodyTree } from '../body/body-tree-helper';
 import { ExpressionTree } from '../expression/expression-tree';
@@ -6,7 +7,6 @@ import { getExpressionTree } from '../expression/expression-tree-helper';
 import { IdTree } from '../id/id-tree';
 import { getIdTree } from '../id/id-tree-helper';
 import { Tree } from '../tree';
-import { SourceReference } from '../../util/source-reference';
 
 export class DeclarationTree implements Tree {
   sourceReference: SourceReference;
@@ -35,6 +35,6 @@ export class DeclarationTree implements Tree {
 
 export enum Modifier {
   class,
-  interface,
+  model,
   object,
 }
