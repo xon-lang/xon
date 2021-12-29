@@ -16,6 +16,6 @@ export class InfixExpressionTree implements ExpressionTree {
   }
 
   toString(): string {
-    return ;
+    return `${this.left} ${this.id} ${this.right}`;
   }
 }
