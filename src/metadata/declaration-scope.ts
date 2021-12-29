@@ -1,4 +1,5 @@
 import { Issue } from '../issue-service/issue';
+import { IssueLevel } from '../issue-service/issue-level';
 import { DeclarationMetadata } from './declaration/declaration-metadata';
 
 export class DeclarationScope {
@@ -23,10 +24,10 @@ export class DeclarationScope {
     const results = this.filterByName(name);
 
     if (results.length > 1) {
-      Issue.errorFromSourceReference(
-        results[results.length - 1].sourceReference,
-        `Too many '${name}' declarations found`,
+      const issues = results.map((x) =>
+        Issue.fromSourceReference(x.sourceReference, IssueLevel.Error, '').toString(),
       );
+      throw new Error(`Too many '${name}' declarations found:\n${issues.join('\n')}`);
     }
     if (!results.length) {
       throw new Error(`Declaration '${name}' not found`);
