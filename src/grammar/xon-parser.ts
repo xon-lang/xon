@@ -49,8 +49,8 @@ export class XonParser extends Parser {
 	public static readonly IMPORT = 22;
 	public static readonly IN = 23;
 	public static readonly INFIX = 24;
-	public static readonly INTERFACE = 25;
-	public static readonly IS = 26;
+	public static readonly IS = 25;
+	public static readonly MODEL = 26;
 	public static readonly NOT = 27;
 	public static readonly OBJECT = 28;
 	public static readonly POSTFIX = 29;
@@ -96,8 +96,8 @@ export class XonParser extends Parser {
 	public static readonly PREPROCESSOR = 69;
 	public static readonly ID = 70;
 	public static readonly NL = 71;
-	public static readonly WS = 72;
-	public static readonly COMMENT = 73;
+	public static readonly COMMENT = 72;
+	public static readonly WS = 73;
 	public static readonly RULE_source = 0;
 	public static readonly RULE_statement = 1;
 	public static readonly RULE_expr = 2;
@@ -116,7 +116,7 @@ export class XonParser extends Parser {
 		undefined, undefined, undefined, "'['", "']'", "'('", "')'", "'{'", "'}'", 
 		"'abstract'", "'actual'", "'as'", "'break'", "'class'", "'do'", "'else'", 
 		"'enum'", "'expect'", "'export'", "'extension'", "'for'", "'if'", "'import'", 
-		"'in'", "'infix'", "'interface'", "'is'", "'not'", "'object'", "'postfix'", 
+		"'in'", "'infix'", "'is'", "'model'", "'not'", "'object'", "'postfix'", 
 		"'prefix'", "'return'", "'type'", "'while'", "'&'", "'&&'", "'='", "'*'", 
 		"'@'", "'\\'", "'^'", "'?.'", "':'", "','", "'.'", "'=='", "'!'", "'>='", 
 		"'>'", "'#'", "'<='", "'<'", "'-'", "'%'", "'!='", "'||'", "'|'", "'+'", 
@@ -126,14 +126,14 @@ export class XonParser extends Parser {
 		undefined, "INDENT", "DEDENT", "OPEN_BRACKET", "CLOSE_BRACKET", "OPEN_PAREN", 
 		"CLOSE_PAREN", "OPEN_BRACE", "CLOSE_BRACE", "ABSTRACT", "ACTUAL", "AS", 
 		"BREAK", "CLASS", "DO", "ELSE", "ENUM", "EXPECT", "EXPORT", "EXTENSION", 
-		"FOR", "IF", "IMPORT", "IN", "INFIX", "INTERFACE", "IS", "NOT", "OBJECT", 
+		"FOR", "IF", "IMPORT", "IN", "INFIX", "IS", "MODEL", "NOT", "OBJECT", 
 		"POSTFIX", "PREFIX", "RETURN", "TYPE", "WHILE", "AMPERSAND", "AND", "ASSIGN", 
 		"ASTERISK", "AT", "BACK_SLASH", "CARET", "COALESCING", "COLON", "COMMA", 
 		"DOT", "EQUAL", "EXCLAMATION", "GREAT_EQUAL", "GREAT", "HASH", "LESS_EQUAL", 
 		"LESS", "MINUS", "MODULO", "NOT_EQUAL", "OR", "PIPE", "PLUS", "QUESTION", 
 		"RANGE", "SLASH", "SPREAD", "TILDE", "UNDERSCORE", "FLOAT_LITERAL", "INTEGER_LITERAL", 
 		"CHAR_LITERAL", "STRING_LITERAL", "REGEX_LITERAL", "PREPROCESSOR", "ID", 
-		"NL", "WS", "COMMENT",
+		"NL", "COMMENT", "WS",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(XonParser._LITERAL_NAMES, XonParser._SYMBOLIC_NAMES, []);
 
@@ -172,7 +172,7 @@ export class XonParser extends Parser {
 			this.state = 20;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN_BRACKET) | (1 << XonParser.OPEN_PAREN) | (1 << XonParser.OPEN_BRACE) | (1 << XonParser.ACTUAL) | (1 << XonParser.AS) | (1 << XonParser.BREAK) | (1 << XonParser.CLASS) | (1 << XonParser.DO) | (1 << XonParser.ENUM) | (1 << XonParser.EXPORT) | (1 << XonParser.FOR) | (1 << XonParser.IF) | (1 << XonParser.IMPORT) | (1 << XonParser.IN) | (1 << XonParser.INTERFACE) | (1 << XonParser.IS) | (1 << XonParser.NOT) | (1 << XonParser.OBJECT) | (1 << XonParser.RETURN))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (XonParser.TYPE - 32)) | (1 << (XonParser.WHILE - 32)) | (1 << (XonParser.ASSIGN - 32)) | (1 << (XonParser.ASTERISK - 32)) | (1 << (XonParser.CARET - 32)) | (1 << (XonParser.GREAT - 32)) | (1 << (XonParser.LESS - 32)) | (1 << (XonParser.MINUS - 32)) | (1 << (XonParser.MODULO - 32)) | (1 << (XonParser.PLUS - 32)) | (1 << (XonParser.SLASH - 32)) | (1 << (XonParser.SPREAD - 32)))) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & ((1 << (XonParser.FLOAT_LITERAL - 64)) | (1 << (XonParser.INTEGER_LITERAL - 64)) | (1 << (XonParser.CHAR_LITERAL - 64)) | (1 << (XonParser.STRING_LITERAL - 64)) | (1 << (XonParser.REGEX_LITERAL - 64)) | (1 << (XonParser.PREPROCESSOR - 64)) | (1 << (XonParser.ID - 64)) | (1 << (XonParser.NL - 64)))) !== 0)) {
+			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN_BRACKET) | (1 << XonParser.OPEN_PAREN) | (1 << XonParser.OPEN_BRACE) | (1 << XonParser.ACTUAL) | (1 << XonParser.AS) | (1 << XonParser.BREAK) | (1 << XonParser.CLASS) | (1 << XonParser.DO) | (1 << XonParser.ENUM) | (1 << XonParser.EXPORT) | (1 << XonParser.FOR) | (1 << XonParser.IF) | (1 << XonParser.IMPORT) | (1 << XonParser.IN) | (1 << XonParser.IS) | (1 << XonParser.MODEL) | (1 << XonParser.NOT) | (1 << XonParser.OBJECT) | (1 << XonParser.RETURN))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (XonParser.TYPE - 32)) | (1 << (XonParser.WHILE - 32)) | (1 << (XonParser.ASSIGN - 32)) | (1 << (XonParser.ASTERISK - 32)) | (1 << (XonParser.CARET - 32)) | (1 << (XonParser.GREAT - 32)) | (1 << (XonParser.LESS - 32)) | (1 << (XonParser.MINUS - 32)) | (1 << (XonParser.MODULO - 32)) | (1 << (XonParser.PLUS - 32)) | (1 << (XonParser.SLASH - 32)) | (1 << (XonParser.SPREAD - 32)))) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & ((1 << (XonParser.FLOAT_LITERAL - 64)) | (1 << (XonParser.INTEGER_LITERAL - 64)) | (1 << (XonParser.CHAR_LITERAL - 64)) | (1 << (XonParser.STRING_LITERAL - 64)) | (1 << (XonParser.REGEX_LITERAL - 64)) | (1 << (XonParser.PREPROCESSOR - 64)) | (1 << (XonParser.ID - 64)) | (1 << (XonParser.NL - 64)))) !== 0)) {
 				{
 				this.state = 18;
 				this._errHandler.sync(this);
@@ -191,8 +191,8 @@ export class XonParser extends Parser {
 				case XonParser.IF:
 				case XonParser.IMPORT:
 				case XonParser.IN:
-				case XonParser.INTERFACE:
 				case XonParser.IS:
+				case XonParser.MODEL:
 				case XonParser.NOT:
 				case XonParser.OBJECT:
 				case XonParser.RETURN:
@@ -626,7 +626,7 @@ export class XonParser extends Parser {
 				this.state = 125;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (((((_la - 11)) & ~0x1F) === 0 && ((1 << (_la - 11)) & ((1 << (XonParser.AS - 11)) | (1 << (XonParser.CLASS - 11)) | (1 << (XonParser.ENUM - 11)) | (1 << (XonParser.IN - 11)) | (1 << (XonParser.INTERFACE - 11)) | (1 << (XonParser.IS - 11)) | (1 << (XonParser.OBJECT - 11)) | (1 << (XonParser.TYPE - 11)) | (1 << (XonParser.ASSIGN - 11)) | (1 << (XonParser.ASTERISK - 11)) | (1 << (XonParser.CARET - 11)))) !== 0) || ((((_la - 48)) & ~0x1F) === 0 && ((1 << (_la - 48)) & ((1 << (XonParser.GREAT - 48)) | (1 << (XonParser.LESS - 48)) | (1 << (XonParser.MINUS - 48)) | (1 << (XonParser.MODULO - 48)) | (1 << (XonParser.PLUS - 48)) | (1 << (XonParser.SLASH - 48)) | (1 << (XonParser.SPREAD - 48)) | (1 << (XonParser.ID - 48)))) !== 0)) {
+				if (((((_la - 11)) & ~0x1F) === 0 && ((1 << (_la - 11)) & ((1 << (XonParser.AS - 11)) | (1 << (XonParser.CLASS - 11)) | (1 << (XonParser.ENUM - 11)) | (1 << (XonParser.IN - 11)) | (1 << (XonParser.IS - 11)) | (1 << (XonParser.MODEL - 11)) | (1 << (XonParser.OBJECT - 11)) | (1 << (XonParser.TYPE - 11)) | (1 << (XonParser.ASSIGN - 11)) | (1 << (XonParser.ASTERISK - 11)) | (1 << (XonParser.CARET - 11)))) !== 0) || ((((_la - 48)) & ~0x1F) === 0 && ((1 << (_la - 48)) & ((1 << (XonParser.GREAT - 48)) | (1 << (XonParser.LESS - 48)) | (1 << (XonParser.MINUS - 48)) | (1 << (XonParser.MODULO - 48)) | (1 << (XonParser.PLUS - 48)) | (1 << (XonParser.SLASH - 48)) | (1 << (XonParser.SPREAD - 48)) | (1 << (XonParser.ID - 48)))) !== 0)) {
 					{
 					this.state = 114;
 					this.declaration();
@@ -721,7 +721,7 @@ export class XonParser extends Parser {
 				this.state = 145;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (((((_la - 11)) & ~0x1F) === 0 && ((1 << (_la - 11)) & ((1 << (XonParser.AS - 11)) | (1 << (XonParser.CLASS - 11)) | (1 << (XonParser.ENUM - 11)) | (1 << (XonParser.IN - 11)) | (1 << (XonParser.INTERFACE - 11)) | (1 << (XonParser.IS - 11)) | (1 << (XonParser.OBJECT - 11)) | (1 << (XonParser.TYPE - 11)) | (1 << (XonParser.ASSIGN - 11)) | (1 << (XonParser.ASTERISK - 11)) | (1 << (XonParser.CARET - 11)))) !== 0) || ((((_la - 48)) & ~0x1F) === 0 && ((1 << (_la - 48)) & ((1 << (XonParser.GREAT - 48)) | (1 << (XonParser.LESS - 48)) | (1 << (XonParser.MINUS - 48)) | (1 << (XonParser.MODULO - 48)) | (1 << (XonParser.PLUS - 48)) | (1 << (XonParser.SLASH - 48)) | (1 << (XonParser.SPREAD - 48)) | (1 << (XonParser.ID - 48)))) !== 0)) {
+				if (((((_la - 11)) & ~0x1F) === 0 && ((1 << (_la - 11)) & ((1 << (XonParser.AS - 11)) | (1 << (XonParser.CLASS - 11)) | (1 << (XonParser.ENUM - 11)) | (1 << (XonParser.IN - 11)) | (1 << (XonParser.IS - 11)) | (1 << (XonParser.MODEL - 11)) | (1 << (XonParser.OBJECT - 11)) | (1 << (XonParser.TYPE - 11)) | (1 << (XonParser.ASSIGN - 11)) | (1 << (XonParser.ASTERISK - 11)) | (1 << (XonParser.CARET - 11)))) !== 0) || ((((_la - 48)) & ~0x1F) === 0 && ((1 << (_la - 48)) & ((1 << (XonParser.GREAT - 48)) | (1 << (XonParser.LESS - 48)) | (1 << (XonParser.MINUS - 48)) | (1 << (XonParser.MODULO - 48)) | (1 << (XonParser.PLUS - 48)) | (1 << (XonParser.SLASH - 48)) | (1 << (XonParser.SPREAD - 48)) | (1 << (XonParser.ID - 48)))) !== 0)) {
 					{
 					this.state = 134;
 					this.declaration();
@@ -781,7 +781,7 @@ export class XonParser extends Parser {
 				this.state = 163;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if (((((_la - 11)) & ~0x1F) === 0 && ((1 << (_la - 11)) & ((1 << (XonParser.AS - 11)) | (1 << (XonParser.CLASS - 11)) | (1 << (XonParser.ENUM - 11)) | (1 << (XonParser.IN - 11)) | (1 << (XonParser.INTERFACE - 11)) | (1 << (XonParser.IS - 11)) | (1 << (XonParser.OBJECT - 11)) | (1 << (XonParser.TYPE - 11)) | (1 << (XonParser.ASSIGN - 11)) | (1 << (XonParser.ASTERISK - 11)) | (1 << (XonParser.CARET - 11)))) !== 0) || ((((_la - 48)) & ~0x1F) === 0 && ((1 << (_la - 48)) & ((1 << (XonParser.GREAT - 48)) | (1 << (XonParser.LESS - 48)) | (1 << (XonParser.MINUS - 48)) | (1 << (XonParser.MODULO - 48)) | (1 << (XonParser.PLUS - 48)) | (1 << (XonParser.SLASH - 48)) | (1 << (XonParser.SPREAD - 48)) | (1 << (XonParser.ID - 48)))) !== 0)) {
+				if (((((_la - 11)) & ~0x1F) === 0 && ((1 << (_la - 11)) & ((1 << (XonParser.AS - 11)) | (1 << (XonParser.CLASS - 11)) | (1 << (XonParser.ENUM - 11)) | (1 << (XonParser.IN - 11)) | (1 << (XonParser.IS - 11)) | (1 << (XonParser.MODEL - 11)) | (1 << (XonParser.OBJECT - 11)) | (1 << (XonParser.TYPE - 11)) | (1 << (XonParser.ASSIGN - 11)) | (1 << (XonParser.ASTERISK - 11)) | (1 << (XonParser.CARET - 11)))) !== 0) || ((((_la - 48)) & ~0x1F) === 0 && ((1 << (_la - 48)) & ((1 << (XonParser.GREAT - 48)) | (1 << (XonParser.LESS - 48)) | (1 << (XonParser.MINUS - 48)) | (1 << (XonParser.MODULO - 48)) | (1 << (XonParser.PLUS - 48)) | (1 << (XonParser.SLASH - 48)) | (1 << (XonParser.SPREAD - 48)) | (1 << (XonParser.ID - 48)))) !== 0)) {
 					{
 					this.state = 152;
 					this.declaration();
@@ -1344,8 +1344,8 @@ export class XonParser extends Parser {
 					case XonParser.IF:
 					case XonParser.IMPORT:
 					case XonParser.IN:
-					case XonParser.INTERFACE:
 					case XonParser.IS:
+					case XonParser.MODEL:
 					case XonParser.NOT:
 					case XonParser.OBJECT:
 					case XonParser.RETURN:
@@ -1386,7 +1386,7 @@ export class XonParser extends Parser {
 					this.state = 262;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
-				} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN_BRACKET) | (1 << XonParser.OPEN_PAREN) | (1 << XonParser.OPEN_BRACE) | (1 << XonParser.ACTUAL) | (1 << XonParser.AS) | (1 << XonParser.BREAK) | (1 << XonParser.CLASS) | (1 << XonParser.DO) | (1 << XonParser.ENUM) | (1 << XonParser.EXPORT) | (1 << XonParser.FOR) | (1 << XonParser.IF) | (1 << XonParser.IMPORT) | (1 << XonParser.IN) | (1 << XonParser.INTERFACE) | (1 << XonParser.IS) | (1 << XonParser.NOT) | (1 << XonParser.OBJECT) | (1 << XonParser.RETURN))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (XonParser.TYPE - 32)) | (1 << (XonParser.WHILE - 32)) | (1 << (XonParser.ASSIGN - 32)) | (1 << (XonParser.ASTERISK - 32)) | (1 << (XonParser.CARET - 32)) | (1 << (XonParser.GREAT - 32)) | (1 << (XonParser.LESS - 32)) | (1 << (XonParser.MINUS - 32)) | (1 << (XonParser.MODULO - 32)) | (1 << (XonParser.PLUS - 32)) | (1 << (XonParser.SLASH - 32)) | (1 << (XonParser.SPREAD - 32)))) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & ((1 << (XonParser.FLOAT_LITERAL - 64)) | (1 << (XonParser.INTEGER_LITERAL - 64)) | (1 << (XonParser.CHAR_LITERAL - 64)) | (1 << (XonParser.STRING_LITERAL - 64)) | (1 << (XonParser.REGEX_LITERAL - 64)) | (1 << (XonParser.PREPROCESSOR - 64)) | (1 << (XonParser.ID - 64)) | (1 << (XonParser.NL - 64)))) !== 0));
+				} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN_BRACKET) | (1 << XonParser.OPEN_PAREN) | (1 << XonParser.OPEN_BRACE) | (1 << XonParser.ACTUAL) | (1 << XonParser.AS) | (1 << XonParser.BREAK) | (1 << XonParser.CLASS) | (1 << XonParser.DO) | (1 << XonParser.ENUM) | (1 << XonParser.EXPORT) | (1 << XonParser.FOR) | (1 << XonParser.IF) | (1 << XonParser.IMPORT) | (1 << XonParser.IN) | (1 << XonParser.IS) | (1 << XonParser.MODEL) | (1 << XonParser.NOT) | (1 << XonParser.OBJECT) | (1 << XonParser.RETURN))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (XonParser.TYPE - 32)) | (1 << (XonParser.WHILE - 32)) | (1 << (XonParser.ASSIGN - 32)) | (1 << (XonParser.ASTERISK - 32)) | (1 << (XonParser.CARET - 32)) | (1 << (XonParser.GREAT - 32)) | (1 << (XonParser.LESS - 32)) | (1 << (XonParser.MINUS - 32)) | (1 << (XonParser.MODULO - 32)) | (1 << (XonParser.PLUS - 32)) | (1 << (XonParser.SLASH - 32)) | (1 << (XonParser.SPREAD - 32)))) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & ((1 << (XonParser.FLOAT_LITERAL - 64)) | (1 << (XonParser.INTEGER_LITERAL - 64)) | (1 << (XonParser.CHAR_LITERAL - 64)) | (1 << (XonParser.STRING_LITERAL - 64)) | (1 << (XonParser.REGEX_LITERAL - 64)) | (1 << (XonParser.PREPROCESSOR - 64)) | (1 << (XonParser.ID - 64)) | (1 << (XonParser.NL - 64)))) !== 0));
 				this.state = 264;
 				this.match(XonParser.DEDENT);
 				}
@@ -1418,7 +1418,7 @@ export class XonParser extends Parser {
 			this.state = 268;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if (((((_la - 13)) & ~0x1F) === 0 && ((1 << (_la - 13)) & ((1 << (XonParser.CLASS - 13)) | (1 << (XonParser.ENUM - 13)) | (1 << (XonParser.INTERFACE - 13)) | (1 << (XonParser.OBJECT - 13)) | (1 << (XonParser.TYPE - 13)))) !== 0)) {
+			if (((((_la - 13)) & ~0x1F) === 0 && ((1 << (_la - 13)) & ((1 << (XonParser.CLASS - 13)) | (1 << (XonParser.ENUM - 13)) | (1 << (XonParser.MODEL - 13)) | (1 << (XonParser.OBJECT - 13)) | (1 << (XonParser.TYPE - 13)))) !== 0)) {
 				{
 				this.state = 267;
 				this.modifier();
@@ -1495,7 +1495,7 @@ export class XonParser extends Parser {
 			{
 			this.state = 284;
 			_la = this._input.LA(1);
-			if (!(((((_la - 13)) & ~0x1F) === 0 && ((1 << (_la - 13)) & ((1 << (XonParser.CLASS - 13)) | (1 << (XonParser.ENUM - 13)) | (1 << (XonParser.INTERFACE - 13)) | (1 << (XonParser.OBJECT - 13)) | (1 << (XonParser.TYPE - 13)))) !== 0))) {
+			if (!(((((_la - 13)) & ~0x1F) === 0 && ((1 << (_la - 13)) & ((1 << (XonParser.CLASS - 13)) | (1 << (XonParser.ENUM - 13)) | (1 << (XonParser.MODEL - 13)) | (1 << (XonParser.OBJECT - 13)) | (1 << (XonParser.TYPE - 13)))) !== 0))) {
 			this._errHandler.recoverInline(this);
 			} else {
 				if (this._input.LA(1) === Token.EOF) {
@@ -1695,8 +1695,8 @@ export class XonParser extends Parser {
 		"\x03\t\x07\t\u0127\n\t\f\t\x0E\t\u012A\v\t\x03\t\x05\t\u012D\n\t\x03\t" +
 		"\x03\t\x03\t\x05\t\u0132\n\t\x03\t\x02\x02\x03\x06\n\x02\x02\x04\x02\x06" +
 		"\x02\b\x02\n\x02\f\x02\x0E\x02\x10\x02\x02\n\x05\x02\x1D\x1D66;;\x05\x02" +
-		"\'\'77>>\x04\x0266;;\x04\x021245\x04\x02//88\x05\x02\r\r\x19\x19\x1C\x1C" +
-		"\x07\x02\x0F\x0F\x12\x12\x1B\x1B\x1E\x1E\"\"\f\x02\r\r\x19\x19\x1C\x1C" +
+		"\'\'77>>\x04\x0266;;\x04\x021245\x04\x02//88\x05\x02\r\r\x19\x19\x1B\x1B" +
+		"\x07\x02\x0F\x0F\x12\x12\x1C\x1C\x1E\x1E\"\"\f\x02\r\r\x19\x19\x1B\x1B" +
 		"&\'**2257;;>>HH\x02\u017A\x02\x16\x03\x02\x02\x02\x04\\\x03\x02\x02\x02" +
 		"\x06\xAB\x03\x02\x02\x02\b\xF7\x03\x02\x02\x02\n\u010B\x03\x02\x02\x02" +
 		"\f\u010E\x03\x02\x02\x02\x0E\u011E\x03\x02\x02\x02\x10\u0120\x03\x02\x02" +
@@ -1802,7 +1802,7 @@ export class XonParser extends Parser {
 		"\u0110\x03\x02\x02\x02\u0111\u0112\x03\x02\x02\x02\u0112\u0113\x03\x02" +
 		"\x02\x02\u0113\u0115\x05\x10\t\x02\u0114\u0116\x05\x06\x04\x02\u0115\u0114" +
 		"\x03\x02\x02\x02\u0115\u0116\x03\x02\x02\x02\u0116\u0119\x03\x02\x02\x02" +
-		"\u0117\u0118\x07\x1C\x02\x02\u0118\u011A\x05\x06\x04\x02\u0119\u0117\x03" +
+		"\u0117\u0118\x07\x1B\x02\x02\u0118\u011A\x05\x06\x04\x02\u0119\u0117\x03" +
 		"\x02\x02\x02\u0119\u011A\x03\x02\x02\x02\u011A\u011C\x03\x02\x02\x02\u011B" +
 		"\u011D\x05\n\x06\x02\u011C\u011B\x03\x02\x02\x02\u011C\u011D\x03\x02\x02" +
 		"\x02\u011D\r\x03\x02\x02\x02\u011E\u011F\t\b\x02\x02\u011F\x0F\x03\x02" +
@@ -2630,9 +2630,9 @@ export class DeclarationContext extends ParserRuleContext {
 export class ModifierContext extends ParserRuleContext {
 	public TYPE(): TerminalNode | undefined { return this.tryGetToken(XonParser.TYPE, 0); }
 	public CLASS(): TerminalNode | undefined { return this.tryGetToken(XonParser.CLASS, 0); }
-	public INTERFACE(): TerminalNode | undefined { return this.tryGetToken(XonParser.INTERFACE, 0); }
 	public OBJECT(): TerminalNode | undefined { return this.tryGetToken(XonParser.OBJECT, 0); }
 	public ENUM(): TerminalNode | undefined { return this.tryGetToken(XonParser.ENUM, 0); }
+	public MODEL(): TerminalNode | undefined { return this.tryGetToken(XonParser.MODEL, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}

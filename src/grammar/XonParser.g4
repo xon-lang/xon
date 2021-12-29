@@ -61,7 +61,7 @@ body:
     ;
 
 declaration: modifier? '...'? id type = expr? (IS base = expr)? body?;
-modifier:    TYPE | CLASS | INTERFACE | OBJECT | ENUM;
+modifier:    TYPE | CLASS | OBJECT | ENUM | MODEL;
 id:
     name = (
         ID

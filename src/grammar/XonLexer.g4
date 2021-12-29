@@ -40,8 +40,8 @@ IF:        'if';
 IMPORT:    'import';
 IN:        'in';
 INFIX:     'infix';
-INTERFACE: 'interface';
 IS:        'is';
+MODEL:     'model';
 NOT:       'not';
 OBJECT:    'object';
 POSTFIX:   'postfix';
@@ -95,8 +95,8 @@ ID: [$_a-zA-Z] [_a-zA-Z0-9]*;
 NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
     ;
 
-WS:      [ \t]+        -> skip;
-COMMENT: '--' ~[\r\n]* -> skip;
+COMMENT: '--' ~[\r\n]*;
+WS:      [ \t]+ -> skip;
 
 fragment Radix:          [0-9][0-9]? [xX];
 fragment DigitNumber:    [0-9] ('_' | [0-9])*;
