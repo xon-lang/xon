@@ -6,7 +6,6 @@ import { getDeclarationTree } from '../tree/declaration/declaration-tree-helper'
 import { getExpressionTree } from '../tree/expression/expression-tree-helper';
 import { getIdTree } from '../tree/id/id-tree-helper';
 import { getLiteralNode } from '../tree/literal/literal-tree-helper';
-import { SourceTree } from '../tree/source/source-tree';
 import { getSourceTree } from '../tree/source/source-tree-helper';
 import { getStatementTree } from '../tree/statement/statement-tree-helper';
 import { ThrowingErrorListener } from './throwing-error-listener';
@@ -25,10 +24,10 @@ export const parse = (code: string, sourceName: string = undefined): XonParser =
   return parser;
 };
 
-export function parseSourceFile(sourceName: string = undefined): SourceTree {
+export const parseSourceFile = (sourceName: string) => {
   const code = fs.readFileSync(sourceName).toString();
   return getSourceTree(parse(code, sourceName).source());
-}
+};
 
 export const parseLiteral = (code: string) => getLiteralNode(parse(code).literal());
 
