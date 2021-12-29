@@ -13,6 +13,7 @@ model Number
 
 model Integer is Number
   test String
+
 model Float is Number
   test String
   test String
