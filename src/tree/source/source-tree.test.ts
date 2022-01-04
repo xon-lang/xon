@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { parse, parseSource } from '../../util/parse';
+import { parse, parseSourceFile } from '../../util/parse';
 import { ImportStatementTree } from '../statement/import/import-statement-tree';
 import { SourceTree } from './source-tree';
 
@@ -25,11 +25,12 @@ else: if d: call()
 });
 
 test('formatted 1.xon', () => {
-  const code = fs.readFileSync('src/tree/source/test-files/1.xon').toString();
-  const tree = parseSource(code);
+  const tree = parseSourceFile('src/tree/source/test-files/1.xon');
   expect(tree).toBeInstanceOf(SourceTree);
 
-  // const formatted = tree.toString();
-  // fs.writeFileSync('src/tree/source/test-files/1.fmt.xon', formatted);
+  console.log(tree.statements.length);
+
+  const formatted = tree.toString();
+  fs.writeFileSync('src/tree/source/test-files/1.fmt.xon', formatted);
   // expect(code).toBe(formatted);
 });
