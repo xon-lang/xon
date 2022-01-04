@@ -1,6 +1,6 @@
 import * as fs from 'fs';
-import { ImportStatementTree } from '../statement/import/import-statement-tree';
 import { parse, parseSource } from '../../util/parse';
+import { ImportStatementTree } from '../statement/import/import-statement-tree';
 import { SourceTree } from './source-tree';
 
 test('two if', () => {
@@ -21,7 +21,7 @@ else: if d: call()
   expect(imports[0].path).toBe('xon.os');
   expect(imports[0].members.length).toBe(1);
   expect(imports[0].members[0].id.text).toBe('Path');
-  expect(imports[0].members[0].alias).toBeFalsy();
+  expect(imports[0].members[0].alias).toBe(null);
 });
 
 test('formatted 1.xon', () => {
