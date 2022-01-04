@@ -38,7 +38,7 @@ export class DeclarationTree implements Tree {
 }
 
 export enum Modifier {
-  class,
-  model,
-  object,
+  class = 'class',
+  model = 'model',
+  object = 'object',
 }
