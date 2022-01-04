@@ -17,8 +17,8 @@ export class IdTree implements Tree {
   }
 
   toString(): string {
-    if (this.generics) {
-      return `${this.name}<|${this.generics}|>`;
+    if (this.generics.length) {
+      return `${this.name}<|${this.generics.join(', ')}|>`;
     }
     return this.name.toString();
   }
