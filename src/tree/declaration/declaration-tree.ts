@@ -14,7 +14,7 @@ export class DeclarationTree implements Tree {
   hasSpread: boolean;
   id: IdTree;
   type?: ExpressionTree;
-  base: ExpressionTree;
+  base?: ExpressionTree;
   body?: BodyTree;
 
   constructor(ctx: DeclarationContext) {
@@ -23,13 +23,17 @@ export class DeclarationTree implements Tree {
     this.hasSpread = !!ctx.SPREAD();
     this.id = getIdTree(ctx.id());
     this.type = getExpressionTree(ctx._type) || null;
-    this.base = getExpressionTree(ctx._base);
+    this.base = getExpressionTree(ctx._base) || null;
     this.body = getBodyTree(ctx.body()) || null;
   }
 
   toString(): string {
-    if (this.type) return `${this.id} ${this.type}`;
-    return this.id.toString();
+    const modifier = this.modifier?.toString() || '';
+    const spread = (this.hasSpread && '...') || '';
+    const base = (this.base && 'is ' + this.base) || '';
+    const type = this.type?.toString() || '';
+    const body = this.body?.toString() || '';
+    return [modifier, spread + this.id, base, type].filter(Boolean).join(' ') + body;
   }
 }
 

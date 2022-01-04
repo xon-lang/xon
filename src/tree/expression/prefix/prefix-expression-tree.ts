@@ -16,7 +16,9 @@ export class PrefixExpressionTree implements ExpressionTree {
   }
 
   toString(): string {
-    if (['+', '-'].includes(this.id.text)) return `${this.id}${this.value}`;
+    if (['+', '-'].includes(this.id.text)) {
+      return `${this.id}${this.value}`;
+    }
     return `${this.id} ${this.value}`;
   }
 }

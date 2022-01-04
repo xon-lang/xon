@@ -1,9 +1,9 @@
 import { IfStatementContext } from '../../../grammar/xon-parser';
+import { SourceReference } from '../../../util/source-reference';
 import { BodyTree } from '../../body/body-tree';
 import { getBodyTree } from '../../body/body-tree-helper';
 import { ExpressionTree } from '../../expression/expression-tree';
 import { getExpressionTree } from '../../expression/expression-tree-helper';
-import { SourceReference } from '../../../util/source-reference';
 import { StatementTree } from '../statement-tree';
 
 export class IfStatementTree implements StatementTree {
@@ -20,8 +20,8 @@ export class IfStatementTree implements StatementTree {
   }
 
   toString(): string {
-    return `if ${this.condition}:\n${this.thenBody}${
-      this.elseBody ? '\nelse:\n' + this.elseBody : ''
+    return `if ${this.condition}${this.thenBody}${
+      (this.elseBody && '\nelse' + this.elseBody) || ''
     }`;
   }
 }

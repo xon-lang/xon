@@ -1,9 +1,9 @@
 import { ForStatementContext } from '../../../grammar/xon-parser';
+import { SourceReference } from '../../../util/source-reference';
 import { BodyTree } from '../../body/body-tree';
 import { getBodyTree } from '../../body/body-tree-helper';
 import { ExpressionTree } from '../../expression/expression-tree';
 import { getExpressionTree } from '../../expression/expression-tree-helper';
-import { SourceReference } from '../../../util/source-reference';
 import { StatementTree } from '../statement-tree';
 
 export class ForStatementTree implements StatementTree {
@@ -23,6 +23,6 @@ export class ForStatementTree implements StatementTree {
 
   toString(): string {
     const vars = [this.valueVarName, this.indexVarName].filter((x) => x).join(',');
-    return `for ${vars ? vars + ' ' : ''}${this.expression}\n${this.body}`;
+    return `for ${(vars && vars + ' in ') || ''}${this.expression}\n${this.body}`;
   }
 }

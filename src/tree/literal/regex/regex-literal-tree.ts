@@ -12,8 +12,4 @@ export class RegexLiteralTree implements LiteralTree {
     this.pattern = ctx.text.slice(1, -1).replace(/\\\//g, '/');
     this.value = new RegExp(this.pattern, 'g');
   }
-
-  toString(): string {
-    return `\`${this.pattern}\``;
-  }
 }

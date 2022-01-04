@@ -1,5 +1,4 @@
 import { ArrayExpressionContext } from '../../../grammar/xon-parser';
-import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
 import { SourceReference } from '../../../util/source-reference';
 import { ExpressionTree } from '../expression-tree';
 import { getExpressionTrees } from '../expression-tree-helper';

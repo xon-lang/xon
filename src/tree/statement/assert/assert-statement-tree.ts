@@ -1,7 +1,7 @@
 import { AssertStatementContext } from '../../../grammar/xon-parser';
+import { SourceReference } from '../../../util/source-reference';
 import { ExpressionTree } from '../../expression/expression-tree';
 import { getExpressionTree } from '../../expression/expression-tree-helper';
-import { SourceReference } from '../../../util/source-reference';
 import { StatementTree } from '../statement-tree';
 
 export class AssertStatementTree implements StatementTree {

@@ -12,8 +12,4 @@ export class CharLiteralTree implements LiteralTree {
     const STRING_END = -1;
     this.value = ctx.text.slice(STRING_START, STRING_END).replace(/\\'/g, "'");
   }
-
-  toString(): string {
-    return `'${this.value}'`;
-  }
 }

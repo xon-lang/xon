@@ -1,8 +1,8 @@
 import { LiteralExpressionContext } from '../../../grammar/xon-parser';
 import { LiteralExpressionMetadata } from '../../../metadata/expression/literal/literal-expression-metadata';
+import { SourceReference } from '../../../util/source-reference';
 import { LiteralTree } from '../../literal/literal-tree';
 import { getLiteralNode } from '../../literal/literal-tree-helper';
-import { SourceReference } from '../../../util/source-reference';
 import { ExpressionTree } from '../expression-tree';
 
 export class LiteralExpressionTree implements ExpressionTree {
@@ -16,6 +16,6 @@ export class LiteralExpressionTree implements ExpressionTree {
   }
 
   toString(): string {
-    return `${this.literal}`;
+    return this.literal.sourceReference.text;
   }
 }

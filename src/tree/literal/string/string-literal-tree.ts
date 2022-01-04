@@ -12,8 +12,4 @@ export class StringLiteralTree implements LiteralTree {
     const QUOTE_END = -1;
     this.value = ctx.text.slice(QUOTE_START, QUOTE_END).replace(/\\"/g, '"');
   }
-
-  toString(): string {
-    return `"${this.value}"`;
-  }
 }
