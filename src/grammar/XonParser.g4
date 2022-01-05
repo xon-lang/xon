@@ -24,7 +24,6 @@ statement:
 
 expr:
     id                                                                 # idExpression
-    | '(' expr ')'                                                     # parenthesizedExpression
     | '[' (expr (',' expr)* ','?)? ']'                                 # arrayExpression
     | '{' (declaration (',' declaration)* ','?)? '}'                   # objectExpression
     | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
@@ -45,6 +44,7 @@ expr:
     | literal                                                          # literalExpression
     | '(' (declaration (',' declaration)* ','?)? ')' expr?             # methodExpression
     | '[' (declaration (',' declaration)* ','?)? ']' expr?             # indexerExpression
+    | '(' expr ')'                                                     # parenthesizedExpression
     ;
 
 literal:
