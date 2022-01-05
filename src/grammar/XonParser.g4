@@ -60,8 +60,12 @@ body:
     | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-declaration: modifier? '...'? id type = expr? (IS base = expr)? body?;
-modifier:    TYPE | CLASS | OBJECT | ENUM | MODEL;
+declaration:
+    modifier id type = expr? IS base = expr body?
+    | modifier id type = expr? body?
+    | '...'? id type = expr? body?
+    ;
+modifier: TYPE | CLASS | OBJECT | ENUM | MODEL;
 id:
     name = (
         ID
