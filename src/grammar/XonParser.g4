@@ -67,19 +67,8 @@ declaration:
     ;
 modifier: TYPE | CLASS | OBJECT | ENUM | MODEL;
 id:
-    name = (
-        ID
-        | IS
-        | AS
-        | IN
-        | '^'
-        | '*'
-        | '/'
-        | '%'
-        | '+'
-        | '-'
-        | '<'
-        | '>'
-        | '='
-    ) ('<' '|' declaration (',' declaration)* ','? '|' '>')?
+    (name = (ID | IS | AS | IN) | operator) (
+        '<' '|' declaration (',' declaration)* ','? '|' '>'
+    )?
     ;
+operator: '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
