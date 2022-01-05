@@ -4,7 +4,7 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: (statement | NL)*;
+source: NL* (statement (NL+ | EOF))*?;
 
 statement:
     IMPORT path = expr ':' members += expr (',' members += expr)* ','?   # importStatement
@@ -67,7 +67,7 @@ declaration:
     ;
 modifier: TYPE | CLASS | OBJECT | ENUM | MODEL;
 id:
-    (name = (ID | IS | AS | IN) | operator) (
+    (name = ID | operator) (
         '<' '|' declaration (',' declaration)* ','? '|' '>'
     )?
     ;
