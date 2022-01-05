@@ -14,6 +14,6 @@ export class MultipleBodyTree implements BodyTree {
   }
 
   toString(): string {
-    return '\n' + this.statements.join('\n').replace(/^/gm, '  ');
+    return '\n' + this.statements.join('\n').replace(/^(.+\S)/gm, '  $1');
   }
 }
