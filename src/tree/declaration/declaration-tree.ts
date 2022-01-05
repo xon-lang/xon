@@ -4,6 +4,8 @@ import { BodyTree } from '../body/body-tree';
 import { getBodyTree } from '../body/body-tree-helper';
 import { ExpressionTree } from '../expression/expression-tree';
 import { getExpressionTree } from '../expression/expression-tree-helper';
+import { IndexExpressionTree } from '../expression/index/index-expression-tree';
+import { MethodExpressionTree } from '../expression/method/method-expression-tree';
 import { IdTree } from '../id/id-tree';
 import { getIdTree } from '../id/id-tree-helper';
 import { Tree } from '../tree';
@@ -31,9 +33,23 @@ export class DeclarationTree implements Tree {
     const modifier = this.modifier?.toString() || '';
     const spread = (this.hasSpread && '...') || '';
     const base = (this.base && 'is ' + this.base) || '';
-    const type = this.type?.toString() || '';
-    const body = this.body?.toString() || '';
-    return [modifier, spread + this.id, base, type].filter(Boolean).join(' ') + body;
+
+    const body = (this.body && this.body + '\n') || '';
+    const header = [modifier, spread + this.id + this.typeToString(), base]
+      .filter(Boolean)
+      .join(' ');
+
+    return header + ' -- declaration -- ' + body;
+  }
+
+  typeToString() {
+    if (this.type instanceof MethodExpressionTree || this.type instanceof IndexExpressionTree) {
+      return this.type;
+    }
+    if (this.type) {
+      return ' ' + this.type;
+    }
+    return '';
   }
 }
 

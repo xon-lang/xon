@@ -17,7 +17,7 @@ export class SourceTree implements Tree {
   toString(): string {
     return this.statements
       .map((x) => {
-        if (x instanceof DeclarationTree) return `\n${x}\n`;
+        if (x instanceof DeclarationTree) return `${x}`;
         return x;
       })
       .join('\n');
