@@ -39,7 +39,7 @@ export class DeclarationTree implements Tree {
       .filter(Boolean)
       .join(' ');
 
-    return header + ' -- declaration -- ' + body;
+    return header + body;
   }
 
   typeToString() {

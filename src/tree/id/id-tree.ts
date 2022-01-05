@@ -8,18 +8,21 @@ import { Tree } from '../tree';
 export class IdTree implements Tree {
   sourceReference: SourceReference;
   name: IdToken;
+  isOperator: boolean;
   generics: DeclarationTree[] = [];
 
   constructor(private ctx: IdContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
-    this.name = new IdToken(ctx._name);
+    this.name = new IdToken(ctx._name || ctx.operator().start);
+    this.isOperator = !!ctx.operator();
     this.generics = getDeclarationTrees(ctx.declaration());
   }
 
   toString(): string {
+    const name = this.isOperator ? this.name + ' ' : this.name;
     if (this.generics.length) {
-      return `${this.name}<|${this.generics.join(', ')}|>`;
+      return `${name}<|${this.generics.join(', ')}|>`;
     }
-    return this.name.toString();
+    return name.toString();
   }
 }
