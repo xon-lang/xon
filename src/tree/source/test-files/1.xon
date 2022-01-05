@@ -1,5 +1,5 @@
 -- comment
-SomeClass<T>(name String) is Base<String, Boolean>(name,)  -- comment
+SomeClass<|T|>(name String) is Base<|String, Boolean|>(name,)  -- comment
   arr: [
     -- comment
     123,
@@ -21,5 +21,5 @@ SomeClass<T>(name String) is Base<String, Boolean>(name,)  -- comment
   location(x Number, y Number) Position
     pos(x, y)
 
-  infix +(it SomeClass) AnotherClass
+  +(it SomeClass) AnotherClass
     log("fine!")
