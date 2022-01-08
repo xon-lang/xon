@@ -1,7 +1,7 @@
 import {
   AssertStatementContext,
   AssignmentStatementContext,
-  DeclarationStatementContext,
+  DefinitionStatementContext,
   ExportStatementContext,
   ExpressionStatementContext,
   ForStatementContext,
@@ -15,7 +15,7 @@ import {
 import { Issue } from '../../issue-service/issue';
 import { AssertStatementTree } from './assert/assert-statement-tree';
 import { AssignmentStatementTree } from './assignment/assignment-statement-tree';
-import { DeclarationStatementTree } from './declaration/declaration-statement-tree';
+import { DefinitionStatementTree } from './definition/definition-statement-tree';
 import { ExportStatementTree } from './export/export-statement-tree';
 import { ExpressionStatementTree } from './expression/expression-statement-tree';
 import { ForStatementTree } from './for/for-statement-tree';
@@ -31,7 +31,7 @@ export const getStatementTree = (ctx: StatementContext): StatementTree => {
 
   if (ctx instanceof AssertStatementContext) return new AssertStatementTree(ctx);
   if (ctx instanceof AssignmentStatementContext) return new AssignmentStatementTree(ctx);
-  if (ctx instanceof DeclarationStatementContext) return new DeclarationStatementTree(ctx);
+  if (ctx instanceof DefinitionStatementContext) return new DefinitionStatementTree(ctx);
   if (ctx instanceof ExportStatementContext) return new ExportStatementTree(ctx);
   if (ctx instanceof ExpressionStatementContext) return new ExpressionStatementTree(ctx);
   if (ctx instanceof ForStatementContext) return new ForStatementTree(ctx);
