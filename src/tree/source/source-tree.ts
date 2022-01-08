@@ -14,6 +14,6 @@ export class SourceTree implements Tree {
   }
 
   toString(): string {
-    return this.statements.join('\n\n');
+    return this.statements.join('\n');
   }
 }

@@ -1,3 +1,4 @@
+return 1213
 class SomeClass<|T|>(name String) is Base<|String, Boolean|>(name)
   arr: [123, 456, 789, 456, 789]
 
