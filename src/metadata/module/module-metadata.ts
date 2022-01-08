@@ -1,6 +1,6 @@
 import * as glob from 'glob';
 import * as path from 'path';
-import { DeclarationStatementTree } from '../../tree/statement/declaration/declaration-statement-tree';
+import { DeclarationStatementTree } from '../../tree/statement/definition/definition-statement-tree';
 import { parseSourceFile } from '../../util/parse';
 import { DeclarationScope } from '../declaration-scope';
 import { DeclarationMetadata } from '../declaration/declaration-metadata';
