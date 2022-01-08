@@ -4,7 +4,7 @@ import { InfixExpressionTree } from '../../expression/infix/infix-expression-tre
 import { DefinitionStatementTree, Modifier } from './definition-statement-tree';
 
 test('model', () => {
-  const code = 'model Integer is Number && AnotherOne<|T|>';
+  const code = 'model Integer is Number && AnotherOne<|T|>\n  a String\n  b Char';
   const tree = parseStatement(code) as DefinitionStatementTree;
   expect(tree).toBeInstanceOf(DefinitionStatementTree);
 
@@ -15,5 +15,5 @@ test('model', () => {
   expect((left as IdExpressionTree).id.name.text).toBe('Number');
   expect((right as IdExpressionTree).id.name.text).toBe('AnotherOne');
   expect((right as IdExpressionTree).id.generics[0].id.name.text).toBe('T');
-  expect(tree.attributes.length).toBe(0);
+  expect(tree.attributes.length).toBe(2);
 });
