@@ -1,5 +1,5 @@
 -- comment
-SomeClass<|T|>(name String) is Base<|String, Boolean|>(name,)  -- comment
+class SomeClass<|T|>(name String) is Base<|String, Boolean|>(name,)  -- comment
   arr: [
     -- comment
     123,

@@ -1,0 +1,12 @@
+class SomeClass<|T|>(name String) is Base<|String, Boolean|>(name)
+  arr: [123, 456, 789, 456, 789]
+
+  method() MyType
+    hello()
+    bye()
+
+  location(x Number, y Number) Position
+    pos(x, y)
+
+  + (it SomeClass) AnotherClass
+    log("fine!")

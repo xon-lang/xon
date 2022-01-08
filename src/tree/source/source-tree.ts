@@ -1,6 +1,5 @@
 import { SourceContext } from '../../grammar/xon-parser';
 import { SourceReference } from '../../util/source-reference';
-import { DeclarationTree } from '../declaration/declaration-tree';
 import { StatementTree } from '../statement/statement-tree';
 import { getStatementTrees } from '../statement/statement-tree-helper';
 import { Tree } from '../tree';
@@ -15,11 +14,6 @@ export class SourceTree implements Tree {
   }
 
   toString(): string {
-    return this.statements
-      .map((x) => {
-        if (x instanceof DeclarationTree) return `${x}`;
-        return x;
-      })
-      .join('\n');
+    return this.statements.join('\n\n');
   }
 }
