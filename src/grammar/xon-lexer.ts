@@ -95,11 +95,12 @@ export class XonLexer extends XonLexerBase {
 	public static readonly LINE_COMMENT = 74;
 	public static readonly UNEXPECTED = 75;
 	public static readonly ERROR = 2;
-	public static readonly COMMENT_CHANNEL = 3;
+	public static readonly WHITESPACE = 3;
+	public static readonly COMMENT_CHANNEL = 4;
 
 	// tslint:disable:no-trailing-whitespace
 	public static readonly channelNames: string[] = [
-		"DEFAULT_TOKEN_CHANNEL", "HIDDEN", "ERROR", "COMMENT_CHANNEL",
+		"DEFAULT_TOKEN_CHANNEL", "HIDDEN", "ERROR", "WHITESPACE", "COMMENT_CHANNEL",
 	];
 
 	// tslint:disable:no-trailing-whitespace
@@ -512,7 +513,7 @@ export class XonLexer extends XonLexerBase {
 		"\x03\x02\x02\x02\x18\x02\u018C\u0192\u019C\u019E\u01A7\u01A9\u01B4\u01BD" +
 		"\u01C3\u01C7\u01CA\u01CC\u01D3\u01DC\u01DE\u01EC\u01F7\u01FD\u01FF\u0204" +
 		"\u0206\f\x03\x02\x02\x03\x03\x03\x03\x04\x04\x03\x05\x05\x03\x06\x06\x03" +
-		"\x07\x07\x03F\b\b\x02\x02\x02\x05\x02\x02\x04\x02";
+		"\x07\x07\x03F\b\x02\x05\x02\x02\x06\x02\x02\x04\x02";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!XonLexer.__ATN) {

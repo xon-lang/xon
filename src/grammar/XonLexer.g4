@@ -2,6 +2,7 @@ lexer grammar XonLexer;
 
 channels {
     ERROR,
+    WHITESPACE,
     COMMENT_CHANNEL,
 }
 
@@ -96,7 +97,7 @@ ID: [$_a-zA-Z] [_a-zA-Z0-9]*;
 NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
     ;
 
-WS:            [ \t]+                          -> skip;
+WS:            [ \t]+                          -> channel(WHITESPACE);
 BLOCK_COMMENT: '/*' (BLOCK_COMMENT | .)*? '*/' -> channel(COMMENT_CHANNEL);
 LINE_COMMENT:  '--' ~[\r\n]*                   -> channel(COMMENT_CHANNEL);
 UNEXPECTED:    .                               -> channel(ERROR);

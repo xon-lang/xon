@@ -7,25 +7,25 @@ options {
 source: NL* (statement (NL+ | EOF))*?;
 
 statement:
-    IMPORT path = expr ':' members += expr (',' members += expr)* ','?   # importStatement
-    | EXPORT path = expr                                                 # exportStatement
-    | FOR (value = declaration (',' index = declaration)? IN)? expr body # forStatement
-    | WHILE expr body                                                    # whileStatement
-    | DO body WHILE expr                                                 # doWhileStatement
-    | IF expr thenBody = body (ELSE elseBody = body)?                    # ifStatement
-    | BREAK                                                              # breakStatement
-    | RETURN expr?                                                       # returnStatement
-    | ACTUAL actual = expr NL+ EXPECT expect = expr                      # assertStatement
-    | PREPROCESSOR                                                       # preprocessorStatement
-    | declaration                                                        # declarationStatement
-    | id '=' expr                                                        # assignmentStatement
-    | expr                                                               # expressionStatement
+    IMPORT path = expr ':' members += expr (',' members += expr)* ','?     # importStatement
+    | EXPORT path = expr                                                   # exportStatement
+    | FOR (value = parameter (',' index = parameter)? IN)? expr body       # forStatement
+    | WHILE expr body                                                      # whileStatement
+    | DO body WHILE expr                                                   # doWhileStatement
+    | IF expr thenBody = body (ELSE elseBody = body)?                      # ifStatement
+    | BREAK                                                                # breakStatement
+    | RETURN expr?                                                         # returnStatement
+    | ACTUAL actual = expr NL+ EXPECT expect = expr                        # assertStatement
+    | PREPROCESSOR                                                         # preprocessorStatement
+    | modifier id ('(' parameters? ')')? (IS base = expr)? definitionBody? # definitionStatement
+    | id '=' expr                                                          # assignmentStatement
+    | expr                                                                 # expressionStatement
     ;
 
 expr:
     id                                                                 # idExpression
     | '[' (expr (',' expr)* ','?)? ']'                                 # arrayExpression
-    | '{' (declaration (',' declaration)* ','?)? '}'                   # objectExpression
+    | '{' (parameter (',' parameter)* ','?)? '}'                       # objectExpression
     | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
     | instance = expr '[' (args += expr (',' args += expr)* ','?)? ']' # indexExpression
     | expr '?'                                                         # nullableExpression
@@ -42,8 +42,8 @@ expr:
     | left = expr op = '||' right = expr                               # disjunctionExpression
     | left = expr op = (IS | AS | IN) right = expr                     # infixExpression
     | literal                                                          # literalExpression
-    | '(' (declaration (',' declaration)* ','?)? ')' expr?             # methodExpression
-    | '[' (declaration (',' declaration)* ','?)? ']' expr?             # indexerExpression
+    | '(' (parameter (',' parameter)* ','?)? ')' expr?                 # methodExpression
+    | '[' (parameter (',' parameter)* ','?)? ']' expr?                 # indexerExpression
     | '(' expr ')'                                                     # parenthesizedExpression
     ;
 
@@ -60,15 +60,9 @@ body:
     | ':'? NL+ INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-declaration:
-    modifier id type = expr? IS base = expr body?
-    | modifier id type = expr? body?
-    | '...'? id type = expr? body?
-    ;
-modifier: TYPE | CLASS | OBJECT | ENUM | MODEL;
-id:
-    (name = ID | operator) (
-        '<' '|' declaration (',' declaration)* ','? '|' '>'
-    )?
-    ;
-operator: '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
+definitionBody: NL+ INDENT (parameter | NL)+ DEDENT;
+parameters:     parameter (',' parameter)* ','?;
+parameter:      '...'? id expr body | '...'? id expr | '...'? id body | '...'? id;
+modifier:       TYPE | CLASS | OBJECT | ENUM | MODEL;
+id:             (name = ID | operator) ('<' '|' parameter (',' parameter)* ','? '|' '>')?;
+operator:       '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
