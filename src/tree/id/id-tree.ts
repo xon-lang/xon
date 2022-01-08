@@ -1,21 +1,21 @@
 import { IdContext } from '../../grammar/xon-parser';
 import { IdToken } from '../../util/id-token';
 import { SourceReference } from '../../util/source-reference';
-import { DeclarationTree } from '../declaration/declaration-tree';
-import { getDeclarationTrees } from '../declaration/declaration-tree-helper';
+import { ParameterTree } from '../parameter/parameter-tree';
+import { getParameterTrees } from '../parameter/parameter-tree-helper';
 import { Tree } from '../tree';
 
 export class IdTree implements Tree {
   sourceReference: SourceReference;
   name: IdToken;
   isOperator: boolean;
-  generics: DeclarationTree[] = [];
+  generics: ParameterTree[] = [];
 
   constructor(private ctx: IdContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
     this.name = new IdToken(ctx._name || ctx.operator().start);
     this.isOperator = !!ctx.operator();
-    this.generics = getDeclarationTrees(ctx.declaration());
+    this.generics = getParameterTrees(ctx.parameter());
   }
 
   toString(): string {
