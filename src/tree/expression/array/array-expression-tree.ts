@@ -9,7 +9,8 @@ export class ArrayExpressionTree implements ExpressionTree {
 
   constructor(ctx: ArrayExpressionContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
-    this.items = getExpressionTrees(ctx.expr());
+    // todo add associated array items
+    this.items = getExpressionTrees(ctx.arrayItem().map((x) => x.expr(0)));
   }
 
   toString(): string {
