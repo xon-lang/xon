@@ -24,7 +24,7 @@ statement:
 
 expr:
     id                                                                 # idExpression
-    | '[' (expr (',' expr)* ','?)? ']'                                 # arrayExpression
+    | '[' (arrayItem (',' arrayItem)* ','?)? ']'                       # arrayExpression
     | '{' (parameter (',' parameter)* ','?)? '}'                       # objectExpression
     | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
     | instance = expr '[' (args += expr (',' args += expr)* ','?)? ']' # indexExpression
@@ -61,6 +61,7 @@ body:
     ;
 
 definitionBody: NL INDENT (parameter | NL)+ DEDENT;
+arrayItem:      ( expr ':')? expr;
 parameters:     parameter (',' parameter)* ','?;
 parameter:      '...'? id expr body | '...'? id expr | '...'? id body | '...'? id;
 modifier:       TYPE | CLASS | OBJECT | ENUM | MODEL;
