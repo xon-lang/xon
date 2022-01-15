@@ -1,5 +1,16 @@
 model Boolean
-  --
+  _value Number
 
-object false is Boolean
+  = (other Boolean) Boolean
+
+
+object false is Boolean:
+  _value: 0
+
+  = (other Boolean): $_value == other._value
+
+
 object true is Boolean
+  _value: 1
+
+  = (other Boolean): $_value == other._value
