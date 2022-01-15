@@ -12,7 +12,7 @@ test('num plus num', () => {
 });
 
 test('num plus str', () => {
-  const code = '1  + "str"';
+  const code = "1  + 'str'";
   const tree = parseExpression(code) as InfixExpressionTree;
   expect(tree).toBeInstanceOf(InfixExpressionTree);
 

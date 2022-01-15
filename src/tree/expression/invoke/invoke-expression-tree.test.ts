@@ -7,7 +7,7 @@ import { MemberExpressionTree } from '../member/member-expression-tree';
 import { InvokeExpressionTree } from './invoke-expression-tree';
 
 test('method call', () => {
-  const code = 'f(3, "str")';
+  const code = "f(3, 'str')";
   const tree = parseExpression(code) as InvokeExpressionTree;
   expect(tree).toBeInstanceOf(InvokeExpressionTree);
 
@@ -21,7 +21,7 @@ test('method call', () => {
 
 test('method on several lines', () => {
   const code = `f(3,
-        "str", 123, 
+        'str', 123, 
     415)`;
   const tree = parseExpression(code) as InvokeExpressionTree;
   expect(tree).toBeInstanceOf(InvokeExpressionTree);

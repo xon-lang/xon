@@ -10,4 +10,4 @@ factory someClass<|T|>(name String) is Base
     pos(x, y)
 
   + (it SomeClass) AnotherClass
-    log("fine!")
+    log('fine!')
