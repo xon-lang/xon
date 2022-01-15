@@ -1,6 +1,6 @@
 import { MultipleBodyTree } from '../../../tree/body/multiple/multiple-body-tree';
 import { DeclarationTree } from '../../../tree/declaration/declaration-tree';
-import { DeclarationStatementTree } from '../../../tree/statement/definition/definition-statement-tree';
+import { DeclarationStatementTree } from '../../../tree/statement/model/model-statement-tree';
 import { SourceReference } from '../../../util/source-reference';
 import { DeclarationScope } from '../../declaration-scope';
 import { ExpressionMetadata } from '../../expression/expression-metadata';

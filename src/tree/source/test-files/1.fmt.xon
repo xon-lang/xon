@@ -1,5 +1,5 @@
 return 1213
-class SomeClass<|T|>(name String) is Base<|String, Boolean|>(name)
+factory someClass<|T|>(name String) is Base
   arr: [123, 456, 789, 456, 789]
 
   method() MyType
