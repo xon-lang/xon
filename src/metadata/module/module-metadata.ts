@@ -1,6 +1,8 @@
 import * as glob from 'glob';
 import * as path from 'path';
+import { FactoryStatementTree } from '../../tree/statement/factory/factory-statement-tree';
 import { ModelStatementTree } from '../../tree/statement/model/model-statement-tree';
+import { ObjectStatementTree } from '../../tree/statement/object/object-statement-tree';
 import { parseSourceFile } from '../../util/parse';
 import { DeclarationScope } from '../declaration-scope';
 import { DeclarationMetadata } from '../declaration/declaration-metadata';
@@ -16,7 +18,11 @@ export class ModuleMetadata {
 
     for (const source of sources) {
       for (const statement of source.statements) {
-        if (statement instanceof ModelStatementTree) {
+        if (
+          statement instanceof ModelStatementTree ||
+          statement instanceof ObjectStatementTree ||
+          statement instanceof FactoryStatementTree
+        ) {
           const declaration = getDeclarationMetadata(statement, innerScope);
           this.declarations.push(declaration);
         }
