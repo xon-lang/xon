@@ -1,9 +1,4 @@
--- under question
 model Any
-  -- in (other Range) Boolean
-  -- is (other Any) Boolean
-  -- as <|T|>(other T) T
-
 model Unknown
 model Never
 

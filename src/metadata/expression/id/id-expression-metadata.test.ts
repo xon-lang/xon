@@ -24,15 +24,16 @@ test('any', () => {
   expect(metadata).toBeInstanceOf(IdExpressionMetadata);
   expect(metadata.declaration()).toBeInstanceOf(ModelDeclarationMetadata);
   expect(metadata.declaration().name).toBe('Any');
-  expect(metadata.attributes().length).toBe(3);
+  expect(metadata.attributes().length).toBe(0);
 });
 
-// test('id with type arguments', () => {
-//   const code = 'Map<String, Char>';
-//   const tree = parseExpression(code);
-//   const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
+test('id with type arguments', () => {
+  const code = 'Map<|String, Char|>';
+  const tree = parseExpression(code);
+  const metadata = getExpressionMetadata(tree, new CoreDeclarationScope()) as IdExpressionMetadata;
 
-//   expect(metadata).toBeInstanceOf(IdExpressionMetadata);
-//   expect(metadata.type).toBeInstanceOf(IdTypeMetadata);
-//   expect((metadata.type as IdTypeMetadata).name).toBe('True');
-// });
+  expect(metadata).toBeInstanceOf(IdExpressionMetadata);
+  expect(metadata.declaration()).toBeInstanceOf(ModelDeclarationMetadata);
+  expect(metadata.declaration().name).toBe('Map');
+  expect(metadata.attributes().length).toBe(0);
+});
