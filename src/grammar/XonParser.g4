@@ -52,7 +52,6 @@ expr:
 literal:
     INTEGER_LITERAL  # integerLiteral
     | FLOAT_LITERAL  # floatLiteral
-    | CHAR_LITERAL   # charLiteral
     | STRING_LITERAL # stringLiteral
     | REGEX_LITERAL  # regexLiteral
     ;

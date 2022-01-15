@@ -84,14 +84,13 @@ SPREAD:      '...';
 TILDE:       '~';
 UNDERSCORE:  '_';
 
-CHAR_LITERAL: '\'' ~['] '\'';
 FLOAT_LITERAL:
     Radix AlphabetNumber '.' AlphabetNumber
     | DigitNumber '.' DigitNumber
     ;
 INTEGER_LITERAL: Radix AlphabetNumber | DigitNumber;
 REGEX_LITERAL:   '`' (~[`] | '\\' [`\\])* '`';
-STRING_LITERAL:  '"' (~["] | '\\' ["\\bfnrtv])* '"';
+STRING_LITERAL:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 
 PREPROCESSOR: '#{' .*? '}';
 
