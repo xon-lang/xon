@@ -17,7 +17,7 @@ export class ModuleMetadata {
     for (const source of sources) {
       for (const statement of source.statements) {
         if (statement instanceof ModelStatementTree) {
-          const declaration = getDeclarationMetadata(statement., innerScope);
+          const declaration = getDeclarationMetadata(statement, innerScope);
           this.declarations.push(declaration);
         }
       }

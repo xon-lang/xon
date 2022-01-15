@@ -1,26 +1,33 @@
 import { Issue } from '../../issue-service/issue';
-import { DeclarationTree, Modifier } from '../../tree/declaration/declaration-tree';
+import { ParameterTree } from '../../tree/parameter/parameter-tree';
+import { FactoryStatementTree } from '../../tree/statement/factory/factory-statement-tree';
+import { ModelStatementTree } from '../../tree/statement/model/model-statement-tree';
+import { ObjectStatementTree } from '../../tree/statement/object/object-statement-tree';
+import { StatementTree } from '../../tree/statement/statement-tree';
+import { Tree } from '../../tree/tree';
 import { DeclarationScope } from '../declaration-scope';
-import { AttributeDeclarationMetadata } from './attribute/attribute-declaration-metadata';
 import { DeclarationMetadata } from './declaration-metadata';
-import { InterfaceDeclarationMetadata } from './interface/interface-declaration-metadata';
+import { FactoryDeclarationMetadata } from './factory/factory-declaration-metadata';
+import { ModelDeclarationMetadata } from './model/model-declaration-metadata';
 import { ObjectDeclarationMetadata } from './object/object-declaration-metadata';
+import { ParameterDeclarationMetadata } from './parameter/parameter-declaration-metadata';
 
 export const getDeclarationMetadata = (
-  node: DeclarationTree,
+  node: Tree,
   scope: DeclarationScope,
 ): DeclarationMetadata => {
   if (node === undefined) return undefined;
 
-  if (node.modifier === Modifier.model) return new InterfaceDeclarationMetadata(node, scope);
-  if (node.modifier === Modifier.object) return new ObjectDeclarationMetadata(node, scope);
-  // todo replace with exact class, make it abstract
-  if (node) return new AttributeDeclarationMetadata(node, scope);
+  if (node instanceof ParameterTree) return new ParameterDeclarationMetadata(node, scope);
+  if (node instanceof ModelStatementTree) return new ModelDeclarationMetadata(node, scope);
+  if (node instanceof ObjectStatementTree) return new ObjectDeclarationMetadata(node, scope);
+  if (node instanceof FactoryStatementTree) return new FactoryDeclarationMetadata(node, scope);
+
   Issue.errorFromTree(node, `Expression node not found for "${node.constructor.name}"`);
 };
 
 export const getDeclarationsMetadata = (
-  nodes: DeclarationTree[],
+  nodes: StatementTree[],
   scope: DeclarationScope,
 ): DeclarationMetadata[] => {
   return nodes?.map((x) => getDeclarationMetadata(x, scope)) || [];

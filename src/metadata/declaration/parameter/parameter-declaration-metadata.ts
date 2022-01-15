@@ -1,18 +1,18 @@
+import { Issue } from '../../../issue-service/issue';
 import { SingleBodyTree } from '../../../tree/body/single/single-body-tree';
-import { DeclarationTree } from '../../../tree/declaration/declaration-tree';
+import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { ExpressionStatementTree } from '../../../tree/statement/expression/expression-statement-tree';
 import { SourceReference } from '../../../util/source-reference';
-import { Issue } from '../../../issue-service/issue';
 import { DeclarationScope } from '../../declaration-scope';
 import { ExpressionMetadata } from '../../expression/expression-metadata';
 import { getExpressionMetadata } from '../../expression/expression-metadata-helper';
 import { DeclarationMetadata } from '../declaration-metadata';
 
-export class AttributeDeclarationMetadata implements DeclarationMetadata {
+export class ParameterDeclarationMetadata implements DeclarationMetadata {
   sourceReference: SourceReference;
   name: string;
 
-  constructor(private node: DeclarationTree, private scope: DeclarationScope) {
+  constructor(private node: ParameterTree, private scope: DeclarationScope) {
     this.sourceReference = node.sourceReference;
     this.name = node.id.name.text;
   }
