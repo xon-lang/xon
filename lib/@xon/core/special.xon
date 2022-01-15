@@ -6,4 +6,4 @@ model Any
 
 model Unknown
 model Never
-model None
+object None

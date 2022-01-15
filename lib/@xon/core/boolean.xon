@@ -4,13 +4,13 @@ model Boolean
   = (other Boolean) Boolean
 
 
-object false is Boolean:
+object False is Boolean:
   _value: 0
 
   = (other Boolean): $_value == other._value
 
 
-object true is Boolean
+object True is Boolean
   _value: 1
 
   = (other Boolean): $_value == other._value
