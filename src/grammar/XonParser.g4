@@ -18,7 +18,7 @@ statement:
     | ACTUAL actual = expr NL+ EXPECT expect = expr                      # assertStatement
     | PREPROCESSOR                                                       # preprocessorStatement
     | MODEL name = id (IS base = id)? definitionBody?                    # modelStatement
-    | OBJECT name = id IS base = id definitionBody?                      # objectStatement
+    | OBJECT name = id (IS base = id)? definitionBody?                   # objectStatement
     | FACTORY name = id '(' parameters? ')' IS base = id definitionBody? # factoryStatement
     | id '=' expr                                                        # assignmentStatement
     | expr                                                               # expressionStatement
