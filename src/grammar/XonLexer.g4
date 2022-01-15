@@ -37,6 +37,7 @@ ENUM:      'enum';
 EXPECT:    'expect';
 EXPORT:    'export';
 EXTENSION: 'extension';
+FACTORY:   'factory';
 FOR:       'for';
 IF:        'if';
 IMPORT:    'import';
@@ -83,20 +84,20 @@ SPREAD:      '...';
 TILDE:       '~';
 UNDERSCORE:  '_';
 
+CHAR_LITERAL: '\'' ~['] '\'';
 FLOAT_LITERAL:
     Radix AlphabetNumber '.' AlphabetNumber
     | DigitNumber '.' DigitNumber
     ;
 INTEGER_LITERAL: Radix AlphabetNumber | DigitNumber;
-CHAR_LITERAL:    '\'' ~['] '\'';
-STRING_LITERAL:  '"' (~["] | '\\' ["\\bfnrtv])* '"';
 REGEX_LITERAL:   '`' (~[`] | '\\' [`\\])* '`';
-PREPROCESSOR:    '#{' .*? '}';
+STRING_LITERAL:  '"' (~["] | '\\' ["\\bfnrtv])* '"';
+
+PREPROCESSOR: '#{' .*? '}';
 
 ID: [$_a-zA-Z] [_a-zA-Z0-9]*;
 NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
     ;
-
 WS:            [ \t]+                          -> channel(WHITESPACE);
 BLOCK_COMMENT: '/*' (BLOCK_COMMENT | .)*? '*/' -> channel(COMMENT_CHANNEL);
 LINE_COMMENT:  '--' ~[\r\n]*                   -> channel(COMMENT_CHANNEL);
