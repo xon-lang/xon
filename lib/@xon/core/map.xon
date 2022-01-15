@@ -1,1 +1,1 @@
-class Map<|K, V|>
+model Map<|K, V|>
