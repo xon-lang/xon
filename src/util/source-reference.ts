@@ -30,6 +30,14 @@ export class SourceReference {
   //   return ref;
   // }
 
+  equals(other: SourceReference): boolean {
+    return (
+      this.sourceName === other.sourceName &&
+      this.line === other.line &&
+      this.column === other.column
+    );
+  }
+
   static fromContext(context: ParserRuleContext) {
     return SourceReference.fromTwoTokens(context.text, context.start, context.stop);
   }
