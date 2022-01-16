@@ -4,12 +4,12 @@ model Boolean
   = (other Boolean) Boolean
 
 
-object False is Boolean
-  toString(): 'False'
+object false is Boolean
+  toString(): 'false'
 
   = (other Boolean): this is False
 
-object True is Boolean
-  toString(): 'True'
+object true is Boolean
+  toString(): 'true'
 
   = (other Boolean): this is True

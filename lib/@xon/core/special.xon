@@ -1,5 +1,5 @@
 model Any
 model Unknown
 model Never
-
-object None
+model None
+object none is None
