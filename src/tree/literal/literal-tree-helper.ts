@@ -12,7 +12,7 @@ import { LiteralTree } from './literal-tree';
 import { RegexLiteralTree } from './regex/regex-literal-tree';
 import { StringLiteralTree } from './string/string-literal-tree';
 
-export const getLiteralNode = (ctx: LiteralContext): LiteralTree => {
+export const getLiteralTree = (ctx: LiteralContext): LiteralTree => {
   if (ctx === undefined) return undefined;
 
   if (ctx instanceof FloatLiteralContext) return new FloatLiteralTree(ctx);
