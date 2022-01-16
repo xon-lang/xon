@@ -5,7 +5,7 @@ import { ModelStatementTree } from '../../tree/statement/model/model-statement-t
 import { ObjectStatementTree } from '../../tree/statement/object/object-statement-tree';
 import { StatementTree } from '../../tree/statement/statement-tree';
 import { Tree } from '../../tree/tree';
-import { DeclarationScope } from '../declaration-scope';
+import { DeclarationScope } from '../scope/declaration-scope';
 import { DeclarationMetadata } from './declaration-metadata';
 import { FactoryDeclarationMetadata } from './factory/factory-declaration-metadata';
 import { ModelDeclarationMetadata } from './model/model-declaration-metadata';

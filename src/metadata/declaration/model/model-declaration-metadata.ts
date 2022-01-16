@@ -1,6 +1,6 @@
 import { ModelStatementTree } from '../../../tree/statement/model/model-statement-tree';
 import { SourceReference } from '../../../util/source-reference';
-import { DeclarationScope } from '../../declaration-scope';
+import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../../expression/expression-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
 import { getDeclarationsMetadata } from '../declaration-metadata-helper';

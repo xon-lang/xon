@@ -1,12 +1,20 @@
-import { Issue } from '../issue-service/issue';
-import { IssueLevel } from '../issue-service/issue-level';
-import { DeclarationMetadata } from './declaration/declaration-metadata';
-import { ModelDeclarationMetadata } from './declaration/model/model-declaration-metadata';
+import { Issue } from '../../issue-service/issue';
+import { IssueLevel } from '../../issue-service/issue-level';
+import { DeclarationMetadata } from '../declaration/declaration-metadata';
+import { ModelDeclarationMetadata } from '../declaration/model/model-declaration-metadata';
+import { CoreDeclarationScope } from './core-declaration-scope';
 
 export class DeclarationScope {
-  declarations: DeclarationMetadata[] = [];
+  protected declarations: DeclarationMetadata[] = [];
+  get core(): CoreDeclarationScope {
+    return (this instanceof CoreDeclarationScope && this) || this.parent?.core || null;
+  }
 
   constructor(public parent?: DeclarationScope) {}
+
+  create() {
+    return new DeclarationScope(this);
+  }
 
   add(declaration: DeclarationMetadata) {
     this.declarations.push(declaration);

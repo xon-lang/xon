@@ -1,5 +1,5 @@
 import { MethodExpressionTree } from '../../../tree/expression/method/method-expression-tree';
-import { DeclarationScope } from '../../declaration-scope';
+import { DeclarationScope } from '../../scope/declaration-scope';
 import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
 

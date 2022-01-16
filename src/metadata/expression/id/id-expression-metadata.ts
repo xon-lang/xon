@@ -1,5 +1,5 @@
 import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
-import { DeclarationScope } from '../../declaration-scope';
+import { DeclarationScope } from '../../scope/declaration-scope';
 import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { FactoryDeclarationMetadata } from '../../declaration/factory/factory-declaration-metadata';
 import { ModelDeclarationMetadata } from '../../declaration/model/model-declaration-metadata';

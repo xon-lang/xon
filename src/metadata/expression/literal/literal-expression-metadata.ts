@@ -1,8 +1,8 @@
 import { Issue } from '../../../issue-service/issue';
 import { LiteralExpressionTree } from '../../../tree/expression/literal/literal-expression-tree';
-import { DeclarationScope } from '../../declaration-scope';
 import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { ModelDeclarationMetadata } from '../../declaration/model/model-declaration-metadata';
+import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
 import { IdExpressionMetadata } from '../id/id-expression-metadata';
 
@@ -28,9 +28,8 @@ export class LiteralExpressionMetadata implements ExpressionMetadata {
       return this.name === other.name && this.value === other.value;
     }
     if (other instanceof IdExpressionMetadata) {
-      const otherDeclaration = other.declaration();
-      const declaration = this.scope.findByName(this.name, (x) => x.isCoreDeclaration);
-      return otherDeclaration.isCoreDeclaration && declaration.is(otherDeclaration);
+      const declaration = this.scope.core.findByName(this.name);
+      return declaration.is(other.declaration());
     }
     return false;
   }

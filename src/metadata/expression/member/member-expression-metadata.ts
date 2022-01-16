@@ -1,7 +1,7 @@
 import { Issue } from '../../../issue-service/issue';
 import { IssueLevel } from '../../../issue-service/issue-level';
 import { MemberExpressionTree } from '../../../tree/expression/member/member-expression-tree';
-import { DeclarationScope } from '../../declaration-scope';
+import { DeclarationScope } from '../../scope/declaration-scope';
 import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
 import { getExpressionMetadata } from '../expression-metadata-helper';

@@ -3,7 +3,7 @@ import { SingleBodyTree } from '../../../tree/body/single/single-body-tree';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { ExpressionStatementTree } from '../../../tree/statement/expression/expression-statement-tree';
 import { SourceReference } from '../../../util/source-reference';
-import { DeclarationScope } from '../../declaration-scope';
+import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../../expression/expression-metadata';
 import { getExpressionMetadata } from '../../expression/expression-metadata-helper';
 import { DeclarationMetadata } from '../declaration-metadata';
