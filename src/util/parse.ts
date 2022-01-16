@@ -4,7 +4,7 @@ import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
 import { getExpressionTree } from '../tree/expression/expression-tree-helper';
 import { getIdTree } from '../tree/id/id-tree-helper';
-import { getLiteralNode } from '../tree/literal/literal-tree-helper';
+import { getLiteralTree } from '../tree/literal/literal-tree-helper';
 import { getParameterTree } from '../tree/parameter/parameter-tree-helper';
 import { getSourceTree } from '../tree/source/source-tree-helper';
 import { getStatementTree } from '../tree/statement/statement-tree-helper';
@@ -29,7 +29,7 @@ export const parseSourceFile = (sourceName: string) => {
   return getSourceTree(parse(code, sourceName).source());
 };
 
-export const parseLiteral = (code: string) => getLiteralNode(parse(code).literal());
+export const parseLiteral = (code: string) => getLiteralTree(parse(code).literal());
 
 export const parseExpression = (code: string) => getExpressionTree(parse(code).expr());
 

@@ -14,4 +14,8 @@ export class PrefixExpressionMetadata implements ExpressionMetadata {
   attributes(): DeclarationMetadata[] {
     throw new Error('Method not implemented.');
   }
+
+  is(metadata: ExpressionMetadata): boolean {
+    throw new Error('Not implemented');
+  }
 }

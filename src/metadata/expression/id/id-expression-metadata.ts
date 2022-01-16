@@ -13,4 +13,8 @@ export class IdExpressionMetadata implements ExpressionMetadata {
   attributes(): DeclarationMetadata[] {
     return this.declaration().attributes();
   }
+
+  is(metadata: ExpressionMetadata): boolean {
+    throw new Error('Not implemented');
+  }
 }

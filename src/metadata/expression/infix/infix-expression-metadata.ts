@@ -19,4 +19,8 @@ export class InfixExpressionMetadata implements ExpressionMetadata {
     // const right  = getExpressionMetadata(this.node.right, this.scope)
     // left.attributes().filter(x=>)
   }
+
+  is(metadata: ExpressionMetadata): boolean {
+    throw new Error('Not implemented');
+  }
 }
