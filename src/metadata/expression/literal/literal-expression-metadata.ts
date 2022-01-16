@@ -5,7 +5,6 @@ import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { ModelDeclarationMetadata } from '../../declaration/model/model-declaration-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
 import { IdExpressionMetadata } from '../id/id-expression-metadata';
-import { InfixExpressionMetadata } from '../infix/infix-expression-metadata';
 
 export class LiteralExpressionMetadata implements ExpressionMetadata {
   name: string;
@@ -24,17 +23,15 @@ export class LiteralExpressionMetadata implements ExpressionMetadata {
     Issue.errorFromTree(this.node, `Couldn't find suitable literal type`);
   }
 
-  is(metadata: ExpressionMetadata) {
-    if (metadata instanceof LiteralExpressionMetadata) {
-      
-      return this.name === metadata.name && this.value === metadata.value;
+  is(other: ExpressionMetadata): boolean {
+    if (other instanceof LiteralExpressionMetadata) {
+      return this.name === other.name && this.value === other.value;
     }
-    if (metadata instanceof IdExpressionMetadata) {
-      const declaration = metadata.declaration();
-      return declaration.isCoreDeclaration && declaration.name === this.name;
+    if (other instanceof IdExpressionMetadata) {
+      const otherDeclaration = other.declaration();
+      const declaration = this.scope.findByName(this.name, (x) => x.isCoreDeclaration);
+      return otherDeclaration.isCoreDeclaration && declaration.is(otherDeclaration);
     }
-    if (metadata instanceof InfixExpressionMetadata) {
-      return metadata.is(this);
-    }
+    return false;
   }
 }

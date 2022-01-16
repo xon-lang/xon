@@ -3,7 +3,7 @@ import { SourceReference } from '../../../util/source-reference';
 import { DeclarationScope } from '../../declaration-scope';
 import { ExpressionMetadata } from '../../expression/expression-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
-import { getDeclarationsMetadata } from '../declaration-metadata-helper';
+import { ModelDeclarationMetadata } from '../model/model-declaration-metadata';
 
 export class FactoryDeclarationMetadata implements DeclarationMetadata {
   sourceReference: SourceReference;
@@ -20,13 +20,22 @@ export class FactoryDeclarationMetadata implements DeclarationMetadata {
   }
 
   attributes(): DeclarationMetadata[] {
-    const ancestorsAttributes = this.ancestors().flatMap((x) => x.attributes());
-    const currentAttributes = getDeclarationsMetadata(this.node.attributes, this.scope);
-    return [...currentAttributes, ...ancestorsAttributes];
+    return this.baseModel()?.attributes() || [];
+    // const ancestorsAttributes = this.baseModel()?.attributes() || [];
+    // const currentAttributes = getDeclarationsMetadata(this.node.attributes, this.scope);
+    // return [...currentAttributes, ...ancestorsAttributes];
   }
 
-  ancestors(): ExpressionMetadata[] {
-    throw new Error('Not implemented');
-    // return this.node.ancestors.map((x) => getExpressionMetadata(x, this.scope));
+  baseModel(): ModelDeclarationMetadata {
+    if (!this.node.base) return null;
+    return this.scope.findModel(this.node.base.name.text);
+  }
+
+  is(metadata: DeclarationMetadata): boolean {
+    return (
+      this.sourceReference.equals(metadata.sourceReference) ||
+      this.baseModel()?.is(metadata) ||
+      false
+    );
   }
 }

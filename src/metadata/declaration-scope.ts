@@ -18,28 +18,15 @@ export class DeclarationScope {
     return [...declarations, ...parentDeclarations];
   }
 
-  find(predicate: (x: DeclarationMetadata) => boolean): DeclarationMetadata {
-    const results = this.filter(predicate);
-
-    if (results.length > 1) {
-      const issues = results.map((x) =>
-        Issue.fromSourceReference(x.sourceReference, IssueLevel.Error, '').toString(),
-      );
-      throw new Error(`Too many declarations found:\n${issues.join('\n')}`);
-    }
-    if (!results.length) {
-      throw new Error(`Declaration not found: ${predicate}`);
-    }
-
-    return results[0];
+  filterByName(
+    name: string,
+    predicate?: (x: DeclarationMetadata) => boolean,
+  ): DeclarationMetadata[] {
+    return this.filter((x) => x.name === name && (!predicate || predicate(x)));
   }
 
-  filterByName(name: string): DeclarationMetadata[] {
-    return this.filter((x) => x.name === name);
-  }
-
-  findByName(name: string): DeclarationMetadata {
-    const results = this.filterByName(name);
+  findByName(name: string, predicate?: (x: DeclarationMetadata) => boolean): DeclarationMetadata {
+    const results = this.filterByName(name, predicate);
 
     if (results.length > 1) {
       const issues = results.map((x) =>

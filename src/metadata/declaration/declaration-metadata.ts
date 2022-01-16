@@ -6,6 +6,7 @@ export interface DeclarationMetadata {
   name: string;
   isCoreDeclaration?: boolean;
 
+  is(metadata: DeclarationMetadata): boolean;
   // baseModels(): DeclarationMetadata[];
   generics(): ExpressionMetadata[];
   attributes(): DeclarationMetadata[];

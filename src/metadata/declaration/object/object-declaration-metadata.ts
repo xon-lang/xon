@@ -20,14 +20,22 @@ export class ObjectDeclarationMetadata implements DeclarationMetadata {
   }
 
   attributes(): DeclarationMetadata[] {
-    const ancestorsAttributes = this.baseModel()?.attributes() || [];
-    const currentAttributes = getDeclarationsMetadata(this.node.attributes, this.scope);
-    return [...currentAttributes, ...ancestorsAttributes];
+    return this.baseModel()?.attributes() || [];
+    // const ancestorsAttributes = this.baseModel()?.attributes() || [];
+    // const currentAttributes = getDeclarationsMetadata(this.node.attributes, this.scope);
+    // return [...currentAttributes, ...ancestorsAttributes];
   }
 
   baseModel(): ModelDeclarationMetadata {
     if (!this.node.base) return null;
-
     return this.scope.findModel(this.node.base.name.text);
+  }
+
+  is(metadata: DeclarationMetadata): boolean {
+    return (
+      this.sourceReference.equals(metadata.sourceReference) ||
+      this.baseModel()?.is(metadata) ||
+      false
+    );
   }
 }

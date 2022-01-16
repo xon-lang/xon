@@ -27,7 +27,14 @@ export class ModelDeclarationMetadata implements DeclarationMetadata {
 
   baseModel(): ModelDeclarationMetadata {
     if (!this.node.base) return null;
-
     return this.scope.findModel(this.node.base.name.text);
+  }
+
+  is(metadata: DeclarationMetadata): boolean {
+    return (
+      this.sourceReference.equals(metadata.sourceReference) ||
+      this.baseModel()?.is(metadata) ||
+      false
+    );
   }
 }

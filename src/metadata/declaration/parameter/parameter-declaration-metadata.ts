@@ -40,4 +40,8 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
   attributes(): DeclarationMetadata[] {
     return this.type().attributes();
   }
+
+  is(metadata: ExpressionMetadata): boolean {
+    return this.type().is(metadata);
+  }
 }
