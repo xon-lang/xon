@@ -40,9 +40,9 @@ expr:
     | left = expr op = '..' right = expr                               # rangeExpression
     | left = expr op = ('<' | '<=' | '>=' | '>') right = expr          # relationalExpression
     | left = expr op = ('==' | '!=') right = expr                      # equalityExpression
-    | left = expr op = '&&' right = expr                               # conjunctionExpression
-    | left = expr op = '||' right = expr                               # disjunctionExpression
     | left = expr op = (IS | AS | IN) right = expr                     # infixExpression
+    | left = expr op = AND right = expr                                # andExpression
+    | left = expr op = OR right = expr                                 # orExpression
     | literal                                                          # literalExpression
     | '(' (parameter (',' parameter)* ','?)? ')' expr?                 # methodExpression
     | '[' (parameter (',' parameter)* ','?)? ']' expr?                 # indexerExpression
