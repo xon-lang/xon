@@ -10,25 +10,22 @@ export class FactoryStatementTree implements StatementTree {
   sourceReference: SourceReference;
   id: IdTree;
   parameters: ParameterTree[] = [];
-  base: IdTree;
   attributes: ParameterTree[] = [];
 
   constructor(ctx: FactoryStatementContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
     this.id = getIdTree(ctx._name);
     this.parameters = getParameterTrees(ctx.parameters()?.parameter());
-    this.base = getIdTree(ctx._base);
     this.attributes = getParameterTrees(ctx.definitionBody()?.parameter());
   }
 
   toString(): string {
     const parameters = '(' + this.parameters.join(', ') + ')';
-    const base = (this.base && 'is ' + this.base) || '';
 
     const body =
       (this.attributes.length && '\n' + this.attributes.join('\n').replace(/^(.+\S)/gm, '  $1')) ||
       '';
-    const header = ['factory', this.id + parameters, base].filter(Boolean).join(' ');
+    const header = ['factory', this.id + parameters].filter(Boolean).join(' ');
 
     return header + body;
   }
