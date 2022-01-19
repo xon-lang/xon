@@ -37,10 +37,6 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
     Issue.errorFromTree(this.node, `Attribute '${this.node.id}' must have a type`);
   }
 
-  attributes(): DeclarationMetadata[] {
-    return this.type().attributes();
-  }
-
   is(metadata: ExpressionMetadata): boolean {
     return this.type().is(metadata);
   }

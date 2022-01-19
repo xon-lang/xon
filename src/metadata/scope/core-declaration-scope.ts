@@ -1,19 +1,19 @@
-import { DeclarationMetadata } from '../declaration/declaration-metadata';
+import { ModelDeclarationMetadata } from '../declaration/model/model-declaration-metadata';
 import { ModuleMetadata } from '../module/module-metadata';
 import { DeclarationScope } from './declaration-scope';
 
 export class CoreDeclarationScope extends DeclarationScope {
-  get boolean(): DeclarationMetadata {
-    return this.findByName('Boolean');
+  get boolean(): ModelDeclarationMetadata {
+    return this.findByName('Boolean') as ModelDeclarationMetadata;
   }
-  get integer(): DeclarationMetadata {
-    return this.findByName('Integer');
+  get integer(): ModelDeclarationMetadata {
+    return this.findByName('Integer') as ModelDeclarationMetadata;
   }
-  get float(): DeclarationMetadata {
-    return this.findByName('Float');
+  get float(): ModelDeclarationMetadata {
+    return this.findByName('Float') as ModelDeclarationMetadata;
   }
-  get number(): DeclarationMetadata {
-    return this.findByName('Number');
+  get number(): ModelDeclarationMetadata {
+    return this.findByName('Number') as ModelDeclarationMetadata;
   }
 
   constructor() {

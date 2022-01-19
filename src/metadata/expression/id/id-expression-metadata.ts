@@ -1,20 +1,19 @@
 import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
-import { DeclarationScope } from '../../scope/declaration-scope';
-import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { FactoryDeclarationMetadata } from '../../declaration/factory/factory-declaration-metadata';
 import { ModelDeclarationMetadata } from '../../declaration/model/model-declaration-metadata';
 import { ObjectDeclarationMetadata } from '../../declaration/object/object-declaration-metadata';
 import { ParameterDeclarationMetadata } from '../../declaration/parameter/parameter-declaration-metadata';
+import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
 
 export class IdExpressionMetadata implements ExpressionMetadata {
   constructor(private node: IdExpressionTree, private scope: DeclarationScope) {}
 
-  declaration(): DeclarationMetadata {
+  declaration(): ModelDeclarationMetadata {
     return this.scope.findByName(this.node.id.name.text);
   }
 
-  attributes(): DeclarationMetadata[] {
+  attributes(): ParameterDeclarationMetadata[] {
     return this.declaration().attributes();
   }
 

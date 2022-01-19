@@ -1,9 +1,9 @@
 import { ModelStatementTree } from '../../../tree/statement/model/model-statement-tree';
 import { SourceReference } from '../../../util/source-reference';
-import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../../expression/expression-metadata';
+import { DeclarationScope } from '../../scope/declaration-scope';
 import { DeclarationMetadata } from '../declaration-metadata';
-import { getDeclarationsMetadata } from '../declaration-metadata-helper';
+import { ParameterDeclarationMetadata } from '../parameter/parameter-declaration-metadata';
 
 export class ModelDeclarationMetadata implements DeclarationMetadata {
   sourceReference: SourceReference;
@@ -19,9 +19,11 @@ export class ModelDeclarationMetadata implements DeclarationMetadata {
     // return this.node.id.generics.map((x) => getExpressionMetadata(x, this.scope));
   }
 
-  attributes(): DeclarationMetadata[] {
+  attributes(): ParameterDeclarationMetadata[] {
     const ancestorsAttributes = this.baseModel()?.attributes() || [];
-    const currentAttributes = getDeclarationsMetadata(this.node.attributes, this.scope);
+    const currentAttributes = this.node.attributes.map(
+      (x) => new ParameterDeclarationMetadata(x, this.scope),
+    );
     return [...currentAttributes, ...ancestorsAttributes];
   }
 

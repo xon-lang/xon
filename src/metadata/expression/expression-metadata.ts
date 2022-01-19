@@ -1,6 +1,6 @@
-import { DeclarationMetadata } from '../declaration/declaration-metadata';
+import { ParameterDeclarationMetadata } from '../declaration/parameter/parameter-declaration-metadata';
 
 export interface ExpressionMetadata {
-  attributes(): DeclarationMetadata[];
+  attributes(): ParameterDeclarationMetadata[];
   is(metadata: ExpressionMetadata): boolean;
 }

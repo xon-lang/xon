@@ -1,23 +1,21 @@
 import { InfixExpressionTree } from '../../../tree/expression/infix/infix-expression-tree';
+import { ParameterDeclarationMetadata } from '../../declaration/parameter/parameter-declaration-metadata';
 import { DeclarationScope } from '../../scope/declaration-scope';
-import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
 import { getExpressionMetadata } from '../expression-metadata-helper';
 
 export class InfixExpressionMetadata implements ExpressionMetadata {
-  constructor(private node: InfixExpressionTree, private scope: DeclarationScope) {
-    // const declaration = getExpressionMetadata(node.left, scope).type.declaration;
-    // const rightType = getExpressionMetadata(node.right, scope).type;
-    // const attributeType = declaration.attribute(node.id.text, [], [rightType], null).type([]);
-    // if (attributeType instanceof LambdaTypeMetadata) this.type = attributeType.resultType;
-    // else throw new Error('Wrong method type');
-  }
+  constructor(private node: InfixExpressionTree, private scope: DeclarationScope) {}
 
-  attributes(): DeclarationMetadata[] {
-    return []
-    // const left  = getExpressionMetadata(this.node.left, this.scope)
-    // const right  = getExpressionMetadata(this.node.right, this.scope)
-    // left.attributes().filter(x=>)
+  attributes(): ParameterDeclarationMetadata[] {
+    const left = getExpressionMetadata(this.node.left, this.scope);
+    const right = getExpressionMetadata(this.node.right, this.scope);
+    const attributes = left
+      .attributes()
+      .filter((x) => x.name === this.node.id.text && x.type().is(right));
+    if (attributes.length > 1) throw new Error('To many attributes');
+    if (attributes.length === 0) throw new Error('Not found');
+    return attributes[0].type().attributes();
   }
 
   is(metadata: ExpressionMetadata): boolean {

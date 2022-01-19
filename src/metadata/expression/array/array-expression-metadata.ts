@@ -1,6 +1,6 @@
 import { ArrayExpressionTree } from '../../../tree/expression/array/array-expression-tree';
+import { ParameterDeclarationMetadata } from '../../declaration/parameter/parameter-declaration-metadata';
 import { DeclarationScope } from '../../scope/declaration-scope';
-import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
 
 export class ArrayExpressionMetadata implements ExpressionMetadata {
@@ -9,7 +9,7 @@ export class ArrayExpressionMetadata implements ExpressionMetadata {
     // this.type = new TupleTypeMetadata(itemsTypes);
   }
 
-  attributes(): DeclarationMetadata[] {
+  attributes(): ParameterDeclarationMetadata[] {
     throw new Error('Method not implemented.');
   }
 
