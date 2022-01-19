@@ -1,6 +1,6 @@
 import { Issue } from '../../issue-service/issue';
 import { ParameterTree } from '../../tree/parameter/parameter-tree';
-import { FactoryStatementTree } from '../../tree/statement/new/new-statement-tree';
+import { FactoryStatementTree } from '../../tree/statement/factory/factory-statement-tree';
 import { ModelStatementTree } from '../../tree/statement/model/model-statement-tree';
 import { ObjectStatementTree } from '../../tree/statement/object/object-statement-tree';
 import { StatementTree } from '../../tree/statement/statement-tree';

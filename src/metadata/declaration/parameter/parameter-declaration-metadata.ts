@@ -3,9 +3,9 @@ import { SingleBodyTree } from '../../../tree/body/single/single-body-tree';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { ExpressionStatementTree } from '../../../tree/statement/expression/expression-statement-tree';
 import { SourceReference } from '../../../util/source-reference';
-import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../../expression/expression-metadata';
 import { getExpressionMetadata } from '../../expression/expression-metadata-helper';
+import { DeclarationScope } from '../../scope/declaration-scope';
 import { DeclarationMetadata } from '../declaration-metadata';
 
 export class ParameterDeclarationMetadata implements DeclarationMetadata {
@@ -35,6 +35,10 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
       }
     }
     Issue.errorFromTree(this.node, `Attribute '${this.node.id}' must have a type`);
+  }
+
+  attributes(): ParameterDeclarationMetadata[] {
+    return this.type().attributes();
   }
 
   is(metadata: ExpressionMetadata): boolean {

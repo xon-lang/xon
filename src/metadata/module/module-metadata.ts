@@ -1,6 +1,6 @@
 import * as glob from 'glob';
 import * as path from 'path';
-import { FactoryStatementTree } from '../../tree/statement/new/new-statement-tree';
+import { FactoryStatementTree } from '../../tree/statement/factory/factory-statement-tree';
 import { ModelStatementTree } from '../../tree/statement/model/model-statement-tree';
 import { ObjectStatementTree } from '../../tree/statement/object/object-statement-tree';
 import { parseSourceFile } from '../../util/parse';

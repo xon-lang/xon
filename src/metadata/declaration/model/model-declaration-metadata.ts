@@ -27,7 +27,7 @@ export class ModelDeclarationMetadata implements DeclarationMetadata {
     return [...currentAttributes, ...ancestorsAttributes];
   }
 
-  baseModel(): ModelDeclarationMetadata {
+  baseModel(): ModelDeclarationMetadata | null {
     if (!this.node.base) return null;
     return this.scope.findModel(this.node.base.name.text);
   }
