@@ -67,4 +67,4 @@ parameters:     parameter (',' parameter)* ','?;
 parameter:      '...'? id expr body | '...'? id expr | '...'? id body | '...'? id;
 modifier:       TYPE | CLASS | OBJECT | ENUM | MODEL;
 id:             (name = ID | operator) ('<' '|' parameter (',' parameter)* ','? '|' '>')?;
-operator:       '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
+operator:       AS | IS | IN | '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
