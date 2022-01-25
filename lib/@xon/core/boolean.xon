@@ -4,13 +4,13 @@ model Boolean
   = (other Boolean) Boolean
 
 
-object false is Boolean
+object False is Boolean
   as String: 'false'
 
   = (other Boolean): this is false
 
 
-object true is Boolean
+object True is Boolean
   as String: 'true'
 
   = (other Boolean): this is true
