@@ -8,11 +8,13 @@ model Number
   < (other Number) Boolean
   = (other Number) Boolean
 
-  toString() String
+  as String
+  as Boolean
 
 
 model Integer is Number
   test String
+
 
 model Float is Number
   test String

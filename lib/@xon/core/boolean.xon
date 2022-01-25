@@ -1,15 +1,16 @@
 model Boolean
-  toString() String
+  as String
 
   = (other Boolean) Boolean
 
 
 object false is Boolean
-  toString(): 'false'
+  as String: 'false'
 
-  = (other Boolean): this is False
+  = (other Boolean): this is false
+
 
 object true is Boolean
-  toString(): 'true'
+  as String: 'true'
 
-  = (other Boolean): this is True
+  = (other Boolean): this is true
