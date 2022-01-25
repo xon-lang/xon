@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import {
   AddSubExpressionContext,
+  AndExpressionContext,
   ArrayExpressionContext,
-  ConjunctionExpressionContext,
-  DisjunctionExpressionContext,
   EqualityExpressionContext,
   ExprContext,
   IdExpressionContext,
@@ -15,6 +14,7 @@ import {
   MethodExpressionContext,
   MulDivModExpressionContext,
   NullableExpressionContext,
+  OrExpressionContext,
   ParenthesizedExpressionContext,
   PowExpressionContext,
   PrefixExpressionContext,
@@ -52,8 +52,8 @@ export const getExpressionTree = (ctx: ExprContext): ExpressionTree => {
 
   if (
     ctx instanceof AddSubExpressionContext ||
-    ctx instanceof ConjunctionExpressionContext ||
-    ctx instanceof DisjunctionExpressionContext ||
+    ctx instanceof AndExpressionContext ||
+    ctx instanceof OrExpressionContext ||
     ctx instanceof EqualityExpressionContext ||
     ctx instanceof InfixExpressionContext ||
     ctx instanceof MulDivModExpressionContext ||
