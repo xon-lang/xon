@@ -4,13 +4,17 @@ model Boolean
   = (other Boolean) Boolean
 
 
-object False is Boolean
-  as String: 'false'
+element false is Boolean
+  as String
+    return 'false'
 
-  = (other Boolean): this is false
+  = (other Boolean) Boolean
+    return this is false
 
 
-object True is Boolean
-  as String: 'true'
+element true is Boolean
+  as String
+    return 'true'
 
-  = (other Boolean): this is true
+  = (other Boolean) Boolean
+    return this is true
