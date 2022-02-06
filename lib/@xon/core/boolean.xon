@@ -4,7 +4,7 @@ model Boolean
   = (other Boolean) Boolean
 
 
-element false is Boolean
+object false is Boolean
   as String
     return 'false'
 
@@ -12,7 +12,7 @@ element false is Boolean
     return this is false
 
 
-element true is Boolean
+object true is Boolean
   as String
     return 'true'
 
