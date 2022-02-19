@@ -9,5 +9,5 @@ factory SomeClass<|T|>(name String)
   location(x Number, y Number) Position
     pos(x, y)
 
-  + (it SomeClass) AnotherClass
+  +(it SomeClass) AnotherClass
     log('fine!')

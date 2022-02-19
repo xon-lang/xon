@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import {
-  AddSubExpressionContext,
-  AndExpressionContext,
   ArrayExpressionContext,
-  EqualityExpressionContext,
   ExprContext,
   IdExpressionContext,
   IndexExpressionContext,
@@ -12,14 +9,9 @@ import {
   LiteralExpressionContext,
   MemberExpressionContext,
   MethodExpressionContext,
-  MulDivModExpressionContext,
   NullableExpressionContext,
-  OrExpressionContext,
   ParenthesizedExpressionContext,
-  PowExpressionContext,
   PrefixExpressionContext,
-  RangeExpressionContext,
-  RelationalExpressionContext,
 } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
 import { IdToken } from '../../util/id-token';
@@ -50,24 +42,45 @@ export const getExpressionTree = (ctx: ExprContext): ExpressionTree => {
   if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionTree(ctx);
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
 
-  if (
-    ctx instanceof AddSubExpressionContext ||
-    ctx instanceof AndExpressionContext ||
-    ctx instanceof OrExpressionContext ||
-    ctx instanceof EqualityExpressionContext ||
-    ctx instanceof InfixExpressionContext ||
-    ctx instanceof MulDivModExpressionContext ||
-    ctx instanceof PowExpressionContext ||
-    ctx instanceof RangeExpressionContext ||
-    ctx instanceof RelationalExpressionContext ||
-    ctx instanceof RelationalExpressionContext
-  ) {
-    return new InfixExpressionTree(
-      ctx,
-      new IdToken(ctx._op),
-      getExpressionTree(ctx._left),
-      getExpressionTree(ctx._right),
-    );
+  if (ctx instanceof InfixExpressionContext) {
+    // todo each module can use own priority
+    const operatorsPriorities = [
+      '^',
+      '* / %',
+      '+ -',
+      '..',
+      '< <= >= >',
+      '== !=',
+      'is as in',
+      'and',
+      'or',
+    ].map((x) => x.split(' '));
+    const flatExpressions = (x) =>
+      x instanceof InfixExpressionContext
+        ? [...flatExpressions(x._left), new IdToken(x._op), getExpressionTree(x._right)]
+        : [getExpressionTree(x)];
+    const expressions: (IdToken | ExpressionTree)[] = flatExpressions(ctx);
+
+    for (const operators of operatorsPriorities) {
+      const operatorsCount = expressions.filter(
+        (x) => x instanceof IdToken && operators.includes(x.text),
+      ).length;
+      for (let i = 0; i < operatorsCount; i++) {
+        const operatorIndex = expressions.findIndex(
+          (x) => x instanceof IdToken && operators.includes(x?.text),
+        );
+        if (operatorIndex >= 0) {
+          expressions[operatorIndex] = new InfixExpressionTree(
+            expressions[operatorIndex] as IdToken,
+            expressions[operatorIndex - 1] as ExpressionTree,
+            expressions[operatorIndex + 1] as ExpressionTree,
+          );
+          expressions.splice(operatorIndex - 1, 1);
+          expressions.splice(operatorIndex, 1);
+        }
+      }
+    }
+    return expressions[0] as ExpressionTree;
   }
 
   Issue.errorFromContext(ctx, `Expression node not found for "${ctx.constructor.name}"`);

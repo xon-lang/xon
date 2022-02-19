@@ -12,23 +12,20 @@ import { Tree } from '../tree';
 
 export class ParameterTree implements Tree {
   sourceReference: SourceReference;
-  hasSpread: boolean;
   id: IdTree;
   type?: ExpressionTree;
   body?: BodyTree;
 
   constructor(ctx: ParameterContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
-    this.hasSpread = !!ctx.SPREAD();
     this.id = getIdTree(ctx.id());
     this.type = getExpressionTree(ctx.expr()) || null;
     this.body = getBodyTree(ctx.body()) || null;
   }
 
   toString(): string {
-    const spread = (this.hasSpread && '...') || '';
     const body = (this.body && this.body + '\n') || '';
-    const header = [spread + this.id + this.typeToString()].filter(Boolean).join(' ');
+    const header = [this.id.toString() + this.typeToString()].filter(Boolean).join(' ');
     return header + body;
   }
 

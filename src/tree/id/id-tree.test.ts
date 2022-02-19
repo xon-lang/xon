@@ -10,7 +10,7 @@ test('abc', () => {
 });
 
 test('generics', () => {
-  const code = 'A<|String| >';
+  const code = 'A<|String|>';
   const tree = parseId(code);
   expect(tree).toBeInstanceOf(IdTree);
 

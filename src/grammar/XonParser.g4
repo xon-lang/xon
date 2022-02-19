@@ -32,17 +32,8 @@ expr:
     | instance = expr '[' (args += expr (',' args += expr)* ','?)? ']' # indexExpression
     | expr '?'                                                         # nullableExpression
     | expr '.' id                                                      # memberExpression
-    | '...' expr                                                       # spreadExpression
-    | op = ('-' | '+' | NOT) expr                                      # prefixExpression
-    | left = expr op = '^' right = expr                                # powExpression
-    | left = expr op = ('*' | '/' | '%') right = expr                  # mulDivModExpression
-    | left = expr op = ('+' | '-') right = expr                        # addSubExpression
-    | left = expr op = '..' right = expr                               # rangeExpression
-    | left = expr op = ('<' | '<=' | '>=' | '>') right = expr          # relationalExpression
-    | left = expr op = ('==' | '!=') right = expr                      # equalityExpression
-    | left = expr op = (IS | AS | IN) right = expr                     # infixExpression
-    | left = expr op = AND right = expr                                # andExpression
-    | left = expr op = OR right = expr                                 # orExpression
+    | op = ID expr                                                     # prefixExpression
+    | left = expr op = ID right = expr                                 # infixExpression
     | literal                                                          # literalExpression
     | '(' (parameter (',' parameter)* ','?)? ')' expr                  # methodExpression
     | '[' (parameter (',' parameter)* ','?)? ']' expr                  # indexerExpression
@@ -62,9 +53,8 @@ body:
     ;
 
 definitionBody: NL INDENT (parameter | NL)+ DEDENT;
-arrayItem:      ( expr ':')? expr;
+arrayItem:      (expr ':')? expr;
 parameters:     parameter (',' parameter)* ','?;
-parameter:      '...'? id expr body | '...'? id expr | '...'? id body | '...'? id;
+parameter:      id expr body | id expr | id body | id;
 modifier:       TYPE | CLASS | OBJECT | ENUM | MODEL;
-id:             (name = ID | operator) ('<' '|' parameter (',' parameter)* ','? '|' '>')?;
-operator:       AS | IS | IN | '^' | '*' | '/' | '%' | '+' | '-' | '<' | '>' | '=';
+id:             name = ID ('<|' parameter (',' parameter)* ','? '|>')?;

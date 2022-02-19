@@ -3,12 +3,12 @@ import { parseExpression } from '../../../util/parse';
 import { IdExpressionTree } from '../id/id-expression-tree';
 import { InfixExpressionTree } from './infix-expression-tree';
 
-test('num plus num', () => {
-  const code = '1+1';
+test('several operands with different priorities', () => {
+  const code = '1+1+2^5*2/2';
   const tree = parseExpression(code) as InfixExpressionTree;
   expect(tree).toBeInstanceOf(InfixExpressionTree);
 
-  expect(evaluate(tree)).toBe(2);
+  expect(evaluate(tree)).toBe(34);
 });
 
 test('num plus str', () => {

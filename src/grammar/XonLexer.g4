@@ -28,8 +28,6 @@ CLOSE_BRACE:   '}' {this.opened--;};
 
 ABSTRACT:  'abstract';
 ACTUAL:    'actual';
-AND:       'and';
-AS:        'as';
 BREAK:     'break';
 CLASS:     'class';
 DO:        'do';
@@ -41,48 +39,27 @@ EXTENSION: 'extension';
 FACTORY:   'factory';
 FOR:       'for';
 IF:        'if';
-IMPORT:    'import';
-IN:        'in';
-INFIX:     'infix';
 IS:        'is';
+IN:        'in';
+IMPORT:    'import';
+INFIX:     'infix';
 MODEL:     'model';
-NOT:       'not';
 OBJECT:    'object';
-OR:        'or';
 POSTFIX:   'postfix';
 PREFIX:    'prefix';
 RETURN:    'return';
 TYPE:      'type';
 WHILE:     'while';
 
-AMPERSAND:   '&';
-ASSIGN:      '=';
-ASTERISK:    '*';
-AT:          '@';
-BACK_SLASH:  '\\';
-CARET:       '^';
-COALESCING:  '?.';
-COLON:       ':';
-COMMA:       ',';
-DOT:         '.';
-EQUAL:       '==';
-EXCLAMATION: '!';
-GREAT_EQUAL: '>=';
-GREAT:       '>';
-HASH:        '#';
-LESS_EQUAL:  '<=';
-LESS:        '<';
-MINUS:       '-';
-MODULO:      '%';
-NOT_EQUAL:   '!=';
-PIPE:        '|';
-PLUS:        '+';
-QUESTION:    '?';
-RANGE:       '..';
-SLASH:       '/';
-SPREAD:      '...';
-TILDE:       '~';
-UNDERSCORE:  '_';
+ASSIGN:        '=';
+COLON:         ':';
+COMMA:         ',';
+DOT:           '.';
+EXCLAMATION:   '!';
+HASH:          '#';
+QUESTION:      '?';
+GENERIC_LEFT:  '<|';
+GENERIC_RIGHT: '|>';
 
 FLOAT_LITERAL:
     Radix AlphabetNumber '.' AlphabetNumber
@@ -94,7 +71,16 @@ STRING_LITERAL:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 
 PREPROCESSOR: '#{' .*? '}';
 
-ID: [_a-zA-Z] [_a-zA-Z0-9]*;
+ID:
+    [_a-zA-Z] [_a-zA-Z0-9]*
+    | [+-^*%]
+    | '..'
+    | '...'
+    | '<='
+    | '>='
+    | '=='
+    | '!='
+    ;
 NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
     ;
 WS:            [ \t]+                          -> channel(WHITESPACE);
