@@ -1,11 +1,12 @@
 import { parseExpression } from '../../../util/parse';
-import { LambdaTypeMetadata } from '../../type/lambda/lambda-type-metadata';
+import { TestDeclarationScope } from '../../scope/test-declaration-scope';
 import { getExpressionMetadata } from '../expression-metadata-helper';
+import { MethodExpressionMetadata } from './method-expression-metadata';
 
 test('lambda', () => {
-  const code = '(x String): x + x';
+  const code = '(x String) x + x';
   const tree = parseExpression(code);
   const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
 
-  expect(metadata.type).toBeInstanceOf(LambdaTypeMetadata);
+  expect(metadata).toBeInstanceOf(MethodExpressionMetadata);
 });

@@ -1,15 +1,14 @@
 import { parseExpression } from '../../../util/parse';
-import { TupleTypeMetadata } from '../../type/tuple/tuple-type-metadata';
+import { TestDeclarationScope } from '../../scope/test-declaration-scope';
 import { getExpressionMetadata } from '../expression-metadata-helper';
+import { ArrayExpressionMetadata } from './array-expression-metadata';
 
 test('empty', () => {
   const code = '[]';
   const tree = parseExpression(code);
   const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
 
-  expect(metadata.type).toBeInstanceOf(TupleTypeMetadata);
-  const type = metadata.type as TupleTypeMetadata;
-  expect(type.itemsTypes.length).toBe(0);
+  expect(metadata).toBeInstanceOf(ArrayExpressionMetadata);
 });
 
 test('123', () => {
@@ -17,8 +16,5 @@ test('123', () => {
   const tree = parseExpression(code);
   const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
 
-  expect(metadata.type).toBeInstanceOf(TupleTypeMetadata);
-  const type = metadata.type as TupleTypeMetadata;
-  expect(type.itemsTypes.length).toBe(3);
-  expect(type.itemsTypes[0].declaration.name).toBe('Integer');
+  expect(metadata).toBeInstanceOf(ArrayExpressionMetadata);
 });

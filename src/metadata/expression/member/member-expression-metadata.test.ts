@@ -1,10 +1,11 @@
 import { parseExpression } from '../../../util/parse';
+import { TestDeclarationScope } from '../../scope/test-declaration-scope';
 import { getExpressionMetadata } from '../expression-metadata-helper';
+import { MemberExpressionMetadata } from './member-expression-metadata';
 
 test('member', () => {
-  const code = 'True.toString';
+  const code = 'true.test';
   const tree = parseExpression(code);
   const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
-
-  expect(metadata.attributes().length).toBe(0);
+  expect(metadata).toBeInstanceOf(MemberExpressionMetadata);
 });

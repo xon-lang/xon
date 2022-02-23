@@ -17,8 +17,8 @@ export class ObjectDeclarationMetadata implements DeclarationMetadata {
     return this.baseModel().attributes();
   }
 
-  baseModel(): ModelDeclarationMetadata {
-    return this.scope.findModel(this.node.base.name.text);
+  baseModel(): ModelDeclarationMetadata | null {
+    return (this.node.base && this.scope.findModel(this.node.base.name.text)) || null;
   }
 
   is(metadata: DeclarationMetadata): boolean {

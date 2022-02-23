@@ -29,7 +29,7 @@ export function getExpressionMetadata(
   try {
     if (tree instanceof ParenthesizedExpressionTree)
       return getExpressionMetadata(tree.expression, scope);
-    if (tree instanceof InfixExpressionTree && tree.id.text === '&&')
+    if (tree instanceof InfixExpressionTree && tree.id.text === 'and')
       return new AndExpressionMetadata(tree, scope);
     if (tree instanceof InfixExpressionTree && tree.id.text === 'is')
       return new IsExpressionMetadata(tree, scope);
