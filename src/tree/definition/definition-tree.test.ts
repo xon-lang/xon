@@ -9,6 +9,6 @@ test('model cat', () => {
 
   expect(tree.modifier.text).toBe('model');
   expect(tree.id.name.text).toBe('Cat');
-  expect((tree.type as IdExpressionTree).id.name.text).toBe('Animal');
+  expect((tree.base as IdExpressionTree).id.name.text).toBe('Animal');
   expect(tree.attributes.length).toBe(0);
 });
