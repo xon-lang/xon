@@ -5,17 +5,5 @@ model Boolean
   != (other Boolean) Boolean
 
 
-object false is Boolean
-  as String
-    return 'false'
-
-  == (other Boolean) Boolean
-    return this is false
-
-
-object true is Boolean
-  as String
-    return 'true'
-
-  == (other Boolean) Boolean
-    return this is true
+object false Boolean
+object true Boolean

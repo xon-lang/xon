@@ -6,17 +6,18 @@ model Number
   ^ (other Number) Number
   > (other Number) Boolean
   < (other Number) Boolean
-  = (other Number) Boolean
+  == (other Number) Boolean
+  != (other Number) Boolean
 
   as String
   as Boolean
 
 
-model Integer is Number
+model Integer Number
   test String
 
 
-model Float is Number
+model Float Number
   test String
   test String
   test String
