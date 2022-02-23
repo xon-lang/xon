@@ -4,7 +4,9 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: (statement | NL)*;
+source: (statement | definition | NL)*;
+
+definition: modifier id expr NL INDENT (parameter | NL)+ DEDENT;
 
 statement:
     IMPORT path = expr (':' members += expr (',' members += expr)* ','?)? # importStatement
@@ -18,7 +20,6 @@ statement:
     | ACTUAL actual = expr NL+ EXPECT expect = expr                       # assertStatement
     | PREPROCESSOR                                                        # preprocessorStatement
     | id '=' expr                                                         # assignmentStatement
-    | parameter                                                           # parameterStatement
     | expr                                                                # expressionStatement
     ;
 
