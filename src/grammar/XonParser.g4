@@ -6,7 +6,7 @@ options {
 
 source: (statement | definition | NL)*;
 
-definition: modifier id expr NL INDENT (parameter | NL)* DEDENT;
+definition: modifier id expr (NL INDENT (parameter | NL)+ DEDENT)?;
 
 statement:
     IMPORT path = expr (':' members += expr (',' members += expr)* ','?)? # importStatement
