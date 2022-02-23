@@ -13,9 +13,12 @@ object someObjectFactory<|T|>(name String)
     789
   ]
 
+
   --abc
   method() MyType -- comment
     hello()
+
+    
     bye()
 
   -- comment
@@ -26,3 +29,7 @@ object someObjectFactory<|T|>(name String)
     log('fine!')
 
   abc Integer
+
+model Array<|T|>
+  + (other T[]) T[]
+  * (other Integer) T[][]

@@ -18,6 +18,8 @@ export class SourceTree implements Tree {
   }
 
   toString(): string {
-    return [...this.statements, ...this.definitions].join('\n');
+    const statements = this.statements.join('\n');
+    const definitions = this.definitions.join('\n\n');
+    return [statements, definitions].join('\n\n');
   }
 }
