@@ -7,20 +7,19 @@ options {
 source: (statement | NL)*;
 
 statement:
-    IMPORT path = expr (':' members += expr (',' members += expr)* ','?)?  # importStatement
-    | EXPORT path = expr                                                   # exportStatement
-    | FOR (value = parameter (',' index = parameter)? IN)? expr body       # forStatement
-    | WHILE expr body                                                      # whileStatement
-    | DO body WHILE expr                                                   # doWhileStatement
-    | IF expr thenBody = body (ELSE elseBody = body)?                      # ifStatement
-    | BREAK                                                                # breakStatement
-    | RETURN expr?                                                         # returnStatement
-    | ACTUAL actual = expr NL+ EXPECT expect = expr                        # assertStatement
-    | PREPROCESSOR                                                         # preprocessorStatement
-    | MODEL name = id (base = id)? definitionBody?                         # modelStatement
-    | OBJECT name = id ('(' parameters? ')')? (base = id)? definitionBody? # objectStatement
-    | id '=' expr                                                          # assignmentStatement
-    | expr                                                                 # expressionStatement
+    IMPORT path = expr (':' members += expr (',' members += expr)* ','?)? # importStatement
+    | EXPORT path = expr                                                  # exportStatement
+    | FOR (value = parameter (',' index = parameter)? IN)? expr body      # forStatement
+    | WHILE expr body                                                     # whileStatement
+    | DO body WHILE expr                                                  # doWhileStatement
+    | IF expr thenBody = body (ELSE elseBody = body)?                     # ifStatement
+    | BREAK                                                               # breakStatement
+    | RETURN expr?                                                        # returnStatement
+    | ACTUAL actual = expr NL+ EXPECT expect = expr                       # assertStatement
+    | PREPROCESSOR                                                        # preprocessorStatement
+    | id '=' expr                                                         # assignmentStatement
+    | parameter                                                           # parameterStatement
+    | expr                                                                # expressionStatement
     ;
 
 expr:
@@ -51,9 +50,8 @@ body:
     | ':'? NL INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-definitionBody: NL INDENT (parameter | NL)+ DEDENT;
-arrayItem:      (expr ':')? expr;
-parameters:     parameter (',' parameter)* ','?;
-parameter:      (INFIX | PREFIX)? (id | op = OPERATOR) (expr body | expr | body)?;
-modifier:       TYPE | CLASS | OBJECT | ENUM | MODEL;
-id:             name = ID ('<|' parameter (',' parameter)* ','? '|>')?;
+arrayItem:  (expr ':')? expr;
+parameters: parameter (',' parameter)* ','?;
+parameter:  modifier? (id | op = OPERATOR) ( expr body | expr | body)?;
+id:         name = ID ('<|' parameter (',' parameter)* ','? '|>')?;
+modifier:   name = (INFIX | PREFIX | OBJECT | ENUM | MODEL);
