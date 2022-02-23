@@ -2,6 +2,7 @@ import { CharStreams, CommonTokenStream } from 'antlr4ts';
 import * as fs from 'fs';
 import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
+import { getDefinitionTree } from '../tree/definition/definition-tree-helper';
 import { getExpressionTree } from '../tree/expression/expression-tree-helper';
 import { getIdTree } from '../tree/id/id-tree-helper';
 import { getLiteralTree } from '../tree/literal/literal-tree-helper';
@@ -38,5 +39,7 @@ export const parseStatement = (code: string) => getStatementTree(parse(code).sta
 export const parseId = (code: string) => getIdTree(parse(code).id());
 
 export const parseParameter = (code: string) => getParameterTree(parse(code).parameter());
+
+export const parseDefinition = (code: string) => getDefinitionTree(parse(code).definition());
 
 export const parseSource = (code: string) => getSourceTree(parse(code).source());
