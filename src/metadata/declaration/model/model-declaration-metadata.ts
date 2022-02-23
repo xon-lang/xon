@@ -1,4 +1,4 @@
-import { ModelStatementTree } from '../../../tree/statement/model/model-statement-tree';
+import { ParameterStatementTree } from '../../../tree/statement/parameter/parameter-statement-tree';
 import { SourceReference } from '../../../util/source-reference';
 import { ExpressionMetadata } from '../../expression/expression-metadata';
 import { DeclarationScope } from '../../scope/declaration-scope';
@@ -9,7 +9,7 @@ export class ModelDeclarationMetadata implements DeclarationMetadata {
   sourceReference: SourceReference;
   name: string;
 
-  constructor(private node: ModelStatementTree, private scope: DeclarationScope) {
+  constructor(private node: ParameterStatementTree, private scope: DeclarationScope) {
     this.sourceReference = node.sourceReference;
     this.name = node.id.name.text;
   }

@@ -1,6 +1,6 @@
 import { Issue } from '../../issue-service/issue';
 import { ParameterTree } from '../../tree/parameter/parameter-tree';
-import { ModelStatementTree } from '../../tree/statement/model/model-statement-tree';
+import { ParameterStatementTree } from '../../tree/statement/parameter/parameter-statement-tree';
 import { ObjectStatementTree } from '../../tree/statement/object/object-statement-tree';
 import { StatementTree } from '../../tree/statement/statement-tree';
 import { Tree } from '../../tree/tree';
@@ -17,7 +17,7 @@ export const getDeclarationMetadata = (
   if (node === undefined) return undefined;
 
   if (node instanceof ParameterTree) return new ParameterDeclarationMetadata(node, scope);
-  if (node instanceof ModelStatementTree) return new ModelDeclarationMetadata(node, scope);
+  if (node instanceof ParameterStatementTree) return new ModelDeclarationMetadata(node, scope);
   if (node instanceof ObjectStatementTree) return new ObjectDeclarationMetadata(node, scope);
 
   Issue.errorFromTree(node, `Expression node not found for "${node.constructor.name}"`);
