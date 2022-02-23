@@ -19,8 +19,6 @@ model Integer Number
 
 model Float Number
   test String
-  test String
-  test String
 
 
 -- model NaturalNumber is Number -- N
