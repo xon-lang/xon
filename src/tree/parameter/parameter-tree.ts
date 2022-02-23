@@ -27,7 +27,7 @@ export class ParameterTree implements Tree {
 
   toString() {
     let type = this.type?.toString() || '';
-    if (type && (this.ctx.id().OPERATOR() || this.type instanceof MethodExpressionTree))
+    if (type && (this.ctx.id().OPERATOR() || !(this.type instanceof MethodExpressionTree)))
       type = ' ' + type;
 
     const modifier = (this.modifier && this.modifier.text + ' ') || '';

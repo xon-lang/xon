@@ -31,7 +31,15 @@ export class DefinitionTree implements Tree {
       type = ' ' + type;
 
     const modifier = (this.modifier && this.modifier.text + ' ') || '';
-    const attributes = '\n' + this.attributes.join('\n').replace(/^(.+\S)/gm, '  $1');
+    const properties = this.attributes
+      .filter((x) => !x.type || !(x.type instanceof MethodExpressionTree))
+      .join('\n')
+      .replace(/^(.+\S)/gm, '  $1');
+    const methods = this.attributes
+      .filter((x) => x.type && x.type instanceof MethodExpressionTree)
+      .join('\n\n')
+      .replace(/^(.+\S)/gm, '  $1');
+    const attributes = '\n' + [properties, methods].join('\n\n');
     return modifier + this.id + type + attributes;
   }
 }

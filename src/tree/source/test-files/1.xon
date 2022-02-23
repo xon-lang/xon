@@ -24,3 +24,5 @@ object someObjectFactory<|T|>(name String)
 
   +(it SomeClass) AnotherClass
     log('fine!')
+
+  abc Integer
