@@ -52,6 +52,6 @@ body:
 
 arrayItem:  (expr ':')? expr;
 parameters: parameter (',' parameter)* ','?;
-parameter:  modifier? (id | op = OPERATOR) ( expr body | expr | body)?;
-id:         name = ID ('<|' parameter (',' parameter)* ','? '|>')?;
+parameter:  modifier? id ( expr body | expr | body)?;
+id:         name = (ID | OPERATOR) ('<|' parameter (',' parameter)* ','? '|>')?;
 modifier:   name = (INFIX | PREFIX | OBJECT | ENUM | MODEL);
