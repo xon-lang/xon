@@ -8,25 +8,25 @@ import { PrefixExpressionTree } from '../tree/expression/prefix/prefix-expressio
 
 const escapeIfString = (s: unknown) => (typeof s === 'string' ? `\`${s}\`` : s);
 
-export const evaluate = (node: ExpressionTree, argsMap = {}): unknown => {
-  if (node === undefined) return undefined;
+export const evaluate = (tree: ExpressionTree, argsMap = {}): unknown => {
+  if (tree === undefined) return undefined;
 
-  if (node instanceof LiteralExpressionTree) return node.literal.value;
-  if (node instanceof ParenthesizedExpressionTree) return evaluate(node.expression);
-  if (node instanceof InfixExpressionTree) {
-    const a = evaluate(node.left, argsMap);
-    const b = evaluate(node.right, argsMap);
-    const o = node.id.text === '^' ? '**' : node.id.text;
+  if (tree instanceof LiteralExpressionTree) return tree.literal.value;
+  if (tree instanceof ParenthesizedExpressionTree) return evaluate(tree.expression);
+  if (tree instanceof InfixExpressionTree) {
+    const a = evaluate(tree.left, argsMap);
+    const b = evaluate(tree.right, argsMap);
+    const o = tree.id.text === '^' ? '**' : tree.id.text;
     return eval(`${escapeIfString(a)} ${o} ${escapeIfString(b)}`);
   }
-  if (node instanceof PrefixExpressionTree) {
-    const a = evaluate(node.value, argsMap);
-    return eval(`${node.id.text}${escapeIfString(a)}`);
+  if (tree instanceof PrefixExpressionTree) {
+    const a = evaluate(tree.value, argsMap);
+    return eval(`${tree.id.text}${escapeIfString(a)}`);
   }
-  if (node instanceof IdExpressionTree) {
-    if (node.id.name.text in argsMap) return argsMap[node.id.name.text];
-    Issue.errorFromTree(node, `Undefined key: ${node.id}`);
+  if (tree instanceof IdExpressionTree) {
+    if (tree.id.name.text in argsMap) return argsMap[tree.id.name.text];
+    Issue.errorFromTree(tree, `Undefined key: ${tree.id}`);
   }
 
-  Issue.errorFromTree(node, 'Unsupported operation');
+  Issue.errorFromTree(tree, 'Unsupported operation');
 };

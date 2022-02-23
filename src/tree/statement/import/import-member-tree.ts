@@ -14,17 +14,17 @@ export class ImportMemberTree implements Tree {
 
   constructor(ctx: ExprContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
-    const node = getExpressionTree(ctx);
-    if (node instanceof IdExpressionTree) {
-      this.id = node.id.name;
+    const tree = getExpressionTree(ctx);
+    if (tree instanceof IdExpressionTree) {
+      this.id = tree.id.name;
       this.alias = null;
-    } else if (node instanceof InfixExpressionTree) {
-      if (node.id.text !== 'as') Issue.errorFromContext(ctx, "Must be 'as' operator");
-      if (!(node.left instanceof IdExpressionTree)) Issue.errorFromContext(ctx, 'Must be id');
-      if (!(node.right instanceof IdExpressionTree)) Issue.errorFromContext(ctx, 'Must be id');
+    } else if (tree instanceof InfixExpressionTree) {
+      if (tree.id.text !== 'as') Issue.errorFromContext(ctx, "Must be 'as' operator");
+      if (!(tree.left instanceof IdExpressionTree)) Issue.errorFromContext(ctx, 'Must be id');
+      if (!(tree.right instanceof IdExpressionTree)) Issue.errorFromContext(ctx, 'Must be id');
 
-      this.id = node.left.id.name;
-      this.alias = node.right.id.name;
+      this.id = tree.left.id.name;
+      this.alias = tree.right.id.name;
     } else {
       Issue.errorFromContext(ctx, 'Wrong expression type');
     }

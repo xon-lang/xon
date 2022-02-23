@@ -1,6 +1,5 @@
 import { Issue } from '../../../issue-service/issue';
 import { LiteralExpressionTree } from '../../../tree/expression/literal/literal-expression-tree';
-import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { DefinitionDeclarationMetadata } from '../../declaration/definition/definition-declaration-metadata';
 import { ParameterDeclarationMetadata } from '../../declaration/parameter/parameter-declaration-metadata';
 import { DeclarationScope } from '../../scope/declaration-scope';
@@ -11,9 +10,9 @@ export class LiteralExpressionMetadata implements ExpressionMetadata {
   name: string;
   value: string | number | RegExp;
 
-  constructor(private node: LiteralExpressionTree, private scope: DeclarationScope) {
-    this.name = this.node.literal.constructor.name.replace('LiteralTree', '');
-    this.value = this.node.literal.value;
+  constructor(private tree: LiteralExpressionTree, private scope: DeclarationScope) {
+    this.name = this.tree.literal.constructor.name.replace('LiteralTree', '');
+    this.value = this.tree.literal.value;
   }
 
   attributes(): ParameterDeclarationMetadata[] {
@@ -21,7 +20,7 @@ export class LiteralExpressionMetadata implements ExpressionMetadata {
     if (declaration instanceof DefinitionDeclarationMetadata) {
       return declaration.attributes();
     }
-    Issue.errorFromTree(this.node, `Couldn't find suitable literal type`);
+    Issue.errorFromTree(this.tree, `Couldn't find suitable literal type`);
   }
 
   is(other: ExpressionMetadata): boolean {

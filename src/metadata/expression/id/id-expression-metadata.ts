@@ -5,10 +5,10 @@ import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
 
 export class IdExpressionMetadata implements ExpressionMetadata {
-  constructor(private node: IdExpressionTree, private scope: DeclarationScope) {}
+  constructor(private tree: IdExpressionTree, private scope: DeclarationScope) {}
 
   declaration(): DeclarationMetadata {
-    return this.scope.findByName(this.node.id.name.text);
+    return this.scope.findByName(this.tree.id.name.text);
   }
 
   attributes(): ParameterDeclarationMetadata[] {

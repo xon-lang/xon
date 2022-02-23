@@ -12,29 +12,29 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
   sourceReference: SourceReference;
   name: string;
 
-  constructor(private node: ParameterTree, private scope: DeclarationScope) {
-    this.sourceReference = node.sourceReference;
-    this.name = node.id.name.text;
+  constructor(private tree: ParameterTree, private scope: DeclarationScope) {
+    this.sourceReference = tree.sourceReference;
+    this.name = tree.id.name.text;
   }
 
   generics(): ExpressionMetadata[] {
     throw new Error('Not implemented');
-    // return this.node.id.generics.map((x) => getExpressionMetadata(x, this.scope));
+    // return this.tree.id.generics.map((x) => getExpressionMetadata(x, this.scope));
   }
 
   type(): ExpressionMetadata {
-    if (this.node.type) {
-      return getExpressionMetadata(this.node.type, this.scope);
-    } else if (this.node.body) {
-      if (this.node.body instanceof SingleBodyTree) {
-        if (this.node.body.statement instanceof ExpressionStatementTree) {
-          return getExpressionMetadata(this.node.body.statement.expression, this.scope);
+    if (this.tree.type) {
+      return getExpressionMetadata(this.tree.type, this.scope);
+    } else if (this.tree.body) {
+      if (this.tree.body instanceof SingleBodyTree) {
+        if (this.tree.body.statement instanceof ExpressionStatementTree) {
+          return getExpressionMetadata(this.tree.body.statement.expression, this.scope);
         }
       } else {
         // todo join all return expressions
       }
     }
-    Issue.errorFromTree(this.node, `Attribute '${this.node.id}' must have a type`);
+    Issue.errorFromTree(this.tree, `Attribute '${this.tree.id}' must have a type`);
   }
 
   attributes(): ParameterDeclarationMetadata[] {

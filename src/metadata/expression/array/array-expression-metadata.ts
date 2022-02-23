@@ -4,8 +4,8 @@ import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
 
 export class ArrayExpressionMetadata implements ExpressionMetadata {
-  constructor(node: ArrayExpressionTree, scope: DeclarationScope) {
-    // const itemsTypes = node.items.map((x) => getExpressionMetadata(x, scope).type);
+  constructor(tree: ArrayExpressionTree, scope: DeclarationScope) {
+    // const itemsTypes = tree.items.map((x) => getExpressionMetadata(x, scope).type);
     // this.type = new TupleTypeMetadata(itemsTypes);
   }
 

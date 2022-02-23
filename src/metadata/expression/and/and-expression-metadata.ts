@@ -4,18 +4,18 @@ import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
 
 export class AndExpressionMetadata implements ExpressionMetadata {
-  constructor(private node: InfixExpressionTree, private scope: DeclarationScope) {
-    // const declaration = getExpressionMetadata(node.left, scope).type.declaration;
-    // const rightType = getExpressionMetadata(node.right, scope).type;
-    // const attributeType = declaration.attribute(node.id.text, [], [rightType], null).type([]);
+  constructor(private tree: InfixExpressionTree, private scope: DeclarationScope) {
+    // const declaration = getExpressionMetadata(tree.left, scope).type.declaration;
+    // const rightType = getExpressionMetadata(tree.right, scope).type;
+    // const attributeType = declaration.attribute(tree.id.text, [], [rightType], null).type([]);
     // if (attributeType instanceof LambdaTypeMetadata) this.type = attributeType.resultType;
     // else throw new Error('Wrong method type');
   }
 
   attributes(): ParameterDeclarationMetadata[] {
     return [];
-    // const left  = getExpressionMetadata(this.node.left, this.scope)
-    // const right  = getExpressionMetadata(this.node.right, this.scope)
+    // const left  = getExpressionMetadata(this.tree.left, this.scope)
+    // const right  = getExpressionMetadata(this.tree.right, this.scope)
     // left.attributes().filter(x=>)
   }
 

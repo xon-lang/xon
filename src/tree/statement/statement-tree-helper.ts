@@ -38,7 +38,7 @@ export const getStatementTree = (ctx: StatementContext): StatementTree => {
   if (ctx instanceof ReturnStatementContext) return new ReturnStatementTree(ctx);
   if (ctx instanceof WhileStatementContext) return new WhileStatementTree(ctx);
 
-  Issue.errorFromContext(ctx, `Statement node not found for '${ctx.constructor.name}'`);
+  Issue.errorFromContext(ctx, `Statement tree not found for '${ctx.constructor.name}'`);
 };
 
 export const getStatementTrees = (contexts: StatementContext[]): StatementTree[] => {

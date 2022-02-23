@@ -5,7 +5,7 @@ import { ExpressionMetadata } from '../expression-metadata';
 import { IdExpressionMetadata } from '../id/id-expression-metadata';
 
 export class IsExpressionMetadata implements ExpressionMetadata {
-  constructor(private node: InfixExpressionTree, private scope: DeclarationScope) {}
+  constructor(private tree: InfixExpressionTree, private scope: DeclarationScope) {}
 
   attributes(): ParameterDeclarationMetadata[] {
     return this.scope.core.boolean.attributes();

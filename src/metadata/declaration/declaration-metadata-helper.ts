@@ -9,20 +9,20 @@ import { DefinitionDeclarationMetadata } from './definition/definition-declarati
 import { ParameterDeclarationMetadata } from './parameter/parameter-declaration-metadata';
 
 export const getDeclarationMetadata = (
-  node: Tree,
+  tree: Tree,
   scope: DeclarationScope,
 ): DeclarationMetadata => {
-  if (node === undefined) return undefined;
+  if (tree === undefined) return undefined;
 
-  if (node instanceof ParameterTree) return new ParameterDeclarationMetadata(node, scope);
-  if (node instanceof DefinitionTree) return new DefinitionDeclarationMetadata(node, scope);
+  if (tree instanceof ParameterTree) return new ParameterDeclarationMetadata(tree, scope);
+  if (tree instanceof DefinitionTree) return new DefinitionDeclarationMetadata(tree, scope);
 
-  Issue.errorFromTree(node, `Expression node not found for "${node.constructor.name}"`);
+  Issue.errorFromTree(tree, `Expression tree not found for "${tree.constructor.name}"`);
 };
 
 export const getDeclarationsMetadata = (
-  nodes: StatementTree[],
+  trees: StatementTree[],
   scope: DeclarationScope,
 ): DeclarationMetadata[] => {
-  return nodes?.map((x) => getDeclarationMetadata(x, scope)) || [];
+  return trees?.map((x) => getDeclarationMetadata(x, scope)) || [];
 };

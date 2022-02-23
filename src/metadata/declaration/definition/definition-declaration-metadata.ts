@@ -10,24 +10,24 @@ export class DefinitionDeclarationMetadata implements DeclarationMetadata {
   sourceReference: SourceReference;
   name: string;
 
-  constructor(private node: DefinitionTree, private scope: DeclarationScope) {
-    this.sourceReference = node.sourceReference;
-    this.name = node.id.name.text;
+  constructor(private tree: DefinitionTree, private scope: DeclarationScope) {
+    this.sourceReference = tree.sourceReference;
+    this.name = tree.id.name.text;
   }
 
   attributes(): ParameterDeclarationMetadata[] {
     const ancestorsAttributes = this.baseModel()?.attributes() || [];
-    const currentAttributes = this.node.attributes.map(
+    const currentAttributes = this.tree.attributes.map(
       (x) => new ParameterDeclarationMetadata(x, this.scope),
     );
     return [...currentAttributes, ...ancestorsAttributes];
   }
 
   baseModel(): DefinitionDeclarationMetadata | null {
-    if (!this.node.base) return null;
-    if (this.node.base instanceof IdExpressionTree)
-      return this.scope.findModel(this.node.base.id.name.text);
-    Issue.errorFromTree(this.node.base, 'Not implemented');
+    if (!this.tree.base) return null;
+    if (this.tree.base instanceof IdExpressionTree)
+      return this.scope.findModel(this.tree.base.id.name.text);
+    Issue.errorFromTree(this.tree.base, 'Not implemented');
   }
 
   is(metadata: DeclarationMetadata): boolean {

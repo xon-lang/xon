@@ -4,9 +4,9 @@ import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
 
 export class PrefixExpressionMetadata implements ExpressionMetadata {
-  constructor(node: PrefixExpressionTree, scope: DeclarationScope) {
-    // const declaration = getExpressionMetadata(node.value, scope).type.declaration;
-    // const attributeType = declaration.attribute(node.id.text, [], [], null).type([]);
+  constructor(tree: PrefixExpressionTree, scope: DeclarationScope) {
+    // const declaration = getExpressionMetadata(tree.value, scope).type.declaration;
+    // const attributeType = declaration.attribute(tree.id.text, [], [], null).type([]);
     // if (attributeType instanceof LambdaTypeMetadata) this.type = attributeType.resultType;
     // else throw new Error('Wrong method type');
   }

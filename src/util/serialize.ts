@@ -1,21 +1,21 @@
 import { Tree } from '../tree/tree';
 
-export function nodeToPlain(node: Tree): unknown {
-  const entries = Object.entries(node)
+export function treeToPlain(tree: Tree): unknown {
+  const entries = Object.entries(tree)
     .filter(([k, v]) => typeof v !== 'function' && v !== null && v !== undefined && k !== 'ctx')
     .map(([k, v]) => {
-      if (Array.isArray(v)) return [k, v.map(nodeToJson)];
-      if (typeof v === 'object') return [k, nodeToJson(v)];
+      if (Array.isArray(v)) return [k, v.map(treeToJson)];
+      if (typeof v === 'object') return [k, treeToJson(v)];
       return [k, v];
     });
 
-  const nodeType = node.constructor.name.replace(/Node$/, '');
-  return { nodeType, ...Object.fromEntries(entries) };
+  const treeType = tree.constructor.name.replace(/tree$/, '');
+  return { treeType, ...Object.fromEntries(entries) };
 }
 
-export function nodeToJson(node: Tree): string {
+export function treeToJson(tree: Tree): string {
   const tabWidth = 2;
-  console.log(nodeToPlain(node));
+  console.log(treeToPlain(tree));
 
-  return JSON.stringify(nodeToPlain(node), null, tabWidth);
+  return JSON.stringify(treeToPlain(tree), null, tabWidth);
 }

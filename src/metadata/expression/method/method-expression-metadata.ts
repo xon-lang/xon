@@ -4,13 +4,13 @@ import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
 
 export class MethodExpressionMetadata implements ExpressionMetadata {
-  constructor(node: MethodExpressionTree, scope: DeclarationScope) {
-    // for (const parameter of node.parameters) {
+  constructor(tree: MethodExpressionTree, scope: DeclarationScope) {
+    // for (const parameter of tree.parameters) {
     //   scope.set(new ParameterMetadata(parameter, scope));
     // }
     // this.type = new MethodTypeMetadata(
     //   [],
-    //   getExpressionMetadata(node.expression, scope).type,
+    //   getExpressionMetadata(tree.expression, scope).type,
     //   scope,
     // );
   }
