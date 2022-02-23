@@ -39,7 +39,6 @@ EXTENSION: 'extension';
 FACTORY:   'factory';
 FOR:       'for';
 IF:        'if';
-IS:        'is';
 IN:        'in';
 IMPORT:    'import';
 INFIX:     'infix';
