@@ -1,7 +1,7 @@
 import { Issue } from '../../../issue-service/issue';
 import { LiteralExpressionTree } from '../../../tree/expression/literal/literal-expression-tree';
 import { DeclarationMetadata } from '../../declaration/declaration-metadata';
-import { ModelDeclarationMetadata } from '../../declaration/model/model-declaration-metadata';
+import { DefinitionDeclarationMetadata } from '../../declaration/definition/definition-declaration-metadata';
 import { ParameterDeclarationMetadata } from '../../declaration/parameter/parameter-declaration-metadata';
 import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
@@ -18,7 +18,7 @@ export class LiteralExpressionMetadata implements ExpressionMetadata {
 
   attributes(): ParameterDeclarationMetadata[] {
     const declaration = this.scope.findByName(this.name);
-    if (declaration instanceof ModelDeclarationMetadata) {
+    if (declaration instanceof DefinitionDeclarationMetadata) {
       return declaration.attributes();
     }
     Issue.errorFromTree(this.node, `Couldn't find suitable literal type`);

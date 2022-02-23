@@ -1,7 +1,5 @@
 import * as glob from 'glob';
 import * as path from 'path';
-import { ParameterStatementTree } from '../../tree/statement/parameter/parameter-statement-tree';
-import { ObjectStatementTree } from '../../tree/statement/object/object-statement-tree';
 import { parseSourceFile } from '../../util/parse';
 import { DeclarationMetadata } from '../declaration/declaration-metadata';
 import { getDeclarationMetadata } from '../declaration/declaration-metadata-helper';
@@ -16,12 +14,10 @@ export class ModuleMetadata {
     const sources = glob.sync(globPath).map((x) => parseSourceFile(x));
 
     for (const source of sources) {
-      for (const statement of source.statements) {
-        if (statement instanceof ParameterStatementTree || statement instanceof ObjectStatementTree) {
-          const declaration = getDeclarationMetadata(statement, innerScope);
-          this.declarations.push(declaration);
-          innerScope.add(declaration);
-        }
+      for (const definition of source.definitions) {
+        const declaration = getDeclarationMetadata(definition, innerScope);
+        this.declarations.push(declaration);
+        innerScope.add(declaration);
       }
     }
   }

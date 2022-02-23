@@ -1,22 +1,18 @@
-import { ParameterStatementTree } from '../../../tree/statement/parameter/parameter-statement-tree';
+import { Issue } from '../../../issue-service/issue';
+import { DefinitionTree } from '../../../tree/definition/definition-tree';
+import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
 import { SourceReference } from '../../../util/source-reference';
-import { ExpressionMetadata } from '../../expression/expression-metadata';
 import { DeclarationScope } from '../../scope/declaration-scope';
 import { DeclarationMetadata } from '../declaration-metadata';
 import { ParameterDeclarationMetadata } from '../parameter/parameter-declaration-metadata';
 
-export class ModelDeclarationMetadata implements DeclarationMetadata {
+export class DefinitionDeclarationMetadata implements DeclarationMetadata {
   sourceReference: SourceReference;
   name: string;
 
-  constructor(private node: ParameterStatementTree, private scope: DeclarationScope) {
+  constructor(private node: DefinitionTree, private scope: DeclarationScope) {
     this.sourceReference = node.sourceReference;
     this.name = node.id.name.text;
-  }
-
-  generics(): ExpressionMetadata[] {
-    throw new Error('Not implemented');
-    // return this.node.id.generics.map((x) => getExpressionMetadata(x, this.scope));
   }
 
   attributes(): ParameterDeclarationMetadata[] {
@@ -27,9 +23,11 @@ export class ModelDeclarationMetadata implements DeclarationMetadata {
     return [...currentAttributes, ...ancestorsAttributes];
   }
 
-  baseModel(): ModelDeclarationMetadata | null {
+  baseModel(): DefinitionDeclarationMetadata | null {
     if (!this.node.base) return null;
-    return this.scope.findModel(this.node.base.name.text);
+    if (this.node.base instanceof IdExpressionTree)
+      return this.scope.findModel(this.node.base.id.name.text);
+    Issue.errorFromTree(this.node.base, 'Not implemented');
   }
 
   is(metadata: DeclarationMetadata): boolean {

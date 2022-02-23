@@ -1,7 +1,7 @@
 import { Issue } from '../../issue-service/issue';
 import { IssueLevel } from '../../issue-service/issue-level';
 import { DeclarationMetadata } from '../declaration/declaration-metadata';
-import { ModelDeclarationMetadata } from '../declaration/model/model-declaration-metadata';
+import { DefinitionDeclarationMetadata } from '../declaration/definition/definition-declaration-metadata';
 import { CoreDeclarationScope } from './core-declaration-scope';
 
 export class DeclarationScope {
@@ -49,8 +49,8 @@ export class DeclarationScope {
     return results[0];
   }
 
-  findModel(name: string): ModelDeclarationMetadata {
-    const results = this.filterByName(name).filter((x) => x instanceof ModelDeclarationMetadata);
+  findModel(name: string): DefinitionDeclarationMetadata {
+    const results = this.filterByName(name).filter((x) => x instanceof DefinitionDeclarationMetadata);
     if (results.length > 1) {
       const issues = results.map((x) =>
         Issue.fromSourceReference(x.sourceReference, IssueLevel.Error, '').toString(),
@@ -60,6 +60,6 @@ export class DeclarationScope {
     if (!results.length) {
       throw new Error(`Declaration '${name}' not found`);
     }
-    return results[0] as ModelDeclarationMetadata;
+    return results[0] as DefinitionDeclarationMetadata;
   }
 }
