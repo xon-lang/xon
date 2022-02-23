@@ -31,8 +31,8 @@ expr:
     | instance = expr '[' (args += expr (',' args += expr)* ','?)? ']' # indexExpression
     | expr '?'                                                         # nullableExpression
     | expr '.' id                                                      # memberExpression
-    | op = ID expr                                                     # prefixExpression
-    | left = expr op = ID right = expr                                 # infixExpression
+    | op = (ID | OPERATOR) expr                                        # prefixExpression
+    | left = expr op = (ID | OPERATOR) right = expr                    # infixExpression
     | literal                                                          # literalExpression
     | '(' (parameter (',' parameter)* ','?)? ')' expr                  # methodExpression
     | '[' (parameter (',' parameter)* ','?)? ']' expr                  # indexerExpression
@@ -54,6 +54,7 @@ body:
 definitionBody: NL INDENT (parameter | NL)+ DEDENT;
 arrayItem:      (expr ':')? expr;
 parameters:     parameter (',' parameter)* ','?;
-parameter:      id expr body | id expr | id body | id;
-modifier:       TYPE | CLASS | OBJECT | ENUM | MODEL;
-id:             name = ID ('<|' parameter (',' parameter)* ','? '|>')?;
+parameter: (INFIX | PREFIX)? (id | name = OPERATOR) (expr body | expr | body)?
+    ;
+modifier: TYPE | CLASS | OBJECT | ENUM | MODEL;
+id:       name = ID ('<|' parameter (',' parameter)* ','? '|>')?;
