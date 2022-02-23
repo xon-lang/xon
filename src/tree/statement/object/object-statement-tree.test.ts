@@ -2,7 +2,7 @@ import { parseStatement } from '../../../util/parse';
 import { ObjectStatementTree } from './object-statement-tree';
 
 test('object', () => {
-  const code = 'object number is Number\n  a String\n  b Char';
+  const code = 'object number Number\n  a String\n  b Char';
   const tree = parseStatement(code) as ObjectStatementTree;
   expect(tree).toBeInstanceOf(ObjectStatementTree);
 

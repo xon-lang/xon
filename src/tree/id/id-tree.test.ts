@@ -16,5 +16,5 @@ test('generics', () => {
 
   expect(tree.name.text).toBe('A');
   expect(tree.generics.length).toBe(1);
-  expect(tree.generics[0].id.name.text).toBe('String');
+  expect(tree.generics[0].id.text).toBe('String');
 });

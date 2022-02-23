@@ -10,7 +10,7 @@ export class IdTree implements Tree {
   name: IdToken;
   generics: ParameterTree[] = [];
 
-  constructor(private ctx: IdContext) {
+  constructor(ctx: IdContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
     this.name = new IdToken(ctx._name);
     this.generics = getParameterTrees(ctx.parameter());

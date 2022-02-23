@@ -2,7 +2,7 @@ import { parseStatement } from '../../../util/parse';
 import { ModelStatementTree } from './model-statement-tree';
 
 test('model', () => {
-  const code = 'model Integer is Number\n  a String\n  b Char';
+  const code = 'model Integer Number\n  a String\n  b Char';
   const tree = parseStatement(code) as ModelStatementTree;
   expect(tree).toBeInstanceOf(ModelStatementTree);
 
