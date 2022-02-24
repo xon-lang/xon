@@ -1,5 +1,12 @@
 model Any
+  prefix not() Boolean
+  infix and(other Any)
+  infix or(other Any) Boolean
+  infix is(other Any) Boolean
+  infix as<|T|>(other T) T
+
 model Unknown
 model Never
+
 model None
 object none None

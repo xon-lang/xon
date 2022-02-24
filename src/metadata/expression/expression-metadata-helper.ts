@@ -10,13 +10,11 @@ import { MethodExpressionTree } from '../../tree/expression/method/method-expres
 import { ParenthesizedExpressionTree } from '../../tree/expression/parenthesized/parenthesized-expression-tree';
 import { PrefixExpressionTree } from '../../tree/expression/prefix/prefix-expression-tree';
 import { DeclarationScope } from '../scope/declaration-scope';
-import { AndExpressionMetadata } from './and/and-expression-metadata';
 import { ArrayExpressionMetadata } from './array/array-expression-metadata';
 import { ExpressionMetadata } from './expression-metadata';
 import { IdExpressionMetadata } from './id/id-expression-metadata';
 import { InfixExpressionMetadata } from './infix/infix-expression-metadata';
 import { InvokeExpressionMetadata } from './invoke/invoke-expression-metadata';
-import { IsExpressionMetadata } from './is/is-expression-metadata';
 import { LiteralExpressionMetadata } from './literal/literal-expression-metadata';
 import { MemberExpressionMetadata } from './member/member-expression-metadata';
 import { MethodExpressionMetadata } from './method/method-expression-metadata';
@@ -29,17 +27,13 @@ export function getExpressionMetadata(
   try {
     if (tree instanceof ParenthesizedExpressionTree)
       return getExpressionMetadata(tree.expression, scope);
-    if (tree instanceof InfixExpressionTree && tree.id.text === 'and')
-      return new AndExpressionMetadata(tree, scope);
-    if (tree instanceof InfixExpressionTree && tree.id.text === 'is')
-      return new IsExpressionMetadata(tree, scope);
     if (tree instanceof ArrayExpressionTree) return new ArrayExpressionMetadata(tree, scope);
-    if (tree instanceof InvokeExpressionTree) return new InvokeExpressionMetadata(tree, scope);
     if (tree instanceof IdExpressionTree) return new IdExpressionMetadata(tree, scope);
     if (tree instanceof InfixExpressionTree) return new InfixExpressionMetadata(tree, scope);
-    if (tree instanceof MethodExpressionTree) return new MethodExpressionMetadata(tree, scope);
+    if (tree instanceof InvokeExpressionTree) return new InvokeExpressionMetadata(tree, scope);
     if (tree instanceof LiteralExpressionTree) return new LiteralExpressionMetadata(tree, scope);
     if (tree instanceof MemberExpressionTree) return new MemberExpressionMetadata(tree, scope);
+    if (tree instanceof MethodExpressionTree) return new MethodExpressionMetadata(tree, scope);
     if (tree instanceof PrefixExpressionTree) return new PrefixExpressionMetadata(tree, scope);
   } catch (error) {
     Issue.errorFromTree(tree, error.toString());
