@@ -3,7 +3,7 @@ import { MethodExpressionTree } from '../../../tree/expression/method/method-exp
 import { Translator } from '../../translator';
 import { getExpressionTranslator } from '../expression/expression-translator-helper';
 import { getIdTranslator } from '../id/id-translator-helper';
-import { getParameterTranslators } from '../parameter/parameter-translator-helper';
+import { getAttributeTranslators } from '../attribute/attribute-translator-helper';
 
 export class DefinitionTranslator implements Translator {
   constructor(private tree: DefinitionTree) {}
@@ -17,20 +17,20 @@ export class DefinitionTranslator implements Translator {
       modifier = 'class ';
     }
     const id = getIdTranslator(this.tree.id);
-    const properties = getParameterTranslators(
+    const properties = getAttributeTranslators(
       this.tree.attributes
-        .map((x) => x.parameter)
-        .filter((x) => !x.type || !(x.type instanceof MethodExpressionTree)),
+        
+        .filter((x) => !x.type || !(x.parameters)),
     ).join('\n');
-    const methodsWithBody = getParameterTranslators(
+    const methodsWithBody = getAttributeTranslators(
       this.tree.attributes
-        .map((x) => x.parameter)
-        .filter((x) => x.type && x.type instanceof MethodExpressionTree && x.body),
+        
+        .filter((x) => x.type && x.parameters && x.body),
     ).join('\n\n');
-    const methodsWithNoBody = getParameterTranslators(
+    const methodsWithNoBody = getAttributeTranslators(
       this.tree.attributes
-        .map((x) => x.parameter)
-        .filter((x) => x.type && x.type instanceof MethodExpressionTree && !x.body),
+        
+        .filter((x) => x.type && x.parameters && !x.body),
     ).join('\n');
     const attributes =
       '\n' +
