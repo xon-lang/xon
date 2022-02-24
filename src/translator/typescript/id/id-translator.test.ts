@@ -1,12 +1,21 @@
-import { parseExpression } from '../../../../util/parse';
-import { getExpressionTranslator } from '../expression-translator-helper';
-import { MethodExpressionTranslator } from './id-translator';
+import { parseId } from '../../../util/parse';
+import { IdTranslator } from './id-translator';
+import { getIdTranslator } from './id-translator-helper';
 
-test('member', () => {
-  const code = '(a Number, b) a + b';
-  const tree = parseExpression(code);
-  const translator = getExpressionTranslator(tree);
+test('id', () => {
+  const code = 'abc';
+  const tree = parseId(code);
+  const translator = getIdTranslator(tree);
 
-  expect(translator).toBeInstanceOf(MethodExpressionTranslator);
-  expect(translator.translate()).toBe('(a: Number, b: any) => a + b');
+  expect(translator).toBeInstanceOf(IdTranslator);
+  expect(translator.toString()).toBe('abc');
+});
+
+test('id with generics', () => {
+  const code = 'abc<|Number|>';
+  const tree = parseId(code);
+  const translator = getIdTranslator(tree);
+
+  expect(translator).toBeInstanceOf(IdTranslator);
+  expect(translator.toString()).toBe('abc<Number>');
 });

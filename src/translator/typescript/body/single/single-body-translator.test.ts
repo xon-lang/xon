@@ -8,5 +8,5 @@ test('array mixed', () => {
   const translator = getBodyTranslator(tree);
 
   expect(translator).toBeInstanceOf(SingleBodyTranslator);
-  expect(translator.toString()).toBe("{\n}");
+  expect(translator.toString()).toBe('abc');
 });

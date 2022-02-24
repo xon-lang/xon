@@ -34,7 +34,7 @@ test('any', () => {
   expect(metadata).toBeInstanceOf(IdExpressionMetadata);
   expect(metadata.declaration()).toBeInstanceOf(DefinitionDeclarationMetadata);
   expect(metadata.declaration().name).toBe('Any');
-  expect(metadata.attributes().length).toBe(0);
+  expect(metadata.attributes().length).toBe(5);
 });
 
 test('id with type arguments', () => {
