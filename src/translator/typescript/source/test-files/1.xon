@@ -1,0 +1,19 @@
+return 1213
+
+object someObjectFactory<|T|>(name String)
+  arr: [123, 456, 789, 456, 789]
+  abc Integer
+
+  method() MyType
+    hello()
+    bye()
+
+  location(x Number, y Number) Position
+    pos(x, y)
+
+  + (it SomeClass) AnotherClass
+    log('fine!')
+
+model Array<|T|>
+  + (other T[]) T[]
+  * (other Integer) T[][]
