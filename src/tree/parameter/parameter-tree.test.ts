@@ -5,7 +5,7 @@ import { LiteralExpressionTree } from '../expression/literal/literal-expression-
 import { ExpressionStatementTree } from '../statement/expression/expression-statement-tree';
 import { ParameterTree } from './parameter-tree';
 
-test('type and value', () => {
+test('id type value', () => {
   const code = 'a Integer: 1';
   const tree = parseParameter(code);
   expect(tree).toBeInstanceOf(ParameterTree);
@@ -20,7 +20,7 @@ test('type and value', () => {
   ).toBe(1);
 });
 
-test('value', () => {
+test('id value', () => {
   const code = 'a: 1';
   const tree = parseParameter(code);
   expect(tree).toBeInstanceOf(ParameterTree);
@@ -35,13 +35,12 @@ test('value', () => {
   ).toBe(1);
 });
 
-test('model', () => {
-  const code = 'model Cat Animal';
+test('id type', () => {
+  const code = 'cat Animal';
   const tree = parseParameter(code);
   expect(tree).toBeInstanceOf(ParameterTree);
 
-  expect(tree.modifier.text).toBe('model');
-  expect(tree.id.name.text).toBe('Cat');
+  expect(tree.id.name.text).toBe('cat');
   expect((tree.type as IdExpressionTree).id.name.text).toBe('Animal');
   expect(tree.body).toBe(null);
 });
