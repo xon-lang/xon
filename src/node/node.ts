@@ -1,6 +1,9 @@
-import { Token } from 'antlr4ts';
+import { ParserRuleContext } from 'antlr4ts';
+import { Metadata } from '../metadata/metadata';
+import { Tree } from '../tree/tree';
 
 export class Node {
-  text: string;
-  comments: Token[];
+  context: ParserRuleContext;
+  tree: Tree;
+  metadata: Metadata;
 }
