@@ -44,7 +44,7 @@ export class DefinitionTree implements Tree {
       [properties, methodsWithBody, methodsWithNoBody]
         .filter(Boolean)
         .join('\n\n')
-        .replace(/^(.+\S)/gm, '  $1');
+        .replace(/^(.+)/gm, '  $1');
     return modifier + this.id + parameters + base + attributes;
   }
 }
