@@ -7,6 +7,6 @@ export class MultipleBodyTranslator implements BodyTranslator {
 
   toString(): string {
     const statements = getStatementTranslators(this.tree.statements);
-    return '\n' + statements.join('\n').replace(/^(.+\S)/gm, '  $1');
+    return statements.join('\n');
   }
 }

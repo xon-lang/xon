@@ -8,5 +8,5 @@ test('array mixed', () => {
   const translator = getBodyTranslator(tree);
 
   expect(translator).toBeInstanceOf(MultipleBodyTranslator);
-  expect(translator.toString()).toBe("\n  123\n  321");
+  expect(translator.toString()).toBe("123\n321");
 });
