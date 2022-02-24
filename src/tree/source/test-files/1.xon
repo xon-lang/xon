@@ -1,4 +1,5 @@
 return 1213
+
 -- comment
 object someObjectFactory<|T|>(name String)
   arr: [
@@ -25,11 +26,11 @@ object someObjectFactory<|T|>(name String)
   location(x Number, y Number) Position
     pos(x, y)
 
-  +(it SomeClass) AnotherClass
+  operator + (it SomeClass) AnotherClass
     log('fine!')
 
   abc Integer
 
 model Array<|T|>
-  + (other T[]) T[]
-  * (other Integer) T[][]
+  operator + (other T[]) T[]
+  operator * (other Integer) T[][]
