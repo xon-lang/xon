@@ -6,7 +6,7 @@ options {
 
 source: (statement | definition | NL)*;
 
-definition: modifier = ID id expr? ( NL INDENT (attribute | NL)+ DEDENT)?;
+definition: modifier = ID id parameters? expr? ( NL INDENT (attribute | NL)+ DEDENT)?;
 attribute:  modifier = ID? id parameters? expr? body?;
 
 statement:
