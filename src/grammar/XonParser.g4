@@ -6,7 +6,8 @@ options {
 
 source: (statement | definition | NL)*;
 
-definition: modifier id expr? (NL INDENT (parameter | NL)+ DEDENT)?;
+definition: modifier = ID id expr? ( NL INDENT (attribute | NL)+ DEDENT)?;
+attribute:  modifier = ID? id parameters? expr? body?;
 
 statement:
     IMPORT path = expr (':' members += expr (',' members += expr)* ','?)? # importStatement
@@ -34,8 +35,8 @@ expr:
     | op = (ID | OPERATOR) expr                                        # prefixExpression
     | left = expr op = (ID | OPERATOR) right = expr                    # infixExpression
     | literal                                                          # literalExpression
-    | '(' (parameter (',' parameter)* ','?)? ')' expr                  # methodExpression
-    | '[' (parameter (',' parameter)* ','?)? ']' expr                  # indexerExpression
+    | '(' (parameter (',' parameter)* ','?)? ')' body                  # methodExpression
+    | '[' (parameter (',' parameter)* ','?)? ']' body                  # indexerExpression
     | '(' expr ')'                                                     # parenthesizedExpression
     ;
 
@@ -52,7 +53,6 @@ body:
     ;
 
 arrayItem:  (expr ':')? expr;
-parameters: parameter (',' parameter)* ','?;
-parameter:  modifier? id ( expr body | expr | body)?;
+parameter:  id ( expr body | expr | body)?;
+parameters: '(' (parameter (',' parameter)* ','?)? ')';
 id:         name = (ID | OPERATOR) ('<|' parameter (',' parameter)* ','? '|>')?;
-modifier:   name = (INFIX | PREFIX | OBJECT | ENUM | MODEL);

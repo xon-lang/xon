@@ -39,21 +39,14 @@ IMPORT: 'import';
 RETURN: 'return';
 WHILE:  'while';
 
-PREFIX: 'prefix';
-INFIX:  'infix';
-OBJECT: 'object';
-MODEL:  'model';
-ENUM:   'enum';
-
 ASSIGN:        '=';
 COLON:         ':';
 COMMA:         ',';
 DOT:           '.';
-EXCLAMATION:   '!';
-HASH:          '#';
-QUESTION:      '?';
 GENERIC_LEFT:  '<|';
 GENERIC_RIGHT: '|>';
+HASH:          '#';
+QUESTION:      '?';
 
 FLOAT_LITERAL:
     Radix AlphabetNumber '.' AlphabetNumber
