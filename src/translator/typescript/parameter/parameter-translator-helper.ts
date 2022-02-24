@@ -3,7 +3,7 @@ import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { ParameterTranslator } from './parameter-translator';
 
 export function getParameterTranslator(tree: ParameterTree): ParameterTranslator {
-  if (tree === undefined) return undefined;
+  if (!tree) return null;
   try {
     if (tree instanceof ParameterTree) return new ParameterTranslator(tree);
     // throw new Error(`Parameter translator not found for '${tree.constructor.name}'`);
