@@ -35,8 +35,8 @@ export class DefinitionTranslator implements Translator {
           [properties, constructor, methodsWithBody, methodsWithNoBody]
             .filter(Boolean)
             .join('\n\n')
-            .replace(/^(.+\S)/gm, '  $1') +
-          '}') ||
+            .replace(/^(.+)/gm, '  $1') +
+          '\n}') ||
       '{}';
     return `export ${modifier} ${id}${base} ${attributes}`;
   }

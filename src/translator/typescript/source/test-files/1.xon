@@ -3,8 +3,13 @@ object someObjectFactory<|T|>(name String)
   abc Integer
 
   method() MyType
-    hello()
-    bye()
+    this.hello()
+    this.bye()
+
+  hello()
+    -- 
+  bye()
+    -- 
 
   location(x Number, y Number) Position
     pos(x, y)
