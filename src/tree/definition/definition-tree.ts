@@ -1,28 +1,28 @@
 import { DefinitionContext } from '../../grammar/xon-parser';
 import { IdToken } from '../../util/id-token';
 import { SourceReference } from '../../util/source-reference';
+import { AttributeTree } from '../attribute/attribute-tree';
+import { getAttributeTrees } from '../attribute/attribute-tree-helper';
 import { ExpressionTree } from '../expression/expression-tree';
 import { getExpressionTree } from '../expression/expression-tree-helper';
 import { MethodExpressionTree } from '../expression/method/method-expression-tree';
 import { IdTree } from '../id/id-tree';
 import { getIdTree } from '../id/id-tree-helper';
-import { ParameterTree } from '../parameter/parameter-tree';
-import { getParameterTrees } from '../parameter/parameter-tree-helper';
 import { Tree } from '../tree';
 
 export class DefinitionTree implements Tree {
   sourceReference: SourceReference;
-  modifier?: IdToken;
+  modifier: IdToken;
   id: IdTree;
   base?: ExpressionTree;
-  attributes: ParameterTree[];
+  attributes: AttributeTree[];
 
   constructor(private ctx: DefinitionContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
-    this.modifier = (ctx.modifier() && new IdToken(ctx.modifier()._name)) || null;
+    this.modifier = new IdToken(ctx._modifier);
     this.id = getIdTree(ctx.id());
     this.base = getExpressionTree(ctx.expr()) || null;
-    this.attributes = getParameterTrees(ctx.parameter());
+    this.attributes = getAttributeTrees(ctx.attribute());
   }
 
   toString() {
