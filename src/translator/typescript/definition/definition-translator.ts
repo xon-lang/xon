@@ -18,17 +18,19 @@ export class DefinitionTranslator implements Translator {
     }
     const id = getIdTranslator(this.tree.id);
     const properties = getParameterTranslators(
-      this.tree.attributes.filter((x) => !x.type || !(x.type instanceof MethodExpressionTree)),
+      this.tree.attributes
+        .map((x) => x.parameter)
+        .filter((x) => !x.type || !(x.type instanceof MethodExpressionTree)),
     ).join('\n');
     const methodsWithBody = getParameterTranslators(
-      this.tree.attributes.filter(
-        (x) => x.type && x.type instanceof MethodExpressionTree && x.body,
-      ),
+      this.tree.attributes
+        .map((x) => x.parameter)
+        .filter((x) => x.type && x.type instanceof MethodExpressionTree && x.body),
     ).join('\n\n');
     const methodsWithNoBody = getParameterTranslators(
-      this.tree.attributes.filter(
-        (x) => x.type && x.type instanceof MethodExpressionTree && !x.body,
-      ),
+      this.tree.attributes
+        .map((x) => x.parameter)
+        .filter((x) => x.type && x.type instanceof MethodExpressionTree && !x.body),
     ).join('\n');
     const attributes =
       '\n' +

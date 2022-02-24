@@ -1,6 +1,6 @@
 
 
-class someObjectFactory<T>(name String)
+class someObjectFactory<T> (name: String) => null
   arr: any = [123, 456, 789, 456, 789]
   abc: Integer
 
