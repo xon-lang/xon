@@ -21,7 +21,7 @@ export const evaluate = (tree: ExpressionTree, argsMap = {}): unknown => {
   }
   if (tree instanceof PrefixExpressionTree) {
     const a = evaluate(tree.value, argsMap);
-    return eval(`${tree.id.text}${escapeIfString(a)}`);
+    return eval(`${tree.operator.text}${escapeIfString(a)}`);
   }
   if (tree instanceof IdExpressionTree) {
     if (tree.id.name.text in argsMap) return argsMap[tree.id.name.text];

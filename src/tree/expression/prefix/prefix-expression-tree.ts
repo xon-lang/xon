@@ -6,19 +6,19 @@ import { getExpressionTree } from '../expression-tree-helper';
 
 export class PrefixExpressionTree implements ExpressionTree {
   sourceReference: SourceReference;
-  id: IdToken;
+  operator: IdToken;
   value: ExpressionTree;
 
-  constructor(ctx: PrefixExpressionContext) {
+  constructor(private ctx: PrefixExpressionContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
-    this.id = new IdToken(ctx._op);
+    this.operator = new IdToken(ctx._op);
     this.value = getExpressionTree(ctx.expr());
   }
 
   toString(): string {
-    if (['+', '-'].includes(this.id.text)) {
-      return `${this.id}${this.value}`;
+    if (this.ctx.OPERATOR()) {
+      return `${this.operator}${this.value}`;
     }
-    return `${this.id} ${this.value}`;
+    return `${this.operator} ${this.value}`;
   }
 }
