@@ -1,17 +1,17 @@
 import { MethodExpressionTree } from '../../../../tree/expression/method/method-expression-tree';
+import { getBodyTranslator } from '../../body/body-translator-helper';
 import { getParameterTranslators } from '../../parameter/parameter-translator-helper';
 import { ExpressionTranslator } from '../expression-translator';
-import { getExpressionTranslator } from '../expression-translator-helper';
 
 export class MethodExpressionTranslator implements ExpressionTranslator {
   constructor(private tree: MethodExpressionTree, private isType: boolean) {}
 
   toString(): string {
     const parameters = getParameterTranslators(this.tree.parameters);
-    const result = getExpressionTranslator(this.tree.result, false);
+    const body = getBodyTranslator(this.tree.body);
     if (this.isType) {
-      return `(${parameters.join(', ')}): ${result}`;
+      return `(${parameters.join(', ')}): ${body}`;
     }
-    return `(${parameters.join(', ')}) => ${result}`;
+    return `(${parameters.join(', ')}) => ${body}`;
   }
 }
