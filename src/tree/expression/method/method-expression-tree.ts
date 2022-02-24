@@ -8,16 +8,15 @@ import { getExpressionTree } from '../expression-tree-helper';
 export class MethodExpressionTree implements ExpressionTree {
   sourceReference: SourceReference;
   parameters: ParameterTree[] = [];
-  result?: ExpressionTree;
+  result: ExpressionTree;
 
   constructor(ctx: MethodExpressionContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
     this.parameters = getParameterTrees(ctx.parameter());
-    this.result = getExpressionTree(ctx.expr()) || null;
+    this.result = getExpressionTree(ctx.expr());
   }
 
   toString(): string {
-    const result = (this.result && ' ' + this.result) || '';
-    return `(${this.parameters.join(', ')})${result}`;
+    return `(${this.parameters.join(', ')}) ${this.result}`;
   }
 }

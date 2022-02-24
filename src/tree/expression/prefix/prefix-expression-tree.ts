@@ -7,18 +7,20 @@ import { getExpressionTree } from '../expression-tree-helper';
 export class PrefixExpressionTree implements ExpressionTree {
   sourceReference: SourceReference;
   operator: IdToken;
+  isIdOperator: boolean;
   value: ExpressionTree;
 
   constructor(private ctx: PrefixExpressionContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
     this.operator = new IdToken(ctx._op);
+    this.isIdOperator = !!ctx.ID();
     this.value = getExpressionTree(ctx.expr());
   }
 
   toString(): string {
-    if (this.ctx.OPERATOR()) {
-      return `${this.operator}${this.value}`;
+    if (this.isIdOperator) {
+      return `${this.operator} ${this.value}`;
     }
-    return `${this.operator} ${this.value}`;
+    return `${this.operator}${this.value}`;
   }
 }

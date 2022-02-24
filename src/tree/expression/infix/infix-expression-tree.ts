@@ -22,6 +22,9 @@ export class InfixExpressionTree implements ExpressionTree {
   }
 
   toString(): string {
+    if (this.id.text === '^') {
+      return `${this.left}${this.id}${this.right}`;
+    }
     return `${this.left} ${this.id} ${this.right}`;
   }
 }
