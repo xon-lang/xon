@@ -14,8 +14,10 @@ import { Tree } from '../tree';
 export class AttributeTree implements Tree {
   sourceReference: SourceReference;
   modifier?: IdToken;
+  isMethod: boolean;
+  isOperator: boolean;
   id: IdTree;
-  parameters?: ParameterTree[];
+  parameters: ParameterTree[];
   type?: ExpressionTree;
   body?: BodyTree;
 
@@ -23,16 +25,18 @@ export class AttributeTree implements Tree {
     this.sourceReference = SourceReference.fromContext(ctx);
 
     this.modifier = (ctx._modifier && new IdToken(ctx._modifier)) || null;
+    this.isMethod = !!ctx.parameters();
+    this.isOperator = this.modifier?.text === 'operator';
     this.id = getIdTree(ctx.id());
-    this.parameters = (ctx.parameters() && getParameterTrees(ctx.parameters().parameter())) || null;
+    this.parameters = getParameterTrees(ctx.parameters()?.parameter());
     this.type = getExpressionTree(ctx.expr()) || null;
     this.body = getBodyTree(ctx.body()) || null;
   }
 
   toString() {
     const modifier = (this.modifier && this.modifier + ' ') || '';
-    let parameters = (this.parameters && `(${this.parameters.join(', ')})`) || '';
-    if (parameters && this.ctx.id().OPERATOR()) {
+    let parameters = (this.isMethod && `(${this.parameters.join(', ')})`) || '';
+    if (this.isOperator) {
       parameters = ' ' + parameters;
     }
     const type = (this.type && ' ' + this.type) || '';

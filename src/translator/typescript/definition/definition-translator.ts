@@ -9,25 +9,25 @@ export class DefinitionTranslator implements Translator {
   constructor(private tree: DefinitionTree) {}
 
   toString(): string {
-    let modifier = (this.tree.modifier.text === 'object' && 'class') || 'interface ';
+    let modifier = (this.tree.modifier.text === 'object' && 'class') || 'interface';
     const id = getIdTranslator(this.tree.id);
     let parameters =
       this.tree.parameters && getParameterTranslators(this.tree.parameters).join(', ');
     let base = (this.tree.base && ' ' + getExpressionTranslator(this.tree.base, false)) || '';
     const properties = getAttributeTranslators(
-      this.tree.attributes.filter((x) => !x.type || !x.parameters),
+      this.tree.attributes.filter((x) => !x.isMethod),
     ).join('\n');
 
     let constructor = '';
     if (parameters) {
-      constructor = `constructor(${parameters}){}`;
+      constructor = `constructor(${parameters}) {}`;
     }
 
     const methodsWithBody = getAttributeTranslators(
-      this.tree.attributes.filter((x) => x.type && x.parameters && x.body),
+      this.tree.attributes.filter((x) => x.isMethod && x.body),
     ).join('\n\n');
     const methodsWithNoBody = getAttributeTranslators(
-      this.tree.attributes.filter((x) => x.type && x.parameters && !x.body),
+      this.tree.attributes.filter((x) => x.isMethod && !x.body),
     ).join('\n');
     const attributes =
       (this.tree.attributes.length &&

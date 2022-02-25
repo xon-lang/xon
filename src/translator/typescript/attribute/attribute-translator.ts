@@ -14,17 +14,17 @@ export class AttributeTranslator implements Translator {
     const modifier = (this.tree.id.name.text.startsWith('_') && 'private') || 'public';
     const id = getIdTranslator(this.tree.id);
     let parameters =
-      (this.tree.parameters && `(${getParameterTranslators(this.tree.parameters).join(', ')})`) ||
-      '';
+      (this.tree.isMethod && `(${getParameterTranslators(this.tree.parameters).join(', ')})`) || '';
     const type = getExpressionTranslator(this.tree.type, true) || 'any';
     let body = '';
     if (this.tree.body) {
       body = getBodyTranslator(this.tree.body).toString();
+
       if (this.tree.body instanceof SingleBodyTree) {
         body = ` = ${body}`;
       }
       if (this.tree.body instanceof MultipleBodyTree) {
-        body = ` {\n${body.replace(/^(.+)/gm, '  $1')}\n}`;
+        body = (body && ` {\n${body.replace(/^(.+)/gm, '  $1')}\n}`) || ' {}';
       }
     }
 

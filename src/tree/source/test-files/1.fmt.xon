@@ -2,7 +2,6 @@ return 1213
 
 object someObjectFactory<|T|>(name String)
   arr: [123, 456, 789, 456, 789]
-  abc Integer
 
   method() MyType
     hello()
@@ -13,6 +12,8 @@ object someObjectFactory<|T|>(name String)
 
   operator + (it SomeClass) AnotherClass
     log('fine!')
+
+  abc Integer
 
 model Array<|T|>
   operator + (other T[]) T[]

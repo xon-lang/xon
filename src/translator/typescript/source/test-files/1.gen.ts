@@ -1,25 +1,23 @@
 export class someObjectFactory<T> {
   public arr: any = [123, 456, 789, 456, 789]
-  public abc: Integer
-  public hello(): any {
+  public abc: Number
 
-  }
-  public bye(): any {
+  constructor(name: String) {}
 
-  }
-
-  constructor(name: String){}
-
-  public method(): MyType {
+  public method(x: Number, y: Number): MyType {
     this.hello()
-    this.bye()
+    this.pos()
   }
+
+  public hello(): any {}
+
+  public pos(): any {}
 
   public location(x: Number, y: Number): Position {
-    pos(x, y)
+    this.method(x, y)
   }
 }
 
-export interface  MyType {}
+export interface MyType {}
 
-export interface  Position {}
+export interface Position {}
