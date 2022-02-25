@@ -25,7 +25,7 @@ statement:
     | RETURN expr?                                                        # returnStatement
     | ACTUAL actual = expr NL+ EXPECT expect = expr                       # assertStatement
     | PREPROCESSOR                                                        # preprocessorStatement
-    | id '=' expr                                                         # assignmentStatement
+    | var = expr '=' val = expr                                           # assignmentStatement
     | expr                                                                # expressionStatement
     ;
 

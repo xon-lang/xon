@@ -600,11 +600,11 @@ export class XonParser extends Parser {
 				this.enterOuterAlt(_localctx, 11);
 				{
 				this.state = 133;
-				this.id();
+				(_localctx as AssignmentStatementContext)._var = this.expr(0);
 				this.state = 134;
 				this.match(XonParser.ASSIGN);
 				this.state = 135;
-				this.expr(0);
+				(_localctx as AssignmentStatementContext)._val = this.expr(0);
 				}
 				break;
 
@@ -1623,7 +1623,7 @@ export class XonParser extends Parser {
 		"\n\x06\x02~\x80\x07&\x02\x02\x7F~\x03\x02\x02\x02\x80\x81\x03\x02\x02" +
 		"\x02\x81\x7F\x03\x02\x02\x02\x81\x82\x03\x02\x02\x02\x82\x83\x03\x02\x02" +
 		"\x02\x83\x84\x07\x0F\x02\x02\x84\x85\x05\n\x06\x02\x85\x8D\x03\x02\x02" +
-		"\x02\x86\x8D\x07#\x02\x02\x87\x88\x05\x16\f\x02\x88\x89\x07\x17\x02\x02" +
+		"\x02\x86\x8D\x07#\x02\x02\x87\x88\x05\n\x06\x02\x88\x89\x07\x17\x02\x02" +
 		"\x89\x8A\x05\n\x06\x02\x8A\x8D\x03\x02\x02\x02\x8B\x8D\x05\n\x06\x02\x8C" +
 		"H\x03\x02\x02\x02\x8CX\x03\x02\x02\x02\x8CZ\x03\x02\x02\x02\x8Cg\x03\x02" +
 		"\x02\x02\x8Ck\x03\x02\x02\x02\x8Cp\x03\x02\x02\x02\x8Cw\x03\x02\x02\x02" +
@@ -2003,12 +2003,17 @@ export class PreprocessorStatementContext extends StatementContext {
 	}
 }
 export class AssignmentStatementContext extends StatementContext {
-	public id(): IdContext {
-		return this.getRuleContext(0, IdContext);
-	}
+	public _var!: ExprContext;
+	public _val!: ExprContext;
 	public ASSIGN(): TerminalNode { return this.getToken(XonParser.ASSIGN, 0); }
-	public expr(): ExprContext {
-		return this.getRuleContext(0, ExprContext);
+	public expr(): ExprContext[];
+	public expr(i: number): ExprContext;
+	public expr(i?: number): ExprContext | ExprContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(ExprContext);
+		} else {
+			return this.getRuleContext(i, ExprContext);
+		}
 	}
 	constructor(ctx: StatementContext) {
 		super(ctx.parent, ctx.invokingState);
