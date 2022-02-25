@@ -1,23 +1,21 @@
 import { AssignmentStatementContext } from '../../../grammar/xon-parser';
+import { SourceReference } from '../../../util/source-reference';
 import { ExpressionTree } from '../../expression/expression-tree';
 import { getExpressionTree } from '../../expression/expression-tree-helper';
-import { IdTree } from '../../id/id-tree';
-import { getIdTree } from '../../id/id-tree-helper';
-import { SourceReference } from '../../../util/source-reference';
 import { StatementTree } from '../statement-tree';
 
 export class AssignmentStatementTree implements StatementTree {
   sourceReference: SourceReference;
-  id: IdTree;
+  variable: ExpressionTree;
   value: ExpressionTree;
 
   constructor(ctx: AssignmentStatementContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
-    this.id = getIdTree(ctx.id());
-    this.value = getExpressionTree(ctx.expr());
+    this.variable = getExpressionTree(ctx._var);
+    this.value = getExpressionTree(ctx._val);
   }
 
   toString(): string {
-    return `${this.id} = ${this.value}`;
+    return `${this.variable} = ${this.value}`;
   }
 }
