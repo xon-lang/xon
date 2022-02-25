@@ -4,12 +4,15 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: (statement | definition | NL)*;
+source: ( definition | statement | NL)*;
 
 definition:
     modifier = ID id parameters? expr? (NL INDENT (attribute | NL)+ DEDENT)?
     ;
-attribute: modifier = ID? id parameters? (expr body | expr | body);
+attribute:
+    modifier = ID id parameters expr? body?
+    | id parameters? expr? body?
+    ;
 
 statement:
     IMPORT path = expr (':' members += expr (',' members += expr)* ','?)? # importStatement
