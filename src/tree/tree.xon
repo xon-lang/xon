@@ -1,0 +1,5 @@
+import '../util/source-reference':  SourceReference
+
+model Tree
+  toString() String
+  sourceReference SourceReference
