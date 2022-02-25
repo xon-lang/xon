@@ -11,7 +11,7 @@ export class AttributeTranslator implements Translator {
   constructor(private tree: AttributeTree) {}
 
   toString(): string {
-    const modifier = (this.tree.id.name.text.startsWith('_') && 'private') || 'public';
+    const modifier = (this.tree.id.name.text.startsWith('_') && 'private ') || '';
     const id = getIdTranslator(this.tree.id);
     let parameters =
       (this.tree.isMethod && `(${getParameterTranslators(this.tree.parameters).join(', ')})`) || '';
@@ -28,6 +28,6 @@ export class AttributeTranslator implements Translator {
       }
     }
 
-    return `${modifier} ${id}${parameters}: ${type}${body}`;
+    return `${modifier}${id}${parameters}: ${type}${body}`;
   }
 }
