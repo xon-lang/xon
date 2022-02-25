@@ -1,5 +1,6 @@
 object someObjectFactory<|T|>(name String)
   arr: [123, 456, 789, 456, 789]
+  -- todo
   abc Integer
 
   method() MyType
@@ -7,14 +8,14 @@ object someObjectFactory<|T|>(name String)
     this.bye()
 
   hello()
-    -- 
+    --
   bye()
-    -- 
+    --
 
   location(x Number, y Number) Position
     pos(x, y)
 
 model MyType
-  -- 
+  -- todo
 model Position
-  -- 
+  -- todo
