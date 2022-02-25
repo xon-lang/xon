@@ -1,7 +1,7 @@
 .DS_Store
 .idea
 .antlr
-.gen.ts
+*.gen.ts
 
 /dist
 /node_modules
