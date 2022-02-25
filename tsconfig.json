@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "lib": ["ES2019"],
+    "lib": [
+      "ES2019"
+    ],
     "module": "CommonJS",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -12,9 +14,16 @@
     "baseUrl": ".",
     "declaration": true,
     "paths": {
-      "*": ["node_modules/*"]
+      "*": [
+        "node_modules/*"
+      ],
+      "@lib": [
+        "lib/"
+      ]
     }
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*"
+  ],
   "exclude": []
 }
