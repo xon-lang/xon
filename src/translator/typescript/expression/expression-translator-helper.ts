@@ -44,3 +44,10 @@ export function getExpressionTranslator(
     Issue.errorFromTree(tree, error.toString());
   }
 }
+
+export const getExpressionTranslators = (
+  trees: ExpressionTree[],
+  isType: boolean,
+): ExpressionTranslator[] => {
+  return trees?.map((x) => getExpressionTranslator(x, isType)) || [];
+};
