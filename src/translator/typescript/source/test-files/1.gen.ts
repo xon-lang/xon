@@ -1,19 +1,19 @@
 export class someObjectFactory<T> {
-  public arr: any = [123, 456, 789, 456, 789]
-  public abc: Number
+  arr: any = [123, 456, 789, 456, 789]
+  abc: Integer
 
   constructor(name: String) {}
 
-  public method(x: Number, y: Number): MyType {
+  method(x: Number, y: Number): MyType {
     this.hello()
     this.pos()
   }
 
-  public hello(): any {}
+  hello(): any {}
 
-  public pos(): any {}
+  pos(): any {}
 
-  public location(x: Number, y: Number): Position {
+  location(x: Number, y: Number): Position {
     this.method(x, y)
   }
 }

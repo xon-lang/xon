@@ -1,6 +1,6 @@
 import { parseStatement } from '../../../../util/parse';
+import { IfStatementTranslator } from '../if/if-statement-translator';
 import { getStatementTranslator } from '../statement-translator-helper';
-import { IfStatementTranslator } from './import-statement-translator';
 
 test('single body', () => {
   const code = 'if 12+(45/9) :    14+(144/12) else: 2   *   4   ';
