@@ -9,6 +9,14 @@ test('id', () => {
   expect(tree.toString()).toBe('abc');
 });
 
+test('id type', () => {
+  const code = `abc Integer`;
+  const tree = parseAttribute(code);
+  expect(tree).toBeInstanceOf(AttributeTree);
+
+  expect(tree.toString()).toBe('abc Integer');
+});
+
 test('modifier operator', () => {
   const code = `operator  +  ( other  Number )  Number `;
   const tree = parseAttribute(code);
