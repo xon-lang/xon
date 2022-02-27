@@ -6,7 +6,7 @@ import { ExpressionStatementTree } from '../expression/expression-statement-tree
 import { WhileStatementTree } from './while-statement-tree';
 
 test('has boolean value', () => {
-  const code = 'while true:\n    12+(45/5)';
+  const code = 'while true\n    12+(45/5)';
   const tree = parseStatement(code) as WhileStatementTree;
   expect(tree).toBeInstanceOf(WhileStatementTree);
 

@@ -6,7 +6,7 @@ import { ExpressionStatementTree } from '../statement/expression/expression-stat
 import { ParameterTree } from './parameter-tree';
 
 test('id type value', () => {
-  const code = 'a Integer: 1';
+  const code = 'a Integer = 1';
   const tree = parseParameter(code);
   expect(tree).toBeInstanceOf(ParameterTree);
 
@@ -21,7 +21,7 @@ test('id type value', () => {
 });
 
 test('id value', () => {
-  const code = 'a: 1';
+  const code = 'a = 1';
   const tree = parseParameter(code);
   expect(tree).toBeInstanceOf(ParameterTree);
 

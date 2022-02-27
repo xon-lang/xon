@@ -5,7 +5,7 @@ import { ExpressionStatementTree } from '../../statement/expression/expression-s
 import { MethodExpressionTree } from './method-expression-tree';
 
 test('has argument', () => {
-  const code = '(x): x + 42';
+  const code = '(x) = x + 42';
   const tree = parseExpression(code) as MethodExpressionTree;
   expect(tree).toBeInstanceOf(MethodExpressionTree);
 
@@ -19,7 +19,7 @@ test('has argument', () => {
 });
 
 test('no arguments', () => {
-  const code = '(): 42+45';
+  const code = '() = 42+45';
   const tree = parseExpression(code) as MethodExpressionTree;
   expect(tree).toBeInstanceOf(MethodExpressionTree);
 
