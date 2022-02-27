@@ -4,7 +4,7 @@ import { LiteralExpressionTree } from '../../expression/literal/literal-expressi
 import { AssignmentStatementTree } from './assignment-statement-tree';
 
 test('variable assignment', () => {
-  const code = 'a = 1';
+  const code = 'set a = 1';
   const tree = parseStatement(code) as AssignmentStatementTree;
   expect(tree).toBeInstanceOf(AssignmentStatementTree);
 

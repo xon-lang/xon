@@ -11,8 +11,8 @@ export class AssignmentStatementTree implements StatementTree {
 
   constructor(ctx: AssignmentStatementContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
-    this.variable = getExpressionTree(ctx._var);
-    this.value = getExpressionTree(ctx._val);
+    this.variable = getExpressionTree(ctx.expr(0));
+    this.value = getExpressionTree(ctx.expr(1));
   }
 
   toString(): string {
