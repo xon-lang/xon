@@ -37,6 +37,7 @@ IF:     'if';
 IN:     'in';
 IMPORT: 'import';
 RETURN: 'return';
+SET:    'set';
 WHILE:  'while';
 
 ASSIGN:        '=';

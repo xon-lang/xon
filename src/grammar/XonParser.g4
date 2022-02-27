@@ -25,7 +25,7 @@ statement:
     | RETURN expr?                                                        # returnStatement
     | ACTUAL actual = expr NL+ EXPECT expect = expr                       # assertStatement
     | PREPROCESSOR                                                        # preprocessorStatement
-    | var = expr '=' val = expr                                           # assignmentStatement
+    | SET expr '=' expr                                                   # assignmentStatement
     | expr                                                                # expressionStatement
     ;
 
@@ -53,8 +53,8 @@ literal:
     ;
 
 body:
-    ':' statement                             # singleBody
-    | ':'? NL INDENT (statement | NL)+ DEDENT # multipleBody
+    '=' statement                        # singleBody
+    | NL INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
 arrayItem:  (expr ':')? expr;
