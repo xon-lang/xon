@@ -30,5 +30,5 @@ test('variable type value ', () => {
   const tree = parseAttribute(code);
   expect(tree).toBeInstanceOf(AttributeTree);
 
-  expect(tree.toString()).toBe('operator + (other Number) Number');
+  expect(tree.toString()).toBe('statements StatementTree[] = []');
 });
