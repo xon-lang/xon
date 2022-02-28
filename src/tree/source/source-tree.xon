@@ -4,7 +4,7 @@ import '../definition/definition-tree': DefinitionTree
 import '../definition/definition-tree-helper': getDefinitionTrees
 import '../statement/statement-tree': StatementTree
 import '../statement/statement-tree-helper': getStatementTrees
-import '../tree': Tree
+import '../tree.gen': Tree
 
 object SourceTree Tree
   sourceReference SourceReference
