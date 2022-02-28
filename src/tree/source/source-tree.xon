@@ -1,0 +1,22 @@
+import '../../grammar/xon-parser': SourceContext
+import '../../util/source-reference': SourceReference
+import '../definition/definition-tree': DefinitionTree
+import '../definition/definition-tree-helper': getDefinitionTrees
+import '../statement/statement-tree': StatementTree
+import '../statement/statement-tree-helper': getStatementTrees
+import '../tree': Tree
+
+object SourceTree Tree
+  sourceReference SourceReference
+  statements StatementTree[] = []
+  definitions DefinitionTree[] = []
+
+  constructor(ctx SourceContext)
+    set this.sourceReference = SourceReference.fromContext(ctx)
+    set this.statements = getStatementTrees(ctx.statement())
+    set this.definitions = getDefinitionTrees(ctx.definition())
+
+  toString() String
+    set statements = this.statements.join('\n')
+    set definitions = this.definitions.join('\n\n')
+    return [statements, definitions].filter(Boolean).join('\n\n')
