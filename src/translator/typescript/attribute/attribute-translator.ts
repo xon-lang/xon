@@ -21,7 +21,11 @@ export class AttributeTranslator implements Translator {
       body = getBodyTranslator(this.tree.body).toString();
 
       if (this.tree.body instanceof SingleBodyTree) {
-        body = ` = ${body}`;
+        if (parameters) {
+          body = `{\n  return ${body}\n}`;
+        } else {
+          body = ` = ${body}`;
+        }
       }
       if (this.tree.body instanceof MultipleBodyTree) {
         body = (body && ` {\n${body.replace(/^(.+)/gm, '  $1')}\n}`) || ' {}';
