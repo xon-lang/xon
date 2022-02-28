@@ -10,10 +10,10 @@ export class PrefixExpressionTree implements ExpressionTree {
   isIdOperator: boolean;
   value: ExpressionTree;
 
-  constructor(private ctx: PrefixExpressionContext) {
+  constructor(ctx: PrefixExpressionContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
     this.operator = new IdToken(ctx._op);
-    this.isIdOperator = !!ctx.ID();
+    this.isIdOperator = !!ctx.NOT();
     this.value = getExpressionTree(ctx.expr());
   }
 
