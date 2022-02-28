@@ -20,16 +20,6 @@ export class SourceReference {
     return `${this.sourceName}:${this.line}:${this.column}`;
   }
 
-  // clone() {
-  //   const ref = new SourceReference();
-  //   ref.filePath = this.filePath;
-  //   ref.startIndex = this.startIndex;
-  //   ref.stopIndex = this.stopIndex;
-  //   ref.line = this.line;
-  //   ref.column = this.column;
-  //   return ref;
-  // }
-
   equals(other: SourceReference): boolean {
     return (
       this.sourceName === other.sourceName &&

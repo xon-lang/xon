@@ -1,5 +1,6 @@
 import { ParserRuleContext } from 'antlr4ts';
 import chalk from 'chalk';
+import fs from 'fs';
 import { Tree } from '../tree/tree';
 import { SourceReference } from '../util/source-reference';
 import { IssueLevel } from './issue-level';
@@ -13,7 +14,10 @@ export class Issue {
   sourceName: string;
 
   toString(): string {
-    const code = this.inputText.split('\n')[this.line - 1];
+    let code = this.inputText.split('\n')[this.line - 1];
+    if (!code && this.sourceName) {
+      code = fs.readFileSync(this.sourceName).toString().split('\n')[this.line - 1];
+    }
     const source = chalk.cyan(this.sourceName);
     const line = chalk.cyan(':' + this.line);
     const column = chalk.cyan(':' + this.column);
