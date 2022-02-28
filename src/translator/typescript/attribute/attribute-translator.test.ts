@@ -21,7 +21,7 @@ test('id type', () => {
 });
 
 test('id type body', () => {
-  const code = 'a Number: 123';
+  const code = 'a Number = 123';
   const tree = parseParameter(code);
   const translator = getParameterTranslator(tree);
 

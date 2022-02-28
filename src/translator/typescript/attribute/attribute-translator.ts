@@ -15,7 +15,7 @@ export class AttributeTranslator implements Translator {
     const id = getIdTranslator(this.tree.id);
     let parameters =
       (this.tree.isMethod && `(${getParameterTranslators(this.tree.parameters).join(', ')})`) || '';
-    const type = getExpressionTranslator(this.tree.type, true) || 'any';
+    const type = (this.tree.type && ': ' + getExpressionTranslator(this.tree.type, true)) || '';
     let body = '';
     if (this.tree.body) {
       body = getBodyTranslator(this.tree.body).toString();
@@ -28,6 +28,6 @@ export class AttributeTranslator implements Translator {
       }
     }
 
-    return `${modifier}${id}${parameters}: ${type}${body}`;
+    return `${modifier}${id}${parameters}${type}${body}`;
   }
 }
