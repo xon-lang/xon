@@ -6,6 +6,9 @@ export class NullableExpressionTranslator implements ExpressionTranslator {
   constructor(private tree: NullableExpressionTree, private isType: boolean) {}
 
   toString(): string {
+    if (this.isType) {
+      return `(${getExpressionTranslator(this.tree.value, this.isType)} | null)`;
+    }
     return `${getExpressionTranslator(this.tree.value, this.isType)}?`;
   }
 }
