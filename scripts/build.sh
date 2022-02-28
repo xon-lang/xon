@@ -3,7 +3,7 @@
 npx rimraf dist
 mkdir dist
 
-find src -name "*.ts" -a ! -name "*.test.ts" | cpio -p -dumv dist
+find src -name "*.ts" -a ! -name "*.test.ts" ! -name "*.gen.ts" | cpio -p -dumv dist
 cp package.json dist
 cp README.md dist
 cp LICENSE dist
