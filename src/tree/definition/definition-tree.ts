@@ -32,13 +32,9 @@ export class DefinitionTree implements Tree {
     const modifier = (this.modifier && this.modifier.text + ' ') || '';
     let base = (this.base && ' ' + this.base) || '';
     let parameters = (this.parameters && `(${this.parameters.join(', ')})`) || '';
-    const properties = this.attributes.filter((x) => !x.type || !x.parameters).join('\n');
-    const methodsWithBody = this.attributes
-      .filter((x) => x.type && x.parameters && x.body)
-      .join('\n\n');
-    const methodsWithNoBody = this.attributes
-      .filter((x) => x.type && x.parameters && !x.body)
-      .join('\n');
+    const properties = this.attributes.filter((x) => !x.isMethod).join('\n');
+    const methodsWithBody = this.attributes.filter((x) => x.isMethod && x.body).join('\n\n');
+    const methodsWithNoBody = this.attributes.filter((x) => x.isMethod && !x.body).join('\n');
     const attributes =
       '\n' +
       [properties, methodsWithBody, methodsWithNoBody]
