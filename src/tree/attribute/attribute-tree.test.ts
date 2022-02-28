@@ -24,3 +24,11 @@ test('modifier operator', () => {
 
   expect(tree.toString()).toBe('operator + (other Number) Number');
 });
+
+test('variable type value ', () => {
+  const code = `statements StatementTree[] = []`;
+  const tree = parseAttribute(code);
+  expect(tree).toBeInstanceOf(AttributeTree);
+
+  expect(tree.toString()).toBe('operator + (other Number) Number');
+});

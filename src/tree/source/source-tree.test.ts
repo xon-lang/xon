@@ -9,9 +9,11 @@ test('two if', () => {
   const code = `import 'xon.os': Path
 
 1+1
-if e:
+if e
     7+7
-else: if d: call()
+else
+  if d
+    call()
 `;
   const tree = new SourceTree(parse(code).source());
   expect(tree).toBeInstanceOf(SourceTree);
