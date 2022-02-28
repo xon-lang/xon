@@ -37,7 +37,7 @@ expr:
     | instance = expr '[' (args += expr (',' args += expr)* ','?)? ']' # indexExpression
     | expr '?'                                                         # nullableExpression
     | expr '.' id                                                      # memberExpression
-    | op = (ID | OPERATOR) expr                                        # prefixExpression
+    | op = (NOT | OPERATOR) expr                                       # prefixExpression
     | left = expr op = (ID | OPERATOR) right = expr                    # infixExpression
     | literal                                                          # literalExpression
     | '(' (parameter (',' parameter)* ','?)? ')' body                  # methodExpression

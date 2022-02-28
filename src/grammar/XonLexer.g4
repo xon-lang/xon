@@ -39,6 +39,7 @@ IMPORT: 'import';
 RETURN: 'return';
 SET:    'set';
 WHILE:  'while';
+NOT:    'not';
 
 ASSIGN:        '=';
 COLON:         ':';
