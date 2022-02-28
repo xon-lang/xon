@@ -2,6 +2,7 @@ import { Issue } from '../../../issue-service/issue';
 import { ArrayExpressionTree } from '../../../tree/expression/array/array-expression-tree';
 import { ExpressionTree } from '../../../tree/expression/expression-tree';
 import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
+import { IndexExpressionTree } from '../../../tree/expression/index/index-expression-tree';
 import { InfixExpressionTree } from '../../../tree/expression/infix/infix-expression-tree';
 import { InvokeExpressionTree } from '../../../tree/expression/invoke/invoke-expression-tree';
 import { LiteralExpressionTree } from '../../../tree/expression/literal/literal-expression-tree';
@@ -13,6 +14,7 @@ import { PrefixExpressionTree } from '../../../tree/expression/prefix/prefix-exp
 import { ArrayExpressionTranslator } from './array/array-expression-translator';
 import { ExpressionTranslator } from './expression-translator';
 import { IdExpressionTranslator } from './id/id-expression-translator';
+import { IndexExpressionTranslator } from './index/index-expression-translator';
 import { InfixExpressionTranslator } from './infix/infix-expression-translator';
 import { InvokeExpressionTranslator } from './invoke/invoke-expression-translator';
 import { LiteralExpressionTranslator } from './literal/literal-expression-translator';
@@ -36,6 +38,7 @@ export function getExpressionTranslator(
     if (tree instanceof MemberExpressionTree) return new MemberExpressionTranslator(tree, isType);
     if (tree instanceof MethodExpressionTree) return new MethodExpressionTranslator(tree, isType);
     if (tree instanceof PrefixExpressionTree) return new PrefixExpressionTranslator(tree, isType);
+    if (tree instanceof IndexExpressionTree) return new IndexExpressionTranslator(tree, isType);
     if (tree instanceof ParenthesizedExpressionTree)
       return new ParenthesizedExpressionTranslator(tree, isType);
     if (tree instanceof NullableExpressionTree)
