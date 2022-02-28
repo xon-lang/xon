@@ -13,7 +13,8 @@ export class DefinitionTranslator implements Translator {
     const id = getIdTranslator(this.tree.id);
     let parameters =
       this.tree.parameters && getParameterTranslators(this.tree.parameters).join(', ');
-    let base = (this.tree.base && ' ' + getExpressionTranslator(this.tree.base, false)) || '';
+    let base =
+      (this.tree.base && ' implements ' + getExpressionTranslator(this.tree.base, false)) || '';
     const properties = getAttributeTranslators(
       this.tree.attributes.filter((x) => !x.isMethod),
     ).join('\n');
