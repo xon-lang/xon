@@ -14,14 +14,6 @@ object someObjectFactory<|T|>(name String)
     789
   ]
 
-
-  --abc
-  method() MyType -- comment
-    hello()
-
-    
-    bye()
-
   -- comment
   location(x Number, y Number) Position
     pos(x, y)
