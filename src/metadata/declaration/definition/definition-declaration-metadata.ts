@@ -16,11 +16,12 @@ export class DefinitionDeclarationMetadata implements DeclarationMetadata {
   }
 
   attributes(): ParameterDeclarationMetadata[] {
-    const ancestorsAttributes = this.baseModel()?.attributes() || [];
-    const currentAttributes = this.tree.attributes.map(
-      (x) => new ParameterDeclarationMetadata(x, this.scope),
-    );
-    return [...currentAttributes, ...ancestorsAttributes];
+    throw new Error('Not implemented');
+    // const ancestorsAttributes = this.baseModel()?.attributes() || [];
+    // const currentAttributes = this.tree.attributes.map(
+    //   (x) => new ParameterDeclarationMetadata(x, this.scope),
+    // );
+    // return [...currentAttributes, ...ancestorsAttributes];
   }
 
   baseModel(): DefinitionDeclarationMetadata | null {
