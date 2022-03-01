@@ -10,6 +10,7 @@ import '../id/id-tree-helper': getIdTree
 import '../tree.gen': Tree
 
 object ParameterTree(ctx ParameterContext) Tree
+  ctx ParameterContext = ctx
   sourceReference SourceReference = SourceReference.fromContext(ctx)
   id IdTree = getIdTree(ctx.id())
   type ExpressionTree? = getExpressionTree(ctx.expr()) or null
