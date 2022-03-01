@@ -20,6 +20,7 @@ export class SourceTree implements Tree {
   toString(): string {
     const statements = this.statements.join('\n');
     const definitions = this.definitions.join('\n\n');
-    return [statements, definitions].filter(Boolean).join('\n\n');
+    const result = [statements, definitions].filter(Boolean).join('\n\n');
+    return (result && result + '\n') || '';
   }
 }

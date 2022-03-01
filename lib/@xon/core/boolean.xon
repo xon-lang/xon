@@ -1,10 +1,8 @@
 model Boolean
-  as String
-
-  == (other Boolean) Boolean
-  != (other Boolean) Boolean
-
+  operator == (other Boolean) Boolean
+  operator != (other Boolean) Boolean
 
 object false Boolean
+
 object true Boolean
   test Number
