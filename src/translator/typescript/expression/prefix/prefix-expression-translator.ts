@@ -6,9 +6,13 @@ export class PrefixExpressionTranslator implements ExpressionTranslator {
   constructor(private tree: PrefixExpressionTree, private isType: boolean) {}
 
   toString(): string {
-    if (this.tree.isIdOperator) {
-      return `${this.tree.operator} ${getExpressionTranslator(this.tree.value, this.isType)}`;
+    const idMap = {
+      not: '!',
+    };
+    const id = idMap[this.tree.operator.text] || this.tree.operator.text;
+    if (this.tree.isIdOperator && !idMap[this.tree.operator.text]) {
+      return `${id} ${getExpressionTranslator(this.tree.value, this.isType)}`;
     }
-    return `${this.tree.operator}${getExpressionTranslator(this.tree.value, this.isType)}`;
+    return `${id}${getExpressionTranslator(this.tree.value, this.isType)}`;
   }
 }
