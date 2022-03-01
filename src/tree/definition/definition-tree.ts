@@ -35,12 +35,10 @@ export class DefinitionTree implements Tree {
     const properties = this.attributes.filter((x) => !x.isMethod).join('\n');
     const methodsWithBody = this.attributes.filter((x) => x.isMethod && x.body).join('\n\n');
     const methodsWithNoBody = this.attributes.filter((x) => x.isMethod && !x.body).join('\n');
-    const attributes =
-      '\n' +
-      [properties, methodsWithBody, methodsWithNoBody]
-        .filter(Boolean)
-        .join('\n\n')
-        .replace(/^(.+)/gm, '  $1');
-    return modifier + this.id + parameters + base + attributes;
+    const attributes = [properties, methodsWithBody, methodsWithNoBody]
+      .filter(Boolean)
+      .join('\n\n')
+      .replace(/^(.+)/gm, '  $1');
+    return modifier + this.id + parameters + base + ((attributes && '\n' + attributes) || '');
   }
 }
