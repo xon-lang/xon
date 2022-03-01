@@ -1,6 +1,8 @@
 import { DefinitionTree } from '../../../tree/definition/definition-tree';
+import { NullableExpressionTree } from '../../../tree/expression/nullable/nullable-expression-tree';
 import { Translator } from '../../translator';
 import { getAttributeTranslators } from '../attribute/attribute-translator-helper';
+import { getBodyTranslator } from '../body/body-translator-helper';
 import { getExpressionTranslator } from '../expression/expression-translator-helper';
 import { getIdTranslator } from '../id/id-translator-helper';
 import { getParameterTranslators } from '../parameter/parameter-translator-helper';
@@ -15,13 +17,28 @@ export class DefinitionTranslator implements Translator {
       this.tree.parameters && getParameterTranslators(this.tree.parameters).join(', ');
     let base =
       (this.tree.base && ' implements ' + getExpressionTranslator(this.tree.base, false)) || '';
-    const properties = getAttributeTranslators(
-      this.tree.attributes.filter((x) => !x.isMethod),
-    ).join('\n');
+    const properties = this.tree.attributes
+      .filter((x) => !x.isMethod)
+      .map((x) => {
+        const nullable = (x.type instanceof NullableExpressionTree && '?') || '';
+        const type = (x.type && ': ' + getExpressionTranslator(x.type, true)) || '';
+        return `${getIdTranslator(x.id, true)}${nullable}${type}`;
+      })
+      .join('\n');
+
+    const initProperties = this.tree.attributes
+      .filter((x) => !x.isMethod && x.body)
+      .map((x) => `this.${getIdTranslator(x.id)} = ${getBodyTranslator(x.body)}`)
+      .join('\n');
 
     let constructor = '';
     if (parameters) {
-      constructor = `constructor(${parameters}) {}`;
+      constructor = `constructor(${parameters}) `;
+    }
+    if (initProperties) {
+      constructor += `{\n${initProperties.replace(/^(.+)/gm, '  $1')}\n}`;
+    } else {
+      constructor += `{}`;
     }
 
     const methodsWithBody = getAttributeTranslators(
