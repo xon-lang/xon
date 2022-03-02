@@ -1,18 +1,19 @@
 import { Issue } from '../../../issue-service/issue';
+import { AttributeTree } from '../../../tree/attribute/attribute-tree';
 import { SingleBodyTree } from '../../../tree/body/single/single-body-tree';
-import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { ExpressionStatementTree } from '../../../tree/statement/expression/expression-statement-tree';
 import { SourceReference } from '../../../util/source-reference';
 import { ExpressionMetadata } from '../../expression/expression-metadata';
 import { getExpressionMetadata } from '../../expression/expression-metadata-helper';
 import { DeclarationScope } from '../../scope/declaration-scope';
 import { DeclarationMetadata } from '../declaration-metadata';
+import { ParameterDeclarationMetadata } from '../parameter/parameter-declaration-metadata';
 
-export class ParameterDeclarationMetadata implements DeclarationMetadata {
+export class AttributeDeclarationMetadata implements DeclarationMetadata {
   sourceReference: SourceReference;
   name: string;
 
-  constructor(private tree: ParameterTree, private scope: DeclarationScope) {
+  constructor(private tree: AttributeTree, private scope: DeclarationScope) {
     this.sourceReference = tree.sourceReference;
     this.name = tree.id.name.text;
   }
@@ -41,7 +42,7 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
     } else if (this.tree.body) {
       return this.value();
     }
-    Issue.errorFromTree(this.tree, `Parameter '${this.tree.id}' must have a type`);
+    Issue.errorFromTree(this.tree, `Attribute '${this.tree.id}' must have a type`);
   }
 
   attributes(): ParameterDeclarationMetadata[] {
