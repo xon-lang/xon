@@ -14,7 +14,7 @@ export const getDeclarationMetadata = (
   tree: Tree,
   scope: DeclarationScope,
 ): DeclarationMetadata => {
-  if (tree === undefined) return undefined;
+  if (!tree) return null;
 
   if (tree instanceof AttributeTree) return new AttributeDeclarationMetadata(tree, scope);
   if (tree instanceof ParameterTree) return new ParameterDeclarationMetadata(tree, scope);

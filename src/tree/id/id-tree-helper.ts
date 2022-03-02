@@ -2,7 +2,7 @@ import { IdContext } from '../../grammar/xon-parser';
 import { IdTree } from './id-tree';
 
 export const getIdTree = (ctx: IdContext): IdTree => {
-  if (ctx === undefined) return undefined;
+  if (!ctx) return null;
 
   return new IdTree(ctx);
 };

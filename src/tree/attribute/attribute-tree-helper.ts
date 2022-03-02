@@ -2,7 +2,7 @@ import { AttributeContext } from '../../grammar/xon-parser';
 import { AttributeTree } from './attribute-tree';
 
 export const getAttributeTree = (ctx: AttributeContext): AttributeTree => {
-  if (ctx === undefined) return undefined;
+  if (!ctx) return null;
 
   return new AttributeTree(ctx);
 };

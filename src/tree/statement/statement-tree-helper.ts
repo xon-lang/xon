@@ -25,7 +25,7 @@ import { StatementTree } from './statement-tree';
 import { WhileStatementTree } from './while/while-statement-tree';
 
 export const getStatementTree = (ctx: StatementContext): StatementTree => {
-  if (ctx === undefined) return undefined;
+  if (!ctx) return null;
 
   if (ctx instanceof AssertStatementContext) return new AssertStatementTree(ctx);
   if (ctx instanceof AssignmentStatementContext) return new AssignmentStatementTree(ctx);

@@ -9,7 +9,7 @@ import { PrefixExpressionTree } from '../tree/expression/prefix/prefix-expressio
 const escapeIfString = (s: unknown) => (typeof s === 'string' ? `\`${s}\`` : s);
 
 export const evaluate = (tree: ExpressionTree, argsMap = {}): unknown => {
-  if (tree === undefined) return undefined;
+  if (!tree) return null;
 
   if (tree instanceof LiteralExpressionTree) return tree.literal.value;
   if (tree instanceof ParenthesizedExpressionTree) return evaluate(tree.expression);

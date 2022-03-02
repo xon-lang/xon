@@ -29,7 +29,7 @@ import { ParenthesizedExpressionTree } from './parenthesized/parenthesized-expre
 import { PrefixExpressionTree } from './prefix/prefix-expression-tree';
 
 export const getExpressionTree = (ctx: ExprContext): ExpressionTree => {
-  if (ctx === undefined) return undefined;
+  if (!ctx) return null;
 
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
   if (ctx instanceof IndexExpressionContext) return new IndexExpressionTree(ctx);

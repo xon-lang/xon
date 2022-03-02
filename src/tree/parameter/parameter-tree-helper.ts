@@ -2,7 +2,7 @@ import { ParameterContext } from '../../grammar/xon-parser';
 import { ParameterTree } from './parameter-tree';
 
 export const getParameterTree = (ctx: ParameterContext): ParameterTree => {
-  if (ctx === undefined) return undefined;
+  if (!ctx) return null;
   return new ParameterTree(ctx);
 };
 

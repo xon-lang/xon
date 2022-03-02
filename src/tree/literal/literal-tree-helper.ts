@@ -13,7 +13,7 @@ import { RegexLiteralTree } from './regex/regex-literal-tree';
 import { StringLiteralTree } from './string/string-literal-tree';
 
 export const getLiteralTree = (ctx: LiteralContext): LiteralTree => {
-  if (ctx === undefined) return undefined;
+  if (!ctx) return null;
 
   if (ctx instanceof FloatLiteralContext) return new FloatLiteralTree(ctx);
   if (ctx instanceof IntegerLiteralContext) return new IntegerLiteralTree(ctx);

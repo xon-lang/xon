@@ -4,7 +4,7 @@ import { MultipleBodyTree } from './multiple/multiple-body-tree';
 import { SingleBodyTree } from './single/single-body-tree';
 
 export const getBodyTree = (ctx: BodyContext): BodyTree => {
-  if (ctx === undefined) return undefined;
+  if (!ctx) return null;
 
   if (ctx instanceof SingleBodyContext) return new SingleBodyTree(ctx);
   if (ctx instanceof MultipleBodyContext) return new MultipleBodyTree(ctx);
