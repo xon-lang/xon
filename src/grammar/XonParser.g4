@@ -60,4 +60,4 @@ body:
 arrayItem:  (expr ':')? expr;
 parameter:  id ( expr body | expr | body)?;
 parameters: '(' (parameter (',' parameter)* ','?)? ')';
-id:         name = (ID | OPERATOR) ('<|' parameter (',' parameter)* ','? '|>')?;
+id:         name = (ID | NOT | OPERATOR) ('<|' parameter (',' parameter)* ','? '|>')?;
