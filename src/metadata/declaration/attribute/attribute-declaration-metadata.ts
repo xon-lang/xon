@@ -45,7 +45,7 @@ export class AttributeDeclarationMetadata implements DeclarationMetadata {
     Issue.errorFromTree(this.tree, `Attribute '${this.tree.id}' must have a type`);
   }
 
-  attributes(): ParameterDeclarationMetadata[] {
+  attributes(): AttributeDeclarationMetadata[] {
     return this.type().attributes();
   }
 

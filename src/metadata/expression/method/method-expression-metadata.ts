@@ -1,5 +1,5 @@
 import { MethodExpressionTree } from '../../../tree/expression/method/method-expression-tree';
-import { ParameterDeclarationMetadata } from '../../declaration/parameter/parameter-declaration-metadata';
+import { AttributeDeclarationMetadata } from '../../declaration/attribute/attribute-declaration-metadata';
 import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
 
@@ -15,7 +15,7 @@ export class MethodExpressionMetadata implements ExpressionMetadata {
     // );
   }
 
-  attributes(): ParameterDeclarationMetadata[] {
+  attributes(): AttributeDeclarationMetadata[] {
     throw new Error('Method not implemented.');
   }
 

@@ -3,8 +3,8 @@ import { DefinitionTree } from '../../../tree/definition/definition-tree';
 import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
 import { SourceReference } from '../../../util/source-reference';
 import { DeclarationScope } from '../../scope/declaration-scope';
+import { AttributeDeclarationMetadata } from '../attribute/attribute-declaration-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
-import { ParameterDeclarationMetadata } from '../parameter/parameter-declaration-metadata';
 
 export class DefinitionDeclarationMetadata implements DeclarationMetadata {
   sourceReference: SourceReference;
@@ -15,13 +15,13 @@ export class DefinitionDeclarationMetadata implements DeclarationMetadata {
     this.name = tree.id.name.text;
   }
 
-  attributes(): ParameterDeclarationMetadata[] {
-    throw new Error('Not implemented');
-    // const ancestorsAttributes = this.baseModel()?.attributes() || [];
-    // const currentAttributes = this.tree.attributes.map(
-    //   (x) => new ParameterDeclarationMetadata(x, this.scope),
-    // );
-    // return [...currentAttributes, ...ancestorsAttributes];
+  attributes(): AttributeDeclarationMetadata[] {
+    const attributes = {};
+    (this.baseModel()?.attributes() || []).forEach((x) => (attributes[x.name] = x));
+    this.tree.attributes
+      .map((x) => new AttributeDeclarationMetadata(x, this.scope))
+      .forEach((x) => (attributes[x.name] = x));
+    return Object.values(attributes);
   }
 
   baseModel(): DefinitionDeclarationMetadata | null {

@@ -7,7 +7,7 @@ test('integer literal', () => {
   const tree = parseExpression(code);
   const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
 
-  expect(metadata.attributes().length).toBe(12);
+  expect(metadata.attributes().length).toBe(10);
 });
 
 test('float literal', () => {
@@ -15,7 +15,7 @@ test('float literal', () => {
   const tree = parseExpression(code);
   const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
 
-  expect(metadata.attributes().length).toBe(12);
+  expect(metadata.attributes().length).toBe(10);
 });
 
 test('7 is integer', () => {

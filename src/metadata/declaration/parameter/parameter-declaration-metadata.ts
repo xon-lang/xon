@@ -6,6 +6,7 @@ import { SourceReference } from '../../../util/source-reference';
 import { ExpressionMetadata } from '../../expression/expression-metadata';
 import { getExpressionMetadata } from '../../expression/expression-metadata-helper';
 import { DeclarationScope } from '../../scope/declaration-scope';
+import { AttributeDeclarationMetadata } from '../attribute/attribute-declaration-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
 
 export class ParameterDeclarationMetadata implements DeclarationMetadata {
@@ -44,7 +45,7 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
     Issue.errorFromTree(this.tree, `Parameter '${this.tree.id}' must have a type`);
   }
 
-  attributes(): ParameterDeclarationMetadata[] {
+  attributes(): AttributeDeclarationMetadata[] {
     return this.type().attributes();
   }
 

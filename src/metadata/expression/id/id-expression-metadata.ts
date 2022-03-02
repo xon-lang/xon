@@ -1,6 +1,6 @@
 import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
+import { AttributeDeclarationMetadata } from '../../declaration/attribute/attribute-declaration-metadata';
 import { DeclarationMetadata } from '../../declaration/declaration-metadata';
-import { ParameterDeclarationMetadata } from '../../declaration/parameter/parameter-declaration-metadata';
 import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
 
@@ -11,7 +11,7 @@ export class IdExpressionMetadata implements ExpressionMetadata {
     return this.scope.findByName(this.tree.id.name.text);
   }
 
-  attributes(): ParameterDeclarationMetadata[] {
+  attributes(): AttributeDeclarationMetadata[] {
     return this.declaration().attributes();
   }
 

@@ -1,5 +1,5 @@
 import { InfixExpressionTree } from '../../../tree/expression/infix/infix-expression-tree';
-import { ParameterDeclarationMetadata } from '../../declaration/parameter/parameter-declaration-metadata';
+import { AttributeDeclarationMetadata } from '../../declaration/attribute/attribute-declaration-metadata';
 import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
 import { getExpressionMetadata } from '../expression-metadata-helper';
@@ -7,7 +7,7 @@ import { getExpressionMetadata } from '../expression-metadata-helper';
 export class InfixExpressionMetadata implements ExpressionMetadata {
   constructor(private tree: InfixExpressionTree, private scope: DeclarationScope) {}
 
-  attributes(): ParameterDeclarationMetadata[] {
+  attributes(): AttributeDeclarationMetadata[] {
     const left = getExpressionMetadata(this.tree.left, this.scope);
     const right = getExpressionMetadata(this.tree.right, this.scope);
     const attributes = left
