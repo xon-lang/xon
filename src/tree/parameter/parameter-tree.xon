@@ -17,9 +17,9 @@ object ParameterTree(ctx ParameterContext) Tree
   body BodyTree? = getBodyTree(ctx.body()) or null
 
   toString()
-    set type = this.type?.toString() or ''
+    type = this.type?.toString() or ''
     if type and this.ctx.id().OPERATOR() or not (this.type is MethodExpressionTree)
-      set type = ' ' + type
+      type = ' ' + type
 
-    set body = this.body and this.body or ''
+    body = this.body and this.body or ''
     return this.id + type + body

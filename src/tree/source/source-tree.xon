@@ -12,11 +12,11 @@ object SourceTree Tree
   definitions DefinitionTree[] = []
 
   constructor(ctx SourceContext)
-    set this.sourceReference = SourceReference.fromContext(ctx)
-    set this.statements = getStatementTrees(ctx.statement())
-    set this.definitions = getDefinitionTrees(ctx.definition())
+    this.sourceReference = SourceReference.fromContext(ctx)
+    this.statements = getStatementTrees(ctx.statement())
+    this.definitions = getDefinitionTrees(ctx.definition())
 
   toString() String
-    set statements = this.statements.join('\n')
-    set definitions = this.definitions.join('\n\n')
+    statements = this.statements.join('\n')
+    definitions = this.definitions.join('\n\n')
     return [statements, definitions].filter(Boolean).join('\n\n')
