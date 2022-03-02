@@ -25,7 +25,7 @@ statement:
     | RETURN expr?                                                        # returnStatement
     | ACTUAL actual = expr NL+ EXPECT expect = expr                       # assertStatement
     | PREPROCESSOR                                                        # preprocessorStatement
-    | SET expr '=' expr                                                   # assignmentStatement
+    | expr '=' expr                                                       # assignmentStatement
     | expr                                                                # expressionStatement
     ;
 
