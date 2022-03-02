@@ -32,7 +32,7 @@ statement:
 expr:
     id                                                                 # idExpression
     | '[' (arrayItem (',' arrayItem)* ','?)? ']'                       # arrayExpression
-    | '{' (parameter (',' parameter)* ','?)? '}'                       # objectExpression
+    | '{' (attribute (',' attribute)* ','?)? '}'                       # objectExpression
     | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
     | instance = expr '[' (args += expr (',' args += expr)* ','?)? ']' # indexExpression
     | expr '?'                                                         # nullableExpression
