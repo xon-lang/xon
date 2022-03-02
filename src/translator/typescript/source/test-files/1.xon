@@ -1,18 +1,17 @@
 object someObjectFactory<|T|>(name String)
-  arr: [123, 456, 789, 456, 789]
+  arr = [123, 456, 789, 456, 789]
   abc Integer
 
   method(x Number, y Number) MyType
     this.hello()
     this.pos()
 
-  hello()
-    --
-  pos()
-    --
-
   location(x Number, y Number) Position
     this.method(x, y)
 
+  hello()
+  pos()
+
 model MyType
+
 model Position
