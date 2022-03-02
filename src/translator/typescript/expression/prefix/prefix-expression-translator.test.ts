@@ -17,5 +17,5 @@ test('minus operator', () => {
   const translator = getExpressionTranslator(tree, false);
 
   expect(translator).toBeInstanceOf(PrefixExpressionTranslator);
-  expect(translator.toString()).toBe('not 123');
+  expect(translator.toString()).toBe('!123');
 });

@@ -17,5 +17,5 @@ test('num pow num', () => {
   const translator = getExpressionTranslator(tree, false);
 
   expect(translator).toBeInstanceOf(InfixExpressionTranslator);
-  expect(translator.toString()).toBe('123^321.123');
+  expect(translator.toString()).toBe('123 ^ 321.123');
 });
