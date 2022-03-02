@@ -21,7 +21,7 @@ export class DefinitionTranslator implements Translator {
       .filter((x) => !x.isMethod)
       .map((x) => {
         const nullable = (x.type instanceof NullableExpressionTree && '?') || '';
-        const type = (x.type && ': ' + getExpressionTranslator(x.type, true)) || '';
+        const type = ': ' + (getExpressionTranslator(x.type, true) || 'any');
         return `${getIdTranslator(x.id, true)}${nullable}${type}`;
       })
       .join('\n');
