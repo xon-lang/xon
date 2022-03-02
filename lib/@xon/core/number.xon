@@ -9,10 +9,6 @@ model Number
   == (other Number) Boolean
   != (other Number) Boolean
 
-  as String
-  as Boolean
-
-
 model Integer Number
   test String
 

@@ -1,9 +1,9 @@
 model Any
-  prefix not() Boolean
-  infix and(other Any)
-  infix or(other Any) Boolean
-  infix is(other Any) Boolean
-  infix as<|T|>(other T) T
+  operator not() Boolean
+  operator and(other Any)
+  operator or(other Any) Boolean
+  operator is(other Any) Boolean
+  operator as<|T|>(other T) T
 
 model Unknown
 model Never
