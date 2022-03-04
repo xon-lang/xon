@@ -18,8 +18,8 @@ export class ParameterTree implements Tree {
   constructor(private ctx: ParameterContext) {
     this.sourceReference = SourceReference.fromContext(ctx);
     this.id = getIdTree(ctx.id());
-    this.type = getExpressionTree(ctx.expr()) || null;
-    this.body = getBodyTree(ctx.body()) || null;
+    this.type = getExpressionTree(ctx.expr());
+    this.body = getBodyTree(ctx.body());
   }
 
   toString() {

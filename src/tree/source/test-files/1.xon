@@ -2,7 +2,7 @@ return 1213
 
 -- comment
 object someObjectFactory<|T|>(name String)
-  arr = [
+  arr Number[] = [
     -- comment
     123,
     456,  -- comment
