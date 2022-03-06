@@ -5,6 +5,7 @@ import { ExpressionMetadata } from '../expression-metadata';
 
 export class MethodExpressionMetadata implements ExpressionMetadata {
   constructor(tree: MethodExpressionTree, scope: DeclarationScope) {
+    const innerScope = scope.create();
     // for (const parameter of tree.parameters) {
     //   scope.set(new ParameterMetadata(parameter, scope));
     // }

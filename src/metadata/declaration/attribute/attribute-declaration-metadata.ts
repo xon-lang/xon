@@ -7,7 +7,6 @@ import { ExpressionMetadata } from '../../expression/expression-metadata';
 import { getExpressionMetadata } from '../../expression/expression-metadata-helper';
 import { DeclarationScope } from '../../scope/declaration-scope';
 import { DeclarationMetadata } from '../declaration-metadata';
-import { ParameterDeclarationMetadata } from '../parameter/parameter-declaration-metadata';
 
 export class AttributeDeclarationMetadata implements DeclarationMetadata {
   sourceReference: SourceReference;

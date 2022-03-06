@@ -15,6 +15,9 @@ export class CoreDeclarationScope extends DeclarationScope {
   get number(): DefinitionDeclarationMetadata {
     return this.findByName('Number') as DefinitionDeclarationMetadata;
   }
+  get none(): DefinitionDeclarationMetadata {
+    return this.findByName('None') as DefinitionDeclarationMetadata;
+  }
 
   constructor() {
     super();
