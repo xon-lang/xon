@@ -1,4 +1,5 @@
 import { DefinitionContext } from '../../grammar/xon-parser';
+import { DefinitionDeclarationMetadata } from '../../metadata/declaration/definition/definition-declaration-metadata';
 import { IdToken } from '../../util/id-token';
 import { SourceReference } from '../../util/source-reference';
 import { AttributeTree } from '../attribute/attribute-tree';
@@ -13,6 +14,7 @@ import { Tree } from '../tree';
 
 export class DefinitionTree implements Tree {
   sourceReference: SourceReference;
+  metadata: DefinitionDeclarationMetadata;
   modifier: IdToken;
   id: IdTree;
   parameters?: ParameterTree[];

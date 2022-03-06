@@ -1,4 +1,5 @@
 import { AttributeContext } from '../../grammar/xon-parser';
+import { AttributeDeclarationMetadata } from '../../metadata/declaration/attribute/attribute-declaration-metadata';
 import { IdToken } from '../../util/id-token';
 import { SourceReference } from '../../util/source-reference';
 import { BodyTree } from '../body/body-tree';
@@ -12,6 +13,7 @@ import { getParameterTrees } from '../parameter/parameter-tree-helper';
 import { Tree } from '../tree';
 
 export class AttributeTree implements Tree {
+  metadata: AttributeDeclarationMetadata;
   sourceReference: SourceReference;
   modifier?: IdToken;
   isMethod: boolean;

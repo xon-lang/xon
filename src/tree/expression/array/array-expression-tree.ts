@@ -1,10 +1,12 @@
 import { ArrayExpressionContext } from '../../../grammar/xon-parser';
+import { ArrayExpressionMetadata } from '../../../metadata/expression/array/array-expression-metadata';
 import { SourceReference } from '../../../util/source-reference';
 import { ExpressionTree } from '../expression-tree';
 import { getExpressionTrees } from '../expression-tree-helper';
 
 export class ArrayExpressionTree implements ExpressionTree {
   sourceReference: SourceReference;
+  metadata: ArrayExpressionMetadata;
   items: ExpressionTree[];
 
   constructor(ctx: ArrayExpressionContext) {

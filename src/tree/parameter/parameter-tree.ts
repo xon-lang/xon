@@ -1,4 +1,5 @@
 import { ParameterContext } from '../../grammar/xon-parser';
+import { ParameterDeclarationMetadata } from '../../metadata/declaration/parameter/parameter-declaration-metadata';
 import { SourceReference } from '../../util/source-reference';
 import { BodyTree } from '../body/body-tree';
 import { getBodyTree } from '../body/body-tree-helper';
@@ -11,6 +12,7 @@ import { Tree } from '../tree';
 
 export class ParameterTree implements Tree {
   sourceReference: SourceReference;
+  metadata: ParameterDeclarationMetadata;
   id: IdTree;
   type?: ExpressionTree;
   body?: BodyTree;

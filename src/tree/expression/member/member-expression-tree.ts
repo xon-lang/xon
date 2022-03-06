@@ -1,4 +1,5 @@
 import { MemberExpressionContext } from '../../../grammar/xon-parser';
+import { MemberExpressionMetadata } from '../../../metadata/expression/member/member-expression-metadata';
 import { SourceReference } from '../../../util/source-reference';
 import { IdTree } from '../../id/id-tree';
 import { getIdTree } from '../../id/id-tree-helper';
@@ -7,6 +8,7 @@ import { getExpressionTree } from '../expression-tree-helper';
 
 export class MemberExpressionTree implements ExpressionTree {
   sourceReference: SourceReference;
+  metadata: MemberExpressionMetadata;
   instance: ExpressionTree;
   id: IdTree;
 
