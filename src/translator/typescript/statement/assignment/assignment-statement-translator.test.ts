@@ -8,5 +8,5 @@ test('return value', () => {
   const translator = getStatementTranslator(tree);
 
   expect(translator).toBeInstanceOf(AssignmentStatementTranslator);
-  expect(translator.toString()).toBe('const a = 123');
+  expect(translator.toString()).toBe('a = 123');
 });
