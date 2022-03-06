@@ -9,9 +9,9 @@ export class AssignmentStatementTranslator implements StatementTranslator {
   toString(): string {
     const variable = getExpressionTranslator(this.tree.variable, false);
     const value = getExpressionTranslator(this.tree.value, false);
-    if (variable instanceof IdExpressionTranslator) {
-      return `const ${variable} = ${value}`;
-    }
+    // if (variable instanceof IdExpressionTranslator) {
+    //   return `const ${variable} = ${value}`;
+    // }
     return `${variable} = ${value}`;
   }
 }
