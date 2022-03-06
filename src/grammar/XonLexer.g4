@@ -39,7 +39,6 @@ IMPORT: 'import';
 RETURN: 'return';
 SET:    'set';
 WHILE:  'while';
-NOT:    'not';
 
 ASSIGN:        '=';
 COLON:         ':';
@@ -61,7 +60,7 @@ STRING_LITERAL:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 PREPROCESSOR: '#{' .*? '}';
 
 ID:       [_a-zA-Z] [_a-zA-Z0-9]*;
-OPERATOR: [+-^*%] | '..' | '...' | '<=' | '>=' | '==' | '!=';
+OPERATOR: [!+-^*%] | '..' | '...' | '<=' | '>=' | '==' | '!=';
 
 NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
     ;

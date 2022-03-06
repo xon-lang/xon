@@ -37,7 +37,7 @@ expr:
     | instance = expr '[' (args += expr (',' args += expr)* ','?)? ']' # indexExpression
     | expr '?'                                                         # nullableExpression
     | expr '.' id                                                      # memberExpression
-    | op = (NOT | OPERATOR) expr                                       # prefixExpression
+    | op = OPERATOR expr                                               # prefixExpression
     | left = expr op = (ID | OPERATOR) right = expr                    # infixExpression
     | literal                                                          # literalExpression
     | '(' (parameter (',' parameter)* ','?)? ')' body                  # methodExpression
@@ -60,4 +60,4 @@ body:
 arrayItem:  (expr ':')? expr;
 parameter:  id ( expr body | expr | body)?;
 parameters: '(' (parameter (',' parameter)* ','?)? ')';
-id:         name = (ID | NOT | OPERATOR) ('<|' parameter (',' parameter)* ','? '|>')?;
+id:         name = (ID | OPERATOR) ('<|' parameter (',' parameter)* ','? '|>')?;
