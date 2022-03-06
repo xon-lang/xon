@@ -9,10 +9,10 @@ test('negative integer', () => {
   expect(tree.toString()).toBe('-1');
 });
 
-test('not integer', () => {
-  const code = 'not  true';
+test('not boolean', () => {
+  const code = '!  true';
   const tree = parseExpression(code) as PrefixExpressionTree;
   expect(tree).toBeInstanceOf(PrefixExpressionTree);
 
-  expect(tree.toString()).toBe('not true');
+  expect(tree.toString()).toBe('!true');
 });
