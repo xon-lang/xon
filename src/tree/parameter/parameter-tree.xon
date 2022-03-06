@@ -18,7 +18,7 @@ object ParameterTree(ctx ParameterContext) Tree
 
   toString()
     type = this.type?.toString() or ''
-    if type and this.ctx.id().OPERATOR() or not(this.type is MethodExpressionTree)
+    if type and this.ctx.id().OPERATOR() or !(this.type is MethodExpressionTree)
       type = ' ' + type
     body = this.body and this.body or ''
     return this.id + type + body
