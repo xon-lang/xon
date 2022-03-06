@@ -21,6 +21,6 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
     issue.inputText = ctx.text;
     issue.sourceName = ctx.start.inputStream.sourceName;
     IssueService.instance.lastScope.push(issue);
-    throw new Error(issue.toString());
+    throw issue;
   }
 }

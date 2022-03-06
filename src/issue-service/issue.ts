@@ -5,7 +5,9 @@ import { Tree } from '../tree/tree';
 import { SourceReference } from '../util/source-reference';
 import { IssueLevel } from './issue-level';
 
-export class Issue {
+export class Issue implements Error {
+  name: string;
+  stack?: string;
   message: string;
   level: IssueLevel;
   line: number;
