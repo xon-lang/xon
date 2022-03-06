@@ -11,8 +11,8 @@ test('minus operator', () => {
   expect(translator.toString()).toBe('-123');
 });
 
-test('minus operator', () => {
-  const code = 'not  123';
+test('not operator', () => {
+  const code = '!  123';
   const tree = parseExpression(code);
   const translator = getExpressionTranslator(tree, false);
 

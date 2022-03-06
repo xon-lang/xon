@@ -10,9 +10,6 @@ export class PrefixExpressionTranslator implements ExpressionTranslator {
       not: '!',
     };
     const id = idMap[this.tree.operator.text] || this.tree.operator.text;
-    if (this.tree.isIdOperator && !idMap[this.tree.operator.text]) {
-      return `${id} ${getExpressionTranslator(this.tree.value, this.isType)}`;
-    }
     return `${id}${getExpressionTranslator(this.tree.value, this.isType)}`;
   }
 }
