@@ -1,0 +1,3 @@
+model Boolean
+  operator == (other Boolean) Boolean
+  operator != (other 12 Boolean) Boolean
