@@ -15,10 +15,10 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
     const ctx = recognizer['_ctx'] as ParserRuleContext;
     const issue = new Issue();
     issue.level = IssueLevel.Error;
-    issue.message = message.match(/'(.+)'/)[1];
+    issue.message = message;
+    issue.inputText = message.match(/'(.+)'/)[1];
     issue.line = line;
-    issue.column = column - issue.message.length + 1;
-    issue.inputText = ctx.text;
+    issue.column = column - issue.inputText.length + 1;
     issue.sourceName = ctx.start.inputStream.sourceName;
     IssueService.instance.lastScope.push(issue);
     throw issue;
