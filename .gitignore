@@ -7,3 +7,7 @@
 /node_modules
 /coverage
 /gen
+
+
+# temporary ignoring
+src/tree/parameter/parameter-tree.ts
