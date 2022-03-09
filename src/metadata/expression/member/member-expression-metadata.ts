@@ -14,7 +14,7 @@ export class MemberExpressionMetadata implements ExpressionMetadata {
     const members = instance.attributes().filter((x) => x.name === this.tree.id.name.text);
     if (members.length > 1) {
       const issues = members.map((x) =>
-        Issue.fromSourceRange(x.sourceReference, IssueLevel.Error, '').toString(),
+        Issue.fromSourceRange(x.sourceReference, IssueLevel.error, '').toString(),
       );
       throw new Error(`Too many '${this.tree.id.name.text}' members found:\n${issues.join('\n')}`);
     }

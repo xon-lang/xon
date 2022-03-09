@@ -36,7 +36,7 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
       throw new Error('Not implemented');
     }
 
-    issue.level = IssueLevel.Error;
+    issue.level = IssueLevel.error;
     issue.message = message;
     issue.source.sourceName = recognizer.inputStream.sourceName || null;
     IssueService.issues.push(issue);

@@ -18,9 +18,9 @@ export class Issue {
       ];
     }
     let message = '';
-    if (this.level === IssueLevel.Error) {
+    if (this.level === IssueLevel.error) {
       message = chalk.redBright('error - ' + this.message);
-    } else if (this.level === IssueLevel.Warning) {
+    } else if (this.level === IssueLevel.warning) {
       message = chalk.yellowBright('warning - ' + this.message);
     }
     const source = chalk.cyan(this.source.sourceName);
@@ -48,17 +48,17 @@ export class Issue {
   }
 
   static errorFromContext(ctx: ParserRuleContext, message: string): never {
-    const issue = Issue.fromSourceRange(SourceRange.fromContext(ctx), IssueLevel.Error, message);
+    const issue = Issue.fromSourceRange(SourceRange.fromContext(ctx), IssueLevel.error, message);
     throw new Error(issue.toString());
   }
 
   static errorFromTree(tree: Tree, message: string): never {
-    const issue = Issue.fromSourceRange(tree.sourceReference, IssueLevel.Error, message);
+    const issue = Issue.fromSourceRange(tree.sourceReference, IssueLevel.error, message);
     throw new Error(issue.toString());
   }
 
   static errorFromSourceReference(sourceReference: SourceRange, message: string): never {
-    const issue = Issue.fromSourceRange(sourceReference, IssueLevel.Error, message);
+    const issue = Issue.fromSourceRange(sourceReference, IssueLevel.error, message);
     throw new Error(issue.toString());
   }
 }
