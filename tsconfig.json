@@ -1,29 +1,29 @@
 {
   "compilerOptions": {
-    "lib": [
-      "ES2019"
-    ],
-    "module": "CommonJS",
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es6",
-    "noImplicitAny": false,
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "outDir": "dist",
     "baseUrl": ".",
     "declaration": true,
+    "esModuleInterop": true,
+    "lib": [
+      "ES2021"
+    ],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "outDir": "dist",
     "paths": {
-      "*": [
-        "node_modules/*"
-      ],
       "@lib/*": [
         "lib/*"
+      ],
+      "*": [
+        "node_modules/*"
       ]
-    }
+    },
+    "sourceMap": true,
+    "target": "ES2021"
   },
+  "exclude": [],
   "include": [
     "src/**/*"
-  ],
-  "exclude": []
+  ]
 }
