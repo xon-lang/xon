@@ -1,13 +1,13 @@
 import { Issue } from '../../../issue-service/issue';
 import { DefinitionTree } from '../../../tree/definition/definition-tree';
 import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
-import { SourceReference } from '../../../util/source-reference';
+import { SourceRange } from '../../../util/source-range';
 import { DeclarationScope } from '../../scope/declaration-scope';
 import { AttributeDeclarationMetadata } from '../attribute/attribute-declaration-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
 
 export class DefinitionDeclarationMetadata implements DeclarationMetadata {
-  sourceReference: SourceReference;
+  sourceReference: SourceRange;
   name: string;
 
   constructor(private tree: DefinitionTree, private scope: DeclarationScope) {

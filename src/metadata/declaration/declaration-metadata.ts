@@ -1,8 +1,8 @@
-import { SourceReference } from '../../util/source-reference';
+import { SourceRange } from '../../util/source-range';
 import { AttributeDeclarationMetadata } from './attribute/attribute-declaration-metadata';
 
 export interface DeclarationMetadata {
-  sourceReference: SourceReference;
+  sourceReference: SourceRange;
   name: string;
 
   is(metadata: DeclarationMetadata): boolean;

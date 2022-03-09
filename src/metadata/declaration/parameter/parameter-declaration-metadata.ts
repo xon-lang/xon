@@ -2,7 +2,7 @@ import { Issue } from '../../../issue-service/issue';
 import { SingleBodyTree } from '../../../tree/body/single/single-body-tree';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { ExpressionStatementTree } from '../../../tree/statement/expression/expression-statement-tree';
-import { SourceReference } from '../../../util/source-reference';
+import { SourceRange } from '../../../util/source-range';
 import { ExpressionMetadata } from '../../expression/expression-metadata';
 import { getExpressionMetadata } from '../../expression/expression-metadata-helper';
 import { DeclarationScope } from '../../scope/declaration-scope';
@@ -10,7 +10,7 @@ import { AttributeDeclarationMetadata } from '../attribute/attribute-declaration
 import { DeclarationMetadata } from '../declaration-metadata';
 
 export class ParameterDeclarationMetadata implements DeclarationMetadata {
-  sourceReference: SourceReference;
+  sourceReference: SourceRange;
   name: string;
 
   constructor(private tree: ParameterTree, private scope: DeclarationScope) {
