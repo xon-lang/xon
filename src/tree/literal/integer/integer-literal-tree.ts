@@ -1,15 +1,15 @@
 import { IntegerLiteralContext } from '../../../grammar/xon-parser';
-import { SourceReference } from '../../../util/source-reference';
+import { SourceRange } from '../../../util/source-range';
 import { LiteralTree } from '../literal-tree';
 
 export class IntegerLiteralTree implements LiteralTree {
-  sourceReference: SourceReference;
+  sourceReference: SourceRange;
   radix: number;
   integer: string;
   value: number;
 
   constructor(ctx: IntegerLiteralContext) {
-    this.sourceReference = SourceReference.fromContext(ctx);
+    this.sourceReference = SourceRange.fromContext(ctx);
     const [integer, radix] = ctx.text.split('x').reverse();
     this.integer = integer;
     this.radix = +radix;

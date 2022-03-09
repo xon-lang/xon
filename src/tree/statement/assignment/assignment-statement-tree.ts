@@ -1,16 +1,16 @@
 import { AssignmentStatementContext } from '../../../grammar/xon-parser';
-import { SourceReference } from '../../../util/source-reference';
+import { SourceRange } from '../../../util/source-range';
 import { ExpressionTree } from '../../expression/expression-tree';
 import { getExpressionTree } from '../../expression/expression-tree-helper';
 import { StatementTree } from '../statement-tree';
 
 export class AssignmentStatementTree implements StatementTree {
-  sourceReference: SourceReference;
+  sourceReference: SourceRange;
   variable: ExpressionTree;
   value: ExpressionTree;
 
   constructor(ctx: AssignmentStatementContext) {
-    this.sourceReference = SourceReference.fromContext(ctx);
+    this.sourceReference = SourceRange.fromContext(ctx);
     this.variable = getExpressionTree(ctx.expr(0));
     this.value = getExpressionTree(ctx.expr(1));
   }

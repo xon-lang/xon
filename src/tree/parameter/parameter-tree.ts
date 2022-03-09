@@ -1,6 +1,6 @@
 import { ParameterContext } from '../../grammar/xon-parser';
 import { ParameterDeclarationMetadata } from '../../metadata/declaration/parameter/parameter-declaration-metadata';
-import { SourceReference } from '../../util/source-reference';
+import { SourceRange } from '../../util/source-range';
 import { BodyTree } from '../body/body-tree';
 import { getBodyTree } from '../body/body-tree-helper';
 import { ExpressionTree } from '../expression/expression-tree';
@@ -11,14 +11,14 @@ import { getIdTree } from '../id/id-tree-helper';
 import { Tree } from '../tree';
 
 export class ParameterTree implements Tree {
-  sourceReference: SourceReference;
+  sourceReference: SourceRange;
   metadata: ParameterDeclarationMetadata;
   id: IdTree;
   type?: ExpressionTree;
   body?: BodyTree;
 
   constructor(private ctx: ParameterContext) {
-    this.sourceReference = SourceReference.fromContext(ctx);
+    this.sourceReference = SourceRange.fromContext(ctx);
     this.id = getIdTree(ctx.id());
     this.type = getExpressionTree(ctx.expr());
     this.body = getBodyTree(ctx.body());

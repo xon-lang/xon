@@ -1,6 +1,6 @@
-import { SourceReference } from '../util/source-reference';
+import { SourceRange } from '../util/source-range';
 
 export interface Tree {
-  sourceReference: SourceReference;
+  sourceReference: SourceRange;
   toString(): string;
 }

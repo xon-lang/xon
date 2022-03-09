@@ -1,16 +1,16 @@
 import { ParenthesizedExpressionContext } from '../../../grammar/xon-parser';
 import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
-import { SourceReference } from '../../../util/source-reference';
+import { SourceRange } from '../../../util/source-range';
 import { ExpressionTree } from '../expression-tree';
 import { getExpressionTree } from '../expression-tree-helper';
 
 export class ParenthesizedExpressionTree implements ExpressionTree {
-  sourceReference: SourceReference;
+  sourceReference: SourceRange;
   metadata: ExpressionMetadata;
   expression: ExpressionTree;
 
   constructor(ctx: ParenthesizedExpressionContext) {
-    this.sourceReference = SourceReference.fromContext(ctx);
+    this.sourceReference = SourceRange.fromContext(ctx);
     this.expression = getExpressionTree(ctx.expr());
   }
 

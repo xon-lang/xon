@@ -1,13 +1,13 @@
 import { ExportStatementContext } from '../../../grammar/xon-parser';
-import { SourceReference } from '../../../util/source-reference';
+import { SourceRange } from '../../../util/source-range';
 import { StatementTree } from '../statement-tree';
 
 export class ExportStatementTree implements StatementTree {
-  sourceReference: SourceReference;
+  sourceReference: SourceRange;
   path: string;
 
   constructor(ctx: ExportStatementContext) {
-    this.sourceReference = SourceReference.fromContext(ctx);
+    this.sourceReference = SourceRange.fromContext(ctx);
     // todo check if it is member expr
     this.path = ctx._path.text;
   }
