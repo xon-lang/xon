@@ -1,0 +1,8 @@
+model Boolean
+  operator == (other Boolean) Boolean
+  operator != (other Boolean) Boolean
+
+object false Boolean
+
+object true Boolean
+  123 Number

@@ -1,7 +1,7 @@
 import { DefinitionContext } from '../../grammar/xon-parser';
 import { DefinitionDeclarationMetadata } from '../../metadata/declaration/definition/definition-declaration-metadata';
 import { IdToken } from '../../util/id-token';
-import { SourceReference } from '../../util/source-reference';
+import { SourceRange } from '../../util/source-range';
 import { AttributeTree } from '../attribute/attribute-tree';
 import { getAttributeTrees } from '../attribute/attribute-tree-helper';
 import { ExpressionTree } from '../expression/expression-tree';
@@ -13,7 +13,7 @@ import { getParameterTrees } from '../parameter/parameter-tree-helper';
 import { Tree } from '../tree';
 
 export class DefinitionTree implements Tree {
-  sourceReference: SourceReference;
+  sourceReference: SourceRange;
   metadata: DefinitionDeclarationMetadata;
   modifier: IdToken;
   id: IdTree;
@@ -22,7 +22,7 @@ export class DefinitionTree implements Tree {
   attributes: AttributeTree[];
 
   constructor(private ctx: DefinitionContext) {
-    this.sourceReference = SourceReference.fromContext(ctx);
+    this.sourceReference = SourceRange.fromContext(ctx);
     this.modifier = new IdToken(ctx._modifier);
     this.id = getIdTree(ctx.id());
     this.parameters = (ctx.parameters() && getParameterTrees(ctx.parameters().parameter())) || null;

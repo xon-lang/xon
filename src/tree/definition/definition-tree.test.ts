@@ -1,5 +1,4 @@
-import fs from 'fs';
-import { Issue } from '../../issue-service/issue';
+import { IssueService } from '../../issue-service/issue-service';
 import { parseDefinition, parseSourceFile } from '../../util/parse';
 import { IdExpressionTree } from '../expression/id/id-expression-tree';
 import { DefinitionTree } from './definition-tree';
@@ -32,15 +31,22 @@ test('1-error.xon', () => {
   try {
     const tree = parseSourceFile('src/tree/definition/test-files/1-error.xon');
     expect(tree.definitions[0]).toBeInstanceOf(DefinitionTree);
-
-    const formatted = tree.toString();
-    fs.writeFileSync('src/tree/definition/test-files/1-error.fmt.xon', formatted);
   } catch (error) {
-    expect(error).toBeInstanceOf(Issue);
-    if (error instanceof Issue) {
-      expect(error.line).toBe(3);
-      expect(error.column).toBe(14);
-      expect(error.column + error.message.length).toBe(32);
-    }
+    const issue = IssueService.issues.slice(-1)[0];
+    expect(issue.source.start.line).toBe(3);
+    expect(issue.source.start.column).toBe(15);
+    expect(issue.source.stop.column).toBe(36);
+  }
+});
+
+test('2-error.xon', () => {
+  try {
+    const tree = parseSourceFile('src/tree/definition/test-files/2-error.xon');
+    expect(tree.definitions[0]).toBeInstanceOf(DefinitionTree);
+  } catch (error) {
+    const issue = IssueService.issues.slice(-1)[0];
+    expect(issue.source.start.line).toBe(8);
+    expect(issue.source.start.column).toBe(3);
+    expect(issue.source.stop.column).toBe(5);
   }
 });
