@@ -7,8 +7,9 @@ export class SourceTranslator implements Translator {
   constructor(private tree: SourceTree) {}
 
   toString(): string {
+    const coreImport = "import { Any, Unknown } from '@lib/core'\n";
     const statements = getStatementTranslators(this.tree.statements).join('\n');
     const definitions = getDefinitionTranslators(this.tree.definitions).join('\n\n');
-    return [statements, definitions].filter(Boolean).join('\n\n') + '\n';
+    return coreImport + [statements, definitions].filter(Boolean).join('\n\n') + '\n';
   }
 }
