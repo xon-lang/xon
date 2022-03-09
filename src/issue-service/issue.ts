@@ -2,62 +2,63 @@ import { ParserRuleContext } from 'antlr4ts';
 import chalk from 'chalk';
 import fs from 'fs';
 import { Tree } from '../tree/tree';
-import { SourceReference } from '../util/source-reference';
+import { SourceRange } from '../util/source-range';
 import { IssueLevel } from './issue-level';
 
-export class Issue implements Error {
-  name: string;
-  stack?: string;
+export class Issue {
   message: string;
   level: IssueLevel;
-  line: number;
-  column: number;
-  inputText: string;
-  sourceName: string;
+  source: SourceRange;
 
   toString(): string {
-    let code = this.inputText.split('\n')[this.line - 1];
-    if (!code && this.sourceName) {
-      code = fs.readFileSync(this.sourceName).toString().split('\n')[this.line - 1];
+    let code = this.source.sourceText.split('\n')[this.source.start.line - 1];
+    if (!code && this.source.sourceName) {
+      code = fs.readFileSync(this.source.sourceName).toString().split('\n')[
+        this.source.start.line - 1
+      ];
     }
-    const source = chalk.cyan(this.sourceName);
-    const line = chalk.cyan(':' + this.line);
-    const column = chalk.cyan(':' + this.column);
-    const message = `${chalk.redBright('error')} ${this.message}`;
-    const lineNumberBeforeGrayed = `${this.line} | `;
+    let message = '';
+    if (this.level === IssueLevel.Error) {
+      message = chalk.redBright('error - ' + this.message);
+    } else if (this.level === IssueLevel.Warning) {
+      message = chalk.yellowBright('warning - ' + this.message);
+    }
+    const source = chalk.cyan(this.source.sourceName);
+    const line = chalk.cyan(':' + this.source.start.line);
+    const column = chalk.cyan(':' + this.source.start.column);
+    const lineNumberBeforeGrayed = `${this.source.start.line} | `;
     const lineNumber = chalk.gray(lineNumberBeforeGrayed);
-    const caret = ' '.repeat(this.column + lineNumberBeforeGrayed.length - 1) + chalk.red('^');
+    const caret =
+      ' '.repeat(this.source.start.column + lineNumberBeforeGrayed.length - 1) +
+      chalk.red('~'.repeat(Math.min(this.source.rangeText.length, code.length)));
 
-    return `${source}${line}${column} - ${message}\n${lineNumber}${code}\n${caret}`;
+    return `${message}\n${source}${line}${column}\n${lineNumber}${code}\n${caret}`;
   }
 
-  static fromSourceReference(ref: SourceReference, level: IssueLevel, message: string): Issue {
+  error(): Error {
+    return new Error(this.toString());
+  }
+
+  static fromSourceRange(source: SourceRange, level: IssueLevel, message: string): Issue {
     const issue = new Issue();
+    issue.source = source;
     issue.level = level;
     issue.message = message;
-    issue.line = ref.line;
-    issue.column = ref.column;
-    issue.inputText = ref.inputText;
-    issue.sourceName = ref.sourceName;
     return issue;
   }
 
   static errorFromContext(ctx: ParserRuleContext, message: string): never {
-    const issue = Issue.fromSourceReference(
-      SourceReference.fromContext(ctx),
-      IssueLevel.Error,
-      message,
-    );
+    const issue = Issue.fromSourceRange(SourceRange.fromContext(ctx), IssueLevel.Error, message);
     throw new Error(issue.toString());
   }
 
   static errorFromTree(tree: Tree, message: string): never {
-    const issue = Issue.fromSourceReference(tree.sourceReference, IssueLevel.Error, message);
+    const issue = Issue.fromSourceRange(tree.sourceReference, IssueLevel.Error, message);
     throw new Error(issue.toString());
   }
 
-  static errorFromSourceReference(sourceReference: SourceReference, message: string): never {
-    const issue = Issue.fromSourceReference(sourceReference, IssueLevel.Error, message);
+  static errorFromSourceReference(sourceReference: SourceRange, message: string): never {
+    const issue = Issue.fromSourceRange(sourceReference, IssueLevel.Error, message);
     throw new Error(issue.toString());
   }
 }
