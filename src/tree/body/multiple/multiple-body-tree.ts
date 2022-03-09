@@ -1,15 +1,15 @@
 import { MultipleBodyContext } from '../../../grammar/xon-parser';
-import { SourceReference } from '../../../util/source-reference';
+import { SourceRange } from '../../../util/source-range';
 import { StatementTree } from '../../statement/statement-tree';
 import { getStatementTrees } from '../../statement/statement-tree-helper';
 import { BodyTree } from '../body-tree';
 
 export class MultipleBodyTree implements BodyTree {
-  sourceReference: SourceReference;
+  sourceReference: SourceRange;
   statements: StatementTree[];
 
   constructor(ctx: MultipleBodyContext) {
-    this.sourceReference = SourceReference.fromContext(ctx);
+    this.sourceReference = SourceRange.fromContext(ctx);
     this.statements = getStatementTrees(ctx.statement());
   }
 

@@ -1,15 +1,15 @@
 import { SingleBodyContext } from '../../../grammar/xon-parser';
-import { SourceReference } from '../../../util/source-reference';
+import { SourceRange } from '../../../util/source-range';
 import { StatementTree } from '../../statement/statement-tree';
 import { getStatementTree } from '../../statement/statement-tree-helper';
 import { BodyTree } from '../body-tree';
 
 export class SingleBodyTree implements BodyTree {
-  sourceReference: SourceReference;
+  sourceReference: SourceRange;
   statement: StatementTree;
 
   constructor(ctx: SingleBodyContext) {
-    this.sourceReference = SourceReference.fromContext(ctx);
+    this.sourceReference = SourceRange.fromContext(ctx);
     this.statement = getStatementTree(ctx.statement());
   }
 
