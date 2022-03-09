@@ -32,7 +32,7 @@
     "build": "scripts/build.sh",
     "pre-commit": "scripts/pre-commit.sh",
     "version": "npm run build",
-    "postversion": "git push && cd dist && npm publish --access public",
+    "postversion": "git push --tags && cd dist && npm publish --access public",
     "update-packages": "ncu -u -x chalk && rimraf package-lock.json && rimraf node_modules && npm i",
     "translator": "ts-node src/util/cli.ts"
   },
