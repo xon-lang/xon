@@ -1,6 +1,6 @@
 #!/bin/bash
 
-npx rm -rf dist
+rm -rf dist
 mkdir dist
 
 find src -name "*.ts" -a ! -name "*.test.ts" ! -name "*.gen.ts" | cpio -p -dumv dist
