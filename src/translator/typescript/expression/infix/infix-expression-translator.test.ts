@@ -19,3 +19,21 @@ test('num pow num', () => {
   expect(translator).toBeInstanceOf(InfixExpressionTranslator);
   expect(translator.toString()).toBe('123 ^ 321.123');
 });
+
+test('num or num type', () => {
+  const code = '123 or 456';
+  const tree = parseExpression(code);
+  const translator = getExpressionTranslator(tree, true);
+
+  expect(translator).toBeInstanceOf(InfixExpressionTranslator);
+  expect(translator.toString()).toBe('123 | 456');
+});
+
+test('num or num value', () => {
+  const code = '123 or 456';
+  const tree = parseExpression(code);
+  const translator = getExpressionTranslator(tree, false);
+
+  expect(translator).toBeInstanceOf(InfixExpressionTranslator);
+  expect(translator.toString()).toBe('123 || 456');
+});
