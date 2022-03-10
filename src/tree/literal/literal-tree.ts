@@ -1,5 +1,5 @@
 import { Tree } from '../tree';
 
-export interface LiteralTree extends Tree {
+export class LiteralTree extends Tree {
   value: string | number | RegExp;
 }

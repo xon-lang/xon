@@ -11,11 +11,10 @@ export class DefinitionTranslator implements Translator {
   constructor(private tree: DefinitionTree) {}
 
   toString(): string {
-    let modifier = (this.tree.modifier.text === 'object' && 'class') || 'interface';
     const id = getIdTranslator(this.tree.id);
     let parameters = getParameterTranslators(this.tree.parameters).join(', ');
     let base =
-      (this.tree.base && ' implements ' + getExpressionTranslator(this.tree.base, false)) || '';
+      (this.tree.base && ' extends ' + getExpressionTranslator(this.tree.base, false)) || '';
     const properties = this.tree.attributes
       .filter((x) => !x.isMethod)
       .map((x) => {
@@ -50,6 +49,6 @@ export class DefinitionTranslator implements Translator {
             .replace(/^(.+)/gm, '  $1') +
           '\n}') ||
       '{}';
-    return `export ${modifier} ${id}${base} ${attributes}`;
+    return `export class ${id}${base} ${attributes}`;
   }
 }

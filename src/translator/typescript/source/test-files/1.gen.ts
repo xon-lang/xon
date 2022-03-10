@@ -16,10 +16,14 @@ export class someObjectFactory<T> {
     this.method(x, y)
   }
 
-  hello()
-  pos()
+  hello() {
+    throw new Error('Not implemented')
+  }
+  pos() {
+    throw new Error('Not implemented')
+  }
 }
 
-export interface MyType {}
+export class MyType {}
 
-export interface Position {}
+export class Position {}

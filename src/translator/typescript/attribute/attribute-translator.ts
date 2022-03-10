@@ -26,7 +26,7 @@ export class AttributeTranslator implements Translator {
 
       if (this.tree.body instanceof SingleBodyTree) {
         if (parameters) {
-          body = `{\n  return ${body}\n}`;
+          body = ` {\n  return ${body}\n}`;
         } else {
           body = ` = ${body}`;
         }
@@ -36,6 +36,8 @@ export class AttributeTranslator implements Translator {
         const declarations = vars.length ? `  let ${vars.join(', ')}\n` : '';
         body = (body && ` {\n${declarations}${body.replace(/^(.+)/gm, '  $1')}\n}`) || ' {}';
       }
+    } else if (this.tree.isMethod) {
+      body = ` {\n  throw new Error('Not implemented')\n}`;
     }
 
     return `${id}${parameters}${type}${body}`;

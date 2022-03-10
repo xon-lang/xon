@@ -4,7 +4,7 @@ import { getDefinitionTranslator } from './definition-translator-helper';
 
 test('tree model', () => {
   const code = `
-model Tree
+model Tree Object
   toString() String
 `.trim();
   const tree = parseDefinition(code);
@@ -15,8 +15,10 @@ model Tree
 
   expect(translator.toString()).toBe(
     `
-export interface Tree {
-  toString(): String
+export class Tree extends Object {
+  toString(): String {
+    throw new Error('Not implemented')
+  }
 }
   `.trim(),
   );

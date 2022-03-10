@@ -1,3 +1,3 @@
 import { Tree } from '../tree';
 
-export interface StatementTree extends Tree {}
+export class StatementTree extends Tree {}

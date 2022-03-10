@@ -35,5 +35,5 @@ test('method with no body', () => {
   const translator = getAttributeTranslator(tree);
 
   expect(translator).toBeInstanceOf(AttributeTranslator);
-  expect(translator.toString()).toBe('toString(): String');
+  expect(translator.toString()).toBe("toString(): String {\n  throw new Error('Not implemented')\n}");
 });
