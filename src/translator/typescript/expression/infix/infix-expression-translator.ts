@@ -6,8 +6,8 @@ export class InfixExpressionTranslator implements ExpressionTranslator {
   constructor(private tree: InfixExpressionTree, private isType: boolean) {}
 
   toString(): string {
-    const left = getExpressionTranslator(this.tree.left, false);
-    const right = getExpressionTranslator(this.tree.right, false);
+    const left = getExpressionTranslator(this.tree.left, this.isType);
+    const right = getExpressionTranslator(this.tree.right, this.isType);
 
     const idMap = {
       is: 'instanceof',

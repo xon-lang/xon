@@ -37,3 +37,12 @@ test('num or num value', () => {
   expect(translator).toBeInstanceOf(InfixExpressionTranslator);
   expect(translator.toString()).toBe('123 || 456');
 });
+
+test('union and intersection type', () => {
+  const code = 'String or Number or RegExp and 123 or 456';
+  const tree = parseExpression(code);
+  const translator = getExpressionTranslator(tree, true);
+
+  expect(translator).toBeInstanceOf(InfixExpressionTranslator);
+  expect(translator.toString()).toBe('String | Number | RegExp & 123 | 456');
+});
