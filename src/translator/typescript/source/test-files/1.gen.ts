@@ -1,4 +1,4 @@
-import { Any, Unknown } from '@lib/core'
+import { Any, Unknown, String, Number } from '@lib/core'
 export class someObjectFactory<T> {
   arr: any
   abc: Integer
