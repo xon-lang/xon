@@ -23,17 +23,13 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "rimraf": "node_modules/rimraf/bin.js",
     "grammar": "scripts/grammar.sh",
     "eslint": "eslint . --max-warnings=0",
     "test": "jest --no-cache",
-    "test-ast": "jest src/ast --no-cache",
-    "test-metadata": "jest src/metadata --no-cache",
     "build": "scripts/build.sh",
-    "pre-commit": "scripts/pre-commit.sh",
     "version": "npm run build",
     "postversion": "git push --tags && cd dist && npm publish --access public",
-    "update-packages": "ncu -u -x chalk && rimraf package-lock.json && rimraf node_modules && npm i",
+    "update-packages": "ncu -u -x chalk && rm -rf package-lock.json && rm -rf node_modules && npm i",
     "translator": "ts-node src/util/cli.ts"
   },
   "devDependencies": {
@@ -52,8 +48,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.5.1",
     "npm-check-updates": "^12.5.2",
-    "pinst": "^3.0.0",
-    "rimraf": "^3.0.2",
     "ts-jest": "^27.1.3",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.2"
