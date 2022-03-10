@@ -1,4 +1,4 @@
 import '../tree': Tree
 
 object LiteralTree Tree
-  value string or number or RegExp
+  value String or Number or RegExp
