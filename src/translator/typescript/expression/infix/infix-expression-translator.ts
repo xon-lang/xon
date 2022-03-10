@@ -11,8 +11,8 @@ export class InfixExpressionTranslator implements ExpressionTranslator {
 
     const idMap = {
       is: 'instanceof',
-      and: '&&',
-      or: '||',
+      and: (this.isType && '&') || '&&',
+      or: (this.isType && '|') || '||',
     };
     const id = idMap[this.tree.id.text] || this.tree.id.text;
     return `${left} ${id} ${right}`;
