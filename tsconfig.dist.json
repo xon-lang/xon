@@ -1,5 +1,29 @@
 {
-  "extends": "./tsconfig.json",
-  "include": ["dist/**/*"],
-  "exclude": []
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "dist",
+    "declaration": true,
+    "esModuleInterop": true,
+    "lib": [
+      "ES2021"
+    ],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "outDir": "dist",
+    "paths": {
+      "@lib/*": [
+        "src/lib/*"
+      ],
+      "*": [
+        "node_modules/*"
+      ]
+    },
+    "sourceMap": true,
+    "target": "ES2021"
+  },
+  "exclude": [],
+  "include": [
+    "dist/**/*"
+  ]
 }
