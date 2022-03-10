@@ -7,11 +7,11 @@ find src -name "*.ts" -a ! -name "*.test.ts" ! -name "*.gen.ts" | cpio -p -dumv 
 cp package.json dist
 cp README.md dist
 cp LICENSE dist
-
-npx cti create -e tests, test-helper, .antlr -i .test.ts -w -f ./dist
-npx tsc -p tsconfig.dist.json
-find dist -name "*.ts" -a ! -name "*.d.ts" -exec rm -rf {} \;
+cp tsconfig.json dist
 
 cd dist
+npx cti create -e tests, test-helper, .antlr -i .test.ts -w -f .
+npx tsc
+find . -name "*.ts" -a ! -name "*.d.ts" -exec rm -rf {} \;
 git init
 cd ..
