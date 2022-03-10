@@ -21,6 +21,9 @@ export class CoreDeclarationScope extends DeclarationScope {
 
   constructor() {
     super();
-    this.declarations = new ModuleMetadata('lib/@xon/core', new DeclarationScope()).declarations;
+    this.declarations = new ModuleMetadata(
+      'src/lib/@xon/core',
+      new DeclarationScope(),
+    ).declarations;
   }
 }
