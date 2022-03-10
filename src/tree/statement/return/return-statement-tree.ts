@@ -5,11 +5,11 @@ import { getExpressionTree } from '../../expression/expression-tree-helper';
 import { StatementTree } from '../statement-tree';
 
 export class ReturnStatementTree implements StatementTree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   value?: ExpressionTree;
 
   constructor(ctx: ReturnStatementContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
     this.value = ctx.expr() && getExpressionTree(ctx.expr());
   }
 

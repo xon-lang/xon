@@ -5,12 +5,12 @@ import { getExpressionTree, getExpressionTrees } from '../../expression/expressi
 import { StatementTree } from '../statement-tree';
 
 export class ImportStatementTree implements StatementTree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   path: ExpressionTree;
   members?: ExpressionTree[];
 
   constructor(ctx: ImportStatementContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
     this.path = getExpressionTree(ctx._path);
     this.members = getExpressionTrees(ctx._members);
   }

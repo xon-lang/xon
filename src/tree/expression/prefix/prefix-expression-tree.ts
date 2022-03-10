@@ -6,13 +6,13 @@ import { ExpressionTree } from '../expression-tree';
 import { getExpressionTree } from '../expression-tree-helper';
 
 export class PrefixExpressionTree implements ExpressionTree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   metadata: ExpressionMetadata;
   operator: IdToken;
   value: ExpressionTree;
 
   constructor(ctx: PrefixExpressionContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
     this.operator = new IdToken(ctx._op);
     this.value = getExpressionTree(ctx.expr());
   }

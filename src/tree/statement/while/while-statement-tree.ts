@@ -7,12 +7,12 @@ import { getExpressionTree } from '../../expression/expression-tree-helper';
 import { StatementTree } from '../statement-tree';
 
 export class WhileStatementTree implements StatementTree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   expression: ExpressionTree;
   body: BodyTree;
 
   constructor(ctx: WhileStatementContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
     this.expression = getExpressionTree(ctx.expr());
     this.body = getBodyTree(ctx.body());
   }

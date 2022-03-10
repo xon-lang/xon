@@ -53,7 +53,7 @@ export class Issue {
   }
 
   static errorFromTree(tree: Tree, message: string): never {
-    const issue = Issue.fromSourceRange(tree.sourceReference, IssueLevel.error, message);
+    const issue = Issue.fromSourceRange(tree.sourceRange, IssueLevel.error, message);
     throw new Error(issue.toString());
   }
 

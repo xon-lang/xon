@@ -11,7 +11,7 @@ export class DefinitionDeclarationMetadata implements DeclarationMetadata {
   name: string;
 
   constructor(private tree: DefinitionTree, private scope: DeclarationScope) {
-    this.sourceReference = tree.sourceReference;
+    this.sourceReference = tree.sourceRange;
     this.name = tree.id.name.text;
   }
 

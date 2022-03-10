@@ -14,7 +14,7 @@ import { Tree } from '../tree';
 
 export class AttributeTree implements Tree {
   metadata: AttributeDeclarationMetadata;
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   modifier?: IdToken;
   isMethod: boolean;
   isOperator: boolean;
@@ -24,7 +24,7 @@ export class AttributeTree implements Tree {
   body?: BodyTree;
 
   constructor(private ctx: AttributeContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
 
     this.modifier = (ctx._modifier && new IdToken(ctx._modifier)) || null;
     this.isMethod = !!ctx.parameters();

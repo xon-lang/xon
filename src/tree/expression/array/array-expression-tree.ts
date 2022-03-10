@@ -5,12 +5,12 @@ import { ExpressionTree } from '../expression-tree';
 import { getExpressionTrees } from '../expression-tree-helper';
 
 export class ArrayExpressionTree implements ExpressionTree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   metadata: ArrayExpressionMetadata;
   items: ExpressionTree[];
 
   constructor(ctx: ArrayExpressionContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
     // todo add associated array items
     this.items = getExpressionTrees(ctx.arrayItem().map((x) => x.expr(0)));
   }

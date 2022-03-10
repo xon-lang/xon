@@ -6,12 +6,12 @@ import { getParameterTrees } from '../parameter/parameter-tree-helper';
 import { Tree } from '../tree';
 
 export class IdTree implements Tree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   name: IdToken;
   generics: ParameterTree[] = [];
 
   constructor(ctx: IdContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
     this.name = new IdToken(ctx._name);
     this.generics = getParameterTrees(ctx.parameter());
   }

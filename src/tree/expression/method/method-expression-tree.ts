@@ -9,13 +9,13 @@ import { getParameterTrees } from '../../parameter/parameter-tree-helper';
 import { ExpressionTree } from '../expression-tree';
 
 export class MethodExpressionTree implements ExpressionTree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   metadata: MethodExpressionMetadata;
   parameters: ParameterTree[] = [];
   body: BodyTree;
 
   constructor(ctx: MethodExpressionContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
     this.parameters = getParameterTrees(ctx.parameter());
     this.body = getBodyTree(ctx.body());
   }

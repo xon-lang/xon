@@ -13,7 +13,7 @@ export class AttributeDeclarationMetadata implements DeclarationMetadata {
   name: string;
 
   constructor(private tree: AttributeTree, private scope: DeclarationScope) {
-    this.sourceReference = tree.sourceReference;
+    this.sourceReference = tree.sourceRange;
     this.name = tree.id.name.text;
   }
 

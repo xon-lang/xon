@@ -7,14 +7,14 @@ import { getExpressionTree } from '../../expression/expression-tree-helper';
 import { StatementTree } from '../statement-tree';
 
 export class ForStatementTree implements StatementTree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   valueVarName?: string;
   indexVarName?: string;
   expression: ExpressionTree;
   body: BodyTree;
 
   constructor(ctx: ForStatementContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
     this.valueVarName = ctx._value?.text || null;
     this.indexVarName = ctx._index?.text || null;
     this.expression = getExpressionTree(ctx.expr());

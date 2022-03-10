@@ -7,13 +7,13 @@ import { getExpressionTree } from '../../expression/expression-tree-helper';
 import { StatementTree } from '../statement-tree';
 
 export class IfStatementTree implements StatementTree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   condition: ExpressionTree;
   thenBody: BodyTree;
   elseBody?: BodyTree;
 
   constructor(ctx: IfStatementContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
     this.condition = getExpressionTree(ctx.expr());
     this.thenBody = getBodyTree(ctx._thenBody);
     this.elseBody = getBodyTree(ctx._elseBody);

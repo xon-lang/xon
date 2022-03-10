@@ -7,12 +7,12 @@ import { getStatementTrees } from '../statement/statement-tree-helper';
 import { Tree } from '../tree';
 
 export class SourceTree implements Tree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   statements: StatementTree[] = [];
   definitions: DefinitionTree[] = [];
 
   constructor(ctx: SourceContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
     this.statements = getStatementTrees(ctx.statement());
     this.definitions = getDefinitionTrees(ctx.definition());
   }

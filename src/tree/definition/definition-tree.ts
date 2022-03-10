@@ -13,7 +13,7 @@ import { getParameterTrees } from '../parameter/parameter-tree-helper';
 import { Tree } from '../tree';
 
 export class DefinitionTree implements Tree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   metadata: DefinitionDeclarationMetadata;
   modifier: IdToken;
   id: IdTree;
@@ -22,7 +22,7 @@ export class DefinitionTree implements Tree {
   attributes: AttributeTree[];
 
   constructor(private ctx: DefinitionContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
     this.modifier = new IdToken(ctx._modifier);
     this.id = getIdTree(ctx.id());
     this.parameters = (ctx.parameters() && getParameterTrees(ctx.parameters().parameter())) || null;

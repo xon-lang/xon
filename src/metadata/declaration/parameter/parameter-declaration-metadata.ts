@@ -14,7 +14,7 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
   name: string;
 
   constructor(private tree: ParameterTree, private scope: DeclarationScope) {
-    this.sourceReference = tree.sourceReference;
+    this.sourceReference = tree.sourceRange;
     this.name = tree.id.name.text;
   }
 

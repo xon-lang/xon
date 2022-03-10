@@ -5,12 +5,12 @@ import { ExpressionTree } from '../expression-tree';
 import { getExpressionTree } from '../expression-tree-helper';
 
 export class ParenthesizedExpressionTree implements ExpressionTree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   metadata: ExpressionMetadata;
   expression: ExpressionTree;
 
   constructor(ctx: ParenthesizedExpressionContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
     this.expression = getExpressionTree(ctx.expr());
   }
 

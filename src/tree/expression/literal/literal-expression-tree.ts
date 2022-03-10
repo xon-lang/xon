@@ -6,16 +6,16 @@ import { getLiteralTree } from '../../literal/literal-tree-helper';
 import { ExpressionTree } from '../expression-tree';
 
 export class LiteralExpressionTree implements ExpressionTree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   metadata: LiteralExpressionMetadata;
   literal: LiteralTree;
 
   constructor(ctx: LiteralExpressionContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
     this.literal = ctx && getLiteralTree(ctx.literal());
   }
 
   toString(): string {
-    return this.literal.sourceReference.rangeText;
+    return this.literal.sourceRange.rangeText;
   }
 }

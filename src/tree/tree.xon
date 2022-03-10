@@ -1,5 +1,6 @@
-import '../util/source-reference':  SourceReference
+import '../util/source-range': SourceRange
 
 model Tree
+  sourceRange SourceRange
   toString() String
-  sourceReference SourceReference
+

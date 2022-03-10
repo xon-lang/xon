@@ -3,11 +3,11 @@ import { SourceRange } from '../../../util/source-range';
 import { StatementTree } from '../statement-tree';
 
 export class ExportStatementTree implements StatementTree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   path: string;
 
   constructor(ctx: ExportStatementContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
     // todo check if it is member expr
     this.path = ctx._path.text;
   }

@@ -7,13 +7,13 @@ import { ExpressionTree } from '../expression-tree';
 import { getExpressionTree } from '../expression-tree-helper';
 
 export class MemberExpressionTree implements ExpressionTree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   metadata: MemberExpressionMetadata;
   instance: ExpressionTree;
   id: IdTree;
 
   constructor(ctx: MemberExpressionContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
     this.instance = getExpressionTree(ctx.expr());
     this.id = getIdTree(ctx.id());
   }

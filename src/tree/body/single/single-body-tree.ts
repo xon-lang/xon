@@ -5,11 +5,11 @@ import { getStatementTree } from '../../statement/statement-tree-helper';
 import { BodyTree } from '../body-tree';
 
 export class SingleBodyTree implements BodyTree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   statement: StatementTree;
 
   constructor(ctx: SingleBodyContext) {
-    this.sourceReference = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceRange.fromContext(ctx);
     this.statement = getStatementTree(ctx.statement());
   }
 

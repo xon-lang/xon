@@ -4,11 +4,11 @@ import { SourceRange } from '../../../util/source-range';
 import { ExpressionTree } from '../expression-tree';
 
 export class InfixExpressionTree implements ExpressionTree {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   metadata: InfixExpressionMetadata;
 
   constructor(public id: IdToken, public left: ExpressionTree, public right: ExpressionTree) {
-    this.sourceReference = SourceRange.fromTwoRange(left.sourceReference, right.sourceReference);
+    this.sourceRange = SourceRange.fromTwoRange(left.sourceRange, right.sourceRange);
   }
 
   toString(): string {
