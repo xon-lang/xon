@@ -2,11 +2,11 @@ import { Token } from 'antlr4ts';
 import { SourceRange } from './source-range';
 
 export class IdToken {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   text: string;
 
   constructor(token?: Token) {
-    this.sourceReference = SourceRange.fromToken(token);
+    this.sourceRange = SourceRange.fromToken(token);
     this.text = token.text;
   }
 

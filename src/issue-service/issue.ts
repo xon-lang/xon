@@ -57,8 +57,8 @@ export class Issue {
     throw new Error(issue.toString());
   }
 
-  static errorFromSourceReference(sourceReference: SourceRange, message: string): never {
-    const issue = Issue.fromSourceRange(sourceReference, IssueLevel.error, message);
+  static errorFromSourceRange(sourceRange: SourceRange, message: string): never {
+    const issue = Issue.fromSourceRange(sourceRange, IssueLevel.error, message);
     throw new Error(issue.toString());
   }
 }

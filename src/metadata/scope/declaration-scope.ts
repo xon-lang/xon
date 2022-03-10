@@ -38,7 +38,7 @@ export class DeclarationScope {
 
     if (results.length > 1) {
       const issues = results.map((x) =>
-        Issue.fromSourceRange(x.sourceReference, IssueLevel.error, '').toString(),
+        Issue.fromSourceRange(x.sourceRange, IssueLevel.error, '').toString(),
       );
       throw new Error(`Too many '${name}' declarations found:\n${issues.join('\n')}`);
     }
@@ -50,10 +50,12 @@ export class DeclarationScope {
   }
 
   findModel(name: string): DefinitionDeclarationMetadata {
-    const results = this.filterByName(name).filter((x) => x instanceof DefinitionDeclarationMetadata);
+    const results = this.filterByName(name).filter(
+      (x) => x instanceof DefinitionDeclarationMetadata,
+    );
     if (results.length > 1) {
       const issues = results.map((x) =>
-        Issue.fromSourceRange(x.sourceReference, IssueLevel.error, '').toString(),
+        Issue.fromSourceRange(x.sourceRange, IssueLevel.error, '').toString(),
       );
       throw new Error(`Too many '${name}' declarations found:\n${issues.join('\n')}`);
     }

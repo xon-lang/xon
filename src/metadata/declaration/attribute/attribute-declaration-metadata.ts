@@ -9,11 +9,11 @@ import { DeclarationScope } from '../../scope/declaration-scope';
 import { DeclarationMetadata } from '../declaration-metadata';
 
 export class AttributeDeclarationMetadata implements DeclarationMetadata {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   name: string;
 
   constructor(private tree: AttributeTree, private scope: DeclarationScope) {
-    this.sourceReference = tree.sourceRange;
+    this.sourceRange = tree.sourceRange;
     this.name = tree.id.name.text;
   }
 

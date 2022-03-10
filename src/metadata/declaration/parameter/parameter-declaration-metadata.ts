@@ -10,11 +10,11 @@ import { AttributeDeclarationMetadata } from '../attribute/attribute-declaration
 import { DeclarationMetadata } from '../declaration-metadata';
 
 export class ParameterDeclarationMetadata implements DeclarationMetadata {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   name: string;
 
   constructor(private tree: ParameterTree, private scope: DeclarationScope) {
-    this.sourceReference = tree.sourceRange;
+    this.sourceRange = tree.sourceRange;
     this.name = tree.id.name.text;
   }
 

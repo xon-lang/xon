@@ -7,11 +7,11 @@ import { AttributeDeclarationMetadata } from '../attribute/attribute-declaration
 import { DeclarationMetadata } from '../declaration-metadata';
 
 export class DefinitionDeclarationMetadata implements DeclarationMetadata {
-  sourceReference: SourceRange;
+  sourceRange: SourceRange;
   name: string;
 
   constructor(private tree: DefinitionTree, private scope: DeclarationScope) {
-    this.sourceReference = tree.sourceRange;
+    this.sourceRange = tree.sourceRange;
     this.name = tree.id.name.text;
   }
 
@@ -32,10 +32,6 @@ export class DefinitionDeclarationMetadata implements DeclarationMetadata {
   }
 
   is(metadata: DeclarationMetadata): boolean {
-    return (
-      this.sourceReference.equals(metadata.sourceReference) ||
-      this.baseModel()?.is(metadata) ||
-      false
-    );
+    return this.sourceRange.equals(metadata.sourceRange) || this.baseModel()?.is(metadata) || false;
   }
 }

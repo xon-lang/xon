@@ -1,5 +1,5 @@
 import '../../grammar/xon-parser': SourceContext
-import '../../util/source-reference': SourceReference
+import '../../util/source-reference': SourceRange
 import '../definition/definition-tree': DefinitionTree
 import '../definition/definition-tree-helper': getDefinitionTrees
 import '../statement/statement-tree': StatementTree
@@ -7,12 +7,12 @@ import '../statement/statement-tree-helper': getStatementTrees
 import '../tree.gen': Tree
 
 object SourceTree Tree
-  sourceReference SourceReference
+  sourceRange SourceRange
   statements StatementTree[] = []
   definitions DefinitionTree[] = []
 
   constructor(ctx SourceContext)
-    this.sourceReference = SourceReference.fromContext(ctx)
+    this.sourceRange = SourceRange.fromContext(ctx)
     this.statements = getStatementTrees(ctx.statement())
     this.definitions = getDefinitionTrees(ctx.definition())
 
