@@ -11,4 +11,5 @@
 
 # temporary ignoring
 src/tree/parameter/parameter-tree.ts
+src/tree/source/source-tree.xon
 src/tree/tree.ts

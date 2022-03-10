@@ -1,22 +1,19 @@
 import '../../grammar/xon-parser': SourceContext
-import '../../util/source-reference': SourceRange
-import '../definition/definition-tree': DefinitionTree
+import '../../util/source-range': SourceRange
 import '../definition/definition-tree-helper': getDefinitionTrees
-import '../statement/statement-tree': StatementTree
+import '../definition/definition-tree': DefinitionTree
 import '../statement/statement-tree-helper': getStatementTrees
-import '../tree.gen': Tree
+import '../statement/statement-tree': StatementTree
+import '../tree': Tree
 
-object SourceTree Tree
-  sourceRange SourceRange
-  statements StatementTree[] = []
-  definitions DefinitionTree[] = []
-
-  constructor(ctx SourceContext)
-    this.sourceRange = SourceRange.fromContext(ctx)
-    this.statements = getStatementTrees(ctx.statement())
-    this.definitions = getDefinitionTrees(ctx.definition())
+object SourceTree(ctx SourceContext) Tree
+  ctx SourceContext = ctx
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  statements StatementTree[] = getStatementTrees(ctx.statement())
+  definitions DefinitionTree[] = getDefinitionTrees(ctx.definition())
 
   toString() String
     statements = this.statements.join('\n')
     definitions = this.definitions.join('\n\n')
-    return [statements, definitions].filter(Boolean).join('\n\n')
+    result = [statements, definitions].filter(Boolean).join('\n\n')
+    return (result and result + '\n') or ''
