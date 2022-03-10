@@ -10,7 +10,6 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "noImplicitAny": false,
-    "outDir": "dist",
     "paths": {
       "@lib/*": [
         "src/lib/*"
@@ -24,6 +23,6 @@
   },
   "exclude": [],
   "include": [
-    "src/**/*"
+    "./**/*"
   ]
 }
