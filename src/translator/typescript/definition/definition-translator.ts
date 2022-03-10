@@ -13,8 +13,7 @@ export class DefinitionTranslator implements Translator {
   toString(): string {
     let modifier = (this.tree.modifier.text === 'object' && 'class') || 'interface';
     const id = getIdTranslator(this.tree.id);
-    let parameters =
-      this.tree.parameters && getParameterTranslators(this.tree.parameters).join(', ');
+    let parameters = getParameterTranslators(this.tree.parameters).join(', ');
     let base =
       (this.tree.base && ' implements ' + getExpressionTranslator(this.tree.base, false)) || '';
     const properties = this.tree.attributes
@@ -31,15 +30,10 @@ export class DefinitionTranslator implements Translator {
       .map((x) => `this.${getIdTranslator(x.id)} = ${getBodyTranslator(x.body)}`)
       .join('\n');
 
-    let constructor = '';
-    if (parameters) {
-      constructor = `constructor(${parameters}) `;
-    }
-    if (initProperties) {
-      constructor += `{\n${initProperties.replace(/^(.+)/gm, '  $1')}\n}`;
-    } else {
-      constructor += `{}`;
-    }
+    let constructor =
+      (initProperties &&
+        `constructor(${parameters}) {\n${initProperties.replace(/^(.+)/gm, '  $1')}\n}`) ||
+      '';
 
     const methodsWithBody = getAttributeTranslators(
       this.tree.attributes.filter((x) => x.isMethod && x.body),

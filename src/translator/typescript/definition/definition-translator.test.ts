@@ -1,21 +1,23 @@
-import { parseId } from '../../../util/parse';
-import { IdTranslator } from '../id/id-translator';
-import { getIdTranslator } from '../id/id-translator-helper';
+import { parseDefinition } from '../../../util/parse';
+import { DefinitionTranslator } from './definition-translator';
+import { getDefinitionTranslator } from './definition-translator-helper';
 
-test('id', () => {
-  const code = 'abc';
-  const tree = parseId(code);
-  const translator = getIdTranslator(tree);
+test('tree model', () => {
+  const code = `
+model Tree
+  toString() String
+`.trim();
+  const tree = parseDefinition(code);
+  const translator = getDefinitionTranslator(tree);
 
-  expect(translator).toBeInstanceOf(IdTranslator);
-  expect(translator.toString()).toBe('abc');
-});
+  expect(translator).toBeInstanceOf(DefinitionTranslator);
+  console.log(translator.toString());
 
-test('id with generics', () => {
-  const code = 'abc<|Number|>';
-  const tree = parseId(code);
-  const translator = getIdTranslator(tree);
-
-  expect(translator).toBeInstanceOf(IdTranslator);
-  expect(translator.toString()).toBe('abc<Number>');
+  expect(translator.toString()).toBe(
+    `
+export interface Tree {
+  toString(): String
+}
+  `.trim(),
+  );
 });
