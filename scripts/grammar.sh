@@ -3,7 +3,7 @@
 copy_ts_and_clean() {
     cp .antlr/XonLexer.ts xon-lexer.ts
     cp .antlr/XonParser.ts xon-parser.ts
-    npx rimraf .antlr
+    rm -rf .antlr
     clear
     echo "Grammar compiled successfully!"
 }
