@@ -29,9 +29,14 @@ export class DefinitionTranslator implements Translator {
       .map((x) => `this.${getIdTranslator(x.id)} = ${getBodyTranslator(x.body)}`)
       .join('\n');
 
+    const superCall = (base && '  super()\n') || '';
+
     let constructor =
       (initProperties &&
-        `constructor(${parameters}) {\n${initProperties.replace(/^(.+)/gm, '  $1')}\n}`) ||
+        `constructor(${parameters}) {\n${superCall}${initProperties.replace(
+          /^(.+)/gm,
+          '  $1',
+        )}\n}`) ||
       '';
 
     const methodsWithBody = getAttributeTranslators(
