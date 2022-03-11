@@ -30,5 +30,5 @@ object DefinitionTree(ctx DefinitionContext) Tree
     properties = this.attributes.filter((x) = !x.isMethod).join('\n')
     methodsWithBody = this.attributes.filter((x) = x.isMethod and x.body).join('\n\n')
     methodsWithNoBody = this.attributes.filter((x) = x.isMethod and !x.body).join('\n')
-    attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').replace(#{/^(.+)/gm}#, '  $1')
+    attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').replace(#{/^(.+)/gm}, '  $1')
     return (modifier + this.name + generics + parameters + base + ((attributes and '\n' + attributes) or ''))

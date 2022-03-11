@@ -10,4 +10,4 @@ object MultipleBodyTree(ctx MultipleBodyContext) BodyTree
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   statements StatementTree[] = getStatementTrees(ctx.statement())
 
-  toString() String = '\n' + this.statements.join('\n').replace(#{/^(.+)/gm}#, '  $1')
+  toString() String = '\n' + this.statements.join('\n').replace(#{/^(.+)/gm}, '  $1')

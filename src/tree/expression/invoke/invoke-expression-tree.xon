@@ -12,4 +12,4 @@ object InvokeExpressionTree(ctx InvokeExpressionContext) ExpressionTree
   instance ExpressionTree = getExpressionTree(ctx._instance)
   arguments ExpressionTree[] = getExpressionTrees(ctx._args)
 
-  toString() String = #{`${this.instance}(${this.arguments.join(', ')})`}#
+  toString() String = #{`${this.instance}(${this.arguments.join(', ')})`}

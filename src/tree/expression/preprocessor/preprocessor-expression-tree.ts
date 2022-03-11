@@ -11,10 +11,10 @@ export class PreprocessorExpressionTree implements ExpressionTree {
 
   constructor(ctx: PreprocessorExpressionContext) {
     this.sourceRange = SourceRange.fromContext(ctx);
-    this.value = ctx.PREPROCESSOR().text.trim().slice(2, -2);
+    this.value = ctx.PREPROCESSOR().text.trim().slice(2, -1);
   }
 
   toString(): String {
-    return `#{${this.value}}#`;
+    return `#{${this.value}}`;
   }
 }

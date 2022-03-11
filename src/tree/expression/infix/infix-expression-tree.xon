@@ -13,5 +13,5 @@ object InfixExpressionTree(name IdToken, left ExpressionTree, right ExpressionTr
 
   toString() String
     if (this.name.text == '^')
-      return #{`${this.left}${this.name}${this.right}`}#
-    return #{`${this.left} ${this.name} ${this.right}`}#
+      return #{`${this.left}${this.name}${this.right}`}
+    return #{`${this.left} ${this.name} ${this.right}`}

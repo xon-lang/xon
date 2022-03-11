@@ -14,5 +14,5 @@ object GenericsExpressionTree(ctx GenericsExpressionContext) ExpressionTree
   generics ParameterTree[] = getParameterTrees(ctx.generics().parameter())
 
   toString() String
-    generics = (this.generics.length and #{`<|${this.generics.join(', ')}|>`}#) or ''
+    generics = (this.generics.length and #{`<|${this.generics.join(', ')}|>`}) or ''
     return this.instance + generics

@@ -11,4 +11,4 @@ object ArrayExpressionTree(ctx ArrayExpressionContext) ExpressionTree
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   items ExpressionTree[] = getExpressionTrees(ctx.arrayItem().map((x) = x.expr(0)))
 
-  toString() String = #{`[${this.items.join(', ')}]`}#
+  toString() String = #{`[${this.items.join(', ')}]`}
