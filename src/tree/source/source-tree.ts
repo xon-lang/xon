@@ -1,4 +1,4 @@
-import { Any, Unknown, String, Number } from '@lib/core'
+import { Any, Unknown, String, Number } from '../../lib/core'
 import { SourceContext } from '../../grammar/xon-parser'
 import { SourceRange } from '../../util/source-range'
 import { getDefinitionTrees } from '../definition/definition-tree-helper'

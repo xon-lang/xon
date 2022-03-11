@@ -1,3 +1,4 @@
+import '../lib/core': String
 import '../util/source-range': SourceRange
 
 model Tree

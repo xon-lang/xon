@@ -15,7 +15,7 @@ import {
   PrefixExpressionContext,
 } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
-import { IdToken } from '../../util/id-token';
+import { getIdToken, IdToken } from '../../util/id-token';
 import { ArrayExpressionTree } from './array/array-expression-tree';
 import { ExpressionTree } from './expression-tree';
 import { GenericsExpressionTree } from './generics/generics-expression-tree';
@@ -60,7 +60,7 @@ export const getExpressionTree = (ctx: ExprContext): ExpressionTree => {
     ].map((x) => x.split(' '));
     const flatExpressions = (x) =>
       x instanceof InfixExpressionContext
-        ? [...flatExpressions(x._left), new IdToken(x._op), getExpressionTree(x._right)]
+        ? [...flatExpressions(x._left), getIdToken(x._op), getExpressionTree(x._right)]
         : [getExpressionTree(x)];
     const expressions: (IdToken | ExpressionTree)[] = flatExpressions(ctx);
 

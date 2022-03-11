@@ -1,3 +1,4 @@
+import '../../lib/core': String
 import '../../grammar/xon-parser': SourceContext
 import '../../util/source-range': SourceRange
 import '../definition/definition-tree-helper': getDefinitionTrees

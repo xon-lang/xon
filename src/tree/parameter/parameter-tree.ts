@@ -1,7 +1,7 @@
-import { String } from '@lib/core'
+import { String } from '../../lib/core'
 import { ParameterContext } from '../../grammar/xon-parser'
 import { ParameterDeclarationMetadata } from '../../metadata/declaration/parameter/parameter-declaration-metadata'
-import { IdToken } from '../../util/id-token'
+import { IdToken, getIdToken } from '../../util/id-token'
 import { SourceRange } from '../../util/source-range'
 import { BodyTree } from '../body/body-tree'
 import { getBodyTree } from '../body/body-tree-helper'
@@ -22,7 +22,7 @@ export class ParameterTree extends Tree {
     super()
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
-    this.name = new IdToken(ctx._name)
+    this.name = getIdToken(ctx._name)
     this.type = getExpressionTree(ctx.expr())
     this.body = getBodyTree(ctx.body())
   }

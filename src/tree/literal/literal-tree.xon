@@ -1,3 +1,4 @@
+import '../../lib/core': String, Number
 import '../tree': Tree
 
 model LiteralTree Tree

@@ -1,6 +1,6 @@
 import { AttributeContext } from '../../grammar/xon-parser';
 import { AttributeDeclarationMetadata } from '../../metadata/declaration/attribute/attribute-declaration-metadata';
-import { IdToken } from '../../util/id-token';
+import { getIdToken, IdToken } from '../../util/id-token';
 import { SourceRange } from '../../util/source-range';
 import { BodyTree } from '../body/body-tree';
 import { getBodyTree } from '../body/body-tree-helper';
@@ -25,10 +25,10 @@ export class AttributeTree implements Tree {
   constructor(private ctx: AttributeContext) {
     this.sourceRange = SourceRange.fromContext(ctx);
 
-    this.modifier = (ctx._modifier && new IdToken(ctx._modifier)) || null;
+    this.modifier = (ctx._modifier && getIdToken(ctx._modifier)) || null;
     this.isMethod = !!ctx.methodParameters();
     this.isOperator = this.modifier?.text === 'operator';
-    this.name = new IdToken(ctx._name);
+    this.name = getIdToken(ctx._name);
     this.generics = getParameterTrees(ctx.generics()?.parameter());
     this.parameters = getParameterTrees(ctx.methodParameters()?.parameter());
     this.type = getExpressionTree(ctx.expr()) || null;

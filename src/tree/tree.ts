@@ -1,4 +1,4 @@
-import { String } from '@lib/core';
+import { String } from '../lib/core';
 import { SourceRange } from '../util/source-range';
 
 export class Tree {

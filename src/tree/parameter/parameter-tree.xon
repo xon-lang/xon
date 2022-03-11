@@ -1,7 +1,7 @@
-import '@lib/core': String
+import '../../lib/core': String
 import '../../grammar/xon-parser': ParameterContext
 import '../../metadata/declaration/parameter/parameter-declaration-metadata': ParameterDeclarationMetadata
-import '../../util/id-token': IdToken
+import '../../util/id-token': IdToken, getIdToken
 import '../../util/source-range': SourceRange
 import '../body/body-tree': BodyTree
 import '../body/body-tree-helper': getBodyTree
@@ -14,7 +14,7 @@ object ParameterTree(ctx ParameterContext) Tree
   ctx ParameterContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   metadata ParameterDeclarationMetadata
-  name IdToken = IdToken(ctx._name)
+  name IdToken = getIdToken(ctx._name)
   type ExpressionTree? = getExpressionTree(ctx.expr())
   body BodyTree? = getBodyTree(ctx.body())
 
