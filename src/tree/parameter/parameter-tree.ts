@@ -1,3 +1,5 @@
+// this code was generated
+
 import { String } from '../../lib/core'
 import { ParameterContext } from '../../grammar/xon-parser'
 import { ParameterDeclarationMetadata } from '../../metadata/declaration/parameter/parameter-declaration-metadata'
@@ -37,3 +39,5 @@ export class ParameterTree extends Tree {
     return this.name + type + body
   }
 }
+
+// this code was generated

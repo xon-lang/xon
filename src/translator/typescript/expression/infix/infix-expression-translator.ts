@@ -10,6 +10,8 @@ export class InfixExpressionTranslator implements ExpressionTranslator {
     const right = getExpressionTranslator(this.tree.right, this.isType);
 
     const idMap = {
+      '==': '===',
+      '!=': '!==',
       is: 'instanceof',
       and: (this.isType && '&') || '&&',
       or: (this.isType && '|') || '||',

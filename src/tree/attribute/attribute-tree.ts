@@ -1,50 +1,55 @@
-import { AttributeContext } from '../../grammar/xon-parser';
-import { AttributeDeclarationMetadata } from '../../metadata/declaration/attribute/attribute-declaration-metadata';
-import { getIdToken, IdToken } from '../../util/id-token';
-import { SourceRange } from '../../util/source-range';
-import { BodyTree } from '../body/body-tree';
-import { getBodyTree } from '../body/body-tree-helper';
-import { ExpressionTree } from '../expression/expression-tree';
-import { getExpressionTree } from '../expression/expression-tree-helper';
-import { ParameterTree } from '../parameter/parameter-tree';
-import { getParameterTrees } from '../parameter/parameter-tree-helper';
-import { Tree } from '../tree';
+// this code was generated
 
-export class AttributeTree implements Tree {
-  metadata: AttributeDeclarationMetadata;
-  sourceRange: SourceRange;
-  modifier?: IdToken;
-  isMethod: boolean;
-  isOperator: boolean;
-  name: IdToken;
-  generics: ParameterTree[];
-  parameters: ParameterTree[];
-  type?: ExpressionTree;
-  body?: BodyTree;
+import { AttributeContext } from '../../grammar/xon-parser'
+import { String } from '../../lib/core'
+import { AttributeDeclarationMetadata } from '../../metadata/declaration/attribute/attribute-declaration-metadata'
+import { getIdToken, IdToken } from '../../util/id-token'
+import { SourceRange } from '../../util/source-range'
+import { BodyTree } from '../body/body-tree'
+import { getBodyTree } from '../body/body-tree-helper'
+import { ExpressionTree } from '../expression/expression-tree'
+import { getExpressionTree } from '../expression/expression-tree-helper'
+import { ParameterTree } from '../parameter/parameter-tree'
+import { getParameterTrees } from '../parameter/parameter-tree-helper'
+import { Tree } from '../tree'
 
-  constructor(private ctx: AttributeContext) {
-    this.sourceRange = SourceRange.fromContext(ctx);
+export class AttributeTree extends Tree {
+  metadata: AttributeDeclarationMetadata
+  sourceRange: SourceRange
+  modifier?: (IdToken | null)
+  isMethod: boolean
+  isOperator: boolean
+  name: IdToken
+  generics: ParameterTree[]
+  parameters: ParameterTree[]
+  type?: (ExpressionTree | null)
+  body?: (BodyTree | null)
 
-    this.modifier = (ctx._modifier && getIdToken(ctx._modifier)) || null;
-    this.isMethod = !!ctx.methodParameters();
-    this.isOperator = this.modifier?.text === 'operator';
-    this.name = getIdToken(ctx._name);
-    this.generics = getParameterTrees(ctx.generics()?.parameter());
-    this.parameters = getParameterTrees(ctx.methodParameters()?.parameter());
-    this.type = getExpressionTree(ctx.expr()) || null;
-    this.body = getBodyTree(ctx.body()) || null;
+  constructor(ctx: AttributeContext) {
+    super()
+    this.sourceRange = SourceRange.fromContext(ctx)
+    this.modifier = (ctx._modifier && getIdToken(ctx._modifier)) || null
+    this.isMethod = !!ctx.methodParameters()
+    this.isOperator = this.modifier?.text === 'operator'
+    this.name = getIdToken(ctx._name)
+    this.generics = getParameterTrees(ctx.generics()?.parameter())
+    this.parameters = getParameterTrees(ctx.methodParameters()?.parameter())
+    this.type = getExpressionTree(ctx.expr()) || null
+    this.body = getBodyTree(ctx.body()) || null
   }
 
-  toString() {
-    const modifier = (this.modifier && this.modifier + ' ') || '';
-    let parameters = (this.isMethod && `(${this.parameters.join(', ')})`) || '';
-    let generics = (this.generics.length && `<|${this.generics.join(', ')}|>`) || '';
-    if (this.isOperator) {
-      parameters = ' ' + parameters;
+  toString(): String {
+    let modifier, parameters, generics, type, body
+    modifier = (this.modifier && this.modifier + ' ') || ''
+    parameters = (this.isMethod && `(${this.parameters.join(', ')})`) || ''
+    generics = (this.generics.length && `<|${this.generics.join(', ')}|>`) || ''
+    if ((this.isOperator)) {
+      parameters = ' ' + parameters
     }
-    const type = (this.type && ' ' + this.type) || '';
-
-    const body = (this.body && this.body) || '';
-    return modifier + this.name + generics + parameters + type + body;
+    type = (this.type && ' ' + this.type) || ''
+    body = (this.body && this.body) || ''
+    return modifier + this.name + generics + parameters + type + body
   }
 }
+
+// this code was generated
