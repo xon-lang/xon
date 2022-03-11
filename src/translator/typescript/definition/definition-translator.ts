@@ -22,13 +22,13 @@ export class DefinitionTranslator implements Translator {
       .map((x) => {
         const nullable = (x.type instanceof NullableExpressionTree && '?') || '';
         const type = ': ' + (getExpressionTranslator(x.type, true) || 'any');
-        return x.id + nullable + type;
+        return x.name + nullable + type;
       })
       .join('\n');
 
     const initProperties = this.tree.attributes
       .filter((x) => !x.isMethod && x.body)
-      .map((x) => `this.${x.id} = ${getBodyTranslator(x.body)}`)
+      .map((x) => `this.${x.name} = ${getBodyTranslator(x.body)}`)
       .join('\n');
 
     const superCall = (base && '  super()\n') || '';
@@ -56,6 +56,6 @@ export class DefinitionTranslator implements Translator {
             .replace(/^(.+)/gm, '  $1') +
           '\n}') ||
       '{}';
-    return `export class ${this.tree.id}${generics}${base} ${attributes}`;
+    return `export class ${this.tree.name}${generics}${base} ${attributes}`;
   }
 }

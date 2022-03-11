@@ -9,15 +9,15 @@ export class MemberExpressionTree implements ExpressionTree {
   sourceRange: SourceRange;
   metadata: MemberExpressionMetadata;
   instance: ExpressionTree;
-  id: IdToken;
+  name: IdToken;
 
   constructor(ctx: MemberExpressionContext) {
     this.sourceRange = SourceRange.fromContext(ctx);
     this.instance = getExpressionTree(ctx.expr());
-    this.id = new IdToken(ctx._name);
+    this.name = new IdToken(ctx._name);
   }
 
   toString(): string {
-    return `${this.instance}.${this.id}`;
+    return `${this.instance}.${this.name}`;
   }
 }

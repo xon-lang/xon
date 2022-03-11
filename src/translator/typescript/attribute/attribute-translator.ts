@@ -15,7 +15,7 @@ export class AttributeTranslator implements Translator {
   constructor(private tree: AttributeTree) {}
 
   toString(): string {
-    const modifier = (this.tree.id.text.startsWith('_') && 'private ') || '';
+    const modifier = (this.tree.name.text.startsWith('_') && 'private ') || '';
     let parameters =
       (this.tree.isMethod && `(${getParameterTranslators(this.tree.parameters).join(', ')})`) || '';
     let generics =
@@ -43,7 +43,7 @@ export class AttributeTranslator implements Translator {
       body = ` {\n  throw new Error('Not implemented')\n}`;
     }
 
-    return modifier + this.tree.id + generics + parameters + type + body;
+    return modifier + this.tree.name + generics + parameters + type + body;
   }
 
   // todo remove and fix with using metadata
@@ -71,7 +71,7 @@ export class AttributeTranslator implements Translator {
         statement instanceof AssignmentStatementTree &&
         statement.variable instanceof IdExpressionTree
       ) {
-        vars.push(statement.variable.id.text);
+        vars.push(statement.variable.name.text);
       }
 
       if (statement instanceof IfStatementTree) {

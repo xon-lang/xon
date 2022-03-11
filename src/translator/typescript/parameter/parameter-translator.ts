@@ -10,8 +10,8 @@ export class ParameterTranslator implements Translator {
     const type = (this.tree.type && ': ' + getExpressionTranslator(this.tree.type, true)) || '';
     const body = getBodyTranslator(this.tree.body);
     if (body) {
-      return `${this.tree.id.text}${type} = ${body}`;
+      return `${this.tree.name.text}${type} = ${body}`;
     }
-    return `${this.tree.id.text}${type}`;
+    return `${this.tree.name.text}${type}`;
   }
 }

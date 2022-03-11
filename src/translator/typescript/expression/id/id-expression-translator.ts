@@ -5,6 +5,6 @@ export class IdExpressionTranslator implements ExpressionTranslator {
   constructor(private tree: IdExpressionTree, private isType: boolean) {}
 
   toString(): string {
-    return this.tree.id.text;
+    return this.tree.name.text;
   }
 }

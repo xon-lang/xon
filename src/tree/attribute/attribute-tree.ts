@@ -16,7 +16,7 @@ export class AttributeTree implements Tree {
   modifier?: IdToken;
   isMethod: boolean;
   isOperator: boolean;
-  id: IdToken;
+  name: IdToken;
   generics: ParameterTree[];
   parameters: ParameterTree[];
   type?: ExpressionTree;
@@ -28,7 +28,7 @@ export class AttributeTree implements Tree {
     this.modifier = (ctx._modifier && new IdToken(ctx._modifier)) || null;
     this.isMethod = !!ctx.methodParameters();
     this.isOperator = this.modifier?.text === 'operator';
-    this.id = new IdToken(ctx._name);
+    this.name = new IdToken(ctx._name);
     this.generics = getParameterTrees(ctx.generics()?.parameter());
     this.parameters = getParameterTrees(ctx.methodParameters()?.parameter());
     this.type = getExpressionTree(ctx.expr()) || null;
@@ -45,6 +45,6 @@ export class AttributeTree implements Tree {
     const type = (this.type && ' ' + this.type) || '';
 
     const body = (this.body && this.body) || '';
-    return modifier + this.id + generics + parameters + type + body;
+    return modifier + this.name + generics + parameters + type + body;
   }
 }

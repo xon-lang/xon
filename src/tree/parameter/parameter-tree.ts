@@ -13,7 +13,7 @@ export class ParameterTree extends Tree {
   ctx: ParameterContext;
   sourceRange: SourceRange;
   metadata: ParameterDeclarationMetadata;
-  id: IdToken;
+  name: IdToken;
   type?: ExpressionTree | null;
   body?: BodyTree | null;
 
@@ -21,7 +21,7 @@ export class ParameterTree extends Tree {
     super();
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
-    this.id = new IdToken(ctx._name);
+    this.name = new IdToken(ctx._name);
     this.type = getExpressionTree(ctx.expr());
     this.body = getBodyTree(ctx.body());
   }
@@ -33,6 +33,6 @@ export class ParameterTree extends Tree {
       type = ' ' + type;
     }
     body = (this.body && this.body) || '';
-    return this.id + type + body;
+    return this.name + type + body;
   }
 }

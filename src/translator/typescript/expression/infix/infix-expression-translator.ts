@@ -14,7 +14,7 @@ export class InfixExpressionTranslator implements ExpressionTranslator {
       and: (this.isType && '&') || '&&',
       or: (this.isType && '|') || '||',
     };
-    const id = idMap[this.tree.id.text] || this.tree.id.text;
+    const id = idMap[this.tree.name.text] || this.tree.name.text;
     return `${left} ${id} ${right}`;
   }
 }

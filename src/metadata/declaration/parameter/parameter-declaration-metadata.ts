@@ -15,7 +15,7 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
 
   constructor(private tree: ParameterTree, private scope: DeclarationScope) {
     this.sourceRange = tree.sourceRange;
-    this.name = tree.id.text;
+    this.name = tree.name.text;
   }
 
   generics(): ExpressionMetadata[] {
@@ -42,7 +42,7 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
     } else if (this.tree.body) {
       return this.value();
     }
-    Issue.errorFromTree(this.tree, `Parameter '${this.tree.id}' must have a type`);
+    Issue.errorFromTree(this.tree, `Parameter '${this.tree.name}' must have a type`);
   }
 
   attributes(): AttributeDeclarationMetadata[] {

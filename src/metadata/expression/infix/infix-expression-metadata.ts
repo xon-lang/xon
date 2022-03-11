@@ -12,7 +12,7 @@ export class InfixExpressionMetadata implements ExpressionMetadata {
     const right = getExpressionMetadata(this.tree.right, this.scope);
     const attributes = left
       .attributes()
-      .filter((x) => x.name === this.tree.id.text && x.type().is(right));
+      .filter((x) => x.name === this.tree.name.text && x.type().is(right));
     if (attributes.length > 1) throw new Error('To many attributes');
     if (attributes.length === 0) throw new Error('Not found');
     return attributes[0].type().attributes();

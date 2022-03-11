@@ -9,8 +9,8 @@ test('model cat', () => {
   expect(tree).toBeInstanceOf(DefinitionTree);
 
   expect(tree.modifier.text).toBe('model');
-  expect(tree.id.text).toBe('Cat');
-  expect((tree.base as IdExpressionTree).id.text).toBe('Animal');
+  expect(tree.name.text).toBe('Cat');
+  expect((tree.base as IdExpressionTree).name.text).toBe('Animal');
   expect(tree.attributes.length).toBe(0);
 });
 
@@ -20,11 +20,11 @@ test('model animal with only attribute', () => {
   expect(tree).toBeInstanceOf(DefinitionTree);
 
   expect(tree.modifier.text).toBe('model');
-  expect(tree.id.text).toBe('Animal');
+  expect(tree.name.text).toBe('Animal');
   expect(tree.base).toBe(null);
   expect(tree.attributes.length).toBe(1);
-  expect(tree.attributes[0].id.text).toBe('abc');
-  expect((tree.attributes[0].type as IdExpressionTree).id.text).toBe('Integer');
+  expect(tree.attributes[0].name.text).toBe('abc');
+  expect((tree.attributes[0].type as IdExpressionTree).name.text).toBe('Integer');
 });
 
 test('1-error.xon', () => {

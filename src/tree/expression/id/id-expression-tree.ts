@@ -7,14 +7,14 @@ import { ExpressionTree } from '../expression-tree';
 export class IdExpressionTree implements ExpressionTree {
   sourceRange: SourceRange;
   metadata: ExpressionMetadata;
-  id: IdToken;
+  name: IdToken;
 
   constructor(ctx: IdExpressionContext) {
     this.sourceRange = SourceRange.fromContext(ctx);
-    this.id = new IdToken(ctx._name);
+    this.name = new IdToken(ctx._name);
   }
 
   toString(): string {
-    return this.id.toString();
+    return this.name.toString();
   }
 }

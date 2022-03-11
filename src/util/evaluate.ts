@@ -16,7 +16,7 @@ export const evaluate = (tree: ExpressionTree, argsMap = {}): unknown => {
   if (tree instanceof InfixExpressionTree) {
     const a = evaluate(tree.left, argsMap);
     const b = evaluate(tree.right, argsMap);
-    const o = tree.id.text === '^' ? '**' : tree.id.text;
+    const o = tree.name.text === '^' ? '**' : tree.name.text;
     return eval(`${escapeIfString(a)} ${o} ${escapeIfString(b)}`);
   }
   if (tree instanceof PrefixExpressionTree) {
@@ -24,8 +24,8 @@ export const evaluate = (tree: ExpressionTree, argsMap = {}): unknown => {
     return eval(`${tree.operator.text}${escapeIfString(a)}`);
   }
   if (tree instanceof IdExpressionTree) {
-    if (tree.id.text in argsMap) return argsMap[tree.id.text];
-    Issue.errorFromTree(tree, `Undefined key: ${tree.id}`);
+    if (tree.name.text in argsMap) return argsMap[tree.name.text];
+    Issue.errorFromTree(tree, `Undefined key: ${tree.name}`);
   }
 
   Issue.errorFromTree(tree, 'Unsupported operation');

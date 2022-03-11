@@ -8,7 +8,7 @@ export class IdExpressionMetadata implements ExpressionMetadata {
   constructor(private tree: IdExpressionTree, private scope: DeclarationScope) {}
 
   declaration(): DeclarationMetadata {
-    return this.scope.findByName(this.tree.id.text);
+    return this.scope.findByName(this.tree.name.text);
   }
 
   attributes(): AttributeDeclarationMetadata[] {

@@ -14,7 +14,7 @@ export class AttributeDeclarationMetadata implements DeclarationMetadata {
 
   constructor(private tree: AttributeTree, private scope: DeclarationScope) {
     this.sourceRange = tree.sourceRange;
-    this.name = tree.id.text;
+    this.name = tree.name.text;
   }
 
   generics(): ExpressionMetadata[] {
@@ -41,7 +41,7 @@ export class AttributeDeclarationMetadata implements DeclarationMetadata {
     } else if (this.tree.body) {
       return this.value();
     }
-    Issue.errorFromTree(this.tree, `Attribute '${this.tree.id}' must have a type`);
+    Issue.errorFromTree(this.tree, `Attribute '${this.tree.name}' must have a type`);
   }
 
   attributes(): AttributeDeclarationMetadata[] {

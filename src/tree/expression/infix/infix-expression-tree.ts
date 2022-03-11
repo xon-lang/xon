@@ -7,14 +7,14 @@ export class InfixExpressionTree implements ExpressionTree {
   sourceRange: SourceRange;
   metadata: InfixExpressionMetadata;
 
-  constructor(public id: IdToken, public left: ExpressionTree, public right: ExpressionTree) {
+  constructor(public name: IdToken, public left: ExpressionTree, public right: ExpressionTree) {
     this.sourceRange = SourceRange.fromTwoRange(left.sourceRange, right.sourceRange);
   }
 
   toString(): string {
-    if (this.id.text === '^') {
-      return `${this.left}${this.id}${this.right}`;
+    if (this.name.text === '^') {
+      return `${this.left}${this.name}${this.right}`;
     }
-    return `${this.left} ${this.id} ${this.right}`;
+    return `${this.left} ${this.name} ${this.right}`;
   }
 }

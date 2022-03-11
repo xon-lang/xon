@@ -7,6 +7,6 @@ export class MemberExpressionTranslator implements ExpressionTranslator {
 
   toString(): string {
     const instance = getExpressionTranslator(this.tree.instance, this.isType);
-    return `${instance}.${this.tree.id}`;
+    return `${instance}.${this.tree.name}`;
   }
 }
