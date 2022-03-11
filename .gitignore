@@ -7,10 +7,3 @@
 /node_modules
 /coverage
 /gen
-
-
-# temporary ignoring
-src/tree/literal/literal-tree.ts
-src/tree/parameter/parameter-tree.ts
-src/tree/source/source-tree.ts
-src/tree/tree.ts
