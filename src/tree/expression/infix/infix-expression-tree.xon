@@ -1,0 +1,17 @@
+import '../../../lib/core': String
+import '../../../metadata/expression/infix/infix-expression-metadata': InfixExpressionMetadata
+import '../../../util/id-token': IdToken
+import '../../../util/source-range': SourceRange
+import '../expression-tree': ExpressionTree
+
+object InfixExpressionTree(name IdToken, left ExpressionTree, right ExpressionTree) ExpressionTree
+  metadata InfixExpressionMetadata
+  name IdToken = name
+  left ExpressionTree = left
+  right ExpressionTree = right
+  sourceRange SourceRange = SourceRange.fromTwoRange(left.sourceRange, right.sourceRange)
+
+  toString() String
+    if (this.name.text == '^')
+      return #{`${this.left}${this.name}${this.right}`}#
+    return #{`${this.left} ${this.name} ${this.right}`}#

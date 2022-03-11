@@ -1,5 +1,5 @@
 for thinking
   docs ast
   object and model modifier
-  'is' keyword
+  'is' keyword (model B is A)
   try to use const (will ready with metadata)

@@ -9,7 +9,7 @@ object IndexExpressionTree(ctx IndexExpressionContext) ExpressionTree
   metadata ExpressionMetadata
   ctx IndexExpressionContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
-  instance ExpressionTree == getExpressionTree(ctx._instance)
+  instance ExpressionTree = getExpressionTree(ctx._instance)
   arguments ExpressionTree[] = getExpressionTrees(ctx._args)
 
   toString() String = #{`${this.instance}[${this.arguments.join(', ')}]`}#

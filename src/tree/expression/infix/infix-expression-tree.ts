@@ -1,21 +1,32 @@
-import { String } from '../../../lib/core';
-import { InfixExpressionMetadata } from '../../../metadata/expression/infix/infix-expression-metadata';
-import { IdToken } from '../../../util/id-token';
-import { SourceRange } from '../../../util/source-range';
-import { ExpressionTree } from '../expression-tree';
+// this code was generated
 
-export class InfixExpressionTree implements ExpressionTree {
-  sourceRange: SourceRange;
-  metadata: InfixExpressionMetadata;
+import { String } from '../../../lib/core'
+import { InfixExpressionMetadata } from '../../../metadata/expression/infix/infix-expression-metadata'
+import { IdToken } from '../../../util/id-token'
+import { SourceRange } from '../../../util/source-range'
+import { ExpressionTree } from '../expression-tree'
 
-  constructor(public name: IdToken, public left: ExpressionTree, public right: ExpressionTree) {
-    this.sourceRange = SourceRange.fromTwoRange(left.sourceRange, right.sourceRange);
+export class InfixExpressionTree extends ExpressionTree {
+  metadata: InfixExpressionMetadata
+  name: IdToken
+  left: ExpressionTree
+  right: ExpressionTree
+  sourceRange: SourceRange
+
+  constructor(name: IdToken, left: ExpressionTree, right: ExpressionTree) {
+    super()
+    this.name = name
+    this.left = left
+    this.right = right
+    this.sourceRange = SourceRange.fromTwoRange(left.sourceRange, right.sourceRange)
   }
 
   toString(): String {
-    if (this.name.text === '^') {
-      return `${this.left}${this.name}${this.right}`;
+    if ((this.name.text === '^')) {
+      return `${this.left}${this.name}${this.right}`
     }
-    return `${this.left} ${this.name} ${this.right}`;
+    return `${this.left} ${this.name} ${this.right}`
   }
 }
+
+// this code was generated
