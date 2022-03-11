@@ -1,0 +1,13 @@
+import '../../../grammar/xon-parser': SingleBodyContext
+import '../../../lib/core': String
+import '../../../util/source-range': SourceRange
+import '../../statement/statement-tree': StatementTree
+import '../../statement/statement-tree-helper': getStatementTree
+import '../body-tree': BodyTree
+
+object SingleBodyTree(ctx SingleBodyContext) BodyTree
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  statement StatementTree = getStatementTree(ctx.statement())
+
+  toString() String
+    return ` = ${this.statement}`

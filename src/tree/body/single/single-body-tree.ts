@@ -1,19 +1,25 @@
-import { SingleBodyContext } from '../../../grammar/xon-parser';
-import { SourceRange } from '../../../util/source-range';
-import { StatementTree } from '../../statement/statement-tree';
-import { getStatementTree } from '../../statement/statement-tree-helper';
-import { BodyTree } from '../body-tree';
+// this code was generated
 
-export class SingleBodyTree implements BodyTree {
-  sourceRange: SourceRange;
-  statement: StatementTree;
+import { SingleBodyContext } from '../../../grammar/xon-parser'
+import { String } from '../../../lib/core'
+import { SourceRange } from '../../../util/source-range'
+import { StatementTree } from '../../statement/statement-tree'
+import { getStatementTree } from '../../statement/statement-tree-helper'
+import { BodyTree } from '../body-tree'
+
+export class SingleBodyTree extends BodyTree {
+  sourceRange: SourceRange
+  statement: StatementTree
 
   constructor(ctx: SingleBodyContext) {
-    this.sourceRange = SourceRange.fromContext(ctx);
-    this.statement = getStatementTree(ctx.statement());
+    super()
+    this.sourceRange = SourceRange.fromContext(ctx)
+    this.statement = getStatementTree(ctx.statement())
   }
 
-  toString(): string {
-    return ` = ${this.statement}`;
+  toString(): String {
+    return ` = ${this.statement}`
   }
 }
+
+// this code was generated
