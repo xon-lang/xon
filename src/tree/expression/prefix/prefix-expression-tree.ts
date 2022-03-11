@@ -1,24 +1,29 @@
-import { PrefixExpressionContext } from '../../../grammar/xon-parser';
-import { String } from '../../../lib/core';
-import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
-import { getIdToken, IdToken } from '../../../util/id-token';
-import { SourceRange } from '../../../util/source-range';
-import { ExpressionTree } from '../expression-tree';
-import { getExpressionTree } from '../expression-tree-helper';
+// this code was generated
 
-export class PrefixExpressionTree implements ExpressionTree {
-  sourceRange: SourceRange;
-  metadata: ExpressionMetadata;
-  operator: IdToken;
-  value: ExpressionTree;
+import { PrefixExpressionContext } from '../../../grammar/xon-parser'
+import { String } from '../../../lib/core'
+import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata'
+import { getIdToken, IdToken } from '../../../util/id-token'
+import { SourceRange } from '../../../util/source-range'
+import { getExpressionTree } from '../expression-tree-helper'
+import { ExpressionTree } from '../expression-tree'
+
+export class PrefixExpressionTree extends ExpressionTree {
+  metadata: ExpressionMetadata
+  sourceRange: SourceRange
+  operator: IdToken
+  value: ExpressionTree
 
   constructor(ctx: PrefixExpressionContext) {
-    this.sourceRange = SourceRange.fromContext(ctx);
-    this.operator = getIdToken(ctx._op);
-    this.value = getExpressionTree(ctx.expr());
+    super()
+    this.sourceRange = SourceRange.fromContext(ctx)
+    this.operator = getIdToken(ctx._op)
+    this.value = getExpressionTree(ctx.expr())
   }
 
   toString(): String {
-    return `${this.operator}${this.value}`;
+    return `${this.operator}${this.value}`
   }
 }
+
+// this code was generated
