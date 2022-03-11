@@ -6,5 +6,5 @@ test('1', () => {
   const tree = parseStatement(code) as ExportStatementTree;
   expect(tree).toBeInstanceOf(ExportStatementTree);
 
-  expect(tree.path).toBe('lib.org');
+  expect(tree.path.toString()).toBe('lib.org');
 });
