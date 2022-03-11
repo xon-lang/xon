@@ -1,13 +1,15 @@
 object someObjectFactory<|T|>(name String)
   arr = [123, 456, 789, 456, 789]
-  abc Integer
+  abc T
 
-  method(x Number, y Number) MyType
+  method(x Number, y Number) String?
     this.hello()
     this.pos()
+    return null
 
-  location(x Number, y Number) Position
+  location(x Number, y Number) Number
     this.method(x, y)
+    return 123
 
   hello()
   pos()

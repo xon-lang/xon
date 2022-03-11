@@ -8,7 +8,7 @@ test('id', () => {
   const translator = getParameterTranslator(tree);
 
   expect(translator).toBeInstanceOf(ParameterTranslator);
-  expect(translator.toString()).toBe('a: any');
+  expect(translator.toString()).toBe('a');
 });
 
 test('id type', () => {

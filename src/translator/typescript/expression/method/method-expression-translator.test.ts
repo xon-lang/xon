@@ -8,7 +8,7 @@ test('as type', () => {
   const translator = getExpressionTranslator(tree, true);
 
   expect(translator).toBeInstanceOf(MethodExpressionTranslator);
-  expect(translator.toString()).toBe('(a: Number, b: any): a + b');
+  expect(translator.toString()).toBe('(a: Number, b): a + b');
 });
 
 test('as value', () => {
@@ -17,5 +17,5 @@ test('as value', () => {
   const translator = getExpressionTranslator(tree, false);
 
   expect(translator).toBeInstanceOf(MethodExpressionTranslator);
-  expect(translator.toString()).toBe('(a: Number, b: any) => a + b');
+  expect(translator.toString()).toBe('(a: Number, b) => a + b');
 });

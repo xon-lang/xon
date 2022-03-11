@@ -6,7 +6,7 @@ import { NullableExpressionTranslator } from './nullable-expression-translator';
 test('member', () => {
   const code = 'abc?.def';
   const tree = parseExpression(code);
-  const translator = getExpressionTranslator(tree, true);
+  const translator = getExpressionTranslator(tree, false);
 
   expect(translator).toBeInstanceOf(MemberExpressionTranslator);
   expect(translator.toString()).toBe('abc?.def');

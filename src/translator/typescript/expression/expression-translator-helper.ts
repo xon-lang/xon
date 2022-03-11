@@ -1,6 +1,7 @@
 import { Issue } from '../../../issue-service/issue';
 import { ArrayExpressionTree } from '../../../tree/expression/array/array-expression-tree';
 import { ExpressionTree } from '../../../tree/expression/expression-tree';
+import { GenericsExpressionTree } from '../../../tree/expression/generics/generics-expression-tree';
 import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
 import { IndexExpressionTree } from '../../../tree/expression/index/index-expression-tree';
 import { InfixExpressionTree } from '../../../tree/expression/infix/infix-expression-tree';
@@ -13,6 +14,7 @@ import { ParenthesizedExpressionTree } from '../../../tree/expression/parenthesi
 import { PrefixExpressionTree } from '../../../tree/expression/prefix/prefix-expression-tree';
 import { ArrayExpressionTranslator } from './array/array-expression-translator';
 import { ExpressionTranslator } from './expression-translator';
+import { GenericsExpressionTranslator } from './generics/generics-expression-translator';
 import { IdExpressionTranslator } from './id/id-expression-translator';
 import { IndexExpressionTranslator } from './index/index-expression-translator';
 import { InfixExpressionTranslator } from './infix/infix-expression-translator';
@@ -31,6 +33,8 @@ export function getExpressionTranslator(
   if (!tree) return null;
   try {
     if (tree instanceof ArrayExpressionTree) return new ArrayExpressionTranslator(tree, isType);
+    if (tree instanceof GenericsExpressionTree)
+      return new GenericsExpressionTranslator(tree, isType);
     if (tree instanceof IdExpressionTree) return new IdExpressionTranslator(tree, isType);
     if (tree instanceof InfixExpressionTree) return new InfixExpressionTranslator(tree, isType);
     if (tree instanceof InvokeExpressionTree) return new InvokeExpressionTranslator(tree, isType);
