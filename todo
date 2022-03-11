@@ -3,3 +3,9 @@ for thinking
   object and model modifier
   'is' keyword (model B is A)
   try to use const (will ready with metadata)
+
+  for statement with else branch:
+    for item in items:
+      someAction()
+    else:
+      throw Error("No items")
