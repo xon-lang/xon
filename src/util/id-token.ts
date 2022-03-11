@@ -1,3 +1,5 @@
+// this code was generated
+
 import { Token } from 'antlr4ts';
 import { none, String } from '../lib/core';
 import { SourceRange } from './source-range';
@@ -19,3 +21,5 @@ export class IdToken {
 export function getIdToken(token?: Token): IdToken {
   return (token && new IdToken(token)) || none;
 }
+
+// this code was generated

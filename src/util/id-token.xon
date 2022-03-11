@@ -1,0 +1,17 @@
+import 'antlr4ts': Token
+import '../lib/core': none, String
+import './source-range': SourceRange
+
+object IdToken(token Token)
+  sourceRange SourceRange = SourceRange.fromToken(token)
+  text String = token.text
+
+  toString() String
+    return this.text
+
+
+#{
+export function getIdToken(token?: Token): IdToken {
+    return (token && new IdToken(token)) || none
+}
+}
