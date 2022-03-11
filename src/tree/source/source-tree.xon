@@ -6,6 +6,7 @@ import '../definition/definition-tree': DefinitionTree
 import '../statement/statement-tree-helper': getStatementTrees
 import '../statement/statement-tree': StatementTree
 import '../tree': Tree
+import '../statement/import/import-statement-tree': ImportStatementTree
 
 object SourceTree(ctx SourceContext) Tree
   ctx SourceContext = ctx
@@ -14,7 +15,14 @@ object SourceTree(ctx SourceContext) Tree
   definitions DefinitionTree[] = getDefinitionTrees(ctx.definition())
 
   toString() String
-    statements = this.statements.join('\n')
+    importStatements = this.statements \
+    .filter((x) = x is ImportStatementTree) \
+    .map((x) = x as ImportStatementTree) \
+    .sort((a, b) = a.path.toString().localeCompare(b.path.toString())) \
+    .join('\n')
+    otherStatements = this.statements \
+      .filter((x) = !(x is ImportStatementTree)) \
+      .join('\n')
     definitions = this.definitions.join('\n\n')
-    result = [statements, definitions].filter(Boolean).join('\n\n')
+    result = [importStatements, otherStatements, definitions].filter(Boolean).join('\n\n')
     return (result and result + '\n') or ''
