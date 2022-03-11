@@ -1,0 +1,13 @@
+import '../../../grammar/xon-parser': ParenthesizedExpressionContext
+import '../../../lib/core': String
+import '../../../metadata/expression/expression-metadata': ExpressionMetadata
+import '../../../util/source-range': SourceRange
+import '../expression-tree-helper': getExpressionTree
+import '../expression-tree': ExpressionTree
+
+object ParenthesizedExpressionTree ExpressionTree
+  metadata ExpressionMetadata
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  expression ExpressionTree = getExpressionTree(ctx.expr())
+
+  toString() String = #{`(${this.expression})`}
