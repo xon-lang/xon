@@ -9,6 +9,10 @@ export class SourceTranslator implements Translator {
   toString(): string {
     const statements = getStatementTranslators(this.tree.statements).join('\n');
     const definitions = getDefinitionTranslators(this.tree.definitions).join('\n\n');
-    return [statements, definitions].filter(Boolean).join('\n\n') + '\n';
+    return (
+      ['// this code was generated', statements, definitions, '// this code was generated']
+        .filter(Boolean)
+        .join('\n\n') + '\n'
+    );
   }
 }
