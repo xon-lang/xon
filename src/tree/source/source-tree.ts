@@ -1,14 +1,14 @@
 // this code was generated
 
-import { String } from '../../lib/core'
 import { SourceContext } from '../../grammar/xon-parser'
+import { String } from '../../lib/core'
 import { SourceRange } from '../../util/source-range'
 import { getDefinitionTrees } from '../definition/definition-tree-helper'
 import { DefinitionTree } from '../definition/definition-tree'
+import { ImportStatementTree } from '../statement/import/import-statement-tree'
 import { getStatementTrees } from '../statement/statement-tree-helper'
 import { StatementTree } from '../statement/statement-tree'
 import { Tree } from '../tree'
-import { ImportStatementTree } from '../statement/import/import-statement-tree'
 
 export class SourceTree extends Tree {
   ctx: SourceContext
