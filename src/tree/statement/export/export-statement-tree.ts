@@ -1,19 +1,27 @@
-import { ExportStatementContext } from '../../../grammar/xon-parser';
-import { String } from '../../../lib/core';
-import { SourceRange } from '../../../util/source-range';
-import { StatementTree } from '../statement-tree';
+// this code was generated
 
-export class ExportStatementTree implements StatementTree {
-  sourceRange: SourceRange;
-  path: String;
+import { ExportStatementContext } from '../../../grammar/xon-parser'
+import { String } from '../../../lib/core'
+import { SourceRange } from '../../../util/source-range'
+import { getExpressionTree } from '../../expression/expression-tree-helper'
+import { ExpressionTree } from '../../expression/expression-tree'
+import { StatementTree } from '../statement-tree'
+
+export class ExportStatementTree extends StatementTree {
+  ctx: ExportStatementContext
+  sourceRange: SourceRange
+  path: ExpressionTree
 
   constructor(ctx: ExportStatementContext) {
-    this.sourceRange = SourceRange.fromContext(ctx);
-    // todo check if it is member expr
-    this.path = ctx._path.text;
+    super()
+    this.ctx = ctx
+    this.sourceRange = SourceRange.fromContext(ctx)
+    this.path = getExpressionTree(ctx._path)
   }
 
   toString(): String {
-    return `export ${this.path}`;
+    return `export ${this.path}`
   }
 }
+
+// this code was generated
