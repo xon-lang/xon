@@ -1,4 +1,0 @@
-while n > 5:
-    someAction()
-else:
-    throw Error("No items")
