@@ -1,0 +1,14 @@
+import '../../../grammar/xon-parser': NullableExpressionContext
+import '../../../lib/core': String
+import '../../../metadata/expression/expression-metadata': ExpressionMetadata
+import '../../../util/source-range': SourceRange
+import '../expression-tree-helper': getExpressionTree
+import '../expression-tree': ExpressionTree
+
+object NullableExpressionTree(ctx NullableExpressionContext) ExpressionTree
+  metadata ExpressionMetadata
+  ctx NullableExpressionContext = ctx
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  value ExpressionTree = getExpressionTree(ctx.expr())
+
+  toString() String = this.value.toString() + '?'
