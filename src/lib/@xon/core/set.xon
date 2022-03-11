@@ -1,4 +1,1 @@
 model Set
-  * (other Set) T[][]
-  from (source Array<|T|>)
-  to (source Array<|T|>)

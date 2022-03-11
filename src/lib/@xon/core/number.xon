@@ -1,39 +1,16 @@
 model Number
-  + (other Number) Number
-  - (other Number) Number
-  * (other Number) Number
-  / (other Number) Number
-  ^ (other Number) Number
-  > (other Number) Boolean
-  < (other Number) Boolean
-  == (other Number) Boolean
-  != (other Number) Boolean
+  operator + (other Number) Number
+  operator - (other Number) Number
+  operator * (other Number) Number
+  operator / (other Number) Number
+  operator ^ (other Number) Number
+  operator > (other Number) Boolean
+  operator < (other Number) Boolean
+  operator == (other Number) Boolean
+  operator != (other Number) Boolean
 
 model Integer Number
   test String
 
-
 model Float Number
   test String
-
-
--- model NaturalNumber is Number -- N
-
--- model IntegerNumber is Number -- Z
---   signed Boolean
---   value NaturalNumber
-
--- model RationalNumber is Number -- Q
---   numerator IntegerNumber
---   denominator NaturalNumber
-
--- model IrrationalNumber is Number -- I
---   value RealNumber
-
--- model RealNumber is Number -- R
---   integer IntegerNumber
---   fraction NaturalNumber
-
--- model ComplexNumber is Number -- C
---   real RealNumber
---   imaginary RealNumber

@@ -1,5 +1,3 @@
 model Array<|T|>
-  -- $[index Integer] T
-
-  + (other T[]) T[]
-  * (other Integer) T[][]
+  operator + (other T[]) T[]
+  operator * (other Integer) T[][]
