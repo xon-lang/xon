@@ -17,6 +17,9 @@ export class ImportStatementTree implements StatementTree {
   }
 
   toString(): String {
-    return `import ${this.path}: ${this.members.join(', ')}`;
+    const members = this.members.sort((a, b) =>
+      a.sourceRange.rangeText.localeCompare(b.sourceRange.rangeText),
+    );
+    return `import ${this.path}: ${members.join(', ')}`;
   }
 }
