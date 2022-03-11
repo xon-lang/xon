@@ -52,7 +52,6 @@ FLOAT_LITERAL:
     | DigitNumber '.' DigitNumber
     ;
 INTEGER_LITERAL: Radix AlphabetNumber | DigitNumber;
-REGEX_LITERAL:   '`' (~[`] | '\\' [`\\])* '`';
 STRING_LITERAL:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 
 PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';

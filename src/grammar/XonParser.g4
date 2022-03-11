@@ -53,7 +53,6 @@ literal:
     INTEGER_LITERAL  # integerLiteral
     | FLOAT_LITERAL  # floatLiteral
     | STRING_LITERAL # stringLiteral
-    | REGEX_LITERAL  # regexLiteral
     ;
 
 body:
