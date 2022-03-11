@@ -2,6 +2,7 @@
 import {
   ArrayExpressionContext,
   ExprContext,
+  GenericsExpressionContext,
   IdExpressionContext,
   IndexExpressionContext,
   InfixExpressionContext,
@@ -17,6 +18,7 @@ import { Issue } from '../../issue-service/issue';
 import { IdToken } from '../../util/id-token';
 import { ArrayExpressionTree } from './array/array-expression-tree';
 import { ExpressionTree } from './expression-tree';
+import { GenericsExpressionTree } from './generics/generics-expression-tree';
 import { IdExpressionTree } from './id/id-expression-tree';
 import { IndexExpressionTree } from './index/index-expression-tree';
 import { InfixExpressionTree } from './infix/infix-expression-tree';
@@ -32,8 +34,9 @@ export const getExpressionTree = (ctx: ExprContext): ExpressionTree => {
   if (!ctx) return null;
 
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
-  if (ctx instanceof IndexExpressionContext) return new IndexExpressionTree(ctx);
+  if (ctx instanceof GenericsExpressionContext) return new GenericsExpressionTree(ctx);
   if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);
+  if (ctx instanceof IndexExpressionContext) return new IndexExpressionTree(ctx);
   if (ctx instanceof InvokeExpressionContext) return new InvokeExpressionTree(ctx);
   if (ctx instanceof LiteralExpressionContext) return new LiteralExpressionTree(ctx);
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);

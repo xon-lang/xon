@@ -8,6 +8,6 @@ test('not safe', () => {
   expect(tree).toBeInstanceOf(MemberExpressionTree);
 
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
-  expect((tree.instance as IdExpressionTree).id.name.text).toBe('abc');
-  expect(tree.id.name.text).toBe('def');
+  expect((tree.instance as IdExpressionTree).id.text).toBe('abc');
+  expect(tree.id.text).toBe('def');
 });

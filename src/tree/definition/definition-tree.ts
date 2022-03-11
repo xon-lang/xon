@@ -6,8 +6,6 @@ import { AttributeTree } from '../attribute/attribute-tree';
 import { getAttributeTrees } from '../attribute/attribute-tree-helper';
 import { ExpressionTree } from '../expression/expression-tree';
 import { getExpressionTree } from '../expression/expression-tree-helper';
-import { IdTree } from '../id/id-tree';
-import { getIdTree } from '../id/id-tree-helper';
 import { ParameterTree } from '../parameter/parameter-tree';
 import { getParameterTrees } from '../parameter/parameter-tree-helper';
 import { Tree } from '../tree';
@@ -16,7 +14,8 @@ export class DefinitionTree implements Tree {
   sourceRange: SourceRange;
   metadata: DefinitionDeclarationMetadata;
   modifier: IdToken;
-  id: IdTree;
+  id: IdToken;
+  generics: ParameterTree[];
   parameters?: ParameterTree[];
   base?: ExpressionTree;
   attributes: AttributeTree[];
@@ -24,8 +23,9 @@ export class DefinitionTree implements Tree {
   constructor(private ctx: DefinitionContext) {
     this.sourceRange = SourceRange.fromContext(ctx);
     this.modifier = new IdToken(ctx._modifier);
-    this.id = getIdTree(ctx.id());
-    this.parameters = (ctx.parameters() && getParameterTrees(ctx.parameters().parameter())) || null;
+    this.id = new IdToken(ctx.id()._name);
+    this.generics = getParameterTrees(ctx.generics()?.parameter());
+    this.parameters = getParameterTrees(ctx.methodParameters()?.parameter()) || null;
     this.base = getExpressionTree(ctx.expr()) || null;
     this.attributes = getAttributeTrees(ctx.attribute());
   }
@@ -33,6 +33,7 @@ export class DefinitionTree implements Tree {
   toString() {
     const modifier = (this.modifier && this.modifier.text + ' ') || '';
     let base = (this.base && ' ' + this.base) || '';
+    let generics = (this.generics.length && `<|${this.generics.join(', ')}|>`) || '';
     let parameters = (this.parameters && `(${this.parameters.join(', ')})`) || '';
     const properties = this.attributes.filter((x) => !x.isMethod).join('\n');
     const methodsWithBody = this.attributes.filter((x) => x.isMethod && x.body).join('\n\n');
@@ -41,6 +42,8 @@ export class DefinitionTree implements Tree {
       .filter(Boolean)
       .join('\n\n')
       .replace(/^(.+)/gm, '  $1');
-    return modifier + this.id + parameters + base + ((attributes && '\n' + attributes) || '');
+    return (
+      modifier + this.id + generics + parameters + base + ((attributes && '\n' + attributes) || '')
+    );
   }
 }

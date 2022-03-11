@@ -24,7 +24,7 @@ else
   expect(imports.length).toBe(1);
   expect((imports[0].path as LiteralExpressionTree).literal.value).toBe('xon.os');
   expect(imports[0].members.length).toBe(1);
-  expect((imports[0].members[0] as IdExpressionTree).id.name.text).toBe('Path');
+  expect((imports[0].members[0] as IdExpressionTree).id.text).toBe('Path');
 });
 
 test('formatted 1.xon', () => {

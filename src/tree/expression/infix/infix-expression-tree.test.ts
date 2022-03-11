@@ -29,9 +29,9 @@ test('has several relational operators', () => {
 
   const left = tree.left as InfixExpressionTree;
   expect(left.id.text).toBe('<');
-  expect((left.left as IdExpressionTree).id.name.text).toBe('a');
-  expect((left.right as IdExpressionTree).id.name.text).toBe('b');
+  expect((left.left as IdExpressionTree).id.text).toBe('a');
+  expect((left.right as IdExpressionTree).id.text).toBe('b');
 
   const right = tree.right as IdExpressionTree;
-  expect(right.id.name.text).toBe('c');
+  expect(right.id.text).toBe('c');
 });

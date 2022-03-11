@@ -10,7 +10,7 @@ test('has argument', () => {
   expect(tree).toBeInstanceOf(MethodExpressionTree);
 
   expect(tree.parameters.length).toBe(1);
-  expect(tree.parameters[0].id.name.text).toBe('x');
+  expect(tree.parameters[0].id.text).toBe('x');
   expect(
     evaluate(((tree.body as SingleBodyTree).statement as ExpressionStatementTree).expression, {
       x: 37,

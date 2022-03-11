@@ -10,6 +10,6 @@ object someObjectFactory<|T|>(name String)
   operator + (it SomeClass) AnotherClass
     log('fine!')
 
-model Array<|T|>
+model Array<|T|>()
   operator + (other T[]) T[]
   operator * (other Integer) T[][]

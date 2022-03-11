@@ -10,8 +10,8 @@ test('id type value', () => {
   const tree = parseParameter(code);
   expect(tree).toBeInstanceOf(ParameterTree);
 
-  expect(tree.id.name.text).toBe('a');
-  expect((tree.type as IdExpressionTree).id.name.text).toBe('Integer');
+  expect(tree.id.text).toBe('a');
+  expect((tree.type as IdExpressionTree).id.text).toBe('Integer');
   expect(
     (
       ((tree.body as SingleBodyTree).statement as ExpressionStatementTree)
@@ -25,7 +25,7 @@ test('id value', () => {
   const tree = parseParameter(code);
   expect(tree).toBeInstanceOf(ParameterTree);
 
-  expect(tree.id.name.text).toBe('a');
+  expect(tree.id.text).toBe('a');
   expect(tree.type).toBe(null);
   expect(
     (
@@ -40,7 +40,7 @@ test('id type', () => {
   const tree = parseParameter(code);
   expect(tree).toBeInstanceOf(ParameterTree);
 
-  expect(tree.id.name.text).toBe('cat');
-  expect((tree.type as IdExpressionTree).id.name.text).toBe('Animal');
+  expect(tree.id.text).toBe('cat');
+  expect((tree.type as IdExpressionTree).id.text).toBe('Animal');
   expect(tree.body).toBe(null);
 });

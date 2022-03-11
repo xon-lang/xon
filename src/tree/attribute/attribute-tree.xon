@@ -1,0 +1,34 @@
+import '../../grammar/xon-parser': AttributeContext
+import '../../metadata/declaration/attribute/attribute-declaration-metadata': AttributeDeclarationMetadata
+import '../../util/id-token': IdToken
+import '../../util/source-range': SourceRange
+import '../body/body-tree': BodyTree
+import '../body/body-tree-helper': getBodyTree
+import '../expression/expression-tree': ExpressionTree
+import '../expression/expression-tree-helper': getExpressionTree
+import '../id/id-tree': IdTree
+import '../id/id-tree-helper': getIdTree
+import '../parameter/parameter-tree': ParameterTree
+import '../parameter/parameter-tree-helper': getParameterTrees
+import '../tree': Tree
+
+object AttributeTree(ctx AttributeContext) Tree
+  ctx AttributeContext = ctx
+  metadata AttributeDeclarationMetadata
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  modifier IdToken = (ctx._modifier and IdToken(ctx._modifier)) or null
+  isMethod boolean = !!ctx.parameters()
+  isOperator boolean = this.modifier?.text == 'operator'
+  id IdTree = getIdTree(ctx.id())
+  parameters ParameterTree[] = getParameterTrees(ctx.parameters()?.parameter())
+  type ExpressionTree = getExpressionTree(ctx.expr()) or null
+  body BodyTree? = getBodyTree(ctx.body()) or null
+
+  toString() String
+    modifier = (this.modifier and this.modifier + ' ') or ''
+    parameters = (this.isMethod and `(${this.parameters.join(', ')})`) or ''
+    if (this.isOperator)
+      parameters = ' ' + parameters
+    type = (this.type and ' ' + this.type) or ''
+    body = (this.body and this.body) or ''
+    return modifier + this.id + parameters + type + body

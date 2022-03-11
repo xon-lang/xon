@@ -16,3 +16,11 @@ test('not boolean', () => {
 
   expect(tree.toString()).toBe('!true');
 });
+
+test('double not', () => {
+  const code = '!!ctx.parameters()';
+  const tree = parseExpression(code) as PrefixExpressionTree;
+  expect(tree).toBeInstanceOf(PrefixExpressionTree);
+
+  expect(tree.toString()).toBe('!!ctx.parameters()');
+});

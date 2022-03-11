@@ -9,8 +9,8 @@ test('model cat', () => {
   expect(tree).toBeInstanceOf(DefinitionTree);
 
   expect(tree.modifier.text).toBe('model');
-  expect(tree.id.name.text).toBe('Cat');
-  expect((tree.base as IdExpressionTree).id.name.text).toBe('Animal');
+  expect(tree.id.text).toBe('Cat');
+  expect((tree.base as IdExpressionTree).id.text).toBe('Animal');
   expect(tree.attributes.length).toBe(0);
 });
 
@@ -20,11 +20,11 @@ test('model animal with only attribute', () => {
   expect(tree).toBeInstanceOf(DefinitionTree);
 
   expect(tree.modifier.text).toBe('model');
-  expect(tree.id.name.text).toBe('Animal');
+  expect(tree.id.text).toBe('Animal');
   expect(tree.base).toBe(null);
   expect(tree.attributes.length).toBe(1);
-  expect(tree.attributes[0].id.name.text).toBe('abc');
-  expect((tree.attributes[0].type as IdExpressionTree).id.name.text).toBe('Integer');
+  expect(tree.attributes[0].id.text).toBe('abc');
+  expect((tree.attributes[0].type as IdExpressionTree).id.text).toBe('Integer');
 });
 
 test('1-error.xon', () => {
@@ -34,7 +34,7 @@ test('1-error.xon', () => {
   } catch (error) {
     const issue = IssueService.issues.slice(-1)[0];
     expect(issue.source.start.line).toBe(3);
-    expect(issue.source.start.column).toBe(15);
+    expect(issue.source.start.column).toBe(3);
     expect(issue.source.stop.column).toBe(36);
   }
 });

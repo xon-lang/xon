@@ -1,18 +1,17 @@
 import { IdExpressionContext } from '../../../grammar/xon-parser';
 import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
+import { IdToken } from '../../../util/id-token';
 import { SourceRange } from '../../../util/source-range';
-import { IdTree } from '../../id/id-tree';
-import { getIdTree } from '../../id/id-tree-helper';
 import { ExpressionTree } from '../expression-tree';
 
 export class IdExpressionTree implements ExpressionTree {
   sourceRange: SourceRange;
   metadata: ExpressionMetadata;
-  id: IdTree;
+  id: IdToken;
 
   constructor(ctx: IdExpressionContext) {
     this.sourceRange = SourceRange.fromContext(ctx);
-    this.id = getIdTree(ctx.id());
+    this.id = new IdToken(ctx.id()._name);
   }
 
   toString(): string {
