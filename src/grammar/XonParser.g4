@@ -27,17 +27,17 @@ statement:
     | CONTINUE                                                            # continueStatement
     | RETURN expr?                                                        # returnStatement
     | ACTUAL actual = expr NL+ EXPECT expect = expr                       # assertStatement
-    | PREPROCESSOR                                                        # preprocessorStatement
     | expr '=' expr                                                       # assignmentStatement
     | expr                                                                # expressionStatement
     ;
 
 expr:
-    literal                                                            # literalExpression
+    PREPROCESSOR                                                       # preprocessorExpression
     | '[' (arrayItem (',' arrayItem)* ','?)? ']'                       # arrayExpression
     | '{' (attribute (',' attribute)* ','?)? '}'                       # objectExpression
     | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
     | instance = expr '[' (args += expr (',' args += expr)* ','?)? ']' # indexExpression
+    | literal                                                          # literalExpression
     | expr '?'                                                         # nullableExpression
     | expr '.' name = ID                                               # memberExpression
     | expr generics                                                    # genericsExpression

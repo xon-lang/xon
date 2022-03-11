@@ -111,17 +111,9 @@ export abstract class XonLexerBase extends Lexer {
     const EOF_CODE = -1;
     const RETURN_CODE = 13;
     const NEW_LINE_CODE = 10;
-    const HASH_CODE = 35;
     if (
       this.opened > 0 ||
-      // EOF
-      (nextNext !== EOF_CODE &&
-        // '\r'
-        (next === RETURN_CODE ||
-          // '\n'
-          next === NEW_LINE_CODE ||
-          // '#'
-          next === HASH_CODE))
+      (nextNext !== EOF_CODE && (next === RETURN_CODE || next === NEW_LINE_CODE))
     ) {
       // If we're inside a list or on a blank line, ignore all indents,
       // dedents and line breaks.

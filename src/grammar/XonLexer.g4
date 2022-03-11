@@ -45,7 +45,6 @@ COMMA:         ',';
 DOT:           '.';
 GENERIC_LEFT:  '<|';
 GENERIC_RIGHT: '|>';
-HASH:          '#';
 QUESTION:      '?';
 
 FLOAT_LITERAL:
@@ -56,7 +55,7 @@ INTEGER_LITERAL: Radix AlphabetNumber | DigitNumber;
 REGEX_LITERAL:   '`' (~[`] | '\\' [`\\])* '`';
 STRING_LITERAL:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 
-PREPROCESSOR: '#{' .*? '}';
+PREPROCESSOR: '#{' .*? '}#';
 
 ID:       [_a-zA-Z] [_a-zA-Z0-9]*;
 OPERATOR: [!+-^*%] | '..' | '...' | '<=' | '>=' | '==' | '!=';
