@@ -33,17 +33,17 @@ statement:
     ;
 
 expr:
-    name = ID                                                          # idExpression
+    literal                                                            # literalExpression
     | '[' (arrayItem (',' arrayItem)* ','?)? ']'                       # arrayExpression
     | '{' (attribute (',' attribute)* ','?)? '}'                       # objectExpression
     | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
     | instance = expr '[' (args += expr (',' args += expr)* ','?)? ']' # indexExpression
     | expr '?'                                                         # nullableExpression
-    | expr NL* '.' NL* name = ID                                       # memberExpression
+    | expr '.' name = ID                                               # memberExpression
     | expr generics                                                    # genericsExpression
     | op = OPERATOR expr                                               # prefixExpression
     | left = expr op = (ID | OPERATOR) right = expr                    # infixExpression
-    | literal                                                          # literalExpression
+    | name = ID                                                        # idExpression
     | generics? methodParameters body                                  # methodExpression
     | generics? indexerParameters body                                 # indexerExpression
     | '(' expr ')'                                                     # parenthesizedExpression
