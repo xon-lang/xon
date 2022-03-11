@@ -1,0 +1,15 @@
+import '../../../grammar/xon-parser': ImportStatementContext
+import '../../../lib/core': String, None
+import '../../../util/source-range': SourceRange
+import '../../expression/expression-tree-helper': getExpressionTree, getExpressionTrees
+import '../../expression/expression-tree': ExpressionTree
+import '../statement-tree': StatementTree
+
+object ImportStatementTree(ctx ImportStatementContext) StatementTree
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  path ExpressionTree = getExpressionTree(ctx._path)
+  members ExpressionTree[]? = getExpressionTrees(ctx._members)
+
+  toString() String
+    members = this.members.sort((a, b) = a.sourceRange.rangeText.localeCompare(b.sourceRange.rangeText))
+    return #{`import ${this.path}: ${members.join(', ')}`}
