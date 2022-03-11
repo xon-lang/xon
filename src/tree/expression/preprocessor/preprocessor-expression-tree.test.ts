@@ -25,6 +25,14 @@ test('preprocessor complex', () => {
   expect(tree.value).toBe('const battery = await si.battery();\nif a: log(0)');
 });
 
+test('inner string', () => {
+  const code = '#{` = ${this.statement}`}';
+  const tree = parseExpression(code) as PreprocessorExpressionTree;
+  expect(tree).toBeInstanceOf(PreprocessorExpressionTree);
+
+  expect(tree.value).toBe('` = ${this.statement}`');
+});
+
 test('multiline', () => {
   const code = `#{
     abc
