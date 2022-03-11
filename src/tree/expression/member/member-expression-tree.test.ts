@@ -13,7 +13,7 @@ test('not safe', () => {
 });
 
 test('instance dot nl property', () => {
-  const code = 'abc.\ndef';
+  const code = 'abc.\\\ndef';
   const tree = parseExpression(code) as MemberExpressionTree;
   expect(tree).toBeInstanceOf(MemberExpressionTree);
 
@@ -23,7 +23,7 @@ test('instance dot nl property', () => {
 });
 
 test('instance nl dot property', () => {
-  const code = 'abc\n.def';
+  const code = 'abc\\\n.def';
   const tree = parseExpression(code) as MemberExpressionTree;
   expect(tree).toBeInstanceOf(MemberExpressionTree);
 
@@ -33,11 +33,26 @@ test('instance nl dot property', () => {
 });
 
 test('instance nl dot nl property', () => {
-  const code = 'abc\n.\ndef';
+  const code = 'abc\\\n.\\\ndef';
   const tree = parseExpression(code) as MemberExpressionTree;
   expect(tree).toBeInstanceOf(MemberExpressionTree);
 
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
   expect((tree.instance as IdExpressionTree).name.text).toBe('abc');
   expect(tree.name.text).toBe('def');
+});
+
+test('members chain', () => {
+  const code = `
+this.statements \\
+.abc \\
+  .def \\
+    .ghi \\
+      .jkl \\
+  `.trim();
+  const tree = parseExpression(code) as MemberExpressionTree;
+  expect(tree).toBeInstanceOf(MemberExpressionTree);
+
+  expect(tree.instance).toBeInstanceOf(MemberExpressionTree);
+  expect(tree.toString()).toBe('this.statements.abc.def.ghi.jkl');
 });

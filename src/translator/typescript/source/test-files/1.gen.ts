@@ -1,3 +1,5 @@
+// this code was generated
+
 export class someObjectFactory<T> {
   arr: any
   abc: T
@@ -28,3 +30,5 @@ export class someObjectFactory<T> {
 export class MyType {}
 
 export class Position {}
+
+// this code was generated
