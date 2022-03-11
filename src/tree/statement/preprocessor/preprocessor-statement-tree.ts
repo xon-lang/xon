@@ -10,8 +10,8 @@ export class PreprocessorStatementTree implements StatementTree {
   constructor(ctx: PreprocessorStatementContext) {
     this.sourceRange = SourceRange.fromContext(ctx);
 
-    const beforeSymbolsCount = 2;
-    this.value = ctx.PREPROCESSOR().text.trim().slice(beforeSymbolsCount, -1);
+    const hashColumnPosition = 2;
+    this.value = ctx.PREPROCESSOR().text.trim().slice(hashColumnPosition, -1);
   }
 
   toString(): String {
