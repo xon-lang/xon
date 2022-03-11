@@ -1,4 +1,5 @@
 import { ReturnStatementContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { ExpressionTree } from '../../expression/expression-tree';
 import { getExpressionTree } from '../../expression/expression-tree-helper';
@@ -13,7 +14,7 @@ export class ReturnStatementTree implements StatementTree {
     this.value = ctx.expr() && getExpressionTree(ctx.expr());
   }
 
-  toString(): string {
+  toString(): String {
     if (this.value) {
       return `return ${this.value}`;
     }

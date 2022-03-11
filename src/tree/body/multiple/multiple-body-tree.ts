@@ -1,4 +1,5 @@
 import { MultipleBodyContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { StatementTree } from '../../statement/statement-tree';
 import { getStatementTrees } from '../../statement/statement-tree-helper';
@@ -13,7 +14,7 @@ export class MultipleBodyTree implements BodyTree {
     this.statements = getStatementTrees(ctx.statement());
   }
 
-  toString(): string {
+  toString(): String {
     return '\n' + this.statements.join('\n').replace(/^(.+)/gm, '  $1');
   }
 }

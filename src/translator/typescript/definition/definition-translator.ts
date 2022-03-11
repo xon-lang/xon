@@ -1,3 +1,4 @@
+import { String } from '../../../lib/core';
 import { DefinitionTree } from '../../../tree/definition/definition-tree';
 import { NullableExpressionTree } from '../../../tree/expression/nullable/nullable-expression-tree';
 import { Translator } from '../../translator';
@@ -9,7 +10,7 @@ import { getParameterTranslators } from '../parameter/parameter-translator-helpe
 export class DefinitionTranslator implements Translator {
   constructor(private tree: DefinitionTree) {}
 
-  toString(): string {
+  toString(): String {
     let generics =
       (this.tree.generics.length &&
         `<${getParameterTranslators(this.tree.generics).join(', ')}>`) ||

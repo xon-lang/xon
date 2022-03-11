@@ -1,3 +1,4 @@
+import { String } from '../lib/core';
 import { Tree } from '../tree/tree';
 
 export function treeToPlain(tree: Tree): unknown {
@@ -13,7 +14,7 @@ export function treeToPlain(tree: Tree): unknown {
   return { treeType, ...Object.fromEntries(entries) };
 }
 
-export function treeToJson(tree: Tree): string {
+export function treeToJson(tree: Tree): String {
   const tabWidth = 2;
   console.log(treeToPlain(tree));
 

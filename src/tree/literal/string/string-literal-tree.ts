@@ -1,10 +1,11 @@
 import { StringLiteralContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { LiteralTree } from '../literal-tree';
 
 export class StringLiteralTree implements LiteralTree {
   sourceRange: SourceRange;
-  value: string;
+  value: String;
 
   constructor(ctx: StringLiteralContext) {
     this.sourceRange = SourceRange.fromContext(ctx);

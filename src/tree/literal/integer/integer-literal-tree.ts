@@ -1,12 +1,13 @@
 import { IntegerLiteralContext } from '../../../grammar/xon-parser';
+import { Number, String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { LiteralTree } from '../literal-tree';
 
 export class IntegerLiteralTree implements LiteralTree {
   sourceRange: SourceRange;
-  radix: number;
-  integer: string;
-  value: number;
+  radix: Number;
+  integer: String;
+  value: Number;
 
   constructor(ctx: IntegerLiteralContext) {
     this.sourceRange = SourceRange.fromContext(ctx);

@@ -1,10 +1,11 @@
 import { PreprocessorStatementContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { StatementTree } from '../statement-tree';
 
 export class PreprocessorStatementTree implements StatementTree {
   sourceRange: SourceRange;
-  value: string;
+  value: String;
 
   constructor(ctx: PreprocessorStatementContext) {
     this.sourceRange = SourceRange.fromContext(ctx);
@@ -13,7 +14,7 @@ export class PreprocessorStatementTree implements StatementTree {
     this.value = ctx.PREPROCESSOR().text.trim().slice(beforeSymbolsCount, -1);
   }
 
-  toString(): string {
+  toString(): String {
     return this.sourceRange.rangeText;
   }
 }

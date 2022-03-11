@@ -1,4 +1,5 @@
 import { LiteralExpressionContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
 import { LiteralExpressionMetadata } from '../../../metadata/expression/literal/literal-expression-metadata';
 import { SourceRange } from '../../../util/source-range';
 import { LiteralTree } from '../../literal/literal-tree';
@@ -15,7 +16,7 @@ export class LiteralExpressionTree implements ExpressionTree {
     this.literal = ctx && getLiteralTree(ctx.literal());
   }
 
-  toString(): string {
+  toString(): String {
     return this.literal.sourceRange.rangeText;
   }
 }

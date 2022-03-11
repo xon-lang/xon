@@ -1,3 +1,4 @@
+import { String } from '../../../../lib/core';
 import { InfixExpressionTree } from '../../../../tree/expression/infix/infix-expression-tree';
 import { ExpressionTranslator } from '../expression-translator';
 import { getExpressionTranslator } from '../expression-translator-helper';
@@ -5,7 +6,7 @@ import { getExpressionTranslator } from '../expression-translator-helper';
 export class InfixExpressionTranslator implements ExpressionTranslator {
   constructor(private tree: InfixExpressionTree, private isType: boolean) {}
 
-  toString(): string {
+  toString(): String {
     const left = getExpressionTranslator(this.tree.left, this.isType);
     const right = getExpressionTranslator(this.tree.right, this.isType);
 

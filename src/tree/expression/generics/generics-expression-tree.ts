@@ -1,4 +1,5 @@
 import { GenericsExpressionContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
 import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
 import { SourceRange } from '../../../util/source-range';
 import { ParameterTree } from '../../parameter/parameter-tree';
@@ -18,7 +19,7 @@ export class GenericsExpressionTree implements ExpressionTree {
     this.generics = getParameterTrees(ctx.generics().parameter());
   }
 
-  toString(): string {
+  toString(): String {
     let generics = (this.generics.length && `<|${this.generics.join(', ')}|>`) || '';
     return this.instance + generics;
   }

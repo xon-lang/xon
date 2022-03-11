@@ -1,4 +1,5 @@
 import { MemberExpressionContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
 import { MemberExpressionMetadata } from '../../../metadata/expression/member/member-expression-metadata';
 import { getIdToken, IdToken } from '../../../util/id-token';
 import { SourceRange } from '../../../util/source-range';
@@ -17,7 +18,7 @@ export class MemberExpressionTree implements ExpressionTree {
     this.name = getIdToken(ctx._name);
   }
 
-  toString(): string {
+  toString(): String {
     return `${this.instance}.${this.name}`;
   }
 }

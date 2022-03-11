@@ -1,4 +1,5 @@
 import { Issue } from '../../../issue-service/issue';
+import { String } from '../../../lib/core';
 import { SingleBodyTree } from '../../../tree/body/single/single-body-tree';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { ExpressionStatementTree } from '../../../tree/statement/expression/expression-statement-tree';
@@ -11,7 +12,7 @@ import { DeclarationMetadata } from '../declaration-metadata';
 
 export class ParameterDeclarationMetadata implements DeclarationMetadata {
   sourceRange: SourceRange;
-  name: string;
+  name: String;
 
   constructor(private tree: ParameterTree, private scope: DeclarationScope) {
     this.sourceRange = tree.sourceRange;

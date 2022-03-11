@@ -1,3 +1,4 @@
+import { String } from '../../../../lib/core';
 import { PrefixExpressionTree } from '../../../../tree/expression/prefix/prefix-expression-tree';
 import { ExpressionTranslator } from '../expression-translator';
 import { getExpressionTranslator } from '../expression-translator-helper';
@@ -5,7 +6,7 @@ import { getExpressionTranslator } from '../expression-translator-helper';
 export class PrefixExpressionTranslator implements ExpressionTranslator {
   constructor(private tree: PrefixExpressionTree, private isType: boolean) {}
 
-  toString(): string {
+  toString(): String {
     const idMap = {
       not: '!',
     };

@@ -2,6 +2,7 @@ import { CharStreams, CommonTokenStream } from 'antlr4ts';
 import * as fs from 'fs';
 import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
+import { String } from '../lib/core';
 import { getAttributeTree } from '../tree/attribute/attribute-tree-helper';
 import { getBodyTree } from '../tree/body/body-tree-helper';
 import { getDefinitionTree } from '../tree/definition/definition-tree-helper';
@@ -12,7 +13,7 @@ import { getSourceTree } from '../tree/source/source-tree-helper';
 import { getStatementTree } from '../tree/statement/statement-tree-helper';
 import { ThrowingErrorListener } from './throwing-error-listener';
 
-export const parse = (code: string, sourceName: string = undefined): XonParser => {
+export const parse = (code: String, sourceName: String = undefined): XonParser => {
   const inputStream = CharStreams.fromString(code, sourceName);
   const lexer = new XonLexer(inputStream);
   lexer.removeErrorListeners();
@@ -26,23 +27,23 @@ export const parse = (code: string, sourceName: string = undefined): XonParser =
   return parser;
 };
 
-export const parseSourceFile = (sourceName: string) => {
+export const parseSourceFile = (sourceName: String) => {
   const code = fs.readFileSync(sourceName).toString();
   return getSourceTree(parse(code, sourceName).source());
 };
 
-export const parseLiteral = (code: string) => getLiteralTree(parse(code).literal());
+export const parseLiteral = (code: String) => getLiteralTree(parse(code).literal());
 
-export const parseExpression = (code: string) => getExpressionTree(parse(code).expr());
+export const parseExpression = (code: String) => getExpressionTree(parse(code).expr());
 
-export const parseStatement = (code: string) => getStatementTree(parse(code).statement());
+export const parseStatement = (code: String) => getStatementTree(parse(code).statement());
 
-export const parseParameter = (code: string) => getParameterTree(parse(code).parameter());
+export const parseParameter = (code: String) => getParameterTree(parse(code).parameter());
 
-export const parseBody = (code: string) => getBodyTree(parse(code).body());
+export const parseBody = (code: String) => getBodyTree(parse(code).body());
 
-export const parseAttribute = (code: string) => getAttributeTree(parse(code).attribute());
+export const parseAttribute = (code: String) => getAttributeTree(parse(code).attribute());
 
-export const parseDefinition = (code: string) => getDefinitionTree(parse(code).definition());
+export const parseDefinition = (code: String) => getDefinitionTree(parse(code).definition());
 
-export const parseSource = (code: string) => getSourceTree(parse(code).source());
+export const parseSource = (code: String) => getSourceTree(parse(code).source());

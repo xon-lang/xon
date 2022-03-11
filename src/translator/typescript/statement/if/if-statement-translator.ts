@@ -1,3 +1,4 @@
+import { String } from '../../../../lib/core';
 import { IfStatementTree } from '../../../../tree/statement/if/if-statement-tree';
 import { getBodyTranslator } from '../../body/body-translator-helper';
 import { getExpressionTranslator } from '../../expression/expression-translator-helper';
@@ -6,7 +7,7 @@ import { StatementTranslator } from '../statement-translator';
 export class IfStatementTranslator implements StatementTranslator {
   constructor(private tree: IfStatementTree) {}
 
-  toString(): string {
+  toString(): String {
     const condition = getExpressionTranslator(this.tree.condition, false);
     const thenBody = getBodyTranslator(this.tree.thenBody).toString();
     const elseBody = (this.tree.elseBody && getBodyTranslator(this.tree.elseBody).toString()) || '';

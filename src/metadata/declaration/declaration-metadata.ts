@@ -1,9 +1,10 @@
+import { String } from '../../lib/core';
 import { SourceRange } from '../../util/source-range';
 import { AttributeDeclarationMetadata } from './attribute/attribute-declaration-metadata';
 
 export interface DeclarationMetadata {
   sourceRange: SourceRange;
-  name: string;
+  name: String;
 
   is(metadata: DeclarationMetadata): boolean;
   attributes(): AttributeDeclarationMetadata[];

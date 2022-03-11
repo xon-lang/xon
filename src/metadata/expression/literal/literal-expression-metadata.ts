@@ -1,4 +1,5 @@
 import { Issue } from '../../../issue-service/issue';
+import { Number, String } from '../../../lib/core';
 import { LiteralExpressionTree } from '../../../tree/expression/literal/literal-expression-tree';
 import { AttributeDeclarationMetadata } from '../../declaration/attribute/attribute-declaration-metadata';
 import { DefinitionDeclarationMetadata } from '../../declaration/definition/definition-declaration-metadata';
@@ -7,8 +8,8 @@ import { ExpressionMetadata } from '../expression-metadata';
 import { IdExpressionMetadata } from '../id/id-expression-metadata';
 
 export class LiteralExpressionMetadata implements ExpressionMetadata {
-  name: string;
-  value: string | number | RegExp;
+  name: String;
+  value: String | Number | RegExp;
 
   constructor(private tree: LiteralExpressionTree, private scope: DeclarationScope) {
     this.name = this.tree.literal.constructor.name.replace('LiteralTree', '');

@@ -1,5 +1,6 @@
 import { Issue } from '../../issue-service/issue';
 import { IssueLevel } from '../../issue-service/issue-level';
+import { String } from '../../lib/core';
 import { DeclarationMetadata } from '../declaration/declaration-metadata';
 import { DefinitionDeclarationMetadata } from '../declaration/definition/definition-declaration-metadata';
 import { CoreDeclarationScope } from './core-declaration-scope';
@@ -27,13 +28,13 @@ export class DeclarationScope {
   }
 
   filterByName(
-    name: string,
+    name: String,
     predicate?: (x: DeclarationMetadata) => boolean,
   ): DeclarationMetadata[] {
     return this.filter((x) => x.name === name && (!predicate || predicate(x)));
   }
 
-  findByName(name: string, predicate?: (x: DeclarationMetadata) => boolean): DeclarationMetadata {
+  findByName(name: String, predicate?: (x: DeclarationMetadata) => boolean): DeclarationMetadata {
     const results = this.filterByName(name, predicate);
 
     if (results.length > 1) {
@@ -49,7 +50,7 @@ export class DeclarationScope {
     return results[0];
   }
 
-  findModel(name: string): DefinitionDeclarationMetadata {
+  findModel(name: String): DefinitionDeclarationMetadata {
     const results = this.filterByName(name).filter(
       (x) => x instanceof DefinitionDeclarationMetadata,
     );

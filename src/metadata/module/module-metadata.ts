@@ -1,5 +1,6 @@
 import * as glob from 'glob';
 import * as path from 'path';
+import { String } from '../../lib/core';
 import { parseSourceFile } from '../../util/parse';
 import { DeclarationMetadata } from '../declaration/declaration-metadata';
 import { getDeclarationMetadata } from '../declaration/declaration-metadata-helper';
@@ -8,7 +9,7 @@ import { DeclarationScope } from '../scope/declaration-scope';
 export class ModuleMetadata {
   declarations: DeclarationMetadata[] = [];
 
-  constructor(moduleDir: string, scope: DeclarationScope) {
+  constructor(moduleDir: String, scope: DeclarationScope) {
     const innerScope = scope.create();
     const globPath = path.resolve(moduleDir, '**/*.xon');
     const sources = glob.sync(globPath).map((x) => parseSourceFile(x));

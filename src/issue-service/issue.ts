@@ -1,16 +1,17 @@
 import { ParserRuleContext } from 'antlr4ts';
 import chalk from 'chalk';
 import fs from 'fs';
+import { String } from '../lib/core';
 import { Tree } from '../tree/tree';
 import { SourceRange } from '../util/source-range';
 import { IssueLevel } from './issue-level';
 
 export class Issue {
-  message: string;
+  message: String;
   level: IssueLevel;
   source: SourceRange;
 
-  toString(): string {
+  toString(): String {
     let code = this.source.sourceText.split('\n')[this.source.start.line - 1];
     if (!code && this.source.sourceName) {
       code = fs.readFileSync(this.source.sourceName).toString().split('\n')[
@@ -39,7 +40,7 @@ export class Issue {
     return new Error(this.toString());
   }
 
-  static fromSourceRange(source: SourceRange, level: IssueLevel, message: string): Issue {
+  static fromSourceRange(source: SourceRange, level: IssueLevel, message: String): Issue {
     const issue = new Issue();
     issue.source = source;
     issue.level = level;
@@ -47,17 +48,17 @@ export class Issue {
     return issue;
   }
 
-  static errorFromContext(ctx: ParserRuleContext, message: string): never {
+  static errorFromContext(ctx: ParserRuleContext, message: String): never {
     const issue = Issue.fromSourceRange(SourceRange.fromContext(ctx), IssueLevel.error, message);
     throw new Error(issue.toString());
   }
 
-  static errorFromTree(tree: Tree, message: string): never {
+  static errorFromTree(tree: Tree, message: String): never {
     const issue = Issue.fromSourceRange(tree.sourceRange, IssueLevel.error, message);
     throw new Error(issue.toString());
   }
 
-  static errorFromSourceRange(sourceRange: SourceRange, message: string): never {
+  static errorFromSourceRange(sourceRange: SourceRange, message: String): never {
     const issue = Issue.fromSourceRange(sourceRange, IssueLevel.error, message);
     throw new Error(issue.toString());
   }

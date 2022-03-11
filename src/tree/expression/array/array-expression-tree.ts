@@ -1,4 +1,5 @@
 import { ArrayExpressionContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
 import { ArrayExpressionMetadata } from '../../../metadata/expression/array/array-expression-metadata';
 import { SourceRange } from '../../../util/source-range';
 import { ExpressionTree } from '../expression-tree';
@@ -15,7 +16,7 @@ export class ArrayExpressionTree implements ExpressionTree {
     this.items = getExpressionTrees(ctx.arrayItem().map((x) => x.expr(0)));
   }
 
-  toString(): string {
+  toString(): String {
     return `[${this.items.join(', ')}]`;
   }
 }

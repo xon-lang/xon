@@ -1,4 +1,5 @@
 import { PrefixExpressionContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
 import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
 import { getIdToken, IdToken } from '../../../util/id-token';
 import { SourceRange } from '../../../util/source-range';
@@ -17,7 +18,7 @@ export class PrefixExpressionTree implements ExpressionTree {
     this.value = getExpressionTree(ctx.expr());
   }
 
-  toString(): string {
+  toString(): String {
     return `${this.operator}${this.value}`;
   }
 }

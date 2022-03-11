@@ -1,4 +1,5 @@
 import { ParenthesizedExpressionContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
 import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
 import { SourceRange } from '../../../util/source-range';
 import { ExpressionTree } from '../expression-tree';
@@ -14,7 +15,7 @@ export class ParenthesizedExpressionTree implements ExpressionTree {
     this.expression = getExpressionTree(ctx.expr());
   }
 
-  toString(): string {
+  toString(): String {
     return `(${this.expression})`;
   }
 }

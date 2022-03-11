@@ -1,4 +1,5 @@
 import { IfStatementContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { BodyTree } from '../../body/body-tree';
 import { getBodyTree } from '../../body/body-tree-helper';
@@ -19,7 +20,7 @@ export class IfStatementTree implements StatementTree {
     this.elseBody = getBodyTree(ctx._elseBody);
   }
 
-  toString(): string {
+  toString(): String {
     return `if ${this.condition}${this.thenBody}${
       (this.elseBody && '\nelse' + this.elseBody) || ''
     }`;

@@ -1,4 +1,5 @@
 import { MethodExpressionContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
 import { MethodExpressionMetadata } from '../../../metadata/expression/method/method-expression-metadata';
 import { SourceRange } from '../../../util/source-range';
 import { BodyTree } from '../../body/body-tree';
@@ -21,7 +22,7 @@ export class MethodExpressionTree implements ExpressionTree {
     this.body = getBodyTree(ctx.body());
   }
 
-  toString(): string {
+  toString(): String {
     let generics = (this.generics.length && `<|${this.generics.join(', ')}|>`) || '';
     return `${generics}(${this.parameters.join(', ')})${this.body}`;
   }

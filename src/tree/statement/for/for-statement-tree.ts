@@ -1,4 +1,5 @@
 import { ForStatementContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { BodyTree } from '../../body/body-tree';
 import { getBodyTree } from '../../body/body-tree-helper';
@@ -8,8 +9,8 @@ import { StatementTree } from '../statement-tree';
 
 export class ForStatementTree implements StatementTree {
   sourceRange: SourceRange;
-  valueVarName?: string;
-  indexVarName?: string;
+  valueVarName?: String;
+  indexVarName?: String;
   expression: ExpressionTree;
   body: BodyTree;
 
@@ -21,7 +22,7 @@ export class ForStatementTree implements StatementTree {
     this.body = getBodyTree(ctx.body());
   }
 
-  toString(): string {
+  toString(): String {
     const vars = [this.valueVarName, this.indexVarName].filter((x) => x).join(',');
     return `for ${(vars && vars + ' in ') || ''}${this.expression}\n${this.body}`;
   }

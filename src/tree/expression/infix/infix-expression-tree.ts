@@ -1,3 +1,4 @@
+import { String } from '../../../lib/core';
 import { InfixExpressionMetadata } from '../../../metadata/expression/infix/infix-expression-metadata';
 import { IdToken } from '../../../util/id-token';
 import { SourceRange } from '../../../util/source-range';
@@ -11,7 +12,7 @@ export class InfixExpressionTree implements ExpressionTree {
     this.sourceRange = SourceRange.fromTwoRange(left.sourceRange, right.sourceRange);
   }
 
-  toString(): string {
+  toString(): String {
     if (this.name.text === '^') {
       return `${this.left}${this.name}${this.right}`;
     }

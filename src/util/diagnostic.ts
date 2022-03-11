@@ -1,16 +1,12 @@
+import { String } from '../lib/core';
+
 export class Diagnostic {
-  constructor(private code: string) {
+  constructor(private code: String) {}
 
-  }
-
-  issues(){
+  issues() {
     try {
-      const issues = []
+      const issues = [];
       return issues;
-    } catch (error) {
-      
-    }
-
-
+    } catch (error) {}
   }
 }

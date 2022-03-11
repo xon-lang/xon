@@ -1,4 +1,5 @@
 import { WhileStatementContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { BodyTree } from '../../body/body-tree';
 import { getBodyTree } from '../../body/body-tree-helper';
@@ -17,7 +18,7 @@ export class WhileStatementTree implements StatementTree {
     this.body = getBodyTree(ctx.body());
   }
 
-  toString(): string {
+  toString(): String {
     return `while ${this.expression}${this.body}`;
   }
 }

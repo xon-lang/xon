@@ -1,10 +1,11 @@
 import { ExportStatementContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { StatementTree } from '../statement-tree';
 
 export class ExportStatementTree implements StatementTree {
   sourceRange: SourceRange;
-  path: string;
+  path: String;
 
   constructor(ctx: ExportStatementContext) {
     this.sourceRange = SourceRange.fromContext(ctx);
@@ -12,7 +13,7 @@ export class ExportStatementTree implements StatementTree {
     this.path = ctx._path.text;
   }
 
-  toString(): string {
+  toString(): String {
     return `export ${this.path}`;
   }
 }

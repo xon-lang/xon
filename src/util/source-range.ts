@@ -1,13 +1,14 @@
 import { ParserRuleContext, Token } from 'antlr4ts';
+import { Number, String } from '../lib/core';
 
 export class LinePosition {
-  constructor(public line: number, public column: number, public index: number) {}
+  constructor(public line: Number, public column: Number, public index: Number) {}
 }
 
 export class SourceRange {
-  sourceName: string;
-  rangeText: string;
-  sourceText: string;
+  sourceName: String;
+  rangeText: String;
+  sourceText: String;
   start: LinePosition;
   stop: LinePosition;
 
@@ -18,7 +19,7 @@ export class SourceRange {
     return 0;
   }
 
-  get link(): string {
+  get link(): String {
     return `${this.sourceName}:${this.start.line}:${this.start.column}`;
   }
 

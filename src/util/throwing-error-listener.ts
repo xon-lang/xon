@@ -10,15 +10,16 @@ import {
 import { Issue } from '../issue-service/issue';
 import { IssueLevel } from '../issue-service/issue-level';
 import { IssueService } from '../issue-service/issue-service';
+import { Number, String } from '../lib/core';
 import { SourceRange } from './source-range';
 
 export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbol> {
   syntaxError(
     recognizer: Recognizer<TSymbol, any>,
     offendingSymbol: TSymbol | undefined,
-    line: number,
-    charIndex: number,
-    message: string,
+    line: Number,
+    charIndex: Number,
+    message: String,
     error: RecognitionException | undefined,
   ): never {
     if (!(offendingSymbol instanceof CommonToken)) {

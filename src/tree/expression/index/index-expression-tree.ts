@@ -1,4 +1,5 @@
 import { IndexExpressionContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
 import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
 import { SourceRange } from '../../../util/source-range';
 import { ExpressionTree } from '../expression-tree';
@@ -16,7 +17,7 @@ export class IndexExpressionTree implements ExpressionTree {
     this.arguments = getExpressionTrees(ctx._args);
   }
 
-  toString(): string {
+  toString(): String {
     return `${this.instance}[${this.arguments.join(', ')}]`;
   }
 }

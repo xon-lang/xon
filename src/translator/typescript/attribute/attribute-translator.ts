@@ -1,3 +1,4 @@
+import { String } from '../../../lib/core';
 import { AttributeTree } from '../../../tree/attribute/attribute-tree';
 import { MultipleBodyTree } from '../../../tree/body/multiple/multiple-body-tree';
 import { SingleBodyTree } from '../../../tree/body/single/single-body-tree';
@@ -14,7 +15,7 @@ import { getParameterTranslators } from '../parameter/parameter-translator-helpe
 export class AttributeTranslator implements Translator {
   constructor(private tree: AttributeTree) {}
 
-  toString(): string {
+  toString(): String {
     const modifier = (this.tree.name.text.startsWith('_') && 'private ') || '';
     let parameters =
       (this.tree.isMethod && `(${getParameterTranslators(this.tree.parameters).join(', ')})`) || '';
@@ -47,7 +48,7 @@ export class AttributeTranslator implements Translator {
   }
 
   // todo remove and fix with using metadata
-  getVariables(statements: StatementTree[], vars: string[] = []): string[] {
+  getVariables(statements: StatementTree[], vars: String[] = []): String[] {
     const getIfStatements = (statement: IfStatementTree) => {
       const statements = [];
       if (statement.thenBody instanceof MultipleBodyTree) {

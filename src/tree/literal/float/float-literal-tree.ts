@@ -1,13 +1,14 @@
 import { FloatLiteralContext } from '../../../grammar/xon-parser';
+import { Number, String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { LiteralTree } from '../literal-tree';
 
 export class FloatLiteralTree implements LiteralTree {
   sourceRange: SourceRange;
-  radix: number;
-  integer: string;
-  fraction: string;
-  value: number;
+  radix: Number;
+  integer: String;
+  fraction: String;
+  value: Number;
 
   constructor(ctx: FloatLiteralContext) {
     this.sourceRange = SourceRange.fromContext(ctx);
