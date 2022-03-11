@@ -3,18 +3,21 @@ import { AssignmentStatementTree } from '../../../tree/statement/assignment/assi
 import { ExpressionStatementTree } from '../../../tree/statement/expression/expression-statement-tree';
 import { IfStatementTree } from '../../../tree/statement/if/if-statement-tree';
 import { ImportStatementTree } from '../../../tree/statement/import/import-statement-tree';
+import { PreprocessorStatementTree } from '../../../tree/statement/preprocessor/preprocessor-statement-tree';
 import { ReturnStatementTree } from '../../../tree/statement/return/return-statement-tree';
 import { StatementTree } from '../../../tree/statement/statement-tree';
 import { AssignmentStatementTranslator } from './assignment/assignment-statement-translator';
 import { ExpressionStatementTranslator } from './expression/expression-statement-translator';
 import { IfStatementTranslator } from './if/if-statement-translator';
 import { ImportStatementTranslator } from './import/import-statement-translator';
+import { PreprocessorStatementTranslator } from './preprocessor/preprocessor-statement-translator';
 import { ReturnStatementTranslator } from './return/return-statement-translator';
 import { StatementTranslator } from './statement-translator';
 
 export function getStatementTranslator(tree: StatementTree): StatementTranslator {
   try {
     if (tree instanceof IfStatementTree) return new IfStatementTranslator(tree);
+    if (tree instanceof PreprocessorStatementTree) return new PreprocessorStatementTranslator(tree);
     if (tree instanceof ExpressionStatementTree) return new ExpressionStatementTranslator(tree);
     if (tree instanceof ImportStatementTree) return new ImportStatementTranslator(tree);
     if (tree instanceof ReturnStatementTree) return new ReturnStatementTranslator(tree);
