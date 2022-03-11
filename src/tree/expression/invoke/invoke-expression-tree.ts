@@ -1,23 +1,30 @@
-import { InvokeExpressionContext } from '../../../grammar/xon-parser';
-import { String } from '../../../lib/core';
-import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
-import { SourceRange } from '../../../util/source-range';
-import { ExpressionTree } from '../expression-tree';
-import { getExpressionTree, getExpressionTrees } from '../expression-tree-helper';
+// this code was generated
 
-export class InvokeExpressionTree implements ExpressionTree {
-  sourceRange: SourceRange;
-  metadata: ExpressionMetadata;
-  instance: ExpressionTree;
-  arguments: ExpressionTree[];
+import { InvokeExpressionContext } from '../../../grammar/xon-parser'
+import { String } from '../../../lib/core'
+import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata'
+import { SourceRange } from '../../../util/source-range'
+import { getExpressionTree, getExpressionTrees } from '../expression-tree-helper'
+import { ExpressionTree } from '../expression-tree'
+
+export class InvokeExpressionTree extends ExpressionTree {
+  metadata: ExpressionMetadata
+  ctx: InvokeExpressionContext
+  sourceRange: SourceRange
+  instance: ExpressionTree
+  arguments: ExpressionTree[]
 
   constructor(ctx: InvokeExpressionContext) {
-    this.sourceRange = SourceRange.fromContext(ctx);
-    this.instance = getExpressionTree(ctx._instance);
-    this.arguments = getExpressionTrees(ctx._args);
+    super()
+    this.ctx = ctx
+    this.sourceRange = SourceRange.fromContext(ctx)
+    this.instance = getExpressionTree(ctx._instance)
+    this.arguments = getExpressionTrees(ctx._args)
   }
 
   toString(): String {
-    return `${this.instance}(${this.arguments.join(', ')})`;
+    return `${this.instance}(${this.arguments.join(', ')})`
   }
 }
+
+// this code was generated
