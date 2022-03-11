@@ -21,7 +21,7 @@ export class ParameterTree extends Tree {
     super();
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
-    this.id = new IdToken(ctx.id()._name);
+    this.id = new IdToken(ctx._name);
     this.type = getExpressionTree(ctx.expr());
     this.body = getBodyTree(ctx.body());
   }

@@ -11,7 +11,7 @@ export class IdExpressionTree implements ExpressionTree {
 
   constructor(ctx: IdExpressionContext) {
     this.sourceRange = SourceRange.fromContext(ctx);
-    this.id = new IdToken(ctx.id()._name);
+    this.id = new IdToken(ctx._name);
   }
 
   toString(): string {

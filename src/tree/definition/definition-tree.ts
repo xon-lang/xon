@@ -23,7 +23,7 @@ export class DefinitionTree implements Tree {
   constructor(private ctx: DefinitionContext) {
     this.sourceRange = SourceRange.fromContext(ctx);
     this.modifier = new IdToken(ctx._modifier);
-    this.id = new IdToken(ctx.id()._name);
+    this.id = new IdToken(ctx._name);
     this.generics = getParameterTrees(ctx.generics()?.parameter());
     this.parameters = getParameterTrees(ctx.methodParameters()?.parameter()) || null;
     this.base = getExpressionTree(ctx.expr()) || null;

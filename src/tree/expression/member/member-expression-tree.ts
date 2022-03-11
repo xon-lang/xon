@@ -14,7 +14,7 @@ export class MemberExpressionTree implements ExpressionTree {
   constructor(ctx: MemberExpressionContext) {
     this.sourceRange = SourceRange.fromContext(ctx);
     this.instance = getExpressionTree(ctx.expr());
-    this.id = new IdToken(ctx.id()._name);
+    this.id = new IdToken(ctx._name);
   }
 
   toString(): string {
