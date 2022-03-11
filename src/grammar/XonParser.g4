@@ -7,11 +7,13 @@ options {
 source: ( definition | statement | NL)*;
 
 definition:
-    modifier = ID id parameters? expr? (NL INDENT (attribute | NL)+ DEDENT)?
+    modifier = ID id generics? methodParameters? expr? (
+        NL INDENT (attribute | NL)+ DEDENT
+    )?
     ;
 attribute:
-    modifier = ID id parameters expr? body?
-    | id parameters? expr? body?
+    modifier = ID name = (OPERATOR | ID | IN | IS) generics? methodParameters expr? body?
+    | name = (ID | IN | IS) generics? methodParameters? expr? body?
     ;
 
 statement:
@@ -37,11 +39,12 @@ expr:
     | instance = expr '[' (args += expr (',' args += expr)* ','?)? ']' # indexExpression
     | expr '?'                                                         # nullableExpression
     | expr '.' id                                                      # memberExpression
+    | expr generics                                                    # genericsExpression
     | op = OPERATOR expr                                               # prefixExpression
     | left = expr op = (ID | OPERATOR) right = expr                    # infixExpression
     | literal                                                          # literalExpression
-    | '(' (parameter (',' parameter)* ','?)? ')' body                  # methodExpression
-    | '[' (parameter (',' parameter)* ','?)? ']' body                  # indexerExpression
+    | generics? methodParameters body                                  # methodExpression
+    | generics? indexerParameters body                                 # indexerExpression
     | '(' expr ')'                                                     # parenthesizedExpression
     ;
 
@@ -57,7 +60,9 @@ body:
     | NL INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-arrayItem:  (expr ':')? expr;
-parameter:  id ( expr body | expr | body)?;
-parameters: '(' (parameter (',' parameter)* ','?)? ')';
-id:         name = (ID | OPERATOR) ('<|' parameter (',' parameter)* ','? '|>')?;
+arrayItem:         (expr ':')? expr;
+parameter:         id ( expr body | expr | body)?;
+methodParameters:  '(' (parameter (',' parameter)* ','?)? ')';
+indexerParameters: '[' (parameter (',' parameter)* ','?)? ']';
+id:                name = (ID | IN | IS);
+generics:          '<|' parameter (',' parameter)* ','? '|>';
