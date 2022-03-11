@@ -15,6 +15,7 @@ import {
   PrefixExpressionContext,
 } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
+import { none } from '../../lib/core';
 import { getIdToken, IdToken } from '../../util/id-token';
 import { ArrayExpressionTree } from './array/array-expression-tree';
 import { ExpressionTree } from './expression-tree';
@@ -31,7 +32,7 @@ import { ParenthesizedExpressionTree } from './parenthesized/parenthesized-expre
 import { PrefixExpressionTree } from './prefix/prefix-expression-tree';
 
 export const getExpressionTree = (ctx: ExprContext): ExpressionTree => {
-  if (!ctx) return null;
+  if (!ctx) return none;
 
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
   if (ctx instanceof GenericsExpressionContext) return new GenericsExpressionTree(ctx);

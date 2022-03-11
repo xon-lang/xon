@@ -1,6 +1,6 @@
 import { Issue } from '../../issue-service/issue';
 import { IssueLevel } from '../../issue-service/issue-level';
-import { String } from '../../lib/core';
+import { none, String } from '../../lib/core';
 import { DeclarationMetadata } from '../declaration/declaration-metadata';
 import { DefinitionDeclarationMetadata } from '../declaration/definition/definition-declaration-metadata';
 import { CoreDeclarationScope } from './core-declaration-scope';
@@ -8,7 +8,7 @@ import { CoreDeclarationScope } from './core-declaration-scope';
 export class DeclarationScope {
   protected declarations: DeclarationMetadata[] = [];
   get core(): CoreDeclarationScope {
-    return (this instanceof CoreDeclarationScope && this) || this.parent?.core || null;
+    return (this instanceof CoreDeclarationScope && this) || this.parent?.core || none;
   }
 
   constructor(public parent?: DeclarationScope) {}

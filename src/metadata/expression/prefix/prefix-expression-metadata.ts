@@ -6,7 +6,7 @@ import { ExpressionMetadata } from '../expression-metadata';
 export class PrefixExpressionMetadata implements ExpressionMetadata {
   constructor(tree: PrefixExpressionTree, scope: DeclarationScope) {
     // const declaration = getExpressionMetadata(tree.value, scope).type.declaration;
-    // const attributeType = declaration.attribute(tree.id.text, [], [], null).type([]);
+    // const attributeType = declaration.attribute(tree.id.text, [], [], none).type([]);
     // if (attributeType instanceof LambdaTypeMetadata) this.type = attributeType.resultType;
     // else throw new Error('Wrong method type');
   }

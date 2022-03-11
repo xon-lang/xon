@@ -1,3 +1,4 @@
+import { none } from '../../lib/core';
 import { parseParameter } from '../../util/parse';
 import { SingleBodyTree } from '../body/single/single-body-tree';
 import { IdExpressionTree } from '../expression/id/id-expression-tree';
@@ -26,7 +27,7 @@ test('id value', () => {
   expect(tree).toBeInstanceOf(ParameterTree);
 
   expect(tree.name.text).toBe('a');
-  expect(tree.type).toBe(null);
+  expect(tree.type).toBe(none);
   expect(
     (
       ((tree.body as SingleBodyTree).statement as ExpressionStatementTree)
@@ -42,5 +43,5 @@ test('id type', () => {
 
   expect(tree.name.text).toBe('cat');
   expect((tree.type as IdExpressionTree).name.text).toBe('Animal');
-  expect(tree.body).toBe(null);
+  expect(tree.body).toBe(none);
 });

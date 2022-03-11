@@ -1,4 +1,5 @@
 import { Issue } from '../../../issue-service/issue';
+import { none, None } from '../../../lib/core';
 import { DefinitionTree } from '../../../tree/definition/definition-tree';
 import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
 import { SourceRange } from '../../../util/source-range';
@@ -24,8 +25,8 @@ export class DefinitionDeclarationMetadata implements DeclarationMetadata {
     return Object.values(attributes);
   }
 
-  baseModel(): DefinitionDeclarationMetadata | null {
-    if (!this.tree.base) return null;
+  baseModel(): DefinitionDeclarationMetadata | None {
+    if (!this.tree.base) return none;
     if (this.tree.base instanceof IdExpressionTree)
       return this.scope.findModel(this.tree.base.name.text);
     Issue.errorFromTree(this.tree.base, 'Not implemented');

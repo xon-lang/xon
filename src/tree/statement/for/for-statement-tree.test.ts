@@ -1,3 +1,4 @@
+import { none } from '../../../lib/core';
 import { evaluate } from '../../../util/evaluate';
 import { parseStatement } from '../../../util/parse';
 import { MultipleBodyTree } from '../../body/multiple/multiple-body-tree';
@@ -11,7 +12,7 @@ test('for with value', () => {
   const tree = parseStatement(code) as ForStatementTree;
   expect(tree).toBeInstanceOf(ForStatementTree);
 
-  expect(tree.indexVarName).toBe(null);
+  expect(tree.indexVarName).toBe(none);
   expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
   const statement = (tree.body as MultipleBodyTree).statements[0];
@@ -36,8 +37,8 @@ test('for with expression only', () => {
   const tree = parseStatement(code) as ForStatementTree;
   expect(tree).toBeInstanceOf(ForStatementTree);
 
-  expect(tree.valueVarName).toBe(null);
-  expect(tree.indexVarName).toBe(null);
+  expect(tree.valueVarName).toBe(none);
+  expect(tree.indexVarName).toBe(none);
   expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
   const body = tree.body as MultipleBodyTree;

@@ -6,6 +6,7 @@ import {
   StringLiteralContext,
 } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
+import { none } from '../../lib/core';
 import { FloatLiteralTree } from './float/float-literal-tree';
 import { IntegerLiteralTree } from './integer/integer-literal-tree';
 import { LiteralTree } from './literal-tree';
@@ -13,7 +14,7 @@ import { RegexLiteralTree } from './regex/regex-literal-tree';
 import { StringLiteralTree } from './string/string-literal-tree';
 
 export const getLiteralTree = (ctx: LiteralContext): LiteralTree => {
-  if (!ctx) return null;
+  if (!ctx) return none;
 
   if (ctx instanceof FloatLiteralContext) return new FloatLiteralTree(ctx);
   if (ctx instanceof IntegerLiteralContext) return new IntegerLiteralTree(ctx);

@@ -1,4 +1,5 @@
 import { Issue } from '../issue-service/issue';
+import { none } from '../lib/core';
 import { ExpressionTree } from '../tree/expression/expression-tree';
 import { IdExpressionTree } from '../tree/expression/id/id-expression-tree';
 import { InfixExpressionTree } from '../tree/expression/infix/infix-expression-tree';
@@ -9,7 +10,7 @@ import { PrefixExpressionTree } from '../tree/expression/prefix/prefix-expressio
 const escapeIfString = (s: unknown) => (typeof s === 'string' ? `\`${s}\`` : s);
 
 export const evaluate = (tree: ExpressionTree, argsMap = {}): unknown => {
-  if (!tree) return null;
+  if (!tree) return none;
 
   if (tree instanceof LiteralExpressionTree) return tree.literal.value;
   if (tree instanceof ParenthesizedExpressionTree) return evaluate(tree.expression);

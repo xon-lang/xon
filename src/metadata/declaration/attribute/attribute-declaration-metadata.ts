@@ -1,5 +1,5 @@
 import { Issue } from '../../../issue-service/issue';
-import { String } from '../../../lib/core';
+import { none, None, String } from '../../../lib/core';
 import { AttributeTree } from '../../../tree/attribute/attribute-tree';
 import { SingleBodyTree } from '../../../tree/body/single/single-body-tree';
 import { ExpressionStatementTree } from '../../../tree/statement/expression/expression-statement-tree';
@@ -23,7 +23,7 @@ export class AttributeDeclarationMetadata implements DeclarationMetadata {
     // return this.tree.id.generics.map((x) => getExpressionMetadata(x, this.scope));
   }
 
-  value(): ExpressionMetadata | null {
+  value(): ExpressionMetadata | None {
     if (this.tree.body) {
       if (this.tree.body instanceof SingleBodyTree) {
         if (this.tree.body.statement instanceof ExpressionStatementTree) {
@@ -33,7 +33,7 @@ export class AttributeDeclarationMetadata implements DeclarationMetadata {
         // todo join all return expressions
       }
     }
-    return null;
+    return none;
   }
 
   type(): ExpressionMetadata {

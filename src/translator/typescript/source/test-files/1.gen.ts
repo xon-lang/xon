@@ -8,10 +8,10 @@ export class someObjectFactory<T> {
     this.arr = [123, 456, 789, 456, 789]
   }
 
-  method(x: Number, y: Number): (String | null) {
+  method(x: Number, y: Number): (String | None) {
     this.hello()
     this.pos()
-    return null
+    return none
   }
 
   location(x: Number, y: Number): Number {

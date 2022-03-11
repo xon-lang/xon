@@ -1,4 +1,5 @@
 import { DefinitionContext } from '../../grammar/xon-parser';
+import { none } from '../../lib/core';
 import { DefinitionDeclarationMetadata } from '../../metadata/declaration/definition/definition-declaration-metadata';
 import { getIdToken, IdToken } from '../../util/id-token';
 import { SourceRange } from '../../util/source-range';
@@ -25,8 +26,8 @@ export class DefinitionTree implements Tree {
     this.modifier = getIdToken(ctx._modifier);
     this.name = getIdToken(ctx._name);
     this.generics = getParameterTrees(ctx.generics()?.parameter());
-    this.parameters = getParameterTrees(ctx.methodParameters()?.parameter()) || null;
-    this.base = getExpressionTree(ctx.expr()) || null;
+    this.parameters = getParameterTrees(ctx.methodParameters()?.parameter()) || none;
+    this.base = getExpressionTree(ctx.expr()) || none;
     this.attributes = getAttributeTrees(ctx.attribute());
   }
 

@@ -5,7 +5,7 @@ object someObjectFactory<|T|>(name String)
   method(x Number, y Number) String?
     this.hello()
     this.pos()
-    return null
+    return none
 
   location(x Number, y Number) Number
     this.method(x, y)

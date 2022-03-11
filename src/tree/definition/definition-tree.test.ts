@@ -1,4 +1,5 @@
 import { IssueService } from '../../issue-service/issue-service';
+import { none } from '../../lib/core';
 import { parseDefinition, parseSourceFile } from '../../util/parse';
 import { IdExpressionTree } from '../expression/id/id-expression-tree';
 import { DefinitionTree } from './definition-tree';
@@ -21,7 +22,7 @@ test('model animal with only attribute', () => {
 
   expect(tree.modifier.text).toBe('model');
   expect(tree.name.text).toBe('Animal');
-  expect(tree.base).toBe(null);
+  expect(tree.base).toBe(none);
   expect(tree.attributes.length).toBe(1);
   expect(tree.attributes[0].name.text).toBe('abc');
   expect((tree.attributes[0].type as IdExpressionTree).name.text).toBe('Integer');

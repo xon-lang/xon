@@ -1,5 +1,5 @@
 import { ForStatementContext } from '../../../grammar/xon-parser';
-import { String } from '../../../lib/core';
+import { none, String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { BodyTree } from '../../body/body-tree';
 import { getBodyTree } from '../../body/body-tree-helper';
@@ -16,8 +16,8 @@ export class ForStatementTree implements StatementTree {
 
   constructor(ctx: ForStatementContext) {
     this.sourceRange = SourceRange.fromContext(ctx);
-    this.valueVarName = ctx._value?.text || null;
-    this.indexVarName = ctx._index?.text || null;
+    this.valueVarName = ctx._value?.text || none;
+    this.indexVarName = ctx._index?.text || none;
     this.expression = getExpressionTree(ctx.expr());
     this.body = getBodyTree(ctx.body());
   }

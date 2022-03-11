@@ -1,7 +1,7 @@
 // this code was generated
 
 import { AttributeContext } from '../../grammar/xon-parser'
-import { String } from '../../lib/core'
+import { none, None, String } from '../../lib/core'
 import { AttributeDeclarationMetadata } from '../../metadata/declaration/attribute/attribute-declaration-metadata'
 import { getIdToken, IdToken } from '../../util/id-token'
 import { SourceRange } from '../../util/source-range'
@@ -16,19 +16,19 @@ import { Tree } from '../tree'
 export class AttributeTree extends Tree {
   metadata: AttributeDeclarationMetadata
   sourceRange: SourceRange
-  modifier?: (IdToken | null)
+  modifier?: (IdToken | None)
   isMethod: boolean
   isOperator: boolean
   name: IdToken
   generics: ParameterTree[]
   parameters: ParameterTree[]
-  type?: (ExpressionTree | null)
-  body?: (BodyTree | null)
+  type?: (ExpressionTree | None)
+  body?: (BodyTree | None)
 
   constructor(ctx: AttributeContext) {
     super()
     this.sourceRange = SourceRange.fromContext(ctx)
-    this.modifier = (ctx._modifier && getIdToken(ctx._modifier)) || null
+    this.modifier = (ctx._modifier && getIdToken(ctx._modifier)) || none
     this.isMethod = !!ctx.methodParameters()
     this.isOperator = this.modifier?.text === 'operator'
     this.name = getIdToken(ctx._name)

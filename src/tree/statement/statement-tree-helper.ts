@@ -12,6 +12,7 @@ import {
   WhileStatementContext,
 } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
+import { none } from '../../lib/core';
 import { AssertStatementTree } from './assert/assert-statement-tree';
 import { AssignmentStatementTree } from './assignment/assignment-statement-tree';
 import { ExportStatementTree } from './export/export-statement-tree';
@@ -25,7 +26,7 @@ import { StatementTree } from './statement-tree';
 import { WhileStatementTree } from './while/while-statement-tree';
 
 export const getStatementTree = (ctx: StatementContext): StatementTree => {
-  if (!ctx) return null;
+  if (!ctx) return none;
 
   if (ctx instanceof AssertStatementContext) return new AssertStatementTree(ctx);
   if (ctx instanceof AssignmentStatementContext) return new AssignmentStatementTree(ctx);

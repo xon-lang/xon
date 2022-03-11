@@ -8,7 +8,7 @@ export class NullableExpressionTranslator implements ExpressionTranslator {
 
   toString(): String {
     if (this.isType) {
-      return `(${getExpressionTranslator(this.tree.value, this.isType)} | null)`;
+      return `(${getExpressionTranslator(this.tree.value, this.isType)} | None)`;
     }
     return `${getExpressionTranslator(this.tree.value, this.isType)}?`;
   }

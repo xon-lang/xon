@@ -1,4 +1,5 @@
 import { Issue } from '../../../issue-service/issue';
+import { none } from '../../../lib/core';
 import { ArrayExpressionTree } from '../../../tree/expression/array/array-expression-tree';
 import { ExpressionTree } from '../../../tree/expression/expression-tree';
 import { GenericsExpressionTree } from '../../../tree/expression/generics/generics-expression-tree';
@@ -30,7 +31,7 @@ export function getExpressionTranslator(
   tree: ExpressionTree,
   isType: boolean,
 ): ExpressionTranslator {
-  if (!tree) return null;
+  if (!tree) return none;
   try {
     if (tree instanceof ArrayExpressionTree) return new ArrayExpressionTranslator(tree, isType);
     if (tree instanceof GenericsExpressionTree)

@@ -1,4 +1,5 @@
 import { Issue } from '../../issue-service/issue';
+import { none } from '../../lib/core';
 import { AttributeTree } from '../../tree/attribute/attribute-tree';
 import { DefinitionTree } from '../../tree/definition/definition-tree';
 import { ParameterTree } from '../../tree/parameter/parameter-tree';
@@ -14,7 +15,7 @@ export const getDeclarationMetadata = (
   tree: Tree,
   scope: DeclarationScope,
 ): DeclarationMetadata => {
-  if (!tree) return null;
+  if (!tree) return none;
 
   if (tree instanceof AttributeTree) return new AttributeDeclarationMetadata(tree, scope);
   if (tree instanceof ParameterTree) return new ParameterDeclarationMetadata(tree, scope);

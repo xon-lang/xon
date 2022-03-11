@@ -1,5 +1,5 @@
 import '../../grammar/xon-parser': AttributeContext
-import '../../lib/core': String
+import '../../lib/core': String, none
 import '../../metadata/declaration/attribute/attribute-declaration-metadata': AttributeDeclarationMetadata
 import '../../util/id-token': getIdToken, IdToken
 import '../../util/source-range': SourceRange
@@ -14,14 +14,14 @@ import '../tree': Tree
 object AttributeTree(ctx AttributeContext) Tree
   metadata AttributeDeclarationMetadata
   sourceRange SourceRange = SourceRange.fromContext(ctx)
-  modifier IdToken? = (ctx._modifier and getIdToken(ctx._modifier)) or null
+  modifier IdToken? = (ctx._modifier and getIdToken(ctx._modifier)) or none
   isMethod boolean = !!ctx.methodParameters()
   isOperator boolean = this.modifier?.text == 'operator'
   name IdToken = getIdToken(ctx._name)
   generics ParameterTree[] = getParameterTrees(ctx.generics()?.parameter())
   parameters ParameterTree[] = getParameterTrees(ctx.methodParameters()?.parameter())
-  type ExpressionTree? = getExpressionTree(ctx.expr()) or null
-  body BodyTree? = getBodyTree(ctx.body()) or null
+  type ExpressionTree? = getExpressionTree(ctx.expr()) or none
+  body BodyTree? = getBodyTree(ctx.body()) or none
 
   toString() String
     modifier = (this.modifier and this.modifier + ' ') or ''

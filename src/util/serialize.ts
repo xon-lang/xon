@@ -1,9 +1,9 @@
-import { String } from '../lib/core';
+import { none, String } from '../lib/core';
 import { Tree } from '../tree/tree';
 
 export function treeToPlain(tree: Tree): unknown {
   const entries = Object.entries(tree)
-    .filter(([k, v]) => typeof v !== 'function' && v !== null && v !== undefined && k !== 'ctx')
+    .filter(([k, v]) => typeof v !== 'function' && v !== none && v !== undefined && k !== 'ctx')
     .map(([k, v]) => {
       if (Array.isArray(v)) return [k, v.map(treeToJson)];
       if (typeof v === 'object') return [k, treeToJson(v)];
@@ -18,5 +18,5 @@ export function treeToJson(tree: Tree): String {
   const tabWidth = 2;
   console.log(treeToPlain(tree));
 
-  return JSON.stringify(treeToPlain(tree), null, tabWidth);
+  return JSON.stringify(treeToPlain(tree), none, tabWidth);
 }
