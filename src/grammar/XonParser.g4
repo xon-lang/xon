@@ -39,7 +39,7 @@ expr:
     | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
     | instance = expr '[' (args += expr (',' args += expr)* ','?)? ']' # indexExpression
     | expr '?'                                                         # nullableExpression
-    | expr '.' name = ID                                               # memberExpression
+    | expr NL* '.' NL* name = ID                                       # memberExpression
     | expr generics                                                    # genericsExpression
     | op = OPERATOR expr                                               # prefixExpression
     | left = expr op = (ID | OPERATOR) right = expr                    # infixExpression
