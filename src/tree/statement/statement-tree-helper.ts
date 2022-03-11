@@ -6,7 +6,6 @@ import {
   ForStatementContext,
   IfStatementContext,
   ImportStatementContext,
-  PreprocessorStatementContext,
   ReturnStatementContext,
   StatementContext,
   WhileStatementContext,
@@ -20,7 +19,6 @@ import { ExpressionStatementTree } from './expression/expression-statement-tree'
 import { ForStatementTree } from './for/for-statement-tree';
 import { IfStatementTree } from './if/if-statement-tree';
 import { ImportStatementTree } from './import/import-statement-tree';
-import { PreprocessorStatementTree } from './preprocessor/preprocessor-statement-tree';
 import { ReturnStatementTree } from './return/return-statement-tree';
 import { StatementTree } from './statement-tree';
 import { WhileStatementTree } from './while/while-statement-tree';
@@ -35,7 +33,6 @@ export const getStatementTree = (ctx: StatementContext): StatementTree => {
   if (ctx instanceof ForStatementContext) return new ForStatementTree(ctx);
   if (ctx instanceof IfStatementContext) return new IfStatementTree(ctx);
   if (ctx instanceof ImportStatementContext) return new ImportStatementTree(ctx);
-  if (ctx instanceof PreprocessorStatementContext) return new PreprocessorStatementTree(ctx);
   if (ctx instanceof ReturnStatementContext) return new ReturnStatementTree(ctx);
   if (ctx instanceof WhileStatementContext) return new WhileStatementTree(ctx);
 

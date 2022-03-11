@@ -13,6 +13,7 @@ import { MethodExpressionTree } from '../../../tree/expression/method/method-exp
 import { NullableExpressionTree } from '../../../tree/expression/nullable/nullable-expression-tree';
 import { ParenthesizedExpressionTree } from '../../../tree/expression/parenthesized/parenthesized-expression-tree';
 import { PrefixExpressionTree } from '../../../tree/expression/prefix/prefix-expression-tree';
+import { PreprocessorExpressionTree } from '../../../tree/expression/preprocessor/preprocessor-expression-tree';
 import { ArrayExpressionTranslator } from './array/array-expression-translator';
 import { ExpressionTranslator } from './expression-translator';
 import { GenericsExpressionTranslator } from './generics/generics-expression-translator';
@@ -26,6 +27,7 @@ import { MethodExpressionTranslator } from './method/method-expression-translato
 import { NullableExpressionTranslator } from './nullable/nullable-expression-translator';
 import { ParenthesizedExpressionTranslator } from './parenthesized/parenthesized-expression-translator';
 import { PrefixExpressionTranslator } from './prefix/prefix-expression-translator';
+import { PreprocessorExpressionTranslator } from './preprocessor/preprocessor-expression-translator';
 
 export function getExpressionTranslator(
   tree: ExpressionTree,
@@ -33,6 +35,8 @@ export function getExpressionTranslator(
 ): ExpressionTranslator {
   if (!tree) return none;
   try {
+    if (tree instanceof PreprocessorExpressionTree)
+      return new PreprocessorExpressionTranslator(tree, isType);
     if (tree instanceof ArrayExpressionTree) return new ArrayExpressionTranslator(tree, isType);
     if (tree instanceof GenericsExpressionTree)
       return new GenericsExpressionTranslator(tree, isType);

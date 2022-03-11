@@ -13,6 +13,7 @@ import {
   NullableExpressionContext,
   ParenthesizedExpressionContext,
   PrefixExpressionContext,
+  PreprocessorExpressionContext,
 } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
 import { none } from '../../lib/core';
@@ -30,10 +31,12 @@ import { MethodExpressionTree } from './method/method-expression-tree';
 import { NullableExpressionTree } from './nullable/nullable-expression-tree';
 import { ParenthesizedExpressionTree } from './parenthesized/parenthesized-expression-tree';
 import { PrefixExpressionTree } from './prefix/prefix-expression-tree';
+import { PreprocessorExpressionTree } from './preprocessor/preprocessor-expression-tree';
 
 export const getExpressionTree = (ctx: ExprContext): ExpressionTree => {
   if (!ctx) return none;
 
+  if (ctx instanceof PreprocessorExpressionContext) return new PreprocessorExpressionTree(ctx);
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
   if (ctx instanceof GenericsExpressionContext) return new GenericsExpressionTree(ctx);
   if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);

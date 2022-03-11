@@ -26,3 +26,7 @@ object someObjectFactory<|T|>(name String)
 model Array<|T|>
   operator + (other T[]) T[]
   operator * (other Integer) T[][]
+
+#{1  sd
+f 2 sdf
+34}#
