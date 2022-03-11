@@ -1,0 +1,13 @@
+import '../../../grammar/xon-parser': ReturnStatementContext
+import '../../../lib/core': None, String
+import '../../../util/source-range': SourceRange
+import '../../expression/expression-tree-helper': getExpressionTree
+import '../../expression/expression-tree': ExpressionTree
+import '../statement-tree': StatementTree
+
+object ReturnStatementTree(ctx ReturnStatementContext) StatementTree
+  ctx ReturnStatementContext = ctx
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  value ExpressionTree? = ctx.expr() and getExpressionTree(ctx.expr())
+
+  toString() String = this.value and #{`return ${this.value}`} or 'return'

@@ -1,23 +1,27 @@
-import { ReturnStatementContext } from '../../../grammar/xon-parser';
-import { String } from '../../../lib/core';
-import { SourceRange } from '../../../util/source-range';
-import { ExpressionTree } from '../../expression/expression-tree';
-import { getExpressionTree } from '../../expression/expression-tree-helper';
-import { StatementTree } from '../statement-tree';
+// this code was generated
 
-export class ReturnStatementTree implements StatementTree {
-  sourceRange: SourceRange;
-  value?: ExpressionTree;
+import { ReturnStatementContext } from '../../../grammar/xon-parser'
+import { None, String } from '../../../lib/core'
+import { SourceRange } from '../../../util/source-range'
+import { getExpressionTree } from '../../expression/expression-tree-helper'
+import { ExpressionTree } from '../../expression/expression-tree'
+import { StatementTree } from '../statement-tree'
+
+export class ReturnStatementTree extends StatementTree {
+  ctx: ReturnStatementContext
+  sourceRange: SourceRange
+  value?: (ExpressionTree | None)
 
   constructor(ctx: ReturnStatementContext) {
-    this.sourceRange = SourceRange.fromContext(ctx);
-    this.value = ctx.expr() && getExpressionTree(ctx.expr());
+    super()
+    this.ctx = ctx
+    this.sourceRange = SourceRange.fromContext(ctx)
+    this.value = ctx.expr() && getExpressionTree(ctx.expr())
   }
 
   toString(): String {
-    if (this.value) {
-      return `return ${this.value}`;
-    }
-    return `return`;
+    return this.value && `return ${this.value}` || 'return'
   }
 }
+
+// this code was generated
