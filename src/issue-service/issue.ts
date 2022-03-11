@@ -5,6 +5,7 @@ import { String } from '../lib/core';
 import { Tree } from '../tree/tree';
 import { SourceRange } from '../util/source-range';
 import { IssueLevel } from './issue-level';
+import { IssueService } from './issue-service';
 
 export class Issue {
   message: String;
@@ -37,6 +38,7 @@ export class Issue {
   }
 
   error(): Error {
+    IssueService.issues.push(this);
     return new Error(this.toString());
   }
 
@@ -50,16 +52,11 @@ export class Issue {
 
   static errorFromContext(ctx: ParserRuleContext, message: String): never {
     const issue = Issue.fromSourceRange(SourceRange.fromContext(ctx), IssueLevel.error, message);
-    throw new Error(issue.toString());
+    throw issue.error();
   }
 
   static errorFromTree(tree: Tree, message: String): never {
     const issue = Issue.fromSourceRange(tree.sourceRange, IssueLevel.error, message);
-    throw new Error(issue.toString());
-  }
-
-  static errorFromSourceRange(sourceRange: SourceRange, message: String): never {
-    const issue = Issue.fromSourceRange(sourceRange, IssueLevel.error, message);
-    throw new Error(issue.toString());
+    throw issue.error();
   }
 }

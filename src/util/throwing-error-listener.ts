@@ -9,7 +9,6 @@ import {
 } from 'antlr4ts';
 import { Issue } from '../issue-service/issue';
 import { IssueLevel } from '../issue-service/issue-level';
-import { IssueService } from '../issue-service/issue-service';
 import { none, Number, String } from '../lib/core';
 import { SourceRange } from './source-range';
 
@@ -41,7 +40,6 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
     issue.level = IssueLevel.error;
     issue.message = message;
     issue.source.sourceName = recognizer.inputStream.sourceName || none;
-    IssueService.issues.push(issue);
     throw issue.error();
   }
 }
