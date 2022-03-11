@@ -9,16 +9,19 @@ import { StatementTree } from '../../../tree/statement/statement-tree';
 import { Translator } from '../../translator';
 import { getBodyTranslator } from '../body/body-translator-helper';
 import { getExpressionTranslator } from '../expression/expression-translator-helper';
-import { getIdTranslator } from '../id/id-translator-helper';
 import { getParameterTranslators } from '../parameter/parameter-translator-helper';
 
 export class AttributeTranslator implements Translator {
   constructor(private tree: AttributeTree) {}
 
   toString(): string {
-    const id = getIdTranslator(this.tree.id, true);
+    const modifier = (this.tree.id.text.startsWith('_') && 'private ') || '';
     let parameters =
       (this.tree.isMethod && `(${getParameterTranslators(this.tree.parameters).join(', ')})`) || '';
+    let generics =
+      (this.tree.generics.length &&
+        `<${getParameterTranslators(this.tree.generics).join(', ')}>`) ||
+      '';
     const type = (this.tree.type && ': ' + getExpressionTranslator(this.tree.type, true)) || '';
     let body = '';
     if (this.tree.body) {
@@ -40,7 +43,7 @@ export class AttributeTranslator implements Translator {
       body = ` {\n  throw new Error('Not implemented')\n}`;
     }
 
-    return `${id}${parameters}${type}${body}`;
+    return modifier + this.tree.id + generics + parameters + type + body;
   }
 
   // todo remove and fix with using metadata
@@ -68,7 +71,7 @@ export class AttributeTranslator implements Translator {
         statement instanceof AssignmentStatementTree &&
         statement.variable instanceof IdExpressionTree
       ) {
-        vars.push(statement.variable.id.name.text);
+        vars.push(statement.variable.id.text);
       }
 
       if (statement instanceof IfStatementTree) {

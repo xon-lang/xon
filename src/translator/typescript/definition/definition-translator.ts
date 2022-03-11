@@ -4,14 +4,16 @@ import { Translator } from '../../translator';
 import { getAttributeTranslators } from '../attribute/attribute-translator-helper';
 import { getBodyTranslator } from '../body/body-translator-helper';
 import { getExpressionTranslator } from '../expression/expression-translator-helper';
-import { getIdTranslator } from '../id/id-translator-helper';
 import { getParameterTranslators } from '../parameter/parameter-translator-helper';
 
 export class DefinitionTranslator implements Translator {
   constructor(private tree: DefinitionTree) {}
 
   toString(): string {
-    const id = getIdTranslator(this.tree.id);
+    let generics =
+      (this.tree.generics.length &&
+        `<${getParameterTranslators(this.tree.generics).join(', ')}>`) ||
+      '';
     let parameters = getParameterTranslators(this.tree.parameters).join(', ');
     let base =
       (this.tree.base && ' extends ' + getExpressionTranslator(this.tree.base, false)) || '';
@@ -20,13 +22,13 @@ export class DefinitionTranslator implements Translator {
       .map((x) => {
         const nullable = (x.type instanceof NullableExpressionTree && '?') || '';
         const type = ': ' + (getExpressionTranslator(x.type, true) || 'any');
-        return `${getIdTranslator(x.id, true)}${nullable}${type}`;
+        return x.id + nullable + type;
       })
       .join('\n');
 
     const initProperties = this.tree.attributes
       .filter((x) => !x.isMethod && x.body)
-      .map((x) => `this.${getIdTranslator(x.id)} = ${getBodyTranslator(x.body)}`)
+      .map((x) => `this.${x.id} = ${getBodyTranslator(x.body)}`)
       .join('\n');
 
     const superCall = (base && '  super()\n') || '';
@@ -54,6 +56,6 @@ export class DefinitionTranslator implements Translator {
             .replace(/^(.+)/gm, '  $1') +
           '\n}') ||
       '{}';
-    return `export class ${id}${base} ${attributes}`;
+    return `export class ${this.tree.id}${generics}${base} ${attributes}`;
   }
 }
