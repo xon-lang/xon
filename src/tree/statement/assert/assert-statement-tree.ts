@@ -1,22 +1,29 @@
-import { AssertStatementContext } from '../../../grammar/xon-parser';
-import { String } from '../../../lib/core';
-import { SourceRange } from '../../../util/source-range';
-import { ExpressionTree } from '../../expression/expression-tree';
-import { getExpressionTree } from '../../expression/expression-tree-helper';
-import { StatementTree } from '../statement-tree';
+// this code was generated
 
-export class AssertStatementTree implements StatementTree {
-  sourceRange: SourceRange;
-  actual: ExpressionTree;
-  expect: ExpressionTree;
+import { AssertStatementContext } from '../../../grammar/xon-parser'
+import { String } from '../../../lib/core'
+import { SourceRange } from '../../../util/source-range'
+import { getExpressionTree } from '../../expression/expression-tree-helper'
+import { ExpressionTree } from '../../expression/expression-tree'
+import { StatementTree } from '../statement-tree'
+
+export class AssertStatementTree extends StatementTree {
+  ctx: AssertStatementContext
+  sourceRange: SourceRange
+  actualExpression: ExpressionTree
+  expectExpression: ExpressionTree
 
   constructor(ctx: AssertStatementContext) {
-    this.sourceRange = SourceRange.fromContext(ctx);
-    this.actual = getExpressionTree(ctx.expr(0));
-    this.expect = getExpressionTree(ctx.expr(1));
+    super()
+    this.ctx = ctx
+    this.sourceRange = SourceRange.fromContext(ctx)
+    this.actualExpression = getExpressionTree(ctx.expr(0))
+    this.expectExpression = getExpressionTree(ctx.expr(1))
   }
 
   toString(): String {
-    return `actual: ${this.actual}\nexpect: ${this.expect}`;
+    return `actual ${this.actualExpression}\nexpect ${this.expectExpression}`
   }
 }
+
+// this code was generated

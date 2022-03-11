@@ -7,6 +7,6 @@ test('variable assignment', () => {
   const tree = parseStatement(code) as AssertStatementTree;
   expect(tree).toBeInstanceOf(AssertStatementTree);
 
-  expect(evaluate(tree.actual)).toBe(2);
-  expect(evaluate(tree.expect)).toBe(2);
+  expect(evaluate(tree.actualExpression)).toBe(2);
+  expect(evaluate(tree.expectExpression)).toBe(2);
 });

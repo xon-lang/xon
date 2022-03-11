@@ -1,0 +1,14 @@
+import '../../../grammar/xon-parser': AssertStatementContext
+import '../../../lib/core': String
+import '../../../util/source-range': SourceRange
+import '../../expression/expression-tree-helper': getExpressionTree
+import '../../expression/expression-tree': ExpressionTree
+import '../statement-tree': StatementTree
+
+object AssertStatementTree(ctx AssertStatementContext) StatementTree
+  ctx AssertStatementContext = ctx
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  actualExpression ExpressionTree = getExpressionTree(ctx.expr(0))
+  expectExpression ExpressionTree = getExpressionTree(ctx.expr(1))
+
+  toString() String = #{`actual ${this.actualExpression}\nexpect ${this.expectExpression}`}
