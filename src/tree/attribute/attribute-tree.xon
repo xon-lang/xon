@@ -1,5 +1,5 @@
 import '../../grammar/xon-parser': AttributeContext
-import '../../lib/core': String, none
+import '../../lib/core': String, none, None
 import '../../metadata/declaration/attribute/attribute-declaration-metadata': AttributeDeclarationMetadata
 import '../../util/id-token': getIdToken, IdToken
 import '../../util/source-range': SourceRange

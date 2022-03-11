@@ -1,7 +1,7 @@
 // this code was generated
 
 import { AttributeContext } from '../../grammar/xon-parser'
-import { none, None, String } from '../../lib/core'
+import { String, none, None } from '../../lib/core'
 import { AttributeDeclarationMetadata } from '../../metadata/declaration/attribute/attribute-declaration-metadata'
 import { getIdToken, IdToken } from '../../util/id-token'
 import { SourceRange } from '../../util/source-range'
@@ -34,8 +34,8 @@ export class AttributeTree extends Tree {
     this.name = getIdToken(ctx._name)
     this.generics = getParameterTrees(ctx.generics()?.parameter())
     this.parameters = getParameterTrees(ctx.methodParameters()?.parameter())
-    this.type = getExpressionTree(ctx.expr()) || null
-    this.body = getBodyTree(ctx.body()) || null
+    this.type = getExpressionTree(ctx.expr()) || none
+    this.body = getBodyTree(ctx.body()) || none
   }
 
   toString(): String {

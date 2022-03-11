@@ -1,4 +1,4 @@
-import '../../lib/core': String
+import '../../lib/core': String, None
 import '../../grammar/xon-parser': ParameterContext
 import '../../metadata/declaration/parameter/parameter-declaration-metadata': ParameterDeclarationMetadata
 import '../../util/id-token': IdToken, getIdToken

@@ -1,6 +1,6 @@
 // this code was generated
 
-import { String } from '../../lib/core'
+import { String, None } from '../../lib/core'
 import { ParameterContext } from '../../grammar/xon-parser'
 import { ParameterDeclarationMetadata } from '../../metadata/declaration/parameter/parameter-declaration-metadata'
 import { IdToken, getIdToken } from '../../util/id-token'
@@ -17,8 +17,8 @@ export class ParameterTree extends Tree {
   sourceRange: SourceRange
   metadata: ParameterDeclarationMetadata
   name: IdToken
-  type?: (ExpressionTree | null)
-  body?: (BodyTree | null)
+  type?: (ExpressionTree | None)
+  body?: (BodyTree | None)
 
   constructor(ctx: ParameterContext) {
     super()
