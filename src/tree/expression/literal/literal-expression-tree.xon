@@ -1,0 +1,15 @@
+import '../../../grammar/xon-parser': LiteralExpressionContext
+import '../../../lib/core': String
+import '../../../metadata/expression/literal/literal-expression-metadata': LiteralExpressionMetadata
+import '../../../util/source-range': SourceRange
+import '../../literal/literal-tree-helper': getLiteralTree
+import '../../literal/literal-tree': LiteralTree
+import '../expression-tree': ExpressionTree
+
+object LiteralExpressionTree(ctx LiteralExpressionContext) ExpressionTree
+  metadata LiteralExpressionMetadata
+  ctx LiteralExpressionContext = ctx
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  literal LiteralTree = ctx and getLiteralTree(ctx.literal())
+
+  toString() String = this.literal.sourceRange.rangeText
