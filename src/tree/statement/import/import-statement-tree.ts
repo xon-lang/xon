@@ -1,7 +1,7 @@
 // this code was generated
 
 import { ImportStatementContext } from '../../../grammar/xon-parser'
-import { String, None } from '../../../lib/core'
+import { None, String } from '../../../lib/core'
 import { SourceRange } from '../../../util/source-range'
 import { getExpressionTree, getExpressionTrees } from '../../expression/expression-tree-helper'
 import { ExpressionTree } from '../../expression/expression-tree'

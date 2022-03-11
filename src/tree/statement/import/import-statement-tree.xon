@@ -1,5 +1,5 @@
 import '../../../grammar/xon-parser': ImportStatementContext
-import '../../../lib/core': String, None
+import '../../../lib/core': None, String
 import '../../../util/source-range': SourceRange
 import '../../expression/expression-tree-helper': getExpressionTree, getExpressionTrees
 import '../../expression/expression-tree': ExpressionTree
