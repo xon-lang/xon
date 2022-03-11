@@ -17,5 +17,5 @@ object MethodExpressionTree(ctx MethodExpressionContext) ExpressionTree
   body BodyTree = getBodyTree(ctx.body())
 
   toString() String
-    generics = (this.generics.length and `<|${this.generics.join(', ')}|>`) or ''
+    generics = (this.generics.length and #{`<|${this.generics.join(', ')}|>`}) or ''
     return #{`${generics}(${this.parameters.join(', ')})${this.body}`}

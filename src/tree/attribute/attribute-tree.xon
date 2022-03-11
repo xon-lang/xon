@@ -3,12 +3,12 @@ import '../../lib/core': String, none, None
 import '../../metadata/declaration/attribute/attribute-declaration-metadata': AttributeDeclarationMetadata
 import '../../util/id-token': getIdToken, IdToken
 import '../../util/source-range': SourceRange
-import '../body/body-tree': BodyTree
 import '../body/body-tree-helper': getBodyTree
-import '../expression/expression-tree': ExpressionTree
+import '../body/body-tree': BodyTree
 import '../expression/expression-tree-helper': getExpressionTree
-import '../parameter/parameter-tree': ParameterTree
+import '../expression/expression-tree': ExpressionTree
 import '../parameter/parameter-tree-helper': getParameterTrees
+import '../parameter/parameter-tree': ParameterTree
 import '../tree': Tree
 
 object AttributeTree(ctx AttributeContext) Tree
@@ -25,8 +25,8 @@ object AttributeTree(ctx AttributeContext) Tree
 
   toString() String
     modifier = (this.modifier and this.modifier + ' ') or ''
-    parameters = (this.isMethod and `(${this.parameters.join(', ')})`) or ''
-    generics = (this.generics.length and `<|${this.generics.join(', ')}|>`) or ''
+    parameters = (this.isMethod and #{`(${this.parameters.join(', ')})`}) or ''
+    generics = (this.generics.length and #{`<|${this.generics.join(', ')}|>`}) or ''
     if (this.isOperator)
       parameters = ' ' + parameters
     type = (this.type and ' ' + this.type) or ''

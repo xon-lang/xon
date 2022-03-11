@@ -25,8 +25,8 @@ object DefinitionTree(ctx DefinitionContext) Tree
   toString() String
     modifier = (this.modifier and this.modifier.text + ' ') or ''
     base = (this.base and ' ' + this.base) or ''
-    generics = (this.generics.length and `<|${this.generics.join(', ')}|>`) or ''
-    parameters = (this.ctx.methodParameters() and `(${this.parameters.join(', ')})`) or ''
+    generics = (this.generics.length and #{`<|${this.generics.join(', ')}|>`}) or ''
+    parameters = (this.ctx.methodParameters() and #{`(${this.parameters.join(', ')})`}) or ''
     properties = this.attributes.filter((x) = !x.isMethod).join('\n')
     methodsWithBody = this.attributes.filter((x) = x.isMethod and x.body).join('\n\n')
     methodsWithNoBody = this.attributes.filter((x) = x.isMethod and !x.body).join('\n')
