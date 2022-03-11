@@ -1,0 +1,16 @@
+import '../../../grammar/xon-parser': MemberExpressionContext
+import '../../../lib/core': String
+import '../../../metadata/expression/member/member-expression-metadata': MemberExpressionMetadata
+import '../../../util/id-token': getIdToken, IdToken
+import '../../../util/source-range': SourceRange
+import '../expression-tree-helper': getExpressionTree
+import '../expression-tree': ExpressionTree
+
+object MemberExpressionTree(ctx MemberExpressionContext) ExpressionTree
+  metadata MemberExpressionMetadata
+  ctx MemberExpressionContext = ctx
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  instance ExpressionTree = getExpressionTree(ctx.expr())
+  name IdToken = getIdToken(ctx._name)
+
+  toString() String = #{`${this.instance}.${this.name}`}
