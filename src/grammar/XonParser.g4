@@ -7,19 +7,19 @@ options {
 source: ( definition | statement | NL)*;
 
 definition:
-    modifier = ID id generics? methodParameters? expr? (
+    modifier = ID name = ID generics? methodParameters? expr? (
         NL INDENT (attribute | NL)+ DEDENT
     )?
     ;
 attribute:
-    modifier = ID name = (OPERATOR | ID | IN | IS) generics? methodParameters expr? body?
-    | name = (ID | IN | IS) generics? methodParameters? expr? body?
+    modifier = ID name = (OPERATOR | ID) generics? methodParameters expr? body?
+    | name = ID generics? methodParameters? expr? body?
     ;
 
 statement:
     IMPORT path = expr (':' members += expr (',' members += expr)* ','?)? # importStatement
     | EXPORT path = expr                                                  # exportStatement
-    | FOR (value = parameter (',' index = parameter)? IN)? expr body      # forStatement
+    | FOR (value = parameter (',' index = parameter)? ID)? expr body      # forStatement
     | WHILE expr body                                                     # whileStatement
     | DO body WHILE expr                                                  # doWhileStatement
     | IF expr thenBody = body (ELSE elseBody = body)?                     # ifStatement
@@ -32,13 +32,13 @@ statement:
     ;
 
 expr:
-    id                                                                 # idExpression
+    name = ID                                                          # idExpression
     | '[' (arrayItem (',' arrayItem)* ','?)? ']'                       # arrayExpression
     | '{' (attribute (',' attribute)* ','?)? '}'                       # objectExpression
     | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
     | instance = expr '[' (args += expr (',' args += expr)* ','?)? ']' # indexExpression
     | expr '?'                                                         # nullableExpression
-    | expr '.' id                                                      # memberExpression
+    | expr '.' name = ID                                               # memberExpression
     | expr generics                                                    # genericsExpression
     | op = OPERATOR expr                                               # prefixExpression
     | left = expr op = (ID | OPERATOR) right = expr                    # infixExpression
@@ -61,8 +61,7 @@ body:
     ;
 
 arrayItem:         (expr ':')? expr;
-parameter:         id ( expr body | expr | body)?;
+parameter:         name = ID ( expr body | expr | body)?;
 methodParameters:  '(' (parameter (',' parameter)* ','?)? ')';
 indexerParameters: '[' (parameter (',' parameter)* ','?)? ']';
-id:                name = (ID | IN | IS);
 generics:          '<|' parameter (',' parameter)* ','? '|>';

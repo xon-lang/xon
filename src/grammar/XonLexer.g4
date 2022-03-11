@@ -35,10 +35,7 @@ EXPORT: 'export';
 FOR:    'for';
 IF:     'if';
 IMPORT: 'import';
-IN:     'in';
-IS:     'is';
 RETURN: 'return';
-SET:    'set';
 WHILE:  'while';
 
 ASSIGN:        '=';
