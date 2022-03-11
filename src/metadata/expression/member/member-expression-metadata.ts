@@ -11,15 +11,15 @@ export class MemberExpressionMetadata implements ExpressionMetadata {
 
   attributes(): AttributeDeclarationMetadata[] {
     const instance = getExpressionMetadata(this.tree.instance, this.scope);
-    const members = instance.attributes().filter((x) => x.name === this.tree.id.name.text);
+    const members = instance.attributes().filter((x) => x.name === this.tree.id.text);
     if (members.length > 1) {
       const issues = members.map((x) =>
         Issue.fromSourceRange(x.sourceRange, IssueLevel.error, '').toString(),
       );
-      throw new Error(`Too many '${this.tree.id.name.text}' members found:\n${issues.join('\n')}`);
+      throw new Error(`Too many '${this.tree.id.text}' members found:\n${issues.join('\n')}`);
     }
     if (!members.length) {
-      throw new Error(`Member '${this.tree.id.name.text}' not found`);
+      throw new Error(`Member '${this.tree.id.text}' not found`);
     }
     return members[0].attributes();
   }

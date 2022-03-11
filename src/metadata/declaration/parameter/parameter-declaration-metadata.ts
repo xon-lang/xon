@@ -15,7 +15,7 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
 
   constructor(private tree: ParameterTree, private scope: DeclarationScope) {
     this.sourceRange = tree.sourceRange;
-    this.name = tree.id.name.text;
+    this.name = tree.id.text;
   }
 
   generics(): ExpressionMetadata[] {

@@ -12,7 +12,7 @@ export class DefinitionDeclarationMetadata implements DeclarationMetadata {
 
   constructor(private tree: DefinitionTree, private scope: DeclarationScope) {
     this.sourceRange = tree.sourceRange;
-    this.name = tree.id.name.text;
+    this.name = tree.id.text;
   }
 
   attributes(): AttributeDeclarationMetadata[] {
@@ -27,7 +27,7 @@ export class DefinitionDeclarationMetadata implements DeclarationMetadata {
   baseModel(): DefinitionDeclarationMetadata | null {
     if (!this.tree.base) return null;
     if (this.tree.base instanceof IdExpressionTree)
-      return this.scope.findModel(this.tree.base.id.name.text);
+      return this.scope.findModel(this.tree.base.id.text);
     Issue.errorFromTree(this.tree.base, 'Not implemented');
   }
 

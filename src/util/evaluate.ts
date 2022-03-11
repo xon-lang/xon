@@ -24,7 +24,7 @@ export const evaluate = (tree: ExpressionTree, argsMap = {}): unknown => {
     return eval(`${tree.operator.text}${escapeIfString(a)}`);
   }
   if (tree instanceof IdExpressionTree) {
-    if (tree.id.name.text in argsMap) return argsMap[tree.id.name.text];
+    if (tree.id.text in argsMap) return argsMap[tree.id.text];
     Issue.errorFromTree(tree, `Undefined key: ${tree.id}`);
   }
 

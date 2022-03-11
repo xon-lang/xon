@@ -34,18 +34,8 @@ test('any', () => {
   expect(metadata).toBeInstanceOf(IdExpressionMetadata);
   expect(metadata.declaration()).toBeInstanceOf(DefinitionDeclarationMetadata);
   expect(metadata.declaration().name).toBe('Any');
+  const atts = metadata.attributes()
   expect(metadata.attributes().length).toBe(5);
-});
-
-test('id with type arguments', () => {
-  const code = 'Map<|String, Char|>';
-  const tree = parseExpression(code);
-  const metadata = getExpressionMetadata(tree, new TestDeclarationScope()) as IdExpressionMetadata;
-
-  expect(metadata).toBeInstanceOf(IdExpressionMetadata);
-  expect(metadata.declaration()).toBeInstanceOf(DefinitionDeclarationMetadata);
-  expect(metadata.declaration().name).toBe('Map');
-  expect(metadata.attributes().length).toBe(0);
 });
 
 test('none is None', () => {

@@ -6,7 +6,6 @@ import { getAttributeTree } from '../tree/attribute/attribute-tree-helper';
 import { getBodyTree } from '../tree/body/body-tree-helper';
 import { getDefinitionTree } from '../tree/definition/definition-tree-helper';
 import { getExpressionTree } from '../tree/expression/expression-tree-helper';
-import { getIdTree } from '../tree/id/id-tree-helper';
 import { getLiteralTree } from '../tree/literal/literal-tree-helper';
 import { getParameterTree } from '../tree/parameter/parameter-tree-helper';
 import { getSourceTree } from '../tree/source/source-tree-helper';
@@ -37,8 +36,6 @@ export const parseLiteral = (code: string) => getLiteralTree(parse(code).literal
 export const parseExpression = (code: string) => getExpressionTree(parse(code).expr());
 
 export const parseStatement = (code: string) => getStatementTree(parse(code).statement());
-
-export const parseId = (code: string) => getIdTree(parse(code).id());
 
 export const parseParameter = (code: string) => getParameterTree(parse(code).parameter());
 
