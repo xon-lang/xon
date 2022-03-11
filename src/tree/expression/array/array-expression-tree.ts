@@ -1,22 +1,28 @@
-import { ArrayExpressionContext } from '../../../grammar/xon-parser';
-import { String } from '../../../lib/core';
-import { ArrayExpressionMetadata } from '../../../metadata/expression/array/array-expression-metadata';
-import { SourceRange } from '../../../util/source-range';
-import { ExpressionTree } from '../expression-tree';
-import { getExpressionTrees } from '../expression-tree-helper';
+// this code was generated
 
-export class ArrayExpressionTree implements ExpressionTree {
-  sourceRange: SourceRange;
-  metadata: ArrayExpressionMetadata;
-  items: ExpressionTree[];
+import { ArrayExpressionContext } from '../../../grammar/xon-parser'
+import { String } from '../../../lib/core'
+import { ArrayExpressionMetadata } from '../../../metadata/expression/array/array-expression-metadata'
+import { SourceRange } from '../../../util/source-range'
+import { getExpressionTrees } from '../expression-tree-helper'
+import { ExpressionTree } from '../expression-tree'
+
+export class ArrayExpressionTree extends ExpressionTree {
+  metadata: ArrayExpressionMetadata
+  ctx: ArrayExpressionContext
+  sourceRange: SourceRange
+  items: ExpressionTree[]
 
   constructor(ctx: ArrayExpressionContext) {
-    this.sourceRange = SourceRange.fromContext(ctx);
-    // todo add associated array items
-    this.items = getExpressionTrees(ctx.arrayItem().map((x) => x.expr(0)));
+    super()
+    this.ctx = ctx
+    this.sourceRange = SourceRange.fromContext(ctx)
+    this.items = getExpressionTrees(ctx.arrayItem().map((x) => x.expr(0)))
   }
 
   toString(): String {
-    return `[${this.items.join(', ')}]`;
+    return `[${this.items.join(', ')}]`
   }
 }
+
+// this code was generated

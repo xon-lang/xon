@@ -1,0 +1,14 @@
+import '../../../grammar/xon-parser': ArrayExpressionContext
+import '../../../lib/core': String
+import '../../../metadata/expression/array/array-expression-metadata': ArrayExpressionMetadata
+import '../../../util/source-range': SourceRange
+import '../expression-tree-helper': getExpressionTrees
+import '../expression-tree': ExpressionTree
+
+object ArrayExpressionTree(ctx ArrayExpressionContext) ExpressionTree
+  metadata ArrayExpressionMetadata
+  ctx ArrayExpressionContext = ctx
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  items ExpressionTree[] = getExpressionTrees(ctx.arrayItem().map((x) = x.expr(0)))
+
+  toString() String = #{`[${this.items.join(', ')}]`}#
