@@ -24,6 +24,7 @@ statement:
     | DO body WHILE expr                                                  # doWhileStatement
     | IF expr thenBody = body (ELSE elseBody = body)?                     # ifStatement
     | BREAK                                                               # breakStatement
+    | CONTINUE                                                            # continueStatement
     | RETURN expr?                                                        # returnStatement
     | ACTUAL actual = expr NL+ EXPECT expect = expr                       # assertStatement
     | PREPROCESSOR                                                        # preprocessorStatement
