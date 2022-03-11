@@ -1,0 +1,13 @@
+import '../../../grammar/xon-parser': MultipleBodyContext
+import '../../../lib/core': String
+import '../../../util/source-range': SourceRange
+import '../../statement/statement-tree-helper': getStatementTrees
+import '../../statement/statement-tree': StatementTree
+import '../body-tree': BodyTree
+
+object MultipleBodyTree(ctx MultipleBodyContext) BodyTree
+  ctx MultipleBodyContext = ctx
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  statements StatementTree[] = getStatementTrees(ctx.statement())
+
+  toString() String = '\n' + this.statements.join('\n').replace(#{/^(.+)/gm}#, '  $1')

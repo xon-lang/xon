@@ -3,8 +3,8 @@
 import { SingleBodyContext } from '../../../grammar/xon-parser'
 import { String } from '../../../lib/core'
 import { SourceRange } from '../../../util/source-range'
-import { StatementTree } from '../../statement/statement-tree'
 import { getStatementTree } from '../../statement/statement-tree-helper'
+import { StatementTree } from '../../statement/statement-tree'
 import { BodyTree } from '../body-tree'
 
 export class SingleBodyTree extends BodyTree {
