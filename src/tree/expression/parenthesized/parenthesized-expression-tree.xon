@@ -5,8 +5,9 @@ import '../../../util/source-range': SourceRange
 import '../expression-tree-helper': getExpressionTree
 import '../expression-tree': ExpressionTree
 
-object ParenthesizedExpressionTree ExpressionTree
+object ParenthesizedExpressionTree(ctx ParenthesizedExpressionContext) ExpressionTree
   metadata ExpressionMetadata
+  ctx ParenthesizedExpressionContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   expression ExpressionTree = getExpressionTree(ctx.expr())
 

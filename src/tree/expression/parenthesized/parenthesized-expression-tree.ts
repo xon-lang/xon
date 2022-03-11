@@ -9,11 +9,13 @@ import { ExpressionTree } from '../expression-tree'
 
 export class ParenthesizedExpressionTree extends ExpressionTree {
   metadata: ExpressionMetadata
+  ctx: ParenthesizedExpressionContext
   sourceRange: SourceRange
   expression: ExpressionTree
 
-  constructor() {
+  constructor(ctx: ParenthesizedExpressionContext) {
     super()
+    this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
     this.expression = getExpressionTree(ctx.expr())
   }
