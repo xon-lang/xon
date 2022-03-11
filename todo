@@ -2,7 +2,7 @@ for thinking
   docs ast
   object and model modifier
   'is' keyword (model B is A)
-  try to use const (will ready with metadata)
+  try to use const (will ready with metadata) for loops
 
   for statement with else branch:
     for item in items:
