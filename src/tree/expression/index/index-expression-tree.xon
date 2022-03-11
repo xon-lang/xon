@@ -1,0 +1,15 @@
+import '../../../grammar/xon-parser': IndexExpressionContext
+import '../../../lib/core': String
+import '../../../metadata/expression/expression-metadata': ExpressionMetadata
+import '../../../util/source-range': SourceRange
+import '../expression-tree-helper': getExpressionTree, getExpressionTrees
+import '../expression-tree': ExpressionTree
+
+object IndexExpressionTree(ctx IndexExpressionContext) ExpressionTree
+  metadata ExpressionMetadata
+  ctx IndexExpressionContext = ctx
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  instance ExpressionTree == getExpressionTree(ctx._instance)
+  arguments ExpressionTree[] = getExpressionTrees(ctx._args)
+
+  toString() String = #{`${this.instance}[${this.arguments.join(', ')}]`}#
