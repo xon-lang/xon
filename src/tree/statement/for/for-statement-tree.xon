@@ -1,0 +1,20 @@
+import '../../../grammar/xon-parser': ForStatementContext
+import '../../../lib/core': none, String, None
+import '../../../util/source-range': SourceRange
+import '../../body/body-tree-helper': getBodyTree
+import '../../body/body-tree': BodyTree
+import '../../expression/expression-tree-helper': getExpressionTree
+import '../../expression/expression-tree': ExpressionTree
+import '../statement-tree': StatementTree
+
+object ForStatementTree(ctx ForStatementContext) StatementTree
+  ctx ForStatementContext = ctx
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  valueVarName String? = ctx._value?.text or none
+  indexVarName String? = ctx._index?.text or none
+  expression ExpressionTree = getExpressionTree(ctx.expr())
+  body BodyTree = getBodyTree(ctx.body())
+
+  toString() String
+    vars = [this.valueVarName, this.indexVarName].filter((x) = x).join(',')
+    return #{`for ${(vars && vars + ' in ') || ''}${this.expression}\n${this.body}`}
