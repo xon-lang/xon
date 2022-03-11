@@ -1,0 +1,21 @@
+import '../../../grammar/xon-parser': MethodExpressionContext
+import '../../../lib/core': String
+import '../../../metadata/expression/method/method-expression-metadata': MethodExpressionMetadata
+import '../../../util/source-range': SourceRange
+import '../../body/body-tree-helper': getBodyTree
+import '../../body/body-tree': BodyTree
+import '../../parameter/parameter-tree-helper': getParameterTrees
+import '../../parameter/parameter-tree': ParameterTree
+import '../expression-tree': ExpressionTree
+
+object MethodExpressionTree(ctx MethodExpressionContext) ExpressionTree
+  metadata MethodExpressionMetadata
+  ctx MethodExpressionContext = ctx
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  generics ParameterTree[] = getParameterTrees(ctx.generics()?.parameter())
+  parameters ParameterTree[] = [] = getParameterTrees(ctx.methodParameters().parameter())
+  body BodyTree = getBodyTree(ctx.body())
+
+  toString() String
+    generics = (this.generics.length and `<|${this.generics.join(', ')}|>`) or ''
+    return #{`${generics}(${this.parameters.join(', ')})${this.body}`}
