@@ -1,0 +1,17 @@
+import '../../../grammar/xon-parser': IfStatementContext
+import '../../../lib/core': String, None
+import '../../../util/source-range': SourceRange
+import '../../body/body-tree-helper': getBodyTree
+import '../../body/body-tree': BodyTree
+import '../../expression/expression-tree-helper': getExpressionTree
+import '../../expression/expression-tree': ExpressionTree
+import '../statement-tree': StatementTree
+
+object IfStatementTree(ctx IfStatementContext) StatementTree
+  ctx IfStatementContext = ctx
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  condition ExpressionTree = getExpressionTree(ctx.expr())
+  thenBody BodyTree = getBodyTree(ctx._thenBody)
+  elseBody BodyTree? = getBodyTree(ctx._elseBody)
+
+  toString() String = #{`if ${this.condition}${this.thenBody}${(this.elseBody && '\nelse' + this.elseBody) || ''}`}
