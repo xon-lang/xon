@@ -8,6 +8,7 @@ import { getBodyTree } from '../../body/body-tree-helper'
 import { BodyTree } from '../../body/body-tree'
 import { getParameterTrees } from '../../parameter/parameter-tree-helper'
 import { ParameterTree } from '../../parameter/parameter-tree'
+import { getExpressionTree } from '../expression-tree-helper'
 import { ExpressionTree } from '../expression-tree'
 
 export class MethodExpressionTree extends ExpressionTree {
@@ -16,6 +17,7 @@ export class MethodExpressionTree extends ExpressionTree {
   sourceRange: SourceRange
   generics: ParameterTree[]
   parameters: ParameterTree[]
+  type: ExpressionTree
   body: BodyTree
 
   constructor(ctx: MethodExpressionContext) {
@@ -24,6 +26,7 @@ export class MethodExpressionTree extends ExpressionTree {
     this.sourceRange = SourceRange.fromContext(ctx)
     this.generics = getParameterTrees(ctx.generics()?.parameter())
     this.parameters = [] = getParameterTrees(ctx.methodParameters().parameter())
+    this.type = getExpressionTree(ctx.expr())
     this.body = getBodyTree(ctx.body())
   }
 

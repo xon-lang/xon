@@ -6,6 +6,7 @@ import '../../body/body-tree-helper': getBodyTree
 import '../../body/body-tree': BodyTree
 import '../../parameter/parameter-tree-helper': getParameterTrees
 import '../../parameter/parameter-tree': ParameterTree
+import '../expression-tree-helper': getExpressionTree
 import '../expression-tree': ExpressionTree
 
 object MethodExpressionTree(ctx MethodExpressionContext) ExpressionTree
@@ -14,6 +15,7 @@ object MethodExpressionTree(ctx MethodExpressionContext) ExpressionTree
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   generics ParameterTree[] = getParameterTrees(ctx.generics()?.parameter())
   parameters ParameterTree[] = [] = getParameterTrees(ctx.methodParameters().parameter())
+  type ExpressionTree = getExpressionTree(ctx.expr())
   body BodyTree = getBodyTree(ctx.body())
 
   toString() String

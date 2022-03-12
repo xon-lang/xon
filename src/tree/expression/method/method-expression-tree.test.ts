@@ -2,6 +2,7 @@ import { evaluate } from '../../../util/evaluate';
 import { parseExpression } from '../../../util/parse';
 import { SingleBodyTree } from '../../body/single/single-body-tree';
 import { ExpressionStatementTree } from '../../statement/expression/expression-statement-tree';
+import { IdExpressionTree } from '../id/id-expression-tree';
 import { MethodExpressionTree } from './method-expression-tree';
 
 test('has argument', () => {
@@ -19,11 +20,12 @@ test('has argument', () => {
 });
 
 test('no arguments', () => {
-  const code = '() = 42+45';
+  const code = '() Number = 42+45';
   const tree = parseExpression(code) as MethodExpressionTree;
   expect(tree).toBeInstanceOf(MethodExpressionTree);
 
   expect(tree.parameters.length).toBe(0);
+  expect((tree.type as IdExpressionTree).name.text).toBe('Number');
   expect(
     evaluate(((tree.body as SingleBodyTree).statement as ExpressionStatementTree).expression),
   ).toBe(42 + 45);
