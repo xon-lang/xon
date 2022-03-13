@@ -4,7 +4,7 @@ import { getExpressionMetadata } from '../expression-metadata-helper';
 import { MethodExpressionMetadata } from './method-expression-metadata';
 
 test('lambda', () => {
-  const code = '(x String) = x + x';
+  const code = '(x String) x + x';
   const tree = parseExpression(code);
   const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
 
