@@ -32,7 +32,7 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
     } else if (error instanceof NoViableAltException) {
       issue.source = SourceRange.fromTwoTokens(error.startToken, offendingSymbol);
     } else if (error instanceof InputMismatchException) {
-      throw new Error('Not implemented');
+      issue.source = SourceRange.fromToken(offendingSymbol);
     } else if (error instanceof FailedPredicateException) {
       throw new Error('Not implemented');
     }
