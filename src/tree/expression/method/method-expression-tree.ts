@@ -1,39 +1,35 @@
 // this code was generated
 
-import { MethodExpressionContext } from '../../../grammar/xon-parser'
-import { String } from '../../../lib/core'
-import { MethodExpressionMetadata } from '../../../metadata/expression/method/method-expression-metadata'
-import { SourceRange } from '../../../util/source-range'
-import { getBodyTree } from '../../body/body-tree-helper'
-import { BodyTree } from '../../body/body-tree'
-import { getParameterTrees } from '../../parameter/parameter-tree-helper'
-import { ParameterTree } from '../../parameter/parameter-tree'
-import { getExpressionTree } from '../expression-tree-helper'
-import { ExpressionTree } from '../expression-tree'
+import { MethodExpressionContext } from '../../../grammar/xon-parser';
+import { String } from '../../../lib/core';
+import { MethodExpressionMetadata } from '../../../metadata/expression/method/method-expression-metadata';
+import { SourceRange } from '../../../util/source-range';
+import { ParameterTree } from '../../parameter/parameter-tree';
+import { getParameterTrees } from '../../parameter/parameter-tree-helper';
+import { ExpressionTree } from '../expression-tree';
+import { getExpressionTree } from '../expression-tree-helper';
 
 export class MethodExpressionTree extends ExpressionTree {
-  metadata: MethodExpressionMetadata
-  ctx: MethodExpressionContext
-  sourceRange: SourceRange
-  generics: ParameterTree[]
-  parameters: ParameterTree[]
-  type: ExpressionTree
-  body: BodyTree
+  metadata: MethodExpressionMetadata;
+  ctx: MethodExpressionContext;
+  sourceRange: SourceRange;
+  generics: ParameterTree[];
+  parameters: ParameterTree[];
+  value: ExpressionTree;
 
   constructor(ctx: MethodExpressionContext) {
-    super()
-    this.ctx = ctx
-    this.sourceRange = SourceRange.fromContext(ctx)
-    this.generics = getParameterTrees(ctx.generics()?.parameter())
-    this.parameters = [] = getParameterTrees(ctx.methodParameters().parameter())
-    this.type = getExpressionTree(ctx.expr())
-    this.body = getBodyTree(ctx.body())
+    super();
+    this.ctx = ctx;
+    this.sourceRange = SourceRange.fromContext(ctx);
+    this.generics = getParameterTrees(ctx.generics()?.parameter());
+    this.parameters = [] = getParameterTrees(ctx.methodParameters().parameter());
+    this.value = getExpressionTree(ctx.expr());
   }
 
   toString(): String {
-    let generics
-    generics = (this.generics.length && `<|${this.generics.join(', ')}|>`) || ''
-    return `${generics}(${this.parameters.join(', ')})${this.body}`
+    let generics;
+    generics = (this.generics.length && `<|${this.generics.join(', ')}|>`) || '';
+    return `${generics}(${this.parameters.join(', ')}) ${this.value}`;
   }
 }
 
