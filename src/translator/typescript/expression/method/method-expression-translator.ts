@@ -1,18 +1,15 @@
 import { String } from '../../../../lib/core';
 import { MethodExpressionTree } from '../../../../tree/expression/method/method-expression-tree';
-import { getBodyTranslator } from '../../body/body-translator-helper';
 import { getParameterTranslators } from '../../parameter/parameter-translator-helper';
 import { ExpressionTranslator } from '../expression-translator';
+import { getExpressionTranslator } from '../expression-translator-helper';
 
 export class MethodExpressionTranslator implements ExpressionTranslator {
   constructor(private tree: MethodExpressionTree, private isType: boolean) {}
 
   toString(): String {
     const parameters = getParameterTranslators(this.tree.parameters);
-    const body = getBodyTranslator(this.tree.body);
-    if (this.isType) {
-      return `(${parameters.join(', ')}): ${body}`;
-    }
-    return `(${parameters.join(', ')}) => ${body}`;
+    const value = getExpressionTranslator(this.tree.value, this.isType);
+    return `(${parameters.join(', ')}) => ${value}`;
   }
 }
