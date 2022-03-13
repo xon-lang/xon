@@ -44,8 +44,8 @@ expr:
     | op = OPERATOR expr                                               # prefixExpression
     | left = expr op = (ID | OPERATOR) right = expr                    # infixExpression
     | name = ID                                                        # idExpression
-    | generics? methodParameters expr? body                            # methodExpression
-    | generics? indexerParameters expr? body                           # indexerExpression
+    | generics? methodParameters expr                                  # methodExpression
+    | generics? indexerParameters expr                                 # indexerExpression
     | '(' expr ')'                                                     # parenthesizedExpression
     ;
 
