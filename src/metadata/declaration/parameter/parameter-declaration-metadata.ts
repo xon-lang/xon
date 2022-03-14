@@ -1,6 +1,7 @@
 import { Issue } from '../../../issue-service/issue';
 import { none, None, String } from '../../../lib/core';
 import { SingleBodyTree } from '../../../tree/body/single/single-body-tree';
+import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { ExpressionStatementTree } from '../../../tree/statement/expression/expression-statement-tree';
 import { SourceRange } from '../../../util/source-range';
@@ -16,7 +17,7 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
 
   constructor(private tree: ParameterTree, private scope: DeclarationScope) {
     this.sourceRange = tree.sourceRange;
-    this.name = tree.name.text;
+    this.name = (tree.name as IdExpressionTree).name.text;
   }
 
   generics(): ExpressionMetadata[] {
@@ -25,10 +26,10 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
   }
 
   value(): ExpressionMetadata | None {
-    if (this.tree.body) {
-      if (this.tree.body instanceof SingleBodyTree) {
-        if (this.tree.body.statement instanceof ExpressionStatementTree) {
-          return getExpressionMetadata(this.tree.body.statement.expression, this.scope);
+    if (this.tree.value) {
+      if (this.tree.value instanceof SingleBodyTree) {
+        if (this.tree.value.statement instanceof ExpressionStatementTree) {
+          return getExpressionMetadata(this.tree.value.statement.expression, this.scope);
         }
       } else {
         // todo join all return expressions
@@ -40,7 +41,7 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
   type(): ExpressionMetadata {
     if (this.tree.type) {
       return getExpressionMetadata(this.tree.type, this.scope);
-    } else if (this.tree.body) {
+    } else if (this.tree.value) {
       return this.value();
     }
     Issue.errorFromTree(this.tree, `Parameter '${this.tree.name}' must have a type`);

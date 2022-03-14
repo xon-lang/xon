@@ -35,7 +35,7 @@ test('any', () => {
   expect(metadata.declaration()).toBeInstanceOf(DefinitionDeclarationMetadata);
   expect(metadata.declaration().name).toBe('Any');
   const atts = metadata.attributes()
-  expect(metadata.attributes().length).toBe(5);
+  expect(metadata.attributes().length).toBe(0);
 });
 
 test('none is None', () => {
