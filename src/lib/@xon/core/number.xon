@@ -1,16 +1,17 @@
 model Number
-  operator + (other Number) Number
-  operator - (other Number) Number
-  operator * (other Number) Number
-  operator / (other Number) Number
-  operator ^ (other Number) Number
-  operator > (other Number) Boolean
-  operator < (other Number) Boolean
-  operator == (other Number) Boolean
-  operator != (other Number) Boolean
 
 model Integer Number
   test String
 
 model Float Number
   test String
+
+-- operator + [other Number] Number
+-- operator - [other Number] Number
+-- operator * [other Number] Number
+-- operator / [other Number] Number
+-- operator ^ [other Number] Number
+-- operator > [other Number] Boolean
+-- operator < [other Number] Boolean
+-- operator == [other Number] Boolean
+-- operator != [other Number] Boolean

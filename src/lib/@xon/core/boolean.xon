@@ -1,6 +1,4 @@
 model Boolean
-  operator == (other Boolean) Boolean
-  operator != (other Boolean) Boolean
 
 object false Boolean
 

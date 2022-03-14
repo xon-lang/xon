@@ -1,3 +1,1 @@
 model Array<|T|>
-  operator + (other T[]) T[]
-  operator * (other Integer) T[][]
