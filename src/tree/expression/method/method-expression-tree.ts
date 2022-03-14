@@ -25,7 +25,7 @@ export class MethodExpressionTree extends ExpressionTree {
   }
 
   toString(): String {
-    return `(${this.parameters.join(', ')}) ${this.value}`
+    return `[${this.parameters.join(', ')}] => ${this.value}`
   }
 }
 
