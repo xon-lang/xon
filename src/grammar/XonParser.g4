@@ -7,14 +7,11 @@ options {
 source: ( definition | statement | NL)*;
 
 definition:
-    modifier = ID name = ID generics? methodParameters? expr? (
+    modifier = ID name = ID parameters? expr? (
         NL INDENT (attribute | NL)+ DEDENT
     )?
     ;
-attribute:
-    modifier = ID name = (OPERATOR | ID) generics? methodParameters expr? body?
-    | name = ID generics? methodParameters? expr? body?
-    ;
+attribute: name = ID parameters? expr? body?;
 
 statement:
     IMPORT path = expr (':' members += expr (',' members += expr)* ','?)? # importStatement
@@ -32,21 +29,18 @@ statement:
     ;
 
 expr:
-    PREPROCESSOR                                                       # preprocessorExpression
-    | '[' (arrayItem (',' arrayItem)* ','?)? ']'                       # arrayExpression
-    | '{' (attribute (',' attribute)* ','?)? '}'                       # objectExpression
-    | instance = expr '(' (args += expr (',' args += expr)* ','?)? ')' # invokeExpression
-    | instance = expr '[' (args += expr (',' args += expr)* ','?)? ']' # indexExpression
-    | literal                                                          # literalExpression
-    | expr '?'                                                         # nullableExpression
-    | expr '.' name = ID                                               # memberExpression
-    | expr generics                                                    # genericsExpression
-    | op = OPERATOR expr                                               # prefixExpression
-    | left = expr op = (ID | OPERATOR) right = expr                    # infixExpression
-    | name = ID                                                        # idExpression
-    | generics? methodParameters expr                                  # methodExpression
-    | generics? indexerParameters expr                                 # indexerExpression
-    | '(' expr ')'                                                     # parenthesizedExpression
+    PREPROCESSOR                                    # preprocessorExpression
+    | '{' (attribute (',' attribute)* ','?)? '}'    # objectExpression
+    | '(' expr ')'                                  # parenthesizedExpression
+    | literal                                       # literalExpression
+    | expr '?'                                      # nullableExpression
+    | expr '.' name = ID                            # memberExpression
+    | expr parameters                               # invokeExpression
+    | op = OPERATOR expr                            # prefixExpression
+    | left = expr op = (ID | OPERATOR) right = expr # infixExpression
+    | name = ID                                     # idExpression
+    | parameters type = expr? '=>' value = expr     # methodExpression
+    | parameters                                    # arrayExpression
     ;
 
 literal:
@@ -60,8 +54,5 @@ body:
     | NL INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-arrayItem:         (expr ':')? expr;
-parameter:         name = ID ( expr body | expr | body)?;
-methodParameters:  '(' (parameter (',' parameter)* ','?)? ')';
-indexerParameters: '[' (parameter (',' parameter)* ','?)? ']';
-generics:          '<|' parameter (',' parameter)* ','? '|>';
+parameter:  name = expr type = expr? ( '=' value = expr)?;
+parameters: '[' (parameter (',' parameter)* ','?)? ']';

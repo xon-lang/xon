@@ -45,6 +45,7 @@ COMMA:         ',';
 DOT:           '.';
 GENERIC_LEFT:  '<|';
 GENERIC_RIGHT: '|>';
+LAMBDA:        '=>';
 QUESTION:      '?';
 
 FLOAT_LITERAL:
