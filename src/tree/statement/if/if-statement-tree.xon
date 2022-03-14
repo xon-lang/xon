@@ -1,5 +1,5 @@
 import '../../../grammar/xon-parser': IfStatementContext
-import '../../../lib/core': String, None
+import '../../../lib/core': None, String
 import '../../../util/source-range': SourceRange
 import '../../body/body-tree-helper': getBodyTree
 import '../../body/body-tree': BodyTree

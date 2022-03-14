@@ -15,4 +15,4 @@ object MethodExpressionTree[ctx MethodExpressionContext] ExpressionTree
   value ExpressionTree = getExpressionTree[ctx._value]
 
   toString[] String
-    return #{`[${this.parameters.join(', ')}] ${this.value}`}
+    return #{`[${this.parameters.join(', ')}] => ${this.value}`}

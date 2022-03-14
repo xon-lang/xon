@@ -11,5 +11,5 @@ object ImportStatementTree[ctx ImportStatementContext] StatementTree
   members ExpressionTree[]? = getExpressionTrees[ctx._members]
 
   toString[] String
-    members = this.members.sort[[a, b]=> a.sourceRange.rangeText.localeCompare[b.sourceRange.rangeText]]
+    members = this.members.sort[[a, b] => a.sourceRange.rangeText.localeCompare[b.sourceRange.rangeText]]
     return #{`import ${this.path}: ${members.join(', ')}`}

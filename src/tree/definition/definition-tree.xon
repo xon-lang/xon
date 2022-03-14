@@ -25,7 +25,7 @@ object DefinitionTree[ctx DefinitionContext] Tree
     modifier = (this.modifier and this.modifier.text + ' ') or ''
     base = (this.base and ' ' + this.base) or ''
     parameters = this.ctx.parameters[] and #{`[${this.parameters.join(', ')}]`} or ''
-    properties = this.attributes.filter[[x]=>!x.isMethod].join['\n']
+    properties = this.attributes.filter[[x] => !x.isMethod].join['\n']
     methodsWithBody = this.attributes.filter[[x] => x.isMethod and x.body].join['\n\n']
     methodsWithNoBody = this.attributes.filter[[x] => x.isMethod and !x.body].join['\n']
     attributes = [properties, methodsWithBody, methodsWithNoBody].filter[Boolean].join['\n\n'].replace[#{/^(.+)/gm}, '  $1']

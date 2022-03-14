@@ -1,7 +1,7 @@
 // this code was generated
 
 import { ForStatementContext } from '../../../grammar/xon-parser'
-import { none, String, None } from '../../../lib/core'
+import { none, None, String } from '../../../lib/core'
 import { SourceRange } from '../../../util/source-range'
 import { getBodyTree } from '../../body/body-tree-helper'
 import { BodyTree } from '../../body/body-tree'

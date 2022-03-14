@@ -15,7 +15,7 @@ object SourceTree[ctx SourceContext] Tree
   definitions DefinitionTree[] = getDefinitionTrees[ctx.definition[]]
 
   toString[] String
-    importStatements = this.statements.filter[[x] => x is ImportStatementTree].map[[x]=> x as ImportStatementTree].sort[[a, b] => a.path.toString[].localeCompare[b.path.toString[]]].join['\n']
+    importStatements = this.statements.filter[[x] => x is ImportStatementTree].map[[x] => x as ImportStatementTree].sort[[a, b] => a.path.toString[].localeCompare[b.path.toString[]]].join['\n']
     otherStatements = this.statements.filter[[x] => !(x is ImportStatementTree)].join['\n']
     definitions = this.definitions.join['\n\n']
     result = [importStatements, otherStatements, definitions].filter[Boolean].join['\n\n']

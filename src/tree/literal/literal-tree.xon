@@ -1,4 +1,4 @@
-import '../../lib/core': String, Number
+import '../../lib/core': Number, String
 import '../tree': Tree
 
 model LiteralTree Tree

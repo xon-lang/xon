@@ -4,9 +4,9 @@ import { ArrayExpressionContext } from '../../../grammar/xon-parser'
 import { String } from '../../../lib/core'
 import { ArrayExpressionMetadata } from '../../../metadata/expression/array/array-expression-metadata'
 import { SourceRange } from '../../../util/source-range'
-import { ExpressionTree } from '../expression-tree'
-import { ParameterTree } from '../../parameter/parameter-tree'
 import { getParameterTrees } from '../../parameter/parameter-tree-helper'
+import { ParameterTree } from '../../parameter/parameter-tree'
+import { ExpressionTree } from '../expression-tree'
 
 export class ArrayExpressionTree extends ExpressionTree {
   metadata: ArrayExpressionMetadata

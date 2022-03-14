@@ -10,6 +10,6 @@ object InvokeExpressionTree[ctx InvokeExpressionContext] ExpressionTree
   ctx InvokeExpressionContext = ctx
   sourceRange SourceRange = SourceRange.fromContext[ctx]
   instance ExpressionTree = getExpressionTree[ctx.expr[]]
-  arguments ExpressionTree[] = getExpressionTrees[ctx.parameters[].parameter[].map[[x]=>x._name]]
+  arguments ExpressionTree[] = getExpressionTrees[ctx.parameters[].parameter[].map[[x] => x._name]]
 
   toString[] String = #{`${this.instance}[${this.arguments.join(', ')}]`}

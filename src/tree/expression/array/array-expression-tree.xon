@@ -2,9 +2,9 @@ import '../../../grammar/xon-parser': ArrayExpressionContext
 import '../../../lib/core': String
 import '../../../metadata/expression/array/array-expression-metadata': ArrayExpressionMetadata
 import '../../../util/source-range': SourceRange
-import '../expression-tree': ExpressionTree
+import '../../parameter/parameter-tree-helper': getParameterTrees
 import '../../parameter/parameter-tree': ParameterTree
-import  '../../parameter/parameter-tree-helper':getParameterTrees
+import '../expression-tree': ExpressionTree
 
 object ArrayExpressionTree[ctx ArrayExpressionContext] ExpressionTree
   metadata ArrayExpressionMetadata
