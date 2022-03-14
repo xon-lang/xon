@@ -5,9 +5,9 @@ import '../../expression/expression-tree-helper': getExpressionTree
 import '../../expression/expression-tree': ExpressionTree
 import '../statement-tree': StatementTree
 
-object ExportStatementTree(ctx ExportStatementContext) StatementTree
+object ExportStatementTree[ctx ExportStatementContext] StatementTree
   ctx ExportStatementContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  path ExpressionTree = getExpressionTree(ctx._path)
+  sourceRange SourceRange = SourceRange.fromContext[ctx]
+  path ExpressionTree = getExpressionTree[ctx._path]
 
-  toString() String = #{`export ${this.path}`}
+  toString[] String = #{`export ${this.path}`}

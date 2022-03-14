@@ -1,9 +1,7 @@
 import { none } from '../../lib/core';
 import { parseParameter } from '../../util/parse';
-import { SingleBodyTree } from '../body/single/single-body-tree';
 import { IdExpressionTree } from '../expression/id/id-expression-tree';
 import { LiteralExpressionTree } from '../expression/literal/literal-expression-tree';
-import { ExpressionStatementTree } from '../statement/expression/expression-statement-tree';
 import { ParameterTree } from './parameter-tree';
 
 test('id type value', () => {
@@ -11,14 +9,9 @@ test('id type value', () => {
   const tree = parseParameter(code);
   expect(tree).toBeInstanceOf(ParameterTree);
 
-  expect(tree.name.text).toBe('a');
+  expect((tree.name as IdExpressionTree).name.text).toBe('a');
   expect((tree.type as IdExpressionTree).name.text).toBe('Integer');
-  expect(
-    (
-      ((tree.body as SingleBodyTree).statement as ExpressionStatementTree)
-        .expression as LiteralExpressionTree
-    ).literal.value,
-  ).toBe(1);
+  expect((tree.value as LiteralExpressionTree).literal.value).toBe(1);
 });
 
 test('id value', () => {
@@ -26,14 +19,9 @@ test('id value', () => {
   const tree = parseParameter(code);
   expect(tree).toBeInstanceOf(ParameterTree);
 
-  expect(tree.name.text).toBe('a');
+  expect((tree.name as IdExpressionTree).name.text).toBe('a');
   expect(tree.type).toBe(none);
-  expect(
-    (
-      ((tree.body as SingleBodyTree).statement as ExpressionStatementTree)
-        .expression as LiteralExpressionTree
-    ).literal.value,
-  ).toBe(1);
+  expect((tree.value as LiteralExpressionTree).literal.value).toBe(1);
 });
 
 test('id type', () => {
@@ -41,7 +29,7 @@ test('id type', () => {
   const tree = parseParameter(code);
   expect(tree).toBeInstanceOf(ParameterTree);
 
-  expect(tree.name.text).toBe('cat');
+  expect((tree.name as IdExpressionTree).name.text).toBe('cat');
   expect((tree.type as IdExpressionTree).name.text).toBe('Animal');
-  expect(tree.body).toBe(none);
+  expect(tree.value).toBe(none);
 });

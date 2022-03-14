@@ -22,7 +22,7 @@ export class InfixExpressionTree extends ExpressionTree {
   }
 
   toString(): String {
-    if ((this.name.text === '^')) {
+    if (this.name.text === '^') {
       return `${this.left}${this.name}${this.right}`
     }
     return `${this.left} ${this.name} ${this.right}`

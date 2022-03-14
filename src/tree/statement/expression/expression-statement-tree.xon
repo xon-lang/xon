@@ -5,8 +5,8 @@ import '../../expression/expression-tree-helper': getExpressionTree
 import '../../expression/expression-tree': ExpressionTree
 import '../statement-tree': StatementTree
 
-object ExpressionStatementTree(ctx ExpressionStatementContext) StatementTree
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  expression ExpressionTree = getExpressionTree(ctx.expr())
+object ExpressionStatementTree[ctx ExpressionStatementContext] StatementTree
+  sourceRange SourceRange = SourceRange.fromContext[ctx]
+  expression ExpressionTree = getExpressionTree[ctx.expr[]]
 
-  toString() String = this.expression.toString()
+  toString[] String = this.expression.toString[]

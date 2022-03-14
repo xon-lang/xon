@@ -5,10 +5,10 @@ import '../../../util/source-range': SourceRange
 import '../expression-tree-helper': getExpressionTrees
 import '../expression-tree': ExpressionTree
 
-object ArrayExpressionTree(ctx ArrayExpressionContext) ExpressionTree
+object ArrayExpressionTree[ctx ArrayExpressionContext] ExpressionTree
   metadata ArrayExpressionMetadata
   ctx ArrayExpressionContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  items ExpressionTree[] = getExpressionTrees(ctx.arrayItem().map((x) = x.expr(0)))
+  sourceRange SourceRange = SourceRange.fromContext[ctx]
+  items ExpressionTree[] = getExpressionTrees[ctx.parameters[].parameter[].map[[x] => x._name]]
 
-  toString() String = #{`[${this.items.join(', ')}]`}
+  toString[] String = #{`[${this.items.join(', ')}]`}

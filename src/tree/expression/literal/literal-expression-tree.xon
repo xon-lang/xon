@@ -6,10 +6,10 @@ import '../../literal/literal-tree-helper': getLiteralTree
 import '../../literal/literal-tree': LiteralTree
 import '../expression-tree': ExpressionTree
 
-object LiteralExpressionTree(ctx LiteralExpressionContext) ExpressionTree
+object LiteralExpressionTree[ctx LiteralExpressionContext] ExpressionTree
   metadata LiteralExpressionMetadata
   ctx LiteralExpressionContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  literal LiteralTree = ctx and getLiteralTree(ctx.literal())
+  sourceRange SourceRange = SourceRange.fromContext[ctx]
+  literal LiteralTree = ctx and getLiteralTree[ctx.literal[]]
 
-  toString() String = this.literal.sourceRange.rangeText
+  toString[] String = this.literal.sourceRange.rangeText

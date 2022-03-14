@@ -1,4 +1,6 @@
+import { IdToken } from '../../util/id-token';
 import { parseAttribute } from '../../util/parse';
+import { InvokeExpressionTree } from '../expression/invoke/invoke-expression-tree';
 import { AttributeTree } from './attribute-tree';
 
 test('id', () => {
@@ -18,19 +20,11 @@ test('id type', () => {
 });
 
 test('id type', () => {
-  const code = `abc<|T, V|>(a Number) Integer`;
+  const code = `abc[a Number] Integer`;
   const tree = parseAttribute(code);
   expect(tree).toBeInstanceOf(AttributeTree);
 
-  expect(tree.toString()).toBe('abc<|T, V|>(a Number) Integer');
-});
-
-test('modifier operator', () => {
-  const code = `operator  +  ( other  Number )  Number `;
-  const tree = parseAttribute(code);
-  expect(tree).toBeInstanceOf(AttributeTree);
-
-  expect(tree.toString()).toBe('operator + (other Number) Number');
+  expect(tree.toString()).toBe('abc[a Number] Integer');
 });
 
 test('variable type value ', () => {
@@ -39,4 +33,17 @@ test('variable type value ', () => {
   expect(tree).toBeInstanceOf(AttributeTree);
 
   expect(tree.toString()).toBe('statements StatementTree[] = []');
+});
+
+test('name and array type', () => {
+  const code = `items ExpressionTree[]`;
+  const tree = parseAttribute(code);
+  expect(tree).toBeInstanceOf(AttributeTree);
+
+  expect(tree.toString()).toBe('items ExpressionTree[]');
+  expect(tree.name).toBeInstanceOf(IdToken);
+  expect(tree.parameters.length).toBe(0);
+  expect(tree.isMethod).toBe(false);
+  expect(tree.type).toBeInstanceOf(InvokeExpressionTree);
+  expect(tree.body).toBe(null);
 });

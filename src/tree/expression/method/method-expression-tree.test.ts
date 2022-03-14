@@ -1,15 +1,16 @@
 import { evaluate } from '../../../util/evaluate';
 import { parseExpression } from '../../../util/parse';
+import { IdExpressionTree } from '../id/id-expression-tree';
 import { InfixExpressionTree } from '../infix/infix-expression-tree';
 import { MethodExpressionTree } from './method-expression-tree';
 
 test('has argument', () => {
-  const code = '(x) x + 42';
+  const code = '[x] => x + 42';
   const tree = parseExpression(code) as MethodExpressionTree;
 
   expect(tree).toBeInstanceOf(MethodExpressionTree);
   expect(tree.parameters.length).toBe(1);
-  expect(tree.parameters[0].name.text).toBe('x');
+  expect((tree.parameters[0].name as IdExpressionTree).name.text).toBe('x');
   expect(
     evaluate(tree.value, {
       x: 37,
@@ -18,7 +19,7 @@ test('has argument', () => {
 });
 
 test('no arguments', () => {
-  const code = '() 42+45';
+  const code = '[]=> 42+45';
   const tree = parseExpression(code) as MethodExpressionTree;
 
   expect(tree).toBeInstanceOf(MethodExpressionTree);
@@ -27,7 +28,7 @@ test('no arguments', () => {
 });
 
 test('method with method type', () => {
-  const code = '(a) (b, c) 42+45';
+  const code = '[a] => [b, c] => 42+45';
   const tree = parseExpression(code) as MethodExpressionTree;
 
   expect(tree).toBeInstanceOf(MethodExpressionTree);

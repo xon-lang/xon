@@ -5,10 +5,10 @@ import '../../../util/source-range': SourceRange
 import '../expression-tree-helper': getExpressionTree
 import '../expression-tree': ExpressionTree
 
-object NullableExpressionTree(ctx NullableExpressionContext) ExpressionTree
+object NullableExpressionTree[ctx NullableExpressionContext] ExpressionTree
   metadata ExpressionMetadata
   ctx NullableExpressionContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  value ExpressionTree = getExpressionTree(ctx.expr())
+  sourceRange SourceRange = SourceRange.fromContext[ctx]
+  value ExpressionTree = getExpressionTree[ctx.expr[]]
 
-  toString() String = this.value.toString() + '?'
+  toString[] String = this.value.toString[] + '?'

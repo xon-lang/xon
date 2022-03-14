@@ -7,14 +7,12 @@ import '../../parameter/parameter-tree': ParameterTree
 import '../expression-tree-helper': getExpressionTree
 import '../expression-tree': ExpressionTree
 
-object MethodExpressionTree(ctx MethodExpressionContext) ExpressionTree
+object MethodExpressionTree[ctx MethodExpressionContext] ExpressionTree
   metadata MethodExpressionMetadata
   ctx MethodExpressionContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  generics ParameterTree[] = getParameterTrees(ctx.generics()?.parameter())
-  parameters ParameterTree[] = [] = getParameterTrees(ctx.methodParameters().parameter())
-  value ExpressionTree = getExpressionTree(ctx.expr())
+  sourceRange SourceRange = SourceRange.fromContext[ctx]
+  parameters ParameterTree[] = [] = getParameterTrees[ctx.parameters[].parameter[]]
+  value ExpressionTree = getExpressionTree[ctx._value]
 
-  toString() String
-    generics = (this.generics.length and #{`<|${this.generics.join(', ')}|>`}) or ''
-    return #{`${generics}(${this.parameters.join(', ')}) ${this.value}`}
+  toString[] String
+    return #{`(${this.parameters.join(', ')}) ${this.value}`}

@@ -17,7 +17,7 @@ export class ArrayExpressionTree extends ExpressionTree {
     super()
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
-    this.items = getExpressionTrees(ctx.arrayItem().map((x) => x.expr(0)))
+    this.items = getExpressionTrees(ctx.parameters().parameter().map((x) => x._name))
   }
 
   toString(): String {

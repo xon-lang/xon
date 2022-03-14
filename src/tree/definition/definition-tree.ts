@@ -19,7 +19,6 @@ export class DefinitionTree extends Tree {
   sourceRange: SourceRange
   modifier: IdToken
   name: IdToken
-  generics: ParameterTree[]
   parameters: ParameterTree[]
   base?: (ExpressionTree | None)
   attributes: AttributeTree[]
@@ -30,23 +29,21 @@ export class DefinitionTree extends Tree {
     this.sourceRange = SourceRange.fromContext(ctx)
     this.modifier = getIdToken(ctx._modifier)
     this.name = getIdToken(ctx._name)
-    this.generics = getParameterTrees(ctx.generics()?.parameter())
-    this.parameters = getParameterTrees(ctx.methodParameters()?.parameter()) || none
+    this.parameters = getParameterTrees(ctx.parameters()?.parameter()) || none
     this.base = getExpressionTree(ctx.expr()) || none
     this.attributes = getAttributeTrees(ctx.attribute())
   }
 
   toString(): String {
-    let modifier, base, generics, parameters, properties, methodsWithBody, methodsWithNoBody, attributes
+    let modifier, base, parameters, properties, methodsWithBody, methodsWithNoBody, attributes
     modifier = (this.modifier && this.modifier.text + ' ') || ''
     base = (this.base && ' ' + this.base) || ''
-    generics = (this.generics.length && `<|${this.generics.join(', ')}|>`) || ''
-    parameters = (this.ctx.methodParameters() && `(${this.parameters.join(', ')})`) || ''
+    parameters = this.ctx.parameters() && `(${this.parameters.join(', ')})` || ''
     properties = this.attributes.filter((x) => !x.isMethod).join('\n')
     methodsWithBody = this.attributes.filter((x) => x.isMethod && x.body).join('\n\n')
     methodsWithNoBody = this.attributes.filter((x) => x.isMethod && !x.body).join('\n')
     attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').replace(/^(.+)/gm, '  $1')
-    return (modifier + this.name + generics + parameters + base + ((attributes && '\n' + attributes) || ''))
+    return (modifier + this.name + parameters + base + ((attributes && '\n' + attributes) || ''))
   }
 }
 

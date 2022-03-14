@@ -11,24 +11,22 @@ import '../parameter/parameter-tree-helper': getParameterTrees
 import '../parameter/parameter-tree': ParameterTree
 import '../tree': Tree
 
-object DefinitionTree(ctx DefinitionContext) Tree
+object DefinitionTree[ctx DefinitionContext] Tree
   metadata DefinitionDeclarationMetadata
   ctx DefinitionContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  modifier IdToken = getIdToken(ctx._modifier)
-  name IdToken = getIdToken(ctx._name)
-  generics ParameterTree[] = getParameterTrees(ctx.generics()?.parameter())
-  parameters ParameterTree[] = getParameterTrees(ctx.methodParameters()?.parameter()) or none
-  base ExpressionTree? = getExpressionTree(ctx.expr()) or none
-  attributes AttributeTree[] = getAttributeTrees(ctx.attribute())
+  sourceRange SourceRange = SourceRange.fromContext[ctx]
+  modifier IdToken = getIdToken[ctx._modifier]
+  name IdToken = getIdToken[ctx._name]
+  parameters ParameterTree[] = getParameterTrees[ctx.parameters[]?.parameter[]] or none
+  base ExpressionTree? = getExpressionTree[ctx.expr[]] or none
+  attributes AttributeTree[] = getAttributeTrees[ctx.attribute[]]
 
-  toString() String
+  toString[] String
     modifier = (this.modifier and this.modifier.text + ' ') or ''
     base = (this.base and ' ' + this.base) or ''
-    generics = (this.generics.length and #{`<|${this.generics.join(', ')}|>`}) or ''
-    parameters = (this.ctx.methodParameters() and #{`(${this.parameters.join(', ')})`}) or ''
-    properties = this.attributes.filter((x) = !x.isMethod).join('\n')
-    methodsWithBody = this.attributes.filter((x) = x.isMethod and x.body).join('\n\n')
-    methodsWithNoBody = this.attributes.filter((x) = x.isMethod and !x.body).join('\n')
-    attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').replace(#{/^(.+)/gm}, '  $1')
-    return (modifier + this.name + generics + parameters + base + ((attributes and '\n' + attributes) or ''))
+    parameters = this.ctx.parameters[] and #{`(${this.parameters.join(', ')})`} or ''
+    properties = this.attributes.filter[[x]=>!x.isMethod].join['\n']
+    methodsWithBody = this.attributes.filter[[x] => x.isMethod and x.body].join['\n\n']
+    methodsWithNoBody = this.attributes.filter[[x] => x.isMethod and !x.body].join['\n']
+    attributes = [properties, methodsWithBody, methodsWithNoBody].filter[Boolean].join['\n\n'].replace[#{/^(.+)/gm}, '  $1']
+    return (modifier + this.name + parameters + base + ((attributes and '\n' + attributes) or ''))

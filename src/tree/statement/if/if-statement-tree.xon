@@ -7,11 +7,11 @@ import '../../expression/expression-tree-helper': getExpressionTree
 import '../../expression/expression-tree': ExpressionTree
 import '../statement-tree': StatementTree
 
-object IfStatementTree(ctx IfStatementContext) StatementTree
+object IfStatementTree[ctx IfStatementContext] StatementTree
   ctx IfStatementContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  condition ExpressionTree = getExpressionTree(ctx.expr())
-  thenBody BodyTree = getBodyTree(ctx._thenBody)
-  elseBody BodyTree? = getBodyTree(ctx._elseBody)
+  sourceRange SourceRange = SourceRange.fromContext[ctx]
+  condition ExpressionTree = getExpressionTree[ctx.expr[]]
+  thenBody BodyTree = getBodyTree[ctx._thenBody]
+  elseBody BodyTree? = getBodyTree[ctx._elseBody]
 
-  toString() String = #{`if ${this.condition}${this.thenBody}${(this.elseBody && '\nelse' + this.elseBody) || ''}`}
+  toString[] String = #{`if ${this.condition}${this.thenBody}${(this.elseBody && '\nelse' + this.elseBody) || ''}`}

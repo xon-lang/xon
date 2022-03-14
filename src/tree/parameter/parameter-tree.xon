@@ -1,26 +1,26 @@
-import '../../lib/core': String, None
 import '../../grammar/xon-parser': ParameterContext
+import '../../lib/core': None, String
 import '../../metadata/declaration/parameter/parameter-declaration-metadata': ParameterDeclarationMetadata
-import '../../util/id-token': IdToken, getIdToken
+import '../../util/id-token': getIdToken, IdToken
 import '../../util/source-range': SourceRange
-import '../body/body-tree': BodyTree
 import '../body/body-tree-helper': getBodyTree
-import '../expression/expression-tree': ExpressionTree
+import '../body/body-tree': BodyTree
 import '../expression/expression-tree-helper': getExpressionTree
+import '../expression/expression-tree': ExpressionTree
 import '../expression/method/method-expression-tree': MethodExpressionTree
 import '../tree': Tree
 
-object ParameterTree(ctx ParameterContext) Tree
+object ParameterTree[ctx ParameterContext] Tree
   ctx ParameterContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  sourceRange SourceRange = SourceRange.fromContext[ctx]
   metadata ParameterDeclarationMetadata
-  name IdToken = getIdToken(ctx._name)
-  type ExpressionTree? = getExpressionTree(ctx.expr())
-  body BodyTree? = getBodyTree(ctx.body())
+  name ExpressionTree = getExpressionTree[ctx._name]
+  type ExpressionTree? = getExpressionTree[ctx._type]
+  value ExpressionTree? = getExpressionTree[ctx._value]
 
-  toString() String
-    type = this.type?.toString() or ''
-    if (type and !(this.type is MethodExpressionTree))
+  toString[] String
+    type = this.type?.toString[] or ''
+    if type and !(this.type is MethodExpressionTree)
       type = ' ' + type
-    body = (this.body and this.body) or ''
-    return this.name + type + body
+    value = this.value and ' = ' + this.value or ''
+    return this.name + type + value

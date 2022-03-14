@@ -5,8 +5,8 @@ import '../../statement/statement-tree-helper': getStatementTree
 import '../../statement/statement-tree': StatementTree
 import '../body-tree': BodyTree
 
-object SingleBodyTree(ctx SingleBodyContext) BodyTree
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  statement StatementTree = getStatementTree(ctx.statement())
+object SingleBodyTree[ctx SingleBodyContext] BodyTree
+  sourceRange SourceRange = SourceRange.fromContext[ctx]
+  statement StatementTree = getStatementTree[ctx.statement[]]
 
-  toString() String = #{` = ${this.statement}`}
+  toString[] String = #{` = ${this.statement}`}

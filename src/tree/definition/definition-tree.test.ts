@@ -35,8 +35,8 @@ test('1-error.xon', () => {
   } catch (error) {
     const issue = IssueService.issues.slice(-1)[0];
     expect(issue.source.start.line).toBe(3);
-    expect(issue.source.start.column).toBe(3);
-    expect(issue.source.stop.column).toBe(36);
+    expect(issue.source.start.column).toBe(7);
+    expect(issue.source.stop.column).toBe(28);
   }
 });
 
@@ -46,7 +46,7 @@ test('2-error.xon', () => {
     expect(tree.definitions[0]).toBeInstanceOf(DefinitionTree);
   } catch (error) {
     const issue = IssueService.issues.slice(-1)[0];
-    expect(issue.source.start.line).toBe(8);
+    expect(issue.source.start.line).toBe(6);
     expect(issue.source.start.column).toBe(3);
     expect(issue.source.stop.column).toBe(5);
   }

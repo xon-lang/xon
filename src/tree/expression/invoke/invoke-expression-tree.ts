@@ -18,8 +18,8 @@ export class InvokeExpressionTree extends ExpressionTree {
     super()
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
-    this.instance = getExpressionTree(ctx._instance)
-    this.arguments = getExpressionTrees(ctx._args)
+    this.instance = getExpressionTree(ctx.expr())
+    this.arguments = getExpressionTrees(ctx.parameters().parameter().map((x) => x._name))
   }
 
   toString(): String {

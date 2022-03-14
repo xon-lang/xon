@@ -13,7 +13,6 @@ export class MethodExpressionTree extends ExpressionTree {
   metadata: MethodExpressionMetadata
   ctx: MethodExpressionContext
   sourceRange: SourceRange
-  generics: ParameterTree[]
   parameters: ParameterTree[]
   value: ExpressionTree
 
@@ -21,15 +20,12 @@ export class MethodExpressionTree extends ExpressionTree {
     super()
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
-    this.generics = getParameterTrees(ctx.generics()?.parameter())
-    this.parameters = [] = getParameterTrees(ctx.methodParameters().parameter())
-    this.value = getExpressionTree(ctx.expr())
+    this.parameters = [] = getParameterTrees(ctx.parameters().parameter())
+    this.value = getExpressionTree(ctx._value)
   }
 
   toString(): String {
-    let generics
-    generics = (this.generics.length && `<|${this.generics.join(', ')}|>`) || ''
-    return `${generics}(${this.parameters.join(', ')}) ${this.value}`
+    return `(${this.parameters.join(', ')}) ${this.value}`
   }
 }
 
