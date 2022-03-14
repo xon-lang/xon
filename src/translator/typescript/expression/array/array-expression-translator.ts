@@ -1,13 +1,13 @@
 import { String } from '../../../../lib/core';
 import { ArrayExpressionTree } from '../../../../tree/expression/array/array-expression-tree';
+import { getParameterTranslators } from '../../parameter/parameter-translator-helper';
 import { ExpressionTranslator } from '../expression-translator';
-import { getExpressionTranslators } from '../expression-translator-helper';
 
 export class ArrayExpressionTranslator implements ExpressionTranslator {
   constructor(private tree: ArrayExpressionTree, private isType: boolean) {}
 
   toString(): String {
-    const items = getExpressionTranslators(this.tree.items, this.isType);
+    const items = getParameterTranslators(this.tree.parameters, this.isType);
     return `[${items.join(', ')}]`;
   }
 }

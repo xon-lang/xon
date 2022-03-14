@@ -14,7 +14,9 @@ export class AttributeTranslator implements Translator {
   toString(): String {
     const modifier = (this.tree.name.text.startsWith('_') && 'private ') || '';
     let parameters =
-      (this.tree.isMethod && `(${getParameterTranslators(this.tree.parameters).join(', ')})`) || '';
+      (this.tree.isMethod &&
+        `(${getParameterTranslators(this.tree.parameters, false).join(', ')})`) ||
+      '';
     const type = (this.tree.type && ': ' + getExpressionTranslator(this.tree.type, true)) || '';
     let body = '';
     if (this.tree.body) {

@@ -4,11 +4,13 @@ import '../../../metadata/expression/array/array-expression-metadata': ArrayExpr
 import '../../../util/source-range': SourceRange
 import '../expression-tree-helper': getExpressionTrees
 import '../expression-tree': ExpressionTree
+import '../../parameter/parameter-tree': ParameterTree
+import  '../../parameter/parameter-tree-helper':getParameterTrees
 
 object ArrayExpressionTree[ctx ArrayExpressionContext] ExpressionTree
   metadata ArrayExpressionMetadata
   ctx ArrayExpressionContext = ctx
   sourceRange SourceRange = SourceRange.fromContext[ctx]
-  items ExpressionTree[] = getExpressionTrees[ctx.parameters[].parameter[].map[[x] => x._name]]
+  parameters ParameterTree[] = getExpressionTrees[ctx.parameters[].parameter[]]
 
-  toString[] String = #{`[${this.items.join(', ')}]`}
+  toString[] String = #{`[${this.parameters.join(', ')}]`}

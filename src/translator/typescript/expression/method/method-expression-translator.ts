@@ -8,7 +8,7 @@ export class MethodExpressionTranslator implements ExpressionTranslator {
   constructor(private tree: MethodExpressionTree, private isType: boolean) {}
 
   toString(): String {
-    const parameters = getParameterTranslators(this.tree.parameters);
+    const parameters = getParameterTranslators(this.tree.parameters, this.isType);
     const value = getExpressionTranslator(this.tree.value, this.isType);
     return `(${parameters.join(', ')}) => ${value}`;
   }

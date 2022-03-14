@@ -6,22 +6,24 @@ import { ArrayExpressionMetadata } from '../../../metadata/expression/array/arra
 import { SourceRange } from '../../../util/source-range'
 import { getExpressionTrees } from '../expression-tree-helper'
 import { ExpressionTree } from '../expression-tree'
+import { ParameterTree } from '../../parameter/parameter-tree'
+import { getParameterTrees } from '../../parameter/parameter-tree-helper'
 
 export class ArrayExpressionTree extends ExpressionTree {
   metadata: ArrayExpressionMetadata
   ctx: ArrayExpressionContext
   sourceRange: SourceRange
-  items: ExpressionTree[]
+  parameters: ParameterTree[]
 
   constructor(ctx: ArrayExpressionContext) {
     super()
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
-    this.items = getExpressionTrees(ctx.parameters().parameter().map((x) => x._name))
+    this.parameters = getParameterTrees(ctx.parameters().parameter())
   }
 
   toString(): String {
-    return `[${this.items.join(', ')}]`
+    return `[${this.parameters.join(', ')}]`
   }
 }
 

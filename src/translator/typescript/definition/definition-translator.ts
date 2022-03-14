@@ -11,7 +11,7 @@ export class DefinitionTranslator implements Translator {
   constructor(private tree: DefinitionTree) {}
 
   toString(): String {
-    let parameters = getParameterTranslators(this.tree.parameters).join(', ');
+    let parameters = getParameterTranslators(this.tree.parameters, false).join(', ');
     let base =
       (this.tree.base && ' extends ' + getExpressionTranslator(this.tree.base, false)) || '';
     const properties = this.tree.attributes
