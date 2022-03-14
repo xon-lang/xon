@@ -29,7 +29,7 @@ export class MethodExpressionTree extends ExpressionTree {
   toString(): String {
     let generics
     generics = (this.generics.length && `<|${this.generics.join(', ')}|>`) || ''
-    return `${generics}(${this.parameters.join(', ')})${this.value}`
+    return `${generics}(${this.parameters.join(', ')}) ${this.value}`
   }
 }
 
