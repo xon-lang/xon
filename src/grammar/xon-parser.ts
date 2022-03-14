@@ -677,7 +677,7 @@ export class XonParser extends Parser {
 
 			case 3:
 				{
-				_localctx = new ParenthesizedExpressionContext(_localctx);
+				_localctx = new GroupExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 142;
@@ -1609,7 +1609,7 @@ export class ObjectExpressionContext extends ExprContext {
 		this.copyFrom(ctx);
 	}
 }
-export class ParenthesizedExpressionContext extends ExprContext {
+export class GroupExpressionContext extends ExprContext {
 	public OPEN_PAREN(): TerminalNode { return this.getToken(XonParser.OPEN_PAREN, 0); }
 	public expr(): ExprContext {
 		return this.getRuleContext(0, ExprContext);

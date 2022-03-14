@@ -31,7 +31,7 @@ statement:
 expr:
     PREPROCESSOR                                    # preprocessorExpression
     | '{' (attribute (',' attribute)* ','?)? '}'    # objectExpression
-    | '(' expr ')'                                  # parenthesizedExpression
+    | '(' expr ')'                                  # groupExpression
     | literal                                       # literalExpression
     | expr '?'                                      # nullableExpression
     | expr '.' name = ID                            # memberExpression
