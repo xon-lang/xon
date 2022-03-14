@@ -30,7 +30,7 @@ test('id type body', () => {
 });
 
 test('method with no body', () => {
-  const code = 'toString() String';
+  const code = 'toString[] String';
   const tree = parseAttribute(code);
   const translator = getAttributeTranslator(tree);
 

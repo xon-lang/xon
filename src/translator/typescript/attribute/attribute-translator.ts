@@ -15,10 +15,6 @@ export class AttributeTranslator implements Translator {
     const modifier = (this.tree.name.text.startsWith('_') && 'private ') || '';
     let parameters =
       (this.tree.isMethod && `(${getParameterTranslators(this.tree.parameters).join(', ')})`) || '';
-    let generics =
-      (this.tree.generics.length &&
-        `<${getParameterTranslators(this.tree.generics).join(', ')}>`) ||
-      '';
     const type = (this.tree.type && ': ' + getExpressionTranslator(this.tree.type, true)) || '';
     let body = '';
     if (this.tree.body) {
@@ -40,6 +36,6 @@ export class AttributeTranslator implements Translator {
       body = ` {\n  throw new Error('Not implemented')\n}`;
     }
 
-    return modifier + this.tree.name + generics + parameters + type + body;
+    return modifier + this.tree.name + parameters + type + body;
   }
 }

@@ -3,7 +3,7 @@ import { getExpressionTranslator } from '../expression-translator-helper';
 import { InvokeExpressionTranslator } from './invoke-expression-translator';
 
 test('invoke', () => {
-  const code = "abc(123, 'a')";
+  const code = "abc[123, 'a']";
   const tree = parseExpression(code);
   const translator = getExpressionTranslator(tree, false);
 

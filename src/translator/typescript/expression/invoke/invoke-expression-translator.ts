@@ -7,8 +7,11 @@ export class InvokeExpressionTranslator implements ExpressionTranslator {
   constructor(private tree: InvokeExpressionTree, private isType: boolean) {}
 
   toString(): String {
-    const instance = getExpressionTranslator(this.tree.instance, false);
-    const args = getExpressionTranslators(this.tree.arguments, false).join(', ');
+    const instance = getExpressionTranslator(this.tree.instance, this.isType);
+    const args = getExpressionTranslators(this.tree.arguments, this.isType).join(', ');
+    if (this.isType) {
+      return `${instance}[${args}]`;
+    }
     return `${instance}(${args})`;
   }
 }

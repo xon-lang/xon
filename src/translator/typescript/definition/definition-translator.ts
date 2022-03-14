@@ -11,10 +11,6 @@ export class DefinitionTranslator implements Translator {
   constructor(private tree: DefinitionTree) {}
 
   toString(): String {
-    let generics =
-      (this.tree.generics.length &&
-        `<${getParameterTranslators(this.tree.generics).join(', ')}>`) ||
-      '';
     let parameters = getParameterTranslators(this.tree.parameters).join(', ');
     let base =
       (this.tree.base && ' extends ' + getExpressionTranslator(this.tree.base, false)) || '';
@@ -57,6 +53,6 @@ export class DefinitionTranslator implements Translator {
             .replace(/^(.+)/gm, '  $1') +
           '\n}') ||
       '{}';
-    return `export class ${this.tree.name}${generics}${base} ${attributes}`;
+    return `export class ${this.tree.name}${base} ${attributes}`;
   }
 }

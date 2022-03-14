@@ -3,7 +3,7 @@ import { getExpressionTranslator } from '../expression-translator-helper';
 import { MethodExpressionTranslator } from './method-expression-translator';
 
 test('as type', () => {
-  const code = '(a Number, b) a + b';
+  const code = '[a Number, b]=> a + b';
   const tree = parseExpression(code);
   const translator = getExpressionTranslator(tree, true);
 
@@ -12,7 +12,7 @@ test('as type', () => {
 });
 
 test('as value', () => {
-  const code = '(a Number, b)  a + b';
+  const code = '[a Number, b]=>  a + b';
   const tree = parseExpression(code);
   const translator = getExpressionTranslator(tree, false);
 

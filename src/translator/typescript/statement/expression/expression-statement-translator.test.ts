@@ -3,7 +3,7 @@ import { getStatementTranslator } from '../statement-translator-helper';
 import { ExpressionStatementTranslator } from './expression-statement-translator';
 
 test('invoke statement', () => {
-  const code = 'abc(1,2,3)';
+  const code = 'abc[1,2,3]';
   const tree = parseStatement(code);
   const translator = getStatementTranslator(tree);
 

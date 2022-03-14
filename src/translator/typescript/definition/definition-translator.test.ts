@@ -5,7 +5,7 @@ import { getDefinitionTranslator } from './definition-translator-helper';
 test('tree model', () => {
   const code = `
 model Tree Object
-  toString() String
+  toString[] String
 `.trim();
   const tree = parseDefinition(code);
   const translator = getDefinitionTranslator(tree);
