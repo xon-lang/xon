@@ -4,7 +4,7 @@ import { ExpressionTree } from '../tree/expression/expression-tree';
 import { IdExpressionTree } from '../tree/expression/id/id-expression-tree';
 import { InfixExpressionTree } from '../tree/expression/infix/infix-expression-tree';
 import { LiteralExpressionTree } from '../tree/expression/literal/literal-expression-tree';
-import { ParenthesizedExpressionTree } from '../tree/expression/parenthesized/parenthesized-expression-tree';
+import { GroupExpressionTree } from '../tree/expression/group/group-expression-tree';
 import { PrefixExpressionTree } from '../tree/expression/prefix/prefix-expression-tree';
 
 const escapeIfString = (s: unknown) => (typeof s === 'string' ? `\`${s}\`` : s);
@@ -13,7 +13,7 @@ export const evaluate = (tree: ExpressionTree, argsMap = {}): unknown => {
   if (!tree) return none;
 
   if (tree instanceof LiteralExpressionTree) return tree.literal.value;
-  if (tree instanceof ParenthesizedExpressionTree) return evaluate(tree.expression);
+  if (tree instanceof GroupExpressionTree) return evaluate(tree.expression);
   if (tree instanceof InfixExpressionTree) {
     const a = evaluate(tree.left, argsMap);
     const b = evaluate(tree.right, argsMap);

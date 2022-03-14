@@ -23,7 +23,7 @@ export class InvokeExpressionTree extends ExpressionTree {
   }
 
   toString(): String {
-    return `${this.instance}(${this.arguments.join(', ')})`
+    return `${this.instance}[${this.arguments.join(', ')}]`
   }
 }
 

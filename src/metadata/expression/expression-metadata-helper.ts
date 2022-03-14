@@ -7,7 +7,7 @@ import { InvokeExpressionTree } from '../../tree/expression/invoke/invoke-expres
 import { LiteralExpressionTree } from '../../tree/expression/literal/literal-expression-tree';
 import { MemberExpressionTree } from '../../tree/expression/member/member-expression-tree';
 import { MethodExpressionTree } from '../../tree/expression/method/method-expression-tree';
-import { ParenthesizedExpressionTree } from '../../tree/expression/parenthesized/parenthesized-expression-tree';
+import { GroupExpressionTree } from '../../tree/expression/group/group-expression-tree';
 import { PrefixExpressionTree } from '../../tree/expression/prefix/prefix-expression-tree';
 import { DeclarationScope } from '../scope/declaration-scope';
 import { ArrayExpressionMetadata } from './array/array-expression-metadata';
@@ -25,7 +25,7 @@ export function getExpressionMetadata(
   scope: DeclarationScope,
 ): ExpressionMetadata {
   try {
-    if (tree instanceof ParenthesizedExpressionTree)
+    if (tree instanceof GroupExpressionTree)
       return getExpressionMetadata(tree.expression, scope);
     if (tree instanceof ArrayExpressionTree) return new ArrayExpressionMetadata(tree, scope);
     if (tree instanceof IdExpressionTree) return new IdExpressionMetadata(tree, scope);

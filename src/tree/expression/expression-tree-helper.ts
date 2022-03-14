@@ -9,7 +9,7 @@ import {
   MemberExpressionContext,
   MethodExpressionContext,
   NullableExpressionContext,
-  ParenthesizedExpressionContext,
+  GroupExpressionContext,
   PrefixExpressionContext,
   PreprocessorExpressionContext,
 } from '../../grammar/xon-parser';
@@ -25,7 +25,7 @@ import { LiteralExpressionTree } from './literal/literal-expression-tree';
 import { MemberExpressionTree } from './member/member-expression-tree';
 import { MethodExpressionTree } from './method/method-expression-tree';
 import { NullableExpressionTree } from './nullable/nullable-expression-tree';
-import { ParenthesizedExpressionTree } from './parenthesized/parenthesized-expression-tree';
+import { GroupExpressionTree } from './group/group-expression-tree';
 import { PrefixExpressionTree } from './prefix/prefix-expression-tree';
 import { PreprocessorExpressionTree } from './preprocessor/preprocessor-expression-tree';
 
@@ -40,7 +40,7 @@ export const getExpressionTree = (ctx: ExprContext): ExpressionTree => {
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
   if (ctx instanceof MethodExpressionContext) return new MethodExpressionTree(ctx);
   if (ctx instanceof NullableExpressionContext) return new NullableExpressionTree(ctx);
-  if (ctx instanceof ParenthesizedExpressionContext) return new ParenthesizedExpressionTree(ctx);
+  if (ctx instanceof GroupExpressionContext) return new GroupExpressionTree(ctx);
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
 
   if (ctx instanceof InfixExpressionContext) {

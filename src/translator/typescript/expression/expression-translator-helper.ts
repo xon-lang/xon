@@ -9,7 +9,7 @@ import { LiteralExpressionTree } from '../../../tree/expression/literal/literal-
 import { MemberExpressionTree } from '../../../tree/expression/member/member-expression-tree';
 import { MethodExpressionTree } from '../../../tree/expression/method/method-expression-tree';
 import { NullableExpressionTree } from '../../../tree/expression/nullable/nullable-expression-tree';
-import { ParenthesizedExpressionTree } from '../../../tree/expression/parenthesized/parenthesized-expression-tree';
+import { GroupExpressionTree } from '../../../tree/expression/group/group-expression-tree';
 import { PrefixExpressionTree } from '../../../tree/expression/prefix/prefix-expression-tree';
 import { PreprocessorExpressionTree } from '../../../tree/expression/preprocessor/preprocessor-expression-tree';
 import { ArrayExpressionTranslator } from './array/array-expression-translator';
@@ -21,7 +21,7 @@ import { LiteralExpressionTranslator } from './literal/literal-expression-transl
 import { MemberExpressionTranslator } from './member/member-expression-translator';
 import { MethodExpressionTranslator } from './method/method-expression-translator';
 import { NullableExpressionTranslator } from './nullable/nullable-expression-translator';
-import { ParenthesizedExpressionTranslator } from './parenthesized/parenthesized-expression-translator';
+import { GroupExpressionTranslator } from './group/group-expression-translator';
 import { PrefixExpressionTranslator } from './prefix/prefix-expression-translator';
 import { PreprocessorExpressionTranslator } from './preprocessor/preprocessor-expression-translator';
 
@@ -41,8 +41,8 @@ export function getExpressionTranslator(
     if (tree instanceof MemberExpressionTree) return new MemberExpressionTranslator(tree, isType);
     if (tree instanceof MethodExpressionTree) return new MethodExpressionTranslator(tree, isType);
     if (tree instanceof PrefixExpressionTree) return new PrefixExpressionTranslator(tree, isType);
-    if (tree instanceof ParenthesizedExpressionTree)
-      return new ParenthesizedExpressionTranslator(tree, isType);
+    if (tree instanceof GroupExpressionTree)
+      return new GroupExpressionTranslator(tree, isType);
     if (tree instanceof NullableExpressionTree)
       return new NullableExpressionTranslator(tree, isType);
   } catch (error) {
