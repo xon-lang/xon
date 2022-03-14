@@ -2,7 +2,6 @@ import '../../../grammar/xon-parser': ArrayExpressionContext
 import '../../../lib/core': String
 import '../../../metadata/expression/array/array-expression-metadata': ArrayExpressionMetadata
 import '../../../util/source-range': SourceRange
-import '../expression-tree-helper': getExpressionTrees
 import '../expression-tree': ExpressionTree
 import '../../parameter/parameter-tree': ParameterTree
 import  '../../parameter/parameter-tree-helper':getParameterTrees
@@ -11,6 +10,6 @@ object ArrayExpressionTree[ctx ArrayExpressionContext] ExpressionTree
   metadata ArrayExpressionMetadata
   ctx ArrayExpressionContext = ctx
   sourceRange SourceRange = SourceRange.fromContext[ctx]
-  parameters ParameterTree[] = getExpressionTrees[ctx.parameters[].parameter[]]
+  parameters ParameterTree[] = getParameterTrees[ctx.parameters[].parameter[]]
 
   toString[] String = #{`[${this.parameters.join(', ')}]`}
