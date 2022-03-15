@@ -29,12 +29,21 @@ export class SourceTree extends Tree {
   }
 
   toString(): String {
-    let importStatements, otherStatements, attributes, definitions, result
-    importStatements = this.statements.filter((x) => x instanceof ImportStatementTree).map((x) => x as ImportStatementTree).sort((a, b) => a.path.toString().localeCompare(b.path.toString())).join('\n')
+    let importStatements, importStatementsMap, uniqueImportStatements, otherStatements, attributes, definitions, result
+    importStatements = this.statements.filter((x) => x instanceof ImportStatementTree).map((x) => x as ImportStatementTree)
+    importStatementsMap = {}
+
+                    for (let importStatement of importStatements) {
+                      importStatementsMap[importStatement.path.toString()] = importStatementsMap[importStatement.path.toString()] || []
+                      const members = importStatement.members.map(x => x.toString())
+                      importStatementsMap[importStatement.path.toString()].push(...members)
+                    }
+                  
+    uniqueImportStatements = Object.keys(importStatementsMap).sort((a, b) => a.localeCompare(b)).map((x) => `import ${x}: ${[...new Set(importStatementsMap[x].sort((a, b) => a.localeCompare(b)))].join(', ')}`).join('\n')
     otherStatements = this.statements.filter((x) => !(x instanceof ImportStatementTree)).join('\n')
     attributes = this.attributes.join('\n\n')
     definitions = this.definitions.join('\n\n')
-    result = [importStatements, otherStatements, attributes, definitions].filter(Boolean).join('\n\n')
+    result = [uniqueImportStatements, otherStatements, attributes, definitions].filter(Boolean).join('\n\n')
     return (result && result + '\n') || ''
   }
 }

@@ -35,3 +35,23 @@ test('formatted 1.xon', () => {
   fs.writeFileSync('src/tree/source/test-files/1.fmt.xon', formatted);
   // expect(code).toBe(formatted);
 });
+
+test('import sort and unique', () => {
+  const code = `
+import 'xon.os': Path, Path
+import 'xon.os': Path, Path, m2
+import 'xon.os2': Path, Path, Path2
+import 'xon.os': Path
+
+`.trim();
+  const tree = new SourceTree(parse(code).source());
+
+  expect(tree).toBeInstanceOf(SourceTree);
+  console.log(tree.toString());
+  expect(tree.toString()).toBe(
+    `
+import 'xon.os': m2, Path
+import 'xon.os2': Path, Path2
+`.trim() + '\n',
+  );
+});
