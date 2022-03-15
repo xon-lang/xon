@@ -1,6 +1,7 @@
 import { none } from '../../lib/core';
 import { parseParameter } from '../../util/parse';
 import { IdExpressionTree } from '../expression/id/id-expression-tree';
+import { InvokeExpressionTree } from '../expression/invoke/invoke-expression-tree';
 import { LiteralExpressionTree } from '../expression/literal/literal-expression-tree';
 import { ParameterTree } from './parameter-tree';
 
@@ -32,4 +33,14 @@ test('id type', () => {
   expect((tree.name as IdExpressionTree).name.text).toBe('cat');
   expect((tree.type as IdExpressionTree).name.text).toBe('Animal');
   expect(tree.value).toBe(none);
+});
+
+test('id array type', () => {
+  const code = 'contexts AttributeContext[]';
+  const tree = parseParameter(code);
+  expect(tree).toBeInstanceOf(ParameterTree);
+
+  expect((tree.name as IdExpressionTree).name.text).toBe('contexts');
+  expect(tree.type).toBeInstanceOf(InvokeExpressionTree);
+  expect(tree.toString()).toBe('contexts AttributeContext[]');
 });

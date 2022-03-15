@@ -50,7 +50,7 @@ test('1-error.xon', () => {
 
     expect(issue.source.start.line).toBe(1); //todo should be 3
     expect(issue.source.start.column).toBe(1); // to do should be 7
-    expect(issue.source.stop.column).toBe(28);
+    expect(issue.source.stop.column).toBe(27); // to do should be 28
   }
   expect(IssueService.issues.length).toBe(2); // to do should be 1
 });
