@@ -4,7 +4,7 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: ( definition | statement | NL)*;
+source: ( definition | attribute | statement | NL)*;
 
 definition:
     modifier = ID name = ID parameters? expr? (
@@ -30,8 +30,8 @@ statement:
 
 expr:
     PREPROCESSOR                                    # preprocessorExpression
-    | '{' (attribute (',' attribute)* ','?)? '}'    # objectExpression
     | '(' expr ')'                                  # groupExpression
+    | parameters                                    # arrayExpression
     | literal                                       # literalExpression
     | expr '?'                                      # nullableExpression
     | expr '.' name = ID                            # memberExpression
@@ -40,7 +40,6 @@ expr:
     | left = expr op = (ID | OPERATOR) right = expr # infixExpression
     | name = ID                                     # idExpression
     | parameters type = expr? '=>' value = expr     # methodExpression
-    | parameters                                    # arrayExpression
     ;
 
 literal:
