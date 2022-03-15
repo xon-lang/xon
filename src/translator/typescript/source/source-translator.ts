@@ -1,7 +1,9 @@
 import { String } from '../../../lib/core';
+import { AttributeTree } from '../../../tree/attribute/attribute-tree';
 import { SourceTree } from '../../../tree/source/source-tree';
 import { Translator } from '../../translator';
 import { getVariables } from '../../util/body-variables';
+import { getAttributeTranslator } from '../attribute/attribute-translator-helper';
 import { getDefinitionTranslators } from '../definition/definition-translator-helper';
 import { getStatementTranslators } from '../statement/statement-translator-helper';
 
@@ -10,6 +12,7 @@ export class SourceTranslator implements Translator {
 
   toString(): String {
     const statements = getStatementTranslators(this.tree.statements).join('\n');
+    const attributes = this.tree.attributes.map((x) => this.attribute(x)).join('\n\n');
     const definitions = getDefinitionTranslators(this.tree.definitions).join('\n\n');
 
     const vars = getVariables(this.tree.statements);
@@ -19,11 +22,21 @@ export class SourceTranslator implements Translator {
         '// this code was generated',
         declarations,
         statements,
+        attributes,
         definitions,
         '// this code was generated',
       ]
         .filter(Boolean)
         .join('\n\n') + '\n'
     );
+  }
+
+  attribute(tree: AttributeTree) {
+    const translation = getAttributeTranslator(tree);
+    const modifier = (tree.name.text.startsWith('_') && '') || 'export ';
+    if (tree.isMethod) {
+      return `${modifier}function ${translation}`;
+    }
+    return `${modifier}const ${translation}`;
   }
 }
