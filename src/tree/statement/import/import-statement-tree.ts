@@ -20,9 +20,10 @@ export class ImportStatementTree extends StatementTree {
   }
 
   toString(): String {
-    let members
-    members = this.members.sort((a, b) => a.sourceRange.rangeText.localeCompare(b.sourceRange.rangeText))
-    return `import ${this.path}: ${members.join(', ')}`
+    let members, uniqueMembers
+    members = this.members.map((x) => x.toString()).sort((a, b) => a.localeCompare(b))
+    uniqueMembers = [...new Set(members)]
+    return `import ${this.path}: ${uniqueMembers.join(', ')}`
   }
 }
 
