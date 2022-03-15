@@ -9,3 +9,15 @@ for thinking
       someAction()
     else:
       throw Error("No items")
+
+
+
+
+drafts:
+  arrays:
+    value: {1, 2, 3}[1]
+    type: ...Number
+    type: { Number }
+    type: { Number }[Number]
+    value: { { 'some' = 2 } }[0]['some']
+    type: { { ...Number } }

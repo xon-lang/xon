@@ -35,6 +35,22 @@ test('variable type value ', () => {
   expect(tree.toString()).toBe('statements StatementTree[] = []');
 });
 
+test('method single body', () => {
+  const code = `statements[a, b Number] Integer= 7`;
+  const tree = parseAttribute(code);
+  expect(tree).toBeInstanceOf(AttributeTree);
+
+  expect(tree.toString()).toBe('statements[a, b Number] Integer = 7');
+});
+
+test('method multiple body', () => {
+  const code = `statements[a, b Number] Integer\n  123\n  return 456`;
+  const tree = parseAttribute(code);
+  expect(tree).toBeInstanceOf(AttributeTree);
+
+  expect(tree.toString()).toBe('statements[a, b Number] Integer\n  123\n  return 456');
+});
+
 test('name and array type', () => {
   const code = `items ExpressionTree[]`;
   const tree = parseAttribute(code);
