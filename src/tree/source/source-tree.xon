@@ -1,6 +1,8 @@
 import '../../grammar/xon-parser': SourceContext
 import '../../lib/core': String
 import '../../util/source-range': SourceRange
+import '../attribute/attribute-tree-helper': getAttributeTrees
+import '../attribute/attribute-tree': AttributeTree
 import '../definition/definition-tree-helper': getDefinitionTrees
 import '../definition/definition-tree': DefinitionTree
 import '../statement/import/import-statement-tree': ImportStatementTree
@@ -12,11 +14,13 @@ object SourceTree[ctx SourceContext] Tree
   ctx SourceContext = ctx
   sourceRange SourceRange = SourceRange.fromContext[ctx]
   statements StatementTree[] = getStatementTrees[ctx.statement[]]
+  attributes AttributeTree[] = getAttributeTrees[ctx.attribute[]]
   definitions DefinitionTree[] = getDefinitionTrees[ctx.definition[]]
 
   toString[] String
     importStatements = this.statements.filter[[x] => x is ImportStatementTree].map[[x] => x as ImportStatementTree].sort[[a, b] => a.path.toString[].localeCompare[b.path.toString[]]].join['\n']
     otherStatements = this.statements.filter[[x] => !(x is ImportStatementTree)].join['\n']
+    attributes = this.attributes.join['\n\n']
     definitions = this.definitions.join['\n\n']
-    result = [importStatements, otherStatements, definitions].filter[Boolean].join['\n\n']
+    result = [importStatements, otherStatements, attributes, definitions].filter[Boolean].join['\n\n']
     return (result and result + '\n') or ''
