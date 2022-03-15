@@ -39,6 +39,13 @@ IMPORT:   'import';
 RETURN:   'return';
 WHILE:    'while';
 
+AND:    'and';
+AS:     'as';
+IS_NOT: 'is not';
+IS:     'is';
+NOT:    'not';
+OR:     'or';
+
 ASSIGN:        '=';
 COLON:         ':';
 COMMA:         ',';
