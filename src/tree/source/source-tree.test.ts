@@ -16,8 +16,8 @@ else
     call()
 `;
   const tree = new SourceTree(parse(code).source());
-  expect(tree).toBeInstanceOf(SourceTree);
 
+  expect(tree).toBeInstanceOf(SourceTree);
   const imports = tree.statements
     .filter((x) => x instanceof ImportStatementTree)
     .map((x) => x as ImportStatementTree);
@@ -29,8 +29,8 @@ else
 
 test('formatted 1.xon', () => {
   const tree = parseSourceFile('src/tree/source/test-files/1.xon');
-  expect(tree).toBeInstanceOf(SourceTree);
 
+  expect(tree).toBeInstanceOf(SourceTree);
   const formatted = tree.toString();
   fs.writeFileSync('src/tree/source/test-files/1.fmt.xon', formatted);
   // expect(code).toBe(formatted);

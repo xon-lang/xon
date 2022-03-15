@@ -8,8 +8,8 @@ import { WhileStatementTree } from './while-statement-tree';
 test('has boolean value', () => {
   const code = 'while true\n    12+(45/5)';
   const tree = parseStatement(code) as WhileStatementTree;
-  expect(tree).toBeInstanceOf(WhileStatementTree);
 
+  expect(tree).toBeInstanceOf(WhileStatementTree);
   expect(tree.expression).toBeInstanceOf(IdExpressionTree);
   expect((tree.expression as IdExpressionTree).name.text).toBe('true');
 

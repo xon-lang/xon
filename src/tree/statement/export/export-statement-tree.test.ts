@@ -4,7 +4,7 @@ import { ExportStatementTree } from './export-statement-tree';
 test('1', () => {
   const code = 'export lib.org';
   const tree = parseStatement(code) as ExportStatementTree;
-  expect(tree).toBeInstanceOf(ExportStatementTree);
 
+  expect(tree).toBeInstanceOf(ExportStatementTree);
   expect(tree.path.toString()).toBe('lib.org');
 });

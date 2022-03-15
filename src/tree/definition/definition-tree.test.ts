@@ -7,8 +7,8 @@ import { DefinitionTree } from './definition-tree';
 test('model animal', () => {
   const code = 'model Animal';
   const tree = parseDefinition(code);
-  expect(tree).toBeInstanceOf(DefinitionTree);
 
+  expect(tree).toBeInstanceOf(DefinitionTree);
   expect(tree.modifier.text).toBe('model');
   expect(tree.name.text).toBe('Animal');
   expect(tree.base).toBe(null);
@@ -18,8 +18,8 @@ test('model animal', () => {
 test('model cat', () => {
   const code = 'model Cat Animal';
   const tree = parseDefinition(code);
-  expect(tree).toBeInstanceOf(DefinitionTree);
 
+  expect(tree).toBeInstanceOf(DefinitionTree);
   expect(tree.modifier.text).toBe('model');
   expect(tree.name.text).toBe('Cat');
   expect((tree.base as IdExpressionTree).name.text).toBe('Animal');
@@ -29,8 +29,8 @@ test('model cat', () => {
 test('model animal with only attribute', () => {
   const code = 'model Animal\n   abc Integer';
   const tree = parseDefinition(code);
-  expect(tree).toBeInstanceOf(DefinitionTree);
 
+  expect(tree).toBeInstanceOf(DefinitionTree);
   expect(tree.modifier.text).toBe('model');
   expect(tree.name.text).toBe('Animal');
   expect(tree.base).toBe(none);

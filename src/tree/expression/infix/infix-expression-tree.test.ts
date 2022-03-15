@@ -6,24 +6,24 @@ import { InfixExpressionTree } from './infix-expression-tree';
 test('several operands with different priorities', () => {
   const code = '1+1+2^5*2/2';
   const tree = parseExpression(code) as InfixExpressionTree;
-  expect(tree).toBeInstanceOf(InfixExpressionTree);
 
+  expect(tree).toBeInstanceOf(InfixExpressionTree);
   expect(evaluate(tree)).toBe(34);
 });
 
 test('num plus str', () => {
   const code = "1  + 'str'";
   const tree = parseExpression(code) as InfixExpressionTree;
-  expect(tree).toBeInstanceOf(InfixExpressionTree);
 
+  expect(tree).toBeInstanceOf(InfixExpressionTree);
   expect(evaluate(tree)).toBe('1str');
 });
 
 test('has several relational operators', () => {
   const code = 'a<b>c';
   const tree = parseExpression(code) as InfixExpressionTree;
-  expect(tree).toBeInstanceOf(InfixExpressionTree);
 
+  expect(tree).toBeInstanceOf(InfixExpressionTree);
   expect(tree.left).toBeInstanceOf(InfixExpressionTree);
   expect(tree.right).toBeInstanceOf(IdExpressionTree);
 
