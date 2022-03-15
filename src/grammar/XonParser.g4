@@ -24,7 +24,7 @@ statement:
     | CONTINUE                                                            # continueStatement
     | RETURN expr?                                                        # returnStatement
     | ACTUAL actual = expr NL+ EXPECT expect = expr                       # assertStatement
-    | expr '=' expr                                                       # assignmentStatement
+    | expr body                                                           # assignmentStatement
     | expr                                                                # expressionStatement
     ;
 
@@ -49,7 +49,7 @@ literal:
     ;
 
 body:
-    '=' statement                        # singleBody
+    ('=' | ':') statement                # singleBody
     | NL INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
