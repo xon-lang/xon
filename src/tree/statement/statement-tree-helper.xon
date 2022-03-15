@@ -1,0 +1,39 @@
+import '../../grammar/xon-parser': AssertStatementContext, AssignmentStatementContext, ExportStatementContext, ExpressionStatementContext, ForStatementContext, IfStatementContext, ImportStatementContext, ReturnStatementContext, StatementContext, WhileStatementContext
+import '../../issue-service/issue': Issue
+import '../../lib/core': none
+import './assert/assert-statement-tree': AssertStatementTree
+import './assignment/assignment-statement-tree': AssignmentStatementTree
+import './export/export-statement-tree': ExportStatementTree
+import './expression/expression-statement-tree': ExpressionStatementTree
+import './for/for-statement-tree': ForStatementTree
+import './if/if-statement-tree': IfStatementTree
+import './import/import-statement-tree': ImportStatementTree
+import './return/return-statement-tree': ReturnStatementTree
+import './statement-tree': StatementTree
+import './while/while-statement-tree': WhileStatementTree
+
+getStatementTree[ctx StatementContext] StatementTree
+  if !ctx
+    return none
+  if ctx is AssertStatementContext
+    return #{new AssertStatementTree(ctx)}
+  if ctx is AssignmentStatementContext
+    return #{new AssignmentStatementTree(ctx)}
+  if ctx is ExportStatementContext
+    return #{new ExportStatementTree(ctx)}
+  if ctx is ExpressionStatementContext
+    return #{new ExpressionStatementTree(ctx)}
+  if ctx is ForStatementContext
+    return #{new ForStatementTree(ctx)}
+  if ctx is IfStatementContext
+    return #{new IfStatementTree(ctx)}
+  if ctx is ImportStatementContext
+    return #{new ImportStatementTree(ctx)}
+  if ctx is ReturnStatementContext
+    return #{new ReturnStatementTree(ctx)}
+  if ctx is WhileStatementContext
+    return #{new WhileStatementTree(ctx)}
+  Issue.errorFromContext[ctx, #{`Statement tree not found for '${ctx.constructor.name}'`}]
+
+getStatementTrees[contexts] StatementTree[]
+  return contexts?.map[getStatementTree] or []
