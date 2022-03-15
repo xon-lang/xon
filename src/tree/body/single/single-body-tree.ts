@@ -8,17 +8,19 @@ import { StatementTree } from '../../statement/statement-tree'
 import { BodyTree } from '../body-tree'
 
 export class SingleBodyTree extends BodyTree {
+  ctx: SingleBodyContext
   sourceRange: SourceRange
   statement: StatementTree
 
   constructor(ctx: SingleBodyContext) {
     super()
+    this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
     this.statement = getStatementTree(ctx.statement())
   }
 
-  toString(): String {
-    return ` = ${this.statement}`
+  toString() {
+    return this.ctx.ASSIGN() && ` = ${this.statement}` || `: ${this.statement}`
   }
 }
 
