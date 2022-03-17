@@ -72,3 +72,17 @@ test('name and array type', () => {
   expect(tree.parameters.length).toBe(1);
   expect(tree.toString()).toBe('getAttributeTrees[contexts AttributeContext[]]');
 });
+
+test('preprocessor', () => {
+  const code = `
+a
+  #{
+    abc
+    123 + 456
+    log(0)
+  }`.trim();
+  const tree = parseAttribute(code);
+
+  expect(tree).toBeInstanceOf(AttributeTree);
+  expect(tree.toString()).toBe(code);
+});
