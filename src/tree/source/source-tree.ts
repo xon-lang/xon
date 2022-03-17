@@ -32,13 +32,11 @@ export class SourceTree extends Tree {
     let importStatements, importStatementsMap, uniqueImportStatements, otherStatements, attributes, definitions, result
     importStatements = this.statements.filter((x) => x instanceof ImportStatementTree).map((x) => x as ImportStatementTree)
     importStatementsMap = {}
-
-                    for (let importStatement of importStatements) {
-                      importStatementsMap[importStatement.path.toString()] = importStatementsMap[importStatement.path.toString()] || []
-                      const members = importStatement.members.map(x => x.toString())
-                      importStatementsMap[importStatement.path.toString()].push(...members)
-                    }
-                  
+    for (let importStatement of importStatements) {
+      importStatementsMap[importStatement.path.toString()] = importStatementsMap[importStatement.path.toString()] || []
+      const members = importStatement.members.map(x => x.toString())
+      importStatementsMap[importStatement.path.toString()].push(...members)
+    }
     uniqueImportStatements = Object.keys(importStatementsMap).sort((a, b) => a.localeCompare(b)).map((x) => `import ${x}: ${[...new Set(importStatementsMap[x].sort((a, b) => a.localeCompare(b)))].join(', ')}`).join('\n')
     otherStatements = this.statements.filter((x) => !(x instanceof ImportStatementTree)).join('\n')
     attributes = this.attributes.join('\n\n')

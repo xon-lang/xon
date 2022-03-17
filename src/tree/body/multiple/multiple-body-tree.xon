@@ -1,6 +1,8 @@
 import '../../../grammar/xon-parser': MultipleBodyContext
 import '../../../lib/core': String
 import '../../../util/source-range': SourceRange
+import '../../expression/preprocessor/preprocessor-expression-tree': PreprocessorExpressionTree
+import '../../statement/expression/expression-statement-tree': ExpressionStatementTree
 import '../../statement/statement-tree-helper': getStatementTrees
 import '../../statement/statement-tree': StatementTree
 import '../body-tree': BodyTree
@@ -10,4 +12,4 @@ object MultipleBodyTree[ctx MultipleBodyContext] BodyTree
   sourceRange SourceRange = SourceRange.fromContext[ctx]
   statements StatementTree[] = getStatementTrees[ctx.statement[]]
 
-  toString[] String = '\n' + this.statements.join['\n'].replace[#{/^(.+)/gm}, '  $1']
+  toString[] String = '\n' + this.statements.map[[x] => x is ExpressionStatementTree and x.expression is PreprocessorExpressionTree and '  ' + x or x.toString[].replace[#{/^(.+)/gm}, '  $1']].join['\n']
