@@ -1,0 +1,14 @@
+import '../../grammar/xon-parser': FloatLiteralContext, IntegerLiteralContext, LiteralContext, StringLiteralContext
+import '../../issue-service/issue': Issue
+import '../../lib/core': none
+import './float/float-literal-tree': FloatLiteralTree
+import './integer/integer-literal-tree': IntegerLiteralTree
+import './literal-tree': LiteralTree
+import './string/string-literal-tree': StringLiteralTree
+
+getLiteralTree[ctx LiteralContext] LiteralTree
+  #{if (!ctx) return none;}
+  #{if (ctx instanceof FloatLiteralContext) return new FloatLiteralTree(ctx);}
+  #{if (ctx instanceof IntegerLiteralContext) return new IntegerLiteralTree(ctx);}
+  #{if (ctx instanceof StringLiteralContext) return new StringLiteralTree(ctx);}
+  Issue.errorFromContext[ctx, #{`Literal tree not found for "${ctx.constructor.name}"`}]
