@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { parse, parseSourceFile } from '../../util/parse';
+import { parseSource, parseSourceFile } from '../../util/parse';
 import { IdExpressionTree } from '../expression/id/id-expression-tree';
 import { LiteralExpressionTree } from '../expression/literal/literal-expression-tree';
 import { ImportStatementTree } from '../statement/import/import-statement-tree';
@@ -15,7 +15,7 @@ else
   if d
     call()
 `;
-  const tree = new SourceTree(parse(code).source());
+  const tree = parseSource(code);
 
   expect(tree).toBeInstanceOf(SourceTree);
   const imports = tree.statements
@@ -44,7 +44,7 @@ import 'xon.os2': Path, Path, Path2
 import 'xon.os': Path
 
 `.trim();
-  const tree = new SourceTree(parse(code).source());
+  const tree = parseSource(code);
 
   expect(tree).toBeInstanceOf(SourceTree);
   console.log(tree.toString());
@@ -54,4 +54,40 @@ import 'xon.os': m2, Path
 import 'xon.os2': Path, Path2
 `.trim() + '\n',
   );
+});
+
+test('preprocessor in attribute', () => {
+  const code = `
+toString[] String
+  importStatements = this.statements.filter[[x] => x is ImportStatementTree].map[[x] => x as ImportStatementTree]
+  importStatementsMap = #{{}}
+  #{
+    for (let importStatement of importStatements) {
+      importStatementsMap[importStatement.path.toString()] = importStatementsMap[importStatement.path.toString()] || []
+      const members = importStatement.members.map(x => x.toString())
+      importStatementsMap[importStatement.path.toString()].push(...members)
+    }
+  }
+`.trim();
+  const tree = parseSource(code);
+
+  expect(tree).toBeInstanceOf(SourceTree);
+  console.log(tree.toString());
+  expect(tree.toString()).toBe(code + '\n');
+});
+
+test('preprocessor in definition', () => {
+  const code = `
+object A
+  toString[] String
+    importStatementsMap = #{{}}
+    #{
+return 123
+    }
+`.trim();
+  const tree = parseSource(code);
+
+  expect(tree).toBeInstanceOf(SourceTree);
+  console.log(tree.toString());
+  expect(tree.toString()).toBe(code + '\n');
 });
