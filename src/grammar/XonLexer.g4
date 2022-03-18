@@ -38,6 +38,7 @@ IF:       'if';
 IMPORT:   'import';
 RETURN:   'return';
 WHILE:    'while';
+OPERATOR: 'operator';
 
 AND:    'and';
 AS:     'as';
@@ -65,7 +66,7 @@ STRING_LITERAL:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
 
 ID:       [_a-zA-Z] [_a-zA-Z0-9]*;
-OPERATOR: [!+-^*%] | '..' | '...' | '<=' | '>=' | '==' | '!=';
+OP: [!+-^*%] | '..' | '...' | '<=' | '>=' | '==' | '!=';
 
 NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
     ;
