@@ -9,7 +9,7 @@ export class InvokeExpressionTranslator implements ExpressionTranslator {
   toString(): String {
     const instance = getExpressionTranslator(this.tree.instance, this.isType);
     const args = getExpressionTranslators(this.tree.arguments, this.isType).join(', ');
-    if (this.isType) {
+    if (this.tree.hasBracket) {
       return `${instance}[${args}]`;
     }
     return `${instance}(${args})`;

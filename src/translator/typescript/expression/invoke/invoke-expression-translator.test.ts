@@ -8,5 +8,5 @@ test('invoke', () => {
   const translator = getExpressionTranslator(tree, false);
 
   expect(translator).toBeInstanceOf(InvokeExpressionTranslator);
-  expect(translator.toString()).toBe("abc(123, 'a')");
+  expect(translator.toString()).toBe("abc[123, 'a']");
 });
