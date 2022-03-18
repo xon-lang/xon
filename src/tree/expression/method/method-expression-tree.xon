@@ -1,5 +1,5 @@
 import '../../../grammar/xon-parser': MethodExpressionContext
-import '../../../lib/core': String
+import '../../../lib/core': Boolean, String
 import '../../../metadata/expression/method/method-expression-metadata': MethodExpressionMetadata
 import '../../../util/source-range': SourceRange
 import '../../parameter/parameter-tree-helper': getParameterTrees
@@ -7,12 +7,16 @@ import '../../parameter/parameter-tree': ParameterTree
 import '../expression-tree-helper': getExpressionTree
 import '../expression-tree': ExpressionTree
 
-object MethodExpressionTree[ctx MethodExpressionContext] ExpressionTree
+object MethodExpressionTree(ctx MethodExpressionContext) ExpressionTree
   metadata MethodExpressionMetadata
   ctx MethodExpressionContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext[ctx]
-  parameters ParameterTree[] = [] = getParameterTrees[ctx.parameters[].parameter[]]
-  value ExpressionTree = getExpressionTree[ctx._value]
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  hasBracket Boolean = !!ctx.parameters().OPEN_BRACKET()
+  hasParen Boolean = !!ctx.parameters().OPEN_PAREN()
+  parameters ParameterTree[] = [] = getParameterTrees(ctx.parameters().parameter())
+  value ExpressionTree = getExpressionTree(ctx._value)
 
-  toString[] String
-    return #{`[${this.parameters.join(', ')}] => ${this.value}`}
+  toString() String
+    if this.hasBracket
+      return #{`[${this.parameters.join(', ')}] => ${this.value}`}
+    return #{`(${this.parameters.join(', ')}) => ${this.value}`}

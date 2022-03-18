@@ -1,7 +1,7 @@
 // this code was generated
 
 import { MethodExpressionContext } from '../../../grammar/xon-parser'
-import { String } from '../../../lib/core'
+import { Boolean, String } from '../../../lib/core'
 import { MethodExpressionMetadata } from '../../../metadata/expression/method/method-expression-metadata'
 import { SourceRange } from '../../../util/source-range'
 import { getParameterTrees } from '../../parameter/parameter-tree-helper'
@@ -13,6 +13,8 @@ export class MethodExpressionTree extends ExpressionTree {
   metadata: MethodExpressionMetadata
   ctx: MethodExpressionContext
   sourceRange: SourceRange
+  hasBracket: Boolean
+  hasParen: Boolean
   parameters: ParameterTree[]
   value: ExpressionTree
 
@@ -20,12 +22,17 @@ export class MethodExpressionTree extends ExpressionTree {
     super()
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
+    this.hasBracket = !!ctx.parameters().OPEN_BRACKET()
+    this.hasParen = !!ctx.parameters().OPEN_PAREN()
     this.parameters = [] = getParameterTrees(ctx.parameters().parameter())
     this.value = getExpressionTree(ctx._value)
   }
 
   toString(): String {
-    return `[${this.parameters.join(', ')}] => ${this.value}`
+    if (this.hasBracket) {
+      return `[${this.parameters.join(', ')}] => ${this.value}`
+    }
+    return `(${this.parameters.join(', ')}) => ${this.value}`
   }
 }
 

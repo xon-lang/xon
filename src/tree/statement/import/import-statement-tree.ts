@@ -10,7 +10,7 @@ import { StatementTree } from '../statement-tree'
 export class ImportStatementTree extends StatementTree {
   sourceRange: SourceRange
   path: ExpressionTree
-  members?: (ExpressionTree[] | None)
+  members: ExpressionTree[]
 
   constructor(ctx: ImportStatementContext) {
     super()

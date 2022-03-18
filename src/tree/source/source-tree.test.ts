@@ -47,7 +47,6 @@ import 'xon.os': Path
   const tree = parseSource(code);
 
   expect(tree).toBeInstanceOf(SourceTree);
-  console.log(tree.toString());
   expect(tree.toString()).toBe(
     `
 import 'xon.os': m2, Path

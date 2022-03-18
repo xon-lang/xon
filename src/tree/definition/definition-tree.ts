@@ -38,7 +38,7 @@ export class DefinitionTree extends Tree {
     let modifier, base, parameters, properties, methodsWithBody, methodsWithNoBody, attributes
     modifier = (this.modifier && this.modifier.text + ' ') || ''
     base = (this.base && ' ' + this.base) || ''
-    parameters = this.ctx.parameters() && `[${this.parameters.join(', ')}]` || ''
+    parameters = this.ctx.parameters() && `(${this.parameters.join(', ')})` || ''
     properties = this.attributes.filter((x) => !x.isMethod).join('\n')
     methodsWithBody = this.attributes.filter((x) => x.isMethod && x.body).join('\n\n')
     methodsWithNoBody = this.attributes.filter((x) => x.isMethod && !x.body).join('\n')

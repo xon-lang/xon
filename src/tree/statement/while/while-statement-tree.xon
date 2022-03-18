@@ -7,10 +7,10 @@ import '../../expression/expression-tree-helper': getExpressionTree
 import '../../expression/expression-tree': ExpressionTree
 import '../statement-tree': StatementTree
 
-object WhileStatementTree[ctx WhileStatementContext] StatementTree
+object WhileStatementTree(ctx WhileStatementContext) StatementTree
   ctx WhileStatementContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext[ctx]
-  expression ExpressionTree = getExpressionTree[ctx.expr[]]
-  body BodyTree = getBodyTree[ctx.body[]]
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  expression ExpressionTree = getExpressionTree(ctx.expr())
+  body BodyTree = getBodyTree(ctx.body())
 
-  toString[] String = #{`while ${this.expression}${this.body}`}
+  toString() String = #{`while ${this.expression}${this.body}`}

@@ -6,10 +6,10 @@ import '../../parameter/parameter-tree-helper': getParameterTrees
 import '../../parameter/parameter-tree': ParameterTree
 import '../expression-tree': ExpressionTree
 
-object ArrayExpressionTree[ctx ArrayExpressionContext] ExpressionTree
+object ArrayExpressionTree(ctx ArrayExpressionContext) ExpressionTree
   metadata ArrayExpressionMetadata
   ctx ArrayExpressionContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext[ctx]
-  parameters ParameterTree[] = getParameterTrees[ctx.parameters[].parameter[]]
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  parameters ParameterTree[] = getParameterTrees(ctx.parameters().parameter())
 
-  toString[] String = #{`[${this.parameters.join(', ')}]`}
+  toString() String = #{`[${this.parameters.join(', ')}]`}

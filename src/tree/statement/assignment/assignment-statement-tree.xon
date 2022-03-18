@@ -7,10 +7,10 @@ import '../../expression/expression-tree-helper': getExpressionTree
 import '../../expression/expression-tree': ExpressionTree
 import '../statement-tree': StatementTree
 
-object AssignmentStatementTree[ctx AssignmentStatementContext] StatementTree
+object AssignmentStatementTree(ctx AssignmentStatementContext) StatementTree
   ctx AssignmentStatementContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext[ctx]
-  variable ExpressionTree = getExpressionTree[ctx.expr[]]
-  body BodyTree = getBodyTree[ctx.body[]]
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  variable ExpressionTree = getExpressionTree(ctx.expr())
+  body BodyTree = getBodyTree(ctx.body())
 
-  toString[] String = #{`${this.variable}${this.body}`}
+  toString() String = #{`${this.variable}${this.body}`}

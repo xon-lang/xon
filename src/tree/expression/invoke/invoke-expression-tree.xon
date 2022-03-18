@@ -1,15 +1,20 @@
 import '../../../grammar/xon-parser': InvokeExpressionContext
-import '../../../lib/core': String
+import '../../../lib/core': Boolean, String
 import '../../../metadata/expression/expression-metadata': ExpressionMetadata
 import '../../../util/source-range': SourceRange
 import '../expression-tree-helper': getExpressionTree, getExpressionTrees
 import '../expression-tree': ExpressionTree
 
-object InvokeExpressionTree[ctx InvokeExpressionContext] ExpressionTree
+object InvokeExpressionTree(ctx InvokeExpressionContext) ExpressionTree
   metadata ExpressionMetadata
   ctx InvokeExpressionContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext[ctx]
-  instance ExpressionTree = getExpressionTree[ctx.expr[]]
-  arguments ExpressionTree[] = getExpressionTrees[ctx.parameters[].parameter[].map[[x] => x._name]]
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  instance ExpressionTree = getExpressionTree(ctx.expr())
+  hasBracket Boolean = !!ctx.parameters().OPEN_BRACKET()
+  hasParen Boolean = !!ctx.parameters().OPEN_PAREN()
+  arguments ExpressionTree[] = getExpressionTrees(ctx.parameters().parameter().map((x) => x._name))
 
-  toString[] String = #{`${this.instance}[${this.arguments.join(', ')}]`}
+  toString() String
+    if this.hasBracket
+      return #{`${this.instance}[${this.arguments.join(', ')}]`}
+    return #{`${this.instance}(${this.arguments.join(', ')})`}

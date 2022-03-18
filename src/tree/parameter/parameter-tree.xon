@@ -10,16 +10,16 @@ import '../expression/expression-tree': ExpressionTree
 import '../expression/method/method-expression-tree': MethodExpressionTree
 import '../tree': Tree
 
-object ParameterTree[ctx ParameterContext] Tree
+object ParameterTree(ctx ParameterContext) Tree
   ctx ParameterContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext[ctx]
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
   metadata ParameterDeclarationMetadata
-  name ExpressionTree = getExpressionTree[ctx._name]
-  type ExpressionTree? = getExpressionTree[ctx._type]
-  value ExpressionTree? = getExpressionTree[ctx._value]
+  name ExpressionTree = getExpressionTree(ctx._name)
+  type ExpressionTree? = getExpressionTree(ctx._type)
+  value ExpressionTree? = getExpressionTree(ctx._value)
 
-  toString[] String
-    type = this.type?.toString[] or ''
+  toString() String
+    type = this.type?.toString() or ''
     if type and !(this.type is MethodExpressionTree)
       type = ' ' + type
     value = this.value and ' = ' + this.value or ''

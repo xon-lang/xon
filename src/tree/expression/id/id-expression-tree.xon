@@ -5,10 +5,10 @@ import '../../../util/id-token': getIdToken, IdToken
 import '../../../util/source-range': SourceRange
 import '../expression-tree': ExpressionTree
 
-object IdExpressionTree[ctx IdExpressionContext] ExpressionTree
+object IdExpressionTree(ctx IdExpressionContext) ExpressionTree
   metadata ExpressionMetadata
   ctx IdExpressionContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext[ctx]
-  name IdToken = getIdToken[ctx._name]
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  name IdToken = getIdToken(ctx._name)
 
-  toString[] String = this.name.toString[]
+  toString() String = this.name.toString()

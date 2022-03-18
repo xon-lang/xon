@@ -2,10 +2,10 @@ import '../lib/core': none, None, String
 import './source-range': SourceRange
 import 'antlr4ts': Token
 
-getIdToken[token Token?] IdToken = token and #{new IdToken(token)} or none
+getIdToken(token Token?) IdToken = token and #{new IdToken(token)} or none
 
-object IdToken[token Token]
-  sourceRange SourceRange = SourceRange.fromToken[token]
+object IdToken(token Token)
+  sourceRange SourceRange = SourceRange.fromToken(token)
   text String = token.text
 
-  toString[] String = this.text
+  toString() String = this.text

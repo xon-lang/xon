@@ -3,7 +3,7 @@ import '../../../lib/core': String
 import '../../../util/source-range': SourceRange
 import '../literal-tree': LiteralTree
 
-object StringLiteralTree[ctx StringLiteralContext] LiteralTree
+object StringLiteralTree(ctx StringLiteralContext) LiteralTree
   ctx StringLiteralContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext[ctx]
-  value String = ctx.text.slice[1, -1].replace[#{/\\'/g, "'"}]
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  value String = ctx.text.slice(1, -1).replace(#{/\\'/g, "'"})

@@ -4,10 +4,10 @@ import '../../../metadata/expression/expression-metadata': ExpressionMetadata
 import '../../../util/source-range': SourceRange
 import '../expression-tree': ExpressionTree
 
-object PreprocessorExpressionTree[ctx PreprocessorExpressionContext] ExpressionTree
+object PreprocessorExpressionTree(ctx PreprocessorExpressionContext) ExpressionTree
   metadata ExpressionMetadata
   ctx PreprocessorExpressionContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext[ctx]
-  value String = ctx.PREPROCESSOR[].text.trim[].slice[2, -1]
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  value String = ctx.PREPROCESSOR().text.trim().slice(2, -1)
 
-  toString[] String = #{`#{${this.value}}`}
+  toString() String = #{`#{${this.value}}`}

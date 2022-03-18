@@ -6,11 +6,11 @@ import '../../../util/source-range': SourceRange
 import '../expression-tree-helper': getExpressionTree
 import '../expression-tree': ExpressionTree
 
-object MemberExpressionTree[ctx MemberExpressionContext] ExpressionTree
+object MemberExpressionTree(ctx MemberExpressionContext) ExpressionTree
   metadata MemberExpressionMetadata
   ctx MemberExpressionContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext[ctx]
-  instance ExpressionTree = getExpressionTree[ctx.expr[]]
-  name IdToken = getIdToken[ctx._name]
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  instance ExpressionTree = getExpressionTree(ctx.expr())
+  name IdToken = getIdToken(ctx._name)
 
-  toString[] String = #{`${this.instance}.${this.name}`}
+  toString() String = #{`${this.instance}.${this.name}`}

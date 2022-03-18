@@ -4,14 +4,14 @@ import '../../../util/id-token': IdToken
 import '../../../util/source-range': SourceRange
 import '../expression-tree': ExpressionTree
 
-object InfixExpressionTree[name IdToken, left ExpressionTree, right ExpressionTree] ExpressionTree
+object InfixExpressionTree(name IdToken, left ExpressionTree, right ExpressionTree) ExpressionTree
   metadata InfixExpressionMetadata
   name IdToken = name
   left ExpressionTree = left
   right ExpressionTree = right
-  sourceRange SourceRange = SourceRange.fromTwoRange[left.sourceRange, right.sourceRange]
+  sourceRange SourceRange = SourceRange.fromTwoRange(left.sourceRange, right.sourceRange)
 
-  toString[] String
+  toString() String
     if this.name.text == '^'
       return #{`${this.left}${this.name}${this.right}`}
     return #{`${this.left} ${this.name} ${this.right}`}

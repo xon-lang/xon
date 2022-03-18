@@ -11,19 +11,24 @@ import '../parameter/parameter-tree-helper': getParameterTrees
 import '../parameter/parameter-tree': ParameterTree
 import '../tree': Tree
 
-object AttributeTree[ctx AttributeContext] Tree
+object AttributeTree(ctx AttributeContext) Tree
   metadata AttributeDeclarationMetadata
-  sourceRange SourceRange = SourceRange.fromContext[ctx]
-  isMethod boolean = !!ctx.parameters[]
-  modifier IdToken = getIdToken[ctx._name]
-  name IdToken = getIdToken[ctx._name]
-  parameters ParameterTree[] = getParameterTrees[ctx.parameters[]?.parameter[]]
-  type ExpressionTree? = getExpressionTree[ctx.expr[]] or none
-  body BodyTree? = getBodyTree[ctx.body[]] or none
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  isMethod boolean = !!ctx.parameters()
+  modifier IdToken = getIdToken(ctx._name)
+  name IdToken = getIdToken(ctx._name)
+  hasBracket Boolean = !!ctx.parameters()?.OPEN_BRACKET()
+  hasParen Boolean = !!ctx.parameters()?.OPEN_PAREN()
+  parameters ParameterTree[] = getParameterTrees(ctx.parameters()?.parameter())
+  type ExpressionTree? = getExpressionTree(ctx.expr()) or none
+  body BodyTree? = getBodyTree(ctx.body()) or none
 
-  toString[] String
+  toString() String
     modifier = this.modifier and this.modifier + ' ' or ''
-    parameters = this.isMethod and #{`[${this.parameters.join(', ')}]`} or ''
+    if this.hasBracket
+      parameters = this.isMethod and #{`[${this.parameters.join(', ')}]`} or ''
+    else
+      parameters = this.isMethod and #{`(${this.parameters.join(', ')})`} or ''
     type = this.type and ' ' + this.type or ''
     body = this.body and this.body or ''
     return this.name + parameters + type + body

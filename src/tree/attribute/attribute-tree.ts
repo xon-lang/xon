@@ -19,6 +19,8 @@ export class AttributeTree extends Tree {
   isMethod: boolean
   modifier: IdToken
   name: IdToken
+  hasBracket: Boolean
+  hasParen: Boolean
   parameters: ParameterTree[]
   type?: (ExpressionTree | None)
   body?: (BodyTree | None)
@@ -29,6 +31,8 @@ export class AttributeTree extends Tree {
     this.isMethod = !!ctx.parameters()
     this.modifier = getIdToken(ctx._name)
     this.name = getIdToken(ctx._name)
+    this.hasBracket = !!ctx.parameters()?.OPEN_BRACKET()
+    this.hasParen = !!ctx.parameters()?.OPEN_PAREN()
     this.parameters = getParameterTrees(ctx.parameters()?.parameter())
     this.type = getExpressionTree(ctx.expr()) || none
     this.body = getBodyTree(ctx.body()) || none
@@ -37,7 +41,11 @@ export class AttributeTree extends Tree {
   toString(): String {
     let modifier, parameters, type, body
     modifier = this.modifier && this.modifier + ' ' || ''
-    parameters = this.isMethod && `[${this.parameters.join(', ')}]` || ''
+    if (this.hasBracket) {
+      parameters = this.isMethod && `[${this.parameters.join(', ')}]` || ''
+    } else {
+      parameters = this.isMethod && `(${this.parameters.join(', ')})` || ''
+    }
     type = this.type && ' ' + this.type || ''
     body = this.body && this.body || ''
     return this.name + parameters + type + body

@@ -5,12 +5,12 @@ import '../../expression/expression-tree-helper': getExpressionTree, getExpressi
 import '../../expression/expression-tree': ExpressionTree
 import '../statement-tree': StatementTree
 
-object ImportStatementTree[ctx ImportStatementContext] StatementTree
-  sourceRange SourceRange = SourceRange.fromContext[ctx]
-  path ExpressionTree = getExpressionTree[ctx._path]
-  members ExpressionTree[]? = getExpressionTrees[ctx._members]
+object ImportStatementTree(ctx ImportStatementContext) StatementTree
+  sourceRange SourceRange = SourceRange.fromContext(ctx)
+  path ExpressionTree = getExpressionTree(ctx._path)
+  members ExpressionTree[] = getExpressionTrees(ctx._members)
 
-  toString[] String
-    members = this.members.map[[x] => x.toString[]].sort[[a, b] => a.localeCompare[b]]
+  toString() String
+    members = this.members.map((x) => x.toString()).sort((a, b) => a.localeCompare(b))
     uniqueMembers = [...#{new Set(members)}]
     return #{`import ${this.path}: ${uniqueMembers.join(', ')}`}

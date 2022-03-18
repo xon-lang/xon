@@ -65,12 +65,12 @@ test('name and array type', () => {
 });
 
 test('name and array type', () => {
-  const code = `getAttributeTrees[contexts AttributeContext[]]`;
+  const code = `getAttributeTrees(contexts AttributeContext[])`;
   const tree = parseAttribute(code);
 
   expect(tree).toBeInstanceOf(AttributeTree);
   expect(tree.parameters.length).toBe(1);
-  expect(tree.toString()).toBe('getAttributeTrees[contexts AttributeContext[]]');
+  expect(tree.toString()).toBe('getAttributeTrees(contexts AttributeContext[])');
 });
 
 test('preprocessor', () => {
