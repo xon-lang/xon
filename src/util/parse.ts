@@ -1,49 +1,69 @@
-import { CharStreams, CommonTokenStream } from 'antlr4ts';
-import * as fs from 'fs';
-import { XonLexer } from '../grammar/xon-lexer';
-import { XonParser } from '../grammar/xon-parser';
-import { String } from '../lib/core';
-import { getAttributeTree } from '../tree/attribute/attribute-tree-helper';
-import { getBodyTree } from '../tree/body/body-tree-helper';
-import { getDefinitionTree } from '../tree/definition/definition-tree-helper';
-import { getExpressionTree } from '../tree/expression/expression-tree-helper';
-import { getLiteralTree } from '../tree/literal/literal-tree-helper';
-import { getParameterTree } from '../tree/parameter/parameter-tree-helper';
-import { getSourceTree } from '../tree/source/source-tree-helper';
-import { getStatementTree } from '../tree/statement/statement-tree-helper';
-import { ThrowingErrorListener } from './throwing-error-listener';
+// this code was generated
 
-export const parse = (code: String, sourceName: String = undefined): XonParser => {
-  const inputStream = CharStreams.fromString(code, sourceName);
-  const lexer = new XonLexer(inputStream);
-  lexer.removeErrorListeners();
-  lexer.addErrorListener(new ThrowingErrorListener());
+import { XonLexer } from '../grammar/xon-lexer'
+import { XonParser } from '../grammar/xon-parser'
+import { String } from '../lib/core'
+import { getAttributeTree } from '../tree/attribute/attribute-tree-helper'
+import { getBodyTree } from '../tree/body/body-tree-helper'
+import { getDefinitionTree } from '../tree/definition/definition-tree-helper'
+import { getExpressionTree } from '../tree/expression/expression-tree-helper'
+import { getLiteralTree } from '../tree/literal/literal-tree-helper'
+import { getParameterTree } from '../tree/parameter/parameter-tree-helper'
+import { getSourceTree } from '../tree/source/source-tree-helper'
+import { getStatementTree } from '../tree/statement/statement-tree-helper'
+import { ThrowingErrorListener } from './throwing-error-listener'
+import { CharStreams, CommonTokenStream } from 'antlr4ts'
+import * as fs from 'fs'
 
-  const tokenStream = new CommonTokenStream(lexer);
-  const parser = new XonParser(tokenStream);
-  parser.removeErrorListeners();
-  parser.addErrorListener(new ThrowingErrorListener());
+export function parse(code: String, sourceName: String = undefined): XonParser {
+  let inputStream, lexer, tokenStream, parser
+  inputStream = CharStreams.fromString(code, sourceName)
+  lexer = new XonLexer(inputStream)
+  lexer.removeErrorListeners()
+  lexer.addErrorListener(new ThrowingErrorListener())
+  tokenStream = new CommonTokenStream(lexer)
+  parser = new XonParser(tokenStream)
+  parser.removeErrorListeners()
+  parser.addErrorListener(new ThrowingErrorListener())
+  return parser
+}
 
-  return parser;
-};
+export function parseSourceFile(sourceName: String) {
+  let code
+  code = fs.readFileSync(sourceName).toString()
+  return getSourceTree(parse(code, sourceName).source())
+}
 
-export const parseSourceFile = (sourceName: String) => {
-  const code = fs.readFileSync(sourceName).toString();
-  return getSourceTree(parse(code, sourceName).source());
-};
+export function parseLiteral(code: String) {
+  return getLiteralTree(parse(code).literal())
+}
 
-export const parseLiteral = (code: String) => getLiteralTree(parse(code).literal());
+export function parseExpression(code: String) {
+  return getExpressionTree(parse(code).expr())
+}
 
-export const parseExpression = (code: String) => getExpressionTree(parse(code).expr());
+export function parseStatement(code: String) {
+  return getStatementTree(parse(code).statement())
+}
 
-export const parseStatement = (code: String) => getStatementTree(parse(code).statement());
+export function parseParameter(code: String) {
+  return getParameterTree(parse(code).parameter())
+}
 
-export const parseParameter = (code: String) => getParameterTree(parse(code).parameter());
+export function parseBody(code: String) {
+  return getBodyTree(parse(code).body())
+}
 
-export const parseBody = (code: String) => getBodyTree(parse(code).body());
+export function parseAttribute(code: String) {
+  return getAttributeTree(parse(code).attribute())
+}
 
-export const parseAttribute = (code: String) => getAttributeTree(parse(code).attribute());
+export function parseDefinition(code: String) {
+  return getDefinitionTree(parse(code).definition())
+}
 
-export const parseDefinition = (code: String) => getDefinitionTree(parse(code).definition());
+export function parseSource(code: String) {
+  return getSourceTree(parse(code).source())
+}
 
-export const parseSource = (code: String) => getSourceTree(parse(code).source());
+// this code was generated
