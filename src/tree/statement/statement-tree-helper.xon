@@ -35,5 +35,5 @@ getStatementTree(ctx StatementContext) StatementTree
     return #{new WhileStatementTree(ctx)}
   Issue.errorFromContext(ctx, #{`Statement tree not found for '${ctx.constructor.name}'`})
 
-getStatementTrees(contexts) StatementTree()
+getStatementTrees(contexts) StatementTree[]
   return contexts?.map(getStatementTree) or []
