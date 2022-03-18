@@ -56,5 +56,8 @@ body:
     | NL INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-parameter:  name = expr type = expr? ( '=' value = expr)?;
-parameters: '[' (parameter (',' parameter)* ','?)? ']';
+parameter: name = expr type = expr? ( '=' value = expr)?;
+parameters:
+    '[' (parameter (',' parameter)* ','?)? ']'
+    | '(' (parameter (',' parameter)* ','?)? ')'
+    ;
