@@ -17,9 +17,10 @@ export class DefinitionTranslator implements Translator {
     const properties = this.tree.attributes
       .filter((x) => !x.isMethod)
       .map((x) => {
+        const modifier = (x.name.text.startsWith('_') && 'private ') || '';
         const nullable = (x.type instanceof NullableExpressionTree && '?') || '';
         const type = ': ' + (getExpressionTranslator(x.type, true) || 'any');
-        return x.name + nullable + type;
+        return modifier + x.name + nullable + type;
       })
       .join('\n');
 
@@ -40,10 +41,22 @@ export class DefinitionTranslator implements Translator {
 
     const methodsWithBody = getAttributeTranslators(
       this.tree.attributes.filter((x) => x.isMethod && x.body),
-    ).join('\n\n');
+    )
+      .map((x) => {
+        const result = x.toString();
+        const modifier = (result.startsWith('_') && 'private ') || '';
+        return modifier + result;
+      })
+      .join('\n\n');
     const methodsWithNoBody = getAttributeTranslators(
       this.tree.attributes.filter((x) => x.isMethod && !x.body),
-    ).join('\n');
+    )
+      .map((x) => {
+        const result = x.toString();
+        const modifier = (result.startsWith('_') && 'private ') || '';
+        return modifier + result;
+      })
+      .join('\n');
     const attributes =
       (this.tree.attributes.length &&
         '{\n' +

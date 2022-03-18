@@ -8,5 +8,5 @@ test('invoke statement', () => {
   const translator = getStatementTranslator(tree);
 
   expect(translator).toBeInstanceOf(ExpressionStatementTranslator);
-  expect(translator.toString()).toBe('abc(1, 2, 3)');
+  expect(translator.toString()).toBe('abc[1, 2, 3]');
 });

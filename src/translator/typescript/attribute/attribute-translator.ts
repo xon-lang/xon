@@ -12,7 +12,6 @@ export class AttributeTranslator implements Translator {
   constructor(private tree: AttributeTree) {}
 
   toString(): String {
-    const modifier = (this.tree.name.text.startsWith('_') && 'private ') || '';
     let parameters =
       (this.tree.isMethod &&
         `(${getParameterTranslators(this.tree.parameters, false).join(', ')})`) ||
@@ -38,6 +37,6 @@ export class AttributeTranslator implements Translator {
       body = ` {\n  throw new Error('Not implemented')\n}`;
     }
 
-    return modifier + this.tree.name + parameters + type + body;
+    return this.tree.name + parameters + type + body;
   }
 }
