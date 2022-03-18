@@ -17,7 +17,7 @@ object AttributeTree[ctx AttributeContext] Tree
   isMethod boolean = !!ctx.parameters[]
   modifier IdToken = getIdToken[ctx._name]
   name IdToken = getIdToken[ctx._name]
-  parameters ...ParameterTree = getParameterTrees[ctx.parameters[]?.parameter[]]
+  parameters ParameterTree[] = getParameterTrees[ctx.parameters[]?.parameter[]]
   type ExpressionTree? = getExpressionTree[ctx.expr[]] or none
   body BodyTree? = getBodyTree[ctx.body[]] or none
 

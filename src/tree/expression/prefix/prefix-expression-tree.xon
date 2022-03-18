@@ -9,7 +9,7 @@ import '../expression-tree': ExpressionTree
 object PrefixExpressionTree[ctx PrefixExpressionContext] ExpressionTree
   metadata ExpressionMetadata
   sourceRange SourceRange = SourceRange.fromContext[ctx]
-  operator IdToken = getIdToken[ctx._op]
+  name IdToken = getIdToken[ctx._op]
   value ExpressionTree = getExpressionTree[ctx.expr[]]
 
-  toString[] String = #{`${this.operator}${this.value}`}
+  toString[] String = #{`${this.name}${this.value}`}

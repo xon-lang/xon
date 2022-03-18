@@ -11,18 +11,18 @@ import { ExpressionTree } from '../expression-tree'
 export class PrefixExpressionTree extends ExpressionTree {
   metadata: ExpressionMetadata
   sourceRange: SourceRange
-  operator: IdToken
+  name: IdToken
   value: ExpressionTree
 
   constructor(ctx: PrefixExpressionContext) {
     super()
     this.sourceRange = SourceRange.fromContext(ctx)
-    this.operator = getIdToken(ctx._op)
+    this.name = getIdToken(ctx._op)
     this.value = getExpressionTree(ctx.expr())
   }
 
   toString(): String {
-    return `${this.operator}${this.value}`
+    return `${this.name}${this.value}`
   }
 }
 
