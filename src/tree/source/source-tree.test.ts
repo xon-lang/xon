@@ -72,7 +72,6 @@ toString[] String
   const tree = parseSource(code);
 
   expect(tree).toBeInstanceOf(SourceTree);
-  console.log(tree.toString());
   expect(tree.toString()).toBe(code + '\n');
 });
 
@@ -89,6 +88,5 @@ toString[] String
 //   const tree = parseSource(code);
 
 //   expect(tree).toBeInstanceOf(SourceTree);
-//   console.log(tree.toString());
 //   expect(tree.toString()).toBe(code + '\n');
 // });
