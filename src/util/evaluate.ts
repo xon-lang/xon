@@ -9,7 +9,7 @@ import { InfixExpressionTree } from '../tree/expression/infix/infix-expression-t
 import { LiteralExpressionTree } from '../tree/expression/literal/literal-expression-tree'
 import { PrefixExpressionTree } from '../tree/expression/prefix/prefix-expression-tree'
 
-export function _escapeIfString(s: Unknown) {
+function _escapeIfString(s: Unknown) {
   return typeof s === 'string' && `\`${s}\`` || s
 }
 

@@ -7,5 +7,5 @@ getAttributeTree(ctx AttributeContext) AttributeTree
     return none
   return #{new AttributeTree(ctx)}
 
-getAttributeTrees(contexts AttributeContext()) AttributeTree[]
+getAttributeTrees(contexts AttributeContext[]) AttributeTree[]
   return contexts?.map((x) => getAttributeTree(x)) or []

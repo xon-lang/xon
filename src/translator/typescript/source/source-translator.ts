@@ -33,7 +33,7 @@ export class SourceTranslator implements Translator {
 
   attribute(tree: AttributeTree) {
     const translation = getAttributeTranslator(tree);
-    const modifier = (tree.name.text.startsWith('_') && '') || 'export ';
+    const modifier = (tree.name.text.startsWith('_') && new String('')) || 'export ';
     if (tree.isMethod) {
       return `${modifier}function ${translation}`;
     }
