@@ -1,6 +1,5 @@
 import '../../../grammar/xon-parser': AssignmentStatementContext
 import '../../../lib/core': String
-import '../../../util/id-token': IdToken
 import '../../../util/source-range': SourceRange
 import '../../body/body-tree-helper': getBodyTree
 import '../../body/body-tree': BodyTree
@@ -11,10 +10,7 @@ import '../statement-tree': StatementTree
 object AssignmentStatementTree[ctx AssignmentStatementContext] StatementTree
   ctx AssignmentStatementContext = ctx
   sourceRange SourceRange = SourceRange.fromContext[ctx]
-  modifier IdToken = #{new IdToken(ctx._modifier)}
   variable ExpressionTree = getExpressionTree[ctx.expr[]]
   body BodyTree = getBodyTree[ctx.body[]]
 
-  toString[] String
-    modifier = this.modifier and this.modifier + ' ' or ''
-    return #{`${modifier}${this.variable}${this.body}`}
+  toString[] String = #{`${this.variable}${this.body}`}
