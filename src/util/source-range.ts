@@ -12,17 +12,6 @@ export class SourceRange {
   start: LinePosition;
   stop: LinePosition;
 
-  get length() {
-    if (this.stop.index > this.start.index) {
-      return this.stop.index - this.start.index + 1;
-    }
-    return 0;
-  }
-
-  get link(): String {
-    return `${this.sourceName}:${this.start.line}:${this.start.column}`;
-  }
-
   equals(other: SourceRange): boolean {
     return this.sourceName === other.sourceName && this.start.index === other.start.index;
   }
