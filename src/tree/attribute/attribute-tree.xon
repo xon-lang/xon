@@ -15,13 +15,15 @@ object AttributeTree[ctx AttributeContext] Tree
   metadata AttributeDeclarationMetadata
   sourceRange SourceRange = SourceRange.fromContext[ctx]
   isMethod boolean = !!ctx.parameters[]
+  modifier IdToken = getIdToken[ctx._name]
   name IdToken = getIdToken[ctx._name]
-  parameters ParameterTree[] = getParameterTrees[ctx.parameters[]?.parameter[]]
+  parameters ...ParameterTree = getParameterTrees[ctx.parameters[]?.parameter[]]
   type ExpressionTree? = getExpressionTree[ctx.expr[]] or none
   body BodyTree? = getBodyTree[ctx.body[]] or none
 
   toString[] String
-    parameters = (this.isMethod and #{`[${this.parameters.join(', ')}]`}) or ''
-    type = (this.type and ' ' + this.type) or ''
-    body = (this.body and this.body) or ''
+    modifier = this.modifier and this.modifier + ' ' or ''
+    parameters = this.isMethod and #{`[${this.parameters.join(', ')}]`} or ''
+    type = this.type and ' ' + this.type or ''
+    body = this.body and this.body or ''
     return this.name + parameters + type + body

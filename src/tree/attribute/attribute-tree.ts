@@ -17,6 +17,7 @@ export class AttributeTree extends Tree {
   metadata: AttributeDeclarationMetadata
   sourceRange: SourceRange
   isMethod: boolean
+  modifier: IdToken
   name: IdToken
   parameters: ParameterTree[]
   type?: (ExpressionTree | None)
@@ -26,6 +27,7 @@ export class AttributeTree extends Tree {
     super()
     this.sourceRange = SourceRange.fromContext(ctx)
     this.isMethod = !!ctx.parameters()
+    this.modifier = getIdToken(ctx._name)
     this.name = getIdToken(ctx._name)
     this.parameters = getParameterTrees(ctx.parameters()?.parameter())
     this.type = getExpressionTree(ctx.expr()) || none
@@ -33,10 +35,11 @@ export class AttributeTree extends Tree {
   }
 
   toString(): String {
-    let parameters, type, body
-    parameters = (this.isMethod && `[${this.parameters.join(', ')}]`) || ''
-    type = (this.type && ' ' + this.type) || ''
-    body = (this.body && this.body) || ''
+    let modifier, parameters, type, body
+    modifier = this.modifier && this.modifier + ' ' || ''
+    parameters = this.isMethod && `[${this.parameters.join(', ')}]` || ''
+    type = this.type && ' ' + this.type || ''
+    body = this.body && this.body || ''
     return this.name + parameters + type + body
   }
 }
