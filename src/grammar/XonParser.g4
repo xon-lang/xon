@@ -24,7 +24,7 @@ statement:
     | CONTINUE                                                            # continueStatement
     | RETURN expr?                                                        # returnStatement
     | ACTUAL actual = expr NL+ EXPECT expect = expr                       # assertStatement
-    | modifier = ID expr body                                             # assignmentStatement
+    | modifier = ID? expr body                                             # assignmentStatement
     | expr                                                                # expressionStatement
     ;
 
