@@ -11,7 +11,10 @@ definition:
         NL INDENT (attribute | NL)+ DEDENT
     )?
     ;
-attribute: name = ID parameters? expr? body?;
+attribute:
+    modifier = ID name = ID parameters expr? body?
+    | name = ID parameters? expr? body?
+    ;
 
 statement:
     IMPORT path = expr (':' members += expr (',' members += expr)* ','?)? # importStatement
@@ -24,7 +27,7 @@ statement:
     | CONTINUE                                                            # continueStatement
     | RETURN expr?                                                        # returnStatement
     | ACTUAL actual = expr NL+ EXPECT expect = expr                       # assertStatement
-    | modifier = ID? expr body                                             # assignmentStatement
+    | expr body                                                           # assignmentStatement
     | expr                                                                # expressionStatement
     ;
 
