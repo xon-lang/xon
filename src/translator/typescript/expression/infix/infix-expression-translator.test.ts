@@ -46,3 +46,12 @@ test('union and intersection type', () => {
   expect(translator).toBeInstanceOf(InfixExpressionTranslator);
   expect(translator.toString()).toBe('String | Number | RegExp & 123 | 456');
 });
+
+test('s is String', () => {
+  const code = 's is String';
+  const tree = parseExpression(code);
+  const translator = getExpressionTranslator(tree, true);
+
+  expect(translator).toBeInstanceOf(InfixExpressionTranslator);
+  expect(translator.toString()).toBe("typeof s === 'string'");
+});
