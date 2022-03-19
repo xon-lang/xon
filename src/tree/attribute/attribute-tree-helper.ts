@@ -11,7 +11,7 @@ export function getAttributeTree(ctx: AttributeContext): AttributeTree {
   return new AttributeTree(ctx)
 }
 
-export function getAttributeTrees(contexts: AttributeContext[]): AttributeTree[] {
+export function getAttributeTrees(contexts: AttributeContext[]) {
   return contexts?.map((x) => getAttributeTree(x)) || []
 }
 

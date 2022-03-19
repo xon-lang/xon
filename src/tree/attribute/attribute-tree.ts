@@ -1,7 +1,7 @@
 // this code was generated
 
 import { AttributeContext } from '../../grammar/xon-parser'
-import { none, None, String } from '../../lib/core'
+import { Boolean, none, None, String } from '../../lib/core'
 import { AttributeDeclarationMetadata } from '../../metadata/declaration/attribute/attribute-declaration-metadata'
 import { getIdToken, IdToken } from '../../util/id-token'
 import { SourceRange } from '../../util/source-range'
@@ -16,7 +16,7 @@ import { Tree } from '../tree'
 export class AttributeTree extends Tree {
   metadata: AttributeDeclarationMetadata
   sourceRange: SourceRange
-  isMethod: boolean
+  isMethod: Boolean
   modifier: IdToken
   name: IdToken
   hasBracket: Boolean

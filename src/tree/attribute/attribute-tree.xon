@@ -1,5 +1,5 @@
 import '../../grammar/xon-parser': AttributeContext
-import '../../lib/core': none, None, String
+import '../../lib/core': Boolean, none, None, String
 import '../../metadata/declaration/attribute/attribute-declaration-metadata': AttributeDeclarationMetadata
 import '../../util/id-token': getIdToken, IdToken
 import '../../util/source-range': SourceRange
@@ -14,7 +14,7 @@ import '../tree': Tree
 object AttributeTree(ctx AttributeContext) Tree
   metadata AttributeDeclarationMetadata
   sourceRange SourceRange = SourceRange.fromContext(ctx)
-  isMethod boolean = !!ctx.parameters()
+  isMethod Boolean = !!ctx.parameters()
   modifier IdToken = getIdToken(ctx._name)
   name IdToken = getIdToken(ctx._name)
   hasBracket Boolean = !!ctx.parameters()?.OPEN_BRACKET()
