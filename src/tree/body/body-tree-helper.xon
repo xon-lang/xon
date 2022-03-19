@@ -1,0 +1,10 @@
+import '../../grammar/xon-parser': BodyContext, MultipleBodyContext, SingleBodyContext
+import '../../lib/core': none
+import './body-tree': BodyTree
+import './multiple/multiple-body-tree': MultipleBodyTree
+import './single/single-body-tree': SingleBodyTree
+
+getBodyTree(ctx BodyContext) BodyTree
+  if !ctx: return none
+  if ctx is SingleBodyContext: return #{new SingleBodyTree(ctx)}
+  if ctx is MultipleBodyContext: return #{new MultipleBodyTree(ctx)}

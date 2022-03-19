@@ -1,12 +1,21 @@
-import { BodyContext, MultipleBodyContext, SingleBodyContext } from '../../grammar/xon-parser';
-import { none } from '../../lib/core';
-import { BodyTree } from './body-tree';
-import { MultipleBodyTree } from './multiple/multiple-body-tree';
-import { SingleBodyTree } from './single/single-body-tree';
+// this code was generated
 
-export const getBodyTree = (ctx: BodyContext): BodyTree => {
-  if (!ctx) return none;
+import { BodyContext, MultipleBodyContext, SingleBodyContext } from '../../grammar/xon-parser'
+import { none } from '../../lib/core'
+import { BodyTree } from './body-tree'
+import { MultipleBodyTree } from './multiple/multiple-body-tree'
+import { SingleBodyTree } from './single/single-body-tree'
 
-  if (ctx instanceof SingleBodyContext) return new SingleBodyTree(ctx);
-  if (ctx instanceof MultipleBodyContext) return new MultipleBodyTree(ctx);
-};
+export function getBodyTree(ctx: BodyContext): BodyTree {
+  if (!ctx) {
+    return none
+  }
+  if (ctx instanceof SingleBodyContext) {
+    return new SingleBodyTree(ctx)
+  }
+  if (ctx instanceof MultipleBodyContext) {
+    return new MultipleBodyTree(ctx)
+  }
+}
+
+// this code was generated
