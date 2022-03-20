@@ -17,7 +17,7 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
 
   constructor(private tree: ParameterTree, private scope: DeclarationScope) {
     this.sourceRange = tree.sourceRange;
-    this.name = (tree.name as IdExpressionTree).name.text;
+    this.name = (tree.variable as IdExpressionTree).name.text;
   }
 
   generics(): ExpressionMetadata[] {
@@ -26,10 +26,10 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
   }
 
   value(): ExpressionMetadata | None {
-    if (this.tree.value) {
-      if (this.tree.value instanceof SingleBodyTree) {
-        if (this.tree.value.statement instanceof ExpressionStatementTree) {
-          return getExpressionMetadata(this.tree.value.statement.expression, this.scope);
+    if (this.tree.body) {
+      if (this.tree.body instanceof SingleBodyTree) {
+        if (this.tree.body.statement instanceof ExpressionStatementTree) {
+          return getExpressionMetadata(this.tree.body.statement.expression, this.scope);
         }
       } else {
         // todo join all return expressions
@@ -41,10 +41,10 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
   type(): ExpressionMetadata {
     if (this.tree.type) {
       return getExpressionMetadata(this.tree.type, this.scope);
-    } else if (this.tree.value) {
+    } else if (this.tree.body) {
       return this.value();
     }
-    Issue.errorFromTree(this.tree, `Parameter '${this.tree.name}' must have a type`);
+    Issue.errorFromTree(this.tree, `Parameter '${this.tree.variable}' must have a type`);
   }
 
   attributes(): AttributeDeclarationMetadata[] {
