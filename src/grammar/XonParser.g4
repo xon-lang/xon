@@ -27,8 +27,8 @@ statement:
     | CONTINUE                                                            # continueStatement
     | RETURN expr?                                                        # returnStatement
     | ACTUAL actual = expr NL+ EXPECT expect = expr                       # assertStatement
-    | expr body                                                           # assignmentStatement
     | expr                                                                # expressionStatement
+    | parameter                                                           # assignmentStatement
     ;
 
 expr:
@@ -56,7 +56,7 @@ body:
     | NL INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-parameter: name = expr type = expr? ( '=' value = expr)?;
+parameter: variable = expr type = expr? body?;
 parameters:
     '[' (parameter (',' parameter)* ','?)? ']'
     | '(' (parameter (',' parameter)* ','?)? ')'
