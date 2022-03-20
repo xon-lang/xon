@@ -12,7 +12,7 @@ object InvokeExpressionTree(ctx InvokeExpressionContext) ExpressionTree
   instance ExpressionTree = getExpressionTree(ctx.expr())
   hasBracket Boolean = !!ctx.parameters().OPEN_BRACKET()
   hasParen Boolean = !!ctx.parameters().OPEN_PAREN()
-  arguments ExpressionTree[] = getExpressionTrees(ctx.parameters().parameter().map((x) => x._name))
+  arguments ExpressionTree[] = getExpressionTrees(ctx.parameters().parameter().map((x) => x._variable))
 
   toString() String
     if this.hasBracket

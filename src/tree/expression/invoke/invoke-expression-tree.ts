@@ -23,7 +23,7 @@ export class InvokeExpressionTree extends ExpressionTree {
     this.instance = getExpressionTree(ctx.expr())
     this.hasBracket = !!ctx.parameters().OPEN_BRACKET()
     this.hasParen = !!ctx.parameters().OPEN_PAREN()
-    this.arguments = getExpressionTrees(ctx.parameters().parameter().map((x) => x._name))
+    this.arguments = getExpressionTrees(ctx.parameters().parameter().map((x) => x._variable))
   }
 
   toString(): String {
