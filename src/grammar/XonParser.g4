@@ -32,17 +32,17 @@ statement:
     ;
 
 expr:
-    PREPROCESSOR                                                       # preprocessorExpression
-    | '(' expr ')'                                                     # groupExpression
-    | parameters                                                       # arrayExpression
-    | literal                                                          # literalExpression
-    | expr '?'                                                         # nullableExpression
-    | expr '.' name = ID                                               # memberExpression
-    | expr parameters                                                  # invokeExpression
-    | op = (NOT | OP) expr                                             # prefixExpression
-    | left = expr op = (AS | IS | IS_NOT | AND | OR | OP) right = expr # infixExpression
-    | name = ID                                                        # idExpression
-    | parameters type = expr? '=>' value = expr                        # methodExpression
+    PREPROCESSOR                                              # preprocessorExpression
+    | '(' expr ')'                                            # groupExpression
+    | parameters                                              # arrayExpression
+    | literal                                                 # literalExpression
+    | expr '?'                                                # nullableExpression
+    | expr '.' name = ID                                      # memberExpression
+    | expr parameters                                         # invokeExpression
+    | op = OP expr                                            # prefixExpression
+    | left = expr op = (AS | IS | AND | OR | OP) right = expr # infixExpression
+    | name = ID                                               # idExpression
+    | parameters type = expr? '=>' value = expr               # methodExpression
     ;
 
 literal:

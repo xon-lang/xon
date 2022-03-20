@@ -40,12 +40,10 @@ RETURN:   'return';
 WHILE:    'while';
 OPERATOR: 'operator';
 
-AND:    'and';
-AS:     'as';
-IS_NOT: 'is not';
-IS:     'is';
-NOT:    'not';
-OR:     'or';
+AND: 'and';
+AS:  'as';
+IS:  'is';
+OR:  'or';
 
 ASSIGN:        '=';
 COLON:         ':';
@@ -65,7 +63,7 @@ STRING_LITERAL:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 
 PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
 
-ID:       [_a-zA-Z] [_a-zA-Z0-9]*;
+ID: [_a-zA-Z] [_a-zA-Z0-9]*;
 OP: [!+-^*%] | '..' | '...' | '<=' | '>=' | '==' | '!=';
 
 NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
