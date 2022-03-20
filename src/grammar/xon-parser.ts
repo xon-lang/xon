@@ -620,7 +620,7 @@ export class XonParser extends Parser {
 				break;
 
 			case 12:
-				_localctx = new AssignmentStatementContext(_localctx);
+				_localctx = new ParameterStatementContext(_localctx);
 				this.enterOuterAlt(_localctx, 12);
 				{
 				this.state = 131;
@@ -1641,7 +1641,7 @@ export class ExpressionStatementContext extends StatementContext {
 		this.copyFrom(ctx);
 	}
 }
-export class AssignmentStatementContext extends StatementContext {
+export class ParameterStatementContext extends StatementContext {
 	public parameter(): ParameterContext {
 		return this.getRuleContext(0, ParameterContext);
 	}

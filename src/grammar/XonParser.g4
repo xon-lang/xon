@@ -28,7 +28,7 @@ statement:
     | RETURN expr?                                                        # returnStatement
     | ACTUAL actual = expr NL+ EXPECT expect = expr                       # assertStatement
     | expr                                                                # expressionStatement
-    | parameter                                                           # assignmentStatement
+    | parameter                                                           # parameterStatement
     ;
 
 expr:
