@@ -22,6 +22,5 @@ object ParameterTree(ctx ParameterContext) Tree
     type = this.type?.toString() or ''
     if type and !(this.type is MethodExpressionTree)
       type = ' ' + type
-
-    body = this.body?.toString()or''
+    body = this.body?.toString() or ''
     return this.variable + type + body

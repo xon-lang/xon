@@ -1,13 +1,13 @@
-import '../../grammar/xon-parser': AssertStatementContext, ParameterStatementContext, ExportStatementContext, ExpressionStatementContext, ForStatementContext, IfStatementContext, ImportStatementContext, ReturnStatementContext, StatementContext, WhileStatementContext
+import '../../grammar/xon-parser': AssertStatementContext, ExportStatementContext, ExpressionStatementContext, ForStatementContext, IfStatementContext, ImportStatementContext, ParameterStatementContext, ReturnStatementContext, StatementContext, WhileStatementContext
 import '../../issue-service/issue': Issue
 import '../../lib/core': none
 import './assert/assert-statement-tree': AssertStatementTree
-import './parameter/parameter-statement-tree': ParameterStatementTree
 import './export/export-statement-tree': ExportStatementTree
 import './expression/expression-statement-tree': ExpressionStatementTree
 import './for/for-statement-tree': ForStatementTree
 import './if/if-statement-tree': IfStatementTree
 import './import/import-statement-tree': ImportStatementTree
+import './parameter/parameter-statement-tree': ParameterStatementTree
 import './return/return-statement-tree': ReturnStatementTree
 import './statement-tree': StatementTree
 import './while/while-statement-tree': WhileStatementTree
