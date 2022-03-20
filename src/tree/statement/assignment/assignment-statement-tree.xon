@@ -5,12 +5,13 @@ import '../../body/body-tree-helper': getBodyTree
 import '../../body/body-tree': BodyTree
 import '../../expression/expression-tree-helper': getExpressionTree
 import '../../expression/expression-tree': ExpressionTree
+import '../../parameter/parameter-tree-helper': getParameterTree
+import '../../parameter/parameter-tree': ParameterTree
 import '../statement-tree': StatementTree
 
 object AssignmentStatementTree(ctx AssignmentStatementContext) StatementTree
   ctx AssignmentStatementContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
-  variable ExpressionTree = getExpressionTree(ctx.expr())
-  body BodyTree = getBodyTree(ctx.body())
+  parameter ParameterTree = getParameterTree(ctx.parameter())
 
-  toString() String = #{`${this.variable}${this.body}`}
+  toString() String = this.parameter.toString()
