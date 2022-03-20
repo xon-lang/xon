@@ -16,27 +16,27 @@ export class ParameterTree extends Tree {
   ctx: ParameterContext
   sourceRange: SourceRange
   metadata: ParameterDeclarationMetadata
-  name: ExpressionTree
+  variable: ExpressionTree
   type?: (ExpressionTree | None)
-  value?: (ExpressionTree | None)
+  body?: (BodyTree | None)
 
   constructor(ctx: ParameterContext) {
     super()
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
-    this.name = getExpressionTree(ctx._name)
+    this.variable = getExpressionTree(ctx._variable)
     this.type = getExpressionTree(ctx._type)
-    this.value = getExpressionTree(ctx._value)
+    this.body = getBodyTree(ctx.body())
   }
 
   toString(): String {
-    let type, value
+    let type, body
     type = this.type?.toString() || ''
     if (type && !(this.type instanceof MethodExpressionTree)) {
       type = ' ' + type
     }
-    value = this.value && ' = ' + this.value || ''
-    return this.name + type + value
+    body = this.body?.toString() || ''
+    return this.variable + type + body
   }
 }
 

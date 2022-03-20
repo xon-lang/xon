@@ -14,13 +14,14 @@ object ParameterTree(ctx ParameterContext) Tree
   ctx ParameterContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   metadata ParameterDeclarationMetadata
-  name ExpressionTree = getExpressionTree(ctx._name)
+  variable ExpressionTree = getExpressionTree(ctx._variable)
   type ExpressionTree? = getExpressionTree(ctx._type)
-  value ExpressionTree? = getExpressionTree(ctx._value)
+  body BodyTree? = getBodyTree(ctx.body())
 
   toString() String
     type = this.type?.toString() or ''
     if type and !(this.type is MethodExpressionTree)
       type = ' ' + type
-    value = this.value and ' = ' + this.value or ''
-    return this.name + type + value
+
+    body = this.body?.toString()or''
+    return this.variable + type + body

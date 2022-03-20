@@ -9,7 +9,7 @@ test('check array', () => {
 
   expect(tree).toBeInstanceOf(ArrayExpressionTree);
   expect(tree.parameters.length).toBe(4);
-  expect(tree.parameters.map((x) => evaluate(x.name) as Number).reduce((a, b) => a + b, 0)).toBe(
+  expect(tree.parameters.map((x) => evaluate(x.variable) as Number).reduce((a, b) => a + b, 0)).toBe(
     [1, 2 + 2, 4, 6 + 6].reduce((a, b) => a + b, 0),
   );
 });
@@ -22,7 +22,7 @@ test('array on several lines', () => {
 
   expect(tree).toBeInstanceOf(ArrayExpressionTree);
   expect(tree.parameters.length).toBe(4);
-  expect(tree.parameters.map((x) => evaluate(x.name) as Number).reduce((a, b) => a + b, 0)).toBe(
+  expect(tree.parameters.map((x) => evaluate(x.variable) as Number).reduce((a, b) => a + b, 0)).toBe(
     [1, 2 + 2, 4, 6 + 6].reduce((a, b) => a + b, 0),
   );
 });
