@@ -1,8 +1,8 @@
-import '../../grammar/xon-parser': AssertStatementContext, AssignmentStatementContext, ExportStatementContext, ExpressionStatementContext, ForStatementContext, IfStatementContext, ImportStatementContext, ReturnStatementContext, StatementContext, WhileStatementContext
+import '../../grammar/xon-parser': AssertStatementContext, ParameterStatementContext, ExportStatementContext, ExpressionStatementContext, ForStatementContext, IfStatementContext, ImportStatementContext, ReturnStatementContext, StatementContext, WhileStatementContext
 import '../../issue-service/issue': Issue
 import '../../lib/core': none
 import './assert/assert-statement-tree': AssertStatementTree
-import './assignment/assignment-statement-tree': AssignmentStatementTree
+import './parameter/parameter-statement-tree': ParameterStatementTree
 import './export/export-statement-tree': ExportStatementTree
 import './expression/expression-statement-tree': ExpressionStatementTree
 import './for/for-statement-tree': ForStatementTree
@@ -17,8 +17,8 @@ getStatementTree(ctx StatementContext) StatementTree
     return none
   if ctx is AssertStatementContext
     return #{new AssertStatementTree(ctx)}
-  if ctx is AssignmentStatementContext
-    return #{new AssignmentStatementTree(ctx)}
+  if ctx is ParameterStatementContext
+    return #{new ParameterStatementTree(ctx)}
   if ctx is ExportStatementContext
     return #{new ExportStatementTree(ctx)}
   if ctx is ExpressionStatementContext

@@ -1,6 +1,6 @@
 // this code was generated
 
-import { AssignmentStatementContext } from '../../../grammar/xon-parser'
+import { ParameterStatementContext } from '../../../grammar/xon-parser'
 import { String } from '../../../lib/core'
 import { SourceRange } from '../../../util/source-range'
 import { getBodyTree } from '../../body/body-tree-helper'
@@ -11,12 +11,12 @@ import { getParameterTree } from '../../parameter/parameter-tree-helper'
 import { ParameterTree } from '../../parameter/parameter-tree'
 import { StatementTree } from '../statement-tree'
 
-export class AssignmentStatementTree extends StatementTree {
-  ctx: AssignmentStatementContext
+export class ParameterStatementTree extends StatementTree {
+  ctx: ParameterStatementContext
   sourceRange: SourceRange
   parameter: ParameterTree
 
-  constructor(ctx: AssignmentStatementContext) {
+  constructor(ctx: ParameterStatementContext) {
     super()
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)

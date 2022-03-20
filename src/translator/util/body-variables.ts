@@ -1,6 +1,6 @@
 import { MultipleBodyTree } from '../../tree/body/multiple/multiple-body-tree';
 import { IdExpressionTree } from '../../tree/expression/id/id-expression-tree';
-import { AssignmentStatementTree } from '../../tree/statement/assignment/assignment-statement-tree';
+import { ParameterStatementTree } from '../../tree/statement/parameter/parameter-statement-tree';
 import { ForStatementTree } from '../../tree/statement/for/for-statement-tree';
 import { IfStatementTree } from '../../tree/statement/if/if-statement-tree';
 import { StatementTree } from '../../tree/statement/statement-tree';
@@ -27,7 +27,7 @@ export const getVariables = (statements: StatementTree[], vars: String[] = []): 
 
   for (const statement of statements) {
     if (
-      statement instanceof AssignmentStatementTree &&
+      statement instanceof ParameterStatementTree &&
       statement.parameter.variable instanceof IdExpressionTree
     ) {
       vars.push(statement.parameter.variable.name.text);

@@ -1,4 +1,4 @@
-import '../../../grammar/xon-parser': AssignmentStatementContext
+import '../../../grammar/xon-parser': ParameterStatementContext
 import '../../../lib/core': String
 import '../../../util/source-range': SourceRange
 import '../../body/body-tree-helper': getBodyTree
@@ -9,8 +9,8 @@ import '../../parameter/parameter-tree-helper': getParameterTree
 import '../../parameter/parameter-tree': ParameterTree
 import '../statement-tree': StatementTree
 
-object AssignmentStatementTree(ctx AssignmentStatementContext) StatementTree
-  ctx AssignmentStatementContext = ctx
+object ParameterStatementTree(ctx ParameterStatementContext) StatementTree
+  ctx ParameterStatementContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   parameter ParameterTree = getParameterTree(ctx.parameter())
 
