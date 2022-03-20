@@ -28,9 +28,9 @@ export const getVariables = (statements: StatementTree[], vars: String[] = []): 
   for (const statement of statements) {
     if (
       statement instanceof AssignmentStatementTree &&
-      statement.variable instanceof IdExpressionTree
+      statement.parameter.variable instanceof IdExpressionTree
     ) {
-      vars.push(statement.variable.name.text);
+      vars.push(statement.parameter.variable.name.text);
     }
 
     if (statement instanceof IfStatementTree) {
