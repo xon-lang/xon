@@ -19,6 +19,15 @@ test('num plus str', () => {
   expect(evaluate(tree)).toBe('1str');
 });
 
+test('num is number', () => {
+  const code = '1  is Number';
+  const tree = parseExpression(code) as InfixExpressionTree;
+
+  expect(tree).toBeInstanceOf(InfixExpressionTree);
+  expect(tree.name.text).toBe('is');
+  expect(tree.toString()).toBe('1 is Number');
+});
+
 test('has several relational operators', () => {
   const code = 'a<b>c';
   const tree = parseExpression(code) as InfixExpressionTree;

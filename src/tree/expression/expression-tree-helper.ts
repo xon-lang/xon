@@ -2,6 +2,7 @@
 import {
   ArrayExpressionContext,
   ExprContext,
+  GroupExpressionContext,
   IdExpressionContext,
   InfixExpressionContext,
   InvokeExpressionContext,
@@ -9,7 +10,6 @@ import {
   MemberExpressionContext,
   MethodExpressionContext,
   NullableExpressionContext,
-  GroupExpressionContext,
   PrefixExpressionContext,
   PreprocessorExpressionContext,
 } from '../../grammar/xon-parser';
@@ -18,6 +18,7 @@ import { none } from '../../lib/core';
 import { getIdToken, IdToken } from '../../util/id-token';
 import { ArrayExpressionTree } from './array/array-expression-tree';
 import { ExpressionTree } from './expression-tree';
+import { GroupExpressionTree } from './group/group-expression-tree';
 import { IdExpressionTree } from './id/id-expression-tree';
 import { InfixExpressionTree } from './infix/infix-expression-tree';
 import { InvokeExpressionTree } from './invoke/invoke-expression-tree';
@@ -25,7 +26,6 @@ import { LiteralExpressionTree } from './literal/literal-expression-tree';
 import { MemberExpressionTree } from './member/member-expression-tree';
 import { MethodExpressionTree } from './method/method-expression-tree';
 import { NullableExpressionTree } from './nullable/nullable-expression-tree';
-import { GroupExpressionTree } from './group/group-expression-tree';
 import { PrefixExpressionTree } from './prefix/prefix-expression-tree';
 import { PreprocessorExpressionTree } from './preprocessor/preprocessor-expression-tree';
 
