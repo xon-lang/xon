@@ -17,7 +17,6 @@ export class AttributeTree extends Tree {
   metadata: AttributeDeclarationMetadata
   sourceRange: SourceRange
   isMethod: Boolean
-  modifier: IdToken
   name: IdToken
   hasBracket: Boolean
   hasParen: Boolean
@@ -29,7 +28,6 @@ export class AttributeTree extends Tree {
     super()
     this.sourceRange = SourceRange.fromContext(ctx)
     this.isMethod = !!ctx.parameters()
-    this.modifier = getIdToken(ctx._name)
     this.name = getIdToken(ctx._name)
     this.hasBracket = !!ctx.parameters()?.OPEN_BRACKET()
     this.hasParen = !!ctx.parameters()?.OPEN_PAREN()
@@ -39,8 +37,7 @@ export class AttributeTree extends Tree {
   }
 
   toString(): String {
-    let modifier, parameters, type, body
-    modifier = this.modifier && this.modifier + ' ' || ''
+    let parameters, type, body
     if (this.hasBracket) {
       parameters = this.isMethod && `[${this.parameters.join(', ')}]` || ''
     } else {

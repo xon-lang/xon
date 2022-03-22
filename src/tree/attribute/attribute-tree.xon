@@ -15,7 +15,6 @@ object AttributeTree(ctx AttributeContext) Tree
   metadata AttributeDeclarationMetadata
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   isMethod Boolean = !!ctx.parameters()
-  modifier IdToken = getIdToken(ctx._name)
   name IdToken = getIdToken(ctx._name)
   hasBracket Boolean = !!ctx.parameters()?.OPEN_BRACKET()
   hasParen Boolean = !!ctx.parameters()?.OPEN_PAREN()
@@ -24,7 +23,6 @@ object AttributeTree(ctx AttributeContext) Tree
   body BodyTree? = getBodyTree(ctx.body()) or none
 
   toString() String
-    modifier = this.modifier and this.modifier + ' ' or ''
     if this.hasBracket
       parameters = this.isMethod and #{`[${this.parameters.join(', ')}]`} or ''
     else
