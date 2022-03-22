@@ -1,7 +1,7 @@
 # XON AST (alpha)
 
-[![npm](https://img.shields.io/npm/v/@xon/cor)](https://www.npmjs.com/package/@xon/cor)
-[![codebeat badge](https://codebeat.co/badges/23a2e0a2-b327-4715-a1b1-8a81c821a785)](https://codebeat.co/projects/github-com-xon-lang-cor-master)
+[![npm](https://img.shields.io/npm/v/@xon/core)](https://www.npmjs.com/package/@xon/core)
+[![codebeat badge](https://codebeat.co/badges/23a2e0a2-b327-4715-a1b1-8a81c821a785)](https://codebeat.co/projects/github-com-xon-lang-core-master)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/109836fff75345ca91f3d94e106798a8)](https://www.codacy.com/gh/xon-lang/core/dashboard)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/109836fff75345ca91f3d94e106798a8)](https://www.codacy.com/gh/xon-lang/core/dashboard)
 
