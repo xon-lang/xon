@@ -1,5 +1,5 @@
 targets
   typescript
-    includes: ['src/**/*.xon', 'src/util/**/*.xon']
-    excludes: ['src/**/test-files/**']
-    extension: '.ts'
+    includes = ['src/tree/**/*.xon', 'src/util/**/*.xon']
+    excludes = ['src/tree/**/test-files/**']
+    extension = '.ts'
