@@ -38,7 +38,6 @@ IF:       'if';
 IMPORT:   'import';
 RETURN:   'return';
 WHILE:    'while';
-OPERATOR: 'operator';
 
 AND: 'and';
 AS:  'as';

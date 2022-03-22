@@ -11,10 +11,7 @@ definition:
         NL INDENT (attribute | NL)+ DEDENT
     )?
     ;
-attribute:
-    modifier = OPERATOR name = ID parameters expr? body?
-    | name = ID parameters? expr? body?
-    ;
+attribute: name = ID parameters? expr? body?;
 
 statement:
     IMPORT path = expr (':' members += expr (',' members += expr)* ','?)? # importStatement
