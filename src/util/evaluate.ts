@@ -2,6 +2,7 @@
 
 import { Issue } from '../issue-service/issue'
 import { none, Unknown } from '../lib/core'
+import { ArrayExpressionTree } from '../tree/expression/array/array-expression-tree'
 import { ExpressionTree } from '../tree/expression/expression-tree'
 import { GroupExpressionTree } from '../tree/expression/group/group-expression-tree'
 import { IdExpressionTree } from '../tree/expression/id/id-expression-tree'
@@ -17,6 +18,9 @@ export function evaluate(tree: ExpressionTree, argsMap = {}): Unknown {
   let a, b, o
   if (!tree) {
     return none
+  }
+  if (tree instanceof ArrayExpressionTree) {
+    return tree.parameters.map((x) => evaluate(x.variable))
   }
   if (tree instanceof LiteralExpressionTree) {
     return tree.literal.value
