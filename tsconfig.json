@@ -16,11 +16,10 @@
         "node_modules/*"
       ]
     },
-    "sourceMap": true,
     "target": "ES2021"
   },
   "exclude": [],
   "include": [
-    "src/**/*"
+    "**/*"
   ]
 }
