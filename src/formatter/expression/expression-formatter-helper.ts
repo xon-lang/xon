@@ -12,7 +12,7 @@ import {
   PreprocessorExpressionContext,
 } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
-import { none } from '../../lib/core';
+import { None, none } from '../../lib/core';
 import { FormatterConfig } from '../formatter-config';
 import { ArrayExpressionFormatter } from './array/array-expression-formatter';
 import { ExpressionFormatter } from './expression-formatter';
@@ -29,7 +29,7 @@ import { PreprocessorExpressionFormatter } from './preprocessor/preprocessor-exp
 export const getExpressionFormatter = (
   ctx: ExpressionContext,
   config: FormatterConfig,
-): ExpressionFormatter => {
+): ExpressionFormatter | None => {
   if (!ctx) return none;
 
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionFormatter(ctx, config);
