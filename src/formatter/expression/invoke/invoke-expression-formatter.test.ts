@@ -66,8 +66,8 @@ test('array element in array', () => {
     `
 (a + b / c)(
   [
-    1,
-  ],
+    1
+  ]
 )`.trim(),
   );
 });

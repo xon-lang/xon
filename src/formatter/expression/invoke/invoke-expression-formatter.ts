@@ -31,7 +31,7 @@ export class InvokeExpressionFormatter extends ExpressionFormatter {
       joinedParameters =
         parameters
           .map((x) => x.indent(this.indentCount + ((expression.broken && 2) || 1)))
-          .join(',' + this.config.nl) + ',';
+          .join(',' + this.config.nl) + ((parameters.length > 1 && ',') || '');
       const surrounded = this.surround(
         this.config.nl +
           joinedParameters +
