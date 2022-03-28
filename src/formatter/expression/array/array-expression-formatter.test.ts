@@ -63,8 +63,8 @@ test('array element in array', () => {
     `
 [
   [
-    1,
-  ],
+    1
+  ]
 ]`.trim(),
   );
 });
