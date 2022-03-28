@@ -48,4 +48,9 @@ test('new lines', () => {
          
     
       }`);
+  expect(formatter.indent(2).toString()).toBe(`    #{
+    123
+         
+    
+      }`);
 });
