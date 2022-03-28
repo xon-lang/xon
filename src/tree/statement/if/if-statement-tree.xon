@@ -10,7 +10,7 @@ import '../statement-tree': StatementTree
 object IfStatementTree(ctx IfStatementContext) StatementTree
   ctx IfStatementContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
-  condition ExpressionTree = getExpressionTree(ctx.expr())
+  condition ExpressionTree = getExpressionTree(ctx.expression())
   thenBody BodyTree = getBodyTree(ctx._thenBody)
   elseBody BodyTree? = getBodyTree(ctx._elseBody)
 

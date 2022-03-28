@@ -5,7 +5,7 @@ import { IdExpressionFormatter } from './id-expression-formatter';
 
 test('abc', () => {
   const code = 'abc';
-  const ctx = parse(code).expr();
+  const ctx = parse(code).expression();
   const formatter = getExpressionFormatter(ctx, defaultFormatterConfig) as IdExpressionFormatter;
 
   expect(formatter).toBeInstanceOf(IdExpressionFormatter);

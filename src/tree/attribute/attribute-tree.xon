@@ -19,7 +19,7 @@ object AttributeTree(ctx AttributeContext) Tree
   hasBracket Boolean = !!ctx.parameters()?.OPEN_BRACKET()
   hasParen Boolean = !!ctx.parameters()?.OPEN_PAREN()
   parameters ParameterTree[] = getParameterTrees(ctx.parameters()?.parameter())
-  type ExpressionTree? = getExpressionTree(ctx.expr()) or none
+  type ExpressionTree? = getExpressionTree(ctx.expression()) or none
   body BodyTree? = getBodyTree(ctx.body()) or none
 
   toString() String

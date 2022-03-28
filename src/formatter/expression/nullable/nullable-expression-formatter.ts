@@ -9,7 +9,10 @@ export class NullableExpressionFormatter extends ExpressionFormatter {
   }
 
   toString() {
-    const result = `${this.indentString}${getExpressionFormatter(this.ctx.expr(), this.config)}?`;
+    const result = `${this.indentString}${getExpressionFormatter(
+      this.ctx.expression(),
+      this.config,
+    )}?`;
     return result;
   }
 }

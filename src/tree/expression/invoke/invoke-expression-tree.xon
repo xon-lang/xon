@@ -9,7 +9,7 @@ object InvokeExpressionTree(ctx InvokeExpressionContext) ExpressionTree
   metadata ExpressionMetadata
   ctx InvokeExpressionContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
-  instance ExpressionTree = getExpressionTree(ctx.expr())
+  instance ExpressionTree = getExpressionTree(ctx.expression())
   hasBracket Boolean = !!ctx.parameters().OPEN_BRACKET()
   hasParen Boolean = !!ctx.parameters().OPEN_PAREN()
   arguments ExpressionTree[] = getExpressionTrees(ctx.parameters().parameter().map((x) => x._variable))

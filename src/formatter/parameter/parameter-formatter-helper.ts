@@ -1,11 +1,11 @@
-import { ExprContext, ParameterContext } from '../../grammar/xon-parser';
+import { ExpressionContext, ParameterContext } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
 import { none } from '../../lib/core';
 import { FormatterConfig } from '../formatter-config';
 import { ParameterFormatter } from './parameter-formatter';
 
 export const getParameterFormatter = (
-  ctx: ExprContext,
+  ctx: ExpressionContext,
   config: FormatterConfig,
 ): ParameterFormatter => {
   if (!ctx) return none;

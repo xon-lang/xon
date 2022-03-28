@@ -9,6 +9,6 @@ object GroupExpressionTree(ctx GroupExpressionContext) ExpressionTree
   metadata ExpressionMetadata
   ctx GroupExpressionContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
-  expression ExpressionTree = getExpressionTree(ctx.expr())
+  expression ExpressionTree = getExpressionTree(ctx.expression())
 
   toString() String = #{`(${this.expression})`}

@@ -11,7 +11,7 @@ export class MemberExpressionFormatter extends ExpressionFormatter {
   }
 
   toString() {
-    const expression = getExpressionFormatter(this.ctx.expr(), this.config).indent(
+    const expression = getExpressionFormatter(this.ctx.expression(), this.config).indent(
       this.indentCount,
     );
     const name = this.ctx._name.text;

@@ -10,7 +10,7 @@ export class InvokeExpressionFormatter extends ExpressionFormatter {
   }
 
   toString() {
-    const expression = getExpressionFormatter(this.ctx.expr(), this.config)
+    const expression = getExpressionFormatter(this.ctx.expression(), this.config)
       .indent(this.indentCount)
       .breakMember(this.brokenMember);
     const expressionString = expression.toString();

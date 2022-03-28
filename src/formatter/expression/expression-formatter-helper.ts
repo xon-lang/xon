@@ -1,6 +1,6 @@
 import {
   ArrayExpressionContext,
-  ExprContext,
+  ExpressionContext,
   GroupExpressionContext,
   IdExpressionContext,
   InfixExpressionContext,
@@ -27,7 +27,7 @@ import { NullableExpressionFormatter } from './nullable/nullable-expression-form
 import { PreprocessorExpressionFormatter } from './preprocessor/preprocessor-expression-formatter';
 
 export const getExpressionFormatter = (
-  ctx: ExprContext,
+  ctx: ExpressionContext,
   config: FormatterConfig,
 ): ExpressionFormatter => {
   if (!ctx) return none;
@@ -47,6 +47,6 @@ export const getExpressionFormatter = (
   Issue.errorFromContext(ctx, `Expression formatter not found for "${ctx.constructor.name}"`);
 };
 
-// export const getExpressionFormatters = (contexts: ExprContext[]): ExpressionFormatter[] => {
+// export const getExpressionFormatters = (contexts: ExpressionContext[]): ExpressionFormatter[] => {
 //   return contexts?.map(getExpressionFormatter) || [];
 // };

@@ -5,7 +5,7 @@ import { LiteralExpressionFormatter } from './literal-expression-formatter';
 
 test('integer', () => {
   const code = '123';
-  const ctx = parse(code).expr();
+  const ctx = parse(code).expression();
   const formatter = getExpressionFormatter(
     ctx,
     defaultFormatterConfig,

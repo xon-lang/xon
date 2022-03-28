@@ -5,7 +5,7 @@ import { PreprocessorExpressionFormatter } from './preprocessor-expression-forma
 
 test('integer', () => {
   const code = '#{123}';
-  const ctx = parse(code).expr();
+  const ctx = parse(code).expression();
   const formatter = getExpressionFormatter(
     ctx,
     defaultFormatterConfig,
@@ -20,7 +20,7 @@ test('new line', () => {
   const code = `#{
     123
 }`;
-  const ctx = parse(code).expr();
+  const ctx = parse(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 3;
   const formatter = getExpressionFormatter(ctx, config) as PreprocessorExpressionFormatter;
@@ -37,7 +37,7 @@ test('new lines', () => {
          
     
       }`;
-  const ctx = parse(code).expr();
+  const ctx = parse(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 3;
   const formatter = getExpressionFormatter(ctx, config) as PreprocessorExpressionFormatter;

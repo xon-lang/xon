@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import {
   ArrayExpressionContext,
-  ExprContext,
+  ExpressionContext,
   GroupExpressionContext,
   IdExpressionContext,
   InfixExpressionContext,
@@ -29,7 +29,7 @@ import { NullableExpressionTree } from './nullable/nullable-expression-tree';
 import { PrefixExpressionTree } from './prefix/prefix-expression-tree';
 import { PreprocessorExpressionTree } from './preprocessor/preprocessor-expression-tree';
 
-export const getExpressionTree = (ctx: ExprContext): ExpressionTree => {
+export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (!ctx) return none;
 
   if (ctx instanceof PreprocessorExpressionContext) return new PreprocessorExpressionTree(ctx);
@@ -87,6 +87,6 @@ export const getExpressionTree = (ctx: ExprContext): ExpressionTree => {
   Issue.errorFromContext(ctx, `Expression tree not found for "${ctx.constructor.name}"`);
 };
 
-export const getExpressionTrees = (contexts: ExprContext[]): ExpressionTree[] => {
+export const getExpressionTrees = (contexts: ExpressionContext[]): ExpressionTree[] => {
   return contexts?.map(getExpressionTree) || [];
 };

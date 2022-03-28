@@ -8,7 +8,7 @@ import '../statement-tree': StatementTree
 object AssertStatementTree(ctx AssertStatementContext) StatementTree
   ctx AssertStatementContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
-  actualExpression ExpressionTree = getExpressionTree(ctx.expr(0))
-  expectExpression ExpressionTree = getExpressionTree(ctx.expr(1))
+  actualExpression ExpressionTree = getExpressionTree(ctx.expression(0))
+  expectExpression ExpressionTree = getExpressionTree(ctx.expression(1))
 
   toString() String = #{`actual ${this.actualExpression}\nexpect ${this.expectExpression}`}

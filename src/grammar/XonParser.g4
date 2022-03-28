@@ -7,39 +7,41 @@ options {
 source: ( definition | attribute | statement | NL)*;
 
 definition:
-    modifier = ID name = ID parameters? expr? (
+    modifier = ID name = ID parameters? expression? (
         NL INDENT (attribute | NL)+ DEDENT
     )?
     ;
-attribute: name = ID parameters? expr? body?;
+attribute: name = ID parameters? expression? body?;
 
 statement:
-    IMPORT path = expr (':' members += expr (',' members += expr)* ','?)? # importStatement
-    | EXPORT path = expr                                                  # exportStatement
-    | FOR (value = parameter (',' index = parameter)? ID)? expr body      # forStatement
-    | WHILE expr body                                                     # whileStatement
-    | DO body WHILE expr                                                  # doWhileStatement
-    | IF expr thenBody = body (ELSE elseBody = body)?                     # ifStatement
-    | BREAK                                                               # breakStatement
-    | CONTINUE                                                            # continueStatement
-    | RETURN expr?                                                        # returnStatement
-    | ACTUAL actual = expr NL+ EXPECT expect = expr                       # assertStatement
-    | expr                                                                # expressionStatement
-    | parameter                                                           # parameterStatement
+    IMPORT path = expression (
+        ':' members += expression (',' members += expression)* ','?
+    )?                                                                     # importStatement
+    | EXPORT path = expression                                             # exportStatement
+    | FOR (value = parameter (',' index = parameter)? ID)? expression body # forStatement
+    | WHILE expression body                                                # whileStatement
+    | DO body WHILE expression                                             # doWhileStatement
+    | IF expression thenBody = body (ELSE elseBody = body)?                # ifStatement
+    | BREAK                                                                # breakStatement
+    | CONTINUE                                                             # continueStatement
+    | RETURN expression?                                                   # returnStatement
+    | ACTUAL actual = expression NL+ EXPECT expect = expression            # assertStatement
+    | expression                                                           # expressionStatement
+    | parameter                                                            # parameterStatement
     ;
 
-expr:
-    PREPROCESSOR                                              # preprocessorExpression
-    | '(' expr ')'                                            # groupExpression
-    | parameters                                              # arrayExpression
-    | literal                                                 # literalExpression
-    | expr '?'                                                # nullableExpression
-    | expr '.' name = ID                                      # memberExpression
-    | expr parameters                                         # invokeExpression
-    | op = OP expr                                            # prefixExpression
-    | left = expr op = (AS | IS | AND | OR | OP) right = expr # infixExpression
-    | name = ID                                               # idExpression
-    | parameters type = expr? '=>' value = expr               # methodExpression
+expression:
+    PREPROCESSOR                                                          # preprocessorExpression
+    | '(' expression ')'                                                  # groupExpression
+    | parameters                                                          # arrayExpression
+    | literal                                                             # literalExpression
+    | expression '?'                                                      # nullableExpression
+    | expression '.' name = ID                                            # memberExpression
+    | expression parameters                                               # invokeExpression
+    | op = OP expression                                                  # prefixExpression
+    | left = expression op = (AS | IS | AND | OR | OP) right = expression # infixExpression
+    | name = ID                                                           # idExpression
+    | parameters type = expression? '=>' value = expression               # methodExpression
     ;
 
 literal:
@@ -53,7 +55,7 @@ body:
     | NL INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
-parameter: variable = expr type = expr? body?;
+parameter: variable = expression type = expression? body?;
 parameters:
     openSymbol = '[' (parameter (',' parameter)* ','?)? closeSymbol = ']'
     | openSymbol = '(' (parameter (',' parameter)* ','?)? closeSymbol = ')'

@@ -10,7 +10,7 @@ import '../statement-tree': StatementTree
 object WhileStatementTree(ctx WhileStatementContext) StatementTree
   ctx WhileStatementContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
-  expression ExpressionTree = getExpressionTree(ctx.expr())
+  expression ExpressionTree = getExpressionTree(ctx.expression())
   body BodyTree = getBodyTree(ctx.body())
 
   toString() String = #{`while ${this.expression}${this.body}`}

@@ -31,7 +31,7 @@ parseSourceFile(sourceName String)
 
 parseLiteral(code String) = getLiteralTree(parse(code).literal())
 
-parseExpression(code String) = getExpressionTree(parse(code).expr())
+parseExpression(code String) = getExpressionTree(parse(code).expression())
 
 parseStatement(code String) = getStatementTree(parse(code).statement())
 

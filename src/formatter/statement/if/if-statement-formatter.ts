@@ -9,7 +9,10 @@ export class IfStatementFormatter extends StatementFormatter {
   }
 
   toString() {
-    const result = `${this.indentString}${getStatementFormatter(this.ctx.expr(), this.config)}?`;
+    const result = `${this.indentString}${getStatementFormatter(
+      this.ctx.expression(),
+      this.config,
+    )}?`;
     return result;
   }
 }

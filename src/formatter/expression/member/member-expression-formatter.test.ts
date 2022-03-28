@@ -5,7 +5,7 @@ import { MemberExpressionFormatter } from './member-expression-formatter';
 
 test('properties only', () => {
   const code = `a.b.c.d.efg.hij`;
-  const ctx = parse(code).expr();
+  const ctx = parse(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 5;
   const formatter = getExpressionFormatter(ctx, config) as MemberExpressionFormatter;
@@ -23,7 +23,7 @@ test('properties only', () => {
 
 test('members with method call', () => {
   const code = `a.b.c(a).dom`;
-  const ctx = parse(code).expr();
+  const ctx = parse(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 5;
   const formatter = getExpressionFormatter(ctx, config) as MemberExpressionFormatter;
@@ -40,7 +40,7 @@ test('members with method call', () => {
 
 test('nullable property', () => {
   const code = 'abc?.def';
-  const ctx = parse(code).expr();
+  const ctx = parse(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 2;
   const formatter = getExpressionFormatter(ctx, config) as MemberExpressionFormatter;

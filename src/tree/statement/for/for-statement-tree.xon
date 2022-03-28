@@ -12,7 +12,7 @@ object ForStatementTree(ctx ForStatementContext) StatementTree
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   valueVarName String? = ctx._value?.text or none
   indexVarName String? = ctx._index?.text or none
-  expression ExpressionTree = getExpressionTree(ctx.expr())
+  expression ExpressionTree = getExpressionTree(ctx.expression())
   body BodyTree = getBodyTree(ctx.body())
 
   toString() String

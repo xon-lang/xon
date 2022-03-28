@@ -18,7 +18,7 @@ object DefinitionTree(ctx DefinitionContext) Tree
   modifier IdToken = getIdToken(ctx._modifier)
   name IdToken = getIdToken(ctx._name)
   parameters ParameterTree[] = getParameterTrees(ctx.parameters()?.parameter()) or none
-  base ExpressionTree? = getExpressionTree(ctx.expr()) or none
+  base ExpressionTree? = getExpressionTree(ctx.expression()) or none
   attributes AttributeTree[] = getAttributeTrees(ctx.attribute())
 
   toString() String

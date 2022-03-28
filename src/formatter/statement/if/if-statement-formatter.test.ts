@@ -5,7 +5,7 @@ import { NullableExpressionFormatter } from './if-statement-formatter';
 
 test('only nullable', () => {
   const code = 'abc?';
-  const ctx = parse(code).expr();
+  const ctx = parse(code).expression();
   const formatter = getExpressionFormatter(
     ctx,
     defaultFormatterConfig,

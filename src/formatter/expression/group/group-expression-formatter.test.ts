@@ -5,7 +5,7 @@ import { GroupExpressionFormatter } from './group-expression-formatter';
 
 test('integers', () => {
   const code = '([1, 2, 3])';
-  const ctx = parse(code).expr();
+  const ctx = parse(code).expression();
   const formatter = getExpressionFormatter(ctx, defaultFormatterConfig) as GroupExpressionFormatter;
 
   expect(formatter).toBeInstanceOf(GroupExpressionFormatter);
@@ -15,7 +15,7 @@ test('integers', () => {
 
 test('array element in array', () => {
   const code = '([[1]])';
-  const ctx = parse(code).expr();
+  const ctx = parse(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 2;
   const formatter = getExpressionFormatter(ctx, config) as GroupExpressionFormatter;
