@@ -9,8 +9,7 @@ export class GroupExpressionFormatter extends ExpressionFormatter {
   }
 
   toString() {
-    const indent = this.config.indent(this.indentCount);
-    const result = `${indent}(${getExpressionFormatter(this.ctx.expr(), this.config)})`;
+    const result = `${this.indentString}(${getExpressionFormatter(this.ctx.expr(), this.config)})`;
     return result;
   }
 }

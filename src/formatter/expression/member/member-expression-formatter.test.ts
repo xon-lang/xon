@@ -30,10 +30,24 @@ test('members with method call', () => {
 
   expect(formatter).toBeInstanceOf(MemberExpressionFormatter);
   console.log(formatter.toString());
-  
+
   expect(formatter.toString()).toBe(
     `a.b.c(
   a,
 ).dom`.trim(),
+  );
+});
+
+test('nullable property', () => {
+  const code = 'abc?.def';
+  const ctx = parse(code).expr();
+  const config = new FormatterConfig();
+  config.printWidth = 2;
+  const formatter = getExpressionFormatter(ctx, config) as MemberExpressionFormatter;
+
+  expect(formatter).toBeInstanceOf(MemberExpressionFormatter);
+  expect(formatter.toString()).toBe(
+    `abc?
+  .def`.trim(),
   );
 });
