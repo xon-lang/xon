@@ -25,7 +25,7 @@ export class ArrayExpressionFormatter extends ExpressionFormatter {
       joinedParameters =
         parameters.map((x) => x.indent(this.indentCount + 1)).join(',' + this.config.nl) +
         ((parameters.length > 1 && ',') || '');
-      result = `${this.indentString}[\n${joinedParameters}\n${this.indentString}]`;
+      result = `${this.indentString}[${this.config.nl}${joinedParameters}${this.config.nl}${this.indentString}]`;
     }
     return result;
   }
