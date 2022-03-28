@@ -33,7 +33,7 @@ test('members with method call', () => {
 
   expect(formatter.toString()).toBe(
     `a.b.c(
-  a,
+  a
 ).dom`.trim(),
   );
 });
