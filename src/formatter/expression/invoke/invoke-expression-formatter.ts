@@ -13,18 +13,19 @@ export class InvokeExpressionFormatter extends ExpressionFormatter {
     const expression = getExpressionFormatter(this.ctx.expr(), this.config)
       .indent(this.indentCount)
       .breakMember(this.brokenMember);
+    const expressionString = expression.toString();
     const parameters = this.ctx
       .parameters()
       .parameter()
       .map((x) => getParameterFormatter(x, this.config));
 
-    let joinedParameters = parameters.join(', ');
-    let result = expression.toString() + this.surround(joinedParameters);
-    const endLineCharPosition = this.config.endLineCharPosition(result);
+    let joinedParameters = this.surround(parameters.join(', '));
+    let result = expressionString + joinedParameters;
+    const endLineCharPosition = this.config.endLineCharPosition(expressionString);
 
     if (
       this.broken ||
-      endLineCharPosition > this.config.printWidth ||
+      endLineCharPosition + joinedParameters.length > this.config.printWidth ||
       joinedParameters.includes(this.config.nl)
     ) {
       joinedParameters =
@@ -37,7 +38,7 @@ export class InvokeExpressionFormatter extends ExpressionFormatter {
           this.config.nl +
           this.config.indent(this.indentCount + ((expression.broken && 1) || 0)),
       );
-      result = expression.toString() + surrounded;
+      result = expressionString + surrounded;
     }
 
     return result;

@@ -16,11 +16,10 @@ export class ArrayExpressionFormatter extends ExpressionFormatter {
 
     let joinedParameters = parameters.join(', ');
     let result = `${this.indentString}[${joinedParameters}]`;
-    const endLineCharPosition = this.config.endLineCharPosition(result);
 
     if (
       this.broken ||
-      endLineCharPosition > this.config.printWidth ||
+      result.length > this.config.printWidth ||
       joinedParameters.includes(this.config.nl)
     ) {
       joinedParameters =
