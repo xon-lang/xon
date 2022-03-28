@@ -55,6 +55,6 @@ body:
 
 parameter: variable = expr type = expr? body?;
 parameters:
-    '[' (parameter (',' parameter)* ','?)? ']'
-    | '(' (parameter (',' parameter)* ','?)? ')'
+    openSymbol = '[' (parameter (',' parameter)* ','?)? closeSymbol = ']'
+    | openSymbol = '(' (parameter (',' parameter)* ','?)? closeSymbol = ')'
     ;

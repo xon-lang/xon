@@ -1030,7 +1030,7 @@ export class XonParser extends Parser {
 				this.enterOuterAlt(_localctx, 1);
 				{
 				this.state = 183;
-				this.match(XonParser.OPEN_BRACKET);
+				_localctx._openSymbol = this.match(XonParser.OPEN_BRACKET);
 				this.state = 195;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
@@ -1070,14 +1070,14 @@ export class XonParser extends Parser {
 				}
 
 				this.state = 197;
-				this.match(XonParser.CLOSE_BRACKET);
+				_localctx._closeSymbol = this.match(XonParser.CLOSE_BRACKET);
 				}
 				break;
 			case XonParser.OPEN_PAREN:
 				this.enterOuterAlt(_localctx, 2);
 				{
 				this.state = 198;
-				this.match(XonParser.OPEN_PAREN);
+				_localctx._openSymbol = this.match(XonParser.OPEN_PAREN);
 				this.state = 210;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
@@ -1117,7 +1117,7 @@ export class XonParser extends Parser {
 				}
 
 				this.state = 212;
-				this.match(XonParser.CLOSE_PAREN);
+				_localctx._closeSymbol = this.match(XonParser.CLOSE_PAREN);
 				}
 				break;
 			default:
@@ -1837,6 +1837,8 @@ export class ParameterContext extends ParserRuleContext {
 
 
 export class ParametersContext extends ParserRuleContext {
+	public _openSymbol!: Token;
+	public _closeSymbol!: Token;
 	public OPEN_BRACKET(): TerminalNode | undefined { return this.tryGetToken(XonParser.OPEN_BRACKET, 0); }
 	public CLOSE_BRACKET(): TerminalNode | undefined { return this.tryGetToken(XonParser.CLOSE_BRACKET, 0); }
 	public parameter(): ParameterContext[];
