@@ -1,5 +1,5 @@
 import { parse } from '../../../util/parse';
-import { defaultFormatterConfig } from '../../formatter-config';
+import { defaultFormatterConfig, FormatterConfig } from '../../formatter-config';
 import { getStatementFormatter } from '../statement-formatter-helper';
 import { IfStatementFormatter } from './if-statement-formatter';
 
@@ -100,5 +100,24 @@ else
     e
     d
     456 + 789`,
+  );
+});
+
+test('if has long array condition', () => {
+  const code = 'if [1, 2,3,4]: 123';
+  const ctx = parse(code).statement();
+  const config = new FormatterConfig();
+  config.printWidth = 5;
+  const formatter = getStatementFormatter(ctx, config);
+
+  expect(formatter).toBeInstanceOf(IfStatementFormatter);
+  expect(formatter.toString()).toBe(
+    `
+if [
+  1,
+  2,
+  3,
+  4,
+]: 123`.trim(),
   );
 });
