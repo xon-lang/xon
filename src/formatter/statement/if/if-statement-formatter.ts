@@ -1,7 +1,6 @@
 import { IfStatementContext } from '../../../grammar/xon-parser';
 import { FormatterConfig } from '../../formatter-config';
 import { StatementFormatter } from '../Statement-formatter';
-import { getStatementFormatter } from '../Statement-formatter-helper';
 
 export class IfStatementFormatter extends StatementFormatter {
   constructor(public ctx: IfStatementContext, public config: FormatterConfig) {
@@ -9,10 +8,6 @@ export class IfStatementFormatter extends StatementFormatter {
   }
 
   toString() {
-    const result = `${this.indentString}${getStatementFormatter(
-      this.ctx.expression(),
-      this.config,
-    )}?`;
-    return result;
+    return '';
   }
 }
