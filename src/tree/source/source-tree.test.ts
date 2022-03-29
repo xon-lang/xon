@@ -73,19 +73,3 @@ toString[] String
   expect(tree).toBeInstanceOf(SourceTree);
   expect(tree.toString()).toBe(code + '\n');
 });
-
-// todo fix it with indentString method
-// test('preprocessor in definition', () => {
-//   const code = `
-// object A
-//   toString[] String
-//     importStatementsMap = #{{}}
-//     #{
-// return 123
-//     }
-// `.trim();
-//   const tree = parseSource(code);
-
-//   expect(tree).toBeInstanceOf(SourceTree);
-//   expect(tree.toString()).toBe(code + '\n');
-// });

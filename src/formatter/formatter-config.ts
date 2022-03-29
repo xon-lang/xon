@@ -4,6 +4,7 @@ export class FormatterConfig {
   printWidth = 100;
   tabWidth = 2;
   nl = '\n';
+  nl2 = this.nl.repeat(2);
 
   indent(count: Number) {
     return ' '.repeat(this.tabWidth).repeat(count);
