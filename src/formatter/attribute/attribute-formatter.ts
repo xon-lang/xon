@@ -17,7 +17,7 @@ export class AttributeFormatter extends Formatter {
     const type = getExpressionFormatter(this.ctx.expression(), this.config)?.indent(
       this.indentCount,
     );
-    const body = getBodyFormatter(this.ctx.body(), this.config).indent(this.indentCount) || '';
+    const body = getBodyFormatter(this.ctx.body(), this.config)?.indent(this.indentCount) || '';
     if (type) {
       return `${name}${parameters} ${type}${body}`;
     }
