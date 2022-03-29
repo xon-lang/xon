@@ -1,0 +1,49 @@
+a = 1213
+
+import abc: a,b,c,b,c,a
+import abc: a,b,c,b,c,a
+
+-- comment
+object someObjectFactory(name String)
+  attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').join('\n\n').member
+  attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').replace(#{/^(.+)/gm}, '  $1')
+  arr Number[] = [
+    -- comment
+    123,
+    456,  -- comment
+    789,
+    123,
+    456,  -- comment
+    789,
+    123,
+    456,  -- comment
+    789,
+    123,
+    456,  -- comment
+    789,
+    123,
+    123,
+    456,  -- comment
+    789,
+    456
+    ,
+    -- comment
+
+    789
+  ]
+
+  -- comment
+  location(x Number, y Number) Position
+    pos(x, y)
+    #{1  sd
+f 2 sdf
+34}
+
+
+  abc Integer
+
+model Array
+
+#{1  sd
+f 2 sdf
+34}#

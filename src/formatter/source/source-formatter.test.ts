@@ -5,7 +5,7 @@ import { SourceFormatter } from './source-formatter';
 import { getSourceFormatter } from './source-formatter-helper';
 
 test('1.xon', () => {
-  const code = fs.readFileSync('src/formatter/source/test-files/1.xon').toString();
+  const code = fs.readFileSync('src/formatter/source/test-files/1.source.xon').toString();
   const ctx = parse(code).source();
   const formatter = getSourceFormatter(ctx, defaultFormatterConfig);
 

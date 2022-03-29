@@ -51,7 +51,7 @@ export class SourceFormatter extends Formatter {
       .map((x) => getDefinitionFormatter(x, this.config))
       .join(this.config.nl2);
     const result = [uniqueImportStatements, otherStatements, attributes, definitions]
-      .filter(Boolean)
+      .filter(x=>x)
       .join(this.config.nl2);
     return (result && result + this.config.nl) || '';
   }
