@@ -10,16 +10,15 @@ export class MethodExpressionFormatter extends ExpressionFormatter {
   }
 
   toString() {
+    const value = getExpressionFormatter(this.ctx._value, this.config).indent(this.indentCount);
     const parameters = this.ctx
       .parameters()
       .parameter()
-      .map((x) => getParameterFormatter(x, this.config))
+      .map((x) => getParameterFormatter(x, this.config).indent(this.indentCount))
       .join(', ');
-
     const type =
       (this.ctx._type && ' ' + getExpressionFormatter(this.ctx._type, this.config)) || '';
-    const value = getExpressionFormatter(this.ctx._value, this.config);
-    const result = `${this.indentString}(${parameters})${type} => ${value}`;
+    const result = `(${parameters})${type} => ${value}`;
     return result;
   }
 }

@@ -10,7 +10,6 @@ test('integers', () => {
 
   expect(formatter).toBeInstanceOf(GroupExpressionFormatter);
   expect(formatter.toString()).toBe('([1, 2, 3])');
-  expect(formatter.indent(2).toString()).toBe('    ([1, 2, 3])');
 });
 
 test('array element in array', () => {

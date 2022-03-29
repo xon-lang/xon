@@ -13,5 +13,4 @@ test('integer', () => {
 
   expect(formatter).toBeInstanceOf(LiteralExpressionFormatter);
   expect(formatter.toString()).toBe('123');
-  expect(formatter.indent(2).toString()).toBe('    123');
 });

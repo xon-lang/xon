@@ -1,5 +1,5 @@
 import { ParserRuleContext } from 'antlr4ts';
-import { Number } from '../lib/core';
+import { Number, String } from '../lib/core';
 import { FormatterConfig } from './formatter-config';
 
 export abstract class Formatter {

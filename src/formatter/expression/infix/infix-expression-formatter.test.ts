@@ -10,7 +10,6 @@ test('plus', () => {
 
   expect(formatter).toBeInstanceOf(InfixExpressionFormatter);
   expect(formatter.toString()).toBe('a + ([1, 2, 3])');
-  expect(formatter.indent(2).toString()).toBe('    a + ([1, 2, 3])');
 });
 
 test('pow', () => {
@@ -20,7 +19,6 @@ test('pow', () => {
 
   expect(formatter).toBeInstanceOf(InfixExpressionFormatter);
   expect(formatter.toString()).toBe('a^([1, 2, 3])');
-  expect(formatter.indent(2).toString()).toBe('    a^([1, 2, 3])');
 });
 
 test('array element in array', () => {

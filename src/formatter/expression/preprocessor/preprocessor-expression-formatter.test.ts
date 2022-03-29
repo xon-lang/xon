@@ -13,7 +13,6 @@ test('integer', () => {
 
   expect(formatter).toBeInstanceOf(PreprocessorExpressionFormatter);
   expect(formatter.toString()).toBe('#{123}');
-  expect(formatter.indent(2).toString()).toBe('    #{123}');
 });
 
 test('new line', () => {
@@ -44,11 +43,6 @@ test('new lines', () => {
 
   expect(formatter).toBeInstanceOf(PreprocessorExpressionFormatter);
   expect(formatter.toString()).toBe(`#{
-    123
-         
-    
-      }`);
-  expect(formatter.indent(2).toString()).toBe(`    #{
     123
          
     

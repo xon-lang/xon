@@ -8,6 +8,6 @@ export class PreprocessorExpressionFormatter extends ExpressionFormatter {
   }
 
   toString() {
-    return this.indentString + this.ctx.text;
+    return this.ctx.text;
   }
 }

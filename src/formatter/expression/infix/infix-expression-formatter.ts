@@ -11,11 +11,10 @@ export class InfixExpressionFormatter extends ExpressionFormatter {
   toString() {
     const operator = this.ctx._op.text;
     const left = getExpressionFormatter(this.ctx._left, this.config).indent(this.indentCount);
-    const right = getExpressionFormatter(this.ctx._right, this.config);
+    const right = getExpressionFormatter(this.ctx._right, this.config).indent(this.indentCount);
     if (operator === '^') {
       return `${left}${operator}${right}`;
     }
-    const result = `${left} ${operator} ${right}`;
-    return result;
+    return `${left} ${operator} ${right}`;
   }
 }

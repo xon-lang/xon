@@ -10,7 +10,6 @@ test('integers', () => {
 
   expect(formatter).toBeInstanceOf(ArrayExpressionFormatter);
   expect(formatter.toString()).toBe('[1, 2, 3]');
-  expect(formatter.indent(2).toString()).toBe('    [1, 2, 3]');
 });
 
 test('integers', () => {
@@ -31,7 +30,7 @@ test('integers', () => {
   );
 
   expect(formatter.indent(2).toString()).toBe(
-    `    [
+    `[
       1,
       2,
       3,

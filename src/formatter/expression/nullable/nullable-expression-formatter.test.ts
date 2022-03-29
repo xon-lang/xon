@@ -13,5 +13,4 @@ test('only nullable', () => {
 
   expect(formatter).toBeInstanceOf(NullableExpressionFormatter);
   expect(formatter.toString()).toBe('abc?');
-  expect(formatter.indent(2).toString()).toBe('    abc?');
 });

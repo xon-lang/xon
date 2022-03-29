@@ -13,7 +13,6 @@ test('has type', () => {
 
   expect(formatter).toBeInstanceOf(MethodExpressionFormatter);
   expect(formatter.toString()).toBe('(a, b Integer) Number => a + b');
-  expect(formatter.indent(2).toString()).toBe('    (a, b Integer) Number => a + b');
 });
 
 test('has no type', () => {

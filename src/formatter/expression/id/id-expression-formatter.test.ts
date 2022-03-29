@@ -10,5 +10,4 @@ test('abc', () => {
 
   expect(formatter).toBeInstanceOf(IdExpressionFormatter);
   expect(formatter.toString()).toBe('abc');
-  expect(formatter.indent(2).toString()).toBe('    abc');
 });

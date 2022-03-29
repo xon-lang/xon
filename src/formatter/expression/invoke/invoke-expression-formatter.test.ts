@@ -13,7 +13,6 @@ test('abc', () => {
 
   expect(formatter).toBeInstanceOf(InvokeExpressionFormatter);
   expect(formatter.toString()).toBe('abc(1, 2, 3)');
-  expect(formatter.indent(2).toString()).toBe('    abc(1, 2, 3)');
 });
 
 test('restricted width', () => {
@@ -34,7 +33,7 @@ abc[
   );
 
   expect(formatter.indent(2).toString()).toBe(
-    `    abc[
+    `abc[
       1,
       2,
       3,

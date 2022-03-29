@@ -8,7 +8,6 @@ export class IdExpressionFormatter extends ExpressionFormatter {
   }
 
   toString() {
-    const result = this.indentString + this.ctx.text;
-    return result;
+    return this.ctx.text;
   }
 }
