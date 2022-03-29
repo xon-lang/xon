@@ -22,7 +22,7 @@ export class MemberExpressionFormatter extends ExpressionFormatter {
     if (this.broken || this.brokenMember || endLineCharPosition > this.config.printWidth) {
       this.broken = true;
       this.brokenMember = true;
-      result = `${expression.breakMember(true)}\n${this.config.indent(
+      result = `${expression.breakMember(true)} \\\n${this.config.indent(
         this.indentCount + 1,
       )}.${name}`;
     }

@@ -11,8 +11,7 @@ export class SingleBodyFormatter extends BodyFormatter {
   toString() {
     const statement = getStatementFormatter(this.ctx.statement(), this.config)
       .indent(this.indentCount)
-      .toString()
-      .trim();
+      .break(this.broken);
     if (this.ctx.ASSIGN()) {
       return ` = ${statement}`;
     }

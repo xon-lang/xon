@@ -1,5 +1,6 @@
 import { AttributeContext } from '../../grammar/xon-parser';
 import { getBodyFormatter } from '../body/body-formatter-helper';
+import { SingleBodyFormatter } from '../body/single/single-body-formatter';
 import { getExpressionFormatter } from '../expression/expression-formatter-helper';
 import { Formatter } from '../formatter';
 import { FormatterConfig } from '../formatter-config';
@@ -21,20 +22,21 @@ export class AttributeFormatter extends Formatter {
     const body = getBodyFormatter(this.ctx.body(), this.config)?.indent(this.indentCount);
 
     const isLargeLength = () =>
-      (name + (parameters || '') + ((type && ' ' + type) || '') + (body || '')).length >
-      this.config.printWidth;
+      this.config.endLineCharPosition(
+        name + (parameters || '') + ((type && ' ' + type) || '') + (body || ''),
+      ) > this.config.printWidth;
 
-    if (isLargeLength()) {
+    if (isLargeLength() && body instanceof SingleBodyFormatter) {
       body?.break(true);
-    }
-
-    if (isLargeLength()) {
-      type?.break(true);
     }
 
     if (isLargeLength()) {
       parameters?.break(true);
     }
+
+    // if (isLargeLength()) {
+    //   type?.break(true);
+    // }
 
     return name + (parameters || '') + ((type && ' ' + type) || '') + (body || '');
   }
