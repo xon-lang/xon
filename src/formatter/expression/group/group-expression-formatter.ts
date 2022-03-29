@@ -9,8 +9,8 @@ export class GroupExpressionFormatter extends ExpressionFormatter {
   }
 
   toString() {
-    return `(${getExpressionFormatter(this.ctx.expression(), this.config).indent(
-      this.indentCount,
-    )})`;
+    return `(${getExpressionFormatter(this.ctx.expression(), this.config)
+      .indent(this.indentCount)
+      .break(this.broken)})`;
   }
 }

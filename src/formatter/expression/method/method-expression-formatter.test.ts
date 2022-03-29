@@ -23,5 +23,8 @@ test('has no type', () => {
   const formatter = getExpressionFormatter(ctx, config) as MethodExpressionFormatter;
 
   expect(formatter).toBeInstanceOf(MethodExpressionFormatter);
-  expect(formatter.toString()).toBe(`(a, b Integer) => a + b`.trim());
+  expect(formatter.toString()).toBe(`(
+  a,
+  b Integer,
+) => a + b`.trim());
 });

@@ -12,6 +12,7 @@ export class InvokeExpressionFormatter extends ExpressionFormatter {
   toString() {
     const expressionString = getExpressionFormatter(this.ctx.expression(), this.config)
       .indent(this.indentCount)
+      .break(this.broken)
       .breakMember(this.brokenMember)
       .toString();
     const parameters = getParametersFormatter(this.ctx.parameters(), this.config).indent(

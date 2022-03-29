@@ -11,6 +11,7 @@ export class ArrayExpressionFormatter extends ExpressionFormatter {
   toString() {
     return getParametersFormatter(this.ctx.parameters(), this.config)
       .indent(this.indentCount)
+      .break(this.broken)
       .toString();
   }
 }
