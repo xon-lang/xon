@@ -16,7 +16,5 @@ export function treeToPlain(tree: Tree): unknown {
 
 export function treeToJson(tree: Tree): String {
   const tabWidth = 2;
-  console.log(treeToPlain(tree));
-
   return JSON.stringify(treeToPlain(tree), none, tabWidth);
 }

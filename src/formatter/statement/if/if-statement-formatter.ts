@@ -21,7 +21,7 @@ export class IfStatementFormatter extends StatementFormatter {
         this.ctx._thenBody instanceof MultipleBodyContext ||
         this.ctx._elseBody instanceof MultipleBodyContext
       ) {
-        result += `\n${this.indentString}`;
+        result += '\n' + this.config.indent(this.indentCount);
       } else {
         result += ' ';
       }

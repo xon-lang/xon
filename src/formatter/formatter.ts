@@ -1,10 +1,9 @@
 import { ParserRuleContext } from 'antlr4ts';
-import { Number, String } from '../lib/core';
+import { Boolean, Number, String } from '../lib/core';
 import { FormatterConfig } from './formatter-config';
 
 export abstract class Formatter {
   indentCount: Number = 0;
-  indentString: String = '';
   broken: Boolean = false;
   brokenMember: Boolean = false;
 
@@ -13,7 +12,6 @@ export abstract class Formatter {
 
   indent(value: number): Formatter {
     this.indentCount = value;
-    this.indentString = this.config.indent(value);
     return this;
   }
 
@@ -27,5 +25,5 @@ export abstract class Formatter {
     return this;
   }
 
-  abstract toString(): string;
+  abstract toString(): String;
 }
