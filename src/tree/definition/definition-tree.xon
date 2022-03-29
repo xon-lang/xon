@@ -22,11 +22,11 @@ object DefinitionTree(ctx DefinitionContext) Tree
   attributes AttributeTree[] = getAttributeTrees(ctx.attribute())
 
   toString() String
-    modifier = (this.modifier and this.modifier.text + ' ') or ''
+    modifier = this.modifier.text
     base = (this.base and ' ' + this.base) or ''
     parameters = this.ctx.parameters() and #{`(${this.parameters.join(', ')})`} or ''
     properties = this.attributes.filter((x) => !x.isMethod).join('\n')
     methodsWithBody = this.attributes.filter((x) => x.isMethod and x.body).join('\n\n')
     methodsWithNoBody = this.attributes.filter((x) => x.isMethod and !x.body).join('\n')
-    attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').replace(#{/^(.+)/gm}, '  $1')
+    attributes = [properties, methodsWithBody, methodsWithNoBody].filter((x) => x).join('\n\n').replace(#{/^(.+)/gm}, '  $1')
     return (modifier + this.name + parameters + base + ((attributes and '\n' + attributes) or ''))

@@ -29,5 +29,5 @@ object SourceTree(ctx SourceContext) Tree
     otherStatements = this.statements.filter((x) => !(x is ImportStatementTree)).join('\n')
     attributes = this.attributes.join('\n\n')
     definitions = this.definitions.join('\n\n')
-    result = [uniqueImportStatements, otherStatements, attributes, definitions].filter(Boolean).join('\n\n')
+    result = [uniqueImportStatements, otherStatements, attributes, definitions].filter((x) => x).join('\n\n')
     return (result and result + '\n') or ''
