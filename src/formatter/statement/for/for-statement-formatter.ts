@@ -14,7 +14,7 @@ export class ForStatementFormatter extends StatementFormatter {
     const value = getParameterFormatter(this.ctx._value, this.config)?.indent(this.indentCount);
     const index = getParameterFormatter(this.ctx._index, this.config)?.indent(this.indentCount);
     let vars = [value, index]
-      .filter(Boolean)
+      .filter((x) => x)
       .map((x) => x?.toString().trim())
       .join(', ');
     vars = vars && vars + ' in ';

@@ -19,13 +19,40 @@ export class DefinitionFormatter extends Formatter {
       this.indentCount,
     );
     const attributeIndent = this.config.indent(this.indentCount + 1);
-    const attributes = this.ctx
+    // const attributes = this.ctx
+    //   .attribute()
+    //   .map(
+    //     (x) => attributeIndent + getAttributeFormatter(x, this.config).indent(this.indentCount + 1),
+    //   );
+    const properties = this.ctx
       .attribute()
+      .filter((x) => !x.parameters())
       .map(
         (x) => attributeIndent + getAttributeFormatter(x, this.config).indent(this.indentCount + 1),
-      );
-    const attributesString =
-      (attributes.length && this.config.nl + attributes.join(this.config.nl)) || '';
+      )
+      .join(this.config.nl);
+
+    const methodsWithBody = this.ctx
+      .attribute()
+      .filter((x) => x.parameters() && x.body())
+      .map(
+        (x) => attributeIndent + getAttributeFormatter(x, this.config).indent(this.indentCount + 1),
+      )
+      .join(this.config.nl2);
+
+    const methodsWithNoBody = this.ctx
+      .attribute()
+      .filter((x) => x.parameters() && !x.body())
+      .map(
+        (x) => attributeIndent + getAttributeFormatter(x, this.config).indent(this.indentCount + 1),
+      )
+      .join(this.config.nl);
+
+    let attributesString = [properties, methodsWithBody, methodsWithNoBody]
+      .filter((x) => x)
+      .join(this.config.nl2);
+    attributesString = (attributesString && this.config.nl + attributesString) || '';
+
     if (type) {
       return `${modifier} ${name}${parameters} ${type}${attributesString}`;
     }
