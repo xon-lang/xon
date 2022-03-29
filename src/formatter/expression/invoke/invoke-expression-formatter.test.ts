@@ -70,3 +70,24 @@ test('array element in array', () => {
 )`.trim(),
   );
 });
+
+test('array instance', () => {
+  const code = '[1, 2, 3](1, 2)';
+  const ctx = parse(code).expression();
+  const config = new FormatterConfig();
+  config.printWidth = 6;
+  const formatter = getExpressionFormatter(ctx, config) as InvokeExpressionFormatter;
+
+  expect(formatter).toBeInstanceOf(InvokeExpressionFormatter);
+  expect(formatter.toString()).toBe(
+    `
+[
+  1,
+  2,
+  3,
+](
+  1,
+  2,
+)`.trim(),
+  );
+});

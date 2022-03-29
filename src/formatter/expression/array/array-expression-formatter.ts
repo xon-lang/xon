@@ -9,9 +9,8 @@ export class ArrayExpressionFormatter extends ExpressionFormatter {
   }
 
   toString() {
-    const parameters = getParametersFormatter(this.ctx.parameters(), this.config).indent(
-      this.indentCount,
-    );
-    return parameters.toString();
+    return getParametersFormatter(this.ctx.parameters(), this.config)
+      .indent(this.indentCount)
+      .toString();
   }
 }
