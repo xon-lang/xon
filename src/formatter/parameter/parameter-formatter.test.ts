@@ -10,5 +10,5 @@ test('id type', () => {
 
   expect(formatter).toBeInstanceOf(ParameterFormatter);
   expect(formatter.toString()).toBe('a 123');
-  expect(formatter.indent(2).toString()).toBe('    a 123');
+  expect(formatter.indent(2).toString()).toBe('a 123');
 });

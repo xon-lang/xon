@@ -9,9 +9,12 @@ export class MultipleBodyFormatter extends BodyFormatter {
   }
 
   toString() {
+    const statementIndent = this.config.indent(this.indentCount + 1);
     const statements = this.ctx
       .statement()
-      .map((x) => getStatementFormatter(x, this.config).indent(this.indentCount + 1))
+      .map(
+        (x) => statementIndent + getStatementFormatter(x, this.config).indent(this.indentCount + 1),
+      )
       .join(this.config.nl);
     return `${this.config.nl}${statements}`;
   }

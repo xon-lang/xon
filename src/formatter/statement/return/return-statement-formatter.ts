@@ -12,12 +12,12 @@ export class ReturnStatementFormatter extends StatementFormatter {
     const value = getExpressionFormatter(this.ctx.expression(), this.config)?.indent(
       this.indentCount,
     );
-    let result = `${this.indentString}return`;
+    let result = `return`;
     if (value) {
       result += ' ' + value.toString().trim();
     }
     if (result.length > this.config.printWidth && value) {
-      result = `${this.indentString}return ${value.break(true).toString().trim()}`;
+      result = `return ${value.break(true).toString().trim()}`;
     }
     return result;
   }

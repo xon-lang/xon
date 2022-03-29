@@ -10,5 +10,5 @@ test('parameter', () => {
 
   expect(formatter).toBeInstanceOf(ParameterStatementFormatter);
   expect(formatter.toString()).toBe('abc Number = 2');
-  expect(formatter.indent(2).toString()).toBe('    abc Number = 2');
+  expect(formatter.indent(2).toString()).toBe('abc Number = 2');
 });

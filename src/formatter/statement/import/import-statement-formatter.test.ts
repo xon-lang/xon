@@ -10,7 +10,7 @@ test('members', () => {
 
   expect(formatter).toBeInstanceOf(ImportStatementFormatter);
   expect(formatter.toString()).toBe('import a: b, c');
-  expect(formatter.indent(2).toString()).toBe('    import a: b, c');
+  expect(formatter.indent(2).toString()).toBe('import a: b, c');
 });
 
 test('no members', () => {
@@ -20,5 +20,5 @@ test('no members', () => {
 
   expect(formatter).toBeInstanceOf(ImportStatementFormatter);
   expect(formatter.toString()).toBe('import a.b.c');
-  expect(formatter.indent(2).toString()).toBe('    import a.b.c');
+  expect(formatter.indent(2).toString()).toBe('import a.b.c');
 });

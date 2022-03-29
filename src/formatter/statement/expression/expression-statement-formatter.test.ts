@@ -10,5 +10,5 @@ test('expression', () => {
 
   expect(formatter).toBeInstanceOf(ExpressionStatementFormatter);
   expect(formatter.toString()).toBe('abc?.def()');
-  expect(formatter.indent(2).toString()).toBe('    abc?.def()');
+  expect(formatter.indent(2).toString()).toBe('abc?.def()');
 });

@@ -10,7 +10,7 @@ test('value index', () => {
 
   expect(formatter).toBeInstanceOf(ForStatementFormatter);
   expect(formatter.toString()).toBe('for val, key in [a, b, c]: make()');
-  expect(formatter.indent(2).toString()).toBe('    for val, key in [a, b, c]: make()');
+  expect(formatter.indent(2).toString()).toBe('for val, key in [a, b, c]: make()');
 });
 
 test('value', () => {
@@ -20,7 +20,7 @@ test('value', () => {
 
   expect(formatter).toBeInstanceOf(ForStatementFormatter);
   expect(formatter.toString()).toBe('for val in [a, b, c]: make()');
-  expect(formatter.indent(2).toString()).toBe('    for val in [a, b, c]: make()');
+  expect(formatter.indent(2).toString()).toBe('for val in [a, b, c]: make()');
 });
 
 test('no value and index', () => {
@@ -30,5 +30,5 @@ test('no value and index', () => {
 
   expect(formatter).toBeInstanceOf(ForStatementFormatter);
   expect(formatter.toString()).toBe('for [a, b, c]: make()');
-  expect(formatter.indent(2).toString()).toBe('    for [a, b, c]: make()');
+  expect(formatter.indent(2).toString()).toBe('for [a, b, c]: make()');
 });

@@ -9,11 +9,14 @@ export class ImportStatementFormatter extends StatementFormatter {
   }
 
   toString() {
-    const path = getExpressionFormatter(this.ctx._path, this.config);
+    const path = getExpressionFormatter(this.ctx._path, this.config).indent(this.indentCount);
     const members =
       (this.ctx._members.length &&
-        ': ' + this.ctx._members.map((x) => getExpressionFormatter(x, this.config)).join(', ')) ||
+        ': ' +
+          this.ctx._members
+            .map((x) => getExpressionFormatter(x, this.config).indent(this.indentCount))
+            .join(', ')) ||
       '';
-    return `${this.indentString}import ${path}${members}`;
+    return `import ${path}${members}`;
   }
 }

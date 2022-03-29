@@ -10,7 +10,7 @@ test('return integer', () => {
 
   expect(formatter).toBeInstanceOf(ReturnStatementFormatter);
   expect(formatter.toString()).toBe('return 123');
-  expect(formatter.indent(2).toString()).toBe('    return 123');
+  expect(formatter.indent(2).toString()).toBe('return 123');
 });
 
 test('return no value', () => {
@@ -20,7 +20,7 @@ test('return no value', () => {
 
   expect(formatter).toBeInstanceOf(ReturnStatementFormatter);
   expect(formatter.toString()).toBe('return');
-  expect(formatter.indent(2).toString()).toBe('    return');
+  expect(formatter.indent(2).toString()).toBe('return');
 });
 
 test('return array', () => {
@@ -41,7 +41,7 @@ return [
   `.trim(),
   );
   expect(formatter.indent(2).toString()).toBe(
-    `    return [
+    `return [
       1,
       2,
       3,

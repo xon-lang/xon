@@ -23,7 +23,6 @@ export class ForStatementFormatter extends StatementFormatter {
       .toString()
       .trim();
     const body = getBodyFormatter(this.ctx.body(), this.config).indent(this.indentCount);
-    let result = `${this.indentString}for ${vars}${expression}${body}`;
-    return result;
+    return `for ${vars}${expression}${body}`;
   }
 }

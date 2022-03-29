@@ -10,7 +10,7 @@ test('if single else single', () => {
 
   expect(formatter).toBeInstanceOf(IfStatementFormatter);
   expect(formatter.toString()).toBe('if a: b else: c');
-  expect(formatter.indent(2).toString()).toBe('    if a: b else: c');
+  expect(formatter.indent(2).toString()).toBe('if a: b else: c');
 });
 
 test('if multiple else single', () => {
@@ -31,7 +31,7 @@ else: c`.trim(),
   );
 
   expect(formatter.indent(1).toString()).toBe(
-    `  if a
+    `if a
     b
   else: c`,
   );
@@ -47,6 +47,8 @@ if a: b else
   const formatter = getStatementFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(IfStatementFormatter);
+  console.log(formatter.toString());
+
   expect(formatter.toString()).toBe(
     `
 if a: b
@@ -56,7 +58,7 @@ else
   );
 
   expect(formatter.indent(1).toString()).toBe(
-    `  if a: b
+    `if a: b
   else
     c
     123`,
@@ -92,7 +94,7 @@ else
   );
 
   expect(formatter.indent(1).toString()).toBe(
-    `  if a
+    `if a
     b
     c
     123

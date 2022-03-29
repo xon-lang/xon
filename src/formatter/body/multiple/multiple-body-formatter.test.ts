@@ -22,8 +22,6 @@ test('contains new line', () => {
   const formatter = getBodyFormatter(ctx, config);
 
   expect(formatter).toBeInstanceOf(MultipleBodyFormatter);
-  console.log(formatter.toString());
-  
   expect(formatter.toString()).toBe(`\n  [
     1,
     [2],
@@ -31,9 +29,7 @@ test('contains new line', () => {
   ]`);
   expect(formatter.indent(2).toString()).toBe(`\n      [
         1,
-        [
-          2
-        ],
+        [2],
         3,
       ]`);
 });

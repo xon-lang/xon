@@ -39,9 +39,7 @@ test('contains new line', () => {
 ]`);
   expect(formatter.indent(2).toString()).toBe(` = [
       1,
-      [
-        2
-      ],
+      [2],
       3,
     ]`);
 });
