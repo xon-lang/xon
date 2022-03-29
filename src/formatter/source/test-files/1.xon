@@ -1,9 +1,24 @@
-return 1213
+a = 1213
+
+import abc: a,b,c,b,c,a
+import abc: a,b,c,b,c,a
 
 -- comment
-object someObjectFactory<|T|>(name String)
+object someObjectFactory(name String)
   arr Number[] = [
     -- comment
+    123,
+    456,  -- comment
+    789,
+    123,
+    456,  -- comment
+    789,
+    123,
+    456,  -- comment
+    789,
+    123,
+    456,  -- comment
+    789,
     123,
     456,  -- comment
     789,
@@ -17,15 +32,14 @@ object someObjectFactory<|T|>(name String)
   -- comment
   location(x Number, y Number) Position
     pos(x, y)
+    #{1  sd
+f 2 sdf
+34}
 
-  operator + (it SomeClass) AnotherClass
-    log('fine!')
 
   abc Integer
 
-model Array<|T|>
-  operator + (other T[]) T[]
-  operator * (other Integer) T[][]
+model Array
 
 #{1  sd
 f 2 sdf

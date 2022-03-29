@@ -1,0 +1,18 @@
+import abc: a, b, c
+
+#{1  sd
+f 2 sdf
+34}
+
+a = 1213
+
+object someObjectFactory(name String)
+  arr Number[] = [123, 456, 789, 123, 456, 789, 123, 456, 789, 123, 456, 789, 123, 456, 789, 456, 789]
+  location(x Number, y Number) Position
+    pos(x, y)
+    #{1  sd
+f 2 sdf
+34}
+  abc Integer
+
+model Array

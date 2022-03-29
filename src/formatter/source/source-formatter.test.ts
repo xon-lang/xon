@@ -10,5 +10,7 @@ test('1.xon', () => {
   const formatter = getSourceFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(SourceFormatter);
-  fs.writeFileSync('src/formatter/source/test-files/1.fmt.xon', formatter.toString());
+  fs.writeFileSync('src/formatter/source/test-files/1.actual.xon', formatter.toString());
+  const expectString = fs.readFileSync('src/formatter/source/test-files/1.expect.xon').toString();
+  expect(formatter.toString()).toBe(expectString);
 });

@@ -1,7 +1,7 @@
 return 1213
 
 -- comment
-object someObjectFactory<|T|>(name String)
+object someObjectFactory(name String)
   arr Number[] = [
     -- comment
     123,
@@ -18,14 +18,9 @@ object someObjectFactory<|T|>(name String)
   location(x Number, y Number) Position
     pos(x, y)
 
-  operator + (it SomeClass) AnotherClass
-    log('fine!')
-
   abc Integer
 
-model Array<|T|>
-  operator + (other T[]) T[]
-  operator * (other Integer) T[][]
+model Array
 
 #{1  sd
 f 2 sdf
