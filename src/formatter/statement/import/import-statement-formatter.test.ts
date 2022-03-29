@@ -22,3 +22,23 @@ test('no members', () => {
   expect(formatter.toString()).toBe('import a.b.c');
   expect(formatter.indent(2).toString()).toBe('import a.b.c');
 });
+
+test('sort members', () => {
+  const code = 'import a.b.c: b,a,c';
+  const ctx = parse(code).statement();
+  const formatter = getStatementFormatter(ctx, defaultFormatterConfig);
+
+  expect(formatter).toBeInstanceOf(ImportStatementFormatter);
+  expect(formatter.toString()).toBe('import a.b.c: a, b, c');
+  expect(formatter.indent(2).toString()).toBe('import a.b.c: a, b, c');
+});
+
+test('unique members', () => {
+  const code = 'import a.b.c: b,a,c,a,b,c';
+  const ctx = parse(code).statement();
+  const formatter = getStatementFormatter(ctx, defaultFormatterConfig);
+
+  expect(formatter).toBeInstanceOf(ImportStatementFormatter);
+  expect(formatter.toString()).toBe('import a.b.c: a, b, c');
+  expect(formatter.indent(2).toString()).toBe('import a.b.c: a, b, c');
+});

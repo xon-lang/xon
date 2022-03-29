@@ -13,9 +13,14 @@ export class ImportStatementFormatter extends StatementFormatter {
     const members =
       (this.ctx._members.length &&
         ': ' +
-          this.ctx._members
-            .map((x) => getExpressionFormatter(x, this.config).indent(this.indentCount))
-            .join(', ')) ||
+          [
+            ...new Set(
+              this.ctx._members
+                .map((x) => getExpressionFormatter(x, this.config).indent(this.indentCount))
+                .map((x) => x.toString())
+                .sort((a, b) => a.localeCompare(b)),
+            ),
+          ].join(', ')) ||
       '';
     return `import ${path}${members}`;
   }
