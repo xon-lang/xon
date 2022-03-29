@@ -12,11 +12,11 @@ test('properties only', () => {
 
   expect(formatter).toBeInstanceOf(MemberExpressionFormatter);
   expect(formatter.toString()).toBe(
-    `a
-  .b
-  .c
-  .d
-  .efg
+    `a \\
+  .b \\
+  .c \\
+  .d \\
+  .efg \\
   .hij`.trim(),
   );
 });
@@ -25,14 +25,37 @@ test('members with method call', () => {
   const code = `a.b.c(a).dom`;
   const ctx = parse(code).expression();
   const config = new FormatterConfig();
-  config.printWidth = 5;
+  config.printWidth = 8;
   const formatter = getExpressionFormatter(ctx, config) as MemberExpressionFormatter;
 
   expect(formatter).toBeInstanceOf(MemberExpressionFormatter);
   expect(formatter.toString()).toBe(
-    `a.b.c(
-  a
-).dom`.trim(),
+    `
+a \\
+  .b \\
+  .c(a) \\
+  .dom`.trim(),
+  );
+});
+
+test('members with method broken call', () => {
+  const code = `a.b.c(a).dom`;
+  const ctx = parse(code).expression();
+  const config = new FormatterConfig();
+  config.printWidth = 4;
+  const formatter = getExpressionFormatter(ctx, config) as MemberExpressionFormatter;
+
+  expect(formatter).toBeInstanceOf(MemberExpressionFormatter);
+  console.log(formatter.toString());
+  
+  expect(formatter.toString()).toBe(
+    `
+a \\
+  .b \\
+  .c(
+    a
+  ) \\
+  .dom`.trim(),
   );
 });
 
@@ -45,7 +68,7 @@ test('nullable property', () => {
 
   expect(formatter).toBeInstanceOf(MemberExpressionFormatter);
   expect(formatter.toString()).toBe(
-    `abc?
+    `abc? \\
   .def`.trim(),
   );
 });

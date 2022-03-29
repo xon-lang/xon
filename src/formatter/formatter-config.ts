@@ -10,7 +10,11 @@ export class FormatterConfig {
     return ' '.repeat(this.tabWidth).repeat(count);
   }
 
-  endLineCharPosition(value: String) {
+  startLineLength(value: String) {
+    return value.split(this.nl)[0].length;
+  }
+
+  endLineLength(value: String) {
     return value.split(this.nl).slice(-1)[0].length;
   }
 }

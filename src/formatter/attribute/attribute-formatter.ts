@@ -22,7 +22,7 @@ export class AttributeFormatter extends Formatter {
     const body = getBodyFormatter(this.ctx.body(), this.config)?.indent(this.indentCount);
 
     const isLargeLength = () =>
-      this.config.endLineCharPosition(
+      this.config.endLineLength(
         name + (parameters || '') + ((type && ' ' + type) || '') + (body || ''),
       ) > this.config.printWidth;
 
