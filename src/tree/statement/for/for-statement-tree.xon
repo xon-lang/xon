@@ -16,5 +16,5 @@ object ForStatementTree(ctx ForStatementContext) StatementTree
   body BodyTree = getBodyTree(ctx.body())
 
   toString() String
-    vars = [this.valueVarName, this.indexVarName].filter((x) => x).join(',')
+    vars = [this.valueVarName, this.indexVarName].filter((x) => x).join(', ')
     return #{`for ${(vars && vars + ' in ') || ''}${this.expression}\n${this.body}`}

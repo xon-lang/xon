@@ -29,7 +29,7 @@ export class ForStatementTree extends StatementTree {
 
   toString(): String {
     let vars;
-    vars = [this.valueVarName, this.indexVarName].filter((x) => x).join(',');
+    vars = [this.valueVarName, this.indexVarName].filter((x) => x).join(', ');
     return `for ${(vars && vars + ' in ') || ''}${this.expression}\n${this.body}`;
   }
 }
