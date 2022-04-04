@@ -5,7 +5,6 @@ import { FormatterConfig } from './formatter-config';
 export abstract class Formatter {
   indentCount: Number = 0;
   broken: Boolean = false;
-  brokenMember: Boolean = false;
 
   ctx: ParserRuleContext;
   config: FormatterConfig;
@@ -17,11 +16,6 @@ export abstract class Formatter {
 
   break(value: Boolean): Formatter {
     this.broken = value;
-    return this;
-  }
-
-  breakMember(value: Boolean): Formatter {
-    this.brokenMember = value;
     return this;
   }
 

@@ -18,19 +18,9 @@ export class MemberExpressionFormatter extends ExpressionFormatter {
 
     let result = `${expression}.${name}`;
 
-    if (
-      this.broken ||
-      this.brokenMember ||
-      this.config.endLineLength(result) > this.config.printWidth
-    ) {
+    if (this.broken || this.config.endLineLength(result) > this.config.printWidth) {
       this.broken = true;
-      this.brokenMember = true;
-      result =
-        expression.breakMember(true) + ` \\\n${this.config.indent(this.indentCount + 1)}.${name}`;
-    }
-
-    if (this.broken && this.config.endLineLength(result) > this.config.printWidth) {
-      result = `${expression.break(true)} \\\n${this.config.indent(this.indentCount + 1)}.${name}`;
+      result = expression.break(true) + ` \\\n${this.config.indent(this.indentCount + 1)}.${name}`;
     }
 
     return result;

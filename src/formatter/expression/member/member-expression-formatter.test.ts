@@ -46,8 +46,6 @@ test('members with method broken call', () => {
   const formatter = getExpressionFormatter(ctx, config) as MemberExpressionFormatter;
 
   expect(formatter).toBeInstanceOf(MemberExpressionFormatter);
-  console.log(formatter.toString());
-  
   expect(formatter.toString()).toBe(
     `
 a \\
