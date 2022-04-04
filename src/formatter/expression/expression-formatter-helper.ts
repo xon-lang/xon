@@ -9,6 +9,7 @@ import {
   MemberExpressionContext,
   MethodExpressionContext,
   NullableExpressionContext,
+  PrefixExpressionContext,
   PreprocessorExpressionContext,
 } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
@@ -24,6 +25,7 @@ import { LiteralExpressionFormatter } from './literal/literal-expression-formatt
 import { MemberExpressionFormatter } from './member/member-expression-formatter';
 import { MethodExpressionFormatter } from './method/method-expression-formatter';
 import { NullableExpressionFormatter } from './nullable/nullable-expression-formatter';
+import { PrefixExpressionFormatter } from './prefix/prefix-expression-formatter';
 import { PreprocessorExpressionFormatter } from './preprocessor/preprocessor-expression-formatter';
 
 export const getExpressionFormatter = (
@@ -41,12 +43,9 @@ export const getExpressionFormatter = (
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionFormatter(ctx, config);
   if (ctx instanceof MethodExpressionContext) return new MethodExpressionFormatter(ctx, config);
   if (ctx instanceof NullableExpressionContext) return new NullableExpressionFormatter(ctx, config);
+  if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionFormatter(ctx, config);
   if (ctx instanceof PreprocessorExpressionContext)
     return new PreprocessorExpressionFormatter(ctx, config);
 
   Issue.errorFromContext(ctx, `Expression formatter not found for "${ctx.constructor.name}"`);
 };
-
-// export const getExpressionFormatters = (contexts: ExpressionContext[]): ExpressionFormatter[] => {
-//   return contexts?.map(getExpressionFormatter) || [];
-// };
