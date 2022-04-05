@@ -5,21 +5,15 @@
     "baseUrl": ".",
     "declaration": true,
     "esModuleInterop": true,
-    "lib": [
-      "ES2021"
-    ],
+    "lib": ["ES2021"],
     "module": "CommonJS",
     "moduleResolution": "node",
     "noImplicitAny": false,
     "paths": {
-      "*": [
-        "node_modules/*"
-      ]
+      "*": ["node_modules/*"]
     },
     "target": "ES2021"
   },
   "exclude": [],
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }

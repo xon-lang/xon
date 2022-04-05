@@ -17,8 +17,8 @@ export class ParameterTree extends Tree {
   sourceRange: SourceRange
   metadata: ParameterDeclarationMetadata
   variable: ExpressionTree
-  type?: (ExpressionTree | None)
-  body?: (BodyTree | None)
+  type?: ExpressionTree | None
+  body?: BodyTree | None
 
   constructor(ctx: ParameterContext) {
     super()

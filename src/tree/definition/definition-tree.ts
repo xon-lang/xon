@@ -20,7 +20,7 @@ export class DefinitionTree extends Tree {
   modifier: IdToken
   name: IdToken
   parameters: ParameterTree[]
-  base?: (ExpressionTree | None)
+  base?: ExpressionTree | None
   attributes: AttributeTree[]
 
   constructor(ctx: DefinitionContext) {
@@ -42,7 +42,7 @@ export class DefinitionTree extends Tree {
     properties = this.attributes.filter((x) => !x.isMethod).join('\n')
     methodsWithBody = this.attributes.filter((x) => x.isMethod && x.body).join('\n\n')
     methodsWithNoBody = this.attributes.filter((x) => x.isMethod && !x.body).join('\n')
-    attributes = [properties, methodsWithBody, methodsWithNoBody].filter(x=>x).join('\n\n').replace(/^(.+)/gm, '  $1')
+    attributes = [properties, methodsWithBody, methodsWithNoBody].filter((x) => x).join('\n\n').replace(/^(.+)/gm, '  $1')
     return (modifier + this.name + parameters + base + ((attributes && '\n' + attributes) || ''))
   }
 }
