@@ -28,6 +28,15 @@ test('num is number', () => {
   expect(tree.toString()).toBe('1 is Number');
 });
 
+test('equals', () => {
+  const code = 'this.name.text == 123';
+  const tree = parseExpression(code) as InfixExpressionTree;
+
+  expect(tree).toBeInstanceOf(InfixExpressionTree);
+  expect(tree.name.text).toBe('==');
+  expect(tree.toString()).toBe('this.name.text == 123');
+});
+
 test('has several relational operators', () => {
   const code = 'a<b>c';
   const tree = parseExpression(code) as InfixExpressionTree;
