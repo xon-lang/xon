@@ -12,6 +12,10 @@ export class ParametersFormatter extends Formatter {
     const openSymbol = this.ctx._openSymbol.text;
     const closeSymbol = this.ctx._closeSymbol.text;
 
+    if (this.ctx.parameter().length === 0) {
+      return openSymbol + closeSymbol;
+    }
+
     const parameters = this.ctx
       .parameter()
       .map((x) => getParameterFormatter(x, this.config).indent(this.indentCount));
