@@ -45,15 +45,15 @@ export class XonParser extends Parser {
 	public static readonly IMPORT = 18;
 	public static readonly RETURN = 19;
 	public static readonly WHILE = 20;
-	public static readonly AS = 21;
-	public static readonly IS = 22;
-	public static readonly OR = 23;
-	public static readonly AND = 24;
-	public static readonly DOT = 25;
-	public static readonly COLON = 26;
-	public static readonly COMMA = 27;
-	public static readonly ASSIGN = 28;
-	public static readonly QUESTION = 29;
+	public static readonly AND = 21;
+	public static readonly AS = 22;
+	public static readonly IS = 23;
+	public static readonly OR = 24;
+	public static readonly ASSIGN = 25;
+	public static readonly COMMA = 26;
+	public static readonly QUESTION = 27;
+	public static readonly DOT = 28;
+	public static readonly COLON = 29;
 	public static readonly LAMBDA = 30;
 	public static readonly FLOAT_LITERAL = 31;
 	public static readonly INTEGER_LITERAL = 32;
@@ -63,10 +63,10 @@ export class XonParser extends Parser {
 	public static readonly OP = 36;
 	public static readonly NL = 37;
 	public static readonly WS = 38;
-	public static readonly LINE_JOINING = 39;
-	public static readonly BLOCK_COMMENT = 40;
-	public static readonly LINE_COMMENT = 41;
-	public static readonly UNEXPECTED = 42;
+	public static readonly BLOCK_COMMENT = 39;
+	public static readonly LINE_COMMENT = 40;
+	public static readonly UNEXPECTED = 41;
+	public static readonly LINE_JOINING = 42;
 	public static readonly RULE_source = 0;
 	public static readonly RULE_definition = 1;
 	public static readonly RULE_attribute = 2;
@@ -85,17 +85,17 @@ export class XonParser extends Parser {
 	private static readonly _LITERAL_NAMES: Array<string | undefined> = [
 		undefined, undefined, undefined, "'['", "']'", "'('", "')'", "'{'", "'}'", 
 		"'actual'", "'break'", "'continue'", "'do'", "'else'", "'expect'", "'export'", 
-		"'for'", "'if'", "'import'", "'return'", "'while'", "'as'", "'is'", "'or'", 
-		"'and'",
+		"'for'", "'if'", "'import'", "'return'", "'while'", "'and'", "'as'", "'is'", 
+		"'or'", "'='", "','",
 	];
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
 		undefined, "INDENT", "DEDENT", "OPEN_BRACKET", "CLOSE_BRACKET", "OPEN_PAREN", 
 		"CLOSE_PAREN", "OPEN_BRACE", "CLOSE_BRACE", "ACTUAL", "BREAK", "CONTINUE", 
 		"DO", "ELSE", "EXPECT", "EXPORT", "FOR", "IF", "IMPORT", "RETURN", "WHILE", 
-		"AS", "IS", "OR", "AND", "DOT", "COLON", "COMMA", "ASSIGN", "QUESTION", 
+		"AND", "AS", "IS", "OR", "ASSIGN", "COMMA", "QUESTION", "DOT", "COLON", 
 		"LAMBDA", "FLOAT_LITERAL", "INTEGER_LITERAL", "STRING_LITERAL", "PREPROCESSOR", 
-		"ID", "OP", "NL", "WS", "LINE_JOINING", "BLOCK_COMMENT", "LINE_COMMENT", 
-		"UNEXPECTED",
+		"ID", "OP", "NL", "WS", "BLOCK_COMMENT", "LINE_COMMENT", "UNEXPECTED", 
+		"LINE_JOINING",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(XonParser._LITERAL_NAMES, XonParser._SYMBOLIC_NAMES, []);
 
@@ -736,7 +736,7 @@ export class XonParser extends Parser {
 						this.state = 144;
 						(_localctx as InfixExpressionContext)._op = this._input.LT(1);
 						_la = this._input.LA(1);
-						if (!(((((_la - 21)) & ~0x1F) === 0 && ((1 << (_la - 21)) & ((1 << (XonParser.AS - 21)) | (1 << (XonParser.IS - 21)) | (1 << (XonParser.OR - 21)) | (1 << (XonParser.AND - 21)) | (1 << (XonParser.OP - 21)))) !== 0))) {
+						if (!(((((_la - 21)) & ~0x1F) === 0 && ((1 << (_la - 21)) & ((1 << (XonParser.AND - 21)) | (1 << (XonParser.AS - 21)) | (1 << (XonParser.IS - 21)) | (1 << (XonParser.OR - 21)) | (1 << (XonParser.OP - 21)))) !== 0))) {
 							(_localctx as InfixExpressionContext)._op = this._errHandler.recoverInline(this);
 						} else {
 							if (this._input.LA(1) === Token.EOF) {
@@ -873,14 +873,14 @@ export class XonParser extends Parser {
 			this.state = 174;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
-			case XonParser.COLON:
 			case XonParser.ASSIGN:
+			case XonParser.COLON:
 				_localctx = new SingleBodyContext(_localctx);
 				this.enterOuterAlt(_localctx, 1);
 				{
 				this.state = 163;
 				_la = this._input.LA(1);
-				if (!(_la === XonParser.COLON || _la === XonParser.ASSIGN)) {
+				if (!(_la === XonParser.ASSIGN || _la === XonParser.COLON)) {
 				this._errHandler.recoverInline(this);
 				} else {
 					if (this._input.LA(1) === Token.EOF) {
@@ -1187,7 +1187,7 @@ export class XonParser extends Parser {
 		"\n\x03\n\x03\n\x03\n\x07\n\xCD\n\n\f\n\x0E\n\xD0\v\n\x03\n\x05\n\xD3\n" +
 		"\n\x05\n\xD5\n\n\x03\n\x05\n\xD8\n\n\x03\n\x02\x02\x03\n\v\x02\x02\x04" +
 		"\x02\x06\x02\b\x02\n\x02\f\x02\x0E\x02\x10\x02\x12\x02\x02\x04\x04\x02" +
-		"\x17\x1A&&\x04\x02\x1C\x1C\x1E\x1E\x02\u0108\x02\x1A\x03\x02\x02\x02\x04" +
+		"\x17\x1A&&\x04\x02\x1B\x1B\x1F\x1F\x02\u0108\x02\x1A\x03\x02\x02\x02\x04" +
 		"\x1D\x03\x02\x02\x02\x060\x03\x02\x02\x02\b{\x03\x02\x02\x02\n\x8F\x03" +
 		"\x02\x02\x02\f\xA3\x03\x02\x02\x02\x0E\xB0\x03\x02\x02\x02\x10\xB2\x03" +
 		"\x02\x02\x02\x12\xD7\x03\x02\x02\x02\x14\x19\x05\x04\x03\x02\x15\x19\x05" +
@@ -1204,13 +1204,13 @@ export class XonParser extends Parser {
 		"02\x07%\x02\x0213\x05\x12\n\x0221\x03\x02\x02\x0223\x03\x02\x02\x0235" +
 		"\x03\x02\x02\x0246\x05\n\x06\x0254\x03\x02\x02\x0256\x03\x02\x02\x026" +
 		"8\x03\x02\x02\x0279\x05\x0E\b\x0287\x03\x02\x02\x0289\x03\x02\x02\x02" +
-		"9\x07\x03\x02\x02\x02:;\x07\x14\x02\x02;H\x05\n\x06\x02<=\x07\x1C\x02" +
-		"\x02=B\x05\n\x06\x02>?\x07\x1D\x02\x02?A\x05\n\x06\x02@>\x03\x02\x02\x02" +
+		"9\x07\x03\x02\x02\x02:;\x07\x14\x02\x02;H\x05\n\x06\x02<=\x07\x1F\x02" +
+		"\x02=B\x05\n\x06\x02>?\x07\x1C\x02\x02?A\x05\n\x06\x02@>\x03\x02\x02\x02" +
 		"AD\x03\x02\x02\x02B@\x03\x02\x02\x02BC\x03\x02\x02\x02CF\x03\x02\x02\x02" +
-		"DB\x03\x02\x02\x02EG\x07\x1D\x02\x02FE\x03\x02\x02\x02FG\x03\x02\x02\x02" +
+		"DB\x03\x02\x02\x02EG\x07\x1C\x02\x02FE\x03\x02\x02\x02FG\x03\x02\x02\x02" +
 		"GI\x03\x02\x02\x02H<\x03\x02\x02\x02HI\x03\x02\x02\x02I|\x03\x02\x02\x02" +
 		"JK\x07\x11\x02\x02K|\x05\n\x06\x02LT\x07\x12\x02\x02MP\x05\x10\t\x02N" +
-		"O\x07\x1D\x02\x02OQ\x05\x10\t\x02PN\x03\x02\x02\x02PQ\x03\x02\x02\x02" +
+		"O\x07\x1C\x02\x02OQ\x05\x10\t\x02PN\x03\x02\x02\x02PQ\x03\x02\x02\x02" +
 		"QR\x03\x02\x02\x02RS\x07%\x02\x02SU\x03\x02\x02\x02TM\x03\x02\x02\x02" +
 		"TU\x03\x02\x02\x02UV\x03\x02\x02\x02VW\x05\n\x06\x02WX\x05\x0E\b\x02X" +
 		"|\x03\x02\x02\x02YZ\x07\x16\x02\x02Z[\x05\n\x06\x02[\\\x05\x0E\b\x02\\" +
@@ -1235,8 +1235,8 @@ export class XonParser extends Parser {
 		"\x02\x8F\x83\x03\x02\x02\x02\x8F\x84\x03\x02\x02\x02\x8F\x85\x03\x02\x02" +
 		"\x02\x8F\x87\x03\x02\x02\x02\x8F\x88\x03\x02\x02\x02\x90\x9D\x03\x02\x02" +
 		"\x02\x91\x92\f\x05\x02\x02\x92\x93\t\x02\x02\x02\x93\x9C\x05\n\x06\x06" +
-		"\x94\x95\f\t\x02\x02\x95\x9C\x07\x1F\x02\x02\x96\x97\f\b\x02\x02\x97\x98" +
-		"\x07\x1B\x02\x02\x98\x9C\x07%\x02\x02\x99\x9A\f\x07\x02\x02\x9A\x9C\x05" +
+		"\x94\x95\f\t\x02\x02\x95\x9C\x07\x1D\x02\x02\x96\x97\f\b\x02\x02\x97\x98" +
+		"\x07\x1E\x02\x02\x98\x9C\x07%\x02\x02\x99\x9A\f\x07\x02\x02\x9A\x9C\x05" +
 		"\x12\n\x02\x9B\x91\x03\x02\x02\x02\x9B\x94\x03\x02\x02\x02\x9B\x96\x03" +
 		"\x02\x02\x02\x9B\x99\x03\x02\x02\x02\x9C\x9F\x03\x02\x02\x02\x9D\x9B\x03" +
 		"\x02\x02\x02\x9D\x9E\x03\x02\x02\x02\x9E\v\x03\x02\x02\x02\x9F\x9D\x03" +
@@ -1251,16 +1251,16 @@ export class XonParser extends Parser {
 		"\xB5\x05\n\x06\x02\xB4\xB3\x03\x02\x02\x02\xB4\xB5\x03\x02\x02\x02\xB5" +
 		"\xB7\x03\x02\x02\x02\xB6\xB8\x05\x0E\b\x02\xB7\xB6\x03\x02\x02\x02\xB7" +
 		"\xB8\x03\x02\x02\x02\xB8\x11\x03\x02\x02\x02\xB9\xC5\x07\x05\x02\x02\xBA" +
-		"\xBF\x05\x10\t\x02\xBB\xBC\x07\x1D\x02\x02\xBC\xBE\x05\x10\t\x02\xBD\xBB" +
+		"\xBF\x05\x10\t\x02\xBB\xBC\x07\x1C\x02\x02\xBC\xBE\x05\x10\t\x02\xBD\xBB" +
 		"\x03\x02\x02\x02\xBE\xC1\x03\x02\x02\x02\xBF\xBD\x03\x02\x02\x02\xBF\xC0" +
 		"\x03\x02\x02\x02\xC0\xC3\x03\x02\x02\x02\xC1\xBF\x03\x02\x02\x02\xC2\xC4" +
-		"\x07\x1D\x02\x02\xC3\xC2\x03\x02\x02\x02\xC3\xC4\x03\x02\x02\x02\xC4\xC6" +
+		"\x07\x1C\x02\x02\xC3\xC2\x03\x02\x02\x02\xC3\xC4\x03\x02\x02\x02\xC4\xC6" +
 		"\x03\x02\x02\x02\xC5\xBA\x03\x02\x02\x02\xC5\xC6\x03\x02\x02\x02\xC6\xC7" +
 		"\x03\x02\x02\x02\xC7\xD8\x07\x06\x02\x02\xC8\xD4\x07\x07\x02\x02\xC9\xCE" +
-		"\x05\x10\t\x02\xCA\xCB\x07\x1D\x02\x02\xCB\xCD\x05\x10\t\x02\xCC\xCA\x03" +
+		"\x05\x10\t\x02\xCA\xCB\x07\x1C\x02\x02\xCB\xCD\x05\x10\t\x02\xCC\xCA\x03" +
 		"\x02\x02\x02\xCD\xD0\x03\x02\x02\x02\xCE\xCC\x03\x02\x02\x02\xCE\xCF\x03" +
 		"\x02\x02\x02\xCF\xD2\x03\x02\x02\x02\xD0\xCE\x03\x02\x02\x02\xD1\xD3\x07" +
-		"\x1D\x02\x02\xD2\xD1\x03\x02\x02\x02\xD2\xD3\x03\x02\x02\x02\xD3\xD5\x03" +
+		"\x1C\x02\x02\xD2\xD1\x03\x02\x02\x02\xD2\xD3\x03\x02\x02\x02\xD3\xD5\x03" +
 		"\x02\x02\x02\xD4\xC9\x03\x02\x02\x02\xD4\xD5\x03\x02\x02\x02\xD5\xD6\x03" +
 		"\x02\x02\x02\xD6\xD8\x07\b\x02\x02\xD7\xB9\x03\x02\x02\x02\xD7\xC8\x03" +
 		"\x02\x02\x02\xD8\x13\x03\x02\x02\x02&\x18\x1A #)+.258BFHPTgmt{\x8A\x8F" +
