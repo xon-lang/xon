@@ -3,10 +3,10 @@
 import { IfStatementContext } from '../../../grammar/xon-parser'
 import { None, String } from '../../../lib/core'
 import { SourceRange } from '../../../util/source-range'
-import { BodyTree } from '../../body/body-tree'
 import { getBodyTree } from '../../body/body-tree-helper'
-import { ExpressionTree } from '../../expression/expression-tree'
+import { BodyTree } from '../../body/body-tree'
 import { getExpressionTree } from '../../expression/expression-tree-helper'
+import { ExpressionTree } from '../../expression/expression-tree'
 import { StatementTree } from '../statement-tree'
 
 export class IfStatementTree extends StatementTree {
