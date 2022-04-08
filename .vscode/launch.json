@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "antlr-debug",
+      "request": "launch",
+      "name": "Debug Current Grammar",
+      "input": "src/grammar/debug.xon",
+      "visualParseTree": true,
+      "startRule": "statement",
+      "grammar": "src/grammar/XonParser.g4"
+    }
+  ]
+}
