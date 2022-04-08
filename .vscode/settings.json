@@ -28,7 +28,7 @@
     "useTab": false
   },
   "antlr4.generation": {
-    "mode": "none"
+    "mode": "internal"
   },
   // editor
   "workbench.colorCustomizations": {
