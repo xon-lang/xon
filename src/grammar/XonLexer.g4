@@ -2,7 +2,6 @@ lexer grammar XonLexer;
 
 channels {
     ERROR,
-    WHITESPACE,
     COMMENT_CHANNEL,
 }
 
@@ -39,19 +38,17 @@ IMPORT:   'import';
 RETURN:   'return';
 WHILE:    'while';
 
-AND: 'and';
 AS:  'as';
 IS:  'is';
 OR:  'or';
+AND: 'and';
 
-ASSIGN:        '=';
-COLON:         ':';
-COMMA:         ',';
-DOT:           '.';
-GENERIC_LEFT:  '<|';
-GENERIC_RIGHT: '|>';
-LAMBDA:        '=>';
-QUESTION:      '?';
+DOT:      (NL | WS)* '.' (NL | WS)*;
+COLON:    (NL | WS)* ':' (NL | WS)*;
+COMMA:    (NL | WS)* ',' (NL | WS)*;
+ASSIGN:   (NL | WS)* '=' (NL | WS)*;
+QUESTION: (NL | WS)* '?' (NL | WS)*;
+LAMBDA:   (NL | WS)* '=>' (NL | WS)*;
 
 FLOAT_LITERAL:
     Radix AlphabetNumber '.' AlphabetNumber
@@ -65,13 +62,13 @@ PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
 ID: [_a-zA-Z] [_a-zA-Z0-9]*;
 OP: [!+-^*%] | '..' | '...' | '<=' | '>=' | '==' | '!=';
 
-NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
-    ;
-WS:            [ \t]+                                  -> channel(WHITESPACE);
-BLOCK_COMMENT: '/*' (BLOCK_COMMENT | .)*? '*/'         -> channel(COMMENT_CHANNEL);
-LINE_COMMENT:  '--' ~[\r\n]*                           -> channel(COMMENT_CHANNEL);
-UNEXPECTED:    .                                       -> channel(ERROR);
-LINE_JOINING:  '\\' [ \t]* ( '\r'? '\n' | '\r' | '\f') -> skip;
+NL: ({this.atStartOfInput()}? WS | [\r\n] WS?) {this.handleLineBreak()};
+
+WS:            [ \t]+                          -> skip;
+LINE_JOINING:  '\\' [ \t]* [\r\n]              -> skip;
+BLOCK_COMMENT: '/*' (BLOCK_COMMENT | .)*? '*/' -> channel(COMMENT_CHANNEL);
+LINE_COMMENT:  '--' ~[\r\n]*                   -> channel(COMMENT_CHANNEL);
+UNEXPECTED:    .                               -> channel(ERROR);
 
 fragment Radix:          [0-9][0-9]? [xX];
 fragment DigitNumber:    [0-9] ('_' | [0-9])*;
