@@ -25,7 +25,9 @@ object SourceTree(ctx SourceContext) Tree
       const members = importStatement.members.map(x => x.toString())
       importStatementsMap[importStatement.path.toString()].push(...members)
     }}
-    uniqueImportStatements = Object.keys(importStatementsMap).sort((a, b) => a.localeCompare(b)).map((x) => #{`import ${x}: ${[...new Set(importStatementsMap[x].sort((a, b) => a.localeCompare(b)))].join(', ')}`}).join('\n')
+    uniqueImportStatements = Object.keys(importStatementsMap).sort((a, b) => a.localeCompare(b)).map(
+      (x) => #{`import ${x}: ${[...new Set(importStatementsMap[x].sort((a, b) => a.localeCompare(b)))].join(', ')}`}
+    ).join('\n')
     otherStatements = this.statements.filter((x) => !(x is ImportStatementTree)).join('\n')
     attributes = this.attributes.join('\n\n')
     definitions = this.definitions.join('\n\n')

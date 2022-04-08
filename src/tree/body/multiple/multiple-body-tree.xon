@@ -12,4 +12,6 @@ object MultipleBodyTree(ctx MultipleBodyContext) BodyTree
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   statements StatementTree[] = getStatementTrees(ctx.statement())
 
-  toString() String = '\n' + this.statements.map((x) => x is ExpressionStatementTree and x.expression is PreprocessorExpressionTree and '  ' + x or x.toString().replace(#{/^(.+)/gm}, '  $1')).join('\n')
+  toString() String = '\n' + this.statements.map(
+    (x) => x is ExpressionStatementTree and x.expression is PreprocessorExpressionTree and '  ' + x or x.toString().replace(#{/^(.+)/gm}, '  $1')
+  ).join('\n')
