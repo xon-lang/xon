@@ -1,6 +1,6 @@
 a = 1213
 
-import abc: a,b,c,b,c,a
+import abc: a,b,c,b,c,a,
 import abc: a,b,c,b,c,a
 
 -- comment

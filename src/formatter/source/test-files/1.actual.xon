@@ -11,10 +11,10 @@ object someObjectFactory(name String)
     properties,
     methodsWithBody,
     methodsWithNoBody,
-  ] \
-    .filter(Boolean) \
-    .join('\n\n') \
-    .join('\n\n') \
+  ]
+    .filter(Boolean)
+    .join('\n\n')
+    .join('\n\n')
     .member
   attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').replace(
     #{/^(.+)/gm},
