@@ -2,7 +2,7 @@
   // antlr4
   "antlr4.format": {
     "alignActions": true,
-    "alignColons": "none",
+    "alignColons": "hanging",
     "alignFirstTokens": true,
     "alignLabels": true,
     "alignLexerCommands": true,
