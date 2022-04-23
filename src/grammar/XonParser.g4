@@ -1,4 +1,5 @@
-parser grammar XonParser;
+parser grammar XonParser
+    ;
 
 options {
     tokenVocab = XonLexer;
@@ -6,15 +7,15 @@ options {
 
 source: ( definition | attribute | statement | NL)*;
 
-definition:
-    modifier = ID name = ID parameters? expression? (
+definition
+    : modifier = ID name = ID parameters? expression? (
         NL INDENT (attribute | NL)+ DEDENT
     )?
     ;
 attribute: name = ID parameters? expression? body?;
 
-statement:
-    IMPORT path = expression (
+statement
+    : IMPORT path = expression (
         COLON members += expression (',' members += expression)* ','?
     )?                                                                     # importStatement
     | EXPORT path = expression                                             # exportStatement
@@ -30,8 +31,8 @@ statement:
     | parameter                                                            # parameterStatement
     ;
 
-expression:
-    PREPROCESSOR                                                          # preprocessorExpression
+expression
+    : PREPROCESSOR                                                        # preprocessorExpression
     | '(' expression ')'                                                  # groupExpression
     | parameters                                                          # arrayExpression
     | literal                                                             # literalExpression
@@ -44,19 +45,20 @@ expression:
     | parameters type = expression? LAMBDA value = expression             # methodExpression
     ;
 
-literal:
-    INTEGER_LITERAL  # integerLiteral
-    | FLOAT_LITERAL  # floatLiteral
-    | STRING_LITERAL # stringLiteral
+literal
+    : INTEGER_LITERAL # integerLiteral
+    | FLOAT_LITERAL   # floatLiteral
+    | STRING_LITERAL  # stringLiteral
     ;
 
-body:
-    (ASSIGN | COLON) statement           # singleBody
+body
+    : (ASSIGN | COLON) statement         # singleBody
     | NL INDENT (statement | NL)+ DEDENT # multipleBody
     ;
 
 parameter: variable = expression type = expression? body?;
-parameters:
-    openSymbol = '[' (parameter (',' parameter)* ','?)? closeSymbol = ']'
-    | openSymbol = '(' (parameter (',' parameter)* ','?)? closeSymbol = ')'
+parameters
+    : openSymbol = '(' (parameter (',' parameter)* ','?)? closeSymbol = ')'
+    | openSymbol = '[' (parameter (',' parameter)* ','?)? closeSymbol = ']'
+    | openSymbol = '{' (parameter (',' parameter)* ','?)? closeSymbol = '}'
     ;
