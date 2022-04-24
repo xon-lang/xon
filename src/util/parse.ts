@@ -3,7 +3,6 @@
 import { XonLexer } from '../grammar/xon-lexer'
 import { XonParser } from '../grammar/xon-parser'
 import { String } from '../lib/core'
-import { getAttributeTree } from '../tree/attribute/attribute-tree-helper'
 import { getBodyTree } from '../tree/body/body-tree-helper'
 import { getDefinitionTree } from '../tree/definition/definition-tree-helper'
 import { getExpressionTree } from '../tree/expression/expression-tree-helper'
@@ -14,6 +13,7 @@ import { getStatementTree } from '../tree/statement/statement-tree-helper'
 import { ThrowingErrorListener } from './throwing-error-listener'
 import { CharStreams, CommonTokenStream } from 'antlr4ts'
 import * as fs from 'fs'
+import { getArgumentTree } from '../tree/argument/argument-tree-helper'
 
 export function parse(code: String, sourceName: String = undefined): XonParser {
   let inputStream, lexer, tokenStream, parser
@@ -50,12 +50,12 @@ export function parseParameter(code: String) {
   return getParameterTree(parse(code).parameter())
 }
 
-export function parseBody(code: String) {
-  return getBodyTree(parse(code).body())
+export function parseArgument(code: String) {
+  return getArgumentTree(parse(code).argument())
 }
 
-export function parseAttribute(code: String) {
-  return getAttributeTree(parse(code).attribute())
+export function parseBody(code: String) {
+  return getBodyTree(parse(code).body())
 }
 
 export function parseDefinition(code: String) {

@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { AttributeDeclarationMetadata } from '../metadata/declaration/attribute/attribute-declaration-metadata';
 import { DefinitionDeclarationMetadata } from '../metadata/declaration/definition/definition-declaration-metadata';
 import { ParameterDeclarationMetadata } from '../metadata/declaration/parameter/parameter-declaration-metadata';
 import { DeclarationScope } from '../metadata/scope/declaration-scope';
@@ -35,7 +34,6 @@ function _updateImportStatement(tree: ImportStatementTree, scope: DeclarationSco
     if (!(member instanceof IdExpressionTree)) {
       continue;
     }
-    
   }
 }
 
@@ -60,7 +58,7 @@ function _updateDefinition(tree: DefinitionTree, scope: DeclarationScope) {
 }
 
 function _updateAttribute(tree: AttributeTree, scope: DeclarationScope) {
-  tree.metadata = new AttributeDeclarationMetadata(tree, scope);
+  tree.metadata = new ParameterDeclarationMetadata(tree, scope);
   scope.add(tree.metadata);
 }
 

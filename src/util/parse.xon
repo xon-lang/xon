@@ -35,6 +35,8 @@ parseExpression(code String) = getExpressionTree(parse(code).expression())
 
 parseStatement(code String) = getStatementTree(parse(code).statement())
 
+parseArgument(code String) = getArgumentTree(parse(code).argument())
+
 parseParameter(code String) = getParameterTree(parse(code).parameter())
 
 parseBody(code String) = getBodyTree(parse(code).body())

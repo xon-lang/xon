@@ -20,7 +20,7 @@ export function evaluate(tree: ExpressionTree, argsMap = {}): Unknown {
     return none
   }
   if (tree instanceof ArrayExpressionTree) {
-    return tree.parameters.map((x) => evaluate(x.variable))
+    return tree.arguments.map((x) => evaluate(x.value))
   }
   if (tree instanceof LiteralExpressionTree) {
     return tree.literal.value
