@@ -48,11 +48,11 @@ test('1-error.xon', () => {
     const issue = IssueService.issues.slice(-1)[0];
     console.log(issue.error());
 
-    expect(issue.source.start.line).toBe(1); //todo should be 3
-    expect(issue.source.start.column).toBe(1); // to do should be 7
-    expect(issue.source.stop.column).toBe(27); // to do should be 28
+    expect(issue.source.start.line).toBe(1);
+    expect(issue.source.start.column).toBe(1);
+    expect(issue.source.stop.column).toBe(27);
   }
-  expect(IssueService.issues.length).toBe(2); // to do should be 1
+  expect(IssueService.issues.length).toBe(2);
 });
 
 test('2-error.xon', () => {

@@ -1,6 +1,5 @@
 import { evaluate } from '../../../util/evaluate';
 import { parseExpression } from '../../../util/parse';
-import { IdExpressionTree } from '../id/id-expression-tree';
 import { InfixExpressionTree } from '../infix/infix-expression-tree';
 import { MethodExpressionTree } from './method-expression-tree';
 
@@ -10,7 +9,7 @@ test('has argument', () => {
 
   expect(tree).toBeInstanceOf(MethodExpressionTree);
   expect(tree.parameters.length).toBe(1);
-  expect((tree.parameters[0].variable as IdExpressionTree).name.text).toBe('x');
+  expect(tree.parameters[0].name.text).toBe('x');
   expect(
     evaluate(tree.value, {
       x: 37,

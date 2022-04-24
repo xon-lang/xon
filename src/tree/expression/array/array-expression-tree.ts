@@ -7,22 +7,24 @@ import { SourceRange } from '../../../util/source-range'
 import { getParameterTrees } from '../../parameter/parameter-tree-helper'
 import { ParameterTree } from '../../parameter/parameter-tree'
 import { ExpressionTree } from '../expression-tree'
+import { ArgumentTree } from '../../argument/argument-tree'
+import { getArgumentTrees } from '../../argument/argument-tree-helper'
 
 export class ArrayExpressionTree extends ExpressionTree {
   metadata: ArrayExpressionMetadata
   ctx: ArrayExpressionContext
   sourceRange: SourceRange
-  parameters: ParameterTree[]
+  arguments: ArgumentTree[]
 
   constructor(ctx: ArrayExpressionContext) {
     super()
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
-    this.parameters = getParameterTrees(ctx.parameters().parameter())
+    this.arguments = getArgumentTrees(ctx.arguments().argument())
   }
 
   toString(): String {
-    return `[${this.parameters.join(', ')}]`
+    return `[${this.arguments.join(', ')}]`
   }
 }
 

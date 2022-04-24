@@ -1,9 +1,0 @@
-import '../../grammar/xon-parser': AttributeContext
-import '../../lib/core': none
-import './attribute-tree': AttributeTree
-
-getAttributeTree(ctx AttributeContext) AttributeTree
-  if !ctx: return none
-  return #{new AttributeTree(ctx)}
-
-getAttributeTrees(contexts AttributeContext[]) = contexts?.map((x) => getAttributeTree(x)) or []

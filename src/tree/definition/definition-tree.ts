@@ -5,13 +5,17 @@ import { none, None, String } from '../../lib/core'
 import { DefinitionDeclarationMetadata } from '../../metadata/declaration/definition/definition-declaration-metadata'
 import { getIdToken, IdToken } from '../../util/id-token'
 import { SourceRange } from '../../util/source-range'
-import { getAttributeTrees } from '../attribute/attribute-tree-helper'
-import { AttributeTree } from '../attribute/attribute-tree'
 import { getExpressionTree } from '../expression/expression-tree-helper'
 import { ExpressionTree } from '../expression/expression-tree'
 import { getParameterTrees } from '../parameter/parameter-tree-helper'
 import { ParameterTree } from '../parameter/parameter-tree'
 import { Tree } from '../tree'
+import { BodyTree } from '../body/body-tree'
+import { getBodyTree } from '../body/body-tree-helper'
+import { SingleBodyTree } from '../body/single/single-body-tree'
+import { ParameterStatementTree } from '../statement/parameter/parameter-statement-tree'
+import { MultipleBodyTree } from '../body/multiple/multiple-body-tree'
+import { MethodExpressionTree } from '../expression/method/method-expression-tree'
 
 export class DefinitionTree extends Tree {
   metadata: DefinitionDeclarationMetadata
@@ -21,7 +25,7 @@ export class DefinitionTree extends Tree {
   name: IdToken
   parameters: ParameterTree[]
   base?: ExpressionTree | None
-  attributes: AttributeTree[]
+  attributes: ParameterTree[]
 
   constructor(ctx: DefinitionContext) {
     super()
@@ -31,17 +35,17 @@ export class DefinitionTree extends Tree {
     this.name = getIdToken(ctx._name)
     this.parameters = getParameterTrees(ctx.parameters()?.parameter()) || none
     this.base = getExpressionTree(ctx.expression()) || none
-    this.attributes = getAttributeTrees(ctx.attribute())
+    this.attributes = getParameterTrees(ctx.parameter())
   }
 
   toString(): String {
     let modifier, base, parameters, properties, methodsWithBody, methodsWithNoBody, attributes
-    modifier = this.modifier.text
+    modifier = this.modifier.text + ' '
     base = (this.base && ' ' + this.base) || ''
     parameters = this.ctx.parameters() && `(${this.parameters.join(', ')})` || ''
-    properties = this.attributes.filter((x) => !x.isMethod).join('\n')
-    methodsWithBody = this.attributes.filter((x) => x.isMethod && x.body).join('\n\n')
-    methodsWithNoBody = this.attributes.filter((x) => x.isMethod && !x.body).join('\n')
+    properties = this.attributes.filter((x) => !(x.type instanceof MethodExpressionTree)).join('\n')
+    methodsWithBody = this.attributes.filter((x) => x.type instanceof MethodExpressionTree && x.body).join('\n\n')
+    methodsWithNoBody = this.attributes.filter((x) => x.type instanceof MethodExpressionTree && !x.body).join('\n')
     attributes = [properties, methodsWithBody, methodsWithNoBody].filter((x) => x).join('\n\n').replace(/^(.+)/gm, '  $1')
     return (modifier + this.name + parameters + base + ((attributes && '\n' + attributes) || ''))
   }

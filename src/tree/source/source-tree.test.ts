@@ -57,7 +57,7 @@ import 'xon.os2': Path, Path2
 
 test('preprocessor in attribute', () => {
   const code = `
-toString[] String
+toString [] => String
   importStatements = this.statements.filter[[x] => x is ImportStatementTree].map[[x] => x as ImportStatementTree]
   importStatementsMap = #{{}}
   #{

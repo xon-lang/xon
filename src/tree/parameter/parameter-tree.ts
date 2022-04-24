@@ -1,22 +1,19 @@
 // this code was generated
 
 import { ParameterContext } from '../../grammar/xon-parser'
-import { None, String } from '../../lib/core'
-import { ParameterDeclarationMetadata } from '../../metadata/declaration/parameter/parameter-declaration-metadata'
+import { none, None, String } from '../../lib/core'
 import { getIdToken, IdToken } from '../../util/id-token'
 import { SourceRange } from '../../util/source-range'
-import { getBodyTree } from '../body/body-tree-helper'
 import { BodyTree } from '../body/body-tree'
-import { getExpressionTree } from '../expression/expression-tree-helper'
+import { getBodyTree } from '../body/body-tree-helper'
 import { ExpressionTree } from '../expression/expression-tree'
-import { MethodExpressionTree } from '../expression/method/method-expression-tree'
+import { getExpressionTree } from '../expression/expression-tree-helper'
 import { Tree } from '../tree'
 
 export class ParameterTree extends Tree {
   ctx: ParameterContext
   sourceRange: SourceRange
-  metadata: ParameterDeclarationMetadata
-  variable: ExpressionTree
+  name: IdToken
   type?: ExpressionTree | None
   body?: BodyTree | None
 
@@ -24,19 +21,16 @@ export class ParameterTree extends Tree {
     super()
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
-    this.variable = getExpressionTree(ctx._variable)
-    this.type = getExpressionTree(ctx._type)
-    this.body = getBodyTree(ctx.body())
+    this.name = getIdToken(ctx._name)
+    this.type = getExpressionTree(ctx.expression()) || none
+    this.body = getBodyTree(ctx.body()) || none
   }
 
   toString(): String {
     let type, body
-    type = this.type?.toString() || ''
-    if (type && !(this.type instanceof MethodExpressionTree)) {
-      type = ' ' + type
-    }
-    body = this.body?.toString() || ''
-    return this.variable + type + body
+    type = this.type && ' ' + this.type || ''
+    body = this.body && this.body || ''
+    return this.name + type + body
   }
 }
 

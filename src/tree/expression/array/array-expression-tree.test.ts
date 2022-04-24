@@ -8,12 +8,11 @@ test('check array', () => {
   const tree = parseExpression(code) as ArrayExpressionTree;
 
   expect(tree).toBeInstanceOf(ArrayExpressionTree);
-  expect(tree.parameters.length).toBe(4);
-  expect(tree.parameters.map((x) => evaluate(x.variable) as Number).reduce((a, b) => a + b, 0)).toBe(
+  expect(tree.arguments.length).toBe(4);
+  expect(tree.arguments.map((x) => evaluate(x.value) as Number).reduce((a, b) => a + b, 0)).toBe(
     [1, 2 + 2, 4, 6 + 6].reduce((a, b) => a + b, 0),
   );
-  expect(JSON.stringify(evaluate(tree))).toBe(JSON.stringify([1,2+2,4,6+6]));
-
+  expect(JSON.stringify(evaluate(tree))).toBe(JSON.stringify([1, 2 + 2, 4, 6 + 6]));
 });
 
 test('array on several lines', () => {
@@ -23,8 +22,8 @@ test('array on several lines', () => {
   const tree = parseExpression(code) as ArrayExpressionTree;
 
   expect(tree).toBeInstanceOf(ArrayExpressionTree);
-  expect(tree.parameters.length).toBe(4);
-  expect(tree.parameters.map((x) => evaluate(x.variable) as Number).reduce((a, b) => a + b, 0)).toBe(
+  expect(tree.arguments.length).toBe(4);
+  expect(tree.arguments.map((x) => evaluate(x.value) as Number).reduce((a, b) => a + b, 0)).toBe(
     [1, 2 + 2, 4, 6 + 6].reduce((a, b) => a + b, 0),
   );
 });

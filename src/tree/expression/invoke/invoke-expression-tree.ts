@@ -6,6 +6,8 @@ import { ExpressionMetadata } from '../../../metadata/expression/expression-meta
 import { SourceRange } from '../../../util/source-range'
 import { getExpressionTree, getExpressionTrees } from '../expression-tree-helper'
 import { ExpressionTree } from '../expression-tree'
+import { ArgumentTree } from '../../argument/argument-tree'
+import { getArgumentTrees } from '../../argument/argument-tree-helper'
 
 export class InvokeExpressionTree extends ExpressionTree {
   metadata: ExpressionMetadata
@@ -14,16 +16,16 @@ export class InvokeExpressionTree extends ExpressionTree {
   instance: ExpressionTree
   hasBracket: Boolean
   hasParen: Boolean
-  arguments: ExpressionTree[]
+  arguments: ArgumentTree[]
 
   constructor(ctx: InvokeExpressionContext) {
     super()
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
     this.instance = getExpressionTree(ctx.expression())
-    this.hasBracket = !!ctx.parameters().OPEN_BRACKET()
-    this.hasParen = !!ctx.parameters().OPEN_PAREN()
-    this.arguments = getExpressionTrees(ctx.parameters().parameter().map((x) => x._variable))
+    this.hasBracket = !!ctx.arguments().OPEN_BRACKET()
+    this.hasParen = !!ctx.arguments().OPEN_PAREN()
+    this.arguments = getArgumentTrees(ctx.arguments().argument())
   }
 
   toString(): String {

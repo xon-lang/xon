@@ -8,9 +8,9 @@ import '../expression-tree': ExpressionTree
 
 object MemberExpressionTree(ctx MemberExpressionContext) ExpressionTree
   metadata MemberExpressionMetadata
-  ctx MemberExpressionContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  instance ExpressionTree = getExpressionTree(ctx.expression())
-  name IdToken = getIdToken(ctx._name)
+  ctx MemberExpressionContext: ctx
+  sourceRange SourceRange: SourceRange.fromContext(ctx)
+  instance ExpressionTree: getExpressionTree(ctx.expression())
+  name IdToken: getIdToken(ctx._name)
 
-  toString() String = #{`${this.instance}.${this.name}`}
+  toString() => String: #{`${this.instance}.${this.name}`}
