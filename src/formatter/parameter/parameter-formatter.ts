@@ -10,13 +10,10 @@ export class ParameterFormatter extends Formatter {
   }
 
   toString() {
-    const variable = getExpressionFormatter(this.ctx._variable, this.config).indent(
-      this.indentCount,
-    );
     const type =
-      (this.ctx._type &&
+      (this.ctx.expression() &&
         ' ' +
-          getExpressionFormatter(this.ctx._type, this.config)
+          getExpressionFormatter(this.ctx.expression(), this.config)
             .indent(this.indentCount)
             .toString()
             .trim()) ||
@@ -25,6 +22,6 @@ export class ParameterFormatter extends Formatter {
       (this.ctx.body() &&
         getBodyFormatter(this.ctx.body(), this.config).indent(this.indentCount)) ||
       '';
-    return `${variable}${type}${body}`;
+    return `${this.ctx._name.text}${type}${body}`;
   }
 }

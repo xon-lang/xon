@@ -1,51 +1,22 @@
 import abc: a, b, c
 
+a = 1213
 #{1  sd
 f 2 sdf
 34}
 
-a = 1213
-
 object someObjectFactory(name String)
-  attributes = [
-    properties,
-    methodsWithBody,
-    methodsWithNoBody,
-  ]
-    .filter(Boolean)
-    .join('\n\n')
-    .join('\n\n')
-    .member
+  attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').join('\n\n').member
   attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').replace(
     #{/^(.+)/gm},
     '  $1',
   )
-  arr Number[] = [
-    123,
-    456,
-    789,
-    123,
-    456,
-    789,
-    123,
-    456,
-    789,
-    123,
-    456,
-    789,
-    123,
-    123,
-    456,
-    789,
-    456,
-    789,
-  ]
-  abc Integer
-
-  location(x Number, y Number) Position
+  arr Number[] = [123, 456, 789, 123, 456, 789, 123, 456, 789, 123, 456, 789, 123, 123, 456, 789, 456, 789]
+  location (x Number, y Number) => Position
     pos(x, y)
     #{1  sd
 f 2 sdf
 34}
+  abc Integer
 
 model Array

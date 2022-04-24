@@ -1,8 +1,14 @@
-import { DefinitionContext } from '../../grammar/xon-parser';
-import { getAttributeFormatter } from '../attribute/attribute-formatter-helper';
+import {
+  DefinitionContext,
+  MethodExpressionContext,
+  MultipleBodyContext,
+  ParameterStatementContext,
+  SingleBodyContext,
+} from '../../grammar/xon-parser';
 import { getExpressionFormatter } from '../expression/expression-formatter-helper';
 import { Formatter } from '../formatter';
 import { FormatterConfig } from '../formatter-config';
+import { getParameterFormatter } from '../parameter/parameter-formatter-helper';
 import { getParametersFormatter } from '../parameters/parameters-formatter-helper';
 
 export class DefinitionFormatter extends Formatter {
@@ -19,32 +25,28 @@ export class DefinitionFormatter extends Formatter {
       this.indentCount,
     );
     const attributeIndent = this.config.indent(this.indentCount + 1);
-    // const attributes = this.ctx
-    //   .attribute()
-    //   .map(
-    //     (x) => attributeIndent + getAttributeFormatter(x, this.config).indent(this.indentCount + 1),
-    //   );
-    const properties = this.ctx
-      .attribute()
-      .filter((x) => !x.parameters())
+    let attributes = this.ctx.parameter()
+    const properties = attributes
+      .filter((x) => !(x instanceof MethodExpressionContext))
       .map(
-        (x) => attributeIndent + getAttributeFormatter(x, this.config).indent(this.indentCount + 1),
+        (x) =>
+          attributeIndent + getParameterFormatter(x, this.config).indent(this.indentCount + 1),
       )
       .join(this.config.nl);
 
-    const methodsWithBody = this.ctx
-      .attribute()
-      .filter((x) => x.parameters() && x.body())
+    const methodsWithBody = attributes
+      .filter((x) => (x instanceof MethodExpressionContext) && x.body())
       .map(
-        (x) => attributeIndent + getAttributeFormatter(x, this.config).indent(this.indentCount + 1),
+        (x) =>
+          attributeIndent + getParameterFormatter(x, this.config).indent(this.indentCount + 1),
       )
       .join(this.config.nl2);
 
-    const methodsWithNoBody = this.ctx
-      .attribute()
-      .filter((x) => x.parameters() && !x.body())
+    const methodsWithNoBody = attributes
+      .filter((x) => (x instanceof MethodExpressionContext) && !x.body())
       .map(
-        (x) => attributeIndent + getAttributeFormatter(x, this.config).indent(this.indentCount + 1),
+        (x) =>
+          attributeIndent + getParameterFormatter(x, this.config).indent(this.indentCount + 1),
       )
       .join(this.config.nl);
 

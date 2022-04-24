@@ -1,6 +1,6 @@
 import { ArrayExpressionContext } from '../../../grammar/xon-parser';
+import { getArgumentsFormatter } from '../../arguments/arguments-formatter-helper';
 import { FormatterConfig } from '../../formatter-config';
-import { getParametersFormatter } from '../../parameters/parameters-formatter-helper';
 import { ExpressionFormatter } from '../expression-formatter';
 
 export class ArrayExpressionFormatter extends ExpressionFormatter {
@@ -9,7 +9,7 @@ export class ArrayExpressionFormatter extends ExpressionFormatter {
   }
 
   toString() {
-    return getParametersFormatter(this.ctx.parameters(), this.config)
+    return getArgumentsFormatter(this.ctx.arguments(), this.config)
       .indent(this.indentCount)
       .break(this.broken)
       .toString();

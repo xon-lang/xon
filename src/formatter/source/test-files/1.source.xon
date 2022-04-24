@@ -33,7 +33,7 @@ object someObjectFactory(name String)
   ]
 
   -- comment
-  location(x Number, y Number) Position
+  location(x Number, y Number)=> Position
     pos(x, y)
     #{1  sd
 f 2 sdf
