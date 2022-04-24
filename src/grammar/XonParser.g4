@@ -5,14 +5,13 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: ( definition | attribute | statement | NL)*;
+source: ( definition | statement | NL)*;
 
 definition
     : modifier = ID name = ID parameters? expression? (
-        NL INDENT (attribute | NL)+ DEDENT
+        NL INDENT (parameter | NL)+ DEDENT
     )?
     ;
-attribute: name = ID parameters? expression? body?;
 
 statement
     : IMPORT path = expression (
@@ -34,11 +33,11 @@ statement
 expression
     : PREPROCESSOR                                                        # preprocessorExpression
     | '(' expression ')'                                                  # groupExpression
-    | parameters                                                          # arrayExpression
+    | arguments                                                           # arrayExpression
     | literal                                                             # literalExpression
     | expression QUESTION                                                 # nullableExpression
     | expression DOT name = ID                                            # memberExpression
-    | expression parameters                                               # invokeExpression
+    | expression arguments                                                # invokeExpression
     | op = OP expression                                                  # prefixExpression
     | left = expression op = (AS | IS | AND | OR | OP) right = expression # infixExpression
     | name = ID                                                           # idExpression
@@ -51,14 +50,23 @@ literal
     | STRING_LITERAL  # stringLiteral
     ;
 
+argument: (name = ID COLON)? expression;
+
+arguments
+    : '(' (argument (',' argument)* ','?)? ')'
+    | '[' (argument (',' argument)* ','?)? ']'
+    | '{' (argument (',' argument)* ','?)? '}'
+    ;
+
+parameter: name = ID type = expression? body?;
+
+parameters
+    : '(' (parameter (',' parameter)* ','?)? ')'
+    | '[' (parameter (',' parameter)* ','?)? ']'
+    | '{' (parameter (',' parameter)* ','?)? '}'
+    ;
+
 body
     : (ASSIGN | COLON) statement         # singleBody
     | NL INDENT (statement | NL)+ DEDENT # multipleBody
-    ;
-
-parameter: variable = expression type = expression? body?;
-parameters
-    : openSymbol = '(' (parameter (',' parameter)* ','?)? closeSymbol = ')'
-    | openSymbol = '[' (parameter (',' parameter)* ','?)? closeSymbol = ']'
-    | openSymbol = '{' (parameter (',' parameter)* ','?)? closeSymbol = '}'
     ;

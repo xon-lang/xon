@@ -1,4 +1,5 @@
-lexer grammar XonLexer;
+lexer grammar XonLexer
+    ;
 
 channels {
     ERROR,
@@ -36,6 +37,8 @@ EXPORT:   'export';
 FOR:      'for';
 IF:       'if';
 IMPORT:   'import';
+// MODEL:    'model';
+// OBJECT:   'object';
 RETURN:   'return';
 WHILE:    'while';
 
@@ -51,8 +54,8 @@ DOT:      (NL | WS)* '.' (NL | WS)*;
 COLON:    (NL | WS)* ':' (NL | WS)*;
 LAMBDA:   (NL | WS)* '=>' (NL | WS)*;
 
-FLOAT_LITERAL:
-    Radix AlphabetNumber '.' AlphabetNumber
+FLOAT_LITERAL
+    : Radix AlphabetNumber '.' AlphabetNumber
     | DigitNumber '.' DigitNumber
     ;
 INTEGER_LITERAL: Radix AlphabetNumber | DigitNumber;
@@ -63,7 +66,8 @@ PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
 ID: [_a-zA-Z] [_a-zA-Z0-9]*;
 OP: [!+-^*%] | '..' | '...' | '<=' | '>=' | '==' | '!=';
 
-NL: ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
+NL
+    : ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
     ;
 WS:            [ \t]+                                  -> channel(WHITESPACE);
 BLOCK_COMMENT: '/*' (BLOCK_COMMENT | .)*? '*/'         -> channel(COMMENT_CHANNEL);
