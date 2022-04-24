@@ -4,8 +4,8 @@ import { DefinitionTree } from '../../../tree/definition/definition-tree';
 import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
 import { SourceRange } from '../../../util/source-range';
 import { DeclarationScope } from '../../scope/declaration-scope';
-import { AttributeDeclarationMetadata } from '../attribute/attribute-declaration-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
+import { ParameterDeclarationMetadata } from '../parameter/parameter-declaration-metadata';
 
 export class DefinitionDeclarationMetadata implements DeclarationMetadata {
   sourceRange: SourceRange;
@@ -16,11 +16,11 @@ export class DefinitionDeclarationMetadata implements DeclarationMetadata {
     this.name = tree.name.text;
   }
 
-  attributes(): AttributeDeclarationMetadata[] {
+  attributes(): ParameterDeclarationMetadata[] {
     const attributes = {};
     (this.baseModel()?.attributes() || []).forEach((x) => (attributes[x.name] = x));
     this.tree.attributes
-      .map((x) => new AttributeDeclarationMetadata(x, this.scope))
+      .map((x) => new ParameterDeclarationMetadata(x, this.scope))
       .forEach((x) => (attributes[x.name] = x));
     return Object.values(attributes);
   }

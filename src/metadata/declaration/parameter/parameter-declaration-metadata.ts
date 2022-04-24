@@ -1,14 +1,12 @@
 import { Issue } from '../../../issue-service/issue';
 import { none, None, String } from '../../../lib/core';
 import { SingleBodyTree } from '../../../tree/body/single/single-body-tree';
-import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { ExpressionStatementTree } from '../../../tree/statement/expression/expression-statement-tree';
 import { SourceRange } from '../../../util/source-range';
 import { ExpressionMetadata } from '../../expression/expression-metadata';
 import { getExpressionMetadata } from '../../expression/expression-metadata-helper';
 import { DeclarationScope } from '../../scope/declaration-scope';
-import { AttributeDeclarationMetadata } from '../attribute/attribute-declaration-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
 
 export class ParameterDeclarationMetadata implements DeclarationMetadata {
@@ -17,7 +15,7 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
 
   constructor(private tree: ParameterTree, private scope: DeclarationScope) {
     this.sourceRange = tree.sourceRange;
-    this.name = (tree.variable as IdExpressionTree).name.text;
+    this.name = tree.name.text;
   }
 
   generics(): ExpressionMetadata[] {
@@ -44,10 +42,10 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
     } else if (this.tree.body) {
       return this.value();
     }
-    Issue.errorFromTree(this.tree, `Parameter '${this.tree.variable}' must have a type`);
+    Issue.errorFromTree(this.tree, `Parameter '${this.tree.name}' must have a type`);
   }
 
-  attributes(): AttributeDeclarationMetadata[] {
+  attributes(): ParameterDeclarationMetadata[] {
     return this.type().attributes();
   }
 
