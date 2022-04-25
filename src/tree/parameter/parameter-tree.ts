@@ -2,6 +2,7 @@
 
 import { ParameterContext } from '../../grammar/xon-parser'
 import { none, None, String } from '../../lib/core'
+import { ParameterDeclarationMetadata } from '../../metadata/declaration/parameter/parameter-declaration-metadata'
 import { getIdToken, IdToken } from '../../util/id-token'
 import { SourceRange } from '../../util/source-range'
 import { BodyTree } from '../body/body-tree'
@@ -12,6 +13,7 @@ import { Tree } from '../tree'
 
 export class ParameterTree extends Tree {
   ctx: ParameterContext
+  metadata: ParameterDeclarationMetadata
   sourceRange: SourceRange
   name: IdToken
   type?: ExpressionTree | None
