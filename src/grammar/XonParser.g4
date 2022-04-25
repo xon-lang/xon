@@ -53,17 +53,13 @@ literal
 argument: (name = ID COLON)? expression;
 
 arguments
-    : '(' (argument (',' argument)* ','?)? ')'
-    | '[' (argument (',' argument)* ','?)? ']'
-    | '{' (argument (',' argument)* ','?)? '}'
+    : ('(' | '[' | '{') (argument (',' argument)* ','?)? ('}' | ']' | ')')
     ;
 
 parameter: name = ID type = expression? body?;
 
 parameters
-    : '(' (parameter (',' parameter)* ','?)? ')'
-    | '[' (parameter (',' parameter)* ','?)? ']'
-    | '{' (parameter (',' parameter)* ','?)? '}'
+    : ('(' | '[' | '{') (parameter (',' parameter)* ','?)? ('}' | ']' | ')')
     ;
 
 body
