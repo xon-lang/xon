@@ -34,7 +34,6 @@ expression
     : PREPROCESSOR                                                        # preprocessorExpression
     | '(' expression ')'                                                  # groupExpression
     | arguments                                                           # arrayExpression
-    | literal                                                             # literalExpression
     | expression QUESTION                                                 # nullableExpression
     | expression DOT name = ID                                            # memberExpression
     | expression arguments                                                # invokeExpression
@@ -42,6 +41,7 @@ expression
     | left = expression op = (AS | IS | AND | OR | OP) right = expression # infixExpression
     | name = ID                                                           # idExpression
     | parameters type = expression? LAMBDA value = expression             # methodExpression
+    | literal                                                             # literalExpression
     ;
 
 literal
