@@ -1,25 +1,26 @@
 // this code was generated
 
-import { DefinitionContext } from '../../grammar/xon-parser'
-import { none, None, String } from '../../lib/core'
-import { DefinitionDeclarationMetadata } from '../../metadata/declaration/definition/definition-declaration-metadata'
-import { getIdToken, IdToken } from '../../util/id-token'
-import { SourceRange } from '../../util/source-range'
-import { getExpressionTree } from '../expression/expression-tree-helper'
-import { ExpressionTree } from '../expression/expression-tree'
-import { getParameterTrees } from '../parameter/parameter-tree-helper'
-import { ParameterTree } from '../parameter/parameter-tree'
-import { Tree } from '../tree'
-import { BodyTree } from '../body/body-tree'
-import { getBodyTree } from '../body/body-tree-helper'
-import { SingleBodyTree } from '../body/single/single-body-tree'
-import { ParameterStatementTree } from '../statement/parameter/parameter-statement-tree'
-import { MultipleBodyTree } from '../body/multiple/multiple-body-tree'
-import { MethodExpressionTree } from '../expression/method/method-expression-tree'
+import { none, None, String } from '../../../lib/core'
+import { DefinitionDeclarationMetadata } from '../../../metadata/declaration/definition/definition-declaration-metadata'
+import { getIdToken, IdToken } from '../../../util/id-token'
+import { SourceRange } from '../../../util/source-range'
+import { getExpressionTree } from '../../expression/expression-tree-helper'
+import { ExpressionTree } from '../../expression/expression-tree'
+import { getParameterTrees } from '../../parameter/parameter-tree-helper'
+import { ParameterTree } from '../../parameter/parameter-tree'
+import { Tree } from '../../tree'
+import { BodyTree } from '../../body/body-tree'
+import { getBodyTree } from '../../body/body-tree-helper'
+import { SingleBodyTree } from '../../body/single/single-body-tree'
+import { ParameterStatementTree } from '../parameter/parameter-statement-tree'
+import { MultipleBodyTree } from '../../body/multiple/multiple-body-tree'
+import { MethodExpressionTree } from '../../expression/method/method-expression-tree'
+import { StatementTree } from '../statement-tree'
+import { DefinitionStatementContext } from '../../../grammar/xon-parser'
 
-export class DefinitionTree extends Tree {
+export class DefinitionStatementTree extends StatementTree {
   metadata: DefinitionDeclarationMetadata
-  ctx: DefinitionContext
+  ctx: DefinitionStatementContext
   sourceRange: SourceRange
   modifier: IdToken
   name: IdToken
@@ -27,7 +28,7 @@ export class DefinitionTree extends Tree {
   base?: ExpressionTree | None
   attributes: ParameterTree[]
 
-  constructor(ctx: DefinitionContext) {
+  constructor(ctx: DefinitionStatementContext) {
     super()
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)

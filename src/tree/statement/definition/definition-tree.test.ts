@@ -1,14 +1,14 @@
-import { IssueService } from '../../issue-service/issue-service';
-import { none } from '../../lib/core';
-import { parseDefinition, parseSourceFile } from '../../util/parse';
-import { IdExpressionTree } from '../expression/id/id-expression-tree';
-import { DefinitionTree } from './definition-tree';
+import { IssueService } from '../../../issue-service/issue-service';
+import { none } from '../../../lib/core';
+import { parseSourceFile, parseStatement } from '../../../util/parse';
+import { IdExpressionTree } from '../../expression/id/id-expression-tree';
+import { DefinitionStatementTree } from './definition-tree';
 
 test('model animal', () => {
   const code = 'model Animal';
-  const tree = parseDefinition(code);
+  const tree = parseStatement(code) as DefinitionStatementTree;
 
-  expect(tree).toBeInstanceOf(DefinitionTree);
+  expect(tree).toBeInstanceOf(DefinitionStatementTree);
   expect(tree.modifier.text).toBe('model');
   expect(tree.name.text).toBe('Animal');
   expect(tree.base).toBe(null);
@@ -17,9 +17,9 @@ test('model animal', () => {
 
 test('model cat', () => {
   const code = 'model Cat Animal';
-  const tree = parseDefinition(code);
+  const tree = parseStatement(code) as DefinitionStatementTree;
 
-  expect(tree).toBeInstanceOf(DefinitionTree);
+  expect(tree).toBeInstanceOf(DefinitionStatementTree);
   expect(tree.modifier.text).toBe('model');
   expect(tree.name.text).toBe('Cat');
   expect((tree.base as IdExpressionTree).name.text).toBe('Animal');
@@ -28,9 +28,9 @@ test('model cat', () => {
 
 test('model animal with only attribute', () => {
   const code = 'model Animal\n   abc Integer';
-  const tree = parseDefinition(code);
+  const tree = parseStatement(code) as DefinitionStatementTree;
 
-  expect(tree).toBeInstanceOf(DefinitionTree);
+  expect(tree).toBeInstanceOf(DefinitionStatementTree);
   expect(tree.modifier.text).toBe('model');
   expect(tree.name.text).toBe('Animal');
   expect(tree.base).toBe(none);
@@ -42,14 +42,14 @@ test('model animal with only attribute', () => {
 test('1-error.xon', () => {
   IssueService.issues = [];
   try {
-    const tree = parseSourceFile('src/tree/definition/test-files/1-error.xon');
-    expect(tree.definitions[0]).toBeInstanceOf(DefinitionTree);
+    const tree = parseSourceFile('src/tree/statement/definition/test-files/1-error.xon');
+    expect(tree.statements[0]).toBeInstanceOf(DefinitionStatementTree);
   } catch (error) {
     const issue = IssueService.issues.slice(-1)[0];
     console.log(issue.error());
 
-    expect(issue.source.start.line).toBe(1);
-    expect(issue.source.start.column).toBe(1);
+    expect(issue.source.start.line).toBe(3);
+    expect(issue.source.start.column).toBe(21);
     expect(issue.source.stop.column).toBe(27);
   }
   expect(IssueService.issues.length).toBe(2);
@@ -58,8 +58,8 @@ test('1-error.xon', () => {
 test('2-error.xon', () => {
   IssueService.issues = [];
   try {
-    const tree = parseSourceFile('src/tree/definition/test-files/2-error.xon');
-    expect(tree.definitions[0]).toBeInstanceOf(DefinitionTree);
+    const tree = parseSourceFile('src/tree/statement/definition/test-files/2-error.xon');
+    expect(tree.statements[0]).toBeInstanceOf(DefinitionStatementTree);
   } catch (error) {
     const issue = IssueService.issues.slice(-1)[0];
     console.log(issue.error());
