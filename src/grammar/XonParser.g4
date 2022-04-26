@@ -5,29 +5,22 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: ( definition | statement | NL)*;
-
-definition
-    : modifier = ID name = ID parameters? expression? (
-        NL INDENT (parameter | NL)+ DEDENT
-    )?
-    ;
+source: ( statement | NL)*;
 
 statement
-    : IMPORT path = expression (
-        COLON members += expression (',' members += expression)* ','?
-    )?                                                                     # importStatement
-    | EXPORT path = expression                                             # exportStatement
-    | FOR (value = parameter (',' index = parameter)? ID)? expression body # forStatement
-    | WHILE expression body                                                # whileStatement
-    | DO body WHILE expression                                             # doWhileStatement
-    | IF expression thenBody = body (ELSE elseBody = body)?                # ifStatement
-    | BREAK                                                                # breakStatement
-    | CONTINUE                                                             # continueStatement
-    | RETURN expression?                                                   # returnStatement
-    | ACTUAL actual = expression NL+ EXPECT expect = expression            # assertStatement
-    | expression                                                           # expressionStatement
-    | parameter                                                            # parameterStatement
+    : modifier = ID name = ID parameters? expression? (NL INDENT (parameter | NL)+ DEDENT)?     # definitionStatement
+    | IMPORT path = expression (COLON members += expression (',' members += expression)* ','?)? # importStatement
+    | EXPORT path = expression                                                                  # exportStatement
+    | FOR (value = parameter (',' index = parameter)? ID)? expression body                      # forStatement
+    | WHILE expression body                                                                     # whileStatement
+    | DO body WHILE expression                                                                  # doWhileStatement
+    | IF expression thenBody = body (ELSE elseBody = body)?                                     # ifStatement
+    | BREAK                                                                                     # breakStatement
+    | CONTINUE                                                                                  # continueStatement
+    | RETURN expression?                                                                        # returnStatement
+    | ACTUAL actual = expression NL+ EXPECT expect = expression                                 # assertStatement
+    | expression                                                                                # expressionStatement
+    | parameter                                                                                 # parameterStatement
     ;
 
 expression
@@ -52,17 +45,10 @@ literal
 
 argument: (name = ID COLON)? expression;
 
-arguments
-    : ('(' | '[' | '{') (argument (',' argument)* ','?)? ('}' | ']' | ')')
-    ;
+arguments: ('(' | '[' | '{') (argument (',' argument)* ','?)? ('}' | ']' | ')');
 
 parameter: name = ID type = expression? body?;
 
-parameters
-    : ('(' | '[' | '{') (parameter (',' parameter)* ','?)? ('}' | ']' | ')')
-    ;
+parameters: ('(' | '[' | '{') (parameter (',' parameter)* ','?)? ('}' | ']' | ')');
 
-body
-    : (ASSIGN | COLON) statement         # singleBody
-    | NL INDENT (statement | NL)+ DEDENT # multipleBody
-    ;
+body: (ASSIGN | COLON) statement # singleBody | NL INDENT (statement | NL)+ DEDENT # multipleBody;

@@ -39,8 +39,8 @@ IF:       'if';
 IMPORT:   'import';
 // MODEL:    'model';
 // OBJECT:   'object';
-RETURN:   'return';
-WHILE:    'while';
+RETURN: 'return';
+WHILE:  'while';
 
 AND: 'and';
 AS:  'as';
@@ -54,10 +54,7 @@ DOT:      (NL | WS)* '.' (NL | WS)*;
 COLON:    (NL | WS)* ':' (NL | WS)*;
 LAMBDA:   (NL | WS)* '=>' (NL | WS)*;
 
-FLOAT_LITERAL
-    : Radix AlphabetNumber '.' AlphabetNumber
-    | DigitNumber '.' DigitNumber
-    ;
+FLOAT_LITERAL:   Radix AlphabetNumber '.' AlphabetNumber | DigitNumber '.' DigitNumber;
 INTEGER_LITERAL: Radix AlphabetNumber | DigitNumber;
 STRING_LITERAL:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 
@@ -66,9 +63,7 @@ PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
 ID: [_a-zA-Z] [_a-zA-Z0-9]*;
 OP: [!+-^*%] | '..' | '...' | '<=' | '>=' | '==' | '!=';
 
-NL
-    : ({this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()}
-    ;
+NL:            (                                       {this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()};
 WS:            [ \t]+                                  -> channel(WHITESPACE);
 BLOCK_COMMENT: '/*' (BLOCK_COMMENT | .)*? '*/'         -> channel(COMMENT_CHANNEL);
 LINE_COMMENT:  '--' ~[\r\n]*                           -> channel(COMMENT_CHANNEL);
