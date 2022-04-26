@@ -1,7 +1,7 @@
 import { Issue } from '../../../issue-service/issue';
 import { none, None } from '../../../lib/core';
-import { DefinitionTree } from '../../../tree/definition/definition-tree';
 import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
+import { DefinitionStatementTree } from '../../../tree/statement/definition/definition-tree';
 import { SourceRange } from '../../../util/source-range';
 import { DeclarationScope } from '../../scope/declaration-scope';
 import { DeclarationMetadata } from '../declaration-metadata';
@@ -11,7 +11,7 @@ export class DefinitionDeclarationMetadata implements DeclarationMetadata {
   sourceRange: SourceRange;
   name: string;
 
-  constructor(private tree: DefinitionTree, private scope: DeclarationScope) {
+  constructor(private tree: DefinitionStatementTree, private scope: DeclarationScope) {
     this.sourceRange = tree.sourceRange;
     this.name = tree.name.text;
   }

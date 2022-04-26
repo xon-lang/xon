@@ -1,7 +1,7 @@
 import { Issue } from '../../issue-service/issue';
 import { none } from '../../lib/core';
-import { DefinitionTree } from '../../tree/definition/definition-tree';
 import { ParameterTree } from '../../tree/parameter/parameter-tree';
+import { DefinitionStatementTree } from '../../tree/statement/definition/definition-tree';
 import { StatementTree } from '../../tree/statement/statement-tree';
 import { Tree } from '../../tree/tree';
 import { DeclarationScope } from '../scope/declaration-scope';
@@ -16,7 +16,7 @@ export const getDeclarationMetadata = (
   if (!tree) return none;
 
   if (tree instanceof ParameterTree) return new ParameterDeclarationMetadata(tree, scope);
-  if (tree instanceof DefinitionTree) return new DefinitionDeclarationMetadata(tree, scope);
+  if (tree instanceof DefinitionStatementTree) return new DefinitionDeclarationMetadata(tree, scope);
 
   Issue.errorFromTree(tree, `Expression tree not found for "${tree.constructor.name}"`);
 };
