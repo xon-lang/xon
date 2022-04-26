@@ -1,10 +1,6 @@
 import abc: a, b, c
 
 a = 1213
-#{1  sd
-f 2 sdf
-34}
-
 object someObjectFactory(name String)
   attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').join('\n\n').member
   attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').replace(
@@ -18,5 +14,7 @@ object someObjectFactory(name String)
 f 2 sdf
 34}
   abc Integer
-
 model Array
+#{1  sd
+f 2 sdf
+34}

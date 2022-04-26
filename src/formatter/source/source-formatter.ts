@@ -1,6 +1,5 @@
 import { ImportStatementContext, SourceContext } from '../../grammar/xon-parser';
 import { String } from '../../lib/core';
-import { getDefinitionFormatter } from '../definition/definition-formatter-helper';
 import { getExpressionFormatter } from '../expression/expression-formatter-helper';
 import { Formatter } from '../formatter';
 import { FormatterConfig } from '../formatter-config';
@@ -36,20 +35,13 @@ export class SourceFormatter extends Formatter {
       )
       .join(this.config.nl);
 
-    const otherStatements = this.ctx
+    const statements = this.ctx
       .statement()
       .filter((x) => !(x instanceof ImportStatementContext))
       .map((x) => getStatementFormatter(x, this.config))
       .join(this.config.nl);
 
-    const definitions = this.ctx
-      .definition()
-      .map((x) => getDefinitionFormatter(x, this.config))
-      .join(this.config.nl2);
-
-    const result = [uniqueImportStatements, otherStatements, definitions]
-      .filter((x) => x)
-      .join(this.config.nl2);
+    const result = [uniqueImportStatements, statements].filter((x) => x).join(this.config.nl2);
     return (result && result + this.config.nl) || '';
   }
 }
