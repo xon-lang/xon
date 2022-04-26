@@ -1,12 +1,12 @@
 import '../../grammar/xon-parser': FloatLiteralContext, IntegerLiteralContext, LiteralContext, StringLiteralContext
 import '../../issue-service/issue': Issue
-import '../../lib/core': none
+import '../../lib/core': Never, none
 import './float/float-literal-tree': FloatLiteralTree
 import './integer/integer-literal-tree': IntegerLiteralTree
 import './literal-tree': LiteralTree
 import './string/string-literal-tree': StringLiteralTree
 
-getLiteralTree(ctx LiteralContext) LiteralTree
+getLiteralTree (ctx LiteralContext) => LiteralTree or Never
   #{if (!ctx) return none;}
   #{if (ctx instanceof FloatLiteralContext) return new FloatLiteralTree(ctx);}
   #{if (ctx instanceof IntegerLiteralContext) return new IntegerLiteralTree(ctx);}

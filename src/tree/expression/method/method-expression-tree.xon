@@ -13,10 +13,9 @@ object MethodExpressionTree(ctx MethodExpressionContext) ExpressionTree
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   hasBracket Boolean = !!ctx.parameters().OPEN_BRACKET()
   hasParen Boolean = !!ctx.parameters().OPEN_PAREN()
-  parameters ParameterTree[] = [] = getParameterTrees(ctx.parameters().parameter())
+  parameters ParameterTree[] = getParameterTrees(ctx.parameters().parameter())
   value ExpressionTree = getExpressionTree(ctx._value)
-
-  toString() String
+  toString () => String
     if this.hasBracket
       return #{`[${this.parameters.join(', ')}] => ${this.value}`}
     return #{`(${this.parameters.join(', ')}) => ${this.value}`}

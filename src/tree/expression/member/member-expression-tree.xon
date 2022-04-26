@@ -12,5 +12,4 @@ object MemberExpressionTree(ctx MemberExpressionContext) ExpressionTree
   sourceRange SourceRange: SourceRange.fromContext(ctx)
   instance ExpressionTree: getExpressionTree(ctx.expression())
   name IdToken: getIdToken(ctx._name)
-
-  toString() => String: #{`${this.instance}.${this.name}`}
+  toString: () => #{`${this.instance}.${this.name}`}

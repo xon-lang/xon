@@ -14,7 +14,7 @@ import 'antlr4ts': CharStreams, CommonTokenStream
 
 #{import * as fs from 'fs'}
 
-parse(code String, sourceName String = undefined) XonParser
+parse (code String, sourceName String = undefined) => XonParser
   inputStream = CharStreams.fromString(code, sourceName)
   lexer = #{new XonLexer(inputStream)}
   lexer.removeErrorListeners()
@@ -25,24 +25,24 @@ parse(code String, sourceName String = undefined) XonParser
   parser.addErrorListener(#{new ThrowingErrorListener()})
   return parser
 
-parseSourceFile(sourceName String)
+parseSourceFile (sourceName String) => None
   code = fs.readFileSync(sourceName).toString()
   return getSourceTree(parse(code, sourceName).source())
 
-parseLiteral(code String) = getLiteralTree(parse(code).literal())
+parseLiteral: (code String) => getLiteralTree(parse(code).literal())
 
-parseExpression(code String) = getExpressionTree(parse(code).expression())
+parseExpression: (code String) => getExpressionTree(parse(code).expression())
 
-parseStatement(code String) = getStatementTree(parse(code).statement())
+parseStatement: (code String) => getStatementTree(parse(code).statement())
 
-parseArgument(code String) = getArgumentTree(parse(code).argument())
+parseArgument: (code String) => getArgumentTree(parse(code).argument())
 
-parseParameter(code String) = getParameterTree(parse(code).parameter())
+parseParameter: (code String) => getParameterTree(parse(code).parameter())
 
-parseBody(code String) = getBodyTree(parse(code).body())
+parseBody: (code String) => getBodyTree(parse(code).body())
 
-parseAttribute(code String) = getAttributeTree(parse(code).attribute())
+parseAttribute: (code String) => getAttributeTree(parse(code).attribute())
 
-parseDefinition(code String) = getDefinitionTree(parse(code).definition())
+parseDefinition: (code String) => getDefinitionTree(parse(code).definition())
 
-parseSource(code String) = getSourceTree(parse(code).source())
+parseSource: (code String) => getSourceTree(parse(code).source())

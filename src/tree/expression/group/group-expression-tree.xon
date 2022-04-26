@@ -10,5 +10,4 @@ object GroupExpressionTree(ctx GroupExpressionContext) ExpressionTree
   ctx GroupExpressionContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   expression ExpressionTree = getExpressionTree(ctx.expression())
-
-  toString() String = #{`(${this.expression})`}
+  toString: () => #{`(${this.expression})`}

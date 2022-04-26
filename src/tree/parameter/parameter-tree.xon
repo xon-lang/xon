@@ -17,8 +17,7 @@ object ParameterTree(ctx ParameterContext) Tree
   variable ExpressionTree = getExpressionTree(ctx._variable)
   type ExpressionTree? = getExpressionTree(ctx._type)
   body BodyTree? = getBodyTree(ctx.body())
-
-  toString() String
+  toString () => String
     type = this.type?.toString() or ''
     if type and !(this.type is MethodExpressionTree)
       type = ' ' + type

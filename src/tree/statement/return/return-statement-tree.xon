@@ -9,5 +9,4 @@ object ReturnStatementTree(ctx ReturnStatementContext) StatementTree
   ctx ReturnStatementContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   value ExpressionTree? = ctx.expression() and getExpressionTree(ctx.expression())
-
-  toString() String = this.value and #{`return ${this.value}`} or 'return'
+  toString: () => this.value and #{`return ${this.value}`} or 'return'

@@ -10,5 +10,4 @@ object AssertStatementTree(ctx AssertStatementContext) StatementTree
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   actualExpression ExpressionTree = getExpressionTree(ctx.expression(0))
   expectExpression ExpressionTree = getExpressionTree(ctx.expression(1))
-
-  toString() String = #{`actual ${this.actualExpression}\nexpect ${this.expectExpression}`}
+  toString () => #{`actual ${this.actualExpression}\nexpect ${this.expectExpression}`}

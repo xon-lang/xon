@@ -11,5 +11,4 @@ object ArrayExpressionTree(ctx ArrayExpressionContext) ExpressionTree
   ctx ArrayExpressionContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   parameters ParameterTree[] = getParameterTrees(ctx.parameters().parameter())
-
-  toString() String = #{`[${this.parameters.join(', ')}]`}
+  toString: () => #{`[${this.parameters.join(', ')}]`}

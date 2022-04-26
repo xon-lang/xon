@@ -13,5 +13,4 @@ object IfStatementTree(ctx IfStatementContext) StatementTree
   condition ExpressionTree = getExpressionTree(ctx.expression())
   thenBody BodyTree = getBodyTree(ctx._thenBody)
   elseBody BodyTree? = getBodyTree(ctx._elseBody)
-
-  toString() String = #{`if ${this.condition}${this.thenBody}${(this.elseBody && '\nelse' + this.elseBody) || ''}`}
+  toString: () => #{`if ${this.condition}${this.thenBody}${(this.elseBody && '\nelse' + this.elseBody) || ''}`}

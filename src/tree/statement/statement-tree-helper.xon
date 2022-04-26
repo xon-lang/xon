@@ -12,7 +12,7 @@ import './return/return-statement-tree': ReturnStatementTree
 import './statement-tree': StatementTree
 import './while/while-statement-tree': WhileStatementTree
 
-getStatementTree(ctx StatementContext) StatementTree
+getStatementTree (ctx StatementContext) => StatementTree
   if !ctx
     return none
   if ctx is AssertStatementContext
@@ -35,5 +35,5 @@ getStatementTree(ctx StatementContext) StatementTree
     return #{new WhileStatementTree(ctx)}
   Issue.errorFromContext(ctx, #{`Statement tree not found for '${ctx.constructor.name}'`})
 
-getStatementTrees(contexts) StatementTree[]
+getStatementTrees (contexts) => StatementTree[]
   return contexts?.map(getStatementTree) or []

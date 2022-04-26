@@ -12,5 +12,4 @@ object WhileStatementTree(ctx WhileStatementContext) StatementTree
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   expression ExpressionTree = getExpressionTree(ctx.expression())
   body BodyTree = getBodyTree(ctx.body())
-
-  toString() String = #{`while ${this.expression}${this.body}`}
+  toString: () => #{`while ${this.expression}${this.body}`}

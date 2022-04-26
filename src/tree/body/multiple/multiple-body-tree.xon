@@ -7,11 +7,10 @@ import '../../statement/statement-tree-helper': getStatementTrees
 import '../../statement/statement-tree': StatementTree
 import '../body-tree': BodyTree
 
-object MultipleBodyTree(ctx MultipleBodyContext) BodyTree
+object MultipleBodyTree (ctx MultipleBodyContext) => BodyTree
   ctx MultipleBodyContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   statements StatementTree[] = getStatementTrees(ctx.statement())
-
-  toString() String = '\n' + this.statements.map(
+  toString () => '\n' + this.statements.map(
     (x) => x is ExpressionStatementTree and x.expression is PreprocessorExpressionTree and '  ' + x or x.toString().replace(#{/^(.+)/gm}, '  $1')
   ).join('\n')

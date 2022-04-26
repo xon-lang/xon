@@ -13,5 +13,4 @@ object ParameterStatementTree(ctx ParameterStatementContext) StatementTree
   ctx ParameterStatementContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   parameter ParameterTree = getParameterTree(ctx.parameter())
-
-  toString() String = this.parameter.toString()
+  toString: () => this.parameter.toString()

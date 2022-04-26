@@ -3,5 +3,4 @@ import '../util/source-range': SourceRange
 
 model Tree
   sourceRange SourceRange
-
-  toString() String
+  toString () => String

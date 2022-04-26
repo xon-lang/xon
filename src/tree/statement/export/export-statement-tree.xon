@@ -9,5 +9,4 @@ object ExportStatementTree(ctx ExportStatementContext) StatementTree
   ctx ExportStatementContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   path ExpressionTree = getExpressionTree(ctx._path)
-
-  toString() String = #{`export ${this.path}`}
+  toString () => #{`export ${this.path}`}

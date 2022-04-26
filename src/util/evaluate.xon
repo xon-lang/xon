@@ -8,9 +8,9 @@ import '../tree/expression/infix/infix-expression-tree': InfixExpressionTree
 import '../tree/expression/literal/literal-expression-tree': LiteralExpressionTree
 import '../tree/expression/prefix/prefix-expression-tree': PrefixExpressionTree
 
-_escapeIfString(s Unknown) = s is String and #{`\`${s}\``} or s
+_escapeIfString (s Unknown) => String: s is String and #{`\`${s}\``} or s
 
-evaluate(tree ExpressionTree, argsMap = #{{}}) Unknown
+evaluate (tree ExpressionTree, argsMap = #{{}}) => Unknown
   if !tree: return none
   if tree is ArrayExpressionTree: return tree.parameters.map((x) => evaluate(x.variable))
   if tree is LiteralExpressionTree: return tree.literal.value

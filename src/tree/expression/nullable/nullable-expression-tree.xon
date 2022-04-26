@@ -10,5 +10,4 @@ object NullableExpressionTree(ctx NullableExpressionContext) ExpressionTree
   ctx NullableExpressionContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   value ExpressionTree = getExpressionTree(ctx.expression())
-
-  toString() String = this.value.toString() + '?'
+  toString: () => this.value.toString() + '?'

@@ -14,7 +14,6 @@ object ForStatementTree(ctx ForStatementContext) StatementTree
   indexVarName String? = ctx._index?.text or none
   expression ExpressionTree = getExpressionTree(ctx.expression())
   body BodyTree = getBodyTree(ctx.body())
-
-  toString() String
+  toString () => String
     vars = [this.valueVarName, this.indexVarName].filter((x) => x).join(', ')
     return #{`for ${(vars && vars + ' in ') || ''}${this.expression}\n${this.body}`}

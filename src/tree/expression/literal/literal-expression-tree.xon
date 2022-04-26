@@ -11,5 +11,4 @@ object LiteralExpressionTree(ctx LiteralExpressionContext) ExpressionTree
   ctx LiteralExpressionContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   literal LiteralTree = ctx and getLiteralTree(ctx.literal())
-
-  toString() String = this.literal.sourceRange.rangeText
+  toString: () => this.literal.sourceRange.rangeText

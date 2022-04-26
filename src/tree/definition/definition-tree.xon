@@ -20,8 +20,7 @@ object DefinitionTree(ctx DefinitionContext) Tree
   parameters ParameterTree[] = getParameterTrees(ctx.parameters()?.parameter()) or none
   base ExpressionTree? = getExpressionTree(ctx.expression()) or none
   attributes AttributeTree[] = getAttributeTrees(ctx.attribute())
-
-  toString() String
+  toString () => String
     modifier = this.modifier.text
     base = (this.base and ' ' + this.base) or ''
     parameters = this.ctx.parameters() and #{`(${this.parameters.join(', ')})`} or ''

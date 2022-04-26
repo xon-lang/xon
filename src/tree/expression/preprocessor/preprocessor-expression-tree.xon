@@ -9,5 +9,4 @@ object PreprocessorExpressionTree(ctx PreprocessorExpressionContext) ExpressionT
   ctx PreprocessorExpressionContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   value String = ctx.PREPROCESSOR().text.trim().slice(2, -1)
-
-  toString() String = #{`#{${this.value}}`}
+  toString: () => #{`#{${this.value}}`}

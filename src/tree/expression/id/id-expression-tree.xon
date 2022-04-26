@@ -10,5 +10,4 @@ object IdExpressionTree(ctx IdExpressionContext) ExpressionTree
   ctx IdExpressionContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   name IdToken = getIdToken(ctx._name)
-
-  toString() String = this.name.toString()
+  toString: () => this.name.toString()
