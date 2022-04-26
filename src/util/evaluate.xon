@@ -9,7 +9,6 @@ import '../tree/expression/literal/literal-expression-tree': LiteralExpressionTr
 import '../tree/expression/prefix/prefix-expression-tree': PrefixExpressionTree
 
 _escapeIfString (s Unknown) => String: s is String and #{`\`${s}\``} or s
-
 evaluate (tree ExpressionTree, argsMap = #{{}}) => Unknown
   if !tree: return none
   if tree is ArrayExpressionTree: return tree.parameters.map((x) => evaluate(x.variable))
