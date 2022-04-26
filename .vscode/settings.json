@@ -1,4 +1,10 @@
 {
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   // antlr4
   "antlr4.format": {
     "alignActions": true,
@@ -13,7 +19,7 @@
     "allowShortRulesOnASingleLine": true,
     "breakBeforeBraces": false,
     "breakBeforeParens": false,
-    "columnLimit": 120,
+    "columnLimit": 150,
     "continuationIndentWidth": 4,
     "groupedAlignments": true,
     "indentWidth": 4,
@@ -30,32 +36,33 @@
   "antlr4.generation": {
     "mode": "internal"
   },
+  "cSpell.words": [
+    "bfnrtv",
+    "codacy",
+    "PAREN",
+    "pinst",
+    "postpublish",
+    "postversion"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  },
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "files.autoSave": "afterDelay",
+  "search.exclude": {
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "**/package-lock.json": true
+  },
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.tsc.autoDetect": "off",
+  "typescript.tsdk": "./node_modules/typescript/lib",
   // editor
   "workbench.colorCustomizations": {
     "statusBar.background": "#054f6d"
-  },
-  "editor.tabSize": 2,
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": true,
-    "source.fixAll": true
-  },
-  "files.autoSave": "afterDelay",
-  "typescript.preferences.importModuleSpecifier": "relative",
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "search.exclude": {
-    "**/.git": true,
-    "**/node_modules": true,
-    "**/.DS_Store": true,
-    "**/dist": true,
-    "**/package-lock.json": true
-  },
-  "typescript.tsdk": "./node_modules/typescript/lib",
-  "typescript.tsc.autoDetect": "off",
-  "cSpell.words": ["bfnrtv", "codacy", "PAREN", "pinst", "postpublish", "postversion"]
+  }
 }
