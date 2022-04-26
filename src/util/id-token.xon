@@ -3,7 +3,6 @@ import './source-range': SourceRange
 import 'antlr4ts': Token
 
 getIdToken: (token Token?) => token and #{new IdToken(token)} or none
-
 object IdToken(token Token)
   sourceRange SourceRange: SourceRange.fromToken(token)
   text String: token.text
