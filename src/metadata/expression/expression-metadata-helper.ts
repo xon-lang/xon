@@ -1,13 +1,13 @@
 import { Issue } from '../../issue-service/issue';
 import { ArrayExpressionTree } from '../../tree/expression/array/array-expression-tree';
 import { ExpressionTree } from '../../tree/expression/expression-tree';
+import { GroupExpressionTree } from '../../tree/expression/group/group-expression-tree';
 import { IdExpressionTree } from '../../tree/expression/id/id-expression-tree';
 import { InfixExpressionTree } from '../../tree/expression/infix/infix-expression-tree';
 import { InvokeExpressionTree } from '../../tree/expression/invoke/invoke-expression-tree';
 import { LiteralExpressionTree } from '../../tree/expression/literal/literal-expression-tree';
 import { MemberExpressionTree } from '../../tree/expression/member/member-expression-tree';
 import { MethodExpressionTree } from '../../tree/expression/method/method-expression-tree';
-import { GroupExpressionTree } from '../../tree/expression/group/group-expression-tree';
 import { PrefixExpressionTree } from '../../tree/expression/prefix/prefix-expression-tree';
 import { DeclarationScope } from '../scope/declaration-scope';
 import { ArrayExpressionMetadata } from './array/array-expression-metadata';
@@ -25,8 +25,7 @@ export function getExpressionMetadata(
   scope: DeclarationScope,
 ): ExpressionMetadata {
   try {
-    if (tree instanceof GroupExpressionTree)
-      return getExpressionMetadata(tree.expression, scope);
+    if (tree instanceof GroupExpressionTree) return getExpressionMetadata(tree.expression, scope);
     if (tree instanceof ArrayExpressionTree) return new ArrayExpressionMetadata(tree, scope);
     if (tree instanceof IdExpressionTree) return new IdExpressionMetadata(tree, scope);
     if (tree instanceof InfixExpressionTree) return new InfixExpressionMetadata(tree, scope);
@@ -35,6 +34,8 @@ export function getExpressionMetadata(
     if (tree instanceof MemberExpressionTree) return new MemberExpressionMetadata(tree, scope);
     if (tree instanceof MethodExpressionTree) return new MethodExpressionMetadata(tree, scope);
     if (tree instanceof PrefixExpressionTree) return new PrefixExpressionMetadata(tree, scope);
+
+    throw `Expression metadata not found for '${tree.constructor.name}'`;
   } catch (error) {
     Issue.errorFromTree(tree, error.toString());
   }
