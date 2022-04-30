@@ -7,8 +7,10 @@ import { ImportStatementTree } from '../statement/import/import-statement-tree'
 import { getStatementTrees } from '../statement/statement-tree-helper'
 import { StatementTree } from '../statement/statement-tree'
 import { Tree } from '../tree'
+import { SourceMetadata } from '../../metadata/source/source-metadata'
 
 export class SourceTree extends Tree {
+  metadata: SourceMetadata
   ctx: SourceContext
   sourceRange: SourceRange
   statements: StatementTree[]

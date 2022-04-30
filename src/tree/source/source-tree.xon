@@ -9,8 +9,10 @@ import '../statement/import/import-statement-tree': ImportStatementTree
 import '../statement/statement-tree-helper': getStatementTrees
 import '../statement/statement-tree': StatementTree
 import '../tree': Tree
+import '../../metadata/source/source-metadata': SourceMetadata
 
 object SourceTree(ctx SourceContext) Tree
+  metadata SourceMetadata
   ctx SourceContext = ctx
   sourceRange SourceRange = SourceRange.fromContext(ctx)
   statements StatementTree[] = getStatementTrees(ctx.statement())
