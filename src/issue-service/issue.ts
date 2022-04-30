@@ -19,12 +19,13 @@ export class Issue {
         this.source.start.line - 1
       ];
     }
-    let message = '';
-    if (this.level === IssueLevel.error) {
-      message = chalk.redBright('error - ' + this.message);
-    } else if (this.level === IssueLevel.warning) {
-      message = chalk.yellowBright('warning - ' + this.message);
-    }
+    const message = chalk.redBright(this.message);
+    //   let message = '';
+    // if (this.level === IssueLevel.error) {
+    //   message = chalk.redBright('error - ' + this.message);
+    // } else if (this.level === IssueLevel.warning) {
+    //   message = chalk.yellowBright('warning - ' + this.message);
+    // }
     const source = chalk.cyan(this.source.sourceName);
     const line = chalk.cyan(':' + this.source.start.line);
     const column = chalk.cyan(':' + this.source.start.column);
