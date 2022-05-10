@@ -9,7 +9,7 @@ export class PrefixExpressionFormatter extends ExpressionFormatter {
   }
 
   toString() {
-    const operator = this.ctx._op.text;
+    const operator = (this.ctx.OP() && this.ctx._op.text) || this.ctx._op.text + ' ';
     const value = getExpressionFormatter(this.ctx.expression(), this.config)
       .indent(this.indentCount)
       .break(this.broken);
