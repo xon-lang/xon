@@ -9,7 +9,6 @@ source: ( statement | NL)*;
 
 statement
     : modifier = ID name = ID parameters? expression? (NL INDENT (parameter | NL)+ DEDENT)?     # definitionStatement
-    | IMPORT path = expression (COLON members += expression (',' members += expression)* ','?)? # importStatement
     | EXPORT path = expression                                                                  # exportStatement
     | FOR (value = parameter (',' index = parameter)? ID)? expression body                      # forStatement
     | WHILE expression body                                                                     # whileStatement
@@ -30,7 +29,7 @@ expression
     | expression QUESTION                                                 # nullableExpression
     | expression DOT name = ID                                            # memberExpression
     | expression arguments                                                # invokeExpression
-    | op = OP expression                                                  # prefixExpression
+    | op = (OP | IMPORT) expression                                       # prefixExpression
     | left = expression op = (AS | IS | AND | OR | OP) right = expression # infixExpression
     | name = ID                                                           # idExpression
     | parameters type = expression? LAMBDA value = expression             # methodExpression
