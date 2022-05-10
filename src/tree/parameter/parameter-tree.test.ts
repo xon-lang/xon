@@ -109,9 +109,9 @@ test('paren parameters', () => {
 });
 
 test('brace parameters', () => {
-  const code = `{a, b, c}: {a:1, b:2 ,c:3}`;
+  const code = `{a, b, c}: import lib.abc`;
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('{a, b, c}: {a: 1, b: 2, c: 3}');
+  expect(tree.toString()).toBe('{a, b, c}: import lib.abc');
 });

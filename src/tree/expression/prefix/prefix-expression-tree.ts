@@ -14,7 +14,7 @@ export class PrefixExpressionTree extends ExpressionTree {
   name: IdToken
   value: ExpressionTree
 
-  constructor(ctx: PrefixExpressionContext) {
+  constructor(private ctx: PrefixExpressionContext) {
     super()
     this.sourceRange = SourceRange.fromContext(ctx)
     this.name = getIdToken(ctx._op)
@@ -22,7 +22,9 @@ export class PrefixExpressionTree extends ExpressionTree {
   }
 
   toString(): String {
-    return `${this.name}${this.value}`
+    let name
+    name = this.ctx.OP() && this.name || this.name + ' '
+    return `${name}${this.value}`
   }
 }
 

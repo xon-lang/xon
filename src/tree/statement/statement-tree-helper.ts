@@ -1,6 +1,6 @@
 // this code was generated
 
-import { AssertStatementContext, DefinitionStatementContext, ExportStatementContext, ExpressionStatementContext, ForStatementContext, IfStatementContext, ImportStatementContext, ParameterStatementContext, ReturnStatementContext, StatementContext, WhileStatementContext } from '../../grammar/xon-parser'
+import { AssertStatementContext, DefinitionStatementContext, ExportStatementContext, ExpressionStatementContext, ForStatementContext, IfStatementContext, ParameterStatementContext, ReturnStatementContext, StatementContext, WhileStatementContext } from '../../grammar/xon-parser'
 import { Issue } from '../../issue-service/issue'
 import { none } from '../../lib/core'
 import { AssertStatementTree } from './assert/assert-statement-tree'
@@ -9,7 +9,6 @@ import { ExportStatementTree } from './export/export-statement-tree'
 import { ExpressionStatementTree } from './expression/expression-statement-tree'
 import { ForStatementTree } from './for/for-statement-tree'
 import { IfStatementTree } from './if/if-statement-tree'
-import { ImportStatementTree } from './import/import-statement-tree'
 import { ParameterStatementTree } from './parameter/parameter-statement-tree'
 import { ReturnStatementTree } from './return/return-statement-tree'
 import { StatementTree } from './statement-tree'
@@ -36,9 +35,6 @@ export function getStatementTree(ctx: StatementContext): StatementTree {
   }
   if (ctx instanceof IfStatementContext) {
     return new IfStatementTree(ctx)
-  }
-  if (ctx instanceof ImportStatementContext) {
-    return new ImportStatementTree(ctx)
   }
   if (ctx instanceof ReturnStatementContext) {
     return new ReturnStatementTree(ctx)
