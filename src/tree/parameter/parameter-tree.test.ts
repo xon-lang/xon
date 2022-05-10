@@ -83,3 +83,35 @@ a
   expect(tree).toBeInstanceOf(ParameterTree);
   expect(tree.toString()).toBe(code);
 });
+
+test('bracket parameter with type', () => {
+  const code = `[a] Integer[] = [1, 2 ,3]`;
+  const tree = parseParameter(code);
+
+  expect(tree).toBeInstanceOf(ParameterTree);
+  expect(tree.toString()).toBe('[a] Integer[] = [1, 2, 3]');
+});
+
+test('bracket parameter without type', () => {
+  const code = `[a] = [1, 2 ,3]`;
+  const tree = parseParameter(code);
+
+  expect(tree).toBeInstanceOf(ParameterTree);
+  expect(tree.toString()).toBe('[a] = [1, 2, 3]');
+});
+
+test('paren parameters', () => {
+  const code = `(a, b, c) = [1, 2 ,3]`;
+  const tree = parseParameter(code);
+
+  expect(tree).toBeInstanceOf(ParameterTree);
+  expect(tree.toString()).toBe('(a, b, c) = [1, 2, 3]');
+});
+
+test('brace parameters', () => {
+  const code = `{a, b, c}: {a:1, b:2 ,c:3}`;
+  const tree = parseParameter(code);
+
+  expect(tree).toBeInstanceOf(ParameterTree);
+  expect(tree.toString()).toBe('{a, b, c}: {a: 1, b: 2, c: 3}');
+});

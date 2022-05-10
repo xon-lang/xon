@@ -24,7 +24,9 @@ export class ArrayExpressionTree extends ExpressionTree {
   }
 
   toString(): String {
-    return `[${this.arguments.join(', ')}]`
+    return this.ctx.arguments()._open.text
+      + this.arguments.join(', ')
+      + this.ctx.arguments()._close.text
   }
 }
 

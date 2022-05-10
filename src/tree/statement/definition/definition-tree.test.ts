@@ -49,7 +49,7 @@ test('1-error.xon', () => {
     console.log(issue.error());
 
     expect(issue.source.start.line).toBe(3);
-    expect(issue.source.start.column).toBe(21);
+    expect(issue.source.start.column).toBe(7);
     expect(issue.source.stop.column).toBe(27);
   }
   expect(IssueService.issues.length).toBe(2);

@@ -10,12 +10,14 @@ import { getBodyTree } from '../body/body-tree-helper'
 import { ExpressionTree } from '../expression/expression-tree'
 import { getExpressionTree } from '../expression/expression-tree-helper'
 import { Tree } from '../tree'
+import { getParameterTrees } from './parameter-tree-helper'
 
 export class ParameterTree extends Tree {
   ctx: ParameterContext
   metadata: ParameterDeclarationMetadata
   sourceRange: SourceRange
-  name: IdToken
+  name?: IdToken
+  parameters: ParameterTree[]
   type?: ExpressionTree | None
   body?: BodyTree | None
 
@@ -24,15 +26,20 @@ export class ParameterTree extends Tree {
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
     this.name = getIdToken(ctx._name)
+    this.parameters = getParameterTrees(ctx.parameters()?.parameter())
     this.type = getExpressionTree(ctx.expression()) || none
     this.body = getBodyTree(ctx.body()) || none
   }
 
   toString(): String {
-    let type, body
+    let parameters, type, body
+    parameters = this.parameters.length
+      && this.ctx.parameters()._open.text 
+      + this.parameters.join(', ') 
+      + this.ctx.parameters()._close.text
     type = this.type && ' ' + this.type || ''
     body = this.body && this.body || ''
-    return this.name + type + body
+    return (this.name || parameters) + type + body
   }
 }
 
