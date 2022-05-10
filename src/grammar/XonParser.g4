@@ -45,10 +45,10 @@ literal
 
 argument: (name = ID COLON)? expression;
 
-arguments: ('(' | '[' | '{') (argument (',' argument)* ','?)? ('}' | ']' | ')');
+arguments: open = ('(' | '[' | '{') (argument (',' argument)* ','?)? close = ('}' | ']' | ')');
 
-parameter: name = ID type = expression? body?;
+parameter: (name = ID | parameters) type = expression? body?;
 
-parameters: ('(' | '[' | '{') (parameter (',' parameter)* ','?)? ('}' | ']' | ')');
+parameters: open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = ('}' | ']' | ')');
 
 body: (ASSIGN | COLON) statement # singleBody | NL INDENT (statement | NL)+ DEDENT # multipleBody;
