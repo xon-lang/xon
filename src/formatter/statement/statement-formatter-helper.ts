@@ -3,7 +3,6 @@ import {
   ExpressionStatementContext,
   ForStatementContext,
   IfStatementContext,
-  ImportStatementContext,
   ParameterStatementContext,
   ReturnStatementContext,
   StatementContext,
@@ -15,7 +14,6 @@ import { DefinitionStatementFormatter } from './definition/definition-statement-
 import { ExpressionStatementFormatter } from './expression/expression-statement-formatter';
 import { ForStatementFormatter } from './for/for-statement-formatter';
 import { IfStatementFormatter } from './if/if-statement-formatter';
-import { ImportStatementFormatter } from './import/import-statement-formatter';
 import { ParameterStatementFormatter } from './parameter/parameter-statement-formatter';
 import { ReturnStatementFormatter } from './return/return-statement-formatter';
 import { StatementFormatter } from './statement-formatter';
@@ -32,7 +30,6 @@ export const getStatementFormatter = (
     return new ExpressionStatementFormatter(ctx, config);
   if (ctx instanceof ForStatementContext) return new ForStatementFormatter(ctx, config);
   if (ctx instanceof IfStatementContext) return new IfStatementFormatter(ctx, config);
-  if (ctx instanceof ImportStatementContext) return new ImportStatementFormatter(ctx, config);
   if (ctx instanceof ParameterStatementContext) return new ParameterStatementFormatter(ctx, config);
   if (ctx instanceof ReturnStatementContext) return new ReturnStatementFormatter(ctx, config);
 

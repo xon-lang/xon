@@ -1,6 +1,6 @@
-import abc: a, b, c
-
 a = 1213
+import abc
+import def
 object someObjectFactory(name String)
   attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').join('\n\n').member
   attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').replace(
