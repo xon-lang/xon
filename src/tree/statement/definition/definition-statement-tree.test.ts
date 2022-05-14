@@ -2,7 +2,7 @@ import { IssueService } from '../../../issue-service/issue-service';
 import { none } from '../../../lib/core';
 import { parseSourceFile, parseStatement } from '../../../util/parse';
 import { IdExpressionTree } from '../../expression/id/id-expression-tree';
-import { DefinitionStatementTree } from './definition-tree';
+import { DefinitionStatementTree } from './definition-statement-tree';
 
 test('model animal', () => {
   const code = 'model Animal';

@@ -4,7 +4,7 @@ import { AssertStatementContext, DefinitionStatementContext, ExportStatementCont
 import { Issue } from '../../issue-service/issue'
 import { none } from '../../lib/core'
 import { AssertStatementTree } from './assert/assert-statement-tree'
-import { DefinitionStatementTree } from './definition/definition-tree'
+import { DefinitionStatementTree } from './definition/definition-statement-tree'
 import { ExportStatementTree } from './export/export-statement-tree'
 import { ExpressionStatementTree } from './expression/expression-statement-tree'
 import { ForStatementTree } from './for/for-statement-tree'
