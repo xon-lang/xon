@@ -1,7 +1,7 @@
 import { Issue } from '../../../issue-service/issue';
 import { none, None } from '../../../lib/core';
 import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
-import { DefinitionStatementTree } from '../../../tree/statement/definition/definition-tree';
+import { DefinitionStatementTree } from '../../../tree/statement/definition/definition-statement-tree';
 import { SourceRange } from '../../../util/source-range';
 import { DeclarationScope } from '../../scope/declaration-scope';
 import { DeclarationMetadata } from '../declaration-metadata';
@@ -16,7 +16,7 @@ export class DefinitionDeclarationMetadata implements DeclarationMetadata {
     this.name = tree.name.text;
   }
 
-  attributes(): ParameterDeclarationMetadata[] {
+  attributes(): DeclarationMetadata[] {
     const attributes = {};
     (this.baseModel()?.attributes() || []).forEach((x) => (attributes[x.name] = x));
     this.tree.attributes

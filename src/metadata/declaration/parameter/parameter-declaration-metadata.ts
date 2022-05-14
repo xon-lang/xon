@@ -45,7 +45,7 @@ export class ParameterDeclarationMetadata implements DeclarationMetadata {
     Issue.errorFromTree(this.tree, `Parameter '${this.tree.name}' must have a type`);
   }
 
-  attributes(): ParameterDeclarationMetadata[] {
+  attributes(): DeclarationMetadata[] {
     return this.type().attributes();
   }
 
