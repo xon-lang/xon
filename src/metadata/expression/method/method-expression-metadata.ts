@@ -1,10 +1,11 @@
 import { MethodExpressionTree } from '../../../tree/expression/method/method-expression-tree';
-import { ParameterDeclarationMetadata } from '../../declaration/parameter/parameter-declaration-metadata';
+import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
 
-export class MethodExpressionMetadata implements ExpressionMetadata {
+export class MethodExpressionMetadata extends ExpressionMetadata {
   constructor(tree: MethodExpressionTree, scope: DeclarationScope) {
+    super();
     const innerScope = scope.create();
     // for (const parameter of tree.parameters) {
     //   scope.set(new ParameterMetadata(parameter, scope));
@@ -16,7 +17,7 @@ export class MethodExpressionMetadata implements ExpressionMetadata {
     // );
   }
 
-  attributes(): ParameterDeclarationMetadata[] {
+  attributes(): DeclarationMetadata[] {
     throw new Error('Method not implemented.');
   }
 

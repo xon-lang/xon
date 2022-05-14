@@ -1,22 +1,23 @@
 import { Issue } from '../../../issue-service/issue';
 import { Number, String } from '../../../lib/core';
 import { LiteralExpressionTree } from '../../../tree/expression/literal/literal-expression-tree';
+import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { DefinitionDeclarationMetadata } from '../../declaration/definition/definition-declaration-metadata';
-import { ParameterDeclarationMetadata } from '../../declaration/parameter/parameter-declaration-metadata';
 import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
 import { IdExpressionMetadata } from '../id/id-expression-metadata';
 
-export class LiteralExpressionMetadata implements ExpressionMetadata {
+export class LiteralExpressionMetadata extends ExpressionMetadata {
   name: String;
   value: String | Number | RegExp;
 
   constructor(private tree: LiteralExpressionTree, private scope: DeclarationScope) {
+    super();
     this.name = this.tree.literal.constructor.name.replace('LiteralTree', '');
     this.value = this.tree.literal.value;
   }
 
-  attributes(): ParameterDeclarationMetadata[] {
+  attributes(): DeclarationMetadata[] {
     const declaration = this.scope.findByName(this.name);
     if (declaration instanceof DefinitionDeclarationMetadata) {
       return declaration.attributes();

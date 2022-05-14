@@ -1,6 +1,6 @@
-import { ParameterDeclarationMetadata } from '../declaration/parameter/parameter-declaration-metadata';
+import { DeclarationMetadata } from '../declaration/declaration-metadata';
 
-export interface ExpressionMetadata {
-  attributes(): ParameterDeclarationMetadata[];
-  is(metadata: ExpressionMetadata): boolean;
+export abstract class ExpressionMetadata {
+  abstract attributes(): DeclarationMetadata[];
+  abstract is(metadata: ExpressionMetadata): boolean;
 }

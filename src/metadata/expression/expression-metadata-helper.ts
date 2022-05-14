@@ -13,6 +13,7 @@ import { DeclarationScope } from '../scope/declaration-scope';
 import { ArrayExpressionMetadata } from './array/array-expression-metadata';
 import { ExpressionMetadata } from './expression-metadata';
 import { IdExpressionMetadata } from './id/id-expression-metadata';
+import { ImportExpressionMetadata } from './import/import-expression-metadata';
 import { InfixExpressionMetadata } from './infix/infix-expression-metadata';
 import { InvokeExpressionMetadata } from './invoke/invoke-expression-metadata';
 import { LiteralExpressionMetadata } from './literal/literal-expression-metadata';
@@ -33,7 +34,10 @@ export function getExpressionMetadata(
     if (tree instanceof LiteralExpressionTree) return new LiteralExpressionMetadata(tree, scope);
     if (tree instanceof MemberExpressionTree) return new MemberExpressionMetadata(tree, scope);
     if (tree instanceof MethodExpressionTree) return new MethodExpressionMetadata(tree, scope);
-    if (tree instanceof PrefixExpressionTree) return new PrefixExpressionMetadata(tree, scope);
+    if (tree instanceof PrefixExpressionTree) {
+      if (tree.name.text === 'import') return new ImportExpressionMetadata(tree, scope);
+      return new PrefixExpressionMetadata(tree, scope);
+    }
 
     throw `Expression metadata not found for '${tree.constructor.name}'`;
   } catch (error) {

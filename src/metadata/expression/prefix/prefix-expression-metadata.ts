@@ -1,17 +1,18 @@
 import { PrefixExpressionTree } from '../../../tree/expression/prefix/prefix-expression-tree';
-import { ParameterDeclarationMetadata } from '../../declaration/parameter/parameter-declaration-metadata';
+import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
 
-export class PrefixExpressionMetadata implements ExpressionMetadata {
+export class PrefixExpressionMetadata extends ExpressionMetadata {
   constructor(tree: PrefixExpressionTree, scope: DeclarationScope) {
+    super();
     // const declaration = getExpressionMetadata(tree.value, scope).type.declaration;
     // const attributeType = declaration.attribute(tree.id.text, [], [], none).type([]);
     // if (attributeType instanceof LambdaTypeMetadata) this.type = attributeType.resultType;
     // else throw new Error('Wrong method type');
   }
 
-  attributes(): ParameterDeclarationMetadata[] {
+  attributes(): DeclarationMetadata[] {
     throw new Error('Method not implemented.');
   }
 

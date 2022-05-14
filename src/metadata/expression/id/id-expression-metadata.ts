@@ -1,17 +1,18 @@
 import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
-import { ParameterDeclarationMetadata } from '../../declaration/parameter/parameter-declaration-metadata';
 import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
 
-export class IdExpressionMetadata implements ExpressionMetadata {
-  constructor(private tree: IdExpressionTree, private scope: DeclarationScope) {}
+export class IdExpressionMetadata extends ExpressionMetadata {
+  constructor(private tree: IdExpressionTree, private scope: DeclarationScope) {
+    super();
+  }
 
   declaration(): DeclarationMetadata {
     return this.scope.findByName(this.tree.name.text);
   }
 
-  attributes(): ParameterDeclarationMetadata[] {
+  attributes(): DeclarationMetadata[] {
     return this.declaration().attributes();
   }
 
@@ -19,6 +20,6 @@ export class IdExpressionMetadata implements ExpressionMetadata {
     const currentDeclaration = this.declaration();
     const otherDeclaration = (other as IdExpressionMetadata).declaration();
 
-    return this.declaration().is(otherDeclaration);
+    return currentDeclaration.is(otherDeclaration);
   }
 }

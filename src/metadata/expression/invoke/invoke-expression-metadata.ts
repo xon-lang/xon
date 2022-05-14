@@ -1,10 +1,11 @@
 import { InvokeExpressionTree } from '../../../tree/expression/invoke/invoke-expression-tree';
-import { ParameterDeclarationMetadata } from '../../declaration/parameter/parameter-declaration-metadata';
+import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { DeclarationScope } from '../../scope/declaration-scope';
 import { ExpressionMetadata } from '../expression-metadata';
 
-export class InvokeExpressionMetadata implements ExpressionMetadata {
+export class InvokeExpressionMetadata extends ExpressionMetadata {
   constructor(tree: InvokeExpressionTree, scope: DeclarationScope) {
+    super();
     // const args = tree.arguments.map((x) => getExpressionMetadata(x, scope)).map((x) => x.type);
     // const instanceType = getExpressionMetadata(tree.instance, scope).type;
     // if (tree.instance instanceof MemberExpressiontree) {
@@ -29,7 +30,7 @@ export class InvokeExpressionMetadata implements ExpressionMetadata {
     // }
   }
 
-  attributes(): ParameterDeclarationMetadata[] {
+  attributes(): DeclarationMetadata[] {
     throw new Error('Method not implemented.');
   }
 

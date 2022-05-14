@@ -40,15 +40,16 @@ test('any', () => {
 test('none is None', () => {
   const code = 'none';
   const tree = parseExpression(code);
-  const metadata = getExpressionMetadata(tree, new TestDeclarationScope());
+  const scope = new TestDeclarationScope();
+  const metadata = getExpressionMetadata(tree, scope);
 
   const codeNone = 'None';
   const treeNone = parseExpression(codeNone);
-  const metadataNone = getExpressionMetadata(treeNone, new TestDeclarationScope());
+  const metadataNone = getExpressionMetadata(treeNone, scope);
 
   const codeFloat = 'Float';
   const treeFloat = parseExpression(codeFloat);
-  const metadataFloat = getExpressionMetadata(treeFloat, new TestDeclarationScope());
+  const metadataFloat = getExpressionMetadata(treeFloat, scope);
 
   expect(metadata.is(metadataNone)).toBe(true);
   expect(metadata.is(metadataFloat)).toBe(false);
