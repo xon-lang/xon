@@ -1,4 +1,4 @@
-import { DefinitionStatementTree } from '../../../tree/statement/definition/definition-tree';
+import { DefinitionStatementTree } from '../../../tree/statement/definition/definition-statement-tree';
 import { DeclarationMetadata } from '../../declaration/declaration-metadata';
 import { getDeclarationMetadata } from '../../declaration/declaration-metadata-helper';
 import { DeclarationScope } from '../../scope/declaration-scope';
