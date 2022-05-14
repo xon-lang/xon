@@ -3,6 +3,7 @@ import { DeclarationScope } from './declaration-scope';
 
 export class TestDeclarationScope extends DeclarationScope {
   constructor() {
-    super(new CoreDeclarationScope());
+    DeclarationScope._core = new CoreDeclarationScope();
+    super(DeclarationScope._core);
   }
 }

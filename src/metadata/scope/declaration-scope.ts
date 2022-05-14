@@ -1,14 +1,15 @@
 import { Issue } from '../../issue-service/issue';
 import { IssueLevel } from '../../issue-service/issue-level';
-import { none, String } from '../../lib/core';
+import { String } from '../../lib/core';
 import { DeclarationMetadata } from '../declaration/declaration-metadata';
 import { DefinitionDeclarationMetadata } from '../declaration/definition/definition-declaration-metadata';
 import { CoreDeclarationScope } from './core-declaration-scope';
 
 export class DeclarationScope {
-  protected declarations: DeclarationMetadata[] = [];
+  declarations: DeclarationMetadata[] = [];
+  static _core: DeclarationScope;
   get core(): CoreDeclarationScope {
-    return (this instanceof CoreDeclarationScope && this) || this.parent?.core || none;
+    return DeclarationScope._core as CoreDeclarationScope;
   }
 
   constructor(public parent?: DeclarationScope) {}
