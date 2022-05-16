@@ -8,18 +8,19 @@ options {
 source: ( statement | NL)*;
 
 statement
-    : modifier = ID name = ID parameters? expression? (NL INDENT (parameter | NL)+ DEDENT)?     # definitionStatement
-    | EXPORT path = expression                                                                  # exportStatement
-    | FOR (value = parameter (',' index = parameter)? ID)? expression body                      # forStatement
-    | WHILE expression body                                                                     # whileStatement
-    | DO body WHILE expression                                                                  # doWhileStatement
-    | IF expression thenBody = body (ELSE elseBody = body)?                                     # ifStatement
-    | BREAK                                                                                     # breakStatement
-    | CONTINUE                                                                                  # continueStatement
-    | RETURN expression?                                                                        # returnStatement
-    | ACTUAL actual = expression NL+ EXPECT expect = expression                                 # assertStatement
-    | expression                                                                                # expressionStatement
-    | parameter                                                                                 # parameterStatement
+    : modifier = ID name = ID parameters? expression? (NL INDENT (parameter | NL)+ DEDENT)? # definitionStatement
+    | modifier = ID name = OP type = expression? body?                                      # operatorStatement
+    | EXPORT path = expression                                                              # exportStatement
+    | FOR (value = parameter (',' index = parameter)? ID)? expression body                  # forStatement
+    | WHILE expression body                                                                 # whileStatement
+    | DO body WHILE expression                                                              # doWhileStatement
+    | IF expression thenBody = body (ELSE elseBody = body)?                                 # ifStatement
+    | BREAK                                                                                 # breakStatement
+    | CONTINUE                                                                              # continueStatement
+    | RETURN expression?                                                                    # returnStatement
+    | ACTUAL actual = expression NL+ EXPECT expect = expression                             # assertStatement
+    | expression                                                                            # expressionStatement
+    | parameter                                                                             # parameterStatement
     ;
 
 expression
