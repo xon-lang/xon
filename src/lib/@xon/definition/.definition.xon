@@ -1,0 +1,10 @@
+{ Object } = import('../core/object')
+
+definition model
+  name: #IdExpression
+
+definition object
+  extends: Object
+
+definition wiki
+  extends: WikiObject
