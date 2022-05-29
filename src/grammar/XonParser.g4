@@ -8,19 +8,19 @@ options {
 source: ( statement | NL)*;
 
 statement
-    : modifier = ID name = ID parameters? expression? (NL INDENT (parameter | NL)+ DEDENT)? # definitionStatement
-    | modifier = ID name = OP type = expression? body?                                      # operatorStatement
-    | EXPORT path = expression                                                              # exportStatement
-    | FOR (value = parameter (',' index = parameter)? ID)? expression body                  # forStatement
-    | WHILE expression body                                                                 # whileStatement
-    | DO body WHILE expression                                                              # doWhileStatement
-    | IF expression thenBody = body (ELSE elseBody = body)?                                 # ifStatement
-    | BREAK                                                                                 # breakStatement
-    | CONTINUE                                                                              # continueStatement
-    | RETURN expression?                                                                    # returnStatement
-    | ACTUAL actual = expression NL+ EXPECT expect = expression                             # assertStatement
-    | expression                                                                            # expressionStatement
-    | parameter                                                                             # parameterStatement
+    : definition                                                           # definitionStatement
+    | modifier = ID name = OP type = expression? body?                     # operatorStatement
+    | EXPORT path = expression                                             # exportStatement
+    | FOR (value = parameter (',' index = parameter)? ID)? expression body # forStatement
+    | WHILE expression body                                                # whileStatement
+    | DO body WHILE expression                                             # doWhileStatement
+    | IF expression thenBody = body (ELSE elseBody = body)?                # ifStatement
+    | BREAK                                                                # breakStatement
+    | CONTINUE                                                             # continueStatement
+    | RETURN expression?                                                   # returnStatement
+    | ACTUAL actual = expression NL+ EXPECT expect = expression            # assertStatement
+    | expression                                                           # expressionStatement
+    | parameter                                                            # parameterStatement
     ;
 
 expression
@@ -43,12 +43,12 @@ literal
     | STRING_LITERAL  # stringLiteral
     ;
 
-argument: (name = ID COLON)? expression;
+definition: modifier = ID name = ID parameters? expression? (NL INDENT (parameter | NL)+ DEDENT)?;
 
-arguments: open = ('(' | '[' | '{') (argument (',' argument)* ','?)? close = ('}' | ']' | ')');
-
-parameter: (name = ID | parameters) type = expression? body?;
-
+parameter:  (name = ID | parameters) type = expression? body?;
 parameters: open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = ('}' | ']' | ')');
+
+argument:  (name = ID COLON)? expression;
+arguments: open = ('(' | '[' | '{') (argument (',' argument)* ','?)? close = ('}' | ']' | ')');
 
 body: (ASSIGN | COLON) statement # singleBody | NL INDENT (statement | NL)+ DEDENT # multipleBody;
