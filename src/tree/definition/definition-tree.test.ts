@@ -1,13 +1,13 @@
-import { IssueService } from '../../../issue-service/issue-service';
-import { none } from '../../../lib/core';
-import { parseSourceFile, parseStatement } from '../../../util/parse';
-import { DefinitionTree } from '../../definition/definition-tree';
-import { IdExpressionTree } from '../../expression/id/id-expression-tree';
-import { DefinitionStatementTree } from './definition-statement-tree';
+import { IssueService } from '../../issue-service/issue-service';
+import { none } from '../../lib/core';
+import { parseDefinition, parseSourceFile } from '../../util/parse';
+import { IdExpressionTree } from '../expression/id/id-expression-tree';
+import { DefinitionStatementTree } from '../statement/definition/definition-statement-tree';
+import { DefinitionTree } from './definition-tree';
 
 test('model animal', () => {
   const code = 'model Animal';
-  const { definition: tree } = parseStatement(code) as DefinitionStatementTree;
+  const tree = parseDefinition(code) as DefinitionTree;
 
   expect(tree).toBeInstanceOf(DefinitionTree);
   expect(tree.modifier.text).toBe('model');
@@ -18,7 +18,7 @@ test('model animal', () => {
 
 test('model cat', () => {
   const code = 'model Cat Animal';
-  const { definition: tree } = parseStatement(code) as DefinitionStatementTree;
+  const tree = parseDefinition(code) as DefinitionTree;
 
   expect(tree).toBeInstanceOf(DefinitionTree);
   expect(tree.modifier.text).toBe('model');
@@ -29,7 +29,7 @@ test('model cat', () => {
 
 test('model animal with only attribute', () => {
   const code = 'model Animal\n   abc Integer';
-  const { definition: tree } = parseStatement(code) as DefinitionStatementTree;
+  const tree = parseDefinition(code) as DefinitionTree;
 
   expect(tree).toBeInstanceOf(DefinitionTree);
   expect(tree.modifier.text).toBe('model');
@@ -44,7 +44,7 @@ test('1-error.xon', () => {
   IssueService.issues = [];
   try {
     const tree = parseSourceFile('src/tree/statement/definition/test-files/1-error.xon');
-    expect(tree.statements[0]).toBeInstanceOf(DefinitionStatementTree);
+    expect(tree.statements[0]).toBeInstanceOf(DefinitionTree);
   } catch (error) {
     const issue = IssueService.issues.slice(-1)[0];
 

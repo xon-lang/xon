@@ -7,6 +7,7 @@ import { XonParser } from '../grammar/xon-parser'
 import { String } from '../lib/core'
 import { getArgumentTree } from '../tree/argument/argument-tree-helper'
 import { getBodyTree } from '../tree/body/body-tree-helper'
+import { getDefinitionTree } from '../tree/definition/definition-tree-helper'
 import { getExpressionTree } from '../tree/expression/expression-tree-helper'
 import { getLiteralTree } from '../tree/literal/literal-tree-helper'
 import { getParameterTree } from '../tree/parameter/parameter-tree-helper'
@@ -47,6 +48,10 @@ export function parseStatement(code: String) {
 
 export function parseParameter(code: String) {
   return getParameterTree(parse(code).parameter())
+}
+
+export function parseDefinition(code: String) {
+  return getDefinitionTree(parse(code).definition())
 }
 
 export function parseArgument(code: String) {
