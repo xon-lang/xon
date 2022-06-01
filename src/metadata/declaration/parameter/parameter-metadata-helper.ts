@@ -16,13 +16,13 @@ export function getParameterMetadata(
 ): ParameterMetadata[] {
   try {
     if (tree instanceof ParameterTree && tree.name) {
-      const type = getTypeExpressionMetadata(tree.type, scope);
-      let value: ValueExpressionMetadata | None = none;
+      const type = () => getTypeExpressionMetadata(tree.type, scope);
+      let value: () => ValueExpressionMetadata | None = () => none;
       if (
         tree.body instanceof SingleBodyTree &&
         tree.body.statement instanceof ExpressionStatementTree
       ) {
-        value = getValueExpressionMetadata(tree.body.statement.expression, scope);
+        value = () => getValueExpressionMetadata(tree.body['statement'].expression, scope);
       } else if (tree.body instanceof MultipleBodyTree) {
         throw new Error('Not implemented');
       }
