@@ -4,22 +4,22 @@ import { DeclarationScope } from "../scope/declaration-scope";
 
 export class CoreDeclarationScope extends DeclarationScope {
   get boolean(): DefinitionMetadata {
-    return this.findByName('Boolean');
+    return this.findDefinitionByName('Boolean');
   }
   get integer(): DefinitionMetadata {
-    return this.findByName('Integer');
+    return this.findDefinitionByName('Integer');
   }
   get float(): DefinitionMetadata {
-    return this.findByName('Float');
+    return this.findDefinitionByName('Float');
   }
   get number(): DefinitionMetadata {
-    return this.findByName('Number');
+    return this.findDefinitionByName('Number');
   }
   get none(): DefinitionMetadata {
-    return this.findByName('None');
+    return this.findDefinitionByName('None');
   }
   get string(): DefinitionMetadata {
-    return this.findByName('String');
+    return this.findDefinitionByName('String');
   }
 
   constructor() {

@@ -23,10 +23,6 @@ export class DeclarationScope {
     this.parameters.push(metadata);
   }
 
-  addDefinition(metadata: DefinitionMetadata) {
-    this.definitions.push(metadata);
-  }
-
   filter(predicate: (x: ParameterMetadata) => boolean): ParameterMetadata[] {
     const declarations = this.parameters.filter(predicate);
     const parentDeclarations = this.parent?.filter(predicate) || [];
@@ -54,10 +50,40 @@ export class DeclarationScope {
   }
 
   // definitions
-  filterDefinitionByName(
+
+  addDefinition(metadata: DefinitionMetadata) {
+    this.definitions.push(metadata);
+  }
+
+  filterDefinitions(predicate: (x: DefinitionMetadata) => boolean): DefinitionMetadata[] {
+    const declarations = this.definitions.filter(predicate);
+    const parentDeclarations = this.parent?.filterDefinitions(predicate) || [];
+    return [...declarations, ...parentDeclarations];
+  }
+
+  filterDefinitionsByName(
     name: String,
     predicate?: (x: DefinitionMetadata) => boolean,
   ): DefinitionMetadata[] {
-    return this.definitions.filter((x) => x.name === name && (!predicate || predicate(x)));
+    return this.filterDefinitions((x) => x.name === name && (!predicate || predicate(x)));
+  }
+
+  findDefinitionByName(
+    name: String,
+    predicate?: (x: DefinitionMetadata) => boolean,
+  ): DefinitionMetadata {
+    const results = this.filterDefinitionsByName(name, predicate);
+
+    if (results.length > 1) {
+      const issues = results.map((x) =>
+        Issue.fromSourceRange(x.sourceRange, IssueLevel.error, '').toString(),
+      );
+      throw new Error(`Too many '${name}' declarations found:\n${issues.join('\n')}`);
+    }
+    if (!results.length) {
+      throw new Error(`Declaration '${name}' not found`);
+    }
+
+    return results[0];
   }
 }

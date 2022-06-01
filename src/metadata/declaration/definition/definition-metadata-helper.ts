@@ -12,14 +12,14 @@ export function getDefinitionMetadata(
 ): DefinitionMetadata {
   try {
     if (tree instanceof DefinitionTree) {
-      const parameters = tree.parameters.map((x) => getParameterMetadata(x, scope)).flat();
-      let baseDefinition: DefinitionMetadata | None = none;
+      const parameters = () => tree.parameters.map((x) => getParameterMetadata(x, scope)).flat();
+      let baseDefinition: () => DefinitionMetadata | None = () => none;
       if (tree.base instanceof IdExpressionTree) {
-        baseDefinition = scope.filterDefinitionByName(tree.base.name.text)[0];
+        baseDefinition = () => scope.findDefinitionByName(tree.base['name'].text);
       } else {
         throw new Error('Not implemented');
       }
-      const attributes = tree.attributes.map((x) => getParameterMetadata(x, scope)).flat();
+      const attributes = () => tree.attributes.map((x) => getParameterMetadata(x, scope)).flat();
       const metadata = new DefinitionMetadata(
         tree.sourceRange,
         tree.name.text,

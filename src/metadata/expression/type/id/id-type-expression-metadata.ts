@@ -9,7 +9,7 @@ export class IdTypeExpressionMetadata extends TypeExpressionMetadata {
   }
 
   definition(): DefinitionMetadata {
-    return this.scope.filterDefinitionByName(this.tree.name.text)[0];
+    return this.scope.findDefinitionByName(this.tree.name.text);
   }
 
   attributesScope(): DeclarationScope {
