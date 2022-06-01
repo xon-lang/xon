@@ -1,10 +1,10 @@
 // this code was generated
 
-import { Number, String } from '../../lib/core'
 import { Tree } from '../tree'
+import { LiteralType } from './literal-type'
 
 export class LiteralTree extends Tree {
-  value: String | Number | RegExp
+  value: LiteralType
 }
 
 // this code was generated

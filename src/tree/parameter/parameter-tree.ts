@@ -2,7 +2,7 @@
 
 import { ParameterContext } from '../../grammar/xon-parser'
 import { none, None, String } from '../../lib/core'
-import { ParameterMetadata } from '../../metadata/parameter/parameter-metadata'
+import { ParameterMetadata } from '../../metadata/declaration/parameter/parameter-metadata'
 import { getIdToken, IdToken } from '../../util/id-token'
 import { SourceRange } from '../../util/source-range'
 import { BodyTree } from '../body/body-tree'

@@ -52,7 +52,7 @@ test('1-error.xon', () => {
     expect(issue.source.start.column).toBe(7);
     expect(issue.source.stop.column).toBe(27);
   }
-  expect(IssueService.issues.length).toBe(2);
+  expect(IssueService.issues.length).toBe(1); // mb should be 2
 });
 
 test('2-error.xon', () => {

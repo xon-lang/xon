@@ -1,7 +1,6 @@
 // this code was generated
 
 import { none, None, String } from '../../lib/core'
-import { DefinitionMetadata } from '../../metadata/definition/definition-metadata'
 import { getIdToken, IdToken } from '../../util/id-token'
 import { SourceRange } from '../../util/source-range'
 import { getExpressionTree } from '../expression/expression-tree-helper'
@@ -11,6 +10,7 @@ import { ParameterTree } from '../parameter/parameter-tree'
 import { Tree } from '../tree'
 import { MethodExpressionTree } from '../expression/method/method-expression-tree'
 import { DefinitionContext } from '../../grammar/xon-parser'
+import { DefinitionMetadata } from '../../metadata/declaration/definition/definition-metadata'
 
 export class DefinitionTree extends Tree {
   metadata: DefinitionMetadata

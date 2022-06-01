@@ -2,14 +2,14 @@
 
 import { LiteralExpressionContext } from '../../../grammar/xon-parser'
 import { String } from '../../../lib/core'
-import { LiteralExpressionMetadata } from '../../../metadata/expression/literal/literal-expression-metadata'
 import { SourceRange } from '../../../util/source-range'
 import { getLiteralTree } from '../../literal/literal-tree-helper'
 import { LiteralTree } from '../../literal/literal-tree'
 import { ExpressionTree } from '../expression-tree'
+import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata'
 
 export class LiteralExpressionTree extends ExpressionTree {
-  metadata: LiteralExpressionMetadata
+  metadata: ExpressionMetadata
   ctx: LiteralExpressionContext
   sourceRange: SourceRange
   literal: LiteralTree

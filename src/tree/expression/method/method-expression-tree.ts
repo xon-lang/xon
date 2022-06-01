@@ -2,15 +2,15 @@
 
 import { MethodExpressionContext } from '../../../grammar/xon-parser'
 import { Boolean, String } from '../../../lib/core'
-import { MethodExpressionMetadata } from '../../../metadata/expression/method/method-expression-metadata'
 import { SourceRange } from '../../../util/source-range'
 import { getParameterTrees } from '../../parameter/parameter-tree-helper'
 import { ParameterTree } from '../../parameter/parameter-tree'
 import { getExpressionTree } from '../expression-tree-helper'
 import { ExpressionTree } from '../expression-tree'
+import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata'
 
 export class MethodExpressionTree extends ExpressionTree {
-  metadata: MethodExpressionMetadata
+  metadata: ExpressionMetadata
   ctx: MethodExpressionContext
   sourceRange: SourceRange
   hasBracket: Boolean

@@ -2,14 +2,14 @@
 
 import { MemberExpressionContext } from '../../../grammar/xon-parser'
 import { String } from '../../../lib/core'
-import { MemberExpressionMetadata } from '../../../metadata/expression/member/member-expression-metadata'
 import { getIdToken, IdToken } from '../../../util/id-token'
 import { SourceRange } from '../../../util/source-range'
 import { getExpressionTree } from '../expression-tree-helper'
 import { ExpressionTree } from '../expression-tree'
+import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata'
 
 export class MemberExpressionTree extends ExpressionTree {
-  metadata: MemberExpressionMetadata
+  metadata: ExpressionMetadata
   ctx: MemberExpressionContext
   sourceRange: SourceRange
   instance: ExpressionTree
