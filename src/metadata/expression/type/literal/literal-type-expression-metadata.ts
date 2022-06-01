@@ -17,9 +17,12 @@ export class LiteralTypeExpressionMetadata extends TypeExpressionMetadata {
   }
 
   attributesScope(): DeclarationScope {
-    if (this.tree.literal instanceof IntegerLiteralTree) return this.scope.core.integer.attributes;
-    if (this.tree.literal instanceof FloatLiteralTree) return this.scope.core.float.attributes;
-    if (this.tree.literal instanceof StringLiteralTree) return this.scope.core.string.attributes;
+    if (this.tree.literal instanceof IntegerLiteralTree)
+      return this.scope.core.integer.attributesScope();
+    if (this.tree.literal instanceof FloatLiteralTree)
+      return this.scope.core.float.attributesScope();
+    if (this.tree.literal instanceof StringLiteralTree)
+      return this.scope.core.string.attributesScope();
   }
 
   is(metadata: TypeExpressionMetadata): Boolean {
