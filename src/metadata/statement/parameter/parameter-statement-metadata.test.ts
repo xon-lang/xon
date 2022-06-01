@@ -1,5 +1,5 @@
 import { parseStatement } from '../../../util/parse';
-import { TestDeclarationScope } from '../../scope/test-declaration-scope';
+import { TestDeclarationScope } from '../../declaration/test-declaration-metadata';
 import { getStatementMetadata } from '../statement-metadata-helper';
 import { ParameterStatementMetadata } from './parameter-statement-metadata';
 
@@ -10,7 +10,7 @@ test('single parameter', () => {
   const metadata = getStatementMetadata(tree, scope);
 
   expect(metadata).toBeInstanceOf(ParameterStatementMetadata);
-  expect(scope.declarations.length).toBe(1);
+  expect(scope.parameters.length).toBe(1);
   expect(scope.findByName('a').name).toBe('a');
 });
 
@@ -21,7 +21,7 @@ test('multiple parameters', () => {
   const metadata = getStatementMetadata(tree, scope);
 
   expect(metadata).toBeInstanceOf(ParameterStatementMetadata);
-  expect(scope.declarations.length).toBe(3);
+  expect(scope.parameters.length).toBe(3);
   expect(scope.findByName('a').name).toBe('a');
   expect(scope.findByName('b').name).toBe('b');
   expect(scope.findByName('c').name).toBe('c');
