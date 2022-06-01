@@ -1,6 +1,6 @@
 import { String } from '../../lib/core';
 import { parseSourceFile } from '../../util/parse';
-import { DeclarationScope } from '../scope/declaration-scope';
+import { DeclarationScope } from '../declaration/scope/declaration-scope';
 import { getSourceMetadata } from '../source/source-metadata-helper';
 
 export class ModuleMetadata {
