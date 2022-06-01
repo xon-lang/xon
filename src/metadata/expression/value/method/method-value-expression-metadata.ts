@@ -1,6 +1,6 @@
 import { MethodExpressionTree } from '../../../../tree/expression/method/method-expression-tree';
+import { getParameterMetadata } from '../../../declaration/parameter/parameter-metadata-helper';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
-import { getParameterMetadata } from '../../../parameter/parameter-metadata-helper';
 import { ValueExpressionMetadata } from '../value-expression-metadata';
 import { getValueExpressionMetadata } from '../value-expression-metadata-helper';
 
