@@ -1,5 +1,5 @@
 import { SourceTree } from '../../tree/source/source-tree';
-import { DeclarationScope } from '../scope/declaration-scope';
+import { DeclarationScope } from '../declaration/scope/declaration-scope';
 import { getStatementMetadata } from '../statement/statement-metadata-helper';
 
 export class SourceMetadata {
