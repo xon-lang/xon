@@ -1,1 +1,1 @@
-export class Metadata {}
+export abstract class Metadata {}
