@@ -43,7 +43,9 @@ literal
     | STRING_LITERAL  # stringLiteral
     ;
 
-definition: modifier = ID name = ID parameters? expression? (NL INDENT (parameter | NL)+ DEDENT)?;
+definition
+    : modifier = ID name = ID parameters? (IS expression)? (NL INDENT (parameter | NL)+ DEDENT)?
+    ;
 
 parameter:  (name = ID | parameters) type = expression? body?;
 parameters: open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = ('}' | ']' | ')');
