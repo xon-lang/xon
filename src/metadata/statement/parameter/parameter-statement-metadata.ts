@@ -7,5 +7,11 @@ export class ParameterStatementMetadata implements StatementMetadata {
   constructor(private tree: ParameterStatementTree, private scope: DeclarationScope) {
     const parameters = getParameterMetadata(tree.parameter, scope);
     parameters.forEach((x) => scope.addParameter(x));
+
+    if (tree.parameter.name) {
+      tree.parameter.metadata = parameters[0];
+    } else {
+      parameters.forEach((x, i) => (tree.parameter.parameters[i].metadata = x));
+    }
   }
 }

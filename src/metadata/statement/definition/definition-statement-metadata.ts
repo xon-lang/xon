@@ -5,7 +5,7 @@ import { StatementMetadata } from '../statement-metadata';
 
 export class DefinitionStatementMetadata implements StatementMetadata {
   constructor(private tree: DefinitionStatementTree, private scope: DeclarationScope) {
-    const metadata = getDefinitionMetadata(tree.definition, scope);
-    scope.addDefinition(metadata);
+    tree.definition.metadata = getDefinitionMetadata(tree.definition, scope);
+    scope.addDefinition(tree.definition.metadata);
   }
 }
