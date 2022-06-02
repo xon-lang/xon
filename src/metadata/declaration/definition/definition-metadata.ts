@@ -31,7 +31,7 @@ export class DefinitionMetadata implements Metadata {
     const attributes = this.attributes();
     const baseDefinition = this.baseDefinition();
 
-    return [...(baseDefinition.allAttributes() || []), ...attributes];
+    return [...(baseDefinition?.allAttributes() || []), ...attributes];
   }
 
   is(definition: DefinitionMetadata): Boolean {
