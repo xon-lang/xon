@@ -1,6 +1,6 @@
 import { Issue } from '../../../issue-service/issue';
 import { IssueLevel } from '../../../issue-service/issue-level';
-import { CoreDeclarationScope } from '../core/core-declaration-metadata';
+import { CoreDeclarationScope } from './core/core-declaration-scope';
 import { DefinitionMetadata } from '../definition/definition-metadata';
 import { ParameterMetadata } from '../parameter/parameter-metadata';
 

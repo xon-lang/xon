@@ -1,6 +1,6 @@
-import { ImportProvider } from "../../import-provider";
-import { DefinitionMetadata } from "../definition/definition-metadata";
-import { DeclarationScope } from "../scope/declaration-scope";
+import { ImportProvider } from '../../../import-provider';
+import { DefinitionMetadata } from '../../definition/definition-metadata';
+import { DeclarationScope } from '../declaration-scope';
 
 export class CoreDeclarationScope extends DeclarationScope {
   get boolean(): DefinitionMetadata {
@@ -26,7 +26,8 @@ export class CoreDeclarationScope extends DeclarationScope {
     super();
 
     const corePath = 'src/lib/@xon/core';
-    const importProvider = new ImportProvider(corePath);
-    this.parameters = importProvider.scope().parameters;
+    const { definitions, parameters } = new ImportProvider(corePath).scope();
+    this.definitions = definitions;
+    this.parameters = parameters;
   }
 }

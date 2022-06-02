@@ -1,4 +1,4 @@
-import { CoreDeclarationScope } from '../core/core-declaration-metadata';
+import { CoreDeclarationScope } from './core/core-declaration-scope';
 import { DeclarationScope } from './declaration-scope';
 
 export class TestDeclarationScope extends DeclarationScope {
