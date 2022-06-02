@@ -17,7 +17,7 @@ test('model animal', () => {
 });
 
 test('model cat', () => {
-  const code = 'model Cat Animal';
+  const code = 'model Cat is Animal';
   const { definition: tree } = parseStatement(code) as DefinitionStatementTree;
 
   expect(tree).toBeInstanceOf(DefinitionTree);
