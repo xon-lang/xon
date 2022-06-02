@@ -13,15 +13,9 @@ export function getStatementMetadata(
   tree: StatementTree,
   scope: DeclarationScope,
 ): StatementMetadata {
-  try {
-    if (tree instanceof ExpressionStatementTree)
-      return new ExpressionStatementMetadata(tree, scope);
-    if (tree instanceof ParameterStatementTree) return new ParameterStatementMetadata(tree, scope);
-    if (tree instanceof DefinitionStatementTree)
-      return new DefinitionStatementMetadata(tree, scope);
+  if (tree instanceof ExpressionStatementTree) return new ExpressionStatementMetadata(tree, scope);
+  if (tree instanceof ParameterStatementTree) return new ParameterStatementMetadata(tree, scope);
+  if (tree instanceof DefinitionStatementTree) return new DefinitionStatementMetadata(tree, scope);
 
-    throw `Statement metadata not found for '${tree.constructor.name}'`;
-  } catch (error) {
-    Issue.errorFromTree(tree, error.toString());
-  }
+  Issue.errorFromTree(tree, `Statement metadata not found for '${tree.constructor.name}'`);
 }
