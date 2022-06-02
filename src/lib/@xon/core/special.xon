@@ -6,7 +6,7 @@ model Never
 
 model None
 
-object none None
+object none is None
 
 -- model Any
 --   operator not [] Boolean

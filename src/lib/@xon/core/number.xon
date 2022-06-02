@@ -1,9 +1,9 @@
 model Number
 
-model Integer Number
+model Integer is Number
   test String
 
-model Float Number
+model Float is Number
   test String
 
 -- operator + [other Number] Number
