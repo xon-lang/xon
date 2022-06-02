@@ -5,6 +5,7 @@ model Integer is Number
 
 model Float is Number
   test String
+  test2 String
 
 -- operator + [other Number] Number
 -- operator - [other Number] Number
