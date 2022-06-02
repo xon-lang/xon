@@ -47,7 +47,7 @@ export class DefinitionFormatter extends Formatter {
     attributesString = (attributesString && this.config.nl + attributesString) || '';
 
     if (type) {
-      return `${modifier} ${name}${parameters} ${type}${attributesString}`;
+      return `${modifier} ${name}${parameters} is ${type}${attributesString}`;
     }
     return `${modifier} ${name}${parameters}${attributesString}`;
   }
