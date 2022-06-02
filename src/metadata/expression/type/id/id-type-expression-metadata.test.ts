@@ -29,7 +29,7 @@ test('none object', () => {
   expect(metadata).toBeInstanceOf(IdTypeExpressionMetadata);
   expect(metadata.definition()).toBeInstanceOf(DefinitionMetadata);
   expect(metadata.definition().name).toBe('none');
-  expect(metadata.definition().allAttributes).toBe(0);
+  expect(metadata.definition().allAttributes().length).toBe(0);
 });
 
 test('any', () => {
@@ -43,7 +43,7 @@ test('any', () => {
   expect(metadata).toBeInstanceOf(IdTypeExpressionMetadata);
   expect(metadata.definition()).toBeInstanceOf(DefinitionMetadata);
   expect(metadata.definition().name).toBe('Any');
-  expect(metadata.definition().allAttributes).toBe(0);
+  expect(metadata.definition().allAttributes().length).toBe(0);
 });
 
 test('none is None', () => {

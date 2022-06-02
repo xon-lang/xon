@@ -27,7 +27,7 @@ export class DefinitionMetadata implements Metadata {
     return this.scope;
   }
 
-  allAttributes() {
+  allAttributes(): ParameterMetadata[] {
     const attributes = this.attributes();
     const baseDefinition = this.baseDefinition();
 
@@ -38,6 +38,6 @@ export class DefinitionMetadata implements Metadata {
     if (this.sourceRange.equals(definition.sourceRange)) return true;
 
     const baseDefinition = this.baseDefinition();
-    return baseDefinition && baseDefinition.is(definition);
+    return baseDefinition?.is(definition) || false;
   }
 }
