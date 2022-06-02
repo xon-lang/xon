@@ -18,8 +18,9 @@ export class DefinitionMetadata implements Metadata {
   attributesScope(): DeclarationScope {
     if (this.scope) return this.scope;
 
-    if (this.baseDefinition()) {
-      this.scope = this.baseDefinition().scope.create();
+    const baseDefinition = this.baseDefinition();
+    if (baseDefinition) {
+      this.scope = baseDefinition.attributesScope().create();
     } else {
       this.scope = new DeclarationScope();
     }
