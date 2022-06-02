@@ -1,4 +1,4 @@
-model String Char[]
+model String --Char[]
 
 
   -- operator + [other String] String
