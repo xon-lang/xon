@@ -1,5 +1,5 @@
 import { parseExpression } from '../../../../util/parse';
-import { TestDeclarationScope } from '../../../declaration/test-declaration-metadata';
+import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
 import { getTypeExpressionMetadata } from '../type-expression-metadata-helper';
 
 test('integer literal', () => {

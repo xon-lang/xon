@@ -7,13 +7,12 @@ import { IdTypeExpressionMetadata } from './id-type-expression-metadata';
 test('none model', () => {
   const code = 'None';
   const tree = parseExpression(code);
-  const metadata = getTypeExpressionMetadata(
-    tree,
-    new TestDeclarationScope(),
-  ) as IdTypeExpressionMetadata;
+  const scope = new TestDeclarationScope();
+  const metadata = getTypeExpressionMetadata(tree, scope) as IdTypeExpressionMetadata;
 
   expect(metadata).toBeInstanceOf(IdTypeExpressionMetadata);
   expect(metadata.definition()).toBeInstanceOf(DefinitionMetadata);
+  expect(metadata.definition()).toBe(scope.core.none);
   expect(metadata.definition().name).toBe('None');
   expect(metadata.definition().allAttributes().length).toBe(0);
 });
