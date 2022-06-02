@@ -78,10 +78,10 @@ export class DeclarationScope {
       const issues = results.map((x) =>
         Issue.fromSourceRange(x.sourceRange, IssueLevel.error, '').toString(),
       );
-      throw new Error(`Too many '${name}' declarations found:\n${issues.join('\n')}`);
+      throw new Error(`Too many '${name}' definitions found:\n${issues.join('\n')}`);
     }
     if (!results.length) {
-      throw new Error(`Declaration '${name}' not found`);
+      throw new Error(`Definition '${name}' not found`);
     }
 
     return results[0];
