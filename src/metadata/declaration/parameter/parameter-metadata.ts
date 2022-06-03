@@ -8,7 +8,7 @@ export class ParameterMetadata implements Metadata {
   constructor(
     public sourceRange: SourceRange,
     public name: String,
-    public type?: () => TypeMetadata | None,
-    public value?: () => ValueMetadata | None,
+    public type: () => TypeMetadata | None,
+    public value: () => ValueMetadata | None,
   ) {}
 }
