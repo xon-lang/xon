@@ -1,7 +1,7 @@
 // this code was generated
 
 import { String } from '../../../lib/core'
-import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata'
+import { ExpressionMetadata } from '../../../metadata/value/expression-metadata'
 import { IdToken } from '../../../util/id-token'
 import { SourceRange } from '../../../util/source-range'
 import { ExpressionTree } from '../expression-tree'

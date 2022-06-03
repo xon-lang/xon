@@ -1,8 +1,8 @@
-import { InvokeExpressionTree } from '../../../../tree/expression/invoke/invoke-expression-tree';
-import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
-import { ValueExpressionMetadata } from '../value-expression-metadata';
+import { InvokeExpressionTree } from '../../../tree/expression/invoke/invoke-expression-tree';
+import { DeclarationScope } from '../../declaration/scope/declaration-scope';
+import { ValueMetadata } from '../value-metadata';
 
-export class InvokeValueExpressionMetadata extends ValueExpressionMetadata {
+export class InvokeValueMetadata extends ValueMetadata {
   constructor(tree: InvokeExpressionTree, scope: DeclarationScope) {
     super();
     // const args = tree.arguments.map((x) => getExpressionMetadata(x, scope)).map((x) => x.type);

@@ -1,14 +1,14 @@
-import { Any, Unknown } from '../../../../lib/core';
-import { InfixExpressionTree } from '../../../../tree/expression/infix/infix-expression-tree';
-import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
-import { ValueExpressionMetadata } from '../value-expression-metadata';
-import { getValueExpressionMetadata } from '../value-expression-metadata-helper';
+import { Any } from '../../../lib/core';
+import { InfixExpressionTree } from '../../../tree/expression/infix/infix-expression-tree';
+import { DeclarationScope } from '../../declaration/scope/declaration-scope';
+import { ValueMetadata } from '../value-metadata';
+import { getValueMetadata } from '../value-metadata-helper';
 
-export class InfixValueExpressionMetadata extends ValueExpressionMetadata {
+export class InfixValueMetadata extends ValueMetadata {
   constructor(private tree: InfixExpressionTree, private scope: DeclarationScope) {
     super();
-    tree.left.metadata = getValueExpressionMetadata(tree.left, scope);
-    tree.right.metadata = getValueExpressionMetadata(tree.right, scope);
+    tree.left.metadata = getValueMetadata(tree.left, scope);
+    tree.right.metadata = getValueMetadata(tree.right, scope);
   }
 
   declaration(): DeclarationScope {
@@ -29,7 +29,6 @@ export class InfixValueExpressionMetadata extends ValueExpressionMetadata {
     // if (this.tree.name.text === '^') {
     //   return Math.pow(left, right);
     // }
-
     // const escapeIfString = (s: Unknown) => (typeof s === 'string' && `\`${s}\``) || s;
     // return eval(`${escapeIfString(left)} ${this.tree.name} ${escapeIfString(right)}`);
   }

@@ -1,6 +1,6 @@
 import { parseExpression } from '../../../util/parse';
 import { TestDeclarationScope } from '../../declaration/test-declaration-metadata';
-import { getExpressionMetadata } from '../value-expression-metadata-helper';
+import { getExpressionMetadata } from '../value-metadata-helper';
 
 test('integer literal', () => {
   const code = '123';

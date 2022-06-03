@@ -1,8 +1,8 @@
-import { PrefixExpressionTree } from '../../../../tree/expression/prefix/prefix-expression-tree';
-import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
-import { ValueExpressionMetadata } from '../value-expression-metadata';
+import { PrefixExpressionTree } from '../../../tree/expression/prefix/prefix-expression-tree';
+import { DeclarationScope } from '../../declaration/scope/declaration-scope';
+import { ValueMetadata } from '../value-metadata';
 
-export class PrefixValueExpressionMetadata extends ValueExpressionMetadata {
+export class PrefixValueMetadata extends ValueMetadata {
   constructor(tree: PrefixExpressionTree, scope: DeclarationScope) {
     super();
     // const declaration = getExpressionMetadata(tree.value, scope).type.declaration;
@@ -14,5 +14,4 @@ export class PrefixValueExpressionMetadata extends ValueExpressionMetadata {
   declaration(): DeclarationScope {
     throw new Error('Method not implemented.');
   }
-
 }

@@ -6,7 +6,7 @@ import { getIdToken, IdToken } from '../../../util/id-token'
 import { SourceRange } from '../../../util/source-range'
 import { getExpressionTree } from '../expression-tree-helper'
 import { ExpressionTree } from '../expression-tree'
-import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata'
+import { ExpressionMetadata } from '../../../metadata/value/expression-metadata'
 
 export class MemberExpressionTree extends ExpressionTree {
   metadata: ExpressionMetadata

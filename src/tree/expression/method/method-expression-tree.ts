@@ -7,7 +7,7 @@ import { getParameterTrees } from '../../parameter/parameter-tree-helper'
 import { ParameterTree } from '../../parameter/parameter-tree'
 import { getExpressionTree } from '../expression-tree-helper'
 import { ExpressionTree } from '../expression-tree'
-import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata'
+import { ExpressionMetadata } from '../../../metadata/value/expression-metadata'
 
 export class MethodExpressionTree extends ExpressionTree {
   metadata: ExpressionMetadata

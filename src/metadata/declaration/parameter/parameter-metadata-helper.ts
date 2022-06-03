@@ -4,9 +4,9 @@ import { MultipleBodyTree } from '../../../tree/body/multiple/multiple-body-tree
 import { SingleBodyTree } from '../../../tree/body/single/single-body-tree';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { ExpressionStatementTree } from '../../../tree/statement/expression/expression-statement-tree';
-import { ValueExpressionMetadata } from '../../expression/value/value-expression-metadata';
-import { getValueExpressionMetadata } from '../../expression/value/value-expression-metadata-helper';
 import { getTypeMetadata } from '../../type/type-metadata-helper';
+import { getValueMetadata } from '../../value/value-metadata-helper';
+import { ValueMetadata } from '../../value/value-metadata';
 import { DeclarationScope } from '../scope/declaration-scope';
 import { ParameterMetadata } from './parameter-metadata';
 
@@ -17,12 +17,12 @@ export function getParameterMetadata(
   try {
     if (tree instanceof ParameterTree && tree.name) {
       const type = () => getTypeMetadata(tree.type, scope);
-      let value: () => ValueExpressionMetadata | None = () => none;
+      let value: () => ValueMetadata | None = () => none;
       if (
         tree.body instanceof SingleBodyTree &&
         tree.body.statement instanceof ExpressionStatementTree
       ) {
-        value = () => getValueExpressionMetadata(tree.body['statement'].expression, scope);
+        value = () => getValueMetadata(tree.body['statement'].expression, scope);
       } else if (tree.body instanceof MultipleBodyTree) {
         throw new Error('Not implemented');
       }

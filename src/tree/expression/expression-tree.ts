@@ -1,6 +1,6 @@
 // this code was generated
 
-import { ExpressionMetadata } from '../../metadata/expression/expression-metadata'
+import { ExpressionMetadata } from '../../metadata/value/expression-metadata'
 import { Tree } from '../tree'
 
 export class ExpressionTree extends Tree {

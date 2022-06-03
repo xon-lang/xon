@@ -6,7 +6,7 @@ import { SourceRange } from '../../../util/source-range'
 import { getLiteralTree } from '../../literal/literal-tree-helper'
 import { LiteralTree } from '../../literal/literal-tree'
 import { ExpressionTree } from '../expression-tree'
-import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata'
+import { ExpressionMetadata } from '../../../metadata/value/expression-metadata'
 
 export class LiteralExpressionTree extends ExpressionTree {
   metadata: ExpressionMetadata

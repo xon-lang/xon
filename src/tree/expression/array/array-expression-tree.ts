@@ -2,15 +2,15 @@
 
 import { ArrayExpressionContext } from '../../../grammar/xon-parser';
 import { String } from '../../../lib/core';
-import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata';
-import { ArrayValueExpressionMetadata } from '../../../metadata/expression/value/array/array-value-expression-metadata';
+import { ValueMetadata } from '../../../metadata/value/value-metadata';
+// import { ExpressionMetadata } from '../../../metadata/value/expression-metadata';
 import { SourceRange } from '../../../util/source-range';
 import { ArgumentTree } from '../../argument/argument-tree';
 import { getArgumentTrees } from '../../argument/argument-tree-helper';
 import { ExpressionTree } from '../expression-tree';
 
 export class ArrayExpressionTree extends ExpressionTree {
-  metadata: ExpressionMetadata;
+  metadata: ValueMetadata;
   ctx: ArrayExpressionContext;
   sourceRange: SourceRange;
   arguments: ArgumentTree[];

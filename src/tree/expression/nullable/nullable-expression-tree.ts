@@ -2,7 +2,7 @@
 
 import { NullableExpressionContext } from '../../../grammar/xon-parser'
 import { String } from '../../../lib/core'
-import { ExpressionMetadata } from '../../../metadata/expression/expression-metadata'
+import { ExpressionMetadata } from '../../../metadata/value/expression-metadata'
 import { SourceRange } from '../../../util/source-range'
 import { getExpressionTree } from '../expression-tree-helper'
 import { ExpressionTree } from '../expression-tree'

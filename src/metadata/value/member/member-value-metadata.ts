@@ -1,8 +1,8 @@
-import { MemberExpressionTree } from '../../../../tree/expression/member/member-expression-tree';
-import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
-import { ValueExpressionMetadata } from '../value-expression-metadata';
+import { MemberExpressionTree } from '../../../tree/expression/member/member-expression-tree';
+import { DeclarationScope } from '../../declaration/scope/declaration-scope';
+import { ValueMetadata } from '../value-metadata';
 
-export class MemberValueExpressionMetadata extends ValueExpressionMetadata {
+export class MemberValueMetadata extends ValueMetadata {
   constructor(private tree: MemberExpressionTree, private scope: DeclarationScope) {
     super();
   }
