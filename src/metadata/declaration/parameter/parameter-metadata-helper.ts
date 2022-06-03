@@ -4,9 +4,9 @@ import { MultipleBodyTree } from '../../../tree/body/multiple/multiple-body-tree
 import { SingleBodyTree } from '../../../tree/body/single/single-body-tree';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { ExpressionStatementTree } from '../../../tree/statement/expression/expression-statement-tree';
-import { getTypeExpressionMetadata } from '../../expression/type/type-expression-metadata-helper';
 import { ValueExpressionMetadata } from '../../expression/value/value-expression-metadata';
 import { getValueExpressionMetadata } from '../../expression/value/value-expression-metadata-helper';
+import { getTypeMetadata } from '../../type/type-metadata-helper';
 import { DeclarationScope } from '../scope/declaration-scope';
 import { ParameterMetadata } from './parameter-metadata';
 
@@ -16,7 +16,7 @@ export function getParameterMetadata(
 ): ParameterMetadata[] {
   try {
     if (tree instanceof ParameterTree && tree.name) {
-      const type = () => getTypeExpressionMetadata(tree.type, scope);
+      const type = () => getTypeMetadata(tree.type, scope);
       let value: () => ValueExpressionMetadata | None = () => none;
       if (
         tree.body instanceof SingleBodyTree &&

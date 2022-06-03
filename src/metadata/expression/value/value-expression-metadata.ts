@@ -1,12 +1,12 @@
 import { Any, Boolean } from '../../../lib/core';
+import { TypeMetadata } from '../../type/type-metadata';
 import { ExpressionMetadata } from '../expression-metadata';
-import { TypeExpressionMetadata } from '../type/type-expression-metadata';
 
 export abstract class ValueExpressionMetadata extends ExpressionMetadata {
-  type(): TypeExpressionMetadata {
+  type(): TypeMetadata {
     throw new Error('Not implemented');
   }
-  is(metadata: TypeExpressionMetadata): Boolean {
+  is(metadata: TypeMetadata): Boolean {
     throw new Error('Not implemented');
   }
   eval(): Any {
