@@ -14,3 +14,10 @@ object none is None
 --   operator or [other Any] Boolean
 --   operator is [other Any] Boolean
 --   operator as[other T] otherType
+
+
+model Union
+
+model Intersection
+
+model Method
