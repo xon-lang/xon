@@ -1,15 +1,10 @@
-import { IdExpressionTree } from '../../../../tree/expression/id/id-expression-tree';
 import { DefinitionMetadata } from '../../../declaration/definition/definition-metadata';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { TypeExpressionMetadata } from '../type-expression-metadata';
 
 export class IdTypeExpressionMetadata extends TypeExpressionMetadata {
-  constructor(private tree: IdExpressionTree, private scope: DeclarationScope) {
+  constructor(public definition: () => DefinitionMetadata) {
     super();
-  }
-
-  definition(): DefinitionMetadata {
-    return this.scope.findDefinitionByName(this.tree.name.text);
   }
 
   attributesScope(): DeclarationScope {
