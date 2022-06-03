@@ -11,7 +11,7 @@ import { StringLiteralTree } from '../../tree/literal/string/string-literal-tree
 import { DefinitionMetadata } from '../declaration/definition/definition-metadata';
 import { getParameterMetadata } from '../declaration/parameter/parameter-metadata-helper';
 import { DeclarationScope } from '../declaration/scope/declaration-scope';
-import { IdTypeMetadata } from './id/id-type-metadata';
+import { DefinitionTypeMetadata } from './definition/definition-type-metadata';
 import { IntersectionTypeMetadata } from './intersection/intersection-type-metadata';
 import { LiteralTypeMetadata } from './literal/literal-type-metadata';
 import { MethodTypeMetadata } from './method/method-type-metadata';
@@ -30,7 +30,7 @@ export function getTypeMetadata(tree: ExpressionTree, scope: DeclarationScope): 
 
   if (tree instanceof IdExpressionTree) {
     const definition = () => scope.findDefinitionByName(tree.name.text);
-    return new IdTypeMetadata(definition);
+    return new DefinitionTypeMetadata(definition);
   }
   if (tree instanceof InfixExpressionTree) {
     const left = () => getTypeMetadata(tree.left, scope);

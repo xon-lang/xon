@@ -1,6 +1,6 @@
 import { parseExpression } from '../../../util/parse';
 import { TestDeclarationScope } from '../../declaration/scope/test-declaration-scope';
-import { IdTypeMetadata } from '../id/id-type-metadata';
+import { DefinitionTypeMetadata } from '../definition/definition-type-metadata';
 import { getTypeMetadata } from '../type-metadata-helper';
 import { MethodTypeMetadata } from './method-type-metadata';
 
@@ -14,7 +14,7 @@ test('method', () => {
   const parameters = metadata.parameters();
   expect(parameters.length).toBe(1);
   expect(parameters[0].name).toBe('a');
-  expect(parameters[0].type()).toBeInstanceOf(IdTypeMetadata);
-  expect((parameters[0].type() as IdTypeMetadata).definition()).toBe(scope.core.number);
-  expect((metadata.result() as IdTypeMetadata).definition()).toBe(scope.core.none);
+  expect(parameters[0].type()).toBeInstanceOf(DefinitionTypeMetadata);
+  expect((parameters[0].type() as DefinitionTypeMetadata).definition()).toBe(scope.core.number);
+  expect((metadata.result() as DefinitionTypeMetadata).definition()).toBe(scope.core.none);
 });

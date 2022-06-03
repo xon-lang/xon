@@ -2,7 +2,7 @@ import { DefinitionMetadata } from '../../declaration/definition/definition-meta
 import { DeclarationScope } from '../../declaration/scope/declaration-scope';
 import { TypeMetadata } from '../type-metadata';
 
-export class IdTypeMetadata extends TypeMetadata {
+export class DefinitionTypeMetadata extends TypeMetadata {
   constructor(public definition: () => DefinitionMetadata) {
     super();
   }
@@ -12,7 +12,7 @@ export class IdTypeMetadata extends TypeMetadata {
   }
 
   is(other: TypeMetadata): boolean {
-    if (other instanceof IdTypeMetadata) {
+    if (other instanceof DefinitionTypeMetadata) {
       const currentDefinition = this.definition();
       const otherDefinition = other.definition();
 

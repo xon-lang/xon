@@ -2,15 +2,15 @@ import { parseExpression } from '../../../util/parse';
 import { DefinitionMetadata } from '../../declaration/definition/definition-metadata';
 import { TestDeclarationScope } from '../../declaration/scope/test-declaration-scope';
 import { getTypeMetadata } from '../type-metadata-helper';
-import { IdTypeMetadata } from './id-type-metadata';
+import { DefinitionTypeMetadata } from './definition-type-metadata';
 
 test('none model', () => {
   const code = 'None';
   const tree = parseExpression(code);
   const scope = new TestDeclarationScope();
-  const metadata = getTypeMetadata(tree, scope) as IdTypeMetadata;
+  const metadata = getTypeMetadata(tree, scope) as DefinitionTypeMetadata;
 
-  expect(metadata).toBeInstanceOf(IdTypeMetadata);
+  expect(metadata).toBeInstanceOf(DefinitionTypeMetadata);
   expect(metadata.definition()).toBeInstanceOf(DefinitionMetadata);
   expect(metadata.definition()).toBe(scope.core.none);
   expect(metadata.definition().name).toBe('None');
@@ -20,9 +20,9 @@ test('none model', () => {
 test('none object', () => {
   const code = 'none';
   const tree = parseExpression(code);
-  const metadata = getTypeMetadata(tree, new TestDeclarationScope()) as IdTypeMetadata;
+  const metadata = getTypeMetadata(tree, new TestDeclarationScope()) as DefinitionTypeMetadata;
 
-  expect(metadata).toBeInstanceOf(IdTypeMetadata);
+  expect(metadata).toBeInstanceOf(DefinitionTypeMetadata);
   expect(metadata.definition()).toBeInstanceOf(DefinitionMetadata);
   expect(metadata.definition().name).toBe('none');
   expect(metadata.definition().allAttributes().length).toBe(0);
@@ -31,9 +31,9 @@ test('none object', () => {
 test('any', () => {
   const code = 'Any';
   const tree = parseExpression(code);
-  const metadata = getTypeMetadata(tree, new TestDeclarationScope()) as IdTypeMetadata;
+  const metadata = getTypeMetadata(tree, new TestDeclarationScope()) as DefinitionTypeMetadata;
 
-  expect(metadata).toBeInstanceOf(IdTypeMetadata);
+  expect(metadata).toBeInstanceOf(DefinitionTypeMetadata);
   expect(metadata.definition()).toBeInstanceOf(DefinitionMetadata);
   expect(metadata.definition().name).toBe('Any');
   expect(metadata.definition().allAttributes().length).toBe(0);
