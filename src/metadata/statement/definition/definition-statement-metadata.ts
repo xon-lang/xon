@@ -4,7 +4,7 @@ import { getDefinitionMetadata } from '../../declaration/definition/definition-m
 import { ParameterMetadata } from '../../declaration/parameter/parameter-metadata';
 import { getParameterMetadata } from '../../declaration/parameter/parameter-metadata-helper';
 import { DeclarationScope } from '../../declaration/scope/declaration-scope';
-import { IdTypeMetadata } from '../../type/id/id-type-metadata';
+import { DefinitionTypeMetadata } from '../../type/definition/definition-type-metadata';
 import { MethodTypeMetadata } from '../../type/method/method-type-metadata';
 import { StatementMetadata } from '../statement-metadata';
 
@@ -20,7 +20,7 @@ export class DefinitionStatementMetadata implements StatementMetadata {
         parameters = () =>
           tree.definition.parameters.map((x) => getParameterMetadata(x, this.scope)).flat();
       }
-      const result = () => new IdTypeMetadata(() => tree.definition.metadata);
+      const result = () => new DefinitionTypeMetadata(() => tree.definition.metadata);
       const methodType = () => new MethodTypeMetadata(parameters, result);
       const parameter = new ParameterMetadata(
         tree.sourceRange,

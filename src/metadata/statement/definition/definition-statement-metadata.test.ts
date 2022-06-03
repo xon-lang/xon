@@ -2,7 +2,7 @@ import { parseStatement } from '../../../util/parse';
 import { DefinitionMetadata } from '../../declaration/definition/definition-metadata';
 import { ParameterMetadata } from '../../declaration/parameter/parameter-metadata';
 import { TestDeclarationScope } from '../../declaration/scope/test-declaration-scope';
-import { IdTypeMetadata } from '../../type/id/id-type-metadata';
+import { DefinitionTypeMetadata } from '../../type/definition/definition-type-metadata';
 import { MethodTypeMetadata } from '../../type/method/method-type-metadata';
 import { getStatementMetadata } from '../statement-metadata-helper';
 import { DefinitionStatementMetadata } from './definition-statement-metadata';
@@ -32,10 +32,10 @@ test('object with parameters', () => {
   expect(parameterType).toBeInstanceOf(MethodTypeMetadata);
   expect(parameterType.parameters().length).toBe(2);
   expect(parameterType.parameters()[1].name).toBe('b');
-  expect(parameterType.parameters()[1].type()).toBeInstanceOf(IdTypeMetadata);
-  expect((parameterType.parameters()[1].type() as IdTypeMetadata).definition()).toBe(
+  expect(parameterType.parameters()[1].type()).toBeInstanceOf(DefinitionTypeMetadata);
+  expect((parameterType.parameters()[1].type() as DefinitionTypeMetadata).definition()).toBe(
     scope.core.string,
   );
-  expect(parameterType.result()).toBeInstanceOf(IdTypeMetadata);
-  expect((parameterType.result() as IdTypeMetadata).definition().name).toBe('A');
+  expect(parameterType.result()).toBeInstanceOf(DefinitionTypeMetadata);
+  expect((parameterType.result() as DefinitionTypeMetadata).definition().name).toBe('A');
 });
