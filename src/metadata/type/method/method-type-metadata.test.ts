@@ -1,0 +1,20 @@
+import { parseExpression } from '../../../util/parse';
+import { TestDeclarationScope } from '../../declaration/scope/test-declaration-scope';
+import { IdTypeMetadata } from '../id/id-type-metadata';
+import { getTypeMetadata } from '../type-metadata-helper';
+import { MethodTypeMetadata } from './method-type-metadata';
+
+test('method', () => {
+  const code = '(a Number)=>None';
+  const tree = parseExpression(code);
+  const scope = new TestDeclarationScope();
+  const metadata = getTypeMetadata(tree, scope) as MethodTypeMetadata;
+
+  expect(metadata).toBeInstanceOf(MethodTypeMetadata);
+  const parameters = metadata.parameters();
+  expect(parameters.length).toBe(1);
+  expect(parameters[0].name).toBe('a');
+  expect(parameters[0].type()).toBeInstanceOf(IdTypeMetadata);
+  expect((parameters[0].type() as IdTypeMetadata).definition()).toBe(scope.core.number);
+  expect((metadata.result() as IdTypeMetadata).definition()).toBe(scope.core.none);
+});
