@@ -13,9 +13,13 @@ export class DefinitionStatementMetadata implements StatementMetadata {
     tree.definition.metadata = getDefinitionMetadata(tree.definition, scope);
     scope.addDefinition(tree.definition.metadata);
 
-    if (tree.definition.parameters.length) {
-      const parameters = () =>
-        tree.definition.parameters.map((x) => getParameterMetadata(x, this.scope)).flat();
+    // todo replace code below
+    if (tree.definition.modifier.text === 'object') {
+      let parameters: () => ParameterMetadata[] = () => [];
+      if (tree.definition.parameters.length) {
+        parameters = () =>
+          tree.definition.parameters.map((x) => getParameterMetadata(x, this.scope)).flat();
+      }
       const result = () => new IdTypeMetadata(() => tree.definition.metadata);
       const methodType = () => new MethodTypeMetadata(parameters, result);
       const parameter = new ParameterMetadata(
