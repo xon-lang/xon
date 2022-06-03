@@ -3,6 +3,9 @@ import { DefinitionMetadata } from '../../definition/definition-metadata';
 import { DeclarationScope } from '../declaration-scope';
 
 export class CoreDeclarationScope extends DeclarationScope {
+  get any(): DefinitionMetadata {
+    return this.findDefinitionByName('Any');
+  }
   get boolean(): DefinitionMetadata {
     return this.findDefinitionByName('Boolean');
   }
@@ -18,8 +21,14 @@ export class CoreDeclarationScope extends DeclarationScope {
   get none(): DefinitionMetadata {
     return this.findDefinitionByName('None');
   }
+  get char(): DefinitionMetadata {
+    return this.findDefinitionByName('Char');
+  }
   get string(): DefinitionMetadata {
     return this.findDefinitionByName('String');
+  }
+  get array(): DefinitionMetadata {
+    return this.findDefinitionByName('Array');
   }
 
   constructor() {
