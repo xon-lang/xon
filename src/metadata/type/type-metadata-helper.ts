@@ -9,12 +9,14 @@ import { FloatLiteralTree } from '../../tree/literal/float/float-literal-tree';
 import { IntegerLiteralTree } from '../../tree/literal/integer/integer-literal-tree';
 import { StringLiteralTree } from '../../tree/literal/string/string-literal-tree';
 import { DefinitionMetadata } from '../declaration/definition/definition-metadata';
+import { ParameterMetadata } from '../declaration/parameter/parameter-metadata';
 import { getParameterMetadata } from '../declaration/parameter/parameter-metadata-helper';
 import { DeclarationScope } from '../declaration/scope/declaration-scope';
 import { DefinitionTypeMetadata } from './definition/definition-type-metadata';
 import { IntersectionTypeMetadata } from './intersection/intersection-type-metadata';
 import { LiteralTypeMetadata } from './literal/literal-type-metadata';
 import { MethodTypeMetadata } from './method/method-type-metadata';
+import { ParameterTypeMetadata } from './parameter/parameter-type-metadata';
 import { TypeMetadata } from './type-metadata';
 import { UnionTypeMetadata } from './union/union-type-metadata';
 
@@ -29,8 +31,11 @@ export function getTypeMetadata(tree: ExpressionTree, scope: DeclarationScope): 
   }
 
   if (tree instanceof IdExpressionTree) {
-    const definition = () => scope.findDefinitionByName(tree.name.text);
-    return new DefinitionTypeMetadata(definition);
+    const declaration = scope.find(tree.name.text);
+    if (declaration instanceof ParameterMetadata)
+      return new ParameterTypeMetadata(() => declaration);
+    if (declaration instanceof DefinitionMetadata)
+      return new DefinitionTypeMetadata(() => declaration);
   }
   if (tree instanceof InfixExpressionTree) {
     const left = () => getTypeMetadata(tree.left, scope);
