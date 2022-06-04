@@ -19,8 +19,8 @@ statement
     | CONTINUE                                                             # continueStatement
     | RETURN expression?                                                   # returnStatement
     | ACTUAL actual = expression NL+ EXPECT expect = expression            # assertStatement
-    | expression                                                           # expressionStatement
     | parameter                                                            # parameterStatement
+    | expression                                                           # expressionStatement
     ;
 
 expression
@@ -49,10 +49,13 @@ definition
     )?
     ;
 
-parameter:  (name = ID | parameters) type = expression? body?;
+parameter
+    : name = ID (COLON type = expression?)? body?
+    | parameters (COLON type = expression?)? body
+    ;
 parameters: open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = ('}' | ']' | ')');
 
 argument:  (name = ID COLON)? expression;
 arguments: open = ('(' | '[' | '{') (argument (',' argument)* ','?)? close = ('}' | ']' | ')');
 
-body: (ASSIGN | COLON) statement # singleBody | NL INDENT (statement | NL)+ DEDENT # multipleBody;
+body: ASSIGN statement # singleBody | NL INDENT (statement | NL)+ DEDENT # multipleBody;
