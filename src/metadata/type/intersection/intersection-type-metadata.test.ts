@@ -10,5 +10,5 @@ test('intersect', () => {
   const metadata = getTypeMetadata(tree, scope) as IntersectionTypeMetadata;
 
   expect(metadata).toBeInstanceOf(IntersectionTypeMetadata);
-  expect(metadata.attributesScope().parameters.length).toBe(1);
+  expect(metadata.attributesScope().declarations.length).toBe(1);
 });
