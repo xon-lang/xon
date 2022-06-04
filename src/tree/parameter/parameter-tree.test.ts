@@ -12,62 +12,62 @@ test('id', () => {
 });
 
 test('id type', () => {
-  const code = `abc Integer`;
+  const code = `abc: Integer`;
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('abc Integer');
+  expect(tree.toString()).toBe('abc: Integer');
 });
 
 test('id type', () => {
-  const code = `abc[a Number]=> Integer`;
+  const code = `abc:[a: Number]=> Integer`;
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('abc [a Number] => Integer');
+  expect(tree.toString()).toBe('abc: [a: Number] => Integer');
 });
 
 test('variable type value ', () => {
-  const code = `statements StatementTree[] = []`;
+  const code = `statements: StatementTree[] = []`;
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('statements StatementTree[] = []');
+  expect(tree.toString()).toBe('statements: StatementTree[] = []');
 });
 
 test('method single body', () => {
-  const code = `statements[a, b Number]=> Integer= 7`;
+  const code = `statements:[a, b: Number]=> Integer= 7`;
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('statements [a, b Number] => Integer = 7');
+  expect(tree.toString()).toBe('statements: [a, b: Number] => Integer = 7');
 });
 
 test('method multiple body', () => {
-  const code = `statements[a, b Number]=> Integer\n  123\n  return 456`;
+  const code = `statements:[a, b: Number]=> Integer\n  123\n  return 456`;
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('statements [a, b Number] => Integer\n  123\n  return 456');
+  expect(tree.toString()).toBe('statements: [a, b: Number] => Integer\n  123\n  return 456');
 });
 
 test('name and array type', () => {
-  const code = `items ExpressionTree[]`;
+  const code = `items: ExpressionTree[]`;
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('items ExpressionTree[]');
+  expect(tree.toString()).toBe('items: ExpressionTree[]');
   expect(tree.name).toBeInstanceOf(IdToken);
   expect(tree.type).toBeInstanceOf(InvokeExpressionTree);
   expect(tree.body).toBe(null);
 });
 
 test('name and array type', () => {
-  const code = `getParameterTrees(contexts ParameterContext[])=> None`;
+  const code = `getParameterTrees:(contexts: ParameterContext[])=> None`;
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('getParameterTrees (contexts ParameterContext[]) => None');
+  expect(tree.toString()).toBe('getParameterTrees: (contexts: ParameterContext[]) => None');
 });
 
 test('preprocessor', () => {
@@ -85,11 +85,11 @@ a
 });
 
 test('bracket parameter with type', () => {
-  const code = `[a] Integer[] = [1, 2 ,3]`;
+  const code = `[a]: Integer[] = [1, 2 ,3]`;
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('[a] Integer[] = [1, 2, 3]');
+  expect(tree.toString()).toBe('[a]: Integer[] = [1, 2, 3]');
 });
 
 test('bracket parameter without type', () => {
@@ -109,9 +109,9 @@ test('paren parameters', () => {
 });
 
 test('brace parameters', () => {
-  const code = `{a, b, c}: import lib.abc`;
+  const code = `{a, b, c} = import lib.abc`;
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('{a, b, c}: import lib.abc');
+  expect(tree.toString()).toBe('{a, b, c} = import lib.abc');
 });

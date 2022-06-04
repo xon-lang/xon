@@ -20,7 +20,7 @@ export class SingleBodyTree extends BodyTree {
   }
 
   toString() {
-    return this.ctx.ASSIGN() && ` = ${this.statement}` || `: ${this.statement}`
+    return ` = ${this.statement}`
   }
 }
 

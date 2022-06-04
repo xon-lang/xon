@@ -37,7 +37,7 @@ export class ParameterTree extends Tree {
       && this.ctx.parameters()._open.text 
       + this.parameters.join(', ') 
       + this.ctx.parameters()._close.text
-    type = this.type && ' ' + this.type || ''
+    type = this.type && ': ' + this.type || ''
     body = this.body && this.body || ''
     return (this.name || parameters) + type + body
   }

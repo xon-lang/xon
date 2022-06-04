@@ -1,10 +1,11 @@
 return 1213
-object someObjectFactory(name String)
-  arr Number[] = [123, 456, 789, 456, 789]
-  abc Integer
+object someObjectFactory(name: String)
+  arr: Number[] = [123, 456, 789, 456, 789]
+  abc: Integer
 
-  location (x Number, y Number) => Position
-    pos(x, y)
+  location: (x: Number, y: Number) => Position
+    pos
+    (x, y)
 model Array
 #{1  sd
 f 2 sdf

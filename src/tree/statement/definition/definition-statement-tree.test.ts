@@ -28,7 +28,7 @@ test('model cat', () => {
 });
 
 test('model animal with only attribute', () => {
-  const code = 'model Animal\n   abc Integer';
+  const code = 'model Animal\n   abc: Integer';
   const { definition: tree } = parseStatement(code) as DefinitionStatementTree;
 
   expect(tree).toBeInstanceOf(DefinitionTree);
@@ -48,9 +48,9 @@ test('1-error.xon', () => {
   } catch (error) {
     const issue = IssueService.issues.slice(-1)[0];
 
-    expect(issue.source.start.line).toBe(3);
-    expect(issue.source.start.column).toBe(7);
-    expect(issue.source.stop.column).toBe(27);
+    expect(issue.source.start.line).toBe(2);
+    expect(issue.source.start.column).toBe(14);
+    expect(issue.source.stop.column).toBe(20);
   }
   expect(IssueService.issues.length).toBe(1); // mb should be 2
 });

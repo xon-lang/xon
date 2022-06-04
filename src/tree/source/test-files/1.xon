@@ -1,8 +1,8 @@
 return 1213
 
 -- comment
-object someObjectFactory(name String)
-  arr Number[] = [
+object someObjectFactory(name: String)
+  arr: Number[] = [
     -- comment
     123,
     456,  -- comment
@@ -15,10 +15,10 @@ object someObjectFactory(name String)
   ]
 
   -- comment
-  location(x Number, y Number)=> Position
+  location: (x: Number, y: Number) => Position
     pos(x, y)
 
-  abc Integer
+  abc: Integer
 
 model Array
 
