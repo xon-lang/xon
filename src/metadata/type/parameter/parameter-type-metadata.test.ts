@@ -1,5 +1,4 @@
 import { parseExpression } from '../../../util/parse';
-import { DefinitionMetadata } from '../../declaration/definition/definition-metadata';
 import { TestDeclarationScope } from '../../declaration/scope/test-declaration-scope';
 import { getTypeMetadata } from '../type-metadata-helper';
 import { ParameterTypeMetadata } from './parameter-type-metadata';
@@ -12,7 +11,6 @@ test('true', () => {
 
   expect(metadata.attributesScope().all().length).toBe(3);
 });
-
 
 test('false is Boolean', () => {
   const code = 'false';
