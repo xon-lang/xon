@@ -3,7 +3,7 @@ import { parseSource, parseSourceFile } from '../../util/parse';
 import { SourceTree } from './source-tree';
 
 test('two if', () => {
-  const code = `{Path}: import 'xon.os'
+  const code = `{Path} = import 'xon.os'
 
 1+1
 if e
@@ -28,7 +28,7 @@ test('formatted 1.xon', () => {
 
 test('preprocessor in attribute', () => {
   const code = `
-toString [] => String
+toString: [] => String
   importStatements = this.statements.filter[[x] => x is ImportStatementTree].map[[x] => x as ImportStatementTree]
   importStatementsMap = #{{}}
   #{
@@ -43,4 +43,11 @@ toString [] => String
 
   expect(tree).toBeInstanceOf(SourceTree);
   expect(tree.toString()).toBe(code + '\n');
+});
+
+test('2.xon', () => {
+  const tree = parseSourceFile('src/tree/source/test-files/2.xon');
+
+  expect(tree).toBeInstanceOf(SourceTree);
+  expect(tree.statements.length).toBe(2);
 });
