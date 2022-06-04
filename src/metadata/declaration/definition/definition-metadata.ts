@@ -9,6 +9,7 @@ export class DefinitionMetadata implements Metadata {
 
   constructor(
     public sourceRange: SourceRange,
+    public modifier: String,
     public name: String,
     public parameters: () => ParameterMetadata[],
     public baseDefinition: () => DefinitionMetadata | None,
@@ -24,7 +25,7 @@ export class DefinitionMetadata implements Metadata {
     } else {
       this.scope = new DeclarationScope();
     }
-    this.attributes().forEach((x) => this.scope.addParameter(x));
+    this.attributes().forEach((x) => this.scope.add(x));
     return this.scope;
   }
 

@@ -14,13 +14,14 @@ export function getDefinitionMetadata(
     const parameters = () => tree.parameters.map((x) => getParameterMetadata(x, scope)).flat();
     let baseDefinition: () => DefinitionMetadata | None = () => none;
     if (tree.base instanceof IdExpressionTree) {
-      baseDefinition = () => scope.findDefinitionByName(tree.base['name'].text);
+      baseDefinition = () => scope.find(tree.base['name'].text) as DefinitionMetadata;
     } else if (tree.base) {
       throw new Error('Not implemented');
     }
     const attributes = () => tree.attributes.map((x) => getParameterMetadata(x, scope)).flat();
     const metadata = new DefinitionMetadata(
       tree.sourceRange,
+      tree.modifier.text,
       tree.name.text,
       parameters,
       baseDefinition,
