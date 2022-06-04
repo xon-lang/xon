@@ -37,13 +37,12 @@ EXPORT:   'export';
 FOR:      'for';
 IF:       'if';
 IMPORT:   'import';
-// MODEL:    'model';
-// OBJECT:   'object';
-RETURN: 'return';
-WHILE:  'while';
+RETURN:   'return';
+WHILE:    'while';
 
-MODEL:  'model';
-OBJECT: 'object';
+MODEL:   'model';
+OBJECT:  'object';
+FACTORY: 'factory';
 
 AND: 'and';
 AS:  'as';
