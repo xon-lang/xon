@@ -5,14 +5,15 @@ import { DefinitionMetadata } from '../definition/definition-metadata';
 import { ParameterMetadata } from '../parameter/parameter-metadata';
 import { CoreDeclarationScope } from './core/core-declaration-scope';
 
+type DeclarationMetadata = ParameterMetadata | DefinitionMetadata;
+
 export class DeclarationScope {
   static _core: CoreDeclarationScope;
   get core(): CoreDeclarationScope {
     return DeclarationScope._core;
   }
 
-  parameters: ParameterMetadata[] = [];
-  definitions: DefinitionMetadata[] = [];
+  declarations: DeclarationMetadata[] = [];
 
   constructor(public parent?: DeclarationScope) {}
 
@@ -20,22 +21,25 @@ export class DeclarationScope {
     return new DeclarationScope(this);
   }
 
-  addParameter(metadata: ParameterMetadata) {
-    this.parameters.push(metadata);
+  add(metadata: DeclarationMetadata) {
+    this.declarations.push(metadata);
   }
 
-  filter(predicate: (x: ParameterMetadata) => Boolean): ParameterMetadata[] {
-    const declarations = this.parameters.filter(predicate);
-    const parentDeclarations = this.parent?.filter(predicate) || [];
-    return [...declarations, ...parentDeclarations];
+  all(): DeclarationMetadata[] {
+    const parentDeclarations = this.parent?.all() || [];
+    return [...this.declarations, ...parentDeclarations];
   }
 
-  filterByName(name: String, predicate?: (x: ParameterMetadata) => Boolean): ParameterMetadata[] {
-    return this.filter((x) => x.name === name && (!predicate || predicate(x)));
+  filter(name: String, predicate?: (x: DeclarationMetadata) => Boolean): DeclarationMetadata[] {
+    const declarations = this.declarations.filter(
+      (x) => x.name === name && (!predicate || predicate(x)),
+    );
+    if (declarations.length) return declarations;
+    return this.parent?.filter(name, predicate) || [];
   }
 
-  findByName(name: String, predicate?: (x: ParameterMetadata) => Boolean): ParameterMetadata {
-    const results = this.filterByName(name, predicate);
+  find(name: String, predicate?: (x: DeclarationMetadata) => Boolean): DeclarationMetadata {
+    const results = this.filter(name, predicate);
 
     if (results.length > 1) {
       const issues = results.map((x) =>
@@ -50,59 +54,21 @@ export class DeclarationScope {
     return results[0];
   }
 
-  // definitions
-
-  addDefinition(metadata: DefinitionMetadata) {
-    this.definitions.push(metadata);
-  }
-
-  filterDefinitions(predicate: (x: DefinitionMetadata) => Boolean): DefinitionMetadata[] {
-    const declarations = this.definitions.filter(predicate);
-    const parentDeclarations = this.parent?.filterDefinitions(predicate) || [];
-    return [...declarations, ...parentDeclarations];
-  }
-
-  filterDefinitionsByName(
-    name: String,
-    predicate?: (x: DefinitionMetadata) => Boolean,
-  ): DefinitionMetadata[] {
-    return this.filterDefinitions((x) => x.name === name && (!predicate || predicate(x)));
-  }
-
-  findDefinitionByName(
-    name: String,
-    predicate?: (x: DefinitionMetadata) => Boolean,
-  ): DefinitionMetadata {
-    const results = this.filterDefinitionsByName(name, predicate);
-
-    if (results.length > 1) {
-      const issues = results.map((x) =>
-        Issue.fromSourceRange(x.sourceRange, IssueLevel.error, '').toString(),
-      );
-      throw new Error(`Too many '${name}' definitions found:\n${issues.join('\n')}`);
-    }
-    if (!results.length) {
-      throw new Error(`Definition '${name}' not found`);
-    }
-
-    return results[0];
-  }
-
   // operators
   union(other: DeclarationScope): DeclarationScope {
-    const left = this.filter((x) => true);
-    const right = other.filter((x) => true);
+    const left = this.all();
+    const right = other.all();
     const scope = new DeclarationScope(this.core);
-    scope.parameters = left.concat(right);
+    scope.declarations = left.concat(right);
     return scope;
   }
 
   intersect(other: DeclarationScope): DeclarationScope {
-    const left = this.filter((x) => true);
-    const right = other.filter((x) => true);
+    const left = this.all();
+    const right = other.all();
     const scope = new DeclarationScope(this.core);
     const commons = left.filter((x) => right.some((z) => x.name === z.name));
-    scope.parameters = left.concat(right).filter((x) => !commons.some((z) => x.name === z.name));
+    scope.declarations = left.concat(right).filter((x) => !commons.some((z) => x.name === z.name));
     return scope;
   }
 }
