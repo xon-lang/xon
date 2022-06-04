@@ -6,8 +6,9 @@ import { StatementMetadata } from '../statement-metadata';
 export class ParameterStatementMetadata implements StatementMetadata {
   constructor(private tree: ParameterStatementTree, private scope: DeclarationScope) {
     const parameters = getParameterMetadata(tree.parameter, scope);
-    parameters.forEach((x) => scope.addParameter(x));
+    parameters.forEach((x) => scope.add(x));
 
+    // fill tree metadata
     if (tree.parameter.name) {
       tree.parameter.metadata = parameters[0];
     } else {

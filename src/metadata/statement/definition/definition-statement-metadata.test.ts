@@ -24,7 +24,7 @@ test('object with parameters', () => {
   expect(metadata).toBeInstanceOf(DefinitionStatementMetadata);
   expect(scope.findDefinitionByName('A')).toBeInstanceOf(DefinitionMetadata);
 
-  const parameter = scope.findByName('A');
+  const parameter = scope.find('A');
   expect(parameter).toBeInstanceOf(ParameterMetadata);
   expect(parameter.name).toBe('A');
 
