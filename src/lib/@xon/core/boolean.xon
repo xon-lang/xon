@@ -1,6 +1,8 @@
 model Boolean
+  test1
+  test2
+  test3
 
-object false is Boolean
+false Boolean
 
-object true is Boolean
-  test Number
+true Boolean
