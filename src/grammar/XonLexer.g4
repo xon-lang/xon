@@ -42,6 +42,9 @@ IMPORT:   'import';
 RETURN: 'return';
 WHILE:  'while';
 
+MODEL:  'model';
+OBJECT: 'object';
+
 AND: 'and';
 AS:  'as';
 IS:  'is';

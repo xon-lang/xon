@@ -44,7 +44,9 @@ literal
     ;
 
 definition
-    : modifier = ID name = ID parameters? (IS expression)? (NL INDENT (parameter | NL)+ DEDENT)?
+    : modifier = (MODEL | OBJECT) name = ID parameters? (IS expression)? (
+        NL INDENT (parameter | NL)+ DEDENT
+    )?
     ;
 
 parameter:  (name = ID | parameters) type = expression? body?;
