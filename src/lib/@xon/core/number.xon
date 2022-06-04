@@ -1,11 +1,11 @@
 model Number
 
 model Integer is Number
-  test String
+  test: String
 
 model Float is Number
-  test String
-  test2 String
+  test: String
+  test2: String
 
 -- operator + [other Number] Number
 -- operator - [other Number] Number

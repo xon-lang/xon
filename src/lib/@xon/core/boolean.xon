@@ -3,6 +3,6 @@ model Boolean
   test2
   test3
 
-false Boolean
+false: Boolean
 
-true Boolean
+true: Boolean
