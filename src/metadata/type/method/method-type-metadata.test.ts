@@ -5,7 +5,7 @@ import { getTypeMetadata } from '../type-metadata-helper';
 import { MethodTypeMetadata } from './method-type-metadata';
 
 test('method', () => {
-  const code = '(a Number)=>None';
+  const code = '(a: Number)=>None';
   const tree = parseExpression(code);
   const scope = new TestDeclarationScope();
   const metadata = getTypeMetadata(tree, scope) as MethodTypeMetadata;
