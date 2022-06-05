@@ -9,8 +9,8 @@ test('name value', () => {
   const formatter = getArgumentFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(ArgumentFormatter);
-  expect(formatter.toString()).toBe('a: 123');
-  expect(formatter.indent(2).toString()).toBe('a: 123');
+  expect(formatter.toString()).toBe('a = 123');
+  expect(formatter.indent(2).toString()).toBe('a = 123');
 });
 
 test('value', () => {
