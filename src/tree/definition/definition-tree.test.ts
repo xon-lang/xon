@@ -49,8 +49,8 @@ test('1-error.xon', () => {
     const issue = IssueService.issues.slice(-1)[0];
 
     expect(issue.source.start.line).toBe(2);
-    expect(issue.source.start.column).toBe(14);
-    expect(issue.source.stop.column).toBe(20);
+    expect(issue.source.start.column).toBe(7);
+    expect(issue.source.stop.column).toBe(7);
   }
   expect(IssueService.issues.length).toBe(1); // mb should be 2
 });
