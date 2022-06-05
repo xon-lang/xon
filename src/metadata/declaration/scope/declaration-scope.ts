@@ -5,7 +5,7 @@ import { DefinitionMetadata } from '../definition/definition-metadata';
 import { ParameterMetadata } from '../parameter/parameter-metadata';
 import { CoreDeclarationScope } from './core/core-declaration-scope';
 
-type DeclarationMetadata = ParameterMetadata | DefinitionMetadata;
+export type DeclarationMetadata = ParameterMetadata | DefinitionMetadata;
 
 export class DeclarationScope {
   static _core: CoreDeclarationScope;
