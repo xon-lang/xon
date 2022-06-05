@@ -10,18 +10,20 @@ export class ParameterFormatter extends Formatter {
   }
 
   toString() {
+    const typeSign = (this.ctx.COLON() && ':') || '';
     const type =
-      (this.ctx.expression() &&
+      (this.ctx._type &&
         ' ' +
-          getExpressionFormatter(this.ctx.expression(), this.config)
+          getExpressionFormatter(this.ctx._type, this.config)
             .indent(this.indentCount)
             .toString()
             .trim()) ||
       '';
     let body =
       (this.ctx.body() &&
-        getBodyFormatter(this.ctx.body(), this.config).indent(this.indentCount)) ||
+        ((type && ' ') || '') +
+          getBodyFormatter(this.ctx.body(), this.config).indent(this.indentCount)) ||
       '';
-    return `${this.ctx._name.text}${type}${body}`;
+    return `${this.ctx._name.text}${typeSign}${type}${body}`;
   }
 }
