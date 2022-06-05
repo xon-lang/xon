@@ -13,7 +13,7 @@ export class ArgumentFormatter extends Formatter {
       .break(this.broken)
       .indent(this.indentCount);
     if (this.ctx._name) {
-      return `${this.ctx._name.text}: ` + value;
+      return `${this.ctx._name.text} = ` + value;
     }
     return value.toString();
   }

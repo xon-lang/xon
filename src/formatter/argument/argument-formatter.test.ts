@@ -4,7 +4,7 @@ import { ArgumentFormatter } from './argument-formatter';
 import { getArgumentFormatter } from './argument-formatter-helper';
 
 test('name value', () => {
-  const code = 'a: 123';
+  const code = 'a= 123';
   const ctx = parse(code).argument();
   const formatter = getArgumentFormatter(ctx, defaultFormatterConfig);
 
