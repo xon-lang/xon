@@ -1,6 +1,7 @@
 import { Any } from '../../../lib/core';
 import { InfixExpressionTree } from '../../../tree/expression/infix/infix-expression-tree';
 import { DeclarationScope } from '../../declaration/scope/declaration-scope';
+import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
 import { getValueMetadata } from '../value-metadata-helper';
 
@@ -21,6 +22,10 @@ export class InfixValueMetadata extends ValueMetadata {
     // if (attributes.length > 1) throw new Error('To many attributes');
     // if (attributes.length === 0) throw new Error('Not found');
     // return attributes[0].type().attributes();
+  }
+
+  type(): TypeMetadata {
+    throw new Error('Method not implemented.');
   }
 
   eval(): Any {

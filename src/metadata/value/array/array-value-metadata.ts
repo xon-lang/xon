@@ -13,4 +13,8 @@ export class ArrayValueMetadata extends ValueMetadata {
   type(): TypeMetadata {
     return;
   }
+
+  eval() {
+    throw new Error('Method not implemented.');
+  }
 }

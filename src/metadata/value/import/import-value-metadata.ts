@@ -3,6 +3,7 @@ import { PrefixExpressionTree } from '../../../tree/expression/prefix/prefix-exp
 import { evaluate } from '../../../util/evaluate';
 import { DeclarationScope } from '../../declaration/scope/declaration-scope';
 import { ImportProvider } from '../../import-provider';
+import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
 import { getValueMetadata } from '../value-metadata-helper';
 
@@ -12,7 +13,7 @@ export class ImportValueMetadata extends ValueMetadata {
     tree.value.metadata = getValueMetadata(tree.value, scope);
   }
 
-  declaration(): DeclarationScope {
+  importScope(): DeclarationScope {
     const importPath = evaluate(this.tree.value);
     if (typeof importPath === 'string') {
       return new ImportProvider(importPath).scope();
@@ -21,7 +22,11 @@ export class ImportValueMetadata extends ValueMetadata {
     }
   }
 
+  type(): TypeMetadata {
+    throw new Error('Not implemented');
+  }
+
   eval() {
-    return {};
+    throw new Error('Not implemented');
   }
 }
