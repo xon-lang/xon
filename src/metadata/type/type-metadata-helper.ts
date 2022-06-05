@@ -1,4 +1,5 @@
 import { Issue } from '../../issue-service/issue';
+import { ArrayExpressionTree } from '../../tree/expression/array/array-expression-tree';
 import { ExpressionTree } from '../../tree/expression/expression-tree';
 import { GroupExpressionTree } from '../../tree/expression/group/group-expression-tree';
 import { IdExpressionTree } from '../../tree/expression/id/id-expression-tree';
@@ -12,10 +13,12 @@ import { DefinitionMetadata } from '../declaration/definition/definition-metadat
 import { ParameterMetadata } from '../declaration/parameter/parameter-metadata';
 import { getParameterMetadata } from '../declaration/parameter/parameter-metadata-helper';
 import { DeclarationScope } from '../declaration/scope/declaration-scope';
+import { getValueMetadata } from '../value/value-metadata-helper';
 import { DefinitionTypeMetadata } from './definition/definition-type-metadata';
 import { IntersectionTypeMetadata } from './intersection/intersection-type-metadata';
 import { LiteralTypeMetadata } from './literal/literal-type-metadata';
 import { MethodTypeMetadata } from './method/method-type-metadata';
+import { ObjectTypeMetadata } from './object/object-type-metadata';
 import { ParameterTypeMetadata } from './parameter/parameter-type-metadata';
 import { TypeMetadata } from './type-metadata';
 import { UnionTypeMetadata } from './union/union-type-metadata';
@@ -51,6 +54,26 @@ export function getTypeMetadata(tree: ExpressionTree, scope: DeclarationScope): 
     const parameters = () => tree.parameters.map((x) => getParameterMetadata(x, scope)).flat();
     const result = () => getTypeMetadata(tree.value, scope);
     return new MethodTypeMetadata(parameters, result);
+  }
+
+  if (tree instanceof ArrayExpressionTree) {
+    if (tree.ctx.arguments().OPEN_BRACE()) {
+      const noNameArgument = tree.arguments.find((x) => !x.name);
+      if (noNameArgument) Issue.errorFromTree(noNameArgument, 'No name argument');
+      const objectScope = new DeclarationScope();
+      const parameters = tree.arguments.map(
+        (x) =>
+          new ParameterMetadata(
+            x.sourceRange,
+            x.name.text,
+            () => getValueMetadata(x.value, scope).type(),
+            () => getValueMetadata(x.value, scope),
+          ),
+      );
+      parameters.forEach((x) => objectScope.add(x));
+      return new ObjectTypeMetadata(() => objectScope);
+    }
+    throw new Error('Not implemented');
   }
 
   Issue.errorFromTree(tree, `Type expression metadata not found for '${tree.constructor.name}'`);
