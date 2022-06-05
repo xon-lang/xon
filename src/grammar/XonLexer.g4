@@ -40,10 +40,6 @@ IMPORT:   'import';
 RETURN:   'return';
 WHILE:    'while';
 
-MODEL:   'model';
-OBJECT:  'object';
-FACTORY: 'factory';
-
 AND: 'and';
 AS:  'as';
 IS:  'is';

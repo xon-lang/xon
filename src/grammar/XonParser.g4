@@ -44,9 +44,7 @@ literal
     ;
 
 definition
-    : modifier = (MODEL | OBJECT | FACTORY) name = ID parameters? (IS expression)? (
-        NL INDENT (parameter | NL)+ DEDENT
-    )?
+    : modifier = ID name = ID parameters? (IS expression)? (NL INDENT (parameter | NL)+ DEDENT)?
     ;
 
 parameter
