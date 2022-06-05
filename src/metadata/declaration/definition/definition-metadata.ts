@@ -1,6 +1,7 @@
 import { Boolean, None } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { Metadata } from '../../metadata';
+import { DefinitionTypeMetadata } from '../../type/definition/definition-type-metadata';
 import { ParameterMetadata } from '../parameter/parameter-metadata';
 import { DeclarationScope } from '../scope/declaration-scope';
 
@@ -15,6 +16,10 @@ export class DefinitionMetadata implements Metadata {
     public baseDefinition: () => DefinitionMetadata | None,
     public attributes: () => ParameterMetadata[],
   ) {}
+
+  type() {
+    return new DefinitionTypeMetadata(() => this);
+  }
 
   attributesScope(): DeclarationScope {
     if (this.scope) return this.scope;
