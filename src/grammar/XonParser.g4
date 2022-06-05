@@ -33,7 +33,7 @@ expression
     | op = (OP | IMPORT) expression                                       # prefixExpression
     | left = expression op = (AS | IS | AND | OR | OP) right = expression # infixExpression
     | name = ID                                                           # idExpression
-    | parameters type = expression? LAMBDA value = expression             # methodExpression
+    | parameters LAMBDA value = expression                                # methodExpression
     | literal                                                             # literalExpression
     ;
 
@@ -50,12 +50,16 @@ definition
     ;
 
 parameter
-    : name = ID (COLON type = expression?)? body?
+    : name = ID (COLON type = expression? body? | body)
     | parameters (COLON type = expression?)? body
+    | name = ID
     ;
 parameters: open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = ('}' | ']' | ')');
 
 argument:  (name = ID COLON)? expression;
 arguments: open = ('(' | '[' | '{') (argument (',' argument)* ','?)? close = ('}' | ']' | ')');
 
-body: ASSIGN statement # singleBody | NL INDENT (statement | NL)+ DEDENT # multipleBody;
+body
+    : ASSIGN expression                                   # singleBody
+    | NL INDENT NL* statement (NL+ statement)* NL* DEDENT # multipleBody
+    ;

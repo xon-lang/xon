@@ -51,9 +51,9 @@ OR:  'or';
 
 ASSIGN:   '=';
 COMMA:    ',';
+COLON:    ':';
 QUESTION: (NL | WS)* '?';
 DOT:      (NL | WS)* '.' (NL | WS)*;
-COLON:    (NL | WS)* ':' (NL | WS)*;
 LAMBDA:   (NL | WS)* '=>' (NL | WS)*;
 
 FLOAT_LITERAL:   Radix AlphabetNumber '.' AlphabetNumber | DigitNumber '.' DigitNumber;
