@@ -1,26 +1,25 @@
 // this code was generated
 
 import { SingleBodyContext } from '../../../grammar/xon-parser'
-import { String } from '../../../lib/core'
 import { SourceRange } from '../../../util/source-range'
-import { getStatementTree } from '../../statement/statement-tree-helper'
-import { StatementTree } from '../../statement/statement-tree'
 import { BodyTree } from '../body-tree'
+import { ExpressionTree } from '../../expression/expression-tree'
+import { getExpressionTree } from '../../expression/expression-tree-helper'
 
 export class SingleBodyTree extends BodyTree {
   ctx: SingleBodyContext
   sourceRange: SourceRange
-  statement: StatementTree
+  expression: ExpressionTree
 
   constructor(ctx: SingleBodyContext) {
     super()
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
-    this.statement = getStatementTree(ctx.statement())
+    this.expression = getExpressionTree(ctx.expression())
   }
 
   toString() {
-    return ` = ${this.statement}`
+    return ` = ${this.expression}`
   }
 }
 

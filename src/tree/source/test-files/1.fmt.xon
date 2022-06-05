@@ -4,8 +4,7 @@ object someObjectFactory(name: String)
   abc: Integer
 
   location: (x: Number, y: Number) => Position
-    pos
-    (x, y)
+    pos(x, y)
 model Array
 #{1  sd
 f 2 sdf

@@ -8,6 +8,7 @@ test('if else if', () => {
   const code = `
   if 12+(45/9)
     12+(45/5)
+    invoke()
   else
     if 2+2
       2 * 4`.trim();
@@ -15,6 +16,8 @@ test('if else if', () => {
 
   expect(tree).toBeInstanceOf(IfStatementTree);
   expect(evaluate(tree.condition)).toBe(12 + 45 / 9);
+
+  expect((tree.thenBody as MultipleBodyTree).statements.length).toBe(2);
   const ifStatement = (tree.thenBody as MultipleBodyTree).statements[0] as ExpressionStatementTree;
   expect(evaluate(ifStatement.expression)).toBe(12 + 45 / 5);
 
