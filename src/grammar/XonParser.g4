@@ -60,6 +60,6 @@ argument:  (name = ID COLON)? expression;
 arguments: open = ('(' | '[' | '{') (argument (',' argument)* ','?)? close = ('}' | ']' | ')');
 
 body
-    : ASSIGN expression                                   # singleBody
+    : ASSIGN statement                                    # singleBody
     | NL INDENT NL* statement (NL+ statement)* NL* DEDENT # multipleBody
     ;

@@ -337,16 +337,16 @@ export class XonParser extends Parser {
 				(_localctx as IfStatementContext)._thenBody = this.body();
 				this.state = 65;
 				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-				if (_la === XonParser.ELSE) {
+				switch ( this.interpreter.adaptivePredict(this._input, 6, this._ctx) ) {
+				case 1:
 					{
 					this.state = 63;
 					this.match(XonParser.ELSE);
 					this.state = 64;
 					(_localctx as IfStatementContext)._elseBody = this.body();
 					}
+					break;
 				}
-
 				}
 				break;
 
@@ -1165,7 +1165,7 @@ export class XonParser extends Parser {
 				this.state = 205;
 				this.match(XonParser.ASSIGN);
 				this.state = 206;
-				this.expression(0);
+				this.statement();
 				}
 				break;
 			case XonParser.NL:
@@ -1384,7 +1384,7 @@ export class XonParser extends Parser {
 		"\x07\x1F\x02\x02\xC9\xC8\x03\x02\x02\x02\xC9\xCA\x03\x02\x02\x02\xCA\xCC" +
 		"\x03\x02\x02\x02\xCB\xC0\x03\x02\x02\x02\xCB\xCC\x03\x02\x02\x02\xCC\xCD" +
 		"\x03\x02\x02\x02\xCD\xCE\t\x06\x02\x02\xCE\x13\x03\x02\x02\x02\xCF\xD0" +
-		"\x07\x1E\x02\x02\xD0\xEE\x05\x06\x04\x02\xD1\xD2\x07*\x02\x02\xD2\xD6" +
+		"\x07\x1E\x02\x02\xD0\xEE\x05\x04\x03\x02\xD1\xD2\x07*\x02\x02\xD2\xD6" +
 		"\x07\x03\x02\x02\xD3\xD5\x07*\x02\x02\xD4\xD3\x03\x02\x02\x02\xD5\xD8" +
 		"\x03\x02\x02\x02\xD6\xD4\x03\x02\x02\x02\xD6\xD7\x03\x02\x02\x02\xD7\xD9" +
 		"\x03\x02\x02\x02\xD8\xD6\x03\x02\x02\x02\xD9\xE2\x05\x04\x03\x02\xDA\xDC" +
@@ -1963,8 +1963,8 @@ export class BodyContext extends ParserRuleContext {
 }
 export class SingleBodyContext extends BodyContext {
 	public ASSIGN(): TerminalNode { return this.getToken(XonParser.ASSIGN, 0); }
-	public expression(): ExpressionContext {
-		return this.getRuleContext(0, ExpressionContext);
+	public statement(): StatementContext {
+		return this.getRuleContext(0, StatementContext);
 	}
 	constructor(ctx: BodyContext) {
 		super(ctx.parent, ctx.invokingState);
