@@ -14,12 +14,13 @@ export class LiteralTypeMetadata extends TypeMetadata {
     return this.definition().attributesScope();
   }
 
-  is(metadata: TypeMetadata): Boolean {
-    if (metadata instanceof LiteralTypeMetadata && this.value === metadata.value) return true;
-    if (metadata instanceof DefinitionTypeMetadata) {
-      return this.definition().is(metadata.definition());
+  is(other: TypeMetadata): Boolean {
+    if (other instanceof LiteralTypeMetadata && this.definition().is(other.definition()))
+      return true;
+    if (other instanceof DefinitionTypeMetadata) {
+      return this.definition().is(other.definition());
     }
 
-    throw new Error('Not implemented');
+    throw new Error(`Not implemented for '${other.constructor.name}'`);
   }
 }
