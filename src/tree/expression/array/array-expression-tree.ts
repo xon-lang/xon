@@ -10,10 +10,10 @@ import { getArgumentTrees } from '../../argument/argument-tree-helper';
 import { ExpressionTree } from '../expression-tree';
 
 export class ArrayExpressionTree extends ExpressionTree {
-  metadata: ValueMetadata;
-  ctx: ArrayExpressionContext;
-  sourceRange: SourceRange;
-  arguments: ArgumentTree[];
+  metadata: ValueMetadata
+  ctx: ArrayExpressionContext
+  sourceRange: SourceRange
+  arguments: ArgumentTree[]
 
   constructor(ctx: ArrayExpressionContext) {
     super();

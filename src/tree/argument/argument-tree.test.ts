@@ -3,7 +3,7 @@ import { LiteralExpressionTree } from '../expression/literal/literal-expression-
 import { ArgumentTree } from './argument-tree';
 
 test('id value', () => {
-  const code = 'a: 1';
+  const code = 'a = 1';
   const tree = parseArgument(code);
 
   expect(tree).toBeInstanceOf(ArgumentTree);
