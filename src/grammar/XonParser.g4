@@ -54,7 +54,7 @@ parameter
     ;
 parameters: open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = ('}' | ']' | ')');
 
-argument:  (name = ID COLON)? expression;
+argument:  (name = ID ASSIGN)? expression;
 arguments: open = ('(' | '[' | '{') (argument (',' argument)* ','?)? close = ('}' | ']' | ')');
 
 body

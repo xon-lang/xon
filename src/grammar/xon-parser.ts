@@ -1020,7 +1020,7 @@ export class XonParser extends Parser {
 				this.state = 183;
 				_localctx._name = this.match(XonParser.ID);
 				this.state = 184;
-				this.match(XonParser.COLON);
+				this.match(XonParser.ASSIGN);
 				}
 				break;
 			}
@@ -1358,7 +1358,7 @@ export class XonParser extends Parser {
 		"\x03\x02\x02\x02\xB2\xB4\x07\x1C\x02\x02\xB3\xB2\x03\x02\x02\x02\xB3\xB4" +
 		"\x03\x02\x02\x02\xB4\xB6\x03\x02\x02\x02\xB5\xAA\x03\x02\x02\x02\xB5\xB6" +
 		"\x03\x02\x02\x02\xB6\xB7\x03\x02\x02\x02\xB7\xB8\t\x05\x02\x02\xB8\x0F" +
-		"\x03\x02\x02\x02\xB9\xBA\x07%\x02\x02\xBA\xBC\x07\x1D\x02\x02\xBB\xB9" +
+		"\x03\x02\x02\x02\xB9\xBA\x07%\x02\x02\xBA\xBC\x07\x1B\x02\x02\xBB\xB9" +
 		"\x03\x02\x02\x02\xBB\xBC\x03\x02\x02\x02\xBC\xBD\x03\x02\x02\x02\xBD\xBE" +
 		"\x05\x06\x04\x02\xBE\x11\x03\x02\x02\x02\xBF\xCB\t\x04\x02\x02\xC0\xC5" +
 		"\x05\x10\t\x02\xC1\xC2\x07\x1C\x02\x02\xC2\xC4\x05\x10\t\x02\xC3\xC1\x03" +
@@ -1894,7 +1894,7 @@ export class ArgumentContext extends ParserRuleContext {
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
-	public COLON(): TerminalNode | undefined { return this.tryGetToken(XonParser.COLON, 0); }
+	public ASSIGN(): TerminalNode | undefined { return this.tryGetToken(XonParser.ASSIGN, 0); }
 	public ID(): TerminalNode | undefined { return this.tryGetToken(XonParser.ID, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
