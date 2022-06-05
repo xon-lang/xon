@@ -4,9 +4,11 @@ import { MultipleBodyTree } from '../../../tree/body/multiple/multiple-body-tree
 import { SingleBodyTree } from '../../../tree/body/single/single-body-tree';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { ExpressionStatementTree } from '../../../tree/statement/expression/expression-statement-tree';
+import { DefinitionTypeMetadata } from '../../type/definition/definition-type-metadata';
+import { TypeMetadata } from '../../type/type-metadata';
 import { getTypeMetadata } from '../../type/type-metadata-helper';
-import { getValueMetadata } from '../../value/value-metadata-helper';
 import { ValueMetadata } from '../../value/value-metadata';
+import { getValueMetadata } from '../../value/value-metadata-helper';
 import { DeclarationScope } from '../scope/declaration-scope';
 import { ParameterMetadata } from './parameter-metadata';
 
@@ -16,7 +18,6 @@ export function getParameterMetadata(
 ): ParameterMetadata[] {
   try {
     if (tree instanceof ParameterTree && tree.name) {
-      const type = () => getTypeMetadata(tree.type, scope);
       let value: () => ValueMetadata | None = () => none;
       if (
         tree.body instanceof SingleBodyTree &&
@@ -26,6 +27,15 @@ export function getParameterMetadata(
       } else if (tree.body instanceof MultipleBodyTree) {
         throw new Error('Not implemented');
       }
+      let type: () => TypeMetadata;
+      if (tree.type) {
+        type = () => getTypeMetadata(tree.type, scope);
+      } else if (value()) {
+        type = () => value().type();
+      } else {
+        type = () => new DefinitionTypeMetadata(() => scope.core.any);
+      }
+
       const metadata = new ParameterMetadata(tree.sourceRange, tree.name.text, type, value);
       return [metadata];
     } else if (tree.parameters.length > 0) {
