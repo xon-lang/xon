@@ -28,10 +28,6 @@ export class IdValueMetadata extends ValueMetadata {
     }
   }
 
-  is(metadata: TypeMetadata): Boolean {
-    return this.type().is(metadata);
-  }
-
   eval(): Any {
     const declaration = this.declaration();
     if (declaration instanceof ParameterMetadata) return declaration.value()?.eval();
