@@ -4,7 +4,7 @@ import { getExpressionFormatter } from '../expression-formatter-helper';
 import { MethodExpressionFormatter } from './method-expression-formatter';
 
 test('has type', () => {
-  const code = '(a, b Integer) Number => a+b';
+  const code = '(a, b: Integer) => a+b';
   const ctx = parse(code).expression();
   const formatter = getExpressionFormatter(
     ctx,
@@ -12,11 +12,11 @@ test('has type', () => {
   ) as MethodExpressionFormatter;
 
   expect(formatter).toBeInstanceOf(MethodExpressionFormatter);
-  expect(formatter.toString()).toBe('(a, b Integer) Number => a + b');
+  expect(formatter.toString()).toBe('(a, b: Integer) => a + b');
 });
 
 test('has no type', () => {
-  const code = '(a, b Integer) => a+b';
+  const code = '(a, b: Integer) => a+b';
   const ctx = parse(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 2;
@@ -25,6 +25,6 @@ test('has no type', () => {
   expect(formatter).toBeInstanceOf(MethodExpressionFormatter);
   expect(formatter.toString()).toBe(`(
   a,
-  b Integer,
+  b: Integer,
 ) => a + b`.trim());
 });

@@ -17,10 +17,6 @@ export class MethodExpressionFormatter extends ExpressionFormatter {
     const parameters = getParametersFormatter(this.ctx.parameters(), this.config)
       .indent(this.indentCount)
       .break(this.broken);
-
-    const type =
-      (this.ctx._type && ' ' + getExpressionFormatter(this.ctx._type, this.config)) || '';
-
-    return `${parameters}${type} => ${value}`;
+    return `${parameters} => ${value}`;
   }
 }
