@@ -4,20 +4,21 @@ import { getStatementFormatter } from '../statement-formatter-helper';
 import { IfStatementFormatter } from './if-statement-formatter';
 
 test('if single else single', () => {
-  const code = 'if a: b else: c';
+  const code = 'if a\n  b\nelse\n  c';
   const ctx = parse(code).statement();
   const formatter = getStatementFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(IfStatementFormatter);
-  expect(formatter.toString()).toBe('if a: b else: c');
-  expect(formatter.indent(2).toString()).toBe('if a: b else: c');
+  expect(formatter.toString()).toBe('if a\n  b\nelse\n  c');
+  expect(formatter.indent(2).toString()).toBe('if a\n      b\n    else\n      c');
 });
 
 test('if multiple else single', () => {
   const code = `
 if a
   b
-else: c
+else
+  c
 `.trim();
   const ctx = parse(code).statement();
   const formatter = getStatementFormatter(ctx, defaultFormatterConfig);
@@ -27,19 +28,23 @@ else: c
     `
 if a
   b
-else: c`.trim(),
+else
+  c`.trim(),
   );
 
   expect(formatter.indent(1).toString()).toBe(
     `if a
     b
-  else: c`,
+  else
+    c`,
   );
 });
 
 test('if single else multiple', () => {
   const code = `
-if a: b else
+if a
+  b
+else
   c
   123
 `.trim();
@@ -49,14 +54,16 @@ if a: b else
   expect(formatter).toBeInstanceOf(IfStatementFormatter);
   expect(formatter.toString()).toBe(
     `
-if a: b
+if a
+  b
 else
   c
   123`.trim(),
   );
 
   expect(formatter.indent(1).toString()).toBe(
-    `if a: b
+    `if a
+    b
   else
     c
     123`,
@@ -104,7 +111,7 @@ else
 });
 
 test('if has long array condition', () => {
-  const code = 'if [1, 2,3,4]: 123';
+  const code = 'if [1, 2,3,4]\n  123';
   const ctx = parse(code).statement();
   const config = new FormatterConfig();
   config.printWidth = 5;
@@ -118,6 +125,7 @@ if [
   2,
   3,
   4,
-]: 123`.trim(),
+]
+  123`.trim(),
   );
 });

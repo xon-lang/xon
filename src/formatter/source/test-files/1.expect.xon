@@ -1,19 +1,19 @@
-a = 1213
+a:= 1213
 import abc
 import def
-object someObjectFactory(name String)
-  attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').join('\n\n').member
-  attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').replace(
+object someObjectFactory(name: String)
+  attributes= [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').join('\n\n').member
+  attributes= [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').replace(
     #{/^(.+)/gm},
     '  $1',
   )
-  arr Number[] = [123, 456, 789, 123, 456, 789, 123, 456, 789, 123, 456, 789, 123, 123, 456, 789, 456, 789]
-  location (x Number, y Number) => Position
+  arr: Number[] = [123, 456, 789, 123, 456, 789, 123, 456, 789, 123, 456, 789, 123, 123, 456, 789, 456, 789]
+  location: (x: Number, y: Number) => Position 
     pos(x, y)
     #{1  sd
 f 2 sdf
 34}
-  abc Integer
+  abc: Integer
 model Array
 #{1  sd
 f 2 sdf

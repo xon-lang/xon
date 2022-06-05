@@ -1,13 +1,13 @@
-a = 1213
+a := 1213
 
 import abc
 import def
 
 -- comment
-object someObjectFactory(name String)
+object someObjectFactory(name: String)
   attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').join('\n\n').member
   attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').replace(#{/^(.+)/gm}, '  $1')
-  arr Number[] = [
+  arr: Number[] = [
     -- comment
     123,
     456,  -- comment
@@ -33,14 +33,14 @@ object someObjectFactory(name String)
   ]
 
   -- comment
-  location(x Number, y Number)=> Position
+  location:(x: Number, y: Number)=> Position
     pos(x, y)
     #{1  sd
 f 2 sdf
 34}
 
 
-  abc Integer
+  abc: Integer
 
 model Array
 
