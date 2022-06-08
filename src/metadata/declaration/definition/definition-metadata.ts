@@ -1,11 +1,11 @@
 import { Boolean, None } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
-import { Metadata } from '../../metadata';
 import { DefinitionTypeMetadata } from '../../type/definition/definition-type-metadata';
+import { DeclarationMetadata } from '../declaration-metadata';
 import { ParameterMetadata } from '../parameter/parameter-metadata';
 import { DeclarationScope } from '../scope/declaration-scope';
 
-export class DefinitionMetadata implements Metadata {
+export class DefinitionMetadata extends DeclarationMetadata {
   private scope: DeclarationScope;
 
   constructor(
@@ -15,7 +15,9 @@ export class DefinitionMetadata implements Metadata {
     public parameters: () => ParameterMetadata[],
     public baseDefinition: () => DefinitionMetadata | None,
     public attributes: () => ParameterMetadata[],
-  ) {}
+  ) {
+    super();
+  }
 
   type() {
     return new DefinitionTypeMetadata(() => this);

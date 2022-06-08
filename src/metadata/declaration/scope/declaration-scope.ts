@@ -1,11 +1,8 @@
 import { Issue } from '../../../issue-service/issue';
 import { IssueLevel } from '../../../issue-service/issue-level';
 import { Boolean } from '../../../lib/core';
-import { DefinitionMetadata } from '../definition/definition-metadata';
-import { ParameterMetadata } from '../parameter/parameter-metadata';
+import { DeclarationMetadata } from '../declaration-metadata';
 import { CoreDeclarationScope } from './core/core-declaration-scope';
-
-export type DeclarationMetadata = ParameterMetadata | DefinitionMetadata;
 
 export class DeclarationScope {
   static _core: CoreDeclarationScope;
