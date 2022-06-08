@@ -1,0 +1,10 @@
+-- { Object } = import('../core/object')
+
+-- type model
+--   name: #IdExpression
+
+-- type object
+--   extends: Object
+
+-- type wiki
+--   extends: WikiObject
