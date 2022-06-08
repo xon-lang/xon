@@ -18,5 +18,13 @@ test('single parameter', () => {
   const declaration = scope.find('+') as ParameterMetadata;
   expect(declaration).toBeInstanceOf(ParameterMetadata);
   expect(declaration.value()).toBe(none);
-  expect(declaration.type()).toBeInstanceOf(MethodTypeMetadata);
+  const type = declaration.type() as MethodTypeMetadata;
+  expect(type).toBeInstanceOf(MethodTypeMetadata);
+  expect(type.parameters().length).toBe(2);
+  expect(type.parameters()[0].name).toBe('a');
+  expect(type.parameters()[0].type().is(scope.core.number.type())).toBe(true);
+  expect(type.parameters()[0].type().is(scope.core.string.type())).toBe(false);
+  expect(type.parameters()[1].name).toBe('b');
+  expect(type.parameters()[1].type().is(scope.core.number.type())).toBe(true);
+  expect(type.resultType().is(scope.core.number.type())).toBe(true);
 });

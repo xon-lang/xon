@@ -36,6 +36,6 @@ test('object with parameters', () => {
   expect((parameterType.parameters()[1].type() as DefinitionTypeMetadata).definition()).toBe(
     scope.core.string,
   );
-  expect(parameterType.result()).toBeInstanceOf(DefinitionTypeMetadata);
-  expect((parameterType.result() as DefinitionTypeMetadata).definition().name).toBe('A');
+  expect(parameterType.resultType()).toBeInstanceOf(DefinitionTypeMetadata);
+  expect((parameterType.resultType() as DefinitionTypeMetadata).definition().name).toBe('A');
 });

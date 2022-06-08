@@ -16,5 +16,5 @@ test('method', () => {
   expect(parameters[0].name).toBe('a');
   expect(parameters[0].type()).toBeInstanceOf(DefinitionTypeMetadata);
   expect((parameters[0].type() as DefinitionTypeMetadata).definition()).toBe(scope.core.number);
-  expect((metadata.result() as DefinitionTypeMetadata).definition()).toBe(scope.core.none);
+  expect((metadata.resultType() as DefinitionTypeMetadata).definition()).toBe(scope.core.none);
 });
