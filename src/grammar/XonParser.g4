@@ -9,7 +9,7 @@ source: ( statement | NL)*;
 
 statement
     : definition                                                           # definitionStatement
-    | modifier = ID name = OP type = expression? body?                     # operatorStatement
+    | OPERATOR name = OP type = expression body?                           # operatorStatement
     | EXPORT path = expression                                             # exportStatement
     | FOR (value = parameter (',' index = parameter)? ID)? expression body # forStatement
     | WHILE expression body                                                # whileStatement

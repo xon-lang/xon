@@ -37,6 +37,7 @@ EXPORT:   'export';
 FOR:      'for';
 IF:       'if';
 IMPORT:   'import';
+OPERATOR: 'operator';
 RETURN:   'return';
 WHILE:    'while';
 
