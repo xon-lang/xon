@@ -11,7 +11,7 @@ export class ArrayValueMetadata extends ValueMetadata {
   }
 
   type(): TypeMetadata {
-    return;
+    return this.scope.core.array;
   }
 
   eval() {
