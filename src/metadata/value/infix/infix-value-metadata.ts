@@ -1,6 +1,8 @@
-import { Any } from '../../../lib/core';
+import { Any, Unknown } from '../../../lib/core';
 import { InfixExpressionTree } from '../../../tree/expression/infix/infix-expression-tree';
+import { ParameterMetadata } from '../../declaration/parameter/parameter-metadata';
 import { DeclarationScope } from '../../declaration/scope/declaration-scope';
+import { MethodTypeMetadata } from '../../type/method/method-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
 import { getValueMetadata } from '../value-metadata-helper';
@@ -12,29 +14,36 @@ export class InfixValueMetadata extends ValueMetadata {
     tree.right.metadata = getValueMetadata(tree.right, scope);
   }
 
-  declaration(): DeclarationScope {
-    throw new Error('Not implemented');
-    // const left = getExpressionMetadata(this.tree.left, this.scope);
-    // const right = getExpressionMetadata(this.tree.right, this.scope);
-    // const attributes = left
-    //   .attributes()
-    //   .filter((x) => x.name === this.tree.name.text && x.type().is(right));
-    // if (attributes.length > 1) throw new Error('To many attributes');
-    // if (attributes.length === 0) throw new Error('Not found');
-    // return attributes[0].type().attributes();
+  operatorMethod(): ParameterMetadata {
+    const declaration = this.scope.find(this.tree.name.text, (x) => {
+      if (!(x instanceof ParameterMetadata)) return false;
+
+      const type = x.type();
+      if (!(type instanceof MethodTypeMetadata)) return false;
+
+      const parameters = type.parameters();
+      if (parameters.length !== 2) return false;
+
+      const [left, right] = parameters;
+      return (
+        left.type().equals(this.tree.left.metadata.type()) &&
+        right.type().equals(this.tree.right.metadata.type())
+      );
+    });
+    return declaration as ParameterMetadata;
   }
 
   type(): TypeMetadata {
-    throw new Error('Method not implemented.');
+    return this.operatorMethod().type();
   }
 
   eval(): Any {
-    // const left = this.tree.left.metadata.eval();
-    // const right = this.tree.right.metadata.eval();
-    // if (this.tree.name.text === '^') {
-    //   return Math.pow(left, right);
-    // }
-    // const escapeIfString = (s: Unknown) => (typeof s === 'string' && `\`${s}\``) || s;
-    // return eval(`${escapeIfString(left)} ${this.tree.name} ${escapeIfString(right)}`);
+    const left = this.tree.left.metadata.eval();
+    const right = this.tree.right.metadata.eval();
+    if (this.tree.name.text === '^') {
+      return Math.pow(left, right);
+    }
+    const escapeIfString = (s: Unknown) => (typeof s === 'string' && `\`${s}\``) || s;
+    return eval(`${escapeIfString(left)} ${this.tree.name} ${escapeIfString(right)}`);
   }
 }
