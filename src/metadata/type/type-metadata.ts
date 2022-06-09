@@ -4,5 +4,6 @@ import { Metadata } from '../metadata';
 
 export abstract class TypeMetadata extends Metadata {
   abstract attributesScope(): DeclarationScope;
-  abstract is(metadata: TypeMetadata): Boolean;
+  abstract equals(other: TypeMetadata): Boolean;
+  abstract is(other: TypeMetadata): Boolean;
 }
