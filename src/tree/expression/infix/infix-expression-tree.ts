@@ -1,13 +1,13 @@
 // this code was generated
 
 import { String } from '../../../lib/core';
-import { Metadata } from '../../../metadata/metadata';
+import { ValueMetadata } from '../../../metadata/value/value-metadata';
 import { IdToken } from '../../../util/id-token';
 import { SourceRange } from '../../../util/source-range';
 import { ExpressionTree } from '../expression-tree';
 
 export class InfixExpressionTree extends ExpressionTree {
-  metadata: Metadata;
+  metadata: ValueMetadata;
   name: IdToken;
   left: ExpressionTree;
   right: ExpressionTree;

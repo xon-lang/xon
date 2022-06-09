@@ -1,10 +1,10 @@
 // this code was generated
 
-import { Metadata } from '../../metadata/metadata';
+import { ValueMetadata } from '../../metadata/value/value-metadata';
 import { Tree } from '../tree';
 
 export class ExpressionTree extends Tree {
-  metadata: Metadata;
+  metadata: ValueMetadata;
 }
 
 // this code was generated

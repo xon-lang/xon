@@ -2,7 +2,7 @@
 
 import { MethodExpressionContext } from '../../../grammar/xon-parser';
 import { Boolean, String } from '../../../lib/core';
-import { Metadata } from '../../../metadata/metadata';
+import { ValueMetadata } from '../../../metadata/value/value-metadata';
 import { SourceRange } from '../../../util/source-range';
 import { ParameterTree } from '../../parameter/parameter-tree';
 import { getParameterTrees } from '../../parameter/parameter-tree-helper';
@@ -10,7 +10,7 @@ import { ExpressionTree } from '../expression-tree';
 import { getExpressionTree } from '../expression-tree-helper';
 
 export class MethodExpressionTree extends ExpressionTree {
-  metadata: Metadata;
+  metadata: ValueMetadata;
   ctx: MethodExpressionContext;
   sourceRange: SourceRange;
   hasBracket: Boolean;
