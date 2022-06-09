@@ -10,4 +10,5 @@ test('integer plus integer', () => {
   const metadata = getValueMetadata(tree, scope);
 
   expect(metadata).toBeInstanceOf(InfixValueMetadata);
+  expect(metadata.type().equals(scope.core.number.type())).toBe(true);
 });

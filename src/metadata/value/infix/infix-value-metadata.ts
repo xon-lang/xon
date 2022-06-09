@@ -14,7 +14,7 @@ export class InfixValueMetadata extends ValueMetadata {
     tree.right.metadata = getValueMetadata(tree.right, scope);
   }
 
-  operatorMethod(): ParameterMetadata {
+  operatorDeclaration(): ParameterMetadata {
     const declaration = this.scope.find(this.tree.name.text, (x) => {
       if (!(x instanceof ParameterMetadata)) return false;
 
@@ -26,15 +26,19 @@ export class InfixValueMetadata extends ValueMetadata {
 
       const [left, right] = parameters;
       return (
-        left.type().equals(this.tree.left.metadata.type()) &&
-        right.type().equals(this.tree.right.metadata.type())
+        this.tree.left.metadata.type().is(left.type()) &&
+        this.tree.right.metadata.type().is(right.type())
       );
     });
     return declaration as ParameterMetadata;
   }
 
   type(): TypeMetadata {
-    return this.operatorMethod().type();
+    const operatorDeclarationType = this.operatorDeclaration().type();
+    if (operatorDeclarationType instanceof MethodTypeMetadata) {
+      return operatorDeclarationType.resultType();
+    }
+    throw new Error('Not implemented');
   }
 
   eval(): Any {
