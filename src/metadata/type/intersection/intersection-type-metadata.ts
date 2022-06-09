@@ -20,4 +20,11 @@ export class IntersectionTypeMetadata extends TypeMetadata {
   is(other: TypeMetadata): Boolean {
     throw new Error('Not implemented');
   }
+
+  equals(other: TypeMetadata): Boolean {
+    if (other instanceof IntersectionTypeMetadata) {
+      return this.left().equals(other.left()) && this.right().equals(other.right());
+    }
+    return false;
+  }
 }

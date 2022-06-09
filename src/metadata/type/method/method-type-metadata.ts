@@ -1,3 +1,4 @@
+import { Boolean } from '../../../lib/core';
 import { ParameterMetadata } from '../../declaration/parameter/parameter-metadata';
 import { DeclarationScope } from '../../declaration/scope/declaration-scope';
 import { TypeMetadata } from '../type-metadata';
@@ -11,7 +12,7 @@ export class MethodTypeMetadata extends TypeMetadata {
     return new DeclarationScope();
   }
 
-  is(other: TypeMetadata): boolean {
+  is(other: TypeMetadata): Boolean {
     if (other instanceof MethodTypeMetadata) {
       const currentParameters = this.parameters();
       const otherParameters = other.parameters();
@@ -21,5 +22,16 @@ export class MethodTypeMetadata extends TypeMetadata {
       return true;
     }
     throw new Error('Not implemented');
+  }
+
+  equals(other: TypeMetadata): Boolean {
+    if (other instanceof MethodTypeMetadata) {
+      const otherParameters = other.parameters();
+      return (
+        this.parameters().every((x, i) => otherParameters[i].type().equals(x.type())) &&
+        this.resultType().equals(other.resultType())
+      );
+    }
+    return false;
   }
 }

@@ -20,4 +20,11 @@ export class UnionTypeMetadata extends TypeMetadata {
   is(other: TypeMetadata): Boolean {
     throw new Error('Not implemented');
   }
+
+  equals(other: TypeMetadata): Boolean {
+    if (other instanceof UnionTypeMetadata) {
+      return this.left().equals(other.left()) && this.right().equals(other.right());
+    }
+    return false;
+  }
 }

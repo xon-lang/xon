@@ -23,4 +23,11 @@ export class LiteralTypeMetadata extends TypeMetadata {
 
     throw new Error(`Not implemented for '${other.constructor.name}'`);
   }
+
+  equals(other: TypeMetadata): Boolean {
+    if (other instanceof LiteralTypeMetadata) {
+      return this.value === other.value;
+    }
+    return false;
+  }
 }

@@ -27,7 +27,7 @@ export class DefinitionTypeMetadata extends TypeMetadata {
       const currentDefinition = this.definition();
       const otherDefinition = other.definition();
 
-      return currentDefinition.sourceRange.equals(otherDefinition.sourceRange);
+      return currentDefinition.equals(otherDefinition);
     }
     return false;
   }
