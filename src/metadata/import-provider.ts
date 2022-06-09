@@ -2,6 +2,7 @@ import { lstatSync } from 'fs';
 import { glob } from 'glob';
 import path from 'path';
 import { DefinitionStatementTree } from '../tree/statement/definition/definition-statement-tree';
+import { OperatorStatementTree } from '../tree/statement/operator/operator-statement-tree';
 import { ParameterStatementTree } from '../tree/statement/parameter/parameter-statement-tree';
 import { parseSourceFile } from '../util/parse';
 import { DeclarationScope } from './declaration/scope/declaration-scope';
@@ -23,6 +24,7 @@ export class ImportProvider {
       for (const statement of sourceTree.statements) {
         if (
           statement instanceof ParameterStatementTree ||
+          statement instanceof OperatorStatementTree ||
           statement instanceof DefinitionStatementTree
         ) {
           getStatementMetadata(statement, scope);
