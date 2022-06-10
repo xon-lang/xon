@@ -16,34 +16,30 @@ export function getParameterMetadata(
   tree: ParameterTree,
   scope: DeclarationScope,
 ): ParameterMetadata[] {
-  try {
-    if (tree instanceof ParameterTree && tree.name) {
-      let value: () => ValueMetadata | None = () => none;
-      if (
-        tree.body instanceof SingleBodyTree &&
-        tree.body.statement instanceof ExpressionStatementTree
-      ) {
-        value = () => getValueMetadata(tree.body['statement'].expression, scope);
-      } else if (tree.body instanceof MultipleBodyTree) {
-        throw new Error('Not implemented');
-      }
-      let type: () => TypeMetadata;
-      if (tree.type) {
-        type = () => getTypeMetadata(tree.type, scope);
-      } else if (value()) {
-        type = () => value().type();
-      } else {
-        type = () => new DefinitionTypeMetadata(() => scope.core.any);
-      }
-
-      const metadata = new ParameterMetadata(tree.sourceRange, tree.name.text, type, value);
-      return [metadata];
-    } else if (tree.parameters.length > 0) {
+  if (tree instanceof ParameterTree && tree.name) {
+    let value: () => ValueMetadata | None = () => none;
+    if (
+      tree.body instanceof SingleBodyTree &&
+      tree.body.statement instanceof ExpressionStatementTree
+    ) {
+      value = () => getValueMetadata(tree.body['statement'].expression, scope);
+    } else if (tree.body instanceof MultipleBodyTree) {
       throw new Error('Not implemented');
     }
+    let type: () => TypeMetadata;
+    if (tree.type) {
+      type = () => getTypeMetadata(tree.type, scope);
+    } else if (value()) {
+      type = () => value().type();
+    } else {
+      type = () => new DefinitionTypeMetadata(() => scope.core.any);
+    }
 
-    throw `Parameter metadata not found'`;
-  } catch (error) {
-    Issue.errorFromTree(tree, error.toString());
+    const metadata = new ParameterMetadata(tree.sourceRange, tree.name.text, type, value);
+    return [metadata];
+  } else if (tree.parameters.length > 0) {
+    throw new Error('Not implemented');
   }
+
+  Issue.errorFromTree(tree, 'Parameter metadata not found');
 }
