@@ -1,12 +1,17 @@
 import { parseStatement } from '../../../util/parse';
+import { DefinitionStatementMetadata } from '../../statement/definition/definition-statement-metadata';
 import { getStatementMetadata } from '../../statement/statement-metadata-helper';
 import { TestDeclarationScope } from '../scope/test-declaration-scope';
 import { DefinitionMetadata } from './definition-metadata';
 
-test('literal', () => {
+test('definition', () => {
   const code = 'model A';
   const tree = parseStatement(code);
-  const metadata = getStatementMetadata(tree, new TestDeclarationScope());
+  const scope = new TestDeclarationScope();
+  const metadata = getStatementMetadata(tree, scope);
 
-  expect(metadata).toBeInstanceOf(DefinitionMetadata);
+  expect(metadata).toBeInstanceOf(DefinitionStatementMetadata);
+  expect(scope.declarations.length).toBe(1);
+  expect(scope.declarations[0]).toBeInstanceOf(DefinitionMetadata);
+  expect(scope.declarations[0].name).toBe('A');
 });

@@ -1,7 +1,7 @@
 import { parseStatement } from '../../../util/parse';
-import { TestDeclarationScope } from '../../declaration/test-declaration-metadata';
-import { getStatementMetadata } from '../statement-metadata-helper';
-import { ParameterStatementMetadata } from '../../parameter/parameter-metadata';
+import { ParameterStatementMetadata } from '../../statement/parameter/parameter-statement-metadata';
+import { getStatementMetadata } from '../../statement/statement-metadata-helper';
+import { TestDeclarationScope } from '../scope/test-declaration-scope';
 
 test('single parameter', () => {
   const code = 'a: 132';
@@ -11,7 +11,7 @@ test('single parameter', () => {
 
   expect(metadata).toBeInstanceOf(ParameterStatementMetadata);
   expect(scope.declarations.length).toBe(1);
-  expect(scope.findByName('a').name).toBe('a');
+  expect(scope.find('a').name).toBe('a');
 });
 
 test('multiple parameters', () => {
@@ -22,7 +22,7 @@ test('multiple parameters', () => {
 
   expect(metadata).toBeInstanceOf(ParameterStatementMetadata);
   expect(scope.declarations.length).toBe(3);
-  expect(scope.findByName('a').name).toBe('a');
-  expect(scope.findByName('b').name).toBe('b');
-  expect(scope.findByName('c').name).toBe('c');
+  expect(scope.find('a').name).toBe('a');
+  expect(scope.find('b').name).toBe('b');
+  expect(scope.find('c').name).toBe('c');
 });
