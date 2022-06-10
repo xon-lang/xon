@@ -16,6 +16,20 @@ test('model animal', () => {
   expect(tree.attributes.length).toBe(0);
 });
 
+test('object with parameters', () => {
+  const code = 'object Cat(name: String) is Animal';
+  const tree = parseDefinition(code) as DefinitionTree;
+
+  expect(tree).toBeInstanceOf(DefinitionTree);
+  expect(tree.modifier.text).toBe('object');
+  expect(tree.name.text).toBe('Cat');
+  expect((tree.base as IdExpressionTree).name.text).toBe('Animal');
+  expect(tree.parameters.length).toBe(1);
+  expect(tree.parameters[0].name.text).toBe('name');
+  expect((tree.parameters[0].type as IdExpressionTree).name.text).toBe('String');
+  expect(tree.attributes.length).toBe(0);
+});
+
 test('model cat', () => {
   const code = 'model Cat is Animal';
   const tree = parseDefinition(code) as DefinitionTree;
