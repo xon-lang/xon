@@ -10,7 +10,7 @@ test('empty', () => {
   const metadata = getValueMetadata(tree, scope);
 
   expect(metadata).toBeInstanceOf(ArrayValueMetadata);
-  expect(metadata.type()).toBe(scope.core.array);
+  expect(metadata.type().equals(scope.core.array.type())).toBe(true);
 });
 
 test('123', () => {
@@ -20,5 +20,5 @@ test('123', () => {
   const metadata = getValueMetadata(tree, scope);
 
   expect(metadata).toBeInstanceOf(ArrayValueMetadata);
-  expect(metadata.type()).toBe(scope.core.array);
+  expect(metadata.type().equals(scope.core.array.type())).toBe(true);
 });

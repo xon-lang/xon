@@ -1,7 +1,7 @@
 import { parseStatement } from '../../../util/parse';
-import { TestDeclarationScope } from '../declaration/test-declaration-metadata';
 import { getStatementMetadata } from '../../statement/statement-metadata-helper';
-import { DefinitionMetadata } from '../../definition/definition-metadata';
+import { TestDeclarationScope } from '../scope/test-declaration-scope';
+import { DefinitionMetadata } from './definition-metadata';
 
 test('literal', () => {
   const code = 'model A';

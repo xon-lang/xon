@@ -11,7 +11,7 @@ test('literal', () => {
   const metadata = getValueMetadata(tree, scope) as ImportValueMetadata;
 
   expect(metadata).toBeInstanceOf(ImportValueMetadata);
-  expect(metadata.importScope().declarations.length).toBe(19);
+  expect(metadata.importScope().declarations.length).toBe(34);
   expect(metadata.type()).toBeInstanceOf(ObjectTypeMetadata);
-  expect(metadata.type().attributesScope().declarations.length).toBe(19);
+  expect(metadata.type().attributesScope().declarations.length).toBe(34);
 });

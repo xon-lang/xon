@@ -1,5 +1,5 @@
 import { parseStatement } from '../../../util/parse';
-import { TestDeclarationScope } from '../../declaration/test-declaration-metadata';
+import { TestDeclarationScope } from '../../declaration/scope/test-declaration-scope';
 import { getStatementMetadata } from '../statement-metadata-helper';
 import { ExpressionStatementMetadata } from './expression-statement-metadata';
 
