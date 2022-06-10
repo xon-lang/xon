@@ -1,35 +1,27 @@
+import { Any } from '../../../lib/core';
 import { InvokeExpressionTree } from '../../../tree/expression/invoke/invoke-expression-tree';
 import { DeclarationScope } from '../../declaration/scope/declaration-scope';
+import { MethodTypeMetadata } from '../../type/method/method-type-metadata';
+import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
+import { getValueMetadata } from '../value-metadata-helper';
 
 export class InvokeValueMetadata extends ValueMetadata {
-  constructor(tree: InvokeExpressionTree, scope: DeclarationScope) {
+  constructor(private tree: InvokeExpressionTree, private scope: DeclarationScope) {
     super();
-    // const args = tree.arguments.map((x) => getExpressionMetadata(x, scope)).map((x) => x.type);
-    // const instanceType = getExpressionMetadata(tree.instance, scope).type;
-    // if (tree.instance instanceof MemberExpressiontree) {
-    //   const member = tree.instance.instance as MemberExpressiontree;
-    //   const memberType = getExpressionMetadata(member, scope).type;
-    //   const typeArguments = tree.typeArguments.map((x) => getTypeMetadata(x, scope));
-    //   const attributes = instanceType.attributes.filter((x) => {
-    //     if (x.name !== member.id.text) return false;
-    //     const type = x.type();
-    //     if (!type.is(memberType)) return false;
-    //     if (type instanceof LambdaTypeMetadata) {
-    //       return (
-    //         type.parameters.length === args.length && type.parameters.every((x, i) => x.is(args[i]))
-    //       );
-    //     }
-    //   });
-    // } else {
-    //   const instanceType = getExpressionMetadata(tree.instance, scope).type;
-    //   if (!(instanceType instanceof LambdaTypeMetadata))
-    //     throw new Error(`Instance type is not a method but '${instanceType.constructor.name}'`);
-    //   this.type = instanceType.resultType;
-    // }
+    tree.instance.metadata = getValueMetadata(tree.instance, scope);
+    tree.arguments.forEach((x) => (x.value.metadata = getValueMetadata(x.value, scope)));
   }
 
-  declaration(): DeclarationScope {
-    throw new Error('Method not implemented.');
+  type(): TypeMetadata {
+    const instanceType = this.tree.instance.metadata.type();
+    if (instanceType instanceof MethodTypeMetadata) {
+      return instanceType.resultType();
+    }
+    throw new Error('Not implemented');
+  }
+
+  eval(): Any {
+    throw new Error('Not implemented');
   }
 }
