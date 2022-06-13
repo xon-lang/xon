@@ -5,11 +5,10 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: ( statement | NL)*;
+source: statements;
 
 statement
-    : definition                                                           # definitionStatement
-    | OPERATOR name = OP type = expression body?                           # operatorStatement
+    : OPERATOR name = OP type = expression body?                           # operatorStatement
     | EXPORT path = expression                                             # exportStatement
     | FOR (value = parameter (',' index = parameter)? ID)? expression body # forStatement
     | WHILE expression body                                                # whileStatement
@@ -18,7 +17,8 @@ statement
     | BREAK                                                                # breakStatement
     | CONTINUE                                                             # continueStatement
     | RETURN expression?                                                   # returnStatement
-    | ACTUAL actual = expression NL+ EXPECT expect = expression            # assertStatement
+    | ACTUAL actual = expression NL* EXPECT expect = expression            # assertStatement
+    | definition                                                           # definitionStatement
     | parameter                                                            # parameterStatement
     | expression                                                           # expressionStatement
     ;
@@ -57,7 +57,7 @@ parameters: open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = 
 argument:  (name = ID ASSIGN)? expression;
 arguments: open = ('(' | '[' | '{') (argument (',' argument)* ','?)? close = ('}' | ']' | ')');
 
-body
-    : ASSIGN statement                                    # singleBody
-    | NL INDENT NL* statement (NL+ statement)* NL* DEDENT # multipleBody
-    ;
+body: ASSIGN statement # singleBody | NL INDENT statements NL DEDENT # multipleBody;
+
+statements:  statement nlStatement+ # aStatements | statement # bStatements;
+nlStatement: (NL | statement);

@@ -62,7 +62,8 @@ PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
 ID: [_a-zA-Z] [_a-zA-Z0-9]*;
 OP: [!+-^*%] | '..' | '...' | '<=' | '>=' | '==' | '!=';
 
-NL:            (                                       {this.atStartOfInput()}? WS | ( '\r'? '\n' | '\r') WS?) {this.handleLineBreak()};
+NL: (( '\r'? '\n' | '\r') WS?)+ {this.handleLineBreak()};
+
 WS:            [ \t]+                                  -> channel(WHITESPACE);
 BLOCK_COMMENT: '/*' (BLOCK_COMMENT | .)*? '*/'         -> channel(COMMENT_CHANNEL);
 LINE_COMMENT:  '--' ~[\r\n]*                           -> channel(COMMENT_CHANNEL);

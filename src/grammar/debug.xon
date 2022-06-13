@@ -1,1 +1,4 @@
-import a: b,c
+this.my_prop.abc \\
+  .def \\
+    .ghi \\
+      .jkl \\
