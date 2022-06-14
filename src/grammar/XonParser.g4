@@ -59,5 +59,4 @@ arguments: open = ('(' | '[' | '{') (argument (',' argument)* ','?)? close = ('}
 
 body: ASSIGN statement # singleBody | NL INDENT statements NL DEDENT # multipleBody;
 
-statements:  statement nlStatement+ # aStatements | statement # bStatements;
-nlStatement: (NL | statement);
+statements: (NL | statement)+;
