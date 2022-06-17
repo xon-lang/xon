@@ -14,7 +14,7 @@ export class Issue {
 
   toString(): String {
     let code = this.source.sourceText.split('\n')[this.source.start.line - 1];
-    if (!code && this.source.sourceName) {
+    if (!code && this.source.sourceName && this.source.sourceName !== '<unknown>') {
       code = fs.readFileSync(this.source.sourceName).toString().split('\n')[
         this.source.start.line - 1
       ];
