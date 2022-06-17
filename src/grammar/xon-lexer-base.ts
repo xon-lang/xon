@@ -41,7 +41,7 @@ export abstract class XonLexerBase extends Lexer {
     if (this.inputStream.LA(1) === XonParser.EOF && this.indents.length) {
       this.tokenQueue = this.tokenQueue.filter((val) => val.type !== XonParser.EOF);
 
-      this.emit(this.commonToken(XonParser.NL, '\n'));
+      // this.emit(this.commonToken(XonParser.NL, '\n'));
 
       while (this.indents.length) {
         this.emit(this.createDedent());
@@ -64,10 +64,10 @@ export abstract class XonLexerBase extends Lexer {
   }
 
   protected handleLineBreak(): void {
-    const newLine = this.text.replace(/[^\r\n]+/g, '');
-    const spaces = (this.text.match(/ +$/g) || [])[0] || '';
     const next = this.inputStream.LA(1);
     const nextNext = this.inputStream.LA(2);
+    const newLine = this.text.replace(/[^\r\n]+/g, '');
+    const spaces = /*next > 0 &&*/ (this.text.match(/ +$/g) || [])[0] || '';
 
     const EOF_CODE = -1;
     const LINE_FEED_CODE = 10;

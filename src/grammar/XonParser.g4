@@ -5,10 +5,12 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: statements;
+source: statement+;
 
 statement
-    : OPERATOR name = OP type = expression body?                           # operatorStatement
+    : NL                                                                   # nlStatement
+    | LINE_COMMENT                                                         # commentStatement
+    | OPERATOR name = OP type = expression body?                           # operatorStatement
     | EXPORT path = expression                                             # exportStatement
     | FOR (value = parameter (',' index = parameter)? ID)? expression body # forStatement
     | WHILE expression body                                                # whileStatement
@@ -19,8 +21,8 @@ statement
     | RETURN expression?                                                   # returnStatement
     | ACTUAL actual = expression NL* EXPECT expect = expression            # assertStatement
     | definition                                                           # definitionStatement
-    | parameter                                                            # parameterStatement
     | expression                                                           # expressionStatement
+    | parameter                                                            # parameterStatement
     ;
 
 expression
@@ -43,9 +45,7 @@ literal
     | STRING_LITERAL  # stringLiteral
     ;
 
-definition
-    : modifier = ID name = ID parameters? (IS expression)? (NL INDENT (parameter | NL)+ DEDENT)?
-    ;
+definition: modifier = ID name = ID parameters? (IS expression)? body?;
 
 parameter
     : name = ID (COLON type = expression? body? | body)
@@ -57,6 +57,4 @@ parameters: open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = 
 argument:  (name = ID ASSIGN)? expression;
 arguments: open = ('(' | '[' | '{') (argument (',' argument)* ','?)? close = ('}' | ']' | ')');
 
-body: ASSIGN statement # singleBody | NL INDENT statements NL DEDENT # multipleBody;
-
-statements: (NL | statement)+;
+body: ASSIGN statement # singleBody | NL INDENT statement+ DEDENT # multipleBody;

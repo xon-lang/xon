@@ -62,13 +62,11 @@ PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
 ID: [_a-zA-Z] [_a-zA-Z0-9]*;
 OP: [!+-^*%] | '..' | '...' | '<=' | '>=' | '==' | '!=';
 
-NL
-    : ({this.atStartOfInput()}? (WS ( '\r'? '\n' | '\r')?)+ | (( '\r'? '\n' | '\r') WS?)+) {this.handleLineBreak()}
-    ;
+NL:           ([\r\n] WS*)+ {this.handleLineBreak()};
+LINE_COMMENT: '--' ~[\r\n]*;
 
 WS:            [ \t]+                                  -> channel(WHITESPACE);
 BLOCK_COMMENT: '/*' (BLOCK_COMMENT | .)*? '*/'         -> channel(COMMENT_CHANNEL);
-LINE_COMMENT:  '--' ~[\r\n]*                           -> channel(COMMENT_CHANNEL);
 UNEXPECTED:    .                                       -> channel(ERROR);
 LINE_JOINING:  '\\' [ \t]* ( '\r'? '\n' | '\r' | '\f') -> skip;
 
