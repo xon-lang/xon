@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import { parseSource, parseSourceFile } from '../../util/parse';
 import { SourceTree } from './source-tree';
 
-test('two if', () => {
+test('import and if', () => {
   const code = `{Path} = import 'xon.os'
 
 1+1
@@ -15,15 +15,6 @@ else
   const tree = parseSource(code);
 
   expect(tree).toBeInstanceOf(SourceTree);
-});
-
-test('formatted 1.xon', () => {
-  const tree = parseSourceFile('src/tree/source/test-files/1.xon');
-
-  expect(tree).toBeInstanceOf(SourceTree);
-  const formatted = tree.toString();
-  fs.writeFileSync('src/tree/source/test-files/1.fmt.xon', formatted);
-  // expect(code).toBe(formatted);
 });
 
 test('preprocessor in attribute', () => {
@@ -43,6 +34,43 @@ toString: [] => String
 
   expect(tree).toBeInstanceOf(SourceTree);
   expect(tree.toString()).toBe(code + '\n');
+});
+
+test('two if statements', () => {
+  const code = `
+if a
+  123
+if b
+  321
+`.trim();
+  const tree = parseSource(code);
+
+  expect(tree).toBeInstanceOf(SourceTree);
+});
+
+test('debug', () => {
+  const code = ` 
+a := 1213
+
+import abc
+import def
+
+-- comment
+object someObjectFactory(name: String)
+`.trim();
+  const tree = parseSource(code);
+
+  expect(tree).toBeInstanceOf(SourceTree);
+  console.log(tree.ctx.text);
+});
+
+test('1.xon', () => {
+  const tree = parseSourceFile('src/tree/source/test-files/1.xon');
+
+  expect(tree).toBeInstanceOf(SourceTree);
+  const formatted = tree.toString();
+  fs.writeFileSync('src/tree/source/test-files/1.fmt.xon', formatted);
+  // expect(code).toBe(formatted);
 });
 
 test('2.xon', () => {

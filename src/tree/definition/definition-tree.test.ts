@@ -54,32 +54,32 @@ test('model animal with only attribute', () => {
   expect((tree.attributes[0].type as IdExpressionTree).name.text).toBe('Integer');
 });
 
-test('1-error.xon', () => {
-  IssueService.issues = [];
-  try {
-    const tree = parseSourceFile('src/tree/statement/definition/test-files/1-error.xon');
-    expect(tree.statements[0]).toBeInstanceOf(DefinitionTree);
-  } catch (error) {
-    const issue = IssueService.issues.slice(-1)[0];
+// test('1-error.xon', () => {
+//   IssueService.issues = [];
+//   try {
+//     const tree = parseSourceFile('src/tree/statement/definition/test-files/1-error.xon');
+//     expect(tree.statements[0]).toBeInstanceOf(DefinitionTree);
+//   } catch (error) {
+//     const issue = IssueService.issues.slice(-1)[0];
 
-    expect(issue.source.start.line).toBe(2);
-    expect(issue.source.start.column).toBe(7);
-    expect(issue.source.stop.column).toBe(7);
-  }
-  expect(IssueService.issues.length).toBe(1); // mb should be 2
-});
+//     expect(issue.source.start.line).toBe(2);
+//     expect(issue.source.start.column).toBe(7);
+//     expect(issue.source.stop.column).toBe(7);
+//   }
+//   expect(IssueService.issues.length).toBe(1); // mb should be 2
+// });
 
-test('2-error.xon', () => {
-  IssueService.issues = [];
-  try {
-    const tree = parseSourceFile('src/tree/statement/definition/test-files/2-error.xon');
-    expect(tree.statements[0]).toBeInstanceOf(DefinitionStatementTree);
-  } catch (error) {
-    const issue = IssueService.issues.slice(-1)[0];
+// test('2-error.xon', () => {
+//   IssueService.issues = [];
+//   try {
+//     const tree = parseSourceFile('src/tree/statement/definition/test-files/2-error.xon');
+//     expect(tree.statements[0]).toBeInstanceOf(DefinitionStatementTree);
+//   } catch (error) {
+//     const issue = IssueService.issues.slice(-1)[0];
 
-    expect(issue.source.start.line).toBe(6);
-    expect(issue.source.start.column).toBe(7);
-    expect(issue.source.stop.column).toBe(12);
-  }
-  expect(IssueService.issues.length).toBe(1);
-});
+//     expect(issue.source.start.line).toBe(6);
+//     expect(issue.source.start.column).toBe(7);
+//     expect(issue.source.stop.column).toBe(12);
+//   }
+//   expect(IssueService.issues.length).toBe(1);
+// });

@@ -9,8 +9,11 @@ import { getParameterTrees } from '../parameter/parameter-tree-helper'
 import { ParameterTree } from '../parameter/parameter-tree'
 import { Tree } from '../tree'
 import { MethodExpressionTree } from '../expression/method/method-expression-tree'
-import { DefinitionContext } from '../../grammar/xon-parser'
+import { DefinitionContext, MultipleBodyContext, ParameterStatementContext, SingleBodyContext } from '../../grammar/xon-parser'
 import { DefinitionMetadata } from '../../metadata/declaration/definition/definition-metadata'
+import { getStatementTrees } from '../statement/statement-tree-helper'
+import { ParameterStatementTree } from '../statement/parameter/parameter-statement-tree'
+import { Issue } from '../../issue-service/issue'
 
 export class DefinitionTree extends Tree {
   metadata: DefinitionMetadata
@@ -30,7 +33,15 @@ export class DefinitionTree extends Tree {
     this.name = getIdToken(ctx._name)
     this.parameters = getParameterTrees(ctx.parameters()?.parameter()) || none
     this.base = getExpressionTree(ctx.expression()) || none
-    this.attributes = getParameterTrees(ctx.parameter())
+    if(ctx.body() instanceof SingleBodyContext){
+      throw new Error('Not implemented');
+    }
+
+    const statements = getStatementTrees((ctx.body() as MultipleBodyContext)?.statement())
+    statements.filter(x=>!(x instanceof ParameterStatementTree))
+      .forEach(x=> Issue.errorFromTree(x, 'Definition body should contain only parameters'))
+    this.attributes = statements.filter(x=>x instanceof ParameterStatementTree)
+      .map(x=>(x as ParameterStatementTree).parameter)
   }
 
   toString(): String {

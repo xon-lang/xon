@@ -44,11 +44,11 @@ test('instance nl dot nl property', () => {
 
 test('members chain', () => {
   const code = `
-this.statements \\
-.abc \\
-  .def \\
-    .ghi \\
-      .jkl \\
+this.statements \
+.abc \
+  .def \
+    .ghi \
+      .jkl \
   `.trim();
   const tree = parseExpression(code) as MemberExpressionTree;
 

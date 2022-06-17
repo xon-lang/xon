@@ -1,6 +1,6 @@
 // this code was generated
 
-import { AssertStatementContext, DefinitionStatementContext, ExportStatementContext, ExpressionStatementContext, ForStatementContext, IfStatementContext, OperatorStatementContext, ParameterStatementContext, ReturnStatementContext, StatementContext, WhileStatementContext } from '../../grammar/xon-parser'
+import { AssertStatementContext, CommentStatementContext, DefinitionStatementContext, ExportStatementContext, ExpressionStatementContext, ForStatementContext, IfStatementContext, NlStatementContext, OperatorStatementContext, ParameterStatementContext, ReturnStatementContext, StatementContext, WhileStatementContext } from '../../grammar/xon-parser'
 import { Issue } from '../../issue-service/issue'
 import { none } from '../../lib/core'
 import { AssertStatementTree } from './assert/assert-statement-tree'
@@ -52,8 +52,9 @@ export function getStatementTree(ctx: StatementContext): StatementTree {
   Issue.errorFromContext(ctx, `Statement tree not found for '${ctx.constructor.name}'`)
 }
 
-export function getStatementTrees(contexts): StatementTree[] {
-  return contexts?.map(getStatementTree) || []
+export function getStatementTrees(statements: StatementContext[]): StatementTree[] {
+  return statements?.filter(x=>!(x instanceof NlStatementContext || 
+      x instanceof CommentStatementContext)).map(getStatementTree) || []
 }
 
 // this code was generated

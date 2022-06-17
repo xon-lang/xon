@@ -3,13 +3,13 @@ return 1213
 -- comment
 object someObjectFactory(name: String)
   arr: Number[] = [
-    -- comment
+    
     123,
-    456,  -- comment
+    456,  
     789,
     456
     ,
-    -- comment
+    
 
     789
   ]
