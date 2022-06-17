@@ -1,4 +1,4 @@
-import { IfStatementContext, MultipleBodyContext } from '../../../grammar/xon-parser';
+import { IfStatementContext, SingleBodyContext } from '../../../grammar/xon-parser';
 import { getBodyFormatter } from '../../body/body-formatter-helper';
 import { getExpressionFormatter } from '../../expression/expression-formatter-helper';
 import { FormatterConfig } from '../../formatter-config';
@@ -10,6 +10,13 @@ export class IfStatementFormatter extends StatementFormatter {
   }
 
   toString() {
+    if (
+      this.ctx._thenBody instanceof SingleBodyContext ||
+      this.ctx._elseBody instanceof SingleBodyContext
+    ) {
+      throw new Error('Not implemented');
+    }
+
     const condition = getExpressionFormatter(this.ctx.expression(), this.config).indent(
       this.indentCount,
     );
@@ -17,15 +24,7 @@ export class IfStatementFormatter extends StatementFormatter {
     let result = `if ${condition}${thenBody}`;
     if (this.ctx._elseBody) {
       const elseBody = getBodyFormatter(this.ctx._elseBody, this.config).indent(this.indentCount);
-      if (
-        this.ctx._thenBody instanceof MultipleBodyContext ||
-        this.ctx._elseBody instanceof MultipleBodyContext
-      ) {
-        result += '\n' + this.config.indent(this.indentCount);
-      } else {
-        result += ' ';
-      }
-      result += `else${elseBody}`;
+      result += this.config.indent(this.indentCount) + `else${elseBody}`;
     }
 
     return result;
