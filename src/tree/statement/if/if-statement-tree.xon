@@ -1,16 +1,17 @@
-import '../../../grammar/xon-parser': IfStatementContext
-import '../../../lib/core': None, String
-import '../../../util/source-range': SourceRange
-import '../../body/body-tree-helper': getBodyTree
-import '../../body/body-tree': BodyTree
-import '../../expression/expression-tree-helper': getExpressionTree
-import '../../expression/expression-tree': ExpressionTree
-import '../statement-tree': StatementTree
+{IfStatementContext} := import '../../../grammar/xon-parser'
+{None, String} := import '../../../lib/core'
+{SourceRange} := import '../../../util/source-range'
+{getBodyTree} := import '../../body/body-tree-helper'
+{BodyTree} := import '../../body/body-tree'
+{getExpressionTree} := import '../../expression/expression-tree-helper'
+{ExpressionTree} := import '../../expression/expression-tree'
+{StatementTree} := import '../statement-tree'
 
-object IfStatementTree(ctx IfStatementContext) StatementTree
-  ctx IfStatementContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  condition ExpressionTree = getExpressionTree(ctx.expression())
-  thenBody BodyTree = getBodyTree(ctx._thenBody)
-  elseBody BodyTree? = getBodyTree(ctx._elseBody)
+class IfStatementTree(ctx: IfStatementContext) is StatementTree
+  ctx := ctx
+  sourceRange := SourceRange.fromContext(ctx)
+  condition := getExpressionTree(ctx.expression())
+  thenBody := getBodyTree(ctx._thenBody)
+  elseBody := getBodyTree(ctx._elseBody)
+
   toString: () => #{`if ${this.condition}${this.thenBody}${(this.elseBody && '\nelse' + this.elseBody) || ''}`}

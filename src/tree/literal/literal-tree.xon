@@ -1,5 +1,5 @@
-import '../../lib/core': Number, String
-import '../tree': Tree
+{Number, String} := import '../../lib/core'
+{Tree} := import '../tree'
 
-model LiteralTree Tree
-  value String or Number or RegExp
+class LiteralTree is Tree
+  value: String or Number or RegExp

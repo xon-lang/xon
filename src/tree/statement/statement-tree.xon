@@ -1,5 +1,5 @@
-import '../../metadata/statement/statement-metadata': StatementMetadata
-import '../tree': Tree
+{StatementMetadata} := import '../../metadata/statement/statement-metadata'
+{Tree} := import '../tree'
 
-object StatementTree Tree
-  metadata StatementMetadata
+class StatementTree is Tree
+  metadata: StatementMetadata

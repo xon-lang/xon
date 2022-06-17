@@ -1,9 +1,10 @@
-import '../lib/core': none, None, String
-import './source-range': SourceRange
-import 'antlr4ts': Token
+{none, None, String} := import '../lib/core'
+{SourceRange} := import './source-range'
+{Token} := import 'antlr4ts'
 
-getIdToken: (token Token?) => token and #{new IdToken(token)} or none
-object IdToken(token Token)
-  sourceRange SourceRange: SourceRange.fromToken(token)
-  text String: token.text
-  toString () => String: this.text
+getIdToken := (token: Token?) => token and #{new IdToken(token)} or none
+
+class IdToken(token: Token)
+  sourceRange := SourceRange.fromToken(token)
+  text := token.text
+  toString := () => this.text

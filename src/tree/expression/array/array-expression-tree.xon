@@ -1,14 +1,14 @@
-import '../../../grammar/xon-parser': ArrayExpressionContext
-import '../../../lib/core': String
-import '../../../metadata/expression/array/array-expression-metadata': ArrayExpressionMetadata
-import '../../../util/source-range': SourceRange
-import '../../parameter/parameter-tree-helper': getParameterTrees
-import '../../parameter/parameter-tree': ParameterTree
-import '../expression-tree': ExpressionTree
+{ArrayExpressionContext} := import '../../../grammar/xon-parser'
+{String} := import '../../../lib/core'
+{ArrayExpressionMetadata} := import '../../../metadata/expression/array/array-expression-metadata'
+{SourceRange} := import '../../../util/source-range'
+{getParameterTrees} := import '../../parameter/parameter-tree-helper'
+{ParameterTree} := import '../../parameter/parameter-tree'
+{ExpressionTree} := import '../expression-tree'
 
-object ArrayExpressionTree(ctx ArrayExpressionContext) ExpressionTree
-  metadata ArrayExpressionMetadata
-  ctx ArrayExpressionContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  parameters ParameterTree[] = getParameterTrees(ctx.parameters().parameter())
-  toString: () => #{`[${this.parameters.join(', ')}]`}
+class ArrayExpressionTree(ctx: ArrayExpressionContext) is ExpressionTree
+  ctx := ctx
+  sourceRange := SourceRange.fromContext(ctx)
+  parameters := getParameterTrees(ctx.parameters().parameter())
+
+  toString := () => #{`[${this.parameters.join(', ')}]`}

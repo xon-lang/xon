@@ -1,12 +1,12 @@
-import '../../../grammar/xon-parser': SingleBodyContext
-import '../../../lib/core': String
-import '../../../util/source-range': SourceRange
-import '../../statement/statement-tree-helper': getStatementTree
-import '../../statement/statement-tree': StatementTree
-import '../body-tree': BodyTree
+{SingleBodyContext} := import '../../../grammar/xon-parser'
+{String} := import '../../../lib/core'
+{SourceRange} := import '../../../util/source-range'
+{getStatementTree} := import '../../statement/statement-tree-helper'
+{StatementTree} := import '../../statement/statement-tree'
+{BodyTree} := import '../body-tree'
 
-object SingleBodyTree (ctx SingleBodyContext) => BodyTree
-  ctx SingleBodyContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  statement StatementTree = getStatementTree(ctx.statement())
+object SingleBodyTree(ctx: SingleBodyContext) is BodyTree
+  ctx: SingleBodyContext = ctx
+  sourceRange: SourceRange = SourceRange.fromContext(ctx)
+  statement: StatementTree = getStatementTree(ctx.statement())
   toString: () => this.ctx.ASSIGN() and #{` = ${this.statement}`} or #{`: ${this.statement}`}

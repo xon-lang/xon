@@ -1,33 +1,33 @@
-import '../../grammar/xon-parser': DefinitionContext
-import '../../lib/core': none, None, String
-import '../../metadata/declaration/definition/definition-declaration-metadata': DefinitionDeclarationMetadata
-import '../../util/id-token': getIdToken, IdToken
-import '../../util/source-range': SourceRange
-import '../attribute/attribute-tree-helper': getAttributeTrees
-import '../attribute/attribute-tree': AttributeTree
-import '../expression/expression-tree-helper': getExpressionTree
-import '../expression/expression-tree': ExpressionTree
-import '../parameter/parameter-tree-helper': getParameterTrees
-import '../parameter/parameter-tree': ParameterTree
-import '../tree': Tree
+{DefinitionContext} := import '../../grammar/xon-parser'
+{none, None, String} := import '../../lib/core'
+{DefinitionDeclarationMetadata} := import '../../metadata/declaration/definition/definition-declaration-metadata'
+{getIdToken, IdToken} := import '../../util/id-token'
+{SourceRange} := import '../../util/source-range'
+{getAttributeTrees} := import '../attribute/attribute-tree-helper'
+{AttributeTree} := import '../attribute/attribute-tree'
+{getExpressionTree} := import '../expression/expression-tree-helper'
+{ExpressionTree} := import '../expression/expression-tree'
+{getParameterTrees} := import '../parameter/parameter-tree-helper'
+{ParameterTree} := import '../parameter/parameter-tree'
+{Tree} := import '../tree'
 
-object DefinitionTree(ctx DefinitionContext) Tree
-  metadata DefinitionDeclarationMetadata
-  ctx DefinitionContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  modifier IdToken = getIdToken(ctx._modifier)
-  name IdToken = getIdToken(ctx._name)
-  parameters ParameterTree[] = getParameterTrees(ctx.parameters()?.parameter()) or none
-  base ExpressionTree? = getExpressionTree(ctx.expression()) or none
-  attributes AttributeTree[] = getAttributeTrees(ctx.attribute())
-  toString () => String
-    modifier = this.modifier.text
-    base = (this.base and ' ' + this.base) or ''
-    parameters = this.ctx.parameters() and #{`(${this.parameters.join(', ')})`} or ''
-    properties = this.attributes.filter((x) => !x.isMethod).join('\n')
-    methodsWithBody = this.attributes.filter((x) => x.isMethod and x.body).join('\n\n')
-    methodsWithNoBody = this.attributes.filter((x) => x.isMethod and !x.body).join('\n')
-    attributes = [properties, methodsWithBody, methodsWithNoBody].filter((x) => x).join('\n\n').replace(
+object DefinitionTree(ctx: DefinitionContext) is Tree
+  metadata: DefinitionDeclarationMetadata
+  ctx: DefinitionContext = ctx
+  sourceRange: SourceRange = SourceRange.fromContext(ctx)
+  modifier: IdToken = getIdToken(ctx._modifier)
+  name: IdToken = getIdToken(ctx._name)
+  parameters: ParameterTree[] = getParameterTrees(ctx.parameters()?.parameter()) or none
+  base: ExpressionTree? = getExpressionTree(ctx.expression()) or none
+  attributes: AttributeTree[] = getAttributeTrees(ctx.attribute())
+  toString: () => String
+    modifier := this.modifier.text
+    base := (this.base and ' ' + this.base) or ''
+    parameters := this.ctx.parameters() and #{`(${this.parameters.join(', ')})`} or ''
+    properties := this.attributes.filter((x) => !x.isMethod).join('\n')
+    methodsWithBody := this.attributes.filter((x) => x.isMethod and x.body).join('\n\n')
+    methodsWithNoBody := this.attributes.filter((x) => x.isMethod and !x.body).join('\n')
+    attributes := [properties, methodsWithBody, methodsWithNoBody].filter((x) => x).join('\n\n').replace(
       #{/^(.+)/gm},
       '  $1',
     )

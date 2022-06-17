@@ -1,5 +1,5 @@
-import '../../metadata/expression/expression-metadata': ExpressionMetadata
-import '../tree': Tree
+{ValueMetadata} := import '../../metadata/expression/expression-metadata'
+{Tree} := import '../tree'
 
-object ExpressionTree Tree
-  metadata ExpressionMetadata
+class ExpressionTree is Tree
+  metadata: ValueMetadata

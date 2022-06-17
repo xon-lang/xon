@@ -1,14 +1,15 @@
-import '../../../grammar/xon-parser': PrefixExpressionContext
-import '../../../lib/core': String
-import '../../../metadata/expression/expression-metadata': ExpressionMetadata
-import '../../../util/id-token': getIdToken, IdToken
-import '../../../util/source-range': SourceRange
-import '../expression-tree-helper': getExpressionTree
-import '../expression-tree': ExpressionTree
+{PrefixExpressionContext} := import '../../../grammar/xon-parser'
+{String} := import '../../../lib/core'
+{ExpressionMetadata} := import '../../../metadata/expression/expression-metadata'
+{getIdToken, IdToken} := import '../../../util/id-token'
+{SourceRange} := import '../../../util/source-range'
+{getExpressionTree} := import '../expression-tree-helper'
+{ExpressionTree} := import '../expression-tree'
 
-object PrefixExpressionTree(ctx PrefixExpressionContext) ExpressionTree
-  metadata ExpressionMetadata
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  name IdToken = getIdToken(ctx._op)
-  value ExpressionTree = getExpressionTree(ctx.expression())
-  toString: () => #{`${this.name}${this.value}`}
+class PrefixExpressionTree(ctx: PrefixExpressionContext) is ExpressionTree
+  ctx := ctx
+  sourceRange := SourceRange.fromContext(ctx)
+  name := getIdToken(ctx._op)
+  value := getExpressionTree(ctx.expression())
+
+  toString := () => #{`${this.name}${this.value}`}

@@ -1,12 +1,13 @@
-import '../../../grammar/xon-parser': ReturnStatementContext
-import '../../../lib/core': None, String
-import '../../../util/source-range': SourceRange
-import '../../expression/expression-tree-helper': getExpressionTree
-import '../../expression/expression-tree': ExpressionTree
-import '../statement-tree': StatementTree
+{ReturnStatementContext} := import '../../../grammar/xon-parser'
+{None, String} := import '../../../lib/core'
+{SourceRange} := import '../../../util/source-range'
+{getExpressionTree} := import '../../expression/expression-tree-helper'
+{ExpressionTree} := import '../../expression/expression-tree'
+{StatementTree} := import '../statement-tree'
 
-object ReturnStatementTree(ctx ReturnStatementContext) StatementTree
-  ctx ReturnStatementContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  value ExpressionTree? = ctx.expression() and getExpressionTree(ctx.expression())
-  toString: () => this.value and #{`return ${this.value}`} or 'return'
+class ReturnStatementTree(ctx: ReturnStatementContext) is StatementTree
+  ctx := ctx
+  sourceRange := SourceRange.fromContext(ctx)
+  value := ctx.expression() and getExpressionTree(ctx.expression())
+
+  toString := () => this.value and #{`return ${this.value}`} or 'return'

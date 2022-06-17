@@ -1,9 +1,9 @@
-import '../../../grammar/xon-parser': StringLiteralContext
-import '../../../lib/core': String
-import '../../../util/source-range': SourceRange
-import '../literal-tree': LiteralTree
+{StringLiteralContext} := import '../../../grammar/xon-parser'
+{String} := import '../../../lib/core'
+{SourceRange} := import '../../../util/source-range'
+{LiteralTree} := import '../literal-tree'
 
-object StringLiteralTree(ctx StringLiteralContext) LiteralTree
-  ctx StringLiteralContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  value String = ctx.text.slice(1, -1).replace(#{/\\'/g, "'"})
+class StringLiteralTree(ctx: StringLiteralContext) is LiteralTree
+  ctx := ctx
+  sourceRange := SourceRange.fromContext(ctx)
+  value := ctx.text.slice(1, -1).replace(#{/\\'/g, "'"})

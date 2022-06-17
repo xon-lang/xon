@@ -1,13 +1,13 @@
-import '../../../grammar/xon-parser': GroupExpressionContext
-import '../../../lib/core': String
-import '../../../metadata/expression/expression-metadata': ExpressionMetadata
-import '../../../util/source-range': SourceRange
-import '../expression-tree-helper': getExpressionTree
-import '../expression-tree': ExpressionTree
+{GroupExpressionContext} := import '../../../grammar/xon-parser'
+{String} := import '../../../lib/core'
+{ExpressionMetadata} := import '../../../metadata/expression/expression-metadata'
+{SourceRange} := import '../../../util/source-range'
+{getExpressionTree} := import '../expression-tree-helper'
+{ExpressionTree} := import '../expression-tree'
 
-object GroupExpressionTree(ctx GroupExpressionContext) ExpressionTree
-  metadata ExpressionMetadata
-  ctx GroupExpressionContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  expression ExpressionTree = getExpressionTree(ctx.expression())
-  toString: () => #{`(${this.expression})`}
+class GroupExpressionTree(ctx: GroupExpressionContext) is ExpressionTree
+  ctx = ctx
+  sourceRange = SourceRange.fromContext(ctx)
+  expression = getExpressionTree(ctx.expression())
+
+  toString := () => #{`(${this.expression})`}

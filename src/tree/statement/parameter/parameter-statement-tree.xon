@@ -1,16 +1,17 @@
-import '../../../grammar/xon-parser': ParameterStatementContext
-import '../../../lib/core': String
-import '../../../util/source-range': SourceRange
-import '../../body/body-tree-helper': getBodyTree
-import '../../body/body-tree': BodyTree
-import '../../expression/expression-tree-helper': getExpressionTree
-import '../../expression/expression-tree': ExpressionTree
-import '../../parameter/parameter-tree-helper': getParameterTree
-import '../../parameter/parameter-tree': ParameterTree
-import '../statement-tree': StatementTree
+{ParameterStatementContext} := import '../../../grammar/xon-parser'
+{String} := import '../../../lib/core'
+{SourceRange} := import '../../../util/source-range'
+{getBodyTree} := import '../../body/body-tree-helper'
+{BodyTree} := import '../../body/body-tree'
+{getExpressionTree} := import '../../expression/expression-tree-helper'
+{ExpressionTree} := import '../../expression/expression-tree'
+{getParameterTree} := import '../../parameter/parameter-tree-helper'
+{ParameterTree} := import '../../parameter/parameter-tree'
+{StatementTree} := import '../statement-tree'
 
-object ParameterStatementTree(ctx ParameterStatementContext) StatementTree
-  ctx ParameterStatementContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  parameter ParameterTree = getParameterTree(ctx.parameter())
+class ParameterStatementTree(ctx: ParameterStatementContext) is StatementTree
+  ctx := ctx
+  sourceRange := SourceRange.fromContext(ctx)
+  parameter := getParameterTree(ctx.parameter())
+
   toString: () => this.parameter.toString()

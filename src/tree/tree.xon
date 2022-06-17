@@ -1,6 +1,6 @@
-import '../lib/core': String
-import '../util/source-range': SourceRange
+{String} := import '../lib/core'
+{SourceRange} := import '../util/source-range'
 
-model Tree
-  sourceRange SourceRange
-  toString () => String
+class Tree
+  sourceRange: SourceRange
+  toString: () => String

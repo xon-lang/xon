@@ -1,36 +1,37 @@
-import '../../grammar/xon-parser': SourceContext
-import '../../lib/core': String
-import '../../util/source-range': SourceRange
-import '../attribute/attribute-tree-helper': getAttributeTrees
-import '../attribute/attribute-tree': AttributeTree
-import '../definition/definition-tree-helper': getDefinitionTrees
-import '../definition/definition-tree': DefinitionTree
-import '../statement/import/import-statement-tree': ImportStatementTree
-import '../statement/statement-tree-helper': getStatementTrees
-import '../statement/statement-tree': StatementTree
-import '../tree': Tree
-import '../../metadata/source/source-metadata': SourceMetadata
+{SourceContext} := import '../../grammar/xon-parser'
+{String} := import '../../lib/core'
+{SourceRange} := import '../../util/source-range'
+{getAttributeTrees} := import '../attribute/attribute-tree-helper'
+{AttributeTree} := import '../attribute/attribute-tree'
+{getDefinitionTrees} := import '../definition/definition-tree-helper'
+{DefinitionTree} := import '../definition/definition-tree'
+{ImportStatementTree} := import '../statement/import/import-statement-tree'
+{getStatementTrees} := import '../statement/statement-tree-helper'
+{StatementTree} := import '../statement/statement-tree'
+{Tree} := import '../tree'
+{SourceMetadata} := import '../../metadata/source/source-metadata'
 
-object SourceTree(ctx SourceContext) Tree
-  metadata SourceMetadata
-  ctx SourceContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  statements StatementTree[] = getStatementTrees(ctx.statement())
-  attributes AttributeTree[] = getAttributeTrees(ctx.attribute())
-  definitions DefinitionTree[] = getDefinitionTrees(ctx.definition())
-  toString () => String
-    importStatements = this.statements.filter((x) => x is ImportStatementTree).map((x) => x as ImportStatementTree)
-    importStatementsMap = #{{}}
+class SourceTree(ctx: SourceContext) is Tree
+  ctx := ctx
+  metadata: SourceMetadata
+  sourceRange := SourceRange.fromContext(ctx)
+  statements := getStatementTrees(ctx.statement())
+  attributes := getAttributeTrees(ctx.attribute())
+  definitions := getDefinitionTrees(ctx.definition())
+
+  toString: () => String
+    importStatements := this.statements.filter((x) => x is ImportStatementTree).map((x) => x as ImportStatementTree)
+    importStatementsMap := #{{}}
     #{for (let importStatement of importStatements) {
       importStatementsMap[importStatement.path.toString()] = importStatementsMap[importStatement.path.toString()] || []
       const members = importStatement.members.map(x => x.toString())
       importStatementsMap[importStatement.path.toString()].push(...members)
     }}
-    uniqueImportStatements = Object.keys(importStatementsMap).sort((a, b) => a.localeCompare(b)).map(
+    uniqueImportStatements := Object.keys(importStatementsMap).sort((a, b) => a.localeCompare(b)).map(
       (x) => #{`import ${x}: ${[...new Set(importStatementsMap[x].sort((a, b) => a.localeCompare(b)))].join(', ')}`}
     ).join('\n')
-    otherStatements = this.statements.filter((x) => !(x is ImportStatementTree)).join('\n')
-    attributes = this.attributes.join('\n\n')
-    definitions = this.definitions.join('\n\n')
-    result = [uniqueImportStatements, otherStatements, attributes, definitions].filter((x) => x).join('\n\n')
+    otherStatements := this.statements.filter((x) => !(x is ImportStatementTree)).join('\n')
+    attributes := this.attributes.join('\n\n')
+    definitions := this.definitions.join('\n\n')
+    result := [uniqueImportStatements, otherStatements, attributes, definitions].filter((x) => x).join('\n\n')
     return (result and result + '\n') or ''

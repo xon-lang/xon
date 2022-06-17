@@ -1,19 +1,20 @@
-import '../../../grammar/xon-parser': ForStatementContext
-import '../../../lib/core': none, None, String
-import '../../../util/source-range': SourceRange
-import '../../body/body-tree-helper': getBodyTree
-import '../../body/body-tree': BodyTree
-import '../../expression/expression-tree-helper': getExpressionTree
-import '../../expression/expression-tree': ExpressionTree
-import '../statement-tree': StatementTree
+{ForStatementContext} := import '../../../grammar/xon-parser'
+{none, None, String} := import '../../../lib/core'
+{SourceRange} := import '../../../util/source-range'
+{getBodyTree} := import '../../body/body-tree-helper'
+{BodyTree} := import '../../body/body-tree'
+{getExpressionTree} := import '../../expression/expression-tree-helper'
+{ExpressionTree} := import '../../expression/expression-tree'
+{StatementTree} := import '../statement-tree'
 
-object ForStatementTree(ctx ForStatementContext) StatementTree
-  ctx ForStatementContext = ctx
-  sourceRange SourceRange = SourceRange.fromContext(ctx)
-  valueVarName String? = ctx._value?.text or none
-  indexVarName String? = ctx._index?.text or none
-  expression ExpressionTree = getExpressionTree(ctx.expression())
-  body BodyTree = getBodyTree(ctx.body())
-  toString () => String
+class ForStatementTree(ctx: ForStatementContext) is StatementTree
+  ctx := ctx
+  sourceRange := SourceRange.fromContext(ctx)
+  valueVarName := ctx._value?.text or none
+  indexVarName := ctx._index?.text or none
+  expression := getExpressionTree(ctx.expression())
+  body := getBodyTree(ctx.body())
+
+  toString: () => String
     vars = [this.valueVarName, this.indexVarName].filter((x) => x).join(', ')
     return #{`for ${(vars && vars + ' in ') || ''}${this.expression}\n${this.body}`}

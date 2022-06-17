@@ -1,15 +1,15 @@
-import '../../../grammar/xon-parser': MemberExpressionContext
-import '../../../lib/core': String
-import '../../../metadata/expression/member/member-expression-metadata': MemberExpressionMetadata
-import '../../../util/id-token': getIdToken, IdToken
-import '../../../util/source-range': SourceRange
-import '../expression-tree-helper': getExpressionTree
-import '../expression-tree': ExpressionTree
+{MemberExpressionContext} := import '../../../grammar/xon-parser'
+{String} := import '../../../lib/core'
+{MemberExpressionMetadata} := import '../../../metadata/expression/member/member-expression-metadata'
+{getIdToken, IdToken} := import '../../../util/id-token'
+{SourceRange} := import '../../../util/source-range'
+{getExpressionTree} := import '../expression-tree-helper'
+{ExpressionTree} := import '../expression-tree'
 
-object MemberExpressionTree(ctx MemberExpressionContext) ExpressionTree
-  metadata MemberExpressionMetadata
-  ctx MemberExpressionContext: ctx
-  sourceRange SourceRange: SourceRange.fromContext(ctx)
-  instance ExpressionTree: getExpressionTree(ctx.expression())
-  name IdToken: getIdToken(ctx._name)
-  toString: () => #{`${this.instance}.${this.name}`}
+class MemberExpressionTree(ctx: MemberExpressionContext) is ExpressionTree
+  ctx := ctx
+  sourceRange := SourceRange.fromContext(ctx)
+  instance := getExpressionTree(ctx.expression())
+  name := getIdToken(ctx._name)
+
+  toString := () => #{`${this.instance}.${this.name}`}

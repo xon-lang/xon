@@ -1,18 +1,29 @@
-import '../../grammar/xon-parser': AssertStatementContext, ExportStatementContext, ExpressionStatementContext, ForStatementContext, IfStatementContext, ImportStatementContext, ParameterStatementContext, ReturnStatementContext, StatementContext, WhileStatementContext
-import '../../issue-service/issue': Issue
-import '../../lib/core': none
-import './assert/assert-statement-tree': AssertStatementTree
-import './export/export-statement-tree': ExportStatementTree
-import './expression/expression-statement-tree': ExpressionStatementTree
-import './for/for-statement-tree': ForStatementTree
-import './if/if-statement-tree': IfStatementTree
-import './import/import-statement-tree': ImportStatementTree
-import './parameter/parameter-statement-tree': ParameterStatementTree
-import './return/return-statement-tree': ReturnStatementTree
-import './statement-tree': StatementTree
-import './while/while-statement-tree': WhileStatementTree
+{
+  AssertStatementContext,
+  ExportStatementContext,
+  ExpressionStatementContext,
+  ForStatementContext,
+  IfStatementContext,
+  ImportStatementContext,
+  ParameterStatementContext,
+  ReturnStatementContext,
+  StatementContext,
+  WhileStatementContext,
+} := import '../../grammar/xon-parser'
+{Issue} := import '../../issue-service/issue'
+{none} := import '../../lib/core'
+{AssertStatementTree} := import './assert/assert-statement-tree'
+{ExportStatementTree} := import './export/export-statement-tree'
+{ExpressionStatementTree} := import './expression/expression-statement-tree'
+{ForStatementTree} := import './for/for-statement-tree'
+{IfStatementTree} := import './if/if-statement-tree'
+{ImportStatementTree} := import './import/import-statement-tree'
+{ParameterStatementTree} := import './parameter/parameter-statement-tree'
+{ReturnStatementTree} := import './return/return-statement-tree'
+{StatementTree} := import './statement-tree'
+{WhileStatementTree} := import './while/while-statement-tree'
 
-getStatementTree (ctx StatementContext) => StatementTree
+getStatementTree: (ctx: StatementContext) => StatementTree
   if !ctx
     return none
   if ctx is AssertStatementContext
@@ -33,6 +44,7 @@ getStatementTree (ctx StatementContext) => StatementTree
     return #{new ReturnStatementTree(ctx)}
   if ctx is WhileStatementContext
     return #{new WhileStatementTree(ctx)}
+
   Issue.errorFromContext(ctx, #{`Statement tree not found for '${ctx.constructor.name}'`})
-getStatementTrees (contexts) => StatementTree[]
-  return contexts?.map(getStatementTree) or []
+
+getStatementTrees := (contexts) => contexts?.map(getStatementTree) or []
