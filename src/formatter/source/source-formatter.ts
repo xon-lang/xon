@@ -12,8 +12,8 @@ export class SourceFormatter extends Formatter {
     const statements = this.ctx
       .statement()
       .map((x) => getStatementFormatter(x, this.config))
-      .join(this.config.nl);
+      .join('');
 
-    return (statements && statements + this.config.nl) || '';
+    return (statements && statements.trim() + this.config.nl) || '';
   }
 }

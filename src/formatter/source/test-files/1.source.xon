@@ -8,26 +8,26 @@ object someObjectFactory(name: String)
   attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').join('\n\n').member
   attributes = [properties, methodsWithBody, methodsWithNoBody].filter(Boolean).join('\n\n').replace(#{/^(.+)/gm}, '  $1')
   arr: Number[] = [
-    -- comment
+    
     123,
-    456,  -- comment
+    456,  
     789,
     123,
-    456,  -- comment
+    456,  
     789,
     123,
-    456,  -- comment
+    456,  
     789,
     123,
-    456,  -- comment
+    456,  
     789,
     123,
     123,
-    456,  -- comment
+    456,  
     789,
     456
     ,
-    -- comment
+    
 
     789
   ]
@@ -38,7 +38,6 @@ object someObjectFactory(name: String)
     #{1  sd
 f 2 sdf
 34}
-
 
   abc: Integer
 
