@@ -33,3 +33,35 @@ test('contains new line', () => {
         3,
       ]`);
 });
+
+test('several body', () => {
+  const code = `  
+  if a
+
+
+    123
+
+    456
+
+
+
+  if b
+
+    321
+    654`;
+  const ctx = parse(code).body();
+  const formatter = getBodyFormatter(ctx, defaultFormatterConfig) as MultipleBodyFormatter;
+
+  expect(formatter).toBeInstanceOf(MultipleBodyFormatter);
+  console.log(formatter.toString());
+
+  expect(formatter.toString()).toBe(`
+  if a
+    123
+
+    456
+
+  if b
+    321
+    654`);
+});
