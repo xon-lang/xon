@@ -27,6 +27,8 @@ export class ParameterFormatter extends Formatter {
   }
 
   typeFormatter(type: ExpressionContext): String {
+    if (!type && this.ctx.COLON() && this.ctx.body() instanceof SingleBodyContext) return ' :';
+    if (!type && !this.ctx.COLON() && this.ctx.body() instanceof SingleBodyContext) return ' ';
     if (!type) return '';
 
     return (
@@ -39,7 +41,7 @@ export class ParameterFormatter extends Formatter {
     if (!body) return '';
 
     const bodyFormatter = getBodyFormatter(body, this.config).indent(this.indentCount);
-    if (body instanceof SingleBodyContext) return ' ' + bodyFormatter;
+    if (body instanceof SingleBodyContext && this.ctx._type) return ' ' + bodyFormatter.toString();
 
     return bodyFormatter.toString();
   }
