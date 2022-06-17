@@ -1,11 +1,15 @@
-{ BodyContext, MultipleBodyContext, SingleBodyContext } = import '../../grammar/xon-parser'
-{ none } = import '../../lib/core'
-{ BodyTree } = import './body-tree'
-{ MultipleBodyTree } = import './multiple/multiple-body-tree'
-{ SingleBodyTree } = import './single/single-body-tree'
-getBodyTree: ( ctx: BodyContext ) => BodyTree
+{BodyContext, MultipleBodyContext, SingleBodyContext} := import '../../grammar/xon-parser'
+{none} := import '../../lib/core'
+{BodyTree} := import './body-tree'
+{MultipleBodyTree} := import './multiple/multiple-body-tree'
+{SingleBodyTree} := import './single/single-body-tree'
+
+getBodyTree: (ctx: BodyContext) => BodyTree
   if !ctx
     return none
-getBodyTree: ( ctx: BodyContext ) => BodyTree
-  if !ctx
-    return none
+
+  if ctx is SingleBodyContext
+    return #{new SingleBodyTree(ctx)}
+
+  if ctx is MultipleBodyContext
+    return #{new MultipleBodyTree(ctx)}
