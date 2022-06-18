@@ -3,7 +3,7 @@ import { Number, String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { LiteralTree } from '../literal-tree';
 
-export class FloatLiteralTree implements LiteralTree {
+export class FloatLiteralTree extends LiteralTree {
   sourceRange: SourceRange;
   radix: Number;
   integer: String;
@@ -11,6 +11,7 @@ export class FloatLiteralTree implements LiteralTree {
   value: Number;
 
   constructor(ctx: FloatLiteralContext) {
+    super()
     this.sourceRange = SourceRange.fromContext(ctx);
     [this.integer, this.fraction] = ctx.text.split('.');
     const [integer, radix] = this.integer.split('x').reverse();

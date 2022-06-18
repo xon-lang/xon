@@ -49,6 +49,7 @@ export class DefinitionTree extends Tree {
     this.attributes = statements
       .filter((x) => x instanceof ParameterStatementTree)
       .map((x) => (x as ParameterStatementTree).parameter);
+    this.addChildren(this.modifier, this.name, ...this.parameters, this.base, ...this.attributes)
   }
 
   toString(): String {

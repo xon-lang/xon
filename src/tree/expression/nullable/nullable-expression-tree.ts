@@ -18,6 +18,7 @@ export class NullableExpressionTree extends ExpressionTree {
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
     this.value = getExpressionTree(ctx.expression());
+    this.addChildren(this.value)
   }
 
   toString(): String {

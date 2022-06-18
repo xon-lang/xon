@@ -19,6 +19,7 @@ export class InfixExpressionTree extends ExpressionTree {
     this.left = left;
     this.right = right;
     this.sourceRange = SourceRange.fromTwoRange(left.sourceRange, right.sourceRange);
+    this.addChildren(this.left, this.name, this.right)
   }
 
   toString(): String {

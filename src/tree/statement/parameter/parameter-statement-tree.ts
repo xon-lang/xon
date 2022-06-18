@@ -21,6 +21,7 @@ export class ParameterStatementTree extends StatementTree {
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
     this.parameter = getParameterTree(ctx.parameter())
+    this.addChildren(this.parameter);
   }
 
   toString(): String {

@@ -15,6 +15,7 @@ export class ExpressionStatementTree extends StatementTree {
     super()
     this.sourceRange = SourceRange.fromContext(ctx)
     this.expression = getExpressionTree(ctx.expression())
+    this.addChildren(this.expression)
   }
 
   toString(): String {

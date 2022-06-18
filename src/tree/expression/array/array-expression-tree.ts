@@ -20,6 +20,7 @@ export class ArrayExpressionTree extends ExpressionTree {
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
     this.arguments = getArgumentTrees(ctx.arguments().argument());
+    this.addChildren(...this.arguments)
   }
 
   toString(): String {

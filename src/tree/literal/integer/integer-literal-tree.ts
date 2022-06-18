@@ -3,13 +3,14 @@ import { Number, String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { LiteralTree } from '../literal-tree';
 
-export class IntegerLiteralTree implements LiteralTree {
+export class IntegerLiteralTree extends LiteralTree {
   sourceRange: SourceRange;
   radix: Number;
   integer: String;
   value: Number;
 
   constructor(ctx: IntegerLiteralContext) {
+    super()
     this.sourceRange = SourceRange.fromContext(ctx);
     const [integer, radix] = ctx.text.split('x').reverse();
     this.integer = integer;

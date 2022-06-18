@@ -19,6 +19,7 @@ export class SourceTree extends Tree {
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
     this.statements = getStatementTrees(ctx.statement())
+    this.addChildren(...this.statements)
   }
 
   toString(): String {

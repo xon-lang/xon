@@ -23,6 +23,7 @@ export class IfStatementTree extends StatementTree {
     this.condition = getExpressionTree(ctx.expression())
     this.thenBody = getBodyTree(ctx._thenBody)
     this.elseBody = getBodyTree(ctx._elseBody)
+    this.addChildren(this.condition, this.thenBody, this.elseBody);
   }
 
   toString(): String {

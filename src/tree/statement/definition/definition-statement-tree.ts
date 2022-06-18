@@ -17,6 +17,7 @@ export class DefinitionStatementTree extends StatementTree {
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
     this.definition = getDefinitionTree(ctx.definition())
+    this.addChildren(this.definition)
   }
 
   toString(): String {

@@ -19,6 +19,7 @@ export class AssertStatementTree extends StatementTree {
     this.sourceRange = SourceRange.fromContext(ctx)
     this.actualExpression = getExpressionTree(ctx.expression(0))
     this.expectExpression = getExpressionTree(ctx.expression(1))
+    this.addChildren(this.actualExpression, this.expectExpression)
   }
 
   toString(): String {

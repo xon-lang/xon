@@ -22,6 +22,7 @@ export class MemberExpressionTree extends ExpressionTree {
     this.sourceRange = SourceRange.fromContext(ctx);
     this.instance = getExpressionTree(ctx.expression());
     this.name = getIdTree(ctx._name);
+    this.addChildren(this.instance, this.name)
   }
 
   toString(): String {

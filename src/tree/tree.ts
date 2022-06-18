@@ -1,14 +1,15 @@
-// this code was generated
-
-import { String } from '../lib/core'
-import { SourceRange } from '../util/source-range'
+import { None, String } from '../lib/core';
+import { SourceRange } from '../util/source-range';
 
 export class Tree {
-  sourceRange: SourceRange
+  sourceRange: SourceRange;
+  children: Tree[] = [];
+
+  addChildren(...children: (Tree | None)[]) {
+    children.filter((x) => x?.sourceRange).forEach((x) => children.push(x));
+  }
 
   toString(): String {
-    throw new Error('Not implemented')
+    throw new Error('Not implemented');
   }
 }
-
-// this code was generated

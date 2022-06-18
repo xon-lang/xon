@@ -18,6 +18,7 @@ export class GroupExpressionTree extends ExpressionTree {
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
     this.expression = getExpressionTree(ctx.expression());
+    this.addChildren(this.expression)
   }
 
   toString(): String {

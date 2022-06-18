@@ -26,6 +26,7 @@ export class InvokeExpressionTree extends ExpressionTree {
     this.hasBracket = !!ctx.arguments().OPEN_BRACKET();
     this.hasParen = !!ctx.arguments().OPEN_PAREN();
     this.arguments = getArgumentTrees(ctx.arguments().argument());
+    this.addChildren(this.instance, ...this.arguments)
   }
 
   toString(): String {

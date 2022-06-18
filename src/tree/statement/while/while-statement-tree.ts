@@ -21,6 +21,7 @@ export class WhileStatementTree extends StatementTree {
     this.sourceRange = SourceRange.fromContext(ctx)
     this.expression = getExpressionTree(ctx.expression())
     this.body = getBodyTree(ctx.body())
+    this.addChildren(this.expression, this.body);
   }
 
   toString(): String {

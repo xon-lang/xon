@@ -17,6 +17,7 @@ export class ExportStatementTree extends StatementTree {
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
     this.path = getExpressionTree(ctx._path)
+    this.addChildren(this.path)
   }
 
   toString(): String {

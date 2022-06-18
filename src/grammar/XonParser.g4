@@ -26,7 +26,7 @@ statement
     ;
 
 expression
-    : PREPROCESSOR                                                        # preprocessorExpression
+    : PREPROCESSOR                                                # preprocessorExpression
     | '(' expression ')'                                                  # groupExpression
     | arguments                                                           # arrayExpression
     | expression QUESTION                                                 # nullableExpression

@@ -19,6 +19,7 @@ export class IdExpressionTree extends ExpressionTree {
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
     this.name = getIdTree(ctx._name);
+    this.addChildren(this.name)
   }
 
   toString(): String {

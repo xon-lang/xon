@@ -25,6 +25,7 @@ export class OperatorStatementTree extends StatementTree {
     this.name = getIdTree(ctx._name);
     this.type = getExpressionTree(ctx._type);
     this.body = getBodyTree(ctx.body());
+    this.addChildren(this.name, this.type, this.body);
   }
 
   toString(): String {

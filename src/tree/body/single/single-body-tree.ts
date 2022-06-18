@@ -17,6 +17,7 @@ export class SingleBodyTree extends BodyTree {
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
     this.statement = getStatementTree(ctx.statement())
+    this.addChildren(this.statement)
   }
 
   toString() {

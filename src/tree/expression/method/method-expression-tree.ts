@@ -26,6 +26,7 @@ export class MethodExpressionTree extends ExpressionTree {
     this.hasParen = !!ctx.parameters().OPEN_PAREN();
     this.parameters = [] = getParameterTrees(ctx.parameters().parameter());
     this.value = getExpressionTree(ctx._value);
+    this.addChildren(...this.parameters, this.value)
   }
 
   toString(): String {

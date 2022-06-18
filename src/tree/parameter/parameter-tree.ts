@@ -30,6 +30,7 @@ export class ParameterTree extends Tree {
     this.parameters = getParameterTrees(ctx.parameters()?.parameter());
     this.type = getExpressionTree(ctx.expression()) || none;
     this.body = getBodyTree(ctx.body()) || none;
+    this.addChildren(this.name, ...this.parameters, this.type, this.body)
   }
 
   toString(): String {

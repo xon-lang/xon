@@ -20,6 +20,7 @@ export class PrefixExpressionTree extends ExpressionTree {
     this.sourceRange = SourceRange.fromContext(ctx);
     this.name = getIdTree(ctx._op);
     this.value = getExpressionTree(ctx.expression());
+    this.addChildren(this.name, this.value)
   }
 
   toString(): String {
