@@ -15,6 +15,7 @@ else
   const tree = parseSource(code);
 
   expect(tree).toBeInstanceOf(SourceTree);
+  expect(tree.children.length).toBe(3);
 });
 
 test('preprocessor in attribute', () => {
@@ -48,7 +49,7 @@ if b
   expect(tree).toBeInstanceOf(SourceTree);
 });
 
-test('debug', () => {
+test('has comment', () => {
   const code = ` 
 a := 1213
 
@@ -57,6 +58,21 @@ import def
 
 -- comment
 object someObjectFactory(name: String)
+`.trim();
+  const tree = parseSource(code);
+
+  expect(tree).toBeInstanceOf(SourceTree);
+});
+
+test('debug', () => {
+  const code = ` 
+abc: ABC
+
+  if b is c
+    return #{new SingleBodyTree(ctx)}
+
+  if d is e
+    return #{new MultipleBodyTree(ctx)}
 `.trim();
   const tree = parseSource(code);
 

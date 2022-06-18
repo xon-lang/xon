@@ -106,9 +106,9 @@ export abstract class XonLexerBase extends Lexer {
   }
 
   private commonToken(type: number, text: string): CommonToken {
-    const stop: number = this.charIndex - 1;
-    const start: number = text.length ? stop - text.length + 1 : stop;
-    return new CommonToken(
+    const start = (this.lastToken?.stopIndex || this.charIndex - 1) + 1;
+    const stop = start + Math.max(0, text.length - 1);
+    const token = new CommonToken(
       type,
       text,
       this._tokenFactorySourcePair,
@@ -116,5 +116,7 @@ export abstract class XonLexerBase extends Lexer {
       start,
       stop,
     );
+    this.lastToken = token;
+    return token;
   }
 }

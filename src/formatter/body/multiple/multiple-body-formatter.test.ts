@@ -53,8 +53,6 @@ test('several body', () => {
   const formatter = getBodyFormatter(ctx, defaultFormatterConfig) as MultipleBodyFormatter;
 
   expect(formatter).toBeInstanceOf(MultipleBodyFormatter);
-  console.log(formatter.toString());
-
   expect(formatter.toString()).toBe(`
   if a
     123

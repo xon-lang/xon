@@ -6,7 +6,7 @@ export class Tree {
   children: Tree[] = [];
 
   addChildren(...children: (Tree | None)[]) {
-    children.filter((x) => x?.sourceRange).forEach((x) => children.push(x));
+    children.filter((x) => x?.sourceRange).forEach((x) => this.children.push(x));
   }
 
   toString(): String {
