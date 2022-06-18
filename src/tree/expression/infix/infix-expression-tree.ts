@@ -2,18 +2,18 @@
 
 import { String } from '../../../lib/core';
 import { ValueMetadata } from '../../../metadata/value/value-metadata';
-import { IdToken } from '../../../util/id-token';
+import { IdTree } from '../../id/id-tree';
 import { SourceRange } from '../../../util/source-range';
 import { ExpressionTree } from '../expression-tree';
 
 export class InfixExpressionTree extends ExpressionTree {
   metadata: ValueMetadata;
-  name: IdToken;
+  name: IdTree;
   left: ExpressionTree;
   right: ExpressionTree;
   sourceRange: SourceRange;
 
-  constructor(name: IdToken, left: ExpressionTree, right: ExpressionTree) {
+  constructor(name: IdTree, left: ExpressionTree, right: ExpressionTree) {
     super();
     this.name = name;
     this.left = left;

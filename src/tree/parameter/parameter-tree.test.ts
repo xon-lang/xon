@@ -1,4 +1,4 @@
-import { IdToken } from '../../util/id-token';
+import { IdTree } from '../id/id-tree';
 import { parseParameter } from '../../util/parse';
 import { InvokeExpressionTree } from '../expression/invoke/invoke-expression-tree';
 import { ParameterTree } from './parameter-tree';
@@ -65,7 +65,7 @@ test('name and array type', () => {
 
   expect(tree).toBeInstanceOf(ParameterTree);
   expect(tree.toString()).toBe('items: ExpressionTree[]');
-  expect(tree.name).toBeInstanceOf(IdToken);
+  expect(tree.name).toBeInstanceOf(IdTree);
   expect(tree.type).toBeInstanceOf(InvokeExpressionTree);
   expect(tree.body).toBe(null);
 });

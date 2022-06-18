@@ -15,7 +15,8 @@ import {
 } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
 import { none } from '../../lib/core';
-import { getIdToken, IdToken } from '../../util/id-token';
+import { getIdTree } from '../id/id-tree-helper';
+import { IdTree } from '../id/id-tree';
 import { ArrayExpressionTree } from './array/array-expression-tree';
 import { ExpressionTree } from './expression-tree';
 import { GroupExpressionTree } from './group/group-expression-tree';
@@ -58,21 +59,21 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
     ].map((x) => x.split(' '));
     const flatExpressions = (x) =>
       x instanceof InfixExpressionContext
-        ? [...flatExpressions(x._left), getIdToken(x._op), getExpressionTree(x._right)]
+        ? [...flatExpressions(x._left), getIdTree(x._op), getExpressionTree(x._right)]
         : [getExpressionTree(x)];
-    const expressions: (IdToken | ExpressionTree)[] = flatExpressions(ctx);
+    const expressions: (IdTree | ExpressionTree)[] = flatExpressions(ctx);
 
     for (const operators of operatorsPriorities) {
       const operatorsCount = expressions.filter(
-        (x) => x instanceof IdToken && operators.includes(x.text),
+        (x) => x instanceof IdTree && operators.includes(x.text),
       ).length;
       for (let i = 0; i < operatorsCount; i++) {
         const operatorIndex = expressions.findIndex(
-          (x) => x instanceof IdToken && operators.includes(x?.text),
+          (x) => x instanceof IdTree && operators.includes(x?.text),
         );
         if (operatorIndex >= 0) {
           expressions[operatorIndex] = new InfixExpressionTree(
-            expressions[operatorIndex] as IdToken,
+            expressions[operatorIndex] as IdTree,
             expressions[operatorIndex - 1] as ExpressionTree,
             expressions[operatorIndex + 1] as ExpressionTree,
           );

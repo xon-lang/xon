@@ -3,8 +3,9 @@
 import { MemberExpressionContext } from '../../../grammar/xon-parser';
 import { String } from '../../../lib/core';
 import { ValueMetadata } from '../../../metadata/value/value-metadata';
-import { getIdToken, IdToken } from '../../../util/id-token';
 import { SourceRange } from '../../../util/source-range';
+import { getIdTree } from '../../id/id-tree-helper';
+import { IdTree } from '../../id/id-tree';
 import { ExpressionTree } from '../expression-tree';
 import { getExpressionTree } from '../expression-tree-helper';
 
@@ -13,14 +14,14 @@ export class MemberExpressionTree extends ExpressionTree {
   ctx: MemberExpressionContext;
   sourceRange: SourceRange;
   instance: ExpressionTree;
-  name: IdToken;
+  name: IdTree;
 
   constructor(ctx: MemberExpressionContext) {
     super();
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
     this.instance = getExpressionTree(ctx.expression());
-    this.name = getIdToken(ctx._name);
+    this.name = getIdTree(ctx._name);
   }
 
   toString(): String {

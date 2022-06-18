@@ -61,7 +61,6 @@ object someObjectFactory(name: String)
   const tree = parseSource(code);
 
   expect(tree).toBeInstanceOf(SourceTree);
-  console.log(tree.ctx.text);
 });
 
 test('1.xon', () => {
