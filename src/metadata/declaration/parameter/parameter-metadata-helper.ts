@@ -22,12 +22,15 @@ export function getParameterMetadata(
       tree.body instanceof SingleBodyTree &&
       tree.body.statement instanceof ExpressionStatementTree
     ) {
+      tree.body.statement.expression.metadata = () =>
+        getValueMetadata(tree.body['statement'].expression, scope);
       value = () => getValueMetadata(tree.body['statement'].expression, scope);
     } else if (tree.body instanceof MultipleBodyTree) {
       throw new Error('Not implemented');
     }
     let type: () => TypeMetadata;
     if (tree.type) {
+      tree.type.metadata = () => getTypeMetadata(tree.type, scope);
       type = () => getTypeMetadata(tree.type, scope);
     } else if (value()) {
       type = () => value().type();

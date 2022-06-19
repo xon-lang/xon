@@ -13,13 +13,19 @@ export class MethodValueMetadata extends ValueMetadata {
     tree.parameters.forEach((x) => (x.metadata = getParameterMetadata(x, scope)[0]));
     const innerScope = scope.create();
     tree.parameters.forEach((x) => innerScope.add(x.metadata));
-    tree.value.metadata = getValueMetadata(tree.value, innerScope);
+    tree.value.metadata = () => getValueMetadata(tree.value, innerScope);
   }
 
   type(): TypeMetadata {
+    const metadata = this.tree.value.metadata();
     return new MethodTypeMetadata(
       () => this.tree.parameters.map((x) => x.metadata),
-      () => this.tree.value.metadata.type(),
+      () => {
+        if (metadata instanceof ValueMetadata) {
+          return metadata.type();
+        }
+        throw new Error('Not implemented');
+      },
     );
   }
 

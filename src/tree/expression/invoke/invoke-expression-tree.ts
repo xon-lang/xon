@@ -2,7 +2,7 @@
 
 import { InvokeExpressionContext } from '../../../grammar/xon-parser';
 import { Boolean, String } from '../../../lib/core';
-import { ValueMetadata } from '../../../metadata/value/value-metadata';
+import { Metadata } from '../../../metadata/metadata';
 import { SourceRange } from '../../../util/source-range';
 import { ArgumentTree } from '../../argument/argument-tree';
 import { getArgumentTrees } from '../../argument/argument-tree-helper';
@@ -10,7 +10,6 @@ import { ExpressionTree } from '../expression-tree';
 import { getExpressionTree } from '../expression-tree-helper';
 
 export class InvokeExpressionTree extends ExpressionTree {
-  metadata: ValueMetadata;
   ctx: InvokeExpressionContext;
   sourceRange: SourceRange;
   instance: ExpressionTree;

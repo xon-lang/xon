@@ -10,7 +10,7 @@ import { getValueMetadata } from '../value-metadata-helper';
 export class PrefixValueMetadata extends ValueMetadata {
   constructor(private tree: PrefixExpressionTree, private scope: DeclarationScope) {
     super();
-    tree.value.metadata = getValueMetadata(tree.value, scope);
+    tree.value.metadata = () => getValueMetadata(tree.value, scope);
   }
 
   operatorDeclaration(): ParameterMetadata {
@@ -23,7 +23,10 @@ export class PrefixValueMetadata extends ValueMetadata {
       const parameters = type.parameters();
       if (parameters.length !== 1) return false;
 
-      return this.tree.value.metadata.type().is(parameters[0].type());
+      const metadata = this.tree.value.metadata();
+      if (metadata instanceof ValueMetadata) {
+        return metadata.type().is(parameters[0].type());
+      }
     });
     return declaration as ParameterMetadata;
   }
@@ -37,8 +40,12 @@ export class PrefixValueMetadata extends ValueMetadata {
   }
 
   eval(): Any {
-    const value = this.tree.value.metadata.eval();
-    const escapeIfString = (s: Unknown) => (typeof s === 'string' && `\`${s}\``) || s;
-    return eval(`${this.tree.name} ${escapeIfString(value)}`);
+    const metadata = this.tree.value.metadata();
+    if (metadata instanceof ValueMetadata) {
+      const value = metadata.eval();
+      const escapeIfString = (s: Unknown) => (typeof s === 'string' && `\`${s}\``) || s;
+      return eval(`${this.tree.name} ${escapeIfString(value)}`);
+    }
+    return null;
   }
 }

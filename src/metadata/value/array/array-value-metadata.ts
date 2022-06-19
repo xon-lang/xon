@@ -7,7 +7,7 @@ import { getValueMetadata } from '../value-metadata-helper';
 export class ArrayValueMetadata extends ValueMetadata {
   constructor(private tree: ArrayExpressionTree, private scope: DeclarationScope) {
     super();
-    tree.arguments.forEach((x) => (x.value.metadata = getValueMetadata(x.value, scope)));
+    tree.arguments.forEach((x) => (x.value.metadata = () => getValueMetadata(x.value, scope)));
   }
 
   type(): TypeMetadata {

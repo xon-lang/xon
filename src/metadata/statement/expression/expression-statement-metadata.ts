@@ -5,6 +5,6 @@ import { StatementMetadata } from '../statement-metadata';
 
 export class ExpressionStatementMetadata implements StatementMetadata {
   constructor(private tree: ExpressionStatementTree, private scope: DeclarationScope) {
-    tree.expression.metadata = getValueMetadata(tree.expression, scope);
+    tree.expression.metadata = () => getValueMetadata(tree.expression, scope);
   }
 }

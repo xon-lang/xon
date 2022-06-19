@@ -2,13 +2,12 @@
 
 import { GroupExpressionContext } from '../../../grammar/xon-parser';
 import { String } from '../../../lib/core';
-import { ValueMetadata } from '../../../metadata/value/value-metadata';
+import { Metadata } from '../../../metadata/metadata';
 import { SourceRange } from '../../../util/source-range';
 import { ExpressionTree } from '../expression-tree';
 import { getExpressionTree } from '../expression-tree-helper';
 
 export class GroupExpressionTree extends ExpressionTree {
-  metadata: ValueMetadata;
   ctx: GroupExpressionContext;
   sourceRange: SourceRange;
   expression: ExpressionTree;
@@ -18,7 +17,7 @@ export class GroupExpressionTree extends ExpressionTree {
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
     this.expression = getExpressionTree(ctx.expression());
-    this.addChildren(this.expression)
+    this.addChildren(this.expression);
   }
 
   toString(): String {

@@ -1,13 +1,12 @@
 // this code was generated
 
 import { String } from '../../../lib/core';
-import { ValueMetadata } from '../../../metadata/value/value-metadata';
-import { IdTree } from '../../id/id-tree';
+import { Metadata } from '../../../metadata/metadata';
 import { SourceRange } from '../../../util/source-range';
+import { IdTree } from '../../id/id-tree';
 import { ExpressionTree } from '../expression-tree';
 
 export class InfixExpressionTree extends ExpressionTree {
-  metadata: ValueMetadata;
   name: IdTree;
   left: ExpressionTree;
   right: ExpressionTree;
@@ -19,7 +18,7 @@ export class InfixExpressionTree extends ExpressionTree {
     this.left = left;
     this.right = right;
     this.sourceRange = SourceRange.fromTwoRange(left.sourceRange, right.sourceRange);
-    this.addChildren(this.left, this.name, this.right)
+    this.addChildren(this.left, this.name, this.right);
   }
 
   toString(): String {

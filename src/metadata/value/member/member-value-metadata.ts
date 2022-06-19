@@ -8,14 +8,18 @@ import { getValueMetadata } from '../value-metadata-helper';
 export class MemberValueMetadata extends ValueMetadata {
   constructor(private tree: MemberExpressionTree, private scope: DeclarationScope) {
     super();
-    tree.instance.metadata = getValueMetadata(tree.instance, scope);
+    tree.instance.metadata = () => getValueMetadata(tree.instance, scope);
   }
 
   type(): TypeMetadata {
-    const instanceType = this.tree.instance.metadata.type();
-    const attributesScope = instanceType.attributesScope();
-    const declaration = attributesScope.find(this.tree.name.text);
-    return declaration.type();
+    const metadata = this.tree.instance.metadata();
+    if (metadata instanceof ValueMetadata) {
+      const instanceType = metadata.type();
+      const attributesScope = instanceType.attributesScope();
+      const declaration = attributesScope.find(this.tree.name.text);
+      return declaration.type();
+    }
+    throw new Error('Not implemented');
   }
 
   eval(): Any {

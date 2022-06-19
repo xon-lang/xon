@@ -10,12 +10,19 @@ import { getValueMetadata } from '../value-metadata-helper';
 export class InfixValueMetadata extends ValueMetadata {
   constructor(private tree: InfixExpressionTree, private scope: DeclarationScope) {
     super();
-    tree.left.metadata = getValueMetadata(tree.left, scope);
-    tree.right.metadata = getValueMetadata(tree.right, scope);
+    tree.left.metadata = () => getValueMetadata(tree.left, scope);
+    tree.right.metadata = () => getValueMetadata(tree.right, scope);
   }
 
   operatorDeclaration(): ParameterMetadata {
     const declaration = this.scope.find(this.tree.name.text, (x) => {
+      const leftMetadata = this.tree.left.metadata();
+      const rightMetadata = this.tree.right.metadata();
+
+      if (!(leftMetadata instanceof ValueMetadata && rightMetadata instanceof ValueMetadata)) {
+        throw new Error('Not implemented');
+      }
+
       if (!(x instanceof ParameterMetadata)) return false;
 
       const type = x.type();
@@ -25,10 +32,7 @@ export class InfixValueMetadata extends ValueMetadata {
       if (parameters.length !== 2) return false;
 
       const [left, right] = parameters;
-      return (
-        this.tree.left.metadata.type().is(left.type()) &&
-        this.tree.right.metadata.type().is(right.type())
-      );
+      return leftMetadata.type().is(left.type()) && rightMetadata.type().is(right.type());
     });
     return declaration as ParameterMetadata;
   }
@@ -42,12 +46,18 @@ export class InfixValueMetadata extends ValueMetadata {
   }
 
   eval(): Any {
-    const left = this.tree.left.metadata.eval();
-    const right = this.tree.right.metadata.eval();
-    if (this.tree.name.text === '^') {
-      return Math.pow(left, right);
+    const leftMetadata = this.tree.left.metadata();
+    const rightMetadata = this.tree.right.metadata();
+
+    if (leftMetadata instanceof ValueMetadata && rightMetadata instanceof ValueMetadata) {
+      const left = leftMetadata.eval();
+      const right = rightMetadata.eval();
+      if (this.tree.name.text === '^') {
+        return Math.pow(left, right);
+      }
+      const escapeIfString = (s: Unknown) => (typeof s === 'string' && `\`${s}\``) || s;
+      return eval(`${escapeIfString(left)} ${this.tree.name} ${escapeIfString(right)}`);
     }
-    const escapeIfString = (s: Unknown) => (typeof s === 'string' && `\`${s}\``) || s;
-    return eval(`${escapeIfString(left)} ${this.tree.name} ${escapeIfString(right)}`);
+    throw new Error('Not implemented');
   }
 }

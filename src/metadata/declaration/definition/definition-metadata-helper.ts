@@ -14,6 +14,7 @@ export function getDefinitionMetadata(
     const parameters = () => tree.parameters.map((x) => getParameterMetadata(x, scope)).flat();
     let baseDefinition: () => DefinitionMetadata | None = () => none;
     if (tree.base instanceof IdExpressionTree) {
+      tree.base.metadata = () => scope.find(tree.base['name'].text) as DefinitionMetadata;
       baseDefinition = () => scope.find(tree.base['name'].text) as DefinitionMetadata;
     } else if (tree.base) {
       throw new Error('Not implemented');
