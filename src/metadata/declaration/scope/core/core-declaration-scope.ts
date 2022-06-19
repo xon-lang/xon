@@ -1,3 +1,4 @@
+import { String } from '../../../../lib/core';
 import { ImportProvider } from '../../../import-provider';
 import { DefinitionMetadata } from '../../definition/definition-metadata';
 import { ParameterMetadata } from '../../parameter/parameter-metadata';
@@ -38,11 +39,10 @@ export class CoreDeclarationScope extends DeclarationScope {
     return this.find('Array') as DefinitionMetadata;
   }
 
-  constructor() {
+  constructor(coreModulePath: String = 'src/lib/@xon/core') {
     super();
 
-    const corePath = 'src/lib/@xon/core';
-    const scope = new ImportProvider(corePath).scope();
+    const scope = new ImportProvider(coreModulePath).scope();
     this.declarations = scope.declarations;
   }
 }
