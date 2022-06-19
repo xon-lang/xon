@@ -4,6 +4,7 @@ import { ExpressionStatementTree } from '../../tree/statement/expression/express
 import { IfStatementTree } from '../../tree/statement/if/if-statement-tree';
 import { OperatorStatementTree } from '../../tree/statement/operator/operator-statement-tree';
 import { ParameterStatementTree } from '../../tree/statement/parameter/parameter-statement-tree';
+import { ReturnStatementTree } from '../../tree/statement/return/return-statement-tree';
 import { StatementTree } from '../../tree/statement/statement-tree';
 import { DeclarationScope } from '../declaration/scope/declaration-scope';
 import { DefinitionStatementMetadata } from './definition/definition-statement-metadata';
@@ -11,6 +12,7 @@ import { ExpressionStatementMetadata } from './expression/expression-statement-m
 import { IfStatementMetadata } from './if/if-statement-metadata';
 import { OperatorStatementMetadata } from './operator/operator-statement-metadata';
 import { ParameterStatementMetadata } from './parameter/parameter-statement-metadata';
+import { ReturnStatementMetadata } from './return/return-statement-metadata';
 import { StatementMetadata } from './statement-metadata';
 
 export function getStatementMetadata(
@@ -22,6 +24,7 @@ export function getStatementMetadata(
   if (tree instanceof ParameterStatementTree) return new ParameterStatementMetadata(tree, scope);
   if (tree instanceof DefinitionStatementTree) return new DefinitionStatementMetadata(tree, scope);
   if (tree instanceof IfStatementTree) return new IfStatementMetadata(tree, scope);
+  if (tree instanceof ReturnStatementTree) return new ReturnStatementMetadata(tree, scope);
 
   Issue.errorFromTree(tree, `Statement metadata not found for '${tree.constructor.name}'`);
 }
