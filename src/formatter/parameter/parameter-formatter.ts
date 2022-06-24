@@ -1,9 +1,4 @@
-import {
-  BodyContext,
-  ExpressionContext,
-  ParameterContext,
-  SingleBodyContext,
-} from '../../grammar/xon-parser';
+import { BodyContext, ExpressionContext, ParameterContext } from '../../grammar/xon-parser';
 import { String } from '../../lib/core';
 import { getBodyFormatter } from '../body/body-formatter-helper';
 import { getExpressionFormatter } from '../expression/expression-formatter-helper';
@@ -18,7 +13,7 @@ export class ParameterFormatter extends Formatter {
 
   toString() {
     const type = this.typeFormatter(this.ctx._type);
-    let body = this.bodyFormat(this.ctx.body(), this.ctx._type);
+    let body = this.bodyFormat(this.ctx._value || this.ctx.body(), this.ctx._type);
 
     if (this.ctx._name) return `${this.ctx._name.text}${type}${body}`;
 
@@ -27,8 +22,8 @@ export class ParameterFormatter extends Formatter {
   }
 
   typeFormatter(type: ExpressionContext): String {
-    if (!type && this.ctx.COLON() && this.ctx.body() instanceof SingleBodyContext) return ' :';
-    if (!type && !this.ctx.COLON() && this.ctx.body() instanceof SingleBodyContext) return ' ';
+    if (!type && this.ctx.COLON() && this.ctx._value instanceof ExpressionContext) return ' :';
+    if (!type && !this.ctx.COLON() && this.ctx._value instanceof ExpressionContext) return ' ';
     if (!type) return '';
 
     return (
@@ -37,12 +32,16 @@ export class ParameterFormatter extends Formatter {
     );
   }
 
-  bodyFormat(body: BodyContext, type: ExpressionContext): String {
+  bodyFormat(body: ExpressionContext | BodyContext, type: ExpressionContext): String {
     if (!body) return '';
 
-    const bodyFormatter = getBodyFormatter(body, this.config).indent(this.indentCount);
-    if (body instanceof SingleBodyContext && this.ctx._type) return ' ' + bodyFormatter.toString();
+    if (body instanceof ExpressionContext) {
+      const expressionFormatter = getExpressionFormatter(body, this.config).indent(
+        this.indentCount,
+      );
+      return ((this.ctx._type && ' = ') || '= ') + expressionFormatter.toString();
+    }
 
-    return bodyFormatter.toString();
+    return getBodyFormatter(body, this.config).indent(this.indentCount).toString();
   }
 }

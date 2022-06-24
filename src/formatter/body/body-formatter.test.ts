@@ -1,14 +1,14 @@
-import { parse } from '../../../util/parse';
-import { defaultFormatterConfig, FormatterConfig } from '../../formatter-config';
-import { getBodyFormatter } from '../body-formatter-helper';
-import { MultipleBodyFormatter } from './multiple-body-formatter';
+import { parse } from '../../util/parse';
+import { defaultFormatterConfig, FormatterConfig } from '../formatter-config';
+import { BodyFormatter } from './body-formatter';
+import { getBodyFormatter } from './body-formatter-helper';
 
 test('integer', () => {
   const code = '\n  123';
   const ctx = parse(code).body();
   const formatter = getBodyFormatter(ctx, defaultFormatterConfig);
 
-  expect(formatter).toBeInstanceOf(MultipleBodyFormatter);
+  expect(formatter).toBeInstanceOf(BodyFormatter);
   expect(formatter.toString()).toBe('\n  123');
   expect(formatter.indent(2).toString()).toBe('\n      123');
 });
@@ -21,7 +21,7 @@ test('contains new line', () => {
   config.printWidth = 8;
   const formatter = getBodyFormatter(ctx, config);
 
-  expect(formatter).toBeInstanceOf(MultipleBodyFormatter);
+  expect(formatter).toBeInstanceOf(BodyFormatter);
   expect(formatter.toString()).toBe(`\n  [
     1,
     [2],
@@ -50,9 +50,9 @@ test('several body', () => {
     321
     654`;
   const ctx = parse(code).body();
-  const formatter = getBodyFormatter(ctx, defaultFormatterConfig) as MultipleBodyFormatter;
+  const formatter = getBodyFormatter(ctx, defaultFormatterConfig) as BodyFormatter;
 
-  expect(formatter).toBeInstanceOf(MultipleBodyFormatter);
+  expect(formatter).toBeInstanceOf(BodyFormatter);
   expect(formatter.toString()).toBe(`
   if a
     123
