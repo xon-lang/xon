@@ -3,20 +3,12 @@ import { parseParameter } from '../../util/parse';
 import { InvokeExpressionTree } from '../expression/invoke/invoke-expression-tree';
 import { ParameterTree } from './parameter-tree';
 
-// test('id', () => {
-//   const code = `abc`;
-//   const tree = parseParameter(code);
-
-//   expect(tree).toBeInstanceOf(ParameterTree);
-//   expect(tree.toString()).toBe('abc');
-// });
-
 test('id type', () => {
   const code = `abc: Integer`;
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('abc: Integer');
+  expect(tree.name.text).toBe('abc');
 });
 
 test('id lambda type', () => {
@@ -24,7 +16,7 @@ test('id lambda type', () => {
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('abc: [a: Number] => Integer');
+  expect(tree.name.text).toBe('abc');
 });
 
 test('variable type value', () => {
@@ -32,7 +24,7 @@ test('variable type value', () => {
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('statements: StatementTree[] = []');
+  expect(tree.name.text).toBe('statements');
 });
 
 test('method assign', () => {
@@ -40,7 +32,7 @@ test('method assign', () => {
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('statements = [a, b: Number] => 7');
+  expect(tree.name.text).toBe('statements');
 });
 
 test('method single body', () => {
@@ -48,7 +40,7 @@ test('method single body', () => {
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('statements: [a, b: Number] => Integer = 7');
+  expect(tree.name.text).toBe('statements');
 });
 
 test('method multiple body', () => {
@@ -56,7 +48,7 @@ test('method multiple body', () => {
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('statements: [a, b: Number] => Integer\n  123\n  return 456');
+  expect(tree.name.text).toBe('statements');
 });
 
 test('name and array type', () => {
@@ -64,7 +56,6 @@ test('name and array type', () => {
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('items: ExpressionTree[]');
   expect(tree.name).toBeInstanceOf(IdTree);
   expect(tree.type).toBeInstanceOf(InvokeExpressionTree);
   expect(tree.body).toBe(null);
@@ -75,7 +66,7 @@ test('name and array type', () => {
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('getParameterTrees: (contexts: ParameterContext[]) => None');
+  expect(tree.name.text).toBe('getParameterTrees');
 });
 
 test('preprocessor', () => {
@@ -89,7 +80,6 @@ a
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe(code);
 });
 
 test('bracket parameter with type', () => {
@@ -97,7 +87,7 @@ test('bracket parameter with type', () => {
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('[a]: Integer[] = [1, 2, 3]');
+  expect(tree.parameters.length).toBe(1);
 });
 
 test('bracket parameter without type', () => {
@@ -105,7 +95,7 @@ test('bracket parameter without type', () => {
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('[a] = [1, 2, 3]');
+  expect(tree.parameters.length).toBe(1);
 });
 
 test('paren parameters', () => {
@@ -113,7 +103,7 @@ test('paren parameters', () => {
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('(a, b, c) = [1, 2, 3]');
+  expect(tree.parameters.length).toBe(3);
 });
 
 test('brace parameters', () => {
@@ -121,5 +111,5 @@ test('brace parameters', () => {
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.toString()).toBe('{a, b, c} = import lib.abc');
+  expect(tree.parameters.length).toBe(3);
 });

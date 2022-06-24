@@ -3,12 +3,12 @@
 import { ForStatementContext } from '../../../grammar/xon-parser';
 import { none, String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
-import { BodyTree } from '../../body/body-tree';
-import { getBodyTree } from '../../body/body-tree-helper';
 import { ExpressionTree } from '../../expression/expression-tree';
 import { getExpressionTree } from '../../expression/expression-tree-helper';
 import { ParameterTree } from '../../parameter/parameter-tree';
 import { getParameterTree } from '../../parameter/parameter-tree-helper';
+import { SourceTree } from '../../source/source-tree';
+import { getSourceTree } from '../../source/source-tree-helper';
 import { StatementTree } from '../statement-tree';
 
 export class ForStatementTree extends StatementTree {
@@ -17,7 +17,7 @@ export class ForStatementTree extends StatementTree {
   valueVar?: ParameterTree;
   indexVar?: ParameterTree;
   expression: ExpressionTree;
-  body: BodyTree;
+  body: SourceTree;
 
   constructor(ctx: ForStatementContext) {
     super();
@@ -26,7 +26,7 @@ export class ForStatementTree extends StatementTree {
     this.valueVar = getParameterTree(ctx._value) || none;
     this.indexVar = getParameterTree(ctx._index) || none;
     this.expression = getExpressionTree(ctx.expression());
-    this.body = getBodyTree(ctx.body());
+    this.body = getSourceTree(ctx.body().source());
     this.addChildren(this.valueVar, this.indexVar, this.expression, this.body);
   }
 

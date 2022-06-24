@@ -1,3 +1,0 @@
-{Tree} := import '../tree'
-
-object BodyTree is Tree

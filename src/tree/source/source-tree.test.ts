@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import { parseSource, parseSourceFile } from '../../util/parse';
 import { SourceTree } from './source-tree';
 
@@ -34,7 +33,6 @@ toString: [] => String
   const tree = parseSource(code);
 
   expect(tree).toBeInstanceOf(SourceTree);
-  expect(tree.toString()).toBe(code + '\n');
 });
 
 test('two if statements', () => {
@@ -73,19 +71,10 @@ abc: ABC
 
   if d is e
     return #{new MultipleBodyTree(ctx)}
-`.trim();
+`;
   const tree = parseSource(code);
 
   expect(tree).toBeInstanceOf(SourceTree);
-});
-
-test('1.xon', () => {
-  const tree = parseSourceFile('src/tree/source/test-files/1.xon');
-
-  expect(tree).toBeInstanceOf(SourceTree);
-  const formatted = tree.toString();
-  fs.writeFileSync('src/tree/source/test-files/1.fmt.xon', formatted);
-  // expect(code).toBe(formatted);
 });
 
 test('2.xon', () => {

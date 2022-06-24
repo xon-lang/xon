@@ -3,26 +3,26 @@
 import { IfStatementContext } from '../../../grammar/xon-parser'
 import { None, String } from '../../../lib/core'
 import { SourceRange } from '../../../util/source-range'
-import { getBodyTree } from '../../body/body-tree-helper'
-import { BodyTree } from '../../body/body-tree'
 import { getExpressionTree } from '../../expression/expression-tree-helper'
 import { ExpressionTree } from '../../expression/expression-tree'
 import { StatementTree } from '../statement-tree'
+import { getSourceTree } from '../../source/source-tree-helper'
+import { SourceTree } from '../../source/source-tree'
 
 export class IfStatementTree extends StatementTree {
   ctx: IfStatementContext
   sourceRange: SourceRange
   condition: ExpressionTree
-  thenBody: BodyTree
-  elseBody?: BodyTree | None
+  thenBody: SourceTree
+  elseBody?: SourceTree | None
 
   constructor(ctx: IfStatementContext) {
     super()
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
     this.condition = getExpressionTree(ctx.expression())
-    this.thenBody = getBodyTree(ctx._thenBody)
-    this.elseBody = getBodyTree(ctx._elseBody)
+    this.thenBody = getSourceTree(ctx._thenBody.source())
+    this.elseBody = getSourceTree(ctx._elseBody?.source())
     this.addChildren(this.condition, this.thenBody, this.elseBody);
   }
 

@@ -1,6 +1,5 @@
 import { evaluate } from '../../../util/evaluate';
 import { parseStatement } from '../../../util/parse';
-import { MultipleBodyTree } from '../../body/multiple/multiple-body-tree';
 import { ExpressionStatementTree } from '../expression/expression-statement-tree';
 import { IfStatementTree } from './if-statement-tree';
 
@@ -17,17 +16,14 @@ test('if else if', () => {
   expect(tree).toBeInstanceOf(IfStatementTree);
   expect(evaluate(tree.condition)).toBe(12 + 45 / 9);
 
-  expect((tree.thenBody as MultipleBodyTree).statements.length).toBe(2);
-  const ifStatement = (tree.thenBody as MultipleBodyTree).statements[0] as ExpressionStatementTree;
+  expect(tree.thenBody.statements.length).toBe(2);
+  const ifStatement = tree.thenBody.statements[0] as ExpressionStatementTree;
   expect(evaluate(ifStatement.expression)).toBe(12 + 45 / 5);
 
-  const nextIfStatement = (tree.elseBody as MultipleBodyTree).statements[0] as IfStatementTree;
+  const nextIfStatement = tree.elseBody.statements[0] as IfStatementTree;
   expect(evaluate(nextIfStatement.condition)).toBe(2 + 2);
   expect(
-    evaluate(
-      ((nextIfStatement.thenBody as MultipleBodyTree).statements[0] as ExpressionStatementTree)
-        .expression,
-    ),
+    evaluate((nextIfStatement.thenBody.statements[0] as ExpressionStatementTree).expression),
   ).toBe(2 * 4);
 });
 
@@ -37,11 +33,10 @@ test('if else', () => {
 
   expect(tree).toBeInstanceOf(IfStatementTree);
   expect(evaluate(tree.condition)).toBe(12 + 45 / 9);
-  const ifStatement = (tree.thenBody as MultipleBodyTree).statements[0] as ExpressionStatementTree;
+  const ifStatement = tree.thenBody.statements[0] as ExpressionStatementTree;
   expect(evaluate(ifStatement.expression)).toBe(14 + 144 / 12);
 
-  const elseStatement = (tree.elseBody as MultipleBodyTree)
-    .statements[0] as ExpressionStatementTree;
+  const elseStatement = tree.elseBody.statements[0] as ExpressionStatementTree;
   expect(evaluate(elseStatement.expression)).toBe(2 * 4);
 });
 
@@ -51,7 +46,7 @@ test('if expression', () => {
 
   expect(tree).toBeInstanceOf(IfStatementTree);
   expect(evaluate(tree.condition)).toBe(12 + 45 / 9);
-  const ifStatement = (tree.thenBody as MultipleBodyTree).statements[0] as ExpressionStatementTree;
+  const ifStatement = tree.thenBody.statements[0] as ExpressionStatementTree;
   expect(evaluate(ifStatement.expression)).toBe(12 + 45 / 5);
 });
 
@@ -61,6 +56,6 @@ test('if relational', () => {
 
   expect(tree).toBeInstanceOf(IfStatementTree);
   expect(evaluate(tree.condition)).toBe(6 > 4);
-  const ifStatement = (tree.thenBody as MultipleBodyTree).statements[0] as ExpressionStatementTree;
+  const ifStatement = tree.thenBody.statements[0] as ExpressionStatementTree;
   expect(evaluate(ifStatement.expression)).toBe(12 + 45 ** 5);
 });

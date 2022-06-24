@@ -2,8 +2,6 @@
 
 import {
   DefinitionContext,
-  MultipleBodyContext,
-  SingleBodyContext,
 } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
 import { none, None, String } from '../../lib/core';
@@ -19,6 +17,7 @@ import { getParameterTrees } from '../parameter/parameter-tree-helper';
 import { ParameterStatementTree } from '../statement/parameter/parameter-statement-tree';
 import { getStatementTrees } from '../statement/statement-tree-helper';
 import { Tree } from '../tree';
+import { getSourceTree } from '../source/source-tree-helper';
 
 export class DefinitionTree extends Tree {
   metadata: DefinitionMetadata;
@@ -38,11 +37,8 @@ export class DefinitionTree extends Tree {
     this.name = getIdTree(ctx._name);
     this.parameters = getParameterTrees(ctx.parameters()?.parameter()) || none;
     this.base = getExpressionTree(ctx.expression()) || none;
-    if (ctx.body() instanceof SingleBodyContext) {
-      throw new Error('Not implemented');
-    }
 
-    const statements = getStatementTrees((ctx.body() as MultipleBodyContext)?.statement());
+    const statements = getSourceTree(ctx.body()?.source())?.statements || [];
     statements
       .filter((x) => !(x instanceof ParameterStatementTree))
       .forEach((x) => Issue.errorFromTree(x, 'Definition body should contain only parameters'));

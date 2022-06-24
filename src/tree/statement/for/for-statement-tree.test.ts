@@ -1,7 +1,5 @@
-import { none } from '../../../lib/core';
 import { evaluate } from '../../../util/evaluate';
 import { parseStatement } from '../../../util/parse';
-import { MultipleBodyTree } from '../../body/multiple/multiple-body-tree';
 import { ArrayExpressionTree } from '../../expression/array/array-expression-tree';
 import { IdExpressionTree } from '../../expression/id/id-expression-tree';
 import { ExpressionStatementTree } from '../expression/expression-statement-tree';
@@ -15,7 +13,7 @@ test('for with value', () => {
   expect(tree.indexVar?.name.text).toBeFalsy();
   expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
-  const statement = (tree.body as MultipleBodyTree).statements[0];
+  const statement = tree.body.statements[0];
   expect(evaluate((statement as ExpressionStatementTree).expression)).toBe(12 + 45 / 5);
 });
 
@@ -28,8 +26,7 @@ test('for with value and index', () => {
   expect(tree.indexVar?.name.text).toBe('i');
   expect(tree.expression).toBeInstanceOf(IdExpressionTree);
 
-  const body = tree.body as MultipleBodyTree;
-  expect(evaluate((body.statements[0] as ExpressionStatementTree).expression)).toBe(12 + 10);
+  expect(evaluate((tree.body.statements[0] as ExpressionStatementTree).expression)).toBe(12 + 10);
 });
 
 test('for with expression only', () => {
@@ -41,6 +38,7 @@ test('for with expression only', () => {
   expect(tree.indexVar?.name.text).toBeFalsy();
   expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
-  const body = tree.body as MultipleBodyTree;
-  expect(evaluate((body.statements[0] as ExpressionStatementTree).expression)).toBe(1 + 1);
+  expect(evaluate((tree.body.statements[0] as ExpressionStatementTree).expression)).toBe(
+    1 + 1,
+  );
 });

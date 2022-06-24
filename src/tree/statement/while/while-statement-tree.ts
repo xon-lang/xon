@@ -3,24 +3,24 @@
 import { WhileStatementContext } from '../../../grammar/xon-parser'
 import { String } from '../../../lib/core'
 import { SourceRange } from '../../../util/source-range'
-import { getBodyTree } from '../../body/body-tree-helper'
-import { BodyTree } from '../../body/body-tree'
 import { getExpressionTree } from '../../expression/expression-tree-helper'
 import { ExpressionTree } from '../../expression/expression-tree'
 import { StatementTree } from '../statement-tree'
+import { SourceTree } from '../../source/source-tree'
+import { getSourceTree } from '../../source/source-tree-helper'
 
 export class WhileStatementTree extends StatementTree {
   ctx: WhileStatementContext
   sourceRange: SourceRange
   expression: ExpressionTree
-  body: BodyTree
+  body: SourceTree
 
   constructor(ctx: WhileStatementContext) {
     super()
     this.ctx = ctx
     this.sourceRange = SourceRange.fromContext(ctx)
     this.expression = getExpressionTree(ctx.expression())
-    this.body = getBodyTree(ctx.body())
+    this.body = getSourceTree(ctx.body().source())
     this.addChildren(this.expression, this.body);
   }
 
