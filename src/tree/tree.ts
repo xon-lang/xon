@@ -3,10 +3,16 @@ import { SourceRange } from '../util/source-range';
 
 export class Tree {
   sourceRange: SourceRange;
+  parent?: Tree | None;
   children: Tree[] = [];
 
   addChildren(...children: (Tree | None)[]) {
-    children.filter((x) => x?.sourceRange).forEach((x) => this.children.push(x));
+    children
+      .filter((x) => x?.sourceRange)
+      .forEach((x) => {
+        x.parent = this;
+        this.children.push(x);
+      });
   }
 
   toString(): String {
