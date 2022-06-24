@@ -19,7 +19,7 @@ export class DefinitionMetadata extends DeclarationMetadata {
     super();
   }
 
-  type() {
+  type(): DefinitionTypeMetadata {
     return new DefinitionTypeMetadata(() => this);
   }
 

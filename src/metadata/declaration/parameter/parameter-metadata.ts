@@ -1,4 +1,4 @@
-import { None } from '../../../lib/core';
+import { None, String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../../value/value-metadata';

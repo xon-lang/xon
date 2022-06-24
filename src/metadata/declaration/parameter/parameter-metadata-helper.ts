@@ -1,10 +1,10 @@
 import { Issue } from '../../../issue-service/issue';
 import { None, none } from '../../../lib/core';
-import { MultipleBodyTree } from '../../../tree/body/multiple/multiple-body-tree';
 import { SingleBodyTree } from '../../../tree/body/single/single-body-tree';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { ExpressionStatementTree } from '../../../tree/statement/expression/expression-statement-tree';
-import { DefinitionTypeMetadata } from '../../type/definition/definition-type-metadata';
+import { ArrayTypeMetadata } from '../../type/array/array-type-metadata';
+import { ObjectTypeMetadata } from '../../type/object/object-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
 import { getTypeMetadata } from '../../type/type-metadata-helper';
 import { ValueMetadata } from '../../value/value-metadata';
@@ -16,33 +16,55 @@ export function getParameterMetadata(
   tree: ParameterTree,
   scope: DeclarationScope,
 ): ParameterMetadata[] {
-  if (tree instanceof ParameterTree && tree.name) {
-    let value: () => ValueMetadata | None = () => none;
-    if (
-      tree.body instanceof SingleBodyTree &&
-      tree.body.statement instanceof ExpressionStatementTree
-    ) {
-      tree.body.statement.expression.metadata = () =>
-        getValueMetadata(tree.body['statement'].expression, scope);
-      value = () => getValueMetadata(tree.body['statement'].expression, scope);
-    } else if (tree.body instanceof MultipleBodyTree) {
-      throw new Error('Not implemented');
-    }
+  if (!tree) return [];
+
+  if (!(tree instanceof ParameterTree)) {
+    Issue.errorFromTree(tree, 'Parameter metadata not found');
+  }
+
+  let value: () => ValueMetadata | None = () => none;
+  if (
+    tree.body instanceof SingleBodyTree &&
+    tree.body.statement instanceof ExpressionStatementTree
+  ) {
+    tree.body.statement.expression.metadata = () =>
+      getValueMetadata(tree.body['statement'].expression, scope);
+    value = () => getValueMetadata(tree.body['statement'].expression, scope);
+  }
+
+  if (tree.name) {
     let type: () => TypeMetadata;
     if (tree.type) {
       tree.type.metadata = () => getTypeMetadata(tree.type, scope);
       type = () => getTypeMetadata(tree.type, scope);
-    } else if (value()) {
-      type = () => value().type();
     } else {
-      type = () => new DefinitionTypeMetadata(() => scope.core.any);
+      type = () => value()?.type() || scope.core.any.type();
     }
 
     const metadata = new ParameterMetadata(tree.sourceRange, tree.name.text, type, value);
     return [metadata];
-  } else if (tree.parameters.length > 0) {
-    throw new Error('Not implemented');
   }
 
-  Issue.errorFromTree(tree, 'Parameter metadata not found');
+  const parametersMetadata: ParameterMetadata[] = [];
+  for (const [index, parameter] of tree.parameters.entries()) {
+    let type: () => TypeMetadata;
+    if (parameter.type) {
+      parameter.type.metadata = () => getTypeMetadata(parameter.type, scope);
+      type = () => getTypeMetadata(parameter.type, scope);
+    } else {
+      type = () => {
+        const type = value().type();
+        if (type instanceof ObjectTypeMetadata) {
+          return type.attributesScope().find(parameter.name.text).type();
+        } else if (type instanceof ArrayTypeMetadata) {
+          const commonType = type.commonType();
+          const items = type.items();
+          return (items.length && items[index]) || commonType;
+        }
+      };
+    }
+    const metadata = new ParameterMetadata(tree.sourceRange, parameter.name.text, type, value);
+    parametersMetadata.push(metadata);
+  }
+  return parametersMetadata;
 }

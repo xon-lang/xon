@@ -1,5 +1,5 @@
-import { String } from '../../../../lib/core';
 import { ImportProvider } from '../../../import-provider';
+import { moduleConfig } from '../../../module-config';
 import { DefinitionMetadata } from '../../definition/definition-metadata';
 import { ParameterMetadata } from '../../parameter/parameter-metadata';
 import { DeclarationScope } from '../declaration-scope';
@@ -39,10 +39,10 @@ export class CoreDeclarationScope extends DeclarationScope {
     return this.find('Array') as DefinitionMetadata;
   }
 
-  constructor(coreModulePath: String = 'src/lib/@xon/core') {
+  constructor() {
     super();
 
-    const scope = new ImportProvider(coreModulePath).scope();
+    const scope = new ImportProvider(moduleConfig.coreModulePath).scope();
     this.declarations = scope.declarations;
   }
 }
