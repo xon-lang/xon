@@ -12,10 +12,11 @@ export class ImportProvider {
   constructor(private importPath: string) {}
 
   scope(): DeclarationScope {
-    const stats = lstatSync(this.importPath);
+    const fullImportPath = path.resolve(this.importPath);
+    const stats = lstatSync(fullImportPath);
     if (!stats.isDirectory()) throw new Error('Should be a directory');
 
-    const globPath = path.resolve(this.importPath, '*.xon');
+    const globPath = path.resolve(fullImportPath, '*.xon');
     const files = glob.sync(globPath);
     const sources = files.map((x) => parseSourceFile(x));
     const scope = new DeclarationScope();
