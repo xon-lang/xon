@@ -1,8 +1,7 @@
 import { Issue } from '../../../issue-service/issue';
 import { None, none } from '../../../lib/core';
-import { SingleBodyTree } from '../../../tree/body/single/single-body-tree';
+import { ExpressionTree } from '../../../tree/expression/expression-tree';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
-import { ExpressionStatementTree } from '../../../tree/statement/expression/expression-statement-tree';
 import { ArrayTypeMetadata } from '../../type/array/array-type-metadata';
 import { ObjectTypeMetadata } from '../../type/object/object-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
@@ -23,13 +22,9 @@ export function getParameterMetadata(
   }
 
   let value: () => ValueMetadata | None = () => none;
-  if (
-    tree.body instanceof SingleBodyTree &&
-    tree.body.statement instanceof ExpressionStatementTree
-  ) {
-    tree.body.statement.expression.metadata = () =>
-      getValueMetadata(tree.body['statement'].expression, scope);
-    value = () => getValueMetadata(tree.body['statement'].expression, scope);
+  if (tree.body instanceof ExpressionTree) {
+    tree.body.metadata = () => getValueMetadata(tree.body['statement'].expression, scope);
+    value = () => getValueMetadata(tree.body as ExpressionTree, scope);
   }
 
   if (tree.name) {
