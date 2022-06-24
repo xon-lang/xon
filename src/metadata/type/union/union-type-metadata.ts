@@ -27,4 +27,17 @@ export class UnionTypeMetadata extends TypeMetadata {
     }
     return false;
   }
+
+  static fromTypes(types: TypeMetadata[]): UnionTypeMetadata {
+    if (types.length < 2) throw new Error('Types count should be at least 2 types');
+
+    const type = new UnionTypeMetadata(
+      () => types[0],
+      () => types[1],
+    );
+    if (types.length > 2) {
+      return UnionTypeMetadata.fromTypes([type, types[2]]);
+    }
+    return type;
+  }
 }

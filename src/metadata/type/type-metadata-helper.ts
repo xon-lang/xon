@@ -4,6 +4,7 @@ import { ExpressionTree } from '../../tree/expression/expression-tree';
 import { GroupExpressionTree } from '../../tree/expression/group/group-expression-tree';
 import { IdExpressionTree } from '../../tree/expression/id/id-expression-tree';
 import { InfixExpressionTree } from '../../tree/expression/infix/infix-expression-tree';
+import { InvokeExpressionTree } from '../../tree/expression/invoke/invoke-expression-tree';
 import { LiteralExpressionTree } from '../../tree/expression/literal/literal-expression-tree';
 import { MethodExpressionTree } from '../../tree/expression/method/method-expression-tree';
 import { FloatLiteralTree } from '../../tree/literal/float/float-literal-tree';
@@ -14,6 +15,7 @@ import { ParameterMetadata } from '../declaration/parameter/parameter-metadata';
 import { getParameterMetadata } from '../declaration/parameter/parameter-metadata-helper';
 import { DeclarationScope } from '../declaration/scope/declaration-scope';
 import { getValueMetadata } from '../value/value-metadata-helper';
+import { ArrayTypeMetadata } from './array/array-type-metadata';
 import { DefinitionTypeMetadata } from './definition/definition-type-metadata';
 import { IntersectionTypeMetadata } from './intersection/intersection-type-metadata';
 import { LiteralTypeMetadata } from './literal/literal-type-metadata';
@@ -56,6 +58,14 @@ export function getTypeMetadata(tree: ExpressionTree, scope: DeclarationScope): 
     return new MethodTypeMetadata(parameters, result);
   }
 
+  if (tree instanceof InvokeExpressionTree) {
+    if (tree.hasBracket && tree.instance instanceof IdExpressionTree) {
+      const items = () => [];
+      const commonType = () => getTypeMetadata(tree.instance, scope);
+      return new ArrayTypeMetadata(commonType, items);
+    }
+  }
+
   if (tree instanceof ArrayExpressionTree) {
     if (tree.ctx.arguments().OPEN_BRACE()) {
       const noNameArgument = tree.arguments.find((x) => !x.name);
@@ -72,6 +82,19 @@ export function getTypeMetadata(tree: ExpressionTree, scope: DeclarationScope): 
       );
       parameters.forEach((x) => objectScope.add(x));
       return new ObjectTypeMetadata(() => objectScope);
+    }
+    if (tree.ctx.arguments().OPEN_BRACKET()) {
+      const items = () => tree.arguments.map((x) => getTypeMetadata(x.value, scope));
+      const commonType = () => {
+        const args = items();
+        if (args.length === 1) {
+          return args[0];
+        } else if (args.length > 1) {
+          return UnionTypeMetadata.fromTypes(args);
+        }
+        return scope.core.any.type();
+      };
+      return new ArrayTypeMetadata(commonType, items);
     }
     throw new Error('Not implemented');
   }
