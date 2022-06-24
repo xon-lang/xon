@@ -26,7 +26,7 @@ statement
     ;
 
 expression
-    : PREPROCESSOR                                                # preprocessorExpression
+    : PREPROCESSOR                                                        # preprocessorExpression
     | '(' expression ')'                                                  # groupExpression
     | arguments                                                           # arrayExpression
     | expression QUESTION                                                 # nullableExpression
@@ -48,8 +48,11 @@ literal
 definition: modifier = ID name = ID parameters? (IS expression)? body?;
 
 parameter
-    : name = ID (COLON type = expression? body? | body)
-    | parameters (COLON type = expression?)? body
+    : name = ID (
+        COLON type = expression? (ASSIGN value = expression | body)?
+        | (ASSIGN value = expression | body)
+    )
+    | parameters (COLON type = expression?)? (ASSIGN value = expression | body)
     | name = ID
     ;
 parameters: open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = ('}' | ']' | ')');
@@ -57,4 +60,4 @@ parameters: open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = 
 argument:  (name = ID ASSIGN)? expression;
 arguments: open = ('(' | '[' | '{') (argument (',' argument)* ','?)? close = ('}' | ']' | ')');
 
-body: ASSIGN statement # singleBody | NL INDENT statement+ DEDENT # multipleBody;
+body: NL INDENT source DEDENT;
