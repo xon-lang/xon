@@ -10,14 +10,14 @@ import { getValueMetadata } from '../value-metadata-helper';
 export class InfixValueMetadata extends ValueMetadata {
   constructor(private tree: InfixExpressionTree, private scope: DeclarationScope) {
     super();
-    tree.left.metadata = () => getValueMetadata(tree.left, scope);
-    tree.right.metadata = () => getValueMetadata(tree.right, scope);
+    tree.left.metadata = getValueMetadata(tree.left, scope);
+    tree.right.metadata = getValueMetadata(tree.right, scope);
   }
 
   operatorDeclaration(): ParameterMetadata {
     const declaration = this.scope.find(this.tree.name.text, (x) => {
-      const leftMetadata = this.tree.left.metadata();
-      const rightMetadata = this.tree.right.metadata();
+      const leftMetadata = this.tree.left.metadata;
+      const rightMetadata = this.tree.right.metadata;
 
       if (!(leftMetadata instanceof ValueMetadata && rightMetadata instanceof ValueMetadata)) {
         throw new Error('Not implemented');
@@ -25,29 +25,29 @@ export class InfixValueMetadata extends ValueMetadata {
 
       if (!(x instanceof ParameterMetadata)) return false;
 
-      const type = x.type();
+      const type = x.type;
       if (!(type instanceof MethodTypeMetadata)) return false;
 
-      const parameters = type.parameters();
+      const parameters = type.parameters;
       if (parameters.length !== 2) return false;
 
       const [left, right] = parameters;
-      return leftMetadata.type().is(left.type()) && rightMetadata.type().is(right.type());
+      return leftMetadata.type().is(left.type) && rightMetadata.type().is(right.type);
     });
     return declaration as ParameterMetadata;
   }
 
   type(): TypeMetadata {
-    const operatorDeclarationType = this.operatorDeclaration().type();
+    const operatorDeclarationType = this.operatorDeclaration().type;
     if (operatorDeclarationType instanceof MethodTypeMetadata) {
-      return operatorDeclarationType.resultType();
+      return operatorDeclarationType.resultType;
     }
     throw new Error('Not implemented');
   }
 
   eval(): Any {
-    const leftMetadata = this.tree.left.metadata();
-    const rightMetadata = this.tree.right.metadata();
+    const leftMetadata = this.tree.left.metadata;
+    const rightMetadata = this.tree.right.metadata;
 
     if (leftMetadata instanceof ValueMetadata && rightMetadata instanceof ValueMetadata) {
       const left = leftMetadata.eval();

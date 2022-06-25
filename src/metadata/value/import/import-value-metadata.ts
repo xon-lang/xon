@@ -11,7 +11,7 @@ import { getValueMetadata } from '../value-metadata-helper';
 export class ImportValueMetadata extends ValueMetadata {
   constructor(private tree: PrefixExpressionTree, private scope: DeclarationScope) {
     super();
-    tree.value.metadata = () => getValueMetadata(tree.value, scope);
+    tree.value.metadata = getValueMetadata(tree.value, scope);
   }
 
   importScope(): DeclarationScope {
@@ -24,7 +24,7 @@ export class ImportValueMetadata extends ValueMetadata {
   }
 
   type(): TypeMetadata {
-    return new ObjectTypeMetadata(() => this.importScope());
+    return new ObjectTypeMetadata(this.importScope());
   }
 
   eval() {

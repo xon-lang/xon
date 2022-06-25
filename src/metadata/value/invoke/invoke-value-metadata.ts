@@ -9,16 +9,16 @@ import { getValueMetadata } from '../value-metadata-helper';
 export class InvokeValueMetadata extends ValueMetadata {
   constructor(private tree: InvokeExpressionTree, private scope: DeclarationScope) {
     super();
-    tree.instance.metadata = () => getValueMetadata(tree.instance, scope);
-    tree.arguments.forEach((x) => (x.value.metadata = () => getValueMetadata(x.value, scope)));
+    tree.instance.metadata = getValueMetadata(tree.instance, scope);
+    tree.arguments.forEach((x) => (x.value.metadata = getValueMetadata(x.value, scope)));
   }
 
   type(): TypeMetadata {
-    const metadata = this.tree.instance.metadata();
+    const metadata = this.tree.instance.metadata;
     if (metadata instanceof ValueMetadata) {
       const instanceType = metadata.type();
       if (instanceType instanceof MethodTypeMetadata) {
-        return instanceType.resultType();
+        return instanceType.resultType;
       }
     }
     throw new Error('Not implemented');

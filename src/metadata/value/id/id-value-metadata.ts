@@ -16,12 +16,12 @@ export class IdValueMetadata extends ValueMetadata {
   }
 
   type(): TypeMetadata {
-    return this.declaration().type();
+    return this.declaration().type;
   }
 
   eval(): Any {
     const declaration = this.declaration();
-    if (declaration instanceof ParameterMetadata) return declaration.value()?.eval();
+    if (declaration instanceof ParameterMetadata) return declaration.value?.eval();
 
     throw new Error('Not implemented');
   }
