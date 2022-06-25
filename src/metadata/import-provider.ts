@@ -19,7 +19,7 @@ export class ImportProvider {
     const scope = new DeclarationScope();
 
     for (const tree of sources) {
-      tree.metadata = getSourceMetadata(tree, scope);
+      tree.metadata = getSourceMetadata(tree, scope, false);
     }
     return scope;
   }
