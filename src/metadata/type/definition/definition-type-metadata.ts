@@ -4,30 +4,24 @@ import { DeclarationScope } from '../../declaration/scope/declaration-scope';
 import { TypeMetadata } from '../type-metadata';
 
 export class DefinitionTypeMetadata extends TypeMetadata {
-  constructor(public definition: () => DefinitionMetadata) {
+  constructor(public definition: DefinitionMetadata) {
     super();
   }
 
   attributesScope(): DeclarationScope {
-    return this.definition().attributesScope();
+    return this.definition.attributesScope();
   }
 
   is(other: TypeMetadata): Boolean {
     if (other instanceof DefinitionTypeMetadata) {
-      const currentDefinition = this.definition();
-      const otherDefinition = other.definition();
-
-      return currentDefinition.is(otherDefinition);
+      return this.definition.is(other.definition);
     }
     throw new Error('Not implemented');
   }
 
   equals(other: TypeMetadata): Boolean {
     if (other instanceof DefinitionTypeMetadata) {
-      const currentDefinition = this.definition();
-      const otherDefinition = other.definition();
-
-      return currentDefinition.equals(otherDefinition);
+      return this.definition.equals(other.definition);
     }
     return false;
   }

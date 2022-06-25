@@ -3,24 +3,24 @@ import { DeclarationScope } from '../../declaration/scope/declaration-scope';
 import { TypeMetadata } from '../type-metadata';
 
 export class ObjectTypeMetadata extends TypeMetadata {
-  constructor(public scope: () => DeclarationScope) {
+  constructor(public scope: DeclarationScope) {
     super();
   }
 
   attributesScope(): DeclarationScope {
-    return this.scope();
+    return this.scope;
   }
 
   is(other: TypeMetadata): Boolean {
     if (other instanceof ObjectTypeMetadata) {
-      const currentScope = this.scope();
-      const otherScope = other.scope();
+      const currentScope = this.scope;
+      const otherScope = other.scope;
       if (currentScope.declarations.length !== otherScope.declarations.length) return false;
       if (
         currentScope.declarations.some(
           (x, i) =>
             otherScope.declarations[i].name !== x.name ||
-            !otherScope.declarations[i].type().is(x.type()),
+            !otherScope.declarations[i].type.is(x.type),
         )
       )
         return false;
@@ -33,7 +33,7 @@ export class ObjectTypeMetadata extends TypeMetadata {
     if (other instanceof ObjectTypeMetadata) {
       const otherScope = other.attributesScope();
       return this.attributesScope().declarations.every((x, i) =>
-        otherScope.declarations[i].type().equals(x.type()),
+        otherScope.declarations[i].type.equals(x.type),
       );
     }
     return false;

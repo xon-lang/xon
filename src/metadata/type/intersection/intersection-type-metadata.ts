@@ -5,16 +5,16 @@ import { TypeMetadata } from '../type-metadata';
 export class IntersectionTypeMetadata extends TypeMetadata {
   private _attributesScope: DeclarationScope;
 
-  constructor(public left: () => TypeMetadata, public right: () => TypeMetadata) {
+  constructor(public left: TypeMetadata, public right: TypeMetadata) {
     super();
   }
 
   attributesScope(): DeclarationScope {
     if (this._attributesScope) return this._attributesScope;
 
-    return (this._attributesScope = this.left()
+    return (this._attributesScope = this.left
       .attributesScope()
-      .intersect(this.right().attributesScope()));
+      .intersect(this.right.attributesScope()));
   }
 
   is(other: TypeMetadata): Boolean {
@@ -23,7 +23,7 @@ export class IntersectionTypeMetadata extends TypeMetadata {
 
   equals(other: TypeMetadata): Boolean {
     if (other instanceof IntersectionTypeMetadata) {
-      return this.left().equals(other.left()) && this.right().equals(other.right());
+      return this.left.equals(other.left) && this.right.equals(other.right);
     }
     return false;
   }

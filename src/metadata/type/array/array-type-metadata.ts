@@ -5,7 +5,7 @@ import { TypeMetadata } from '../type-metadata';
 export class ArrayTypeMetadata extends TypeMetadata {
   private _attributesScope: DeclarationScope;
 
-  constructor(public commonType: () => TypeMetadata, public items: () => TypeMetadata[]) {
+  constructor(public commonType: TypeMetadata, public items: TypeMetadata[]) {
     super();
   }
 
@@ -16,7 +16,7 @@ export class ArrayTypeMetadata extends TypeMetadata {
     //   return this._attributesScope;
     // }
 
-    // const commonType = this.commonType();
+    // const commonType = this.commonType;
     // const items = this.items();
 
     // if (index !== undefined && items.length) {
@@ -34,14 +34,14 @@ export class ArrayTypeMetadata extends TypeMetadata {
 
   equals(other: TypeMetadata): Boolean {
     if (other instanceof ArrayTypeMetadata) {
-      const currentItems = this.items();
-      const otherItems = other.items();
+      const currentItems = this.items;
+      const otherItems = other.items;
 
       if (currentItems.length && otherItems.length && currentItems.length === otherItems.length) {
         return currentItems.every((x, i) => x.equals(otherItems[i]));
       }
 
-      return this.commonType().equals(other.commonType());
+      return this.commonType.equals(other.commonType);
     }
     return false;
   }

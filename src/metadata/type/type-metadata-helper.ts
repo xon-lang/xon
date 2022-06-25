@@ -28,23 +28,21 @@ import { UnionTypeMetadata } from './union/union-type-metadata';
 export function getTypeMetadata(tree: ExpressionTree, scope: DeclarationScope): TypeMetadata {
   if (tree instanceof GroupExpressionTree) return getTypeMetadata(tree.expression, scope);
   if (tree instanceof LiteralExpressionTree) {
-    let definition: () => DefinitionMetadata;
-    if (tree.literal instanceof IntegerLiteralTree) definition = () => scope.core.integer;
-    else if (tree.literal instanceof FloatLiteralTree) definition = () => scope.core.float;
-    else if (tree.literal instanceof StringLiteralTree) definition = () => scope.core.string;
+    let definition: DefinitionMetadata;
+    if (tree.literal instanceof IntegerLiteralTree) definition = scope.core.integer;
+    else if (tree.literal instanceof FloatLiteralTree) definition = scope.core.float;
+    else if (tree.literal instanceof StringLiteralTree) definition = scope.core.string;
     return new LiteralTypeMetadata(tree.literal.value, definition);
   }
 
   if (tree instanceof IdExpressionTree) {
     const declaration = scope.find(tree.name.text);
-    if (declaration instanceof ParameterMetadata)
-      return new ParameterTypeMetadata(() => declaration);
-    if (declaration instanceof DefinitionMetadata)
-      return new DefinitionTypeMetadata(() => declaration);
+    if (declaration instanceof ParameterMetadata) return new ParameterTypeMetadata(declaration);
+    if (declaration instanceof DefinitionMetadata) return new DefinitionTypeMetadata(declaration);
   }
   if (tree instanceof InfixExpressionTree) {
-    const left = () => getTypeMetadata(tree.left, scope);
-    const right = () => getTypeMetadata(tree.right, scope);
+    const left = getTypeMetadata(tree.left, scope);
+    const right = getTypeMetadata(tree.right, scope);
     if (tree.name.text === 'or') return new UnionTypeMetadata(left, right);
     if (tree.name.text === 'and') return new IntersectionTypeMetadata(left, right);
 
@@ -53,15 +51,15 @@ export function getTypeMetadata(tree: ExpressionTree, scope: DeclarationScope): 
 
   if (tree instanceof MethodExpressionTree) {
     // todo fix for flat
-    const parameters = () => tree.parameters.map((x) => getParameterMetadata(x, scope)).flat();
-    const result = () => getTypeMetadata(tree.value, scope);
+    const parameters = tree.parameters.map((x) => getParameterMetadata(x, scope)).flat();
+    const result = getTypeMetadata(tree.value, scope);
     return new MethodTypeMetadata(parameters, result);
   }
 
   if (tree instanceof InvokeExpressionTree) {
     if (tree.hasBracket && tree.instance instanceof IdExpressionTree) {
-      const items = () => [];
-      const commonType = () => getTypeMetadata(tree.instance, scope);
+      const items = [];
+      const commonType = getTypeMetadata(tree.instance, scope);
       return new ArrayTypeMetadata(commonType, items);
     }
   }
@@ -71,29 +69,25 @@ export function getTypeMetadata(tree: ExpressionTree, scope: DeclarationScope): 
       const noNameArgument = tree.arguments.find((x) => !x.name);
       if (noNameArgument) Issue.errorFromTree(noNameArgument, 'No name argument');
       const objectScope = new DeclarationScope();
-      const parameters = tree.arguments.map(
-        (x) =>
-          new ParameterMetadata(
-            x.sourceRange,
-            x.name.text,
-            () => getValueMetadata(x.value, scope).type(),
-            () => getValueMetadata(x.value, scope),
-          ),
-      );
+      const parameters = tree.arguments.map((x) => {
+        const metadata = new ParameterMetadata(x.sourceRange, x.name.text);
+        metadata.type = getValueMetadata(x.value, scope).type();
+        metadata.value = getValueMetadata(x.value, scope);
+        return metadata;
+      });
       parameters.forEach((x) => objectScope.add(x));
-      return new ObjectTypeMetadata(() => objectScope);
+      return new ObjectTypeMetadata(objectScope);
     }
     if (tree.ctx.arguments().OPEN_BRACKET()) {
-      const items = () => tree.arguments.map((x) => getTypeMetadata(x.value, scope));
-      const commonType = () => {
-        const args = items();
-        if (args.length === 1) {
-          return args[0];
-        } else if (args.length > 1) {
-          return UnionTypeMetadata.fromTypes(args);
-        }
-        return scope.core.any.type();
-      };
+      const items = tree.arguments.map((x) => getTypeMetadata(x.value, scope));
+      let commonType: TypeMetadata;
+      if (items.length === 1) {
+        commonType = items[0];
+      } else if (items.length > 1) {
+        commonType = UnionTypeMetadata.fromTypes(items);
+      }
+      commonType = scope.core.any.type;
+
       return new ArrayTypeMetadata(commonType, items);
     }
     throw new Error('Not implemented');

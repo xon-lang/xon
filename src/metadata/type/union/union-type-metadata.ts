@@ -5,16 +5,16 @@ import { TypeMetadata } from '../type-metadata';
 export class UnionTypeMetadata extends TypeMetadata {
   private _attributesScope: DeclarationScope;
 
-  constructor(public left: () => TypeMetadata, public right: () => TypeMetadata) {
+  constructor(public left: TypeMetadata, public right: TypeMetadata) {
     super();
   }
 
   attributesScope(): DeclarationScope {
     if (this._attributesScope) return this._attributesScope;
 
-    return (this._attributesScope = this.left()
+    return (this._attributesScope = this.left
       .attributesScope()
-      .union(this.right().attributesScope()));
+      .union(this.right.attributesScope()));
   }
 
   is(other: TypeMetadata): Boolean {
@@ -23,7 +23,7 @@ export class UnionTypeMetadata extends TypeMetadata {
 
   equals(other: TypeMetadata): Boolean {
     if (other instanceof UnionTypeMetadata) {
-      return this.left().equals(other.left()) && this.right().equals(other.right());
+      return this.left.equals(other.left) && this.right.equals(other.right);
     }
     return false;
   }
@@ -31,10 +31,7 @@ export class UnionTypeMetadata extends TypeMetadata {
   static fromTypes(types: TypeMetadata[]): UnionTypeMetadata {
     if (types.length < 2) throw new Error('Types count should be at least 2 types');
 
-    const type = new UnionTypeMetadata(
-      () => types[0],
-      () => types[1],
-    );
+    const type = new UnionTypeMetadata(types[0], types[1]);
     if (types.length > 2) {
       return UnionTypeMetadata.fromTypes([type, types[2]]);
     }
