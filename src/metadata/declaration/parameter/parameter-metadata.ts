@@ -5,12 +5,10 @@ import { ValueMetadata } from '../../value/value-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
 
 export class ParameterMetadata extends DeclarationMetadata {
-  constructor(
-    public sourceRange: SourceRange,
-    public name: String,
-    public type: () => TypeMetadata | None,
-    public value: () => ValueMetadata | None,
-  ) {
+  type: TypeMetadata | None;
+  value: ValueMetadata | None;
+
+  constructor(public sourceRange: SourceRange, public name: String) {
     super();
   }
 }

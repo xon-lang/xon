@@ -1,7 +1,9 @@
 import { Issue } from '../../../issue-service/issue';
-import { None, none } from '../../../lib/core';
+import { None } from '../../../lib/core';
 import { ExpressionTree } from '../../../tree/expression/expression-tree';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
+import { SourceTree } from '../../../tree/source/source-tree';
+import { getSourceMetadata } from '../../source/source-metadata-helper';
 import { ArrayTypeMetadata } from '../../type/array/array-type-metadata';
 import { ObjectTypeMetadata } from '../../type/object/object-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
@@ -21,45 +23,66 @@ export function getParameterMetadata(
     Issue.errorFromTree(tree, 'Parameter metadata not found');
   }
 
-  let value: () => ValueMetadata | None = () => none;
   if (tree.body instanceof ExpressionTree) {
-    tree.body.metadata = () => getValueMetadata(tree.body['statement'].expression, scope);
-    value = () => getValueMetadata(tree.body as ExpressionTree, scope);
+    tree.body.metadata = getValueMetadata(tree.body, scope);
+  } else if (tree.body instanceof SourceTree) {
+    tree.body.metadata = getSourceMetadata(tree.body, scope);
   }
 
   if (tree.name) {
-    let type: () => TypeMetadata;
+    let type: TypeMetadata;
     if (tree.type) {
-      tree.type.metadata = () => getTypeMetadata(tree.type, scope);
-      type = () => getTypeMetadata(tree.type, scope);
+      type = getTypeMetadata(tree.type, scope);
+    } else if (tree.body?.metadata instanceof ValueMetadata) {
+      type = tree.body.metadata.type();
     } else {
-      type = () => value()?.type() || scope.core.any.type();
+      type = scope.core.any.type;
     }
-
-    const metadata = new ParameterMetadata(tree.sourceRange, tree.name.text, type, value);
+    const metadata = makeParameterMetadata(tree, type, scope);
+    if (tree.body instanceof ExpressionTree) {
+      metadata.value = tree.body.metadata as ValueMetadata;
+    }
     return [metadata];
   }
 
   const parametersMetadata: ParameterMetadata[] = [];
   for (const [index, parameter] of tree.parameters.entries()) {
-    let type: () => TypeMetadata;
+    let type: TypeMetadata;
     if (parameter.type) {
-      parameter.type.metadata = () => getTypeMetadata(parameter.type, scope);
-      type = () => getTypeMetadata(parameter.type, scope);
+      type = getTypeMetadata(parameter.type, scope);
+      parameter.type.metadata = type;
     } else {
-      type = () => {
-        const type = value().type();
-        if (type instanceof ObjectTypeMetadata) {
-          return type.attributesScope().find(parameter.name.text).type();
-        } else if (type instanceof ArrayTypeMetadata) {
-          const commonType = type.commonType();
-          const items = type.items();
-          return (items.length && items[index]) || commonType;
-        }
-      };
+      const bodyType = (tree.body.metadata as ValueMetadata).type();
+      if (bodyType instanceof ObjectTypeMetadata) {
+        type = bodyType.attributesScope().find(parameter.name.text).type;
+      } else if (bodyType instanceof ArrayTypeMetadata) {
+        const commonType = bodyType.commonType;
+        const items = bodyType.items;
+        type = (items.length && items[index]) || commonType;
+      }
     }
-    const metadata = new ParameterMetadata(tree.sourceRange, parameter.name.text, type, value);
+
+    const metadata = makeParameterMetadata(parameter, type, scope);
+
     parametersMetadata.push(metadata);
   }
   return parametersMetadata;
+}
+
+function makeParameterMetadata(
+  tree: ParameterTree,
+  type: TypeMetadata | None,
+  scope: DeclarationScope,
+): ParameterMetadata {
+  if (!tree.name) Issue.errorFromTree(tree, "Name doesn't exists");
+
+  if (tree.type) {
+    tree.type.metadata = type;
+  }
+
+  const metadata = scope.find(tree.name.text, (x) =>
+    x.sourceRange.equals(tree.sourceRange),
+  ) as ParameterMetadata;
+  metadata.type = type;
+  return metadata;
 }
