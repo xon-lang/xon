@@ -6,7 +6,7 @@ import { StatementMetadata } from '../statement-metadata';
 export class ReturnStatementMetadata implements StatementMetadata {
   constructor(private tree: ReturnStatementTree, private scope: DeclarationScope) {
     if (tree.value) {
-      tree.value.metadata = () => getValueMetadata(tree.value, scope);
+      tree.value.metadata = getValueMetadata(tree.value, scope);
     }
   }
 }

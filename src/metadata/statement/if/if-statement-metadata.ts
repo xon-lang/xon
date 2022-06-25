@@ -6,7 +6,7 @@ import { StatementMetadata } from '../statement-metadata';
 
 export class IfStatementMetadata implements StatementMetadata {
   constructor(private tree: IfStatementTree, private scope: DeclarationScope) {
-    tree.condition.metadata = () => getValueMetadata(tree.condition, scope);
+    tree.condition.metadata = getValueMetadata(tree.condition, scope);
 
     tree.thenBody.metadata = getSourceMetadata(tree.thenBody, scope);
     if (tree.elseBody) {
