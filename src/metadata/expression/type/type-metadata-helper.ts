@@ -14,7 +14,7 @@ import { DefinitionMetadata } from '../../declaration/definition/definition-meta
 import { ParameterMetadata } from '../../declaration/parameter/parameter-metadata';
 import { getParameterMetadata } from '../../declaration/parameter/parameter-metadata-helper';
 import { DeclarationScope } from '../../declaration/scope/declaration-scope';
-import { getValueMetadata } from '../../value/value-metadata-helper';
+import { getValueMetadata } from '../value/value-metadata-helper';
 import { ArrayTypeMetadata } from './array/array-type-metadata';
 import { DefinitionTypeMetadata } from './definition/definition-type-metadata';
 import { IntersectionTypeMetadata } from './intersection/intersection-type-metadata';

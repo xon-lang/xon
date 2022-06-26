@@ -1,7 +1,7 @@
-import { Any } from '../../../lib/core';
-import { MemberExpressionTree } from '../../../tree/expression/member/member-expression-tree';
-import { DeclarationScope } from '../../declaration/scope/declaration-scope';
-import { TypeMetadata } from '../../expression/type/type-metadata';
+import { Any } from '../../../../lib/core';
+import { MemberExpressionTree } from '../../../../tree/expression/member/member-expression-tree';
+import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
+import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
 import { getValueMetadata } from '../value-metadata-helper';
 

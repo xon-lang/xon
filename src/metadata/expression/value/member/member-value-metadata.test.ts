@@ -1,5 +1,5 @@
-import { parseExpression } from '../../../util/parse';
-import { TestDeclarationScope } from '../../declaration/scope/test-declaration-scope';
+import { parseExpression } from '../../../../util/parse';
+import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
 import { getValueMetadata } from '../value-metadata-helper';
 import { MemberValueMetadata } from './member-value-metadata';
 
@@ -10,5 +10,5 @@ test('member', () => {
   const metadata = getValueMetadata(tree, scope);
 
   expect(metadata).toBeInstanceOf(MemberValueMetadata);
-  expect(metadata.type().equals(scope.core.string.type())).toBe(true);
+  expect(metadata.type().equals(scope.core.string.type)).toBe(true);
 });

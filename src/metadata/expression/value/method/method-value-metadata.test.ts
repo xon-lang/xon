@@ -1,6 +1,6 @@
-import { parseExpression } from '../../../util/parse';
-import { TestDeclarationScope } from '../../declaration/scope/test-declaration-scope';
-import { MethodTypeMetadata } from '../../expression/type/method/method-type-metadata';
+import { parseExpression } from '../../../../util/parse';
+import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
+import { MethodTypeMetadata } from '../../type/method/method-type-metadata';
 import { getValueMetadata } from '../value-metadata-helper';
 import { MethodValueMetadata } from './method-value-metadata';
 

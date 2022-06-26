@@ -8,8 +8,8 @@ import { ArrayTypeMetadata } from '../../expression/type/array/array-type-metada
 import { ObjectTypeMetadata } from '../../expression/type/object/object-type-metadata';
 import { TypeMetadata } from '../../expression/type/type-metadata';
 import { getTypeMetadata } from '../../expression/type/type-metadata-helper';
-import { ValueMetadata } from '../../value/value-metadata';
-import { getValueMetadata } from '../../value/value-metadata-helper';
+import { ValueMetadata } from '../../expression/value/value-metadata';
+import { getValueMetadata } from '../../expression/value/value-metadata-helper';
 import { DeclarationScope } from '../scope/declaration-scope';
 import { ParameterMetadata } from './parameter-metadata';
 

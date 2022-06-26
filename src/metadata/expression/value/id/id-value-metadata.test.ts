@@ -1,5 +1,5 @@
-import { parseExpression } from '../../../util/parse';
-import { TestDeclarationScope } from '../../declaration/scope/test-declaration-scope';
+import { parseExpression } from '../../../../util/parse';
+import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
 import { getValueMetadata } from '../value-metadata-helper';
 import { IdValueMetadata } from './id-value-metadata';
 
@@ -10,7 +10,7 @@ test('none object', () => {
   const metadata = getValueMetadata(tree, scope) as IdValueMetadata;
 
   expect(metadata).toBeInstanceOf(IdValueMetadata);
-  expect(metadata.type().is(scope.core.none.type())).toBe(true);
+  expect(metadata.type().is(scope.core.none.type)).toBe(true);
 });
 
 test('none model', () => {
@@ -20,5 +20,5 @@ test('none model', () => {
   const metadata = getValueMetadata(tree, scope) as IdValueMetadata;
 
   expect(metadata).toBeInstanceOf(IdValueMetadata);
-  expect(metadata.type().is(scope.core.none.type())).toBe(true);
+  expect(metadata.type().is(scope.core.none.type)).toBe(true);
 });

@@ -1,6 +1,6 @@
-import { parseExpression, parseSource } from '../../../util/parse';
-import { TestDeclarationScope } from '../../declaration/scope/test-declaration-scope';
-import { getSourceMetadata } from '../../source/source-metadata-helper';
+import { parseExpression, parseSource } from '../../../../util/parse';
+import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
+import { getSourceMetadata } from '../../../source/source-metadata-helper';
 import { getValueMetadata } from '../value-metadata-helper';
 
 test('integer literal', () => {

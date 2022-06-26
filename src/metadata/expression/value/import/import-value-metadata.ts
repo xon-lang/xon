@@ -1,10 +1,10 @@
-import { Issue } from '../../../issue-service/issue';
-import { PrefixExpressionTree } from '../../../tree/expression/prefix/prefix-expression-tree';
-import { evaluate } from '../../../util/evaluate';
-import { DeclarationScope } from '../../declaration/scope/declaration-scope';
-import { ImportProvider } from '../../import-provider';
-import { ObjectTypeMetadata } from '../../expression/type/object/object-type-metadata';
-import { TypeMetadata } from '../../expression/type/type-metadata';
+import { Issue } from '../../../../issue-service/issue';
+import { PrefixExpressionTree } from '../../../../tree/expression/prefix/prefix-expression-tree';
+import { evaluate } from '../../../../util/evaluate';
+import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
+import { ImportProvider } from '../../../import-provider';
+import { ObjectTypeMetadata } from '../../type/object/object-type-metadata';
+import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
 import { getValueMetadata } from '../value-metadata-helper';
 

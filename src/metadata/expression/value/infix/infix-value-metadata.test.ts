@@ -1,5 +1,5 @@
-import { parseExpression } from '../../../util/parse';
-import { TestDeclarationScope } from '../../declaration/scope/test-declaration-scope';
+import { parseExpression } from '../../../../util/parse';
+import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
 import { getValueMetadata } from '../value-metadata-helper';
 import { InfixValueMetadata } from './infix-value-metadata';
 
@@ -10,5 +10,5 @@ test('integer plus integer', () => {
   const metadata = getValueMetadata(tree, scope);
 
   expect(metadata).toBeInstanceOf(InfixValueMetadata);
-  expect(metadata.type().equals(scope.core.number.type())).toBe(true);
+  expect(metadata.type().equals(scope.core.number.type)).toBe(true);
 });

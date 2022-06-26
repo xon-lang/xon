@@ -1,7 +1,7 @@
-import { LiteralExpressionTree } from '../../../tree/expression/literal/literal-expression-tree';
-import { DeclarationScope } from '../../declaration/scope/declaration-scope';
-import { TypeMetadata } from '../../expression/type/type-metadata';
-import { getTypeMetadata } from '../../expression/type/type-metadata-helper';
+import { LiteralExpressionTree } from '../../../../tree/expression/literal/literal-expression-tree';
+import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
+import { TypeMetadata } from '../../type/type-metadata';
+import { getTypeMetadata } from '../../type/type-metadata-helper';
 import { ValueMetadata } from '../value-metadata';
 
 export class LiteralValueMetadata extends ValueMetadata {
