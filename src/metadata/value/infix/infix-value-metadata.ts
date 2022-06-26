@@ -2,8 +2,8 @@ import { Any, Unknown } from '../../../lib/core';
 import { InfixExpressionTree } from '../../../tree/expression/infix/infix-expression-tree';
 import { ParameterMetadata } from '../../declaration/parameter/parameter-metadata';
 import { DeclarationScope } from '../../declaration/scope/declaration-scope';
-import { MethodTypeMetadata } from '../../type/method/method-type-metadata';
-import { TypeMetadata } from '../../type/type-metadata';
+import { MethodTypeMetadata } from '../../expression/type/method/method-type-metadata';
+import { TypeMetadata } from '../../expression/type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
 import { getValueMetadata } from '../value-metadata-helper';
 

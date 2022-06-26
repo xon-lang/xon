@@ -1,7 +1,7 @@
-import { Boolean } from '../../../lib/core';
-import { LiteralType } from '../../../tree/literal/literal-type';
-import { DefinitionMetadata } from '../../declaration/definition/definition-metadata';
-import { DeclarationScope } from '../../declaration/scope/declaration-scope';
+import { Boolean } from '../../../../lib/core';
+import { LiteralType } from '../../../../tree/literal/literal-type';
+import { DefinitionMetadata } from '../../../declaration/definition/definition-metadata';
+import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { DefinitionTypeMetadata } from '../definition/definition-type-metadata';
 import { TypeMetadata } from '../type-metadata';
 

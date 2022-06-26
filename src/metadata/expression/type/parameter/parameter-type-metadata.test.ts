@@ -1,5 +1,5 @@
-import { parseExpression } from '../../../util/parse';
-import { TestDeclarationScope } from '../../declaration/scope/test-declaration-scope';
+import { parseExpression } from '../../../../util/parse';
+import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
 import { getTypeMetadata } from '../type-metadata-helper';
 import { ParameterTypeMetadata } from './parameter-type-metadata';
 

@@ -1,10 +1,10 @@
 import { ArrayExpressionTree } from '../../../tree/expression/array/array-expression-tree';
 import { ParameterMetadata } from '../../declaration/parameter/parameter-metadata';
 import { DeclarationScope } from '../../declaration/scope/declaration-scope';
-import { ArrayTypeMetadata } from '../../type/array/array-type-metadata';
-import { ObjectTypeMetadata } from '../../type/object/object-type-metadata';
-import { TypeMetadata } from '../../type/type-metadata';
-import { UnionTypeMetadata } from '../../type/union/union-type-metadata';
+import { ArrayTypeMetadata } from '../../expression/type/array/array-type-metadata';
+import { ObjectTypeMetadata } from '../../expression/type/object/object-type-metadata';
+import { TypeMetadata } from '../../expression/type/type-metadata';
+import { UnionTypeMetadata } from '../../expression/type/union/union-type-metadata';
 import { ValueMetadata } from '../value-metadata';
 import { getValueMetadata } from '../value-metadata-helper';
 

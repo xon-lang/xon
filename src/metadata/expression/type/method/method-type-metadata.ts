@@ -1,6 +1,6 @@
-import { Boolean } from '../../../lib/core';
-import { ParameterMetadata } from '../../declaration/parameter/parameter-metadata';
-import { DeclarationScope } from '../../declaration/scope/declaration-scope';
+import { Boolean } from '../../../../lib/core';
+import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
+import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { TypeMetadata } from '../type-metadata';
 
 export class MethodTypeMetadata extends TypeMetadata {

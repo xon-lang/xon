@@ -1,6 +1,6 @@
 import { Boolean, None, String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
-import { DefinitionTypeMetadata } from '../../type/definition/definition-type-metadata';
+import { DefinitionTypeMetadata } from '../../expression/type/definition/definition-type-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
 import { ParameterMetadata } from '../parameter/parameter-metadata';
 import { DeclarationScope } from '../scope/declaration-scope';

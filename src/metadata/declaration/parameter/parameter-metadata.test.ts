@@ -1,7 +1,7 @@
 import { parseSource } from '../../../util/parse';
 import { SourceMetadata } from '../../source/source-metadata';
 import { getSourceMetadata } from '../../source/source-metadata-helper';
-import { LiteralTypeMetadata } from '../../type/literal/literal-type-metadata';
+import { LiteralTypeMetadata } from '../../expression/type/literal/literal-type-metadata';
 import { TestDeclarationScope } from '../scope/test-declaration-scope';
 import { ParameterMetadata } from './parameter-metadata';
 

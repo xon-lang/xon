@@ -1,6 +1,6 @@
 import { None, String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
-import { TypeMetadata } from '../../type/type-metadata';
+import { TypeMetadata } from '../../expression/type/type-metadata';
 import { ValueMetadata } from '../../value/value-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
 

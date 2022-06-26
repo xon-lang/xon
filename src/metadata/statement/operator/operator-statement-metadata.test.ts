@@ -2,7 +2,7 @@ import { none } from '../../../lib/core';
 import { parseStatement } from '../../../util/parse';
 import { ParameterMetadata } from '../../declaration/parameter/parameter-metadata';
 import { TestDeclarationScope } from '../../declaration/scope/test-declaration-scope';
-import { MethodTypeMetadata } from '../../type/method/method-type-metadata';
+import { MethodTypeMetadata } from '../../expression/type/method/method-type-metadata';
 import { getStatementMetadata } from '../statement-metadata-helper';
 import { OperatorStatementMetadata } from './operator-statement-metadata';
 

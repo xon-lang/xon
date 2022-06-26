@@ -1,7 +1,7 @@
 import { parseStatement } from '../../../util/parse';
 import { DefinitionMetadata } from '../../declaration/definition/definition-metadata';
 import { TestDeclarationScope } from '../../declaration/scope/test-declaration-scope';
-import { DefinitionTypeMetadata } from '../../type/definition/definition-type-metadata';
+import { DefinitionTypeMetadata } from '../../expression/type/definition/definition-type-metadata';
 import { getStatementMetadata } from '../statement-metadata-helper';
 import { DefinitionStatementMetadata } from './definition-statement-metadata';
 

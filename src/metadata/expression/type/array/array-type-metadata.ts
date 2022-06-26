@@ -1,5 +1,5 @@
-import { Boolean } from '../../../lib/core';
-import { DeclarationScope } from '../../declaration/scope/declaration-scope';
+import { Boolean } from '../../../../lib/core';
+import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { TypeMetadata } from '../type-metadata';
 
 export class ArrayTypeMetadata extends TypeMetadata {

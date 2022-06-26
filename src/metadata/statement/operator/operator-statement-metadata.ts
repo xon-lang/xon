@@ -3,8 +3,8 @@ import { OperatorStatementTree } from '../../../tree/statement/operator/operator
 import { ParameterMetadata } from '../../declaration/parameter/parameter-metadata';
 import { DeclarationScope } from '../../declaration/scope/declaration-scope';
 import { getSourceMetadata } from '../../source/source-metadata-helper';
-import { TypeMetadata } from '../../type/type-metadata';
-import { getTypeMetadata } from '../../type/type-metadata-helper';
+import { TypeMetadata } from '../../expression/type/type-metadata';
+import { getTypeMetadata } from '../../expression/type/type-metadata-helper';
 import { StatementMetadata } from '../statement-metadata';
 
 export class OperatorStatementMetadata implements StatementMetadata {
