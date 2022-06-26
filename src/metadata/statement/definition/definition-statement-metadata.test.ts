@@ -25,13 +25,13 @@ test('object with parameters', () => {
   expect(definition).toBeInstanceOf(DefinitionMetadata);
   expect(definition.name).toBe('A');
 
-  const type = definition.type() as DefinitionTypeMetadata;
+  const type = definition.type as DefinitionTypeMetadata;
   expect(type).toBeInstanceOf(DefinitionTypeMetadata);
-  expect(type.definition().parameters().length).toBe(2);
-  expect(type.definition().parameters()[1].name).toBe('b');
-  expect(type.definition().parameters()[1].type()).toBeInstanceOf(DefinitionTypeMetadata);
-  expect((type.definition().parameters()[1].type() as DefinitionTypeMetadata).definition()).toBe(
+  expect(type.definition.parameters.length).toBe(2);
+  expect(type.definition.parameters[1].name).toBe('b');
+  expect(type.definition.parameters[1].type).toBeInstanceOf(DefinitionTypeMetadata);
+  expect((type.definition.parameters[1].type as DefinitionTypeMetadata).definition).toBe(
     scope.core.string,
   );
-  expect(type.definition().allAttributes().length).toBe(0);
+  expect(type.definition.allAttributes().length).toBe(0);
 });
