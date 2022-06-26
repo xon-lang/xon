@@ -21,6 +21,10 @@ export class ImportProvider {
     for (const tree of sources) {
       tree.metadata = getSourceMetadata(tree, scope, false);
     }
+
+    for (const tree of sources) {
+      tree.metadata = getSourceMetadata(tree, scope, true);
+    }
     return scope;
   }
 }
