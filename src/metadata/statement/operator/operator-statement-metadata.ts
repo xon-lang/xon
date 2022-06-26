@@ -9,10 +9,10 @@ import { StatementMetadata } from '../statement-metadata';
 
 export class OperatorStatementMetadata implements StatementMetadata {
   constructor(private tree: OperatorStatementTree, private scope: DeclarationScope) {
-    tree.type.metadata = getTypeMetadata(tree.type, scope);
     const metadata = scope.find(tree.name.text, (x) =>
       x.sourceRange.equals(tree.sourceRange),
     ) as ParameterMetadata;
+    tree.type.metadata = getTypeMetadata(tree.type, scope);
     metadata.type = tree.type.metadata as TypeMetadata;
     metadata.value = none;
 

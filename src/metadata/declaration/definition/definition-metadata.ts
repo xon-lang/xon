@@ -6,10 +6,9 @@ import { ParameterMetadata } from '../parameter/parameter-metadata';
 import { DeclarationScope } from '../scope/declaration-scope';
 
 export class DefinitionMetadata extends DeclarationMetadata {
-  type = new DefinitionTypeMetadata(this);
-
   parameters: ParameterMetadata[];
   baseDefinition: DefinitionMetadata | None;
+  type = new DefinitionTypeMetadata(this);
   attributes: ParameterMetadata[];
 
   private scope: DeclarationScope;
