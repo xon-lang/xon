@@ -1,3 +1,4 @@
+import { Boolean } from '../../lib/core';
 import { SourceTree } from '../../tree/source/source-tree';
 import { DefinitionStatementTree } from '../../tree/statement/definition/definition-statement-tree';
 import { OperatorStatementTree } from '../../tree/statement/operator/operator-statement-tree';
@@ -8,9 +9,16 @@ import { DeclarationScope } from '../declaration/scope/declaration-scope';
 import { getStatementMetadata } from '../statement/statement-metadata-helper';
 
 export class SourceMetadata {
-  constructor(tree: SourceTree, scope: DeclarationScope, deepRun = true) {
+  constructor(tree: SourceTree, scope: DeclarationScope, deepRun: Boolean = true) {
     for (const statement of tree.statements) {
       if (statement instanceof ParameterStatementTree) {
+        if (
+          scope.findOrNone(statement.parameter.name.text, (x) =>
+            x.sourceRange.equals(statement.parameter.sourceRange),
+          )
+        ) {
+          continue;
+        }
         if (statement.parameter.name) {
           const metadata = new ParameterMetadata(
             statement.parameter.sourceRange,
@@ -25,10 +33,22 @@ export class SourceMetadata {
         }
       }
       if (statement instanceof OperatorStatementTree) {
+        if (
+          scope.findOrNone(statement.name.text, (x) => x.sourceRange.equals(statement.sourceRange))
+        ) {
+          continue;
+        }
         const metadata = new ParameterMetadata(statement.sourceRange, statement.name.text);
         scope.add(metadata);
       }
       if (statement instanceof DefinitionStatementTree) {
+        if (
+          scope.findOrNone(statement.definition.name.text, (x) =>
+            x.sourceRange.equals(statement.definition.sourceRange),
+          )
+        ) {
+          continue;
+        }
         const metadata = new DefinitionMetadata(
           statement.definition.sourceRange,
           statement.definition.modifier.text,
