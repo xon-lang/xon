@@ -1,5 +1,6 @@
-import { parseExpression } from '../../../util/parse';
+import { parseExpression, parseSource } from '../../../util/parse';
 import { TestDeclarationScope } from '../../declaration/scope/test-declaration-scope';
+import { getSourceMetadata } from '../../source/source-metadata-helper';
 import { getValueMetadata } from '../value-metadata-helper';
 
 test('integer literal', () => {
@@ -21,15 +22,16 @@ test('float literal', () => {
 test('7 is integer', () => {
   const code = '7';
   const tree = parseExpression(code);
-  const metadata = getValueMetadata(tree, new TestDeclarationScope());
+  const scope = new TestDeclarationScope();
+  const metadata = getValueMetadata(tree, scope);
 
   const codeInteger = 'Number';
   const treeInteger = parseExpression(codeInteger);
-  const metadataInteger = getValueMetadata(treeInteger, new TestDeclarationScope());
+  const metadataInteger = getValueMetadata(treeInteger, scope);
 
   const codeFloat = 'Float';
   const treeFloat = parseExpression(codeFloat);
-  const metadataFloat = getValueMetadata(treeFloat, new TestDeclarationScope());
+  const metadataFloat = getValueMetadata(treeFloat, scope);
 
   expect(metadata.type().is(metadataInteger.type())).toBe(true);
   expect(metadata.type().is(metadataFloat.type())).toBe(false);
