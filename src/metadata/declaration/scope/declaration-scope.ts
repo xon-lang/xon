@@ -1,13 +1,50 @@
 import { Issue } from '../../../issue-service/issue';
 import { IssueLevel } from '../../../issue-service/issue-level';
-import { Boolean } from '../../../lib/core';
+import { Boolean, none } from '../../../lib/core';
 import { DeclarationMetadata } from '../declaration-metadata';
+import { DefinitionMetadata } from '../definition/definition-metadata';
+import { ParameterMetadata } from '../parameter/parameter-metadata';
 import { CoreDeclarationScope } from './core/core-declaration-scope';
 
 export class DeclarationScope {
   static _core: CoreDeclarationScope;
-  get core(): CoreDeclarationScope {
-    return DeclarationScope._core;
+  get core() {
+    const self = this
+    return {
+      get any(): DefinitionMetadata {
+        return self.find('Any') as DefinitionMetadata;
+      },
+      get boolean(): DefinitionMetadata {
+        return self.find('Boolean') as DefinitionMetadata;
+      },
+      get true(): ParameterMetadata {
+        return self.find('true') as ParameterMetadata;
+      },
+      get false(): ParameterMetadata {
+        return self.find('false') as ParameterMetadata;
+      },
+      get integer(): DefinitionMetadata {
+        return self.find('Integer') as DefinitionMetadata;
+      },
+      get float(): DefinitionMetadata {
+        return self.find('Float') as DefinitionMetadata;
+      },
+      get number(): DefinitionMetadata {
+        return self.find('Number') as DefinitionMetadata;
+      },
+      get none(): DefinitionMetadata {
+        return self.find('None') as DefinitionMetadata;
+      },
+      get char(): DefinitionMetadata {
+        return self.find('Char') as DefinitionMetadata;
+      },
+      get string(): DefinitionMetadata {
+        return self.find('String') as DefinitionMetadata;
+      },
+      get array(): DefinitionMetadata {
+        return self.find('Array') as DefinitionMetadata;
+      },
+    };
   }
 
   declarations: DeclarationMetadata[] = [];
@@ -36,6 +73,15 @@ export class DeclarationScope {
   }
 
   find(name: String, predicate?: (x: DeclarationMetadata) => Boolean): DeclarationMetadata {
+    const declaration = this.findOrNone(name, predicate);
+    if (!declaration) {
+      throw new Error(`Declaration '${name}' not found`);
+    }
+
+    return declaration;
+  }
+
+  findOrNone(name: String, predicate?: (x: DeclarationMetadata) => Boolean): DeclarationMetadata {
     const results = this.filter(name, predicate);
 
     if (results.length > 1) {
@@ -45,7 +91,7 @@ export class DeclarationScope {
       throw new Error(`Too many '${name}' declarations found:\n${issues.join('\n')}`);
     }
     if (!results.length) {
-      throw new Error(`Declaration '${name}' not found`);
+      return none;
     }
 
     return results[0];
@@ -55,7 +101,7 @@ export class DeclarationScope {
   union(other: DeclarationScope): DeclarationScope {
     const left = this.all();
     const right = other.all();
-    const scope = new DeclarationScope(this.core);
+    const scope = new DeclarationScope(this);
     scope.declarations = left.concat(right);
     return scope;
   }
@@ -63,7 +109,7 @@ export class DeclarationScope {
   intersect(other: DeclarationScope): DeclarationScope {
     const left = this.all();
     const right = other.all();
-    const scope = new DeclarationScope(this.core);
+    const scope = new DeclarationScope(this);
     const commons = left.filter((x) => right.some((z) => x.name === z.name));
     scope.declarations = left.concat(right).filter((x) => !commons.some((z) => x.name === z.name));
     return scope;
