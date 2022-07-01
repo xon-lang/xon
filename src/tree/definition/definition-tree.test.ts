@@ -1,8 +1,8 @@
-import { IssueService } from '../../issue-service/issue-service';
 import { none } from '../../lib/core';
-import { parseDefinition, parseSourceFile } from '../../util/parse';
+import { parseDefinition } from '../../util/parse';
 import { IdExpressionTree } from '../expression/id/id-expression-tree';
-import { DefinitionStatementTree } from '../statement/definition/definition-statement-tree';
+import { ParameterTree } from '../parameter/parameter-tree';
+import { DeclarationStatementTree } from '../statement/declaration/declaration-statement-tree';
 import { DefinitionTree } from './definition-tree';
 
 test('model animal', () => {
@@ -50,8 +50,12 @@ test('model animal with only attribute', () => {
   expect(tree.name.text).toBe('Animal');
   expect(tree.base).toBe(none);
   expect(tree.attributes.length).toBe(1);
-  expect(tree.attributes[0].name.text).toBe('abc');
-  expect((tree.attributes[0].type as IdExpressionTree).name.text).toBe('Integer');
+
+  const attributes = tree.attributes.map(
+    (x) => (x as DeclarationStatementTree).declaration as ParameterTree,
+  );
+  expect(attributes[0].name.text).toBe('abc');
+  expect((attributes[0].type as IdExpressionTree).name.text).toBe('Integer');
 });
 
 // test('1-error.xon', () => {
