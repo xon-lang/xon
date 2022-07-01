@@ -1,6 +1,11 @@
-import { IdTree } from '../id/id-tree';
+import { none } from '../../lib/core';
 import { parseParameter } from '../../util/parse';
+import { DefinitionTree } from '../definition/definition-tree';
+import { IdExpressionTree } from '../expression/id/id-expression-tree';
 import { InvokeExpressionTree } from '../expression/invoke/invoke-expression-tree';
+import { MethodExpressionTree } from '../expression/method/method-expression-tree';
+import { IdTree } from '../id/id-tree';
+import { DeclarationStatementTree } from '../statement/declaration/declaration-statement-tree';
 import { ParameterTree } from './parameter-tree';
 
 test('id type', () => {
@@ -87,7 +92,7 @@ test('bracket parameter with type', () => {
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.parameters.length).toBe(1);
+  expect(tree.destructure.length).toBe(1);
 });
 
 test('bracket parameter without type', () => {
@@ -95,7 +100,7 @@ test('bracket parameter without type', () => {
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.parameters.length).toBe(1);
+  expect(tree.destructure.length).toBe(1);
 });
 
 test('paren parameters', () => {
@@ -103,7 +108,7 @@ test('paren parameters', () => {
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.parameters.length).toBe(3);
+  expect(tree.destructure.length).toBe(3);
 });
 
 test('brace parameters', () => {
@@ -111,5 +116,35 @@ test('brace parameters', () => {
   const tree = parseParameter(code);
 
   expect(tree).toBeInstanceOf(ParameterTree);
-  expect(tree.parameters.length).toBe(3);
+  expect(tree.destructure.length).toBe(3);
+});
+
+test('operator with no params', () => {
+  const code = '>: (a: Number, b: Number) => Boolean';
+  const tree = parseParameter(code);
+
+  expect(tree).toBeInstanceOf(ParameterTree);
+  expect(tree.type).toBeInstanceOf(MethodExpressionTree);
+  const type = tree.type as MethodExpressionTree;
+  expect(type.parameters.length).toBe(2);
+  expect(type.parameters[0].name.text).toBe('a');
+  expect(type.parameters[0].type).toBeInstanceOf(IdExpressionTree);
+  expect(type.parameters[1].name.text).toBe('b');
+  expect(type.parameters[1].type).toBeInstanceOf(IdExpressionTree);
+  expect(type.value).toBeInstanceOf(IdExpressionTree);
+  expect((type.value as IdExpressionTree).name.text).toBe('Boolean');
+});
+
+test('operator with params', () => {
+  const code = '> (a: Number, b: Number): Boolean';
+  const tree = parseParameter(code);
+
+  expect(tree).toBeInstanceOf(ParameterTree);
+  expect(tree.params.length).toBe(2);
+  expect(tree.params[0].name.text).toBe('a');
+  expect(tree.params[0].type).toBeInstanceOf(IdExpressionTree);
+  expect(tree.params[1].name.text).toBe('b');
+  expect(tree.params[1].type).toBeInstanceOf(IdExpressionTree);
+  expect(tree.type).toBeInstanceOf(IdExpressionTree);
+  expect((tree.type as IdExpressionTree).name.text).toBe('Boolean');
 });
