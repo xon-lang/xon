@@ -5,24 +5,21 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: statement+;
+source: NL | NL? (statement NL)* statement NL?;
 
 statement
-    : NL                                                                   # nlStatement
-    | LINE_COMMENT                                                         # commentStatement
-    | OPERATOR name = OP type = expression body?                           # operatorStatement
+    : LINE_COMMENT                                                         # commentStatement
     | EXPORT path = expression                                             # exportStatement
     | FOR (value = parameter (',' index = parameter)? ID)? expression body # forStatement
     | WHILE expression body                                                # whileStatement
     | DO body WHILE expression                                             # doWhileStatement
-    | IF expression thenBody = body (ELSE elseBody = body)?                # ifStatement
+    | IF expression thenBody = body NL* (ELSE elseBody = body)?            # ifStatement
     | BREAK                                                                # breakStatement
     | CONTINUE                                                             # continueStatement
     | RETURN expression?                                                   # returnStatement
     | ACTUAL actual = expression NL* EXPECT expect = expression            # assertStatement
-    | definition                                                           # definitionStatement
     | expression                                                           # expressionStatement
-    | parameter                                                            # parameterStatement
+    | ( definition | parameter)                                            # declarationStatement
     ;
 
 expression
@@ -35,7 +32,7 @@ expression
     | op = (OP | IMPORT) expression                                       # prefixExpression
     | left = expression op = (AS | IS | AND | OR | OP) right = expression # infixExpression
     | name = ID                                                           # idExpression
-    | parameters LAMBDA value = expression                                # methodExpression
+    | parameters LAMBDA expression                                        # methodExpression
     | literal                                                             # literalExpression
     ;
 
@@ -46,15 +43,11 @@ literal
     ;
 
 definition: modifier = ID name = ID parameters? (IS expression)? body?;
-
 parameter
-    : name = ID (
-        COLON type = expression? (ASSIGN value = expression | body)?
-        | (ASSIGN value = expression | body)
-    )
-    | parameters (COLON type = expression?)? (ASSIGN value = expression | body)
-    | name = ID
+    : destructure = parameters (COLON type = expression?)? valueBody?
+    | name = (ID | OP) params = parameters? (COLON type = expression)? valueBody?
     ;
+valueBody:  ASSIGN value = expression | body;
 parameters: open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = ('}' | ']' | ')');
 
 argument:  (name = ID ASSIGN)? expression;

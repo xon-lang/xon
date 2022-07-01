@@ -23,7 +23,7 @@ export abstract class XonLexerBase extends Lexer {
   public abstract get ruleNames(): string[];
   public abstract get vocabulary(): Vocabulary;
   public abstract get grammarFileName(): string;
-
+  // static tokens: string[] = [];
   public reset(): void {
     this.tokenQueue = [];
     this.indents = [];
@@ -33,6 +33,11 @@ export abstract class XonLexerBase extends Lexer {
 
   public emit(token?: Token): Token {
     const newToken = token ? super.emit(token) : super.emit();
+    // if (newToken.channel === Token.DEFAULT_CHANNEL) {
+    //   XonLexerBase.tokens.push(XonParser.VOCABULARY.getDisplayName(newToken.type));
+    //   console.log(XonLexerBase.tokens.join(', '));
+    // }
+
     this.tokenQueue.push(newToken);
     return newToken;
   }
@@ -92,6 +97,8 @@ export abstract class XonLexerBase extends Lexer {
     } else {
       while (this.indents.length && this.indents[this.indents.length - 1] > indent) {
         this.emit(this.createDedent());
+        // todo mb to be fixed - mb NL should be before dedent
+        this.emit(this.commonToken(XonParser.NL, newLine));
         this.indents.pop();
       }
     }
