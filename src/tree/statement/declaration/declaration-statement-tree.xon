@@ -1,0 +1,17 @@
+{ParameterStatementContext} := import '../../../grammar/xon-parser'
+{String} := import '../../../lib/core'
+{SourceRange} := import '../../../util/source-range'
+{getBodyTree} := import '../../body/body-tree-helper'
+{BodyTree} := import '../../body/body-tree'
+{getExpressionTree} := import '../../expression/expression-tree-helper'
+{ExpressionTree} := import '../../expression/expression-tree'
+{getParameterTree} := import '../../parameter/parameter-tree-helper'
+{ParameterTree} := import '../../parameter/parameter-tree'
+{StatementTree} := import '../statement-tree'
+
+class ParameterStatementTree(ctx: ParameterStatementContext) is StatementTree
+  ctx := ctx
+  sourceRange := SourceRange.fromContext(ctx)
+  parameter := getParameterTree(ctx.parameter())
+
+  toString: () => this.parameter.toString()
