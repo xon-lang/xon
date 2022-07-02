@@ -9,8 +9,8 @@ model None
 object none None
 
 -- model Any
---   operator not [] Boolean
---   operator and [other Any]
---   operator or [other Any] Boolean
---   operator is [other Any] Boolean
---   operator as[other T] otherType
+--   not [] Boolean
+--   and [other Any]
+--   or [other Any] Boolean
+--   is [other Any] Boolean
+--   as[other T] otherType

@@ -7,20 +7,20 @@ model Float is Number
   test: String
   test2: String
 
-operator + (a: Number, b: Number) => Number
-operator - (a: Number, b: Number) => Number
-operator * (a: Number, b: Number) => Number
-operator / (a: Number, b: Number) => Number
-operator ^ (a: Number, b: Number) => Number
-operator % (a: Number, b: Number) => Number
++ (a: Number, b: Number) => Number
+- (a: Number, b: Number) => Number
+* (a: Number, b: Number) => Number
+/ (a: Number, b: Number) => Number
+^ (a: Number, b: Number) => Number
+% (a: Number, b: Number) => Number
 
-operator > (a: Number, b: Number) => Boolean
-operator < (a: Number, b: Number) => Boolean
-operator >= (a: Number, b: Number) => Boolean
-operator <= (a: Number, b: Number) => Boolean
-operator == (a: Number, b: Number) => Boolean
-operator != (a: Number, b: Number) => Boolean
+> (a: Number, b: Number) => Boolean
+< (a: Number, b: Number) => Boolean
+>= (a: Number, b: Number) => Boolean
+<= (a: Number, b: Number) => Boolean
+== (a: Number, b: Number) => Boolean
+!= (a: Number, b: Number) => Boolean
 
-operator + (a: Number) => Number
-operator - (a: Number) => Number
-operator ! (a: Number) => Boolean
++ (a: Number) => Number
+- (a: Number) => Number
+! (a: Number) => Boolean

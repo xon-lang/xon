@@ -1,6 +1,6 @@
 model String --Char[]
 
 
-  -- operator + [other String] String
-  -- operator + [other Char] String
-  -- operator + [other Number] String
+  -- + [other String] String
+  -- + [other Char] String
+  -- + [other Number] String
