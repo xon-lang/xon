@@ -1,12 +1,13 @@
-import { parseStatement } from '../../../util/parse';
+import { parseSource } from '../../../util/parse';
 import { TestDeclarationScope } from '../../declaration/scope/test-declaration-scope';
-import { getStatementMetadata } from '../statement-metadata-helper';
-import { IfStatementMetadata } from './if-statement-metadata';
+import { SourceMetadata } from '../../source/source-metadata';
+import { getSourceMetadata } from '../../source/source-metadata-helper';
 
 test('if', () => {
   const code = 'if true\n  123';
-  const tree = parseStatement(code);
-  const metadata = getStatementMetadata(tree, new TestDeclarationScope());
+  const tree = parseSource(code);
+  const scope = new TestDeclarationScope();
+  const metadata = getSourceMetadata(tree, scope);
 
-  expect(metadata).toBeInstanceOf(IfStatementMetadata);
+  expect(metadata).toBeInstanceOf(SourceMetadata);
 });
