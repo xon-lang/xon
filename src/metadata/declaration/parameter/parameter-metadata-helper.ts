@@ -1,5 +1,11 @@
 import { none } from '../../../lib/core';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
+import { ArrayTypeMetadata } from '../../expression/type/array/array-type-metadata';
+import { MethodTypeMetadata } from '../../expression/type/method/method-type-metadata';
+import { ObjectTypeMetadata } from '../../expression/type/object/object-type-metadata';
+import { TypeMetadata } from '../../expression/type/type-metadata';
+import { getTypeMetadata } from '../../expression/type/type-metadata-helper';
+import { getValueMetadata } from '../../expression/value/value-metadata-helper';
 import { getSourceMetadata } from '../../source/source-metadata-helper';
 import { DeclarationScope } from '../scope/declaration-scope';
 import { ParameterMetadata } from './parameter-metadata';
@@ -8,21 +14,67 @@ export function getParameterMetadata(
   tree: ParameterTree,
   scope: DeclarationScope,
 ): ParameterMetadata {
+  const metadata = new ParameterMetadata(tree.name?.text || none, tree.sourceRange, scope);
+
   if (tree.destructure.length) {
     for (const parameter of tree.destructure) {
       parameter.metadata = new ParameterMetadata(parameter.name.text, parameter.sourceRange, scope);
-      scope.parent.add(parameter.metadata);
+      scope.add(parameter.metadata);
     }
   } else {
     for (const parameter of tree.params) {
-      parameter.metadata = new ParameterMetadata(parameter.name.text, parameter.sourceRange, scope);
+      parameter.metadata = getParameterMetadata(parameter, scope);
       scope.add(parameter.metadata);
     }
+    metadata.parameters = tree.params.map((x) => x.metadata);
   }
 
   if (tree.body) {
     getSourceMetadata(tree.body, scope, true);
   }
 
-  return new ParameterMetadata(tree.name?.text || none, tree.sourceRange, scope);
+  return metadata;
+}
+
+export function fillParameterMetadata(tree: ParameterTree, alternativeType?: TypeMetadata) {
+  tree.params.forEach((x) => fillParameterMetadata(x));
+
+  if (tree.value) {
+    tree.metadata.value = getValueMetadata(tree.value, tree.metadata.scope);
+  }
+
+  if (tree.type) {
+    tree.metadata.type = getTypeMetadata(tree.type, tree.metadata.scope);
+  } else if (alternativeType) {
+    tree.metadata.type = alternativeType;
+  } else if (tree.value) {
+    tree.metadata.type = tree.metadata.value.type();
+  } else {
+    tree.metadata.type = tree.metadata.scope.core.any.type;
+  }
+
+  if (tree.isMethod) {
+    tree.metadata.type = new MethodTypeMetadata(
+      tree.params.map((x) => x.metadata),
+      tree.metadata.type,
+    );
+  }
+
+  if (tree.destructure.length) {
+    fillDestructureParameterMetadata(tree);
+  }
+}
+
+export function fillDestructureParameterMetadata(tree: ParameterTree) {
+  for (const [index, parameter] of tree.destructure.entries()) {
+    let type: TypeMetadata;
+    if (tree.metadata.type instanceof ObjectTypeMetadata) {
+      type = tree.metadata.type.attributesScope().find(parameter.name.text).type;
+    } else if (tree.metadata.type instanceof ArrayTypeMetadata) {
+      const commonType = tree.metadata.type.commonType;
+      const items = tree.metadata.type.items;
+      type = (items.length && items[index]) || commonType;
+    }
+    fillParameterMetadata(parameter, type);
+  }
 }
