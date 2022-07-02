@@ -45,7 +45,7 @@ literal
 definition: modifier = ID name = ID parameters? (IS expression)? body?;
 parameter
     : destructure = parameters (COLON type = expression?)? valueBody?
-    | name = (ID | OP) params = parameters? (COLON type = expression)? valueBody?
+    | name = (ID | OP) params = parameters? (COLON type = expression?)? valueBody?
     ;
 valueBody:  ASSIGN value = expression | body;
 parameters: open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = ('}' | ']' | ')');
