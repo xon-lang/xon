@@ -31,21 +31,24 @@ export class SourceMetadata {
       ) {
         continue;
       }
+
+      const innerScope = this.scope.create();
+
       if (statement.declaration instanceof DefinitionTree) {
-        this.scope.add(new DefinitionMetadata(statement.declaration));
+        this.scope.add(new DefinitionMetadata(statement.declaration, innerScope));
         for (const parameter of statement.declaration.parameters) {
-          this.scope.add(new ParameterMetadata(parameter));
+          innerScope.add(new ParameterMetadata(parameter, innerScope));
         }
       } else if (statement.declaration instanceof ParameterTree) {
         if (statement.declaration.destructure.length) {
           for (const parameter of statement.declaration.destructure) {
-            this.scope.add(new ParameterMetadata(parameter));
+            this.scope.add(new ParameterMetadata(parameter, innerScope));
           }
         } else {
-          this.scope.add(new ParameterMetadata(statement.declaration));
-        }
-        for (const parameter of statement.declaration.params) {
-          this.scope.add(new ParameterMetadata(parameter));
+          this.scope.add(new ParameterMetadata(statement.declaration, innerScope));
+          for (const parameter of statement.declaration.params) {
+            innerScope.add(new ParameterMetadata(parameter, innerScope));
+          }
         }
       }
     }
