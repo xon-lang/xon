@@ -11,9 +11,9 @@ export class DefinitionMetadata extends DeclarationMetadata {
   modifier: String;
   name: String;
 
-  parameters: ParameterMetadata[];
+  parameters: ParameterMetadata[] = [];
   baseDefinition: DefinitionMetadata | None;
-  attributes: ParameterMetadata[];
+  attributes: ParameterMetadata[] = [];
 
   type = new DefinitionTypeMetadata(this);
 

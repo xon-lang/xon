@@ -10,7 +10,7 @@ export class ParameterMetadata extends DeclarationMetadata {
   sourceRange: SourceRange;
   name: String;
 
-  parameters: ParameterMetadata[];
+  parameters: ParameterMetadata[] = [];
   type: TypeMetadata | None;
   value: ValueMetadata | None;
 
