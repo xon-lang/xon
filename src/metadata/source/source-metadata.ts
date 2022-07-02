@@ -35,17 +35,20 @@ export class SourceMetadata {
       const innerScope = this.scope.create();
 
       if (statement.declaration instanceof DefinitionTree) {
-        this.scope.add(new DefinitionMetadata(statement.declaration, innerScope));
+        statement.declaration.metadata = new DefinitionMetadata(statement.declaration, innerScope);
+        this.scope.add(statement.declaration.metadata);
         for (const parameter of statement.declaration.parameters) {
           innerScope.add(new ParameterMetadata(parameter, innerScope));
         }
       } else if (statement.declaration instanceof ParameterTree) {
         if (statement.declaration.destructure.length) {
           for (const parameter of statement.declaration.destructure) {
-            this.scope.add(new ParameterMetadata(parameter, innerScope));
+            parameter.metadata = new ParameterMetadata(parameter, innerScope);
+            this.scope.add(parameter.metadata);
           }
         } else {
-          this.scope.add(new ParameterMetadata(statement.declaration, innerScope));
+          statement.declaration.metadata = new ParameterMetadata(statement.declaration, innerScope);
+          this.scope.add(statement.declaration.metadata);
           for (const parameter of statement.declaration.params) {
             innerScope.add(new ParameterMetadata(parameter, innerScope));
           }
