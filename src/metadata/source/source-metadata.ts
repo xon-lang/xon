@@ -1,12 +1,15 @@
 import { Boolean } from '../../lib/core';
 import { DefinitionTree } from '../../tree/definition/definition-tree';
+import { IdExpressionTree } from '../../tree/expression/id/id-expression-tree';
 import { ParameterTree } from '../../tree/parameter/parameter-tree';
 import { SourceTree } from '../../tree/source/source-tree';
 import { DeclarationStatementTree } from '../../tree/statement/declaration/declaration-statement-tree';
+import { ExpressionStatementTree } from '../../tree/statement/expression/expression-statement-tree';
 import { DefinitionMetadata } from '../declaration/definition/definition-metadata';
 import { ParameterMetadata } from '../declaration/parameter/parameter-metadata';
 import { DeclarationScope } from '../declaration/scope/declaration-scope';
 import { getStatementMetadata } from '../statement/statement-metadata-helper';
+import { getSourceMetadata } from './source-metadata-helper';
 
 export class SourceMetadata {
   constructor(public tree: SourceTree, public scope: DeclarationScope, onlyHeaders: Boolean) {
@@ -38,8 +41,16 @@ export class SourceMetadata {
         statement.declaration.metadata = new DefinitionMetadata(statement.declaration, innerScope);
         this.scope.add(statement.declaration.metadata);
         for (const parameter of statement.declaration.parameters) {
-          innerScope.add(new ParameterMetadata(parameter, innerScope));
+          parameter.metadata = new ParameterMetadata(parameter, innerScope);
+          innerScope.add(parameter.metadata);
         }
+        const bodyScope = innerScope.create();
+        if (statement.declaration.body) {
+          getSourceMetadata(statement.declaration.body, bodyScope, true);
+        }
+        statement.declaration.metadata.attributes = bodyScope.declarations
+          .filter((x) => x instanceof ParameterMetadata)
+          .map((x) => x as ParameterMetadata);
       } else if (statement.declaration instanceof ParameterTree) {
         if (statement.declaration.destructure.length) {
           for (const parameter of statement.declaration.destructure) {
@@ -50,9 +61,19 @@ export class SourceMetadata {
           statement.declaration.metadata = new ParameterMetadata(statement.declaration, innerScope);
           this.scope.add(statement.declaration.metadata);
           for (const parameter of statement.declaration.params) {
-            innerScope.add(new ParameterMetadata(parameter, innerScope));
+            parameter.metadata = new ParameterMetadata(parameter, innerScope);
+            innerScope.add(parameter.metadata);
           }
         }
+        // const bodyScope = innerScope.create();
+        // if (statement.declaration.body) {
+        //   getSourceMetadata(statement.declaration.body, bodyScope, true);
+        // }
+      } else if (
+        statement instanceof ExpressionStatementTree &&
+        statement.expression instanceof IdExpressionTree
+      ) {
+        this.scope.add(new ParameterMetadata(statement.expression, innerScope));
       }
     }
   }
