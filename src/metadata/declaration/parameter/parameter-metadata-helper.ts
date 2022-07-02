@@ -15,6 +15,7 @@ export function getParameterMetadata(
   scope: DeclarationScope,
 ): ParameterMetadata {
   const metadata = new ParameterMetadata(tree.name?.text || none, tree.sourceRange, scope);
+  const innerScope = scope.create();
 
   if (tree.destructure.length) {
     for (const parameter of tree.destructure) {
@@ -23,14 +24,14 @@ export function getParameterMetadata(
     }
   } else {
     for (const parameter of tree.params) {
-      parameter.metadata = getParameterMetadata(parameter, scope);
-      scope.add(parameter.metadata);
+      parameter.metadata = getParameterMetadata(parameter, innerScope);
+      innerScope.add(parameter.metadata);
     }
     metadata.parameters = tree.params.map((x) => x.metadata);
   }
 
   if (tree.body) {
-    getSourceMetadata(tree.body, scope, true);
+    getSourceMetadata(tree.body, innerScope, true);
   }
 
   return metadata;
