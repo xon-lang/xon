@@ -6,7 +6,7 @@ import { SourceMetadata } from './source-metadata';
 export function getSourceMetadata(
   tree: SourceTree,
   scope: DeclarationScope,
-  onlyHeaders: Boolean,
+  onlyHeaders: Boolean = false,
 ): SourceMetadata {
   return new SourceMetadata(tree, scope, onlyHeaders);
 }
