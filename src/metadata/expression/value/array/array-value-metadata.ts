@@ -26,7 +26,7 @@ export class ArrayValueMetadata extends ValueMetadata {
     if (this.tree.ctx.arguments().OPEN_BRACE()) {
       const objectScope = new DeclarationScope();
       items.forEach((x) => {
-        const metadata = new ParameterMetadata(x.sourceRange, x.name);
+        const metadata = new ParameterMetadata(x.name, x.sourceRange, this.scope);
         metadata.type = x.type;
         metadata.value = x.value;
         objectScope.add(metadata);
