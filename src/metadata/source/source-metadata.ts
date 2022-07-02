@@ -53,6 +53,7 @@ export class SourceMetadata {
           .map((x) => x as ParameterMetadata);
       } else if (statement.declaration instanceof ParameterTree) {
         if (statement.declaration.destructure.length) {
+          statement.declaration.metadata = new ParameterMetadata(statement.declaration, innerScope)
           for (const parameter of statement.declaration.destructure) {
             parameter.metadata = new ParameterMetadata(parameter, innerScope);
             this.scope.add(parameter.metadata);
