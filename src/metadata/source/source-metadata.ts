@@ -37,7 +37,7 @@ export class SourceMetadata {
       } else if (statement.declaration instanceof ParameterTree) {
         statement.declaration.metadata = getParameterMetadata(
           statement.declaration,
-          this.scope.create(),
+          (statement.declaration.destructure && this.scope) || this.scope.create(),
         );
         if (statement.declaration.metadata.name) {
           this.scope.add(statement.declaration.metadata);
@@ -47,11 +47,7 @@ export class SourceMetadata {
         statement.expression instanceof IdExpressionTree
       ) {
         this.scope.add(
-          new ParameterMetadata(
-            statement.expression.name.text,
-            statement.sourceRange,
-            this.scope.create(),
-          ),
+          new ParameterMetadata(statement.expression.name.text, statement.sourceRange, this.scope),
         );
       }
     }
