@@ -1,6 +1,8 @@
 import { DefinitionTree } from '../../../tree/definition/definition-tree';
+import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { DeclarationStatementTree } from '../../../tree/statement/declaration/declaration-statement-tree';
+import { DefinitionMetadata } from '../../declaration/definition/definition-metadata';
 import { DeclarationScope } from '../../declaration/scope/declaration-scope';
 import { ArrayTypeMetadata } from '../../expression/type/array/array-type-metadata';
 import { ObjectTypeMetadata } from '../../expression/type/object/object-type-metadata';
@@ -21,6 +23,14 @@ export class DeclarationStatementMetadata implements StatementMetadata {
   fillDefinitionMetadata(tree: DefinitionTree) {
     for (const parameter of tree.parameters) {
       this.fillParameterMetadata(parameter);
+    }
+
+    if (tree.base instanceof IdExpressionTree) {
+      const baseMetadata = tree.metadata.scope.find(tree.base.name.text) as DefinitionMetadata;
+      tree.base.metadata = baseMetadata;
+      tree.metadata.base = baseMetadata;
+    } else if (tree.base) {
+      throw new Error('Not implemented');
     }
 
     for (const parameter of tree.body?.statements
