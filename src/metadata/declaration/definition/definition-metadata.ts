@@ -19,7 +19,7 @@ export class DefinitionMetadata extends DeclarationMetadata {
 
   private _attributesScope: DeclarationScope;
 
-  constructor(public tree: DefinitionTree) {
+  constructor(public tree: DefinitionTree, public scope: DeclarationScope) {
     super();
     this.sourceRange = tree.sourceRange;
     this.modifier = tree.modifier.text;
