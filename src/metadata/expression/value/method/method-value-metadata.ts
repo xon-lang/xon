@@ -10,7 +10,7 @@ import { getValueMetadata } from '../value-metadata-helper';
 export class MethodValueMetadata extends ValueMetadata {
   constructor(private tree: MethodExpressionTree, private scope: DeclarationScope) {
     super();
-    tree.parameters.forEach((x) => (x.metadata = getParameterMetadata(x, scope)[0]));
+    tree.parameters.forEach((x) => (x.metadata = getParameterMetadata(x, scope)));
     const innerScope = scope.create();
     tree.parameters.forEach((x) => innerScope.add(x.metadata));
     tree.value.metadata = getValueMetadata(tree.value, innerScope);
