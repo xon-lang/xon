@@ -70,7 +70,7 @@ export function getTypeMetadata(tree: ExpressionTree, scope: DeclarationScope): 
       if (noNameArgument) Issue.errorFromTree(noNameArgument, 'No name argument');
       const objectScope = new DeclarationScope();
       const parameters = tree.arguments.map((x) => {
-        const metadata = new ParameterMetadata(x.sourceRange, x.name.text);
+        const metadata = new ParameterMetadata(x.name.text, x.sourceRange, scope);
         metadata.type = getValueMetadata(x.value, scope).type();
         metadata.value = getValueMetadata(x.value, scope);
         return metadata;
