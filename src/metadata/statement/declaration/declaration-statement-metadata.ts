@@ -64,7 +64,7 @@ export class DeclarationStatementMetadata implements StatementMetadata {
     for (const [index, parameter] of tree.destructure.entries()) {
       let type: TypeMetadata;
       if (tree.metadata.type instanceof ObjectTypeMetadata) {
-        type = tree.metadata.type.attributesScope().find(tree.name.text).type;
+        type = tree.metadata.type.attributesScope().find(parameter.name.text).type;
       } else if (tree.metadata.type instanceof ArrayTypeMetadata) {
         const commonType = tree.metadata.type.commonType;
         const items = tree.metadata.type.items;
