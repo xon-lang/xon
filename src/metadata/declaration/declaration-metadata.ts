@@ -7,7 +7,7 @@ import { DeclarationScope } from './scope/declaration-scope';
 export abstract class DeclarationMetadata extends Metadata {
   abstract scope: DeclarationScope;
   abstract sourceRange: SourceRange;
-  abstract name: String;
+  abstract name: String | None;
   abstract type: TypeMetadata | None;
 
   equals(other: DeclarationMetadata): Boolean {

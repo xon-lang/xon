@@ -11,7 +11,7 @@ export class ParameterMetadata extends DeclarationMetadata {
   value: ValueMetadata | None;
 
   constructor(
-    public name: String,
+    public name: String | None,
     public sourceRange: SourceRange,
     public scope: DeclarationScope,
   ) {

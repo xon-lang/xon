@@ -1,3 +1,4 @@
+import { none } from '../../../lib/core';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { getSourceMetadata } from '../../source/source-metadata-helper';
 import { DeclarationScope } from '../scope/declaration-scope';
@@ -23,5 +24,5 @@ export function getParameterMetadata(
     getSourceMetadata(tree.body, scope, true);
   }
 
-  return new ParameterMetadata(tree.name?.text || '<unknown>', tree.sourceRange, scope);
+  return new ParameterMetadata(tree.name?.text || none, tree.sourceRange, scope);
 }
