@@ -1,7 +1,7 @@
 // this code was generated
 
 import { ParameterContext } from '../../grammar/xon-parser';
-import { None } from '../../lib/core';
+import { Boolean, None } from '../../lib/core';
 import { ParameterMetadata } from '../../metadata/declaration/parameter/parameter-metadata';
 import { SourceRange } from '../../util/source-range';
 import { ExpressionTree } from '../expression/expression-tree';
@@ -19,6 +19,7 @@ export class ParameterTree extends Tree {
   sourceRange: SourceRange;
   name?: IdTree;
   destructure: ParameterTree[];
+  isMethod: Boolean;
   params: ParameterTree[];
   type?: ExpressionTree | None;
   value?: ExpressionTree | None;
@@ -30,6 +31,7 @@ export class ParameterTree extends Tree {
     this.sourceRange = SourceRange.fromContext(ctx);
     this.name = getIdTree(ctx._name);
     this.destructure = getParameterTrees(ctx._destructure?.parameter());
+    this.isMethod = !!ctx._params;
     this.params = getParameterTrees(ctx._params?.parameter());
     this.type = getExpressionTree(ctx._type);
     this.value = getExpressionTree(ctx.valueBody()?.expression());
