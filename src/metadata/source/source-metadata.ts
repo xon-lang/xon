@@ -40,11 +40,13 @@ export class SourceMetadata {
           statement.declaration,
           this.scope.create(),
         );
+        this.scope.add(statement.declaration.metadata);
       } else if (statement.declaration instanceof ParameterTree) {
         statement.declaration.metadata = getParameterMetadata(
           statement.declaration,
           this.scope.create(),
         );
+        this.scope.add(statement.declaration.metadata);
       } else if (
         statement instanceof ExpressionStatementTree &&
         statement.expression instanceof IdExpressionTree
