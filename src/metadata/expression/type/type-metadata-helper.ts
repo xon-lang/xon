@@ -12,7 +12,10 @@ import { IntegerLiteralTree } from '../../../tree/literal/integer/integer-litera
 import { StringLiteralTree } from '../../../tree/literal/string/string-literal-tree';
 import { DefinitionMetadata } from '../../declaration/definition/definition-metadata';
 import { ParameterMetadata } from '../../declaration/parameter/parameter-metadata';
-import { getParameterMetadata } from '../../declaration/parameter/parameter-metadata-helper';
+import {
+  fillParameterMetadata,
+  getParameterMetadata,
+} from '../../declaration/parameter/parameter-metadata-helper';
 import { DeclarationScope } from '../../declaration/scope/declaration-scope';
 import { getValueMetadata } from '../value/value-metadata-helper';
 import { ArrayTypeMetadata } from './array/array-type-metadata';
@@ -50,10 +53,15 @@ export function getTypeMetadata(tree: ExpressionTree, scope: DeclarationScope): 
   }
 
   if (tree instanceof MethodExpressionTree) {
-    // todo fix for flat
-    const parameters = tree.parameters.map((x) => getParameterMetadata(x, scope)).flat();
-    const result = getTypeMetadata(tree.value, scope);
-    return new MethodTypeMetadata(parameters, result);
+    const innerScope = scope.create();
+    tree.parameters.map((x) => (x.metadata = getParameterMetadata(x, innerScope)));
+    tree.parameters.forEach((x) => innerScope.add(x.metadata));
+    tree.parameters.forEach((x) => fillParameterMetadata(x));
+    const result = getTypeMetadata(tree.value, innerScope);
+    return new MethodTypeMetadata(
+      tree.parameters.map((x) => x.metadata),
+      result,
+    );
   }
 
   if (tree instanceof InvokeExpressionTree) {
