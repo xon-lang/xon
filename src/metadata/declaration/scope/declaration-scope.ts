@@ -1,6 +1,8 @@
 import { Issue } from '../../../issue-service/issue';
 import { IssueLevel } from '../../../issue-service/issue-level';
 import { Boolean, none } from '../../../lib/core';
+import { DefinitionTree } from '../../../tree/definition/definition-tree';
+import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { DeclarationMetadata } from '../declaration-metadata';
 import { DefinitionMetadata } from '../definition/definition-metadata';
 import { ParameterMetadata } from '../parameter/parameter-metadata';
@@ -9,7 +11,7 @@ import { CoreDeclarationScope } from './core/core-declaration-scope';
 export class DeclarationScope {
   static _core: CoreDeclarationScope;
   get core() {
-    const self = this
+    const self = this;
     return {
       get any(): DefinitionMetadata {
         return self.find('Any') as DefinitionMetadata;
@@ -79,6 +81,10 @@ export class DeclarationScope {
     }
 
     return declaration;
+  }
+
+  findByTree(tree: DefinitionTree | ParameterTree): DeclarationMetadata {
+    return this.find(tree.name.text, (x) => x.sourceRange.equals(tree.sourceRange));
   }
 
   findOrNone(name: String, predicate?: (x: DeclarationMetadata) => Boolean): DeclarationMetadata {

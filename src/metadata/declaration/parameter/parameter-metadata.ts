@@ -4,6 +4,7 @@ import { SourceRange } from '../../../util/source-range';
 import { TypeMetadata } from '../../expression/type/type-metadata';
 import { ValueMetadata } from '../../expression/value/value-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
+import { DeclarationScope } from '../scope/declaration-scope';
 
 export class ParameterMetadata extends DeclarationMetadata {
   sourceRange: SourceRange;
@@ -13,7 +14,7 @@ export class ParameterMetadata extends DeclarationMetadata {
   type: TypeMetadata | None;
   value: ValueMetadata | None;
 
-  constructor(public tree: ParameterTree) {
+  constructor(public tree: ParameterTree, public scope: DeclarationScope) {
     super();
     this.sourceRange = tree.sourceRange;
     this.name = tree.name.text;
