@@ -5,15 +5,15 @@ import { ParameterTree } from '../../tree/parameter/parameter-tree';
 import { SourceTree } from '../../tree/source/source-tree';
 import { DeclarationStatementTree } from '../../tree/statement/declaration/declaration-statement-tree';
 import { ExpressionStatementTree } from '../../tree/statement/expression/expression-statement-tree';
-import { DefinitionMetadata } from '../declaration/definition/definition-metadata';
+import { getDefinitionMetadata } from '../declaration/definition/definition-metadata-helper';
 import { ParameterMetadata } from '../declaration/parameter/parameter-metadata';
+import { getParameterMetadata } from '../declaration/parameter/parameter-metadata-helper';
 import { DeclarationScope } from '../declaration/scope/declaration-scope';
 import { getStatementMetadata } from '../statement/statement-metadata-helper';
-import { getSourceMetadata } from './source-metadata-helper';
 
 export class SourceMetadata {
   constructor(public tree: SourceTree, public scope: DeclarationScope, onlyHeaders: Boolean) {
-    this.traverseHeaders();
+    this.addDeclarationsToScope();
 
     if (!onlyHeaders) {
       for (const statement of tree.statements) {
@@ -22,7 +22,7 @@ export class SourceMetadata {
     }
   }
 
-  traverseHeaders() {
+  addDeclarationsToScope() {
     for (const statement of this.tree.statements) {
       if (!(statement instanceof DeclarationStatementTree)) {
         continue;
@@ -35,46 +35,21 @@ export class SourceMetadata {
         continue;
       }
 
-      const innerScope = this.scope.create();
-
       if (statement.declaration instanceof DefinitionTree) {
-        statement.declaration.metadata = new DefinitionMetadata(statement.declaration, innerScope);
-        this.scope.add(statement.declaration.metadata);
-        for (const parameter of statement.declaration.parameters) {
-          parameter.metadata = new ParameterMetadata(parameter, innerScope);
-          innerScope.add(parameter.metadata);
-        }
-        const bodyScope = innerScope.create();
-        if (statement.declaration.body) {
-          getSourceMetadata(statement.declaration.body, bodyScope, true);
-        }
-        statement.declaration.metadata.attributes = bodyScope.declarations
-          .filter((x) => x instanceof ParameterMetadata)
-          .map((x) => x as ParameterMetadata);
+        statement.declaration.metadata = getDefinitionMetadata(
+          statement.declaration,
+          this.scope.create(),
+        );
       } else if (statement.declaration instanceof ParameterTree) {
-        if (statement.declaration.destructure.length) {
-          statement.declaration.metadata = new ParameterMetadata(statement.declaration, innerScope)
-          for (const parameter of statement.declaration.destructure) {
-            parameter.metadata = new ParameterMetadata(parameter, innerScope);
-            this.scope.add(parameter.metadata);
-          }
-        } else {
-          statement.declaration.metadata = new ParameterMetadata(statement.declaration, innerScope);
-          this.scope.add(statement.declaration.metadata);
-          for (const parameter of statement.declaration.params) {
-            parameter.metadata = new ParameterMetadata(parameter, innerScope);
-            innerScope.add(parameter.metadata);
-          }
-        }
-        // const bodyScope = innerScope.create();
-        // if (statement.declaration.body) {
-        //   getSourceMetadata(statement.declaration.body, bodyScope, true);
-        // }
+        statement.declaration.metadata = getParameterMetadata(
+          statement.declaration,
+          this.scope.create(),
+        );
       } else if (
         statement instanceof ExpressionStatementTree &&
         statement.expression instanceof IdExpressionTree
       ) {
-        this.scope.add(new ParameterMetadata(statement.expression, innerScope));
+        this.scope.add(new ParameterMetadata(statement.expression, this.scope.create()));
       }
     }
   }
