@@ -24,14 +24,7 @@ export class SourceMetadata {
 
   addDeclarationsToScope() {
     for (const statement of this.tree.statements) {
-      if (!(statement instanceof DeclarationStatementTree)) {
-        continue;
-      }
-      if (
-        this.scope.findOrNone(statement.declaration.name.text, (x) =>
-          x.sourceRange.equals(statement.declaration.sourceRange),
-        )
-      ) {
+      if (!(statement instanceof DeclarationStatementTree) || statement.declaration.metadata) {
         continue;
       }
 
@@ -46,7 +39,9 @@ export class SourceMetadata {
           statement.declaration,
           this.scope.create(),
         );
-        this.scope.add(statement.declaration.metadata);
+        if (statement.declaration.metadata.name) {
+          this.scope.add(statement.declaration.metadata);
+        }
       } else if (
         statement instanceof ExpressionStatementTree &&
         statement.expression instanceof IdExpressionTree
