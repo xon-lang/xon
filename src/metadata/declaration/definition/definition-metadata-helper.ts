@@ -9,7 +9,7 @@ export function getDefinitionMetadata(
   scope: DeclarationScope,
 ): DefinitionMetadata {
   for (const parameter of tree.parameters) {
-    parameter.metadata = new ParameterMetadata(parameter, scope);
+    parameter.metadata = new ParameterMetadata(parameter.name.text, parameter.sourceRange, scope);
     scope.add(parameter.metadata);
   }
 
@@ -18,7 +18,12 @@ export function getDefinitionMetadata(
     getSourceMetadata(tree.body, bodyScope, true);
   }
 
-  const metadata = new DefinitionMetadata(tree, scope);
+  const metadata = new DefinitionMetadata(
+    tree.modifier.text,
+    tree.name.text,
+    tree.sourceRange,
+    scope,
+  );
   metadata.attributes = bodyScope.declarations
     .filter((x) => x instanceof ParameterMetadata)
     .map((x) => x as ParameterMetadata);

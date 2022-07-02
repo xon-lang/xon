@@ -1,5 +1,4 @@
 import { Boolean, None, String } from '../../../lib/core';
-import { DefinitionTree } from '../../../tree/definition/definition-tree';
 import { SourceRange } from '../../../util/source-range';
 import { DefinitionTypeMetadata } from '../../expression/type/definition/definition-type-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
@@ -7,10 +6,6 @@ import { ParameterMetadata } from '../parameter/parameter-metadata';
 import { DeclarationScope } from '../scope/declaration-scope';
 
 export class DefinitionMetadata extends DeclarationMetadata {
-  sourceRange: SourceRange;
-  modifier: String;
-  name: String;
-
   parameters: ParameterMetadata[] = [];
   base: DefinitionMetadata | None;
   attributes: ParameterMetadata[] = [];
@@ -19,11 +14,13 @@ export class DefinitionMetadata extends DeclarationMetadata {
 
   private _attributesScope: DeclarationScope;
 
-  constructor(public tree: DefinitionTree, public scope: DeclarationScope) {
+  constructor(
+    public modifier: String,
+    public name: String,
+    public sourceRange: SourceRange,
+    public scope: DeclarationScope,
+  ) {
     super();
-    this.sourceRange = tree.sourceRange;
-    this.modifier = tree.modifier.text;
-    this.name = tree.name.text;
   }
 
   attributesScope(): DeclarationScope {

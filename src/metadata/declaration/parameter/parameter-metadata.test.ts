@@ -1,7 +1,7 @@
 import { parseSource } from '../../../util/parse';
+import { LiteralTypeMetadata } from '../../expression/type/literal/literal-type-metadata';
 import { SourceMetadata } from '../../source/source-metadata';
 import { getSourceMetadata } from '../../source/source-metadata-helper';
-import { LiteralTypeMetadata } from '../../expression/type/literal/literal-type-metadata';
 import { TestDeclarationScope } from '../scope/test-declaration-scope';
 import { ParameterMetadata } from './parameter-metadata';
 
@@ -9,7 +9,7 @@ test('single parameter', () => {
   const code = 'a: 132';
   const tree = parseSource(code);
   const scope = new TestDeclarationScope();
-  const metadata = getSourceMetadata(tree, scope);
+  const metadata = getSourceMetadata(tree, scope, true);
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
   expect(scope.declarations.length).toBe(1);
@@ -20,7 +20,7 @@ test('multiple parameters array value', () => {
   const code = "[a, b, c] := [1,'hi',2.3]";
   const tree = parseSource(code);
   const scope = new TestDeclarationScope();
-  const metadata = getSourceMetadata(tree, scope);
+  const metadata = getSourceMetadata(tree, scope, true);
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
   expect(scope.declarations.length).toBe(3);
@@ -41,7 +41,7 @@ test('multiple parameters object value', () => {
   const code = "{a, b, c} := {a=1,b='hi',c=2.3}";
   const tree = parseSource(code);
   const scope = new TestDeclarationScope();
-  const metadata = getSourceMetadata(tree, scope);
+  const metadata = getSourceMetadata(tree, scope, true);
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
   expect(scope.declarations.length).toBe(3);
