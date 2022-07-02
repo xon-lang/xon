@@ -85,8 +85,9 @@ export function getTypeMetadata(tree: ExpressionTree, scope: DeclarationScope): 
         commonType = items[0];
       } else if (items.length > 1) {
         commonType = UnionTypeMetadata.fromTypes(items);
+      } else {
+        commonType = scope.core.any.type;
       }
-      commonType = scope.core.any.type;
 
       return new ArrayTypeMetadata(commonType, items);
     }
