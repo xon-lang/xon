@@ -18,6 +18,9 @@ export class ParameterMetadata extends DeclarationMetadata {
   constructor(public tree: ParameterTree | IdExpressionTree, public scope: DeclarationScope) {
     super();
     this.sourceRange = tree.sourceRange;
-    this.name = tree.name.text;
+    this.name =
+      tree.name?.text ||
+      (tree instanceof ParameterTree && tree.destructure.length && '<destructure>') ||
+      '<unknown>';
   }
 }
