@@ -12,7 +12,7 @@ export class DefinitionMetadata extends DeclarationMetadata {
   name: String;
 
   parameters: ParameterMetadata[] = [];
-  baseDefinition: DefinitionMetadata | None;
+  base: DefinitionMetadata | None;
   attributes: ParameterMetadata[] = [];
 
   type = new DefinitionTypeMetadata(this);
@@ -31,8 +31,8 @@ export class DefinitionMetadata extends DeclarationMetadata {
       return this._attributesScope;
     }
 
-    if (this.baseDefinition) {
-      this._attributesScope = this.baseDefinition.attributesScope().create();
+    if (this.base) {
+      this._attributesScope = this.base.attributesScope().create();
     } else {
       this._attributesScope = new DeclarationScope();
     }
@@ -41,13 +41,13 @@ export class DefinitionMetadata extends DeclarationMetadata {
   }
 
   allAttributes(): ParameterMetadata[] {
-    return [...(this.baseDefinition?.allAttributes() || []), ...this.attributes];
+    return [...(this.base?.allAttributes() || []), ...this.attributes];
   }
 
   is(definition: DefinitionMetadata): Boolean {
     if (this.sourceRange.equals(definition.sourceRange)) {
       return true;
     }
-    return this.baseDefinition?.is(definition) || false;
+    return this.base?.is(definition) || false;
   }
 }

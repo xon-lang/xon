@@ -83,7 +83,7 @@ export class DeclarationScope {
     return declaration;
   }
 
-  findByTree(tree: DefinitionTree | ParameterTree): DeclarationMetadata {
+  findByDeclarationTree(tree: DefinitionTree | ParameterTree): DeclarationMetadata {
     return this.find(tree.name.text, (x) => x.sourceRange.equals(tree.sourceRange));
   }
 
