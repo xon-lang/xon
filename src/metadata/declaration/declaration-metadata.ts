@@ -1,7 +1,7 @@
 import { Boolean, None } from '../../lib/core';
 import { SourceRange } from '../../util/source-range';
-import { Metadata } from '../metadata';
 import { TypeMetadata } from '../expression/type/type-metadata';
+import { Metadata } from '../metadata';
 
 export abstract class DeclarationMetadata extends Metadata {
   abstract sourceRange: SourceRange;

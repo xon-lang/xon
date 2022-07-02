@@ -1,4 +1,5 @@
 import { Boolean, None, String } from '../../../lib/core';
+import { DefinitionTree } from '../../../tree/definition/definition-tree';
 import { SourceRange } from '../../../util/source-range';
 import { DefinitionTypeMetadata } from '../../expression/type/definition/definition-type-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
@@ -6,29 +7,37 @@ import { ParameterMetadata } from '../parameter/parameter-metadata';
 import { DeclarationScope } from '../scope/declaration-scope';
 
 export class DefinitionMetadata extends DeclarationMetadata {
+  sourceRange: SourceRange;
+  modifier: String;
+  name: String;
+
   parameters: ParameterMetadata[];
   baseDefinition: DefinitionMetadata | None;
-  type = new DefinitionTypeMetadata(this);
   attributes: ParameterMetadata[];
 
-  private scope: DeclarationScope;
+  type = new DefinitionTypeMetadata(this);
 
-  constructor(public sourceRange: SourceRange, public modifier: String, public name: String) {
+  private _attributesScope: DeclarationScope;
+
+  constructor(public tree: DefinitionTree) {
     super();
+    this.sourceRange = tree.sourceRange;
+    this.modifier = tree.modifier.text;
+    this.name = tree.name.text;
   }
 
   attributesScope(): DeclarationScope {
-    if (this.scope) {
-      return this.scope;
+    if (this._attributesScope) {
+      return this._attributesScope;
     }
 
     if (this.baseDefinition) {
-      this.scope = this.baseDefinition.attributesScope().create();
+      this._attributesScope = this.baseDefinition.attributesScope().create();
     } else {
-      this.scope = new DeclarationScope();
+      this._attributesScope = new DeclarationScope();
     }
-    this.attributes.forEach((x) => this.scope.add(x));
-    return this.scope;
+    this.attributes.forEach((x) => this._attributesScope.add(x));
+    return this._attributesScope;
   }
 
   allAttributes(): ParameterMetadata[] {
