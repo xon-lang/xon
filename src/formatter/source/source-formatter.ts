@@ -9,11 +9,19 @@ export class SourceFormatter extends Formatter {
   }
 
   toString() {
-    const statements = this.ctx
-      .statement()
-      .map((x) => getStatementFormatter(x, this.config))
-      .join('');
+    if (this.ctx.statement()) {
+      const statements = this.ctx
+        .sourceItem()
+        .map((x) => {
+          const nlCount = Math.min(2, x.NL().text.match(/\n/g)?.length || 0);
+          const statement = getStatementFormatter(x.statement(), this.config);
+          return statement + this.config.nl.repeat(nlCount);
+        })
+        .join('');
 
-    return (statements && statements.trim() + this.config.nl) || '';
+      const lastStatement = getStatementFormatter(this.ctx.statement(), this.config).toString();
+      return statements + lastStatement + this.config.nl;
+    }
+    return '';
   }
 }
