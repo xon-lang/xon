@@ -5,10 +5,11 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: NL | NL? (statement NL)* statement NL?;
+source:     NL | NL? sourceItem* statement NL?;
+sourceItem: statement NL;
 
 statement
-    : LINE_COMMENT                                                         # commentStatement
+    : value = LINE_COMMENT                                                  # commentStatement
     | EXPORT path = expression                                             # exportStatement
     | FOR (value = parameter (',' index = parameter)? ID)? expression body # forStatement
     | WHILE expression body                                                # whileStatement
