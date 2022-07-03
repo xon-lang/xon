@@ -1,4 +1,4 @@
-import { BodyContext, ExpressionContext, ParameterContext } from '../../grammar/xon-parser';
+import { ExpressionContext, ParameterContext, ValueBodyContext } from '../../grammar/xon-parser';
 import { String } from '../../lib/core';
 import { getBodyFormatter } from '../body/body-formatter-helper';
 import { getExpressionFormatter } from '../expression/expression-formatter-helper';
@@ -13,7 +13,7 @@ export class ParameterFormatter extends Formatter {
 
   toString() {
     const type = this.typeFormatter(this.ctx._type);
-    let body = this.bodyFormat(this.ctx._value || this.ctx.body(), this.ctx._type);
+    let body = this.valueBodyFormat(this.ctx.valueBody(), this.ctx._type);
 
     if (this.ctx._name) return `${this.ctx._name.text}${type}${body}`;
 
@@ -22,8 +22,8 @@ export class ParameterFormatter extends Formatter {
   }
 
   typeFormatter(type: ExpressionContext): String {
-    if (!type && this.ctx.COLON() && this.ctx._value instanceof ExpressionContext) return ' :';
-    if (!type && !this.ctx.COLON() && this.ctx._value instanceof ExpressionContext) return ' ';
+    if (!type && this.ctx.COLON() && this.ctx.valueBody()?._value) return ' :';
+    if (!type && !this.ctx.COLON() && this.ctx.valueBody()?._value) return ' ';
     if (!type) return '';
 
     return (
@@ -32,16 +32,16 @@ export class ParameterFormatter extends Formatter {
     );
   }
 
-  bodyFormat(body: ExpressionContext | BodyContext, type: ExpressionContext): String {
-    if (!body) return '';
+  valueBodyFormat(ctx: ValueBodyContext, type: ExpressionContext): String {
+    if (!ctx) return '';
 
-    if (body instanceof ExpressionContext) {
-      const expressionFormatter = getExpressionFormatter(body, this.config).indent(
+    if (ctx._value) {
+      const expressionFormatter = getExpressionFormatter(ctx._value, this.config).indent(
         this.indentCount,
       );
       return ((this.ctx._type && ' = ') || '= ') + expressionFormatter.toString();
     }
 
-    return getBodyFormatter(body, this.config).indent(this.indentCount).toString();
+    return getBodyFormatter(ctx.body(), this.config).indent(this.indentCount).toString();
   }
 }
