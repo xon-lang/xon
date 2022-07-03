@@ -17,7 +17,7 @@ export class IfStatementFormatter extends StatementFormatter {
     let result = `if ${condition}${thenBody}`;
     if (this.ctx._elseBody) {
       const elseBody = getBodyFormatter(this.ctx._elseBody, this.config).indent(this.indentCount);
-      result += this.config.indent(this.indentCount) + `else${elseBody}`;
+      result += this.config.nl + this.config.indent(this.indentCount) + `else${elseBody}`;
     }
 
     return result;

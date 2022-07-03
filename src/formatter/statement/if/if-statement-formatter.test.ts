@@ -85,6 +85,8 @@ else
   const formatter = getStatementFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(IfStatementFormatter);
+  console.log(formatter.toString());
+  
   expect(formatter.toString()).toBe(
     `
 if a
