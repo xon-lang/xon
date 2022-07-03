@@ -36,7 +36,14 @@ export class ParameterTree extends Tree {
     this.type = getExpressionTree(ctx._type);
     this.value = getExpressionTree(ctx.valueBody()?.expression());
     this.body = getSourceTree(ctx.valueBody()?.body()?.source());
-    this.addChildren(this.name, ...this.destructure, ...this.params, this.type, this.body);
+    this.addChildren(
+      this.name,
+      ...this.destructure,
+      ...this.params,
+      this.type,
+      this.value,
+      this.body,
+    );
   }
 }
 
