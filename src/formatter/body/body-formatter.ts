@@ -1,8 +1,7 @@
-import { BodyContext } from '../../grammar/xon-parser';
+import { BodyContext, StatementContext } from '../../grammar/xon-parser';
 import { String } from '../../lib/core';
 import { Formatter } from '../formatter';
 import { FormatterConfig } from '../formatter-config';
-import { NlStatementFormatter } from '../statement/nl/nl-statement-formatter';
 import { getStatementFormatter } from '../statement/statement-formatter-helper';
 
 export class BodyFormatter extends Formatter {
@@ -11,20 +10,27 @@ export class BodyFormatter extends Formatter {
   }
 
   toString(): String {
-    const statements = this.ctx
-      .source()
-      .statement()
-      .map((x) => {
-        const indent = this.config.indent(this.indentCount + 1);
-        const statementFormatter = getStatementFormatter(x, this.config).indent(
-          this.indentCount + 1,
-        );
-        if (statementFormatter instanceof NlStatementFormatter) {
-          return statementFormatter.toString();
-        }
-        return indent + statementFormatter.toString();
-      })
-      .join('');
-    return `${this.config.nl}${statements}`;
+    if (this.ctx.source().statement()) {
+      let statements = this.ctx
+        .source()
+        .sourceItem()
+        .map((x) => {
+          const nlCount = Math.min(2, x.NL().text.match(/\n/g)?.length || 0);
+          const statement = this.indentStatement(x.statement());
+          return statement + this.config.nl.repeat(nlCount);
+        })
+        .join('');
+
+      const lastStatement = this.indentStatement(this.ctx.source().statement());
+      return this.config.nl + statements + lastStatement;
+    }
+    return ``;
+  }
+
+  private indentStatement(ctx: StatementContext): String {
+    const indent = this.config.indent(this.indentCount + 1);
+    const statementFormatter = getStatementFormatter(ctx, this.config).indent(this.indentCount + 1);
+
+    return indent + statementFormatter.toString();
   }
 }
