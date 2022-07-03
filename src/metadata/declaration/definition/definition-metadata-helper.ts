@@ -12,12 +12,7 @@ export function getDefinitionMetadata(
   tree: DefinitionTree,
   scope: DeclarationScope,
 ): DefinitionMetadata {
-  const metadata = new DefinitionMetadata(
-    tree.modifier.text,
-    tree.name.text,
-    tree.sourceRange,
-    scope,
-  );
+  const metadata = new DefinitionMetadata(tree, scope);
   const innerScope = scope.create();
 
   for (const parameter of tree.parameters) {
