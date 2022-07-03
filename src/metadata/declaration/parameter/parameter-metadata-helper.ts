@@ -42,10 +42,12 @@ export function fillParameterMetadata(tree: ParameterTree, alternativeType?: Typ
 
   if (tree.value) {
     tree.metadata.value = getValueMetadata(tree.value, tree.metadata.scope);
+    tree.value.metadata = tree.metadata.value;
   }
 
   if (tree.type) {
     tree.metadata.type = getTypeMetadata(tree.type, tree.metadata.scope);
+    tree.type.metadata = tree.metadata.type;
   } else if (alternativeType) {
     tree.metadata.type = alternativeType;
   } else if (tree.value) {
