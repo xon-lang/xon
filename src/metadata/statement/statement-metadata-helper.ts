@@ -1,4 +1,5 @@
 import { Issue } from '../../issue-service/issue';
+import { CommentStatementTree } from '../../tree/statement/comment/comment-statement-tree';
 import { DeclarationStatementTree } from '../../tree/statement/declaration/declaration-statement-tree';
 
 import { ExpressionStatementTree } from '../../tree/statement/expression/expression-statement-tree';
@@ -7,6 +8,7 @@ import { IfStatementTree } from '../../tree/statement/if/if-statement-tree';
 import { ReturnStatementTree } from '../../tree/statement/return/return-statement-tree';
 import { StatementTree } from '../../tree/statement/statement-tree';
 import { DeclarationScope } from '../declaration/scope/declaration-scope';
+import { CommentStatementMetadata } from './comment/comment-statement-metadata';
 import { DeclarationStatementMetadata } from './declaration/declaration-statement-metadata';
 
 import { ExpressionStatementMetadata } from './expression/expression-statement-metadata';
@@ -23,6 +25,7 @@ export function getStatementMetadata(
     return new DeclarationStatementMetadata(tree, scope);
   if (tree instanceof IfStatementTree) return new IfStatementMetadata(tree, scope);
   if (tree instanceof ReturnStatementTree) return new ReturnStatementMetadata(tree, scope);
+  if (tree instanceof CommentStatementTree) return new CommentStatementMetadata(tree, scope);
 
   Issue.errorFromTree(tree, `Statement metadata not found for '${tree.constructor.name}'`);
 }
