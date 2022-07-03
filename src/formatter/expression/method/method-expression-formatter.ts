@@ -10,7 +10,7 @@ export class MethodExpressionFormatter extends ExpressionFormatter {
   }
 
   toString() {
-    const value = getExpressionFormatter(this.ctx._value, this.config)
+    const value = getExpressionFormatter(this.ctx.expression(), this.config)
       .indent(this.indentCount)
       .break(this.broken);
 
