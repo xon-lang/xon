@@ -12,13 +12,14 @@ export class ParameterFormatter extends Formatter {
   }
 
   toString() {
+    const params = getParametersFormatter(this.ctx._params, this.config) || '';
     const type = this.typeFormatter(this.ctx._type);
     let body = this.valueBodyFormat(this.ctx.valueBody(), this.ctx._type);
 
-    if (this.ctx._name) return `${this.ctx._name.text}${type}${body}`;
+    if (this.ctx._name) return `${this.ctx._name.text}${params}${type}${body}`;
 
-    const parameters = getParametersFormatter(this.ctx.parameters(), this.config);
-    return `${parameters}${type}${body}`;
+    const destructure = getParametersFormatter(this.ctx._destructure, this.config);
+    return `${destructure}${params}${type}${body}`;
   }
 
   typeFormatter(type: ExpressionContext): String {

@@ -22,3 +22,21 @@ test('parameters', () => {
   expect(formatter.toString()).toBe('{a: Number = 0, b: Number, c = 0}: ABC = [1, 2, 3]');
   expect(formatter.indent(2).toString()).toBe('{a: Number = 0, b: Number, c = 0}: ABC = [1, 2, 3]');
 });
+
+test('params with result type', () => {
+  const code = 'a(b: Number): 123 = 123';
+  const ctx = parse(code).parameter();
+  const formatter = getParameterFormatter(ctx, defaultFormatterConfig);
+
+  expect(formatter).toBeInstanceOf(ParameterFormatter);
+  expect(formatter.toString()).toBe('a(b: Number): 123 = 123');
+});
+
+test('params with no result type', () => {
+  const code = 'a(b: Number):  = 123';
+  const ctx = parse(code).parameter();
+  const formatter = getParameterFormatter(ctx, defaultFormatterConfig);
+
+  expect(formatter).toBeInstanceOf(ParameterFormatter);
+  expect(formatter.toString()).toBe('a(b: Number) := 123');
+});
