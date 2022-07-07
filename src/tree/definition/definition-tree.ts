@@ -1,7 +1,7 @@
 // this code was generated
 
 import { DefinitionContext } from '../../grammar/xon-parser';
-import { Issue } from '../../issue-service/issue';
+import { IssueLevel } from '../../issue-service/issue-level';
 import { none, None } from '../../lib/core';
 import { DefinitionMetadata } from '../../metadata/declaration/definition/definition-metadata';
 import { SourceRange } from '../../util/source-range';
@@ -49,7 +49,9 @@ export class DefinitionTree extends Tree {
             (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree)
           ),
       )
-      .forEach((x) => Issue.errorFromTree(x, 'Definition body should contain only parameters'));
+      .forEach((x) =>
+        x.addIssue(IssueLevel.error, 'Definition body should contain only parameters'),
+      );
     this.attributes = statements.filter(
       (x) =>
         x instanceof DeclarationStatementTree ||
