@@ -1,3 +1,5 @@
+import { Issue } from '../issue-service/issue';
+import { IssueLevel } from '../issue-service/issue-level';
 import { None, String } from '../lib/core';
 import { SourceRange } from '../util/source-range';
 
@@ -5,6 +7,7 @@ export class Tree {
   sourceRange: SourceRange;
   parent?: Tree | None;
   children: Tree[] = [];
+  issues: Issue[] = [];
 
   addChildren(...children: (Tree | None)[]) {
     children
@@ -15,7 +18,15 @@ export class Tree {
       });
   }
 
-  toString(): String {
-    throw new Error('Not implemented');
+  allIssues() {
+    return [...this.issues, ...(this.parent?.issues || [])];
+  }
+
+  addIssue(level: IssueLevel, message: String) {
+    this.issues.push(new Issue(this.sourceRange, level, message));
+  }
+
+  addError(message: String) {
+    this.addIssue(IssueLevel.error, message);
   }
 }
