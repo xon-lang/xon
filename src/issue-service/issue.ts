@@ -1,13 +1,17 @@
-import { ParserRuleContext } from 'antlr4ts';
+import { ParserRuleContext, RecognitionException } from 'antlr4ts';
 import chalk from 'chalk';
 import fs from 'fs';
-import { String } from '../lib/core';
+import { None, String } from '../lib/core';
 import { Tree } from '../tree/tree';
 import { SourceRange } from '../util/source-range';
 import { IssueLevel } from './issue-level';
 
-export class Issue {
-  constructor(public sourceRange: SourceRange, public level: IssueLevel, public message: String) {}
+export class Issue extends Error {
+  antlrError?: RecognitionException | None;
+
+  constructor(public sourceRange: SourceRange, public level: IssueLevel, public message: String) {
+    super(message);
+  }
 
   toString(): String {
     let code = this.sourceRange.sourceText.split('\n')[this.sourceRange.start.line - 1];
