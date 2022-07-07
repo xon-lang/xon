@@ -1,7 +1,8 @@
 import { none } from '../../lib/core';
-import { parseDefinition } from '../../util/parse';
+import { parseDefinition, parseSourceFile } from '../../util/parse';
 import { IdExpressionTree } from '../expression/id/id-expression-tree';
 import { ParameterTree } from '../parameter/parameter-tree';
+import { SourceTree } from '../source/source-tree';
 import { DeclarationStatementTree } from '../statement/declaration/declaration-statement-tree';
 import { DefinitionTree } from './definition-tree';
 
@@ -58,32 +59,24 @@ test('model animal with only attribute', () => {
   expect((attributes[0].type as IdExpressionTree).name.text).toBe('Integer');
 });
 
-// test('1-error.xon', () => {
-//   IssueService.issues = [];
-//   try {
-//     const tree = parseSourceFile('src/tree/statement/definition/test-files/1-error.xon');
-//     expect(tree.statements[0]).toBeInstanceOf(DefinitionTree);
-//   } catch (error) {
-//     const issue = IssueService.issues.slice(-1)[0];
+test('1-error.xon', () => {
+  const tree = parseSourceFile('src/tree/definition/test-files/1-error.xon');
 
-//     expect(issue.source.start.line).toBe(2);
-//     expect(issue.source.start.column).toBe(7);
-//     expect(issue.source.stop.column).toBe(7);
-//   }
-//   expect(IssueService.issues.length).toBe(1); // mb should be 2
-// });
+  expect(tree).toBeInstanceOf(SourceTree);
+  expect(tree.issues.length).toBe(1);
+  expect(tree.issues[0].sourceRange.start.line).toBe(4);
+  expect(tree.issues[0].sourceRange.start.column).toBe(14);
+  expect(tree.issues[0].sourceRange.stop.line).toBe(4);
+  expect(tree.issues[0].sourceRange.stop.column).toBe(20);
+});
 
-// test('2-error.xon', () => {
-//   IssueService.issues = [];
-//   try {
-//     const tree = parseSourceFile('src/tree/statement/definition/test-files/2-error.xon');
-//     expect(tree.statements[0]).toBeInstanceOf(DefinitionStatementTree);
-//   } catch (error) {
-//     const issue = IssueService.issues.slice(-1)[0];
+test('2-error.xon', () => {
+  const tree = parseSourceFile('src/tree/definition/test-files/2-error.xon');
 
-//     expect(issue.source.start.line).toBe(6);
-//     expect(issue.source.start.column).toBe(7);
-//     expect(issue.source.stop.column).toBe(12);
-//   }
-//   expect(IssueService.issues.length).toBe(1);
-// });
+  expect(tree).toBeInstanceOf(SourceTree);
+  expect(tree.issues.length).toBe(1);
+  expect(tree.issues[0].sourceRange.start.line).toBe(6);
+  expect(tree.issues[0].sourceRange.start.column).toBe(7);
+  expect(tree.issues[0].sourceRange.stop.line).toBe(6);
+  expect(tree.issues[0].sourceRange.stop.column).toBe(12);
+});
