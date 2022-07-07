@@ -1,4 +1,4 @@
-import { Any } from '../../../../lib/core';
+import { Any, none, None } from '../../../../lib/core';
 import { InvokeExpressionTree } from '../../../../tree/expression/invoke/invoke-expression-tree';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { MethodTypeMetadata } from '../../type/method/method-type-metadata';
@@ -13,7 +13,7 @@ export class InvokeValueMetadata extends ValueMetadata {
     tree.arguments.forEach((x) => (x.value.metadata = getValueMetadata(x.value, scope)));
   }
 
-  type(): TypeMetadata {
+  type(): TypeMetadata | None {
     const metadata = this.tree.instance.metadata;
     if (metadata instanceof ValueMetadata) {
       const instanceType = metadata.type();
@@ -21,7 +21,7 @@ export class InvokeValueMetadata extends ValueMetadata {
         return instanceType.resultType;
       }
     }
-    throw new Error('Not implemented');
+    return none;
   }
 
   eval(): Any {

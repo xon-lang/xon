@@ -1,4 +1,5 @@
-import { Issue } from '../../../../issue-service/issue';
+import { IssueLevel } from '../../../../issue-service/issue-level';
+import { None } from '../../../../lib/core';
 import { PrefixExpressionTree } from '../../../../tree/expression/prefix/prefix-expression-tree';
 import { evaluate } from '../../../../util/evaluate';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
@@ -16,14 +17,19 @@ export class ImportValueMetadata extends ValueMetadata {
 
   importScope(): DeclarationScope {
     const importPath = evaluate(this.tree.value);
-    if (typeof importPath === 'string') {
-      return new ImportProvider(importPath).scope();
-    } else {
-      Issue.errorFromTree(this.tree.value, 'Wrong import path');
+    if (typeof importPath !== 'string') {
+      this.tree.addIssue(IssueLevel.error, 'Import path should be a string literal');
+      return new DeclarationScope();
     }
+    const importProvider = new ImportProvider(importPath);
+    if (!importProvider.isValid()) {
+      this.tree.addIssue(IssueLevel.error, 'Wrong import path');
+      return new DeclarationScope();
+    }
+    return importProvider.scope();
   }
 
-  type(): TypeMetadata {
+  type(): TypeMetadata | None {
     return new ObjectTypeMetadata(this.importScope());
   }
 

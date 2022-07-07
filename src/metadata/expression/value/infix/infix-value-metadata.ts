@@ -1,4 +1,4 @@
-import { Any, Unknown } from '../../../../lib/core';
+import { Any, None, none, Unknown } from '../../../../lib/core';
 import { InfixExpressionTree } from '../../../../tree/expression/infix/infix-expression-tree';
 import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
@@ -14,8 +14,8 @@ export class InfixValueMetadata extends ValueMetadata {
     tree.right.metadata = getValueMetadata(tree.right, scope);
   }
 
-  operatorDeclaration(): ParameterMetadata {
-    const declaration = this.scope.find(this.tree.name.text, (x) => {
+  operatorDeclaration(): ParameterMetadata | None {
+    const declarations = this.scope.filter(this.tree.name.text, (x) => {
       const leftMetadata = this.tree.left.metadata;
       const rightMetadata = this.tree.right.metadata;
 
@@ -34,15 +34,24 @@ export class InfixValueMetadata extends ValueMetadata {
       const [left, right] = parameters;
       return leftMetadata.type().is(left.type) && rightMetadata.type().is(right.type);
     });
-    return declaration as ParameterMetadata;
+
+    if (declarations.length === 1) {
+      return declarations[0] as ParameterMetadata;
+    }
+    if (declarations.length > 0) {
+      this.tree.name.addError('Too many declarations');
+    } else {
+      this.tree.name.addError('No declarations found');
+    }
+    return none;
   }
 
-  type(): TypeMetadata {
-    const operatorDeclarationType = this.operatorDeclaration().type;
+  type(): TypeMetadata | None {
+    const operatorDeclarationType = this.operatorDeclaration()?.type;
     if (operatorDeclarationType instanceof MethodTypeMetadata) {
       return operatorDeclarationType.resultType;
     }
-    throw new Error('Not implemented');
+    return none;
   }
 
   eval(): Any {

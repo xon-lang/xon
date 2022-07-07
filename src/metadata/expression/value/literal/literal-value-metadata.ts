@@ -1,3 +1,4 @@
+import { None } from '../../../../lib/core';
 import { LiteralExpressionTree } from '../../../../tree/expression/literal/literal-expression-tree';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { TypeMetadata } from '../../type/type-metadata';
@@ -9,7 +10,7 @@ export class LiteralValueMetadata extends ValueMetadata {
     super();
   }
 
-  type(): TypeMetadata {
+  type(): TypeMetadata | None {
     return getTypeMetadata(this.tree, this.scope);
   }
 

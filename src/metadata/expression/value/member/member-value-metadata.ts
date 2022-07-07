@@ -1,4 +1,4 @@
-import { Any } from '../../../../lib/core';
+import { Any, None, none } from '../../../../lib/core';
 import { MemberExpressionTree } from '../../../../tree/expression/member/member-expression-tree';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { TypeMetadata } from '../../type/type-metadata';
@@ -11,15 +11,22 @@ export class MemberValueMetadata extends ValueMetadata {
     tree.instance.metadata = getValueMetadata(tree.instance, scope);
   }
 
-  type(): TypeMetadata {
+  type(): TypeMetadata | None {
     const metadata = this.tree.instance.metadata;
     if (metadata instanceof ValueMetadata) {
       const instanceType = metadata.type();
       const attributesScope = instanceType.attributesScope();
-      const declaration = attributesScope.find(this.tree.name.text);
-      return declaration.type;
+      const declarations = attributesScope.filter(this.tree.name.text);
+      if (declarations.length === 1) {
+        return declarations[0].type;
+      }
+      if (declarations.length > 0) {
+        this.tree.name.addError('Too many declarations');
+      } else {
+        this.tree.name.addError('No declarations found');
+      }
     }
-    throw new Error('Not implemented');
+    return none;
   }
 
   eval(): Any {

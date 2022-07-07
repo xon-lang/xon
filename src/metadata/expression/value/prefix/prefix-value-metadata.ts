@@ -1,4 +1,4 @@
-import { Any, none, Unknown } from '../../../../lib/core';
+import { Any, None, none, Unknown } from '../../../../lib/core';
 import { PrefixExpressionTree } from '../../../../tree/expression/prefix/prefix-expression-tree';
 import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
@@ -13,8 +13,8 @@ export class PrefixValueMetadata extends ValueMetadata {
     tree.value.metadata = getValueMetadata(tree.value, scope);
   }
 
-  operatorDeclaration(): ParameterMetadata {
-    const declaration = this.scope.find(this.tree.name.text, (x) => {
+  operatorDeclaration(): ParameterMetadata | None {
+    const declarations = this.scope.filter(this.tree.name.text, (x) => {
       if (!(x instanceof ParameterMetadata)) return false;
 
       const type = x.type;
@@ -28,15 +28,23 @@ export class PrefixValueMetadata extends ValueMetadata {
         return metadata.type().is(parameters[0].type);
       }
     });
-    return declaration as ParameterMetadata;
+    if (declarations.length === 1) {
+      return declarations[0] as ParameterMetadata;
+    }
+    if (declarations.length > 0) {
+      this.tree.name.addError('Too many declarations');
+    } else {
+      this.tree.name.addError('No declarations found');
+    }
+    return none;
   }
 
-  type(): TypeMetadata {
-    const operatorDeclarationType = this.operatorDeclaration().type;
+  type(): TypeMetadata | None {
+    const operatorDeclarationType = this.operatorDeclaration()?.type;
     if (operatorDeclarationType instanceof MethodTypeMetadata) {
       return operatorDeclarationType.resultType;
     }
-    throw new Error('Not implemented');
+    return none;
   }
 
   eval(): Any {

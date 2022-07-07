@@ -1,3 +1,4 @@
+import { None } from '../../../../lib/core';
 import { ArrayExpressionTree } from '../../../../tree/expression/array/array-expression-tree';
 import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
@@ -15,8 +16,9 @@ export class ArrayValueMetadata extends ValueMetadata {
   }
 
   // todo use generics
-  type(): TypeMetadata {
+  type(): TypeMetadata | None {
     const items = this.tree.arguments.map((x) => ({
+      tree: x,
       sourceRange: x.sourceRange,
       name: x.name?.text,
       type: (x.value.metadata as ValueMetadata).type(),
@@ -26,7 +28,7 @@ export class ArrayValueMetadata extends ValueMetadata {
     if (this.tree.ctx.arguments().OPEN_BRACE()) {
       const objectScope = new DeclarationScope();
       items.forEach((x) => {
-        const metadata = new ParameterMetadata(x.name, x.sourceRange, this.scope);
+        const metadata = new ParameterMetadata(x.tree.name, this.scope);
         metadata.type = x.type;
         metadata.value = x.value;
         objectScope.add(metadata);
