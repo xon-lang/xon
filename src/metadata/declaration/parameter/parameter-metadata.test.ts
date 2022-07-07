@@ -17,7 +17,7 @@ test('single parameter', () => {
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
   expect(scope.declarations.length).toBe(1);
-  expect(scope.find('a').name).toBe('a');
+  expect(scope.filter('a')[0].name).toBe('a');
 
   const parameter = (tree.statements[0] as DeclarationStatementTree).declaration as ParameterTree;
   const valueType = (parameter.value.metadata as ValueMetadata).type() as LiteralTypeMetadata;
@@ -35,16 +35,22 @@ test('multiple parameters array value', () => {
   expect(metadata).toBeInstanceOf(SourceMetadata);
   expect(scope.declarations.length).toBe(3);
 
-  expect(scope.find('a').name).toBe('a');
-  expect(scope.find('a')).toBeInstanceOf(ParameterMetadata);
-  expect(scope.find('a').type).toBeInstanceOf(LiteralTypeMetadata);
-  expect(scope.find('a').type.equals(new LiteralTypeMetadata(1, scope.core.integer))).toBe(true);
+  expect(scope.filter('a')[0].name).toBe('a');
+  expect(scope.filter('a')[0]).toBeInstanceOf(ParameterMetadata);
+  expect(scope.filter('a')[0].type).toBeInstanceOf(LiteralTypeMetadata);
+  expect(scope.filter('a')[0].type.equals(new LiteralTypeMetadata(1, scope.core.integer))).toBe(
+    true,
+  );
 
-  expect(scope.find('b').name).toBe('b');
-  expect(scope.find('b').type.equals(new LiteralTypeMetadata('hi', scope.core.string))).toBe(true);
+  expect(scope.filter('b')[0].name).toBe('b');
+  expect(scope.filter('b')[0].type.equals(new LiteralTypeMetadata('hi', scope.core.string))).toBe(
+    true,
+  );
 
-  expect(scope.find('c').name).toBe('c');
-  expect(scope.find('c').type.equals(new LiteralTypeMetadata(2.3, scope.core.float))).toBe(true);
+  expect(scope.filter('c')[0].name).toBe('c');
+  expect(scope.filter('c')[0].type.equals(new LiteralTypeMetadata(2.3, scope.core.float))).toBe(
+    true,
+  );
 });
 
 test('multiple parameters object value', () => {
@@ -56,14 +62,20 @@ test('multiple parameters object value', () => {
   expect(metadata).toBeInstanceOf(SourceMetadata);
   expect(scope.declarations.length).toBe(3);
 
-  expect(scope.find('a').name).toBe('a');
-  expect(scope.find('a')).toBeInstanceOf(ParameterMetadata);
-  expect(scope.find('a').type).toBeInstanceOf(LiteralTypeMetadata);
-  expect(scope.find('a').type.equals(new LiteralTypeMetadata(1, scope.core.integer))).toBe(true);
+  expect(scope.filter('a')[0].name).toBe('a');
+  expect(scope.filter('a')[0]).toBeInstanceOf(ParameterMetadata);
+  expect(scope.filter('a')[0].type).toBeInstanceOf(LiteralTypeMetadata);
+  expect(scope.filter('a')[0].type.equals(new LiteralTypeMetadata(1, scope.core.integer))).toBe(
+    true,
+  );
 
-  expect(scope.find('b').name).toBe('b');
-  expect(scope.find('b').type.equals(new LiteralTypeMetadata('hi', scope.core.string))).toBe(true);
+  expect(scope.filter('b')[0].name).toBe('b');
+  expect(scope.filter('b')[0].type.equals(new LiteralTypeMetadata('hi', scope.core.string))).toBe(
+    true,
+  );
 
-  expect(scope.find('c').name).toBe('c');
-  expect(scope.find('c').type.equals(new LiteralTypeMetadata(2.3, scope.core.float))).toBe(true);
+  expect(scope.filter('c')[0].name).toBe('c');
+  expect(scope.filter('c')[0].type.equals(new LiteralTypeMetadata(2.3, scope.core.float))).toBe(
+    true,
+  );
 });

@@ -1,4 +1,3 @@
-import { none } from '../../../lib/core';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { ArrayTypeMetadata } from '../../expression/type/array/array-type-metadata';
 import { MethodTypeMetadata } from '../../expression/type/method/method-type-metadata';
@@ -14,12 +13,12 @@ export function getParameterMetadata(
   tree: ParameterTree,
   scope: DeclarationScope,
 ): ParameterMetadata {
-  const metadata = new ParameterMetadata(tree.name?.text || none, tree.sourceRange, scope);
+  const metadata = new ParameterMetadata(tree.name || tree, scope);
   const innerScope = scope.create();
 
   if (tree.destructure.length) {
     for (const parameter of tree.destructure) {
-      parameter.metadata = new ParameterMetadata(parameter.name.text, parameter.sourceRange, scope);
+      parameter.metadata = new ParameterMetadata(parameter.name, scope);
       scope.add(parameter.metadata);
     }
   } else {
@@ -72,7 +71,14 @@ export function fillDestructureParameterMetadata(tree: ParameterTree) {
   for (const [index, parameter] of tree.destructure.entries()) {
     let type: TypeMetadata;
     if (tree.metadata.type instanceof ObjectTypeMetadata) {
-      type = tree.metadata.type.attributesScope().find(parameter.name.text).type;
+      const declarations = tree.metadata.type.attributesScope().filter(parameter.name.text);
+      if (declarations.length === 1) {
+        type = declarations[0].type;
+      } else if (declarations.length > 0) {
+        parameter.name.addError('Too many declarations');
+      } else {
+        parameter.name.addError('No declarations found');
+      }
     } else if (tree.metadata.type instanceof ArrayTypeMetadata) {
       const commonType = tree.metadata.type.commonType;
       const items = tree.metadata.type.items;
