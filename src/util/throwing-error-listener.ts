@@ -25,21 +25,20 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
       throw new Error('Not implemented');
     }
 
-    const issue = new Issue();
-
+    let sourceRange: SourceRange;
     if (!error) {
-      issue.source = SourceRange.fromToken(offendingSymbol);
+      sourceRange = SourceRange.fromToken(offendingSymbol);
     } else if (error instanceof NoViableAltException) {
-      issue.source = SourceRange.fromTwoTokens(error.startToken, offendingSymbol);
+      sourceRange = SourceRange.fromTwoTokens(error.startToken, offendingSymbol);
     } else if (error instanceof InputMismatchException) {
-      issue.source = SourceRange.fromToken(offendingSymbol);
+      sourceRange = SourceRange.fromToken(offendingSymbol);
     } else if (error instanceof FailedPredicateException) {
       throw new Error('Not implemented');
     }
 
-    issue.level = IssueLevel.error;
-    issue.message = message;
-    issue.source.sourceName = recognizer.inputStream.sourceName || none;
-    throw issue.error();
+    sourceRange.sourceName = recognizer.inputStream.sourceName || none;
+
+    const issue = new Issue(sourceRange, IssueLevel.error, message);
+    throw new Error(issue.toString());
   }
 }
