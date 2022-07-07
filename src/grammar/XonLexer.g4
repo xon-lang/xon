@@ -66,8 +66,8 @@ LINE_COMMENT: '--' ~[\r\n]*;
 
 WS:            [ \t]+                                  -> channel(WHITESPACE);
 BLOCK_COMMENT: '/*' (BLOCK_COMMENT | .)*? '*/'         -> channel(COMMENT_CHANNEL);
-UNEXPECTED:    .                                       -> channel(ERROR);
 LINE_JOINING:  '\\' [ \t]* ( '\r'? '\n' | '\r' | '\f') -> skip;
+UNEXPECTED:    .                                       -> channel(ERROR);
 
 fragment Radix:          [0-9][0-9]? [xX];
 fragment DigitNumber:    [0-9] ('_' | [0-9])*;
