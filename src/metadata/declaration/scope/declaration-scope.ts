@@ -1,8 +1,4 @@
-import { Issue } from '../../../issue-service/issue';
-import { IssueLevel } from '../../../issue-service/issue-level';
-import { Boolean, none } from '../../../lib/core';
-import { DefinitionTree } from '../../../tree/definition/definition-tree';
-import { ParameterTree } from '../../../tree/parameter/parameter-tree';
+import { Boolean } from '../../../lib/core';
 import { DeclarationMetadata } from '../declaration-metadata';
 import { CoreDeclarationScope } from './core/core-declaration-scope';
 
@@ -35,35 +31,6 @@ export class DeclarationScope {
     );
     if (declarations.length) return declarations;
     return this.parent?.filter(name, predicate) || [];
-  }
-
-  find(name: String, predicate?: (x: DeclarationMetadata) => Boolean): DeclarationMetadata {
-    const declaration = this.findOrNone(name, predicate);
-    if (!declaration) {
-      throw new Error(`Declaration '${name}' not found`);
-    }
-
-    return declaration;
-  }
-
-  findByDeclarationTree(tree: DefinitionTree | ParameterTree): DeclarationMetadata {
-    return this.find(tree.name.text, (x) => x.sourceRange.equals(tree.sourceRange));
-  }
-
-  findOrNone(name: String, predicate?: (x: DeclarationMetadata) => Boolean): DeclarationMetadata {
-    const results = this.filter(name, predicate);
-
-    if (results.length > 1) {
-      const issues = results.map((x) =>
-        Issue.fromSourceRange(x.sourceRange, IssueLevel.error, '').toString(),
-      );
-      throw new Error(`Too many '${name}' declarations found:\n${issues.join('\n')}`);
-    }
-    if (!results.length) {
-      return none;
-    }
-
-    return results[0];
   }
 
   // operators

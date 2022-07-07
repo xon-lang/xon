@@ -6,37 +6,37 @@ import { DeclarationScope } from '../declaration-scope';
 
 export class CoreDeclarationScope extends DeclarationScope {
   get any(): DefinitionMetadata {
-    return this.find('Any') as DefinitionMetadata;
+    return this.filter('Any')[0] as DefinitionMetadata;
   }
   get boolean(): DefinitionMetadata {
-    return this.find('Boolean') as DefinitionMetadata;
+    return this.filter('Boolean')[0] as DefinitionMetadata;
   }
   get true(): ParameterMetadata {
-    return this.find('true') as ParameterMetadata;
+    return this.filter('true')[0] as ParameterMetadata;
   }
   get false(): ParameterMetadata {
-    return this.find('false') as ParameterMetadata;
+    return this.filter('false')[0] as ParameterMetadata;
   }
   get integer(): DefinitionMetadata {
-    return this.find('Integer') as DefinitionMetadata;
+    return this.filter('Integer')[0] as DefinitionMetadata;
   }
   get float(): DefinitionMetadata {
-    return this.find('Float') as DefinitionMetadata;
+    return this.filter('Float')[0] as DefinitionMetadata;
   }
   get number(): DefinitionMetadata {
-    return this.find('Number') as DefinitionMetadata;
+    return this.filter('Number')[0] as DefinitionMetadata;
   }
   get none(): DefinitionMetadata {
-    return this.find('None') as DefinitionMetadata;
+    return this.filter('None')[0] as DefinitionMetadata;
   }
   get char(): DefinitionMetadata {
-    return this.find('Char') as DefinitionMetadata;
+    return this.filter('Char')[0] as DefinitionMetadata;
   }
   get string(): DefinitionMetadata {
-    return this.find('String') as DefinitionMetadata;
+    return this.filter('String')[0] as DefinitionMetadata;
   }
   get array(): DefinitionMetadata {
-    return this.find('Array') as DefinitionMetadata;
+    return this.filter('Array')[0] as DefinitionMetadata;
   }
 
   constructor() {
