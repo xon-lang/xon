@@ -11,7 +11,7 @@ test('single parameter', () => {
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
   expect(scope.declarations.length).toBe(1);
-  expect(scope.find('a').name).toBe('a');
+  expect(scope.filter('a')[0].name).toBe('a');
 });
 
 // todo implement it
@@ -23,7 +23,7 @@ test('multiple parameters', () => {
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
   expect(scope.declarations.length).toBe(3);
-  expect(scope.find('a').name).toBe('a');
-  expect(scope.find('b').name).toBe('b');
-  expect(scope.find('c').name).toBe('c');
+  expect(scope.filter('a')[0].name).toBe('a');
+  expect(scope.filter('b')[0].name).toBe('b');
+  expect(scope.filter('c')[0].name).toBe('c');
 });
