@@ -56,6 +56,7 @@ export function getStatementTree(ctx: StatementContext): StatementTree {
   if (ctx instanceof CommentStatementContext) {
     return new CommentStatementTree(ctx);
   }
+
   Issue.errorFromContext(ctx, `Statement tree not found for '${ctx.constructor.name}'`);
 }
 
