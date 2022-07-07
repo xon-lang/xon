@@ -8,16 +8,23 @@ import { DeclarationScope } from './declaration/scope/declaration-scope';
 import { getSourceMetadata } from './source/source-metadata-helper';
 
 export class ImportProvider {
-  constructor(private importPath: string) {}
+  fullPath: String;
+
+  constructor(private importPath: string) {
+    this.fullPath = resolvePath(this.importPath);
+  }
+
+  isValid() {
+    const stats = lstatSync(this.fullPath);
+    return stats.isDirectory();
+  }
 
   scope(): DeclarationScope {
-    const fullImportPath = resolvePath(this.importPath);
-    const stats = lstatSync(fullImportPath);
-    if (!stats.isDirectory()) {
+    if (!this.isValid()) {
       throw new Error('Should be a directory');
     }
 
-    const globPath = path.resolve(fullImportPath, '*.xon');
+    const globPath = path.resolve(this.fullPath, '*.xon');
     const files = glob.sync(globPath);
     const sources = files.map((x) => parseSourceFile(x));
     const scope = new DeclarationScope();
