@@ -46,9 +46,7 @@ export class SourceMetadata {
         statement instanceof ExpressionStatementTree &&
         statement.expression instanceof IdExpressionTree
       ) {
-        this.scope.add(
-          new ParameterMetadata(statement.expression.name.text, statement.sourceRange, this.scope),
-        );
+        this.scope.add(new ParameterMetadata(statement.expression.name, this.scope));
       }
     }
   }
