@@ -16,11 +16,7 @@ export function getDefinitionMetadata(
   const innerScope = scope.create();
 
   for (const parameter of tree.parameters) {
-    parameter.metadata = new ParameterMetadata(
-      parameter.name.text,
-      parameter.sourceRange,
-      innerScope,
-    );
+    parameter.metadata = new ParameterMetadata(parameter.name, innerScope);
     innerScope.add(parameter.metadata);
   }
 
@@ -42,11 +38,17 @@ export function fillDefinitionMetadata(tree: DefinitionTree) {
 
   // todo fix base type should be TypeMetadata
   if (tree.base instanceof IdExpressionTree) {
-    const baseMetadata = tree.metadata.scope.find(tree.base.name.text) as DefinitionMetadata;
-    tree.base.metadata = baseMetadata;
-    tree.metadata.base = baseMetadata;
+    const declarations = tree.metadata.scope.filter(tree.base.name.text);
+    if (declarations.length === 1) {
+      tree.base.metadata = declarations[0];
+      tree.metadata.base = declarations[0] as DefinitionMetadata;
+    } else if (declarations.length > 0) {
+      tree.base.addError('Too many declarations');
+    } else {
+      tree.base.addError('No declarations found');
+    }
   } else if (tree.base) {
-    throw new Error('Not implemented');
+    tree.base.addError('Base class should be an IdExpression');
   }
 
   for (const parameter of tree.body?.statements
