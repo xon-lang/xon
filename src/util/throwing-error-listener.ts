@@ -29,7 +29,7 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
     if (!error) {
       sourceRange = SourceRange.fromToken(offendingSymbol);
     } else if (error instanceof NoViableAltException) {
-      sourceRange = SourceRange.fromTwoTokens(error.startToken, offendingSymbol);
+      sourceRange = SourceRange.fromTwoTokens(offendingSymbol, offendingSymbol);
     } else if (error instanceof InputMismatchException) {
       sourceRange = SourceRange.fromToken(offendingSymbol);
     } else if (error instanceof FailedPredicateException) {
@@ -39,6 +39,7 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
     sourceRange.sourceName = recognizer.inputStream.sourceName || none;
 
     const issue = new Issue(sourceRange, IssueLevel.error, message);
-    throw new Error(issue.toString());
+    issue.antlrError = error;
+    throw issue;
   }
 }
