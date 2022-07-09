@@ -18,8 +18,8 @@ export class Tree {
       });
   }
 
-  allIssues() {
-    return [...this.issues, ...(this.parent?.issues || [])];
+  allIssues(): Issue[] {
+    return [...this.children.map((x) => x.allIssues()).flat(), ...this.issues];
   }
 
   addIssue(level: IssueLevel, message: String) {
