@@ -9,7 +9,7 @@ import { getSourceMetadata } from '../../source/source-metadata-helper';
 import { DeclarationScope } from '../scope/declaration-scope';
 import { ParameterMetadata } from './parameter-metadata';
 
-export function getParameterMetadata(
+export function getShadowParameterMetadata(
   tree: ParameterTree,
   scope: DeclarationScope,
 ): ParameterMetadata {
@@ -19,11 +19,17 @@ export function getParameterMetadata(
   if (tree.destructure.length) {
     for (const parameter of tree.destructure) {
       parameter.metadata = new ParameterMetadata(parameter.name, scope);
+      if (parameter.name) {
+        parameter.name.metadata = parameter.metadata;
+      }
       scope.add(parameter.metadata);
     }
   } else {
     for (const parameter of tree.params) {
-      parameter.metadata = getParameterMetadata(parameter, innerScope);
+      parameter.metadata = getShadowParameterMetadata(parameter, innerScope);
+      if (parameter.name) {
+        parameter.name.metadata = parameter.metadata;
+      }
       innerScope.add(parameter.metadata);
     }
     metadata.parameters = tree.params.map((x) => x.metadata);
@@ -74,6 +80,8 @@ export function fillDestructureParameterMetadata(tree: ParameterTree) {
       const declarations = tree.metadata.type.attributesScope().filter(parameter.name.text);
       if (declarations.length === 1) {
         type = declarations[0].type;
+        // todo think about it, we already set sourceRange this is second time
+        parameter.metadata.sourceRange = declarations[0].sourceRange;
       } else if (declarations.length > 0) {
         parameter.name.addError('Too many declarations');
       } else {

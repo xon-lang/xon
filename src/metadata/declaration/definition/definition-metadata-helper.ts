@@ -4,11 +4,14 @@ import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { DeclarationStatementTree } from '../../../tree/statement/declaration/declaration-statement-tree';
 import { getSourceMetadata } from '../../source/source-metadata-helper';
 import { ParameterMetadata } from '../parameter/parameter-metadata';
-import { fillParameterMetadata } from '../parameter/parameter-metadata-helper';
+import {
+  fillParameterMetadata,
+  getShadowParameterMetadata,
+} from '../parameter/parameter-metadata-helper';
 import { DeclarationScope } from '../scope/declaration-scope';
 import { DefinitionMetadata } from './definition-metadata';
 
-export function getDefinitionMetadata(
+export function getShadowDefinitionMetadata(
   tree: DefinitionTree,
   scope: DeclarationScope,
 ): DefinitionMetadata {
@@ -16,7 +19,10 @@ export function getDefinitionMetadata(
   const innerScope = scope.create();
 
   for (const parameter of tree.parameters) {
-    parameter.metadata = new ParameterMetadata(parameter.name, innerScope);
+    parameter.metadata = getShadowParameterMetadata(parameter, innerScope);
+    if(parameter.name){
+      parameter.name.metadata = parameter.metadata
+    }
     innerScope.add(parameter.metadata);
   }
 
