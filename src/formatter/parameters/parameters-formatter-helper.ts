@@ -7,7 +7,11 @@ export const getParametersFormatter = (
   ctx: ParametersContext,
   config: FormatterConfig,
 ): ParametersFormatter | None => {
-  if (!ctx) return none;
+  if (!ctx) {
+    return none;
+  }
 
-  if (ctx instanceof ParametersContext) return new ParametersFormatter(ctx, config);
+  if (ctx instanceof ParametersContext) {
+    return new ParametersFormatter(ctx, config);
+  }
 };

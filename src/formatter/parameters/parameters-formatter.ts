@@ -21,9 +21,17 @@ export class ParametersFormatter extends Formatter {
       return openSymbol + closeSymbol;
     }
 
-    const parameters = this.ctx
-      .parameter()
-      .map((x) => getParameterFormatter(x, this.config).indent(this.indentCount));
+    let sortedParameters = [];
+    if (this.ctx.CLOSE_BRACE()) {
+      sortedParameters = this.ctx
+        .parameter()
+        .sort((a, b) => a._name.text.localeCompare(b._name.text));
+    } else {
+      sortedParameters = this.ctx.parameter();
+    }
+    const parameters = sortedParameters.map((x) =>
+      getParameterFormatter(x, this.config).indent(this.indentCount),
+    );
 
     let result = openSymbol + parameters.join(', ') + closeSymbol;
 

@@ -37,3 +37,12 @@ test('integers', () => {
     ]`,
   );
 });
+
+test('brace', () => {
+  const code = '{c, a, b}';
+  const ctx = parse(code).parameters();
+  const formatter = getParametersFormatter(ctx, defaultFormatterConfig) as ParametersFormatter;
+
+  expect(formatter).toBeInstanceOf(ParametersFormatter);
+  expect(formatter.toString()).toBe('{a, b, c}');
+});
