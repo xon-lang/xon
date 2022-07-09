@@ -26,14 +26,15 @@ statement
 expression
     : PREPROCESSOR                                                        # preprocessorExpression
     | '(' expression ')'                                                  # groupExpression
+    | expression genericArguments                                         # genericsExpression
+    | genericParameters? parameters LAMBDA expression                     # methodExpression
     | arguments                                                           # arrayExpression
     | expression QUESTION                                                 # nullableExpression
     | expression DOT name = ID?                                           # memberExpression
     | expression arguments                                                # invokeExpression
     | op = (OP | IMPORT) expression                                       # prefixExpression
     | left = expression op = (AS | IS | AND | OR | OP) right = expression # infixExpression
-    | name = ID genericArguments?                                         # idExpression
-    | genericArguments? parameters LAMBDA expression                      # methodExpression
+    | name = ID                                                           # idExpression
     | literal                                                             # literalExpression
     ;
 
