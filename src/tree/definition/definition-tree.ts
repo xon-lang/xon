@@ -25,6 +25,7 @@ export class DefinitionTree extends Tree {
   sourceRange: SourceRange;
   modifier: IdTree;
   name: IdTree;
+  generics: ParameterTree[];
   parameters: ParameterTree[];
   base?: ExpressionTree | None;
   body?: SourceTree;
@@ -36,6 +37,7 @@ export class DefinitionTree extends Tree {
     this.sourceRange = SourceRange.fromContext(ctx);
     this.modifier = getIdTree(ctx._modifier);
     this.name = getIdTree(ctx._name);
+    this.generics = getParameterTrees(ctx.genericParameters()?.parameter()) || none;
     this.parameters = getParameterTrees(ctx.parameters()?.parameter()) || none;
     this.base = getExpressionTree(ctx.expression()) || none;
 
@@ -57,7 +59,14 @@ export class DefinitionTree extends Tree {
         x instanceof DeclarationStatementTree ||
         (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree),
     );
-    this.addChildren(this.modifier, this.name, ...this.parameters, this.base, ...this.attributes);
+    this.addChildren(
+      this.modifier,
+      this.name,
+      ...this.generics,
+      ...this.parameters,
+      this.base,
+      ...this.attributes,
+    );
   }
 }
 

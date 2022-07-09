@@ -57,3 +57,22 @@ test('model animal with only attribute', () => {
   expect(attributes[0].name.text).toBe('abc');
   expect((attributes[0].type as IdExpressionTree).name.text).toBe('Integer');
 });
+
+test('model cat with generics', () => {
+  const code = 'model Cat<T: Number> is Animal<T, Integer>';
+  const tree = parseDefinition(code) as DefinitionTree;
+
+  expect(tree).toBeInstanceOf(DefinitionTree);
+  expect(tree.modifier.text).toBe('model');
+  expect(tree.name.text).toBe('Cat');
+  expect(tree.generics.length).toBe(1);
+  expect(tree.generics[0].name.text).toBe('T');
+  expect((tree.generics[0].type as IdExpressionTree).name.text).toBe('Number');
+  expect((tree.base as IdExpressionTree).name.text).toBe('Animal');
+  expect((tree.base as IdExpressionTree).generics.length).toBe(2);
+  expect(((tree.base as IdExpressionTree).generics[0] as IdExpressionTree).name.text).toBe('T');
+  expect(((tree.base as IdExpressionTree).generics[1] as IdExpressionTree).name.text).toBe(
+    'Integer',
+  );
+  expect(tree.attributes.length).toBe(0);
+});
