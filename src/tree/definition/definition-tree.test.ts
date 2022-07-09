@@ -1,5 +1,6 @@
 import { none } from '../../lib/core';
 import { parseDefinition } from '../../util/parse';
+import { GenericsExpressionTree } from '../expression/generics/generics-expression-tree';
 import { IdExpressionTree } from '../expression/id/id-expression-tree';
 import { ParameterTree } from '../parameter/parameter-tree';
 import { DeclarationStatementTree } from '../statement/declaration/declaration-statement-tree';
@@ -68,10 +69,14 @@ test('model cat with generics', () => {
   expect(tree.generics.length).toBe(1);
   expect(tree.generics[0].name.text).toBe('T');
   expect((tree.generics[0].type as IdExpressionTree).name.text).toBe('Number');
-  expect((tree.base as IdExpressionTree).name.text).toBe('Animal');
-  expect((tree.base as IdExpressionTree).generics.length).toBe(2);
-  expect(((tree.base as IdExpressionTree).generics[0] as IdExpressionTree).name.text).toBe('T');
-  expect(((tree.base as IdExpressionTree).generics[1] as IdExpressionTree).name.text).toBe(
+  expect(((tree.base as GenericsExpressionTree).expression as IdExpressionTree).name.text).toBe(
+    'Animal',
+  );
+  expect((tree.base as GenericsExpressionTree).generics.length).toBe(2);
+  expect(((tree.base as GenericsExpressionTree).generics[0] as IdExpressionTree).name.text).toBe(
+    'T',
+  );
+  expect(((tree.base as GenericsExpressionTree).generics[1] as IdExpressionTree).name.text).toBe(
     'Integer',
   );
   expect(tree.attributes.length).toBe(0);
