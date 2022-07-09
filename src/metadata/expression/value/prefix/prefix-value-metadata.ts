@@ -10,10 +10,12 @@ import { getValueMetadata } from '../value-metadata-helper';
 export class PrefixValueMetadata extends ValueMetadata {
   constructor(private tree: PrefixExpressionTree, private scope: DeclarationScope) {
     super();
+
     tree.value.metadata = getValueMetadata(tree.value, scope);
+    tree.name.metadata = this.operatorDeclaration();
   }
 
-  operatorDeclaration(): ParameterMetadata | None {
+  private operatorDeclaration(): ParameterMetadata | None {
     const declarations = this.scope.filter(this.tree.name.text, (x) => {
       if (!(x instanceof ParameterMetadata)) return false;
 
@@ -40,9 +42,8 @@ export class PrefixValueMetadata extends ValueMetadata {
   }
 
   type(): TypeMetadata | None {
-    const operatorDeclarationType = this.operatorDeclaration()?.type;
-    if (operatorDeclarationType instanceof MethodTypeMetadata) {
-      return operatorDeclarationType.resultType;
+    if (this.tree.name.metadata?.type instanceof MethodTypeMetadata) {
+      return this.tree.name.metadata.type.resultType;
     }
     return none;
   }

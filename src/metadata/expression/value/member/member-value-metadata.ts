@@ -9,16 +9,18 @@ export class MemberValueMetadata extends ValueMetadata {
   constructor(private tree: MemberExpressionTree, private scope: DeclarationScope) {
     super();
     tree.instance.metadata = getValueMetadata(tree.instance, scope);
+    if (tree.name) {
+      tree.name.metadata = this.memberDeclaration();
+    }
   }
 
-  type(): TypeMetadata | None {
-    const metadata = this.tree.instance.metadata;
-    if (metadata instanceof ValueMetadata) {
-      const instanceType = metadata.type();
+  private memberDeclaration() {
+    if (this.tree.instance.metadata instanceof ValueMetadata && this.tree.name) {
+      const instanceType = this.tree.instance.metadata.type();
       const attributesScope = instanceType.attributesScope();
       const declarations = attributesScope.filter(this.tree.name.text);
       if (declarations.length === 1) {
-        return declarations[0].type;
+        return declarations[0];
       }
       if (declarations.length > 0) {
         this.tree.name.addError('Too many declarations');
@@ -27,6 +29,10 @@ export class MemberValueMetadata extends ValueMetadata {
       }
     }
     return none;
+  }
+
+  type(): TypeMetadata | None {
+    return this.tree.name?.metadata?.type || none;
   }
 
   eval(): Any {

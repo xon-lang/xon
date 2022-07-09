@@ -12,9 +12,10 @@ export class InfixValueMetadata extends ValueMetadata {
     super();
     tree.left.metadata = getValueMetadata(tree.left, scope);
     tree.right.metadata = getValueMetadata(tree.right, scope);
+    tree.name.metadata = this.operatorDeclaration();
   }
 
-  operatorDeclaration(): ParameterMetadata | None {
+  private operatorDeclaration(): ParameterMetadata | None {
     const declarations = this.scope.filter(this.tree.name.text, (x) => {
       const leftMetadata = this.tree.left.metadata;
       const rightMetadata = this.tree.right.metadata;
@@ -47,9 +48,8 @@ export class InfixValueMetadata extends ValueMetadata {
   }
 
   type(): TypeMetadata | None {
-    const operatorDeclarationType = this.operatorDeclaration()?.type;
-    if (operatorDeclarationType instanceof MethodTypeMetadata) {
-      return operatorDeclarationType.resultType;
+    if (this.tree.name.metadata?.type instanceof MethodTypeMetadata) {
+      return this.tree.name.metadata.type.resultType;
     }
     return none;
   }

@@ -2,7 +2,7 @@ import { Any, none, None } from '../../../../lib/core';
 import { MethodExpressionTree } from '../../../../tree/expression/method/method-expression-tree';
 import {
   fillParameterMetadata,
-  getParameterMetadata,
+  getShadowParameterMetadata,
 } from '../../../declaration/parameter/parameter-metadata-helper';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { MethodTypeMetadata } from '../../type/method/method-type-metadata';
@@ -14,9 +14,14 @@ export class MethodValueMetadata extends ValueMetadata {
   constructor(private tree: MethodExpressionTree, private scope: DeclarationScope) {
     super();
     const innerScope = scope.create();
-    tree.parameters.forEach((x) => (x.metadata = getParameterMetadata(x, innerScope)));
-    tree.parameters.forEach((x) => innerScope.add(x.metadata));
-    tree.parameters.forEach((x) => fillParameterMetadata(x));
+    tree.parameters.forEach((x) => {
+      x.metadata = getShadowParameterMetadata(x, innerScope);
+      if (x.name) {
+        x.name.metadata = x.metadata;
+      }
+      innerScope.add(x.metadata);
+      fillParameterMetadata(x);
+    });
     tree.value.metadata = getValueMetadata(tree.value, innerScope);
   }
 

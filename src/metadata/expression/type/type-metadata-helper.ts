@@ -1,6 +1,6 @@
 import { Issue } from '../../../issue-service/issue';
 import { IssueLevel } from '../../../issue-service/issue-level';
-import { none } from '../../../lib/core';
+import { None, none } from '../../../lib/core';
 import { ArrayExpressionTree } from '../../../tree/expression/array/array-expression-tree';
 import { ExpressionTree } from '../../../tree/expression/expression-tree';
 import { GroupExpressionTree } from '../../../tree/expression/group/group-expression-tree';
@@ -16,7 +16,7 @@ import { DefinitionMetadata } from '../../declaration/definition/definition-meta
 import { ParameterMetadata } from '../../declaration/parameter/parameter-metadata';
 import {
   fillParameterMetadata,
-  getParameterMetadata,
+  getShadowParameterMetadata,
 } from '../../declaration/parameter/parameter-metadata-helper';
 import { DeclarationScope } from '../../declaration/scope/declaration-scope';
 import { getValueMetadata } from '../value/value-metadata-helper';
@@ -30,7 +30,10 @@ import { ParameterTypeMetadata } from './parameter/parameter-type-metadata';
 import { TypeMetadata } from './type-metadata';
 import { UnionTypeMetadata } from './union/union-type-metadata';
 
-export function getTypeMetadata(tree: ExpressionTree, scope: DeclarationScope): TypeMetadata {
+export function getTypeMetadata(
+  tree: ExpressionTree,
+  scope: DeclarationScope,
+): TypeMetadata | None {
   if (tree instanceof GroupExpressionTree) return getTypeMetadata(tree.expression, scope);
   if (tree instanceof LiteralExpressionTree) {
     let definition: DefinitionMetadata;
@@ -47,6 +50,7 @@ export function getTypeMetadata(tree: ExpressionTree, scope: DeclarationScope): 
   if (tree instanceof IdExpressionTree) {
     const declarations = scope.filter(tree.name.text);
     if (declarations.length === 1) {
+      tree.name.metadata = declarations[0];
       if (declarations[0] instanceof ParameterMetadata) {
         return new ParameterTypeMetadata(declarations[0]);
       }
@@ -58,6 +62,7 @@ export function getTypeMetadata(tree: ExpressionTree, scope: DeclarationScope): 
     } else {
       tree.name.addError('No declarations found');
     }
+    return none;
   }
   if (tree instanceof InfixExpressionTree) {
     const left = getTypeMetadata(tree.left, scope);
@@ -74,9 +79,14 @@ export function getTypeMetadata(tree: ExpressionTree, scope: DeclarationScope): 
 
   if (tree instanceof MethodExpressionTree) {
     const innerScope = scope.create();
-    tree.parameters.map((x) => (x.metadata = getParameterMetadata(x, innerScope)));
-    tree.parameters.forEach((x) => innerScope.add(x.metadata));
-    tree.parameters.forEach((x) => fillParameterMetadata(x));
+    tree.parameters.forEach((x) => {
+      x.metadata = getShadowParameterMetadata(x, innerScope);
+      if (x.name) {
+        x.name.metadata = x.metadata;
+      }
+      innerScope.add(x.metadata);
+      fillParameterMetadata(x);
+    });
     const result = getTypeMetadata(tree.value, innerScope);
     return new MethodTypeMetadata(
       tree.parameters.map((x) => x.metadata),
@@ -86,9 +96,13 @@ export function getTypeMetadata(tree: ExpressionTree, scope: DeclarationScope): 
 
   if (tree instanceof InvokeExpressionTree) {
     if (tree.hasBracket && tree.instance instanceof IdExpressionTree) {
-      const items = [];
       const commonType = getTypeMetadata(tree.instance, scope);
-      return new ArrayTypeMetadata(commonType, items);
+      if (commonType instanceof ParameterTypeMetadata) {
+        tree.instance.name.metadata = commonType.parameter;
+      } else if (commonType instanceof DefinitionTypeMetadata) {
+        tree.instance.name.metadata = commonType.definition;
+      }
+      return new ArrayTypeMetadata(commonType, []);
     }
   }
 
