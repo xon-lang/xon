@@ -2,7 +2,6 @@
 
 import { IdExpressionContext } from '../../../grammar/xon-parser';
 import { String } from '../../../lib/core';
-import { Metadata } from '../../../metadata/metadata';
 import { SourceRange } from '../../../util/source-range';
 import { IdTree } from '../../id/id-tree';
 import { getIdTree } from '../../id/id-tree-helper';

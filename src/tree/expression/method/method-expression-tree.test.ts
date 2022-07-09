@@ -1,5 +1,6 @@
 import { evaluate } from '../../../util/evaluate';
 import { parseExpression } from '../../../util/parse';
+import { IdExpressionTree } from '../id/id-expression-tree';
 import { InfixExpressionTree } from '../infix/infix-expression-tree';
 import { MethodExpressionTree } from './method-expression-tree';
 
@@ -8,6 +9,25 @@ test('has argument', () => {
   const tree = parseExpression(code) as MethodExpressionTree;
 
   expect(tree).toBeInstanceOf(MethodExpressionTree);
+  expect(tree.parameters.length).toBe(1);
+  expect(tree.parameters[0].name.text).toBe('x');
+  expect(
+    evaluate(tree.value, {
+      x: 37,
+    }),
+  ).toBe(37 + 42);
+});
+
+test('generics', () => {
+  const code = '<N,M ,K:String >[x] => x + 42';
+  const tree = parseExpression(code) as MethodExpressionTree;
+
+  expect(tree).toBeInstanceOf(MethodExpressionTree);
+  expect(tree.generics.length).toBe(3);
+  expect(tree.generics[0].name.text).toBe('N');
+  expect(tree.generics[1].name.text).toBe('M');
+  expect(tree.generics[2].name.text).toBe('K');
+  expect((tree.generics[2].type as IdExpressionTree).name.text).toBe('String');
   expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].name.text).toBe('x');
   expect(
