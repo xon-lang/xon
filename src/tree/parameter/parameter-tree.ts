@@ -20,6 +20,7 @@ export class ParameterTree extends Tree {
   name?: IdTree;
   destructure: ParameterTree[];
   isMethod: Boolean;
+  generics: ParameterTree[];
   params: ParameterTree[];
   type?: ExpressionTree | None;
   value?: ExpressionTree | None;
@@ -32,6 +33,7 @@ export class ParameterTree extends Tree {
     this.name = getIdTree(ctx._name);
     this.destructure = getParameterTrees(ctx._destructure?.parameter());
     this.isMethod = !!ctx._params;
+    this.generics = getParameterTrees(ctx.genericParameters()?.parameter());
     this.params = getParameterTrees(ctx._params?.parameter());
     this.type = getExpressionTree(ctx._type);
     this.value = getExpressionTree(ctx.valueBody()?.expression());
@@ -39,6 +41,7 @@ export class ParameterTree extends Tree {
     this.addChildren(
       this.name,
       ...this.destructure,
+      ...this.generics,
       ...this.params,
       this.type,
       this.value,

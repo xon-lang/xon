@@ -1,11 +1,8 @@
-import { none } from '../../lib/core';
 import { parseParameter } from '../../util/parse';
-import { DefinitionTree } from '../definition/definition-tree';
 import { IdExpressionTree } from '../expression/id/id-expression-tree';
 import { InvokeExpressionTree } from '../expression/invoke/invoke-expression-tree';
 import { MethodExpressionTree } from '../expression/method/method-expression-tree';
 import { IdTree } from '../id/id-tree';
-import { DeclarationStatementTree } from '../statement/declaration/declaration-statement-tree';
 import { ParameterTree } from './parameter-tree';
 
 test('id type', () => {
@@ -14,6 +11,22 @@ test('id type', () => {
 
   expect(tree).toBeInstanceOf(ParameterTree);
   expect(tree.name.text).toBe('abc');
+});
+
+test('generics with parameters', () => {
+  const code = `abc <N,M ,K:String > (): List<K>`;
+  const tree = parseParameter(code);
+
+  expect(tree).toBeInstanceOf(ParameterTree);
+  expect(tree.name.text).toBe('abc');
+  expect(tree.generics.length).toBe(3);
+  expect(tree.generics[0].name.text).toBe('N');
+  expect(tree.generics[1].name.text).toBe('M');
+  expect(tree.generics[2].name.text).toBe('K');
+  expect((tree.generics[2].type as IdExpressionTree).name.text).toBe('String');
+  expect((tree.type as IdExpressionTree).name.text).toBe('List');
+  expect((tree.type as IdExpressionTree).generics.length).toBe(1);
+  expect(((tree.type as IdExpressionTree).generics[0] as IdExpressionTree).name.text).toBe('K');
 });
 
 test('id lambda type', () => {
