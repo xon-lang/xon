@@ -9,7 +9,7 @@ source:     NL | NL? sourceItem* statement NL?;
 sourceItem: statement NL;
 
 statement
-    : value = LINE_COMMENT                                                  # commentStatement
+    : value = LINE_COMMENT                                                 # commentStatement
     | EXPORT path = expression                                             # exportStatement
     | FOR (value = parameter (',' index = parameter)? ID)? expression body # forStatement
     | WHILE expression body                                                # whileStatement
@@ -28,7 +28,7 @@ expression
     | '(' expression ')'                                                  # groupExpression
     | arguments                                                           # arrayExpression
     | expression QUESTION                                                 # nullableExpression
-    | expression DOT name = ID                                            # memberExpression
+    | expression DOT name = ID?                                           # memberExpression
     | expression arguments                                                # invokeExpression
     | op = (OP | IMPORT) expression                                       # prefixExpression
     | left = expression op = (AS | IS | AND | OR | OP) right = expression # infixExpression

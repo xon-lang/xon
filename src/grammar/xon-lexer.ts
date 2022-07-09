@@ -59,8 +59,8 @@ export class XonLexer extends XonLexerBase {
 	public static readonly LINE_COMMENT = 38;
 	public static readonly WS = 39;
 	public static readonly BLOCK_COMMENT = 40;
-	public static readonly UNEXPECTED = 41;
-	public static readonly LINE_JOINING = 42;
+	public static readonly LINE_JOINING = 41;
+	public static readonly UNEXPECTED = 42;
 	public static readonly ERROR = 2;
 	public static readonly WHITESPACE = 3;
 	public static readonly COMMENT_CHANNEL = 4;
@@ -81,7 +81,7 @@ export class XonLexer extends XonLexerBase {
 		"EXPORT", "FOR", "IF", "IMPORT", "RETURN", "WHILE", "AND", "AS", "IS", 
 		"OR", "ASSIGN", "COMMA", "COLON", "QUESTION", "DOT", "LAMBDA", "FLOAT_LITERAL", 
 		"INTEGER_LITERAL", "STRING_LITERAL", "PREPROCESSOR", "ID", "OP", "NL", 
-		"LINE_COMMENT", "WS", "BLOCK_COMMENT", "UNEXPECTED", "LINE_JOINING", "Radix", 
+		"LINE_COMMENT", "WS", "BLOCK_COMMENT", "LINE_JOINING", "UNEXPECTED", "Radix", 
 		"DigitNumber", "AlphabetNumber",
 	];
 
@@ -97,8 +97,8 @@ export class XonLexer extends XonLexerBase {
 		"DO", "ELSE", "EXPECT", "EXPORT", "FOR", "IF", "IMPORT", "RETURN", "WHILE", 
 		"AND", "AS", "IS", "OR", "ASSIGN", "COMMA", "COLON", "QUESTION", "DOT", 
 		"LAMBDA", "FLOAT_LITERAL", "INTEGER_LITERAL", "STRING_LITERAL", "PREPROCESSOR", 
-		"ID", "OP", "NL", "LINE_COMMENT", "WS", "BLOCK_COMMENT", "UNEXPECTED", 
-		"LINE_JOINING",
+		"ID", "OP", "NL", "LINE_COMMENT", "WS", "BLOCK_COMMENT", "LINE_JOINING", 
+		"UNEXPECTED",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(XonLexer._LITERAL_NAMES, XonLexer._SYMBOLIC_NAMES, []);
 
@@ -247,8 +247,8 @@ export class XonLexer extends XonLexerBase {
 		"\n$\r$\x0E$\u013E\x03$\x03$\x03%\x03%\x03%\x03%\x07%\u0147\n%\f%\x0E%" +
 		"\u014A\v%\x03&\x06&\u014D\n&\r&\x0E&\u014E\x03&\x03&\x03\'\x03\'\x03\'" +
 		"\x03\'\x03\'\x07\'\u0158\n\'\f\'\x0E\'\u015B\v\'\x03\'\x03\'\x03\'\x03" +
-		"\'\x03\'\x03(\x03(\x03(\x03(\x03)\x03)\x07)\u0168\n)\f)\x0E)\u016B\v)" +
-		"\x03)\x05)\u016E\n)\x03)\x03)\x05)\u0172\n)\x03)\x03)\x03*\x03*\x05*\u0178" +
+		"\'\x03\'\x03(\x03(\x07(\u0164\n(\f(\x0E(\u0167\v(\x03(\x05(\u016A\n(\x03" +
+		"(\x03(\x05(\u016E\n(\x03(\x03(\x03)\x03)\x03)\x03)\x03*\x03*\x05*\u0178" +
 		"\n*\x03*\x03*\x03+\x03+\x07+\u017E\n+\f+\x0E+\u0181\v+\x03,\x03,\x07," +
 		"\u0185\n,\f,\x0E,\u0188\v,\x05\u0112\u0119\u0159\x02\x02-\x03\x02\x05" +
 		"\x05\x02\x06\x07\x02\x07\t\x02\b\v\x02\t\r\x02\n\x0F\x02\v\x11\x02\f\x13" +
@@ -283,7 +283,7 @@ export class XonLexer extends XonLexerBase {
 		"\x03\x02\x02\x02?\xFF\x03\x02\x02\x02A\u010A\x03\x02\x02\x02C\u011E\x03" +
 		"\x02\x02\x02E\u0133\x03\x02\x02\x02G\u013C\x03\x02\x02\x02I\u0142\x03" +
 		"\x02\x02\x02K\u014C\x03\x02\x02\x02M\u0152\x03\x02\x02\x02O\u0161\x03" +
-		"\x02\x02\x02Q\u0165\x03\x02\x02\x02S\u0175\x03\x02\x02\x02U\u017B\x03" +
+		"\x02\x02\x02Q\u0171\x03\x02\x02\x02S\u0175\x03\x02\x02\x02U\u017B\x03" +
 		"\x02\x02\x02W\u0182\x03\x02\x02\x02YZ\x07]\x02\x02Z[\b\x02\x02\x02[\x04" +
 		"\x03\x02\x02\x02\\]\x07_\x02\x02]^\b\x03\x03\x02^\x06\x03\x02\x02\x02" +
 		"_`\x07*\x02\x02`a\b\x04\x04\x02a\b\x03\x02\x02\x02bc\x07+\x02\x02cd\b" +
@@ -379,17 +379,17 @@ export class XonLexer extends XonLexerBase {
 		"\x02\x02\x02\u0158\u015B\x03\x02\x02\x02\u0159\u015A\x03\x02\x02\x02\u0159" +
 		"\u0157\x03\x02\x02\x02\u015A\u015C\x03\x02\x02\x02\u015B\u0159\x03\x02" +
 		"\x02\x02\u015C\u015D\x07,\x02\x02\u015D\u015E\x071\x02\x02\u015E\u015F" +
-		"\x03\x02\x02\x02\u015F\u0160\b\'\n\x02\u0160N\x03\x02\x02\x02\u0161\u0162" +
-		"\v\x02\x02\x02\u0162\u0163\x03\x02\x02\x02\u0163\u0164\b(\v\x02\u0164" +
-		"P\x03\x02\x02\x02\u0165\u0169\x07^\x02\x02\u0166\u0168\t\b\x02\x02\u0167" +
-		"\u0166\x03\x02\x02\x02\u0168\u016B\x03\x02\x02\x02\u0169\u0167\x03\x02" +
-		"\x02\x02\u0169\u016A\x03\x02\x02\x02\u016A\u0171\x03\x02\x02\x02\u016B" +
-		"\u0169\x03\x02\x02\x02\u016C\u016E\x07\x0F\x02\x02\u016D\u016C\x03\x02" +
-		"\x02\x02\u016D\u016E\x03\x02\x02\x02\u016E\u016F\x03\x02\x02\x02\u016F" +
-		"\u0172\x07\f\x02\x02\u0170\u0172\x04\x0E\x0F\x02\u0171\u016D\x03\x02\x02" +
-		"\x02\u0171\u0170\x03\x02\x02\x02\u0172\u0173\x03\x02\x02\x02\u0173\u0174" +
-		"\b)\f\x02\u0174R\x03\x02\x02\x02\u0175\u0177\t\t\x02\x02\u0176\u0178\t" +
-		"\t\x02\x02\u0177\u0176\x03\x02\x02\x02\u0177\u0178\x03\x02\x02\x02\u0178" +
+		"\x03\x02\x02\x02\u015F\u0160\b\'\n\x02\u0160N\x03\x02\x02\x02\u0161\u0165" +
+		"\x07^\x02\x02\u0162\u0164\t\b\x02\x02\u0163\u0162\x03\x02\x02\x02\u0164" +
+		"\u0167\x03\x02\x02\x02\u0165\u0163\x03\x02\x02\x02\u0165\u0166\x03\x02" +
+		"\x02\x02\u0166\u016D\x03\x02\x02\x02\u0167\u0165\x03\x02\x02\x02\u0168" +
+		"\u016A\x07\x0F\x02\x02\u0169\u0168\x03\x02\x02\x02\u0169\u016A\x03\x02" +
+		"\x02\x02\u016A\u016B\x03\x02\x02\x02\u016B\u016E\x07\f\x02\x02\u016C\u016E" +
+		"\x04\x0E\x0F\x02\u016D\u0169\x03\x02\x02\x02\u016D\u016C\x03\x02\x02\x02" +
+		"\u016E\u016F\x03\x02\x02\x02\u016F\u0170\b(\v\x02\u0170P\x03\x02\x02\x02" +
+		"\u0171\u0172\v\x02\x02\x02\u0172\u0173\x03\x02\x02\x02\u0173\u0174\b)" +
+		"\f\x02\u0174R\x03\x02\x02\x02\u0175\u0177\t\t\x02\x02\u0176\u0178\t\t" +
+		"\x02\x02\u0177\u0176\x03\x02\x02\x02\u0177\u0178\x03\x02\x02\x02\u0178" +
 		"\u0179\x03\x02\x02\x02\u0179\u017A\t\n\x02\x02\u017AT\x03\x02\x02\x02" +
 		"\u017B\u017F\t\t\x02\x02\u017C\u017E\t\v\x02\x02\u017D\u017C\x03\x02\x02" +
 		"\x02\u017E\u0181\x03\x02\x02\x02\u017F\u017D\x03\x02\x02\x02\u017F\u0180" +
@@ -398,10 +398,10 @@ export class XonLexer extends XonLexerBase {
 		"\u0185\u0188\x03\x02\x02\x02\u0186\u0184\x03\x02\x02\x02\u0186\u0187\x03" +
 		"\x02\x02\x02\u0187X\x03\x02\x02\x02\u0188\u0186\x03\x02\x02\x02$\x02\xC7" +
 		"\xC9\xD0\xD2\xD8\xDA\xDF\xE1\xE9\xEB\xF7\xFD\u0103\u0105\u0112\u0117\u0119" +
-		"\u0122\u0133\u0139\u013E\u0148\u014E\u0157\u0159\u0169\u016D\u0171\u0177" +
+		"\u0122\u0133\u0139\u013E\u0148\u014E\u0157\u0159\u0165\u0169\u016D\u0177" +
 		"\u017D\u017F\u0184\u0186\r\x03\x02\x02\x03\x03\x03\x03\x04\x04\x03\x05" +
-		"\x05\x03\x06\x06\x03\x07\x07\x03$\b\x02\x05\x02\x02\x06\x02\x02\x04\x02" +
-		"\b\x02\x02";
+		"\x05\x03\x06\x06\x03\x07\x07\x03$\b\x02\x05\x02\x02\x06\x02\b\x02\x02" +
+		"\x02\x04\x02";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!XonLexer.__ATN) {
