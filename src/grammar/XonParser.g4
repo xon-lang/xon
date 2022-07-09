@@ -32,8 +32,8 @@ expression
     | expression arguments                                                # invokeExpression
     | op = (OP | IMPORT) expression                                       # prefixExpression
     | left = expression op = (AS | IS | AND | OR | OP) right = expression # infixExpression
-    | name = ID                                                           # idExpression
-    | parameters LAMBDA expression                                        # methodExpression
+    | name = ID genericArguments?                                         # idExpression
+    | genericArguments? parameters LAMBDA expression                      # methodExpression
     | literal                                                             # literalExpression
     ;
 
@@ -43,13 +43,15 @@ literal
     | STRING_LITERAL  # stringLiteral
     ;
 
-definition: modifier = ID name = ID parameters? (IS expression)? body?;
+definition: modifier = ID name = ID genericParameters? parameters? (IS expression)? body?;
 parameter
     : destructure = parameters (COLON type = expression?)? valueBody?
-    | name = (ID | OP) params = parameters? (COLON type = expression?)? valueBody?
+    | name = (ID | OP) genericParameters? params = parameters? (COLON type = expression?)? valueBody?
     ;
-valueBody:  ASSIGN value = expression | body;
-parameters: open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = ('}' | ']' | ')');
+valueBody:         ASSIGN value = expression | body;
+parameters:        open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = ('}' | ']' | ')');
+genericParameters: LESS (parameter (',' parameter)* ','?)? GREAT;
+genericArguments:  LESS (expression (',' expression)* ','?)? GREAT;
 
 argument:  (name = ID ASSIGN)? expression;
 arguments: open = ('(' | '[' | '{') (argument (',' argument)* ','?)? close = ('}' | ']' | ')');

@@ -58,8 +58,10 @@ STRING_LITERAL:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 
 PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
 
-ID: [_a-zA-Z] [_a-zA-Z0-9]*;
-OP: [!+-^*%] | '..' | '...' | '<=' | '>=' | '==' | '!=';
+ID:    [_a-zA-Z] [_a-zA-Z0-9]*;
+LESS:  '<';
+GREAT: '>';
+OP:    [!+-^*%] | '..' | '...' | '<=' | '>=' | '==' | '!=' | LESS | GREAT;
 
 NL:           ([\r\n] WS*)+ {this.handleLineBreak()};
 LINE_COMMENT: '--' ~[\r\n]*;
