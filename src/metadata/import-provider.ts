@@ -10,18 +10,28 @@ import { getSourceMetadata } from './source/source-metadata-helper';
 export class ImportProvider {
   fullPath: String;
 
+  cache: Map<String, DeclarationScope> = new Map();
+
   constructor(private importPath: string) {
     this.fullPath = resolvePath(this.importPath);
   }
 
   isValid() {
-    const stats = lstatSync(this.fullPath);
-    return stats.isDirectory();
+    try {
+      const stats = lstatSync(this.fullPath);
+      return stats.isDirectory();
+    } catch (error) {
+      return false;
+    }
   }
 
   scope(): DeclarationScope {
     if (!this.isValid()) {
       throw new Error('Should be a directory');
+    }
+
+    if (this.cache.has(this.fullPath)) {
+      return this.cache.get(this.fullPath);
     }
 
     const globPath = path.resolve(this.fullPath, '*.xon');
@@ -32,6 +42,7 @@ export class ImportProvider {
     for (const tree of sources) {
       tree.metadata = getSourceMetadata(tree, scope, true);
     }
+    this.cache.set(this.fullPath, scope);
 
     for (const tree of sources) {
       tree.metadata = getSourceMetadata(tree, scope, false);
