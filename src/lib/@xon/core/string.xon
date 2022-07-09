@@ -1,5 +1,7 @@
-model String --Char[]
-
+model String
+  someProp: Number
+  someProp2: Number
+  someProp3: Number
 
   -- + [other String] String
   -- + [other Char] String

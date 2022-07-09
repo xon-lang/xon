@@ -1,4 +1,4 @@
--- {none} := import '/Users/nizami/work/xon/core/src/lib'
+{!, !=, Any, Array, none, None} := import '/Users/nizami/work/xon/core/src/lib/@xon/core'
 
 -- getBodyTree()
 --   return none
