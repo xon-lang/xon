@@ -10,7 +10,7 @@ import { Tree } from '../tree';
 
 export class SourceTree extends Tree {
   metadata: SourceMetadata;
-  ctx?: SourceContext | None;
+  ctx: SourceContext | None;
   sourceRange: SourceRange;
   statements: StatementTree[] = [];
 

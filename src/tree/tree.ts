@@ -1,9 +1,11 @@
+import { ParserRuleContext } from 'antlr4ts';
 import { Issue } from '../issue-service/issue';
 import { IssueLevel } from '../issue-service/issue-level';
 import { None, String } from '../lib/core';
 import { SourceRange } from '../util/source-range';
 
 export class Tree {
+  ctx: ParserRuleContext;
   sourceRange: SourceRange;
   parent?: Tree | None;
   children: Tree[] = [];
