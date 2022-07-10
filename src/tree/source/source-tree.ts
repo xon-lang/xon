@@ -5,7 +5,7 @@ import { None } from '../../lib/core';
 import { SourceMetadata } from '../../metadata/source/source-metadata';
 import { SourceRange } from '../../util/source-range';
 import { StatementTree } from '../statement/statement-tree';
-import { getStatementTree, getStatementTrees } from '../statement/statement-tree-helper';
+import { getStatementTrees } from '../statement/statement-tree-helper';
 import { Tree } from '../tree';
 
 export class SourceTree extends Tree {
@@ -21,10 +21,7 @@ export class SourceTree extends Tree {
     }
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
-    this.statements = [
-      ...getStatementTrees(ctx.sourceItem().map((x) => x.statement())),
-      getStatementTree(ctx.statement()),
-    ];
+    this.statements = getStatementTrees(ctx.statement());
     this.addChildren(...this.statements);
   }
 }

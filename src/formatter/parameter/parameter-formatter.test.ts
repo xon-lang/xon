@@ -40,3 +40,21 @@ test('params with no result type', () => {
   expect(formatter).toBeInstanceOf(ParameterFormatter);
   expect(formatter.toString()).toBe('a(b: Number) := 123');
 });
+
+test('has type', () => {
+  const code = 'object Integer (a,b,c): Number\n  abc';
+  const ctx = parse(code).parameter();
+  const formatter = getParameterFormatter(ctx, defaultFormatterConfig);
+
+  expect(formatter).toBeInstanceOf(ParameterFormatter);
+  expect(formatter.toString()).toBe('object Integer(a, b, c): Number\n  abc');
+});
+
+test('has no type and no attributes', () => {
+  const code = 'object Integer (a,b,c)';
+  const ctx = parse(code).parameter();
+  const formatter = getParameterFormatter(ctx, defaultFormatterConfig);
+
+  expect(formatter).toBeInstanceOf(ParameterFormatter);
+  expect(formatter.toString()).toBe('object Integer(a, b, c)');
+});
