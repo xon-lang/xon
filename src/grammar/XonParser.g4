@@ -20,7 +20,7 @@ statement
     | RETURN expression?                                                   # returnStatement
     | ACTUAL actual = expression NL* EXPECT expect = expression            # assertStatement
     | expression                                                           # expressionStatement
-    | ( parameter)                                                         # declarationStatement
+    | parameter                                                            # declarationStatement
     ;
 
 expression
