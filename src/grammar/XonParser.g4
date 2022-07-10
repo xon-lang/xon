@@ -20,7 +20,7 @@ statement
     | RETURN expression?                                                   # returnStatement
     | ACTUAL actual = expression NL* EXPECT expect = expression            # assertStatement
     | expression                                                           # expressionStatement
-    | (definition | parameter)                                             # declarationStatement
+    | ( parameter)                                                         # declarationStatement
     ;
 
 expression
@@ -44,10 +44,9 @@ literal
     | STRING_LITERAL  # stringLiteral
     ;
 
-definition: modifier = ID name = ID genericParameters? parameters? valueType? valueBody?;
 parameter
     : destructure = parameters valueType? valueBody?
-    | name = (ID | OP | LESS | GREAT) genericParameters? params = parameters? valueType? valueBody?
+    | modifier = ID? name = (ID | OP | LESS | GREAT) genericParameters? params = parameters? valueType? valueBody?
     ;
 valueBody: ASSIGN value = expression? | body;
 valueType: COLON type = expression?;
