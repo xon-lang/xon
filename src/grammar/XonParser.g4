@@ -32,9 +32,9 @@ expression
     | expression DOT name = ID?                                                          # memberExpression
     | expression arguments                                                               # invokeExpression
     | left = expression op = (AS | IS | AND | OR | OP | LESS | GREAT) right = expression # infixExpression
-    | genericParameters parameters LAMBDA expression                                     # methodExpression
+    | genericParameters parameters valueType? LAMBDA expression                          # methodExpression
     | op = (OP | LESS | GREAT | IMPORT) expression                                       # prefixExpression
-    | parameters LAMBDA expression                                                       # methodExpression
+    | parameters valueType? LAMBDA expression                                            # methodExpression
     | name = ID                                                                          # idExpression
     | literal                                                                            # literalExpression
     ;
@@ -47,12 +47,12 @@ literal
 
 definition: modifier = ID name = ID genericParameters? parameters? (IS expression)? body?;
 parameter
-    : destructure = parameters (COLON type = expression?)? valueBody?
-    | name = (ID | OP | LESS | GREAT) genericParameters? params = parameters? (
-        COLON type = expression?
-    )? valueBody?
+    : destructure = parameters valueType? valueBody?
+    | name = (ID | OP | LESS | GREAT) genericParameters? params = parameters? valueType? valueBody?
     ;
-valueBody:         ASSIGN value = expression | body;
+valueBody: ASSIGN value = expression | body;
+valueType: COLON type = expression?;
+
 parameters:        open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = ('}' | ']' | ')');
 genericParameters: LESS (parameter (',' parameter)* ','?)? GREAT;
 genericArguments:  LESS (expression (',' expression)* ','?)? GREAT;
