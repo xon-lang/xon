@@ -49,7 +49,7 @@ parameter
     : destructure = parameters valueType? valueBody?
     | name = (ID | OP | LESS | GREAT) genericParameters? params = parameters? valueType? valueBody?
     ;
-valueBody: ASSIGN value = expression | body;
+valueBody: ASSIGN value = expression? | body;
 valueType: COLON type = expression?;
 
 parameters:        open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = ('}' | ']' | ')');
