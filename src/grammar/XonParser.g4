@@ -20,7 +20,7 @@ statement
     | RETURN expression?                                                   # returnStatement
     | ACTUAL actual = expression NL* EXPECT expect = expression            # assertStatement
     | expression                                                           # expressionStatement
-    | ( definition | parameter)                                            # declarationStatement
+    | (definition | parameter)                                             # declarationStatement
     ;
 
 expression
@@ -33,8 +33,8 @@ expression
     | expression arguments                                                               # invokeExpression
     | left = expression op = (AS | IS | AND | OR | OP | LESS | GREAT) right = expression # infixExpression
     | genericParameters parameters valueType? LAMBDA expression                          # methodExpression
+    | genericParameters? parameters valueType? LAMBDA expression                          # methodExpression
     | op = (OP | LESS | GREAT | IMPORT) expression                                       # prefixExpression
-    | parameters valueType? LAMBDA expression                                            # methodExpression
     | name = ID                                                                          # idExpression
     | literal                                                                            # literalExpression
     ;
