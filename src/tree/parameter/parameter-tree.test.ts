@@ -1,4 +1,5 @@
 import { parseParameter } from '../../util/parse';
+import { GenericsExpressionTree } from '../expression/generics/generics-expression-tree';
 import { IdExpressionTree } from '../expression/id/id-expression-tree';
 import { InvokeExpressionTree } from '../expression/invoke/invoke-expression-tree';
 import { MethodExpressionTree } from '../expression/method/method-expression-tree';
@@ -24,9 +25,13 @@ test('generics with parameters', () => {
   expect(tree.generics[1].name.text).toBe('M');
   expect(tree.generics[2].name.text).toBe('K');
   expect((tree.generics[2].type as IdExpressionTree).name.text).toBe('String');
-  expect((tree.type as IdExpressionTree).name.text).toBe('List');
-  expect((tree.type as IdExpressionTree).generics.length).toBe(1);
-  expect(((tree.type as IdExpressionTree).generics[0] as IdExpressionTree).name.text).toBe('K');
+  expect(((tree.type as GenericsExpressionTree).expression as IdExpressionTree).name.text).toBe(
+    'List',
+  );
+  expect((tree.type as GenericsExpressionTree).generics.length).toBe(1);
+  expect(((tree.type as GenericsExpressionTree).generics[0] as IdExpressionTree).name.text).toBe(
+    'K',
+  );
 });
 
 test('id lambda type', () => {
