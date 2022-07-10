@@ -18,7 +18,7 @@ test('model animal', () => {
 });
 
 test('object with parameters', () => {
-  const code = 'object Cat(name: String) is Animal';
+  const code = 'object Cat(name: String) : Animal';
   const tree = parseDefinition(code) as DefinitionTree;
 
   expect(tree).toBeInstanceOf(DefinitionTree);
@@ -32,7 +32,7 @@ test('object with parameters', () => {
 });
 
 test('model cat', () => {
-  const code = 'model Cat is Animal';
+  const code = 'model Cat: Animal';
   const tree = parseDefinition(code) as DefinitionTree;
 
   expect(tree).toBeInstanceOf(DefinitionTree);
@@ -60,7 +60,7 @@ test('model animal with only attribute', () => {
 });
 
 test('model cat with generics', () => {
-  const code = 'model Cat<T: Number> is Animal<T, Integer>';
+  const code = 'model Cat<T: Number>: Animal<T, Integer>';
   const tree = parseDefinition(code) as DefinitionTree;
 
   expect(tree).toBeInstanceOf(DefinitionTree);

@@ -1,9 +1,9 @@
 model Number
 
-model Integer is Number
+model Integer : Number
   test: String
 
-model Float is Number
+model Float : Number
   test: String
   test2: String
 

@@ -2,7 +2,7 @@
 
 import { DefinitionContext } from '../../grammar/xon-parser';
 import { IssueLevel } from '../../issue-service/issue-level';
-import { none, None } from '../../lib/core';
+import { None } from '../../lib/core';
 import { DefinitionMetadata } from '../../metadata/declaration/definition/definition-metadata';
 import { SourceRange } from '../../util/source-range';
 import { ExpressionTree } from '../expression/expression-tree';
@@ -37,9 +37,9 @@ export class DefinitionTree extends Tree {
     this.sourceRange = SourceRange.fromContext(ctx);
     this.modifier = getIdTree(ctx._modifier);
     this.name = getIdTree(ctx._name);
-    this.generics = getParameterTrees(ctx.genericParameters()?.parameter()) || none;
-    this.parameters = getParameterTrees(ctx.parameters()?.parameter()) || none;
-    this.base = getExpressionTree(ctx.expression()) || none;
+    this.generics = getParameterTrees(ctx.genericParameters()?.parameter());
+    this.parameters = getParameterTrees(ctx.parameters()?.parameter());
+    this.base = getExpressionTree(ctx.valueType()?.expression());
 
     this.body = getSourceTree(ctx.valueBody()?.body()?.source());
     const statements = this.body?.statements || [];

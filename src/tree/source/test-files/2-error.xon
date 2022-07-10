@@ -1,6 +1,6 @@
 model Boolean
 
-object false is Boolean
+object false : Boolean
 
-object true is Boolean
+object true : Boolean
   123 Number

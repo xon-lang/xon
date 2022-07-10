@@ -3,7 +3,9 @@ import { None, none } from '../../lib/core';
 import { ParameterTree } from './parameter-tree';
 
 export const getParameterTree = (ctx: ParameterContext): ParameterTree | None => {
-  if (!ctx) return none;
+  if (!ctx) {
+    return none;
+  }
   return new ParameterTree(ctx);
 };
 

@@ -44,7 +44,7 @@ literal
     | STRING_LITERAL  # stringLiteral
     ;
 
-definition: modifier = ID name = ID genericParameters? parameters? (IS expression)? valueBody?;
+definition: modifier = ID name = ID genericParameters? parameters? valueType? valueBody?;
 parameter
     : destructure = parameters valueType? valueBody?
     | name = (ID | OP | LESS | GREAT) genericParameters? params = parameters? valueType? valueBody?
