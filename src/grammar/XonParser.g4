@@ -32,9 +32,8 @@ expression
     | expression DOT name = ID?                                                          # memberExpression
     | expression arguments                                                               # invokeExpression
     | left = expression op = (AS | IS | AND | OR | OP | LESS | GREAT) right = expression # infixExpression
-    | genericParameters parameters valueType? LAMBDA expression                          # methodExpression
-    | genericParameters? parameters valueType? LAMBDA expression                          # methodExpression
-    | op = (OP | LESS | GREAT | IMPORT) expression                                       # prefixExpression
+    | genericParameters? parameters valueType? LAMBDA expression                         # methodExpression
+    | op = (OP | IMPORT) expression                                                      # prefixExpression
     | name = ID                                                                          # idExpression
     | literal                                                                            # literalExpression
     ;

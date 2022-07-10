@@ -25,20 +25,20 @@ test('double not', () => {
   expect(tree).toBeInstanceOf(PrefixExpressionTree);
 });
 
-test('less operator', () => {
-  const code = '<123';
-  const tree = parseExpression(code) as PrefixExpressionTree;
+// test('less operator', () => {
+//   const code = '<123';
+//   const tree = parseExpression(code) as PrefixExpressionTree;
 
-  expect(tree).toBeInstanceOf(PrefixExpressionTree);
-  expect(tree.name.text).toBe('<');
-  expect((tree.value as LiteralExpressionTree).literal.value).toBe(123);
-});
+//   expect(tree).toBeInstanceOf(PrefixExpressionTree);
+//   expect(tree.name.text).toBe('<');
+//   expect((tree.value as LiteralExpressionTree).literal.value).toBe(123);
+// });
 
-test('great operator', () => {
-  const code = '>123';
-  const tree = parseExpression(code) as PrefixExpressionTree;
+// test('great operator', () => {
+//   const code = '>123';
+//   const tree = parseExpression(code) as PrefixExpressionTree;
 
-  expect(tree).toBeInstanceOf(PrefixExpressionTree);
-  expect(tree.name.text).toBe('>');
-  expect((tree.value as LiteralExpressionTree).literal.value).toBe(123);
-});
+//   expect(tree).toBeInstanceOf(PrefixExpressionTree);
+//   expect(tree.name.text).toBe('>');
+//   expect((tree.value as LiteralExpressionTree).literal.value).toBe(123);
+// });
