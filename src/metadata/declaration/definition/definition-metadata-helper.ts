@@ -1,4 +1,3 @@
-import { DefinitionTree } from '../../../tree/definition/definition-tree';
 import { IdExpressionTree } from '../../../tree/expression/id/id-expression-tree';
 import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { DeclarationStatementTree } from '../../../tree/statement/declaration/declaration-statement-tree';
@@ -12,7 +11,7 @@ import { DeclarationScope } from '../scope/declaration-scope';
 import { DefinitionMetadata } from './definition-metadata';
 
 export function getShadowDefinitionMetadata(
-  tree: DefinitionTree,
+  tree: ParameterTree,
   scope: DeclarationScope,
 ): DefinitionMetadata {
   const metadata = new DefinitionMetadata(tree, scope);
@@ -20,8 +19,8 @@ export function getShadowDefinitionMetadata(
 
   for (const parameter of tree.parameters) {
     parameter.metadata = getShadowParameterMetadata(parameter, innerScope);
-    if(parameter.name){
-      parameter.name.metadata = parameter.metadata
+    if (parameter.name) {
+      parameter.name.metadata = parameter.metadata;
     }
     innerScope.add(parameter.metadata);
   }
@@ -37,24 +36,26 @@ export function getShadowDefinitionMetadata(
   return metadata;
 }
 
-export function fillDefinitionMetadata(tree: DefinitionTree) {
+export function fillDefinitionMetadata(tree: ParameterTree) {
   for (const parameter of tree.parameters) {
     fillParameterMetadata(parameter);
   }
 
   // todo fix base type should be TypeMetadata
-  if (tree.base instanceof IdExpressionTree) {
-    const declarations = tree.metadata.scope.filter(tree.base.name.text);
+  if (tree.type instanceof IdExpressionTree) {
+    const declarations = tree.metadata.scope.filter(tree.type.name.text);
     if (declarations.length === 1) {
-      tree.base.metadata = declarations[0];
-      tree.metadata.base = declarations[0] as DefinitionMetadata;
+      tree.type.metadata = declarations[0];
+      if (tree.metadata instanceof DefinitionMetadata) {
+        tree.metadata.base = declarations[0] as DefinitionMetadata;
+      }
     } else if (declarations.length > 0) {
-      tree.base.addError('Too many declarations');
+      tree.type.addError('Too many declarations');
     } else {
-      tree.base.addError('No declarations found');
+      tree.type.addError('No declarations found');
     }
-  } else if (tree.base) {
-    tree.base.addError('Base class should be an IdExpression');
+  } else if (tree.type) {
+    tree.type.addError('Base class should be an IdExpression');
   }
 
   for (const parameter of tree.body?.statements

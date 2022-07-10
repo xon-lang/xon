@@ -1,5 +1,4 @@
 import { Boolean } from '../../lib/core';
-import { DefinitionTree } from '../../tree/definition/definition-tree';
 import { IdExpressionTree } from '../../tree/expression/id/id-expression-tree';
 import { ParameterTree } from '../../tree/parameter/parameter-tree';
 import { SourceTree } from '../../tree/source/source-tree';
@@ -28,7 +27,7 @@ export class SourceMetadata {
         continue;
       }
 
-      if (statement.declaration instanceof DefinitionTree) {
+      if (statement.declaration instanceof ParameterTree && statement.declaration.modifier) {
         statement.declaration.metadata = getShadowDefinitionMetadata(
           statement.declaration,
           this.scope.create(),

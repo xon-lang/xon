@@ -25,14 +25,14 @@ export function getShadowParameterMetadata(
       scope.add(parameter.metadata);
     }
   } else {
-    for (const parameter of tree.params) {
+    for (const parameter of tree.parameters) {
       parameter.metadata = getShadowParameterMetadata(parameter, innerScope);
       if (parameter.name) {
         parameter.name.metadata = parameter.metadata;
       }
       innerScope.add(parameter.metadata);
     }
-    metadata.parameters = tree.params.map((x) => x.metadata);
+    metadata.parameters = tree.parameters.map((x) => x.metadata as ParameterMetadata);
   }
 
   if (tree.body) {
@@ -43,9 +43,9 @@ export function getShadowParameterMetadata(
 }
 
 export function fillParameterMetadata(tree: ParameterTree, alternativeType?: TypeMetadata) {
-  tree.params.forEach((x) => fillParameterMetadata(x));
+  tree.parameters.forEach((x) => fillParameterMetadata(x));
 
-  if (tree.value) {
+  if (tree.value && tree.metadata instanceof ParameterMetadata) {
     tree.metadata.value = getValueMetadata(tree.value, tree.metadata.scope);
     tree.value.metadata = tree.metadata.value;
   }
@@ -55,15 +55,15 @@ export function fillParameterMetadata(tree: ParameterTree, alternativeType?: Typ
     tree.type.metadata = tree.metadata.type;
   } else if (alternativeType) {
     tree.metadata.type = alternativeType;
-  } else if (tree.value) {
+  } else if (tree.value && tree.metadata instanceof ParameterMetadata) {
     tree.metadata.type = tree.metadata.value.type();
   } else {
     tree.metadata.type = tree.metadata.scope.core.any.type;
   }
 
-  if (tree.isMethod) {
+  if (tree.hasParameters) {
     tree.metadata.type = new MethodTypeMetadata(
-      tree.params.map((x) => x.metadata),
+      tree.parameters.map((x) => x.metadata as ParameterMetadata),
       tree.metadata.type,
     );
   }

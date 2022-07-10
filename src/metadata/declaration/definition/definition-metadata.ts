@@ -1,5 +1,5 @@
 import { Boolean, None, String } from '../../../lib/core';
-import { DefinitionTree } from '../../../tree/definition/definition-tree';
+import { ParameterTree } from '../../../tree/parameter/parameter-tree';
 import { SourceRange } from '../../../util/source-range';
 import { DefinitionTypeMetadata } from '../../expression/type/definition/definition-type-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
@@ -20,7 +20,7 @@ export class DefinitionMetadata extends DeclarationMetadata {
 
   private _attributesScope: DeclarationScope;
 
-  constructor(public tree: DefinitionTree, public scope: DeclarationScope) {
+  constructor(public tree: ParameterTree, public scope: DeclarationScope) {
     super();
 
     this.modifier = tree.modifier.text;

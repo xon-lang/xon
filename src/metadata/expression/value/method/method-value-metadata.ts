@@ -1,5 +1,6 @@
 import { Any, none, None } from '../../../../lib/core';
 import { MethodExpressionTree } from '../../../../tree/expression/method/method-expression-tree';
+import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
 import {
   fillParameterMetadata,
   getShadowParameterMetadata,
@@ -32,7 +33,7 @@ export class MethodValueMetadata extends ValueMetadata {
     }
 
     return new MethodTypeMetadata(
-      this.tree.parameters.map((x) => x.metadata),
+      this.tree.parameters.map((x) => x.metadata as ParameterMetadata),
       this.tree.value.metadata.type(),
     );
   }

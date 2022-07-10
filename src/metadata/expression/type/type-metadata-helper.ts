@@ -89,7 +89,7 @@ export function getTypeMetadata(
     });
     const result = getTypeMetadata(tree.value, innerScope);
     return new MethodTypeMetadata(
-      tree.parameters.map((x) => x.metadata),
+      tree.parameters.map((x) => x.metadata as ParameterMetadata),
       result,
     );
   }
