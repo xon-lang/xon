@@ -16,6 +16,7 @@ export class MethodExpressionTree extends ExpressionTree {
   generics: ParameterTree[] = [];
   parameters: ParameterTree[] = [];
   value: ExpressionTree;
+  type: ExpressionTree;
 
   constructor(ctx: MethodExpressionContext) {
     super();
@@ -25,6 +26,7 @@ export class MethodExpressionTree extends ExpressionTree {
     this.hasParen = !!ctx.parameters().OPEN_PAREN();
     this.generics = getParameterTrees(ctx.genericParameters()?.parameter());
     this.parameters = [] = getParameterTrees(ctx.parameters().parameter());
+    this.type = getExpressionTree(ctx.valueType().expression());
     this.value = getExpressionTree(ctx.expression());
     this.addChildren(...this.parameters, this.value);
   }

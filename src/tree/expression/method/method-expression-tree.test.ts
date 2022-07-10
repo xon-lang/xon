@@ -5,12 +5,13 @@ import { InfixExpressionTree } from '../infix/infix-expression-tree';
 import { MethodExpressionTree } from './method-expression-tree';
 
 test('has argument', () => {
-  const code = '[x] => x + 42';
+  const code = '[x]: String => x + 42';
   const tree = parseExpression(code) as MethodExpressionTree;
 
   expect(tree).toBeInstanceOf(MethodExpressionTree);
   expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].name.text).toBe('x');
+  expect((tree.type as IdExpressionTree).name.text).toBe('String');
   expect(
     evaluate(tree.value, {
       x: 37,
