@@ -38,6 +38,9 @@ export class CoreDeclarationScope extends DeclarationScope {
   get array(): DefinitionMetadata {
     return this.filter('Array')[0] as DefinitionMetadata;
   }
+  get unknown(): DefinitionMetadata {
+    return this.filter('Unknown')[0] as DefinitionMetadata;
+  }
 
   constructor() {
     super();

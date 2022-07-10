@@ -11,6 +11,7 @@ export class DefinitionMetadata extends DeclarationMetadata {
   name: String;
   sourceRange: SourceRange;
 
+  generics: ParameterMetadata | None;
   parameters: ParameterMetadata[] = [];
   base: DefinitionMetadata | None;
   attributes: ParameterMetadata[] = [];

@@ -25,13 +25,16 @@ export class ParameterFormatter extends Formatter {
   }
 
   typeFormatter(type: ExpressionContext): String {
-    if (!type && this.ctx.COLON() && this.ctx.valueBody()?._value) return ' :';
-    if (!type && !this.ctx.COLON() && this.ctx.valueBody()?._value) return ' ';
+    if (!type && this.ctx.valueType()?.COLON() && this.ctx.valueBody()?._value) return ' :';
+    if (!type && !this.ctx.valueType()?.COLON() && this.ctx.valueBody()?._value) return ' ';
     if (!type) return '';
 
     return (
       ': ' +
-      getExpressionFormatter(this.ctx.valueType()?.expression(), this.config).indent(this.indentCount).toString().trim()
+      getExpressionFormatter(this.ctx.valueType()?.expression(), this.config)
+        .indent(this.indentCount)
+        .toString()
+        .trim()
     );
   }
 
@@ -42,7 +45,9 @@ export class ParameterFormatter extends Formatter {
       const expressionFormatter = getExpressionFormatter(ctx._value, this.config).indent(
         this.indentCount,
       );
-      return ((this.ctx.valueType()?.expression() && ' = ') || '= ') + expressionFormatter.toString();
+      return (
+        ((this.ctx.valueType()?.expression() && ' = ') || '= ') + expressionFormatter.toString()
+      );
     }
 
     return getBodyFormatter(ctx.body(), this.config).indent(this.indentCount).toString();
