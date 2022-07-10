@@ -83,9 +83,9 @@ test('1-error.xon', () => {
   expect(tree).toBeInstanceOf(SourceTree);
   expect(tree.issues.length).toBe(1);
   expect(tree.issues[0].sourceRange.start.line).toBe(4);
-  expect(tree.issues[0].sourceRange.start.column).toBe(14);
+  expect(tree.issues[0].sourceRange.start.column).toBe(22);
   expect(tree.issues[0].sourceRange.stop.line).toBe(4);
-  expect(tree.issues[0].sourceRange.stop.column).toBe(20);
+  expect(tree.issues[0].sourceRange.stop.column).toBe(25);
 });
 
 test('2-error.xon', () => {
