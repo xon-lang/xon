@@ -54,5 +54,5 @@ this.statements \
 
   expect(tree).toBeInstanceOf(MemberExpressionTree);
   expect(tree.instance).toBeInstanceOf(MemberExpressionTree);
-  expect(tree.toString()).toBe('this.statements.abc.def.ghi.jkl');
+  expect(tree.name.text).toBe('jkl');
 });

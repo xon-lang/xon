@@ -1,7 +1,7 @@
 // this code was generated
 
 import { MemberExpressionContext } from '../../../grammar/xon-parser';
-import { None, String } from '../../../lib/core';
+import { None } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { IdTree } from '../../id/id-tree';
 import { getIdTree } from '../../id/id-tree-helper';
@@ -21,10 +21,6 @@ export class MemberExpressionTree extends ExpressionTree {
     this.instance = getExpressionTree(ctx.expression());
     this.name = getIdTree(ctx._name);
     this.addChildren(this.instance, this.name);
-  }
-
-  toString(): String {
-    return `${this.instance}.${this.name}`;
   }
 }
 

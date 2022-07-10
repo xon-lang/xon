@@ -1,8 +1,7 @@
 // this code was generated
 
 import { InvokeExpressionContext } from '../../../grammar/xon-parser';
-import { Boolean, String } from '../../../lib/core';
-import { Metadata } from '../../../metadata/metadata';
+import { Boolean } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { ArgumentTree } from '../../argument/argument-tree';
 import { getArgumentTrees } from '../../argument/argument-tree-helper';
@@ -25,14 +24,7 @@ export class InvokeExpressionTree extends ExpressionTree {
     this.hasBracket = !!ctx.arguments().OPEN_BRACKET();
     this.hasParen = !!ctx.arguments().OPEN_PAREN();
     this.arguments = getArgumentTrees(ctx.arguments().argument());
-    this.addChildren(this.instance, ...this.arguments)
-  }
-
-  toString(): String {
-    if (this.hasBracket) {
-      return `${this.instance}[${this.arguments.join(', ')}]`;
-    }
-    return `${this.instance}(${this.arguments.join(', ')})`;
+    this.addChildren(this.instance, ...this.arguments);
   }
 }
 

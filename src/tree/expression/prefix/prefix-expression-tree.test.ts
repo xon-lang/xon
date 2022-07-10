@@ -1,3 +1,4 @@
+import { evaluate } from '../../../util/evaluate';
 import { parseExpression } from '../../../util/parse';
 import { LiteralExpressionTree } from '../literal/literal-expression-tree';
 import { PrefixExpressionTree } from './prefix-expression-tree';
@@ -7,7 +8,7 @@ test('negative integer', () => {
   const tree = parseExpression(code) as PrefixExpressionTree;
 
   expect(tree).toBeInstanceOf(PrefixExpressionTree);
-  expect(tree.toString()).toBe('-1');
+  expect(evaluate(tree.value)).toBe(1);
 });
 
 test('not boolean', () => {
@@ -15,7 +16,6 @@ test('not boolean', () => {
   const tree = parseExpression(code) as PrefixExpressionTree;
 
   expect(tree).toBeInstanceOf(PrefixExpressionTree);
-  expect(tree.toString()).toBe('!true');
 });
 
 test('double not', () => {
@@ -23,7 +23,6 @@ test('double not', () => {
   const tree = parseExpression(code) as PrefixExpressionTree;
 
   expect(tree).toBeInstanceOf(PrefixExpressionTree);
-  expect(tree.toString()).toBe('!!ctx.parameters[]');
 });
 
 test('less operator', () => {

@@ -1,7 +1,7 @@
 // this code was generated
 
 import { MethodExpressionContext } from '../../../grammar/xon-parser';
-import { Boolean, String } from '../../../lib/core';
+import { Boolean } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { ParameterTree } from '../../parameter/parameter-tree';
 import { getParameterTrees } from '../../parameter/parameter-tree-helper';
@@ -15,8 +15,8 @@ export class MethodExpressionTree extends ExpressionTree {
   hasParen: Boolean;
   generics: ParameterTree[] = [];
   parameters: ParameterTree[] = [];
-  value: ExpressionTree;
   type: ExpressionTree;
+  value: ExpressionTree;
 
   constructor(ctx: MethodExpressionContext) {
     super();
@@ -29,13 +29,6 @@ export class MethodExpressionTree extends ExpressionTree {
     this.type = getExpressionTree(ctx.valueType()?.expression());
     this.value = getExpressionTree(ctx.expression());
     this.addChildren(...this.parameters, this.value);
-  }
-
-  toString(): String {
-    if (this.hasBracket) {
-      return `[${this.parameters.join(', ')}] => ${this.value}`;
-    }
-    return `(${this.parameters.join(', ')}) => ${this.value}`;
   }
 }
 

@@ -50,9 +50,9 @@ test('multiline', () => {
   const tree = parseExpression(code) as PreprocessorExpressionTree;
 
   expect(tree).toBeInstanceOf(PreprocessorExpressionTree);
-  expect(tree.toString()).toBe(`#{
+  expect(tree.value).toBe(`
     abc
     123 + 456
     log(0)
-  }`);
+  `);
 });

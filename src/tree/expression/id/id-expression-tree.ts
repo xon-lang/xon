@@ -1,7 +1,6 @@
 // this code was generated
 
 import { IdExpressionContext } from '../../../grammar/xon-parser';
-import { String } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { IdTree } from '../../id/id-tree';
 import { getIdTree } from '../../id/id-tree-helper';
@@ -18,10 +17,6 @@ export class IdExpressionTree extends ExpressionTree {
     this.sourceRange = SourceRange.fromContext(ctx);
     this.name = getIdTree(ctx._name);
     this.addChildren(this.name);
-  }
-
-  toString(): String {
-    return this.name.toString();
   }
 }
 
