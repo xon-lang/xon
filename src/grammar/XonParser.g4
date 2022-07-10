@@ -5,8 +5,7 @@ options {
     tokenVocab = XonLexer;
 }
 
-source:     NL | NL? sourceItem* statement NL?;
-sourceItem: statement NL;
+source: NL | NL? (statement nl += NL)* statement NL?;
 
 statement
     : value = LINE_COMMENT                                                 # commentStatement
