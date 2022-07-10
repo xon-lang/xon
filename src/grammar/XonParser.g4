@@ -24,18 +24,19 @@ statement
     ;
 
 expression
-    : PREPROCESSOR                                                        # preprocessorExpression
-    | '(' expression ')'                                                  # groupExpression
-    | expression genericArguments                                         # genericsExpression
-    | genericParameters? parameters LAMBDA expression                     # methodExpression
-    | arguments                                                           # arrayExpression
-    | expression QUESTION                                                 # nullableExpression
-    | expression DOT name = ID?                                           # memberExpression
-    | expression arguments                                                # invokeExpression
-    | op = (OP | IMPORT) expression                                       # prefixExpression
-    | left = expression op = (AS | IS | AND | OR | OP) right = expression # infixExpression
-    | name = ID                                                           # idExpression
-    | literal                                                             # literalExpression
+    : PREPROCESSOR                                                                       # preprocessorExpression
+    | '(' expression ')'                                                                 # groupExpression
+    | expression genericArguments                                                        # genericsExpression
+    | arguments                                                                          # arrayExpression
+    | expression QUESTION                                                                # nullableExpression
+    | expression DOT name = ID?                                                          # memberExpression
+    | expression arguments                                                               # invokeExpression
+    | left = expression op = (AS | IS | AND | OR | OP | LESS | GREAT) right = expression # infixExpression
+    | genericParameters parameters LAMBDA expression                                     # methodExpression
+    | op = (OP | LESS | GREAT | IMPORT) expression                                       # prefixExpression
+    | parameters LAMBDA expression                                                       # methodExpression
+    | name = ID                                                                          # idExpression
+    | literal                                                                            # literalExpression
     ;
 
 literal
@@ -47,7 +48,9 @@ literal
 definition: modifier = ID name = ID genericParameters? parameters? (IS expression)? body?;
 parameter
     : destructure = parameters (COLON type = expression?)? valueBody?
-    | name = (ID | OP) genericParameters? params = parameters? (COLON type = expression?)? valueBody?
+    | name = (ID | OP | LESS | GREAT) genericParameters? params = parameters? (
+        COLON type = expression?
+    )? valueBody?
     ;
 valueBody:         ASSIGN value = expression | body;
 parameters:        open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = ('}' | ']' | ')');

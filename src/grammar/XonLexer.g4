@@ -61,7 +61,7 @@ PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
 ID:    [_a-zA-Z] [_a-zA-Z0-9]*;
 LESS:  '<';
 GREAT: '>';
-OP:    [!+-^*%] | '..' | '...' | '<=' | '>=' | '==' | '!=' | LESS | GREAT;
+OP:    [!+-^*%] | '..' | '...' | '<=' | '>=' | '==' | '!=';
 
 NL:           ([\r\n] WS*)+ {this.handleLineBreak()};
 LINE_COMMENT: '--' ~[\r\n]*;
