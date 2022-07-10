@@ -41,7 +41,7 @@ export class DefinitionTree extends Tree {
     this.parameters = getParameterTrees(ctx.parameters()?.parameter()) || none;
     this.base = getExpressionTree(ctx.expression()) || none;
 
-    this.body = getSourceTree(ctx.body()?.source());
+    this.body = getSourceTree(ctx.valueBody()?.body()?.source());
     const statements = this.body?.statements || [];
     statements
       .filter(
