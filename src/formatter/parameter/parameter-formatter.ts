@@ -13,8 +13,8 @@ export class ParameterFormatter extends Formatter {
 
   toString() {
     const params = getParametersFormatter(this.ctx._params, this.config) || '';
-    const type = this.typeFormatter(this.ctx._type);
-    let body = this.valueBodyFormat(this.ctx.valueBody(), this.ctx._type);
+    const type = this.typeFormatter(this.ctx.valueType()?.expression());
+    let body = this.valueBodyFormat(this.ctx.valueBody(), this.ctx.valueType()?.expression());
 
     if (this.ctx._name) {
       return `${this.ctx._name.text}${params}${type}${body}`;
@@ -31,7 +31,7 @@ export class ParameterFormatter extends Formatter {
 
     return (
       ': ' +
-      getExpressionFormatter(this.ctx._type, this.config).indent(this.indentCount).toString().trim()
+      getExpressionFormatter(this.ctx.valueType()?.expression(), this.config).indent(this.indentCount).toString().trim()
     );
   }
 
@@ -42,7 +42,7 @@ export class ParameterFormatter extends Formatter {
       const expressionFormatter = getExpressionFormatter(ctx._value, this.config).indent(
         this.indentCount,
       );
-      return ((this.ctx._type && ' = ') || '= ') + expressionFormatter.toString();
+      return ((this.ctx.valueType()?.expression() && ' = ') || '= ') + expressionFormatter.toString();
     }
 
     return getBodyFormatter(ctx.body(), this.config).indent(this.indentCount).toString();
