@@ -25,13 +25,12 @@ statement
 expression
     : PREPROCESSOR                                                                       # preprocessorExpression
     | '(' expression ')'                                                                 # groupExpression
-    | expression genericArguments                                                        # genericsExpression
     | arguments                                                                          # arrayExpression
     | expression QUESTION                                                                # nullableExpression
     | expression DOT name = ID?                                                          # memberExpression
     | expression arguments                                                               # invokeExpression
     | left = expression op = (AS | IS | AND | OR | OP | LESS | GREAT) right = expression # infixExpression
-    | genericParameters? parameters valueType? LAMBDA expression                         # methodExpression
+    | method                                                                             # methodExpression
     | op = (OP | IMPORT) expression                                                      # prefixExpression
     | name = ID                                                                          # idExpression
     | literal                                                                            # literalExpression
@@ -43,18 +42,36 @@ literal
     | STRING_LITERAL  # stringLiteral
     ;
 
+method
+    : params = parameters valueType? LAMBDA expression
+    | generics = parameters params = parameters valueType? LAMBDA expression
+    ;
+
 parameter
     : destructure = parameters valueType? valueBody?
-    | modifier = ID? name = (ID | OP | LESS | GREAT) genericParameters? params = parameters? valueType? valueBody?
+    | modifier = ID? name = (ID | OP | LESS | GREAT) params = parameters valueType? valueBody?
+    | modifier = ID? name = (ID | OP | LESS | GREAT) generics = parameters params = parameters valueType? valueBody?
+    | modifier = ID? name = (ID | OP | LESS | GREAT) valueType? valueBody?
     ;
 valueBody: ASSIGN value = expression? | body;
 valueType: COLON type = expression?;
 
-parameters:        open = ('(' | '[' | '{') (parameter (',' parameter)* ','?)? close = ('}' | ']' | ')');
-genericParameters: LESS (parameter (',' parameter)* ','?)? GREAT;
-genericArguments:  LESS (expression (',' expression)* ','?)? GREAT;
-
-argument:  (name = ID ASSIGN)? expression;
-arguments: open = ('(' | '[' | '{') (argument (',' argument)* ','?)? close = ('}' | ']' | ')');
+parameters
+    : open = ('<' | '(' | '[' | '{') (parameter (',' parameter)* ','?)? close = (
+        '}'
+        | ']'
+        | ')'
+        | '>'
+    )
+    ;
+argument: (name = ID ASSIGN)? expression;
+arguments
+    : open = ('<' | '(' | '[' | '{') (argument (',' argument)* ','?)? close = (
+        '}'
+        | ']'
+        | ')'
+        | '>'
+    )
+    ;
 
 body: NL INDENT source DEDENT;
