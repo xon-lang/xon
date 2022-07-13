@@ -2,7 +2,6 @@
 import {
   ArrayExpressionContext,
   ExpressionContext,
-  GenericsExpressionContext,
   GroupExpressionContext,
   IdExpressionContext,
   InfixExpressionContext,
@@ -20,7 +19,6 @@ import { IdTree } from '../id/id-tree';
 import { getIdTree } from '../id/id-tree-helper';
 import { ArrayExpressionTree } from './array/array-expression-tree';
 import { ExpressionTree } from './expression-tree';
-import { GenericsExpressionTree } from './generics/generics-expression-tree';
 import { GroupExpressionTree } from './group/group-expression-tree';
 import { IdExpressionTree } from './id/id-expression-tree';
 import { InfixExpressionTree } from './infix/infix-expression-tree';
@@ -45,7 +43,6 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof NullableExpressionContext) return new NullableExpressionTree(ctx);
   if (ctx instanceof GroupExpressionContext) return new GroupExpressionTree(ctx);
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
-  if (ctx instanceof GenericsExpressionContext) return new GenericsExpressionTree(ctx);
 
   if (ctx instanceof InfixExpressionContext) {
     // todo each module can use own priority
