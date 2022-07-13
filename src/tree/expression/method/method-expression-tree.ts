@@ -21,13 +21,14 @@ export class MethodExpressionTree extends ExpressionTree {
   constructor(ctx: MethodExpressionContext) {
     super();
     this.ctx = ctx;
+    const method = ctx.method();
     this.sourceRange = SourceRange.fromContext(ctx);
-    this.hasBracket = !!ctx.parameters().OPEN_BRACKET();
-    this.hasParen = !!ctx.parameters().OPEN_PAREN();
-    this.generics = getParameterTrees(ctx.genericParameters()?.parameter());
-    this.parameters = [] = getParameterTrees(ctx.parameters().parameter());
-    this.type = getExpressionTree(ctx.valueType()?.expression());
-    this.value = getExpressionTree(ctx.expression());
+    this.hasBracket = !!method._params.OPEN_BRACKET();
+    this.hasParen = !!method._params.OPEN_PAREN();
+    this.generics = getParameterTrees(method._generics?.parameter());
+    this.parameters = [] = getParameterTrees(method._params.parameter());
+    this.type = getExpressionTree(method.valueType()?.expression());
+    this.value = getExpressionTree(method.expression());
     this.addChildren(...this.parameters, this.value);
   }
 }
