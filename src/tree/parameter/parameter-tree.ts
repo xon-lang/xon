@@ -40,7 +40,7 @@ export class ParameterTree extends Tree {
     this.name = getIdTree(ctx._name);
     this.destructure = getParameterTrees(ctx._destructure?.parameter());
     this.hasParameters = !!ctx._params;
-    this.generics = getParameterTrees(ctx.genericParameters()?.parameter());
+    this.generics = getParameterTrees(ctx._generics?.parameter());
     this.parameters = getParameterTrees(ctx._params?.parameter());
     this.type = getExpressionTree(ctx.valueType()?.expression());
     this.value = getExpressionTree(ctx.valueBody()?.expression());

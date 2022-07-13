@@ -1,6 +1,5 @@
 import { none } from '../../lib/core';
 import { parseParameter } from '../../util/parse';
-import { GenericsExpressionTree } from '../expression/generics/generics-expression-tree';
 import { IdExpressionTree } from '../expression/id/id-expression-tree';
 import { InvokeExpressionTree } from '../expression/invoke/invoke-expression-tree';
 import { MethodExpressionTree } from '../expression/method/method-expression-tree';
@@ -27,13 +26,10 @@ test('generics with parameters', () => {
   expect(tree.generics[1].name.text).toBe('M');
   expect(tree.generics[2].name.text).toBe('K');
   expect((tree.generics[2].type as IdExpressionTree).name.text).toBe('String');
-  expect(((tree.type as GenericsExpressionTree).expression as IdExpressionTree).name.text).toBe(
-    'List',
-  );
-  expect((tree.type as GenericsExpressionTree).generics.length).toBe(1);
-  expect(((tree.type as GenericsExpressionTree).generics[0] as IdExpressionTree).name.text).toBe(
-    'K',
-  );
+  const type = tree.type as InvokeExpressionTree;
+  expect((type.instance as IdExpressionTree).name.text).toBe('List');
+  expect(type.arguments.length).toBe(1);
+  expect((type.arguments[0].value as IdExpressionTree).name.text).toBe('K');
 });
 
 test('id lambda type', () => {
@@ -232,15 +228,10 @@ test('model cat with generics', () => {
   expect(tree.generics.length).toBe(1);
   expect(tree.generics[0].name.text).toBe('T');
   expect((tree.generics[0].type as IdExpressionTree).name.text).toBe('Number');
-  expect(((tree.type as GenericsExpressionTree).expression as IdExpressionTree).name.text).toBe(
-    'Animal',
-  );
-  expect((tree.type as GenericsExpressionTree).generics.length).toBe(2);
-  expect(((tree.type as GenericsExpressionTree).generics[0] as IdExpressionTree).name.text).toBe(
-    'T',
-  );
-  expect(((tree.type as GenericsExpressionTree).generics[1] as IdExpressionTree).name.text).toBe(
-    'Integer',
-  );
+  const type = tree.type as InvokeExpressionTree;
+  expect((type.instance as IdExpressionTree).name.text).toBe('Animal');
+  expect(type.arguments.length).toBe(2);
+  expect((type.arguments[0].value as IdExpressionTree).name.text).toBe('T');
+  expect((type.arguments[1].value as IdExpressionTree).name.text).toBe('Integer');
   expect(tree.attributes.length).toBe(0);
 });
