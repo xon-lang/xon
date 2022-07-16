@@ -40,13 +40,9 @@ IMPORT:   'import';
 RETURN:   'return';
 WHILE:    'while';
 
-AND: 'and';
-AS:  'as';
-IS:  'is';
-OR:  'or';
-
 ASSIGN:   '=';
 COMMA:    ',';
+META:     '::';
 COLON:    ':';
 QUESTION: (NL | WS)* '?';
 DOT:      (NL | WS)* '.' (NL | WS)*;
@@ -61,7 +57,7 @@ PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
 ID:    [_a-zA-Z] [_a-zA-Z0-9]*;
 LESS:  '<';
 GREAT: '>';
-OP:    [!+-^*%] | '..' | '...' | '<=' | '>=' | '==' | '!=';
+OP:    [!+-^*%&|] | '..' | '...' | '<=' | '>=' | '==' | '!=';
 
 NL:           ([\r\n] WS*)+ {this.handleLineBreak()};
 LINE_COMMENT: '--' ~[\r\n]*;

@@ -8,32 +8,33 @@ options {
 source: NL | NL? (statement nl += NL)* statement NL?;
 
 statement
-    : value = LINE_COMMENT                                                 # commentStatement
-    | EXPORT path = expression                                             # exportStatement
-    | FOR (value = parameter (',' index = parameter)? ID)? expression body # forStatement
-    | WHILE expression body                                                # whileStatement
-    | DO body WHILE expression                                             # doWhileStatement
-    | IF expression thenBody = body NL* (ELSE elseBody = body)?            # ifStatement
-    | BREAK                                                                # breakStatement
-    | CONTINUE                                                             # continueStatement
-    | RETURN expression?                                                   # returnStatement
-    | ACTUAL actual = expression NL* EXPECT expect = expression            # assertStatement
-    | expression                                                           # expressionStatement
-    | parameter                                                            # declarationStatement
+    : value = LINE_COMMENT                                      # commentStatement
+    | EXPORT path = expression                                  # exportStatement
+    | FOR (parameter? ID)? expression body                      # forStatement
+    | WHILE expression body                                     # whileStatement
+    | DO body WHILE expression                                  # doWhileStatement
+    | IF expression thenBody = body NL* (ELSE elseBody = body)? # ifStatement
+    | BREAK                                                     # breakStatement
+    | CONTINUE                                                  # continueStatement
+    | RETURN expression?                                        # returnStatement
+    | ACTUAL actual = expression NL* EXPECT expect = expression # assertStatement
+    | expression                                                # expressionStatement
+    | parameter                                                 # declarationStatement
     ;
 
 expression
-    : PREPROCESSOR                                                                       # preprocessorExpression
-    | '(' expression ')'                                                                 # groupExpression
-    | arguments                                                                          # arrayExpression
-    | expression QUESTION                                                                # nullableExpression
-    | expression DOT name = ID?                                                          # memberExpression
-    | expression arguments                                                               # invokeExpression
-    | left = expression op = (AS | IS | AND | OR | OP | LESS | GREAT) right = expression # infixExpression
-    | parameters* valueType? LAMBDA expression                                           # methodExpression
-    | op = (OP | IMPORT) expression                                                      # prefixExpression
-    | name = ID                                                                          # idExpression
-    | literal                                                                            # literalExpression
+    : PREPROCESSOR                                                  # preprocessorExpression
+    | '(' expression ')'                                            # groupExpression
+    | arguments                                                     # arrayExpression
+    | expression QUESTION                                           # nullableExpression
+    | expression DOT name = ID?                                     # memberExpression
+    | expression META name = ID?                                    # metaExpression
+    | expression arguments                                          # invokeExpression
+    | left = expression op = (OP | LESS | GREAT) right = expression # infixExpression
+    | parameters* valueType? LAMBDA expression                      # methodExpression
+    | op = (OP | IMPORT) expression                                 # prefixExpression
+    | name = ID                                                     # idExpression
+    | literal                                                       # literalExpression
     ;
 
 literal
