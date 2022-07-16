@@ -23,18 +23,18 @@ statement
     ;
 
 expression
-    : PREPROCESSOR                                                       # preprocessorExpression
-    | '(' expression ')'                                                 # groupExpression
-    | arguments                                                          # arrayExpression
-    | expression QUESTION                                                # nullableExpression
-    | expression DOT name = ID?                                          # memberExpression
-    | expression META name = ID?                                         # metaExpression
-    | expression arguments                                               # invokeExpression
-    | left = expression op = (OP | LESS | GREAT | ID) right = expression # infixExpression
-    | parameters* valueType? LAMBDA expression                           # methodExpression
-    | op = (OP | IMPORT) expression                                      # prefixExpression
-    | name = ID                                                          # idExpression
-    | literal                                                            # literalExpression
+    : PREPROCESSOR                                  # preprocessorExpression
+    | '(' expression ')'                            # groupExpression
+    | arguments                                     # arrayExpression
+    | expression QUESTION                           # nullableExpression
+    | expression DOT name = ID?                     # memberExpression
+    | expression META name = ID?                    # metaExpression
+    | expression arguments                          # invokeExpression
+    | literal                                       # literalExpression
+    | name = ID                                     # idExpression
+    | left = expression operator right = expression # infixExpression
+    | op = (OP | IMPORT) expression                 # prefixExpression
+    | parameters* valueType? LAMBDA expression      # methodExpression
     ;
 
 literal
@@ -54,7 +54,8 @@ valueType: COLON type = expression?;
 arguments: open (argument (',' argument)* ','?)? close;
 argument:  (name = ID ASSIGN)? expression;
 
-open:  name = ('<' | '(' | '[' | '{');
-close: name = ('}' | ']' | ')' | '>');
+open:     name = ('<' | '(' | '[' | '{');
+close:    name = ('}' | ']' | ')' | '>');
+operator: name = (OP | LESS | GREAT | IS | AS);
 
 body: NL INDENT source DEDENT;

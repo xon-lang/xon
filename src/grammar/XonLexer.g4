@@ -40,6 +40,9 @@ IMPORT:   'import';
 RETURN:   'return';
 WHILE:    'while';
 
+AS: 'as';
+IS: 'is';
+
 ASSIGN:   '=';
 COMMA:    ',';
 META:     '::';
