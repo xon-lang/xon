@@ -125,6 +125,8 @@ test('paren parameters', () => {
 
   expect(tree).toBeInstanceOf(ParameterTree);
   expect(tree.destructure.length).toBe(3);
+  expect(tree.generics.length).toBe(0);
+  expect(tree.parameters.length).toBe(0);
 });
 
 test('brace parameters', () => {
@@ -133,6 +135,8 @@ test('brace parameters', () => {
 
   expect(tree).toBeInstanceOf(ParameterTree);
   expect(tree.destructure.length).toBe(3);
+  expect(tree.generics.length).toBe(0);
+  expect(tree.parameters.length).toBe(0);
 });
 
 test('operator with no parameters', () => {
