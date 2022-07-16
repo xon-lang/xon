@@ -39,9 +39,12 @@ export class ParameterTree extends Tree {
     this.modifier = getIdTree(ctx._modifier);
     this.name = getIdTree(ctx._name);
     this.destructure = getParameterTrees(ctx._destructure?.parameter());
-    this.hasParameters = !!ctx._params;
-    this.generics = getParameterTrees(ctx._generics?.parameter());
-    this.parameters = getParameterTrees(ctx._params?.parameter());
+    const paramsGroup = ctx.parameters();
+    this.hasParameters = !!paramsGroup.filter((x) => !x.open().LESS()).length;
+    this.generics = getParameterTrees(paramsGroup.filter((x) => x.open().LESS())[0]?.parameter());
+    this.parameters = getParameterTrees(
+      paramsGroup.filter((x) => !x.open().LESS())[0]?.parameter(),
+    );
     this.type = getExpressionTree(ctx.valueType()?.expression());
     this.value = getExpressionTree(ctx.valueBody()?.expression());
     this.body = getSourceTree(ctx.valueBody()?.body()?.source());
