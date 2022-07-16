@@ -30,7 +30,7 @@ expression
     | expression DOT name = ID?                                                          # memberExpression
     | expression arguments                                                               # invokeExpression
     | left = expression op = (AS | IS | AND | OR | OP | LESS | GREAT) right = expression # infixExpression
-    | method                                                                             # methodExpression
+    | parameters* valueType? LAMBDA expression                                           # methodExpression
     | op = (OP | IMPORT) expression                                                      # prefixExpression
     | name = ID                                                                          # idExpression
     | literal                                                                            # literalExpression
@@ -42,36 +42,18 @@ literal
     | STRING_LITERAL  # stringLiteral
     ;
 
-method
-    : params = parameters valueType? LAMBDA expression
-    | generics = parameters params = parameters valueType? LAMBDA expression
-    ;
-
+parameters: open (parameter (',' parameter)* ','?)? close;
 parameter
     : destructure = parameters valueType? valueBody?
-    | modifier = ID? name = (ID | OP | LESS | GREAT) params = parameters valueType? valueBody?
-    | modifier = ID? name = (ID | OP | LESS | GREAT) generics = parameters params = parameters valueType? valueBody?
-    | modifier = ID? name = (ID | OP | LESS | GREAT) valueType? valueBody?
+    | modifier = ID? name = (ID | OP | LESS | GREAT) params += parameters* valueType? valueBody?
     ;
 valueBody: ASSIGN value = expression? | body;
 valueType: COLON type = expression?;
 
-parameters
-    : open = ('<' | '(' | '[' | '{') (parameter (',' parameter)* ','?)? close = (
-        '}'
-        | ']'
-        | ')'
-        | '>'
-    )
-    ;
-argument: (name = ID ASSIGN)? expression;
-arguments
-    : open = ('<' | '(' | '[' | '{') (argument (',' argument)* ','?)? close = (
-        '}'
-        | ']'
-        | ')'
-        | '>'
-    )
-    ;
+arguments: open (argument (',' argument)* ','?)? close;
+argument:  (name = ID ASSIGN)? expression;
+
+open:  name = ('<' | '(' | '[' | '{');
+close: name = ('}' | ']' | ')' | '>');
 
 body: NL INDENT source DEDENT;
