@@ -46,17 +46,9 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
 
   if (ctx instanceof InfixExpressionContext) {
     // todo each module can use own priority
-    const operatorsPriorities = [
-      '^',
-      '* / %',
-      '+ -',
-      '..',
-      '< <= >= >',
-      '== !=',
-      'is as in',
-      'and',
-      'or',
-    ].map((x) => x.split(' '));
+    const operatorsPriorities = ['^', '* / %', '+ -', '..', '< <= >= >', '== !=', '&', '|'].map(
+      (x) => x.split(' '),
+    );
     const flatExpressions = (x) =>
       x instanceof InfixExpressionContext
         ? [...flatExpressions(x._left), getIdTree(x._op), getExpressionTree(x._right)]

@@ -21,11 +21,11 @@ test('num plus str', () => {
 });
 
 test('num is number', () => {
-  const code = '1  is Number';
+  const code = '1 & Number';
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
-  expect(tree.name.text).toBe('is');
+  expect(tree.name.text).toBe('&');
   expect((tree.left as LiteralExpressionTree).literal.value).toBe(1);
 });
 
