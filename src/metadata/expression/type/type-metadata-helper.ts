@@ -95,7 +95,7 @@ export function getTypeMetadata(
   }
 
   if (tree instanceof InvokeExpressionTree) {
-    if (tree.hasBracket && tree.instance instanceof IdExpressionTree) {
+    if (tree.ctx.arguments().open().OPEN_BRACKET() && tree.instance instanceof IdExpressionTree) {
       const commonType = getTypeMetadata(tree.instance, scope);
       if (commonType instanceof ParameterTypeMetadata) {
         tree.instance.name.metadata = commonType.parameter;
@@ -107,7 +107,7 @@ export function getTypeMetadata(
   }
 
   if (tree instanceof ArrayExpressionTree) {
-    if (tree.ctx.arguments().OPEN_BRACE()) {
+    if (tree.ctx.arguments().open().OPEN_BRACE()) {
       const objectScope = new DeclarationScope();
       const parameters = tree.arguments.map((x) => {
         if (!x.name) {
@@ -122,7 +122,7 @@ export function getTypeMetadata(
       parameters.filter((x) => x).forEach((x) => objectScope.add(x));
       return new ObjectTypeMetadata(objectScope);
     }
-    if (tree.ctx.arguments().OPEN_BRACKET()) {
+    if (tree.ctx.arguments().open().OPEN_BRACKET()) {
       const items = tree.arguments.map((x) => getTypeMetadata(x.value, scope));
       let commonType: TypeMetadata;
       if (items.length === 1) {
