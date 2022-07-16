@@ -23,18 +23,18 @@ statement
     ;
 
 expression
-    : PREPROCESSOR                                                  # preprocessorExpression
-    | '(' expression ')'                                            # groupExpression
-    | arguments                                                     # arrayExpression
-    | expression QUESTION                                           # nullableExpression
-    | expression DOT name = ID?                                     # memberExpression
-    | expression META name = ID?                                    # metaExpression
-    | expression arguments                                          # invokeExpression
-    | left = expression op = (OP | LESS | GREAT) right = expression # infixExpression
-    | parameters* valueType? LAMBDA expression                      # methodExpression
-    | op = (OP | IMPORT) expression                                 # prefixExpression
-    | name = ID                                                     # idExpression
-    | literal                                                       # literalExpression
+    : PREPROCESSOR                                                       # preprocessorExpression
+    | '(' expression ')'                                                 # groupExpression
+    | arguments                                                          # arrayExpression
+    | expression QUESTION                                                # nullableExpression
+    | expression DOT name = ID?                                          # memberExpression
+    | expression META name = ID?                                         # metaExpression
+    | expression arguments                                               # invokeExpression
+    | left = expression op = (OP | LESS | GREAT | ID) right = expression # infixExpression
+    | parameters* valueType? LAMBDA expression                           # methodExpression
+    | op = (OP | IMPORT) expression                                      # prefixExpression
+    | name = ID                                                          # idExpression
+    | literal                                                            # literalExpression
     ;
 
 literal
