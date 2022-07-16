@@ -14,9 +14,12 @@ export class MethodExpressionFormatter extends ExpressionFormatter {
       .indent(this.indentCount)
       .break(this.broken);
 
-    const parameters = getParametersFormatter(this.ctx.parameters(), this.config)
-      .indent(this.indentCount)
-      .break(this.broken);
-    return `${parameters} => ${value}`;
+    const parametersGroup = this.ctx
+      .parameters()
+      .map((x) =>
+        getParametersFormatter(x, this.config).indent(this.indentCount).break(this.broken),
+      )
+      .join('');
+    return `${parametersGroup} => ${value}`;
   }
 }

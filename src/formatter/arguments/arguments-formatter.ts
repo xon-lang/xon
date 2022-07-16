@@ -9,13 +9,8 @@ export class ArgumentsFormatter extends Formatter {
   }
 
   toString() {
-    const openSymbol = (this.ctx.OPEN_PAREN() || this.ctx.OPEN_BRACKET() || this.ctx.OPEN_BRACE())
-      .text;
-    const closeSymbol = (
-      this.ctx.CLOSE_PAREN() ||
-      this.ctx.CLOSE_BRACKET() ||
-      this.ctx.CLOSE_BRACE()
-    ).text;
+    const openSymbol = this.ctx.open().text;
+    const closeSymbol = this.ctx.close().text;
 
     if (this.ctx.argument().length === 0) {
       return openSymbol + closeSymbol;

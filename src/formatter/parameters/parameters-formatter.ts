@@ -9,20 +9,15 @@ export class ParametersFormatter extends Formatter {
   }
 
   toString() {
-    const openSymbol = (this.ctx.OPEN_PAREN() || this.ctx.OPEN_BRACKET() || this.ctx.OPEN_BRACE())
-      .text;
-    const closeSymbol = (
-      this.ctx.CLOSE_PAREN() ||
-      this.ctx.CLOSE_BRACKET() ||
-      this.ctx.CLOSE_BRACE()
-    ).text;
+    const openSymbol = this.ctx.open().text;
+    const closeSymbol = this.ctx.close().text;
 
     if (this.ctx.parameter().length === 0) {
       return openSymbol + closeSymbol;
     }
 
     let sortedParameters = [];
-    if (this.ctx.CLOSE_BRACE()) {
+    if (this.ctx.close().CLOSE_BRACE()) {
       sortedParameters = this.ctx
         .parameter()
         .sort((a, b) => a._name.text.localeCompare(b._name.text));

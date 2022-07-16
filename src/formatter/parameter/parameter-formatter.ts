@@ -13,7 +13,7 @@ export class ParameterFormatter extends Formatter {
 
   toString() {
     const modifier = (this.ctx._modifier && this.ctx._modifier.text + ' ') || '';
-    const params = getParametersFormatter(this.ctx._params, this.config) || '';
+    const params = this.ctx._params.map((x) => getParametersFormatter(x, this.config)).join('');
     const type = this.typeFormatter(this.ctx.valueType()?.expression());
     let body = this.valueBodyFormat(this.ctx.valueBody(), this.ctx.valueType()?.expression());
 
