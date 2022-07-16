@@ -12,6 +12,7 @@ import { IdTree } from '../id/id-tree';
 import { getIdTree } from '../id/id-tree-helper';
 import { SourceTree } from '../source/source-tree';
 import { getSourceTree } from '../source/source-tree-helper';
+import { CommentStatementTree } from '../statement/comment/comment-statement-tree';
 import { DeclarationStatementTree } from '../statement/declaration/declaration-statement-tree';
 import { ExpressionStatementTree } from '../statement/expression/expression-statement-tree';
 import { Tree } from '../tree';
@@ -56,6 +57,7 @@ export class ParameterTree extends Tree {
         (x) =>
           !(
             x instanceof DeclarationStatementTree ||
+            x instanceof CommentStatementTree ||
             (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree)
           ),
       )

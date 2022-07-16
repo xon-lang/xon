@@ -206,10 +206,11 @@ test('model cat', () => {
 });
 
 test('model animal with only attribute', () => {
-  const code = 'model Animal\n   abc: Integer';
+  const code = 'model Animal\n   --def: Integer\n   abc: Integer';
   const tree = parseParameter(code) as ParameterTree;
 
   expect(tree).toBeInstanceOf(ParameterTree);
+  expect(tree.allIssues().length).toBe(0);
   expect(tree.modifier.text).toBe('model');
   expect(tree.name.text).toBe('Animal');
   expect(tree.type).toBe(none);
