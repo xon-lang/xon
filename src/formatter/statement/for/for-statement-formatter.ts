@@ -11,9 +11,10 @@ export class ForStatementFormatter extends StatementFormatter {
   }
 
   toString() {
-    const value = getParameterFormatter(this.ctx._value, this.config)?.indent(this.indentCount);
-    const index = getParameterFormatter(this.ctx._index, this.config)?.indent(this.indentCount);
-    let vars = [value, index]
+    const parameter = getParameterFormatter(this.ctx.parameter(), this.config)?.indent(
+      this.indentCount,
+    );
+    let vars = [parameter]
       .filter((x) => x)
       .map((x) => x?.toString().trim())
       .join(', ');
