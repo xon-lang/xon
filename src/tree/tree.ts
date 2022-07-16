@@ -5,7 +5,7 @@ import { None, String } from '../lib/core';
 import { SourceRange } from '../util/source-range';
 
 export class Tree {
-  ctx?: ParserRuleContext;
+  ctx: ParserRuleContext | None;
   sourceRange: SourceRange;
   parent?: Tree | None;
   children: Tree[] = [];
