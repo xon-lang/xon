@@ -4,7 +4,7 @@ import { getTypeMetadata } from '../type-metadata-helper';
 import { UnionTypeMetadata } from './union-type-metadata';
 
 test('union', () => {
-  const code = 'Integer or Float';
+  const code = 'Integer | Float';
   const tree = parseExpression(code);
   const scope = new TestDeclarationScope();
   const metadata = getTypeMetadata(tree, scope) as UnionTypeMetadata;

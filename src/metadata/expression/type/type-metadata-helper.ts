@@ -67,10 +67,10 @@ export function getTypeMetadata(
   if (tree instanceof InfixExpressionTree) {
     const left = getTypeMetadata(tree.left, scope);
     const right = getTypeMetadata(tree.right, scope);
-    if (tree.name.text === 'or') {
+    if (tree.name.text === '|') {
       return new UnionTypeMetadata(left, right);
     }
-    if (tree.name.text === 'and') {
+    if (tree.name.text === '&') {
       return new IntersectionTypeMetadata(left, right);
     }
 

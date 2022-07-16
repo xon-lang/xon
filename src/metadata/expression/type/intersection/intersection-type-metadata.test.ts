@@ -4,7 +4,7 @@ import { getTypeMetadata } from '../type-metadata-helper';
 import { IntersectionTypeMetadata } from './intersection-type-metadata';
 
 test('intersect', () => {
-  const code = 'Integer and Float';
+  const code = 'Integer & Float';
   const tree = parseExpression(code);
   const scope = new TestDeclarationScope();
   const metadata = getTypeMetadata(tree, scope) as IntersectionTypeMetadata;
