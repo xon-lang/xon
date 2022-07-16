@@ -9,7 +9,7 @@ export class InfixExpressionFormatter extends ExpressionFormatter {
   }
 
   toString() {
-    const operator = this.ctx._op.text;
+    const operator = this.ctx.operator().text;
     const left = getExpressionFormatter(this.ctx._left, this.config)
       .indent(this.indentCount)
       .break(this.broken);
