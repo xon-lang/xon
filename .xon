@@ -1,3 +1,7 @@
+{Module} = import 'src/lib/@xon'
+
+object module: 
+
 targets
   typescript
     includes = ['src/tree/**/*.xon', 'src/util/**/*.xon']

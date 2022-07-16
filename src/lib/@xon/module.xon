@@ -1,5 +1,4 @@
-model Module is XonModule
-  name = 'xon library'
-  author = 'Nizami'
-  defaultImports = []
-  defaultType = 'some object type'
+model Module
+  name: String |  None = 'xon library'
+  author: String |  None = 'Nizami'
+  defaultImports: String[] = []
