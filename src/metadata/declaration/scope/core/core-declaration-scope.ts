@@ -1,5 +1,5 @@
+import { config } from '../../../../module/default-module-config';
 import { ImportProvider } from '../../../import-provider';
-import { moduleConfig } from '../../../module-config';
 import { DefinitionMetadata } from '../../definition/definition-metadata';
 import { ParameterMetadata } from '../../parameter/parameter-metadata';
 import { DeclarationScope } from '../declaration-scope';
@@ -45,7 +45,7 @@ export class CoreDeclarationScope extends DeclarationScope {
   constructor() {
     super();
 
-    const scope = new ImportProvider(moduleConfig.coreModulePath).scope();
+    const scope = new ImportProvider(config.coreModulePath).scope();
     this.declarations = scope.declarations;
   }
 }
