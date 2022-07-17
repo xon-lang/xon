@@ -1,9 +1,9 @@
-import { Boolean } from '../../../lib/core';
+import { Boolean, none } from '../../../lib/core';
 import { DeclarationMetadata } from '../declaration-metadata';
 import { CoreDeclarationScope } from './core/core-declaration-scope';
 
 export class DeclarationScope {
-  static _core: CoreDeclarationScope;
+  static _core: CoreDeclarationScope = none;
   get core() {
     return DeclarationScope._core;
   }

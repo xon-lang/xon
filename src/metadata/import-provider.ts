@@ -10,7 +10,7 @@ import { getSourceMetadata } from './source/source-metadata-helper';
 export class ImportProvider {
   fullPath: String;
 
-  cache: Map<String, DeclarationScope> = new Map();
+  static cache: Map<String, DeclarationScope> = new Map();
 
   constructor(private importPath: string) {
     this.fullPath = resolvePath(this.importPath);
@@ -30,11 +30,11 @@ export class ImportProvider {
       throw new Error('Should be a directory');
     }
 
-    if (this.cache.has(this.fullPath)) {
-      return this.cache.get(this.fullPath);
+    if (ImportProvider.cache.has(this.fullPath)) {
+      return ImportProvider.cache.get(this.fullPath);
     }
 
-    const globPath = path.resolve(this.fullPath, '*.xon');
+    const globPath = path.join(this.fullPath, '*.xon');
     const files = glob.sync(globPath);
     const sources = files.map((x) => parseSourceFile(x));
     const scope = new DeclarationScope();
@@ -42,7 +42,7 @@ export class ImportProvider {
     for (const tree of sources) {
       tree.metadata = getSourceMetadata(tree, scope, true);
     }
-    this.cache.set(this.fullPath, scope);
+    ImportProvider.cache.set(this.fullPath, scope);
 
     for (const tree of sources) {
       tree.metadata = getSourceMetadata(tree, scope, false);
@@ -55,5 +55,5 @@ function resolvePath(importPath: String): String {
   if (importPath[0] === '~') {
     return path.join(os.homedir(), importPath.slice(1));
   }
-  return importPath;
+  return path.resolve(importPath);
 }

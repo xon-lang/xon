@@ -1,3 +1,4 @@
+import path from 'path';
 import { IssueLevel } from '../../../../issue-service/issue-level';
 import { None, String } from '../../../../lib/core';
 import { PrefixExpressionTree } from '../../../../tree/expression/prefix/prefix-expression-tree';
@@ -21,7 +22,8 @@ export class ImportValueMetadata extends ValueMetadata {
 
     const importPath = evaluate(tree.value);
     if (typeof importPath === 'string') {
-      this._importProvider = new ImportProvider(importPath);
+      const relativePath = path.resolve(path.dirname(tree.sourceRange.sourceName), importPath);
+      this._importProvider = new ImportProvider(relativePath);
       this.fullPath = this._importProvider.fullPath;
     } else {
       tree.addIssue(IssueLevel.error, 'Import path should be a string literal');
