@@ -31,4 +31,8 @@ export class Tree {
   addError(message: String) {
     this.addIssue(IssueLevel.error, message);
   }
+
+  toString() {
+    return this.sourceRange.rangeText;
+  }
 }
