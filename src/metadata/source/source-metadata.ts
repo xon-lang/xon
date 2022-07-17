@@ -22,6 +22,7 @@ export class SourceMetadata {
   }
 
   addDeclarationsToScope() {
+    const sourceScope = this.scope.create()
     for (const statement of this.tree.statements) {
       if (!(statement instanceof DeclarationStatementTree) || statement.declaration.metadata) {
         continue;
@@ -30,26 +31,26 @@ export class SourceMetadata {
       if (statement.declaration instanceof ParameterTree && statement.declaration.modifier) {
         statement.declaration.metadata = getShadowDefinitionMetadata(
           statement.declaration,
-          this.scope.create(),
+          sourceScope.create(),
         );
         statement.declaration.name.metadata = statement.declaration.metadata;
         this.scope.add(statement.declaration.metadata);
       } else if (statement.declaration instanceof ParameterTree) {
         statement.declaration.metadata = getShadowParameterMetadata(
           statement.declaration,
-          (statement.declaration.destructure && this.scope) || this.scope.create(),
+          (statement.declaration.destructure && sourceScope) || sourceScope.create(),
         );
         if (statement.declaration.name) {
           statement.declaration.name.metadata = statement.declaration.metadata;
         }
         if (statement.declaration.metadata.name) {
-          this.scope.add(statement.declaration.metadata);
+          sourceScope.add(statement.declaration.metadata);
         }
       } else if (
         statement instanceof ExpressionStatementTree &&
         statement.expression instanceof IdExpressionTree
       ) {
-        this.scope.add(new ParameterMetadata(statement.expression.name, this.scope));
+        sourceScope.add(new ParameterMetadata(statement.expression.name, sourceScope));
       }
     }
   }
