@@ -16,6 +16,10 @@ export class SourceRange {
     return this.sourceName === other.sourceName && this.start.index === other.start.index;
   }
 
+  toString() {
+    return this.rangeText;
+  }
+
   static fromContext(context: ParserRuleContext) {
     return SourceRange.fromTwoTokens(context.start, context.stop);
   }
