@@ -1,32 +1,15 @@
-import { Boolean, None, String } from '../../../lib/core';
-import { ParameterTree } from '../../../tree/parameter/parameter-tree';
-import { SourceRange } from '../../../util/source-range';
+import { Boolean, None } from '../../../lib/core';
 import { DefinitionTypeMetadata } from '../../expression/type/definition/definition-type-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
 import { ParameterMetadata } from '../parameter/parameter-metadata';
 import { DeclarationScope } from '../scope/declaration-scope';
 
 export class DefinitionMetadata extends DeclarationMetadata {
-  modifier: String;
-  name: String;
-  sourceRange: SourceRange;
-
-  generics: ParameterMetadata | None;
-  parameters: ParameterMetadata[] = [];
   base: DefinitionMetadata | None;
   attributes: ParameterMetadata[] = [];
-
   type = new DefinitionTypeMetadata(this);
 
   private _attributesScope: DeclarationScope;
-
-  constructor(public tree: ParameterTree, public scope: DeclarationScope) {
-    super();
-
-    this.modifier = tree.modifier.text;
-    this.name = tree.name.text;
-    this.sourceRange = tree.sourceRange;
-  }
 
   attributesScope(): DeclarationScope {
     if (this._attributesScope) {

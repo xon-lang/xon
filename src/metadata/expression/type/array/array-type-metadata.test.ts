@@ -1,7 +1,7 @@
 import { parseExpression } from '../../../../util/parse';
 import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
 import { LiteralTypeMetadata } from '../literal/literal-type-metadata';
-import { getTypeMetadata } from '../type-metadata-helper';
+import { fillTypeMetadata } from '../type-metadata-helper';
 import { UnionTypeMetadata } from '../union/union-type-metadata';
 import { ArrayTypeMetadata } from './array-type-metadata';
 
@@ -9,7 +9,7 @@ test('no items', () => {
   const code = 'Integer[]';
   const tree = parseExpression(code);
   const scope = new TestDeclarationScope();
-  const metadata = getTypeMetadata(tree, scope) as ArrayTypeMetadata;
+  const metadata = fillTypeMetadata(tree, scope) as ArrayTypeMetadata;
 
   expect(metadata).toBeInstanceOf(ArrayTypeMetadata);
   expect(metadata.commonType.equals(scope.core.integer.type)).toBe(true);
@@ -20,7 +20,7 @@ test('has items', () => {
   const code = "[1, 'hi']";
   const tree = parseExpression(code);
   const scope = new TestDeclarationScope();
-  const metadata = getTypeMetadata(tree, scope) as ArrayTypeMetadata;
+  const metadata = fillTypeMetadata(tree, scope) as ArrayTypeMetadata;
 
   expect(metadata).toBeInstanceOf(ArrayTypeMetadata);
   expect(

@@ -1,14 +1,14 @@
 import { parseExpression } from '../../../../util/parse';
 import { DefinitionMetadata } from '../../../declaration/definition/definition-metadata';
 import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
-import { getTypeMetadata } from '../type-metadata-helper';
+import { fillTypeMetadata } from '../type-metadata-helper';
 import { DefinitionTypeMetadata } from './definition-type-metadata';
 
 test('none model', () => {
   const code = 'None';
   const tree = parseExpression(code);
   const scope = new TestDeclarationScope();
-  const metadata = getTypeMetadata(tree, scope) as DefinitionTypeMetadata;
+  const metadata = fillTypeMetadata(tree, scope) as DefinitionTypeMetadata;
 
   expect(metadata).toBeInstanceOf(DefinitionTypeMetadata);
   expect(metadata.definition).toBeInstanceOf(DefinitionMetadata);
@@ -20,7 +20,7 @@ test('none model', () => {
 test('none object', () => {
   const code = 'none';
   const tree = parseExpression(code);
-  const metadata = getTypeMetadata(tree, new TestDeclarationScope()) as DefinitionTypeMetadata;
+  const metadata = fillTypeMetadata(tree, new TestDeclarationScope()) as DefinitionTypeMetadata;
 
   expect(metadata).toBeInstanceOf(DefinitionTypeMetadata);
   expect(metadata.definition).toBeInstanceOf(DefinitionMetadata);
@@ -31,7 +31,7 @@ test('none object', () => {
 test('any', () => {
   const code = 'Any';
   const tree = parseExpression(code);
-  const metadata = getTypeMetadata(tree, new TestDeclarationScope()) as DefinitionTypeMetadata;
+  const metadata = fillTypeMetadata(tree, new TestDeclarationScope()) as DefinitionTypeMetadata;
 
   expect(metadata).toBeInstanceOf(DefinitionTypeMetadata);
   expect(metadata.definition).toBeInstanceOf(DefinitionMetadata);
@@ -43,15 +43,15 @@ test('none is None', () => {
   const code = 'none';
   const tree = parseExpression(code);
   const scope = new TestDeclarationScope();
-  const metadata = getTypeMetadata(tree, scope);
+  const metadata = fillTypeMetadata(tree, scope);
 
   const codeNone = 'None';
   const treeNone = parseExpression(codeNone);
-  const metadataNone = getTypeMetadata(treeNone, scope);
+  const metadataNone = fillTypeMetadata(treeNone, scope);
 
   const codeFloat = 'Float';
   const treeFloat = parseExpression(codeFloat);
-  const metadataFloat = getTypeMetadata(treeFloat, scope);
+  const metadataFloat = fillTypeMetadata(treeFloat, scope);
 
   expect(metadata.is(metadataNone)).toBe(true);
   expect(metadata.is(metadataFloat)).toBe(false);

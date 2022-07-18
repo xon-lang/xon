@@ -29,7 +29,9 @@ export class DeclarationScope {
     const declarations = this.declarations.filter(
       (x) => x.name === name && (!predicate || predicate(x)),
     );
-    if (declarations.length) return declarations;
+    if (declarations.length) {
+      return declarations;
+    }
     return this.parent?.filter(name, predicate) || [];
   }
 

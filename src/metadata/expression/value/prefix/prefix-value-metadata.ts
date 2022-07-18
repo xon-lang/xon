@@ -1,23 +1,24 @@
 import { Any, None, none, Unknown } from '../../../../lib/core';
 import { PrefixExpressionTree } from '../../../../tree/expression/prefix/prefix-expression-tree';
+import { OperatorMetadata } from '../../../declaration/operator/operator-metadata';
 import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { MethodTypeMetadata } from '../../type/method/method-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
-import { getValueMetadata } from '../value-metadata-helper';
+import { fillValueMetadata } from '../value-metadata-helper';
 
 export class PrefixValueMetadata extends ValueMetadata {
   constructor(private tree: PrefixExpressionTree, private scope: DeclarationScope) {
     super();
 
-    tree.value.metadata = getValueMetadata(tree.value, scope);
+    fillValueMetadata(tree.value, scope);
     tree.name.metadata = this.operatorDeclaration();
   }
 
   private operatorDeclaration(): ParameterMetadata | None {
     const declarations = this.scope.filter(this.tree.name.text, (x) => {
-      if (!(x instanceof ParameterMetadata)) return false;
+      if (!(x instanceof OperatorMetadata)) return false;
 
       const type = x.type;
       if (!(type instanceof MethodTypeMetadata)) return false;

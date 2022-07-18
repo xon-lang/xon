@@ -1,14 +1,14 @@
 import { parseExpression } from '../../../../util/parse';
 import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
 import { DefinitionTypeMetadata } from '../definition/definition-type-metadata';
-import { getTypeMetadata } from '../type-metadata-helper';
+import { fillTypeMetadata } from '../type-metadata-helper';
 import { MethodTypeMetadata } from './method-type-metadata';
 
 test('method', () => {
   const code = '(a: Number)=>None';
   const tree = parseExpression(code);
   const scope = new TestDeclarationScope();
-  const metadata = getTypeMetadata(tree, scope) as MethodTypeMetadata;
+  const metadata = fillTypeMetadata(tree, scope) as MethodTypeMetadata;
 
   expect(metadata).toBeInstanceOf(MethodTypeMetadata);
   const parameters = metadata.parameters;

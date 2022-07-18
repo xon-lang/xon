@@ -4,6 +4,7 @@ import os from 'os';
 import path from 'path';
 import { String } from '../lib/core';
 import { parseSourceFile } from '../util/parse';
+import { DefinitionMetadata } from './declaration/definition/definition-metadata';
 import { DeclarationScope } from './declaration/scope/declaration-scope';
 import { getSourceMetadata } from './source/source-metadata-helper';
 
@@ -42,12 +43,20 @@ export class ImportProvider {
     for (const tree of sources) {
       tree.metadata = getSourceMetadata(tree, scope, true);
     }
-    ImportProvider.cache.set(this.fullPath, scope);
 
     for (const tree of sources) {
       tree.metadata = getSourceMetadata(tree, scope, false);
     }
-    return scope;
+
+    const definitionsScope = new DeclarationScope();
+    ImportProvider.cache.set(this.fullPath, definitionsScope);
+    for (const declaration of scope.declarations) {
+      if (declaration instanceof DefinitionMetadata || declaration.modifier === 'operator') {
+        definitionsScope.add(declaration);
+      }
+    }
+
+    return definitionsScope;
   }
 }
 

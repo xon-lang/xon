@@ -1,13 +1,13 @@
 import { parseExpression } from '../../../../util/parse';
 import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
-import { getTypeMetadata } from '../type-metadata-helper';
+import { fillTypeMetadata } from '../type-metadata-helper';
 import { ObjectTypeMetadata } from './object-type-metadata';
 
 test('object', () => {
   const code = '{a = 1, b = 2, c = 3}';
   const tree = parseExpression(code);
   const scope = new TestDeclarationScope();
-  const metadata = getTypeMetadata(tree, scope) as ObjectTypeMetadata;
+  const metadata = fillTypeMetadata(tree, scope) as ObjectTypeMetadata;
 
   expect(metadata).toBeInstanceOf(ObjectTypeMetadata);
   expect(metadata.attributesScope().declarations.length).toBe(3);
@@ -17,17 +17,17 @@ test('object is other one', () => {
   const code = '{a = 1, b = 2, c = 3}';
   const tree = parseExpression(code);
   const scope = new TestDeclarationScope();
-  const metadata = getTypeMetadata(tree, scope) as ObjectTypeMetadata;
+  const metadata = fillTypeMetadata(tree, scope) as ObjectTypeMetadata;
 
   const code2 = '{a = 1, b = 1, c = 1}';
   const tree2 = parseExpression(code2);
   const scope2 = new TestDeclarationScope();
-  const metadata2 = getTypeMetadata(tree2, scope2) as ObjectTypeMetadata;
+  const metadata2 = fillTypeMetadata(tree2, scope2) as ObjectTypeMetadata;
 
   const code3 = '{x = 1, b = 2, c = 3}';
   const tree3 = parseExpression(code3);
   const scope3 = new TestDeclarationScope();
-  const metadata3 = getTypeMetadata(tree3, scope3) as ObjectTypeMetadata;
+  const metadata3 = fillTypeMetadata(tree3, scope3) as ObjectTypeMetadata;
 
   expect(metadata).toBeInstanceOf(ObjectTypeMetadata);
   expect(metadata.attributesScope().declarations.length).toBe(3);

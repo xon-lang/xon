@@ -1,4 +1,4 @@
-import { ParameterTree } from '../../tree/parameter/parameter-tree';
+import { DeclarationTree } from '../../tree/declaration/declaration-tree';
 import { DeclarationStatementTree } from '../../tree/statement/declaration/declaration-statement-tree';
 import { parseSource, parseSourceFile } from '../../util/parse';
 import { TestDeclarationScope } from '../declaration/scope/test-declaration-scope';
@@ -26,7 +26,7 @@ test('2.xon', () => {
   const declarations = scope.filter('none');
   expect(declarations.length).toBe(1);
   const declarationTree = (tree.statements[0] as DeclarationStatementTree)
-    .declaration as ParameterTree;
+    .declaration as DeclarationTree;
   expect(declarationTree.destructure[0].metadata.sourceRange.sourceName).toBe(
     '/Users/nizami/work/xon/core/src/lib/@xon/core/special.xon',
   );

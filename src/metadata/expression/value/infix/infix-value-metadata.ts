@@ -1,17 +1,18 @@
 import { Any, None, none, Unknown } from '../../../../lib/core';
 import { InfixExpressionTree } from '../../../../tree/expression/infix/infix-expression-tree';
+import { OperatorMetadata } from '../../../declaration/operator/operator-metadata';
 import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { MethodTypeMetadata } from '../../type/method/method-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
-import { getValueMetadata } from '../value-metadata-helper';
+import { fillValueMetadata } from '../value-metadata-helper';
 
 export class InfixValueMetadata extends ValueMetadata {
   constructor(private tree: InfixExpressionTree, private scope: DeclarationScope) {
     super();
-    tree.left.metadata = getValueMetadata(tree.left, scope);
-    tree.right.metadata = getValueMetadata(tree.right, scope);
+    fillValueMetadata(tree.left, scope);
+    fillValueMetadata(tree.right, scope);
     tree.name.metadata = this.operatorDeclaration();
   }
 
@@ -24,13 +25,18 @@ export class InfixValueMetadata extends ValueMetadata {
         throw new Error('Not implemented');
       }
 
-      if (!(x instanceof ParameterMetadata)) return false;
+      if (!(x instanceof OperatorMetadata)) {
+        return false;
+      }
 
-      const type = x.type;
-      if (!(type instanceof MethodTypeMetadata)) return false;
+      if (!(x.type instanceof MethodTypeMetadata)) {
+        return false;
+      }
 
-      const parameters = type.parameters;
-      if (parameters.length !== 2) return false;
+      const parameters = x.type.parameters;
+      if (parameters.length !== 2) {
+        return false;
+      }
 
       const [left, right] = parameters;
       return leftMetadata.type().is(left.type) && rightMetadata.type().is(right.type);

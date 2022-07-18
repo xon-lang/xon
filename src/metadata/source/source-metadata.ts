@@ -1,12 +1,7 @@
 import { Boolean } from '../../lib/core';
-import { IdExpressionTree } from '../../tree/expression/id/id-expression-tree';
-import { ParameterTree } from '../../tree/parameter/parameter-tree';
 import { SourceTree } from '../../tree/source/source-tree';
 import { DeclarationStatementTree } from '../../tree/statement/declaration/declaration-statement-tree';
-import { ExpressionStatementTree } from '../../tree/statement/expression/expression-statement-tree';
-import { getShadowDefinitionMetadata } from '../declaration/definition/definition-metadata-helper';
-import { ParameterMetadata } from '../declaration/parameter/parameter-metadata';
-import { getShadowParameterMetadata } from '../declaration/parameter/parameter-metadata-helper';
+import { fillShadowDeclarationMetadata } from '../declaration/declaration-metadata-helper';
 import { DeclarationScope } from '../declaration/scope/declaration-scope';
 import { getStatementMetadata } from '../statement/statement-metadata-helper';
 
@@ -22,36 +17,11 @@ export class SourceMetadata {
   }
 
   addDeclarationsToScope() {
-    const sourceScope = this.scope.create()
     for (const statement of this.tree.statements) {
       if (!(statement instanceof DeclarationStatementTree) || statement.declaration.metadata) {
         continue;
       }
-
-      if (statement.declaration instanceof ParameterTree && statement.declaration.modifier) {
-        statement.declaration.metadata = getShadowDefinitionMetadata(
-          statement.declaration,
-          sourceScope.create(),
-        );
-        statement.declaration.name.metadata = statement.declaration.metadata;
-        this.scope.add(statement.declaration.metadata);
-      } else if (statement.declaration instanceof ParameterTree) {
-        statement.declaration.metadata = getShadowParameterMetadata(
-          statement.declaration,
-          (statement.declaration.destructure && sourceScope) || sourceScope.create(),
-        );
-        if (statement.declaration.name) {
-          statement.declaration.name.metadata = statement.declaration.metadata;
-        }
-        if (statement.declaration.metadata.name) {
-          sourceScope.add(statement.declaration.metadata);
-        }
-      } else if (
-        statement instanceof ExpressionStatementTree &&
-        statement.expression instanceof IdExpressionTree
-      ) {
-        sourceScope.add(new ParameterMetadata(statement.expression.name, sourceScope));
-      }
+      fillShadowDeclarationMetadata(statement.declaration, this.scope);
     }
   }
 }

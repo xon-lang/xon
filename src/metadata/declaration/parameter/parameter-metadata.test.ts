@@ -1,4 +1,4 @@
-import { ParameterTree } from '../../../tree/parameter/parameter-tree';
+import { DeclarationTree } from '../../../tree/declaration/declaration-tree';
 import { DeclarationStatementTree } from '../../../tree/statement/declaration/declaration-statement-tree';
 import { parseSource } from '../../../util/parse';
 import { LiteralTypeMetadata } from '../../expression/type/literal/literal-type-metadata';
@@ -19,7 +19,7 @@ test('single parameter', () => {
   expect(scope.declarations.length).toBe(1);
   expect(scope.filter('a')[0].name).toBe('a');
 
-  const parameter = (tree.statements[0] as DeclarationStatementTree).declaration as ParameterTree;
+  const parameter = (tree.statements[0] as DeclarationStatementTree).declaration as DeclarationTree;
   const valueType = (parameter.value.metadata as ValueMetadata).type() as LiteralTypeMetadata;
   expect(valueType.definition.name).toBe('Integer');
   expect(valueType.is(scope.core.number.type)).toBe(true);

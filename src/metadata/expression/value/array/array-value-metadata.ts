@@ -1,4 +1,4 @@
-import { None } from '../../../../lib/core';
+import { none, None } from '../../../../lib/core';
 import { ArrayExpressionTree } from '../../../../tree/expression/array/array-expression-tree';
 import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
@@ -7,12 +7,12 @@ import { ObjectTypeMetadata } from '../../type/object/object-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
 import { UnionTypeMetadata } from '../../type/union/union-type-metadata';
 import { ValueMetadata } from '../value-metadata';
-import { getValueMetadata } from '../value-metadata-helper';
+import { fillValueMetadata } from '../value-metadata-helper';
 
 export class ArrayValueMetadata extends ValueMetadata {
   constructor(private tree: ArrayExpressionTree, private scope: DeclarationScope) {
     super();
-    tree.arguments.forEach((x) => (x.value.metadata = getValueMetadata(x.value, scope)));
+    tree.arguments.forEach((x) => fillValueMetadata(x.value, scope));
   }
 
   // todo use generics
@@ -28,7 +28,9 @@ export class ArrayValueMetadata extends ValueMetadata {
     if (this.tree.ctx.arguments().open().OPEN_BRACE()) {
       const objectScope = new DeclarationScope();
       items.forEach((x) => {
-        const metadata = new ParameterMetadata(x.tree.name, this.scope);
+        const metadata = new ParameterMetadata(none, this.scope);
+        metadata.name = x.tree.name.text;
+        metadata.sourceRange = x.sourceRange;
         metadata.type = x.type;
         metadata.value = x.value;
         objectScope.add(metadata);

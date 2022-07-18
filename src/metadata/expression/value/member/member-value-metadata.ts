@@ -3,12 +3,12 @@ import { MemberExpressionTree } from '../../../../tree/expression/member/member-
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
-import { getValueMetadata } from '../value-metadata-helper';
+import { fillValueMetadata } from '../value-metadata-helper';
 
 export class MemberValueMetadata extends ValueMetadata {
   constructor(private tree: MemberExpressionTree, private scope: DeclarationScope) {
     super();
-    tree.instance.metadata = getValueMetadata(tree.instance, scope);
+    fillValueMetadata(tree.instance, scope);
     if (tree.name) {
       tree.name.metadata = this.memberDeclaration();
     }
