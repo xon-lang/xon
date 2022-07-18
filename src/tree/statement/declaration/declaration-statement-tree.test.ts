@@ -1,7 +1,7 @@
 import { none } from '../../../lib/core';
 import { parseStatement } from '../../../util/parse';
+import { DeclarationTree } from '../../declaration/declaration-tree';
 import { LiteralExpressionTree } from '../../expression/literal/literal-expression-tree';
-import { ParameterTree } from '../../parameter/parameter-tree';
 import { DeclarationStatementTree } from './declaration-statement-tree';
 
 test('variable assignment colon', () => {
@@ -9,8 +9,8 @@ test('variable assignment colon', () => {
   const tree = parseStatement(code) as DeclarationStatementTree;
 
   expect(tree).toBeInstanceOf(DeclarationStatementTree);
-  const parameter = tree.declaration as ParameterTree;
-  expect(parameter).toBeInstanceOf(ParameterTree);
+  const parameter = tree.declaration as DeclarationTree;
+  expect(parameter).toBeInstanceOf(DeclarationTree);
   expect(parameter.name.text).toBe('a');
   expect(parameter.type).toBeInstanceOf(LiteralExpressionTree);
   expect((parameter.type as LiteralExpressionTree).literal.value).toBe(1);
@@ -23,8 +23,8 @@ test('variable assignment equals', () => {
   const tree = parseStatement(code) as DeclarationStatementTree;
 
   expect(tree).toBeInstanceOf(DeclarationStatementTree);
-  const parameter = tree.declaration as ParameterTree;
-  expect(parameter).toBeInstanceOf(ParameterTree);
+  const parameter = tree.declaration as DeclarationTree;
+  expect(parameter).toBeInstanceOf(DeclarationTree);
   expect(parameter.name.text).toBe('a');
   expect(parameter.type).toBe(none);
   expect(parameter.value).toBeInstanceOf(LiteralExpressionTree);

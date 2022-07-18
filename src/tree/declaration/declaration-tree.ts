@@ -1,6 +1,6 @@
 // this code was generated
 
-import { ParameterContext } from '../../grammar/xon-parser';
+import { DeclarationContext } from '../../grammar/xon-parser';
 import { IssueLevel } from '../../issue-service/issue-level';
 import { Boolean, None } from '../../lib/core';
 import { DeclarationMetadata } from '../../metadata/declaration/declaration-metadata';
@@ -16,35 +16,37 @@ import { CommentStatementTree } from '../statement/comment/comment-statement-tre
 import { DeclarationStatementTree } from '../statement/declaration/declaration-statement-tree';
 import { ExpressionStatementTree } from '../statement/expression/expression-statement-tree';
 import { Tree } from '../tree';
-import { getParameterTrees } from './parameter-tree-helper';
+import { getDeclarationTrees } from './declaration-tree-helper';
 
-export class ParameterTree extends Tree {
-  ctx: ParameterContext;
+export class DeclarationTree extends Tree {
+  ctx: DeclarationContext;
   metadata: DeclarationMetadata;
   sourceRange: SourceRange;
   modifier: IdTree;
   name?: IdTree;
-  destructure: ParameterTree[];
+  destructure: DeclarationTree[];
   hasParameters: Boolean;
-  generics: ParameterTree[];
-  parameters: ParameterTree[];
+  generics: DeclarationTree[];
+  parameters: DeclarationTree[];
   type?: ExpressionTree | None;
   value?: ExpressionTree | None;
   body?: SourceTree | None;
   attributes: (DeclarationStatementTree | ExpressionStatementTree)[];
 
-  constructor(ctx: ParameterContext) {
+  constructor(ctx: DeclarationContext) {
     super();
 
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
     this.modifier = getIdTree(ctx._modifier);
     this.name = getIdTree(ctx._name);
-    this.destructure = getParameterTrees(ctx._destructure?.parameter());
+    this.destructure = getDeclarationTrees(ctx._destructure?.declaration());
     this.hasParameters = !!ctx._params.filter((x) => !x.open().LESS()).length;
-    this.generics = getParameterTrees(ctx._params.filter((x) => x.open().LESS())[0]?.parameter());
-    this.parameters = getParameterTrees(
-      ctx._params.filter((x) => !x.open().LESS())[0]?.parameter(),
+    this.generics = getDeclarationTrees(
+      ctx._params.filter((x) => x.open().LESS())[0]?.declaration(),
+    );
+    this.parameters = getDeclarationTrees(
+      ctx._params.filter((x) => !x.open().LESS())[0]?.declaration(),
     );
     this.type = getExpressionTree(ctx.valueType()?.expression());
     this.value = getExpressionTree(ctx.valueBody()?.expression());
