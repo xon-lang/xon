@@ -72,8 +72,8 @@ export class XonParser extends Parser {
 	public static readonly RULE_statement = 1;
 	public static readonly RULE_expression = 2;
 	public static readonly RULE_literal = 3;
-	public static readonly RULE_parameters = 4;
-	public static readonly RULE_parameter = 5;
+	public static readonly RULE_declarations = 4;
+	public static readonly RULE_declaration = 5;
 	public static readonly RULE_valueBody = 6;
 	public static readonly RULE_valueType = 7;
 	public static readonly RULE_arguments = 8;
@@ -84,7 +84,7 @@ export class XonParser extends Parser {
 	public static readonly RULE_body = 13;
 	// tslint:disable:no-trailing-whitespace
 	public static readonly ruleNames: string[] = [
-		"source", "statement", "expression", "literal", "parameters", "parameter", 
+		"source", "statement", "expression", "literal", "declarations", "declaration", 
 		"valueBody", "valueType", "arguments", "argument", "open", "close", "operator", 
 		"body",
 	];
@@ -258,7 +258,7 @@ export class XonParser extends Parser {
 					case 1:
 						{
 						this.state = 50;
-						this.parameter();
+						this.declaration();
 						}
 						break;
 					}
@@ -423,7 +423,7 @@ export class XonParser extends Parser {
 				this.enterOuterAlt(_localctx, 12);
 				{
 				this.state = 99;
-				this.parameter();
+				this.declaration();
 				}
 				break;
 			}
@@ -555,7 +555,7 @@ export class XonParser extends Parser {
 					{
 					{
 					this.state = 113;
-					this.parameters();
+					this.declarations();
 					}
 					}
 					this.state = 118;
@@ -754,9 +754,9 @@ export class XonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public parameters(): ParametersContext {
-		let _localctx: ParametersContext = new ParametersContext(this._ctx, this.state);
-		this.enterRule(_localctx, 8, XonParser.RULE_parameters);
+	public declarations(): DeclarationsContext {
+		let _localctx: DeclarationsContext = new DeclarationsContext(this._ctx, this.state);
+		this.enterRule(_localctx, 8, XonParser.RULE_declarations);
 		let _la: number;
 		try {
 			let _alt: number;
@@ -770,7 +770,7 @@ export class XonParser extends Parser {
 			case 1:
 				{
 				this.state = 155;
-				this.parameter();
+				this.declaration();
 				this.state = 160;
 				this._errHandler.sync(this);
 				_alt = this.interpreter.adaptivePredict(this._input, 19, this._ctx);
@@ -781,7 +781,7 @@ export class XonParser extends Parser {
 						this.state = 156;
 						this.match(XonParser.COMMA);
 						this.state = 157;
-						this.parameter();
+						this.declaration();
 						}
 						}
 					}
@@ -821,9 +821,9 @@ export class XonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public parameter(): ParameterContext {
-		let _localctx: ParameterContext = new ParameterContext(this._ctx, this.state);
-		this.enterRule(_localctx, 10, XonParser.RULE_parameter);
+	public declaration(): DeclarationContext {
+		let _localctx: DeclarationContext = new DeclarationContext(this._ctx, this.state);
+		this.enterRule(_localctx, 10, XonParser.RULE_declaration);
 		let _la: number;
 		try {
 			this.state = 193;
@@ -833,7 +833,7 @@ export class XonParser extends Parser {
 				this.enterOuterAlt(_localctx, 1);
 				{
 				this.state = 170;
-				_localctx._destructure = this.parameters();
+				_localctx._destructure = this.declarations();
 				this.state = 172;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
@@ -890,8 +890,8 @@ export class XonParser extends Parser {
 					{
 					{
 					this.state = 181;
-					_localctx._parameters = this.parameters();
-					_localctx._params.push(_localctx._parameters);
+					_localctx._declarations = this.declarations();
+					_localctx._params.push(_localctx._declarations);
 					}
 					}
 					this.state = 186;
@@ -1488,8 +1488,8 @@ export class ForStatementContext extends StatementContext {
 		return this.getRuleContext(0, BodyContext);
 	}
 	public ID(): TerminalNode | undefined { return this.tryGetToken(XonParser.ID, 0); }
-	public parameter(): ParameterContext | undefined {
-		return this.tryGetRuleContext(0, ParameterContext);
+	public declaration(): DeclarationContext | undefined {
+		return this.tryGetRuleContext(0, DeclarationContext);
 	}
 	constructor(ctx: StatementContext) {
 		super(ctx.parent, ctx.invokingState);
@@ -1616,8 +1616,8 @@ export class ExpressionStatementContext extends StatementContext {
 	}
 }
 export class DeclarationStatementContext extends StatementContext {
-	public parameter(): ParameterContext {
-		return this.getRuleContext(0, ParameterContext);
+	public declaration(): DeclarationContext {
+		return this.getRuleContext(0, DeclarationContext);
 	}
 	constructor(ctx: StatementContext) {
 		super(ctx.parent, ctx.invokingState);
@@ -1763,13 +1763,13 @@ export class MethodExpressionContext extends ExpressionContext {
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
-	public parameters(): ParametersContext[];
-	public parameters(i: number): ParametersContext;
-	public parameters(i?: number): ParametersContext | ParametersContext[] {
+	public declarations(): DeclarationsContext[];
+	public declarations(i: number): DeclarationsContext;
+	public declarations(i?: number): DeclarationsContext | DeclarationsContext[] {
 		if (i === undefined) {
-			return this.getRuleContexts(ParametersContext);
+			return this.getRuleContexts(DeclarationsContext);
 		} else {
-			return this.getRuleContext(i, ParametersContext);
+			return this.getRuleContext(i, DeclarationsContext);
 		}
 	}
 	public valueType(): ValueTypeContext | undefined {
@@ -1815,20 +1815,20 @@ export class StringLiteralContext extends LiteralContext {
 }
 
 
-export class ParametersContext extends ParserRuleContext {
+export class DeclarationsContext extends ParserRuleContext {
 	public open(): OpenContext {
 		return this.getRuleContext(0, OpenContext);
 	}
 	public close(): CloseContext {
 		return this.getRuleContext(0, CloseContext);
 	}
-	public parameter(): ParameterContext[];
-	public parameter(i: number): ParameterContext;
-	public parameter(i?: number): ParameterContext | ParameterContext[] {
+	public declaration(): DeclarationContext[];
+	public declaration(i: number): DeclarationContext;
+	public declaration(i?: number): DeclarationContext | DeclarationContext[] {
 		if (i === undefined) {
-			return this.getRuleContexts(ParameterContext);
+			return this.getRuleContexts(DeclarationContext);
 		} else {
-			return this.getRuleContext(i, ParameterContext);
+			return this.getRuleContext(i, DeclarationContext);
 		}
 	}
 	public COMMA(): TerminalNode[];
@@ -1844,23 +1844,23 @@ export class ParametersContext extends ParserRuleContext {
 		super(parent, invokingState);
 	}
 	// @Override
-	public get ruleIndex(): number { return XonParser.RULE_parameters; }
+	public get ruleIndex(): number { return XonParser.RULE_declarations; }
 }
 
 
-export class ParameterContext extends ParserRuleContext {
-	public _destructure!: ParametersContext;
+export class DeclarationContext extends ParserRuleContext {
+	public _destructure!: DeclarationsContext;
 	public _modifier!: Token;
 	public _name!: Token;
-	public _parameters!: ParametersContext;
-	public _params: ParametersContext[] = [];
-	public parameters(): ParametersContext[];
-	public parameters(i: number): ParametersContext;
-	public parameters(i?: number): ParametersContext | ParametersContext[] {
+	public _declarations!: DeclarationsContext;
+	public _params: DeclarationsContext[] = [];
+	public declarations(): DeclarationsContext[];
+	public declarations(i: number): DeclarationsContext;
+	public declarations(i?: number): DeclarationsContext | DeclarationsContext[] {
 		if (i === undefined) {
-			return this.getRuleContexts(ParametersContext);
+			return this.getRuleContexts(DeclarationsContext);
 		} else {
-			return this.getRuleContext(i, ParametersContext);
+			return this.getRuleContext(i, DeclarationsContext);
 		}
 	}
 	public valueType(): ValueTypeContext | undefined {
@@ -1885,7 +1885,7 @@ export class ParameterContext extends ParserRuleContext {
 		super(parent, invokingState);
 	}
 	// @Override
-	public get ruleIndex(): number { return XonParser.RULE_parameter; }
+	public get ruleIndex(): number { return XonParser.RULE_declaration; }
 }
 
 
@@ -1984,10 +1984,10 @@ export class OpenContext extends ParserRuleContext {
 
 export class CloseContext extends ParserRuleContext {
 	public _name!: Token;
-	public CLOSE_BRACE(): TerminalNode | undefined { return this.tryGetToken(XonParser.CLOSE_BRACE, 0); }
-	public CLOSE_BRACKET(): TerminalNode | undefined { return this.tryGetToken(XonParser.CLOSE_BRACKET, 0); }
-	public CLOSE_PAREN(): TerminalNode | undefined { return this.tryGetToken(XonParser.CLOSE_PAREN, 0); }
 	public GREAT(): TerminalNode | undefined { return this.tryGetToken(XonParser.GREAT, 0); }
+	public CLOSE_PAREN(): TerminalNode | undefined { return this.tryGetToken(XonParser.CLOSE_PAREN, 0); }
+	public CLOSE_BRACKET(): TerminalNode | undefined { return this.tryGetToken(XonParser.CLOSE_BRACKET, 0); }
+	public CLOSE_BRACE(): TerminalNode | undefined { return this.tryGetToken(XonParser.CLOSE_BRACE, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
