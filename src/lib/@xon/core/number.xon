@@ -1,26 +1,26 @@
 model Number
 
-model Integer : Number
+model Integer: Number
   test: String
 
-model Float : Number
+model Float: Number
   test: String
   test2: String
 
-+ (a: Number, b: Number): Number
-- (a: Number, b: Number): Number
-* (a: Number, b: Number): Number
-/ (a: Number, b: Number): Number
-^ (a: Number, b: Number): Number
-% (a: Number, b: Number): Number
+operator +(a: Number, b: Number): Number
+operator -(a: Number, b: Number): Number
+operator *(a: Number, b: Number): Number
+operator /(a: Number, b: Number): Number
+operator ^(a: Number, b: Number): Number
+operator %(a: Number, b: Number): Number
 
-> (a: Number, b: Number): Boolean
-< (a: Number, b: Number): Boolean
->= (a: Number, b: Number): Boolean
-<= (a: Number, b: Number): Boolean
-== (a: Number, b: Number): Boolean
-!= (a: Number, b: Number): Boolean
+operator >(a: Number, b: Number): Boolean
+operator <(a: Number, b: Number): Boolean
+operator >=(a: Number, b: Number): Boolean
+operator <=(a: Number, b: Number): Boolean
+operator ==(a: Number, b: Number): Boolean
+operator !=(a: Number, b: Number): Boolean
 
-+ (a: Number): Number
-- (a: Number): Number
-! (a: Number): Boolean
+operator +(a: Number): Number
+operator -(a: Number): Number
+operator !(a: Number): Boolean

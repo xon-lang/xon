@@ -3,6 +3,6 @@ model Boolean
   test2 = none
   test3 = none
 
-false: Boolean
+object false: Boolean
 
-true: Boolean
+object true: Boolean
