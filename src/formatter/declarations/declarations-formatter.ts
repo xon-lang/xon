@@ -1,10 +1,10 @@
-import { ParametersContext } from '../../grammar/xon-parser';
+import { DeclarationsContext } from '../../grammar/xon-parser';
+import { getParameterFormatter } from '../declaration/declaration-formatter-helper';
 import { Formatter } from '../formatter';
 import { FormatterConfig } from '../formatter-config';
-import { getParameterFormatter } from '../parameter/parameter-formatter-helper';
 
 export class ParametersFormatter extends Formatter {
-  constructor(public ctx: ParametersContext, public config: FormatterConfig) {
+  constructor(public ctx: DeclarationsContext, public config: FormatterConfig) {
     super();
   }
 
@@ -12,17 +12,17 @@ export class ParametersFormatter extends Formatter {
     const openSymbol = this.ctx.open().text;
     const closeSymbol = this.ctx.close().text;
 
-    if (this.ctx.parameter().length === 0) {
+    if (this.ctx.declaration().length === 0) {
       return openSymbol + closeSymbol;
     }
 
     let sortedParameters = [];
     if (this.ctx.close().CLOSE_BRACE()) {
       sortedParameters = this.ctx
-        .parameter()
+        .declaration()
         .sort((a, b) => a._name.text.localeCompare(b._name.text));
     } else {
-      sortedParameters = this.ctx.parameter();
+      sortedParameters = this.ctx.declaration();
     }
     const parameters = sortedParameters.map((x) =>
       getParameterFormatter(x, this.config).indent(this.indentCount),

@@ -1,19 +1,19 @@
-import { ExpressionContext, ParameterContext, ValueBodyContext } from '../../grammar/xon-parser';
+import { DeclarationContext, ExpressionContext, ValueBodyContext } from '../../grammar/xon-parser';
 import { String } from '../../lib/core';
 import { getBodyFormatter } from '../body/body-formatter-helper';
+import { getDeclarationsFormatter } from '../declarations/declarations-formatter-helper';
 import { getExpressionFormatter } from '../expression/expression-formatter-helper';
 import { Formatter } from '../formatter';
 import { FormatterConfig } from '../formatter-config';
-import { getParametersFormatter } from '../parameters/parameters-formatter-helper';
 
-export class ParameterFormatter extends Formatter {
-  constructor(public ctx: ParameterContext, public config: FormatterConfig) {
+export class DeclarationFormatter extends Formatter {
+  constructor(public ctx: DeclarationContext, public config: FormatterConfig) {
     super();
   }
 
   toString() {
     const modifier = (this.ctx._modifier && this.ctx._modifier.text + ' ') || '';
-    const params = this.ctx._params.map((x) => getParametersFormatter(x, this.config)).join('');
+    const params = this.ctx._params.map((x) => getDeclarationsFormatter(x, this.config)).join('');
     const type = this.typeFormatter(this.ctx.valueType()?.expression());
     let body = this.valueBodyFormat(this.ctx.valueBody(), this.ctx.valueType()?.expression());
 
@@ -21,7 +21,7 @@ export class ParameterFormatter extends Formatter {
       return `${modifier}${this.ctx._name.text}${params}${type}${body}`;
     }
 
-    const destructure = getParametersFormatter(this.ctx._destructure, this.config);
+    const destructure = getDeclarationsFormatter(this.ctx._destructure, this.config);
     return `${destructure}${params}${type}${body}`;
   }
 

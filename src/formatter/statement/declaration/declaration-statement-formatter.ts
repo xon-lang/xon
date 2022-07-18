@@ -1,6 +1,6 @@
 import { DeclarationStatementContext } from '../../../grammar/xon-parser';
+import { getParameterFormatter } from '../../declaration/declaration-formatter-helper';
 import { FormatterConfig } from '../../formatter-config';
-import { getParameterFormatter } from '../../parameter/parameter-formatter-helper';
 import { StatementFormatter } from '../Statement-formatter';
 
 export class DeclarationStatementFormatter extends StatementFormatter {
@@ -9,7 +9,7 @@ export class DeclarationStatementFormatter extends StatementFormatter {
   }
 
   toString() {
-    return getParameterFormatter(this.ctx.parameter(), this.config)
+    return getParameterFormatter(this.ctx.declaration(), this.config)
       .indent(this.indentCount)
       .toString();
   }

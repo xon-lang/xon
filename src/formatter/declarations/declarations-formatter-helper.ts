@@ -1,17 +1,17 @@
-import { ParametersContext } from '../../grammar/xon-parser';
+import { DeclarationsContext } from '../../grammar/xon-parser';
 import { None, none } from '../../lib/core';
 import { FormatterConfig } from '../formatter-config';
-import { ParametersFormatter } from './parameters-formatter';
+import { ParametersFormatter } from './declarations-formatter';
 
-export const getParametersFormatter = (
-  ctx: ParametersContext,
+export const getDeclarationsFormatter = (
+  ctx: DeclarationsContext,
   config: FormatterConfig,
 ): ParametersFormatter | None => {
   if (!ctx) {
     return none;
   }
 
-  if (ctx instanceof ParametersContext) {
+  if (ctx instanceof DeclarationsContext) {
     return new ParametersFormatter(ctx, config);
   }
 };

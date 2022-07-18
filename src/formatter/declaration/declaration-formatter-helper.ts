@@ -1,16 +1,16 @@
-import { ParameterContext } from '../../grammar/xon-parser';
+import { DeclarationContext } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
 import { None, none } from '../../lib/core';
 import { FormatterConfig } from '../formatter-config';
-import { ParameterFormatter } from './parameter-formatter';
+import { DeclarationFormatter } from './declaration-formatter';
 
 export const getParameterFormatter = (
-  ctx: ParameterContext,
+  ctx: DeclarationContext,
   config: FormatterConfig,
-): ParameterFormatter | None => {
+): DeclarationFormatter | None => {
   if (!ctx) return none;
 
-  if (ctx instanceof ParameterContext) return new ParameterFormatter(ctx, config);
+  if (ctx instanceof DeclarationContext) return new DeclarationFormatter(ctx, config);
 
   Issue.errorFromContext(ctx, `Parameter formatter not found"`);
 };

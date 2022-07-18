@@ -1,8 +1,8 @@
 import { ForStatementContext } from '../../../grammar/xon-parser';
 import { getBodyFormatter } from '../../body/body-formatter-helper';
+import { getParameterFormatter } from '../../declaration/declaration-formatter-helper';
 import { getExpressionFormatter } from '../../expression/expression-formatter-helper';
 import { FormatterConfig } from '../../formatter-config';
-import { getParameterFormatter } from '../../parameter/parameter-formatter-helper';
 import { StatementFormatter } from '../Statement-formatter';
 
 export class ForStatementFormatter extends StatementFormatter {
@@ -11,7 +11,7 @@ export class ForStatementFormatter extends StatementFormatter {
   }
 
   toString() {
-    const parameter = getParameterFormatter(this.ctx.parameter(), this.config)?.indent(
+    const parameter = getParameterFormatter(this.ctx.declaration(), this.config)?.indent(
       this.indentCount,
     );
     let vars = [parameter]

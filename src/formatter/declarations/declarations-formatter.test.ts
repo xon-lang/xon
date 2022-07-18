@@ -1,12 +1,12 @@
 import { parse } from '../../util/parse';
 import { defaultFormatterConfig, FormatterConfig } from '../formatter-config';
-import { ParametersFormatter } from './parameters-formatter';
-import { getParametersFormatter } from './parameters-formatter-helper';
+import { ParametersFormatter } from './declarations-formatter';
+import { getDeclarationsFormatter } from './declarations-formatter-helper';
 
 test('integers', () => {
   const code = '[a, b, c]';
-  const ctx = parse(code).parameters();
-  const formatter = getParametersFormatter(ctx, defaultFormatterConfig) as ParametersFormatter;
+  const ctx = parse(code).declarations();
+  const formatter = getDeclarationsFormatter(ctx, defaultFormatterConfig) as ParametersFormatter;
 
   expect(formatter).toBeInstanceOf(ParametersFormatter);
   expect(formatter.toString()).toBe('[a, b, c]');
@@ -14,10 +14,10 @@ test('integers', () => {
 
 test('integers', () => {
   const code = '[a, b, c]';
-  const ctx = parse(code).parameters();
+  const ctx = parse(code).declarations();
   const config = new FormatterConfig();
   config.printWidth = 3;
-  const formatter = getParametersFormatter(ctx, config) as ParametersFormatter;
+  const formatter = getDeclarationsFormatter(ctx, config) as ParametersFormatter;
 
   expect(formatter).toBeInstanceOf(ParametersFormatter);
   expect(formatter.toString()).toBe(
@@ -40,8 +40,8 @@ test('integers', () => {
 
 test('brace', () => {
   const code = '{c, a, b}';
-  const ctx = parse(code).parameters();
-  const formatter = getParametersFormatter(ctx, defaultFormatterConfig) as ParametersFormatter;
+  const ctx = parse(code).declarations();
+  const formatter = getDeclarationsFormatter(ctx, defaultFormatterConfig) as ParametersFormatter;
 
   expect(formatter).toBeInstanceOf(ParametersFormatter);
   expect(formatter.toString()).toBe('{a, b, c}');
