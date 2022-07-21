@@ -5,4 +5,4 @@ export class DefaultModuleConfig extends ModuleConfig {
   defaultImports = ['src/lib/@xon/core'];
 }
 
-export const config = new DefaultModuleConfig();
+export const moduleConfig = new DefaultModuleConfig();
