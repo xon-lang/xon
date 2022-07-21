@@ -9,11 +9,14 @@ export class DeclarationScope {
   }
 
   declarations: DeclarationMetadata[] = [];
+  children: DeclarationScope[] = [];
 
   constructor(public parent?: DeclarationScope) {}
 
   create() {
-    return new DeclarationScope(this);
+    const scope = new DeclarationScope(this);
+    this.children.push(scope);
+    return scope;
   }
 
   add(metadata: DeclarationMetadata) {

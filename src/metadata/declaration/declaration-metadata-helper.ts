@@ -1,5 +1,7 @@
+import { none } from '../../lib/core';
 import { DeclarationTree } from '../../tree/declaration/declaration-tree';
 import { IdExpressionTree } from '../../tree/expression/id/id-expression-tree';
+import { SourceTree } from '../../tree/source/source-tree';
 import { DeclarationStatementTree } from '../../tree/statement/declaration/declaration-statement-tree';
 import { ArrayTypeMetadata } from '../expression/type/array/array-type-metadata';
 import { MethodTypeMetadata } from '../expression/type/method/method-type-metadata';
@@ -7,7 +9,7 @@ import { ObjectTypeMetadata } from '../expression/type/object/object-type-metada
 import { TypeMetadata } from '../expression/type/type-metadata';
 import { fillTypeMetadata } from '../expression/type/type-metadata-helper';
 import { fillValueMetadata } from '../expression/value/value-metadata-helper';
-import { getSourceMetadata } from '../source/source-metadata-helper';
+import { DeclarationMetadata } from './declaration-metadata';
 import { DefinitionMetadata } from './definition/definition-metadata';
 import { OperatorMetadata } from './operator/operator-metadata';
 import { ParameterMetadata } from './parameter/parameter-metadata';
@@ -59,7 +61,7 @@ export function getShadowDefinitionMetadata(
   }
 
   if (tree.body) {
-    getSourceMetadata(tree.body, innerScope, true);
+    fillShadowSourceMetadata(tree.body, innerScope);
   }
 
   metadata.attributes = innerScope.declarations
@@ -117,7 +119,7 @@ export function getShadowOperatorMetadata(
   metadata.parameters = tree.parameters.map((x) => x.metadata as ParameterMetadata);
 
   if (tree.body) {
-    getSourceMetadata(tree.body, innerScope, true);
+    fillShadowSourceMetadata(tree.body, innerScope);
   }
 
   return metadata;
@@ -176,7 +178,7 @@ export function getShadowParameterMetadata(
   }
 
   if (tree.body) {
-    getSourceMetadata(tree.body, innerScope, true);
+    fillShadowSourceMetadata(tree.body, innerScope);
   }
 
   metadata.modifier = tree.modifier?.text;
@@ -192,13 +194,12 @@ export function fillParameterMetadata(tree: DeclarationTree, alternativeType?: T
 
   if (tree.type) {
     tree.metadata.type = fillTypeMetadata(tree.type, tree.metadata.scope);
-    tree.type.metadata = tree.metadata.type;
   } else if (alternativeType) {
     tree.metadata.type = alternativeType;
   } else if (tree.value && tree.metadata instanceof ParameterMetadata) {
     tree.metadata.type = tree.metadata.value.type();
   } else {
-    tree.metadata.type = tree.metadata.scope.core.any.type;
+    tree.metadata.type = tree.metadata.scope.core?.any.type || none;
   }
 
   if (tree.hasParameters) {
@@ -234,4 +235,24 @@ export function fillDestructureParameterMetadata(tree: DeclarationTree) {
     }
     fillParameterMetadata(parameter, type);
   }
+}
+
+export function fillShadowSourceMetadata(
+  tree: SourceTree,
+  scope: DeclarationScope,
+): DeclarationMetadata[] {
+  const declarations: DeclarationMetadata[] = [];
+  for (const statement of tree.statements) {
+    if (statement instanceof DeclarationStatementTree) {
+      if (!statement.declaration.metadata) {
+        fillShadowDeclarationMetadata(statement.declaration, scope);
+      }
+
+      const declaration = statement.declaration.metadata;
+      if (declaration instanceof DefinitionMetadata || declaration instanceof OperatorMetadata) {
+        declarations.push(declaration);
+      }
+    }
+  }
+  return declarations;
 }

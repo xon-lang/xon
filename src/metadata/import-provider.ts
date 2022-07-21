@@ -4,7 +4,7 @@ import os from 'os';
 import path from 'path';
 import { String } from '../lib/core';
 import { parseSourceFile } from '../util/parse';
-import { DefinitionMetadata } from './declaration/definition/definition-metadata';
+import { fillShadowSourceMetadata } from './declaration/declaration-metadata-helper';
 import { DeclarationScope } from './declaration/scope/declaration-scope';
 import { getSourceMetadata } from './source/source-metadata-helper';
 
@@ -39,21 +39,15 @@ export class ImportProvider {
     const files = glob.sync(globPath);
     const sources = files.map((x) => parseSourceFile(x));
     const scope = new DeclarationScope();
-
-    for (const tree of sources) {
-      tree.metadata = getSourceMetadata(tree, scope, true);
-    }
-
-    for (const tree of sources) {
-      tree.metadata = getSourceMetadata(tree, scope, false);
-    }
-
     const definitionsScope = new DeclarationScope();
     ImportProvider.cache.set(this.fullPath, definitionsScope);
-    for (const declaration of scope.declarations) {
-      if (declaration instanceof DefinitionMetadata || declaration.modifier === 'operator') {
-        definitionsScope.add(declaration);
-      }
+
+    for (const tree of sources) {
+      definitionsScope.declarations.push(...fillShadowSourceMetadata(tree, scope));
+    }
+
+    for (const tree of sources) {
+      tree.metadata = getSourceMetadata(tree, scope);
     }
 
     return definitionsScope;

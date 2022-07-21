@@ -17,28 +17,22 @@ export class InfixValueMetadata extends ValueMetadata {
   }
 
   private operatorDeclaration(): ParameterMetadata | None {
+    const leftMetadata = this.tree.left.metadata;
+    const rightMetadata = this.tree.right.metadata;
+
+    if (!(leftMetadata instanceof ValueMetadata && rightMetadata instanceof ValueMetadata)) {
+      throw new Error('Not implemented');
+    }
+
     const declarations = this.scope.filter(this.tree.name.text, (x) => {
-      const leftMetadata = this.tree.left.metadata;
-      const rightMetadata = this.tree.right.metadata;
-
-      if (!(leftMetadata instanceof ValueMetadata && rightMetadata instanceof ValueMetadata)) {
-        throw new Error('Not implemented');
-      }
-
-      if (!(x instanceof OperatorMetadata)) {
+      if (
+        !(x instanceof OperatorMetadata && x.type instanceof MethodTypeMetadata) ||
+        x.type.parameters.length !== 2
+      ) {
         return false;
       }
 
-      if (!(x.type instanceof MethodTypeMetadata)) {
-        return false;
-      }
-
-      const parameters = x.type.parameters;
-      if (parameters.length !== 2) {
-        return false;
-      }
-
-      const [left, right] = parameters;
+      const [left, right] = x.type.parameters;
       return leftMetadata.type().is(left.type) && rightMetadata.type().is(right.type);
     });
 

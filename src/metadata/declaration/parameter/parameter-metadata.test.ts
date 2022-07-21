@@ -16,11 +16,10 @@ test('single parameter', () => {
   const metadata = getSourceMetadata(tree, scope);
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
-  expect(scope.declarations.length).toBe(1);
-  expect(scope.filter('a')[0].name).toBe('a');
 
   const parameter = (tree.statements[0] as DeclarationStatementTree).declaration as DeclarationTree;
   const valueType = (parameter.value.metadata as ValueMetadata).type() as LiteralTypeMetadata;
+  expect(parameter.metadata.name).toBe('a');
   expect(valueType.definition.name).toBe('Integer');
   expect(valueType.is(scope.core.number.type)).toBe(true);
   expect((parameter.type.metadata as TypeMetadata).equals(scope.core.number.type)).toBe(true);
@@ -31,24 +30,25 @@ test('multiple parameters array value', () => {
   const tree = parseSource(code);
   const scope = new TestDeclarationScope();
   const metadata = getSourceMetadata(tree, scope);
+  const { destructure } = (tree.statements[0] as DeclarationStatementTree).declaration;
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
-  expect(scope.declarations.length).toBe(3);
+  expect(destructure.length).toBe(3);
 
-  expect(scope.filter('a')[0].name).toBe('a');
-  expect(scope.filter('a')[0]).toBeInstanceOf(ParameterMetadata);
-  expect(scope.filter('a')[0].type).toBeInstanceOf(LiteralTypeMetadata);
-  expect(scope.filter('a')[0].type.equals(new LiteralTypeMetadata(1, scope.core.integer))).toBe(
+  expect(destructure[0].metadata.name).toBe('a');
+  expect(destructure[0].metadata).toBeInstanceOf(ParameterMetadata);
+  expect(destructure[0].metadata.type).toBeInstanceOf(LiteralTypeMetadata);
+  expect(destructure[0].metadata.type.equals(new LiteralTypeMetadata(1, scope.core.integer))).toBe(
     true,
   );
 
-  expect(scope.filter('b')[0].name).toBe('b');
-  expect(scope.filter('b')[0].type.equals(new LiteralTypeMetadata('hi', scope.core.string))).toBe(
-    true,
-  );
+  expect(destructure[1].metadata.name).toBe('b');
+  expect(
+    destructure[1].metadata.type.equals(new LiteralTypeMetadata('hi', scope.core.string)),
+  ).toBe(true);
 
-  expect(scope.filter('c')[0].name).toBe('c');
-  expect(scope.filter('c')[0].type.equals(new LiteralTypeMetadata(2.3, scope.core.float))).toBe(
+  expect(destructure[2].metadata.name).toBe('c');
+  expect(destructure[2].metadata.type.equals(new LiteralTypeMetadata(2.3, scope.core.float))).toBe(
     true,
   );
 });
@@ -58,24 +58,25 @@ test('multiple parameters object value', () => {
   const tree = parseSource(code);
   const scope = new TestDeclarationScope();
   const metadata = getSourceMetadata(tree, scope);
+  const { destructure } = (tree.statements[0] as DeclarationStatementTree).declaration;
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
-  expect(scope.declarations.length).toBe(3);
+  expect(destructure.length).toBe(3);
 
-  expect(scope.filter('a')[0].name).toBe('a');
-  expect(scope.filter('a')[0]).toBeInstanceOf(ParameterMetadata);
-  expect(scope.filter('a')[0].type).toBeInstanceOf(LiteralTypeMetadata);
-  expect(scope.filter('a')[0].type.equals(new LiteralTypeMetadata(1, scope.core.integer))).toBe(
+  expect(destructure[0].metadata.name).toBe('a');
+  expect(destructure[0].metadata).toBeInstanceOf(ParameterMetadata);
+  expect(destructure[0].metadata.type).toBeInstanceOf(LiteralTypeMetadata);
+  expect(destructure[0].metadata.type.equals(new LiteralTypeMetadata(1, scope.core.integer))).toBe(
     true,
   );
 
-  expect(scope.filter('b')[0].name).toBe('b');
-  expect(scope.filter('b')[0].type.equals(new LiteralTypeMetadata('hi', scope.core.string))).toBe(
-    true,
-  );
+  expect(destructure[1].metadata.name).toBe('b');
+  expect(
+    destructure[1].metadata.type.equals(new LiteralTypeMetadata('hi', scope.core.string)),
+  ).toBe(true);
 
-  expect(scope.filter('c')[0].name).toBe('c');
-  expect(scope.filter('c')[0].type.equals(new LiteralTypeMetadata(2.3, scope.core.float))).toBe(
+  expect(destructure[2].metadata.name).toBe('c');
+  expect(destructure[2].metadata.type.equals(new LiteralTypeMetadata(2.3, scope.core.float))).toBe(
     true,
   );
 });
