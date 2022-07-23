@@ -6,10 +6,10 @@ import { InvokeValueMetadata } from './invoke-value-metadata';
 test('lambda call', () => {
   const code = '(()=>1+1)()';
   const tree = parseExpression(code);
-  const scope = new TestDeclarationScope();
-  const metadata = fillValueMetadata(tree, scope);
+  tree.scope.parent = new TestDeclarationScope();
+  const metadata = fillValueMetadata(tree);
 
   expect(metadata).toBeInstanceOf(InvokeValueMetadata);
-  expect(metadata.type().is(scope.core.number.type)).toBe(true);
-  expect(metadata.type().is(scope.core.string.type)).toBe(false);
+  expect(metadata.type().is(tree.scope.core.number.type)).toBe(true);
+  expect(metadata.type().is(tree.scope.core.string.type)).toBe(false);
 });

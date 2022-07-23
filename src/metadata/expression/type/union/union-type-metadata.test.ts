@@ -6,8 +6,8 @@ import { UnionTypeMetadata } from './union-type-metadata';
 test('union', () => {
   const code = 'Integer | Float';
   const tree = parseExpression(code);
-  const scope = new TestDeclarationScope();
-  const metadata = fillTypeMetadata(tree, scope) as UnionTypeMetadata;
+  tree.scope.parent = new TestDeclarationScope();
+  const metadata = fillTypeMetadata(tree) as UnionTypeMetadata;
 
   expect(metadata).toBeInstanceOf(UnionTypeMetadata);
   expect(metadata.attributesScope().declarations.length).toBe(3);

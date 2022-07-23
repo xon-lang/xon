@@ -5,25 +5,23 @@ import {
   getShadowParameterMetadata,
 } from '../../../declaration/declaration-metadata-helper';
 import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
-import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { MethodTypeMetadata } from '../../type/method/method-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
 import { fillValueMetadata } from '../value-metadata-helper';
 
 export class MethodValueMetadata extends ValueMetadata {
-  constructor(private tree: MethodExpressionTree, private scope: DeclarationScope) {
+  constructor(private tree: MethodExpressionTree) {
     super();
-    const innerScope = scope.create();
     tree.parameters.forEach((x) => {
-      x.metadata = getShadowParameterMetadata(x, innerScope);
+      x.metadata = getShadowParameterMetadata(x);
       if (x.name) {
         x.name.metadata = x.metadata;
       }
-      innerScope.add(x.metadata);
+      tree.scope.add(x.metadata);
       fillParameterMetadata(x);
     });
-    fillValueMetadata(tree.value, innerScope);
+    fillValueMetadata(tree.value);
   }
 
   type(): TypeMetadata | None {

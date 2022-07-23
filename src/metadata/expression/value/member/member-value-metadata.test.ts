@@ -7,18 +7,18 @@ import { MemberValueMetadata } from './member-value-metadata';
 test('member', () => {
   const code = '4.5.test2';
   const tree = parseExpression(code);
-  const scope = new TestDeclarationScope();
-  const metadata = fillValueMetadata(tree, scope);
+  tree.scope.parent = new TestDeclarationScope();
+  const metadata = fillValueMetadata(tree);
 
   expect(metadata).toBeInstanceOf(MemberValueMetadata);
-  expect(metadata.type().equals(scope.core.string.type)).toBe(true);
+  expect(metadata.type().equals(tree.scope.core.string.type)).toBe(true);
 });
 
 test('without member name', () => {
   const code = '4.5.';
   const tree = parseExpression(code);
-  const scope = new TestDeclarationScope();
-  const metadata = fillValueMetadata(tree, scope);
+  tree.scope.parent = new TestDeclarationScope();
+  const metadata = fillValueMetadata(tree);
 
   expect(metadata).toBeInstanceOf(MemberValueMetadata);
   expect(metadata.type()).toBe(none);

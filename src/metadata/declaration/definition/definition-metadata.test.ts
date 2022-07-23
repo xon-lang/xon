@@ -8,11 +8,11 @@ import { DefinitionMetadata } from './definition-metadata';
 test('definition', () => {
   const code = 'model A';
   const tree = parseSource(code);
-  const scope = new TestDeclarationScope();
-  const metadata = getSourceMetadata(tree, scope);
-  const declarations = fillShadowSourceMetadata(tree, scope);
+  tree.scope.parent = new TestDeclarationScope();
+  tree.metadata = getSourceMetadata(tree);
+  const declarations = fillShadowSourceMetadata(tree);
 
-  expect(metadata).toBeInstanceOf(SourceMetadata);
+  expect(tree.metadata).toBeInstanceOf(SourceMetadata);
   expect(declarations.length).toBe(1);
   expect(declarations[0]).toBeInstanceOf(DefinitionMetadata);
   expect(declarations[0].name).toBe('A');

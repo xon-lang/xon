@@ -6,10 +6,10 @@ import { TestDeclarationScope } from '../scope/test-declaration-scope';
 test('single parameter', () => {
   const code = 'operator +(a: Number, b: Number) : Number';
   const tree = parseSource(code);
-  const scope = new TestDeclarationScope();
-  const metadata = getSourceMetadata(tree, scope);
+  tree.scope = new TestDeclarationScope();
+  tree.metadata = getSourceMetadata(tree);
 
-  expect(metadata).toBeInstanceOf(SourceMetadata);
-  expect(scope.declarations.length).toBe(1);
-  expect(scope.filter('+')[0].name).toBe('+');
+  expect(tree.metadata).toBeInstanceOf(SourceMetadata);
+  expect(tree.scope.declarations.length).toBe(1);
+  expect(tree.scope.filter('+')[0].name).toBe('+');
 });

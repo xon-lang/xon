@@ -1,23 +1,13 @@
-import { Boolean, none } from '../../../lib/core';
+import { Boolean } from '../../../lib/core';
 import { DeclarationMetadata } from '../declaration-metadata';
 import { CoreDeclarationScope } from './core/core-declaration-scope';
 
 export class DeclarationScope {
-  static _core: CoreDeclarationScope = none;
-  get core() {
-    return DeclarationScope._core;
-  }
-
+  core = new CoreDeclarationScope(this);
   declarations: DeclarationMetadata[] = [];
   children: DeclarationScope[] = [];
 
   constructor(public parent?: DeclarationScope) {}
-
-  create() {
-    const scope = new DeclarationScope(this);
-    this.children.push(scope);
-    return scope;
-  }
 
   add(metadata: DeclarationMetadata) {
     this.declarations.push(metadata);

@@ -7,8 +7,8 @@ import { getSourceMetadata } from './source-metadata-helper';
 
 test('1-error.xon', () => {
   const tree = parseSourceFile('src/metadata/source/test-files/1-error.xon');
-  const scope = new TestDeclarationScope();
-  const metadata = getSourceMetadata(tree, scope);
+  tree.scope.parent = new TestDeclarationScope();
+  const metadata = getSourceMetadata(tree);
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
   const issues = tree.allIssues();
@@ -19,11 +19,11 @@ test('1-error.xon', () => {
 
 test('2.xon', () => {
   const tree = parseSource("{none} := import 'src/lib/@xon/core'");
-  const scope = new TestDeclarationScope();
-  const metadata = getSourceMetadata(tree, scope);
+  tree.scope.parent = new TestDeclarationScope();
+  const metadata = getSourceMetadata(tree);
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
-  const declarations = scope.filter('none');
+  const declarations = tree.scope.filter('none');
   expect(declarations.length).toBe(1);
   const declarationTree = (tree.statements[0] as DeclarationStatementTree)
     .declaration as DeclarationTree;

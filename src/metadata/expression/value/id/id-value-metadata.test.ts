@@ -6,19 +6,19 @@ import { IdValueMetadata } from './id-value-metadata';
 test('none object', () => {
   const code = 'none';
   const tree = parseExpression(code);
-  const scope = new TestDeclarationScope();
-  const metadata = fillValueMetadata(tree, scope) as IdValueMetadata;
+  tree.scope.parent = new TestDeclarationScope();
+  const metadata = fillValueMetadata(tree) as IdValueMetadata;
 
   expect(metadata).toBeInstanceOf(IdValueMetadata);
-  expect(metadata.type().is(scope.core.none.type)).toBe(true);
+  expect(metadata.type().is(tree.scope.core.none.type)).toBe(true);
 });
 
 test('none model', () => {
   const code = 'None';
   const tree = parseExpression(code);
-  const scope = new TestDeclarationScope();
-  const metadata = fillValueMetadata(tree, scope) as IdValueMetadata;
+  tree.scope.parent = new TestDeclarationScope();
+  const metadata = fillValueMetadata(tree) as IdValueMetadata;
 
   expect(metadata).toBeInstanceOf(IdValueMetadata);
-  expect(metadata.type().is(scope.core.none.type)).toBe(true);
+  expect(metadata.type().is(tree.scope.core.none.type)).toBe(true);
 });

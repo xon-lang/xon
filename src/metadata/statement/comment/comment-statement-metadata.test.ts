@@ -6,8 +6,8 @@ import { getSourceMetadata } from '../../source/source-metadata-helper';
 test('comment', () => {
   const code = '-- 123';
   const tree = parseSource(code);
-  const scope = new TestDeclarationScope();
-  const metadata = getSourceMetadata(tree, scope);
+  tree.scope.parent = new TestDeclarationScope();
+  const metadata = getSourceMetadata(tree);
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
 });

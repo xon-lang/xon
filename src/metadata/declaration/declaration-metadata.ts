@@ -6,7 +6,6 @@ import { ValueMetadata } from '../expression/value/value-metadata';
 import { Metadata } from '../metadata';
 import { GenericMetadata } from './generic/generic-metadata';
 import { ParameterMetadata } from './parameter/parameter-metadata';
-import { DeclarationScope } from './scope/declaration-scope';
 
 export abstract class DeclarationMetadata extends Metadata {
   sourceRange: SourceRange;
@@ -18,7 +17,7 @@ export abstract class DeclarationMetadata extends Metadata {
   type: TypeMetadata | None = none;
   value: ValueMetadata | None;
 
-  constructor(public tree: DeclarationTree | None, public scope: DeclarationScope) {
+  constructor(public tree: DeclarationTree | None) {
     super();
 
     if (tree) {

@@ -10,9 +10,9 @@ import { ValueMetadata } from '../value-metadata';
 import { fillValueMetadata } from '../value-metadata-helper';
 
 export class ArrayValueMetadata extends ValueMetadata {
-  constructor(private tree: ArrayExpressionTree, private scope: DeclarationScope) {
+  constructor(private tree: ArrayExpressionTree) {
     super();
-    tree.arguments.forEach((x) => fillValueMetadata(x.value, scope));
+    tree.arguments.forEach((x) => fillValueMetadata(x.value));
   }
 
   // todo use generics
@@ -28,7 +28,7 @@ export class ArrayValueMetadata extends ValueMetadata {
     if (this.tree.ctx.arguments().open().OPEN_BRACE()) {
       const objectScope = new DeclarationScope();
       items.forEach((x) => {
-        const metadata = new ParameterMetadata(none, this.scope);
+        const metadata = new ParameterMetadata(none);
         metadata.name = x.tree.name.text;
         metadata.sourceRange = x.sourceRange;
         metadata.type = x.type;
@@ -37,7 +37,7 @@ export class ArrayValueMetadata extends ValueMetadata {
       });
       return new ObjectTypeMetadata(objectScope);
     }
-    let commonType: TypeMetadata = this.scope.core.any.type;
+    let commonType: TypeMetadata = this.tree.scope.core.any.type;
     if (items.length === 1) {
       commonType = items[0].type;
     } else if (items.length > 1) {
@@ -46,6 +46,7 @@ export class ArrayValueMetadata extends ValueMetadata {
     return new ArrayTypeMetadata(
       commonType,
       items.map((x) => x.type),
+      this.tree.scope.core.array,
     );
   }
 

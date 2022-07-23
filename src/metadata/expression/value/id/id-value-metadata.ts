@@ -1,19 +1,18 @@
 import { Any, None } from '../../../../lib/core';
 import { IdExpressionTree } from '../../../../tree/expression/id/id-expression-tree';
 import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
-import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
 
 export class IdValueMetadata extends ValueMetadata {
-  constructor(private tree: IdExpressionTree, private scope: DeclarationScope) {
+  constructor(private tree: IdExpressionTree) {
     super();
 
     tree.name.metadata = this.declaration();
   }
 
   private declaration() {
-    const declarations = this.scope.filter(this.tree.name.text);
+    const declarations = this.tree.scope.filter(this.tree.name.text);
     if (declarations.length === 1) {
       return declarations[0];
     }

@@ -7,8 +7,8 @@ import { ImportValueMetadata } from './import-value-metadata';
 test('literal', () => {
   const code = "import 'src/lib/@xon/core'";
   const tree = parseExpression(code);
-  const scope = new TestDeclarationScope();
-  const metadata = fillValueMetadata(tree, scope) as ImportValueMetadata;
+  tree.scope.parent = new TestDeclarationScope();
+  const metadata = fillValueMetadata(tree) as ImportValueMetadata;
 
   expect(metadata).toBeInstanceOf(ImportValueMetadata);
   expect(metadata.importScope().declarations.length).toBe(34);

@@ -1,17 +1,16 @@
 import { None } from '../../../../lib/core';
 import { LiteralExpressionTree } from '../../../../tree/expression/literal/literal-expression-tree';
-import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { TypeMetadata } from '../../type/type-metadata';
 import { fillTypeMetadata } from '../../type/type-metadata-helper';
 import { ValueMetadata } from '../value-metadata';
 
 export class LiteralValueMetadata extends ValueMetadata {
-  constructor(private tree: LiteralExpressionTree, private scope: DeclarationScope) {
+  constructor(private tree: LiteralExpressionTree) {
     super();
   }
 
   type(): TypeMetadata | None {
-    return fillTypeMetadata(this.tree, this.scope);
+    return fillTypeMetadata(this.tree);
   }
 
   eval() {

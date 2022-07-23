@@ -1,14 +1,13 @@
 import { Any, None, none } from '../../../../lib/core';
 import { MemberExpressionTree } from '../../../../tree/expression/member/member-expression-tree';
-import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
 import { fillValueMetadata } from '../value-metadata-helper';
 
 export class MemberValueMetadata extends ValueMetadata {
-  constructor(private tree: MemberExpressionTree, private scope: DeclarationScope) {
+  constructor(private tree: MemberExpressionTree) {
     super();
-    fillValueMetadata(tree.instance, scope);
+    fillValueMetadata(tree.instance);
     if (tree.name) {
       tree.name.metadata = this.memberDeclaration();
     }

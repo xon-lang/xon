@@ -6,9 +6,9 @@ import { PrefixValueMetadata } from './prefix-value-metadata';
 test('prefix', () => {
   const code = '+1';
   const tree = parseExpression(code);
-  const scope = new TestDeclarationScope();
-  const metadata = fillValueMetadata(tree, scope);
+  tree.scope.parent = new TestDeclarationScope();
+  const metadata = fillValueMetadata(tree);
 
   expect(metadata).toBeInstanceOf(PrefixValueMetadata);
-  expect(metadata.type().equals(scope.core.number.type)).toBe(true);
+  expect(metadata.type().equals(tree.scope.core.number.type)).toBe(true);
 });

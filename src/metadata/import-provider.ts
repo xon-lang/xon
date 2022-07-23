@@ -39,18 +39,18 @@ export class ImportProvider {
     const files = glob.sync(globPath);
     const sources = files.map((x) => parseSourceFile(x));
     const scope = new DeclarationScope();
-    const definitionsScope = new DeclarationScope();
-    ImportProvider.cache.set(this.fullPath, definitionsScope);
+    ImportProvider.cache.set(this.fullPath, scope);
 
     for (const tree of sources) {
-      definitionsScope.declarations.push(...fillShadowSourceMetadata(tree, scope));
+      scope.declarations.push(...fillShadowSourceMetadata(tree));
     }
 
     for (const tree of sources) {
-      tree.metadata = getSourceMetadata(tree, scope);
+      tree.scope.parent = scope;
+      tree.metadata = getSourceMetadata(tree);
     }
 
-    return definitionsScope;
+    return scope;
   }
 }
 

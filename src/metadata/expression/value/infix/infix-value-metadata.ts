@@ -2,17 +2,16 @@ import { Any, None, none, Unknown } from '../../../../lib/core';
 import { InfixExpressionTree } from '../../../../tree/expression/infix/infix-expression-tree';
 import { OperatorMetadata } from '../../../declaration/operator/operator-metadata';
 import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
-import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { MethodTypeMetadata } from '../../type/method/method-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
 import { fillValueMetadata } from '../value-metadata-helper';
 
 export class InfixValueMetadata extends ValueMetadata {
-  constructor(private tree: InfixExpressionTree, private scope: DeclarationScope) {
+  constructor(private tree: InfixExpressionTree) {
     super();
-    fillValueMetadata(tree.left, scope);
-    fillValueMetadata(tree.right, scope);
+    fillValueMetadata(tree.left);
+    fillValueMetadata(tree.right);
     tree.name.metadata = this.operatorDeclaration();
   }
 
@@ -24,7 +23,7 @@ export class InfixValueMetadata extends ValueMetadata {
       throw new Error('Not implemented');
     }
 
-    const declarations = this.scope.filter(this.tree.name.text, (x) => {
+    const declarations = this.tree.scope.filter(this.tree.name.text, (x) => {
       if (
         !(x instanceof OperatorMetadata && x.type instanceof MethodTypeMetadata) ||
         x.type.parameters.length !== 2

@@ -16,9 +16,9 @@ export class ImportValueMetadata extends ValueMetadata {
   private _importProvider: ImportProvider;
   private _type: TypeMetadata;
 
-  constructor(private tree: PrefixExpressionTree, private scope: DeclarationScope) {
+  constructor(private tree: PrefixExpressionTree) {
     super();
-    fillValueMetadata(tree.value, scope);
+    fillValueMetadata(tree.value);
 
     const importPath = evaluate(tree.value);
     if (typeof importPath === 'string') {

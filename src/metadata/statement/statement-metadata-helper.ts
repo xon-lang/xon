@@ -7,7 +7,6 @@ import { IfStatementTree } from '../../tree/statement/if/if-statement-tree';
 
 import { ReturnStatementTree } from '../../tree/statement/return/return-statement-tree';
 import { StatementTree } from '../../tree/statement/statement-tree';
-import { DeclarationScope } from '../declaration/scope/declaration-scope';
 import { CommentStatementMetadata } from './comment/comment-statement-metadata';
 import { DeclarationStatementMetadata } from './declaration/declaration-statement-metadata';
 
@@ -16,16 +15,12 @@ import { IfStatementMetadata } from './if/if-statement-metadata';
 import { ReturnStatementMetadata } from './return/return-statement-metadata';
 import { StatementMetadata } from './statement-metadata';
 
-export function getStatementMetadata(
-  tree: StatementTree,
-  scope: DeclarationScope,
-): StatementMetadata {
-  if (tree instanceof ExpressionStatementTree) return new ExpressionStatementMetadata(tree, scope);
-  if (tree instanceof DeclarationStatementTree)
-    return new DeclarationStatementMetadata(tree, scope);
-  if (tree instanceof IfStatementTree) return new IfStatementMetadata(tree, scope);
-  if (tree instanceof ReturnStatementTree) return new ReturnStatementMetadata(tree, scope);
-  if (tree instanceof CommentStatementTree) return new CommentStatementMetadata(tree, scope);
+export function getStatementMetadata(tree: StatementTree): StatementMetadata {
+  if (tree instanceof ExpressionStatementTree) return new ExpressionStatementMetadata(tree);
+  if (tree instanceof DeclarationStatementTree) return new DeclarationStatementMetadata(tree);
+  if (tree instanceof IfStatementTree) return new IfStatementMetadata(tree);
+  if (tree instanceof ReturnStatementTree) return new ReturnStatementMetadata(tree);
+  if (tree instanceof CommentStatementTree) return new CommentStatementMetadata(tree);
 
   Issue.errorFromTree(tree, `Statement metadata not found for '${tree.constructor.name}'`);
 }

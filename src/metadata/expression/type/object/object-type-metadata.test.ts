@@ -6,8 +6,8 @@ import { ObjectTypeMetadata } from './object-type-metadata';
 test('object', () => {
   const code = '{a = 1, b = 2, c = 3}';
   const tree = parseExpression(code);
-  const scope = new TestDeclarationScope();
-  const metadata = fillTypeMetadata(tree, scope) as ObjectTypeMetadata;
+  tree.scope.parent = new TestDeclarationScope();
+  const metadata = fillTypeMetadata(tree) as ObjectTypeMetadata;
 
   expect(metadata).toBeInstanceOf(ObjectTypeMetadata);
   expect(metadata.attributesScope().declarations.length).toBe(3);
@@ -16,18 +16,18 @@ test('object', () => {
 test('object is other one', () => {
   const code = '{a = 1, b = 2, c = 3}';
   const tree = parseExpression(code);
-  const scope = new TestDeclarationScope();
-  const metadata = fillTypeMetadata(tree, scope) as ObjectTypeMetadata;
+  tree.scope.parent = new TestDeclarationScope();
+  const metadata = fillTypeMetadata(tree) as ObjectTypeMetadata;
 
   const code2 = '{a = 1, b = 1, c = 1}';
   const tree2 = parseExpression(code2);
-  const scope2 = new TestDeclarationScope();
-  const metadata2 = fillTypeMetadata(tree2, scope2) as ObjectTypeMetadata;
+  tree2.scope.parent = new TestDeclarationScope();
+  const metadata2 = fillTypeMetadata(tree2) as ObjectTypeMetadata;
 
   const code3 = '{x = 1, b = 2, c = 3}';
   const tree3 = parseExpression(code3);
-  const scope3 = new TestDeclarationScope();
-  const metadata3 = fillTypeMetadata(tree3, scope3) as ObjectTypeMetadata;
+  tree3.scope.parent = new TestDeclarationScope();
+  const metadata3 = fillTypeMetadata(tree3) as ObjectTypeMetadata;
 
   expect(metadata).toBeInstanceOf(ObjectTypeMetadata);
   expect(metadata.attributesScope().declarations.length).toBe(3);

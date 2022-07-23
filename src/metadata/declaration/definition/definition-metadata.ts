@@ -17,7 +17,7 @@ export class DefinitionMetadata extends DeclarationMetadata {
     }
 
     if (this.base) {
-      this._attributesScope = this.base.attributesScope().create();
+      this._attributesScope = this.base.attributesScope();
     } else {
       this._attributesScope = new DeclarationScope();
     }

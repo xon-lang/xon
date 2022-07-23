@@ -30,27 +30,24 @@ import { ParameterTypeMetadata } from './parameter/parameter-type-metadata';
 import { TypeMetadata } from './type-metadata';
 import { UnionTypeMetadata } from './union/union-type-metadata';
 
-export function fillTypeMetadata(
-  tree: ExpressionTree,
-  scope: DeclarationScope,
-): TypeMetadata | None {
+export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | None {
   if (tree instanceof GroupExpressionTree) {
-    return fillTypeMetadata(tree.expression, scope);
+    return fillTypeMetadata(tree.expression);
   }
   if (tree instanceof LiteralExpressionTree) {
     let definition: DefinitionMetadata;
     if (tree.literal instanceof IntegerLiteralTree) {
-      definition = scope.core.integer;
+      definition = tree.scope.core.integer;
     } else if (tree.literal instanceof FloatLiteralTree) {
-      definition = scope.core.float;
+      definition = tree.scope.core.float;
     } else if (tree.literal instanceof StringLiteralTree) {
-      definition = scope.core.string;
+      definition = tree.scope.core.string;
     }
     return (tree.metadata = new LiteralTypeMetadata(tree.literal.value, definition));
   }
 
   if (tree instanceof IdExpressionTree) {
-    const declarations = scope.filter(tree.name.text);
+    const declarations = tree.scope.filter(tree.name.text);
     if (declarations.length === 1) {
       tree.name.metadata = declarations[0];
       if (declarations[0] instanceof ParameterMetadata) {
@@ -67,8 +64,8 @@ export function fillTypeMetadata(
     return (tree.metadata = none);
   }
   if (tree instanceof InfixExpressionTree) {
-    const left = fillTypeMetadata(tree.left, scope);
-    const right = fillTypeMetadata(tree.right, scope);
+    const left = fillTypeMetadata(tree.left);
+    const right = fillTypeMetadata(tree.right);
     if (tree.name.text === '|') {
       return (tree.metadata = new UnionTypeMetadata(left, right));
     }
@@ -80,16 +77,15 @@ export function fillTypeMetadata(
   }
 
   if (tree instanceof MethodExpressionTree) {
-    const innerScope = scope.create();
     tree.parameters.forEach((x) => {
-      x.metadata = getShadowParameterMetadata(x, innerScope);
+      x.metadata = getShadowParameterMetadata(x);
       if (x.name) {
         x.name.metadata = x.metadata;
       }
-      innerScope.add(x.metadata);
+      tree.scope.add(x.metadata);
       fillParameterMetadata(x);
     });
-    const result = fillTypeMetadata(tree.value, innerScope);
+    const result = fillTypeMetadata(tree.value);
     return (tree.metadata = new MethodTypeMetadata(
       tree.parameters.map((x) => x.metadata as ParameterMetadata),
       result,
@@ -98,13 +94,13 @@ export function fillTypeMetadata(
 
   if (tree instanceof InvokeExpressionTree) {
     if (tree.ctx.arguments().open().OPEN_BRACKET() && tree.instance instanceof IdExpressionTree) {
-      const commonType = fillTypeMetadata(tree.instance, scope);
+      const commonType = fillTypeMetadata(tree.instance);
       if (commonType instanceof ParameterTypeMetadata) {
         tree.instance.name.metadata = commonType.parameter;
       } else if (commonType instanceof DefinitionTypeMetadata) {
         tree.instance.name.metadata = commonType.definition;
       }
-      return (tree.metadata = new ArrayTypeMetadata(commonType, []));
+      return (tree.metadata = new ArrayTypeMetadata(commonType, [], tree.scope.core.array));
     }
   }
 
@@ -116,28 +112,28 @@ export function fillTypeMetadata(
           x.addIssue(IssueLevel.error, 'No name argument');
           return (tree.metadata = none);
         }
-        const metadata = new ParameterMetadata(none, scope);
+        const metadata = new ParameterMetadata(none);
         metadata.name = x.name.text;
         metadata.sourceRange = x.sourceRange;
-        metadata.type = fillValueMetadata(x.value, scope).type();
-        metadata.value = fillValueMetadata(x.value, scope);
+        metadata.type = fillValueMetadata(x.value).type();
+        metadata.value = fillValueMetadata(x.value);
         return (tree.metadata = metadata);
       });
       parameters.filter((x) => x).forEach((x) => objectScope.add(x));
       return (tree.metadata = new ObjectTypeMetadata(objectScope));
     }
     if (tree.ctx.arguments().open().OPEN_BRACKET()) {
-      const items = tree.arguments.map((x) => fillTypeMetadata(x.value, scope));
+      const items = tree.arguments.map((x) => fillTypeMetadata(x.value));
       let commonType: TypeMetadata;
       if (items.length === 1) {
         commonType = items[0];
       } else if (items.length > 1) {
         commonType = UnionTypeMetadata.fromTypes(items);
       } else {
-        commonType = scope.core.any.type;
+        commonType = tree.scope.core.any.type;
       }
 
-      return (tree.metadata = new ArrayTypeMetadata(commonType, items));
+      return (tree.metadata = new ArrayTypeMetadata(commonType, items, tree.scope.core.array));
     }
     throw new Error('Not implemented');
   }

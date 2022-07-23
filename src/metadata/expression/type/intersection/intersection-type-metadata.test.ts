@@ -6,8 +6,8 @@ import { IntersectionTypeMetadata } from './intersection-type-metadata';
 test('intersect', () => {
   const code = 'Integer & Float';
   const tree = parseExpression(code);
-  const scope = new TestDeclarationScope();
-  const metadata = fillTypeMetadata(tree, scope) as IntersectionTypeMetadata;
+  tree.scope.parent = new TestDeclarationScope();
+  const metadata = fillTypeMetadata(tree) as IntersectionTypeMetadata;
 
   expect(metadata).toBeInstanceOf(IntersectionTypeMetadata);
   expect(metadata.attributesScope().declarations.length).toBe(1);

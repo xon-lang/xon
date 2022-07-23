@@ -1,16 +1,21 @@
 import { Boolean } from '../../../../lib/core';
+import { DefinitionMetadata } from '../../../declaration/definition/definition-metadata';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { TypeMetadata } from '../type-metadata';
 
 export class ArrayTypeMetadata extends TypeMetadata {
   private _attributesScope: DeclarationScope;
 
-  constructor(public commonType: TypeMetadata, public items: TypeMetadata[]) {
+  constructor(
+    public commonType: TypeMetadata,
+    public items: TypeMetadata[],
+    public definition: DefinitionMetadata,
+  ) {
     super();
   }
 
   attributesScope(): DeclarationScope {
-    return this.core.array.attributesScope();
+    return this.definition.attributesScope();
 
     // if (this._attributesScope) {
     //   return this._attributesScope;

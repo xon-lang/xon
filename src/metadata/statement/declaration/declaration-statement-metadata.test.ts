@@ -6,24 +6,24 @@ import { getSourceMetadata } from '../../source/source-metadata-helper';
 test('single parameter', () => {
   const code = 'a: 132';
   const tree = parseSource(code);
-  const scope = new TestDeclarationScope();
-  const metadata = getSourceMetadata(tree, scope);
+  tree.scope.parent = new TestDeclarationScope();
+  tree.metadata = getSourceMetadata(tree);
 
-  expect(metadata).toBeInstanceOf(SourceMetadata);
-  expect(scope.declarations.length).toBe(1);
-  expect(scope.filter('a')[0].name).toBe('a');
+  expect(tree.metadata).toBeInstanceOf(SourceMetadata);
+  expect(tree.scope.declarations.length).toBe(1);
+  expect(tree.scope.filter('a')[0].name).toBe('a');
 });
 
 // todo implement it
 test('multiple parameters', () => {
   const code = '{a, b, c} = [1, 2, 3]';
   const tree = parseSource(code);
-  const scope = new TestDeclarationScope();
-  const metadata = getSourceMetadata(tree, scope);
+  tree.scope.parent = new TestDeclarationScope();
+  tree.metadata = getSourceMetadata(tree);
 
-  expect(metadata).toBeInstanceOf(SourceMetadata);
-  expect(scope.declarations.length).toBe(3);
-  expect(scope.filter('a')[0].name).toBe('a');
-  expect(scope.filter('b')[0].name).toBe('b');
-  expect(scope.filter('c')[0].name).toBe('c');
+  expect(tree.metadata).toBeInstanceOf(SourceMetadata);
+  expect(tree.scope.declarations.length).toBe(3);
+  expect(tree.scope.filter('a')[0].name).toBe('a');
+  expect(tree.scope.filter('b')[0].name).toBe('b');
+  expect(tree.scope.filter('c')[0].name).toBe('c');
 });

@@ -6,8 +6,8 @@ import { ParameterTypeMetadata } from './parameter-type-metadata';
 test('true', () => {
   const code = 'true';
   const tree = parseExpression(code);
-  const scope = new TestDeclarationScope();
-  const metadata = fillTypeMetadata(tree, scope) as ParameterTypeMetadata;
+  tree.scope.parent = new TestDeclarationScope();
+  const metadata = fillTypeMetadata(tree) as ParameterTypeMetadata;
 
   expect(metadata.attributesScope().all().length).toBe(3);
 });
@@ -15,16 +15,16 @@ test('true', () => {
 test('false is Boolean', () => {
   const code = 'false';
   const tree = parseExpression(code);
-  const scope = new TestDeclarationScope();
-  const metadata = fillTypeMetadata(tree, scope);
+  tree.scope.parent = new TestDeclarationScope();
+  const metadata = fillTypeMetadata(tree);
 
   const codeBoolean = 'Boolean';
   const treeBoolean = parseExpression(codeBoolean);
-  const metadataNone = fillTypeMetadata(treeBoolean, scope);
+  const metadataNone = fillTypeMetadata(treeBoolean);
 
   const codeInteger = 'Integer';
   const treeInteger = parseExpression(codeInteger);
-  const metadataFloat = fillTypeMetadata(treeInteger, scope);
+  const metadataFloat = fillTypeMetadata(treeInteger);
 
   expect(metadata.is(metadataNone)).toBe(true);
   expect(metadata.is(metadataFloat)).toBe(false);
