@@ -2,9 +2,11 @@ import { ParserRuleContext } from 'antlr4ts';
 import { Issue } from '../issue-service/issue';
 import { IssueLevel } from '../issue-service/issue-level';
 import { None, String } from '../lib/core';
+import { DeclarationScope } from '../metadata/declaration/scope/declaration-scope';
 import { SourceRange } from '../util/source-range';
 
 export class Tree {
+  scope: DeclarationScope = new DeclarationScope();
   ctx: ParserRuleContext | None;
   sourceRange: SourceRange;
   parent?: Tree | None;
@@ -13,10 +15,13 @@ export class Tree {
 
   addChildren(...children: (Tree | None)[]) {
     children
-      .filter((x) => x?.sourceRange)
+      .filter((x) => x)
       .forEach((x) => {
         x.parent = this;
         this.children.push(x);
+
+        x.scope.parent = this.scope;
+        x.scope.children.push(x.scope);
       });
   }
 
@@ -30,9 +35,5 @@ export class Tree {
 
   addError(message: String) {
     this.addIssue(IssueLevel.error, message);
-  }
-
-  toString() {
-    return this.sourceRange.rangeText;
   }
 }
