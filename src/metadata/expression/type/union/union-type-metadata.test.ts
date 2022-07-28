@@ -10,5 +10,5 @@ test('union', () => {
   const metadata = fillTypeMetadata(tree) as UnionTypeMetadata;
 
   expect(metadata).toBeInstanceOf(UnionTypeMetadata);
-  expect(metadata.attributesScope().declarations.length).toBe(3);
+  expect(metadata.attributesScope().declarations.length).toBe(10);
 });
