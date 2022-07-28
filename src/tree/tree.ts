@@ -21,7 +21,6 @@ export class Tree {
         this.children.push(x);
 
         x.scope.parent = this.scope;
-        x.scope.children.push(x.scope);
       });
   }
 

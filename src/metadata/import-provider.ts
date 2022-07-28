@@ -4,7 +4,7 @@ import os from 'os';
 import path from 'path';
 import { String } from '../lib/core';
 import { parseSourceFile } from '../util/parse';
-import { fillShadowSourceMetadata } from './declaration/declaration-metadata-helper';
+import { getShadowSourceMetadata } from './declaration/declaration-metadata-helper';
 import { DeclarationScope } from './declaration/scope/declaration-scope';
 import { getSourceMetadata } from './source/source-metadata-helper';
 
@@ -42,7 +42,7 @@ export class ImportProvider {
     ImportProvider.cache.set(this.fullPath, scope);
 
     for (const tree of sources) {
-      scope.declarations.push(...fillShadowSourceMetadata(tree));
+      scope.declarations.push(...getShadowSourceMetadata(tree));
     }
 
     for (const tree of sources) {
