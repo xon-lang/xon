@@ -1,7 +1,6 @@
 import { none } from '../../lib/core';
 import { DeclarationTree } from '../../tree/declaration/declaration-tree';
 import { IdExpressionTree } from '../../tree/expression/id/id-expression-tree';
-import { MethodExpressionTree } from '../../tree/expression/method/method-expression-tree';
 import { SourceTree } from '../../tree/source/source-tree';
 import { DeclarationStatementTree } from '../../tree/statement/declaration/declaration-statement-tree';
 import { ArrayTypeMetadata } from '../expression/type/array/array-type-metadata';
@@ -12,27 +11,92 @@ import { fillTypeMetadata } from '../expression/type/type-metadata-helper';
 import { fillValueMetadata } from '../expression/value/value-metadata-helper';
 import { DeclarationMetadata } from './declaration-metadata';
 import { DefinitionMetadata } from './definition/definition-metadata';
+import { DestructureMetadata } from './destructure/destructure-metadata';
 import { OperatorMetadata } from './operator/operator-metadata';
 import { ParameterMetadata } from './parameter/parameter-metadata';
 
-export function fillShadowDeclarationMetadata(tree: DeclarationTree) {
-  if (tree.modifier?.text === 'operator') {
-    tree.metadata = getShadowOperatorMetadata(tree);
-    tree.name.metadata = tree.metadata;
-    tree.parent.parent.scope.add(tree.metadata);
-  } else if (tree.modifier?.text === 'model' || tree.modifier?.text === 'object') {
-    tree.metadata = getShadowDefinitionMetadata(tree);
-    tree.name.metadata = tree.metadata;
-    tree.parent.scope.parent.add(tree.metadata);
-  } else {
-    tree.metadata = getShadowParameterMetadata(tree);
-    if (tree.name) {
-      tree.name.metadata = tree.metadata;
+export function getShadowSourceMetadata(tree: SourceTree): DeclarationMetadata[] {
+  const declarationTrees = tree.statements
+    .filter((x) => x instanceof DeclarationStatementTree && !x.declaration.metadata)
+    .map((x) => (x as DeclarationStatementTree).declaration);
+
+  const declarations = [];
+  for (const declarationTree of declarationTrees) {
+    if (!declarationTree.modifier) {
+      declarationTree.metadata = getShadowParameterMetadata(declarationTree);
+    } else if (declarationTree.modifier?.text === 'operator') {
+      declarationTree.metadata = getShadowOperatorMetadata(declarationTree);
+    } else {
+      declarationTree.metadata = getShadowDefinitionMetadata(declarationTree);
     }
-    if (tree.metadata.name) {
-      tree.parent.scope.add(tree.metadata);
+
+    if (declarationTree.metadata instanceof DestructureMetadata) {
+      declarationTree.metadata.parameters.forEach((x) => tree.scope.add(x));
+    } else {
+      tree.scope.add(declarationTree.metadata);
     }
+
+    declarations.push(declarationTree.metadata);
   }
+  return declarations;
+}
+
+export function getShadowDefinitionMetadata(tree: DeclarationTree): DefinitionMetadata {
+  const metadata = new DefinitionMetadata(tree);
+
+  for (const parameter of tree.parameters) {
+    parameter.metadata = getShadowParameterMetadata(parameter);
+    metadata.parameters.push(parameter.metadata);
+    tree.scope.add(parameter.metadata);
+  }
+
+  if (tree.body) {
+    const declarations = getShadowSourceMetadata(tree.body);
+    metadata.attributes = declarations.filter((x) => x instanceof ParameterMetadata);
+  }
+
+  return metadata;
+}
+
+export function getShadowOperatorMetadata(tree: DeclarationTree): ParameterMetadata {
+  const metadata = new OperatorMetadata(tree);
+
+  for (const parameter of tree.parameters) {
+    parameter.metadata = getShadowParameterMetadata(parameter);
+    metadata.parameters.push(parameter.metadata);
+    tree.scope.add(parameter.metadata);
+  }
+
+  if (tree.body) {
+    getShadowSourceMetadata(tree.body);
+  }
+
+  return metadata;
+}
+
+export function getShadowParameterMetadata(tree: DeclarationTree): ParameterMetadata {
+  if (tree.body) {
+    getShadowSourceMetadata(tree.body);
+  }
+
+  if (tree.destructure.length) {
+    const metadata = new DestructureMetadata(tree);
+    for (const parameter of tree.destructure) {
+      parameter.metadata = getShadowParameterMetadata(parameter);
+      metadata.parameters.push(parameter.metadata);
+    }
+    return metadata;
+  }
+
+  const metadata = new ParameterMetadata(tree);
+  metadata.modifier = tree.modifier?.text;
+
+  for (const parameter of tree.parameters) {
+    metadata.parameters.push(getShadowParameterMetadata(parameter));
+  }
+
+  metadata.parameters.forEach((x) => tree.scope.add(x));
+  return metadata;
 }
 
 export function fillDeclarationMetadata(tree: DeclarationTree) {
@@ -43,28 +107,6 @@ export function fillDeclarationMetadata(tree: DeclarationTree) {
   } else {
     fillParameterMetadata(tree);
   }
-}
-
-export function getShadowDefinitionMetadata(tree: DeclarationTree): DefinitionMetadata {
-  const metadata = new DefinitionMetadata(tree);
-
-  for (const parameter of tree.parameters) {
-    parameter.metadata = getShadowParameterMetadata(parameter);
-    if (parameter.name) {
-      parameter.name.metadata = parameter.metadata;
-    }
-    tree.scope.add(parameter.metadata);
-  }
-
-  if (tree.body) {
-    fillShadowSourceMetadata(tree.body);
-
-    metadata.attributes = tree.body.scope.declarations
-      .filter((x) => x instanceof ParameterMetadata)
-      .map((x) => x as ParameterMetadata);
-  }
-
-  return metadata;
 }
 
 export function fillDefinitionMetadata(tree: DeclarationTree) {
@@ -98,25 +140,6 @@ export function fillDefinitionMetadata(tree: DeclarationTree) {
   }
 }
 
-export function getShadowOperatorMetadata(tree: DeclarationTree): ParameterMetadata {
-  const metadata = new OperatorMetadata(tree);
-
-  for (const parameter of tree.parameters) {
-    parameter.metadata = getShadowParameterMetadata(parameter);
-    if (parameter.name) {
-      parameter.name.metadata = parameter.metadata;
-    }
-    tree.scope.add(parameter.metadata);
-  }
-  metadata.parameters = tree.parameters.map((x) => x.metadata as ParameterMetadata);
-
-  if (tree.body) {
-    fillShadowSourceMetadata(tree.body);
-  }
-
-  return metadata;
-}
-
 export function fillOperatorMetadata(tree: DeclarationTree, alternativeType?: TypeMetadata) {
   tree.parameters.forEach((x) => fillParameterMetadata(x));
 
@@ -143,46 +166,13 @@ export function fillOperatorMetadata(tree: DeclarationTree, alternativeType?: Ty
   }
 }
 
-export function getShadowParameterMetadata(tree: DeclarationTree): ParameterMetadata {
-  const metadata = new ParameterMetadata(tree);
-
-  if (tree.destructure.length) {
-    for (const parameter of tree.destructure) {
-      parameter.metadata = new ParameterMetadata(parameter);
-      if (parameter.name) {
-        parameter.name.metadata = parameter.metadata;
-      }
-      if (tree.parent instanceof DeclarationStatementTree) {
-        tree.parent.parent.scope.add(parameter.metadata);
-      } else if (tree.parent instanceof MethodExpressionTree) {
-        tree.parent.scope.add(parameter.metadata);
-      } else {
-        throw new Error('Not implemented');
-      }
-    }
-  } else {
-    for (const parameter of tree.parameters) {
-      parameter.metadata = getShadowParameterMetadata(parameter);
-      if (parameter.name) {
-        parameter.name.metadata = parameter.metadata;
-      }
-      tree.scope.add(parameter.metadata);
-    }
-    metadata.parameters = tree.parameters.map((x) => x.metadata as ParameterMetadata);
-  }
-
-  if (tree.body) {
-    fillShadowSourceMetadata(tree.body);
-  }
-
-  metadata.modifier = tree.modifier?.text;
-  return metadata;
-}
-
 export function fillParameterMetadata(tree: DeclarationTree, alternativeType?: TypeMetadata) {
   tree.parameters.forEach((x) => fillParameterMetadata(x));
 
-  if (tree.value && tree.metadata instanceof ParameterMetadata) {
+  if (
+    tree.value &&
+    (tree.metadata instanceof ParameterMetadata || tree.metadata instanceof DestructureMetadata)
+  ) {
     tree.metadata.value = fillValueMetadata(tree.value);
   }
 
@@ -190,7 +180,10 @@ export function fillParameterMetadata(tree: DeclarationTree, alternativeType?: T
     tree.metadata.type = fillTypeMetadata(tree.type);
   } else if (alternativeType) {
     tree.metadata.type = alternativeType;
-  } else if (tree.value && tree.metadata instanceof ParameterMetadata) {
+  } else if (
+    tree.value &&
+    (tree.metadata instanceof ParameterMetadata || tree.metadata instanceof DestructureMetadata)
+  ) {
     tree.metadata.type = tree.metadata.value.type();
   } else {
     tree.metadata.type = tree.scope.core?.any.type || none;
@@ -229,21 +222,4 @@ export function fillDestructureParameterMetadata(tree: DeclarationTree) {
     }
     fillParameterMetadata(parameter, type);
   }
-}
-
-export function fillShadowSourceMetadata(tree: SourceTree): DeclarationMetadata[] {
-  const declarations: DeclarationMetadata[] = [];
-  for (const statement of tree.statements) {
-    if (statement instanceof DeclarationStatementTree) {
-      if (!statement.declaration.metadata) {
-        fillShadowDeclarationMetadata(statement.declaration);
-      }
-
-      const declaration = statement.declaration.metadata;
-      if (declaration instanceof DefinitionMetadata || declaration instanceof OperatorMetadata) {
-        declarations.push(declaration);
-      }
-    }
-  }
-  return declarations;
 }

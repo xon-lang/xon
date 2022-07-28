@@ -5,7 +5,6 @@ import { CoreDeclarationScope } from './core/core-declaration-scope';
 export class DeclarationScope {
   core = new CoreDeclarationScope(this);
   declarations: DeclarationMetadata[] = [];
-  children: DeclarationScope[] = [];
 
   constructor(public parent?: DeclarationScope) {}
 
@@ -16,6 +15,14 @@ export class DeclarationScope {
   all(): DeclarationMetadata[] {
     const parentDeclarations = this.parent?.all() || [];
     return [...this.declarations, ...parentDeclarations];
+  }
+
+  clone() {
+    const scope = new DeclarationScope();
+    scope.declarations = this.declarations.slice();
+    scope.parent = this.parent;
+    scope.core = this.core;
+    return scope;
   }
 
   filter(name: String, predicate?: (x: DeclarationMetadata) => Boolean): DeclarationMetadata[] {
@@ -30,10 +37,12 @@ export class DeclarationScope {
 
   // operators
   union(other: DeclarationScope): DeclarationScope {
-    const left = this.all();
-    const right = other.all();
-    const scope = new DeclarationScope(this);
-    scope.declarations = left.concat(right);
+    const scope = this.clone();
+    const leftAll = this.all();
+    other
+      .all()
+      .filter((x) => !leftAll.some((z) => z.equals(x)))
+      .forEach((x) => scope.add(x));
     return scope;
   }
 

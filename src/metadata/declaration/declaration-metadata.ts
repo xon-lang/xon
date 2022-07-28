@@ -30,11 +30,4 @@ export abstract class DeclarationMetadata extends Metadata {
   equals(other: DeclarationMetadata): Boolean {
     return this.sourceRange.equals(other.sourceRange);
   }
-
-  toString() {
-    if (this.modifier) {
-      return `${this.modifier} ${this.name}${this.generics}${this.parameters}`;
-    }
-    return `${this.name}${this.generics}${this.parameters}`;
-  }
 }

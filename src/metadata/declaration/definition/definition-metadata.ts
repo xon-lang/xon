@@ -16,11 +16,7 @@ export class DefinitionMetadata extends DeclarationMetadata {
       return this._attributesScope;
     }
 
-    if (this.base) {
-      this._attributesScope = this.base.attributesScope();
-    } else {
-      this._attributesScope = new DeclarationScope();
-    }
+    this._attributesScope = this.base?.attributesScope().clone() || new DeclarationScope();
     this.attributes.forEach((x) => this._attributesScope.add(x));
     return this._attributesScope;
   }
