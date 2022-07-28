@@ -1,11 +1,18 @@
 model Number
+  testNumberProp1: Number
+  testNumberProp2: Number
 
 model Integer: Number
-  test: String
+  testIntegerProp1: Number
+  testIntegerProp2: Number
+  testIntegerProp3: Number
+  testIntegerProp4: Number
 
 model Float: Number
-  test: String
-  test2: String
+  testFloatProp1: Number
+  testFloatProp2: Number
+  testFloatProp3: Number
+  testFloatProp4: Number
 
 operator +(a: Number, b: Number): Number
 operator -(a: Number, b: Number): Number
