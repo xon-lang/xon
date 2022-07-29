@@ -9,7 +9,7 @@ import {
 } from 'antlr4ts';
 import { Issue } from '../issue-service/issue';
 import { IssueLevel } from '../issue-service/issue-level';
-import { none, Number, String } from '../lib/core';
+import { Number, String } from '../lib/core';
 import { SourceRange } from './source-range';
 
 export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbol> {
@@ -36,7 +36,7 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
       throw new Error('Not implemented');
     }
 
-    sourceRange.sourceName = recognizer.inputStream.sourceName || none;
+    sourceRange.sourceName = recognizer.inputStream.sourceName || null;
 
     const issue = new Issue(sourceRange, IssueLevel.error, message);
     issue.antlrError = error;

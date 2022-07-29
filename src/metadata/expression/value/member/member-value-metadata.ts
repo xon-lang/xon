@@ -1,4 +1,4 @@
-import { Any, None, none } from '../../../../lib/core';
+import { Any } from '../../../../lib/core';
 import { MemberExpressionTree } from '../../../../tree/expression/member/member-expression-tree';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
@@ -27,11 +27,11 @@ export class MemberValueMetadata extends ValueMetadata {
         this.tree.name.addError('No declarations found');
       }
     }
-    return none;
+    return null;
   }
 
-  type(): TypeMetadata | None {
-    return this.tree.name?.metadata?.type || none;
+  type(): TypeMetadata | null {
+    return this.tree.name?.metadata?.type || null;
   }
 
   eval(): Any {

@@ -1,4 +1,4 @@
-import { Any, None, none, Unknown } from '../../../../lib/core';
+import { Any, Unknown } from '../../../../lib/core';
 import { InfixExpressionTree } from '../../../../tree/expression/infix/infix-expression-tree';
 import { OperatorMetadata } from '../../../declaration/operator/operator-metadata';
 import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
@@ -15,7 +15,7 @@ export class InfixValueMetadata extends ValueMetadata {
     tree.name.metadata = this.operatorDeclaration();
   }
 
-  private operatorDeclaration(): ParameterMetadata | None {
+  private operatorDeclaration(): ParameterMetadata | null {
     const leftMetadata = this.tree.left.metadata;
     const rightMetadata = this.tree.right.metadata;
 
@@ -43,14 +43,14 @@ export class InfixValueMetadata extends ValueMetadata {
     } else {
       this.tree.name.addError('No declarations found');
     }
-    return none;
+    return null;
   }
 
-  type(): TypeMetadata | None {
+  type(): TypeMetadata | null {
     if (this.tree.name.metadata?.type instanceof MethodTypeMetadata) {
       return this.tree.name.metadata.type.resultType;
     }
-    return none;
+    return null;
   }
 
   eval(): Any {

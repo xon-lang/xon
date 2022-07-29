@@ -1,6 +1,5 @@
 import { Issue } from '../../../issue-service/issue';
 import { IssueLevel } from '../../../issue-service/issue-level';
-import { None, none } from '../../../lib/core';
 import { ArrayExpressionTree } from '../../../tree/expression/array/array-expression-tree';
 import { ExpressionTree } from '../../../tree/expression/expression-tree';
 import { GroupExpressionTree } from '../../../tree/expression/group/group-expression-tree';
@@ -30,7 +29,7 @@ import { ParameterTypeMetadata } from './parameter/parameter-type-metadata';
 import { TypeMetadata } from './type-metadata';
 import { UnionTypeMetadata } from './union/union-type-metadata';
 
-export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | None {
+export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
   if (tree instanceof GroupExpressionTree) {
     return fillTypeMetadata(tree.expression);
   }
@@ -61,7 +60,7 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | None {
     } else {
       tree.name.addError('No declarations found');
     }
-    return (tree.metadata = none);
+    return (tree.metadata = null);
   }
   if (tree instanceof InfixExpressionTree) {
     const left = fillTypeMetadata(tree.left);
@@ -110,9 +109,9 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | None {
       const parameters = tree.arguments.map((x) => {
         if (!x.name) {
           x.addIssue(IssueLevel.error, 'No name argument');
-          return (tree.metadata = none);
+          return (tree.metadata = null);
         }
-        const metadata = new ParameterMetadata(none);
+        const metadata = new ParameterMetadata(null);
         metadata.name = x.name.text;
         metadata.sourceRange = x.sourceRange;
         metadata.type = fillValueMetadata(x.value).type();

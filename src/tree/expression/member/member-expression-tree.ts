@@ -1,7 +1,6 @@
 // this code was generated
 
 import { MemberExpressionContext } from '../../../grammar/xon-parser';
-import { None } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { IdTree } from '../../id/id-tree';
 import { getIdTree } from '../../id/id-tree-helper';
@@ -12,7 +11,7 @@ export class MemberExpressionTree extends ExpressionTree {
   ctx: MemberExpressionContext;
   sourceRange: SourceRange;
   instance: ExpressionTree;
-  name?: IdTree | None;
+  name?: IdTree | null;
 
   constructor(ctx: MemberExpressionContext) {
     super();

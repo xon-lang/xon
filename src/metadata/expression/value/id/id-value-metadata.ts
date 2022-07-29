@@ -1,4 +1,4 @@
-import { Any, None } from '../../../../lib/core';
+import { Any } from '../../../../lib/core';
 import { IdExpressionTree } from '../../../../tree/expression/id/id-expression-tree';
 import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
@@ -23,7 +23,7 @@ export class IdValueMetadata extends ValueMetadata {
     }
   }
 
-  type(): TypeMetadata | None {
+  type(): TypeMetadata | null {
     return this.tree.name.metadata?.type;
   }
 

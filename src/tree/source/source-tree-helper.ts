@@ -1,9 +1,8 @@
 import { SourceContext } from '../../grammar/xon-parser';
-import { none } from '../../lib/core';
 import { SourceTree } from './source-tree';
 
-export const getSourceTree = (ctx: SourceContext): SourceTree => {
-  if (!ctx) return none;
+export const getSourceTree = (ctx: SourceContext | null): SourceTree | null => {
+  if (!ctx) return null;
 
   return new SourceTree(ctx);
 };

@@ -2,7 +2,7 @@
 
 import { DeclarationContext } from '../../grammar/xon-parser';
 import { IssueLevel } from '../../issue-service/issue-level';
-import { Boolean, None } from '../../lib/core';
+import { Boolean } from '../../lib/core';
 import { DeclarationMetadata } from '../../metadata/declaration/declaration-metadata';
 import { SourceRange } from '../../util/source-range';
 import { ExpressionTree } from '../expression/expression-tree';
@@ -28,9 +28,9 @@ export class DeclarationTree extends Tree {
   hasParameters: Boolean;
   generics: DeclarationTree[];
   parameters: DeclarationTree[];
-  type?: ExpressionTree | None;
-  value?: ExpressionTree | None;
-  body?: SourceTree | None;
+  type?: ExpressionTree | null;
+  value?: ExpressionTree | null;
+  body?: SourceTree | null;
   attributes: (DeclarationStatementTree | ExpressionStatementTree)[];
 
   constructor(ctx: DeclarationContext) {

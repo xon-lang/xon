@@ -1,7 +1,6 @@
 // this code was generated
 
 import { SourceContext } from '../../grammar/xon-parser';
-import { None } from '../../lib/core';
 import { SourceMetadata } from '../../metadata/source/source-metadata';
 import { SourceRange } from '../../util/source-range';
 import { StatementTree } from '../statement/statement-tree';
@@ -10,7 +9,7 @@ import { Tree } from '../tree';
 
 export class SourceTree extends Tree {
   metadata: SourceMetadata;
-  ctx: SourceContext | None;
+  ctx?: SourceContext | null;
   sourceRange: SourceRange;
   statements: StatementTree[] = [];
 

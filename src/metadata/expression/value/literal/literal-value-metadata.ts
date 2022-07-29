@@ -1,4 +1,3 @@
-import { None } from '../../../../lib/core';
 import { LiteralExpressionTree } from '../../../../tree/expression/literal/literal-expression-tree';
 import { TypeMetadata } from '../../type/type-metadata';
 import { fillTypeMetadata } from '../../type/type-metadata-helper';
@@ -9,7 +8,7 @@ export class LiteralValueMetadata extends ValueMetadata {
     super();
   }
 
-  type(): TypeMetadata | None {
+  type(): TypeMetadata | null {
     return fillTypeMetadata(this.tree);
   }
 

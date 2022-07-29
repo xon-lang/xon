@@ -4,7 +4,7 @@ import { fillValueMetadata } from '../value-metadata-helper';
 import { IdValueMetadata } from './id-value-metadata';
 
 test('none object', () => {
-  const code = 'none';
+  const code = 'null';
   const tree = parseExpression(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillValueMetadata(tree) as IdValueMetadata;
@@ -14,7 +14,7 @@ test('none object', () => {
 });
 
 test('none model', () => {
-  const code = 'None';
+  const code = 'null';
   const tree = parseExpression(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillValueMetadata(tree) as IdValueMetadata;

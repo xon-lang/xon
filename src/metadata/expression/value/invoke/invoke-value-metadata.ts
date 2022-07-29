@@ -1,4 +1,4 @@
-import { Any, none, None } from '../../../../lib/core';
+import { Any } from '../../../../lib/core';
 import { InvokeExpressionTree } from '../../../../tree/expression/invoke/invoke-expression-tree';
 import { MethodTypeMetadata } from '../../type/method/method-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
@@ -12,7 +12,7 @@ export class InvokeValueMetadata extends ValueMetadata {
     tree.arguments.forEach((x) => fillValueMetadata(x.value));
   }
 
-  type(): TypeMetadata | None {
+  type(): TypeMetadata | null {
     const metadata = this.tree.instance.metadata;
     if (metadata instanceof ValueMetadata) {
       const instanceType = metadata.type();
@@ -20,7 +20,7 @@ export class InvokeValueMetadata extends ValueMetadata {
         return instanceType.resultType;
       }
     }
-    return none;
+    return null;
   }
 
   eval(): Any {

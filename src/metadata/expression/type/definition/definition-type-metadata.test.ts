@@ -5,7 +5,7 @@ import { fillTypeMetadata } from '../type-metadata-helper';
 import { DefinitionTypeMetadata } from './definition-type-metadata';
 
 test('none model', () => {
-  const code = 'None';
+  const code = 'null';
   const tree = parseExpression(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree) as DefinitionTypeMetadata;
@@ -13,7 +13,7 @@ test('none model', () => {
   expect(metadata).toBeInstanceOf(DefinitionTypeMetadata);
   expect(metadata.definition).toBeInstanceOf(DefinitionMetadata);
   expect(metadata.definition).toBe(tree.scope.core.none);
-  expect(metadata.definition.name).toBe('None');
+  expect(metadata.definition.name).toBe('null');
   expect(metadata.definition.allAttributes().length).toBe(0);
 });
 
@@ -25,7 +25,7 @@ test('none object', () => {
 
   expect(metadata).toBeInstanceOf(DefinitionTypeMetadata);
   expect(metadata.definition).toBeInstanceOf(DefinitionMetadata);
-  expect(metadata.definition.name).toBe('none');
+  expect(metadata.definition.name).toBe('null');
   expect(metadata.definition.allAttributes().length).toBe(0);
 });
 
@@ -42,12 +42,12 @@ test('any', () => {
 });
 
 test('none is None', () => {
-  const code = 'none';
+  const code = 'null';
   const tree = parseExpression(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree);
 
-  const codeNone = 'None';
+  const codeNone = 'null';
   const treeNone = parseExpression(codeNone);
   treeNone.scope.parent = new TestDeclarationScope();
   const metadataNone = fillTypeMetadata(treeNone);

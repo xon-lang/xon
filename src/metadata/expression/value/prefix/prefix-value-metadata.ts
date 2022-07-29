@@ -1,4 +1,4 @@
-import { Any, None, none, Unknown } from '../../../../lib/core';
+import { Any, Unknown } from '../../../../lib/core';
 import { PrefixExpressionTree } from '../../../../tree/expression/prefix/prefix-expression-tree';
 import { OperatorMetadata } from '../../../declaration/operator/operator-metadata';
 import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
@@ -15,7 +15,7 @@ export class PrefixValueMetadata extends ValueMetadata {
     tree.name.metadata = this.operatorDeclaration();
   }
 
-  private operatorDeclaration(): ParameterMetadata | None {
+  private operatorDeclaration(): ParameterMetadata | null {
     const declarations = this.tree.scope.filter(this.tree.name.text, (x) => {
       if (!(x instanceof OperatorMetadata)) return false;
 
@@ -38,14 +38,14 @@ export class PrefixValueMetadata extends ValueMetadata {
     } else {
       this.tree.name.addError('No declarations found');
     }
-    return none;
+    return null;
   }
 
-  type(): TypeMetadata | None {
+  type(): TypeMetadata | null {
     if (this.tree.name.metadata?.type instanceof MethodTypeMetadata) {
       return this.tree.name.metadata.type.resultType;
     }
-    return none;
+    return null;
   }
 
   eval(): Any {
@@ -55,6 +55,6 @@ export class PrefixValueMetadata extends ValueMetadata {
       const escapeIfString = (s: Unknown) => (typeof s === 'string' && `\`${s}\``) || s;
       return eval(`${this.tree.name} ${escapeIfString(value)}`);
     }
-    return none;
+    return null;
   }
 }

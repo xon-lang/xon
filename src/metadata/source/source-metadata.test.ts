@@ -18,12 +18,12 @@ test('1-error.xon', () => {
 });
 
 test('2.xon', () => {
-  const tree = parseSource("{none} := import 'src/lib/@xon/core'");
+  const tree = parseSource("{null} := import 'src/lib/@xon/core'");
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getSourceMetadata(tree);
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
-  const declarations = tree.scope.filter('none');
+  const declarations = tree.scope.filter('null');
   expect(declarations.length).toBe(1);
   const declarationTree = (tree.statements[0] as DeclarationStatementTree)
     .declaration as DeclarationTree;

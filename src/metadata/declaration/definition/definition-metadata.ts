@@ -1,11 +1,11 @@
-import { Boolean, None } from '../../../lib/core';
+import { Boolean } from '../../../lib/core';
 import { DefinitionTypeMetadata } from '../../expression/type/definition/definition-type-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
 import { ParameterMetadata } from '../parameter/parameter-metadata';
 import { DeclarationScope } from '../scope/declaration-scope';
 
 export class DefinitionMetadata extends DeclarationMetadata {
-  base: DefinitionMetadata | None;
+  base?: DefinitionMetadata | null;
   attributes: ParameterMetadata[] = [];
   type = new DefinitionTypeMetadata(this);
 

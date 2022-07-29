@@ -1,4 +1,3 @@
-import { none } from '../../../lib/core';
 import { parseStatement } from '../../../util/parse';
 import { DeclarationTree } from '../../declaration/declaration-tree';
 import { LiteralExpressionTree } from '../../expression/literal/literal-expression-tree';
@@ -14,8 +13,8 @@ test('variable assignment colon', () => {
   expect(parameter.name.text).toBe('a');
   expect(parameter.type).toBeInstanceOf(LiteralExpressionTree);
   expect((parameter.type as LiteralExpressionTree).literal.value).toBe(1);
-  expect(parameter.value).toBe(none);
-  expect(parameter.body).toBe(none);
+  expect(parameter.value).toBe(null);
+  expect(parameter.body).toBe(null);
 });
 
 test('variable assignment equals', () => {
@@ -26,8 +25,8 @@ test('variable assignment equals', () => {
   const parameter = tree.declaration as DeclarationTree;
   expect(parameter).toBeInstanceOf(DeclarationTree);
   expect(parameter.name.text).toBe('a');
-  expect(parameter.type).toBe(none);
+  expect(parameter.type).toBe(null);
   expect(parameter.value).toBeInstanceOf(LiteralExpressionTree);
   expect((parameter.value as LiteralExpressionTree).literal.value).toBe(1);
-  expect(parameter.body).toBe(none);
+  expect(parameter.body).toBe(null);
 });

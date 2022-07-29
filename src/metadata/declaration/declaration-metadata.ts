@@ -1,4 +1,4 @@
-import { Boolean, none, None, String } from '../../lib/core';
+import { Boolean, String } from '../../lib/core';
 import { DeclarationTree } from '../../tree/declaration/declaration-tree';
 import { SourceRange } from '../../util/source-range';
 import { TypeMetadata } from '../expression/type/type-metadata';
@@ -9,15 +9,15 @@ import { ParameterMetadata } from './parameter/parameter-metadata';
 
 export abstract class DeclarationMetadata extends Metadata {
   sourceRange: SourceRange;
-  modifier: String | None;
-  name: String | None;
+  modifier?: String | null;
+  name?: String | null;
 
   generics: GenericMetadata[] = [];
   parameters: ParameterMetadata[] = [];
-  type: TypeMetadata | None = none;
-  value: ValueMetadata | None;
+  type?: TypeMetadata | null = null;
+  value?: ValueMetadata | null;
 
-  constructor(public tree: DeclarationTree | None) {
+  constructor(public tree: DeclarationTree | null) {
     super();
 
     if (tree) {

@@ -1,4 +1,3 @@
-import { none } from '../../lib/core';
 import { DeclarationTree } from '../../tree/declaration/declaration-tree';
 import { IdExpressionTree } from '../../tree/expression/id/id-expression-tree';
 import { SourceTree } from '../../tree/source/source-tree';
@@ -186,7 +185,7 @@ export function fillParameterMetadata(tree: DeclarationTree, alternativeType?: T
   ) {
     tree.metadata.type = tree.metadata.value.type();
   } else {
-    tree.metadata.type = tree.scope.core?.any.type || none;
+    tree.metadata.type = tree.scope.core?.any.type || null;
   }
 
   if (tree.hasParameters) {

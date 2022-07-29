@@ -1,6 +1,6 @@
 import path from 'path';
 import { IssueLevel } from '../../../../issue-service/issue-level';
-import { none, None, String } from '../../../../lib/core';
+import { String } from '../../../../lib/core';
 import { PrefixExpressionTree } from '../../../../tree/expression/prefix/prefix-expression-tree';
 import { evaluate } from '../../../../util/evaluate';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
@@ -30,24 +30,24 @@ export class ImportValueMetadata extends ValueMetadata {
     }
   }
 
-  importScope(): DeclarationScope | None {
+  importScope(): DeclarationScope | null {
     if (this._importScope) {
       return this._importScope;
     }
 
     if (!this._importProvider) {
-      return none;
+      return null;
     }
 
     if (!this._importProvider.isValid()) {
       this.tree.addIssue(IssueLevel.error, 'Wrong import path');
-      return none;
+      return null;
     }
     this._importScope = this._importProvider.scope();
     return this._importScope;
   }
 
-  type(): TypeMetadata | None {
+  type(): TypeMetadata | null {
     if (this._type) {
       return this._type;
     }

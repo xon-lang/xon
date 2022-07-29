@@ -1,11 +1,9 @@
 import { DeclarationContext } from '../../grammar/xon-parser';
-import { None, none } from '../../lib/core';
 import { DeclarationTree } from './declaration-tree';
 
-export const getDeclarationTree = (ctx: DeclarationContext): DeclarationTree | None => {
-  if (!ctx) {
-    return none;
-  }
+export const getDeclarationTree = (ctx: DeclarationContext): DeclarationTree | null => {
+  if (!ctx) return null;
+
   return new DeclarationTree(ctx);
 };
 

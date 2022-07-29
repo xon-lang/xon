@@ -5,7 +5,7 @@ import { fillTypeMetadata } from '../type-metadata-helper';
 import { MethodTypeMetadata } from './method-type-metadata';
 
 test('method', () => {
-  const code = '(a: Number)=>None';
+  const code = '(a: Number)=>null';
   const tree = parseExpression(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree) as MethodTypeMetadata;

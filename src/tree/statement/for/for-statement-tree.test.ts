@@ -1,4 +1,3 @@
-import { none } from '../../../lib/core';
 import { evaluate } from '../../../util/evaluate';
 import { parseStatement } from '../../../util/parse';
 import { ArrayExpressionTree } from '../../expression/array/array-expression-tree';
@@ -34,7 +33,7 @@ test('for with expression only', () => {
   const tree = parseStatement(code) as ForStatementTree;
 
   expect(tree).toBeInstanceOf(ForStatementTree);
-  expect(tree.parameter).toBe(none);
+  expect(tree.parameter).toBe(null);
   expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
   expect(evaluate((tree.body.statements[0] as ExpressionStatementTree).expression)).toBe(1 + 1);

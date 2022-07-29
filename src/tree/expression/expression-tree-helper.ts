@@ -14,7 +14,6 @@ import {
   PreprocessorExpressionContext,
 } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
-import { none } from '../../lib/core';
 import { IdTree } from '../id/id-tree';
 import { getIdTree } from '../id/id-tree-helper';
 import { ArrayExpressionTree } from './array/array-expression-tree';
@@ -31,7 +30,7 @@ import { PrefixExpressionTree } from './prefix/prefix-expression-tree';
 import { PreprocessorExpressionTree } from './preprocessor/preprocessor-expression-tree';
 
 export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
-  if (!ctx) return none;
+  if (!ctx) return null;
 
   if (ctx instanceof PreprocessorExpressionContext) return new PreprocessorExpressionTree(ctx);
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);

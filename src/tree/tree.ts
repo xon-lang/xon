@@ -1,19 +1,19 @@
 import { ParserRuleContext } from 'antlr4ts';
 import { Issue } from '../issue-service/issue';
 import { IssueLevel } from '../issue-service/issue-level';
-import { None, String } from '../lib/core';
+import { String } from '../lib/core';
 import { DeclarationScope } from '../metadata/declaration/scope/declaration-scope';
 import { SourceRange } from '../util/source-range';
 
 export class Tree {
   scope: DeclarationScope = new DeclarationScope();
-  ctx: ParserRuleContext | None;
+  ctx?: ParserRuleContext | null;
   sourceRange: SourceRange;
-  parent?: Tree | None;
+  parent?: Tree | null;
   children: Tree[] = [];
   issues: Issue[] = [];
 
-  addChildren(...children: (Tree | None)[]) {
+  addChildren(...children: (Tree | null)[]) {
     children
       .filter((x) => x)
       .forEach((x) => {

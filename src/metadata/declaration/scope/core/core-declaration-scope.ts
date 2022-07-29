@@ -25,7 +25,7 @@ export class CoreDeclarationScope {
     return this.scope.filter('Number')[0] as DefinitionMetadata;
   }
   get none(): DefinitionMetadata {
-    return this.scope.filter('None')[0] as DefinitionMetadata;
+    return this.scope.filter('null')[0] as DefinitionMetadata;
   }
   get char(): DefinitionMetadata {
     return this.scope.filter('Char')[0] as DefinitionMetadata;

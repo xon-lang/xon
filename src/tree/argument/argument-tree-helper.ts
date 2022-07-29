@@ -1,9 +1,8 @@
 import { ArgumentContext } from '../../grammar/xon-parser';
-import { none } from '../../lib/core';
 import { ArgumentTree } from './argument-tree';
 
 export const getArgumentTree = (ctx: ArgumentContext): ArgumentTree => {
-  if (!ctx) return none;
+  if (!ctx) return null;
   return new ArgumentTree(ctx);
 };
 

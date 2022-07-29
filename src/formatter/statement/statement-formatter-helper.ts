@@ -8,7 +8,6 @@ import {
   StatementContext,
 } from '../../grammar/xon-parser';
 import { Issue } from '../../issue-service/issue';
-import { None, none } from '../../lib/core';
 import { FormatterConfig } from '../formatter-config';
 import { CommentStatementFormatter } from './comment/comment-statement-formatter';
 import { DeclarationStatementFormatter } from './declaration/declaration-statement-formatter';
@@ -21,8 +20,8 @@ import { StatementFormatter } from './statement-formatter';
 export const getStatementFormatter = (
   ctx: StatementContext,
   config: FormatterConfig,
-): StatementFormatter | None => {
-  if (!ctx) return none;
+): StatementFormatter | null => {
+  if (!ctx) return null;
 
   if (ctx instanceof DeclarationStatementContext)
     return new DeclarationStatementFormatter(ctx, config);

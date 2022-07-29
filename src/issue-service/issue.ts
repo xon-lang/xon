@@ -1,13 +1,13 @@
 import { ParserRuleContext, RecognitionException } from 'antlr4ts';
 import chalk from 'chalk';
 import fs from 'fs';
-import { None, String } from '../lib/core';
+import { String } from '../lib/core';
 import { Tree } from '../tree/tree';
 import { SourceRange } from '../util/source-range';
 import { IssueLevel } from './issue-level';
 
 export class Issue extends Error {
-  antlrError?: RecognitionException | None;
+  antlrError?: RecognitionException | null;
 
   constructor(public sourceRange: SourceRange, public level: IssueLevel, public message: String) {
     super(message);

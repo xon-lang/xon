@@ -1,4 +1,3 @@
-import { none } from '../../lib/core';
 import { parseDeclaration } from '../../util/parse';
 import { IdExpressionTree } from '../expression/id/id-expression-tree';
 import { InvokeExpressionTree } from '../expression/invoke/invoke-expression-tree';
@@ -83,7 +82,7 @@ test('name and array type', () => {
 });
 
 test('name and array type', () => {
-  const code = `getParameterTrees:(contexts: ParameterContext[])=> None`;
+  const code = `getParameterTrees:(contexts: ParameterContext[])=> null`;
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
@@ -213,7 +212,7 @@ test('model animal with only attribute', () => {
   expect(tree.allIssues().length).toBe(0);
   expect(tree.modifier.text).toBe('model');
   expect(tree.name.text).toBe('Animal');
-  expect(tree.type).toBe(none);
+  expect(tree.type).toBe(null);
   expect(tree.attributes.length).toBe(1);
 
   const attributes = tree.attributes.map(

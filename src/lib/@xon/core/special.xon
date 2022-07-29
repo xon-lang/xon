@@ -4,9 +4,6 @@ model Unknown
 
 model Never
 
-model None
-
-object none : None
 
 -- model Any
 --   not [] Boolean
@@ -21,3 +18,6 @@ model Union
 model Intersection
 
 model Method
+
+object null
+  toBoolean() = false

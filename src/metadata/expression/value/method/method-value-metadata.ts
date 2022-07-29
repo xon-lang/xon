@@ -1,4 +1,4 @@
-import { Any, none, None } from '../../../../lib/core';
+import { Any } from '../../../../lib/core';
 import { MethodExpressionTree } from '../../../../tree/expression/method/method-expression-tree';
 import {
   fillParameterMetadata,
@@ -24,10 +24,10 @@ export class MethodValueMetadata extends ValueMetadata {
     fillValueMetadata(tree.value);
   }
 
-  type(): TypeMetadata | None {
+  type(): TypeMetadata | null {
     if (!(this.tree.value.metadata instanceof ValueMetadata)) {
       this.tree.value.addError('Should be a ValueMetadata');
-      return none;
+      return null;
     }
 
     return new MethodTypeMetadata(
