@@ -37,6 +37,16 @@ export class DeclarationScope {
 
   // operators
   union(other: DeclarationScope): DeclarationScope {
+    const scope = new DeclarationScope();
+    const leftAll = this.all();
+    other
+      .all()
+      .filter((x) => leftAll.some((z) => z.name == x.name))
+      .forEach((x) => scope.add(x));
+    return scope;
+  }
+
+  intersect(other: DeclarationScope): DeclarationScope {
     const scope = this.clone();
     const leftAll = this.all();
     other
@@ -44,14 +54,12 @@ export class DeclarationScope {
       .filter((x) => !leftAll.some((z) => z.equals(x)))
       .forEach((x) => scope.add(x));
     return scope;
-  }
 
-  intersect(other: DeclarationScope): DeclarationScope {
-    const left = this.all();
-    const right = other.all();
-    const scope = new DeclarationScope(this);
-    const commons = left.filter((x) => right.some((z) => x.name === z.name));
-    scope.declarations = left.concat(right).filter((x) => !commons.some((z) => x.name === z.name));
-    return scope;
+    // const left = this.all();
+    // const right = other.all();
+    // const scope = new DeclarationScope(this);
+    // const commons = left.filter((x) => right.some((z) => x.name === z.name));
+    // scope.declarations = left.concat(right).filter((x) => !commons.some((z) => x.name === z.name));
+    // return scope;
   }
 }
