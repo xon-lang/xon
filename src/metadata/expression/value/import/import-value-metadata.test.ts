@@ -13,5 +13,5 @@ test('literal', () => {
   expect(metadata).toBeInstanceOf(ImportValueMetadata);
   expect(metadata.importScope().declarations.length).toBe(33);
   expect(metadata.type()).toBeInstanceOf(ObjectTypeMetadata);
-  expect(metadata.type().attributesScope().declarations.length).toBe(34);
+  expect(metadata.type().attributesScope().declarations.length).toBe(33);
 });
