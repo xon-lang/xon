@@ -8,7 +8,7 @@ test('integer literal', () => {
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree);
 
-  expect(metadata.attributesScope().declarations.length).toBe(1);
+  expect(metadata.attributesScope().declarations.length).toBe(6);
 });
 
 test('float literal', () => {
@@ -17,7 +17,7 @@ test('float literal', () => {
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree);
 
-  expect(metadata.attributesScope().declarations.length).toBe(2);
+  expect(metadata.attributesScope().declarations.length).toBe(6);
 });
 
 test('7 is integer', () => {

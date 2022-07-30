@@ -14,11 +14,11 @@ test('none model', () => {
   expect(metadata.definition).toBeInstanceOf(DefinitionMetadata);
   expect(metadata.definition).toBe(tree.scope.core.none);
   expect(metadata.definition.name).toBe('null');
-  expect(metadata.definition.allAttributes().length).toBe(0);
+  expect(metadata.definition.allAttributes().length).toBe(1);
 });
 
 test('none object', () => {
-  const code = 'none';
+  const code = 'null';
   const tree = parseExpression(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree) as DefinitionTypeMetadata;
@@ -26,7 +26,7 @@ test('none object', () => {
   expect(metadata).toBeInstanceOf(DefinitionTypeMetadata);
   expect(metadata.definition).toBeInstanceOf(DefinitionMetadata);
   expect(metadata.definition.name).toBe('null');
-  expect(metadata.definition.allAttributes().length).toBe(0);
+  expect(metadata.definition.allAttributes().length).toBe(1);
 });
 
 test('any', () => {

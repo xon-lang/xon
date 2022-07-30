@@ -20,12 +20,14 @@ test('false is Boolean', () => {
 
   const codeBoolean = 'Boolean';
   const treeBoolean = parseExpression(codeBoolean);
-  const metadataNone = fillTypeMetadata(treeBoolean);
+  treeBoolean.scope.parent = new TestDeclarationScope();
+  const metadataBoolean = fillTypeMetadata(treeBoolean);
 
   const codeInteger = 'Integer';
   const treeInteger = parseExpression(codeInteger);
+  treeInteger.scope.parent = new TestDeclarationScope();
   const metadataFloat = fillTypeMetadata(treeInteger);
 
-  expect(metadata.is(metadataNone)).toBe(true);
+  expect(metadata.is(metadataBoolean)).toBe(true);
   expect(metadata.is(metadataFloat)).toBe(false);
 });
