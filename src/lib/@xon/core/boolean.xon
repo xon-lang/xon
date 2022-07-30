@@ -1,7 +1,7 @@
 model Boolean
-  test1 = none
-  test2 = none
-  test3 = none
+  test1 = null
+  test2 = null
+  test3 = null
 
 object false: Boolean
 
