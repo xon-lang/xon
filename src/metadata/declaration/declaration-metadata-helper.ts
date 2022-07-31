@@ -3,6 +3,7 @@ import { IdExpressionTree } from '../../tree/expression/id/id-expression-tree';
 import { SourceTree } from '../../tree/source/source-tree';
 import { DeclarationStatementTree } from '../../tree/statement/declaration/declaration-statement-tree';
 import { ArrayTypeMetadata } from '../expression/type/array/array-type-metadata';
+import { DefinitionTypeMetadata } from '../expression/type/definition/definition-type-metadata';
 import { MethodTypeMetadata } from '../expression/type/method/method-type-metadata';
 import { ObjectTypeMetadata } from '../expression/type/object/object-type-metadata';
 import { TypeMetadata } from '../expression/type/type-metadata';
@@ -117,7 +118,7 @@ export function fillDefinitionMetadata(tree: DeclarationTree) {
   if (tree.type instanceof IdExpressionTree) {
     const declarations = tree.scope.filter(tree.type.name.text);
     if (declarations.length === 1) {
-      tree.type.metadata = declarations[0];
+      tree.type.metadata = new DefinitionTypeMetadata(declarations[0] as DefinitionMetadata);
       if (tree.metadata instanceof DefinitionMetadata) {
         tree.metadata.base = declarations[0] as DefinitionMetadata;
       }
