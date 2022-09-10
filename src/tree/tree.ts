@@ -3,9 +3,11 @@ import { Issue } from '../issue-service/issue';
 import { IssueLevel } from '../issue-service/issue-level';
 import { String } from '../lib/core';
 import { DeclarationScope } from '../metadata/declaration/scope/declaration-scope';
+import { Metadata } from '../metadata/metadata';
 import { SourceRange } from '../util/source-range';
 
 export class Tree {
+  metadata: Metadata | null;
   scope: DeclarationScope = new DeclarationScope();
   ctx?: ParserRuleContext | null;
   sourceRange: SourceRange;

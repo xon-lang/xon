@@ -1,10 +1,3 @@
-// this code was generated
+import { Tree } from '../tree';
 
-import { StatementMetadata } from '../../metadata/statement/statement-metadata'
-import { Tree } from '../tree'
-
-export class StatementTree extends Tree {
-  metadata: StatementMetadata
-}
-
-// this code was generated
+export class StatementTree extends Tree {}
