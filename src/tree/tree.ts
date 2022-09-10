@@ -16,14 +16,11 @@ export class Tree {
   issues: Issue[] = [];
 
   addChildren(...children: (Tree | null)[]) {
-    children
-      .filter((x) => x)
-      .forEach((x) => {
-        x.parent = this;
-        this.children.push(x);
-
-        x.scope.parent = this.scope;
-      });
+    for (const tree of children.filter((x) => x)) {
+      this.children.push(tree);
+      tree.parent = this;
+      tree.scope.parent = this.scope;
+    }
   }
 
   allIssues(): Issue[] {
