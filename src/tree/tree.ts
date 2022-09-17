@@ -7,13 +7,16 @@ import { Metadata } from '../metadata/metadata';
 import { SourceRange } from '../util/source-range';
 
 export class Tree {
-  metadata: Metadata | null;
-  scope: DeclarationScope = new DeclarationScope();
+  metadata?: Metadata | null;
   ctx?: ParserRuleContext | null;
-  sourceRange: SourceRange;
+
+  sourceRange?: SourceRange | null;
+
+  scope: DeclarationScope = new DeclarationScope();
+  issues: Issue[] = [];
+
   parent?: Tree | null;
   children: Tree[] = [];
-  issues: Issue[] = [];
 
   addChildren(...children: (Tree | null)[]) {
     for (const tree of children.filter((x) => x)) {

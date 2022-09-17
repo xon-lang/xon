@@ -22,7 +22,7 @@ export class DeclarationTree extends Tree {
   ctx: DeclarationContext;
   metadata: DeclarationMetadata;
   sourceRange: SourceRange;
-  modifier: IdTree;
+  modifier?: IdTree | null;
   name?: IdTree;
   destructure: DeclarationTree[];
   hasParameters: Boolean;
