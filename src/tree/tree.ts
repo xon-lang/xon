@@ -6,7 +6,7 @@ import { DeclarationScope } from '../metadata/declaration/scope/declaration-scop
 import { Metadata } from '../metadata/metadata';
 import { SourceRange } from '../util/source-range';
 
-export class Tree {
+export abstract class Tree {
   metadata?: Metadata | null;
   ctx?: ParserRuleContext | null;
 
