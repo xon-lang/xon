@@ -21,3 +21,5 @@ drafts:
     type: { Number }[Number]
     value: { { 'some' = 2 } }[0]['some']
     type: { { ...Number } }
+
+move all parse functions to helpers
