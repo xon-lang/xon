@@ -1,5 +1,6 @@
 import { DeclarationTree } from '../../tree/declaration/declaration-tree';
 import { IdExpressionTree } from '../../tree/expression/id/id-expression-tree';
+import { ModuleTree } from '../../tree/module/module-tree';
 import { SourceTree } from '../../tree/source/source-tree';
 import { DeclarationStatementTree } from '../../tree/statement/declaration/declaration-statement-tree';
 import { ArrayTypeMetadata } from '../expression/type/array/array-type-metadata';
@@ -8,12 +9,32 @@ import { MethodTypeMetadata } from '../expression/type/method/method-type-metada
 import { ObjectTypeMetadata } from '../expression/type/object/object-type-metadata';
 import { TypeMetadata } from '../expression/type/type-metadata';
 import { fillTypeMetadata } from '../expression/type/type-metadata-helper';
+import { ValueMetadata } from '../expression/value/value-metadata';
 import { fillValueMetadata } from '../expression/value/value-metadata-helper';
 import { DeclarationMetadata } from './declaration-metadata';
 import { DefinitionMetadata } from './definition/definition-metadata';
 import { DestructureMetadata } from './destructure/destructure-metadata';
+import { ModuleDeclarationMetadata } from './module/module-declaration-metadata';
 import { OperatorMetadata } from './operator/operator-metadata';
 import { ParameterMetadata } from './parameter/parameter-metadata';
+
+
+export function getShadowModuleMetadata(tree: ModuleTree): ModuleDeclarationMetadata {
+  const metadata = new ModuleDeclarationMetadata(tree);
+
+  for (const parameter of tree.parameters) {
+    parameter.metadata = getShadowParameterMetadata(parameter);
+    metadata.parameters.push(parameter.metadata);
+    tree.scope.add(parameter.metadata);
+  }
+
+  if (tree.body) {
+    const declarations = getShadowSourceMetadata(tree.body);
+    metadata.attributes = declarations.filter((x) => x instanceof ParameterMetadata);
+  }
+
+  return metadata;
+}
 
 export function getShadowSourceMetadata(tree: SourceTree): DeclarationMetadata[] {
   const declarationTrees = tree.statements
@@ -33,7 +54,11 @@ export function getShadowSourceMetadata(tree: SourceTree): DeclarationMetadata[]
     if (declarationTree.metadata instanceof DestructureMetadata) {
       declarationTree.metadata.parameters.forEach((x) => tree.scope.add(x));
     } else {
-      tree.scope.add(declarationTree.metadata);
+      if (tree.parent instanceof ModuleTree && declarationTree.modifier) {
+        tree.parent.scope.add(declarationTree.metadata);
+      } else {
+        tree.scope.add(declarationTree.metadata);
+      }
     }
 
     declarations.push(declarationTree.metadata);
@@ -144,7 +169,7 @@ export function fillOperatorMetadata(tree: DeclarationTree, alternativeType?: Ty
   tree.parameters.forEach((x) => fillParameterMetadata(x));
 
   if (tree.value) {
-    tree.metadata.value = fillValueMetadata(tree.value);
+    fillValueMetadata(tree.value);
   }
 
   if (tree.type) {
@@ -153,7 +178,7 @@ export function fillOperatorMetadata(tree: DeclarationTree, alternativeType?: Ty
   } else if (alternativeType) {
     tree.metadata.type = alternativeType;
   } else if (tree.value && tree.metadata instanceof ParameterMetadata) {
-    tree.metadata.type = tree.metadata.value.type();
+    tree.metadata.type = (tree.value.metadata as ValueMetadata).type();
   } else {
     tree.metadata.type = tree.scope.core.any.type;
   }
@@ -173,7 +198,7 @@ export function fillParameterMetadata(tree: DeclarationTree, alternativeType?: T
     tree.value &&
     (tree.metadata instanceof ParameterMetadata || tree.metadata instanceof DestructureMetadata)
   ) {
-    tree.metadata.value = fillValueMetadata(tree.value);
+    tree.value.metadata = fillValueMetadata(tree.value);
   }
 
   if (tree.type) {
@@ -184,7 +209,7 @@ export function fillParameterMetadata(tree: DeclarationTree, alternativeType?: T
     tree.value &&
     (tree.metadata instanceof ParameterMetadata || tree.metadata instanceof DestructureMetadata)
   ) {
-    tree.metadata.type = tree.metadata.value.type();
+    tree.metadata.type = (tree.value.metadata as ValueMetadata).type();
   } else {
     tree.metadata.type = tree.scope.core?.any.type || null;
   }
