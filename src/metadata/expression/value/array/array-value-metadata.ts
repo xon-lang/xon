@@ -31,7 +31,6 @@ export class ArrayValueMetadata extends ValueMetadata {
         metadata.name = x.tree.name.text;
         metadata.sourceRange = x.sourceRange;
         metadata.type = x.type;
-        metadata.value = x.value;
         objectScope.add(metadata);
       });
       return new ObjectTypeMetadata(objectScope);

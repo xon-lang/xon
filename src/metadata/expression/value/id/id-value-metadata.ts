@@ -1,6 +1,5 @@
 import { Any } from '../../../../lib/core';
 import { IdExpressionTree } from '../../../../tree/expression/id/id-expression-tree';
-import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
 
@@ -28,10 +27,6 @@ export class IdValueMetadata extends ValueMetadata {
   }
 
   eval(): Any {
-    if (this.tree.name.metadata instanceof ParameterMetadata) {
-      return this.tree.name.metadata.value?.eval();
-    }
-
     throw new Error('Not implemented');
   }
 }
