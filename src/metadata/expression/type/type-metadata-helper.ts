@@ -115,7 +115,6 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
         metadata.name = x.name.text;
         metadata.sourceRange = x.sourceRange;
         metadata.type = fillValueMetadata(x.value).type();
-        metadata.value = fillValueMetadata(x.value);
         return (tree.metadata = metadata);
       });
       parameters.filter((x) => x).forEach((x) => objectScope.add(x));
