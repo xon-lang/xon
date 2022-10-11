@@ -1,9 +1,20 @@
 import { Boolean } from '../../../lib/core';
+import { ImportProvider } from '../../import-provider';
 import { DeclarationMetadata } from '../declaration-metadata';
 import { CoreDeclarationScope } from './core/core-declaration-scope';
 
+let _core: CoreDeclarationScope | null;
+
+function core(): CoreDeclarationScope {
+  if (_core) return _core;
+
+  const importProvider = new ImportProvider('src/lib/@xon/core');
+  const coreScope = new CoreDeclarationScope(importProvider.scope());
+  return (_core = coreScope);
+}
+
 export class DeclarationScope {
-  core = new CoreDeclarationScope(this);
+  core = core();
   declarations: DeclarationMetadata[] = [];
 
   constructor(public parent?: DeclarationScope) {}
@@ -26,7 +37,7 @@ export class DeclarationScope {
   }
 
   filter(name: String, predicate?: (x: DeclarationMetadata) => Boolean): DeclarationMetadata[] {
-    const declarations = this.declarations.filter(
+    const declarations = [...this.core.scope.declarations, ...this.declarations].filter(
       (x) => x.name === name && (!predicate || predicate(x)),
     );
     if (declarations.length) {

@@ -40,5 +40,5 @@ export class CoreDeclarationScope {
     return this.scope.filter('Unknown')[0] as DefinitionMetadata;
   }
 
-  constructor(private scope: DeclarationScope) {}
+  constructor(public scope: DeclarationScope) {}
 }
