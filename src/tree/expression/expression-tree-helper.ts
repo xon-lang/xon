@@ -13,7 +13,7 @@ import {
   PrefixExpressionContext,
   PreprocessorExpressionContext,
 } from '../../grammar/xon-parser';
-import { Issue } from '../../issue-service/issue';
+import { Issue } from '../../issue/issue';
 import { IdTree } from '../id/id-tree';
 import { getIdTree } from '../id/id-tree-helper';
 import { ArrayExpressionTree } from './array/array-expression-tree';

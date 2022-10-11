@@ -6,7 +6,7 @@ import {
   LiteralContext,
   StringLiteralContext,
 } from '../../grammar/xon-parser';
-import { Issue } from '../../issue-service/issue';
+import { Issue } from '../../issue/issue';
 import { FloatLiteralTree } from './float/float-literal-tree';
 import { IntegerLiteralTree } from './integer/integer-literal-tree';
 import { LiteralTree } from './literal-tree';

@@ -7,8 +7,8 @@ import {
   RecognitionException,
   Recognizer,
 } from 'antlr4ts';
-import { Issue } from '../issue-service/issue';
-import { IssueLevel } from '../issue-service/issue-level';
+import { Issue } from '../issue/issue';
+import { IssueLevel } from '../issue/issue-level';
 import { Number, String } from '../lib/core';
 import { SourceRange } from './source-range';
 

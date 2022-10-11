@@ -7,7 +7,7 @@ import {
   ReturnStatementContext,
   StatementContext,
 } from '../../grammar/xon-parser';
-import { Issue } from '../../issue-service/issue';
+import { Issue } from '../../issue/issue';
 import { FormatterConfig } from '../formatter-config';
 import { CommentStatementFormatter } from './comment/comment-statement-formatter';
 import { DeclarationStatementFormatter } from './declaration/declaration-statement-formatter';

@@ -1,4 +1,4 @@
-import { Issue } from '../../../issue-service/issue';
+import { Issue } from '../../../issue/issue';
 import { ArrayExpressionTree } from '../../../tree/expression/array/array-expression-tree';
 import { ExpressionTree } from '../../../tree/expression/expression-tree';
 import { GroupExpressionTree } from '../../../tree/expression/group/group-expression-tree';

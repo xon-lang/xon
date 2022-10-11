@@ -12,7 +12,7 @@ import {
   PrefixExpressionContext,
   PreprocessorExpressionContext,
 } from '../../grammar/xon-parser';
-import { Issue } from '../../issue-service/issue';
+import { Issue } from '../../issue/issue';
 import { FormatterConfig } from '../formatter-config';
 import { ArrayExpressionFormatter } from './array/array-expression-formatter';
 import { ExpressionFormatter } from './expression-formatter';

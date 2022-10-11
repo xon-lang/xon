@@ -1,4 +1,4 @@
-import { Issue } from '../../issue-service/issue';
+import { Issue } from '../../issue/issue';
 import { CommentStatementTree } from '../../tree/statement/comment/comment-statement-tree';
 import { DeclarationStatementTree } from '../../tree/statement/declaration/declaration-statement-tree';
 

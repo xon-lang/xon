@@ -12,7 +12,7 @@ import {
   StatementContext,
   WhileStatementContext,
 } from '../../grammar/xon-parser';
-import { Issue } from '../../issue-service/issue';
+import { Issue } from '../../issue/issue';
 import { AssertStatementTree } from './assert/assert-statement-tree';
 import { CommentStatementTree } from './comment/comment-statement-tree';
 import { DeclarationStatementTree } from './declaration/declaration-statement-tree';

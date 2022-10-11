@@ -1,5 +1,5 @@
-import { Issue } from '../../../issue-service/issue';
-import { IssueLevel } from '../../../issue-service/issue-level';
+import { Issue } from '../../../issue/issue';
+import { IssueLevel } from '../../../issue/issue-level';
 import { ArrayExpressionTree } from '../../../tree/expression/array/array-expression-tree';
 import { ExpressionTree } from '../../../tree/expression/expression-tree';
 import { GroupExpressionTree } from '../../../tree/expression/group/group-expression-tree';

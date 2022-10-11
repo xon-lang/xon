@@ -1,6 +1,6 @@
 import { ParserRuleContext } from 'antlr4ts';
-import { Issue } from '../issue-service/issue';
-import { IssueLevel } from '../issue-service/issue-level';
+import { Issue } from '../issue/issue';
+import { IssueLevel } from '../issue/issue-level';
 import { String } from '../lib/core';
 import { DeclarationScope } from '../metadata/declaration/scope/declaration-scope';
 import { Metadata } from '../metadata/metadata';

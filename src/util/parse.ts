@@ -4,7 +4,7 @@ import { CharStreams, CommonTokenStream } from 'antlr4ts';
 import * as fs from 'fs';
 import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
-import { Issue } from '../issue-service/issue';
+import { Issue } from '../issue/issue';
 import { String } from '../lib/core';
 import { getArgumentTree } from '../tree/argument/argument-tree-helper';
 import { getDeclarationTree } from '../tree/declaration/declaration-tree-helper';

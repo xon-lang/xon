@@ -1,5 +1,5 @@
 import path from 'path';
-import { IssueLevel } from '../../../../issue-service/issue-level';
+import { IssueLevel } from '../../../../issue/issue-level';
 import { String } from '../../../../lib/core';
 import { PrefixExpressionTree } from '../../../../tree/expression/prefix/prefix-expression-tree';
 import { evaluate } from '../../../../util/evaluate';

@@ -1,7 +1,7 @@
 // this code was generated
 
 import { DeclarationContext } from '../../grammar/xon-parser';
-import { IssueLevel } from '../../issue-service/issue-level';
+import { IssueLevel } from '../../issue/issue-level';
 import { Boolean } from '../../lib/core';
 import { DeclarationMetadata } from '../../metadata/declaration/declaration-metadata';
 import { SourceRange } from '../../util/source-range';

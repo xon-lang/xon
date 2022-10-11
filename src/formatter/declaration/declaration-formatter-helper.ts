@@ -1,5 +1,5 @@
 import { DeclarationContext } from '../../grammar/xon-parser';
-import { Issue } from '../../issue-service/issue';
+import { Issue } from '../../issue/issue';
 import { FormatterConfig } from '../formatter-config';
 import { DeclarationFormatter } from './declaration-formatter';
 
