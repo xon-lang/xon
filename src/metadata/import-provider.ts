@@ -1,12 +1,26 @@
 import { lstatSync } from 'fs';
-import { glob } from 'glob';
 import os from 'os';
 import path from 'path';
-import { String } from '../lib/core';
-import { parseSourceFile } from '../util/parse';
-import { getShadowSourceMetadata } from './declaration/declaration-metadata-helper';
+import { Boolean, String } from '../lib/core';
 import { DeclarationScope } from './declaration/scope/declaration-scope';
-import { getSourceMetadata } from './source/source-metadata-helper';
+
+function isDirectory(fullPath): Boolean {
+  try {
+    const stats = lstatSync(fullPath);
+    return stats.isDirectory();
+  } catch (error) {
+    return false;
+  }
+}
+
+function isFile(fullPath): Boolean {
+  try {
+    const stats = lstatSync(fullPath);
+    return stats.isFile();
+  } catch (error) {
+    return false;
+  }
+}
 
 export class ImportProvider {
   fullPath: String;
@@ -18,39 +32,11 @@ export class ImportProvider {
   }
 
   isValid() {
-    try {
-      const stats = lstatSync(this.fullPath);
-      return stats.isDirectory();
-    } catch (error) {
-      return false;
-    }
+    return isDirectory(this.fullPath);
   }
 
   scope(): DeclarationScope {
-    if (!this.isValid()) {
-      throw new Error('Should be a directory');
-    }
-
-    if (ImportProvider.cache.has(this.fullPath)) {
-      return ImportProvider.cache.get(this.fullPath);
-    }
-
-    const globPath = path.join(this.fullPath, '*.xon');
-    const files = glob.sync(globPath);
-    const sources = files.map((x) => parseSourceFile(x));
-    const scope = new DeclarationScope();
-    ImportProvider.cache.set(this.fullPath, scope);
-
-    for (const tree of sources) {
-      scope.declarations.push(...getShadowSourceMetadata(tree));
-    }
-
-    for (const tree of sources) {
-      tree.scope.parent = scope;
-      tree.metadata = getSourceMetadata(tree);
-    }
-
-    return scope;
+    throw new Error('Not implemented');
   }
 }
 
