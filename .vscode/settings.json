@@ -36,7 +36,7 @@
   "antlr4.generation": {
     "mode": "internal"
   },
-  "cSpell.words": ["bfnrtv", "codacy", "PAREN", "pinst", "postpublish", "postversion"],
+  "cSpell.words": ["bfnrtv", "codacy", "nodir", "PAREN", "pinst", "postpublish", "postversion"],
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
     "source.organizeImports": true
