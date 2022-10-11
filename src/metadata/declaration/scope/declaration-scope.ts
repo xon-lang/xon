@@ -1,20 +1,9 @@
 import { Boolean } from '../../../lib/core';
-import { ImportProvider } from '../../import-provider';
 import { DeclarationMetadata } from '../declaration-metadata';
 import { CoreDeclarationScope } from './core/core-declaration-scope';
 
-let _core: CoreDeclarationScope | null;
-
-function core(): CoreDeclarationScope {
-  if (_core) return _core;
-
-  const importProvider = new ImportProvider('src/lib/@xon/core');
-  const coreScope = new CoreDeclarationScope(importProvider.scope());
-  return (_core = coreScope);
-}
-
 export class DeclarationScope {
-  core = core();
+  core: CoreDeclarationScope;
   declarations: DeclarationMetadata[] = [];
 
   constructor(public parent?: DeclarationScope) {}

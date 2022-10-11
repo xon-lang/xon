@@ -14,27 +14,8 @@ import { fillValueMetadata } from '../expression/value/value-metadata-helper';
 import { DeclarationMetadata } from './declaration-metadata';
 import { DefinitionMetadata } from './definition/definition-metadata';
 import { DestructureMetadata } from './destructure/destructure-metadata';
-import { ModuleDeclarationMetadata } from './module/module-declaration-metadata';
 import { OperatorMetadata } from './operator/operator-metadata';
 import { ParameterMetadata } from './parameter/parameter-metadata';
-
-
-export function getShadowModuleMetadata(tree: ModuleTree): ModuleDeclarationMetadata {
-  const metadata = new ModuleDeclarationMetadata(tree);
-
-  for (const parameter of tree.parameters) {
-    parameter.metadata = getShadowParameterMetadata(parameter);
-    metadata.parameters.push(parameter.metadata);
-    tree.scope.add(parameter.metadata);
-  }
-
-  if (tree.body) {
-    const declarations = getShadowSourceMetadata(tree.body);
-    metadata.attributes = declarations.filter((x) => x instanceof ParameterMetadata);
-  }
-
-  return metadata;
-}
 
 export function getShadowSourceMetadata(tree: SourceTree): DeclarationMetadata[] {
   const declarationTrees = tree.statements
