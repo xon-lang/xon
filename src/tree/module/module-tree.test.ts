@@ -10,5 +10,5 @@ test('module from path', () => {
   const testModule = tree.children.find((x) => x instanceof ModuleTree) as ModuleTree;
   expect(testModule).toBeInstanceOf(ModuleTree);
   expect(testModule.name).toBe('test');
-  expect(testModule.sourceRange.sourceName).toBe('src/lib/@xon/core/test');
+  expect(testModule.sourceRange.sourceName).toBe('src/lib/@xon/core/test/');
 });
