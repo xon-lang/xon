@@ -53,9 +53,5 @@
   },
   "typescript.preferences.importModuleSpecifier": "relative",
   "typescript.tsc.autoDetect": "off",
-  "typescript.tsdk": "./node_modules/typescript/lib",
-  // editor
-  "workbench.colorCustomizations": {
-    "statusBar.background": "#054f6d"
-  }
+  "typescript.tsdk": "./node_modules/typescript/lib"
 }
