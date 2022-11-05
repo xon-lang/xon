@@ -1,8 +1,8 @@
-import { Boolean2 } from '../../../lib/core';
-import { DefinitionTypeMetadata } from '../../expression/type/definition/definition-type-metadata';
-import { DeclarationMetadata } from '../declaration-metadata';
-import { ParameterMetadata } from '../parameter/parameter-metadata';
-import { DeclarationScope } from '../scope/declaration-scope';
+import { Boolean2 } from '@/lib/core';
+import { DeclarationMetadata } from '@/metadata/declaration/declaration-metadata';
+import { ParameterMetadata } from '@/metadata/declaration/parameter/parameter-metadata';
+import { DeclarationScope } from '@/metadata/declaration/scope/declaration-scope';
+import { DefinitionTypeMetadata } from '@/metadata/expression/type/definition/definition-type-metadata';
 
 export class DefinitionMetadata extends DeclarationMetadata {
   base?: DefinitionMetadata | null;

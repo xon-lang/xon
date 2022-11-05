@@ -1,13 +1,13 @@
-import { DeclarationTree } from '../../../tree/declaration/declaration-tree';
-import { DeclarationStatementTree } from '../../../tree/statement/declaration/declaration-statement-tree';
-import { parseSource } from '../../../util/parse';
-import { LiteralTypeMetadata } from '../../expression/type/literal/literal-type-metadata';
-import { TypeMetadata } from '../../expression/type/type-metadata';
-import { ValueMetadata } from '../../expression/value/value-metadata';
-import { SourceMetadata } from '../../source/source-metadata';
-import { getSourceMetadata } from '../../source/source-metadata-helper';
-import { TestDeclarationScope } from '../scope/test-declaration-scope';
-import { ParameterMetadata } from './parameter-metadata';
+import { ParameterMetadata } from '@/metadata/declaration/parameter/parameter-metadata';
+import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
+import { LiteralTypeMetadata } from '@/metadata/expression/type/literal/literal-type-metadata';
+import { TypeMetadata } from '@/metadata/expression/type/type-metadata';
+import { ValueMetadata } from '@/metadata/expression/value/value-metadata';
+import { SourceMetadata } from '@/metadata/source/source-metadata';
+import { getSourceMetadata } from '@/metadata/source/source-metadata-helper';
+import { DeclarationTree } from '@/tree/declaration/declaration-tree';
+import { DeclarationStatementTree } from '@/tree/statement/declaration/declaration-statement-tree';
+import { parseSource } from '@/util/parse';
 
 test('single parameter', () => {
   const code = 'a: Number =  132';

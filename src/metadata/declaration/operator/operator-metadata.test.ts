@@ -1,7 +1,7 @@
-import { parseSource } from '../../../util/parse';
-import { SourceMetadata } from '../../source/source-metadata';
-import { getSourceMetadata } from '../../source/source-metadata-helper';
-import { TestDeclarationScope } from '../scope/test-declaration-scope';
+import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
+import { SourceMetadata } from '@/metadata/source/source-metadata';
+import { getSourceMetadata } from '@/metadata/source/source-metadata-helper';
+import { parseSource } from '@/util/parse';
 
 test('single parameter', () => {
   const code = 'operator +(a: Number, b: Number) : Number';

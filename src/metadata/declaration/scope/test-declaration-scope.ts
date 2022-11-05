@@ -1,6 +1,6 @@
-import { ImportProvider } from '../../import-provider';
-import { CoreDeclarationScope } from './core/core-declaration-scope';
-import { DeclarationScope } from './declaration-scope';
+import { CoreDeclarationScope } from '@/metadata/declaration/scope/core/core-declaration-scope';
+import { DeclarationScope } from '@/metadata/declaration/scope/declaration-scope';
+import { ImportProvider } from '@/metadata/import-provider';
 
 let _core: CoreDeclarationScope | null;
 

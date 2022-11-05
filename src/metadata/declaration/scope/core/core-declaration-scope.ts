@@ -1,6 +1,6 @@
-import { DefinitionMetadata } from '../../definition/definition-metadata';
-import { ParameterMetadata } from '../../parameter/parameter-metadata';
-import { DeclarationScope } from '../declaration-scope';
+import { DefinitionMetadata } from '@/metadata/declaration/definition/definition-metadata';
+import { ParameterMetadata } from '@/metadata/declaration/parameter/parameter-metadata';
+import { DeclarationScope } from '@/metadata/declaration/scope/declaration-scope';
 
 export class CoreDeclarationScope {
   get any(): DefinitionMetadata {
