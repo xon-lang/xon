@@ -1,7 +1,7 @@
-import { SourceTree } from '../../tree/source/source-tree';
-import { getShadowSourceMetadata } from '../declaration/declaration-metadata-helper';
-import { Metadata } from '../metadata';
-import { getStatementMetadata } from '../statement/statement-metadata-helper';
+import { getShadowSourceMetadata } from '@/metadata/declaration/declaration-metadata-helper';
+import { Metadata } from '@/metadata/metadata';
+import { getStatementMetadata } from '@/metadata/statement/statement-metadata-helper';
+import { SourceTree } from '@/tree/source/source-tree';
 
 export class SourceMetadata extends Metadata {
   constructor(public tree: SourceTree) {

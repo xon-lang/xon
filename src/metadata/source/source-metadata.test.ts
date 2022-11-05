@@ -1,9 +1,9 @@
-import { DeclarationTree } from '../../tree/declaration/declaration-tree';
-import { DeclarationStatementTree } from '../../tree/statement/declaration/declaration-statement-tree';
-import { parseSource, parseSourceFile } from '../../util/parse';
-import { TestDeclarationScope } from '../declaration/scope/test-declaration-scope';
-import { SourceMetadata } from './source-metadata';
-import { getSourceMetadata } from './source-metadata-helper';
+import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
+import { SourceMetadata } from '@/metadata/source/source-metadata';
+import { getSourceMetadata } from '@/metadata/source/source-metadata-helper';
+import { DeclarationTree } from '@/tree/declaration/declaration-tree';
+import { DeclarationStatementTree } from '@/tree/statement/declaration/declaration-statement-tree';
+import { parseSource, parseSourceFile } from '@/util/parse';
 
 test('1-error.xon', () => {
   const tree = parseSourceFile('src/metadata/source/test-files/1-error.xon');
