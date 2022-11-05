@@ -19,7 +19,33 @@
     "sourceType": "module"
   },
   "rules": {
+    "array-callback-return": "error",
+    // "no-await-in-loop": "error",
+    "no-constant-binary-expression": "error",
+    "no-constructor-return": "error",
+    "no-duplicate-imports": "error",
+    "no-promise-executor-return": "error",
+    "no-self-compare": "error",
+    "no-template-curly-in-string": "error",
+    "no-unmodified-loop-condition": "error",
+    "no-unreachable-loop": "error",
+    "no-unused-private-class-members": "error",
+    //! "no-use-before-define": "error",
+    "require-atomic-updates": "error",
+
+    // "accessor-pairs": "error",
+    "arrow-body-style": ["error", "as-needed"],
+    "block-scoped-var": "error",
+    "camelcase": "error",
+    //! "capitalized-comments": ["error"],
+    //! "class-methods-use-this": "error",
+    //! "complexity": ["error", 2],
+    //! "consistent-return": "error",
+    "consistent-this": ["error", "that"],
+    //! "curly": "error",
+
     "jest/no-commented-out-tests": ["off"],
+
     "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
