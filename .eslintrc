@@ -95,6 +95,7 @@
     "no-lonely-if": "error",
     "no-loop-func": "error",
     "no-magic-numbers": ["error", { "ignore": [-1, 0, 1, 2], "detectObjects": false }],
+    //! "no-mixed-operators": "error",
 
     "jest/no-commented-out-tests": ["off"],
 
