@@ -12,7 +12,7 @@ export class ParameterTypeMetadata extends TypeMetadata {
     return this.parameter.type.attributesScope();
   }
 
-  is(other: TypeMetadata): boolean {
+  is(other: TypeMetadata): Boolean2 {
     return this.parameter.type.is(other);
   }
 

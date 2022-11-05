@@ -1,5 +1,5 @@
 import { ArgumentContext } from '@/grammar/xon-parser';
-import { Null2, String2 } from '@/lib/core';
+import { String2 } from '@/lib/core';
 import { ExpressionTree } from '@/tree/expression/expression-tree';
 import { getExpressionTree } from '@/tree/expression/expression-tree-helper';
 import { IdTree } from '@/tree/id/id-tree';
@@ -10,8 +10,8 @@ import { SourceRange } from '@/util/source-range';
 export class ArgumentTree extends Tree {
   ctx: ArgumentContext;
   sourceRange: SourceRange;
-  name?: IdTree | Null2;
-  value?: ExpressionTree | Null2;
+  name?: IdTree | null;
+  value?: ExpressionTree | null;
 
   constructor(ctx: ArgumentContext) {
     super();

@@ -27,7 +27,7 @@ export class ImportProvider {
 
   static cache: Map<String2, DeclarationScope> = new Map();
 
-  constructor(private importPath: string) {
+  constructor(private importPath: String2) {
     this.fullPath = resolvePath(this.importPath);
   }
 

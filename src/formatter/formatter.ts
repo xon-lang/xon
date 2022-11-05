@@ -9,7 +9,7 @@ export abstract class Formatter {
   ctx: ParserRuleContext;
   config: FormatterConfig;
 
-  indent(value: number): Formatter {
+  indent(value: Number2): Formatter {
     this.indentCount = value;
     return this;
   }

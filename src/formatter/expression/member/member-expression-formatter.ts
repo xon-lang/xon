@@ -2,9 +2,10 @@ import { ExpressionFormatter } from '@/formatter/expression/expression-formatter
 import { getExpressionFormatter } from '@/formatter/expression/expression-formatter-helper';
 import { FormatterConfig } from '@/formatter/formatter-config';
 import { MemberExpressionContext } from '@/grammar/xon-parser';
+import { Boolean2 } from '@/lib/core';
 
 export class MemberExpressionFormatter extends ExpressionFormatter {
-  broken: boolean;
+  broken: Boolean2;
 
   constructor(public ctx: MemberExpressionContext, public config: FormatterConfig) {
     super();

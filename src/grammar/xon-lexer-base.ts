@@ -1,27 +1,28 @@
 // https://github.com/antlr/grammars-v4/blob/6b520363786994d06993f9d1a6fc126893a11b04/python/python3-ts/Python3.g4
 
 import { XonParser } from '@/grammar/xon-parser';
+import { Boolean2, Number2, String2 } from '@/lib/core';
 import { CommonToken, Lexer, Token, Vocabulary } from 'antlr4ts';
 
 const tabWidth = 2;
 
-const getIndentationCount = (whitespace: string): number =>
+const getIndentationCount = (whitespace: String2): Number2 =>
   Array.from(whitespace).reduce(
     (sum, x) => sum + (x === '\t' ? tabWidth - (sum % tabWidth) : 1),
     0,
   );
 
 export abstract class XonLexerBase extends Lexer {
-  protected opened: number = 0;
+  protected opened: Number2 = 0;
   private tokenQueue: Token[] = [];
-  private indents: number[] = [];
+  private indents: Number2[] = [];
   private lastToken?: Token;
-  public abstract get channelNames(): string[];
-  public abstract get modeNames(): string[];
-  public abstract get ruleNames(): string[];
+  public abstract get channelNames(): String2[];
+  public abstract get modeNames(): String2[];
+  public abstract get ruleNames(): String2[];
   public abstract get vocabulary(): Vocabulary;
-  public abstract get grammarFileName(): string;
-  // static tokens: string[] = [];
+  public abstract get grammarFileName(): String2;
+  // static tokens: String2[] = [];
   public reset(): void {
     this.tokenQueue = [];
     this.indents = [];
@@ -62,7 +63,7 @@ export abstract class XonLexerBase extends Lexer {
     return this.tokenQueue.shift() || next;
   }
 
-  protected atStartOfInput(): boolean {
+  protected atStartOfInput(): Boolean2 {
     return this.charIndex === 0;
   }
 
@@ -110,7 +111,7 @@ export abstract class XonLexerBase extends Lexer {
     return dedent;
   }
 
-  private commonToken(type: number, text: string): CommonToken {
+  private commonToken(type: Number2, text: String2): CommonToken {
     const start = (this.lastToken?.stopIndex || this.charIndex - 1) + 1;
     const stop = start + Math.max(0, text.length - 1);
     const token = new CommonToken(

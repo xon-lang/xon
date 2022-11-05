@@ -1,5 +1,5 @@
 import { IssueLevel } from '@/issue/issue-level';
-import { String2 } from '@/lib/core';
+import { Never2, String2 } from '@/lib/core';
 import { Tree } from '@/tree/tree';
 import { SourceRange } from '@/util/source-range';
 import { ParserRuleContext, RecognitionException } from 'antlr4ts';
@@ -33,12 +33,12 @@ export class Issue extends Error {
     return `${message}\n${source}${line}${column}\n${lineNumber}${code}\n${caret}`;
   }
 
-  static errorFromContext(ctx: ParserRuleContext, message: String2): never {
+  static errorFromContext(ctx: ParserRuleContext, message: String2): Never2 {
     const issue = new Issue(SourceRange.fromContext(ctx), IssueLevel.error, message);
     throw new Error(issue.toString());
   }
 
-  static errorFromTree(tree: Tree, message: String2): never {
+  static errorFromTree(tree: Tree, message: String2): Never2 {
     const issue = new Issue(tree.sourceRange, IssueLevel.error, message);
     throw new Error(issue.toString());
   }
