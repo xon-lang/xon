@@ -18,7 +18,7 @@ export class ForStatementFormatter extends StatementFormatter {
       .filter((x) => x)
       .map((x) => x?.toString().trim())
       .join(', ');
-    vars = vars && vars + ' in ';
+    vars &&= vars + ' in ';
     const expression = getExpressionFormatter(this.ctx.expression(), this.config)
       .indent(this.indentCount)
       .toString()

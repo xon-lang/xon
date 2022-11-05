@@ -54,7 +54,10 @@
     "grouped-accessor-pairs": "error",
     "guard-for-in": "error",
     "id-denylist": ["error", "data", "callback"],
-    // "id-length": "error",
+    //! "id-length": "error",
+    "id-match": ["error", "^([A-Za-z0-9_]+)$"],
+    //!! "init-declarations": ["error", "always"],
+    "logical-assignment-operators": ["error", "always"],
 
     "jest/no-commented-out-tests": ["off"],
 
