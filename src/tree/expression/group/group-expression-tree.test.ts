@@ -1,7 +1,7 @@
-import { evaluate } from '../../../util/evaluate';
-import { parseExpression } from '../../../util/parse';
-import { InfixExpressionTree } from '../infix/infix-expression-tree';
-import { GroupExpressionTree } from './group-expression-tree';
+import { GroupExpressionTree } from '@/tree/expression/group/group-expression-tree';
+import { InfixExpressionTree } from '@/tree/expression/infix/infix-expression-tree';
+import { evaluate } from '@/util/evaluate';
+import { parseExpression } from '@/util/parse';
 
 test('one group expression', () => {
   const code = '(1+1)';

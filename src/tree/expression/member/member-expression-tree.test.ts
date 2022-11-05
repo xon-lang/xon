@@ -1,6 +1,6 @@
-import { parseExpression } from '../../../util/parse';
-import { IdExpressionTree } from '../id/id-expression-tree';
-import { MemberExpressionTree } from './member-expression-tree';
+import { IdExpressionTree } from '@/tree/expression/id/id-expression-tree';
+import { MemberExpressionTree } from '@/tree/expression/member/member-expression-tree';
+import { parseExpression } from '@/util/parse';
 
 test('not safe', () => {
   const code = 'abc.def';

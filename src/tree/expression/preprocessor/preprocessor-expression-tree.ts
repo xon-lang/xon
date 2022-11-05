@@ -1,9 +1,7 @@
-// this code was generated
-
-import { PreprocessorExpressionContext } from '../../../grammar/xon-parser';
-import { String2 } from '../../../lib/core';
-import { SourceRange } from '../../../util/source-range';
-import { ExpressionTree } from '../expression-tree';
+import { PreprocessorExpressionContext } from '@/grammar/xon-parser';
+import { String2 } from '@/lib/core';
+import { ExpressionTree } from '@/tree/expression/expression-tree';
+import { SourceRange } from '@/util/source-range';
 
 export class PreprocessorExpressionTree extends ExpressionTree {
   ctx: PreprocessorExpressionContext;
@@ -17,5 +15,3 @@ export class PreprocessorExpressionTree extends ExpressionTree {
     this.value = ctx.PREPROCESSOR().text.trim().slice(2, -1);
   }
 }
-
-// this code was generated

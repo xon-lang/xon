@@ -1,10 +1,8 @@
-// this code was generated
-
-import { ArrayExpressionContext } from '../../../grammar/xon-parser';
-import { SourceRange } from '../../../util/source-range';
-import { ArgumentTree } from '../../argument/argument-tree';
-import { getArgumentTrees } from '../../argument/argument-tree-helper';
-import { ExpressionTree } from '../expression-tree';
+import { ArrayExpressionContext } from '@/grammar/xon-parser';
+import { ArgumentTree } from '@/tree/argument/argument-tree';
+import { getArgumentTrees } from '@/tree/argument/argument-tree-helper';
+import { ExpressionTree } from '@/tree/expression/expression-tree';
+import { SourceRange } from '@/util/source-range';
 
 export class ArrayExpressionTree extends ExpressionTree {
   ctx: ArrayExpressionContext;
@@ -19,5 +17,3 @@ export class ArrayExpressionTree extends ExpressionTree {
     this.addChildren(...this.arguments);
   }
 }
-
-// this code was generated

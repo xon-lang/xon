@@ -1,10 +1,10 @@
-import { parseExpression } from '../../../util/parse';
-import { IntegerLiteralTree } from '../../literal/integer/integer-literal-tree';
-import { StringLiteralTree } from '../../literal/string/string-literal-tree';
-import { IdExpressionTree } from '../id/id-expression-tree';
-import { LiteralExpressionTree } from '../literal/literal-expression-tree';
-import { MemberExpressionTree } from '../member/member-expression-tree';
-import { InvokeExpressionTree } from './invoke-expression-tree';
+import { IdExpressionTree } from '@/tree/expression/id/id-expression-tree';
+import { InvokeExpressionTree } from '@/tree/expression/invoke/invoke-expression-tree';
+import { LiteralExpressionTree } from '@/tree/expression/literal/literal-expression-tree';
+import { MemberExpressionTree } from '@/tree/expression/member/member-expression-tree';
+import { IntegerLiteralTree } from '@/tree/literal/integer/integer-literal-tree';
+import { StringLiteralTree } from '@/tree/literal/string/string-literal-tree';
+import { parseExpression } from '@/util/parse';
 
 test('method call', () => {
   const code = "f[3, 'str']";
@@ -12,9 +12,13 @@ test('method call', () => {
 
   expect(tree).toBeInstanceOf(InvokeExpressionTree);
   expect(tree.arguments.length).toBe(2);
-  expect((tree.arguments[0].value as LiteralExpressionTree).literal).toBeInstanceOf(IntegerLiteralTree);
+  expect((tree.arguments[0].value as LiteralExpressionTree).literal).toBeInstanceOf(
+    IntegerLiteralTree,
+  );
   expect((tree.arguments[0].value as LiteralExpressionTree).literal.value).toBe(3);
-  expect((tree.arguments[1].value as LiteralExpressionTree).literal).toBeInstanceOf(StringLiteralTree);
+  expect((tree.arguments[1].value as LiteralExpressionTree).literal).toBeInstanceOf(
+    StringLiteralTree,
+  );
   expect((tree.arguments[1].value as LiteralExpressionTree).literal.value).toBe('str');
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
 });

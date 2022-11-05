@@ -1,5 +1,5 @@
-import { parseExpression } from '../../../util/parse';
-import { IdExpressionTree } from './id-expression-tree';
+import { IdExpressionTree } from '@/tree/expression/id/id-expression-tree';
+import { parseExpression } from '@/util/parse';
 
 test('id', () => {
   const code = 'myVariable';

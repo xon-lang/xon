@@ -1,9 +1,7 @@
-// this code was generated
-
-import { NullableExpressionContext } from '../../../grammar/xon-parser';
-import { SourceRange } from '../../../util/source-range';
-import { ExpressionTree } from '../expression-tree';
-import { getExpressionTree } from '../expression-tree-helper';
+import { NullableExpressionContext } from '@/grammar/xon-parser';
+import { ExpressionTree } from '@/tree/expression/expression-tree';
+import { getExpressionTree } from '@/tree/expression/expression-tree-helper';
+import { SourceRange } from '@/util/source-range';
 
 export class NullableExpressionTree extends ExpressionTree {
   ctx: NullableExpressionContext;
@@ -18,5 +16,3 @@ export class NullableExpressionTree extends ExpressionTree {
     this.addChildren(this.value);
   }
 }
-
-// this code was generated

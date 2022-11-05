@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import {
   ArrayExpressionContext,
   ExpressionContext,
@@ -12,22 +11,22 @@ import {
   NullableExpressionContext,
   PrefixExpressionContext,
   PreprocessorExpressionContext,
-} from '../../grammar/xon-parser';
-import { Issue } from '../../issue/issue';
-import { IdTree } from '../id/id-tree';
-import { getIdTree } from '../id/id-tree-helper';
-import { ArrayExpressionTree } from './array/array-expression-tree';
-import { ExpressionTree } from './expression-tree';
-import { GroupExpressionTree } from './group/group-expression-tree';
-import { IdExpressionTree } from './id/id-expression-tree';
-import { InfixExpressionTree } from './infix/infix-expression-tree';
-import { InvokeExpressionTree } from './invoke/invoke-expression-tree';
-import { LiteralExpressionTree } from './literal/literal-expression-tree';
-import { MemberExpressionTree } from './member/member-expression-tree';
-import { MethodExpressionTree } from './method/method-expression-tree';
-import { NullableExpressionTree } from './nullable/nullable-expression-tree';
-import { PrefixExpressionTree } from './prefix/prefix-expression-tree';
-import { PreprocessorExpressionTree } from './preprocessor/preprocessor-expression-tree';
+} from '@/grammar/xon-parser';
+import { Issue } from '@/issue/issue';
+import { ArrayExpressionTree } from '@/tree/expression/array/array-expression-tree';
+import { ExpressionTree } from '@/tree/expression/expression-tree';
+import { GroupExpressionTree } from '@/tree/expression/group/group-expression-tree';
+import { IdExpressionTree } from '@/tree/expression/id/id-expression-tree';
+import { InfixExpressionTree } from '@/tree/expression/infix/infix-expression-tree';
+import { InvokeExpressionTree } from '@/tree/expression/invoke/invoke-expression-tree';
+import { LiteralExpressionTree } from '@/tree/expression/literal/literal-expression-tree';
+import { MemberExpressionTree } from '@/tree/expression/member/member-expression-tree';
+import { MethodExpressionTree } from '@/tree/expression/method/method-expression-tree';
+import { NullableExpressionTree } from '@/tree/expression/nullable/nullable-expression-tree';
+import { PrefixExpressionTree } from '@/tree/expression/prefix/prefix-expression-tree';
+import { PreprocessorExpressionTree } from '@/tree/expression/preprocessor/preprocessor-expression-tree';
+import { IdTree } from '@/tree/id/id-tree';
+import { getIdTree } from '@/tree/id/id-tree-helper';
 
 export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (!ctx) return null;

@@ -1,7 +1,6 @@
-import { evaluate } from '../../../util/evaluate';
-import { parseExpression } from '../../../util/parse';
-import { LiteralExpressionTree } from '../literal/literal-expression-tree';
-import { PrefixExpressionTree } from './prefix-expression-tree';
+import { PrefixExpressionTree } from '@/tree/expression/prefix/prefix-expression-tree';
+import { evaluate } from '@/util/evaluate';
+import { parseExpression } from '@/util/parse';
 
 test('negative integer', () => {
   const code = '- 1';

@@ -1,11 +1,9 @@
-// this code was generated
-
-import { MethodExpressionContext } from '../../../grammar/xon-parser';
-import { SourceRange } from '../../../util/source-range';
-import { DeclarationTree } from '../../declaration/declaration-tree';
-import { getDeclarationTrees } from '../../declaration/declaration-tree-helper';
-import { ExpressionTree } from '../expression-tree';
-import { getExpressionTree } from '../expression-tree-helper';
+import { MethodExpressionContext } from '@/grammar/xon-parser';
+import { DeclarationTree } from '@/tree/declaration/declaration-tree';
+import { getDeclarationTrees } from '@/tree/declaration/declaration-tree-helper';
+import { ExpressionTree } from '@/tree/expression/expression-tree';
+import { getExpressionTree } from '@/tree/expression/expression-tree-helper';
+import { SourceRange } from '@/util/source-range';
 
 export class MethodExpressionTree extends ExpressionTree {
   ctx: MethodExpressionContext;
@@ -32,5 +30,3 @@ export class MethodExpressionTree extends ExpressionTree {
     this.addChildren(...this.parameters, this.value);
   }
 }
-
-// this code was generated

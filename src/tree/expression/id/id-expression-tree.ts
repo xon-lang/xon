@@ -1,10 +1,8 @@
-// this code was generated
-
-import { IdExpressionContext } from '../../../grammar/xon-parser';
-import { SourceRange } from '../../../util/source-range';
-import { IdTree } from '../../id/id-tree';
-import { getIdTree } from '../../id/id-tree-helper';
-import { ExpressionTree } from '../expression-tree';
+import { IdExpressionContext } from '@/grammar/xon-parser';
+import { ExpressionTree } from '@/tree/expression/expression-tree';
+import { IdTree } from '@/tree/id/id-tree';
+import { getIdTree } from '@/tree/id/id-tree-helper';
+import { SourceRange } from '@/util/source-range';
 
 export class IdExpressionTree extends ExpressionTree {
   ctx: IdExpressionContext;
@@ -19,5 +17,3 @@ export class IdExpressionTree extends ExpressionTree {
     this.addChildren(this.name);
   }
 }
-
-// this code was generated

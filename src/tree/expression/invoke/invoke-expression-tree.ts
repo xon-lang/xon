@@ -1,13 +1,11 @@
-// this code was generated
-
-import { InvokeExpressionContext } from '../../../grammar/xon-parser';
-import { SourceRange } from '../../../util/source-range';
-import { ArgumentTree } from '../../argument/argument-tree';
-import { getArgumentTrees } from '../../argument/argument-tree-helper';
-import { IdTree } from '../../id/id-tree';
-import { getIdTree } from '../../id/id-tree-helper';
-import { ExpressionTree } from '../expression-tree';
-import { getExpressionTree } from '../expression-tree-helper';
+import { InvokeExpressionContext } from '@/grammar/xon-parser';
+import { ArgumentTree } from '@/tree/argument/argument-tree';
+import { getArgumentTrees } from '@/tree/argument/argument-tree-helper';
+import { ExpressionTree } from '@/tree/expression/expression-tree';
+import { getExpressionTree } from '@/tree/expression/expression-tree-helper';
+import { IdTree } from '@/tree/id/id-tree';
+import { getIdTree } from '@/tree/id/id-tree-helper';
+import { SourceRange } from '@/util/source-range';
 
 export class InvokeExpressionTree extends ExpressionTree {
   ctx: InvokeExpressionContext;
@@ -28,5 +26,3 @@ export class InvokeExpressionTree extends ExpressionTree {
     this.addChildren(this.instance, ...this.arguments);
   }
 }
-
-// this code was generated

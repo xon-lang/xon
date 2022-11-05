@@ -1,8 +1,8 @@
-import { evaluate } from '../../../util/evaluate';
-import { parseExpression } from '../../../util/parse';
-import { IdExpressionTree } from '../id/id-expression-tree';
-import { LiteralExpressionTree } from '../literal/literal-expression-tree';
-import { InfixExpressionTree } from './infix-expression-tree';
+import { IdExpressionTree } from '@/tree/expression/id/id-expression-tree';
+import { InfixExpressionTree } from '@/tree/expression/infix/infix-expression-tree';
+import { LiteralExpressionTree } from '@/tree/expression/literal/literal-expression-tree';
+import { evaluate } from '@/util/evaluate';
+import { parseExpression } from '@/util/parse';
 
 test('several operands with different priorities', () => {
   const code = '1+1+2^5*2/2';

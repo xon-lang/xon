@@ -1,10 +1,8 @@
-// this code was generated
-
-import { LiteralExpressionContext } from '../../../grammar/xon-parser';
-import { SourceRange } from '../../../util/source-range';
-import { LiteralTree } from '../../literal/literal-tree';
-import { getLiteralTree } from '../../literal/literal-tree-helper';
-import { ExpressionTree } from '../expression-tree';
+import { LiteralExpressionContext } from '@/grammar/xon-parser';
+import { ExpressionTree } from '@/tree/expression/expression-tree';
+import { LiteralTree } from '@/tree/literal/literal-tree';
+import { getLiteralTree } from '@/tree/literal/literal-tree-helper';
+import { SourceRange } from '@/util/source-range';
 
 export class LiteralExpressionTree extends ExpressionTree {
   ctx: LiteralExpressionContext;
@@ -19,5 +17,3 @@ export class LiteralExpressionTree extends ExpressionTree {
     this.addChildren(this.literal);
   }
 }
-
-// this code was generated
