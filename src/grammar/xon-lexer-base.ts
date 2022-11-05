@@ -61,14 +61,9 @@ export abstract class XonLexerBase extends Lexer {
 
   protected handleLineBreak(): void {
     const newLine = this.text.replace(/[^\r\n]+/g, '');
-    const spaces = /*next > 0 &&*/ (this.text.match(/ +$/g) || [])[0] || '';
+    const spaces = (this.text.match(/ +$/g) || [])[0] || '';
 
-    if (
-      this.opened > 0 ||
-      !newLine
-      // ||
-      // (nextNext !== EOF_CODE && (next === CARRIAGE_RETURN_CODE || next === LINE_FEED_CODE))
-    ) {
+    if (this.opened > 0 || !newLine) {
       this.skip();
       return;
     }
