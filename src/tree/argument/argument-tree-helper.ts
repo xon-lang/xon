@@ -1,11 +1,11 @@
 import { ArgumentContext } from '@/grammar/xon-parser';
 import { ArgumentTree } from '@/tree/argument/argument-tree';
 
-export const getArgumentTree = (ctx: ArgumentContext): ArgumentTree => {
+export function getArgumentTree(ctx: ArgumentContext): ArgumentTree {
   if (!ctx) return null;
   return new ArgumentTree(ctx);
-};
+}
 
-export const getArgumentTrees = (contexts: ArgumentContext[]): ArgumentTree[] => {
+export function getArgumentTrees(contexts: ArgumentContext[]): ArgumentTree[] {
   return contexts?.map((x) => getArgumentTree(x)) || [];
-};
+}

@@ -25,5 +25,3 @@ export class ForStatementTree extends StatementTree {
     this.addChildren(this.parameter, this.expression, this.body);
   }
 }
-
-// this code was generated

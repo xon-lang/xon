@@ -1,5 +1,3 @@
-// this code was generated
-
 import { Issue } from '@/issue/issue';
 import { Unknown2 } from '@/lib/core';
 import { ArrayExpressionTree } from '@/tree/expression/array/array-expression-tree';
@@ -15,7 +13,6 @@ function _escapeIfString(s: Unknown2) {
 }
 
 export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
-  let a, b, o;
   if (!tree) {
     return null;
   }
@@ -29,13 +26,13 @@ export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
     return evaluate(tree.expression);
   }
   if (tree instanceof InfixExpressionTree) {
-    a = evaluate(tree.left, argsMap);
-    b = evaluate(tree.right, argsMap);
-    o = (tree.name.text === '^' && '**') || tree.name.text;
+    const a = evaluate(tree.left, argsMap);
+    const b = evaluate(tree.right, argsMap);
+    const o = (tree.name.text === '^' && '**') || tree.name.text;
     return eval(`${_escapeIfString(a)} ${o} ${_escapeIfString(b)}`);
   }
   if (tree instanceof PrefixExpressionTree) {
-    a = evaluate(tree.value, argsMap);
+    const a = evaluate(tree.value, argsMap);
     return eval(`${tree.name.text}${_escapeIfString(a)}`);
   }
   if (tree instanceof IdExpressionTree) {
@@ -46,5 +43,3 @@ export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
   }
   Issue.errorFromTree(tree, 'Unsupported operation');
 }
-
-// this code was generated

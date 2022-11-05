@@ -27,5 +27,3 @@ export class ArgumentTree extends Tree {
     return name + this.value;
   }
 }
-
-// this code was generated

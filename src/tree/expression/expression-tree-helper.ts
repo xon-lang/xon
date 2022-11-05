@@ -10,7 +10,7 @@ import {
   MethodExpressionContext,
   NullableExpressionContext,
   PrefixExpressionContext,
-  PreprocessorExpressionContext,
+  PreprocessorExpressionContext
 } from '@/grammar/xon-parser';
 import { Issue } from '@/issue/issue';
 import { ArrayExpressionTree } from '@/tree/expression/array/array-expression-tree';
@@ -78,6 +78,4 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   Issue.errorFromContext(ctx, `Expression tree not found for "${ctx.constructor.name}"`);
 };
 
-export const getExpressionTrees = (contexts: ExpressionContext[]): ExpressionTree[] => {
-  return contexts?.map(getExpressionTree) || [];
-};
+export const getExpressionTrees = (contexts: ExpressionContext[]): ExpressionTree[] => contexts?.map(getExpressionTree) || [];

@@ -20,5 +20,3 @@ export class InfixExpressionTree extends ExpressionTree {
     this.addChildren(this.left, this.name, this.right);
   }
 }
-
-// this code was generated

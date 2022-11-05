@@ -26,18 +26,22 @@ test('preprocessor complex', () => {
 });
 
 test('preprocessor in preprocessor', () => {
+  // eslint-disable-next-line no-template-curly-in-string
   const code = '#{`#{${this.value}}`}';
   const tree = parseExpression(code) as PreprocessorExpressionTree;
 
   expect(tree).toBeInstanceOf(PreprocessorExpressionTree);
+  // eslint-disable-next-line no-template-curly-in-string
   expect(tree.value).toBe('`#{${this.value}}`');
 });
 
 test('inner string', () => {
+  // eslint-disable-next-line no-template-curly-in-string
   const code = '#{` = ${this.statement}`}';
   const tree = parseExpression(code) as PreprocessorExpressionTree;
 
   expect(tree).toBeInstanceOf(PreprocessorExpressionTree);
+  // eslint-disable-next-line no-template-curly-in-string
   expect(tree.value).toBe('` = ${this.statement}`');
 });
 
