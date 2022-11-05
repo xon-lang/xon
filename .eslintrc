@@ -93,6 +93,8 @@
     "no-labels": "error",
     "no-lone-blocks": "error",
     "no-lonely-if": "error",
+    "no-loop-func": "error",
+    "no-magic-numbers": ["error", { "ignore": [-1, 0, 1, 2], "detectObjects": false }],
 
     "jest/no-commented-out-tests": ["off"],
 

@@ -1,7 +1,9 @@
 import { Number2, String2 } from '@/lib/core';
 
+const PRINT_WIDTH = 100;
+
 export class FormatterConfig {
-  printWidth = 100;
+  printWidth = PRINT_WIDTH;
   tabWidth = 2;
   nl = '\n';
   nl2 = this.nl.repeat(2);
