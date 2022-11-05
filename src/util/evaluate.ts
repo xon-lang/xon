@@ -29,10 +29,12 @@ export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
     const a = evaluate(tree.left, argsMap);
     const b = evaluate(tree.right, argsMap);
     const o = (tree.name.text === '^' && '**') || tree.name.text;
+    // eslint-disable-next-line no-eval
     return eval(`${_escapeIfString(a)} ${o} ${_escapeIfString(b)}`);
   }
   if (tree instanceof PrefixExpressionTree) {
     const a = evaluate(tree.value, argsMap);
+    // eslint-disable-next-line no-eval
     return eval(`${tree.name.text}${_escapeIfString(a)}`);
   }
   if (tree instanceof IdExpressionTree) {

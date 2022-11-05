@@ -77,6 +77,8 @@
     "no-div-regex": "error",
     "no-else-return": "error",
     "no-empty-function": ["error", { "allow": ["constructors"] }],
+    "no-eq-null": "error",
+    "no-eval": "error",
 
     "jest/no-commented-out-tests": ["off"],
 

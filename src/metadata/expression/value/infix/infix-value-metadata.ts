@@ -64,6 +64,7 @@ export class InfixValueMetadata extends ValueMetadata {
         return Math.pow(left, right);
       }
       const escapeIfString = (s: Unknown2) => (typeof s === 'string' && `\`${s}\``) || s;
+      // eslint-disable-next-line no-eval
       return eval(`${escapeIfString(left)} ${this.tree.name} ${escapeIfString(right)}`);
     }
     throw new Error('Not implemented');

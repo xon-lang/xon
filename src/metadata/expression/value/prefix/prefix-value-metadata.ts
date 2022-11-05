@@ -53,6 +53,7 @@ export class PrefixValueMetadata extends ValueMetadata {
     if (metadata instanceof ValueMetadata) {
       const value = metadata.eval();
       const escapeIfString = (s: Unknown2) => (typeof s === 'string' && `\`${s}\``) || s;
+      // eslint-disable-next-line no-eval
       return eval(`${this.tree.name} ${escapeIfString(value)}`);
     }
     return null;
