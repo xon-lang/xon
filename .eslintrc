@@ -122,6 +122,10 @@
     //!! "@typescript-eslint/explicit-member-accessibility": "error",
     //!! "@typescript-eslint/explicit-module-boundary-types": "error",
     "@typescript-eslint/member-delimiter-style": "error",
+    //! "@typescript-eslint/member-ordering": "error",
+    "@typescript-eslint/method-signature-style": "error",
+    "@typescript-eslint/naming-convention": "error",
+    "@typescript-eslint/no-base-to-string": "error",
 
     "jest/no-commented-out-tests": ["off"],
 
