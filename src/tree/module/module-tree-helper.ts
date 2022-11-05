@@ -1,9 +1,9 @@
+import { String2 } from '@/lib/core';
+import { ModuleTree } from '@/tree/module/module-tree';
+import { SourceTree } from '@/tree/source/source-tree';
+import { parseSourceFile } from '@/util/parse';
 import glob from 'glob';
 import path from 'path';
-import { String2 } from '../../lib/core';
-import { parseSourceFile } from '../../util/parse';
-import { SourceTree } from '../source/source-tree';
-import { ModuleTree } from './module-tree';
 
 export function getModuleTree(name: String2, sourceName: String2): ModuleTree {
   return new ModuleTree(name, sourceName);
