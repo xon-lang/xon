@@ -14,7 +14,7 @@ export class IntegerLiteralTree extends LiteralTree {
     this.sourceRange = SourceRange.fromContext(ctx);
     const [integer, radix] = ctx.text.split('x').reverse();
     this.integer = integer;
-    this.radix = +radix;
+    this.radix = Number(radix);
 
     this.value = parseInt(this.integer.replace(/_/g, ''), this.radix);
   }

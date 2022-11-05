@@ -39,7 +39,7 @@ export class DeclarationTree extends Tree {
     this.modifier = getIdTree(ctx._modifier);
     this.name = getIdTree(ctx._name);
     this.destructure = getDeclarationTrees(ctx._destructure?.declaration());
-    this.hasParameters = !!ctx._params.filter((x) => !x.open().LESS()).length;
+    this.hasParameters = ctx._params.filter((x) => !x.open().LESS()).length > 0;
     this.generics = getDeclarationTrees(
       ctx._params.filter((x) => x.open().LESS())[0]?.declaration(),
     );

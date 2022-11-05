@@ -16,7 +16,7 @@ export class FloatLiteralTree extends LiteralTree {
     [this.integer, this.fraction] = ctx.text.split('.');
     const [integer, radix] = this.integer.split('x').reverse();
     this.integer = integer;
-    this.radix = +radix;
+    this.radix = Number(radix);
 
     const integerClean = this.integer.replace(/_/g, '');
     const fraction = this.fraction.replace(/_/g, '');

@@ -79,6 +79,11 @@
     "no-empty-function": ["error", { "allow": ["constructors"] }],
     "no-eq-null": "error",
     "no-eval": "error",
+    "no-extend-native": "error",
+    "no-extra-bind": "error",
+    "no-extra-label": "error",
+    "no-floating-decimal": "error",
+    "no-implicit-coercion": "error",
 
     "jest/no-commented-out-tests": ["off"],
 
