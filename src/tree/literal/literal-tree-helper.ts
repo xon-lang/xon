@@ -1,16 +1,14 @@
-// this code was generated
-
 import {
   FloatLiteralContext,
   IntegerLiteralContext,
   LiteralContext,
   StringLiteralContext,
-} from '../../grammar/xon-parser';
-import { Issue } from '../../issue/issue';
-import { FloatLiteralTree } from './float/float-literal-tree';
-import { IntegerLiteralTree } from './integer/integer-literal-tree';
-import { LiteralTree } from './literal-tree';
-import { StringLiteralTree } from './string/string-literal-tree';
+} from '@/grammar/xon-parser';
+import { Issue } from '@/issue/issue';
+import { FloatLiteralTree } from '@/tree/literal/float/float-literal-tree';
+import { IntegerLiteralTree } from '@/tree/literal/integer/integer-literal-tree';
+import { LiteralTree } from '@/tree/literal/literal-tree';
+import { StringLiteralTree } from '@/tree/literal/string/string-literal-tree';
 
 export function getLiteralTree(ctx: LiteralContext): LiteralTree | null {
   if (!ctx) return null;
@@ -20,5 +18,3 @@ export function getLiteralTree(ctx: LiteralContext): LiteralTree | null {
 
   Issue.errorFromContext(ctx, `Literal tree not found for "${ctx.constructor.name}"`);
 }
-
-// this code was generated

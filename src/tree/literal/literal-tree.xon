@@ -1,5 +1,0 @@
-{Number, String} := import '../../lib/core'
-{Tree} := import '../tree'
-
-class LiteralTree is Tree
-  value: String or Number or RegExp

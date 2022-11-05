@@ -1,9 +1,7 @@
-// this code was generated
-
-import { StringLiteralContext } from '../../../grammar/xon-parser';
-import { String2 } from '../../../lib/core';
-import { SourceRange } from '../../../util/source-range';
-import { LiteralTree } from '../literal-tree';
+import { StringLiteralContext } from '@/grammar/xon-parser';
+import { String2 } from '@/lib/core';
+import { LiteralTree } from '@/tree/literal/literal-tree';
+import { SourceRange } from '@/util/source-range';
 
 export class StringLiteralTree extends LiteralTree {
   ctx: StringLiteralContext;
@@ -17,5 +15,3 @@ export class StringLiteralTree extends LiteralTree {
     this.value = ctx.text.slice(1, -1).replace(/\\'/g, "'");
   }
 }
-
-// this code was generated

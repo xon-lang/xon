@@ -1,5 +1,5 @@
-import { parseLiteral } from '../../../util/parse';
-import { IntegerLiteralTree } from './integer-literal-tree';
+import { IntegerLiteralTree } from '@/tree/literal/integer/integer-literal-tree';
+import { parseLiteral } from '@/util/parse';
 
 test('zero int number', () => {
   const code = '0';

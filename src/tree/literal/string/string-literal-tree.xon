@@ -1,9 +1,0 @@
-{StringLiteralContext} := import '../../../grammar/xon-parser'
-{String} := import '../../../lib/core'
-{SourceRange} := import '../../../util/source-range'
-{LiteralTree} := import '../literal-tree'
-
-class StringLiteralTree(ctx: StringLiteralContext) is LiteralTree
-  ctx := ctx
-  sourceRange := SourceRange.fromContext(ctx)
-  value := ctx.text.slice(1, -1).replace(#{/\\'/g, "'"})
