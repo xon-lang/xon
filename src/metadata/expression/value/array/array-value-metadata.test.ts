@@ -1,8 +1,8 @@
-import { parseExpression } from '../../../../util/parse';
-import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
-import { fillTypeMetadata } from '../../type/type-metadata-helper';
-import { fillValueMetadata } from '../value-metadata-helper';
-import { ArrayValueMetadata } from './array-value-metadata';
+import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
+import { fillTypeMetadata } from '@/metadata/expression/type/type-metadata-helper';
+import { ArrayValueMetadata } from '@/metadata/expression/value/array/array-value-metadata';
+import { fillValueMetadata } from '@/metadata/expression/value/value-metadata-helper';
+import { parseExpression } from '@/util/parse';
 
 test('empty', () => {
   const code = '[]';

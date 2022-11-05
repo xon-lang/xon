@@ -1,7 +1,7 @@
-import { parseExpression } from '../../../../util/parse';
-import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
-import { fillValueMetadata } from '../value-metadata-helper';
-import { InfixValueMetadata } from './infix-value-metadata';
+import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
+import { InfixValueMetadata } from '@/metadata/expression/value/infix/infix-value-metadata';
+import { fillValueMetadata } from '@/metadata/expression/value/value-metadata-helper';
+import { parseExpression } from '@/util/parse';
 
 test('integer plus integer', () => {
   const code = '1 + 1';

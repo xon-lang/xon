@@ -1,8 +1,8 @@
-import { parseExpression } from '../../../../util/parse';
-import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
-import { ObjectTypeMetadata } from '../../type/object/object-type-metadata';
-import { fillValueMetadata } from '../value-metadata-helper';
-import { ImportValueMetadata } from './import-value-metadata';
+import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
+import { ObjectTypeMetadata } from '@/metadata/expression/type/object/object-type-metadata';
+import { ImportValueMetadata } from '@/metadata/expression/value/import/import-value-metadata';
+import { fillValueMetadata } from '@/metadata/expression/value/value-metadata-helper';
+import { parseExpression } from '@/util/parse';
 
 test('literal', () => {
   const code = "import 'src/lib/@xon/core'";

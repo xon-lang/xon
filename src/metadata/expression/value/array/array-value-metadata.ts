@@ -1,12 +1,12 @@
-import { ArrayExpressionTree } from '../../../../tree/expression/array/array-expression-tree';
-import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
-import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
-import { ArrayTypeMetadata } from '../../type/array/array-type-metadata';
-import { ObjectTypeMetadata } from '../../type/object/object-type-metadata';
-import { TypeMetadata } from '../../type/type-metadata';
-import { UnionTypeMetadata } from '../../type/union/union-type-metadata';
-import { ValueMetadata } from '../value-metadata';
-import { fillValueMetadata } from '../value-metadata-helper';
+import { ParameterMetadata } from '@/metadata/declaration/parameter/parameter-metadata';
+import { DeclarationScope } from '@/metadata/declaration/scope/declaration-scope';
+import { ArrayTypeMetadata } from '@/metadata/expression/type/array/array-type-metadata';
+import { ObjectTypeMetadata } from '@/metadata/expression/type/object/object-type-metadata';
+import { TypeMetadata } from '@/metadata/expression/type/type-metadata';
+import { UnionTypeMetadata } from '@/metadata/expression/type/union/union-type-metadata';
+import { ValueMetadata } from '@/metadata/expression/value/value-metadata';
+import { fillValueMetadata } from '@/metadata/expression/value/value-metadata-helper';
+import { ArrayExpressionTree } from '@/tree/expression/array/array-expression-tree';
 
 export class ArrayValueMetadata extends ValueMetadata {
   constructor(private tree: ArrayExpressionTree) {

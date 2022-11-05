@@ -1,13 +1,13 @@
-import { IssueLevel } from '@src/issue/issue-level';
-import { String2 } from '@src/lib/core';
-import { DeclarationScope } from '@src/metadata/declaration/scope/declaration-scope';
-import { ObjectTypeMetadata } from '@src/metadata/expression/type/object/object-type-metadata';
-import { TypeMetadata } from '@src/metadata/expression/type/type-metadata';
-import { ValueMetadata } from '@src/metadata/expression/value/value-metadata';
-import { fillValueMetadata } from '@src/metadata/expression/value/value-metadata-helper';
-import { ImportProvider } from '@src/metadata/import-provider';
-import { PrefixExpressionTree } from '@src/tree/expression/prefix/prefix-expression-tree';
-import { evaluate } from '@src/util/evaluate';
+import { IssueLevel } from '@/issue/issue-level';
+import { String2 } from '@/lib/core';
+import { DeclarationScope } from '@/metadata/declaration/scope/declaration-scope';
+import { ObjectTypeMetadata } from '@/metadata/expression/type/object/object-type-metadata';
+import { TypeMetadata } from '@/metadata/expression/type/type-metadata';
+import { ValueMetadata } from '@/metadata/expression/value/value-metadata';
+import { fillValueMetadata } from '@/metadata/expression/value/value-metadata-helper';
+import { ImportProvider } from '@/metadata/import-provider';
+import { PrefixExpressionTree } from '@/tree/expression/prefix/prefix-expression-tree';
+import { evaluate } from '@/util/evaluate';
 import path from 'path';
 
 export class ImportValueMetadata extends ValueMetadata {

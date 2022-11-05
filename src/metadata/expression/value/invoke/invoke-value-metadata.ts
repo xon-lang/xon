@@ -1,9 +1,9 @@
-import { Any2 } from '../../../../lib/core';
-import { InvokeExpressionTree } from '../../../../tree/expression/invoke/invoke-expression-tree';
-import { MethodTypeMetadata } from '../../type/method/method-type-metadata';
-import { TypeMetadata } from '../../type/type-metadata';
-import { ValueMetadata } from '../value-metadata';
-import { fillValueMetadata } from '../value-metadata-helper';
+import { Any2 } from '@/lib/core';
+import { MethodTypeMetadata } from '@/metadata/expression/type/method/method-type-metadata';
+import { TypeMetadata } from '@/metadata/expression/type/type-metadata';
+import { ValueMetadata } from '@/metadata/expression/value/value-metadata';
+import { fillValueMetadata } from '@/metadata/expression/value/value-metadata-helper';
+import { InvokeExpressionTree } from '@/tree/expression/invoke/invoke-expression-tree';
 
 export class InvokeValueMetadata extends ValueMetadata {
   constructor(private tree: InvokeExpressionTree) {

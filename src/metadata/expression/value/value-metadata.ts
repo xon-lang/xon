@@ -1,6 +1,6 @@
-import { Any2 } from '../../../lib/core';
-import { Metadata } from '../../metadata';
-import { TypeMetadata } from '../type/type-metadata';
+import { Any2 } from '@/lib/core';
+import { TypeMetadata } from '@/metadata/expression/type/type-metadata';
+import { Metadata } from '@/metadata/metadata';
 
 export abstract class ValueMetadata extends Metadata {
   type(): TypeMetadata | null {

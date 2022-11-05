@@ -1,7 +1,7 @@
-import { parseExpression } from '../../../../util/parse';
-import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
-import { fillValueMetadata } from '../value-metadata-helper';
-import { IdValueMetadata } from './id-value-metadata';
+import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
+import { IdValueMetadata } from '@/metadata/expression/value/id/id-value-metadata';
+import { fillValueMetadata } from '@/metadata/expression/value/value-metadata-helper';
+import { parseExpression } from '@/util/parse';
 
 test('none object', () => {
   const code = 'null';

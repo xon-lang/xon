@@ -1,7 +1,7 @@
-import { LiteralExpressionTree } from '../../../../tree/expression/literal/literal-expression-tree';
-import { TypeMetadata } from '../../type/type-metadata';
-import { fillTypeMetadata } from '../../type/type-metadata-helper';
-import { ValueMetadata } from '../value-metadata';
+import { TypeMetadata } from '@/metadata/expression/type/type-metadata';
+import { fillTypeMetadata } from '@/metadata/expression/type/type-metadata-helper';
+import { ValueMetadata } from '@/metadata/expression/value/value-metadata';
+import { LiteralExpressionTree } from '@/tree/expression/literal/literal-expression-tree';
 
 export class LiteralValueMetadata extends ValueMetadata {
   constructor(private tree: LiteralExpressionTree) {
