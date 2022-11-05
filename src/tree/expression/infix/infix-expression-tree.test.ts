@@ -13,7 +13,7 @@ test('several operands with different priorities', () => {
 });
 
 test('num plus str', () => {
-  const code = "1  + 'str'";
+  const code = '1  + \'str\'';
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);

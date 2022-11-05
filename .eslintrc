@@ -1,6 +1,8 @@
 {
   "root": true,
   "env": {
+    "browser": true,
+    "es2021": true,
     "node": true
   },
   "parser": "@typescript-eslint/parser",
@@ -8,28 +10,20 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "airbnb-typescript/base",
     "plugin:jest/recommended",
     "prettier"
   ],
   "parserOptions": {
-    "project": ["./tsconfig.json"]
+    "project": ["./tsconfig.json"],
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
   "rules": {
-    "import/no-cycle": 0,
-    "import/prefer-default-export": 0,
-    "no-underscore-dangle": 0,
-    // "quotes": [2, "single", "avoid-escape"],
-    "no-inline-comments": 2,
-    "no-magic-numbers": [2, { "ignore": [-1, 0, 1] }],
-    // "comma-dangle": [2, "always-multiline"],
-    "sort-keys": [2],
-    "@typescript-eslint/explicit-member-accessibility": 2,
-    "@typescript-eslint/member-ordering": 2,
-    "@typescript-eslint/no-inferrable-types": 0,
-    "@typescript-eslint/lines-between-class-members": 0,
-    "prettier/prettier": "error",
-    "@typescript-eslint/no-unused-vars": "warning"
+    "jest/no-commented-out-tests": ["off"],
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"]
   },
   "overrides": [
     {

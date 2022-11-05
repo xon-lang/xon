@@ -22,7 +22,7 @@
   "types": "index.d.ts",
   "scripts": {
     "grammar": "scripts/grammar.sh",
-    "eslint": "eslint . --max-warnings=0",
+    "lint": "eslint .",
     "test": "jest --no-cache",
     "build": "scripts/build.sh",
     "version": "npm run build",
@@ -45,6 +45,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "jest": "^29.2.2",
     "npm-check-updates": "^16.3.16",
+    "prettier": "^2.7.1",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
