@@ -1,7 +1,7 @@
-import { DeclarationContext } from '../../grammar/xon-parser';
-import { Issue } from '../../issue/issue';
-import { FormatterConfig } from '../formatter-config';
-import { DeclarationFormatter } from './declaration-formatter';
+import { DeclarationFormatter } from '@/formatter/declaration/declaration-formatter';
+import { FormatterConfig } from '@/formatter/formatter-config';
+import { DeclarationContext } from '@/grammar/xon-parser';
+import { Issue } from '@/issue/issue';
 
 export const getParameterFormatter = (
   ctx: DeclarationContext,

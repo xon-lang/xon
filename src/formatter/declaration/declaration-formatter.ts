@@ -1,10 +1,10 @@
-import { DeclarationContext, ExpressionContext, ValueBodyContext } from '../../grammar/xon-parser';
-import { String2 } from '../../lib/core';
-import { getBodyFormatter } from '../body/body-formatter-helper';
-import { getDeclarationsFormatter } from '../declarations/declarations-formatter-helper';
-import { getExpressionFormatter } from '../expression/expression-formatter-helper';
-import { Formatter } from '../formatter';
-import { FormatterConfig } from '../formatter-config';
+import { getBodyFormatter } from '@/formatter/body/body-formatter-helper';
+import { getDeclarationsFormatter } from '@/formatter/declarations/declarations-formatter-helper';
+import { getExpressionFormatter } from '@/formatter/expression/expression-formatter-helper';
+import { Formatter } from '@/formatter/formatter';
+import { FormatterConfig } from '@/formatter/formatter-config';
+import { DeclarationContext, ExpressionContext, ValueBodyContext } from '@/grammar/xon-parser';
+import { String2 } from '@/lib/core';
 
 export class DeclarationFormatter extends Formatter {
   constructor(public ctx: DeclarationContext, public config: FormatterConfig) {

@@ -1,7 +1,7 @@
-import { parse } from '../../util/parse';
-import { defaultFormatterConfig } from '../formatter-config';
-import { DeclarationFormatter } from './declaration-formatter';
-import { getParameterFormatter } from './declaration-formatter-helper';
+import { DeclarationFormatter } from '@/formatter/declaration/declaration-formatter';
+import { getParameterFormatter } from '@/formatter/declaration/declaration-formatter-helper';
+import { defaultFormatterConfig } from '@/formatter/formatter-config';
+import { parse } from '@/util/parse';
 
 test('id type', () => {
   const code = 'a: 123';
