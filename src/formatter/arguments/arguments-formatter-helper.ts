@@ -1,6 +1,6 @@
-import { ArgumentsContext } from '../../grammar/xon-parser';
-import { FormatterConfig } from '../formatter-config';
-import { ArgumentsFormatter } from './arguments-formatter';
+import { ArgumentsFormatter } from '@/formatter/arguments/arguments-formatter';
+import { FormatterConfig } from '@/formatter/formatter-config';
+import { ArgumentsContext } from '@/grammar/xon-parser';
 
 export const getArgumentsFormatter = (
   ctx: ArgumentsContext,
