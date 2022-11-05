@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Any2 = any;
 export type Unknown2 = unknown;
 export type Never2 = never;
