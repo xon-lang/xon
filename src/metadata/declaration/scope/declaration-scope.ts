@@ -41,7 +41,7 @@ export class DeclarationScope {
     const leftAll = this.all();
     other
       .all()
-      .filter((x) => leftAll.some((z) => z.name == x.name))
+      .filter((x) => leftAll.some((z) => z.name === x.name))
       .forEach((x) => scope.add(x));
     return scope;
   }
