@@ -1,9 +1,6 @@
-import { Boolean2, Number2, String2 } from '@/lib/core';
+import { Boolean2, String2 } from '@/lib/core';
+import { LinePosition } from '@/util/line-position';
 import { ParserRuleContext, Token } from 'antlr4ts';
-
-export class LinePosition {
-  constructor(public line: Number2, public column: Number2, public index: Number2) {}
-}
 
 export class SourceRange {
   sourceName: String2;

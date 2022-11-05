@@ -58,6 +58,7 @@
     "id-match": ["error", "^([A-Za-z0-9_]+)$"],
     //!! "init-declarations": ["error", "always"],
     "logical-assignment-operators": ["error", "always"],
+    "max-classes-per-file": "error",
 
     "jest/no-commented-out-tests": ["off"],
 
