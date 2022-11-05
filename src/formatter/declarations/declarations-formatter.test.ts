@@ -1,7 +1,7 @@
-import { parse } from '../../util/parse';
-import { defaultFormatterConfig, FormatterConfig } from '../formatter-config';
-import { ParametersFormatter } from './declarations-formatter';
-import { getDeclarationsFormatter } from './declarations-formatter-helper';
+import { ParametersFormatter } from '@/formatter/declarations/declarations-formatter';
+import { getDeclarationsFormatter } from '@/formatter/declarations/declarations-formatter-helper';
+import { defaultFormatterConfig, FormatterConfig } from '@/formatter/formatter-config';
+import { parse } from '@/util/parse';
 
 test('integers', () => {
   const code = '[a, b, c]';
