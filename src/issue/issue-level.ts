@@ -1,6 +1,6 @@
 export enum IssueLevel {
   error,
-  warning,
-  information,
+  warn,
+  info,
   hint,
 }
