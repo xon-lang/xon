@@ -1,9 +1,9 @@
-import { ForStatementContext } from '../../../grammar/xon-parser';
-import { getBodyFormatter } from '../../body/body-formatter-helper';
-import { getParameterFormatter } from '../../declaration/declaration-formatter-helper';
-import { getExpressionFormatter } from '../../expression/expression-formatter-helper';
-import { FormatterConfig } from '../../formatter-config';
-import { StatementFormatter } from '../Statement-formatter';
+import { getBodyFormatter } from '@/formatter/body/body-formatter-helper';
+import { getParameterFormatter } from '@/formatter/declaration/declaration-formatter-helper';
+import { getExpressionFormatter } from '@/formatter/expression/expression-formatter-helper';
+import { FormatterConfig } from '@/formatter/formatter-config';
+import { StatementFormatter } from '@/formatter/statement/Statement-formatter';
+import { ForStatementContext } from '@/grammar/xon-parser';
 
 export class ForStatementFormatter extends StatementFormatter {
   constructor(public ctx: ForStatementContext, public config: FormatterConfig) {

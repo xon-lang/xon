@@ -1,7 +1,7 @@
-import { parse } from '../../../util/parse';
-import { defaultFormatterConfig, FormatterConfig } from '../../formatter-config';
-import { getStatementFormatter } from '../statement-formatter-helper';
-import { ReturnStatementFormatter } from './return-statement-formatter';
+import { defaultFormatterConfig, FormatterConfig } from '@/formatter/formatter-config';
+import { ReturnStatementFormatter } from '@/formatter/statement/return/return-statement-formatter';
+import { getStatementFormatter } from '@/formatter/statement/statement-formatter-helper';
+import { parse } from '@/util/parse';
 
 test('return integer', () => {
   const code = 'return 123';

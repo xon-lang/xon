@@ -1,7 +1,7 @@
-import { parse } from '../../../util/parse';
-import { defaultFormatterConfig } from '../../formatter-config';
-import { getStatementFormatter } from '../statement-formatter-helper';
-import { CommentStatementFormatter } from './comment-statement-formatter';
+import { defaultFormatterConfig } from '@/formatter/formatter-config';
+import { CommentStatementFormatter } from '@/formatter/statement/comment/comment-statement-formatter';
+import { getStatementFormatter } from '@/formatter/statement/statement-formatter-helper';
+import { parse } from '@/util/parse';
 
 test('starting with spaces', () => {
   const code = '--    123';

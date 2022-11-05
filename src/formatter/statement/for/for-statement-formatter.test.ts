@@ -1,7 +1,7 @@
-import { parse } from '../../../util/parse';
-import { defaultFormatterConfig } from '../../formatter-config';
-import { getStatementFormatter } from '../statement-formatter-helper';
-import { ForStatementFormatter } from './for-statement-formatter';
+import { defaultFormatterConfig } from '@/formatter/formatter-config';
+import { ForStatementFormatter } from '@/formatter/statement/for/for-statement-formatter';
+import { getStatementFormatter } from '@/formatter/statement/statement-formatter-helper';
+import { parse } from '@/util/parse';
 
 test('value index', () => {
   const code = 'for val in [a,b,c]\n  make()';

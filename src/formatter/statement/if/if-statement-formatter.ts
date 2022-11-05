@@ -1,8 +1,8 @@
-import { IfStatementContext } from '../../../grammar/xon-parser';
-import { getBodyFormatter } from '../../body/body-formatter-helper';
-import { getExpressionFormatter } from '../../expression/expression-formatter-helper';
-import { FormatterConfig } from '../../formatter-config';
-import { StatementFormatter } from '../Statement-formatter';
+import { getBodyFormatter } from '@/formatter/body/body-formatter-helper';
+import { getExpressionFormatter } from '@/formatter/expression/expression-formatter-helper';
+import { FormatterConfig } from '@/formatter/formatter-config';
+import { StatementFormatter } from '@/formatter/statement/Statement-formatter';
+import { IfStatementContext } from '@/grammar/xon-parser';
 
 export class IfStatementFormatter extends StatementFormatter {
   constructor(public ctx: IfStatementContext, public config: FormatterConfig) {
