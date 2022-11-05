@@ -1,22 +1,20 @@
-// this code was generated
-
-import { DeclarationContext } from '../../grammar/xon-parser';
-import { IssueLevel } from '../../issue/issue-level';
-import { Boolean2 } from '../../lib/core';
-import { DeclarationMetadata } from '../../metadata/declaration/declaration-metadata';
-import { SourceRange } from '../../util/source-range';
-import { ExpressionTree } from '../expression/expression-tree';
-import { getExpressionTree } from '../expression/expression-tree-helper';
-import { IdExpressionTree } from '../expression/id/id-expression-tree';
-import { IdTree } from '../id/id-tree';
-import { getIdTree } from '../id/id-tree-helper';
-import { SourceTree } from '../source/source-tree';
-import { getSourceTree } from '../source/source-tree-helper';
-import { CommentStatementTree } from '../statement/comment/comment-statement-tree';
-import { DeclarationStatementTree } from '../statement/declaration/declaration-statement-tree';
-import { ExpressionStatementTree } from '../statement/expression/expression-statement-tree';
-import { Tree } from '../tree';
-import { getDeclarationTrees } from './declaration-tree-helper';
+import { DeclarationContext } from '@/grammar/xon-parser';
+import { IssueLevel } from '@/issue/issue-level';
+import { Boolean2 } from '@/lib/core';
+import { DeclarationMetadata } from '@/metadata/declaration/declaration-metadata';
+import { getDeclarationTrees } from '@/tree/declaration/declaration-tree-helper';
+import { ExpressionTree } from '@/tree/expression/expression-tree';
+import { getExpressionTree } from '@/tree/expression/expression-tree-helper';
+import { IdExpressionTree } from '@/tree/expression/id/id-expression-tree';
+import { IdTree } from '@/tree/id/id-tree';
+import { getIdTree } from '@/tree/id/id-tree-helper';
+import { SourceTree } from '@/tree/source/source-tree';
+import { getSourceTree } from '@/tree/source/source-tree-helper';
+import { CommentStatementTree } from '@/tree/statement/comment/comment-statement-tree';
+import { DeclarationStatementTree } from '@/tree/statement/declaration/declaration-statement-tree';
+import { ExpressionStatementTree } from '@/tree/statement/expression/expression-statement-tree';
+import { Tree } from '@/tree/tree';
+import { SourceRange } from '@/util/source-range';
 
 export class DeclarationTree extends Tree {
   ctx: DeclarationContext;
@@ -86,5 +84,3 @@ export class DeclarationTree extends Tree {
     );
   }
 }
-
-// this code was generated
