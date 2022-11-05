@@ -1,5 +1,4 @@
 import { ArgumentContext } from '@/grammar/xon-parser';
-import { String2 } from '@/lib/core';
 import { ExpressionTree } from '@/tree/expression/expression-tree';
 import { getExpressionTree } from '@/tree/expression/expression-tree-helper';
 import { IdTree } from '@/tree/id/id-tree';
@@ -20,10 +19,5 @@ export class ArgumentTree extends Tree {
     this.name = getIdTree(ctx._name);
     this.value = getExpressionTree(ctx.expression());
     this.addChildren(this.name, this.value);
-  }
-
-  toString(): String2 {
-    const name = (this.name && this.name + ': ') || '';
-    return name + this.value;
   }
 }

@@ -1,5 +1,4 @@
 import { WhileStatementContext } from '@/grammar/xon-parser';
-import { String2 } from '@/lib/core';
 import { ExpressionTree } from '@/tree/expression/expression-tree';
 import { getExpressionTree } from '@/tree/expression/expression-tree-helper';
 import { SourceTree } from '@/tree/source/source-tree';
@@ -20,9 +19,5 @@ export class WhileStatementTree extends StatementTree {
     this.expression = getExpressionTree(ctx.expression());
     this.body = getSourceTree(ctx.body().source());
     this.addChildren(this.expression, this.body);
-  }
-
-  toString(): String2 {
-    return `while ${this.expression}${this.body}`;
   }
 }

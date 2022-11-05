@@ -1,5 +1,4 @@
 import { AssertStatementContext } from '@/grammar/xon-parser';
-import { String2 } from '@/lib/core';
 import { ExpressionTree } from '@/tree/expression/expression-tree';
 import { getExpressionTree } from '@/tree/expression/expression-tree-helper';
 import { StatementTree } from '@/tree/statement/statement-tree';
@@ -18,9 +17,5 @@ export class AssertStatementTree extends StatementTree {
     this.actualExpression = getExpressionTree(ctx.expression(0));
     this.expectExpression = getExpressionTree(ctx.expression(1));
     this.addChildren(this.actualExpression, this.expectExpression);
-  }
-
-  toString(): String2 {
-    return `actual ${this.actualExpression}\nexpect ${this.expectExpression}`;
   }
 }

@@ -1,4 +1,4 @@
-import { Any2, Unknown2 } from '@/lib/core';
+import { Any2 } from '@/lib/core';
 import { OperatorMetadata } from '@/metadata/declaration/operator/operator-metadata';
 import { ParameterMetadata } from '@/metadata/declaration/parameter/parameter-metadata';
 import { MethodTypeMetadata } from '@/metadata/expression/type/method/method-type-metadata';
@@ -6,6 +6,7 @@ import { TypeMetadata } from '@/metadata/expression/type/type-metadata';
 import { ValueMetadata } from '@/metadata/expression/value/value-metadata';
 import { fillValueMetadata } from '@/metadata/expression/value/value-metadata-helper';
 import { PrefixExpressionTree } from '@/tree/expression/prefix/prefix-expression-tree';
+import { escapeToString } from '@/util/evaluate';
 
 export class PrefixValueMetadata extends ValueMetadata {
   constructor(private tree: PrefixExpressionTree) {
@@ -52,9 +53,8 @@ export class PrefixValueMetadata extends ValueMetadata {
     const metadata = this.tree.value.metadata;
     if (metadata instanceof ValueMetadata) {
       const value = metadata.eval();
-      const escapeIfString = (s: Unknown2) => (typeof s === 'string' && `\`${s}\``) || s;
       // eslint-disable-next-line no-eval
-      return eval(`${this.tree.name} ${escapeIfString(value)}`);
+      return eval(`${this.tree.name} ${escapeToString(value)}`);
     }
     return null;
   }

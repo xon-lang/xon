@@ -1,4 +1,4 @@
-import { Any2, Unknown2 } from '@/lib/core';
+import { Any2 } from '@/lib/core';
 import { OperatorMetadata } from '@/metadata/declaration/operator/operator-metadata';
 import { ParameterMetadata } from '@/metadata/declaration/parameter/parameter-metadata';
 import { MethodTypeMetadata } from '@/metadata/expression/type/method/method-type-metadata';
@@ -6,6 +6,7 @@ import { TypeMetadata } from '@/metadata/expression/type/type-metadata';
 import { ValueMetadata } from '@/metadata/expression/value/value-metadata';
 import { fillValueMetadata } from '@/metadata/expression/value/value-metadata-helper';
 import { InfixExpressionTree } from '@/tree/expression/infix/infix-expression-tree';
+import { escapeToString } from '@/util/evaluate';
 
 export class InfixValueMetadata extends ValueMetadata {
   constructor(private tree: InfixExpressionTree) {
@@ -63,9 +64,8 @@ export class InfixValueMetadata extends ValueMetadata {
       if (this.tree.name.text === '^') {
         return Math.pow(left, right);
       }
-      const escapeIfString = (s: Unknown2) => (typeof s === 'string' && `\`${s}\``) || s;
       // eslint-disable-next-line no-eval
-      return eval(`${escapeIfString(left)} ${this.tree.name} ${escapeIfString(right)}`);
+      return eval(`${escapeToString(left)} ${this.tree.name} ${escapeToString(right)}`);
     }
     throw new Error('Not implemented');
   }

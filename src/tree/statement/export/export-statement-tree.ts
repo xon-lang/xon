@@ -1,5 +1,4 @@
 import { ExportStatementContext } from '@/grammar/xon-parser';
-import { String2 } from '@/lib/core';
 import { ExpressionTree } from '@/tree/expression/expression-tree';
 import { getExpressionTree } from '@/tree/expression/expression-tree-helper';
 import { StatementTree } from '@/tree/statement/statement-tree';
@@ -16,9 +15,5 @@ export class ExportStatementTree extends StatementTree {
     this.sourceRange = SourceRange.fromContext(ctx);
     this.path = getExpressionTree(ctx._path);
     this.addChildren(this.path);
-  }
-
-  toString(): String2 {
-    return `export ${this.path}`;
   }
 }

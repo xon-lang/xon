@@ -34,7 +34,7 @@ export class SourceRange {
       stop.charPositionInLine + (stop.stopIndex - stop.startIndex) + 1,
       stop.stopIndex,
     );
-    ref.sourceText = start.inputStream.toString();
+    ref.sourceText = String(start.inputStream);
     ref.rangeText = ref.sourceText.slice(ref.start.index, ref.stop.index + 1);
     return ref;
   }

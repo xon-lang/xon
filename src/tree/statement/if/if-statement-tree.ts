@@ -1,5 +1,4 @@
 import { IfStatementContext } from '@/grammar/xon-parser';
-import { String2 } from '@/lib/core';
 import { ExpressionTree } from '@/tree/expression/expression-tree';
 import { getExpressionTree } from '@/tree/expression/expression-tree-helper';
 import { SourceTree } from '@/tree/source/source-tree';
@@ -22,11 +21,5 @@ export class IfStatementTree extends StatementTree {
     this.thenBody = getSourceTree(ctx._thenBody.source());
     this.elseBody = getSourceTree(ctx._elseBody?.source());
     this.addChildren(this.condition, this.thenBody, this.elseBody);
-  }
-
-  toString(): String2 {
-    return `if ${this.condition}${this.thenBody}${
-      (this.elseBody && '\nelse' + this.elseBody) || ''
-    }`;
   }
 }
