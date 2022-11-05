@@ -87,6 +87,12 @@
     "no-implicit-globals": "error",
     "no-implied-eval": "error",
     "no-inline-comments": "error",
+    "no-invalid-this": "error",
+    "no-iterator": "error",
+    "no-label-var": "error",
+    "no-labels": "error",
+    "no-lone-blocks": "error",
+    "no-lonely-if": "error",
 
     "jest/no-commented-out-tests": ["off"],
 

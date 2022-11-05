@@ -34,12 +34,10 @@ export function getShadowSourceMetadata(tree: SourceTree): DeclarationMetadata[]
 
     if (declarationTree.metadata instanceof DestructureMetadata) {
       declarationTree.metadata.parameters.forEach((x) => tree.scope.add(x));
+    } else if (tree.parent instanceof ModuleTree && declarationTree.modifier) {
+      tree.parent.scope.add(declarationTree.metadata);
     } else {
-      if (tree.parent instanceof ModuleTree && declarationTree.modifier) {
-        tree.parent.scope.add(declarationTree.metadata);
-      } else {
-        tree.scope.add(declarationTree.metadata);
-      }
+      tree.scope.add(declarationTree.metadata);
     }
 
     declarations.push(declarationTree.metadata);
