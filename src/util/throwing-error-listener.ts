@@ -1,3 +1,6 @@
+import { Issue } from '@/issue/issue';
+import { IssueLevel } from '@/issue/issue-level';
+import { Any2, Number2, String2, Undefined2 } from '@/lib/core';
 import {
   ANTLRErrorListener,
   CommonToken,
@@ -7,19 +10,17 @@ import {
   RecognitionException,
   Recognizer,
 } from 'antlr4ts';
-import { Issue } from '../issue/issue';
-import { IssueLevel } from '../issue/issue-level';
-import { Number2, String2 } from '../lib/core';
+
 import { SourceRange } from './source-range';
 
 export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbol> {
   syntaxError(
-    recognizer: Recognizer<TSymbol, any>,
-    offendingSymbol: TSymbol | undefined,
+    recognizer: Recognizer<TSymbol, Any2>,
+    offendingSymbol: TSymbol | Undefined2,
     line: Number2,
     charIndex: Number2,
     message: String2,
-    error: RecognitionException | undefined,
+    error: RecognitionException | Undefined2,
   ): never {
     if (!(offendingSymbol instanceof CommonToken)) {
       throw new Error('Not implemented');

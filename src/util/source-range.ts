@@ -1,5 +1,5 @@
+import { Boolean2, Number2, String2 } from '@/lib/core';
 import { ParserRuleContext, Token } from 'antlr4ts';
-import { Boolean2, Number2, String2 } from '../lib/core';
 
 export class LinePosition {
   constructor(public line: Number2, public column: Number2, public index: Number2) {}

@@ -1,7 +1,7 @@
-import { String2 } from '../lib/core';
-import { Tree } from '../tree/tree';
+import { String2, Unknown2 } from '@/lib/core';
+import { Tree } from 'antlr4ts/tree/Tree';
 
-export function treeToPlain(tree: Tree): unknown {
+export function treeToPlain(tree: Tree): Unknown2 {
   const entries = Object.entries(tree)
     .filter(([k, v]) => typeof v !== 'function' && v !== null && v !== undefined && k !== 'ctx')
     .map(([k, v]) => {
