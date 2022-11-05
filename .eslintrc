@@ -66,6 +66,7 @@
     //!! "max-params": ["error", 3],
     //!! "max-statements": ["error", 10],
     "multiline-comment-style": ["error", "separate-lines"],
+    "new-cap": ["error", { "newIsCap": true, "properties": false }],
 
     "jest/no-commented-out-tests": ["off"],
 
