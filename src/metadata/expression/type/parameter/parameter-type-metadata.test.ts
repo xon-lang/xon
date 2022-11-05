@@ -1,7 +1,7 @@
-import { parseExpression } from '../../../../util/parse';
-import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
-import { fillTypeMetadata } from '../type-metadata-helper';
-import { ParameterTypeMetadata } from './parameter-type-metadata';
+import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
+import { ParameterTypeMetadata } from '@/metadata/expression/type/parameter/parameter-type-metadata';
+import { fillTypeMetadata } from '@/metadata/expression/type/type-metadata-helper';
+import { parseExpression } from '@/util/parse';
 
 test('true', () => {
   const code = 'true';

@@ -1,7 +1,7 @@
-import { parseExpression } from '../../../../util/parse';
-import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
-import { fillTypeMetadata } from '../type-metadata-helper';
-import { UnionTypeMetadata } from './union-type-metadata';
+import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
+import { fillTypeMetadata } from '@/metadata/expression/type/type-metadata-helper';
+import { UnionTypeMetadata } from '@/metadata/expression/type/union/union-type-metadata';
+import { parseExpression } from '@/util/parse';
 
 test('union', () => {
   const code = 'Integer | Float';

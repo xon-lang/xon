@@ -1,6 +1,6 @@
-import { Boolean2 } from '../../../lib/core';
-import { DeclarationScope } from '../../declaration/scope/declaration-scope';
-import { Metadata } from '../../metadata';
+import { Boolean2 } from '@/lib/core';
+import { DeclarationScope } from '@/metadata/declaration/scope/declaration-scope';
+import { Metadata } from '@/metadata/metadata';
 
 export abstract class TypeMetadata extends Metadata {
   abstract attributesScope(): DeclarationScope;

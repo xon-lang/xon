@@ -1,8 +1,8 @@
-import { parseExpression } from '../../../../util/parse';
-import { TestDeclarationScope } from '../../../declaration/scope/test-declaration-scope';
-import { DefinitionTypeMetadata } from '../definition/definition-type-metadata';
-import { fillTypeMetadata } from '../type-metadata-helper';
-import { MethodTypeMetadata } from './method-type-metadata';
+import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
+import { DefinitionTypeMetadata } from '@/metadata/expression/type/definition/definition-type-metadata';
+import { MethodTypeMetadata } from '@/metadata/expression/type/method/method-type-metadata';
+import { fillTypeMetadata } from '@/metadata/expression/type/type-metadata-helper';
+import { parseExpression } from '@/util/parse';
 
 test('method', () => {
   const code = '(a: Number)=>null';
