@@ -1,9 +1,7 @@
 // https://github.com/antlr/grammars-v4/blob/6b520363786994d06993f9d1a6fc126893a11b04/python/python3-ts/Python3.g4
 
-import { Lexer, Vocabulary } from 'antlr4ts';
-import { CommonToken } from 'antlr4ts/CommonToken';
-import { Token } from 'antlr4ts/Token';
-import { XonParser } from './xon-parser';
+import { XonParser } from '@/grammar/xon-parser';
+import { CommonToken, Lexer, Token, Vocabulary } from 'antlr4ts';
 
 const tabWidth = 2;
 
