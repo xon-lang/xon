@@ -67,6 +67,11 @@
     //!! "max-statements": ["error", 10],
     "multiline-comment-style": ["error", "separate-lines"],
     "new-cap": ["error", { "newIsCap": true, "properties": false }],
+    "no-alert": "error",
+    "no-array-constructor": "error",
+    "no-bitwise": "error",
+    "no-caller": "error",
+    "no-confusing-arrow": "error",
 
     "jest/no-commented-out-tests": ["off"],
 
