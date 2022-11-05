@@ -72,6 +72,7 @@
     "no-bitwise": "error",
     "no-caller": "error",
     "no-confusing-arrow": "error",
+    "no-console": "error",
 
     "jest/no-commented-out-tests": ["off"],
 
