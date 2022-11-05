@@ -109,6 +109,11 @@
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "no-proto": "error",
 
+    "@typescript-eslint/array-type": "error",
+    "@typescript-eslint/ban-tslint-comment": "error",
+    "@typescript-eslint/class-literal-property-style": "error",
+    "@typescript-eslint/consistent-generic-constructors": "error",
+
     "jest/no-commented-out-tests": ["off"],
 
     "indent": ["error", 2],

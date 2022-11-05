@@ -25,7 +25,7 @@ function isDirectory(fullPath): Boolean2 {
 export class ImportProvider {
   fullPath: String2;
 
-  static cache: Map<String2, DeclarationScope> = new Map();
+  static cache = new Map<String2, DeclarationScope>();
 
   constructor(private importPath: String2) {
     this.fullPath = resolvePath(this.importPath);
