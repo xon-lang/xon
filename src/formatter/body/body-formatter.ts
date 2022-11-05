@@ -1,5 +1,5 @@
 import { BodyContext, StatementContext } from '../../grammar/xon-parser';
-import { String } from '../../lib/core';
+import { String2 } from '../../lib/core';
 import { Formatter } from '../formatter';
 import { FormatterConfig } from '../formatter-config';
 import { getStatementFormatter } from '../statement/statement-formatter-helper';
@@ -9,7 +9,7 @@ export class BodyFormatter extends Formatter {
     super();
   }
 
-  toString(): String {
+  toString(): String2 {
     if (this.ctx.source().statement()) {
       let statements = this.ctx
         .source()
@@ -28,7 +28,7 @@ export class BodyFormatter extends Formatter {
     return ``;
   }
 
-  private indentStatement(ctx: StatementContext): String {
+  private indentStatement(ctx: StatementContext): String2 {
     const indent = this.config.indent(this.indentCount + 1);
     const statementFormatter = getStatementFormatter(ctx, this.config).indent(this.indentCount + 1);
 

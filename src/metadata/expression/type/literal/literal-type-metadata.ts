@@ -1,4 +1,4 @@
-import { Boolean } from '../../../../lib/core';
+import { Boolean2 } from '../../../../lib/core';
 import { LiteralType } from '../../../../tree/literal/literal-type';
 import { DefinitionMetadata } from '../../../declaration/definition/definition-metadata';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
@@ -14,7 +14,7 @@ export class LiteralTypeMetadata extends TypeMetadata {
     return this.definition.attributesScope();
   }
 
-  is(other: TypeMetadata): Boolean {
+  is(other: TypeMetadata): Boolean2 {
     if (other instanceof LiteralTypeMetadata && this.definition.is(other.definition)) return true;
     if (other instanceof DefinitionTypeMetadata) {
       return this.definition.is(other.definition);
@@ -23,7 +23,7 @@ export class LiteralTypeMetadata extends TypeMetadata {
     throw new Error(`Not implemented for '${other.constructor.name}'`);
   }
 
-  equals(other: TypeMetadata): Boolean {
+  equals(other: TypeMetadata): Boolean2 {
     if (other instanceof LiteralTypeMetadata) {
       return this.value === other.value;
     }

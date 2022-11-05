@@ -1,7 +1,7 @@
 // this code was generated
 
 import { DeclarationStatementContext } from '../../../grammar/xon-parser';
-import { String } from '../../../lib/core';
+import { String2 } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { DeclarationTree } from '../../declaration/declaration-tree';
 import { getDeclarationTree } from '../../declaration/declaration-tree-helper';
@@ -20,7 +20,7 @@ export class DeclarationStatementTree extends StatementTree {
     this.addChildren(this.declaration);
   }
 
-  toString(): String {
+  toString(): String2 {
     return this.declaration.toString();
   }
 }

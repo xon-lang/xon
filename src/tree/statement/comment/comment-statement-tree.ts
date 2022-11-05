@@ -1,7 +1,7 @@
 // this code was generated
 
 import { CommentStatementContext } from '../../../grammar/xon-parser';
-import { String } from '../../../lib/core';
+import { String2 } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { IdTree } from '../../id/id-tree';
 import { getIdTree } from '../../id/id-tree-helper';
@@ -18,7 +18,7 @@ export class CommentStatementTree extends StatementTree {
     this.addChildren(this.value);
   }
 
-  toString(): String {
+  toString(): String2 {
     return this.value.toString();
   }
 }

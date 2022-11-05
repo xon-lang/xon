@@ -1,4 +1,4 @@
-import { Boolean } from '../../../lib/core';
+import { Boolean2 } from '../../../lib/core';
 import { DeclarationMetadata } from '../declaration-metadata';
 import { CoreDeclarationScope } from './core/core-declaration-scope';
 
@@ -25,7 +25,7 @@ export class DeclarationScope {
     return scope;
   }
 
-  filter(name: String, predicate?: (x: DeclarationMetadata) => Boolean): DeclarationMetadata[] {
+  filter(name: String, predicate?: (x: DeclarationMetadata) => Boolean2): DeclarationMetadata[] {
     const declarations = [...this.core.scope.declarations, ...this.declarations].filter(
       (x) => x.name === name && (!predicate || predicate(x)),
     );

@@ -1,14 +1,14 @@
 // this code was generated
 
 import { PreprocessorExpressionContext } from '../../../grammar/xon-parser';
-import { String } from '../../../lib/core';
+import { String2 } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { ExpressionTree } from '../expression-tree';
 
 export class PreprocessorExpressionTree extends ExpressionTree {
   ctx: PreprocessorExpressionContext;
   sourceRange: SourceRange;
-  value: String;
+  value: String2;
 
   constructor(ctx: PreprocessorExpressionContext) {
     super();

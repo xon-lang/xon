@@ -1,4 +1,4 @@
-import { Any } from '../../../../lib/core';
+import { Any2 } from '../../../../lib/core';
 import { MemberExpressionTree } from '../../../../tree/expression/member/member-expression-tree';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
@@ -34,7 +34,7 @@ export class MemberValueMetadata extends ValueMetadata {
     return this.tree.name?.metadata?.type || null;
   }
 
-  eval(): Any {
+  eval(): Any2 {
     throw new Error('Not implemented');
   }
 }

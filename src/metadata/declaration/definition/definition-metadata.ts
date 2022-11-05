@@ -1,4 +1,4 @@
-import { Boolean } from '../../../lib/core';
+import { Boolean2 } from '../../../lib/core';
 import { DefinitionTypeMetadata } from '../../expression/type/definition/definition-type-metadata';
 import { DeclarationMetadata } from '../declaration-metadata';
 import { ParameterMetadata } from '../parameter/parameter-metadata';
@@ -25,7 +25,7 @@ export class DefinitionMetadata extends DeclarationMetadata {
     return [...(this.base?.allAttributes() || []), ...this.attributes];
   }
 
-  is(definition: DefinitionMetadata): Boolean {
+  is(definition: DefinitionMetadata): Boolean2 {
     if (this.sourceRange.equals(definition.sourceRange)) {
       return true;
     }

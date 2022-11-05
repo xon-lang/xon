@@ -1,7 +1,7 @@
 // this code was generated
 
 import { ArgumentContext } from '../../grammar/xon-parser';
-import { String } from '../../lib/core';
+import { String2 } from '../../lib/core';
 import { SourceRange } from '../../util/source-range';
 import { ExpressionTree } from '../expression/expression-tree';
 import { getExpressionTree } from '../expression/expression-tree-helper';
@@ -24,7 +24,7 @@ export class ArgumentTree extends Tree {
     this.addChildren(this.name, this.value);
   }
 
-  toString(): String {
+  toString(): String2 {
     const name = (this.name && this.name + ': ') || '';
     return name + this.value;
   }

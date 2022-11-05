@@ -1,4 +1,4 @@
-import { Any } from '../../../../lib/core';
+import { Any2 } from '../../../../lib/core';
 import { InvokeExpressionTree } from '../../../../tree/expression/invoke/invoke-expression-tree';
 import { MethodTypeMetadata } from '../../type/method/method-type-metadata';
 import { TypeMetadata } from '../../type/type-metadata';
@@ -23,7 +23,7 @@ export class InvokeValueMetadata extends ValueMetadata {
     return null;
   }
 
-  eval(): Any {
+  eval(): Any2 {
     throw new Error('Not implemented');
   }
 }

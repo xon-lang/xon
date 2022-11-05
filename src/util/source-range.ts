@@ -1,18 +1,18 @@
 import { ParserRuleContext, Token } from 'antlr4ts';
-import { Boolean, Number, String } from '../lib/core';
+import { Boolean2, Number2, String2 } from '../lib/core';
 
 export class LinePosition {
-  constructor(public line: Number, public column: Number, public index: Number) {}
+  constructor(public line: Number2, public column: Number2, public index: Number2) {}
 }
 
 export class SourceRange {
-  sourceName: String;
-  rangeText: String;
-  sourceText: String;
+  sourceName: String2;
+  rangeText: String2;
+  sourceText: String2;
   start: LinePosition;
   stop: LinePosition;
 
-  equals(other: SourceRange): Boolean {
+  equals(other: SourceRange): Boolean2 {
     return this.sourceName === other.sourceName && this.start.index === other.start.index;
   }
 

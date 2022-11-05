@@ -1,17 +1,17 @@
 import { FloatLiteralContext } from '../../../grammar/xon-parser';
-import { Number, String } from '../../../lib/core';
+import { Number2, String2 } from '../../../lib/core';
 import { SourceRange } from '../../../util/source-range';
 import { LiteralTree } from '../literal-tree';
 
 export class FloatLiteralTree extends LiteralTree {
   sourceRange: SourceRange;
-  radix: Number;
-  integer: String;
-  fraction: String;
-  value: Number;
+  radix: Number2;
+  integer: String2;
+  fraction: String2;
+  value: Number2;
 
   constructor(ctx: FloatLiteralContext) {
-    super()
+    super();
     this.sourceRange = SourceRange.fromContext(ctx);
     [this.integer, this.fraction] = ctx.text.split('.');
     const [integer, radix] = this.integer.split('x').reverse();

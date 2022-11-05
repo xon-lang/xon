@@ -1,4 +1,4 @@
-import { Boolean } from '../../../../lib/core';
+import { Boolean2 } from '../../../../lib/core';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { TypeMetadata } from '../type-metadata';
 
@@ -11,7 +11,7 @@ export class ObjectTypeMetadata extends TypeMetadata {
     return this.scope;
   }
 
-  is(other: TypeMetadata): Boolean {
+  is(other: TypeMetadata): Boolean2 {
     if (other instanceof ObjectTypeMetadata) {
       const currentScope = this.scope;
       const otherScope = other.scope;
@@ -29,7 +29,7 @@ export class ObjectTypeMetadata extends TypeMetadata {
     throw new Error('Not implemented');
   }
 
-  equals(other: TypeMetadata): Boolean {
+  equals(other: TypeMetadata): Boolean2 {
     if (other instanceof ObjectTypeMetadata) {
       const otherScope = other.attributesScope();
       return this.attributesScope().declarations.every((x, i) =>

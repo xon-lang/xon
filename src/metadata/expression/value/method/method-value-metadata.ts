@@ -1,4 +1,4 @@
-import { Any } from '../../../../lib/core';
+import { Any2 } from '../../../../lib/core';
 import { MethodExpressionTree } from '../../../../tree/expression/method/method-expression-tree';
 import {
   fillParameterMetadata,
@@ -36,7 +36,7 @@ export class MethodValueMetadata extends ValueMetadata {
     );
   }
 
-  eval(): Any {
+  eval(): Any2 {
     throw new Error('Not implemented');
   }
 }

@@ -1,4 +1,4 @@
-import { Boolean } from '../../../../lib/core';
+import { Boolean2 } from '../../../../lib/core';
 import { DefinitionMetadata } from '../../../declaration/definition/definition-metadata';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { TypeMetadata } from '../type-metadata';
@@ -33,11 +33,11 @@ export class ArrayTypeMetadata extends TypeMetadata {
     // return commonType.attributesScope();
   }
 
-  is(other: TypeMetadata): Boolean {
+  is(other: TypeMetadata): Boolean2 {
     throw new Error('Not implemented');
   }
 
-  equals(other: TypeMetadata): Boolean {
+  equals(other: TypeMetadata): Boolean2 {
     if (other instanceof ArrayTypeMetadata) {
       const currentItems = this.items;
       const otherItems = other.items;

@@ -1,5 +1,5 @@
 import { IssueLevel } from '@src/issue/issue-level';
-import { String } from '@src/lib/core';
+import { String2 } from '@src/lib/core';
 import { DeclarationScope } from '@src/metadata/declaration/scope/declaration-scope';
 import { ObjectTypeMetadata } from '@src/metadata/expression/type/object/object-type-metadata';
 import { TypeMetadata } from '@src/metadata/expression/type/type-metadata';
@@ -11,7 +11,7 @@ import { evaluate } from '@src/util/evaluate';
 import path from 'path';
 
 export class ImportValueMetadata extends ValueMetadata {
-  fullPath: String;
+  fullPath: String2;
   private _importScope: DeclarationScope;
   private _importProvider: ImportProvider;
   private _type: TypeMetadata;

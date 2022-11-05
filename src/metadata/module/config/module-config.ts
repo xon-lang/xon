@@ -1,9 +1,9 @@
-import { String } from '../../../lib/core';
+import { String2 } from '../../../lib/core';
 
 export abstract class ModuleConfig {
-  includes: String[] = [];
-  excludes: String[] = [];
+  includes: String2[] = [];
+  excludes: String2[] = [];
 
-  coreModulePath: String;
-  defaultImports: String[] = [];
+  coreModulePath: String2;
+  defaultImports: String2[] = [];
 }

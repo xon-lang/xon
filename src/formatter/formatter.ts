@@ -1,10 +1,10 @@
 import { ParserRuleContext } from 'antlr4ts';
-import { Boolean, Number, String } from '../lib/core';
+import { Boolean2, Number2, String2 } from '../lib/core';
 import { FormatterConfig } from './formatter-config';
 
 export abstract class Formatter {
-  indentCount: Number = 0;
-  broken: Boolean = false;
+  indentCount: Number2 = 0;
+  broken: Boolean2 = false;
 
   ctx: ParserRuleContext;
   config: FormatterConfig;
@@ -14,10 +14,10 @@ export abstract class Formatter {
     return this;
   }
 
-  break(value: Boolean): Formatter {
+  break(value: Boolean2): Formatter {
     this.broken = value;
     return this;
   }
 
-  abstract toString(): String;
+  abstract toString(): String2;
 }

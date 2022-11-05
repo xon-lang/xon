@@ -1,4 +1,4 @@
-import { Any, Unknown } from '../../../../lib/core';
+import { Any2, Unknown2 } from '../../../../lib/core';
 import { PrefixExpressionTree } from '../../../../tree/expression/prefix/prefix-expression-tree';
 import { OperatorMetadata } from '../../../declaration/operator/operator-metadata';
 import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
@@ -48,11 +48,11 @@ export class PrefixValueMetadata extends ValueMetadata {
     return null;
   }
 
-  eval(): Any {
+  eval(): Any2 {
     const metadata = this.tree.value.metadata;
     if (metadata instanceof ValueMetadata) {
       const value = metadata.eval();
-      const escapeIfString = (s: Unknown) => (typeof s === 'string' && `\`${s}\``) || s;
+      const escapeIfString = (s: Unknown2) => (typeof s === 'string' && `\`${s}\``) || s;
       return eval(`${this.tree.name} ${escapeIfString(value)}`);
     }
     return null;

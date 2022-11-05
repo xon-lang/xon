@@ -1,7 +1,7 @@
 import { ParserRuleContext, RecognitionException } from 'antlr4ts';
 import chalk from 'chalk';
 import fs from 'fs';
-import { String } from '../lib/core';
+import { String2 } from '../lib/core';
 import { Tree } from '../tree/tree';
 import { SourceRange } from '../util/source-range';
 import { IssueLevel } from './issue-level';
@@ -9,11 +9,11 @@ import { IssueLevel } from './issue-level';
 export class Issue extends Error {
   antlrError?: RecognitionException | null;
 
-  constructor(public sourceRange: SourceRange, public level: IssueLevel, public message: String) {
+  constructor(public sourceRange: SourceRange, public level: IssueLevel, public message: String2) {
     super(message);
   }
 
-  toString(): String {
+  toString(): String2 {
     let code = this.sourceRange.sourceText.split('\n')[this.sourceRange.start.line - 1];
     if (!code && this.sourceRange.sourceName && this.sourceRange.sourceName !== '<unknown>') {
       code = fs.readFileSync(this.sourceRange.sourceName).toString().split('\n')[
@@ -33,12 +33,12 @@ export class Issue extends Error {
     return `${message}\n${source}${line}${column}\n${lineNumber}${code}\n${caret}`;
   }
 
-  static errorFromContext(ctx: ParserRuleContext, message: String): never {
+  static errorFromContext(ctx: ParserRuleContext, message: String2): never {
     const issue = new Issue(SourceRange.fromContext(ctx), IssueLevel.error, message);
     throw new Error(issue.toString());
   }
 
-  static errorFromTree(tree: Tree, message: String): never {
+  static errorFromTree(tree: Tree, message: String2): never {
     const issue = new Issue(tree.sourceRange, IssueLevel.error, message);
     throw new Error(issue.toString());
   }

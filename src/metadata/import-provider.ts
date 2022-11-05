@@ -1,10 +1,10 @@
 import { lstatSync } from 'fs';
 import os from 'os';
 import path from 'path';
-import { Boolean, String } from '../lib/core';
+import { Boolean2, String2 } from '../lib/core';
 import { DeclarationScope } from './declaration/scope/declaration-scope';
 
-function isDirectory(fullPath): Boolean {
+function isDirectory(fullPath): Boolean2 {
   try {
     const stats = lstatSync(fullPath);
     return stats.isDirectory();
@@ -13,7 +13,7 @@ function isDirectory(fullPath): Boolean {
   }
 }
 
-function isFile(fullPath): Boolean {
+function isFile(fullPath): Boolean2 {
   try {
     const stats = lstatSync(fullPath);
     return stats.isFile();
@@ -23,9 +23,9 @@ function isFile(fullPath): Boolean {
 }
 
 export class ImportProvider {
-  fullPath: String;
+  fullPath: String2;
 
-  static cache: Map<String, DeclarationScope> = new Map();
+  static cache: Map<String2, DeclarationScope> = new Map();
 
   constructor(private importPath: string) {
     this.fullPath = resolvePath(this.importPath);
@@ -40,7 +40,7 @@ export class ImportProvider {
   }
 }
 
-function resolvePath(importPath: String): String {
+function resolvePath(importPath: String2): String2 {
   if (importPath[0] === '~') {
     return path.join(os.homedir(), importPath.slice(1));
   }

@@ -1,5 +1,5 @@
 import { DeclarationContext, ExpressionContext, ValueBodyContext } from '../../grammar/xon-parser';
-import { String } from '../../lib/core';
+import { String2 } from '../../lib/core';
 import { getBodyFormatter } from '../body/body-formatter-helper';
 import { getDeclarationsFormatter } from '../declarations/declarations-formatter-helper';
 import { getExpressionFormatter } from '../expression/expression-formatter-helper';
@@ -25,7 +25,7 @@ export class DeclarationFormatter extends Formatter {
     return `${destructure}${params}${type}${body}`;
   }
 
-  typeFormatter(type: ExpressionContext): String {
+  typeFormatter(type: ExpressionContext): String2 {
     if (!type && this.ctx.valueType()?.COLON() && this.ctx.valueBody()?._value) return ' :';
     if (!type && !this.ctx.valueType()?.COLON() && this.ctx.valueBody()?._value) return ' ';
     if (!type) return '';
@@ -39,7 +39,7 @@ export class DeclarationFormatter extends Formatter {
     );
   }
 
-  valueBodyFormat(ctx: ValueBodyContext, type: ExpressionContext): String {
+  valueBodyFormat(ctx: ValueBodyContext, type: ExpressionContext): String2 {
     if (!ctx) return '';
 
     if (ctx._value) {

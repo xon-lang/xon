@@ -1,4 +1,4 @@
-import { Boolean, String } from '../../lib/core';
+import { Boolean2, String2 } from '../../lib/core';
 import { DeclarationTree } from '../../tree/declaration/declaration-tree';
 import { SourceRange } from '../../util/source-range';
 import { TypeMetadata } from '../expression/type/type-metadata';
@@ -8,8 +8,8 @@ import { ParameterMetadata } from './parameter/parameter-metadata';
 
 export abstract class DeclarationMetadata extends Metadata {
   sourceRange?: SourceRange;
-  modifier?: String | null;
-  name?: String | null;
+  modifier?: String2 | null;
+  name?: String2 | null;
 
   generics: GenericMetadata[] = [];
   parameters: ParameterMetadata[] = [];
@@ -25,7 +25,7 @@ export abstract class DeclarationMetadata extends Metadata {
     }
   }
 
-  equals(other: DeclarationMetadata): Boolean {
+  equals(other: DeclarationMetadata): Boolean2 {
     return this.sourceRange.equals(other.sourceRange);
   }
 }

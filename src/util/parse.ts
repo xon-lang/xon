@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import { XonLexer } from '../grammar/xon-lexer';
 import { XonParser } from '../grammar/xon-parser';
 import { Issue } from '../issue/issue';
-import { String } from '../lib/core';
+import { String2 } from '../lib/core';
 import { getArgumentTree } from '../tree/argument/argument-tree-helper';
 import { getDeclarationTree } from '../tree/declaration/declaration-tree-helper';
 import { getExpressionTree } from '../tree/expression/expression-tree-helper';
@@ -16,7 +16,7 @@ import { getStatementTree } from '../tree/statement/statement-tree-helper';
 import { SourceRange } from './source-range';
 import { ThrowingErrorListener } from './throwing-error-listener';
 
-export function parse(code: String, sourceName: String = undefined): XonParser {
+export function parse(code: String2, sourceName: String2 = undefined): XonParser {
   let inputStream, lexer, tokenStream, parser;
   inputStream = CharStreams.fromString(code, sourceName);
   lexer = new XonLexer(inputStream);
@@ -46,33 +46,33 @@ function _getSourceTree(parser: XonParser) {
   }
 }
 
-export function parseSourceFile(sourceName: String) {
+export function parseSourceFile(sourceName: String2) {
   let code;
   code = fs.readFileSync(sourceName).toString();
   return _getSourceTree(parse(code, sourceName));
 }
 
-export function parseSource(code: String) {
+export function parseSource(code: String2) {
   return _getSourceTree(parse(code));
 }
 
-export function parseLiteral(code: String) {
+export function parseLiteral(code: String2) {
   return getLiteralTree(parse(code).literal());
 }
 
-export function parseExpression(code: String) {
+export function parseExpression(code: String2) {
   return getExpressionTree(parse(code).expression());
 }
 
-export function parseStatement(code: String) {
+export function parseStatement(code: String2) {
   return getStatementTree(parse(code).statement());
 }
 
-export function parseDeclaration(code: String) {
+export function parseDeclaration(code: String2) {
   return getDeclarationTree(parse(code).declaration());
 }
 
-export function parseArgument(code: String) {
+export function parseArgument(code: String2) {
   return getArgumentTree(parse(code).argument());
 }
 

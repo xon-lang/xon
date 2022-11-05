@@ -1,4 +1,4 @@
-import { Any } from '../../../lib/core';
+import { Any2 } from '../../../lib/core';
 import { Metadata } from '../../metadata';
 import { TypeMetadata } from '../type/type-metadata';
 
@@ -7,7 +7,7 @@ export abstract class ValueMetadata extends Metadata {
     throw new Error('Not implemented');
   }
 
-  eval(): Any {
+  eval(): Any2 {
     throw new Error('Not implemented');
   }
 }

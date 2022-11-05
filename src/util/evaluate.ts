@@ -1,7 +1,7 @@
 // this code was generated
 
 import { Issue } from '../issue/issue';
-import { Unknown } from '../lib/core';
+import { Unknown2 } from '../lib/core';
 import { ArrayExpressionTree } from '../tree/expression/array/array-expression-tree';
 import { ExpressionTree } from '../tree/expression/expression-tree';
 import { GroupExpressionTree } from '../tree/expression/group/group-expression-tree';
@@ -10,11 +10,11 @@ import { InfixExpressionTree } from '../tree/expression/infix/infix-expression-t
 import { LiteralExpressionTree } from '../tree/expression/literal/literal-expression-tree';
 import { PrefixExpressionTree } from '../tree/expression/prefix/prefix-expression-tree';
 
-function _escapeIfString(s: Unknown) {
+function _escapeIfString(s: Unknown2) {
   return (typeof s === 'string' && `\`${s}\``) || s;
 }
 
-export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown {
+export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
   let a, b, o;
   if (!tree) {
     return null;

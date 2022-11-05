@@ -1,5 +1,5 @@
 import { CommentStatementContext } from '../../../grammar/xon-parser';
-import { String } from '../../../lib/core';
+import { String2 } from '../../../lib/core';
 import { FormatterConfig } from '../../formatter-config';
 import { StatementFormatter } from '../Statement-formatter';
 
@@ -8,7 +8,7 @@ export class CommentStatementFormatter extends StatementFormatter {
     super();
   }
 
-  toString(): String {
+  toString(): String2 {
     return this.ctx.text;
   }
 }

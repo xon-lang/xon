@@ -9,16 +9,16 @@ import {
 } from 'antlr4ts';
 import { Issue } from '../issue/issue';
 import { IssueLevel } from '../issue/issue-level';
-import { Number, String } from '../lib/core';
+import { Number2, String2 } from '../lib/core';
 import { SourceRange } from './source-range';
 
 export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbol> {
   syntaxError(
     recognizer: Recognizer<TSymbol, any>,
     offendingSymbol: TSymbol | undefined,
-    line: Number,
-    charIndex: Number,
-    message: String,
+    line: Number2,
+    charIndex: Number2,
+    message: String2,
     error: RecognitionException | undefined,
   ): never {
     if (!(offendingSymbol instanceof CommonToken)) {

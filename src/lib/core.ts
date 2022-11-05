@@ -1,6 +1,6 @@
-export type Any = any;
-export type Unknown = unknown;
-export type Never = never;
-export type String = string;
-export type Number = number;
-export type Boolean = boolean;
+export type Any2 = any;
+export type Unknown2 = unknown;
+export type Never2 = never;
+export type String2 = string;
+export type Number2 = number;
+export type Boolean2 = boolean;

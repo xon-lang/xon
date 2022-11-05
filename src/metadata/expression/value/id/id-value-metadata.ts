@@ -1,4 +1,4 @@
-import { Any } from '../../../../lib/core';
+import { Any2 } from '../../../../lib/core';
 import { IdExpressionTree } from '../../../../tree/expression/id/id-expression-tree';
 import { TypeMetadata } from '../../type/type-metadata';
 import { ValueMetadata } from '../value-metadata';
@@ -26,7 +26,7 @@ export class IdValueMetadata extends ValueMetadata {
     return this.tree.name.metadata?.type;
   }
 
-  eval(): Any {
+  eval(): Any2 {
     throw new Error('Not implemented');
   }
 }

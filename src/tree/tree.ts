@@ -1,7 +1,7 @@
 import { ParserRuleContext } from 'antlr4ts';
 import { Issue } from '../issue/issue';
 import { IssueLevel } from '../issue/issue-level';
-import { String } from '../lib/core';
+import { String2 } from '../lib/core';
 import { DeclarationScope } from '../metadata/declaration/scope/declaration-scope';
 import { Metadata } from '../metadata/metadata';
 import { SourceRange } from '../util/source-range';
@@ -30,11 +30,11 @@ export abstract class Tree {
     return [...this.children.map((x) => x.allIssues()).flat(), ...this.issues];
   }
 
-  addIssue(level: IssueLevel, message: String) {
+  addIssue(level: IssueLevel, message: String2) {
     this.issues.push(new Issue(this.sourceRange, level, message));
   }
 
-  addError(message: String) {
+  addError(message: String2) {
     this.addIssue(IssueLevel.error, message);
   }
 }

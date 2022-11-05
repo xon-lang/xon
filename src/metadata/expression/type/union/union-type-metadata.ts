@@ -1,4 +1,4 @@
-import { Boolean } from '../../../../lib/core';
+import { Boolean2 } from '../../../../lib/core';
 import { DeclarationScope } from '../../../declaration/scope/declaration-scope';
 import { TypeMetadata } from '../type-metadata';
 
@@ -17,11 +17,11 @@ export class UnionTypeMetadata extends TypeMetadata {
       .union(this.right.attributesScope()));
   }
 
-  is(other: TypeMetadata): Boolean {
+  is(other: TypeMetadata): Boolean2 {
     throw new Error('Not implemented');
   }
 
-  equals(other: TypeMetadata): Boolean {
+  equals(other: TypeMetadata): Boolean2 {
     if (other instanceof UnionTypeMetadata) {
       return this.left.equals(other.left) && this.right.equals(other.right);
     }

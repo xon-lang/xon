@@ -1,4 +1,4 @@
-import { Any, Unknown } from '../../../../lib/core';
+import { Any2, Unknown2 } from '../../../../lib/core';
 import { InfixExpressionTree } from '../../../../tree/expression/infix/infix-expression-tree';
 import { OperatorMetadata } from '../../../declaration/operator/operator-metadata';
 import { ParameterMetadata } from '../../../declaration/parameter/parameter-metadata';
@@ -53,7 +53,7 @@ export class InfixValueMetadata extends ValueMetadata {
     return null;
   }
 
-  eval(): Any {
+  eval(): Any2 {
     const leftMetadata = this.tree.left.metadata;
     const rightMetadata = this.tree.right.metadata;
 
@@ -63,7 +63,7 @@ export class InfixValueMetadata extends ValueMetadata {
       if (this.tree.name.text === '^') {
         return Math.pow(left, right);
       }
-      const escapeIfString = (s: Unknown) => (typeof s === 'string' && `\`${s}\``) || s;
+      const escapeIfString = (s: Unknown2) => (typeof s === 'string' && `\`${s}\``) || s;
       return eval(`${escapeIfString(left)} ${this.tree.name} ${escapeIfString(right)}`);
     }
     throw new Error('Not implemented');
