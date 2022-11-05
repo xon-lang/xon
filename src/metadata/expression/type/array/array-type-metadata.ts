@@ -33,7 +33,7 @@ export class ArrayTypeMetadata extends TypeMetadata {
     // return commonType.attributesScope();
   }
 
-  is(other: TypeMetadata): Boolean2 {
+  is(): Boolean2 {
     throw new Error('Not implemented');
   }
 

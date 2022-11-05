@@ -1,5 +1,3 @@
-// this code was generated
-
 import { XonLexer } from '@/grammar/xon-lexer';
 import { XonParser } from '@/grammar/xon-parser';
 import { Issue } from '@/issue/issue';
@@ -17,13 +15,12 @@ import * as fs from 'fs';
 import { ThrowingErrorListener } from './throwing-error-listener';
 
 export function parse(code: String2, sourceName: String2 = undefined): XonParser {
-  let inputStream, lexer, tokenStream, parser;
-  inputStream = CharStreams.fromString(code, sourceName);
-  lexer = new XonLexer(inputStream);
+  const inputStream = CharStreams.fromString(code, sourceName);
+  const lexer = new XonLexer(inputStream);
   lexer.removeErrorListeners();
   lexer.addErrorListener(new ThrowingErrorListener());
-  tokenStream = new CommonTokenStream(lexer);
-  parser = new XonParser(tokenStream);
+  const tokenStream = new CommonTokenStream(lexer);
+  const parser = new XonParser(tokenStream);
   parser.removeErrorListeners();
   parser.addErrorListener(new ThrowingErrorListener());
   return parser;
@@ -47,8 +44,7 @@ function _getSourceTree(parser: XonParser) {
 }
 
 export function parseSourceFile(sourceName: String2) {
-  let code;
-  code = fs.readFileSync(sourceName).toString();
+  const code = fs.readFileSync(sourceName).toString();
   return _getSourceTree(parse(code, sourceName));
 }
 
@@ -75,5 +71,3 @@ export function parseDeclaration(code: String2) {
 export function parseArgument(code: String2) {
   return getArgumentTree(parse(code).argument());
 }
-
-// this code was generated

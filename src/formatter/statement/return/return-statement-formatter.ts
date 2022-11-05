@@ -12,7 +12,7 @@ export class ReturnStatementFormatter extends StatementFormatter {
     const value = getExpressionFormatter(this.ctx.expression(), this.config)?.indent(
       this.indentCount,
     );
-    let result = `return`;
+    let result = 'return';
     if (value) {
       result += ' ' + value.toString().trim();
     }

@@ -2,7 +2,7 @@ import { StringLiteralTree } from '@/tree/literal/string/string-literal-tree';
 import { parseLiteral } from '@/util/parse';
 
 test('single line string', () => {
-  const code = "'some string'";
+  const code = '\'some string\'';
   const tree = parseLiteral(code) as StringLiteralTree;
 
   expect(tree).toBeInstanceOf(StringLiteralTree);
@@ -10,7 +10,7 @@ test('single line string', () => {
 });
 
 test('multiline string', () => {
-  const code = "'some\nmultiline\n\t\n\t\nstring\n'";
+  const code = '\'some\nmultiline\n\t\n\t\nstring\n\'';
   const tree = parseLiteral(code) as StringLiteralTree;
 
   expect(tree).toBeInstanceOf(StringLiteralTree);
@@ -18,7 +18,7 @@ test('multiline string', () => {
 });
 
 test('empty string', () => {
-  const code = "''";
+  const code = '\'\'';
   const tree = parseLiteral(code) as StringLiteralTree;
 
   expect(tree).toBeInstanceOf(StringLiteralTree);

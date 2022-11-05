@@ -25,7 +25,7 @@ export class DeclarationScope {
     return scope;
   }
 
-  filter(name: String, predicate?: (x: DeclarationMetadata) => Boolean2): DeclarationMetadata[] {
+  filter(name: string, predicate?: (x: DeclarationMetadata) => Boolean2): DeclarationMetadata[] {
     const declarations = [...this.core.scope.declarations, ...this.declarations].filter(
       (x) => x.name === name && (!predicate || predicate(x)),
     );

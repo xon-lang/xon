@@ -24,7 +24,7 @@ test('7 is integer', () => {
   const code = '7';
   const tree = parseExpression(code);
   tree.scope.parent = new TestDeclarationScope();
-  const scope = new TestDeclarationScope();
+  // const scope = new TestDeclarationScope();
   const metadata = fillValueMetadata(tree);
 
   const codeInteger = 'Number';

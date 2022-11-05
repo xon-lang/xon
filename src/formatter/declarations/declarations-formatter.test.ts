@@ -3,7 +3,7 @@ import { getDeclarationsFormatter } from '@/formatter/declarations/declarations-
 import { defaultFormatterConfig, FormatterConfig } from '@/formatter/formatter-config';
 import { parse } from '@/util/parse';
 
-test('integers', () => {
+test('variables', () => {
   const code = '[a, b, c]';
   const ctx = parse(code).declarations();
   const formatter = getDeclarationsFormatter(ctx, defaultFormatterConfig) as ParametersFormatter;
@@ -12,7 +12,7 @@ test('integers', () => {
   expect(formatter.toString()).toBe('[a, b, c]');
 });
 
-test('integers', () => {
+test('variables with indent', () => {
   const code = '[a, b, c]';
   const ctx = parse(code).declarations();
   const config = new FormatterConfig();

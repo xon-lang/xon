@@ -23,7 +23,7 @@ test('properties only', () => {
 });
 
 test('members with method call', () => {
-  const code = `a.b.c(a).dom`;
+  const code = 'a.b.c(a).dom';
   const ctx = parse(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 8;

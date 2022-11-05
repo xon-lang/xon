@@ -5,7 +5,7 @@ import { fillValueMetadata } from '@/metadata/expression/value/value-metadata-he
 import { parseExpression } from '@/util/parse';
 
 test('literal', () => {
-  const code = "import 'src/lib/@xon/core'";
+  const code = 'import \'src/lib/@xon/core\'';
   const tree = parseExpression(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillValueMetadata(tree) as ImportValueMetadata;

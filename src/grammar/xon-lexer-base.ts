@@ -1,5 +1,3 @@
-// https://github.com/antlr/grammars-v4/blob/6b520363786994d06993f9d1a6fc126893a11b04/python/python3-ts/Python3.g4
-
 import { XonParser } from '@/grammar/xon-parser';
 import { Boolean2, Number2, String2 } from '@/lib/core';
 import { CommonToken, Lexer, Token, Vocabulary } from 'antlr4ts';
@@ -32,20 +30,14 @@ export abstract class XonLexerBase extends Lexer {
 
   public emit(token?: Token): Token {
     const newToken = token ? super.emit(token) : super.emit();
-    // if (newToken.channel === Token.DEFAULT_CHANNEL) {
-    //   XonLexerBase.tokens.push(XonParser.VOCABULARY.getDisplayName(newToken.type));
-    //   console.log(XonLexerBase.tokens.join(', '));
-    // }
-
     this.tokenQueue.push(newToken);
+
     return newToken;
   }
 
   public nextToken(): Token {
     if (this.inputStream.LA(1) === XonParser.EOF && this.indents.length) {
       this.tokenQueue = this.tokenQueue.filter((val) => val.type !== XonParser.EOF);
-
-      // this.emit(this.commonToken(XonParser.NL, '\n'));
 
       while (this.indents.length) {
         this.emit(this.createDedent());
@@ -68,14 +60,9 @@ export abstract class XonLexerBase extends Lexer {
   }
 
   protected handleLineBreak(): void {
-    const next = this.inputStream.LA(1);
-    const nextNext = this.inputStream.LA(2);
     const newLine = this.text.replace(/[^\r\n]+/g, '');
     const spaces = /*next > 0 &&*/ (this.text.match(/ +$/g) || [])[0] || '';
 
-    const EOF_CODE = -1;
-    const LINE_FEED_CODE = 10;
-    const CARRIAGE_RETURN_CODE = 13;
     if (
       this.opened > 0 ||
       !newLine
@@ -96,7 +83,6 @@ export abstract class XonLexerBase extends Lexer {
     } else {
       while (this.indents.length && this.indents[this.indents.length - 1] > indent) {
         this.emit(this.createDedent());
-        // todo mb to be fixed - mb NL should be before dedent
         this.emit(this.commonToken(XonParser.NL, newLine));
         this.indents.pop();
       }

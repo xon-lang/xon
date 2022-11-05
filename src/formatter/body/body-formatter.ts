@@ -11,7 +11,7 @@ export class BodyFormatter extends Formatter {
 
   toString(): String2 {
     if (this.ctx.source().statement()) {
-      let statements = this.ctx
+      const statements = this.ctx
         .source()
         .statement()
         .slice(0, -1)
@@ -25,7 +25,7 @@ export class BodyFormatter extends Formatter {
       const lastStatement = this.indentStatement(this.ctx.source().statement().slice(-1)[0]);
       return this.config.nl + statements + lastStatement;
     }
-    return ``;
+    return '';
   }
 
   private indentStatement(ctx: StatementContext): String2 {

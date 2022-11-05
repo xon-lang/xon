@@ -17,7 +17,7 @@ export class IntersectionTypeMetadata extends TypeMetadata {
       .intersect(this.right.attributesScope()));
   }
 
-  is(other: TypeMetadata): Boolean2 {
+  is(): Boolean2 {
     throw new Error('Not implemented');
   }
 

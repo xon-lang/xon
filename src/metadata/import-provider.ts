@@ -13,14 +13,14 @@ function isDirectory(fullPath): Boolean2 {
   }
 }
 
-function isFile(fullPath): Boolean2 {
-  try {
-    const stats = lstatSync(fullPath);
-    return stats.isFile();
-  } catch (error) {
-    return false;
-  }
-}
+// function isFile(fullPath): Boolean2 {
+//   try {
+//     const stats = lstatSync(fullPath);
+//     return stats.isFile();
+//   } catch (error) {
+//     return false;
+//   }
+// }
 
 export class ImportProvider {
   fullPath: String2;

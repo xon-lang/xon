@@ -50,7 +50,7 @@ test('contains new line', () => {
   const formatter = getExpressionFormatter(ctx, config) as InvokeExpressionFormatter;
 
   expect(formatter).toBeInstanceOf(InvokeExpressionFormatter);
-  expect(formatter.toString()).toBe(`(abc)[1, [2], 3]`);
+  expect(formatter.toString()).toBe('(abc)[1, [2], 3]');
 });
 
 test('array element in array', () => {

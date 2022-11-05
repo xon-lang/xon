@@ -1,10 +1,10 @@
-import { DefinitionTypeMetadata } from '../../src/metadata/expression/type/definition/definition-type-metadata';
-import { ValueMetadata } from '../../src/metadata/expression/value/value-metadata';
-import { SourceMetadata } from '../../src/metadata/source/source-metadata';
-import { getSourceMetadata } from '../../src/metadata/source/source-metadata-helper';
-import { PrefixExpressionTree } from '../../src/tree/expression/prefix/prefix-expression-tree';
-import { DeclarationStatementTree } from '../../src/tree/statement/declaration/declaration-statement-tree';
-import { parseSourceFile } from '../../src/util/parse';
+import { DefinitionTypeMetadata } from '@/metadata/expression/type/definition/definition-type-metadata';
+import { ValueMetadata } from '@/metadata/expression/value/value-metadata';
+import { SourceMetadata } from '@/metadata/source/source-metadata';
+import { getSourceMetadata } from '@/metadata/source/source-metadata-helper';
+import { PrefixExpressionTree } from '@/tree/expression/prefix/prefix-expression-tree';
+import { DeclarationStatementTree } from '@/tree/statement/declaration/declaration-statement-tree';
+import { parseSourceFile } from '@/util/parse';
 
 test('import', () => {
   const tree = parseSourceFile('test/import/b.xon');

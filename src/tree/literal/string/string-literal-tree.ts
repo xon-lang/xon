@@ -12,6 +12,6 @@ export class StringLiteralTree extends LiteralTree {
     super();
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
-    this.value = ctx.text.slice(1, -1).replace(/\\'/g, "'");
+    this.value = ctx.text.slice(1, -1).replace(/\\'/g, '\'');
   }
 }

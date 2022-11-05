@@ -46,7 +46,7 @@ test('array element in array', () => {
 });
 
 test('contains array in as argument', () => {
-  const code = `+ (2 + 3 + [4, 5, 6])`;
+  const code = '+ (2 + 3 + [4, 5, 6])';
   const ctx = parse(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 8;

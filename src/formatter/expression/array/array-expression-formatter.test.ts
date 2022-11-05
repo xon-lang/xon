@@ -12,7 +12,7 @@ test('integers', () => {
   expect(formatter.toString()).toBe('[1, 2, 3]');
 });
 
-test('integers', () => {
+test('integers with indent', () => {
   const code = '[1, 2, 3]';
   const ctx = parse(code).expression();
   const config = new FormatterConfig();
@@ -47,7 +47,7 @@ test('contains new line', () => {
   const formatter = getExpressionFormatter(ctx, config) as ArrayExpressionFormatter;
 
   expect(formatter).toBeInstanceOf(ArrayExpressionFormatter);
-  expect(formatter.toString()).toBe(`[1, [2], 3]`);
+  expect(formatter.toString()).toBe('[1, [2], 3]');
 });
 
 test('array element in array', () => {

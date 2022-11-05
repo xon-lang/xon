@@ -7,7 +7,7 @@ import { DeclarationStatementTree } from '@/tree/statement/declaration/declarati
 import { parseDeclaration } from '@/util/parse';
 
 test('id type', () => {
-  const code = `abc: Integer`;
+  const code = 'abc: Integer';
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
@@ -15,7 +15,7 @@ test('id type', () => {
 });
 
 test('generics with parameters', () => {
-  const code = `abc <N,M ,K:String > (): List<K>`;
+  const code = 'abc <N,M ,K:String > (): List<K>';
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
@@ -32,7 +32,7 @@ test('generics with parameters', () => {
 });
 
 test('id lambda type', () => {
-  const code = `abc: [a: Number]=> Integer`;
+  const code = 'abc: [a: Number]=> Integer';
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
@@ -40,7 +40,7 @@ test('id lambda type', () => {
 });
 
 test('variable type value', () => {
-  const code = `statements: StatementTree[] = []`;
+  const code = 'statements: StatementTree[] = []';
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
@@ -48,7 +48,7 @@ test('variable type value', () => {
 });
 
 test('method assign', () => {
-  const code = `statements = [a, b: Number]=> 7`;
+  const code = 'statements = [a, b: Number]=> 7';
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
@@ -56,7 +56,7 @@ test('method assign', () => {
 });
 
 test('method single body', () => {
-  const code = `statements:[a, b: Number]=> Integer = 7`;
+  const code = 'statements:[a, b: Number]=> Integer = 7';
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
@@ -64,7 +64,7 @@ test('method single body', () => {
 });
 
 test('method multiple body', () => {
-  const code = `statements:[a, b: Number]=> Integer\n  123\n  return 456`;
+  const code = 'statements:[a, b: Number]=> Integer\n  123\n  return 456';
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
@@ -72,7 +72,7 @@ test('method multiple body', () => {
 });
 
 test('name and array type', () => {
-  const code = `items: ExpressionTree[]`;
+  const code = 'items: ExpressionTree[]';
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
@@ -81,8 +81,8 @@ test('name and array type', () => {
   expect(tree.body).toBe(null);
 });
 
-test('name and array type', () => {
-  const code = `getParameterTrees:(contexts: ParameterContext[])=> null`;
+test('name and method type', () => {
+  const code = 'getParameterTrees:(contexts: ParameterContext[])=> null';
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
@@ -103,7 +103,7 @@ a
 });
 
 test('bracket parameter with type', () => {
-  const code = `[a]: Integer[] = [1, 2 ,3]`;
+  const code = '[a]: Integer[] = [1, 2 ,3]';
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
@@ -111,7 +111,7 @@ test('bracket parameter with type', () => {
 });
 
 test('bracket parameter without type', () => {
-  const code = `[a] = [1, 2 ,3]`;
+  const code = '[a] = [1, 2 ,3]';
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
@@ -119,7 +119,7 @@ test('bracket parameter without type', () => {
 });
 
 test('paren parameters', () => {
-  const code = `(a, b, c) = [1, 2 ,3]`;
+  const code = '(a, b, c) = [1, 2 ,3]';
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
@@ -129,7 +129,7 @@ test('paren parameters', () => {
 });
 
 test('brace parameters', () => {
-  const code = `{a, b, c} = import lib.abc`;
+  const code = '{a, b, c} = import lib.abc';
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);

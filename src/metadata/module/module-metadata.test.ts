@@ -10,7 +10,7 @@ test('core module', () => {
 
   const integers = metadata.tree.scope.filter('Integer');
   expect(integers.length).toBe(1);
-  const integer = integers[0];
+  // const integer = integers[0];
 });
 
 // test('from tree', () => {

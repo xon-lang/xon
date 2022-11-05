@@ -10,5 +10,5 @@ export const getParameterFormatter = (
   if (!ctx) return null;
   if (ctx instanceof DeclarationContext) return new DeclarationFormatter(ctx, config);
 
-  Issue.errorFromContext(ctx, `Parameter formatter not found"`);
+  Issue.errorFromContext(ctx, 'Parameter formatter not found"');
 };
