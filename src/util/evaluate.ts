@@ -1,5 +1,5 @@
 import { Issue } from '@/issue/issue';
-import { Unknown2 } from '@/lib/core';
+import { String2, Unknown2 } from '@/lib/core';
 import { ArrayExpressionTree } from '@/tree/expression/array/array-expression-tree';
 import { ExpressionTree } from '@/tree/expression/expression-tree';
 import { GroupExpressionTree } from '@/tree/expression/group/group-expression-tree';
@@ -8,8 +8,8 @@ import { InfixExpressionTree } from '@/tree/expression/infix/infix-expression-tr
 import { LiteralExpressionTree } from '@/tree/expression/literal/literal-expression-tree';
 import { PrefixExpressionTree } from '@/tree/expression/prefix/prefix-expression-tree';
 
-function _escapeIfString(s: Unknown2) {
-  return (typeof s === 'string' && `\`${s}\``) || s;
+function escapeToString<T>(value: T): String2 {
+  return (typeof value === 'string' && `\`${value}\``) || String(value);
 }
 
 export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
@@ -28,14 +28,14 @@ export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
   if (tree instanceof InfixExpressionTree) {
     const a = evaluate(tree.left, argsMap);
     const b = evaluate(tree.right, argsMap);
-    const o = (tree.name.text === '^' && '**') || tree.name.text;
+    const operator = (tree.name.text === '^' && '**') || tree.name.text;
     // eslint-disable-next-line no-eval
-    return eval(`${_escapeIfString(a)} ${o} ${_escapeIfString(b)}`);
+    return eval(`${escapeToString(a)} ${operator} ${escapeToString(b)}`);
   }
   if (tree instanceof PrefixExpressionTree) {
     const a = evaluate(tree.value, argsMap);
     // eslint-disable-next-line no-eval
-    return eval(`${tree.name.text}${_escapeIfString(a)}`);
+    return eval(`${tree.name.text}${escapeToString(a)}`);
   }
   if (tree instanceof IdExpressionTree) {
     if (tree.name.text in argsMap) {
