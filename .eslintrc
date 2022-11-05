@@ -59,6 +59,13 @@
     //!! "init-declarations": ["error", "always"],
     "logical-assignment-operators": ["error", "always"],
     "max-classes-per-file": "error",
+    "max-depth": ["error", 4],
+    "max-lines": ["error", 300],
+    //!! "max-lines-per-function": ["error", 50],
+    "max-nested-callbacks": ["error", 3],
+    //!! "max-params": ["error", 3],
+    //!! "max-statements": ["error", 10],
+    "multiline-comment-style": ["error", "separate-lines"],
 
     "jest/no-commented-out-tests": ["off"],
 
