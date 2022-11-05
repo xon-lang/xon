@@ -10,9 +10,8 @@
     "noImplicitAny": false,
     "outDir": ".",
     "paths": {
-      "*": ["node_modules/*"],
-      "@src/*": ["src/*"],
-
+      "@/*": ["src/*"],
+      "*": ["node_modules/*"]
     },
     "sourceMap": true,
     "target": "ES2021"
