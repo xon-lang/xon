@@ -37,9 +37,8 @@ function _getSourceTree(parser: XonParser) {
       tree.sourceRange = SourceRange.fromTwoTokens(tokens[0], tokens[tokens.length - 1]);
       tree.issues.push(error);
       return tree;
-    } else {
-      throw error;
     }
+    throw error;
   }
 }
 

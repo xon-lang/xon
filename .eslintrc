@@ -73,6 +73,9 @@
     "no-caller": "error",
     "no-confusing-arrow": "error",
     "no-console": "error",
+    "no-continue": "error",
+    "no-div-regex": "error",
+    "no-else-return": "error",
 
     "jest/no-commented-out-tests": ["off"],
 
