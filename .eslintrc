@@ -96,6 +96,15 @@
     "no-loop-func": "error",
     "no-magic-numbers": ["error", { "ignore": [-1, 0, 1, 2], "detectObjects": false }],
     //! "no-mixed-operators": "error",
+    "no-multi-assign": "error",
+    "no-multi-str": "error",
+    "no-negated-condition": "error",
+    "no-nested-ternary": "error",
+    "no-new": "error",
+    "no-new-func": "error",
+    "no-new-object": "error",
+    "no-new-wrappers": "error",
+    "no-octal-escape": "error",
 
     "jest/no-commented-out-tests": ["off"],
 
