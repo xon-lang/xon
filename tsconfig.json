@@ -15,6 +15,7 @@
     },
     "sourceMap": true,
     // "strict": true,
+    "useUnknownInCatchVariables": true,
     "target": "ES2021"
   },
   "exclude": [],
