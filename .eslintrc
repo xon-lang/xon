@@ -128,6 +128,9 @@
     "@typescript-eslint/no-base-to-string": "error",
     "@typescript-eslint/no-confusing-non-null-assertion": "error",
     "@typescript-eslint/no-confusing-void-expression": ["error", { "ignoreArrowShorthand": true }],
+    "@typescript-eslint/no-duplicate-enum-values": "error",
+    "@typescript-eslint/no-dynamic-delete": "error",
+    "@typescript-eslint/no-extraneous-class": ["error", { "allowEmpty": true }],
 
     "jest/no-commented-out-tests": ["off"],
 
