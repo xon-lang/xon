@@ -43,6 +43,12 @@
     //! "consistent-return": "error",
     "consistent-this": ["error", "that"],
     //! "curly": "error",
+    "default-case": "error",
+    "default-case-last": "error",
+    "default-param-last": ["error"],
+    "dot-notation": "error",
+    "eqeqeq": "error",
+    "func-name-matching": "error",
 
     "jest/no-commented-out-tests": ["off"],
 
