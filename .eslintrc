@@ -105,6 +105,9 @@
     "no-new-object": "error",
     "no-new-wrappers": "error",
     "no-octal-escape": "error",
+    "no-param-reassign": "error",
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-proto": "error",
 
     "jest/no-commented-out-tests": ["off"],
 

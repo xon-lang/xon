@@ -44,8 +44,10 @@
     "nodir",
     "PAREN",
     "pinst",
+    "plusplus",
     "postpublish",
-    "postversion"
+    "postversion",
+    "proto"
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
