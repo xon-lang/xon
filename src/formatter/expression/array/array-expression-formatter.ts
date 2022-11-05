@@ -1,7 +1,7 @@
-import { ArrayExpressionContext } from '../../../grammar/xon-parser';
-import { getArgumentsFormatter } from '../../arguments/arguments-formatter-helper';
-import { FormatterConfig } from '../../formatter-config';
-import { ExpressionFormatter } from '../expression-formatter';
+import { getArgumentsFormatter } from '@/formatter/arguments/arguments-formatter-helper';
+import { ExpressionFormatter } from '@/formatter/expression/expression-formatter';
+import { FormatterConfig } from '@/formatter/formatter-config';
+import { ArrayExpressionContext } from '@/grammar/xon-parser';
 
 export class ArrayExpressionFormatter extends ExpressionFormatter {
   constructor(public ctx: ArrayExpressionContext, public config: FormatterConfig) {

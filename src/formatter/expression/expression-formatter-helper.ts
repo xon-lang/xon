@@ -1,3 +1,16 @@
+import { ArrayExpressionFormatter } from '@/formatter/expression/array/array-expression-formatter';
+import { ExpressionFormatter } from '@/formatter/expression/expression-formatter';
+import { GroupExpressionFormatter } from '@/formatter/expression/group/group-expression-formatter';
+import { IdExpressionFormatter } from '@/formatter/expression/id/id-expression-formatter';
+import { InfixExpressionFormatter } from '@/formatter/expression/infix/infix-expression-formatter';
+import { InvokeExpressionFormatter } from '@/formatter/expression/invoke/invoke-expression-formatter';
+import { LiteralExpressionFormatter } from '@/formatter/expression/literal/literal-expression-formatter';
+import { MemberExpressionFormatter } from '@/formatter/expression/member/member-expression-formatter';
+import { MethodExpressionFormatter } from '@/formatter/expression/method/method-expression-formatter';
+import { NullableExpressionFormatter } from '@/formatter/expression/nullable/nullable-expression-formatter';
+import { PrefixExpressionFormatter } from '@/formatter/expression/prefix/prefix-expression-formatter';
+import { PreprocessorExpressionFormatter } from '@/formatter/expression/preprocessor/preprocessor-expression-formatter';
+import { FormatterConfig } from '@/formatter/formatter-config';
 import {
   ArrayExpressionContext,
   ExpressionContext,
@@ -11,21 +24,8 @@ import {
   NullableExpressionContext,
   PrefixExpressionContext,
   PreprocessorExpressionContext,
-} from '../../grammar/xon-parser';
-import { Issue } from '../../issue/issue';
-import { FormatterConfig } from '../formatter-config';
-import { ArrayExpressionFormatter } from './array/array-expression-formatter';
-import { ExpressionFormatter } from './expression-formatter';
-import { GroupExpressionFormatter } from './group/group-expression-formatter';
-import { IdExpressionFormatter } from './id/id-expression-formatter';
-import { InfixExpressionFormatter } from './infix/infix-expression-formatter';
-import { InvokeExpressionFormatter } from './invoke/invoke-expression-formatter';
-import { LiteralExpressionFormatter } from './literal/literal-expression-formatter';
-import { MemberExpressionFormatter } from './member/member-expression-formatter';
-import { MethodExpressionFormatter } from './method/method-expression-formatter';
-import { NullableExpressionFormatter } from './nullable/nullable-expression-formatter';
-import { PrefixExpressionFormatter } from './prefix/prefix-expression-formatter';
-import { PreprocessorExpressionFormatter } from './preprocessor/preprocessor-expression-formatter';
+} from '@/grammar/xon-parser';
+import { Issue } from '@/issue/issue';
 
 export const getExpressionFormatter = (
   ctx: ExpressionContext,

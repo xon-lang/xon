@@ -1,7 +1,7 @@
+import { getExpressionFormatter } from '@/formatter/expression/expression-formatter-helper';
+import { InfixExpressionFormatter } from '@/formatter/expression/infix/infix-expression-formatter';
+import { defaultFormatterConfig, FormatterConfig } from '@/formatter/formatter-config';
 import { parse } from '@/util/parse';
-import { defaultFormatterConfig, FormatterConfig } from '../../formatter-config';
-import { getExpressionFormatter } from '../expression-formatter-helper';
-import { InfixExpressionFormatter } from './infix-expression-formatter';
 
 test('plus', () => {
   const code = 'a+([1, 2, 3])';
