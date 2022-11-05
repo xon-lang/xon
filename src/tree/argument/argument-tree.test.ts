@@ -1,6 +1,6 @@
-import { parseArgument } from '../../util/parse';
-import { LiteralExpressionTree } from '../expression/literal/literal-expression-tree';
-import { ArgumentTree } from './argument-tree';
+import { ArgumentTree } from '@/tree/argument/argument-tree';
+import { LiteralExpressionTree } from '@/tree/expression/literal/literal-expression-tree';
+import { parseArgument } from '@/util/parse';
 
 test('id value', () => {
   const code = 'a = 1';

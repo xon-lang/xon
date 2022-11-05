@@ -1,19 +1,17 @@
-// this code was generated
-
-import { ArgumentContext } from '../../grammar/xon-parser';
-import { String2 } from '../../lib/core';
-import { SourceRange } from '../../util/source-range';
-import { ExpressionTree } from '../expression/expression-tree';
-import { getExpressionTree } from '../expression/expression-tree-helper';
-import { IdTree } from '../id/id-tree';
-import { getIdTree } from '../id/id-tree-helper';
-import { Tree } from '../tree';
+import { ArgumentContext } from '@/grammar/xon-parser';
+import { Null2, String2 } from '@/lib/core';
+import { ExpressionTree } from '@/tree/expression/expression-tree';
+import { getExpressionTree } from '@/tree/expression/expression-tree-helper';
+import { IdTree } from '@/tree/id/id-tree';
+import { getIdTree } from '@/tree/id/id-tree-helper';
+import { Tree } from '@/tree/tree';
+import { SourceRange } from '@/util/source-range';
 
 export class ArgumentTree extends Tree {
   ctx: ArgumentContext;
   sourceRange: SourceRange;
-  name?: IdTree | null;
-  value?: ExpressionTree | null;
+  name?: IdTree | Null2;
+  value?: ExpressionTree | Null2;
 
   constructor(ctx: ArgumentContext) {
     super();
