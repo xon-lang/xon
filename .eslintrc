@@ -49,6 +49,12 @@
     "dot-notation": "error",
     "eqeqeq": "error",
     "func-name-matching": "error",
+    "func-names": ["error", "always"],
+    "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
+    "grouped-accessor-pairs": "error",
+    "guard-for-in": "error",
+    "id-denylist": ["error", "data", "callback"],
+    // "id-length": "error",
 
     "jest/no-commented-out-tests": ["off"],
 
