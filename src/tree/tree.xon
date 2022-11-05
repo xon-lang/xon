@@ -1,6 +1,0 @@
-{String} := import '../lib/core'
-{SourceRange} := import '../util/source-range'
-
-class Tree
-  sourceRange: SourceRange
-  toString: () => String

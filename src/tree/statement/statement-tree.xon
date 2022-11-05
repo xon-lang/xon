@@ -1,5 +1,0 @@
-{StatementMetadata} := import '../../metadata/statement/statement-metadata'
-{Tree} := import '../tree'
-
-class StatementTree is Tree
-  metadata: StatementMetadata

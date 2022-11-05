@@ -1,6 +1,6 @@
-import { parseStatement } from '../../../util/parse';
-import { MemberExpressionTree } from '../../expression/member/member-expression-tree';
-import { ExportStatementTree } from './export-statement-tree';
+import { MemberExpressionTree } from '@/tree/expression/member/member-expression-tree';
+import { ExportStatementTree } from '@/tree/statement/export/export-statement-tree';
+import { parseStatement } from '@/util/parse';
 
 test('1', () => {
   const code = 'export lib.org';

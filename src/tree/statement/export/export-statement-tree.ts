@@ -1,11 +1,9 @@
-// this code was generated
-
-import { ExportStatementContext } from '../../../grammar/xon-parser';
-import { String2 } from '../../../lib/core';
-import { SourceRange } from '../../../util/source-range';
-import { ExpressionTree } from '../../expression/expression-tree';
-import { getExpressionTree } from '../../expression/expression-tree-helper';
-import { StatementTree } from '../statement-tree';
+import { ExportStatementContext } from '@/grammar/xon-parser';
+import { String2 } from '@/lib/core';
+import { ExpressionTree } from '@/tree/expression/expression-tree';
+import { getExpressionTree } from '@/tree/expression/expression-tree-helper';
+import { StatementTree } from '@/tree/statement/statement-tree';
+import { SourceRange } from '@/util/source-range';
 
 export class ExportStatementTree extends StatementTree {
   ctx: ExportStatementContext;
@@ -24,5 +22,3 @@ export class ExportStatementTree extends StatementTree {
     return `export ${this.path}`;
   }
 }
-
-// this code was generated

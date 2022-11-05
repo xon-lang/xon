@@ -1,11 +1,9 @@
-// this code was generated
-
-import { DeclarationStatementContext } from '../../../grammar/xon-parser';
-import { String2 } from '../../../lib/core';
-import { SourceRange } from '../../../util/source-range';
-import { DeclarationTree } from '../../declaration/declaration-tree';
-import { getDeclarationTree } from '../../declaration/declaration-tree-helper';
-import { StatementTree } from '../statement-tree';
+import { DeclarationStatementContext } from '@/grammar/xon-parser';
+import { String2 } from '@/lib/core';
+import { DeclarationTree } from '@/tree/declaration/declaration-tree';
+import { getDeclarationTree } from '@/tree/declaration/declaration-tree-helper';
+import { StatementTree } from '@/tree/statement/statement-tree';
+import { SourceRange } from '@/util/source-range';
 
 export class DeclarationStatementTree extends StatementTree {
   ctx: DeclarationStatementContext;
@@ -24,5 +22,3 @@ export class DeclarationStatementTree extends StatementTree {
     return this.declaration.toString();
   }
 }
-
-// this code was generated

@@ -1,9 +1,9 @@
-import { evaluate } from '../../../util/evaluate';
-import { parseStatement } from '../../../util/parse';
-import { ArrayExpressionTree } from '../../expression/array/array-expression-tree';
-import { IdExpressionTree } from '../../expression/id/id-expression-tree';
-import { ExpressionStatementTree } from '../expression/expression-statement-tree';
-import { ForStatementTree } from './for-statement-tree';
+import { ArrayExpressionTree } from '@/tree/expression/array/array-expression-tree';
+import { IdExpressionTree } from '@/tree/expression/id/id-expression-tree';
+import { ExpressionStatementTree } from '@/tree/statement/expression/expression-statement-tree';
+import { ForStatementTree } from '@/tree/statement/for/for-statement-tree';
+import { evaluate } from '@/util/evaluate';
+import { parseStatement } from '@/util/parse';
 
 test('for with value', () => {
   const code = 'for item in [1, 2, 3]\n  12+(45/5)';

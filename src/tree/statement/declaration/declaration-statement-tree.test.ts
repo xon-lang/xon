@@ -1,7 +1,7 @@
-import { parseStatement } from '../../../util/parse';
-import { DeclarationTree } from '../../declaration/declaration-tree';
-import { LiteralExpressionTree } from '../../expression/literal/literal-expression-tree';
-import { DeclarationStatementTree } from './declaration-statement-tree';
+import { DeclarationTree } from '@/tree/declaration/declaration-tree';
+import { LiteralExpressionTree } from '@/tree/expression/literal/literal-expression-tree';
+import { DeclarationStatementTree } from '@/tree/statement/declaration/declaration-statement-tree';
+import { parseStatement } from '@/util/parse';
 
 test('variable assignment colon', () => {
   const code = 'a : 1';
