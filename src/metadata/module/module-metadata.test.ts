@@ -1,6 +1,6 @@
-import { getModuleTreeFromPath } from '../../tree/module/module-tree-helper';
-import { ModuleMetadata } from './module-metadata';
-import { getModuleMetadata } from './module-metadata-helper';
+import { ModuleMetadata } from '@/metadata/module/module-metadata';
+import { getModuleMetadata } from '@/metadata/module/module-metadata-helper';
+import { getModuleTreeFromPath } from '@/tree/module/module-tree-helper';
 
 test('core module', () => {
   const tree = getModuleTreeFromPath('src/lib/@xon/core');
@@ -12,9 +12,6 @@ test('core module', () => {
   expect(integers.length).toBe(1);
   const integer = integers[0];
 });
-
-
-
 
 // test('from tree', () => {
 //   const code = 'model Animal';
