@@ -1,8 +1,8 @@
-import { BodyContext, StatementContext } from '../../grammar/xon-parser';
-import { String2 } from '../../lib/core';
-import { Formatter } from '../formatter';
-import { FormatterConfig } from '../formatter-config';
-import { getStatementFormatter } from '../statement/statement-formatter-helper';
+import { Formatter } from '@/formatter/formatter';
+import { FormatterConfig } from '@/formatter/formatter-config';
+import { getStatementFormatter } from '@/formatter/statement/statement-formatter-helper';
+import { BodyContext, StatementContext } from '@/grammar/xon-parser';
+import { String2 } from '@/lib/core';
 
 export class BodyFormatter extends Formatter {
   constructor(public ctx: BodyContext, public config: FormatterConfig) {
