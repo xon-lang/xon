@@ -1,10 +1,10 @@
+import { IssueLevel } from '@/issue/issue-level';
+import { String2 } from '@/lib/core';
+import { Tree } from '@/tree/tree';
+import { SourceRange } from '@/util/source-range';
 import { ParserRuleContext, RecognitionException } from 'antlr4ts';
 import chalk from 'chalk';
 import fs from 'fs';
-import { String2 } from '../lib/core';
-import { Tree } from '../tree/tree';
-import { SourceRange } from '../util/source-range';
-import { IssueLevel } from './issue-level';
 
 export class Issue extends Error {
   antlrError?: RecognitionException | null;
