@@ -1,6 +1,6 @@
-import { SourceContext } from '../../grammar/xon-parser';
-import { FormatterConfig } from '../formatter-config';
-import { SourceFormatter } from './source-formatter';
+import { FormatterConfig } from '@/formatter/formatter-config';
+import { SourceFormatter } from '@/formatter/source/source-formatter';
+import { SourceContext } from '@/grammar/xon-parser';
 
 export const getSourceFormatter = (
   ctx: SourceContext,

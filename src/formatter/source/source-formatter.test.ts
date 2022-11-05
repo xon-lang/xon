@@ -1,8 +1,8 @@
+import { defaultFormatterConfig } from '@/formatter/formatter-config';
+import { SourceFormatter } from '@/formatter/source/source-formatter';
+import { getSourceFormatter } from '@/formatter/source/source-formatter-helper';
+import { parse } from '@/util/parse';
 import fs from 'fs';
-import { parse } from '../../util/parse';
-import { defaultFormatterConfig } from '../formatter-config';
-import { SourceFormatter } from './source-formatter';
-import { getSourceFormatter } from './source-formatter-helper';
 
 test('has type', () => {
   const code = 'object Integer (a,b,c)  :   Number\n  abc\n\n\n\ndef\n';
