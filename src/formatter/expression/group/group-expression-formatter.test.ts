@@ -1,4 +1,4 @@
-import { parse } from '../../../util/parse';
+import { parse } from '@/util/parse';
 import { defaultFormatterConfig, FormatterConfig } from '../../formatter-config';
 import { getExpressionFormatter } from '../expression-formatter-helper';
 import { GroupExpressionFormatter } from './group-expression-formatter';

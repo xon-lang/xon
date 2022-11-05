@@ -1,4 +1,4 @@
-import { parse } from '../../../util/parse';
+import { parse } from '@/util/parse';
 import { defaultFormatterConfig, FormatterConfig } from '../../formatter-config';
 import { getExpressionFormatter } from '../expression-formatter-helper';
 import { MethodExpressionFormatter } from './method-expression-formatter';
@@ -23,8 +23,10 @@ test('has no type', () => {
   const formatter = getExpressionFormatter(ctx, config) as MethodExpressionFormatter;
 
   expect(formatter).toBeInstanceOf(MethodExpressionFormatter);
-  expect(formatter.toString()).toBe(`(
+  expect(formatter.toString()).toBe(
+    `(
   a,
   b: Integer,
-) => a + b`.trim());
+) => a + b`.trim(),
+  );
 });

@@ -1,4 +1,4 @@
-import { parse } from '../../../util/parse';
+import { parse } from '@/util/parse';
 import { FormatterConfig } from '../../formatter-config';
 import { getExpressionFormatter } from '../expression-formatter-helper';
 import { MemberExpressionFormatter } from './member-expression-formatter';
