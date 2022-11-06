@@ -1,10 +1,10 @@
 import { ParserRuleContext, RecognitionException } from 'antlr4ts';
+import { Tree } from 'antlr4ts/tree/Tree';
 import { cyan, gray, red, redBright } from 'chalk';
 import { readFileSync } from 'fs';
-import { IssueLevel } from '~/issue';
-import { Never2, String2 } from '~/lib';
-import { Tree } from '~/tree';
-import { SourceRange } from '~/util';
+import { IssueLevel } from '~/issue/issue-level';
+import { Never2, String2 } from '~/lib/core';
+import { SourceRange } from '~/util/source-range';
 
 export class Issue extends Error {
   antlrError?: RecognitionException | null;
