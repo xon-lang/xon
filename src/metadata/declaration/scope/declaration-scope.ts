@@ -1,4 +1,4 @@
-import { Boolean2 } from '~/lib';
+import { Boolean2, String2 } from '~/lib';
 import { CoreDeclarationScope, DeclarationMetadata } from '~/metadata';
 
 export class DeclarationScope {
@@ -7,7 +7,7 @@ export class DeclarationScope {
 
   constructor(public parent?: DeclarationScope) {}
 
-  add(metadata: DeclarationMetadata) {
+  add(metadata: DeclarationMetadata): void {
     this.declarations.push(metadata);
   }
 
@@ -16,7 +16,7 @@ export class DeclarationScope {
     return [...this.declarations, ...parentDeclarations];
   }
 
-  clone() {
+  clone(): DeclarationScope {
     const scope = new DeclarationScope();
     scope.declarations = this.declarations.slice();
     scope.parent = this.parent;
@@ -24,7 +24,7 @@ export class DeclarationScope {
     return scope;
   }
 
-  filter(name: string, predicate?: (x: DeclarationMetadata) => Boolean2): DeclarationMetadata[] {
+  filter(name: String2, predicate?: (x: DeclarationMetadata) => Boolean2): DeclarationMetadata[] {
     const declarations = [...this.core.scope.declarations, ...this.declarations].filter(
       (x) => x.name === name && (!predicate || predicate(x)),
     );

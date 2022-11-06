@@ -1,12 +1,13 @@
 import { Formatter, FormatterConfig, getArgumentFormatter } from '~/formatter';
 import { ArgumentsContext } from '~/grammar';
+import { String2 } from '~/lib';
 
 export class ArgumentsFormatter extends Formatter {
   constructor(public ctx: ArgumentsContext, public config: FormatterConfig) {
     super();
   }
 
-  toString() {
+  toString(): String2 {
     const openSymbol = this.ctx.open().text;
     const closeSymbol = this.ctx.close().text;
 

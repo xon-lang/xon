@@ -1,6 +1,6 @@
 import { ExpressionFormatter, FormatterConfig, getExpressionFormatter } from '~/formatter';
 import { MemberExpressionContext } from '~/grammar';
-import { Boolean2 } from '~/lib';
+import { Boolean2, String2 } from '~/lib';
 
 export class MemberExpressionFormatter extends ExpressionFormatter {
   broken: Boolean2;
@@ -9,7 +9,7 @@ export class MemberExpressionFormatter extends ExpressionFormatter {
     super();
   }
 
-  toString() {
+  toString(): String2 {
     const expression = getExpressionFormatter(this.ctx.expression(), this.config).indent(
       this.indentCount,
     );

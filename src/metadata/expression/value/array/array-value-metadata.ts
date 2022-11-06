@@ -50,7 +50,7 @@ export class ArrayValueMetadata extends ValueMetadata {
     );
   }
 
-  eval() {
+  eval(): void {
     throw new Error('Method not implemented.');
   }
 }

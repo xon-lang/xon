@@ -6,13 +6,14 @@ import {
   MemberExpressionFormatter,
 } from '~/formatter';
 import { InvokeExpressionContext } from '~/grammar';
+import { String2 } from '~/lib';
 
 export class InvokeExpressionFormatter extends ExpressionFormatter {
   constructor(public ctx: InvokeExpressionContext, public config: FormatterConfig) {
     super();
   }
 
-  toString() {
+  toString(): String2 {
     const expression = getExpressionFormatter(this.ctx.expression(), this.config).indent(
       this.indentCount,
     );

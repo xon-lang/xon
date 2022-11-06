@@ -31,7 +31,7 @@ export class ImportProvider {
     this.fullPath = resolvePath(this.importPath);
   }
 
-  isValid() {
+  isValid(): Boolean2 {
     return isDirectory(this.fullPath);
   }
 

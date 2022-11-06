@@ -1,12 +1,13 @@
 import { FormatterConfig, getExpressionFormatter, StatementFormatter } from '~/formatter';
 import { ReturnStatementContext } from '~/grammar';
+import { String2 } from '~/lib';
 
 export class ReturnStatementFormatter extends StatementFormatter {
   constructor(public ctx: ReturnStatementContext, public config: FormatterConfig) {
     super();
   }
 
-  toString() {
+  toString(): String2 {
     const value = getExpressionFormatter(this.ctx.expression(), this.config)?.indent(
       this.indentCount,
     );

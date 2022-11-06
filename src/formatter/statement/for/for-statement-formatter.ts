@@ -1,12 +1,19 @@
-import { FormatterConfig, getBodyFormatter, getExpressionFormatter, getParameterFormatter, StatementFormatter } from '~/formatter';
+import {
+  FormatterConfig,
+  getBodyFormatter,
+  getExpressionFormatter,
+  getParameterFormatter,
+  StatementFormatter,
+} from '~/formatter';
 import { ForStatementContext } from '~/grammar';
+import { String2 } from '~/lib';
 
 export class ForStatementFormatter extends StatementFormatter {
   constructor(public ctx: ForStatementContext, public config: FormatterConfig) {
     super();
   }
 
-  toString() {
+  toString(): String2 {
     const parameter = getParameterFormatter(this.ctx.declaration(), this.config)?.indent(
       this.indentCount,
     );

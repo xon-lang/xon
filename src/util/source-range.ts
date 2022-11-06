@@ -13,19 +13,19 @@ export class SourceRange {
     return this.sourceName === other.sourceName && this.start.index === other.start.index;
   }
 
-  toString() {
+  toString(): String2 {
     return this.rangeText;
   }
 
-  static fromContext(context: ParserRuleContext) {
+  static fromContext(context: ParserRuleContext): SourceRange {
     return SourceRange.fromTwoTokens(context.start, context.stop);
   }
 
-  static fromToken(token: Token) {
+  static fromToken(token: Token): SourceRange {
     return SourceRange.fromTwoTokens(token, token);
   }
 
-  static fromTwoTokens(start: Token, stop: Token) {
+  static fromTwoTokens(start: Token, stop: Token): SourceRange {
     const ref = new SourceRange();
     ref.sourceName = start.inputStream.sourceName;
     ref.start = new LinePosition(start.line, start.charPositionInLine + 1, start.startIndex);
@@ -39,7 +39,7 @@ export class SourceRange {
     return ref;
   }
 
-  static fromTwoRange(start: SourceRange, stop: SourceRange) {
+  static fromTwoRange(start: SourceRange, stop: SourceRange): SourceRange {
     const ref = new SourceRange();
     ref.sourceName = start.sourceName;
     ref.start = new LinePosition(start.start.line, start.start.column, start.start.index);

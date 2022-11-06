@@ -107,7 +107,7 @@ export function getShadowParameterMetadata(tree: DeclarationTree): ParameterMeta
   return metadata;
 }
 
-export function fillDeclarationMetadata(tree: DeclarationTree) {
+export function fillDeclarationMetadata(tree: DeclarationTree): void {
   if (tree.modifier?.text === 'operator') {
     fillOperatorMetadata(tree);
   } else if (tree.modifier?.text === 'model' || tree.modifier?.text === 'object') {
@@ -117,7 +117,7 @@ export function fillDeclarationMetadata(tree: DeclarationTree) {
   }
 }
 
-export function fillDefinitionMetadata(tree: DeclarationTree) {
+export function fillDefinitionMetadata(tree: DeclarationTree): void {
   for (const parameter of tree.parameters) {
     fillParameterMetadata(parameter);
   }
@@ -148,7 +148,7 @@ export function fillDefinitionMetadata(tree: DeclarationTree) {
   }
 }
 
-export function fillOperatorMetadata(tree: DeclarationTree, alternativeType?: TypeMetadata) {
+export function fillOperatorMetadata(tree: DeclarationTree, alternativeType?: TypeMetadata): void {
   tree.parameters.forEach((x) => fillParameterMetadata(x));
 
   if (tree.value) {
@@ -174,7 +174,7 @@ export function fillOperatorMetadata(tree: DeclarationTree, alternativeType?: Ty
   }
 }
 
-export function fillParameterMetadata(tree: DeclarationTree, alternativeType?: TypeMetadata) {
+export function fillParameterMetadata(tree: DeclarationTree, alternativeType?: TypeMetadata): void {
   tree.parameters.forEach((x) => fillParameterMetadata(x));
 
   if (
@@ -209,7 +209,7 @@ export function fillParameterMetadata(tree: DeclarationTree, alternativeType?: T
   }
 }
 
-export function fillDestructureParameterMetadata(tree: DeclarationTree) {
+export function fillDestructureParameterMetadata(tree: DeclarationTree): void {
   for (const [index, parameter] of tree.destructure.entries()) {
     let type: TypeMetadata;
     if (tree.metadata.type instanceof ObjectTypeMetadata) {

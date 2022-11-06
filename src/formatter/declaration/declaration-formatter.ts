@@ -13,7 +13,7 @@ export class DeclarationFormatter extends Formatter {
     super();
   }
 
-  toString() {
+  toString(): String2 {
     const modifier = (this.ctx._modifier && this.ctx._modifier.text + ' ') || '';
     const params = this.ctx._params.map((x) => getDeclarationsFormatter(x, this.config)).join('');
     const type = this.typeFormatter(this.ctx.valueType()?.expression());

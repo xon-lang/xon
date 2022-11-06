@@ -8,15 +8,15 @@ export class FormatterConfig {
   nl = '\n';
   nl2 = this.nl.repeat(2);
 
-  indent(count: Number2) {
+  indent(count: Number2): String2 {
     return ' '.repeat(this.tabWidth).repeat(count);
   }
 
-  startLineLength(value: String2) {
+  startLineLength(value: String2): Number2 {
     return value.split(this.nl)[0].length;
   }
 
-  endLineLength(value: String2) {
+  endLineLength(value: String2): Number2 {
     return value.split(this.nl).slice(-1)[0].length;
   }
 }

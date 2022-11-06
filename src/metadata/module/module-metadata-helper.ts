@@ -5,7 +5,7 @@ export function getModuleMetadata(tree: ModuleTree): ModuleMetadata {
   return (tree.metadata = new ModuleMetadata(tree));
 }
 
-export function updateModuleMetadataScope(tree: ModuleTree) {
+export function updateModuleMetadataScope(tree: ModuleTree): void {
   for (const source of tree.sources) {
     getShadowSourceMetadata(source);
   }

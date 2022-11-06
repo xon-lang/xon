@@ -57,7 +57,7 @@ export class ImportValueMetadata extends ValueMetadata {
     return this._type;
   }
 
-  eval() {
+  eval(): void {
     throw new Error('Not implemented');
   }
 }

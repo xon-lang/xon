@@ -1,12 +1,13 @@
 import { Formatter, FormatterConfig, getStatementFormatter } from '~/formatter';
 import { SourceContext } from '~/grammar';
+import { String2 } from '~/lib';
 
 export class SourceFormatter extends Formatter {
   constructor(public ctx: SourceContext, public config: FormatterConfig) {
     super();
   }
 
-  toString() {
+  toString(): String2 {
     if (this.ctx.statement()) {
       const statements = this.ctx
         .statement()

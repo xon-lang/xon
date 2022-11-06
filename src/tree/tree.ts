@@ -16,7 +16,7 @@ export abstract class Tree {
   parent?: Tree | null;
   children: Tree[] = [];
 
-  addChildren(...children: (Tree | null)[]) {
+  addChildren(...children: (Tree | null)[]): void {
     for (const tree of children.filter((x) => x)) {
       this.children.push(tree);
       tree.parent = this;
@@ -28,11 +28,11 @@ export abstract class Tree {
     return [...this.children.map((x) => x.allIssues()).flat(), ...this.issues];
   }
 
-  addIssue(level: IssueLevel, message: String2) {
+  addIssue(level: IssueLevel, message: String2): void {
     this.issues.push(new Issue(this.sourceRange, level, message));
   }
 
-  addError(message: String2) {
+  addError(message: String2): void {
     this.addIssue(IssueLevel.error, message);
   }
 }

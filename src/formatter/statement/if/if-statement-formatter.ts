@@ -1,12 +1,18 @@
-import { FormatterConfig, getBodyFormatter, getExpressionFormatter, StatementFormatter } from '~/formatter';
+import {
+  FormatterConfig,
+  getBodyFormatter,
+  getExpressionFormatter,
+  StatementFormatter,
+} from '~/formatter';
 import { IfStatementContext } from '~/grammar';
+import { String2 } from '~/lib';
 
 export class IfStatementFormatter extends StatementFormatter {
   constructor(public ctx: IfStatementContext, public config: FormatterConfig) {
     super();
   }
 
-  toString() {
+  toString(): String2 {
     const condition = getExpressionFormatter(this.ctx.expression(), this.config).indent(
       this.indentCount,
     );

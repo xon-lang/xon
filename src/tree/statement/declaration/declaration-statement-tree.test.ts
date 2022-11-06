@@ -3,7 +3,7 @@ import { parseStatement } from '~/util';
 
 test('variable assignment colon', () => {
   const code = 'a : 1';
-  const tree = parseStatement(code) as DeclarationStatementTree;
+  const tree = parseStatement({ code }) as DeclarationStatementTree;
 
   expect(tree).toBeInstanceOf(DeclarationStatementTree);
   const parameter = tree.declaration as DeclarationTree;
@@ -17,7 +17,7 @@ test('variable assignment colon', () => {
 
 test('variable assignment equals', () => {
   const code = 'a  =  1';
-  const tree = parseStatement(code) as DeclarationStatementTree;
+  const tree = parseStatement({ code }) as DeclarationStatementTree;
 
   expect(tree).toBeInstanceOf(DeclarationStatementTree);
   const parameter = tree.declaration as DeclarationTree;

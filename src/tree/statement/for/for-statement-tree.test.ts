@@ -8,7 +8,7 @@ import { evaluate, parseStatement } from '~/util';
 
 test('for with value', () => {
   const code = 'for item in [1, 2, 3]\n  12+(45/5)';
-  const tree = parseStatement(code) as ForStatementTree;
+  const tree = parseStatement({ code }) as ForStatementTree;
 
   expect(tree).toBeInstanceOf(ForStatementTree);
   expect(tree.parameter.name.text).toBe('item');
@@ -20,7 +20,7 @@ test('for with value', () => {
 
 test('for with value and index', () => {
   const code = 'for value in array\n  12+10';
-  const tree = parseStatement(code) as ForStatementTree;
+  const tree = parseStatement({ code }) as ForStatementTree;
 
   expect(tree).toBeInstanceOf(ForStatementTree);
   expect(tree.parameter?.name.text).toBe('value');
@@ -31,7 +31,7 @@ test('for with value and index', () => {
 
 test('for with expression only', () => {
   const code = 'for [1, 2, 3]\n  1+1';
-  const tree = parseStatement(code) as ForStatementTree;
+  const tree = parseStatement({ code }) as ForStatementTree;
 
   expect(tree).toBeInstanceOf(ForStatementTree);
   expect(tree.parameter).toBe(null);
