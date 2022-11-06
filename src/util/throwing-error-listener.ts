@@ -1,6 +1,3 @@
-import { Issue } from '@/issue/issue';
-import { IssueLevel } from '@/issue/issue-level';
-import { Any2, Never2, Number2, String2 } from '@/lib/core';
 import {
   ANTLRErrorListener,
   CommonToken,
@@ -10,7 +7,8 @@ import {
   RecognitionException,
   Recognizer,
 } from 'antlr4ts';
-
+import { Issue, IssueLevel } from '~/issue';
+import { Any2, Never2, Number2, String2 } from '~/lib';
 import { SourceRange } from './source-range';
 
 export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbol> {
