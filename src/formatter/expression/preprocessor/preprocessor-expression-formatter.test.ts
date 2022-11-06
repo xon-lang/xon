@@ -4,11 +4,11 @@ import {
   getExpressionFormatter,
   PreprocessorExpressionFormatter,
 } from '~/formatter';
-import { parse } from '~/util';
+import { getParser } from '~/util';
 
 test('integer', () => {
   const code = '#{123}';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const formatter = getExpressionFormatter(
     ctx,
     defaultFormatterConfig,
@@ -22,7 +22,7 @@ test('new line', () => {
   const code = `#{
     123
 }`;
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 3;
   const formatter = getExpressionFormatter(ctx, config) as PreprocessorExpressionFormatter;
@@ -39,7 +39,7 @@ test('new lines', () => {
          
     
       }`;
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 3;
   const formatter = getExpressionFormatter(ctx, config) as PreprocessorExpressionFormatter;

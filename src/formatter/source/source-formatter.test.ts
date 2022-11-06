@@ -1,10 +1,10 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { defaultFormatterConfig, getSourceFormatter, SourceFormatter } from '~/formatter';
-import { parse } from '~/util';
+import { getParser } from '~/util';
 
 test('has type', () => {
   const code = 'object Integer (a,b,c)  :   Number\n  abc\n\n\n\ndef\n';
-  const ctx = parse(code).source();
+  const ctx = getParser(code).source();
   const formatter = getSourceFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(SourceFormatter);
@@ -13,7 +13,7 @@ test('has type', () => {
 
 test('1.xon', () => {
   const code = readFileSync('src/formatter/source/test-files/1.source.xon').toString();
-  const ctx = parse(code).source();
+  const ctx = getParser(code).source();
   const formatter = getSourceFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(SourceFormatter);

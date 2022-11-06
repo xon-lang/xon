@@ -1,9 +1,14 @@
-import { defaultFormatterConfig, FormatterConfig, getStatementFormatter, ReturnStatementFormatter } from '~/formatter';
-import { parse } from '~/util';
+import {
+  defaultFormatterConfig,
+  FormatterConfig,
+  getStatementFormatter,
+  ReturnStatementFormatter,
+} from '~/formatter';
+import { getParser } from '~/util';
 
 test('return integer', () => {
   const code = 'return 123';
-  const ctx = parse(code).statement();
+  const ctx = getParser(code).statement();
   const formatter = getStatementFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(ReturnStatementFormatter);
@@ -13,7 +18,7 @@ test('return integer', () => {
 
 test('return no value', () => {
   const code = 'return';
-  const ctx = parse(code).statement();
+  const ctx = getParser(code).statement();
   const formatter = getStatementFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(ReturnStatementFormatter);
@@ -23,7 +28,7 @@ test('return no value', () => {
 
 test('return array', () => {
   const code = 'return [1,2,3]';
-  const ctx = parse(code).statement();
+  const ctx = getParser(code).statement();
   const config = new FormatterConfig();
   config.printWidth = 5;
   const formatter = getStatementFormatter(ctx, config);

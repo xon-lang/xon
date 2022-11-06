@@ -4,11 +4,11 @@ import {
   getDeclarationsFormatter,
   ParametersFormatter,
 } from '~/formatter';
-import { parse } from '~/util';
+import { getParser } from '~/util';
 
 test('variables', () => {
   const code = '[a, b, c]';
-  const ctx = parse(code).declarations();
+  const ctx = getParser(code).declarations();
   const formatter = getDeclarationsFormatter(ctx, defaultFormatterConfig) as ParametersFormatter;
 
   expect(formatter).toBeInstanceOf(ParametersFormatter);
@@ -17,7 +17,7 @@ test('variables', () => {
 
 test('variables with indent', () => {
   const code = '[a, b, c]';
-  const ctx = parse(code).declarations();
+  const ctx = getParser(code).declarations();
   const config = new FormatterConfig();
   config.printWidth = 3;
   const formatter = getDeclarationsFormatter(ctx, config) as ParametersFormatter;
@@ -43,7 +43,7 @@ test('variables with indent', () => {
 
 test('brace', () => {
   const code = '{c, a, b}';
-  const ctx = parse(code).declarations();
+  const ctx = getParser(code).declarations();
   const formatter = getDeclarationsFormatter(ctx, defaultFormatterConfig) as ParametersFormatter;
 
   expect(formatter).toBeInstanceOf(ParametersFormatter);

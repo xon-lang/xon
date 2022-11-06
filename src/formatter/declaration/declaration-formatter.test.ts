@@ -1,9 +1,9 @@
 import { DeclarationFormatter, defaultFormatterConfig, getParameterFormatter } from '~/formatter';
-import { parse } from '~/util';
+import { getParser } from '~/util';
 
 test('id type', () => {
   const code = 'a: 123';
-  const ctx = parse(code).declaration();
+  const ctx = getParser(code).declaration();
   const formatter = getParameterFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(DeclarationFormatter);
@@ -13,7 +13,7 @@ test('id type', () => {
 
 test('parameters', () => {
   const code = '{a: Number = 0, b: Number, c = 0}: ABC = [1, 2, 3]';
-  const ctx = parse(code).declaration();
+  const ctx = getParser(code).declaration();
   const formatter = getParameterFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(DeclarationFormatter);
@@ -23,7 +23,7 @@ test('parameters', () => {
 
 test('params with result type', () => {
   const code = 'a(b: Number): 123 = 123';
-  const ctx = parse(code).declaration();
+  const ctx = getParser(code).declaration();
   const formatter = getParameterFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(DeclarationFormatter);
@@ -32,7 +32,7 @@ test('params with result type', () => {
 
 test('params with no result type', () => {
   const code = 'a(b: Number):  = 123';
-  const ctx = parse(code).declaration();
+  const ctx = getParser(code).declaration();
   const formatter = getParameterFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(DeclarationFormatter);
@@ -41,7 +41,7 @@ test('params with no result type', () => {
 
 test('has type', () => {
   const code = 'object Integer (a,b,c): Number\n  abc';
-  const ctx = parse(code).declaration();
+  const ctx = getParser(code).declaration();
   const formatter = getParameterFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(DeclarationFormatter);
@@ -50,7 +50,7 @@ test('has type', () => {
 
 test('has no type and no attributes', () => {
   const code = 'object Integer (a,b,c)';
-  const ctx = parse(code).declaration();
+  const ctx = getParser(code).declaration();
   const formatter = getParameterFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(DeclarationFormatter);

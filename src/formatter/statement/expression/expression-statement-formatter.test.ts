@@ -1,9 +1,13 @@
-import { defaultFormatterConfig, ExpressionStatementFormatter, getStatementFormatter } from '~/formatter';
-import { parse } from '~/util';
+import {
+  defaultFormatterConfig,
+  ExpressionStatementFormatter,
+  getStatementFormatter,
+} from '~/formatter';
+import { getParser } from '~/util';
 
 test('expression', () => {
   const code = 'abc?.def( )';
-  const ctx = parse(code).statement();
+  const ctx = getParser(code).statement();
   const formatter = getStatementFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(ExpressionStatementFormatter);

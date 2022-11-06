@@ -4,11 +4,11 @@ import {
   getExpressionFormatter,
   MethodExpressionFormatter,
 } from '~/formatter';
-import { parse } from '~/util';
+import { getParser } from '~/util';
 
 test('has type', () => {
   const code = '(a, b: Integer) => a+b';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const formatter = getExpressionFormatter(
     ctx,
     defaultFormatterConfig,
@@ -20,7 +20,7 @@ test('has type', () => {
 
 test('has no type', () => {
   const code = '(a, b: Integer) => a+b';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 2;
   const formatter = getExpressionFormatter(ctx, config) as MethodExpressionFormatter;

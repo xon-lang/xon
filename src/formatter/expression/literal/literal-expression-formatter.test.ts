@@ -3,11 +3,11 @@ import {
   getExpressionFormatter,
   LiteralExpressionFormatter,
 } from '~/formatter';
-import { parse } from '~/util';
+import { getParser } from '~/util';
 
 test('integer', () => {
   const code = '123';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const formatter = getExpressionFormatter(
     ctx,
     defaultFormatterConfig,

@@ -3,10 +3,10 @@ import {
   getExpressionFormatter,
   NullableExpressionFormatter,
 } from '~/formatter';
-import { parse } from '~/util';
+import { getParser } from '~/util';
 test('only nullable', () => {
   const code = 'abc?';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const formatter = getExpressionFormatter(
     ctx,
     defaultFormatterConfig,

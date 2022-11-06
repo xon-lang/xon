@@ -1,9 +1,9 @@
 import { ArgumentFormatter, defaultFormatterConfig, getArgumentFormatter } from '~/formatter';
-import { parse } from '~/util';
+import { getParser } from '~/util';
 
 test('name value', () => {
   const code = 'a= 123';
-  const ctx = parse(code).argument();
+  const ctx = getParser(code).argument();
   const formatter = getArgumentFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(ArgumentFormatter);
@@ -13,7 +13,7 @@ test('name value', () => {
 
 test('value', () => {
   const code = '123';
-  const ctx = parse(code).argument();
+  const ctx = getParser(code).argument();
   const formatter = getArgumentFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(ArgumentFormatter);

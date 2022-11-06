@@ -4,11 +4,11 @@ import {
   getExpressionFormatter,
   InfixExpressionFormatter,
 } from '~/formatter';
-import { parse } from '~/util';
+import { getParser } from '~/util';
 
 test('plus', () => {
   const code = 'a+([1, 2, 3])';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const formatter = getExpressionFormatter(ctx, defaultFormatterConfig) as InfixExpressionFormatter;
 
   expect(formatter).toBeInstanceOf(InfixExpressionFormatter);
@@ -17,7 +17,7 @@ test('plus', () => {
 
 test('pow', () => {
   const code = 'a^([1, 2, 3])';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const formatter = getExpressionFormatter(ctx, defaultFormatterConfig) as InfixExpressionFormatter;
 
   expect(formatter).toBeInstanceOf(InfixExpressionFormatter);
@@ -26,7 +26,7 @@ test('pow', () => {
 
 test('array element in array', () => {
   const code = '1+([[1]])';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 2;
   const formatter = getExpressionFormatter(ctx, config) as InfixExpressionFormatter;
@@ -44,7 +44,7 @@ test('array element in array', () => {
 
 test('contains array in as argument', () => {
   const code = '1 + 2 + 3 + [4, 5, 6]';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 8;
   const formatter = getExpressionFormatter(ctx, config) as InfixExpressionFormatter;

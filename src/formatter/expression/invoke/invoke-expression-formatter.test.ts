@@ -4,11 +4,11 @@ import {
   getExpressionFormatter,
   InvokeExpressionFormatter,
 } from '~/formatter';
-import { parse } from '~/util';
+import { getParser } from '~/util';
 
 test('abc', () => {
   const code = 'abc(1, 2, 3)';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const formatter = getExpressionFormatter(
     ctx,
     defaultFormatterConfig,
@@ -20,7 +20,7 @@ test('abc', () => {
 
 test('restricted width', () => {
   const code = 'abc[1, 2, 3]';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 3;
   const formatter = getExpressionFormatter(ctx, config) as InvokeExpressionFormatter;
@@ -47,7 +47,7 @@ abc[
 test('contains new line', () => {
   const code = `(abc)[1, [2
   ], 3]`;
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 30;
   const formatter = getExpressionFormatter(ctx, config) as InvokeExpressionFormatter;
@@ -58,7 +58,7 @@ test('contains new line', () => {
 
 test('array element in array', () => {
   const code = '(a+b/c)([1])';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 2;
   const formatter = getExpressionFormatter(ctx, config) as InvokeExpressionFormatter;
@@ -76,7 +76,7 @@ test('array element in array', () => {
 
 test('array instance', () => {
   const code = '[1, 2, 3](1, 2)';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 6;
   const formatter = getExpressionFormatter(ctx, config) as InvokeExpressionFormatter;

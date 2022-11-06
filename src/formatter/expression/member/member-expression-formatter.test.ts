@@ -1,10 +1,10 @@
 import { FormatterConfig, getExpressionFormatter, MemberExpressionFormatter } from '~/formatter';
-import { parse } from '~/util';
+import { getParser } from '~/util';
 
 test('properties only', () => {
   const code = `a.b.c
   .    d.efg.hij`;
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 5;
   const formatter = getExpressionFormatter(ctx, config) as MemberExpressionFormatter;
@@ -22,7 +22,7 @@ test('properties only', () => {
 
 test('members with method call', () => {
   const code = 'a.b.c(a).dom';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 8;
   const formatter = getExpressionFormatter(ctx, config) as MemberExpressionFormatter;
@@ -42,7 +42,7 @@ test('members with method broken call', () => {
   .c(a)
     . 
       dom`;
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 4;
   const formatter = getExpressionFormatter(ctx, config) as MemberExpressionFormatter;
@@ -61,7 +61,7 @@ a
 
 test('nullable property', () => {
   const code = 'abc?.def';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 2;
   const formatter = getExpressionFormatter(ctx, config) as MemberExpressionFormatter;

@@ -19,7 +19,7 @@ import {
 } from '~/tree';
 import { SourceRange, ThrowingErrorListener } from '~/util';
 
-export function parse(code: String2, sourceName: String2 = undefined): XonParser {
+export function getParser(code: String2, sourceName: String2 = undefined): XonParser {
   const inputStream = CharStreams.fromString(code, sourceName);
   const lexer = new XonLexer(inputStream);
   lexer.removeErrorListeners();
@@ -49,29 +49,29 @@ function _getSourceTree(parser: XonParser): SourceTree {
 
 export function parseSourceFile(sourceName: String2): SourceTree {
   const code = readFileSync(sourceName).toString();
-  return _getSourceTree(parse(code, sourceName));
+  return _getSourceTree(getParser(code, sourceName));
 }
 
 export function parseSource(code: String2): SourceTree {
-  return _getSourceTree(parse(code));
+  return _getSourceTree(getParser(code));
 }
 
 export function parseLiteral(code: String2): LiteralTree {
-  return getLiteralTree(parse(code).literal());
+  return getLiteralTree(getParser(code).literal());
 }
 
 export function parseExpression(code: String2): ExpressionTree {
-  return getExpressionTree(parse(code).expression());
+  return getExpressionTree(getParser(code).expression());
 }
 
 export function parseStatement(code: String2): StatementTree {
-  return getStatementTree(parse(code).statement());
+  return getStatementTree(getParser(code).statement());
 }
 
 export function parseDeclaration(code: String2): DeclarationTree {
-  return getDeclarationTree(parse(code).declaration());
+  return getDeclarationTree(getParser(code).declaration());
 }
 
 export function parseArgument(code: String2): ArgumentTree {
-  return getArgumentTree(parse(code).argument());
+  return getArgumentTree(getParser(code).argument());
 }

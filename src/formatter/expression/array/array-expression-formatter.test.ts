@@ -4,11 +4,11 @@ import {
   FormatterConfig,
   getExpressionFormatter,
 } from '~/formatter';
-import { parse } from '~/util';
+import { getParser } from '~/util';
 
 test('integers', () => {
   const code = '[1, 2, 3]';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const formatter = getExpressionFormatter(ctx, defaultFormatterConfig) as ArrayExpressionFormatter;
 
   expect(formatter).toBeInstanceOf(ArrayExpressionFormatter);
@@ -17,7 +17,7 @@ test('integers', () => {
 
 test('integers with indent', () => {
   const code = '[1, 2, 3]';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 3;
   const formatter = getExpressionFormatter(ctx, config) as ArrayExpressionFormatter;
@@ -44,7 +44,7 @@ test('integers with indent', () => {
 test('contains new line', () => {
   const code = `[1, [2
   ], 3]`;
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 30;
   const formatter = getExpressionFormatter(ctx, config) as ArrayExpressionFormatter;
@@ -55,7 +55,7 @@ test('contains new line', () => {
 
 test('array element in array', () => {
   const code = '[[1]]';
-  const ctx = parse(code).expression();
+  const ctx = getParser(code).expression();
   const config = new FormatterConfig();
   config.printWidth = 2;
   const formatter = getExpressionFormatter(ctx, config) as ArrayExpressionFormatter;

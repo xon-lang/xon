@@ -4,11 +4,11 @@ import {
   FormatterConfig,
   getBodyFormatter,
 } from '~/formatter';
-import { parse } from '~/util';
+import { getParser } from '~/util';
 
 test('integer', () => {
   const code = '\n  123';
-  const ctx = parse(code).body();
+  const ctx = getParser(code).body();
   const formatter = getBodyFormatter(ctx, defaultFormatterConfig);
 
   expect(formatter).toBeInstanceOf(BodyFormatter);
@@ -19,7 +19,7 @@ test('integer', () => {
 test('contains new line', () => {
   const code = `\n  [1, [2
   ], 3]`;
-  const ctx = parse(code).body();
+  const ctx = getParser(code).body();
   const config = new FormatterConfig();
   config.printWidth = 8;
   const formatter = getBodyFormatter(ctx, config);
@@ -52,7 +52,7 @@ test('several body', () => {
 
     321
     654`;
-  const ctx = parse(code).body();
+  const ctx = getParser(code).body();
   const formatter = getBodyFormatter(ctx, defaultFormatterConfig) as BodyFormatter;
 
   expect(formatter).toBeInstanceOf(BodyFormatter);
