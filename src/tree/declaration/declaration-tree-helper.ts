@@ -1,5 +1,5 @@
-import { DeclarationContext } from '@/grammar/xon-parser';
-import { DeclarationTree } from '@/tree/declaration/declaration-tree';
+import { DeclarationContext } from '~/grammar';
+import { DeclarationTree } from '~/tree';
 
 export function getDeclarationTree(ctx: DeclarationContext): DeclarationTree | null {
   if (!ctx) return null;

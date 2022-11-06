@@ -1,5 +1,5 @@
-import { ExpressionStatementTree } from '@/tree/statement/expression/expression-statement-tree';
-import { parseStatement } from '@/util/parse';
+import { ExpressionStatementTree } from '~/tree';
+import { parseStatement } from '~/util';
 
 test('invoke', () => {
   const code = 'make()';

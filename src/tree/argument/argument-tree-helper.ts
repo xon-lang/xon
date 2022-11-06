@@ -1,5 +1,5 @@
-import { ArgumentContext } from '@/grammar/xon-parser';
-import { ArgumentTree } from '@/tree/argument/argument-tree';
+import { ArgumentContext } from '~/grammar';
+import { ArgumentTree } from '~/tree';
 
 export function getArgumentTree(ctx: ArgumentContext): ArgumentTree {
   if (!ctx) return null;

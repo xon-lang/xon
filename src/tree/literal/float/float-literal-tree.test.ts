@@ -1,5 +1,5 @@
-import { FloatLiteralTree } from '@/tree/literal/float/float-literal-tree';
-import { parseLiteral } from '@/util/parse';
+import { FloatLiteralTree } from '~/tree';
+import { parseLiteral } from '~/util';
 
 test('positive float number', () => {
   const code = '123.123';

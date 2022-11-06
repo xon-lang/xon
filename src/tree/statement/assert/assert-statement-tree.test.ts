@@ -1,6 +1,5 @@
-import { AssertStatementTree } from '@/tree/statement/assert/assert-statement-tree';
-import { evaluate } from '@/util/evaluate';
-import { parseStatement } from '@/util/parse';
+import { AssertStatementTree } from '~/tree';
+import { evaluate, parseStatement } from '~/util';
 
 test('variable assignment', () => {
   const code = 'actual 1+1\nexpect 2';

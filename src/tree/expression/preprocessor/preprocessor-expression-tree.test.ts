@@ -1,5 +1,5 @@
-import { PreprocessorExpressionTree } from '@/tree/expression/preprocessor/preprocessor-expression-tree';
-import { parseExpression } from '@/util/parse';
+import { PreprocessorExpressionTree } from '~/tree';
+import { parseExpression } from '~/util';
 
 test('preprocessor test for any symbol', () => {
   const code = '#{joke wrong goal virus#0298 .RGJ^ j 6& W DCVµˆ∆∑#:¨˙√å∂√∆π–√•∂√¶˙∆˚#:çßÎ◊´‰◊´®√ı}';

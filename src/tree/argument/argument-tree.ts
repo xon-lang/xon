@@ -1,10 +1,6 @@
-import { ArgumentContext } from '@/grammar/xon-parser';
-import { ExpressionTree } from '@/tree/expression/expression-tree';
-import { getExpressionTree } from '@/tree/expression/expression-tree-helper';
-import { IdTree } from '@/tree/id/id-tree';
-import { getIdTree } from '@/tree/id/id-tree-helper';
-import { Tree } from '@/tree/tree';
-import { SourceRange } from '@/util/source-range';
+import { ArgumentContext } from '~/grammar';
+import { ExpressionTree, getExpressionTree, getIdTree, IdTree, Tree } from '~/tree';
+import { SourceRange } from '~/util';
 
 export class ArgumentTree extends Tree {
   ctx: ArgumentContext;

@@ -1,7 +1,7 @@
-import { StringLiteralContext } from '@/grammar/xon-parser';
-import { String2 } from '@/lib/core';
-import { LiteralTree } from '@/tree/literal/literal-tree';
-import { SourceRange } from '@/util/source-range';
+import { StringLiteralContext } from '~/grammar';
+import { String2 } from '~/lib';
+import { LiteralTree } from '~/tree';
+import { SourceRange } from '~/util';
 
 export class StringLiteralTree extends LiteralTree {
   ctx: StringLiteralContext;

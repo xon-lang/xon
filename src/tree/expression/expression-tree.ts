@@ -1,3 +1,3 @@
-import { Tree } from '@/tree/tree';
+import { Tree } from '~/tree';
 
 export abstract class ExpressionTree extends Tree {}

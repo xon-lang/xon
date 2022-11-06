@@ -3,12 +3,9 @@ import {
   IntegerLiteralContext,
   LiteralContext,
   StringLiteralContext,
-} from '@/grammar/xon-parser';
-import { Issue } from '@/issue/issue';
-import { FloatLiteralTree } from '@/tree/literal/float/float-literal-tree';
-import { IntegerLiteralTree } from '@/tree/literal/integer/integer-literal-tree';
-import { LiteralTree } from '@/tree/literal/literal-tree';
-import { StringLiteralTree } from '@/tree/literal/string/string-literal-tree';
+} from '~/grammar';
+import { Issue } from '~/issue';
+import { FloatLiteralTree, IntegerLiteralTree, LiteralTree, StringLiteralTree } from '~/tree';
 
 export function getLiteralTree(ctx: LiteralContext): LiteralTree | null {
   if (!ctx) return null;

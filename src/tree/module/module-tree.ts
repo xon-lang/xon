@@ -1,7 +1,6 @@
-import { String2 } from '@/lib/core';
-import { SourceTree } from '@/tree/source/source-tree';
-import { Tree } from '@/tree/tree';
-import { SourceRange } from '@/util/source-range';
+import { String2 } from '~/lib';
+import { SourceTree, Tree } from '~/tree';
+import { SourceRange } from '~/util';
 
 export class ModuleTree extends Tree {
   sourceRange = new SourceRange();

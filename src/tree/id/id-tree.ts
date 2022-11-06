@@ -1,8 +1,8 @@
-import { String2 } from '@/lib/core';
-import { DeclarationMetadata } from '@/metadata/declaration/declaration-metadata';
-import { Tree } from '@/tree/tree';
-import { SourceRange } from '@/util/source-range';
 import { Token } from 'antlr4ts';
+import { String2 } from '~/lib';
+import { DeclarationMetadata } from '~/metadata';
+import { Tree } from '~/tree';
+import { SourceRange } from '~/util';
 
 export class IdTree extends Tree {
   sourceRange: SourceRange;

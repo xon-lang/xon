@@ -1,8 +1,6 @@
-import { IdExpressionContext } from '@/grammar/xon-parser';
-import { ExpressionTree } from '@/tree/expression/expression-tree';
-import { IdTree } from '@/tree/id/id-tree';
-import { getIdTree } from '@/tree/id/id-tree-helper';
-import { SourceRange } from '@/util/source-range';
+import { IdExpressionContext } from '~/grammar';
+import { ExpressionTree, getIdTree, IdTree } from '~/tree';
+import { SourceRange } from '~/util';
 
 export class IdExpressionTree extends ExpressionTree {
   ctx: IdExpressionContext;

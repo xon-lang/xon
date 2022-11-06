@@ -1,6 +1,5 @@
-import { IdExpressionTree } from '@/tree/expression/id/id-expression-tree';
-import { NullableExpressionTree } from '@/tree/expression/nullable/nullable-expression-tree';
-import { parseExpression } from '@/util/parse';
+import { IdExpressionTree, NullableExpressionTree } from '~/tree';
+import { parseExpression } from '~/util';
 
 test('nullable', () => {
   const code = 'abc?';

@@ -1,5 +1,5 @@
-import { LiteralExpressionTree } from '@/tree/expression/literal/literal-expression-tree';
-import { parseExpression } from '@/util/parse';
+import { LiteralExpressionTree } from '~/tree';
+import { parseExpression } from '~/util';
 
 test('check true', () => {
   const code = '123';

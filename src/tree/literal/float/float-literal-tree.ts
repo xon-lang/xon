@@ -1,7 +1,7 @@
-import { FloatLiteralContext } from '@/grammar/xon-parser';
-import { Number2, String2 } from '@/lib/core';
-import { LiteralTree } from '@/tree/literal/literal-tree';
-import { SourceRange } from '@/util/source-range';
+import { FloatLiteralContext } from '~/grammar';
+import { Number2, String2 } from '~/lib';
+import { LiteralTree } from '~/tree';
+import { SourceRange } from '~/util';
 
 export class FloatLiteralTree extends LiteralTree {
   sourceRange: SourceRange;

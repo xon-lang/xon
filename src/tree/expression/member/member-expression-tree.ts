@@ -1,9 +1,6 @@
-import { MemberExpressionContext } from '@/grammar/xon-parser';
-import { ExpressionTree } from '@/tree/expression/expression-tree';
-import { getExpressionTree } from '@/tree/expression/expression-tree-helper';
-import { IdTree } from '@/tree/id/id-tree';
-import { getIdTree } from '@/tree/id/id-tree-helper';
-import { SourceRange } from '@/util/source-range';
+import { MemberExpressionContext } from '~/grammar';
+import { ExpressionTree, getExpressionTree, getIdTree, IdTree } from '~/tree';
+import { SourceRange } from '~/util';
 
 export class MemberExpressionTree extends ExpressionTree {
   ctx: MemberExpressionContext;

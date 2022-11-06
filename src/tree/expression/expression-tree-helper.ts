@@ -10,23 +10,25 @@ import {
   MethodExpressionContext,
   NullableExpressionContext,
   PrefixExpressionContext,
-  PreprocessorExpressionContext
-} from '@/grammar/xon-parser';
-import { Issue } from '@/issue/issue';
-import { ArrayExpressionTree } from '@/tree/expression/array/array-expression-tree';
-import { ExpressionTree } from '@/tree/expression/expression-tree';
-import { GroupExpressionTree } from '@/tree/expression/group/group-expression-tree';
-import { IdExpressionTree } from '@/tree/expression/id/id-expression-tree';
-import { InfixExpressionTree } from '@/tree/expression/infix/infix-expression-tree';
-import { InvokeExpressionTree } from '@/tree/expression/invoke/invoke-expression-tree';
-import { LiteralExpressionTree } from '@/tree/expression/literal/literal-expression-tree';
-import { MemberExpressionTree } from '@/tree/expression/member/member-expression-tree';
-import { MethodExpressionTree } from '@/tree/expression/method/method-expression-tree';
-import { NullableExpressionTree } from '@/tree/expression/nullable/nullable-expression-tree';
-import { PrefixExpressionTree } from '@/tree/expression/prefix/prefix-expression-tree';
-import { PreprocessorExpressionTree } from '@/tree/expression/preprocessor/preprocessor-expression-tree';
-import { IdTree } from '@/tree/id/id-tree';
-import { getIdTree } from '@/tree/id/id-tree-helper';
+  PreprocessorExpressionContext,
+} from '~/grammar';
+import { Issue } from '~/issue';
+import {
+  ArrayExpressionTree,
+  ExpressionTree,
+  getIdTree,
+  GroupExpressionTree,
+  IdExpressionTree,
+  IdTree,
+  InfixExpressionTree,
+  InvokeExpressionTree,
+  LiteralExpressionTree,
+  MemberExpressionTree,
+  MethodExpressionTree,
+  NullableExpressionTree,
+  PrefixExpressionTree,
+  PreprocessorExpressionTree,
+} from '~/tree';
 
 export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (!ctx) return null;
@@ -48,9 +50,9 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
       (x) => x.split(' '),
     );
     const flatExpressions = (x) =>
-      (x instanceof InfixExpressionContext
+      x instanceof InfixExpressionContext
         ? [...flatExpressions(x._left), getIdTree(x.operator()._name), getExpressionTree(x._right)]
-        : [getExpressionTree(x)]);
+        : [getExpressionTree(x)];
     const expressions: (IdTree | ExpressionTree)[] = flatExpressions(ctx);
 
     for (const operators of operatorsPriorities) {
@@ -78,4 +80,5 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   Issue.errorFromContext(ctx, `Expression tree not found for "${ctx.constructor.name}"`);
 };
 
-export const getExpressionTrees = (contexts: ExpressionContext[]): ExpressionTree[] => contexts?.map(getExpressionTree) || [];
+export const getExpressionTrees = (contexts: ExpressionContext[]): ExpressionTree[] =>
+  contexts?.map(getExpressionTree) || [];

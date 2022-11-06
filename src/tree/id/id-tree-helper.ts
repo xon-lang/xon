@@ -1,5 +1,5 @@
-import { IdTree } from '@/tree/id/id-tree';
 import { Token } from 'antlr4ts';
+import { IdTree } from '~/tree';
 
 export function getIdTree(token?: Token | null): IdTree {
   if (!token) return null;

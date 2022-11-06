@@ -1,5 +1,5 @@
-import { StringLiteralTree } from '@/tree/literal/string/string-literal-tree';
-import { parseLiteral } from '@/util/parse';
+import { StringLiteralTree } from '~/tree';
+import { parseLiteral } from '~/util';
 
 test('single line string', () => {
   const code = '\'some string\'';

@@ -1,7 +1,5 @@
-import { ExpressionStatementTree } from '@/tree/statement/expression/expression-statement-tree';
-import { IfStatementTree } from '@/tree/statement/if/if-statement-tree';
-import { evaluate } from '@/util/evaluate';
-import { parseStatement } from '@/util/parse';
+import { ExpressionStatementTree, IfStatementTree } from '~/tree';
+import { evaluate, parseStatement } from '~/util';
 
 test('if else if', () => {
   const code = `

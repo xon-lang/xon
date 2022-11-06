@@ -1,5 +1,5 @@
-import { SourceTree } from '@/tree/source/source-tree';
-import { parseSource, parseSourceFile } from '@/util/parse';
+import { SourceTree } from '~/tree';
+import { parseSource, parseSourceFile } from '~/util';
 
 test('import and if', () => {
   const code = `{Path} = import 'xon.os'
