@@ -1,6 +1,8 @@
-import { DeclarationStatementContext } from '~/grammar';
-import { DeclarationTree, getDeclarationTree, StatementTree } from '~/tree';
-import { SourceRange } from '~/util';
+import { DeclarationStatementContext } from '~/grammar/xon-parser';
+import { DeclarationTree } from '~/tree/declaration/declaration-tree';
+import { getDeclarationTree } from '~/tree/declaration/declaration-tree-helper';
+import { StatementTree } from '~/tree/statement/statement-tree';
+import { SourceRange } from '~/util/source-range';
 
 export class DeclarationStatementTree extends StatementTree {
   ctx: DeclarationStatementContext;

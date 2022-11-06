@@ -1,6 +1,9 @@
-import { MethodExpressionContext } from '~/grammar';
-import { DeclarationTree, ExpressionTree, getDeclarationTrees, getExpressionTree } from '~/tree';
-import { SourceRange } from '~/util';
+import { MethodExpressionContext } from '~/grammar/xon-parser';
+import { DeclarationTree } from '~/tree/declaration/declaration-tree';
+import { getDeclarationTrees } from '~/tree/declaration/declaration-tree-helper';
+import { ExpressionTree } from '~/tree/expression/expression-tree';
+import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
+import { SourceRange } from '~/util/source-range';
 
 export class MethodExpressionTree extends ExpressionTree {
   ctx: MethodExpressionContext;

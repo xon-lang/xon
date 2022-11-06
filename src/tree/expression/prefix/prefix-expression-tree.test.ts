@@ -1,5 +1,6 @@
-import { PrefixExpressionTree } from '~/tree';
-import { evaluate, parseExpression } from '~/util';
+import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
+import { evaluate } from '~/util/evaluate';
+import { parseExpression } from '~/util/parse';
 
 test('negative integer', () => {
   const code = '- 1';

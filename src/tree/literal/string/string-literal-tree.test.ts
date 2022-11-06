@@ -1,8 +1,8 @@
-import { StringLiteralTree } from '~/tree';
-import { parseLiteral } from '~/util';
+import { StringLiteralTree } from '~/tree/literal/string/string-literal-tree';
+import { parseLiteral } from '~/util/parse';
 
 test('single line string', () => {
-  const code = '\'some string\'';
+  const code = "'some string'";
   const tree = parseLiteral(code) as StringLiteralTree;
 
   expect(tree).toBeInstanceOf(StringLiteralTree);

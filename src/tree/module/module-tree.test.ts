@@ -1,4 +1,5 @@
-import { getModuleTreeFromPath, ModuleTree } from '~/tree';
+import { ModuleTree } from '~/tree/module/module-tree';
+import { getModuleTreeFromPath } from '~/tree/module/module-tree-helper';
 
 test('module from path', () => {
   const tree = getModuleTreeFromPath('src/lib/@xon/core');

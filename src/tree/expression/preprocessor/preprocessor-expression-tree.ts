@@ -1,7 +1,7 @@
-import { PreprocessorExpressionContext } from '~/grammar';
-import { String2 } from '~/lib';
-import { ExpressionTree } from '~/tree';
-import { SourceRange } from '~/util';
+import { PreprocessorExpressionContext } from '~/grammar/xon-parser';
+import { String2 } from '~/lib/core';
+import { ExpressionTree } from '~/tree/expression/expression-tree';
+import { SourceRange } from '~/util/source-range';
 
 export class PreprocessorExpressionTree extends ExpressionTree {
   ctx: PreprocessorExpressionContext;

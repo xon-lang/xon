@@ -1,6 +1,9 @@
-import { PrefixExpressionContext } from '~/grammar';
-import { ExpressionTree, getExpressionTree, getIdTree, IdTree } from '~/tree';
-import { SourceRange } from '~/util';
+import { PrefixExpressionContext } from '~/grammar/xon-parser';
+import { ExpressionTree } from '~/tree/expression/expression-tree';
+import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
+import { IdTree } from '~/tree/id/id-tree';
+import { getIdTree } from '~/tree/id/id-tree-helper';
+import { SourceRange } from '~/util/source-range';
 
 export class PrefixExpressionTree extends ExpressionTree {
   ctx: PrefixExpressionContext;

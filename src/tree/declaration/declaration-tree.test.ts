@@ -1,12 +1,10 @@
-import {
-  DeclarationStatementTree,
-  DeclarationTree,
-  IdExpressionTree,
-  IdTree,
-  InvokeExpressionTree,
-  MethodExpressionTree,
-} from '~/tree';
-import { parseDeclaration } from '~/util';
+import { DeclarationTree } from '~/tree/declaration/declaration-tree';
+import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
+import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
+import { MethodExpressionTree } from '~/tree/expression/method/method-expression-tree';
+import { IdTree } from '~/tree/id/id-tree';
+import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
+import { parseDeclaration } from '~/util/parse';
 
 test('id type', () => {
   const code = 'abc: Integer';

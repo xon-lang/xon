@@ -9,20 +9,18 @@ import {
   ReturnStatementContext,
   StatementContext,
   WhileStatementContext,
-} from '~/grammar';
-import { Issue } from '~/issue';
-import {
-  AssertStatementTree,
-  CommentStatementTree,
-  DeclarationStatementTree,
-  ExportStatementTree,
-  ExpressionStatementTree,
-  ForStatementTree,
-  IfStatementTree,
-  ReturnStatementTree,
-  StatementTree,
-  WhileStatementTree,
-} from '~/tree';
+} from '~/grammar/xon-parser';
+import { Issue } from '~/issue/issue';
+import { AssertStatementTree } from '~/tree/statement/assert/assert-statement-tree';
+import { CommentStatementTree } from '~/tree/statement/comment/comment-statement-tree';
+import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
+import { ExportStatementTree } from '~/tree/statement/export/export-statement-tree';
+import { ExpressionStatementTree } from '~/tree/statement/expression/expression-statement-tree';
+import { ForStatementTree } from '~/tree/statement/for/for-statement-tree';
+import { IfStatementTree } from '~/tree/statement/if/if-statement-tree';
+import { ReturnStatementTree } from '~/tree/statement/return/return-statement-tree';
+import { StatementTree } from '~/tree/statement/statement-tree';
+import { WhileStatementTree } from '~/tree/statement/while/while-statement-tree';
 
 export function getStatementTree(ctx?: StatementContext | null): StatementTree | null {
   if (!ctx) return null;

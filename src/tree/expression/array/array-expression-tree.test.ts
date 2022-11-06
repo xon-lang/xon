@@ -1,7 +1,7 @@
-import { Number2 } from '../../../lib/core';
-import { evaluate } from '../../../util/evaluate';
-import { parseExpression } from '../../../util/parse';
-import { ArrayExpressionTree } from './array-expression-tree';
+import { Number2 } from '~/lib/core';
+import { ArrayExpressionTree } from '~/tree/expression/array/array-expression-tree';
+import { evaluate } from '~/util/evaluate';
+import { parseExpression } from '~/util/parse';
 
 test('check array', () => {
   const code = '[1, 2+2, 4, 6+6]';

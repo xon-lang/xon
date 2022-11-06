@@ -1,22 +1,20 @@
-import { DeclarationContext } from '~/grammar';
-import { IssueLevel } from '~/issue';
-import { Boolean2 } from '~/lib';
-import { DeclarationMetadata } from '~/metadata';
-import {
-  CommentStatementTree,
-  DeclarationStatementTree,
-  ExpressionStatementTree,
-  ExpressionTree,
-  getDeclarationTrees,
-  getExpressionTree,
-  getIdTree,
-  getSourceTree,
-  IdExpressionTree,
-  IdTree,
-  SourceTree,
-  Tree,
-} from '~/tree';
-import { SourceRange } from '~/util';
+import { DeclarationContext } from '~/grammar/xon-parser';
+import { IssueLevel } from '~/issue/issue-level';
+import { Boolean2 } from '~/lib/core';
+import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata';
+import { getDeclarationTrees } from '~/tree/declaration/declaration-tree-helper';
+import { ExpressionTree } from '~/tree/expression/expression-tree';
+import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
+import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
+import { IdTree } from '~/tree/id/id-tree';
+import { getIdTree } from '~/tree/id/id-tree-helper';
+import { SourceTree } from '~/tree/source/source-tree';
+import { getSourceTree } from '~/tree/source/source-tree-helper';
+import { CommentStatementTree } from '~/tree/statement/comment/comment-statement-tree';
+import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
+import { ExpressionStatementTree } from '~/tree/statement/expression/expression-statement-tree';
+import { Tree } from '~/tree/tree';
+import { SourceRange } from '~/util/source-range';
 
 export class DeclarationTree extends Tree {
   ctx: DeclarationContext;

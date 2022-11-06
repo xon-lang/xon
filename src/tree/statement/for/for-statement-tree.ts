@@ -1,6 +1,12 @@
-import { ForStatementContext } from '~/grammar';
-import { DeclarationTree, ExpressionTree, getDeclarationTree, getExpressionTree, getSourceTree, SourceTree, StatementTree } from '~/tree';
-import { SourceRange } from '~/util';
+import { ForStatementContext } from '~/grammar/xon-parser';
+import { DeclarationTree } from '~/tree/declaration/declaration-tree';
+import { getDeclarationTree } from '~/tree/declaration/declaration-tree-helper';
+import { ExpressionTree } from '~/tree/expression/expression-tree';
+import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
+import { SourceTree } from '~/tree/source/source-tree';
+import { getSourceTree } from '~/tree/source/source-tree-helper';
+import { StatementTree } from '~/tree/statement/statement-tree';
+import { SourceRange } from '~/util/source-range';
 
 export class ForStatementTree extends StatementTree {
   ctx: ForStatementContext;

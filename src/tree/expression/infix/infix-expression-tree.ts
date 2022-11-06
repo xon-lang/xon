@@ -1,6 +1,7 @@
 import { ParserRuleContext } from 'antlr4ts';
-import { ExpressionTree, IdTree } from '~/tree';
-import { SourceRange } from '~/util';
+import { ExpressionTree } from '~/tree/expression/expression-tree';
+import { IdTree } from '~/tree/id/id-tree';
+import { SourceRange } from '~/util/source-range';
 
 export class InfixExpressionTree extends ExpressionTree {
   ctx: ParserRuleContext;

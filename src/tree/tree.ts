@@ -1,8 +1,10 @@
 import { ParserRuleContext } from 'antlr4ts';
-import { Issue, IssueLevel } from '~/issue';
-import { String2 } from '~/lib';
-import { DeclarationScope, Metadata } from '~/metadata';
-import { SourceRange } from '~/util';
+import { Issue } from '~/issue/issue';
+import { IssueLevel } from '~/issue/issue-level';
+import { String2 } from '~/lib/core';
+import { DeclarationScope } from '~/metadata/declaration/scope/declaration-scope';
+import { Metadata } from '~/metadata/metadata';
+import { SourceRange } from '~/util/source-range';
 
 export abstract class Tree {
   metadata?: Metadata | null;

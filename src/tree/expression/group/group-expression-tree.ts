@@ -1,6 +1,7 @@
-import { GroupExpressionContext } from '~/grammar';
-import { ExpressionTree, getExpressionTree } from '~/tree';
-import { SourceRange } from '~/util';
+import { GroupExpressionContext } from '~/grammar/xon-parser';
+import { ExpressionTree } from '~/tree/expression/expression-tree';
+import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
+import { SourceRange } from '~/util/source-range';
 
 export class GroupExpressionTree extends ExpressionTree {
   ctx: GroupExpressionContext;

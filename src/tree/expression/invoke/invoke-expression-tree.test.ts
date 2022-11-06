@@ -1,15 +1,13 @@
-import {
-  IdExpressionTree,
-  IntegerLiteralTree,
-  InvokeExpressionTree,
-  LiteralExpressionTree,
-  MemberExpressionTree,
-  StringLiteralTree,
-} from '~/tree';
-import { parseExpression } from '~/util';
+import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
+import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
+import { LiteralExpressionTree } from '~/tree/expression/literal/literal-expression-tree';
+import { MemberExpressionTree } from '~/tree/expression/member/member-expression-tree';
+import { IntegerLiteralTree } from '~/tree/literal/integer/integer-literal-tree';
+import { StringLiteralTree } from '~/tree/literal/string/string-literal-tree';
+import { parseExpression } from '~/util/parse';
 
 test('method call', () => {
-  const code = 'f[3, \'str\']';
+  const code = "f[3, 'str']";
   const tree = parseExpression(code) as InvokeExpressionTree;
 
   expect(tree).toBeInstanceOf(InvokeExpressionTree);

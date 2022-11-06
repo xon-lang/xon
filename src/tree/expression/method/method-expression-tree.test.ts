@@ -1,5 +1,8 @@
-import { IdExpressionTree, InfixExpressionTree, MethodExpressionTree } from '~/tree';
-import { evaluate, parseExpression } from '~/util';
+import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
+import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tree';
+import { MethodExpressionTree } from '~/tree/expression/method/method-expression-tree';
+import { evaluate } from '~/util/evaluate';
+import { parseExpression } from '~/util/parse';
 
 test('has argument', () => {
   const code = '[x]: String => x + 42';
