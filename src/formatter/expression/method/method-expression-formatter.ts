@@ -1,8 +1,10 @@
-import { getDeclarationsFormatter } from '@/formatter/declarations/declarations-formatter-helper';
-import { ExpressionFormatter } from '@/formatter/expression/expression-formatter';
-import { getExpressionFormatter } from '@/formatter/expression/expression-formatter-helper';
-import { FormatterConfig } from '@/formatter/formatter-config';
-import { MethodExpressionContext } from '@/grammar/xon-parser';
+import {
+  ExpressionFormatter,
+  FormatterConfig,
+  getDeclarationsFormatter,
+  getExpressionFormatter,
+} from '~/formatter';
+import { MethodExpressionContext } from '~/grammar';
 
 export class MethodExpressionFormatter extends ExpressionFormatter {
   constructor(public ctx: MethodExpressionContext, public config: FormatterConfig) {

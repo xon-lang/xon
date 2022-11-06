@@ -1,7 +1,9 @@
-import { getExpressionFormatter } from '@/formatter/expression/expression-formatter-helper';
-import { LiteralExpressionFormatter } from '@/formatter/expression/literal/literal-expression-formatter';
-import { defaultFormatterConfig } from '@/formatter/formatter-config';
-import { parse } from '@/util/parse';
+import {
+  defaultFormatterConfig,
+  getExpressionFormatter,
+  LiteralExpressionFormatter,
+} from '~/formatter';
+import { parse } from '~/util';
 
 test('integer', () => {
   const code = '123';

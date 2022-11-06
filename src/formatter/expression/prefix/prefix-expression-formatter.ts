@@ -1,7 +1,5 @@
-import { ExpressionFormatter } from '@/formatter/expression/expression-formatter';
-import { getExpressionFormatter } from '@/formatter/expression/expression-formatter-helper';
-import { FormatterConfig } from '@/formatter/formatter-config';
-import { PrefixExpressionContext } from '@/grammar/xon-parser';
+import { ExpressionFormatter, FormatterConfig, getExpressionFormatter } from '~/formatter';
+import { PrefixExpressionContext } from '~/grammar';
 
 export class PrefixExpressionFormatter extends ExpressionFormatter {
   constructor(public ctx: PrefixExpressionContext, public config: FormatterConfig) {

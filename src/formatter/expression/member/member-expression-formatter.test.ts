@@ -1,7 +1,5 @@
-import { getExpressionFormatter } from '@/formatter/expression/expression-formatter-helper';
-import { MemberExpressionFormatter } from '@/formatter/expression/member/member-expression-formatter';
-import { FormatterConfig } from '@/formatter/formatter-config';
-import { parse } from '@/util/parse';
+import { FormatterConfig, getExpressionFormatter, MemberExpressionFormatter } from '~/formatter';
+import { parse } from '~/util';
 
 test('properties only', () => {
   const code = `a.b.c

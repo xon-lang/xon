@@ -1,5 +1,5 @@
-import { Formatter } from '@/formatter/formatter';
-import { ExpressionContext } from '@/grammar/xon-parser';
+import { Formatter } from '~/formatter';
+import { ExpressionContext } from '~/grammar';
 
 export abstract class ExpressionFormatter extends Formatter {
   ctx: ExpressionContext;

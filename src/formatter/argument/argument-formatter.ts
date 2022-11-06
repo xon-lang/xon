@@ -1,7 +1,5 @@
-import { getExpressionFormatter } from '@/formatter/expression/expression-formatter-helper';
-import { Formatter } from '@/formatter/formatter';
-import { FormatterConfig } from '@/formatter/formatter-config';
-import { ArgumentContext } from '@/grammar/xon-parser';
+import { Formatter, FormatterConfig, getExpressionFormatter } from '~/formatter';
+import { ArgumentContext } from '~/grammar';
 
 export class ArgumentFormatter extends Formatter {
   constructor(public ctx: ArgumentContext, public config: FormatterConfig) {

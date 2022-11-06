@@ -1,7 +1,6 @@
-import { FormatterConfig } from '@/formatter/formatter-config';
-import { StatementFormatter } from '@/formatter/statement/Statement-formatter';
-import { CommentStatementContext } from '@/grammar/xon-parser';
-import { String2 } from '@/lib/core';
+import { FormatterConfig, StatementFormatter } from '~/formatter';
+import { CommentStatementContext } from '~/grammar';
+import { String2 } from '~/lib';
 
 export class CommentStatementFormatter extends StatementFormatter {
   constructor(public ctx: CommentStatementContext, public config: FormatterConfig) {

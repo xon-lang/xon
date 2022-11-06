@@ -1,7 +1,5 @@
-import { ExpressionFormatter } from '@/formatter/expression/expression-formatter';
-import { getExpressionFormatter } from '@/formatter/expression/expression-formatter-helper';
-import { FormatterConfig } from '@/formatter/formatter-config';
-import { InfixExpressionContext } from '@/grammar/xon-parser';
+import { ExpressionFormatter, FormatterConfig, getExpressionFormatter } from '~/formatter';
+import { InfixExpressionContext } from '~/grammar';
 
 export class InfixExpressionFormatter extends ExpressionFormatter {
   constructor(public ctx: InfixExpressionContext, public config: FormatterConfig) {

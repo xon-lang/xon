@@ -1,7 +1,5 @@
-import { ExpressionFormatter } from '@/formatter/expression/expression-formatter';
-import { getExpressionFormatter } from '@/formatter/expression/expression-formatter-helper';
-import { FormatterConfig } from '@/formatter/formatter-config';
-import { GroupExpressionContext } from '@/grammar/xon-parser';
+import { ExpressionFormatter, FormatterConfig, getExpressionFormatter } from '~/formatter';
+import { GroupExpressionContext } from '~/grammar';
 
 export class GroupExpressionFormatter extends ExpressionFormatter {
   constructor(public ctx: GroupExpressionContext, public config: FormatterConfig) {

@@ -1,6 +1,5 @@
-import { BodyFormatter } from '@/formatter/body/body-formatter';
-import { FormatterConfig } from '@/formatter/formatter-config';
-import { BodyContext } from '@/grammar/xon-parser';
+import { BodyFormatter, FormatterConfig } from '~/formatter';
+import { BodyContext } from '~/grammar';
 
 export const getBodyFormatter = (
   ctx: BodyContext,

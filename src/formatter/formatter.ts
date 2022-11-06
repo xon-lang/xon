@@ -1,6 +1,6 @@
-import { FormatterConfig } from '@/formatter/formatter-config';
-import { Boolean2, Number2, String2 } from '@/lib/core';
 import { ParserRuleContext } from 'antlr4ts';
+import { FormatterConfig } from '~/formatter';
+import { Boolean2, Number2, String2 } from '~/lib';
 
 export abstract class Formatter {
   indentCount: Number2 = 0;

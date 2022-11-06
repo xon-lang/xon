@@ -1,7 +1,5 @@
-import { getParameterFormatter } from '@/formatter/declaration/declaration-formatter-helper';
-import { FormatterConfig } from '@/formatter/formatter-config';
-import { StatementFormatter } from '@/formatter/statement/Statement-formatter';
-import { DeclarationStatementContext } from '@/grammar/xon-parser';
+import { FormatterConfig, getParameterFormatter, StatementFormatter } from '~/formatter';
+import { DeclarationStatementContext } from '~/grammar';
 
 export class DeclarationStatementFormatter extends StatementFormatter {
   constructor(public ctx: DeclarationStatementContext, public config: FormatterConfig) {

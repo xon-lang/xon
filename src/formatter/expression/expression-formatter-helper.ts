@@ -1,16 +1,18 @@
-import { ArrayExpressionFormatter } from '@/formatter/expression/array/array-expression-formatter';
-import { ExpressionFormatter } from '@/formatter/expression/expression-formatter';
-import { GroupExpressionFormatter } from '@/formatter/expression/group/group-expression-formatter';
-import { IdExpressionFormatter } from '@/formatter/expression/id/id-expression-formatter';
-import { InfixExpressionFormatter } from '@/formatter/expression/infix/infix-expression-formatter';
-import { InvokeExpressionFormatter } from '@/formatter/expression/invoke/invoke-expression-formatter';
-import { LiteralExpressionFormatter } from '@/formatter/expression/literal/literal-expression-formatter';
-import { MemberExpressionFormatter } from '@/formatter/expression/member/member-expression-formatter';
-import { MethodExpressionFormatter } from '@/formatter/expression/method/method-expression-formatter';
-import { NullableExpressionFormatter } from '@/formatter/expression/nullable/nullable-expression-formatter';
-import { PrefixExpressionFormatter } from '@/formatter/expression/prefix/prefix-expression-formatter';
-import { PreprocessorExpressionFormatter } from '@/formatter/expression/preprocessor/preprocessor-expression-formatter';
-import { FormatterConfig } from '@/formatter/formatter-config';
+import {
+  ArrayExpressionFormatter,
+  ExpressionFormatter,
+  FormatterConfig,
+  GroupExpressionFormatter,
+  IdExpressionFormatter,
+  InfixExpressionFormatter,
+  InvokeExpressionFormatter,
+  LiteralExpressionFormatter,
+  MemberExpressionFormatter,
+  MethodExpressionFormatter,
+  NullableExpressionFormatter,
+  PrefixExpressionFormatter,
+  PreprocessorExpressionFormatter,
+} from '~/formatter';
 import {
   ArrayExpressionContext,
   ExpressionContext,
@@ -24,8 +26,8 @@ import {
   NullableExpressionContext,
   PrefixExpressionContext,
   PreprocessorExpressionContext,
-} from '@/grammar/xon-parser';
-import { Issue } from '@/issue/issue';
+} from '~/grammar';
+import { Issue } from '~/issue';
 
 export const getExpressionFormatter = (
   ctx: ExpressionContext,

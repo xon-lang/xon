@@ -1,9 +1,11 @@
-import { getArgumentsFormatter } from '@/formatter/arguments/arguments-formatter-helper';
-import { ExpressionFormatter } from '@/formatter/expression/expression-formatter';
-import { getExpressionFormatter } from '@/formatter/expression/expression-formatter-helper';
-import { MemberExpressionFormatter } from '@/formatter/expression/member/member-expression-formatter';
-import { FormatterConfig } from '@/formatter/formatter-config';
-import { InvokeExpressionContext } from '@/grammar/xon-parser';
+import {
+  ExpressionFormatter,
+  FormatterConfig,
+  getArgumentsFormatter,
+  getExpressionFormatter,
+  MemberExpressionFormatter,
+} from '~/formatter';
+import { InvokeExpressionContext } from '~/grammar';
 
 export class InvokeExpressionFormatter extends ExpressionFormatter {
   constructor(public ctx: InvokeExpressionContext, public config: FormatterConfig) {
