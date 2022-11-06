@@ -1,12 +1,12 @@
-import { XonParser } from '@/grammar/xon-parser';
-import { Boolean2, Number2, String2 } from '@/lib/core';
 import { CommonToken, Lexer, Token, Vocabulary } from 'antlr4ts';
+import { XonParser } from '~/grammar/xon-parser';
+import { Boolean2, Number2, String2 } from '~/lib';
 
-const tabWidth = 2;
+const TAB_WIDTH = 2;
 
 const getIndentationCount = (whitespace: String2): Number2 =>
   Array.from(whitespace).reduce(
-    (sum, x) => sum + (x === '\t' ? tabWidth - (sum % tabWidth) : 1),
+    (sum, x) => sum + (x === '\t' ? TAB_WIDTH - (sum % TAB_WIDTH) : 1),
     0,
   );
 
