@@ -11,6 +11,7 @@
     "eslint:recommended",
     //!! "plugin:import/recommended",
     "plugin:@typescript-eslint/recommended",
+    //!! "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:jest/recommended",
     "prettier"
   ],
@@ -34,7 +35,6 @@
     "no-unused-private-class-members": "error",
     //! "no-use-before-define": "error",
     "require-atomic-updates": "error",
-
     // "accessor-pairs": "error",
     "arrow-body-style": ["error", "as-needed"],
     "block-scoped-var": "error",
@@ -115,6 +115,9 @@
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
+
+    // IMPORT
+    // "@import/export": "error",
 
     // TYPESCRIPT
     "@typescript-eslint/array-type": "error",
