@@ -1,15 +1,17 @@
 import { CharStreams, CommonTokenStream } from 'antlr4ts';
 import { readFileSync } from 'fs';
-import { XonLexer } from '~/grammar/xon-lexer';
-import { XonParser } from '~/grammar/xon-parser';
+import { XonLexer, XonParser } from '~/grammar';
 import { Issue } from '~/issue';
 import { String2 } from '~/lib';
-import { getArgumentTree } from '~/tree/argument';
-import { getDeclarationTree } from '~/tree/declaration';
-import { getExpressionTree } from '~/tree/expression';
-import { getLiteralTree } from '~/tree/literal';
-import { getSourceTree, SourceTree } from '~/tree/source';
-import { getStatementTree } from '~/tree/statement';
+import {
+  getArgumentTree,
+  getDeclarationTree,
+  getExpressionTree,
+  getLiteralTree,
+  getSourceTree,
+  getStatementTree,
+  SourceTree,
+} from '~/tree';
 import { SourceRange } from '~/util/source-range';
 import { ThrowingErrorListener } from '~/util/throwing-error-listener';
 

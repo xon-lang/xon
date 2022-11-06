@@ -8,7 +8,7 @@ import {
   InfixExpressionTree,
   LiteralExpressionTree,
   PrefixExpressionTree,
-} from '~/tree/expression';
+} from '~/tree';
 
 export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);
