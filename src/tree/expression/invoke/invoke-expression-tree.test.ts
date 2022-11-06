@@ -7,7 +7,7 @@ import { StringLiteralTree } from '~/tree/literal/string/string-literal-tree';
 import { parseExpression } from '~/util/parse';
 
 test('method call', () => {
-  const code = "f[3, 'str']";
+  const code = 'f[3, \'str\']';
   const tree = parseExpression(code) as InvokeExpressionTree;
 
   expect(tree).toBeInstanceOf(InvokeExpressionTree);

@@ -1,10 +1,8 @@
-import {
-  ArrayValueMetadata,
-  fillTypeMetadata,
-  fillValueMetadata,
-  TestDeclarationScope,
-} from '~/metadata';
-import { parseExpression } from '~/util';
+import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
+import { fillTypeMetadata } from '~/metadata/expression/type/type-metadata-helper';
+import { ArrayValueMetadata } from '~/metadata/expression/value/array/array-value-metadata';
+import { fillValueMetadata } from '~/metadata/expression/value/value-metadata-helper';
+import { parseExpression } from '~/util/parse';
 
 test('empty', () => {
   const code = '[]';
