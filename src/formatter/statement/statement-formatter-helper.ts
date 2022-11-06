@@ -1,13 +1,11 @@
-import {
-  CommentStatementFormatter,
-  DeclarationStatementFormatter,
-  ExpressionStatementFormatter,
-  FormatterConfig,
-  ForStatementFormatter,
-  IfStatementFormatter,
-  ReturnStatementFormatter,
-  StatementFormatter,
-} from '~/formatter';
+import { FormatterConfig } from '~/formatter/formatter-config';
+import { CommentStatementFormatter } from '~/formatter/statement/comment/comment-statement-formatter';
+import { DeclarationStatementFormatter } from '~/formatter/statement/declaration/declaration-statement-formatter';
+import { ExpressionStatementFormatter } from '~/formatter/statement/expression/expression-statement-formatter';
+import { ForStatementFormatter } from '~/formatter/statement/for/for-statement-formatter';
+import { IfStatementFormatter } from '~/formatter/statement/if/if-statement-formatter';
+import { ReturnStatementFormatter } from '~/formatter/statement/return/return-statement-formatter';
+import { StatementFormatter } from '~/formatter/statement/statement-formatter';
 import {
   CommentStatementContext,
   DeclarationStatementContext,
@@ -16,8 +14,8 @@ import {
   IfStatementContext,
   ReturnStatementContext,
   StatementContext,
-} from '~/grammar';
-import { Issue } from '~/issue';
+} from '~/grammar/xon-parser';
+import { Issue } from '~/issue/issue';
 
 export const getStatementFormatter = (
   ctx: StatementContext,

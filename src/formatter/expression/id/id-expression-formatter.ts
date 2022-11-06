@@ -1,6 +1,7 @@
-import { ExpressionFormatter, FormatterConfig } from '~/formatter';
-import { IdExpressionContext } from '~/grammar';
-import { String2 } from '~/lib';
+import { ExpressionFormatter } from '~/formatter/expression/expression-formatter';
+import { FormatterConfig } from '~/formatter/formatter-config';
+import { IdExpressionContext } from '~/grammar/xon-parser';
+import { String2 } from '~/lib/core';
 
 export class IdExpressionFormatter extends ExpressionFormatter {
   constructor(public ctx: IdExpressionContext, public config: FormatterConfig) {

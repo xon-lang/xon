@@ -1,6 +1,8 @@
-import { ExpressionFormatter, FormatterConfig, getArgumentsFormatter } from '~/formatter';
-import { ArrayExpressionContext } from '~/grammar';
-import { String2 } from '~/lib';
+import { getArgumentsFormatter } from '~/formatter/arguments/arguments-formatter-helper';
+import { ExpressionFormatter } from '~/formatter/expression/expression-formatter';
+import { FormatterConfig } from '~/formatter/formatter-config';
+import { ArrayExpressionContext } from '~/grammar/xon-parser';
+import { String2 } from '~/lib/core';
 
 export class ArrayExpressionFormatter extends ExpressionFormatter {
   constructor(public ctx: ArrayExpressionContext, public config: FormatterConfig) {

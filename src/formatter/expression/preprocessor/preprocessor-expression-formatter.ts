@@ -1,6 +1,7 @@
-import { ExpressionFormatter, FormatterConfig } from '~/formatter';
-import { PreprocessorExpressionContext } from '~/grammar';
-import { String2 } from '~/lib';
+import { ExpressionFormatter } from '~/formatter/expression/expression-formatter';
+import { FormatterConfig } from '~/formatter/formatter-config';
+import { PreprocessorExpressionContext } from '~/grammar/xon-parser';
+import { String2 } from '~/lib/core';
 
 export class PreprocessorExpressionFormatter extends ExpressionFormatter {
   constructor(public ctx: PreprocessorExpressionContext, public config: FormatterConfig) {

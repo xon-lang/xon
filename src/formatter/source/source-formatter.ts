@@ -1,6 +1,8 @@
-import { Formatter, FormatterConfig, getStatementFormatter } from '~/formatter';
-import { SourceContext } from '~/grammar';
-import { String2 } from '~/lib';
+import { Formatter } from '~/formatter/formatter';
+import { FormatterConfig } from '~/formatter/formatter-config';
+import { getStatementFormatter } from '~/formatter/statement/statement-formatter-helper';
+import { SourceContext } from '~/grammar/xon-parser';
+import { String2 } from '~/lib/core';
 
 export class SourceFormatter extends Formatter {
   constructor(public ctx: SourceContext, public config: FormatterConfig) {

@@ -1,10 +1,7 @@
-import {
-  defaultFormatterConfig,
-  FormatterConfig,
-  getExpressionFormatter,
-  InvokeExpressionFormatter,
-} from '~/formatter';
-import { getParser } from '~/util';
+import { getExpressionFormatter } from '~/formatter/expression/expression-formatter-helper';
+import { InvokeExpressionFormatter } from '~/formatter/expression/invoke/invoke-expression-formatter';
+import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
+import { getParser } from '~/util/parse';
 
 test('abc', () => {
   const code = 'abc(1, 2, 3)';

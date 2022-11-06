@@ -1,6 +1,8 @@
 import { readFileSync, writeFileSync } from 'fs';
-import { defaultFormatterConfig, getSourceFormatter, SourceFormatter } from '~/formatter';
-import { getParser } from '~/util';
+import { defaultFormatterConfig } from '~/formatter/formatter-config';
+import { SourceFormatter } from '~/formatter/source/source-formatter';
+import { getSourceFormatter } from '~/formatter/source/source-formatter-helper';
+import { getParser } from '~/util/parse';
 
 test('has type', () => {
   const code = 'object Integer (a,b,c)  :   Number\n  abc\n\n\n\ndef\n';

@@ -1,6 +1,8 @@
-import { Formatter, FormatterConfig, getArgumentFormatter } from '~/formatter';
-import { ArgumentsContext } from '~/grammar';
-import { String2 } from '~/lib';
+import { getArgumentFormatter } from '~/formatter/argument/argument-formatter-helper';
+import { Formatter } from '~/formatter/formatter';
+import { FormatterConfig } from '~/formatter/formatter-config';
+import { ArgumentsContext } from '~/grammar/xon-parser';
+import { String2 } from '~/lib/core';
 
 export class ArgumentsFormatter extends Formatter {
   constructor(public ctx: ArgumentsContext, public config: FormatterConfig) {

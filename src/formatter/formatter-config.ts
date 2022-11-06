@@ -1,4 +1,4 @@
-import { Number2, String2 } from '~/lib';
+import { Number2, String2 } from '~/lib/core';
 
 const PRINT_WIDTH = 100;
 

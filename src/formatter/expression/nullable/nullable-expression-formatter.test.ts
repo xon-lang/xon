@@ -1,9 +1,8 @@
-import {
-  defaultFormatterConfig,
-  getExpressionFormatter,
-  NullableExpressionFormatter,
-} from '~/formatter';
-import { getParser } from '~/util';
+import { getExpressionFormatter } from '~/formatter/expression/expression-formatter-helper';
+import { NullableExpressionFormatter } from '~/formatter/expression/nullable/nullable-expression-formatter';
+import { defaultFormatterConfig } from '~/formatter/formatter-config';
+import { getParser } from '~/util/parse';
+
 test('only nullable', () => {
   const code = 'abc?';
   const ctx = getParser(code).expression();

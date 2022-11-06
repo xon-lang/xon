@@ -1,11 +1,9 @@
-import {
-  FormatterConfig,
-  getBodyFormatter,
-  getExpressionFormatter,
-  StatementFormatter,
-} from '~/formatter';
-import { IfStatementContext } from '~/grammar';
-import { String2 } from '~/lib';
+import { getBodyFormatter } from '~/formatter/body/body-formatter-helper';
+import { getExpressionFormatter } from '~/formatter/expression/expression-formatter-helper';
+import { FormatterConfig } from '~/formatter/formatter-config';
+import { StatementFormatter } from '~/formatter/statement/statement-formatter';
+import { IfStatementContext } from '~/grammar/xon-parser';
+import { String2 } from '~/lib/core';
 
 export class IfStatementFormatter extends StatementFormatter {
   constructor(public ctx: IfStatementContext, public config: FormatterConfig) {

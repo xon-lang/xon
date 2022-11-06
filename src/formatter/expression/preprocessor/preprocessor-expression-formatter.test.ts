@@ -1,10 +1,7 @@
-import {
-  defaultFormatterConfig,
-  FormatterConfig,
-  getExpressionFormatter,
-  PreprocessorExpressionFormatter,
-} from '~/formatter';
-import { getParser } from '~/util';
+import { getExpressionFormatter } from '~/formatter/expression/expression-formatter-helper';
+import { PreprocessorExpressionFormatter } from '~/formatter/expression/preprocessor/preprocessor-expression-formatter';
+import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
+import { getParser } from '~/util/parse';
 
 test('integer', () => {
   const code = '#{123}';

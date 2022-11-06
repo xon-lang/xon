@@ -1,5 +1,7 @@
-import { defaultFormatterConfig, getExpressionFormatter, IdExpressionFormatter } from '~/formatter';
-import { getParser } from '~/util';
+import { getExpressionFormatter } from '~/formatter/expression/expression-formatter-helper';
+import { IdExpressionFormatter } from '~/formatter/expression/id/id-expression-formatter';
+import { defaultFormatterConfig } from '~/formatter/formatter-config';
+import { getParser } from '~/util/parse';
 
 test('abc', () => {
   const code = 'abc';

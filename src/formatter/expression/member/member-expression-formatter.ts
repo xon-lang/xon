@@ -1,6 +1,8 @@
-import { ExpressionFormatter, FormatterConfig, getExpressionFormatter } from '~/formatter';
-import { MemberExpressionContext } from '~/grammar';
-import { Boolean2, String2 } from '~/lib';
+import { ExpressionFormatter } from '~/formatter/expression/expression-formatter';
+import { getExpressionFormatter } from '~/formatter/expression/expression-formatter-helper';
+import { FormatterConfig } from '~/formatter/formatter-config';
+import { MemberExpressionContext } from '~/grammar/xon-parser';
+import { Boolean2, String2 } from '~/lib/core';
 
 export class MemberExpressionFormatter extends ExpressionFormatter {
   broken: Boolean2;

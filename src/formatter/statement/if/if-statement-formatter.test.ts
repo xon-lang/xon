@@ -1,10 +1,7 @@
-import {
-  defaultFormatterConfig,
-  FormatterConfig,
-  getStatementFormatter,
-  IfStatementFormatter,
-} from '~/formatter';
-import { getParser } from '~/util';
+import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
+import { IfStatementFormatter } from '~/formatter/statement/if/if-statement-formatter';
+import { getStatementFormatter } from '~/formatter/statement/statement-formatter-helper';
+import { getParser } from '~/util/parse';
 
 test('if single else single', () => {
   const code = 'if a\n  b\nelse\n  c';
