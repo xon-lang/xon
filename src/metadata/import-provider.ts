@@ -1,5 +1,6 @@
 import { lstatSync } from 'fs';
-import path from 'path';
+import { homedir } from 'os';
+import { join, resolve } from 'path';
 import { Boolean2, String2 } from '~/lib/core';
 import { DeclarationScope } from '~/metadata/declaration/scope/declaration-scope';
 
@@ -41,7 +42,7 @@ export class ImportProvider {
 
 function resolvePath(importPath: String2): String2 {
   if (importPath[0] === '~') {
-    return path.join(os.homedir(), importPath.slice(1));
+    return join(homedir(), importPath.slice(1));
   }
-  return path.resolve(importPath);
+  return resolve(importPath);
 }
