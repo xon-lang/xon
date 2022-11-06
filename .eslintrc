@@ -9,6 +9,7 @@
   "plugins": ["import", "@typescript-eslint", "jest", "prettier"],
   "extends": [
     "eslint:recommended",
+    // "plugin:import/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:jest/recommended",
     "prettier"
@@ -19,6 +20,7 @@
     "sourceType": "module"
   },
   "rules": {
+    // ESLINT
     "array-callback-return": "error",
     // "no-await-in-loop": "error",
     "no-constant-binary-expression": "error",
@@ -109,6 +111,12 @@
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "no-proto": "error",
 
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+
+    // TYPESCRIPT
     "@typescript-eslint/array-type": "error",
     "@typescript-eslint/ban-tslint-comment": "error",
     "@typescript-eslint/class-literal-property-style": "error",
@@ -138,12 +146,8 @@
     "@typescript-eslint/no-require-imports": "error",
     // "@typescript-eslint/no-type-alias": "error",
 
-    "jest/no-commented-out-tests": ["off"],
-
-    "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"]
+    // JEST
+    "jest/no-commented-out-tests": ["off"]
   },
   "overrides": [
     {
