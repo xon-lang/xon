@@ -1,11 +1,13 @@
-import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
-import { ObjectTypeMetadata } from '@/metadata/expression/type/object/object-type-metadata';
-import { ImportValueMetadata } from '@/metadata/expression/value/import/import-value-metadata';
-import { fillValueMetadata } from '@/metadata/expression/value/value-metadata-helper';
-import { parseExpression } from '@/util/parse';
+import {
+  fillValueMetadata,
+  ImportValueMetadata,
+  ObjectTypeMetadata,
+  TestDeclarationScope,
+} from '~/metadata';
+import { parseExpression } from '~/util';
 
 test('literal', () => {
-  const code = 'import \'src/lib/@xon/core\'';
+  const code = "import 'src/lib/@xon/core'";
   const tree = parseExpression(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillValueMetadata(tree) as ImportValueMetadata;

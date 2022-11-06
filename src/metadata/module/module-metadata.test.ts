@@ -1,6 +1,5 @@
-import { ModuleMetadata } from '@/metadata/module/module-metadata';
-import { getModuleMetadata } from '@/metadata/module/module-metadata-helper';
-import { getModuleTreeFromPath } from '@/tree/module/module-tree-helper';
+import { getModuleMetadata, ModuleMetadata } from '~/metadata';
+import { getModuleTreeFromPath } from '~/tree';
 
 test('core module', () => {
   const tree = getModuleTreeFromPath('src/lib/@xon/core');

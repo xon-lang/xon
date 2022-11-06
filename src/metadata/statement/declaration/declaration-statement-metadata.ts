@@ -1,6 +1,5 @@
-import { fillDeclarationMetadata } from '@/metadata/declaration/declaration-metadata-helper';
-import { StatementMetadata } from '@/metadata/statement/statement-metadata';
-import { DeclarationStatementTree } from '@/tree/statement/declaration/declaration-statement-tree';
+import { fillDeclarationMetadata, StatementMetadata } from '~/metadata';
+import { DeclarationStatementTree } from '~/tree';
 
 export class DeclarationStatementMetadata implements StatementMetadata {
   constructor(public tree: DeclarationStatementTree) {

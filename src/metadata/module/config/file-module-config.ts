@@ -1,4 +1,4 @@
-import { String2 } from '@/lib/core';
+import { String2 } from '~/lib';
 
 export abstract class FileModuleConfig {
   includes: String2[] = [];

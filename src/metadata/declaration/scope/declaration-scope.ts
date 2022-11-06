@@ -1,6 +1,5 @@
-import { Boolean2 } from '@/lib/core';
-import { DeclarationMetadata } from '@/metadata/declaration/declaration-metadata';
-import { CoreDeclarationScope } from '@/metadata/declaration/scope/core/core-declaration-scope';
+import { Boolean2 } from '~/lib';
+import { CoreDeclarationScope, DeclarationMetadata } from '~/metadata';
 
 export class DeclarationScope {
   core: CoreDeclarationScope;

@@ -1,6 +1,5 @@
-import { Boolean2 } from '@/lib/core';
-import { DeclarationScope } from '@/metadata/declaration/scope/declaration-scope';
-import { TypeMetadata } from '@/metadata/expression/type/type-metadata';
+import { Boolean2 } from '~/lib';
+import { DeclarationScope, TypeMetadata } from '~/metadata';
 
 export class ObjectTypeMetadata extends TypeMetadata {
   constructor(public scope: DeclarationScope) {

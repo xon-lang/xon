@@ -1,9 +1,5 @@
-import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
-import { ArrayTypeMetadata } from '@/metadata/expression/type/array/array-type-metadata';
-import { LiteralTypeMetadata } from '@/metadata/expression/type/literal/literal-type-metadata';
-import { fillTypeMetadata } from '@/metadata/expression/type/type-metadata-helper';
-import { UnionTypeMetadata } from '@/metadata/expression/type/union/union-type-metadata';
-import { parseExpression } from '@/util/parse';
+import { ArrayTypeMetadata, fillTypeMetadata, LiteralTypeMetadata, TestDeclarationScope, UnionTypeMetadata } from '~/metadata';
+import { parseExpression } from '~/util';
 
 test('no items', () => {
   const code = 'Integer[]';

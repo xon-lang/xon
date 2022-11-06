@@ -1,7 +1,5 @@
-import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
-import { IdValueMetadata } from '@/metadata/expression/value/id/id-value-metadata';
-import { fillValueMetadata } from '@/metadata/expression/value/value-metadata-helper';
-import { parseExpression } from '@/util/parse';
+import { fillValueMetadata, IdValueMetadata, TestDeclarationScope } from '~/metadata';
+import { parseExpression } from '~/util';
 
 test('none object', () => {
   const code = 'null';

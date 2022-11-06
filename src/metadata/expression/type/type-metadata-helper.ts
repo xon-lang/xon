@@ -1,33 +1,34 @@
-import { Issue } from '@/issue/issue';
-import { IssueLevel } from '@/issue/issue-level';
+import { Issue, IssueLevel } from '~/issue';
 import {
+  ArrayTypeMetadata,
+  DeclarationScope,
+  DefinitionMetadata,
+  DefinitionTypeMetadata,
   fillParameterMetadata,
+  fillValueMetadata,
   getShadowParameterMetadata,
-} from '@/metadata/declaration/declaration-metadata-helper';
-import { DefinitionMetadata } from '@/metadata/declaration/definition/definition-metadata';
-import { ParameterMetadata } from '@/metadata/declaration/parameter/parameter-metadata';
-import { DeclarationScope } from '@/metadata/declaration/scope/declaration-scope';
-import { ArrayTypeMetadata } from '@/metadata/expression/type/array/array-type-metadata';
-import { DefinitionTypeMetadata } from '@/metadata/expression/type/definition/definition-type-metadata';
-import { IntersectionTypeMetadata } from '@/metadata/expression/type/intersection/intersection-type-metadata';
-import { LiteralTypeMetadata } from '@/metadata/expression/type/literal/literal-type-metadata';
-import { MethodTypeMetadata } from '@/metadata/expression/type/method/method-type-metadata';
-import { ObjectTypeMetadata } from '@/metadata/expression/type/object/object-type-metadata';
-import { ParameterTypeMetadata } from '@/metadata/expression/type/parameter/parameter-type-metadata';
-import { TypeMetadata } from '@/metadata/expression/type/type-metadata';
-import { UnionTypeMetadata } from '@/metadata/expression/type/union/union-type-metadata';
-import { fillValueMetadata } from '@/metadata/expression/value/value-metadata-helper';
-import { ArrayExpressionTree } from '@/tree/expression/array/array-expression-tree';
-import { ExpressionTree } from '@/tree/expression/expression-tree';
-import { GroupExpressionTree } from '@/tree/expression/group/group-expression-tree';
-import { IdExpressionTree } from '@/tree/expression/id/id-expression-tree';
-import { InfixExpressionTree } from '@/tree/expression/infix/infix-expression-tree';
-import { InvokeExpressionTree } from '@/tree/expression/invoke/invoke-expression-tree';
-import { LiteralExpressionTree } from '@/tree/expression/literal/literal-expression-tree';
-import { MethodExpressionTree } from '@/tree/expression/method/method-expression-tree';
-import { FloatLiteralTree } from '@/tree/literal/float/float-literal-tree';
-import { IntegerLiteralTree } from '@/tree/literal/integer/integer-literal-tree';
-import { StringLiteralTree } from '@/tree/literal/string/string-literal-tree';
+  IntersectionTypeMetadata,
+  LiteralTypeMetadata,
+  MethodTypeMetadata,
+  ObjectTypeMetadata,
+  ParameterMetadata,
+  ParameterTypeMetadata,
+  TypeMetadata,
+  UnionTypeMetadata,
+} from '~/metadata';
+import {
+  ArrayExpressionTree,
+  ExpressionTree,
+  FloatLiteralTree,
+  GroupExpressionTree,
+  IdExpressionTree,
+  InfixExpressionTree,
+  IntegerLiteralTree,
+  InvokeExpressionTree,
+  LiteralExpressionTree,
+  MethodExpressionTree,
+  StringLiteralTree,
+} from '~/tree';
 
 export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
   if (tree instanceof GroupExpressionTree) {

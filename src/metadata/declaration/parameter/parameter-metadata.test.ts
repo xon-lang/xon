@@ -1,13 +1,6 @@
-import { ParameterMetadata } from '@/metadata/declaration/parameter/parameter-metadata';
-import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
-import { LiteralTypeMetadata } from '@/metadata/expression/type/literal/literal-type-metadata';
-import { TypeMetadata } from '@/metadata/expression/type/type-metadata';
-import { ValueMetadata } from '@/metadata/expression/value/value-metadata';
-import { SourceMetadata } from '@/metadata/source/source-metadata';
-import { getSourceMetadata } from '@/metadata/source/source-metadata-helper';
-import { DeclarationTree } from '@/tree/declaration/declaration-tree';
-import { DeclarationStatementTree } from '@/tree/statement/declaration/declaration-statement-tree';
-import { parseSource } from '@/util/parse';
+import { getSourceMetadata, LiteralTypeMetadata, ParameterMetadata, SourceMetadata, TestDeclarationScope, TypeMetadata, ValueMetadata } from '~/metadata';
+import { DeclarationStatementTree, DeclarationTree } from '~/tree';
+import { parseSource } from '~/util';
 
 test('single parameter', () => {
   const code = 'a: Number =  132';

@@ -1,7 +1,5 @@
-import { Metadata } from '@/metadata/metadata';
-import { updateModuleMetadataScope } from '@/metadata/module/module-metadata-helper';
-import { getSourceMetadata } from '@/metadata/source/source-metadata-helper';
-import { ModuleTree } from '@/tree/module/module-tree';
+import { getSourceMetadata, Metadata, updateModuleMetadataScope } from '~/metadata';
+import { ModuleTree } from '~/tree';
 
 export class ModuleMetadata extends Metadata {
   constructor(public tree: ModuleTree) {

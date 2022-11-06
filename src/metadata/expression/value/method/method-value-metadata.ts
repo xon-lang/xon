@@ -1,14 +1,14 @@
-import { Any2 } from '@/lib/core';
+import { Any2 } from '~/lib';
 import {
   fillParameterMetadata,
+  fillValueMetadata,
   getShadowParameterMetadata,
-} from '@/metadata/declaration/declaration-metadata-helper';
-import { ParameterMetadata } from '@/metadata/declaration/parameter/parameter-metadata';
-import { MethodTypeMetadata } from '@/metadata/expression/type/method/method-type-metadata';
-import { TypeMetadata } from '@/metadata/expression/type/type-metadata';
-import { ValueMetadata } from '@/metadata/expression/value/value-metadata';
-import { fillValueMetadata } from '@/metadata/expression/value/value-metadata-helper';
-import { MethodExpressionTree } from '@/tree/expression/method/method-expression-tree';
+  MethodTypeMetadata,
+  ParameterMetadata,
+  TypeMetadata,
+  ValueMetadata,
+} from '~/metadata';
+import { MethodExpressionTree } from '~/tree';
 
 export class MethodValueMetadata extends ValueMetadata {
   constructor(private tree: MethodExpressionTree) {

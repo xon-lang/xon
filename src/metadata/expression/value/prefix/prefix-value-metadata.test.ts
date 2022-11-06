@@ -1,7 +1,5 @@
-import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
-import { PrefixValueMetadata } from '@/metadata/expression/value/prefix/prefix-value-metadata';
-import { fillValueMetadata } from '@/metadata/expression/value/value-metadata-helper';
-import { parseExpression } from '@/util/parse';
+import { fillValueMetadata, PrefixValueMetadata, TestDeclarationScope } from '~/metadata';
+import { parseExpression } from '~/util';
 
 test('prefix', () => {
   const code = '+1';

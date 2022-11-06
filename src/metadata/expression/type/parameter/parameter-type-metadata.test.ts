@@ -1,7 +1,5 @@
-import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
-import { ParameterTypeMetadata } from '@/metadata/expression/type/parameter/parameter-type-metadata';
-import { fillTypeMetadata } from '@/metadata/expression/type/type-metadata-helper';
-import { parseExpression } from '@/util/parse';
+import { fillTypeMetadata, ParameterTypeMetadata, TestDeclarationScope } from '~/metadata';
+import { parseExpression } from '~/util';
 
 test('true', () => {
   const code = 'true';

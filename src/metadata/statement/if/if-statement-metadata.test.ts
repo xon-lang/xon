@@ -1,7 +1,5 @@
-import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
-import { SourceMetadata } from '@/metadata/source/source-metadata';
-import { getSourceMetadata } from '@/metadata/source/source-metadata-helper';
-import { parseSource } from '@/util/parse';
+import { getSourceMetadata, SourceMetadata, TestDeclarationScope } from '~/metadata';
+import { parseSource } from '~/util';
 
 test('if', () => {
   const code = 'if true\n  123';

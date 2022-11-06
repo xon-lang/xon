@@ -1,9 +1,6 @@
-import { DefinitionMetadata } from '@/metadata/declaration/definition/definition-metadata';
-import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
-import { SourceMetadata } from '@/metadata/source/source-metadata';
-import { getSourceMetadata } from '@/metadata/source/source-metadata-helper';
-import { DeclarationStatementTree } from '@/tree/statement/declaration/declaration-statement-tree';
-import { parseSource } from '@/util/parse';
+import { DefinitionMetadata, getSourceMetadata, SourceMetadata, TestDeclarationScope } from '~/metadata';
+import { DeclarationStatementTree } from '~/tree';
+import { parseSource } from '~/util';
 
 test('definition', () => {
   const code = 'model A';

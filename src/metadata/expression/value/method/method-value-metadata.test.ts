@@ -1,8 +1,10 @@
-import { TestDeclarationScope } from '@/metadata/declaration/scope/test-declaration-scope';
-import { MethodTypeMetadata } from '@/metadata/expression/type/method/method-type-metadata';
-import { MethodValueMetadata } from '@/metadata/expression/value/method/method-value-metadata';
-import { fillValueMetadata } from '@/metadata/expression/value/value-metadata-helper';
-import { parseExpression } from '@/util/parse';
+import {
+  fillValueMetadata,
+  MethodTypeMetadata,
+  MethodValueMetadata,
+  TestDeclarationScope,
+} from '~/metadata';
+import { parseExpression } from '~/util';
 
 test('lambda', () => {
   const code = '(x: Number) => x + x';

@@ -1,7 +1,6 @@
-import { Any2 } from '@/lib/core';
-import { TypeMetadata } from '@/metadata/expression/type/type-metadata';
-import { ValueMetadata } from '@/metadata/expression/value/value-metadata';
-import { IdExpressionTree } from '@/tree/expression/id/id-expression-tree';
+import { Any2 } from '~/lib';
+import { TypeMetadata, ValueMetadata } from '~/metadata';
+import { IdExpressionTree } from '~/tree';
 
 export class IdValueMetadata extends ValueMetadata {
   constructor(private tree: IdExpressionTree) {

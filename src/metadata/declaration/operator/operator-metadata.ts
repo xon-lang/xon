@@ -1,3 +1,3 @@
-import { DeclarationMetadata } from '@/metadata/declaration/declaration-metadata';
+import { DeclarationMetadata } from '~/metadata';
 
 export class OperatorMetadata extends DeclarationMetadata {}

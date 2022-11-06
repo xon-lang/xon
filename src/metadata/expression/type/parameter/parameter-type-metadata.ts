@@ -1,7 +1,5 @@
-import { Boolean2 } from '@/lib/core';
-import { ParameterMetadata } from '@/metadata/declaration/parameter/parameter-metadata';
-import { DeclarationScope } from '@/metadata/declaration/scope/declaration-scope';
-import { TypeMetadata } from '@/metadata/expression/type/type-metadata';
+import { Boolean2 } from '~/lib';
+import { DeclarationScope, ParameterMetadata, TypeMetadata } from '~/metadata';
 
 export class ParameterTypeMetadata extends TypeMetadata {
   constructor(public parameter: ParameterMetadata) {
