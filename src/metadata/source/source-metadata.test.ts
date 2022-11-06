@@ -15,7 +15,7 @@ test('1-error.xon', () => {
 });
 
 test('2.xon', () => {
-  const tree = parseSource("{null} := import 'src/lib/@xon/core'");
+  const tree = parseSource('{null} := import \'src/lib/@xon/core\'');
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getSourceMetadata(tree);
 

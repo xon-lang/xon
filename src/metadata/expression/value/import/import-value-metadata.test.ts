@@ -7,7 +7,7 @@ import {
 import { parseExpression } from '~/util';
 
 test('literal', () => {
-  const code = "import 'src/lib/@xon/core'";
+  const code = 'import \'src/lib/@xon/core\'';
   const tree = parseExpression(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillValueMetadata(tree) as ImportValueMetadata;

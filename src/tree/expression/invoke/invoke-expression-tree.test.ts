@@ -9,7 +9,7 @@ import {
 import { parseExpression } from '~/util';
 
 test('method call', () => {
-  const code = "f[3, 'str']";
+  const code = 'f[3, \'str\']';
   const tree = parseExpression(code) as InvokeExpressionTree;
 
   expect(tree).toBeInstanceOf(InvokeExpressionTree);
