@@ -1,23 +1,23 @@
 import { CharStreams, CommonTokenStream } from 'antlr4ts';
 import { readFileSync } from 'fs';
-import { XonLexer, XonParser } from '~/grammar';
-import { Issue } from '~/issue';
-import { String2 } from '~/lib';
-import {
-  ArgumentTree,
-  DeclarationTree,
-  ExpressionTree,
-  getArgumentTree,
-  getDeclarationTree,
-  getExpressionTree,
-  getLiteralTree,
-  getSourceTree,
-  getStatementTree,
-  LiteralTree,
-  SourceTree,
-  StatementTree,
-} from '~/tree';
-import { SourceRange, ThrowingErrorListener } from '~/util';
+import { XonLexer } from '~/grammar/xon-lexer';
+import { XonParser } from '~/grammar/xon-parser';
+import { Issue } from '~/issue/issue';
+import { String2 } from '~/lib/core';
+import { ArgumentTree } from '~/tree/argument/argument-tree';
+import { getArgumentTree } from '~/tree/argument/argument-tree-helper';
+import { DeclarationTree } from '~/tree/declaration/declaration-tree';
+import { getDeclarationTree } from '~/tree/declaration/declaration-tree-helper';
+import { ExpressionTree } from '~/tree/expression/expression-tree';
+import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
+import { LiteralTree } from '~/tree/literal/literal-tree';
+import { getLiteralTree } from '~/tree/literal/literal-tree-helper';
+import { SourceTree } from '~/tree/source/source-tree';
+import { getSourceTree } from '~/tree/source/source-tree-helper';
+import { StatementTree } from '~/tree/statement/statement-tree';
+import { getStatementTree } from '~/tree/statement/statement-tree-helper';
+import { SourceRange } from '~/util/source-range';
+import { ThrowingErrorListener } from '~/util/throwing-error-listener';
 
 export function getParser(code: String2, sourceName: String2 = undefined): XonParser {
   const inputStream = CharStreams.fromString(code, sourceName);

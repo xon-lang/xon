@@ -1,6 +1,6 @@
 import { ParserRuleContext, Token } from 'antlr4ts';
-import { Boolean2, String2 } from '~/lib';
-import { LinePosition } from '~/util';
+import { Boolean2, String2 } from '~/lib/core';
+import { LinePosition } from '~/util/line-position';
 
 export class SourceRange {
   sourceName: String2;

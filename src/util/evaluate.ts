@@ -1,14 +1,13 @@
-import { Issue } from '~/issue';
-import { String2, Unknown2 } from '~/lib';
-import {
-  ArrayExpressionTree,
-  ExpressionTree,
-  GroupExpressionTree,
-  IdExpressionTree,
-  InfixExpressionTree,
-  LiteralExpressionTree,
-  PrefixExpressionTree,
-} from '~/tree';
+import { Issue } from '~/issue/issue';
+import { String2, Unknown2 } from '~/lib/core';
+import { ArrayExpressionTree } from '~/tree/expression/array/array-expression-tree';
+import { ExpressionTree } from '~/tree/expression/expression-tree';
+import { GroupExpressionTree } from '~/tree/expression/group/group-expression-tree';
+import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
+import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tree';
+import { LiteralExpressionTree } from '~/tree/expression/literal/literal-expression-tree';
+import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
+
 
 export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);

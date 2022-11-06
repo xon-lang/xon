@@ -1,5 +1,5 @@
 import { Tree } from 'antlr4ts/tree/Tree';
-import { String2, Unknown2 } from '~/lib';
+import { String2, Unknown2 } from '~/lib/core';
 
 export function treeToPlain(tree: Tree): Unknown2 {
   const entries = Object.entries(tree)
