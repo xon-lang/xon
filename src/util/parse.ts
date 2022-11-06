@@ -31,7 +31,7 @@ export function parse(code: String2, sourceName: String2 = undefined): XonParser
   return parser;
 }
 
-function _getSourceTree(parser: XonParser) {
+function _getSourceTree(parser: XonParser): SourceTree {
   try {
     return getSourceTree(parser.source());
   } catch (error) {

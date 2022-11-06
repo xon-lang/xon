@@ -49,7 +49,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
     const operatorsPriorities = ['^', '* / %', '+ -', '..', '< <= >= >', '== !=', '&', '|'].map(
       (x) => x.split(' '),
     );
-    const flatExpressions = (x) =>
+    const flatExpressions = (x: ExpressionContext): (IdTree | ExpressionTree)[] =>
       (x instanceof InfixExpressionContext
         ? [...flatExpressions(x._left), getIdTree(x.operator()._name), getExpressionTree(x._right)]
         : [getExpressionTree(x)]);

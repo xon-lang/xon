@@ -1,5 +1,5 @@
 import { Any2 } from '~/lib';
-import { fillValueMetadata, TypeMetadata, ValueMetadata } from '~/metadata';
+import { DeclarationMetadata, fillValueMetadata, TypeMetadata, ValueMetadata } from '~/metadata';
 import { MemberExpressionTree } from '~/tree';
 
 export class MemberValueMetadata extends ValueMetadata {
@@ -11,7 +11,7 @@ export class MemberValueMetadata extends ValueMetadata {
     }
   }
 
-  private memberDeclaration() {
+  private memberDeclaration(): DeclarationMetadata {
     if (this.tree.instance.metadata instanceof ValueMetadata && this.tree.name) {
       const instanceType = this.tree.instance.metadata.type();
       const attributesScope = instanceType.attributesScope();

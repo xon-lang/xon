@@ -1,5 +1,5 @@
 import { Any2 } from '~/lib';
-import { TypeMetadata, ValueMetadata } from '~/metadata';
+import { DeclarationMetadata, TypeMetadata, ValueMetadata } from '~/metadata';
 import { IdExpressionTree } from '~/tree';
 
 export class IdValueMetadata extends ValueMetadata {
@@ -9,7 +9,7 @@ export class IdValueMetadata extends ValueMetadata {
     tree.name.metadata = this.declaration();
   }
 
-  private declaration() {
+  private declaration(): DeclarationMetadata {
     const declarations = this.tree.scope.filter(this.tree.name.text);
     if (declarations.length === 1) {
       return declarations[0];
