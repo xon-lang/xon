@@ -1,6 +1,6 @@
 import { CommonToken, Lexer, Token, Vocabulary } from 'antlr4ts';
-import { XonParser } from '~/grammar';
-import { Boolean2, Number2, String2 } from '~/lib';
+import { XonParser } from '~/grammar/xon-parser';
+import { Boolean2, Number2, String2 } from '~/lib/core';
 
 const TAB_WIDTH = 2;
 
