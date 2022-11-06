@@ -12,8 +12,7 @@ import {
   getStatementTree,
   SourceTree,
 } from '~/tree';
-import { SourceRange } from '~/util/source-range';
-import { ThrowingErrorListener } from '~/util/throwing-error-listener';
+import { SourceRange, ThrowingErrorListener } from '~/util';
 
 export function parse(code: String2, sourceName: String2 = undefined): XonParser {
   const inputStream = CharStreams.fromString(code, sourceName);
