@@ -10,7 +10,7 @@
     "noImplicitAny": false,
     "outDir": ".",
     "paths": {
-      "@/*": ["src/*"],
+      "~/*": ["src/*"],
       "*": ["node_modules/*"]
     },
     "sourceMap": true,
