@@ -1,6 +1,9 @@
-import { Boolean2 } from '~/lib';
-import { DeclarationScope, DefinitionMetadata, DefinitionTypeMetadata, TypeMetadata } from '~/metadata';
-import { LiteralType } from '~/tree';
+import { Boolean2 } from '~/lib/core';
+import { DefinitionMetadata } from '~/metadata/declaration/definition/definition-metadata';
+import { DeclarationScope } from '~/metadata/declaration/scope/declaration-scope';
+import { DefinitionTypeMetadata } from '~/metadata/expression/type/definition/definition-type-metadata';
+import { TypeMetadata } from '~/metadata/expression/type/type-metadata';
+import { LiteralType } from '~/tree/literal/literal-type';
 
 export class LiteralTypeMetadata extends TypeMetadata {
   constructor(public value: LiteralType, public definition: DefinitionMetadata) {

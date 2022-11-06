@@ -1,7 +1,10 @@
-import { Boolean2, String2 } from '~/lib';
-import { GenericMetadata, Metadata, ParameterMetadata, TypeMetadata } from '~/metadata';
-import { DeclarationTree } from '~/tree';
-import { SourceRange } from '~/util';
+import { Boolean2, String2 } from '~/lib/core';
+import { GenericMetadata } from '~/metadata/declaration/generic/generic-metadata';
+import { ParameterMetadata } from '~/metadata/declaration/parameter/parameter-metadata';
+import { TypeMetadata } from '~/metadata/expression/type/type-metadata';
+import { Metadata } from '~/metadata/metadata';
+import { DeclarationTree } from '~/tree/declaration/declaration-tree';
+import { SourceRange } from '~/util/source-range';
 
 export abstract class DeclarationMetadata extends Metadata {
   sourceRange?: SourceRange;

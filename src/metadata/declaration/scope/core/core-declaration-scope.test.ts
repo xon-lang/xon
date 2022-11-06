@@ -1,4 +1,4 @@
-import { TestDeclarationScope } from '~/metadata';
+import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 
 test('none type', () => {
   const coreScope = new TestDeclarationScope();

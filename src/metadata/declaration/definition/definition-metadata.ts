@@ -1,5 +1,8 @@
-import { Boolean2 } from '~/lib';
-import { DeclarationMetadata, DeclarationScope, DefinitionTypeMetadata, ParameterMetadata } from '~/metadata';
+import { Boolean2 } from '~/lib/core';
+import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata';
+import { ParameterMetadata } from '~/metadata/declaration/parameter/parameter-metadata';
+import { DeclarationScope } from '~/metadata/declaration/scope/declaration-scope';
+import { DefinitionTypeMetadata } from '~/metadata/expression/type/definition/definition-type-metadata';
 
 export class DefinitionMetadata extends DeclarationMetadata {
   base?: DefinitionMetadata | null;

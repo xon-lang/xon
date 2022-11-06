@@ -1,6 +1,9 @@
-import { Any2 } from '~/lib';
-import { DeclarationMetadata, fillValueMetadata, TypeMetadata, ValueMetadata } from '~/metadata';
-import { MemberExpressionTree } from '~/tree';
+import { Any2 } from '~/lib/core';
+import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata';
+import { TypeMetadata } from '~/metadata/expression/type/type-metadata';
+import { ValueMetadata } from '~/metadata/expression/value/value-metadata';
+import { fillValueMetadata } from '~/metadata/expression/value/value-metadata-helper';
+import { MemberExpressionTree } from '~/tree/expression/member/member-expression-tree';
 
 export class MemberValueMetadata extends ValueMetadata {
   constructor(private tree: MemberExpressionTree) {

@@ -1,16 +1,14 @@
 import path from 'path';
-import { IssueLevel } from '~/issue';
-import { String2 } from '~/lib';
-import {
-  DeclarationScope,
-  fillValueMetadata,
-  ImportProvider,
-  ObjectTypeMetadata,
-  TypeMetadata,
-  ValueMetadata,
-} from '~/metadata';
-import { PrefixExpressionTree } from '~/tree';
-import { evaluate } from '~/util';
+import { IssueLevel } from '~/issue/issue-level';
+import { String2 } from '~/lib/core';
+import { DeclarationScope } from '~/metadata/declaration/scope/declaration-scope';
+import { ObjectTypeMetadata } from '~/metadata/expression/type/object/object-type-metadata';
+import { TypeMetadata } from '~/metadata/expression/type/type-metadata';
+import { ValueMetadata } from '~/metadata/expression/value/value-metadata';
+import { fillValueMetadata } from '~/metadata/expression/value/value-metadata-helper';
+import { ImportProvider } from '~/metadata/import-provider';
+import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
+import { evaluate } from '~/util/evaluate';
 
 export class ImportValueMetadata extends ValueMetadata {
   fullPath: String2;

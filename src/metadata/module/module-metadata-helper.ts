@@ -1,5 +1,6 @@
-import { getShadowSourceMetadata, ModuleMetadata } from '~/metadata';
-import { ModuleTree } from '~/tree';
+import { getShadowSourceMetadata } from '~/metadata/declaration/declaration-metadata-helper';
+import { ModuleMetadata } from '~/metadata/module/module-metadata';
+import { ModuleTree } from '~/tree/module/module-tree';
 
 export function getModuleMetadata(tree: ModuleTree): ModuleMetadata {
   return (tree.metadata = new ModuleMetadata(tree));

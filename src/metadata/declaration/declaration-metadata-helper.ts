@@ -1,25 +1,21 @@
-import {
-  ArrayTypeMetadata,
-  DeclarationMetadata,
-  DefinitionMetadata,
-  DefinitionTypeMetadata,
-  DestructureMetadata,
-  fillTypeMetadata,
-  fillValueMetadata,
-  MethodTypeMetadata,
-  ObjectTypeMetadata,
-  OperatorMetadata,
-  ParameterMetadata,
-  TypeMetadata,
-  ValueMetadata,
-} from '~/metadata';
-import {
-  DeclarationStatementTree,
-  DeclarationTree,
-  IdExpressionTree,
-  ModuleTree,
-  SourceTree,
-} from '~/tree';
+import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata';
+import { DefinitionMetadata } from '~/metadata/declaration/definition/definition-metadata';
+import { DestructureMetadata } from '~/metadata/declaration/destructure/destructure-metadata';
+import { OperatorMetadata } from '~/metadata/declaration/operator/operator-metadata';
+import { ParameterMetadata } from '~/metadata/declaration/parameter/parameter-metadata';
+import { ArrayTypeMetadata } from '~/metadata/expression/type/array/array-type-metadata';
+import { DefinitionTypeMetadata } from '~/metadata/expression/type/definition/definition-type-metadata';
+import { MethodTypeMetadata } from '~/metadata/expression/type/method/method-type-metadata';
+import { ObjectTypeMetadata } from '~/metadata/expression/type/object/object-type-metadata';
+import { TypeMetadata } from '~/metadata/expression/type/type-metadata';
+import { fillTypeMetadata } from '~/metadata/expression/type/type-metadata-helper';
+import { ValueMetadata } from '~/metadata/expression/value/value-metadata';
+import { fillValueMetadata } from '~/metadata/expression/value/value-metadata-helper';
+import { DeclarationTree } from '~/tree/declaration/declaration-tree';
+import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
+import { ModuleTree } from '~/tree/module/module-tree';
+import { SourceTree } from '~/tree/source/source-tree';
+import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
 
 export function getShadowSourceMetadata(tree: SourceTree): DeclarationMetadata[] {
   const declarationTrees = tree.statements

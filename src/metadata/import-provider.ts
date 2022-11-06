@@ -1,8 +1,7 @@
 import { lstatSync } from 'fs';
-import os from 'os';
 import path from 'path';
-import { Boolean2, String2 } from '~/lib';
-import { DeclarationScope } from '~/metadata';
+import { Boolean2, String2 } from '~/lib/core';
+import { DeclarationScope } from '~/metadata/declaration/scope/declaration-scope';
 
 function isDirectory(fullPath): Boolean2 {
   try {

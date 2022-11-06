@@ -1,6 +1,9 @@
-import { getSourceMetadata, SourceMetadata, TestDeclarationScope } from '~/metadata';
-import { DeclarationStatementTree, DeclarationTree } from '~/tree';
-import { parseSource, parseSourceFile } from '~/util';
+import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
+import { SourceMetadata } from '~/metadata/source/source-metadata';
+import { getSourceMetadata } from '~/metadata/source/source-metadata-helper';
+import { DeclarationTree } from '~/tree/declaration/declaration-tree';
+import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
+import { parseSource, parseSourceFile } from '~/util/parse';
 
 test('1-error.xon', () => {
   const tree = parseSourceFile('src/metadata/source/test-files/1-error.xon');
@@ -15,7 +18,7 @@ test('1-error.xon', () => {
 });
 
 test('2.xon', () => {
-  const tree = parseSource('{null} := import \'src/lib/@xon/core\'');
+  const tree = parseSource("{null} := import 'src/lib/@xon/core'");
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getSourceMetadata(tree);
 

@@ -1,14 +1,12 @@
-import { Any2 } from '~/lib';
-import {
-  fillValueMetadata,
-  MethodTypeMetadata,
-  OperatorMetadata,
-  ParameterMetadata,
-  TypeMetadata,
-  ValueMetadata,
-} from '~/metadata';
-import { PrefixExpressionTree } from '~/tree';
-import { escapeToString } from '~/util';
+import { Any2 } from '~/lib/core';
+import { OperatorMetadata } from '~/metadata/declaration/operator/operator-metadata';
+import { ParameterMetadata } from '~/metadata/declaration/parameter/parameter-metadata';
+import { MethodTypeMetadata } from '~/metadata/expression/type/method/method-type-metadata';
+import { TypeMetadata } from '~/metadata/expression/type/type-metadata';
+import { ValueMetadata } from '~/metadata/expression/value/value-metadata';
+import { fillValueMetadata } from '~/metadata/expression/value/value-metadata-helper';
+import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
+import { escapeToString } from '~/util/evaluate';
 
 export class PrefixValueMetadata extends ValueMetadata {
   constructor(private tree: PrefixExpressionTree) {

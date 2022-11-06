@@ -1,5 +1,6 @@
-import { fillValueMetadata, TestDeclarationScope } from '~/metadata';
-import { parseExpression } from '~/util';
+import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
+import { fillValueMetadata } from '~/metadata/expression/value/value-metadata-helper';
+import { parseExpression } from '~/util/parse';
 
 test('integer literal', () => {
   const code = '123';

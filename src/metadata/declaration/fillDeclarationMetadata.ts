@@ -1,9 +1,9 @@
-import { DeclarationTree } from '~/tree';
 import {
   fillDefinitionMetadata,
   fillOperatorMetadata,
   fillParameterMetadata,
-} from './declaration-metadata-helper';
+} from '~/metadata/declaration/declaration-metadata-helper';
+import { DeclarationTree } from '~/tree/declaration/declaration-tree';
 
 export function fillDeclarationMetadata(tree: DeclarationTree): void {
   if (tree.modifier?.text === 'operator') {

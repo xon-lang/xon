@@ -1,6 +1,13 @@
-import { getSourceMetadata, LiteralTypeMetadata, ParameterMetadata, SourceMetadata, TestDeclarationScope, TypeMetadata, ValueMetadata } from '~/metadata';
-import { DeclarationStatementTree, DeclarationTree } from '~/tree';
-import { parseSource } from '~/util';
+import { ParameterMetadata } from '~/metadata/declaration/parameter/parameter-metadata';
+import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
+import { LiteralTypeMetadata } from '~/metadata/expression/type/literal/literal-type-metadata';
+import { TypeMetadata } from '~/metadata/expression/type/type-metadata';
+import { ValueMetadata } from '~/metadata/expression/value/value-metadata';
+import { SourceMetadata } from '~/metadata/source/source-metadata';
+import { getSourceMetadata } from '~/metadata/source/source-metadata-helper';
+import { DeclarationTree } from '~/tree/declaration/declaration-tree';
+import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
+import { parseSource } from '~/util/parse';
 
 test('single parameter', () => {
   const code = 'a: Number =  132';
@@ -19,7 +26,7 @@ test('single parameter', () => {
 });
 
 test('multiple parameters array value', () => {
-  const code = '[a, b, c] := [1,\'hi\',2.3]';
+  const code = "[a, b, c] := [1,'hi',2.3]";
   const tree = parseSource(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getSourceMetadata(tree);
@@ -47,7 +54,7 @@ test('multiple parameters array value', () => {
 });
 
 test('multiple parameters object value', () => {
-  const code = '{a, b, c} := {a=1,b=\'hi\',c=2.3}';
+  const code = "{a, b, c} := {a=1,b='hi',c=2.3}";
   const tree = parseSource(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getSourceMetadata(tree);

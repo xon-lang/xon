@@ -1,5 +1,8 @@
-import { DefinitionMetadata, DefinitionTypeMetadata, fillTypeMetadata, TestDeclarationScope } from '~/metadata';
-import { parseExpression } from '~/util';
+import { DefinitionMetadata } from '~/metadata/declaration/definition/definition-metadata';
+import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
+import { DefinitionTypeMetadata } from '~/metadata/expression/type/definition/definition-type-metadata';
+import { fillTypeMetadata } from '~/metadata/expression/type/type-metadata-helper';
+import { parseExpression } from '~/util/parse';
 
 test('none model', () => {
   const code = 'null';
