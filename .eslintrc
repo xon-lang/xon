@@ -395,6 +395,12 @@
       "always"
     ],
     "semi-spacing": "error",
+    "semi-style": "error",
+    "space-before-blocks": "error",
+    "space-before-function-paren": [
+      "error",
+      "never"
+    ],
     // import
     // "@import/export": "error",
     // TYPESCRIPT
