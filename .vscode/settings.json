@@ -42,12 +42,14 @@
     "codacy",
     "linebreak",
     "nodir",
+    "nonblock-statement-body-position",
     "PAREN",
     "pinst",
     "plusplus",
     "postpublish",
     "postversion",
-    "proto"
+    "proto",
+    "ts-nocheck"
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
