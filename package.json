@@ -27,7 +27,7 @@
     "build": "scripts/build.sh",
     "version": "npm run build",
     "postversion": "git push --tags && cd dist && npm publish --access public",
-    "update-packages": "ncu -u -x 'chalk' && rm -rf package-lock.json && rm -rf node_modules && npm i --force"
+    "update-packages": "ncu -u -x 'chalk typescript' && rm -rf package-lock.json && rm -rf node_modules && npm i --force"
   },
   "devDependencies": {
     "@types/glob": "^8.0.0",
