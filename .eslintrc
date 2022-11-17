@@ -404,6 +404,7 @@
     "space-in-parens": "error",
     "space-infix-ops": "error",
     "space-unary-ops": "error",
+    "switch-colon-spacing": "error",
     // import
     // "@import/export": "error",
     // TYPESCRIPT
