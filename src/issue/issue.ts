@@ -39,7 +39,7 @@ export class Issue extends Error {
   }
 
   static errorFromTree(tree: Tree, message: String2): Never2 {
-    const issue = new Issue(tree.sourceRange, IssueLevel.error, message);
+    const issue = new Issue(tree.sourceRange ?? new SourceRange(), IssueLevel.error, message);
     throw new Error(issue.toString());
   }
 }

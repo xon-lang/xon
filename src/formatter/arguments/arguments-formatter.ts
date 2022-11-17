@@ -19,7 +19,7 @@ export class ArgumentsFormatter extends Formatter {
 
     const args = this.ctx
       .argument()
-      .map((x) => getArgumentFormatter(x, this.config).indent(this.indentCount));
+      .map((x) => getArgumentFormatter(x, this.config)?.indent(this.indentCount));
 
     let result = openSymbol + args.join(', ') + closeSymbol;
 
@@ -27,7 +27,7 @@ export class ArgumentsFormatter extends Formatter {
       const argumentIndent = this.config.indent(this.indentCount + 1);
       const joinedArguments =
         args
-          .map((x) => argumentIndent + x.indent(this.indentCount + 1))
+          .map((x) => argumentIndent + (x?.indent(this.indentCount + 1) ?? ''))
           .join(',' + this.config.nl) + ((args.length > 1 && ',') || '');
       result =
         openSymbol +

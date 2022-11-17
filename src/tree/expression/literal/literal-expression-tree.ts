@@ -13,7 +13,7 @@ export class LiteralExpressionTree extends ExpressionTree {
     super();
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
-    this.literal = ctx && getLiteralTree(ctx.literal());
+    this.literal = getLiteralTree(ctx.literal());
     this.addChildren(this.literal);
   }
 }

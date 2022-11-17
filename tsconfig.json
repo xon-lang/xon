@@ -14,7 +14,7 @@
       "*": ["node_modules/*"]
     },
     "sourceMap": true,
-    // "strict": true,
+    "strict": true,
     "useUnknownInCatchVariables": true,
     "target": "ES2021"
   },

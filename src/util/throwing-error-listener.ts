@@ -15,17 +15,17 @@ import { SourceRange } from '~/util/source-range';
 export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbol> {
   syntaxError(
     recognizer: Recognizer<TSymbol, Any2>,
-    offendingSymbol: TSymbol | null,
+    offendingSymbol: TSymbol | undefined,
     line: Number2,
     charIndex: Number2,
     message: String2,
-    exception: RecognitionException | null,
+    exception: RecognitionException | undefined,
   ): Never2 {
     if (!(offendingSymbol instanceof CommonToken)) {
       throw new Error('Not implemented');
     }
 
-    let sourceRange: SourceRange;
+    let sourceRange: SourceRange | null = null;
     if (!exception) {
       sourceRange = SourceRange.fromToken(offendingSymbol);
     } else if (exception instanceof NoViableAltException) {
@@ -36,10 +36,12 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
       throw new Error('Not implemented');
     }
 
-    sourceRange.sourceName = recognizer.inputStream.sourceName || null;
-
-    const issue = new Issue(sourceRange, IssueLevel.error, message);
-    issue.antlrError = exception;
-    throw issue;
+    if (sourceRange) {
+      sourceRange.sourceName = recognizer.inputStream?.sourceName ?? null;
+      const issue = new Issue(sourceRange, IssueLevel.error, message);
+      issue.antlrError = exception;
+      throw issue;
+    }
+    throw exception;
   }
 }

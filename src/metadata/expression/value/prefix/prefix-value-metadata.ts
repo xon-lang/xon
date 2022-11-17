@@ -28,8 +28,9 @@ export class PrefixValueMetadata extends ValueMetadata {
 
       const metadata = this.tree.value.metadata;
       if (metadata instanceof ValueMetadata) {
-        return metadata.type().is(parameters[0].type);
+        return (parameters[0].type && metadata.type()?.is(parameters[0].type)) || false;
       }
+      return false;
     });
     if (declarations.length === 1) {
       return declarations[0] as ParameterMetadata;

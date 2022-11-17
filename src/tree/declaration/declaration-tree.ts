@@ -18,17 +18,17 @@ import { SourceRange } from '~/util/source-range';
 
 export class DeclarationTree extends Tree {
   ctx: DeclarationContext;
-  metadata: DeclarationMetadata;
+  metadata: DeclarationMetadata | null = null;
   sourceRange: SourceRange;
-  modifier?: IdTree | null;
-  name?: IdTree;
+  modifier: IdTree | null;
+  name: IdTree | null;
   destructure: DeclarationTree[];
   hasParameters: Boolean2;
   generics: DeclarationTree[];
   parameters: DeclarationTree[];
-  type?: ExpressionTree | null;
-  value?: ExpressionTree | null;
-  body?: SourceTree | null;
+  type: ExpressionTree | null;
+  value: ExpressionTree | null;
+  body: SourceTree | null;
   attributes: (DeclarationStatementTree | ExpressionStatementTree)[];
 
   constructor(ctx: DeclarationContext) {
@@ -46,11 +46,15 @@ export class DeclarationTree extends Tree {
     this.parameters = getDeclarationTrees(
       ctx._params.filter((x) => !x.open().LESS())[0]?.declaration(),
     );
-    this.type = getExpressionTree(ctx.valueType()?.expression());
-    this.value = getExpressionTree(ctx.valueBody()?.expression());
-    this.body = getSourceTree(ctx.valueBody()?.body()?.source());
+    const type = ctx.valueType()?.expression();
+    this.type = (type && getExpressionTree(type)) ?? null;
 
-    this.body = getSourceTree(ctx.valueBody()?.body()?.source());
+    const value = ctx.valueBody()?.expression();
+    this.value = (value && getExpressionTree(value)) ?? null;
+
+    const body = ctx.valueBody()?.body()?.source();
+    this.body = (body && getSourceTree(body)) ?? null;
+
     const statements = this.body?.statements || [];
     statements
       .filter(

@@ -11,7 +11,7 @@ export class NullableExpressionFormatter extends ExpressionFormatter {
 
   toString(): String2 {
     return `${getExpressionFormatter(this.ctx.expression(), this.config)
-      .indent(this.indentCount)
+      ?.indent(this.indentCount)
       .break(this.broken)}?`;
   }
 }

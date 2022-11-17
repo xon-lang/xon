@@ -15,7 +15,7 @@ export class DeclarationFormatter extends Formatter {
     const modifier = (this.ctx._modifier && this.ctx._modifier.text + ' ') || '';
     const params = this.ctx._params.map((x) => getDeclarationsFormatter(x, this.config)).join('');
     const type = this.typeFormatter(this.ctx.valueType()?.expression());
-    const body = this.valueBodyFormat(this.ctx.valueBody());
+    const body = this.valueBodyFormat(this.ctx.valueBody() ?? null);
 
     if (this.ctx._name) {
       return `${modifier}${this.ctx._name.text}${params}${type}${body}`;
@@ -25,32 +25,37 @@ export class DeclarationFormatter extends Formatter {
     return `${destructure}${params}${type}${body}`;
   }
 
-  typeFormatter(type: ExpressionContext): String2 {
+  typeFormatter(type?: ExpressionContext | null): String2 {
     if (!type && this.ctx.valueType()?.COLON() && this.ctx.valueBody()?._value) return ' :';
     if (!type && !this.ctx.valueType()?.COLON() && this.ctx.valueBody()?._value) return ' ';
     if (!type) return '';
 
     return (
       ': ' +
-      getExpressionFormatter(this.ctx.valueType()?.expression(), this.config)
-        .indent(this.indentCount)
+      getExpressionFormatter(this.ctx.valueType()?.expression() ?? null, this.config)
+        ?.indent(this.indentCount)
         .toString()
         .trim()
     );
   }
 
-  valueBodyFormat(ctx: ValueBodyContext): String2 {
+  valueBodyFormat(ctx: ValueBodyContext | null): String2 {
     if (!ctx) return '';
 
     if (ctx._value) {
-      const expressionFormatter = getExpressionFormatter(ctx._value, this.config).indent(
+      const expressionFormatter = getExpressionFormatter(ctx._value, this.config)?.indent(
         this.indentCount,
       );
       return (
-        ((this.ctx.valueType()?.expression() && ' = ') || '= ') + expressionFormatter.toString()
+        ((this.ctx.valueType()?.expression() && ' = ') || '= ') +
+        (expressionFormatter?.toString() ?? '')
       );
     }
 
-    return getBodyFormatter(ctx.body(), this.config).indent(this.indentCount).toString();
+    return (
+      getBodyFormatter(ctx.body() ?? null, this.config)
+        ?.indent(this.indentCount)
+        .toString() ?? ''
+    );
   }
 }

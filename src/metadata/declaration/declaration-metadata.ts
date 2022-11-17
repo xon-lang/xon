@@ -13,7 +13,7 @@ export abstract class DeclarationMetadata extends Metadata {
 
   generics: GenericMetadata[] = [];
   parameters: ParameterMetadata[] = [];
-  type?: TypeMetadata | null = null;
+  type: TypeMetadata | null = null;
 
   constructor(public tree: DeclarationTree | null) {
     super();
@@ -26,6 +26,6 @@ export abstract class DeclarationMetadata extends Metadata {
   }
 
   equals(other: DeclarationMetadata): Boolean2 {
-    return this.sourceRange.equals(other.sourceRange);
+    return (other.sourceRange && this.sourceRange?.equals(other.sourceRange)) ?? false;
   }
 }

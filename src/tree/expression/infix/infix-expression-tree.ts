@@ -4,19 +4,21 @@ import { IdTree } from '~/tree/id/id-tree';
 import { SourceRange } from '~/util/source-range';
 
 export class InfixExpressionTree extends ExpressionTree {
-  ctx: ParserRuleContext;
+  ctx: ParserRuleContext | null;
   name: IdTree;
   left: ExpressionTree;
   right: ExpressionTree;
-  sourceRange: SourceRange;
+  sourceRange: SourceRange | null = null;
 
   constructor(name: IdTree, left: ExpressionTree, right: ExpressionTree) {
     super();
-    this.ctx = left.ctx.parent;
+    this.ctx = left.ctx?.parent ?? null;
     this.name = name;
     this.left = left;
     this.right = right;
-    this.sourceRange = SourceRange.fromTwoRange(left.sourceRange, right.sourceRange);
+    if (left.sourceRange && right.sourceRange) {
+      this.sourceRange = SourceRange.fromTwoRange(left.sourceRange, right.sourceRange);
+    }
     this.addChildren(this.left, this.name, this.right);
   }
 }

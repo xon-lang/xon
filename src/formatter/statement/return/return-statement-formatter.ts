@@ -10,7 +10,7 @@ export class ReturnStatementFormatter extends StatementFormatter {
   }
 
   toString(): String2 {
-    const value = getExpressionFormatter(this.ctx.expression(), this.config)?.indent(
+    const value = getExpressionFormatter(this.ctx.expression() ?? null, this.config)?.indent(
       this.indentCount,
     );
     let result = 'return';

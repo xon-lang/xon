@@ -6,9 +6,9 @@ import { Tree } from '~/tree/tree';
 import { SourceRange } from '~/util/source-range';
 
 export class SourceTree extends Tree {
-  metadata: SourceMetadata;
-  ctx?: SourceContext | null;
-  sourceRange: SourceRange;
+  metadata: SourceMetadata | null = null;
+  ctx: SourceContext | null = null;
+  sourceRange: SourceRange | null = null;
   statements: StatementTree[] = [];
 
   constructor(ctx?: SourceContext) {

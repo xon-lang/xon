@@ -20,7 +20,7 @@ export class ObjectTypeMetadata extends TypeMetadata {
         currentScope.declarations.some(
           (x, i) =>
             otherScope.declarations[i].name !== x.name ||
-            !otherScope.declarations[i].type.is(x.type),
+            (x.type && !otherScope.declarations[i].type?.is(x.type)),
         )
       )
         return false;
@@ -32,8 +32,8 @@ export class ObjectTypeMetadata extends TypeMetadata {
   equals(other: TypeMetadata): Boolean2 {
     if (other instanceof ObjectTypeMetadata) {
       const otherScope = other.attributesScope();
-      return this.attributesScope().declarations.every((x, i) =>
-        otherScope.declarations[i].type.equals(x.type),
+      return this.attributesScope().declarations.every(
+        (x, i) => x.type && otherScope.declarations[i].type?.equals(x.type),
       );
     }
     return false;

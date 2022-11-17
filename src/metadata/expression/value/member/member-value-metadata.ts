@@ -14,15 +14,15 @@ export class MemberValueMetadata extends ValueMetadata {
     }
   }
 
-  private memberDeclaration(): DeclarationMetadata {
+  private memberDeclaration(): DeclarationMetadata | null {
     if (this.tree.instance.metadata instanceof ValueMetadata && this.tree.name) {
       const instanceType = this.tree.instance.metadata.type();
-      const attributesScope = instanceType.attributesScope();
-      const declarations = attributesScope.filter(this.tree.name.text);
-      if (declarations.length === 1) {
+      const attributesScope = instanceType?.attributesScope();
+      const declarations = attributesScope?.filter(this.tree.name.text);
+      if (declarations?.length === 1) {
         return declarations[0];
       }
-      if (declarations.length > 0) {
+      if (declarations && declarations.length > 0) {
         this.tree.name.addError('Too many declarations');
       } else {
         this.tree.name.addError('No declarations found');

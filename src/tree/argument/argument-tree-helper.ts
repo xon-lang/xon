@@ -2,7 +2,6 @@ import { ArgumentContext } from '~/grammar/xon-parser';
 import { ArgumentTree } from '~/tree/argument/argument-tree';
 
 export function getArgumentTree(ctx: ArgumentContext): ArgumentTree {
-  if (!ctx) return null;
   return new ArgumentTree(ctx);
 }
 

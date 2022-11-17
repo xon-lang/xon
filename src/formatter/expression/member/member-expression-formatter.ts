@@ -5,14 +5,14 @@ import { MemberExpressionContext } from '~/grammar/xon-parser';
 import { Boolean2, String2 } from '~/lib/core';
 
 export class MemberExpressionFormatter extends ExpressionFormatter {
-  broken: Boolean2;
+  broken: Boolean2 = false;
 
   constructor(public ctx: MemberExpressionContext, public config: FormatterConfig) {
     super();
   }
 
   toString(): String2 {
-    const expression = getExpressionFormatter(this.ctx.expression(), this.config).indent(
+    const expression = getExpressionFormatter(this.ctx.expression(), this.config)?.indent(
       this.indentCount,
     );
     const name = this.ctx._name.text;
@@ -21,7 +21,8 @@ export class MemberExpressionFormatter extends ExpressionFormatter {
 
     if (this.broken || this.config.endLineLength(result) > this.config.printWidth) {
       this.broken = true;
-      result = expression.break(true) + `\n${this.config.indent(this.indentCount + 1)}.${name}`;
+      result =
+        (expression?.break(true) ?? '') + `\n${this.config.indent(this.indentCount + 1)}.${name}`;
     }
 
     return result;

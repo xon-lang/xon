@@ -34,7 +34,7 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
     return fillTypeMetadata(tree.expression);
   }
   if (tree instanceof LiteralExpressionTree) {
-    let definition: DefinitionMetadata;
+    let definition: DefinitionMetadata | null = null;
     if (tree.literal instanceof IntegerLiteralTree) {
       definition = tree.scope.core.integer;
     } else if (tree.literal instanceof FloatLiteralTree) {
@@ -42,7 +42,9 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
     } else if (tree.literal instanceof StringLiteralTree) {
       definition = tree.scope.core.string;
     }
-    return (tree.metadata = new LiteralTypeMetadata(tree.literal.value, definition));
+    if (definition) {
+      return (tree.metadata = new LiteralTypeMetadata(tree.literal.value, definition));
+    }
   }
 
   if (tree instanceof IdExpressionTree) {
@@ -65,10 +67,10 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
   if (tree instanceof InfixExpressionTree) {
     const left = fillTypeMetadata(tree.left);
     const right = fillTypeMetadata(tree.right);
-    if (tree.name.text === '|') {
+    if (tree.name.text === '|' && left && right) {
       return (tree.metadata = new UnionTypeMetadata(left, right));
     }
-    if (tree.name.text === '&') {
+    if (tree.name.text === '&' && left && right) {
       return (tree.metadata = new IntersectionTypeMetadata(left, right));
     }
 
@@ -82,9 +84,11 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
         x.name.metadata = x.metadata;
       }
       tree.scope.add(x.metadata);
-      fillParameterMetadata(x);
+      fillParameterMetadata(x, null);
     });
     const result = fillTypeMetadata(tree.value);
+    if (!result) return null;
+
     return (tree.metadata = new MethodTypeMetadata(
       tree.parameters.map((x) => x.metadata as ParameterMetadata),
       result,
@@ -94,6 +98,8 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
   if (tree instanceof InvokeExpressionTree) {
     if (tree.ctx.arguments().open().OPEN_BRACKET() && tree.instance instanceof IdExpressionTree) {
       const commonType = fillTypeMetadata(tree.instance);
+      if (!commonType) return null;
+
       if (commonType instanceof ParameterTypeMetadata) {
         tree.instance.name.metadata = commonType.parameter;
       } else if (commonType instanceof DefinitionTypeMetadata) {
@@ -114,24 +120,29 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
         const metadata = new ParameterMetadata(null);
         metadata.name = x.name.text;
         metadata.sourceRange = x.sourceRange;
-        metadata.type = fillValueMetadata(x.value).type();
+        metadata.type = (x.value && fillValueMetadata(x.value).type()) ?? null;
         return (tree.metadata = metadata);
       });
-      parameters.filter((x) => x).forEach((x) => objectScope.add(x));
+      parameters.filter((x) => x).forEach((x) => x && objectScope.add(x));
       return (tree.metadata = new ObjectTypeMetadata(objectScope));
     }
     if (tree.ctx.arguments().open().OPEN_BRACKET()) {
-      const items = tree.arguments.map((x) => fillTypeMetadata(x.value));
-      let commonType: TypeMetadata;
+      const items = tree.arguments.map((x) => (x.value && fillTypeMetadata(x.value)) ?? null);
+      let commonType: TypeMetadata | null;
       if (items.length === 1) {
         commonType = items[0];
       } else if (items.length > 1) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         commonType = UnionTypeMetadata.fromTypes(items);
       } else {
         commonType = tree.scope.core.any.type;
       }
-
-      return (tree.metadata = new ArrayTypeMetadata(commonType, items, tree.scope.core.array));
+      if (commonType) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        return (tree.metadata = new ArrayTypeMetadata(commonType, items, tree.scope.core.array));
+      }
     }
     throw new Error('Not implemented');
   }

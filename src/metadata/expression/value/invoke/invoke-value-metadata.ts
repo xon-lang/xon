@@ -9,7 +9,7 @@ export class InvokeValueMetadata extends ValueMetadata {
   constructor(private tree: InvokeExpressionTree) {
     super();
     fillValueMetadata(tree.instance);
-    tree.arguments.forEach((x) => fillValueMetadata(x.value));
+    tree.arguments.forEach((x) => x.value && fillValueMetadata(x.value));
   }
 
   type(): TypeMetadata | null {

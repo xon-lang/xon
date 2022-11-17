@@ -11,17 +11,26 @@ import { SourceRange } from '~/util/source-range';
 export class ForStatementTree extends StatementTree {
   ctx: ForStatementContext;
   sourceRange: SourceRange;
-  parameter?: DeclarationTree;
+  parameter: DeclarationTree | null = null;
   expression: ExpressionTree;
-  body: SourceTree;
+  body: SourceTree | null = null;
 
   constructor(ctx: ForStatementContext) {
     super();
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
-    this.parameter = getDeclarationTree(ctx.declaration());
+
+    const declaration = ctx.declaration();
+    if (declaration) {
+      this.parameter = getDeclarationTree(declaration);
+    }
+
     this.expression = getExpressionTree(ctx.expression());
-    this.body = getSourceTree(ctx.body().source());
+    const body = ctx.body().source();
+    if (body) {
+      this.body = getSourceTree(body);
+    }
+
     this.addChildren(this.parameter, this.expression, this.body);
   }
 }

@@ -9,15 +9,15 @@ export class DefinitionMetadata extends DeclarationMetadata {
   attributes: ParameterMetadata[] = [];
   type = new DefinitionTypeMetadata(this);
 
-  private _attributesScope: DeclarationScope;
+  private _attributesScope: DeclarationScope | null = null;
 
   attributesScope(): DeclarationScope {
     if (this._attributesScope) {
       return this._attributesScope;
     }
 
-    this._attributesScope = this.base?.attributesScope().clone() || new DeclarationScope();
-    this.attributes.forEach((x) => this._attributesScope.add(x));
+    this._attributesScope = this.base?.attributesScope().clone() ?? new DeclarationScope();
+    this.attributes.forEach((x) => this._attributesScope?.add(x));
     return this._attributesScope;
   }
 
@@ -26,7 +26,7 @@ export class DefinitionMetadata extends DeclarationMetadata {
   }
 
   is(definition: DefinitionMetadata): Boolean2 {
-    if (this.sourceRange.equals(definition.sourceRange)) {
+    if (definition.sourceRange && this.sourceRange?.equals(definition.sourceRange)) {
       return true;
     }
     return this.base?.is(definition) || false;

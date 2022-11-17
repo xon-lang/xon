@@ -8,12 +8,12 @@ export class ParameterTypeMetadata extends TypeMetadata {
     super();
   }
 
-  attributesScope(): DeclarationScope {
-    return this.parameter.type.attributesScope();
+  attributesScope(): DeclarationScope | null {
+    return this.parameter.type?.attributesScope() ?? null;
   }
 
   is(other: TypeMetadata): Boolean2 {
-    return this.parameter.type.is(other);
+    return this.parameter.type?.is(other) ?? false;
   }
 
   equals(other: TypeMetadata): Boolean2 {

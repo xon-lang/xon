@@ -33,7 +33,13 @@ export class InfixValueMetadata extends ValueMetadata {
       }
 
       const [left, right] = x.type.parameters;
-      return leftMetadata.type().is(left.type) && rightMetadata.type().is(right.type);
+      return (
+        (left.type &&
+          right.type &&
+          leftMetadata.type()?.is(left.type) &&
+          rightMetadata.type()?.is(right.type)) ||
+        false
+      );
     });
 
     if (declarations.length === 1) {

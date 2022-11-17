@@ -4,8 +4,6 @@ import { DeclarationScope } from '~/metadata/declaration/scope/declaration-scope
 import { TypeMetadata } from '~/metadata/expression/type/type-metadata';
 
 export class ArrayTypeMetadata extends TypeMetadata {
-  private _attributesScope: DeclarationScope;
-
   constructor(
     public commonType: TypeMetadata,
     public items: TypeMetadata[],

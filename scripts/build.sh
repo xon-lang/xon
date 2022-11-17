@@ -15,5 +15,5 @@ npx tsc
 
 find . -a -name "*.ts" ! -name "*.d.ts" -exec rm -rf {} \;
 rm -rf tsconfig.json
-git init
+# git init
 cd ..

@@ -22,9 +22,7 @@ import { ReturnStatementTree } from '~/tree/statement/return/return-statement-tr
 import { StatementTree } from '~/tree/statement/statement-tree';
 import { WhileStatementTree } from '~/tree/statement/while/while-statement-tree';
 
-export function getStatementTree(ctx?: StatementContext | null): StatementTree | null {
-  if (!ctx) return null;
-
+export function getStatementTree(ctx: StatementContext): StatementTree {
   if (ctx instanceof AssertStatementContext) return new AssertStatementTree(ctx);
   if (ctx instanceof DeclarationStatementContext) return new DeclarationStatementTree(ctx);
   if (ctx instanceof ExportStatementContext) return new ExportStatementTree(ctx);
@@ -39,5 +37,5 @@ export function getStatementTree(ctx?: StatementContext | null): StatementTree |
 }
 
 export function getStatementTrees(statements: StatementContext[]): StatementTree[] {
-  return statements?.map(getStatementTree) || [];
+  return statements.map(getStatementTree);
 }

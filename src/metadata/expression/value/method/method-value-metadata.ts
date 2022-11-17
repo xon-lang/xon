@@ -19,7 +19,7 @@ export class MethodValueMetadata extends ValueMetadata {
         x.name.metadata = x.metadata;
       }
       tree.scope.add(x.metadata);
-      fillParameterMetadata(x);
+      fillParameterMetadata(x, null);
     });
     fillValueMetadata(tree.value);
   }
@@ -30,9 +30,11 @@ export class MethodValueMetadata extends ValueMetadata {
       return null;
     }
 
+    const resultType = this.tree.value.metadata.type();
+    if (!resultType) return null;
     return new MethodTypeMetadata(
       this.tree.parameters.map((x) => x.metadata as ParameterMetadata),
-      this.tree.value.metadata.type(),
+      resultType,
     );
   }
 

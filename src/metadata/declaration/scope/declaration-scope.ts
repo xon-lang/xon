@@ -3,7 +3,7 @@ import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata
 import { CoreDeclarationScope } from '~/metadata/declaration/scope/core/core-declaration-scope';
 
 export class DeclarationScope {
-  core: CoreDeclarationScope;
+  core!: CoreDeclarationScope ;
   declarations: DeclarationMetadata[] = [];
 
   constructor(public parent?: DeclarationScope) {}
@@ -26,7 +26,7 @@ export class DeclarationScope {
   }
 
   filter(name: String2, predicate?: (x: DeclarationMetadata) => Boolean2): DeclarationMetadata[] {
-    const declarations = [...this.core.scope.declarations, ...this.declarations].filter(
+    const declarations = [...(this.core?.scope.declarations ?? []), ...this.declarations].filter(
       (x) => x.name === name && (!predicate || predicate(x)),
     );
     if (declarations.length) {

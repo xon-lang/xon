@@ -28,9 +28,7 @@ import { PreprocessorExpressionTree } from '~/tree/expression/preprocessor/prepr
 import { IdTree } from '~/tree/id/id-tree';
 import { getIdTree } from '~/tree/id/id-tree-helper';
 
-export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
-  if (!ctx) return null;
-
+export const getExpressionTree = (ctx: ExpressionContext ): ExpressionTree => {
   if (ctx instanceof PreprocessorExpressionContext) return new PreprocessorExpressionTree(ctx);
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
   if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);

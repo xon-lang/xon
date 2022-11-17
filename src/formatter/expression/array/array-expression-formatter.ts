@@ -10,9 +10,11 @@ export class ArrayExpressionFormatter extends ExpressionFormatter {
   }
 
   toString(): String2 {
-    return getArgumentsFormatter(this.ctx.arguments(), this.config)
-      .indent(this.indentCount)
-      .break(this.broken)
-      .toString();
+    return (
+      getArgumentsFormatter(this.ctx.arguments(), this.config)
+        ?.indent(this.indentCount)
+        .break(this.broken)
+        .toString() ?? ''
+    );
   }
 }

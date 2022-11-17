@@ -12,7 +12,7 @@ export class ForStatementFormatter extends StatementFormatter {
   }
 
   toString(): String2 {
-    const parameter = getParameterFormatter(this.ctx.declaration(), this.config)?.indent(
+    const parameter = getParameterFormatter(this.ctx.declaration() ?? null, this.config)?.indent(
       this.indentCount,
     );
     let vars = [parameter]
@@ -21,10 +21,10 @@ export class ForStatementFormatter extends StatementFormatter {
       .join(', ');
     vars &&= vars + ' in ';
     const expression = getExpressionFormatter(this.ctx.expression(), this.config)
-      .indent(this.indentCount)
+      ?.indent(this.indentCount)
       .toString()
       .trim();
-    const body = getBodyFormatter(this.ctx.body(), this.config).indent(this.indentCount);
+    const body = getBodyFormatter(this.ctx.body(), this.config)?.indent(this.indentCount);
     return `for ${vars}${expression}${body}`;
   }
 }

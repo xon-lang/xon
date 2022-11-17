@@ -6,8 +6,8 @@ export abstract class Formatter {
   indentCount: Number2 = 0;
   broken: Boolean2 = false;
 
-  ctx: ParserRuleContext;
-  config: FormatterConfig;
+  ctx: ParserRuleContext | null = null;
+  config: FormatterConfig | null = null;
 
   indent(value: Number2): Formatter {
     this.indentCount = value;

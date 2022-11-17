@@ -7,13 +7,15 @@ import { SourceRange } from '~/util/source-range';
 export class ReturnStatementTree extends StatementTree {
   ctx: ReturnStatementContext;
   sourceRange: SourceRange;
-  value?: ExpressionTree | null;
+  value: ExpressionTree | null;
 
   constructor(ctx: ReturnStatementContext) {
     super();
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
-    this.value = ctx.expression() && getExpressionTree(ctx.expression());
+
+    const value = ctx.expression();
+    this.value = (value && getExpressionTree(value)) ?? null;
     this.addChildren(this.value);
   }
 }

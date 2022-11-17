@@ -10,8 +10,10 @@ export class DeclarationStatementFormatter extends StatementFormatter {
   }
 
   toString(): String2 {
-    return getParameterFormatter(this.ctx.declaration(), this.config)
-      .indent(this.indentCount)
-      .toString();
+    return (
+      getParameterFormatter(this.ctx.declaration(), this.config)
+        ?.indent(this.indentCount)
+        .toString() ?? ''
+    );
   }
 }

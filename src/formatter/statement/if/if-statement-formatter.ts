@@ -11,13 +11,13 @@ export class IfStatementFormatter extends StatementFormatter {
   }
 
   toString(): String2 {
-    const condition = getExpressionFormatter(this.ctx.expression(), this.config).indent(
+    const condition = getExpressionFormatter(this.ctx.expression(), this.config)?.indent(
       this.indentCount,
     );
-    const thenBody = getBodyFormatter(this.ctx._thenBody, this.config).indent(this.indentCount);
+    const thenBody = getBodyFormatter(this.ctx._thenBody, this.config)?.indent(this.indentCount);
     let result = `if ${condition}${thenBody}`;
     if (this.ctx._elseBody) {
-      const elseBody = getBodyFormatter(this.ctx._elseBody, this.config).indent(this.indentCount);
+      const elseBody = getBodyFormatter(this.ctx._elseBody, this.config)?.indent(this.indentCount);
       result += this.config.nl + this.config.indent(this.indentCount) + `else${elseBody}`;
     }
 

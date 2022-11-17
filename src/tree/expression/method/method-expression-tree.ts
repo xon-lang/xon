@@ -10,7 +10,7 @@ export class MethodExpressionTree extends ExpressionTree {
   sourceRange: SourceRange;
   generics: DeclarationTree[] = [];
   parameters: DeclarationTree[] = [];
-  type: ExpressionTree;
+  type: ExpressionTree | null = null;
   value: ExpressionTree;
 
   constructor(ctx: MethodExpressionContext) {
@@ -25,7 +25,11 @@ export class MethodExpressionTree extends ExpressionTree {
     this.parameters = getDeclarationTrees(
       paramsGroup.filter((x) => !x.open().LESS())[0]?.declaration(),
     );
-    this.type = getExpressionTree(ctx.valueType()?.expression());
+
+    const valueTypeCtx = ctx.valueType()?.expression();
+    if (valueTypeCtx) {
+      this.type = getExpressionTree(valueTypeCtx);
+    }
     this.value = getExpressionTree(ctx.expression());
     this.addChildren(...this.parameters, this.value);
   }

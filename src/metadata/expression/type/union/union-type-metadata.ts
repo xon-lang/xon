@@ -3,18 +3,18 @@ import { DeclarationScope } from '~/metadata/declaration/scope/declaration-scope
 import { TypeMetadata } from '~/metadata/expression/type/type-metadata';
 
 export class UnionTypeMetadata extends TypeMetadata {
-  private _attributesScope: DeclarationScope;
+  private _attributesScope: DeclarationScope | null = null;
 
   constructor(public left: TypeMetadata, public right: TypeMetadata) {
     super();
   }
 
-  attributesScope(): DeclarationScope {
+  attributesScope(): DeclarationScope | null {
     if (this._attributesScope) return this._attributesScope;
 
-    return (this._attributesScope = this.left
-      .attributesScope()
-      .union(this.right.attributesScope()));
+    const rightScope = this.right.attributesScope();
+    if (!rightScope) return null;
+    return (this._attributesScope = this.left.attributesScope()?.union(rightScope) ?? null);
   }
 
   is(): Boolean2 {

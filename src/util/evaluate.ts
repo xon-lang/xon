@@ -8,7 +8,6 @@ import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tr
 import { LiteralExpressionTree } from '~/tree/expression/literal/literal-expression-tree';
 import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
 
-
 export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);
 }
@@ -18,7 +17,7 @@ export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
     return null;
   }
   if (tree instanceof ArrayExpressionTree) {
-    return tree.arguments.map((x) => evaluate(x.value));
+    return tree.arguments.map((x) => evaluate(x.value ?? null));
   }
   if (tree instanceof LiteralExpressionTree) {
     return tree.literal.value;

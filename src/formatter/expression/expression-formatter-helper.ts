@@ -28,7 +28,7 @@ import {
 import { Issue } from '~/issue/issue';
 
 export const getExpressionFormatter = (
-  ctx: ExpressionContext,
+  ctx: ExpressionContext | null,
   config: FormatterConfig,
 ): ExpressionFormatter | null => {
   if (!ctx) return null;

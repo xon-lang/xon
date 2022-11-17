@@ -4,7 +4,7 @@ import { DeclarationContext } from '~/grammar/xon-parser';
 import { Issue } from '~/issue/issue';
 
 export const getParameterFormatter = (
-  ctx: DeclarationContext,
+  ctx: DeclarationContext | null,
   config: FormatterConfig,
 ): DeclarationFormatter | null => {
   if (!ctx) return null;

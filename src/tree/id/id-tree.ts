@@ -6,13 +6,13 @@ import { SourceRange } from '~/util/source-range';
 
 export class IdTree extends Tree {
   sourceRange: SourceRange;
-  metadata: DeclarationMetadata;
+  metadata: DeclarationMetadata | null = null;
   text: String2;
 
   constructor(token: Token) {
     super();
     this.sourceRange = SourceRange.fromToken(token);
-    this.text = token.text;
+    this.text = token.text ?? '';
   }
 
   toString(): String2 {

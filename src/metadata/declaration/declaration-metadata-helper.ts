@@ -22,7 +22,7 @@ export function getShadowSourceMetadata(tree: SourceTree): DeclarationMetadata[]
     .filter((x) => x instanceof DeclarationStatementTree && !x.declaration.metadata)
     .map((x) => (x as DeclarationStatementTree).declaration);
 
-  const declarations = [];
+  const declarations: DeclarationMetadata[] = [];
   for (const declarationTree of declarationTrees) {
     if (!declarationTree.modifier) {
       declarationTree.metadata = getShadowParameterMetadata(declarationTree);
@@ -109,13 +109,13 @@ export function fillDeclarationMetadata(tree: DeclarationTree): void {
   } else if (tree.modifier?.text === 'model' || tree.modifier?.text === 'object') {
     fillDefinitionMetadata(tree);
   } else {
-    fillParameterMetadata(tree);
+    fillParameterMetadata(tree, null);
   }
 }
 
 export function fillDefinitionMetadata(tree: DeclarationTree): void {
   for (const parameter of tree.parameters) {
-    fillParameterMetadata(parameter);
+    fillParameterMetadata(parameter, null);
   }
 
   // todo fix base type should be TypeMetadata
@@ -140,29 +140,31 @@ export function fillDefinitionMetadata(tree: DeclarationTree): void {
       (x) => x instanceof DeclarationStatementTree && x.declaration instanceof DeclarationTree,
     )
     .map((x) => (x as DeclarationStatementTree).declaration as DeclarationTree) || []) {
-    fillParameterMetadata(parameter);
+    fillParameterMetadata(parameter, null);
   }
 }
 
 export function fillOperatorMetadata(tree: DeclarationTree, alternativeType?: TypeMetadata): void {
-  tree.parameters.forEach((x) => fillParameterMetadata(x));
+  tree.parameters.forEach((x) => fillParameterMetadata(x, null));
 
   if (tree.value) {
     fillValueMetadata(tree.value);
   }
 
-  if (tree.type) {
-    tree.metadata.type = fillTypeMetadata(tree.type);
-    tree.type.metadata = tree.metadata.type;
-  } else if (alternativeType) {
-    tree.metadata.type = alternativeType;
-  } else if (tree.value && tree.metadata instanceof ParameterMetadata) {
-    tree.metadata.type = (tree.value.metadata as ValueMetadata).type();
-  } else {
-    tree.metadata.type = tree.scope.core.any.type;
+  if (tree.metadata) {
+    if (tree.type) {
+      tree.metadata.type = fillTypeMetadata(tree.type);
+      tree.type.metadata = tree.metadata.type;
+    } else if (alternativeType) {
+      tree.metadata.type = alternativeType;
+    } else if (tree.value && tree.metadata instanceof ParameterMetadata) {
+      tree.metadata.type = (tree.value.metadata as ValueMetadata).type();
+    } else {
+      tree.metadata.type = tree.scope.core.any.type;
+    }
   }
 
-  if (tree.hasParameters) {
+  if (tree.hasParameters && tree.metadata?.type) {
     tree.metadata.type = new MethodTypeMetadata(
       tree.parameters.map((x) => x.metadata as ParameterMetadata),
       tree.metadata.type,
@@ -170,8 +172,11 @@ export function fillOperatorMetadata(tree: DeclarationTree, alternativeType?: Ty
   }
 }
 
-export function fillParameterMetadata(tree: DeclarationTree, alternativeType?: TypeMetadata): void {
-  tree.parameters.forEach((x) => fillParameterMetadata(x));
+export function fillParameterMetadata(
+  tree: DeclarationTree,
+  alternativeType: TypeMetadata | null,
+): void {
+  tree.parameters.forEach((x) => fillParameterMetadata(x, null));
 
   if (
     tree.value &&
@@ -179,21 +184,22 @@ export function fillParameterMetadata(tree: DeclarationTree, alternativeType?: T
   ) {
     tree.value.metadata = fillValueMetadata(tree.value);
   }
-
-  if (tree.type) {
-    tree.metadata.type = fillTypeMetadata(tree.type);
-  } else if (alternativeType) {
-    tree.metadata.type = alternativeType;
-  } else if (
-    tree.value &&
-    (tree.metadata instanceof ParameterMetadata || tree.metadata instanceof DestructureMetadata)
-  ) {
-    tree.metadata.type = (tree.value.metadata as ValueMetadata).type();
-  } else {
-    tree.metadata.type = tree.scope.core?.any.type || null;
+  if (tree.metadata) {
+    if (tree.type) {
+      tree.metadata.type = fillTypeMetadata(tree.type);
+    } else if (alternativeType) {
+      tree.metadata.type = alternativeType;
+    } else if (
+      tree.value &&
+      (tree.metadata instanceof ParameterMetadata || tree.metadata instanceof DestructureMetadata)
+    ) {
+      tree.metadata.type = (tree.value.metadata as ValueMetadata).type();
+    } else {
+      tree.metadata.type = tree.scope.core?.any.type || null;
+    }
   }
 
-  if (tree.hasParameters) {
+  if (tree.hasParameters && tree.metadata?.type) {
     tree.metadata.type = new MethodTypeMetadata(
       tree.parameters.map((x) => x.metadata as ParameterMetadata),
       tree.metadata.type,
@@ -207,10 +213,10 @@ export function fillParameterMetadata(tree: DeclarationTree, alternativeType?: T
 
 export function fillDestructureParameterMetadata(tree: DeclarationTree): void {
   for (const [index, parameter] of tree.destructure.entries()) {
-    let type: TypeMetadata;
-    if (tree.metadata.type instanceof ObjectTypeMetadata) {
-      const declarations = tree.metadata.type.attributesScope()?.filter(parameter.name.text) || [];
-      if (declarations.length === 1) {
+    let type: TypeMetadata | null = null;
+    if (tree.metadata?.type instanceof ObjectTypeMetadata && parameter.name) {
+      const declarations = tree.metadata.type.attributesScope()?.filter(parameter.name?.text) || [];
+      if (declarations.length === 1 && parameter.metadata) {
         type = declarations[0].type;
         // todo think about it, we already set sourceRange this is second time
         parameter.metadata.sourceRange = declarations[0].sourceRange;
@@ -219,7 +225,7 @@ export function fillDestructureParameterMetadata(tree: DeclarationTree): void {
       } else {
         parameter.name.addError('No declarations found');
       }
-    } else if (tree.metadata.type instanceof ArrayTypeMetadata) {
+    } else if (tree.metadata?.type instanceof ArrayTypeMetadata) {
       const commonType = tree.metadata.type.commonType;
       const items = tree.metadata.type.items;
       type = (items.length && items[index]) || commonType;

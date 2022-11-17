@@ -10,9 +10,10 @@ export class ExpressionStatementFormatter extends StatementFormatter {
   }
 
   toString(): String2 {
-    const expression = getExpressionFormatter(this.ctx.expression(), this.config)
-      .indent(this.indentCount)
-      .break(this.broken);
+    const expression =
+      getExpressionFormatter(this.ctx.expression(), this.config)
+        ?.indent(this.indentCount)
+        .break(this.broken) ?? '';
     return expression.toString();
   }
 }

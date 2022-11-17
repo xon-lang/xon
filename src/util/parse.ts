@@ -19,8 +19,8 @@ import { getStatementTree } from '~/tree/statement/statement-tree-helper';
 import { SourceRange } from '~/util/source-range';
 import { ThrowingErrorListener } from '~/util/throwing-error-listener';
 
-export function getParser(code: String2, sourceName: String2 = undefined): XonParser {
-  const inputStream = CharStreams.fromString(code, sourceName);
+export function getParser(code: String2, sourceName: String2 | null = null): XonParser {
+  const inputStream = CharStreams.fromString(code, sourceName || '');
   const lexer = new XonLexer(inputStream);
   lexer.removeErrorListeners();
   lexer.addErrorListener(new ThrowingErrorListener());
@@ -31,13 +31,17 @@ export function getParser(code: String2, sourceName: String2 = undefined): XonPa
   return parser;
 }
 
-function _getSourceTree(parser: XonParser): SourceTree {
+function _getSourceTree(parser: XonParser): SourceTree | never {
   try {
-    return getSourceTree(parser.source());
+    const tree = getSourceTree(parser.source());
+    if (tree) {
+      return tree;
+    }
+    throw new Error('Wrong operation');
   } catch (error) {
     if (error instanceof Issue) {
       const tree = new SourceTree();
-      const stream = error.antlrError.inputStream as CommonTokenStream;
+      const stream = error.antlrError?.inputStream as CommonTokenStream;
       const tokens = stream.getTokens();
       tree.sourceRange = SourceRange.fromTwoTokens(tokens[0], tokens[tokens.length - 1]);
       tree.issues.push(error);
@@ -56,7 +60,7 @@ export function parseSource(code: String2): SourceTree {
   return _getSourceTree(getParser(code));
 }
 
-export function parseLiteral(code: String2): LiteralTree {
+export function parseLiteral(code: String2): LiteralTree | null {
   return getLiteralTree(getParser(code).literal());
 }
 
@@ -64,11 +68,11 @@ export function parseExpression(code: String2): ExpressionTree {
   return getExpressionTree(getParser(code).expression());
 }
 
-export function parseStatement(code: String2): StatementTree {
+export function parseStatement(code: String2): StatementTree | null {
   return getStatementTree(getParser(code).statement());
 }
 
-export function parseDeclaration(code: String2): DeclarationTree {
+export function parseDeclaration(code: String2): DeclarationTree | null {
   return getDeclarationTree(getParser(code).declaration());
 }
 

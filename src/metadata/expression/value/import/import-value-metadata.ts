@@ -11,17 +11,17 @@ import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression
 import { evaluate } from '~/util/evaluate';
 
 export class ImportValueMetadata extends ValueMetadata {
-  fullPath: String2;
-  private _importScope: DeclarationScope;
-  private _importProvider: ImportProvider;
-  private _type: TypeMetadata;
+  fullPath: String2 | null = null;
+  private _importScope: DeclarationScope | null = null;
+  private _importProvider: ImportProvider | null = null;
+  private _type: TypeMetadata | null = null;
 
   constructor(private tree: PrefixExpressionTree) {
     super();
     fillValueMetadata(tree.value);
 
     const importPath = evaluate(tree.value);
-    if (typeof importPath === 'string') {
+    if (typeof importPath === 'string' && tree.sourceRange.sourceName) {
       const relativePath = path.resolve(path.dirname(tree.sourceRange.sourceName), importPath);
       this._importProvider = new ImportProvider(relativePath);
       this.fullPath = this._importProvider.fullPath;
@@ -51,7 +51,9 @@ export class ImportValueMetadata extends ValueMetadata {
     if (this._type) {
       return this._type;
     }
-    this._type = new ObjectTypeMetadata(this.importScope());
+    const importScope = this.importScope();
+    if (!importScope) return null;
+    this._type = new ObjectTypeMetadata(importScope);
     return this._type;
   }
 

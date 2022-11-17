@@ -3,7 +3,7 @@ import { FormatterConfig } from '~/formatter/formatter-config';
 import { BodyContext } from '~/grammar/xon-parser';
 
 export const getBodyFormatter = (
-  ctx: BodyContext,
+  ctx: BodyContext | null,
   config: FormatterConfig,
 ): BodyFormatter | null => {
   if (!ctx) return null;

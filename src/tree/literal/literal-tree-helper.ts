@@ -10,8 +10,7 @@ import { IntegerLiteralTree } from '~/tree/literal/integer/integer-literal-tree'
 import { LiteralTree } from '~/tree/literal/literal-tree';
 import { StringLiteralTree } from '~/tree/literal/string/string-literal-tree';
 
-export function getLiteralTree(ctx: LiteralContext): LiteralTree | null {
-  if (!ctx) return null;
+export function getLiteralTree(ctx: LiteralContext): LiteralTree {
   if (ctx instanceof FloatLiteralContext) return new FloatLiteralTree(ctx);
   if (ctx instanceof IntegerLiteralContext) return new IntegerLiteralTree(ctx);
   if (ctx instanceof StringLiteralContext) return new StringLiteralTree(ctx);

@@ -1,7 +1,7 @@
 import { getParameterFormatter } from '~/formatter/declaration/declaration-formatter-helper';
 import { Formatter } from '~/formatter/formatter';
 import { FormatterConfig } from '~/formatter/formatter-config';
-import { DeclarationsContext } from '~/grammar/xon-parser';
+import { DeclarationContext, DeclarationsContext } from '~/grammar/xon-parser';
 import { String2 } from '~/lib/core';
 
 export class ParametersFormatter extends Formatter {
@@ -17,16 +17,16 @@ export class ParametersFormatter extends Formatter {
       return openSymbol + closeSymbol;
     }
 
-    let sortedParameters = [];
+    let sortedParameters: DeclarationContext[] = [];
     if (this.ctx.close().CLOSE_BRACE()) {
       sortedParameters = this.ctx
         .declaration()
-        .sort((a, b) => a._name.text.localeCompare(b._name.text));
+        .sort((a, b) => a._name.text?.localeCompare(b._name?.text ?? '') ?? 0);
     } else {
       sortedParameters = this.ctx.declaration();
     }
     const parameters = sortedParameters.map((x) =>
-      getParameterFormatter(x, this.config).indent(this.indentCount),
+      getParameterFormatter(x, this.config)?.indent(this.indentCount),
     );
 
     let result = openSymbol + parameters.join(', ') + closeSymbol;
@@ -35,7 +35,7 @@ export class ParametersFormatter extends Formatter {
       const parameterIndent = this.config.indent(this.indentCount + 1);
       const joinedParameters =
         parameters
-          .map((x) => parameterIndent + x.indent(this.indentCount + 1))
+          .map((x) => parameterIndent + (x?.indent(this.indentCount + 1) ?? ''))
           .join(',' + this.config.nl) + ((parameters.length > 1 && ',') || '');
       result =
         openSymbol +

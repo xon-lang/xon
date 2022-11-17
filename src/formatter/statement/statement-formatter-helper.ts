@@ -18,7 +18,7 @@ import {
 import { Issue } from '~/issue/issue';
 
 export const getStatementFormatter = (
-  ctx: StatementContext,
+  ctx: StatementContext | null,
   config: FormatterConfig,
 ): StatementFormatter | null => {
   if (!ctx) return null;

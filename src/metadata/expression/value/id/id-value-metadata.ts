@@ -11,7 +11,7 @@ export class IdValueMetadata extends ValueMetadata {
     tree.name.metadata = this.declaration();
   }
 
-  private declaration(): DeclarationMetadata {
+  private declaration(): DeclarationMetadata | null {
     const declarations = this.tree.scope.filter(this.tree.name.text);
     if (declarations.length === 1) {
       return declarations[0];
@@ -21,10 +21,11 @@ export class IdValueMetadata extends ValueMetadata {
     } else {
       this.tree.name.addError('No declarations found');
     }
+    return null;
   }
 
   type(): TypeMetadata | null {
-    return this.tree.name.metadata?.type;
+    return this.tree.name.metadata?.type ?? null;
   }
 
   eval(): Any2 {
