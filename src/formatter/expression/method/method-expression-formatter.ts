@@ -20,6 +20,7 @@ export class MethodExpressionFormatter extends ExpressionFormatter {
       .map((x) => getDeclarationsFormatter(x, this.config)?.indent(this.indentCount)
         .break(this.broken))
       .join('');
+
     return `${parametersGroup} => ${value ?? ''}`;
   }
 }

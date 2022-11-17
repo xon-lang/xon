@@ -33,6 +33,7 @@ export class ArrayValueMetadata extends ValueMetadata {
         metadata.type = x.type;
         objectScope.add(metadata);
       });
+
       return new ObjectTypeMetadata(objectScope);
     }
     let commonType: TypeMetadata | null = this.tree.scope.core.any.type;
@@ -52,6 +53,7 @@ export class ArrayValueMetadata extends ValueMetadata {
         this.tree.scope.core.array,
       );
     }
+
     return null;
   }
 

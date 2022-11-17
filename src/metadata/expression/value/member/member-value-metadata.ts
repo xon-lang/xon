@@ -28,6 +28,7 @@ export class MemberValueMetadata extends ValueMetadata {
         this.tree.name.addError('No declarations found');
       }
     }
+
     return null;
   }
 

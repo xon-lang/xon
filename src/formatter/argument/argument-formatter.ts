@@ -17,6 +17,7 @@ export class ArgumentFormatter extends Formatter {
     if (this.ctx._name) {
       return `${this.ctx._name.text} = ${value}`;
     }
+
     return value.toString();
   }
 }

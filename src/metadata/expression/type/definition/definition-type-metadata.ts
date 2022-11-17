@@ -23,6 +23,7 @@ export class DefinitionTypeMetadata extends TypeMetadata {
     if (other instanceof DefinitionTypeMetadata) {
       return this.definition.equals(other.definition);
     }
+
     return false;
   }
 }

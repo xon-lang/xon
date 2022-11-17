@@ -28,6 +28,7 @@ export function getParser(code: String2, sourceName: String2 | null = null): Xon
   const parser = new XonParser(tokenStream);
   parser.removeErrorListeners();
   parser.addErrorListener(new ThrowingErrorListener());
+
   return parser;
 }
 
@@ -45,6 +46,7 @@ function _getSourceTree(parser: XonParser): SourceTree | never {
       const tokens = stream.getTokens();
       tree.sourceRange = SourceRange.fromTwoTokens(tokens[0], tokens[tokens.length - 1]);
       tree.issues.push(error);
+
       return tree;
     }
     throw error;
@@ -53,6 +55,7 @@ function _getSourceTree(parser: XonParser): SourceTree | never {
 
 export function parseSourceFile(sourceName: String2): SourceTree {
   const code = readFileSync(sourceName).toString();
+
   return _getSourceTree(getParser(code, sourceName));
 }
 

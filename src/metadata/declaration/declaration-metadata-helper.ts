@@ -43,6 +43,7 @@ export function getShadowSourceMetadata(tree: SourceTree): DeclarationMetadata[]
 
     declarations.push(declarationTree.metadata);
   }
+
   return declarations;
 }
 
@@ -90,6 +91,7 @@ export function getShadowParameterMetadata(tree: DeclarationTree): ParameterMeta
       parameter.metadata = getShadowParameterMetadata(parameter);
       metadata.parameters.push(parameter.metadata);
     }
+
     return metadata;
   }
 
@@ -101,6 +103,7 @@ export function getShadowParameterMetadata(tree: DeclarationTree): ParameterMeta
   }
 
   metadata.parameters.forEach((x) => tree.scope.add(x));
+
   return metadata;
 }
 

@@ -14,6 +14,7 @@ export class DeclarationScope {
 
   all(): DeclarationMetadata[] {
     const parentDeclarations = this.parent?.all() || [];
+
     return [...this.declarations, ...parentDeclarations];
   }
 
@@ -22,6 +23,7 @@ export class DeclarationScope {
     scope.declarations = this.declarations.slice();
     scope.parent = this.parent;
     scope.core = this.core;
+
     return scope;
   }
 
@@ -32,6 +34,7 @@ export class DeclarationScope {
     if (declarations.length) {
       return declarations;
     }
+
     return this.parent?.filter(name, predicate) || [];
   }
 
@@ -43,6 +46,7 @@ export class DeclarationScope {
       .all()
       .filter((x) => leftAll.some((z) => z.name === x.name))
       .forEach((x) => scope.add(x));
+
     return scope;
   }
 
@@ -53,6 +57,7 @@ export class DeclarationScope {
       .all()
       .filter((x) => !leftAll.some((z) => z.equals(x)))
       .forEach((x) => scope.add(x));
+
     return scope;
 
     // const left = this.all();

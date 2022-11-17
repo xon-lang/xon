@@ -33,6 +33,7 @@ export class InfixValueMetadata extends ValueMetadata {
       }
 
       const [left, right] = x.type.parameters;
+
       return (
         left.type
           && right.type
@@ -50,6 +51,7 @@ export class InfixValueMetadata extends ValueMetadata {
     } else {
       this.tree.name.addError('No declarations found');
     }
+
     return null;
   }
 
@@ -57,6 +59,7 @@ export class InfixValueMetadata extends ValueMetadata {
     if (this.tree.name.metadata?.type instanceof MethodTypeMetadata) {
       return this.tree.name.metadata.type.resultType;
     }
+
     return null;
   }
 
@@ -70,6 +73,7 @@ export class InfixValueMetadata extends ValueMetadata {
       if (this.tree.name.text === '^' && typeof left === 'number' && typeof right === 'number') {
         return left ** right;
       }
+
       // eslint-disable-next-line no-eval
       return eval(`${escapeToString(left)} ${this.tree.name} ${escapeToString(right)}`);
     }

@@ -20,6 +20,7 @@ export class InvokeValueMetadata extends ValueMetadata {
         return instanceType.resultType;
       }
     }
+
     return null;
   }
 

@@ -7,5 +7,6 @@ export const getSourceFormatter = (
   config: FormatterConfig,
 ): SourceFormatter | null => {
   if (ctx instanceof SourceContext) return new SourceFormatter(ctx, config);
+
   return null;
 };

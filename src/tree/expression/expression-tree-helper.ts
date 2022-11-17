@@ -66,6 +66,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
         }
       }
     }
+
     return expressions[0] as ExpressionTree;
   }
 

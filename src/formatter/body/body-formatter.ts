@@ -18,14 +18,17 @@ export class BodyFormatter extends Formatter {
         .map((x, i) => {
           const nlCount = Math.min(2, this.ctx.source()._nl[i].text?.match(/\n/ug)?.length || 0);
           const statement = this.indentStatement(x);
+
           return statement + this.config.nl.repeat(nlCount);
         })
         .join('');
 
       const lastStatement = this.indentStatement(this.ctx.source().statement()
         .slice(-1)[0]);
+
       return this.config.nl + statements + lastStatement;
     }
+
     return '';
   }
 

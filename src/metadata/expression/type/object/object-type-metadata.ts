@@ -25,6 +25,7 @@ export class ObjectTypeMetadata extends TypeMetadata {
       ) {
         return false;
       }
+
       return true;
     }
     throw new Error('Not implemented');
@@ -33,10 +34,12 @@ export class ObjectTypeMetadata extends TypeMetadata {
   equals(other: TypeMetadata): Boolean2 {
     if (other instanceof ObjectTypeMetadata) {
       const otherScope = other.attributesScope();
+
       return this.attributesScope().declarations.every(
         (x, i) => x.type && otherScope.declarations[i].type?.equals(x.type),
       );
     }
+
     return false;
   }
 }

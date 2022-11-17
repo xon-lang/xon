@@ -20,6 +20,7 @@ export class InfixExpressionFormatter extends ExpressionFormatter {
     if (operator === '^') {
       return `${left}${operator}${right}`;
     }
+
     return `${left ?? ''} ${operator} ${right ?? ''}`;
   }
 }

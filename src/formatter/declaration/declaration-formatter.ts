@@ -22,6 +22,7 @@ export class DeclarationFormatter extends Formatter {
     }
 
     const destructure = getDeclarationsFormatter(this.ctx._destructure, this.config);
+
     return `${destructure}${params}${type}${body}`;
   }
 
@@ -43,6 +44,7 @@ export class DeclarationFormatter extends Formatter {
       const expressionFormatter = getExpressionFormatter(ctx._value, this.config)?.indent(
         this.indentCount,
       );
+
       return (
         (this.ctx.valueType()?.expression() && ' = ' || '= ')
         + (expressionFormatter?.toString() ?? '')

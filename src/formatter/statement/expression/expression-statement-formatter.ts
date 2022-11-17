@@ -14,6 +14,7 @@ export class ExpressionStatementFormatter extends StatementFormatter {
       = getExpressionFormatter(this.ctx.expression(), this.config)
         ?.indent(this.indentCount)
         .break(this.broken) ?? '';
+
     return expression.toString();
   }
 }

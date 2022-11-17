@@ -27,6 +27,7 @@ export class LiteralTypeMetadata extends TypeMetadata {
     if (other instanceof LiteralTypeMetadata) {
       return this.value === other.value;
     }
+
     return false;
   }
 }

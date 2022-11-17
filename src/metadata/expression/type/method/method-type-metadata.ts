@@ -25,6 +25,7 @@ export class MethodTypeMetadata extends TypeMetadata {
       if (this.resultType.is(other.resultType)) {
         return false;
       }
+
       return true;
     }
     throw new Error('Not implemented');
@@ -33,11 +34,13 @@ export class MethodTypeMetadata extends TypeMetadata {
   equals(other: TypeMetadata): Boolean2 {
     if (other instanceof MethodTypeMetadata) {
       const otherParameters = other.parameters;
+
       return (
         this.parameters.every((x, i) => x.type && otherParameters[i].type?.equals(x.type))
         && this.resultType.equals(other.resultType)
       );
     }
+
     return false;
   }
 }

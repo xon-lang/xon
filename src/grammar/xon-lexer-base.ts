@@ -64,6 +64,7 @@ export abstract class XonLexerBase extends Lexer {
 
     if (this.opened > 0 || !newLine) {
       this.skip();
+
       return;
     }
     this.emit(this.commonToken(XonParser.NL, newLine));
@@ -88,6 +89,7 @@ export abstract class XonLexerBase extends Lexer {
     if (this.lastToken) {
       dedent.line = this.lastToken.line;
     }
+
     return dedent;
   }
 
@@ -103,6 +105,7 @@ export abstract class XonLexerBase extends Lexer {
       stop,
     );
     this.lastToken = token;
+
     return token;
   }
 }

@@ -21,6 +21,7 @@ export class ReturnStatementFormatter extends StatementFormatter {
       result = `return ${value.break(true).toString()
         .trim()}`;
     }
+
     return result;
   }
 }

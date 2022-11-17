@@ -44,6 +44,7 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
     }
     if (definition) {
       tree.metadata = new LiteralTypeMetadata(tree.literal.value, definition);
+
       return tree.metadata as TypeMetadata;
     }
   }
@@ -54,10 +55,12 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
       [tree.name.metadata] = declarations;
       if (declarations[0] instanceof ParameterMetadata) {
         tree.metadata = new ParameterTypeMetadata(declarations[0]);
+
         return tree.metadata as TypeMetadata;
       }
       if (declarations[0] instanceof DefinitionMetadata) {
         tree.metadata = new DefinitionTypeMetadata(declarations[0]);
+
         return tree.metadata as TypeMetadata;
       }
     } else if (declarations.length > 0) {
@@ -66,6 +69,7 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
       tree.name.addError('No declarations found');
     }
     tree.metadata = null;
+
     return tree.metadata;
   }
   if (tree instanceof InfixExpressionTree) {
@@ -73,10 +77,12 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
     const right = fillTypeMetadata(tree.right);
     if (tree.name.text === '|' && left && right) {
       tree.metadata = new UnionTypeMetadata(left, right);
+
       return tree.metadata as TypeMetadata;
     }
     if (tree.name.text === '&' && left && right) {
       tree.metadata = new IntersectionTypeMetadata(left, right);
+
       return tree.metadata as TypeMetadata;
     }
 
@@ -99,6 +105,7 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
       tree.parameters.map((x) => x.metadata as ParameterMetadata),
       result,
     );
+
     return tree.metadata as TypeMetadata;
   }
 
@@ -113,6 +120,7 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
         tree.instance.name.metadata = commonType.definition;
       }
       tree.metadata = new ArrayTypeMetadata(commonType, [], tree.scope.core.array);
+
       return tree.metadata as TypeMetadata;
     }
   }
@@ -124,6 +132,7 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
         if (!x.name) {
           x.addIssue(IssueLevel.error, 'No name argument');
           tree.metadata = null;
+
           return tree.metadata;
         }
         const metadata = new ParameterMetadata(null);
@@ -131,10 +140,12 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
         metadata.sourceRange = x.sourceRange;
         metadata.type = (x.value && fillValueMetadata(x.value).type()) ?? null;
         tree.metadata = metadata;
+
         return tree.metadata as ParameterMetadata;
       });
       parameters.filter((x) => x).forEach((x) => x && objectScope.add(x));
       tree.metadata = new ObjectTypeMetadata(objectScope);
+
       return tree.metadata as TypeMetadata;
     }
     if (tree.ctx.arguments().open().OPEN_BRACKET()) {
@@ -153,6 +164,7 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         tree.metadata = new ArrayTypeMetadata(commonType, items, tree.scope.core.array);
+
         return tree.metadata as TypeMetadata;
       }
     }

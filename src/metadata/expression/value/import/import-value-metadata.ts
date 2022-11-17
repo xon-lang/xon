@@ -41,9 +41,11 @@ export class ImportValueMetadata extends ValueMetadata {
 
     if (!this._importProvider.isValid()) {
       this.tree.addIssue(IssueLevel.error, 'Wrong import path');
+
       return null;
     }
     this._importScope = this._importProvider.scope();
+
     return this._importScope;
   }
 
@@ -54,6 +56,7 @@ export class ImportValueMetadata extends ValueMetadata {
     const importScope = this.importScope();
     if (!importScope) return null;
     this._type = new ObjectTypeMetadata(importScope);
+
     return this._type;
   }
 

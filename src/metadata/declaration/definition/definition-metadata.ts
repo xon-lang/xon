@@ -18,6 +18,7 @@ export class DefinitionMetadata extends DeclarationMetadata {
 
     this._attributesScope = this.base?.attributesScope().clone() ?? new DeclarationScope();
     this.attributes.forEach((x) => this._attributesScope?.add(x));
+
     return this._attributesScope;
   }
 
@@ -29,6 +30,7 @@ export class DefinitionMetadata extends DeclarationMetadata {
     if (definition.sourceRange && this.sourceRange?.equals(definition.sourceRange)) {
       return true;
     }
+
     return this.base?.is(definition) || false;
   }
 }

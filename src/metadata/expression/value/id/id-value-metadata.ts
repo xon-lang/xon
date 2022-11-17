@@ -21,6 +21,7 @@ export class IdValueMetadata extends ValueMetadata {
     } else {
       this.tree.name.addError('No declarations found');
     }
+
     return null;
   }
 

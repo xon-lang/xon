@@ -23,42 +23,52 @@ import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression
 export function fillValueMetadata(tree: ExpressionTree): ValueMetadata {
   if (tree instanceof GroupExpressionTree) {
     tree.metadata = fillValueMetadata(tree.expression);
+
     return tree.metadata as ValueMetadata;
   }
   if (tree instanceof ArrayExpressionTree) {
     tree.metadata = new ArrayValueMetadata(tree);
+
     return tree.metadata as ValueMetadata;
   }
   if (tree instanceof IdExpressionTree) {
     tree.metadata = new IdValueMetadata(tree);
+
     return tree.metadata as ValueMetadata;
   }
   if (tree instanceof InfixExpressionTree) {
     tree.metadata = new InfixValueMetadata(tree);
+
     return tree.metadata as ValueMetadata;
   }
   if (tree instanceof InvokeExpressionTree) {
     tree.metadata = new InvokeValueMetadata(tree);
+
     return tree.metadata as ValueMetadata;
   }
   if (tree instanceof LiteralExpressionTree) {
     tree.metadata = new LiteralValueMetadata(tree);
+
     return tree.metadata as ValueMetadata;
   }
   if (tree instanceof MemberExpressionTree) {
     tree.metadata = new MemberValueMetadata(tree);
+
     return tree.metadata as ValueMetadata;
   }
   if (tree instanceof MethodExpressionTree) {
     tree.metadata = new MethodValueMetadata(tree);
+
     return tree.metadata as ValueMetadata;
   }
   if (tree instanceof PrefixExpressionTree) {
     if (tree.name.text === 'import') {
       tree.metadata = new ImportValueMetadata(tree);
+
       return tree.metadata as ValueMetadata;
     }
     tree.metadata = new PrefixValueMetadata(tree);
+
     return tree.metadata as ValueMetadata;
   }
   Issue.errorFromTree(tree, `Value expression metadata not found for '${tree.constructor.name}'`);

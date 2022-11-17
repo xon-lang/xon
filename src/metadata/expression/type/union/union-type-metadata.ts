@@ -15,6 +15,7 @@ export class UnionTypeMetadata extends TypeMetadata {
     const rightScope = this.right.attributesScope();
     if (!rightScope) return null;
     this._attributesScope = this.left.attributesScope()?.union(rightScope) ?? null;
+
     return this._attributesScope;
   }
 
@@ -26,6 +27,7 @@ export class UnionTypeMetadata extends TypeMetadata {
     if (other instanceof UnionTypeMetadata) {
       return this.left.equals(other.left) && this.right.equals(other.right);
     }
+
     return false;
   }
 
@@ -36,6 +38,7 @@ export class UnionTypeMetadata extends TypeMetadata {
     if (types.length > 2) {
       return UnionTypeMetadata.fromTypes([type, types[2]]);
     }
+
     return type;
   }
 }

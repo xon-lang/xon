@@ -4,6 +4,7 @@ import { ModuleTree } from '~/tree/module/module-tree';
 
 export function getModuleMetadata(tree: ModuleTree): ModuleMetadata {
   tree.metadata = new ModuleMetadata(tree);
+
   return tree.metadata as ModuleMetadata;
 }
 

@@ -27,11 +27,13 @@ export class MethodValueMetadata extends ValueMetadata {
   type(): TypeMetadata | null {
     if (!(this.tree.value.metadata instanceof ValueMetadata)) {
       this.tree.value.addError('Should be a ValueMetadata');
+
       return null;
     }
 
     const resultType = this.tree.value.metadata.type();
     if (!resultType) return null;
+
     return new MethodTypeMetadata(
       this.tree.parameters.map((x) => x.metadata as ParameterMetadata),
       resultType,

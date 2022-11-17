@@ -39,6 +39,7 @@ export class SourceRange {
       || defaultLinePosition;
     ref.sourceText = String(start.inputStream);
     ref.rangeText = ref.sourceText.slice(ref.start.index, ref.stop.index + 1);
+
     return ref;
   }
 
@@ -49,6 +50,7 @@ export class SourceRange {
     ref.stop = new LinePosition(stop.stop.line, stop.stop.column, stop.stop.index);
     ref.sourceText = start.sourceText;
     ref.rangeText = ref.sourceText.slice(ref.start.index, ref.stop.index + 1);
+
     return ref;
   }
 }

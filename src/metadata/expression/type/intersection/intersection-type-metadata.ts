@@ -15,6 +15,7 @@ export class IntersectionTypeMetadata extends TypeMetadata {
     const rightScope = this.right.attributesScope();
     if (!rightScope) return null;
     this._attributesScope = this.left.attributesScope()?.intersect(rightScope) || null;
+
     return this._attributesScope;
   }
 
@@ -26,6 +27,7 @@ export class IntersectionTypeMetadata extends TypeMetadata {
     if (other instanceof IntersectionTypeMetadata) {
       return this.left.equals(other.left) && this.right.equals(other.right);
     }
+
     return false;
   }
 }

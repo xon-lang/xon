@@ -7,5 +7,6 @@ export const getDeclarationsFormatter = (
   config: FormatterConfig,
 ): ParametersFormatter | null => {
   if (ctx instanceof DeclarationsContext) return new ParametersFormatter(ctx, config);
+
   return null;
 };

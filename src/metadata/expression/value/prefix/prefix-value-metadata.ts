@@ -30,6 +30,7 @@ export class PrefixValueMetadata extends ValueMetadata {
       if (metadata instanceof ValueMetadata) {
         return parameters[0].type && metadata.type()?.is(parameters[0].type) || false;
       }
+
       return false;
     });
     if (declarations.length === 1) {
@@ -40,6 +41,7 @@ export class PrefixValueMetadata extends ValueMetadata {
     } else {
       this.tree.name.addError('No declarations found');
     }
+
     return null;
   }
 
@@ -47,6 +49,7 @@ export class PrefixValueMetadata extends ValueMetadata {
     if (this.tree.name.metadata?.type instanceof MethodTypeMetadata) {
       return this.tree.name.metadata.type.resultType;
     }
+
     return null;
   }
 
@@ -54,9 +57,11 @@ export class PrefixValueMetadata extends ValueMetadata {
     const { metadata } = this.tree.value;
     if (metadata instanceof ValueMetadata) {
       const value = metadata.eval();
+
       // eslint-disable-next-line no-eval
       return eval(`${this.tree.name} ${escapeToString(value)}`);
     }
+
     return null;
   }
 }

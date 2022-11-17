@@ -9,6 +9,7 @@ function core(): CoreDeclarationScope {
 
   const importProvider = new ImportProvider('src/lib/@xon/core');
   _core = new CoreDeclarationScope(importProvider.scope());
+
   return _core;
 }
 

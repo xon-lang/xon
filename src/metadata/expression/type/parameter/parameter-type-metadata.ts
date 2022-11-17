@@ -20,6 +20,7 @@ export class ParameterTypeMetadata extends TypeMetadata {
     if (other instanceof ParameterTypeMetadata) {
       return this.parameter.equals(other.parameter);
     }
+
     return false;
   }
 }

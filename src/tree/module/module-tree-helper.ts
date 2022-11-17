@@ -26,6 +26,7 @@ function getSourceTreesFromPath(modulePath: String2): SourceTree[] {
   const globPath = join(modulePath, '*.xon');
   const sourceFiles = sync(globPath, { 'nodir': true });
   const sourceTrees = sourceFiles.map((x) => parseSourceFile(x));
+
   return sourceTrees;
 }
 
@@ -33,5 +34,6 @@ function getInnerModules(modulePath: String2): ModuleTree[] {
   const globPath = join(modulePath, '*/');
   const modulesDirectories = sync(globPath);
   const modules = modulesDirectories.map(getModuleTreeFromPath);
+
   return modules;
 }

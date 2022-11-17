@@ -7,6 +7,7 @@ import { DeclarationScope } from '~/metadata/declaration/scope/declaration-scope
 function isDirectory(fullPath): Boolean2 {
   try {
     const stats = lstatSync(fullPath);
+
     return stats.isDirectory();
   } catch (error) {
     return false;
@@ -44,5 +45,6 @@ function resolvePath(importPath: String2): String2 {
   if (importPath[0] === '~') {
     return join(homedir(), importPath.slice(1));
   }
+
   return resolve(importPath);
 }

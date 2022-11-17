@@ -11,11 +11,13 @@ export abstract class Formatter {
 
   indent(value: Number2): Formatter {
     this.indentCount = value;
+
     return this;
   }
 
   break(value: Boolean2): Formatter {
     this.broken = value;
+
     return this;
   }
 

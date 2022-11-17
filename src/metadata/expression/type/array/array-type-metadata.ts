@@ -46,6 +46,7 @@ export class ArrayTypeMetadata extends TypeMetadata {
 
       return this.commonType.equals(other.commonType);
     }
+
     return false;
   }
 }
