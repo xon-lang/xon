@@ -394,6 +394,7 @@
       "error",
       "always"
     ],
+    "semi-spacing": "error",
     // import
     // "@import/export": "error",
     // TYPESCRIPT

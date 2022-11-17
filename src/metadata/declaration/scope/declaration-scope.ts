@@ -3,7 +3,7 @@ import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata
 import { CoreDeclarationScope } from '~/metadata/declaration/scope/core/core-declaration-scope';
 
 export class DeclarationScope {
-  core!: CoreDeclarationScope ;
+  core!: CoreDeclarationScope;
   declarations: DeclarationMetadata[] = [];
 
   constructor(public parent?: DeclarationScope) {}
