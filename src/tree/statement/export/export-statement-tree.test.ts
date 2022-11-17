@@ -8,5 +8,5 @@ test('1', () => {
 
   expect(tree).toBeInstanceOf(ExportStatementTree);
   expect(tree.path).toBeInstanceOf(MemberExpressionTree);
-  expect((tree.path as MemberExpressionTree).name.text).toBe('org');
+  expect(tree.path as MemberExpressionTree.name.text).toBe('org');
 });

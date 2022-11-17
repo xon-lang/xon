@@ -15,10 +15,11 @@ export class ReturnStatementFormatter extends StatementFormatter {
     );
     let result = 'return';
     if (value) {
-      result += ' ' + value.toString().trim();
+      result += ` ${value.toString().trim()}`;
     }
     if (result.length > this.config.printWidth && value) {
-      result = `return ${value.break(true).toString().trim()}`;
+      result = `return ${value.break(true).toString()
+        .trim()}`;
     }
     return result;
   }

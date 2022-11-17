@@ -43,8 +43,7 @@ export const getExpressionFormatter = (
   if (ctx instanceof MethodExpressionContext) return new MethodExpressionFormatter(ctx, config);
   if (ctx instanceof NullableExpressionContext) return new NullableExpressionFormatter(ctx, config);
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionFormatter(ctx, config);
-  if (ctx instanceof PreprocessorExpressionContext)
-    return new PreprocessorExpressionFormatter(ctx, config);
+  if (ctx instanceof PreprocessorExpressionContext) return new PreprocessorExpressionFormatter(ctx, config);
 
   Issue.errorFromContext(ctx, `Expression formatter not found for "${ctx.constructor.name}"`);
 };

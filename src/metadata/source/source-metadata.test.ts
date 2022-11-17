@@ -25,7 +25,7 @@ test('2.xon', () => {
   expect(metadata).toBeInstanceOf(SourceMetadata);
   const declarations = tree.scope.filter('null');
   expect(declarations.length).toBe(1);
-  const declarationTree = (tree.statements[0] as DeclarationStatementTree)
+  const declarationTree = tree.statements[0] as DeclarationStatementTree
     .declaration as DeclarationTree;
   expect(declarationTree.destructure[0].metadata.sourceRange.sourceName).toBe(
     '/Users/nizami/work/xon/core/src/lib/@xon/core/special.xon',

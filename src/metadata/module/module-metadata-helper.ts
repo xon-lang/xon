@@ -3,7 +3,8 @@ import { ModuleMetadata } from '~/metadata/module/module-metadata';
 import { ModuleTree } from '~/tree/module/module-tree';
 
 export function getModuleMetadata(tree: ModuleTree): ModuleMetadata {
-  return (tree.metadata = new ModuleMetadata(tree));
+  tree.metadata = new ModuleMetadata(tree);
+  return tree.metadata as ModuleMetadata;
 }
 
 export function updateModuleMetadataScope(tree: ModuleTree): void {

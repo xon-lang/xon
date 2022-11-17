@@ -8,8 +8,8 @@ function core(): CoreDeclarationScope {
   if (_core) return _core;
 
   const importProvider = new ImportProvider('src/lib/@xon/core');
-  const coreScope = new CoreDeclarationScope(importProvider.scope());
-  return (_core = coreScope);
+  _core = new CoreDeclarationScope(importProvider.scope());
+  return _core;
 }
 
 export class TestDeclarationScope extends DeclarationScope {

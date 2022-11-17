@@ -26,19 +26,19 @@ export class InfixValueMetadata extends ValueMetadata {
 
     const declarations = this.tree.scope.filter(this.tree.name.text, (x) => {
       if (
-        !(x instanceof OperatorMetadata && x.type instanceof MethodTypeMetadata) ||
-        x.type.parameters.length !== 2
+        !(x instanceof OperatorMetadata && x.type instanceof MethodTypeMetadata)
+        || x.type.parameters.length !== 2
       ) {
         return false;
       }
 
       const [left, right] = x.type.parameters;
       return (
-        (left.type &&
-          right.type &&
-          leftMetadata.type()?.is(left.type) &&
-          rightMetadata.type()?.is(right.type)) ||
-        false
+        left.type
+          && right.type
+          && leftMetadata.type()?.is(left.type)
+          && rightMetadata.type()?.is(right.type)
+        || false
       );
     });
 
@@ -67,8 +67,8 @@ export class InfixValueMetadata extends ValueMetadata {
     if (leftMetadata instanceof ValueMetadata && rightMetadata instanceof ValueMetadata) {
       const left = leftMetadata.eval();
       const right = rightMetadata.eval();
-      if (this.tree.name.text === '^') {
-        return Math.pow(left, right);
+      if (this.tree.name.text === '^' && typeof left === 'number' && typeof right === 'number') {
+        return left ** right;
       }
       // eslint-disable-next-line no-eval
       return eval(`${escapeToString(left)} ${this.tree.name} ${escapeToString(right)}`);

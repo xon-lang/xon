@@ -52,27 +52,24 @@ export class DeclarationTree extends Tree {
     const value = ctx.valueBody()?.expression();
     this.value = (value && getExpressionTree(value)) ?? null;
 
-    const body = ctx.valueBody()?.body()?.source();
+    const body = ctx.valueBody()?.body()
+      ?.source();
     this.body = (body && getSourceTree(body)) ?? null;
 
     const statements = this.body?.statements || [];
     statements
       .filter(
-        (x) =>
-          !(
-            x instanceof DeclarationStatementTree ||
-            x instanceof CommentStatementTree ||
-            (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree)
-          ),
+        (x) => !(
+          x instanceof DeclarationStatementTree
+            || x instanceof CommentStatementTree
+            || x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree
+        ),
       )
-      .forEach((x) =>
-        x.addIssue(IssueLevel.error, 'Definition body should contain only parameters'),
-      );
+      .forEach((x) => x.addIssue(IssueLevel.error, 'Definition body should contain only parameters'));
     this.attributes = statements
       .filter(
-        (x) =>
-          x instanceof DeclarationStatementTree ||
-          (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree),
+        (x) => x instanceof DeclarationStatementTree
+          || x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree,
       )
       .map((x) => x as DeclarationStatementTree | ExpressionStatementTree);
 

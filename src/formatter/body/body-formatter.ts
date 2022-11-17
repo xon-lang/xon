@@ -16,13 +16,14 @@ export class BodyFormatter extends Formatter {
         .statement()
         .slice(0, -1)
         .map((x, i) => {
-          const nlCount = Math.min(2, this.ctx.source()._nl[i].text?.match(/\n/g)?.length || 0);
+          const nlCount = Math.min(2, this.ctx.source()._nl[i].text?.match(/\n/ug)?.length || 0);
           const statement = this.indentStatement(x);
           return statement + this.config.nl.repeat(nlCount);
         })
         .join('');
 
-      const lastStatement = this.indentStatement(this.ctx.source().statement().slice(-1)[0]);
+      const lastStatement = this.indentStatement(this.ctx.source().statement()
+        .slice(-1)[0]);
       return this.config.nl + statements + lastStatement;
     }
     return '';

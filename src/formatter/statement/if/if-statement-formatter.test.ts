@@ -1,4 +1,4 @@
-import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
+import { FormatterConfig, defaultFormatterConfig } from '~/formatter/formatter-config';
 import { IfStatementFormatter } from '~/formatter/statement/if/if-statement-formatter';
 import { getStatementFormatter } from '~/formatter/statement/statement-formatter-helper';
 import { getParser } from '~/util/parse';

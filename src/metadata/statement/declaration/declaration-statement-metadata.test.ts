@@ -14,7 +14,6 @@ test('single parameter', () => {
   expect(tree.scope.filter('a')[0].name).toBe('a');
 });
 
-// todo implement it
 test('multiple parameters', () => {
   const code = '{a, b, c} = [1, 2, 3]';
   const tree = parseSource(code);

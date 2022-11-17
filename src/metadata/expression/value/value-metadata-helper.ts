@@ -22,34 +22,44 @@ import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression
 
 export function fillValueMetadata(tree: ExpressionTree): ValueMetadata {
   if (tree instanceof GroupExpressionTree) {
-    return (tree.metadata = fillValueMetadata(tree.expression));
+    tree.metadata = fillValueMetadata(tree.expression);
+    return tree.metadata as ValueMetadata;
   }
   if (tree instanceof ArrayExpressionTree) {
-    return (tree.metadata = new ArrayValueMetadata(tree));
+    tree.metadata = new ArrayValueMetadata(tree);
+    return tree.metadata as ValueMetadata;
   }
   if (tree instanceof IdExpressionTree) {
-    return (tree.metadata = new IdValueMetadata(tree));
+    tree.metadata = new IdValueMetadata(tree);
+    return tree.metadata as ValueMetadata;
   }
   if (tree instanceof InfixExpressionTree) {
-    return (tree.metadata = new InfixValueMetadata(tree));
+    tree.metadata = new InfixValueMetadata(tree);
+    return tree.metadata as ValueMetadata;
   }
   if (tree instanceof InvokeExpressionTree) {
-    return (tree.metadata = new InvokeValueMetadata(tree));
+    tree.metadata = new InvokeValueMetadata(tree);
+    return tree.metadata as ValueMetadata;
   }
   if (tree instanceof LiteralExpressionTree) {
-    return (tree.metadata = new LiteralValueMetadata(tree));
+    tree.metadata = new LiteralValueMetadata(tree);
+    return tree.metadata as ValueMetadata;
   }
   if (tree instanceof MemberExpressionTree) {
-    return (tree.metadata = new MemberValueMetadata(tree));
+    tree.metadata = new MemberValueMetadata(tree);
+    return tree.metadata as ValueMetadata;
   }
   if (tree instanceof MethodExpressionTree) {
-    return (tree.metadata = new MethodValueMetadata(tree));
+    tree.metadata = new MethodValueMetadata(tree);
+    return tree.metadata as ValueMetadata;
   }
   if (tree instanceof PrefixExpressionTree) {
     if (tree.name.text === 'import') {
-      return (tree.metadata = new ImportValueMetadata(tree));
+      tree.metadata = new ImportValueMetadata(tree);
+      return tree.metadata as ValueMetadata;
     }
-    return (tree.metadata = new PrefixValueMetadata(tree));
+    tree.metadata = new PrefixValueMetadata(tree);
+    return tree.metadata as ValueMetadata;
   }
   Issue.errorFromTree(tree, `Value expression metadata not found for '${tree.constructor.name}'`);
 }

@@ -23,10 +23,8 @@ export const getStatementFormatter = (
 ): StatementFormatter | null => {
   if (!ctx) return null;
 
-  if (ctx instanceof DeclarationStatementContext)
-    return new DeclarationStatementFormatter(ctx, config);
-  if (ctx instanceof ExpressionStatementContext)
-    return new ExpressionStatementFormatter(ctx, config);
+  if (ctx instanceof DeclarationStatementContext) return new DeclarationStatementFormatter(ctx, config);
+  if (ctx instanceof ExpressionStatementContext) return new ExpressionStatementFormatter(ctx, config);
   if (ctx instanceof ForStatementContext) return new ForStatementFormatter(ctx, config);
   if (ctx instanceof IfStatementContext) return new IfStatementFormatter(ctx, config);
   if (ctx instanceof ReturnStatementContext) return new ReturnStatementFormatter(ctx, config);

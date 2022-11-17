@@ -9,7 +9,7 @@ import { LiteralExpressionTree } from '~/tree/expression/literal/literal-express
 import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
 
 export function escapeToString<T>(value: T): String2 {
-  return (typeof value === 'string' && `\`${value}\``) || String(value);
+  return typeof value === 'string' && `\`${value}\`` || String(value);
 }
 
 export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
@@ -28,7 +28,7 @@ export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
   if (tree instanceof InfixExpressionTree) {
     const a = evaluate(tree.left, argsMap);
     const b = evaluate(tree.right, argsMap);
-    const operator = (tree.name.text === '^' && '**') || tree.name.text;
+    const operator = tree.name.text === '^' && '**' || tree.name.text;
     // eslint-disable-next-line no-eval
     return eval(`${escapeToString(a)} ${operator} ${escapeToString(b)}`);
   }
@@ -38,7 +38,7 @@ export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
     return eval(`${tree.name.text}${escapeToString(a)}`);
   }
   if (tree instanceof IdExpressionTree) {
-    if (tree.name.text in argsMap) {
+    if (argsMap[tree.name.text]) {
       return argsMap[tree.name.text];
     }
     Issue.errorFromTree(tree, `Undefined key '${tree.name}'`);

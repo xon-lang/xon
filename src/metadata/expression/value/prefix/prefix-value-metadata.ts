@@ -20,15 +20,15 @@ export class PrefixValueMetadata extends ValueMetadata {
     const declarations = this.tree.scope.filter(this.tree.name.text, (x) => {
       if (!(x instanceof OperatorMetadata)) return false;
 
-      const type = x.type;
+      const { type } = x;
       if (!(type instanceof MethodTypeMetadata)) return false;
 
-      const parameters = type.parameters;
+      const { parameters } = type;
       if (parameters.length !== 1) return false;
 
-      const metadata = this.tree.value.metadata;
+      const { metadata } = this.tree.value;
       if (metadata instanceof ValueMetadata) {
-        return (parameters[0].type && metadata.type()?.is(parameters[0].type)) || false;
+        return parameters[0].type && metadata.type()?.is(parameters[0].type) || false;
       }
       return false;
     });
@@ -51,7 +51,7 @@ export class PrefixValueMetadata extends ValueMetadata {
   }
 
   eval(): Any2 {
-    const metadata = this.tree.value.metadata;
+    const { metadata } = this.tree.value;
     if (metadata instanceof ValueMetadata) {
       const value = metadata.eval();
       // eslint-disable-next-line no-eval

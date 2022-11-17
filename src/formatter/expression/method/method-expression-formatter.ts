@@ -17,9 +17,8 @@ export class MethodExpressionFormatter extends ExpressionFormatter {
 
     const parametersGroup = this.ctx
       .declarations()
-      .map((x) =>
-        getDeclarationsFormatter(x, this.config)?.indent(this.indentCount).break(this.broken),
-      )
+      .map((x) => getDeclarationsFormatter(x, this.config)?.indent(this.indentCount)
+        .break(this.broken))
       .join('');
     return `${parametersGroup} => ${value ?? ''}`;
   }

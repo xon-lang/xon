@@ -43,35 +43,41 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
       definition = tree.scope.core.string;
     }
     if (definition) {
-      return (tree.metadata = new LiteralTypeMetadata(tree.literal.value, definition));
+      tree.metadata = new LiteralTypeMetadata(tree.literal.value, definition);
+      return tree.metadata as TypeMetadata;
     }
   }
 
   if (tree instanceof IdExpressionTree) {
     const declarations = tree.scope.filter(tree.name.text);
     if (declarations.length === 1) {
-      tree.name.metadata = declarations[0];
+      [tree.name.metadata] = declarations;
       if (declarations[0] instanceof ParameterMetadata) {
-        return (tree.metadata = new ParameterTypeMetadata(declarations[0]));
+        tree.metadata = new ParameterTypeMetadata(declarations[0]);
+        return tree.metadata as TypeMetadata;
       }
       if (declarations[0] instanceof DefinitionMetadata) {
-        return (tree.metadata = new DefinitionTypeMetadata(declarations[0]));
+        tree.metadata = new DefinitionTypeMetadata(declarations[0]);
+        return tree.metadata as TypeMetadata;
       }
     } else if (declarations.length > 0) {
       tree.name.addError('Too many declarations');
     } else {
       tree.name.addError('No declarations found');
     }
-    return (tree.metadata = null);
+    tree.metadata = null;
+    return tree.metadata;
   }
   if (tree instanceof InfixExpressionTree) {
     const left = fillTypeMetadata(tree.left);
     const right = fillTypeMetadata(tree.right);
     if (tree.name.text === '|' && left && right) {
-      return (tree.metadata = new UnionTypeMetadata(left, right));
+      tree.metadata = new UnionTypeMetadata(left, right);
+      return tree.metadata as TypeMetadata;
     }
     if (tree.name.text === '&' && left && right) {
-      return (tree.metadata = new IntersectionTypeMetadata(left, right));
+      tree.metadata = new IntersectionTypeMetadata(left, right);
+      return tree.metadata as TypeMetadata;
     }
 
     throw new Error('Not implemented');
@@ -89,10 +95,11 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
     const result = fillTypeMetadata(tree.value);
     if (!result) return null;
 
-    return (tree.metadata = new MethodTypeMetadata(
+    tree.metadata = new MethodTypeMetadata(
       tree.parameters.map((x) => x.metadata as ParameterMetadata),
       result,
-    ));
+    );
+    return tree.metadata as TypeMetadata;
   }
 
   if (tree instanceof InvokeExpressionTree) {
@@ -105,7 +112,8 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
       } else if (commonType instanceof DefinitionTypeMetadata) {
         tree.instance.name.metadata = commonType.definition;
       }
-      return (tree.metadata = new ArrayTypeMetadata(commonType, [], tree.scope.core.array));
+      tree.metadata = new ArrayTypeMetadata(commonType, [], tree.scope.core.array);
+      return tree.metadata as TypeMetadata;
     }
   }
 
@@ -115,22 +123,25 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
       const parameters = tree.arguments.map((x) => {
         if (!x.name) {
           x.addIssue(IssueLevel.error, 'No name argument');
-          return (tree.metadata = null);
+          tree.metadata = null;
+          return tree.metadata;
         }
         const metadata = new ParameterMetadata(null);
         metadata.name = x.name.text;
         metadata.sourceRange = x.sourceRange;
         metadata.type = (x.value && fillValueMetadata(x.value).type()) ?? null;
-        return (tree.metadata = metadata);
+        tree.metadata = metadata;
+        return tree.metadata as ParameterMetadata;
       });
       parameters.filter((x) => x).forEach((x) => x && objectScope.add(x));
-      return (tree.metadata = new ObjectTypeMetadata(objectScope));
+      tree.metadata = new ObjectTypeMetadata(objectScope);
+      return tree.metadata as TypeMetadata;
     }
     if (tree.ctx.arguments().open().OPEN_BRACKET()) {
       const items = tree.arguments.map((x) => (x.value && fillTypeMetadata(x.value)) ?? null);
       let commonType: TypeMetadata | null;
       if (items.length === 1) {
-        commonType = items[0];
+        [commonType] = items;
       } else if (items.length > 1) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -141,7 +152,8 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
       if (commonType) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        return (tree.metadata = new ArrayTypeMetadata(commonType, items, tree.scope.core.array));
+        tree.metadata = new ArrayTypeMetadata(commonType, items, tree.scope.core.array);
+        return tree.metadata as TypeMetadata;
       }
     }
     throw new Error('Not implemented');

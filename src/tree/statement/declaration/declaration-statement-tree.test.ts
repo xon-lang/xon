@@ -12,7 +12,7 @@ test('variable assignment colon', () => {
   expect(parameter).toBeInstanceOf(DeclarationTree);
   expect(parameter.name.text).toBe('a');
   expect(parameter.type).toBeInstanceOf(LiteralExpressionTree);
-  expect((parameter.type as LiteralExpressionTree).literal.value).toBe(1);
+  expect(parameter.type as LiteralExpressionTree.literal.value).toBe(1);
   expect(parameter.value).toBe(null);
   expect(parameter.body).toBe(null);
 });
@@ -27,6 +27,6 @@ test('variable assignment equals', () => {
   expect(parameter.name.text).toBe('a');
   expect(parameter.type).toBe(null);
   expect(parameter.value).toBeInstanceOf(LiteralExpressionTree);
-  expect((parameter.value as LiteralExpressionTree).literal.value).toBe(1);
+  expect(parameter.value as LiteralExpressionTree.literal.value).toBe(1);
   expect(parameter.body).toBe(null);
 });

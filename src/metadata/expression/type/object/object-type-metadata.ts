@@ -19,11 +19,12 @@ export class ObjectTypeMetadata extends TypeMetadata {
       if (
         currentScope.declarations.some(
           (x, i) =>
-            otherScope.declarations[i].name !== x.name ||
-            (x.type && !otherScope.declarations[i].type?.is(x.type)),
+            otherScope.declarations[i].name !== x.name
+            || (x.type && !otherScope.declarations[i].type?.is(x.type)),
         )
-      )
+      ) {
         return false;
+      }
       return true;
     }
     throw new Error('Not implemented');

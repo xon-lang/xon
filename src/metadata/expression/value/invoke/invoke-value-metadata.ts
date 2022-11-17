@@ -13,7 +13,7 @@ export class InvokeValueMetadata extends ValueMetadata {
   }
 
   type(): TypeMetadata | null {
-    const metadata = this.tree.instance.metadata;
+    const {metadata} = this.tree.instance;
     if (metadata instanceof ValueMetadata) {
       const instanceType = metadata.type();
       if (instanceType instanceof MethodTypeMetadata) {

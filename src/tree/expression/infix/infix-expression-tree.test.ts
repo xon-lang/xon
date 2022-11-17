@@ -26,7 +26,7 @@ test('num is number', () => {
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
   expect(tree.name.text).toBe('&');
-  expect((tree.left as LiteralExpressionTree).literal.value).toBe(1);
+  expect(tree.left as LiteralExpressionTree.literal.value).toBe(1);
 });
 
 test('equals', () => {
@@ -35,7 +35,7 @@ test('equals', () => {
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
   expect(tree.name.text).toBe('==');
-  expect((tree.right as LiteralExpressionTree).literal.value).toBe(123);
+  expect(tree.right as LiteralExpressionTree.literal.value).toBe(123);
 });
 
 test('has several relational operators', () => {
@@ -48,8 +48,8 @@ test('has several relational operators', () => {
 
   const left = tree.left as InfixExpressionTree;
   expect(left.name.text).toBe('<');
-  expect((left.left as IdExpressionTree).name.text).toBe('a');
-  expect((left.right as IdExpressionTree).name.text).toBe('b');
+  expect(left.left as IdExpressionTree.name.text).toBe('a');
+  expect(left.right as IdExpressionTree.name.text).toBe('b');
 
   const right = tree.right as IdExpressionTree;
   expect(right.name.text).toBe('c');

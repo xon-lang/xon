@@ -10,11 +10,11 @@ test('has argument', () => {
 
   expect(tree).toBeInstanceOf(MethodExpressionTree);
   expect(tree.parameters.length).toBe(1);
-  expect(tree.parameters[0].name.text).toBe('x');
-  expect((tree.type as IdExpressionTree).name.text).toBe('String');
+  expect(tree.parameters[0].name?.text).toBe('x');
+  expect(tree.type as IdExpressionTree.name.text).toBe('String');
   expect(
     evaluate(tree.value, {
-      x: 37,
+      'x': 37,
     }),
   ).toBe(37 + 42);
 });
@@ -25,15 +25,15 @@ test('generics', () => {
 
   expect(tree).toBeInstanceOf(MethodExpressionTree);
   expect(tree.generics.length).toBe(3);
-  expect(tree.generics[0].name.text).toBe('N');
-  expect(tree.generics[1].name.text).toBe('M');
-  expect(tree.generics[2].name.text).toBe('K');
-  expect((tree.generics[2].type as IdExpressionTree).name.text).toBe('String');
+  expect(tree.generics[0].name?.text).toBe('N');
+  expect(tree.generics[1].name?.text).toBe('M');
+  expect(tree.generics[2].name?.text).toBe('K');
+  expect(tree.generics[2].type as IdExpressionTree.name.text).toBe('String');
   expect(tree.parameters.length).toBe(1);
-  expect(tree.parameters[0].name.text).toBe('x');
+  expect(tree.parameters[0].name?.text).toBe('x');
   expect(
     evaluate(tree.value, {
-      x: 37,
+      'x': 37,
     }),
   ).toBe(37 + 42);
 });
@@ -54,6 +54,6 @@ test('method with method type', () => {
   expect(tree).toBeInstanceOf(MethodExpressionTree);
   expect(tree.parameters.length).toBe(1);
   expect(tree.value).toBeInstanceOf(MethodExpressionTree);
-  expect((tree.value as MethodExpressionTree).parameters.length).toBe(2);
-  expect((tree.value as MethodExpressionTree).value).toBeInstanceOf(InfixExpressionTree);
+  expect(tree.value as MethodExpressionTree.parameters.length).toBe(2);
+  expect(tree.value as MethodExpressionTree.value).toBeInstanceOf(InfixExpressionTree);
 });

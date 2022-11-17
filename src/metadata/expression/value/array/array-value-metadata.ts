@@ -14,12 +14,12 @@ export class ArrayValueMetadata extends ValueMetadata {
     tree.arguments.forEach((x) => x.value && fillValueMetadata(x.value));
   }
 
-  // todo use generics
+  // use generics
   type(): TypeMetadata | null {
     const items = this.tree.arguments.map((x) => ({
-      tree: x,
-      sourceRange: x.sourceRange,
       name: x.name?.text,
+      sourceRange: x.sourceRange,
+      tree: x,
       type: (x.value?.metadata as ValueMetadata).type(),
       value: x.value?.metadata as ValueMetadata,
     }));

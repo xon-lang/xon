@@ -19,8 +19,9 @@ import { DeclarationStatementTree } from '~/tree/statement/declaration/declarati
 
 export function getShadowSourceMetadata(tree: SourceTree): DeclarationMetadata[] {
   const declarationTrees = tree.statements
-    .filter((x) => x instanceof DeclarationStatementTree && !x.declaration.metadata)
-    .map((x) => (x as DeclarationStatementTree).declaration);
+    .filterInstance<DeclarationStatementTree>()
+    .filter((x) => !x.declaration.metadata)
+    .map((x) => x.declaration);
 
   const declarations: DeclarationMetadata[] = [];
   for (const declarationTree of declarationTrees) {
@@ -118,7 +119,7 @@ export function fillDefinitionMetadata(tree: DeclarationTree): void {
     fillParameterMetadata(parameter, null);
   }
 
-  // todo fix base type should be TypeMetadata
+  // fix base type should be TypeMetadata
   if (tree.type instanceof IdExpressionTree) {
     const declarations = tree.scope.filter(tree.type.name.text);
     if (declarations.length === 1) {
@@ -136,10 +137,9 @@ export function fillDefinitionMetadata(tree: DeclarationTree): void {
   }
 
   for (const parameter of tree.body?.statements
-    .filter(
-      (x) => x instanceof DeclarationStatementTree && x.declaration instanceof DeclarationTree,
-    )
-    .map((x) => (x as DeclarationStatementTree).declaration as DeclarationTree) || []) {
+    .filterInstance<DeclarationStatementTree>()
+    .filter((x) => x.declaration instanceof DeclarationTree)
+    .map((x) => x.declaration as DeclarationTree) || []) {
     fillParameterMetadata(parameter, null);
   }
 }
@@ -179,8 +179,8 @@ export function fillParameterMetadata(
   tree.parameters.forEach((x) => fillParameterMetadata(x, null));
 
   if (
-    tree.value &&
-    (tree.metadata instanceof ParameterMetadata || tree.metadata instanceof DestructureMetadata)
+    tree.value
+    && (tree.metadata instanceof ParameterMetadata || tree.metadata instanceof DestructureMetadata)
   ) {
     tree.value.metadata = fillValueMetadata(tree.value);
   }
@@ -190,8 +190,8 @@ export function fillParameterMetadata(
     } else if (alternativeType) {
       tree.metadata.type = alternativeType;
     } else if (
-      tree.value &&
-      (tree.metadata instanceof ParameterMetadata || tree.metadata instanceof DestructureMetadata)
+      tree.value
+      && (tree.metadata instanceof ParameterMetadata || tree.metadata instanceof DestructureMetadata)
     ) {
       tree.metadata.type = (tree.value.metadata as ValueMetadata).type();
     } else {
@@ -217,8 +217,9 @@ export function fillDestructureParameterMetadata(tree: DeclarationTree): void {
     if (tree.metadata?.type instanceof ObjectTypeMetadata && parameter.name) {
       const declarations = tree.metadata.type.attributesScope()?.filter(parameter.name?.text) || [];
       if (declarations.length === 1 && parameter.metadata) {
+        // eslint-disable-next-line prefer-destructuring
         type = declarations[0].type;
-        // todo think about it, we already set sourceRange this is second time
+        // think about it, we already set sourceRange this is second time
         parameter.metadata.sourceRange = declarations[0].sourceRange;
       } else if (declarations.length > 0) {
         parameter.name.addError('Too many declarations');
@@ -226,8 +227,8 @@ export function fillDestructureParameterMetadata(tree: DeclarationTree): void {
         parameter.name.addError('No declarations found');
       }
     } else if (tree.metadata?.type instanceof ArrayTypeMetadata) {
-      const commonType = tree.metadata.type.commonType;
-      const items = tree.metadata.type.items;
+      const { commonType } = tree.metadata.type;
+      const { items } = tree.metadata.type;
       type = (items.length && items[index]) || commonType;
     }
     fillParameterMetadata(parameter, type);

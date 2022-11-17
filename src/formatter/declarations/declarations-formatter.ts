@@ -25,25 +25,23 @@ export class ParametersFormatter extends Formatter {
     } else {
       sortedParameters = this.ctx.declaration();
     }
-    const parameters = sortedParameters.map((x) =>
-      getParameterFormatter(x, this.config)?.indent(this.indentCount),
-    );
+    const parameters = sortedParameters.map((x) => getParameterFormatter(x, this.config)?.indent(this.indentCount));
 
     let result = openSymbol + parameters.join(', ') + closeSymbol;
 
     if (this.broken || result.length > this.config.printWidth || result.includes(this.config.nl)) {
       const parameterIndent = this.config.indent(this.indentCount + 1);
-      const joinedParameters =
-        parameters
+      const joinedParameters
+        = parameters
           .map((x) => parameterIndent + (x?.indent(this.indentCount + 1) ?? ''))
-          .join(',' + this.config.nl) + ((parameters.length > 1 && ',') || '');
-      result =
-        openSymbol +
-        this.config.nl +
-        joinedParameters +
-        this.config.nl +
-        this.config.indent(this.indentCount) +
-        closeSymbol;
+          .join(`,${this.config.nl}`) + (parameters.length > 1 && ',' || '');
+      result
+        = openSymbol
+        + this.config.nl
+        + joinedParameters
+        + this.config.nl
+        + this.config.indent(this.indentCount)
+        + closeSymbol;
     }
 
     return result;

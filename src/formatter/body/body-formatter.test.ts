@@ -1,6 +1,6 @@
 import { BodyFormatter } from '~/formatter/body/body-formatter';
 import { getBodyFormatter } from '~/formatter/body/body-formatter-helper';
-import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
+import { FormatterConfig, defaultFormatterConfig } from '~/formatter/formatter-config';
 import { getParser } from '~/util/parse';
 
 test('integer', () => {

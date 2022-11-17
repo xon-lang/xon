@@ -16,6 +16,6 @@ export class IntegerLiteralTree extends LiteralTree {
     this.integer = integer;
     this.radix = Number(radix);
 
-    this.value = parseInt(this.integer.replace(/_/g, ''), this.radix);
+    this.value = parseInt(this.integer.replace(/_/ug, ''), this.radix);
   }
 }

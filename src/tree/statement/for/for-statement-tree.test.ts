@@ -10,11 +10,11 @@ test('for with value', () => {
   const tree = parseStatement(code) as ForStatementTree;
 
   expect(tree).toBeInstanceOf(ForStatementTree);
-  expect(tree.parameter.name.text).toBe('item');
+  expect(tree.parameter?.name?.text).toBe('item');
   expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
-  const statement = tree.body.statements[0];
-  expect(evaluate((statement as ExpressionStatementTree).expression)).toBe(12 + 45 / 5);
+  const [statement] = tree.body?.statements ?? [];
+  expect(evaluate(statement as ExpressionStatementTree.expression)).toBe(12 + 45 / 5);
 });
 
 test('for with value and index', () => {
@@ -22,10 +22,10 @@ test('for with value and index', () => {
   const tree = parseStatement(code) as ForStatementTree;
 
   expect(tree).toBeInstanceOf(ForStatementTree);
-  expect(tree.parameter?.name.text).toBe('value');
+  expect(tree.parameter?.name?.text).toBe('value');
   expect(tree.expression).toBeInstanceOf(IdExpressionTree);
 
-  expect(evaluate((tree.body.statements[0] as ExpressionStatementTree).expression)).toBe(12 + 10);
+  expect(evaluate(tree.body?.statements[0] as ExpressionStatementTree.expression)).toBe(12 + 10);
 });
 
 test('for with expression only', () => {
@@ -36,5 +36,5 @@ test('for with expression only', () => {
   expect(tree.parameter).toBe(null);
   expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
-  expect(evaluate((tree.body.statements[0] as ExpressionStatementTree).expression)).toBe(1 + 1);
+  expect(evaluate(tree.body?.statements[0] as ExpressionStatementTree.expression)).toBe(1 + 1);
 });

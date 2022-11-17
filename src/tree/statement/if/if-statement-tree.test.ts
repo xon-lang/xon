@@ -23,7 +23,7 @@ test('if else if', () => {
   const nextIfStatement = tree.elseBody.statements[0] as IfStatementTree;
   expect(evaluate(nextIfStatement.condition)).toBe(2 + 2);
   expect(
-    evaluate((nextIfStatement.thenBody.statements[0] as ExpressionStatementTree).expression),
+    evaluate(nextIfStatement.thenBody.statements[0] as ExpressionStatementTree.expression),
   ).toBe(2 * 4);
 });
 

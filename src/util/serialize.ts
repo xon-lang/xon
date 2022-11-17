@@ -3,15 +3,16 @@ import { Tree } from '~/tree/tree';
 
 export function treeToPlain(tree: Tree): Unknown2 {
   const entries = Object.entries(tree)
-    .filter(([k, v]) => typeof v !== 'function' && v !== null && v !== undefined && k !== 'ctx')
+    .filter(([k, v]) => typeof v !== 'function' && typeof v !== 'undefined' && v !== null && k !== 'ctx')
     .map(([k, v]) => {
       if (Array.isArray(v)) return [k, v.map(treeToPlain)];
       if (typeof v === 'object') return [k, treeToPlain(v)];
       return [k, v];
     });
 
-  const treeType = tree.constructor.name.replace(/tree$/, '');
-  return { treeType, ...Object.fromEntries(entries) };
+  const treeType = tree.constructor.name.replace(/tree$/u, '');
+  return { treeType,
+    ...Object.fromEntries(entries) };
 }
 
 export function treeToJson(tree: Tree): String2 {

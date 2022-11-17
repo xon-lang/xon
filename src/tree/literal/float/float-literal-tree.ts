@@ -18,12 +18,13 @@ export class FloatLiteralTree extends LiteralTree {
     this.integer = integer;
     this.radix = Number(radix);
 
-    const integerClean = this.integer.replace(/_/g, '');
-    const fraction = this.fraction.replace(/_/g, '');
+    const integerClean = this.integer.replace(/_/ug, '');
+    const fraction = this.fraction.replace(/_/ug, '');
 
-    this.value = this.radix
-      ? parseInt(integerClean, this.radix) +
-        parseInt(fraction, this.radix) / this.radix ** fraction.length
-      : parseFloat(`${integerClean}.${fraction}`);
+    this.value
+      = this.radix
+        && parseInt(integerClean, this.radix)
+          + parseInt(fraction, this.radix) / this.radix ** fraction.length
+      || parseFloat(`${integerClean}.${fraction}`);
   }
 }

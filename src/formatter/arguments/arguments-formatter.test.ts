@@ -1,6 +1,6 @@
 import { ArgumentsFormatter } from '~/formatter/arguments/arguments-formatter';
 import { getArgumentsFormatter } from '~/formatter/arguments/arguments-formatter-helper';
-import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
+import { FormatterConfig, defaultFormatterConfig } from '~/formatter/formatter-config';
 import { getParser } from '~/util/parse';
 
 test('integers', () => {

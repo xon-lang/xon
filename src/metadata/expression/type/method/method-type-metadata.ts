@@ -16,10 +16,15 @@ export class MethodTypeMetadata extends TypeMetadata {
     if (other instanceof MethodTypeMetadata) {
       const currentParameters = this.parameters;
       const otherParameters = other.parameters;
-      if (currentParameters.length !== otherParameters.length) return false;
-      if (currentParameters.some((x, i) => x.type && !otherParameters[i].type?.is(x.type)))
+      if (currentParameters.length !== otherParameters.length) {
         return false;
-      if (this.resultType.is(other.resultType)) return false;
+      }
+      if (currentParameters.some((x, i) => x.type && !otherParameters[i].type?.is(x.type))) {
+        return false;
+      }
+      if (this.resultType.is(other.resultType)) {
+        return false;
+      }
       return true;
     }
     throw new Error('Not implemented');
@@ -29,8 +34,8 @@ export class MethodTypeMetadata extends TypeMetadata {
     if (other instanceof MethodTypeMetadata) {
       const otherParameters = other.parameters;
       return (
-        this.parameters.every((x, i) => x.type && otherParameters[i].type?.equals(x.type)) &&
-        this.resultType.equals(other.resultType)
+        this.parameters.every((x, i) => x.type && otherParameters[i].type?.equals(x.type))
+        && this.resultType.equals(other.resultType)
       );
     }
     return false;

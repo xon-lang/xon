@@ -4,11 +4,10 @@ import { Boolean2, Number2, String2 } from '~/lib/core';
 
 const TAB_WIDTH = 2;
 
-const getIndentationCount = (whitespace: String2): Number2 =>
-  Array.from(whitespace).reduce(
-    (sum, x) => sum + (x === '\t' ? TAB_WIDTH - (sum % TAB_WIDTH) : 1),
-    0,
-  );
+const getIndentationCount = (whitespace: String2): Number2 => Array.from(whitespace).reduce(
+  (sum, x) => sum + (x === '\t' && TAB_WIDTH - sum % TAB_WIDTH || 1),
+  0,
+);
 
 export abstract class XonLexerBase extends Lexer {
   protected opened: Number2 = 0;
@@ -29,7 +28,7 @@ export abstract class XonLexerBase extends Lexer {
   }
 
   public emit(token?: Token): Token {
-    const newToken = token ? super.emit(token) : super.emit();
+    const newToken = token && super.emit(token) || super.emit();
     this.tokenQueue.push(newToken);
 
     return newToken;
@@ -60,8 +59,8 @@ export abstract class XonLexerBase extends Lexer {
   }
 
   protected handleLineBreak(): void {
-    const newLine = this.text.replace(/[^\r\n]+/g, '');
-    const spaces = (this.text.match(/ +$/g) || [])[0] || '';
+    const newLine = this.text.replace(/[^\r\n]+/ug, '');
+    const spaces = (this.text.match(/ +$/ug) || [])[0] || '';
 
     if (this.opened > 0 || !newLine) {
       this.skip();
@@ -69,7 +68,7 @@ export abstract class XonLexerBase extends Lexer {
     }
     this.emit(this.commonToken(XonParser.NL, newLine));
     const indent = getIndentationCount(spaces);
-    const previous = this.indents.length ? this.indents[this.indents.length - 1] : 0;
+    const previous = this.indents.length && this.indents[this.indents.length - 1] || 0;
     if (indent === previous) {
       this.skip();
     } else if (indent > previous) {

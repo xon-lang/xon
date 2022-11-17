@@ -1,6 +1,6 @@
 import { getExpressionFormatter } from '~/formatter/expression/expression-formatter-helper';
 import { InfixExpressionFormatter } from '~/formatter/expression/infix/infix-expression-formatter';
-import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
+import { FormatterConfig, defaultFormatterConfig } from '~/formatter/formatter-config';
 import { getParser } from '~/util/parse';
 
 test('plus', () => {

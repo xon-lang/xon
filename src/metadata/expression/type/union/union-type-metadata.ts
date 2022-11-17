@@ -14,7 +14,8 @@ export class UnionTypeMetadata extends TypeMetadata {
 
     const rightScope = this.right.attributesScope();
     if (!rightScope) return null;
-    return (this._attributesScope = this.left.attributesScope()?.union(rightScope) ?? null);
+    this._attributesScope = this.left.attributesScope()?.union(rightScope) ?? null;
+    return this._attributesScope;
   }
 
   is(): Boolean2 {

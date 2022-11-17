@@ -1,4 +1,4 @@
-import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
+import { FormatterConfig, defaultFormatterConfig } from '~/formatter/formatter-config';
 import { ReturnStatementFormatter } from '~/formatter/statement/return/return-statement-formatter';
 import { getStatementFormatter } from '~/formatter/statement/statement-formatter-helper';
 import { getParser } from '~/util/parse';

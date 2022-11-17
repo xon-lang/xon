@@ -8,7 +8,7 @@ test('not safe', () => {
 
   expect(tree).toBeInstanceOf(MemberExpressionTree);
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
-  expect((tree.instance as IdExpressionTree).name.text).toBe('abc');
+  expect(tree.instance as IdExpressionTree.name.text).toBe('abc');
   expect(tree.name.text).toBe('def');
 });
 
@@ -18,7 +18,7 @@ test('instance dot nl property', () => {
 
   expect(tree).toBeInstanceOf(MemberExpressionTree);
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
-  expect((tree.instance as IdExpressionTree).name.text).toBe('abc');
+  expect(tree.instance as IdExpressionTree.name.text).toBe('abc');
   expect(tree.name.text).toBe('def');
 });
 
@@ -28,7 +28,7 @@ test('instance nl dot property', () => {
 
   expect(tree).toBeInstanceOf(MemberExpressionTree);
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
-  expect((tree.instance as IdExpressionTree).name.text).toBe('abc');
+  expect(tree.instance as IdExpressionTree.name.text).toBe('abc');
   expect(tree.name.text).toBe('def');
 });
 
@@ -38,7 +38,7 @@ test('instance nl dot nl property', () => {
 
   expect(tree).toBeInstanceOf(MemberExpressionTree);
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
-  expect((tree.instance as IdExpressionTree).name.text).toBe('abc');
+  expect(tree.instance as IdExpressionTree.name.text).toBe('abc');
   expect(tree.name.text).toBe('def');
 });
 

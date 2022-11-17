@@ -6,7 +6,7 @@ test('single line string', () => {
   const tree = parseLiteral(code) as StringLiteralTree;
 
   expect(tree).toBeInstanceOf(StringLiteralTree);
-  expect(tree.value).toBe(code.replace(/'/g, ''));
+  expect(tree.value).toBe(code.replace(/'/ug, ''));
 });
 
 test('multiline string', () => {
@@ -14,7 +14,7 @@ test('multiline string', () => {
   const tree = parseLiteral(code) as StringLiteralTree;
 
   expect(tree).toBeInstanceOf(StringLiteralTree);
-  expect(tree.value).toBe(code.replace(/'/g, ''));
+  expect(tree.value).toBe(code.replace(/'/ug, ''));
 });
 
 test('empty string', () => {

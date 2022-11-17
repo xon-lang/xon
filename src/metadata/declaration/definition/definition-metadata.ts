@@ -22,7 +22,7 @@ export class DefinitionMetadata extends DeclarationMetadata {
   }
 
   allAttributes(): ParameterMetadata[] {
-    return [...(this.base?.allAttributes() || []), ...this.attributes];
+    return [...this.base?.allAttributes() || [], ...this.attributes];
   }
 
   is(definition: DefinitionMetadata): Boolean2 {

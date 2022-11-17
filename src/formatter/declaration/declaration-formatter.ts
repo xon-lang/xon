@@ -12,7 +12,7 @@ export class DeclarationFormatter extends Formatter {
   }
 
   toString(): String2 {
-    const modifier = (this.ctx._modifier && this.ctx._modifier.text + ' ') || '';
+    const modifier = this.ctx._modifier && `${this.ctx._modifier.text} ` || '';
     const params = this.ctx._params.map((x) => getDeclarationsFormatter(x, this.config)).join('');
     const type = this.typeFormatter(this.ctx.valueType()?.expression());
     const body = this.valueBodyFormat(this.ctx.valueBody() ?? null);
@@ -30,13 +30,10 @@ export class DeclarationFormatter extends Formatter {
     if (!type && !this.ctx.valueType()?.COLON() && this.ctx.valueBody()?._value) return ' ';
     if (!type) return '';
 
-    return (
-      ': ' +
-      getExpressionFormatter(this.ctx.valueType()?.expression() ?? null, this.config)
-        ?.indent(this.indentCount)
-        .toString()
-        .trim()
-    );
+    return `: ${getExpressionFormatter(this.ctx.valueType()?.expression() ?? null, this.config)
+      ?.indent(this.indentCount)
+      .toString()
+      .trim()}`;
   }
 
   valueBodyFormat(ctx: ValueBodyContext | null): String2 {
@@ -47,8 +44,8 @@ export class DeclarationFormatter extends Formatter {
         this.indentCount,
       );
       return (
-        ((this.ctx.valueType()?.expression() && ' = ') || '= ') +
-        (expressionFormatter?.toString() ?? '')
+        (this.ctx.valueType()?.expression() && ' = ' || '= ')
+        + (expressionFormatter?.toString() ?? '')
       );
     }
 

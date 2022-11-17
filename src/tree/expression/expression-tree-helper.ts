@@ -28,7 +28,7 @@ import { PreprocessorExpressionTree } from '~/tree/expression/preprocessor/prepr
 import { IdTree } from '~/tree/id/id-tree';
 import { getIdTree } from '~/tree/id/id-tree-helper';
 
-export const getExpressionTree = (ctx: ExpressionContext ): ExpressionTree => {
+export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof PreprocessorExpressionContext) return new PreprocessorExpressionTree(ctx);
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
   if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);
@@ -41,14 +41,10 @@ export const getExpressionTree = (ctx: ExpressionContext ): ExpressionTree => {
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
 
   if (ctx instanceof InfixExpressionContext) {
-    // todo each module can use own priority
     const operatorsPriorities = ['^', '* / %', '+ -', '..', '< <= >= >', '== !=', '&', '|'].map(
       (x) => x.split(' '),
     );
-    const flatExpressions = (x: ExpressionContext): (IdTree | ExpressionTree)[] =>
-      (x instanceof InfixExpressionContext
-        ? [...flatExpressions(x._left), getIdTree(x.operator()._name), getExpressionTree(x._right)]
-        : [getExpressionTree(x)]);
+
     const expressions: (IdTree | ExpressionTree)[] = flatExpressions(ctx);
 
     for (const operators of operatorsPriorities) {
@@ -76,5 +72,18 @@ export const getExpressionTree = (ctx: ExpressionContext ): ExpressionTree => {
   Issue.errorFromContext(ctx, `Expression tree not found for "${ctx.constructor.name}"`);
 };
 
-export const getExpressionTrees = (contexts: ExpressionContext[]): ExpressionTree[] =>
-  contexts?.map(getExpressionTree) || [];
+export function getExpressionTrees(contexts: ExpressionContext[]): ExpressionTree[] {
+  return contexts.map(getExpressionTree) || [];
+}
+
+function flatExpressions(context: ExpressionContext): (IdTree | ExpressionTree)[] {
+  if (context instanceof InfixExpressionContext) {
+    return [
+      ...flatExpressions(context._left),
+      getIdTree(context.operator()._name),
+      getExpressionTree(context._right),
+    ];
+  }
+
+  return [getExpressionTree(context)];
+}
