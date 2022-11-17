@@ -1,6 +1,6 @@
+.vscode/templates
 node_modules
 dist
 coverage
-src/grammar/*
-!xon-lexer-base.ts
-.vscode/templates
+src/grammar/xon-lexer.ts
+src/grammar/xon-parser.ts
