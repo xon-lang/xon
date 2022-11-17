@@ -401,6 +401,7 @@
       "error",
       "never"
     ],
+    "space-in-parens": "error",
     // import
     // "@import/export": "error",
     // TYPESCRIPT
