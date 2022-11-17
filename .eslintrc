@@ -402,6 +402,7 @@
       "never"
     ],
     "space-in-parens": "error",
+    "space-infix-ops": "error",
     // import
     // "@import/export": "error",
     // TYPESCRIPT
