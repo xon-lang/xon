@@ -457,6 +457,8 @@
     "@typescript-eslint/no-unnecessary-qualifier": "error",
     "@typescript-eslint/no-unnecessary-type-arguments": "error",
     "@typescript-eslint/no-unsafe-declaration-merging": "error",
+    "@typescript-eslint/no-useless-empty-export": "error",
+    "@typescript-eslint/non-nullable-type-assertion-style": "error",
     // JEST
     "jest/no-commented-out-tests": [
       "off"

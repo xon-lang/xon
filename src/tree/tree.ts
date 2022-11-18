@@ -19,7 +19,7 @@ export abstract class Tree {
   children: Tree[] = [];
 
   addChildren(...children: (Tree | null)[]): void {
-    for (const tree of children.filter((x) => x).map((x) => x as Tree)) {
+    for (const tree of children.filterInstance<Tree>()) {
       this.children.push(tree);
       tree.parent = this;
       tree.scope.parent = this.scope;
