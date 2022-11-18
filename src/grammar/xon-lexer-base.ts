@@ -51,7 +51,7 @@ export abstract class XonLexerBase extends Lexer {
       this.lastToken = next;
     }
 
-    return this.tokenQueue.shift() || next;
+    return this.tokenQueue.shift() ?? next;
   }
 
   protected atStartOfInput(): Boolean2 {
@@ -60,7 +60,7 @@ export abstract class XonLexerBase extends Lexer {
 
   protected handleLineBreak(): void {
     const newLine = this.text.replace(/[^\r\n]+/ug, '');
-    const spaces = (this.text.match(/ +$/ug) || [])[0] || '';
+    const [spaces] = (this.text.match(/ +$/ug) ?? ['']);
 
     if (this.opened > 0 || !newLine) {
       this.skip();
@@ -94,7 +94,7 @@ export abstract class XonLexerBase extends Lexer {
   }
 
   private commonToken(type: Number2, text: String2): CommonToken {
-    const start = (this.lastToken?.stopIndex || this.charIndex - 1) + 1;
+    const start = (this.lastToken?.stopIndex ?? this.charIndex - 1) + 1;
     const stop = start + Math.max(0, text.length - 1);
     const token = new CommonToken(
       type,

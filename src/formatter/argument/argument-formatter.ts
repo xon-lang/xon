@@ -13,7 +13,7 @@ export class ArgumentFormatter extends Formatter {
     const value
       = getExpressionFormatter(this.ctx.expression(), this.config)
         ?.break(this.broken)
-        .indent(this.indentCount) || '';
+        .indent(this.indentCount) ?? '';
     if (this.ctx._name) {
       return `${this.ctx._name.text} = ${value}`;
     }

@@ -20,7 +20,7 @@ import { SourceRange } from '~/util/source-range';
 import { ThrowingErrorListener } from '~/util/throwing-error-listener';
 
 export function getParser(code: String2, sourceName: String2 | null = null): XonParser {
-  const inputStream = CharStreams.fromString(code, sourceName || '');
+  const inputStream = CharStreams.fromString(code, sourceName ?? '');
   const lexer = new XonLexer(inputStream);
   lexer.removeErrorListeners();
   lexer.addErrorListener(new ThrowingErrorListener());

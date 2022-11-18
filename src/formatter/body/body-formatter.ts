@@ -16,7 +16,7 @@ export class BodyFormatter extends Formatter {
         .statement()
         .slice(0, -1)
         .map((x, i) => {
-          const nlCount = Math.min(2, this.ctx.source()._nl[i].text?.match(/\n/ug)?.length || 0);
+          const nlCount = Math.min(2, this.ctx.source()._nl[i].text?.match(/\n/ug)?.length ?? 0);
           const statement = this.indentStatement(x);
 
           return statement + this.config.nl.repeat(nlCount);
@@ -38,6 +38,6 @@ export class BodyFormatter extends Formatter {
       this.indentCount + 1,
     );
 
-    return indent + (statementFormatter?.toString() || '');
+    return indent + (statementFormatter?.toString() ?? '');
   }
 }

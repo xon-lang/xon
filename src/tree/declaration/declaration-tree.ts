@@ -58,7 +58,7 @@ export class DeclarationTree extends Tree {
       ?.source();
     this.body = (body && getSourceTree(body)) ?? null;
 
-    const statements = this.body?.statements || [];
+    const statements = this.body?.statements ?? [];
     statements
       .filter(
         (x) => !(

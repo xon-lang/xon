@@ -13,7 +13,7 @@ export class DeclarationScope {
   }
 
   all(): DeclarationMetadata[] {
-    const parentDeclarations = this.parent?.all() || [];
+    const parentDeclarations = this.parent?.all() ?? [];
 
     return [...this.declarations, ...parentDeclarations];
   }
@@ -35,7 +35,7 @@ export class DeclarationScope {
       return declarations;
     }
 
-    return this.parent?.filter(name, predicate) || [];
+    return this.parent?.filter(name, predicate) ?? [];
   }
 
   // operators

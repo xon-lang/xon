@@ -142,7 +142,7 @@ export function fillDefinitionMetadata(tree: DeclarationTree): void {
   for (const parameter of tree.body?.statements
     .filterInstance<DeclarationStatementTree>()
     .filter((x) => x.declaration instanceof DeclarationTree)
-    .map((x) => x.declaration as DeclarationTree) || []) {
+    .map((x) => x.declaration as DeclarationTree) ?? []) {
     fillParameterMetadata(parameter, null);
   }
 }

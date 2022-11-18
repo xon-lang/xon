@@ -33,7 +33,7 @@ export class MemberValueMetadata extends ValueMetadata {
   }
 
   type(): TypeMetadata | null {
-    return this.tree.name?.metadata?.type || null;
+    return this.tree.name?.metadata?.type ?? null;
   }
 
   eval(): Any2 {
