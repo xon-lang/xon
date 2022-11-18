@@ -1,3 +1,4 @@
+import { Token } from 'antlr4ts';
 import { DeclarationContext } from '~/grammar/xon-parser';
 import { IssueLevel } from '~/issue/issue-level';
 import { Boolean2 } from '~/lib/core';
@@ -36,9 +37,10 @@ export class DeclarationTree extends Tree {
 
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
-    this.modifier = (ctx._modifier && getIdTree(ctx._modifier)) ?? null;
+    const modifier: Token | null = ctx._modifier;
+    this.modifier = getIdTree(modifier);
     this.name = (ctx._name && getIdTree(ctx._name)) ?? null;
-    this.destructure = getDeclarationTrees(ctx._destructure?.declaration() ?? []);
+    this.destructure = getDeclarationTrees(ctx._destructure.declaration() ?? []);
     this.hasParameters = ctx._params.filter((x) => !x.open().LESS()).length > 0;
     this.generics = getDeclarationTrees(
       ctx._params.filter((x) => x.open().LESS())[0]?.declaration() ?? [],
@@ -61,8 +63,8 @@ export class DeclarationTree extends Tree {
       .filter(
         (x) => !(
           x instanceof DeclarationStatementTree
-            || x instanceof CommentStatementTree
-            || x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree
+          || x instanceof CommentStatementTree
+          || x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree
         ),
       )
       .forEach((x) => x.addIssue(IssueLevel.error, 'Definition body should contain only parameters'));

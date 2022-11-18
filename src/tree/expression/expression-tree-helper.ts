@@ -53,7 +53,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
       ).length;
       for (let i = 0; i < operatorsCount; i++) {
         const operatorIndex = expressions.findIndex(
-          (x) => x instanceof IdTree && operators.includes(x?.text),
+          (x) => x instanceof IdTree && operators.includes(x.text),
         );
         if (operatorIndex >= 0) {
           expressions[operatorIndex] = new InfixExpressionTree(
@@ -74,7 +74,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
 };
 
 export function getExpressionTrees(contexts: ExpressionContext[]): ExpressionTree[] {
-  return contexts.map(getExpressionTree) || [];
+  return contexts.map(getExpressionTree);
 }
 
 function flatExpressions(context: ExpressionContext): (IdTree | ExpressionTree)[] {

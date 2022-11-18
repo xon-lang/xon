@@ -55,7 +55,7 @@ test('if relational', () => {
   const tree = parseStatement(code) as IfStatementTree;
 
   expect(tree).toBeInstanceOf(IfStatementTree);
-  expect(evaluate(tree.condition)).toBe(6 > 4);
+  expect(evaluate(tree.condition)).toBe(true);
   const ifStatement = tree.thenBody.statements[0] as ExpressionStatementTree;
   expect(evaluate(ifStatement.expression)).toBe(12 + 45 ** 5);
 });

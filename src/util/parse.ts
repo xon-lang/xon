@@ -34,11 +34,7 @@ export function getParser(code: String2, sourceName: String2 | null = null): Xon
 
 function _getSourceTree(parser: XonParser): SourceTree | never {
   try {
-    const tree = getSourceTree(parser.source());
-    if (tree) {
-      return tree;
-    }
-    throw new Error('Wrong operation');
+    return getSourceTree(parser.source());
   } catch (error) {
     if (error instanceof Issue) {
       const tree = new SourceTree();

@@ -19,7 +19,7 @@ export class IfStatementTree extends StatementTree {
     this.sourceRange = SourceRange.fromContext(ctx);
     this.condition = getExpressionTree(ctx.expression());
     this.thenBody = getSourceTree(ctx._thenBody.source());
-    this.elseBody = getSourceTree(ctx._elseBody?.source());
+    this.elseBody = (ctx._elseBody && getSourceTree(ctx._elseBody.source())) ?? null;
     this.addChildren(this.condition, this.thenBody, this.elseBody);
   }
 }

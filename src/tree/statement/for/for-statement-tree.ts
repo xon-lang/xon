@@ -26,11 +26,7 @@ export class ForStatementTree extends StatementTree {
     }
 
     this.expression = getExpressionTree(ctx.expression());
-    const body = ctx.body().source();
-    if (body) {
-      this.body = getSourceTree(body);
-    }
-
+    this.body = getSourceTree(ctx.body().source());
     this.addChildren(this.parameter, this.expression, this.body);
   }
 }
