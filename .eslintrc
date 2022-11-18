@@ -405,6 +405,12 @@
     "space-infix-ops": "error",
     "space-unary-ops": "error",
     "switch-colon-spacing": "error",
+    "template-curly-spacing": "error",
+    "template-tag-spacing": "error",
+    "unicode-bom": "error",
+    "wrap-iife": "error",
+    "wrap-regex": "error",
+    "yield-star-spacing": "error",
     // import
     // "@import/export": "error",
     // TYPESCRIPT
