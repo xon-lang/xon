@@ -12,14 +12,14 @@ test('method call', () => {
 
   expect(tree).toBeInstanceOf(InvokeExpressionTree);
   expect(tree.arguments.length).toBe(2);
-  expect(tree.arguments[0].value as LiteralExpressionTree.literal).toBeInstanceOf(
+  expect((tree.arguments[0].value as LiteralExpressionTree).literal).toBeInstanceOf(
     IntegerLiteralTree,
   );
-  expect(tree.arguments[0].value as LiteralExpressionTree.literal.value).toBe(3);
-  expect(tree.arguments[1].value as LiteralExpressionTree.literal).toBeInstanceOf(
+  expect((tree.arguments[0].value as LiteralExpressionTree).literal.value).toBe(3);
+  expect((tree.arguments[1].value as LiteralExpressionTree).literal).toBeInstanceOf(
     StringLiteralTree,
   );
-  expect(tree.arguments[1].value as LiteralExpressionTree.literal.value).toBe('str');
+  expect((tree.arguments[1].value as LiteralExpressionTree).literal.value).toBe('str');
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
 });
 

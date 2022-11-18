@@ -36,15 +36,15 @@ export class DeclarationTree extends Tree {
 
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
-    this.modifier = getIdTree(ctx._modifier);
-    this.name = getIdTree(ctx._name);
-    this.destructure = getDeclarationTrees(ctx._destructure?.declaration());
+    this.modifier = (ctx._modifier && getIdTree(ctx._modifier)) ?? null;
+    this.name = (ctx._name && getIdTree(ctx._name)) ?? null;
+    this.destructure = getDeclarationTrees(ctx._destructure?.declaration() ?? []);
     this.hasParameters = ctx._params.filter((x) => !x.open().LESS()).length > 0;
     this.generics = getDeclarationTrees(
-      ctx._params.filter((x) => x.open().LESS())[0]?.declaration(),
+      ctx._params.filter((x) => x.open().LESS())[0]?.declaration() ?? [],
     );
     this.parameters = getDeclarationTrees(
-      ctx._params.filter((x) => !x.open().LESS())[0]?.declaration(),
+      ctx._params.filter((x) => !x.open().LESS())[0]?.declaration() ?? [],
     );
     const type = ctx.valueType()?.expression();
     this.type = (type && getExpressionTree(type)) ?? null;

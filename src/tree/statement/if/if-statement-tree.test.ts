@@ -20,10 +20,10 @@ test('if else if', () => {
   const ifStatement = tree.thenBody.statements[0] as ExpressionStatementTree;
   expect(evaluate(ifStatement.expression)).toBe(12 + 45 / 5);
 
-  const nextIfStatement = tree.elseBody.statements[0] as IfStatementTree;
+  const nextIfStatement = tree.elseBody?.statements[0] as IfStatementTree;
   expect(evaluate(nextIfStatement.condition)).toBe(2 + 2);
   expect(
-    evaluate(nextIfStatement.thenBody.statements[0] as ExpressionStatementTree.expression),
+    evaluate((nextIfStatement.thenBody.statements[0] as ExpressionStatementTree).expression),
   ).toBe(2 * 4);
 });
 
@@ -36,7 +36,7 @@ test('if else', () => {
   const ifStatement = tree.thenBody.statements[0] as ExpressionStatementTree;
   expect(evaluate(ifStatement.expression)).toBe(14 + 144 / 12);
 
-  const elseStatement = tree.elseBody.statements[0] as ExpressionStatementTree;
+  const elseStatement = tree.elseBody?.statements[0] as ExpressionStatementTree;
   expect(evaluate(elseStatement.expression)).toBe(2 * 4);
 });
 

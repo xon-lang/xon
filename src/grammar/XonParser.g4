@@ -46,7 +46,7 @@ literal
 declarations: open (declaration (',' declaration)* ','?)? close;
 declaration
     : destructure = declarations valueType? valueBody?
-    | modifier = ID? name = (ID | OP | LESS | GREAT | IS | AS) params += declarations* valueType? valueBody?
+    | (modifier = ID)? name = (ID | OP | LESS | GREAT | IS | AS) params += declarations* valueType? valueBody?
     ;
 valueBody: ASSIGN value = expression? | body;
 valueType: COLON type = expression?;

@@ -63,7 +63,7 @@ export function parseSource(code: String2): SourceTree {
   return _getSourceTree(getParser(code));
 }
 
-export function parseLiteral(code: String2): LiteralTree | null {
+export function parseLiteral(code: String2): LiteralTree {
   return getLiteralTree(getParser(code).literal());
 }
 
@@ -71,11 +71,11 @@ export function parseExpression(code: String2): ExpressionTree {
   return getExpressionTree(getParser(code).expression());
 }
 
-export function parseStatement(code: String2): StatementTree | null {
+export function parseStatement(code: String2): StatementTree {
   return getStatementTree(getParser(code).statement());
 }
 
-export function parseDeclaration(code: String2): DeclarationTree | null {
+export function parseDeclaration(code: String2): DeclarationTree {
   return getDeclarationTree(getParser(code).declaration());
 }
 

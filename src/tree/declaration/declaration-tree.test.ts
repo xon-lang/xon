@@ -11,7 +11,7 @@ test('id type', () => {
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
-  expect(tree.name.text).toBe('abc');
+  expect(tree.name?.text).toBe('abc');
 });
 
 test('generics with parameters', () => {
@@ -19,16 +19,16 @@ test('generics with parameters', () => {
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
-  expect(tree.name.text).toBe('abc');
+  expect(tree.name?.text).toBe('abc');
   expect(tree.generics.length).toBe(3);
-  expect(tree.generics[0].name.text).toBe('N');
-  expect(tree.generics[1].name.text).toBe('M');
-  expect(tree.generics[2].name.text).toBe('K');
-  expect(tree.generics[2].type as IdExpressionTree.name.text).toBe('String');
+  expect(tree.generics[0].name?.text).toBe('N');
+  expect(tree.generics[1].name?.text).toBe('M');
+  expect(tree.generics[2].name?.text).toBe('K');
+  expect((tree.generics[2].type as IdExpressionTree).name.text).toBe('String');
   const type = tree.type as InvokeExpressionTree;
-  expect(type.instance as IdExpressionTree.name.text).toBe('List');
+  expect((type.instance as IdExpressionTree).name.text).toBe('List');
   expect(type.arguments.length).toBe(1);
-  expect(type.arguments[0].value as IdExpressionTree.name.text).toBe('K');
+  expect((type.arguments[0].value as IdExpressionTree).name.text).toBe('K');
 });
 
 test('id lambda type', () => {
@@ -36,7 +36,7 @@ test('id lambda type', () => {
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
-  expect(tree.name.text).toBe('abc');
+  expect(tree.name?.text).toBe('abc');
 });
 
 test('variable type value', () => {
@@ -44,7 +44,7 @@ test('variable type value', () => {
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
-  expect(tree.name.text).toBe('statements');
+  expect(tree.name?.text).toBe('statements');
 });
 
 test('method assign', () => {
@@ -52,7 +52,7 @@ test('method assign', () => {
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
-  expect(tree.name.text).toBe('statements');
+  expect(tree.name?.text).toBe('statements');
 });
 
 test('method single body', () => {
@@ -60,7 +60,7 @@ test('method single body', () => {
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
-  expect(tree.name.text).toBe('statements');
+  expect(tree.name?.text).toBe('statements');
 });
 
 test('method multiple body', () => {
@@ -68,7 +68,7 @@ test('method multiple body', () => {
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
-  expect(tree.name.text).toBe('statements');
+  expect(tree.name?.text).toBe('statements');
 });
 
 test('name and array type', () => {
@@ -86,7 +86,7 @@ test('name and method type', () => {
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
-  expect(tree.name.text).toBe('getParameterTrees');
+  expect(tree.name?.text).toBe('getParameterTrees');
 });
 
 test('preprocessor', () => {
@@ -146,12 +146,12 @@ test('operator with no parameters', () => {
   expect(tree.type).toBeInstanceOf(MethodExpressionTree);
   const type = tree.type as MethodExpressionTree;
   expect(type.parameters.length).toBe(2);
-  expect(type.parameters[0].name.text).toBe('a');
+  expect(type.parameters[0].name?.text).toBe('a');
   expect(type.parameters[0].type).toBeInstanceOf(IdExpressionTree);
-  expect(type.parameters[1].name.text).toBe('b');
+  expect(type.parameters[1].name?.text).toBe('b');
   expect(type.parameters[1].type).toBeInstanceOf(IdExpressionTree);
   expect(type.value).toBeInstanceOf(IdExpressionTree);
-  expect(type.value as IdExpressionTree.name.text).toBe('Boolean');
+  expect((type.value as IdExpressionTree).name.text).toBe('Boolean');
 });
 
 test('operator with parameters', () => {
@@ -160,12 +160,12 @@ test('operator with parameters', () => {
 
   expect(tree).toBeInstanceOf(DeclarationTree);
   expect(tree.parameters.length).toBe(2);
-  expect(tree.parameters[0].name.text).toBe('a');
+  expect(tree.parameters[0].name?.text).toBe('a');
   expect(tree.parameters[0].type).toBeInstanceOf(IdExpressionTree);
-  expect(tree.parameters[1].name.text).toBe('b');
+  expect(tree.parameters[1].name?.text).toBe('b');
   expect(tree.parameters[1].type).toBeInstanceOf(IdExpressionTree);
   expect(tree.type).toBeInstanceOf(IdExpressionTree);
-  expect(tree.type as IdExpressionTree.name.text).toBe('Boolean');
+  expect((tree.type as IdExpressionTree).name.text).toBe('Boolean');
 });
 
 test('model animal', () => {
@@ -173,8 +173,8 @@ test('model animal', () => {
   const tree = parseDeclaration(code) as DeclarationTree;
 
   expect(tree).toBeInstanceOf(DeclarationTree);
-  expect(tree.modifier.text).toBe('model');
-  expect(tree.name.text).toBe('Animal');
+  expect(tree.modifier?.text).toBe('model');
+  expect(tree.name?.text).toBe('Animal');
   expect(tree.type).toBe(null);
   expect(tree.attributes.length).toBe(0);
 });
@@ -184,12 +184,12 @@ test('object with parameters', () => {
   const tree = parseDeclaration(code) as DeclarationTree;
 
   expect(tree).toBeInstanceOf(DeclarationTree);
-  expect(tree.modifier.text).toBe('object');
-  expect(tree.name.text).toBe('Cat');
-  expect(tree.type as IdExpressionTree.name.text).toBe('Animal');
+  expect(tree.modifier?.text).toBe('object');
+  expect(tree.name?.text).toBe('Cat');
+  expect((tree.type as IdExpressionTree).name.text).toBe('Animal');
   expect(tree.parameters.length).toBe(1);
-  expect(tree.parameters[0].name.text).toBe('name');
-  expect(tree.parameters[0].type as IdExpressionTree.name.text).toBe('String');
+  expect(tree.parameters[0].name?.text).toBe('name');
+  expect((tree.parameters[0].type as IdExpressionTree).name.text).toBe('String');
   expect(tree.attributes.length).toBe(0);
 });
 
@@ -198,9 +198,9 @@ test('model cat', () => {
   const tree = parseDeclaration(code) as DeclarationTree;
 
   expect(tree).toBeInstanceOf(DeclarationTree);
-  expect(tree.modifier.text).toBe('model');
-  expect(tree.name.text).toBe('Cat');
-  expect(tree.type as IdExpressionTree.name.text).toBe('Animal');
+  expect(tree.modifier?.text).toBe('model');
+  expect(tree.name?.text).toBe('Cat');
+  expect((tree.type as IdExpressionTree).name.text).toBe('Animal');
   expect(tree.attributes.length).toBe(0);
 });
 
@@ -210,16 +210,16 @@ test('model animal with only attribute', () => {
 
   expect(tree).toBeInstanceOf(DeclarationTree);
   expect(tree.allIssues().length).toBe(0);
-  expect(tree.modifier.text).toBe('model');
-  expect(tree.name.text).toBe('Animal');
+  expect(tree.modifier?.text).toBe('model');
+  expect(tree.name?.text).toBe('Animal');
   expect(tree.type).toBe(null);
   expect(tree.attributes.length).toBe(1);
 
   const attributes = tree.attributes.map(
-    (x) => x as DeclarationStatementTree.declaration as DeclarationTree,
+    (x) => (x as DeclarationStatementTree).declaration as DeclarationTree,
   );
-  expect(attributes[0].name.text).toBe('abc');
-  expect(attributes[0].type as IdExpressionTree.name.text).toBe('Integer');
+  expect(attributes[0].name?.text).toBe('abc');
+  expect((attributes[0].type as IdExpressionTree).name.text).toBe('Integer');
 });
 
 test('model cat with generics', () => {
@@ -227,15 +227,15 @@ test('model cat with generics', () => {
   const tree = parseDeclaration(code) as DeclarationTree;
 
   expect(tree).toBeInstanceOf(DeclarationTree);
-  expect(tree.modifier.text).toBe('model');
-  expect(tree.name.text).toBe('Cat');
+  expect(tree.modifier?.text).toBe('model');
+  expect(tree.name?.text).toBe('Cat');
   expect(tree.generics.length).toBe(1);
-  expect(tree.generics[0].name.text).toBe('T');
-  expect(tree.generics[0].type as IdExpressionTree.name.text).toBe('Number');
+  expect(tree.generics[0].name?.text).toBe('T');
+  expect((tree.generics[0].type as IdExpressionTree).name.text).toBe('Number');
   const type = tree.type as InvokeExpressionTree;
-  expect(type.instance as IdExpressionTree.name.text).toBe('Animal');
+  expect((type.instance as IdExpressionTree).name.text).toBe('Animal');
   expect(type.arguments.length).toBe(2);
-  expect(type.arguments[0].value as IdExpressionTree.name.text).toBe('T');
-  expect(type.arguments[1].value as IdExpressionTree.name.text).toBe('Integer');
+  expect((type.arguments[0].value as IdExpressionTree).name.text).toBe('T');
+  expect((type.arguments[1].value as IdExpressionTree).name.text).toBe('Integer');
   expect(tree.attributes.length).toBe(0);
 });

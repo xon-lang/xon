@@ -10,7 +10,7 @@ test('has boolean value', () => {
 
   expect(tree).toBeInstanceOf(WhileStatementTree);
   expect(tree.expression).toBeInstanceOf(IdExpressionTree);
-  expect(tree.expression as IdExpressionTree.name.text).toBe('true');
+  expect((tree.expression as IdExpressionTree).name.text).toBe('true');
 
   const statement = tree.body.statements[0] as ExpressionStatementTree;
   expect(evaluate(statement.expression)).toBe(12 + 45 / 5);

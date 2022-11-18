@@ -8,7 +8,7 @@ test('one group expression', () => {
   const tree = parseExpression(code);
 
   expect(tree).toBeInstanceOf(GroupExpressionTree);
-  expect(tree as GroupExpressionTree.expression).toBeInstanceOf(InfixExpressionTree);
+  expect((tree as GroupExpressionTree).expression).toBeInstanceOf(InfixExpressionTree);
 });
 
 test('several group expression', () => {

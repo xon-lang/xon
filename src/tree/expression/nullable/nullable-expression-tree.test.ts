@@ -8,5 +8,5 @@ test('nullable', () => {
 
   expect(tree).toBeInstanceOf(NullableExpressionTree);
   expect(tree.value).toBeInstanceOf(IdExpressionTree);
-  expect(tree.value as IdExpressionTree.name.text).toBe('abc');
+  expect((tree.value as IdExpressionTree).name.text).toBe('abc');
 });
