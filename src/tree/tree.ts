@@ -7,22 +7,24 @@ import { Metadata } from '~/metadata/metadata';
 import { SourceRange } from '~/util/source-range';
 
 export abstract class Tree {
-  metadata?: Metadata | null;
-  ctx?: ParserRuleContext | null;
+  metadata: Metadata | null = null;
+  ctx: ParserRuleContext | null = null;
 
-  sourceRange?: SourceRange | null;
+  sourceRange: SourceRange | null = null;
 
   scope: DeclarationScope = new DeclarationScope();
   issues: Issue[] = [];
 
-  parent?: Tree | null;
+  parent: Tree | null = null;
   children: Tree[] = [];
 
   addChildren(...children: (Tree | null)[]): void {
-    for (const tree of children.filterInstance<Tree>()) {
-      this.children.push(tree);
-      tree.parent = this;
-      tree.scope.parent = this.scope;
+    for (const tree of children) {
+      if (tree) {
+        this.children.push(tree);
+        tree.parent = this;
+        tree.scope.parent = this.scope;
+      }
     }
   }
 

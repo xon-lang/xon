@@ -1,4 +1,3 @@
-import { Token } from 'antlr4ts';
 import { DeclarationContext } from '~/grammar/xon-parser';
 import { IssueLevel } from '~/issue/issue-level';
 import { Boolean2 } from '~/lib/core';
@@ -37,10 +36,9 @@ export class DeclarationTree extends Tree {
 
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
-    const modifier: Token | null = ctx._modifier;
-    this.modifier = getIdTree(modifier);
+    this.modifier = ctx._modifier && getIdTree(ctx._modifier);
     this.name = (ctx._name && getIdTree(ctx._name)) ?? null;
-    this.destructure = getDeclarationTrees(ctx._destructure.declaration() ?? []);
+    this.destructure = (ctx._destructure && getDeclarationTrees(ctx._destructure.declaration() ?? [])) ?? [];
     this.hasParameters = ctx._params.filter((x) => !x.open().LESS()).length > 0;
     this.generics = getDeclarationTrees(
       ctx._params.filter((x) => x.open().LESS())[0]?.declaration() ?? [],
