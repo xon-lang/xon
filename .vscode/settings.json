@@ -74,5 +74,8 @@
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[antlr]": {
+    "editor.defaultFormatter": "mike-lischke.vscode-antlr4"
   }
 }

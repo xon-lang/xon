@@ -54,8 +54,8 @@ valueType: COLON type = expression?;
 arguments: open (argument (',' argument)* ','?)? close;
 argument:  (name = ID ASSIGN)? expression;
 
+body: NL INDENT source DEDENT;
+
 open:     name = ('<' | '(' | '[' | '{');
 close:    name = ('>' | ')' | ']' | '}');
 operator: name = (OP | LESS | GREAT | IS | AS);
-
-body: NL INDENT source DEDENT;
