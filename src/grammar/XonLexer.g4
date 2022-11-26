@@ -36,12 +36,8 @@ EXPECT:   'expect';
 EXPORT:   'export';
 FOR:      'for';
 IF:       'if';
-IMPORT:   'import';
 RETURN:   'return';
 WHILE:    'while';
-
-AS: 'as';
-IS: 'is';
 
 ASSIGN:   '=';
 COMMA:    ',';
@@ -57,10 +53,8 @@ STRING_LITERAL:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 
 PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
 
-ID:    [_a-zA-Z] [_a-zA-Z0-9]*;
-LESS:  '<';
-GREAT: '>';
-OP:    [!+-^*%&|] | '..' | '...' | '<=' | '>=' | '==' | '!=';
+ID: [_a-zA-Z] [_a-zA-Z0-9]*;
+OP: [!+-^*%&|] | '..' | '...' | '<' | '<=' | '>=' | '>' | '==' | '!=';
 
 NL:           ([\r\n] WS*)+ {this.handleLineBreak()};
 LINE_COMMENT: '--' ~[\r\n]*;

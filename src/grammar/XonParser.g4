@@ -23,18 +23,18 @@ statement
     ;
 
 expression
-    : PREPROCESSOR                                  # preprocessorExpression
-    | '(' expression ')'                            # groupExpression
-    | arguments                                     # arrayExpression
-    | expression QUESTION                           # nullableExpression
-    | expression DOT name = ID?                     # memberExpression
-    | expression META name = ID?                    # metaExpression
-    | expression arguments                          # invokeExpression
-    | literal                                       # literalExpression
-    | name = ID                                     # idExpression
-    | left = expression operator right = expression # infixExpression
-    | op = (OP | IMPORT) expression                 # prefixExpression
-    | declarations* valueType? LAMBDA expression    # methodExpression
+    : PREPROCESSOR                                          # preprocessorExpression
+    | '(' expression ')'                                    # groupExpression
+    | arguments                                             # arrayExpression
+    | expression QUESTION                                   # nullableExpression
+    | expression DOT name = ID?                             # memberExpression
+    | expression META name = ID?                            # metaExpression
+    | expression arguments                                  # invokeExpression
+    | literal                                               # literalExpression
+    | name = ID                                             # idExpression
+    | left = expression name = (ID | OP) right = expression # infixExpression
+    | name = OP expression                                  # prefixExpression
+    | declarations* valueType? LAMBDA expression            # methodExpression
     ;
 
 literal
@@ -46,7 +46,7 @@ literal
 declarations: open (declaration (',' declaration)* ','?)? close;
 declaration
     : destructure = declarations valueType? valueBody?
-    | (modifier = ID)? name = (ID | OP | LESS | GREAT | IS | AS) params += declarations* valueType? valueBody?
+    | (modifier = ID)? name = (ID | OP) params += declarations* valueType? valueBody?
     ;
 valueBody: ASSIGN value = expression? | body;
 valueType: COLON type = expression?;
@@ -56,6 +56,5 @@ argument:  (name = ID ASSIGN)? expression;
 
 body: NL INDENT source DEDENT;
 
-open:     name = ('<' | '(' | '[' | '{');
-close:    name = ('>' | ')' | ']' | '}');
-operator: name = (OP | LESS | GREAT | IS | AS);
+open:  name = ('(' | '[' | '{');
+close: name = (')' | ']' | '}');
