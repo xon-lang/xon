@@ -81,7 +81,7 @@ function flatExpressions(context: ExpressionContext): (IdTree | ExpressionTree)[
   if (context instanceof InfixExpressionContext) {
     return [
       ...flatExpressions(context._left),
-      getIdTree(context.operator()._name),
+      getIdTree(context._name),
       getExpressionTree(context._right),
     ];
   }

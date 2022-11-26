@@ -15,7 +15,7 @@ test('id type', () => {
 });
 
 test('generics with parameters', () => {
-  const code = 'abc <N,M ,K:String > (): List<K>';
+  const code = 'abc {N,M ,K:String } (): List{K}';
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
@@ -223,8 +223,8 @@ test('model animal with only attribute', () => {
 });
 
 test('model cat with generics', () => {
-  const code = 'model Cat<T: Number>: Animal<T, Integer>';
-  const tree = parseDeclaration(code) as DeclarationTree;
+  const code = 'model Cat{T: Number}: Animal{T, Integer}';
+  const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
   expect(tree.modifier?.text).toBe('model');
@@ -233,6 +233,7 @@ test('model cat with generics', () => {
   expect(tree.generics[0].name?.text).toBe('T');
   expect((tree.generics[0].type as IdExpressionTree).name.text).toBe('Number');
   const type = tree.type as InvokeExpressionTree;
+  expect(type).toBeInstanceOf(InvokeExpressionTree);
   expect((type.instance as IdExpressionTree).name.text).toBe('Animal');
   expect(type.arguments.length).toBe(2);
   expect((type.arguments[0].value as IdExpressionTree).name.text).toBe('T');

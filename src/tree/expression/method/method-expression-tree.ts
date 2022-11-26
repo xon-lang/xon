@@ -20,10 +20,10 @@ export class MethodExpressionTree extends ExpressionTree {
 
     const paramsGroup = ctx.declarations();
     this.generics = getDeclarationTrees(
-      paramsGroup.filter((x) => x.open().LESS())[0]?.declaration() ?? [],
+      paramsGroup.filter((x) => x.open().OPEN_BRACE())[0]?.declaration() ?? [],
     );
     this.parameters = getDeclarationTrees(
-      paramsGroup.filter((x) => !x.open().LESS())[0]?.declaration(),
+      paramsGroup.filter((x) => !x.open().OPEN_BRACE())[0]?.declaration(),
     );
 
     const valueTypeCtx = ctx.valueType()?.expression();

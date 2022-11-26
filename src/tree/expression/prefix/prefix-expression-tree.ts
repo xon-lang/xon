@@ -15,7 +15,7 @@ export class PrefixExpressionTree extends ExpressionTree {
     super();
     this.ctx = ctx;
     this.sourceRange = SourceRange.fromContext(ctx);
-    this.name = getIdTree(ctx._op);
+    this.name = getIdTree(ctx._name);
     this.value = getExpressionTree(ctx.expression());
     this.addChildren(this.name, this.value);
   }

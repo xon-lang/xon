@@ -18,25 +18,23 @@ export class SourceRange {
   }
 
   static fromContext(context: ParserRuleContext): SourceRange {
-    return SourceRange.fromTwoTokens(context.start, context.stop ?? null);
+    return SourceRange.fromTwoTokens(context.start, context.stop ?? context.start);
   }
 
   static fromToken(token: Token): SourceRange {
     return SourceRange.fromTwoTokens(token, token);
   }
 
-  static fromTwoTokens(start: Token, stop: Token | null): SourceRange {
+  static fromTwoTokens(start: Token, stop: Token): SourceRange {
     const ref = new SourceRange();
     ref.sourceName = start.inputStream?.sourceName ?? null;
     ref.start = new LinePosition(start.line, start.charPositionInLine + 1, start.startIndex);
     ref.stop
-      = stop
-        && new LinePosition(
-          stop.line,
-          stop.charPositionInLine + (stop.stopIndex - stop.startIndex) + 1,
-          stop.stopIndex,
-        )
-      || ref.start;
+      = new LinePosition(
+        stop.line,
+        stop.charPositionInLine + (stop.stopIndex - stop.startIndex) + 1,
+        stop.stopIndex,
+      );
     ref.sourceText = String(start.inputStream);
     ref.rangeText = ref.sourceText.slice(ref.start.index, ref.stop.index + 1);
 

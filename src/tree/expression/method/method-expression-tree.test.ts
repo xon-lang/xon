@@ -20,7 +20,7 @@ test('has argument', () => {
 });
 
 test('generics', () => {
-  const code = '<N,M ,K:String >[x] => x + 42';
+  const code = '{N,M ,K:String }[x] => x + 42';
   const tree = parseExpression(code) as MethodExpressionTree;
 
   expect(tree).toBeInstanceOf(MethodExpressionTree);
