@@ -1,10 +1,10 @@
 import { WhileStatementContext } from '~/grammar/xon-parser';
+import { SourceSpan } from '~/source/source-span';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
 import { SourceTree } from '~/tree/source/source-tree';
 import { getSourceTree } from '~/tree/source/source-tree-helper';
 import { StatementTree } from '~/tree/statement/statement-tree';
-import { SourceSpan } from '~/util/source/source-span';
 
 export class WhileStatementTree extends StatementTree {
   ctx: WhileStatementContext;

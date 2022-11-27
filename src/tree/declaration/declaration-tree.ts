@@ -2,6 +2,7 @@ import { DeclarationContext } from '~/grammar/xon-parser';
 import { IssueLevel } from '~/issue/issue-level';
 import { Boolean2 } from '~/lib/core';
 import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata';
+import { SourceSpan } from '~/source/source-span';
 import { getDeclarationTrees } from '~/tree/declaration/declaration-tree-helper';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
@@ -14,7 +15,6 @@ import { CommentStatementTree } from '~/tree/statement/comment/comment-statement
 import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
 import { ExpressionStatementTree } from '~/tree/statement/expression/expression-statement-tree';
 import { Tree } from '~/tree/tree';
-import { SourceSpan } from '~/util/source/source-span';
 
 export class DeclarationTree extends Tree {
   ctx: DeclarationContext;

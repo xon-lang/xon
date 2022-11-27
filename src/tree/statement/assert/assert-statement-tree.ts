@@ -1,8 +1,8 @@
 import { AssertStatementContext } from '~/grammar/xon-parser';
+import { SourceSpan } from '~/source/source-span';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
 import { StatementTree } from '~/tree/statement/statement-tree';
-import { SourceSpan } from '~/util/source/source-span';
 
 export class AssertStatementTree extends StatementTree {
   ctx: AssertStatementContext;

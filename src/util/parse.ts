@@ -4,6 +4,7 @@ import { XonLexer } from '~/grammar/xon-lexer';
 import { XonParser } from '~/grammar/xon-parser';
 import { Issue } from '~/issue/issue';
 import { String2 } from '~/lib/core';
+import { SourceSpan } from '~/source/source-span';
 import { ArgumentTree } from '~/tree/argument/argument-tree';
 import { getArgumentTree } from '~/tree/argument/argument-tree-helper';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
@@ -16,7 +17,6 @@ import { SourceTree } from '~/tree/source/source-tree';
 import { getSourceTree } from '~/tree/source/source-tree-helper';
 import { StatementTree } from '~/tree/statement/statement-tree';
 import { getStatementTree } from '~/tree/statement/statement-tree-helper';
-import { SourceSpan } from '~/util/source/source-span';
 import { ThrowingErrorListener } from '~/util/throwing-error-listener';
 
 export function getParser(code: String2, location: String2 | null = null): XonParser {

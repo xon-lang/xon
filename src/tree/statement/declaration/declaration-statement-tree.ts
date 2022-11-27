@@ -1,8 +1,8 @@
 import { DeclarationStatementContext } from '~/grammar/xon-parser';
+import { SourceSpan } from '~/source/source-span';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
 import { getDeclarationTree } from '~/tree/declaration/declaration-tree-helper';
 import { StatementTree } from '~/tree/statement/statement-tree';
-import { SourceSpan } from '~/util/source/source-span';
 
 export class DeclarationStatementTree extends StatementTree {
   ctx: DeclarationStatementContext;

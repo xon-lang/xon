@@ -1,7 +1,7 @@
 import { ParserRuleContext, Token } from 'antlr4ts';
 import { Boolean2, String2 } from '~/lib/core';
-import { Source } from '~/util/source/source';
-import { SourcePosition } from '~/util/source/source-position';
+import { Source } from '~/source/source';
+import { SourcePosition } from '~/source/source-position';
 
 export class SourceSpan {
   constructor(public source: Source, public start: SourcePosition, public stop: SourcePosition) {}

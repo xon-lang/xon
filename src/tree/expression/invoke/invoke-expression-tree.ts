@@ -1,11 +1,11 @@
 import { InvokeExpressionContext } from '~/grammar/xon-parser';
+import { SourceSpan } from '~/source/source-span';
 import { ArgumentTree } from '~/tree/argument/argument-tree';
 import { getArgumentTrees } from '~/tree/argument/argument-tree-helper';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
 import { IdTree } from '~/tree/id/id-tree';
 import { getIdTree } from '~/tree/id/id-tree-helper';
-import { SourceSpan } from '~/util/source/source-span';
 
 export class InvokeExpressionTree extends ExpressionTree {
   ctx: InvokeExpressionContext;

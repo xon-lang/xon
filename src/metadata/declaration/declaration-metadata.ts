@@ -3,8 +3,8 @@ import { GenericMetadata } from '~/metadata/declaration/generic/generic-metadata
 import { ParameterMetadata } from '~/metadata/declaration/parameter/parameter-metadata';
 import { TypeMetadata } from '~/metadata/expression/type/type-metadata';
 import { Metadata } from '~/metadata/metadata';
+import { SourceSpan } from '~/source/source-span';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
-import { SourceSpan } from '~/util/source/source-span';
 
 export abstract class DeclarationMetadata extends Metadata {
   sourceSpan: SourceSpan | null = null;

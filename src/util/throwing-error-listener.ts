@@ -10,7 +10,7 @@ import {
 import { Issue } from '~/issue/issue';
 import { IssueLevel } from '~/issue/issue-level';
 import { Any2, Never2, Number2, String2 } from '~/lib/core';
-import { SourceSpan } from '~/util/source/source-span';
+import { SourceSpan } from '~/source/source-span';
 
 export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbol> {
   syntaxError(

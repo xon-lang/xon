@@ -4,7 +4,7 @@ import { IssueLevel } from '~/issue/issue-level';
 import { String2 } from '~/lib/core';
 import { DeclarationScope } from '~/metadata/declaration/scope/declaration-scope';
 import { Metadata } from '~/metadata/metadata';
-import { SourceSpan } from '~/util/source/source-span';
+import { SourceSpan } from '~/source/source-span';
 
 export abstract class Tree {
   metadata: Metadata | null = null;

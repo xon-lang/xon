@@ -1,5 +1,5 @@
 import { Number2, String2 } from '~/lib/core';
-import { Source } from '~/util/source/source';
+import { Source } from '~/source/source';
 
 export class SourcePosition {
   constructor(public source: Source, public index: Number2, public line: Number2, public column: Number2) {}

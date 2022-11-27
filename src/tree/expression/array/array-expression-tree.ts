@@ -1,8 +1,8 @@
 import { ArrayExpressionContext } from '~/grammar/xon-parser';
+import { SourceSpan } from '~/source/source-span';
 import { ArgumentTree } from '~/tree/argument/argument-tree';
 import { getArgumentTrees } from '~/tree/argument/argument-tree-helper';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
-import { SourceSpan } from '~/util/source/source-span';
 
 export class ArrayExpressionTree extends ExpressionTree {
   ctx: ArrayExpressionContext;

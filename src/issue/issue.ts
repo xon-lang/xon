@@ -2,8 +2,8 @@ import { ParserRuleContext, RecognitionException } from 'antlr4ts';
 import { cyan, gray, red, redBright } from 'chalk';
 import { IssueLevel } from '~/issue/issue-level';
 import { Never2, String2 } from '~/lib/core';
+import { SourceSpan } from '~/source/source-span';
 import { Tree } from '~/tree/tree';
-import { SourceSpan } from '~/util/source/source-span';
 
 export class Issue extends Error {
   antlrError: RecognitionException | null = null;

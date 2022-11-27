@@ -1,9 +1,9 @@
 import { SourceContext } from '~/grammar/xon-parser';
 import { SourceMetadata } from '~/metadata/source/source-metadata';
+import { SourceSpan } from '~/source/source-span';
 import { StatementTree } from '~/tree/statement/statement-tree';
 import { getStatementTrees } from '~/tree/statement/statement-tree-helper';
 import { Tree } from '~/tree/tree';
-import { SourceSpan } from '~/util/source/source-span';
 
 export class SourceTree extends Tree {
   metadata: SourceMetadata | null = null;

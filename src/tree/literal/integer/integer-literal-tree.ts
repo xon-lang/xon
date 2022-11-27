@@ -1,7 +1,7 @@
 import { IntegerLiteralContext } from '~/grammar/xon-parser';
 import { Number2, String2 } from '~/lib/core';
+import { SourceSpan } from '~/source/source-span';
 import { LiteralTree } from '~/tree/literal/literal-tree';
-import { SourceSpan } from '~/util/source/source-span';
 
 export class IntegerLiteralTree extends LiteralTree {
   sourceSpan: SourceSpan;

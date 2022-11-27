@@ -1,7 +1,7 @@
 import { NullableExpressionContext } from '~/grammar/xon-parser';
+import { SourceSpan } from '~/source/source-span';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
-import { SourceSpan } from '~/util/source/source-span';
 
 export class NullableExpressionTree extends ExpressionTree {
   ctx: NullableExpressionContext;

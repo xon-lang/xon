@@ -1,8 +1,8 @@
 import { LiteralExpressionContext } from '~/grammar/xon-parser';
+import { SourceSpan } from '~/source/source-span';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { LiteralTree } from '~/tree/literal/literal-tree';
 import { getLiteralTree } from '~/tree/literal/literal-tree-helper';
-import { SourceSpan } from '~/util/source/source-span';
 
 export class LiteralExpressionTree extends ExpressionTree {
   ctx: LiteralExpressionContext;
