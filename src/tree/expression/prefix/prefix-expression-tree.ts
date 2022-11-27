@@ -7,14 +7,14 @@ import { SourceSpan } from '~/util/source/source-span';
 
 export class PrefixExpressionTree extends ExpressionTree {
   ctx: PrefixExpressionContext;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   name: IdTree;
   value: ExpressionTree;
 
   constructor(ctx: PrefixExpressionContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.name = getIdTree(ctx._name);
     this.value = getExpressionTree(ctx.expression());
     this.addChildren(this.name, this.value);

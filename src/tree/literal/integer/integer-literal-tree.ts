@@ -4,14 +4,14 @@ import { LiteralTree } from '~/tree/literal/literal-tree';
 import { SourceSpan } from '~/util/source/source-span';
 
 export class IntegerLiteralTree extends LiteralTree {
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   radix: Number2;
   integer: String2;
   value: Number2;
 
   constructor(ctx: IntegerLiteralContext) {
     super();
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     const [integer, radix] = ctx.text.split('x').reverse();
     this.integer = integer;
     this.radix = Number(radix);

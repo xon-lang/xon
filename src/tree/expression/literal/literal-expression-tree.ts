@@ -6,13 +6,13 @@ import { SourceSpan } from '~/util/source/source-span';
 
 export class LiteralExpressionTree extends ExpressionTree {
   ctx: LiteralExpressionContext;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   literal: LiteralTree;
 
   constructor(ctx: LiteralExpressionContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.literal = getLiteralTree(ctx.literal());
     this.addChildren(this.literal);
   }

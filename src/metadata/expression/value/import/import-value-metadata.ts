@@ -21,8 +21,8 @@ export class ImportValueMetadata extends ValueMetadata {
     fillValueMetadata(tree.value);
 
     const importPath = evaluate(tree.value);
-    if (typeof importPath === 'string' && tree.sourceRange.sourceName) {
-      const relativePath = path.resolve(path.dirname(tree.sourceRange.sourceName), importPath);
+    if (typeof importPath === 'string' && tree.sourceSpan.location) {
+      const relativePath = path.resolve(path.dirname(tree.sourceSpan.location), importPath);
       this._importProvider = new ImportProvider(relativePath);
       this.fullPath = this._importProvider.fullPath;
     } else {

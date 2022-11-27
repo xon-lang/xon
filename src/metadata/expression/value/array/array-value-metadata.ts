@@ -18,7 +18,7 @@ export class ArrayValueMetadata extends ValueMetadata {
   type(): TypeMetadata | null {
     const items = this.tree.arguments.map((x) => ({
       name: x.name?.text,
-      sourceRange: x.sourceRange,
+      sourceSpan: x.sourceSpan,
       tree: x,
       type: (x.value?.metadata as ValueMetadata).type(),
       value: x.value?.metadata as ValueMetadata,
@@ -29,7 +29,7 @@ export class ArrayValueMetadata extends ValueMetadata {
       items.forEach((x) => {
         const metadata = new ParameterMetadata(null);
         metadata.name = x.tree.name?.text;
-        metadata.sourceRange = x.sourceRange;
+        metadata.sourceSpan = x.sourceSpan;
         metadata.type = x.type;
         objectScope.add(metadata);
       });

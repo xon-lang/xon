@@ -10,7 +10,7 @@ import { SourceSpan } from '~/util/source/source-span';
 
 export class ForStatementTree extends StatementTree {
   ctx: ForStatementContext;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   parameter: DeclarationTree | null = null;
   expression: ExpressionTree;
   body: SourceTree | null = null;
@@ -18,7 +18,7 @@ export class ForStatementTree extends StatementTree {
   constructor(ctx: ForStatementContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
 
     const declaration = ctx.declaration();
     if (declaration) {

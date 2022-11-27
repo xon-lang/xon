@@ -5,8 +5,8 @@ import { ModuleTree } from '~/tree/module/module-tree';
 import { SourceTree } from '~/tree/source/source-tree';
 import { parseSourceFile } from '~/util/parse';
 
-export function getModuleTree(name: String2, sourceName: String2): ModuleTree {
-  return new ModuleTree(name, sourceName);
+export function getModuleTree(name: String2, location: String2): ModuleTree {
+  return new ModuleTree(name, location);
 }
 
 export function getModuleTreeFromPath(modulePath: String2): ModuleTree {
@@ -24,7 +24,7 @@ export function getModuleTreeFromPath(modulePath: String2): ModuleTree {
 
 function getSourceTreesFromPath(modulePath: String2): SourceTree[] {
   const globPath = join(modulePath, '*.xon');
-  const sourceFiles = sync(globPath, { 'nodir': true });
+  const sourceFiles = sync(globPath, { nodir: true });
   const sourceTrees = sourceFiles.map((x) => parseSourceFile(x));
 
   return sourceTrees;

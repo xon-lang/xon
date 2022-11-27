@@ -5,13 +5,13 @@ import { SourceSpan } from '~/util/source/source-span';
 
 export class GroupExpressionTree extends ExpressionTree {
   ctx: GroupExpressionContext;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   expression: ExpressionTree;
 
   constructor(ctx: GroupExpressionContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.expression = getExpressionTree(ctx.expression());
     this.addChildren(this.expression);
   }

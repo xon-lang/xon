@@ -8,14 +8,14 @@ import { SourceSpan } from '~/util/source/source-span';
 
 export class ArgumentTree extends Tree {
   ctx: ArgumentContext;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   name: IdTree | null;
   value: ExpressionTree | null;
 
   constructor(ctx: ArgumentContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.name = (ctx._name && getIdTree(ctx._name)) ?? null;
     const value = ctx.expression();
     this.value = (value && getExpressionTree(value)) ?? null;

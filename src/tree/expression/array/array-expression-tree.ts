@@ -6,13 +6,13 @@ import { SourceSpan } from '~/util/source/source-span';
 
 export class ArrayExpressionTree extends ExpressionTree {
   ctx: ArrayExpressionContext;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   arguments: ArgumentTree[];
 
   constructor(ctx: ArrayExpressionContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.arguments = getArgumentTrees(ctx.arguments().argument());
     this.addChildren(...this.arguments);
   }

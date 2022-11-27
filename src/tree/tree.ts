@@ -9,7 +9,7 @@ import { SourceSpan } from '~/util/source/source-span';
 export abstract class Tree {
   metadata: Metadata | null = null;
   ctx: ParserRuleContext | null = null;
-  sourceRange!: SourceSpan;
+  sourceSpan!: SourceSpan;
 
   scope: DeclarationScope = new DeclarationScope();
   issues: Issue[] = [];
@@ -32,8 +32,8 @@ export abstract class Tree {
   }
 
   addIssue(level: IssueLevel, message: String2): void {
-    if (this.sourceRange) {
-      this.issues.push(new Issue(this.sourceRange, level, message));
+    if (this.sourceSpan) {
+      this.issues.push(new Issue(this.sourceSpan, level, message));
     }
   }
 

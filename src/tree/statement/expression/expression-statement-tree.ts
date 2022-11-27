@@ -5,12 +5,12 @@ import { StatementTree } from '~/tree/statement/statement-tree';
 import { SourceSpan } from '~/util/source/source-span';
 
 export class ExpressionStatementTree extends StatementTree {
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   expression: ExpressionTree;
 
   constructor(ctx: ExpressionStatementContext) {
     super();
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.expression = getExpressionTree(ctx.expression());
     this.addChildren(this.expression);
   }

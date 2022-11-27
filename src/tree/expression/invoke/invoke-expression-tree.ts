@@ -9,7 +9,7 @@ import { SourceSpan } from '~/util/source/source-span';
 
 export class InvokeExpressionTree extends ExpressionTree {
   ctx: InvokeExpressionContext;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   instance: ExpressionTree;
   arguments: ArgumentTree[];
   open: IdTree;
@@ -18,7 +18,7 @@ export class InvokeExpressionTree extends ExpressionTree {
   constructor(ctx: InvokeExpressionContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.instance = getExpressionTree(ctx.expression());
     this.arguments = getArgumentTrees(ctx.arguments().argument());
     this.open = getIdTree(ctx.arguments().open()._name);

@@ -82,10 +82,10 @@ abc: ABC
 
 //   expect(tree).toBeInstanceOf(SourceTree);
 //   expect(tree.issues.length).toBe(1);
-//   expect(tree.issues[0].sourceRange.start.line).toBe(4);
-//   expect(tree.issues[0].sourceRange.start.column).toBe(22);
-//   expect(tree.issues[0].sourceRange.stop.line).toBe(4);
-//   expect(tree.issues[0].sourceRange.stop.column).toBe(25);
+//   expect(tree.issues[0].sourceSpan.start.line).toBe(4);
+//   expect(tree.issues[0].sourceSpan.start.column).toBe(22);
+//   expect(tree.issues[0].sourceSpan.stop.line).toBe(4);
+//   expect(tree.issues[0].sourceSpan.stop.column).toBe(25);
 // });
 
 // test('2-error.xon', () => {
@@ -93,8 +93,8 @@ abc: ABC
 
 //   expect(tree).toBeInstanceOf(SourceTree);
 //   expect(tree.issues.length).toBe(1);
-//   expect(tree.issues[0].sourceRange.start.line).toBe(6);
-//   expect(tree.issues[0].sourceRange.start.column).toBe(7);
-//   expect(tree.issues[0].sourceRange.stop.line).toBe(6);
-//   expect(tree.issues[0].sourceRange.stop.column).toBe(12);
+//   expect(tree.issues[0].sourceSpan.start.line).toBe(6);
+//   expect(tree.issues[0].sourceSpan.start.column).toBe(7);
+//   expect(tree.issues[0].sourceSpan.stop.line).toBe(6);
+//   expect(tree.issues[0].sourceSpan.stop.column).toBe(12);
 // });

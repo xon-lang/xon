@@ -4,7 +4,7 @@ import { LiteralTree } from '~/tree/literal/literal-tree';
 import { SourceSpan } from '~/util/source/source-span';
 
 export class FloatLiteralTree extends LiteralTree {
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   radix: Number2;
   integer: String2;
   fraction: String2;
@@ -12,7 +12,7 @@ export class FloatLiteralTree extends LiteralTree {
 
   constructor(ctx: FloatLiteralContext) {
     super();
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     [this.integer, this.fraction] = ctx.text.split('.');
     const [integer, radix] = this.integer.split('x').reverse();
     this.integer = integer;

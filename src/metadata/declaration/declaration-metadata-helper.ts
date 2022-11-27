@@ -175,16 +175,10 @@ export function fillOperatorMetadata(tree: DeclarationTree, alternativeType: Typ
   }
 }
 
-export function fillParameterMetadata(
-  tree: DeclarationTree,
-  alternativeType: TypeMetadata | null,
-): void {
+export function fillParameterMetadata(tree: DeclarationTree, alternativeType: TypeMetadata | null): void {
   tree.parameters.forEach((x) => fillParameterMetadata(x, null));
 
-  if (
-    tree.value
-    && (tree.metadata instanceof ParameterMetadata || tree.metadata instanceof DestructureMetadata)
-  ) {
+  if (tree.value && (tree.metadata instanceof ParameterMetadata || tree.metadata instanceof DestructureMetadata)) {
     tree.value.metadata = fillValueMetadata(tree.value);
   }
   if (tree.metadata) {
@@ -193,8 +187,8 @@ export function fillParameterMetadata(
     } else if (alternativeType) {
       tree.metadata.type = alternativeType;
     } else if (
-      tree.value
-      && (tree.metadata instanceof ParameterMetadata || tree.metadata instanceof DestructureMetadata)
+      tree.value &&
+      (tree.metadata instanceof ParameterMetadata || tree.metadata instanceof DestructureMetadata)
     ) {
       tree.metadata.type = (tree.value.metadata as ValueMetadata).type();
     } else {
@@ -222,8 +216,8 @@ export function fillDestructureParameterMetadata(tree: DeclarationTree): void {
       if (declarations.length === 1 && parameter.metadata) {
         // eslint-disable-next-line prefer-destructuring
         type = declarations[0].type;
-        // think about it, we already set sourceRange this is second time
-        parameter.metadata.sourceRange = declarations[0].sourceRange;
+        // think about it, we already set sourceSpan this is second time
+        parameter.metadata.sourceSpan = declarations[0].sourceSpan;
       } else if (declarations.length > 0) {
         parameter.name.addError('Too many declarations');
       } else {

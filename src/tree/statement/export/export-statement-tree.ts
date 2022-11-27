@@ -6,13 +6,13 @@ import { SourceSpan } from '~/util/source/source-span';
 
 export class ExportStatementTree extends StatementTree {
   ctx: ExportStatementContext;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   path: ExpressionTree;
 
   constructor(ctx: ExportStatementContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.path = getExpressionTree(ctx._path);
     this.addChildren(this.path);
   }

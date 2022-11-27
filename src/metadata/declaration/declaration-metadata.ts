@@ -7,7 +7,7 @@ import { DeclarationTree } from '~/tree/declaration/declaration-tree';
 import { SourceSpan } from '~/util/source/source-span';
 
 export abstract class DeclarationMetadata extends Metadata {
-  sourceRange: SourceSpan | null = null;
+  sourceSpan: SourceSpan | null = null;
   modifier: String2 | null = null;
   name: String2 | null = null;
 
@@ -19,13 +19,13 @@ export abstract class DeclarationMetadata extends Metadata {
     super();
 
     if (tree) {
-      this.sourceRange = tree.sourceRange;
+      this.sourceSpan = tree.sourceSpan;
       this.modifier = tree.modifier?.text ?? null;
       this.name = tree.name?.text ?? null;
     }
   }
 
   equals(other: DeclarationMetadata): Boolean2 {
-    return (other.sourceRange && this.sourceRange?.equals(other.sourceRange)) ?? false;
+    return (other.sourceSpan && this.sourceSpan?.equals(other.sourceSpan)) ?? false;
   }
 }

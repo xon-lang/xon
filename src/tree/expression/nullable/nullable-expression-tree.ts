@@ -5,13 +5,13 @@ import { SourceSpan } from '~/util/source/source-span';
 
 export class NullableExpressionTree extends ExpressionTree {
   ctx: NullableExpressionContext;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   value: ExpressionTree;
 
   constructor(ctx: NullableExpressionContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.value = getExpressionTree(ctx.expression());
     this.addChildren(this.value);
   }

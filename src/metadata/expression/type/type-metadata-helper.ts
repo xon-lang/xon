@@ -1,9 +1,6 @@
 import { Issue } from '~/issue/issue';
 import { IssueLevel } from '~/issue/issue-level';
-import {
-  fillParameterMetadata,
-  getShadowParameterMetadata,
-} from '~/metadata/declaration/declaration-metadata-helper';
+import { fillParameterMetadata, getShadowParameterMetadata } from '~/metadata/declaration/declaration-metadata-helper';
 import { DefinitionMetadata } from '~/metadata/declaration/definition/definition-metadata';
 import { ParameterMetadata } from '~/metadata/declaration/parameter/parameter-metadata';
 import { DeclarationScope } from '~/metadata/declaration/scope/declaration-scope';
@@ -137,7 +134,7 @@ export function fillTypeMetadata(tree: ExpressionTree): TypeMetadata | null {
         }
         const metadata = new ParameterMetadata(null);
         metadata.name = x.name.text;
-        metadata.sourceRange = x.sourceRange;
+        metadata.sourceSpan = x.sourceSpan;
         metadata.type = (x.value && fillValueMetadata(x.value).type()) ?? null;
         tree.metadata = metadata;
 

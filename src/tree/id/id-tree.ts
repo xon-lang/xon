@@ -5,13 +5,13 @@ import { Tree } from '~/tree/tree';
 import { SourceSpan } from '~/util/source/source-span';
 
 export class IdTree extends Tree {
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   metadata: DeclarationMetadata | null = null;
   text: String2;
 
   constructor(token: Token) {
     super();
-    this.sourceRange = SourceSpan.fromToken(token);
+    this.sourceSpan = SourceSpan.fromToken(token);
     this.text = token.text ?? '';
   }
 

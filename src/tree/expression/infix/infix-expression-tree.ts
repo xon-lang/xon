@@ -8,7 +8,7 @@ export class InfixExpressionTree extends ExpressionTree {
   name: IdTree;
   left: ExpressionTree;
   right: ExpressionTree;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
 
   constructor(name: IdTree, left: ExpressionTree, right: ExpressionTree) {
     super();
@@ -16,7 +16,7 @@ export class InfixExpressionTree extends ExpressionTree {
     this.name = name;
     this.left = left;
     this.right = right;
-    this.sourceRange = SourceSpan.fromTwoRange(left.sourceRange, right.sourceRange);
+    this.sourceSpan = SourceSpan.fromTwoRange(left.sourceSpan, right.sourceSpan);
     this.addChildren(this.left, this.name, this.right);
   }
 }

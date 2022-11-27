@@ -20,8 +20,9 @@ export class Issue extends Error {
     const column = cyan(`:${this.sourceSpan.start.column}`);
     const lineNumberBeforeGrayed = `${this.sourceSpan.start.line} | `;
     const lineNumber = gray(lineNumberBeforeGrayed);
-    const caret = ' '.repeat(this.sourceSpan.start.column + lineNumberBeforeGrayed.length - 1)
-      + red('~'.repeat(Math.min(this.sourceSpan.getText().length, code.length)));
+    const caret =
+      ' '.repeat(this.sourceSpan.start.column + lineNumberBeforeGrayed.length - 1) +
+      red('~'.repeat(Math.min(this.sourceSpan.getText().length, code.length)));
 
     return `${message}\n${location}${line}${column}\n${lineNumber}${code}\n${caret}`;
   }
@@ -32,7 +33,7 @@ export class Issue extends Error {
   }
 
   static errorFromTree(tree: Tree, message: String2): Never2 {
-    const issue = new Issue(tree.sourceRange, IssueLevel.error, message);
+    const issue = new Issue(tree.sourceSpan, IssueLevel.error, message);
     throw new Error(issue.toString());
   }
 }

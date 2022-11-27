@@ -19,8 +19,8 @@ import { getStatementTree } from '~/tree/statement/statement-tree-helper';
 import { SourceSpan } from '~/util/source/source-span';
 import { ThrowingErrorListener } from '~/util/throwing-error-listener';
 
-export function getParser(code: String2, sourceName: String2 | null = null): XonParser {
-  const inputStream = CharStreams.fromString(code, sourceName ?? '');
+export function getParser(code: String2, location: String2 | null = null): XonParser {
+  const inputStream = CharStreams.fromString(code, location ?? '');
   const lexer = new XonLexer(inputStream);
   lexer.removeErrorListeners();
   lexer.addErrorListener(new ThrowingErrorListener());
@@ -40,7 +40,7 @@ function _getSourceTree(parser: XonParser): SourceTree | never {
       const tree = new SourceTree(null);
       const stream = error.antlrError?.inputStream as CommonTokenStream;
       const tokens = stream.getTokens();
-      tree.sourceRange = SourceSpan.fromTwoTokens(tokens[0], tokens[tokens.length - 1]);
+      tree.sourceSpan = SourceSpan.fromTwoTokens(tokens[0], tokens[tokens.length - 1]);
       tree.issues.push(error);
 
       return tree;
@@ -49,10 +49,10 @@ function _getSourceTree(parser: XonParser): SourceTree | never {
   }
 }
 
-export function parseSourceFile(sourceName: String2): SourceTree {
-  const code = readFileSync(sourceName).toString();
+export function parseSourceFile(location: String2): SourceTree {
+  const code = readFileSync(location).toString();
 
-  return _getSourceTree(getParser(code, sourceName));
+  return _getSourceTree(getParser(code, location));
 }
 
 export function parseSource(code: String2): SourceTree {

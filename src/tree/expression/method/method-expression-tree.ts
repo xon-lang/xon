@@ -7,7 +7,7 @@ import { SourceSpan } from '~/util/source/source-span';
 
 export class MethodExpressionTree extends ExpressionTree {
   ctx: MethodExpressionContext;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   generics: DeclarationTree[] = [];
   parameters: DeclarationTree[] = [];
   value: ExpressionTree;
@@ -15,7 +15,7 @@ export class MethodExpressionTree extends ExpressionTree {
   constructor(ctx: MethodExpressionContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
 
     const paramsGroup = ctx.declarations();
     this.generics = getDeclarationTrees(paramsGroup.filter((x) => x.open().OPEN_BRACE())[0]?.declaration() ?? []);

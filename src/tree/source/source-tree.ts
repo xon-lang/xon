@@ -8,7 +8,7 @@ import { SourceSpan } from '~/util/source/source-span';
 export class SourceTree extends Tree {
   metadata: SourceMetadata | null = null;
   ctx: SourceContext | null = null;
-  sourceRange!: SourceSpan;
+  sourceSpan!: SourceSpan;
   statements: StatementTree[] = [];
 
   constructor(ctx: SourceContext | null) {
@@ -17,7 +17,7 @@ export class SourceTree extends Tree {
       return;
     }
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.statements = getStatementTrees(ctx.statement());
     this.addChildren(...this.statements);
   }

@@ -6,12 +6,12 @@ import { StatementTree } from '~/tree/statement/statement-tree';
 import { SourceSpan } from '~/util/source/source-span';
 
 export class CommentStatementTree extends StatementTree {
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   value: IdTree;
 
   constructor(ctx: CommentStatementContext) {
     super();
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.value = getIdTree(ctx._value);
     this.addChildren(this.value);
   }

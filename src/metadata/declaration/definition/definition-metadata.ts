@@ -23,11 +23,11 @@ export class DefinitionMetadata extends DeclarationMetadata {
   }
 
   allAttributes(): ParameterMetadata[] {
-    return [...this.base?.allAttributes() ?? [], ...this.attributes];
+    return [...(this.base?.allAttributes() ?? []), ...this.attributes];
   }
 
   is(definition: DefinitionMetadata): Boolean2 {
-    if (definition.sourceRange && this.sourceRange?.equals(definition.sourceRange)) {
+    if (definition.sourceSpan && this.sourceSpan?.equals(definition.sourceSpan)) {
       return true;
     }
 

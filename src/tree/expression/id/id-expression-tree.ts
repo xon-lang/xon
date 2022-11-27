@@ -6,13 +6,13 @@ import { SourceSpan } from '~/util/source/source-span';
 
 export class IdExpressionTree extends ExpressionTree {
   ctx: IdExpressionContext;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   name: IdTree;
 
   constructor(ctx: IdExpressionContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.name = getIdTree(ctx._name);
     this.addChildren(this.name);
   }

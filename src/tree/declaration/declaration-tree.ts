@@ -19,7 +19,7 @@ import { SourceSpan } from '~/util/source/source-span';
 export class DeclarationTree extends Tree {
   ctx: DeclarationContext;
   metadata: DeclarationMetadata | null = null;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   modifier: IdTree | null;
   name: IdTree | null;
   destructure: DeclarationTree[];
@@ -35,7 +35,7 @@ export class DeclarationTree extends Tree {
     super();
 
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.modifier = ctx._modifier && getIdTree(ctx._modifier);
     this.name = (ctx._name && getIdTree(ctx._name)) ?? null;
     this.destructure = (ctx._destructure && getDeclarationTrees(ctx._destructure.declaration() ?? [])) ?? [];
@@ -56,17 +56,17 @@ export class DeclarationTree extends Tree {
       .filter(
         (x) =>
           !(
-            x instanceof DeclarationStatementTree
-            || x instanceof CommentStatementTree
-            || (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree)
+            x instanceof DeclarationStatementTree ||
+            x instanceof CommentStatementTree ||
+            (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree)
           ),
       )
       .forEach((x) => x.addIssue(IssueLevel.error, 'Definition body should contain only parameters'));
     this.attributes = statements
       .filter(
         (x) =>
-          x instanceof DeclarationStatementTree
-          || (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree),
+          x instanceof DeclarationStatementTree ||
+          (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree),
       )
       .map((x) => x as DeclarationStatementTree | ExpressionStatementTree);
 

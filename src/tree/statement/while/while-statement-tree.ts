@@ -8,14 +8,14 @@ import { SourceSpan } from '~/util/source/source-span';
 
 export class WhileStatementTree extends StatementTree {
   ctx: WhileStatementContext;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   expression: ExpressionTree;
   body: SourceTree;
 
   constructor(ctx: WhileStatementContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.expression = getExpressionTree(ctx.expression());
     this.body = getSourceTree(ctx.body().source());
     this.addChildren(this.expression, this.body);

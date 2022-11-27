@@ -6,14 +6,14 @@ import { SourceSpan } from '~/util/source/source-span';
 
 export class AssertStatementTree extends StatementTree {
   ctx: AssertStatementContext;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   actualExpression: ExpressionTree;
   expectExpression: ExpressionTree;
 
   constructor(ctx: AssertStatementContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.actualExpression = getExpressionTree(ctx.expression(0));
     this.expectExpression = getExpressionTree(ctx.expression(1));
     this.addChildren(this.actualExpression, this.expectExpression);

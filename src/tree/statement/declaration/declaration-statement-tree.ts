@@ -6,13 +6,13 @@ import { SourceSpan } from '~/util/source/source-span';
 
 export class DeclarationStatementTree extends StatementTree {
   ctx: DeclarationStatementContext;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   declaration: DeclarationTree;
 
   constructor(ctx: DeclarationStatementContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.declaration = getDeclarationTree(ctx.declaration());
     this.addChildren(this.declaration);
   }

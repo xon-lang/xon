@@ -7,14 +7,14 @@ import { SourceSpan } from '~/util/source/source-span';
 
 export class MemberExpressionTree extends ExpressionTree {
   ctx: MemberExpressionContext;
-  sourceRange: SourceSpan;
+  sourceSpan: SourceSpan;
   instance: ExpressionTree;
   name: IdTree | null;
 
   constructor(ctx: MemberExpressionContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.sourceSpan = SourceSpan.fromContext(ctx);
     this.instance = getExpressionTree(ctx.expression());
     this.name = (ctx._name && getIdTree(ctx._name)) || null;
     this.addChildren(this.instance, this.name);

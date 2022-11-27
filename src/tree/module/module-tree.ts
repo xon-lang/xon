@@ -11,7 +11,7 @@ export class ModuleTree extends Tree {
     return this.children.filter((x) => x instanceof SourceTree) as SourceTree[];
   }
 
-  constructor(public name: String2, public sourceName: String2) {
+  constructor(public name: String2, public location: String2) {
     super();
   }
 }
