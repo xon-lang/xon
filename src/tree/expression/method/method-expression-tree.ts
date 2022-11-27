@@ -3,11 +3,11 @@ import { DeclarationTree } from '~/tree/declaration/declaration-tree';
 import { getDeclarationTrees } from '~/tree/declaration/declaration-tree-helper';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
-import { SourceRange } from '~/util/source-range';
+import { SourceSpan } from '~/util/source/source-span';
 
 export class MethodExpressionTree extends ExpressionTree {
   ctx: MethodExpressionContext;
-  sourceRange: SourceRange;
+  sourceRange: SourceSpan;
   generics: DeclarationTree[] = [];
   parameters: DeclarationTree[] = [];
   value: ExpressionTree;
@@ -15,15 +15,11 @@ export class MethodExpressionTree extends ExpressionTree {
   constructor(ctx: MethodExpressionContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceSpan.fromContext(ctx);
 
     const paramsGroup = ctx.declarations();
-    this.generics = getDeclarationTrees(
-      paramsGroup.filter((x) => x.open().OPEN_BRACE())[0]?.declaration() ?? [],
-    );
-    this.parameters = getDeclarationTrees(
-      paramsGroup.filter((x) => !x.open().OPEN_BRACE())[0]?.declaration(),
-    );
+    this.generics = getDeclarationTrees(paramsGroup.filter((x) => x.open().OPEN_BRACE())[0]?.declaration() ?? []);
+    this.parameters = getDeclarationTrees(paramsGroup.filter((x) => !x.open().OPEN_BRACE())[0]?.declaration());
 
     this.value = getExpressionTree(ctx.expression());
     this.addChildren(...this.parameters, this.value);

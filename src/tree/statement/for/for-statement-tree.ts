@@ -6,11 +6,11 @@ import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
 import { SourceTree } from '~/tree/source/source-tree';
 import { getSourceTree } from '~/tree/source/source-tree-helper';
 import { StatementTree } from '~/tree/statement/statement-tree';
-import { SourceRange } from '~/util/source-range';
+import { SourceSpan } from '~/util/source/source-span';
 
 export class ForStatementTree extends StatementTree {
   ctx: ForStatementContext;
-  sourceRange: SourceRange;
+  sourceRange: SourceSpan;
   parameter: DeclarationTree | null = null;
   expression: ExpressionTree;
   body: SourceTree | null = null;
@@ -18,7 +18,7 @@ export class ForStatementTree extends StatementTree {
   constructor(ctx: ForStatementContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceSpan.fromContext(ctx);
 
     const declaration = ctx.declaration();
     if (declaration) {

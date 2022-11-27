@@ -1,17 +1,17 @@
 import { StringLiteralContext } from '~/grammar/xon-parser';
 import { String2 } from '~/lib/core';
 import { LiteralTree } from '~/tree/literal/literal-tree';
-import { SourceRange } from '~/util/source-range';
+import { SourceSpan } from '~/util/source/source-span';
 
 export class StringLiteralTree extends LiteralTree {
   ctx: StringLiteralContext;
-  sourceRange: SourceRange;
+  sourceRange: SourceSpan;
   value: String2;
 
   constructor(ctx: StringLiteralContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceRange.fromContext(ctx);
-    this.value = ctx.text.slice(1, -1).replace(/\\'/ug, '\'');
+    this.sourceRange = SourceSpan.fromContext(ctx);
+    this.value = ctx.text.slice(1, -1).replace(/\\'/gu, "'");
   }
 }

@@ -1,14 +1,14 @@
 import { ParserRuleContext } from 'antlr4ts';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { IdTree } from '~/tree/id/id-tree';
-import { SourceRange } from '~/util/source-range';
+import { SourceSpan } from '~/util/source/source-span';
 
 export class InfixExpressionTree extends ExpressionTree {
   ctx: ParserRuleContext | null;
   name: IdTree;
   left: ExpressionTree;
   right: ExpressionTree;
-  sourceRange: SourceRange | null = null;
+  sourceRange: SourceSpan;
 
   constructor(name: IdTree, left: ExpressionTree, right: ExpressionTree) {
     super();
@@ -16,9 +16,7 @@ export class InfixExpressionTree extends ExpressionTree {
     this.name = name;
     this.left = left;
     this.right = right;
-    if (left.sourceRange && right.sourceRange) {
-      this.sourceRange = SourceRange.fromTwoRange(left.sourceRange, right.sourceRange);
-    }
+    this.sourceRange = SourceSpan.fromTwoRange(left.sourceRange, right.sourceRange);
     this.addChildren(this.left, this.name, this.right);
   }
 }

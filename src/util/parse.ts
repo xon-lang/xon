@@ -16,7 +16,7 @@ import { SourceTree } from '~/tree/source/source-tree';
 import { getSourceTree } from '~/tree/source/source-tree-helper';
 import { StatementTree } from '~/tree/statement/statement-tree';
 import { getStatementTree } from '~/tree/statement/statement-tree-helper';
-import { SourceRange } from '~/util/source-range';
+import { SourceSpan } from '~/util/source/source-span';
 import { ThrowingErrorListener } from '~/util/throwing-error-listener';
 
 export function getParser(code: String2, sourceName: String2 | null = null): XonParser {
@@ -40,7 +40,7 @@ function _getSourceTree(parser: XonParser): SourceTree | never {
       const tree = new SourceTree(null);
       const stream = error.antlrError?.inputStream as CommonTokenStream;
       const tokens = stream.getTokens();
-      tree.sourceRange = SourceRange.fromTwoTokens(tokens[0], tokens[tokens.length - 1]);
+      tree.sourceRange = SourceSpan.fromTwoTokens(tokens[0], tokens[tokens.length - 1]);
       tree.issues.push(error);
 
       return tree;

@@ -2,17 +2,17 @@ import { ReturnStatementContext } from '~/grammar/xon-parser';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
 import { StatementTree } from '~/tree/statement/statement-tree';
-import { SourceRange } from '~/util/source-range';
+import { SourceSpan } from '~/util/source/source-span';
 
 export class ReturnStatementTree extends StatementTree {
   ctx: ReturnStatementContext;
-  sourceRange: SourceRange;
+  sourceRange: SourceSpan;
   value: ExpressionTree | null;
 
   constructor(ctx: ReturnStatementContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceSpan.fromContext(ctx);
 
     const value = ctx.expression();
     this.value = (value && getExpressionTree(value)) ?? null;

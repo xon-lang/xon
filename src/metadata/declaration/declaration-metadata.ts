@@ -4,10 +4,10 @@ import { ParameterMetadata } from '~/metadata/declaration/parameter/parameter-me
 import { TypeMetadata } from '~/metadata/expression/type/type-metadata';
 import { Metadata } from '~/metadata/metadata';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
-import { SourceRange } from '~/util/source-range';
+import { SourceSpan } from '~/util/source/source-span';
 
 export abstract class DeclarationMetadata extends Metadata {
-  sourceRange: SourceRange | null = null;
+  sourceRange: SourceSpan | null = null;
   modifier: String2 | null = null;
   name: String2 | null = null;
 

@@ -14,12 +14,12 @@ import { CommentStatementTree } from '~/tree/statement/comment/comment-statement
 import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
 import { ExpressionStatementTree } from '~/tree/statement/expression/expression-statement-tree';
 import { Tree } from '~/tree/tree';
-import { SourceRange } from '~/util/source-range';
+import { SourceSpan } from '~/util/source/source-span';
 
 export class DeclarationTree extends Tree {
   ctx: DeclarationContext;
   metadata: DeclarationMetadata | null = null;
-  sourceRange: SourceRange;
+  sourceRange: SourceSpan;
   modifier: IdTree | null;
   name: IdTree | null;
   destructure: DeclarationTree[];
@@ -35,41 +35,38 @@ export class DeclarationTree extends Tree {
     super();
 
     this.ctx = ctx;
-    this.sourceRange = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceSpan.fromContext(ctx);
     this.modifier = ctx._modifier && getIdTree(ctx._modifier);
     this.name = (ctx._name && getIdTree(ctx._name)) ?? null;
     this.destructure = (ctx._destructure && getDeclarationTrees(ctx._destructure.declaration() ?? [])) ?? [];
     this.hasParameters = ctx._params.filter((x) => !x.open().OPEN_BRACE()).length > 0;
-    this.generics = getDeclarationTrees(
-      ctx._params.filter((x) => x.open().OPEN_BRACE())[0]?.declaration() ?? [],
-    );
-    this.parameters = getDeclarationTrees(
-      ctx._params.filter((x) => !x.open().OPEN_BRACE())[0]?.declaration() ?? [],
-    );
+    this.generics = getDeclarationTrees(ctx._params.filter((x) => x.open().OPEN_BRACE())[0]?.declaration() ?? []);
+    this.parameters = getDeclarationTrees(ctx._params.filter((x) => !x.open().OPEN_BRACE())[0]?.declaration() ?? []);
     const type = ctx.valueType()?.expression();
     this.type = (type && getExpressionTree(type)) ?? null;
 
     const value = ctx.valueBody()?.expression();
     this.value = (value && getExpressionTree(value)) ?? null;
 
-    const body = ctx.valueBody()?.body()
-      ?.source();
+    const body = ctx.valueBody()?.body()?.source();
     this.body = (body && getSourceTree(body)) ?? null;
 
     const statements = this.body?.statements ?? [];
     statements
       .filter(
-        (x) => !(
-          x instanceof DeclarationStatementTree
-          || x instanceof CommentStatementTree
-          || x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree
-        ),
+        (x) =>
+          !(
+            x instanceof DeclarationStatementTree
+            || x instanceof CommentStatementTree
+            || (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree)
+          ),
       )
       .forEach((x) => x.addIssue(IssueLevel.error, 'Definition body should contain only parameters'));
     this.attributes = statements
       .filter(
-        (x) => x instanceof DeclarationStatementTree
-          || x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree,
+        (x) =>
+          x instanceof DeclarationStatementTree
+          || (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree),
       )
       .map((x) => x as DeclarationStatementTree | ExpressionStatementTree);
 

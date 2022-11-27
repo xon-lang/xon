@@ -1,17 +1,17 @@
 import { GroupExpressionContext } from '~/grammar/xon-parser';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
-import { SourceRange } from '~/util/source-range';
+import { SourceSpan } from '~/util/source/source-span';
 
 export class GroupExpressionTree extends ExpressionTree {
   ctx: GroupExpressionContext;
-  sourceRange: SourceRange;
+  sourceRange: SourceSpan;
   expression: ExpressionTree;
 
   constructor(ctx: GroupExpressionContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceSpan.fromContext(ctx);
     this.expression = getExpressionTree(ctx.expression());
     this.addChildren(this.expression);
   }

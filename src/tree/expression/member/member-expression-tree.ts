@@ -3,20 +3,20 @@ import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
 import { IdTree } from '~/tree/id/id-tree';
 import { getIdTree } from '~/tree/id/id-tree-helper';
-import { SourceRange } from '~/util/source-range';
+import { SourceSpan } from '~/util/source/source-span';
 
 export class MemberExpressionTree extends ExpressionTree {
   ctx: MemberExpressionContext;
-  sourceRange: SourceRange;
+  sourceRange: SourceSpan;
   instance: ExpressionTree;
   name: IdTree | null;
 
   constructor(ctx: MemberExpressionContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceSpan.fromContext(ctx);
     this.instance = getExpressionTree(ctx.expression());
-    this.name = ctx._name && getIdTree(ctx._name) || null;
+    this.name = (ctx._name && getIdTree(ctx._name)) || null;
     this.addChildren(this.instance, this.name);
   }
 }

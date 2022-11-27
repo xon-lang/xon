@@ -4,18 +4,18 @@ import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
 import { SourceTree } from '~/tree/source/source-tree';
 import { getSourceTree } from '~/tree/source/source-tree-helper';
 import { StatementTree } from '~/tree/statement/statement-tree';
-import { SourceRange } from '~/util/source-range';
+import { SourceSpan } from '~/util/source/source-span';
 
 export class WhileStatementTree extends StatementTree {
   ctx: WhileStatementContext;
-  sourceRange: SourceRange;
+  sourceRange: SourceSpan;
   expression: ExpressionTree;
   body: SourceTree;
 
   constructor(ctx: WhileStatementContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceSpan.fromContext(ctx);
     this.expression = getExpressionTree(ctx.expression());
     this.body = getSourceTree(ctx.body().source());
     this.addChildren(this.expression, this.body);

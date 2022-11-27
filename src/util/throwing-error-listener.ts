@@ -10,7 +10,7 @@ import {
 import { Issue } from '~/issue/issue';
 import { IssueLevel } from '~/issue/issue-level';
 import { Any2, Never2, Number2, String2 } from '~/lib/core';
-import { SourceRange } from '~/util/source-range';
+import { SourceSpan } from '~/util/source/source-span';
 
 export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbol> {
   syntaxError(
@@ -25,19 +25,19 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
       throw new Error('Not implemented');
     }
 
-    let sourceRange: SourceRange | null = null;
+    let sourceRange: SourceSpan | null = null;
     if (!exception) {
-      sourceRange = SourceRange.fromToken(offendingSymbol);
+      sourceRange = SourceSpan.fromToken(offendingSymbol);
     } else if (exception instanceof NoViableAltException) {
-      sourceRange = SourceRange.fromTwoTokens(offendingSymbol, offendingSymbol);
+      sourceRange = SourceSpan.fromTwoTokens(offendingSymbol, offendingSymbol);
     } else if (exception instanceof InputMismatchException) {
-      sourceRange = SourceRange.fromToken(offendingSymbol);
+      sourceRange = SourceSpan.fromToken(offendingSymbol);
     } else if (exception instanceof FailedPredicateException) {
       throw new Error('Not implemented');
     }
 
     if (sourceRange) {
-      sourceRange.sourceName = recognizer.inputStream?.sourceName ?? null;
+      // sourceRange.sourceName = recognizer.inputStream?.sourceName ?? null;
       const issue = new Issue(sourceRange, IssueLevel.error, message);
       issue.antlrError = exception ?? null;
       throw issue;

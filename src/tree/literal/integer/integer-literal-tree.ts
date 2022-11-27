@@ -1,21 +1,21 @@
 import { IntegerLiteralContext } from '~/grammar/xon-parser';
 import { Number2, String2 } from '~/lib/core';
 import { LiteralTree } from '~/tree/literal/literal-tree';
-import { SourceRange } from '~/util/source-range';
+import { SourceSpan } from '~/util/source/source-span';
 
 export class IntegerLiteralTree extends LiteralTree {
-  sourceRange: SourceRange;
+  sourceRange: SourceSpan;
   radix: Number2;
   integer: String2;
   value: Number2;
 
   constructor(ctx: IntegerLiteralContext) {
     super();
-    this.sourceRange = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceSpan.fromContext(ctx);
     const [integer, radix] = ctx.text.split('x').reverse();
     this.integer = integer;
     this.radix = Number(radix);
 
-    this.value = parseInt(this.integer.replace(/_/ug, ''), this.radix);
+    this.value = parseInt(this.integer.replace(/_/gu, ''), this.radix);
   }
 }

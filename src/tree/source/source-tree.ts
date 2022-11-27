@@ -3,12 +3,12 @@ import { SourceMetadata } from '~/metadata/source/source-metadata';
 import { StatementTree } from '~/tree/statement/statement-tree';
 import { getStatementTrees } from '~/tree/statement/statement-tree-helper';
 import { Tree } from '~/tree/tree';
-import { SourceRange } from '~/util/source-range';
+import { SourceSpan } from '~/util/source/source-span';
 
 export class SourceTree extends Tree {
   metadata: SourceMetadata | null = null;
   ctx: SourceContext | null = null;
-  sourceRange: SourceRange | null = null;
+  sourceRange!: SourceSpan;
   statements: StatementTree[] = [];
 
   constructor(ctx: SourceContext | null) {
@@ -17,7 +17,7 @@ export class SourceTree extends Tree {
       return;
     }
     this.ctx = ctx;
-    this.sourceRange = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceSpan.fromContext(ctx);
     this.statements = getStatementTrees(ctx.statement());
     this.addChildren(...this.statements);
   }

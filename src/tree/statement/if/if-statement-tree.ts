@@ -4,11 +4,12 @@ import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
 import { SourceTree } from '~/tree/source/source-tree';
 import { getSourceTree } from '~/tree/source/source-tree-helper';
 import { StatementTree } from '~/tree/statement/statement-tree';
-import { SourceRange } from '~/util/source-range';
+import { SourceSpan } from '~/util/source/source-span';
+
 
 export class IfStatementTree extends StatementTree {
   ctx: IfStatementContext;
-  sourceRange: SourceRange;
+  sourceRange: SourceSpan;
   condition: ExpressionTree;
   thenBody: SourceTree;
   elseBody: SourceTree | null;
@@ -16,7 +17,7 @@ export class IfStatementTree extends StatementTree {
   constructor(ctx: IfStatementContext) {
     super();
     this.ctx = ctx;
-    this.sourceRange = SourceRange.fromContext(ctx);
+    this.sourceRange = SourceSpan.fromContext(ctx);
     this.condition = getExpressionTree(ctx.expression());
     this.thenBody = getSourceTree(ctx._thenBody.source());
     this.elseBody = (ctx._elseBody && getSourceTree(ctx._elseBody.source())) ?? null;
