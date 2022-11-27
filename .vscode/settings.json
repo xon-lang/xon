@@ -3,7 +3,7 @@
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
   },
   // antlr4
   "antlr4.format": {
@@ -77,5 +77,8 @@
   },
   "[antlr]": {
     "editor.defaultFormatter": "mike-lischke.vscode-antlr4"
+  },
+  "[xon]": {
+    "editor.defaultFormatter": "nizami.xon"
   }
 }
