@@ -56,17 +56,17 @@ export class DeclarationTree extends Tree {
       .filter(
         (x) =>
           !(
-            x instanceof DeclarationStatementTree ||
-            x instanceof CommentStatementTree ||
-            (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree)
+            x instanceof DeclarationStatementTree
+            || x instanceof CommentStatementTree
+            || (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree)
           ),
       )
       .forEach((x) => x.addIssue(IssueLevel.error, 'Definition body should contain only parameters'));
     this.attributes = statements
       .filter(
         (x) =>
-          x instanceof DeclarationStatementTree ||
-          (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree),
+          x instanceof DeclarationStatementTree
+          || (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree),
       )
       .map((x) => x as DeclarationStatementTree | ExpressionStatementTree);
 

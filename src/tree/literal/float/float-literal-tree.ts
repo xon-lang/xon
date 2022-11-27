@@ -21,9 +21,9 @@ export class FloatLiteralTree extends LiteralTree {
     const integerClean = this.integer.replace(/_/gu, '');
     const fraction = this.fraction.replace(/_/gu, '');
 
-    this.value =
-      (this.radix &&
-        parseInt(integerClean, this.radix) + parseInt(fraction, this.radix) / this.radix ** fraction.length) ||
-      parseFloat(`${integerClean}.${fraction}`);
+    this.value
+      = (this.radix
+        && parseInt(integerClean, this.radix) + parseInt(fraction, this.radix) / this.radix ** fraction.length)
+      || parseFloat(`${integerClean}.${fraction}`);
   }
 }

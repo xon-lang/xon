@@ -32,7 +32,6 @@ test('num is number', () => {
 test('equals', () => {
   const code = 'this.name.text == 123';
   const tree = parseExpression(code) as InfixExpressionTree;
-  console.log(tree.ctx?.text);
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
   expect(tree.name.text).toBe('==');

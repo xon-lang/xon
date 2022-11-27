@@ -187,8 +187,8 @@ export function fillParameterMetadata(tree: DeclarationTree, alternativeType: Ty
     } else if (alternativeType) {
       tree.metadata.type = alternativeType;
     } else if (
-      tree.value &&
-      (tree.metadata instanceof ParameterMetadata || tree.metadata instanceof DestructureMetadata)
+      tree.value
+      && (tree.metadata instanceof ParameterMetadata || tree.metadata instanceof DestructureMetadata)
     ) {
       tree.metadata.type = (tree.value.metadata as ValueMetadata).type();
     } else {
