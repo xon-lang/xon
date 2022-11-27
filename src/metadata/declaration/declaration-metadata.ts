@@ -7,9 +7,9 @@ import { DeclarationTree } from '~/tree/declaration/declaration-tree';
 import { SourceRange } from '~/util/source-range';
 
 export abstract class DeclarationMetadata extends Metadata {
-  sourceRange?: SourceRange;
-  modifier?: String2 | null;
-  name?: String2 | null;
+  sourceRange: SourceRange | null = null;
+  modifier: String2 | null = null;
+  name: String2 | null = null;
 
   generics: GenericMetadata[] = [];
   parameters: ParameterMetadata[] = [];
@@ -20,8 +20,8 @@ export abstract class DeclarationMetadata extends Metadata {
 
     if (tree) {
       this.sourceRange = tree.sourceRange;
-      this.modifier = tree.modifier?.text;
-      this.name = tree.name?.text;
+      this.modifier = tree.modifier?.text ?? null;
+      this.name = tree.name?.text ?? null;
     }
   }
 

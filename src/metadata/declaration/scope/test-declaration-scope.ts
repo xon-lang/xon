@@ -14,7 +14,7 @@ function core(): CoreDeclarationScope {
 }
 
 export class TestDeclarationScope extends DeclarationScope {
-  constructor(public parent?: DeclarationScope) {
+  constructor(public parent: DeclarationScope | null = null) {
     super(parent);
     this.core = core();
   }

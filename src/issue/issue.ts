@@ -7,7 +7,7 @@ import { Tree } from '~/tree/tree';
 import { SourceRange } from '~/util/source-range';
 
 export class Issue extends Error {
-  antlrError?: RecognitionException | null;
+  antlrError: RecognitionException | null = null;
 
   constructor(public sourceRange: SourceRange, public level: IssueLevel, public message: String2) {
     super(message);
@@ -18,8 +18,8 @@ export class Issue extends Error {
     if (!code && this.sourceRange.sourceName && this.sourceRange.sourceName !== '<unknown>') {
       code = readFileSync(this.sourceRange.sourceName).toString()
         .split('\n')[
-          this.sourceRange.start.line - 1
-        ];
+        this.sourceRange.start.line - 1
+      ];
     }
     const message = redBright(this.message);
     const source = cyan(this.sourceRange.sourceName);

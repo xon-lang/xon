@@ -6,7 +6,7 @@ export class DeclarationScope {
   core!: CoreDeclarationScope;
   declarations: DeclarationMetadata[] = [];
 
-  constructor(public parent?: DeclarationScope) {}
+  constructor(public parent: DeclarationScope | null = null) { }
 
   add(metadata: DeclarationMetadata): void {
     this.declarations.push(metadata);
@@ -27,7 +27,7 @@ export class DeclarationScope {
     return scope;
   }
 
-  filter(name: String2, predicate?: (x: DeclarationMetadata) => Boolean2): DeclarationMetadata[] {
+  filter(name: String2, predicate: ((x: DeclarationMetadata) => Boolean2) | null = null): DeclarationMetadata[] {
     const declarations = [...this.core?.scope.declarations ?? [], ...this.declarations].filter(
       (x) => x.name === name && (!predicate || predicate(x)),
     );

@@ -14,7 +14,7 @@ export class DeclarationFormatter extends Formatter {
   toString(): String2 {
     const modifier = this.ctx._modifier && `${this.ctx._modifier.text} ` || '';
     const params = this.ctx._params.map((x) => getDeclarationsFormatter(x, this.config)).join('');
-    const type = this.typeFormatter(this.ctx.valueType()?.expression());
+    const type = this.typeFormatter(this.ctx.valueType()?.expression() ?? null);
     const body = this.valueBodyFormat(this.ctx.valueBody() ?? null);
 
     if (this.ctx._name) {
@@ -26,7 +26,7 @@ export class DeclarationFormatter extends Formatter {
     return `${destructure}${params}${type}${body}`;
   }
 
-  typeFormatter(type?: ExpressionContext | null): String2 {
+  typeFormatter(type: ExpressionContext | null): String2 {
     if (!type && this.ctx.valueType()?.COLON() && this.ctx.valueBody()?._value) return ' :';
     if (!type && !this.ctx.valueType()?.COLON() && this.ctx.valueBody()?._value) return ' ';
     if (!type) return '';

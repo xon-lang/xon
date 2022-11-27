@@ -37,7 +37,7 @@ function _getSourceTree(parser: XonParser): SourceTree | never {
     return getSourceTree(parser.source());
   } catch (error) {
     if (error instanceof Issue) {
-      const tree = new SourceTree();
+      const tree = new SourceTree(null);
       const stream = error.antlrError?.inputStream as CommonTokenStream;
       const tokens = stream.getTokens();
       tree.sourceRange = SourceRange.fromTwoTokens(tokens[0], tokens[tokens.length - 1]);

@@ -109,7 +109,7 @@ export function getShadowParameterMetadata(tree: DeclarationTree): ParameterMeta
 
 export function fillDeclarationMetadata(tree: DeclarationTree): void {
   if (tree.modifier?.text === 'operator') {
-    fillOperatorMetadata(tree);
+    fillOperatorMetadata(tree, null);
   } else if (tree.modifier?.text === 'model' || tree.modifier?.text === 'object') {
     fillDefinitionMetadata(tree);
   } else {
@@ -147,7 +147,7 @@ export function fillDefinitionMetadata(tree: DeclarationTree): void {
   }
 }
 
-export function fillOperatorMetadata(tree: DeclarationTree, alternativeType?: TypeMetadata): void {
+export function fillOperatorMetadata(tree: DeclarationTree, alternativeType: TypeMetadata | null): void {
   tree.parameters.forEach((x) => fillParameterMetadata(x, null));
 
   if (tree.value) {

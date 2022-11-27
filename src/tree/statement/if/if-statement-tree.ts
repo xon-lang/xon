@@ -11,7 +11,7 @@ export class IfStatementTree extends StatementTree {
   sourceRange: SourceRange;
   condition: ExpressionTree;
   thenBody: SourceTree;
-  elseBody?: SourceTree | null;
+  elseBody: SourceTree | null;
 
   constructor(ctx: IfStatementContext) {
     super();

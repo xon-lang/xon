@@ -11,7 +11,7 @@ export class SourceTree extends Tree {
   sourceRange: SourceRange | null = null;
   statements: StatementTree[] = [];
 
-  constructor(ctx?: SourceContext) {
+  constructor(ctx: SourceContext | null) {
     super();
     if (!ctx) {
       return;

@@ -5,7 +5,7 @@ import { DeclarationScope } from '~/metadata/declaration/scope/declaration-scope
 import { DefinitionTypeMetadata } from '~/metadata/expression/type/definition/definition-type-metadata';
 
 export class DefinitionMetadata extends DeclarationMetadata {
-  base?: DefinitionMetadata | null;
+  base: DefinitionMetadata | null = null;
   attributes: ParameterMetadata[] = [];
   type = new DefinitionTypeMetadata(this);
 

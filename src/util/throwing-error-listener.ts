@@ -39,7 +39,7 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
     if (sourceRange) {
       sourceRange.sourceName = recognizer.inputStream?.sourceName ?? null;
       const issue = new Issue(sourceRange, IssueLevel.error, message);
-      issue.antlrError = exception;
+      issue.antlrError = exception ?? null;
       throw issue;
     }
     throw exception;
