@@ -43,9 +43,9 @@ ASSIGN:   '=';
 COMMA:    ',';
 META:     '::';
 COLON:    ':';
-QUESTION: (NL | WS)* '?';
-DOT:      (NL | WS)* '.' (NL | WS)*;
-LAMBDA:   (NL | WS)* '=>' (NL | WS)*;
+QUESTION: (NL | WS)? '?';
+DOT:      (NL | WS)? '.' (NL | WS)?;
+LAMBDA:   (NL | WS)? '=>' (NL | WS)?;
 
 FLOAT_LITERAL:   Radix AlphabetNumber '.' AlphabetNumber | DigitNumber '.' DigitNumber;
 INTEGER_LITERAL: Radix AlphabetNumber | DigitNumber;

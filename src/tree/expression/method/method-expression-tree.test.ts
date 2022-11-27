@@ -5,13 +5,12 @@ import { evaluate } from '~/util/evaluate';
 import { parseExpression } from '~/util/parse';
 
 test('has argument', () => {
-  const code = '[x]: String => x + 42';
+  const code = '[x] => x + 42';
   const tree = parseExpression(code) as MethodExpressionTree;
 
   expect(tree).toBeInstanceOf(MethodExpressionTree);
   expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].name?.text).toBe('x');
-  expect((tree.type as IdExpressionTree).name.text).toBe('String');
   expect(
     evaluate(tree.value, {
       'x': 37,
