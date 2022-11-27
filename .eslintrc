@@ -266,7 +266,7 @@
     "require-unicode-regexp": "error",
     "require-yield": "error",
     //!! "sort-imports": "error",
-    "sort-keys": "error",
+    // "sort-keys": "error",
     "sort-vars": "error",
     "spaced-comment": "error",
     "strict": "error",
