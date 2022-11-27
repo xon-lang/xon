@@ -27,7 +27,7 @@ expression
     | '(' expression ')'                                    # groupExpression
     | arguments                                             # arrayExpression
     | expression QUESTION                                   # nullableExpression
-    | expression DOT name = ID?                             # memberExpression
+    | expression DOT name = ID                             # memberExpression
     | expression META name = ID?                            # metaExpression
     | expression arguments                                  # invokeExpression
     | literal                                               # literalExpression

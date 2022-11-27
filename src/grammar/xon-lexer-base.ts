@@ -13,7 +13,7 @@ export abstract class XonLexerBase extends Lexer {
   protected opened: Number2 = 0;
   private tokenQueue: Token[] = [];
   private indents: Number2[] = [];
-  private lastToken?: Token;
+  private lastToken: Token | null = null;
   public abstract get channelNames(): String2[];
   public abstract get modeNames(): String2[];
   public abstract get ruleNames(): String2[];
