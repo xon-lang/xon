@@ -3,7 +3,7 @@ import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
 import { MethodExpressionTree } from '~/tree/expression/method/method-expression-tree';
 import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
-import { TokenTree } from '~/tree/token/token-tree';
+import { Token } from '~/tree/token';
 import { parseDeclaration } from '~/util/parse';
 
 test('id type', () => {
@@ -76,7 +76,7 @@ test('name and array type', () => {
   const tree = parseDeclaration(code);
 
   expect(tree).toBeInstanceOf(DeclarationTree);
-  expect(tree.name).toBeInstanceOf(TokenTree);
+  expect(tree.name).toBeInstanceOf(Token);
   expect(tree.type).toBeInstanceOf(InvokeExpressionTree);
   expect(tree.body).toBe(null);
 });

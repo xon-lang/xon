@@ -4,16 +4,15 @@ import { ArgumentTree } from '~/tree/argument/argument-tree';
 import { getArgumentTrees } from '~/tree/argument/argument-tree-helper';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
-import { TokenTree } from '~/tree/token/token-tree';
-import { getTokenTree } from '~/tree/token/token-tree-helper';
+import { Token } from '~/tree/token';
 
 export class InvokeExpressionTree extends ExpressionTree {
   ctx: InvokeExpressionContext;
   sourceSpan: SourceSpan;
   instance: ExpressionTree;
   arguments: ArgumentTree[];
-  open: TokenTree;
-  close: TokenTree;
+  open: Token;
+  close: Token;
 
   constructor(ctx: InvokeExpressionContext) {
     super();
@@ -21,8 +20,8 @@ export class InvokeExpressionTree extends ExpressionTree {
     this.sourceSpan = SourceSpan.fromContext(ctx);
     this.instance = getExpressionTree(ctx.expression());
     this.arguments = getArgumentTrees(ctx.arguments().argument());
-    this.open = getTokenTree(ctx.arguments().open()._name);
-    this.close = getTokenTree(ctx.arguments().close()._name);
+    this.open = Token.from(ctx.arguments().open()._name);
+    this.close = Token.from(ctx.arguments().close()._name);
     this.addChildren(this.instance, ...this.arguments);
   }
 }

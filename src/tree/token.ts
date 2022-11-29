@@ -1,16 +1,16 @@
-import { Token } from 'antlr4ts';
+import { Token as AntlrToken } from 'antlr4ts';
 import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 import { String2 } from '~/lib/core';
 import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata';
 import { SourceSpan } from '~/source/source-span';
 import { Tree } from '~/tree/tree';
 
-export class TokenTree extends Tree {
+export class Token extends Tree {
   sourceSpan: SourceSpan;
   metadata: DeclarationMetadata | null = null;
   text: String2;
 
-  constructor(token: Token | TerminalNode) {
+  constructor(token: AntlrToken | TerminalNode) {
     super();
     if (token instanceof TerminalNode) {
       this.sourceSpan = SourceSpan.fromToken(token.payload);
@@ -20,7 +20,9 @@ export class TokenTree extends Tree {
     this.text = token.text ?? '';
   }
 
-  toString(): String2 {
-    return this.text;
-  }
+  static from = from;
+}
+
+function from(token: AntlrToken | TerminalNode): Token {
+  return new Token(token);
 }

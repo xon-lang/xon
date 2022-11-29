@@ -12,16 +12,15 @@ import { getSourceTree } from '~/tree/source/source-tree-helper';
 import { CommentStatementTree } from '~/tree/statement/comment/comment-statement-tree';
 import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
 import { ExpressionStatementTree } from '~/tree/statement/expression/expression-statement-tree';
-import { TokenTree } from '~/tree/token/token-tree';
-import { getTokenTree } from '~/tree/token/token-tree-helper';
+import { Token } from '~/tree/token';
 import { Tree } from '~/tree/tree';
 
 export class DeclarationTree extends Tree {
   ctx: DeclarationContext;
   metadata: DeclarationMetadata | null = null;
   sourceSpan: SourceSpan;
-  modifier: TokenTree | null;
-  name: TokenTree | null;
+  modifier: Token | null;
+  name: Token | null;
   destructure: DeclarationTree[];
   hasParameters: Boolean2;
   generics: DeclarationTree[];
@@ -36,8 +35,8 @@ export class DeclarationTree extends Tree {
 
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
-    this.modifier = ctx._modifier && getTokenTree(ctx._modifier);
-    this.name = (ctx._name && getTokenTree(ctx._name)) ?? null;
+    this.modifier = ctx._modifier && Token.from(ctx._modifier);
+    this.name = (ctx._name && Token.from(ctx._name)) ?? null;
     this.destructure = (ctx._destructure && getDeclarationTrees(ctx._destructure.declaration() ?? [])) ?? [];
     this.hasParameters = ctx._params.filter((x) => !x.open().OPEN_BRACE()).length > 0;
     this.generics = getDeclarationTrees(ctx._params.filter((x) => x.open().OPEN_BRACE())[0]?.declaration() ?? []);
