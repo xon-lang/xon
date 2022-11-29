@@ -13,7 +13,7 @@ export class ExportStatementTree extends StatementTree {
     super();
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
-    this.path = getExpressionTree(ctx._path);
+    this.path = getExpressionTree(ctx.expression());
     this.addChildren(this.path);
   }
 }

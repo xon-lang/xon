@@ -18,8 +18,9 @@ export class IfStatementTree extends StatementTree {
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
     this.condition = getExpressionTree(ctx.expression());
-    this.thenBody = getSourceTree(ctx._thenBody.source());
-    this.elseBody = (ctx._elseBody && getSourceTree(ctx._elseBody.source())) ?? null;
+    const [thenBody, elseBody] = ctx.body();
+    this.thenBody = getSourceTree(thenBody.source());
+    this.elseBody = (elseBody && getSourceTree(elseBody.source())) ?? null;
     this.addChildren(this.condition, this.thenBody, this.elseBody);
   }
 }

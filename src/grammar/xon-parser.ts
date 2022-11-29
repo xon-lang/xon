@@ -216,7 +216,7 @@ export class XonParser extends Parser {
 				this.enterOuterAlt(_localctx, 1);
 				{
 				this.state = 44;
-				(_localctx as CommentStatementContext)._value = this.match(XonParser.LINE_COMMENT);
+				this.match(XonParser.LINE_COMMENT);
 				}
 				break;
 
@@ -227,7 +227,7 @@ export class XonParser extends Parser {
 				this.state = 45;
 				this.match(XonParser.EXPORT);
 				this.state = 46;
-				(_localctx as ExportStatementContext)._path = this.expression(0);
+				this.expression(0);
 				}
 				break;
 
@@ -301,7 +301,7 @@ export class XonParser extends Parser {
 				this.state = 67;
 				this.expression(0);
 				this.state = 68;
-				(_localctx as IfStatementContext)._thenBody = this.body();
+				this.body();
 				this.state = 72;
 				this._errHandler.sync(this);
 				_alt = this.interpreter.adaptivePredict(this._input, 6, this._ctx);
@@ -326,7 +326,7 @@ export class XonParser extends Parser {
 					this.state = 75;
 					this.match(XonParser.ELSE);
 					this.state = 76;
-					(_localctx as IfStatementContext)._elseBody = this.body();
+					this.body();
 					}
 				}
 
@@ -377,7 +377,7 @@ export class XonParser extends Parser {
 				this.state = 85;
 				this.match(XonParser.ACTUAL);
 				this.state = 86;
-				(_localctx as AssertStatementContext)._actual = this.expression(0);
+				this.expression(0);
 				this.state = 90;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
@@ -395,7 +395,7 @@ export class XonParser extends Parser {
 				this.state = 93;
 				this.match(XonParser.EXPECT);
 				this.state = 94;
-				(_localctx as AssertStatementContext)._expect = this.expression(0);
+				this.expression(0);
 				}
 				break;
 
@@ -927,7 +927,7 @@ export class XonParser extends Parser {
 				case 1:
 					{
 					this.state = 190;
-					_localctx._value = this.expression(0);
+					this.expression(0);
 					}
 					break;
 				}
@@ -973,7 +973,7 @@ export class XonParser extends Parser {
 			case 1:
 				{
 				this.state = 197;
-				_localctx._type = this.expression(0);
+				this.expression(0);
 				}
 				break;
 			}
@@ -1073,7 +1073,7 @@ export class XonParser extends Parser {
 			case 1:
 				{
 				this.state = 216;
-				_localctx._name = this.match(XonParser.ID);
+				this.match(XonParser.ID);
 				this.state = 217;
 				this.match(XonParser.ASSIGN);
 				}
@@ -1137,10 +1137,9 @@ export class XonParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			this.state = 227;
-			_localctx._name = this._input.LT(1);
 			_la = this._input.LA(1);
 			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN_BRACKET) | (1 << XonParser.OPEN_PAREN) | (1 << XonParser.OPEN_BRACE))) !== 0))) {
-				_localctx._name = this._errHandler.recoverInline(this);
+			this._errHandler.recoverInline(this);
 			} else {
 				if (this._input.LA(1) === Token.EOF) {
 					this.matchedEOF = true;
@@ -1174,10 +1173,9 @@ export class XonParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			this.state = 229;
-			_localctx._name = this._input.LT(1);
 			_la = this._input.LA(1);
 			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.CLOSE_BRACKET) | (1 << XonParser.CLOSE_PAREN) | (1 << XonParser.CLOSE_BRACE))) !== 0))) {
-				_localctx._name = this._errHandler.recoverInline(this);
+			this._errHandler.recoverInline(this);
 			} else {
 				if (this._input.LA(1) === Token.EOF) {
 					this.matchedEOF = true;
@@ -1392,7 +1390,6 @@ export class StatementContext extends ParserRuleContext {
 	}
 }
 export class CommentStatementContext extends StatementContext {
-	public _value!: Token;
 	public LINE_COMMENT(): TerminalNode { return this.getToken(XonParser.LINE_COMMENT, 0); }
 	constructor(ctx: StatementContext) {
 		super(ctx.parent, ctx.invokingState);
@@ -1400,7 +1397,6 @@ export class CommentStatementContext extends StatementContext {
 	}
 }
 export class ExportStatementContext extends StatementContext {
-	public _path!: ExpressionContext;
 	public EXPORT(): TerminalNode { return this.getToken(XonParser.EXPORT, 0); }
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
@@ -1455,8 +1451,6 @@ export class DoWhileStatementContext extends StatementContext {
 	}
 }
 export class IfStatementContext extends StatementContext {
-	public _thenBody!: BodyContext;
-	public _elseBody!: BodyContext;
 	public IF(): TerminalNode { return this.getToken(XonParser.IF, 0); }
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
@@ -1510,10 +1504,7 @@ export class ReturnStatementContext extends StatementContext {
 	}
 }
 export class AssertStatementContext extends StatementContext {
-	public _actual!: ExpressionContext;
-	public _expect!: ExpressionContext;
 	public ACTUAL(): TerminalNode { return this.getToken(XonParser.ACTUAL, 0); }
-	public EXPECT(): TerminalNode { return this.getToken(XonParser.EXPECT, 0); }
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -1523,6 +1514,7 @@ export class AssertStatementContext extends StatementContext {
 			return this.getRuleContext(i, ExpressionContext);
 		}
 	}
+	public EXPECT(): TerminalNode { return this.getToken(XonParser.EXPECT, 0); }
 	public NL(): TerminalNode[];
 	public NL(i: number): TerminalNode;
 	public NL(i?: number): TerminalNode | TerminalNode[] {
@@ -1807,7 +1799,6 @@ export class DeclarationContext extends ParserRuleContext {
 
 
 export class ValueBodyContext extends ParserRuleContext {
-	public _value!: ExpressionContext;
 	public ASSIGN(): TerminalNode | undefined { return this.tryGetToken(XonParser.ASSIGN, 0); }
 	public expression(): ExpressionContext | undefined {
 		return this.tryGetRuleContext(0, ExpressionContext);
@@ -1824,7 +1815,6 @@ export class ValueBodyContext extends ParserRuleContext {
 
 
 export class ValueTypeContext extends ParserRuleContext {
-	public _type!: ExpressionContext;
 	public COLON(): TerminalNode { return this.getToken(XonParser.COLON, 0); }
 	public expression(): ExpressionContext | undefined {
 		return this.tryGetRuleContext(0, ExpressionContext);
@@ -1871,12 +1861,11 @@ export class ArgumentsContext extends ParserRuleContext {
 
 
 export class ArgumentContext extends ParserRuleContext {
-	public _name!: Token;
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
-	public ASSIGN(): TerminalNode | undefined { return this.tryGetToken(XonParser.ASSIGN, 0); }
 	public ID(): TerminalNode | undefined { return this.tryGetToken(XonParser.ID, 0); }
+	public ASSIGN(): TerminalNode | undefined { return this.tryGetToken(XonParser.ASSIGN, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
@@ -1901,7 +1890,6 @@ export class BodyContext extends ParserRuleContext {
 
 
 export class OpenContext extends ParserRuleContext {
-	public _name!: Token;
 	public OPEN_PAREN(): TerminalNode | undefined { return this.tryGetToken(XonParser.OPEN_PAREN, 0); }
 	public OPEN_BRACKET(): TerminalNode | undefined { return this.tryGetToken(XonParser.OPEN_BRACKET, 0); }
 	public OPEN_BRACE(): TerminalNode | undefined { return this.tryGetToken(XonParser.OPEN_BRACE, 0); }
@@ -1914,7 +1902,6 @@ export class OpenContext extends ParserRuleContext {
 
 
 export class CloseContext extends ParserRuleContext {
-	public _name!: Token;
 	public CLOSE_PAREN(): TerminalNode | undefined { return this.tryGetToken(XonParser.CLOSE_PAREN, 0); }
 	public CLOSE_BRACKET(): TerminalNode | undefined { return this.tryGetToken(XonParser.CLOSE_BRACKET, 0); }
 	public CLOSE_BRACE(): TerminalNode | undefined { return this.tryGetToken(XonParser.CLOSE_BRACE, 0); }

@@ -1,4 +1,4 @@
-import { Token as AntlrToken } from 'antlr4ts';
+import { ParserRuleContext, Token as AntlrToken } from 'antlr4ts';
 import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 import { String2 } from '~/lib/core';
 import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata';
@@ -10,9 +10,11 @@ export class Token extends Tree {
   metadata: DeclarationMetadata | null = null;
   text: String2;
 
-  constructor(token: AntlrToken | TerminalNode) {
+  constructor(token: AntlrToken | TerminalNode | ParserRuleContext) {
     super();
-    if (token instanceof TerminalNode) {
+    if (token instanceof ParserRuleContext) {
+      this.sourceSpan = SourceSpan.fromContext(token);
+    } else if (token instanceof TerminalNode) {
       this.sourceSpan = SourceSpan.fromToken(token.payload);
     } else {
       this.sourceSpan = SourceSpan.fromToken(token);
@@ -23,6 +25,6 @@ export class Token extends Tree {
   static from = from;
 }
 
-function from(token: AntlrToken | TerminalNode): Token {
+function from(token: AntlrToken | TerminalNode | ParserRuleContext): Token {
   return new Token(token);
 }

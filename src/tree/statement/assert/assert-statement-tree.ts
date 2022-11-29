@@ -14,8 +14,9 @@ export class AssertStatementTree extends StatementTree {
     super();
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
-    this.actualExpression = getExpressionTree(ctx.expression(0));
-    this.expectExpression = getExpressionTree(ctx.expression(1));
+    const [actual, expect] = ctx.expression();
+    this.actualExpression = getExpressionTree(actual);
+    this.expectExpression = getExpressionTree(expect);
     this.addChildren(this.actualExpression, this.expectExpression);
   }
 }

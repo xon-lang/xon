@@ -15,7 +15,8 @@ export class ArgumentTree extends Tree {
     super();
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
-    this.name = (ctx._name && Token.from(ctx._name)) ?? null;
+    const id = ctx.ID() ?? null;
+    this.name = id && Token.from(id);
     const value = ctx.expression();
     this.value = (value && getExpressionTree(value)) ?? null;
     this.addChildren(this.name, this.value);

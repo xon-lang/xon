@@ -20,8 +20,8 @@ export class InvokeExpressionTree extends ExpressionTree {
     this.sourceSpan = SourceSpan.fromContext(ctx);
     this.instance = getExpressionTree(ctx.expression());
     this.arguments = getArgumentTrees(ctx.arguments().argument());
-    this.open = Token.from(ctx.arguments().open()._name);
-    this.close = Token.from(ctx.arguments().close()._name);
+    this.open = Token.from(ctx.arguments().open());
+    this.close = Token.from(ctx.arguments().close());
     this.addChildren(this.instance, ...this.arguments);
   }
 }
