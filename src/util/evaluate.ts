@@ -43,7 +43,7 @@ export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
     if (argsMap[tree.name.text]) {
       return argsMap[tree.name.text];
     }
-    Issue.errorFromTree(tree, `Undefined key '${tree.name}'`);
+    Issue.errorFromTree(tree, `Undefined key '${tree.name.text}'`);
   }
   Issue.errorFromTree(tree, 'Unsupported operation');
 }

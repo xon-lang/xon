@@ -59,7 +59,7 @@ export class PrefixValueMetadata extends ValueMetadata {
       const value = metadata.eval();
 
       // eslint-disable-next-line no-eval
-      return eval(`${this.tree.name} ${escapeToString(value)}`);
+      return eval(`${this.tree.name.text} ${escapeToString(value)}`);
     }
 
     return null;

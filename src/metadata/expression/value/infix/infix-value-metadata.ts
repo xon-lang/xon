@@ -75,7 +75,7 @@ export class InfixValueMetadata extends ValueMetadata {
       }
 
       // eslint-disable-next-line no-eval
-      return eval(`${escapeToString(left)} ${this.tree.name} ${escapeToString(right)}`);
+      return eval(`${escapeToString(left)} ${this.tree.name.text} ${escapeToString(right)}`);
     }
     throw new Error('Not implemented');
   }

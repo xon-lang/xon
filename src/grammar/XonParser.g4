@@ -43,16 +43,17 @@ literal
     | STRING_LITERAL  # stringLiteral
     ;
 
-declarations: open (declaration (',' declaration)* ','?)? close;
 declaration
-    : destructure = declarations type? valueBody?
-    | (modifier = ID)? name = (ID | OP) params += declarations* type? valueBody?
+    : declarations type? (ASSIGN expression)? # destructureDeclaration
+    | ID type? (ASSIGN expression? | body)?   # parameterDeclaration
+    | OP type? (ASSIGN expression? | body)?   # operatorDeclaration
+    | ID ID declarations? type? body?         # definitionDeclaration
     ;
-valueBody: ASSIGN expression? | body;
-type: COLON expression?;
 
-arguments: open (argument (',' argument)* ','?)? close;
-argument:  (ID ASSIGN)? expression;
+type:         COLON expression?;
+declarations: open (declaration (',' declaration)* ','?)? close;
+arguments:    open (argument (',' argument)* ','?)? close;
+argument:     (ID ASSIGN)? expression;
 
 body: NL INDENT source DEDENT;
 
