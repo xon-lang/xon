@@ -5,7 +5,7 @@ import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata
 import { SourceSpan } from '~/source/source-span';
 import { Tree } from '~/tree/tree';
 
-export class IdTree extends Tree {
+export class TokenTree extends Tree {
   sourceSpan: SourceSpan;
   metadata: DeclarationMetadata | null = null;
   text: String2;

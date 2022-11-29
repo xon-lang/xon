@@ -7,21 +7,21 @@ import { getDeclarationTrees } from '~/tree/declaration/declaration-tree-helper'
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
 import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
-import { IdTree } from '~/tree/id/id-tree';
-import { getIdTree } from '~/tree/id/id-tree-helper';
 import { SourceTree } from '~/tree/source/source-tree';
 import { getSourceTree } from '~/tree/source/source-tree-helper';
 import { CommentStatementTree } from '~/tree/statement/comment/comment-statement-tree';
 import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
 import { ExpressionStatementTree } from '~/tree/statement/expression/expression-statement-tree';
+import { TokenTree } from '~/tree/token/token-tree';
+import { getTokenTree } from '~/tree/token/token-tree-helper';
 import { Tree } from '~/tree/tree';
 
 export class DeclarationTree extends Tree {
   ctx: DeclarationContext;
   metadata: DeclarationMetadata | null = null;
   sourceSpan: SourceSpan;
-  modifier: IdTree | null;
-  name: IdTree | null;
+  modifier: TokenTree | null;
+  name: TokenTree | null;
   destructure: DeclarationTree[];
   hasParameters: Boolean2;
   generics: DeclarationTree[];
@@ -36,8 +36,8 @@ export class DeclarationTree extends Tree {
 
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
-    this.modifier = ctx._modifier && getIdTree(ctx._modifier);
-    this.name = (ctx._name && getIdTree(ctx._name)) ?? null;
+    this.modifier = ctx._modifier && getTokenTree(ctx._modifier);
+    this.name = (ctx._name && getTokenTree(ctx._name)) ?? null;
     this.destructure = (ctx._destructure && getDeclarationTrees(ctx._destructure.declaration() ?? [])) ?? [];
     this.hasParameters = ctx._params.filter((x) => !x.open().OPEN_BRACE()).length > 0;
     this.generics = getDeclarationTrees(ctx._params.filter((x) => x.open().OPEN_BRACE())[0]?.declaration() ?? []);
@@ -56,17 +56,17 @@ export class DeclarationTree extends Tree {
       .filter(
         (x) =>
           !(
-            x instanceof DeclarationStatementTree
-            || x instanceof CommentStatementTree
-            || (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree)
+            x instanceof DeclarationStatementTree ||
+            x instanceof CommentStatementTree ||
+            (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree)
           ),
       )
       .forEach((x) => x.addIssue(IssueLevel.error, 'Definition body should contain only parameters'));
     this.attributes = statements
       .filter(
         (x) =>
-          x instanceof DeclarationStatementTree
-          || (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree),
+          x instanceof DeclarationStatementTree ||
+          (x instanceof ExpressionStatementTree && x.expression instanceof IdExpressionTree),
       )
       .map((x) => x as DeclarationStatementTree | ExpressionStatementTree);
 

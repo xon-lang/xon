@@ -25,8 +25,8 @@ import { MethodExpressionTree } from '~/tree/expression/method/method-expression
 import { NullableExpressionTree } from '~/tree/expression/nullable/nullable-expression-tree';
 import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
 import { PreprocessorExpressionTree } from '~/tree/expression/preprocessor/preprocessor-expression-tree';
-import { IdTree } from '~/tree/id/id-tree';
-import { getIdTree } from '~/tree/id/id-tree-helper';
+import { TokenTree } from '~/tree/token/token-tree';
+import { getTokenTree } from '~/tree/token/token-tree-helper';
 
 export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof PreprocessorExpressionContext) return new PreprocessorExpressionTree(ctx);
@@ -43,15 +43,15 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof InfixExpressionContext) {
     const operatorsPriorities = ['^', '* / %', '+ -', '..', '< <= >= >', '== !=', '&', '|'].map((x) => x.split(' '));
 
-    const expressions: (IdTree | ExpressionTree)[] = flatExpressions(ctx);
+    const expressions: (TokenTree | ExpressionTree)[] = flatExpressions(ctx);
 
     for (const operators of operatorsPriorities) {
-      const operatorsCount = expressions.filter((x) => x instanceof IdTree && operators.includes(x.text)).length;
+      const operatorsCount = expressions.filter((x) => x instanceof TokenTree && operators.includes(x.text)).length;
       for (let i = 0; i < operatorsCount; i++) {
-        const operatorIndex = expressions.findIndex((x) => x instanceof IdTree && operators.includes(x.text));
+        const operatorIndex = expressions.findIndex((x) => x instanceof TokenTree && operators.includes(x.text));
         if (operatorIndex >= 0) {
           expressions[operatorIndex] = new InfixExpressionTree(
-            expressions[operatorIndex] as IdTree,
+            expressions[operatorIndex] as TokenTree,
             expressions[operatorIndex - 1] as ExpressionTree,
             expressions[operatorIndex + 1] as ExpressionTree,
           );
@@ -71,11 +71,11 @@ export function getExpressionTrees(contexts: ExpressionContext[]): ExpressionTre
   return contexts.map(getExpressionTree);
 }
 
-function flatExpressions(context: ExpressionContext): (IdTree | ExpressionTree)[] {
+function flatExpressions(context: ExpressionContext): (TokenTree | ExpressionTree)[] {
   if (context instanceof InfixExpressionContext) {
     const [left, right] = context.expression();
 
-    return [...flatExpressions(left), getIdTree(context.OP()), getExpressionTree(right)];
+    return [...flatExpressions(left), getTokenTree(context.OP()), getExpressionTree(right)];
   }
 
   return [getExpressionTree(context)];
