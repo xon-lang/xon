@@ -16,7 +16,8 @@ export class MemberExpressionTree extends ExpressionTree {
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
     this.instance = getExpressionTree(ctx.expression());
-    this.name = (ctx._name && getIdTree(ctx._name)) || null;
+    const id = ctx.ID() ?? null;
+    this.name = id && getIdTree(id);
     this.addChildren(this.instance, this.name);
   }
 }

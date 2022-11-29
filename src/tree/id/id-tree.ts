@@ -1,4 +1,5 @@
 import { Token } from 'antlr4ts';
+import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 import { String2 } from '~/lib/core';
 import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata';
 import { SourceSpan } from '~/source/source-span';
@@ -9,9 +10,13 @@ export class IdTree extends Tree {
   metadata: DeclarationMetadata | null = null;
   text: String2;
 
-  constructor(token: Token) {
+  constructor(token: Token | TerminalNode) {
     super();
-    this.sourceSpan = SourceSpan.fromToken(token);
+    if (token instanceof TerminalNode) {
+      this.sourceSpan = SourceSpan.fromToken(token.payload);
+    } else {
+      this.sourceSpan = SourceSpan.fromToken(token);
+    }
     this.text = token.text ?? '';
   }
 

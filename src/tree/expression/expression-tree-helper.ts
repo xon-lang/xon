@@ -41,20 +41,14 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
 
   if (ctx instanceof InfixExpressionContext) {
-    const operatorsPriorities = ['^', '* / %', '+ -', '..', '< <= >= >', '== !=', '&', '|'].map(
-      (x) => x.split(' '),
-    );
+    const operatorsPriorities = ['^', '* / %', '+ -', '..', '< <= >= >', '== !=', '&', '|'].map((x) => x.split(' '));
 
     const expressions: (IdTree | ExpressionTree)[] = flatExpressions(ctx);
 
     for (const operators of operatorsPriorities) {
-      const operatorsCount = expressions.filter(
-        (x) => x instanceof IdTree && operators.includes(x.text),
-      ).length;
+      const operatorsCount = expressions.filter((x) => x instanceof IdTree && operators.includes(x.text)).length;
       for (let i = 0; i < operatorsCount; i++) {
-        const operatorIndex = expressions.findIndex(
-          (x) => x instanceof IdTree && operators.includes(x.text),
-        );
+        const operatorIndex = expressions.findIndex((x) => x instanceof IdTree && operators.includes(x.text));
         if (operatorIndex >= 0) {
           expressions[operatorIndex] = new InfixExpressionTree(
             expressions[operatorIndex] as IdTree,
@@ -79,11 +73,9 @@ export function getExpressionTrees(contexts: ExpressionContext[]): ExpressionTre
 
 function flatExpressions(context: ExpressionContext): (IdTree | ExpressionTree)[] {
   if (context instanceof InfixExpressionContext) {
-    return [
-      ...flatExpressions(context._left),
-      getIdTree(context._name),
-      getExpressionTree(context._right),
-    ];
+    const [left, right] = context.expression();
+
+    return [...flatExpressions(left), getIdTree(context.OP()), getExpressionTree(right)];
   }
 
   return [getExpressionTree(context)];

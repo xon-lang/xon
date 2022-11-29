@@ -30,6 +30,7 @@ test('instance nl dot property', () => {
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
   expect((tree.instance as IdExpressionTree).name.text).toBe('abc');
   expect(tree.name?.text).toBe('def');
+  expect(tree.name?.sourceSpan.start.index).toBe(6);
 });
 
 test('instance nl dot nl property', () => {

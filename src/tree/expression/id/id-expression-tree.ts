@@ -13,7 +13,7 @@ export class IdExpressionTree extends ExpressionTree {
     super();
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
-    this.name = getIdTree(ctx._name);
+    this.name = getIdTree(ctx.ID());
     this.addChildren(this.name);
   }
 }
