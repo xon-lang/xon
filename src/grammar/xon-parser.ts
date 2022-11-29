@@ -506,7 +506,7 @@ export class XonParser extends Parser {
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 108;
-				(_localctx as IdExpressionContext)._name = this.match(XonParser.ID);
+				this.match(XonParser.ID);
 				}
 				break;
 
@@ -516,7 +516,7 @@ export class XonParser extends Parser {
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 109;
-				(_localctx as PrefixExpressionContext)._name = this.match(XonParser.OP);
+				this.match(XonParser.OP);
 				this.state = 110;
 				this.expression(2);
 				}
@@ -565,16 +565,15 @@ export class XonParser extends Parser {
 					case 1:
 						{
 						_localctx = new InfixExpressionContext(new ExpressionContext(_parentctx, _parentState));
-						(_localctx as InfixExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, XonParser.RULE_expression);
 						this.state = 121;
 						if (!(this.precpred(this._ctx, 3))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 3)");
 						}
 						this.state = 122;
-						(_localctx as InfixExpressionContext)._name = this.match(XonParser.OP);
+						this.match(XonParser.OP);
 						this.state = 123;
-						(_localctx as InfixExpressionContext)._right = this.expression(4);
+						this.expression(4);
 						}
 						break;
 
@@ -607,7 +606,7 @@ export class XonParser extends Parser {
 						case 1:
 							{
 							this.state = 128;
-							(_localctx as MemberExpressionContext)._name = this.match(XonParser.ID);
+							this.match(XonParser.ID);
 							}
 							break;
 						}
@@ -630,7 +629,7 @@ export class XonParser extends Parser {
 						case 1:
 							{
 							this.state = 133;
-							(_localctx as MetaExpressionContext)._name = this.match(XonParser.ID);
+							this.match(XonParser.ID);
 							}
 							break;
 						}
@@ -1606,7 +1605,6 @@ export class NullableExpressionContext extends ExpressionContext {
 	}
 }
 export class MemberExpressionContext extends ExpressionContext {
-	public _name!: Token;
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
@@ -1618,7 +1616,6 @@ export class MemberExpressionContext extends ExpressionContext {
 	}
 }
 export class MetaExpressionContext extends ExpressionContext {
-	public _name!: Token;
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
@@ -1651,7 +1648,6 @@ export class LiteralExpressionContext extends ExpressionContext {
 	}
 }
 export class IdExpressionContext extends ExpressionContext {
-	public _name!: Token;
 	public ID(): TerminalNode { return this.getToken(XonParser.ID, 0); }
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
@@ -1659,9 +1655,6 @@ export class IdExpressionContext extends ExpressionContext {
 	}
 }
 export class InfixExpressionContext extends ExpressionContext {
-	public _left!: ExpressionContext;
-	public _name!: Token;
-	public _right!: ExpressionContext;
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -1678,11 +1671,10 @@ export class InfixExpressionContext extends ExpressionContext {
 	}
 }
 export class PrefixExpressionContext extends ExpressionContext {
-	public _name!: Token;
+	public OP(): TerminalNode { return this.getToken(XonParser.OP, 0); }
 	public expression(): ExpressionContext {
 		return this.getRuleContext(0, ExpressionContext);
 	}
-	public OP(): TerminalNode { return this.getToken(XonParser.OP, 0); }
 	constructor(ctx: ExpressionContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
