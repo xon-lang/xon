@@ -23,18 +23,18 @@ statement
     ;
 
 expression
-    : PREPROCESSOR                                          # preprocessorExpression
-    | '(' expression ')'                                    # groupExpression
-    | arguments                                             # arrayExpression
-    | expression QUESTION                                   # nullableExpression
-    | expression DOT name = ID                              # memberExpression
-    | expression META name = ID?                            # metaExpression
-    | expression arguments                                  # invokeExpression
-    | literal                                               # literalExpression
-    | name = ID                                             # idExpression
-    | left = expression name = (ID | OP) right = expression # infixExpression
-    | name = OP expression                                  # prefixExpression
-    | declarations* LAMBDA expression                       # methodExpression
+    : PREPROCESSOR                                   # preprocessorExpression
+    | '(' expression ')'                             # groupExpression
+    | arguments                                      # arrayExpression
+    | expression QUESTION                            # nullableExpression
+    | expression DOT name = ID?                      # memberExpression
+    | expression META name = ID?                     # metaExpression
+    | expression arguments                           # invokeExpression
+    | literal                                        # literalExpression
+    | name = ID                                      # idExpression
+    | left = expression name = OP right = expression # infixExpression
+    | name = OP expression                           # prefixExpression
+    | declarations* LAMBDA expression                # methodExpression
     ;
 
 literal

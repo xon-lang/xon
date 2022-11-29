@@ -39,11 +39,11 @@ IF:       'if';
 RETURN:   'return';
 WHILE:    'while';
 
-ASSIGN:   '=';
 COMMA:    ',';
-META:     '::';
-COLON:    ':';
+ASSIGN:   '=';
 QUESTION: (NL | WS)? '?';
+COLON:    (NL | WS)? ':' (NL | WS)?;
+META:     (NL | WS)? '::' (NL | WS)?;
 DOT:      (NL | WS)? '.' (NL | WS)?;
 LAMBDA:   (NL | WS)? '=>' (NL | WS)?;
 
