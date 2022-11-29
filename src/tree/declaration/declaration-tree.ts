@@ -41,7 +41,7 @@ export class DeclarationTree extends Tree {
     this.hasParameters = ctx._params.filter((x) => !x.open().OPEN_BRACE()).length > 0;
     this.generics = getDeclarationTrees(ctx._params.filter((x) => x.open().OPEN_BRACE())[0]?.declaration() ?? []);
     this.parameters = getDeclarationTrees(ctx._params.filter((x) => !x.open().OPEN_BRACE())[0]?.declaration() ?? []);
-    const type = ctx.valueType()?.expression();
+    const type = ctx.type()?.expression();
     this.type = (type && getExpressionTree(type)) ?? null;
 
     const value = ctx.valueBody()?.expression();

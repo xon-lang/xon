@@ -45,11 +45,11 @@ literal
 
 declarations: open (declaration (',' declaration)* ','?)? close;
 declaration
-    : destructure = declarations valueType? valueBody?
-    | (modifier = ID)? name = (ID | OP) params += declarations* valueType? valueBody?
+    : destructure = declarations type? valueBody?
+    | (modifier = ID)? name = (ID | OP) params += declarations* type? valueBody?
     ;
 valueBody: ASSIGN expression? | body;
-valueType: COLON expression?;
+type: COLON expression?;
 
 arguments: open (argument (',' argument)* ','?)? close;
 argument:  (ID ASSIGN)? expression;

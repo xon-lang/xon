@@ -70,7 +70,7 @@ export class XonParser extends Parser {
 	public static readonly RULE_declarations = 4;
 	public static readonly RULE_declaration = 5;
 	public static readonly RULE_valueBody = 6;
-	public static readonly RULE_valueType = 7;
+	public static readonly RULE_type = 7;
 	public static readonly RULE_arguments = 8;
 	public static readonly RULE_argument = 9;
 	public static readonly RULE_body = 10;
@@ -79,7 +79,7 @@ export class XonParser extends Parser {
 	// tslint:disable:no-trailing-whitespace
 	public static readonly ruleNames: string[] = [
 		"source", "statement", "expression", "literal", "declarations", "declaration", 
-		"valueBody", "valueType", "arguments", "argument", "body", "open", "close",
+		"valueBody", "type", "arguments", "argument", "body", "open", "close",
 	];
 
 	private static readonly _LITERAL_NAMES: Array<string | undefined> = [
@@ -810,7 +810,7 @@ export class XonParser extends Parser {
 				if (_la === XonParser.COLON) {
 					{
 					this.state = 165;
-					this.valueType();
+					this.type();
 					}
 				}
 
@@ -874,7 +874,7 @@ export class XonParser extends Parser {
 				if (_la === XonParser.COLON) {
 					{
 					this.state = 181;
-					this.valueType();
+					this.type();
 					}
 				}
 
@@ -959,9 +959,9 @@ export class XonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public valueType(): ValueTypeContext {
-		let _localctx: ValueTypeContext = new ValueTypeContext(this._ctx, this.state);
-		this.enterRule(_localctx, 14, XonParser.RULE_valueType);
+	public type(): TypeContext {
+		let _localctx: TypeContext = new TypeContext(this._ctx, this.state);
+		this.enterRule(_localctx, 14, XonParser.RULE_type);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
@@ -1774,8 +1774,8 @@ export class DeclarationContext extends ParserRuleContext {
 			return this.getRuleContext(i, DeclarationsContext);
 		}
 	}
-	public valueType(): ValueTypeContext | undefined {
-		return this.tryGetRuleContext(0, ValueTypeContext);
+	public type(): TypeContext | undefined {
+		return this.tryGetRuleContext(0, TypeContext);
 	}
 	public valueBody(): ValueBodyContext | undefined {
 		return this.tryGetRuleContext(0, ValueBodyContext);
@@ -1814,7 +1814,7 @@ export class ValueBodyContext extends ParserRuleContext {
 }
 
 
-export class ValueTypeContext extends ParserRuleContext {
+export class TypeContext extends ParserRuleContext {
 	public COLON(): TerminalNode { return this.getToken(XonParser.COLON, 0); }
 	public expression(): ExpressionContext | undefined {
 		return this.tryGetRuleContext(0, ExpressionContext);
@@ -1823,7 +1823,7 @@ export class ValueTypeContext extends ParserRuleContext {
 		super(parent, invokingState);
 	}
 	// @Override
-	public get ruleIndex(): number { return XonParser.RULE_valueType; }
+	public get ruleIndex(): number { return XonParser.RULE_type; }
 }
 
 
