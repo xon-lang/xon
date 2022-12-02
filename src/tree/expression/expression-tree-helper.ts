@@ -1,7 +1,6 @@
 import {
   ArrayExpressionContext,
   ExpressionContext,
-  GroupExpressionContext,
   IdExpressionContext,
   InfixExpressionContext,
   InvokeExpressionContext,
@@ -15,7 +14,6 @@ import {
 import { Issue } from '~/issue/issue';
 import { ArrayExpressionTree } from '~/tree/expression/array/array-expression-tree';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
-import { GroupExpressionTree } from '~/tree/expression/group/group-expression-tree';
 import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tree';
 import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
@@ -36,7 +34,6 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
   if (ctx instanceof MethodExpressionContext) return new MethodExpressionTree(ctx);
   if (ctx instanceof NullableExpressionContext) return new NullableExpressionTree(ctx);
-  if (ctx instanceof GroupExpressionContext) return new GroupExpressionTree(ctx);
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
 
   if (ctx instanceof InfixExpressionContext) {

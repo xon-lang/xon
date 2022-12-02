@@ -1,4 +1,3 @@
-import { DeclarationTree } from '~/tree/declaration/declaration-tree';
 import { ParameterDeclarationTree } from '~/tree/declaration/parameter/parameter-declaration-tree';
 import { LiteralExpressionTree } from '~/tree/expression/literal/literal-expression-tree';
 import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
