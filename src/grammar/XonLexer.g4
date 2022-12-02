@@ -20,12 +20,8 @@ tokens {
     import { XonLexerBase } from "./xon-lexer-base";
 }
 
-OPEN_BRACKET:  '[' {this.opened++;};
-CLOSE_BRACKET: ']' {this.opened--;};
-OPEN_PAREN:    '(' {this.opened++;};
-CLOSE_PAREN:   ')' {this.opened--;};
-OPEN_BRACE:    '{' {this.opened++;};
-CLOSE_BRACE:   '}' {this.opened--;};
+OPEN:  ('(' | '[' | '{') {this.opened++;};
+CLOSE: (')' | ']' | '}') {this.opened--;};
 
 ACTUAL:   'actual';
 BREAK:    'break';

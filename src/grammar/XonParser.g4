@@ -5,8 +5,6 @@ options {
     tokenVocab = XonLexer;
 }
 
-source: NL | NL? (statement nl += NL)* statement NL?;
-
 statement
     : LINE_COMMENT                            # commentStatement
     | EXPORT expression                       # exportStatement
@@ -24,7 +22,6 @@ statement
 
 expression
     : PREPROCESSOR                    # preprocessorExpression
-    | '(' expression ')'              # groupExpression
     | arguments                       # arrayExpression
     | expression QUESTION             # nullableExpression
     | expression DOT ID?              # memberExpression
@@ -51,11 +48,9 @@ declaration
     ;
 
 type:         COLON expression?;
-declarations: open (declaration (',' declaration)* ','?)? close;
-arguments:    open (argument (',' argument)* ','?)? close;
+declarations: OPEN (declaration (COMMA declaration)* COMMA?)? CLOSE;
+arguments:    OPEN (argument (COMMA argument)* COMMA?)? CLOSE;
 argument:     (ID ASSIGN)? expression;
 
-body: NL INDENT source DEDENT;
-
-open:  ('(' | '[' | '{');
-close: (')' | ']' | '}');
+body:   NL INDENT source DEDENT;
+source: NL? (statement nl += NL)* statement? NL?;
