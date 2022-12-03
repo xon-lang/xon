@@ -312,20 +312,20 @@ export class XonParser extends Parser {
 				break;
 
 			case 11:
-				_localctx = new ExpressionStatementContext(_localctx);
+				_localctx = new DeclarationStatementContext(_localctx);
 				this.enterOuterAlt(_localctx, 11);
 				{
 				this.state = 72;
-				this.expression(0);
+				this.declaration();
 				}
 				break;
 
 			case 12:
-				_localctx = new DeclarationStatementContext(_localctx);
+				_localctx = new ExpressionStatementContext(_localctx);
 				this.enterOuterAlt(_localctx, 12);
 				{
 				this.state = 73;
-				this.declaration();
+				this.expression(0);
 				}
 				break;
 			}
@@ -1192,7 +1192,7 @@ export class XonParser extends Parser {
 		">M\x03\x02\x02\x02?@\x07\x07\x02\x02@D\x05\x04\x03\x02AC\x07\x1F\x02\x02" +
 		"BA\x03\x02\x02\x02CF\x03\x02\x02\x02DB\x03\x02\x02\x02DE\x03\x02\x02\x02" +
 		"EG\x03\x02\x02\x02FD\x03\x02\x02\x02GH\x07\f\x02\x02HI\x05\x04\x03\x02" +
-		"IM\x03\x02\x02\x02JM\x05\x04\x03\x02KM\x05\b\x05\x02L\x16\x03\x02\x02" +
+		"IM\x03\x02\x02\x02JM\x05\b\x05\x02KM\x05\x04\x03\x02L\x16\x03\x02\x02" +
 		"\x02L\x17\x03\x02\x02\x02L\x19\x03\x02\x02\x02L#\x03\x02\x02\x02L\'\x03" +
 		"\x02\x02\x02L,\x03\x02\x02\x02L9\x03\x02\x02\x02L:\x03\x02\x02\x02L;\x03" +
 		"\x02\x02\x02L?\x03\x02\x02\x02LJ\x03\x02\x02\x02LK\x03\x02\x02\x02M\x03" +
@@ -1418,18 +1418,18 @@ export class AssertStatementContext extends StatementContext {
 		this.copyFrom(ctx);
 	}
 }
-export class ExpressionStatementContext extends StatementContext {
-	public expression(): ExpressionContext {
-		return this.getRuleContext(0, ExpressionContext);
+export class DeclarationStatementContext extends StatementContext {
+	public declaration(): DeclarationContext {
+		return this.getRuleContext(0, DeclarationContext);
 	}
 	constructor(ctx: StatementContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
 	}
 }
-export class DeclarationStatementContext extends StatementContext {
-	public declaration(): DeclarationContext {
-		return this.getRuleContext(0, DeclarationContext);
+export class ExpressionStatementContext extends StatementContext {
+	public expression(): ExpressionContext {
+		return this.getRuleContext(0, ExpressionContext);
 	}
 	constructor(ctx: StatementContext) {
 		super(ctx.parent, ctx.invokingState);

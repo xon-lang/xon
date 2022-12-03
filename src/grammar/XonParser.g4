@@ -16,8 +16,8 @@ statement
     | CONTINUE                                # continueStatement
     | RETURN expression?                      # returnStatement
     | ACTUAL expression NL* EXPECT expression # assertStatement
-    | expression                              # expressionStatement
     | declaration                             # declarationStatement
+    | expression                              # expressionStatement
     ;
 
 expression

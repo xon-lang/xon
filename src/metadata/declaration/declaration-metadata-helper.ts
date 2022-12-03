@@ -16,10 +16,11 @@ import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { ModuleTree } from '~/tree/module/module-tree';
 import { SourceTree } from '~/tree/source/source-tree';
 import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
+import { filterInstance } from '~/util/extensions';
 
 export function getShadowSourceMetadata(tree: SourceTree): DeclarationMetadata[] {
-  const declarationTrees = tree.statements
-    .filterInstance<DeclarationStatementTree>()
+  const declarationTrees = 
+    filterInstance<DeclarationStatementTree>(tree.statements)
     .filter((x) => !x.declaration.metadata)
     .map((x) => x.declaration);
 
