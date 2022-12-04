@@ -8,8 +8,8 @@ test('operator with no parameters', () => {
   const tree = parseDeclaration(code) as OperatorDeclarationTree;
 
   expect(tree).toBeInstanceOf(OperatorDeclarationTree);
-  expect(tree.type).toBeInstanceOf(MethodExpressionTree);
   const type = tree.type as MethodExpressionTree;
+  expect(type).toBeInstanceOf(MethodExpressionTree);
   expect(type.parameters.length).toBe(1);
   expect(type.parameters[0].name?.text).toBe('other');
   expect(type.parameters[0].type).toBeInstanceOf(IdExpressionTree);
@@ -22,8 +22,8 @@ test('operator with parameters', () => {
   const tree = parseDeclaration(code) as OperatorDeclarationTree;
 
   expect(tree).toBeInstanceOf(OperatorDeclarationTree);
-  expect(tree.type).toBeInstanceOf(MethodExpressionTree);
   const type = tree.type as MethodExpressionTree;
+  expect(type).toBeInstanceOf(MethodExpressionTree);
   expect(type.parameters.length).toBe(0);
   expect(type.value).toBeInstanceOf(IdExpressionTree);
   expect((type.value as IdExpressionTree).name.text).toBe('Boolean');

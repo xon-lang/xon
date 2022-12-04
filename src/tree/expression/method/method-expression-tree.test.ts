@@ -27,7 +27,7 @@ test('generics', () => {
   expect(tree.generics[0].name?.text).toBe('N');
   expect(tree.generics[1].name?.text).toBe('M');
   expect(tree.generics[2].name?.text).toBe('K');
-  expect((tree.generics[2].type?.expression as IdExpressionTree).name.text).toBe('String');
+  expect((tree.generics[2].type as IdExpressionTree).name.text).toBe('String');
   expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].name?.text).toBe('x');
   expect(

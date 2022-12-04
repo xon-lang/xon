@@ -2,6 +2,7 @@ import { DefinitionDeclarationContext } from '~/grammar/xon-parser';
 import { IssueLevel } from '~/issue/issue-level';
 import { SourceSpan } from '~/source/source-span';
 import { BodyTree } from '~/tree/body/body-tree';
+import { getBodyTree } from '~/tree/body/body-tree-helper';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
 import { getDeclarationTree } from '~/tree/declaration/declaration-tree-helper';
 import { ParameterDeclarationTree } from '~/tree/declaration/parameter/parameter-declaration-tree';
@@ -11,9 +12,6 @@ import { CommentStatementTree } from '~/tree/statement/comment/comment-statement
 import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
 import { StatementTree } from '~/tree/statement/statement-tree';
 import { Token } from '~/tree/token';
-import { BodyValueTree } from '~/tree/value/body/body-value-tree';
-import { ExpressionValueTree } from '~/tree/value/expression/expression-value-tree';
-import { getValueTree } from '~/tree/value/value-tree-helper';
 
 export class DefinitionDeclarationTree extends DeclarationTree {
   ctx: DefinitionDeclarationContext;
@@ -22,9 +20,12 @@ export class DefinitionDeclarationTree extends DeclarationTree {
   name: Token;
   generics: ParameterDeclarationTree[] = [];
   parameters: ParameterDeclarationTree[] = [];
-  base: ExpressionTree | null = null;
   body: BodyTree | null = null;
   attributes: DeclarationStatementTree[];
+
+  get base(): ExpressionTree | null {
+    return this.type;
+  }
 
   constructor(ctx: DefinitionDeclarationContext) {
     super();
@@ -35,30 +36,29 @@ export class DefinitionDeclarationTree extends DeclarationTree {
     this.modifier = Token.from(modifier);
     this.name = Token.from(name);
 
-    const generics
-      = ctx
+    const generics =
+      ctx
         .declarations()
         .find((x) => x.OPEN().text === '{')
         ?.declaration() ?? [];
     this.generics = generics.map(getDeclarationTree).filter(isParameterDeclaration);
 
-    const parameters
-      = ctx
+    const parameters =
+      ctx
         .declarations()
         .find((x) => x.OPEN().text === '{')
         ?.declaration() ?? [];
     this.parameters = parameters.map(getDeclarationTree).filter(isParameterDeclaration);
 
-    const base = ctx.type()?.expression() ?? null;
-    this.base = base && getExpressionTree(base);
+    const type = ctx.type()?.expression() ?? null;
+    this.type = type && getExpressionTree(type);
 
-    const value = ctx.value() ?? null;
-    const valueTree = value && getValueTree(value);
+    const expression = ctx.value()?.expression() ?? null;
+    const body = ctx.value()?.body() ?? null;
+    this.value = (expression && getExpressionTree(expression)) || (body && getBodyTree(body));
 
-    if (valueTree instanceof ExpressionValueTree) {
-      valueTree.addError('Definition cannot have expression instead of body');
-    } else if (valueTree instanceof BodyValueTree) {
-      this.body = valueTree.body;
+    if (this.value instanceof ExpressionTree) {
+      this.value.addError('Definition cannot have expression instead of body');
     }
 
     const statements = this.body?.statements ?? [];
