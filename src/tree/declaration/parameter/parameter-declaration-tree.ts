@@ -1,18 +1,17 @@
 import { ParameterDeclarationContext } from '~/grammar/xon-parser';
 import { SourceSpan } from '~/source/source-span';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
-import { ExpressionTree } from '~/tree/expression/expression-tree';
-import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
-import { SourceTree } from '~/tree/source/source-tree';
-import { getSourceTree } from '~/tree/source/source-tree-helper';
 import { Token } from '~/tree/token';
+import { TypeTree } from '~/tree/type/type-tree';
+import { getTypeTree } from '~/tree/type/type-tree-helper';
+import { ValueTree } from '~/tree/value/value-tree';
+import { getValueTree } from '~/tree/value/value-tree-helper';
 
 export class ParameterDeclarationTree extends DeclarationTree {
   ctx: ParameterDeclarationContext;
   name: Token;
-  type: ExpressionTree | null;
-  value: ExpressionTree | null;
-  body: SourceTree | null;
+  type: TypeTree | null;
+  value: ValueTree | null;
 
   constructor(ctx: ParameterDeclarationContext) {
     super();
@@ -20,15 +19,12 @@ export class ParameterDeclarationTree extends DeclarationTree {
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
     this.name = Token.from(ctx.ID());
-    const type = ctx.type()?.expression() ?? null;
-    this.type = type && getExpressionTree(type);
+    const type = ctx.type() ?? null;
+    this.type = type && getTypeTree(type);
 
-    const value = ctx.expression() ?? null;
-    this.value = value && getExpressionTree(value);
+    const value = ctx.value() ?? null;
+    this.value = value && getValueTree(value);
 
-    const body = ctx.body()?.source() ?? null;
-    this.body = body && getSourceTree(body);
-
-    this.addChildren(this.name, this.type, this.body);
+    this.addChildren(this.name, this.type, this.value);
   }
 }

@@ -1,7 +1,7 @@
 import { ArrayExpressionContext } from '~/grammar/xon-parser';
 import { SourceSpan } from '~/source/source-span';
 import { ArgumentTree } from '~/tree/argument/argument-tree';
-import { getArgumentTrees } from '~/tree/argument/argument-tree-helper';
+import { getArgumentTree } from '~/tree/argument/argument-tree-helper';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 
 export class ArrayExpressionTree extends ExpressionTree {
@@ -13,7 +13,7 @@ export class ArrayExpressionTree extends ExpressionTree {
     super();
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
-    this.arguments = getArgumentTrees(ctx.arguments().argument());
+    this.arguments = ctx.arguments().argument().map(getArgumentTree);
     this.addChildren(...this.arguments);
   }
 }

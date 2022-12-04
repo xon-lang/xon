@@ -35,7 +35,3 @@ export function getStatementTree(ctx: StatementContext): StatementTree {
 
   Issue.errorFromContext(ctx, `Statement tree not found for '${ctx.constructor.name}'`);
 }
-
-export function getStatementTrees(statements: StatementContext[]): StatementTree[] {
-  return statements.map(getStatementTree);
-}

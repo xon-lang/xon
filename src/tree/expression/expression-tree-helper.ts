@@ -63,10 +63,6 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   Issue.errorFromContext(ctx, `Expression tree not found for "${ctx.constructor.name}"`);
 };
 
-export function getExpressionTrees(contexts: ExpressionContext[]): ExpressionTree[] {
-  return contexts.map(getExpressionTree);
-}
-
 function flatExpressions(context: ExpressionContext): (Token | ExpressionTree)[] {
   if (context instanceof InfixExpressionContext) {
     const [left, right] = context.expression();

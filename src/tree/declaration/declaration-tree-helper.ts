@@ -20,7 +20,3 @@ export function getDeclarationTree(ctx: DeclarationContext): DeclarationTree {
 
   Issue.errorFromContext(ctx, `Declaration tree not found for "${ctx.constructor.name}"`);
 }
-
-export function getDeclarationTrees(contexts: DeclarationContext[]): DeclarationTree[] {
-  return contexts.map((x) => getDeclarationTree(x));
-}
