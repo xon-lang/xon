@@ -21,7 +21,8 @@ export class MethodExpressionTree extends ExpressionTree {
     const paramsGroup = ctx.declarations();
     const generics = paramsGroup.filter((x) => x.OPEN().text === '{')[0]?.declaration() ?? [];
     this.generics = generics.map(getDeclarationTree).filter(isParameterDeclaration);
-    const parameters = paramsGroup.filter((x) => x.OPEN().text === '(')[0]?.declaration() ?? [];
+    const parameters =
+      paramsGroup.filter((x) => x.OPEN().text === '(' || x.OPEN().text === '[')[0]?.declaration() ?? [];
     this.parameters = parameters.map(getDeclarationTree).filter(isParameterDeclaration);
 
     this.value = getExpressionTree(ctx.expression());

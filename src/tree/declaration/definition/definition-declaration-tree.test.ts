@@ -66,7 +66,7 @@ test('model cat with generics', () => {
   expect(tree.name?.text).toBe('Cat');
   expect(tree.generics.length).toBe(1);
   expect(tree.generics[0].name?.text).toBe('T');
-  expect((tree.generics[0].type as IdExpressionTree).name.text).toBe('Number');
+  expect((tree.generics[0].type?.expression as IdExpressionTree).name.text).toBe('Number');
   const base = tree.base as InvokeExpressionTree;
   expect(base).toBeInstanceOf(InvokeExpressionTree);
   expect((base.instance as IdExpressionTree).name.text).toBe('Animal');

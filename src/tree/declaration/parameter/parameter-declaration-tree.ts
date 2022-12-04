@@ -19,6 +19,7 @@ export class ParameterDeclarationTree extends DeclarationTree {
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
     this.name = Token.from(ctx.ID());
+
     const type = ctx.type() ?? null;
     this.type = type && getTypeTree(type);
 

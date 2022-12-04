@@ -3,7 +3,7 @@ import { ArrayExpressionTree } from '~/tree/expression/array/array-expression-tr
 import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
 import { MethodExpressionTree } from '~/tree/expression/method/method-expression-tree';
-import { Token } from '~/tree/token';
+import { ExpressionValueTree } from '~/tree/value/expression/expression-value-tree';
 import { parseDeclaration } from '~/util/parse';
 
 test('id type', () => {
@@ -12,7 +12,7 @@ test('id type', () => {
 
   expect(tree).toBeInstanceOf(ParameterDeclarationTree);
   expect(tree.name?.text).toBe('abc');
-  expect((tree.type as IdExpressionTree).name.text).toBe('Integer');
+  expect((tree.type?.expression as IdExpressionTree).name.text).toBe('Integer');
 });
 
 // test('generics with parameters', () => {
@@ -38,11 +38,11 @@ test('id lambda type', () => {
 
   expect(tree).toBeInstanceOf(ParameterDeclarationTree);
   expect(tree.name?.text).toBe('abc');
-  const type = tree.type as MethodExpressionTree;
+  const type = tree.type?.expression as MethodExpressionTree;
   expect(type).toBeInstanceOf(MethodExpressionTree);
   expect(type.parameters.length).toBe(1);
   expect(type.parameters[0].name.text).toBe('a');
-  expect((type.parameters[0].type as IdExpressionTree).name.text).toBe('Number');
+  expect((type.parameters[0].type?.expression as IdExpressionTree).name.text).toBe('Number');
   expect((type.value as IdExpressionTree).name.text).toBe('Integer');
 });
 
@@ -52,10 +52,10 @@ test('variable type value', () => {
 
   expect(tree).toBeInstanceOf(ParameterDeclarationTree);
   expect(tree.name?.text).toBe('statements');
-  const type = tree.type as InvokeExpressionTree;
+  const type = tree.type?.expression as InvokeExpressionTree;
   expect(type).toBeInstanceOf(InvokeExpressionTree);
   expect((type.instance as IdExpressionTree).name.text).toBe('StatementTree');
-  const value = tree.value as ArrayExpressionTree;
+  const value = (tree.value as ExpressionValueTree).expression as ArrayExpressionTree;
   expect(value.arguments.length).toBe(0);
 });
 
