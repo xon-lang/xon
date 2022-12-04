@@ -47,12 +47,12 @@ declaration
   | OP type? value?                  # operatorDeclaration
   ;
 
-value: ASSIGN expression? # expressionValue | body # bodyValue;
+type:  COLON expression?;
+value: ASSIGN expression? | body;
 
 declarations: OPEN ( declaration ( COMMA declaration)* COMMA?)? CLOSE;
 arguments:    OPEN ( argument ( COMMA argument)* COMMA?)? CLOSE;
 argument:     ( ID ASSIGN)? expression;
 
-type:   COLON expression?;
 body:   NL INDENT source DEDENT;
 source: NL? ( statement nl += NL)* statement? NL?;
