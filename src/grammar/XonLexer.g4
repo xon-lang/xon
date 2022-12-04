@@ -1,19 +1,19 @@
 lexer grammar XonLexer
-    ;
+  ;
 
 channels {
-    ERROR,
-    WHITESPACE,
-    COMMENT_CHANNEL
+  ERROR,
+  WHITESPACE,
+  COMMENT_CHANNEL
 }
 
 options {
-    superClass = XonLexerBase;
+  superClass = XonLexerBase;
 }
 
 tokens {
-    INDENT,
-    DEDENT
+  INDENT,
+  DEDENT
 }
 
 @lexer::header { 
