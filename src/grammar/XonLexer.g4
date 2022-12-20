@@ -32,6 +32,8 @@ EXPECT:   'expect';
 EXPORT:   'export';
 FOR:      'for';
 IF:       'if';
+IMPORT:   'import';
+IN:       'in';
 RETURN:   'return';
 WHILE:    'while';
 
@@ -43,9 +45,9 @@ META:     (NL | WS)? '::' (NL | WS)?;
 DOT:      (NL | WS)? '.' (NL | WS)?;
 LAMBDA:   (NL | WS)? '=>' (NL | WS)?;
 
-FLOAT_LITERAL:   Radix AlphabetNumber '.' AlphabetNumber | DigitNumber '.' DigitNumber;
-INTEGER_LITERAL: Radix AlphabetNumber | DigitNumber;
-STRING_LITERAL:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
+FLOAT:   Radix AlphabetNumber '.' AlphabetNumber | DigitNumber '.' DigitNumber;
+INTEGER: Radix AlphabetNumber | DigitNumber;
+STRING:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 
 PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
 

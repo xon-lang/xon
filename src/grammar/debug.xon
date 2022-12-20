@@ -1,3 +1,4 @@
+import 'xon-name/core'
 this.my_prop.abc \\
   .def \\
     .ghi \\
