@@ -1,3 +1,7 @@
 syntax 'for' (value = parameter (',' index = parameter)? 'in')? expression body
 
 syntax 'if' expression thenBody = body ('else' elseBody = body)?
+
+
+
+ifStatement: 'if' expression body NL* (ELSE body)?;
