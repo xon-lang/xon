@@ -9,12 +9,12 @@ import {
 } from 'antlr4ts';
 import { Issue } from '~/issue/issue';
 import { IssueLevel } from '~/issue/issue-level';
-import { Any2, Integer, Never2, String2 } from '~/lib/core';
+import { Any, Integer, Never2, String2 } from '~/lib/core';
 import { SourceSpan } from '~/source/source-span';
 
 export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbol> {
   syntaxError(
-    recognizer: Recognizer<TSymbol, Any2>,
+    recognizer: Recognizer<TSymbol, Any>,
     offendingSymbol: TSymbol | undefined,
     line: Integer,
     charIndex: Integer,

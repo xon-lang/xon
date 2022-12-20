@@ -1,4 +1,4 @@
-import { Any2 } from '~/lib/core';
+import { Any } from '~/lib/core';
 import { OperatorMetadata } from '~/metadata/declaration/infix-operator/infix-operator-declaration-metadata';
 import { ParameterMetadata } from '~/metadata/declaration/parameter/parameter-declaration-metadata';
 import { getExpressionMetadata } from '~/metadata/expression/expression-metadata-helper';
@@ -56,7 +56,7 @@ export class InfixValueMetadata extends ValueMetadata {
     return null;
   }
 
-  eval(): Any2 {
+  eval(): Any {
     const leftMetadata = this.tree.left.metadata;
     const rightMetadata = this.tree.right.metadata;
 

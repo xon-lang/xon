@@ -1,4 +1,4 @@
-import { Any2 } from '~/lib/core';
+import { Any } from '~/lib/core';
 import { getExpressionMetadata } from '~/metadata/expression/expression-metadata-helper';
 import { ValueMetadata } from '~/metadata/expression/value/value-metadata';
 import { MethodTypeMetadata } from '~/metadata/type/method/method-type-metadata';
@@ -24,7 +24,7 @@ export class InvokeValueMetadata extends ValueMetadata {
     return null;
   }
 
-  eval(): Any2 {
+  eval(): Any {
     throw new Error('Not implemented');
   }
 }

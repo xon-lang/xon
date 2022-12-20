@@ -5,7 +5,12 @@ import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { IntegerExpressionTree } from '~/tree/expression/integer/integer-expression-tree';
 
 export function getExpressionMetadata(tree: ExpressionTree): ExpressionMetadata {
-  if (tree.metadata) return tree.metadata as ExpressionMetadata;
+  if (tree.metadata) {
+    if (tree.metadata instanceof ExpressionMetadata) {
+      return tree.metadata as ExpressionMetadata;
+    }
+    Issue.errorFromTree(tree, `Wrong metadata type for "${tree.constructor.name}"`);
+  }
   // if (tree instanceof ArrayExpressionTree) {
   //   if (tree.arguments.length === 1 && tree.openToken.text === '(' && tree.arguments[0].value) {
   //     return getExpressionMetadata(tree.arguments[0].value);

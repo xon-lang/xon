@@ -1,4 +1,4 @@
-import { Any2 } from '~/lib/core';
+import { Any } from '~/lib/core';
 import { OperatorMetadata } from '~/metadata/declaration/infix-operator/infix-operator-declaration-metadata';
 import { ParameterMetadata } from '~/metadata/declaration/parameter/parameter-declaration-metadata';
 import { getExpressionMetadata } from '~/metadata/expression/expression-metadata-helper';
@@ -53,7 +53,7 @@ export class PrefixValueMetadata extends ValueMetadata {
     return null;
   }
 
-  eval(): Any2 {
+  eval(): Any {
     const { metadata } = this.tree.value;
     if (metadata instanceof ValueMetadata) {
       const value = metadata.eval();

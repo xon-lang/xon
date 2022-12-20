@@ -1,4 +1,4 @@
-import { Any2 } from '~/lib/core';
+import { Any } from '~/lib/core';
 import { fillParameterMetadata, getShadowParameterMetadata } from '~/metadata/declaration/declaration-metadata-helper';
 import { ParameterMetadata } from '~/metadata/declaration/parameter/parameter-declaration-metadata';
 import { getExpressionMetadata } from '~/metadata/expression/expression-metadata-helper';
@@ -37,7 +37,7 @@ export class MethodValueMetadata extends ValueMetadata {
     );
   }
 
-  eval(): Any2 {
+  eval(): Any {
     throw new Error('Not implemented');
   }
 }
