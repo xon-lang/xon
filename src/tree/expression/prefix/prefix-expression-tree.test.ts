@@ -30,7 +30,7 @@ test('double not', () => {
 
 //   expect(tree).toBeInstanceOf(PrefixExpressionTree);
 //   expect(tree.name.text).toBe('<');
-//   expect((tree.value as LiteralExpressionTree).literal.value).toBe(123);
+//   expect((tree.value as IntegerExpressionTree).value).toBe(123);
 // });
 
 // test('great operator', () => {
@@ -39,5 +39,5 @@ test('double not', () => {
 
 //   expect(tree).toBeInstanceOf(PrefixExpressionTree);
 //   expect(tree.name.text).toBe('>');
-//   expect((tree.value as LiteralExpressionTree).literal.value).toBe(123);
+//   expect((tree.value as IntegerExpressionTree).value).toBe(123);
 // });

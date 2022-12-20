@@ -14,14 +14,14 @@ export class ParameterDeclarationTree extends DeclarationTree {
 
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
-    this.name = Token.from(ctx.ID());
+    this.name = Token.from(ctx.id());
 
     const type = ctx.type()?.expression() ?? null;
     this.type = type && getExpressionTree(type);
 
     const expression = ctx.value()?.expression() ?? null;
     const body = ctx.value()?.body() ?? null;
-    this.value = expression && getExpressionTree(expression) || body && getBodyTree(body);
+    this.value = (expression && getExpressionTree(expression)) || (body && getBodyTree(body));
 
     this.addChildren(this.name, this.type, this.value);
   }

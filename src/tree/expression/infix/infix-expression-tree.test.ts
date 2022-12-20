@@ -1,6 +1,6 @@
 import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tree';
-import { LiteralExpressionTree } from '~/tree/expression/literal/literal-expression-tree';
+import { IntegerExpressionTree } from '~/tree/expression/integer/integer-expression-tree';
 import { evaluate } from '~/util/evaluate';
 import { parseExpression } from '~/util/parse';
 
@@ -13,7 +13,7 @@ test('several operands with different priorities', () => {
 });
 
 test('num plus str', () => {
-  const code = '1  + \'str\'';
+  const code = "1  + 'str'";
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
@@ -26,7 +26,7 @@ test('num is number', () => {
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
   expect(tree.name.text).toBe('&');
-  expect((tree.left as LiteralExpressionTree).literal.value).toBe(1);
+  expect((tree.left as IntegerExpressionTree).value).toBe(1);
 });
 
 test('equals', () => {
@@ -35,7 +35,7 @@ test('equals', () => {
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
   expect(tree.name.text).toBe('==');
-  expect((tree.right as LiteralExpressionTree).literal.value).toBe(123);
+  expect((tree.right as IntegerExpressionTree).value).toBe(123);
 });
 
 test('has several relational operators', () => {

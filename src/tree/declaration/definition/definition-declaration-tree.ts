@@ -21,7 +21,7 @@ export class DefinitionDeclarationTree extends DeclarationTree {
   generics: ParameterDeclarationTree[] = [];
   parameters: ParameterDeclarationTree[] = [];
   body: BodyTree | null = null;
-  attributes: DeclarationStatementTree[] = [];
+  attributes: DeclarationTree[] = [];
 
   get base(): ExpressionTree | null {
     return this.type;
@@ -32,7 +32,7 @@ export class DefinitionDeclarationTree extends DeclarationTree {
 
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
-    const [modifier, name] = ctx.ID();
+    const [modifier, name] = ctx.id();
     this.modifier = Token.from(modifier);
     this.name = Token.from(name);
 
@@ -64,10 +64,13 @@ export class DefinitionDeclarationTree extends DeclarationTree {
         .filter((x) => !(x instanceof DeclarationStatementTree || x instanceof CommentStatementTree))
         .forEach((x) => x.addIssue(IssueLevel.error, 'Definition body should contain only parameters'));
 
-      this.attributes = this.value.statements.filter(isDeclarationStatement);
+      this.attributes = this.value.statements
+        .filter(isDeclarationStatement)
+        .map((x) => x.declaration)
+        .filter(isParameterDeclaration);
     }
 
-    this.addChildren(this.modifier, this.name, ...this.generics, this.base, this.body);
+    this.addChildren(this.modifier, this.name, ...this.generics, this.base, ...this.attributes, this.body);
   }
 }
 

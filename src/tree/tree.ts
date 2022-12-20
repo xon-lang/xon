@@ -2,7 +2,6 @@ import { ParserRuleContext } from 'antlr4ts';
 import { Issue } from '~/issue/issue';
 import { IssueLevel } from '~/issue/issue-level';
 import { String2 } from '~/lib/core';
-import { DeclarationScope } from '~/metadata/declaration/scope/declaration-scope';
 import { Metadata } from '~/metadata/metadata';
 import { SourceSpan } from '~/source/source-span';
 
@@ -11,7 +10,6 @@ export abstract class Tree {
   ctx: ParserRuleContext | null = null;
   sourceSpan!: SourceSpan;
 
-  scope: DeclarationScope = new DeclarationScope();
   issues: Issue[] = [];
 
   parent: Tree | null = null;
@@ -22,7 +20,6 @@ export abstract class Tree {
       if (tree) {
         this.children.push(tree);
         tree.parent = this;
-        tree.scope.parent = this.scope;
       }
     }
   }

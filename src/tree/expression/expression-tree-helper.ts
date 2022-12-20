@@ -1,36 +1,42 @@
 import {
   ArrayExpressionContext,
   ExpressionContext,
+  FloatExpressionContext,
   IdExpressionContext,
   InfixExpressionContext,
+  IntegerExpressionContext,
   InvokeExpressionContext,
-  LiteralExpressionContext,
   MemberExpressionContext,
   MethodExpressionContext,
   NullableExpressionContext,
   PrefixExpressionContext,
   PreprocessorExpressionContext,
+  StringExpressionContext,
 } from '~/grammar/xon-parser';
 import { Issue } from '~/issue/issue';
 import { ArrayExpressionTree } from '~/tree/expression/array/array-expression-tree';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
+import { FloatExpressionTree } from '~/tree/expression/float/float-expression-tree';
 import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tree';
+import { IntegerExpressionTree } from '~/tree/expression/integer/integer-expression-tree';
 import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
-import { LiteralExpressionTree } from '~/tree/expression/literal/literal-expression-tree';
 import { MemberExpressionTree } from '~/tree/expression/member/member-expression-tree';
 import { MethodExpressionTree } from '~/tree/expression/method/method-expression-tree';
 import { NullableExpressionTree } from '~/tree/expression/nullable/nullable-expression-tree';
 import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
 import { PreprocessorExpressionTree } from '~/tree/expression/preprocessor/preprocessor-expression-tree';
+import { StringExpressionTree } from '~/tree/expression/string/string-expression-tree';
 import { Token } from '~/tree/token';
 
 export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof PreprocessorExpressionContext) return new PreprocessorExpressionTree(ctx);
+  if (ctx instanceof IntegerExpressionContext) return new IntegerExpressionTree(ctx);
+  if (ctx instanceof FloatExpressionContext) return new FloatExpressionTree(ctx);
+  if (ctx instanceof StringExpressionContext) return new StringExpressionTree(ctx);
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
   if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);
   if (ctx instanceof InvokeExpressionContext) return new InvokeExpressionTree(ctx);
-  if (ctx instanceof LiteralExpressionContext) return new LiteralExpressionTree(ctx);
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
   if (ctx instanceof MethodExpressionContext) return new MethodExpressionTree(ctx);
   if (ctx instanceof NullableExpressionContext) return new NullableExpressionTree(ctx);

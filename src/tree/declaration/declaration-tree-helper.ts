@@ -20,3 +20,6 @@ export function getDeclarationTree(ctx: DeclarationContext): DeclarationTree {
 
   Issue.errorFromContext(ctx, `Declaration tree not found for "${ctx.constructor.name}"`);
 }
+
+export const isDefinitionDeclaration = (declaration: DeclarationTree): declaration is DefinitionDeclarationTree =>
+  declaration instanceof DefinitionDeclarationTree;

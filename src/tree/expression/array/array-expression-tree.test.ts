@@ -1,4 +1,4 @@
-import { Number2 } from '~/lib/core';
+import { Integer } from '~/lib/core';
 import { ArrayExpressionTree } from '~/tree/expression/array/array-expression-tree';
 import { evaluate } from '~/util/evaluate';
 import { parseExpression } from '~/util/parse';
@@ -9,7 +9,7 @@ test('check array', () => {
 
   expect(tree).toBeInstanceOf(ArrayExpressionTree);
   expect(tree.arguments.length).toBe(4);
-  expect(tree.arguments.map((x) => evaluate(x.value) as Number2).reduce((a, b) => a + b, 0)).toBe(
+  expect(tree.arguments.map((x) => evaluate(x.value) as Integer).reduce((a, b) => a + b, 0)).toBe(
     [1, 2 + 2, 4, 6 + 6].reduce((a, b) => a + b, 0),
   );
   expect(JSON.stringify(evaluate(tree))).toBe(JSON.stringify([1, 2 + 2, 4, 6 + 6]));
@@ -23,7 +23,7 @@ test('array on several lines', () => {
 
   expect(tree).toBeInstanceOf(ArrayExpressionTree);
   expect(tree.arguments.length).toBe(4);
-  expect(tree.arguments.map((x) => evaluate(x.value) as Number2).reduce((a, b) => a + b, 0)).toBe(
+  expect(tree.arguments.map((x) => evaluate(x.value) as Integer).reduce((a, b) => a + b, 0)).toBe(
     [1, 2 + 2, 4, 6 + 6].reduce((a, b) => a + b, 0),
   );
 });

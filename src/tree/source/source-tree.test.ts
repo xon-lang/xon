@@ -1,8 +1,8 @@
 import { SourceTree } from '~/tree/source/source-tree';
-import { parseSource } from '~/util/parse';
+import { parseSource, parseSourceFile } from '~/util/parse';
 
 test('import and if', () => {
-  const code = `{Path} = import ('xon.os')
+  const code = `import ('xon.os') {Path} 
 
 1+1
 if e
@@ -73,6 +73,12 @@ abc: ABC
     return #{new MultipleBodyTree(ctx)}
 `;
   const tree = parseSource(code);
+
+  expect(tree).toBeInstanceOf(SourceTree);
+});
+
+test('3.xon', () => {
+  const tree = parseSourceFile('src/tree/source/test-files/3.xon');
 
   expect(tree).toBeInstanceOf(SourceTree);
 });

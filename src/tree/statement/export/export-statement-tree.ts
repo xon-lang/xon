@@ -7,13 +7,14 @@ import { StatementTree } from '~/tree/statement/statement-tree';
 export class ExportStatementTree extends StatementTree {
   ctx: ExportStatementContext;
   sourceSpan: SourceSpan;
-  path: ExpressionTree;
+  path: ExpressionTree | null;
 
   constructor(ctx: ExportStatementContext) {
     super();
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
-    this.path = getExpressionTree(ctx.expression());
+    const expression = ctx.expression() ?? null;
+    this.path = expression && getExpressionTree(expression);
     this.addChildren(this.path);
   }
 }

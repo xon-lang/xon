@@ -1,5 +1,5 @@
 import { ArgumentTree } from '~/tree/argument/argument-tree';
-import { LiteralExpressionTree } from '~/tree/expression/literal/literal-expression-tree';
+import { IntegerExpressionTree } from '~/tree/expression/integer/integer-expression-tree';
 import { parseArgument } from '~/util/parse';
 
 test('id value', () => {
@@ -8,7 +8,7 @@ test('id value', () => {
 
   expect(tree).toBeInstanceOf(ArgumentTree);
   expect(tree.name?.text).toBe('a');
-  expect((tree.value as LiteralExpressionTree).literal.value).toBe(1);
+  expect((tree.value as IntegerExpressionTree).value).toBe(1);
 });
 
 test('only value', () => {
@@ -16,5 +16,5 @@ test('only value', () => {
   const tree = parseArgument(code);
 
   expect(tree).toBeInstanceOf(ArgumentTree);
-  expect((tree.value as LiteralExpressionTree).literal.value).toBe(1);
+  expect((tree.value as IntegerExpressionTree).value).toBe(1);
 });

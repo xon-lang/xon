@@ -1,0 +1,33 @@
+model Number
+  testNumberProp1: Number
+  testNumberProp2: Number
+
+model Integer: Number
+  testIntegerProp1: Number
+  testIntegerProp2: Number
+  testIntegerProp3: Number
+  testIntegerProp4: Number
+
+model Float: Number
+  testFloatProp1: Number
+  testFloatProp2: Number
+  testFloatProp3: Number
+  testFloatProp4: Number
+
++: (a: Number, b: Number) => Number
+-: (a: Number, b: Number) => Number
+*: (a: Number, b: Number) => Number
+/: (a: Number, b: Number) => Number
+^: (a: Number, b: Number) => Number
+%: (a: Number, b: Number) => Number
+
+>: (a: Number, b: Number) => Boolean
+<: (a: Number, b: Number) => Boolean
+>=: (a: Number, b: Number) => Boolean
+<=: (a: Number, b: Number) => Boolean
+==: (a: Number, b: Number) => Boolean
+!=: (a: Number, b: Number) => Boolean
+
++: (a: Number) => Number
+-: (a: Number) => Number
+!: (a: Number) => Boolean
