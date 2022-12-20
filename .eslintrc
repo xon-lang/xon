@@ -371,7 +371,7 @@
     "object-property-newline": "error",
     "operator-linebreak": [
       "error",
-      "before"
+      "after"
     ],
     "padded-blocks": [
       "error",

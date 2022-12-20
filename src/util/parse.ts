@@ -11,8 +11,6 @@ import { DeclarationTree } from '~/tree/declaration/declaration-tree';
 import { getDeclarationTree } from '~/tree/declaration/declaration-tree-helper';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
-import { LiteralTree } from '~/tree/literal/literal-tree';
-import { getLiteralTree } from '~/tree/literal/literal-tree-helper';
 import { SourceTree } from '~/tree/source/source-tree';
 import { getSourceTree } from '~/tree/source/source-tree-helper';
 import { StatementTree } from '~/tree/statement/statement-tree';
@@ -57,10 +55,6 @@ export function parseSourceFile(location: String2): SourceTree {
 
 export function parseSource(code: String2): SourceTree {
   return _getSourceTree(getParser(code));
-}
-
-export function parseLiteral(code: String2): LiteralTree {
-  return getLiteralTree(getParser(code).literal());
 }
 
 export function parseExpression(code: String2): ExpressionTree {

@@ -9,15 +9,15 @@ import {
 } from 'antlr4ts';
 import { Issue } from '~/issue/issue';
 import { IssueLevel } from '~/issue/issue-level';
-import { Any2, Never2, Number2, String2 } from '~/lib/core';
+import { Any2, Integer, Never2, String2 } from '~/lib/core';
 import { SourceSpan } from '~/source/source-span';
 
 export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbol> {
   syntaxError(
     recognizer: Recognizer<TSymbol, Any2>,
     offendingSymbol: TSymbol | undefined,
-    line: Number2,
-    charIndex: Number2,
+    line: Integer,
+    charIndex: Integer,
     message: String2,
     exception: RecognitionException | undefined,
   ): Never2 {
