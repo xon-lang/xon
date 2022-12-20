@@ -9,7 +9,7 @@ import {
 } from 'antlr4ts';
 import { Issue } from '~/issue/issue';
 import { IssueLevel } from '~/issue/issue-level';
-import { Any, Integer, Never2, String2 } from '~/lib/core';
+import { Any, Integer, Never, String2 } from '~/lib/core';
 import { SourceSpan } from '~/source/source-span';
 
 export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbol> {
@@ -20,7 +20,7 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
     charIndex: Integer,
     message: String2,
     exception: RecognitionException | undefined,
-  ): Never2 {
+  ): Never {
     if (!(offendingSymbol instanceof CommonToken)) {
       throw new Error('Not implemented');
     }

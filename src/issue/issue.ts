@@ -1,7 +1,7 @@
 import { ParserRuleContext, RecognitionException } from 'antlr4ts';
 import { cyan, gray, red, redBright } from 'chalk';
 import { IssueLevel } from '~/issue/issue-level';
-import { Never2, String2 } from '~/lib/core';
+import { Never, String2 } from '~/lib/core';
 import { SourceSpan } from '~/source/source-span';
 import { Tree } from '~/tree/tree';
 
@@ -20,19 +20,19 @@ export class Issue extends Error {
     const column = cyan(`:${this.sourceSpan.start.column}`);
     const lineNumberBeforeGrayed = `${this.sourceSpan.start.line} | `;
     const lineNumber = gray(lineNumberBeforeGrayed);
-    const caret
-      = ' '.repeat(this.sourceSpan.start.column + lineNumberBeforeGrayed.length - 1)
-      + red('~'.repeat(Math.min(this.sourceSpan.getText().length, code.length)));
+    const caret =
+      ' '.repeat(this.sourceSpan.start.column + lineNumberBeforeGrayed.length - 1) +
+      red('~'.repeat(Math.min(this.sourceSpan.getText().length, code.length)));
 
     return `${message}\n${location}${line}${column}\n${lineNumber}${code}\n${caret}`;
   }
 
-  static errorFromContext(ctx: ParserRuleContext, message: String2): Never2 {
+  static errorFromContext(ctx: ParserRuleContext, message: String2): Never {
     const issue = new Issue(SourceSpan.fromContext(ctx), IssueLevel.error, message);
     throw new Error(issue.toString());
   }
 
-  static errorFromTree(tree: Tree, message: String2): Never2 {
+  static errorFromTree(tree: Tree, message: String2): Never {
     const issue = new Issue(tree.sourceSpan, IssueLevel.error, message);
     throw new Error(issue.toString());
   }
