@@ -7,6 +7,6 @@ test('1', () => {
   const sourcePosition = SourcePosition.fromIndex(source, 2);
 
   expect(sourcePosition.index).toBe(2);
-  expect(sourcePosition.line).toBe(1);
-  expect(sourcePosition.column).toBe(1);
+  expect(sourcePosition.lineIndex).toBe(1);
+  expect(sourcePosition.columnIndex).toBe(1);
 });

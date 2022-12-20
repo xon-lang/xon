@@ -2,7 +2,13 @@ import { Integer, String2 } from '~/lib/core';
 import { Source } from '~/source/source';
 
 export class SourcePosition {
-  constructor(public source: Source, public index: Integer, public line: Integer, public column: Integer) {}
+  public line: Integer;
+  public column: Integer;
+
+  constructor(public source: Source, public index: Integer, public lineIndex: Integer, public columnIndex: Integer) {
+    this.line = lineIndex + 1;
+    this.column = columnIndex + 1;
+  }
 
   static fromIndex = fromIndex;
   static fromLineColumn = fromLineColumn;
@@ -10,37 +16,18 @@ export class SourcePosition {
 
 function fromIndex(source: Source, index: Integer): SourcePosition {
   const linesIndex = getLinesIndex(source.text);
-  const line = findLowerIndexInRangeArray(index, linesIndex);
-  const column = index - linesIndex[line];
+  const lineIndex = findLowerIndexInRangeArray(index, linesIndex);
+  const columnIndex = index - linesIndex[lineIndex];
 
-  return {
-    source,
-    index,
-    line,
-    column,
-  };
+  return new SourcePosition(source, index, lineIndex, columnIndex);
 }
 
-function fromLineColumn(source: Source, line: Integer, column: Integer): SourcePosition {
+function fromLineColumn(source: Source, lineIndex: Integer, columnIndex: Integer): SourcePosition {
   const linesIndex = getLinesIndex(source.text);
+  const storedLineIndex = linesIndex[lineIndex];
+  const index = storedLineIndex + columnIndex;
 
-  // if (line >= 0 && column >= 0 && line < linesIndex.length) {
-  const lineIndex = linesIndex[line];
-  // const nextIndex = (line === linesIndex.length - 1 && source.text.length) || linesIndex[line + 1];
-
-  // if (column < nextIndex - lineIndex) {
-  // return lineIndex + column;
-  // }
-
-  const index = lineIndex + column;
-
-  return {
-    source,
-    index,
-    line,
-    column,
-  };
-  // }
+  return new SourcePosition(source, index, lineIndex, columnIndex);
 }
 
 function getLinesIndex(str: String2): Integer[] {

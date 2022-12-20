@@ -26,11 +26,11 @@ export class SourceSpan {
     const sourceName = start.inputStream?.sourceName;
     const location = (sourceName !== '<unknown>' && sourceName) || null;
     const source = Source.fromText(String(start.inputStream), location);
-    const startPosition = new SourcePosition(source, start.startIndex, start.line, start.charPositionInLine);
+    const startPosition = new SourcePosition(source, start.startIndex, start.line - 1, start.charPositionInLine);
     const stopPosition = new SourcePosition(
       source,
       stop.charPositionInLine + (stop.stopIndex - stop.startIndex),
-      stop.line,
+      stop.line - 1,
       stop.stopIndex,
     );
 
