@@ -1,4 +1,4 @@
-import { Number2, String2 } from '~/lib/core';
+import { Integer, String2 } from '~/lib/core';
 
 const PRINT_WIDTH = 100;
 
@@ -8,15 +8,15 @@ export class FormatterConfig {
   nl = '\n';
   nl2 = this.nl.repeat(2);
 
-  indent(count: Number2): String2 {
+  indent(count: Integer): String2 {
     return ' '.repeat(this.tabWidth).repeat(count);
   }
 
-  startLineLength(value: String2): Number2 {
+  startLineLength(value: String2): Integer {
     return value.split(this.nl)[0].length;
   }
 
-  endLineLength(value: String2): Number2 {
+  endLineLength(value: String2): Integer {
     return value.split(this.nl).slice(-1)[0].length;
   }
 }
