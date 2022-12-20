@@ -1,14 +1,14 @@
-import { Number2, String2 } from '~/lib/core';
+import { Integer, String2 } from '~/lib/core';
 import { Source } from '~/source/source';
 
 export class SourcePosition {
-  constructor(public source: Source, public index: Number2, public line: Number2, public column: Number2) {}
+  constructor(public source: Source, public index: Integer, public line: Integer, public column: Integer) {}
 
   static fromIndex = fromIndex;
   static fromLineColumn = fromLineColumn;
 }
 
-function fromIndex(source: Source, index: Number2): SourcePosition {
+function fromIndex(source: Source, index: Integer): SourcePosition {
   const linesIndex = getLinesIndex(source.text);
   const line = findLowerIndexInRangeArray(index, linesIndex);
   const column = index - linesIndex[line];
@@ -21,7 +21,7 @@ function fromIndex(source: Source, index: Number2): SourcePosition {
   };
 }
 
-function fromLineColumn(source: Source, line: Number2, column: Number2): SourcePosition {
+function fromLineColumn(source: Source, line: Integer, column: Integer): SourcePosition {
   const linesIndex = getLinesIndex(source.text);
 
   // if (line >= 0 && column >= 0 && line < linesIndex.length) {
@@ -43,7 +43,7 @@ function fromLineColumn(source: Source, line: Number2, column: Number2): SourceP
   // }
 }
 
-function getLinesIndex(str: String2): Number2[] {
+function getLinesIndex(str: String2): Integer[] {
   const lines = str.split('\n');
   const linesIndex = new Array(lines.length);
 
@@ -55,7 +55,7 @@ function getLinesIndex(str: String2): Number2[] {
   return linesIndex;
 }
 
-function findLowerIndexInRangeArray(value: Number2, linesIndex: Number2[]): Number2 {
+function findLowerIndexInRangeArray(value: Integer, linesIndex: Integer[]): Integer {
   if (value >= linesIndex[linesIndex.length - 1]) {
     return linesIndex.length - 1;
   }

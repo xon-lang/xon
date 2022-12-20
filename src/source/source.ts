@@ -1,11 +1,11 @@
 import { lstatSync, readFileSync } from 'fs';
 import { resolve } from 'path';
-import { Number2, String2 } from '~/lib/core';
+import { Integer, String2 } from '~/lib/core';
 
 export class Source {
   constructor(public text: String2, public location: String2 | null) {}
 
-  lineText(line: Number2): String2 {
+  lineText(line: Integer): String2 {
     return this.text.split('\n')[line];
   }
 
