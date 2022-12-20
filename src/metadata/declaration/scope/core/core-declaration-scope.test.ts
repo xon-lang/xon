@@ -1,6 +1,6 @@
-import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
+import { CoreDeclarationScope } from '~/metadata/declaration/scope/core/core-declaration-scope';
 
 test('none type', () => {
-  const coreScope = new TestDeclarationScope();
-  expect(coreScope.core.none).toBeTruthy();
+  const coreScope = new CoreDeclarationScope();
+  expect(coreScope.integer).toBeTruthy();
 });

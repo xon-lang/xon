@@ -1,31 +1,30 @@
 import { Boolean2, String2 } from '~/lib/core';
-import { GenericMetadata } from '~/metadata/declaration/generic/generic-metadata';
-import { ParameterMetadata } from '~/metadata/declaration/parameter/parameter-metadata';
-import { TypeMetadata } from '~/metadata/expression/type/type-metadata';
 import { Metadata } from '~/metadata/metadata';
-import { SourceSpan } from '~/source/source-span';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
+import { DefinitionDeclarationTree } from '~/tree/declaration/definition/definition-declaration-tree';
+import { OperatorDeclarationTree } from '~/tree/declaration/operator/operator-declaration-tree';
+import { ParameterDeclarationTree } from '~/tree/declaration/parameter/parameter-declaration-tree';
 
 export abstract class DeclarationMetadata extends Metadata {
-  sourceSpan: SourceSpan | null = null;
-  modifier: String2 | null = null;
-  name: String2 | null = null;
+  public name: String2;
 
-  generics: GenericMetadata[] = [];
-  parameters: ParameterMetadata[] = [];
-  type: TypeMetadata | null = null;
-
-  constructor(public tree: DeclarationTree | null) {
+  constructor(public tree: DeclarationTree) {
     super();
+    if (
+      tree instanceof DefinitionDeclarationTree ||
+      tree instanceof OperatorDeclarationTree ||
+      tree instanceof ParameterDeclarationTree
+    ) {
+      this.name = tree.name.text;
 
-    if (tree) {
-      this.sourceSpan = tree.sourceSpan;
-      this.modifier = tree.modifier?.text ?? null;
-      this.name = tree.name?.text ?? null;
+      return;
     }
+    throw new Error('Not implemented');
   }
 
+  abstract is(other: DeclarationMetadata): Boolean2;
+
   equals(other: DeclarationMetadata): Boolean2 {
-    return (other.sourceSpan && this.sourceSpan?.equals(other.sourceSpan)) ?? false;
+    return this.tree.sourceSpan?.equals(other.tree.sourceSpan);
   }
 }

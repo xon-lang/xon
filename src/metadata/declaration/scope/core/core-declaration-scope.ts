@@ -1,55 +1,75 @@
-import { DefinitionMetadata } from '~/metadata/declaration/definition/definition-metadata';
-import { ParameterMetadata } from '~/metadata/declaration/parameter/parameter-metadata';
-import { DeclarationScope } from '~/metadata/declaration/scope/declaration-scope';
+import { String2 } from '~/lib/core';
+import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata';
+import { ModelDeclarationMetadata } from '~/metadata/declaration/model/model-declaration-metadata';
+import { ObjectDeclarationMetadata } from '~/metadata/declaration/object/object-declaration-metadata';
+import { ImportProvider } from '~/metadata/import-provider';
 
 export class CoreDeclarationScope {
-  get any(): DefinitionMetadata {
-    return this.scope.filter('Any')[0] as DefinitionMetadata;
+  static instance = new CoreDeclarationScope();
+
+  get any(): ModelDeclarationMetadata {
+    return this.find<ModelDeclarationMetadata>('Any');
   }
 
-  get boolean(): DefinitionMetadata {
-    return this.scope.filter('Boolean')[0] as DefinitionMetadata;
+  get boolean(): ModelDeclarationMetadata {
+    return this.find<ModelDeclarationMetadata>('Boolean');
   }
 
-  get true(): ParameterMetadata {
-    return this.scope.filter('true')[0] as ParameterMetadata;
+  get true(): ObjectDeclarationMetadata {
+    return this.find<ObjectDeclarationMetadata>('true');
   }
 
-  get false(): ParameterMetadata {
-    return this.scope.filter('false')[0] as ParameterMetadata;
+  get false(): ObjectDeclarationMetadata {
+    return this.find<ObjectDeclarationMetadata>('false');
   }
 
-  get integer(): DefinitionMetadata {
-    return this.scope.filter('Integer')[0] as DefinitionMetadata;
+  get integer(): ModelDeclarationMetadata {
+    return this.find<ModelDeclarationMetadata>('Integer');
   }
 
-  get float(): DefinitionMetadata {
-    return this.scope.filter('Float')[0] as DefinitionMetadata;
+  get float(): ModelDeclarationMetadata {
+    return this.find<ModelDeclarationMetadata>('Float');
   }
 
-  get number(): DefinitionMetadata {
-    return this.scope.filter('Number')[0] as DefinitionMetadata;
+  get number(): ModelDeclarationMetadata {
+    return this.find<ModelDeclarationMetadata>('Number');
   }
 
-  get none(): DefinitionMetadata {
-    return this.scope.filter('null')[0] as DefinitionMetadata;
+  get none(): ModelDeclarationMetadata {
+    return this.find<ModelDeclarationMetadata>('null');
   }
 
-  get char(): DefinitionMetadata {
-    return this.scope.filter('Char')[0] as DefinitionMetadata;
+  get char(): ModelDeclarationMetadata {
+    return this.find<ModelDeclarationMetadata>('Char');
   }
 
-  get string(): DefinitionMetadata {
-    return this.scope.filter('String')[0] as DefinitionMetadata;
+  get string(): ModelDeclarationMetadata {
+    return this.find<ModelDeclarationMetadata>('String');
   }
 
-  get array(): DefinitionMetadata {
-    return this.scope.filter('Array')[0] as DefinitionMetadata;
+  get array(): ModelDeclarationMetadata {
+    return this.find<ModelDeclarationMetadata>('Array');
   }
 
-  get unknown(): DefinitionMetadata {
-    return this.scope.filter('Unknown')[0] as DefinitionMetadata;
+  get unknown(): ModelDeclarationMetadata {
+    return this.find<ModelDeclarationMetadata>('Unknown');
   }
 
-  constructor(public scope: DeclarationScope) {}
+  declarations = new Map<String2, DeclarationMetadata>();
+
+  constructor() {
+    const declarations = ImportProvider.instance.declarations('src/lib/@xon/core');
+    for (const declaration of declarations) {
+      this.declarations.set(declaration.name, declaration);
+    }
+  }
+
+  find<T extends DeclarationMetadata>(name: String2): T {
+    const declaration = this.declarations.get(name);
+    if (!declaration) {
+      throw new Error(`Declaration '${name}' not fount`);
+    }
+
+    return declaration as T;
+  }
 }
