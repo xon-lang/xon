@@ -1,4 +1,3 @@
-import { CoreDeclarationScope } from '~/metadata/declaration/scope/core/core-declaration-scope';
 import { IntegerTypeMetadata } from '~/metadata/type/integer/integer-type-metadata';
 import { getTypeMetadata } from '~/metadata/type/type-metadata-helper';
 import { parseExpression } from '~/util/parse';

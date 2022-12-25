@@ -1,9 +1,9 @@
 import { Boolean2, String2 } from '~/lib/core';
 import { Metadata } from '~/metadata/metadata';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
-import { DefinitionDeclarationTree } from '~/tree/declaration/definition/definition-declaration-tree';
 import { OperatorDeclarationTree } from '~/tree/declaration/operator/operator-declaration-tree';
 import { ParameterDeclarationTree } from '~/tree/declaration/parameter/parameter-declaration-tree';
+import { SingleDeclarationTree } from '~/tree/declaration/single/single-declaration-tree';
 
 export abstract class DeclarationMetadata extends Metadata {
   public name: String2;
@@ -11,7 +11,7 @@ export abstract class DeclarationMetadata extends Metadata {
   constructor(public tree: DeclarationTree) {
     super();
     if (
-      tree instanceof DefinitionDeclarationTree ||
+      tree instanceof SingleDeclarationTree ||
       tree instanceof OperatorDeclarationTree ||
       tree instanceof ParameterDeclarationTree
     ) {

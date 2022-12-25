@@ -7,9 +7,9 @@ import { IntegerExpressionTree } from '~/tree/expression/integer/integer-express
 export function getExpressionMetadata(tree: ExpressionTree): ExpressionMetadata {
   if (tree.metadata) {
     if (tree.metadata instanceof ExpressionMetadata) {
-      return tree.metadata as ExpressionMetadata;
+      return tree.metadata;
     }
-    Issue.errorFromTree(tree, `Wrong metadata type for "${tree.constructor.name}"`);
+    Issue.errorFromTree(tree, `Wrong expression metadata for "${tree.constructor.name}"`);
   }
   // if (tree instanceof ArrayExpressionTree) {
   //   if (tree.arguments.length === 1 && tree.openToken.text === '(' && tree.arguments[0].value) {

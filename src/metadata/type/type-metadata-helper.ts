@@ -1,5 +1,4 @@
 import { Issue } from '~/issue/issue';
-import { CoreDeclarationScope } from '~/metadata/declaration/scope/core/core-declaration-scope';
 import { IntegerTypeMetadata } from '~/metadata/type/integer/integer-type-metadata';
 import { TypeMetadata } from '~/metadata/type/type-metadata';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
@@ -148,6 +147,12 @@ import { IntegerExpressionTree } from '~/tree/expression/integer/integer-express
 // }
 
 export function getTypeMetadata(tree: ExpressionTree): TypeMetadata {
+  if (tree.metadata) {
+    if (tree.metadata instanceof TypeMetadata) {
+      return tree.metadata;
+    }
+    Issue.errorFromTree(tree, `Wrong type metadata for "${tree.constructor.name}"`);
+  }
   if (tree instanceof IntegerExpressionTree) tree.metadata = new IntegerTypeMetadata(tree.value);
 
   if (tree.metadata) return tree.metadata as TypeMetadata;

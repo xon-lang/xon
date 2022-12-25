@@ -1,11 +1,11 @@
 import { Boolean2 } from '~/lib/core';
 import { AttributeDeclarationMetadata } from '~/metadata/declaration/attribute/attribute-metadata';
 import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata';
-import { DefinitionDeclarationTree } from '~/tree/declaration/definition/definition-declaration-tree';
+import { SingleDeclarationTree } from '~/tree/declaration/single/single-declaration-tree';
 
 export class ModelDeclarationMetadata extends DeclarationMetadata {
   constructor(
-    tree: DefinitionDeclarationTree,
+    tree: SingleDeclarationTree,
     public base: ModelDeclarationMetadata | null,
     public attributes: AttributeDeclarationMetadata[],
   ) {

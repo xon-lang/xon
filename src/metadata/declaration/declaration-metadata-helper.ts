@@ -4,8 +4,9 @@ import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata
 import { ModelDeclarationMetadata } from '~/metadata/declaration/model/model-declaration-metadata';
 import { ObjectDeclarationMetadata } from '~/metadata/declaration/object/object-declaration-metadata';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
-import { DefinitionDeclarationTree } from '~/tree/declaration/definition/definition-declaration-tree';
 import { ParameterDeclarationTree } from '~/tree/declaration/parameter/parameter-declaration-tree';
+import { SingleDeclarationTree } from '~/tree/declaration/single/single-declaration-tree';
+import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { SourceTree } from '~/tree/source/source-tree';
 import { isDeclarationStatement } from '~/tree/statement/statement-tree-helper';
 
@@ -261,15 +262,21 @@ export function getSourceDeclarationMetadata(tree: SourceTree): DeclarationMetad
 }
 
 export function getDeclarationMetadata(tree: DeclarationTree): DeclarationMetadata {
-  if (tree instanceof DefinitionDeclarationTree) {
-    const attributes = tree.attributes.map(getDeclarationMetadata);
+  if (tree instanceof SingleDeclarationTree) {
+    const attributes = tree.attributes.map(getDeclarationMetadata).filter(isAttributeDeclarationMetadata);
+    if (tree.type instanceof IdExpressionTree) {
+    }
     if (tree.modifier.text === 'model') return new ModelDeclarationMetadata(tree, null, attributes);
     if (tree.modifier.text === 'object') return new ObjectDeclarationMetadata(tree, null, attributes);
   }
   if (tree instanceof ParameterDeclarationTree) {
-    if (tree.parent instanceof DefinitionDeclarationTree) {
+    if (tree.parent instanceof SingleDeclarationTree) {
       return new AttributeDeclarationMetadata(tree);
     }
   }
   Issue.errorFromTree(tree, `Declaration metadata not found for "${tree.constructor.name}"`);
 }
+
+export const isAttributeDeclarationMetadata = (
+  declaration: DeclarationMetadata,
+): declaration is AttributeDeclarationMetadata => declaration instanceof AttributeDeclarationMetadata;
