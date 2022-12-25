@@ -1,25 +1,18 @@
-import {
-  DeclarationContext,
-  DefinitionDeclarationContext,
-  DestructureDeclarationContext,
-  OperatorDeclarationContext,
-  ParameterDeclarationContext,
-} from '~/grammar/xon-parser';
+import { DeclarationContext, MultipleDeclarationContext, SingleDeclarationContext } from '~/grammar/xon-parser';
 import { Issue } from '~/issue/issue';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
-import { DefinitionDeclarationTree } from '~/tree/declaration/definition/definition-declaration-tree';
-import { DestructureDeclarationTree } from '~/tree/declaration/destructure/destructure-declaration-tree';
-import { OperatorDeclarationTree } from '~/tree/declaration/operator/operator-declaration-tree';
-import { ParameterDeclarationTree } from '~/tree/declaration/parameter/parameter-declaration-tree';
+import { MultipleDeclarationTree } from '~/tree/declaration/multiple/multiple-declaration-tree';
+import { SingleDeclarationTree } from '~/tree/declaration/single/single-declaration-tree';
 
 export function getDeclarationTree(ctx: DeclarationContext): DeclarationTree {
-  if (ctx instanceof DestructureDeclarationContext) return new DestructureDeclarationTree(ctx);
-  if (ctx instanceof ParameterDeclarationContext) return new ParameterDeclarationTree(ctx);
-  if (ctx instanceof OperatorDeclarationContext) return new OperatorDeclarationTree(ctx);
-  if (ctx instanceof DefinitionDeclarationContext) return new DefinitionDeclarationTree(ctx);
+  if (ctx instanceof MultipleDeclarationContext) return new MultipleDeclarationTree(ctx);
+  if (ctx instanceof SingleDeclarationContext) return new SingleDeclarationTree(ctx);
 
   Issue.errorFromContext(ctx, `Declaration tree not found for "${ctx.constructor.name}"`);
 }
 
-export const isDefinitionDeclaration = (declaration: DeclarationTree): declaration is DefinitionDeclarationTree =>
-  declaration instanceof DefinitionDeclarationTree;
+export const isSingleDeclaration = (declaration: DeclarationTree): declaration is SingleDeclarationTree =>
+  declaration instanceof SingleDeclarationTree;
+
+export const isMultipleDeclaration = (declaration: DeclarationTree): declaration is MultipleDeclarationTree =>
+  declaration instanceof MultipleDeclarationTree;
