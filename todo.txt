@@ -23,3 +23,7 @@ drafts:
     type: { { ...Number } }
 
 move all parse functions to helpers
+
+Model
+Class is Model
+Object is Class
