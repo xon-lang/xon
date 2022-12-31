@@ -37,14 +37,9 @@ expression
   ;
 
 declarations: OPEN (declaration (COMMA declaration)* COMMA?)? CLOSE;
-declaration
-  : ID ID declarations* type? value?      # definitionDeclaration
-  | ID? ID type? value?                   # parameterDeclaration
-  | ID? OP type? value?                   # operatorDeclaration
-  | ID? declarations (type? value | type) # destructureDeclaration
-  ;
-arguments: OPEN (argument (COMMA argument)* COMMA?)? CLOSE;
-argument:  (ID ASSIGN)? expression;
+declaration:  modifier = ID? name = (ID | OP) declarations* type? value?;
+arguments:    OPEN (argument (COMMA argument)* COMMA?)? CLOSE;
+argument:     (ID ASSIGN)? expression;
 
 type:  COLON expression?;
 value: ASSIGN expression? | body;
