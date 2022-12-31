@@ -53,7 +53,9 @@ test('method with method type', () => {
 
   expect(tree).toBeInstanceOf(LambdaExpressionTree);
   expect(tree.parameters.length).toBe(1);
-  expect((tree.statement as LambdaExpressionTree).statement).toBeInstanceOf(LambdaExpressionTree);
-  expect((tree.statement as LambdaExpressionTree).parameters.length).toBe(2);
-  expect((tree.statement as LambdaExpressionTree).statement).toBeInstanceOf(InfixExpressionTree);
+  expect((tree.statement as ExpressionStatementTree).expression).toBeInstanceOf(LambdaExpressionTree);
+  expect(((tree.statement as ExpressionStatementTree).expression as LambdaExpressionTree).parameters.length).toBe(2);
+  const innerLambda = ((tree.statement as ExpressionStatementTree).expression as LambdaExpressionTree)
+    .statement as ExpressionStatementTree;
+  expect(innerLambda.expression).toBeInstanceOf(InfixExpressionTree);
 });
