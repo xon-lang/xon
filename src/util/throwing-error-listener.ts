@@ -8,7 +8,6 @@ import {
   Recognizer,
 } from 'antlr4ts';
 import { Issue } from '~/issue/issue';
-import { IssueLevel } from '~/issue/issue-level';
 import { Any, Integer, Never, String2 } from '~/lib/core';
 import { SourceSpan } from '~/source/source-span';
 
@@ -37,10 +36,7 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
     }
 
     if (sourceSpan) {
-      // sourceSpan.location = recognizer.inputStream?.location ?? null;
-      const issue = new Issue(sourceSpan, IssueLevel.error, message);
-      issue.antlrError = exception ?? null;
-      throw issue;
+      Issue.errorFromSourceSpan(sourceSpan, message);
     }
     throw exception;
   }
