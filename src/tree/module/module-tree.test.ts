@@ -5,7 +5,7 @@ test('module from path', () => {
   const tree = getModuleTreeFromPath('src/lib/@xon/core');
 
   expect(tree).toBeInstanceOf(ModuleTree);
-  expect(tree.children.length).toBe(9);
+  expect(tree.children.length).toBe(10);
 
   const testModule = tree.children.find((x) => x instanceof ModuleTree) as ModuleTree;
   expect(testModule).toBeInstanceOf(ModuleTree);

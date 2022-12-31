@@ -1,5 +1,4 @@
 import {
-  AssertStatementContext,
   CommentStatementContext,
   DeclarationStatementContext,
   ExportStatementContext,
@@ -12,7 +11,6 @@ import {
   WhileStatementContext,
 } from '~/grammar/xon-parser';
 import { Issue } from '~/issue/issue';
-import { AssertStatementTree } from '~/tree/statement/assert/assert-statement-tree';
 import { CommentStatementTree } from '~/tree/statement/comment/comment-statement-tree';
 import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
 import { ExportStatementTree } from '~/tree/statement/export/export-statement-tree';
@@ -25,7 +23,6 @@ import { StatementTree } from '~/tree/statement/statement-tree';
 import { WhileStatementTree } from '~/tree/statement/while/while-statement-tree';
 
 export function getStatementTree(ctx: StatementContext): StatementTree {
-  if (ctx instanceof AssertStatementContext) return new AssertStatementTree(ctx);
   if (ctx instanceof DeclarationStatementContext) return new DeclarationStatementTree(ctx);
   if (ctx instanceof ExportStatementContext) return new ExportStatementTree(ctx);
   if (ctx instanceof ExpressionStatementContext) return new ExpressionStatementTree(ctx);

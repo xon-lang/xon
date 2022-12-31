@@ -5,10 +5,10 @@ import { getExpressionMetadata } from '~/metadata/expression/expression-metadata
 import { ValueMetadata } from '~/metadata/expression/value/value-metadata';
 import { MethodTypeMetadata } from '~/metadata/type/method/method-type-metadata';
 import { TypeMetadata } from '~/metadata/type/type-metadata';
-import { MethodExpressionTree } from '~/tree/expression/method/method-expression-tree';
+import { LambdaExpressionTree } from '~/tree/expression/lambda/lambda-expression-tree';
 
 export class MethodValueMetadata extends ValueMetadata {
-  constructor(private tree: MethodExpressionTree) {
+  constructor(private tree: LambdaExpressionTree) {
     super();
     tree.parameters.forEach((x) => {
       x.metadata = getShadowParameterMetadata(x);
@@ -18,17 +18,17 @@ export class MethodValueMetadata extends ValueMetadata {
       tree.scope.add(x.metadata);
       fillParameterMetadata(x, null);
     });
-    getExpressionMetadata(tree.value);
+    getExpressionMetadata(tree.statement);
   }
 
   type(): TypeMetadata | null {
-    if (!(this.tree.value.metadata instanceof ValueMetadata)) {
-      this.tree.value.addError('Should be a ValueMetadata');
+    if (!(this.tree.statement.metadata instanceof ValueMetadata)) {
+      this.tree.statement.addError('Should be a ValueMetadata');
 
       return null;
     }
 
-    const resultType = this.tree.value.metadata.type();
+    const resultType = this.tree.statement.metadata.type();
     if (!resultType) return null;
 
     return new MethodTypeMetadata(

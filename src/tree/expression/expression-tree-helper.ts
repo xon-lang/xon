@@ -6,8 +6,8 @@ import {
   InfixExpressionContext,
   IntegerExpressionContext,
   InvokeExpressionContext,
+  LambdaExpressionContext,
   MemberExpressionContext,
-  MethodExpressionContext,
   NullableExpressionContext,
   PrefixExpressionContext,
   PreprocessorExpressionContext,
@@ -21,8 +21,8 @@ import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tree';
 import { IntegerExpressionTree } from '~/tree/expression/integer/integer-expression-tree';
 import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
+import { LambdaExpressionTree } from '~/tree/expression/lambda/lambda-expression-tree';
 import { MemberExpressionTree } from '~/tree/expression/member/member-expression-tree';
-import { MethodExpressionTree } from '~/tree/expression/method/method-expression-tree';
 import { NullableExpressionTree } from '~/tree/expression/nullable/nullable-expression-tree';
 import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
 import { PreprocessorExpressionTree } from '~/tree/expression/preprocessor/preprocessor-expression-tree';
@@ -38,7 +38,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);
   if (ctx instanceof InvokeExpressionContext) return new InvokeExpressionTree(ctx);
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
-  if (ctx instanceof MethodExpressionContext) return new MethodExpressionTree(ctx);
+  if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
   if (ctx instanceof NullableExpressionContext) return new NullableExpressionTree(ctx);
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
 
