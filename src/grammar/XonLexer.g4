@@ -23,12 +23,10 @@ tokens {
 OPEN:  ('(' | '[' | '{') {this.opened++;};
 CLOSE: (')' | ']' | '}') {this.opened--;};
 
-ACTUAL:   'actual';
 BREAK:    'break';
 CONTINUE: 'continue';
 DO:       'do';
 ELSE:     'else';
-EXPECT:   'expect';
 EXPORT:   'export';
 FOR:      'for';
 IF:       'if';

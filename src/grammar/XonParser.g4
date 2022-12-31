@@ -6,19 +6,18 @@ options {
 }
 
 statement
-  : LINE_COMMENT                            # commentStatement
-  | IMPORT expression? declarations?        # importStatement
-  | EXPORT expression?                      # exportStatement
-  | FOR (declaration? IN)? expression body  # forStatement
-  | WHILE expression body                   # whileStatement
-  | DO body WHILE expression                # doWhileStatement
-  | IF expression body NL* (ELSE body)?     # ifStatement
-  | BREAK                                   # breakStatement
-  | CONTINUE                                # continueStatement
-  | RETURN expression?                      # returnStatement
-  | ACTUAL expression NL* EXPECT expression # assertStatement
-  | declaration                             # declarationStatement
-  | expression                              # expressionStatement
+  : LINE_COMMENT                           # commentStatement
+  | IMPORT expression? declarations?       # importStatement
+  | EXPORT expression?                     # exportStatement
+  | FOR (declaration? IN)? expression body # forStatement
+  | WHILE expression body                  # whileStatement
+  | DO body WHILE expression               # doWhileStatement
+  | IF expression body NL* (ELSE body)?    # ifStatement
+  | BREAK                                  # breakStatement
+  | CONTINUE                               # continueStatement
+  | RETURN expression?                     # returnStatement
+  | declaration                            # declarationStatement
+  | expression                             # expressionStatement
   ;
 
 expression
@@ -28,29 +27,27 @@ expression
   | STRING                          # stringExpression
   | arguments                       # arrayExpression
   | expression QUESTION             # nullableExpression
-  | expression DOT id?              # memberExpression
-  | expression META id?             # metaExpression
-  | expression arguments            # invokeExpression
-  | id                              # idExpression
+  | expression DOT ID?              # memberExpression
+  | expression META ID?             # metaExpression
+  | expression arguments+           # invokeExpression
+  | ID                              # idExpression
   | expression OP expression        # infixExpression
   | OP expression                   # prefixExpression
   | declarations* LAMBDA expression # methodExpression
   ;
 
+declarations: OPEN (declaration (COMMA declaration)* COMMA?)? CLOSE;
 declaration
-  : id id declarations* type? value? # definitionDeclaration
-  | declarations type? value?        # destructureDeclaration
-  | id type? value?                  # parameterDeclaration
-  | OP type? value?                  # operatorDeclaration
+  : ID ID declarations* type? value?      # definitionDeclaration
+  | ID? ID type? value?                   # parameterDeclaration
+  | ID? OP type? value?                   # operatorDeclaration
+  | ID? declarations (type? value | type) # destructureDeclaration
   ;
+arguments: OPEN (argument (COMMA argument)* COMMA?)? CLOSE;
+argument:  (ID ASSIGN)? expression;
 
 type:  COLON expression?;
 value: ASSIGN expression? | body;
 
-declarations: OPEN (declaration (COMMA declaration)* COMMA?)? CLOSE;
-arguments:    OPEN (argument (COMMA argument)* COMMA?)? CLOSE;
-argument:     (id ASSIGN)? expression;
-
 body:   NL INDENT source DEDENT;
 source: NL? (statement nl += NL)* statement? NL?;
-id:     ID | ACTUAL | BREAK | CONTINUE | DO | ELSE | EXPECT | EXPORT | FOR | IF | IN | RETURN | WHILE;
