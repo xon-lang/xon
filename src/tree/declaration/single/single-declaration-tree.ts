@@ -17,7 +17,7 @@ export class SingleDeclarationTree extends DeclarationTree {
   sourceSpan: SourceSpan;
   modifier: Token | null = null;
   name: Token;
-  generics: DeclarationTree[] | null = null;
+  generics: SingleDeclarationTree[] | null = null;
 
   get base(): ExpressionTree | null {
     return this.type;
