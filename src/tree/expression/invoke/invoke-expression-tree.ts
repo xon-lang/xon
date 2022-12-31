@@ -11,6 +11,7 @@ export class InvokeExpressionTree extends ExpressionTree {
   instance: ExpressionTree;
   generics: ArgumentTree[] | null = null;
   arguments: ArgumentTree[] | null = null;
+  indexers: ArgumentTree[] | null = null;
 
   constructor(ctx: InvokeExpressionContext) {
     super();
@@ -21,8 +22,11 @@ export class InvokeExpressionTree extends ExpressionTree {
     const generics = ctx.arguments().find((x) => x.OPEN().text === '{');
     this.generics = generics?.argument().map(getArgumentTree) ?? null;
 
-    const args = ctx.arguments().find((x) => x.OPEN().text === '[');
+    const args = ctx.arguments().find((x) => x.OPEN().text === '(');
     this.arguments = args?.argument().map(getArgumentTree) ?? null;
+
+    const indexers = ctx.arguments().find((x) => x.OPEN().text === '[');
+    this.indexers = indexers?.argument().map(getArgumentTree) ?? null;
 
     this.addChildren(this.instance, ...(this.generics ?? []), ...(this.arguments ?? []));
   }
