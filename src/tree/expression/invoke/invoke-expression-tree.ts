@@ -10,18 +10,24 @@ export class InvokeExpressionTree extends ExpressionTree {
   ctx: InvokeExpressionContext;
   sourceSpan: SourceSpan;
   instance: ExpressionTree;
+  generics: ArgumentTree[];
   arguments: ArgumentTree[];
-  open: Token;
-  close: Token;
+  openGenerics: Token | null;
+  closeGenerics: Token | null;
+  openArguments: Token;
+  closeArguments: Token;
 
   constructor(ctx: InvokeExpressionContext) {
     super();
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
     this.instance = getExpressionTree(ctx.expression());
-    this.arguments = ctx.arguments().argument().map(getArgumentTree);
-    this.open = Token.from(ctx.arguments().OPEN());
-    this.close = Token.from(ctx.arguments().CLOSE());
+
+    const args = ctx.arguments().find((x) => x.OPEN().text === '[');
+    this.arguments = args?.argument().map(getArgumentTree) ?? [];
+    this.openArguments = argsToken.from(args.OPEN());
+    this.closeArguments = argsToken.from(args.CLOSE());
+
     this.addChildren(this.instance, ...this.arguments);
   }
 }
