@@ -28,7 +28,7 @@ export class ThrowingErrorListener<TSymbol> implements ANTLRErrorListener<TSymbo
     if (!exception) {
       sourceSpan = SourceSpan.fromToken(offendingSymbol);
     } else if (exception instanceof NoViableAltException) {
-      sourceSpan = SourceSpan.fromTwoTokens(offendingSymbol, offendingSymbol);
+      sourceSpan = SourceSpan.fromTwoTokens(exception.startToken, offendingSymbol);
     } else if (exception instanceof InputMismatchException) {
       sourceSpan = SourceSpan.fromToken(offendingSymbol);
     } else if (exception instanceof FailedPredicateException) {
