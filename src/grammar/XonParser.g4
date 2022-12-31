@@ -33,7 +33,7 @@ expression
   | ID                             # idExpression
   | expression OP expression       # infixExpression
   | OP expression                  # prefixExpression
-  | declarations* LAMBDA statement # methodExpression
+  | declarations* LAMBDA statement # lambdaExpression
   ;
 
 declarations: OPEN (declaration (COMMA declaration)* COMMA?)? CLOSE;

@@ -450,7 +450,7 @@ export class XonParser extends Parser {
 
 			case 8:
 				{
-				_localctx = new MethodExpressionContext(_localctx);
+				_localctx = new LambdaExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 86;
@@ -1616,7 +1616,7 @@ export class PrefixExpressionContext extends ExpressionContext {
 		this.copyFrom(ctx);
 	}
 }
-export class MethodExpressionContext extends ExpressionContext {
+export class LambdaExpressionContext extends ExpressionContext {
 	public LAMBDA(): TerminalNode { return this.getToken(XonParser.LAMBDA, 0); }
 	public statement(): StatementContext {
 		return this.getRuleContext(0, StatementContext);
