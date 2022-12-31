@@ -150,14 +150,14 @@ export class XonParser extends Parser {
 				}
 				this.state = 26;
 				this._errHandler.sync(this);
-				switch ( this.interpreter.adaptivePredict(this._input, 1, this._ctx) ) {
-				case 1:
+				_la = this._input.LA(1);
+				if (_la === XonParser.OPEN) {
 					{
 					this.state = 25;
 					this.declarations();
 					}
-					break;
 				}
+
 				}
 				break;
 
@@ -169,14 +169,14 @@ export class XonParser extends Parser {
 				this.match(XonParser.EXPORT);
 				this.state = 30;
 				this._errHandler.sync(this);
-				switch ( this.interpreter.adaptivePredict(this._input, 2, this._ctx) ) {
-				case 1:
+				_la = this._input.LA(1);
+				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN) | (1 << XonParser.LAMBDA) | (1 << XonParser.FLOAT) | (1 << XonParser.INTEGER) | (1 << XonParser.STRING) | (1 << XonParser.PREPROCESSOR) | (1 << XonParser.ID) | (1 << XonParser.OP))) !== 0)) {
 					{
 					this.state = 29;
 					this.expression(0);
 					}
-					break;
 				}
+
 				}
 				break;
 
@@ -269,16 +269,16 @@ export class XonParser extends Parser {
 				}
 				this.state = 62;
 				this._errHandler.sync(this);
-				switch ( this.interpreter.adaptivePredict(this._input, 6, this._ctx) ) {
-				case 1:
+				_la = this._input.LA(1);
+				if (_la === XonParser.ELSE) {
 					{
 					this.state = 60;
 					this.match(XonParser.ELSE);
 					this.state = 61;
 					this.body();
 					}
-					break;
 				}
+
 				}
 				break;
 
@@ -308,14 +308,14 @@ export class XonParser extends Parser {
 				this.match(XonParser.RETURN);
 				this.state = 68;
 				this._errHandler.sync(this);
-				switch ( this.interpreter.adaptivePredict(this._input, 7, this._ctx) ) {
-				case 1:
+				_la = this._input.LA(1);
+				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN) | (1 << XonParser.LAMBDA) | (1 << XonParser.FLOAT) | (1 << XonParser.INTEGER) | (1 << XonParser.STRING) | (1 << XonParser.PREPROCESSOR) | (1 << XonParser.ID) | (1 << XonParser.OP))) !== 0)) {
 					{
 					this.state = 67;
 					this.expression(0);
 					}
-					break;
 				}
+
 				}
 				break;
 
@@ -470,7 +470,7 @@ export class XonParser extends Parser {
 				this.state = 89;
 				this.match(XonParser.LAMBDA);
 				this.state = 90;
-				this.statement();
+				this.expression(1);
 				}
 				break;
 			}
@@ -688,7 +688,6 @@ export class XonParser extends Parser {
 		this.enterRule(_localctx, 6, XonParser.RULE_declaration);
 		let _la: number;
 		try {
-			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
 			this.state = 136;
@@ -716,30 +715,28 @@ export class XonParser extends Parser {
 			}
 			this.state = 142;
 			this._errHandler.sync(this);
-			_alt = this.interpreter.adaptivePredict(this._input, 20, this._ctx);
-			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
-				if (_alt === 1) {
-					{
-					{
-					this.state = 139;
-					this.declarations();
-					}
-					}
+			_la = this._input.LA(1);
+			while (_la === XonParser.OPEN) {
+				{
+				{
+				this.state = 139;
+				this.declarations();
+				}
 				}
 				this.state = 144;
 				this._errHandler.sync(this);
-				_alt = this.interpreter.adaptivePredict(this._input, 20, this._ctx);
+				_la = this._input.LA(1);
 			}
 			this.state = 146;
 			this._errHandler.sync(this);
-			switch ( this.interpreter.adaptivePredict(this._input, 21, this._ctx) ) {
-			case 1:
+			_la = this._input.LA(1);
+			if (_la === XonParser.COLON) {
 				{
 				this.state = 145;
 				this.type();
 				}
-				break;
 			}
+
 			this.state = 149;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 22, this._ctx) ) {
@@ -874,6 +871,7 @@ export class XonParser extends Parser {
 	public type(): TypeContext {
 		let _localctx: TypeContext = new TypeContext(this._ctx, this.state);
 		this.enterRule(_localctx, 12, XonParser.RULE_type);
+		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
@@ -881,14 +879,14 @@ export class XonParser extends Parser {
 			this.match(XonParser.COLON);
 			this.state = 175;
 			this._errHandler.sync(this);
-			switch ( this.interpreter.adaptivePredict(this._input, 27, this._ctx) ) {
-			case 1:
+			_la = this._input.LA(1);
+			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN) | (1 << XonParser.LAMBDA) | (1 << XonParser.FLOAT) | (1 << XonParser.INTEGER) | (1 << XonParser.STRING) | (1 << XonParser.PREPROCESSOR) | (1 << XonParser.ID) | (1 << XonParser.OP))) !== 0)) {
 				{
 				this.state = 174;
 				this.expression(0);
 				}
-				break;
 			}
+
 			}
 		}
 		catch (re) {
@@ -909,6 +907,7 @@ export class XonParser extends Parser {
 	public value(): ValueContext {
 		let _localctx: ValueContext = new ValueContext(this._ctx, this.state);
 		this.enterRule(_localctx, 14, XonParser.RULE_value);
+		let _la: number;
 		try {
 			this.state = 182;
 			this._errHandler.sync(this);
@@ -920,14 +919,14 @@ export class XonParser extends Parser {
 				this.match(XonParser.ASSIGN);
 				this.state = 179;
 				this._errHandler.sync(this);
-				switch ( this.interpreter.adaptivePredict(this._input, 28, this._ctx) ) {
-				case 1:
+				_la = this._input.LA(1);
+				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN) | (1 << XonParser.LAMBDA) | (1 << XonParser.FLOAT) | (1 << XonParser.INTEGER) | (1 << XonParser.STRING) | (1 << XonParser.PREPROCESSOR) | (1 << XonParser.ID) | (1 << XonParser.OP))) !== 0)) {
 					{
 					this.state = 178;
 					this.expression(0);
 					}
-					break;
 				}
+
 				}
 				break;
 			case XonParser.NL:
@@ -1140,7 +1139,7 @@ export class XonParser extends Parser {
 		"^\x07\x19\x02\x02P^\x07\x1B\x02\x02Q^\x05\n\x06\x02R^\x07\x1D\x02\x02" +
 		"ST\x07\x1E\x02\x02T^\x05\x04\x03\x04UW\x05\x06\x04\x02VU\x03\x02\x02\x02" +
 		"WZ\x03\x02\x02\x02XV\x03\x02\x02\x02XY\x03\x02\x02\x02Y[\x03\x02\x02\x02" +
-		"ZX\x03\x02\x02\x02[\\\x07\x18\x02\x02\\^\x05\x02\x02\x02]L\x03\x02\x02" +
+		"ZX\x03\x02\x02\x02[\\\x07\x18\x02\x02\\^\x05\x04\x03\x03]L\x03\x02\x02" +
 		"\x02]N\x03\x02\x02\x02]O\x03\x02\x02\x02]P\x03\x02\x02\x02]Q\x03\x02\x02" +
 		"\x02]R\x03\x02\x02\x02]S\x03\x02\x02\x02]X\x03\x02\x02\x02^v\x03\x02\x02" +
 		"\x02_`\f\x05\x02\x02`a\x07\x1E\x02\x02au\x05\x04\x03\x06bc\f\n\x02\x02" +
@@ -1488,8 +1487,8 @@ export class PrefixExpressionContext extends ExpressionContext {
 }
 export class LambdaExpressionContext extends ExpressionContext {
 	public LAMBDA(): TerminalNode { return this.getToken(XonParser.LAMBDA, 0); }
-	public statement(): StatementContext {
-		return this.getRuleContext(0, StatementContext);
+	public expression(): ExpressionContext {
+		return this.getRuleContext(0, ExpressionContext);
 	}
 	public declarations(): DeclarationsContext[];
 	public declarations(i: number): DeclarationsContext;
