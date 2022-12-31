@@ -1,0 +1,6 @@
+type model
+  allowParameters = true
+
+type class
+
+type factory
