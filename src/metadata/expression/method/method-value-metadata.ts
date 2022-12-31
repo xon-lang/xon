@@ -18,17 +18,17 @@ export class MethodValueMetadata extends ValueMetadata {
       tree.scope.add(x.metadata);
       fillParameterMetadata(x, null);
     });
-    getExpressionMetadata(tree.statement);
+    getExpressionMetadata(tree.expression);
   }
 
   type(): TypeMetadata | null {
-    if (!(this.tree.statement.metadata instanceof ValueMetadata)) {
-      this.tree.statement.addError('Should be a ValueMetadata');
+    if (!(this.tree.expression.metadata instanceof ValueMetadata)) {
+      this.tree.expression.addError('Should be a ValueMetadata');
 
       return null;
     }
 
-    const resultType = this.tree.statement.metadata.type();
+    const resultType = this.tree.expression.metadata.type();
     if (!resultType) return null;
 
     return new MethodTypeMetadata(

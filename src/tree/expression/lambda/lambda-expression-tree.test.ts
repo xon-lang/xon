@@ -1,7 +1,6 @@
 import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tree';
 import { LambdaExpressionTree } from '~/tree/expression/lambda/lambda-expression-tree';
-import { ExpressionStatementTree } from '~/tree/statement/expression/expression-statement-tree';
 import { evaluate } from '~/util/evaluate';
 import { parseExpression } from '~/util/parse';
 
@@ -13,7 +12,7 @@ test('has argument', () => {
   expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].name?.text).toBe('x');
   expect(
-    evaluate((tree.statement as ExpressionStatementTree).expression, {
+    evaluate(tree.expression, {
       x: 37,
     }),
   ).toBe(37 + 42);
@@ -32,7 +31,7 @@ test('generics', () => {
   expect(tree.parameters.length).toBe(1);
   expect(tree.parameters[0].name?.text).toBe('x');
   expect(
-    evaluate((tree.statement as ExpressionStatementTree).expression, {
+    evaluate(tree.expression, {
       x: 37,
     }),
   ).toBe(37 + 42);
@@ -44,7 +43,7 @@ test('no arguments', () => {
 
   expect(tree).toBeInstanceOf(LambdaExpressionTree);
   expect(tree.parameters.length).toBe(0);
-  expect(evaluate((tree.statement as ExpressionStatementTree).expression)).toBe(42 + 45);
+  expect(evaluate(tree.expression)).toBe(42 + 45);
 });
 
 test('method with method type', () => {
@@ -53,9 +52,7 @@ test('method with method type', () => {
 
   expect(tree).toBeInstanceOf(LambdaExpressionTree);
   expect(tree.parameters.length).toBe(1);
-  expect((tree.statement as ExpressionStatementTree).expression).toBeInstanceOf(LambdaExpressionTree);
-  expect(((tree.statement as ExpressionStatementTree).expression as LambdaExpressionTree).parameters.length).toBe(2);
-  const innerLambda = ((tree.statement as ExpressionStatementTree).expression as LambdaExpressionTree)
-    .statement as ExpressionStatementTree;
-  expect(innerLambda.expression).toBeInstanceOf(InfixExpressionTree);
+  expect(tree).toBeInstanceOf(LambdaExpressionTree);
+  expect((tree as LambdaExpressionTree).parameters.length).toBe(2);
+  expect((tree.expression as LambdaExpressionTree).expression).toBeInstanceOf(InfixExpressionTree);
 });
