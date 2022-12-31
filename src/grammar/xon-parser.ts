@@ -150,14 +150,14 @@ export class XonParser extends Parser {
 				}
 				this.state = 26;
 				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-				if (_la === XonParser.OPEN) {
+				switch ( this.interpreter.adaptivePredict(this._input, 1, this._ctx) ) {
+				case 1:
 					{
 					this.state = 25;
 					this.declarations();
 					}
+					break;
 				}
-
 				}
 				break;
 
@@ -169,14 +169,14 @@ export class XonParser extends Parser {
 				this.match(XonParser.EXPORT);
 				this.state = 30;
 				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN) | (1 << XonParser.LAMBDA) | (1 << XonParser.FLOAT) | (1 << XonParser.INTEGER) | (1 << XonParser.STRING) | (1 << XonParser.PREPROCESSOR) | (1 << XonParser.ID) | (1 << XonParser.OP))) !== 0)) {
+				switch ( this.interpreter.adaptivePredict(this._input, 2, this._ctx) ) {
+				case 1:
 					{
 					this.state = 29;
 					this.expression(0);
 					}
+					break;
 				}
-
 				}
 				break;
 
@@ -269,16 +269,16 @@ export class XonParser extends Parser {
 				}
 				this.state = 62;
 				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-				if (_la === XonParser.ELSE) {
+				switch ( this.interpreter.adaptivePredict(this._input, 6, this._ctx) ) {
+				case 1:
 					{
 					this.state = 60;
 					this.match(XonParser.ELSE);
 					this.state = 61;
 					this.body();
 					}
+					break;
 				}
-
 				}
 				break;
 
@@ -308,14 +308,14 @@ export class XonParser extends Parser {
 				this.match(XonParser.RETURN);
 				this.state = 68;
 				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN) | (1 << XonParser.LAMBDA) | (1 << XonParser.FLOAT) | (1 << XonParser.INTEGER) | (1 << XonParser.STRING) | (1 << XonParser.PREPROCESSOR) | (1 << XonParser.ID) | (1 << XonParser.OP))) !== 0)) {
+				switch ( this.interpreter.adaptivePredict(this._input, 7, this._ctx) ) {
+				case 1:
 					{
 					this.state = 67;
 					this.expression(0);
 					}
+					break;
 				}
-
 				}
 				break;
 
@@ -470,7 +470,7 @@ export class XonParser extends Parser {
 				this.state = 89;
 				this.match(XonParser.LAMBDA);
 				this.state = 90;
-				this.expression(1);
+				this.statement();
 				}
 				break;
 			}
@@ -688,6 +688,7 @@ export class XonParser extends Parser {
 		this.enterRule(_localctx, 6, XonParser.RULE_declaration);
 		let _la: number;
 		try {
+			let _alt: number;
 			this.state = 180;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 31, this._ctx) ) {
@@ -701,28 +702,30 @@ export class XonParser extends Parser {
 				this.match(XonParser.ID);
 				this.state = 140;
 				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-				while (_la === XonParser.OPEN) {
-					{
-					{
-					this.state = 137;
-					this.declarations();
-					}
+				_alt = this.interpreter.adaptivePredict(this._input, 19, this._ctx);
+				while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
+					if (_alt === 1) {
+						{
+						{
+						this.state = 137;
+						this.declarations();
+						}
+						}
 					}
 					this.state = 142;
 					this._errHandler.sync(this);
-					_la = this._input.LA(1);
+					_alt = this.interpreter.adaptivePredict(this._input, 19, this._ctx);
 				}
 				this.state = 144;
 				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-				if (_la === XonParser.COLON) {
+				switch ( this.interpreter.adaptivePredict(this._input, 20, this._ctx) ) {
+				case 1:
 					{
 					this.state = 143;
 					this.type();
 					}
+					break;
 				}
-
 				this.state = 147;
 				this._errHandler.sync(this);
 				switch ( this.interpreter.adaptivePredict(this._input, 21, this._ctx) ) {
@@ -754,14 +757,14 @@ export class XonParser extends Parser {
 				this.match(XonParser.ID);
 				this.state = 154;
 				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-				if (_la === XonParser.COLON) {
+				switch ( this.interpreter.adaptivePredict(this._input, 23, this._ctx) ) {
+				case 1:
 					{
 					this.state = 153;
 					this.type();
 					}
+					break;
 				}
-
 				this.state = 157;
 				this._errHandler.sync(this);
 				switch ( this.interpreter.adaptivePredict(this._input, 24, this._ctx) ) {
@@ -793,14 +796,14 @@ export class XonParser extends Parser {
 				this.match(XonParser.OP);
 				this.state = 164;
 				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-				if (_la === XonParser.COLON) {
+				switch ( this.interpreter.adaptivePredict(this._input, 26, this._ctx) ) {
+				case 1:
 					{
 					this.state = 163;
 					this.type();
 					}
+					break;
 				}
-
 				this.state = 167;
 				this._errHandler.sync(this);
 				switch ( this.interpreter.adaptivePredict(this._input, 27, this._ctx) ) {
@@ -983,7 +986,6 @@ export class XonParser extends Parser {
 	public type(): TypeContext {
 		let _localctx: TypeContext = new TypeContext(this._ctx, this.state);
 		this.enterRule(_localctx, 12, XonParser.RULE_type);
-		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
@@ -991,14 +993,14 @@ export class XonParser extends Parser {
 			this.match(XonParser.COLON);
 			this.state = 206;
 			this._errHandler.sync(this);
-			_la = this._input.LA(1);
-			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN) | (1 << XonParser.LAMBDA) | (1 << XonParser.FLOAT) | (1 << XonParser.INTEGER) | (1 << XonParser.STRING) | (1 << XonParser.PREPROCESSOR) | (1 << XonParser.ID) | (1 << XonParser.OP))) !== 0)) {
+			switch ( this.interpreter.adaptivePredict(this._input, 36, this._ctx) ) {
+			case 1:
 				{
 				this.state = 205;
 				this.expression(0);
 				}
+				break;
 			}
-
 			}
 		}
 		catch (re) {
@@ -1019,7 +1021,6 @@ export class XonParser extends Parser {
 	public value(): ValueContext {
 		let _localctx: ValueContext = new ValueContext(this._ctx, this.state);
 		this.enterRule(_localctx, 14, XonParser.RULE_value);
-		let _la: number;
 		try {
 			this.state = 213;
 			this._errHandler.sync(this);
@@ -1031,14 +1032,14 @@ export class XonParser extends Parser {
 				this.match(XonParser.ASSIGN);
 				this.state = 210;
 				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN) | (1 << XonParser.LAMBDA) | (1 << XonParser.FLOAT) | (1 << XonParser.INTEGER) | (1 << XonParser.STRING) | (1 << XonParser.PREPROCESSOR) | (1 << XonParser.ID) | (1 << XonParser.OP))) !== 0)) {
+				switch ( this.interpreter.adaptivePredict(this._input, 37, this._ctx) ) {
+				case 1:
 					{
 					this.state = 209;
 					this.expression(0);
 					}
+					break;
 				}
-
 				}
 				break;
 			case XonParser.NL:
@@ -1255,7 +1256,7 @@ export class XonParser extends Parser {
 		"P^\x07\x1B\x02\x02Q^\x05\n\x06\x02R^\x07\x1D\x02\x02ST\x07\x1E\x02\x02" +
 		"T^\x05\x04\x03\x04UW\x05\x06\x04\x02VU\x03\x02\x02\x02WZ\x03\x02\x02\x02" +
 		"XV\x03\x02\x02\x02XY\x03\x02\x02\x02Y[\x03\x02\x02\x02ZX\x03\x02\x02\x02" +
-		"[\\\x07\x18\x02\x02\\^\x05\x04\x03\x03]L\x03\x02\x02\x02]N\x03\x02\x02" +
+		"[\\\x07\x18\x02\x02\\^\x05\x02\x02\x02]L\x03\x02\x02\x02]N\x03\x02\x02" +
 		"\x02]O\x03\x02\x02\x02]P\x03\x02\x02\x02]Q\x03\x02\x02\x02]R\x03\x02\x02" +
 		"\x02]S\x03\x02\x02\x02]X\x03\x02\x02\x02^v\x03\x02\x02\x02_`\f\x05\x02" +
 		"\x02`a\x07\x1E\x02\x02au\x05\x04\x03\x06bc\f\n\x02\x02cu\x07\x14\x02\x02" +
@@ -1617,8 +1618,8 @@ export class PrefixExpressionContext extends ExpressionContext {
 }
 export class MethodExpressionContext extends ExpressionContext {
 	public LAMBDA(): TerminalNode { return this.getToken(XonParser.LAMBDA, 0); }
-	public expression(): ExpressionContext {
-		return this.getRuleContext(0, ExpressionContext);
+	public statement(): StatementContext {
+		return this.getRuleContext(0, StatementContext);
 	}
 	public declarations(): DeclarationsContext[];
 	public declarations(i: number): DeclarationsContext;

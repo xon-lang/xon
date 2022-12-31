@@ -21,19 +21,19 @@ statement
   ;
 
 expression
-  : PREPROCESSOR                    # preprocessorExpression
-  | INTEGER                         # integerExpression
-  | FLOAT                           # floatExpression
-  | STRING                          # stringExpression
-  | arguments                       # arrayExpression
-  | expression QUESTION             # nullableExpression
-  | expression DOT ID?              # memberExpression
-  | expression META ID?             # metaExpression
-  | expression arguments+           # invokeExpression
-  | ID                              # idExpression
-  | expression OP expression        # infixExpression
-  | OP expression                   # prefixExpression
-  | declarations* LAMBDA expression # methodExpression
+  : PREPROCESSOR                   # preprocessorExpression
+  | INTEGER                        # integerExpression
+  | FLOAT                          # floatExpression
+  | STRING                         # stringExpression
+  | arguments                      # arrayExpression
+  | expression QUESTION            # nullableExpression
+  | expression DOT ID?             # memberExpression
+  | expression META ID?            # metaExpression
+  | expression arguments+          # invokeExpression
+  | ID                             # idExpression
+  | expression OP expression       # infixExpression
+  | OP expression                  # prefixExpression
+  | declarations* LAMBDA statement # methodExpression
   ;
 
 declarations: OPEN (declaration (COMMA declaration)* COMMA?)? CLOSE;
