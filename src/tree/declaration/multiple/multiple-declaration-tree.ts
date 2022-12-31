@@ -1,4 +1,4 @@
-import { MultipleDeclarationContext } from '~/grammar/xon-parser';
+import { DeclarationContext, DestructureDeclarationContext } from '~/grammar/xon-parser';
 import { SourceSpan } from '~/source/source-span';
 import { getBodyTree } from '~/tree/body/body-tree-helper';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
@@ -6,15 +6,15 @@ import { getDeclarationTree } from '~/tree/declaration/declaration-tree-helper';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
 
 export class MultipleDeclarationTree extends DeclarationTree {
-  ctx: MultipleDeclarationContext;
+  ctx: DestructureDeclarationContext;
   parameters: DeclarationTree[];
 
-  constructor(ctx: MultipleDeclarationContext) {
+  constructor(ctx: DestructureDeclarationContext) {
     super();
 
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
-    this.parameters = ctx.declarations().declaration().map(getDeclarationTree);
+    this.parameters = ctx._destructure.declaration().map(getDeclarationTree);
 
     const type = ctx.type()?.expression() ?? null;
     this.type = type && getExpressionTree(type);

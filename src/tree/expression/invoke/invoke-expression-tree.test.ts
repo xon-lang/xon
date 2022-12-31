@@ -1,3 +1,4 @@
+import { ArrayExpressionTree } from '~/tree/expression/array/array-expression-tree';
 import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { IntegerExpressionTree } from '~/tree/expression/integer/integer-expression-tree';
 import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
@@ -6,7 +7,7 @@ import { StringExpressionTree } from '~/tree/expression/string/string-expression
 import { parseExpression } from '~/util/parse';
 
 test('method call', () => {
-  const code = 'f[3, \'str\']';
+  const code = "f[3, 'str']";
   const tree = parseExpression(code) as InvokeExpressionTree;
 
   expect(tree).toBeInstanceOf(InvokeExpressionTree);
@@ -41,4 +42,13 @@ test('can call with type parameter', () => {
   const [arg] = tree.arguments.map((x) => x.value);
   expect(arg).toBeInstanceOf(IntegerExpressionTree);
   expect(tree.instance).toBeInstanceOf(MemberExpressionTree);
+});
+
+test('object method', () => {
+  const code = '{a, b}.call()';
+  const tree = parseExpression(code) as InvokeExpressionTree;
+
+  expect(tree).toBeInstanceOf(InvokeExpressionTree);
+  expect(tree.arguments.length).toBe(0);
+  expect(tree.instance).toBeInstanceOf(ArrayExpressionTree);
 });

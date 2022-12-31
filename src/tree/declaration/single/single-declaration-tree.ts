@@ -1,4 +1,9 @@
-import { SingleDeclarationContext } from '~/grammar/xon-parser';
+import {
+  DeclarationContext,
+  DefinitionDeclarationContext,
+  OperatorDeclarationContext,
+  ParameterDeclarationContext,
+} from '~/grammar/xon-parser';
 import { SourceSpan } from '~/source/source-span';
 import { BodyTree } from '~/tree/body/body-tree';
 import { getBodyTree } from '~/tree/body/body-tree-helper';
@@ -9,25 +14,29 @@ import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
 import { Token } from '~/tree/token';
 
 export class SingleDeclarationTree extends DeclarationTree {
-  ctx: SingleDeclarationContext;
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+  ctx: DefinitionDeclarationContext | ParameterDeclarationContext | OperatorDeclarationContext;
   sourceSpan: SourceSpan;
   modifier: Token | null;
   name: Token;
-  generics: SingleDeclarationTree[] = [];
-  parameters: SingleDeclarationTree[] = [];
+  generics: DeclarationTree[] = [];
+  parameters: DeclarationTree[] = [];
   body: BodyTree | null = null;
 
   get base(): ExpressionTree | null {
     return this.type;
   }
 
-  constructor(ctx: SingleDeclarationContext) {
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+  constructor(ctx: DefinitionDeclarationContext | ParameterDeclarationContext | OperatorDeclarationContext) {
     super();
 
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
-    this.modifier = (ctx._modifier && Token.from(ctx._modifier)) ?? null;
-    this.name = Token.from(ctx._name || ctx.OP());
+    if(ctx instanceof DefinitionDeclarationContext){
+      this.modifier = (Token.from(id2)) ?? null;
+      this.name = Token.from(id2 ?? id1);
+    }
 
     const generics =
       ctx
