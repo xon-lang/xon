@@ -22,8 +22,8 @@ test('object with parameters', () => {
   expect(tree.modifier?.text).toBe('object');
   expect(tree.name?.text).toBe('Cat');
   expect((tree.base as IdExpressionTree).name.text).toBe('Animal');
-  expect(tree.generics?.length).toBe(1);
-  expect(tree.generics?.at(0)?.name?.text).toBe('T');
+  expect(tree.generics.length).toBe(1);
+  expect(tree.generics[0].name?.text).toBe('T');
   // expect(tree.attributes.length).toBe(0);
 });
 
@@ -60,14 +60,14 @@ test('model cat with generics', () => {
   expect(tree).toBeInstanceOf(SingleDeclarationTree);
   expect(tree.modifier?.text).toBe('model');
   expect(tree.name?.text).toBe('Cat');
-  expect(tree.generics?.length).toBe(1);
-  expect(tree.generics?.at(0)?.name?.text).toBe('T');
-  expect((tree.generics?.at(0)?.type as IdExpressionTree).name.text).toBe('Number');
+  expect(tree.generics.length).toBe(1);
+  expect(tree.generics[0].name?.text).toBe('T');
+  expect((tree.generics[0].type as IdExpressionTree).name.text).toBe('Number');
   const base = tree.base as InvokeExpressionTree;
   expect(base).toBeInstanceOf(InvokeExpressionTree);
   expect((base.instance as IdExpressionTree).name.text).toBe('Animal');
-  expect(base.arguments.length).toBe(2);
-  expect((base.arguments[0].value as IdExpressionTree).name.text).toBe('T');
-  expect((base.arguments[1].value as IdExpressionTree).name.text).toBe('Integer');
+  expect(base.generics.length).toBe(2);
+  expect((base.generics[0].value as IdExpressionTree).name.text).toBe('T');
+  expect((base.generics[1].value as IdExpressionTree).name.text).toBe('Integer');
   // expect(tree.attributes.length).toBe(0);
 });

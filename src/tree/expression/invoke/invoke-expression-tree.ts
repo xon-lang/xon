@@ -9,8 +9,8 @@ export class InvokeExpressionTree extends ExpressionTree {
   ctx: InvokeExpressionContext;
   sourceSpan: SourceSpan;
   instance: ExpressionTree;
-  generics: ArgumentTree[] | null = null;
-  arguments: ArgumentTree[];
+  generics: ArgumentTree[] = [];
+  arguments: ArgumentTree[] | null;
 
   constructor(ctx: InvokeExpressionContext) {
     super();
