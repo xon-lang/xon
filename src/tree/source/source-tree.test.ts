@@ -66,10 +66,10 @@ test('debug', () => {
   const code = ` 
 abc: ABC
 
-  if b is c
+  if b + c
     return #{new SingleBodyTree(ctx)}
 
-  if d is e
+  if d + e
     return #{new MultipleBodyTree(ctx)}
 `;
   const tree = parseSource(code);

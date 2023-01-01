@@ -1,4 +1,4 @@
-import { SingleDeclarationTree } from '~/tree/declaration/single/single-declaration-tree';
+import { DeclarationTree } from '~/tree/declaration/declaration-tree';
 import { ArrayExpressionTree } from '~/tree/expression/array/array-expression-tree';
 import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { ExpressionStatementTree } from '~/tree/statement/expression/expression-statement-tree';
@@ -11,8 +11,8 @@ test('for with value', () => {
   const tree = parseStatement(code) as ForStatementTree;
 
   expect(tree).toBeInstanceOf(ForStatementTree);
-  expect(tree.declaration).toBeInstanceOf(SingleDeclarationTree);
-  expect((tree.declaration as SingleDeclarationTree)?.name?.text).toBe('item');
+  expect(tree.declaration).toBeInstanceOf(DeclarationTree);
+  expect(tree.declaration?.name?.text).toBe('item');
   expect(tree.expression).toBeInstanceOf(ArrayExpressionTree);
 
   const [statement] = tree.body?.statements ?? [];
@@ -24,8 +24,8 @@ test('for with value and index', () => {
   const tree = parseStatement(code) as ForStatementTree;
 
   expect(tree).toBeInstanceOf(ForStatementTree);
-  expect(tree.declaration).toBeInstanceOf(SingleDeclarationTree);
-  expect((tree.declaration as SingleDeclarationTree)?.name?.text).toBe('value');
+  expect(tree.declaration).toBeInstanceOf(DeclarationTree);
+  expect(tree.declaration?.name?.text).toBe('value');
   expect(tree.expression).toBeInstanceOf(IdExpressionTree);
 
   expect(evaluate((tree.body?.statements[0] as ExpressionStatementTree).expression)).toBe(12 + 10);
