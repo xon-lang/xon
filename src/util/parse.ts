@@ -17,12 +17,29 @@ import { StatementTree } from '~/tree/statement/statement-tree';
 import { getStatementTree } from '~/tree/statement/statement-tree-helper';
 import { ThrowingErrorListener } from '~/util/throwing-error-listener';
 
-export function getParser(code: String2, location: String2 | null = null): XonParser {
+export function getLexer(code: String2, location: String2 | null): XonLexer {
   const inputStream = CharStreams.fromString(code, location ?? '');
   const lexer = new XonLexer(inputStream);
   lexer.removeErrorListeners();
   lexer.addErrorListener(new ThrowingErrorListener());
+
+  return lexer;
+}
+
+export function getParser(code: String2, location: String2 | null = null): XonParser {
+  const lexer = getLexer(code, location);
   const tokenStream = new CommonTokenStream(lexer);
+  // console.log(
+  //   getLexer(code, location)
+  //     .getAllTokens()
+  //     .map((x) => {
+  //       const type = XonLexer.VOCABULARY.getDisplayName(x.type);
+
+  //       return `${type} = '${x.text}'`;
+  //     })
+  //     .join(', '),
+  // );
+
   const parser = new XonParser(tokenStream);
   parser.removeErrorListeners();
   parser.addErrorListener(new ThrowingErrorListener());
