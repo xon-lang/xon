@@ -20,7 +20,7 @@ else
 test('preprocessor in attribute', () => {
   const code = `
 toString: [] => String
-  importStatements = this.statements.filter[[x] => x is ImportStatementTree].map[[x] => x as ImportStatementTree]
+  importStatements = this.statements.filter[[x] => x == ImportStatementTree].map[[x] => x == ImportStatementTree]
   importStatementsMap = #{{}}
   #{
     for (let importStatement of importStatements) {
