@@ -57,3 +57,14 @@ test('object method', () => {
   expect(tree.instance).toBeInstanceOf(MemberExpressionTree);
   expect((tree.instance as MemberExpressionTree).instance).toBeInstanceOf(ArrayExpressionTree);
 });
+
+test('generics', () => {
+  const code = 'Animal{T}';
+  const tree = parseExpression(code) as InvokeExpressionTree;
+
+  expect(tree).toBeInstanceOf(InvokeExpressionTree);
+  expect(tree.generics?.length).toBe(1);
+  expect(tree.arguments).toBe(null);
+  expect(tree.instance).toBeInstanceOf(IdExpressionTree);
+  expect((tree.instance as IdExpressionTree).name.text).toBe('Animal');
+});
