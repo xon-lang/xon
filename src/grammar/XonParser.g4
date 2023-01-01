@@ -38,8 +38,9 @@ expression
 
 declarations: OPEN (declaration (COMMA declaration)* COMMA?)? CLOSE;
 declaration
-  : modifier = ID? name = (ID | OP) declarations* type? value?
-  // | modifier = ID? name = (ID | OP) declarations* (type? value | type)
+  : modifier = ID name = (ID | OP) declarations* type? value?
+  | modifier = ID? name = (ID | OP) declarations* (type value? | value)
+  | name = (ID | OP)
   ;
 arguments: OPEN (argument (COMMA argument)* COMMA?)? CLOSE;
 argument:  (ID ASSIGN)? expression;
