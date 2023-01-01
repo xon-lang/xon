@@ -3,9 +3,8 @@ import { AttributeDeclarationMetadata } from '~/metadata/declaration/attribute/a
 import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata';
 import { ModelDeclarationMetadata } from '~/metadata/declaration/model/model-declaration-metadata';
 import { ObjectDeclarationMetadata } from '~/metadata/declaration/object/object-declaration-metadata';
+import { BodyTree } from '~/tree/body/body-tree';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
-import { ParameterDeclarationTree } from '~/tree/declaration/parameter/parameter-declaration-tree';
-import { SingleDeclarationTree } from '~/tree/declaration/single/single-declaration-tree';
 import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { SourceTree } from '~/tree/source/source-tree';
 import { isDeclarationStatement } from '~/tree/statement/statement-tree-helper';
@@ -262,17 +261,15 @@ export function getSourceDeclarationMetadata(tree: SourceTree): DeclarationMetad
 }
 
 export function getDeclarationMetadata(tree: DeclarationTree): DeclarationMetadata {
-  if (tree instanceof SingleDeclarationTree) {
-    const attributes = tree.attributes.map(getDeclarationMetadata).filter(isAttributeDeclarationMetadata);
-    if (tree.type instanceof IdExpressionTree) {
-    }
+  if (tree.modifier && tree.value instanceof BodyTree) {
+    const bodyAttribute = tree.value.statements.filter(isDeclarationStatement).map((x) => x.declaration);
+    const attributes = bodyAttribute.map(getDeclarationMetadata).filter(isAttributeDeclarationMetadata);
+    // if (tree.type instanceof IdExpressionTree) {
+    // }
     if (tree.modifier.text === 'model') return new ModelDeclarationMetadata(tree, null, attributes);
     if (tree.modifier.text === 'object') return new ObjectDeclarationMetadata(tree, null, attributes);
-  }
-  if (tree instanceof ParameterDeclarationTree) {
-    if (tree.parent instanceof SingleDeclarationTree) {
-      return new AttributeDeclarationMetadata(tree);
-    }
+  } else {
+    return new AttributeDeclarationMetadata(tree);
   }
   Issue.errorFromTree(tree, `Declaration metadata not found for "${tree.constructor.name}"`);
 }

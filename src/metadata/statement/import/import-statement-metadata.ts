@@ -13,12 +13,12 @@ export class ImportStatementMetadata extends StatementMetadata {
     super();
 
     const importPath = evaluate(tree.path);
-    const treeLocation = tree.sourceSpan.source.location;
-    if (typeof importPath === 'string' && treeLocation) {
-      const dirPath = dirname(treeLocation);
+    const { location } = tree.sourceSpan.source;
+    if (typeof importPath === 'string') {
+      const dirPath = (location && dirname(location)) ?? '';
       const relativePath = resolve(dirPath, importPath);
-      const importProvider = new ImportProvider(relativePath);
-      
+      const importProvider = new ImportProvider();
+      this.declarations = importProvider.declarations(relativePath);
     } else {
       tree.addIssue(IssueLevel.error, 'Import path should be a string literal');
     }
