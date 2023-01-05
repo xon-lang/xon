@@ -8,7 +8,6 @@ import {
   InvokeExpressionContext,
   LambdaExpressionContext,
   MemberExpressionContext,
-  NullableExpressionContext,
   PrefixExpressionContext,
   PreprocessorExpressionContext,
   StringExpressionContext,
@@ -23,7 +22,6 @@ import { IntegerExpressionTree } from '~/tree/expression/integer/integer-express
 import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
 import { LambdaExpressionTree } from '~/tree/expression/lambda/lambda-expression-tree';
 import { MemberExpressionTree } from '~/tree/expression/member/member-expression-tree';
-import { NullableExpressionTree } from '~/tree/expression/nullable/nullable-expression-tree';
 import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
 import { PreprocessorExpressionTree } from '~/tree/expression/preprocessor/preprocessor-expression-tree';
 import { StringExpressionTree } from '~/tree/expression/string/string-expression-tree';
@@ -39,15 +37,15 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof InvokeExpressionContext) return new InvokeExpressionTree(ctx);
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
   if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
-  if (ctx instanceof NullableExpressionContext) return new NullableExpressionTree(ctx);
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
 
   if (ctx instanceof InfixExpressionContext) {
-    const operatorsPriorities = ['^', '* / %', '+ -', '..', '< <= >= >', '== !=', '&', '|'].map((x) => x.split(' '));
+    const operators = ['^', '* / %', '+ -', '..', '< <= >= >', '== !=', '&', '|'];
+    const operatorsMatrix = operators.map((x) => x.split(' '));
 
     const expressions: (Token | ExpressionTree)[] = flatExpressions(ctx);
 
-    for (const operators of operatorsPriorities) {
+    for (const operators of operatorsMatrix) {
       const operatorsCount = expressions.filter((x) => x instanceof Token && operators.includes(x.text)).length;
       for (let i = 0; i < operatorsCount; i++) {
         const operatorIndex = expressions.findIndex((x) => x instanceof Token && operators.includes(x.text));
