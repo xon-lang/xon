@@ -1,4 +1,5 @@
 import { MemberExpressionContext } from '~/grammar/xon-parser';
+import { Boolean2 } from '~/lib/core';
 import { SourceSpan } from '~/source/source-span';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
@@ -9,6 +10,7 @@ export class MemberExpressionTree extends ExpressionTree {
   sourceSpan: SourceSpan;
   instance: ExpressionTree;
   name: Token | null;
+  isMeta: Boolean2;
 
   constructor(ctx: MemberExpressionContext) {
     super();
@@ -17,6 +19,7 @@ export class MemberExpressionTree extends ExpressionTree {
     this.instance = getExpressionTree(ctx.expression());
     const id = ctx.ID() ?? null;
     this.name = id && Token.from(id);
+    this.isMeta = Boolean(ctx.META());
     this.addChildren(this.instance, this.name);
   }
 }

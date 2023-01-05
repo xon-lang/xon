@@ -2,6 +2,17 @@ import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { MemberExpressionTree } from '~/tree/expression/member/member-expression-tree';
 import { parseExpression } from '~/util/parse';
 
+test('meta property', () => {
+  const code = 'abc::def';
+  const tree = parseExpression(code) as MemberExpressionTree;
+
+  expect(tree).toBeInstanceOf(MemberExpressionTree);
+  expect(tree.instance).toBeInstanceOf(IdExpressionTree);
+  expect((tree.instance as IdExpressionTree).name.text).toBe('abc');
+  expect(tree.name?.text).toBe('def');
+  expect(tree.isMeta).toBe(true);
+});
+
 test('not safe', () => {
   const code = 'abc.def';
   const tree = parseExpression(code) as MemberExpressionTree;
@@ -10,6 +21,7 @@ test('not safe', () => {
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
   expect((tree.instance as IdExpressionTree).name.text).toBe('abc');
   expect(tree.name?.text).toBe('def');
+  expect(tree.isMeta).toBe(false);
 });
 
 test('instance dot nl property', () => {
@@ -31,6 +43,7 @@ test('instance nl dot property', () => {
   expect((tree.instance as IdExpressionTree).name.text).toBe('abc');
   expect(tree.name?.text).toBe('def');
   expect(tree.name?.sourceSpan.start.index).toBe(6);
+  expect(tree.isMeta).toBe(false);
 });
 
 test('instance nl dot nl property', () => {
@@ -41,6 +54,7 @@ test('instance nl dot nl property', () => {
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
   expect((tree.instance as IdExpressionTree).name.text).toBe('abc');
   expect(tree.name?.text).toBe('def');
+  expect(tree.isMeta).toBe(false);
 });
 
 test('members chain', () => {
@@ -56,4 +70,5 @@ this.statements \
   expect(tree).toBeInstanceOf(MemberExpressionTree);
   expect(tree.instance).toBeInstanceOf(MemberExpressionTree);
   expect(tree.name?.text).toBe('jkl');
+  expect(tree.isMeta).toBe(false);
 });
