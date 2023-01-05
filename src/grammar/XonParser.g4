@@ -26,13 +26,11 @@ expression
   | FLOAT                           # floatExpression
   | STRING                          # stringExpression
   | arguments                       # arrayExpression
-  | expression QUESTION             # nullableExpression
-  | expression DOT ID?              # memberExpression
-  | expression META ID?             # metaExpression
+  | expression (DOT | META) ID?     # memberExpression
   | expression arguments+           # invokeExpression
-  | ID                              # idExpression
   | expression OP expression        # infixExpression
   | OP expression                   # prefixExpression
+  | ID                              # idExpression
   | declarations* LAMBDA expression # lambdaExpression
   ;
 

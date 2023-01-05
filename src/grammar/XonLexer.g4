@@ -35,13 +35,7 @@ IN:       'in';
 RETURN:   'return';
 WHILE:    'while';
 
-COMMA:    ',';
-ASSIGN:   '=';
-QUESTION: (NL | WS)? '?';
-COLON:    (NL | WS)? ':' (NL | WS)?;
-META:     (NL | WS)? '::' (NL | WS)?;
-DOT:      (NL | WS)? '.' (NL | WS)?;
-LAMBDA:   (NL | WS)? '=>' (NL | WS)?;
+LAMBDA: (NL | WS)? '=>' (NL | WS)?;
 
 FLOAT:   Radix AlphabetNumber '.' AlphabetNumber | DigitNumber '.' DigitNumber;
 INTEGER: Radix AlphabetNumber | DigitNumber;
@@ -51,6 +45,7 @@ PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
 
 OP
   : '!'
+  | '?'
   | '+'
   | '-'
   | '^'
@@ -70,7 +65,12 @@ OP
   | 'is'
   | 'as'
   ;
-ID: [_a-zA-Z] [_a-zA-Z0-9]*;
+DOT:    '.';
+META:   '::';
+COMMA:  ',';
+ASSIGN: '=';
+COLON:  (NL | WS)? ':' (NL | WS)?;
+ID:     [_a-zA-Z] [_a-zA-Z0-9]*;
 
 NL:           ([\r\n] WS*)+ {this.handleLineBreak()};
 LINE_COMMENT: '--' ~[\r\n]*;
