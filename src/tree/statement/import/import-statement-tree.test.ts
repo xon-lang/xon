@@ -12,7 +12,7 @@ test('path', () => {
   expect((tree.path as MemberExpressionTree).name?.text).toBe('org');
 });
 
-test('arguments', () => {
+test('members', () => {
   const code = 'import lib.org {a, b = c}';
   const tree = parseStatement(code) as ImportStatementTree;
 
