@@ -3,12 +3,12 @@ import { getStatementMetadata } from '~/metadata/statement/statement-metadata-he
 import { parseStatement } from '~/util/parse';
 
 test('literal', () => {
-  const code = "import 'src/lib/@xon/core'";
+  const code = 'import \'src/lib/@xon/core\'';
   const tree = parseStatement(code);
   const metadata = getStatementMetadata(tree) as ImportStatementMetadata;
 
   expect(metadata).toBeInstanceOf(ImportStatementMetadata);
-  expect(metadata.declarations.length).toBe(18);
+  expect(metadata.declarations.length).toBe(15);
   // expect(metadata.type()).toBeInstanceOf(ObjectTypeMetadata);
   // expect(metadata.type().scope().declarations.length).toBe(33);
 });

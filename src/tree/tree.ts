@@ -15,6 +15,13 @@ export abstract class Tree {
   parent: Tree | null = null;
   children: Tree[] = [];
 
+  constructor(ctx?: ParserRuleContext) {
+    if (ctx) {
+      this.ctx = ctx;
+      this.sourceSpan = SourceSpan.fromContext(ctx);
+    }
+  }
+
   addChildren(...children: (Tree | null)[]): void {
     for (const tree of children) {
       if (tree) {

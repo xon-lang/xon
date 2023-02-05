@@ -7,7 +7,7 @@ options {
 
 statement
   : LINE_COMMENT                           # commentStatement
-  | IMPORT expression? declarations?       # importStatement
+  | IMPORT expression?                     # importStatement
   | EXPORT expression?                     # exportStatement
   | FOR (declaration? IN)? expression body # forStatement
   | WHILE expression body                  # whileStatement
