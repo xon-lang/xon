@@ -14,6 +14,8 @@ model Float: Number
   testFloatProp3: Number
   testFloatProp4: Number
 
+model Ratio: Number
+
 -- +: (a: Number, b: Number) => Number
 -- -: (a: Number, b: Number) => Number
 -- *: (a: Number, b: Number) => Number

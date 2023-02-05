@@ -6,10 +6,10 @@ model Map
 
 model Char: Number
 
+model String: Char[]
+
 model Array{T}
 
 model Any
-
-model String: Char[]
 
 object null
