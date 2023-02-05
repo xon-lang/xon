@@ -1,23 +1,15 @@
-model Any
-
-model Unknown
-
 model Never
-
-
--- model Any
---   not [] Boolean
---   and [other Any]
---   or [other Any] Boolean
---   is [other Any] Boolean
---   as[other T] otherType
-
-
-model Union
-
-model Intersection
 
 model Method
 
+model Map
+
+model Char: Number
+
+model Array{T}
+
+model Any
+
+model String: Char[]
+
 object null
-  toBoolean() = false
