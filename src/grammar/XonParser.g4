@@ -6,14 +6,14 @@ options {
 }
 
 statement
-  : KEYWORD (expression body? | body) # keywordStatement
+  : LINE_COMMENT                      # commentStatement
+  | KEYWORD (expression body? | body) # keywordStatement
   | declaration                       # declarationStatement
   | expression                        # expressionStatement
   ;
 
 expression
-  : LINE_COMMENT                    # commentExpression
-  | PREPROCESSOR                    # preprocessorExpression
+  : PREPROCESSOR                    # preprocessorExpression
   | INTEGER                         # integerExpression
   | FLOAT                           # floatExpression
   | STRING                          # stringExpression
