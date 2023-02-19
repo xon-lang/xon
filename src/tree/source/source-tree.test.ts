@@ -14,7 +14,7 @@ else
   const tree = parseSource(code);
 
   expect(tree).toBeInstanceOf(SourceTree);
-  expect(tree.children.length).toBe(3);
+  expect(tree.children.length).toBe(4);
 });
 
 test('preprocessor in attribute', () => {
