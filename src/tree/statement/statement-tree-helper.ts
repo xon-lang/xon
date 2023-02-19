@@ -7,9 +7,9 @@ import {
 } from '~/grammar/xon-parser';
 import { Issue } from '~/issue/issue';
 import { CommentStatementTree } from '~/tree/statement/comment/comment-statement-tree';
-import { KeywordStatementTree } from '~/tree/statement/common/keyword-expression-tree';
 import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
 import { ExpressionStatementTree } from '~/tree/statement/expression/expression-statement-tree';
+import { KeywordStatementTree } from '~/tree/statement/keyword/keyword-expression-tree';
 import { StatementTree } from '~/tree/statement/statement-tree';
 
 export function getStatementTree(ctx: StatementContext): StatementTree {

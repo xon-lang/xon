@@ -1,4 +1,4 @@
-import { KeywordStatementTree } from '~/tree/statement/common/keyword-expression-tree';
+import { KeywordStatementTree } from '~/tree/statement/keyword/keyword-expression-tree';
 import { evaluate } from '~/util/evaluate';
 import { parseStatement } from '~/util/parse';
 
