@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 import { XonLexer } from '~/grammar/xon-lexer';
 import { XonParser } from '~/grammar/xon-parser';
 import { String2 } from '~/lib/core';
-import { ParserConfig } from '~/parser/parser-config';
+import { ParserConfig, tempKeywords, tempOperators } from '~/parser/parser-config';
 import { ThrowingErrorListener } from '~/parser/throwing-error-listener';
 import { ArgumentTree } from '~/tree/argument/argument-tree';
 import { getArgumentTree } from '~/tree/argument/argument-tree-helper';
@@ -83,14 +83,12 @@ export class Parser {
   }
 }
 
-const keywords = ['break', 'continue', 'do', 'else', 'export', 'for', 'if', 'import', 'in', 'return', 'while'];
-
 export function parserFromCode(code: String2, parserConfig: ParserConfig | null = null): Parser {
   const config: ParserConfig = {
     code,
     location: '',
-    keywords,
-    operators: [],
+    keywords: tempKeywords,
+    operators: tempOperators,
     ...parserConfig,
   };
 
@@ -102,8 +100,8 @@ export function parserFromFile(location: String2, parserConfig: ParserConfig | n
   const config: ParserConfig = {
     code,
     location,
-    keywords,
-    operators: [],
+    keywords: tempKeywords,
+    operators: tempOperators,
     ...parserConfig,
   };
 

@@ -31,30 +31,9 @@ STRING:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 
 PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
 
-KEYWORD: ID { this.isKeyword()}?;
-OP
-  : '!'
-  | '?'
-  | '+'
-  | '-'
-  | '^'
-  | '*'
-  | '/'
-  | '%'
-  | '&'
-  | '|'
-  | '..'
-  | '...'
-  | '<'
-  | '<='
-  | '>='
-  | '>'
-  | '=='
-  | '!='
-  | 'is'
-  | 'as'
-  | 'in'
-  ;
+KEYWORD: .+? { this.isKeyword()}?;
+OP:      .+? { this.isOperator()}?;
+
 DOT:    '.';
 META:   '::';
 COMMA:  ',';

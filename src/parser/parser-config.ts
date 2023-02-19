@@ -6,3 +6,41 @@ export interface ParserConfig {
   keywords: String2[];
   operators: String2[];
 }
+
+export const tempOperators = [
+  '!',
+  '?',
+  '+',
+  '-',
+  '^',
+  '*',
+  '/',
+  '%',
+  '&',
+  '|',
+  '..',
+  '...',
+  '<',
+  '<=',
+  '>=',
+  '>',
+  '==',
+  '!=',
+  'is',
+  'as',
+  'in',
+];
+
+export const tempKeywords = [
+  'break',
+  'continue',
+  'do',
+  'else',
+  'export',
+  'for',
+  'if',
+  'import',
+  'in',
+  'return',
+  'while',
+];

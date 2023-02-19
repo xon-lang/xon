@@ -96,6 +96,10 @@ export abstract class XonLexerBase extends Lexer {
     return this.keywords.includes(this.text);
   }
 
+  protected isOperator(): boolean {
+    return this.operators.includes(this.text);
+  }
+
   private createDedent(): Token {
     const dedent = this.commonToken(XonParser.DEDENT, '');
     if (this.lastToken) {
