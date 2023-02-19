@@ -13,6 +13,7 @@ export abstract class XonLexerBase extends Lexer {
   private indents: Integer[] = [];
   private lastToken: Token | null = null;
   private keywords: String2[] = [];
+  private operators: String2[] = [];
   public abstract get channelNames(): String2[];
   public abstract get modeNames(): String2[];
   public abstract get ruleNames(): String2[];
@@ -55,6 +56,10 @@ export abstract class XonLexerBase extends Lexer {
 
   public setKeywords(keywords: String2[]): void {
     this.keywords = keywords;
+  }
+
+  public setOperators(operators: String2[]): void {
+    this.operators = operators;
   }
 
   protected atStartOfInput(): Boolean2 {
