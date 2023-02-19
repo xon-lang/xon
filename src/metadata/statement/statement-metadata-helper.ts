@@ -6,7 +6,7 @@ import { IfStatementMetadata } from '~/metadata/statement/if/if-statement-metada
 import { ImportStatementMetadata } from '~/metadata/statement/import/import-statement-metadata';
 import { ReturnStatementMetadata } from '~/metadata/statement/return/return-statement-metadata';
 import { StatementMetadata } from '~/metadata/statement/statement-metadata';
-import { CommentStatementTree } from '~/tree/statement/comment/comment-statement-tree';
+import { CommentStatementTree } from '~/tree/expression/comment/comment-expression-tree';
 import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
 import { ExpressionStatementTree } from '~/tree/statement/expression/expression-statement-tree';
 import { IfStatementTree } from '~/tree/statement/if/if-statement-tree';
