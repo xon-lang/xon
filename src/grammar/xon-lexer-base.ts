@@ -12,12 +12,13 @@ export abstract class XonLexerBase extends Lexer {
   private tokenQueue: Token[] = [];
   private indents: Integer[] = [];
   private lastToken: Token | null = null;
+  private keywords: String2[] = [];
   public abstract get channelNames(): String2[];
   public abstract get modeNames(): String2[];
   public abstract get ruleNames(): String2[];
   public abstract get vocabulary(): Vocabulary;
   public abstract get grammarFileName(): String2;
-  // static tokens: String2[] = [];
+
   public reset(): void {
     this.tokenQueue = [];
     this.indents = [];
@@ -52,6 +53,10 @@ export abstract class XonLexerBase extends Lexer {
     return this.tokenQueue.shift() ?? next;
   }
 
+  public setKeywords(keywords: String2[]): void {
+    this.keywords = keywords;
+  }
+
   protected atStartOfInput(): Boolean2 {
     return this.charIndex === 0;
   }
@@ -80,6 +85,10 @@ export abstract class XonLexerBase extends Lexer {
         this.indents.pop();
       }
     }
+  }
+
+  protected isKeyword(): boolean {
+    return this.keywords.includes(this.text);
   }
 
   private createDedent(): Token {

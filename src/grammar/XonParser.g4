@@ -6,22 +6,14 @@ options {
 }
 
 statement
-  : LINE_COMMENT                           # commentStatement
-  | IMPORT expression?                     # importStatement
-  | EXPORT expression?                     # exportStatement
-  | FOR (declaration? IN)? expression body # forStatement
-  | WHILE expression body                  # whileStatement
-  | DO body WHILE expression               # doWhileStatement
-  | IF expression body NL* (ELSE body)?    # ifStatement
-  | BREAK                                  # breakStatement
-  | CONTINUE                               # continueStatement
-  | RETURN expression?                     # returnStatement
-  | declaration                            # declarationStatement
-  | expression                             # expressionStatement
+  : KEYWORD (expression body? | body) # keywordStatement
+  | declaration                       # declarationStatement
+  | expression                        # expressionStatement
   ;
 
 expression
-  : PREPROCESSOR                    # preprocessorExpression
+  : LINE_COMMENT                    # commentExpression
+  | PREPROCESSOR                    # preprocessorExpression
   | INTEGER                         # integerExpression
   | FLOAT                           # floatExpression
   | STRING                          # stringExpression

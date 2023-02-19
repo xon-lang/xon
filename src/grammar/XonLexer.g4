@@ -23,18 +23,6 @@ tokens {
 OPEN:  ('(' | '[' | '{') {this.opened++;};
 CLOSE: (')' | ']' | '}') {this.opened--;};
 
-BREAK:    'break';
-CONTINUE: 'continue';
-DO:       'do';
-ELSE:     'else';
-EXPORT:   'export';
-FOR:      'for';
-IF:       'if';
-IMPORT:   'import';
-IN:       'in';
-RETURN:   'return';
-WHILE:    'while';
-
 LAMBDA: (NL | WS)? '=>' (NL | WS)?;
 
 FLOAT:   Radix AlphabetNumber '.' AlphabetNumber | DigitNumber '.' DigitNumber;
@@ -43,6 +31,7 @@ STRING:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 
 PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
 
+KEYWORD: ID { this.isKeyword()}?;
 OP
   : '!'
   | '?'
@@ -64,6 +53,7 @@ OP
   | '!='
   | 'is'
   | 'as'
+  | 'in'
   ;
 DOT:    '.';
 META:   '::';
