@@ -28,6 +28,7 @@ export function getLexer(code: String2, location: String2 | null): XonLexer {
 
 export function getParser(code: String2, location: String2 | null = null): XonParser {
   const lexer = getLexer(code, location);
+  lexer.setKeywords(['if', 'else', 'for']);
   const tokenStream = new CommonTokenStream(lexer);
   // console.log(
   //   getLexer(code, location)

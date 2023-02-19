@@ -21,9 +21,9 @@ export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
     return tree.arguments.map((x) => evaluate(x.value ?? null));
   }
   if (
-    tree instanceof IntegerExpressionTree
-    || tree instanceof FloatExpressionTree
-    || tree instanceof StringExpressionTree
+    tree instanceof IntegerExpressionTree ||
+    tree instanceof FloatExpressionTree ||
+    tree instanceof StringExpressionTree
   ) {
     return tree.value;
   }
@@ -47,5 +47,5 @@ export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
     }
     Issue.errorFromTree(tree, `Undefined key '${tree.name.text}'`);
   }
-  Issue.errorFromTree(tree, 'Unsupported operation');
+  Issue.errorFromTree(tree, `Unsupported operation of '${tree.constructor.name}' for '${tree.sourceSpan.getText()}'`);
 }
