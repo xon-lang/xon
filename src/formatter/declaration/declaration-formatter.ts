@@ -46,8 +46,8 @@ export class DeclarationFormatter extends Formatter {
       );
 
       return (
-        (this.ctx.valueType()?.expression() && ' = ' || '= ')
-        + (expressionFormatter?.toString() ?? '')
+        (this.ctx.valueType()?.expression() && ' = ' || '= ') +
+        (expressionFormatter?.toString() ?? '')
       );
     }
 

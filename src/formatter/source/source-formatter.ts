@@ -22,8 +22,8 @@ export class SourceFormatter extends Formatter {
         })
         .join('');
 
-      const lastStatement
-        = getStatementFormatter(this.ctx.statement().slice(-1)[0], this.config)?.toString() ?? '';
+      const lastStatement =
+        getStatementFormatter(this.ctx.statement().slice(-1)[0], this.config)?.toString() ?? '';
 
       return statements + lastStatement + this.config.nl;
     }

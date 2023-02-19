@@ -26,7 +26,7 @@ test('single parameter', () => {
 });
 
 test('multiple parameters array value', () => {
-  const code = "[a, b, c] := [1,'hi',2.3]";
+  const code = '[a, b, c] := [1,\'hi\',2.3]';
   const tree = parseSource(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getSourceMetadata(tree);
@@ -48,7 +48,7 @@ test('multiple parameters array value', () => {
 });
 
 test('multiple parameters object value', () => {
-  const code = "{a, b, c} := {a=1,b='hi',c=2.3}";
+  const code = '{a, b, c} := {a=1,b=\'hi\',c=2.3}';
   const tree = parseSource(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getSourceMetadata(tree);

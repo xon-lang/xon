@@ -17,7 +17,7 @@ test('no items', () => {
 });
 
 test('has items', () => {
-  const code = "[1, 'hi']";
+  const code = '[1, \'hi\']';
   const tree = parseExpression(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree) as ArrayTypeMetadata;

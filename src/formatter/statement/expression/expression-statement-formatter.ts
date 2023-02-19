@@ -10,8 +10,8 @@ export class ExpressionStatementFormatter extends StatementFormatter {
   }
 
   toString(): String2 {
-    const expression
-      = getExpressionFormatter(this.ctx.expression(), this.config)
+    const expression =
+      getExpressionFormatter(this.ctx.expression(), this.config)
         ?.indent(this.indentCount)
         .break(this.broken) ?? '';
 

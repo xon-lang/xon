@@ -10,8 +10,8 @@ export class ArgumentFormatter extends Formatter {
   }
 
   toString(): String2 {
-    const value
-      = getExpressionFormatter(this.ctx.expression(), this.config)
+    const value =
+      getExpressionFormatter(this.ctx.expression(), this.config)
         ?.break(this.broken)
         .indent(this.indentCount) ?? '';
     if (this.ctx._name) {

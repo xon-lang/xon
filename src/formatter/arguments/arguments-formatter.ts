@@ -25,17 +25,17 @@ export class ArgumentsFormatter extends Formatter {
 
     if (this.broken || result.length > this.config.printWidth || result.includes(this.config.nl)) {
       const argumentIndent = this.config.indent(this.indentCount + 1);
-      const joinedArguments
-        = args
+      const joinedArguments =
+        args
           .map((x) => argumentIndent + (x?.indent(this.indentCount + 1) ?? ''))
           .join(`,${this.config.nl}`) + (args.length > 1 && ',' || '');
-      result
-        = openSymbol
-        + this.config.nl
-        + joinedArguments
-        + this.config.nl
-        + this.config.indent(this.indentCount)
-        + closeSymbol;
+      result =
+        openSymbol +
+        this.config.nl +
+        joinedArguments +
+        this.config.nl +
+        this.config.indent(this.indentCount) +
+        closeSymbol;
     }
 
     return result;
