@@ -6,8 +6,8 @@ options {
 }
 
 statement
-  : LINE_COMMENT                      # commentStatement
-  | KEYWORD (expression body? | body) # keywordStatement
+  : KEYWORD (expression body? | body) # keywordStatement
+  | LINE_COMMENT                      # commentStatement
   | declaration                       # declarationStatement
   | expression                        # expressionStatement
   ;

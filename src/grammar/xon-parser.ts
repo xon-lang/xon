@@ -110,21 +110,12 @@ export class XonParser extends Parser {
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 2, this._ctx) ) {
 			case 1:
-				_localctx = new CommentStatementContext(_localctx);
+				_localctx = new KeywordStatementContext(_localctx);
 				this.enterOuterAlt(_localctx, 1);
 				{
 				this.state = 20;
-				this.match(XonParser.LINE_COMMENT);
-				}
-				break;
-
-			case 2:
-				_localctx = new KeywordStatementContext(_localctx);
-				this.enterOuterAlt(_localctx, 2);
-				{
-				this.state = 21;
 				this.match(XonParser.KEYWORD);
-				this.state = 27;
+				this.state = 26;
 				this._errHandler.sync(this);
 				switch (this._input.LA(1)) {
 				case XonParser.OPEN:
@@ -136,14 +127,14 @@ export class XonParser extends Parser {
 				case XonParser.OP:
 				case XonParser.ID:
 					{
-					this.state = 22;
+					this.state = 21;
 					this.expression(0);
-					this.state = 24;
+					this.state = 23;
 					this._errHandler.sync(this);
 					switch ( this.interpreter.adaptivePredict(this._input, 0, this._ctx) ) {
 					case 1:
 						{
-						this.state = 23;
+						this.state = 22;
 						this.body();
 						}
 						break;
@@ -152,13 +143,22 @@ export class XonParser extends Parser {
 					break;
 				case XonParser.NL:
 					{
-					this.state = 26;
+					this.state = 25;
 					this.body();
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
+				}
+				break;
+
+			case 2:
+				_localctx = new CommentStatementContext(_localctx);
+				this.enterOuterAlt(_localctx, 2);
+				{
+				this.state = 28;
+				this.match(XonParser.LINE_COMMENT);
 				}
 				break;
 
@@ -991,7 +991,7 @@ export class XonParser extends Parser {
 		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03\x19\xB3\x04\x02" +
 		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
 		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x03\x02\x03\x02\x03\x02" +
-		"\x03\x02\x05\x02\x1B\n\x02\x03\x02\x05\x02\x1E\n\x02\x03\x02\x03\x02\x05" +
+		"\x05\x02\x1A\n\x02\x03\x02\x05\x02\x1D\n\x02\x03\x02\x03\x02\x03\x02\x05" +
 		"\x02\"\n\x02\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03" +
 		"\x03\x03\x03\x03\x03\x07\x03.\n\x03\f\x03\x0E\x031\v\x03\x03\x03\x03\x03" +
 		"\x05\x035\n\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x05\x03" +
@@ -1012,12 +1012,12 @@ export class XonParser extends Parser {
 		"\x0F\x04\x02\r\r\x13\x13\x02\xD1\x02!\x03\x02\x02\x02\x044\x03\x02\x02" +
 		"\x02\x06I\x03\x02\x02\x02\by\x03\x02\x02\x02\n{\x03\x02\x02\x02\f\x8D" +
 		"\x03\x02\x02\x02\x0E\x91\x03\x02\x02\x02\x10\x9A\x03\x02\x02\x02\x12\x9C" +
-		"\x03\x02\x02\x02\x14\xA2\x03\x02\x02\x02\x16\"\x07\x15\x02\x02\x17\x1D" +
-		"\x07\f\x02\x02\x18\x1A\x05\x04\x03\x02\x19\x1B\x05\x12\n\x02\x1A\x19\x03" +
-		"\x02\x02\x02\x1A\x1B\x03\x02\x02\x02\x1B\x1E\x03\x02\x02\x02\x1C\x1E\x05" +
-		"\x12\n\x02\x1D\x18\x03\x02\x02\x02\x1D\x1C\x03\x02\x02\x02\x1E\"\x03\x02" +
-		"\x02\x02\x1F\"\x05\b\x05\x02 \"\x05\x04\x03\x02!\x16\x03\x02\x02\x02!" +
-		"\x17\x03\x02\x02\x02!\x1F\x03\x02\x02\x02! \x03\x02\x02\x02\"\x03\x03" +
+		"\x03\x02\x02\x02\x14\xA2\x03\x02\x02\x02\x16\x1C\x07\f\x02\x02\x17\x19" +
+		"\x05\x04\x03\x02\x18\x1A\x05\x12\n\x02\x19\x18\x03\x02\x02\x02\x19\x1A" +
+		"\x03\x02\x02\x02\x1A\x1D\x03\x02\x02\x02\x1B\x1D\x05\x12\n\x02\x1C\x17" +
+		"\x03\x02\x02\x02\x1C\x1B\x03\x02\x02\x02\x1D\"\x03\x02\x02\x02\x1E\"\x07" +
+		"\x15\x02\x02\x1F\"\x05\b\x05\x02 \"\x05\x04\x03\x02!\x16\x03\x02\x02\x02" +
+		"!\x1E\x03\x02\x02\x02!\x1F\x03\x02\x02\x02! \x03\x02\x02\x02\"\x03\x03" +
 		"\x02\x02\x02#$\b\x03\x01\x02$5\x07\v\x02\x02%5\x07\t\x02\x02&5\x07\b\x02" +
 		"\x02\'5\x07\n\x02\x02(5\x05\n\x06\x02)*\x07\r\x02\x02*5\x05\x04\x03\x05" +
 		"+5\x07\x13\x02\x02,.\x05\x06\x04\x02-,\x03\x02\x02\x02.1\x03\x02\x02\x02" +
@@ -1068,7 +1068,7 @@ export class XonParser extends Parser {
 		"\x02\xAB\xA9\x03\x02\x02\x02\xAC\xAE\x05\x02\x02\x02\xAD\xAC\x03\x02\x02" +
 		"\x02\xAD\xAE\x03\x02\x02\x02\xAE\xB0\x03\x02\x02\x02\xAF\xB1\x07\x14\x02" +
 		"\x02\xB0\xAF\x03\x02\x02\x02\xB0\xB1\x03\x02\x02\x02\xB1\x15\x03\x02\x02" +
-		"\x02!\x1A\x1D!/4<BDFOSU^behnsvy\x81\x85\x87\x8D\x93\x97\x9A\xA2\xA9\xAD" +
+		"\x02!\x19\x1C!/4<BDFOSU^behnsvy\x81\x85\x87\x8D\x93\x97\x9A\xA2\xA9\xAD" +
 		"\xB0";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
@@ -1091,13 +1091,6 @@ export class StatementContext extends ParserRuleContext {
 		super.copyFrom(ctx);
 	}
 }
-export class CommentStatementContext extends StatementContext {
-	public LINE_COMMENT(): TerminalNode { return this.getToken(XonParser.LINE_COMMENT, 0); }
-	constructor(ctx: StatementContext) {
-		super(ctx.parent, ctx.invokingState);
-		this.copyFrom(ctx);
-	}
-}
 export class KeywordStatementContext extends StatementContext {
 	public KEYWORD(): TerminalNode { return this.getToken(XonParser.KEYWORD, 0); }
 	public expression(): ExpressionContext | undefined {
@@ -1106,6 +1099,13 @@ export class KeywordStatementContext extends StatementContext {
 	public body(): BodyContext | undefined {
 		return this.tryGetRuleContext(0, BodyContext);
 	}
+	constructor(ctx: StatementContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
+	}
+}
+export class CommentStatementContext extends StatementContext {
+	public LINE_COMMENT(): TerminalNode { return this.getToken(XonParser.LINE_COMMENT, 0); }
 	constructor(ctx: StatementContext) {
 		super(ctx.parent, ctx.invokingState);
 		this.copyFrom(ctx);
