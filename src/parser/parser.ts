@@ -83,7 +83,7 @@ export class Parser {
   }
 }
 
-const keywords = ['if', 'import', 'export', 'while'];
+const keywords = ['break', 'continue', 'do', 'else', 'export', 'for', 'if', 'import', 'in', 'return', 'while'];
 
 export function parserFromCode(code: String2, parserConfig: ParserConfig | null = null): Parser {
   const config: ParserConfig = {

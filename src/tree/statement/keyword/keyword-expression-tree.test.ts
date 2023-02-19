@@ -9,3 +9,11 @@ test('only expression', () => {
   expect(tree).toBeInstanceOf(KeywordStatementTree);
   expect(evaluate(tree.expression)).toBe(-1);
 });
+
+test('if statement', () => {
+  const code = `if b is c
+  return #{new SingleBodyTree(ctx)}`;
+  const tree = parseStatement(code) as KeywordStatementTree;
+
+  expect(tree).toBeInstanceOf(KeywordStatementTree);
+});
