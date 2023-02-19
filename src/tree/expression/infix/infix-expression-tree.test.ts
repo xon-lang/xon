@@ -5,18 +5,20 @@ import { evaluate } from '~/util/evaluate';
 import { parseExpression } from '~/util/parse';
 
 test('several operands with different priorities', () => {
-  const code = '1+1+2^5*2/2';
+  const code = '1*1+1+2^5*2/2';
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
+  expect(tree.name.text).toBe('+');
   expect(evaluate(tree)).toBe(34);
 });
 
 test('num plus str', () => {
-  const code = "1  + 'str'";
+  const code = '1  + \'str\'';
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
+  expect(tree.name.text).toBe('+');
   expect(evaluate(tree)).toBe('1str');
 });
 
@@ -43,6 +45,7 @@ test('has several relational operators', () => {
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
+  expect(tree.name.text).toBe('>');
   expect(tree.left).toBeInstanceOf(InfixExpressionTree);
   expect(tree.right).toBeInstanceOf(IdExpressionTree);
 
