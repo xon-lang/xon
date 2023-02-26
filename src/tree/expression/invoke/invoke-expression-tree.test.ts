@@ -7,16 +7,15 @@ import { StringExpressionTree } from '~/tree/expression/string/string-expression
 import { parseExpression } from '~/util/parse';
 
 test('method call', () => {
-  const code = 'f[3, \'str\']';
+  const code = 'f(3, \'str\')';
   const tree = parseExpression(code) as InvokeExpressionTree;
 
   expect(tree).toBeInstanceOf(InvokeExpressionTree);
-  expect(tree.arguments).toBe(null);
-  expect(tree.indexers?.length).toBe(2);
-  expect(tree.indexers?.at(0)?.value as IntegerExpressionTree).toBeInstanceOf(IntegerExpressionTree);
-  expect((tree.indexers?.at(0)?.value as IntegerExpressionTree).value).toBe(3);
-  expect(tree.indexers?.at(1)?.value as StringExpressionTree).toBeInstanceOf(StringExpressionTree);
-  expect((tree.indexers?.at(1)?.value as StringExpressionTree).value).toBe('str');
+  expect(tree.arguments?.length).toBe(2);
+  expect(tree.arguments?.at(0)?.value as IntegerExpressionTree).toBeInstanceOf(IntegerExpressionTree);
+  expect((tree.arguments?.at(0)?.value as IntegerExpressionTree).value).toBe(3);
+  expect(tree.arguments?.at(1)?.value as StringExpressionTree).toBeInstanceOf(StringExpressionTree);
+  expect((tree.arguments?.at(1)?.value as StringExpressionTree).value).toBe('str');
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
 });
 
@@ -27,10 +26,9 @@ test('method on several lines', () => {
   const tree = parseExpression(code) as InvokeExpressionTree;
 
   expect(tree).toBeInstanceOf(InvokeExpressionTree);
-  expect(tree.arguments).toBe(null);
-  expect(tree.indexers?.length).toBe(4);
-  const indexer1 = tree.indexers?.at(0)?.value;
-  const indexer2 = tree.indexers?.at(1)?.value;
+  expect(tree.arguments?.length).toBe(4);
+  const indexer1 = tree.arguments?.at(0)?.value;
+  const indexer2 = tree.arguments?.at(1)?.value;
   expect(indexer1).toBeInstanceOf(IntegerExpressionTree);
   expect(indexer2).toBeInstanceOf(StringExpressionTree);
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
@@ -41,9 +39,8 @@ test('can call with type parameter', () => {
   const tree = parseExpression(code) as InvokeExpressionTree;
 
   expect(tree).toBeInstanceOf(InvokeExpressionTree);
-  expect(tree.arguments).toBe(null);
-  expect(tree.indexers?.length).toBe(1);
-  const indexer = tree.indexers?.at(0)?.value;
+  expect(tree.arguments?.length).toBe(1);
+  const indexer = tree.arguments?.at(0)?.value;
   expect(indexer).toBeInstanceOf(IntegerExpressionTree);
   expect(tree.instance).toBeInstanceOf(MemberExpressionTree);
 });
@@ -63,8 +60,7 @@ test('generics', () => {
   const tree = parseExpression(code) as InvokeExpressionTree;
 
   expect(tree).toBeInstanceOf(InvokeExpressionTree);
-  expect(tree.generics?.length).toBe(1);
-  expect(tree.arguments).toBe(null);
+  expect(tree.arguments?.length).toBe(1);
   expect(tree.instance).toBeInstanceOf(IdExpressionTree);
   expect((tree.instance as IdExpressionTree).name.text).toBe('Animal');
 });

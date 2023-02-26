@@ -18,7 +18,7 @@ expression
   | STRING                          # stringExpression
   | arguments                       # arrayExpression
   | expression (DOT | META) ID?     # memberExpression
-  | expression arguments+           # invokeExpression
+  | expression arguments            # invokeExpression
   | expression OP expression        # infixExpression
   | OP expression                   # prefixExpression
   | ID                              # idExpression
