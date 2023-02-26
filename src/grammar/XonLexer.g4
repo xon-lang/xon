@@ -31,8 +31,8 @@ STRING:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 
 PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
 
-KEYWORD: .+? { this.isKeyword()}?;
-OP:      .+? { this.isOperator()}?;
+// KEYWORD: .+? { this.isKeyword()}?;
+OP: .+? { this.isOperator()}?;
 
 DOT:    '.';
 META:   '::';

@@ -6,10 +6,9 @@ options {
 }
 
 statement
-  : KEYWORD (expression body? | body) # keywordStatement
-  | LINE_COMMENT                      # commentStatement
-  | declaration                       # declarationStatement
-  | expression                        # expressionStatement
+  : LINE_COMMENT # commentStatement
+  | declaration  # declarationStatement
+  | expression   # expressionStatement
   ;
 
 expression
@@ -23,7 +22,9 @@ expression
   | expression OP expression        # infixExpression
   | OP expression                   # prefixExpression
   | ID                              # idExpression
+  | expression body                 # bodyExpression
   | declarations* LAMBDA expression # lambdaExpression
+  | ID expression                   # keywordExpression
   ;
 
 declarations: OPEN (declaration (COMMA declaration)* COMMA?)? CLOSE;
