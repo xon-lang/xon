@@ -1,6 +1,7 @@
 import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tree';
 import { IntegerExpressionTree } from '~/tree/expression/integer/integer-expression-tree';
+import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
 import { evaluate } from '~/util/evaluate';
 import { parseExpression } from '~/util/parse';
 
@@ -14,7 +15,7 @@ test('several operands with different priorities', () => {
 });
 
 test('num plus str', () => {
-  const code = '1  + \'str\'';
+  const code = "1  + 'str'";
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
@@ -56,4 +57,21 @@ test('has several relational operators', () => {
 
   const right = tree.right as IdExpressionTree;
   expect(right.name.text).toBe('c');
+});
+
+test('several operators', () => {
+  const code = '1 +-/ 2';
+  const tree = parseExpression(code) as InfixExpressionTree;
+
+  expect(tree).toBeInstanceOf(InfixExpressionTree);
+  expect(tree.name.text).toBe('+');
+
+  expect(tree.right).toBeInstanceOf(PrefixExpressionTree);
+  expect((tree.right as PrefixExpressionTree).name.text).toBe('-');
+
+  expect((tree.right as PrefixExpressionTree).value).toBeInstanceOf(PrefixExpressionTree);
+  expect(((tree.right as PrefixExpressionTree).value as PrefixExpressionTree).name.text).toBe('/');
+  expect(((tree.right as PrefixExpressionTree).value as PrefixExpressionTree).value).toBeInstanceOf(
+    IntegerExpressionTree,
+  );
 });
