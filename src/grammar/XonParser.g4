@@ -24,7 +24,6 @@ expression
   | ID                              # idExpression
   | expression body                 # bodyExpression
   | declarations* LAMBDA expression # lambdaExpression
-  | ID expression                   # keywordExpression
   ;
 
 declarations: OPEN (declaration (COMMA declaration)* COMMA?)? CLOSE;
