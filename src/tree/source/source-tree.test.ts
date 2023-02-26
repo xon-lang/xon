@@ -67,10 +67,10 @@ test('debug', () => {
 abc: ABC
 
   if (b is c)
-    return #{new SingleBodyTree(ctx)}
+    return (#{new SingleBodyTree(ctx)})
 
   if (d is e)
-    return #{new MultipleBodyTree(ctx)}
+    return (#{new MultipleBodyTree(ctx)})
 `;
   const tree = parseSource(code);
 
