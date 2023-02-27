@@ -14,7 +14,7 @@ test('only expression', () => {
 });
 
 test('if statement', () => {
-  const code = `if (b is c)
+  const code = `if b is c
   return SingleBodyTree(ctx)`;
   const tree = parseExpression(code) as BodyExpressionTree;
 

@@ -1,0 +1,22 @@
+import { PostfixExpressionTree } from '~/tree/expression/postfix/postfix-expression-tree';
+import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
+import { evaluate } from '~/util/evaluate';
+import { parseExpression } from '~/util/parse';
+
+test('exclamation', () => {
+  const code = '1!';
+  const tree = parseExpression(code) as PostfixExpressionTree;
+
+  expect(tree).toBeInstanceOf(PostfixExpressionTree);
+  expect(tree.name.text).toBe('!');
+  expect(evaluate(tree.value)).toBe(1);
+});
+
+test('exclamation plus', () => {
+  const code = 'ctx.parameters[]!+';
+  const tree = parseExpression(code) as PostfixExpressionTree;
+
+  expect(tree).toBeInstanceOf(PostfixExpressionTree);
+  expect(tree.name.text).toBe('+');
+  expect((tree.value as PrefixExpressionTree).name.text).toBe('!');
+});

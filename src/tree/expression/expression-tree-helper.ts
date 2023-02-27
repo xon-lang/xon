@@ -9,11 +9,12 @@ import {
   InvokeExpressionContext,
   LambdaExpressionContext,
   MemberExpressionContext,
+  PostfixExpressionContext,
   PrefixExpressionContext,
   StringExpressionContext,
 } from '~/grammar/xon-parser';
 import { Issue } from '~/issue/issue';
-import { tempOperators } from '~/parser/parser-config';
+import { operators } from '~/parser/parser-config';
 import { ArrayExpressionTree } from '~/tree/expression/array/array-expression-tree';
 import { BodyExpressionTree } from '~/tree/expression/body/body-expression-tree';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
@@ -24,6 +25,7 @@ import { IntegerExpressionTree } from '~/tree/expression/integer/integer-express
 import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
 import { LambdaExpressionTree } from '~/tree/expression/lambda/lambda-expression-tree';
 import { MemberExpressionTree } from '~/tree/expression/member/member-expression-tree';
+import { PostfixExpressionTree } from '~/tree/expression/postfix/postfix-expression-tree';
 import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
 import { StringExpressionTree } from '~/tree/expression/string/string-expression-tree';
 import { Token } from '~/tree/token';
@@ -38,10 +40,11 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
   if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
+  if (ctx instanceof PostfixExpressionContext) return new PostfixExpressionTree(ctx);
   if (ctx instanceof BodyExpressionContext) return new BodyExpressionTree(ctx);
 
   if (ctx instanceof InfixExpressionContext) {
-    const operatorsMatrix = tempOperators.map((x) => x.split(' '));
+    const operatorsMatrix = operators.map((x) => x.split(' '));
 
     const expressions: (Token | ExpressionTree)[] = flatExpressions(ctx);
 
@@ -71,7 +74,7 @@ function flatExpressions(context: ExpressionContext): (Token | ExpressionTree)[]
   if (context instanceof InfixExpressionContext) {
     const [left, right] = context.expression();
 
-    return [...flatExpressions(left), Token.from(context.OP()), getExpressionTree(right)];
+    return [...flatExpressions(left), Token.from(context.OPERATOR()), getExpressionTree(right)];
   }
 
   return [getExpressionTree(context)];

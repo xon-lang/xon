@@ -60,17 +60,17 @@ test('has several relational operators', () => {
 });
 
 test('several operators', () => {
-  const code = '1 +-/ 2';
+  const code = '1 -/+ 2';
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
-  expect(tree.name.text).toBe('+');
+  expect(tree.name.text).toBe('-');
 
   expect(tree.right).toBeInstanceOf(PrefixExpressionTree);
-  expect((tree.right as PrefixExpressionTree).name.text).toBe('-');
+  expect((tree.right as PrefixExpressionTree).name.text).toBe('/');
 
   expect((tree.right as PrefixExpressionTree).value).toBeInstanceOf(PrefixExpressionTree);
-  expect(((tree.right as PrefixExpressionTree).value as PrefixExpressionTree).name.text).toBe('/');
+  expect(((tree.right as PrefixExpressionTree).value as PrefixExpressionTree).name.text).toBe('+');
   expect(((tree.right as PrefixExpressionTree).value as PrefixExpressionTree).value).toBeInstanceOf(
     IntegerExpressionTree,
   );
