@@ -13,15 +13,15 @@ statement
 
 expression
   : PREPROCESSOR                    # preprocessorExpression
-  | INTEGER                         # integerExpression
+  | ID                              # idExpression
   | FLOAT                           # floatExpression
+  | INTEGER                         # integerExpression
   | STRING                          # stringExpression
   | arguments                       # arrayExpression
   | expression (DOT | META) ID?     # memberExpression
   | expression arguments            # invokeExpression
   | expression OP expression        # infixExpression
   | OP expression                   # prefixExpression
-  | ID                              # idExpression
   | expression body                 # bodyExpression
   | declarations* LAMBDA expression # lambdaExpression
   ;
