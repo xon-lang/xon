@@ -14,6 +14,7 @@ import {
   StringExpressionContext,
 } from '~/grammar/xon-parser';
 import { Issue } from '~/issue/issue';
+import { tempOperators } from '~/parser/parser-config';
 import { ArrayExpressionTree } from '~/tree/expression/array/array-expression-tree';
 import { BodyExpressionTree } from '~/tree/expression/body/body-expression-tree';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
@@ -43,8 +44,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof BodyExpressionContext) return new BodyExpressionTree(ctx);
 
   if (ctx instanceof InfixExpressionContext) {
-    const operators = ['^', '* / %', '+ -', '..', '< <= >= >', '== !=', '&', '|'];
-    const operatorsMatrix = operators.map((x) => x.split(' '));
+    const operatorsMatrix = tempOperators.map((x) => x.split(' '));
 
     const expressions: (Token | ExpressionTree)[] = flatExpressions(ctx);
 

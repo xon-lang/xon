@@ -83,12 +83,14 @@ export class Parser {
   }
 }
 
+const operators = tempOperators.flatMap((x) => x.split(' '));
+
 export function parserFromCode(code: String2, parserConfig: ParserConfig | null = null): Parser {
   const config: ParserConfig = {
     code,
     location: '',
     keywords: tempKeywords,
-    operators: tempOperators,
+    operators,
     ...parserConfig,
   };
 
@@ -101,7 +103,7 @@ export function parserFromFile(location: String2, parserConfig: ParserConfig | n
     code,
     location,
     keywords: tempKeywords,
-    operators: tempOperators,
+    operators,
     ...parserConfig,
   };
 
