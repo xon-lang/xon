@@ -12,8 +12,7 @@ statement
   ;
 
 expression
-  : PREPROCESSOR                    # preprocessorExpression
-  | ID                              # idExpression
+  : ID                              # idExpression
   | FLOAT                           # floatExpression
   | INTEGER                         # integerExpression
   | STRING                          # stringExpression

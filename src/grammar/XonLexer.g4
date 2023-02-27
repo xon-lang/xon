@@ -29,8 +29,6 @@ FLOAT:   Radix AlphabetNumber '.' AlphabetNumber | DigitNumber '.' DigitNumber;
 INTEGER: Radix AlphabetNumber | DigitNumber;
 STRING:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 
-PREPROCESSOR: '#{' (PREPROCESSOR | '{' .*? '}' | .)*? '}';
-
 // KEYWORD: .+? { this.isKeyword()}?;
 OP: .+? { this.isOperator()}?;
 

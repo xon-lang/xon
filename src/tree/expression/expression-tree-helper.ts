@@ -10,7 +10,6 @@ import {
   LambdaExpressionContext,
   MemberExpressionContext,
   PrefixExpressionContext,
-  PreprocessorExpressionContext,
   StringExpressionContext,
 } from '~/grammar/xon-parser';
 import { Issue } from '~/issue/issue';
@@ -26,12 +25,10 @@ import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression
 import { LambdaExpressionTree } from '~/tree/expression/lambda/lambda-expression-tree';
 import { MemberExpressionTree } from '~/tree/expression/member/member-expression-tree';
 import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
-import { PreprocessorExpressionTree } from '~/tree/expression/preprocessor/preprocessor-expression-tree';
 import { StringExpressionTree } from '~/tree/expression/string/string-expression-tree';
 import { Token } from '~/tree/token';
 
 export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
-  if (ctx instanceof PreprocessorExpressionContext) return new PreprocessorExpressionTree(ctx);
   if (ctx instanceof IntegerExpressionContext) return new IntegerExpressionTree(ctx);
   if (ctx instanceof FloatExpressionContext) return new FloatExpressionTree(ctx);
   if (ctx instanceof StringExpressionContext) return new StringExpressionTree(ctx);

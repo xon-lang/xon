@@ -21,14 +21,7 @@ test('preprocessor in attribute', () => {
   const code = `
 toString: [] => String
   importStatements = this.statements.filter[[x] => x is ImportStatementTree].map[[x] => x as ImportStatementTree]
-  importStatementsMap = #{{}}
-  #{
-    for (let importStatement of importStatements) {
-      importStatementsMap[importStatement.path.toString()] = importStatementsMap[importStatement.path.toString()] || []
-      const members = importStatement.members.map(x => x.toString())
-      importStatementsMap[importStatement.path.toString()].push(...members)
-    }
-  }
+  importStatementsMap = {}
 `.trim();
   const tree = parseSource(code);
 
@@ -67,10 +60,10 @@ test('debug', () => {
 abc: ABC
 
   if (b is c)
-    return (#{new SingleBodyTree(ctx)})
+    return (SingleBodyTree(ctx))
 
   if (d is e)
-    return (#{new MultipleBodyTree(ctx)})
+    return (MultipleBodyTree(ctx))
 `;
   const tree = parseSource(code);
 

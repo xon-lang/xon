@@ -15,7 +15,7 @@ test('only expression', () => {
 
 test('if statement', () => {
   const code = `if (b is c)
-  return (#{new SingleBodyTree(ctx)})`;
+  return SingleBodyTree(ctx)`;
   const tree = parseExpression(code) as BodyExpressionTree;
 
   expect(tree).toBeInstanceOf(BodyExpressionTree);
