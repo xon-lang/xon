@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 import { XonLexer } from '~/grammar/xon-lexer';
 import { XonParser } from '~/grammar/xon-parser';
 import { String2 } from '~/lib/core';
-import { ParserConfig, tempKeywords, tempOperators } from '~/parser/parser-config';
+import { keywords, operators, ParserConfig } from '~/parser/parser-config';
 import { ThrowingErrorListener } from '~/parser/throwing-error-listener';
 import { ArgumentTree } from '~/tree/argument/argument-tree';
 import { getArgumentTree } from '~/tree/argument/argument-tree-helper';
@@ -33,8 +33,8 @@ export class Parser {
     lexer.removeErrorListeners();
     lexer.addErrorListener(new ThrowingErrorListener());
 
-    lexer.setKeywords(this.config.keywords);
-    lexer.setOperators(this.config.operators);
+    lexer.keywords = this.config.keywords;
+    lexer.operators = this.config.operators;
 
     return lexer;
   }
@@ -44,16 +44,16 @@ export class Parser {
   }
 
   private parser(tokenStream: TokenStream): XonParser {
-    // console.log(
-    //   getLexer(code, location)
-    //     .getAllTokens()
-    //     .map((x) => {
-    //       const type = XonLexer.VOCABULARY.getDisplayName(x.type);
+    console.log(
+      this.lexer()
+        .getAllTokens()
+        .map((x) => {
+          const type = XonLexer.VOCABULARY.getDisplayName(x.type);
 
-    //       return `${type} = '${x.text}'`;
-    //     })
-    //     .join(', '),
-    // );
+          return `${type} = '${x.text}'`;
+        })
+        .join(', '),
+    );
 
     const parser = new XonParser(tokenStream);
     parser.removeErrorListeners();
@@ -83,14 +83,15 @@ export class Parser {
   }
 }
 
-const operators = tempOperators.flatMap((x) => x.split(' '));
+const flatOperators = operators.flatMap((x) => x.split(' '));
+const flatKeywords = keywords.flatMap((x) => x.split(' '));
 
 export function parserFromCode(code: String2, parserConfig: ParserConfig | null = null): Parser {
   const config: ParserConfig = {
     code,
     location: '',
-    keywords: tempKeywords,
-    operators,
+    keywords: flatKeywords,
+    operators: flatOperators,
     ...parserConfig,
   };
 
@@ -102,8 +103,8 @@ export function parserFromFile(location: String2, parserConfig: ParserConfig | n
   const config: ParserConfig = {
     code,
     location,
-    keywords: tempKeywords,
-    operators,
+    keywords: flatKeywords,
+    operators: flatOperators,
     ...parserConfig,
   };
 

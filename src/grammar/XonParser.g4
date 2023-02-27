@@ -19,17 +19,18 @@ expression
   | arguments                       # arrayExpression
   | expression (DOT | META) ID?     # memberExpression
   | expression arguments            # invokeExpression
-  | expression OP expression        # infixExpression
-  | OP expression                   # prefixExpression
-  | expression body                 # bodyExpression
+  | expression OPERATOR expression  # infixExpression
+  | OPERATOR expression             # prefixExpression
+  | expression OPERATOR             # postfixExpression
   | declarations* LAMBDA expression # lambdaExpression
+  | expression body                 # bodyExpression
   ;
 
 declarations: OPEN (declaration (COMMA declaration)* COMMA?)? CLOSE;
 declaration
-  : modifier = ID name = (ID | OP) declarations* type? value?
-  | modifier = ID? name = (ID | OP) declarations* (type value? | value)
-  | name = (ID | OP)
+  : modifier = ID name = (ID | OPERATOR) declarations* type? value?
+  | modifier = ID? name = (ID | OPERATOR) declarations* (type value? | value)
+  | name = (ID | OPERATOR)
   ;
 arguments: OPEN (argument (COMMA argument)* COMMA?)? CLOSE;
 argument:  (ID ASSIGN)? expression;

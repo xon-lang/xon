@@ -12,8 +12,8 @@ export abstract class XonLexerBase extends Lexer {
   private tokenQueue: Token[] = [];
   private indents: Integer[] = [];
   private lastToken: Token | null = null;
-  private keywords: String2[] = [];
-  private operators: String2[] = [];
+  public keywords: String2[] = [];
+  public operators: String2[] = [];
   public abstract get channelNames(): String2[];
   public abstract get modeNames(): String2[];
   public abstract get ruleNames(): String2[];
@@ -54,14 +54,6 @@ export abstract class XonLexerBase extends Lexer {
     return this.tokenQueue.shift() ?? next;
   }
 
-  public setKeywords(keywords: String2[]): void {
-    this.keywords = keywords;
-  }
-
-  public setOperators(operators: String2[]): void {
-    this.operators = operators;
-  }
-
   protected atStartOfInput(): Boolean2 {
     return this.charIndex === 0;
   }
@@ -90,14 +82,6 @@ export abstract class XonLexerBase extends Lexer {
         this.indents.pop();
       }
     }
-  }
-
-  protected isKeyword(): boolean {
-    return this.keywords.includes(this.text);
-  }
-
-  protected isOperator(): boolean {
-    return this.operators.includes(this.text);
   }
 
   private createDedent(): Token {

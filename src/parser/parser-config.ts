@@ -8,5 +8,5 @@ export interface ParserConfig {
 }
 
 // '. ::',
-export const tempOperators = ['!', '^', '* / %', '+ -', '..', '< <= >= >', '== !=', 'is as in', '&', '|'];
-export const tempKeywords = ['break', 'continue', 'do', 'else', 'export', 'for', 'if', 'import', 'return', 'while'];
+export const operators = ['!', '?', '^', '* / %', '+ -', '..', '< <= >= >', '== !=', 'is as in', '&', '|'];
+export const keywords = ['break', 'continue', 'do', 'else', 'export', 'for', 'if', 'import', 'return', 'while'];
