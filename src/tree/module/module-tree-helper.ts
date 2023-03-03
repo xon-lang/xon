@@ -1,4 +1,4 @@
-import { sync } from 'glob';
+import { globSync } from 'glob';
 import { basename, join } from 'path';
 import { String2 } from '~/lib/core';
 import { ModuleTree } from '~/tree/module/module-tree';
@@ -24,7 +24,7 @@ export function getModuleTreeFromPath(modulePath: String2): ModuleTree {
 
 function getSourceTreesFromPath(modulePath: String2): SourceTree[] {
   const globPath = join(modulePath, '*.xon');
-  const sourceFiles = sync(globPath, { nodir: true });
+  const sourceFiles = globSync(globPath, { nodir: true });
   const sourceTrees = sourceFiles.map((x) => parseSourceFile(x));
 
   return sourceTrees;
@@ -32,7 +32,7 @@ function getSourceTreesFromPath(modulePath: String2): SourceTree[] {
 
 function getInnerModules(modulePath: String2): ModuleTree[] {
   const globPath = join(modulePath, '*/');
-  const modulesDirectories = sync(globPath);
+  const modulesDirectories = globSync(globPath);
   const modules = modulesDirectories.map(getModuleTreeFromPath);
 
   return modules;
