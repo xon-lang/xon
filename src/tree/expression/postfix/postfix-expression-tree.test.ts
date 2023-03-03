@@ -9,7 +9,7 @@ test('exclamation', () => {
 
   expect(tree).toBeInstanceOf(PostfixExpressionTree);
   expect(tree.name.text).toBe('!');
-  expect(evaluate(tree.value)).toBe(1);
+  expect(evaluate(tree.expression)).toBe(1);
 });
 
 test('exclamation plus', () => {
@@ -18,5 +18,5 @@ test('exclamation plus', () => {
 
   expect(tree).toBeInstanceOf(PostfixExpressionTree);
   expect(tree.name.text).toBe('+');
-  expect((tree.value as PrefixExpressionTree).name.text).toBe('!');
+  expect((tree.expression as PrefixExpressionTree).name.text).toBe('!');
 });

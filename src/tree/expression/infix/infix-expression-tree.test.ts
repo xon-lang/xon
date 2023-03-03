@@ -69,9 +69,9 @@ test('several operators', () => {
   expect(tree.right).toBeInstanceOf(PrefixExpressionTree);
   expect((tree.right as PrefixExpressionTree).name.text).toBe('/');
 
-  expect((tree.right as PrefixExpressionTree).value).toBeInstanceOf(PrefixExpressionTree);
-  expect(((tree.right as PrefixExpressionTree).value as PrefixExpressionTree).name.text).toBe('+');
-  expect(((tree.right as PrefixExpressionTree).value as PrefixExpressionTree).value).toBeInstanceOf(
+  expect((tree.right as PrefixExpressionTree).expression).toBeInstanceOf(PrefixExpressionTree);
+  expect(((tree.right as PrefixExpressionTree).expression as PrefixExpressionTree).name.text).toBe('+');
+  expect(((tree.right as PrefixExpressionTree).expression as PrefixExpressionTree).expression).toBeInstanceOf(
     IntegerExpressionTree,
   );
 });

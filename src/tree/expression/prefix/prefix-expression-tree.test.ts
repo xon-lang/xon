@@ -7,7 +7,7 @@ test('negative integer', () => {
   const tree = parseExpression(code) as PrefixExpressionTree;
 
   expect(tree).toBeInstanceOf(PrefixExpressionTree);
-  expect(evaluate(tree.value)).toBe(1);
+  expect(evaluate(tree.expression)).toBe(1);
 });
 
 test('not boolean', () => {

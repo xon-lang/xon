@@ -36,7 +36,7 @@ export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
     return eval(`${escapeToString(a)} ${operator} ${escapeToString(b)}`);
   }
   if (tree instanceof PrefixExpressionTree) {
-    const a = evaluate(tree.value, argsMap);
+    const a = evaluate(tree.expression, argsMap);
 
     // eslint-disable-next-line no-eval
     return eval(`${tree.name.text}${escapeToString(a)}`);

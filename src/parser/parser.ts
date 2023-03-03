@@ -44,16 +44,16 @@ export class Parser {
   }
 
   private parser(tokenStream: TokenStream): XonParser {
-    console.log(
-      this.lexer()
-        .getAllTokens()
-        .map((x) => {
-          const type = XonLexer.VOCABULARY.getDisplayName(x.type);
+    // console.log(
+    //   this.lexer()
+    //     .getAllTokens()
+    //     .map((x) => {
+    //       const type = XonLexer.VOCABULARY.getDisplayName(x.type);
 
-          return `${type} = '${x.text}'`;
-        })
-        .join(', '),
-    );
+    //       return `${type} = '${x.text}'`;
+    //     })
+    //     .join(', '),
+    // );
 
     const parser = new XonParser(tokenStream);
     parser.removeErrorListeners();

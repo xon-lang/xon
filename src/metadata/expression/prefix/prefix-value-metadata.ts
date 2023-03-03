@@ -12,7 +12,7 @@ export class PrefixValueMetadata extends ValueMetadata {
   constructor(private tree: PrefixExpressionTree) {
     super();
 
-    getExpressionMetadata(tree.value);
+    getExpressionMetadata(tree.expression);
     tree.name.metadata = this.operatorDeclaration();
   }
 
@@ -26,7 +26,7 @@ export class PrefixValueMetadata extends ValueMetadata {
       const { parameters } = type;
       if (parameters.length !== 1) return false;
 
-      const { metadata } = this.tree.value;
+      const { metadata } = this.tree.expression;
       if (metadata instanceof ValueMetadata) {
         return (parameters[0].type && metadata.type()?.is(parameters[0].type)) || false;
       }
@@ -54,7 +54,7 @@ export class PrefixValueMetadata extends ValueMetadata {
   }
 
   eval(): Any {
-    const { metadata } = this.tree.value;
+    const { metadata } = this.tree.expression;
     if (metadata instanceof ValueMetadata) {
       const value = metadata.eval();
 
