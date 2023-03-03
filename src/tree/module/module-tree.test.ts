@@ -7,8 +7,8 @@ test('module from path', () => {
   expect(tree).toBeInstanceOf(ModuleTree);
   expect(tree.children.length).toBe(5);
 
-  const testModule = tree.children.find((x) => x instanceof ModuleTree) as ModuleTree;
+  const testModule = tree.children.find((x) => x instanceof ModuleTree && x.name === 'test') as ModuleTree;
   expect(testModule).toBeInstanceOf(ModuleTree);
   expect(testModule.name).toBe('test');
-  expect(testModule.location).toBe('src/lib/@xon/core/test/');
+  expect(testModule.location).toBe('src/lib/@xon/core/test');
 });

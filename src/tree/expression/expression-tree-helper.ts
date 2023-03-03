@@ -1,12 +1,12 @@
 import {
   ArrayExpressionContext,
-  BodyExpressionContext,
   ExpressionContext,
   FloatExpressionContext,
   IdExpressionContext,
   InfixExpressionContext,
   IntegerExpressionContext,
   InvokeExpressionContext,
+  KeywordExpressionContext,
   LambdaExpressionContext,
   MemberExpressionContext,
   PostfixExpressionContext,
@@ -16,13 +16,13 @@ import {
 import { Issue } from '~/issue/issue';
 import { operators } from '~/parser/parser-config';
 import { ArrayExpressionTree } from '~/tree/expression/array/array-expression-tree';
-import { BodyExpressionTree } from '~/tree/expression/body/body-expression-tree';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { FloatExpressionTree } from '~/tree/expression/float/float-expression-tree';
 import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tree';
 import { IntegerExpressionTree } from '~/tree/expression/integer/integer-expression-tree';
 import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
+import { KeywordExpressionTree } from '~/tree/expression/keyword/keyword-expression-tree';
 import { LambdaExpressionTree } from '~/tree/expression/lambda/lambda-expression-tree';
 import { MemberExpressionTree } from '~/tree/expression/member/member-expression-tree';
 import { PostfixExpressionTree } from '~/tree/expression/postfix/postfix-expression-tree';
@@ -41,7 +41,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof LambdaExpressionContext) return new LambdaExpressionTree(ctx);
   if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
   if (ctx instanceof PostfixExpressionContext) return new PostfixExpressionTree(ctx);
-  if (ctx instanceof BodyExpressionContext) return new BodyExpressionTree(ctx);
+  if (ctx instanceof KeywordExpressionContext) return new KeywordExpressionTree(ctx);
 
   if (ctx instanceof InfixExpressionContext) {
     const operatorsMatrix = operators.map((x) => x.split(' '));

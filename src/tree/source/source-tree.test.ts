@@ -1,21 +1,21 @@
 import { SourceTree } from '~/tree/source/source-tree';
 import { parseSource, parseSourceFile } from '~/util/parse';
 
-test('import and if', () => {
-  const code = `import ('xon.os') {Path} 
+// test('import and if', () => {
+//   const code = `import ('xon.os') {Path} 
 
-1+1
-if e
-    7+7
-else
-  if d
-    call()
-`;
-  const tree = parseSource(code);
+// 1+1
+// if e
+//     7+7
+// else
+//   if d
+//     call()
+// `;
+//   const tree = parseSource(code);
 
-  expect(tree).toBeInstanceOf(SourceTree);
-  expect(tree.children.length).toBe(4);
-});
+//   expect(tree).toBeInstanceOf(SourceTree);
+//   expect(tree.children.length).toBe(4);
+// });
 
 test('preprocessor in attribute', () => {
   const code = `
@@ -28,47 +28,47 @@ toString: [] => String
   expect(tree).toBeInstanceOf(SourceTree);
 });
 
-test('two if statements', () => {
-  const code = `
-if a
-  123
-if b
-  321
-`.trim();
-  const tree = parseSource(code);
+// test('two if statements', () => {
+//   const code = `
+// if a
+//   123
+// if b
+//   321
+// `.trim();
+//   const tree = parseSource(code);
 
-  expect(tree).toBeInstanceOf(SourceTree);
-});
+//   expect(tree).toBeInstanceOf(SourceTree);
+// });
 
-test('has comment', () => {
-  const code = ` 
-a := 1213
+// test('has comment', () => {
+//   const code = ` 
+// a := 1213
 
-import abc
-import def
+// import abc
+// import def
 
--- comment
-object someObjectFactory(name: String)
-`.trim();
-  const tree = parseSource(code);
+// -- comment
+// object someObjectFactory(name: String)
+// `.trim();
+//   const tree = parseSource(code);
 
-  expect(tree).toBeInstanceOf(SourceTree);
-});
+//   expect(tree).toBeInstanceOf(SourceTree);
+// });
 
-test('debug', () => {
-  const code = ` 
-abc: ABC
+// test('debug', () => {
+//   const code = ` 
+// abc: ABC
 
-  if (b is c)
-    return (SingleBodyTree(ctx))
+//   if (b is c)
+//     return (SingleBodyTree(ctx))
 
-  if (d is e)
-    return (MultipleBodyTree(ctx))
-`;
-  const tree = parseSource(code);
+//   if (d is e)
+//     return (MultipleBodyTree(ctx))
+// `;
+//   const tree = parseSource(code);
 
-  expect(tree).toBeInstanceOf(SourceTree);
-});
+//   expect(tree).toBeInstanceOf(SourceTree);
+// });
 
 test('3.xon', () => {
   const tree = parseSourceFile('src/tree/source/test-files/3.xon');

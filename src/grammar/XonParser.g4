@@ -23,7 +23,7 @@ expression
   | OPERATOR expression             # prefixExpression
   | expression OPERATOR             # postfixExpression
   | declarations* LAMBDA expression # lambdaExpression
-  | expression body                 # bodyExpression
+  | KEYWORD expression?             # keywordExpression
   ;
 
 declarations: OPEN (declaration (COMMA declaration)* COMMA?)? CLOSE;
