@@ -20,6 +20,5 @@ expression
   ;
 
 parameters: OPEN (expression (COMMA+ expression)* COMMA*)? CLOSE;
-
-body:   NL INDENT source DEDENT;
-source: NL? (expression nl += NL)* expression? NL?;
+body:       NL INDENT source DEDENT;
+source:     NL? (expression nl += NL)* expression? NL?;
