@@ -19,7 +19,7 @@ export class MemberExpressionTree extends ExpressionTree {
     this.instance = getExpressionTree(ctx.expression());
     const id = ctx.ID() ?? null;
     this.name = id && Token.from(id);
-    this.isMeta = Boolean(ctx.META());
+    this.isMeta = ctx.MEMBER_OPERATOR().text === '::';
     this.addChildren(this.instance, this.name);
   }
 }

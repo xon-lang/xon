@@ -30,12 +30,11 @@ STRING:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 KEYWORD:  .+? { this.keywords.includes(this.text) }?;
 OPERATOR: .+? { this.isOperator() }?;
 
-DOT:    '.';
-META:   '::';
-COMMA:  ',';
-ASSIGN: '=';
-COLON:  (NL | WS)? ':' (NL | WS)?;
-ID:     [_a-zA-Z] [_a-zA-Z0-9]*;
+MEMBER_OPERATOR: '.' | '::';
+COMMA:           ',';
+ASSIGN:          '=';
+COLON:           (NL | WS)? ':' (NL | WS)?;
+ID:              [_a-zA-Z] [_a-zA-Z0-9]*;
 
 NL:           ([\r\n] WS*)+ {this.handleLineBreak()};
 LINE_COMMENT: '--' ~[\r\n]*;

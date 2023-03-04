@@ -11,7 +11,7 @@ expression
   | INTEGER                        # integerExpression
   | STRING                         # stringExpression
   | parameters                     # arrayExpression
-  | expression (DOT | META) ID?    # memberExpression
+  | expression MEMBER_OPERATOR ID? # memberExpression
   | expression parameters          # invokeExpression
   | expression OPERATOR expression # infixExpression
   | OPERATOR expression            # prefixExpression
@@ -19,7 +19,7 @@ expression
   | KEYWORD expression?            # keywordExpression
   ;
 
-parameters: OPEN (expression (COMMA expression)* COMMA?)? CLOSE;
+parameters: OPEN (expression (COMMA+ expression)* COMMA*)? CLOSE;
 
 body:   NL INDENT source DEDENT;
 source: NL? (expression nl += NL)* expression? NL?;
