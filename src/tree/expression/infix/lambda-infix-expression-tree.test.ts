@@ -32,7 +32,7 @@ test('generics', () => {
   const kExpression = generics.parameters[2] as InfixExpressionTree;
   expect(kExpression).toBeInstanceOf(InfixExpressionTree);
   expect((kExpression.left as IdExpressionTree).name.text).toBe('K');
-  expect(kExpression.name.text).toBe(':');
+  expect(kExpression.operator.text).toBe(':');
   expect((kExpression.right as IdExpressionTree).name.text).toBe('String');
   expect(left.parameters?.length).toBe(1);
   expect(left.parameters?.at(0)).toBeInstanceOf(IdExpressionTree);

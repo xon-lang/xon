@@ -30,7 +30,7 @@ export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
   if (tree instanceof InfixExpressionTree) {
     const a = evaluate(tree.left, argsMap);
     const b = evaluate(tree.right, argsMap);
-    const operator = (tree.name.text === '^' && '**') || tree.name.text;
+    const operator = (tree.operator.text === '^' && '**') || tree.operator.text;
 
     // eslint-disable-next-line no-eval
     return eval(`${escapeToString(a)} ${operator} ${escapeToString(b)}`);
@@ -39,7 +39,7 @@ export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
     const a = evaluate(tree.expression, argsMap);
 
     // eslint-disable-next-line no-eval
-    return eval(`${tree.name.text}${escapeToString(a)}`);
+    return eval(`${tree.operator.text}${escapeToString(a)}`);
   }
   if (tree instanceof IdExpressionTree) {
     if (argsMap[tree.name.text]) {

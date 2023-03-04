@@ -13,11 +13,11 @@ export class PrefixValueMetadata extends ValueMetadata {
     super();
 
     getExpressionMetadata(tree.expression);
-    tree.name.metadata = this.operatorDeclaration();
+    tree.operator.metadata = this.operatorDeclaration();
   }
 
   private operatorDeclaration(): ParameterMetadata | null {
-    const declarations = this.tree.scope.filter(this.tree.name.text, (x) => {
+    const declarations = this.tree.scope.filter(this.tree.operator.text, (x) => {
       if (!(x instanceof OperatorMetadata)) return false;
 
       const { type } = x;
@@ -37,17 +37,17 @@ export class PrefixValueMetadata extends ValueMetadata {
       return declarations[0] as ParameterMetadata;
     }
     if (declarations.length > 0) {
-      this.tree.name.addError('Too many declarations');
+      this.tree.operator.addError('Too many declarations');
     } else {
-      this.tree.name.addError('No declarations found');
+      this.tree.operator.addError('No declarations found');
     }
 
     return null;
   }
 
   type(): TypeMetadata | null {
-    if (this.tree.name.metadata?.type instanceof MethodTypeMetadata) {
-      return this.tree.name.metadata.type.resultType;
+    if (this.tree.operator.metadata?.type instanceof MethodTypeMetadata) {
+      return this.tree.operator.metadata.type.resultType;
     }
 
     return null;
@@ -59,7 +59,7 @@ export class PrefixValueMetadata extends ValueMetadata {
       const value = metadata.eval();
 
       // eslint-disable-next-line no-eval
-      return eval(`${this.tree.name.text} ${escapeToString(value)}`);
+      return eval(`${this.tree.operator.text} ${escapeToString(value)}`);
     }
 
     return null;

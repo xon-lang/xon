@@ -8,7 +8,7 @@ test('exclamation', () => {
   const tree = parseExpression(code) as PostfixExpressionTree;
 
   expect(tree).toBeInstanceOf(PostfixExpressionTree);
-  expect(tree.name.text).toBe('!');
+  expect(tree.operator.text).toBe('!');
   expect(evaluate(tree.expression)).toBe(1);
 });
 
@@ -17,6 +17,6 @@ test('exclamation plus', () => {
   const tree = parseExpression(code) as PostfixExpressionTree;
 
   expect(tree).toBeInstanceOf(PostfixExpressionTree);
-  expect(tree.name.text).toBe('+');
-  expect((tree.expression as PrefixExpressionTree).name.text).toBe('!');
+  expect(tree.operator.text).toBe('+');
+  expect((tree.expression as PrefixExpressionTree).operator.text).toBe('!');
 });

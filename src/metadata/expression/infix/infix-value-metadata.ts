@@ -13,7 +13,7 @@ export class InfixValueMetadata extends ValueMetadata {
     super();
     getExpressionMetadata(tree.left);
     getExpressionMetadata(tree.right);
-    tree.name.metadata = this.operatorDeclaration();
+    tree.operator.metadata = this.operatorDeclaration();
   }
 
   private operatorDeclaration(): ParameterMetadata | null {
@@ -24,7 +24,7 @@ export class InfixValueMetadata extends ValueMetadata {
       throw new Error('Not implemented');
     }
 
-    const declarations = this.tree.scope.filter(this.tree.name.text, (x) => {
+    const declarations = this.tree.scope.filter(this.tree.operator.text, (x) => {
       if (!(x instanceof OperatorMetadata && x.type instanceof MethodTypeMetadata) || x.type.parameters.length !== 2) {
         return false;
       }
@@ -40,17 +40,17 @@ export class InfixValueMetadata extends ValueMetadata {
       return declarations[0] as ParameterMetadata;
     }
     if (declarations.length > 0) {
-      this.tree.name.addError('Too many declarations');
+      this.tree.operator.addError('Too many declarations');
     } else {
-      this.tree.name.addError('No declarations found');
+      this.tree.operator.addError('No declarations found');
     }
 
     return null;
   }
 
   type(): TypeMetadata | null {
-    if (this.tree.name.metadata?.type instanceof MethodTypeMetadata) {
-      return this.tree.name.metadata.type.resultType;
+    if (this.tree.operator.metadata?.type instanceof MethodTypeMetadata) {
+      return this.tree.operator.metadata.type.resultType;
     }
 
     return null;
@@ -63,12 +63,12 @@ export class InfixValueMetadata extends ValueMetadata {
     if (leftMetadata instanceof ValueMetadata && rightMetadata instanceof ValueMetadata) {
       const left = leftMetadata.eval();
       const right = rightMetadata.eval();
-      if (this.tree.name.text === '^' && typeof left === 'number' && typeof right === 'number') {
+      if (this.tree.operator.text === '^' && typeof left === 'number' && typeof right === 'number') {
         return left ** right;
       }
 
       // eslint-disable-next-line no-eval
-      return eval(`${escapeToString(left)} ${this.tree.name.text} ${escapeToString(right)}`);
+      return eval(`${escapeToString(left)} ${this.tree.operator.text} ${escapeToString(right)}`);
     }
     throw new Error('Not implemented');
   }

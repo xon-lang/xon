@@ -10,7 +10,7 @@ test('several operands with different priorities', () => {
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
-  expect(tree.name.text).toBe('+');
+  expect(tree.operator.text).toBe('+');
   expect(evaluate(tree)).toBe(34);
 });
 
@@ -19,7 +19,7 @@ test('num plus str', () => {
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
-  expect(tree.name.text).toBe('+');
+  expect(tree.operator.text).toBe('+');
   expect(evaluate(tree)).toBe('1str');
 });
 
@@ -28,7 +28,7 @@ test('num is number', () => {
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
-  expect(tree.name.text).toBe('&');
+  expect(tree.operator.text).toBe('&');
   expect((tree.left as IntegerExpressionTree).value).toBe(1);
 });
 
@@ -37,7 +37,7 @@ test('equals', () => {
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
-  expect(tree.name.text).toBe('==');
+  expect(tree.operator.text).toBe('==');
   expect((tree.right as IntegerExpressionTree).value).toBe(123);
 });
 
@@ -46,12 +46,12 @@ test('has several relational operators', () => {
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
-  expect(tree.name.text).toBe('>');
+  expect(tree.operator.text).toBe('>');
   expect(tree.left).toBeInstanceOf(InfixExpressionTree);
   expect(tree.right).toBeInstanceOf(IdExpressionTree);
 
   const left = tree.left as InfixExpressionTree;
-  expect(left.name.text).toBe('<');
+  expect(left.operator.text).toBe('<');
   expect((left.left as IdExpressionTree).name.text).toBe('a');
   expect((left.right as IdExpressionTree).name.text).toBe('b');
 
@@ -64,13 +64,13 @@ test('several operators', () => {
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
-  expect(tree.name.text).toBe('-');
+  expect(tree.operator.text).toBe('-');
 
   expect(tree.right).toBeInstanceOf(PrefixExpressionTree);
-  expect((tree.right as PrefixExpressionTree).name.text).toBe('/');
+  expect((tree.right as PrefixExpressionTree).operator.text).toBe('/');
 
   expect((tree.right as PrefixExpressionTree).expression).toBeInstanceOf(PrefixExpressionTree);
-  expect(((tree.right as PrefixExpressionTree).expression as PrefixExpressionTree).name.text).toBe('+');
+  expect(((tree.right as PrefixExpressionTree).expression as PrefixExpressionTree).operator.text).toBe('+');
   expect(((tree.right as PrefixExpressionTree).expression as PrefixExpressionTree).expression).toBeInstanceOf(
     IntegerExpressionTree,
   );

@@ -5,7 +5,7 @@ import { Token } from '~/tree/token';
 
 export class InfixExpressionTree extends ExpressionTree {
   ctx: ParserRuleContext | null;
-  name: Token;
+  operator: Token;
   left: ExpressionTree;
   right: ExpressionTree;
   sourceSpan: SourceSpan;
@@ -13,10 +13,10 @@ export class InfixExpressionTree extends ExpressionTree {
   constructor(name: Token, left: ExpressionTree, right: ExpressionTree) {
     super();
     this.ctx = left.ctx?.parent ?? null;
-    this.name = name;
+    this.operator = name;
     this.left = left;
     this.right = right;
     this.sourceSpan = SourceSpan.fromTwoRange(left.sourceSpan, right.sourceSpan);
-    this.addChildren(this.left, this.name, this.right);
+    this.addChildren(this.left, this.operator, this.right);
   }
 }

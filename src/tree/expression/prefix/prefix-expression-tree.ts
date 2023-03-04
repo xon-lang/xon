@@ -7,15 +7,15 @@ import { Token } from '~/tree/token';
 export class PrefixExpressionTree extends ExpressionTree {
   ctx: PrefixExpressionContext;
   sourceSpan: SourceSpan;
-  name: Token;
+  operator: Token;
   expression: ExpressionTree;
 
   constructor(ctx: PrefixExpressionContext) {
     super();
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
-    this.name = Token.from(ctx.OPERATOR());
+    this.operator = Token.from(ctx.OPERATOR());
     this.expression = getExpressionTree(ctx.expression());
-    this.addChildren(this.name, this.expression);
+    this.addChildren(this.operator, this.expression);
   }
 }
