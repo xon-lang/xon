@@ -1,7 +1,5 @@
 import { InvokeExpressionContext } from '~/grammar/xon-parser';
 import { SourceSpan } from '~/source/source-span';
-import { ArgumentTree } from '~/tree/argument/argument-tree';
-import { getArgumentTree } from '~/tree/argument/argument-tree-helper';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
 import { Token } from '~/tree/token';
@@ -12,19 +10,19 @@ export class InvokeExpressionTree extends ExpressionTree {
   openToken: Token;
   closeToken: Token;
   instance: ExpressionTree;
-  arguments: ArgumentTree[] | null = null;
+  parameters: ExpressionTree[] | null = null;
 
   constructor(ctx: InvokeExpressionContext) {
     super();
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
 
-    const args = ctx.arguments();
+    const args = ctx.parameters();
     this.openToken = new Token(args.OPEN());
     this.closeToken = new Token(args.CLOSE());
     this.instance = getExpressionTree(ctx.expression());
-    this.arguments = args.argument().map(getArgumentTree);
+    this.parameters = args.expression().map(getExpressionTree);
 
-    this.addChildren(this.instance, this.openToken, ...this.arguments, this.closeToken);
+    this.addChildren(this.instance, this.openToken, ...this.parameters, this.closeToken);
   }
 }

@@ -5,38 +5,24 @@ options {
   tokenVocab = XonLexer;
 }
 
-statement
-  : LINE_COMMENT # commentStatement
-  | declaration  # declarationStatement
-  | expression   # expressionStatement
-  ;
+statement: LINE_COMMENT # commentStatement | expression # expressionStatement;
 
 expression
-  : ID                              # idExpression
-  | FLOAT                           # floatExpression
-  | INTEGER                         # integerExpression
-  | STRING                          # stringExpression
-  | arguments                       # arrayExpression
-  | expression (DOT | META) ID?     # memberExpression
-  | expression arguments            # invokeExpression
-  | expression OPERATOR expression  # infixExpression
-  | OPERATOR expression             # prefixExpression
-  | expression OPERATOR             # postfixExpression
-  | declarations* LAMBDA expression # lambdaExpression
-  | KEYWORD expression?             # keywordExpression
+  : ID                             # idExpression
+  | FLOAT                          # floatExpression
+  | INTEGER                        # integerExpression
+  | STRING                         # stringExpression
+  | parameters                     # arrayExpression
+  | expression (DOT | META) ID?    # memberExpression
+  | expression parameters          # invokeExpression
+  | expression OPERATOR expression # infixExpression
+  | OPERATOR expression            # prefixExpression
+  | expression OPERATOR            # postfixExpression
+  | parameters* LAMBDA expression  # lambdaExpression
+  | KEYWORD expression?            # keywordExpression
   ;
 
-declarations: OPEN (declaration (COMMA declaration)* COMMA?)? CLOSE;
-declaration
-  : modifier = ID name = (ID | OPERATOR) declarations* type? value?
-  | modifier = ID? name = (ID | OPERATOR) declarations* (type value? | value)
-  | name = (ID | OPERATOR)
-  ;
-arguments: OPEN (argument (COMMA argument)* COMMA?)? CLOSE;
-argument:  (ID ASSIGN)? expression;
-
-type:  COLON expression?;
-value: ASSIGN expression? | body;
+parameters: OPEN (expression (COMMA expression)* COMMA?)? CLOSE;
 
 body:   NL INDENT source DEDENT;
 source: NL? (statement nl += NL)* statement? NL?;

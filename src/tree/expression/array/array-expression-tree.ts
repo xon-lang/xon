@@ -1,14 +1,13 @@
 import { ArrayExpressionContext } from '~/grammar/xon-parser';
 import { SourceSpan } from '~/source/source-span';
-import { ArgumentTree } from '~/tree/argument/argument-tree';
-import { getArgumentTree } from '~/tree/argument/argument-tree-helper';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
+import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
 import { Token } from '~/tree/token';
 
 export class ArrayExpressionTree extends ExpressionTree {
   ctx: ArrayExpressionContext;
   sourceSpan: SourceSpan;
-  arguments: ArgumentTree[];
+  parameters: ExpressionTree[];
   openToken: Token;
   closeToken: Token;
 
@@ -16,10 +15,10 @@ export class ArrayExpressionTree extends ExpressionTree {
     super();
     this.ctx = ctx;
     this.sourceSpan = SourceSpan.fromContext(ctx);
-    const args = ctx.arguments();
-    this.arguments = args.argument().map(getArgumentTree);
+    const args = ctx.parameters();
+    this.parameters = args.expression().map(getExpressionTree);
     this.openToken = Token.from(args.OPEN());
     this.closeToken = Token.from(args.CLOSE());
-    this.addChildren(...this.arguments);
+    this.addChildren(this.openToken, ...this.parameters, this.closeToken);
   }
 }

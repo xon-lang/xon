@@ -5,10 +5,8 @@ import { XonParser } from '~/grammar/xon-parser';
 import { String2 } from '~/lib/core';
 import { keywords, operators, ParserConfig } from '~/parser/parser-config';
 import { ThrowingErrorListener } from '~/parser/throwing-error-listener';
-import { ArgumentTree } from '~/tree/argument/argument-tree';
-import { getArgumentTree } from '~/tree/argument/argument-tree-helper';
-import { DeclarationTree } from '~/tree/declaration/declaration-tree';
-import { getDeclarationTree } from '~/tree/declaration/declaration-tree-helper';
+import { BodyTree } from '~/tree/body/body-tree';
+import { getBodyTree } from '~/tree/body/body-tree-helper';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
 import { SourceTree } from '~/tree/source/source-tree';
@@ -44,16 +42,16 @@ export class Parser {
   }
 
   private parser(tokenStream: TokenStream): XonParser {
-    // console.log(
-    //   this.lexer()
-    //     .getAllTokens()
-    //     .map((x) => {
-    //       const type = XonLexer.VOCABULARY.getDisplayName(x.type);
+    console.log(
+      this.lexer()
+        .getAllTokens()
+        .map((x) => {
+          const type = XonLexer.VOCABULARY.getDisplayName(x.type);
 
-    //       return `${type} = '${x.text}'`;
-    //     })
-    //     .join(', '),
-    // );
+          return `${type} = '${x.text}'`;
+        })
+        .join(', '),
+    );
 
     const parser = new XonParser(tokenStream);
     parser.removeErrorListeners();
@@ -74,12 +72,8 @@ export class Parser {
     return getStatementTree(this.antlrParser.statement());
   }
 
-  public declaration(): DeclarationTree {
-    return getDeclarationTree(this.antlrParser.declaration());
-  }
-
-  public argument(): ArgumentTree {
-    return getArgumentTree(this.antlrParser.argument());
+  public body(): BodyTree {
+    return getBodyTree(this.antlrParser.body());
   }
 }
 

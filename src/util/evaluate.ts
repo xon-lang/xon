@@ -18,7 +18,7 @@ export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
     return null;
   }
   if (tree instanceof ArrayExpressionTree) {
-    return tree.arguments.map((x) => evaluate(x.value ?? null));
+    return tree.parameters.map((x) => evaluate(x ?? null));
   }
   if (
     tree instanceof IntegerExpressionTree ||

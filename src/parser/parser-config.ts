@@ -8,5 +8,5 @@ export interface ParserConfig {
 }
 
 // '. ::',
-export const operators = ['!', '?', '^', '* / %', '+ -', '..', '< <= >= >', '== !=', 'is as in', '&', '|'];
+export const operators = ['!', '?', '^', '* / %', '+ -', '..', '< <= >= >', '== !=', 'is as in', '&', '|', ': ='];
 export const keywords = ['break', 'continue', 'do', 'else', 'export', 'for', 'if', 'import', 'return', 'while'];
