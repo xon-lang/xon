@@ -23,8 +23,6 @@ tokens {
 OPEN:  ('(' | '[' | '{') {this.opened++;};
 CLOSE: (')' | ']' | '}') {this.opened--;};
 
-LAMBDA: (NL | WS)? '=>' (NL | WS)?;
-
 FLOAT:   Radix AlphabetNumber '.' AlphabetNumber | DigitNumber '.' DigitNumber;
 INTEGER: Radix AlphabetNumber | DigitNumber;
 STRING:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';

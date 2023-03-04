@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 import { XonLexer } from '~/grammar/xon-lexer';
 import { XonParser } from '~/grammar/xon-parser';
 import { String2 } from '~/lib/core';
-import { keywords, operators, ParserConfig } from '~/parser/parser-config';
+import { keywords, leftOperators, ParserConfig, rightOperators } from '~/parser/parser-config';
 import { ThrowingErrorListener } from '~/parser/throwing-error-listener';
 import { BodyTree } from '~/tree/body/body-tree';
 import { getBodyTree } from '~/tree/body/body-tree-helper';
@@ -30,7 +30,7 @@ export class Parser {
     lexer.addErrorListener(new ThrowingErrorListener());
 
     lexer.keywords = this.config.keywords;
-    lexer.operators = this.config.operators;
+    lexer.operators = [...this.config.leftOperators, ...this.config.rightOperators];
 
     return lexer;
   }
@@ -40,16 +40,15 @@ export class Parser {
   }
 
   private parser(tokenStream: TokenStream): XonParser {
-    // console.log(
-    //   this.lexer()
-    //     .getAllTokens()
-    //     .map((x) => {
-    //       const type = XonLexer.VOCABULARY.getDisplayName(x.type);
-
-    //       return `${type} = '${x.text}'`;
-    //     })
-    //     .join(', '),
-    // );
+    // const tokens = this.lexer()
+    //   .getAllTokens()
+    //   .map((x) => ({
+    //     type: XonLexer.VOCABULARY.getDisplayName(x.type),
+    //     value: x.text,
+    //   }));
+    // console.log(tokens.map((x) => `${x.type}`).join(' '));
+    // console.log(tokens.map((x) => `'${x.value}'`).join(', '));
+    // console.log(tokens.map((x) => `${x.type} = '${x.value}'`).join(', '));
 
     const parser = new XonParser(tokenStream);
     parser.removeErrorListeners();
@@ -71,7 +70,8 @@ export class Parser {
   }
 }
 
-const flatOperators = operators.flatMap((x) => x.split(' '));
+const flatLeftOperators = leftOperators.flatMap((x) => x.split(' '));
+const flatRightOperators = rightOperators.flatMap((x) => x.split(' '));
 const flatKeywords = keywords.flatMap((x) => x.split(' '));
 
 export function parserFromCode(code: String2, parserConfig: ParserConfig | null = null): Parser {
@@ -79,7 +79,8 @@ export function parserFromCode(code: String2, parserConfig: ParserConfig | null 
     code,
     location: '',
     keywords: flatKeywords,
-    operators: flatOperators,
+    leftOperators: flatLeftOperators,
+    rightOperators: flatRightOperators,
     ...parserConfig,
   };
 
@@ -92,7 +93,8 @@ export function parserFromFile(location: String2, parserConfig: ParserConfig | n
     code,
     location,
     keywords: flatKeywords,
-    operators: flatOperators,
+    leftOperators: flatLeftOperators,
+    rightOperators: flatRightOperators,
     ...parserConfig,
   };
 

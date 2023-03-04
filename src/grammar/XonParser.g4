@@ -16,7 +16,6 @@ expression
   | expression OPERATOR expression # infixExpression
   | OPERATOR expression            # prefixExpression
   | expression OPERATOR            # postfixExpression
-  | parameters* LAMBDA expression  # lambdaExpression
   | KEYWORD expression?            # keywordExpression
   ;
 
