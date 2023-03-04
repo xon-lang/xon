@@ -5,7 +5,6 @@ import { ModelDeclarationMetadata } from '~/metadata/declaration/model/model-dec
 import { ObjectDeclarationMetadata } from '~/metadata/declaration/object/object-declaration-metadata';
 import { BodyTree } from '~/tree/body/body-tree';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
-import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { SourceTree } from '~/tree/source/source-tree';
 import { isDeclarationStatement } from '~/tree/statement/statement-tree-helper';
 
@@ -255,7 +254,7 @@ import { isDeclarationStatement } from '~/tree/statement/statement-tree-helper';
 // }
 
 export function getSourceDeclarationMetadata(tree: SourceTree): DeclarationMetadata[] {
-  const declarations = tree.statements.filter(isDeclarationStatement).map((x) => x.declaration);
+  const declarations = tree.expressions.filter(isDeclarationStatement).map((x) => x.declaration);
 
   return declarations.map(getDeclarationMetadata);
 }

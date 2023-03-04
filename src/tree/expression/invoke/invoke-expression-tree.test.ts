@@ -40,7 +40,7 @@ test('can call with type parameter', () => {
 
   expect(tree).toBeInstanceOf(InvokeExpressionTree);
   expect(tree.parameters?.length).toBe(1);
-  const indexer = tree.parameters?.at(0)?;
+  const indexer = tree.parameters?.at(0);
   expect(indexer).toBeInstanceOf(IntegerExpressionTree);
   expect(tree.instance).toBeInstanceOf(MemberExpressionTree);
 });

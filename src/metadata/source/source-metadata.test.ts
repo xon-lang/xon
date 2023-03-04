@@ -17,14 +17,14 @@ test('1-error.xon', () => {
 });
 
 test('2.xon', () => {
-  const tree = parseSource('{null} := import \'src/lib/@xon/core\'');
+  const tree = parseSource("{null} := import 'src/lib/@xon/core'");
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getSourceMetadata(tree);
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
   const declarations = tree.scope.filter('null');
   expect(declarations.length).toBe(1);
-  const declarationTree = tree.statements[0] as DeclarationStatementTree.declaration as DeclarationTree;
+  const declarationTree = tree.expressions[0] as DeclarationStatementTree.declaration as DeclarationTree;
   expect(declarationTree.destructure[0].metadata.sourceSpan.location).toBe(
     '/Users/nizami/work/xon/core/src/lib/@xon/core/special.xon',
   );

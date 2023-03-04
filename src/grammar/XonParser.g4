@@ -5,8 +5,6 @@ options {
   tokenVocab = XonLexer;
 }
 
-statement: LINE_COMMENT # commentStatement | expression # expressionStatement;
-
 expression
   : ID                             # idExpression
   | FLOAT                          # floatExpression
@@ -25,4 +23,4 @@ expression
 parameters: OPEN (expression (COMMA expression)* COMMA?)? CLOSE;
 
 body:   NL INDENT source DEDENT;
-source: NL? (statement nl += NL)* statement? NL?;
+source: NL? (expression nl += NL)* expression? NL?;

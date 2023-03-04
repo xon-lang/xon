@@ -11,8 +11,6 @@ import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
 import { SourceTree } from '~/tree/source/source-tree';
 import { getSourceTree } from '~/tree/source/source-tree-helper';
-import { StatementTree } from '~/tree/statement/statement-tree';
-import { getStatementTree } from '~/tree/statement/statement-tree-helper';
 
 export class Parser {
   antlrLexer: XonLexer;
@@ -42,16 +40,16 @@ export class Parser {
   }
 
   private parser(tokenStream: TokenStream): XonParser {
-    console.log(
-      this.lexer()
-        .getAllTokens()
-        .map((x) => {
-          const type = XonLexer.VOCABULARY.getDisplayName(x.type);
+    // console.log(
+    //   this.lexer()
+    //     .getAllTokens()
+    //     .map((x) => {
+    //       const type = XonLexer.VOCABULARY.getDisplayName(x.type);
 
-          return `${type} = '${x.text}'`;
-        })
-        .join(', '),
-    );
+    //       return `${type} = '${x.text}'`;
+    //     })
+    //     .join(', '),
+    // );
 
     const parser = new XonParser(tokenStream);
     parser.removeErrorListeners();
@@ -66,10 +64,6 @@ export class Parser {
 
   public expression(): ExpressionTree {
     return getExpressionTree(this.antlrParser.expression());
-  }
-
-  public statement(): StatementTree {
-    return getStatementTree(this.antlrParser.statement());
   }
 
   public body(): BodyTree {

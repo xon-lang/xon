@@ -17,7 +17,7 @@ test('single parameter', () => {
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
 
-  const parameter = (tree.statements[0] as DeclarationStatementTree).declaration as DeclarationTree;
+  const parameter = (tree.expressions[0] as DeclarationStatementTree).declaration as DeclarationTree;
   const valueType = (parameter.value?.metadata as ValueMetadata).type() as LiteralTypeMetadata;
   expect(parameter.metadata?.name).toBe('a');
   expect(valueType.definition.name).toBe('Integer');
@@ -26,11 +26,11 @@ test('single parameter', () => {
 });
 
 test('multiple parameters array value', () => {
-  const code = '[a, b, c] := [1,\'hi\',2.3]';
+  const code = "[a, b, c] := [1,'hi',2.3]";
   const tree = parseSource(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getSourceMetadata(tree);
-  const { destructure } = (tree.statements[0] as DeclarationStatementTree).declaration;
+  const { destructure } = (tree.expressions[0] as DeclarationStatementTree).declaration;
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
   expect(destructure.length).toBe(3);
@@ -48,11 +48,11 @@ test('multiple parameters array value', () => {
 });
 
 test('multiple parameters object value', () => {
-  const code = '{a, b, c} := {a=1,b=\'hi\',c=2.3}';
+  const code = "{a, b, c} := {a=1,b='hi',c=2.3}";
   const tree = parseSource(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getSourceMetadata(tree);
-  const { destructure } = (tree.statements[0] as DeclarationStatementTree).declaration;
+  const { destructure } = (tree.expressions[0] as DeclarationStatementTree).declaration;
 
   expect(metadata).toBeInstanceOf(SourceMetadata);
   expect(destructure.length).toBe(3);

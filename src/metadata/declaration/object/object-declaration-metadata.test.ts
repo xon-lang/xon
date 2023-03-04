@@ -8,7 +8,7 @@ import { parseSource } from '~/util/parse';
 test('definition', () => {
   const code = 'model A';
   const tree = parseSource(code);
-  const { declaration } = tree.statements[0] as DeclarationStatementTree;
+  const { declaration } = tree.expressions[0] as DeclarationStatementTree;
   tree.scope.parent = new TestDeclarationScope();
   tree.metadata = getSourceMetadata(tree);
 
