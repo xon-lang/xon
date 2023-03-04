@@ -47,11 +47,11 @@ export class XonParser extends Parser {
 	public static readonly UNEXPECTED = 20;
 	public static readonly RULE_expression = 0;
 	public static readonly RULE_parameters = 1;
-	public static readonly RULE_body = 2;
-	public static readonly RULE_source = 3;
+	public static readonly RULE_source = 2;
+	public static readonly RULE_body = 3;
 	// tslint:disable:no-trailing-whitespace
 	public static readonly ruleNames: string[] = [
-		"expression", "parameters", "body", "source",
+		"expression", "parameters", "source", "body",
 	];
 
 	private static readonly _LITERAL_NAMES: Array<string | undefined> = [
@@ -374,20 +374,63 @@ export class XonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public body(): BodyContext {
-		let _localctx: BodyContext = new BodyContext(this._ctx, this.state);
-		this.enterRule(_localctx, 4, XonParser.RULE_body);
+	public source(): SourceContext {
+		let _localctx: SourceContext = new SourceContext(this._ctx, this.state);
+		this.enterRule(_localctx, 4, XonParser.RULE_source);
+		let _la: number;
 		try {
+			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 62;
-			this.match(XonParser.NL);
 			this.state = 63;
-			this.match(XonParser.INDENT);
-			this.state = 64;
-			this.source();
-			this.state = 65;
-			this.match(XonParser.DEDENT);
+			this._errHandler.sync(this);
+			switch ( this.interpreter.adaptivePredict(this._input, 9, this._ctx) ) {
+			case 1:
+				{
+				this.state = 62;
+				this.match(XonParser.NL);
+				}
+				break;
+			}
+			this.state = 70;
+			this._errHandler.sync(this);
+			_alt = this.interpreter.adaptivePredict(this._input, 10, this._ctx);
+			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
+				if (_alt === 1) {
+					{
+					{
+					this.state = 65;
+					this.expression(0);
+					this.state = 66;
+					_localctx._NL = this.match(XonParser.NL);
+					_localctx._nl.push(_localctx._NL);
+					}
+					}
+				}
+				this.state = 72;
+				this._errHandler.sync(this);
+				_alt = this.interpreter.adaptivePredict(this._input, 10, this._ctx);
+			}
+			this.state = 74;
+			this._errHandler.sync(this);
+			_la = this._input.LA(1);
+			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN) | (1 << XonParser.FLOAT) | (1 << XonParser.INTEGER) | (1 << XonParser.STRING) | (1 << XonParser.KEYWORD) | (1 << XonParser.OPERATOR) | (1 << XonParser.ID))) !== 0)) {
+				{
+				this.state = 73;
+				this.expression(0);
+				}
+			}
+
+			this.state = 77;
+			this._errHandler.sync(this);
+			_la = this._input.LA(1);
+			if (_la === XonParser.NL) {
+				{
+				this.state = 76;
+				this.match(XonParser.NL);
+				}
+			}
+
 			}
 		}
 		catch (re) {
@@ -405,63 +448,20 @@ export class XonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public source(): SourceContext {
-		let _localctx: SourceContext = new SourceContext(this._ctx, this.state);
-		this.enterRule(_localctx, 6, XonParser.RULE_source);
-		let _la: number;
+	public body(): BodyContext {
+		let _localctx: BodyContext = new BodyContext(this._ctx, this.state);
+		this.enterRule(_localctx, 6, XonParser.RULE_body);
 		try {
-			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 68;
-			this._errHandler.sync(this);
-			switch ( this.interpreter.adaptivePredict(this._input, 9, this._ctx) ) {
-			case 1:
-				{
-				this.state = 67;
-				this.match(XonParser.NL);
-				}
-				break;
-			}
-			this.state = 75;
-			this._errHandler.sync(this);
-			_alt = this.interpreter.adaptivePredict(this._input, 10, this._ctx);
-			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
-				if (_alt === 1) {
-					{
-					{
-					this.state = 70;
-					this.expression(0);
-					this.state = 71;
-					_localctx._NL = this.match(XonParser.NL);
-					_localctx._nl.push(_localctx._NL);
-					}
-					}
-				}
-				this.state = 77;
-				this._errHandler.sync(this);
-				_alt = this.interpreter.adaptivePredict(this._input, 10, this._ctx);
-			}
 			this.state = 79;
-			this._errHandler.sync(this);
-			_la = this._input.LA(1);
-			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << XonParser.OPEN) | (1 << XonParser.FLOAT) | (1 << XonParser.INTEGER) | (1 << XonParser.STRING) | (1 << XonParser.KEYWORD) | (1 << XonParser.OPERATOR) | (1 << XonParser.ID))) !== 0)) {
-				{
-				this.state = 78;
-				this.expression(0);
-				}
-			}
-
+			this.match(XonParser.NL);
+			this.state = 80;
+			this.match(XonParser.INDENT);
+			this.state = 81;
+			this.source();
 			this.state = 82;
-			this._errHandler.sync(this);
-			_la = this._input.LA(1);
-			if (_la === XonParser.NL) {
-				{
-				this.state = 81;
-				this.match(XonParser.NL);
-				}
-			}
-
+			this.match(XonParser.DEDENT);
 			}
 		}
 		catch (re) {
@@ -511,12 +511,12 @@ export class XonParser extends Parser {
 		"\x05\x02\x1F\n\x02\x03\x02\x03\x02\x03\x02\x03\x02\x07\x02%\n\x02\f\x02" +
 		"\x0E\x02(\v\x02\x03\x03\x03\x03\x03\x03\x06\x03-\n\x03\r\x03\x0E\x03." +
 		"\x03\x03\x07\x032\n\x03\f\x03\x0E\x035\v\x03\x03\x03\x07\x038\n\x03\f" +
-		"\x03\x0E\x03;\v\x03\x05\x03=\n\x03\x03\x03\x03\x03\x03\x04\x03\x04\x03" +
-		"\x04\x03\x04\x03\x04\x03\x05\x05\x05G\n\x05\x03\x05\x03\x05\x03\x05\x07" +
-		"\x05L\n\x05\f\x05\x0E\x05O\v\x05\x03\x05\x05\x05R\n\x05\x03\x05\x05\x05" +
-		"U\n\x05\x03\x05\x02\x02\x03\x02\x06\x02\x02\x04\x02\x06\x02\b\x02\x02" +
-		"\x02\x02f\x02\x16\x03\x02\x02\x02\x04)\x03\x02\x02\x02\x06@\x03\x02\x02" +
-		"\x02\bF\x03\x02\x02\x02\n\v\b\x02\x01\x02\v\x17\x07\x10\x02\x02\f\x17" +
+		"\x03\x0E\x03;\v\x03\x05\x03=\n\x03\x03\x03\x03\x03\x03\x04\x05\x04B\n" +
+		"\x04\x03\x04\x03\x04\x03\x04\x07\x04G\n\x04\f\x04\x0E\x04J\v\x04\x03\x04" +
+		"\x05\x04M\n\x04\x03\x04\x05\x04P\n\x04\x03\x05\x03\x05\x03\x05\x03\x05" +
+		"\x03\x05\x03\x05\x02\x02\x03\x02\x06\x02\x02\x04\x02\x06\x02\b\x02\x02" +
+		"\x02\x02f\x02\x16\x03\x02\x02\x02\x04)\x03\x02\x02\x02\x06A\x03\x02\x02" +
+		"\x02\bQ\x03\x02\x02\x02\n\v\b\x02\x01\x02\v\x17\x07\x10\x02\x02\f\x17" +
 		"\x07\x07\x02\x02\r\x17\x07\b\x02\x02\x0E\x17\x07\t\x02\x02\x0F\x17\x05" +
 		"\x04\x03\x02\x10\x11\x07\v\x02\x02\x11\x17\x05\x02\x02\x05\x12\x14\x07" +
 		"\n\x02\x02\x13\x15\x05\x02\x02\x02\x14\x13\x03\x02\x02\x02\x14\x15\x03" +
@@ -536,14 +536,14 @@ export class XonParser extends Parser {
 		"\x02\x02\x0268\x07\r\x02\x0276\x03\x02\x02\x028;\x03\x02\x02\x0297\x03" +
 		"\x02\x02\x029:\x03\x02\x02\x02:=\x03\x02\x02\x02;9\x03\x02\x02\x02<*\x03" +
 		"\x02\x02\x02<=\x03\x02\x02\x02=>\x03\x02\x02\x02>?\x07\x06\x02\x02?\x05" +
-		"\x03\x02\x02\x02@A\x07\x11\x02\x02AB\x07\x03\x02\x02BC\x05\b\x05\x02C" +
-		"D\x07\x04\x02\x02D\x07\x03\x02\x02\x02EG\x07\x11\x02\x02FE\x03\x02\x02" +
-		"\x02FG\x03\x02\x02\x02GM\x03\x02\x02\x02HI\x05\x02\x02\x02IJ\x07\x11\x02" +
-		"\x02JL\x03\x02\x02\x02KH\x03\x02\x02\x02LO\x03\x02\x02\x02MK\x03\x02\x02" +
-		"\x02MN\x03\x02\x02\x02NQ\x03\x02\x02\x02OM\x03\x02\x02\x02PR\x05\x02\x02" +
-		"\x02QP\x03\x02\x02\x02QR\x03\x02\x02\x02RT\x03\x02\x02\x02SU\x07\x11\x02" +
-		"\x02TS\x03\x02\x02\x02TU\x03\x02\x02\x02U\t\x03\x02\x02\x02\x0F\x14\x16" +
-		"\x1E$&.39<FMQT";
+		"\x03\x02\x02\x02@B\x07\x11\x02\x02A@\x03\x02\x02\x02AB\x03\x02\x02\x02" +
+		"BH\x03\x02\x02\x02CD\x05\x02\x02\x02DE\x07\x11\x02\x02EG\x03\x02\x02\x02" +
+		"FC\x03\x02\x02\x02GJ\x03\x02\x02\x02HF\x03\x02\x02\x02HI\x03\x02\x02\x02" +
+		"IL\x03\x02\x02\x02JH\x03\x02\x02\x02KM\x05\x02\x02\x02LK\x03\x02\x02\x02" +
+		"LM\x03\x02\x02\x02MO\x03\x02\x02\x02NP\x07\x11\x02\x02ON\x03\x02\x02\x02" +
+		"OP\x03\x02\x02\x02P\x07\x03\x02\x02\x02QR\x07\x11\x02\x02RS\x07\x03\x02" +
+		"\x02ST\x05\x06\x04\x02TU\x07\x04\x02\x02U\t\x03\x02\x02\x02\x0F\x14\x16" +
+		"\x1E$&.39<AHLO";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!XonParser.__ATN) {
@@ -702,21 +702,6 @@ export class ParametersContext extends ParserRuleContext {
 }
 
 
-export class BodyContext extends ParserRuleContext {
-	public NL(): TerminalNode { return this.getToken(XonParser.NL, 0); }
-	public INDENT(): TerminalNode { return this.getToken(XonParser.INDENT, 0); }
-	public source(): SourceContext {
-		return this.getRuleContext(0, SourceContext);
-	}
-	public DEDENT(): TerminalNode { return this.getToken(XonParser.DEDENT, 0); }
-	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
-		super(parent, invokingState);
-	}
-	// @Override
-	public get ruleIndex(): number { return XonParser.RULE_body; }
-}
-
-
 export class SourceContext extends ParserRuleContext {
 	public _NL!: Token;
 	public _nl: Token[] = [];
@@ -743,6 +728,21 @@ export class SourceContext extends ParserRuleContext {
 	}
 	// @Override
 	public get ruleIndex(): number { return XonParser.RULE_source; }
+}
+
+
+export class BodyContext extends ParserRuleContext {
+	public NL(): TerminalNode { return this.getToken(XonParser.NL, 0); }
+	public INDENT(): TerminalNode { return this.getToken(XonParser.INDENT, 0); }
+	public source(): SourceContext {
+		return this.getRuleContext(0, SourceContext);
+	}
+	public DEDENT(): TerminalNode { return this.getToken(XonParser.DEDENT, 0); }
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return XonParser.RULE_body; }
 }
 
 
