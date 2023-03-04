@@ -152,14 +152,14 @@ export class XonLexer extends XonLexerBase {
 	private KEYWORD_sempred(_localctx: RuleContext, predIndex: number): boolean {
 		switch (predIndex) {
 		case 0:
-			return  this.keywords.includes(this.text);
+			return  this.keywords.includes(this.text) ;
 		}
 		return true;
 	}
 	private OPERATOR_sempred(_localctx: RuleContext, predIndex: number): boolean {
 		switch (predIndex) {
 		case 1:
-			return  this.operators.includes(this.text);
+			return  this.isOperator() ;
 		}
 		return true;
 	}

@@ -54,6 +54,14 @@ export abstract class XonLexerBase extends Lexer {
     return this.tokenQueue.shift() ?? next;
   }
 
+  public isOperator(): boolean {
+    if (!this.operators.includes(this.text)) return false;
+
+    const next = String.fromCharCode(this.inputStream.LA(1));
+
+    return !this.operators.includes(this.text + next);
+  }
+
   protected atStartOfInput(): Boolean2 {
     return this.charIndex === 0;
   }
