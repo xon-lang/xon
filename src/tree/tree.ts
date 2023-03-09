@@ -8,19 +8,12 @@ import { SourceSpan } from '~/source/source-span';
 export abstract class Tree {
   metadata: Metadata | null = null;
   ctx: ParserRuleContext | null = null;
-  sourceSpan!: SourceSpan;
-
   issues: Issue[] = [];
 
   parent: Tree | null = null;
   children: Tree[] = [];
 
-  constructor(ctx?: ParserRuleContext) {
-    if (ctx) {
-      this.ctx = ctx;
-      this.sourceSpan = SourceSpan.fromContext(ctx);
-    }
-  }
+  constructor(public sourceSpan: SourceSpan) {}
 
   addChildren(...children: (Tree | null)[]): void {
     for (const tree of children) {
