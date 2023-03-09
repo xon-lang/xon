@@ -3,14 +3,13 @@ import { readFileSync } from 'fs';
 import { XonLexer } from '~/grammar/xon-lexer';
 import { XonParser } from '~/grammar/xon-parser';
 import { String2 } from '~/lib/core';
-import { keywords, leftOperators, ParserConfig, rightOperators } from '~/parser/parser-config';
+import { ParserConfig } from '~/parser/parser-config';
 import { ThrowingErrorListener } from '~/parser/throwing-error-listener';
-import { BodyTree } from '~/tree/body/body-tree';
-import { getBodyTree } from '~/tree/body/body-tree-helper';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
 import { SourceTree } from '~/tree/source/source-tree';
 import { getSourceTree } from '~/tree/source/source-tree-helper';
+import { operatorsOrders } from './parser-config';
 
 export class Parser {
   antlrLexer: XonLexer;
@@ -29,8 +28,9 @@ export class Parser {
     lexer.removeErrorListeners();
     lexer.addErrorListener(new ThrowingErrorListener());
 
-    lexer.keywords = this.config.keywords;
-    lexer.operators = [...this.config.leftOperators, ...this.config.rightOperators];
+    lexer.operators = this.config.operatorsOrders
+      .flatMap((operatorsOrder) => operatorsOrder.operators)
+      .flatMap((operators) => operators.split(' '));
 
     return lexer;
   }
@@ -42,8 +42,9 @@ export class Parser {
   private parser(tokenStream: TokenStream): XonParser {
     // const tokens = this.lexer()
     //   .getAllTokens()
+    //   .filter((x) => x.channel === XonLexer.DEFAULT_TOKEN_CHANNEL)
     //   .map((x) => ({
-    //     type: XonLexer.VOCABULARY.getDisplayName(x.type),
+    //     type: XonLexer.VOCABULARY.getSymbolicName(x.type),
     //     value: x.text,
     //   }));
     // console.log(tokens.map((x) => `${x.type}`).join(' '));
@@ -62,25 +63,21 @@ export class Parser {
   }
 
   public expression(): ExpressionTree {
-    return getExpressionTree(this.antlrParser.expression());
-  }
+    const ctx = this.antlrParser.expression();
 
-  public body(): BodyTree {
-    return getBodyTree(this.antlrParser.body());
+    return getExpressionTree(ctx);
   }
 }
 
-const flatLeftOperators = leftOperators.flatMap((x) => x.split(' '));
-const flatRightOperators = rightOperators.flatMap((x) => x.split(' '));
-const flatKeywords = keywords.flatMap((x) => x.split(' '));
-
-export function parserFromCode(code: String2, parserConfig: ParserConfig | null = null): Parser {
+export function parserFromCode(
+  code: String2,
+  location: String2 = '',
+  parserConfig: ParserConfig | null = null,
+): Parser {
   const config: ParserConfig = {
     code,
-    location: '',
-    keywords: flatKeywords,
-    leftOperators: flatLeftOperators,
-    rightOperators: flatRightOperators,
+    location,
+    operatorsOrders,
     ...parserConfig,
   };
 
@@ -89,17 +86,21 @@ export function parserFromCode(code: String2, parserConfig: ParserConfig | null 
 
 export function parserFromFile(location: String2, parserConfig: ParserConfig | null = null): Parser {
   const code = readFileSync(location).toString();
-  const config: ParserConfig = {
-    code,
-    location,
-    keywords: flatKeywords,
-    leftOperators: flatLeftOperators,
-    rightOperators: flatRightOperators,
-    ...parserConfig,
-  };
 
-  return new Parser(config);
+  return parserFromCode(code, location, parserConfig);
 }
+
+// function printContext(ctx: ParserRuleContext | ParseTree): Unknown2 {
+//   if (ctx.children?.length) {
+//     return {
+//       [ctx.constructor.name]: {
+//         children: ctx.children.map(printContext),
+//       },
+//     };
+//   }
+
+//   return ctx.constructor.name;
+// }
 
 // function _getSourceTree(parser: XonParser): SourceTree | never {
 //   try {
