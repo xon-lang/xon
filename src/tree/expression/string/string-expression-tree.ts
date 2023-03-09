@@ -4,14 +4,16 @@ import { SourceSpan } from '~/source/source-span';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 
 export class StringExpressionTree extends ExpressionTree {
-  ctx: StringExpressionContext;
-  sourceSpan: SourceSpan;
+  stringValue: String2;
   value: String2;
 
   constructor(ctx: StringExpressionContext) {
-    super();
-    this.ctx = ctx;
-    this.sourceSpan = SourceSpan.fromContext(ctx);
+    super(SourceSpan.fromContext(ctx));
+    this.stringValue = ctx.text;
     this.value = ctx.text.slice(1, -1).replace(/\\'/gu, '\'');
+  }
+
+  public toString(): String2 {
+    return `<integer>'${this.value}'`;
   }
 }
