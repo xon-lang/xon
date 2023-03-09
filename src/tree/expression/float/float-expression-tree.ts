@@ -4,15 +4,15 @@ import { SourceSpan } from '~/source/source-span';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 
 export class FloatExpressionTree extends ExpressionTree {
-  sourceSpan: SourceSpan;
+  stringValue: String2;
   radix: Integer;
   integer: String2;
   fraction: String2;
   value: Float;
 
   constructor(ctx: FloatExpressionContext) {
-    super();
-    this.sourceSpan = SourceSpan.fromContext(ctx);
+    super(SourceSpan.fromContext(ctx));
+    this.stringValue = ctx.text;
     [this.integer, this.fraction] = ctx.text.split('.');
     const [integer, radix] = this.integer.split('x').reverse();
     this.integer = integer;
@@ -25,5 +25,9 @@ export class FloatExpressionTree extends ExpressionTree {
       (this.radix &&
         parseInt(integerClean, this.radix) + parseInt(fraction, this.radix) / this.radix ** fraction.length) ||
       parseFloat(`${integerClean}.${fraction}`);
+  }
+
+  public toString(): String2 {
+    return `<float>'${this.stringValue}'`;
   }
 }

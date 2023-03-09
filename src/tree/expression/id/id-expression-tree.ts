@@ -1,18 +1,19 @@
 import { IdExpressionContext } from '~/grammar/xon-parser';
+import { String2 } from '~/lib/core';
 import { SourceSpan } from '~/source/source-span';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
-import { Token } from '~/tree/token';
+import { TokenTree } from '~/tree/token';
 
 export class IdExpressionTree extends ExpressionTree {
-  ctx: IdExpressionContext;
-  sourceSpan: SourceSpan;
-  name: Token;
+  name: TokenTree;
 
   constructor(ctx: IdExpressionContext) {
-    super();
-    this.ctx = ctx;
-    this.sourceSpan = SourceSpan.fromContext(ctx);
-    this.name = Token.from(ctx.ID());
+    super(SourceSpan.fromContext(ctx));
+    this.name = TokenTree.from(ctx.ID());
     this.addChildren(this.name);
+  }
+
+  public toString(): String2 {
+    return `<id>'${this.name.text}'`;
   }
 }
