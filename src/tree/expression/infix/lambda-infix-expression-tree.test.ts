@@ -6,7 +6,7 @@ import { evaluate } from '~/util/evaluate';
 import { parseExpression } from '~/util/parse';
 
 test('has argument', () => {
-  const code = '[x] => x + 42';
+  const code = '[x] = x + 42';
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
@@ -20,7 +20,7 @@ test('has argument', () => {
 });
 
 test('generics', () => {
-  const code = '{N,M ,K:String }[x] => x + 42';
+  const code = '{N,M ,K:String }[x] = x + 42';
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
@@ -34,9 +34,9 @@ test('generics', () => {
   expect((kExpression.left as IdExpressionTree).name.text).toBe('K');
   expect(kExpression.operator.text).toBe(':');
   expect((kExpression.right as IdExpressionTree).name.text).toBe('String');
-  expect(left.parameters?.length).toBe(1);
-  expect(left.parameters?.at(0)).toBeInstanceOf(IdExpressionTree);
-  expect((left.parameters?.at(0) as IdExpressionTree).name.text).toBe('x');
+  expect(left.array.parameters.length).toBe(1);
+  expect(left.array.parameters.at(0)).toBeInstanceOf(IdExpressionTree);
+  expect((left.array.parameters.at(0) as IdExpressionTree).name.text).toBe('x');
   expect(
     evaluate(tree.right, {
       x: 37,
@@ -45,7 +45,7 @@ test('generics', () => {
 });
 
 test('no arguments', () => {
-  const code = '[]=> 42+45';
+  const code = '[]= 42+45';
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
@@ -54,7 +54,7 @@ test('no arguments', () => {
 });
 
 test('lambda inner lambda', () => {
-  const code = '[a] => [b, c] => 42+45';
+  const code = '[a] = [b, c] = 42+45';
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);

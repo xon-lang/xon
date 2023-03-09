@@ -1,22 +1,10 @@
-import { ParserRuleContext } from 'antlr4ts';
 import { SourceSpan } from '~/source/source-span';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
-import { Token } from '~/tree/token';
+import { TokenTree } from '~/tree/token';
 
 export class InfixExpressionTree extends ExpressionTree {
-  ctx: ParserRuleContext | null;
-  operator: Token;
-  left: ExpressionTree;
-  right: ExpressionTree;
-  sourceSpan: SourceSpan;
-
-  constructor(name: Token, left: ExpressionTree, right: ExpressionTree) {
-    super();
-    this.ctx = left.ctx?.parent ?? null;
-    this.operator = name;
-    this.left = left;
-    this.right = right;
-    this.sourceSpan = SourceSpan.fromTwoRange(left.sourceSpan, right.sourceSpan);
-    this.addChildren(this.left, this.operator, this.right);
+  constructor(public operator: TokenTree, public left: ExpressionTree, public right: ExpressionTree) {
+    super(SourceSpan.fromTwoTrees(left, right));
+    this.addChildren(left, operator, right);
   }
 }
