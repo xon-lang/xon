@@ -1,12 +1,6 @@
 lexer grammar XonLexer
   ;
 
-channels {
-  ERROR,
-  WHITESPACE,
-  COMMENT_CHANNEL
-}
-
 options {
   superClass = XonLexerBase;
 }
@@ -27,22 +21,17 @@ FLOAT:   Radix AlphabetNumber '.' AlphabetNumber | DigitNumber '.' DigitNumber;
 INTEGER: Radix AlphabetNumber | DigitNumber;
 STRING:  '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
 
-KEYWORD:  .+? { this.keywords.includes(this.text) }?;
-OPERATOR: .+? { this.isOperator() }?;
+OPERATOR: .+? {this.isOperator()}?;
+COMMA:    ',';
+ID:       [_a-zA-Z] [_a-zA-Z0-9]*;
+NL:       ([\r\n] WS*)+ {this.handleLineBreak()};
 
-MEMBER_OPERATOR: '.' | '::';
-COMMA:           ',';
-ASSIGN:          '=';
-COLON:           (NL | WS)? ':' (NL | WS)?;
-ID:              [_a-zA-Z] [_a-zA-Z0-9]*;
+WS:            [ \t]+                           -> skip;
+LINE_COMMENT:  '--' ~[\r\n]*                    -> skip;
+BLOCK_COMMENT: '/*' (BLOCK_COMMENT | .)*? '*/'  -> skip;
+LINE_JOINING:  '\\' [ \t]* ('\r'? '\n' | '\r')? -> skip;
 
-NL:           ([\r\n] WS*)+ {this.handleLineBreak()};
-LINE_COMMENT: '--' ~[\r\n]*;
-
-WS:            [ \t]+                                  -> channel(WHITESPACE);
-BLOCK_COMMENT: '/*' (BLOCK_COMMENT | .)*? '*/'         -> channel(COMMENT_CHANNEL);
-LINE_JOINING:  '\\' [ \t]* ( '\r'? '\n' | '\r' | '\f') -> skip;
-UNEXPECTED:    .                                       -> channel(ERROR);
+UNEXPECTED: .;
 
 fragment Radix:          [0-9][0-9]? [xX];
 fragment DigitNumber:    [0-9] ('_' | [0-9])*;

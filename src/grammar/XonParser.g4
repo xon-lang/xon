@@ -5,20 +5,16 @@ options {
   tokenVocab = XonLexer;
 }
 
-expression
-  : ID                             # idExpression
-  | FLOAT                          # floatExpression
-  | INTEGER                        # integerExpression
-  | STRING                         # stringExpression
-  | parameters                     # arrayExpression
-  | expression MEMBER_OPERATOR ID? # memberExpression
-  | expression parameters          # invokeExpression
-  | expression OPERATOR expression # infixExpression
-  | OPERATOR expression            # prefixExpression
-  | expression OPERATOR            # postfixExpression
-  | KEYWORD expression?            # keywordExpression
-  ;
+source: NL? (expression nl += NL)* expression? NL?;
 
-parameters: OPEN (expression (COMMA+ expression)* COMMA*)? CLOSE;
-source:     NL? (expression nl += NL)* expression? NL?;
-body:       NL INDENT source DEDENT;
+expression
+  : ID                               # idExpression
+  | OPERATOR                         # operatorExpression
+  | INTEGER                          # integerExpression
+  | FLOAT                            # floatExpression
+  | STRING                           # stringExpression
+  | NL INDENT source DEDENT          # bodyExpression
+  | OPEN (expression | COMMA)* CLOSE # arrayExpression
+  | UNEXPECTED+                      # unexpectedExpression
+  | expression expression            # pairExpression
+  ;
