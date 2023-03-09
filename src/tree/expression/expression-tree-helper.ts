@@ -1,33 +1,32 @@
 import {
   ArrayExpressionContext,
+  BodyExpressionContext,
   ExpressionContext,
   FloatExpressionContext,
   IdExpressionContext,
-  InfixExpressionContext,
   IntegerExpressionContext,
-  InvokeExpressionContext,
-  KeywordExpressionContext,
-  MemberExpressionContext,
-  PostfixExpressionContext,
-  PrefixExpressionContext,
+  OperatorExpressionContext,
+  PairExpressionContext,
   StringExpressionContext,
+  UnexpectedExpressionContext,
 } from '~/grammar/xon-parser';
 import { Issue } from '~/issue/issue';
-import { Boolean2, Integer, String2 } from '~/lib/core';
-import { leftOperators, rightOperators } from '~/parser/parser-config';
+import { Integer, String2 } from '~/lib/core';
+import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/parser/parser-config';
 import { ArrayExpressionTree } from '~/tree/expression/array/array-expression-tree';
+import { BodyExpressionTree } from '~/tree/expression/body/body-expression-tree';
+import { BodyableExpressionTree } from '~/tree/expression/bodyable/bodyable-expression-tree';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { FloatExpressionTree } from '~/tree/expression/float/float-expression-tree';
 import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tree';
 import { IntegerExpressionTree } from '~/tree/expression/integer/integer-expression-tree';
 import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
-import { KeywordExpressionTree } from '~/tree/expression/keyword/keyword-expression-tree';
-import { MemberExpressionTree } from '~/tree/expression/member/member-expression-tree';
+import { OperatorExpressionTree } from '~/tree/expression/operator/operator-expression-tree';
 import { PostfixExpressionTree } from '~/tree/expression/postfix/postfix-expression-tree';
 import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
 import { StringExpressionTree } from '~/tree/expression/string/string-expression-tree';
-import { Token } from '~/tree/token';
+import { UnexpectedExpressionTree } from '~/tree/expression/unexpected/unexpected-expression-tree';
 
 export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof IntegerExpressionContext) return new IntegerExpressionTree(ctx);
@@ -35,64 +34,187 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof StringExpressionContext) return new StringExpressionTree(ctx);
   if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
   if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);
-  if (ctx instanceof InvokeExpressionContext) return new InvokeExpressionTree(ctx);
-  if (ctx instanceof MemberExpressionContext) return new MemberExpressionTree(ctx);
-  if (ctx instanceof PrefixExpressionContext) return new PrefixExpressionTree(ctx);
-  if (ctx instanceof PostfixExpressionContext) return new PostfixExpressionTree(ctx);
-  if (ctx instanceof KeywordExpressionContext) return new KeywordExpressionTree(ctx);
-  if (ctx instanceof InfixExpressionContext) return infixExpression(ctx);
+  if (ctx instanceof OperatorExpressionContext) return new OperatorExpressionTree(ctx);
+  if (ctx instanceof BodyExpressionContext) return new BodyExpressionTree(ctx);
+  if (ctx instanceof UnexpectedExpressionContext) return new UnexpectedExpressionTree(ctx);
+  if (ctx instanceof PairExpressionContext) return pairExpression(ctx);
 
   Issue.errorFromContext(ctx, `Expression tree not found for '${ctx.constructor.name}'`);
 };
 
-function infixExpression(ctx: InfixExpressionContext): ExpressionTree {
+function pairExpression(ctx: ExpressionContext): ExpressionTree {
   const expressions = flatExpressions(ctx);
-  joinOperators(expressions, leftOperators, true);
-  joinOperators(expressions, rightOperators, false);
+  collapseOperators(expressions, operatorsOrders);
 
-  if (expressions.length > 1) {
-    throw new Error('Something went wrong!');
+  const operator = expressions.find((expression) => expression instanceof OperatorExpressionTree);
+  if (operator) {
+    Issue.errorFromTree(operator, 'Extra parameter found');
   }
 
   return expressions[0] as ExpressionTree;
 }
 
-function joinOperators(
-  expressions: (Token | ExpressionTree)[],
-  operatorsStrings: String2[],
-  startFromLeft: Boolean2,
-): void {
-  const operatorsMatrix = operatorsStrings.map((x) => x.split(' '));
-  for (const operators of operatorsMatrix) {
-    const includingCount = expressions.filter((x) => x instanceof Token && operators.includes(x.text)).length;
-    for (let i = 0; i < includingCount; i++) {
-      const operatorIndex =
-        (startFromLeft && expressions.findIndex((x) => x instanceof Token && operators.includes(x.text))) ||
-        expressions.findLastIndex((x) => x instanceof Token && operators.includes(x.text));
-      collapseExpressions(expressions, operatorIndex);
+function collapseOperators(expressions: ExpressionTree[], operatorsOrders: OperatorsOrder[]): void {
+  for (const operatorsOrder of operatorsOrders) {
+    if (operatorsOrder.operatorType === OperatorType.MODIFIER) {
+      collapseModifierExpression(expressions, operatorsOrder.operators[0].split(' '), operatorsOrder.recursiveType);
+    }
+    if (operatorsOrder.operatorType === OperatorType.INVOKE) {
+      collapseInvokeExpression(expressions);
+    }
+    if (operatorsOrder.operatorType === OperatorType.BODY) {
+      collapseBodyExpression(expressions);
+    }
+    for (const operators of operatorsOrder.operators) {
+      const operatorsStrings = operators.split(' ');
+      const operatorIndex = findOperatorIndex(
+        expressions,
+        operatorsStrings,
+        operatorsOrder.operatorType,
+        operatorsOrder.recursiveType,
+      );
+      if (operatorIndex >= 0) {
+        collapseExpressions(expressions, operatorsOrder.operatorType, operatorIndex);
+        collapseOperators(expressions, operatorsOrders);
+      }
     }
   }
 }
 
-function collapseExpressions(expressions: (Token | ExpressionTree)[], operatorIndex: Integer): void {
-  if (operatorIndex >= 0) {
-    const operator = expressions[operatorIndex] as Token;
-    const left = expressions[operatorIndex - 1] as ExpressionTree;
-    const right = expressions[operatorIndex + 1] as ExpressionTree;
-    const infix = new InfixExpressionTree(operator, left, right);
+function collapseModifierExpression(
+  expressions: ExpressionTree[],
+  operators: String2[],
+  recursiveType: RecursiveType,
+): void {
+  for (let i = 0; i < expressions.length; i++) {
+    const index = recursiveType === RecursiveType.LEFT ? i : expressions.length - i - 1;
+    const element = expressions[index];
+    if (element instanceof OperatorExpressionTree && operators.includes(element.name.text)) {
+      const next = expressions[index + 1];
+      if (next) {
+        expressions[index] = new PrefixExpressionTree(element.name, next);
+        expressions.splice(index + 1, 1);
+        collapseModifierExpression(expressions, operators, recursiveType);
 
+        return;
+      }
+    }
+  }
+}
+
+function collapseInvokeExpression(expressions: ExpressionTree[]): void {
+  for (let i = 0; i < expressions.length; i++) {
+    const element = expressions[i];
+    if (element instanceof ArrayExpressionTree && i > 0) {
+      const prev = expressions[i - 1];
+      if (!(prev instanceof OperatorExpressionTree)) {
+        expressions[i] = new InvokeExpressionTree(prev, element);
+        expressions.splice(i - 1, 1);
+        collapseInvokeExpression(expressions);
+
+        return;
+      }
+    }
+  }
+}
+
+function collapseBodyExpression(expressions: ExpressionTree[]): void {
+  for (let i = 0; i < expressions.length; i++) {
+    const element = expressions[i];
+    if (element instanceof BodyExpressionTree && i > 0) {
+      if (i > 0) {
+        expressions[i] = new BodyableExpressionTree(expressions[i - 1], element);
+        expressions.splice(i - 1, 1);
+        collapseBodyExpression(expressions);
+
+        return;
+      }
+    }
+  }
+}
+
+function findOperatorIndex(
+  expressions: ExpressionTree[],
+  operators: String2[],
+  operatorType: OperatorType,
+  recursiveType: RecursiveType,
+): Integer {
+  for (let i = 0; i < expressions.length; i++) {
+    const index = recursiveType === RecursiveType.LEFT ? i : expressions.length - i - 1;
+
+    const operator = expressions[index];
+    if (operator instanceof OperatorExpressionTree && operators.includes(operator.name.text)) {
+      const left = expressions[index - 1];
+      const right = expressions[index + 1];
+
+      if (operatorType === OperatorType.PREFIX) {
+        if (!isOperator(right) && (index === 0 || left instanceof OperatorExpressionTree)) {
+          return index;
+        }
+      } else if (operatorType === OperatorType.POSTFIX) {
+        if (!isOperator(left) && (index === expressions.length - 1 || right instanceof OperatorExpressionTree)) {
+          return index;
+        }
+      } else if (operatorType === OperatorType.INFIX) {
+        if (!isOperator(left) && !isOperator(right)) {
+          return index;
+        }
+      }
+    }
+  }
+
+  return -1;
+}
+
+function collapseExpressions(expressions: ExpressionTree[], operatorType: OperatorType, operatorIndex: Integer): void {
+  if (operatorIndex < 0) return;
+
+  const operator = expressions[operatorIndex] as OperatorExpressionTree;
+
+  if (operatorType === OperatorType.PREFIX) {
+    const right = expressions[operatorIndex + 1];
+    if (!(right instanceof ExpressionTree)) throw new Error('Right value is not an expression');
+
+    const prefix = new PrefixExpressionTree(operator.name, right);
+    expressions[operatorIndex] = prefix;
+    expressions.splice(operatorIndex + 1, 1);
+
+    return;
+  }
+
+  if (operatorType === OperatorType.POSTFIX) {
+    const left = expressions[operatorIndex - 1];
+    if (!(left instanceof ExpressionTree)) throw new Error('Left value is not an expression');
+
+    const postfix = new PostfixExpressionTree(operator.name, left);
+    expressions[operatorIndex] = postfix;
+    expressions.splice(operatorIndex - 1, 1);
+
+    return;
+  }
+
+  if (operatorType === OperatorType.INFIX) {
+    const left = expressions[operatorIndex - 1] as ExpressionTree;
+    if (!(left instanceof ExpressionTree)) throw new Error('Left value is not an expression');
+
+    const right = expressions[operatorIndex + 1] as ExpressionTree;
+    if (!(right instanceof ExpressionTree)) throw new Error('Right value is not an expression');
+
+    const infix = new InfixExpressionTree(operator.name, left, right);
     expressions[operatorIndex] = infix;
     expressions.splice(operatorIndex - 1, 1);
     expressions.splice(operatorIndex, 1);
   }
 }
 
-function flatExpressions(ctx: ExpressionContext): (Token | ExpressionTree)[] {
-  if (ctx instanceof InfixExpressionContext) {
-    const [left, right] = ctx.expression();
-
-    return [...flatExpressions(left), Token.from(ctx.OPERATOR()), getExpressionTree(right)];
+function flatExpressions(ctx: ExpressionContext): ExpressionTree[] {
+  if (ctx instanceof PairExpressionContext) {
+    return ctx.expression().flatMap((x) => flatExpressions(x));
   }
 
   return [getExpressionTree(ctx)];
+}
+
+function isOperator(expression: ExpressionTree): expression is OperatorExpressionTree {
+  return expression instanceof OperatorExpressionTree;
 }
