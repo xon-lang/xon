@@ -14,20 +14,20 @@ model Float: Number
   testFloatProp3: Number
   testFloatProp4: Number
 
-+: (a: Number, b: Number) => Number
--: (a: Number, b: Number) => Number
-*: (a: Number, b: Number) => Number
-/: (a: Number, b: Number) => Number
-^: (a: Number, b: Number) => Number
-%: (a: Number, b: Number) => Number
+infix +: (a: Number, b: Number) = Number
+infix -: (a: Number, b: Number) = Number
+infix *: (a: Number, b: Number) = Number
+infix /: (a: Number, b: Number) = Number
+infix ^: (a: Number, b: Number) = Number
+infix %: (a: Number, b: Number) = Number
 
->: (a: Number, b: Number) => Boolean
-<: (a: Number, b: Number) => Boolean
->=: (a: Number, b: Number) => Boolean
-<=: (a: Number, b: Number) => Boolean
-==: (a: Number, b: Number) => Boolean
-!=: (a: Number, b: Number) => Boolean
+infix >: (a: Number, b: Number) = Boolean
+infix <: (a: Number, b: Number) = Boolean
+infix >=: (a: Number, b: Number) = Boolean
+infix <=: (a: Number, b: Number) = Boolean
+infix ==: (a: Number, b: Number) = Boolean
+infix !=: (a: Number, b: Number) = Boolean
 
-+: (a: Number) => Number
--: (a: Number) => Number
-!: (a: Number) => Boolean
+prefix +: (a: Number) = Number
+prefix -: (a: Number) = Number
+prefix !: (a: Number) = Boolean

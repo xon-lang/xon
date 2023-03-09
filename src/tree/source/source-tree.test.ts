@@ -1,8 +1,11 @@
+import { BodyableExpressionTree } from '~/tree/expression/bodyable/bodyable-expression-tree';
+import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
+import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
 import { SourceTree } from '~/tree/source/source-tree';
 import { parseSource, parseSourceFile } from '~/util/parse';
 
 // test('import and if', () => {
-//   const code = `import ('xon.os') {Path} 
+//   const code = `import ('xon.os') {Path}
 
 // 1+1
 // if e
@@ -19,8 +22,8 @@ import { parseSource, parseSourceFile } from '~/util/parse';
 
 test('preprocessor in attribute', () => {
   const code = `
-toString: [] => String
-  importStatements = this.statements.filter[[x] => x is ImportStatementTree].map[[x] => x as ImportStatementTree]
+toString: [] = String
+  importStatements = this.statements.filter[[x] = x is ImportStatementTree].map[[x] = x as ImportStatementTree]
   importStatementsMap = {}
 `.trim();
   const tree = parseSource(code);
@@ -41,7 +44,7 @@ toString: [] => String
 // });
 
 // test('has comment', () => {
-//   const code = ` 
+//   const code = `
 // a := 1213
 
 // import abc
@@ -56,7 +59,7 @@ toString: [] => String
 // });
 
 // test('debug', () => {
-//   const code = ` 
+//   const code = `
 // abc: ABC
 
 //   if (b is c)
@@ -97,3 +100,28 @@ test('3.xon', () => {
 //   expect(tree.issues[0].sourceSpan.stop.line).toBe(6);
 //   expect(tree.issues[0].sourceSpan.stop.column).toBe(12);
 // });
+
+test('multiple body', () => {
+  const code = `
+abc
+  a = 1
+xyz()
+  x = 0
+  y = 1
+  z = 2
+  `;
+  const tree = parseSource(code);
+
+  expect(tree).toBeInstanceOf(SourceTree);
+  expect(tree.expressions.length).toBe(2);
+
+  const body1 = tree.expressions[0] as BodyableExpressionTree;
+  expect(body1).toBeInstanceOf(BodyableExpressionTree);
+  expect(body1.expression).toBeInstanceOf(IdExpressionTree);
+  expect(body1.body.source.expressions.length).toBe(1);
+
+  const body2 = tree.expressions[1] as BodyableExpressionTree;
+  expect(body2).toBeInstanceOf(BodyableExpressionTree);
+  expect(body2.expression).toBeInstanceOf(InvokeExpressionTree);
+  expect(body2.body.source.expressions.length).toBe(3);
+});
