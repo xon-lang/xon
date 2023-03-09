@@ -2,6 +2,7 @@ import { ParserRuleContext, Token } from 'antlr4ts';
 import { Boolean2, String2 } from '~/lib/core';
 import { Source } from '~/source/source';
 import { SourcePosition } from '~/source/source-position';
+import { Tree } from '~/tree/tree';
 
 export class SourceSpan {
   constructor(public source: Source, public start: SourcePosition, public stop: SourcePosition) {}
@@ -37,7 +38,11 @@ export class SourceSpan {
     return new SourceSpan(source, startPosition, stopPosition);
   }
 
-  static fromTwoRange(startSpan: SourceSpan, stopSpan: SourceSpan): SourceSpan {
-    return new SourceSpan(startSpan.source, startSpan.start, stopSpan.stop);
+  static fromTwoSourceSpans(startSourceSpan: SourceSpan, stopSourceSpan: SourceSpan): SourceSpan {
+    return new SourceSpan(startSourceSpan.source, startSourceSpan.start, stopSourceSpan.stop);
+  }
+
+  static fromTwoTrees(startTree: Tree, stopTree: Tree): SourceSpan {
+    return SourceSpan.fromTwoSourceSpans(startTree.sourceSpan, stopTree.sourceSpan);
   }
 }
