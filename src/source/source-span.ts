@@ -1,4 +1,4 @@
-import { ParserRuleContext, Token } from 'antlr4ts';
+import { ParserRuleContext, Token as AntlrToken } from 'antlr4ts';
 import { Boolean2, String2 } from '~/lib/core';
 import { Source } from '~/source/source';
 import { SourcePosition } from '~/source/source-position';
@@ -19,11 +19,11 @@ export class SourceSpan {
     return SourceSpan.fromTwoTokens(context.start, context.stop ?? context.start);
   }
 
-  static fromToken(token: Token): SourceSpan {
+  static fromToken(token: AntlrToken): SourceSpan {
     return SourceSpan.fromTwoTokens(token, token);
   }
 
-  static fromTwoTokens(start: Token, stop: Token): SourceSpan {
+  static fromTwoTokens(start: AntlrToken, stop: AntlrToken): SourceSpan {
     const sourceName = start.inputStream?.sourceName;
     const location = (sourceName !== '<unknown>' && sourceName) || null;
     const source = Source.fromText(String(start.inputStream), location);
