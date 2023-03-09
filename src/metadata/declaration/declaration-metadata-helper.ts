@@ -3,8 +3,8 @@ import { AttributeDeclarationMetadata } from '~/metadata/declaration/attribute/a
 import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata';
 import { ModelDeclarationMetadata } from '~/metadata/declaration/model/model-declaration-metadata';
 import { ObjectDeclarationMetadata } from '~/metadata/declaration/object/object-declaration-metadata';
-import { BodyTree } from '~/tree/body/body-tree';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
+import { BodyTree } from '~/tree/expression/body/body-expression-tree';
 import { SourceTree } from '~/tree/source/source-tree';
 import { isDeclarationStatement } from '~/tree/statement/statement-tree-helper';
 
