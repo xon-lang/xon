@@ -8,13 +8,9 @@ options {
 source: NL? (expression nl += NL)* expression? NL?;
 
 expression
-  : ID                               # idExpression
-  | OPERATOR                         # operatorExpression
-  | INTEGER                          # integerExpression
-  | FLOAT                            # floatExpression
-  | STRING                           # stringExpression
-  | NL INDENT source DEDENT          # bodyExpression
-  | OPEN (expression | COMMA)* CLOSE # arrayExpression
-  | UNEXPECTED+                      # unexpectedExpression
-  | expression expression            # pairExpression
+  : OPEN (expression | COMMA)* CLOSE          # arrayExpression
+  | name = (ID | OPERATOR | INTEGER | STRING) # tokenExpression
+  | NL INDENT source DEDENT                   # bodyExpression
+  | expression expression                     # pairExpression
+  | UNEXPECTED+                               # tokenExpression
   ;
