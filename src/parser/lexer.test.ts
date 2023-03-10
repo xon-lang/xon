@@ -53,3 +53,23 @@ test('integer', () => {
   expect(tokens[0].name.text).toBe('123');
   expect(tokens[0].type).toBe(TokenType.INTEGER);
 });
+
+test('unexpected 1', () => {
+  const text = '123 §•∞•456';
+  const source = Source.fromText(text, null);
+  const lexer = new Lexer(source);
+  const tokens = lexer.getTokens();
+
+  expect(tokens.length).toBe(4);
+});
+
+test('unexpected 2', () => {
+  const text = "'abc";
+  const source = Source.fromText(text, null);
+  const lexer = new Lexer(source);
+  const tokens = lexer.getTokens();
+
+  expect(tokens.length).toBe(1);
+  expect(tokens[0].name.text).toBe("'abc");
+  expect(tokens[0].type).toBe(TokenType.UNEXPECTED);
+});

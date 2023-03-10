@@ -48,6 +48,18 @@ export class Lexer {
         i = token.sourceSpan.stop.index;
         continue;
       }
+
+      const last = expressions[expressions.length - 1];
+
+      if (last?.type === TokenType.UNEXPECTED) {
+        const lastStartIndex = last.sourceSpan.start.index;
+        const unexpected = createToken(this.source, lastStartIndex, i, TokenType.UNEXPECTED);
+        expressions.splice(-1);
+        expressions.push(unexpected);
+      } else {
+        const unexpected = createToken(this.source, i, i, TokenType.UNEXPECTED);
+        expressions.push(unexpected);
+      }
     }
 
     return expressions;
