@@ -129,7 +129,7 @@ function integerToken(source: Source, index: Integer, char: String2): TokenExpre
       }
       nextIndex = i;
     }
-    return createToken(source, index, nextIndex, TokenType.ID);
+    return createToken(source, index, nextIndex, TokenType.INTEGER);
   }
   return null;
 }

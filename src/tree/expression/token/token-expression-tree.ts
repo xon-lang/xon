@@ -3,12 +3,12 @@ import { ExpressionTree } from '~/tree/expression/expression-tree';
 import { TokenTree } from '~/tree/token';
 
 export enum TokenType {
-  UNEXPECTED = 0,
-  ID = 1,
-  OPERATOR = 2,
-  INTEGER = 3,
-  STRING = 4,
-  WHITESPACE = 5,
+  ID = 'ID',
+  STRING = 'STRING',
+  INTEGER = 'INTEGER',
+  OPERATOR = 'OPERATOR',
+  UNEXPECTED = 'UNEXPECTED',
+  WHITESPACE = 'WHITESPACE',
 }
 
 export class TokenExpressionTree extends ExpressionTree {
