@@ -89,32 +89,3 @@ export function parserFromFile(location: String2, parserConfig: ParserConfig | n
 
   return parserFromCode(code, location, parserConfig);
 }
-
-// function printContext(ctx: ParserRuleContext | ParseTree): Unknown2 {
-//   if (ctx.children?.length) {
-//     return {
-//       [ctx.constructor.name]: {
-//         children: ctx.children.map(printContext),
-//       },
-//     };
-//   }
-
-//   return ctx.constructor.name;
-// }
-
-// function _getSourceTree(parser: XonParser): SourceTree | never {
-//   try {
-//     return getSourceTree(parser.source());
-//   } catch (error) {
-//     if (error instanceof Issue) {
-//       const tree = new SourceTree(null);
-//       const stream = error.antlrError?.inputStream as CommonTokenStream;
-//       const tokens = stream.getTokens();
-//       tree.sourceSpan = SourceSpan.fromTwoTokens(tokens[0], tokens[tokens.length - 1]);
-//       tree.issues.push(error);
-
-//       return tree;
-//     }
-//     throw error;
-//   }
-// }
