@@ -110,10 +110,10 @@ function idToken(source: Source, index: Integer, char: String2): TokenExpression
   if (LETTERS.includes(char)) {
     let nextIndex = 0;
     for (let i = index + 1; i < source.text.length; i++) {
-      nextIndex = i;
       if (!DIGITS_LETTERS.includes(source.text[i])) {
         break;
       }
+      nextIndex = i;
     }
     return createToken(source, index, nextIndex, TokenType.ID);
   }
@@ -124,10 +124,10 @@ function integerToken(source: Source, index: Integer, char: String2): TokenExpre
   if (DIGITS.includes(char)) {
     let nextIndex = 0;
     for (let i = index + 1; i < source.text.length; i++) {
-      nextIndex = i;
       if (!DIGITS_LETTERS.includes(source.text[i])) {
         break;
       }
+      nextIndex = i;
     }
     return createToken(source, index, nextIndex, TokenType.ID);
   }
