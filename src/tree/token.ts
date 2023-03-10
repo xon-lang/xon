@@ -9,17 +9,17 @@ type TokenVariant = AntlrToken | TerminalNode | ParserRuleContext;
 export class TokenTree extends Tree {
   text: String2;
 
-  constructor(token: TokenVariant | TokenVariant[]) {
-    if (Array.isArray(token)) {
-      super(SourceSpan.fromTwoTokens(getToken(token[0]), getToken(token[token.length - 1])));
-    } else {
-      super(SourceSpan.fromToken(getToken(token[0])));
-    }
+  constructor(sourceSpan: SourceSpan) {
+    super(sourceSpan);
     this.text = this.sourceSpan.getText();
   }
 
   static from(token: TokenVariant | TokenVariant[]): TokenTree {
-    return new TokenTree(token);
+    if (Array.isArray(token)) {
+      return new TokenTree(SourceSpan.fromTwoAntlrTokens(getToken(token[0]), getToken(token[token.length - 1])));
+    }
+
+    return new TokenTree(SourceSpan.fromToken(getToken(token)));
   }
 }
 

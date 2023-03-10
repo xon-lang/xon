@@ -1,6 +1,6 @@
 import { BodyableExpressionTree } from '~/tree/expression/bodyable/bodyable-expression-tree';
-import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
+import { TokenExpressionTree } from '~/tree/expression/token/token-expression-tree';
 import { SourceTree } from '~/tree/source/source-tree';
 import { parseSource, parseSourceFile } from '~/util/parse';
 
@@ -117,7 +117,7 @@ xyz()
 
   const body1 = tree.expressions[0] as BodyableExpressionTree;
   expect(body1).toBeInstanceOf(BodyableExpressionTree);
-  expect(body1.expression).toBeInstanceOf(IdExpressionTree);
+  expect(body1.expression).toBeInstanceOf(TokenExpressionTree);
   expect(body1.body.source.expressions.length).toBe(1);
 
   const body2 = tree.expressions[1] as BodyableExpressionTree;
