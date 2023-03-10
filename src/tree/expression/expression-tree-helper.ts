@@ -2,41 +2,26 @@ import {
   ArrayExpressionContext,
   BodyExpressionContext,
   ExpressionContext,
-  FloatExpressionContext,
-  IdExpressionContext,
-  IntegerExpressionContext,
-  OperatorExpressionContext,
   PairExpressionContext,
-  StringExpressionContext,
-  UnexpectedExpressionContext,
+  TokenExpressionContext,
 } from '~/grammar/xon-parser';
 import { Issue } from '~/issue/issue';
 import { Integer, String2 } from '~/lib/core';
 import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/parser/parser-config';
-import { ArrayExpressionTree } from '~/tree/expression/array/array-expression-tree';
-import { BodyExpressionTree } from '~/tree/expression/body/body-expression-tree';
+import { ArrayExpressionTree, getArrayExpressionTree } from '~/tree/expression/array/array-expression-tree';
+import { BodyExpressionTree, getBodyExpressionTree } from '~/tree/expression/body/body-expression-tree';
 import { BodyableExpressionTree } from '~/tree/expression/bodyable/bodyable-expression-tree';
 import { ExpressionTree } from '~/tree/expression/expression-tree';
-import { FloatExpressionTree } from '~/tree/expression/float/float-expression-tree';
-import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tree';
-import { IntegerExpressionTree } from '~/tree/expression/integer/integer-expression-tree';
 import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
-import { OperatorExpressionTree } from '~/tree/expression/operator/operator-expression-tree';
 import { PostfixExpressionTree } from '~/tree/expression/postfix/postfix-expression-tree';
 import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
-import { StringExpressionTree } from '~/tree/expression/string/string-expression-tree';
-import { UnexpectedExpressionTree } from '~/tree/expression/unexpected/unexpected-expression-tree';
+import { getTokenExpressionTree, TokenExpressionTree, TokenType } from '~/tree/expression/token/token-expression-tree';
 
 export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
-  if (ctx instanceof IntegerExpressionContext) return new IntegerExpressionTree(ctx);
-  if (ctx instanceof FloatExpressionContext) return new FloatExpressionTree(ctx);
-  if (ctx instanceof StringExpressionContext) return new StringExpressionTree(ctx);
-  if (ctx instanceof ArrayExpressionContext) return new ArrayExpressionTree(ctx);
-  if (ctx instanceof IdExpressionContext) return new IdExpressionTree(ctx);
-  if (ctx instanceof OperatorExpressionContext) return new OperatorExpressionTree(ctx);
-  if (ctx instanceof BodyExpressionContext) return new BodyExpressionTree(ctx);
-  if (ctx instanceof UnexpectedExpressionContext) return new UnexpectedExpressionTree(ctx);
+  if (ctx instanceof TokenExpressionContext) return getTokenExpressionTree(ctx);
+  if (ctx instanceof ArrayExpressionContext) return getArrayExpressionTree(ctx);
+  if (ctx instanceof BodyExpressionContext) return getBodyExpressionTree(ctx);
   if (ctx instanceof PairExpressionContext) return pairExpression(ctx);
 
   Issue.errorFromContext(ctx, `Expression tree not found for '${ctx.constructor.name}'`);
@@ -46,7 +31,7 @@ function pairExpression(ctx: ExpressionContext): ExpressionTree {
   const expressions = flatExpressions(ctx);
   collapseOperators(expressions, operatorsOrders);
 
-  const operator = expressions.find((expression) => expression instanceof OperatorExpressionTree);
+  const operator = expressions.find((expression) => isOperatorToken(expression));
   if (operator) {
     Issue.errorFromTree(operator, 'Extra parameter found');
   }
@@ -89,7 +74,7 @@ function collapseModifierExpression(
   for (let i = 0; i < expressions.length; i++) {
     const index = recursiveType === RecursiveType.LEFT ? i : expressions.length - i - 1;
     const element = expressions[index];
-    if (element instanceof OperatorExpressionTree && operators.includes(element.name.text)) {
+    if (isOperatorToken(element) && operators.includes(element.name.text)) {
       const next = expressions[index + 1];
       if (next) {
         expressions[index] = new PrefixExpressionTree(element.name, next);
@@ -107,7 +92,7 @@ function collapseInvokeExpression(expressions: ExpressionTree[]): void {
     const element = expressions[i];
     if (element instanceof ArrayExpressionTree && i > 0) {
       const prev = expressions[i - 1];
-      if (!(prev instanceof OperatorExpressionTree)) {
+      if (!isOperatorToken(prev)) {
         expressions[i] = new InvokeExpressionTree(prev, element);
         expressions.splice(i - 1, 1);
         collapseInvokeExpression(expressions);
@@ -143,20 +128,20 @@ function findOperatorIndex(
     const index = recursiveType === RecursiveType.LEFT ? i : expressions.length - i - 1;
 
     const operator = expressions[index];
-    if (operator instanceof OperatorExpressionTree && operators.includes(operator.name.text)) {
+    if (isOperatorToken(operator) && operators.includes(operator.name.text)) {
       const left = expressions[index - 1];
       const right = expressions[index + 1];
 
       if (operatorType === OperatorType.PREFIX) {
-        if (!isOperator(right) && (index === 0 || left instanceof OperatorExpressionTree)) {
+        if (!isOperatorToken(right) && (index === 0 || isOperatorToken(left))) {
           return index;
         }
       } else if (operatorType === OperatorType.POSTFIX) {
-        if (!isOperator(left) && (index === expressions.length - 1 || right instanceof OperatorExpressionTree)) {
+        if (!isOperatorToken(left) && (index === expressions.length - 1 || isOperatorToken(right))) {
           return index;
         }
       } else if (operatorType === OperatorType.INFIX) {
-        if (!isOperator(left) && !isOperator(right)) {
+        if (!isOperatorToken(left) && !isOperatorToken(right)) {
           return index;
         }
       }
@@ -168,8 +153,8 @@ function findOperatorIndex(
 
 function collapseExpressions(expressions: ExpressionTree[], operatorType: OperatorType, operatorIndex: Integer): void {
   if (operatorIndex < 0) return;
-
-  const operator = expressions[operatorIndex] as OperatorExpressionTree;
+  const operator = expressions[operatorIndex] as TokenExpressionTree;
+  if (!isOperatorToken(operator)) return;
 
   if (operatorType === OperatorType.PREFIX) {
     const right = expressions[operatorIndex + 1];
@@ -215,6 +200,18 @@ function flatExpressions(ctx: ExpressionContext): ExpressionTree[] {
   return [getExpressionTree(ctx)];
 }
 
-function isOperator(expression: ExpressionTree): expression is OperatorExpressionTree {
-  return expression instanceof OperatorExpressionTree;
+export function isOperatorToken(expression: ExpressionTree): expression is TokenExpressionTree {
+  return expression instanceof TokenExpressionTree && expression.type === TokenType.OPERATOR;
+}
+
+export function isIdToken(expression: ExpressionTree): expression is TokenExpressionTree {
+  return expression instanceof TokenExpressionTree && expression.type === TokenType.ID;
+}
+
+export function isIntegerToken(expression: ExpressionTree): expression is TokenExpressionTree {
+  return expression instanceof TokenExpressionTree && expression.type === TokenType.INTEGER;
+}
+
+export function isStringToken(expression: ExpressionTree): expression is TokenExpressionTree {
+  return expression instanceof TokenExpressionTree && expression.type === TokenType.STRING;
 }

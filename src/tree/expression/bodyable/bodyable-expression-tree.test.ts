@@ -1,5 +1,5 @@
 import { BodyableExpressionTree } from '~/tree/expression/bodyable/bodyable-expression-tree';
-import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
+import { TokenExpressionTree } from '~/tree/expression/token/token-expression-tree';
 import { parseExpression } from '~/util/parse';
 
 test('single expression', () => {
@@ -7,7 +7,7 @@ test('single expression', () => {
   const tree = parseExpression(code) as BodyableExpressionTree;
 
   expect(tree).toBeInstanceOf(BodyableExpressionTree);
-  expect(tree.expression).toBeInstanceOf(IdExpressionTree);
-  expect((tree.expression as IdExpressionTree).name.text).toBe('abc');
+  expect(tree.expression).toBeInstanceOf(TokenExpressionTree);
+  expect((tree.expression as TokenExpressionTree).name.text).toBe('abc');
   expect(tree.body.source.expressions.length).toBe(1);
 });
