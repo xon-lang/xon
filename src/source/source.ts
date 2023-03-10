@@ -3,6 +3,7 @@ import { resolve } from 'path';
 import { Integer, String2 } from '~/lib/core';
 
 export class Source {
+  // make text as array of char or Buffer
   constructor(public text: String2, public location: String2 | null) {}
 
   lineText(line: Integer): String2 {

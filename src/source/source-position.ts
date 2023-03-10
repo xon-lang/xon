@@ -5,7 +5,7 @@ export class SourcePosition {
   public line: Integer;
   public column: Integer;
 
-  constructor(public source: Source, public index: Integer, public lineIndex: Integer, public columnIndex: Integer) {
+  constructor(public index: Integer, public lineIndex: Integer, public columnIndex: Integer) {
     this.line = lineIndex + 1;
     this.column = columnIndex + 1;
   }
@@ -14,20 +14,21 @@ export class SourcePosition {
   static fromLineColumn = fromLineColumn;
 }
 
+// make source as String
 function fromIndex(source: Source, index: Integer): SourcePosition {
   const linesIndex = getLinesIndex(source.text);
   const lineIndex = findLowerIndexInRangeArray(index, linesIndex);
   const columnIndex = index - linesIndex[lineIndex];
 
-  return new SourcePosition(source, index, lineIndex, columnIndex);
+  return new SourcePosition(index, lineIndex, columnIndex);
 }
 
-function fromLineColumn(source: Source, lineIndex: Integer, columnIndex: Integer): SourcePosition {
-  const linesIndex = getLinesIndex(source.text);
+function fromLineColumn(text: String2, lineIndex: Integer, columnIndex: Integer): SourcePosition {
+  const linesIndex = getLinesIndex(text);
   const storedLineIndex = linesIndex[lineIndex];
   const index = storedLineIndex + columnIndex;
 
-  return new SourcePosition(source, index, lineIndex, columnIndex);
+  return new SourcePosition(index, lineIndex, columnIndex);
 }
 
 function getLinesIndex(str: String2): Integer[] {

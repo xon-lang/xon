@@ -15,24 +15,27 @@ export class SourceSpan {
     return this.source?.location === other.source?.location && this.start.index === other.start.index;
   }
 
+  public toString(): String2 {
+    return `'${this.getText()}'`;
+  }
+
   static fromContext(context: ParserRuleContext): SourceSpan {
-    return SourceSpan.fromTwoTokens(context.start, context.stop ?? context.start);
+    return SourceSpan.fromTwoAntlrTokens(context.start, context.stop ?? context.start);
   }
 
   static fromToken(token: AntlrToken): SourceSpan {
-    return SourceSpan.fromTwoTokens(token, token);
+    return SourceSpan.fromTwoAntlrTokens(token, token);
   }
 
-  static fromTwoTokens(start: AntlrToken, stop: AntlrToken): SourceSpan {
+  static fromTwoAntlrTokens(start: AntlrToken, stop: AntlrToken): SourceSpan {
     const sourceName = start.inputStream?.sourceName;
     const location = (sourceName !== '<unknown>' && sourceName) || null;
     const source = Source.fromText(String(start.inputStream), location);
-    const startPosition = new SourcePosition(source, start.startIndex, start.line - 1, start.charPositionInLine);
+    const startPosition = new SourcePosition(start.startIndex, start.line - 1, start.charPositionInLine);
     const stopPosition = new SourcePosition(
-      source,
-      stop.charPositionInLine + (stop.stopIndex - stop.startIndex),
-      stop.line - 1,
       stop.stopIndex,
+      stop.line - 1,
+      stop.charPositionInLine + (stop.stopIndex - stop.startIndex),
     );
 
     return new SourceSpan(source, startPosition, stopPosition);
