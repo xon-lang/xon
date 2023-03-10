@@ -1,5 +1,5 @@
-import { IdExpressionTree } from '~/tree/expression/id/id-expression-tree';
 import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tree';
+import { TokenExpressionTree } from '~/tree/expression/token/token-expression-tree';
 import { parseExpression } from '~/util/parse';
 
 test('meta property', () => {
@@ -7,10 +7,10 @@ test('meta property', () => {
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
-  expect(tree.left).toBeInstanceOf(IdExpressionTree);
-  expect((tree.left as IdExpressionTree).name.text).toBe('abc');
+  expect(tree.left).toBeInstanceOf(TokenExpressionTree);
+  expect((tree.left as TokenExpressionTree).name.text).toBe('abc');
   expect(tree.operator.text).toBe('::');
-  expect((tree.right as IdExpressionTree).name.text).toBe('def');
+  expect((tree.right as TokenExpressionTree).name.text).toBe('def');
 });
 
 test('not safe', () => {
@@ -18,10 +18,10 @@ test('not safe', () => {
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
-  expect(tree.left).toBeInstanceOf(IdExpressionTree);
-  expect((tree.left as IdExpressionTree).name.text).toBe('abc');
+  expect(tree.left).toBeInstanceOf(TokenExpressionTree);
+  expect((tree.left as TokenExpressionTree).name.text).toBe('abc');
   expect(tree.operator.text).toBe('.');
-  expect((tree.right as IdExpressionTree).name.text).toBe('def');
+  expect((tree.right as TokenExpressionTree).name.text).toBe('def');
 });
 
 test('left dot nl property', () => {
@@ -29,10 +29,10 @@ test('left dot nl property', () => {
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
-  expect(tree.left).toBeInstanceOf(IdExpressionTree);
-  expect((tree.left as IdExpressionTree).name.text).toBe('abc');
+  expect(tree.left).toBeInstanceOf(TokenExpressionTree);
+  expect((tree.left as TokenExpressionTree).name.text).toBe('abc');
   expect(tree.operator.text).toBe('.');
-  expect((tree.right as IdExpressionTree).name.text).toBe('def');
+  expect((tree.right as TokenExpressionTree).name.text).toBe('def');
 });
 
 test('left nl dot property', () => {
@@ -40,10 +40,10 @@ test('left nl dot property', () => {
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
-  expect(tree.left).toBeInstanceOf(IdExpressionTree);
-  expect((tree.left as IdExpressionTree).name.text).toBe('abc');
+  expect(tree.left).toBeInstanceOf(TokenExpressionTree);
+  expect((tree.left as TokenExpressionTree).name.text).toBe('abc');
   expect(tree.operator.text).toBe('.');
-  expect((tree.right as IdExpressionTree).name.text).toBe('def');
+  expect((tree.right as TokenExpressionTree).name.text).toBe('def');
 });
 
 test('left nl dot nl property', () => {
@@ -51,10 +51,10 @@ test('left nl dot nl property', () => {
   const tree = parseExpression(code) as InfixExpressionTree;
 
   expect(tree).toBeInstanceOf(InfixExpressionTree);
-  expect(tree.left).toBeInstanceOf(IdExpressionTree);
-  expect((tree.left as IdExpressionTree).name.text).toBe('abc');
+  expect(tree.left).toBeInstanceOf(TokenExpressionTree);
+  expect((tree.left as TokenExpressionTree).name.text).toBe('abc');
   expect(tree.operator.text).toBe('.');
-  expect((tree.right as IdExpressionTree).name.text).toBe('def');
+  expect((tree.right as TokenExpressionTree).name.text).toBe('def');
 });
 
 test('members chain', () => {
@@ -70,5 +70,5 @@ this.statements \
   expect(tree).toBeInstanceOf(InfixExpressionTree);
   expect(tree.left).toBeInstanceOf(InfixExpressionTree);
   expect(tree.operator.text).toBe('.');
-  expect((tree.right as IdExpressionTree).name.text).toBe('jkl');
+  expect((tree.right as TokenExpressionTree).name.text).toBe('jkl');
 });
