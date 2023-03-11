@@ -6,6 +6,7 @@ export enum TokenType {
   ID = 'ID',
   STRING = 'STRING',
   INTEGER = 'INTEGER',
+  SEVERAL = 'SEVERAL',
   OPERATOR = 'OPERATOR',
   UNEXPECTED = 'UNEXPECTED',
   WHITESPACE = 'WHITESPACE',
@@ -20,17 +21,11 @@ export class TokenExpressionTree extends ExpressionTree {
 
 export function getTokenExpressionTree(ctx: TokenExpressionContext): TokenExpressionTree {
   let type = TokenType.UNEXPECTED;
-  if (ctx.ID()) {
-    type = TokenType.ID;
-  } else if (ctx.OPERATOR()) {
-    type = TokenType.OPERATOR;
-  } else if (ctx.INTEGER()) {
-    type = TokenType.INTEGER;
-  } else if (ctx.STRING()) {
-    type = TokenType.STRING;
+  if (ctx.TOKEN()) {
+    type = TokenType.SEVERAL;
   } else {
     type = TokenType.UNEXPECTED;
   }
-  const name = TokenTree.from(ctx._name ?? ctx.UNEXPECTED());
+  const name = TokenTree.from(ctx.TOKEN() ?? ctx.UNEXPECTED());
   return new TokenExpressionTree(name, type);
 }

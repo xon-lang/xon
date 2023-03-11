@@ -11,6 +11,7 @@ export class TokenTree extends Tree {
 
   constructor(sourceSpan: SourceSpan) {
     super(sourceSpan);
+    // make property wih caching
     this.text = this.sourceSpan.getText();
   }
 

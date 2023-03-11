@@ -2,9 +2,9 @@ import { TokenExpressionTree } from '~/tree/expression/token/token-expression-tr
 import { parseExpression } from '~/util/parse';
 
 test('id', () => {
-  const code = 'myVariable';
+  const code = 'abc';
   const tree = parseExpression(code) as TokenExpressionTree;
 
   expect(tree).toBeInstanceOf(TokenExpressionTree);
-  expect(tree.name.text).toBe('myVariable');
+  expect(tree.name.text).toBe('abc');
 });
