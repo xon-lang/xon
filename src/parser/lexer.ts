@@ -121,8 +121,13 @@ export class Lexer {
     if (candidates.length === 0) {
       return null;
     }
-    const candidate = candidates[candidates.length - 1];
-    return this.createToken(index, index + candidate.length - 1, TokenType.OPERATOR);
+    const operatorString = candidates[candidates.length - 1];
+    const idCandidate = this.idToken(index, char);
+    const operatorCandidate = this.createToken(index, index + operatorString.length - 1, TokenType.OPERATOR);
+    if (idCandidate && idCandidate.sourceSpan.stop.index > operatorCandidate.sourceSpan.stop.index) {
+      return idCandidate;
+    }
+    return operatorCandidate;
   }
 
   private idToken(index: Integer, char: Char): TokenExpressionTree | null {
