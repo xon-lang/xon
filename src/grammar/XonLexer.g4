@@ -17,10 +17,12 @@ tokens {
 OPEN:  ('(' | '[' | '{') {this.opened++;};
 CLOSE: (')' | ']' | '}') {this.opened--;};
 
-INTEGER:  [0-9] [_0-9a-zA-Z]*;
-STRING:   '\'' (~['] | '\\' ['\\bfnrtv])* '\'';
-OPERATOR: .+? {this.isOperator()}?;
-ID:       [_a-zA-Z] [_a-zA-Z0-9]*;
+TOKEN
+  : [0-9] [_0-9a-zA-Z]*
+  | '\'' (~['] | '\\' ['\\bfnrtv])* '\''
+  | .+? {this.isOperator()}?
+  | [_a-zA-Z] [_a-zA-Z0-9]*
+  ;
 
 COMMA: ',';
 NL:    ([\r\n] WS*)+ {this.handleLineBreak()};
