@@ -1,4 +1,4 @@
-import { Char, Integer } from '~/lib/core';
+import { Char, Integer, String2 } from '~/lib/core';
 import { operatorsOrders } from '~/parser/parser-config';
 import { Source } from '~/source/source';
 import { SourcePosition } from '~/source/source-position';
@@ -100,19 +100,29 @@ export class Lexer {
   }
 
   private operatorToken(index: Integer, char: Char): TokenExpressionTree | null {
-    let operators = OPERATORS.filter((x) => x.startsWith(char));
-    if (operators.length) {
-      for (let i = index + 1; i <= this.startIndex; i++) {
-        operators = operators.filter((x) => x[i - index] === this.source.text[i]);
-        if (operators.length === 1) {
-          return this.createToken(index, i, TokenType.OPERATOR);
-        }
-        if (!operators.length) {
-          return null;
-        }
+    let operators = OPERATORS.filter((x) => x[0] === char);
+
+    if (operators.length === 0) {
+      return null;
+    }
+
+    const candidates: String2[] = [];
+
+    for (let i = index; i <= this.stopIndex; i++) {
+      operators = operators.filter((x) => x[i - index] === this.source.text[i]);
+      const candidate = operators.find((x) => x.length === i - index + 1);
+      if (candidate) {
+        candidates.push(candidate);
+      }
+      if (operators.length === 0) {
+        break;
       }
     }
-    return null;
+    if (candidates.length === 0) {
+      return null;
+    }
+    const candidate = candidates[candidates.length - 1];
+    return this.createToken(index, index + candidate.length - 1, TokenType.OPERATOR);
   }
 
   private idToken(index: Integer, char: Char): TokenExpressionTree | null {
@@ -158,6 +168,8 @@ const DIGITS = '0123456789';
 const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const DIGITS_LETTERS = DIGITS + LETTERS;
 
-const OPERATORS = operatorsOrders
-  .flatMap((operatorsOrder) => operatorsOrder.operators)
-  .flatMap((operators) => operators.split(' '));
+const OPERATORS = [
+  ...new Set(
+    operatorsOrders.flatMap((operatorsOrder) => operatorsOrder.operators).flatMap((operators) => operators.split(' ')),
+  ),
+];

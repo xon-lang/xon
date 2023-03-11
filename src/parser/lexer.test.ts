@@ -74,6 +74,17 @@ test('unexpected 2', () => {
   expect(tokens[0].type).toBe(TokenType.UNEXPECTED);
 });
 
+test('single operator', () => {
+  const text = "!";
+  const source = Source.fromText(text, null);
+  const lexer = new Lexer(source);
+  const tokens = lexer.getTokens();
+
+  expect(tokens.length).toBe(1);
+  expect(tokens[0].name.text).toBe("!");
+  expect(tokens[0].type).toBe(TokenType.OPERATOR);
+});
+
 test('set start and stop indices', () => {
   const text = "¶•§  'abc''";
   const source = Source.fromText(text, null);
