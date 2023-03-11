@@ -73,3 +73,21 @@ test('unexpected 2', () => {
   expect(tokens[0].name.text).toBe("'abc");
   expect(tokens[0].type).toBe(TokenType.UNEXPECTED);
 });
+
+test('set start and stop indices', () => {
+  const text = "¶•§  'abc''";
+  const source = Source.fromText(text, null);
+  const lexer = new Lexer(source, 3, 9);
+  const tokens = lexer.getTokens();
+
+  expect(tokens.length).toBe(2);
+  expect(tokens[0].name.text).toBe('  ');
+  expect(tokens[0].type).toBe(TokenType.WHITESPACE);
+  expect(tokens[0].sourceSpan.start.index).toBe(3);
+  expect(tokens[0].sourceSpan.stop.index).toBe(4);
+
+  expect(tokens[1].name.text).toBe("'abc'");
+  expect(tokens[1].type).toBe(TokenType.STRING);
+  expect(tokens[1].sourceSpan.start.index).toBe(5);
+  expect(tokens[1].sourceSpan.stop.index).toBe(9);
+});
