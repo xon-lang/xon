@@ -28,6 +28,13 @@ export class Lexer {
         continue;
       }
 
+      token = this.lineJoiningToken(i, char);
+      if (token) {
+        expressions.push(token);
+        i = token.sourceSpan.stop.index;
+        continue;
+      }
+
       token = this.whitespaceToken(i, char);
       if (token) {
         expressions.push(token);
@@ -69,11 +76,24 @@ export class Lexer {
       }
     }
 
-    return expressions;
+    return expressions.filter((x) => x.type !== TokenType.WHITESPACE && x.type !== TokenType.LINE_JOINING);
+  }
+
+  private lineJoiningToken(index: Integer, char: Char): TokenExpressionTree | null {
+    if (char !== LINE_JOINING) {
+      return null;
+    }
+    let nextIndex = index;
+    for (let i = index + 1; i <= this.stopIndex; i++) {
+      if (!AFTER_LINE_JOINING.includes(this.source.text[i])) {
+        break;
+      }
+      nextIndex = i;
+    }
+    return this.createToken(index, nextIndex, TokenType.LINE_JOINING);
   }
 
   private stringToken(index: Integer, char: Char): TokenExpressionTree | null {
-    const QUOTE = "'";
     if (char === QUOTE) {
       const nextQuoteIndex = this.source.text.indexOf(QUOTE, index + 1);
       if (nextQuoteIndex < 0 || nextQuoteIndex > this.stopIndex) {
@@ -167,8 +187,13 @@ export class Lexer {
   }
 }
 
+const QUOTE = "'";
+const LINE_JOINING = '\\';
+const CR = '\r';
+const LF = '\n';
 const SPACE = ' ';
 const TAB = '\t';
+const AFTER_LINE_JOINING = SPACE + TAB + LF + CR;
 const DIGITS = '0123456789';
 const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const DIGITS_LETTERS = DIGITS + LETTERS;

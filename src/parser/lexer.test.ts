@@ -119,3 +119,21 @@ test('infix operator', () => {
   expect(tokens[2].name.text).toBe('def');
   expect(tokens[2].type).toBe(TokenType.ID);
 });
+
+
+test('line joining', () => {
+  const text = 'abc\\  .def';
+  const source = Source.fromText(text, null);
+  const lexer = new Lexer(source);
+  const tokens = lexer.getTokens();
+
+  expect(tokens.length).toBe(3);
+  expect(tokens[0].name.text).toBe('abc');
+  expect(tokens[0].type).toBe(TokenType.ID);
+
+  expect(tokens[1].name.text).toBe('.');
+  expect(tokens[1].type).toBe(TokenType.OPERATOR);
+
+  expect(tokens[2].name.text).toBe('def');
+  expect(tokens[2].type).toBe(TokenType.ID);
+});

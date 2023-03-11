@@ -21,7 +21,7 @@ import { TokenExpressionTree, TokenType } from '~/tree/expression/token/token-ex
 import { TokenTree } from '~/tree/token';
 
 export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
-  if (ctx instanceof TokenExpressionContext) return getTokenExpressionTree(ctx);
+  if (ctx instanceof TokenExpressionContext) return pairExpression(ctx);
   if (ctx instanceof ArrayExpressionContext) return getArrayExpressionTree(ctx);
   if (ctx instanceof BodyExpressionContext) return getBodyExpressionTree(ctx);
   if (ctx instanceof PairExpressionContext) return pairExpression(ctx);
@@ -199,23 +199,15 @@ function flatExpressions(ctx: ExpressionContext): ExpressionTree[] {
     return ctx.expression().flatMap((x) => flatExpressions(x));
   }
 
-  const expression = getExpressionTree(ctx);
-  if (expression instanceof TokenExpressionTree && expression.type === TokenType.SEVERAL) {
-    const sourceSpan = expression.sourceSpan;
+  if (ctx instanceof TokenExpressionContext) {
+    const tokenTree = TokenTree.from(ctx.TOKEN());
+    const sourceSpan = tokenTree.sourceSpan;
     const lexer = new Lexer(sourceSpan.source, sourceSpan.start.index, sourceSpan.stop.index);
     const tokens = lexer.getTokens();
     return tokens;
   }
 
-  return [expression];
-}
-
-function getTokenExpressionTree(ctx: TokenExpressionContext): TokenExpressionTree {
-  const tokenTree = TokenTree.from(ctx.TOKEN() ?? ctx.UNEXPECTED());
-  const sourceSpan = tokenTree.sourceSpan;
-  const lexer = new Lexer(sourceSpan.source, sourceSpan.start.index, sourceSpan.stop.index);
-  const tokens = lexer.getTokens();
-  return tokens[0];
+  return [getExpressionTree(ctx)];
 }
 
 export function isOperatorToken(expression: ExpressionTree): expression is TokenExpressionTree {
