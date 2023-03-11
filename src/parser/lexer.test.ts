@@ -75,13 +75,13 @@ test('unexpected 2', () => {
 });
 
 test('single operator', () => {
-  const text = "!";
+  const text = '!';
   const source = Source.fromText(text, null);
   const lexer = new Lexer(source);
   const tokens = lexer.getTokens();
 
   expect(tokens.length).toBe(1);
-  expect(tokens[0].name.text).toBe("!");
+  expect(tokens[0].name.text).toBe('!');
   expect(tokens[0].type).toBe(TokenType.OPERATOR);
 });
 
@@ -101,4 +101,21 @@ test('set start and stop indices', () => {
   expect(tokens[1].type).toBe(TokenType.STRING);
   expect(tokens[1].sourceSpan.start.index).toBe(5);
   expect(tokens[1].sourceSpan.stop.index).toBe(9);
+});
+
+test('infix operator', () => {
+  const text = 'abc.def';
+  const source = Source.fromText(text, null);
+  const lexer = new Lexer(source);
+  const tokens = lexer.getTokens();
+
+  expect(tokens.length).toBe(3);
+  expect(tokens[0].name.text).toBe('abc');
+  expect(tokens[0].type).toBe(TokenType.ID);
+
+  expect(tokens[1].name.text).toBe('.');
+  expect(tokens[1].type).toBe(TokenType.OPERATOR);
+
+  expect(tokens[2].name.text).toBe('def');
+  expect(tokens[2].type).toBe(TokenType.ID);
 });

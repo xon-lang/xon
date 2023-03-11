@@ -48,7 +48,7 @@ export const operatorsOrders: OperatorsOrder[] = [
     recursiveType: RecursiveType.LEFT,
   },
   {
-    operators: ['? ! Y M w d h m s ms us ns'],
+    operators: ['? !'],
     operatorType: OperatorType.POSTFIX,
     recursiveType: RecursiveType.LEFT,
   },
