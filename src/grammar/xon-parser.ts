@@ -31,10 +31,8 @@ export class XonParser extends Parser {
 	public static readonly CLOSE = 4;
 	public static readonly COMMA = 5;
 	public static readonly NL = 6;
-	public static readonly WS = 7;
-	public static readonly LINE_COMMENT = 8;
-	public static readonly BLOCK_COMMENT = 9;
-	public static readonly TOKEN = 10;
+	public static readonly LINE_COMMENT = 7;
+	public static readonly TOKEN = 8;
 	public static readonly RULE_source = 0;
 	public static readonly RULE_expression = 1;
 	// tslint:disable:no-trailing-whitespace
@@ -46,8 +44,8 @@ export class XonParser extends Parser {
 		undefined, undefined, undefined, undefined, undefined, "','",
 	];
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
-		undefined, "INDENT", "DEDENT", "OPEN", "CLOSE", "COMMA", "NL", "WS", "LINE_COMMENT", 
-		"BLOCK_COMMENT", "TOKEN",
+		undefined, "INDENT", "DEDENT", "OPEN", "CLOSE", "COMMA", "NL", "LINE_COMMENT", 
+		"TOKEN",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(XonParser._LITERAL_NAMES, XonParser._SYMBOLIC_NAMES, []);
 
@@ -319,7 +317,7 @@ export class XonParser extends Parser {
 	}
 
 	public static readonly _serializedATN: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03\f5\x04\x02\t" +
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03\n5\x04\x02\t" +
 		"\x02\x04\x03\t\x03\x03\x02\x05\x02\b\n\x02\x03\x02\x03\x02\x03\x02\x07" +
 		"\x02\r\n\x02\f\x02\x0E\x02\x10\v\x02\x03\x02\x05\x02\x13\n\x02\x03\x02" +
 		"\x05\x02\x16\n\x02\x03\x03\x03\x03\x03\x03\x03\x03\x07\x03\x1C\n\x03\f" +
@@ -338,7 +336,7 @@ export class XonParser extends Parser {
 		"\x03\x02\x02\x02\x1B\x1A\x03\x02\x02\x02\x1C\x1F\x03\x02\x02\x02\x1D\x1B" +
 		"\x03\x02\x02\x02\x1D\x1E\x03\x02\x02\x02\x1E \x03\x02\x02\x02\x1F\x1D" +
 		"\x03\x02\x02\x02 ,\x07\x06\x02\x02!\"\x07\b\x02\x02\"#\x07\x03\x02\x02" +
-		"#$\x05\x02\x02\x02$%\x07\x04\x02\x02%,\x03\x02\x02\x02&(\x07\f\x02\x02" +
+		"#$\x05\x02\x02\x02$%\x07\x04\x02\x02%,\x03\x02\x02\x02&(\x07\n\x02\x02" +
 		"\'&\x03\x02\x02\x02()\x03\x02\x02\x02)\'\x03\x02\x02\x02)*\x03\x02\x02" +
 		"\x02*,\x03\x02\x02\x02+\x17\x03\x02\x02\x02+!\x03\x02\x02\x02+\'\x03\x02" +
 		"\x02\x02,1\x03\x02\x02\x02-.\f\x04\x02\x02.0\x05\x04\x03\x05/-\x03\x02" +

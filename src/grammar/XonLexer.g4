@@ -18,10 +18,8 @@ OPEN:  ('(' | '[' | '{') {this.opened++;};
 CLOSE: (')' | ']' | '}') {this.opened--;};
 
 COMMA: ',';
-NL:    ([\r\n] WS*)+ {this.handleLineBreak()};
+NL:    ([\r\n] [ \t]*)+ {this.handleLineBreak()};
 
-WS:            [ \t]+                          -> skip;
-LINE_COMMENT:  '--' ~[\r\n]*                   -> skip;
-BLOCK_COMMENT: '/*' (BLOCK_COMMENT | .)*? '*/' -> skip;
+LINE_COMMENT: '--' ~[\r\n]* -> skip;
 
 TOKEN: .;
