@@ -2,7 +2,7 @@ import { DefinitionMetadata } from '~/metadata/declaration/definition/definition
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { IdTypeMetadata } from '~/metadata/type/id/id-type-metadata';
 import { fillTypeMetadata } from '~/metadata/type/type-metadata-helper';
-import { parseExpression } from '~/util/parse';
+import { parseExpression } from '~/parser/parser';
 
 test('none model', () => {
   const code = 'null';

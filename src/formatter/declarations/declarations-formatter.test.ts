@@ -1,7 +1,7 @@
 import { ParametersFormatter } from '~/formatter/declarations/declarations-formatter';
 import { getDeclarationsFormatter } from '~/formatter/declarations/declarations-formatter-helper';
 import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
-import { getParser } from '~/util/parse';
+import { getParser } from '~/parser/parser';
 
 test('variables', () => {
   const code = '[a, b, c]';

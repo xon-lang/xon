@@ -1,7 +1,7 @@
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { IntersectionTypeMetadata } from '~/metadata/type/intersection/intersection-type-metadata';
 import { fillTypeMetadata } from '~/metadata/type/type-metadata-helper';
-import { parseExpression } from '~/util/parse';
+import { parseExpression } from '~/parser/parser';
 
 test('intersect', () => {
   const code = 'Integer & Float';

@@ -1,15 +1,12 @@
 import { getExpressionFormatter } from '~/formatter/expression/expression-formatter-helper';
 import { PrefixExpressionFormatter } from '~/formatter/expression/prefix/prefix-expression-formatter';
-import { FormatterConfig, defaultFormatterConfig } from '~/formatter/formatter-config';
-import { getParser } from '~/util/parse';
+import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
+import { getParser } from '~/parser/parser';
 
 test('plus', () => {
   const code = '+([1, 2, 3])';
   const ctx = getParser(code).expression();
-  const formatter = getExpressionFormatter(
-    ctx,
-    defaultFormatterConfig,
-  ) as PrefixExpressionFormatter;
+  const formatter = getExpressionFormatter(ctx, defaultFormatterConfig) as PrefixExpressionFormatter;
 
   expect(formatter).toBeInstanceOf(PrefixExpressionFormatter);
   expect(formatter.toString()).toBe('+([1, 2, 3])');
@@ -18,10 +15,7 @@ test('plus', () => {
 test('pow', () => {
   const code = '^([1, 2, 3])';
   const ctx = getParser(code).expression();
-  const formatter = getExpressionFormatter(
-    ctx,
-    defaultFormatterConfig,
-  ) as PrefixExpressionFormatter;
+  const formatter = getExpressionFormatter(ctx, defaultFormatterConfig) as PrefixExpressionFormatter;
 
   expect(formatter).toBeInstanceOf(PrefixExpressionFormatter);
   expect(formatter.toString()).toBe('^([1, 2, 3])');

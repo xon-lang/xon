@@ -1,15 +1,12 @@
 import { getExpressionFormatter } from '~/formatter/expression/expression-formatter-helper';
 import { MethodExpressionFormatter } from '~/formatter/expression/method/method-expression-formatter';
-import { FormatterConfig, defaultFormatterConfig } from '~/formatter/formatter-config';
-import { getParser } from '~/util/parse';
+import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
+import { getParser } from '~/parser/parser';
 
 test('has type', () => {
   const code = '(a, b: Integer) => a+b';
   const ctx = getParser(code).expression();
-  const formatter = getExpressionFormatter(
-    ctx,
-    defaultFormatterConfig,
-  ) as MethodExpressionFormatter;
+  const formatter = getExpressionFormatter(ctx, defaultFormatterConfig) as MethodExpressionFormatter;
 
   expect(formatter).toBeInstanceOf(MethodExpressionFormatter);
   expect(formatter.toString()).toBe('(a, b: Integer) => a + b');

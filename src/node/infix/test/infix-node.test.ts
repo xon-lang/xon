@@ -1,8 +1,8 @@
 import { InfixNode } from '~/node/infix/infix-node';
 import { NodeType } from '~/node/node';
 import { PrefixNode } from '~/node/prefix/prefix-node';
+import { parseExpression } from '~/parser/parser';
 import { evaluate } from '~/util/evaluate';
-import { parseExpression } from '~/util/parse';
 
 test('several operands with different priorities', () => {
   const code = '1*1+1+2^5*2/2';

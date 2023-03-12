@@ -2,8 +2,8 @@ import { ArrayNode } from '~/node/array/array-node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { InvokeNode } from '~/node/invoke/invoke-node';
 import { NodeType } from '~/node/node';
+import { parseExpression } from '~/parser/parser';
 import { evaluate } from '~/util/evaluate';
-import { parseExpression } from '~/util/parse';
 
 test('has argument', () => {
   const code = '[x] = x + 42';

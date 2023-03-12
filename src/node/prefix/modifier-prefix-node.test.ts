@@ -1,7 +1,7 @@
 import { InvokeNode } from '~/node/invoke/invoke-node';
 import { NodeType } from '~/node/node';
 import { PrefixNode } from '~/node/prefix/prefix-node';
-import { parseExpression } from '~/util/parse';
+import { parseExpression } from '~/parser/parser';
 
 test('method declaration', () => {
   const code = 'infix +(a, b)';

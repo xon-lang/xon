@@ -1,7 +1,7 @@
 import { ArgumentFormatter } from '~/formatter/argument/argument-formatter';
 import { getArgumentFormatter } from '~/formatter/argument/argument-formatter-helper';
 import { defaultFormatterConfig } from '~/formatter/formatter-config';
-import { getParser } from '~/util/parse';
+import { getParser } from '~/parser/parser';
 
 test('name value', () => {
   const code = 'a= 123';

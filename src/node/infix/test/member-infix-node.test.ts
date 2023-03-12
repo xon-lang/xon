@@ -1,6 +1,6 @@
 import { InfixNode } from '~/node/infix/infix-node';
 import { NodeType } from '~/node/node';
-import { parseExpression } from '~/util/parse';
+import { parseExpression } from '~/parser/parser';
 
 test('meta property', () => {
   const code = 'abc::def';

@@ -1,15 +1,12 @@
 import { getExpressionFormatter } from '~/formatter/expression/expression-formatter-helper';
 import { InvokeExpressionFormatter } from '~/formatter/expression/invoke/invoke-expression-formatter';
-import { FormatterConfig, defaultFormatterConfig } from '~/formatter/formatter-config';
-import { getParser } from '~/util/parse';
+import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
+import { getParser } from '~/parser/parser';
 
 test('abc', () => {
   const code = 'abc(1, 2, 3)';
   const ctx = getParser(code).expression();
-  const formatter = getExpressionFormatter(
-    ctx,
-    defaultFormatterConfig,
-  ) as InvokeExpressionFormatter;
+  const formatter = getExpressionFormatter(ctx, defaultFormatterConfig) as InvokeExpressionFormatter;
 
   expect(formatter).toBeInstanceOf(InvokeExpressionFormatter);
   expect(formatter.toString()).toBe('abc(1, 2, 3)');

@@ -2,7 +2,7 @@ import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declarat
 import { ArrayValueMetadata } from '~/metadata/expression/array/array-value-metadata';
 import { getExpressionMetadata } from '~/metadata/expression/expression-metadata-helper';
 import { fillTypeMetadata } from '~/metadata/type/type-metadata-helper';
-import { parseExpression } from '~/util/parse';
+import { parseExpression } from '~/parser/parser';
 
 test('empty', () => {
   const code = '[]';

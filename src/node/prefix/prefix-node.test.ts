@@ -1,7 +1,7 @@
 import { NodeType } from '~/node/node';
 import { PrefixNode } from '~/node/prefix/prefix-node';
+import { parseExpression } from '~/parser/parser';
 import { evaluate } from '~/util/evaluate';
-import { parseExpression } from '~/util/parse';
 
 test('negative integer', () => {
   const code = '- 1';

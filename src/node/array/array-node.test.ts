@@ -1,8 +1,8 @@
 import { Integer } from '~/lib/core';
 import { ArrayNode } from '~/node/array/array-node';
 import { NodeType } from '~/node/node';
+import { parseExpression } from '~/parser/parser';
 import { evaluate } from '~/util/evaluate';
-import { parseExpression } from '~/util/parse';
 
 test('check array', () => {
   const code = '[1, 2+2, 4, 6+6]';

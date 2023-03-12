@@ -1,7 +1,7 @@
 import { getExpressionFormatter } from '~/formatter/expression/expression-formatter-helper';
 import { GroupExpressionFormatter } from '~/formatter/expression/group/group-expression-formatter';
-import { FormatterConfig, defaultFormatterConfig } from '~/formatter/formatter-config';
-import { getParser } from '~/util/parse';
+import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
+import { getParser } from '~/parser/parser';
 
 test('integers', () => {
   const code = '([1, 2, 3])';

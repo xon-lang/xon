@@ -1,7 +1,7 @@
 import { defaultFormatterConfig } from '~/formatter/formatter-config';
 import { DeclarationStatementFormatter } from '~/formatter/statement/declaration/declaration-statement-formatter';
 import { getStatementFormatter } from '~/formatter/statement/statement-formatter-helper';
-import { getParser } from '~/util/parse';
+import { getParser } from '~/parser/parser';
 
 test('parameter', () => {
   const code = 'abc : Number =  2';

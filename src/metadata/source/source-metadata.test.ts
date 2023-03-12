@@ -1,8 +1,8 @@
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { SourceMetadata } from '~/metadata/source/source-metadata';
 import { getSourceMetadata } from '~/metadata/source/source-metadata-helper';
+import { parseSource, parseSourceFile } from '~/parser/parser';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
-import { parseSource, parseSourceFile } from '~/util/parse';
 
 test('1-error.xon', () => {
   const tree = parseSourceFile('src/metadata/source/test-files/1-error.xon');

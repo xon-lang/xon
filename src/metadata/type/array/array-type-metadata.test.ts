@@ -3,7 +3,7 @@ import { ArrayTypeMetadata } from '~/metadata/type/array/array-type-metadata';
 import { LiteralTypeMetadata } from '~/metadata/type/literal/literal-type-metadata';
 import { fillTypeMetadata } from '~/metadata/type/type-metadata-helper';
 import { UnionType } from '~/metadata/type/union/union-type';
-import { parseExpression } from '~/util/parse';
+import { parseExpression } from '~/parser/parser';
 
 test('no items', () => {
   const code = 'Integer[]';
@@ -17,7 +17,7 @@ test('no items', () => {
 });
 
 test('has items', () => {
-  const code = '[1, \'hi\']';
+  const code = "[1, 'hi']";
   const tree = parseExpression(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree) as ArrayTypeMetadata;

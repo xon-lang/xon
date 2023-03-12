@@ -3,8 +3,8 @@ import { SourceMetadata } from '~/metadata/source/source-metadata';
 import { getSourceMetadata } from '~/metadata/source/source-metadata-helper';
 import { IdTypeMetadata } from '~/metadata/type/id/id-type-metadata';
 import { PrefixExpressionTree } from '~/node/prefix/prefix-node';
+import { parseSourceFile } from '~/parser/parser';
 import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
-import { parseSourceFile } from '~/util/parse';
 
 test('import', () => {
   const tree = parseSourceFile('test/import/b.xon');

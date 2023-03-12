@@ -88,3 +88,15 @@ export function parserFromFile(location: String2, parserConfig: ParserConfig | n
 
   return parserFromCode(code, location, parserConfig);
 }
+
+export function parseSourceFile(location: String2): SourceNode {
+  return parserFromFile(location).source();
+}
+
+export function parseSource(code: String2): SourceNode {
+  return parserFromCode(code).source();
+}
+
+export function parseExpression(code: String2): Node {
+  return parserFromCode(code).expression();
+}

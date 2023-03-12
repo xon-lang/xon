@@ -1,5 +1,5 @@
 import { NodeType } from '~/node/node';
-import { parseExpression } from '~/util/parse';
+import { parseExpression } from '~/parser/parser';
 
 test('id', () => {
   const code = 'myVariable';

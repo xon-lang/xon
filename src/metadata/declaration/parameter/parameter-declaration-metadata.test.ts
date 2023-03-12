@@ -5,9 +5,9 @@ import { SourceMetadata } from '~/metadata/source/source-metadata';
 import { getSourceMetadata } from '~/metadata/source/source-metadata-helper';
 import { LiteralTypeMetadata } from '~/metadata/type/literal/literal-type-metadata';
 import { TypeMetadata } from '~/metadata/type/type-metadata';
+import { parseSource } from '~/parser/parser';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
 import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
-import { parseSource } from '~/util/parse';
 
 test('single parameter', () => {
   const code = 'a: Number =  132';

@@ -1,7 +1,7 @@
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { getExpressionMetadata } from '~/metadata/expression/expression-metadata-helper';
 import { MemberValueMetadata } from '~/metadata/expression/value/member/member-value-metadata';
-import { parseExpression } from '~/util/parse';
+import { parseExpression } from '~/parser/parser';
 
 test('member', () => {
   const code = '4.5.testNumberProp1';
