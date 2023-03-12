@@ -1,6 +1,6 @@
+import { Scanner } from '~/compiler/scanner/scanner';
+import { Source } from '~/compiler/source/source';
 import { NodeType } from '~/node/node';
-import { Scanner } from '~/parser/scanner/scanner';
-import { Source } from '~/parser/source/source';
 
 test('single id', () => {
   const text = 'abc';

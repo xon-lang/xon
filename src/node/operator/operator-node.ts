@@ -1,8 +1,8 @@
+import { operatorsOrders } from '~/compiler/parser/parser-config';
+import { Source } from '~/compiler/source/source';
 import { Integer, String2 } from '~/lib/core';
 import { scanIdNode } from '~/node/id/id-node';
 import { Node, NodeType } from '~/node/node';
-import { operatorsOrders } from '~/parser/parser-config';
-import { Source } from '~/parser/source/source';
 
 export interface OperatorNode extends Node {}
 

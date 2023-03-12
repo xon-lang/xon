@@ -1,8 +1,8 @@
+import { parseSourceFile } from '~/compiler/parser/parser';
 import { String2 } from '~/lib/core';
 import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata';
 import { getSourceDeclarationMetadata } from '~/metadata/declaration/declaration-metadata-helper';
 import { getModuleFromLocation } from '~/module/module-helper';
-import { parseSourceFile } from '~/parser/parser';
 import { PathFs } from '~/util/fs/path-fs';
 
 export class ImportProvider {

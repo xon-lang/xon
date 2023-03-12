@@ -1,8 +1,8 @@
+import { parseExpression } from '~/compiler/parser/parser';
+import { Source } from '~/compiler/source/source';
 import { InfixNode } from '~/node/infix/infix-node';
 import { NodeType } from '~/node/node';
 import { PrefixNode } from '~/node/prefix/prefix-node';
-import { parseExpression } from '~/parser/parser';
-import { Source } from '~/parser/source/source';
 import { evaluate } from '~/util/evaluate';
 
 test('several operands with different priorities', () => {

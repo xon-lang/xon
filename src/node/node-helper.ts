@@ -1,3 +1,6 @@
+import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/compiler/parser/parser-config';
+import { Scanner } from '~/compiler/scanner/scanner';
+import { Source } from '~/compiler/source/source';
 import {
   ArrayExpressionContext,
   BodyExpressionContext,
@@ -16,9 +19,6 @@ import { Node, NodeType } from '~/node/node';
 import { postfixNode } from '~/node/postfix/postfix-node';
 import { prefixNode, PrefixNode } from '~/node/prefix/prefix-node';
 import { sourceNode } from '~/node/source/source-node';
-import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/parser/parser-config';
-import { Scanner } from '~/parser/scanner/scanner';
-import { Source } from '~/parser/source/source';
 
 export const getNode = (source: Source, ctx: ExpressionContext): Node => {
   if (ctx instanceof TokenExpressionContext) return pairExpression(source, ctx);

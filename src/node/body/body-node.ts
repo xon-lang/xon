@@ -1,8 +1,8 @@
+import { Source } from '~/compiler/source/source';
 import { BodyExpressionContext } from '~/grammar/xon-parser';
 import { Node, NodeType } from '~/node/node';
 import { getNode } from '~/node/node-helper';
 import { SourceNode } from '~/node/source/source-node';
-import { Source } from '~/parser/source/source';
 
 export interface BodyNode extends Node {
   source: SourceNode;

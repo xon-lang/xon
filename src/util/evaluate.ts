@@ -1,10 +1,10 @@
+import { Source } from '~/compiler/source/source';
 import { String2, Unknown2 } from '~/lib/core';
 import { ArrayNode } from '~/node/array/array-node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { Node, NodeType } from '~/node/node';
 import { is } from '~/node/node-helper';
 import { PrefixNode } from '~/node/prefix/prefix-node';
-import { Source } from '~/parser/source/source';
 
 export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);

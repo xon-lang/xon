@@ -1,9 +1,9 @@
 import { globSync } from 'glob';
 import { basename, join } from 'path';
+import { parseSourceFile } from '~/compiler/parser/parser';
 import { String2 } from '~/lib/core';
 import { Module } from '~/module/module';
 import { SourceNode } from '~/node/source/source-node';
-import { parseSourceFile } from '~/parser/parser';
 
 export function getModuleFromLocation(location: String2): Module {
   const name = basename(location);

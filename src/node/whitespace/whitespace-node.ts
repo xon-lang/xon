@@ -1,6 +1,6 @@
+import { Source } from '~/compiler/source/source';
 import { Integer } from '~/lib/core';
 import { Node, NodeType } from '~/node/node';
-import { Source } from '~/parser/source/source';
 
 export interface WhitespaceNode extends Node {}
 

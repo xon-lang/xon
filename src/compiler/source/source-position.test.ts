@@ -1,5 +1,5 @@
-import { Source } from '~/parser/source/source';
-import { SourcePosition } from '~/parser/source/source-position';
+import { Source } from '~/compiler/source/source';
+import { SourcePosition } from '~/compiler/source/source-position';
 
 test('1', () => {
   const text = '\n abc \n';

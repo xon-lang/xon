@@ -1,9 +1,9 @@
+import { parseExpression } from '~/compiler/parser/parser';
+import { Source } from '~/compiler/source/source';
 import { ArrayNode } from '~/node/array/array-node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { InvokeNode } from '~/node/invoke/invoke-node';
 import { NodeType } from '~/node/node';
-import { parseExpression } from '~/parser/parser';
-import { Source } from '~/parser/source/source';
 
 test('method call', () => {
   const code = "f(3, 'str')";

@@ -1,7 +1,7 @@
+import { parseSource } from '~/compiler/parser/parser';
+import { Source } from '~/compiler/source/source';
 import { LadderNode } from '~/node/ladder/ladder-node';
 import { NodeType } from '~/node/node';
-import { parseSource } from '~/parser/parser';
-import { Source } from '~/parser/source/source';
 
 // test('import and if', () => {
 //   const code = `import ('xon.os') {Path}

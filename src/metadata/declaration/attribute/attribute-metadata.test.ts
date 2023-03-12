@@ -1,3 +1,4 @@
+import { parseSource } from '~/compiler/parser/parser';
 import { ParameterMetadata } from '~/metadata/declaration/parameter/parameter-declaration-metadata';
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { ValueMetadata } from '~/metadata/expression/value/value-metadata';
@@ -5,7 +6,6 @@ import { SourceMetadata } from '~/metadata/source/source-metadata';
 import { getSourceMetadata } from '~/metadata/source/source-metadata-helper';
 import { LiteralTypeMetadata } from '~/metadata/type/literal/literal-type-metadata';
 import { TypeMetadata } from '~/metadata/type/type-metadata';
-import { parseSource } from '~/parser/parser';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
 import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
 

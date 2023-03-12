@@ -1,7 +1,7 @@
+import { Source } from '~/compiler/source/source';
 import { ArrayExpressionContext } from '~/grammar/xon-parser';
 import { Node, NodeType } from '~/node/node';
 import { getNode } from '~/node/node-helper';
-import { Source } from '~/parser/source/source';
 
 export interface ArrayNode extends Node {
   openToken: Node;

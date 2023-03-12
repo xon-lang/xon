@@ -1,8 +1,8 @@
+import { parseExpression } from '~/compiler/parser/parser';
+import { Source } from '~/compiler/source/source';
 import { Integer } from '~/lib/core';
 import { ArrayNode } from '~/node/array/array-node';
 import { NodeType } from '~/node/node';
-import { parseExpression } from '~/parser/parser';
-import { Source } from '~/parser/source/source';
 import { evaluate } from '~/util/evaluate';
 
 test('check array', () => {

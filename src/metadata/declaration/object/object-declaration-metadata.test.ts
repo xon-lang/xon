@@ -1,8 +1,8 @@
+import { parseSource } from '~/compiler/parser/parser';
 import { DefinitionMetadata } from '~/metadata/declaration/definition/definition-metadata';
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { SourceMetadata } from '~/metadata/source/source-metadata';
 import { getSourceMetadata } from '~/metadata/source/source-metadata-helper';
-import { parseSource } from '~/parser/parser';
 import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
 
 test('definition', () => {

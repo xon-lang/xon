@@ -1,7 +1,7 @@
+import { Source } from '~/compiler/source/source';
 import { Integer } from '~/lib/core';
 import { Node, NodeType } from '~/node/node';
 import { unexpectedNode } from '~/node/unexpected/unexpected-node';
-import { Source } from '~/parser/source/source';
 
 export interface StringNode extends Node {}
 

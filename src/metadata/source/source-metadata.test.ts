@@ -1,7 +1,7 @@
+import { parseSource, parseSourceFile } from '~/compiler/parser/parser';
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { SourceMetadata } from '~/metadata/source/source-metadata';
 import { getSourceMetadata } from '~/metadata/source/source-metadata-helper';
-import { parseSource, parseSourceFile } from '~/parser/parser';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
 
 test('1-error.xon', () => {

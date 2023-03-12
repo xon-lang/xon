@@ -1,6 +1,6 @@
+import { parseStatement } from '~/compiler/parser/parser';
 import { ImportStatementMetadata } from '~/metadata/statement/import/import-statement-metadata';
 import { getStatementMetadata } from '~/metadata/statement/statement-metadata-helper';
-import { parseStatement } from '~/parser/parser';
 
 test('literal', () => {
   const code = "import 'src/lib/@xon/core'";

@@ -1,6 +1,6 @@
+import { parseExpression } from '~/compiler/parser/parser';
 import { IntegerTypeMetadata } from '~/metadata/type/integer/integer-type-metadata';
 import { getTypeMetadata } from '~/metadata/type/type-metadata-helper';
-import { parseExpression } from '~/parser/parser';
 
 test('integer literal', () => {
   const code = '123';

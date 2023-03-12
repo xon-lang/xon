@@ -1,7 +1,7 @@
+import { getParser } from '~/compiler/parser/parser';
 import { BodyFormatter } from '~/formatter/body/body-formatter';
 import { getBodyFormatter } from '~/formatter/body/body-formatter-helper';
 import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
-import { getParser } from '~/parser/parser';
 
 test('integer', () => {
   const code = '\n  123';

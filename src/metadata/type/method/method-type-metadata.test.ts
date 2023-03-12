@@ -1,8 +1,8 @@
+import { parseExpression } from '~/compiler/parser/parser';
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { IdTypeMetadata } from '~/metadata/type/id/id-type-metadata';
 import { MethodTypeMetadata } from '~/metadata/type/method/method-type-metadata';
 import { fillTypeMetadata } from '~/metadata/type/type-metadata-helper';
-import { parseExpression } from '~/parser/parser';
 
 test('method', () => {
   const code = '(a: Number)=>null';

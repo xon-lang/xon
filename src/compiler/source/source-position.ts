@@ -1,5 +1,5 @@
+import { Source } from '~/compiler/source/source';
 import { Integer, String2 } from '~/lib/core';
-import { Source } from '~/parser/source/source';
 
 export class SourcePosition {
   public line: Integer;

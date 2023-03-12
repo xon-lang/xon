@@ -1,7 +1,7 @@
+import { getParser } from '~/compiler/parser/parser';
 import { defaultFormatterConfig } from '~/formatter/formatter-config';
 import { ExpressionStatementFormatter } from '~/formatter/statement/expression/expression-statement-formatter';
 import { getStatementFormatter } from '~/formatter/statement/statement-formatter-helper';
-import { getParser } from '~/parser/parser';
 
 test('expression', () => {
   const code = 'abc?.def( )';

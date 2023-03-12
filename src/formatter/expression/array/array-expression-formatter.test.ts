@@ -1,7 +1,7 @@
+import { getParser } from '~/compiler/parser/parser';
 import { ArrayExpressionFormatter } from '~/formatter/expression/array/array-expression-formatter';
 import { getExpressionFormatter } from '~/formatter/expression/expression-formatter-helper';
 import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
-import { getParser } from '~/parser/parser';
 
 test('integers', () => {
   const code = '[1, 2, 3]';

@@ -1,7 +1,7 @@
+import { parseSource } from '~/compiler/parser/parser';
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { SourceMetadata } from '~/metadata/source/source-metadata';
 import { getSourceMetadata } from '~/metadata/source/source-metadata-helper';
-import { parseSource } from '~/parser/parser';
 
 test('single parameter', () => {
   const code = 'a: 132';

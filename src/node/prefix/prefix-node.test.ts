@@ -1,7 +1,7 @@
+import { parseExpression } from '~/compiler/parser/parser';
+import { Source } from '~/compiler/source/source';
 import { NodeType } from '~/node/node';
 import { PrefixNode } from '~/node/prefix/prefix-node';
-import { parseExpression } from '~/parser/parser';
-import { Source } from '~/parser/source/source';
 import { evaluate } from '~/util/evaluate';
 
 test('negative integer', () => {

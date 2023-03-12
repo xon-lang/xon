@@ -1,3 +1,4 @@
+import { Source } from '~/compiler/source/source';
 import { Integer } from '~/lib/core';
 import { scanIdNode } from '~/node/id/id-node';
 import { scanIntegerNode } from '~/node/integer/integer-node';
@@ -7,7 +8,6 @@ import { scanOperatorNode } from '~/node/operator/operator-node';
 import { scanStringNode } from '~/node/string/string-node';
 import { unexpectedNode } from '~/node/unexpected/unexpected-node';
 import { scanWhitespaceNode } from '~/node/whitespace/whitespace-node';
-import { Source } from '~/parser/source/source';
 
 type NodeScanFunction = (source: Source, startIndex: Integer, stopIndex: Integer) => Node | null;
 

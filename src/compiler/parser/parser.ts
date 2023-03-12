@@ -1,12 +1,12 @@
 import { CharStreams, CommonTokenStream, TokenStream } from 'antlr4ts';
+import { OperatorsOrder } from '~/compiler/parser/parser-config';
+import { ThrowingErrorListener } from '~/compiler/parser/throwing-error-listener';
+import { Source } from '~/compiler/source/source';
 import { XonLexer } from '~/grammar/xon-lexer';
 import { XonParser } from '~/grammar/xon-parser';
 import { Node } from '~/node/node';
 import { getNode } from '~/node/node-helper';
 import { SourceNode } from '~/node/source/source-node';
-import { OperatorsOrder } from '~/parser/parser-config';
-import { Source } from '~/parser/source/source';
-import { ThrowingErrorListener } from '~/parser/throwing-error-listener';
 import { operatorsOrders } from './parser-config';
 
 export class Parser {

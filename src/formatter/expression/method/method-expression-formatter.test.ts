@@ -1,7 +1,7 @@
+import { getParser } from '~/compiler/parser/parser';
 import { getExpressionFormatter } from '~/formatter/expression/expression-formatter-helper';
 import { MethodExpressionFormatter } from '~/formatter/expression/method/method-expression-formatter';
 import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
-import { getParser } from '~/parser/parser';
 
 test('has type', () => {
   const code = '(a, b: Integer) => a+b';

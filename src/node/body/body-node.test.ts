@@ -1,7 +1,7 @@
+import { parseExpression } from '~/compiler/parser/parser';
+import { Source } from '~/compiler/source/source';
 import { BodyNode } from '~/node/body/body-node';
 import { NodeType } from '~/node/node';
-import { parseExpression } from '~/parser/parser';
-import { Source } from '~/parser/source/source';
 
 test('single expression', () => {
   const code = '\n  a = 1';

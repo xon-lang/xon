@@ -1,7 +1,7 @@
+import { getParser } from '~/compiler/parser/parser';
 import { getExpressionFormatter } from '~/formatter/expression/expression-formatter-helper';
 import { InvokeExpressionFormatter } from '~/formatter/expression/invoke/invoke-expression-formatter';
 import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
-import { getParser } from '~/parser/parser';
 
 test('abc', () => {
   const code = 'abc(1, 2, 3)';
