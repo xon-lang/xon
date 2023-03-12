@@ -20,9 +20,8 @@ CLOSE: (')' | ']' | '}') {this.opened--;};
 COMMA: ',';
 NL:    ([\r\n] WS*)+ {this.handleLineBreak()};
 
-WS:            [ \t]+                           -> skip;
-LINE_COMMENT:  '--' ~[\r\n]*                    -> skip;
-BLOCK_COMMENT: '/*' (BLOCK_COMMENT | .)*? '*/'  -> skip;
-LINE_JOINING:  '\\' [ \t]* ('\r'? '\n' | '\r')? -> skip;
+WS:            [ \t]+                          -> skip;
+LINE_COMMENT:  '--' ~[\r\n]*                   -> skip;
+BLOCK_COMMENT: '/*' (BLOCK_COMMENT | .)*? '*/' -> skip;
 
 TOKEN: .;
