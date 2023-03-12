@@ -1,21 +1,26 @@
 import { NodeType } from '~/node/node';
-import { PostfixNode } from '~/node/postfix/postfix-node';
-import { evaluate } from '~/util/evaluate';
 import { parseExpression } from '~/util/parse';
 
-test('after integer', () => {
-  const code = '1!';
-  const tree = parseExpression(code) as PostfixNode;
+test('zero int number', () => {
+  const code = '0';
+  const tree = parseExpression(code);
 
-  expect(tree.nodeType).toBe(NodeType.POSTFIX);
-  expect(tree.operator.text).toBe('!');
-  expect(evaluate(tree.expression)).toBe(1);
+  expect(tree.nodeType).toBe(NodeType.INTEGER);
+  expect(tree.text).toBe('0');
 });
 
-test('after invoke', () => {
-  const code = 'ctx.parameters[]!';
-  const tree = parseExpression(code) as PostfixNode;
+test('positive int number', () => {
+  const code = '2x01110';
+  const tree = parseExpression(code);
 
-  expect(tree.nodeType).toBe(NodeType.POSTFIX);
-  expect(tree.operator.text).toBe('!');
+  expect(tree.nodeType).toBe(NodeType.INTEGER);
+  expect(tree.text).toBe('2x01110');
+});
+
+test('radix int', () => {
+  const code = '16x1a_b_c';
+  const tree = parseExpression(code);
+
+  expect(tree.nodeType).toBe(NodeType.INTEGER);
+  expect(tree.text).toBe('16x1a_b_c');
 });
