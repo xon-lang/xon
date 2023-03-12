@@ -17,8 +17,8 @@ import { postfixNode } from '~/node/postfix/postfix-node';
 import { prefixNode, PrefixNode } from '~/node/prefix/prefix-node';
 import { sourceNode } from '~/node/source/source-node';
 import { Lexer } from '~/parser/lexer/lexer';
-import { Source } from '~/parser/lexer/source/source';
 import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/parser/parser-config';
+import { Source } from '~/parser/source/source';
 
 export const getNode = (ctx: ExpressionContext): Node => {
   if (ctx instanceof TokenExpressionContext) return pairExpression(ctx);

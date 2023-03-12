@@ -1,6 +1,6 @@
 import { NodeType } from '~/node/node';
 import { Lexer } from '~/parser/lexer/lexer';
-import { Source } from '~/parser/lexer/source/source';
+import { Source } from '~/parser/source/source';
 
 test('single id', () => {
   const text = 'abc';
