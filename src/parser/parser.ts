@@ -25,11 +25,6 @@ export class Parser {
     const lexer = new XonLexer(inputStream);
     lexer.removeErrorListeners();
     lexer.addErrorListener(new ThrowingErrorListener());
-
-    lexer.operators = this.operatorsOrders
-      .flatMap((operatorsOrder) => operatorsOrder.operators)
-      .flatMap((operators) => operators.split(' '));
-
     return lexer;
   }
 
