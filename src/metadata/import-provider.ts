@@ -1,7 +1,7 @@
 import { String2 } from '~/lib/core';
 import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata';
 import { getSourceDeclarationMetadata } from '~/metadata/declaration/declaration-metadata-helper';
-import { getModuleTreeFromPath } from '~/tree/module/module-tree-helper';
+import { getModuleFromLocation } from '~/tree/module/module-tree-helper';
 import { PathFs } from '~/util/fs/path-fs';
 import { parseSourceFile } from '~/util/parse';
 
@@ -21,7 +21,7 @@ export class ImportProvider {
       return getSourceDeclarationMetadata(sourceTree);
     }
     if (pathFs.isDirectory()) {
-      const moduleTree = getModuleTreeFromPath(pathFs.fullPath);
+      const moduleTree = getModuleFromLocation(pathFs.fullPath);
       const sourceTrees = moduleTree.sources;
 
       return sourceTrees.map(getSourceDeclarationMetadata).flat();

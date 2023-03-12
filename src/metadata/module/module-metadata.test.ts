@@ -1,9 +1,9 @@
 import { ModuleMetadata } from '~/metadata/module/module-metadata';
 import { getModuleMetadata } from '~/metadata/module/module-metadata-helper';
-import { getModuleTreeFromPath } from '~/tree/module/module-tree-helper';
+import { getModuleFromLocation } from '~/tree/module/module-tree-helper';
 
 test('core module', () => {
-  const tree = getModuleTreeFromPath('src/lib/@xon/core');
+  const tree = getModuleFromLocation('src/lib/@xon/core');
   const metadata = getModuleMetadata(tree);
 
   expect(metadata).toBeInstanceOf(ModuleMetadata);

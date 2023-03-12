@@ -1,14 +1,12 @@
-import { ModuleTree } from '~/tree/module/module-tree';
-import { getModuleTreeFromPath } from '~/tree/module/module-tree-helper';
+import { getModuleFromLocation } from '~/tree/module/module-tree-helper';
 
 test('module from path', () => {
-  const tree = getModuleTreeFromPath('src/lib/@xon/core');
+  const tree = getModuleFromLocation('src/lib/@xon/core');
 
-  expect(tree).toBeInstanceOf(ModuleTree);
-  expect(tree.children.length).toBe(5);
+  expect(tree.modules.length).toBe(5);
+  expect(tree.sources.length).toBe(5);
 
-  const testModule = tree.children.find((x) => x instanceof ModuleTree && x.name === 'test') as ModuleTree;
-  expect(testModule).toBeInstanceOf(ModuleTree);
-  expect(testModule.name).toBe('test');
-  expect(testModule.location).toBe('src/lib/@xon/core/test');
+  const testModule = tree.modules.find((x) => x.name === 'test');
+  expect(testModule?.name).toBe('test');
+  expect(testModule?.location).toBe('src/lib/@xon/core/test');
 });
