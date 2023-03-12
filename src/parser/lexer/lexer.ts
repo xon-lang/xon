@@ -176,12 +176,10 @@ export class Lexer {
   }
 
   private createToken(startIndex: Integer, stopIndex: Integer, nodeType: NodeType): Node {
-    const text = this.source.text.slice(startIndex, stopIndex + 1);
     return {
       startIndex,
       stopIndex,
       type: nodeType,
-      text,
     };
   }
 }

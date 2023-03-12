@@ -10,7 +10,7 @@ test('negative integer', () => {
   const tree = parseExpression(source) as PrefixNode;
 
   expect(tree.type).toBe(NodeType.PREFIX);
-  expect(evaluate(tree.expression)).toBe(1);
+  expect(evaluate(source, tree.expression)).toBe(1);
 });
 
 test('not boolean', () => {

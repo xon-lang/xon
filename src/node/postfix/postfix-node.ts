@@ -10,7 +10,6 @@ export function postfixNode(operator: Node, expression: Node): PostfixNode {
     type: NodeType.POSTFIX,
     startIndex: expression.stopIndex,
     stopIndex: operator.startIndex,
-    text: expression.text + operator.text,
     operator,
     expression,
   };

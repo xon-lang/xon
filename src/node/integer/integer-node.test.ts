@@ -8,7 +8,7 @@ test('zero int number', () => {
   const tree = parseExpression(source);
 
   expect(tree.type).toBe(NodeType.INTEGER);
-  expect(tree.text).toBe('0');
+  expect(source.nodeText(tree)).toBe('0');
 });
 
 test('positive int number', () => {
@@ -17,7 +17,7 @@ test('positive int number', () => {
   const tree = parseExpression(source);
 
   expect(tree.type).toBe(NodeType.INTEGER);
-  expect(tree.text).toBe('2x01110');
+  expect(source.nodeText(tree)).toBe('2x01110');
 });
 
 test('radix int', () => {
@@ -26,5 +26,5 @@ test('radix int', () => {
   const tree = parseExpression(source);
 
   expect(tree.type).toBe(NodeType.INTEGER);
-  expect(tree.text).toBe('16x1a_b_c');
+  expect(source.nodeText(tree)).toBe('16x1a_b_c');
 });

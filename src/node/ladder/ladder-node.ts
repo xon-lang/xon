@@ -11,7 +11,6 @@ export function ladderNode(header: Node, body: BodyNode): LadderNode {
     type: NodeType.LADDER,
     startIndex: header.startIndex,
     stopIndex: body.stopIndex,
-    text: header.text + body.text,
     header,
     body,
   };

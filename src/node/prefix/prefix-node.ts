@@ -10,7 +10,6 @@ export function prefixNode(operator: Node, expression: Node): PrefixNode {
     type: NodeType.PREFIX,
     startIndex: operator.startIndex,
     stopIndex: expression.stopIndex,
-    text: operator.text + expression.text,
     operator,
     expression,
   };

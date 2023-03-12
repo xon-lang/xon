@@ -9,9 +9,9 @@ test('positive float number', () => {
   const tree = parseExpression(source) as InfixNode;
 
   expect(tree.type).toBe(NodeType.INFIX);
-  expect(tree.operator.text).toBe('.');
-  expect(tree.left.text).toBe('123');
-  expect(tree.right.text).toBe('456');
+  expect(source.nodeText(tree.operator)).toBe('.');
+  expect(source.nodeText(tree.left)).toBe('123');
+  expect(source.nodeText(tree.right)).toBe('456');
 });
 
 test('zero float number', () => {
@@ -20,9 +20,9 @@ test('zero float number', () => {
   const tree = parseExpression(source) as InfixNode;
 
   expect(tree.type).toBe(NodeType.INFIX);
-  expect(tree.operator.text).toBe('.');
-  expect(tree.left.text).toBe('2x0');
-  expect(tree.right.text).toBe('1');
+  expect(source.nodeText(tree.operator)).toBe('.');
+  expect(source.nodeText(tree.left)).toBe('2x0');
+  expect(source.nodeText(tree.right)).toBe('1');
 });
 
 test('underscore in number', () => {
@@ -31,9 +31,9 @@ test('underscore in number', () => {
   const tree = parseExpression(source) as InfixNode;
 
   expect(tree.type).toBe(NodeType.INFIX);
-  expect(tree.operator.text).toBe('.');
-  expect(tree.left.text).toBe('5_999_245');
-  expect(tree.right.text).toBe('15463_64');
+  expect(source.nodeText(tree.operator)).toBe('.');
+  expect(source.nodeText(tree.left)).toBe('5_999_245');
+  expect(source.nodeText(tree.right)).toBe('15463_64');
 });
 
 test('radix float', () => {
@@ -42,9 +42,9 @@ test('radix float', () => {
   const tree = parseExpression(source) as InfixNode;
 
   expect(tree.type).toBe(NodeType.INFIX);
-  expect(tree.operator.text).toBe('.');
-  expect(tree.left.text).toBe('2x11');
-  expect(tree.right.text).toBe('011001100110011001100110011001100110011001100110011');
+  expect(source.nodeText(tree.operator)).toBe('.');
+  expect(source.nodeText(tree.left)).toBe('2x11');
+  expect(source.nodeText(tree.right)).toBe('011001100110011001100110011001100110011001100110011');
 });
 
 test('16x123ABC_123.DDD12', () => {
@@ -53,7 +53,7 @@ test('16x123ABC_123.DDD12', () => {
   const tree = parseExpression(source) as InfixNode;
 
   expect(tree.type).toBe(NodeType.INFIX);
-  expect(tree.operator.text).toBe('.');
-  expect(tree.left.text).toBe('16x123ABC_123');
-  expect(tree.right.text).toBe('DDD12');
+  expect(source.nodeText(tree.operator)).toBe('.');
+  expect(source.nodeText(tree.left)).toBe('16x123ABC_123');
+  expect(source.nodeText(tree.right)).toBe('DDD12');
 });

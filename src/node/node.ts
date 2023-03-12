@@ -4,8 +4,6 @@ export interface Node {
   startIndex: Integer;
   stopIndex: Integer;
   type: NodeType | String2;
-  // remove Later
-  text: String2;
 }
 
 export enum NodeType {

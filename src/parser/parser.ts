@@ -57,13 +57,13 @@ export class Parser {
   }
 
   public sourceNode(): SourceNode {
-    return getNode(this.antlrParser.source()) as SourceNode;
+    return getNode(this.source, this.antlrParser.source()) as SourceNode;
   }
 
   public expression(): Node {
     const ctx = this.antlrParser.expression();
 
-    return getNode(ctx);
+    return getNode(this.source, ctx);
   }
 }
 

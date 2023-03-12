@@ -10,9 +10,9 @@ test('meta property', () => {
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect(tree.left.type).toBe(NodeType.ID);
-  expect(tree.left.text).toBe('abc');
-  expect(tree.operator.text).toBe('::');
-  expect(tree.right.text).toBe('def');
+  expect(source.nodeText(tree.left)).toBe('abc');
+  expect(source.nodeText(tree.operator)).toBe('::');
+  expect(source.nodeText(tree.right)).toBe('def');
 });
 
 test('not safe', () => {
@@ -22,9 +22,9 @@ test('not safe', () => {
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect(tree.left.type).toBe(NodeType.ID);
-  expect(tree.left.text).toBe('abc');
-  expect(tree.operator.text).toBe('.');
-  expect(tree.right.text).toBe('def');
+  expect(source.nodeText(tree.left)).toBe('abc');
+  expect(source.nodeText(tree.operator)).toBe('.');
+  expect(source.nodeText(tree.right)).toBe('def');
 });
 
 test('left dot nl property', () => {
@@ -34,9 +34,9 @@ test('left dot nl property', () => {
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect(tree.left.type).toBe(NodeType.ID);
-  expect(tree.left.text).toBe('abc');
-  expect(tree.operator.text).toBe('.');
-  expect(tree.right.text).toBe('def');
+  expect(source.nodeText(tree.left)).toBe('abc');
+  expect(source.nodeText(tree.operator)).toBe('.');
+  expect(source.nodeText(tree.right)).toBe('def');
 });
 
 test('left nl dot property', () => {
@@ -46,9 +46,9 @@ test('left nl dot property', () => {
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect(tree.left.type).toBe(NodeType.ID);
-  expect(tree.left.text).toBe('abc');
-  expect(tree.operator.text).toBe('.');
-  expect(tree.right.text).toBe('def');
+  expect(source.nodeText(tree.left)).toBe('abc');
+  expect(source.nodeText(tree.operator)).toBe('.');
+  expect(source.nodeText(tree.right)).toBe('def');
 });
 
 test('left nl dot nl property', () => {
@@ -58,9 +58,9 @@ test('left nl dot nl property', () => {
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect(tree.left.type).toBe(NodeType.ID);
-  expect(tree.left.text).toBe('abc');
-  expect(tree.operator.text).toBe('.');
-  expect(tree.right.text).toBe('def');
+  expect(source.nodeText(tree.left)).toBe('abc');
+  expect(source.nodeText(tree.operator)).toBe('.');
+  expect(source.nodeText(tree.right)).toBe('def');
 });
 
 test('members chain', () => {
@@ -76,6 +76,6 @@ this.statements \
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect(tree.left.type).toBe(NodeType.INFIX);
-  expect(tree.operator.text).toBe('.');
-  expect(tree.right.text).toBe('jkl');
+  expect(source.nodeText(tree.operator)).toBe('.');
+  expect(source.nodeText(tree.right)).toBe('jkl');
 });

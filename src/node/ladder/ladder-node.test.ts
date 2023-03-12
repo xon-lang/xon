@@ -10,6 +10,6 @@ test('single expression', () => {
 
   expect(tree.type).toBe(NodeType.LADDER);
   expect(tree.header.type).toBe(NodeType.ID);
-  expect(tree.header.text).toBe('abc');
+  expect(source.nodeText(tree.header)).toBe('abc');
   expect(tree.body.source.nodes.length).toBe(1);
 });

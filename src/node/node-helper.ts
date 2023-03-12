@@ -20,21 +20,21 @@ import { Lexer } from '~/parser/lexer/lexer';
 import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/parser/parser-config';
 import { Source } from '~/parser/source/source';
 
-export const getNode = (ctx: ExpressionContext): Node => {
-  if (ctx instanceof TokenExpressionContext) return pairExpression(ctx);
-  if (ctx instanceof ArrayExpressionContext) return arrayNode(ctx);
-  if (ctx instanceof SourceContext) return sourceNode(ctx.expression().map(getNode));
-  if (ctx instanceof BodyExpressionContext) return bodyNode(ctx);
-  if (ctx instanceof PairExpressionContext) return pairExpression(ctx);
+export const getNode = (source: Source, ctx: ExpressionContext): Node => {
+  if (ctx instanceof TokenExpressionContext) return pairExpression(source, ctx);
+  if (ctx instanceof ArrayExpressionContext) return arrayNode(source, ctx);
+  if (ctx instanceof SourceContext) return sourceNode(ctx.expression().map((x) => getNode(source, x)));
+  if (ctx instanceof BodyExpressionContext) return bodyNode(source, ctx);
+  if (ctx instanceof PairExpressionContext) return pairExpression(source, ctx);
 
   throw new Error('Not implemented');
 
   // Issue.errorFromContext(ctx, `Expression tree not found for '${ctx.constructor.name}'`);
 };
 
-function pairExpression(ctx: ExpressionContext): Node {
-  const expressions = flatExpressions(ctx);
-  collapseOperators(expressions, operatorsOrders);
+function pairExpression(source: Source, ctx: ExpressionContext): Node {
+  const expressions = flatExpressions(source, ctx);
+  collapseOperators(source.text, expressions, operatorsOrders);
 
   const operator = expressions.find((expression) => is(expression, NodeType.OPERATOR));
   if (operator) {
@@ -45,10 +45,15 @@ function pairExpression(ctx: ExpressionContext): Node {
   return expressions[0] as Node;
 }
 
-function collapseOperators(expressions: Node[], operatorsOrders: OperatorsOrder[]): void {
+function collapseOperators(text: String2, expressions: Node[], operatorsOrders: OperatorsOrder[]): void {
   for (const operatorsOrder of operatorsOrders) {
     if (operatorsOrder.operatorType === OperatorType.MODIFIER) {
-      collapseModifierExpression(expressions, operatorsOrder.operators[0].split(' '), operatorsOrder.recursiveType);
+      collapseModifierExpression(
+        text,
+        expressions,
+        operatorsOrder.operators[0].split(' '),
+        operatorsOrder.recursiveType,
+      );
     }
     if (operatorsOrder.operatorType === OperatorType.INVOKE) {
       collapseInvokeExpression(expressions);
@@ -59,6 +64,7 @@ function collapseOperators(expressions: Node[], operatorsOrders: OperatorsOrder[
     for (const operators of operatorsOrder.operators) {
       const operatorsStrings = operators.split(' ');
       const operatorIndex = findOperatorIndex(
+        text,
         expressions,
         operatorsStrings,
         operatorsOrder.operatorType,
@@ -66,30 +72,35 @@ function collapseOperators(expressions: Node[], operatorsOrders: OperatorsOrder[
       );
       if (operatorIndex >= 0) {
         collapseExpressions(expressions, operatorsOrder.operatorType, operatorIndex);
-        collapseOperators(expressions, operatorsOrders);
+        collapseOperators(text, expressions, operatorsOrders);
       }
     }
   }
 }
 
 // remove because it is like prefix
-function collapseModifierExpression(expressions: Node[], operators: String2[], recursiveType: RecursiveType): void {
+function collapseModifierExpression(
+  text: String2,
+  expressions: Node[],
+  operators: String2[],
+  recursiveType: RecursiveType,
+): void {
   for (let i = 0; i < expressions.length; i++) {
     const index = recursiveType === RecursiveType.LEFT ? i : expressions.length - i - 1;
     const modifier = expressions[index];
-    if (is(modifier, NodeType.OPERATOR) && operators.includes(modifier.text)) {
+    const modifierText = text.slice(modifier.startIndex, modifier.stopIndex + 1);
+    if (is(modifier, NodeType.OPERATOR) && operators.includes(modifierText)) {
       const next = expressions[index + 1];
       if (next) {
         expressions[index] = {
           type: NodeType.PREFIX,
           startIndex: modifier.startIndex,
           stopIndex: next.stopIndex,
-          text: modifier.text + next.text,
           operator: modifier,
           expression: next,
         } as PrefixNode;
         expressions.splice(index + 1, 1);
-        collapseModifierExpression(expressions, operators, recursiveType);
+        collapseModifierExpression(text, expressions, operators, recursiveType);
 
         return;
       }
@@ -129,6 +140,7 @@ function collapseBodyExpression(expressions: Node[]): void {
 }
 
 function findOperatorIndex(
+  text: String2,
   expressions: Node[],
   operators: String2[],
   operatorType: OperatorType,
@@ -138,7 +150,9 @@ function findOperatorIndex(
     const index = recursiveType === RecursiveType.LEFT ? i : expressions.length - i - 1;
 
     const operator = expressions[index];
-    if (is(operator, NodeType.OPERATOR) && operators.includes(operator.text)) {
+    const operatorText = text.slice(operator.startIndex, operator.stopIndex + 1);
+
+    if (is(operator, NodeType.OPERATOR) && operators.includes(operatorText)) {
       const left = expressions[index - 1];
       const right = expressions[index + 1];
 
@@ -194,9 +208,9 @@ function collapseExpressions(expressions: Node[], operatorType: OperatorType, op
   }
 }
 
-function flatExpressions(ctx: ExpressionContext): Node[] {
+function flatExpressions(source: Source, ctx: ExpressionContext): Node[] {
   if (ctx instanceof PairExpressionContext) {
-    return ctx.expression().flatMap((x) => flatExpressions(x));
+    return ctx.expression().flatMap((x) => flatExpressions(source, x));
   }
 
   if (ctx instanceof TokenExpressionContext) {
@@ -212,7 +226,7 @@ function flatExpressions(ctx: ExpressionContext): Node[] {
     return tokens;
   }
 
-  return [getNode(ctx)];
+  return [getNode(source, ctx)];
 }
 
 export function is<T extends Node = Node>(node: Node, nodeType: NodeType | String2): node is T {

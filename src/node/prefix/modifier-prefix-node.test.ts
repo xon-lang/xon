@@ -12,14 +12,14 @@ test('method declaration', () => {
   expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(2);
   expect(tree.array.parameters.at(0)?.type).toBe(NodeType.ID);
-  expect(tree.array.parameters.at(0)?.text).toBe('a');
+  expect(source.nodeText(tree.array.parameters.at(0)!)).toBe('a');
   expect(tree.array.parameters.at(1)?.type).toBe(NodeType.ID);
-  expect(tree.array.parameters.at(1)?.text).toBe('b');
+  expect(source.nodeText(tree.array.parameters.at(1)!)).toBe('b');
   expect(tree.instance.type).toBe(NodeType.PREFIX);
 
   const prefix = tree.instance as PrefixNode;
   expect(prefix.type).toBe(NodeType.PREFIX);
-  expect(prefix.operator.text).toBe('infix');
+  expect(source.nodeText(prefix.operator)).toBe('infix');
   expect(prefix.expression.type).toBe(NodeType.OPERATOR);
-  expect(prefix.expression.text).toBe('+');
+  expect(source.nodeText(prefix.expression)).toBe('+');
 });

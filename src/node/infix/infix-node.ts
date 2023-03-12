@@ -11,7 +11,6 @@ export function infixNode(operator: Node, left: Node, right: Node): InfixNode {
     type: NodeType.INFIX,
     startIndex: left.startIndex,
     stopIndex: right.stopIndex,
-    text: left.text + operator.text + right.text,
     operator,
     left,
     right,

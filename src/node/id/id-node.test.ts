@@ -8,5 +8,5 @@ test('id', () => {
   const tree = parseExpression(source);
 
   expect(tree.type).toBe(NodeType.ID);
-  expect(tree.text).toBe('myVariable');
+  expect(source.nodeText(tree)).toBe('myVariable');
 });

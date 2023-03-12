@@ -1,6 +1,7 @@
 import { ArrayExpressionContext } from '~/grammar/xon-parser';
 import { Node, NodeType } from '~/node/node';
 import { getNode } from '~/node/node-helper';
+import { Source } from '~/parser/source/source';
 
 export interface ArrayNode extends Node {
   openToken: Node;
@@ -8,27 +9,24 @@ export interface ArrayNode extends Node {
   parameters: Node[];
 }
 
-export function arrayNode(ctx: ArrayExpressionContext): ArrayNode {
-  const parameters = ctx.expression().map(getNode);
+export function arrayNode(source: Source, ctx: ArrayExpressionContext): ArrayNode {
+  const parameters = ctx.expression().map((x) => getNode(source, x));
   const open = ctx.OPEN().payload;
   const close = ctx.CLOSE().payload;
   const openToken: Node = {
     startIndex: open.startIndex,
     stopIndex: open.stopIndex,
     type: NodeType.OPEN,
-    text: open.text || '',
   };
   const closeToken: Node = {
     startIndex: close.startIndex,
     stopIndex: close.stopIndex,
     type: NodeType.CLOSE,
-    text: close.text || '',
   };
   return {
     type: NodeType.ARRAY,
     startIndex: openToken.startIndex,
     stopIndex: closeToken.stopIndex,
-    text: openToken.text + parameters.map((x) => x.text).join('') + closeToken.text,
     openToken,
     closeToken,
     parameters,

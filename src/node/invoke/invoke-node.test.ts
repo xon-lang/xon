@@ -13,9 +13,9 @@ test('method call', () => {
   expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(2);
   expect(tree.array.parameters.at(0)?.type).toBe(NodeType.INTEGER);
-  expect(tree.array.parameters.at(0)?.text).toBe('3');
+  expect(source.nodeText(tree.array.parameters.at(0)!)).toBe('3');
   expect(tree.array.parameters.at(1)?.type).toBe(NodeType.STRING);
-  expect(tree.array.parameters.at(1)?.text).toBe(`'str'`);
+  expect(source.nodeText(tree.array.parameters.at(1)!)).toBe(`'str'`);
   expect(tree.instance.type).toBe(NodeType.ID);
 });
 
@@ -42,12 +42,12 @@ test('can call with type parameter', () => {
 
   expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(1);
-  expect(tree.array.parameters[0].text).toBe('1');
+  expect(source.nodeText(tree.array.parameters[0]!)).toBe('1');
   expect(tree.instance.type).toBe(NodeType.INFIX);
   const { operator, left, right } = tree.instance as InfixNode;
-  expect(operator.text).toBe('.');
-  expect(left.text).toBe('a');
-  expect(right.text).toBe('get');
+  expect(source.nodeText(operator)).toBe('.');
+  expect(source.nodeText(left)).toBe('a');
+  expect(source.nodeText(right)).toBe('get');
 });
 
 test('object method', () => {
@@ -59,12 +59,12 @@ test('object method', () => {
   expect(tree.array.parameters.length).toBe(0);
   expect(tree.instance.type).toBe(NodeType.INFIX);
   const { operator, left, right } = tree.instance as InfixNode;
-  expect(operator.text).toBe('.');
+  expect(source.nodeText(operator)).toBe('.');
   const leftParameters = (left as ArrayNode).parameters;
   expect(leftParameters.length).toBe(2);
-  expect(leftParameters[0].text).toBe('a');
-  expect(leftParameters[1].text).toBe('b');
-  expect(right.text).toBe('call');
+  expect(source.nodeText(leftParameters[0])).toBe('a');
+  expect(source.nodeText(leftParameters[1])).toBe('b');
+  expect(source.nodeText(right)).toBe('call');
 });
 
 test('generics', () => {
@@ -75,5 +75,5 @@ test('generics', () => {
   expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(1);
   expect(tree.instance.type).toBe(NodeType.ID);
-  expect(tree.instance.text).toBe('Animal');
+  expect(source.nodeText(tree.instance)).toBe('Animal');
 });

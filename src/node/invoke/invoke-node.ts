@@ -11,7 +11,6 @@ export function invokeNode(instance: Node, array: ArrayNode): InvokeNode {
     type: NodeType.INVOKE,
     startIndex: instance.startIndex,
     stopIndex: array.stopIndex,
-    text: instance.text,
     instance,
     array,
   };

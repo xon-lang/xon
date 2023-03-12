@@ -9,7 +9,6 @@ export function sourceNode(nodes: Node[]): SourceNode {
     type: NodeType.SOURCE,
     startIndex: nodes[0].startIndex,
     stopIndex: nodes[nodes.length - 1].stopIndex,
-    text: nodes.map((x) => x.text).join(''),
     nodes,
   };
 }
