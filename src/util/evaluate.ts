@@ -1,8 +1,8 @@
 import { String2, Unknown2 } from '~/lib/core';
 import { Node, NodeType } from '~/parser/lexer/node';
-import { ArrayNode } from '~/tree/expression/array/array-expression-tree';
-import { InfixNode } from '~/tree/expression/infix/infix-expression-tree';
-import { PrefixNode } from '~/tree/expression/prefix/prefix-expression-tree';
+import { ArrayNode } from '~/tree/array/array-expression-tree';
+import { InfixNode } from '~/tree/infix/infix-expression-tree';
+import { PrefixNode } from '~/tree/prefix/prefix-expression-tree';
 
 export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);

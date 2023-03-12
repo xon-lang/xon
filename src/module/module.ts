@@ -1,5 +1,5 @@
 import { String2 } from '~/lib/core';
-import { SourceNode } from '~/tree/expression/source/source-tree';
+import { SourceNode } from '~/tree/source/source-tree';
 
 export interface Module {
   name: String2;

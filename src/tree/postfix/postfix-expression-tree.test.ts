@@ -1,5 +1,5 @@
 import { NodeType } from '~/parser/lexer/node';
-import { PostfixNode } from '~/tree/expression/postfix/postfix-expression-tree';
+import { PostfixNode } from '~/tree/postfix/postfix-expression-tree';
 import { evaluate } from '~/util/evaluate';
 import { parseExpression } from '~/util/parse';
 

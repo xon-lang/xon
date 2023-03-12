@@ -1,6 +1,6 @@
 import { NodeType } from '~/parser/lexer/node';
-import { InfixNode } from '~/tree/expression/infix/infix-expression-tree';
-import { PrefixNode } from '~/tree/expression/prefix/prefix-expression-tree';
+import { InfixNode } from '~/tree/infix/infix-expression-tree';
+import { PrefixNode } from '~/tree/prefix/prefix-expression-tree';
 import { evaluate } from '~/util/evaluate';
 import { parseExpression } from '~/util/parse';
 

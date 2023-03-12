@@ -1,5 +1,5 @@
 import { NodeType } from '~/parser/lexer/node';
-import { InfixNode } from '~/tree/expression/infix/infix-expression-tree';
+import { InfixNode } from '~/tree/infix/infix-expression-tree';
 import { parseExpression } from '~/util/parse';
 
 test('meta property', () => {

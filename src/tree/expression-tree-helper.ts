@@ -11,14 +11,14 @@ import { Lexer } from '~/parser/lexer/lexer';
 import { Node, NodeType } from '~/parser/lexer/node';
 import { Source } from '~/parser/lexer/source/source';
 import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/parser/parser-config';
-import { ArrayNode, getArrayNode } from '~/tree/expression/array/array-expression-tree';
-import { BodyNode, getBodyNode } from '~/tree/expression/body/body-expression-tree';
-import { BodyableNode } from '~/tree/expression/bodyable/bodyable-expression-tree';
-import { InfixNode } from '~/tree/expression/infix/infix-expression-tree';
-import { InvokeNode } from '~/tree/expression/invoke/invoke-expression-tree';
-import { PostfixNode } from '~/tree/expression/postfix/postfix-expression-tree';
-import { PrefixNode } from '~/tree/expression/prefix/prefix-expression-tree';
-import { SourceNode } from '~/tree/expression/source/source-tree';
+import { ArrayNode, getArrayNode } from '~/tree/array/array-expression-tree';
+import { BodyNode, getBodyNode } from '~/tree/body/body-expression-tree';
+import { BodyableNode } from '~/tree/bodyable/bodyable-expression-tree';
+import { InfixNode } from '~/tree/infix/infix-expression-tree';
+import { InvokeNode } from '~/tree/invoke/invoke-expression-tree';
+import { PostfixNode } from '~/tree/postfix/postfix-expression-tree';
+import { PrefixNode } from '~/tree/prefix/prefix-expression-tree';
+import { SourceNode } from '~/tree/source/source-tree';
 
 export const getNode = (ctx: ExpressionContext): Node => {
   if (ctx instanceof TokenExpressionContext) return pairExpression(ctx);

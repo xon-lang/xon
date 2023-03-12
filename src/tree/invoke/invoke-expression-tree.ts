@@ -1,5 +1,5 @@
 import { Node, NodeType } from '~/parser/lexer/node';
-import { ArrayNode } from '~/tree/expression/array/array-expression-tree';
+import { ArrayNode } from '~/tree/array/array-expression-tree';
 
 export class InvokeNode implements Node {
   nodeType = NodeType.INVOKE;

@@ -1,7 +1,7 @@
 import { NodeType } from '~/parser/lexer/node';
-import { ArrayNode } from '~/tree/expression/array/array-expression-tree';
-import { InfixNode } from '~/tree/expression/infix/infix-expression-tree';
-import { InvokeNode } from '~/tree/expression/invoke/invoke-expression-tree';
+import { ArrayNode } from '~/tree/array/array-expression-tree';
+import { InfixNode } from '~/tree/infix/infix-expression-tree';
+import { InvokeNode } from '~/tree/invoke/invoke-expression-tree';
 import { evaluate } from '~/util/evaluate';
 import { parseExpression } from '~/util/parse';
 

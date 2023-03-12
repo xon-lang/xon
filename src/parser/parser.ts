@@ -6,8 +6,8 @@ import { String2 } from '~/lib/core';
 import { Node } from '~/parser/lexer/node';
 import { ParserConfig } from '~/parser/parser-config';
 import { ThrowingErrorListener } from '~/parser/throwing-error-listener';
-import { getNode } from '~/tree/expression/expression-tree-helper';
-import { SourceNode } from '~/tree/expression/source/source-tree';
+import { getNode } from '~/tree/expression-tree-helper';
+import { SourceNode } from '~/tree/source/source-tree';
 import { operatorsOrders } from './parser-config';
 
 export class Parser {

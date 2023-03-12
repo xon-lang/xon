@@ -1,7 +1,7 @@
 import { BodyExpressionContext } from '~/grammar/xon-parser';
 import { Node, NodeType } from '~/parser/lexer/node';
-import { getNode } from '~/tree/expression/expression-tree-helper';
-import { SourceNode } from '~/tree/expression/source/source-tree';
+import { getNode } from '~/tree/expression-tree-helper';
+import { SourceNode } from '~/tree/source/source-tree';
 
 export class BodyNode implements Node {
   nodeType = NodeType.BODY;
