@@ -7,15 +7,15 @@ import {
   TokenExpressionContext,
 } from '~/grammar/xon-parser';
 import { Integer, String2 } from '~/lib/core';
-import { ArrayNode, arrayNode } from '~/node/array/array-expression-tree';
-import { BodyNode, bodyNode } from '~/node/body/body-expression-tree';
-import { ladderNode } from '~/node/bodyable/bodyable-expression-tree';
-import { infixNode } from '~/node/infix/infix-expression-tree';
-import { invokeNode } from '~/node/invoke/invoke-expression-tree';
+import { ArrayNode, arrayNode } from '~/node/array/array-node';
+import { BodyNode, bodyNode } from '~/node/body/body-node';
+import { infixNode } from '~/node/infix/infix-node';
+import { invokeNode } from '~/node/invoke/invoke-node';
+import { ladderNode } from '~/node/ladder/ladder-node';
 import { Node, NodeType } from '~/node/node';
-import { postfixNode } from '~/node/postfix/postfix-expression-tree';
-import { prefixNode, PrefixNode } from '~/node/prefix/prefix-expression-tree';
-import { sourceNode } from '~/node/source/source-tree';
+import { postfixNode } from '~/node/postfix/postfix-node';
+import { prefixNode, PrefixNode } from '~/node/prefix/prefix-node';
+import { sourceNode } from '~/node/source/source-node';
 import { Lexer } from '~/parser/lexer/lexer';
 import { Source } from '~/parser/lexer/source/source';
 import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/parser/parser-config';

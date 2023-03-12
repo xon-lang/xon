@@ -1,6 +1,6 @@
-import { ArrayNode } from '~/node/array/array-expression-tree';
-import { InfixNode } from '~/node/infix/infix-expression-tree';
-import { InvokeNode } from '~/node/invoke/invoke-expression-tree';
+import { ArrayNode } from '~/node/array/array-node';
+import { InfixNode } from '~/node/infix/infix-node';
+import { InvokeNode } from '~/node/invoke/invoke-node';
 import { NodeType } from '~/node/node';
 import { evaluate } from '~/util/evaluate';
 import { parseExpression } from '~/util/parse';

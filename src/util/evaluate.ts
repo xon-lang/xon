@@ -1,9 +1,9 @@
 import { String2, Unknown2 } from '~/lib/core';
-import { ArrayNode } from '~/node/array/array-expression-tree';
-import { is } from '~/node/expression-tree-helper';
-import { InfixNode } from '~/node/infix/infix-expression-tree';
+import { ArrayNode } from '~/node/array/array-node';
+import { InfixNode } from '~/node/infix/infix-node';
 import { Node, NodeType } from '~/node/node';
-import { PrefixNode } from '~/node/prefix/prefix-expression-tree';
+import { is } from '~/node/node-helper';
+import { PrefixNode } from '~/node/prefix/prefix-node';
 
 export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);

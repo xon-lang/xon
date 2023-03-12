@@ -1,4 +1,4 @@
-import { InfixNode } from '~/node/infix/infix-expression-tree';
+import { InfixNode } from '~/node/infix/infix-node';
 import { NodeType } from '~/node/node';
 import { parseExpression } from '~/util/parse';
 

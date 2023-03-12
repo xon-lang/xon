@@ -1,4 +1,4 @@
-import { LadderNode } from '~/node/bodyable/bodyable-expression-tree';
+import { LadderNode } from '~/node/ladder/ladder-node';
 import { NodeType } from '~/node/node';
 import { parseSource, parseSourceFile } from '~/util/parse';
 

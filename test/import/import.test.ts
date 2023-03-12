@@ -2,7 +2,7 @@ import { ValueMetadata } from '~/metadata/expression/value/value-metadata';
 import { SourceMetadata } from '~/metadata/source/source-metadata';
 import { getSourceMetadata } from '~/metadata/source/source-metadata-helper';
 import { IdTypeMetadata } from '~/metadata/type/id/id-type-metadata';
-import { PrefixExpressionTree } from '~/node/prefix/prefix-expression-tree';
+import { PrefixExpressionTree } from '~/node/prefix/prefix-node';
 import { DeclarationStatementTree } from '~/tree/statement/declaration/declaration-statement-tree';
 import { parseSourceFile } from '~/util/parse';
 

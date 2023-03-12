@@ -1,6 +1,6 @@
 import { ArrayExpressionContext } from '~/grammar/xon-parser';
-import { getNode } from '~/node/expression-tree-helper';
 import { Node, NodeType } from '~/node/node';
+import { getNode } from '~/node/node-helper';
 
 export interface ArrayNode extends Node {
   openToken: Node;

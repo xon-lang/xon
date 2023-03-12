@@ -1,6 +1,6 @@
 import { String2 } from '~/lib/core';
 import { Node } from '~/node/node';
-import { SourceNode } from '~/node/source/source-tree';
+import { SourceNode } from '~/node/source/source-node';
 import { parserFromCode, parserFromFile } from '~/parser/parser';
 
 export function parseSourceFile(location: String2): SourceNode {

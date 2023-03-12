@@ -1,5 +1,5 @@
 import { Integer } from '~/lib/core';
-import { ArrayNode } from '~/node/array/array-expression-tree';
+import { ArrayNode } from '~/node/array/array-node';
 import { NodeType } from '~/node/node';
 import { evaluate } from '~/util/evaluate';
 import { parseExpression } from '~/util/parse';

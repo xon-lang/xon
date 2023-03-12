@@ -1,4 +1,4 @@
-import { BodyNode } from '~/node/body/body-expression-tree';
+import { BodyNode } from '~/node/body/body-node';
 import { Node, NodeType } from '~/node/node';
 
 export interface LadderNode extends Node {

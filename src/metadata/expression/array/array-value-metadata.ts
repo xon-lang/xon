@@ -6,7 +6,7 @@ import { ArrayTypeMetadata } from '~/metadata/type/array/array-type-metadata';
 import { ObjectTypeMetadata } from '~/metadata/type/object/object-type-metadata';
 import { TypeMetadata } from '~/metadata/type/type-metadata';
 import { UnionType } from '~/metadata/type/union/union-type';
-import { ArrayNode } from '~/node/array/array-expression-tree';
+import { ArrayNode } from '~/node/array/array-node';
 
 export class ArrayValueMetadata extends ValueMetadata {
   constructor(private tree: ArrayNode) {

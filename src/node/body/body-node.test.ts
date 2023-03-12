@@ -1,4 +1,4 @@
-import { BodyNode } from '~/node/body/body-expression-tree';
+import { BodyNode } from '~/node/body/body-node';
 import { NodeType } from '~/node/node';
 import { parseExpression } from '~/util/parse';
 

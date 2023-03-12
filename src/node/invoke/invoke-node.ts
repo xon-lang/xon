@@ -1,4 +1,4 @@
-import { ArrayNode } from '~/node/array/array-expression-tree';
+import { ArrayNode } from '~/node/array/array-node';
 import { Node, NodeType } from '~/node/node';
 
 export interface InvokeNode extends Node {
