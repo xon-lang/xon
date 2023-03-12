@@ -1,7 +1,7 @@
 import { Char, Integer, String2 } from '~/lib/core';
 import { Node, NodeType } from '~/parser/lexer/node';
+import { Source } from '~/parser/lexer/source/source';
 import { operatorsOrders } from '~/parser/parser-config';
-import { Source } from '~/source/source';
 
 export class Lexer {
   public startIndex: Integer;

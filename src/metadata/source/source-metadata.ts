@@ -1,5 +1,5 @@
 import { Metadata } from '~/metadata/metadata';
-import { SourceNode } from '~/tree/source/source-tree';
+import { SourceNode } from '~/tree/expression/source/source-tree';
 
 export class SourceMetadata extends Metadata {
   constructor(public tree: SourceNode) {

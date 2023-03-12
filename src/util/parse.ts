@@ -1,7 +1,7 @@
 import { String2 } from '~/lib/core';
 import { Node } from '~/parser/lexer/node';
 import { parserFromCode, parserFromFile } from '~/parser/parser';
-import { SourceNode } from '~/tree/source/source-tree';
+import { SourceNode } from '~/tree/expression/source/source-tree';
 
 export function parseSourceFile(location: String2): SourceNode {
   return parserFromFile(location).source();

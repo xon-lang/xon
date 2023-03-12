@@ -1,7 +1,7 @@
 import { String2 } from '~/lib/core';
 import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata';
 import { getSourceDeclarationMetadata } from '~/metadata/declaration/declaration-metadata-helper';
-import { getModuleFromLocation } from '~/tree/module/module-tree-helper';
+import { getModuleFromLocation } from '~/module/module-helper';
 import { PathFs } from '~/util/fs/path-fs';
 import { parseSourceFile } from '~/util/parse';
 

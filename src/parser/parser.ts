@@ -7,8 +7,7 @@ import { Node } from '~/parser/lexer/node';
 import { ParserConfig } from '~/parser/parser-config';
 import { ThrowingErrorListener } from '~/parser/throwing-error-listener';
 import { getNode } from '~/tree/expression/expression-tree-helper';
-import { SourceNode } from '~/tree/source/source-tree';
-import { getSourceTree } from '~/tree/source/source-tree-helper';
+import { SourceNode } from '~/tree/expression/source/source-tree';
 import { operatorsOrders } from './parser-config';
 
 export class Parser {
@@ -59,7 +58,7 @@ export class Parser {
   }
 
   public source(): SourceNode {
-    return getSourceTree(this.antlrParser.source());
+    return getNode(this.antlrParser.source()) as SourceNode;
   }
 
   public expression(): Node {

@@ -1,5 +1,5 @@
-import { Source } from '~/source/source';
-import { SourcePosition } from '~/source/source-position';
+import { Source } from '~/parser/lexer/source/source';
+import { SourcePosition } from '~/parser/lexer/source/source-position';
 
 test('1', () => {
   const text = '\n abc \n';

@@ -3,13 +3,14 @@ import {
   BodyExpressionContext,
   ExpressionContext,
   PairExpressionContext,
+  SourceContext,
   TokenExpressionContext,
 } from '~/grammar/xon-parser';
 import { Integer, String2 } from '~/lib/core';
 import { Lexer } from '~/parser/lexer/lexer';
 import { Node, NodeType } from '~/parser/lexer/node';
+import { Source } from '~/parser/lexer/source/source';
 import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/parser/parser-config';
-import { Source } from '~/source/source';
 import { ArrayNode, getArrayNode } from '~/tree/expression/array/array-expression-tree';
 import { BodyNode, getBodyNode } from '~/tree/expression/body/body-expression-tree';
 import { BodyableNode } from '~/tree/expression/bodyable/bodyable-expression-tree';
@@ -17,10 +18,12 @@ import { InfixNode } from '~/tree/expression/infix/infix-expression-tree';
 import { InvokeNode } from '~/tree/expression/invoke/invoke-expression-tree';
 import { PostfixNode } from '~/tree/expression/postfix/postfix-expression-tree';
 import { PrefixNode } from '~/tree/expression/prefix/prefix-expression-tree';
+import { SourceNode } from '~/tree/expression/source/source-tree';
 
 export const getNode = (ctx: ExpressionContext): Node => {
   if (ctx instanceof TokenExpressionContext) return pairExpression(ctx);
   if (ctx instanceof ArrayExpressionContext) return getArrayNode(ctx);
+  if (ctx instanceof SourceContext) return new SourceNode(ctx);
   if (ctx instanceof BodyExpressionContext) return getBodyNode(ctx);
   if (ctx instanceof PairExpressionContext) return pairExpression(ctx);
 

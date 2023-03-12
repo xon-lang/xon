@@ -1,7 +1,7 @@
 import { BodyExpressionContext } from '~/grammar/xon-parser';
 import { Node, NodeType } from '~/parser/lexer/node';
-import { SourceNode } from '~/tree/source/source-tree';
-import { getSourceTree } from '~/tree/source/source-tree-helper';
+import { getNode } from '~/tree/expression/expression-tree-helper';
+import { SourceNode } from '~/tree/expression/source/source-tree';
 
 export class BodyNode implements Node {
   nodeType = NodeType.BODY;
@@ -17,6 +17,6 @@ export class BodyNode implements Node {
 }
 
 export function getBodyNode(ctx: BodyExpressionContext) {
-  const source = getSourceTree(ctx.source());
+  const source = getNode(ctx.source()) as SourceNode;
   return new BodyNode(source);
 }

@@ -5,7 +5,7 @@ import { ModelDeclarationMetadata } from '~/metadata/declaration/model/model-dec
 import { ObjectDeclarationMetadata } from '~/metadata/declaration/object/object-declaration-metadata';
 import { DeclarationTree } from '~/tree/declaration/declaration-tree';
 import { BodyTree } from '~/tree/expression/body/body-expression-tree';
-import { SourceNode } from '~/tree/source/source-tree';
+import { SourceNode } from '~/tree/expression/source/source-tree';
 import { isDeclarationStatement } from '~/tree/statement/statement-tree-helper';
 
 // export function getShadowSourceMetadata(tree: SourceTree): DeclarationMetadata[] {

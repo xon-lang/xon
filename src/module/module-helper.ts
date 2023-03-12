@@ -1,8 +1,8 @@
 import { globSync } from 'glob';
 import { basename, join } from 'path';
 import { String2 } from '~/lib/core';
-import { Module } from '~/tree/module/module-tree';
-import { SourceNode } from '~/tree/source/source-tree';
+import { Module } from '~/module/module';
+import { SourceNode } from '~/tree/expression/source/source-tree';
 import { parseSourceFile } from '~/util/parse';
 
 export function getModuleFromLocation(location: String2): Module {
