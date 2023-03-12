@@ -3,20 +3,18 @@ import { getNode } from '~/node/expression-tree-helper';
 import { Node, NodeType } from '~/node/node';
 import { SourceNode } from '~/node/source/source-tree';
 
-export class BodyNode implements Node {
-  nodeType = NodeType.BODY;
-  startIndex: number;
-  stopIndex: number;
-  text: string;
-
-  constructor(public source: SourceNode) {
-    this.startIndex = source.startIndex;
-    this.stopIndex = source.stopIndex;
-    this.text = source.text;
-  }
+export interface BodyNode extends Node {
+  source: SourceNode;
 }
 
-export function getBodyNode(ctx: BodyExpressionContext) {
+export function bodyNode(ctx: BodyExpressionContext): BodyNode {
   const source = getNode(ctx.source()) as SourceNode;
-  return new BodyNode(source);
+
+  return {
+    nodeType: NodeType.BODY,
+    startIndex: source.startIndex,
+    stopIndex: source.stopIndex,
+    text: source.text,
+    source,
+  };
 }

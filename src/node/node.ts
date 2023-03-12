@@ -21,7 +21,7 @@ export enum NodeType {
   CLOSE = 'CLOSE',
   ARRAY = 'ARRAY',
   BODY = 'BODY',
-  BODYABLE = 'BODYABLE',
+  LADDER = 'LADDER',
   INFIX = 'INFIX',
   INVOKE = 'INVOKE',
   POSTFIX = 'POSTFIX',

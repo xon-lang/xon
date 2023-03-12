@@ -1,15 +1,18 @@
 import { BodyNode } from '~/node/body/body-expression-tree';
 import { Node, NodeType } from '~/node/node';
 
-export class BodyableNode implements Node {
-  nodeType = NodeType.BODYABLE;
-  startIndex: number;
-  stopIndex: number;
-  text: string;
+export interface LadderNode extends Node {
+  header: Node;
+  body: BodyNode;
+}
 
-  constructor(public expression: Node, public body: BodyNode) {
-    this.startIndex = expression.startIndex;
-    this.stopIndex = body.stopIndex;
-    this.text = expression.text + body.text;
-  }
+export function ladderNode(header: Node, body: BodyNode): LadderNode {
+  return {
+    nodeType: NodeType.LADDER,
+    startIndex: header.startIndex,
+    stopIndex: body.stopIndex,
+    text: header.text + body.text,
+    header,
+    body,
+  };
 }

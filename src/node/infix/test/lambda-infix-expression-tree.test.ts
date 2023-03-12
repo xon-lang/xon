@@ -58,7 +58,7 @@ test('lambda inner lambda', () => {
   const tree = parseExpression(code) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
-  expect(tree.left).toBeInstanceOf(ArrayNode);
+  expect(tree.left.nodeType).toBe(NodeType.ARRAY);
   expect((tree.left as ArrayNode).parameters.length).toBe(1);
   expect((tree.left as ArrayNode).parameters[0].text).toBe('a');
   expect(tree.right.nodeType).toBe(NodeType.INFIX);

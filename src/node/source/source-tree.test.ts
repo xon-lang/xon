@@ -1,6 +1,5 @@
-import { BodyableNode } from '~/node/bodyable/bodyable-expression-tree';
+import { LadderNode } from '~/node/bodyable/bodyable-expression-tree';
 import { NodeType } from '~/node/node';
-import { SourceNode } from '~/node/source/source-tree';
 import { parseSource, parseSourceFile } from '~/util/parse';
 
 // test('import and if', () => {
@@ -27,7 +26,7 @@ toString: [] = String
 `.trim();
   const tree = parseSource(code);
 
-  expect(tree).toBeInstanceOf(SourceNode);
+  expect(tree.nodeType).toBe(NodeType.SOURCE);
 });
 
 // test('two if statements', () => {
@@ -75,7 +74,7 @@ toString: [] = String
 test('3.xon', () => {
   const tree = parseSourceFile('src/node/source/test-files/3.xon');
 
-  expect(tree).toBeInstanceOf(SourceNode);
+  expect(tree.nodeType).toBe(NodeType.SOURCE);
 });
 
 // test('1-error.xon', () => {
@@ -112,15 +111,15 @@ xyz()
   const tree = parseSource(code);
 
   expect(tree.nodeType).toBe(NodeType.SOURCE);
-  expect(tree.expressions.length).toBe(2);
+  expect(tree.nodes.length).toBe(2);
 
-  const body1 = tree.expressions[0] as BodyableNode;
-  expect(body1.nodeType).toBe(NodeType.BODYABLE);
-  expect(body1.expression.nodeType).toBe(NodeType.ID);
-  expect(body1.body.source.expressions.length).toBe(1);
+  const body1 = tree.nodes[0] as LadderNode;
+  expect(body1.nodeType).toBe(NodeType.LADDER);
+  expect(body1.header.nodeType).toBe(NodeType.ID);
+  expect(body1.body.source.nodes.length).toBe(1);
 
-  const body2 = tree.expressions[1] as BodyableNode;
-  expect(body2.nodeType).toBe(NodeType.BODYABLE);
-  expect(body2.expression.nodeType).toBe(NodeType.INVOKE);
-  expect(body2.body.source.expressions.length).toBe(3);
+  const body2 = tree.nodes[1] as LadderNode;
+  expect(body2.nodeType).toBe(NodeType.LADDER);
+  expect(body2.header.nodeType).toBe(NodeType.INVOKE);
+  expect(body2.body.source.nodes.length).toBe(3);
 });

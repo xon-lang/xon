@@ -7,24 +7,24 @@ import {
   TokenExpressionContext,
 } from '~/grammar/xon-parser';
 import { Integer, String2 } from '~/lib/core';
-import { ArrayNode, getArrayNode } from '~/node/array/array-expression-tree';
-import { BodyNode, getBodyNode } from '~/node/body/body-expression-tree';
-import { BodyableNode } from '~/node/bodyable/bodyable-expression-tree';
+import { ArrayNode, arrayNode } from '~/node/array/array-expression-tree';
+import { BodyNode, bodyNode } from '~/node/body/body-expression-tree';
+import { ladderNode } from '~/node/bodyable/bodyable-expression-tree';
 import { InfixNode } from '~/node/infix/infix-expression-tree';
-import { InvokeNode } from '~/node/invoke/invoke-expression-tree';
+import { invokeNode } from '~/node/invoke/invoke-expression-tree';
 import { Node, NodeType } from '~/node/node';
 import { PostfixNode } from '~/node/postfix/postfix-expression-tree';
 import { PrefixNode } from '~/node/prefix/prefix-expression-tree';
-import { SourceNode } from '~/node/source/source-tree';
+import { sourceNode } from '~/node/source/source-tree';
 import { Lexer } from '~/parser/lexer/lexer';
 import { Source } from '~/parser/lexer/source/source';
 import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/parser/parser-config';
 
 export const getNode = (ctx: ExpressionContext): Node => {
   if (ctx instanceof TokenExpressionContext) return pairExpression(ctx);
-  if (ctx instanceof ArrayExpressionContext) return getArrayNode(ctx);
-  if (ctx instanceof SourceContext) return new SourceNode(ctx);
-  if (ctx instanceof BodyExpressionContext) return getBodyNode(ctx);
+  if (ctx instanceof ArrayExpressionContext) return arrayNode(ctx);
+  if (ctx instanceof SourceContext) return sourceNode(ctx.expression().map(getNode));
+  if (ctx instanceof BodyExpressionContext) return bodyNode(ctx);
   if (ctx instanceof PairExpressionContext) return pairExpression(ctx);
 
   throw new Error('Not implemented');
@@ -100,10 +100,10 @@ function collapseModifierExpression(expressions: Node[], operators: String2[], r
 function collapseInvokeExpression(expressions: Node[]): void {
   for (let i = 0; i < expressions.length; i++) {
     const element = expressions[i];
-    if (element instanceof ArrayNode && i > 0) {
+    if (isArrayNode(element) && i > 0) {
       const prev = expressions[i - 1];
       if (!isOperatorToken(prev)) {
-        expressions[i] = new InvokeNode(prev, element);
+        expressions[i] = invokeNode(prev, element);
         expressions.splice(i - 1, 1);
         collapseInvokeExpression(expressions);
 
@@ -116,9 +116,9 @@ function collapseInvokeExpression(expressions: Node[]): void {
 function collapseBodyExpression(expressions: Node[]): void {
   for (let i = 0; i < expressions.length; i++) {
     const element = expressions[i];
-    if (element instanceof BodyNode && i > 0) {
+    if (isBodyNode(element) && i > 0) {
       if (i > 0) {
-        expressions[i] = new BodyableNode(expressions[i - 1], element);
+        expressions[i] = ladderNode(expressions[i - 1], element);
         expressions.splice(i - 1, 1);
         collapseBodyExpression(expressions);
 
@@ -269,4 +269,8 @@ export function isInfixNode(node?: Node): node is InfixNode {
 
 export function isArrayNode(node?: Node): node is ArrayNode {
   return node?.nodeType === NodeType.ARRAY;
+}
+
+export function isBodyNode(node?: Node): node is BodyNode {
+  return node?.nodeType === NodeType.BODY;
 }
