@@ -15,7 +15,7 @@ export function joiningNode(startIndex: Integer, stopIndex: Integer): JoiningNod
 const LINE_JOINING = '\\';
 const AFTER_LINE_JOINING = ' \t\n\r';
 
-export function scanJoiningToken(source: Source, startIndex: Integer, stopIndex: Integer): JoiningNode | null {
+export function scanJoiningNode(source: Source, startIndex: Integer, stopIndex: Integer): JoiningNode | null {
   if (source.text[startIndex] !== LINE_JOINING) {
     return null;
   }

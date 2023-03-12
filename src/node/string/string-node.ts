@@ -15,7 +15,7 @@ export function stringNode(startIndex: Integer, stopIndex: Integer): StringNode 
 
 const QUOTE = "'";
 
-export function scanStringToken(source: Source, startIndex: Integer, stopIndex: Integer): StringNode | null {
+export function scanStringNode(source: Source, startIndex: Integer, stopIndex: Integer): StringNode | null {
   if (source.text[startIndex] === QUOTE) {
     const nextQuoteIndex = source.text.indexOf(QUOTE, startIndex + 1);
     if (nextQuoteIndex < 0 || nextQuoteIndex > stopIndex) {

@@ -15,7 +15,7 @@ export function whitespaceNode(startIndex: Integer, stopIndex: Integer): Whitesp
 const SPACE = ' ';
 const TAB = '\t';
 
-export function scanWhitespaceToken(source: Source, startIndex: Integer, stopIndex: Integer): WhitespaceNode | null {
+export function scanWhitespaceNode(source: Source, startIndex: Integer, stopIndex: Integer): WhitespaceNode | null {
   if (source.text[startIndex] === SPACE || source.text[startIndex] === TAB) {
     let nextIndex = startIndex;
     for (let i = startIndex + 1; i <= stopIndex; i++) {

@@ -1,23 +1,23 @@
 import { Integer } from '~/lib/core';
-import { scanIdToken } from '~/node/id/id-node';
-import { scanIntegerToken } from '~/node/integer/integer-node';
-import { scanJoiningToken } from '~/node/joining/joining-node';
+import { scanIdNode } from '~/node/id/id-node';
+import { scanIntegerNode } from '~/node/integer/integer-node';
+import { scanJoiningNode } from '~/node/joining/joining-node';
 import { Node, NodeType } from '~/node/node';
-import { scanOperatorToken } from '~/node/operator/operator-node';
-import { scanStringToken } from '~/node/string/string-node';
+import { scanOperatorNode } from '~/node/operator/operator-node';
+import { scanStringNode } from '~/node/string/string-node';
 import { unexpectedNode } from '~/node/unexpected/unexpected-node';
-import { scanWhitespaceToken } from '~/node/whitespace/whitespace-node';
+import { scanWhitespaceNode } from '~/node/whitespace/whitespace-node';
 import { Source } from '~/parser/source/source';
 
-type TokenScanFunction = (source: Source, startIndex: Integer, stopIndex: Integer) => Node | null;
+type NodeScanFunction = (source: Source, startIndex: Integer, stopIndex: Integer) => Node | null;
 
-const tokenScanFunctions: TokenScanFunction[] = [
-  scanStringToken,
-  scanJoiningToken,
-  scanWhitespaceToken,
-  scanOperatorToken,
-  scanIdToken,
-  scanIntegerToken,
+const nodeScanFunctions: NodeScanFunction[] = [
+  scanStringNode,
+  scanJoiningNode,
+  scanWhitespaceNode,
+  scanOperatorNode,
+  scanIdNode,
+  scanIntegerNode,
 ];
 
 export class Lexer {
@@ -29,36 +29,36 @@ export class Lexer {
     this.stopIndex = stopIndex ?? source.text.length - 1;
   }
 
-  public getTokens(): Node[] {
-    const tokens: Node[] = [];
+  public nodes(): Node[] {
+    const scannedNodes: Node[] = [];
 
-    for (let i = this.startIndex; i <= this.stopIndex; i++) {
-      const token = this.nextToken(i);
+    for (let index = this.startIndex; index <= this.stopIndex; index++) {
+      const node = this.nextNode(index);
 
-      if (token) {
-        tokens.push(token);
-        i = token.stopIndex;
+      if (node) {
+        scannedNodes.push(node);
+        index = node.stopIndex;
         continue;
       }
 
-      const last = tokens[tokens.length - 1];
+      const last = scannedNodes[scannedNodes.length - 1];
       if (last?.type === NodeType.UNEXPECTED) {
-        last.stopIndex = i;
+        last.stopIndex = index;
         continue;
       }
 
-      const unexpected = unexpectedNode(i, i);
-      tokens.push(unexpected);
+      const unexpected = unexpectedNode(index, index);
+      scannedNodes.push(unexpected);
     }
 
-    return tokens;
+    return scannedNodes;
   }
 
-  nextToken(index: Integer): Node | null {
-    for (const tokenScan of tokenScanFunctions) {
-      const token = tokenScan(this.source, index, this.stopIndex);
-      if (token) {
-        return token;
+  nextNode(index: Integer): Node | null {
+    for (const nodeScan of nodeScanFunctions) {
+      const node = nodeScan(this.source, index, this.stopIndex);
+      if (node) {
+        return node;
       }
     }
     return null;

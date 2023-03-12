@@ -222,7 +222,7 @@ function flatExpressions(source: Source, ctx: ExpressionContext): Node[] {
     const location = (sourceName !== '<unknown>' && sourceName) || null;
     const source = Source.fromText(String(antlrTokens[0].payload.inputStream), location);
     const lexer = new Lexer(source, startIndex, stopIndex);
-    const tokens = lexer.getTokens().filter((x) => x.type !== NodeType.WHITESPACE && x.type !== NodeType.JOINING);
+    const tokens = lexer.nodes().filter((x) => x.type !== NodeType.WHITESPACE && x.type !== NodeType.JOINING);
     return tokens;
   }
 

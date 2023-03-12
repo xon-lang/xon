@@ -6,7 +6,7 @@ test('single id', () => {
   const text = 'abc';
   const source = Source.fromText(text, null);
   const lexer = new Lexer(source);
-  const tokens = lexer.getTokens();
+  const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(1);
   expect(source.nodeText(tokens[0])).toBe('abc');
@@ -17,7 +17,7 @@ test('several id', () => {
   const text = 'abc edf_    _ghi1_23';
   const source = Source.fromText(text, null);
   const lexer = new Lexer(source);
-  const tokens = lexer.getTokens();
+  const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(5);
   expect(source.nodeText(tokens[0])).toBe('abc');
@@ -36,7 +36,7 @@ test('string', () => {
   const text = "'abc   def'";
   const source = Source.fromText(text, null);
   const lexer = new Lexer(source);
-  const tokens = lexer.getTokens();
+  const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(1);
   expect(source.nodeText(tokens[0])).toBe("'abc   def'");
@@ -47,7 +47,7 @@ test('integer', () => {
   const text = '123';
   const source = Source.fromText(text, null);
   const lexer = new Lexer(source);
-  const tokens = lexer.getTokens();
+  const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(1);
   expect(source.nodeText(tokens[0])).toBe('123');
@@ -58,7 +58,7 @@ test('unexpected 1', () => {
   const text = '123 §•∞•456';
   const source = Source.fromText(text, null);
   const lexer = new Lexer(source);
-  const tokens = lexer.getTokens();
+  const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(4);
 });
@@ -67,7 +67,7 @@ test('unexpected 2', () => {
   const text = "'abc";
   const source = Source.fromText(text, null);
   const lexer = new Lexer(source);
-  const tokens = lexer.getTokens();
+  const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(1);
   expect(source.nodeText(tokens[0])).toBe("'abc");
@@ -78,7 +78,7 @@ test('single operator', () => {
   const text = '!';
   const source = Source.fromText(text, null);
   const lexer = new Lexer(source);
-  const tokens = lexer.getTokens();
+  const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(1);
   expect(source.nodeText(tokens[0])).toBe('!');
@@ -89,7 +89,7 @@ test('set start and stop indices', () => {
   const text = "¶•§  'abc''";
   const source = Source.fromText(text, null);
   const lexer = new Lexer(source, 3, 9);
-  const tokens = lexer.getTokens();
+  const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(2);
   expect(source.nodeText(tokens[0])).toBe('  ');
@@ -107,7 +107,7 @@ test('infix operator', () => {
   const text = 'abc.def';
   const source = Source.fromText(text, null);
   const lexer = new Lexer(source);
-  const tokens = lexer.getTokens();
+  const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(3);
   expect(source.nodeText(tokens[0])).toBe('abc');
@@ -124,7 +124,7 @@ test('line joining', () => {
   const text = 'abc\\  .def';
   const source = Source.fromText(text, null);
   const lexer = new Lexer(source);
-  const tokens = lexer.getTokens();
+  const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(4);
   expect(source.nodeText(tokens[0])).toBe('abc');

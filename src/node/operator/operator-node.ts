@@ -1,5 +1,5 @@
 import { Integer, String2 } from '~/lib/core';
-import { scanIdToken } from '~/node/id/id-node';
+import { scanIdNode } from '~/node/id/id-node';
 import { Node, NodeType } from '~/node/node';
 import { operatorsOrders } from '~/parser/parser-config';
 import { Source } from '~/parser/source/source';
@@ -20,7 +20,7 @@ const OPERATORS = [
   ),
 ];
 
-export function scanOperatorToken(source: Source, startIndex: Integer, stopIndex: Integer): OperatorNode | null {
+export function scanOperatorNode(source: Source, startIndex: Integer, stopIndex: Integer): OperatorNode | null {
   let operators = OPERATORS.filter((x) => x[0] === source.text[startIndex]);
 
   if (operators.length === 0) {
@@ -43,7 +43,7 @@ export function scanOperatorToken(source: Source, startIndex: Integer, stopIndex
     return null;
   }
   const operatorString = candidates[candidates.length - 1];
-  const idCandidate = scanIdToken(source, startIndex, stopIndex);
+  const idCandidate = scanIdNode(source, startIndex, stopIndex);
   const operatorCandidate = operatorNode(startIndex, startIndex + operatorString.length - 1);
   if (idCandidate && idCandidate.stopIndex > operatorCandidate.stopIndex) {
     return idCandidate;

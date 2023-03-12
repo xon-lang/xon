@@ -16,7 +16,7 @@ const DIGITS = '0123456789';
 const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const DIGITS_LETTERS = DIGITS + LETTERS;
 
-export function scanIdToken(source: Source, startIndex: Integer, stopIndex: Integer): IdNode | null {
+export function scanIdNode(source: Source, startIndex: Integer, stopIndex: Integer): IdNode | null {
   if (LETTERS.includes(source.text[startIndex])) {
     let nextIndex = startIndex;
     for (let i = startIndex + 1; i <= stopIndex; i++) {
