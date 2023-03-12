@@ -1,18 +1,23 @@
-import { Char, Integer, String2 } from '~/lib/core';
+import { Char, Integer } from '~/lib/core';
 import { scanIdToken } from '~/node/id/id-node';
 import { integerNode } from '~/node/integer/integer-node';
 import { scanJoiningToken } from '~/node/joining/joining-node';
 import { Node, NodeType } from '~/node/node';
-import { operatorNode } from '~/node/operator/operator-node';
+import { scanOperatorToken } from '~/node/operator/operator-node';
 import { scanStringToken } from '~/node/string/string-node';
 import { unexpectedNode } from '~/node/unexpected/unexpected-node';
 import { scanWhitespaceToken } from '~/node/whitespace/whitespace-node';
-import { operatorsOrders } from '~/parser/parser-config';
 import { Source } from '~/parser/source/source';
 
 type TokenScanFunction = (source: Source, startIndex: Integer, stopIndex: Integer) => Node | null;
 
-const tokenScanFunctions: TokenScanFunction[] = [scanStringToken, scanJoiningToken, scanWhitespaceToken, scanIdToken];
+const tokenScanFunctions: TokenScanFunction[] = [
+  scanStringToken,
+  scanJoiningToken,
+  scanWhitespaceToken,
+  scanOperatorToken,
+  scanIdToken,
+];
 
 export class Lexer {
   public startIndex: Integer;
@@ -44,13 +49,6 @@ export class Lexer {
         continue;
       }
 
-      token = this.operatorToken(i, char);
-      if (token) {
-        tokens.push(token);
-        i = token.stopIndex;
-        continue;
-      }
-
       token = this.integerToken(i, char);
       if (token) {
         tokens.push(token);
@@ -74,37 +72,6 @@ export class Lexer {
     return tokens;
   }
 
-  private operatorToken(index: Integer, char: Char): Node | null {
-    let operators = OPERATORS.filter((x) => x[0] === char);
-
-    if (operators.length === 0) {
-      return null;
-    }
-
-    const candidates: String2[] = [];
-
-    for (let i = index; i <= this.stopIndex; i++) {
-      operators = operators.filter((x) => x[i - index] === this.source.text[i]);
-      const candidate = operators.find((x) => x.length === i - index + 1);
-      if (candidate) {
-        candidates.push(candidate);
-      }
-      if (operators.length === 0) {
-        break;
-      }
-    }
-    if (candidates.length === 0) {
-      return null;
-    }
-    const operatorString = candidates[candidates.length - 1];
-    const idCandidate = this.idToken(index, char);
-    const operatorCandidate = operatorNode(index, index + operatorString.length - 1);
-    if (idCandidate && idCandidate.stopIndex > operatorCandidate.stopIndex) {
-      return idCandidate;
-    }
-    return operatorCandidate;
-  }
-
   private integerToken(index: Integer, char: Char): Node | null {
     if (DIGITS.includes(char)) {
       let nextIndex = index;
@@ -123,9 +90,3 @@ export class Lexer {
 const DIGITS = '0123456789';
 const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const DIGITS_LETTERS = DIGITS + LETTERS;
-
-const OPERATORS = [
-  ...new Set(
-    operatorsOrders.flatMap((operatorsOrder) => operatorsOrder.operators).flatMap((operators) => operators.split(' ')),
-  ),
-];
