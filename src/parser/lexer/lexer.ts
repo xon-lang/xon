@@ -1,10 +1,7 @@
 import { Char, Integer, String2 } from '~/lib/core';
+import { Node, NodeType } from '~/parser/lexer/node';
 import { operatorsOrders } from '~/parser/parser-config';
 import { Source } from '~/source/source';
-import { SourcePosition } from '~/source/source-position';
-import { SourceSpan } from '~/source/source-span';
-import { TokenExpressionTree, TokenType } from '~/tree/expression/token/token-expression-tree';
-import { TokenTree } from '~/tree/token';
 
 export class Lexer {
   public startIndex: Integer;
@@ -15,71 +12,71 @@ export class Lexer {
     this.stopIndex = stopIndex ?? source.text.length - 1;
   }
 
-  public getTokens(): TokenExpressionTree[] {
-    const expressions: TokenExpressionTree[] = [];
+  public getTokens(): Node[] {
+    const tokens: Node[] = [];
 
     for (let i = this.startIndex; i <= this.stopIndex; i++) {
       const char = this.source.text[i];
 
       let token = this.stringToken(i, char);
       if (token) {
-        expressions.push(token);
-        i = token.sourceSpan.stop.index;
+        tokens.push(token);
+        i = token.stopIndex;
         continue;
       }
 
       token = this.lineJoiningToken(i, char);
       if (token) {
-        expressions.push(token);
-        i = token.sourceSpan.stop.index;
+        tokens.push(token);
+        i = token.stopIndex;
         continue;
       }
 
       token = this.whitespaceToken(i, char);
       if (token) {
-        expressions.push(token);
-        i = token.sourceSpan.stop.index;
+        tokens.push(token);
+        i = token.stopIndex;
         continue;
       }
 
       token = this.operatorToken(i, char);
       if (token) {
-        expressions.push(token);
-        i = token.sourceSpan.stop.index;
+        tokens.push(token);
+        i = token.stopIndex;
         continue;
       }
 
       token = this.idToken(i, char);
       if (token) {
-        expressions.push(token);
-        i = token.sourceSpan.stop.index;
+        tokens.push(token);
+        i = token.stopIndex;
         continue;
       }
 
       token = this.integerToken(i, char);
       if (token) {
-        expressions.push(token);
-        i = token.sourceSpan.stop.index;
+        tokens.push(token);
+        i = token.stopIndex;
         continue;
       }
 
-      const last = expressions[expressions.length - 1];
+      const last = tokens[tokens.length - 1];
 
-      if (last?.type === TokenType.UNEXPECTED) {
-        const lastStartIndex = last.sourceSpan.start.index;
-        const unexpected = this.createToken(lastStartIndex, i, TokenType.UNEXPECTED);
-        expressions.splice(-1);
-        expressions.push(unexpected);
+      if (last?.nodeType === NodeType.UNEXPECTED) {
+        const lastStartIndex = last.startIndex;
+        const unexpected = this.createToken(lastStartIndex, i, NodeType.UNEXPECTED);
+        tokens.splice(-1);
+        tokens.push(unexpected);
       } else {
-        const unexpected = this.createToken(i, i, TokenType.UNEXPECTED);
-        expressions.push(unexpected);
+        const unexpected = this.createToken(i, i, NodeType.UNEXPECTED);
+        tokens.push(unexpected);
       }
     }
 
-    return expressions.filter((x) => x.type !== TokenType.WHITESPACE && x.type !== TokenType.LINE_JOINING);
+    return tokens;
   }
 
-  private lineJoiningToken(index: Integer, char: Char): TokenExpressionTree | null {
+  private lineJoiningToken(index: Integer, char: Char): Node | null {
     if (char !== LINE_JOINING) {
       return null;
     }
@@ -90,21 +87,21 @@ export class Lexer {
       }
       nextIndex = i;
     }
-    return this.createToken(index, nextIndex, TokenType.LINE_JOINING);
+    return this.createToken(index, nextIndex, NodeType.LINE_JOINING);
   }
 
-  private stringToken(index: Integer, char: Char): TokenExpressionTree | null {
+  private stringToken(index: Integer, char: Char): Node | null {
     if (char === QUOTE) {
       const nextQuoteIndex = this.source.text.indexOf(QUOTE, index + 1);
       if (nextQuoteIndex < 0 || nextQuoteIndex > this.stopIndex) {
-        return this.createToken(index, this.stopIndex, TokenType.UNEXPECTED);
+        return this.createToken(index, this.stopIndex, NodeType.UNEXPECTED);
       }
-      return this.createToken(index, nextQuoteIndex, TokenType.STRING);
+      return this.createToken(index, nextQuoteIndex, NodeType.STRING);
     }
     return null;
   }
 
-  private whitespaceToken(index: Integer, char: Char): TokenExpressionTree | null {
+  private whitespaceToken(index: Integer, char: Char): Node | null {
     if (char === SPACE || char === TAB) {
       let nextIndex = index;
       for (let i = index + 1; i <= this.stopIndex; i++) {
@@ -114,12 +111,12 @@ export class Lexer {
         }
         nextIndex = i;
       }
-      return this.createToken(index, nextIndex, TokenType.WHITESPACE);
+      return this.createToken(index, nextIndex, NodeType.WHITESPACE);
     }
     return null;
   }
 
-  private operatorToken(index: Integer, char: Char): TokenExpressionTree | null {
+  private operatorToken(index: Integer, char: Char): Node | null {
     let operators = OPERATORS.filter((x) => x[0] === char);
 
     if (operators.length === 0) {
@@ -143,14 +140,14 @@ export class Lexer {
     }
     const operatorString = candidates[candidates.length - 1];
     const idCandidate = this.idToken(index, char);
-    const operatorCandidate = this.createToken(index, index + operatorString.length - 1, TokenType.OPERATOR);
-    if (idCandidate && idCandidate.sourceSpan.stop.index > operatorCandidate.sourceSpan.stop.index) {
+    const operatorCandidate = this.createToken(index, index + operatorString.length - 1, NodeType.OPERATOR);
+    if (idCandidate && idCandidate.stopIndex > operatorCandidate.stopIndex) {
       return idCandidate;
     }
     return operatorCandidate;
   }
 
-  private idToken(index: Integer, char: Char): TokenExpressionTree | null {
+  private idToken(index: Integer, char: Char): Node | null {
     if (LETTERS.includes(char)) {
       let nextIndex = index;
       for (let i = index + 1; i <= this.stopIndex; i++) {
@@ -159,12 +156,12 @@ export class Lexer {
         }
         nextIndex = i;
       }
-      return this.createToken(index, nextIndex, TokenType.ID);
+      return this.createToken(index, nextIndex, NodeType.ID);
     }
     return null;
   }
 
-  private integerToken(index: Integer, char: Char): TokenExpressionTree | null {
+  private integerToken(index: Integer, char: Char): Node | null {
     if (DIGITS.includes(char)) {
       let nextIndex = index;
       for (let i = index + 1; i <= this.stopIndex; i++) {
@@ -173,17 +170,19 @@ export class Lexer {
         }
         nextIndex = i;
       }
-      return this.createToken(index, nextIndex, TokenType.INTEGER);
+      return this.createToken(index, nextIndex, NodeType.INTEGER);
     }
     return null;
   }
 
-  private createToken(startIndex: Integer, stopIndex: Integer, type: TokenType): TokenExpressionTree {
-    const start = SourcePosition.fromIndex(this.source, startIndex);
-    const stop = SourcePosition.fromIndex(this.source, stopIndex);
-    const sourceSpan = new SourceSpan(this.source, start, stop);
-    const name = new TokenTree(sourceSpan);
-    return new TokenExpressionTree(name, type);
+  private createToken(startIndex: Integer, stopIndex: Integer, nodeType: NodeType): Node {
+    const text = this.source.text.slice(startIndex, stopIndex + 1);
+    return {
+      startIndex,
+      stopIndex,
+      nodeType,
+      text,
+    };
   }
 }
 

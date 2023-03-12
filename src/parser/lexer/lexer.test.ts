@@ -1,6 +1,6 @@
-import { Lexer } from '~/parser/lexer';
+import { Lexer } from '~/parser/lexer/lexer';
+import { NodeType } from '~/parser/lexer/node';
 import { Source } from '~/source/source';
-import { TokenType } from '~/tree/expression/token/token-expression-tree';
 
 test('single id', () => {
   const text = 'abc';
@@ -9,8 +9,8 @@ test('single id', () => {
   const tokens = lexer.getTokens();
 
   expect(tokens.length).toBe(1);
-  expect(tokens[0].name.text).toBe('abc');
-  expect(tokens[0].type).toBe(TokenType.ID);
+  expect(tokens[0].text).toBe('abc');
+  expect(tokens[0].nodeType).toBe(NodeType.ID);
 });
 
 test('several id', () => {
@@ -20,16 +20,16 @@ test('several id', () => {
   const tokens = lexer.getTokens();
 
   expect(tokens.length).toBe(5);
-  expect(tokens[0].name.text).toBe('abc');
-  expect(tokens[0].type).toBe(TokenType.ID);
-  expect(tokens[1].name.text).toBe(' ');
-  expect(tokens[1].type).toBe(TokenType.WHITESPACE);
-  expect(tokens[2].name.text).toBe('edf_');
-  expect(tokens[2].type).toBe(TokenType.ID);
-  expect(tokens[3].name.text).toBe('    ');
-  expect(tokens[3].type).toBe(TokenType.WHITESPACE);
-  expect(tokens[4].name.text).toBe('_ghi1_23');
-  expect(tokens[4].type).toBe(TokenType.ID);
+  expect(tokens[0].text).toBe('abc');
+  expect(tokens[0].nodeType).toBe(NodeType.ID);
+  expect(tokens[1].text).toBe(' ');
+  expect(tokens[1].nodeType).toBe(NodeType.WHITESPACE);
+  expect(tokens[2].text).toBe('edf_');
+  expect(tokens[2].nodeType).toBe(NodeType.ID);
+  expect(tokens[3].text).toBe('    ');
+  expect(tokens[3].nodeType).toBe(NodeType.WHITESPACE);
+  expect(tokens[4].text).toBe('_ghi1_23');
+  expect(tokens[4].nodeType).toBe(NodeType.ID);
 });
 
 test('string', () => {
@@ -39,8 +39,8 @@ test('string', () => {
   const tokens = lexer.getTokens();
 
   expect(tokens.length).toBe(1);
-  expect(tokens[0].name.text).toBe("'abc   def'");
-  expect(tokens[0].type).toBe(TokenType.STRING);
+  expect(tokens[0].text).toBe("'abc   def'");
+  expect(tokens[0].nodeType).toBe(NodeType.STRING);
 });
 
 test('integer', () => {
@@ -50,8 +50,8 @@ test('integer', () => {
   const tokens = lexer.getTokens();
 
   expect(tokens.length).toBe(1);
-  expect(tokens[0].name.text).toBe('123');
-  expect(tokens[0].type).toBe(TokenType.INTEGER);
+  expect(tokens[0].text).toBe('123');
+  expect(tokens[0].nodeType).toBe(NodeType.INTEGER);
 });
 
 test('unexpected 1', () => {
@@ -70,8 +70,8 @@ test('unexpected 2', () => {
   const tokens = lexer.getTokens();
 
   expect(tokens.length).toBe(1);
-  expect(tokens[0].name.text).toBe("'abc");
-  expect(tokens[0].type).toBe(TokenType.UNEXPECTED);
+  expect(tokens[0].text).toBe("'abc");
+  expect(tokens[0].nodeType).toBe(NodeType.UNEXPECTED);
 });
 
 test('single operator', () => {
@@ -81,8 +81,8 @@ test('single operator', () => {
   const tokens = lexer.getTokens();
 
   expect(tokens.length).toBe(1);
-  expect(tokens[0].name.text).toBe('!');
-  expect(tokens[0].type).toBe(TokenType.OPERATOR);
+  expect(tokens[0].text).toBe('!');
+  expect(tokens[0].nodeType).toBe(NodeType.OPERATOR);
 });
 
 test('set start and stop indices', () => {
@@ -92,15 +92,15 @@ test('set start and stop indices', () => {
   const tokens = lexer.getTokens();
 
   expect(tokens.length).toBe(2);
-  expect(tokens[0].name.text).toBe('  ');
-  expect(tokens[0].type).toBe(TokenType.WHITESPACE);
-  expect(tokens[0].sourceSpan.start.index).toBe(3);
-  expect(tokens[0].sourceSpan.stop.index).toBe(4);
+  expect(tokens[0].text).toBe('  ');
+  expect(tokens[0].nodeType).toBe(NodeType.WHITESPACE);
+  expect(tokens[0].startIndex).toBe(3);
+  expect(tokens[0].stopIndex).toBe(4);
 
-  expect(tokens[1].name.text).toBe("'abc'");
-  expect(tokens[1].type).toBe(TokenType.STRING);
-  expect(tokens[1].sourceSpan.start.index).toBe(5);
-  expect(tokens[1].sourceSpan.stop.index).toBe(9);
+  expect(tokens[1].text).toBe("'abc'");
+  expect(tokens[1].nodeType).toBe(NodeType.STRING);
+  expect(tokens[1].startIndex).toBe(5);
+  expect(tokens[1].stopIndex).toBe(9);
 });
 
 test('infix operator', () => {
@@ -110,16 +110,15 @@ test('infix operator', () => {
   const tokens = lexer.getTokens();
 
   expect(tokens.length).toBe(3);
-  expect(tokens[0].name.text).toBe('abc');
-  expect(tokens[0].type).toBe(TokenType.ID);
+  expect(tokens[0].text).toBe('abc');
+  expect(tokens[0].nodeType).toBe(NodeType.ID);
 
-  expect(tokens[1].name.text).toBe('.');
-  expect(tokens[1].type).toBe(TokenType.OPERATOR);
+  expect(tokens[1].text).toBe('.');
+  expect(tokens[1].nodeType).toBe(NodeType.OPERATOR);
 
-  expect(tokens[2].name.text).toBe('def');
-  expect(tokens[2].type).toBe(TokenType.ID);
+  expect(tokens[2].text).toBe('def');
+  expect(tokens[2].nodeType).toBe(NodeType.ID);
 });
-
 
 test('line joining', () => {
   const text = 'abc\\  .def';
@@ -127,13 +126,15 @@ test('line joining', () => {
   const lexer = new Lexer(source);
   const tokens = lexer.getTokens();
 
-  expect(tokens.length).toBe(3);
-  expect(tokens[0].name.text).toBe('abc');
-  expect(tokens[0].type).toBe(TokenType.ID);
+  expect(tokens.length).toBe(4);
+  expect(tokens[0].text).toBe('abc');
+  expect(tokens[0].nodeType).toBe(NodeType.ID);
 
-  expect(tokens[1].name.text).toBe('.');
-  expect(tokens[1].type).toBe(TokenType.OPERATOR);
+  expect(tokens[1].nodeType).toBe(NodeType.LINE_JOINING);
 
-  expect(tokens[2].name.text).toBe('def');
-  expect(tokens[2].type).toBe(TokenType.ID);
+  expect(tokens[2].text).toBe('.');
+  expect(tokens[2].nodeType).toBe(NodeType.OPERATOR);
+
+  expect(tokens[3].text).toBe('def');
+  expect(tokens[3].nodeType).toBe(NodeType.ID);
 });

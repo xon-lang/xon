@@ -5,10 +5,11 @@ import {
   PairExpressionContext,
   TokenExpressionContext,
 } from '~/grammar/xon-parser';
-import { Issue } from '~/issue/issue';
 import { Integer, String2 } from '~/lib/core';
-import { Lexer } from '~/parser/lexer';
+import { Lexer } from '~/parser/lexer/lexer';
+import { NodeType } from '~/parser/lexer/node';
 import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/parser/parser-config';
+import { Source } from '~/source/source';
 import { ArrayExpressionTree, getArrayExpressionTree } from '~/tree/expression/array/array-expression-tree';
 import { BodyExpressionTree, getBodyExpressionTree } from '~/tree/expression/body/body-expression-tree';
 import { BodyableExpressionTree } from '~/tree/expression/bodyable/bodyable-expression-tree';
@@ -17,8 +18,7 @@ import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tr
 import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
 import { PostfixExpressionTree } from '~/tree/expression/postfix/postfix-expression-tree';
 import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
-import { TokenExpressionTree, TokenType } from '~/tree/expression/token/token-expression-tree';
-import { TokenTree } from '~/tree/token';
+import { TokenExpressionTree } from '~/tree/expression/token/token-expression-tree';
 
 export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof TokenExpressionContext) return pairExpression(ctx);
@@ -26,7 +26,9 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   if (ctx instanceof BodyExpressionContext) return getBodyExpressionTree(ctx);
   if (ctx instanceof PairExpressionContext) return pairExpression(ctx);
 
-  Issue.errorFromContext(ctx, `Expression tree not found for '${ctx.constructor.name}'`);
+  throw new Error('Not implemented');
+
+  // Issue.errorFromContext(ctx, `Expression tree not found for '${ctx.constructor.name}'`);
 };
 
 function pairExpression(ctx: ExpressionContext): ExpressionTree {
@@ -35,7 +37,8 @@ function pairExpression(ctx: ExpressionContext): ExpressionTree {
 
   const operator = expressions.find((expression) => isOperatorToken(expression));
   if (operator) {
-    Issue.errorFromTree(operator, 'Extra parameter found');
+    throw new Error('Not implemented');
+    // Issue.errorFromTree(operator, 'Extra parameter found');
   }
 
   return expressions[0] as ExpressionTree;
@@ -160,8 +163,6 @@ function collapseExpressions(expressions: ExpressionTree[], operatorType: Operat
 
   if (operatorType === OperatorType.PREFIX) {
     const right = expressions[operatorIndex + 1];
-    if (!(right instanceof ExpressionTree)) throw new Error('Right value is not an expression');
-
     const prefix = new PrefixExpressionTree(operator.name, right);
     expressions[operatorIndex] = prefix;
     expressions.splice(operatorIndex + 1, 1);
@@ -171,8 +172,6 @@ function collapseExpressions(expressions: ExpressionTree[], operatorType: Operat
 
   if (operatorType === OperatorType.POSTFIX) {
     const left = expressions[operatorIndex - 1];
-    if (!(left instanceof ExpressionTree)) throw new Error('Left value is not an expression');
-
     const postfix = new PostfixExpressionTree(operator.name, left);
     expressions[operatorIndex] = postfix;
     expressions.splice(operatorIndex - 1, 1);
@@ -182,11 +181,7 @@ function collapseExpressions(expressions: ExpressionTree[], operatorType: Operat
 
   if (operatorType === OperatorType.INFIX) {
     const left = expressions[operatorIndex - 1] as ExpressionTree;
-    if (!(left instanceof ExpressionTree)) throw new Error('Left value is not an expression');
-
     const right = expressions[operatorIndex + 1] as ExpressionTree;
-    if (!(right instanceof ExpressionTree)) throw new Error('Right value is not an expression');
-
     const infix = new InfixExpressionTree(operator.name, left, right);
     expressions[operatorIndex] = infix;
     expressions.splice(operatorIndex - 1, 1);
@@ -200,28 +195,35 @@ function flatExpressions(ctx: ExpressionContext): ExpressionTree[] {
   }
 
   if (ctx instanceof TokenExpressionContext) {
-    const tokenTree = TokenTree.from(ctx.TOKEN());
-    const sourceSpan = tokenTree.sourceSpan;
-    const lexer = new Lexer(sourceSpan.source, sourceSpan.start.index, sourceSpan.stop.index);
-    const tokens = lexer.getTokens();
-    return tokens;
+    const antlrTokens = ctx.TOKEN();
+    const startIndex = antlrTokens[0].payload.startIndex;
+    const stopIndex = antlrTokens[antlrTokens.length - 1].payload.stopIndex;
+
+    const sourceName = antlrTokens[0].payload.inputStream?.sourceName;
+    const location = (sourceName !== '<unknown>' && sourceName) || null;
+    const source = Source.fromText(String(antlrTokens[0].payload.inputStream), location);
+    const lexer = new Lexer(source, startIndex, stopIndex);
+    const tokens = lexer
+      .getTokens()
+      .filter((x) => x.nodeType !== NodeType.WHITESPACE && x.nodeType !== NodeType.LINE_JOINING);
+    return tokens.map(x=>new TokenExpressionTree(x));
   }
 
   return [getExpressionTree(ctx)];
 }
 
 export function isOperatorToken(expression: ExpressionTree): expression is TokenExpressionTree {
-  return expression instanceof TokenExpressionTree && expression.type === TokenType.OPERATOR;
+  return expression instanceof TokenExpressionTree && expression.name.nodeType === NodeType.OPERATOR;
 }
 
 export function isIdToken(expression: ExpressionTree): expression is TokenExpressionTree {
-  return expression instanceof TokenExpressionTree && expression.type === TokenType.ID;
+  return expression instanceof TokenExpressionTree && expression.name.nodeType === NodeType.ID;
 }
 
 export function isIntegerToken(expression: ExpressionTree): expression is TokenExpressionTree {
-  return expression instanceof TokenExpressionTree && expression.type === TokenType.INTEGER;
+  return expression instanceof TokenExpressionTree && expression.name.nodeType === NodeType.INTEGER;
 }
 
 export function isStringToken(expression: ExpressionTree): expression is TokenExpressionTree {
-  return expression instanceof TokenExpressionTree && expression.type === TokenType.STRING;
+  return expression instanceof TokenExpressionTree && expression.name.nodeType === NodeType.STRING;
 }

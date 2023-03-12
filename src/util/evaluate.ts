@@ -41,7 +41,10 @@ export function evaluate(tree: ExpressionTree | null, argsMap = {}): Unknown2 {
     if (argsMap[tree.name.text]) {
       return argsMap[tree.name.text];
     }
-    Issue.errorFromTree(tree, `Undefined key '${tree.name.text}'`);
+    throw new Error('Not implemented');
+
+    // Issue.errorFromTree(tree, `Undefined key '${tree.name.text}'`);
   }
-  Issue.errorFromTree(tree, `Unsupported operation of '${tree.constructor.name}' for '${tree.sourceSpan.getText()}'`);
+  throw new Error('Not implemented');
+  // Issue.errorFromTree(tree, `Unsupported operation of '${tree.constructor.name}' for '${tree.sourceSpan.getText()}'`);
 }

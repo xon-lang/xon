@@ -1,0 +1,22 @@
+import { Integer, String2 } from '~/lib/core';
+
+export interface Node {
+  startIndex: Integer;
+  stopIndex: Integer;
+  nodeType: NodeType | String2;
+  // remove Later
+  text: String2;
+}
+
+export enum NodeType {
+  ID = 'ID',
+  STRING = 'STRING',
+  INTEGER = 'INTEGER',
+  OPERATOR = 'OPERATOR',
+  UNEXPECTED = 'UNEXPECTED',
+  WHITESPACE = 'WHITESPACE',
+  LINE_JOINING = 'LINE_JOINING',
+
+  OPEN = 'OPEN',
+  CLOSE = 'CLOSE',
+}
