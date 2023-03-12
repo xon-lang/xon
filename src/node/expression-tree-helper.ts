@@ -10,11 +10,11 @@ import { Integer, String2 } from '~/lib/core';
 import { ArrayNode, arrayNode } from '~/node/array/array-expression-tree';
 import { BodyNode, bodyNode } from '~/node/body/body-expression-tree';
 import { ladderNode } from '~/node/bodyable/bodyable-expression-tree';
-import { InfixNode } from '~/node/infix/infix-expression-tree';
+import { infixNode, InfixNode } from '~/node/infix/infix-expression-tree';
 import { invokeNode } from '~/node/invoke/invoke-expression-tree';
 import { Node, NodeType } from '~/node/node';
-import { PostfixNode } from '~/node/postfix/postfix-expression-tree';
-import { PrefixNode } from '~/node/prefix/prefix-expression-tree';
+import { postfixNode, PostfixNode } from '~/node/postfix/postfix-expression-tree';
+import { prefixNode, PrefixNode } from '~/node/prefix/prefix-expression-tree';
 import { sourceNode } from '~/node/source/source-tree';
 import { Lexer } from '~/parser/lexer/lexer';
 import { Source } from '~/parser/lexer/source/source';
@@ -168,14 +168,7 @@ function collapseExpressions(expressions: Node[], operatorType: OperatorType, op
 
   if (operatorType === OperatorType.PREFIX) {
     const right = expressions[operatorIndex + 1];
-    const prefix: PrefixNode = {
-      nodeType: NodeType.PREFIX,
-      startIndex: operator.startIndex,
-      stopIndex: right.stopIndex,
-      text: operator.text + right.text,
-      operator,
-      expression: right,
-    };
+    const prefix = prefixNode(operator, right);
     expressions[operatorIndex] = prefix;
     expressions.splice(operatorIndex + 1, 1);
 
@@ -184,14 +177,7 @@ function collapseExpressions(expressions: Node[], operatorType: OperatorType, op
 
   if (operatorType === OperatorType.POSTFIX) {
     const left = expressions[operatorIndex - 1];
-    const postfix: PostfixNode = {
-      nodeType: NodeType.POSTFIX,
-      startIndex: left.startIndex,
-      stopIndex: operator.stopIndex,
-      text: left.text + operator.text,
-      operator,
-      expression: left,
-    };
+    const postfix = postfixNode(operator, left);
     expressions[operatorIndex] = postfix;
     expressions.splice(operatorIndex - 1, 1);
 
@@ -201,15 +187,7 @@ function collapseExpressions(expressions: Node[], operatorType: OperatorType, op
   if (operatorType === OperatorType.INFIX) {
     const left = expressions[operatorIndex - 1] as Node;
     const right = expressions[operatorIndex + 1] as Node;
-    const infix: InfixNode = {
-      nodeType: NodeType.INFIX,
-      startIndex: left.startIndex,
-      stopIndex: right.stopIndex,
-      text: left.text + operator.text + right.text,
-      operator,
-      left,
-      right,
-    };
+    const infix = infixNode(operator, left, right);
     expressions[operatorIndex] = infix;
     expressions.splice(operatorIndex - 1, 1);
     expressions.splice(operatorIndex, 1);
