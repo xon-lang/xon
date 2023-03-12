@@ -1,6 +1,6 @@
-import { Char, Integer } from '~/lib/core';
+import { Integer } from '~/lib/core';
 import { scanIdToken } from '~/node/id/id-node';
-import { integerNode } from '~/node/integer/integer-node';
+import { scanIntegerToken } from '~/node/integer/integer-node';
 import { scanJoiningToken } from '~/node/joining/joining-node';
 import { Node, NodeType } from '~/node/node';
 import { scanOperatorToken } from '~/node/operator/operator-node';
@@ -17,6 +17,7 @@ const tokenScanFunctions: TokenScanFunction[] = [
   scanWhitespaceToken,
   scanOperatorToken,
   scanIdToken,
+  scanIntegerToken,
 ];
 
 export class Lexer {
@@ -32,8 +33,6 @@ export class Lexer {
     const tokens: Node[] = [];
 
     for (let i = this.startIndex; i <= this.stopIndex; i++) {
-      const char = this.source.text[i];
-
       let token: Node | null = null;
 
       for (const tokenScan of tokenScanFunctions) {
@@ -46,13 +45,6 @@ export class Lexer {
       }
 
       if (token) {
-        continue;
-      }
-
-      token = this.integerToken(i, char);
-      if (token) {
-        tokens.push(token);
-        i = token.stopIndex;
         continue;
       }
 
@@ -71,22 +63,4 @@ export class Lexer {
 
     return tokens;
   }
-
-  private integerToken(index: Integer, char: Char): Node | null {
-    if (DIGITS.includes(char)) {
-      let nextIndex = index;
-      for (let i = index + 1; i <= this.stopIndex; i++) {
-        if (!DIGITS_LETTERS.includes(this.source.text[i])) {
-          break;
-        }
-        nextIndex = i;
-      }
-      return integerNode(index, nextIndex);
-    }
-    return null;
-  }
 }
-
-const DIGITS = '0123456789';
-const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const DIGITS_LETTERS = DIGITS + LETTERS;
