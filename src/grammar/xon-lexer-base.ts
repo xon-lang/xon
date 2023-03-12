@@ -12,7 +12,6 @@ export abstract class XonLexerBase extends Lexer {
   private tokenQueue: Token[] = [];
   private indents: Integer[] = [];
   private lastToken: Token | null = null;
-  public operators: String2[] = [];
   public abstract get channelNames(): String2[];
   public abstract get modeNames(): String2[];
   public abstract get ruleNames(): String2[];
@@ -51,15 +50,6 @@ export abstract class XonLexerBase extends Lexer {
     }
 
     return this.tokenQueue.shift() ?? next;
-  }
-
-  public isOperator(): boolean {
-    if (!this.operators.includes(this.text)) return false;
-
-    const nextCharCode = this.inputStream.LA(1);
-    const next = String.fromCharCode(nextCharCode);
-
-    return !this.operators.some((operator) => operator.startsWith(this.text + next));
   }
 
   protected atStartOfInput(): Boolean2 {
