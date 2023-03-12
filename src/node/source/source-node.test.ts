@@ -1,6 +1,7 @@
 import { LadderNode } from '~/node/ladder/ladder-node';
 import { NodeType } from '~/node/node';
 import { parseSource } from '~/parser/parser';
+import { Source } from '~/parser/source/source';
 
 // test('import and if', () => {
 //   const code = `import ('xon.os') {Path}
@@ -24,9 +25,10 @@ toString: [] = String
   importStatements = this.statements.filter[[x] = x is ImportStatementTree].map[[x] = x as ImportStatementTree]
   importStatementsMap = {}
 `.trim();
-  const tree = parseSource(code);
+  const source = Source.fromText(code);
+  const node = parseSource(source);
 
-  expect(tree.nodeType).toBe(NodeType.SOURCE);
+  expect(node.nodeType).toBe(NodeType.SOURCE);
 });
 
 // test('two if statements', () => {
@@ -72,7 +74,8 @@ toString: [] = String
 // });
 
 test('3.xon', () => {
-  const tree = parseSourceFile('src/node/source/test-files/3.xon');
+  const source = Source.fromPath('src/node/source/test-files/3.xon');
+  const tree = parseSource(source);
 
   expect(tree.nodeType).toBe(NodeType.SOURCE);
 });
@@ -108,7 +111,8 @@ xyz()
   y = 1
   z = 2
   `;
-  const tree = parseSource(code);
+  const source = Source.fromText(code);
+  const tree = parseSource(source);
 
   expect(tree.nodeType).toBe(NodeType.SOURCE);
   expect(tree.nodes.length).toBe(2);

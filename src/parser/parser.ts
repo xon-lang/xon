@@ -1,7 +1,6 @@
 import { CharStreams, CommonTokenStream, TokenStream } from 'antlr4ts';
 import { XonLexer } from '~/grammar/xon-lexer';
 import { XonParser } from '~/grammar/xon-parser';
-import { String2 } from '~/lib/core';
 import { Node } from '~/node/node';
 import { getNode } from '~/node/node-helper';
 import { SourceNode } from '~/node/source/source-node';
@@ -68,14 +67,12 @@ export class Parser {
   }
 }
 
-export function parseSource(code: String2): SourceNode {
-  const source = Source.fromText(code, null);
+export function parseSource(source: Source): SourceNode {
   const parser = new Parser(source, operatorsOrders);
   return parser.sourceNode();
 }
 
-export function parseExpression(code: String2): Node {
-  const source = Source.fromText(code, null);
+export function parseExpression(source: Source): Node {
   const parser = new Parser(source, operatorsOrders);
   return parser.expression();
 }

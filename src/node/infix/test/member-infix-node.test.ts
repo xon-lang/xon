@@ -1,10 +1,12 @@
 import { InfixNode } from '~/node/infix/infix-node';
 import { NodeType } from '~/node/node';
 import { parseExpression } from '~/parser/parser';
+import { Source } from '~/parser/source/source';
 
 test('meta property', () => {
   const code = 'abc::def';
-  const tree = parseExpression(code) as InfixNode;
+  const source = Source.fromText(code);
+  const tree = parseExpression(source) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.left.nodeType).toBe(NodeType.ID);
@@ -15,7 +17,8 @@ test('meta property', () => {
 
 test('not safe', () => {
   const code = 'abc.def';
-  const tree = parseExpression(code) as InfixNode;
+  const source = Source.fromText(code);
+  const tree = parseExpression(source) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.left.nodeType).toBe(NodeType.ID);
@@ -26,7 +29,8 @@ test('not safe', () => {
 
 test('left dot nl property', () => {
   const code = 'abc.\\def';
-  const tree = parseExpression(code) as InfixNode;
+  const source = Source.fromText(code);
+  const tree = parseExpression(source) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.left.nodeType).toBe(NodeType.ID);
@@ -37,7 +41,8 @@ test('left dot nl property', () => {
 
 test('left nl dot property', () => {
   const code = 'abc\\.def';
-  const tree = parseExpression(code) as InfixNode;
+  const source = Source.fromText(code);
+  const tree = parseExpression(source) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.left.nodeType).toBe(NodeType.ID);
@@ -48,7 +53,8 @@ test('left nl dot property', () => {
 
 test('left nl dot nl property', () => {
   const code = 'abc\\.\\def';
-  const tree = parseExpression(code) as InfixNode;
+  const source = Source.fromText(code);
+  const tree = parseExpression(source) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.left.nodeType).toBe(NodeType.ID);
@@ -65,7 +71,8 @@ this.statements \
     .ghi \
       .jkl \
   `.trim();
-  const tree = parseExpression(code) as InfixNode;
+  const source = Source.fromText(code);
+  const tree = parseExpression(source) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.left.nodeType).toBe(NodeType.INFIX);

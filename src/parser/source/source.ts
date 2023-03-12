@@ -14,7 +14,7 @@ export class Source {
   static fromPath = fromPath;
 }
 
-function fromText(text: String2, location: String2 | null): Source {
+function fromText(text: String2, location: String2 | null = null): Source {
   return new Source(text, location);
 }
 

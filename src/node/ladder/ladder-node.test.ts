@@ -1,10 +1,12 @@
 import { LadderNode } from '~/node/ladder/ladder-node';
 import { NodeType } from '~/node/node';
 import { parseExpression } from '~/parser/parser';
+import { Source } from '~/parser/source/source';
 
 test('single expression', () => {
   const code = 'abc\n  a = 1';
-  const tree = parseExpression(code) as LadderNode;
+  const source = Source.fromText(code);
+  const tree = parseExpression(source) as LadderNode;
 
   expect(tree.nodeType).toBe(NodeType.LADDER);
   expect(tree.header.nodeType).toBe(NodeType.ID);

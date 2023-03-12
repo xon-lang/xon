@@ -1,11 +1,13 @@
 import { NodeType } from '~/node/node';
 import { PrefixNode } from '~/node/prefix/prefix-node';
 import { parseExpression } from '~/parser/parser';
+import { Source } from '~/parser/source/source';
 import { evaluate } from '~/util/evaluate';
 
 test('negative integer', () => {
   const code = '- 1';
-  const tree = parseExpression(code) as PrefixNode;
+  const source = Source.fromText(code);
+  const tree = parseExpression(source) as PrefixNode;
 
   expect(tree.nodeType).toBe(NodeType.PREFIX);
   expect(evaluate(tree.expression)).toBe(1);
@@ -13,14 +15,16 @@ test('negative integer', () => {
 
 test('not boolean', () => {
   const code = '!  true';
-  const tree = parseExpression(code) as PrefixNode;
+  const source = Source.fromText(code);
+  const tree = parseExpression(source) as PrefixNode;
 
   expect(tree.nodeType).toBe(NodeType.PREFIX);
 });
 
 test('double not', () => {
   const code = '!!ctx.parameters[]';
-  const tree = parseExpression(code) as PrefixNode;
+  const source = Source.fromText(code);
+  const tree = parseExpression(source) as PrefixNode;
 
   expect(tree.nodeType).toBe(NodeType.PREFIX);
 });
