@@ -17,6 +17,7 @@ export enum NodeType {
 
   OPEN = 'OPEN',
   CLOSE = 'CLOSE',
+  COMMA = 'COMMA',
   ARRAY = 'ARRAY',
   BODY = 'BODY',
   LADDER = 'LADDER',

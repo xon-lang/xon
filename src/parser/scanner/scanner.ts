@@ -20,7 +20,7 @@ const nodeScanFunctions: NodeScanFunction[] = [
   scanIntegerNode,
 ];
 
-export class Lexer {
+export class Scanner {
   public startIndex: Integer;
   public stopIndex: Integer;
 

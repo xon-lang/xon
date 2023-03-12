@@ -16,8 +16,8 @@ import { Node, NodeType } from '~/node/node';
 import { postfixNode } from '~/node/postfix/postfix-node';
 import { prefixNode, PrefixNode } from '~/node/prefix/prefix-node';
 import { sourceNode } from '~/node/source/source-node';
-import { Lexer } from '~/parser/lexer/lexer';
 import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/parser/parser-config';
+import { Scanner } from '~/parser/scanner/scanner';
 import { Source } from '~/parser/source/source';
 
 export const getNode = (source: Source, ctx: ExpressionContext): Node => {
@@ -221,7 +221,7 @@ function flatExpressions(source: Source, ctx: ExpressionContext): Node[] {
     const sourceName = antlrTokens[0].payload.inputStream?.sourceName;
     const location = (sourceName !== '<unknown>' && sourceName) || null;
     const source = Source.fromText(String(antlrTokens[0].payload.inputStream), location);
-    const lexer = new Lexer(source, startIndex, stopIndex);
+    const lexer = new Scanner(source, startIndex, stopIndex);
     const tokens = lexer.nodes().filter((x) => x.type !== NodeType.WHITESPACE && x.type !== NodeType.JOINING);
     return tokens;
   }
