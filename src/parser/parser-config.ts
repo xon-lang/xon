@@ -1,11 +1,5 @@
 import { String2 } from '~/lib/core';
 
-export interface ParserConfig {
-  code: String2;
-  location: String2;
-  operatorsOrders: OperatorsOrder[];
-}
-
 export interface OperatorsOrder {
   operators: String2[];
   operatorType: OperatorType;

@@ -1,10 +1,10 @@
 import { InfixNode } from '~/node/infix/infix-node';
 import { NodeType } from '~/node/node';
-import { parseNode } from '~/parser/parser';
+import { parseExpression } from '~/parser/parser';
 
 test('meta property', () => {
   const code = 'abc::def';
-  const tree = parseNode(code) as InfixNode;
+  const tree = parseExpression(code) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.left.nodeType).toBe(NodeType.ID);
@@ -15,7 +15,7 @@ test('meta property', () => {
 
 test('not safe', () => {
   const code = 'abc.def';
-  const tree = parseNode(code) as InfixNode;
+  const tree = parseExpression(code) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.left.nodeType).toBe(NodeType.ID);
@@ -26,7 +26,7 @@ test('not safe', () => {
 
 test('left dot nl property', () => {
   const code = 'abc.\\def';
-  const tree = parseNode(code) as InfixNode;
+  const tree = parseExpression(code) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.left.nodeType).toBe(NodeType.ID);
@@ -37,7 +37,7 @@ test('left dot nl property', () => {
 
 test('left nl dot property', () => {
   const code = 'abc\\.def';
-  const tree = parseNode(code) as InfixNode;
+  const tree = parseExpression(code) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.left.nodeType).toBe(NodeType.ID);
@@ -48,7 +48,7 @@ test('left nl dot property', () => {
 
 test('left nl dot nl property', () => {
   const code = 'abc\\.\\def';
-  const tree = parseNode(code) as InfixNode;
+  const tree = parseExpression(code) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.left.nodeType).toBe(NodeType.ID);
@@ -65,7 +65,7 @@ this.statements \
     .ghi \
       .jkl \
   `.trim();
-  const tree = parseNode(code) as InfixNode;
+  const tree = parseExpression(code) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.left.nodeType).toBe(NodeType.INFIX);

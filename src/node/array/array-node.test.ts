@@ -1,12 +1,12 @@
 import { Integer } from '~/lib/core';
 import { ArrayNode } from '~/node/array/array-node';
 import { NodeType } from '~/node/node';
-import { parseNode } from '~/parser/parser';
+import { parseExpression } from '~/parser/parser';
 import { evaluate } from '~/util/evaluate';
 
 test('check array', () => {
   const code = '[1, 2+2, 4, 6+6]';
-  const tree = parseNode(code) as ArrayNode;
+  const tree = parseExpression(code) as ArrayNode;
 
   expect(tree.nodeType).toBe(NodeType.ARRAY);
   expect(tree.parameters.length).toBe(4);
@@ -20,7 +20,7 @@ test('array on several lines', () => {
   const code = `[1,
                 2+2,
      4,    6+6]`;
-  const tree = parseNode(code) as ArrayNode;
+  const tree = parseExpression(code) as ArrayNode;
 
   expect(tree.nodeType).toBe(NodeType.ARRAY);
   expect(tree.parameters.length).toBe(4);

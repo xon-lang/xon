@@ -2,12 +2,12 @@ import { ArrayNode } from '~/node/array/array-node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { InvokeNode } from '~/node/invoke/invoke-node';
 import { NodeType } from '~/node/node';
-import { parseNode } from '~/parser/parser';
+import { parseExpression } from '~/parser/parser';
 import { evaluate } from '~/util/evaluate';
 
 test('has argument', () => {
   const code = '[x] = x + 42';
-  const tree = parseNode(code) as InfixNode;
+  const tree = parseExpression(code) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
   expect((tree.left as ArrayNode).parameters.length).toBe(1);
@@ -21,7 +21,7 @@ test('has argument', () => {
 
 test('generics', () => {
   const code = '{N,M ,K:String }[x] = x + 42';
-  const tree = parseNode(code) as InfixNode;
+  const tree = parseExpression(code) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
   const left = tree.left as InvokeNode;
@@ -46,7 +46,7 @@ test('generics', () => {
 
 test('no arguments', () => {
   const code = '[]= 42+45';
-  const tree = parseNode(code) as InfixNode;
+  const tree = parseExpression(code) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
   expect((tree.left as ArrayNode).parameters.length).toBe(0);
@@ -55,7 +55,7 @@ test('no arguments', () => {
 
 test('lambda inner lambda', () => {
   const code = '[a] = [b, c] = 42+45';
-  const tree = parseNode(code) as InfixNode;
+  const tree = parseExpression(code) as InfixNode;
 
   expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.left.nodeType).toBe(NodeType.ARRAY);

@@ -1,11 +1,11 @@
 import { InvokeNode } from '~/node/invoke/invoke-node';
 import { NodeType } from '~/node/node';
 import { PrefixNode } from '~/node/prefix/prefix-node';
-import { parseNode } from '~/parser/parser';
+import { parseExpression } from '~/parser/parser';
 
 test('method declaration', () => {
   const code = 'infix +(a, b)';
-  const tree = parseNode(code) as InvokeNode;
+  const tree = parseExpression(code) as InvokeNode;
 
   expect(tree.nodeType).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(2);

@@ -1,11 +1,11 @@
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { getExpressionMetadata } from '~/metadata/expression/expression-metadata-helper';
 import { PrefixValueMetadata } from '~/metadata/expression/value/prefix/prefix-value-metadata';
-import { parseNode } from '~/parser/parser';
+import { parseExpression } from '~/parser/parser';
 
 test('prefix', () => {
   const code = '+1';
-  const tree = parseNode(code);
+  const tree = parseExpression(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getExpressionMetadata(tree);
 

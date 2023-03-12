@@ -2,11 +2,11 @@ import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declarat
 import { ArrayValueMetadata } from '~/metadata/expression/array/array-value-metadata';
 import { getExpressionMetadata } from '~/metadata/expression/expression-metadata-helper';
 import { fillTypeMetadata } from '~/metadata/type/type-metadata-helper';
-import { parseNode } from '~/parser/parser';
+import { parseExpression } from '~/parser/parser';
 
 test('empty', () => {
   const code = '[]';
-  const tree = parseNode(code);
+  const tree = parseExpression(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getExpressionMetadata(tree);
 
@@ -16,7 +16,7 @@ test('empty', () => {
 
 test('123', () => {
   const code = '[1, 2, 3]';
-  const tree = parseNode(code);
+  const tree = parseExpression(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getExpressionMetadata(tree);
 

@@ -1,12 +1,12 @@
 import { CharStreams, CommonTokenStream, TokenStream } from 'antlr4ts';
-import { readFileSync } from 'fs';
 import { XonLexer } from '~/grammar/xon-lexer';
 import { XonParser } from '~/grammar/xon-parser';
 import { String2 } from '~/lib/core';
 import { Node } from '~/node/node';
 import { getNode } from '~/node/node-helper';
 import { SourceNode } from '~/node/source/source-node';
-import { ParserConfig } from '~/parser/parser-config';
+import { OperatorsOrder } from '~/parser/parser-config';
+import { Source } from '~/parser/source/source';
 import { ThrowingErrorListener } from '~/parser/throwing-error-listener';
 import { operatorsOrders } from './parser-config';
 
@@ -15,19 +15,19 @@ export class Parser {
   antlrTokenStream: CommonTokenStream;
   antlrParser: XonParser;
 
-  constructor(public config: ParserConfig) {
+  constructor(public source: Source, public operatorsOrders: OperatorsOrder[]) {
     this.antlrLexer = this.lexer();
     this.antlrTokenStream = this.tokenStream(this.antlrLexer);
     this.antlrParser = this.parser(this.antlrTokenStream);
   }
 
   private lexer(): XonLexer {
-    const inputStream = CharStreams.fromString(this.config.code, this.config.location);
+    const inputStream = CharStreams.fromString(this.source.text, this.source.location ?? '');
     const lexer = new XonLexer(inputStream);
     lexer.removeErrorListeners();
     lexer.addErrorListener(new ThrowingErrorListener());
 
-    lexer.operators = this.config.operatorsOrders
+    lexer.operators = this.operatorsOrders
       .flatMap((operatorsOrder) => operatorsOrder.operators)
       .flatMap((operators) => operators.split(' '));
 
@@ -57,7 +57,7 @@ export class Parser {
     return parser;
   }
 
-  public source(): SourceNode {
+  public sourceNode(): SourceNode {
     return getNode(this.antlrParser.source()) as SourceNode;
   }
 
@@ -68,35 +68,14 @@ export class Parser {
   }
 }
 
-export function parserFromCode(
-  code: String2,
-  location: String2 = '',
-  parserConfig: ParserConfig | null = null,
-): Parser {
-  const config: ParserConfig = {
-    code,
-    location,
-    operatorsOrders,
-    ...parserConfig,
-  };
-
-  return new Parser(config);
-}
-
-export function parserFromFile(location: String2, parserConfig: ParserConfig | null = null): Parser {
-  const code = readFileSync(location).toString();
-
-  return parserFromCode(code, location, parserConfig);
-}
-
-export function parseSourceFile(location: String2): SourceNode {
-  return parserFromFile(location).source();
-}
-
 export function parseSource(code: String2): SourceNode {
-  return parserFromCode(code).source();
+  const source = Source.fromText(code, null);
+  const parser = new Parser(source, operatorsOrders);
+  return parser.sourceNode();
 }
 
-export function parseNode(code: String2): Node {
-  return parserFromCode(code).expression();
+export function parseExpression(code: String2): Node {
+  const source = Source.fromText(code, null);
+  const parser = new Parser(source, operatorsOrders);
+  return parser.expression();
 }

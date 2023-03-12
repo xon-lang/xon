@@ -2,11 +2,11 @@ import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declarat
 import { getExpressionMetadata } from '~/metadata/expression/expression-metadata-helper';
 import { MethodValueMetadata } from '~/metadata/expression/value/method/method-value-metadata';
 import { MethodTypeMetadata } from '~/metadata/type/method/method-type-metadata';
-import { parseNode } from '~/parser/parser';
+import { parseExpression } from '~/parser/parser';
 
 test('lambda', () => {
   const code = '(x: Number) => x + x';
-  const tree = parseNode(code);
+  const tree = parseExpression(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getExpressionMetadata(tree);
 

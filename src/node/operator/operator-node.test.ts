@@ -1,11 +1,11 @@
 import { NodeType } from '~/node/node';
 import { PostfixNode } from '~/node/postfix/postfix-node';
-import { parseNode } from '~/parser/parser';
+import { parseExpression } from '~/parser/parser';
 import { evaluate } from '~/util/evaluate';
 
 test('after integer', () => {
   const code = '1!';
-  const tree = parseNode(code) as PostfixNode;
+  const tree = parseExpression(code) as PostfixNode;
 
   expect(tree.nodeType).toBe(NodeType.POSTFIX);
   expect(tree.operator.text).toBe('!');
@@ -14,7 +14,7 @@ test('after integer', () => {
 
 test('after invoke', () => {
   const code = 'ctx.parameters[]!';
-  const tree = parseNode(code) as PostfixNode;
+  const tree = parseExpression(code) as PostfixNode;
 
   expect(tree.nodeType).toBe(NodeType.POSTFIX);
   expect(tree.operator.text).toBe('!');

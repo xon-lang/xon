@@ -2,11 +2,11 @@ import { ArrayNode } from '~/node/array/array-node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { InvokeNode } from '~/node/invoke/invoke-node';
 import { NodeType } from '~/node/node';
-import { parseNode } from '~/parser/parser';
+import { parseExpression } from '~/parser/parser';
 
 test('method call', () => {
   const code = "f(3, 'str')";
-  const tree = parseNode(code) as InvokeNode;
+  const tree = parseExpression(code) as InvokeNode;
 
   expect(tree.nodeType).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(2);
@@ -21,7 +21,7 @@ test('method on several lines', () => {
   const code = `f[3,
         'str', 123, 
     415]`;
-  const tree = parseNode(code) as InvokeNode;
+  const tree = parseExpression(code) as InvokeNode;
 
   expect(tree.nodeType).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(4);
@@ -34,7 +34,7 @@ test('method on several lines', () => {
 
 test('can call with type parameter', () => {
   const code = 'a.get [1]';
-  const tree = parseNode(code) as InvokeNode;
+  const tree = parseExpression(code) as InvokeNode;
 
   expect(tree.nodeType).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(1);
@@ -48,7 +48,7 @@ test('can call with type parameter', () => {
 
 test('object method', () => {
   const code = '{a, b}.call()';
-  const tree = parseNode(code) as InvokeNode;
+  const tree = parseExpression(code) as InvokeNode;
 
   expect(tree.nodeType).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(0);
@@ -64,7 +64,7 @@ test('object method', () => {
 
 test('generics', () => {
   const code = 'Animal{T}';
-  const tree = parseNode(code) as InvokeNode;
+  const tree = parseExpression(code) as InvokeNode;
 
   expect(tree.nodeType).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(1);

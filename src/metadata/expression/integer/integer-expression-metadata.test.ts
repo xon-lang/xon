@@ -1,11 +1,11 @@
 import { getExpressionMetadata } from '~/metadata/expression/expression-metadata-helper';
 import { IntegerExpressionMetadata } from '~/metadata/expression/integer/integer-expression-metadata';
 import { IntegerTypeMetadata } from '~/metadata/type/integer/integer-type-metadata';
-import { parseNode } from '~/parser/parser';
+import { parseExpression } from '~/parser/parser';
 
 test('integer literal', () => {
   const code = '123';
-  const tree = parseNode(code);
+  const tree = parseExpression(code);
   const metadata = getExpressionMetadata(tree);
 
   expect(metadata).toBeInstanceOf(IntegerExpressionMetadata);
