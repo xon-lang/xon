@@ -1,5 +1,5 @@
 import { Char, Integer, String2 } from '~/lib/core';
-import { idNode } from '~/node/id/id-node';
+import { scanIdToken } from '~/node/id/id-node';
 import { integerNode } from '~/node/integer/integer-node';
 import { scanJoiningToken } from '~/node/joining/joining-node';
 import { Node, NodeType } from '~/node/node';
@@ -12,7 +12,7 @@ import { Source } from '~/parser/source/source';
 
 type TokenScanFunction = (source: Source, startIndex: Integer, stopIndex: Integer) => Node | null;
 
-const tokenScanFunctions: TokenScanFunction[] = [scanStringToken, scanJoiningToken, scanWhitespaceToken];
+const tokenScanFunctions: TokenScanFunction[] = [scanStringToken, scanJoiningToken, scanWhitespaceToken, scanIdToken];
 
 export class Lexer {
   public startIndex: Integer;
@@ -45,13 +45,6 @@ export class Lexer {
       }
 
       token = this.operatorToken(i, char);
-      if (token) {
-        tokens.push(token);
-        i = token.stopIndex;
-        continue;
-      }
-
-      token = this.idToken(i, char);
       if (token) {
         tokens.push(token);
         i = token.stopIndex;
@@ -110,20 +103,6 @@ export class Lexer {
       return idCandidate;
     }
     return operatorCandidate;
-  }
-
-  private idToken(index: Integer, char: Char): Node | null {
-    if (LETTERS.includes(char)) {
-      let nextIndex = index;
-      for (let i = index + 1; i <= this.stopIndex; i++) {
-        if (!DIGITS_LETTERS.includes(this.source.text[i])) {
-          break;
-        }
-        nextIndex = i;
-      }
-      return idNode(index, nextIndex);
-    }
-    return null;
   }
 
   private integerToken(index: Integer, char: Char): Node | null {
