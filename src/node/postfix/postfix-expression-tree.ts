@@ -1,14 +1,6 @@
-import { Node, NodeType } from '~/node/node';
+import { Node } from '~/node/node';
 
-export class PostfixNode implements Node {
-  nodeType = NodeType.POSTFIX;
-  startIndex: number;
-  stopIndex: number;
-  text: string;
-
-  constructor(public operator: Node, public expression: Node) {
-    this.startIndex = expression.startIndex;
-    this.stopIndex = operator.stopIndex;
-    this.text = expression.text + operator.text;
-  }
+export interface PostfixNode extends Node {
+  operator: Node;
+  expression: Node;
 }

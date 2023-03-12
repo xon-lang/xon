@@ -1,14 +1,7 @@
-import { Node, NodeType } from '~/node/node';
+import { Node } from '~/node/node';
 
-export class InfixNode implements Node {
-  nodeType = NodeType.INFIX;
-  startIndex: number;
-  stopIndex: number;
-  text: string;
-
-  constructor(public operator: Node, public left: Node, public right: Node) {
-    this.startIndex = left.startIndex;
-    this.stopIndex = right.stopIndex;
-    this.text = left.text + operator.text + right.text;
-  }
+export interface InfixNode extends Node {
+  operator: Node;
+  left: Node;
+  right: Node;
 }

@@ -72,6 +72,7 @@ function collapseOperators(expressions: Node[], operatorsOrders: OperatorsOrder[
   }
 }
 
+// remove because it is like prefix
 function collapseModifierExpression(expressions: Node[], operators: String2[], recursiveType: RecursiveType): void {
   for (let i = 0; i < expressions.length; i++) {
     const index = recursiveType === RecursiveType.LEFT ? i : expressions.length - i - 1;
@@ -79,7 +80,14 @@ function collapseModifierExpression(expressions: Node[], operators: String2[], r
     if (isOperatorToken(modifier) && operators.includes(modifier.text)) {
       const next = expressions[index + 1];
       if (next) {
-        expressions[index] = new PrefixNode(modifier, next);
+        expressions[index] = {
+          nodeType: NodeType.PREFIX,
+          startIndex: modifier.startIndex,
+          stopIndex: next.stopIndex,
+          text: modifier.text + next.text,
+          operator: modifier,
+          expression: next,
+        } as PrefixNode;
         expressions.splice(index + 1, 1);
         collapseModifierExpression(expressions, operators, recursiveType);
 
@@ -160,7 +168,14 @@ function collapseExpressions(expressions: Node[], operatorType: OperatorType, op
 
   if (operatorType === OperatorType.PREFIX) {
     const right = expressions[operatorIndex + 1];
-    const prefix = new PrefixNode(operator, right);
+    const prefix: PrefixNode = {
+      nodeType: NodeType.PREFIX,
+      startIndex: operator.startIndex,
+      stopIndex: right.stopIndex,
+      text: operator.text + right.text,
+      operator,
+      expression: right,
+    };
     expressions[operatorIndex] = prefix;
     expressions.splice(operatorIndex + 1, 1);
 
@@ -169,7 +184,14 @@ function collapseExpressions(expressions: Node[], operatorType: OperatorType, op
 
   if (operatorType === OperatorType.POSTFIX) {
     const left = expressions[operatorIndex - 1];
-    const postfix = new PostfixNode(operator, left);
+    const postfix: PostfixNode = {
+      nodeType: NodeType.POSTFIX,
+      startIndex: left.startIndex,
+      stopIndex: operator.stopIndex,
+      text: left.text + operator.text,
+      operator,
+      expression: left,
+    };
     expressions[operatorIndex] = postfix;
     expressions.splice(operatorIndex - 1, 1);
 
@@ -179,7 +201,15 @@ function collapseExpressions(expressions: Node[], operatorType: OperatorType, op
   if (operatorType === OperatorType.INFIX) {
     const left = expressions[operatorIndex - 1] as Node;
     const right = expressions[operatorIndex + 1] as Node;
-    const infix = new InfixNode(operator, left, right);
+    const infix: InfixNode = {
+      nodeType: NodeType.INFIX,
+      startIndex: left.startIndex,
+      stopIndex: right.stopIndex,
+      text: left.text + operator.text + right.text,
+      operator,
+      left,
+      right,
+    };
     expressions[operatorIndex] = infix;
     expressions.splice(operatorIndex - 1, 1);
     expressions.splice(operatorIndex, 1);
@@ -223,4 +253,20 @@ export function isIntegerToken(node?: Node): node is Node {
 
 export function isStringToken(node?: Node): node is Node {
   return node?.nodeType === NodeType.STRING;
+}
+
+export function isPrefixNode(node?: Node): node is PrefixNode {
+  return node?.nodeType === NodeType.PREFIX;
+}
+
+export function isPostfixNode(node?: Node): node is PostfixNode {
+  return node?.nodeType === NodeType.POSTFIX;
+}
+
+export function isInfixNode(node?: Node): node is InfixNode {
+  return node?.nodeType === NodeType.INFIX;
+}
+
+export function isArrayNode(node?: Node): node is ArrayNode {
+  return node?.nodeType === NodeType.ARRAY;
 }
