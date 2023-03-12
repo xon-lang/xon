@@ -1,7 +1,9 @@
 import { String2, Unknown2 } from '~/lib/core';
-import { is, isArrayNode, isInfixNode, isPrefixNode } from '~/node/expression-tree-helper';
+import { ArrayNode } from '~/node/array/array-expression-tree';
+import { is } from '~/node/expression-tree-helper';
 import { InfixNode } from '~/node/infix/infix-expression-tree';
 import { Node, NodeType } from '~/node/node';
+import { PrefixNode } from '~/node/prefix/prefix-expression-tree';
 
 export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);
@@ -11,7 +13,7 @@ export function evaluate(tree: Node | null, argsMap = {}): Unknown2 {
   if (!tree) {
     return null;
   }
-  if (isArrayNode(tree)) {
+  if (is<ArrayNode>(tree, NodeType.ARRAY)) {
     return tree.parameters.map((x) => evaluate(x ?? null));
   }
   if (tree.nodeType === NodeType.INTEGER) {
@@ -28,7 +30,7 @@ export function evaluate(tree: Node | null, argsMap = {}): Unknown2 {
     // eslint-disable-next-line no-eval
     return eval(`${escapeToString(a)} ${operator} ${escapeToString(b)}`);
   }
-  if (isPrefixNode(tree)) {
+  if (is<PrefixNode>(tree, NodeType.PREFIX)) {
     const a = evaluate(tree.expression, argsMap);
 
     // eslint-disable-next-line no-eval
