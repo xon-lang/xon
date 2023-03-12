@@ -1,4 +1,4 @@
-import { Node, NodeType } from '~/parser/lexer/node';
+import { Node, NodeType } from '~/node/node';
 
 export class InfixNode implements Node {
   nodeType = NodeType.INFIX;

@@ -1,6 +1,6 @@
 import { BodyableNode } from '~/node/bodyable/bodyable-expression-tree';
+import { NodeType } from '~/node/node';
 import { SourceNode } from '~/node/source/source-tree';
-import { NodeType } from '~/parser/lexer/node';
 import { parseSource, parseSourceFile } from '~/util/parse';
 
 // test('import and if', () => {

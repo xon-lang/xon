@@ -12,11 +12,11 @@ import { BodyNode, getBodyNode } from '~/node/body/body-expression-tree';
 import { BodyableNode } from '~/node/bodyable/bodyable-expression-tree';
 import { InfixNode } from '~/node/infix/infix-expression-tree';
 import { InvokeNode } from '~/node/invoke/invoke-expression-tree';
+import { Node, NodeType } from '~/node/node';
 import { PostfixNode } from '~/node/postfix/postfix-expression-tree';
 import { PrefixNode } from '~/node/prefix/prefix-expression-tree';
 import { SourceNode } from '~/node/source/source-tree';
 import { Lexer } from '~/parser/lexer/lexer';
-import { Node, NodeType } from '~/parser/lexer/node';
 import { Source } from '~/parser/lexer/source/source';
 import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/parser/parser-config';
 

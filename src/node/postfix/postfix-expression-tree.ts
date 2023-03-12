@@ -1,4 +1,4 @@
-import { Node, NodeType } from '~/parser/lexer/node';
+import { Node, NodeType } from '~/node/node';
 
 export class PostfixNode implements Node {
   nodeType = NodeType.POSTFIX;

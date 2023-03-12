@@ -1,4 +1,4 @@
-import { NodeType } from '~/parser/lexer/node';
+import { NodeType } from '~/node/node';
 import { parseExpression } from '~/util/parse';
 
 test('single line string', () => {

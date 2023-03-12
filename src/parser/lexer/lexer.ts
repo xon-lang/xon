@@ -1,5 +1,5 @@
 import { Char, Integer, String2 } from '~/lib/core';
-import { Node, NodeType } from '~/parser/lexer/node';
+import { Node, NodeType } from '~/node/node';
 import { Source } from '~/parser/lexer/source/source';
 import { operatorsOrders } from '~/parser/parser-config';
 

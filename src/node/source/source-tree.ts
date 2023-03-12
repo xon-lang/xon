@@ -1,6 +1,6 @@
 import { SourceContext } from '~/grammar/xon-parser';
 import { getNode } from '~/node/expression-tree-helper';
-import { Node, NodeType } from '~/parser/lexer/node';
+import { Node, NodeType } from '~/node/node';
 
 export class SourceNode implements Node {
   nodeType = NodeType.SOURCE;

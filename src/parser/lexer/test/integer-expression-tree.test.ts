@@ -1,4 +1,4 @@
-import { NodeType } from '~/parser/lexer/node';
+import { NodeType } from '~/node/node';
 import { parseExpression } from '~/util/parse';
 
 test('zero int number', () => {

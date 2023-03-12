@@ -1,5 +1,5 @@
+import { NodeType } from '~/node/node';
 import { Lexer } from '~/parser/lexer/lexer';
-import { NodeType } from '~/parser/lexer/node';
 import { Source } from '~/parser/lexer/source/source';
 
 test('single id', () => {

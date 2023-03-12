@@ -1,5 +1,5 @@
 import { BodyNode } from '~/node/body/body-expression-tree';
-import { Node, NodeType } from '~/parser/lexer/node';
+import { Node, NodeType } from '~/node/node';
 
 export class BodyableNode implements Node {
   nodeType = NodeType.BODYABLE;
