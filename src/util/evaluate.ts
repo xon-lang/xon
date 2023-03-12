@@ -1,5 +1,6 @@
 import { String2, Unknown2 } from '~/lib/core';
-import { isArrayNode, isInfixNode, isPrefixNode } from '~/node/expression-tree-helper';
+import { is, isArrayNode, isInfixNode, isPrefixNode } from '~/node/expression-tree-helper';
+import { InfixNode } from '~/node/infix/infix-expression-tree';
 import { Node, NodeType } from '~/node/node';
 
 export function escapeToString<T>(value: T): String2 {
@@ -19,7 +20,7 @@ export function evaluate(tree: Node | null, argsMap = {}): Unknown2 {
   if (tree.nodeType === NodeType.STRING) {
     return tree.text.slice(1, -1);
   }
-  if (isInfixNode(tree)) {
+  if (is<InfixNode>(tree, NodeType.INFIX)) {
     const a = evaluate(tree.left, argsMap);
     const b = evaluate(tree.right, argsMap);
     const operator = (tree.operator.text === '^' && '**') || tree.operator.text;

@@ -217,6 +217,10 @@ function flatExpressions(ctx: ExpressionContext): Node[] {
   return [getNode(ctx)];
 }
 
+export function is<T extends Node>(node: Node, nodeType: NodeType): node is T {
+  return node?.nodeType === nodeType;
+}
+
 export function isOperatorToken(node?: Node): node is Node {
   return node?.nodeType === NodeType.OPERATOR;
 }
