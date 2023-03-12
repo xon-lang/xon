@@ -24,7 +24,7 @@ export class Lexer {
   public startIndex: Integer;
   public stopIndex: Integer;
 
-  public constructor(public source: Source, startIndex: Integer | null = null, stopIndex: Integer | null = null) {
+  public constructor(public source: Source, startIndex?: Integer, stopIndex?: Integer) {
     this.startIndex = startIndex ?? 0;
     this.stopIndex = stopIndex ?? source.text.length - 1;
   }
