@@ -1,7 +1,7 @@
 import { Char, Integer, String2 } from '~/lib/core';
 import { idNode } from '~/node/id/id-node';
 import { integerNode } from '~/node/integer/integer-node';
-import { joiningNode } from '~/node/joining/joining-node';
+import { scanJoiningToken } from '~/node/joining/joining-node';
 import { Node, NodeType } from '~/node/node';
 import { operatorNode } from '~/node/operator/operator-node';
 import { stringNode } from '~/node/string/string-node';
@@ -32,7 +32,7 @@ export class Lexer {
         continue;
       }
 
-      token = this.lineJoiningToken(i, char);
+      token = scanJoiningToken(this.source, i, this.stopIndex);
       if (token) {
         tokens.push(token);
         i = token.stopIndex;
@@ -81,20 +81,6 @@ export class Lexer {
     }
 
     return tokens;
-  }
-
-  private lineJoiningToken(index: Integer, char: Char): Node | null {
-    if (char !== JOINING) {
-      return null;
-    }
-    let nextIndex = index;
-    for (let i = index + 1; i <= this.stopIndex; i++) {
-      if (!AFTER_LINE_JOINING.includes(this.source.text[i])) {
-        break;
-      }
-      nextIndex = i;
-    }
-    return joiningNode(index, nextIndex);
   }
 
   private stringToken(index: Integer, char: Char): Node | null {
@@ -184,12 +170,8 @@ export class Lexer {
 }
 
 const QUOTE = "'";
-const JOINING = '\\';
-const CR = '\r';
-const LF = '\n';
 const SPACE = ' ';
 const TAB = '\t';
-const AFTER_LINE_JOINING = SPACE + TAB + LF + CR;
 const DIGITS = '0123456789';
 const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const DIGITS_LETTERS = DIGITS + LETTERS;
