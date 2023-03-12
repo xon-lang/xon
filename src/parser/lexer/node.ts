@@ -19,4 +19,13 @@ export enum NodeType {
 
   OPEN = 'OPEN',
   CLOSE = 'CLOSE',
+  ARRAY = 'ARRAY',
+  BODY = 'BODY',
+  BODYABLE = 'BODYABLE',
+  INFIX = 'INFIX',
+  INVOKE = 'INVOKE',
+  POSTFIX = 'POSTFIX',
+  PREFIX = 'PREFIX',
+  SOURCE = 'SOURCE',
+  MODULE = 'MODULE',
 }

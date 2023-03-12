@@ -1,15 +1,18 @@
 import { SourceContext } from '~/grammar/xon-parser';
-import { ExpressionTree } from '~/tree/expression/expression-tree';
-import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
-import { Tree } from '~/tree/tree';
+import { Node, NodeType } from '~/parser/lexer/node';
+import { getNode } from '~/tree/expression/expression-tree-helper';
 
-export class SourceTree implements Tree {
-  expressions: ExpressionTree[] = [];
+export class SourceNode implements Node {
+  nodeType = NodeType.SOURCE;
+  startIndex: number;
+  stopIndex: number;
+  text: string;
+  expressions: Node[] = [];
 
   constructor(ctx: SourceContext | null) {
-    if (!ctx) {
-      return;
-    }
-    this.expressions = ctx.expression().map(getExpressionTree);
+    this.expressions = ctx ? ctx.expression().map(getNode) : [];
+    this.startIndex = this.expressions[0].startIndex;
+    this.stopIndex = this.expressions[this.expressions.length - 1].stopIndex;
+    this.text = this.expressions.map((x) => x.text).join('');
   }
 }

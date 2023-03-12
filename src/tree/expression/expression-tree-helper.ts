@@ -7,23 +7,21 @@ import {
 } from '~/grammar/xon-parser';
 import { Integer, String2 } from '~/lib/core';
 import { Lexer } from '~/parser/lexer/lexer';
-import { NodeType } from '~/parser/lexer/node';
+import { Node, NodeType } from '~/parser/lexer/node';
 import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/parser/parser-config';
 import { Source } from '~/source/source';
-import { ArrayExpressionTree, getArrayExpressionTree } from '~/tree/expression/array/array-expression-tree';
-import { BodyExpressionTree, getBodyExpressionTree } from '~/tree/expression/body/body-expression-tree';
-import { BodyableExpressionTree } from '~/tree/expression/bodyable/bodyable-expression-tree';
-import { ExpressionTree } from '~/tree/expression/expression-tree';
-import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tree';
-import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
-import { PostfixExpressionTree } from '~/tree/expression/postfix/postfix-expression-tree';
-import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
-import { TokenExpressionTree } from '~/tree/expression/token/token-expression-tree';
+import { ArrayNode, getArrayNode } from '~/tree/expression/array/array-expression-tree';
+import { BodyNode, getBodyNode } from '~/tree/expression/body/body-expression-tree';
+import { BodyableNode } from '~/tree/expression/bodyable/bodyable-expression-tree';
+import { InfixNode } from '~/tree/expression/infix/infix-expression-tree';
+import { InvokeNode } from '~/tree/expression/invoke/invoke-expression-tree';
+import { PostfixNode } from '~/tree/expression/postfix/postfix-expression-tree';
+import { PrefixNode } from '~/tree/expression/prefix/prefix-expression-tree';
 
-export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
+export const getNode = (ctx: ExpressionContext): Node => {
   if (ctx instanceof TokenExpressionContext) return pairExpression(ctx);
-  if (ctx instanceof ArrayExpressionContext) return getArrayExpressionTree(ctx);
-  if (ctx instanceof BodyExpressionContext) return getBodyExpressionTree(ctx);
+  if (ctx instanceof ArrayExpressionContext) return getArrayNode(ctx);
+  if (ctx instanceof BodyExpressionContext) return getBodyNode(ctx);
   if (ctx instanceof PairExpressionContext) return pairExpression(ctx);
 
   throw new Error('Not implemented');
@@ -31,7 +29,7 @@ export const getExpressionTree = (ctx: ExpressionContext): ExpressionTree => {
   // Issue.errorFromContext(ctx, `Expression tree not found for '${ctx.constructor.name}'`);
 };
 
-function pairExpression(ctx: ExpressionContext): ExpressionTree {
+function pairExpression(ctx: ExpressionContext): Node {
   const expressions = flatExpressions(ctx);
   collapseOperators(expressions, operatorsOrders);
 
@@ -41,10 +39,10 @@ function pairExpression(ctx: ExpressionContext): ExpressionTree {
     // Issue.errorFromTree(operator, 'Extra parameter found');
   }
 
-  return expressions[0] as ExpressionTree;
+  return expressions[0] as Node;
 }
 
-function collapseOperators(expressions: ExpressionTree[], operatorsOrders: OperatorsOrder[]): void {
+function collapseOperators(expressions: Node[], operatorsOrders: OperatorsOrder[]): void {
   for (const operatorsOrder of operatorsOrders) {
     if (operatorsOrder.operatorType === OperatorType.MODIFIER) {
       collapseModifierExpression(expressions, operatorsOrder.operators[0].split(' '), operatorsOrder.recursiveType);
@@ -71,18 +69,14 @@ function collapseOperators(expressions: ExpressionTree[], operatorsOrders: Opera
   }
 }
 
-function collapseModifierExpression(
-  expressions: ExpressionTree[],
-  operators: String2[],
-  recursiveType: RecursiveType,
-): void {
+function collapseModifierExpression(expressions: Node[], operators: String2[], recursiveType: RecursiveType): void {
   for (let i = 0; i < expressions.length; i++) {
     const index = recursiveType === RecursiveType.LEFT ? i : expressions.length - i - 1;
-    const element = expressions[index];
-    if (isOperatorToken(element) && operators.includes(element.name.text)) {
+    const modifier = expressions[index];
+    if (isOperatorToken(modifier) && operators.includes(modifier.text)) {
       const next = expressions[index + 1];
       if (next) {
-        expressions[index] = new PrefixExpressionTree(element.name, next);
+        expressions[index] = new PrefixNode(modifier, next);
         expressions.splice(index + 1, 1);
         collapseModifierExpression(expressions, operators, recursiveType);
 
@@ -92,13 +86,13 @@ function collapseModifierExpression(
   }
 }
 
-function collapseInvokeExpression(expressions: ExpressionTree[]): void {
+function collapseInvokeExpression(expressions: Node[]): void {
   for (let i = 0; i < expressions.length; i++) {
     const element = expressions[i];
-    if (element instanceof ArrayExpressionTree && i > 0) {
+    if (element instanceof ArrayNode && i > 0) {
       const prev = expressions[i - 1];
       if (!isOperatorToken(prev)) {
-        expressions[i] = new InvokeExpressionTree(prev, element);
+        expressions[i] = new InvokeNode(prev, element);
         expressions.splice(i - 1, 1);
         collapseInvokeExpression(expressions);
 
@@ -108,12 +102,12 @@ function collapseInvokeExpression(expressions: ExpressionTree[]): void {
   }
 }
 
-function collapseBodyExpression(expressions: ExpressionTree[]): void {
+function collapseBodyExpression(expressions: Node[]): void {
   for (let i = 0; i < expressions.length; i++) {
     const element = expressions[i];
-    if (element instanceof BodyExpressionTree && i > 0) {
+    if (element instanceof BodyNode && i > 0) {
       if (i > 0) {
-        expressions[i] = new BodyableExpressionTree(expressions[i - 1], element);
+        expressions[i] = new BodyableNode(expressions[i - 1], element);
         expressions.splice(i - 1, 1);
         collapseBodyExpression(expressions);
 
@@ -124,7 +118,7 @@ function collapseBodyExpression(expressions: ExpressionTree[]): void {
 }
 
 function findOperatorIndex(
-  expressions: ExpressionTree[],
+  expressions: Node[],
   operators: String2[],
   operatorType: OperatorType,
   recursiveType: RecursiveType,
@@ -133,7 +127,7 @@ function findOperatorIndex(
     const index = recursiveType === RecursiveType.LEFT ? i : expressions.length - i - 1;
 
     const operator = expressions[index];
-    if (isOperatorToken(operator) && operators.includes(operator.name.text)) {
+    if (isOperatorToken(operator) && operators.includes(operator.text)) {
       const left = expressions[index - 1];
       const right = expressions[index + 1];
 
@@ -156,14 +150,14 @@ function findOperatorIndex(
   return -1;
 }
 
-function collapseExpressions(expressions: ExpressionTree[], operatorType: OperatorType, operatorIndex: Integer): void {
+function collapseExpressions(expressions: Node[], operatorType: OperatorType, operatorIndex: Integer): void {
   if (operatorIndex < 0) return;
-  const operator = expressions[operatorIndex] as TokenExpressionTree;
+  const operator = expressions[operatorIndex] as Node;
   if (!isOperatorToken(operator)) return;
 
   if (operatorType === OperatorType.PREFIX) {
     const right = expressions[operatorIndex + 1];
-    const prefix = new PrefixExpressionTree(operator.name, right);
+    const prefix = new PrefixNode(operator, right);
     expressions[operatorIndex] = prefix;
     expressions.splice(operatorIndex + 1, 1);
 
@@ -172,7 +166,7 @@ function collapseExpressions(expressions: ExpressionTree[], operatorType: Operat
 
   if (operatorType === OperatorType.POSTFIX) {
     const left = expressions[operatorIndex - 1];
-    const postfix = new PostfixExpressionTree(operator.name, left);
+    const postfix = new PostfixNode(operator, left);
     expressions[operatorIndex] = postfix;
     expressions.splice(operatorIndex - 1, 1);
 
@@ -180,16 +174,16 @@ function collapseExpressions(expressions: ExpressionTree[], operatorType: Operat
   }
 
   if (operatorType === OperatorType.INFIX) {
-    const left = expressions[operatorIndex - 1] as ExpressionTree;
-    const right = expressions[operatorIndex + 1] as ExpressionTree;
-    const infix = new InfixExpressionTree(operator.name, left, right);
+    const left = expressions[operatorIndex - 1] as Node;
+    const right = expressions[operatorIndex + 1] as Node;
+    const infix = new InfixNode(operator, left, right);
     expressions[operatorIndex] = infix;
     expressions.splice(operatorIndex - 1, 1);
     expressions.splice(operatorIndex, 1);
   }
 }
 
-function flatExpressions(ctx: ExpressionContext): ExpressionTree[] {
+function flatExpressions(ctx: ExpressionContext): Node[] {
   if (ctx instanceof PairExpressionContext) {
     return ctx.expression().flatMap((x) => flatExpressions(x));
   }
@@ -206,24 +200,24 @@ function flatExpressions(ctx: ExpressionContext): ExpressionTree[] {
     const tokens = lexer
       .getTokens()
       .filter((x) => x.nodeType !== NodeType.WHITESPACE && x.nodeType !== NodeType.LINE_JOINING);
-    return tokens.map(x=>new TokenExpressionTree(x));
+    return tokens;
   }
 
-  return [getExpressionTree(ctx)];
+  return [getNode(ctx)];
 }
 
-export function isOperatorToken(expression: ExpressionTree): expression is TokenExpressionTree {
-  return expression instanceof TokenExpressionTree && expression.name.nodeType === NodeType.OPERATOR;
+export function isOperatorToken(node?: Node): node is Node {
+  return node?.nodeType === NodeType.OPERATOR;
 }
 
-export function isIdToken(expression: ExpressionTree): expression is TokenExpressionTree {
-  return expression instanceof TokenExpressionTree && expression.name.nodeType === NodeType.ID;
+export function isIdToken(node?: Node): node is Node {
+  return node?.nodeType === NodeType.ID;
 }
 
-export function isIntegerToken(expression: ExpressionTree): expression is TokenExpressionTree {
-  return expression instanceof TokenExpressionTree && expression.name.nodeType === NodeType.INTEGER;
+export function isIntegerToken(node?: Node): node is Node {
+  return node?.nodeType === NodeType.INTEGER;
 }
 
-export function isStringToken(expression: ExpressionTree): expression is TokenExpressionTree {
-  return expression instanceof TokenExpressionTree && expression.name.nodeType === NodeType.STRING;
+export function isStringToken(node?: Node): node is Node {
+  return node?.nodeType === NodeType.STRING;
 }

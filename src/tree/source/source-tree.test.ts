@@ -1,7 +1,6 @@
-import { BodyableExpressionTree } from '~/tree/expression/bodyable/bodyable-expression-tree';
-import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
-import { TokenExpressionTree } from '~/tree/expression/token/token-expression-tree';
-import { SourceTree } from '~/tree/source/source-tree';
+import { NodeType } from '~/parser/lexer/node';
+import { BodyableNode } from '~/tree/expression/bodyable/bodyable-expression-tree';
+import { SourceNode } from '~/tree/source/source-tree';
 import { parseSource, parseSourceFile } from '~/util/parse';
 
 // test('import and if', () => {
@@ -28,7 +27,7 @@ toString: [] = String
 `.trim();
   const tree = parseSource(code);
 
-  expect(tree).toBeInstanceOf(SourceTree);
+  expect(tree).toBeInstanceOf(SourceNode);
 });
 
 // test('two if statements', () => {
@@ -76,7 +75,7 @@ toString: [] = String
 test('3.xon', () => {
   const tree = parseSourceFile('src/tree/source/test-files/3.xon');
 
-  expect(tree).toBeInstanceOf(SourceTree);
+  expect(tree).toBeInstanceOf(SourceNode);
 });
 
 // test('1-error.xon', () => {
@@ -112,16 +111,16 @@ xyz()
   `;
   const tree = parseSource(code);
 
-  expect(tree).toBeInstanceOf(SourceTree);
+  expect(tree.nodeType).toBe(NodeType.SOURCE);
   expect(tree.expressions.length).toBe(2);
 
-  const body1 = tree.expressions[0] as BodyableExpressionTree;
-  expect(body1).toBeInstanceOf(BodyableExpressionTree);
-  expect(body1.expression).toBeInstanceOf(TokenExpressionTree);
+  const body1 = tree.expressions[0] as BodyableNode;
+  expect(body1.nodeType).toBe(NodeType.BODYABLE);
+  expect(body1.expression.nodeType).toBe(NodeType.ID);
   expect(body1.body.source.expressions.length).toBe(1);
 
-  const body2 = tree.expressions[1] as BodyableExpressionTree;
-  expect(body2).toBeInstanceOf(BodyableExpressionTree);
-  expect(body2.expression).toBeInstanceOf(InvokeExpressionTree);
+  const body2 = tree.expressions[1] as BodyableNode;
+  expect(body2.nodeType).toBe(NodeType.BODYABLE);
+  expect(body2.expression.nodeType).toBe(NodeType.INVOKE);
   expect(body2.body.source.expressions.length).toBe(3);
 });

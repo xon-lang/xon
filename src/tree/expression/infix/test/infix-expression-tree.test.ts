@@ -1,89 +1,89 @@
-import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tree';
-import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
-import { TokenExpressionTree } from '~/tree/expression/token/token-expression-tree';
+import { NodeType } from '~/parser/lexer/node';
+import { InfixNode } from '~/tree/expression/infix/infix-expression-tree';
+import { PrefixNode } from '~/tree/expression/prefix/prefix-expression-tree';
 import { evaluate } from '~/util/evaluate';
 import { parseExpression } from '~/util/parse';
 
 test('several operands with different priorities', () => {
   const code = '1*1+1+2^5*2/2';
-  const tree = parseExpression(code) as InfixExpressionTree;
+  const tree = parseExpression(code) as InfixNode;
 
-  expect(tree).toBeInstanceOf(InfixExpressionTree);
+  expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.operator.text).toBe('+');
   expect(evaluate(tree)).toBe(34);
 });
 
 test('several operands with different priorities', () => {
   const code = 'infix +: (a: Number, b: Number) = Number';
-  const tree = parseExpression(code) as InfixExpressionTree;
+  const tree = parseExpression(code) as InfixNode;
 
-  expect(tree).toBeInstanceOf(InfixExpressionTree);
+  expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.operator.text).toBe(':');
 
-  const left = tree.left as PrefixExpressionTree;
+  const left = tree.left as PrefixNode;
   expect(left.operator.text).toBe('infix');
-  expect((left.expression as TokenExpressionTree).name.text).toBe('+');
+  expect(left.expression.text).toBe('+');
 
-  const right = tree.right as InfixExpressionTree;
+  const right = tree.right as InfixNode;
   expect(right.operator.text).toBe('=');
 });
 
 test('num plus str', () => {
   const code = "1  + 'str'";
-  const tree = parseExpression(code) as InfixExpressionTree;
+  const tree = parseExpression(code) as InfixNode;
 
-  expect(tree).toBeInstanceOf(InfixExpressionTree);
+  expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.operator.text).toBe('+');
   expect(evaluate(tree)).toBe('1str');
 });
 
 test('num is number', () => {
   const code = '1 & Number';
-  const tree = parseExpression(code) as InfixExpressionTree;
+  const tree = parseExpression(code) as InfixNode;
 
-  expect(tree).toBeInstanceOf(InfixExpressionTree);
+  expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.operator.text).toBe('&');
-  expect((tree.left as TokenExpressionTree).name.text).toBe('1');
+  expect(tree.left.text).toBe('1');
 });
 
 test('equals', () => {
-  const code = 'this.name.text == 123';
-  const tree = parseExpression(code) as InfixExpressionTree;
+  const code = 'this.text == 123';
+  const tree = parseExpression(code) as InfixNode;
 
-  expect(tree).toBeInstanceOf(InfixExpressionTree);
+  expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.operator.text).toBe('==');
-  expect((tree.right as TokenExpressionTree).name.text).toBe('123');
+  expect(tree.right.text).toBe('123');
 });
 
 test('has several relational operators', () => {
   const code = 'a<b>c';
-  const tree = parseExpression(code) as InfixExpressionTree;
+  const tree = parseExpression(code) as InfixNode;
 
-  expect(tree).toBeInstanceOf(InfixExpressionTree);
+  expect(tree.nodeType).toBe(NodeType.INFIX);
   expect(tree.operator.text).toBe('>');
-  expect(tree.left).toBeInstanceOf(InfixExpressionTree);
-  expect(tree.right).toBeInstanceOf(TokenExpressionTree);
+  expect(tree.left.nodeType).toBe(NodeType.INFIX);
+  expect(tree.right.nodeType).toBe(NodeType.ID);
 
-  const left = tree.left as InfixExpressionTree;
+  const left = tree.left as InfixNode;
   expect(left.operator.text).toBe('<');
-  expect((left.left as TokenExpressionTree).name.text).toBe('a');
-  expect((left.right as TokenExpressionTree).name.text).toBe('b');
+  expect(left.left.text).toBe('a');
+  expect(left.right.text).toBe('b');
 
-  const right = tree.right as TokenExpressionTree;
-  expect(right.name.text).toBe('c');
+  const right = tree.right;
+  expect(right.text).toBe('c');
 });
 
 test('several operators', () => {
   const code = '1 /+ 2';
-  const tree = parseExpression(code) as InfixExpressionTree;
+  const tree = parseExpression(code) as InfixNode;
 
-  expect(tree).toBeInstanceOf(InfixExpressionTree);
-  expect(tree.left).toBeInstanceOf(TokenExpressionTree);
+  expect(tree.nodeType).toBe(NodeType.INFIX);
+  expect(tree.left.nodeType).toBe(NodeType.INTEGER);
   expect(tree.operator.text).toBe('/');
 
-  expect(tree.right).toBeInstanceOf(PrefixExpressionTree);
-  expect((tree.right as PrefixExpressionTree).operator.text).toBe('+');
+  expect(tree.right.nodeType).toBe(NodeType.PREFIX);
+  expect((tree.right as PrefixNode).operator.text).toBe('+');
 
-  expect((tree.right as PrefixExpressionTree).expression).toBeInstanceOf(TokenExpressionTree);
-  expect(((tree.right as PrefixExpressionTree).expression as TokenExpressionTree).name.text).toBe('2');
+  expect((tree.right as PrefixNode).expression.nodeType).toBe(NodeType.INTEGER);
+  expect((tree.right as PrefixNode).expression.text).toBe('2');
 });

@@ -1,16 +1,16 @@
 import { String2 } from '~/lib/core';
+import { Node } from '~/parser/lexer/node';
 import { parserFromCode, parserFromFile } from '~/parser/parser';
-import { ExpressionTree } from '~/tree/expression/expression-tree';
-import { SourceTree } from '~/tree/source/source-tree';
+import { SourceNode } from '~/tree/source/source-tree';
 
-export function parseSourceFile(location: String2): SourceTree {
+export function parseSourceFile(location: String2): SourceNode {
   return parserFromFile(location).source();
 }
 
-export function parseSource(code: String2): SourceTree {
+export function parseSource(code: String2): SourceNode {
   return parserFromCode(code).source();
 }
 
-export function parseExpression(code: String2): ExpressionTree {
+export function parseExpression(code: String2): Node {
   return parserFromCode(code).expression();
 }

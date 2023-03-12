@@ -1,6 +1,14 @@
-import { Node } from '~/parser/lexer/node';
-import { ExpressionTree } from '~/tree/expression/expression-tree';
+import { Node, NodeType } from '~/parser/lexer/node';
 
-export class PrefixExpressionTree implements ExpressionTree {
-  constructor(public operator: Node, public expression: ExpressionTree) {}
+export class PrefixNode implements Node {
+  nodeType = NodeType.PREFIX;
+  startIndex: number;
+  stopIndex: number;
+  text: string;
+
+  constructor(public operator: Node, public expression: Node) {
+    this.startIndex = operator.startIndex;
+    this.stopIndex = expression.stopIndex;
+    this.text = operator.text + expression.text;
+  }
 }

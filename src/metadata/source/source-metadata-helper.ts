@@ -1,6 +1,6 @@
 import { SourceMetadata } from '~/metadata/source/source-metadata';
-import { SourceTree } from '~/tree/source/source-tree';
+import { SourceNode } from '~/tree/source/source-tree';
 
-export function getSourceMetadata(tree: SourceTree): SourceMetadata {
+export function getSourceMetadata(tree: SourceNode): SourceMetadata {
   return new SourceMetadata(tree);
 }

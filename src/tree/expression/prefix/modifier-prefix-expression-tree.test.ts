@@ -1,23 +1,23 @@
-import { InvokeExpressionTree } from '~/tree/expression/invoke/invoke-expression-tree';
-import { PrefixExpressionTree } from '~/tree/expression/prefix/prefix-expression-tree';
-import { TokenExpressionTree } from '~/tree/expression/token/token-expression-tree';
+import { NodeType } from '~/parser/lexer/node';
+import { InvokeNode } from '~/tree/expression/invoke/invoke-expression-tree';
+import { PrefixNode } from '~/tree/expression/prefix/prefix-expression-tree';
 import { parseExpression } from '~/util/parse';
 
 test('method declaration', () => {
   const code = 'infix +(a, b)';
-  const tree = parseExpression(code) as InvokeExpressionTree;
+  const tree = parseExpression(code) as InvokeNode;
 
-  expect(tree).toBeInstanceOf(InvokeExpressionTree);
+  expect(tree.nodeType).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(2);
-  expect(tree.array.parameters.at(0) as TokenExpressionTree).toBeInstanceOf(TokenExpressionTree);
-  expect((tree.array.parameters.at(0) as TokenExpressionTree).name.text).toBe('a');
-  expect(tree.array.parameters.at(1) as TokenExpressionTree).toBeInstanceOf(TokenExpressionTree);
-  expect((tree.array.parameters.at(1) as TokenExpressionTree).name.text).toBe('b');
-  expect(tree.instance).toBeInstanceOf(PrefixExpressionTree);
+  expect(tree.array.parameters.at(0)?.nodeType).toBe(NodeType.ID);
+  expect(tree.array.parameters.at(0)?.text).toBe('a');
+  expect(tree.array.parameters.at(1)?.nodeType).toBe(NodeType.ID);
+  expect(tree.array.parameters.at(1)?.text).toBe('b');
+  expect(tree.instance.nodeType).toBe(NodeType.PREFIX);
 
-  const prefix = tree.instance as PrefixExpressionTree;
-  expect(prefix).toBeInstanceOf(PrefixExpressionTree);
+  const prefix = tree.instance as PrefixNode;
+  expect(prefix.nodeType).toBe(NodeType.PREFIX);
   expect(prefix.operator.text).toBe('infix');
-  expect(prefix.expression).toBeInstanceOf(TokenExpressionTree);
-  expect((prefix.expression as TokenExpressionTree).name.text).toBe('+');
+  expect(prefix.expression.nodeType).toBe(NodeType.OPERATOR);
+  expect(prefix.expression.text).toBe('+');
 });

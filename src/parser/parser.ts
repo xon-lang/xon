@@ -3,11 +3,11 @@ import { readFileSync } from 'fs';
 import { XonLexer } from '~/grammar/xon-lexer';
 import { XonParser } from '~/grammar/xon-parser';
 import { String2 } from '~/lib/core';
+import { Node } from '~/parser/lexer/node';
 import { ParserConfig } from '~/parser/parser-config';
 import { ThrowingErrorListener } from '~/parser/throwing-error-listener';
-import { ExpressionTree } from '~/tree/expression/expression-tree';
-import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
-import { SourceTree } from '~/tree/source/source-tree';
+import { getNode } from '~/tree/expression/expression-tree-helper';
+import { SourceNode } from '~/tree/source/source-tree';
 import { getSourceTree } from '~/tree/source/source-tree-helper';
 import { operatorsOrders } from './parser-config';
 
@@ -58,14 +58,14 @@ export class Parser {
     return parser;
   }
 
-  public source(): SourceTree {
+  public source(): SourceNode {
     return getSourceTree(this.antlrParser.source());
   }
 
-  public expression(): ExpressionTree {
+  public expression(): Node {
     const ctx = this.antlrParser.expression();
 
-    return getExpressionTree(ctx);
+    return getNode(ctx);
   }
 }
 

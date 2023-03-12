@@ -6,10 +6,10 @@ import { ArrayTypeMetadata } from '~/metadata/type/array/array-type-metadata';
 import { ObjectTypeMetadata } from '~/metadata/type/object/object-type-metadata';
 import { TypeMetadata } from '~/metadata/type/type-metadata';
 import { UnionType } from '~/metadata/type/union/union-type';
-import { ArrayExpressionTree } from '~/tree/expression/array/array-expression-tree';
+import { ArrayNode } from '~/tree/expression/array/array-expression-tree';
 
 export class ArrayValueMetadata extends ValueMetadata {
-  constructor(private tree: ArrayExpressionTree) {
+  constructor(private tree: ArrayNode) {
     super();
     tree.arguments.forEach((x) => x.value && getExpressionMetadata(x.value));
   }

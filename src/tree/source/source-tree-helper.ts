@@ -1,6 +1,6 @@
 import { SourceContext } from '~/grammar/xon-parser';
-import { SourceTree } from '~/tree/source/source-tree';
+import { SourceNode } from '~/tree/source/source-tree';
 
-export function getSourceTree(ctx: SourceContext): SourceTree {
-  return new SourceTree(ctx);
+export function getSourceTree(ctx: SourceContext): SourceNode {
+  return new SourceNode(ctx);
 }

@@ -1,14 +1,22 @@
 import { ArrayExpressionContext } from '~/grammar/xon-parser';
 import { Node, NodeType } from '~/parser/lexer/node';
-import { ExpressionTree } from '~/tree/expression/expression-tree';
-import { getExpressionTree } from '~/tree/expression/expression-tree-helper';
+import { getNode } from '~/tree/expression/expression-tree-helper';
 
-export class ArrayExpressionTree implements ExpressionTree {
-  constructor(public openToken: Node, public parameters: ExpressionTree[], public closeToken: Node) {}
+export class ArrayNode implements Node {
+  nodeType = NodeType.ARRAY;
+  startIndex: number;
+  stopIndex: number;
+  text: string;
+
+  constructor(public openToken: Node, public parameters: Node[], public closeToken: Node) {
+    this.startIndex = openToken.startIndex;
+    this.stopIndex = closeToken.stopIndex;
+    this.text = openToken.text + parameters.map((x) => x).join('') + closeToken.text;
+  }
 }
 
-export function getArrayExpressionTree(ctx: ArrayExpressionContext) {
-  const parameters = ctx.expression().map(getExpressionTree);
+export function getArrayNode(ctx: ArrayExpressionContext) {
+  const parameters = ctx.expression().map(getNode);
   const open = ctx.OPEN().payload;
   const close = ctx.CLOSE().payload;
   const openToken: Node = {
@@ -23,5 +31,5 @@ export function getArrayExpressionTree(ctx: ArrayExpressionContext) {
     nodeType: NodeType.CLOSE,
     text: close.text || '',
   };
-  return new ArrayExpressionTree(openToken, parameters, closeToken);
+  return new ArrayNode(openToken, parameters, closeToken);
 }

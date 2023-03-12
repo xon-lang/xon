@@ -5,11 +5,11 @@ import { getExpressionMetadata } from '~/metadata/expression/expression-metadata
 import { ValueMetadata } from '~/metadata/expression/value/value-metadata';
 import { MethodTypeMetadata } from '~/metadata/type/method/method-type-metadata';
 import { TypeMetadata } from '~/metadata/type/type-metadata';
-import { InfixExpressionTree } from '~/tree/expression/infix/infix-expression-tree';
+import { InfixNode } from '~/tree/expression/infix/infix-expression-tree';
 import { escapeToString } from '~/util/evaluate';
 
 export class InfixValueMetadata extends ValueMetadata {
-  constructor(private tree: InfixExpressionTree) {
+  constructor(private tree: InfixNode) {
     super();
     getExpressionMetadata(tree.left);
     getExpressionMetadata(tree.right);
