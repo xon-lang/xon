@@ -1,5 +1,12 @@
 import { Char, Integer, String2 } from '~/lib/core';
+import { idNode } from '~/node/id/id-node';
+import { integerNode } from '~/node/integer/integer-node';
+import { joiningNode } from '~/node/joining/joining-node';
 import { Node, NodeType } from '~/node/node';
+import { operatorNode } from '~/node/operator/operator-node';
+import { stringNode } from '~/node/string/string-node';
+import { unexpectedNode } from '~/node/unexpected/unexpected-node';
+import { whitespaceNode } from '~/node/whitespace/whitespace-node';
 import { operatorsOrders } from '~/parser/parser-config';
 import { Source } from '~/parser/source/source';
 
@@ -64,11 +71,11 @@ export class Lexer {
 
       if (last?.type === NodeType.UNEXPECTED) {
         const lastStartIndex = last.startIndex;
-        const unexpected = this.createToken(lastStartIndex, i, NodeType.UNEXPECTED);
+        const unexpected = unexpectedNode(lastStartIndex, i);
         tokens.splice(-1);
         tokens.push(unexpected);
       } else {
-        const unexpected = this.createToken(i, i, NodeType.UNEXPECTED);
+        const unexpected = unexpectedNode(i, i);
         tokens.push(unexpected);
       }
     }
@@ -87,16 +94,16 @@ export class Lexer {
       }
       nextIndex = i;
     }
-    return this.createToken(index, nextIndex, NodeType.JOINING);
+    return joiningNode(index, nextIndex);
   }
 
   private stringToken(index: Integer, char: Char): Node | null {
     if (char === QUOTE) {
       const nextQuoteIndex = this.source.text.indexOf(QUOTE, index + 1);
       if (nextQuoteIndex < 0 || nextQuoteIndex > this.stopIndex) {
-        return this.createToken(index, this.stopIndex, NodeType.UNEXPECTED);
+        return unexpectedNode(index, this.stopIndex);
       }
-      return this.createToken(index, nextQuoteIndex, NodeType.STRING);
+      return stringNode(index, nextQuoteIndex);
     }
     return null;
   }
@@ -111,7 +118,7 @@ export class Lexer {
         }
         nextIndex = i;
       }
-      return this.createToken(index, nextIndex, NodeType.WHITESPACE);
+      return whitespaceNode(index, nextIndex);
     }
     return null;
   }
@@ -140,7 +147,7 @@ export class Lexer {
     }
     const operatorString = candidates[candidates.length - 1];
     const idCandidate = this.idToken(index, char);
-    const operatorCandidate = this.createToken(index, index + operatorString.length - 1, NodeType.OPERATOR);
+    const operatorCandidate = operatorNode(index, index + operatorString.length - 1);
     if (idCandidate && idCandidate.stopIndex > operatorCandidate.stopIndex) {
       return idCandidate;
     }
@@ -156,7 +163,7 @@ export class Lexer {
         }
         nextIndex = i;
       }
-      return this.createToken(index, nextIndex, NodeType.ID);
+      return idNode(index, nextIndex);
     }
     return null;
   }
@@ -170,17 +177,9 @@ export class Lexer {
         }
         nextIndex = i;
       }
-      return this.createToken(index, nextIndex, NodeType.INTEGER);
+      return integerNode(index, nextIndex);
     }
     return null;
-  }
-
-  private createToken(startIndex: Integer, stopIndex: Integer, nodeType: NodeType): Node {
-    return {
-      startIndex,
-      stopIndex,
-      type: nodeType,
-    };
   }
 }
 
