@@ -4,7 +4,7 @@ import { integerNode } from '~/node/integer/integer-node';
 import { scanJoiningToken } from '~/node/joining/joining-node';
 import { Node, NodeType } from '~/node/node';
 import { operatorNode } from '~/node/operator/operator-node';
-import { stringNode } from '~/node/string/string-node';
+import { scanStringToken } from '~/node/string/string-node';
 import { unexpectedNode } from '~/node/unexpected/unexpected-node';
 import { scanWhitespaceToken } from '~/node/whitespace/whitespace-node';
 import { operatorsOrders } from '~/parser/parser-config';
@@ -12,7 +12,7 @@ import { Source } from '~/parser/source/source';
 
 type TokenScanFunction = (source: Source, startIndex: Integer, stopIndex: Integer) => Node | null;
 
-const tokenScanFunctions: TokenScanFunction[] = [scanJoiningToken, scanWhitespaceToken];
+const tokenScanFunctions: TokenScanFunction[] = [scanStringToken, scanJoiningToken, scanWhitespaceToken];
 
 export class Lexer {
   public startIndex: Integer;
@@ -29,12 +29,7 @@ export class Lexer {
     for (let i = this.startIndex; i <= this.stopIndex; i++) {
       const char = this.source.text[i];
 
-      let token = this.stringToken(i, char);
-      if (token) {
-        tokens.push(token);
-        i = token.stopIndex;
-        continue;
-      }
+      let token: Node | null = null;
 
       for (const tokenScan of tokenScanFunctions) {
         token = tokenScan(this.source, i, this.stopIndex);
@@ -84,17 +79,6 @@ export class Lexer {
     }
 
     return tokens;
-  }
-
-  private stringToken(index: Integer, char: Char): Node | null {
-    if (char === QUOTE) {
-      const nextQuoteIndex = this.source.text.indexOf(QUOTE, index + 1);
-      if (nextQuoteIndex < 0 || nextQuoteIndex > this.stopIndex) {
-        return unexpectedNode(index, this.stopIndex);
-      }
-      return stringNode(index, nextQuoteIndex);
-    }
-    return null;
   }
 
   private operatorToken(index: Integer, char: Char): Node | null {
@@ -156,8 +140,6 @@ export class Lexer {
     return null;
   }
 }
-
-const QUOTE = "'";
 
 const DIGITS = '0123456789';
 const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
