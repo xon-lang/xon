@@ -5,7 +5,7 @@ export interface UnexpectedNode extends Node {}
 
 export function unexpectedNode(startIndex: Integer, stopIndex: Integer, text: String2): UnexpectedNode {
   return {
-    nodeType: NodeType.UNEXPECTED,
+    type: NodeType.UNEXPECTED,
     startIndex,
     stopIndex,
     text,

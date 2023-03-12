@@ -5,7 +5,7 @@ export interface IntegerNode extends Node {}
 
 export function integerNode(startIndex: Integer, stopIndex: Integer, text: String2): IntegerNode {
   return {
-    nodeType: NodeType.INTEGER,
+    type: NodeType.INTEGER,
     startIndex,
     stopIndex,
     text,

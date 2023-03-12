@@ -5,7 +5,7 @@ export interface OperatorNode extends Node {}
 
 export function operatorNode(startIndex: Integer, stopIndex: Integer, text: String2): OperatorNode {
   return {
-    nodeType: NodeType.OPERATOR,
+    type: NodeType.OPERATOR,
     startIndex,
     stopIndex,
     text,

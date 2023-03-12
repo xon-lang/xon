@@ -5,7 +5,7 @@ export interface StringNode extends Node {}
 
 export function stringNode(startIndex: Integer, stopIndex: Integer, text: String2): StringNode {
   return {
-    nodeType: NodeType.STRING,
+    type: NodeType.STRING,
     startIndex,
     stopIndex,
     text,

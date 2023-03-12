@@ -8,8 +8,8 @@ test('single expression', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as LadderNode;
 
-  expect(tree.nodeType).toBe(NodeType.LADDER);
-  expect(tree.header.nodeType).toBe(NodeType.ID);
+  expect(tree.type).toBe(NodeType.LADDER);
+  expect(tree.header.type).toBe(NodeType.ID);
   expect(tree.header.text).toBe('abc');
   expect(tree.body.source.nodes.length).toBe(1);
 });

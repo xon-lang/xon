@@ -9,7 +9,7 @@ test('negative integer', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as PrefixNode;
 
-  expect(tree.nodeType).toBe(NodeType.PREFIX);
+  expect(tree.type).toBe(NodeType.PREFIX);
   expect(evaluate(tree.expression)).toBe(1);
 });
 
@@ -18,7 +18,7 @@ test('not boolean', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as PrefixNode;
 
-  expect(tree.nodeType).toBe(NodeType.PREFIX);
+  expect(tree.type).toBe(NodeType.PREFIX);
 });
 
 test('double not', () => {
@@ -26,7 +26,7 @@ test('double not', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as PrefixNode;
 
-  expect(tree.nodeType).toBe(NodeType.PREFIX);
+  expect(tree.type).toBe(NodeType.PREFIX);
 });
 
 // test('less operator', () => {

@@ -11,7 +11,7 @@ export function bodyNode(ctx: BodyExpressionContext): BodyNode {
   const source = getNode(ctx.source()) as SourceNode;
 
   return {
-    nodeType: NodeType.BODY,
+    type: NodeType.BODY,
     startIndex: source.startIndex,
     stopIndex: source.stopIndex,
     text: source.text,

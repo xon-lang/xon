@@ -81,7 +81,7 @@ function collapseModifierExpression(expressions: Node[], operators: String2[], r
       const next = expressions[index + 1];
       if (next) {
         expressions[index] = {
-          nodeType: NodeType.PREFIX,
+          type: NodeType.PREFIX,
           startIndex: modifier.startIndex,
           stopIndex: next.stopIndex,
           text: modifier.text + next.text,
@@ -208,9 +208,7 @@ function flatExpressions(ctx: ExpressionContext): Node[] {
     const location = (sourceName !== '<unknown>' && sourceName) || null;
     const source = Source.fromText(String(antlrTokens[0].payload.inputStream), location);
     const lexer = new Lexer(source, startIndex, stopIndex);
-    const tokens = lexer
-      .getTokens()
-      .filter((x) => x.nodeType !== NodeType.WHITESPACE && x.nodeType !== NodeType.JOINING);
+    const tokens = lexer.getTokens().filter((x) => x.type !== NodeType.WHITESPACE && x.type !== NodeType.JOINING);
     return tokens;
   }
 
@@ -218,5 +216,5 @@ function flatExpressions(ctx: ExpressionContext): Node[] {
 }
 
 export function is<T extends Node = Node>(node: Node, nodeType: NodeType | String2): node is T {
-  return node?.nodeType === nodeType;
+  return node?.type === nodeType;
 }

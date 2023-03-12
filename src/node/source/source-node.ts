@@ -6,7 +6,7 @@ export interface SourceNode extends Node {
 
 export function sourceNode(nodes: Node[]): SourceNode {
   return {
-    nodeType: NodeType.SOURCE,
+    type: NodeType.SOURCE,
     startIndex: nodes[0].startIndex,
     stopIndex: nodes[nodes.length - 1].stopIndex,
     text: nodes.map((x) => x.text).join(''),

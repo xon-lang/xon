@@ -5,7 +5,7 @@ export interface IdNode extends Node {}
 
 export function idNode(startIndex: Integer, stopIndex: Integer, text: String2): IdNode {
   return {
-    nodeType: NodeType.ID,
+    type: NodeType.ID,
     startIndex,
     stopIndex,
     text,

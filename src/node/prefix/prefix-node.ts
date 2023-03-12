@@ -7,7 +7,7 @@ export interface PrefixNode extends Node {
 
 export function prefixNode(operator: Node, expression: Node): PrefixNode {
   return {
-    nodeType: NodeType.PREFIX,
+    type: NodeType.PREFIX,
     startIndex: operator.startIndex,
     stopIndex: expression.stopIndex,
     text: operator.text + expression.text,

@@ -3,8 +3,7 @@ import { Integer, String2 } from '~/lib/core';
 export interface Node {
   startIndex: Integer;
   stopIndex: Integer;
-  // rename to type
-  nodeType: NodeType | String2;
+  type: NodeType | String2;
   // remove Later
   text: String2;
 }

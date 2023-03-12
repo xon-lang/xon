@@ -28,7 +28,7 @@ toString: [] = String
   const source = Source.fromText(code);
   const node = parseSource(source);
 
-  expect(node.nodeType).toBe(NodeType.SOURCE);
+  expect(node.type).toBe(NodeType.SOURCE);
 });
 
 // test('two if statements', () => {
@@ -77,7 +77,7 @@ test('3.xon', () => {
   const source = Source.fromPath('src/node/source/test-files/3.xon');
   const tree = parseSource(source);
 
-  expect(tree.nodeType).toBe(NodeType.SOURCE);
+  expect(tree.type).toBe(NodeType.SOURCE);
 });
 
 // test('1-error.xon', () => {
@@ -114,16 +114,16 @@ xyz()
   const source = Source.fromText(code);
   const tree = parseSource(source);
 
-  expect(tree.nodeType).toBe(NodeType.SOURCE);
+  expect(tree.type).toBe(NodeType.SOURCE);
   expect(tree.nodes.length).toBe(2);
 
   const body1 = tree.nodes[0] as LadderNode;
-  expect(body1.nodeType).toBe(NodeType.LADDER);
-  expect(body1.header.nodeType).toBe(NodeType.ID);
+  expect(body1.type).toBe(NodeType.LADDER);
+  expect(body1.header.type).toBe(NodeType.ID);
   expect(body1.body.source.nodes.length).toBe(1);
 
   const body2 = tree.nodes[1] as LadderNode;
-  expect(body2.nodeType).toBe(NodeType.LADDER);
-  expect(body2.header.nodeType).toBe(NodeType.INVOKE);
+  expect(body2.type).toBe(NodeType.LADDER);
+  expect(body2.header.type).toBe(NodeType.INVOKE);
   expect(body2.body.source.nodes.length).toBe(3);
 });

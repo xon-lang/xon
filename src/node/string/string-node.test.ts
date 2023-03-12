@@ -7,7 +7,7 @@ test('single line string', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source);
 
-  expect(tree.nodeType).toBe(NodeType.STRING);
+  expect(tree.type).toBe(NodeType.STRING);
   expect(tree.text).toBe(code);
 });
 
@@ -16,7 +16,7 @@ test('multiline string', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source);
 
-  expect(tree.nodeType).toBe(NodeType.STRING);
+  expect(tree.type).toBe(NodeType.STRING);
   expect(tree.text).toBe(code);
 });
 
@@ -25,6 +25,6 @@ test('empty string', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source);
 
-  expect(tree.nodeType).toBe(NodeType.STRING);
+  expect(tree.type).toBe(NodeType.STRING);
   expect(tree.text).toBe(code);
 });

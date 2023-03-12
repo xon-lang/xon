@@ -15,17 +15,17 @@ export function arrayNode(ctx: ArrayExpressionContext): ArrayNode {
   const openToken: Node = {
     startIndex: open.startIndex,
     stopIndex: open.stopIndex,
-    nodeType: NodeType.OPEN,
+    type: NodeType.OPEN,
     text: open.text || '',
   };
   const closeToken: Node = {
     startIndex: close.startIndex,
     stopIndex: close.stopIndex,
-    nodeType: NodeType.CLOSE,
+    type: NodeType.CLOSE,
     text: close.text || '',
   };
   return {
-    nodeType: NodeType.ARRAY,
+    type: NodeType.ARRAY,
     startIndex: openToken.startIndex,
     stopIndex: closeToken.stopIndex,
     text: openToken.text + parameters.map((x) => x.text).join('') + closeToken.text,

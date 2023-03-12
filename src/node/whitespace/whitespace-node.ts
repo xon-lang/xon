@@ -5,7 +5,7 @@ export interface WhitespaceNode extends Node {}
 
 export function whitespaceNode(startIndex: Integer, stopIndex: Integer, text: String2): WhitespaceNode {
   return {
-    nodeType: NodeType.WHITESPACE,
+    type: NodeType.WHITESPACE,
     startIndex,
     stopIndex,
     text,

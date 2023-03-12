@@ -7,6 +7,6 @@ test('id', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source);
 
-  expect(tree.nodeType).toBe(NodeType.UNEXPECTED);
+  expect(tree.type).toBe(NodeType.UNEXPECTED);
   expect(tree.text).toBe('ºª¶');
 });

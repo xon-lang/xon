@@ -10,13 +10,13 @@ test('method call', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as InvokeNode;
 
-  expect(tree.nodeType).toBe(NodeType.INVOKE);
+  expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(2);
-  expect(tree.array.parameters.at(0)?.nodeType).toBe(NodeType.INTEGER);
+  expect(tree.array.parameters.at(0)?.type).toBe(NodeType.INTEGER);
   expect(tree.array.parameters.at(0)?.text).toBe('3');
-  expect(tree.array.parameters.at(1)?.nodeType).toBe(NodeType.STRING);
+  expect(tree.array.parameters.at(1)?.type).toBe(NodeType.STRING);
   expect(tree.array.parameters.at(1)?.text).toBe(`'str'`);
-  expect(tree.instance.nodeType).toBe(NodeType.ID);
+  expect(tree.instance.type).toBe(NodeType.ID);
 });
 
 test('method on several lines', () => {
@@ -26,13 +26,13 @@ test('method on several lines', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as InvokeNode;
 
-  expect(tree.nodeType).toBe(NodeType.INVOKE);
+  expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(4);
   const indexer1 = tree.array.parameters.at(0);
   const indexer2 = tree.array.parameters.at(1);
-  expect(indexer1?.nodeType).toBe(NodeType.INTEGER);
-  expect(indexer2?.nodeType).toBe(NodeType.STRING);
-  expect(tree.instance.nodeType).toBe(NodeType.ID);
+  expect(indexer1?.type).toBe(NodeType.INTEGER);
+  expect(indexer2?.type).toBe(NodeType.STRING);
+  expect(tree.instance.type).toBe(NodeType.ID);
 });
 
 test('can call with type parameter', () => {
@@ -40,10 +40,10 @@ test('can call with type parameter', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as InvokeNode;
 
-  expect(tree.nodeType).toBe(NodeType.INVOKE);
+  expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(1);
   expect(tree.array.parameters[0].text).toBe('1');
-  expect(tree.instance.nodeType).toBe(NodeType.INFIX);
+  expect(tree.instance.type).toBe(NodeType.INFIX);
   const { operator, left, right } = tree.instance as InfixNode;
   expect(operator.text).toBe('.');
   expect(left.text).toBe('a');
@@ -55,9 +55,9 @@ test('object method', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as InvokeNode;
 
-  expect(tree.nodeType).toBe(NodeType.INVOKE);
+  expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(0);
-  expect(tree.instance.nodeType).toBe(NodeType.INFIX);
+  expect(tree.instance.type).toBe(NodeType.INFIX);
   const { operator, left, right } = tree.instance as InfixNode;
   expect(operator.text).toBe('.');
   const leftParameters = (left as ArrayNode).parameters;
@@ -72,8 +72,8 @@ test('generics', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as InvokeNode;
 
-  expect(tree.nodeType).toBe(NodeType.INVOKE);
+  expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(1);
-  expect(tree.instance.nodeType).toBe(NodeType.ID);
+  expect(tree.instance.type).toBe(NodeType.ID);
   expect(tree.instance.text).toBe('Animal');
 });

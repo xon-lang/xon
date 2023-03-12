@@ -8,7 +8,7 @@ test('single expression', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as BodyNode;
 
-  expect(tree.nodeType).toBe(NodeType.BODY);
+  expect(tree.type).toBe(NodeType.BODY);
   expect(tree.source.nodes.length).toBe(1);
 });
 
@@ -17,6 +17,6 @@ test('multiple expression', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as BodyNode;
 
-  expect(tree.nodeType).toBe(NodeType.BODY);
+  expect(tree.type).toBe(NodeType.BODY);
   expect(tree.source.nodes.length).toBe(3);
 });

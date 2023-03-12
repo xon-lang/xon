@@ -8,7 +8,7 @@ export interface LadderNode extends Node {
 
 export function ladderNode(header: Node, body: BodyNode): LadderNode {
   return {
-    nodeType: NodeType.LADDER,
+    type: NodeType.LADDER,
     startIndex: header.startIndex,
     stopIndex: body.stopIndex,
     text: header.text + body.text,

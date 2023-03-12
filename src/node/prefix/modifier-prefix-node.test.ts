@@ -9,17 +9,17 @@ test('method declaration', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as InvokeNode;
 
-  expect(tree.nodeType).toBe(NodeType.INVOKE);
+  expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(2);
-  expect(tree.array.parameters.at(0)?.nodeType).toBe(NodeType.ID);
+  expect(tree.array.parameters.at(0)?.type).toBe(NodeType.ID);
   expect(tree.array.parameters.at(0)?.text).toBe('a');
-  expect(tree.array.parameters.at(1)?.nodeType).toBe(NodeType.ID);
+  expect(tree.array.parameters.at(1)?.type).toBe(NodeType.ID);
   expect(tree.array.parameters.at(1)?.text).toBe('b');
-  expect(tree.instance.nodeType).toBe(NodeType.PREFIX);
+  expect(tree.instance.type).toBe(NodeType.PREFIX);
 
   const prefix = tree.instance as PrefixNode;
-  expect(prefix.nodeType).toBe(NodeType.PREFIX);
+  expect(prefix.type).toBe(NodeType.PREFIX);
   expect(prefix.operator.text).toBe('infix');
-  expect(prefix.expression.nodeType).toBe(NodeType.OPERATOR);
+  expect(prefix.expression.type).toBe(NodeType.OPERATOR);
   expect(prefix.expression.text).toBe('+');
 });

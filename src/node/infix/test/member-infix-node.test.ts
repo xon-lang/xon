@@ -8,8 +8,8 @@ test('meta property', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as InfixNode;
 
-  expect(tree.nodeType).toBe(NodeType.INFIX);
-  expect(tree.left.nodeType).toBe(NodeType.ID);
+  expect(tree.type).toBe(NodeType.INFIX);
+  expect(tree.left.type).toBe(NodeType.ID);
   expect(tree.left.text).toBe('abc');
   expect(tree.operator.text).toBe('::');
   expect(tree.right.text).toBe('def');
@@ -20,8 +20,8 @@ test('not safe', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as InfixNode;
 
-  expect(tree.nodeType).toBe(NodeType.INFIX);
-  expect(tree.left.nodeType).toBe(NodeType.ID);
+  expect(tree.type).toBe(NodeType.INFIX);
+  expect(tree.left.type).toBe(NodeType.ID);
   expect(tree.left.text).toBe('abc');
   expect(tree.operator.text).toBe('.');
   expect(tree.right.text).toBe('def');
@@ -32,8 +32,8 @@ test('left dot nl property', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as InfixNode;
 
-  expect(tree.nodeType).toBe(NodeType.INFIX);
-  expect(tree.left.nodeType).toBe(NodeType.ID);
+  expect(tree.type).toBe(NodeType.INFIX);
+  expect(tree.left.type).toBe(NodeType.ID);
   expect(tree.left.text).toBe('abc');
   expect(tree.operator.text).toBe('.');
   expect(tree.right.text).toBe('def');
@@ -44,8 +44,8 @@ test('left nl dot property', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as InfixNode;
 
-  expect(tree.nodeType).toBe(NodeType.INFIX);
-  expect(tree.left.nodeType).toBe(NodeType.ID);
+  expect(tree.type).toBe(NodeType.INFIX);
+  expect(tree.left.type).toBe(NodeType.ID);
   expect(tree.left.text).toBe('abc');
   expect(tree.operator.text).toBe('.');
   expect(tree.right.text).toBe('def');
@@ -56,8 +56,8 @@ test('left nl dot nl property', () => {
   const source = Source.fromText(code);
   const tree = parseExpression(source) as InfixNode;
 
-  expect(tree.nodeType).toBe(NodeType.INFIX);
-  expect(tree.left.nodeType).toBe(NodeType.ID);
+  expect(tree.type).toBe(NodeType.INFIX);
+  expect(tree.left.type).toBe(NodeType.ID);
   expect(tree.left.text).toBe('abc');
   expect(tree.operator.text).toBe('.');
   expect(tree.right.text).toBe('def');
@@ -74,8 +74,8 @@ this.statements \
   const source = Source.fromText(code);
   const tree = parseExpression(source) as InfixNode;
 
-  expect(tree.nodeType).toBe(NodeType.INFIX);
-  expect(tree.left.nodeType).toBe(NodeType.INFIX);
+  expect(tree.type).toBe(NodeType.INFIX);
+  expect(tree.left.type).toBe(NodeType.INFIX);
   expect(tree.operator.text).toBe('.');
   expect(tree.right.text).toBe('jkl');
 });

@@ -7,7 +7,7 @@ export interface PostfixNode extends Node {
 
 export function postfixNode(operator: Node, expression: Node): PostfixNode {
   return {
-    nodeType: NodeType.POSTFIX,
+    type: NodeType.POSTFIX,
     startIndex: expression.stopIndex,
     stopIndex: operator.startIndex,
     text: expression.text + operator.text,

@@ -8,7 +8,7 @@ export interface InvokeNode extends Node {
 
 export function invokeNode(instance: Node, array: ArrayNode): InvokeNode {
   return {
-    nodeType: NodeType.INVOKE,
+    type: NodeType.INVOKE,
     startIndex: instance.startIndex,
     stopIndex: array.stopIndex,
     text: instance.text,
