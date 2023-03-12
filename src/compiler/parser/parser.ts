@@ -1,6 +1,5 @@
 import { CharStreams, CommonTokenStream, TokenStream } from 'antlr4ts';
 import { OperatorsOrder } from '~/compiler/parser/parser-config';
-import { ThrowingErrorListener } from '~/compiler/parser/throwing-error-listener';
 import { Source } from '~/compiler/source/source';
 import { XonLexer } from '~/grammar/xon-lexer';
 import { XonParser } from '~/grammar/xon-parser';
@@ -16,20 +15,13 @@ export class Parser {
 
   constructor(public source: Source, public operatorsOrders: OperatorsOrder[]) {
     this.antlrLexer = this.lexer();
-    this.antlrTokenStream = this.tokenStream(this.antlrLexer);
+    this.antlrTokenStream = new CommonTokenStream(this.antlrLexer);
     this.antlrParser = this.parser(this.antlrTokenStream);
   }
 
   private lexer(): XonLexer {
     const inputStream = CharStreams.fromString(this.source.text, this.source.location ?? '');
-    const lexer = new XonLexer(inputStream);
-    lexer.removeErrorListeners();
-    lexer.addErrorListener(new ThrowingErrorListener());
-    return lexer;
-  }
-
-  private tokenStream(lexer: XonLexer): CommonTokenStream {
-    return new CommonTokenStream(lexer);
+    return new XonLexer(inputStream);
   }
 
   private parser(tokenStream: TokenStream): XonParser {
@@ -44,11 +36,7 @@ export class Parser {
     // console.log(tokens.map((x) => `'${x.value}'`).join(', '));
     // console.log(tokens.map((x) => `${x.type} = '${x.value}'`).join(', '));
 
-    const parser = new XonParser(tokenStream);
-    parser.removeErrorListeners();
-    parser.addErrorListener(new ThrowingErrorListener());
-
-    return parser;
+    return new XonParser(tokenStream);
   }
 
   public sourceNode(): SourceNode {
