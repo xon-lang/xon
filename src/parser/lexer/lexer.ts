@@ -33,34 +33,34 @@ export class Lexer {
     const tokens: Node[] = [];
 
     for (let i = this.startIndex; i <= this.stopIndex; i++) {
-      let token: Node | null = null;
-
-      for (const tokenScan of tokenScanFunctions) {
-        token = tokenScan(this.source, i, this.stopIndex);
-        if (token) {
-          tokens.push(token);
-          i = token.stopIndex;
-          break;
-        }
-      }
+      const token = this.nextToken(i);
 
       if (token) {
+        tokens.push(token);
+        i = token.stopIndex;
         continue;
       }
 
       const last = tokens[tokens.length - 1];
-
       if (last?.type === NodeType.UNEXPECTED) {
-        const lastStartIndex = last.startIndex;
-        const unexpected = unexpectedNode(lastStartIndex, i);
-        tokens.splice(-1);
-        tokens.push(unexpected);
-      } else {
-        const unexpected = unexpectedNode(i, i);
-        tokens.push(unexpected);
+        last.stopIndex = i;
+        continue;
       }
+
+      const unexpected = unexpectedNode(i, i);
+      tokens.push(unexpected);
     }
 
     return tokens;
+  }
+
+  nextToken(index: Integer): Node | null {
+    for (const tokenScan of tokenScanFunctions) {
+      const token = tokenScan(this.source, index, this.stopIndex);
+      if (token) {
+        return token;
+      }
+    }
+    return null;
   }
 }
