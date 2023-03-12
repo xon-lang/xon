@@ -6,9 +6,13 @@ import { Node, NodeType } from '~/node/node';
 import { operatorNode } from '~/node/operator/operator-node';
 import { stringNode } from '~/node/string/string-node';
 import { unexpectedNode } from '~/node/unexpected/unexpected-node';
-import { whitespaceNode } from '~/node/whitespace/whitespace-node';
+import { scanWhitespaceToken } from '~/node/whitespace/whitespace-node';
 import { operatorsOrders } from '~/parser/parser-config';
 import { Source } from '~/parser/source/source';
+
+type TokenScanFunction = (source: Source, startIndex: Integer, stopIndex: Integer) => Node | null;
+
+const tokenScanFunctions: TokenScanFunction[] = [scanJoiningToken, scanWhitespaceToken];
 
 export class Lexer {
   public startIndex: Integer;
@@ -32,17 +36,16 @@ export class Lexer {
         continue;
       }
 
-      token = scanJoiningToken(this.source, i, this.stopIndex);
-      if (token) {
-        tokens.push(token);
-        i = token.stopIndex;
-        continue;
+      for (const tokenScan of tokenScanFunctions) {
+        token = tokenScan(this.source, i, this.stopIndex);
+        if (token) {
+          tokens.push(token);
+          i = token.stopIndex;
+          break;
+        }
       }
 
-      token = this.whitespaceToken(i, char);
       if (token) {
-        tokens.push(token);
-        i = token.stopIndex;
         continue;
       }
 
@@ -90,21 +93,6 @@ export class Lexer {
         return unexpectedNode(index, this.stopIndex);
       }
       return stringNode(index, nextQuoteIndex);
-    }
-    return null;
-  }
-
-  private whitespaceToken(index: Integer, char: Char): Node | null {
-    if (char === SPACE || char === TAB) {
-      let nextIndex = index;
-      for (let i = index + 1; i <= this.stopIndex; i++) {
-        const nextChar = this.source.text[i];
-        if (nextChar !== SPACE && nextChar !== TAB) {
-          break;
-        }
-        nextIndex = i;
-      }
-      return whitespaceNode(index, nextIndex);
     }
     return null;
   }
@@ -170,8 +158,7 @@ export class Lexer {
 }
 
 const QUOTE = "'";
-const SPACE = ' ';
-const TAB = '\t';
+
 const DIGITS = '0123456789';
 const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const DIGITS_LETTERS = DIGITS + LETTERS;
