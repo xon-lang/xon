@@ -130,7 +130,7 @@ test('line joining', () => {
   expect(tokens[0].text).toBe('abc');
   expect(tokens[0].nodeType).toBe(NodeType.ID);
 
-  expect(tokens[1].nodeType).toBe(NodeType.LINE_JOINING);
+  expect(tokens[1].nodeType).toBe(NodeType.JOINING);
 
   expect(tokens[2].text).toBe('.');
   expect(tokens[2].nodeType).toBe(NodeType.OPERATOR);

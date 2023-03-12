@@ -77,7 +77,7 @@ export class Lexer {
   }
 
   private lineJoiningToken(index: Integer, char: Char): Node | null {
-    if (char !== LINE_JOINING) {
+    if (char !== JOINING) {
       return null;
     }
     let nextIndex = index;
@@ -87,7 +87,7 @@ export class Lexer {
       }
       nextIndex = i;
     }
-    return this.createToken(index, nextIndex, NodeType.LINE_JOINING);
+    return this.createToken(index, nextIndex, NodeType.JOINING);
   }
 
   private stringToken(index: Integer, char: Char): Node | null {
@@ -187,7 +187,7 @@ export class Lexer {
 }
 
 const QUOTE = "'";
-const LINE_JOINING = '\\';
+const JOINING = '\\';
 const CR = '\r';
 const LF = '\n';
 const SPACE = ' ';

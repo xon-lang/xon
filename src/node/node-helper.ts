@@ -210,13 +210,13 @@ function flatExpressions(ctx: ExpressionContext): Node[] {
     const lexer = new Lexer(source, startIndex, stopIndex);
     const tokens = lexer
       .getTokens()
-      .filter((x) => x.nodeType !== NodeType.WHITESPACE && x.nodeType !== NodeType.LINE_JOINING);
+      .filter((x) => x.nodeType !== NodeType.WHITESPACE && x.nodeType !== NodeType.JOINING);
     return tokens;
   }
 
   return [getNode(ctx)];
 }
 
-export function is<T extends Node = Node>(node: Node, nodeType: NodeType): node is T {
+export function is<T extends Node = Node>(node: Node, nodeType: NodeType | String2): node is T {
   return node?.nodeType === nodeType;
 }
