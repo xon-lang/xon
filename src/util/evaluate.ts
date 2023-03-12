@@ -16,10 +16,10 @@ export function evaluate(tree: Node | null, argsMap = {}): Unknown2 {
   if (is<ArrayNode>(tree, NodeType.ARRAY)) {
     return tree.parameters.map((x) => evaluate(x ?? null));
   }
-  if (tree.nodeType === NodeType.INTEGER) {
+  if (tree.type === NodeType.INTEGER) {
     return +tree.text;
   }
-  if (tree.nodeType === NodeType.STRING) {
+  if (tree.type === NodeType.STRING) {
     return tree.text.slice(1, -1);
   }
   if (is<InfixNode>(tree, NodeType.INFIX)) {
@@ -36,7 +36,7 @@ export function evaluate(tree: Node | null, argsMap = {}): Unknown2 {
     // eslint-disable-next-line no-eval
     return eval(`${tree.operator.text}${escapeToString(a)}`);
   }
-  if (tree.nodeType === NodeType.ID) {
+  if (tree.type === NodeType.ID) {
     if (argsMap[tree.text]) {
       return argsMap[tree.text];
     }

@@ -1,17 +1,22 @@
 import { lstatSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 import { Integer, String2 } from '~/lib/core';
+import { Node } from '~/node/node';
 
 export class Source {
   // make text as array of char or Buffer
-  constructor(public text: String2, public location: String2 | null) {}
+  public constructor(public text: String2, public location: String2 | null) {}
 
-  lineText(line: Integer): String2 {
+  public lineText(line: Integer): String2 {
     return this.text.split('\n')[line];
   }
 
-  static fromText = fromText;
-  static fromPath = fromPath;
+  public nodeText(node: Node): String2 {
+    return this.text.slice(node.startIndex, node.stopIndex + 1);
+  }
+
+  public static fromText = fromText;
+  public static fromPath = fromPath;
 }
 
 function fromText(text: String2, location: String2 | null = null): Source {

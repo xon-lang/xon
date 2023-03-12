@@ -10,7 +10,7 @@ test('single id', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].text).toBe('abc');
-  expect(tokens[0].nodeType).toBe(NodeType.ID);
+  expect(tokens[0].type).toBe(NodeType.ID);
 });
 
 test('several id', () => {
@@ -21,15 +21,15 @@ test('several id', () => {
 
   expect(tokens.length).toBe(5);
   expect(tokens[0].text).toBe('abc');
-  expect(tokens[0].nodeType).toBe(NodeType.ID);
+  expect(tokens[0].type).toBe(NodeType.ID);
   expect(tokens[1].text).toBe(' ');
-  expect(tokens[1].nodeType).toBe(NodeType.WHITESPACE);
+  expect(tokens[1].type).toBe(NodeType.WHITESPACE);
   expect(tokens[2].text).toBe('edf_');
-  expect(tokens[2].nodeType).toBe(NodeType.ID);
+  expect(tokens[2].type).toBe(NodeType.ID);
   expect(tokens[3].text).toBe('    ');
-  expect(tokens[3].nodeType).toBe(NodeType.WHITESPACE);
+  expect(tokens[3].type).toBe(NodeType.WHITESPACE);
   expect(tokens[4].text).toBe('_ghi1_23');
-  expect(tokens[4].nodeType).toBe(NodeType.ID);
+  expect(tokens[4].type).toBe(NodeType.ID);
 });
 
 test('string', () => {
@@ -40,7 +40,7 @@ test('string', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].text).toBe("'abc   def'");
-  expect(tokens[0].nodeType).toBe(NodeType.STRING);
+  expect(tokens[0].type).toBe(NodeType.STRING);
 });
 
 test('integer', () => {
@@ -51,7 +51,7 @@ test('integer', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].text).toBe('123');
-  expect(tokens[0].nodeType).toBe(NodeType.INTEGER);
+  expect(tokens[0].type).toBe(NodeType.INTEGER);
 });
 
 test('unexpected 1', () => {
@@ -71,7 +71,7 @@ test('unexpected 2', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].text).toBe("'abc");
-  expect(tokens[0].nodeType).toBe(NodeType.UNEXPECTED);
+  expect(tokens[0].type).toBe(NodeType.UNEXPECTED);
 });
 
 test('single operator', () => {
@@ -82,7 +82,7 @@ test('single operator', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].text).toBe('!');
-  expect(tokens[0].nodeType).toBe(NodeType.OPERATOR);
+  expect(tokens[0].type).toBe(NodeType.OPERATOR);
 });
 
 test('set start and stop indices', () => {
@@ -93,12 +93,12 @@ test('set start and stop indices', () => {
 
   expect(tokens.length).toBe(2);
   expect(tokens[0].text).toBe('  ');
-  expect(tokens[0].nodeType).toBe(NodeType.WHITESPACE);
+  expect(tokens[0].type).toBe(NodeType.WHITESPACE);
   expect(tokens[0].startIndex).toBe(3);
   expect(tokens[0].stopIndex).toBe(4);
 
   expect(tokens[1].text).toBe("'abc'");
-  expect(tokens[1].nodeType).toBe(NodeType.STRING);
+  expect(tokens[1].type).toBe(NodeType.STRING);
   expect(tokens[1].startIndex).toBe(5);
   expect(tokens[1].stopIndex).toBe(9);
 });
@@ -111,13 +111,13 @@ test('infix operator', () => {
 
   expect(tokens.length).toBe(3);
   expect(tokens[0].text).toBe('abc');
-  expect(tokens[0].nodeType).toBe(NodeType.ID);
+  expect(tokens[0].type).toBe(NodeType.ID);
 
   expect(tokens[1].text).toBe('.');
-  expect(tokens[1].nodeType).toBe(NodeType.OPERATOR);
+  expect(tokens[1].type).toBe(NodeType.OPERATOR);
 
   expect(tokens[2].text).toBe('def');
-  expect(tokens[2].nodeType).toBe(NodeType.ID);
+  expect(tokens[2].type).toBe(NodeType.ID);
 });
 
 test('line joining', () => {
@@ -128,13 +128,13 @@ test('line joining', () => {
 
   expect(tokens.length).toBe(4);
   expect(tokens[0].text).toBe('abc');
-  expect(tokens[0].nodeType).toBe(NodeType.ID);
+  expect(tokens[0].type).toBe(NodeType.ID);
 
-  expect(tokens[1].nodeType).toBe(NodeType.JOINING);
+  expect(tokens[1].type).toBe(NodeType.JOINING);
 
   expect(tokens[2].text).toBe('.');
-  expect(tokens[2].nodeType).toBe(NodeType.OPERATOR);
+  expect(tokens[2].type).toBe(NodeType.OPERATOR);
 
   expect(tokens[3].text).toBe('def');
-  expect(tokens[3].nodeType).toBe(NodeType.ID);
+  expect(tokens[3].type).toBe(NodeType.ID);
 });

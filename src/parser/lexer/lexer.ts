@@ -62,7 +62,7 @@ export class Lexer {
 
       const last = tokens[tokens.length - 1];
 
-      if (last?.nodeType === NodeType.UNEXPECTED) {
+      if (last?.type === NodeType.UNEXPECTED) {
         const lastStartIndex = last.startIndex;
         const unexpected = this.createToken(lastStartIndex, i, NodeType.UNEXPECTED);
         tokens.splice(-1);
@@ -180,7 +180,7 @@ export class Lexer {
     return {
       startIndex,
       stopIndex,
-      nodeType,
+      type: nodeType,
       text,
     };
   }
