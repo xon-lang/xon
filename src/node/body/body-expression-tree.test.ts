@@ -1,4 +1,4 @@
-import { BodyNode } from '~/tree/body/body-expression-tree';
+import { BodyNode } from '~/node/body/body-expression-tree';
 import { parseExpression } from '~/util/parse';
 
 test('single expression', () => {

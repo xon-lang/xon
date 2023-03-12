@@ -3,11 +3,11 @@ import { readFileSync } from 'fs';
 import { XonLexer } from '~/grammar/xon-lexer';
 import { XonParser } from '~/grammar/xon-parser';
 import { String2 } from '~/lib/core';
+import { getNode } from '~/node/expression-tree-helper';
+import { SourceNode } from '~/node/source/source-tree';
 import { Node } from '~/parser/lexer/node';
 import { ParserConfig } from '~/parser/parser-config';
 import { ThrowingErrorListener } from '~/parser/throwing-error-listener';
-import { getNode } from '~/tree/expression-tree-helper';
-import { SourceNode } from '~/tree/source/source-tree';
 import { operatorsOrders } from './parser-config';
 
 export class Parser {

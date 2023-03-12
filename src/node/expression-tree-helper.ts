@@ -7,18 +7,18 @@ import {
   TokenExpressionContext,
 } from '~/grammar/xon-parser';
 import { Integer, String2 } from '~/lib/core';
+import { ArrayNode, getArrayNode } from '~/node/array/array-expression-tree';
+import { BodyNode, getBodyNode } from '~/node/body/body-expression-tree';
+import { BodyableNode } from '~/node/bodyable/bodyable-expression-tree';
+import { InfixNode } from '~/node/infix/infix-expression-tree';
+import { InvokeNode } from '~/node/invoke/invoke-expression-tree';
+import { PostfixNode } from '~/node/postfix/postfix-expression-tree';
+import { PrefixNode } from '~/node/prefix/prefix-expression-tree';
+import { SourceNode } from '~/node/source/source-tree';
 import { Lexer } from '~/parser/lexer/lexer';
 import { Node, NodeType } from '~/parser/lexer/node';
 import { Source } from '~/parser/lexer/source/source';
 import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/parser/parser-config';
-import { ArrayNode, getArrayNode } from '~/tree/array/array-expression-tree';
-import { BodyNode, getBodyNode } from '~/tree/body/body-expression-tree';
-import { BodyableNode } from '~/tree/bodyable/bodyable-expression-tree';
-import { InfixNode } from '~/tree/infix/infix-expression-tree';
-import { InvokeNode } from '~/tree/invoke/invoke-expression-tree';
-import { PostfixNode } from '~/tree/postfix/postfix-expression-tree';
-import { PrefixNode } from '~/tree/prefix/prefix-expression-tree';
-import { SourceNode } from '~/tree/source/source-tree';
 
 export const getNode = (ctx: ExpressionContext): Node => {
   if (ctx instanceof TokenExpressionContext) return pairExpression(ctx);

@@ -1,6 +1,6 @@
+import { InvokeNode } from '~/node/invoke/invoke-expression-tree';
+import { PrefixNode } from '~/node/prefix/prefix-expression-tree';
 import { NodeType } from '~/parser/lexer/node';
-import { InvokeNode } from '~/tree/invoke/invoke-expression-tree';
-import { PrefixNode } from '~/tree/prefix/prefix-expression-tree';
 import { parseExpression } from '~/util/parse';
 
 test('method declaration', () => {

@@ -1,5 +1,5 @@
+import { BodyableNode } from '~/node/bodyable/bodyable-expression-tree';
 import { NodeType } from '~/parser/lexer/node';
-import { BodyableNode } from '~/tree/bodyable/bodyable-expression-tree';
 import { parseExpression } from '~/util/parse';
 
 test('single expression', () => {

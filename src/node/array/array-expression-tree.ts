@@ -1,6 +1,6 @@
 import { ArrayExpressionContext } from '~/grammar/xon-parser';
+import { getNode } from '~/node/expression-tree-helper';
 import { Node, NodeType } from '~/parser/lexer/node';
-import { getNode } from '~/tree/expression-tree-helper';
 
 export class ArrayNode implements Node {
   nodeType = NodeType.ARRAY;

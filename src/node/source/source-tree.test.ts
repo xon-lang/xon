@@ -1,6 +1,6 @@
+import { BodyableNode } from '~/node/bodyable/bodyable-expression-tree';
+import { SourceNode } from '~/node/source/source-tree';
 import { NodeType } from '~/parser/lexer/node';
-import { BodyableNode } from '~/tree/bodyable/bodyable-expression-tree';
-import { SourceNode } from '~/tree/source/source-tree';
 import { parseSource, parseSourceFile } from '~/util/parse';
 
 // test('import and if', () => {
@@ -73,7 +73,7 @@ toString: [] = String
 // });
 
 test('3.xon', () => {
-  const tree = parseSourceFile('src/tree/source/test-files/3.xon');
+  const tree = parseSourceFile('src/node/source/test-files/3.xon');
 
   expect(tree).toBeInstanceOf(SourceNode);
 });

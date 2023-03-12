@@ -1,5 +1,5 @@
+import { PrefixNode } from '~/node/prefix/prefix-expression-tree';
 import { NodeType } from '~/parser/lexer/node';
-import { PrefixNode } from '~/tree/prefix/prefix-expression-tree';
 import { evaluate } from '~/util/evaluate';
 import { parseExpression } from '~/util/parse';
 
