@@ -2,11 +2,11 @@ import { DefinitionMetadata } from '~/metadata/declaration/definition/definition
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { IdTypeMetadata } from '~/metadata/type/id/id-type-metadata';
 import { fillTypeMetadata } from '~/metadata/type/type-metadata-helper';
-import { parseExpression } from '~/parser/parser';
+import { parseNode } from '~/parser/parser';
 
 test('none model', () => {
   const code = 'null';
-  const tree = parseExpression(code);
+  const tree = parseNode(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree) as IdTypeMetadata;
 
@@ -19,7 +19,7 @@ test('none model', () => {
 
 test('none object', () => {
   const code = 'null';
-  const tree = parseExpression(code);
+  const tree = parseNode(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree) as IdTypeMetadata;
 
@@ -31,7 +31,7 @@ test('none object', () => {
 
 test('any', () => {
   const code = 'Any';
-  const tree = parseExpression(code);
+  const tree = parseNode(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree) as IdTypeMetadata;
 
@@ -43,17 +43,17 @@ test('any', () => {
 
 test('none is None', () => {
   const code = 'null';
-  const tree = parseExpression(code);
+  const tree = parseNode(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree);
 
   const codeNone = 'null';
-  const treeNone = parseExpression(codeNone);
+  const treeNone = parseNode(codeNone);
   treeNone.scope.parent = new TestDeclarationScope();
   const metadataNone = fillTypeMetadata(treeNone);
 
   const codeFloat = 'Float';
-  const treeFloat = parseExpression(codeFloat);
+  const treeFloat = parseNode(codeFloat);
   treeFloat.scope.parent = new TestDeclarationScope();
   const metadataFloat = fillTypeMetadata(treeFloat);
 

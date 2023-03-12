@@ -97,6 +97,6 @@ export function parseSource(code: String2): SourceNode {
   return parserFromCode(code).source();
 }
 
-export function parseExpression(code: String2): Node {
+export function parseNode(code: String2): Node {
   return parserFromCode(code).expression();
 }

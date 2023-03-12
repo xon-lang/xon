@@ -1,11 +1,11 @@
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { IntersectionTypeMetadata } from '~/metadata/type/intersection/intersection-type-metadata';
 import { fillTypeMetadata } from '~/metadata/type/type-metadata-helper';
-import { parseExpression } from '~/parser/parser';
+import { parseNode } from '~/parser/parser';
 
 test('intersect', () => {
   const code = 'Integer & Float';
-  const tree = parseExpression(code);
+  const tree = parseNode(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree) as IntersectionTypeMetadata;
 

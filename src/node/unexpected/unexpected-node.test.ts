@@ -1,9 +1,9 @@
 import { NodeType } from '~/node/node';
-import { parseExpression } from '~/parser/parser';
+import { parseNode } from '~/parser/parser';
 
 test('id', () => {
   const code = 'ºª¶';
-  const tree = parseExpression(code);
+  const tree = parseNode(code);
 
   expect(tree.nodeType).toBe(NodeType.UNEXPECTED);
   expect(tree.text).toBe('ºª¶');

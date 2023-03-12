@@ -1,11 +1,11 @@
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { fillTypeMetadata } from '~/metadata/type/type-metadata-helper';
 import { UnionType } from '~/metadata/type/union/union-type';
-import { parseExpression } from '~/parser/parser';
+import { parseNode } from '~/parser/parser';
 
 test('union', () => {
   const code = 'Integer | Float';
-  const tree = parseExpression(code);
+  const tree = parseNode(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree) as UnionType;
 
