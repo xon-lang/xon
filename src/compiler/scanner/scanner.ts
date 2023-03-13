@@ -1,9 +1,12 @@
 import { Source } from '~/compiler/source/source';
 import { Integer } from '~/lib/core';
+import { scanCloseNode } from '~/node/close/close-node';
+import { scanCommaNode } from '~/node/comma/comma-node';
 import { scanIdNode } from '~/node/id/id-node';
 import { scanIntegerNode } from '~/node/integer/integer-node';
 import { scanJoiningNode } from '~/node/joining/joining-node';
 import { Node, NodeType } from '~/node/node';
+import { scanOpenNode } from '~/node/open/open-node';
 import { scanOperatorNode } from '~/node/operator/operator-node';
 import { scanStringNode } from '~/node/string/string-node';
 import { unexpectedNode } from '~/node/unexpected/unexpected-node';
@@ -12,6 +15,9 @@ import { scanWhitespaceNode } from '~/node/whitespace/whitespace-node';
 type NodeScanFunction = (source: Source, startIndex: Integer, stopIndex: Integer) => Node | null;
 
 const nodeScanFunctions: NodeScanFunction[] = [
+  scanOpenNode,
+  scanCloseNode,
+  scanCommaNode,
   scanStringNode,
   scanJoiningNode,
   scanWhitespaceNode,

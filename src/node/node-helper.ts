@@ -2,7 +2,6 @@ import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/
 import { Scanner } from '~/compiler/scanner/scanner';
 import { Source } from '~/compiler/source/source';
 import {
-  ArrayExpressionContext,
   BodyExpressionContext,
   ExpressionContext,
   PairExpressionContext,
@@ -10,19 +9,20 @@ import {
   TokenExpressionContext,
 } from '~/grammar/xon-parser';
 import { Integer, String2 } from '~/lib/core';
-import { ArrayNode, arrayNode } from '~/node/array/array-node';
+import { arrayNode, ArrayNode } from '~/node/array/array-node';
 import { BodyNode, bodyNode } from '~/node/body/body-node';
+import { CloseNode } from '~/node/close/close-node';
 import { infixNode } from '~/node/infix/infix-node';
 import { invokeNode } from '~/node/invoke/invoke-node';
 import { ladderNode } from '~/node/ladder/ladder-node';
 import { Node, NodeType } from '~/node/node';
+import { OpenNode } from '~/node/open/open-node';
 import { postfixNode } from '~/node/postfix/postfix-node';
 import { prefixNode, PrefixNode } from '~/node/prefix/prefix-node';
 import { sourceNode } from '~/node/source/source-node';
 
 export const getNode = (source: Source, ctx: ExpressionContext): Node => {
   if (ctx instanceof TokenExpressionContext) return pairExpression(source, ctx);
-  if (ctx instanceof ArrayExpressionContext) return arrayNode(source, ctx);
   if (ctx instanceof SourceContext) return sourceNode(ctx.expression().map((x) => getNode(source, x)));
   if (ctx instanceof BodyExpressionContext) return bodyNode(source, ctx);
   if (ctx instanceof PairExpressionContext) return pairExpression(source, ctx);
@@ -33,23 +33,84 @@ export const getNode = (source: Source, ctx: ExpressionContext): Node => {
 };
 
 function pairExpression(source: Source, ctx: ExpressionContext): Node {
-  const expressions = flatExpressions(source, ctx);
-  collapseOperators(source.text, expressions, operatorsOrders);
+  const nodes = flatExpressions(source, ctx);
+  collapseArrays(source, nodes, operatorsOrders);
+  collapseOperators(source, nodes, operatorsOrders);
 
-  const operator = expressions.find((expression) => is(expression, NodeType.OPERATOR));
+  const operator = nodes.find((expression) => is(expression, NodeType.OPERATOR));
   if (operator) {
     throw new Error('Not implemented');
     // Issue.errorFromTree(operator, 'Extra parameter found');
   }
 
-  return expressions[0] as Node;
+  return nodes[0] as Node;
 }
 
-function collapseOperators(text: String2, expressions: Node[], operatorsOrders: OperatorsOrder[]): void {
+function collapseArrays(source: Source, nodes: Node[], operatorsOrders: OperatorsOrder[]): void {
+  const openNodes: Node[] = [];
+  const closeNodes: Node[] = [];
+  for (let i = 0; i < nodes.length; i++) {
+    const node = nodes[i];
+    if (is<OpenNode>(node, NodeType.OPEN)) {
+      openNodes.unshift(node);
+    } else if (is<CloseNode>(node, NodeType.CLOSE)) {
+      closeNodes.push(node);
+      if (closeNodes.length > openNodes.length) {
+        throw new Error('Not implemented');
+      }
+    }
+  }
+
+  if (openNodes.length !== closeNodes.length) {
+    throw new Error('Not implemented');
+  }
+
+  for (const openNode of openNodes) {
+    const closeNode = nodes.find((node) => is(node, NodeType.CLOSE) && node.startIndex > openNode.startIndex);
+    if (!closeNode) {
+      throw new Error('Not implemented');
+    }
+
+    const parameters: Node[] = [];
+    const parameterNodes = nodes.filter(
+      (node) => node.startIndex > openNode.stopIndex && node.stopIndex < closeNode.startIndex,
+    );
+
+    let parametersChunk: Node[] = [];
+
+    for (const node of parameterNodes) {
+      if (is(node, NodeType.COMMA) && parametersChunk.length > 0) {
+        collapseOperators(source, parametersChunk, operatorsOrders);
+        if (parametersChunk.length !== 1) {
+          throw new Error('Not implemented');
+        }
+        parameters.push(parametersChunk[0]);
+        parametersChunk = [];
+      } else {
+        parametersChunk.push(node);
+      }
+    }
+
+    if (parametersChunk.length > 0) {
+      collapseOperators(source, parametersChunk, operatorsOrders);
+      if (parametersChunk.length !== 1) {
+        throw new Error('Not implemented');
+      }
+      parameters.push(parametersChunk[0]);
+    }
+
+    const result = arrayNode(openNode, closeNode, parameters);
+    const openNodeIndex = nodes.indexOf(openNode);
+    nodes[openNodeIndex] = result;
+    nodes.splice(openNodeIndex + 1, parameterNodes.length + 1);
+  }
+}
+
+function collapseOperators(source: Source, expressions: Node[], operatorsOrders: OperatorsOrder[]): void {
   for (const operatorsOrder of operatorsOrders) {
     if (operatorsOrder.operatorType === OperatorType.MODIFIER) {
       collapseModifierExpression(
-        text,
+        source,
         expressions,
         operatorsOrder.operators[0].split(' '),
         operatorsOrder.recursiveType,
@@ -64,7 +125,7 @@ function collapseOperators(text: String2, expressions: Node[], operatorsOrders: 
     for (const operators of operatorsOrder.operators) {
       const operatorsStrings = operators.split(' ');
       const operatorIndex = findOperatorIndex(
-        text,
+        source,
         expressions,
         operatorsStrings,
         operatorsOrder.operatorType,
@@ -72,7 +133,7 @@ function collapseOperators(text: String2, expressions: Node[], operatorsOrders: 
       );
       if (operatorIndex >= 0) {
         collapseExpressions(expressions, operatorsOrder.operatorType, operatorIndex);
-        collapseOperators(text, expressions, operatorsOrders);
+        collapseOperators(source, expressions, operatorsOrders);
       }
     }
   }
@@ -80,7 +141,7 @@ function collapseOperators(text: String2, expressions: Node[], operatorsOrders: 
 
 // remove because it is like prefix
 function collapseModifierExpression(
-  text: String2,
+  source: Source,
   expressions: Node[],
   operators: String2[],
   recursiveType: RecursiveType,
@@ -88,7 +149,7 @@ function collapseModifierExpression(
   for (let i = 0; i < expressions.length; i++) {
     const index = recursiveType === RecursiveType.LEFT ? i : expressions.length - i - 1;
     const modifier = expressions[index];
-    const modifierText = text.slice(modifier.startIndex, modifier.stopIndex + 1);
+    const modifierText = source.text.slice(modifier.startIndex, modifier.stopIndex + 1);
     if (is(modifier, NodeType.OPERATOR) && operators.includes(modifierText)) {
       const next = expressions[index + 1];
       if (next) {
@@ -100,7 +161,7 @@ function collapseModifierExpression(
           expression: next,
         } as PrefixNode;
         expressions.splice(index + 1, 1);
-        collapseModifierExpression(text, expressions, operators, recursiveType);
+        collapseModifierExpression(source, expressions, operators, recursiveType);
 
         return;
       }
@@ -140,7 +201,7 @@ function collapseBodyExpression(expressions: Node[]): void {
 }
 
 function findOperatorIndex(
-  text: String2,
+  source: Source,
   expressions: Node[],
   operators: String2[],
   operatorType: OperatorType,
@@ -150,7 +211,7 @@ function findOperatorIndex(
     const index = recursiveType === RecursiveType.LEFT ? i : expressions.length - i - 1;
 
     const operator = expressions[index];
-    const operatorText = text.slice(operator.startIndex, operator.stopIndex + 1);
+    const operatorText = source.text.slice(operator.startIndex, operator.stopIndex + 1);
 
     if (is(operator, NodeType.OPERATOR) && operators.includes(operatorText)) {
       const left = expressions[index - 1];

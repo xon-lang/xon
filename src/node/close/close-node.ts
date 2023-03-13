@@ -14,7 +14,7 @@ export function closeNode(startIndex: Integer, stopIndex: Integer): CloseNode {
 
 const CLOSE = '}])';
 
-export function scanOpenNode(source: Source, startIndex: Integer, stopIndex: Integer): CloseNode | null {
+export function scanCloseNode(source: Source, startIndex: Integer, stopIndex: Integer): CloseNode | null {
   if (CLOSE.includes(source.text[startIndex])) {
     return closeNode(startIndex, startIndex);
   }

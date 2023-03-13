@@ -8,8 +8,7 @@ options {
 source: NL? (expression nl += NL)* expression? NL?;
 
 expression
-  : OPEN (expression | COMMA)* CLOSE # arrayExpression
-  | NL INDENT source DEDENT          # bodyExpression
-  | expression expression            # pairExpression
-  | TOKEN+                           # tokenExpression
+  : NL INDENT source DEDENT # bodyExpression
+  | expression expression   # pairExpression
+  | TOKEN+                  # tokenExpression
   ;
