@@ -9,7 +9,7 @@ import { NodeType, TokenNode } from '~/node/node';
 import { scanOpenNode } from '~/node/open/open-node';
 import { scanOperatorNode } from '~/node/operator/operator-node';
 import { scanStringNode } from '~/node/string/string-node';
-import { unexpectedNode } from '~/node/unexpected/unexpected-node';
+import { unexpectedNode } from '~/node/unknown/unknown-node';
 import { scanWhitespaceNode } from '~/node/whitespace/whitespace-node';
 
 type NodeScanFunction = (text: String2, index: Integer) => TokenNode | null;
@@ -43,7 +43,7 @@ export class Scanner {
       }
 
       const last = scannedNodes[scannedNodes.length - 1];
-      if (last?.type === NodeType.UNEXPECTED) {
+      if (last?.type === NodeType.UNKNOWN) {
         last.text += this.text[index];
         last.stop = index;
         continue;

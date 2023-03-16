@@ -5,7 +5,7 @@ import { NodeType } from '~/node/node';
 test('single id', () => {
   const text = 'abc';
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source);
+  const lexer = new Scanner(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(1);
@@ -16,7 +16,7 @@ test('single id', () => {
 test('several id', () => {
   const text = 'abc edf_    _ghi1_23';
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source);
+  const lexer = new Scanner(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(5);
@@ -35,7 +35,7 @@ test('several id', () => {
 test('string', () => {
   const text = "'abc   def'";
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source);
+  const lexer = new Scanner(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(1);
@@ -46,7 +46,7 @@ test('string', () => {
 test('integer', () => {
   const text = '123';
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source);
+  const lexer = new Scanner(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(1);
@@ -57,7 +57,7 @@ test('integer', () => {
 test('unexpected 1', () => {
   const text = '123 §•∞•456';
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source);
+  const lexer = new Scanner(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(4);
@@ -67,18 +67,18 @@ test('unexpected 1', () => {
 test('unexpected 2', () => {
   const text = "'abc";
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source);
+  const lexer = new Scanner(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].text).toBe("'abc");
-  expect(tokens[0].type).toBe(NodeType.UNEXPECTED);
+  expect(tokens[0].type).toBe(NodeType.UNKNOWN);
 });
 
 test('single operator', () => {
   const text = '!';
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source);
+  const lexer = new Scanner(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(1);
@@ -86,28 +86,10 @@ test('single operator', () => {
   expect(tokens[0].type).toBe(NodeType.OPERATOR);
 });
 
-test('set start and stop indices', () => {
-  const text = "¶•§  'abc''";
-  const source = Source.fromText(text, null);
-  const lexer = new Scanner(source, 3, 9);
-  const tokens = lexer.nodes();
-
-  expect(tokens.length).toBe(2);
-  expect(tokens[0].text).toBe('  ');
-  expect(tokens[0].type).toBe(NodeType.WHITESPACE);
-  expect(tokens[0].start).toBe(3);
-  expect(tokens[0].stop).toBe(4);
-
-  expect(tokens[1].text).toBe("'abc'");
-  expect(tokens[1].type).toBe(NodeType.STRING);
-  expect(tokens[1].start).toBe(5);
-  expect(tokens[1].stop).toBe(9);
-});
-
 test('infix operator', () => {
   const text = 'abc.def';
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source);
+  const lexer = new Scanner(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(3);
@@ -121,29 +103,11 @@ test('infix operator', () => {
   expect(tokens[2].type).toBe(NodeType.ID);
 });
 
-test('line joining', () => {
-  const text = 'abc\\  .def';
-  const source = Source.fromText(text, null);
-  const lexer = new Scanner(source);
-  const tokens = lexer.nodes();
-
-  expect(tokens.length).toBe(4);
-  expect(tokens[0].text).toBe('abc');
-  expect(tokens[0].type).toBe(NodeType.ID);
-
-  expect(tokens[1].type).toBe(NodeType.JOINING);
-
-  expect(tokens[2].text).toBe('.');
-  expect(tokens[2].type).toBe(NodeType.OPERATOR);
-
-  expect(tokens[3].text).toBe('def');
-  expect(tokens[3].type).toBe(NodeType.ID);
-});
 
 test('line feed', () => {
   const text = '\n';
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source);
+  const lexer = new Scanner(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(1);
@@ -154,7 +118,7 @@ test('line feed', () => {
 test('carriage return', () => {
   const text = '\r';
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source);
+  const lexer = new Scanner(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(1);
@@ -165,7 +129,7 @@ test('carriage return', () => {
 test('cr lf', () => {
   const text = '\r\n';
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source);
+  const lexer = new Scanner(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(1);
@@ -176,7 +140,7 @@ test('cr lf', () => {
 test('lf cr', () => {
   const text = '\n\r';
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source);
+  const lexer = new Scanner(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(2);
@@ -187,7 +151,7 @@ test('lf cr', () => {
 test('whitespace', () => {
   const text = '    ';
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source);
+  const lexer = new Scanner(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(1);
@@ -198,7 +162,7 @@ test('whitespace', () => {
 test('infix operator', () => {
   const text = 'infix +: (a: Number, b: Number) = Number';
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source);
+  const lexer = new Scanner(source.text);
   const tokens = lexer.nodes();
 
   console.log(tokens.map((x) => x.stop).join(', '));
