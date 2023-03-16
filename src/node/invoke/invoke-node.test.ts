@@ -2,9 +2,9 @@ import { parseExpression } from '~/compiler/parser/parser';
 import { Source } from '~/compiler/source/source';
 import { ArrayNode } from '~/node/array/array-node';
 import { IdNode } from '~/node/id/id-node';
-import { InfixNode } from '~/node/infix/infix-node';
 import { IntegerNode } from '~/node/integer/integer-node';
 import { InvokeNode } from '~/node/invoke/invoke-node';
+import { MemberNode } from '~/node/member/member-node';
 import { NodeType } from '~/node/node';
 
 test('method call', () => {
@@ -45,8 +45,8 @@ test('can call with type parameter', () => {
   expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(1);
   expect((tree.array.parameters[0] as IntegerNode).text).toBe('1');
-  expect(tree.instance.type).toBe(NodeType.INFIX);
-  const { operator, left, right } = tree.instance as InfixNode;
+  expect(tree.instance.type).toBe(NodeType.MEMBER);
+  const { operator, left, right } = tree.instance as MemberNode;
   expect(operator.text).toBe('.');
   expect((left as IdNode).text).toBe('a');
   expect((right as IdNode).text).toBe('get');
@@ -59,8 +59,8 @@ test('object method', () => {
 
   expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(0);
-  expect(tree.instance.type).toBe(NodeType.INFIX);
-  const { operator, left, right } = tree.instance as InfixNode;
+  expect(tree.instance.type).toBe(NodeType.MEMBER);
+  const { operator, left, right } = tree.instance as MemberNode;
   expect(operator.text).toBe('.');
   const leftParameters = (left as ArrayNode).parameters;
   expect(leftParameters.length).toBe(2);

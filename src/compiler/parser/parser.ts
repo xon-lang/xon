@@ -210,7 +210,7 @@ function findOperatorIndex(
 function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIndex: Integer): void {
   if (operatorIndex < 0) return;
   const operator = nodes[operatorIndex];
-  if (!is<TokenNode>(operator, NodeType.OPERATOR)) return;
+  if (!is<OperatorNode>(operator, NodeType.OPERATOR)) return;
 
   if (operatorType === OperatorType.PREFIX) {
     const right = nodes[operatorIndex + 1];

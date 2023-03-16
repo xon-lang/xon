@@ -21,6 +21,8 @@ export enum NodeType {
   INVOKE = 'INVOKE',
   POSTFIX = 'POSTFIX',
   PREFIX = 'PREFIX',
+  FLOAT = 'FLOAT',
+  MEMBER = 'MEMBER',
 }
 
 export interface Node {
