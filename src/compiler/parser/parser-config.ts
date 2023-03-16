@@ -11,7 +11,7 @@ export enum OperatorType {
   POSTFIX = 1,
   INFIX = 2,
   INVOKE = 3,
-  BODY = 4,
+  LADDER = 4,
   MODIFIER = 5,
 }
 
@@ -63,7 +63,7 @@ export const operatorsOrders: OperatorsOrder[] = [
   },
   {
     operators: [],
-    operatorType: OperatorType.BODY,
+    operatorType: OperatorType.LADDER,
     recursiveType: RecursiveType.LEFT,
   },
 ];
