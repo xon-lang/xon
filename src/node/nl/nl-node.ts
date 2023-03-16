@@ -1,4 +1,4 @@
-import { Char, Integer, String2 } from '~/lib/core';
+import { Integer, String2 } from '~/lib/core';
 import { NodeType, TokenNode } from '~/node/node';
 
 export interface NlNode extends TokenNode {
@@ -17,12 +17,12 @@ export function nlNode(start: Integer, stop: Integer, text: String2): NlNode {
 const LF = '\n';
 const CR = '\r';
 
-export function scanNlNode(chars: Char[], index: Integer): NlNode | null {
-  if (chars[index] === LF) {
+export function scanNlNode(text: String2, index: Integer): NlNode | null {
+  if (text[index] === LF) {
     return nlNode(index, index, LF);
   }
-  if (chars[index] === CR) {
-    if (chars[index + 1] === LF) {
+  if (text[index] === CR) {
+    if (text[index + 1] === LF) {
       return nlNode(index, index + 1, CR + LF);
     }
     return nlNode(index, index, CR);

@@ -5,7 +5,7 @@ import { NodeType } from '~/node/node';
 test('open paren', () => {
   const code = '(';
   const source = Source.fromText(code);
-  const scanner = new Scanner(source.chars());
+  const scanner = new Scanner(source.text);
   const tokens = scanner.nodes();
 
   expect(tokens.length).toBe(1);
@@ -16,7 +16,7 @@ test('open paren', () => {
 test('open bracket', () => {
   const code = '[';
   const source = Source.fromText(code);
-  const scanner = new Scanner(source.chars());
+  const scanner = new Scanner(source.text);
   const tokens = scanner.nodes();
 
   expect(tokens.length).toBe(1);
@@ -27,7 +27,7 @@ test('open bracket', () => {
 test('open brace', () => {
   const code = '{';
   const source = Source.fromText(code);
-  const scanner = new Scanner(source.chars());
+  const scanner = new Scanner(source.text);
   const tokens = scanner.nodes();
 
   expect(tokens.length).toBe(1);

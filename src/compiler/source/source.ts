@@ -1,6 +1,6 @@
 import { lstatSync, readFileSync } from 'fs';
 import { resolve } from 'path';
-import { Char, Integer, String2 } from '~/lib/core';
+import { Integer, String2 } from '~/lib/core';
 
 export class Source {
   // make text as array of char or Buffer
@@ -12,10 +12,6 @@ export class Source {
 
   public textBetweenIndices(start: Integer, stop: Integer): String2 {
     return this.text.slice(start, stop + 1);
-  }
-
-  public chars(): Char[] {
-    return Array.from(this.text);
   }
 
   public static fromText = fromText;

@@ -1,5 +1,5 @@
 import { operatorsOrders } from '~/compiler/parser/parser-config';
-import { Char, Integer, String2 } from '~/lib/core';
+import { Integer, String2 } from '~/lib/core';
 import { IdNode, scanIdNode } from '~/node/id/id-node';
 import { NodeType, TokenNode } from '~/node/node';
 
@@ -22,8 +22,8 @@ const OPERATORS = [
   ),
 ];
 
-export function scanOperatorNode(chars: Char[], index: Integer): OperatorNode | IdNode | null {
-  let operators = OPERATORS.filter((x) => x[0] === chars[index]);
+export function scanOperatorNode(text: String2, index: Integer): OperatorNode | IdNode | null {
+  let operators = OPERATORS.filter((x) => x[0] === text[index]);
 
   if (operators.length === 0) {
     return null;
@@ -31,8 +31,8 @@ export function scanOperatorNode(chars: Char[], index: Integer): OperatorNode | 
 
   const candidates: String2[] = [];
 
-  for (let i = index; i < chars.length; i++) {
-    operators = operators.filter((x) => x[i - index] === chars[i]);
+  for (let i = index; i < text.length; i++) {
+    operators = operators.filter((x) => x[i - index] === text[i]);
     const candidate = operators.find((x) => x.length === i - index + 1);
     if (candidate) {
       candidates.push(candidate);
@@ -45,9 +45,9 @@ export function scanOperatorNode(chars: Char[], index: Integer): OperatorNode | 
     return null;
   }
   const operatorString = candidates[candidates.length - 1];
-  const idCandidate = scanIdNode(chars, index);
+  const idCandidate = scanIdNode(text, index);
   const operatorStopIndex = index + operatorString.length - 1;
-  const operatorCandidate = operatorNode(index, operatorStopIndex, chars.slice(index, operatorStopIndex + 1).join(''));
+  const operatorCandidate = operatorNode(index, operatorStopIndex, text.slice(index, operatorStopIndex + 1));
   if (idCandidate && idCandidate.stop > operatorCandidate.stop) {
     return idCandidate;
   }

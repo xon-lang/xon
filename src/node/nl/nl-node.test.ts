@@ -5,7 +5,7 @@ import { NodeType } from '~/node/node';
 test('id', () => {
   const code = '\n';
   const source = Source.fromText(code);
-  const scanner = new Scanner(source.chars());
+  const scanner = new Scanner(source.text);
   const tokens = scanner.nodes();
 
   expect(tokens.length).toBe(1);

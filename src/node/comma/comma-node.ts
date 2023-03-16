@@ -1,4 +1,4 @@
-import { Char, Integer, String2 } from '~/lib/core';
+import { Integer, String2 } from '~/lib/core';
 import { NodeType, TokenNode } from '~/node/node';
 
 export interface CommaNode extends TokenNode {
@@ -16,8 +16,8 @@ export function commaNode(start: Integer, stop: Integer, text: String2): CommaNo
 
 const COMMA = ',';
 
-export function scanCommaNode(chars: Char[], index: Integer): CommaNode | null {
-  if (chars[index] === COMMA) {
+export function scanCommaNode(text: String2, index: Integer): CommaNode | null {
+  if (text[index] === COMMA) {
     return commaNode(index, index, COMMA);
   }
   return null;

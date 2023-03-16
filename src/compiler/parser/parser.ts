@@ -16,7 +16,7 @@ import { prefixNode, PrefixNode } from '~/node/prefix/prefix-node';
 import { operatorsOrders } from './parser-config';
 
 export function parseBody(source: Source): BodyNode {
-  const scanner = new Scanner(Array.from(source.text));
+  const scanner = new Scanner(source.text);
   const tokens = scanner.nodes();
   const parser = new Parser(tokens, operatorsOrders);
   return parser.parse();
