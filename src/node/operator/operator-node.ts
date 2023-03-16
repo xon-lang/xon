@@ -1,16 +1,19 @@
 import { operatorsOrders } from '~/compiler/parser/parser-config';
 import { Source } from '~/compiler/source/source';
 import { Integer, String2 } from '~/lib/core';
-import { scanIdNode } from '~/node/id/id-node';
-import { Node, NodeType } from '~/node/node';
+import { IdNode, scanIdNode } from '~/node/id/id-node';
+import { NodeType, TokenNode } from '~/node/node';
 
-export interface OperatorNode extends Node {}
+export interface OperatorNode extends TokenNode {
+  type: NodeType.OPERATOR;
+}
 
-export function operatorNode(startIndex: Integer, stopIndex: Integer): OperatorNode {
+export function operatorNode(start: Integer, stop: Integer, text: String2): OperatorNode {
   return {
     type: NodeType.OPERATOR,
-    start: startIndex,
-    stop: stopIndex,
+    start,
+    stop,
+    text,
   };
 }
 
@@ -20,8 +23,8 @@ const OPERATORS = [
   ),
 ];
 
-export function scanOperatorNode(source: Source, startIndex: Integer, stopIndex: Integer): OperatorNode | null {
-  let operators = OPERATORS.filter((x) => x[0] === source.text[startIndex]);
+export function scanOperatorNode(source: Source, start: Integer, stop: Integer): OperatorNode | IdNode | null {
+  let operators = OPERATORS.filter((x) => x[0] === source.text[start]);
 
   if (operators.length === 0) {
     return null;
@@ -29,9 +32,9 @@ export function scanOperatorNode(source: Source, startIndex: Integer, stopIndex:
 
   const candidates: String2[] = [];
 
-  for (let i = startIndex; i <= stopIndex; i++) {
-    operators = operators.filter((x) => x[i - startIndex] === source.text[i]);
-    const candidate = operators.find((x) => x.length === i - startIndex + 1);
+  for (let i = start; i <= stop; i++) {
+    operators = operators.filter((x) => x[i - start] === source.text[i]);
+    const candidate = operators.find((x) => x.length === i - start + 1);
     if (candidate) {
       candidates.push(candidate);
     }
@@ -43,8 +46,9 @@ export function scanOperatorNode(source: Source, startIndex: Integer, stopIndex:
     return null;
   }
   const operatorString = candidates[candidates.length - 1];
-  const idCandidate = scanIdNode(source, startIndex, stopIndex);
-  const operatorCandidate = operatorNode(startIndex, startIndex + operatorString.length - 1);
+  const idCandidate = scanIdNode(source, start, stop);
+  const operatorStopIndex = start + operatorString.length - 1;
+  const operatorCandidate = operatorNode(start, operatorStopIndex, source.textBetweenIndices(start, operatorStopIndex));
   if (idCandidate && idCandidate.stop > operatorCandidate.stop) {
     return idCandidate;
   }

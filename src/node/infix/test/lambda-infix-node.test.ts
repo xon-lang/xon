@@ -1,6 +1,7 @@
 import { parseExpression } from '~/compiler/parser/parser';
 import { Source } from '~/compiler/source/source';
 import { ArrayNode } from '~/node/array/array-node';
+import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { InvokeNode } from '~/node/invoke/invoke-node';
 import { NodeType } from '~/node/node';
@@ -13,8 +14,8 @@ test('has argument', () => {
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect((tree.left as ArrayNode).parameters.length).toBe(1);
-  expect(source.nodeText((tree.left as ArrayNode).parameters[0])).toBe('x');
-  expect(source.nodeText((tree.left as ArrayNode).parameters[0])).toBe('x');
+  expect(((tree.left as ArrayNode).parameters[0] as IdNode).text).toBe('x');
+  expect(((tree.left as ArrayNode).parameters[0] as IdNode).text).toBe('x');
 
   expect(
     evaluate(source, tree.right, {
@@ -32,17 +33,17 @@ test('generics', () => {
   const left = tree.left as InvokeNode;
   const generics = left.instance as ArrayNode;
   expect(generics.parameters.length).toBe(3);
-  expect(source.nodeText(generics.parameters[0])).toBe('N');
-  expect(source.nodeText(generics.parameters[1])).toBe('M');
+  expect((generics.parameters[0] as IdNode).text).toBe('N');
+  expect((generics.parameters[1] as IdNode).text).toBe('M');
 
   const kExpression = generics.parameters[2] as InfixNode;
   expect(kExpression.type).toBe(NodeType.INFIX);
-  expect(source.nodeText(kExpression.left)).toBe('K');
-  expect(source.nodeText(kExpression.operator)).toBe(':');
-  expect(source.nodeText(kExpression.right)).toBe('String');
+  expect((kExpression.left as IdNode).text).toBe('K');
+  expect(kExpression.operator.text).toBe(':');
+  expect((kExpression.right as IdNode).text).toBe('String');
   expect(left.array.parameters.length).toBe(1);
-  expect(left.array.parameters.at(0)?.type).toBe(NodeType.ID);
-  expect(source.nodeText(left.array.parameters.at(0)!)).toBe('x');
+  expect(left.array.parameters[0].type).toBe(NodeType.ID);
+  expect((left.array.parameters[0] as IdNode).text).toBe('x');
   expect(
     evaluate(source, tree.right, {
       x: 37,
@@ -68,7 +69,7 @@ test('lambda inner lambda', () => {
   expect(tree.type).toBe(NodeType.INFIX);
   expect(tree.left.type).toBe(NodeType.ARRAY);
   expect((tree.left as ArrayNode).parameters.length).toBe(1);
-  expect(source.nodeText((tree.left as ArrayNode).parameters[0])).toBe('a');
+  expect(((tree.left as ArrayNode).parameters[0] as IdNode).text).toBe('a');
   expect(tree.right.type).toBe(NodeType.INFIX);
   expect(((tree.right as InfixNode).left as ArrayNode).parameters.length).toBe(2);
   expect((tree.right as InfixNode).right.type).toBe(NodeType.INFIX);

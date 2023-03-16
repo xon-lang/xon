@@ -1,7 +1,9 @@
 import { parseBody } from '~/compiler/parser/parser';
 import { Source } from '~/compiler/source/source';
 import { BodyNode } from '~/node/body/body-node';
+import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';
+import { IntegerNode } from '~/node/integer/integer-node';
 import { LadderNode } from '~/node/ladder/ladder-node';
 import { NodeType } from '~/node/node';
 
@@ -45,9 +47,9 @@ test('single expression', () => {
 
   expect(tree.type).toBe(NodeType.BODY);
   const infix = tree.nodes[0] as InfixNode;
-  expect(source.nodeText(infix.left)).toBe('a');
-  expect(source.nodeText(infix.operator)).toBe('=');
-  expect(source.nodeText(infix.right)).toBe('1');
+  expect((infix.left as IdNode).text).toBe('a');
+  expect(infix.operator.text).toBe('=');
+  expect((infix.right as IntegerNode).text).toBe('1');
 });
 
 test('multiple expression', () => {

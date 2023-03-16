@@ -10,5 +10,5 @@ test('id', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].type).toBe(NodeType.NL);
-  expect(source.nodeText(tokens[0])).toBe('\n');
+  expect(tokens[0].text).toBe('\n');
 });

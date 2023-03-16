@@ -1,27 +1,30 @@
 import { Source } from '~/compiler/source/source';
-import { Integer } from '~/lib/core';
-import { Node, NodeType } from '~/node/node';
-import { unexpectedNode } from '~/node/unexpected/unexpected-node';
+import { Integer, String2 } from '~/lib/core';
+import { NodeType, TokenNode } from '~/node/node';
+import { UnexpectedNode, unexpectedNode } from '~/node/unexpected/unexpected-node';
 
-export interface StringNode extends Node {}
+export interface StringNode extends TokenNode {
+  type: NodeType.STRING;
+}
 
-export function stringNode(startIndex: Integer, stopIndex: Integer): StringNode {
+export function stringNode(start: Integer, stop: Integer, text: String2): StringNode {
   return {
     type: NodeType.STRING,
-    start: startIndex,
-    stop: stopIndex,
+    start,
+    stop,
+    text,
   };
 }
 
 const QUOTE = "'";
 
-export function scanStringNode(source: Source, startIndex: Integer, stopIndex: Integer): StringNode | null {
-  if (source.text[startIndex] === QUOTE) {
-    const nextQuoteIndex = source.text.indexOf(QUOTE, startIndex + 1);
-    if (nextQuoteIndex < 0 || nextQuoteIndex > stopIndex) {
-      return unexpectedNode(startIndex, stopIndex);
+export function scanStringNode(source: Source, start: Integer, stop: Integer): StringNode | UnexpectedNode | null {
+  if (source.text[start] === QUOTE) {
+    const nextQuoteIndex = source.text.indexOf(QUOTE, start + 1);
+    if (nextQuoteIndex < 0 || nextQuoteIndex > stop) {
+      return unexpectedNode(start, stop, source.textBetweenIndices(start, stop));
     }
-    return stringNode(startIndex, nextQuoteIndex);
+    return stringNode(start, nextQuoteIndex, source.textBetweenIndices(start, nextQuoteIndex));
   }
   return null;
 }

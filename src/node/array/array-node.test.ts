@@ -1,7 +1,8 @@
-import { parseExpression } from '~/compiler/parser/parser';
+import { is, parseExpression } from '~/compiler/parser/parser';
 import { Source } from '~/compiler/source/source';
 import { Integer } from '~/lib/core';
 import { ArrayNode } from '~/node/array/array-node';
+import { IntegerNode } from '~/node/integer/integer-node';
 import { NodeType } from '~/node/node';
 import { evaluate } from '~/util/evaluate';
 
@@ -30,8 +31,10 @@ test('two integers in array', () => {
 
   expect(tree.type).toBe(NodeType.ARRAY);
   expect(tree.parameters.length).toBe(2);
-  expect(source.nodeText(tree.parameters[0])).toBe('1');
-  expect(source.nodeText(tree.parameters[1])).toBe('2');
+  expect(is(tree.parameters[0], NodeType.INTEGER)).toBe(true);
+  expect((tree.parameters[0] as IntegerNode).text).toBe('1');
+  expect(is(tree.parameters[1], NodeType.INTEGER)).toBe(true);
+  expect((tree.parameters[1] as IntegerNode).text).toBe('2');
 });
 
 test('check array', () => {

@@ -10,7 +10,7 @@ test('open paren', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].type).toBe(NodeType.OPEN);
-  expect(source.nodeText(tokens[0])).toBe('(');
+  expect(tokens[0].text).toBe('(');
 });
 
 test('open bracket', () => {
@@ -21,7 +21,7 @@ test('open bracket', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].type).toBe(NodeType.OPEN);
-  expect(source.nodeText(tokens[0])).toBe('[');
+  expect(tokens[0].text).toBe('[');
 });
 
 test('open brace', () => {
@@ -32,5 +32,5 @@ test('open brace', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].type).toBe(NodeType.OPEN);
-  expect(source.nodeText(tokens[0])).toBe('{');
+  expect(tokens[0].text).toBe('{');
 });

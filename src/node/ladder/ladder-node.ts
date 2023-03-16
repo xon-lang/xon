@@ -2,6 +2,7 @@ import { BodyNode } from '~/node/body/body-node';
 import { Node, NodeType } from '~/node/node';
 
 export interface LadderNode extends Node {
+  type: NodeType.LADDER;
   header: Node;
   body: BodyNode;
 }
@@ -9,8 +10,6 @@ export interface LadderNode extends Node {
 export function ladderNode(header: Node, body: BodyNode): LadderNode {
   return {
     type: NodeType.LADDER,
-    start: header.start,
-    stop: body.stop,
     header,
     body,
   };

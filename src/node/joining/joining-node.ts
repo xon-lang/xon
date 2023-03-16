@@ -1,30 +1,33 @@
 import { Source } from '~/compiler/source/source';
-import { Integer } from '~/lib/core';
-import { Node, NodeType } from '~/node/node';
+import { Integer, String2 } from '~/lib/core';
+import { NodeType, TokenNode } from '~/node/node';
 
-export interface JoiningNode extends Node {}
+export interface JoiningNode extends TokenNode {
+  type: NodeType.JOINING;
+}
 
-export function joiningNode(startIndex: Integer, stopIndex: Integer): JoiningNode {
+export function joiningNode(start: Integer, stop: Integer, text: String2): JoiningNode {
   return {
     type: NodeType.JOINING,
-    start: startIndex,
-    stop: stopIndex,
+    start,
+    stop,
+    text,
   };
 }
 
-const LINE_JOINING = '\\';
-const AFTER_LINE_JOINING = ' \t\n\r';
+const JOINING = '\\';
+const AFTER_JOINING = ' \t\n\r';
 
-export function scanJoiningNode(source: Source, startIndex: Integer, stopIndex: Integer): JoiningNode | null {
-  if (source.text[startIndex] !== LINE_JOINING) {
+export function scanJoiningNode(source: Source, start: Integer, stop: Integer): JoiningNode | null {
+  if (source.text[start] !== JOINING) {
     return null;
   }
-  let nextIndex = startIndex;
-  for (let i = startIndex + 1; i <= stopIndex; i++) {
-    if (!AFTER_LINE_JOINING.includes(source.text[i])) {
+  let nextIndex = start;
+  for (let i = start + 1; i <= stop; i++) {
+    if (!AFTER_JOINING.includes(source.text[i])) {
       break;
     }
     nextIndex = i;
   }
-  return joiningNode(startIndex, nextIndex);
+  return joiningNode(start, nextIndex, source.textBetweenIndices(start, nextIndex));
 }

@@ -1,13 +1,14 @@
-import { Integer } from '~/lib/core';
-import { Node, NodeType } from '~/node/node';
+import { Integer, String2 } from '~/lib/core';
+import { NodeType, TokenNode } from '~/node/node';
 
 // todo rename to unknown
-export interface UnexpectedNode extends Node {}
+export interface UnexpectedNode extends TokenNode {}
 
-export function unexpectedNode(startIndex: Integer, stopIndex: Integer): UnexpectedNode {
+export function unexpectedNode(start: Integer, stop: Integer, text: String2): UnexpectedNode {
   return {
     type: NodeType.UNEXPECTED,
-    start: startIndex,
-    stop: stopIndex,
+    start,
+    stop,
+    text,
   };
 }

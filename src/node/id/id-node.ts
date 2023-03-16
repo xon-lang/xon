@@ -1,14 +1,17 @@
 import { Source } from '~/compiler/source/source';
-import { Integer } from '~/lib/core';
-import { Node, NodeType } from '~/node/node';
+import { Integer, String2 } from '~/lib/core';
+import { NodeType, TokenNode } from '~/node/node';
 
-export interface IdNode extends Node {}
+export interface IdNode extends TokenNode {
+  type: NodeType.ID;
+}
 
-export function idNode(startIndex: Integer, stopIndex: Integer): IdNode {
+export function idNode(start: Integer, stop: Integer, text: String2): IdNode {
   return {
     type: NodeType.ID,
-    start: startIndex,
-    stop: stopIndex,
+    start,
+    stop,
+    text,
   };
 }
 
@@ -16,16 +19,16 @@ const DIGITS = '0123456789';
 const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const DIGITS_LETTERS = DIGITS + LETTERS;
 
-export function scanIdNode(source: Source, startIndex: Integer, stopIndex: Integer): IdNode | null {
-  if (LETTERS.includes(source.text[startIndex])) {
-    let nextIndex = startIndex;
-    for (let i = startIndex + 1; i <= stopIndex; i++) {
+export function scanIdNode(source: Source, start: Integer, stop: Integer): IdNode | null {
+  if (LETTERS.includes(source.text[start])) {
+    let nextIndex = start;
+    for (let i = start + 1; i <= stop; i++) {
       if (!DIGITS_LETTERS.includes(source.text[i])) {
         break;
       }
       nextIndex = i;
     }
-    return idNode(startIndex, nextIndex);
+    return idNode(start, nextIndex, source.textBetweenIndices(start, nextIndex));
   }
   return null;
 }

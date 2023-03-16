@@ -1,29 +1,32 @@
 import { Source } from '~/compiler/source/source';
-import { Integer } from '~/lib/core';
-import { Node, NodeType } from '~/node/node';
+import { Integer, String2 } from '~/lib/core';
+import { NodeType, TokenNode } from '~/node/node';
 
-export interface NlNode extends Node {}
+export interface NlNode extends TokenNode {
+  type: NodeType.NL;
+}
 
-export function nlNode(startIndex: Integer, stopIndex: Integer): NlNode {
+export function nlNode(start: Integer, stop: Integer, text: String2): NlNode {
   return {
     type: NodeType.NL,
-    start: startIndex,
-    stop: stopIndex,
+    start,
+    stop,
+    text,
   };
 }
 
 const LF = '\n';
 const CR = '\r';
 
-export function scanNlNode(source: Source, startIndex: Integer, stopIndex: Integer): NlNode | null {
-  if (source.text[startIndex] === LF) {
-    return nlNode(startIndex, startIndex);
+export function scanNlNode(source: Source, start: Integer, stop: Integer): NlNode | null {
+  if (source.text[start] === LF) {
+    return nlNode(start, start, LF);
   }
-  if (source.text[startIndex] === CR) {
-    if (source.text[startIndex + 1] === LF) {
-      return nlNode(startIndex, startIndex + 1);
+  if (source.text[start] === CR) {
+    if (source.text[start + 1] === LF) {
+      return nlNode(start, start + 1, CR + LF);
     }
-    return nlNode(startIndex, startIndex);
+    return nlNode(start, start, CR);
   }
 
   return null;

@@ -1,22 +1,25 @@
 import { Source } from '~/compiler/source/source';
-import { Integer } from '~/lib/core';
-import { Node, NodeType } from '~/node/node';
+import { Integer, String2 } from '~/lib/core';
+import { NodeType, TokenNode } from '~/node/node';
 
-export interface CommaNode extends Node {}
+export interface CommaNode extends TokenNode {
+  type: NodeType.COMMA;
+}
 
-export function commaNode(startIndex: Integer, stopIndex: Integer): CommaNode {
+export function commaNode(start: Integer, stop: Integer, text: String2): CommaNode {
   return {
     type: NodeType.COMMA,
-    start: startIndex,
-    stop: stopIndex,
+    start,
+    stop,
+    text,
   };
 }
 
 const COMMA = ',';
 
-export function scanCommaNode(source: Source, startIndex: Integer, stopIndex: Integer): CommaNode | null {
-  if (source.text[startIndex] === COMMA) {
-    return commaNode(startIndex, startIndex);
+export function scanCommaNode(source: Source, start: Integer, stop: Integer): CommaNode | null {
+  if (source.text[start] === COMMA) {
+    return commaNode(start, start, COMMA);
   }
   return null;
 }

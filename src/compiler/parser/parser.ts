@@ -4,10 +4,13 @@ import { Source } from '~/compiler/source/source';
 import { Boolean2, Integer, String2 } from '~/lib/core';
 import { arrayNode, ArrayNode } from '~/node/array/array-node';
 import { bodyNode, BodyNode } from '~/node/body/body-node';
+import { CloseNode } from '~/node/close/close-node';
 import { infixNode } from '~/node/infix/infix-node';
 import { invokeNode } from '~/node/invoke/invoke-node';
 import { ladderNode } from '~/node/ladder/ladder-node';
-import { Node, NodeType } from '~/node/node';
+import { Node, NodeType, TokenNode } from '~/node/node';
+import { OpenNode } from '~/node/open/open-node';
+import { OperatorNode } from '~/node/operator/operator-node';
 import { postfixNode } from '~/node/postfix/postfix-node';
 import { prefixNode, PrefixNode } from '~/node/prefix/prefix-node';
 import { operatorsOrders } from './parser-config';
@@ -24,6 +27,13 @@ export function parseExpression(source: Source): Node {
     throw new Error('Not implemented');
   }
   return nodes[0];
+}
+
+export function is<T extends Node = Node>(node: Node, nodeType: NodeType | String2): node is T {
+  if (nodeType === NodeType.TOKEN) {
+    return node?.type.split('-')[1] === NodeType.TOKEN;
+  }
+  return node?.type === nodeType;
 }
 
 export class Parser {
@@ -68,11 +78,14 @@ function collapseBody(source: Source, splitNodes: { indent: Integer; node: Node 
 }
 
 function collapseArrays(source: Source, nodes: Node[]): void {
-  const openNodes: Node[] = nodes.filter((node) => is(node, NodeType.OPEN)).reverse();
+  const openNodes: OpenNode[] = nodes
+    .filter((node) => is<OpenNode>(node, NodeType.OPEN))
+    .reverse()
+    .map((x) => x as OpenNode);
 
   for (const openNode of openNodes) {
     const closeNode = nodeAfter(nodes, openNode, NodeType.CLOSE);
-    if (!closeNode) {
+    if (!closeNode || !is<CloseNode>(closeNode, NodeType.CLOSE)) {
       throw new Error('No close pair node');
     }
 
@@ -127,10 +140,9 @@ function collapseModifier(source: Source, nodes: Node[], operators: String2[], r
   for (let i = 0; i < nodes.length; i++) {
     const index = recursiveType === RecursiveType.LEFT ? i : nodes.length - i - 1;
     const modifier = nodes[index];
-    const modifierText = source.nodeText(modifier);
-    if (is(modifier, NodeType.OPERATOR) && operators.includes(modifierText)) {
+    if (is<OperatorNode>(modifier, NodeType.OPERATOR) && operators.includes(modifier.text)) {
       const next = nodes[index + 1];
-      if (next) {
+      if (is<TokenNode>(next, NodeType.TOKEN)) {
         nodes[index] = {
           type: NodeType.PREFIX,
           start: modifier.start,
@@ -174,9 +186,8 @@ function findOperatorIndex(
     const index = recursiveType === RecursiveType.LEFT ? i : nodes.length - i - 1;
 
     const operator = nodes[index];
-    const operatorText = source.text.slice(operator.start, operator.stop + 1);
 
-    if (is(operator, NodeType.OPERATOR) && operators.includes(operatorText)) {
+    if (is<OperatorNode>(operator, NodeType.OPERATOR) && operators.includes(operator.text)) {
       const left = nodes[index - 1];
       const right = nodes[index + 1];
 
@@ -201,8 +212,8 @@ function findOperatorIndex(
 
 function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIndex: Integer): void {
   if (operatorIndex < 0) return;
-  const operator = nodes[operatorIndex] as Node;
-  if (!is(operator, NodeType.OPERATOR)) return;
+  const operator = nodes[operatorIndex];
+  if (!is<TokenNode>(operator, NodeType.OPERATOR)) return;
 
   if (operatorType === OperatorType.PREFIX) {
     const right = nodes[operatorIndex + 1];
@@ -237,10 +248,6 @@ function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIn
   }
 }
 
-export function is<T extends Node = Node>(node: Node, nodeType: NodeType | String2): node is T {
-  return node?.type === nodeType;
-}
-
 function normalizeSplittedNodes(source: Source, nodes: Node[]): { indent: Integer; node: Node }[] {
   const nlSplitted = splitNodes(nodes, NodeType.NL);
 
@@ -248,12 +255,12 @@ function normalizeSplittedNodes(source: Source, nodes: Node[]): { indent: Intege
     return [];
   }
 
-  const firstNode = nlSplitted[0][0];
+  const firstNode = nlSplitted[0][0] as TokenNode;
   const minIndent = is(firstNode, NodeType.WHITESPACE) ? firstNode.stop - firstNode.stop + 1 : 0;
 
   const result = nlSplitted
     .map((nodes) => {
-      const firstNode = nodes[0];
+      const firstNode = nodes[0] as TokenNode;
       const indent = is(firstNode, NodeType.WHITESPACE) ? firstNode.stop - firstNode.stop + 1 : 0;
       return {
         indent: indent <= minIndent ? 0 : indent,

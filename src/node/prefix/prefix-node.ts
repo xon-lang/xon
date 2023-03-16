@@ -1,15 +1,14 @@
-import { Node, NodeType } from '~/node/node';
+import { Node, NodeType, TokenNode } from '~/node/node';
 
 export interface PrefixNode extends Node {
-  operator: Node;
+  type: NodeType.PREFIX;
+  operator: TokenNode;
   value: Node;
 }
 
-export function prefixNode(operator: Node, value: Node): PrefixNode {
+export function prefixNode(operator: TokenNode, value: Node): PrefixNode {
   return {
     type: NodeType.PREFIX,
-    start: operator.start,
-    stop: value.stop,
     operator,
     value,
   };

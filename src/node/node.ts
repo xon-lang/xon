@@ -1,20 +1,19 @@
 import { Integer, String2 } from '~/lib/core';
 
 export enum NodeType {
-  ID = 'ID',
-  NL = 'NL',
-  INDENT = 'INDENT',
-  DEDENT = 'DEDENT',
-  STRING = 'STRING',
-  INTEGER = 'INTEGER',
-  OPERATOR = 'OPERATOR',
-  UNEXPECTED = 'UNEXPECTED',
-  WHITESPACE = 'WHITESPACE',
-  JOINING = 'LINE_JOINING',
+  TOKEN = 'TOKEN',
+  ID = 'ID-TOKEN',
+  NL = 'NL-TOKEN',
+  STRING = 'STRING-TOKEN',
+  INTEGER = 'INTEGER-TOKEN',
+  OPERATOR = 'OPERATOR-TOKEN',
+  UNEXPECTED = 'UNEXPECTED-TOKEN',
+  WHITESPACE = 'WHITESPACE-TOKEN',
+  JOINING = 'JOINING-TOKEN',
+  OPEN = 'OPEN-TOKEN',
+  CLOSE = 'CLOSE-TOKEN',
+  COMMA = 'COMMA-TOKEN',
 
-  OPEN = 'OPEN',
-  CLOSE = 'CLOSE',
-  COMMA = 'COMMA',
   ARRAY = 'ARRAY',
   BODY = 'BODY',
   LADDER = 'LADDER',
@@ -22,12 +21,14 @@ export enum NodeType {
   INVOKE = 'INVOKE',
   POSTFIX = 'POSTFIX',
   PREFIX = 'PREFIX',
-  MODULE = 'MODULE',
 }
 
 export interface Node {
   type: NodeType | String2;
+}
+
+export interface TokenNode extends Node {
   start: Integer;
   stop: Integer;
-  // text: String2
+  text: String2;
 }

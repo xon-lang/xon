@@ -1,7 +1,6 @@
 import { lstatSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 import { Integer, String2 } from '~/lib/core';
-import { Node } from '~/node/node';
 
 export class Source {
   // make text as array of char or Buffer
@@ -11,8 +10,8 @@ export class Source {
     return this.text.split('\n')[line];
   }
 
-  public nodeText(node: Node): String2 {
-    return this.text.slice(node.start, node.stop + 1);
+  public textBetweenIndices(start: Integer, stop: Integer): String2 {
+    return this.text.slice(start, stop + 1);
   }
 
   public static fromText = fromText;

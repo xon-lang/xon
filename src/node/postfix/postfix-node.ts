@@ -1,15 +1,14 @@
-import { Node, NodeType } from '~/node/node';
+import { Node, NodeType, TokenNode } from '~/node/node';
 
 export interface PostfixNode extends Node {
-  operator: Node;
+  type: NodeType.POSTFIX;
+  operator: TokenNode;
   value: Node;
 }
 
-export function postfixNode(operator: Node, value: Node): PostfixNode {
+export function postfixNode(operator: TokenNode, value: Node): PostfixNode {
   return {
     type: NodeType.POSTFIX,
-    start: value.stop,
-    stop: operator.start,
     operator,
     value,
   };
