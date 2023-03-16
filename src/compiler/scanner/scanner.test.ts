@@ -94,13 +94,13 @@ test('set start and stop indices', () => {
   expect(tokens.length).toBe(2);
   expect(source.nodeText(tokens[0])).toBe('  ');
   expect(tokens[0].type).toBe(NodeType.WHITESPACE);
-  expect(tokens[0].startIndex).toBe(3);
-  expect(tokens[0].stopIndex).toBe(4);
+  expect(tokens[0].start).toBe(3);
+  expect(tokens[0].stop).toBe(4);
 
   expect(source.nodeText(tokens[1])).toBe("'abc'");
   expect(tokens[1].type).toBe(NodeType.STRING);
-  expect(tokens[1].startIndex).toBe(5);
-  expect(tokens[1].stopIndex).toBe(9);
+  expect(tokens[1].start).toBe(5);
+  expect(tokens[1].stop).toBe(9);
 });
 
 test('infix operator', () => {
@@ -137,4 +137,59 @@ test('line joining', () => {
 
   expect(source.nodeText(tokens[3])).toBe('def');
   expect(tokens[3].type).toBe(NodeType.ID);
+});
+
+test('line feed', () => {
+  const text = '\n';
+  const source = Source.fromText(text, null);
+  const lexer = new Scanner(source);
+  const tokens = lexer.nodes();
+
+  expect(tokens.length).toBe(1);
+  expect(source.nodeText(tokens[0])).toBe('\n');
+  expect(tokens[0].type).toBe(NodeType.NL);
+});
+
+test('carriage return', () => {
+  const text = '\r';
+  const source = Source.fromText(text, null);
+  const lexer = new Scanner(source);
+  const tokens = lexer.nodes();
+
+  expect(tokens.length).toBe(1);
+  expect(source.nodeText(tokens[0])).toBe('\r');
+  expect(tokens[0].type).toBe(NodeType.NL);
+});
+
+test('cr lf', () => {
+  const text = '\r\n';
+  const source = Source.fromText(text, null);
+  const lexer = new Scanner(source);
+  const tokens = lexer.nodes();
+
+  expect(tokens.length).toBe(1);
+  expect(source.nodeText(tokens[0])).toBe('\r\n');
+  expect(tokens[0].type).toBe(NodeType.NL);
+});
+
+test('lf cr', () => {
+  const text = '\n\r';
+  const source = Source.fromText(text, null);
+  const lexer = new Scanner(source);
+  const tokens = lexer.nodes();
+
+  expect(tokens.length).toBe(2);
+  expect(source.nodeText(tokens[0])).toBe('\n');
+  expect(tokens[0].type).toBe(NodeType.NL);
+});
+
+test('whitespace', () => {
+  const text = '    ';
+  const source = Source.fromText(text, null);
+  const lexer = new Scanner(source);
+  const tokens = lexer.nodes();
+
+  expect(tokens.length).toBe(1);
+  expect(source.nodeText(tokens[0])).toBe('    ');
+  expect(tokens[0].type).toBe(NodeType.WHITESPACE);
 });
