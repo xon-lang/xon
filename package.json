@@ -21,7 +21,6 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "grammar": "scripts/grammar.sh",
     "lint": " madge --circular --extensions ts . && eslint .",
     "test": "jest --no-cache",
     "build": "scripts/build.sh",
@@ -31,11 +30,10 @@
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
-    "@types/jest": "^29.4.0",
-    "@types/node": "^18.15.0",
-    "@typescript-eslint/eslint-plugin": "^5.54.1",
-    "@typescript-eslint/parser": "^5.54.1",
-    "antlr4ts-cli": "^0.5.0-alpha.4",
+    "@types/jest": "^29.4.1",
+    "@types/node": "^18.15.3",
+    "@typescript-eslint/eslint-plugin": "^5.55.0",
+    "@typescript-eslint/parser": "^5.55.0",
     "create-ts-index": "^1.14.0",
     "eslint": "^8.36.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
@@ -53,8 +51,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "antlr4ts": "^0.5.0-alpha.4",
     "chalk": "^4.1.2",
-    "glob": "^9.2.1"
+    "glob": "^9.3.0"
   }
 }
