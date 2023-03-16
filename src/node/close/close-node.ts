@@ -1,5 +1,4 @@
-import { Source } from '~/compiler/source/source';
-import { Integer, String2 } from '~/lib/core';
+import { Char, Integer, String2 } from '~/lib/core';
 import { NodeType, TokenNode } from '~/node/node';
 
 export interface CloseNode extends TokenNode {
@@ -17,9 +16,9 @@ export function closeNode(start: Integer, stop: Integer, text: String2): CloseNo
 
 const CLOSE = '}])';
 
-export function scanCloseNode(source: Source, start: Integer, stop: Integer): CloseNode | null {
-  if (CLOSE.includes(source.text[start])) {
-    return closeNode(start, start, source.text[start]);
+export function scanCloseNode(chars: Char[], index: Integer): CloseNode | null {
+  if (CLOSE.includes(chars[index])) {
+    return closeNode(index, index, chars[index]);
   }
   return null;
 }

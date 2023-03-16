@@ -1,5 +1,4 @@
-import { Source } from '~/compiler/source/source';
-import { Integer, String2 } from '~/lib/core';
+import { Char, Integer, String2 } from '~/lib/core';
 import { NodeType, TokenNode } from '~/node/node';
 
 export interface IntegerNode extends TokenNode {
@@ -19,17 +18,17 @@ const DIGITS = '0123456789';
 const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const DIGITS_LETTERS = DIGITS + LETTERS;
 
-export function scanIntegerNode(source: Source, start: Integer, stop: Integer): IntegerNode | null {
-  if (DIGITS.includes(source.text[start])) {
-    let nextIndex = start;
-    for (let i = start + 1; i <= stop; i++) {
+export function scanIntegerNode(chars: Char[], index: Integer): IntegerNode | null {
+  if (DIGITS.includes(chars[index])) {
+    let nextIndex = index;
+    for (let i = index + 1; i < chars.length; i++) {
       // todo use takeWhile
-      if (!DIGITS_LETTERS.includes(source.text[i])) {
+      if (!DIGITS_LETTERS.includes(chars[i])) {
         break;
       }
       nextIndex = i;
     }
-    return integerNode(start, nextIndex, source.textBetweenIndices(start, nextIndex));
+    return integerNode(index, nextIndex, chars.slice(index, nextIndex + 1).join(''));
   }
   return null;
 }

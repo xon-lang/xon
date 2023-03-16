@@ -1,5 +1,4 @@
-import { Source } from '~/compiler/source/source';
-import { Integer, String2 } from '~/lib/core';
+import { Char, Integer, String2 } from '~/lib/core';
 import { NodeType, TokenNode } from '~/node/node';
 
 export interface JoiningNode extends TokenNode {
@@ -18,16 +17,16 @@ export function joiningNode(start: Integer, stop: Integer, text: String2): Joini
 const JOINING = '\\';
 const AFTER_JOINING = ' \t\n\r';
 
-export function scanJoiningNode(source: Source, start: Integer, stop: Integer): JoiningNode | null {
-  if (source.text[start] !== JOINING) {
+export function scanJoiningNode(chars: Char[], index: Integer): JoiningNode | null {
+  if (chars[index] !== JOINING) {
     return null;
   }
-  let nextIndex = start;
-  for (let i = start + 1; i <= stop; i++) {
-    if (!AFTER_JOINING.includes(source.text[i])) {
+  let nextIndex = index;
+  for (let i = index + 1; i < chars.length; i++) {
+    if (!AFTER_JOINING.includes(chars[i])) {
       break;
     }
     nextIndex = i;
   }
-  return joiningNode(start, nextIndex, source.textBetweenIndices(start, nextIndex));
+  return joiningNode(index, nextIndex, chars.slice(index, nextIndex + 1).join(''));
 }

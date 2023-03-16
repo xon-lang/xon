@@ -1,6 +1,5 @@
-import { Source } from '~/compiler/source/source';
-import { Integer, String2 } from '~/lib/core';
-import { Node, NodeType, TokenNode } from '~/node/node';
+import { Char, Integer, String2 } from '~/lib/core';
+import { NodeType, TokenNode } from '~/node/node';
 
 export interface WhitespaceNode extends TokenNode {}
 
@@ -9,22 +8,22 @@ export function whitespaceNode(start: Integer, stop: Integer, text: String2): Wh
     type: NodeType.WHITESPACE,
     start,
     stop,
-    text
+    text,
   };
 }
 
 const SPACE = ' ';
 const TAB = '\t';
 
-export function scanWhitespaceNode(source: Source, start: Integer, stop: Integer): WhitespaceNode | null {
-  if (source.text[start] !== SPACE && source.text[start] !== TAB) {
+export function scanWhitespaceNode(chars: Char[], index: Integer): WhitespaceNode | null {
+  if (chars[index] !== SPACE && chars[index] !== TAB) {
     return null;
   }
-  for (let i = start + 1; i <= stop; i++) {
-    const nextChar = source.text[i];
+  for (let i = index + 1; i < chars.length; i++) {
+    const nextChar = chars[i];
     if (nextChar !== SPACE && nextChar !== TAB) {
-      return whitespaceNode(start, i - 1, source.textBetweenIndices(start, i - 1));
+      return whitespaceNode(index, i - 1, chars.slice(index, i).join(''));
     }
   }
-  return whitespaceNode(start, stop, source.textBetweenIndices(start, stop));
+  return whitespaceNode(index, chars.length - 1, chars.slice(index, chars.length).join(''));
 }

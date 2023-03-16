@@ -1,5 +1,4 @@
-import { Source } from '~/compiler/source/source';
-import { Integer, String2 } from '~/lib/core';
+import { Char, Integer, String2 } from '~/lib/core';
 import { NodeType, TokenNode } from '~/node/node';
 
 export interface IdNode extends TokenNode {
@@ -19,16 +18,16 @@ const DIGITS = '0123456789';
 const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const DIGITS_LETTERS = DIGITS + LETTERS;
 
-export function scanIdNode(source: Source, start: Integer, stop: Integer): IdNode | null {
-  if (LETTERS.includes(source.text[start])) {
-    let nextIndex = start;
-    for (let i = start + 1; i <= stop; i++) {
-      if (!DIGITS_LETTERS.includes(source.text[i])) {
+export function scanIdNode(chars: Char[], index: Integer): IdNode | null {
+  if (LETTERS.includes(chars[index])) {
+    let nextIndex = index;
+    for (let i = index + 1; i < chars.length; i++) {
+      if (!DIGITS_LETTERS.includes(chars[i])) {
         break;
       }
       nextIndex = i;
     }
-    return idNode(start, nextIndex, source.textBetweenIndices(start, nextIndex));
+    return idNode(index, nextIndex, chars.slice(index, nextIndex + 1).join(''));
   }
   return null;
 }

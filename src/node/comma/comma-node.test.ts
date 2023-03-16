@@ -5,7 +5,7 @@ import { NodeType } from '~/node/node';
 test('comma', () => {
   const code = ',';
   const source = Source.fromText(code);
-  const scanner = new Scanner(source);
+  const scanner = new Scanner(source.chars());
   const tokens = scanner.nodes();
 
   expect(tokens.length).toBe(1);

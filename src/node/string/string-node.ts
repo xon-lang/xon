@@ -1,5 +1,4 @@
-import { Source } from '~/compiler/source/source';
-import { Integer, String2 } from '~/lib/core';
+import { Char, Integer, String2 } from '~/lib/core';
 import { NodeType, TokenNode } from '~/node/node';
 import { UnexpectedNode, unexpectedNode } from '~/node/unexpected/unexpected-node';
 
@@ -18,13 +17,13 @@ export function stringNode(start: Integer, stop: Integer, text: String2): String
 
 const QUOTE = "'";
 
-export function scanStringNode(source: Source, start: Integer, stop: Integer): StringNode | UnexpectedNode | null {
-  if (source.text[start] === QUOTE) {
-    const nextQuoteIndex = source.text.indexOf(QUOTE, start + 1);
-    if (nextQuoteIndex < 0 || nextQuoteIndex > stop) {
-      return unexpectedNode(start, stop, source.textBetweenIndices(start, stop));
+export function scanStringNode(chars: Char[], index: Integer): StringNode | UnexpectedNode | null {
+  if (chars[index] === QUOTE) {
+    const nextQuoteIndex = chars.indexOf(QUOTE, index + 1);
+    if (nextQuoteIndex < 0) {
+      return unexpectedNode(index, chars.length - 1, chars.slice(index, chars.length).join(''));
     }
-    return stringNode(start, nextQuoteIndex, source.textBetweenIndices(start, nextQuoteIndex));
+    return stringNode(index, nextQuoteIndex, chars.slice(index, nextQuoteIndex + 1).join(''));
   }
   return null;
 }

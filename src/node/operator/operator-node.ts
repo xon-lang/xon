@@ -1,6 +1,5 @@
 import { operatorsOrders } from '~/compiler/parser/parser-config';
-import { Source } from '~/compiler/source/source';
-import { Integer, String2 } from '~/lib/core';
+import { Char, Integer, String2 } from '~/lib/core';
 import { IdNode, scanIdNode } from '~/node/id/id-node';
 import { NodeType, TokenNode } from '~/node/node';
 
@@ -23,8 +22,8 @@ const OPERATORS = [
   ),
 ];
 
-export function scanOperatorNode(source: Source, start: Integer, stop: Integer): OperatorNode | IdNode | null {
-  let operators = OPERATORS.filter((x) => x[0] === source.text[start]);
+export function scanOperatorNode(chars: Char[], index: Integer): OperatorNode | IdNode | null {
+  let operators = OPERATORS.filter((x) => x[0] === chars[index]);
 
   if (operators.length === 0) {
     return null;
@@ -32,9 +31,9 @@ export function scanOperatorNode(source: Source, start: Integer, stop: Integer):
 
   const candidates: String2[] = [];
 
-  for (let i = start; i <= stop; i++) {
-    operators = operators.filter((x) => x[i - start] === source.text[i]);
-    const candidate = operators.find((x) => x.length === i - start + 1);
+  for (let i = index; i < chars.length; i++) {
+    operators = operators.filter((x) => x[i - index] === chars[i]);
+    const candidate = operators.find((x) => x.length === i - index + 1);
     if (candidate) {
       candidates.push(candidate);
     }
@@ -46,9 +45,9 @@ export function scanOperatorNode(source: Source, start: Integer, stop: Integer):
     return null;
   }
   const operatorString = candidates[candidates.length - 1];
-  const idCandidate = scanIdNode(source, start, stop);
-  const operatorStopIndex = start + operatorString.length - 1;
-  const operatorCandidate = operatorNode(start, operatorStopIndex, source.textBetweenIndices(start, operatorStopIndex));
+  const idCandidate = scanIdNode(chars, index);
+  const operatorStopIndex = index + operatorString.length - 1;
+  const operatorCandidate = operatorNode(index, operatorStopIndex, chars.slice(index, operatorStopIndex + 1).join(''));
   if (idCandidate && idCandidate.stop > operatorCandidate.stop) {
     return idCandidate;
   }
