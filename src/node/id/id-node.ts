@@ -7,8 +7,8 @@ export interface IdNode extends Node {}
 export function idNode(startIndex: Integer, stopIndex: Integer): IdNode {
   return {
     type: NodeType.ID,
-    startIndex,
-    stopIndex,
+    start: startIndex,
+    stop: stopIndex,
   };
 }
 

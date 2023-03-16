@@ -7,8 +7,8 @@ export interface CloseNode extends Node {}
 export function closeNode(startIndex: Integer, stopIndex: Integer): CloseNode {
   return {
     type: NodeType.CLOSE,
-    startIndex,
-    stopIndex,
+    start: startIndex,
+    stop: stopIndex,
   };
 }
 

@@ -7,8 +7,8 @@ export interface OpenNode extends Node {}
 export function openNode(startIndex: Integer, stopIndex: Integer): OpenNode {
   return {
     type: NodeType.OPEN,
-    startIndex,
-    stopIndex,
+    start: startIndex,
+    stop: stopIndex,
   };
 }
 

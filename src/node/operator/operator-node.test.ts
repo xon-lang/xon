@@ -11,7 +11,7 @@ test('after integer', () => {
 
   expect(tree.type).toBe(NodeType.POSTFIX);
   expect(source.nodeText(tree.operator)).toBe('!');
-  expect(evaluate(source, tree.expression)).toBe(1);
+  expect(evaluate(source, tree.value)).toBe(1);
 });
 
 test('after invoke', () => {

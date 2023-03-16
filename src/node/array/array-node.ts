@@ -11,8 +11,8 @@ export interface ArrayNode extends Node {
 export function arrayNode(open: OpenNode, close: CloseNode, parameters: Node[]): ArrayNode {
   return {
     type: NodeType.ARRAY,
-    startIndex: open.startIndex,
-    stopIndex: close.stopIndex,
+    start: open.start,
+    stop: close.stop,
     open,
     close,
     parameters,

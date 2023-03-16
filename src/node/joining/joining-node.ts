@@ -7,8 +7,8 @@ export interface JoiningNode extends Node {}
 export function joiningNode(startIndex: Integer, stopIndex: Integer): JoiningNode {
   return {
     type: NodeType.JOINING,
-    startIndex,
-    stopIndex,
+    start: startIndex,
+    stop: stopIndex,
   };
 }
 

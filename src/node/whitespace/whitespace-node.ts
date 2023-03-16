@@ -7,8 +7,8 @@ export interface WhitespaceNode extends Node {}
 export function whitespaceNode(startIndex: Integer, stopIndex: Integer): WhitespaceNode {
   return {
     type: NodeType.WHITESPACE,
-    startIndex,
-    stopIndex,
+    start: startIndex,
+    stop: stopIndex,
   };
 }
 
@@ -16,16 +16,14 @@ const SPACE = ' ';
 const TAB = '\t';
 
 export function scanWhitespaceNode(source: Source, startIndex: Integer, stopIndex: Integer): WhitespaceNode | null {
-  if (source.text[startIndex] === SPACE || source.text[startIndex] === TAB) {
-    let nextIndex = startIndex;
-    for (let i = startIndex + 1; i <= stopIndex; i++) {
-      const nextChar = source.text[i];
-      if (nextChar !== SPACE && nextChar !== TAB) {
-        break;
-      }
-      nextIndex = i;
-    }
-    return whitespaceNode(startIndex, nextIndex);
+  if (source.text[startIndex] !== SPACE && source.text[startIndex] !== TAB) {
+    return null;
   }
-  return null;
+  for (let i = startIndex + 1; i <= stopIndex; i++) {
+    const nextChar = source.text[i];
+    if (nextChar !== SPACE && nextChar !== TAB) {
+      return whitespaceNode(startIndex, i - 1);
+    }
+  }
+  return whitespaceNode(startIndex, stopIndex);
 }

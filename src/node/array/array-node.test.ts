@@ -47,17 +47,16 @@ test('check array', () => {
   expect(JSON.stringify(evaluate(source, tree))).toBe(JSON.stringify([1, 2 + 2, 4, 6 + 6]));
 });
 
-// todo ignore newlines after comma inside brackets
-// test('array on several lines', () => {
-//   const code = `[1,
-//                 2+2,
-//      4,    6+6]`;
-//   const source = Source.fromText(code);
-//   const tree = parseExpression(source) as ArrayNode;
+test('array on several lines', () => {
+  const code = `[1,
+                2+2,
+     4,    6+6]`;
+  const source = Source.fromText(code);
+  const tree = parseExpression(source) as ArrayNode;
 
-//   expect(tree.type).toBe(NodeType.ARRAY);
-//   expect(tree.parameters.length).toBe(4);
-//   expect(tree.parameters.map((x) => evaluate(source, x) as Integer).reduce((a, b) => a + b, 0)).toBe(
-//     [1, 2 + 2, 4, 6 + 6].reduce((a, b) => a + b, 0),
-//   );
-// });
+  expect(tree.type).toBe(NodeType.ARRAY);
+  expect(tree.parameters.length).toBe(4);
+  expect(tree.parameters.map((x) => evaluate(source, x) as Integer).reduce((a, b) => a + b, 0)).toBe(
+    [1, 2 + 2, 4, 6 + 6].reduce((a, b) => a + b, 0),
+  );
+});

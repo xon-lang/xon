@@ -1,13 +1,10 @@
 import { Integer, String2 } from '~/lib/core';
 
-export interface Node {
-  startIndex: Integer;
-  stopIndex: Integer;
-  type: NodeType | String2;
-}
-
 export enum NodeType {
   ID = 'ID',
+  NL = 'NL',
+  INDENT = 'INDENT',
+  DEDENT = 'DEDENT',
   STRING = 'STRING',
   INTEGER = 'INTEGER',
   OPERATOR = 'OPERATOR',
@@ -25,6 +22,12 @@ export enum NodeType {
   INVOKE = 'INVOKE',
   POSTFIX = 'POSTFIX',
   PREFIX = 'PREFIX',
-  SOURCE = 'SOURCE',
   MODULE = 'MODULE',
+}
+
+export interface Node {
+  type: NodeType | String2;
+  start: Integer;
+  stop: Integer;
+  // text: String2
 }

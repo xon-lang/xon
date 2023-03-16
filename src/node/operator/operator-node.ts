@@ -9,8 +9,8 @@ export interface OperatorNode extends Node {}
 export function operatorNode(startIndex: Integer, stopIndex: Integer): OperatorNode {
   return {
     type: NodeType.OPERATOR,
-    startIndex,
-    stopIndex,
+    start: startIndex,
+    stop: stopIndex,
   };
 }
 
@@ -45,7 +45,7 @@ export function scanOperatorNode(source: Source, startIndex: Integer, stopIndex:
   const operatorString = candidates[candidates.length - 1];
   const idCandidate = scanIdNode(source, startIndex, stopIndex);
   const operatorCandidate = operatorNode(startIndex, startIndex + operatorString.length - 1);
-  if (idCandidate && idCandidate.stopIndex > operatorCandidate.stopIndex) {
+  if (idCandidate && idCandidate.stop > operatorCandidate.stop) {
     return idCandidate;
   }
   return operatorCandidate;

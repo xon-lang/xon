@@ -9,8 +9,8 @@ export interface InvokeNode extends Node {
 export function invokeNode(instance: Node, array: ArrayNode): InvokeNode {
   return {
     type: NodeType.INVOKE,
-    startIndex: instance.startIndex,
-    stopIndex: array.stopIndex,
+    start: instance.start,
+    stop: array.stop,
     instance,
     array,
   };

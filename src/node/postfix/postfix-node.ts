@@ -2,15 +2,15 @@ import { Node, NodeType } from '~/node/node';
 
 export interface PostfixNode extends Node {
   operator: Node;
-  expression: Node;
+  value: Node;
 }
 
-export function postfixNode(operator: Node, expression: Node): PostfixNode {
+export function postfixNode(operator: Node, value: Node): PostfixNode {
   return {
     type: NodeType.POSTFIX,
-    startIndex: expression.stopIndex,
-    stopIndex: operator.startIndex,
+    start: value.stop,
+    stop: operator.start,
     operator,
-    expression,
+    value,
   };
 }

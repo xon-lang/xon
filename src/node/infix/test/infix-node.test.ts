@@ -25,7 +25,7 @@ test('several operands with different priorities', () => {
 
   const left = tree.left as PrefixNode;
   expect(source.nodeText(left.operator)).toBe('infix');
-  expect(source.nodeText(left.expression)).toBe('+');
+  expect(source.nodeText(left.value)).toBe('+');
 
   const right = tree.right as InfixNode;
   expect(source.nodeText(right.operator)).toBe('=');
@@ -89,6 +89,6 @@ test('several operators', () => {
 
   expect(tree.right.type).toBe(NodeType.PREFIX);
   expect(source.nodeText((tree.right as PrefixNode).operator)).toBe('+');
-  expect((tree.right as PrefixNode).expression.type).toBe(NodeType.INTEGER);
-  expect(source.nodeText((tree.right as PrefixNode).expression)).toBe('2');
+  expect((tree.right as PrefixNode).value.type).toBe(NodeType.INTEGER);
+  expect(source.nodeText((tree.right as PrefixNode).value)).toBe('2');
 });

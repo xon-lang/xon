@@ -11,5 +11,5 @@ test('single expression', () => {
   expect(tree.type).toBe(NodeType.LADDER);
   expect(tree.header.type).toBe(NodeType.ID);
   expect(source.nodeText(tree.header)).toBe('abc');
-  expect(tree.body.source.nodes.length).toBe(1);
+  expect(tree.body.nodes.length).toBe(1);
 });

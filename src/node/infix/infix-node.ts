@@ -9,8 +9,8 @@ export interface InfixNode extends Node {
 export function infixNode(operator: Node, left: Node, right: Node): InfixNode {
   return {
     type: NodeType.INFIX,
-    startIndex: left.startIndex,
-    stopIndex: right.stopIndex,
+    start: left.start,
+    stop: right.stop,
     operator,
     left,
     right,

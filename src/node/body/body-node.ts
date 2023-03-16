@@ -1,20 +1,14 @@
-import { Source } from '~/compiler/source/source';
-import { BodyExpressionContext } from '~/grammar/xon-parser';
 import { Node, NodeType } from '~/node/node';
-import { getNode } from '~/node/node-helper';
-import { SourceNode } from '~/node/source/source-node';
 
 export interface BodyNode extends Node {
-  source: SourceNode;
+  nodes: Node[];
 }
 
-export function bodyNode(source: Source, ctx: BodyExpressionContext): BodyNode {
-  const sourceNode = getNode(source, ctx.source()) as SourceNode;
-
+export function bodyNode(nodes: Node[]): BodyNode {
   return {
     type: NodeType.BODY,
-    startIndex: sourceNode.startIndex,
-    stopIndex: sourceNode.stopIndex,
-    source: sourceNode,
+    start: nodes[0].start,
+    stop: nodes[nodes.length - 1].stop,
+    nodes,
   };
 }

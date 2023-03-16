@@ -7,8 +7,8 @@ export interface CommaNode extends Node {}
 export function commaNode(startIndex: Integer, stopIndex: Integer): CommaNode {
   return {
     type: NodeType.COMMA,
-    startIndex,
-    stopIndex,
+    start: startIndex,
+    stop: stopIndex,
   };
 }
 

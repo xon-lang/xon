@@ -10,7 +10,7 @@ test('negative integer', () => {
   const tree = parseExpression(source) as PrefixNode;
 
   expect(tree.type).toBe(NodeType.PREFIX);
-  expect(evaluate(source, tree.expression)).toBe(1);
+  expect(evaluate(source, tree.value)).toBe(1);
 });
 
 test('not boolean', () => {
@@ -31,18 +31,20 @@ test('double not', () => {
 
 // test('less operator', () => {
 //   const code = '<123';
-//   const tree = parseExpression(code) as PrefixNode;
+//   const source = Source.fromText(code);
+//   const tree = parseExpression(source) as PrefixNode;
 
-//   expect(tree.nodeType).toBe(NodeType.PREFIX);
-//   expect(tree.name.text).toBe('<');
-//   expect((tree.value as IntegerExpressionTree).value).toBe(123);
+//   expect(tree.type).toBe(NodeType.PREFIX);
+//   expect(source.nodeText(tree)).toBe('<');
+//   expect(source.nodeText(tree.value)).toBe('123');
 // });
 
 // test('great operator', () => {
 //   const code = '>123';
-//   const tree = parseExpression(code) as PrefixNode;
+//   const source = Source.fromText(code);
+//   const tree = parseExpression(source) as PrefixNode;
 
-//   expect(tree.nodeType).toBe(NodeType.PREFIX);
-//   expect(tree.name.text).toBe('>');
-//   expect((tree.value as IntegerExpressionTree).value).toBe(123);
+//   expect(tree.type).toBe(NodeType.PREFIX);
+//   expect(source.nodeText(tree)).toBe('>');
+//   expect(source.nodeText(tree.value)).toBe('123');
 // });

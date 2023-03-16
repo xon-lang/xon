@@ -20,6 +20,6 @@ test('method declaration', () => {
   const prefix = tree.instance as PrefixNode;
   expect(prefix.type).toBe(NodeType.PREFIX);
   expect(source.nodeText(prefix.operator)).toBe('infix');
-  expect(prefix.expression.type).toBe(NodeType.OPERATOR);
-  expect(source.nodeText(prefix.expression)).toBe('+');
+  expect(prefix.value.type).toBe(NodeType.OPERATOR);
+  expect(source.nodeText(prefix.value)).toBe('+');
 });

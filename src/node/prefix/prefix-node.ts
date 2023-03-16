@@ -2,15 +2,15 @@ import { Node, NodeType } from '~/node/node';
 
 export interface PrefixNode extends Node {
   operator: Node;
-  expression: Node;
+  value: Node;
 }
 
-export function prefixNode(operator: Node, expression: Node): PrefixNode {
+export function prefixNode(operator: Node, value: Node): PrefixNode {
   return {
     type: NodeType.PREFIX,
-    startIndex: operator.startIndex,
-    stopIndex: expression.stopIndex,
+    start: operator.start,
+    stop: value.stop,
     operator,
-    expression,
+    value,
   };
 }
