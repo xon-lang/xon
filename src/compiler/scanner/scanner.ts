@@ -31,17 +31,12 @@ const nodeScanFunctions: NodeScanFunction[] = [
 export class Scanner {
   public source: Source;
 
-  // private indents: Integer[] = [];
-
   public constructor(source: Source) {
     this.source = source;
   }
 
   public nodes(): TokenNode[] {
     const scannedNodes: TokenNode[] = [];
-    if (scannedNodes.length > 0) {
-      return scannedNodes;
-    }
 
     for (let index = 0; index < this.source.text.length; index++) {
       const node = this.nextNode(index);
