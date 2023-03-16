@@ -1,4 +1,4 @@
-import { parseExpression } from '~/compiler/parser/parser';
+import { parse } from '~/compiler/parser/parser';
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { IdTypeMetadata } from '~/metadata/type/id/id-type-metadata';
 import { MethodTypeMetadata } from '~/metadata/type/method/method-type-metadata';
@@ -6,7 +6,7 @@ import { fillTypeMetadata } from '~/metadata/type/type-metadata-helper';
 
 test('method', () => {
   const code = '(a: Number)=>null';
-  const tree = parseExpression(code);
+  const tree = parse(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree) as MethodTypeMetadata;
 

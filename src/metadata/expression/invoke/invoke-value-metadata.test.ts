@@ -1,11 +1,11 @@
-import { parseExpression } from '~/compiler/parser/parser';
+import { parse } from '~/compiler/parser/parser';
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { getExpressionMetadata } from '~/metadata/expression/expression-metadata-helper';
 import { InvokeValueMetadata } from '~/metadata/expression/value/invoke/invoke-value-metadata';
 
 test('lambda call', () => {
   const code = '(()=>1+1)()';
-  const tree = parseExpression(code);
+  const tree = parse(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getExpressionMetadata(tree);
 

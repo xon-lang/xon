@@ -1,11 +1,11 @@
-import { parseExpression } from '~/compiler/parser/parser';
+import { parse } from '~/compiler/parser/parser';
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { ObjectTypeMetadata } from '~/metadata/type/object/object-type-metadata';
 import { fillTypeMetadata } from '~/metadata/type/type-metadata-helper';
 
 test('object', () => {
   const code = '{a = 1, b = 2, c = 3}';
-  const tree = parseExpression(code);
+  const tree = parse(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree) as ObjectTypeMetadata;
 
@@ -15,17 +15,17 @@ test('object', () => {
 
 test('object is other one', () => {
   const code = '{a = 1, b = 2, c = 3}';
-  const tree = parseExpression(code);
+  const tree = parse(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = fillTypeMetadata(tree) as ObjectTypeMetadata;
 
   const code2 = '{a = 1, b = 1, c = 1}';
-  const tree2 = parseExpression(code2);
+  const tree2 = parse(code2);
   tree2.scope.parent = new TestDeclarationScope();
   const metadata2 = fillTypeMetadata(tree2) as ObjectTypeMetadata;
 
   const code3 = '{x = 1, b = 2, c = 3}';
-  const tree3 = parseExpression(code3);
+  const tree3 = parse(code3);
   tree3.scope.parent = new TestDeclarationScope();
   const metadata3 = fillTypeMetadata(tree3) as ObjectTypeMetadata;
 

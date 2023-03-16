@@ -1,10 +1,10 @@
-import { parseExpression } from '~/compiler/parser/parser';
+import { parse } from '~/compiler/parser/parser';
 import { IntegerTypeMetadata } from '~/metadata/type/integer/integer-type-metadata';
 import { getTypeMetadata } from '~/metadata/type/type-metadata-helper';
 
 test('integer literal', () => {
   const code = '123';
-  const tree = parseExpression(code);
+  const tree = parse(code);
   const metadata = getTypeMetadata(tree) as IntegerTypeMetadata;
 
   expect(metadata).toBeInstanceOf(IntegerTypeMetadata);

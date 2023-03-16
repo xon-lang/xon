@@ -1,4 +1,4 @@
-import { parseExpression } from '~/compiler/parser/parser';
+import { parse } from '~/compiler/parser/parser';
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { ArrayValueMetadata } from '~/metadata/expression/array/array-value-metadata';
 import { getExpressionMetadata } from '~/metadata/expression/expression-metadata-helper';
@@ -6,7 +6,7 @@ import { fillTypeMetadata } from '~/metadata/type/type-metadata-helper';
 
 test('empty', () => {
   const code = '[]';
-  const tree = parseExpression(code);
+  const tree = parse(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getExpressionMetadata(tree);
 
@@ -16,7 +16,7 @@ test('empty', () => {
 
 test('123', () => {
   const code = '[1, 2, 3]';
-  const tree = parseExpression(code);
+  const tree = parse(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getExpressionMetadata(tree);
 

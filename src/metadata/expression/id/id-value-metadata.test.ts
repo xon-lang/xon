@@ -1,11 +1,11 @@
-import { parseExpression } from '~/compiler/parser/parser';
+import { parse } from '~/compiler/parser/parser';
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { getExpressionMetadata } from '~/metadata/expression/expression-metadata-helper';
 import { IdValueMetadata } from '~/metadata/expression/value/id/id-value-metadata';
 
 test('none object', () => {
   const code = 'null';
-  const tree = parseExpression(code);
+  const tree = parse(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getExpressionMetadata(tree) as IdValueMetadata;
 
@@ -15,7 +15,7 @@ test('none object', () => {
 
 test('none model', () => {
   const code = 'null';
-  const tree = parseExpression(code);
+  const tree = parse(code);
   tree.scope.parent = new TestDeclarationScope();
   const metadata = getExpressionMetadata(tree) as IdValueMetadata;
 
