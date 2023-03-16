@@ -12,7 +12,7 @@ export class Source {
   }
 
   public nodeText(node: Node): String2 {
-    return this.text.slice(node.startIndex, node.stopIndex + 1);
+    return this.text.slice(node.start, node.stop + 1);
   }
 
   public static fromText = fromText;
