@@ -30,17 +30,11 @@ const nodeScanFunctions: NodeScanFunction[] = [
 
 export class Scanner {
   public source: Source;
-  public startIndex: Integer;
-  public stopIndex: Integer;
 
   // private indents: Integer[] = [];
 
-  public constructor(source: Source);
-  public constructor(source: Source, startIndex: Integer, stopIndex: Integer);
-  public constructor(source: Source, startIndex?: Integer, stopIndex?: Integer) {
+  public constructor(source: Source) {
     this.source = source;
-    this.startIndex = startIndex ?? 0;
-    this.stopIndex = stopIndex ?? source.text.length - 1;
   }
 
   public nodes(): TokenNode[] {
@@ -49,7 +43,7 @@ export class Scanner {
       return scannedNodes;
     }
 
-    for (let index = this.startIndex; index <= this.stopIndex; index++) {
+    for (let index = 0; index < this.source.text.length; index++) {
       const node = this.nextNode(index);
 
       if (node) {
@@ -74,7 +68,7 @@ export class Scanner {
 
   private nextNode(index: Integer): TokenNode | null {
     for (const nodeScan of nodeScanFunctions) {
-      const node = nodeScan(this.source, index, this.stopIndex);
+      const node = nodeScan(this.source, index, this.source.text.length);
       if (node) {
         return node;
       }
