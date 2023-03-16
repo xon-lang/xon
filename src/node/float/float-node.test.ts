@@ -20,7 +20,7 @@ test('positive float number', () => {
   const tree = parseExpression(source) as FloatNode;
 
   expect(tree.type).toBe(NodeType.FLOAT);
-  expect(tree.operator.text).toBe('.');
+  expect(tree.point.text).toBe('.');
   expect((tree.left as IntegerNode).text).toBe('123');
   expect((tree.right as IntegerNode).text).toBe('456');
 });
@@ -31,7 +31,7 @@ test('zero float number', () => {
   const tree = parseExpression(source) as FloatNode;
 
   expect(tree.type).toBe(NodeType.FLOAT);
-  expect(tree.operator.text).toBe('.');
+  expect(tree.point.text).toBe('.');
   expect((tree.left as IntegerNode).text).toBe('2x0');
   expect((tree.right as IntegerNode).text).toBe('1');
 });
@@ -42,7 +42,7 @@ test('underscore in number', () => {
   const tree = parseExpression(source) as FloatNode;
 
   expect(tree.type).toBe(NodeType.FLOAT);
-  expect(tree.operator.text).toBe('.');
+  expect(tree.point.text).toBe('.');
   expect((tree.left as IntegerNode).text).toBe('5_999_245');
   expect((tree.right as IntegerNode).text).toBe('15463_64');
 });
@@ -53,7 +53,7 @@ test('radix float', () => {
   const tree = parseExpression(source) as FloatNode;
 
   expect(tree.type).toBe(NodeType.FLOAT);
-  expect(tree.operator.text).toBe('.');
+  expect(tree.point.text).toBe('.');
   expect((tree.left as IntegerNode).text).toBe('2x11');
   expect((tree.right as IntegerNode).text).toBe('011001100110011001100110011001100110011001100110011');
 });
@@ -64,7 +64,7 @@ test('16x123ABC_123.DDD12', () => {
   const tree = parseExpression(source) as FloatNode;
 
   expect(tree.type).toBe(NodeType.FLOAT);
-  expect(tree.operator.text).toBe('.');
+  expect(tree.point.text).toBe('.');
   expect((tree.left as IntegerNode).text).toBe('16x123ABC_123');
   expect((tree.right as IntegerNode).text).toBe('DDD12');
 });

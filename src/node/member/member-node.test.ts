@@ -10,8 +10,8 @@ test('abc.def', () => {
   const tree = parseExpression(source) as MemberNode;
 
   expect(tree.type).toBe(NodeType.MEMBER);
-  expect((tree.left as IdNode).text).toBe('abc');
-  expect(tree.right.text).toBe('def');
+  expect((tree.instance as IdNode).text).toBe('abc');
+  expect(tree.id.text).toBe('def');
 });
 
 test('meta property', () => {
@@ -20,10 +20,10 @@ test('meta property', () => {
   const tree = parseExpression(source) as MemberNode;
 
   expect(tree.type).toBe(NodeType.MEMBER);
-  expect(tree.left.type).toBe(NodeType.ID);
-  expect((tree.left as IdNode).text).toBe('abc');
+  expect(tree.instance.type).toBe(NodeType.ID);
+  expect((tree.instance as IdNode).text).toBe('abc');
   expect(tree.operator.text).toBe('::');
-  expect((tree.right as IdNode).text).toBe('def');
+  expect(tree.id.text).toBe('def');
 });
 
 test('not safe', () => {
@@ -32,10 +32,10 @@ test('not safe', () => {
   const tree = parseExpression(source) as MemberNode;
 
   expect(tree.type).toBe(NodeType.MEMBER);
-  expect(tree.left.type).toBe(NodeType.ID);
-  expect((tree.left as IdNode).text).toBe('abc');
+  expect(tree.instance.type).toBe(NodeType.ID);
+  expect((tree.instance as IdNode).text).toBe('abc');
   expect(tree.operator.text).toBe('.');
-  expect((tree.right as IdNode).text).toBe('def');
+  expect(tree.id.text).toBe('def');
 });
 
 test('left dot nl property', () => {
@@ -44,10 +44,10 @@ test('left dot nl property', () => {
   const tree = parseExpression(source) as MemberNode;
 
   expect(tree.type).toBe(NodeType.MEMBER);
-  expect(tree.left.type).toBe(NodeType.ID);
-  expect((tree.left as IdNode).text).toBe('abc');
+  expect(tree.instance.type).toBe(NodeType.ID);
+  expect((tree.instance as IdNode).text).toBe('abc');
   expect(tree.operator.text).toBe('.');
-  expect((tree.right as IdNode).text).toBe('def');
+  expect(tree.id.text).toBe('def');
 });
 
 test('left nl dot property', () => {
@@ -56,10 +56,10 @@ test('left nl dot property', () => {
   const tree = parseExpression(source) as MemberNode;
 
   expect(tree.type).toBe(NodeType.MEMBER);
-  expect(tree.left.type).toBe(NodeType.ID);
-  expect((tree.left as IdNode).text).toBe('abc');
+  expect(tree.instance.type).toBe(NodeType.ID);
+  expect((tree.instance as IdNode).text).toBe('abc');
   expect(tree.operator.text).toBe('.');
-  expect((tree.right as IdNode).text).toBe('def');
+  expect(tree.id.text).toBe('def');
 });
 
 test('left nl dot nl property', () => {
@@ -68,10 +68,10 @@ test('left nl dot nl property', () => {
   const tree = parseExpression(source) as MemberNode;
 
   expect(tree.type).toBe(NodeType.MEMBER);
-  expect(tree.left.type).toBe(NodeType.ID);
-  expect((tree.left as IdNode).text).toBe('abc');
+  expect(tree.instance.type).toBe(NodeType.ID);
+  expect((tree.instance as IdNode).text).toBe('abc');
   expect(tree.operator.text).toBe('.');
-  expect((tree.right as IdNode).text).toBe('def');
+  expect(tree.id.text).toBe('def');
 });
 
 test('members chain', () => {
@@ -86,7 +86,7 @@ this.statements \
   const tree = parseExpression(source) as MemberNode;
 
   expect(tree.type).toBe(NodeType.MEMBER);
-  expect(tree.left.type).toBe(NodeType.MEMBER);
+  expect(tree.instance.type).toBe(NodeType.MEMBER);
   expect(tree.operator.text).toBe('.');
-  expect((tree.right as IdNode).text).toBe('jkl');
+  expect(tree.id.text).toBe('jkl');
 });

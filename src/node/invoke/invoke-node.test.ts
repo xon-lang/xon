@@ -46,10 +46,10 @@ test('can call with type parameter', () => {
   expect(tree.array.parameters.length).toBe(1);
   expect((tree.array.parameters[0] as IntegerNode).text).toBe('1');
   expect(tree.instance.type).toBe(NodeType.MEMBER);
-  const { operator, left, right } = tree.instance as MemberNode;
+  const { operator, instance, id } = tree.instance as MemberNode;
   expect(operator.text).toBe('.');
-  expect((left as IdNode).text).toBe('a');
-  expect((right as IdNode).text).toBe('get');
+  expect((instance as IdNode).text).toBe('a');
+  expect((id as IdNode).text).toBe('get');
 });
 
 test('object method', () => {
@@ -60,13 +60,13 @@ test('object method', () => {
   expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(0);
   expect(tree.instance.type).toBe(NodeType.MEMBER);
-  const { operator, left, right } = tree.instance as MemberNode;
+  const { operator, instance, id } = tree.instance as MemberNode;
   expect(operator.text).toBe('.');
-  const leftParameters = (left as ArrayNode).parameters;
+  const leftParameters = (instance as ArrayNode).parameters;
   expect(leftParameters.length).toBe(2);
   expect((leftParameters[0] as IdNode).text).toBe('a');
   expect((leftParameters[1] as IdNode).text).toBe('b');
-  expect((right as IdNode).text).toBe('call');
+  expect((id as IdNode).text).toBe('call');
 });
 
 test('generics', () => {

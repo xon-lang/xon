@@ -5,13 +5,17 @@ import { Boolean2, Integer, String2 } from '~/lib/core';
 import { arrayNode, ArrayNode } from '~/node/array/array-node';
 import { bodyNode, BodyNode } from '~/node/body/body-node';
 import { CloseNode } from '~/node/close/close-node';
-import { infixNode } from '~/node/infix/infix-node';
+import { floatNode, FloatNode } from '~/node/float/float-node';
+import { IdNode } from '~/node/id/id-node';
+import { infixNode, InfixNode } from '~/node/infix/infix-node';
+import { IntegerNode } from '~/node/integer/integer-node';
 import { invokeNode } from '~/node/invoke/invoke-node';
 import { ladderNode } from '~/node/ladder/ladder-node';
+import { memberNode, MemberNode } from '~/node/member/member-node';
 import { Node, NodeType, TokenNode } from '~/node/node';
 import { OpenNode } from '~/node/open/open-node';
 import { OperatorNode } from '~/node/operator/operator-node';
-import { postfixNode } from '~/node/postfix/postfix-node';
+import { PostfixNode, postfixNode } from '~/node/postfix/postfix-node';
 import { prefixNode, PrefixNode } from '~/node/prefix/prefix-node';
 import { operatorsOrders } from './parser-config';
 
@@ -214,7 +218,12 @@ function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIn
 
   if (operatorType === OperatorType.PREFIX) {
     const right = nodes[operatorIndex + 1];
-    const prefix = prefixNode(operator, right);
+
+    if (!right) {
+      throw new Error('Not implemented');
+    }
+
+    const prefix = prefixOperator(operator, right);
     nodes[operatorIndex] = prefix;
     nodes.splice(operatorIndex + 1, 1);
 
@@ -223,7 +232,12 @@ function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIn
 
   if (operatorType === OperatorType.POSTFIX) {
     const left = nodes[operatorIndex - 1];
-    const postfix = postfixNode(operator, left);
+
+    if (!left) {
+      throw new Error('Not implemented');
+    }
+
+    const postfix = postfixOperator(operator, left);
     nodes[operatorIndex] = postfix;
     nodes.splice(operatorIndex - 1, 1);
 
@@ -238,7 +252,7 @@ function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIn
       throw new Error('Not implemented');
     }
 
-    const infix = infixNode(operator, left, right);
+    const infix = infixOperator(operator, left, right);
     nodes[operatorIndex] = infix;
     nodes.splice(operatorIndex - 1, 1);
     nodes.splice(operatorIndex, 1);
@@ -343,4 +357,27 @@ function takeWhile<T>(elements: T[], predicate: (element: T) => Boolean2, startI
   }
 
   return result;
+}
+
+function prefixOperator(operator: OperatorNode, value: Node): PrefixNode {
+  return prefixNode(operator, value);
+}
+
+function postfixOperator(operator: OperatorNode, value: Node): PostfixNode {
+  return postfixNode(operator, value);
+}
+
+function infixOperator(operator: OperatorNode, left: Node, right: Node): InfixNode | FloatNode | MemberNode {
+  if (
+    operator.text === '.' &&
+    is<IntegerNode>(left, NodeType.INTEGER) &&
+    (is<IntegerNode>(right, NodeType.INTEGER) || is<IdNode>(right, NodeType.ID))
+  ) {
+    return floatNode(operator, left, right);
+  }
+
+  if ((operator.text === '.' || operator.text === '::') && is<IdNode>(right, NodeType.ID)) {
+    return memberNode(operator, left, right);
+  }
+  return infixNode(operator, left, right);
 }

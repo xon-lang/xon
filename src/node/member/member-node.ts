@@ -1,18 +1,19 @@
 import { IdNode } from '~/node/id/id-node';
-import { InfixNode } from '~/node/infix/infix-node';
-import { NodeType, TokenNode } from '~/node/node';
+import { Node, NodeType } from '~/node/node';
 import { OperatorNode } from '~/node/operator/operator-node';
 
-export interface MemberNode extends InfixNode {
+export interface MemberNode extends Node {
   type: NodeType.MEMBER;
-  right: IdNode;
+  operator: OperatorNode;
+  instance: Node;
+  id: IdNode;
 }
 
-export function floatNode(operator: OperatorNode, left: TokenNode, right: IdNode): MemberNode {
+export function memberNode(operator: OperatorNode, instance: Node, id: IdNode): MemberNode {
   return {
     type: NodeType.MEMBER,
     operator,
-    left,
-    right,
+    instance,
+    id,
   };
 }
