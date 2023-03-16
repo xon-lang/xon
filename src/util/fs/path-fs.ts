@@ -1,7 +1,6 @@
-import { join } from 'antlr4ts/misc/Utils';
 import { lstatSync, Stats } from 'fs';
 import { homedir } from 'os';
-import { resolve } from 'path';
+import { join, resolve } from 'path';
 import { Boolean2, String2 } from '~/lib/core';
 import { DirectoryFs } from '~/util/fs/directory-fs';
 import { FileFs } from '~/util/fs/file-fs';
