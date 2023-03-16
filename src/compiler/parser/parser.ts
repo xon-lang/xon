@@ -17,7 +17,8 @@ import { operatorsOrders } from './parser-config';
 
 export function parseBody(source: Source): BodyNode {
   const scanner = new Scanner(source);
-  const parser = new Parser(scanner, operatorsOrders);
+  const tokens = scanner.nodes();
+  const parser = new Parser(tokens, operatorsOrders);
   return parser.parse();
 }
 
@@ -37,11 +38,10 @@ export function is<T extends Node = Node>(node: Node, nodeType: NodeType | Strin
 }
 
 export class Parser {
-  constructor(public scanner: Scanner, public operatorsOrders: OperatorsOrder[]) {}
+  constructor(public tokens: TokenNode[], public operatorsOrders: OperatorsOrder[]) {}
 
   public parse(): BodyNode {
-    const scannedNodes = this.scanner.nodes();
-    const filteredNodes = scannedNodes.filter((node) => node.type !== NodeType.JOINING);
+    const filteredNodes = this.tokens.filter((node) => node.type !== NodeType.JOINING);
     collapseArrays(filteredNodes);
     const normalizedSplitted = normalizeSplittedNodes(filteredNodes);
     const result = collapseBody(normalizedSplitted);
@@ -112,7 +112,7 @@ function collapseArrays(nodes: Node[]): void {
 function collapseOperatorsOrders(nodes: Node[], operatorsOrders: OperatorsOrder[]): Node[] {
   for (const operatorsOrder of operatorsOrders) {
     if (operatorsOrder.operatorType === OperatorType.MODIFIER) {
-      collapseModifier( nodes, operatorsOrder.operators[0].split(' '), operatorsOrder.recursiveType);
+      collapseModifier(nodes, operatorsOrder.operators[0].split(' '), operatorsOrder.recursiveType);
     }
     if (operatorsOrder.operatorType === OperatorType.INVOKE) {
       collapseInvoke(nodes);
