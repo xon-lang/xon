@@ -42,15 +42,15 @@ export class Parser {
   public parse(): BodyNode {
     const scannedNodes = this.scanner.nodes();
     const filteredNodes = scannedNodes.filter((node) => node.type !== NodeType.JOINING);
-    collapseArrays(this.scanner.source, filteredNodes);
-    const normalizedSplitted = normalizeSplittedNodes(this.scanner.source, filteredNodes);
-    const result = collapseBody(this.scanner.source, normalizedSplitted);
+    collapseArrays(filteredNodes);
+    const normalizedSplitted = normalizeSplittedNodes(filteredNodes);
+    const result = collapseBody(normalizedSplitted);
 
     return result;
   }
 }
 
-function collapseBody(source: Source, splitNodes: { indent: Integer; node: Node }[]): BodyNode {
+function collapseBody(splitNodes: { indent: Integer; node: Node }[]): BodyNode {
   if (splitNodes.length === 0) {
     throw new Error('Not implemented');
   }
@@ -68,7 +68,7 @@ function collapseBody(source: Source, splitNodes: { indent: Integer; node: Node 
       const innerIndentNodes = takeWhile(splitNodes, (x) => x.indent > bodyIndent, i);
 
       const header = bodyNodes[bodyNodes.length - 1];
-      const body = collapseBody(source, innerIndentNodes);
+      const body = collapseBody(innerIndentNodes);
       bodyNodes[bodyNodes.length - 1] = ladderNode(header, body);
       i = i + innerIndentNodes.length - 1; // because of loop make i++
       continue;
@@ -77,7 +77,7 @@ function collapseBody(source: Source, splitNodes: { indent: Integer; node: Node 
   return bodyNode(bodyNodes);
 }
 
-function collapseArrays(source: Source, nodes: Node[]): void {
+function collapseArrays(nodes: Node[]): void {
   const openNodes: OpenNode[] = nodes
     .filter((node) => is<OpenNode>(node, NodeType.OPEN))
     .reverse()
@@ -92,8 +92,8 @@ function collapseArrays(source: Source, nodes: Node[]): void {
     const betweenNodes = nodesBetween(nodes, openNode, closeNode);
     const parameters = splitNodes(betweenNodes, NodeType.COMMA)
       .map((nodes) => {
-        const normalizedSplitted = normalizeSplittedNodes(source, nodes);
-        return collapseBody(source, normalizedSplitted);
+        const normalizedSplitted = normalizeSplittedNodes(nodes);
+        return collapseBody(normalizedSplitted);
       })
       .map((node) => {
         if (is<BodyNode>(node, NodeType.BODY)) {
@@ -109,10 +109,10 @@ function collapseArrays(source: Source, nodes: Node[]): void {
   }
 }
 
-function collapseOperatorsOrders(source: Source, nodes: Node[], operatorsOrders: OperatorsOrder[]): Node[] {
+function collapseOperatorsOrders(nodes: Node[], operatorsOrders: OperatorsOrder[]): Node[] {
   for (const operatorsOrder of operatorsOrders) {
     if (operatorsOrder.operatorType === OperatorType.MODIFIER) {
-      collapseModifier(source, nodes, operatorsOrder.operators[0].split(' '), operatorsOrder.recursiveType);
+      collapseModifier( nodes, operatorsOrder.operators[0].split(' '), operatorsOrder.recursiveType);
     }
     if (operatorsOrder.operatorType === OperatorType.INVOKE) {
       collapseInvoke(nodes);
@@ -120,7 +120,6 @@ function collapseOperatorsOrders(source: Source, nodes: Node[], operatorsOrders:
     for (const operators of operatorsOrder.operators) {
       const operatorsStrings = operators.split(' ');
       const operatorIndex = findOperatorIndex(
-        source,
         nodes,
         operatorsStrings,
         operatorsOrder.operatorType,
@@ -128,15 +127,14 @@ function collapseOperatorsOrders(source: Source, nodes: Node[], operatorsOrders:
       );
       if (operatorIndex >= 0) {
         collapseOperators(nodes, operatorsOrder.operatorType, operatorIndex);
-        collapseOperatorsOrders(source, nodes, operatorsOrders);
+        collapseOperatorsOrders(nodes, operatorsOrders);
       }
     }
   }
   return nodes;
 }
 
-// todo remove because it is like prefix
-function collapseModifier(source: Source, nodes: Node[], operators: String2[], recursiveType: RecursiveType): void {
+function collapseModifier(nodes: Node[], operators: String2[], recursiveType: RecursiveType): void {
   for (let i = 0; i < nodes.length; i++) {
     const index = recursiveType === RecursiveType.LEFT ? i : nodes.length - i - 1;
     const modifier = nodes[index];
@@ -151,7 +149,7 @@ function collapseModifier(source: Source, nodes: Node[], operators: String2[], r
           value: next,
         } as PrefixNode;
         nodes.splice(index + 1, 1);
-        collapseModifier(source, nodes, operators, recursiveType);
+        collapseModifier(nodes, operators, recursiveType);
 
         return;
       }
@@ -176,7 +174,6 @@ function collapseInvoke(nodes: Node[]): void {
 }
 
 function findOperatorIndex(
-  source: Source,
   nodes: Node[],
   operators: String2[],
   operatorType: OperatorType,
@@ -248,7 +245,7 @@ function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIn
   }
 }
 
-function normalizeSplittedNodes(source: Source, nodes: Node[]): { indent: Integer; node: Node }[] {
+function normalizeSplittedNodes(nodes: Node[]): { indent: Integer; node: Node }[] {
   const nlSplitted = splitNodes(nodes, NodeType.NL);
 
   if (nlSplitted.length === 0) {
@@ -269,7 +266,7 @@ function normalizeSplittedNodes(source: Source, nodes: Node[]): { indent: Intege
     })
     .filter((x) => x.nodes.length > 0)
     .map((x) => {
-      const collapsedNodes = collapseOperatorsOrders(source, x.nodes, operatorsOrders);
+      const collapsedNodes = collapseOperatorsOrders(x.nodes, operatorsOrders);
       if (collapsedNodes.length !== 1) {
         throw new Error('Not implemented');
       }
