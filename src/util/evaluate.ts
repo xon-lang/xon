@@ -1,5 +1,4 @@
 import { is } from '~/compiler/parser/parser';
-import { Source } from '~/compiler/source/source';
 import { String2, Unknown2 } from '~/lib/core';
 import { ArrayNode } from '~/node/array/array-node';
 import { IdNode } from '~/node/id/id-node';
@@ -8,6 +7,7 @@ import { IntegerNode } from '~/node/integer/integer-node';
 import { Node, NodeType } from '~/node/node';
 import { PrefixNode } from '~/node/prefix/prefix-node';
 import { StringNode } from '~/node/string/string-node';
+import { Source } from '~/source/source';
 
 export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);

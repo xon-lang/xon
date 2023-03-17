@@ -1,11 +1,11 @@
 import { parseExpression } from '~/compiler/parser/parser';
-import { Source } from '~/compiler/source/source';
 import { ArrayNode } from '~/node/array/array-node';
 import { IdNode } from '~/node/id/id-node';
 import { IntegerNode } from '~/node/integer/integer-node';
 import { InvokeNode } from '~/node/invoke/invoke-node';
 import { MemberNode } from '~/node/member/member-node';
 import { NodeType } from '~/node/node';
+import { Source } from '~/source/source';
 
 test('method call', () => {
   const code = "f(3, 'str')";

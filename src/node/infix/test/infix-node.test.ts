@@ -1,11 +1,11 @@
 import { parseExpression } from '~/compiler/parser/parser';
-import { Source } from '~/compiler/source/source';
 import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { IntegerNode } from '~/node/integer/integer-node';
 import { NodeType } from '~/node/node';
 import { OperatorNode } from '~/node/operator/operator-node';
 import { PrefixNode } from '~/node/prefix/prefix-node';
+import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
 
 test('several operands with different priorities', () => {

@@ -1,8 +1,8 @@
 import { parseExpression } from '~/compiler/parser/parser';
-import { Source } from '~/compiler/source/source';
 import { IdNode } from '~/node/id/id-node';
 import { MemberNode } from '~/node/member/member-node';
 import { NodeType } from '~/node/node';
+import { Source } from '~/source/source';
 
 test('abc.def', () => {
   const code = 'abc.def';

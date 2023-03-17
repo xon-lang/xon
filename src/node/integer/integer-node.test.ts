@@ -1,7 +1,7 @@
 import { parseExpression } from '~/compiler/parser/parser';
-import { Source } from '~/compiler/source/source';
 import { IntegerNode } from '~/node/integer/integer-node';
 import { NodeType } from '~/node/node';
+import { Source } from '~/source/source';
 
 test('zero int number', () => {
   const code = '0';

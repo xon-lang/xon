@@ -1,7 +1,7 @@
 import { parseExpression } from '~/compiler/parser/parser';
-import { Source } from '~/compiler/source/source';
 import { NodeType } from '~/node/node';
 import { UnknownNode } from '~/node/unknown/unknown-node';
+import { Source } from '~/source/source';
 
 test('id', () => {
   const code = 'ºª¶';

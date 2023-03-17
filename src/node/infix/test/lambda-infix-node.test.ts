@@ -1,10 +1,10 @@
 import { parseExpression } from '~/compiler/parser/parser';
-import { Source } from '~/compiler/source/source';
 import { ArrayNode } from '~/node/array/array-node';
 import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { InvokeNode } from '~/node/invoke/invoke-node';
 import { NodeType } from '~/node/node';
+import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
 
 test('has argument', () => {

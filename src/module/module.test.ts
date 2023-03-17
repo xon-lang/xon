@@ -1,4 +1,4 @@
-import { getModuleFromLocation } from '~/compiler/module/module-helper';
+import { getModuleFromLocation } from '~/module/module-helper';
 
 test('module from path', () => {
   const tree = getModuleFromLocation('src/lib/@xon/core');

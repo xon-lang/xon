@@ -1,7 +1,7 @@
 import { parseExpression } from '~/compiler/parser/parser';
-import { Source } from '~/compiler/source/source';
 import { IdNode } from '~/node/id/id-node';
 import { NodeType } from '~/node/node';
+import { Source } from '~/source/source';
 
 test('id', () => {
   const code = 'myVariable';

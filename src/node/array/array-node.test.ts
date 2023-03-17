@@ -1,9 +1,9 @@
 import { is, parseExpression } from '~/compiler/parser/parser';
-import { Source } from '~/compiler/source/source';
 import { Integer } from '~/lib/core';
 import { ArrayNode } from '~/node/array/array-node';
 import { IntegerNode } from '~/node/integer/integer-node';
 import { NodeType } from '~/node/node';
+import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
 
 test('empty', () => {

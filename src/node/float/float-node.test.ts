@@ -1,8 +1,8 @@
 import { parseExpression } from '~/compiler/parser/parser';
-import { Source } from '~/compiler/source/source';
 import { FloatNode } from '~/node/float/float-node';
 import { IntegerNode } from '~/node/integer/integer-node';
 import { NodeType } from '~/node/node';
+import { Source } from '~/source/source';
 
 test('123.456', () => {
   const code = '123.456';

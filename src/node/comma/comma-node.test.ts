@@ -1,6 +1,6 @@
 import { Scanner } from '~/compiler/scanner/scanner';
-import { Source } from '~/compiler/source/source';
 import { NodeType } from '~/node/node';
+import { Source } from '~/source/source';
 
 test('comma', () => {
   const code = ',';

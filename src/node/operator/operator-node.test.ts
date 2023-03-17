@@ -1,7 +1,7 @@
 import { parseExpression } from '~/compiler/parser/parser';
-import { Source } from '~/compiler/source/source';
 import { NodeType } from '~/node/node';
 import { PostfixNode } from '~/node/postfix/postfix-node';
+import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
 
 test('after integer', () => {

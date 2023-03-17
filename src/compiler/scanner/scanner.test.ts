@@ -1,6 +1,6 @@
 import { Scanner } from '~/compiler/scanner/scanner';
-import { Source } from '~/compiler/source/source';
 import { NodeType } from '~/node/node';
+import { Source } from '~/source/source';
 
 test('single id', () => {
   const text = 'abc';
@@ -102,7 +102,6 @@ test('infix operator', () => {
   expect(tokens[2].text).toBe('def');
   expect(tokens[2].type).toBe(NodeType.ID);
 });
-
 
 test('line feed', () => {
   const text = '\n';

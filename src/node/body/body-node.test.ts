@@ -1,11 +1,11 @@
 import { parseBody } from '~/compiler/parser/parser';
-import { Source } from '~/compiler/source/source';
 import { BodyNode } from '~/node/body/body-node';
 import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { IntegerNode } from '~/node/integer/integer-node';
 import { LadderNode } from '~/node/ladder/ladder-node';
 import { NodeType } from '~/node/node';
+import { Source } from '~/source/source';
 
 test('debug', () => {
   const code = 'a = 1\n b = 2\n +b';

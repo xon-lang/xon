@@ -1,7 +1,7 @@
 import { parseExpression } from '~/compiler/parser/parser';
-import { Source } from '~/compiler/source/source';
 import { NodeType } from '~/node/node';
 import { StringNode } from '~/node/string/string-node';
+import { Source } from '~/source/source';
 
 test('single line string', () => {
   const code = `'some string'`;

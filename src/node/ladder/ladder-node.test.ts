@@ -1,8 +1,8 @@
 import { parseExpression } from '~/compiler/parser/parser';
-import { Source } from '~/compiler/source/source';
 import { IdNode } from '~/node/id/id-node';
 import { LadderNode } from '~/node/ladder/ladder-node';
 import { NodeType } from '~/node/node';
+import { Source } from '~/source/source';
 
 test('single expression', () => {
   const code = 'abc\n  a = 1';
