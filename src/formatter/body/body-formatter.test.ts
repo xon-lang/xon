@@ -1,4 +1,4 @@
-import { getParser } from '~/analysis/parser/parser';
+import { getParser } from '~/analysis/syntax/syntax-analysis';
 import { BodyFormatter } from '~/formatter/body/body-formatter';
 import { getBodyFormatter } from '~/formatter/body/body-formatter-helper';
 import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';

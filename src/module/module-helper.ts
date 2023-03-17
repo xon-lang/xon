@@ -1,6 +1,6 @@
 import { globSync } from 'glob';
 import { basename, join } from 'path';
-import { parseSourceFile } from '~/analysis/parser/parser';
+import { parseSourceFile } from '~/analysis/syntax/syntax-analysis';
 import { String2 } from '~/lib/core';
 import { Module } from '~/module/module';
 import { SourceNode } from '~/node/source/source-node';

@@ -1,4 +1,4 @@
-import { parse } from '~/analysis/parser/parser';
+import { parse } from '~/analysis/syntax/syntax-analysis';
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { getExpressionMetadata } from '~/metadata/expression/expression-metadata-helper';
 import { IdValueMetadata } from '~/metadata/expression/value/id/id-value-metadata';

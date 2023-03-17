@@ -1,4 +1,4 @@
-import { getParser } from '~/analysis/parser/parser';
+import { getParser } from '~/analysis/syntax/syntax-analysis';
 import { defaultFormatterConfig } from '~/formatter/formatter-config';
 import { DeclarationStatementFormatter } from '~/formatter/statement/declaration/declaration-statement-formatter';
 import { getStatementFormatter } from '~/formatter/statement/statement-formatter-helper';

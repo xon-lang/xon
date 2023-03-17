@@ -1,4 +1,4 @@
-import { parse } from '~/analysis/parser/parser';
+import { parse } from '~/analysis/syntax/syntax-analysis';
 import { IntegerTypeMetadata } from '~/metadata/type/integer/integer-type-metadata';
 import { getTypeMetadata } from '~/metadata/type/type-metadata-helper';
 

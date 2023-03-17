@@ -1,5 +1,5 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/analysis/parser/operators';
+import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/analysis/syntax/operators';
 import { Boolean2, Integer, String2 } from '~/lib/core';
 import { arrayNode, ArrayNode } from '~/node/array/array-node';
 import { bodyNode, BodyNode } from '~/node/body/body-node';
@@ -21,7 +21,7 @@ import { Source } from '~/source/source';
 export function parseBody(source: Source): BodyNode {
   const scanner = new LexicalAnalysis(source.text);
   const tokens = scanner.nodes();
-  const parser = new Parser(tokens, operatorsOrders);
+  const parser = new SyntaxAnalysis(tokens, operatorsOrders);
   return parser.parse();
 }
 
@@ -40,7 +40,7 @@ export function is<T extends Node = Node>(node: Node, nodeType: NodeType | Strin
   return node?.type === nodeType;
 }
 
-export class Parser {
+export class SyntaxAnalysis {
   constructor(public tokens: TokenNode[], public operatorsOrders: OperatorsOrder[]) {}
 
   public parse(): BodyNode {

@@ -1,4 +1,4 @@
-import { parseStatement } from '~/analysis/parser/parser';
+import { parseStatement } from '~/analysis/syntax/syntax-analysis';
 import { ImportStatementMetadata } from '~/metadata/statement/import/import-statement-metadata';
 import { getStatementMetadata } from '~/metadata/statement/statement-metadata-helper';
 

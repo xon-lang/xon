@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from 'fs';
-import { getParser } from '~/analysis/parser/parser';
+import { getParser } from '~/analysis/syntax/syntax-analysis';
 import { defaultFormatterConfig } from '~/formatter/formatter-config';
 import { SourceFormatter } from '~/formatter/source/source-formatter';
 import { getSourceFormatter } from '~/formatter/source/source-formatter-helper';

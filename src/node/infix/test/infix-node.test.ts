@@ -1,5 +1,5 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { parseExpression } from '~/analysis/parser/parser';
+import { parseExpression } from '~/analysis/syntax/syntax-analysis';
 import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { IntegerNode } from '~/node/integer/integer-node';

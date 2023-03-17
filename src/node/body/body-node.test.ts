@@ -1,4 +1,4 @@
-import { parseBody } from '~/analysis/parser/parser';
+import { parseBody } from '~/analysis/syntax/syntax-analysis';
 import { BodyNode } from '~/node/body/body-node';
 import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';
