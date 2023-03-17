@@ -1,4 +1,4 @@
-import { Node } from '~/analysis/node';
+import { Node } from '~/analysis/Node';
 import { IssueLevel } from '~/issue/issue-level';
 import { String2 } from '~/lib/core';
 

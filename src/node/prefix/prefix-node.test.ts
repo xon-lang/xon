@@ -1,4 +1,4 @@
-import { NodeType } from '~/analysis/node';
+import { NodeType } from '~/analysis/Node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
 import { PrefixNode } from '~/node/prefix/prefix-node';
 import { Source } from '~/source/source';

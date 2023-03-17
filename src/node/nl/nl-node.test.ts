@@ -1,5 +1,5 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NodeType } from '~/analysis/node';
+import { NodeType } from '~/analysis/Node';
 import { Source } from '~/source/source';
 
 test('line feed', () => {

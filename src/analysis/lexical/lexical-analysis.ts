@@ -1,4 +1,5 @@
-import { LexicalNode, NodeType } from '~/analysis/node';
+import { LexicalNode } from '~/analysis/lexical/LexicalNode';
+import { NodeType } from '~/analysis/Node';
 import { Integer, String2 } from '~/lib/core';
 import { scanCloseNode } from '~/node/close/close-node';
 import { scanCommaNode } from '~/node/comma/comma-node';

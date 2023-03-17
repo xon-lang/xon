@@ -1,4 +1,4 @@
-import { Integer, String2 } from '~/lib/core';
+import { String2 } from '~/lib/core';
 
 export enum NodeType {
   TOKEN = 'TOKEN',
@@ -27,10 +27,4 @@ export enum NodeType {
 
 export interface Node {
   type: NodeType | String2;
-}
-
-export interface LexicalNode extends Node {
-  start: Integer;
-  stop: Integer;
-  text: String2;
 }

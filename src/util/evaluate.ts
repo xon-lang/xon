@@ -1,4 +1,4 @@
-import { Node, NodeType } from '~/analysis/node';
+import { Node, NodeType } from '~/analysis/Node';
 import { is } from '~/analysis/syntax/syntax-analysis';
 import { String2, Unknown2 } from '~/lib/core';
 import { ArrayNode } from '~/node/array/array-node';

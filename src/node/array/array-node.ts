@@ -1,4 +1,4 @@
-import { Node, NodeType } from '~/analysis/node';
+import { Node, NodeType } from '~/analysis/Node';
 import { CloseNode } from '~/node/close/close-node';
 import { OpenNode } from '~/node/open/open-node';
 
