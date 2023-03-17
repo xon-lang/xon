@@ -1,8 +1,8 @@
+import { IdNode } from '~/analysis/lexical/node/id/id-node';
+import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
 import { NodeType } from '~/analysis/node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
 import { ArrayNode } from '~/node/array/array-node';
-import { IdNode } from '~/node/id/id-node';
-import { IntegerNode } from '~/node/integer/integer-node';
 import { InvokeNode } from '~/node/invoke/invoke-node';
 import { MemberNode } from '~/node/member/member-node';
 import { Source } from '~/source/source';

@@ -1,7 +1,7 @@
+import { IdNode } from '~/analysis/lexical/node/id/id-node';
+import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
+import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
 import { Node, NodeType } from '~/analysis/node';
-import { IdNode } from '~/node/id/id-node';
-import { IntegerNode } from '~/node/integer/integer-node';
-import { OperatorNode } from '~/node/operator/operator-node';
 
 export interface FloatNode extends Node {
   type: NodeType.FLOAT;

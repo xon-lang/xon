@@ -1,7 +1,7 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
+import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { NodeType } from '~/analysis/node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
-import { IdNode } from '~/node/id/id-node';
 import { Source } from '~/source/source';
 
 test('id', () => {

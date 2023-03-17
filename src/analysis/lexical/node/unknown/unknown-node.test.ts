@@ -1,7 +1,7 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
+import { UnknownNode } from '~/analysis/lexical/node/unknown/unknown-node';
 import { NodeType } from '~/analysis/node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
-import { UnknownNode } from '~/node/unknown/unknown-node';
 import { Source } from '~/source/source';
 
 test('unexpected 1', () => {

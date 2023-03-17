@@ -1,17 +1,17 @@
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
+import { scanCloseNode } from '~/analysis/lexical/node/close/close-node';
+import { scanCommaNode } from '~/analysis/lexical/node/comma/comma-node';
+import { scanIdNode } from '~/analysis/lexical/node/id/id-node';
+import { scanIntegerNode } from '~/analysis/lexical/node/integer/integer-node';
+import { scanJoiningNode } from '~/analysis/lexical/node/joining/joining-node';
+import { scanNlNode } from '~/analysis/lexical/node/nl/nl-node';
+import { scanOpenNode } from '~/analysis/lexical/node/open/open-node';
+import { scanOperatorNode } from '~/analysis/lexical/node/operator/operator-node';
+import { scanStringNode } from '~/analysis/lexical/node/string/string-node';
+import { unexpectedNode } from '~/analysis/lexical/node/unknown/unknown-node';
 import { NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
-import { scanCloseNode } from '~/node/close/close-node';
-import { scanCommaNode } from '~/node/comma/comma-node';
-import { scanIdNode } from '~/node/id/id-node';
-import { scanIntegerNode } from '~/node/integer/integer-node';
-import { scanJoiningNode } from '~/node/joining/joining-node';
-import { scanNlNode } from '~/node/nl/nl-node';
-import { scanOpenNode } from '~/node/open/open-node';
-import { scanOperatorNode } from '~/node/operator/operator-node';
-import { scanStringNode } from '~/node/string/string-node';
-import { unexpectedNode } from '~/node/unknown/unknown-node';
-import { scanWhitespaceNode } from '~/node/whitespace/whitespace-node';
+import { scanWhitespaceNode } from '~/analysis/lexical/node/whitespace/whitespace-node';
 
 type NodeScanFunction = (text: String2, index: Integer) => LexicalNode | null;
 

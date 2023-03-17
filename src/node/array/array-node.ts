@@ -1,6 +1,6 @@
+import { CloseNode } from '~/analysis/lexical/node/close/close-node';
+import { OpenNode } from '~/analysis/lexical/node/open/open-node';
 import { Node, NodeType } from '~/analysis/node';
-import { CloseNode } from '~/node/close/close-node';
-import { OpenNode } from '~/node/open/open-node';
 
 export interface ArrayNode extends Node {
   type: NodeType.ARRAY;

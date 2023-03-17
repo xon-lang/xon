@@ -1,8 +1,8 @@
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
+import { IdNode, scanIdNode } from '~/analysis/lexical/node/id/id-node';
 import { NodeType } from '~/analysis/node';
 import { operatorsOrders } from '~/analysis/syntax/operators';
 import { Integer, String2 } from '~/lib/core';
-import { IdNode, scanIdNode } from '~/node/id/id-node';
 
 export interface OperatorNode extends LexicalNode {
   type: NodeType.OPERATOR;

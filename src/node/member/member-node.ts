@@ -1,6 +1,6 @@
+import { IdNode } from '~/analysis/lexical/node/id/id-node';
+import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
 import { Node, NodeType } from '~/analysis/node';
-import { IdNode } from '~/node/id/id-node';
-import { OperatorNode } from '~/node/operator/operator-node';
 
 export interface MemberNode extends Node {
   type: NodeType.MEMBER;

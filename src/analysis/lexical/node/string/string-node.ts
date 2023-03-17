@@ -1,7 +1,7 @@
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
+import { unexpectedNode, UnknownNode } from '~/analysis/lexical/node/unknown/unknown-node';
 import { NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
-import { unexpectedNode, UnknownNode } from '~/node/unknown/unknown-node';
 
 export interface StringNode extends LexicalNode {
   type: NodeType.STRING;

@@ -1,10 +1,10 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
+import { IdNode } from '~/analysis/lexical/node/id/id-node';
+import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
+import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
 import { NodeType } from '~/analysis/node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
-import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';
-import { IntegerNode } from '~/node/integer/integer-node';
-import { OperatorNode } from '~/node/operator/operator-node';
 import { PrefixNode } from '~/node/prefix/prefix-node';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
