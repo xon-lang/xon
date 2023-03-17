@@ -1,4 +1,4 @@
-import { NodeType } from '~/analysis/Node';
+import { NodeType } from '~/analysis/node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
 import { PostfixNode } from '~/node/postfix/postfix-node';
 import { Source } from '~/source/source';

@@ -1,4 +1,4 @@
-import { NodeType } from '~/analysis/Node';
+import { NodeType } from '~/analysis/node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
 import { FloatNode } from '~/node/float/float-node';
 import { IntegerNode } from '~/node/integer/integer-node';

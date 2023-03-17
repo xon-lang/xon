@@ -1,4 +1,4 @@
-import { Node, NodeType } from '~/analysis/Node';
+import { Node, NodeType } from '~/analysis/node';
 import { ArrayNode } from '~/node/array/array-node';
 
 export interface InvokeNode extends Node {

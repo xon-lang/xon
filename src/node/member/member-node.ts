@@ -1,4 +1,4 @@
-import { Node, NodeType } from '~/analysis/Node';
+import { Node, NodeType } from '~/analysis/node';
 import { IdNode } from '~/node/id/id-node';
 import { OperatorNode } from '~/node/operator/operator-node';
 

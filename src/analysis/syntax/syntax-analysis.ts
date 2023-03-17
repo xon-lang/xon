@@ -1,6 +1,6 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { LexicalNode } from '~/analysis/lexical/LexicalNode';
-import { Node, NodeType } from '~/analysis/Node';
+import { LexicalNode } from '~/analysis/lexical/lexical-node';
+import { Node, NodeType } from '~/analysis/node';
 import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/analysis/syntax/operators';
 import { Boolean2, Integer, String2 } from '~/lib/core';
 import { arrayNode, ArrayNode } from '~/node/array/array-node';
