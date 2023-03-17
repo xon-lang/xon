@@ -1,6 +1,6 @@
+import { Node, NodeType } from '~/analysis/node';
 import { IdNode } from '~/node/id/id-node';
 import { IntegerNode } from '~/node/integer/integer-node';
-import { Node, NodeType } from '~/node/node';
 import { OperatorNode } from '~/node/operator/operator-node';
 
 export interface FloatNode extends Node {

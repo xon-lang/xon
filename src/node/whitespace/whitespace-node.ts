@@ -1,7 +1,7 @@
+import { LexicalNode, NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
-import { NodeType, TokenNode } from '~/node/node';
 
-export interface WhitespaceNode extends TokenNode {}
+export interface WhitespaceNode extends LexicalNode {}
 
 export function whitespaceNode(start: Integer, stop: Integer, text: String2): WhitespaceNode {
   return {

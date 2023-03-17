@@ -29,7 +29,7 @@ export interface Node {
   type: NodeType | String2;
 }
 
-export interface TokenNode extends Node {
+export interface LexicalNode extends Node {
   start: Integer;
   stop: Integer;
   text: String2;

@@ -1,3 +1,4 @@
+import { LexicalNode, NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
 import { scanCloseNode } from '~/node/close/close-node';
 import { scanCommaNode } from '~/node/comma/comma-node';
@@ -5,14 +6,13 @@ import { scanIdNode } from '~/node/id/id-node';
 import { scanIntegerNode } from '~/node/integer/integer-node';
 import { scanJoiningNode } from '~/node/joining/joining-node';
 import { scanNlNode } from '~/node/nl/nl-node';
-import { NodeType, TokenNode } from '~/node/node';
 import { scanOpenNode } from '~/node/open/open-node';
 import { scanOperatorNode } from '~/node/operator/operator-node';
 import { scanStringNode } from '~/node/string/string-node';
 import { unexpectedNode } from '~/node/unknown/unknown-node';
 import { scanWhitespaceNode } from '~/node/whitespace/whitespace-node';
 
-type NodeScanFunction = (text: String2, index: Integer) => TokenNode | null;
+type NodeScanFunction = (text: String2, index: Integer) => LexicalNode | null;
 
 const nodeScanFunctions: NodeScanFunction[] = [
   scanNlNode,
@@ -30,8 +30,8 @@ const nodeScanFunctions: NodeScanFunction[] = [
 export class LexicalAnalysis {
   public constructor(public text: String2) {}
 
-  public nodes(): TokenNode[] {
-    const scannedNodes: TokenNode[] = [];
+  public nodes(): LexicalNode[] {
+    const scannedNodes: LexicalNode[] = [];
 
     for (let index = 0; index < this.text.length; index++) {
       const node = this.nextNode(index);
@@ -56,7 +56,7 @@ export class LexicalAnalysis {
     return scannedNodes;
   }
 
-  private nextNode(index: Integer): TokenNode | null {
+  private nextNode(index: Integer): LexicalNode | null {
     for (const nodeScan of nodeScanFunctions) {
       const node = nodeScan(this.text, index);
       if (node) {

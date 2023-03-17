@@ -1,6 +1,6 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
+import { NodeType } from '~/analysis/node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
-import { NodeType } from '~/node/node';
 import { StringNode } from '~/node/string/string-node';
 import { Source } from '~/source/source';
 

@@ -1,9 +1,9 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
+import { NodeType } from '~/analysis/node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
 import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { IntegerNode } from '~/node/integer/integer-node';
-import { NodeType } from '~/node/node';
 import { OperatorNode } from '~/node/operator/operator-node';
 import { PrefixNode } from '~/node/prefix/prefix-node';
 import { Source } from '~/source/source';

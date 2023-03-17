@@ -1,4 +1,4 @@
-import { Node, NodeType } from '~/node/node';
+import { Node, NodeType } from '~/analysis/node';
 
 export interface BodyNode extends Node {
   type: NodeType.BODY;

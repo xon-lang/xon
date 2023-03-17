@@ -1,6 +1,6 @@
+import { Node } from '~/analysis/node';
 import { IssueLevel } from '~/issue/issue-level';
 import { String2 } from '~/lib/core';
-import { Node } from '~/node/node';
 
 export class Issue extends Error {
   // public actual: String2

@@ -1,8 +1,8 @@
+import { NodeType } from '~/analysis/node';
 import { is, parseExpression } from '~/analysis/syntax/syntax-analysis';
 import { Integer } from '~/lib/core';
 import { ArrayNode } from '~/node/array/array-node';
 import { IntegerNode } from '~/node/integer/integer-node';
-import { NodeType } from '~/node/node';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
 

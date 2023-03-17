@@ -1,7 +1,7 @@
+import { NodeType } from '~/analysis/node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
 import { IdNode } from '~/node/id/id-node';
 import { MemberNode } from '~/node/member/member-node';
-import { NodeType } from '~/node/node';
 import { Source } from '~/source/source';
 
 test('abc.def', () => {

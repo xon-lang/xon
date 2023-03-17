@@ -1,7 +1,7 @@
+import { LexicalNode, NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
-import { NodeType, TokenNode } from '~/node/node';
 
-export interface IntegerNode extends TokenNode {
+export interface IntegerNode extends LexicalNode {
   type: NodeType.INTEGER;
 }
 

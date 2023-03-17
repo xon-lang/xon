@@ -1,4 +1,5 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
+import { LexicalNode, Node, NodeType } from '~/analysis/node';
 import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/analysis/syntax/operators';
 import { Boolean2, Integer, String2 } from '~/lib/core';
 import { arrayNode, ArrayNode } from '~/node/array/array-node';
@@ -11,7 +12,6 @@ import { IntegerNode } from '~/node/integer/integer-node';
 import { invokeNode } from '~/node/invoke/invoke-node';
 import { ladderNode } from '~/node/ladder/ladder-node';
 import { memberNode, MemberNode } from '~/node/member/member-node';
-import { Node, NodeType, TokenNode } from '~/node/node';
 import { OpenNode } from '~/node/open/open-node';
 import { OperatorNode } from '~/node/operator/operator-node';
 import { PostfixNode, postfixNode } from '~/node/postfix/postfix-node';
@@ -41,7 +41,7 @@ export function is<T extends Node = Node>(node: Node, nodeType: NodeType | Strin
 }
 
 export class SyntaxAnalysis {
-  constructor(public tokens: TokenNode[], public operatorsOrders: OperatorsOrder[]) {}
+  constructor(public tokens: LexicalNode[], public operatorsOrders: OperatorsOrder[]) {}
 
   public parse(): BodyNode {
     const filteredNodes = this.tokens.filter((node) => node.type !== NodeType.JOINING);
@@ -143,7 +143,7 @@ function collapseModifier(nodes: Node[], operators: String2[], recursiveType: Re
     const modifier = nodes[index];
     if (is<OperatorNode>(modifier, NodeType.OPERATOR) && operators.includes(modifier.text)) {
       const next = nodes[index + 1];
-      if (is<TokenNode>(next, NodeType.TOKEN)) {
+      if (is<LexicalNode>(next, NodeType.TOKEN)) {
         nodes[index] = {
           type: NodeType.PREFIX,
           start: modifier.start,
@@ -265,12 +265,12 @@ function normalizeSplittedNodes(nodes: Node[]): { indent: Integer; node: Node }[
     return [];
   }
 
-  const firstNode = nlSplitted[0][0] as TokenNode;
+  const firstNode = nlSplitted[0][0] as LexicalNode;
   const minIndent = is(firstNode, NodeType.WHITESPACE) ? firstNode.stop - firstNode.stop + 1 : 0;
 
   const result = nlSplitted
     .map((nodes) => {
-      const firstNode = nodes[0] as TokenNode;
+      const firstNode = nodes[0] as LexicalNode;
       const indent = is(firstNode, NodeType.WHITESPACE) ? firstNode.stop - firstNode.stop + 1 : 0;
       return {
         indent: indent <= minIndent ? 0 : indent,

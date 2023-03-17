@@ -1,5 +1,5 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NodeType } from '~/node/node';
+import { NodeType } from '~/analysis/node';
 import { Source } from '~/source/source';
 
 test('close paren', () => {

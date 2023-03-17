@@ -1,5 +1,5 @@
+import { Node, NodeType } from '~/analysis/node';
 import { IdNode } from '~/node/id/id-node';
-import { Node, NodeType } from '~/node/node';
 import { OperatorNode } from '~/node/operator/operator-node';
 
 export interface MemberNode extends Node {

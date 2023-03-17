@@ -1,10 +1,10 @@
+import { NodeType } from '~/analysis/node';
 import { parseBody } from '~/analysis/syntax/syntax-analysis';
 import { BodyNode } from '~/node/body/body-node';
 import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { IntegerNode } from '~/node/integer/integer-node';
 import { LadderNode } from '~/node/ladder/ladder-node';
-import { NodeType } from '~/node/node';
 import { Source } from '~/source/source';
 
 test('debug', () => {

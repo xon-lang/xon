@@ -1,5 +1,5 @@
+import { NodeType } from '~/analysis/node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
-import { NodeType } from '~/node/node';
 import { PrefixNode } from '~/node/prefix/prefix-node';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';

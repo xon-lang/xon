@@ -1,5 +1,5 @@
+import { Node, NodeType } from '~/analysis/node';
 import { BodyNode } from '~/node/body/body-node';
-import { Node, NodeType } from '~/node/node';
 
 export interface LadderNode extends Node {
   type: NodeType.LADDER;
