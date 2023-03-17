@@ -1,11 +1,11 @@
-import { Scanner } from '~/compiler/lexical/lexical';
+import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { NodeType } from '~/node/node';
 import { Source } from '~/source/source';
 
 test('line joining', () => {
   const text = 'abc\\  .def';
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source.text);
+  const lexer = new LexicalAnalysis(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(4);

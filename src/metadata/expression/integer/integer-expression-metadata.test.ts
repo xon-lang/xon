@@ -1,4 +1,4 @@
-import { parse } from '~/compiler/parser/parser';
+import { parse } from '~/analysis/parser/parser';
 import { getExpressionMetadata } from '~/metadata/expression/expression-metadata-helper';
 import { IntegerExpressionMetadata } from '~/metadata/expression/integer/integer-expression-metadata';
 import { IntegerTypeMetadata } from '~/metadata/type/integer/integer-type-metadata';

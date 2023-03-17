@@ -1,11 +1,11 @@
-import { Scanner } from '~/compiler/lexical/lexical';
+import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { NodeType } from '~/node/node';
 import { Source } from '~/source/source';
 
 test('close paren', () => {
   const code = ')';
   const source = Source.fromText(code);
-  const scanner = new Scanner(source.text);
+  const scanner = new LexicalAnalysis(source.text);
   const tokens = scanner.nodes();
 
   expect(tokens.length).toBe(1);
@@ -16,7 +16,7 @@ test('close paren', () => {
 test('close bracket', () => {
   const code = ']';
   const source = Source.fromText(code);
-  const scanner = new Scanner(source.text);
+  const scanner = new LexicalAnalysis(source.text);
   const tokens = scanner.nodes();
 
   expect(tokens.length).toBe(1);
@@ -27,7 +27,7 @@ test('close bracket', () => {
 test('close brace', () => {
   const code = '}';
   const source = Source.fromText(code);
-  const scanner = new Scanner(source.text);
+  const scanner = new LexicalAnalysis(source.text);
   const tokens = scanner.nodes();
 
   expect(tokens.length).toBe(1);

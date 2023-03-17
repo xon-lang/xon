@@ -1,4 +1,4 @@
-import { parseExpression } from '~/compiler/parser/parser';
+import { parseExpression } from '~/analysis/parser/parser';
 import { FloatNode } from '~/node/float/float-node';
 import { IntegerNode } from '~/node/integer/integer-node';
 import { NodeType } from '~/node/node';

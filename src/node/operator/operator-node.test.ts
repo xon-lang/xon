@@ -1,5 +1,5 @@
-import { Scanner } from '~/compiler/lexical/lexical';
-import { parseExpression } from '~/compiler/parser/parser';
+import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
+import { parseExpression } from '~/analysis/parser/parser';
 import { NodeType } from '~/node/node';
 import { PostfixNode } from '~/node/postfix/postfix-node';
 import { Source } from '~/source/source';
@@ -8,7 +8,7 @@ import { evaluate } from '~/util/evaluate';
 test('single operator', () => {
   const text = '!';
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source.text);
+  const lexer = new LexicalAnalysis(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(1);
@@ -38,7 +38,7 @@ test('after invoke', () => {
 test('infix operator', () => {
   const text = 'infix +: (a: Number, b: Number) = Number';
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source.text);
+  const lexer = new LexicalAnalysis(source.text);
   const tokens = lexer.nodes();
 
   console.log(tokens.map((x) => x.stop).join(', '));

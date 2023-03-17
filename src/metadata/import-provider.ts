@@ -1,4 +1,4 @@
-import { parseSourceFile } from '~/compiler/parser/parser';
+import { parseSourceFile } from '~/analysis/parser/parser';
 import { String2 } from '~/lib/core';
 import { DeclarationMetadata } from '~/metadata/declaration/declaration-metadata';
 import { getSourceDeclarationMetadata } from '~/metadata/declaration/declaration-metadata-helper';

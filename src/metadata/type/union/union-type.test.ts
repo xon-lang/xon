@@ -1,4 +1,4 @@
-import { parse } from '~/compiler/parser/parser';
+import { parse } from '~/analysis/parser/parser';
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { fillTypeMetadata } from '~/metadata/type/type-metadata-helper';
 import { UnionType } from '~/metadata/type/union/union-type';

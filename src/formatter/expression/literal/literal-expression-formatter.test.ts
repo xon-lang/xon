@@ -1,4 +1,4 @@
-import { getParser } from '~/compiler/parser/parser';
+import { getParser } from '~/analysis/parser/parser';
 import { getExpressionFormatter } from '~/formatter/expression/expression-formatter-helper';
 import { LiteralExpressionFormatter } from '~/formatter/expression/literal/literal-expression-formatter';
 import { defaultFormatterConfig } from '~/formatter/formatter-config';

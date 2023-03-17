@@ -1,4 +1,4 @@
-import { getParser } from '~/compiler/parser/parser';
+import { getParser } from '~/analysis/parser/parser';
 import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';
 import { IfStatementFormatter } from '~/formatter/statement/if/if-statement-formatter';
 import { getStatementFormatter } from '~/formatter/statement/statement-formatter-helper';

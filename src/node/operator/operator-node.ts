@@ -1,4 +1,4 @@
-import { operatorsOrders } from '~/compiler/parser/operators';
+import { operatorsOrders } from '~/analysis/parser/operators';
 import { Integer, String2 } from '~/lib/core';
 import { IdNode, scanIdNode } from '~/node/id/id-node';
 import { NodeType, TokenNode } from '~/node/node';

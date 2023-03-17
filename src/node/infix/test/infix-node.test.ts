@@ -1,5 +1,5 @@
-import { Scanner } from '~/compiler/lexical/lexical';
-import { parseExpression } from '~/compiler/parser/parser';
+import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
+import { parseExpression } from '~/analysis/parser/parser';
 import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { IntegerNode } from '~/node/integer/integer-node';
@@ -12,7 +12,7 @@ import { evaluate } from '~/util/evaluate';
 test('infix operator', () => {
   const text = 'abc.def';
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source.text);
+  const lexer = new LexicalAnalysis(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(3);

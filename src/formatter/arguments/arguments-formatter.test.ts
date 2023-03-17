@@ -1,4 +1,4 @@
-import { getParser } from '~/compiler/parser/parser';
+import { getParser } from '~/analysis/parser/parser';
 import { ArgumentsFormatter } from '~/formatter/arguments/arguments-formatter';
 import { getArgumentsFormatter } from '~/formatter/arguments/arguments-formatter-helper';
 import { defaultFormatterConfig, FormatterConfig } from '~/formatter/formatter-config';

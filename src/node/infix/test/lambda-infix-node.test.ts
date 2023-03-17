@@ -1,4 +1,4 @@
-import { parseExpression } from '~/compiler/parser/parser';
+import { parseExpression } from '~/analysis/parser/parser';
 import { ArrayNode } from '~/node/array/array-node';
 import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';

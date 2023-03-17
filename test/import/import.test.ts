@@ -1,4 +1,4 @@
-import { parseSourceFile } from '~/compiler/parser/parser';
+import { parseSourceFile } from '~/analysis/parser/parser';
 import { ValueMetadata } from '~/metadata/expression/value/value-metadata';
 import { SourceMetadata } from '~/metadata/source/source-metadata';
 import { getSourceMetadata } from '~/metadata/source/source-metadata-helper';

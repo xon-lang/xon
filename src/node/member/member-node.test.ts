@@ -1,4 +1,4 @@
-import { parseExpression } from '~/compiler/parser/parser';
+import { parseExpression } from '~/analysis/parser/parser';
 import { IdNode } from '~/node/id/id-node';
 import { MemberNode } from '~/node/member/member-node';
 import { NodeType } from '~/node/node';

@@ -1,4 +1,4 @@
-import { parseSource } from '~/compiler/parser/parser';
+import { parseSource } from '~/analysis/parser/parser';
 import { DefinitionMetadata } from '~/metadata/declaration/definition/definition-metadata';
 import { TestDeclarationScope } from '~/metadata/declaration/scope/test-declaration-scope';
 import { SourceMetadata } from '~/metadata/source/source-metadata';

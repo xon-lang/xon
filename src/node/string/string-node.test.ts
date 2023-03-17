@@ -1,5 +1,5 @@
-import { Scanner } from '~/compiler/lexical/lexical';
-import { parseExpression } from '~/compiler/parser/parser';
+import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
+import { parseExpression } from '~/analysis/parser/parser';
 import { NodeType } from '~/node/node';
 import { StringNode } from '~/node/string/string-node';
 import { Source } from '~/source/source';
@@ -7,7 +7,7 @@ import { Source } from '~/source/source';
 test('string', () => {
   const text = "'abc   def'";
   const source = Source.fromText(text, null);
-  const lexer = new Scanner(source.text);
+  const lexer = new LexicalAnalysis(source.text);
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(1);

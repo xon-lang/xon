@@ -27,7 +27,7 @@ const nodeScanFunctions: NodeScanFunction[] = [
   scanIntegerNode,
 ];
 
-export class Scanner {
+export class LexicalAnalysis {
   public constructor(public text: String2) {}
 
   public nodes(): TokenNode[] {
