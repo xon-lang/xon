@@ -1,3 +1,4 @@
+import { is } from '~/analysis/is';
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { CloseNode } from '~/analysis/lexical/node/close/close-node';
@@ -32,24 +33,6 @@ export function parseExpression(source: Source): Node {
     throw new Error('Not implemented');
   }
   return nodes[0];
-}
-
-export function is<T extends Node = Node>(node: Node, nodeType: NodeType | String2): node is T {
-  const suffix = node?.type.split('-')[1];
-
-  if (nodeType === NodeType.LEXICAL) {
-    return suffix === NodeType.LEXICAL;
-  }
-
-  if (nodeType === NodeType.SYNTAX) {
-    return suffix === NodeType.SYNTAX;
-  }
-
-  if (nodeType === NodeType.SEMANTIC) {
-    return suffix === NodeType.SEMANTIC;
-  }
-
-  return node?.type === nodeType;
 }
 
 export class SyntaxAnalysis {

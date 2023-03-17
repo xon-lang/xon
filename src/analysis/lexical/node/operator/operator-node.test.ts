@@ -41,8 +41,6 @@ test('infix operator', () => {
   const lexer = new LexicalAnalysis(source.text);
   const tokens = lexer.nodes();
 
-  console.log(tokens.map((x) => x.stop).join(', '));
-
   expect(tokens.length).toBe(21);
   expect(tokens[0].type).toBe(NodeType.OPERATOR);
   expect(tokens[0].text).toBe('infix');
