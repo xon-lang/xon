@@ -1,4 +1,4 @@
-import { Scanner } from '~/compiler/scanner/scanner';
+import { Scanner } from '~/compiler/lexical/lexical';
 import { NodeType } from '~/node/node';
 import { Source } from '~/source/source';
 

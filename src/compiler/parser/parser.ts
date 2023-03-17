@@ -1,5 +1,5 @@
-import { OperatorsOrder, OperatorType, RecursiveType } from '~/compiler/parser/parser-config';
-import { Scanner } from '~/compiler/scanner/scanner';
+import { Scanner } from '~/compiler/lexical/lexical';
+import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/compiler/parser/operators';
 import { Boolean2, Integer, String2 } from '~/lib/core';
 import { arrayNode, ArrayNode } from '~/node/array/array-node';
 import { bodyNode, BodyNode } from '~/node/body/body-node';
@@ -17,7 +17,6 @@ import { OperatorNode } from '~/node/operator/operator-node';
 import { PostfixNode, postfixNode } from '~/node/postfix/postfix-node';
 import { prefixNode, PrefixNode } from '~/node/prefix/prefix-node';
 import { Source } from '~/source/source';
-import { operatorsOrders } from './parser-config';
 
 export function parseBody(source: Source): BodyNode {
   const scanner = new Scanner(source.text);

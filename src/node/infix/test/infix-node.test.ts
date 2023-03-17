@@ -1,3 +1,4 @@
+import { Scanner } from '~/compiler/lexical/lexical';
 import { parseExpression } from '~/compiler/parser/parser';
 import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';
@@ -7,6 +8,23 @@ import { OperatorNode } from '~/node/operator/operator-node';
 import { PrefixNode } from '~/node/prefix/prefix-node';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
+
+test('infix operator', () => {
+  const text = 'abc.def';
+  const source = Source.fromText(text, null);
+  const lexer = new Scanner(source.text);
+  const tokens = lexer.nodes();
+
+  expect(tokens.length).toBe(3);
+  expect(tokens[0].text).toBe('abc');
+  expect(tokens[0].type).toBe(NodeType.ID);
+
+  expect(tokens[1].text).toBe('.');
+  expect(tokens[1].type).toBe(NodeType.OPERATOR);
+
+  expect(tokens[2].text).toBe('def');
+  expect(tokens[2].type).toBe(NodeType.ID);
+});
 
 test('several operands with different priorities', () => {
   const code = '1*1+1+2^5*2/2';

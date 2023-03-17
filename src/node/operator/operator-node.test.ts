@@ -1,8 +1,20 @@
+import { Scanner } from '~/compiler/lexical/lexical';
 import { parseExpression } from '~/compiler/parser/parser';
 import { NodeType } from '~/node/node';
 import { PostfixNode } from '~/node/postfix/postfix-node';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
+
+test('single operator', () => {
+  const text = '!';
+  const source = Source.fromText(text, null);
+  const lexer = new Scanner(source.text);
+  const tokens = lexer.nodes();
+
+  expect(tokens.length).toBe(1);
+  expect(tokens[0].text).toBe('!');
+  expect(tokens[0].type).toBe(NodeType.OPERATOR);
+});
 
 test('after integer', () => {
   const code = '1!';
@@ -21,4 +33,19 @@ test('after invoke', () => {
 
   expect(tree.type).toBe(NodeType.POSTFIX);
   expect(tree.operator.text).toBe('!');
+});
+
+test('infix operator', () => {
+  const text = 'infix +: (a: Number, b: Number) = Number';
+  const source = Source.fromText(text, null);
+  const lexer = new Scanner(source.text);
+  const tokens = lexer.nodes();
+
+  console.log(tokens.map((x) => x.stop).join(', '));
+
+  expect(tokens.length).toBe(21);
+  expect(tokens[0].type).toBe(NodeType.OPERATOR);
+  expect(tokens[0].text).toBe('infix');
+  expect(tokens[tokens.length - 1].type).toBe(NodeType.ID);
+  expect(tokens[tokens.length - 1].text).toBe('Number');
 });
