@@ -6,17 +6,17 @@ import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
 import { OpenNode } from '~/analysis/lexical/node/open/open-node';
 import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
 import { Node, NodeType } from '~/analysis/node';
+import { arrayNode, ArrayNode } from '~/analysis/syntax/node/array/array-node';
+import { bodyNode, BodyNode } from '~/analysis/syntax/node/body/body-node';
+import { floatNode, FloatNode } from '~/analysis/syntax/node/float/float-node';
+import { infixNode, InfixNode } from '~/analysis/syntax/node/infix/infix-node';
+import { invokeNode } from '~/analysis/syntax/node/invoke/invoke-node';
+import { ladderNode } from '~/analysis/syntax/node/ladder/ladder-node';
+import { memberNode, MemberNode } from '~/analysis/syntax/node/member/member-node';
+import { PostfixNode, postfixNode } from '~/analysis/syntax/node/postfix/postfix-node';
+import { prefixNode, PrefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
 import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/analysis/syntax/operators';
 import { Boolean2, Integer, String2 } from '~/lib/core';
-import { arrayNode, ArrayNode } from '~/node/array/array-node';
-import { bodyNode, BodyNode } from '~/node/body/body-node';
-import { floatNode, FloatNode } from '~/node/float/float-node';
-import { infixNode, InfixNode } from '~/node/infix/infix-node';
-import { invokeNode } from '~/node/invoke/invoke-node';
-import { ladderNode } from '~/node/ladder/ladder-node';
-import { memberNode, MemberNode } from '~/node/member/member-node';
-import { PostfixNode, postfixNode } from '~/node/postfix/postfix-node';
-import { prefixNode, PrefixNode } from '~/node/prefix/prefix-node';
 import { Source } from '~/source/source';
 
 export function parseBody(source: Source): BodyNode {

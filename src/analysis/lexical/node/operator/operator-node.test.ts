@@ -1,7 +1,7 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { NodeType } from '~/analysis/node';
+import { PostfixNode } from '~/analysis/syntax/node/postfix/postfix-node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
-import { PostfixNode } from '~/node/postfix/postfix-node';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
 

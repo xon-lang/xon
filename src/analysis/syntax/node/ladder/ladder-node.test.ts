@@ -1,7 +1,7 @@
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { NodeType } from '~/analysis/node';
+import { LadderNode } from '~/analysis/syntax/node/ladder/ladder-node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
-import { LadderNode } from '~/node/ladder/ladder-node';
 import { Source } from '~/source/source';
 
 test('single expression', () => {

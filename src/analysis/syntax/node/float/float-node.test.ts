@@ -1,7 +1,7 @@
 import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
 import { NodeType } from '~/analysis/node';
+import { FloatNode } from '~/analysis/syntax/node/float/float-node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
-import { FloatNode } from '~/node/float/float-node';
 import { Source } from '~/source/source';
 
 test('123.456', () => {

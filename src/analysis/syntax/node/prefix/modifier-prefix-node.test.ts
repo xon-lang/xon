@@ -1,9 +1,9 @@
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
 import { NodeType } from '~/analysis/node';
+import { InvokeNode } from '~/analysis/syntax/node/invoke/invoke-node';
+import { PrefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
-import { InvokeNode } from '~/node/invoke/invoke-node';
-import { PrefixNode } from '~/node/prefix/prefix-node';
 import { Source } from '~/source/source';
 
 test('method declaration', () => {

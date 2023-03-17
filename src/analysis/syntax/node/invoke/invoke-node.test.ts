@@ -1,10 +1,10 @@
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
 import { NodeType } from '~/analysis/node';
+import { ArrayNode } from '~/analysis/syntax/node/array/array-node';
+import { InvokeNode } from '~/analysis/syntax/node/invoke/invoke-node';
+import { MemberNode } from '~/analysis/syntax/node/member/member-node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
-import { ArrayNode } from '~/node/array/array-node';
-import { InvokeNode } from '~/node/invoke/invoke-node';
-import { MemberNode } from '~/node/member/member-node';
 import { Source } from '~/source/source';
 
 test('method call', () => {

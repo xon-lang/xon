@@ -1,3 +1,4 @@
+import { ArrayNode } from '~/analysis/syntax/node/array/array-node';
 import { ParameterMetadata } from '~/metadata/declaration/parameter/parameter-declaration-metadata';
 import { DeclarationScope } from '~/metadata/declaration/scope/declaration-scope';
 import { getExpressionMetadata } from '~/metadata/expression/expression-metadata-helper';
@@ -6,7 +7,6 @@ import { ArrayTypeMetadata } from '~/metadata/type/array/array-type-metadata';
 import { ObjectTypeMetadata } from '~/metadata/type/object/object-type-metadata';
 import { TypeMetadata } from '~/metadata/type/type-metadata';
 import { UnionType } from '~/metadata/type/union/union-type';
-import { ArrayNode } from '~/node/array/array-node';
 
 export class ArrayValueMetadata extends ValueMetadata {
   constructor(private tree: ArrayNode) {

@@ -1,7 +1,7 @@
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { NodeType } from '~/analysis/node';
+import { MemberNode } from '~/analysis/syntax/node/member/member-node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
-import { MemberNode } from '~/node/member/member-node';
 import { Source } from '~/source/source';
 
 test('abc.def', () => {

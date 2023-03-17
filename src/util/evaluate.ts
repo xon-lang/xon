@@ -2,11 +2,11 @@ import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
 import { StringNode } from '~/analysis/lexical/node/string/string-node';
 import { Node, NodeType } from '~/analysis/node';
+import { ArrayNode } from '~/analysis/syntax/node/array/array-node';
+import { InfixNode } from '~/analysis/syntax/node/infix/infix-node';
+import { PrefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
 import { is } from '~/analysis/syntax/syntax-analysis';
 import { String2, Unknown2 } from '~/lib/core';
-import { ArrayNode } from '~/node/array/array-node';
-import { InfixNode } from '~/node/infix/infix-node';
-import { PrefixNode } from '~/node/prefix/prefix-node';
 import { Source } from '~/source/source';
 
 export function escapeToString<T>(value: T): String2 {

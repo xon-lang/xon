@@ -3,9 +3,9 @@ import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
 import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
 import { NodeType } from '~/analysis/node';
+import { InfixNode } from '~/analysis/syntax/node/infix/infix-node';
+import { PrefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
-import { InfixNode } from '~/node/infix/infix-node';
-import { PrefixNode } from '~/node/prefix/prefix-node';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
 
