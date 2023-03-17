@@ -6,16 +6,16 @@ import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
 import { OpenNode } from '~/analysis/lexical/node/open/open-node';
 import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
 import { Node, NodeType } from '~/analysis/node';
-import { arrayNode, ArrayNode } from '~/analysis/syntax/node/array/array-node';
-import { bodyNode, BodyNode } from '~/analysis/syntax/node/body/body-node';
-import { floatNode, FloatNode } from '~/analysis/syntax/node/float/float-node';
-import { infixNode, InfixNode } from '~/analysis/syntax/node/infix/infix-node';
+import { ArrayNode, arrayNode } from '~/analysis/syntax/node/array/array-node';
+import { BodyNode, bodyNode } from '~/analysis/syntax/node/body/body-node';
+import { FloatNode, floatNode } from '~/analysis/syntax/node/float/float-node';
+import { InfixNode, infixNode } from '~/analysis/syntax/node/infix/infix-node';
 import { invokeNode } from '~/analysis/syntax/node/invoke/invoke-node';
 import { ladderNode } from '~/analysis/syntax/node/ladder/ladder-node';
-import { memberNode, MemberNode } from '~/analysis/syntax/node/member/member-node';
+import { MemberNode, memberNode } from '~/analysis/syntax/node/member/member-node';
 import { PostfixNode, postfixNode } from '~/analysis/syntax/node/postfix/postfix-node';
-import { prefixNode, PrefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
-import { OperatorsOrder, operatorsOrders, OperatorType, RecursiveType } from '~/analysis/syntax/operators';
+import { PrefixNode, prefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
+import { OperatorType, OperatorsOrder, RecursiveType, operatorsOrders } from '~/analysis/syntax/operators';
 import { Boolean2, Integer, String2 } from '~/lib/core';
 import { Source } from '~/source/source';
 
@@ -35,9 +35,20 @@ export function parseExpression(source: Source): Node {
 }
 
 export function is<T extends Node = Node>(node: Node, nodeType: NodeType | String2): node is T {
-  if (nodeType === NodeType.TOKEN) {
-    return node?.type.split('-')[1] === NodeType.TOKEN;
+  const suffix = node?.type.split('-')[1];
+
+  if (nodeType === NodeType.LEXICAL) {
+    return suffix === NodeType.LEXICAL;
   }
+
+  if (nodeType === NodeType.SYNTAX) {
+    return suffix === NodeType.SYNTAX;
+  }
+
+  if (nodeType === NodeType.SEMANTIC) {
+    return suffix === NodeType.SEMANTIC;
+  }
+
   return node?.type === nodeType;
 }
 
@@ -144,7 +155,7 @@ function collapseModifier(nodes: Node[], operators: String2[], recursiveType: Re
     const modifier = nodes[index];
     if (is<OperatorNode>(modifier, NodeType.OPERATOR) && operators.includes(modifier.text)) {
       const next = nodes[index + 1];
-      if (is<LexicalNode>(next, NodeType.TOKEN)) {
+      if (is<LexicalNode>(next, NodeType.LEXICAL)) {
         nodes[index] = {
           type: NodeType.PREFIX,
           start: modifier.start,
@@ -379,5 +390,6 @@ function infixOperator(operator: OperatorNode, left: Node, right: Node): InfixNo
   if ((operator.text === '.' || operator.text === '::') && is<IdNode>(right, NodeType.ID)) {
     return memberNode(operator, left, right);
   }
+
   return infixNode(operator, left, right);
 }

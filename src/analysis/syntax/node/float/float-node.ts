@@ -5,15 +5,15 @@ import { Node, NodeType } from '~/analysis/node';
 
 export interface FloatNode extends Node {
   type: NodeType.FLOAT;
-  point: OperatorNode;
+  operator: OperatorNode;
   left: IntegerNode;
   right: IntegerNode | IdNode;
 }
 
-export function floatNode(point: OperatorNode, left: IntegerNode, right: IntegerNode | IdNode): FloatNode {
+export function floatNode(operator: OperatorNode, left: IntegerNode, right: IntegerNode | IdNode): FloatNode {
   return {
     type: NodeType.FLOAT,
-    point,
+    operator,
     left,
     right,
   };
