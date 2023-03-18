@@ -56,9 +56,13 @@ export const operatorsOrders: OperatorsOrder[] = [
     operatorType: OperatorType.PREFIX,
     recursiveType: RecursiveType.RIGHT,
   },
-  // todo mb handle as a ternary operator
   {
-    operators: [': ='],
+    operators: [':'],
+    operatorType: OperatorType.INFIX,
+    recursiveType: RecursiveType.RIGHT,
+  },
+  {
+    operators: ['='],
     operatorType: OperatorType.INFIX,
     recursiveType: RecursiveType.RIGHT,
   },
