@@ -17,16 +17,16 @@ import { Integer, String2 } from '~/lib/core';
 type NodeScanFunction = (text: String2, index: Integer) => LexicalNode | null;
 
 const nodeScanFunctions: NodeScanFunction[] = [
+  scanIntegerNode,
+  scanStringNode,
   scanNlNode,
   scanOpenNode,
   scanCloseNode,
   scanCommaNode,
-  scanStringNode,
   scanJoiningNode,
   scanWhitespaceNode,
   scanOperatorNode,
   scanIdNode,
-  scanIntegerNode,
 ];
 
 export class LexicalAnalysis implements Analysis {

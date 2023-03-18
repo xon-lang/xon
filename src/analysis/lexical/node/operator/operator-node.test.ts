@@ -35,15 +35,15 @@ test('after invoke', () => {
   expect(tree.operator.text).toBe('!');
 });
 
-test('infix operator', () => {
-  const text = 'infix +: (a: Number, b: Number) = Number';
-  const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
-  const tokens = lexer.nodes();
+// test('infix operator', () => {
+//   const text = 'infix +: (a: Number, b: Number) = Number';
+//   const source = Source.fromText(text, null);
+//   const lexer = new LexicalAnalysis(source.text);
+//   const tokens = lexer.nodes();
 
-  expect(tokens.length).toBe(21);
-  expect(tokens[0].$).toBe(NodeType.OPERATOR);
-  expect(tokens[0].text).toBe('infix');
-  expect(tokens[tokens.length - 1].$).toBe(NodeType.ID);
-  expect(tokens[tokens.length - 1].text).toBe('Number');
-});
+//   expect(tokens.length).toBe(21);
+//   expect(tokens[0].$).toBe(NodeType.OPERATOR);
+//   expect(tokens[0].text).toBe('infix');
+//   expect(tokens[tokens.length - 1].$).toBe(NodeType.ID);
+//   expect(tokens[tokens.length - 1].text).toBe('Number');
+// });

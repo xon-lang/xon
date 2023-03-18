@@ -1,5 +1,7 @@
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { IdNode, scanIdNode } from '~/analysis/lexical/node/id/id-node';
+import { KeywordNode } from '~/analysis/lexical/node/keyword/keyword-node';
+import { ModifierNode } from '~/analysis/lexical/node/modifier/modifier-node';
 import { NodeType } from '~/analysis/node';
 import { operatorsOrders } from '~/analysis/syntax/operators';
 import { Integer, String2 } from '~/lib/core';
@@ -23,7 +25,10 @@ const OPERATORS = [
   ),
 ];
 
-export function scanOperatorNode(text: String2, index: Integer): OperatorNode | IdNode | null {
+export function scanOperatorNode(
+  text: String2,
+  index: Integer,
+): OperatorNode | IdNode | ModifierNode | KeywordNode | null {
   let operators = OPERATORS.filter((x) => x[0] === text[index]);
 
   if (operators.length === 0) {
