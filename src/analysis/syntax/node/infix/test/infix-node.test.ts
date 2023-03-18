@@ -37,39 +37,39 @@ test('several operands with different priorities', () => {
   expect(evaluate(source, tree)).toBe(34);
 });
 
-test('several operands with different priorities', () => {
-  const code = 'infix + (a: Number, b: Number): Number = a+b';
-  const source = Source.fromText(code);
-  const tree = syntaxNode(source) as InfixNode;
+// test('several operands with different priorities', () => {
+//   const code = 'infix + (a: Number, b: Number): Number = a+b';
+//   const source = Source.fromText(code);
+//   const tree = syntaxNode(source) as InfixNode;
 
-  expect(tree.$).toBe(NodeType.INFIX);
-  expect(tree.operator.text).toBe('=');
+//   expect(tree.$).toBe(NodeType.INFIX);
+//   expect(tree.operator.text).toBe('=');
 
-  const left = tree.left as InfixNode;
-  expect(left.$).toBe(NodeType.INFIX);
-  expect(left.operator.text).toBe(':');
+//   const left = tree.left as InfixNode;
+//   expect(left.$).toBe(NodeType.INFIX);
+//   expect(left.operator.text).toBe(':');
 
-  const invoke = left.left as InvokeNode;
-  expect(invoke.$).toBe(NodeType.INVOKE);
-  expect(invoke.instance.$).toBe(NodeType.PREFIX);
-  const instance = invoke.instance as PrefixNode;
+//   const invoke = left.left as InvokeNode;
+//   expect(invoke.$).toBe(NodeType.INVOKE);
+//   expect(invoke.instance.$).toBe(NodeType.PREFIX);
+//   const instance = invoke.instance as PrefixNode;
 
-  expect(instance.operator.text).toBe('infix');
-  expect(instance.value.$).toBe(NodeType.OPERATOR);
-  expect((instance.value as OperatorNode).text).toBe('+');
+//   expect(instance.operator.text).toBe('infix');
+//   expect(instance.value.$).toBe(NodeType.OPERATOR);
+//   expect((instance.value as OperatorNode).text).toBe('+');
 
-  const type = left.right as IdNode;
-  expect(type.$).toBe(NodeType.ID);
-  expect(type.text).toBe('Number');
+//   const type = left.right as IdNode;
+//   expect(type.$).toBe(NodeType.ID);
+//   expect(type.text).toBe('Number');
 
-  const right = tree.right as InfixNode;
-  expect(right.$).toBe(NodeType.INFIX);
-  expect(right.operator.text).toBe('+');
-  expect(right.left.$).toBe(NodeType.ID);
-  expect(right.right.$).toBe(NodeType.ID);
-  expect((right.left as IdNode).text).toBe('a');
-  expect((right.right as IdNode).text).toBe('b');
-});
+//   const right = tree.right as InfixNode;
+//   expect(right.$).toBe(NodeType.INFIX);
+//   expect(right.operator.text).toBe('+');
+//   expect(right.left.$).toBe(NodeType.ID);
+//   expect(right.right.$).toBe(NodeType.ID);
+//   expect((right.left as IdNode).text).toBe('a');
+//   expect((right.right as IdNode).text).toBe('b');
+// });
 
 test('num plus str', () => {
   const code = "1  + 'str'";

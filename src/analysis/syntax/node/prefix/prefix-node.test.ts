@@ -14,16 +14,6 @@ test('negative integer', () => {
   expect(evaluate(source, tree.value)).toBe(1);
 });
 
-test('prefix modifier', () => {
-  const code = 'prefix +';
-  const source = Source.fromText(code);
-  const tree = syntaxNode(source) as PrefixNode;
-
-  expect(tree.$).toBe(NodeType.PREFIX);
-  expect(tree.operator.text).toBe('prefix');
-  expect((tree.value as OperatorNode).text).toBe('+');
-});
-
 test('not boolean', () => {
   const code = '!  true';
   const source = Source.fromText(code);

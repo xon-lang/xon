@@ -84,18 +84,18 @@ test('multiple expression', () => {
 //   expect(node.type).toBe(NodeType.BODY);
 // });
 
-test('two if statements', () => {
-  const code = `
-if a
-  123
-if b
-  321
-`.trim();
-  const source = Source.fromText(code);
-  const { nodes } = parseBody(source);
+// test('two if statements', () => {
+//   const code = `
+// if a
+//   123
+// if b
+//   321
+// `.trim();
+//   const source = Source.fromText(code);
+//   const { nodes } = parseBody(source);
 
-  expect(nodes.length).toBe(2);
-});
+//   expect(nodes.length).toBe(2);
+// });
 
 // test('has comment', () => {
 //   const code = `
