@@ -73,7 +73,7 @@
   "typescript.tsdk": "./node_modules/typescript/lib",
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[antlr]": {
     "editor.defaultFormatter": "mike-lischke.vscode-antlr4"
