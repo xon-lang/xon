@@ -1,3 +1,4 @@
+import { Analysis } from '~/analysis/analysis';
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { scanCloseNode } from '~/analysis/lexical/node/close/close-node';
 import { scanCommaNode } from '~/analysis/lexical/node/comma/comma-node';
@@ -9,9 +10,9 @@ import { scanOpenNode } from '~/analysis/lexical/node/open/open-node';
 import { scanOperatorNode } from '~/analysis/lexical/node/operator/operator-node';
 import { scanStringNode } from '~/analysis/lexical/node/string/string-node';
 import { unexpectedNode } from '~/analysis/lexical/node/unknown/unknown-node';
+import { scanWhitespaceNode } from '~/analysis/lexical/node/whitespace/whitespace-node';
 import { NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
-import { scanWhitespaceNode } from '~/analysis/lexical/node/whitespace/whitespace-node';
 
 type NodeScanFunction = (text: String2, index: Integer) => LexicalNode | null;
 
@@ -28,7 +29,7 @@ const nodeScanFunctions: NodeScanFunction[] = [
   scanIntegerNode,
 ];
 
-export class LexicalAnalysis {
+export class LexicalAnalysis implements Analysis {
   public constructor(public text: String2) {}
 
   public nodes(): LexicalNode[] {
