@@ -102,7 +102,9 @@ function collapseArrays(nodes: Node[]): void {
       });
 
     const result = arrayNode(openNode, closeNode, parameters);
-    replaceNodes(nodes, openNode, closeNode, result);
+    const startIndex = nodes.indexOf(openNode);
+    const stopIndex = nodes.indexOf(closeNode);
+    nodes.splice(startIndex, stopIndex - startIndex + 1, result);
   }
 }
 
@@ -328,13 +330,6 @@ function nodeAfter(nodes: Node[], node: Node, nodeType: NodeType): Node | null {
     }
   }
   return null;
-}
-
-function replaceNodes(nodes: Node[], start: Node, stop: Node, node: Node): void {
-  const startIndex = nodes.indexOf(start);
-  const stopIndex = nodes.indexOf(stop);
-
-  nodes.splice(startIndex, stopIndex - startIndex + 1, node);
 }
 
 function takeWhile<T>(elements: T[], predicate: (element: T) => Boolean2, startIndex = 0): T[] {
