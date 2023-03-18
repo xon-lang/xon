@@ -40,8 +40,8 @@ export class SyntaxAnalysis implements Analysis {
   public nodes(): Node[] {
     const filteredNodes = this.lexicalNodes.filter((node) => node.$ !== NodeType.JOINING);
     collapseArrays(filteredNodes);
-    const normalizedSplitted = normalizeSplittedNodes(filteredNodes);
-    const result = collapseBody(normalizedSplitted);
+    const normalizedLines = normalizeLineNodes(filteredNodes);
+    const result = collapseBody(normalizedLines);
 
     return result.nodes;
   }
@@ -89,7 +89,7 @@ function collapseArrays(nodes: Node[]): void {
     const betweenNodes = nodesBetween(nodes, openNode, closeNode);
     const parameters = splitNodes(betweenNodes, NodeType.COMMA)
       .map((nodes) => {
-        const normalizedSplitted = normalizeSplittedNodes(nodes);
+        const normalizedSplitted = normalizeLineNodes(nodes);
         return collapseBody(normalizedSplitted);
       })
       .map((node) => {
@@ -254,7 +254,7 @@ function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIn
   }
 }
 
-function normalizeSplittedNodes(nodes: Node[]): { indent: Integer; node: Node }[] {
+function normalizeLineNodes(nodes: Node[]): { indent: Integer; node: Node }[] {
   const nlSplitted = splitNodes(nodes, NodeType.NL);
 
   if (nlSplitted.length === 0) {
@@ -274,13 +274,13 @@ function normalizeSplittedNodes(nodes: Node[]): { indent: Integer; node: Node }[
       };
     })
     .filter((x) => x.nodes.length > 0)
-    .map((x) => {
-      const collapsedNodes = collapseOperatorsOrders(x.nodes, operatorsOrders);
+    .map(({ indent, nodes }) => {
+      const collapsedNodes = collapseOperatorsOrders(nodes, operatorsOrders);
       if (collapsedNodes.length !== 1) {
         throw new Error('Not implemented');
       }
       return {
-        indent: x.indent,
+        indent,
         node: collapsedNodes[0],
       };
     });
@@ -356,8 +356,11 @@ function postfixOperator(operator: OperatorNode, value: Node): PostfixNode {
 }
 
 function handleInfix(operator: OperatorNode, left: Node, right: Node): InfixNode | MemberNode {
-  if ((operator.text === '.' || operator.text === '::') && is<IdNode>(right, NodeType.ID)) {
-    return memberNode(operator, left, right);
+  if (operator.text === '.' || operator.text === '::') {
+    if (is<IdNode>(right, NodeType.ID)) {
+      return memberNode(operator, left, right);
+    }
+    throw new Error('Not implemented');
   }
 
   return infixNode(operator, left, right);
