@@ -3,12 +3,12 @@ import { NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
 
 export interface JoiningNode extends LexicalNode {
-  type: NodeType.JOINING;
+  $: NodeType.JOINING;
 }
 
 export function joiningNode(start: Integer, stop: Integer, text: String2): JoiningNode {
   return {
-    type: NodeType.JOINING,
+    $: NodeType.JOINING,
     start,
     stop,
     text,

@@ -10,5 +10,5 @@ test('whitespace', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].text).toBe('    ');
-  expect(tokens[0].type).toBe(NodeType.WHITESPACE);
+  expect(tokens[0].$).toBe(NodeType.WHITESPACE);
 });

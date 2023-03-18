@@ -9,7 +9,7 @@ test('close paren', () => {
   const tokens = scanner.nodes();
 
   expect(tokens.length).toBe(1);
-  expect(tokens[0].type).toBe(NodeType.CLOSE);
+  expect(tokens[0].$).toBe(NodeType.CLOSE);
   expect(tokens[0].text).toBe(')');
 });
 
@@ -20,7 +20,7 @@ test('close bracket', () => {
   const tokens = scanner.nodes();
 
   expect(tokens.length).toBe(1);
-  expect(tokens[0].type).toBe(NodeType.CLOSE);
+  expect(tokens[0].$).toBe(NodeType.CLOSE);
   expect(tokens[0].text).toBe(']');
 });
 
@@ -31,6 +31,6 @@ test('close brace', () => {
   const tokens = scanner.nodes();
 
   expect(tokens.length).toBe(1);
-  expect(tokens[0].type).toBe(NodeType.CLOSE);
+  expect(tokens[0].$).toBe(NodeType.CLOSE);
   expect(tokens[0].text).toBe('}');
 });

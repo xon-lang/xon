@@ -9,6 +9,6 @@ test('comma', () => {
   const tokens = scanner.nodes();
 
   expect(tokens.length).toBe(1);
-  expect(tokens[0].type).toBe(NodeType.COMMA);
+  expect(tokens[0].$).toBe(NodeType.COMMA);
   expect(tokens[0].text).toBe(',');
 });

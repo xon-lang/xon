@@ -9,7 +9,7 @@ test('abc.def', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as MemberNode;
 
-  expect(tree.type).toBe(NodeType.MEMBER);
+  expect(tree.$).toBe(NodeType.MEMBER);
   expect((tree.instance as IdNode).text).toBe('abc');
   expect(tree.id.text).toBe('def');
 });
@@ -19,8 +19,8 @@ test('meta property', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as MemberNode;
 
-  expect(tree.type).toBe(NodeType.MEMBER);
-  expect(tree.instance.type).toBe(NodeType.ID);
+  expect(tree.$).toBe(NodeType.MEMBER);
+  expect(tree.instance.$).toBe(NodeType.ID);
   expect((tree.instance as IdNode).text).toBe('abc');
   expect(tree.operator.text).toBe('::');
   expect(tree.id.text).toBe('def');
@@ -31,8 +31,8 @@ test('not safe', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as MemberNode;
 
-  expect(tree.type).toBe(NodeType.MEMBER);
-  expect(tree.instance.type).toBe(NodeType.ID);
+  expect(tree.$).toBe(NodeType.MEMBER);
+  expect(tree.instance.$).toBe(NodeType.ID);
   expect((tree.instance as IdNode).text).toBe('abc');
   expect(tree.operator.text).toBe('.');
   expect(tree.id.text).toBe('def');
@@ -43,8 +43,8 @@ test('left dot nl property', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as MemberNode;
 
-  expect(tree.type).toBe(NodeType.MEMBER);
-  expect(tree.instance.type).toBe(NodeType.ID);
+  expect(tree.$).toBe(NodeType.MEMBER);
+  expect(tree.instance.$).toBe(NodeType.ID);
   expect((tree.instance as IdNode).text).toBe('abc');
   expect(tree.operator.text).toBe('.');
   expect(tree.id.text).toBe('def');
@@ -55,8 +55,8 @@ test('left nl dot property', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as MemberNode;
 
-  expect(tree.type).toBe(NodeType.MEMBER);
-  expect(tree.instance.type).toBe(NodeType.ID);
+  expect(tree.$).toBe(NodeType.MEMBER);
+  expect(tree.instance.$).toBe(NodeType.ID);
   expect((tree.instance as IdNode).text).toBe('abc');
   expect(tree.operator.text).toBe('.');
   expect(tree.id.text).toBe('def');
@@ -67,8 +67,8 @@ test('left nl dot nl property', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as MemberNode;
 
-  expect(tree.type).toBe(NodeType.MEMBER);
-  expect(tree.instance.type).toBe(NodeType.ID);
+  expect(tree.$).toBe(NodeType.MEMBER);
+  expect(tree.instance.$).toBe(NodeType.ID);
   expect((tree.instance as IdNode).text).toBe('abc');
   expect(tree.operator.text).toBe('.');
   expect(tree.id.text).toBe('def');
@@ -85,8 +85,8 @@ this.statements \
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as MemberNode;
 
-  expect(tree.type).toBe(NodeType.MEMBER);
-  expect(tree.instance.type).toBe(NodeType.MEMBER);
+  expect(tree.$).toBe(NodeType.MEMBER);
+  expect(tree.instance.$).toBe(NodeType.MEMBER);
   expect(tree.operator.text).toBe('.');
   expect(tree.id.text).toBe('jkl');
 });

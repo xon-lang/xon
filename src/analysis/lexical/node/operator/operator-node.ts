@@ -5,12 +5,12 @@ import { operatorsOrders } from '~/analysis/syntax/operators';
 import { Integer, String2 } from '~/lib/core';
 
 export interface OperatorNode extends LexicalNode {
-  type: NodeType.OPERATOR;
+  $: NodeType.OPERATOR;
 }
 
 export function operatorNode(start: Integer, stop: Integer, text: String2): OperatorNode {
   return {
-    type: NodeType.OPERATOR,
+    $: NodeType.OPERATOR,
     start,
     stop,
     text,

@@ -10,7 +10,7 @@ test('negative integer', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as PrefixNode;
 
-  expect(tree.type).toBe(NodeType.PREFIX);
+  expect(tree.$).toBe(NodeType.PREFIX);
   expect(evaluate(source, tree.value)).toBe(1);
 });
 
@@ -19,7 +19,7 @@ test('prefix modifier', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as PrefixNode;
 
-  expect(tree.type).toBe(NodeType.PREFIX);
+  expect(tree.$).toBe(NodeType.PREFIX);
   expect(tree.operator.text).toBe('prefix');
   expect((tree.value as OperatorNode).text).toBe('+');
 });
@@ -29,7 +29,7 @@ test('not boolean', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as PrefixNode;
 
-  expect(tree.type).toBe(NodeType.PREFIX);
+  expect(tree.$).toBe(NodeType.PREFIX);
 });
 
 test('double not', () => {
@@ -37,7 +37,7 @@ test('double not', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as PrefixNode;
 
-  expect(tree.type).toBe(NodeType.PREFIX);
+  expect(tree.$).toBe(NodeType.PREFIX);
 });
 
 // test('less operator', () => {

@@ -13,7 +13,7 @@ test('single operator', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].text).toBe('!');
-  expect(tokens[0].type).toBe(NodeType.OPERATOR);
+  expect(tokens[0].$).toBe(NodeType.OPERATOR);
 });
 
 test('after integer', () => {
@@ -21,7 +21,7 @@ test('after integer', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as PostfixNode;
 
-  expect(tree.type).toBe(NodeType.POSTFIX);
+  expect(tree.$).toBe(NodeType.POSTFIX);
   expect(tree.operator.text).toBe('!');
   expect(evaluate(source, tree.value)).toBe(1);
 });
@@ -31,7 +31,7 @@ test('after invoke', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as PostfixNode;
 
-  expect(tree.type).toBe(NodeType.POSTFIX);
+  expect(tree.$).toBe(NodeType.POSTFIX);
   expect(tree.operator.text).toBe('!');
 });
 
@@ -42,8 +42,8 @@ test('infix operator', () => {
   const tokens = lexer.nodes();
 
   expect(tokens.length).toBe(21);
-  expect(tokens[0].type).toBe(NodeType.OPERATOR);
+  expect(tokens[0].$).toBe(NodeType.OPERATOR);
   expect(tokens[0].text).toBe('infix');
-  expect(tokens[tokens.length - 1].type).toBe(NodeType.ID);
+  expect(tokens[tokens.length - 1].$).toBe(NodeType.ID);
   expect(tokens[tokens.length - 1].text).toBe('Number');
 });

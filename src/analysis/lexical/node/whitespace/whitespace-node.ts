@@ -6,7 +6,7 @@ export interface WhitespaceNode extends LexicalNode {}
 
 export function whitespaceNode(start: Integer, stop: Integer, text: String2): WhitespaceNode {
   return {
-    type: NodeType.WHITESPACE,
+    $: NodeType.WHITESPACE,
     start,
     stop,
     text,

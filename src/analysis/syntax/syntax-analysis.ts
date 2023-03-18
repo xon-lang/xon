@@ -38,7 +38,7 @@ export class SyntaxAnalysis implements Analysis {
   constructor(public lexicalNodes: LexicalNode[]) {}
 
   public nodes(): Node[] {
-    const filteredNodes = this.lexicalNodes.filter((node) => node.type !== NodeType.JOINING);
+    const filteredNodes = this.lexicalNodes.filter((node) => node.$ !== NodeType.JOINING);
     collapseArrays(filteredNodes);
     const normalizedSplitted = normalizeSplittedNodes(filteredNodes);
     const result = collapseBody(normalizedSplitted);
@@ -141,7 +141,7 @@ function collapseModifier(nodes: Node[], operators: String2[], recursiveType: Re
       const next = nodes[index + 1];
       if (is<LexicalNode>(next, NodeType.LEXICAL)) {
         nodes[index] = {
-          type: NodeType.PREFIX,
+          $: NodeType.PREFIX,
           start: modifier.start,
           stop: next.stop,
           operator: modifier,
@@ -270,7 +270,7 @@ function normalizeSplittedNodes(nodes: Node[]): { indent: Integer; node: Node }[
       const indent = is(firstNode, NodeType.WHITESPACE) ? firstNode.stop - firstNode.stop + 1 : 0;
       return {
         indent: indent <= minIndent ? 0 : indent,
-        nodes: nodes.filter((node) => node.type !== NodeType.WHITESPACE),
+        nodes: nodes.filter((node) => node.$ !== NodeType.WHITESPACE),
       };
     })
     .filter((x) => x.nodes.length > 0)

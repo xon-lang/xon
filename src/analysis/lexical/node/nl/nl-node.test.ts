@@ -10,7 +10,7 @@ test('line feed', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].text).toBe('\n');
-  expect(tokens[0].type).toBe(NodeType.NL);
+  expect(tokens[0].$).toBe(NodeType.NL);
 });
 
 test('carriage return', () => {
@@ -21,7 +21,7 @@ test('carriage return', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].text).toBe('\r');
-  expect(tokens[0].type).toBe(NodeType.NL);
+  expect(tokens[0].$).toBe(NodeType.NL);
 });
 
 test('cr lf', () => {
@@ -32,7 +32,7 @@ test('cr lf', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].text).toBe('\r\n');
-  expect(tokens[0].type).toBe(NodeType.NL);
+  expect(tokens[0].$).toBe(NodeType.NL);
 });
 
 test('lf cr', () => {
@@ -43,7 +43,7 @@ test('lf cr', () => {
 
   expect(tokens.length).toBe(2);
   expect(tokens[0].text).toBe('\n');
-  expect(tokens[0].type).toBe(NodeType.NL);
+  expect(tokens[0].$).toBe(NodeType.NL);
 });
 
 test('id', () => {
@@ -53,6 +53,6 @@ test('id', () => {
   const tokens = scanner.nodes();
 
   expect(tokens.length).toBe(1);
-  expect(tokens[0].type).toBe(NodeType.NL);
+  expect(tokens[0].$).toBe(NodeType.NL);
   expect(tokens[0].text).toBe('\n');
 });

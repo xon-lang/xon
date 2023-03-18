@@ -12,7 +12,7 @@ test('has argument', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as InfixNode;
 
-  expect(tree.type).toBe(NodeType.INFIX);
+  expect(tree.$).toBe(NodeType.INFIX);
   expect((tree.left as ArrayNode).parameters.length).toBe(1);
   expect(((tree.left as ArrayNode).parameters[0] as IdNode).text).toBe('x');
   expect(((tree.left as ArrayNode).parameters[0] as IdNode).text).toBe('x');
@@ -29,7 +29,7 @@ test('generics', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as InfixNode;
 
-  expect(tree.type).toBe(NodeType.INFIX);
+  expect(tree.$).toBe(NodeType.INFIX);
   const left = tree.left as InvokeNode;
   const generics = left.instance as ArrayNode;
   expect(generics.parameters.length).toBe(3);
@@ -37,12 +37,12 @@ test('generics', () => {
   expect((generics.parameters[1] as IdNode).text).toBe('M');
 
   const kExpression = generics.parameters[2] as InfixNode;
-  expect(kExpression.type).toBe(NodeType.INFIX);
+  expect(kExpression.$).toBe(NodeType.INFIX);
   expect((kExpression.left as IdNode).text).toBe('K');
   expect(kExpression.operator.text).toBe(':');
   expect((kExpression.right as IdNode).text).toBe('String');
   expect(left.array.parameters.length).toBe(1);
-  expect(left.array.parameters[0].type).toBe(NodeType.ID);
+  expect(left.array.parameters[0].$).toBe(NodeType.ID);
   expect((left.array.parameters[0] as IdNode).text).toBe('x');
   expect(
     evaluate(source, tree.right, {
@@ -56,7 +56,7 @@ test('no arguments', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as InfixNode;
 
-  expect(tree.type).toBe(NodeType.INFIX);
+  expect(tree.$).toBe(NodeType.INFIX);
   expect((tree.left as ArrayNode).parameters.length).toBe(0);
   expect(evaluate(source, tree.right)).toBe(42 + 45);
 });
@@ -66,11 +66,11 @@ test('lambda inner lambda', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as InfixNode;
 
-  expect(tree.type).toBe(NodeType.INFIX);
-  expect(tree.left.type).toBe(NodeType.ARRAY);
+  expect(tree.$).toBe(NodeType.INFIX);
+  expect(tree.left.$).toBe(NodeType.ARRAY);
   expect((tree.left as ArrayNode).parameters.length).toBe(1);
   expect(((tree.left as ArrayNode).parameters[0] as IdNode).text).toBe('a');
-  expect(tree.right.type).toBe(NodeType.INFIX);
+  expect(tree.right.$).toBe(NodeType.INFIX);
   expect(((tree.right as InfixNode).left as ArrayNode).parameters.length).toBe(2);
-  expect((tree.right as InfixNode).right.type).toBe(NodeType.INFIX);
+  expect((tree.right as InfixNode).right.$).toBe(NodeType.INFIX);
 });

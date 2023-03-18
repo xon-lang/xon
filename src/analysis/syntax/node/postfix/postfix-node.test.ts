@@ -9,7 +9,7 @@ test('after integer', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as PostfixNode;
 
-  expect(tree.type).toBe(NodeType.POSTFIX);
+  expect(tree.$).toBe(NodeType.POSTFIX);
   expect(tree.operator.text).toBe('!');
   expect(evaluate(source, tree.value)).toBe(1);
 });
@@ -19,6 +19,6 @@ test('after invoke', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as PostfixNode;
 
-  expect(tree.type).toBe(NodeType.POSTFIX);
+  expect(tree.$).toBe(NodeType.POSTFIX);
   expect(tree.operator.text).toBe('!');
 });

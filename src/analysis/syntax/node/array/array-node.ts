@@ -3,7 +3,7 @@ import { OpenNode } from '~/analysis/lexical/node/open/open-node';
 import { Node, NodeType } from '~/analysis/node';
 
 export interface ArrayNode extends Node {
-  type: NodeType.ARRAY;
+  $: NodeType.ARRAY;
   open: OpenNode;
   close: CloseNode;
   parameters: Node[];
@@ -11,7 +11,7 @@ export interface ArrayNode extends Node {
 
 export function arrayNode(open: OpenNode, close: CloseNode, parameters: Node[]): ArrayNode {
   return {
-    type: NodeType.ARRAY,
+    $: NodeType.ARRAY,
     open,
     close,
     parameters,

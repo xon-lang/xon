@@ -12,10 +12,10 @@ test('debug', () => {
   const nodes = syntaxNodes(source);
 
   expect(nodes.length).toBe(1);
-  expect(nodes[0].type).toBe(NodeType.LADDER);
+  expect(nodes[0].$).toBe(NodeType.LADDER);
   expect((nodes[0] as LadderNode).body.nodes.length).toBe(2);
-  expect((nodes[0] as LadderNode).body.nodes[0].type).toBe(NodeType.INFIX);
-  expect((nodes[0] as LadderNode).body.nodes[1].type).toBe(NodeType.PREFIX);
+  expect((nodes[0] as LadderNode).body.nodes[0].$).toBe(NodeType.INFIX);
+  expect((nodes[0] as LadderNode).body.nodes[1].$).toBe(NodeType.PREFIX);
 });
 
 test('debug 2', () => {
@@ -32,8 +32,8 @@ test('debug 3', () => {
   const nodes = syntaxNodes(source);
 
   expect(nodes.length).toBe(2);
-  expect(nodes[0].type).toBe(NodeType.LADDER);
-  expect(nodes[1].type).toBe(NodeType.INFIX);
+  expect(nodes[0].$).toBe(NodeType.LADDER);
+  expect(nodes[1].$).toBe(NodeType.INFIX);
 });
 
 test('single expression', () => {
@@ -175,12 +175,12 @@ xyz()
   expect(nodes.length).toBe(2);
 
   const body1 = nodes[0] as LadderNode;
-  expect(body1.type).toBe(NodeType.LADDER);
-  expect(body1.header.type).toBe(NodeType.ID);
+  expect(body1.$).toBe(NodeType.LADDER);
+  expect(body1.header.$).toBe(NodeType.ID);
   expect(body1.body.nodes.length).toBe(1);
 
   const body2 = nodes[1] as LadderNode;
-  expect(body2.type).toBe(NodeType.LADDER);
-  expect(body2.header.type).toBe(NodeType.INVOKE);
+  expect(body2.$).toBe(NodeType.LADDER);
+  expect(body2.header.$).toBe(NodeType.INVOKE);
   expect(body2.body.nodes.length).toBe(3);
 });

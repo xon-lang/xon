@@ -9,8 +9,8 @@ test('single expression', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as LadderNode;
 
-  expect(tree.type).toBe(NodeType.LADDER);
-  expect(tree.header.type).toBe(NodeType.ID);
+  expect(tree.$).toBe(NodeType.LADDER);
+  expect(tree.header.$).toBe(NodeType.ID);
   expect((tree.header as IdNode).text).toBe('abc');
   expect(tree.body.nodes.length).toBe(1);
 });

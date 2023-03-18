@@ -31,5 +31,5 @@ export enum NodeType {
 }
 
 export interface Node {
-  type: NodeType | String2;
+  $: NodeType | String2;
 }

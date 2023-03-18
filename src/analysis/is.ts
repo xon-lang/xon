@@ -2,7 +2,7 @@ import { Node, NodeType } from '~/analysis/node';
 import { String2 } from '~/lib/core';
 
 export function is<T extends Node = Node>(node: Node, nodeType: NodeType | String2): node is T {
-  const suffix = node?.type.split('-')[1];
+  const suffix = node?.$.split('-')[1];
 
   if (nodeType === NodeType.LEXICAL) {
     return suffix === NodeType.LEXICAL;
@@ -16,5 +16,5 @@ export function is<T extends Node = Node>(node: Node, nodeType: NodeType | Strin
     return suffix === NodeType.SEMANTIC;
   }
 
-  return node?.type === nodeType;
+  return node?.$ === nodeType;
 }

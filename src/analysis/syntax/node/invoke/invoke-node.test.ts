@@ -12,13 +12,13 @@ test('method call', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as InvokeNode;
 
-  expect(tree.type).toBe(NodeType.INVOKE);
+  expect(tree.$).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(2);
-  expect(tree.array.parameters.at(0)?.type).toBe(NodeType.INTEGER);
+  expect(tree.array.parameters.at(0)?.$).toBe(NodeType.INTEGER);
   expect((tree.array.parameters[0] as IntegerNode).text).toBe('3');
-  expect(tree.array.parameters.at(1)?.type).toBe(NodeType.STRING);
+  expect(tree.array.parameters.at(1)?.$).toBe(NodeType.STRING);
   expect((tree.array.parameters[1] as IdNode).text).toBe(`'str'`);
-  expect(tree.instance.type).toBe(NodeType.ID);
+  expect(tree.instance.$).toBe(NodeType.ID);
 });
 
 test('method on several lines', () => {
@@ -28,13 +28,13 @@ test('method on several lines', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as InvokeNode;
 
-  expect(tree.type).toBe(NodeType.INVOKE);
+  expect(tree.$).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(4);
   const indexer1 = tree.array.parameters.at(0);
   const indexer2 = tree.array.parameters.at(1);
-  expect(indexer1?.type).toBe(NodeType.INTEGER);
-  expect(indexer2?.type).toBe(NodeType.STRING);
-  expect(tree.instance.type).toBe(NodeType.ID);
+  expect(indexer1?.$).toBe(NodeType.INTEGER);
+  expect(indexer2?.$).toBe(NodeType.STRING);
+  expect(tree.instance.$).toBe(NodeType.ID);
 });
 
 test('can call with type parameter', () => {
@@ -42,10 +42,10 @@ test('can call with type parameter', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as InvokeNode;
 
-  expect(tree.type).toBe(NodeType.INVOKE);
+  expect(tree.$).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(1);
   expect((tree.array.parameters[0] as IntegerNode).text).toBe('1');
-  expect(tree.instance.type).toBe(NodeType.MEMBER);
+  expect(tree.instance.$).toBe(NodeType.MEMBER);
   const { operator, instance, id } = tree.instance as MemberNode;
   expect(operator.text).toBe('.');
   expect((instance as IdNode).text).toBe('a');
@@ -57,9 +57,9 @@ test('object method', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as InvokeNode;
 
-  expect(tree.type).toBe(NodeType.INVOKE);
+  expect(tree.$).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(0);
-  expect(tree.instance.type).toBe(NodeType.MEMBER);
+  expect(tree.instance.$).toBe(NodeType.MEMBER);
   const { operator, instance, id } = tree.instance as MemberNode;
   expect(operator.text).toBe('.');
   const leftParameters = (instance as ArrayNode).parameters;
@@ -74,8 +74,8 @@ test('generics', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as InvokeNode;
 
-  expect(tree.type).toBe(NodeType.INVOKE);
+  expect(tree.$).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(1);
-  expect(tree.instance.type).toBe(NodeType.ID);
+  expect(tree.instance.$).toBe(NodeType.ID);
   expect((tree.instance as IdNode).text).toBe('Animal');
 });

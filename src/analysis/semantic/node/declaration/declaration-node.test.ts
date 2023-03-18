@@ -12,7 +12,7 @@ test('empty', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as ArrayNode;
 
-  expect(tree.type).toBe(NodeType.ARRAY);
+  expect(tree.$).toBe(NodeType.ARRAY);
   expect(tree.parameters.length).toBe(0);
 });
 
@@ -21,7 +21,7 @@ test('inner empty arrays', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as ArrayNode;
 
-  expect(tree.type).toBe(NodeType.ARRAY);
+  expect(tree.$).toBe(NodeType.ARRAY);
   expect(tree.parameters.length).toBe(1);
 });
 
@@ -30,7 +30,7 @@ test('two integers in array', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as ArrayNode;
 
-  expect(tree.type).toBe(NodeType.ARRAY);
+  expect(tree.$).toBe(NodeType.ARRAY);
   expect(tree.parameters.length).toBe(2);
   expect(is(tree.parameters[0], NodeType.INTEGER)).toBe(true);
   expect((tree.parameters[0] as IntegerNode).text).toBe('1');
@@ -43,7 +43,7 @@ test('check array', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as ArrayNode;
 
-  expect(tree.type).toBe(NodeType.ARRAY);
+  expect(tree.$).toBe(NodeType.ARRAY);
   expect(tree.parameters.length).toBe(4);
   expect(tree.parameters.map((x) => evaluate(source, x) as Integer).reduce((a, b) => a + b, 0)).toBe(
     [1, 2 + 2, 4, 6 + 6].reduce((a, b) => a + b, 0),
@@ -58,7 +58,7 @@ test('array on several lines', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as ArrayNode;
 
-  expect(tree.type).toBe(NodeType.ARRAY);
+  expect(tree.$).toBe(NodeType.ARRAY);
   expect(tree.parameters.length).toBe(4);
   expect(tree.parameters.map((x) => evaluate(source, x) as Integer).reduce((a, b) => a + b, 0)).toBe(
     [1, 2 + 2, 4, 6 + 6].reduce((a, b) => a + b, 0),

@@ -3,12 +3,12 @@ import { NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
 
 export interface CloseNode extends LexicalNode {
-  type: NodeType.CLOSE;
+  $: NodeType.CLOSE;
 }
 
 export function closeNode(start: Integer, stop: Integer, text: String2): CloseNode {
   return {
-    type: NodeType.CLOSE,
+    $: NodeType.CLOSE,
     start,
     stop,
     text,

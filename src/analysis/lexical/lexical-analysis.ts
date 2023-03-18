@@ -45,7 +45,7 @@ export class LexicalAnalysis implements Analysis {
       }
 
       const last = scannedNodes[scannedNodes.length - 1];
-      if (last?.type === NodeType.UNKNOWN) {
+      if (last?.$ === NodeType.UNKNOWN) {
         last.text += this.text[index];
         last.stop = index;
         continue;

@@ -3,12 +3,12 @@ import { NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
 
 export interface IdNode extends LexicalNode {
-  type: NodeType.ID;
+  $: NodeType.ID;
 }
 
 export function idNode(start: Integer, stop: Integer, text: String2): IdNode {
   return {
-    type: NodeType.ID,
+    $: NodeType.ID,
     start,
     stop,
     text,

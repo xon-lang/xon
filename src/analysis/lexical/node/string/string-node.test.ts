@@ -12,7 +12,7 @@ test('string', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].text).toBe("'abc   def'");
-  expect(tokens[0].type).toBe(NodeType.STRING);
+  expect(tokens[0].$).toBe(NodeType.STRING);
 });
 
 test('single line string', () => {
@@ -20,7 +20,7 @@ test('single line string', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as StringNode;
 
-  expect(tree.type).toBe(NodeType.STRING);
+  expect(tree.$).toBe(NodeType.STRING);
   expect(tree.text).toBe(code);
 });
 
@@ -29,7 +29,7 @@ test('multiline string', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as StringNode;
 
-  expect(tree.type).toBe(NodeType.STRING);
+  expect(tree.$).toBe(NodeType.STRING);
   expect(tree.text).toBe(code);
 });
 
@@ -38,6 +38,6 @@ test('empty string', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as StringNode;
 
-  expect(tree.type).toBe(NodeType.STRING);
+  expect(tree.$).toBe(NodeType.STRING);
   expect(tree.text).toBe(code);
 });

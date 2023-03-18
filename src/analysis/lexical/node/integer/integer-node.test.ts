@@ -12,7 +12,7 @@ test('integer', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].text).toBe('123');
-  expect(tokens[0].type).toBe(NodeType.INTEGER);
+  expect(tokens[0].$).toBe(NodeType.INTEGER);
 });
 
 test('zero int number', () => {
@@ -20,7 +20,7 @@ test('zero int number', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as IntegerNode;
 
-  expect(tree.type).toBe(NodeType.INTEGER);
+  expect(tree.$).toBe(NodeType.INTEGER);
   expect(tree.text).toBe('0');
 });
 
@@ -29,7 +29,7 @@ test('positive int number', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as IntegerNode;
 
-  expect(tree.type).toBe(NodeType.INTEGER);
+  expect(tree.$).toBe(NodeType.INTEGER);
   expect(tree.text).toBe('2x01110');
 });
 
@@ -38,6 +38,6 @@ test('radix int', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as IntegerNode;
 
-  expect(tree.type).toBe(NodeType.INTEGER);
+  expect(tree.$).toBe(NodeType.INTEGER);
   expect(tree.text).toBe('16x1a_b_c');
 });

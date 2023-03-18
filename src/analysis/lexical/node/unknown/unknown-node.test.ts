@@ -22,7 +22,7 @@ test('unexpected 2', () => {
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].text).toBe("'abc");
-  expect(tokens[0].type).toBe(NodeType.UNKNOWN);
+  expect(tokens[0].$).toBe(NodeType.UNKNOWN);
 });
 
 test('id', () => {
@@ -30,6 +30,6 @@ test('id', () => {
   const source = Source.fromText(code);
   const tree = syntaxNode(source) as UnknownNode;
 
-  expect(tree.type).toBe(NodeType.UNKNOWN);
+  expect(tree.$).toBe(NodeType.UNKNOWN);
   expect(tree.text).toBe(code);
 });

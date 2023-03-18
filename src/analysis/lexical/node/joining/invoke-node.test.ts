@@ -10,13 +10,13 @@ test('line joining', () => {
 
   expect(tokens.length).toBe(4);
   expect(tokens[0].text).toBe('abc');
-  expect(tokens[0].type).toBe(NodeType.ID);
+  expect(tokens[0].$).toBe(NodeType.ID);
 
-  expect(tokens[1].type).toBe(NodeType.JOINING);
+  expect(tokens[1].$).toBe(NodeType.JOINING);
 
   expect(tokens[2].text).toBe('.');
-  expect(tokens[2].type).toBe(NodeType.OPERATOR);
+  expect(tokens[2].$).toBe(NodeType.OPERATOR);
 
   expect(tokens[3].text).toBe('def');
-  expect(tokens[3].type).toBe(NodeType.ID);
+  expect(tokens[3].$).toBe(NodeType.ID);
 });
