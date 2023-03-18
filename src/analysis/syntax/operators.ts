@@ -11,8 +11,6 @@ export enum OperatorType {
   POSTFIX = 1,
   INFIX = 2,
   INVOKE = 3,
-  LADDER = 4,
-  MODIFIER = 5,
 }
 
 export enum RecursiveType {
@@ -21,11 +19,6 @@ export enum RecursiveType {
 }
 
 export const operatorsOrders: OperatorsOrder[] = [
-  {
-    operators: ['prefix postfix infix'],
-    operatorType: OperatorType.MODIFIER,
-    recursiveType: RecursiveType.RIGHT,
-  },
   {
     operators: ['. ::'],
     operatorType: OperatorType.INFIX,
@@ -50,11 +43,6 @@ export const operatorsOrders: OperatorsOrder[] = [
     operators: ['^', '* / %', '+ -', '..', '< <= >= >', '== !=', 'is as in', '&', '|'],
     operatorType: OperatorType.INFIX,
     recursiveType: RecursiveType.LEFT,
-  },
-  {
-    operators: ['if then else for do while break continue export import return'],
-    operatorType: OperatorType.PREFIX,
-    recursiveType: RecursiveType.RIGHT,
   },
   {
     operators: [':'],
