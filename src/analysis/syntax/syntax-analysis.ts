@@ -16,18 +16,21 @@ import { MemberNode, memberNode } from '~/analysis/syntax/node/member/member-nod
 import { PostfixNode, postfixNode } from '~/analysis/syntax/node/postfix/postfix-node';
 import { PrefixNode, prefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
 import { OperatorType, OperatorsOrder, RecursiveType, operatorsOrders } from '~/analysis/syntax/operators';
-import { Boolean2, Integer, String2 } from '~/lib/core';
+import '~/extensions';
+import { Integer, String2 } from '~/lib/core';
 import { Source } from '~/source/source';
 
-export function syntaxNodes(source: Source): Node[] {
+export function parseBody(source: Source): BodyNode {
   const scanner = new LexicalAnalysis(source.text);
   const tokens = scanner.nodes();
   const parser = new SyntaxAnalysis(tokens);
-  return parser.nodes();
+  const body = parser.body();
+  postSyntaxAnalysis(body);
+  return body;
 }
 
 export function syntaxNode(source: Source): Node {
-  const nodes = syntaxNodes(source);
+  const { nodes } = parseBody(source);
   if (nodes.length !== 1) {
     throw new Error('Not implemented');
   }
@@ -37,13 +40,13 @@ export function syntaxNode(source: Source): Node {
 export class SyntaxAnalysis implements Analysis {
   constructor(public lexicalNodes: LexicalNode[]) {}
 
-  public nodes(): Node[] {
+  public body(): BodyNode {
     const filteredNodes = this.lexicalNodes.filter((node) => node.$ !== NodeType.JOINING);
     collapseArrays(filteredNodes);
     const normalizedLines = normalizeLineNodes(filteredNodes);
     const result = collapseBody(normalizedLines);
 
-    return result.nodes;
+    return result;
   }
 }
 
@@ -62,7 +65,7 @@ function collapseBody(lines: { indent: Integer; node: Node }[]): BodyNode {
       continue;
     }
     if (indent > bodyIndent) {
-      const innerLines = takeWhile(lines, (x) => x.indent > bodyIndent, i);
+      const innerLines = lines.takeWhile((x) => x.indent > bodyIndent, i);
 
       const header = bodyNodes[bodyNodes.length - 1];
       const body = collapseBody(innerLines);
@@ -110,9 +113,6 @@ function collapseArrays(nodes: Node[]): void {
 
 function collapseOperatorsOrders(nodes: Node[], operatorsOrders: OperatorsOrder[]): Node[] {
   for (const operatorsOrder of operatorsOrders) {
-    if (operatorsOrder.operatorType === OperatorType.MODIFIER) {
-      collapseModifier(nodes, operatorsOrder.operators[0].split(' '), operatorsOrder.recursiveType);
-    }
     if (operatorsOrder.operatorType === OperatorType.INVOKE) {
       collapseInvoke(nodes);
     }
@@ -131,29 +131,6 @@ function collapseOperatorsOrders(nodes: Node[], operatorsOrders: OperatorsOrder[
     }
   }
   return nodes;
-}
-
-function collapseModifier(nodes: Node[], operators: String2[], recursiveType: RecursiveType): void {
-  for (let i = 0; i < nodes.length; i++) {
-    const index = recursiveType === RecursiveType.LEFT ? i : nodes.length - i - 1;
-    const modifier = nodes[index];
-    if (is<OperatorNode>(modifier, NodeType.OPERATOR) && operators.includes(modifier.text)) {
-      const next = nodes[index + 1];
-      if (is<LexicalNode>(next, NodeType.LEXICAL)) {
-        nodes[index] = {
-          $: NodeType.PREFIX,
-          start: modifier.start,
-          stop: next.stop,
-          operator: modifier,
-          value: next,
-        } as PrefixNode;
-        nodes.splice(index + 1, 1);
-        collapseModifier(nodes, operators, recursiveType);
-
-        return;
-      }
-    }
-  }
 }
 
 function collapseInvoke(nodes: Node[]): void {
@@ -332,21 +309,6 @@ function nodeAfter(nodes: Node[], node: Node, nodeType: NodeType): Node | null {
   return null;
 }
 
-function takeWhile<T>(elements: T[], predicate: (element: T) => Boolean2, startIndex = 0): T[] {
-  const result: T[] = [];
-
-  for (let i = startIndex; i < elements.length; i++) {
-    const element = elements[i];
-    if (predicate(element)) {
-      result.push(element);
-      continue;
-    }
-    break;
-  }
-
-  return result;
-}
-
 function prefixOperator(operator: OperatorNode, value: Node): PrefixNode {
   return prefixNode(operator, value);
 }
@@ -365,3 +327,33 @@ function handleInfix(operator: OperatorNode, left: Node, right: Node): InfixNode
 
   return infixNode(operator, left, right);
 }
+
+function postSyntaxAnalysis(body: BodyNode): void {
+  for (let index = 0; index < body.nodes.length; index++) {
+    const node = body.nodes[index];
+
+    if (is<BodyNode>(node, NodeType.BODY)) {
+      postSyntaxAnalysis(node);
+      continue;
+    }
+  }
+}
+
+// function tryGetIdDeclaration(node: Node): IdDeclarationNode | null {
+//   // id
+//   if (is<IdNode>(node, NodeType.ID)) {
+//     return idDeclarationNode(null, node, null, null, null);
+//   }
+
+//   // prefix +
+//   if (is<PrefixNode>(node, NodeType.PREFIX) && is<IdNode>(node.value, NodeType.ID)) {
+//    return idDeclarationNode(node.operator, node.value, null, null, null);
+//   }
+
+//   // prefix id
+//   if (is<InfixNode>(node, NodeType.INFIX) && node.operator.text === ':') {
+//     body.nodes[index] = idDeclarationNode(node.operator, node.value, null, null, null);
+//     continue;
+//   }
+//   return null;
+// }
