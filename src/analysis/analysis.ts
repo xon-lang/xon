@@ -1,5 +1,1 @@
-import { Node } from '~/analysis/node';
-
-export interface Analysis {
-  nodes(): Node[];
-}
+export interface Analysis {}

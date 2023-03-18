@@ -3,13 +3,13 @@ import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
 import { NodeType } from '~/analysis/node';
 import { InfixNode } from '~/analysis/syntax/node/infix/infix-node';
 import { LadderNode } from '~/analysis/syntax/node/ladder/ladder-node';
-import { syntaxNodes } from '~/analysis/syntax/syntax-analysis';
+import { parseBody } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
 
 test('debug', () => {
   const code = 'a = 1\n b = 2\n +b';
   const source = Source.fromText(code);
-  const nodes = syntaxNodes(source);
+  const { nodes } = parseBody(source);
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.LADDER);
@@ -21,7 +21,7 @@ test('debug', () => {
 test('debug 2', () => {
   const code = 'a = 1\nb = 2';
   const source = Source.fromText(code);
-  const nodes = syntaxNodes(source);
+  const { nodes } = parseBody(source);
 
   expect(nodes.length).toBe(2);
 });
@@ -29,7 +29,7 @@ test('debug 2', () => {
 test('debug 3', () => {
   const code = 'a = 1\n b = 2\nc = 3';
   const source = Source.fromText(code);
-  const nodes = syntaxNodes(source);
+  const { nodes } = parseBody(source);
 
   expect(nodes.length).toBe(2);
   expect(nodes[0].$).toBe(NodeType.LADDER);
@@ -39,7 +39,7 @@ test('debug 3', () => {
 test('single expression', () => {
   const code = '\n  a = 1';
   const source = Source.fromText(code);
-  const nodes = syntaxNodes(source);
+  const { nodes } = parseBody(source);
 
   const infix = nodes[0] as InfixNode;
   expect((infix.left as IdNode).text).toBe('a');
@@ -50,7 +50,7 @@ test('single expression', () => {
 test('multiple expression', () => {
   const code = '\n  x = 1\n  y = 2\n  z = 3';
   const source = Source.fromText(code);
-  const nodes = syntaxNodes(source);
+  const { nodes } = parseBody(source);
 
   expect(nodes.length).toBe(3);
 });
@@ -92,7 +92,7 @@ if b
   321
 `.trim();
   const source = Source.fromText(code);
-  const nodes = syntaxNodes(source);
+  const { nodes } = parseBody(source);
 
   expect(nodes.length).toBe(2);
 });
@@ -124,7 +124,7 @@ abc: ABC
     return (MultipleBodyTree(ctx))
 `;
   const source = Source.fromText(code);
-  const nodes = syntaxNodes(source);
+  const { nodes } = parseBody(source);
 
   expect(nodes.length).toBe(1);
 });
@@ -170,7 +170,7 @@ xyz()
   z = 2
   `;
   const source = Source.fromText(code);
-  const nodes = syntaxNodes(source);
+  const { nodes } = parseBody(source);
 
   expect(nodes.length).toBe(2);
 
