@@ -2,18 +2,14 @@ import { is } from '~/analysis/is';
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { CloseNode } from '~/analysis/lexical/node/close/close-node';
-import { IdNode } from '~/analysis/lexical/node/id/id-node';
-import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
 import { OpenNode } from '~/analysis/lexical/node/open/open-node';
 import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
 import { Node, NodeType } from '~/analysis/node';
+import { invokeNode } from '~/analysis/semantic/node/invoke/invoke-node';
 import { ArrayNode, arrayNode } from '~/analysis/syntax/node/array/array-node';
 import { BodyNode, bodyNode } from '~/analysis/syntax/node/body/body-node';
-import { FloatNode, floatNode } from '~/analysis/syntax/node/float/float-node';
-import { InfixNode, infixNode } from '~/analysis/syntax/node/infix/infix-node';
-import { invokeNode } from '~/analysis/syntax/node/invoke/invoke-node';
+import { infixNode } from '~/analysis/syntax/node/infix/infix-node';
 import { ladderNode } from '~/analysis/syntax/node/ladder/ladder-node';
-import { MemberNode, memberNode } from '~/analysis/syntax/node/member/member-node';
 import { PostfixNode, postfixNode } from '~/analysis/syntax/node/postfix/postfix-node';
 import { PrefixNode, prefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
 import { OperatorType, OperatorsOrder, RecursiveType, operatorsOrders } from '~/analysis/syntax/operators';
@@ -23,7 +19,7 @@ import { Source } from '~/source/source';
 export function parseBody(source: Source): BodyNode {
   const scanner = new LexicalAnalysis(source.text);
   const tokens = scanner.nodes();
-  const parser = new SyntaxAnalysis(tokens, operatorsOrders);
+  const parser = new SyntaxAnalysis(tokens);
   return parser.parse();
 }
 
@@ -36,7 +32,7 @@ export function parseExpression(source: Source): Node {
 }
 
 export class SyntaxAnalysis {
-  constructor(public tokens: LexicalNode[], public operatorsOrders: OperatorsOrder[]) {}
+  constructor(public tokens: LexicalNode[]) {}
 
   public parse(): BodyNode {
     const filteredNodes = this.tokens.filter((node) => node.type !== NodeType.JOINING);
@@ -246,7 +242,7 @@ function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIn
       throw new Error('Not implemented');
     }
 
-    const infix = infixOperator(operator, left, right);
+    const infix = infixNode(operator, left, right);
     nodes[operatorIndex] = infix;
     nodes.splice(operatorIndex - 1, 1);
     nodes.splice(operatorIndex, 1);
@@ -359,20 +355,4 @@ function prefixOperator(operator: OperatorNode, value: Node): PrefixNode {
 
 function postfixOperator(operator: OperatorNode, value: Node): PostfixNode {
   return postfixNode(operator, value);
-}
-
-function infixOperator(operator: OperatorNode, left: Node, right: Node): InfixNode | FloatNode | MemberNode {
-  if (
-    operator.text === '.' &&
-    is<IntegerNode>(left, NodeType.INTEGER) &&
-    (is<IntegerNode>(right, NodeType.INTEGER) || is<IdNode>(right, NodeType.ID))
-  ) {
-    return floatNode(operator, left, right);
-  }
-
-  if ((operator.text === '.' || operator.text === '::') && is<IdNode>(right, NodeType.ID)) {
-    return memberNode(operator, left, right);
-  }
-
-  return infixNode(operator, left, right);
 }

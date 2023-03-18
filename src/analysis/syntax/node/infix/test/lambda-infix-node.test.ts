@@ -1,8 +1,8 @@
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { NodeType } from '~/analysis/node';
+import { InvokeNode } from '~/analysis/semantic/node/invoke/invoke-node';
 import { ArrayNode } from '~/analysis/syntax/node/array/array-node';
 import { InfixNode } from '~/analysis/syntax/node/infix/infix-node';
-import { InvokeNode } from '~/analysis/syntax/node/invoke/invoke-node';
 import { parseExpression } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
