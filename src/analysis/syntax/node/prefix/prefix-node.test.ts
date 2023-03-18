@@ -1,3 +1,4 @@
+import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
 import { NodeType } from '~/analysis/node';
 import { PrefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
 import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
@@ -11,6 +12,16 @@ test('negative integer', () => {
 
   expect(tree.type).toBe(NodeType.PREFIX);
   expect(evaluate(source, tree.value)).toBe(1);
+});
+
+test('prefix modifier', () => {
+  const code = 'prefix +';
+  const source = Source.fromText(code);
+  const tree = syntaxNode(source) as PrefixNode;
+
+  expect(tree.type).toBe(NodeType.PREFIX);
+  expect(tree.operator.text).toBe('prefix');
+  expect((tree.value as OperatorNode).text).toBe('+');
 });
 
 test('not boolean', () => {
