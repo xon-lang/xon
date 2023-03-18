@@ -1,7 +1,6 @@
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
 import { NodeType } from '~/analysis/node';
-import { BodyNode } from '~/analysis/syntax/node/body/body-node';
 import { InfixNode } from '~/analysis/syntax/node/infix/infix-node';
 import { LadderNode } from '~/analysis/syntax/node/ladder/ladder-node';
 import { parseBody } from '~/analysis/syntax/syntax-analysis';
@@ -10,43 +9,39 @@ import { Source } from '~/source/source';
 test('debug', () => {
   const code = 'a = 1\n b = 2\n +b';
   const source = Source.fromText(code);
-  const tree = parseBody(source) as BodyNode;
+  const nodes = parseBody(source);
 
-  expect(tree.type).toBe(NodeType.BODY);
-  expect(tree.nodes.length).toBe(1);
-  expect(tree.nodes[0].type).toBe(NodeType.LADDER);
-  expect((tree.nodes[0] as LadderNode).body.nodes.length).toBe(2);
-  expect((tree.nodes[0] as LadderNode).body.nodes[0].type).toBe(NodeType.INFIX);
-  expect((tree.nodes[0] as LadderNode).body.nodes[1].type).toBe(NodeType.PREFIX);
+  expect(nodes.length).toBe(1);
+  expect(nodes[0].type).toBe(NodeType.LADDER);
+  expect((nodes[0] as LadderNode).body.nodes.length).toBe(2);
+  expect((nodes[0] as LadderNode).body.nodes[0].type).toBe(NodeType.INFIX);
+  expect((nodes[0] as LadderNode).body.nodes[1].type).toBe(NodeType.PREFIX);
 });
 
 test('debug 2', () => {
   const code = 'a = 1\nb = 2';
   const source = Source.fromText(code);
-  const tree = parseBody(source) as BodyNode;
+  const nodes = parseBody(source);
 
-  expect(tree.type).toBe(NodeType.BODY);
-  expect(tree.nodes.length).toBe(2);
+  expect(nodes.length).toBe(2);
 });
 
 test('debug 3', () => {
   const code = 'a = 1\n b = 2\nc = 3';
   const source = Source.fromText(code);
-  const tree = parseBody(source) as BodyNode;
+  const nodes = parseBody(source);
 
-  expect(tree.type).toBe(NodeType.BODY);
-  expect(tree.nodes.length).toBe(2);
-  expect(tree.nodes[0].type).toBe(NodeType.LADDER);
-  expect(tree.nodes[1].type).toBe(NodeType.INFIX);
+  expect(nodes.length).toBe(2);
+  expect(nodes[0].type).toBe(NodeType.LADDER);
+  expect(nodes[1].type).toBe(NodeType.INFIX);
 });
 
 test('single expression', () => {
   const code = '\n  a = 1';
   const source = Source.fromText(code);
-  const tree = parseBody(source) as BodyNode;
+  const nodes = parseBody(source);
 
-  expect(tree.type).toBe(NodeType.BODY);
-  const infix = tree.nodes[0] as InfixNode;
+  const infix = nodes[0] as InfixNode;
   expect((infix.left as IdNode).text).toBe('a');
   expect(infix.operator.text).toBe('=');
   expect((infix.right as IntegerNode).text).toBe('1');
@@ -55,10 +50,9 @@ test('single expression', () => {
 test('multiple expression', () => {
   const code = '\n  x = 1\n  y = 2\n  z = 3';
   const source = Source.fromText(code);
-  const tree = parseBody(source) as BodyNode;
+  const nodes = parseBody(source);
 
-  expect(tree.type).toBe(NodeType.BODY);
-  expect(tree.nodes.length).toBe(3);
+  expect(nodes.length).toBe(3);
 });
 
 // test('import and if', () => {
@@ -98,9 +92,9 @@ if b
   321
 `.trim();
   const source = Source.fromText(code);
-  const tree = parseBody(source);
+  const nodes = parseBody(source);
 
-  expect(tree.type).toBe(NodeType.BODY);
+  expect(nodes.length).toBe(2);
 });
 
 // test('has comment', () => {
@@ -130,9 +124,9 @@ abc: ABC
     return (MultipleBodyTree(ctx))
 `;
   const source = Source.fromText(code);
-  const tree = parseBody(source);
+  const nodes = parseBody(source);
 
-  expect(tree.type).toBe(NodeType.BODY);
+  expect(nodes.length).toBe(1);
 });
 
 // test('3.xon', () => {
@@ -176,17 +170,16 @@ xyz()
   z = 2
   `;
   const source = Source.fromText(code);
-  const tree = parseBody(source);
+  const nodes = parseBody(source);
 
-  expect(tree.type).toBe(NodeType.BODY);
-  expect(tree.nodes.length).toBe(2);
+  expect(nodes.length).toBe(2);
 
-  const body1 = tree.nodes[0] as LadderNode;
+  const body1 = nodes[0] as LadderNode;
   expect(body1.type).toBe(NodeType.LADDER);
   expect(body1.header.type).toBe(NodeType.ID);
   expect(body1.body.nodes.length).toBe(1);
 
-  const body2 = tree.nodes[1] as LadderNode;
+  const body2 = nodes[1] as LadderNode;
   expect(body2.type).toBe(NodeType.LADDER);
   expect(body2.header.type).toBe(NodeType.INVOKE);
   expect(body2.body.nodes.length).toBe(3);

@@ -16,15 +16,15 @@ import { OperatorType, OperatorsOrder, RecursiveType, operatorsOrders } from '~/
 import { Boolean2, Integer, String2 } from '~/lib/core';
 import { Source } from '~/source/source';
 
-export function parseBody(source: Source): BodyNode {
+export function parseBody(source: Source): Node[] {
   const scanner = new LexicalAnalysis(source.text);
   const tokens = scanner.nodes();
   const parser = new SyntaxAnalysis(tokens);
-  return parser.parse();
+  return parser.nodes();
 }
 
 export function parseExpression(source: Source): Node {
-  const { nodes } = parseBody(source);
+  const nodes = parseBody(source);
   if (nodes.length !== 1) {
     throw new Error('Not implemented');
   }
@@ -34,13 +34,13 @@ export function parseExpression(source: Source): Node {
 export class SyntaxAnalysis {
   constructor(public tokens: LexicalNode[]) {}
 
-  public parse(): BodyNode {
+  public nodes(): Node[] {
     const filteredNodes = this.tokens.filter((node) => node.type !== NodeType.JOINING);
     collapseArrays(filteredNodes);
     const normalizedSplitted = normalizeSplittedNodes(filteredNodes);
     const result = collapseBody(normalizedSplitted);
 
-    return result;
+    return result.nodes;
   }
 }
 
