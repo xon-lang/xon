@@ -1,3 +1,4 @@
+import { Analysis } from '~/analysis/analysis';
 import { is } from '~/analysis/is';
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
@@ -31,11 +32,11 @@ export function parseExpression(source: Source): Node {
   return nodes[0];
 }
 
-export class SyntaxAnalysis {
-  constructor(public tokens: LexicalNode[]) {}
+export class SyntaxAnalysis implements Analysis {
+  constructor(public lexicalNodes: LexicalNode[]) {}
 
   public nodes(): Node[] {
-    const filteredNodes = this.tokens.filter((node) => node.type !== NodeType.JOINING);
+    const filteredNodes = this.lexicalNodes.filter((node) => node.type !== NodeType.JOINING);
     collapseArrays(filteredNodes);
     const normalizedSplitted = normalizeSplittedNodes(filteredNodes);
     const result = collapseBody(normalizedSplitted);
