@@ -47,27 +47,27 @@ export class SyntaxAnalysis implements Analysis {
   }
 }
 
-function collapseBody(splitNodes: { indent: Integer; node: Node }[]): BodyNode {
-  if (splitNodes.length === 0) {
+function collapseBody(lines: { indent: Integer; node: Node }[]): BodyNode {
+  if (lines.length === 0) {
     throw new Error('Not implemented');
   }
 
   const bodyNodes: Node[] = [];
-  const bodyIndent = splitNodes[0].indent;
+  const bodyIndent = lines[0].indent;
 
-  for (let i = 0; i < splitNodes.length; i++) {
-    const { indent, node } = splitNodes[i];
+  for (let i = 0; i < lines.length; i++) {
+    const { indent, node } = lines[i];
     if (indent === bodyIndent) {
       bodyNodes.push(node);
       continue;
     }
     if (indent > bodyIndent) {
-      const innerIndentNodes = takeWhile(splitNodes, (x) => x.indent > bodyIndent, i);
+      const innerLines = takeWhile(lines, (x) => x.indent > bodyIndent, i);
 
       const header = bodyNodes[bodyNodes.length - 1];
-      const body = collapseBody(innerIndentNodes);
+      const body = collapseBody(innerLines);
       bodyNodes[bodyNodes.length - 1] = ladderNode(header, body);
-      i = i + innerIndentNodes.length - 1; // because of loop make i++
+      i = i + innerLines.length - 1; // because of loop make i++
       continue;
     }
   }
@@ -247,7 +247,7 @@ function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIn
       throw new Error('Not implemented');
     }
 
-    const infix = infixOperator(operator, left, right);
+    const infix = handleInfix(operator, left, right);
     nodes[operatorIndex] = infix;
     nodes.splice(operatorIndex - 1, 1);
     nodes.splice(operatorIndex, 1);
@@ -355,7 +355,7 @@ function postfixOperator(operator: OperatorNode, value: Node): PostfixNode {
   return postfixNode(operator, value);
 }
 
-function infixOperator(operator: OperatorNode, left: Node, right: Node): InfixNode | MemberNode {
+function handleInfix(operator: OperatorNode, left: Node, right: Node): InfixNode | MemberNode {
   if ((operator.text === '.' || operator.text === '::') && is<IdNode>(right, NodeType.ID)) {
     return memberNode(operator, left, right);
   }

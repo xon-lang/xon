@@ -27,6 +27,7 @@ export enum NodeType {
 
   SEMANTIC = 'SEMANTIC',
   DECLARATION = 'DECLARATION-SEMANTIC',
+  TYPE = 'TYPE-SEMANTIC',
 }
 
 export interface Node {
