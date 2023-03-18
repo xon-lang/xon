@@ -3,13 +3,13 @@ import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
 import { NodeType } from '~/analysis/node';
 import { InvokeNode } from '~/analysis/syntax/node/invoke/invoke-node';
 import { PrefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
-import { parseExpression } from '~/analysis/syntax/syntax-analysis';
+import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
 
 test('method declaration', () => {
   const code = 'infix +(a, b)';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InvokeNode;
+  const tree = syntaxNode(source) as InvokeNode;
 
   expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(2);

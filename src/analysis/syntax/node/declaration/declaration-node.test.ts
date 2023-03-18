@@ -2,7 +2,7 @@ import { is } from '~/analysis/is';
 import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
 import { NodeType } from '~/analysis/node';
 import { ArrayNode } from '~/analysis/syntax/node/array/array-node';
-import { parseExpression } from '~/analysis/syntax/syntax-analysis';
+import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Integer } from '~/lib/core';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
@@ -10,7 +10,7 @@ import { evaluate } from '~/util/evaluate';
 test('empty', () => {
   const code = '[]';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as ArrayNode;
+  const tree = syntaxNode(source) as ArrayNode;
 
   expect(tree.type).toBe(NodeType.ARRAY);
   expect(tree.parameters.length).toBe(0);
@@ -19,7 +19,7 @@ test('empty', () => {
 test('inner empty arrays', () => {
   const code = '[[[]]]';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as ArrayNode;
+  const tree = syntaxNode(source) as ArrayNode;
 
   expect(tree.type).toBe(NodeType.ARRAY);
   expect(tree.parameters.length).toBe(1);
@@ -28,7 +28,7 @@ test('inner empty arrays', () => {
 test('two integers in array', () => {
   const code = '[1, 2]';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as ArrayNode;
+  const tree = syntaxNode(source) as ArrayNode;
 
   expect(tree.type).toBe(NodeType.ARRAY);
   expect(tree.parameters.length).toBe(2);
@@ -41,7 +41,7 @@ test('two integers in array', () => {
 test('check array', () => {
   const code = '[1, 2+2, 4, 6+6]';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as ArrayNode;
+  const tree = syntaxNode(source) as ArrayNode;
 
   expect(tree.type).toBe(NodeType.ARRAY);
   expect(tree.parameters.length).toBe(4);
@@ -56,7 +56,7 @@ test('array on several lines', () => {
                 2+2,
      4,    6+6]`;
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as ArrayNode;
+  const tree = syntaxNode(source) as ArrayNode;
 
   expect(tree.type).toBe(NodeType.ARRAY);
   expect(tree.parameters.length).toBe(4);

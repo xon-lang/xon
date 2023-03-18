@@ -1,7 +1,7 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { UnknownNode } from '~/analysis/lexical/node/unknown/unknown-node';
 import { NodeType } from '~/analysis/node';
-import { parseExpression } from '~/analysis/syntax/syntax-analysis';
+import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
 
 test('unexpected 1', () => {
@@ -28,7 +28,7 @@ test('unexpected 2', () => {
 test('id', () => {
   const code = 'ºª¶';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as UnknownNode;
+  const tree = syntaxNode(source) as UnknownNode;
 
   expect(tree.type).toBe(NodeType.UNKNOWN);
   expect(tree.text).toBe(code);

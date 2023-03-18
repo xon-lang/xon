@@ -4,13 +4,13 @@ import { NodeType } from '~/analysis/node';
 import { ArrayNode } from '~/analysis/syntax/node/array/array-node';
 import { InvokeNode } from '~/analysis/syntax/node/invoke/invoke-node';
 import { MemberNode } from '~/analysis/syntax/node/member/member-node';
-import { parseExpression } from '~/analysis/syntax/syntax-analysis';
+import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
 
 test('method call', () => {
   const code = "f(3, 'str')";
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InvokeNode;
+  const tree = syntaxNode(source) as InvokeNode;
 
   expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(2);
@@ -26,7 +26,7 @@ test('method on several lines', () => {
         'str', 123, 
     415]`;
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InvokeNode;
+  const tree = syntaxNode(source) as InvokeNode;
 
   expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(4);
@@ -40,7 +40,7 @@ test('method on several lines', () => {
 test('can call with type parameter', () => {
   const code = 'a.get [1]';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InvokeNode;
+  const tree = syntaxNode(source) as InvokeNode;
 
   expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(1);
@@ -55,7 +55,7 @@ test('can call with type parameter', () => {
 test('object method', () => {
   const code = '{a, b}.call()';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InvokeNode;
+  const tree = syntaxNode(source) as InvokeNode;
 
   expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(0);
@@ -72,7 +72,7 @@ test('object method', () => {
 test('generics', () => {
   const code = 'Animal{T}';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InvokeNode;
+  const tree = syntaxNode(source) as InvokeNode;
 
   expect(tree.type).toBe(NodeType.INVOKE);
   expect(tree.array.parameters.length).toBe(1);

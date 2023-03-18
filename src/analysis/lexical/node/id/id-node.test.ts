@@ -1,13 +1,13 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { NodeType } from '~/analysis/node';
-import { parseExpression } from '~/analysis/syntax/syntax-analysis';
+import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
 
 test('id', () => {
   const code = 'myVariable';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as IdNode;
+  const tree = syntaxNode(source) as IdNode;
 
   expect(tree.type).toBe(NodeType.ID);
   expect(tree.text).toBe('myVariable');

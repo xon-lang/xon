@@ -19,15 +19,15 @@ import { OperatorType, OperatorsOrder, RecursiveType, operatorsOrders } from '~/
 import { Boolean2, Integer, String2 } from '~/lib/core';
 import { Source } from '~/source/source';
 
-export function parseBody(source: Source): Node[] {
+export function syntaxNodes(source: Source): Node[] {
   const scanner = new LexicalAnalysis(source.text);
   const tokens = scanner.nodes();
   const parser = new SyntaxAnalysis(tokens);
   return parser.nodes();
 }
 
-export function parseExpression(source: Source): Node {
-  const nodes = parseBody(source);
+export function syntaxNode(source: Source): Node {
+  const nodes = syntaxNodes(source);
   if (nodes.length !== 1) {
     throw new Error('Not implemented');
   }

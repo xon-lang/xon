@@ -1,7 +1,7 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { StringNode } from '~/analysis/lexical/node/string/string-node';
 import { NodeType } from '~/analysis/node';
-import { parseExpression } from '~/analysis/syntax/syntax-analysis';
+import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
 
 test('string', () => {
@@ -18,7 +18,7 @@ test('string', () => {
 test('single line string', () => {
   const code = `'some string'`;
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as StringNode;
+  const tree = syntaxNode(source) as StringNode;
 
   expect(tree.type).toBe(NodeType.STRING);
   expect(tree.text).toBe(code);
@@ -27,7 +27,7 @@ test('single line string', () => {
 test('multiline string', () => {
   const code = `'some\nmultiline\n\t\n\t\nstring\n'`;
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as StringNode;
+  const tree = syntaxNode(source) as StringNode;
 
   expect(tree.type).toBe(NodeType.STRING);
   expect(tree.text).toBe(code);
@@ -36,7 +36,7 @@ test('multiline string', () => {
 test('empty string', () => {
   const code = `''`;
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as StringNode;
+  const tree = syntaxNode(source) as StringNode;
 
   expect(tree.type).toBe(NodeType.STRING);
   expect(tree.text).toBe(code);

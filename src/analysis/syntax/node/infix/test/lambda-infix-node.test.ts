@@ -3,14 +3,14 @@ import { NodeType } from '~/analysis/node';
 import { ArrayNode } from '~/analysis/syntax/node/array/array-node';
 import { InfixNode } from '~/analysis/syntax/node/infix/infix-node';
 import { InvokeNode } from '~/analysis/syntax/node/invoke/invoke-node';
-import { parseExpression } from '~/analysis/syntax/syntax-analysis';
+import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
 
 test('has argument', () => {
   const code = '[x] = x + 42';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InfixNode;
+  const tree = syntaxNode(source) as InfixNode;
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect((tree.left as ArrayNode).parameters.length).toBe(1);
@@ -27,7 +27,7 @@ test('has argument', () => {
 test('generics', () => {
   const code = '{N,M ,K:String }[x] = x + 42';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InfixNode;
+  const tree = syntaxNode(source) as InfixNode;
 
   expect(tree.type).toBe(NodeType.INFIX);
   const left = tree.left as InvokeNode;
@@ -54,7 +54,7 @@ test('generics', () => {
 test('no arguments', () => {
   const code = '[]= 42+45';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InfixNode;
+  const tree = syntaxNode(source) as InfixNode;
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect((tree.left as ArrayNode).parameters.length).toBe(0);
@@ -64,7 +64,7 @@ test('no arguments', () => {
 test('lambda inner lambda', () => {
   const code = '[a] = [b, c] = 42+45';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InfixNode;
+  const tree = syntaxNode(source) as InfixNode;
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect(tree.left.type).toBe(NodeType.ARRAY);

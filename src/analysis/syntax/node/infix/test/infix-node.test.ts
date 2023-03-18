@@ -5,7 +5,7 @@ import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
 import { NodeType } from '~/analysis/node';
 import { InfixNode } from '~/analysis/syntax/node/infix/infix-node';
 import { PrefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
-import { parseExpression } from '~/analysis/syntax/syntax-analysis';
+import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
 
@@ -29,7 +29,7 @@ test('infix operator', () => {
 test('several operands with different priorities', () => {
   const code = '1*1+1+2^5*2/2';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InfixNode;
+  const tree = syntaxNode(source) as InfixNode;
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect(tree.operator.text).toBe('+');
@@ -39,7 +39,7 @@ test('several operands with different priorities', () => {
 test('several operands with different priorities', () => {
   const code = 'infix +: (a: Number, b: Number) = Number';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InfixNode;
+  const tree = syntaxNode(source) as InfixNode;
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect(tree.operator.text).toBe(':');
@@ -55,7 +55,7 @@ test('several operands with different priorities', () => {
 test('num plus str', () => {
   const code = "1  + 'str'";
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InfixNode;
+  const tree = syntaxNode(source) as InfixNode;
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect(tree.operator.text).toBe('+');
@@ -65,7 +65,7 @@ test('num plus str', () => {
 test('num is number', () => {
   const code = '1 & Number';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InfixNode;
+  const tree = syntaxNode(source) as InfixNode;
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect(tree.operator.text).toBe('&');
@@ -75,7 +75,7 @@ test('num is number', () => {
 test('equals', () => {
   const code = 'this.text == 123';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InfixNode;
+  const tree = syntaxNode(source) as InfixNode;
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect(tree.operator.text).toBe('==');
@@ -85,7 +85,7 @@ test('equals', () => {
 test('has several relational operators', () => {
   const code = 'a<b>c';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InfixNode;
+  const tree = syntaxNode(source) as InfixNode;
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect(tree.operator.text).toBe('>');
@@ -102,7 +102,7 @@ test('has several relational operators', () => {
 test('several operators', () => {
   const code = '1 /+ 2';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as InfixNode;
+  const tree = syntaxNode(source) as InfixNode;
 
   expect(tree.type).toBe(NodeType.INFIX);
   expect(tree.left.type).toBe(NodeType.INTEGER);

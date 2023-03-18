@@ -1,13 +1,13 @@
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { NodeType } from '~/analysis/node';
 import { MemberNode } from '~/analysis/syntax/node/member/member-node';
-import { parseExpression } from '~/analysis/syntax/syntax-analysis';
+import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
 
 test('abc.def', () => {
   const code = 'abc.def';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as MemberNode;
+  const tree = syntaxNode(source) as MemberNode;
 
   expect(tree.type).toBe(NodeType.MEMBER);
   expect((tree.instance as IdNode).text).toBe('abc');
@@ -17,7 +17,7 @@ test('abc.def', () => {
 test('meta property', () => {
   const code = 'abc::def';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as MemberNode;
+  const tree = syntaxNode(source) as MemberNode;
 
   expect(tree.type).toBe(NodeType.MEMBER);
   expect(tree.instance.type).toBe(NodeType.ID);
@@ -29,7 +29,7 @@ test('meta property', () => {
 test('not safe', () => {
   const code = 'abc.def';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as MemberNode;
+  const tree = syntaxNode(source) as MemberNode;
 
   expect(tree.type).toBe(NodeType.MEMBER);
   expect(tree.instance.type).toBe(NodeType.ID);
@@ -41,7 +41,7 @@ test('not safe', () => {
 test('left dot nl property', () => {
   const code = 'abc.\\def';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as MemberNode;
+  const tree = syntaxNode(source) as MemberNode;
 
   expect(tree.type).toBe(NodeType.MEMBER);
   expect(tree.instance.type).toBe(NodeType.ID);
@@ -53,7 +53,7 @@ test('left dot nl property', () => {
 test('left nl dot property', () => {
   const code = 'abc\\.def';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as MemberNode;
+  const tree = syntaxNode(source) as MemberNode;
 
   expect(tree.type).toBe(NodeType.MEMBER);
   expect(tree.instance.type).toBe(NodeType.ID);
@@ -65,7 +65,7 @@ test('left nl dot property', () => {
 test('left nl dot nl property', () => {
   const code = 'abc\\.\\def';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as MemberNode;
+  const tree = syntaxNode(source) as MemberNode;
 
   expect(tree.type).toBe(NodeType.MEMBER);
   expect(tree.instance.type).toBe(NodeType.ID);
@@ -83,7 +83,7 @@ this.statements \
       .jkl \
   `.trim();
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as MemberNode;
+  const tree = syntaxNode(source) as MemberNode;
 
   expect(tree.type).toBe(NodeType.MEMBER);
   expect(tree.instance.type).toBe(NodeType.MEMBER);

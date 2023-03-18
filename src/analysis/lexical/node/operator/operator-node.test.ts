@@ -1,7 +1,7 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { NodeType } from '~/analysis/node';
 import { PostfixNode } from '~/analysis/syntax/node/postfix/postfix-node';
-import { parseExpression } from '~/analysis/syntax/syntax-analysis';
+import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
 
@@ -19,7 +19,7 @@ test('single operator', () => {
 test('after integer', () => {
   const code = '1!';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as PostfixNode;
+  const tree = syntaxNode(source) as PostfixNode;
 
   expect(tree.type).toBe(NodeType.POSTFIX);
   expect(tree.operator.text).toBe('!');
@@ -29,7 +29,7 @@ test('after integer', () => {
 test('after invoke', () => {
   const code = 'ctx.parameters[]!';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as PostfixNode;
+  const tree = syntaxNode(source) as PostfixNode;
 
   expect(tree.type).toBe(NodeType.POSTFIX);
   expect(tree.operator.text).toBe('!');

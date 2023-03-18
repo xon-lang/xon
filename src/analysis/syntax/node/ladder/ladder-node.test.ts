@@ -1,13 +1,13 @@
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { NodeType } from '~/analysis/node';
 import { LadderNode } from '~/analysis/syntax/node/ladder/ladder-node';
-import { parseExpression } from '~/analysis/syntax/syntax-analysis';
+import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
 
 test('single expression', () => {
   const code = 'abc\n  a = 1';
   const source = Source.fromText(code);
-  const tree = parseExpression(source) as LadderNode;
+  const tree = syntaxNode(source) as LadderNode;
 
   expect(tree.type).toBe(NodeType.LADDER);
   expect(tree.header.type).toBe(NodeType.ID);
