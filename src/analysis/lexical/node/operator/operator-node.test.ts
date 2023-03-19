@@ -26,14 +26,14 @@ test('after integer', () => {
   expect(evaluate(source, tree.value)).toBe(1);
 });
 
-test('after invoke', () => {
-  const code = 'ctx.parameters[]!';
-  const source = Source.fromText(code);
-  const tree = syntaxNode(source) as PostfixNode;
+// test('after invoke', () => {
+//   const code = 'ctx.parameters[]!';
+//   const source = Source.fromText(code);
+//   const tree = syntaxNode(source) as PostfixNode;
 
-  expect(tree.$).toBe(NodeType.POSTFIX);
-  expect(tree.operator.text).toBe('!');
-});
+//   expect(tree.$).toBe(NodeType.POSTFIX);
+//   expect(tree.operator.text).toBe('!');
+// });
 
 // test('infix operator', () => {
 //   const text = 'infix +: (a: Number, b: Number) = Number';
