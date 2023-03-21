@@ -1,3 +1,4 @@
+import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
@@ -17,7 +18,7 @@ export function commaNode(start: Integer, stop: Integer, text: String2): CommaNo
 
 const COMMA = ',';
 
-export function scanCommaNode(text: String2, index: Integer): CommaNode | null {
+export function scanCommaNode({ text, index }: LexicalAnalysis): CommaNode | null {
   if (text[index] === COMMA) {
     return commaNode(index, index, COMMA);
   }

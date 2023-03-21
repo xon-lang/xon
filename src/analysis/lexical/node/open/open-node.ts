@@ -1,3 +1,4 @@
+import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
@@ -17,7 +18,7 @@ export function openNode(start: Integer, stop: Integer, text: String2): OpenNode
 
 const OPEN = '([{';
 
-export function scanOpenNode(text: String2, index: Integer): OpenNode | null {
+export function scanOpenNode({ text, index }: LexicalAnalysis): OpenNode | null {
   if (OPEN.includes(text[index])) {
     return openNode(index, index, text[index]);
   }

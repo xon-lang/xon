@@ -12,9 +12,9 @@ import { scanStringNode } from '~/analysis/lexical/node/string/string-node';
 import { unexpectedNode } from '~/analysis/lexical/node/unknown/unknown-node';
 import { scanWhitespaceNode } from '~/analysis/lexical/node/whitespace/whitespace-node';
 import { NodeType } from '~/analysis/node';
-import { Integer, String2 } from '~/lib/core';
+import { String2 } from '~/lib/core';
 
-type NodeScanFunction = (text: String2, index: Integer) => LexicalNode | null;
+type NodeScanFunction = (analysis: LexicalAnalysis) => LexicalNode | null;
 
 const nodeScanFunctions: NodeScanFunction[] = [
   scanIntegerNode,
@@ -30,37 +30,40 @@ const nodeScanFunctions: NodeScanFunction[] = [
 ];
 
 export class LexicalAnalysis implements Analysis {
+  public index = 0;
+  public scannedNodes: LexicalNode[] = [];
+
   public constructor(public text: String2) {}
 
   public nodes(): LexicalNode[] {
-    const scannedNodes: LexicalNode[] = [];
+    this.scannedNodes = [];
 
-    for (let index = 0; index < this.text.length; index++) {
-      const node = this.nextNode(index);
+    for (this.index = 0; this.index < this.text.length; this.index++) {
+      const node = this.nextNode();
 
       if (node) {
-        scannedNodes.push(node);
-        index = node.stop;
+        this.scannedNodes.push(node);
+        this.index = node.stop;
         continue;
       }
 
-      const last = scannedNodes[scannedNodes.length - 1];
+      const last = this.scannedNodes[this.scannedNodes.length - 1];
       if (last?.$ === NodeType.UNKNOWN) {
-        last.text += this.text[index];
-        last.stop = index;
+        last.text += this.text[this.index];
+        last.stop = this.index;
         continue;
       }
 
-      const unexpected = unexpectedNode(index, index, this.text[index]);
-      scannedNodes.push(unexpected);
+      const unexpected = unexpectedNode(this.index, this.index, this.text[this.index]);
+      this.scannedNodes.push(unexpected);
     }
 
-    return scannedNodes;
+    return this.scannedNodes;
   }
 
-  private nextNode(index: Integer): LexicalNode | null {
+  private nextNode(): LexicalNode | null {
     for (const nodeScan of nodeScanFunctions) {
-      const node = nodeScan(this.text, index);
+      const node = nodeScan(this);
       if (node) {
         return node;
       }

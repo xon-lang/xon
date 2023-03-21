@@ -1,3 +1,4 @@
+import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { KeywordNode, keywordNode } from '~/analysis/lexical/node/keyword/keyword-node';
 import { ModifierNode, modifierNode } from '~/analysis/lexical/node/modifier/modifier-node';
@@ -24,7 +25,7 @@ const DIGITS_LETTERS = DIGITS + LETTERS;
 const MODIFIERS = ['prefix', 'postfix', 'infix'];
 const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
 
-export function scanIdNode(text: String2, index: Integer): IdNode | ModifierNode | KeywordNode | null {
+export function scanIdNode({ text, index }: LexicalAnalysis): IdNode | ModifierNode | KeywordNode | null {
   if (LETTERS.includes(text[index])) {
     const sliced = text.takeWhile((x) => DIGITS_LETTERS.includes(x), index);
     // todo should be after nl and/or spaces before id or operator

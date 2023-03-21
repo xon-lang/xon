@@ -1,3 +1,4 @@
+import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
@@ -18,7 +19,7 @@ export function joiningNode(start: Integer, stop: Integer, text: String2): Joini
 const JOINING = '\\';
 const AFTER_JOINING = ' \t\n\r';
 
-export function scanJoiningNode(text: String2, index: Integer): JoiningNode | null {
+export function scanJoiningNode({ text, index }: LexicalAnalysis): JoiningNode | null {
   if (text[index] !== JOINING) {
     return null;
   }

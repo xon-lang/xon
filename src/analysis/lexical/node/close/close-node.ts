@@ -1,3 +1,4 @@
+import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
@@ -17,7 +18,7 @@ export function closeNode(start: Integer, stop: Integer, text: String2): CloseNo
 
 const CLOSE = '}])';
 
-export function scanCloseNode(text: String2, index: Integer): CloseNode | null {
+export function scanCloseNode({ text, index }: LexicalAnalysis): CloseNode | null {
   if (CLOSE.includes(text[index])) {
     return closeNode(index, index, text[index]);
   }
