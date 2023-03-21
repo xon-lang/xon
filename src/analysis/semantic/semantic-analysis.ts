@@ -1,6 +1,8 @@
 import { Analysis } from '~/analysis/analysis';
 import { is } from '~/analysis/is';
 import { Node, NodeType } from '~/analysis/node';
+import { DataType } from '~/analysis/semantic/data-type';
+import { Scope } from '~/analysis/semantic/scope';
 import { SemanticNode } from '~/analysis/semantic/semantic-node';
 import { LadderNode } from '~/analysis/syntax/node/ladder/ladder-node';
 import { SyntaxNode } from '~/analysis/syntax/syntax-node';
@@ -8,7 +10,8 @@ import { SyntaxNode } from '~/analysis/syntax/syntax-node';
 export class SemanticAnalysis implements Analysis {
   public constructor(public syntaxNodes: Node[]) {}
 
-  nodes(): SemanticNode[] {
+  body(): SemanticNode[] {
+    const scope = new Scope(null);
     const result: SemanticNode[] = [];
     for (const node of this.syntaxNodes) {
       const semanticNode = handleSyntaxNode(node);
@@ -26,6 +29,6 @@ function handleSyntaxNode(node: SyntaxNode): SemanticNode {
   throw new Error('Not implemented');
 }
 
-function handleLadder(node: LadderNode): SemanticNode {
-  const { header, body } = node;
-}
+function handleDeclaration(node: Node): Node {}
+
+function dataType(node: Node): DataType {}
