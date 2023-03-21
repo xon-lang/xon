@@ -1,7 +1,7 @@
 import { String2 } from '~/lib/core';
 
 export interface OperatorsOrder {
-  operators: String2[];
+  operators: String2[][];
   operatorType: OperatorType;
   recursiveType: RecursiveType;
 }
@@ -54,4 +54,10 @@ export const operatorsOrders: OperatorsOrder[] = [
     operatorType: OperatorType.INFIX,
     recursiveType: RecursiveType.RIGHT,
   },
-];
+].map((x) => {
+  return {
+    operators: x.operators.map((s) => s.split(' ')),
+    operatorType: x.operatorType,
+    recursiveType: x.recursiveType,
+  };
+});

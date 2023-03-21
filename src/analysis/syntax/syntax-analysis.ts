@@ -13,9 +13,9 @@ import { InfixNode, infixNode } from '~/analysis/syntax/node/infix/infix-node';
 import { invokeNode } from '~/analysis/syntax/node/invoke/invoke-node';
 import { ladderNode } from '~/analysis/syntax/node/ladder/ladder-node';
 import { MemberNode, memberNode } from '~/analysis/syntax/node/member/member-node';
-import { PostfixNode, postfixNode } from '~/analysis/syntax/node/postfix/postfix-node';
-import { PrefixNode, prefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
-import { OperatorType, OperatorsOrder, RecursiveType, operatorsOrders } from '~/analysis/syntax/operators';
+import { postfixNode } from '~/analysis/syntax/node/postfix/postfix-node';
+import { prefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
+import { OperatorType, RecursiveType, operatorsOrders } from '~/analysis/syntax/operators';
 import '~/extensions';
 import { Integer, String2 } from '~/lib/core';
 import { Source } from '~/source/source';
@@ -25,7 +25,6 @@ export function parseBody(source: Source): BodyNode {
   const tokens = scanner.nodes();
   const parser = new SyntaxAnalysis(tokens);
   const body = parser.body();
-  postSyntaxAnalysis(body);
   return body;
 }
 
@@ -43,14 +42,14 @@ export class SyntaxAnalysis implements Analysis {
   public body(): BodyNode {
     const filteredNodes = this.lexicalNodes.filter((node) => node.$ !== NodeType.JOINING);
     collapseArrays(filteredNodes);
-    const normalizedLines = normalizeLineNodes(filteredNodes);
-    const result = collapseBody(normalizedLines);
+    const splittedLines = splitLineNodes(filteredNodes);
+    const result = collapseBody(splittedLines);
 
     return result;
   }
 }
 
-function collapseBody(lines: { indent: Integer; node: Node }[]): BodyNode {
+function collapseBody(lines: { indent: Integer; lineNodes: Node[] }[], parent?: Node): BodyNode {
   if (lines.length === 0) {
     throw new Error('Not implemented');
   }
@@ -59,16 +58,18 @@ function collapseBody(lines: { indent: Integer; node: Node }[]): BodyNode {
   const bodyIndent = lines[0].indent;
 
   for (let i = 0; i < lines.length; i++) {
-    const { indent, node } = lines[i];
+    const { indent, lineNodes } = lines[i];
     if (indent === bodyIndent) {
-      bodyNodes.push(node);
+      const result = collapseLineNodes(lineNodes);
+      // collapseDeclarationNode(result, parent)
+      bodyNodes.push(result[0]);
       continue;
     }
     if (indent > bodyIndent) {
       const innerLines = lines.takeWhile((x) => x.indent > bodyIndent, i);
 
       const header = bodyNodes[bodyNodes.length - 1];
-      const body = collapseBody(innerLines);
+      const body = collapseBody(innerLines, header);
       bodyNodes[bodyNodes.length - 1] = ladderNode(header, body);
       i = i + innerLines.length - 1; // because of loop make i++
       continue;
@@ -92,8 +93,8 @@ function collapseArrays(nodes: Node[]): void {
     const betweenNodes = nodesBetween(nodes, openNode, closeNode);
     const parameters = splitNodes(betweenNodes, NodeType.COMMA)
       .map((nodes) => {
-        const normalizedSplitted = normalizeLineNodes(nodes);
-        return collapseBody(normalizedSplitted);
+        const lineNodes = splitLineNodes(nodes);
+        return collapseBody(lineNodes);
       })
       .map((node) => {
         if (is<BodyNode>(node, NodeType.BODY)) {
@@ -111,22 +112,21 @@ function collapseArrays(nodes: Node[]): void {
   }
 }
 
-function collapseOperatorsOrders(nodes: Node[], operatorsOrders: OperatorsOrder[]): Node[] {
+function collapseLineNodes(nodes: Node[]): Node[] {
   for (const operatorsOrder of operatorsOrders) {
     if (operatorsOrder.operatorType === OperatorType.INVOKE) {
       collapseInvoke(nodes);
     }
     for (const operators of operatorsOrder.operators) {
-      const operatorsStrings = operators.split(' ');
       const operatorIndex = findOperatorIndex(
         nodes,
-        operatorsStrings,
+        operators,
         operatorsOrder.operatorType,
         operatorsOrder.recursiveType,
       );
       if (operatorIndex >= 0) {
         collapseOperators(nodes, operatorsOrder.operatorType, operatorIndex);
-        collapseOperatorsOrders(nodes, operatorsOrders);
+        collapseLineNodes(nodes);
       }
     }
   }
@@ -186,7 +186,9 @@ function findOperatorIndex(
 function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIndex: Integer): void {
   if (operatorIndex < 0) return;
   const operator = nodes[operatorIndex];
-  if (!is<OperatorNode>(operator, NodeType.OPERATOR)) return;
+  if (!is<OperatorNode>(operator, NodeType.OPERATOR)) {
+    return;
+  }
 
   if (operatorType === OperatorType.PREFIX) {
     const right = nodes[operatorIndex + 1];
@@ -195,7 +197,7 @@ function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIn
       throw new Error('Not implemented');
     }
 
-    const prefix = prefixOperator(operator, right);
+    const prefix = prefixNode(operator, right);
     nodes[operatorIndex] = prefix;
     nodes.splice(operatorIndex + 1, 1);
 
@@ -209,7 +211,7 @@ function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIn
       throw new Error('Not implemented');
     }
 
-    const postfix = postfixOperator(operator, left);
+    const postfix = postfixNode(operator, left);
     nodes[operatorIndex] = postfix;
     nodes.splice(operatorIndex - 1, 1);
 
@@ -231,7 +233,7 @@ function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIn
   }
 }
 
-function normalizeLineNodes(nodes: Node[]): { indent: Integer; node: Node }[] {
+function splitLineNodes(nodes: Node[]): { indent: Integer; lineNodes: Node[] }[] {
   const nlSplitted = splitNodes(nodes, NodeType.NL);
 
   if (nlSplitted.length === 0) {
@@ -242,26 +244,15 @@ function normalizeLineNodes(nodes: Node[]): { indent: Integer; node: Node }[] {
   const minIndent = is(firstNode, NodeType.WHITESPACE) ? firstNode.stop - firstNode.stop + 1 : 0;
 
   const result = nlSplitted
-    .map((nodes) => {
-      const firstNode = nodes[0] as LexicalNode;
+    .map((lineNodes) => {
+      const firstNode = lineNodes[0] as LexicalNode;
       const indent = is(firstNode, NodeType.WHITESPACE) ? firstNode.stop - firstNode.stop + 1 : 0;
       return {
         indent: indent <= minIndent ? 0 : indent,
-        nodes: nodes.filter((node) => node.$ !== NodeType.WHITESPACE),
+        lineNodes: lineNodes.filter((node) => node.$ !== NodeType.WHITESPACE),
       };
     })
-    .filter((x) => x.nodes.length > 0)
-    .map(({ indent, nodes }) => {
-      const collapsedNodes = collapseOperatorsOrders(nodes, operatorsOrders);
-      if (collapsedNodes.length !== 1) {
-        throw new Error('Not implemented');
-      }
-      return {
-        indent,
-        node: collapsedNodes[0],
-      };
-    });
-
+    .filter((x) => x.lineNodes.length > 0);
   return result;
 }
 
@@ -309,14 +300,6 @@ function nodeAfter(nodes: Node[], node: Node, nodeType: NodeType): Node | null {
   return null;
 }
 
-function prefixOperator(operator: OperatorNode, value: Node): PrefixNode {
-  return prefixNode(operator, value);
-}
-
-function postfixOperator(operator: OperatorNode, value: Node): PostfixNode {
-  return postfixNode(operator, value);
-}
-
 function handleInfix(operator: OperatorNode, left: Node, right: Node): InfixNode | MemberNode {
   if (operator.text === '.' || operator.text === '::') {
     if (is<IdNode>(right, NodeType.ID)) {
@@ -328,26 +311,32 @@ function handleInfix(operator: OperatorNode, left: Node, right: Node): InfixNode
   return infixNode(operator, left, right);
 }
 
-function postSyntaxAnalysis(body: BodyNode): void {
-  for (let index = 0; index < body.nodes.length; index++) {
-    const node = body.nodes[index];
+// function collapseDeclarationNode(lineNodes: Node[], parent?: Node):void {
+//   let modifier: ModifierNode | null = null;
+//   let name: IdNode | OperatorNode | null = null;
+//   let parameters: DeclarationNode[] | null = null;
+//   let type: Node | null = null;
+//   let value: Node | null = null;
 
-    if (is<BodyNode>(node, NodeType.BODY)) {
-      postSyntaxAnalysis(node);
-      continue;
-    }
-  }
-}
-
-// function tryGetIdDeclaration(node: Node): IdDeclarationNode | null {
-//   // id
-//   if (is<IdNode>(node, NodeType.ID)) {
-//     return idDeclarationNode(null, node, null, null, null);
+//   // model
+//   if (is<ModifierNode>(lineNodes[0], NodeType.MODIFIER)) {
+//     modifier = lineNodes[0];
+//     lineNodes.splice(0, 1);
 //   }
 
-//   // prefix +
+//   // model a // infix +
+//   if (is<IdNode>(lineNodes[0], NodeType.ID)) {
+//     name = lineNodes[0];
+//     const declaration = declarationNode(modifier, name, null, null, null);
+//     lineNodes.splice(0, 1, declaration);
+//     if (lineNodes.length > 1) {
+//       throw new Error('Not implemented');
+//     }
+//   }
+
+//   //
 //   if (is<PrefixNode>(node, NodeType.PREFIX) && is<IdNode>(node.value, NodeType.ID)) {
-//    return idDeclarationNode(node.operator, node.value, null, null, null);
+//     return idDeclarationNode(node.operator, node.value, null, null, null);
 //   }
 
 //   // prefix id

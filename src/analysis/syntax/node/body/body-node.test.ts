@@ -19,7 +19,7 @@ test('debug', () => {
 });
 
 test('debug 2', () => {
-  const code = 'a = 1\nb = 2';
+  const code = 'a = 1\nb = 2\n';
   const source = Source.fromText(code);
   const { nodes } = parseBody(source);
 
