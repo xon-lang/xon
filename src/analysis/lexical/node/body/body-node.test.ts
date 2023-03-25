@@ -1,5 +1,6 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { NodeType } from '~/analysis/node';
+import { LadderNode } from '~/analysis/syntax/node/ladder/ladder-node';
 import { Source } from '~/source/source';
 
 test('single expression', () => {
@@ -25,31 +26,41 @@ test('debug', () => {
   expect(body.statements[0].nodes[0].$).toBe(NodeType.LADDER);
 });
 
-// test('debug 2', () => {
-//   const code = 'a = 1\nb = 2\n';
-//   const source = Source.fromText(code);
-//   const { nodes } = parseBody(source);
+test('debug 2', () => {
+  const text = 'a = 1\nb = 2\n';
+  const source = Source.fromText(text);
+  const scanner = new LexicalAnalysis(source.text);
+  const body = scanner.nodes();
 
-//   expect(nodes.length).toBe(2);
-// });
+  expect(body.statements.length).toBe(2);
+  expect(body.statements[0].nodes[0].$).toBe(NodeType.ID);
+  expect(body.statements[1].nodes[0].$).toBe(NodeType.ID);
+});
 
-// test('debug 3', () => {
-//   const code = 'a = 1\n b = 2\nc = 3';
-//   const source = Source.fromText(code);
-//   const { nodes } = parseBody(source);
+test('debug 3', () => {
+  const text = 'a = 1\n b = 2\nc = 3';
+  const source = Source.fromText(text);
+  const scanner = new LexicalAnalysis(source.text);
+  const body = scanner.nodes();
 
-//   expect(nodes.length).toBe(2);
-//   expect(nodes[0].$).toBe(NodeType.LADDER);
-//   expect(nodes[1].$).toBe(NodeType.INFIX);
-// });
+  expect(body.statements.length).toBe(2);
+  expect(body.statements[0].nodes[0].$).toBe(NodeType.LADDER);
+  expect((body.statements[0].nodes[0] as LadderNode).body.statements.length).toBe(1);
+  expect(body.statements[1].nodes[0].$).toBe(NodeType.ID);
+});
 
-// test('multiple expression', () => {
-//   const code = '\n  x = 1\n  y = 2\n  z = 3';
-//   const source = Source.fromText(code);
-//   const { nodes } = parseBody(source);
+test('multiple expression', () => {
+  const text = '\n  x = 1\n  y = 2\n  z = 3';
+  const source = Source.fromText(text);
+  const scanner = new LexicalAnalysis(source.text);
+  const body = scanner.nodes();
 
-//   expect(nodes.length).toBe(3);
-// });
+  expect(body.statements.length).toBe(4);
+  expect(body.statements[0].nodes[0].$).toBe(NodeType.NL);
+  expect(body.statements[1].nodes[0].$).toBe(NodeType.WHITESPACE);
+  expect(body.statements[2].nodes[0].$).toBe(NodeType.WHITESPACE);
+  expect(body.statements[3].nodes[0].$).toBe(NodeType.WHITESPACE);
+});
 
 // test('import and if', () => {
 //   const code = `import ('xon.os') {Path}
