@@ -1,4 +1,5 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
+import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
 import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
@@ -14,7 +15,7 @@ test('infix operator', () => {
   const text = 'abc.def';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const tokens = lexer.nodes();
+  const tokens = lexer.nodes() as LexicalNode[];
 
   expect(tokens.length).toBe(3);
   expect(tokens[0].text).toBe('abc');

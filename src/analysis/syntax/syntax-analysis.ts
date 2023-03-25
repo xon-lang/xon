@@ -2,17 +2,19 @@ import { Analysis } from '~/analysis/analysis';
 import { is } from '~/analysis/is';
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
+import { BodyNode, bodyNode } from '~/analysis/lexical/node/body/body-node';
 import { CloseNode } from '~/analysis/lexical/node/close/close-node';
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
+import { ModifierNode } from '~/analysis/lexical/node/modifier/modifier-node';
 import { OpenNode } from '~/analysis/lexical/node/open/open-node';
 import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
 import { Node, NodeType } from '~/analysis/node';
 import { ArrayNode, arrayNode } from '~/analysis/syntax/node/array/array-node';
-import { BodyNode, bodyNode } from '~/analysis/syntax/node/body/body-node';
 import { InfixNode, infixNode } from '~/analysis/syntax/node/infix/infix-node';
 import { invokeNode } from '~/analysis/syntax/node/invoke/invoke-node';
 import { ladderNode } from '~/analysis/syntax/node/ladder/ladder-node';
 import { MemberNode, memberNode } from '~/analysis/syntax/node/member/member-node';
+import { modifierIdNode } from '~/analysis/syntax/node/modifier-id/modifier-id-node';
 import { postfixNode } from '~/analysis/syntax/node/postfix/postfix-node';
 import { prefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
 import { OperatorType, RecursiveType, operatorsOrders } from '~/analysis/syntax/operators';
@@ -37,10 +39,10 @@ export function syntaxNode(source: Source): Node {
 }
 
 export class SyntaxAnalysis implements Analysis {
-  constructor(public lexicalNodes: LexicalNode[]) {}
+  constructor(public nodes: Node[]) {}
 
   public body(): BodyNode {
-    const filteredNodes = this.lexicalNodes.filter((node) => node.$ !== NodeType.JOINING);
+    const filteredNodes = this.nodes.filter((node) => node.$ !== NodeType.JOINING);
     collapseArrays(filteredNodes);
     const splittedLines = splitLineNodes(filteredNodes);
     const result = collapseBody(splittedLines);
@@ -61,7 +63,7 @@ function collapseBody(lines: { indent: Integer; lineNodes: Node[] }[], parent?: 
     const { indent, lineNodes } = lines[i];
     if (indent === bodyIndent) {
       const result = collapseLineNodes(lineNodes);
-      // collapseDeclarationNode(result, parent)
+      // const declaration = collapseDeclarationNode(result, parent);
       bodyNodes.push(result[0]);
       continue;
     }
@@ -113,6 +115,10 @@ function collapseArrays(nodes: Node[]): void {
 }
 
 function collapseLineNodes(nodes: Node[]): Node[] {
+  if (nodes.length > 1 && is<ModifierNode>(nodes[0], NodeType.MODIFIER)) {
+    if (is<IdNode>(nodes[1], NodeType.ID) || is<OperatorNode>(nodes[1], NodeType.OPERATOR))
+      nodes.splice(0, 2, modifierIdNode(nodes[0], nodes[1]));
+  }
   for (const operatorsOrder of operatorsOrders) {
     if (operatorsOrder.operatorType === OperatorType.INVOKE) {
       collapseInvoke(nodes);
@@ -311,38 +317,61 @@ function handleInfix(operator: OperatorNode, left: Node, right: Node): InfixNode
   return infixNode(operator, left, right);
 }
 
-// function collapseDeclarationNode(lineNodes: Node[], parent?: Node):void {
-//   let modifier: ModifierNode | null = null;
-//   let name: IdNode | OperatorNode | null = null;
-//   let parameters: DeclarationNode[] | null = null;
-//   let type: Node | null = null;
-//   let value: Node | null = null;
-
-//   // model
-//   if (is<ModifierNode>(lineNodes[0], NodeType.MODIFIER)) {
-//     modifier = lineNodes[0];
-//     lineNodes.splice(0, 1);
+// function collapseDeclarationNode(lineNodes: Node[], parent?: Node): DeclarationNode | null {
+//   if (lineNodes.length === 0) {
+//     return null;
 //   }
 
-//   // model a // infix +
-//   if (is<IdNode>(lineNodes[0], NodeType.ID)) {
-//     name = lineNodes[0];
-//     const declaration = declarationNode(modifier, name, null, null, null);
-//     lineNodes.splice(0, 1, declaration);
-//     if (lineNodes.length > 1) {
-//       throw new Error('Not implemented');
+//   if (lineNodes.length === 1) {
+//     if (is<DeclarationNode>(lineNodes[0], NodeType.DECLARATION)) {
+//       return lineNodes[0];
+//     }
+//     if (is<ModifierNode>(lineNodes[0], NodeType.MODIFIER)) {
+//       return declarationNode(lineNodes[0], null, null, null, null);
+//     }
+//     return parseDeclaration(null, lineNodes[0]);
+//   }
+
+//   if (lineNodes.length === 2 && is<ModifierNode>(lineNodes[0], NodeType.MODIFIER)) {
+//     return parseDeclaration(lineNodes[0], lineNodes[1]);
+//   }
+//   throw new Error('Not implemented');
+// }
+
+// function parseDeclaration(modifier: ModifierNode | null, node: Node, parent?: Node): DeclarationNode | null {
+//   if (is<IdNode>(node, NodeType.ID)) {
+//     return declarationNode(modifier, node, null, null, null);
+//   }
+
+//   if (is<InfixNode>(node, NodeType.INFIX) && node.operator.text === '=') {
+//     return parseAssignLeftDeclaration(modifier, node.left, node.right, parent);
+//   }
+//   return parseAssignLeftDeclaration(modifier, node, null, parent);
+// }
+
+// function parseAssignLeftDeclaration(
+//   modifier: ModifierNode | null,
+//   node: Node,
+//   value: Node | null,
+//   parent?: Node,
+// ): DeclarationNode | null {
+//   if (is<InfixNode>(node, NodeType.INFIX) && node.operator.text === ':') {
+//     if (is<InvokeNode>(node.left, NodeType.INVOKE) && is<IdNode>(node.left.instance, NodeType.ID)) {
+//       const parameters = node.left.array.parameters.map((x) => collapseDeclarationNode([x], parent));
+//       return declarationNode(modifier, node.left.instance, parameters, node.right, value);
+//     }
+//     if (is<IdNode>(node.left, NodeType.ID)) {
+//       return declarationNode(modifier, node.left, null, node.right, value);
 //     }
 //   }
 
-//   //
-//   if (is<PrefixNode>(node, NodeType.PREFIX) && is<IdNode>(node.value, NodeType.ID)) {
-//     return idDeclarationNode(node.operator, node.value, null, null, null);
+//   if (is<InvokeNode>(node, NodeType.INVOKE) && is<IdNode>(node.instance, NodeType.ID)) {
+//     const parameters = node.array.parameters.map((x) => collapseDeclarationNode([x], parent));
+//     return declarationNode(modifier, node.instance, parameters, null, value);
+//   }
+//   if (is<IdNode>(node, NodeType.ID)) {
+//     return declarationNode(modifier, node, null, null, value);
 //   }
 
-//   // prefix id
-//   if (is<InfixNode>(node, NodeType.INFIX) && node.operator.text === ':') {
-//     body.nodes[index] = idDeclarationNode(node.operator, node.value, null, null, null);
-//     continue;
-//   }
 //   return null;
 // }

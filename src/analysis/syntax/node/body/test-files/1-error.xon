@@ -1,5 +1,0 @@
-a = 1
-
-model Boolean
-  edf [other Boolean] => Boolean
-  abc [other 178972 Boolean] => Boolean

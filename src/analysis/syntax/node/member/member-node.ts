@@ -12,6 +12,8 @@ export interface MemberNode extends Node {
 export function memberNode(operator: OperatorNode, instance: Node, id: IdNode): MemberNode {
   return {
     $: NodeType.MEMBER,
+    start: instance.start,
+    stop: id.stop,
     operator,
     instance,
     id,

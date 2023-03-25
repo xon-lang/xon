@@ -21,6 +21,9 @@ export function declarationNode(
 ): DeclarationNode {
   return {
     $: NodeType.DECLARATION,
+    // todo fix it
+    start: modifier!.start,
+    stop: modifier!.stop,
     modifier,
     name,
     parameters,

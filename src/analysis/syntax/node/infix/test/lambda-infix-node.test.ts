@@ -13,9 +13,9 @@ test('has argument', () => {
   const tree = syntaxNode(source) as InfixNode;
 
   expect(tree.$).toBe(NodeType.INFIX);
-  expect((tree.left as ArrayNode).parameters.length).toBe(1);
-  expect(((tree.left as ArrayNode).parameters[0] as IdNode).text).toBe('x');
-  expect(((tree.left as ArrayNode).parameters[0] as IdNode).text).toBe('x');
+  expect((tree.left as ArrayNode).items.length).toBe(1);
+  expect(((tree.left as ArrayNode).items[0] as IdNode).text).toBe('x');
+  expect(((tree.left as ArrayNode).items[0] as IdNode).text).toBe('x');
 
   expect(
     evaluate(source, tree.right, {
@@ -32,18 +32,18 @@ test('generics', () => {
   expect(tree.$).toBe(NodeType.INFIX);
   const left = tree.left as InvokeNode;
   const generics = left.instance as ArrayNode;
-  expect(generics.parameters.length).toBe(3);
-  expect((generics.parameters[0] as IdNode).text).toBe('N');
-  expect((generics.parameters[1] as IdNode).text).toBe('M');
+  expect(generics.items.length).toBe(3);
+  expect((generics.items[0] as IdNode).text).toBe('N');
+  expect((generics.items[1] as IdNode).text).toBe('M');
 
-  const kExpression = generics.parameters[2] as InfixNode;
+  const kExpression = generics.items[2] as InfixNode;
   expect(kExpression.$).toBe(NodeType.INFIX);
   expect((kExpression.left as IdNode).text).toBe('K');
   expect(kExpression.operator.text).toBe(':');
   expect((kExpression.right as IdNode).text).toBe('String');
-  expect(left.array.parameters.length).toBe(1);
-  expect(left.array.parameters[0].$).toBe(NodeType.ID);
-  expect((left.array.parameters[0] as IdNode).text).toBe('x');
+  expect(left.array.items.length).toBe(1);
+  expect(left.array.items[0].$).toBe(NodeType.ID);
+  expect((left.array.items[0] as IdNode).text).toBe('x');
   expect(
     evaluate(source, tree.right, {
       x: 37,
@@ -57,7 +57,7 @@ test('no arguments', () => {
   const tree = syntaxNode(source) as InfixNode;
 
   expect(tree.$).toBe(NodeType.INFIX);
-  expect((tree.left as ArrayNode).parameters.length).toBe(0);
+  expect((tree.left as ArrayNode).items.length).toBe(0);
   expect(evaluate(source, tree.right)).toBe(42 + 45);
 });
 
@@ -68,9 +68,9 @@ test('lambda inner lambda', () => {
 
   expect(tree.$).toBe(NodeType.INFIX);
   expect(tree.left.$).toBe(NodeType.ARRAY);
-  expect((tree.left as ArrayNode).parameters.length).toBe(1);
-  expect(((tree.left as ArrayNode).parameters[0] as IdNode).text).toBe('a');
+  expect((tree.left as ArrayNode).items.length).toBe(1);
+  expect(((tree.left as ArrayNode).items[0] as IdNode).text).toBe('a');
   expect(tree.right.$).toBe(NodeType.INFIX);
-  expect(((tree.right as InfixNode).left as ArrayNode).parameters.length).toBe(2);
+  expect(((tree.right as InfixNode).left as ArrayNode).items.length).toBe(2);
   expect((tree.right as InfixNode).right.$).toBe(NodeType.INFIX);
 });

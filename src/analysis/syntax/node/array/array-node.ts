@@ -6,14 +6,16 @@ export interface ArrayNode extends Node {
   $: NodeType.ARRAY;
   open: OpenNode;
   close: CloseNode;
-  parameters: Node[];
+  items: Node[];
 }
 
-export function arrayNode(open: OpenNode, close: CloseNode, parameters: Node[]): ArrayNode {
+export function arrayNode(open: OpenNode, close: CloseNode, items: Node[]): ArrayNode {
   return {
     $: NodeType.ARRAY,
+    start: open.start,
+    stop: close.stop,
     open,
     close,
-    parameters,
+    items,
   };
 }

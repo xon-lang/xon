@@ -10,6 +10,8 @@ export interface PrefixNode extends Node {
 export function prefixNode(operator: OperatorNode, value: Node): PrefixNode {
   return {
     $: NodeType.PREFIX,
+    start: operator.start,
+    stop: value.stop,
     operator,
     value,
   };

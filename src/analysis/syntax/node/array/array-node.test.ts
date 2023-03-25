@@ -13,7 +13,7 @@ test('empty', () => {
   const tree = syntaxNode(source) as ArrayNode;
 
   expect(tree.$).toBe(NodeType.ARRAY);
-  expect(tree.parameters.length).toBe(0);
+  expect(tree.items.length).toBe(0);
 });
 
 test('inner empty arrays', () => {
@@ -22,7 +22,7 @@ test('inner empty arrays', () => {
   const tree = syntaxNode(source) as ArrayNode;
 
   expect(tree.$).toBe(NodeType.ARRAY);
-  expect(tree.parameters.length).toBe(1);
+  expect(tree.items.length).toBe(1);
 });
 
 test('two integers in array', () => {
@@ -31,11 +31,11 @@ test('two integers in array', () => {
   const tree = syntaxNode(source) as ArrayNode;
 
   expect(tree.$).toBe(NodeType.ARRAY);
-  expect(tree.parameters.length).toBe(2);
-  expect(is(tree.parameters[0], NodeType.INTEGER)).toBe(true);
-  expect((tree.parameters[0] as IntegerNode).text).toBe('1');
-  expect(is(tree.parameters[1], NodeType.INTEGER)).toBe(true);
-  expect((tree.parameters[1] as IntegerNode).text).toBe('2');
+  expect(tree.items.length).toBe(2);
+  expect(is(tree.items[0], NodeType.INTEGER)).toBe(true);
+  expect((tree.items[0] as IntegerNode).text).toBe('1');
+  expect(is(tree.items[1], NodeType.INTEGER)).toBe(true);
+  expect((tree.items[1] as IntegerNode).text).toBe('2');
 });
 
 test('check array', () => {
@@ -44,8 +44,8 @@ test('check array', () => {
   const tree = syntaxNode(source) as ArrayNode;
 
   expect(tree.$).toBe(NodeType.ARRAY);
-  expect(tree.parameters.length).toBe(4);
-  expect(tree.parameters.map((x) => evaluate(source, x) as Integer).reduce((a, b) => a + b, 0)).toBe(
+  expect(tree.items.length).toBe(4);
+  expect(tree.items.map((x) => evaluate(source, x) as Integer).reduce((a, b) => a + b, 0)).toBe(
     [1, 2 + 2, 4, 6 + 6].reduce((a, b) => a + b, 0),
   );
   expect(JSON.stringify(evaluate(source, tree))).toBe(JSON.stringify([1, 2 + 2, 4, 6 + 6]));
@@ -59,8 +59,8 @@ test('array on several lines', () => {
   const tree = syntaxNode(source) as ArrayNode;
 
   expect(tree.$).toBe(NodeType.ARRAY);
-  expect(tree.parameters.length).toBe(4);
-  expect(tree.parameters.map((x) => evaluate(source, x) as Integer).reduce((a, b) => a + b, 0)).toBe(
+  expect(tree.items.length).toBe(4);
+  expect(tree.items.map((x) => evaluate(source, x) as Integer).reduce((a, b) => a + b, 0)).toBe(
     [1, 2 + 2, 4, 6 + 6].reduce((a, b) => a + b, 0),
   );
 });

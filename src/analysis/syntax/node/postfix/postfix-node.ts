@@ -10,6 +10,8 @@ export interface PostfixNode extends Node {
 export function postfixNode(operator: OperatorNode, value: Node): PostfixNode {
   return {
     $: NodeType.POSTFIX,
+    start: value.start,
+    stop: operator.stop,
     operator,
     value,
   };
