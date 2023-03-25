@@ -18,7 +18,7 @@ export function evaluate(source: Source, node: Node | null, argsMap = {}): Unkno
     return null;
   }
   if (is<ArrayNode>(node, NodeType.ARRAY)) {
-    return node.parameters.map((x) => evaluate(source, x ?? null));
+    return node.items.map((x) => evaluate(source, x ?? null));
   }
   if (is<IntegerNode>(node, NodeType.INTEGER)) {
     return +node.text;

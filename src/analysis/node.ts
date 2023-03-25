@@ -1,10 +1,11 @@
-import { String2 } from '~/lib/core';
+import { Integer, String2 } from '~/lib/core';
 
 export enum NodeType {
   LEXICAL = 'LEXICAL',
   ID = 'ID-LEXICAL',
   NL = 'NL-LEXICAL',
   STRING = 'STRING-LEXICAL',
+  GROUP = 'GROUP-LEXICAL',
   INTEGER = 'INTEGER-LEXICAL',
   OPERATOR = 'OPERATOR-LEXICAL',
   MODIFIER = 'MODIFIER-LEXICAL',
@@ -15,8 +16,10 @@ export enum NodeType {
   OPEN = 'OPEN-LEXICAL',
   CLOSE = 'CLOSE-LEXICAL',
   COMMA = 'COMMA-LEXICAL',
+  STATEMENT = 'STATEMENT-LEXICAL',
 
   SYNTAX = 'SYNTAX',
+  MODIFIER_ID = 'MODIFIER_ID-SYNTAX',
   ARRAY = 'ARRAY-SYNTAX',
   BODY = 'BODY-SYNTAX',
   LADDER = 'LADDER-SYNTAX',
@@ -43,4 +46,6 @@ export enum NodeType {
 
 export interface Node {
   $: NodeType | String2;
+  start: Integer;
+  stop: Integer;
 }
