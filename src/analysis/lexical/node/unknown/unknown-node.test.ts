@@ -1,35 +1,23 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { UnknownNode } from '~/analysis/lexical/node/unknown/unknown-node';
-import { NodeType } from '~/analysis/node';
-import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
+import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { Source } from '~/source/source';
 
-test('unexpected 1', () => {
+test('unknown 1', () => {
   const text = '123 §•∞•456';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const tokens = lexer.nodes();
+  const nodes = lexer.nodes().statements[0].nodes as LexicalNode[];
 
-  expect(tokens.length).toBe(4);
-  expect(tokens[2].text).toBe('§•∞•');
+  expect(nodes.length).toBe(7);
+  expect(nodes[2].text).toBe('§');
 });
 
-test('unexpected 2', () => {
-  const text = "'abc";
+test('unknown 2', () => {
+  const text = 'ºª¶';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const tokens = lexer.nodes();
+  const nodes = lexer.nodes().statements[0].nodes as LexicalNode[];
 
-  expect(tokens.length).toBe(1);
-  expect(tokens[0].text).toBe("'abc");
-  expect(tokens[0].$).toBe(NodeType.UNKNOWN);
-});
-
-test('id', () => {
-  const code = 'ºª¶';
-  const source = Source.fromText(code);
-  const tree = syntaxNode(source) as UnknownNode;
-
-  expect(tree.$).toBe(NodeType.UNKNOWN);
-  expect(tree.text).toBe(code);
+  expect(nodes.length).toBe(3);
+  expect(nodes.map((x) => x.text).join('')).toBe('ºª¶');
 });

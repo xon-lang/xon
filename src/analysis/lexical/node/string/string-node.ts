@@ -1,6 +1,6 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
-import { unexpectedNode, UnknownNode } from '~/analysis/lexical/node/unknown/unknown-node';
+import { UnknownNode } from '~/analysis/lexical/node/unknown/unknown-node';
 import { NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
 
@@ -23,7 +23,7 @@ export function scanStringNode({ text, index }: LexicalAnalysis): StringNode | U
   if (text[index] === QUOTE) {
     const nextQuoteIndex = text.indexOf(QUOTE, index + 1);
     if (nextQuoteIndex < 0) {
-      return unexpectedNode(index, text.length - 1, text.slice(index, text.length));
+      return stringNode(index, text.length - 1, text.slice(index, text.length));
     }
     return stringNode(index, nextQuoteIndex, text.slice(index, nextQuoteIndex + 1));
   }

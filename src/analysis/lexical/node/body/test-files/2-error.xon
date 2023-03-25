@@ -1,0 +1,6 @@
+model Boolean
+
+object false : Boolean
+
+object true : Boolean
+  123 Number

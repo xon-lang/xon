@@ -1,15 +1,13 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
+import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { NodeType } from '~/analysis/node';
-import { PrefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
-import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
 
 test('infix modifier', () => {
   const text = 'infix';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const tokens = lexer.nodes();
+  const tokens = lexer.nodes().statements[0].nodes as LexicalNode[];
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].$).toBe(NodeType.MODIFIER);

@@ -1,12 +1,13 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
+import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { NodeType } from '~/analysis/node';
 import { Source } from '~/source/source';
 
 test('close paren', () => {
-  const code = ')';
-  const source = Source.fromText(code);
+  const text = ')';
+  const source = Source.fromText(text);
   const scanner = new LexicalAnalysis(source.text);
-  const tokens = scanner.nodes();
+  const tokens = scanner.nodes().statements[0].nodes as LexicalNode[];
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].$).toBe(NodeType.CLOSE);
@@ -14,10 +15,10 @@ test('close paren', () => {
 });
 
 test('close bracket', () => {
-  const code = ']';
-  const source = Source.fromText(code);
+  const text = ']';
+  const source = Source.fromText(text);
   const scanner = new LexicalAnalysis(source.text);
-  const tokens = scanner.nodes();
+  const tokens = scanner.nodes().statements[0].nodes as LexicalNode[];
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].$).toBe(NodeType.CLOSE);
@@ -25,10 +26,10 @@ test('close bracket', () => {
 });
 
 test('close brace', () => {
-  const code = '}';
-  const source = Source.fromText(code);
+  const text = '}';
+  const source = Source.fromText(text);
   const scanner = new LexicalAnalysis(source.text);
-  const tokens = scanner.nodes();
+  const tokens = scanner.nodes().statements[0].nodes as LexicalNode[];
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].$).toBe(NodeType.CLOSE);
