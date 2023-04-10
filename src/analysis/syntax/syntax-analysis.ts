@@ -1,4 +1,3 @@
-import { Analysis } from '~/analysis/analysis';
 import { is } from '~/analysis/is';
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
@@ -38,7 +37,7 @@ export function syntaxNode(source: Source): Node {
   return nodes[0];
 }
 
-export class SyntaxAnalysis implements Analysis {
+export class SyntaxAnalysis {
   constructor(public nodes: Node[]) {}
 
   public body(): BodyNode {
@@ -259,27 +258,6 @@ function splitLineNodes(nodes: Node[]): { indent: Integer; lineNodes: Node[] }[]
       };
     })
     .filter((x) => x.lineNodes.length > 0);
-  return result;
-}
-
-function splitNodes(nodes: Node[], splitNodeType: NodeType): Node[][] {
-  const result: Node[][] = [];
-  let chunk: Node[] = [];
-
-  for (const node of nodes) {
-    if (is(node, splitNodeType)) {
-      if (chunk.length > 0) {
-        result.push(chunk);
-        chunk = [];
-      }
-    } else {
-      chunk.push(node);
-    }
-  }
-  if (chunk.length > 0) {
-    result.push(chunk);
-  }
-
   return result;
 }
 
