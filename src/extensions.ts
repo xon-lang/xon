@@ -12,6 +12,14 @@ Array.prototype.takeWhile = function takeWhile<T>(
   return this.slice(startIndex, this.length);
 };
 
+Array.prototype.first = function first<T>(): T {
+  return this[0] ?? null;
+};
+
+Array.prototype.last = function last<T>(): T {
+  return this[this.length - 1] ?? null;
+};
+
 String.prototype.takeWhile = function takeWhile(
   predicate: (value: Char, index: number) => unknown,
   startIndex = 0,
