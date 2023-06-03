@@ -48,11 +48,7 @@ export class LexicalAnalysis {
       nodes.push(node);
 
       if (breakFn && breakFn(node)) {
-        if (indentBody.length > 0) {
-          return indentBody[0].body;
-        }
-
-        return bodyNode([statementNode(nodes)]);
+        break;
       }
 
       if (is(node, NodeType.NL)) {
