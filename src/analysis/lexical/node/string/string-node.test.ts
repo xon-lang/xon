@@ -1,8 +1,6 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
-import { StringNode } from '~/analysis/lexical/node/string/string-node';
 import { NodeType } from '~/analysis/node';
-import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
 
 test('string', () => {
