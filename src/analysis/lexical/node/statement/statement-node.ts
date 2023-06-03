@@ -7,10 +7,21 @@ export interface StatementNode extends Node {
 
 export function statementNode(nodes: Node[]): StatementNode {
   if (nodes.length === 0) {
+    return {
+      $: NodeType.STATEMENT,
+      start: 0,
+      stop: 0,
+      nodes,
+    };
+  }
+
+  if (nodes.length === 0) {
     throw new Error('Not implemented');
   }
-  const first = nodes[0];
-  const last = nodes[nodes.length - 1];
+
+  const first = nodes.first();
+  const last = nodes.last();
+
   return {
     $: NodeType.STATEMENT,
     start: first.start,

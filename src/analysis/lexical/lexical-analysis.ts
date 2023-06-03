@@ -24,8 +24,8 @@ const nodeScanFunctions: NodeScanFunction[] = [
   scanIntegerNode,
   scanStringNode,
   scanGroupNode,
-  // scanOpenNode,
-  scanCloseNode,
+  // scanOpenNode, this handle group
+  scanCloseNode, // this can handle group if possible
   scanCommaNode,
   scanJoiningNode,
   scanWhitespaceNode,
@@ -63,7 +63,11 @@ export class LexicalAnalysis {
       this.putStatement(indentBody, statementNode(nodes));
     }
 
-    return indentBody[0].body;
+    if (indentBody.length > 0) {
+      return indentBody[0].body;
+    }
+
+    return bodyNode([statementNode(nodes)]);
   }
 
   public nextNode(): Node {
