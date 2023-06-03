@@ -1,18 +1,7 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { LexicalNode } from '~/analysis/lexical/lexical-node';
-import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { NodeType } from '~/analysis/node';
-import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
-
-// test('id', () => {
-//   const code = 'myVariable';
-//   const source = Source.fromText(code);
-//   const tree = syntaxNode(source) as IdNode;
-
-//   expect(tree.$).toBe(NodeType.ID);
-//   expect(tree.text).toBe('myVariable');
-// });
 
 test('single id', () => {
   const text = 'abc';
