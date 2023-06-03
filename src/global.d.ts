@@ -11,6 +11,8 @@ declare global {
     lastOrNull(): T | null;
     first(): T;
     last(): T;
+    removeFirst(): T[];
+    removeLast(): T[];
     findLast(predicate: (value: T, index: number, obj: T[]) => unknown): T | null;
   }
 

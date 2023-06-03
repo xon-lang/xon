@@ -13,7 +13,7 @@ Array.prototype.takeWhile = function takeWhile<T>(
   return this.slice(startIndex, this.length);
 };
 
-Array.prototype.findLast = function findLast<T>(predicate: (value: T, index: number, obj: T[]) => unknown): T | null {
+Array.prototype.findLast = function <T>(predicate: (value: T, index: number, obj: T[]) => unknown): T | null {
   const index = this.findLastIndex(predicate);
 
   if (index < 0) {
@@ -23,20 +23,30 @@ Array.prototype.findLast = function findLast<T>(predicate: (value: T, index: num
   return this[index];
 };
 
-Array.prototype.firstOrNull = function first<T>(): T | null {
+Array.prototype.firstOrNull = function <T>(): T | null {
   return this[0] ?? null;
 };
 
-Array.prototype.lastOrNull = function last<T>(): T | null {
+Array.prototype.lastOrNull = function <T>(): T | null {
   return this[this.length - 1] ?? null;
 };
 
-Array.prototype.first = function first<T>(): T {
+Array.prototype.first = function <T>(): T {
   return this[0];
 };
 
-Array.prototype.last = function last<T>(): T {
+Array.prototype.last = function <T>(): T {
   return this[this.length - 1];
+};
+
+Array.prototype.removeFirst = function <T>(): T[] {
+  this.splice(0, 1);
+  return this;
+};
+
+Array.prototype.removeLast = function <T>(): T[] {
+  this.splice(-1, 1);
+  return this;
 };
 
 // String
