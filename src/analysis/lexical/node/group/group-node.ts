@@ -26,29 +26,34 @@ export function groupNode(open: OpenNode, close: CloseNode | null, items: BodyNo
 }
 
 export function scanGroupNode(analysis: LexicalAnalysis): GroupNode | null {
-  const { text, index } = analysis;
   const open = scanOpenNode(analysis);
 
-  if (is<OpenNode>(open, NodeType.OPEN)) {
-    analysis.index = open.stop + 1;
-    const items: BodyNode[] = [];
-
-    while (index < text.length) {
-      const body = analysis.nodes((node) => [NodeType.COMMA, NodeType.CLOSE].some((nodeType) => is(node, nodeType)));
-      const lastNode = body.statements.lastOrNull()?.nodes.lastOrNull();
-
-      items.push(body);
-
-      if (!is<CommaNode>(lastNode, NodeType.COMMA)) {
-        if (is<CloseNode>(lastNode, NodeType.CLOSE)) {
-          return groupNode(open, lastNode, items);
-        }
-        return groupNode(open, null, items);
-      }
-    }
-
-    return groupNode(open, null, []);
+  if (!is<OpenNode>(open, NodeType.OPEN)) {
+    return null;
   }
 
-  return null;
+  analysis.index = open.stop + 1;
+  const items: BodyNode[] = [];
+
+  while (analysis.index < analysis.text.length) {
+    const body = analysis.nodes((node) => [NodeType.COMMA, NodeType.CLOSE].some((nodeType) => is(node, nodeType)));
+    const lastNode = body.statements.lastOrNull()?.nodes.lastOrNull();
+
+    if (is<CommaNode>(lastNode, NodeType.COMMA)) {
+      items.push(body);
+      continue;
+    }
+
+    if (is<CloseNode>(lastNode, NodeType.CLOSE)) {
+      body.statements.lastOrNull()?.nodes.removeLast();
+
+      if (body.statements.length > 0 && body.statements[0].nodes.length > 0) {
+        items.push(body);
+      }
+
+      return groupNode(open, lastNode, items);
+    }
+  }
+
+  return groupNode(open, null, items);
 }
