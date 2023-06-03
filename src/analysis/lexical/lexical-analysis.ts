@@ -1,4 +1,3 @@
-import { Analysis } from '~/analysis/analysis';
 import { is } from '~/analysis/is';
 import { BodyNode, bodyNode } from '~/analysis/lexical/node/body/body-node';
 import { scanCloseNode } from '~/analysis/lexical/node/close/close-node';
@@ -14,18 +13,17 @@ import { scanStringNode } from '~/analysis/lexical/node/string/string-node';
 import { scanUnknownNode } from '~/analysis/lexical/node/unknown/unknown-node';
 import { scanWhitespaceNode } from '~/analysis/lexical/node/whitespace/whitespace-node';
 import { Node, NodeType } from '~/analysis/node';
-import { ladderNode } from '~/analysis/syntax/node/ladder/ladder-node';
-import { String2 } from '~/lib/core';
+import { Boolean2, Integer, String2 } from '~/lib/core';
 
 type NodeScanFunction = (analysis: LexicalAnalysis) => Node | null;
 
 const nodeScanFunctions: NodeScanFunction[] = [
+  scanNlNode,
   // scanBodyNode
 
   scanIntegerNode,
   scanStringNode,
   scanGroupNode,
-  scanNlNode,
   // scanOpenNode,
   scanCloseNode,
   scanCommaNode,
@@ -36,34 +34,39 @@ const nodeScanFunctions: NodeScanFunction[] = [
   scanUnknownNode,
 ];
 
-export class LexicalAnalysis implements Analysis {
+export class LexicalAnalysis {
   public index = 0;
 
   public constructor(public text: String2) {}
 
-  public nodes(): BodyNode {
-    this.index = 0;
+  public nodes(breakFn: ((node: Node) => Boolean2) | null = null): BodyNode {
+    const indentBody: { indent: Integer; body: BodyNode }[] = [];
+    let nodes: Node[] = [];
 
-    const statements: StatementNode[] = [];
-    let statementNodes: Node[] = [];
     while (this.index < this.text.length) {
       const node = this.nextNode();
+
+      if (breakFn && breakFn(node)) {
+        return indentBody[0].body;
+      }
+
+      nodes.push(node);
+
       if (is(node, NodeType.NL)) {
-        statementNodes.push(node);
-        statements.push(statementNode(statementNodes));
-        statementNodes = [];
+        this.putStatement(indentBody, statementNode(nodes));
+        nodes = [];
         continue;
       }
-      statementNodes.push(node);
-    }
-    if (statementNodes.length > 0) {
-      statements.push(statementNode(statementNodes));
     }
 
-    return this.bodyNode(statements);
+    if (nodes.length > 0) {
+      this.putStatement(indentBody, statementNode(nodes));
+    }
+
+    return indentBody[0].body;
   }
 
-  nextNode = (): Node => {
+  public nextNode(): Node {
     for (const nodeScan of nodeScanFunctions) {
       const node = nodeScan(this);
       if (node) {
@@ -72,32 +75,70 @@ export class LexicalAnalysis implements Analysis {
       }
     }
     throw new Error('Not implemented');
-  };
+  }
 
-  bodyNode = (statements: StatementNode[], header: Node | null = null): BodyNode => {
-    if (statements.length === 0) {
-      return bodyNode(statements);
+  public putStatement(indentBody: { indent: Integer; body: BodyNode }[], statement: StatementNode) {
+    const statementIndent = getStatementIndent(statement);
+
+    // any first statement
+    if (indentBody.length === 0) {
+      indentBody.push({ indent: statementIndent, body: bodyNode([statement]) });
+      return;
     }
 
-    const bodyNodes: StatementNode[] = [];
-    const bodyIndent =
-      statements.find((x) => x.nodes.some((z) => !is(z, NodeType.NL) && !is(z, NodeType.WHITESPACE)))?.indent ?? 0;
+    const lastIndentBody = indentBody.last();
 
-    for (let i = 0; i < statements.length; i++) {
-      const { indent } = statements[i];
-      if (indent === bodyIndent || indent < bodyIndent) {
-        bodyNodes.push(statements[i]);
-        continue;
-      }
-      if (indent > bodyIndent) {
-        const innerLines = statements.takeWhile((x) => x.indent > bodyIndent, i);
-
-        const header = bodyNodes[bodyNodes.length - 1];
-        const body = this.bodyNode(innerLines, header);
-        bodyNodes[bodyNodes.length - 1] = statementNode([ladderNode(header, body)]);
-        i = i + innerLines.length - 1;
-      }
+    // first statement is NL
+    if (
+      indentBody.length === 1 &&
+      lastIndentBody.body.statements.length === 1 &&
+      lastIndentBody.body.statements[0].nodes.length === 1 &&
+      is(lastIndentBody.body.statements[0].nodes[0], NodeType.NL)
+    ) {
+      lastIndentBody.indent = statementIndent;
+      lastIndentBody.body.statements.push(statement);
+      return;
     }
-    return bodyNode(bodyNodes);
-  };
+
+    // new body
+    if (statementIndent > lastIndentBody.indent) {
+      const body = bodyNode([statement]);
+      indentBody.push({ indent: statementIndent, body });
+
+      // add body as last statement
+      lastIndentBody.body.statements.last().nodes.push(body);
+      return;
+    }
+
+    const foundIndentBodyIndex = indentBody.findLastIndex((x) => x.indent <= statementIndent);
+
+    if (foundIndentBodyIndex < 0) {
+      throw new Error('Not implemented');
+    }
+
+    indentBody.splice(foundIndentBodyIndex + 1);
+    const foundIndentBody = indentBody[foundIndentBodyIndex];
+    foundIndentBody.indent = Math.min(foundIndentBody.indent, statementIndent);
+    foundIndentBody.body.statements.push(statement);
+  }
+}
+
+function isEmptyStatement(statement: StatementNode) {
+  return statement.nodes.every((x) => is(x, NodeType.NL) || is(x, NodeType.WHITESPACE));
+}
+
+function getStatementIndent(statement: StatementNode): Integer {
+  if (is(statement.nodes[0], NodeType.WHITESPACE)) {
+    const first = statement.nodes[0];
+    return first.stop - first.start + 1;
+  }
+
+  return 0;
+}
+
+function hasStatementIndent(statement: StatementNode): Boolean2 {
+  if (statement.nodes.length === 1 && is(statement.nodes[0], NodeType.NL)) {
+    return false;
+  }
+  return true;
 }
