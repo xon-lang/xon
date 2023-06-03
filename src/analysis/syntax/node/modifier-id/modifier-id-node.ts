@@ -5,14 +5,14 @@ import { NodeType } from '~/analysis/node';
 import { SyntaxNode } from '~/analysis/syntax/syntax-node';
 
 export interface ModifierIdNode extends SyntaxNode {
-  $: NodeType.MODIFIER_ID;
+  $: NodeType.MODIFIER;
   modifier: ModifierNode;
   id: IdNode | OperatorNode;
 }
 
 export function modifierIdNode(modifier: ModifierNode, id: IdNode | OperatorNode): ModifierIdNode {
   return {
-    $: NodeType.MODIFIER_ID,
+    $: NodeType.MODIFIER,
     start: modifier.start,
     stop: id.stop,
     modifier,
