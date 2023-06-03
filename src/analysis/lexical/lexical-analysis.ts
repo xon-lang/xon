@@ -45,12 +45,15 @@ export class LexicalAnalysis {
 
     while (this.index < this.text.length) {
       const node = this.nextNode();
+      nodes.push(node);
 
       if (breakFn && breakFn(node)) {
-        return indentBody[0].body;
-      }
+        if (indentBody.length > 0) {
+          return indentBody[0].body;
+        }
 
-      nodes.push(node);
+        return bodyNode([statementNode(nodes)]);
+      }
 
       if (is(node, NodeType.NL)) {
         this.putStatement(indentBody, statementNode(nodes));
