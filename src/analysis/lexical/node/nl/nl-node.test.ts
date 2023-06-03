@@ -42,20 +42,18 @@ test('lf cr', () => {
   const lexer = new LexicalAnalysis(source.text);
   const statements = lexer.nodes().statements;
 
-  expect(statements.length).toBe(2);
+  expect(statements.length).toBe(1);
   expect(statements[0].nodes[0].$).toBe(NodeType.NL);
-  expect((statements[0].nodes[0] as LexicalNode).text).toBe('\n');
-  expect(statements[1].nodes[0].$).toBe(NodeType.NL);
-  expect((statements[1].nodes[0] as LexicalNode).text).toBe('\r');
+  expect((statements[0].nodes[0] as LexicalNode).text).toBe('\n\r');
 });
 
-test('id', () => {
-  const code = '\n';
+test('several', () => {
+  const code = '  \n    \r\nabc';
   const source = Source.fromText(code);
   const lexer = new LexicalAnalysis(source.text);
-  const nodes = lexer.nodes().statements[0].nodes as LexicalNode[];
+  const statements = lexer.nodes().statements;
 
-  expect(nodes.length).toBe(1);
-  expect(nodes[0].$).toBe(NodeType.NL);
-  expect(nodes[0].text).toBe('\n');
+  expect(statements.length).toBe(2);
+  expect(statements[0].nodes.length).toBe(1);
+  expect(statements[0].nodes[0].$).toBe(NodeType.NL);
 });

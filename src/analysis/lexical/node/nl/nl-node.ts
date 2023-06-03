@@ -16,19 +16,31 @@ export function nlNode(start: Integer, stop: Integer, text: String2): NlNode {
   };
 }
 
-const LF = '\n';
-const CR = '\r';
+const CRLF = '\r\n';
+const CRLFWS = '\r\n ';
 
 export function scanNlNode({ text, index }: LexicalAnalysis): NlNode | null {
-  if (text[index] === LF) {
-    return nlNode(index, index, LF);
-  }
-  if (text[index] === CR) {
-    if (text[index + 1] === LF) {
-      return nlNode(index, index + 1, CR + LF);
-    }
-    return nlNode(index, index, CR);
+  if (!CRLFWS.includes(text[index])) {
+    return null;
   }
 
-  return null;
+  let lastNlIndex = -1;
+
+  for (let i = index; i < text.length; i++) {
+    if (CRLF.includes(text[i])) {
+      lastNlIndex = i;
+      continue;
+    }
+    if (text[i] === ' ') {
+      continue;
+    }
+
+    break;
+  }
+
+  if (lastNlIndex < 0) {
+    return null;
+  }
+
+  return nlNode(index, lastNlIndex, text.slice(index, lastNlIndex + 1));
 }
