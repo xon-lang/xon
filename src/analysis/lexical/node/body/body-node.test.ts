@@ -1,6 +1,5 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { NodeType } from '~/analysis/node';
-import { LadderNode } from '~/analysis/syntax/node/ladder/ladder-node';
 import { Source } from '~/source/source';
 
 test('single expression', () => {
@@ -16,14 +15,14 @@ test('single expression', () => {
   // expect((infix.right as IntegerNode).text).toBe('1');
 });
 
-test('debug', () => {
+test('debug 1', () => {
   const text = 'a = 1\n b = 2\n +b';
   const source = Source.fromText(text);
   const scanner = new LexicalAnalysis(source.text);
   const body = scanner.nodes();
 
   expect(body.statements.length).toBe(1);
-  expect(body.statements[0].nodes[0].$).toBe(NodeType.LADDER);
+  expect(body.statements[0].nodes.last().$).toBe(NodeType.BODY);
 });
 
 test('debug 2', () => {
@@ -38,14 +37,16 @@ test('debug 2', () => {
 });
 
 test('debug 3', () => {
-  const text = 'a = 1\n b = 2\nc = 3';
+  const text = `a
+ b
+c`.trim();
   const source = Source.fromText(text);
   const scanner = new LexicalAnalysis(source.text);
   const body = scanner.nodes();
 
   expect(body.statements.length).toBe(2);
-  expect(body.statements[0].nodes[0].$).toBe(NodeType.LADDER);
-  expect((body.statements[0].nodes[0] as LadderNode).body.statements.length).toBe(1);
+  expect(body.statements[0].nodes[0].$).toBe(NodeType.ID);
+  expect((body.statements[0].nodes[2].$)).toBe(NodeType.BODY);
   expect(body.statements[1].nodes[0].$).toBe(NodeType.ID);
 });
 
