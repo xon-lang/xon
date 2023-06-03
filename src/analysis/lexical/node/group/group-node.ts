@@ -36,7 +36,7 @@ export function scanGroupNode(analysis: LexicalAnalysis): GroupNode | null {
   const items: BodyNode[] = [];
 
   while (analysis.index < analysis.text.length) {
-    const body = analysis.nodes((node) => [NodeType.COMMA, NodeType.CLOSE].some((nodeType) => is(node, nodeType)));
+    const body = analysis.body((node) => [NodeType.COMMA, NodeType.CLOSE].some((nodeType) => is(node, nodeType)));
     const lastNode = body.statements.lastOrNull()?.nodes.lastOrNull();
 
     if (is<CommaNode>(lastNode, NodeType.COMMA)) {

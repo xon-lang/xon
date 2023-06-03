@@ -39,7 +39,7 @@ export class LexicalAnalysis {
 
   public constructor(public text: String2) {}
 
-  public nodes(breakFn: ((node: Node) => Boolean2) | null = null): BodyNode {
+  public body(breakFn: ((node: Node) => Boolean2) | null = null): BodyNode {
     const indentBody: { indent: Integer; body: BodyNode }[] = [];
     let nodes: Node[] = [];
 

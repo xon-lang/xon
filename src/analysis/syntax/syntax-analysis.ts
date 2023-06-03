@@ -23,7 +23,7 @@ import { Source } from '~/source/source';
 
 export function parseBody(source: Source): BodyNode {
   const scanner = new LexicalAnalysis(source.text);
-  const tokens = scanner.nodes();
+  const tokens = scanner.body();
   const parser = new SyntaxAnalysis(tokens);
   const body = parser.body();
   return body;

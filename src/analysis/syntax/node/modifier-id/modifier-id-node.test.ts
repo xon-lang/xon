@@ -7,7 +7,7 @@ test('infix modifier', () => {
   const text = 'infix';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const tokens = lexer.nodes() as LexicalNode[];
+  const tokens = lexer.body() as LexicalNode[];
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].$).toBe(NodeType.MODIFIER);

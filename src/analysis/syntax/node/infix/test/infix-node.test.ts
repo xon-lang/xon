@@ -13,7 +13,7 @@ test('infix operator', () => {
   const text = 'abc.def';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const tokens = lexer.nodes() as LexicalNode[];
+  const tokens = lexer.body() as LexicalNode[];
 
   expect(tokens.length).toBe(3);
   expect(tokens[0].text).toBe('abc');
