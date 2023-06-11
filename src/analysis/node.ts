@@ -4,12 +4,16 @@ export interface Node {
   $: NodeType | String2;
   start: Integer;
   stop: Integer;
-  before?: Node[];
+  beforeHiddenNodes?: Node[];
 }
 
 export enum NodeType {
-  ID = 'ID',
   NL = 'NL',
+  WHITESPACE = 'WHITESPACE',
+  COMMENT_LINE = 'COMMENT_LINE',
+  COMMENT_BLOCK = 'COMMENT_BLOCK',
+
+  ID = 'ID',
   STRING = 'STRING',
   GROUP = 'GROUP',
   INTEGER = 'INTEGER',
@@ -17,7 +21,6 @@ export enum NodeType {
   MODIFIER = 'MODIFIER',
   KEYWORD = 'KEYWORD',
   UNKNOWN = 'UNKNOWN',
-  WHITESPACE = 'WHITESPACE',
   JOINING = 'JOINING',
   OPEN = 'OPEN',
   CLOSE = 'CLOSE',
