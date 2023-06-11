@@ -17,6 +17,7 @@ export class SemanticAnalysis implements Analysis {
       const semanticNode = handleSyntaxNode(node);
       result.push(semanticNode);
     }
+
     return result;
   }
 }

@@ -7,7 +7,8 @@ export class Scope {
   constructor(public parent: Scope | null) {}
 
   add(id: String2, type: DataType): void {
-    this.idType.push({ id, type });
+    this.idType.push({ id,
+      type });
   }
 
   find(id: String2): DataType | null {
