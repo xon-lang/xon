@@ -3,7 +3,7 @@ import { ImportStatementMetadata } from '~/metadata/statement/import/import-stat
 import { getStatementMetadata } from '~/metadata/statement/statement-metadata-helper';
 
 test('literal', () => {
-  const code = "import 'src/lib/@xon/core'";
+  const code = 'import \'src/lib/@xon/core\'';
   const tree = parseStatement(code);
   const metadata = getStatementMetadata(tree) as ImportStatementMetadata;
 

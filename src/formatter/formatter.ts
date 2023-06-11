@@ -1,4 +1,3 @@
-import { ParserRuleContext } from 'antlr4ts';
 import { FormatterConfig } from '~/formatter/formatter-config';
 import { Boolean2, Integer, String2 } from '~/lib/core';
 

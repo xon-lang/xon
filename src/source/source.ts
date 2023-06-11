@@ -14,22 +14,19 @@ export class Source {
     return this.text.slice(start, stop + 1);
   }
 
-  public static fromText = fromText;
-  public static fromPath = fromPath;
-}
-
-function fromText(text: String2, location: String2 | null = null): Source {
-  return new Source(text, location);
-}
-
-function fromPath(path: String2): Source {
-  const fullPath = resolve(path);
-  const stats = lstatSync(fullPath);
-
-  if (!stats.isFile()) {
-    throw new Error(`Not a file: ${fullPath}`);
+  public static fromText(text: String2, location: String2 | null = null): Source {
+    return new Source(text, location);
   }
-  const text = readFileSync(fullPath).toString();
 
-  return new Source(text, path);
+  public static fromPath(path: String2): Source {
+    const fullPath = resolve(path);
+    const stats = lstatSync(fullPath);
+
+    if (!stats.isFile()) {
+      throw new Error(`Not a file: ${fullPath}`);
+    }
+    const text = readFileSync(fullPath).toString();
+
+    return new Source(text, path);
+  }
 }

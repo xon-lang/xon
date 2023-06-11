@@ -1,11 +1,11 @@
 import { is } from '~/analysis/is';
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
+import { InfixNode } from '~/analysis/lexical/node/infix/infix-node';
 import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
+import { PrefixNode } from '~/analysis/lexical/node/prefix/prefix-node';
 import { StringNode } from '~/analysis/lexical/node/string/string-node';
 import { Node, NodeType } from '~/analysis/node';
 import { ArrayNode } from '~/analysis/syntax/node/array/array-node';
-import { InfixNode } from '~/analysis/syntax/node/infix/infix-node';
-import { PrefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
 import { String2, Unknown2 } from '~/lib/core';
 import { Source } from '~/source/source';
 
@@ -21,7 +21,7 @@ export function evaluate(source: Source, node: Node | null, argsMap = {}): Unkno
     return node.items.map((x) => evaluate(source, x ?? null));
   }
   if (is<IntegerNode>(node, NodeType.INTEGER)) {
-    return +node.text;
+    return Number(node.text);
   }
   if (is<StringNode>(node, NodeType.STRING)) {
     return node.text.slice(1, -1);

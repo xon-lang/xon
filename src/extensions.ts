@@ -1,3 +1,4 @@
+/* eslint-disable no-extend-native */
 import { Char, String2 } from '~/lib/core';
 
 // Array
@@ -10,6 +11,7 @@ Array.prototype.takeWhile = function takeWhile<T>(
       return this.slice(startIndex, i);
     }
   }
+
   return this.slice(startIndex, this.length);
 };
 
@@ -41,11 +43,13 @@ Array.prototype.last = function <T>(): T {
 
 Array.prototype.removeFirst = function <T>(): T[] {
   this.splice(0, 1);
+
   return this;
 };
 
 Array.prototype.removeLast = function <T>(): T[] {
   this.splice(-1, 1);
+
   return this;
 };
 
@@ -59,6 +63,7 @@ String.prototype.takeWhile = function takeWhile(
       return this.slice(startIndex, i);
     }
   }
+
   return this.slice(startIndex, this.length);
 };
 

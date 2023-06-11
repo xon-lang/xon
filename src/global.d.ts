@@ -1,6 +1,5 @@
 import { Char, String2 } from '~/lib/core';
 
-export {};
 
 declare global {
   // Array
