@@ -3,16 +3,17 @@ import { Node, NodeType } from '~/analysis/node';
 export interface StatementNode extends Node {
   $: NodeType.STATEMENT;
   nodes: Node[];
-  after?: Node[];
+  afterHiddenNodes: Node[];
 }
 
-export function statementNode(nodes: Node[]): StatementNode {
+export function statementNode(nodes: Node[], afterHiddenNodes: Node[] = []): StatementNode {
   if (nodes.length === 0) {
     return {
       $: NodeType.STATEMENT,
       start: 0,
       stop: 0,
       nodes,
+      afterHiddenNodes,
     };
   }
 
@@ -28,5 +29,6 @@ export function statementNode(nodes: Node[]): StatementNode {
     start: first.start,
     stop: last.stop,
     nodes,
+    afterHiddenNodes,
   };
 }

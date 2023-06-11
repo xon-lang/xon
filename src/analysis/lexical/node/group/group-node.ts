@@ -44,7 +44,7 @@ export function scanGroupNode(analysis: LexicalAnalysis): GroupNode | null {
       continue;
     }
 
-    if (is<CloseNode>(lastNode, NodeType.CLOSE)) {
+    if (is<CloseNode>(lastNode, NodeType.CLOSE) && lastNode.text === open.text) {
       body.statements.lastOrNull()?.nodes.removeLast();
 
       if (body.statements.length > 0 && body.statements[0].nodes.length > 0) {
