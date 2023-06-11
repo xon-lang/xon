@@ -35,7 +35,9 @@ export function scanIdNode({ text, index }: LexicalAnalysis): IdNode | ModifierN
     if (KEYWORDS.includes(sliced)) {
       return keywordNode(index, index + sliced.length - 1, sliced);
     }
+
     return idNode(index, index + sliced.length - 1, sliced);
   }
+
   return null;
 }

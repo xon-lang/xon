@@ -3,7 +3,7 @@ import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
 
-export interface WhitespaceNode extends LexicalNode {}
+export type WhitespaceNode = LexicalNode
 
 export function whitespaceNode(start: Integer, stop: Integer, text: String2): WhitespaceNode {
   return {
@@ -27,5 +27,6 @@ export function scanWhitespaceNode({ text, index }: LexicalAnalysis): Whitespace
       return whitespaceNode(index, i - 1, text.slice(index, i));
     }
   }
+
   return whitespaceNode(index, text.length - 1, text.slice(index, text.length));
 }

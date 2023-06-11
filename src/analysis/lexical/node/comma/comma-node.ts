@@ -22,5 +22,6 @@ export function scanCommaNode({ text, index }: LexicalAnalysis): CommaNode | nul
   if (text[index] === COMMA) {
     return commaNode(index, index, COMMA);
   }
+
   return null;
 }

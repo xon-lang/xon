@@ -22,5 +22,6 @@ export function scanCloseNode({ text, index }: LexicalAnalysis): CloseNode | nul
   if (CLOSE.includes(text[index])) {
     return closeNode(index, index, text[index]);
   }
+
   return null;
 }

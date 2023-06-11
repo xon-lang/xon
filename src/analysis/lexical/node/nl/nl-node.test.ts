@@ -40,7 +40,7 @@ test('lf cr', () => {
   const text = '\n\r';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const statements = lexer.body().statements;
+  const {statements} = lexer.body();
 
   expect(statements.length).toBe(1);
   expect(statements[0].nodes[0].$).toBe(NodeType.NL);
@@ -51,7 +51,7 @@ test('several', () => {
   const code = '  \n    \r\nabc';
   const source = Source.fromText(code);
   const lexer = new LexicalAnalysis(source.text);
-  const statements = lexer.body().statements;
+  const {statements} = lexer.body();
 
   expect(statements.length).toBe(2);
   expect(statements[0].nodes.length).toBe(1);

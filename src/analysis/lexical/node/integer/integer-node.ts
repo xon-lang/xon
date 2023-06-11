@@ -30,7 +30,9 @@ export function scanIntegerNode({ text, index }: LexicalAnalysis): IntegerNode |
       }
       nextIndex = i;
     }
+
     return integerNode(index, nextIndex, text.slice(index, nextIndex + 1));
   }
+
   return null;
 }

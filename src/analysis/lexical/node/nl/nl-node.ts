@@ -32,6 +32,9 @@ export function scanNlNode({ text, index }: LexicalAnalysis): NlNode | null {
       continue;
     }
     if (text[i] === ' ') {
+      if (i === text.length - 1) {
+        lastNlIndex = i;
+      }
       continue;
     }
 

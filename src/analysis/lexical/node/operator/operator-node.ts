@@ -3,11 +3,11 @@ import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { IdNode, scanIdNode } from '~/analysis/lexical/node/id/id-node';
 import { KeywordNode } from '~/analysis/lexical/node/keyword/keyword-node';
 import { ModifierNode } from '~/analysis/lexical/node/modifier/modifier-node';
+import { operatorsOrders } from '~/analysis/lexical/operators';
 import { NodeType } from '~/analysis/node';
-import { operatorsOrders } from '~/analysis/syntax/operators';
 import { Integer, String2 } from '~/lib/core';
 
-export interface OperatorNode extends LexicalNode {}
+export type OperatorNode = LexicalNode;
 
 export function operatorNode(start: Integer, stop: Integer, text: String2): OperatorNode {
   return {

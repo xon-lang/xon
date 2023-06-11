@@ -3,6 +3,7 @@ import { Node, NodeType } from '~/analysis/node';
 export interface StatementNode extends Node {
   $: NodeType.STATEMENT;
   nodes: Node[];
+  after?: Node[];
 }
 
 export function statementNode(nodes: Node[]): StatementNode {

@@ -22,5 +22,6 @@ export function scanOpenNode({ text, index }: LexicalAnalysis): OpenNode | null 
   if (OPEN.includes(text[index])) {
     return openNode(index, index, text[index]);
   }
+
   return null;
 }
