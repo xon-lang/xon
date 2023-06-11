@@ -1,3 +1,3 @@
 import { Node } from '../node';
 
-export interface SyntaxNode extends Node {}
+export type SyntaxNode = Node

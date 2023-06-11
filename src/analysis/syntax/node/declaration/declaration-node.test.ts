@@ -1,11 +1,11 @@
 import { is } from '~/analysis/is';
+import { GroupNode } from '~/analysis/lexical/node/group/group-node';
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
+import { InvokeNode } from '~/analysis/lexical/node/invoke/invoke-node';
 import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
+import { PrefixNode } from '~/analysis/lexical/node/prefix/prefix-node';
 import { NodeType } from '~/analysis/node';
-import { ArrayNode } from '~/analysis/syntax/node/array/array-node';
-import { InvokeNode } from '~/analysis/syntax/node/invoke/invoke-node';
-import { PrefixNode } from '~/analysis/syntax/node/prefix/prefix-node';
 import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Integer } from '~/lib/core';
 import { Source } from '~/source/source';
@@ -14,7 +14,7 @@ import { evaluate } from '~/util/evaluate';
 test('empty', () => {
   const code = '[]';
   const source = Source.fromText(code);
-  const tree = syntaxNode(source) as ArrayNode;
+  const tree = syntaxNode(source) as GroupNode;
 
   expect(tree.$).toBe(NodeType.ARRAY);
   expect(tree.items.length).toBe(0);
@@ -23,7 +23,7 @@ test('empty', () => {
 test('inner empty arrays', () => {
   const code = '[[[]]]';
   const source = Source.fromText(code);
-  const tree = syntaxNode(source) as ArrayNode;
+  const tree = syntaxNode(source) as GroupNode;
 
   expect(tree.$).toBe(NodeType.ARRAY);
   expect(tree.items.length).toBe(1);
@@ -32,7 +32,7 @@ test('inner empty arrays', () => {
 test('two integers in array', () => {
   const code = '[1, 2]';
   const source = Source.fromText(code);
-  const tree = syntaxNode(source) as ArrayNode;
+  const tree = syntaxNode(source) as GroupNode;
 
   expect(tree.$).toBe(NodeType.ARRAY);
   expect(tree.items.length).toBe(2);
@@ -45,7 +45,7 @@ test('two integers in array', () => {
 test('check array', () => {
   const code = '[1, 2+2, 4, 6+6]';
   const source = Source.fromText(code);
-  const tree = syntaxNode(source) as ArrayNode;
+  const tree = syntaxNode(source) as GroupNode;
 
   expect(tree.$).toBe(NodeType.ARRAY);
   expect(tree.items.length).toBe(4);
@@ -60,7 +60,7 @@ test('array on several lines', () => {
                 2+2,
      4,    6+6]`;
   const source = Source.fromText(code);
-  const tree = syntaxNode(source) as ArrayNode;
+  const tree = syntaxNode(source) as GroupNode;
 
   expect(tree.$).toBe(NodeType.ARRAY);
   expect(tree.items.length).toBe(4);

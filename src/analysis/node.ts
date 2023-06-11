@@ -1,5 +1,12 @@
 import { Integer, String2 } from '~/lib/core';
 
+export interface Node {
+  $: NodeType | String2;
+  start: Integer;
+  stop: Integer;
+  before?: Node[];
+}
+
 export enum NodeType {
   ID = 'ID',
   NL = 'NL',
@@ -37,10 +44,4 @@ export enum NodeType {
   // LAMBDA_BODY_DECLARATION = 'LAMBDA_BODY_DECLARATION',
   TYPE = 'TYPE',
   VALUE = 'VALUE',
-}
-
-export interface Node {
-  $: NodeType | String2;
-  start: Integer;
-  stop: Integer;
 }
