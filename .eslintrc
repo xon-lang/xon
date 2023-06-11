@@ -64,7 +64,7 @@
     "guard-for-in": "error",
     "id-denylist": ["error", "data", "callback"],
     //! "id-length": "error",
-    "id-match": ["error", "^([A-Za-z0-9_]+)$"],
+    "id-match": ["error", "^([$A-Za-z0-9_]+)$"],
     //!! "init-declarations": ["error", "always"],
     "logical-assignment-operators": ["error", "always"],
     "max-classes-per-file": "error",
@@ -88,7 +88,7 @@
     "no-caller": "error",
     "no-confusing-arrow": "error",
     "no-console": "error",
-    "no-continue": "error",
+    // "no-continue": "error",
     "no-div-regex": "error",
     "no-else-return": "error",
     "no-empty-function": [
@@ -118,8 +118,7 @@
       "error",
       {
         "ignore": [-1, 0, 1, 2],
-        "detectObjects": false,
-        "ignoreNumericLiteralTypes": true
+        "detectObjects": false
       }
     ],
     //! "no-mixed-operators": "error",
@@ -283,7 +282,7 @@
     "nonblock-statement-body-position": "error",
     "object-curly-newline": "error",
     // "object-curly-spacing": "error",
-    "object-property-newline": "error",
+    // "object-property-newline": "error",
     "operator-linebreak": ["error", "after"],
     "padded-blocks": ["error", "never"],
     "padding-line-between-statements": [
