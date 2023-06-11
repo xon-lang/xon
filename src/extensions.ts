@@ -1,5 +1,6 @@
+/* eslint-disable func-names */
 /* eslint-disable no-extend-native */
-import { Char, String2 } from '~/lib/core';
+import { Char, Number2, String2 } from '~/lib/core';
 
 // Array
 Array.prototype.takeWhile = function takeWhile<T>(
@@ -51,6 +52,11 @@ Array.prototype.removeLast = function <T>(): T[] {
   this.splice(-1, 1);
 
   return this;
+};
+
+// Array aggregators
+Array.prototype.sum = function <T>(select: (value: T, index: number, obj: T[]) => Number2): Number2 {
+  return this.reduce((val, sum, index, array) => sum + select(val, index, array), 0);
 };
 
 // String

@@ -1,5 +1,5 @@
-import { Char, String2 } from '~/lib/core';
-
+/* eslint-disable @typescript-eslint/method-signature-style */
+import { Char, Integer, String2 } from '~/lib/core';
 
 declare global {
   // Array
@@ -13,6 +13,9 @@ declare global {
     removeFirst(): T[];
     removeLast(): T[];
     findLast(predicate: (value: T, index: number, obj: T[]) => unknown): T | null;
+
+    // aggregators
+    sum(select: (value: T, index: number, obj: T[]) => Integer): Integer;
   }
 
   // String
