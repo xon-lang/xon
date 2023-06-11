@@ -5,37 +5,6 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  // antlr4
-  "antlr4.format": {
-    "alignActions": true,
-    "alignColons": "hanging",
-    "alignFirstTokens": true,
-    "alignLabels": true,
-    "alignLexerCommands": true,
-    "alignSemicolons": "hanging",
-    "alignTrailers": true,
-    "alignTrailingComments": true,
-    "allowShortBlocksOnASingleLine": true,
-    "allowShortRulesOnASingleLine": true,
-    "breakBeforeBraces": false,
-    "breakBeforeParens": false,
-    "columnLimit": 150,
-    "continuationIndentWidth": 2,
-    "groupedAlignments": true,
-    "indentWidth": 2,
-    "keepEmptyLinesAtTheStartOfBlocks": true,
-    "maxEmptyLinesToKeep": 1,
-    "minEmptyLines": 0,
-    "reflowComments": true,
-    "ruleInternalsOnSingleLine": false,
-    "singleLineOverrulesHangingColon": true,
-    "spaceBeforeAssignmentOperators": true,
-    "tabWidth": 2,
-    "useTab": false
-  },
-  "antlr4.generation": {
-    "mode": "internal"
-  },
   "cSpell.words": [
     "bfnrtv",
     "camelcase",
@@ -75,9 +44,6 @@
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[antlr]": {
-    "editor.defaultFormatter": "mike-lischke.vscode-antlr4"
   },
   "[xon]": {
     "editor.defaultFormatter": "nizami.xon"
