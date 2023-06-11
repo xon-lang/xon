@@ -1,9 +1,5 @@
 .DS_Store
-.idea
-.antlr
-*.gen.ts
 
 /dist
 /node_modules
 /coverage
-/gen
