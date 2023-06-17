@@ -1,7 +1,7 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { NodeType } from '~/analysis/node';
 import { Source } from '~/source/source';
+import { LexicalNode } from '../../LexicalNode';
 
 test('line feed', () => {
   const text = '\n';
@@ -55,7 +55,10 @@ test('several', () => {
   const lexer = new LexicalAnalysis(source.text);
   const { statements } = lexer.body();
 
-  expect(statements.length).toBe(2);
-  expect(statements[0].tokens.length).toBe(1);
-  expect(statements[0].tokens[0].$).toBe(NodeType.NL);
+  expect(statements.length).toBe(3);
+  expect(statements[0].tokens.length).toBe(2);
+  expect(statements[0].tokens[1].$).toBe(NodeType.NL);
+  expect(statements[0].tokens[1].text).toBe(NodeType.NL);
+  expect(statements[1].tokens.length).toBe(2);
+  expect(statements[0].tokens[1].$).toBe(NodeType.NL);
 });

@@ -113,7 +113,7 @@ export class LexicalAnalysis {
 
     // if should be added to existing body
 
-    const foundIndentBodyIndex = indentBody.findLastIndex((x) => x.indent && x.indent <= indent);
+    const foundIndentBodyIndex = indentBody.findLastIndex((x) => x.indent === null || x.indent <= indent);
 
     if (foundIndentBodyIndex < 0) {
       throw new Error('Not implemented');

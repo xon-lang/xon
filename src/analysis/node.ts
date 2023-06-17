@@ -1,10 +1,11 @@
-import { Integer } from '~/lib/core';
+import { Integer, String2 } from '~/lib/core';
 
 export type SyntaxNode = Node;
 
 export interface Token extends Node {
   start: Integer;
   stop: Integer;
+  text: String2;
 }
 
 export interface Node {
