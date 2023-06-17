@@ -1,13 +1,13 @@
 import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
-import { Node, NodeType } from '~/analysis/node';
+import { NodeType, Token } from '~/analysis/node';
 
-export interface PrefixNode extends Node {
+export interface PrefixNode extends Token {
   $: NodeType.PREFIX;
   operator: OperatorNode;
-  value: Node;
+  value: Token;
 }
 
-export function prefixNode(operator: OperatorNode, value: Node): PrefixNode {
+export function prefixNode(operator: OperatorNode, value: Token): PrefixNode {
   return {
     $: NodeType.PREFIX,
     start: operator.start,

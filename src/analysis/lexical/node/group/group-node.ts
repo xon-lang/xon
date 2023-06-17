@@ -4,10 +4,10 @@ import { BodyNode } from '~/analysis/lexical/node/body/body-node';
 import { CloseNode } from '~/analysis/lexical/node/close/close-node';
 import { CommaNode } from '~/analysis/lexical/node/comma/comma-node';
 import { OpenNode, scanOpenNode } from '~/analysis/lexical/node/open/open-node';
-import { Node, NodeType } from '~/analysis/node';
+import { NodeType, Token } from '~/analysis/node';
 import '~/extensions';
 
-export interface GroupNode extends Node {
+export interface GroupNode extends Token {
   $: NodeType.GROUP;
   open: OpenNode;
   close: CloseNode | null;
@@ -15,10 +15,12 @@ export interface GroupNode extends Node {
 }
 
 export function groupNode(open: OpenNode, close: CloseNode | null, items: BodyNode[]): GroupNode {
+  const lastStatement = items.lastOrNull()?.statements?.lastOrNull()?.tokens?.lastOrNull();
+
   return {
     $: NodeType.GROUP,
     start: open.start,
-    stop: close?.stop ?? items.lastOrNull()?.stop ?? open.stop,
+    stop: close?.stop ?? lastStatement?.stop ?? open.stop,
     open,
     close,
     items,
@@ -37,7 +39,7 @@ export function scanGroupNode(analysis: LexicalAnalysis): GroupNode | null {
 
   while (analysis.index < analysis.text.length) {
     const body = analysis.body((node) => [NodeType.COMMA, NodeType.CLOSE].some((nodeType) => is(node, nodeType)));
-    const lastNode = body.statements.lastOrNull()?.nodes.lastOrNull();
+    const lastNode = body.statements.lastOrNull()?.tokens.lastOrNull();
 
     if (is<CommaNode>(lastNode, NodeType.COMMA)) {
       items.push(body);
@@ -45,9 +47,9 @@ export function scanGroupNode(analysis: LexicalAnalysis): GroupNode | null {
     }
 
     if (is<CloseNode>(lastNode, NodeType.CLOSE) && lastNode.text === open.text) {
-      body.statements.lastOrNull()?.nodes.removeLast();
+      body.statements.lastOrNull()?.tokens.removeLast();
 
-      if (body.statements.length > 0 && body.statements[0].nodes.length > 0) {
+      if (body.statements.length > 0 && body.statements[0].tokens.length > 0) {
         items.push(body);
       }
 

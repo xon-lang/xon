@@ -7,12 +7,10 @@ test('line feed', () => {
   const text = '\n';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const {statements} = lexer.body();
+  const nodes = lexer.body().statements[0].tokens as LexicalNode[];
 
-  expect(statements.length).toBe(1);
-  expect(statements[0].afterHiddenNodes).toBe(1);
-  expect(statements[0].afterHiddenNodes[0].$).toBe('\n');
-  expect(statements[0].afterHiddenNodes[0] as ).toBe('\n');
+  expect(nodes.length).toBe(1);
+  expect(nodes[0].text).toBe('\n');
   expect(nodes[0].$).toBe(NodeType.NL);
 });
 
@@ -20,7 +18,7 @@ test('carriage return', () => {
   const text = '\r';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const nodes = lexer.body().statements[0].nodes as LexicalNode[];
+  const nodes = lexer.body().statements[0].tokens as LexicalNode[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].text).toBe('\r');
@@ -31,7 +29,7 @@ test('cr lf', () => {
   const text = '\r\n';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const nodes = lexer.body().statements[0].nodes as LexicalNode[];
+  const nodes = lexer.body().statements[0].tokens as LexicalNode[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].text).toBe('\r\n');
@@ -42,20 +40,20 @@ test('lf cr', () => {
   const text = '\n\r';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const {statements} = lexer.body();
+  const { statements } = lexer.body();
 
-  expect(statements.length).toBe(1);
-  expect(statements[0].nodes[0].$).toBe(NodeType.NL);
-  expect((statements[0].nodes[0] as LexicalNode).text).toBe('\n\r');
+  expect(statements.length).toBe(2);
+  expect(statements[0].tokens[0].$).toBe(NodeType.NL);
+  expect((statements[0].tokens[0] as LexicalNode).text).toBe('\n\r');
 });
 
-// test('several', () => {
-//   const code = '  \n    \r\nabc';
-//   const source = Source.fromText(code);
-//   const lexer = new LexicalAnalysis(source.text);
-//   const {statements} = lexer.body();
+test('several', () => {
+  const code = '  \n    \r\nabc';
+  const source = Source.fromText(code);
+  const lexer = new LexicalAnalysis(source.text);
+  const { statements } = lexer.body();
 
-//   expect(statements.length).toBe(2);
-//   expect(statements[0].nodes.length).toBe(1);
-//   expect(statements[0].nodes[0].$).toBe(NodeType.NL);
-// });
+  expect(statements.length).toBe(2);
+  expect(statements[0].tokens.length).toBe(1);
+  expect(statements[0].tokens[0].$).toBe(NodeType.NL);
+});

@@ -1,6 +1,6 @@
 import { String2 } from '~/lib/core';
-import { Node } from '../node';
+import { Token } from '../node';
 
-export interface LexicalNode extends Node {
+export interface LexicalNode extends Token {
   text: String2;
 }

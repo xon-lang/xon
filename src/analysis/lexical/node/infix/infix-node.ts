@@ -1,14 +1,14 @@
 import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
-import { Node, NodeType } from '~/analysis/node';
+import { NodeType, Token } from '~/analysis/node';
 
-export interface InfixNode extends Node {
+export interface InfixNode extends Token {
   $: NodeType.INFIX;
   operator: OperatorNode;
-  left: Node;
-  right: Node;
+  left: Token;
+  right: Token;
 }
 
-export function infixNode(operator: OperatorNode, left: Node, right: Node): InfixNode {
+export function infixNode(operator: OperatorNode, left: Token, right: Token): InfixNode {
   return {
     $: NodeType.INFIX,
     start: left.start,

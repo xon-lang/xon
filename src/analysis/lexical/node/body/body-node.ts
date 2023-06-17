@@ -9,8 +9,6 @@ export interface BodyNode extends Node {
 export function bodyNode(statements: StatementNode[]): BodyNode {
   return {
     $: NodeType.BODY,
-    start: statements.firstOrNull()?.start ?? 0,
-    stop: statements.lastOrNull()?.stop ?? 0,
     statements,
   };
 }

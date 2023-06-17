@@ -1,13 +1,13 @@
 import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
-import { Node, NodeType } from '~/analysis/node';
+import { NodeType, Token } from '~/analysis/node';
 
-export interface PostfixNode extends Node {
+export interface PostfixNode extends Token {
   $: NodeType.POSTFIX;
   operator: OperatorNode;
-  value: Node;
+  value: Token;
 }
 
-export function postfixNode(operator: OperatorNode, value: Node): PostfixNode {
+export function postfixNode(operator: OperatorNode, value: Token): PostfixNode {
   return {
     $: NodeType.POSTFIX,
     start: value.start,

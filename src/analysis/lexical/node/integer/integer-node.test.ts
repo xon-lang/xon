@@ -7,7 +7,7 @@ test('integer', () => {
   const text = '123';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const nodes = lexer.body().statements[0].nodes as LexicalNode[];
+  const nodes = lexer.body().statements[0].tokens as LexicalNode[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.INTEGER);
@@ -18,7 +18,7 @@ test('zero int number', () => {
   const text = '0';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const nodes = lexer.body().statements[0].nodes as LexicalNode[];
+  const nodes = lexer.body().statements[0].tokens as LexicalNode[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.INTEGER);
@@ -29,7 +29,7 @@ test('positive int number', () => {
   const text = '2x01110';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const nodes = lexer.body().statements[0].nodes as LexicalNode[];
+  const nodes = lexer.body().statements[0].tokens as LexicalNode[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.INTEGER);
@@ -40,7 +40,7 @@ test('radix int', () => {
   const text = '16x1a_b_c';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const nodes = lexer.body().statements[0].nodes as LexicalNode[];
+  const nodes = lexer.body().statements[0].tokens as LexicalNode[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.INTEGER);

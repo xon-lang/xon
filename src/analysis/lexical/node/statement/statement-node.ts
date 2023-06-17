@@ -1,34 +1,18 @@
-import { Node, NodeType } from '~/analysis/node';
+import { BodyNode } from '~/analysis/lexical/node/body/body-node';
+import { Node, NodeType, Token } from '~/analysis/node';
 
 export interface StatementNode extends Node {
   $: NodeType.STATEMENT;
-  nodes: Node[];
-  afterHiddenNodes: Node[];
+  tokens: Token[];
+  syntaxNodes: Node[];
+  body: BodyNode | null;
 }
 
-export function statementNode(nodes: Node[], afterHiddenNodes: Node[] = []): StatementNode {
-  if (nodes.length === 0) {
-    return {
-      $: NodeType.STATEMENT,
-      start: 0,
-      stop: 0,
-      nodes,
-      afterHiddenNodes,
-    };
-  }
-
-  if (nodes.length === 0) {
-    throw new Error('Not implemented');
-  }
-
-  const first = nodes.first();
-  const last = nodes.last();
-
+export function statementNode(tokens: Token[], syntaxNodes: Node[], body: BodyNode| null = null): StatementNode {
   return {
     $: NodeType.STATEMENT,
-    start: first.start,
-    stop: last.stop,
-    nodes,
-    afterHiddenNodes,
+    tokens,
+    syntaxNodes,
+    body,
   };
 }

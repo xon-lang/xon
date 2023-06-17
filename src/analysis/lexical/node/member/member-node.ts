@@ -1,15 +1,15 @@
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
-import { Node, NodeType } from '~/analysis/node';
+import { NodeType, Token } from '~/analysis/node';
 
-export interface MemberNode extends Node {
+export interface MemberNode extends Token {
   $: NodeType.MEMBER;
   operator: OperatorNode;
-  instance: Node;
+  instance: Token;
   id: IdNode;
 }
 
-export function memberNode(operator: OperatorNode, instance: Node, id: IdNode): MemberNode {
+export function memberNode(operator: OperatorNode, instance: Token, id: IdNode): MemberNode {
   return {
     $: NodeType.MEMBER,
     start: instance.start,

@@ -1,13 +1,13 @@
-import { Node, NodeType } from '~/analysis/node';
+import { NodeType, Token } from '~/analysis/node';
 import { ArrayNode } from '~/analysis/syntax/node/array/array-node';
 
-export interface InvokeNode extends Node {
+export interface InvokeNode extends Token {
   $: NodeType.INVOKE;
-  instance: Node;
+  instance: Token;
   array: ArrayNode;
 }
 
-export function invokeNode(instance: Node, array: ArrayNode): InvokeNode {
+export function invokeNode(instance: Token, array: ArrayNode): InvokeNode {
   return {
     $: NodeType.INVOKE,
     start: instance.start,
