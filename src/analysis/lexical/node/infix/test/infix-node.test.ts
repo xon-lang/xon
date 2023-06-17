@@ -1,10 +1,9 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { InfixNode } from '~/analysis/lexical/node/infix/infix-node';
 import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
 import { PrefixNode } from '~/analysis/lexical/node/prefix/prefix-node';
-import { NodeType } from '~/analysis/node';
+import { NodeType, Token } from '~/analysis/node';
 import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
@@ -13,7 +12,7 @@ test('infix operator', () => {
   const text = 'abc.def';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const tokens = lexer.body() as LexicalNode[];
+  const tokens = lexer.body() as Token[];
 
   expect(tokens.length).toBe(3);
   expect(tokens[0].text).toBe('abc');

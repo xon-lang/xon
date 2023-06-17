@@ -1,9 +1,8 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { LexicalNode } from '~/analysis/lexical/lexical-node';
-import { NodeType } from '~/analysis/node';
+import { NodeType, Token } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
 
-export interface UnknownNode extends LexicalNode {
+export interface UnknownNode extends Token {
   $: NodeType.UNKNOWN;
 }
 

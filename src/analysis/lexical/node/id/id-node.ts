@@ -1,12 +1,11 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { KeywordNode, keywordNode } from '~/analysis/lexical/node/keyword/keyword-node';
 import { ModifierNode, modifierNode } from '~/analysis/lexical/node/modifier/modifier-node';
-import { NodeType } from '~/analysis/node';
+import { NodeType, Token } from '~/analysis/node';
 import '~/extensions';
 import { Integer, String2 } from '~/lib/core';
 
-export interface IdNode extends LexicalNode {
+export interface IdNode extends Token {
   $: NodeType.ID;
 }
 

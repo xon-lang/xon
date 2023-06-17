@@ -1,6 +1,5 @@
 import { is } from '~/analysis/is';
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { BodyNode, bodyNode } from '~/analysis/lexical/node/body/body-node';
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { InfixNode, infixNode } from '~/analysis/lexical/node/infix/infix-node';
@@ -115,12 +114,12 @@ function splitLineNodes(nodes: Token[]): { indent: Integer; lineNodes: Token[] }
     return [];
   }
 
-  const firstNode = nlSplitted[0][0] as LexicalNode;
+  const firstNode = nlSplitted[0][0] as Token;
   const minIndent = is(firstNode, NodeType.WHITESPACE) ? firstNode.stop - firstNode.stop + 1 : 0;
 
   const result = nlSplitted
     .map((lineNodes) => {
-      const firstNode = lineNodes[0] as LexicalNode;
+      const firstNode = lineNodes[0] as Token;
       const indent = is(firstNode, NodeType.WHITESPACE) ? firstNode.stop - firstNode.stop + 1 : 0;
 
       return {

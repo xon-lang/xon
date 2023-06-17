@@ -1,8 +1,7 @@
-import { LexicalNode } from '~/analysis/lexical/lexical-node';
-import { NodeType } from '~/analysis/node';
+import { NodeType, Token } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
 
-export interface KeywordNode extends LexicalNode {
+export interface KeywordNode extends Token {
   $: NodeType.KEYWORD;
 }
 

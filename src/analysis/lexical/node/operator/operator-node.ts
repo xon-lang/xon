@@ -1,13 +1,12 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { LexicalNode } from '~/analysis/lexical/lexical-node';
 import { IdNode, scanIdNode } from '~/analysis/lexical/node/id/id-node';
 import { KeywordNode } from '~/analysis/lexical/node/keyword/keyword-node';
 import { ModifierNode } from '~/analysis/lexical/node/modifier/modifier-node';
 import { operatorsOrders } from '~/analysis/lexical/operators';
-import { NodeType } from '~/analysis/node';
+import { NodeType, Token } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
 
-export type OperatorNode = LexicalNode;
+export type OperatorNode = Token;
 
 export function operatorNode(start: Integer, stop: Integer, text: String2): OperatorNode {
   return {

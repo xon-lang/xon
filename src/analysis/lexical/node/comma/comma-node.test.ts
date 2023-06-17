@@ -1,13 +1,12 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { LexicalNode } from '~/analysis/lexical/lexical-node';
-import { NodeType } from '~/analysis/node';
+import { NodeType, Token } from '~/analysis/node';
 import { Source } from '~/source/source';
 
 test('comma', () => {
   const code = ',';
   const source = Source.fromText(code);
   const scanner = new LexicalAnalysis(source.text);
-  const tokens = scanner.body().statements[0].tokens as LexicalNode[];
+  const tokens = scanner.body().statements[0].tokens as Token[];
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].$).toBe(NodeType.COMMA);
