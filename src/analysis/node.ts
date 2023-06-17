@@ -1,18 +1,23 @@
-import { Integer, String2 } from '~/lib/core';
+import { Integer } from '~/lib/core';
 
-export interface Node {
-  $: NodeType | String2;
+export type SyntaxNode = Node;
+
+export interface Token extends Node {
   start: Integer;
   stop: Integer;
-  beforeHiddenNodes?: Node[];
+}
+
+export interface Node {
+  $: NodeType;
 }
 
 export enum NodeType {
   HIDDEN = 'HIDDEN',
+  COMMENT = 'COMMENT',
   NL = `NL ${HIDDEN}`,
   WHITESPACE = `WHITESPACE ${HIDDEN}`,
-  COMMENT_LINE = `COMMENT_LINE ${HIDDEN}`,
-  COMMENT_BLOCK = `COMMENT_BLOCK ${HIDDEN}`,
+  COMMENT_LINE = `COMMENT_LINE ${HIDDEN} ${COMMENT}`,
+  COMMENT_BLOCK = `COMMENT_BLOCK ${HIDDEN} ${COMMENT}`,
 
   ID = 'ID',
   STRING = 'STRING',

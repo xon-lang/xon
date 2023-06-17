@@ -1,12 +1,11 @@
 import { Node, NodeType } from '~/analysis/node';
-import { String2 } from '~/lib/core';
 
-export function is<T extends Node = Node>(node: Node | null | undefined, nodeType: NodeType | String2): node is T {
-  const suffixes = node?.$.split(' ');
-
-  if (suffixes?.includes(nodeType)) {
-    return true;
+export function is<T extends Node = Node>(node: Node | null | undefined, ...nodeTypes: NodeType[]): node is T {
+  if (!node || !nodeTypes.length) {
+    return false;
   }
 
-  return node?.$ === nodeType;
+  const suffixes = node?.$.split(' ');
+
+  return nodeTypes.every((x) => suffixes?.includes(x));
 }

@@ -1,4 +1,4 @@
-import { Node } from '~/analysis/node';
+import { Token } from '~/analysis/node';
 import { IssueLevel } from '~/issue/issue-level';
 import { String2 } from '~/lib/core';
 
@@ -6,7 +6,7 @@ export class Issue extends Error {
   // public actual: String2
   // public expect: String2
 
-  constructor(public node: Node, public level: IssueLevel, public message: String2) {
+  constructor(public node: Token, public level: IssueLevel, public message: String2) {
     super(message);
   }
 

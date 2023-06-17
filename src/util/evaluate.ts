@@ -4,7 +4,7 @@ import { InfixNode } from '~/analysis/lexical/node/infix/infix-node';
 import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
 import { PrefixNode } from '~/analysis/lexical/node/prefix/prefix-node';
 import { StringNode } from '~/analysis/lexical/node/string/string-node';
-import { Node, NodeType } from '~/analysis/node';
+import { NodeType, Token } from '~/analysis/node';
 import { ArrayNode } from '~/analysis/syntax/node/array/array-node';
 import { String2, Unknown2 } from '~/lib/core';
 import { Source } from '~/source/source';
@@ -13,7 +13,7 @@ export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);
 }
 
-export function evaluate(source: Source, node: Node | null, argsMap = {}): Unknown2 {
+export function evaluate(source: Source, node: Token | null, argsMap = {}): Unknown2 {
   if (!node) {
     return null;
   }
