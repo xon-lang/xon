@@ -7,5 +7,5 @@ export function is<T extends Node = Node>(node: Node | null | undefined, ...node
 
   const suffixes = node?.$.split(' ');
 
-  return nodeTypes.every((x) => suffixes?.includes(x));
+  return nodeTypes.every((x) => node.$ === x || suffixes?.includes(x));
 }

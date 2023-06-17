@@ -44,7 +44,9 @@ test('lf cr', () => {
 
   expect(statements.length).toBe(2);
   expect(statements[0].tokens[0].$).toBe(NodeType.NL);
-  expect((statements[0].tokens[0] as LexicalNode).text).toBe('\n\r');
+  expect((statements[0].tokens[0] as LexicalNode).text).toBe('\n');
+  expect(statements[1].tokens[0].$).toBe(NodeType.NL);
+  expect((statements[1].tokens[0] as LexicalNode).text).toBe('\r');
 });
 
 test('several', () => {
