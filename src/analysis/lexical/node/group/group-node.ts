@@ -24,6 +24,9 @@ export function groupNode(open: OpenNode, close: CloseNode | null, items: BodyNo
     open,
     close,
     items,
+    // eslint-disable-next-line no-warning-comments
+    // todo should be fixed
+    text: '',
   };
 }
 

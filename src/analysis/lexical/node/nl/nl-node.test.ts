@@ -1,13 +1,12 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NodeType } from '~/analysis/node';
+import { NodeType, Token } from '~/analysis/node';
 import { Source } from '~/source/source';
-import { LexicalNode } from '../../LexicalNode';
 
 test('line feed', () => {
   const text = '\n';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const nodes = lexer.body().statements[0].tokens as LexicalNode[];
+  const nodes = lexer.body().statements[0].tokens as Token[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].text).toBe('\n');
@@ -18,7 +17,7 @@ test('carriage return', () => {
   const text = '\r';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const nodes = lexer.body().statements[0].tokens as LexicalNode[];
+  const nodes = lexer.body().statements[0].tokens as Token[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].text).toBe('\r');
@@ -29,7 +28,7 @@ test('cr lf', () => {
   const text = '\r\n';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const nodes = lexer.body().statements[0].tokens as LexicalNode[];
+  const nodes = lexer.body().statements[0].tokens as Token[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].text).toBe('\r\n');
@@ -44,9 +43,9 @@ test('lf cr', () => {
 
   expect(statements.length).toBe(2);
   expect(statements[0].tokens[0].$).toBe(NodeType.NL);
-  expect((statements[0].tokens[0] as LexicalNode).text).toBe('\n');
+  expect((statements[0].tokens[0] as Token).text).toBe('\n');
   expect(statements[1].tokens[0].$).toBe(NodeType.NL);
-  expect((statements[1].tokens[0] as LexicalNode).text).toBe('\r');
+  expect((statements[1].tokens[0] as Token).text).toBe('\r');
 });
 
 test('several', () => {
@@ -58,7 +57,11 @@ test('several', () => {
   expect(statements.length).toBe(3);
   expect(statements[0].tokens.length).toBe(2);
   expect(statements[0].tokens[1].$).toBe(NodeType.NL);
-  expect(statements[0].tokens[1].text).toBe(NodeType.NL);
+  expect(statements[0].tokens[1].text).toBe('\n');
   expect(statements[1].tokens.length).toBe(2);
-  expect(statements[0].tokens[1].$).toBe(NodeType.NL);
+  expect(statements[1].tokens[1].$).toBe(NodeType.NL);
+  expect(statements[1].tokens[1].text).toBe('\r\n');
+  expect(statements[2].tokens.length).toBe(1);
+  expect(statements[2].tokens[0].$).toBe(NodeType.ID);
+  expect(statements[2].tokens[0].text).toBe('abc');
 });
