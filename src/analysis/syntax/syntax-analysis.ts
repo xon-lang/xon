@@ -5,7 +5,7 @@ import { BodyNode, bodyNode } from '~/analysis/lexical/node/body/body-node';
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
 import { InfixNode, infixNode } from '~/analysis/lexical/node/infix/infix-node';
 import { OperatorNode } from '~/analysis/lexical/node/operator/operator-node';
-import { Node, NodeType } from '~/analysis/node';
+import { NodeType, Token } from '~/analysis/node';
 import { ladderNode } from '~/analysis/syntax/node/ladder/ladder-node';
 import { MemberNode, memberNode } from '~/analysis/syntax/node/member/member-node';
 import '~/extensions';
@@ -21,7 +21,7 @@ export function parseBody(source: Source): BodyNode {
   return body;
 }
 
-export function syntaxNode(source: Source): Node {
+export function syntaxNode(source: Source): Token {
   const { nodes } = parseBody(source);
   if (nodes.length !== 1) {
     throw new Error('Not implemented');
@@ -31,7 +31,7 @@ export function syntaxNode(source: Source): Node {
 }
 
 export class SyntaxAnalysis {
-  constructor(public nodes: Node[]) {}
+  constructor(public nodes: Token[]) {}
 
   public body(): BodyNode {
     const filteredNodes = this.nodes.filter((node) => node.$ !== NodeType.JOINING);
@@ -43,12 +43,12 @@ export class SyntaxAnalysis {
   }
 }
 
-function collapseBody(lines: { indent: Integer; lineNodes: Node[] }[], parent?: Node): BodyNode {
+function collapseBody(lines: { indent: Integer; lineNodes: Token[] }[], parent?: Token): BodyNode {
   if (lines.length === 0) {
     throw new Error('Not implemented');
   }
 
-  const bodyNodes: Node[] = [];
+  const bodyNodes: Token[] = [];
   const bodyIndent = lines[0].indent;
 
   for (let i = 0; i < lines.length; i++) {
@@ -108,7 +108,7 @@ function collapseBody(lines: { indent: Integer; lineNodes: Node[] }[], parent?: 
 //   }
 // }
 
-function splitLineNodes(nodes: Node[]): { indent: Integer; lineNodes: Node[] }[] {
+function splitLineNodes(nodes: Token[]): { indent: Integer; lineNodes: Token[] }[] {
   const nlSplitted = splitNodes(nodes, NodeType.NL);
 
   if (nlSplitted.length === 0) {
@@ -133,8 +133,8 @@ function splitLineNodes(nodes: Node[]): { indent: Integer; lineNodes: Node[] }[]
   return result;
 }
 
-function nodesBetween(nodes: Node[], start: Node, stop: Node): Node[] {
-  const result: Node[] = [];
+function nodesBetween(nodes: Token[], start: Token, stop: Token): Token[] {
+  const result: Token[] = [];
 
   const startIndex = nodes.indexOf(start);
   const stopIndex = nodes.indexOf(stop);
@@ -146,7 +146,7 @@ function nodesBetween(nodes: Node[], start: Node, stop: Node): Node[] {
   return result;
 }
 
-function nodeAfter(nodes: Node[], node: Node, nodeType: NodeType): Node | null {
+function nodeAfter(nodes: Token[], node: Token, nodeType: NodeType): Token | null {
   const nodeIndex = nodes.indexOf(node);
 
   for (let i = nodeIndex + 1; i < nodes.length; i++) {
@@ -158,7 +158,7 @@ function nodeAfter(nodes: Node[], node: Node, nodeType: NodeType): Node | null {
   return null;
 }
 
-function handleInfix(operator: OperatorNode, left: Node, right: Node): InfixNode | MemberNode {
+function handleInfix(operator: OperatorNode, left: Token, right: Token): InfixNode | MemberNode {
   if (operator.text === '.' || operator.text === '::') {
     if (is<IdNode>(right, NodeType.ID)) {
       return memberNode(operator, left, right);
