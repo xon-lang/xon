@@ -8,14 +8,14 @@ import { scanIntegerNode } from '~/analysis/lexical/node/integer/integer-node';
 import { scanJoiningNode } from '~/analysis/lexical/node/joining/joining-node';
 import { scanNlNode } from '~/analysis/lexical/node/nl/nl-node';
 import { scanOperatorNode } from '~/analysis/lexical/node/operator/operator-node';
-import { StatementNode, statementNode } from '~/analysis/lexical/node/statement/statement-node';
+import { statementNode } from '~/analysis/lexical/node/statement/statement-node';
 import { scanStringNode } from '~/analysis/lexical/node/string/string-node';
 import { scanUnknownNode } from '~/analysis/lexical/node/unknown/unknown-node';
 import { scanWhitespaceNode } from '~/analysis/lexical/node/whitespace/whitespace-node';
-import { NodeType, SyntaxNode, Token } from '~/analysis/node';
+import { Node, NodeType } from '~/analysis/node';
 import { Boolean2, Integer, String2 } from '~/lib/core';
 
-type NodeScanFunction = (analysis: LexicalAnalysis) => Token | null;
+type NodeScanFunction = (analysis: LexicalAnalysis) => Node | null;
 
 const nodeScanFunctions: NodeScanFunction[] = [
   scanNlNode,
@@ -40,33 +40,47 @@ export class LexicalAnalysis {
 
   public constructor(public text: String2) {}
 
-  public body(breakFn: ((node: Token) => Boolean2) | null = null): BodyNode {
+  public body(breakFn: ((node: Node) => Boolean2) | null = null): BodyNode {
     const indentBody: { indent: Integer | null; body: BodyNode }[] = [];
-    let tokens: Token[] = [];
+    let nodes: Node[] = [];
+    let indent = 0;
 
     while (this.index < this.text.length) {
       const node = this.nextNode();
-      tokens.push(node);
+
+      if (is(node, NodeType.WHITESPACE)) {
+        if (nodes.length === 0) {
+          indent = node.stop - node.start;
+        }
+        continue;
+      }
+
+      if (is(node, NodeType.COMMENT) && nodes.length > 0) {
+        continue;
+      }
 
       if (breakFn && breakFn(node)) {
         break;
       }
 
       if (is(node, NodeType.NL)) {
-        this.putTokens(indentBody, tokens);
-        tokens = [];
+        this.putStatement(indentBody, indent, nodes);
+        nodes = [];
+        indent = 0;
         continue;
       }
+
+      nodes.push(node);
     }
 
-    if (tokens.length > 0) {
-      this.putTokens(indentBody, tokens);
+    if (nodes.length > 0) {
+      this.putStatement(indentBody, indent, nodes);
     }
 
     return indentBody[0]?.body ?? bodyNode([]);
   }
 
-  public nextNode(): Token {
+  public nextNode(): Node {
     for (const nodeScan of nodeScanFunctions) {
       const node = nodeScan(this);
       if (node) {
@@ -79,10 +93,10 @@ export class LexicalAnalysis {
     throw new Error('Not implemented');
   }
 
-  public putTokens(indentBody: { indent: Integer | null; body: BodyNode }[], tokens: Token[]): void {
-    const syntaxNodes = getSyntaxNodes(tokens);
-    const statement = statementNode(tokens, syntaxNodes);
-    const indent = getStatementIndent(statement);
+  public putStatement(indentBody: { indent: Integer | null; body: BodyNode }[], indent: Integer, nodes: Node[]): void {
+    // const syntaxNodes = getSyntaxNodes(nodes);
+    const statement = statementNode(nodes);
+    // const indent = getStatementIndent(statement);
 
     // if first statement
     if (indentBody.length === 0) {
@@ -93,8 +107,8 @@ export class LexicalAnalysis {
 
     const lastIndentBody = indentBody.last();
 
-    // if hidden nodes
-    if (indent === null) {
+    // if no nodes
+    if (nodes.length === 0) {
       lastIndentBody.body.statements.push(statement);
 
       return;
@@ -128,28 +142,18 @@ export class LexicalAnalysis {
   }
 }
 
-function getStatementIndent(statement: StatementNode): Integer | null {
-  if (statement.tokens.every((x) => is(x, NodeType.HIDDEN))) {
-    return null;
-  }
+// function getSyntaxNodes(tokens: Token[]): SyntaxNode[] {
+//   const nonHidden = tokens.filter((x) => !is(x, NodeType.HIDDEN));
+//   collapseLineNodes(nonHidden);
 
-  const whitespaceTokens = statement.tokens
-    .takeWhile((x) => is(x, NodeType.WHITESPACE, NodeType.COMMENT))
-    .filter((x) => is(x, NodeType.WHITESPACE));
-
-  return whitespaceTokens.sum((x) => x.stop - x.start);
-}
-
-function getSyntaxNodes(tokens: Token[]): SyntaxNode[] {
-  const nonHidden = tokens.filter((x) => !is(x, NodeType.HIDDEN));
-
-  return [];
-}
+//   return nonHidden as SyntaxNode[];
+// }
 
 // function collapseLineNodes(nodes: Node[]): void {
 //   if (nodes.length > 1 && is<ModifierNode>(nodes[0], NodeType.MODIFIER)) {
-//     if (is<IdNode>(nodes[1], NodeType.ID) || is<OperatorNode>(nodes[1], NodeType.OPERATOR))
+//     if (is<IdNode>(nodes[1], NodeType.ID) || is<OperatorNode>(nodes[1], NodeType.OPERATOR)) {
 //       nodes.splice(0, 2, modifierIdNode(nodes[0], nodes[1]));
+//     }
 //   }
 
 //   for (const operatorsOrder of operatorsOrders) {
