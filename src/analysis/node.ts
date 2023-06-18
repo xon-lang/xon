@@ -3,22 +3,20 @@ import { Integer, String2 } from '~/lib/core';
 export type SyntaxNode = Node;
 
 export interface Token extends Node {
-  start: Integer;
-  stop: Integer;
   text: String2;
 }
 
 export interface Node {
   $: NodeType;
+  start: Integer;
+  stop: Integer;
 }
 
 export enum NodeType {
   HIDDEN = 'HIDDEN',
   COMMENT = 'COMMENT',
-  NL = `NL ${HIDDEN}`,
-  WHITESPACE = `WHITESPACE ${HIDDEN}`,
-  COMMENT_LINE = `COMMENT_LINE ${HIDDEN} ${COMMENT}`,
-  COMMENT_BLOCK = `COMMENT_BLOCK ${HIDDEN} ${COMMENT}`,
+  NL = 'NL',
+  WHITESPACE = 'WHITESPACE',
 
   ID = 'ID',
   STRING = 'STRING',
