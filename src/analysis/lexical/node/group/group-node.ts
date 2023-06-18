@@ -4,10 +4,10 @@ import { BodyNode } from '~/analysis/lexical/node/body/body-node';
 import { CloseNode } from '~/analysis/lexical/node/close/close-node';
 import { CommaNode } from '~/analysis/lexical/node/comma/comma-node';
 import { OpenNode, scanOpenNode } from '~/analysis/lexical/node/open/open-node';
-import { NodeType, Token } from '~/analysis/node';
+import { Node, NodeType } from '~/analysis/node';
 import '~/extensions';
 
-export interface GroupNode extends Token {
+export interface GroupNode extends Node {
   $: NodeType.GROUP;
   open: OpenNode;
   close: CloseNode | null;
@@ -24,9 +24,6 @@ export function groupNode(open: OpenNode, close: CloseNode | null, items: BodyNo
     open,
     close,
     items,
-    // eslint-disable-next-line no-warning-comments
-    // todo should be fixed
-    text: '',
   };
 }
 
