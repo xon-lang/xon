@@ -6,7 +6,7 @@ test('line joining', () => {
   const text = 'abc\\  .def';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const tokens = lexer.body().statements[0].tokens as Token[];
+  const tokens = lexer.body().statements[0].nodes as Token[];
 
   expect(tokens.length).toBe(4);
   expect(tokens[0].$).toBe(NodeType.ID);

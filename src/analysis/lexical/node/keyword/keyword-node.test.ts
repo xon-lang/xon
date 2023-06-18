@@ -6,7 +6,7 @@ test('if keyword', () => {
   const text = 'if';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const tokens = lexer.body().statements[0].tokens as Token[];
+  const tokens = lexer.body().statements[0].nodes as Token[];
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].$).toBe(NodeType.KEYWORD);

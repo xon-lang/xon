@@ -15,7 +15,7 @@ export interface GroupNode extends Token {
 }
 
 export function groupNode(open: OpenNode, close: CloseNode | null, items: BodyNode[]): GroupNode {
-  const lastStatement = items.lastOrNull()?.statements?.lastOrNull()?.tokens?.lastOrNull();
+  const lastStatement = items.lastOrNull()?.statements?.lastOrNull()?.nodes?.lastOrNull();
 
   return {
     $: NodeType.GROUP,
@@ -42,7 +42,7 @@ export function scanGroupNode(analysis: LexicalAnalysis): GroupNode | null {
 
   while (analysis.index < analysis.text.length) {
     const body = analysis.body((node) => [NodeType.COMMA, NodeType.CLOSE].some((nodeType) => is(node, nodeType)));
-    const lastNode = body.statements.lastOrNull()?.tokens.lastOrNull();
+    const lastNode = body.statements.lastOrNull()?.nodes.lastOrNull();
 
     if (is<CommaNode>(lastNode, NodeType.COMMA)) {
       items.push(body);
@@ -50,9 +50,9 @@ export function scanGroupNode(analysis: LexicalAnalysis): GroupNode | null {
     }
 
     if (is<CloseNode>(lastNode, NodeType.CLOSE) && lastNode.text === open.text) {
-      body.statements.lastOrNull()?.tokens.removeLast();
+      body.statements.lastOrNull()?.nodes.removeLast();
 
-      if (body.statements.length > 0 && body.statements[0].tokens.length > 0) {
+      if (body.statements.length > 0 && body.statements[0].nodes.length > 0) {
         items.push(body);
       }
 

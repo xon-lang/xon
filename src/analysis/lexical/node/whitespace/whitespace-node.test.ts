@@ -6,7 +6,7 @@ test('whitespace', () => {
   const text = '    ';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const nodes = lexer.body().statements[0].tokens as Token[];
+  const nodes = lexer.body().statements[0].nodes as Token[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].text).toBe('    ');

@@ -1,4 +1,4 @@
-import { PrefixExpressionTree } from '~/analysis/lexical/node/prefix/prefix-node';
+import { PrefixExpressionTree } from '~/analysis/syntax/node/prefix/prefix-node';
 import { parseSourceFile } from '~/analysis/syntax/syntax-analysis';
 import { ValueMetadata } from '~/metadata/expression/value/value-metadata';
 import { SourceMetadata } from '~/metadata/source/source-metadata';

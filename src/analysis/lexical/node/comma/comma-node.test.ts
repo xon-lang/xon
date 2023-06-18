@@ -6,7 +6,7 @@ test('comma', () => {
   const code = ',';
   const source = Source.fromText(code);
   const scanner = new LexicalAnalysis(source.text);
-  const tokens = scanner.body().statements[0].tokens as Token[];
+  const tokens = scanner.body().statements[0].nodes as Token[];
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].$).toBe(NodeType.COMMA);
