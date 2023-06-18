@@ -33,7 +33,7 @@ export function groupNode(open: OpenNode, close: CloseNode | null, items: BodyNo
 export function scanGroupNode(analysis: LexicalAnalysis): GroupNode | null {
   const open = scanOpenNode(analysis);
 
-  if (!is<OpenNode>(open, NodeType.OPEN)) {
+  if (!open || !is<OpenNode>(open, NodeType.OPEN)) {
     return null;
   }
 
@@ -44,12 +44,12 @@ export function scanGroupNode(analysis: LexicalAnalysis): GroupNode | null {
     const body = analysis.body((node) => [NodeType.COMMA, NodeType.CLOSE].some((nodeType) => is(node, nodeType)));
     const lastNode = body.statements.lastOrNull()?.nodes.lastOrNull();
 
-    if (is<CommaNode>(lastNode, NodeType.COMMA)) {
+    if (lastNode && is<CommaNode>(lastNode, NodeType.COMMA)) {
       items.push(body);
       continue;
     }
 
-    if (is<CloseNode>(lastNode, NodeType.CLOSE) && lastNode.text === open.text) {
+    if (lastNode && is<CloseNode>(lastNode, NodeType.CLOSE) && lastNode.text === open.text) {
       body.statements.lastOrNull()?.nodes.removeLast();
 
       if (body.statements.length > 0 && body.statements[0].nodes.length > 0) {

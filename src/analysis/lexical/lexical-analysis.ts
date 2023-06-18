@@ -52,10 +52,11 @@ export class LexicalAnalysis {
         if (nodes.length === 0) {
           indent = node.stop - node.start;
         }
+
         continue;
       }
 
-      if (is(node, NodeType.COMMENT) && nodes.length > 0) {
+      if (is(node, NodeType.JOINING) || (is(node, NodeType.COMMENT) && nodes.length > 0)) {
         continue;
       }
 
