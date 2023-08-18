@@ -1,6 +1,6 @@
 import { Integer, String2 } from '~/lib/core';
 
-export type SyntaxNode = Node;
+export type HiddenNode = Token;
 
 export interface Token extends Node {
   text: String2;
@@ -8,6 +8,7 @@ export interface Token extends Node {
 
 export interface Node {
   $: NodeType;
+  hidden: HiddenNode[];
   start: Integer;
   stop: Integer;
 }
@@ -25,6 +26,7 @@ export enum NodeType {
   ID = 'ID',
   STRING = 'STRING',
   GROUP = 'GROUP',
+  ITEM = 'ITEM',
   INTEGER = 'INTEGER',
   OPERATOR = 'OPERATOR',
   MODIFIER = 'MODIFIER',
@@ -34,7 +36,6 @@ export enum NodeType {
   COMMA = 'COMMA',
 
   BODY = 'BODY',
-  ARRAY = 'ARRAY',
   INFIX = 'INFIX',
   INVOKE = 'INVOKE',
   POSTFIX = 'POSTFIX',

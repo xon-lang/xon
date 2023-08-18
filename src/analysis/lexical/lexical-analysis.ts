@@ -1,18 +1,27 @@
+/* eslint-disable max-lines */
 import { is } from '~/analysis/is';
 import { BodyNode, bodyNode } from '~/analysis/lexical/node/body/body-node';
 import { scanCloseNode } from '~/analysis/lexical/node/close/close-node';
 import { scanCommaNode } from '~/analysis/lexical/node/comma/comma-node';
-import { scanGroupNode } from '~/analysis/lexical/node/group/group-node';
-import { scanIdNode } from '~/analysis/lexical/node/id/id-node';
+import { GroupNode, scanGroupNode } from '~/analysis/lexical/node/group/group-node';
+import { IdNode, scanIdNode } from '~/analysis/lexical/node/id/id-node';
+import { InfixNode, infixNode } from '~/analysis/lexical/node/infix/infix-node';
 import { scanIntegerNode } from '~/analysis/lexical/node/integer/integer-node';
-import { scanJoiningNode } from '~/analysis/lexical/node/joining/joining-node';
-import { scanNlNode } from '~/analysis/lexical/node/nl/nl-node';
-import { scanOperatorNode } from '~/analysis/lexical/node/operator/operator-node';
-import { statementNode } from '~/analysis/lexical/node/statement/statement-node';
+import { invokeNode } from '~/analysis/lexical/node/invoke/invoke-node';
+import { JoiningNode, scanJoiningNode } from '~/analysis/lexical/node/joining/joining-node';
+import { MemberNode, memberNode } from '~/analysis/lexical/node/member/member-node';
+import { modifierIdNode } from '~/analysis/lexical/node/modifier-id/modifier-id-node';
+import { ModifierNode } from '~/analysis/lexical/node/modifier/modifier-node';
+import { NlNode, scanNlNode } from '~/analysis/lexical/node/nl/nl-node';
+import { OperatorNode, scanOperatorNode } from '~/analysis/lexical/node/operator/operator-node';
+import { postfixNode } from '~/analysis/lexical/node/postfix/postfix-node';
+import { prefixNode } from '~/analysis/lexical/node/prefix/prefix-node';
+import { StatementNode, statementNode } from '~/analysis/lexical/node/statement/statement-node';
 import { scanStringNode } from '~/analysis/lexical/node/string/string-node';
 import { scanUnknownNode } from '~/analysis/lexical/node/unknown/unknown-node';
-import { scanWhitespaceNode } from '~/analysis/lexical/node/whitespace/whitespace-node';
-import { Node, NodeType } from '~/analysis/node';
+import { WhitespaceNode, scanWhitespaceNode } from '~/analysis/lexical/node/whitespace/whitespace-node';
+import { OperatorType, RecursiveType, operatorsOrders } from '~/analysis/lexical/operators';
+import { HiddenNode, Node, NodeType } from '~/analysis/node';
 import { Boolean2, Integer, String2 } from '~/lib/core';
 
 type NodeScanFunction = (analysis: LexicalAnalysis) => Node | null;
@@ -40,45 +49,46 @@ export class LexicalAnalysis {
 
   public constructor(public text: String2) {}
 
-  public body(breakFn: ((node: Node) => Boolean2) | null = null): BodyNode {
+  public body(breakFn: ((node: Node) => Boolean2) | null = null): BodyNode & { breakNode?: Node } {
     const indentBody: { indent: Integer | null; body: BodyNode }[] = [];
     let nodes: Node[] = [];
-    let indent = 0;
+    let hidden: HiddenNode[] = [];
+    let breakNode: Node | undefined;
 
     while (this.index < this.text.length) {
       const node = this.nextNode();
 
-      if (is(node, NodeType.WHITESPACE)) {
-        if (nodes.length === 0) {
-          indent = node.stop - node.start;
-        }
-
-        continue;
-      }
-
-      if (is(node, NodeType.JOINING) || (is(node, NodeType.COMMENT) && nodes.length > 0)) {
-        continue;
-      }
-
       if (breakFn && breakFn(node)) {
+        breakNode = node;
         break;
       }
 
-      if (is(node, NodeType.NL)) {
-        this.putStatement(indentBody, indent, nodes);
-        nodes = [];
-        indent = 0;
+      if (is<WhitespaceNode>(node, NodeType.WHITESPACE) || is<JoiningNode>(node, NodeType.JOINING)) {
+        hidden.push(node);
         continue;
       }
 
+      if (is<NlNode>(node, NodeType.NL)) {
+        hidden.push(node);
+        this.putStatement(indentBody, nodes, hidden);
+        nodes = [];
+        hidden = [];
+        continue;
+      }
+
+      node.hidden = hidden;
+      hidden = [];
       nodes.push(node);
     }
 
-    if (nodes.length > 0) {
-      this.putStatement(indentBody, indent, nodes);
-    }
+    // if (nodes.length > 0 || hidden.length > 0) {
+    this.putStatement(indentBody, nodes, hidden);
+    // }
 
-    return indentBody[0]?.body ?? bodyNode([]);
+    return {
+      breakNode,
+      ...(indentBody[0]?.body ?? bodyNode([])),
+    };
   }
 
   public nextNode(): Node {
@@ -94,10 +104,15 @@ export class LexicalAnalysis {
     throw new Error('Not implemented');
   }
 
-  public putStatement(indentBody: { indent: Integer | null; body: BodyNode }[], indent: Integer, nodes: Node[]): void {
-    // const syntaxNodes = getSyntaxNodes(nodes);
-    const statement = statementNode(nodes);
-    // const indent = getStatementIndent(statement);
+  public putStatement(
+    indentBody: { indent: Integer | null; body: BodyNode }[],
+    nodes: Node[],
+    hidden: HiddenNode[],
+  ): void {
+    const syntaxNodes = getSyntaxNodes(nodes);
+    const statement = statementNode(syntaxNodes);
+    statement.hidden = hidden;
+    const indent = getStatementIndent(statement);
 
     // if first statement
     if (indentBody.length === 0) {
@@ -109,7 +124,7 @@ export class LexicalAnalysis {
     const lastIndentBody = indentBody.last();
 
     // if no nodes
-    if (nodes.length === 0) {
+    if (nodes.length === 0 || indent === null) {
       lastIndentBody.body.statements.push(statement);
 
       return;
@@ -143,135 +158,218 @@ export class LexicalAnalysis {
   }
 }
 
-// function getSyntaxNodes(tokens: Token[]): SyntaxNode[] {
-//   const nonHidden = tokens.filter((x) => !is(x, NodeType.HIDDEN));
-//   collapseLineNodes(nonHidden);
+function getStatementIndent(statement: StatementNode): Integer | null {
+  if (statement.nodes.every((x) => is(x, NodeType.HIDDEN))) {
+    return null;
+  }
 
-//   return nonHidden as SyntaxNode[];
+  const whitespaceTokens = statement.nodes
+    .takeWhile((x) => is(x, NodeType.WHITESPACE) || is(x, NodeType.COMMENT))
+    .filter((x) => is(x, NodeType.WHITESPACE));
+
+  return whitespaceTokens.sum((x) => x.stop - x.start);
+}
+
+function getSyntaxNodes(nodes: Node[]): Node[] {
+  const nonHidden = nodes.filter((x) => !is(x, NodeType.HIDDEN));
+  collapseLineNodes(nonHidden);
+
+  return nonHidden;
+}
+
+function collapseLineNodes(nodes: Node[]): void {
+  if (nodes.length > 1 && is<ModifierNode>(nodes[0], NodeType.MODIFIER)) {
+    if (is<IdNode>(nodes[1], NodeType.ID) || is<OperatorNode>(nodes[1], NodeType.OPERATOR)) {
+      nodes.splice(0, 2, modifierIdNode(nodes[0], nodes[1]));
+    }
+  }
+
+  for (const operatorsOrder of operatorsOrders) {
+    if (operatorsOrder.operatorType === OperatorType.INVOKE) {
+      collapseInvoke(nodes);
+    }
+    for (const operators of operatorsOrder.operators) {
+      const operatorIndex = findOperatorIndex(
+        nodes,
+        operators,
+        operatorsOrder.operatorType,
+        operatorsOrder.recursiveType,
+      );
+      if (operatorIndex >= 0) {
+        collapseOperators(nodes, operatorsOrder.operatorType, operatorIndex);
+        collapseLineNodes(nodes);
+      }
+    }
+  }
+}
+
+function collapseInvoke(nodes: Node[]): void {
+  for (let i = 0; i < nodes.length; i++) {
+    const element = nodes[i];
+    if (is<GroupNode>(element, NodeType.GROUP) && i > 0) {
+      const prev = nodes[i - 1];
+      if (!is(prev, NodeType.OPERATOR)) {
+        nodes[i] = invokeNode(prev, element);
+        nodes.splice(i - 1, 1);
+        collapseInvoke(nodes);
+
+        return;
+      }
+    }
+  }
+}
+
+function findOperatorIndex(
+  nodes: Node[],
+  operators: String2[],
+  operatorType: OperatorType,
+  recursiveType: RecursiveType,
+): Integer {
+  for (let i = 0; i < nodes.length; i++) {
+    const index = recursiveType === RecursiveType.LEFT ? i : nodes.length - i - 1;
+
+    const operator = nodes[index];
+
+    if (is<OperatorNode>(operator, NodeType.OPERATOR) && operators.includes(operator.text)) {
+      const left = nodes[index - 1];
+      const right = nodes[index + 1];
+
+      if (operatorType === OperatorType.PREFIX) {
+        if (!is(right, NodeType.OPERATOR) && (index === 0 || is(left, NodeType.OPERATOR))) {
+          return index;
+        }
+      } else if (operatorType === OperatorType.POSTFIX) {
+        if (!is(left, NodeType.OPERATOR) && (index === nodes.length - 1 || is(right, NodeType.OPERATOR))) {
+          return index;
+        }
+      } else if (operatorType === OperatorType.INFIX) {
+        if (!is(left, NodeType.OPERATOR) && !is(right, NodeType.OPERATOR)) {
+          return index;
+        }
+      }
+    }
+  }
+
+  return -1;
+}
+
+function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIndex: Integer): void {
+  if (operatorIndex < 0) return;
+  const operator = nodes[operatorIndex];
+  if (!is<OperatorNode>(operator, NodeType.OPERATOR)) {
+    return;
+  }
+
+  if (operatorType === OperatorType.PREFIX) {
+    const right = nodes[operatorIndex + 1];
+
+    if (!right) {
+      throw new Error('Not implemented');
+    }
+
+    const prefix = prefixNode(operator, right);
+    nodes[operatorIndex] = prefix;
+    nodes.splice(operatorIndex + 1, 1);
+
+    return;
+  }
+
+  if (operatorType === OperatorType.POSTFIX) {
+    const left = nodes[operatorIndex - 1];
+
+    if (!left) {
+      throw new Error('Not implemented');
+    }
+
+    const postfix = postfixNode(operator, left);
+    nodes[operatorIndex] = postfix;
+    nodes.splice(operatorIndex - 1, 1);
+
+    return;
+  }
+
+  if (operatorType === OperatorType.INFIX) {
+    const left = nodes[operatorIndex - 1] as Node;
+    const right = nodes[operatorIndex + 1] as Node;
+
+    if (!left || !right) {
+      throw new Error('Not implemented');
+    }
+
+    const infix = handleInfix(operator, left, right);
+    nodes[operatorIndex] = infix;
+    nodes.splice(operatorIndex - 1, 1);
+    nodes.splice(operatorIndex, 1);
+  }
+}
+
+function handleInfix(operator: OperatorNode, left: Node, right: Node): InfixNode | MemberNode {
+  // fix complex condition
+  if (operator.text === '.' || operator.text === '::') {
+    if (is<IdNode>(right, NodeType.ID)) {
+      return memberNode(operator, left, right);
+    }
+    throw new Error('Not implemented');
+  }
+
+  return infixNode(operator, left, right);
+}
+
+// function collapseDeclarationNode(lineNodes: Node[], parent?: Node): DeclarationNode | null {
+//   if (lineNodes.length === 0) {
+//     return null;
+//   }
+
+//   if (lineNodes.length === 1) {
+//     if (is<DeclarationNode>(lineNodes[0], NodeType.DECLARATION)) {
+//       return lineNodes[0];
+//     }
+//     if (is<ModifierNode>(lineNodes[0], NodeType.MODIFIER)) {
+//       return declarationNode(lineNodes[0], null, null, null, null);
+//     }
+//     return parseDeclaration(null, lineNodes[0]);
+//   }
+
+//   if (lineNodes.length === 2 && is<ModifierNode>(lineNodes[0], NodeType.MODIFIER)) {
+//     return parseDeclaration(lineNodes[0], lineNodes[1]);
+//   }
+//   throw new Error('Not implemented');
 // }
 
-// function collapseLineNodes(nodes: Node[]): void {
-//   if (nodes.length > 1 && is<ModifierNode>(nodes[0], NodeType.MODIFIER)) {
-//     if (is<IdNode>(nodes[1], NodeType.ID) || is<OperatorNode>(nodes[1], NodeType.OPERATOR)) {
-//       nodes.splice(0, 2, modifierIdNode(nodes[0], nodes[1]));
-//     }
+// function parseDeclaration(modifier: ModifierNode | null, node: Node, parent?: Node): DeclarationNode | null {
+//   if (is<IdNode>(node, NodeType.ID)) {
+//     return declarationNode(modifier, node, null, null, null);
 //   }
 
-//   for (const operatorsOrder of operatorsOrders) {
-//     if (operatorsOrder.operatorType === OperatorType.INVOKE) {
-//       collapseInvoke(nodes);
-//     }
-//     for (const operators of operatorsOrder.operators) {
-//       const operatorIndex = findOperatorIndex(
-//         nodes,
-//         operators,
-//         operatorsOrder.operatorType,
-//         operatorsOrder.recursiveType,
-//       );
-//       if (operatorIndex >= 0) {
-//         collapseOperators(nodes, operatorsOrder.operatorType, operatorIndex);
-//         collapseLineNodes(nodes);
-//       }
-//     }
+//   if (is<InfixNode>(node, NodeType.INFIX) && node.operator.text === '=') {
+//     return parseAssignLeftDeclaration(modifier, node.left, node.right, parent);
 //   }
+//   return parseAssignLeftDeclaration(modifier, node, null, parent);
 // }
 
-// function collapseInvoke(nodes: Node[]): void {
-//   for (let i = 0; i < nodes.length; i++) {
-//     const element = nodes[i];
-//     if (is<GroupNode>(element, NodeType.ARRAY) && i > 0) {
-//       const prev = nodes[i - 1];
-//       if (!is(prev, NodeType.OPERATOR)) {
-//         nodes[i] = invokeNode(prev, element);
-//         nodes.splice(i - 1, 1);
-//         collapseInvoke(nodes);
-
-//         return;
-//       }
+// function parseAssignLeftDeclaration(
+//   modifier: ModifierNode | null,
+//   node: Node,
+//   value: Node | null,
+//   parent?: Node,
+// ): DeclarationNode | null {
+//   if (is<InfixNode>(node, NodeType.INFIX) && node.operator.text === ':') {
+//     if (is<InvokeNode>(node.left, NodeType.INVOKE) && is<IdNode>(node.left.instance, NodeType.ID)) {
+//       const parameters = node.left.array.parameters.map((x) => collapseDeclarationNode([x], parent));
+//       return declarationNode(modifier, node.left.instance, parameters, node.right, value);
 //     }
-//   }
-// }
-
-// function findOperatorIndex(
-//   nodes: Node[],
-//   operators: String2[],
-//   operatorType: OperatorType,
-//   recursiveType: RecursiveType,
-// ): Integer {
-//   for (let i = 0; i < nodes.length; i++) {
-//     const index = recursiveType === RecursiveType.LEFT ? i : nodes.length - i - 1;
-
-//     const operator = nodes[index];
-
-//     if (is<OperatorNode>(operator, NodeType.OPERATOR) && operators.includes(operator.text)) {
-//       const left = nodes[index - 1];
-//       const right = nodes[index + 1];
-
-//       if (operatorType === OperatorType.PREFIX) {
-//         if (!is(right, NodeType.OPERATOR) && (index === 0 || is(left, NodeType.OPERATOR))) {
-//           return index;
-//         }
-//       } else if (operatorType === OperatorType.POSTFIX) {
-//         if (!is(left, NodeType.OPERATOR) && (index === nodes.length - 1 || is(right, NodeType.OPERATOR))) {
-//           return index;
-//         }
-//       } else if (operatorType === OperatorType.INFIX) {
-//         if (!is(left, NodeType.OPERATOR) && !is(right, NodeType.OPERATOR)) {
-//           return index;
-//         }
-//       }
+//     if (is<IdNode>(node.left, NodeType.ID)) {
+//       return declarationNode(modifier, node.left, null, node.right, value);
 //     }
 //   }
 
-//   return -1;
-// }
-
-// function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIndex: Integer): void {
-//   if (operatorIndex < 0) return;
-//   const operator = nodes[operatorIndex];
-//   if (!is<OperatorNode>(operator, NodeType.OPERATOR)) {
-//     return;
+//   if (is<InvokeNode>(node, NodeType.INVOKE) && is<IdNode>(node.instance, NodeType.ID)) {
+//     const parameters = node.array.parameters.map((x) => collapseDeclarationNode([x], parent));
+//     return declarationNode(modifier, node.instance, parameters, null, value);
+//   }
+//   if (is<IdNode>(node, NodeType.ID)) {
+//     return declarationNode(modifier, node, null, null, value);
 //   }
 
-//   if (operatorType === OperatorType.PREFIX) {
-//     const right = nodes[operatorIndex + 1];
-
-//     if (!right) {
-//       throw new Error('Not implemented');
-//     }
-
-//     const prefix = prefixNode(operator, right);
-//     nodes[operatorIndex] = prefix;
-//     nodes.splice(operatorIndex + 1, 1);
-
-//     return;
-//   }
-
-//   if (operatorType === OperatorType.POSTFIX) {
-//     const left = nodes[operatorIndex - 1];
-
-//     if (!left) {
-//       throw new Error('Not implemented');
-//     }
-
-//     const postfix = postfixNode(operator, left);
-//     nodes[operatorIndex] = postfix;
-//     nodes.splice(operatorIndex - 1, 1);
-
-//     return;
-//   }
-
-//   if (operatorType === OperatorType.INFIX) {
-//     const left = nodes[operatorIndex - 1] as Node;
-//     const right = nodes[operatorIndex + 1] as Node;
-
-//     if (!left || !right) {
-//       throw new Error('Not implemented');
-//     }
-
-//     const infix = handleInfix(operator, left, right);
-//     nodes[operatorIndex] = infix;
-//     nodes.splice(operatorIndex - 1, 1);
-//     nodes.splice(operatorIndex, 1);
-//   }
+//   return null;
 // }
