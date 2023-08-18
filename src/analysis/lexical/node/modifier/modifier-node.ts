@@ -8,6 +8,7 @@ export interface ModifierNode extends Token {
 export function modifierNode(start: Integer, stop: Integer, text: String2): ModifierNode {
   return {
     $: NodeType.MODIFIER,
+    hidden: [],
     start,
     stop,
     text,

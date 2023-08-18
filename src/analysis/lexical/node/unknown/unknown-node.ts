@@ -9,6 +9,7 @@ export interface UnknownNode extends Token {
 export function unknownNode(start: Integer, stop: Integer, text: String2): UnknownNode {
   return {
     $: NodeType.UNKNOWN,
+    hidden: [],
     start,
     stop,
     text,

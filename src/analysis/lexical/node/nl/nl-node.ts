@@ -1,14 +1,15 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NodeType, Token } from '~/analysis/node';
+import { HiddenNode, NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
 
-export interface NlNode extends Token {
+export interface NlNode extends HiddenNode {
   $: NodeType.NL;
 }
 
 export function nlNode(start: Integer, stop: Integer, text: String2): NlNode {
   return {
     $: NodeType.NL,
+    hidden: [],
     start,
     stop,
     text,

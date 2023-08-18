@@ -11,6 +11,7 @@ export type OperatorNode = Token;
 export function operatorNode(start: Integer, stop: Integer, text: String2): OperatorNode {
   return {
     $: NodeType.OPERATOR,
+    hidden: [],
     start,
     stop,
     text,

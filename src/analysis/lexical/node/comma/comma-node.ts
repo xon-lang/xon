@@ -9,6 +9,7 @@ export interface CommaNode extends Token {
 export function commaNode(start: Integer, stop: Integer, text: String2): CommaNode {
   return {
     $: NodeType.COMMA,
+    hidden: [],
     start,
     stop,
     text,

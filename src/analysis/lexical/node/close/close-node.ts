@@ -9,6 +9,7 @@ export interface CloseNode extends Token {
 export function closeNode(start: Integer, stop: Integer, text: String2): CloseNode {
   return {
     $: NodeType.CLOSE,
+    hidden: [],
     start,
     stop,
     text,

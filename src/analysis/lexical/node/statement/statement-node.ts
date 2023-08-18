@@ -13,6 +13,7 @@ export function statementNode(nodes: Node[], body: BodyNode | null = null): Stat
 
   return {
     $: NodeType.STATEMENT,
+    hidden: [],
     start: first?.start ?? 0,
     stop: last?.stop ?? first?.stop ?? 0,
     nodes,

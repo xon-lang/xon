@@ -12,6 +12,7 @@ export interface IdNode extends Token {
 export function idNode(start: Integer, stop: Integer, text: String2): IdNode {
   return {
     $: NodeType.ID,
+    hidden: [],
     start,
     stop,
     text,

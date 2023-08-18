@@ -1,9 +1,9 @@
 import { is } from '~/analysis/is';
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { BodyNode } from '~/analysis/lexical/node/body/body-node';
 import { CloseNode } from '~/analysis/lexical/node/close/close-node';
 import { CommaNode } from '~/analysis/lexical/node/comma/comma-node';
 import { OpenNode, scanOpenNode } from '~/analysis/lexical/node/open/open-node';
+import { StatementNode, statementNode } from '~/analysis/lexical/node/statement/statement-node';
 import { Node, NodeType } from '~/analysis/node';
 import '~/extensions';
 
@@ -11,19 +11,40 @@ export interface GroupNode extends Node {
   $: NodeType.GROUP;
   open: OpenNode;
   close: CloseNode | null;
-  items: BodyNode[];
+  items: ItemNode[];
 }
 
-export function groupNode(open: OpenNode, close: CloseNode | null, items: BodyNode[]): GroupNode {
+export function groupNode(open: OpenNode, close: CloseNode | null, items: ItemNode[]): GroupNode {
   const lastStatement = items.lastOrNull()?.statements?.lastOrNull()?.nodes?.lastOrNull();
 
   return {
     $: NodeType.GROUP,
+    hidden: [],
     start: open.start,
     stop: close?.stop ?? lastStatement?.stop ?? open.stop,
     open,
     close,
     items,
+  };
+}
+
+export interface ItemNode extends Node {
+  $: NodeType.ITEM;
+  statements: StatementNode[];
+  comma?: CommaNode;
+}
+
+export function itemNode(statements: StatementNode[], comma?: CommaNode): ItemNode {
+  const firstStatement = statements.first().nodes.firstOrNull();
+  const lastStatement = statements.last().nodes.lastOrNull();
+
+  return {
+    $: NodeType.ITEM,
+    hidden: [],
+    start: firstStatement?.start ?? 0,
+    stop: lastStatement?.stop ?? 0,
+    statements,
+    comma,
   };
 }
 
@@ -35,26 +56,29 @@ export function scanGroupNode(analysis: LexicalAnalysis): GroupNode | null {
   }
 
   analysis.index = open.stop + 1;
-  const items: BodyNode[] = [];
+  const items: ItemNode[] = [];
 
   while (analysis.index < analysis.text.length) {
-    const body = analysis.body((node) => [NodeType.COMMA, NodeType.CLOSE].some((nodeType) => is(node, nodeType)));
-    const lastNode = body.statements.lastOrNull()?.nodes.lastOrNull();
+    // fix close pair should be the same type (] - is invalid, () - is valid
+    const body = analysis.body((node) => is(node, NodeType.COMMA) || is(node, NodeType.CLOSE));
+    const breakNode = body.breakNode;
 
-    if (lastNode && is<CommaNode>(lastNode, NodeType.COMMA)) {
-      items.push(body);
+    if (is<CommaNode>(breakNode, NodeType.COMMA)) {
+      items.push(itemNode(body.statements, breakNode));
       continue;
     }
 
-    if (lastNode && is<CloseNode>(lastNode, NodeType.CLOSE) && lastNode.text === open.text) {
-      body.statements.lastOrNull()?.nodes.removeLast();
+    if (is<CloseNode>(breakNode, NodeType.CLOSE)) {
+      // if (body.statements.length > 0 && body.statements[0].nodes.length > 0) {
+      items.push(itemNode(body.statements));
+      // }
 
-      if (body.statements.length > 0 && body.statements[0].nodes.length > 0) {
-        items.push(body);
-      }
-
-      return groupNode(open, lastNode, items);
+      return groupNode(open, breakNode, items);
     }
+  }
+
+  if (items.length === 0) {
+    items.push(itemNode([statementNode([])]));
   }
 
   return groupNode(open, null, items);

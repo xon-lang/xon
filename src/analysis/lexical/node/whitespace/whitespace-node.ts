@@ -1,12 +1,15 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NodeType, Token } from '~/analysis/node';
+import { HiddenNode, NodeType } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
 
-export type WhitespaceNode = Token;
+export interface WhitespaceNode extends HiddenNode {
+  $: NodeType.WHITESPACE;
+}
 
 export function whitespaceNode(start: Integer, stop: Integer, text: String2): WhitespaceNode {
   return {
     $: NodeType.WHITESPACE,
+    hidden: [],
     start,
     stop,
     text,
