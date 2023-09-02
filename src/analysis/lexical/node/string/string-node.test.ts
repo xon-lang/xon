@@ -1,4 +1,5 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
+import { StringNode } from '~/analysis/lexical/node/string/string-node';
 import { NodeType, Token } from '~/analysis/node';
 import { Source } from '~/source/source';
 
@@ -7,38 +8,34 @@ test('string', () => {
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
   const nodes = lexer.body().statements[0].nodes as Token[];
+  const tree = nodes[0] as StringNode;
 
   expect(nodes.length).toBe(1);
-  expect(nodes[0].text).toBe("'abc   def'");
-  expect(nodes[0].$).toBe(NodeType.STRING);
+  expect(tree.$).toBe(NodeType.STRING);
+  expect(tree.text).toBe(text);
 });
 
-// test('single line string', () => {
-//   const code = `'some string'`;
-//   const source = Source.fromText(code);
-//   const tree = syntaxNode(source) as StringNode;
+test('multiline string', () => {
+  const text = `'some\nmultiline\n\t\n\t\nstring\n'`;
+  const source = Source.fromText(text, null);
+  const lexer = new LexicalAnalysis(source.text);
+  const nodes = lexer.body().statements[0].nodes as Token[];
+  const tree = nodes[0] as StringNode;
 
-//   expect(tree.$).toBe(NodeType.STRING);
-//   expect(tree.text).toBe(code);
-// });
+  expect(tree.$).toBe(NodeType.STRING);
+  expect(tree.text).toBe(text);
+});
 
-// test('multiline string', () => {
-//   const code = `'some\nmultiline\n\t\n\t\nstring\n'`;
-//   const source = Source.fromText(code);
-//   const tree = syntaxNode(source) as StringNode;
+test('empty string', () => {
+  const text = "''";
+  const source = Source.fromText(text, null);
+  const lexer = new LexicalAnalysis(source.text);
+  const nodes = lexer.body().statements[0].nodes as Token[];
+  const tree = nodes[0] as StringNode;
 
-//   expect(tree.$).toBe(NodeType.STRING);
-//   expect(tree.text).toBe(code);
-// });
-
-// test('empty string', () => {
-//   const code = `''`;
-//   const source = Source.fromText(code);
-//   const tree = syntaxNode(source) as StringNode;
-
-//   expect(tree.$).toBe(NodeType.STRING);
-//   expect(tree.text).toBe(code);
-// });
+  expect(tree.$).toBe(NodeType.STRING);
+  expect(tree.text).toBe(text);
+});
 
 test('not closed', () => {
   const text = "'abc";
