@@ -1,4 +1,5 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
+import { InfixNode } from '~/analysis/lexical/node/infix/infix-node';
 import { NodeType } from '~/analysis/node';
 import { Source } from '~/source/source';
 
@@ -44,7 +45,7 @@ c`.trim();
   const scanner = new LexicalAnalysis(source.text);
   const body = scanner.body();
 
-  expect(body.statements.length).toBe(2);
+  expect(body.statements.length).toBe(3);
   expect(body.statements[0].nodes[0].$).toBe(NodeType.ID);
   expect(body.statements[0].nodes[2].$).toBe(NodeType.BODY);
   expect(body.statements[1].nodes[0].$).toBe(NodeType.ID);
@@ -57,10 +58,16 @@ test('multiple expression', () => {
   const body = scanner.body();
 
   expect(body.statements.length).toBe(4);
-  expect(body.statements[0].nodes[0].$).toBe(NodeType.NL);
-  expect(body.statements[1].nodes[0].$).toBe(NodeType.WHITESPACE);
-  expect(body.statements[2].nodes[0].$).toBe(NodeType.WHITESPACE);
-  expect(body.statements[3].nodes[0].$).toBe(NodeType.WHITESPACE);
+  expect(body.statements[0].hidden[0].$).toBe(NodeType.NL);
+
+  const statement1Node = body.statements[1].nodes[0] as InfixNode;
+  expect(statement1Node.left.hidden[0].$).toBe(NodeType.WHITESPACE);
+
+  const statement2Node = body.statements[2].nodes[0] as InfixNode;
+  expect(statement2Node.left.hidden[0].$).toBe(NodeType.WHITESPACE);
+
+  const statement3Node = body.statements[3].nodes[0] as InfixNode;
+  expect(statement3Node.left.hidden[0].$).toBe(NodeType.WHITESPACE);
 });
 
 // test('import and if', () => {

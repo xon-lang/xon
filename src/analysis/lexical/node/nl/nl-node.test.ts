@@ -41,11 +41,14 @@ test('lf cr', () => {
   const lexer = new LexicalAnalysis(source.text);
   const { statements } = lexer.body();
 
-  expect(statements.length).toBe(2);
+  expect(statements.length).toBe(3);
   expect(statements[0].hidden?.first().$).toBe(NodeType.NL);
   expect(statements[0].hidden?.first()?.text).toBe('\n');
+
   expect(statements[1].hidden?.first().$).toBe(NodeType.NL);
   expect(statements[1].hidden?.first()?.text).toBe('\r');
+
+  expect(statements[2].hidden.length).toBe(0);
 });
 
 test('several', () => {

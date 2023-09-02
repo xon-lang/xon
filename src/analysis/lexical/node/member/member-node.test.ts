@@ -1,91 +1,120 @@
+import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { IdNode } from '~/analysis/lexical/node/id/id-node';
+import { MemberNode } from '~/analysis/lexical/node/member/member-node';
 import { NodeType } from '~/analysis/node';
-import { syntaxNode } from '~/analysis/syntax/syntax-analysis';
 import { Source } from '~/source/source';
 
 test('abc.def', () => {
-  const code = 'abc.def';
-  const source = Source.fromText(code);
-  const tree = syntaxNode(source) as MemberNode;
+  const text = 'abc.def';
+  const source = Source.fromText(text, null);
+  const lexer = new LexicalAnalysis(source.text);
+  const nodes = lexer.body().statements[0].nodes;
+  const member = nodes[0] as MemberNode;
 
-  expect(tree.$).toBe(NodeType.MEMBER);
-  expect((tree.instance as IdNode).text).toBe('abc');
-  expect(tree.id.text).toBe('def');
+  expect(nodes.length).toBe(1);
+  expect(member.$).toBe(NodeType.MEMBER);
+  expect((member.instance as IdNode).text).toBe('abc');
+  expect(member.id.text).toBe('def');
 });
 
 test('meta property', () => {
-  const code = 'abc::def';
-  const source = Source.fromText(code);
-  const tree = syntaxNode(source) as MemberNode;
+  const text = 'abc::def';
+  const source = Source.fromText(text, null);
+  const lexer = new LexicalAnalysis(source.text);
+  const nodes = lexer.body().statements[0].nodes;
+  const member = nodes[0] as MemberNode;
 
-  expect(tree.$).toBe(NodeType.MEMBER);
-  expect(tree.instance.$).toBe(NodeType.ID);
-  expect((tree.instance as IdNode).text).toBe('abc');
-  expect(tree.operator.text).toBe('::');
-  expect(tree.id.text).toBe('def');
+  expect(nodes.length).toBe(1);
+
+  expect(member.$).toBe(NodeType.MEMBER);
+  expect(member.instance.$).toBe(NodeType.ID);
+  expect((member.instance as IdNode).text).toBe('abc');
+  expect(member.operator.text).toBe('::');
+  expect(member.id.text).toBe('def');
 });
 
 test('not safe', () => {
-  const code = 'abc.def';
-  const source = Source.fromText(code);
-  const tree = syntaxNode(source) as MemberNode;
+  const text = 'abc.def';
+  const source = Source.fromText(text, null);
+  const lexer = new LexicalAnalysis(source.text);
+  const nodes = lexer.body().statements[0].nodes;
+  const member = nodes[0] as MemberNode;
 
-  expect(tree.$).toBe(NodeType.MEMBER);
-  expect(tree.instance.$).toBe(NodeType.ID);
-  expect((tree.instance as IdNode).text).toBe('abc');
-  expect(tree.operator.text).toBe('.');
-  expect(tree.id.text).toBe('def');
+  expect(nodes.length).toBe(1);
+
+  expect(member.$).toBe(NodeType.MEMBER);
+  expect(member.instance.$).toBe(NodeType.ID);
+  expect((member.instance as IdNode).text).toBe('abc');
+  expect(member.operator.text).toBe('.');
+  expect(member.id.text).toBe('def');
 });
 
 test('left dot nl property', () => {
-  const code = 'abc.\\def';
-  const source = Source.fromText(code);
-  const tree = syntaxNode(source) as MemberNode;
+  const text = 'abc.\\def';
+  const source = Source.fromText(text, null);
+  const lexer = new LexicalAnalysis(source.text);
+  const nodes = lexer.body().statements[0].nodes;
+  const member = nodes[0] as MemberNode;
 
-  expect(tree.$).toBe(NodeType.MEMBER);
-  expect(tree.instance.$).toBe(NodeType.ID);
-  expect((tree.instance as IdNode).text).toBe('abc');
-  expect(tree.operator.text).toBe('.');
-  expect(tree.id.text).toBe('def');
+  expect(nodes.length).toBe(1);
+
+  expect(member.$).toBe(NodeType.MEMBER);
+  expect(member.instance.$).toBe(NodeType.ID);
+  expect((member.instance as IdNode).text).toBe('abc');
+  expect(member.operator.text).toBe('.');
+  expect(member.id.text).toBe('def');
 });
 
 test('left nl dot property', () => {
-  const code = 'abc\\.def';
-  const source = Source.fromText(code);
-  const tree = syntaxNode(source) as MemberNode;
+  const text = 'abc\\.def';
+  const source = Source.fromText(text, null);
+  const lexer = new LexicalAnalysis(source.text);
+  const nodes = lexer.body().statements[0].nodes;
+  const member = nodes[0] as MemberNode;
 
-  expect(tree.$).toBe(NodeType.MEMBER);
-  expect(tree.instance.$).toBe(NodeType.ID);
-  expect((tree.instance as IdNode).text).toBe('abc');
-  expect(tree.operator.text).toBe('.');
-  expect(tree.id.text).toBe('def');
+  expect(nodes.length).toBe(1);
+
+  expect(member.$).toBe(NodeType.MEMBER);
+  expect(member.instance.$).toBe(NodeType.ID);
+  expect((member.instance as IdNode).text).toBe('abc');
+  expect(member.operator.text).toBe('.');
+  expect(member.id.text).toBe('def');
 });
 
 test('left nl dot nl property', () => {
-  const code = 'abc\\.\\def';
-  const source = Source.fromText(code);
-  const tree = syntaxNode(source) as MemberNode;
+  const text = 'abc\\.\\def';
+  const source = Source.fromText(text, null);
+  const lexer = new LexicalAnalysis(source.text);
+  const nodes = lexer.body().statements[0].nodes;
+  const member = nodes[0] as MemberNode;
 
-  expect(tree.$).toBe(NodeType.MEMBER);
-  expect(tree.instance.$).toBe(NodeType.ID);
-  expect((tree.instance as IdNode).text).toBe('abc');
-  expect(tree.operator.text).toBe('.');
-  expect(tree.id.text).toBe('def');
+  expect(nodes.length).toBe(1);
+
+  expect(member.$).toBe(NodeType.MEMBER);
+  expect(member.instance.$).toBe(NodeType.ID);
+  expect((member.instance as IdNode).text).toBe('abc');
+  expect(member.operator.text).toBe('.');
+  expect(member.id.text).toBe('def');
 });
 
 test('members chain', () => {
-  const code = `
+  const text = `
 this.statements \
 .abc \
   .def \
     .ghi \
       .jkl \
   `.trim();
-  const source = Source.fromText(code);
-  const tree = syntaxNode(source) as MemberNode;
 
-  expect(tree.$).toBe(NodeType.MEMBER);
-  expect(tree.instance.$).toBe(NodeType.MEMBER);
-  expect(tree.operator.text).toBe('.');
-  expect(tree.id.text).toBe('jkl');
+  const source = Source.fromText(text, null);
+  const lexer = new LexicalAnalysis(source.text);
+  const nodes = lexer.body().statements[0].nodes;
+  const member = nodes[0] as MemberNode;
+
+  expect(nodes.length).toBe(1);
+
+  expect(member.$).toBe(NodeType.MEMBER);
+  expect(member.instance.$).toBe(NodeType.MEMBER);
+  expect(member.operator.text).toBe('.');
+  expect(member.id.text).toBe('jkl');
 });

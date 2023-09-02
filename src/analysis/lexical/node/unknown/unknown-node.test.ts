@@ -8,8 +8,10 @@ test('unknown 1', () => {
   const lexer = new LexicalAnalysis(source.text);
   const nodes = lexer.body().statements[0].nodes as Token[];
 
-  expect(nodes.length).toBe(7);
-  expect(nodes[2].text).toBe('§');
+  expect(nodes.length).toBe(6);
+  expect(nodes[1].text).toBe('§');
+  expect(nodes[1].hidden.length).toBe(1);
+  expect(nodes[1].hidden[0].text).toBe(' ');
 });
 
 test('unknown 2', () => {

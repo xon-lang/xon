@@ -19,15 +19,17 @@ test('several id', () => {
   const lexer = new LexicalAnalysis(source.text);
   const tokens = lexer.body().statements[0].nodes as Token[];
 
-  expect(tokens.length).toBe(5);
+  expect(tokens.length).toBe(3);
   expect(tokens[0].text).toBe('abc');
   expect(tokens[0].$).toBe(NodeType.ID);
-  expect(tokens[1].text).toBe(' ');
-  expect(tokens[1].$).toBe(NodeType.WHITESPACE);
-  expect(tokens[2].text).toBe('edf_');
+
+  expect(tokens[1].hidden[0].text).toBe(' ');
+  expect(tokens[1].hidden[0].$).toBe(NodeType.WHITESPACE);
+  expect(tokens[1].text).toBe('edf_');
+  expect(tokens[1].$).toBe(NodeType.ID);
+
+  expect(tokens[2].hidden[0].text).toBe('    ');
+  expect(tokens[2].hidden[0].$).toBe(NodeType.WHITESPACE);
+  expect(tokens[2].text).toBe('_ghi1_23');
   expect(tokens[2].$).toBe(NodeType.ID);
-  expect(tokens[3].text).toBe('    ');
-  expect(tokens[3].$).toBe(NodeType.WHITESPACE);
-  expect(tokens[4].text).toBe('_ghi1_23');
-  expect(tokens[4].$).toBe(NodeType.ID);
 });

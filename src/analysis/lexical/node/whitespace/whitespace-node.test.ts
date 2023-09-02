@@ -6,9 +6,12 @@ test('whitespace', () => {
   const text = '    ';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
-  const nodes = lexer.body().statements[0].nodes as Token[];
+  const statements = lexer.body().statements;
+  const nodes = statements[0].nodes as Token[];
 
-  expect(nodes.length).toBe(1);
-  expect(nodes[0].text).toBe('    ');
-  expect(nodes[0].$).toBe(NodeType.WHITESPACE);
+  expect(statements.length).toBe(1);
+  expect(statements[0].hidden.length).toBe(1);
+  expect(statements[0].hidden[0].text).toBe('    ');
+  expect(statements[0].hidden[0].$).toBe(NodeType.WHITESPACE);
+  expect(nodes.length).toBe(0);
 });
