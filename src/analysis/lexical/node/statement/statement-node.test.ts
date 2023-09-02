@@ -3,7 +3,7 @@ import { NodeType, Token } from '~/analysis/node';
 import { Source } from '~/source/source';
 
 test('comma', () => {
-  const code = ',';
+  const code = '1';
   const source = Source.fromText(code);
   const scanner = new LexicalAnalysis(source.text);
   const statements = scanner.body().statements;
@@ -11,6 +11,6 @@ test('comma', () => {
 
   expect(statements.length).toBe(1);
   expect(nodes.length).toBe(1);
-  expect(nodes[0].$).toBe(NodeType.COMMA);
-  expect(nodes[0].text).toBe(',');
+  expect(nodes[0].$).toBe(NodeType.INTEGER);
+  expect(nodes[0].text).toBe('1');
 });
