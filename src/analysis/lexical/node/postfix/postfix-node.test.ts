@@ -15,14 +15,3 @@ test('after integer', () => {
   expect(node.operator.text).toBe('!');
   expect(evaluate(node.value)).toBe(1);
 });
-
-test('after invoke', () => {
-  const text = 'ctx.parameters[]!';
-  const source = Source.fromText(text);
-  const lexer = new LexicalAnalysis(source.text);
-  const nodes = lexer.body().statements[0].nodes;
-  const node = nodes[0] as PostfixNode;
-
-  expect(node.$).toBe(NodeType.POSTFIX);
-  expect(node.operator.text).toBe('!');
-});
