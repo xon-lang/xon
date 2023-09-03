@@ -178,11 +178,12 @@ function getSyntaxNodes(nodes: Node[]): Node[] {
 }
 
 function collapseLineNodes(nodes: Node[]): void {
-  if (nodes.length > 1 && is<ModifierNode>(nodes[0], NodeType.MODIFIER)) {
-    if (is<IdNode>(nodes[1], NodeType.ID) || is<OperatorNode>(nodes[1], NodeType.OPERATOR)) {
-      nodes.splice(0, 2, modifierIdNode(nodes[0], nodes[1]));
-    }
-  }
+  // todo: check if needed
+  // if (nodes.length > 1 && is<ModifierNode>(nodes[0], NodeType.MODIFIER)) {
+  //   if (is<IdNode>(nodes[1], NodeType.ID) || is<OperatorNode>(nodes[1], NodeType.OPERATOR)) {
+  //     nodes.splice(0, 2, modifierIdNode(nodes[0], nodes[1]));
+  //   }
+  // }
 
   for (const operatorsOrder of operatorsOrders) {
     if (operatorsOrder.operatorType === OperatorType.INVOKE) {

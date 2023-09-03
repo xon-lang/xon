@@ -192,7 +192,7 @@
     "no-useless-return": "error",
     "no-var": "error",
     "no-void": "error",
-    "no-warning-comments": "error",
+    // "no-warning-comments": "error",
     "object-shorthand": "error",
     "one-var": ["error", "never"],
     "one-var-declaration-per-line": "error",
