@@ -1,12 +1,12 @@
 import { is } from '~/analysis/is';
-import { GroupNode } from '~/analysis/lexical/node/group/group-node';
-import { IdNode } from '~/analysis/lexical/node/id/id-node';
-import { InfixNode } from '~/analysis/lexical/node/infix/infix-node';
-import { IntegerNode } from '~/analysis/lexical/node/integer/integer-node';
-import { PrefixNode } from '~/analysis/lexical/node/prefix/prefix-node';
-import { StringNode } from '~/analysis/lexical/node/string/string-node';
 import { Node, NodeType } from '~/analysis/node';
 import { String2, Unknown2 } from '~/lib/core';
+import { GroupNode } from '~/node/group/group-node';
+import { IdNode } from '~/node/id/id-node';
+import { InfixNode } from '~/node/infix/infix-node';
+import { IntegerNode } from '~/node/integer/integer-node';
+import { PrefixNode } from '~/node/prefix/prefix-node';
+import { StringNode } from '~/node/string/string-node';
 
 export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);

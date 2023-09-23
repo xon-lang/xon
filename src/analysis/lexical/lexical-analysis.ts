@@ -1,28 +1,28 @@
 /* eslint-disable max-lines */
 import { is } from '~/analysis/is';
-import { BodyNode, bodyNode } from '~/analysis/lexical/node/body/body-node';
-import { scanCloseNode } from '~/analysis/lexical/node/close/close-node';
-import { scanCommaNode } from '~/analysis/lexical/node/comma/comma-node';
-import { GroupNode, scanGroupNode } from '~/analysis/lexical/node/group/group-node';
-import { IdNode, scanIdNode } from '~/analysis/lexical/node/id/id-node';
-import { InfixNode, infixNode } from '~/analysis/lexical/node/infix/infix-node';
-import { scanIntegerNode } from '~/analysis/lexical/node/integer/integer-node';
-import { invokeNode } from '~/analysis/lexical/node/invoke/invoke-node';
-import { JoiningNode, scanJoiningNode } from '~/analysis/lexical/node/joining/joining-node';
-import { MemberNode, memberNode } from '~/analysis/lexical/node/member/member-node';
-import { modifierIdNode } from '~/analysis/lexical/node/modifier-id/modifier-id-node';
-import { ModifierNode } from '~/analysis/lexical/node/modifier/modifier-node';
-import { NlNode, scanNlNode } from '~/analysis/lexical/node/nl/nl-node';
-import { OperatorNode, scanOperatorNode } from '~/analysis/lexical/node/operator/operator-node';
-import { postfixNode } from '~/analysis/lexical/node/postfix/postfix-node';
-import { prefixNode } from '~/analysis/lexical/node/prefix/prefix-node';
-import { statementNode } from '~/analysis/lexical/node/statement/statement-node';
-import { scanStringNode } from '~/analysis/lexical/node/string/string-node';
-import { scanUnknownNode } from '~/analysis/lexical/node/unknown/unknown-node';
-import { WhitespaceNode, scanWhitespaceNode } from '~/analysis/lexical/node/whitespace/whitespace-node';
 import { OperatorType, RecursiveType, operatorsOrders } from '~/analysis/lexical/operators';
 import { HiddenNode, Node, NodeType } from '~/analysis/node';
 import { Boolean2, Integer, String2 } from '~/lib/core';
+import { BodyNode, bodyNode } from '~/node/body/body-node';
+import { scanCloseNode } from '~/node/close/close-node';
+import { scanCommaNode } from '~/node/comma/comma-node';
+import { GroupNode, scanGroupNode } from '~/node/group/group-node';
+import { IdNode, scanIdNode } from '~/node/id/id-node';
+import { InfixNode, infixNode } from '~/node/infix/infix-node';
+import { scanIntegerNode } from '~/node/integer/integer-node';
+import { invokeNode } from '~/node/invoke/invoke-node';
+import { JoiningNode, scanJoiningNode } from '~/node/joining/joining-node';
+import { MemberNode, memberNode } from '~/node/member/member-node';
+import { modifierIdNode } from '~/node/modifier-id/modifier-id-node';
+import { ModifierNode } from '~/node/modifier/modifier-node';
+import { NlNode, scanNlNode } from '~/node/nl/nl-node';
+import { OperatorNode, scanOperatorNode } from '~/node/operator/operator-node';
+import { postfixNode } from '~/node/postfix/postfix-node';
+import { prefixNode } from '~/node/prefix/prefix-node';
+import { statementNode } from '~/node/statement/statement-node';
+import { scanStringNode } from '~/node/string/string-node';
+import { scanUnknownNode } from '~/node/unknown/unknown-node';
+import { WhitespaceNode, scanWhitespaceNode } from '~/node/whitespace/whitespace-node';
 
 type NodeScanFunction = (analysis: LexicalAnalysis) => Node | null;
 
