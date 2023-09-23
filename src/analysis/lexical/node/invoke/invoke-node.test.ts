@@ -68,7 +68,7 @@ test('object method', () => {
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
-  expect(node.group.items.length).toBe(0);
+  expect(node.group.items.length).toBe(1);
   expect(node.instance.$).toBe(NodeType.MEMBER);
   const { operator, instance, id } = node.instance as MemberNode;
   expect(operator.text).toBe('.');

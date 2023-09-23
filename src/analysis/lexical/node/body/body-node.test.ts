@@ -10,7 +10,7 @@ test('single expression', () => {
   const body = scanner.body();
 
   expect(body.statements.length).toBe(2);
-  expect(body.statements[1].nodes.length).toBe(6);
+  expect(body.statements[0].nodes.length).toBe(0);
   // expect((infix.left as IdNode).text).toBe('a');
   // expect(infix.operator.text).toBe('=');
   // expect((infix.right as IntegerNode).text).toBe('1');
@@ -22,8 +22,8 @@ test('debug 1', () => {
   const scanner = new LexicalAnalysis(source.text);
   const body = scanner.body();
 
-  expect(body.statements.length).toBe(1);
-  expect(body.statements[0].nodes.last().$).toBe(NodeType.BODY);
+  expect(body.statements.length).toBe(3);
+  expect(body.statements[0].nodes[0].$).toBe(NodeType.INFIX);
 });
 
 test('debug 2', () => {
@@ -32,9 +32,9 @@ test('debug 2', () => {
   const scanner = new LexicalAnalysis(source.text);
   const body = scanner.body();
 
-  expect(body.statements.length).toBe(2);
-  expect(body.statements[0].nodes[0].$).toBe(NodeType.ID);
-  expect(body.statements[1].nodes[0].$).toBe(NodeType.ID);
+  expect(body.statements.length).toBe(3);
+  expect(body.statements[0].nodes[0].$).toBe(NodeType.INFIX);
+  expect(body.statements[1].nodes[0].$).toBe(NodeType.INFIX);
 });
 
 test('debug 3', () => {
@@ -46,8 +46,11 @@ c`.trim();
   const body = scanner.body();
 
   expect(body.statements.length).toBe(3);
+  expect(body.statements[0].nodes.length).toBe(1);
   expect(body.statements[0].nodes[0].$).toBe(NodeType.ID);
-  expect(body.statements[0].nodes[2].$).toBe(NodeType.BODY);
+  expect(body.statements[0].body?.$).toBe(NodeType.BODY);
+
+  expect(body.statements[1].nodes.length).toBe(1);
   expect(body.statements[1].nodes[0].$).toBe(NodeType.ID);
 });
 
