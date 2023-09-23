@@ -1,5 +1,5 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NonHiddenTokenNode, TokenNode } from '~/analysis/node';
+import { NonHiddenTokenNode, TokenNode } from '~/node/node';
 import { Source } from '~/source/source';
 
 test('unknown 1', () => {

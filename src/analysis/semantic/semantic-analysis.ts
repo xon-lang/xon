@@ -1,11 +1,11 @@
 import { Analysis } from '~/analysis/analysis';
 import { is } from '~/analysis/is';
-import { NodeType, TokenNode } from '~/analysis/node';
 import { DataType } from '~/analysis/semantic/data-type';
 import { Scope } from '~/analysis/semantic/scope';
 import { SemanticNode } from '~/analysis/semantic/semantic-node';
 import { LadderNode } from '~/analysis/syntax/node/ladder/ladder-node';
 import { SyntaxNode } from '~/analysis/syntax/syntax-node';
+import { NodeType, TokenNode } from '~/node/node';
 
 export class SemanticAnalysis implements Analysis {
   public constructor(public syntaxNodes: TokenNode[]) {}

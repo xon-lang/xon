@@ -1,6 +1,6 @@
-import { Node, NodeType, TokenNode } from '~/analysis/node';
 import { IdNode } from '~/node/id/id-node';
 import { ModifierNode } from '~/node/modifier/modifier-node';
+import { Node, NodeType, TokenNode } from '~/node/node';
 import { OperatorNode } from '~/node/operator/operator-node';
 
 export interface DeclarationNode extends Node {

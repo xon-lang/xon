@@ -1,5 +1,5 @@
-import { NodeType, NonHiddenTokenNode } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
+import { NodeType, NonHiddenTokenNode } from '~/node/node';
 
 export interface KeywordNode extends NonHiddenTokenNode {
   $: NodeType.KEYWORD;

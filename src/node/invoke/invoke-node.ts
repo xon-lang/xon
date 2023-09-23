@@ -1,5 +1,5 @@
-import { Node, NodeType } from '~/analysis/node';
 import { GroupNode } from '~/node/group/group-node';
+import { Node, NodeType } from '~/node/node';
 
 export interface InvokeNode extends Node {
   $: NodeType.INVOKE;

@@ -1,10 +1,10 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NodeType } from '~/analysis/node';
 import { GroupNode } from '~/node/group/group-node';
 import { IdNode } from '~/node/id/id-node';
 import { IntegerNode } from '~/node/integer/integer-node';
 import { InvokeNode } from '~/node/invoke/invoke-node';
 import { MemberNode } from '~/node/member/member-node';
+import { NodeType } from '~/node/node';
 import { Source } from '~/source/source';
 
 test('method call', () => {

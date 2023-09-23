@@ -1,5 +1,5 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NodeType, TokenNode } from '~/analysis/node';
+import { NodeType, TokenNode } from '~/node/node';
 import { Source } from '~/source/source';
 
 test('whitespace', () => {

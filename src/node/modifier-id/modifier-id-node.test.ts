@@ -1,6 +1,6 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NodeType } from '~/analysis/node';
 import { ModifierIdNode } from '~/node/modifier-id/modifier-id-node';
+import { NodeType } from '~/node/node';
 import { Source } from '~/source/source';
 
 test('prefix modifier', () => {

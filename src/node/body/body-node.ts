@@ -1,4 +1,4 @@
-import { Node, NodeType } from '~/analysis/node';
+import { Node, NodeType } from '~/node/node';
 import { StatementNode } from '~/node/statement/statement-node';
 
 export interface BodyNode extends Node {

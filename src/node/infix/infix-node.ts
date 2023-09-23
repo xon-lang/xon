@@ -1,4 +1,4 @@
-import { Node, NodeType } from '~/analysis/node';
+import { Node, NodeType } from '~/node/node';
 import { OperatorNode } from '~/node/operator/operator-node';
 
 export interface InfixNode extends Node {

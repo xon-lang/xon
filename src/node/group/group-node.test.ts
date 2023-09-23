@@ -1,8 +1,8 @@
 import { is } from '~/analysis/is';
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NodeType, NonHiddenTokenNode } from '~/analysis/node';
 import { GroupNode } from '~/node/group/group-node';
 import { IntegerNode } from '~/node/integer/integer-node';
+import { NodeType, NonHiddenTokenNode } from '~/node/node';
 import { WhitespaceNode } from '~/node/whitespace/whitespace-node';
 import { Source } from '~/source/source';
 

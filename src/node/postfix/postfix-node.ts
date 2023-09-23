@@ -1,4 +1,4 @@
-import { Node, NodeType, SyntaxNode } from '~/analysis/node';
+import { Node, NodeType, SyntaxNode } from '~/node/node';
 import { OperatorNode } from '~/node/operator/operator-node';
 
 export interface PostfixNode extends SyntaxNode {

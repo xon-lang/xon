@@ -1,6 +1,6 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NodeType, NonHiddenTokenNode } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
+import { NodeType, NonHiddenTokenNode } from '~/node/node';
 import { UnknownNode } from '~/node/unknown/unknown-node';
 
 export interface StringNode extends NonHiddenTokenNode {

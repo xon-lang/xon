@@ -1,5 +1,5 @@
 import { is } from '~/analysis/is';
-import { NodeType, TokenNode } from '~/analysis/node';
+import { NodeType, TokenNode } from '~/node/node';
 
 export function splitNodes(nodes: TokenNode[], splitNodeType: NodeType, saveSplitNode = false): TokenNode[][] {
   const result: TokenNode[][] = [];

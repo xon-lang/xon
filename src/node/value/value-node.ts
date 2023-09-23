@@ -1,5 +1,5 @@
-import { Node, NodeType, TokenNode } from '~/analysis/node';
 import { DataType } from '~/analysis/semantic/data-type';
+import { Node, NodeType, TokenNode } from '~/node/node';
 
 export interface ValueNode extends Node {
   $: NodeType.VALUE;

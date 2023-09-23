@@ -1,9 +1,9 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NodeType } from '~/analysis/node';
 import { GroupNode } from '~/node/group/group-node';
 import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { InvokeNode } from '~/node/invoke/invoke-node';
+import { NodeType } from '~/node/node';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
 

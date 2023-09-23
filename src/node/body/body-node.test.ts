@@ -1,6 +1,6 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NodeType, NonHiddenTokenNode } from '~/analysis/node';
 import { InfixNode } from '~/node/infix/infix-node';
+import { NodeType, NonHiddenTokenNode } from '~/node/node';
 import { Source } from '~/source/source';
 
 test('single expression', () => {

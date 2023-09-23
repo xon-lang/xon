@@ -1,10 +1,10 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { operatorsOrders } from '~/analysis/lexical/operators';
-import { NodeType, NonHiddenTokenNode } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
 import { IdNode, scanIdNode } from '~/node/id/id-node';
 import { KeywordNode } from '~/node/keyword/keyword-node';
 import { ModifierNode } from '~/node/modifier/modifier-node';
+import { NodeType, NonHiddenTokenNode } from '~/node/node';
 
 export interface OperatorNode extends NonHiddenTokenNode {
   $: NodeType.OPERATOR;
