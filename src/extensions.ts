@@ -56,7 +56,7 @@ Array.prototype.removeLast = function <T>(): T[] {
 
 // Array aggregators
 Array.prototype.sum = function <T>(select: (value: T, index: number, obj: T[]) => Number2): Number2 {
-  return this.reduce((val, sum, index, array) => sum + select(val, index, array), 0);
+  return this.reduce((sum, val, index, array) => sum + select(val, index, array), 0);
 };
 
 // String
