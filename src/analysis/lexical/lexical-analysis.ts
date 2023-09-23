@@ -1,5 +1,4 @@
 /* eslint-disable max-lines */
-import { is } from '~/analysis/is';
 import { OperatorType, RecursiveType, operatorsOrders } from '~/analysis/lexical/operators';
 import { Boolean2, Integer, String2 } from '~/lib/core';
 import { BodyNode, bodyNode } from '~/node/body/body-node';
@@ -15,7 +14,7 @@ import { MemberNode, memberNode } from '~/node/member/member-node';
 import { modifierIdNode } from '~/node/modifier-id/modifier-id-node';
 import { ModifierNode } from '~/node/modifier/modifier-node';
 import { NlNode, scanNlNode } from '~/node/nl/nl-node';
-import { HiddenTokenNode, Node, NodeType, NonHiddenTokenNode } from '~/node/node';
+import { HiddenTokenNode, Node, NodeType, NonHiddenTokenNode, is } from '~/node/node';
 import { OperatorNode, scanOperatorNode } from '~/node/operator/operator-node';
 import { postfixNode } from '~/node/postfix/postfix-node';
 import { prefixNode } from '~/node/prefix/prefix-node';

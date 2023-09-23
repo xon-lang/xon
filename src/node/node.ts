@@ -61,3 +61,7 @@ export enum NodeType {
   TYPE = 'TYPE',
   VALUE = 'VALUE',
 }
+
+export function is<T extends Node = Node>(node: Node | null | undefined, nodeType: NodeType): node is T {
+  return node?.$ === nodeType;
+}

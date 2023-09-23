@@ -1,10 +1,10 @@
-import { is } from '~/analysis/is';
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { GroupNode } from '~/node/group/group-node';
 import { IntegerNode } from '~/node/integer/integer-node';
 import { NodeType, NonHiddenTokenNode } from '~/node/node';
 import { WhitespaceNode } from '~/node/whitespace/whitespace-node';
 import { Source } from '~/source/source';
+import { is } from '../node';
 
 test('empty closed', () => {
   const text = '[]';

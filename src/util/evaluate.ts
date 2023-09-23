@@ -1,10 +1,9 @@
-import { is } from '~/analysis/is';
 import { String2, Unknown2 } from '~/lib/core';
 import { GroupNode } from '~/node/group/group-node';
 import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { IntegerNode } from '~/node/integer/integer-node';
-import { Node, NodeType } from '~/node/node';
+import { Node, NodeType, is } from '~/node/node';
 import { PrefixNode } from '~/node/prefix/prefix-node';
 import { StringNode } from '~/node/string/string-node';
 

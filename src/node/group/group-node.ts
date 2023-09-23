@@ -1,4 +1,3 @@
-import { is } from '~/analysis/is';
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import '~/extensions';
 import { CloseNode } from '~/node/close/close-node';
@@ -6,6 +5,7 @@ import { CommaNode } from '~/node/comma/comma-node';
 import { Node, NodeType } from '~/node/node';
 import { OpenNode, scanOpenNode } from '~/node/open/open-node';
 import { StatementNode, statementNode } from '~/node/statement/statement-node';
+import { is } from '../node';
 
 export interface GroupNode extends Node {
   $: NodeType.GROUP;
