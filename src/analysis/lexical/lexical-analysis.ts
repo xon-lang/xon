@@ -16,7 +16,7 @@ import { NlNode, scanNlNode } from '~/analysis/lexical/node/nl/nl-node';
 import { OperatorNode, scanOperatorNode } from '~/analysis/lexical/node/operator/operator-node';
 import { postfixNode } from '~/analysis/lexical/node/postfix/postfix-node';
 import { prefixNode } from '~/analysis/lexical/node/prefix/prefix-node';
-import { StatementNode, statementNode } from '~/analysis/lexical/node/statement/statement-node';
+import { statementNode } from '~/analysis/lexical/node/statement/statement-node';
 import { scanStringNode } from '~/analysis/lexical/node/string/string-node';
 import { scanUnknownNode } from '~/analysis/lexical/node/unknown/unknown-node';
 import { WhitespaceNode, scanWhitespaceNode } from '~/analysis/lexical/node/whitespace/whitespace-node';
@@ -109,10 +109,10 @@ export class LexicalAnalysis {
     nodes: Node[],
     hidden: HiddenNode[],
   ): void {
+    const indent = getStatementIndent(nodes);
     const syntaxNodes = getSyntaxNodes(nodes);
     const statement = statementNode(syntaxNodes);
     statement.hidden = hidden;
-    const indent = getStatementIndent(statement);
 
     // if first statement
     if (indentBody.length === 0) {
@@ -124,7 +124,7 @@ export class LexicalAnalysis {
     const lastIndentBody = indentBody.last();
 
     // if no nodes
-    if (nodes.length === 0 || indent === null) {
+    if (indent === null) {
       lastIndentBody.body.statements.push(statement);
 
       return;
@@ -150,24 +150,20 @@ export class LexicalAnalysis {
     }
 
     // remove between current and parent bodies cuz we switch to existing body and never return to previous
-    indentBody.splice(foundIndentBodyIndex + 1);
     const foundIndentBody = indentBody[foundIndentBodyIndex];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    foundIndentBody.indent = Math.min(foundIndentBody.indent!, indent);
+    indentBody.splice(foundIndentBodyIndex + 1);
+    foundIndentBody.indent = Math.min(foundIndentBody.indent ?? indent, indent);
     foundIndentBody.body.statements.push(statement);
   }
 }
 
-function getStatementIndent(statement: StatementNode): Integer | null {
-  if (statement.nodes.every((x) => is(x, NodeType.HIDDEN))) {
-    return null;
-  }
-
-  const whitespaceTokens = statement.nodes
-    .takeWhile((x) => is(x, NodeType.WHITESPACE) || is(x, NodeType.COMMENT))
+function getStatementIndent(nodes: Node[]): Integer | null {
+  const whitespaceTokens = nodes
+    .firstOrNull()
+    ?.hidden.takeWhile((x) => is(x, NodeType.WHITESPACE) || is(x, NodeType.COMMENT))
     .filter((x) => is(x, NodeType.WHITESPACE));
 
-  return whitespaceTokens.sum((x) => x.stop - x.start);
+  return whitespaceTokens?.sum((x) => x.stop - x.start + 1) ?? null;
 }
 
 function getSyntaxNodes(nodes: Node[]): Node[] {

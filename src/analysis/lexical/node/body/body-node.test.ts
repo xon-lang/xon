@@ -22,8 +22,11 @@ test('debug 1', () => {
   const scanner = new LexicalAnalysis(source.text);
   const body = scanner.body();
 
-  expect(body.statements.length).toBe(3);
+  expect(body.statements.length).toBe(1);
   expect(body.statements[0].nodes[0].$).toBe(NodeType.INFIX);
+  expect(body.statements[0].body?.statements.length).toBe(2);
+  expect(body.statements[0].body?.statements[0].nodes[0].$).toBe(NodeType.INFIX);
+  expect(body.statements[0].body?.statements[1].nodes[0].$).toBe(NodeType.PREFIX);
 });
 
 test('debug 2', () => {
@@ -45,7 +48,7 @@ c`.trim();
   const scanner = new LexicalAnalysis(source.text);
   const body = scanner.body();
 
-  expect(body.statements.length).toBe(3);
+  expect(body.statements.length).toBe(2);
   expect(body.statements[0].nodes.length).toBe(1);
   expect(body.statements[0].nodes[0].$).toBe(NodeType.ID);
   expect(body.statements[0].body?.$).toBe(NodeType.BODY);
