@@ -12,7 +12,6 @@ export function bodyNode(statements: StatementNode[]): BodyNode {
 
   return {
     $: NodeType.BODY,
-    hidden: [],
     start: first?.start ?? 0,
     stop: last?.stop ?? first?.stop ?? 0,
     statements,

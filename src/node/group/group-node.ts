@@ -19,7 +19,6 @@ export function groupNode(open: OpenNode, close: CloseNode | null, items: ItemNo
 
   return {
     $: NodeType.GROUP,
-    hidden: [],
     start: open.start,
     stop: close?.stop ?? lastStatement?.stop ?? open.stop,
     open,
@@ -40,7 +39,6 @@ export function itemNode(statements: StatementNode[], comma?: CommaNode): ItemNo
 
   return {
     $: NodeType.ITEM,
-    hidden: [],
     start: firstStatement?.start ?? 0,
     stop: lastStatement?.stop ?? 0,
     statements,

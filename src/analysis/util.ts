@@ -1,9 +1,9 @@
 import { is } from '~/analysis/is';
-import { NodeType, Token } from '~/analysis/node';
+import { NodeType, TokenNode } from '~/analysis/node';
 
-export function splitNodes(nodes: Token[], splitNodeType: NodeType, saveSplitNode = false): Token[][] {
-  const result: Token[][] = [];
-  let chunk: Token[] = [];
+export function splitNodes(nodes: TokenNode[], splitNodeType: NodeType, saveSplitNode = false): TokenNode[][] {
+  const result: TokenNode[][] = [];
+  let chunk: TokenNode[] = [];
 
   for (const node of nodes) {
     if (is(node, splitNodeType)) {

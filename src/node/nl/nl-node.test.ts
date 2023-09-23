@@ -1,5 +1,5 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NodeType, Token } from '~/analysis/node';
+import { NodeType, TokenNode } from '~/analysis/node';
 import { Source } from '~/source/source';
 
 test('line feed', () => {
@@ -65,5 +65,5 @@ test('several', () => {
   expect(statements[1].hidden?.at(1)?.$).toBe(NodeType.NL);
   expect(statements[1].hidden?.at(1)?.text).toBe('\r\n');
   expect(statements[2].hidden?.length).toBe(0);
-  expect((statements[2].nodes[0] as Token).text).toBe('abc');
+  expect((statements[2].nodes[0] as TokenNode).text).toBe('abc');
 });

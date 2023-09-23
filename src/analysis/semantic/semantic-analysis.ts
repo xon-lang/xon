@@ -1,6 +1,6 @@
 import { Analysis } from '~/analysis/analysis';
 import { is } from '~/analysis/is';
-import { NodeType, Token } from '~/analysis/node';
+import { NodeType, TokenNode } from '~/analysis/node';
 import { DataType } from '~/analysis/semantic/data-type';
 import { Scope } from '~/analysis/semantic/scope';
 import { SemanticNode } from '~/analysis/semantic/semantic-node';
@@ -8,7 +8,7 @@ import { LadderNode } from '~/analysis/syntax/node/ladder/ladder-node';
 import { SyntaxNode } from '~/analysis/syntax/syntax-node';
 
 export class SemanticAnalysis implements Analysis {
-  public constructor(public syntaxNodes: Token[]) {}
+  public constructor(public syntaxNodes: TokenNode[]) {}
 
   body(): SemanticNode[] {
     const scope = new Scope(null);
@@ -30,6 +30,6 @@ function handleSyntaxNode(node: SyntaxNode): SemanticNode {
   throw new Error('Not implemented');
 }
 
-function handleDeclaration(node: Token): Token {}
+function handleDeclaration(node: TokenNode): TokenNode {}
 
-function dataType(node: Token): DataType {}
+function dataType(node: TokenNode): DataType {}

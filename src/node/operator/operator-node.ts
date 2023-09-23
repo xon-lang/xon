@@ -1,12 +1,14 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { operatorsOrders } from '~/analysis/lexical/operators';
-import { NodeType, Token } from '~/analysis/node';
+import { NodeType, NonHiddenTokenNode } from '~/analysis/node';
 import { Integer, String2 } from '~/lib/core';
 import { IdNode, scanIdNode } from '~/node/id/id-node';
 import { KeywordNode } from '~/node/keyword/keyword-node';
 import { ModifierNode } from '~/node/modifier/modifier-node';
 
-export type OperatorNode = Token;
+export interface OperatorNode extends NonHiddenTokenNode {
+  $: NodeType.OPERATOR;
+}
 
 export function operatorNode(start: Integer, stop: Integer, text: String2): OperatorNode {
   return {

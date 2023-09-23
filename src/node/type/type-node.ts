@@ -1,15 +1,17 @@
-import { NodeType, Token } from '~/analysis/node';
+import { Node, NodeType, TokenNode } from '~/analysis/node';
 import { DataType } from '~/analysis/semantic/data-type';
 
-export interface TypeNode extends Token {
+export interface TypeNode extends Node {
   $: NodeType.TYPE;
-  node: Token;
+  node: TokenNode;
   dataType: DataType;
 }
 
-export function typeNode(node: Token, dataType: DataType): TypeNode {
+export function typeNode(node: TokenNode, dataType: DataType): TypeNode {
   return {
     $: NodeType.TYPE,
+    start: node.start,
+    stop: node.stop,
     node,
     dataType,
   };

@@ -1,3 +1,3 @@
-import { Token } from '../node';
+import { TokenNode } from '../node';
 
-export type SemanticNode = Token;
+export type SemanticNode = TokenNode;

@@ -12,7 +12,6 @@ export interface ModifierIdNode extends Node {
 export function modifierIdNode(modifier: ModifierNode, id: IdNode | OperatorNode): ModifierIdNode {
   return {
     $: NodeType.MODIFIER_ID,
-    hidden: [],
     start: modifier.start,
     stop: id.stop,
     modifier,

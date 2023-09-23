@@ -1,7 +1,7 @@
-import { Node, NodeType } from '~/analysis/node';
+import { Node, NodeType, SyntaxNode } from '~/analysis/node';
 import { OperatorNode } from '~/node/operator/operator-node';
 
-export interface PostfixNode extends Node {
+export interface PostfixNode extends SyntaxNode {
   $: NodeType.POSTFIX;
   operator: OperatorNode;
   value: Node;
@@ -10,7 +10,6 @@ export interface PostfixNode extends Node {
 export function postfixNode(operator: OperatorNode, value: Node): PostfixNode {
   return {
     $: NodeType.POSTFIX,
-    hidden: [],
     start: value.start,
     stop: operator.stop,
     operator,

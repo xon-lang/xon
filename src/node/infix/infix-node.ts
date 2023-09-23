@@ -11,7 +11,6 @@ export interface InfixNode extends Node {
 export function infixNode(operator: OperatorNode, left: Node, right: Node): InfixNode {
   return {
     $: NodeType.INFIX,
-    hidden: [],
     start: left.start,
     stop: right.stop,
     operator,

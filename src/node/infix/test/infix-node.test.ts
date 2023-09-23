@@ -1,5 +1,5 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NodeType, Token } from '~/analysis/node';
+import { NodeType, TokenNode } from '~/analysis/node';
 import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { IntegerNode } from '~/node/integer/integer-node';
@@ -16,7 +16,7 @@ test('infix operator', () => {
   const node = nodes[0] as MemberNode;
 
   expect(node.$).toBe(NodeType.MEMBER);
-  expect((node.instance as Token).text).toBe('abc');
+  expect((node.instance as TokenNode).text).toBe('abc');
   expect(node.operator.text).toBe('.');
   expect(node.id.text).toBe('def');
 });

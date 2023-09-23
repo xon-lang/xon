@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 import { is } from '~/analysis/is';
 import { OperatorType, RecursiveType, operatorsOrders } from '~/analysis/lexical/operators';
-import { HiddenNode, Node, NodeType } from '~/analysis/node';
+import { HiddenTokenNode, Node, NodeType, NonHiddenTokenNode } from '~/analysis/node';
 import { Boolean2, Integer, String2 } from '~/lib/core';
 import { BodyNode, bodyNode } from '~/node/body/body-node';
 import { scanCloseNode } from '~/node/close/close-node';
@@ -51,8 +51,8 @@ export class LexicalAnalysis {
 
   public body(breakFn: ((node: Node) => Boolean2) | null = null): BodyNode & { breakNode?: Node } {
     const indentBody: { indent: Integer | null; body: BodyNode }[] = [];
-    let nodes: Node[] = [];
-    let hidden: HiddenNode[] = [];
+    let nodes: NonHiddenTokenNode[] = [];
+    let hidden: HiddenTokenNode[] = [];
     let breakNode: Node | undefined;
 
     while (this.index < this.text.length) {
@@ -76,9 +76,9 @@ export class LexicalAnalysis {
         continue;
       }
 
-      node.hidden = hidden;
+      (node as NonHiddenTokenNode).hidden = hidden;
       hidden = [];
-      nodes.push(node);
+      nodes.push(node as NonHiddenTokenNode);
     }
 
     // if (nodes.length > 0 || hidden.length > 0) {
@@ -106,8 +106,8 @@ export class LexicalAnalysis {
 
   public putStatement(
     indentBody: { indent: Integer | null; body: BodyNode }[],
-    nodes: Node[],
-    hidden: HiddenNode[],
+    nodes: NonHiddenTokenNode[],
+    hidden: HiddenTokenNode[],
   ): void {
     const indent = getStatementIndent(nodes);
     const syntaxNodes = getSyntaxNodes(nodes);
@@ -157,7 +157,7 @@ export class LexicalAnalysis {
   }
 }
 
-function getStatementIndent(nodes: Node[]): Integer | null {
+function getStatementIndent(nodes: NonHiddenTokenNode[]): Integer | null {
   const whitespaceTokens = nodes
     .firstOrNull()
     ?.hidden.takeWhile((x) => is(x, NodeType.WHITESPACE) || is(x, NodeType.COMMENT))

@@ -1,5 +1,5 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NodeType, Token } from '~/analysis/node';
+import { NodeType, TokenNode } from '~/analysis/node';
 import { Source } from '~/source/source';
 
 test('whitespace', () => {
@@ -7,7 +7,7 @@ test('whitespace', () => {
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
   const statements = lexer.body().statements;
-  const nodes = statements[0].nodes as Token[];
+  const nodes = statements[0].nodes as TokenNode[];
 
   expect(statements.length).toBe(1);
   expect(statements[0].hidden.length).toBe(1);

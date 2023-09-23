@@ -1,5 +1,5 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { NodeType } from '~/analysis/node';
+import { NodeType, NonHiddenTokenNode } from '~/analysis/node';
 import { InfixNode } from '~/node/infix/infix-node';
 import { Source } from '~/source/source';
 
@@ -67,13 +67,13 @@ test('multiple expression', () => {
   expect(body.statements[0].hidden[0].$).toBe(NodeType.NL);
 
   const statement1Node = body.statements[1].nodes[0] as InfixNode;
-  expect(statement1Node.left.hidden[0].$).toBe(NodeType.WHITESPACE);
+  expect((statement1Node.left as NonHiddenTokenNode).hidden[0].$).toBe(NodeType.WHITESPACE);
 
   const statement2Node = body.statements[2].nodes[0] as InfixNode;
-  expect(statement2Node.left.hidden[0].$).toBe(NodeType.WHITESPACE);
+  expect((statement2Node.left as NonHiddenTokenNode).hidden[0].$).toBe(NodeType.WHITESPACE);
 
   const statement3Node = body.statements[3].nodes[0] as InfixNode;
-  expect(statement3Node.left.hidden[0].$).toBe(NodeType.WHITESPACE);
+  expect((statement3Node.left as NonHiddenTokenNode).hidden[0].$).toBe(NodeType.WHITESPACE);
 });
 
 // test('import and if', () => {

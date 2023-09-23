@@ -10,7 +10,6 @@ export interface InvokeNode extends Node {
 export function invokeNode(instance: Node, group: GroupNode): InvokeNode {
   return {
     $: NodeType.INVOKE,
-    hidden: [],
     start: instance.start,
     stop: group.stop,
     instance,

@@ -1,14 +1,19 @@
 import { Integer, String2 } from '~/lib/core';
 
-export type HiddenNode = Token;
+export interface HiddenTokenNode extends TokenNode {}
 
-export interface Token extends Node {
+export interface NonHiddenTokenNode extends TokenNode {
+  hidden: HiddenTokenNode[];
+}
+
+export interface TokenNode extends Node {
   text: String2;
 }
 
+export interface SyntaxNode extends Node {}
+
 export interface Node {
   $: NodeType;
-  hidden: HiddenNode[];
   start: Integer;
   stop: Integer;
 }

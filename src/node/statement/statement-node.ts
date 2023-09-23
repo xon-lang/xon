@@ -1,8 +1,9 @@
-import { Node, NodeType } from '~/analysis/node';
+import { HiddenTokenNode, Node, NodeType } from '~/analysis/node';
 import { BodyNode } from '~/node/body/body-node';
 
 export interface StatementNode extends Node {
   $: NodeType.STATEMENT;
+  hidden: HiddenTokenNode[];
   nodes: Node[];
   body: BodyNode | null;
 }
