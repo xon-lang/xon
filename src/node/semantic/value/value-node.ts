@@ -1,6 +1,6 @@
 import { DataType } from '~/analysis/semantic/data-type';
 import { Node, NodeType } from '~/node/node';
-import { LexicalNode } from '../lexical/lexical-node';
+import { LexicalNode } from '../../lexical/lexical-node';
 
 export interface ValueNode extends Node {
   $: NodeType.VALUE;
