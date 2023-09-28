@@ -1,5 +1,5 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { LexicalNode } from '~/node/lexical-node';
+import { LexicalNode } from '~/node/lexical/lexical-node';
 import { StringNode } from '~/node/lexical/string/string-node';
 import { NodeType } from '~/node/node';
 import { Source } from '~/source/source';

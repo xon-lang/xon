@@ -5,7 +5,7 @@ import { IdNode, scanIdNode } from '~/node/lexical/id/id-node';
 import { KeywordNode } from '~/node/lexical/keyword/keyword-node';
 import { ModifierNode } from '~/node/lexical/modifier/modifier-node';
 import { NodeType } from '~/node/node';
-import { NonHiddenLexicalNode } from '../lexical-node';
+import { NonHiddenLexicalNode } from '../lexical/lexical-node';
 
 export interface OperatorNode extends NonHiddenLexicalNode {
   $: NodeType.OPERATOR;

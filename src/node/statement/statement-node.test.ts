@@ -1,7 +1,7 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { NodeType } from '~/node/node';
 import { Source } from '~/source/source';
-import { LexicalNode } from '../lexical-node';
+import { LexicalNode } from '../lexical/lexical-node';
 
 test('comma', () => {
   const code = '1';

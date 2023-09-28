@@ -1,6 +1,6 @@
 import { BodyNode } from '~/node/body/body-node';
 import { Node, NodeType } from '~/node/node';
-import { HiddenLexicalNode } from '../lexical-node';
+import { HiddenLexicalNode } from '../lexical/lexical-node';
 
 export interface StatementNode extends Node {
   $: NodeType.STATEMENT;

@@ -4,7 +4,7 @@ import { Scope } from '~/analysis/semantic/scope';
 import { SemanticNode } from '~/analysis/semantic/semantic-node';
 import { LadderNode } from '~/analysis/syntax/node/ladder/ladder-node';
 import { SyntaxNode } from '~/analysis/syntax/syntax-node';
-import { LexicalNode } from '~/node/lexical-node';
+import { LexicalNode } from '~/node/lexical/lexical-node';
 import { NodeType, is } from '~/node/node';
 
 export class SemanticAnalysis implements Analysis {

@@ -2,7 +2,7 @@ import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { InfixNode } from '~/node/infix/infix-node';
 import { NodeType } from '~/node/node';
 import { Source } from '~/source/source';
-import { NonHiddenLexicalNode } from '../lexical-node';
+import { NonHiddenLexicalNode } from '../lexical/lexical-node';
 
 test('single expression', () => {
   const text = '\n  a = 1';

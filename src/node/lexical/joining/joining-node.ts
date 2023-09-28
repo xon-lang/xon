@@ -1,6 +1,6 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { Integer, String2 } from '~/lib/core';
-import { HiddenLexicalNode } from '~/node/lexical-node';
+import { HiddenLexicalNode } from '~/node/lexical/lexical-node';
 import { NodeType } from '~/node/node';
 
 export interface JoiningNode extends HiddenLexicalNode {

@@ -4,7 +4,7 @@ import { IntegerNode } from '~/node/lexical/integer/integer-node';
 import { WhitespaceNode } from '~/node/lexical/whitespace/whitespace-node';
 import { NodeType } from '~/node/node';
 import { Source } from '~/source/source';
-import { NonHiddenLexicalNode } from '../lexical-node';
+import { NonHiddenLexicalNode } from '../lexical/lexical-node';
 import { is } from '../node';
 
 test('empty closed', () => {

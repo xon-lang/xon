@@ -1,8 +1,8 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import '~/extensions';
 import { Integer, String2 } from '~/lib/core';
-import { NonHiddenLexicalNode } from '~/node/lexical-node';
 import { KeywordNode, keywordNode } from '~/node/lexical/keyword/keyword-node';
+import { NonHiddenLexicalNode } from '~/node/lexical/lexical-node';
 import { ModifierNode, modifierNode } from '~/node/lexical/modifier/modifier-node';
 import { NodeType } from '~/node/node';
 
