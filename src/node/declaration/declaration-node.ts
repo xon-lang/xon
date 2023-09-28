@@ -1,5 +1,5 @@
-import { IdNode } from '~/node/id/id-node';
-import { ModifierNode } from '~/node/modifier/modifier-node';
+import { IdNode } from '~/node/lexical/id/id-node';
+import { ModifierNode } from '~/node/lexical/modifier/modifier-node';
 import { Node, NodeType, TokenNode } from '~/node/node';
 import { OperatorNode } from '~/node/operator/operator-node';
 

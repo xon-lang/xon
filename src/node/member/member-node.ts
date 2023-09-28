@@ -1,4 +1,4 @@
-import { IdNode } from '~/node/id/id-node';
+import { IdNode } from '~/node/lexical/id/id-node';
 import { Node, NodeType } from '~/node/node';
 import { OperatorNode } from '~/node/operator/operator-node';
 

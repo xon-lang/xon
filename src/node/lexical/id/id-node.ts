@@ -1,8 +1,8 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import '~/extensions';
 import { Integer, String2 } from '~/lib/core';
-import { KeywordNode, keywordNode } from '~/node/keyword/keyword-node';
-import { ModifierNode, modifierNode } from '~/node/modifier/modifier-node';
+import { KeywordNode, keywordNode } from '~/node/lexical/keyword/keyword-node';
+import { ModifierNode, modifierNode } from '~/node/lexical/modifier/modifier-node';
 import { NodeType, NonHiddenTokenNode } from '~/node/node';
 
 export interface IdNode extends NonHiddenTokenNode {

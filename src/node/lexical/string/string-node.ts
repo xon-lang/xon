@@ -1,7 +1,7 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { Integer, String2 } from '~/lib/core';
+import { UnknownNode } from '~/node/lexical/unknown/unknown-node';
 import { NodeType, NonHiddenTokenNode } from '~/node/node';
-import { UnknownNode } from '~/node/unknown/unknown-node';
 
 export interface StringNode extends NonHiddenTokenNode {
   $: NodeType.STRING;

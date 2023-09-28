@@ -1,6 +1,6 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
+import { StringNode } from '~/node/lexical/string/string-node';
 import { NodeType, TokenNode } from '~/node/node';
-import { StringNode } from '~/node/string/string-node';
 import { Source } from '~/source/source';
 
 test('string', () => {

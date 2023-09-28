@@ -1,9 +1,9 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { operatorsOrders } from '~/analysis/lexical/operators';
 import { Integer, String2 } from '~/lib/core';
-import { IdNode, scanIdNode } from '~/node/id/id-node';
-import { KeywordNode } from '~/node/keyword/keyword-node';
-import { ModifierNode } from '~/node/modifier/modifier-node';
+import { IdNode, scanIdNode } from '~/node/lexical/id/id-node';
+import { KeywordNode } from '~/node/lexical/keyword/keyword-node';
+import { ModifierNode } from '~/node/lexical/modifier/modifier-node';
 import { NodeType, NonHiddenTokenNode } from '~/node/node';
 
 export interface OperatorNode extends NonHiddenTokenNode {

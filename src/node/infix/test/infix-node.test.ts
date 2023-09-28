@@ -1,7 +1,7 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
-import { IdNode } from '~/node/id/id-node';
 import { InfixNode } from '~/node/infix/infix-node';
-import { IntegerNode } from '~/node/integer/integer-node';
+import { IdNode } from '~/node/lexical/id/id-node';
+import { IntegerNode } from '~/node/lexical/integer/integer-node';
 import { MemberNode } from '~/node/member/member-node';
 import { NodeType, TokenNode } from '~/node/node';
 import { PrefixNode } from '~/node/prefix/prefix-node';

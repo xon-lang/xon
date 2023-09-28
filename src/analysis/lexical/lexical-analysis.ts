@@ -2,26 +2,26 @@
 import { OperatorType, RecursiveType, operatorsOrders } from '~/analysis/lexical/operators';
 import { Boolean2, Integer, String2 } from '~/lib/core';
 import { BodyNode, bodyNode } from '~/node/body/body-node';
-import { scanCloseNode } from '~/node/close/close-node';
-import { scanCommaNode } from '~/node/comma/comma-node';
 import { GroupNode, scanGroupNode } from '~/node/group/group-node';
-import { IdNode, scanIdNode } from '~/node/id/id-node';
 import { InfixNode, infixNode } from '~/node/infix/infix-node';
-import { scanIntegerNode } from '~/node/integer/integer-node';
 import { invokeNode } from '~/node/invoke/invoke-node';
-import { JoiningNode, scanJoiningNode } from '~/node/joining/joining-node';
+import { scanCloseNode } from '~/node/lexical/close/close-node';
+import { scanCommaNode } from '~/node/lexical/comma/comma-node';
+import { IdNode, scanIdNode } from '~/node/lexical/id/id-node';
+import { scanIntegerNode } from '~/node/lexical/integer/integer-node';
+import { JoiningNode, scanJoiningNode } from '~/node/lexical/joining/joining-node';
+import { ModifierNode } from '~/node/lexical/modifier/modifier-node';
+import { NlNode, scanNlNode } from '~/node/lexical/nl/nl-node';
+import { scanStringNode } from '~/node/lexical/string/string-node';
+import { scanUnknownNode } from '~/node/lexical/unknown/unknown-node';
+import { WhitespaceNode, scanWhitespaceNode } from '~/node/lexical/whitespace/whitespace-node';
 import { MemberNode, memberNode } from '~/node/member/member-node';
 import { modifierIdNode } from '~/node/modifier-id/modifier-id-node';
-import { ModifierNode } from '~/node/modifier/modifier-node';
-import { NlNode, scanNlNode } from '~/node/nl/nl-node';
 import { HiddenTokenNode, Node, NodeType, NonHiddenTokenNode, is } from '~/node/node';
 import { OperatorNode, scanOperatorNode } from '~/node/operator/operator-node';
 import { postfixNode } from '~/node/postfix/postfix-node';
 import { prefixNode } from '~/node/prefix/prefix-node';
 import { statementNode } from '~/node/statement/statement-node';
-import { scanStringNode } from '~/node/string/string-node';
-import { scanUnknownNode } from '~/node/unknown/unknown-node';
-import { WhitespaceNode, scanWhitespaceNode } from '~/node/whitespace/whitespace-node';
 
 type NodeScanFunction = (analysis: LexicalAnalysis) => Node | null;
 
