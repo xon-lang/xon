@@ -2,8 +2,9 @@ import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { GroupNode } from '~/node/group/group-node';
 import { IntegerNode } from '~/node/lexical/integer/integer-node';
 import { WhitespaceNode } from '~/node/lexical/whitespace/whitespace-node';
-import { NodeType, NonHiddenTokenNode } from '~/node/node';
+import { NodeType } from '~/node/node';
 import { Source } from '~/source/source';
+import { NonHiddenLexicalNode } from '../lexical-node';
 import { is } from '../node';
 
 test('empty closed', () => {
@@ -79,8 +80,8 @@ test('single item', () => {
   expect(group.items[0].statements.length).toBe(1);
   expect(group.items[0].statements[0].nodes.length).toBe(2);
   expect((group.items[0].statements[0].nodes[0] as IntegerNode).text).toBe('123');
-  expect((group.items[0].statements[0].nodes[1] as NonHiddenTokenNode).hidden.length).toBe(1);
-  expect(((group.items[0].statements[0].nodes[1] as NonHiddenTokenNode).hidden[0] as WhitespaceNode).text).toBe(' ');
+  expect((group.items[0].statements[0].nodes[1] as NonHiddenLexicalNode).hidden.length).toBe(1);
+  expect(((group.items[0].statements[0].nodes[1] as NonHiddenLexicalNode).hidden[0] as WhitespaceNode).text).toBe(' ');
   expect((group.items[0].statements[0].nodes[1] as IntegerNode).text).toBe('456');
 });
 
@@ -151,8 +152,8 @@ test('two integers no comma and ws at the end', () => {
   expect(group.items[1].statements.length).toBe(1);
   expect(group.items[1].statements[0].nodes.length).toBe(1);
   expect((group.items[1].statements[0].nodes[0] as IntegerNode).text).toBe('2');
-  expect((group.items[1].statements[0].nodes[0] as NonHiddenTokenNode).hidden.length).toBe(1);
-  expect(((group.items[1].statements[0].nodes[0] as NonHiddenTokenNode).hidden[0] as WhitespaceNode).text).toBe(' ');
+  expect((group.items[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden.length).toBe(1);
+  expect(((group.items[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden[0] as WhitespaceNode).text).toBe(' ');
 });
 
 test('two integers and comma no ws at the end', () => {
@@ -175,8 +176,8 @@ test('two integers and comma no ws at the end', () => {
 
   expect(group.items[1].statements.length).toBe(1);
   expect(group.items[1].statements[0].nodes.length).toBe(1);
-  expect((group.items[1].statements[0].nodes[0] as NonHiddenTokenNode).hidden.length).toBe(1);
-  expect(((group.items[1].statements[0].nodes[0] as NonHiddenTokenNode).hidden[0] as WhitespaceNode).text).toBe(' ');
+  expect((group.items[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden.length).toBe(1);
+  expect(((group.items[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden[0] as WhitespaceNode).text).toBe(' ');
   expect((group.items[1].statements[0].nodes[0] as IntegerNode).text).toBe('2');
   expect(group.items[1].comma?.text).toBe(',');
 
@@ -204,8 +205,8 @@ test('two integers and comma and ws', () => {
 
   expect(group.items[1].statements.length).toBe(1);
   expect(group.items[1].statements[0].nodes.length).toBe(1);
-  expect((group.items[1].statements[0].nodes[0] as NonHiddenTokenNode).hidden.length).toBe(1);
-  expect(((group.items[1].statements[0].nodes[0] as NonHiddenTokenNode).hidden[0] as WhitespaceNode).text).toBe(' ');
+  expect((group.items[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden.length).toBe(1);
+  expect(((group.items[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden[0] as WhitespaceNode).text).toBe(' ');
   expect((group.items[1].statements[0].nodes[0] as IntegerNode).text).toBe('2');
   expect(group.items[1].comma?.text).toBe(',');
 

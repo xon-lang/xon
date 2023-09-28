@@ -1,9 +1,10 @@
 import { BodyNode } from '~/node/body/body-node';
-import { HiddenTokenNode, Node, NodeType } from '~/node/node';
+import { Node, NodeType } from '~/node/node';
+import { HiddenLexicalNode } from '../lexical-node';
 
 export interface StatementNode extends Node {
   $: NodeType.STATEMENT;
-  hidden: HiddenTokenNode[];
+  hidden: HiddenLexicalNode[];
   nodes: Node[];
   body: BodyNode | null;
 }

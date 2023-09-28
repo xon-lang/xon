@@ -1,13 +1,13 @@
 import { IssueLevel } from '~/issue/issue-level';
 import { String2 } from '~/lib/core';
-import { TokenNode } from '~/node/node';
+import { LexicalNode } from '~/node/lexical-node';
 
 export class Issue extends Error {
   // public actual: String2
   // public expect: String2
 
   constructor(
-    public node: TokenNode,
+    public node: LexicalNode,
     public level: IssueLevel,
     public message: String2,
   ) {

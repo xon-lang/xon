@@ -1,7 +1,8 @@
 import { Integer, String2 } from '~/lib/core';
-import { NodeType, NonHiddenTokenNode } from '~/node/node';
+import { NonHiddenLexicalNode } from '~/node/lexical-node';
+import { NodeType } from '~/node/node';
 
-export interface ModifierNode extends NonHiddenTokenNode {
+export interface ModifierNode extends NonHiddenLexicalNode {
   $: NodeType.MODIFIER;
 }
 

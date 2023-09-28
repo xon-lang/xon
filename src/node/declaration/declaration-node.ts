@@ -1,23 +1,24 @@
 import { IdNode } from '~/node/lexical/id/id-node';
 import { ModifierNode } from '~/node/lexical/modifier/modifier-node';
-import { Node, NodeType, TokenNode } from '~/node/node';
+import { Node, NodeType } from '~/node/node';
 import { OperatorNode } from '~/node/operator/operator-node';
+import { LexicalNode } from '../lexical-node';
 
 export interface DeclarationNode extends Node {
   $: NodeType.DECLARATION;
   modifier: ModifierNode | null;
   name: IdNode | OperatorNode | null;
   parameters: (DeclarationNode | null)[] | null;
-  type: TokenNode | null;
-  value: TokenNode | null;
+  type: LexicalNode | null;
+  value: LexicalNode | null;
 }
 
 export function declarationNode(
   modifier: ModifierNode,
   name: IdNode | OperatorNode,
   parameters: (DeclarationNode | null)[] | null,
-  type: TokenNode | null,
-  value: TokenNode | null,
+  type: LexicalNode | null,
+  value: LexicalNode | null,
 ): DeclarationNode {
   return {
     $: NodeType.DECLARATION,

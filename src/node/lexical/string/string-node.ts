@@ -1,9 +1,10 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { Integer, String2 } from '~/lib/core';
+import { NonHiddenLexicalNode } from '~/node/lexical-node';
 import { UnknownNode } from '~/node/lexical/unknown/unknown-node';
-import { NodeType, NonHiddenTokenNode } from '~/node/node';
+import { NodeType } from '~/node/node';
 
-export interface StringNode extends NonHiddenTokenNode {
+export interface StringNode extends NonHiddenLexicalNode {
   $: NodeType.STRING;
 }
 
@@ -17,7 +18,7 @@ export function stringNode(start: Integer, stop: Integer, text: String2): String
   };
 }
 
-const QUOTE = '\'';
+const QUOTE = "'";
 
 export function scanStringNode({ text, index }: LexicalAnalysis): StringNode | UnknownNode | null {
   if (text[index] === QUOTE) {

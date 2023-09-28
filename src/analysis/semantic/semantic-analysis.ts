@@ -4,10 +4,11 @@ import { Scope } from '~/analysis/semantic/scope';
 import { SemanticNode } from '~/analysis/semantic/semantic-node';
 import { LadderNode } from '~/analysis/syntax/node/ladder/ladder-node';
 import { SyntaxNode } from '~/analysis/syntax/syntax-node';
-import { NodeType, TokenNode, is } from '~/node/node';
+import { LexicalNode } from '~/node/lexical-node';
+import { NodeType, is } from '~/node/node';
 
 export class SemanticAnalysis implements Analysis {
-  public constructor(public syntaxNodes: TokenNode[]) {}
+  public constructor(public syntaxNodes: LexicalNode[]) {}
 
   body(): SemanticNode[] {
     const scope = new Scope(null);
@@ -29,6 +30,6 @@ function handleSyntaxNode(node: SyntaxNode): SemanticNode {
   throw new Error('Not implemented');
 }
 
-function handleDeclaration(node: TokenNode): TokenNode {}
+function handleDeclaration(node: LexicalNode): LexicalNode {}
 
-function dataType(node: TokenNode): DataType {}
+function dataType(node: LexicalNode): DataType {}

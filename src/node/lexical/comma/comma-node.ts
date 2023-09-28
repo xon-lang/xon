@@ -1,8 +1,9 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { Integer, String2 } from '~/lib/core';
-import { NodeType, NonHiddenTokenNode } from '~/node/node';
+import { NonHiddenLexicalNode } from '~/node/lexical-node';
+import { NodeType } from '~/node/node';
 
-export interface CommaNode extends NonHiddenTokenNode {
+export interface CommaNode extends NonHiddenLexicalNode {
   $: NodeType.COMMA;
 }
 

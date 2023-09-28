@@ -1,3 +1,3 @@
-import { TokenNode } from '../../node/node';
+import { LexicalNode } from '~/node/lexical-node';
 
-export type SemanticNode = TokenNode;
+export type SemanticNode = LexicalNode;

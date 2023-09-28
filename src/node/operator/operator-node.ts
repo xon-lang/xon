@@ -4,9 +4,10 @@ import { Integer, String2 } from '~/lib/core';
 import { IdNode, scanIdNode } from '~/node/lexical/id/id-node';
 import { KeywordNode } from '~/node/lexical/keyword/keyword-node';
 import { ModifierNode } from '~/node/lexical/modifier/modifier-node';
-import { NodeType, NonHiddenTokenNode } from '~/node/node';
+import { NodeType } from '~/node/node';
+import { NonHiddenLexicalNode } from '../lexical-node';
 
-export interface OperatorNode extends NonHiddenTokenNode {
+export interface OperatorNode extends NonHiddenLexicalNode {
   $: NodeType.OPERATOR;
 }
 

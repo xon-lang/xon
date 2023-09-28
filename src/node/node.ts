@@ -1,14 +1,4 @@
-import { Integer, String2 } from '~/lib/core';
-
-export interface HiddenTokenNode extends TokenNode {}
-
-export interface NonHiddenTokenNode extends TokenNode {
-  hidden: HiddenTokenNode[];
-}
-
-export interface TokenNode extends Node {
-  text: String2;
-}
+import { Integer } from '~/lib/core';
 
 export interface SyntaxNode extends Node {}
 

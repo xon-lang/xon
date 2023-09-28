@@ -5,6 +5,7 @@ import { BodyNode, bodyNode } from '~/node/body/body-node';
 import { GroupNode, scanGroupNode } from '~/node/group/group-node';
 import { InfixNode, infixNode } from '~/node/infix/infix-node';
 import { invokeNode } from '~/node/invoke/invoke-node';
+import { HiddenLexicalNode, NonHiddenLexicalNode } from '~/node/lexical-node';
 import { scanCloseNode } from '~/node/lexical/close/close-node';
 import { scanCommaNode } from '~/node/lexical/comma/comma-node';
 import { IdNode, scanIdNode } from '~/node/lexical/id/id-node';
@@ -17,7 +18,7 @@ import { scanUnknownNode } from '~/node/lexical/unknown/unknown-node';
 import { WhitespaceNode, scanWhitespaceNode } from '~/node/lexical/whitespace/whitespace-node';
 import { MemberNode, memberNode } from '~/node/member/member-node';
 import { modifierIdNode } from '~/node/modifier-id/modifier-id-node';
-import { HiddenTokenNode, Node, NodeType, NonHiddenTokenNode, is } from '~/node/node';
+import { Node, NodeType, is } from '~/node/node';
 import { OperatorNode, scanOperatorNode } from '~/node/operator/operator-node';
 import { postfixNode } from '~/node/postfix/postfix-node';
 import { prefixNode } from '~/node/prefix/prefix-node';
@@ -50,8 +51,8 @@ export class LexicalAnalysis {
 
   public body(breakFn: ((node: Node) => Boolean2) | null = null): BodyNode & { breakNode?: Node } {
     const indentBody: { indent: Integer | null; body: BodyNode }[] = [];
-    let nodes: NonHiddenTokenNode[] = [];
-    let hidden: HiddenTokenNode[] = [];
+    let nodes: NonHiddenLexicalNode[] = [];
+    let hidden: HiddenLexicalNode[] = [];
     let breakNode: Node | undefined;
 
     while (this.index < this.text.length) {
@@ -75,9 +76,9 @@ export class LexicalAnalysis {
         continue;
       }
 
-      (node as NonHiddenTokenNode).hidden = hidden;
+      (node as NonHiddenLexicalNode).hidden = hidden;
       hidden = [];
-      nodes.push(node as NonHiddenTokenNode);
+      nodes.push(node as NonHiddenLexicalNode);
     }
 
     // if (nodes.length > 0 || hidden.length > 0) {
@@ -105,8 +106,8 @@ export class LexicalAnalysis {
 
   public putStatement(
     indentBody: { indent: Integer | null; body: BodyNode }[],
-    nodes: NonHiddenTokenNode[],
-    hidden: HiddenTokenNode[],
+    nodes: NonHiddenLexicalNode[],
+    hidden: HiddenLexicalNode[],
   ): void {
     const indent = getStatementIndent(nodes);
     const syntaxNodes = getSyntaxNodes(nodes);
@@ -156,7 +157,7 @@ export class LexicalAnalysis {
   }
 }
 
-function getStatementIndent(nodes: NonHiddenTokenNode[]): Integer | null {
+function getStatementIndent(nodes: NonHiddenLexicalNode[]): Integer | null {
   const whitespaceTokens = nodes
     .firstOrNull()
     ?.hidden.takeWhile((x) => is(x, NodeType.WHITESPACE) || is(x, NodeType.COMMENT))

@@ -1,7 +1,8 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { InfixNode } from '~/node/infix/infix-node';
-import { NodeType, NonHiddenTokenNode } from '~/node/node';
+import { NodeType } from '~/node/node';
 import { Source } from '~/source/source';
+import { NonHiddenLexicalNode } from '../lexical-node';
 
 test('single expression', () => {
   const text = '\n  a = 1';
@@ -67,13 +68,13 @@ test('multiple expression', () => {
   expect(body.statements[0].hidden[0].$).toBe(NodeType.NL);
 
   const statement1Node = body.statements[1].nodes[0] as InfixNode;
-  expect((statement1Node.left as NonHiddenTokenNode).hidden[0].$).toBe(NodeType.WHITESPACE);
+  expect((statement1Node.left as NonHiddenLexicalNode).hidden[0].$).toBe(NodeType.WHITESPACE);
 
   const statement2Node = body.statements[2].nodes[0] as InfixNode;
-  expect((statement2Node.left as NonHiddenTokenNode).hidden[0].$).toBe(NodeType.WHITESPACE);
+  expect((statement2Node.left as NonHiddenLexicalNode).hidden[0].$).toBe(NodeType.WHITESPACE);
 
   const statement3Node = body.statements[3].nodes[0] as InfixNode;
-  expect((statement3Node.left as NonHiddenTokenNode).hidden[0].$).toBe(NodeType.WHITESPACE);
+  expect((statement3Node.left as NonHiddenLexicalNode).hidden[0].$).toBe(NodeType.WHITESPACE);
 });
 
 // test('import and if', () => {
