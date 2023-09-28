@@ -1,8 +1,9 @@
 import { IdNode } from '~/node/lexical/id/id-node';
 import { OperatorNode } from '~/node/lexical/operator/operator-node';
 import { Node, NodeType } from '~/node/node';
+import { SyntacticNode } from '~/node/syntactic/syntactic-node';
 
-export interface MemberNode extends Node {
+export interface MemberNode extends SyntacticNode {
   $: NodeType.MEMBER;
   operator: OperatorNode;
   instance: Node;

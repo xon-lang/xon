@@ -1,10 +1,11 @@
 import { IdNode } from '~/node/lexical/id/id-node';
 import { ModifierNode } from '~/node/lexical/modifier/modifier-node';
 import { OperatorNode } from '~/node/lexical/operator/operator-node';
-import { Node, NodeType } from '~/node/node';
+import { NodeType } from '~/node/node';
+import { SyntacticNode } from '~/node/syntactic/syntactic-node';
 import { LexicalNode } from '../../lexical/lexical-node';
 
-export interface DeclarationNode extends Node {
+export interface DeclarationNode extends SyntacticNode {
   $: NodeType.DECLARATION;
   modifier: ModifierNode | null;
   name: IdNode | OperatorNode | null;

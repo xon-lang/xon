@@ -1,7 +1,8 @@
-import { Node, NodeType } from '~/node/node';
+import { NodeType } from '~/node/node';
 import { StatementNode } from '~/node/syntactic/statement/statement-node';
+import { SyntacticNode } from '~/node/syntactic/syntactic-node';
 
-export interface BodyNode extends Node {
+export interface BodyNode extends SyntacticNode {
   $: NodeType.BODY;
   statements: StatementNode[];
 }

@@ -5,9 +5,10 @@ import { CommaNode } from '~/node/lexical/comma/comma-node';
 import { OpenNode, scanOpenNode } from '~/node/lexical/open/open-node';
 import { Node, NodeType } from '~/node/node';
 import { StatementNode, statementNode } from '~/node/syntactic/statement/statement-node';
+import { SyntacticNode } from '~/node/syntactic/syntactic-node';
 import { is } from '../../node';
 
-export interface GroupNode extends Node {
+export interface GroupNode extends SyntacticNode {
   $: NodeType.GROUP;
   open: OpenNode;
   close: CloseNode | null;

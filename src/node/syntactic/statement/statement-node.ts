@@ -1,8 +1,9 @@
 import { Node, NodeType } from '~/node/node';
 import { BodyNode } from '~/node/syntactic/body/body-node';
+import { SyntacticNode } from '~/node/syntactic/syntactic-node';
 import { HiddenLexicalNode } from '../../lexical/lexical-node';
 
-export interface StatementNode extends Node {
+export interface StatementNode extends SyntacticNode {
   $: NodeType.STATEMENT;
   hidden: HiddenLexicalNode[];
   nodes: Node[];
