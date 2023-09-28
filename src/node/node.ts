@@ -1,7 +1,5 @@
 import { Integer } from '~/lib/core';
 
-export interface SyntaxNode extends Node {}
-
 export interface Node {
   $: NodeType;
   start: Integer;

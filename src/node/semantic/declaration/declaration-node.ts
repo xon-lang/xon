@@ -1,7 +1,7 @@
 import { IdNode } from '~/node/lexical/id/id-node';
 import { ModifierNode } from '~/node/lexical/modifier/modifier-node';
+import { OperatorNode } from '~/node/lexical/operator/operator-node';
 import { Node, NodeType } from '~/node/node';
-import { OperatorNode } from '~/node/operator/operator-node';
 import { LexicalNode } from '../../lexical/lexical-node';
 
 export interface DeclarationNode extends Node {

@@ -1,10 +1,6 @@
 /* eslint-disable max-lines */
 import { OperatorType, RecursiveType, operatorsOrders } from '~/analysis/lexical/operators';
 import { Boolean2, Integer, String2 } from '~/lib/core';
-import { BodyNode, bodyNode } from '~/node/body/body-node';
-import { GroupNode, scanGroupNode } from '~/node/group/group-node';
-import { InfixNode, infixNode } from '~/node/infix/infix-node';
-import { invokeNode } from '~/node/invoke/invoke-node';
 import { scanCloseNode } from '~/node/lexical/close/close-node';
 import { scanCommaNode } from '~/node/lexical/comma/comma-node';
 import { IdNode, scanIdNode } from '~/node/lexical/id/id-node';
@@ -13,16 +9,20 @@ import { JoiningNode, scanJoiningNode } from '~/node/lexical/joining/joining-nod
 import { HiddenLexicalNode, NonHiddenLexicalNode } from '~/node/lexical/lexical-node';
 import { ModifierNode } from '~/node/lexical/modifier/modifier-node';
 import { NlNode, scanNlNode } from '~/node/lexical/nl/nl-node';
+import { OperatorNode, scanOperatorNode } from '~/node/lexical/operator/operator-node';
 import { scanStringNode } from '~/node/lexical/string/string-node';
 import { scanUnknownNode } from '~/node/lexical/unknown/unknown-node';
 import { WhitespaceNode, scanWhitespaceNode } from '~/node/lexical/whitespace/whitespace-node';
-import { MemberNode, memberNode } from '~/node/member/member-node';
-import { modifierIdNode } from '~/node/modifier-id/modifier-id-node';
 import { Node, NodeType, is } from '~/node/node';
-import { OperatorNode, scanOperatorNode } from '~/node/operator/operator-node';
-import { postfixNode } from '~/node/postfix/postfix-node';
-import { prefixNode } from '~/node/prefix/prefix-node';
-import { statementNode } from '~/node/statement/statement-node';
+import { BodyNode, bodyNode } from '~/node/syntactic/body/body-node';
+import { GroupNode, scanGroupNode } from '~/node/syntactic/group/group-node';
+import { InfixNode, infixNode } from '~/node/syntactic/infix/infix-node';
+import { invokeNode } from '~/node/syntactic/invoke/invoke-node';
+import { MemberNode, memberNode } from '~/node/syntactic/member/member-node';
+import { modifierIdNode } from '~/node/syntactic/modifier-id/modifier-id-node';
+import { postfixNode } from '~/node/syntactic/postfix/postfix-node';
+import { prefixNode } from '~/node/syntactic/prefix/prefix-node';
+import { statementNode } from '~/node/syntactic/statement/statement-node';
 
 type NodeScanFunction = (analysis: LexicalAnalysis) => Node | null;
 
