@@ -13,17 +13,16 @@ export interface DeclarationNode extends Node {
 }
 
 export function declarationNode(
-  modifier: ModifierNode | null,
-  name: IdNode | OperatorNode | null,
+  modifier: ModifierNode,
+  name: IdNode | OperatorNode,
   parameters: (DeclarationNode | null)[] | null,
   type: TokenNode | null,
   value: TokenNode | null,
 ): DeclarationNode {
   return {
     $: NodeType.DECLARATION,
-    // todo fix it
-    start: modifier!.start,
-    stop: modifier!.stop,
+    start: modifier.start,
+    stop: type?.stop ?? parameters?.lastOrNull()?.stop ?? name.stop,
     modifier,
     name,
     parameters,
@@ -31,3 +30,5 @@ export function declarationNode(
     value,
   };
 }
+
+// model? A? {T: Number, T2}(p1: P, p2: P)?: R
