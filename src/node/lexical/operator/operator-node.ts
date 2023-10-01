@@ -1,10 +1,10 @@
 import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { operatorsOrders } from '~/analysis/lexical/operators';
 import { Integer, String2 } from '~/lib/core';
-import { IdNode, scanIdNode } from '~/node/lexical/id/id-node';
+import { IdNode, idNode, scanIdNode } from '~/node/lexical/id/id-node';
 import { KeywordNode } from '~/node/lexical/keyword/keyword-node';
 import { ModifierNode } from '~/node/lexical/modifier/modifier-node';
-import { NodeType } from '~/node/node';
+import { NodeType, is } from '~/node/node';
 import { NonHiddenLexicalNode } from '../lexical-node';
 
 export interface OperatorNode extends NonHiddenLexicalNode {
@@ -26,7 +26,7 @@ const OPERATORS = [
 ];
 
 export function scanOperatorNode(analysis: LexicalAnalysis): OperatorNode | IdNode | ModifierNode | KeywordNode | null {
-  const { index, text } = analysis;
+  const { index, text, lastNodes } = analysis;
   let operators = OPERATORS.filter((x) => x[0] === text[index]);
 
   if (operators.length === 0) {
@@ -38,23 +38,31 @@ export function scanOperatorNode(analysis: LexicalAnalysis): OperatorNode | IdNo
   for (let i = index; i < text.length; i++) {
     operators = operators.filter((x) => x[i - index] === text[i]);
     const candidate = operators.find((x) => x.length === i - index + 1);
+
     if (candidate) {
       candidates.push(candidate);
     }
+
     if (operators.length === 0) {
       break;
     }
   }
+
   if (candidates.length === 0) {
     return null;
   }
+
   const operatorString = candidates[candidates.length - 1];
-  const idCandidate = scanIdNode(analysis);
   const operatorStopIndex = index + operatorString.length - 1;
-  const operatorCandidate = operatorNode(index, operatorStopIndex, text.slice(index, operatorStopIndex + 1));
-  if (idCandidate && idCandidate.stop > operatorCandidate.stop) {
+  const idCandidate = scanIdNode(analysis);
+
+  if (idCandidate && idCandidate.stop > operatorStopIndex) {
     return idCandidate;
   }
 
-  return operatorCandidate;
+  if (is(lastNodes.lastOrNull(), NodeType.MODIFIER)) {
+    return idNode(index, operatorStopIndex, operatorString);
+  }
+
+  return operatorNode(index, operatorStopIndex, operatorString);
 }

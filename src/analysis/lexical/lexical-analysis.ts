@@ -46,6 +46,7 @@ const nodeScanFunctions: NodeScanFunction[] = [
 
 export class LexicalAnalysis {
   public index = 0;
+  public lastNodes: Node[] = [];
 
   public constructor(public text: String2) {}
 
@@ -54,6 +55,8 @@ export class LexicalAnalysis {
     let nodes: NonHiddenLexicalNode[] = [];
     let hidden: HiddenLexicalNode[] = [];
     let breakNode: Node | undefined;
+
+    this.lastNodes = nodes;
 
     while (this.index < this.text.length) {
       const node = this.nextNode();
