@@ -1,3 +1,3 @@
-import { LexicalNode } from '~/node/lexical/lexical-node';
+import { Node } from '~/node/node';
 
-export type SemanticNode = LexicalNode;
+export type SemanticNode = Node;

@@ -1,36 +1,39 @@
 import { SemanticNode } from '~/analysis/semantic/semantic-node';
 import { IdNode } from '~/node/lexical/id/id-node';
 import { ModifierNode } from '~/node/lexical/modifier/modifier-node';
-import { OperatorNode } from '~/node/lexical/operator/operator-node';
-import { NodeType } from '~/node/node';
-import { LexicalNode } from '../../lexical/lexical-node';
+import { Node, NodeType } from '~/node/node';
 
 export interface DeclarationNode extends SemanticNode {
   $: NodeType.DECLARATION;
   modifier: ModifierNode | null;
-  name: IdNode | OperatorNode | null;
-  parameters: (DeclarationNode | null)[] | null;
-  type: LexicalNode | null;
-  value: LexicalNode | null;
+  name: IdNode | null;
+  group: GroupSemantic | null;
+  type: Node | null;
+  value: Node | null;
 }
 
 export function declarationNode(
-  modifier: ModifierNode,
-  name: IdNode | OperatorNode,
-  parameters: (DeclarationNode | null)[] | null,
-  type: LexicalNode | null,
-  value: LexicalNode | null,
+  modifier: ModifierNode | null,
+  name: IdNode | null,
+  group: GroupSemantic | null,
+  type: Node | null,
+  value: Node | null,
 ): DeclarationNode {
+  const leftNode = modifier ?? name ?? group ?? type ?? value;
+  const rightNode = value ?? type ?? group ?? name ?? modifier;
+
   return {
     $: NodeType.DECLARATION,
-    start: modifier.start,
-    stop: type?.stop ?? parameters?.lastOrNull()?.stop ?? name.stop,
+    start: leftNode?.start ?? 0,
+    stop: rightNode?.stop ?? 0,
     modifier,
     name,
-    parameters,
+    group,
     type,
     value,
   };
 }
+
+export interface GroupSemantic extends SemanticNode {}
 
 // model? A? {T: Number, T2}(p1: P, p2: P)?: R
