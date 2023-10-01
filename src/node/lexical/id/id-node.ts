@@ -26,21 +26,17 @@ const DIGITS_LETTERS = DIGITS + LETTERS;
 const MODIFIERS = ['prefix', 'postfix', 'infix'];
 const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
 
-export function scanIdNode({ text, index }: LexicalAnalysis): IdNode | ModifierNode | KeywordNode | null {
-  if (LETTERS.includes(text[index])) {
-    const sliced = text.takeWhile((x) => DIGITS_LETTERS.includes(x), index);
+export function scanIdNode({ text, index, lastNodes }: LexicalAnalysis): IdNode | ModifierNode | KeywordNode | null {
+  if (!LETTERS.includes(text[index])) return null;
+  const sliced = text.takeWhile((x) => DIGITS_LETTERS.includes(x), index);
 
-    // todo: should be after nl and/or spaces before id or operator
-    if (MODIFIERS.includes(sliced)) {
-      return modifierNode(index, index + sliced.length - 1, sliced);
-    }
-
-    if (KEYWORDS.includes(sliced)) {
-      return keywordNode(index, index + sliced.length - 1, sliced);
-    }
-
-    return idNode(index, index + sliced.length - 1, sliced);
+  if (lastNodes.length === 0 && MODIFIERS.includes(sliced)) {
+    return modifierNode(index, index + sliced.length - 1, sliced);
   }
 
-  return null;
+  if (KEYWORDS.includes(sliced)) {
+    return keywordNode(index, index + sliced.length - 1, sliced);
+  }
+
+  return idNode(index, index + sliced.length - 1, sliced);
 }
