@@ -7,7 +7,6 @@ import { IdNode, scanIdNode } from '~/node/lexical/id/id-node';
 import { scanIntegerNode } from '~/node/lexical/integer/integer-node';
 import { JoiningNode, scanJoiningNode } from '~/node/lexical/joining/joining-node';
 import { HiddenLexicalNode, NonHiddenLexicalNode } from '~/node/lexical/lexical-node';
-import { ModifierNode } from '~/node/lexical/modifier/modifier-node';
 import { NlNode, scanNlNode } from '~/node/lexical/nl/nl-node';
 import { OperatorNode, scanOperatorNode } from '~/node/lexical/operator/operator-node';
 import { scanStringNode } from '~/node/lexical/string/string-node';
@@ -19,7 +18,6 @@ import { GroupNode, scanGroupNode } from '~/node/syntactic/group/group-node';
 import { InfixNode, infixNode } from '~/node/syntactic/infix/infix-node';
 import { invokeNode } from '~/node/syntactic/invoke/invoke-node';
 import { MemberNode, memberNode } from '~/node/syntactic/member/member-node';
-import { modifierIdNode } from '~/node/syntactic/modifier-id/modifier-id-node';
 import { postfixNode } from '~/node/syntactic/postfix/postfix-node';
 import { prefixNode } from '~/node/syntactic/prefix/prefix-node';
 import { statementNode } from '~/node/syntactic/statement/statement-node';
@@ -177,12 +175,6 @@ function getSyntaxNodes(nodes: Node[]): Node[] {
 }
 
 function collapseLineNodes(nodes: Node[]): void {
-  if (nodes.length > 1 && is<ModifierNode>(nodes[0], NodeType.MODIFIER)) {
-    if (is<IdNode>(nodes[1], NodeType.ID) || is<OperatorNode>(nodes[1], NodeType.OPERATOR)) {
-      nodes.splice(0, 2, modifierIdNode(nodes[0], nodes[1]));
-    }
-  }
-
   for (const operatorsOrder of operatorsOrders) {
     if (operatorsOrder.operatorType === OperatorType.INVOKE) {
       collapseInvoke(nodes);
