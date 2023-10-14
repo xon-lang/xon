@@ -1,5 +1,5 @@
 import { Node, NodeType } from '~/node/node';
-import { DataType } from '~/node/syntactic/data-type';
+import { DataType } from '~/node/semantic/data-type';
 import { LexicalNode } from '../../lexical/lexical-node';
 
 export interface ValueNode extends Node {

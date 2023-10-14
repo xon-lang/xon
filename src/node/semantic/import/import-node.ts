@@ -1,5 +1,5 @@
 import { NodeType } from '~/node/node';
-import { SemanticNode } from '~/node/syntactic/semantic-node';
+import { SemanticNode } from '~/node/semantic/semantic-node';
 
 export interface ImportNode extends SemanticNode {
   $: NodeType.IMPORT;

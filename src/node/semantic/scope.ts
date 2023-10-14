@@ -1,5 +1,5 @@
 import { String2 } from '~/lib/core';
-import { DataType } from '~/node/syntactic/data-type';
+import { DataType } from '~/node/semantic/data-type';
 
 export class Scope {
   idType: { id: String2; type: DataType }[] = [];

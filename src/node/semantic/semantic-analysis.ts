@@ -3,9 +3,9 @@ import { LadderNode } from '~/analysis/syntax/node/ladder/ladder-node';
 import { SyntaxNode } from '~/analysis/syntax/syntax-node';
 import { LexicalNode } from '~/node/lexical/lexical-node';
 import { NodeType, is } from '~/node/node';
-import { DataType } from '~/node/syntactic/data-type';
-import { Scope } from '~/node/syntactic/scope';
-import { SemanticNode } from '~/node/syntactic/semantic-node';
+import { DataType } from '~/node/semantic/data-type';
+import { SemanticNode } from '~/node/semantic/semantic-node';
+import { Scope } from '~/node/semantic/scope';
 
 export class SemanticAnalysis implements Analysis {
   public constructor(public syntaxNodes: LexicalNode[]) {}

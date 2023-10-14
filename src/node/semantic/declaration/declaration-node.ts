@@ -1,7 +1,7 @@
 import { IdNode } from '~/node/lexical/id/id-node';
 import { ModifierNode } from '~/node/lexical/modifier/modifier-node';
 import { Node, NodeType } from '~/node/node';
-import { SemanticNode } from '~/node/syntactic/semantic-node';
+import { SemanticNode } from '~/node/semantic/semantic-node';
 
 export interface DeclarationNode extends SemanticNode {
   $: NodeType.DECLARATION;
