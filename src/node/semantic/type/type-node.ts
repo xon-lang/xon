@@ -1,5 +1,5 @@
-import { DataType } from '~/analysis/semantic/data-type';
 import { Node, NodeType } from '~/node/node';
+import { DataType } from '~/node/syntactic/data-type';
 import { LexicalNode } from '../../lexical/lexical-node';
 
 export interface TypeNode extends Node {

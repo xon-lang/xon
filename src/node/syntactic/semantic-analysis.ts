@@ -1,11 +1,11 @@
 import { Analysis } from '~/analysis/analysis';
-import { DataType } from '~/analysis/semantic/data-type';
-import { Scope } from '~/analysis/semantic/scope';
-import { SemanticNode } from '~/analysis/semantic/semantic-node';
 import { LadderNode } from '~/analysis/syntax/node/ladder/ladder-node';
 import { SyntaxNode } from '~/analysis/syntax/syntax-node';
 import { LexicalNode } from '~/node/lexical/lexical-node';
 import { NodeType, is } from '~/node/node';
+import { DataType } from '~/node/syntactic/data-type';
+import { Scope } from '~/node/syntactic/scope';
+import { SemanticNode } from '~/node/syntactic/semantic-node';
 
 export class SemanticAnalysis implements Analysis {
   public constructor(public syntaxNodes: LexicalNode[]) {}
