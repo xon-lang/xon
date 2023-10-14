@@ -13,5 +13,6 @@ test('string type node', () => {
   const type = parseTypeNode(node) as StringTypeNode;
 
   expect(type).toBeTruthy();
-  expect(type.$).toBe(NodeType.TYPE);
+  expect(type.$).toBe(NodeType.TYPE_STRING);
+  expect(type.value).toBe('abc');
 });
