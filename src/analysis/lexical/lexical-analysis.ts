@@ -6,7 +6,7 @@ import { scanCommaNode } from '~/node/lexical/comma/comma-node';
 import { IdNode, scanIdNode } from '~/node/lexical/id/id-node';
 import { scanIntegerNode } from '~/node/lexical/integer/integer-node';
 import { JoiningNode, scanJoiningNode } from '~/node/lexical/joining/joining-node';
-import { HiddenLexicalNode, NonHiddenLexicalNode } from '~/node/lexical/lexical-node';
+import { HiddenLexicalNode, LexicalNode, NonHiddenLexicalNode } from '~/node/lexical/lexical-node';
 import { NlNode, scanNlNode } from '~/node/lexical/nl/nl-node';
 import { OperatorNode, scanOperatorNode } from '~/node/lexical/operator/operator-node';
 import { scanStringNode } from '~/node/lexical/string/string-node';
@@ -21,8 +21,9 @@ import { MemberNode, memberNode } from '~/node/syntactic/member/member-node';
 import { postfixNode } from '~/node/syntactic/postfix/postfix-node';
 import { prefixNode } from '~/node/syntactic/prefix/prefix-node';
 import { statementNode } from '~/node/syntactic/statement/statement-node';
+import { SyntacticNode } from '~/node/syntactic/syntactic-node';
 
-type NodeScanFunction = (analysis: LexicalAnalysis) => Node | null;
+type NodeScanFunction = (analysis: LexicalAnalysis) => LexicalNode | SyntacticNode | null;
 
 const nodeScanFunctions: NodeScanFunction[] = [
   scanNlNode,
@@ -92,7 +93,7 @@ export class LexicalAnalysis {
     };
   }
 
-  public nextNode(): Node {
+  public nextNode(): Exclude<ReturnType<NodeScanFunction>, null> {
     for (const nodeScan of nodeScanFunctions) {
       const node = nodeScan(this);
       if (node) {
