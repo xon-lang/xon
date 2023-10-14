@@ -1,5 +1,5 @@
-import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { Integer, String2 } from '~/lib/core';
+import { LexicalAnalysis } from '~/node/lexical/lexical-analysis';
 import { HiddenLexicalNode } from '~/node/lexical/lexical-node';
 import { NodeType } from '~/node/node';
 

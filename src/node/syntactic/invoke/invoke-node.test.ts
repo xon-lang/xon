@@ -1,6 +1,6 @@
-import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { IdNode } from '~/node/lexical/id/id-node';
 import { IntegerNode } from '~/node/lexical/integer/integer-node';
+import { LexicalAnalysis } from '~/node/lexical/lexical-analysis';
 import { NodeType } from '~/node/node';
 import { GroupNode } from '~/node/syntactic/group/group-node';
 import { InvokeNode } from '~/node/syntactic/invoke/invoke-node';

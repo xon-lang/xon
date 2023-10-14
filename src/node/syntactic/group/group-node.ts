@@ -1,7 +1,7 @@
-import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import '~/extensions';
 import { CloseNode } from '~/node/lexical/close/close-node';
 import { CommaNode } from '~/node/lexical/comma/comma-node';
+import { LexicalAnalysis } from '~/node/lexical/lexical-analysis';
 import { OpenNode, scanOpenNode } from '~/node/lexical/open/open-node';
 import { NodeType } from '~/node/node';
 import { StatementNode, statementNode } from '~/node/syntactic/statement/statement-node';

@@ -1,4 +1,4 @@
-import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
+import { LexicalAnalysis } from '~/node/lexical/lexical-analysis';
 import { LexicalNode, NonHiddenLexicalNode } from '~/node/lexical/lexical-node';
 import { Source } from '~/source/source';
 

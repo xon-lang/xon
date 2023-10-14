@@ -1,4 +1,4 @@
-import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
+import { LexicalAnalysis } from '~/node/lexical/lexical-analysis';
 import { NodeType } from '~/node/node';
 import { PrefixNode } from '~/node/syntactic/prefix/prefix-node';
 import { Source } from '~/source/source';

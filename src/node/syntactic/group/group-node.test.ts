@@ -1,5 +1,5 @@
-import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { IntegerNode } from '~/node/lexical/integer/integer-node';
+import { LexicalAnalysis } from '~/node/lexical/lexical-analysis';
 import { WhitespaceNode } from '~/node/lexical/whitespace/whitespace-node';
 import { NodeType } from '~/node/node';
 import { GroupNode } from '~/node/syntactic/group/group-node';

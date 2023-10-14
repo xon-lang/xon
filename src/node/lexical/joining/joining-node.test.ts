@@ -1,5 +1,5 @@
-import { LexicalAnalysis } from '~/analysis/lexical/lexical-analysis';
 import { IdNode } from '~/node/lexical/id/id-node';
+import { LexicalAnalysis } from '~/node/lexical/lexical-analysis';
 import { OperatorNode } from '~/node/lexical/operator/operator-node';
 import { NodeType } from '~/node/node';
 import { MemberNode } from '~/node/syntactic/member/member-node';

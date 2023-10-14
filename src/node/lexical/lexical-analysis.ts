@@ -1,5 +1,4 @@
 /* eslint-disable max-lines */
-import { OperatorType, RecursiveType, operatorsOrders } from '~/analysis/lexical/operators';
 import { Boolean2, Integer, String2 } from '~/lib/core';
 import { scanCloseNode } from '~/node/lexical/close/close-node';
 import { scanCommaNode } from '~/node/lexical/comma/comma-node';
@@ -9,6 +8,7 @@ import { JoiningNode, scanJoiningNode } from '~/node/lexical/joining/joining-nod
 import { HiddenLexicalNode, LexicalNode, NonHiddenLexicalNode } from '~/node/lexical/lexical-node';
 import { NlNode, scanNlNode } from '~/node/lexical/nl/nl-node';
 import { OperatorNode, scanOperatorNode } from '~/node/lexical/operator/operator-node';
+import { OperatorType, RecursiveType, operatorsOrders } from '~/node/lexical/operators';
 import { scanStringNode } from '~/node/lexical/string/string-node';
 import { scanUnknownNode } from '~/node/lexical/unknown/unknown-node';
 import { WhitespaceNode, scanWhitespaceNode } from '~/node/lexical/whitespace/whitespace-node';
