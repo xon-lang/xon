@@ -8,7 +8,7 @@ export interface PrefixNode extends SyntacticNode {
   value: Node;
 }
 
-export function prefixNode(operator: OperatorNode, value: Node): PrefixNode {
+export function prefixNode(operator: OperatorNode, value: SyntacticNode): PrefixNode {
   return {
     $: NodeType.PREFIX,
     start: operator.start,

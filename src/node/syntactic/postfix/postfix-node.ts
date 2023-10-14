@@ -8,7 +8,7 @@ export interface PostfixNode extends SyntacticNode {
   value: Node;
 }
 
-export function postfixNode(operator: OperatorNode, value: Node): PostfixNode {
+export function postfixNode(operator: OperatorNode, value: SyntacticNode): PostfixNode {
   return {
     $: NodeType.POSTFIX,
     start: value.start,

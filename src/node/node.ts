@@ -1,9 +1,5 @@
-import { Integer } from '~/lib/core';
-
 export interface Node {
   $: NodeType;
-  start: Integer;
-  stop: Integer;
 }
 
 export enum NodeType {

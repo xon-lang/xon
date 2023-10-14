@@ -10,7 +10,7 @@ export interface MemberNode extends SyntacticNode {
   id: IdNode;
 }
 
-export function memberNode(operator: OperatorNode, instance: Node, id: IdNode): MemberNode {
+export function memberNode(operator: OperatorNode, instance: SyntacticNode, id: IdNode): MemberNode {
   return {
     $: NodeType.MEMBER,
     start: instance.start,

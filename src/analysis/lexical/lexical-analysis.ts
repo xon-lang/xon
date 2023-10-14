@@ -169,7 +169,7 @@ function getStatementIndent(nodes: NonHiddenLexicalNode[]): Integer | null {
   return whitespaceTokens?.sum((x) => x.stop - x.start + 1) ?? null;
 }
 
-function getSyntaxNodes(nodes: Node[]): Node[] {
+function getSyntaxNodes(nodes: SyntacticNode[]): SyntacticNode[] {
   const nonHidden = nodes.filter((x) => !is(x, NodeType.HIDDEN));
   collapseLineNodes(nonHidden);
 
@@ -254,7 +254,7 @@ function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIn
   }
 
   if (operatorType === OperatorType.PREFIX) {
-    const right = nodes[operatorIndex + 1];
+    const right = nodes[operatorIndex + 1] as SyntacticNode;
 
     if (!right) {
       throw new Error('Not implemented');
@@ -268,7 +268,7 @@ function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIn
   }
 
   if (operatorType === OperatorType.POSTFIX) {
-    const left = nodes[operatorIndex - 1];
+    const left = nodes[operatorIndex - 1] as SyntacticNode;
 
     if (!left) {
       throw new Error('Not implemented');
@@ -282,8 +282,8 @@ function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIn
   }
 
   if (operatorType === OperatorType.INFIX) {
-    const left = nodes[operatorIndex - 1] as Node;
-    const right = nodes[operatorIndex + 1] as Node;
+    const left = nodes[operatorIndex - 1] as SyntacticNode;
+    const right = nodes[operatorIndex + 1] as SyntacticNode;
 
     if (!left || !right) {
       throw new Error('Not implemented');
@@ -296,7 +296,7 @@ function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIn
   }
 }
 
-function handleInfix(operator: OperatorNode, left: Node, right: Node): InfixNode | MemberNode {
+function handleInfix(operator: OperatorNode, left: SyntacticNode, right: SyntacticNode): InfixNode | MemberNode {
   // fix complex condition
   if (operator.text === '.' || operator.text === '::') {
     if (is<IdNode>(right, NodeType.ID)) {

@@ -3,7 +3,7 @@ import '~/extensions';
 import { CloseNode } from '~/node/lexical/close/close-node';
 import { CommaNode } from '~/node/lexical/comma/comma-node';
 import { OpenNode, scanOpenNode } from '~/node/lexical/open/open-node';
-import { Node, NodeType } from '~/node/node';
+import { NodeType } from '~/node/node';
 import { StatementNode, statementNode } from '~/node/syntactic/statement/statement-node';
 import { SyntacticNode } from '~/node/syntactic/syntactic-node';
 import { is } from '../../node';
@@ -28,7 +28,7 @@ export function groupNode(open: OpenNode, close: CloseNode | null, items: ItemNo
   };
 }
 
-export interface ItemNode extends Node {
+export interface ItemNode extends SyntacticNode {
   $: NodeType.ITEM;
   statements: StatementNode[];
   comma?: CommaNode;

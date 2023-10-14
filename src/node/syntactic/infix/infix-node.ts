@@ -9,7 +9,7 @@ export interface InfixNode extends SyntacticNode {
   right: Node;
 }
 
-export function infixNode(operator: OperatorNode, left: Node, right: Node): InfixNode {
+export function infixNode(operator: OperatorNode, left: SyntacticNode, right: SyntacticNode): InfixNode {
   return {
     $: NodeType.INFIX,
     start: left.start,

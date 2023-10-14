@@ -8,7 +8,7 @@ export interface InvokeNode extends SyntacticNode {
   group: GroupNode;
 }
 
-export function invokeNode(instance: Node, group: GroupNode): InvokeNode {
+export function invokeNode(instance: SyntacticNode, group: GroupNode): InvokeNode {
   return {
     $: NodeType.INVOKE,
     start: instance.start,
