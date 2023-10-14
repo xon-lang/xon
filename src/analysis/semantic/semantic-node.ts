@@ -1,3 +1,3 @@
 import { Node } from '~/node/node';
 
-export type SemanticNode = Node;
+export interface SemanticNode extends Node {}
