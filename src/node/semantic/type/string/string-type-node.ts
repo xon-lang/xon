@@ -16,3 +16,7 @@ export function stringTypeNode(value: String2, node: StringNode | null): StringT
     value,
   };
 }
+
+export function parseStringTypeNode(node: StringNode): StringTypeNode {
+  return stringTypeNode(node.text.slice(1, -1), node);
+}

@@ -16,3 +16,7 @@ export function integerTypeNode(value: Integer, node: IntegerNode | null): Integ
     value,
   };
 }
+
+export function parseIntegerTypeNode(node: IntegerNode): IntegerTypeNode {
+  return integerTypeNode(Number(node.text), node);
+}

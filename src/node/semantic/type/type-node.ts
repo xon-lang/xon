@@ -2,8 +2,10 @@ import { IntegerNode } from '~/node/lexical/integer/integer-node';
 import { StringNode } from '~/node/lexical/string/string-node';
 import { NodeType, is } from '~/node/node';
 import { SemanticNode } from '~/node/semantic/semantic-node';
-import { integerTypeNode } from '~/node/semantic/type/integer/integer-type-node';
-import { stringTypeNode } from '~/node/semantic/type/string/string-type-node';
+import { parseIntegerTypeNode } from '~/node/semantic/type/integer/integer-type-node';
+import { parseStringTypeNode } from '~/node/semantic/type/string/string-type-node';
+import { UNION_SPLITTER, parseUnionTypeNode } from '~/node/semantic/type/union/union-type-node';
+import { InfixNode } from '~/node/syntactic/infix/infix-node';
 import { SyntacticNode } from '~/node/syntactic/syntactic-node';
 import { LexicalNode } from '../../lexical/lexical-node';
 
@@ -13,11 +15,17 @@ export interface TypeNode extends SemanticNode {
 
 export function parseTypeNode(node: LexicalNode | SemanticNode): TypeNode | null {
   if (is<StringNode>(node, NodeType.STRING)) {
-    return stringTypeNode(node.text.slice(1, -1), node);
+    return parseStringTypeNode(node);
   }
 
   if (is<IntegerNode>(node, NodeType.INTEGER)) {
-    return integerTypeNode(Number(node.text), node);
+    return parseIntegerTypeNode(node);
+  }
+
+  if (is<InfixNode>(node, NodeType.INFIX)) {
+    if (node.operator.text === UNION_SPLITTER) {
+      return parseUnionTypeNode(node);
+    }
   }
 
   return null;
