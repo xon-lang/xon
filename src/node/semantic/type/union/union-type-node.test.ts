@@ -31,4 +31,5 @@ test('four union type node', () => {
   expect(type).toBeTruthy();
   expect(type.$).toBe(NodeType.TYPE_UNION);
   expect(type.types.length).toBe(4);
+  expect((type.types[3] as StringTypeNode).value).toBe('def');
 });
