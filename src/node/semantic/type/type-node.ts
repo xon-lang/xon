@@ -1,19 +1,21 @@
-import { Node, NodeType } from '~/node/node';
-import { DataType } from '~/node/semantic/data-type';
+import { StringNode } from '~/node/lexical/string/string-node';
+import { NodeType, is } from '~/node/node';
+import { SemanticNode } from '~/node/semantic/semantic-node';
+import { stringTypeNode } from '~/node/semantic/type/string/string-type-node';
+import { SyntacticNode } from '~/node/syntactic/syntactic-node';
 import { LexicalNode } from '../../lexical/lexical-node';
 
-export interface TypeNode extends Node {
+export interface TypeNode extends SemanticNode {
   $: NodeType.TYPE;
-  node: LexicalNode;
-  dataType: DataType;
+  node: LexicalNode | SyntacticNode | null;
 }
 
-export function typeNode(node: LexicalNode, dataType: DataType): TypeNode {
-  return {
-    $: NodeType.TYPE,
-    start: node.start,
-    stop: node.stop,
-    node,
-    dataType,
-  };
+export function parseTypeNode(node: LexicalNode | SemanticNode): TypeNode | null {
+  if (is<StringNode>(node, NodeType.STRING)) {
+    return stringTypeNode(node.text.slice(1, -1), node);
+  }
+
+  
+
+  return null;
 }
