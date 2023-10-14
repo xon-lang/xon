@@ -4,6 +4,10 @@ import { NodeType, is } from '~/node/node';
 import { SemanticNode } from '~/node/semantic/semantic-node';
 import { parseGroupTypeNode } from '~/node/semantic/type/group/group-type-node';
 import { parseIntegerTypeNode } from '~/node/semantic/type/integer/integer-type-node';
+import {
+  INTERSECTION_SPLITTER,
+  parseIntersectionTypeNode,
+} from '~/node/semantic/type/intersection/intersection-type-node';
 import { parseStringTypeNode } from '~/node/semantic/type/string/string-type-node';
 import { UNION_SPLITTER, parseUnionTypeNode } from '~/node/semantic/type/union/union-type-node';
 import { GroupNode } from '~/node/syntactic/group/group-node';
@@ -31,6 +35,10 @@ export function parseTypeNode(node: LexicalNode | SemanticNode): TypeNode | null
   if (is<InfixNode>(node, NodeType.INFIX)) {
     if (node.operator.text === UNION_SPLITTER) {
       return parseUnionTypeNode(node);
+    }
+
+    if (node.operator.text === INTERSECTION_SPLITTER) {
+      return parseIntersectionTypeNode(node);
     }
   }
 
