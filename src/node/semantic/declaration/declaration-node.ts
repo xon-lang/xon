@@ -19,13 +19,8 @@ export function declarationNode(
   type: Node | null,
   value: Node | null,
 ): DeclarationNode {
-  const leftNode = modifier ?? name ?? group ?? type ?? value;
-  const rightNode = value ?? type ?? group ?? name ?? modifier;
-
   return {
     $: NodeType.DECLARATION,
-    start: leftNode?.start ?? 0,
-    stop: rightNode?.stop ?? 0,
     modifier,
     name,
     group,
