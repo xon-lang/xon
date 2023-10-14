@@ -23,7 +23,8 @@ import { prefixNode } from '~/node/syntactic/prefix/prefix-node';
 import { statementNode } from '~/node/syntactic/statement/statement-node';
 import { SyntacticNode } from '~/node/syntactic/syntactic-node';
 
-type NodeScanFunction = (analysis: LexicalAnalysis) => LexicalNode | SyntacticNode | null;
+type NodeScanResult = LexicalNode | SyntacticNode | null;
+type NodeScanFunction = (analysis: LexicalAnalysis) => NodeScanResult;
 
 const nodeScanFunctions: NodeScanFunction[] = [
   scanNlNode,
@@ -93,7 +94,7 @@ export class LexicalAnalysis {
     };
   }
 
-  public nextNode(): Exclude<ReturnType<NodeScanFunction>, null> {
+  public nextNode(): Exclude<NodeScanResult, null> {
     for (const nodeScan of nodeScanFunctions) {
       const node = nodeScan(this);
       if (node) {
