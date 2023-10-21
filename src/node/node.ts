@@ -1,5 +1,5 @@
 export interface Node {
-  $: NodeType;
+  readonly $: NodeType;
 }
 
 export enum NodeType {

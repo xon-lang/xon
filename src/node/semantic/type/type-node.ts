@@ -33,13 +33,19 @@ export function parseTypeNode(node: LexicalNode | SemanticNode): TypeNode | null
   }
 
   if (is<InfixNode>(node, NodeType.INFIX)) {
-    if (node.operator.text === UNION_SPLITTER) {
-      return parseUnionTypeNode(node);
-    }
+    return parseInfixType(node);
+  }
 
-    if (node.operator.text === INTERSECTION_SPLITTER) {
-      return parseIntersectionTypeNode(node);
-    }
+  return null;
+}
+
+function parseInfixType(node: InfixNode): TypeNode | null {
+  if (node.operator.text === UNION_SPLITTER) {
+    return parseUnionTypeNode(node);
+  }
+
+  if (node.operator.text === INTERSECTION_SPLITTER) {
+    return parseIntersectionTypeNode(node);
   }
 
   return null;
