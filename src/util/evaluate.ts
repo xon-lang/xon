@@ -1,7 +1,7 @@
 import { String2, Unknown2 } from '~/lib/core';
+import { IntegerNode } from '~/node/custom/integer/integer-node';
+import { StringNode } from '~/node/custom/string/string-node';
 import { IdNode } from '~/node/lexical/id/id-node';
-import { IntegerNode } from '~/node/lexical/integer/integer-node';
-import { StringNode } from '~/node/lexical/string/string-node';
 import { Node, NodeType, is } from '~/node/node';
 import { GroupNode } from '~/node/syntactic/group/group-node';
 import { InfixNode } from '~/node/syntactic/infix/infix-node';
@@ -16,7 +16,7 @@ export function evaluate(node: Node | null, argsMap = {}): Unknown2 {
     return null;
   }
   if (is<GroupNode>(node, NodeType.GROUP)) {
-    return node.items.map((x) => evaluate(x ?? null));
+    return node.bodies.map((x) => evaluate(x ?? null));
   }
   if (is<IntegerNode>(node, NodeType.INTEGER)) {
     return Number(node.text);

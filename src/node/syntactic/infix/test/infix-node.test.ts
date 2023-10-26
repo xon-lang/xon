@@ -1,5 +1,5 @@
+import { IntegerNode } from '~/node/custom/integer/integer-node';
 import { IdNode } from '~/node/lexical/id/id-node';
-import { IntegerNode } from '~/node/lexical/integer/integer-node';
 import { LexicalAnalysis } from '~/node/lexical/lexical-analysis';
 import { LexicalNode } from '~/node/lexical/lexical-node';
 import { NodeType } from '~/node/node';

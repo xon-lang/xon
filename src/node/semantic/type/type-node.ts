@@ -1,5 +1,5 @@
-import { IntegerNode } from '~/node/lexical/integer/integer-node';
-import { StringNode } from '~/node/lexical/string/string-node';
+import { IntegerNode } from '~/node/custom/integer/integer-node';
+import { StringNode } from '~/node/custom/string/string-node';
 import { NodeType, is } from '~/node/node';
 import { SemanticNode } from '~/node/semantic/semantic-node';
 import { parseGroupTypeNode } from '~/node/semantic/type/group/group-type-node';

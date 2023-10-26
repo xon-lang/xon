@@ -1,5 +1,5 @@
 import { Integer } from '~/lib/core';
-import { IntegerNode } from '~/node/lexical/integer/integer-node';
+import { IntegerNode } from '~/node/custom/integer/integer-node';
 import { NodeType } from '~/node/node';
 import { TypeNode } from '~/node/semantic/type/type-node';
 

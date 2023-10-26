@@ -1,4 +1,5 @@
 {
+  "$schema": ".eslintrc-schema.json",
   "root": true,
   "env": {
     "browser": true,
@@ -17,7 +18,7 @@
     // "plugin:import/typescript",
     "plugin:@typescript-eslint/recommended",
     //!! "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:jest/recommended",
+    "plugin:jest/recommended"
   ],
   "parserOptions": {
     "project": [
@@ -381,6 +382,16 @@
         "blankLine": "always",
         "prev": "*",
         "next": "return"
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "continue"
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "break"
       }
     ],
     // "padding-line-between-statements": [

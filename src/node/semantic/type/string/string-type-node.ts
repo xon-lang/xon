@@ -1,5 +1,5 @@
 import { String2 } from '~/lib/core';
-import { StringNode } from '~/node/lexical/string/string-node';
+import { StringNode } from '~/node/custom/string/string-node';
 import { NodeType } from '~/node/node';
 import { TypeNode } from '~/node/semantic/type/type-node';
 

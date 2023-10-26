@@ -15,7 +15,6 @@ export enum NodeType {
   ID = 'ID',
   STRING = 'STRING',
   GROUP = 'GROUP',
-  ITEM = 'ITEM',
   INTEGER = 'INTEGER',
   OPERATOR = 'OPERATOR',
   MODIFIER = 'MODIFIER',

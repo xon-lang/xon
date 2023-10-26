@@ -1,15 +1,15 @@
 /* eslint-disable max-lines */
 import { Boolean2, Integer, String2 } from '~/lib/core';
+import { scanIntegerNode } from '~/node/custom/integer/integer-node';
+import { scanStringNode } from '~/node/custom/string/string-node';
 import { scanCloseNode } from '~/node/lexical/close/close-node';
 import { scanCommaNode } from '~/node/lexical/comma/comma-node';
 import { IdNode, scanIdNode } from '~/node/lexical/id/id-node';
-import { scanIntegerNode } from '~/node/lexical/integer/integer-node';
 import { JoiningNode, scanJoiningNode } from '~/node/lexical/joining/joining-node';
 import { HiddenLexicalNode, LexicalNode, NonHiddenLexicalNode } from '~/node/lexical/lexical-node';
 import { NlNode, scanNlNode } from '~/node/lexical/nl/nl-node';
 import { OperatorNode, scanOperatorNode } from '~/node/lexical/operator/operator-node';
 import { OperatorType, RecursiveType, operatorsOrders } from '~/node/lexical/operators';
-import { scanStringNode } from '~/node/lexical/string/string-node';
 import { scanUnknownNode } from '~/node/lexical/unknown/unknown-node';
 import { WhitespaceNode, scanWhitespaceNode } from '~/node/lexical/whitespace/whitespace-node';
 import { Node, NodeType, is } from '~/node/node';
@@ -28,13 +28,7 @@ type NodeScanFunction = (analysis: LexicalAnalysis) => NodeScanResult;
 
 const nodeScanFunctions: NodeScanFunction[] = [
   scanNlNode,
-  // scanBodyNode
-
-  scanIntegerNode,
-  scanStringNode,
   scanGroupNode,
-  // scanOpenNode, this handle group
-  // this can handle group if possible
   scanCloseNode,
   scanCommaNode,
   scanJoiningNode,
@@ -44,11 +38,15 @@ const nodeScanFunctions: NodeScanFunction[] = [
   scanUnknownNode,
 ];
 
+const defaultLiteralScanFunctions: NodeScanFunction[] = [
+  scanIntegerNode, scanStringNode,
+];
+
 export class LexicalAnalysis {
   public index = 0;
   public lastNodes: Node[] = [];
 
-  public constructor(public text: String2) {}
+  public constructor(public text: String2, public literalScanners: NodeScanFunction[] = defaultLiteralScanFunctions) { }
 
   public body(breakFn: ((node: Node) => Boolean2) | null = null): BodyNode & { breakNode?: Node } {
     const indentBody: { indent: Integer | null; body: BodyNode }[] = [];
@@ -63,11 +61,13 @@ export class LexicalAnalysis {
 
       if (breakFn && breakFn(node)) {
         breakNode = node;
+
         break;
       }
 
       if (is<WhitespaceNode>(node, NodeType.WHITESPACE) || is<JoiningNode>(node, NodeType.JOINING)) {
         hidden.push(node);
+
         continue;
       }
 
@@ -76,6 +76,7 @@ export class LexicalAnalysis {
         this.putStatement(indentBody, nodes, hidden);
         nodes = [];
         hidden = [];
+
         continue;
       }
 
@@ -95,7 +96,7 @@ export class LexicalAnalysis {
   }
 
   public nextNode(): Exclude<NodeScanResult, null> {
-    for (const nodeScan of nodeScanFunctions) {
+    for (const nodeScan of [...this.literalScanners, ...nodeScanFunctions]) {
       const node = nodeScan(this);
       if (node) {
         this.index = node.stop + 1;

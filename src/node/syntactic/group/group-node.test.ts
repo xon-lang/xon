@@ -1,4 +1,4 @@
-import { IntegerNode } from '~/node/lexical/integer/integer-node';
+import { IntegerNode } from '~/node/custom/integer/integer-node';
 import { LexicalAnalysis } from '~/node/lexical/lexical-analysis';
 import { WhitespaceNode } from '~/node/lexical/whitespace/whitespace-node';
 import { NodeType } from '~/node/node';
@@ -21,9 +21,9 @@ test('empty closed', () => {
   expect(is(group.open, NodeType.OPEN)).toBe(true);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   expect(is(group.close, NodeType.CLOSE)).toBe(true);
-  expect(group.items.length).toBe(1);
-  expect(group.items[0].statements.length).toBe(1);
-  expect(group.items[0].statements[0].nodes.length).toBe(0);
+  expect(group.bodies.length).toBe(1);
+  expect(group.bodies[0].statements.length).toBe(1);
+  expect(group.bodies[0].statements[0].nodes.length).toBe(0);
 });
 
 test('single comma', () => {
@@ -40,11 +40,11 @@ test('single comma', () => {
   expect(is(group.open, NodeType.OPEN)).toBe(true);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   expect(is(group.close, NodeType.CLOSE)).toBe(true);
-  expect(group.items.length).toBe(2);
-  expect(group.items[0].statements.length).toBe(1);
-  expect(group.items[0].statements[0].nodes.length).toBe(0);
-  expect(group.items[1].statements.length).toBe(1);
-  expect(group.items[1].statements[0].nodes.length).toBe(0);
+  expect(group.bodies.length).toBe(2);
+  expect(group.bodies[0].statements.length).toBe(1);
+  expect(group.bodies[0].statements[0].nodes.length).toBe(0);
+  expect(group.bodies[1].statements.length).toBe(1);
+  expect(group.bodies[1].statements[0].nodes.length).toBe(0);
 });
 
 test('empty not closed', () => {
@@ -60,9 +60,9 @@ test('empty not closed', () => {
   expect(is(group, NodeType.GROUP)).toBe(true);
   expect(is(group.open, NodeType.OPEN)).toBe(true);
   expect(group.close).toBe(null);
-  expect(group.items.length).toBe(1);
-  expect(group.items[0].statements.length).toBe(1);
-  expect(group.items[0].statements[0].nodes.length).toBe(0);
+  expect(group.bodies.length).toBe(1);
+  expect(group.bodies[0].statements.length).toBe(1);
+  expect(group.bodies[0].statements[0].nodes.length).toBe(0);
 });
 
 test('single item', () => {
@@ -76,13 +76,13 @@ test('single item', () => {
 
   const group = nodes[0] as GroupNode;
   expect(is(group, NodeType.GROUP)).toBe(true);
-  expect(group.items.length).toBe(1);
-  expect(group.items[0].statements.length).toBe(1);
-  expect(group.items[0].statements[0].nodes.length).toBe(2);
-  expect((group.items[0].statements[0].nodes[0] as IntegerNode).text).toBe('123');
-  expect((group.items[0].statements[0].nodes[1] as NonHiddenLexicalNode).hidden.length).toBe(1);
-  expect(((group.items[0].statements[0].nodes[1] as NonHiddenLexicalNode).hidden[0] as WhitespaceNode).text).toBe(' ');
-  expect((group.items[0].statements[0].nodes[1] as IntegerNode).text).toBe('456');
+  expect(group.bodies.length).toBe(1);
+  expect(group.bodies[0].statements.length).toBe(1);
+  expect(group.bodies[0].statements[0].nodes.length).toBe(2);
+  expect((group.bodies[0].statements[0].nodes[0] as IntegerNode).text).toBe('123');
+  expect((group.bodies[0].statements[0].nodes[1] as NonHiddenLexicalNode).hidden.length).toBe(1);
+  expect(((group.bodies[0].statements[0].nodes[1] as NonHiddenLexicalNode).hidden[0] as WhitespaceNode).text).toBe(' ');
+  expect((group.bodies[0].statements[0].nodes[1] as IntegerNode).text).toBe('456');
 });
 
 test('inner group', () => {
@@ -96,13 +96,13 @@ test('inner group', () => {
 
   const group = nodes[0] as GroupNode;
   expect(is(group, NodeType.GROUP)).toBe(true);
-  expect(group.items.length).toBe(1);
+  expect(group.bodies.length).toBe(1);
 
-  const innerGroup = group.items[0].statements[0].nodes[0] as GroupNode;
+  const innerGroup = group.bodies[0].statements[0].nodes[0] as GroupNode;
   expect(is(innerGroup, NodeType.GROUP)).toBe(true);
-  expect(innerGroup.items.length).toBe(1);
-  expect(innerGroup.items[0].statements.length).toBe(1);
-  expect(innerGroup.items[0].statements[0].nodes.length).toBe(0);
+  expect(innerGroup.bodies.length).toBe(1);
+  expect(innerGroup.bodies[0].statements.length).toBe(1);
+  expect(innerGroup.bodies[0].statements[0].nodes.length).toBe(0);
 });
 
 test('inner empty group', () => {
@@ -116,19 +116,19 @@ test('inner empty group', () => {
 
   const group = nodes[0] as GroupNode;
   expect(is(group, NodeType.GROUP)).toBe(true);
-  expect(group.items.length).toBe(1);
+  expect(group.bodies.length).toBe(1);
 
-  const innerGroup = group.items[0].statements[0].nodes[0] as GroupNode;
+  const innerGroup = group.bodies[0].statements[0].nodes[0] as GroupNode;
   expect(is(innerGroup, NodeType.GROUP)).toBe(true);
-  expect(innerGroup.items.length).toBe(1);
-  expect(innerGroup.items[0].statements.length).toBe(1);
-  expect(innerGroup.items[0].statements[0].nodes.length).toBe(1);
+  expect(innerGroup.bodies.length).toBe(1);
+  expect(innerGroup.bodies[0].statements.length).toBe(1);
+  expect(innerGroup.bodies[0].statements[0].nodes.length).toBe(1);
 
-  const innerInnerGroup = innerGroup.items[0].statements[0].nodes[0] as GroupNode;
+  const innerInnerGroup = innerGroup.bodies[0].statements[0].nodes[0] as GroupNode;
   expect(is(innerInnerGroup, NodeType.GROUP)).toBe(true);
-  expect(innerInnerGroup.items.length).toBe(1);
-  expect(innerInnerGroup.items[0].statements.length).toBe(1);
-  expect(innerInnerGroup.items[0].statements[0].nodes.length).toBe(0);
+  expect(innerInnerGroup.bodies.length).toBe(1);
+  expect(innerInnerGroup.bodies[0].statements.length).toBe(1);
+  expect(innerInnerGroup.bodies[0].statements[0].nodes.length).toBe(0);
 });
 
 test('two integers no comma and ws at the end', () => {
@@ -142,18 +142,18 @@ test('two integers no comma and ws at the end', () => {
 
   const group = nodes[0] as GroupNode;
   expect(is(group, NodeType.GROUP)).toBe(true);
-  expect(group.items.length).toBe(2);
+  expect(group.bodies.length).toBe(2);
 
-  expect(group.items[0].statements.length).toBe(1);
-  expect(group.items[0].statements[0].nodes.length).toBe(1);
-  expect((group.items[0].statements[0].nodes[0] as IntegerNode).text).toBe('1');
-  expect(group.items[0].comma?.text).toBe(',');
+  expect(group.bodies[0].statements.length).toBe(1);
+  expect(group.bodies[0].statements[0].nodes.length).toBe(1);
+  expect((group.bodies[0].statements[0].nodes[0] as IntegerNode).text).toBe('1');
+  expect(group.bodies[0].statements.last().hidden.last().text).toBe(',');
 
-  expect(group.items[1].statements.length).toBe(1);
-  expect(group.items[1].statements[0].nodes.length).toBe(1);
-  expect((group.items[1].statements[0].nodes[0] as IntegerNode).text).toBe('2');
-  expect((group.items[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden.length).toBe(1);
-  expect(((group.items[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden[0] as WhitespaceNode).text).toBe(' ');
+  expect(group.bodies[1].statements.length).toBe(1);
+  expect(group.bodies[1].statements[0].nodes.length).toBe(1);
+  expect((group.bodies[1].statements[0].nodes[0] as IntegerNode).text).toBe('2');
+  expect((group.bodies[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden.length).toBe(1);
+  expect(((group.bodies[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden[0] as WhitespaceNode).text).toBe(' ');
 });
 
 test('two integers and comma no ws at the end', () => {
@@ -167,22 +167,22 @@ test('two integers and comma no ws at the end', () => {
 
   const group = nodes[0] as GroupNode;
   expect(is(group, NodeType.GROUP)).toBe(true);
-  expect(group.items.length).toBe(3);
+  expect(group.bodies.length).toBe(3);
 
-  expect(group.items[0].statements.length).toBe(1);
-  expect(group.items[0].statements[0].nodes.length).toBe(1);
-  expect((group.items[0].statements[0].nodes[0] as IntegerNode).text).toBe('1');
-  expect(group.items[0].comma?.text).toBe(',');
+  expect(group.bodies[0].statements.length).toBe(1);
+  expect(group.bodies[0].statements[0].nodes.length).toBe(1);
+  expect((group.bodies[0].statements[0].nodes[0] as IntegerNode).text).toBe('1');
+  expect(group.bodies[0].statements.last().hidden.last().text).toBe(',');
 
-  expect(group.items[1].statements.length).toBe(1);
-  expect(group.items[1].statements[0].nodes.length).toBe(1);
-  expect((group.items[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden.length).toBe(1);
-  expect(((group.items[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden[0] as WhitespaceNode).text).toBe(' ');
-  expect((group.items[1].statements[0].nodes[0] as IntegerNode).text).toBe('2');
-  expect(group.items[1].comma?.text).toBe(',');
+  expect(group.bodies[1].statements.length).toBe(1);
+  expect(group.bodies[1].statements[0].nodes.length).toBe(1);
+  expect((group.bodies[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden.length).toBe(1);
+  expect(((group.bodies[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden[0] as WhitespaceNode).text).toBe(' ');
+  expect((group.bodies[1].statements[0].nodes[0] as IntegerNode).text).toBe('2');
+  expect(group.bodies[1].statements.last().hidden.last().text).toBe(',');
 
-  expect(group.items[2].statements.length).toBe(1);
-  expect(group.items[2].statements[0].nodes.length).toBe(0);
+  expect(group.bodies[2].statements.length).toBe(1);
+  expect(group.bodies[2].statements[0].nodes.length).toBe(0);
 });
 
 test('two integers and comma and ws', () => {
@@ -196,24 +196,24 @@ test('two integers and comma and ws', () => {
 
   const group = nodes[0] as GroupNode;
   expect(is(group, NodeType.GROUP)).toBe(true);
-  expect(group.items.length).toBe(3);
+  expect(group.bodies.length).toBe(3);
 
-  expect(group.items[0].statements.length).toBe(1);
-  expect(group.items[0].statements[0].nodes.length).toBe(1);
-  expect((group.items[0].statements[0].nodes[0] as IntegerNode).text).toBe('1');
-  expect(group.items[0].comma?.text).toBe(',');
+  expect(group.bodies[0].statements.length).toBe(1);
+  expect(group.bodies[0].statements[0].nodes.length).toBe(1);
+  expect((group.bodies[0].statements[0].nodes[0] as IntegerNode).text).toBe('1');
+  expect(group.bodies[0].statements.last().hidden.last().text).toBe(',');
 
-  expect(group.items[1].statements.length).toBe(1);
-  expect(group.items[1].statements[0].nodes.length).toBe(1);
-  expect((group.items[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden.length).toBe(1);
-  expect(((group.items[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden[0] as WhitespaceNode).text).toBe(' ');
-  expect((group.items[1].statements[0].nodes[0] as IntegerNode).text).toBe('2');
-  expect(group.items[1].comma?.text).toBe(',');
+  expect(group.bodies[1].statements.length).toBe(1);
+  expect(group.bodies[1].statements[0].nodes.length).toBe(1);
+  expect((group.bodies[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden.length).toBe(1);
+  expect(((group.bodies[1].statements[0].nodes[0] as NonHiddenLexicalNode).hidden[0] as WhitespaceNode).text).toBe(' ');
+  expect((group.bodies[1].statements[0].nodes[0] as IntegerNode).text).toBe('2');
+  expect(group.bodies[1].statements.last().hidden.last().text).toBe(',');
 
-  expect(group.items[2].statements.length).toBe(1);
-  expect(group.items[2].statements[0].nodes.length).toBe(0);
-  expect(group.items[2].statements[0].hidden.length).toBe(1);
-  expect((group.items[2].statements[0].hidden[0] as WhitespaceNode).text).toBe(' ');
+  expect(group.bodies[2].statements.length).toBe(1);
+  expect(group.bodies[2].statements[0].nodes.length).toBe(0);
+  expect(group.bodies[2].statements[0].hidden.length).toBe(1);
+  expect((group.bodies[2].statements[0].hidden[0] as WhitespaceNode).text).toBe(' ');
 });
 
 test('array on several lines', () => {
@@ -230,17 +230,17 @@ test('array on several lines', () => {
 
   const group = nodes[0] as GroupNode;
   expect(is(group, NodeType.GROUP)).toBe(true);
-  expect(group.items.length).toBe(4);
+  expect(group.bodies.length).toBe(4);
 
-  expect(group.items[0].statements.length).toBe(1);
-  expect(group.items[0].statements[0].nodes.length).toBe(1);
-  expect((group.items[0].statements[0].nodes[0] as IntegerNode).text).toBe('1');
-  expect(group.items[0].comma?.text).toBe(',');
+  expect(group.bodies[0].statements.length).toBe(1);
+  expect(group.bodies[0].statements[0].nodes.length).toBe(1);
+  expect((group.bodies[0].statements[0].nodes[0] as IntegerNode).text).toBe('1');
+  expect(group.bodies[0].statements.last().hidden.last().text).toBe(',');
 
-  expect(group.items[1].statements.length).toBe(3);
-  expect(group.items[1].statements[0].nodes.length).toBe(0);
-  expect(group.items[1].statements[0].hidden.length).toBe(1);
-  expect(is(group.items[1].statements[0].hidden[0], NodeType.NL)).toBe(true);
+  expect(group.bodies[1].statements.length).toBe(3);
+  expect(group.bodies[1].statements[0].nodes.length).toBe(0);
+  expect(group.bodies[1].statements[0].hidden.length).toBe(1);
+  expect(is(group.bodies[1].statements[0].hidden[0], NodeType.NL)).toBe(true);
 
-  expect(group.items[1].statements[1].nodes.length).toBe(1);
+  expect(group.bodies[1].statements[1].nodes.length).toBe(1);
 });

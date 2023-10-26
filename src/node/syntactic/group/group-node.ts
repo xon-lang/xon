@@ -4,7 +4,8 @@ import { CommaNode } from '~/node/lexical/comma/comma-node';
 import { LexicalAnalysis } from '~/node/lexical/lexical-analysis';
 import { OpenNode, scanOpenNode } from '~/node/lexical/open/open-node';
 import { NodeType } from '~/node/node';
-import { StatementNode, statementNode } from '~/node/syntactic/statement/statement-node';
+import { BodyNode, bodyNode } from '~/node/syntactic/body/body-node';
+import { statementNode } from '~/node/syntactic/statement/statement-node';
 import { SyntacticNode } from '~/node/syntactic/syntactic-node';
 import { is } from '../../node';
 
@@ -12,11 +13,11 @@ export interface GroupNode extends SyntacticNode {
   $: NodeType.GROUP;
   open: OpenNode;
   close: CloseNode | null;
-  items: ItemNode[];
+  bodies: BodyNode[];
 }
 
-export function groupNode(open: OpenNode, close: CloseNode | null, items: ItemNode[]): GroupNode {
-  const lastStatement = items.lastOrNull()?.statements?.lastOrNull()?.nodes?.lastOrNull();
+export function groupNode(open: OpenNode, close: CloseNode | null, bodies: BodyNode[]): GroupNode {
+  const lastStatement = bodies.lastOrNull()?.statements?.lastOrNull()?.nodes?.lastOrNull();
 
   return {
     $: NodeType.GROUP,
@@ -24,61 +25,41 @@ export function groupNode(open: OpenNode, close: CloseNode | null, items: ItemNo
     stop: close?.stop ?? lastStatement?.stop ?? open.stop,
     open,
     close,
-    items,
-  };
-}
-
-export interface ItemNode extends SyntacticNode {
-  $: NodeType.ITEM;
-  statements: StatementNode[];
-  comma?: CommaNode;
-}
-
-export function itemNode(statements: StatementNode[], comma?: CommaNode): ItemNode {
-  const firstStatement = statements.first().nodes.firstOrNull();
-  const lastStatement = statements.last().nodes.lastOrNull();
-
-  return {
-    $: NodeType.ITEM,
-    start: firstStatement?.start ?? 0,
-    stop: lastStatement?.stop ?? 0,
-    statements,
-    comma,
+    bodies,
   };
 }
 
 export function scanGroupNode(analysis: LexicalAnalysis): GroupNode | null {
   const open = scanOpenNode(analysis);
 
-  if (!open || !is<OpenNode>(open, NodeType.OPEN)) {
+  if (!is<OpenNode>(open, NodeType.OPEN)) {
     return null;
   }
 
   analysis.index = open.stop + 1;
-  const items: ItemNode[] = [];
+  const bodies: BodyNode[] = [];
 
   while (analysis.index < analysis.text.length) {
-    // fix close pair should be the same type (] - is invalid, () - is valid
     const body = analysis.body((node) => is(node, NodeType.COMMA) || is(node, NodeType.CLOSE));
-    const breakNode = body.breakNode;
+    const { breakNode } = body;
 
     if (is<CommaNode>(breakNode, NodeType.COMMA)) {
-      items.push(itemNode(body.statements, breakNode));
+      body.statements.last()?.hidden.push(breakNode);
+      bodies.push(body);
+
       continue;
     }
 
     if (is<CloseNode>(breakNode, NodeType.CLOSE)) {
-      // if (body.statements.length > 0 && body.statements[0].nodes.length > 0) {
-      items.push(itemNode(body.statements));
-      // }
+      bodies.push(body);
 
-      return groupNode(open, breakNode, items);
+      return groupNode(open, breakNode, bodies);
     }
   }
 
-  if (items.length === 0) {
-    items.push(itemNode([statementNode([])]));
+  if (bodies.length === 0) {
+    bodies.push(bodyNode([statementNode([])]));
   }
 
-  return groupNode(open, null, items);
+  return groupNode(open, null, bodies);
 }
