@@ -8,7 +8,7 @@ import { UnionTypeNode } from '~/node/semantic/type/union/union-type-node';
 import { Source } from '~/source/source';
 
 test('two union type node', () => {
-  const text = "'abc' | 123";
+  const text = '\'abc\' | 123';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
   const [node] = lexer.body().statements[0].nodes as LexicalNode[];
@@ -22,7 +22,7 @@ test('two union type node', () => {
 });
 
 test('four union type node', () => {
-  const text = "'abc' | 123 | 1 | 'def'";
+  const text = '\'abc\' | 123 | 1 | \'def\'';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
   const [node] = lexer.body().statements[0].nodes as LexicalNode[];

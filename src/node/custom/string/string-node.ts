@@ -18,7 +18,7 @@ export function stringNode(start: Integer, stop: Integer, text: String2): String
   };
 }
 
-const QUOTE = "'";
+const QUOTE = '\'';
 
 export function scanStringNode({ text, index }: LexicalAnalysis): StringNode | UnknownNode | null {
   if (text[index] === QUOTE) {

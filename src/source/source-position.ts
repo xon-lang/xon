@@ -61,6 +61,7 @@ function findLowerIndexInRangeArray(value: Integer, linesIndex: Integer[]): Inte
       min = mid + 1;
     } else {
       min = mid;
+
       break;
     }
   }

@@ -71,7 +71,7 @@ test('several operands with different priorities', () => {
 // });
 
 test('num plus str', () => {
-  const text = "1  + 'str'";
+  const text = '1  + \'str\'';
   const source = Source.fromText(text);
   const lexer = new LexicalAnalysis(source.text);
   const nodes = lexer.body().statements[0].nodes;

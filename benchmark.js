@@ -13,7 +13,7 @@ const timer = function(name) {
 
   return {
     stop() {
-      const end = performance.now(); ;
+      const end = performance.now();
       const time = end - start;
       console.log(`${name}: ${time.toFixed(2)}ms`);
     },

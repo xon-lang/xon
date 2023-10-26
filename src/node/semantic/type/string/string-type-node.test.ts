@@ -6,7 +6,7 @@ import { parseTypeNode } from '~/node/semantic/type/type-node';
 import { Source } from '~/source/source';
 
 test('string type node', () => {
-  const text = "'abc'";
+  const text = '\'abc\'';
   const source = Source.fromText(text, null);
   const lexer = new LexicalAnalysis(source.text);
   const [node] = lexer.body().statements[0].nodes as LexicalNode[];
