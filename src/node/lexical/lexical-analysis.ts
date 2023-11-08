@@ -90,6 +90,7 @@ export class LexicalAnalysis {
   public nextNode(): Exclude<NodeScanResult, null> {
     for (const nodeScan of [...this.literalScanners, ...nodeScanFunctions]) {
       const node = nodeScan(this);
+
       if (node) {
         this.index = node.stop + 1;
 
