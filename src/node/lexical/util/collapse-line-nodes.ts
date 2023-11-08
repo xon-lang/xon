@@ -10,6 +10,7 @@ export function collapseLineNodes(nodes: Node[]): SyntacticNode[] {
     if (operatorsOrder.operatorType === OperatorType.INVOKE) {
       collapseInvoke(nodes);
     }
+
     for (const operators of operatorsOrder.operators) {
       const operatorIndex = findOperatorIndex(
         nodes,
@@ -17,6 +18,7 @@ export function collapseLineNodes(nodes: Node[]): SyntacticNode[] {
         operatorsOrder.operatorType,
         operatorsOrder.recursiveType,
       );
+
       if (operatorIndex >= 0) {
         collapseOperators(nodes, operatorsOrder.operatorType, operatorIndex);
         collapseLineNodes(nodes);

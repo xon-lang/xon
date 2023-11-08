@@ -392,6 +392,16 @@
         "blankLine": "always",
         "prev": "*",
         "next": "break"
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "if"
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "for"
       }
     ],
     // "padding-line-between-statements": [
