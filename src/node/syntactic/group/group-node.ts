@@ -58,7 +58,7 @@ export function scanGroupNode(analysis: LexicalAnalysis): GroupNode | null {
   }
 
   if (bodies.length === 0) {
-    bodies.push(bodyNode([statementNode([])]));
+    bodies.push(bodyNode(null, [statementNode([])]));
   }
 
   return groupNode(open, null, bodies);

@@ -85,13 +85,11 @@ export class LexicalAnalysis {
       nodes.push(node as NonHiddenLexicalNode);
     }
 
-    // if (nodes.length > 0 || hidden.length > 0) {
     this.putStatement(indentBody, nodes, hidden);
-    // }
 
     return {
       breakNode,
-      ...(indentBody[0]?.body ?? bodyNode([])),
+      ...(indentBody[0]?.body ?? bodyNode(null, [])),
     };
   }
 
@@ -120,7 +118,7 @@ export class LexicalAnalysis {
 
     // if first statement
     if (indentBody.length === 0) {
-      indentBody.push({ indent, body: bodyNode([statement]) });
+      indentBody.push({ indent, body: bodyNode(null, [statement]) });
 
       return;
     }
@@ -136,11 +134,11 @@ export class LexicalAnalysis {
 
     // new body
     if (lastIndentBody.indent !== null && indent > lastIndentBody.indent) {
-      const body = bodyNode([statement]);
+      const lastStatement = lastIndentBody.body.statements.last();
+      const body = bodyNode(lastStatement, [statement]);
       indentBody.push({ indent, body });
 
-      // add the body as the last statement
-      lastIndentBody.body.statements.last().body = body;
+      lastStatement.body = body;
 
       return;
     }
