@@ -1,9 +1,9 @@
 import { Integer } from '~/lib/core';
 import { HiddenLexicalNode, NonHiddenLexicalNode } from '~/node/lexical/lexical-node';
+import { collapseLineNodes } from '~/node/lexical/util/collapse-line-nodes';
 import { BodyNode, bodyNode } from '~/node/syntactic/body/body-node';
 import { statementNode } from '~/node/syntactic/statement/statement-node';
 import { getStatementIndent } from './get-statement-indent';
-import { getSyntaxNodes } from './get-syntax-nodes';
 
 export function putStatement(
   indentBody: { indent: Integer | null; body: BodyNode }[],
@@ -11,7 +11,8 @@ export function putStatement(
   hidden: HiddenLexicalNode[],
 ): void {
   const indent = getStatementIndent(nodes);
-  const syntaxNodes = getSyntaxNodes(nodes);
+
+  const syntaxNodes = collapseLineNodes(nodes);
   const statement = statementNode(syntaxNodes);
   statement.hidden = hidden;
 
