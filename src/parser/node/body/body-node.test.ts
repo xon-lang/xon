@@ -1,8 +1,8 @@
 import { InfixNode } from '~/parser/node/infix/infix-node';
-import { NodeType } from '~/parser/node/node';
 import { LexicalAnalysis } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { NonHiddenLexicalNode } from '../lexical-node';
+import { NodeType } from '../node-type';
 
 test('single expression', () => {
   const text = '\n  a = 1';

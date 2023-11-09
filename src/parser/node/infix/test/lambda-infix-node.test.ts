@@ -2,10 +2,10 @@ import { GroupNode } from '~/parser/node/group/group-node';
 import { IdNode } from '~/parser/node/id/id-node';
 import { InfixNode } from '~/parser/node/infix/infix-node';
 import { InvokeNode } from '~/parser/node/invoke/invoke-node';
-import { NodeType } from '~/parser/node/node';
 import { LexicalAnalysis } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
+import { NodeType } from '../../node-type';
 
 test('has argument', () => {
   const text = '[x] = x + 42';

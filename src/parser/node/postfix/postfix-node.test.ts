@@ -1,8 +1,8 @@
-import { NodeType } from '~/parser/node/node';
 import { PostfixNode } from '~/parser/node/postfix/postfix-node';
 import { LexicalAnalysis } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
+import { NodeType } from '../node-type';
 
 test('after integer', () => {
   const text = '1!';

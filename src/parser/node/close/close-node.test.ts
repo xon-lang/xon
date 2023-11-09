@@ -1,7 +1,7 @@
 import { LexicalNode } from '~/parser/node/lexical-node';
-import { NodeType } from '~/parser/node/node';
 import { LexicalAnalysis } from '~/parser/parser';
 import { Source } from '~/source/source';
+import { NodeType } from '../node-type';
 
 test('close paren', () => {
   const text = ')';

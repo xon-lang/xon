@@ -1,7 +1,7 @@
-import { NodeType } from '~/parser/node/node';
 import { PostfixNode } from '~/parser/node/postfix/postfix-node';
 import { LexicalAnalysis } from '~/parser/parser';
 import { Source } from '~/source/source';
+import { NodeType } from '../node-type';
 
 // test('single operator', () => {
 //   const text = '!';

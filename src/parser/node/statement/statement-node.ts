@@ -1,7 +1,7 @@
 import { BodyNode } from '~/parser/node/body/body-node';
 import { SyntacticNode } from '~/parser/node/lexical-node';
-import { NodeType } from '~/parser/node/node';
 import { HiddenLexicalNode } from '../lexical-node';
+import { NodeType } from '../node-type';
 
 export interface StatementNode extends SyntacticNode {
   $: NodeType.STATEMENT;

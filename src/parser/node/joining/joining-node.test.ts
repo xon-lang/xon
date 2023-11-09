@@ -1,9 +1,9 @@
 import { IdNode } from '~/parser/node/id/id-node';
 import { MemberNode } from '~/parser/node/member/member-node';
-import { NodeType } from '~/parser/node/node';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
 import { LexicalAnalysis } from '~/parser/parser';
 import { Source } from '~/source/source';
+import { NodeType } from '../node-type';
 
 test('line joining', () => {
   const text = 'abc\\  .def';

@@ -1,6 +1,6 @@
 import { Integer, String2 } from '~/lib/core';
 import { NonHiddenLexicalNode } from '~/parser/node/lexical-node';
-import { NodeType } from '~/parser/node/node';
+import { NodeType } from '../node-type';
 
 export interface KeywordNode extends NonHiddenLexicalNode {
   $: NodeType.KEYWORD;

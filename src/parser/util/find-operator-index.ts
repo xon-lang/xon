@@ -1,7 +1,8 @@
 import { Integer, String2 } from '~/lib/core';
-import { Node, NodeType } from '~/parser/node/node';
+import { Node } from '~/parser/node/node';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
 import { OperatorType, RecursiveType } from '~/parser/util/operators';
+import { NodeType } from '../node/node-type';
 import { is } from './is';
 
 export function findOperatorIndex(

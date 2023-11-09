@@ -1,8 +1,8 @@
 import { IdNode } from '~/parser/node/id/id-node';
 import { MemberNode } from '~/parser/node/member/member-node';
-import { NodeType } from '~/parser/node/node';
 import { LexicalAnalysis } from '~/parser/parser';
 import { Source } from '~/source/source';
+import { NodeType } from '../node-type';
 
 test('abc.def', () => {
   const text = 'abc.def';

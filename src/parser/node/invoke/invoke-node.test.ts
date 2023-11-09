@@ -3,9 +3,9 @@ import { IdNode } from '~/parser/node/id/id-node';
 import { IntegerNode } from '~/parser/node/integer/integer-node';
 import { InvokeNode } from '~/parser/node/invoke/invoke-node';
 import { MemberNode } from '~/parser/node/member/member-node';
-import { NodeType } from '~/parser/node/node';
 import { LexicalAnalysis } from '~/parser/parser';
 import { Source } from '~/source/source';
+import { NodeType } from '../node-type';
 
 test('method call', () => {
   const text = "f(3, 'str')";

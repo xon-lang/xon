@@ -1,8 +1,8 @@
 import { LexicalNode } from '~/parser/node/lexical-node';
-import { NodeType } from '~/parser/node/node';
 import { StringNode } from '~/parser/node/string/string-node';
 import { LexicalAnalysis } from '~/parser/parser';
 import { Source } from '~/source/source';
+import { NodeType } from '../node-type';
 
 test('string', () => {
   const text = "'abc   def'";

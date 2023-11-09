@@ -9,11 +9,12 @@ import { scanIntegerNode } from '~/parser/node/integer/integer-node';
 import { JoiningNode, scanJoiningNode } from '~/parser/node/joining/joining-node';
 import { HiddenLexicalNode, LexicalNode, NonHiddenLexicalNode, SyntacticNode } from '~/parser/node/lexical-node';
 import { NlNode, scanNlNode } from '~/parser/node/nl/nl-node';
-import { Node, NodeType } from '~/parser/node/node';
+import { Node } from '~/parser/node/node';
 import { scanOperatorNode } from '~/parser/node/operator/operator-node';
 import { scanStringNode } from '~/parser/node/string/string-node';
 import { scanUnknownNode } from '~/parser/node/unknown/unknown-node';
 import { WhitespaceNode, scanWhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
+import { NodeType } from './node/node-type';
 import { is } from './util/is';
 import { putStatement } from './util/put-statement';
 

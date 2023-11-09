@@ -3,8 +3,8 @@ import { Integer, String2 } from '~/lib/core';
 import { KeywordNode, keywordNode } from '~/parser/node/keyword/keyword-node';
 import { NonHiddenLexicalNode } from '~/parser/node/lexical-node';
 import { ModifierNode, modifierNode } from '~/parser/node/modifier/modifier-node';
-import { NodeType } from '~/parser/node/node';
 import { LexicalAnalysis } from '~/parser/parser';
+import { NodeType } from '../node-type';
 
 export interface IdNode extends NonHiddenLexicalNode {
   $: NodeType.ID;

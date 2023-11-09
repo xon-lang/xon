@@ -1,10 +1,11 @@
 import { Integer } from '~/lib/core';
 import { SyntacticNode } from '~/parser/node/lexical-node';
-import { Node, NodeType } from '~/parser/node/node';
+import { Node } from '~/parser/node/node';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
 import { postfixNode } from '~/parser/node/postfix/postfix-node';
 import { prefixNode } from '~/parser/node/prefix/prefix-node';
 import { OperatorType } from '~/parser/util/operators';
+import { NodeType } from '../node/node-type';
 import { handleInfix } from './handle-infix';
 import { is } from './is';
 

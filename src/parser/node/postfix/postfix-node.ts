@@ -1,6 +1,7 @@
-import { Node, NodeType } from '~/parser/node/node';
+import { Node } from '~/parser/node/node';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
 import { SyntacticNode } from '../lexical-node';
+import { NodeType } from '../node-type';
 
 export interface PostfixNode extends SyntacticNode {
   $: NodeType.POSTFIX;

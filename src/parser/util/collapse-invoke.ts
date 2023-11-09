@@ -1,6 +1,7 @@
 import { GroupNode } from '~/parser/node/group/group-node';
 import { invokeNode } from '~/parser/node/invoke/invoke-node';
-import { Node, NodeType } from '~/parser/node/node';
+import { Node } from '~/parser/node/node';
+import { NodeType } from '../node/node-type';
 import { is } from './is';
 
 export function collapseInvoke(nodes: Node[]): void {

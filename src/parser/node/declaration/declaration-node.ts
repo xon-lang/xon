@@ -1,7 +1,8 @@
 import { SemanticNode } from '~/node/semantic/semantic-node';
 import { IdNode } from '~/parser/node/id/id-node';
 import { ModifierNode } from '~/parser/node/modifier/modifier-node';
-import { Node, NodeType } from '~/parser/node/node';
+import { Node } from '~/parser/node/node';
+import { NodeType } from '../node-type';
 
 export interface DeclarationNode extends SemanticNode {
   $: NodeType.DECLARATION;

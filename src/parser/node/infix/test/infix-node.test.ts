@@ -3,11 +3,11 @@ import { InfixNode } from '~/parser/node/infix/infix-node';
 import { IntegerNode } from '~/parser/node/integer/integer-node';
 import { LexicalNode } from '~/parser/node/lexical-node';
 import { MemberNode } from '~/parser/node/member/member-node';
-import { NodeType } from '~/parser/node/node';
 import { PrefixNode } from '~/parser/node/prefix/prefix-node';
 import { LexicalAnalysis } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
+import { NodeType } from '../../node-type';
 
 test('infix operator', () => {
   const text = 'abc.def';

@@ -1,7 +1,7 @@
 import { GroupNode } from '~/parser/node/group/group-node';
-import { NodeType } from '~/parser/node/node';
 import { LexicalAnalysis } from '~/parser/parser';
 import { Source } from '~/source/source';
+import { NodeType } from '../node-type';
 
 test('open paren', () => {
   const code = '(';
