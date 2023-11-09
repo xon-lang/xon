@@ -26,7 +26,7 @@ const OPERATORS = [
 ];
 
 export function scanOperatorNode(analysis: LexicalAnalysis): OperatorNode | IdNode | ModifierNode | KeywordNode | null {
-  const { index, text, lastNodes } = analysis;
+  const { index, text, lastStatementNodes: lastNodes } = analysis;
   let operators = OPERATORS.filter((x) => x[0] === text[index]);
 
   if (operators.length === 0) {

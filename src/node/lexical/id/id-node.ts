@@ -3,7 +3,10 @@ import { Integer, String2 } from '~/lib/core';
 import { KeywordNode, keywordNode } from '~/node/lexical/keyword/keyword-node';
 import { LexicalAnalysis } from '~/node/lexical/lexical-analysis';
 import { NonHiddenLexicalNode } from '~/node/lexical/lexical-node';
-import { ModifierNode, modifierNode } from '~/node/lexical/modifier/modifier-node';
+import {
+  ModifierNode,
+  modifierNode,
+} from '~/node/lexical/modifier/modifier-node';
 import { NodeType } from '~/node/node';
 
 export interface IdNode extends NonHiddenLexicalNode {
@@ -24,13 +27,29 @@ const DIGITS = '0123456789';
 const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const DIGITS_LETTERS = DIGITS + LETTERS;
 const MODIFIERS = ['prefix', 'postfix', 'infix'];
-const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
+const KEYWORDS = [
+  'if',
+  'then',
+  'else',
+  'for',
+  'do',
+  'while',
+  'break',
+  'continue',
+  'export',
+  'import',
+  'return',
+];
 
-export function scanIdNode({ text, index, lastNodes }: LexicalAnalysis): IdNode | ModifierNode | KeywordNode | null {
+export function scanIdNode({
+  text,
+  index,
+  lastStatementNodes,
+}: LexicalAnalysis): IdNode | ModifierNode | KeywordNode | null {
   if (!LETTERS.includes(text[index])) return null;
   const sliced = text.takeWhile((x) => DIGITS_LETTERS.includes(x), index);
 
-  if (lastNodes.length === 0 && MODIFIERS.includes(sliced)) {
+  if (lastStatementNodes.length === 0 && MODIFIERS.includes(sliced)) {
     return modifierNode(index, index + sliced.length - 1, sliced);
   }
 
