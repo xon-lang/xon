@@ -1,4 +1,5 @@
 /* eslint-disable max-lines */
+import { Issue } from '~/issue/issue';
 import { Boolean2, Integer, String2 } from '~/lib/core';
 import { BodyNode, bodyNode } from '~/parser/node/body/body-node';
 import { scanCloseNode } from '~/parser/node/close/close-node';
@@ -37,6 +38,7 @@ const nodeScanFunctions: NodeScanFunction[] = [
 
 export class Parser {
   public index = 0;
+  public issues: Issue[] = [];
   public lastStatementNodes: Node[] = [];
 
   public constructor(public text: String2) {}
