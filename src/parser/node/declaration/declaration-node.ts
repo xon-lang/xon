@@ -7,7 +7,6 @@ export interface DeclarationNode extends Node {
   $: NodeType.DECLARATION;
   modifier: ModifierNode | null;
   name: IdNode | null;
-  group: GroupSemantic[];
   type: Node | null;
   value: Node | null;
 }
@@ -15,20 +14,20 @@ export interface DeclarationNode extends Node {
 export function declarationNode(
   modifier: ModifierNode | null,
   name: IdNode | null,
-  group: GroupSemantic[],
   type: Node | null,
   value: Node | null,
 ): DeclarationNode {
+  const leftNode = modifier ?? name ?? type ?? value;
+  const rightNode = value ?? type ?? name ?? modifier;
+
   return {
     $: NodeType.DECLARATION,
+    start: leftNode?.start ?? 0,
+    stop: rightNode?.stop ?? 0,
+    hidden: [],
     modifier,
     name,
-    group,
     type,
     value,
   };
 }
-
-export interface GroupSemantic extends SemanticNode {}
-
-// model? A? {T: Number, T2}(p1: P, p2: P)?: R
