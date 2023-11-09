@@ -3,6 +3,8 @@ export interface Node {
 }
 
 export enum NodeType {
+  ROOT = 'ROOT',
+
   HIDDEN = 'HIDDEN',
   COMMENT = 'COMMENT',
   NL = 'NL',
