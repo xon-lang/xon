@@ -1,5 +1,3 @@
-import { Issue } from '~/issue/issue';
-import { String2 } from '~/lib/core';
 
 // export class IssueFormatter {
 //   constructor(public issue: Issue) {}

@@ -1,17 +1,16 @@
 import { IssueLevel } from '~/issue/issue-level';
 import { String2 } from '~/lib/core';
-import { LexicalNode } from '~/node/lexical/lexical-node';
+import { Node } from '~/node/node';
 
-export class Issue extends Error {
+export class Issue {
   // public actual: String2
   // public expect: String2
 
   constructor(
-    public node: LexicalNode,
+    public node: Node,
     public level: IssueLevel,
     public message: String2,
   ) {
-    super(message);
   }
 
   // static errorFromSourceSpan(sourceSpan: SourceSpan, message: String2): Never {
