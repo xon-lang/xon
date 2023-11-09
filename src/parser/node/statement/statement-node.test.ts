@@ -1,6 +1,6 @@
 import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
-import { LexicalNode } from '../node';
+import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
 
 test('comma', () => {
@@ -8,7 +8,7 @@ test('comma', () => {
   const source = Source.fromText(code);
   const scanner = new Parser(source.text);
   const statements = scanner.parse().statements;
-  const nodes = statements[0].nodes as LexicalNode[];
+  const nodes = statements[0].nodes as TokenNode[];
 
   expect(statements.length).toBe(1);
   expect(nodes.length).toBe(1);

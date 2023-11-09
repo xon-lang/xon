@@ -1,6 +1,6 @@
 import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
-import { LexicalNode } from '../node';
+import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
 
 test('line feed', () => {
@@ -66,5 +66,5 @@ test('several', () => {
   expect(statements[1].hidden?.at(1)?.$).toBe(NodeType.NL);
   expect(statements[1].hidden?.at(1)?.text).toBe('\r\n');
   expect(statements[2].hidden?.length).toBe(0);
-  expect((statements[2].nodes[0] as LexicalNode).text).toBe('abc');
+  expect((statements[2].nodes[0] as TokenNode).text).toBe('abc');
 });

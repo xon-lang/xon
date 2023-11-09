@@ -3,21 +3,16 @@ import { NodeType } from './node-type';
 
 export interface Node {
   readonly $: NodeType;
-}
-
-export interface LexicalNode extends Node {
   start: Integer;
   stop: Integer;
+}
+
+export interface TokenNode extends Node {
   text: String2;
 }
 
-export interface SyntacticNode extends Node {
-  start: Integer;
-  stop: Integer;
-}
+export interface SyntacticNode extends Node {}
 
-export interface NonHiddenLexicalNode extends LexicalNode {
-  hidden: HiddenLexicalNode[];
+export interface NonHiddenLexicalNode extends TokenNode {
+  hidden: TokenNode[];
 }
-
-export interface HiddenLexicalNode extends LexicalNode {}

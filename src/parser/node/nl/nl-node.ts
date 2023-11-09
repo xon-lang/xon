@@ -1,9 +1,9 @@
 import { Integer, String2 } from '~/lib/core';
 import { Parser } from '~/parser/parser';
-import { HiddenLexicalNode } from '../node';
+import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
 
-export interface NlNode extends HiddenLexicalNode {
+export interface NlNode extends TokenNode {
   $: NodeType.NL;
 }
 

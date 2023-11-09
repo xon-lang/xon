@@ -1,10 +1,9 @@
-import { SemanticNode } from '~/node/semantic/semantic-node';
 import { IdNode } from '~/parser/node/id/id-node';
 import { ModifierNode } from '~/parser/node/modifier/modifier-node';
-import { Node } from '~/parser/node/node';
+import { Node, SyntacticNode } from '~/parser/node/node';
 import { NodeType } from '../node-type';
 
-export interface DeclarationNode extends SemanticNode {
+export interface DeclarationNode extends SyntacticNode {
   $: NodeType.DECLARATION;
   modifier: ModifierNode | null;
   name: IdNode | null;

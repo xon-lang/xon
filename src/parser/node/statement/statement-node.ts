@@ -1,10 +1,10 @@
 import { BodyNode } from '~/parser/node/body/body-node';
-import { HiddenLexicalNode, SyntacticNode } from '../node';
+import { SyntacticNode, TokenNode } from '../node';
 import { NodeType } from '../node-type';
 
 export interface StatementNode extends SyntacticNode {
   $: NodeType.STATEMENT;
-  hidden: HiddenLexicalNode[];
+  hidden: TokenNode[];
   nodes: SyntacticNode[];
   body: BodyNode | null;
 }

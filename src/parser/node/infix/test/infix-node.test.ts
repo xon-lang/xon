@@ -6,7 +6,7 @@ import { PrefixNode } from '~/parser/node/prefix/prefix-node';
 import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
-import { LexicalNode } from '../../node';
+import { TokenNode } from '../../node';
 import { NodeType } from '../../node-type';
 
 test('infix operator', () => {
@@ -17,7 +17,7 @@ test('infix operator', () => {
   const node = nodes[0] as MemberNode;
 
   expect(node.$).toBe(NodeType.MEMBER);
-  expect((node.instance as LexicalNode).text).toBe('abc');
+  expect((node.instance as TokenNode).text).toBe('abc');
   expect(node.operator.text).toBe('.');
   expect(node.id.text).toBe('def');
 });

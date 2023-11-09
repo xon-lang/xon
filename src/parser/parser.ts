@@ -14,12 +14,12 @@ import { scanOperatorNode } from '~/parser/node/operator/operator-node';
 import { scanStringNode } from '~/parser/node/string/string-node';
 import { scanUnknownNode } from '~/parser/node/unknown/unknown-node';
 import { WhitespaceNode, scanWhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
-import { HiddenLexicalNode, LexicalNode, NonHiddenLexicalNode, SyntacticNode } from './node/node';
+import { NonHiddenLexicalNode, SyntacticNode, TokenNode } from './node/node';
 import { NodeType } from './node/node-type';
 import { is } from './util/is';
 import { putStatement } from './util/put-statement';
 
-type NodeScanResult = LexicalNode | SyntacticNode | null;
+type NodeScanResult = TokenNode | SyntacticNode | null;
 type NodeScanFunction = (analysis: Parser) => NodeScanResult;
 
 const nodeScanFunctions: NodeScanFunction[] = [
@@ -50,7 +50,7 @@ export class Parser {
   public parseUntil(breakFn: ((node: Node) => Boolean2) | null): BodyNode & { breakNode?: Node } {
     const indentBody: { indent: Integer | null; body: BodyNode }[] = [];
     let nodes: NonHiddenLexicalNode[] = [];
-    let hidden: HiddenLexicalNode[] = [];
+    let hidden: TokenNode[] = [];
     let breakNode: Node | undefined;
 
     this.lastStatementNodes = nodes;
