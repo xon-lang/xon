@@ -9,15 +9,15 @@ export interface StatementNode extends Node {
   body: BodyNode | null;
 }
 
-export function statementNode(nodes: Node[], body: BodyNode | null = null): StatementNode {
+export function statementNode(nodes: Node[], body: BodyNode | null, hidden: TokenNode[]): StatementNode {
   const first = nodes.firstOrNull();
   const last = nodes.lastOrNull();
 
   return {
     $: NodeType.STATEMENT,
-    hidden: [],
+    hidden,
     start: first?.start ?? 0,
-    stop: last?.stop ?? first?.stop ?? 0,
+    stop: (first ?? last)?.stop ?? 0,
     nodes,
     body,
   };

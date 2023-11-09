@@ -5,34 +5,29 @@ import { getSyntacticNodes } from '~/parser/util/get-syntactic-nodes';
 import { TokenNode } from '../node/node';
 import { getStatementIndent } from './get-statement-indent';
 
-export function putStatement(
-  indentBody: { indent: Integer | null; body: BodyNode }[],
-  nodes: TokenNode[],
-  hidden: TokenNode[],
-): void {
+export interface IndentBody {
+  indent: Integer | null;
+  body: BodyNode;
+}
+
+export function putStatement(indentBody: IndentBody[], nodes: TokenNode[], hidden: TokenNode[]): void {
   const indent = getStatementIndent(nodes);
+  const lastIndentBody = indentBody.lastOrNull();
+  const syntacticNodes = getSyntacticNodes(null, nodes);
+  const statement = statementNode(syntacticNodes, null, hidden);
 
-  const syntacticNodes = getSyntacticNodes(nodes);
-  const statement = statementNode(syntacticNodes);
-  statement.hidden = hidden;
-
-  // if first statement
-  if (indentBody.length === 0) {
+  if (!lastIndentBody) {
     indentBody.push({ indent, body: bodyNode(null, [statement]) });
 
     return;
   }
 
-  const lastIndentBody = indentBody.last();
-
-  // if no nodes
   if (indent === null) {
     lastIndentBody.body.statements.push(statement);
 
     return;
   }
 
-  // new body
   if (lastIndentBody.indent !== null && indent > lastIndentBody.indent) {
     const lastStatement = lastIndentBody.body.statements.last();
     const body = bodyNode(lastStatement, [statement]);
@@ -43,7 +38,6 @@ export function putStatement(
     return;
   }
 
-  // if should be added to existing body
   const foundIndentBodyIndex = indentBody.findLastIndex((x) => x.indent === null || x.indent <= indent);
 
   if (foundIndentBodyIndex < 0) {

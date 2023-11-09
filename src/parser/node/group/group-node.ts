@@ -59,7 +59,7 @@ export function scanGroupNode(analysis: Parser): GroupNode | null {
   }
 
   if (bodies.length === 0) {
-    bodies.push(bodyNode(null, [statementNode([])]));
+    bodies.push(bodyNode(null, [statementNode([], null, [])]));
   }
 
   return groupNode(open, null, bodies);

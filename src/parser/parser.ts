@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import { Issue } from '~/issue/issue';
-import { Boolean2, Integer, String2 } from '~/lib/core';
+import { Boolean2, String2 } from '~/lib/core';
 import { BodyNode, bodyNode } from '~/parser/node/body/body-node';
 import { scanCloseNode } from '~/parser/node/close/close-node';
 import { scanCommaNode } from '~/parser/node/comma/comma-node';
@@ -17,12 +17,13 @@ import { WhitespaceNode, scanWhitespaceNode } from '~/parser/node/whitespace/whi
 import { TokenNode } from './node/node';
 import { NodeType } from './node/node-type';
 import { is } from './util/is';
-import { putStatement } from './util/put-statement';
+import { IndentBody, putStatement } from './util/put-statement';
 
 type NodeScanResult = TokenNode | Node | null;
-type NodeScanFunction = (analysis: Parser) => NodeScanResult;
+type NodeScanFn = (analysis: Parser) => NodeScanResult;
+type BreakFn = (node: Node) => Boolean2;
 
-const nodeScanFunctions: NodeScanFunction[] = [
+const nodeScanFunctions: NodeScanFn[] = [
   scanIntegerNode,
   scanStringNode,
   scanNlNode,
@@ -47,8 +48,8 @@ export class Parser {
     return this.parseUntil(null);
   }
 
-  public parseUntil(breakFn: ((node: Node) => Boolean2) | null): BodyNode & { breakNode?: Node } {
-    const indentBody: { indent: Integer | null; body: BodyNode }[] = [];
+  public parseUntil(breakFn: BreakFn | null): BodyNode & { breakNode?: Node } {
+    const indentBody: IndentBody[] = [];
     let nodes: TokenNode[] = [];
     let hidden: TokenNode[] = [];
     let breakNode: Node | undefined;
