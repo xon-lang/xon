@@ -11,6 +11,7 @@ import { handleInfix } from './handle-infix';
 export function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIndex: Integer): void {
   if (operatorIndex < 0) return;
   const operator = nodes[operatorIndex];
+
   if (!is<OperatorNode>(operator, NodeType.OPERATOR)) {
     return;
   }

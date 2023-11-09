@@ -19,6 +19,9 @@ export enum RecursiveType {
   RIGHT = 1,
 }
 
+export const TYPE_TOKEN = ':' as const;
+export const ASSIGN_TOKEN = '=' as const;
+
 export const operatorsOrders: OperatorsOrder[] = [
   {
     operators: ['. ::'],
@@ -46,12 +49,12 @@ export const operatorsOrders: OperatorsOrder[] = [
     recursiveType: RecursiveType.LEFT,
   },
   {
-    operators: [':'],
+    operators: [TYPE_TOKEN],
     operatorType: OperatorType.INFIX,
     recursiveType: RecursiveType.RIGHT,
   },
   {
-    operators: ['='],
+    operators: [ASSIGN_TOKEN],
     operatorType: OperatorType.INFIX,
     recursiveType: RecursiveType.RIGHT,
   },
