@@ -6,19 +6,19 @@ import { NodeType } from '../node-type';
 export interface DeclarationNode extends Node {
   $: NodeType.DECLARATION;
   modifier: ModifierNode | null;
-  name: IdNode | null;
+  id: IdNode | null;
   type: Node | null;
   value: Node | null;
 }
 
 export function declarationNode(
   modifier: ModifierNode | null,
-  name: IdNode | null,
+  id: IdNode | null,
   type: Node | null,
   value: Node | null,
 ): DeclarationNode {
-  const leftNode = modifier ?? name ?? type ?? value;
-  const rightNode = value ?? type ?? name ?? modifier;
+  const leftNode = modifier ?? id ?? type ?? value;
+  const rightNode = value ?? type ?? id ?? modifier;
 
   return {
     $: NodeType.DECLARATION,
@@ -26,7 +26,7 @@ export function declarationNode(
     stop: rightNode?.stop ?? 0,
     hidden: [],
     modifier,
-    name,
+    id,
     type,
     value,
   };

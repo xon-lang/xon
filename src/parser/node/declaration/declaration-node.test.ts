@@ -1,22 +1,21 @@
-// import { Integer } from '~/lib/core';
-// import { GroupNode } from '~/node/group/group-node';
-// import { IdNode } from '~/node/id/id-node';
-// import { IntegerNode } from '~/node/integer/integer-node';
-// import { InvokeNode } from '~/node/invoke/invoke-node';
-// import { NodeType, is } from '~/node/node';
-// import { OperatorNode } from '~/node/operator/operator-node';
-// import { PrefixNode } from '~/node/prefix/prefix-node';
-// import { Source } from '~/source/source';
-// import { evaluate } from '~/util/evaluate';
+import { DeclarationNode } from '~/parser/node/declaration/declaration-node';
+import { NodeType } from '~/parser/node/node-type';
+import { Parser } from '~/parser/parser';
+import { Source } from '~/source/source';
 
-// test('empty', () => {
-//   const code = '[]';
-//   const source = Source.fromText(code);
-//   const tree = syntaxNode(source) as GroupNode;
+test('model id', () => {
+  const text = 'model Abstract';
+  const source = Source.fromText(text);
+  const scanner = new Parser(source.text);
+  const nodes = scanner.parse().statements[0].nodes;
+  const tree = nodes[0] as DeclarationNode;
 
-//   expect(tree.$).toBe(NodeType.ARRAY);
-//   expect(tree.items.length).toBe(0);
-// });
+  expect(nodes.length).toBe(1);
+
+  expect(tree.$).toBe(NodeType.DECLARATION);
+  expect(tree.modifier?.text).toBe('model');
+  expect(tree.id?.text).toBe('Abstract');
+});
 
 // test('inner empty arrays', () => {
 //   const code = '[[[]]]';
