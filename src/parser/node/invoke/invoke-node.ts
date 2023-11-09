@@ -1,6 +1,6 @@
 import { GroupNode } from '~/parser/node/group/group-node';
-import { SyntacticNode } from '~/parser/node/lexical-node';
 import { Node } from '~/parser/node/node';
+import { SyntacticNode } from '../node';
 import { NodeType } from '../node-type';
 
 export interface InvokeNode extends SyntacticNode {

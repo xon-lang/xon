@@ -1,6 +1,6 @@
 import { LexicalAnalysis } from '~/parser/parser';
 import { Source } from '~/source/source';
-import { LexicalNode } from '../lexical-node';
+import { LexicalNode } from '../node';
 import { NodeType } from '../node-type';
 
 test('comma', () => {

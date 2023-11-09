@@ -1,6 +1,6 @@
-import { LexicalNode, NonHiddenLexicalNode } from '~/parser/node/lexical-node';
 import { LexicalAnalysis } from '~/parser/parser';
 import { Source } from '~/source/source';
+import { LexicalNode, NonHiddenLexicalNode } from '../node';
 import { NodeType } from '../node-type';
 
 test('single id', () => {

@@ -2,11 +2,11 @@ import '~/extensions';
 import { BodyNode, bodyNode } from '~/parser/node/body/body-node';
 import { CloseNode } from '~/parser/node/close/close-node';
 import { CommaNode } from '~/parser/node/comma/comma-node';
-import { SyntacticNode } from '~/parser/node/lexical-node';
 import { OpenNode, scanOpenNode } from '~/parser/node/open/open-node';
 import { statementNode } from '~/parser/node/statement/statement-node';
 import { LexicalAnalysis } from '~/parser/parser';
 import { is } from '~/parser/util/is';
+import { SyntacticNode } from '../node';
 import { NodeType } from '../node-type';
 
 export interface GroupNode extends SyntacticNode {

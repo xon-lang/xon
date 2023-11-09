@@ -1,8 +1,8 @@
 import { IdNode } from '~/parser/node/id/id-node';
 import { InfixNode, infixNode } from '~/parser/node/infix/infix-node';
-import { SyntacticNode } from '~/parser/node/lexical-node';
 import { MemberNode, memberNode } from '~/parser/node/member/member-node';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
+import { SyntacticNode } from '../node/node';
 import { NodeType } from '../node/node-type';
 import { is } from './is';
 

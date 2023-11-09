@@ -1,5 +1,5 @@
-import { SyntacticNode } from '~/parser/node/lexical-node';
 import { StatementNode } from '~/parser/node/statement/statement-node';
+import { SyntacticNode } from '../node';
 import { NodeType } from '../node-type';
 
 export interface BodyNode extends SyntacticNode {

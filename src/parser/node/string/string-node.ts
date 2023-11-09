@@ -1,7 +1,7 @@
 import { Integer, String2 } from '~/lib/core';
-import { NonHiddenLexicalNode } from '~/parser/node/lexical-node';
 import { UnknownNode } from '~/parser/node/unknown/unknown-node';
 import { LexicalAnalysis } from '~/parser/parser';
+import { NonHiddenLexicalNode } from '../node';
 import { NodeType } from '../node-type';
 
 export interface StringNode extends NonHiddenLexicalNode {

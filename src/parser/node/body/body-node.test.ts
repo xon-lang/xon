@@ -1,7 +1,7 @@
 import { InfixNode } from '~/parser/node/infix/infix-node';
 import { LexicalAnalysis } from '~/parser/parser';
 import { Source } from '~/source/source';
-import { NonHiddenLexicalNode } from '../lexical-node';
+import { NonHiddenLexicalNode } from '../node';
 import { NodeType } from '../node-type';
 
 test('single expression', () => {

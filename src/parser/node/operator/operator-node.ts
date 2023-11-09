@@ -5,7 +5,7 @@ import { ModifierNode } from '~/parser/node/modifier/modifier-node';
 import { LexicalAnalysis } from '~/parser/parser';
 import { is } from '~/parser/util/is';
 import { operatorsOrders } from '~/parser/util/operators';
-import { NonHiddenLexicalNode } from '../lexical-node';
+import { NonHiddenLexicalNode } from '../node';
 import { NodeType } from '../node-type';
 
 export interface OperatorNode extends NonHiddenLexicalNode {

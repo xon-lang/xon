@@ -1,9 +1,9 @@
 import '~/extensions';
 import { Integer, String2 } from '~/lib/core';
 import { KeywordNode, keywordNode } from '~/parser/node/keyword/keyword-node';
-import { NonHiddenLexicalNode } from '~/parser/node/lexical-node';
 import { ModifierNode, modifierNode } from '~/parser/node/modifier/modifier-node';
 import { LexicalAnalysis } from '~/parser/parser';
+import { NonHiddenLexicalNode } from '../node';
 import { NodeType } from '../node-type';
 
 export interface IdNode extends NonHiddenLexicalNode {
