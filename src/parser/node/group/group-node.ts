@@ -40,7 +40,7 @@ export function scanGroupNode(analysis: Parser): GroupNode | null {
   const bodies: BodyNode[] = [];
 
   while (analysis.index < analysis.text.length) {
-    const body = analysis.body((node) => is(node, NodeType.COMMA) || is(node, NodeType.CLOSE));
+    const body = analysis.parseUntil((node) => is(node, NodeType.COMMA) || is(node, NodeType.CLOSE));
     const { breakNode } = body;
 
     if (is<CommaNode>(breakNode, NodeType.COMMA)) {

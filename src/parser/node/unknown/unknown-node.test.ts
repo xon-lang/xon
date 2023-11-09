@@ -6,7 +6,7 @@ test('unknown 1', () => {
   const text = '123 §•∞•456';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const nodes = lexer.body().statements[0].nodes as NonHiddenLexicalNode[];
+  const nodes = lexer.parse().statements[0].nodes as NonHiddenLexicalNode[];
 
   expect(nodes.length).toBe(6);
   expect(nodes[1].text).toBe('§');
@@ -18,7 +18,7 @@ test('unknown 2', () => {
   const text = 'ºª¶';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const nodes = lexer.body().statements[0].nodes as LexicalNode[];
+  const nodes = lexer.parse().statements[0].nodes as LexicalNode[];
 
   expect(nodes.length).toBe(3);
   expect(nodes.map((x) => x.text).join('')).toBe('ºª¶');

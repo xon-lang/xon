@@ -8,7 +8,7 @@ test('single expression', () => {
   const text = '\n  a = 1';
   const source = Source.fromText(text);
   const scanner = new Parser(source.text);
-  const body = scanner.body();
+  const body = scanner.parse();
 
   expect(body.statements.length).toBe(2);
   expect(body.statements[0].nodes.length).toBe(0);
@@ -21,7 +21,7 @@ test('debug 1', () => {
   const text = 'a = 1\n b = 2\n +b';
   const source = Source.fromText(text);
   const scanner = new Parser(source.text);
-  const body = scanner.body();
+  const body = scanner.parse();
 
   expect(body.statements.length).toBe(1);
   expect(body.statements[0].nodes[0].$).toBe(NodeType.INFIX);
@@ -34,7 +34,7 @@ test('debug 2', () => {
   const text = 'a = 1\nb = 2\n';
   const source = Source.fromText(text);
   const scanner = new Parser(source.text);
-  const body = scanner.body();
+  const body = scanner.parse();
 
   expect(body.statements.length).toBe(3);
   expect(body.statements[0].nodes[0].$).toBe(NodeType.INFIX);
@@ -47,7 +47,7 @@ test('debug 3', () => {
 c`.trim();
   const source = Source.fromText(text);
   const scanner = new Parser(source.text);
-  const body = scanner.body();
+  const body = scanner.parse();
 
   expect(body.statements.length).toBe(2);
   expect(body.statements[0].nodes.length).toBe(1);
@@ -62,7 +62,7 @@ test('multiple expression', () => {
   const text = '\n  x = 1\n  y = 2\n  z = 3';
   const source = Source.fromText(text);
   const scanner = new Parser(source.text);
-  const body = scanner.body();
+  const body = scanner.parse();
 
   expect(body.statements.length).toBe(4);
   expect(body.statements[0].hidden[0].$).toBe(NodeType.NL);

@@ -11,7 +11,7 @@ test('has argument', () => {
   const text = '[x] = x + 42';
   const source = Source.fromText(text);
   const scanner = new Parser(source.text);
-  const body = scanner.body();
+  const body = scanner.parse();
   const tree = body.statements[0].nodes[0] as InfixNode;
 
   expect(tree.$).toBe(NodeType.INFIX);
@@ -29,7 +29,7 @@ test('generics', () => {
   const text = '{N,M ,K:String }[x] = x + 42';
   const source = Source.fromText(text);
   const scanner = new Parser(source.text);
-  const body = scanner.body();
+  const body = scanner.parse();
   const tree = body.statements[0].nodes[0] as InfixNode;
 
   expect(tree.$).toBe(NodeType.INFIX);
@@ -58,7 +58,7 @@ test('no arguments', () => {
   const text = '[]= 42+45';
   const source = Source.fromText(text);
   const scanner = new Parser(source.text);
-  const body = scanner.body();
+  const body = scanner.parse();
   const tree = body.statements[0].nodes[0] as InfixNode;
 
   expect(tree.$).toBe(NodeType.INFIX);
@@ -70,7 +70,7 @@ test('lambda inner lambda', () => {
   const text = '[a] = [b, c] = 42+45';
   const source = Source.fromText(text);
   const scanner = new Parser(source.text);
-  const body = scanner.body();
+  const body = scanner.parse();
   const tree = body.statements[0].nodes[0] as InfixNode;
 
   expect(tree.$).toBe(NodeType.INFIX);

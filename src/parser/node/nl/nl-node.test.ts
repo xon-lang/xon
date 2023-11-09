@@ -7,7 +7,7 @@ test('line feed', () => {
   const text = '\n';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const nodes = lexer.body().statements[0].hidden ?? [];
+  const nodes = lexer.parse().statements[0].hidden ?? [];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].text).toBe('\n');
@@ -18,7 +18,7 @@ test('carriage return', () => {
   const text = '\r';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const nodes = lexer.body().statements[0].hidden ?? [];
+  const nodes = lexer.parse().statements[0].hidden ?? [];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].text).toBe('\r');
@@ -29,7 +29,7 @@ test('cr lf', () => {
   const text = '\r\n';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const nodes = lexer.body().statements[0].hidden ?? [];
+  const nodes = lexer.parse().statements[0].hidden ?? [];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].text).toBe('\r\n');
@@ -40,7 +40,7 @@ test('lf cr', () => {
   const text = '\n\r';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const { statements } = lexer.body();
+  const { statements } = lexer.parse();
 
   expect(statements.length).toBe(3);
   expect(statements[0].hidden?.first().$).toBe(NodeType.NL);
@@ -56,7 +56,7 @@ test('several', () => {
   const code = '  \n    \r\nabc';
   const source = Source.fromText(code);
   const lexer = new Parser(source.text);
-  const { statements } = lexer.body();
+  const { statements } = lexer.parse();
 
   expect(statements.length).toBe(3);
   expect(statements[0].hidden?.length).toBe(2);

@@ -41,7 +41,11 @@ export class Parser {
 
   public constructor(public text: String2) {}
 
-  public body(breakFn: ((node: Node) => Boolean2) | null = null): BodyNode & { breakNode?: Node } {
+  public parse(): BodyNode & { breakNode?: Node } {
+    return this.parseUntil(null);
+  }
+
+  public parseUntil(breakFn: ((node: Node) => Boolean2) | null): BodyNode & { breakNode?: Node } {
     const indentBody: { indent: Integer | null; body: BodyNode }[] = [];
     let nodes: NonHiddenLexicalNode[] = [];
     let hidden: HiddenLexicalNode[] = [];

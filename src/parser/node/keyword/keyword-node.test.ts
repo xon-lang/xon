@@ -7,7 +7,7 @@ test('if keyword', () => {
   const text = 'if';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const tokens = lexer.body().statements[0].nodes as LexicalNode[];
+  const tokens = lexer.parse().statements[0].nodes as LexicalNode[];
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].$).toBe(NodeType.KEYWORD);

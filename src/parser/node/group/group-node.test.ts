@@ -12,7 +12,7 @@ test('empty closed', () => {
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
-  const { nodes } = lexer.body().statements[0];
+  const { nodes } = lexer.parse().statements[0];
 
   expect(nodes.length).toBe(1);
 
@@ -31,7 +31,7 @@ test('single comma', () => {
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
-  const { nodes } = lexer.body().statements[0];
+  const { nodes } = lexer.parse().statements[0];
 
   expect(nodes.length).toBe(1);
 
@@ -52,7 +52,7 @@ test('empty not closed', () => {
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
-  const { nodes } = lexer.body().statements[0];
+  const { nodes } = lexer.parse().statements[0];
 
   expect(nodes.length).toBe(1);
 
@@ -70,7 +70,7 @@ test('single item', () => {
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
-  const { nodes } = lexer.body().statements[0];
+  const { nodes } = lexer.parse().statements[0];
 
   expect(nodes.length).toBe(1);
 
@@ -90,7 +90,7 @@ test('inner group', () => {
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
-  const { nodes } = lexer.body().statements[0];
+  const { nodes } = lexer.parse().statements[0];
 
   expect(nodes.length).toBe(1);
 
@@ -110,7 +110,7 @@ test('inner empty group', () => {
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
-  const { nodes } = lexer.body().statements[0];
+  const { nodes } = lexer.parse().statements[0];
 
   expect(nodes.length).toBe(1);
 
@@ -136,7 +136,7 @@ test('two integers no comma and ws at the end', () => {
   const source = Source.fromText(code);
   const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
-  const { nodes } = lexer.body().statements[0];
+  const { nodes } = lexer.parse().statements[0];
 
   expect(nodes.length).toBe(1);
 
@@ -161,7 +161,7 @@ test('two integers and comma no ws at the end', () => {
   const source = Source.fromText(code);
   const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
-  const { nodes } = lexer.body().statements[0];
+  const { nodes } = lexer.parse().statements[0];
 
   expect(nodes.length).toBe(1);
 
@@ -190,7 +190,7 @@ test('two integers and comma and ws', () => {
   const source = Source.fromText(code);
   const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
-  const { nodes } = lexer.body().statements[0];
+  const { nodes } = lexer.parse().statements[0];
 
   expect(nodes.length).toBe(1);
 
@@ -224,7 +224,7 @@ test('array on several lines', () => {
   const source = Source.fromText(code);
   const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
-  const { nodes } = lexer.body().statements[0];
+  const { nodes } = lexer.parse().statements[0];
 
   expect(nodes.length).toBe(1);
 

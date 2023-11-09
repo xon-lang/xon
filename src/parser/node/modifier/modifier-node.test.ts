@@ -7,7 +7,7 @@ test('infix modifier', () => {
   const text = 'infix';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const tokens = lexer.body().statements[0].nodes as LexicalNode[];
+  const tokens = lexer.parse().statements[0].nodes as LexicalNode[];
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].$).toBe(NodeType.MODIFIER);
@@ -18,7 +18,7 @@ test('prefix operator', () => {
   const text = 'prefix +';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const nodes = lexer.body().statements[0].nodes as LexicalNode[];
+  const nodes = lexer.parse().statements[0].nodes as LexicalNode[];
 
   expect(nodes.length).toBe(2);
   expect(nodes[0].$).toBe(NodeType.MODIFIER);

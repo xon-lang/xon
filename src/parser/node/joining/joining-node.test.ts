@@ -9,7 +9,7 @@ test('line joining', () => {
   const text = 'abc\\  .def';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const nodes = lexer.body().statements[0].nodes;
+  const nodes = lexer.parse().statements[0].nodes;
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);
@@ -26,7 +26,7 @@ test('line joining with new line', () => {
   const text = 'abc\\   \n  .def';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const nodes = lexer.body().statements[0].nodes;
+  const nodes = lexer.parse().statements[0].nodes;
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);
