@@ -1,5 +1,5 @@
 import { Integer, String2 } from '~/lib/core';
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { NonHiddenLexicalNode } from '../node';
 import { NodeType } from '../node-type';
 
@@ -21,7 +21,7 @@ const DIGITS = '0123456789';
 const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const DIGITS_LETTERS = DIGITS + LETTERS;
 
-export function scanIntegerNode({ text, index }: LexicalAnalysis): IntegerNode | null {
+export function scanIntegerNode({ text, index }: Parser): IntegerNode | null {
   if (DIGITS.includes(text[index])) {
     let nextIndex = index;
 

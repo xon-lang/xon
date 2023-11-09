@@ -1,4 +1,4 @@
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { LexicalNode } from '../node';
 import { NodeType } from '../node-type';
@@ -6,7 +6,7 @@ import { NodeType } from '../node-type';
 test('infix modifier', () => {
   const text = 'infix';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const tokens = lexer.body().statements[0].nodes as LexicalNode[];
 
   expect(tokens.length).toBe(1);
@@ -17,7 +17,7 @@ test('infix modifier', () => {
 test('prefix operator', () => {
   const text = 'prefix +';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes as LexicalNode[];
 
   expect(nodes.length).toBe(2);

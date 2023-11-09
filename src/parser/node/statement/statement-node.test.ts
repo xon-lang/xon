@@ -1,4 +1,4 @@
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { LexicalNode } from '../node';
 import { NodeType } from '../node-type';
@@ -6,7 +6,7 @@ import { NodeType } from '../node-type';
 test('comma', () => {
   const code = '1';
   const source = Source.fromText(code);
-  const scanner = new LexicalAnalysis(source.text);
+  const scanner = new Parser(source.text);
   const statements = scanner.body().statements;
   const nodes = statements[0].nodes as LexicalNode[];
 

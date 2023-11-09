@@ -1,5 +1,5 @@
 import { Integer, String2 } from '~/lib/core';
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { HiddenLexicalNode } from '../node';
 import { NodeType } from '../node-type';
 
@@ -19,7 +19,7 @@ export function joiningNode(start: Integer, stop: Integer, text: String2): Joini
 const JOINING = '\\';
 const AFTER_JOINING = ' \t\n\r';
 
-export function scanJoiningNode({ text, index }: LexicalAnalysis): JoiningNode | null {
+export function scanJoiningNode({ text, index }: Parser): JoiningNode | null {
   if (text[index] !== JOINING) {
     return null;
   }

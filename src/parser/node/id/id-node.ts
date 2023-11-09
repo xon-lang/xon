@@ -2,7 +2,7 @@ import '~/extensions';
 import { Integer, String2 } from '~/lib/core';
 import { KeywordNode, keywordNode } from '~/parser/node/keyword/keyword-node';
 import { ModifierNode, modifierNode } from '~/parser/node/modifier/modifier-node';
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { NonHiddenLexicalNode } from '../node';
 import { NodeType } from '../node-type';
 
@@ -26,11 +26,7 @@ const DIGITS_LETTERS = DIGITS + LETTERS;
 const MODIFIERS = ['prefix', 'postfix', 'infix'];
 const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
 
-export function scanIdNode({
-  text,
-  index,
-  lastStatementNodes,
-}: LexicalAnalysis): IdNode | ModifierNode | KeywordNode | null {
+export function scanIdNode({ text, index, lastStatementNodes }: Parser): IdNode | ModifierNode | KeywordNode | null {
   if (!LETTERS.includes(text[index])) return null;
   const sliced = text.takeWhile((x) => DIGITS_LETTERS.includes(x), index);
 

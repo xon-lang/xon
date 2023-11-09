@@ -1,5 +1,5 @@
 import { InfixNode } from '~/parser/node/infix/infix-node';
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { NonHiddenLexicalNode } from '../node';
 import { NodeType } from '../node-type';
@@ -7,7 +7,7 @@ import { NodeType } from '../node-type';
 test('single expression', () => {
   const text = '\n  a = 1';
   const source = Source.fromText(text);
-  const scanner = new LexicalAnalysis(source.text);
+  const scanner = new Parser(source.text);
   const body = scanner.body();
 
   expect(body.statements.length).toBe(2);
@@ -20,7 +20,7 @@ test('single expression', () => {
 test('debug 1', () => {
   const text = 'a = 1\n b = 2\n +b';
   const source = Source.fromText(text);
-  const scanner = new LexicalAnalysis(source.text);
+  const scanner = new Parser(source.text);
   const body = scanner.body();
 
   expect(body.statements.length).toBe(1);
@@ -33,7 +33,7 @@ test('debug 1', () => {
 test('debug 2', () => {
   const text = 'a = 1\nb = 2\n';
   const source = Source.fromText(text);
-  const scanner = new LexicalAnalysis(source.text);
+  const scanner = new Parser(source.text);
   const body = scanner.body();
 
   expect(body.statements.length).toBe(3);
@@ -46,7 +46,7 @@ test('debug 3', () => {
  b
 c`.trim();
   const source = Source.fromText(text);
-  const scanner = new LexicalAnalysis(source.text);
+  const scanner = new Parser(source.text);
   const body = scanner.body();
 
   expect(body.statements.length).toBe(2);
@@ -61,7 +61,7 @@ c`.trim();
 test('multiple expression', () => {
   const text = '\n  x = 1\n  y = 2\n  z = 3';
   const source = Source.fromText(text);
-  const scanner = new LexicalAnalysis(source.text);
+  const scanner = new Parser(source.text);
   const body = scanner.body();
 
   expect(body.statements.length).toBe(4);

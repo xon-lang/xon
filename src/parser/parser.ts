@@ -19,9 +19,11 @@ import { is } from './util/is';
 import { putStatement } from './util/put-statement';
 
 type NodeScanResult = LexicalNode | SyntacticNode | null;
-type NodeScanFunction = (analysis: LexicalAnalysis) => NodeScanResult;
+type NodeScanFunction = (analysis: Parser) => NodeScanResult;
 
 const nodeScanFunctions: NodeScanFunction[] = [
+  scanIntegerNode,
+  scanStringNode,
   scanNlNode,
   scanGroupNode,
   scanCloseNode,
@@ -33,13 +35,11 @@ const nodeScanFunctions: NodeScanFunction[] = [
   scanUnknownNode,
 ];
 
-const defaultLiteralScanFunctions: NodeScanFunction[] = [scanIntegerNode, scanStringNode];
-
-export class LexicalAnalysis {
+export class Parser {
   public index = 0;
   public lastStatementNodes: Node[] = [];
 
-  public constructor(public text: String2, public literalScanners: NodeScanFunction[] = defaultLiteralScanFunctions) {}
+  public constructor(public text: String2) {}
 
   public body(breakFn: ((node: Node) => Boolean2) | null = null): BodyNode & { breakNode?: Node } {
     const indentBody: { indent: Integer | null; body: BodyNode }[] = [];
@@ -87,7 +87,7 @@ export class LexicalAnalysis {
   }
 
   public nextNode(): Exclude<NodeScanResult, null> {
-    for (const nodeScan of [...this.literalScanners, ...nodeScanFunctions]) {
+    for (const nodeScan of nodeScanFunctions) {
       const node = nodeScan(this);
 
       if (node) {

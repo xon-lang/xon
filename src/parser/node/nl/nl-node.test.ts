@@ -1,4 +1,4 @@
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { LexicalNode } from '../node';
 import { NodeType } from '../node-type';
@@ -6,7 +6,7 @@ import { NodeType } from '../node-type';
 test('line feed', () => {
   const text = '\n';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].hidden ?? [];
 
   expect(nodes.length).toBe(1);
@@ -17,7 +17,7 @@ test('line feed', () => {
 test('carriage return', () => {
   const text = '\r';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].hidden ?? [];
 
   expect(nodes.length).toBe(1);
@@ -28,7 +28,7 @@ test('carriage return', () => {
 test('cr lf', () => {
   const text = '\r\n';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].hidden ?? [];
 
   expect(nodes.length).toBe(1);
@@ -39,7 +39,7 @@ test('cr lf', () => {
 test('lf cr', () => {
   const text = '\n\r';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const { statements } = lexer.body();
 
   expect(statements.length).toBe(3);
@@ -55,7 +55,7 @@ test('lf cr', () => {
 test('several', () => {
   const code = '  \n    \r\nabc';
   const source = Source.fromText(code);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const { statements } = lexer.body();
 
   expect(statements.length).toBe(3);

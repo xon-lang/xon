@@ -1,7 +1,7 @@
 import { GroupNode } from '~/parser/node/group/group-node';
 import { IntegerNode } from '~/parser/node/integer/integer-node';
 import { WhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { is } from '~/parser/util/is';
 import { Source } from '~/source/source';
 import { NonHiddenLexicalNode } from '../node';
@@ -10,7 +10,7 @@ import { NodeType } from '../node-type';
 test('empty closed', () => {
   const text = '[]';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
   const { nodes } = lexer.body().statements[0];
 
@@ -29,7 +29,7 @@ test('empty closed', () => {
 test('single comma', () => {
   const text = '[,]';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
   const { nodes } = lexer.body().statements[0];
 
@@ -50,7 +50,7 @@ test('single comma', () => {
 test('empty not closed', () => {
   const text = '[';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
   const { nodes } = lexer.body().statements[0];
 
@@ -68,7 +68,7 @@ test('empty not closed', () => {
 test('single item', () => {
   const text = '[123 456]';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
   const { nodes } = lexer.body().statements[0];
 
@@ -88,7 +88,7 @@ test('single item', () => {
 test('inner group', () => {
   const text = '[()]';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
   const { nodes } = lexer.body().statements[0];
 
@@ -108,7 +108,7 @@ test('inner group', () => {
 test('inner empty group', () => {
   const text = '[[[]]]';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
   const { nodes } = lexer.body().statements[0];
 
@@ -134,7 +134,7 @@ test('inner empty group', () => {
 test('two integers no comma and ws at the end', () => {
   const code = '[1, 2]';
   const source = Source.fromText(code);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
   const { nodes } = lexer.body().statements[0];
 
@@ -159,7 +159,7 @@ test('two integers no comma and ws at the end', () => {
 test('two integers and comma no ws at the end', () => {
   const code = '[1, 2,]';
   const source = Source.fromText(code);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
   const { nodes } = lexer.body().statements[0];
 
@@ -188,7 +188,7 @@ test('two integers and comma no ws at the end', () => {
 test('two integers and comma and ws', () => {
   const code = '[1, 2, ]';
   const source = Source.fromText(code);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
   const { nodes } = lexer.body().statements[0];
 
@@ -222,7 +222,7 @@ test('array on several lines', () => {
                 3,
      4,    6+6]`;
   const source = Source.fromText(code);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   // eslint-disable-next-line prefer-destructuring
   const { nodes } = lexer.body().statements[0];
 

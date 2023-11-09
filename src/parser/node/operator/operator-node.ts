@@ -2,7 +2,7 @@ import { Integer, String2 } from '~/lib/core';
 import { IdNode, idNode, scanIdNode } from '~/parser/node/id/id-node';
 import { KeywordNode } from '~/parser/node/keyword/keyword-node';
 import { ModifierNode } from '~/parser/node/modifier/modifier-node';
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { is } from '~/parser/util/is';
 import { operatorsOrders } from '~/parser/util/operators';
 import { NonHiddenLexicalNode } from '../node';
@@ -26,7 +26,7 @@ const OPERATORS = [
   ...new Set(operatorsOrders.flatMap((operatorsOrder) => operatorsOrder.operators).flatMap((operators) => operators)),
 ];
 
-export function scanOperatorNode(analysis: LexicalAnalysis): OperatorNode | IdNode | ModifierNode | KeywordNode | null {
+export function scanOperatorNode(analysis: Parser): OperatorNode | IdNode | ModifierNode | KeywordNode | null {
   const { index, text, lastStatementNodes: lastNodes } = analysis;
   let operators = OPERATORS.filter((x) => x[0] === text[index]);
 

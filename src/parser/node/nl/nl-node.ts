@@ -1,5 +1,5 @@
 import { Integer, String2 } from '~/lib/core';
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { HiddenLexicalNode } from '../node';
 import { NodeType } from '../node-type';
 
@@ -19,7 +19,7 @@ export function nlNode(start: Integer, stop: Integer, text: String2): NlNode {
 const LF = '\n';
 const CR = '\r';
 
-export function scanNlNode({ text, index }: LexicalAnalysis): NlNode | null {
+export function scanNlNode({ text, index }: Parser): NlNode | null {
   if (text[index] === LF) {
     return nlNode(index, index, LF);
   }

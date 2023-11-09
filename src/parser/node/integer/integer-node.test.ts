@@ -1,4 +1,4 @@
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { LexicalNode } from '../node';
 import { NodeType } from '../node-type';
@@ -6,7 +6,7 @@ import { NodeType } from '../node-type';
 test('integer', () => {
   const text = '123';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes as LexicalNode[];
 
   expect(nodes.length).toBe(1);
@@ -17,7 +17,7 @@ test('integer', () => {
 test('zero int number', () => {
   const text = '0';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes as LexicalNode[];
 
   expect(nodes.length).toBe(1);
@@ -28,7 +28,7 @@ test('zero int number', () => {
 test('positive int number', () => {
   const text = '2x01110';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes as LexicalNode[];
 
   expect(nodes.length).toBe(1);
@@ -39,7 +39,7 @@ test('positive int number', () => {
 test('radix int', () => {
   const text = '16x1a_b_c';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes as LexicalNode[];
 
   expect(nodes.length).toBe(1);

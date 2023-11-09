@@ -1,5 +1,5 @@
 import { StringNode } from '~/parser/node/string/string-node';
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { LexicalNode } from '../node';
 import { NodeType } from '../node-type';
@@ -7,7 +7,7 @@ import { NodeType } from '../node-type';
 test('string', () => {
   const text = "'abc   def'";
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes as LexicalNode[];
   const tree = nodes[0] as StringNode;
 
@@ -19,7 +19,7 @@ test('string', () => {
 test('multiline string', () => {
   const text = "'some\nmultiline\n\t\n\t\nstring\n'";
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes as LexicalNode[];
   const tree = nodes[0] as StringNode;
 
@@ -30,7 +30,7 @@ test('multiline string', () => {
 test('empty string', () => {
   const text = "''";
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes as LexicalNode[];
   const tree = nodes[0] as StringNode;
 
@@ -41,7 +41,7 @@ test('empty string', () => {
 test('not closed', () => {
   const text = "'abc";
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes as LexicalNode[];
 
   expect(nodes.length).toBe(1);

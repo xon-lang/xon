@@ -1,14 +1,14 @@
 import { IdNode } from '~/parser/node/id/id-node';
 import { MemberNode } from '~/parser/node/member/member-node';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { NodeType } from '../node-type';
 
 test('line joining', () => {
   const text = 'abc\\  .def';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes;
   const member = nodes[0] as MemberNode;
 
@@ -25,7 +25,7 @@ test('line joining', () => {
 test('line joining with new line', () => {
   const text = 'abc\\   \n  .def';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes;
   const member = nodes[0] as MemberNode;
 

@@ -1,11 +1,11 @@
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { LexicalNode, NonHiddenLexicalNode } from '../node';
 
 test('unknown 1', () => {
   const text = '123 §•∞•456';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes as NonHiddenLexicalNode[];
 
   expect(nodes.length).toBe(6);
@@ -17,7 +17,7 @@ test('unknown 1', () => {
 test('unknown 2', () => {
   const text = 'ºª¶';
   const source = Source.fromText(text, null);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes as LexicalNode[];
 
   expect(nodes.length).toBe(3);

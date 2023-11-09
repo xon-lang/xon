@@ -1,5 +1,5 @@
 import { Integer, String2 } from '~/lib/core';
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { HiddenLexicalNode } from '../node';
 import { NodeType } from '../node-type';
 
@@ -19,7 +19,7 @@ export function whitespaceNode(start: Integer, stop: Integer, text: String2): Wh
 const SPACE = ' ';
 const TAB = '\t';
 
-export function scanWhitespaceNode({ text, index }: LexicalAnalysis): WhitespaceNode | null {
+export function scanWhitespaceNode({ text, index }: Parser): WhitespaceNode | null {
   if (text[index] !== SPACE && text[index] !== TAB) {
     return null;
   }

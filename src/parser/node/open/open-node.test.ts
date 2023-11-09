@@ -1,12 +1,12 @@
 import { GroupNode } from '~/parser/node/group/group-node';
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { NodeType } from '../node-type';
 
 test('open paren', () => {
   const code = '(';
   const source = Source.fromText(code);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const { nodes } = lexer.body().statements[0];
 
   expect(nodes.length).toBe(1);
@@ -19,7 +19,7 @@ test('open paren', () => {
 test('open bracket', () => {
   const code = '[';
   const source = Source.fromText(code);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const { nodes } = lexer.body().statements[0];
 
   expect(nodes.length).toBe(1);
@@ -32,7 +32,7 @@ test('open bracket', () => {
 test('open brace', () => {
   const code = '{';
   const source = Source.fromText(code);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const { nodes } = lexer.body().statements[0];
 
   expect(nodes.length).toBe(1);

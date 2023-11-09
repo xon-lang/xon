@@ -1,5 +1,5 @@
 import { Integer, String2 } from '~/lib/core';
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { NonHiddenLexicalNode } from '../node';
 import { NodeType } from '../node-type';
 
@@ -19,7 +19,7 @@ export function closeNode(start: Integer, stop: Integer, text: String2): CloseNo
 
 const CLOSE = '}])';
 
-export function scanCloseNode({ text, index }: LexicalAnalysis): CloseNode | null {
+export function scanCloseNode({ text, index }: Parser): CloseNode | null {
   if (CLOSE.includes(text[index])) {
     return closeNode(index, index, text[index]);
   }

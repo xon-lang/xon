@@ -1,5 +1,5 @@
 import { Integer, String2 } from '~/lib/core';
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { NonHiddenLexicalNode } from '../node';
 import { NodeType } from '../node-type';
 
@@ -19,7 +19,7 @@ export function openNode(start: Integer, stop: Integer, text: String2): OpenNode
 
 const OPEN = '([{';
 
-export function scanOpenNode({ text, index }: LexicalAnalysis): OpenNode | null {
+export function scanOpenNode({ text, index }: Parser): OpenNode | null {
   if (OPEN.includes(text[index])) {
     return openNode(index, index, text[index]);
   }

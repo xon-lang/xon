@@ -3,7 +3,7 @@ import { InfixNode } from '~/parser/node/infix/infix-node';
 import { IntegerNode } from '~/parser/node/integer/integer-node';
 import { MemberNode } from '~/parser/node/member/member-node';
 import { PrefixNode } from '~/parser/node/prefix/prefix-node';
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
 import { LexicalNode } from '../../node';
@@ -12,7 +12,7 @@ import { NodeType } from '../../node-type';
 test('infix operator', () => {
   const text = 'abc.def';
   const source = Source.fromText(text);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes;
   const node = nodes[0] as MemberNode;
 
@@ -25,7 +25,7 @@ test('infix operator', () => {
 test('several operands with different priorities', () => {
   const text = '1*1+1+2^5*2/2';
   const source = Source.fromText(text);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes;
   const node = nodes[0] as InfixNode;
 
@@ -73,7 +73,7 @@ test('several operands with different priorities', () => {
 test('num plus str', () => {
   const text = "1  + 'str'";
   const source = Source.fromText(text);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes;
   const node = nodes[0] as InfixNode;
 
@@ -85,7 +85,7 @@ test('num plus str', () => {
 test('num is number', () => {
   const text = '1 & Number';
   const source = Source.fromText(text);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes;
   const node = nodes[0] as InfixNode;
 
@@ -98,7 +98,7 @@ test('num is number', () => {
 test('equals', () => {
   const text = 'this.text == 123';
   const source = Source.fromText(text);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes;
   const node = nodes[0] as InfixNode;
 
@@ -110,7 +110,7 @@ test('equals', () => {
 test('has several relational operators', () => {
   const text = 'a<b>c';
   const source = Source.fromText(text);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes;
   const node = nodes[0] as InfixNode;
 
@@ -129,7 +129,7 @@ test('has several relational operators', () => {
 test('several operators', () => {
   const text = '1 /+ 2';
   const source = Source.fromText(text);
-  const lexer = new LexicalAnalysis(source.text);
+  const lexer = new Parser(source.text);
   const nodes = lexer.body().statements[0].nodes;
   const node = nodes[0] as InfixNode;
 

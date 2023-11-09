@@ -1,5 +1,5 @@
 import { Integer, String2 } from '~/lib/core';
-import { LexicalAnalysis } from '~/parser/parser';
+import { Parser } from '~/parser/parser';
 import { NonHiddenLexicalNode } from '../node';
 import { NodeType } from '../node-type';
 
@@ -17,6 +17,6 @@ export function unknownNode(start: Integer, stop: Integer, text: String2): Unkno
   };
 }
 
-export function scanUnknownNode({ text, index }: LexicalAnalysis): UnknownNode | null {
+export function scanUnknownNode({ text, index }: Parser): UnknownNode | null {
   return unknownNode(index, index, text[index]);
 }
