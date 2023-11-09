@@ -1,8 +1,8 @@
 import { Integer } from '~/lib/core';
+import { BodyNode, bodyNode } from '~/node/lexical/body/body-node';
 import { HiddenLexicalNode, NonHiddenLexicalNode } from '~/node/lexical/lexical-node';
+import { statementNode } from '~/node/lexical/statement/statement-node';
 import { getSyntacticNodes } from '~/node/lexical/util/get-syntactic-nodes';
-import { BodyNode, bodyNode } from '~/node/syntactic/body/body-node';
-import { statementNode } from '~/node/syntactic/statement/statement-node';
 import { getStatementIndent } from './get-statement-indent';
 
 export function putStatement(

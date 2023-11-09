@@ -6,8 +6,14 @@ export interface LexicalNode extends Node {
   stop: Integer;
   text: String2;
 }
+
 export interface HiddenLexicalNode extends LexicalNode {}
 
 export interface NonHiddenLexicalNode extends LexicalNode {
   hidden: HiddenLexicalNode[];
+}
+
+export interface SyntacticNode extends Node {
+  start: Integer;
+  stop: Integer;
 }

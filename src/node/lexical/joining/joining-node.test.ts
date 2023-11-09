@@ -1,8 +1,8 @@
 import { IdNode } from '~/node/lexical/id/id-node';
 import { LexicalAnalysis } from '~/node/lexical/lexical-analysis';
+import { MemberNode } from '~/node/lexical/member/member-node';
 import { OperatorNode } from '~/node/lexical/operator/operator-node';
 import { NodeType } from '~/node/node';
-import { MemberNode } from '~/node/syntactic/member/member-node';
 import { Source } from '~/source/source';
 
 test('line joining', () => {

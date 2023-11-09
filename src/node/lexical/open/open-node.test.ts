@@ -1,6 +1,6 @@
+import { GroupNode } from '~/node/lexical/group/group-node';
 import { LexicalAnalysis } from '~/node/lexical/lexical-analysis';
 import { NodeType } from '~/node/node';
-import { GroupNode } from '~/node/syntactic/group/group-node';
 import { Source } from '~/source/source';
 
 test('open paren', () => {

@@ -1,7 +1,6 @@
+import { GroupNode } from '~/node/lexical/group/group-node';
+import { invokeNode } from '~/node/lexical/invoke/invoke-node';
 import { Node, NodeType, is } from '~/node/node';
-import { GroupNode } from '~/node/syntactic/group/group-node';
-import { invokeNode } from '~/node/syntactic/invoke/invoke-node';
-
 
 export function collapseInvoke(nodes: Node[]): void {
   for (let i = 0; i < nodes.length; i++) {

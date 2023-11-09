@@ -1,10 +1,9 @@
 import { IdNode } from '~/node/lexical/id/id-node';
+import { InfixNode, infixNode } from '~/node/lexical/infix/infix-node';
+import { SyntacticNode } from '~/node/lexical/lexical-node';
+import { MemberNode, memberNode } from '~/node/lexical/member/member-node';
 import { OperatorNode } from '~/node/lexical/operator/operator-node';
 import { NodeType, is } from '~/node/node';
-import { InfixNode, infixNode } from '~/node/syntactic/infix/infix-node';
-import { MemberNode, memberNode } from '~/node/syntactic/member/member-node';
-import { SyntacticNode } from '~/node/syntactic/syntactic-node';
-
 
 export function handleInfix(operator: OperatorNode, left: SyntacticNode, right: SyntacticNode): InfixNode | MemberNode {
   // fix complex condition
