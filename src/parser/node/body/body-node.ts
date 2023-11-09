@@ -17,6 +17,7 @@ export function bodyNode(head: StatementNode | null, statements: StatementNode[]
     head,
     start: first?.start ?? 0,
     stop: last?.stop ?? first?.stop ?? 0,
+    hidden: [],
     statements,
   };
 }

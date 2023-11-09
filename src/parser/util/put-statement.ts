@@ -2,12 +2,12 @@ import { Integer } from '~/lib/core';
 import { BodyNode, bodyNode } from '~/parser/node/body/body-node';
 import { statementNode } from '~/parser/node/statement/statement-node';
 import { getSyntacticNodes } from '~/parser/util/get-syntactic-nodes';
-import { NonHiddenLexicalNode, TokenNode } from '../node/node';
+import { TokenNode } from '../node/node';
 import { getStatementIndent } from './get-statement-indent';
 
 export function putStatement(
   indentBody: { indent: Integer | null; body: BodyNode }[],
-  nodes: NonHiddenLexicalNode[],
+  nodes: TokenNode[],
   hidden: TokenNode[],
 ): void {
   const indent = getStatementIndent(nodes);

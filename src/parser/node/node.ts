@@ -5,12 +5,9 @@ export interface Node {
   readonly $: NodeType;
   start: Integer;
   stop: Integer;
+  hidden: TokenNode[];
 }
 
 export interface TokenNode extends Node {
   text: String2;
-}
-
-export interface NonHiddenLexicalNode extends TokenNode {
-  hidden: TokenNode[];
 }

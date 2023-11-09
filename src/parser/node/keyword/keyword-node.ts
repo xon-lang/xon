@@ -1,8 +1,8 @@
 import { Integer, String2 } from '~/lib/core';
-import { NonHiddenLexicalNode } from '../node';
+import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
 
-export interface KeywordNode extends NonHiddenLexicalNode {
+export interface KeywordNode extends TokenNode {
   $: NodeType.KEYWORD;
 }
 

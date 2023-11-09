@@ -12,6 +12,7 @@ export function nlNode(start: Integer, stop: Integer, text: String2): NlNode {
     $: NodeType.NL,
     start,
     stop,
+    hidden: [],
     text,
   };
 }

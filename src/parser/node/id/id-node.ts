@@ -3,10 +3,10 @@ import { Integer, String2 } from '~/lib/core';
 import { KeywordNode, keywordNode } from '~/parser/node/keyword/keyword-node';
 import { ModifierNode, modifierNode } from '~/parser/node/modifier/modifier-node';
 import { Parser } from '~/parser/parser';
-import { NonHiddenLexicalNode } from '../node';
+import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
 
-export interface IdNode extends NonHiddenLexicalNode {
+export interface IdNode extends TokenNode {
   $: NodeType.ID;
 }
 

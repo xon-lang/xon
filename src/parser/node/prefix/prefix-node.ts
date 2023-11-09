@@ -13,6 +13,7 @@ export function prefixNode(operator: OperatorNode, value: Node): PrefixNode {
     $: NodeType.PREFIX,
     start: operator.start,
     stop: value.stop,
+    hidden: [],
     operator,
     value,
   };

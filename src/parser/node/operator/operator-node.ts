@@ -5,10 +5,10 @@ import { ModifierNode } from '~/parser/node/modifier/modifier-node';
 import { Parser } from '~/parser/parser';
 import { is } from '~/parser/util/is';
 import { operatorsOrders } from '~/parser/util/operators';
-import { NonHiddenLexicalNode } from '../node';
+import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
 
-export interface OperatorNode extends NonHiddenLexicalNode {
+export interface OperatorNode extends TokenNode {
   $: NodeType.OPERATOR;
 }
 

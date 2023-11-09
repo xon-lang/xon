@@ -1,10 +1,10 @@
 import { Integer, String2 } from '~/lib/core';
 import { UnknownNode } from '~/parser/node/unknown/unknown-node';
 import { Parser } from '~/parser/parser';
-import { NonHiddenLexicalNode } from '../node';
+import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
 
-export interface StringNode extends NonHiddenLexicalNode {
+export interface StringNode extends TokenNode {
   $: NodeType.STRING;
 }
 

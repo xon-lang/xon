@@ -13,6 +13,7 @@ export function invokeNode(instance: Node, group: GroupNode): InvokeNode {
     $: NodeType.INVOKE,
     start: instance.start,
     stop: group.stop,
+    hidden: [],
     instance,
     group,
   };

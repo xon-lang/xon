@@ -14,6 +14,7 @@ export function infixNode(operator: OperatorNode, left: Node, right: Node): Infi
     $: NodeType.INFIX,
     start: left.start,
     stop: right.stop,
+    hidden: [],
     operator,
     left,
     right,

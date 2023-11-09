@@ -14,7 +14,7 @@ import { scanOperatorNode } from '~/parser/node/operator/operator-node';
 import { scanStringNode } from '~/parser/node/string/string-node';
 import { scanUnknownNode } from '~/parser/node/unknown/unknown-node';
 import { WhitespaceNode, scanWhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
-import { NonHiddenLexicalNode, TokenNode } from './node/node';
+import { TokenNode } from './node/node';
 import { NodeType } from './node/node-type';
 import { is } from './util/is';
 import { putStatement } from './util/put-statement';
@@ -49,7 +49,7 @@ export class Parser {
 
   public parseUntil(breakFn: ((node: Node) => Boolean2) | null): BodyNode & { breakNode?: Node } {
     const indentBody: { indent: Integer | null; body: BodyNode }[] = [];
-    let nodes: NonHiddenLexicalNode[] = [];
+    let nodes: TokenNode[] = [];
     let hidden: TokenNode[] = [];
     let breakNode: Node | undefined;
 
@@ -79,9 +79,9 @@ export class Parser {
         continue;
       }
 
-      (node as NonHiddenLexicalNode).hidden = hidden;
+      (node as TokenNode).hidden = hidden;
       hidden = [];
-      nodes.push(node as NonHiddenLexicalNode);
+      nodes.push(node as TokenNode);
     }
 
     putStatement(indentBody, nodes, hidden);
