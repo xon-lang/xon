@@ -23,7 +23,7 @@ export function idNode(start: Integer, stop: Integer, text: String2): IdNode {
 const DIGITS = '0123456789';
 const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const DIGITS_LETTERS = DIGITS + LETTERS;
-const MODIFIERS = ['prefix', 'postfix', 'infix'];
+const MODIFIERS = ['model', 'const', 'var', 'prefix', 'postfix', 'infix'];
 const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
 
 export function scanIdNode({ text, index, lastStatementNodes }: Parser): IdNode | ModifierNode | KeywordNode | null {
