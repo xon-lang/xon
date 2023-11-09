@@ -7,7 +7,7 @@ import { NodeType } from '~/parser/node/node';
 import { OpenNode, scanOpenNode } from '~/parser/node/open/open-node';
 import { statementNode } from '~/parser/node/statement/statement-node';
 import { LexicalAnalysis } from '~/parser/parser';
-import { is } from '../node';
+import { is } from '~/parser/util/is';
 
 export interface GroupNode extends SyntacticNode {
   $: NodeType.GROUP;

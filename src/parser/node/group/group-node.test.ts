@@ -3,9 +3,9 @@ import { IntegerNode } from '~/parser/node/integer/integer-node';
 import { NodeType } from '~/parser/node/node';
 import { WhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
 import { LexicalAnalysis } from '~/parser/parser';
+import { is } from '~/parser/util/is';
 import { Source } from '~/source/source';
 import { NonHiddenLexicalNode } from '../lexical-node';
-import { is } from '../node';
 
 test('empty closed', () => {
   const text = '[]';

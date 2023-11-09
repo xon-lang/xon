@@ -3,9 +3,10 @@ import { GroupNode } from '~/parser/node/group/group-node';
 import { IdNode } from '~/parser/node/id/id-node';
 import { InfixNode } from '~/parser/node/infix/infix-node';
 import { IntegerNode } from '~/parser/node/integer/integer-node';
-import { Node, NodeType, is } from '~/parser/node/node';
+import { Node, NodeType } from '~/parser/node/node';
 import { PrefixNode } from '~/parser/node/prefix/prefix-node';
 import { StringNode } from '~/parser/node/string/string-node';
+import { is } from '~/parser/util/is';
 
 export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);

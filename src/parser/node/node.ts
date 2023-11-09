@@ -51,7 +51,3 @@ export enum NodeType {
   TYPE_INTERSECTION = 'TYPE_INTERSECTION',
   VALUE = 'VALUE',
 }
-
-export function is<T extends Node = Node>(node: Node | null | undefined, nodeType: NodeType): node is T {
-  return node?.$ === nodeType;
-}

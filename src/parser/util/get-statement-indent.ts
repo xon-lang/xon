@@ -1,6 +1,7 @@
 import { Integer } from '~/lib/core';
 import { NonHiddenLexicalNode } from '~/parser/node/lexical-node';
-import { NodeType, is } from '~/parser/node/node';
+import { NodeType } from '~/parser/node/node';
+import { is } from './is';
 
 export function getStatementIndent(nodes: NonHiddenLexicalNode[]): Integer | null {
   const whitespaceTokens = nodes

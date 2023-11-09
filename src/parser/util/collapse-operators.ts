@@ -1,11 +1,12 @@
 import { Integer } from '~/lib/core';
 import { SyntacticNode } from '~/parser/node/lexical-node';
-import { Node, NodeType, is } from '~/parser/node/node';
+import { Node, NodeType } from '~/parser/node/node';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
 import { postfixNode } from '~/parser/node/postfix/postfix-node';
 import { prefixNode } from '~/parser/node/prefix/prefix-node';
 import { OperatorType } from '~/parser/util/operators';
 import { handleInfix } from './handle-infix';
+import { is } from './is';
 
 export function collapseOperators(nodes: Node[], operatorType: OperatorType, operatorIndex: Integer): void {
   if (operatorIndex < 0) return;
