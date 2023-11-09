@@ -4,7 +4,6 @@ import { OperatorNode } from '~/parser/node/operator/operator-node';
 import { postfixNode } from '~/parser/node/postfix/postfix-node';
 import { prefixNode } from '~/parser/node/prefix/prefix-node';
 import { OperatorType } from '~/parser/util/operators';
-import { SyntacticNode } from '../node/node';
 import { NodeType } from '../node/node-type';
 import { handleInfix } from './handle-infix';
 import { is } from './is';
@@ -18,7 +17,7 @@ export function collapseOperators(nodes: Node[], operatorType: OperatorType, ope
   }
 
   if (operatorType === OperatorType.PREFIX) {
-    const right = nodes[operatorIndex + 1] as SyntacticNode;
+    const right = nodes[operatorIndex + 1] as Node;
 
     if (!right) {
       throw new Error('Not implemented');
@@ -32,7 +31,7 @@ export function collapseOperators(nodes: Node[], operatorType: OperatorType, ope
   }
 
   if (operatorType === OperatorType.POSTFIX) {
-    const left = nodes[operatorIndex - 1] as SyntacticNode;
+    const left = nodes[operatorIndex - 1] as Node;
 
     if (!left) {
       throw new Error('Not implemented');
@@ -46,8 +45,8 @@ export function collapseOperators(nodes: Node[], operatorType: OperatorType, ope
   }
 
   if (operatorType === OperatorType.INFIX) {
-    const left = nodes[operatorIndex - 1] as SyntacticNode;
-    const right = nodes[operatorIndex + 1] as SyntacticNode;
+    const left = nodes[operatorIndex - 1] as Node;
+    const right = nodes[operatorIndex + 1] as Node;
 
     if (!left || !right) {
       throw new Error('Not implemented');

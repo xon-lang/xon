@@ -2,11 +2,11 @@ import { IdNode } from '~/parser/node/id/id-node';
 import { InfixNode, infixNode } from '~/parser/node/infix/infix-node';
 import { MemberNode, memberNode } from '~/parser/node/member/member-node';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
-import { SyntacticNode } from '../node/node';
+import { Node } from '../node/node';
 import { NodeType } from '../node/node-type';
 import { is } from './is';
 
-export function handleInfix(operator: OperatorNode, left: SyntacticNode, right: SyntacticNode): InfixNode | MemberNode {
+export function handleInfix(operator: OperatorNode, left: Node, right: Node): InfixNode | MemberNode {
   // fix complex condition
   if (operator.text === '.' || operator.text === '::') {
     if (is<IdNode>(right, NodeType.ID)) {

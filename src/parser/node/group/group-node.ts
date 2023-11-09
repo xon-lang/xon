@@ -6,10 +6,10 @@ import { OpenNode, scanOpenNode } from '~/parser/node/open/open-node';
 import { statementNode } from '~/parser/node/statement/statement-node';
 import { Parser } from '~/parser/parser';
 import { is } from '~/parser/util/is';
-import { SyntacticNode } from '../node';
+import { Node } from '../node';
 import { NodeType } from '../node-type';
 
-export interface GroupNode extends SyntacticNode {
+export interface GroupNode extends Node {
   $: NodeType.GROUP;
   open: OpenNode;
   close: CloseNode | null;

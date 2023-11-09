@@ -1,15 +1,15 @@
 import { BodyNode } from '~/parser/node/body/body-node';
-import { SyntacticNode, TokenNode } from '../node';
+import { Node, TokenNode } from '../node';
 import { NodeType } from '../node-type';
 
-export interface StatementNode extends SyntacticNode {
+export interface StatementNode extends Node {
   $: NodeType.STATEMENT;
   hidden: TokenNode[];
-  nodes: SyntacticNode[];
+  nodes: Node[];
   body: BodyNode | null;
 }
 
-export function statementNode(nodes: SyntacticNode[], body: BodyNode | null = null): StatementNode {
+export function statementNode(nodes: Node[], body: BodyNode | null = null): StatementNode {
   const first = nodes.firstOrNull();
   const last = nodes.lastOrNull();
 

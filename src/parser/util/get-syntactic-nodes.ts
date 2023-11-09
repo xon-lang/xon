@@ -1,7 +1,7 @@
-import { SyntacticNode } from '../node/node';
+import { Node } from '../node/node';
 import { collapseLineNodes } from './collapse-line-nodes';
 
-export function getSyntacticNodes(nodes: SyntacticNode[]): SyntacticNode[] {
+export function getSyntacticNodes(nodes: Node[]): Node[] {
   collapseLineNodes(nodes);
   // collapseDeclaration(nodes);
 

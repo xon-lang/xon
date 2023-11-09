@@ -11,8 +11,6 @@ export interface TokenNode extends Node {
   text: String2;
 }
 
-export interface SyntacticNode extends Node {}
-
 export interface NonHiddenLexicalNode extends TokenNode {
   hidden: TokenNode[];
 }

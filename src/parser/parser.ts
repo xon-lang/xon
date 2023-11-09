@@ -14,12 +14,12 @@ import { scanOperatorNode } from '~/parser/node/operator/operator-node';
 import { scanStringNode } from '~/parser/node/string/string-node';
 import { scanUnknownNode } from '~/parser/node/unknown/unknown-node';
 import { WhitespaceNode, scanWhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
-import { NonHiddenLexicalNode, SyntacticNode, TokenNode } from './node/node';
+import { NonHiddenLexicalNode, TokenNode } from './node/node';
 import { NodeType } from './node/node-type';
 import { is } from './util/is';
 import { putStatement } from './util/put-statement';
 
-type NodeScanResult = TokenNode | SyntacticNode | null;
+type NodeScanResult = TokenNode | Node | null;
 type NodeScanFunction = (analysis: Parser) => NodeScanResult;
 
 const nodeScanFunctions: NodeScanFunction[] = [

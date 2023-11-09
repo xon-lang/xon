@@ -1,8 +1,8 @@
 import { StatementNode } from '~/parser/node/statement/statement-node';
-import { SyntacticNode } from '../node';
+import { Node } from '../node';
 import { NodeType } from '../node-type';
 
-export interface BodyNode extends SyntacticNode {
+export interface BodyNode extends Node {
   $: NodeType.BODY;
   head: StatementNode | null;
   statements: StatementNode[];
