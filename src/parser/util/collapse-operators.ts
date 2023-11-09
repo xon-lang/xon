@@ -1,9 +1,9 @@
 import { Integer } from '~/lib/core';
-import { SyntacticNode } from '~/parser/lexical/lexical-node';
-import { Node, NodeType, is } from '~/parser/lexical/node';
-import { OperatorNode } from '~/parser/lexical/operator/operator-node';
-import { postfixNode } from '~/parser/lexical/postfix/postfix-node';
-import { prefixNode } from '~/parser/lexical/prefix/prefix-node';
+import { SyntacticNode } from '~/parser/node/lexical-node';
+import { Node, NodeType, is } from '~/parser/node/node';
+import { OperatorNode } from '~/parser/node/operator/operator-node';
+import { postfixNode } from '~/parser/node/postfix/postfix-node';
+import { prefixNode } from '~/parser/node/prefix/prefix-node';
 import { OperatorType } from '~/parser/util/operators';
 import { handleInfix } from './handle-infix';
 

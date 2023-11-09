@@ -1,6 +1,6 @@
 import { IssueLevel } from '~/issue/issue-level';
 import { String2 } from '~/lib/core';
-import { Node } from '~/parser/lexical/node';
+import { Node } from '~/parser/node/node';
 
 export class Issue {
   // public actual: String2

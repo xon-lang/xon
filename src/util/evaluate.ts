@@ -1,11 +1,11 @@
 import { String2, Unknown2 } from '~/lib/core';
-import { GroupNode } from '~/parser/lexical/group/group-node';
-import { IdNode } from '~/parser/lexical/id/id-node';
-import { InfixNode } from '~/parser/lexical/infix/infix-node';
-import { IntegerNode } from '~/parser/lexical/integer/integer-node';
-import { Node, NodeType, is } from '~/parser/lexical/node';
-import { PrefixNode } from '~/parser/lexical/prefix/prefix-node';
-import { StringNode } from '~/parser/lexical/string/string-node';
+import { GroupNode } from '~/parser/node/group/group-node';
+import { IdNode } from '~/parser/node/id/id-node';
+import { InfixNode } from '~/parser/node/infix/infix-node';
+import { IntegerNode } from '~/parser/node/integer/integer-node';
+import { Node, NodeType, is } from '~/parser/node/node';
+import { PrefixNode } from '~/parser/node/prefix/prefix-node';
+import { StringNode } from '~/parser/node/string/string-node';
 
 export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);

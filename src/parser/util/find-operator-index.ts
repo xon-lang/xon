@@ -1,6 +1,6 @@
 import { Integer, String2 } from '~/lib/core';
-import { Node, NodeType, is } from '~/parser/lexical/node';
-import { OperatorNode } from '~/parser/lexical/operator/operator-node';
+import { Node, NodeType, is } from '~/parser/node/node';
+import { OperatorNode } from '~/parser/node/operator/operator-node';
 import { OperatorType, RecursiveType } from '~/parser/util/operators';
 
 export function findOperatorIndex(

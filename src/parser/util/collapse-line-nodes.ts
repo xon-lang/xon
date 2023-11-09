@@ -1,4 +1,4 @@
-import { Node } from '~/parser/lexical/node';
+import { Node } from '~/parser/node/node';
 import { OperatorType, operatorsOrders } from '~/parser/util/operators';
 import { collapseInvoke } from './collapse-invoke';
 import { collapseOperators } from './collapse-operators';

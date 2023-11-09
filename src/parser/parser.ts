@@ -1,19 +1,19 @@
 /* eslint-disable max-lines */
 import { Boolean2, Integer, String2 } from '~/lib/core';
-import { BodyNode, bodyNode } from '~/parser/lexical/body/body-node';
-import { scanCloseNode } from '~/parser/lexical/close/close-node';
-import { scanCommaNode } from '~/parser/lexical/comma/comma-node';
-import { scanGroupNode } from '~/parser/lexical/group/group-node';
-import { scanIdNode } from '~/parser/lexical/id/id-node';
-import { scanIntegerNode } from '~/parser/lexical/integer/integer-node';
-import { JoiningNode, scanJoiningNode } from '~/parser/lexical/joining/joining-node';
-import { HiddenLexicalNode, LexicalNode, NonHiddenLexicalNode, SyntacticNode } from '~/parser/lexical/lexical-node';
-import { NlNode, scanNlNode } from '~/parser/lexical/nl/nl-node';
-import { Node, NodeType, is } from '~/parser/lexical/node';
-import { scanOperatorNode } from '~/parser/lexical/operator/operator-node';
-import { scanStringNode } from '~/parser/lexical/string/string-node';
-import { scanUnknownNode } from '~/parser/lexical/unknown/unknown-node';
-import { WhitespaceNode, scanWhitespaceNode } from '~/parser/lexical/whitespace/whitespace-node';
+import { BodyNode, bodyNode } from '~/parser/node/body/body-node';
+import { scanCloseNode } from '~/parser/node/close/close-node';
+import { scanCommaNode } from '~/parser/node/comma/comma-node';
+import { scanGroupNode } from '~/parser/node/group/group-node';
+import { scanIdNode } from '~/parser/node/id/id-node';
+import { scanIntegerNode } from '~/parser/node/integer/integer-node';
+import { JoiningNode, scanJoiningNode } from '~/parser/node/joining/joining-node';
+import { HiddenLexicalNode, LexicalNode, NonHiddenLexicalNode, SyntacticNode } from '~/parser/node/lexical-node';
+import { NlNode, scanNlNode } from '~/parser/node/nl/nl-node';
+import { Node, NodeType, is } from '~/parser/node/node';
+import { scanOperatorNode } from '~/parser/node/operator/operator-node';
+import { scanStringNode } from '~/parser/node/string/string-node';
+import { scanUnknownNode } from '~/parser/node/unknown/unknown-node';
+import { WhitespaceNode, scanWhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
 import { putStatement } from './util/put-statement';
 
 type NodeScanResult = LexicalNode | SyntacticNode | null;
