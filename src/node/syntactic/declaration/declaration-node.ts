@@ -7,7 +7,7 @@ export interface DeclarationNode extends SemanticNode {
   $: NodeType.DECLARATION;
   modifier: ModifierNode | null;
   name: IdNode | null;
-  group: GroupSemantic | null;
+  group: GroupSemantic[];
   type: Node | null;
   value: Node | null;
 }
@@ -15,7 +15,7 @@ export interface DeclarationNode extends SemanticNode {
 export function declarationNode(
   modifier: ModifierNode | null,
   name: IdNode | null,
-  group: GroupSemantic | null,
+  group: GroupSemantic[],
   type: Node | null,
   value: Node | null,
 ): DeclarationNode {
