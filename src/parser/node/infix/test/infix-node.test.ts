@@ -6,8 +6,8 @@ import { PrefixNode } from '~/parser/node/prefix/prefix-node';
 import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { evaluate } from '~/util/evaluate';
-import { TokenNode } from '../../node';
 import { NodeType } from '../../node-type';
+import { TokenNode } from '../../token-node';
 
 test('infix operator', () => {
   const text = 'abc.def';

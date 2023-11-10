@@ -1,6 +1,6 @@
 import { Integer, String2 } from '~/lib/core';
-import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
+import { TokenNode } from '../token-node';
 
 export interface KeywordNode extends TokenNode {
   $: NodeType.KEYWORD;

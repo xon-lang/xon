@@ -1,6 +1,6 @@
 import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
-import { TokenNode } from '../node';
+import { TokenNode } from '../token-node';
 
 test('unknown 1', () => {
   const text = '123 §•∞•456';

@@ -1,6 +1,6 @@
 import { Integer } from '~/lib/core';
-import { TokenNode } from '../node/node';
 import { NodeType } from '../node/node-type';
+import { TokenNode } from '../node/token-node';
 import { is } from './is';
 
 export function getStatementIndent(nodes: TokenNode[]): Integer | null {

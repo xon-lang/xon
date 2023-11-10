@@ -3,8 +3,8 @@ import { Integer, String2 } from '~/lib/core';
 import { KeywordNode, keywordNode } from '~/parser/node/keyword/keyword-node';
 import { ModifierNode, modifierNode } from '~/parser/node/modifier/modifier-node';
 import { Parser } from '~/parser/parser';
-import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
+import { TokenNode } from '../token-node';
 
 export interface IdNode extends TokenNode {
   $: NodeType.ID;

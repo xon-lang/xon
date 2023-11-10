@@ -1,6 +1,7 @@
 import { BodyNode } from '~/parser/node/body/body-node';
-import { Node, TokenNode } from '../node';
+import { Node } from '../node';
 import { NodeType } from '../node-type';
+import { TokenNode } from '../token-node';
 
 export interface StatementNode extends Node {
   $: NodeType.STATEMENT;

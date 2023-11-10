@@ -1,11 +1,11 @@
 import { GroupNode } from '~/parser/node/group/group-node';
 import { IntegerNode } from '~/parser/node/integer/integer-node';
-import { TokenNode } from '~/parser/node/node';
 import { WhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
 import { Parser } from '~/parser/parser';
 import { is } from '~/parser/util/is';
 import { Source } from '~/source/source';
 import { NodeType } from '../node-type';
+import { TokenNode } from '../token-node';
 
 test('empty object', () => {
   const text = '{}';

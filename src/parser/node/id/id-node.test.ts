@@ -1,7 +1,7 @@
 import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
-import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
+import { TokenNode } from '../token-node';
 
 test('single id', () => {
   const text = 'abc';

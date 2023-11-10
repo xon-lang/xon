@@ -13,8 +13,8 @@ import { scanOperatorNode } from '~/parser/node/operator/operator-node';
 import { scanStringNode } from '~/parser/node/string/string-node';
 import { scanUnknownNode } from '~/parser/node/unknown/unknown-node';
 import { WhitespaceNode, scanWhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
-import { TokenNode } from './node/node';
 import { NodeType } from './node/node-type';
+import { TokenNode } from './node/token-node';
 import { is } from './util/is';
 import { IndentBody, putStatement } from './util/put-statement';
 
