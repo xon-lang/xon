@@ -56,9 +56,10 @@ export function scanGroupNode(parser: Parser): GroupNode | ObjectNode | ArrayNod
   while (parser.index < text.length) {
     const body = parser.parseUntil(
       (node) =>
-        is(node, NodeType.COMMA) || (is<CloseNode>(node, NodeType.CLOSE) && node.text === OPEN_CLOSE[open.text]),
+        is<CommaNode>(node, NodeType.COMMA) ||
+        (is<CloseNode>(node, NodeType.CLOSE) && node.text === OPEN_CLOSE[open.text]),
     );
-    const { breakNode } = body;
+    const { breakNode } = parser;
 
     if (is<CommaNode>(breakNode, NodeType.COMMA)) {
       body.statements.last()?.hidden.push(breakNode);

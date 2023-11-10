@@ -41,26 +41,27 @@ export class Parser {
   public index = 0;
   public issues: Issue[] = [];
   public lastStatementNodes: Node[] = [];
+  public breakNode: Node | null = null;
 
   public constructor(public text: String2) {}
 
-  public parse(): BodyNode & { breakNode?: Node } {
+  public parse(): BodyNode {
     return this.parseUntil(null);
   }
 
-  public parseUntil(breakFn: BreakFn | null): BodyNode & { breakNode?: Node } {
+  public parseUntil(breakFn: BreakFn | null): BodyNode {
     const indentBody: IndentBody[] = [];
     let nodes: TokenNode[] = [];
     let hidden: TokenNode[] = [];
-    let breakNode: Node | undefined;
 
     this.lastStatementNodes = nodes;
+    this.breakNode = null;
 
     while (this.index < this.text.length) {
       const node = this.nextNode();
 
       if (breakFn && breakFn(node)) {
-        breakNode = node;
+        this.breakNode = node;
 
         break;
       }
@@ -87,10 +88,7 @@ export class Parser {
 
     putStatement(indentBody, nodes, hidden);
 
-    return {
-      breakNode,
-      ...(indentBody[0]?.body ?? bodyNode(null, [])),
-    };
+    return indentBody[0]?.body ?? bodyNode(null, []);
   }
 
   public nextNode(): Exclude<NodeScanResult, null> {
