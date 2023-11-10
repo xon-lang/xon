@@ -12,7 +12,6 @@ export function whitespaceNode(start: Integer, stop: Integer, text: String2): Wh
     $: NodeType.WHITESPACE,
     start,
     stop,
-    hidden: [],
     text,
   };
 }

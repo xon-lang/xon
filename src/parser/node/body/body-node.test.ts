@@ -1,8 +1,6 @@
-import { InfixNode } from '~/parser/node/infix/infix-node';
 import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { NodeType } from '../node-type';
-import { TokenNode } from '../token-node';
 
 test('single expression', () => {
   const text = '\n  a = 1';
@@ -65,16 +63,7 @@ test('multiple expression', () => {
   const body = scanner.parse();
 
   expect(body.statements.length).toBe(4);
-  expect(body.statements[0].hidden[0].$).toBe(NodeType.NL);
-
-  const statement1Node = body.statements[1].nodes[0] as InfixNode;
-  expect((statement1Node.left as TokenNode).hidden[0].$).toBe(NodeType.WHITESPACE);
-
-  const statement2Node = body.statements[2].nodes[0] as InfixNode;
-  expect((statement2Node.left as TokenNode).hidden[0].$).toBe(NodeType.WHITESPACE);
-
-  const statement3Node = body.statements[3].nodes[0] as InfixNode;
-  expect((statement3Node.left as TokenNode).hidden[0].$).toBe(NodeType.WHITESPACE);
+  expect(body.statements[0][0].$).toBe(NodeType.NL);
 });
 
 // test('import and if', () => {

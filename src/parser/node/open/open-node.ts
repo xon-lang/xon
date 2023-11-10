@@ -13,7 +13,6 @@ export interface OpenNode extends TokenNode {
 export function openNode(start: Integer, stop: Integer, text: String2): OpenNode {
   return {
     $: NodeType.OPEN,
-    hidden: [],
     start,
     stop,
     text,

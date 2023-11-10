@@ -28,7 +28,6 @@ export function groupNode(open: OpenNode, close: CloseNode | null, bodies: BodyN
     $: NodeType.GROUP,
     start: open.start,
     stop: close?.stop ?? lastStatement?.stop ?? open.stop,
-    hidden: [],
     open,
     close,
     bodies,
@@ -62,7 +61,7 @@ export function scanGroupNode(parser: Parser): GroupNode | ObjectNode | ArrayNod
     const { breakNode } = parser;
 
     if (is<CommaNode>(breakNode, NodeType.COMMA)) {
-      body.statements.last()?.hidden.push(breakNode);
+      parser.hidden.push(breakNode);
       bodies.push(body);
 
       continue;
@@ -77,7 +76,7 @@ export function scanGroupNode(parser: Parser): GroupNode | ObjectNode | ArrayNod
   }
 
   if (bodies.length === 0) {
-    bodies.push(bodyNode(null, [statementNode([], null, [])]));
+    bodies.push(bodyNode(null, [statementNode([], null)]));
   }
 
   return createGroupNode(open, null, bodies);

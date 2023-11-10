@@ -12,7 +12,6 @@ export function joiningNode(start: Integer, stop: Integer, text: String2): Joini
     $: NodeType.JOINING,
     start,
     stop,
-    hidden: [],
     text,
   };
 }

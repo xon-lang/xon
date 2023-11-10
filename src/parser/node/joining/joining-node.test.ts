@@ -16,8 +16,6 @@ test('line joining', () => {
   expect(member.instance.$).toBe(NodeType.ID);
   expect((member.instance as IdNode).text).toBe('abc');
   expect((member.operator as OperatorNode).text).toBe('.');
-  expect(member.operator.hidden.length).toBe(1);
-  expect(member.operator.hidden[0].text).toBe('\\  ');
   expect(member.id.$).toBe(NodeType.ID);
   expect((member.id as IdNode).text).toBe('def');
 });
@@ -33,8 +31,6 @@ test('line joining with new line', () => {
   expect(member.instance.$).toBe(NodeType.ID);
   expect((member.instance as IdNode).text).toBe('abc');
   expect((member.operator as OperatorNode).text).toBe('.');
-  expect(member.operator.hidden.length).toBe(1);
-  expect(member.operator.hidden[0].text).toBe('\\   \n  ');
   expect(member.id.$).toBe(NodeType.ID);
   expect((member.id as IdNode).text).toBe('def');
 });

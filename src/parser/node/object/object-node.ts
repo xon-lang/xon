@@ -22,7 +22,6 @@ export function objectNode(open: OpenNode, close: CloseNode | null, bodies: Body
     $: NodeType.OBJECT,
     start: open.start,
     stop: close?.stop ?? lastStatement?.stop ?? open.stop,
-    hidden: [],
     open,
     close,
     bodies,

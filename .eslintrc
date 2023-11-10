@@ -386,8 +386,18 @@
       },
       {
         "blankLine": "always",
+        "prev": "return",
+        "next": "*"
+      },
+      {
+        "blankLine": "always",
         "prev": "*",
         "next": "continue"
+      },
+      {
+        "blankLine": "always",
+        "prev": "continue",
+        "next": "*"
       },
       {
         "blankLine": "always",
@@ -396,13 +406,28 @@
       },
       {
         "blankLine": "always",
+        "prev": "break",
+        "next": "*"
+      },
+      {
+        "blankLine": "always",
         "prev": "*",
         "next": "if"
       },
       {
         "blankLine": "always",
+        "prev": "if",
+        "next": "*"
+      },
+      {
+        "blankLine": "always",
         "prev": "*",
         "next": "for"
+      },
+      {
+        "blankLine": "always",
+        "prev": "for",
+        "next": "*"
       }
     ],
     // "padding-line-between-statements": [

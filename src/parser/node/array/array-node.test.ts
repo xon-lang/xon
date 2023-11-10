@@ -33,8 +33,6 @@ test('single item', () => {
   expect(group.bodies[0].statements.length).toBe(1);
   expect(group.bodies[0].statements[0].nodes.length).toBe(2);
   expect((group.bodies[0].statements[0].nodes[0] as IntegerNode).text).toBe('123');
-  expect((group.bodies[0].statements[0].nodes[1] as TokenNode).hidden.length).toBe(1);
-  expect(((group.bodies[0].statements[0].nodes[1] as TokenNode).hidden[0] as WhitespaceNode).text).toBe(' ');
   expect((group.bodies[0].statements[0].nodes[1] as IntegerNode).text).toBe('456');
 });
 
@@ -133,13 +131,10 @@ test('two integers no comma and ws at the end', () => {
   expect(group.bodies[0].statements.length).toBe(1);
   expect(group.bodies[0].statements[0].nodes.length).toBe(1);
   expect((group.bodies[0].statements[0].nodes[0] as IntegerNode).text).toBe('1');
-  expect(group.bodies[0].statements.last().hidden.last().text).toBe(',');
 
   expect(group.bodies[1].statements.length).toBe(1);
   expect(group.bodies[1].statements[0].nodes.length).toBe(1);
   expect((group.bodies[1].statements[0].nodes[0] as IntegerNode).text).toBe('2');
-  expect((group.bodies[1].statements[0].nodes[0] as TokenNode).hidden.length).toBe(1);
-  expect(((group.bodies[1].statements[0].nodes[0] as TokenNode).hidden[0] as WhitespaceNode).text).toBe(' ');
 });
 
 test('two integers and comma no ws at the end', () => {
@@ -157,14 +152,10 @@ test('two integers and comma no ws at the end', () => {
   expect(group.bodies[0].statements.length).toBe(1);
   expect(group.bodies[0].statements[0].nodes.length).toBe(1);
   expect((group.bodies[0].statements[0].nodes[0] as IntegerNode).text).toBe('1');
-  expect(group.bodies[0].statements.last().hidden.last().text).toBe(',');
 
   expect(group.bodies[1].statements.length).toBe(1);
   expect(group.bodies[1].statements[0].nodes.length).toBe(1);
-  expect((group.bodies[1].statements[0].nodes[0] as TokenNode).hidden.length).toBe(1);
-  expect(((group.bodies[1].statements[0].nodes[0] as TokenNode).hidden[0] as WhitespaceNode).text).toBe(' ');
   expect((group.bodies[1].statements[0].nodes[0] as IntegerNode).text).toBe('2');
-  expect(group.bodies[1].statements.last().hidden.last().text).toBe(',');
 
   expect(group.bodies[2].statements.length).toBe(1);
   expect(group.bodies[2].statements[0].nodes.length).toBe(0);
@@ -185,19 +176,13 @@ test('two integers and comma and ws', () => {
   expect(group.bodies[0].statements.length).toBe(1);
   expect(group.bodies[0].statements[0].nodes.length).toBe(1);
   expect((group.bodies[0].statements[0].nodes[0] as IntegerNode).text).toBe('1');
-  expect(group.bodies[0].statements.last().hidden.last().text).toBe(',');
 
   expect(group.bodies[1].statements.length).toBe(1);
   expect(group.bodies[1].statements[0].nodes.length).toBe(1);
-  expect((group.bodies[1].statements[0].nodes[0] as TokenNode).hidden.length).toBe(1);
-  expect(((group.bodies[1].statements[0].nodes[0] as TokenNode).hidden[0] as WhitespaceNode).text).toBe(' ');
   expect((group.bodies[1].statements[0].nodes[0] as IntegerNode).text).toBe('2');
-  expect(group.bodies[1].statements.last().hidden.last().text).toBe(',');
 
   expect(group.bodies[2].statements.length).toBe(1);
   expect(group.bodies[2].statements[0].nodes.length).toBe(0);
-  expect(group.bodies[2].statements[0].hidden.length).toBe(1);
-  expect((group.bodies[2].statements[0].hidden[0] as WhitespaceNode).text).toBe(' ');
 });
 
 test('array on several lines', () => {
@@ -218,12 +203,8 @@ test('array on several lines', () => {
   expect(group.bodies[0].statements.length).toBe(1);
   expect(group.bodies[0].statements[0].nodes.length).toBe(1);
   expect((group.bodies[0].statements[0].nodes[0] as IntegerNode).text).toBe('1');
-  expect(group.bodies[0].statements.last().hidden.last().text).toBe(',');
 
   expect(group.bodies[1].statements.length).toBe(3);
   expect(group.bodies[1].statements[0].nodes.length).toBe(0);
-  expect(group.bodies[1].statements[0].hidden.length).toBe(1);
-  expect(is(group.bodies[1].statements[0].hidden[0], NodeType.NL)).toBe(true);
-
   expect(group.bodies[1].statements[1].nodes.length).toBe(1);
 });

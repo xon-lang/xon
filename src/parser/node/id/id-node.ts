@@ -13,7 +13,6 @@ export interface IdNode extends TokenNode {
 export function idNode(start: Integer, stop: Integer, text: String2): IdNode {
   return {
     $: NodeType.ID,
-    hidden: [],
     start,
     stop,
     text,
@@ -27,7 +26,10 @@ const MODIFIERS = ['model', 'const', 'var', 'prefix', 'postfix', 'infix'];
 const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
 
 export function scanIdNode({ text, index, lastStatementNodes }: Parser): IdNode | ModifierNode | KeywordNode | null {
-  if (!LETTERS.includes(text[index])) return null;
+  if (!LETTERS.includes(text[index])) {
+    return null;
+  }
+
   const sliced = text.takeWhile((x) => DIGITS_LETTERS.includes(x), index);
 
   if (lastStatementNodes.length === 0 && MODIFIERS.includes(sliced)) {

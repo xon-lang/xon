@@ -22,7 +22,6 @@ export function arrayNode(open: OpenNode, close: CloseNode | null, bodies: BodyN
     $: NodeType.ARRAY,
     start: open.start,
     stop: close?.stop ?? lastStatement?.stop ?? open.stop,
-    hidden: [],
     open,
     close,
     bodies,

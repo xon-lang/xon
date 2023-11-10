@@ -12,13 +12,13 @@ export function nlNode(start: Integer, stop: Integer, text: String2): NlNode {
     $: NodeType.NL,
     start,
     stop,
-    hidden: [],
     text,
   };
 }
 
 const LF = '\n';
 const CR = '\r';
+const CRLF = CR + LF;
 
 export function scanNlNode({ text, index }: Parser): NlNode | null {
   if (text[index] === LF) {
@@ -27,7 +27,7 @@ export function scanNlNode({ text, index }: Parser): NlNode | null {
 
   if (text[index] === CR) {
     if (text[index + 1] === LF) {
-      return nlNode(index, index + 1, CR + LF);
+      return nlNode(index, index + 1, CRLF);
     }
 
     return nlNode(index, index, CR);

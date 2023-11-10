@@ -24,7 +24,6 @@ export function declarationNode(
     $: NodeType.DECLARATION,
     start: leftNode?.start ?? 0,
     stop: rightNode?.stop ?? 0,
-    hidden: [],
     modifier,
     id,
     type,

@@ -10,7 +10,6 @@ export interface UnknownNode extends TokenNode {
 export function unknownNode(start: Integer, stop: Integer, text: String2): UnknownNode {
   return {
     $: NodeType.UNKNOWN,
-    hidden: [],
     start,
     stop,
     text,

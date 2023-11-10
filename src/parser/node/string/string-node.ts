@@ -11,7 +11,6 @@ export interface StringNode extends TokenNode {
 export function stringNode(start: Integer, stop: Integer, text: String2): StringNode {
   return {
     $: NodeType.STRING,
-    hidden: [],
     start,
     stop,
     text,

@@ -38,8 +38,12 @@ const nodeScanFunctions: NodeScanFn[] = [
 ];
 
 export class Parser {
-  public index = 0;
+  public hidden: Node[] = [];
   public issues: Issue[] = [];
+
+  public index = 0;
+  public row = 0;
+  public column = 0;
   public lastStatementNodes: Node[] = [];
   public breakNode: Node | null = null;
 
@@ -51,8 +55,7 @@ export class Parser {
 
   public parseUntil(breakFn: BreakFn | null): BodyNode {
     const indentBody: IndentBody[] = [];
-    let nodes: TokenNode[] = [];
-    let hidden: TokenNode[] = [];
+    let nodes: Node[] = [];
 
     this.lastStatementNodes = nodes;
     this.breakNode = null;
@@ -67,26 +70,23 @@ export class Parser {
       }
 
       if (is<WhitespaceNode>(node, NodeType.WHITESPACE) || is<JoiningNode>(node, NodeType.JOINING)) {
-        hidden.push(node);
+        this.hidden.push(node);
 
         continue;
       }
 
       if (is<NlNode>(node, NodeType.NL)) {
-        hidden.push(node);
-        putStatement(indentBody, nodes, hidden);
+        this.hidden.push(node);
+        putStatement(indentBody, nodes);
         nodes = [];
-        hidden = [];
 
         continue;
       }
 
-      (node as TokenNode).hidden = hidden;
-      hidden = [];
-      nodes.push(node as TokenNode);
+      nodes.push(node);
     }
 
-    putStatement(indentBody, nodes, hidden);
+    putStatement(indentBody, nodes);
 
     return indentBody[0]?.body ?? bodyNode(null, []);
   }

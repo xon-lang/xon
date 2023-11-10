@@ -9,7 +9,6 @@ export interface KeywordNode extends TokenNode {
 export function keywordNode(start: Integer, stop: Integer, text: String2): KeywordNode {
   return {
     $: NodeType.KEYWORD,
-    hidden: [],
     start,
     stop,
     text,

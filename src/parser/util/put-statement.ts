@@ -4,17 +4,18 @@ import { statementNode } from '~/parser/node/statement/statement-node';
 import { getSyntacticNodes } from '~/parser/util/get-syntactic-nodes';
 import { TokenNode } from '../node/token-node';
 import { getStatementIndent } from './get-statement-indent';
+import { Node } from '~/parser/node/node';
 
 export interface IndentBody {
   indent: Integer | null;
   body: BodyNode;
 }
 
-export function putStatement(indentBody: IndentBody[], nodes: TokenNode[], hidden: TokenNode[]): void {
+export function putStatement(indentBody: IndentBody[], nodes: Node[]): void {
   const indent = getStatementIndent(nodes);
   const lastIndentBody = indentBody.lastOrNull();
   const syntacticNodes = getSyntacticNodes(null, nodes);
-  const statement = statementNode(syntacticNodes, null, hidden);
+  const statement = statementNode(syntacticNodes, null);
 
   if (!lastIndentBody) {
     indentBody.push({ indent, body: bodyNode(null, [statement]) });

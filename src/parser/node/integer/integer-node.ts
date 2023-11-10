@@ -10,7 +10,6 @@ export interface IntegerNode extends TokenNode {
 export function integerNode(start: Integer, stop: Integer, text: String2): IntegerNode {
   return {
     $: NodeType.INTEGER,
-    hidden: [],
     start,
     stop,
     text,
