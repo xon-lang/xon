@@ -26,8 +26,8 @@ const OPERATORS = [
   ...new Set(operatorsOrders.flatMap((operatorsOrder) => operatorsOrder.operators).flatMap((operators) => operators)),
 ];
 
-export function scanOperatorNode(analysis: Parser): OperatorNode | IdNode | ModifierNode | KeywordNode | null {
-  const { index, text, lastStatementNodes: lastNodes } = analysis;
+export function scanOperatorNode(parser: Parser): OperatorNode | IdNode | ModifierNode | KeywordNode | null {
+  const { index, text, lastStatementNodes: lastNodes } = parser;
   let operators = OPERATORS.filter((x) => x[0] === text[index]);
 
   if (operators.length === 0) {
@@ -55,7 +55,7 @@ export function scanOperatorNode(analysis: Parser): OperatorNode | IdNode | Modi
 
   const operatorString = candidates[candidates.length - 1];
   const operatorStopIndex = index + operatorString.length - 1;
-  const idCandidate = scanIdNode(analysis);
+  const idCandidate = scanIdNode(parser);
 
   if (idCandidate && idCandidate.stop > operatorStopIndex) {
     return idCandidate;

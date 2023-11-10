@@ -20,8 +20,8 @@ import { is } from './util/is';
 import { IndentBody, putStatement } from './util/put-statement';
 
 type NodeScanResult = TokenNode | Node | null;
-type NodeScanFn = (analysis: Parser) => NodeScanResult;
-type BreakFn = (node: Node) => Boolean2;
+type NodeScanFn = (Parser) => NodeScanResult;
+type BreakFn = (Node) => Boolean2;
 
 const nodeScanFunctions: NodeScanFn[] = [
   scanIntegerNode,

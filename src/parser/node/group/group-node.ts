@@ -30,18 +30,18 @@ export function groupNode(open: OpenNode, close: CloseNode | null, bodies: BodyN
   };
 }
 
-export function scanGroupNode(analysis: Parser): GroupNode | null {
-  const open = scanOpenNode(analysis);
+export function scanGroupNode(parser: Parser): GroupNode | null {
+  const open = scanOpenNode(parser);
 
   if (!is<OpenNode>(open, NodeType.OPEN)) {
     return null;
   }
 
-  analysis.index = open.stop + 1;
+  parser.index = open.stop + 1;
   const bodies: BodyNode[] = [];
 
-  while (analysis.index < analysis.text.length) {
-    const body = analysis.parseUntil((node) => is(node, NodeType.COMMA) || is(node, NodeType.CLOSE));
+  while (parser.index < parser.text.length) {
+    const body = parser.parseUntil((node) => is(node, NodeType.COMMA) || is(node, NodeType.CLOSE));
     const { breakNode } = body;
 
     if (is<CommaNode>(breakNode, NodeType.COMMA)) {
