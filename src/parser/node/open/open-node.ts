@@ -1,5 +1,4 @@
 import { Integer, String2 } from '~/lib/core';
-import { Parser } from '~/parser/parser';
 import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
 
@@ -15,14 +14,4 @@ export function openNode(start: Integer, stop: Integer, text: String2): OpenNode
     stop,
     text,
   };
-}
-
-const OPEN = '([{';
-
-export function scanOpenNode({ text, index }: Parser): OpenNode | null {
-  if (OPEN.includes(text[index])) {
-    return openNode(index, index, text[index]);
-  }
-
-  return null;
 }

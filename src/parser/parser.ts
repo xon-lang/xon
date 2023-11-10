@@ -2,7 +2,6 @@
 import { Issue } from '~/issue/issue';
 import { Boolean2, String2 } from '~/lib/core';
 import { BodyNode, bodyNode } from '~/parser/node/body/body-node';
-import { scanCloseNode } from '~/parser/node/close/close-node';
 import { scanCommaNode } from '~/parser/node/comma/comma-node';
 import { scanGroupNode } from '~/parser/node/group/group-node';
 import { scanIdNode } from '~/parser/node/id/id-node';
@@ -28,7 +27,6 @@ const nodeScanFunctions: NodeScanFn[] = [
   scanStringNode,
   scanNlNode,
   scanGroupNode,
-  scanCloseNode,
   scanCommaNode,
   scanJoiningNode,
   scanWhitespaceNode,

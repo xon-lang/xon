@@ -1,9 +1,10 @@
 import '~/extensions';
 import { BodyNode, bodyNode } from '~/parser/node/body/body-node';
-import { CloseNode } from '~/parser/node/close/close-node';
+import { CloseNode, closeNode } from '~/parser/node/close/close-node';
 import { CommaNode } from '~/parser/node/comma/comma-node';
-import { OpenNode, scanOpenNode } from '~/parser/node/open/open-node';
+import { OpenNode, openNode } from '~/parser/node/open/open-node';
 import { statementNode } from '~/parser/node/statement/statement-node';
+import { UnknownNode } from '~/parser/node/unknown/unknown-node';
 import { Parser } from '~/parser/parser';
 import { is } from '~/parser/util/is';
 import { Node } from '../node';
@@ -30,18 +31,30 @@ export function groupNode(open: OpenNode, close: CloseNode | null, bodies: BodyN
   };
 }
 
-export function scanGroupNode(parser: Parser): GroupNode | null {
-  const open = scanOpenNode(parser);
+const OPEN_CLOSE = {
+  '(': ')',
+  '[': ']',
+  '{': '}',
+} as const;
+const OPEN = Object.keys(OPEN_CLOSE);
 
-  if (!is<OpenNode>(open, NodeType.OPEN)) {
+export function scanGroupNode(parser: Parser): GroupNode | null {
+  const { index, text } = parser;
+
+  if (!OPEN.includes(text[index])) {
     return null;
   }
 
-  parser.index = open.stop + 1;
+  const open = openNode(index, index, text[index]);
   const bodies: BodyNode[] = [];
 
-  while (parser.index < parser.text.length) {
-    const body = parser.parseUntil((node) => is(node, NodeType.COMMA) || is(node, NodeType.CLOSE));
+  parser.index += open.text.length;
+
+  while (parser.index < text.length) {
+    const body = parser.parseUntil(
+      (node) =>
+        is(node, NodeType.COMMA) || (is<UnknownNode>(node, NodeType.UNKNOWN) && node.text === OPEN_CLOSE[open.text]),
+    );
     const { breakNode } = body;
 
     if (is<CommaNode>(breakNode, NodeType.COMMA)) {
@@ -51,10 +64,11 @@ export function scanGroupNode(parser: Parser): GroupNode | null {
       continue;
     }
 
-    if (is<CloseNode>(breakNode, NodeType.CLOSE)) {
+    if (is<UnknownNode>(breakNode, NodeType.UNKNOWN)) {
+      const close = closeNode(breakNode.start, breakNode.stop, text[index]);
       bodies.push(body);
 
-      return groupNode(open, breakNode, bodies);
+      return groupNode(open, close, bodies);
     }
   }
 
