@@ -17,6 +17,19 @@ test('model id', () => {
   expect(tree.id?.text).toBe('Abstract');
 });
 
+test('prefix operator', () => {
+  const text = 'prefix +';
+  const source = Source.fromText(text, null);
+  const lexer = new Parser(source.text);
+  const nodes = lexer.parse().statements[0].nodes;
+  const tree = nodes[0] as DeclarationNode;
+
+  expect(nodes.length).toBe(1);
+  expect(tree.$).toBe(NodeType.DECLARATION);
+  expect(tree.modifier?.text).toBe('prefix');
+  expect(tree.id?.text).toBe('+');
+});
+
 // test('inner empty arrays', () => {
 //   const code = '[[[]]]';
 //   const source = Source.fromText(code);
