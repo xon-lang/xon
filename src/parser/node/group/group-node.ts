@@ -1,7 +1,9 @@
 import '~/extensions';
+import { ARRAY_NODE_CLOSE, ARRAY_NODE_OPEN, ArrayNode, arrayNode } from '~/parser/node/array/array-node';
 import { BodyNode, bodyNode } from '~/parser/node/body/body-node';
 import { CloseNode, closeNode } from '~/parser/node/close/close-node';
 import { CommaNode } from '~/parser/node/comma/comma-node';
+import { OBJECT_NODE_CLOSE, OBJECT_NODE_OPEN, ObjectNode, objectNode } from '~/parser/node/object/object-node';
 import { OpenNode, openNode } from '~/parser/node/open/open-node';
 import { statementNode } from '~/parser/node/statement/statement-node';
 import { UnknownNode } from '~/parser/node/unknown/unknown-node';
@@ -9,6 +11,9 @@ import { Parser } from '~/parser/parser';
 import { is } from '~/parser/util/is';
 import { Node } from '../node';
 import { NodeType } from '../node-type';
+
+export const GROUP_NODE_OPEN = '(';
+export const GROUP_NODE_CLOSE = ')';
 
 export interface GroupNode extends Node {
   $: NodeType.GROUP;
@@ -32,13 +37,14 @@ export function groupNode(open: OpenNode, close: CloseNode | null, bodies: BodyN
 }
 
 const OPEN_CLOSE = {
-  '(': ')',
-  '[': ']',
-  '{': '}',
+  [GROUP_NODE_OPEN]: GROUP_NODE_CLOSE,
+  [ARRAY_NODE_OPEN]: ARRAY_NODE_CLOSE,
+  [OBJECT_NODE_OPEN]: OBJECT_NODE_CLOSE,
 } as const;
+
 const OPEN = Object.keys(OPEN_CLOSE);
 
-export function scanGroupNode(parser: Parser): GroupNode | null {
+export function scanGroupNode(parser: Parser): GroupNode | ObjectNode | ArrayNode | null {
   const { index, text } = parser;
 
   if (!OPEN.includes(text[index])) {
@@ -68,7 +74,7 @@ export function scanGroupNode(parser: Parser): GroupNode | null {
       const close = closeNode(breakNode.start, breakNode.stop, text[index]);
       bodies.push(body);
 
-      return groupNode(open, close, bodies);
+      return createGroupNode(open, close, bodies);
     }
   }
 
@@ -76,5 +82,25 @@ export function scanGroupNode(parser: Parser): GroupNode | null {
     bodies.push(bodyNode(null, [statementNode([], null, [])]));
   }
 
-  return groupNode(open, null, bodies);
+  return createGroupNode(open, null, bodies);
+}
+
+function createGroupNode(
+  open: OpenNode,
+  close: CloseNode | null,
+  bodies: BodyNode[],
+): GroupNode | ObjectNode | ArrayNode {
+  if (open.text === GROUP_NODE_OPEN) {
+    return groupNode(open, close, bodies);
+  }
+
+  if (open.text === OBJECT_NODE_OPEN) {
+    return objectNode(open, close, bodies);
+  }
+
+  if (open.text === ARRAY_NODE_OPEN) {
+    return arrayNode(open, close, bodies);
+  }
+
+  throw new Error('Not implemented');
 }

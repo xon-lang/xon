@@ -74,7 +74,7 @@ test('lambda inner lambda', () => {
   const tree = body.statements[0].nodes[0] as InfixNode;
 
   expect(tree.$).toBe(NodeType.INFIX);
-  expect(tree.left.$).toBe(NodeType.GROUP);
+  expect(tree.left.$).toBe(NodeType.ARRAY);
   expect((tree.left as GroupNode).bodies.length).toBe(1);
   expect(((tree.left as GroupNode).bodies[0].statements[0].nodes[0] as IdNode).text).toBe('a');
   expect(tree.right.$).toBe(NodeType.INFIX);
