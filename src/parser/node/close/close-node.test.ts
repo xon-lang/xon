@@ -10,6 +10,6 @@ test('close paren', () => {
   const tokens = scanner.parse().statements[0].nodes as TokenNode[];
 
   expect(tokens.length).toBe(1);
-  expect(tokens[0].$).toBe(NodeType.UNKNOWN);
+  expect(tokens[0].$).toBe(NodeType.CLOSE);
   expect(tokens[0].text).toBe(')');
 });

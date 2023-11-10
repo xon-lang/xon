@@ -4,9 +4,8 @@ import { BodyNode, bodyNode } from '~/parser/node/body/body-node';
 import { CloseNode, closeNode } from '~/parser/node/close/close-node';
 import { CommaNode } from '~/parser/node/comma/comma-node';
 import { OBJECT_NODE_CLOSE, OBJECT_NODE_OPEN, ObjectNode, objectNode } from '~/parser/node/object/object-node';
-import { OpenNode, openNode } from '~/parser/node/open/open-node';
+import { OpenNode, scanOpenNode } from '~/parser/node/open/open-node';
 import { statementNode } from '~/parser/node/statement/statement-node';
-import { UnknownNode } from '~/parser/node/unknown/unknown-node';
 import { Parser } from '~/parser/parser';
 import { is } from '~/parser/util/is';
 import { Node } from '../node';
@@ -42,16 +41,14 @@ const OPEN_CLOSE = {
   [OBJECT_NODE_OPEN]: OBJECT_NODE_CLOSE,
 } as const;
 
-const OPEN = Object.keys(OPEN_CLOSE);
-
 export function scanGroupNode(parser: Parser): GroupNode | ObjectNode | ArrayNode | null {
   const { index, text } = parser;
+  const open = scanOpenNode(parser);
 
-  if (!OPEN.includes(text[index])) {
+  if (!is<OpenNode>(open, NodeType.OPEN)) {
     return null;
   }
 
-  const open = openNode(index, index, text[index]);
   const bodies: BodyNode[] = [];
 
   parser.index += open.text.length;
@@ -59,7 +56,7 @@ export function scanGroupNode(parser: Parser): GroupNode | ObjectNode | ArrayNod
   while (parser.index < text.length) {
     const body = parser.parseUntil(
       (node) =>
-        is(node, NodeType.COMMA) || (is<UnknownNode>(node, NodeType.UNKNOWN) && node.text === OPEN_CLOSE[open.text]),
+        is(node, NodeType.COMMA) || (is<CloseNode>(node, NodeType.CLOSE) && node.text === OPEN_CLOSE[open.text]),
     );
     const { breakNode } = body;
 
@@ -70,7 +67,7 @@ export function scanGroupNode(parser: Parser): GroupNode | ObjectNode | ArrayNod
       continue;
     }
 
-    if (is<UnknownNode>(breakNode, NodeType.UNKNOWN)) {
+    if (is<CloseNode>(breakNode, NodeType.CLOSE)) {
       const close = closeNode(breakNode.start, breakNode.stop, text[index]);
       bodies.push(body);
 
