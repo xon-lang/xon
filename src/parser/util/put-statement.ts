@@ -10,10 +10,15 @@ export interface IndentBody {
 }
 
 export function putStatement(indentBody: IndentBody[], nodes: Node[]): void {
+  // todo ignore if no nodes
+  // if(nodes.length === 0){
+  //   return
+  // }
+
   const indent = getStatementIndent(nodes);
   const lastIndentBody = indentBody.lastOrNull();
   const syntacticNodes = getSyntacticNodes(null, nodes);
-  const statement = statementNode(syntacticNodes, []);
+  const statement = statementNode(syntacticNodes);
 
   if (!lastIndentBody) {
     indentBody.push({ indent, statements: [statement] });
@@ -29,8 +34,10 @@ export function putStatement(indentBody: IndentBody[], nodes: Node[]): void {
 
   if (lastIndentBody.indent !== null && indent > lastIndentBody.indent) {
     indentBody.push({ indent, statements: [statement] });
-    // const lastStatement = lastIndentBody.statements.last();
-    // lastStatement.body = body;
+
+    const lastStatement = lastIndentBody.statements.last();
+    lastStatement.children.push(statement);
+    statement.parent = lastStatement;
 
     return;
   }
@@ -44,6 +51,13 @@ export function putStatement(indentBody: IndentBody[], nodes: Node[]): void {
   // remove between current and parent bodies cuz we switch to existing body and never return to previous
   const foundIndentBody = indentBody[foundIndentBodyIndex];
   indentBody.splice(foundIndentBodyIndex + 1);
-  foundIndentBody.indent = Math.min(foundIndentBody.indent ?? indent, indent);
+  // foundIndentBody.indent = Math.min(foundIndentBody.indent ?? indent, indent);
   foundIndentBody.statements.push(statement);
+
+  const lastStatementParent = foundIndentBody.statements.first().parent;
+
+  if (lastStatementParent) {
+    lastStatementParent.children.push(statement);
+    statement.parent = lastStatementParent;
+  }
 }

@@ -74,6 +74,16 @@ c`.trim();
   expect(statements[1].nodes[0].$).toBe(NodeType.ID);
 });
 
+test('debug 4', () => {
+  const text = 'a\n b\n b';
+  const source = Source.fromText(text);
+  const scanner = new Parser(source.text);
+  const statements = scanner.parse();
+
+  expect(statements.length).toBe(1);
+  expect(statements[0].children.length).toBe(2);
+});
+
 test('multiple expression', () => {
   const text = '\n  x = 1\n  y = 2\n  z = 3';
   const source = Source.fromText(text);

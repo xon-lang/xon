@@ -9,7 +9,7 @@ export interface StatementNode extends Node {
   children: StatementNode[];
 }
 
-export function statementNode(nodes: Node[], children: StatementNode[]): StatementNode {
+export function statementNode(nodes: Node[]): StatementNode {
   const first = nodes.firstOrNull();
   const last = nodes.lastOrNull();
 
@@ -19,6 +19,6 @@ export function statementNode(nodes: Node[], children: StatementNode[]): Stateme
     stop: last ? clonePosition(last.stop) : noNodePosition(),
     nodes,
     parent: null,
-    children,
+    children: [],
   };
 }
