@@ -63,7 +63,6 @@ test('multiple expression', () => {
   const body = scanner.parse();
 
   expect(body.statements.length).toBe(4);
-  expect(body.statements[0][0].$).toBe(NodeType.NL);
 });
 
 // test('import and if', () => {

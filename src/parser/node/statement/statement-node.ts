@@ -16,6 +16,8 @@ export function statementNode(nodes: Node[], body: BodyNode | null): StatementNo
     $: NodeType.STATEMENT,
     start: first?.start ?? 0,
     stop: (first ?? last)?.stop ?? 0,
+    row: first?.row ?? 0,
+    column: first?.column ?? 0,
     nodes,
     body,
   };

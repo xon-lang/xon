@@ -18,6 +18,8 @@ export function bodyNode(head: StatementNode | null, statements: StatementNode[]
     head,
     start: first?.start ?? 0,
     stop: last?.stop ?? first?.stop ?? 0,
+    row: first?.row ?? 0,
+    column: first?.column ?? 0,
     statements,
   };
 }

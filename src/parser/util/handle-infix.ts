@@ -12,6 +12,7 @@ export function handleInfix(operator: OperatorNode, left: Node, right: Node): In
     if (is<IdNode>(right, NodeType.ID)) {
       return memberNode(operator, left, right);
     }
+
     throw new Error('Not implemented');
   }
 

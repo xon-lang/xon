@@ -14,8 +14,8 @@ export function nlNode(text: String2): Partial<NlNode> {
   };
 }
 
-const LF = '\n';
 const CR = '\r';
+const LF = '\n';
 const CRLF = CR + LF;
 
 export function scanNlNode({ text, index }: Parser): Partial<NlNode> | null {

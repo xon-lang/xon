@@ -5,6 +5,6 @@ export interface Node {
   $: NodeType;
   start: Integer;
   stop: Integer;
-  // row: Integer;
-  // column: Integer;
+  row: Integer;
+  column: Integer;
 }

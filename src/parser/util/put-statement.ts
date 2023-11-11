@@ -1,10 +1,9 @@
 import { Integer } from '~/lib/core';
 import { BodyNode, bodyNode } from '~/parser/node/body/body-node';
+import { Node } from '~/parser/node/node';
 import { statementNode } from '~/parser/node/statement/statement-node';
 import { getSyntacticNodes } from '~/parser/util/get-syntactic-nodes';
-import { TokenNode } from '../node/token-node';
 import { getStatementIndent } from './get-statement-indent';
-import { Node } from '~/parser/node/node';
 
 export interface IndentBody {
   indent: Integer | null;

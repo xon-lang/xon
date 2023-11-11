@@ -15,6 +15,8 @@ export function invokeNode(instance: Node, group: GroupNode | ObjectNode | Array
     $: NodeType.INVOKE,
     start: instance.start,
     stop: group.stop,
+    row: instance.row,
+    column: instance.column,
     instance,
     group,
   };

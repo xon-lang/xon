@@ -15,6 +15,8 @@ export function memberNode(operator: OperatorNode, instance: Node, id: IdNode): 
     $: NodeType.MEMBER,
     start: instance.start,
     stop: id.stop,
+    row: instance.row,
+    column: instance.column,
     operator,
     instance,
     id,

@@ -15,22 +15,34 @@ export function joiningNode(text: String2): Partial<JoiningNode> {
 }
 
 const JOINING = '\\';
-const AFTER_JOINING = ' \t\n\r';
+const CR = '\r';
+const LF = '\n';
+const WHITESPACE = ' \t';
 
 export function scanJoiningNode({ text, index }: Parser): Partial<JoiningNode> | null {
   if (text[index] !== JOINING) {
     return null;
   }
 
-  let nextIndex = index;
+  let nextIndex = index + 1;
 
-  for (let i = index + 1; i < text.length; i++) {
-    if (!AFTER_JOINING.includes(text[i])) {
-      break;
+  for (; nextIndex < text.length; nextIndex++) {
+    if (WHITESPACE.includes(text[nextIndex])) {
+      continue;
     }
 
-    nextIndex = i;
+    if (text[nextIndex] === LF) {
+      nextIndex += 1;
+    } else if (text[nextIndex] === CR) {
+      nextIndex += 1;
+
+      if (text[nextIndex + 1] === LF) {
+        nextIndex += 1;
+      }
+    }
+
+    break;
   }
 
-  return joiningNode(text.slice(index, nextIndex + 1));
+  return joiningNode(text.slice(index, nextIndex));
 }

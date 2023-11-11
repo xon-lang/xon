@@ -13,6 +13,8 @@ export function postfixNode(operator: OperatorNode, value: Node): PostfixNode {
     $: NodeType.POSTFIX,
     start: value.start,
     stop: operator.stop,
+    row: value.row,
+    column: value.column,
     operator,
     value,
   };

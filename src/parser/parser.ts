@@ -7,7 +7,7 @@ import { scanCommaNode } from '~/parser/node/comma/comma-node';
 import { scanGroupNode } from '~/parser/node/group/group-node';
 import { scanIdNode } from '~/parser/node/id/id-node';
 import { scanIntegerNode } from '~/parser/node/integer/integer-node';
-import { scanJoiningNode } from '~/parser/node/joining/joining-node';
+import { JoiningNode, scanJoiningNode } from '~/parser/node/joining/joining-node';
 import { scanNlNode } from '~/parser/node/nl/nl-node';
 import { Node } from '~/parser/node/node';
 import { scanOperatorNode } from '~/parser/node/operator/operator-node';
@@ -69,14 +69,25 @@ export class Parser {
         break;
       }
 
-      if (is(node, NodeType.WHITESPACE) || is(node, NodeType.JOINING)) {
+      if (is(node, NodeType.WHITESPACE)) {
         this.hidden.push(node);
+
+        continue;
+      }
+
+      if (is<JoiningNode>(node, NodeType.JOINING)) {
+        this.hidden.push(node);
+        this.row += 1;
+        this.column = 0;
 
         continue;
       }
 
       if (is(node, NodeType.NL)) {
         this.hidden.push(node);
+        this.row += 1;
+        this.column = 0;
+
         putStatement(indentBody, nodes);
         nodes = [];
 
@@ -110,6 +121,7 @@ export class Parser {
           anyNode.stop = this.index + anyNode.text.length - 1;
           anyNode.row = this.row;
           anyNode.column = this.column;
+          this.column += anyNode.text.length;
         }
 
         this.index = anyNode.stop + 1;
