@@ -20,18 +20,9 @@ const DIGITS_LETTERS = DIGITS + LETTERS;
 
 export function scanIntegerNode({ text, index }: Parser): Partial<IntegerNode> | null {
   if (DIGITS.includes(text[index])) {
-    let nextIndex = index;
+    const otherSymbols = text.takeWhile((x) => DIGITS_LETTERS.includes(x), index + 1);
 
-    for (let i = index + 1; i < text.length; i++) {
-      // todo use takeWhile
-      if (!DIGITS_LETTERS.includes(text[i])) {
-        break;
-      }
-
-      nextIndex = i;
-    }
-
-    return integerNode(text.slice(index, nextIndex + 1));
+    return integerNode(text[index] + otherSymbols);
   }
 
   return null;
