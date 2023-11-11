@@ -1,4 +1,3 @@
-import { Integer, String2 } from '~/lib/core';
 import { Parser } from '~/parser/parser';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
@@ -7,20 +6,21 @@ export interface CommaNode extends TokenNode {
   $: NodeType.COMMA;
 }
 
-export function commaNode(start: Integer, stop: Integer, text: String2): CommaNode {
+const COMMA = ',';
+
+export function commaNode(): Partial<CommaNode> {
   return {
     $: NodeType.COMMA,
-    start,
-    stop,
-    text,
+    text: COMMA,
   };
 }
 
-const COMMA = ',';
-
-export function scanCommaNode({ text, index }: Parser): CommaNode | null {
+export function scanCommaNode({ index, text }: Parser): Partial<CommaNode> | null {
   if (text[index] === COMMA) {
-    return commaNode(index, index, COMMA);
+    return {
+      $: NodeType.COMMA,
+      text: COMMA,
+    };
   }
 
   return null;

@@ -1,7 +1,7 @@
 import '~/extensions';
 import { ARRAY_NODE_CLOSE, ARRAY_NODE_OPEN, ArrayNode, arrayNode } from '~/parser/node/array/array-node';
 import { BodyNode, bodyNode } from '~/parser/node/body/body-node';
-import { CloseNode, closeNode } from '~/parser/node/close/close-node';
+import { CloseNode } from '~/parser/node/close/close-node';
 import { CommaNode } from '~/parser/node/comma/comma-node';
 import { OBJECT_NODE_CLOSE, OBJECT_NODE_OPEN, ObjectNode, objectNode } from '~/parser/node/object/object-node';
 import { OpenNode, scanOpenNode } from '~/parser/node/open/open-node';
@@ -41,7 +41,7 @@ const OPEN_CLOSE = {
 } as const;
 
 export function scanGroupNode(parser: Parser): GroupNode | ObjectNode | ArrayNode | null {
-  const { index, text } = parser;
+  const { text } = parser;
   const open = scanOpenNode(parser);
 
   if (!is<OpenNode>(open, NodeType.OPEN)) {
@@ -68,10 +68,9 @@ export function scanGroupNode(parser: Parser): GroupNode | ObjectNode | ArrayNod
     }
 
     if (is<CloseNode>(breakNode, NodeType.CLOSE)) {
-      const close = closeNode(breakNode.start, breakNode.stop, text[index]);
       bodies.push(body);
 
-      return createGroupNode(open, close, bodies);
+      return createGroupNode(open, breakNode, bodies);
     }
   }
 

@@ -1,4 +1,4 @@
-import { Integer, String2 } from '~/lib/core';
+import { String2 } from '~/lib/core';
 import { Parser } from '~/parser/parser';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
@@ -7,11 +7,9 @@ export interface NlNode extends TokenNode {
   $: NodeType.NL;
 }
 
-export function nlNode(start: Integer, stop: Integer, text: String2): NlNode {
+export function nlNode(text: String2): Partial<NlNode> {
   return {
     $: NodeType.NL,
-    start,
-    stop,
     text,
   };
 }
@@ -20,17 +18,17 @@ const LF = '\n';
 const CR = '\r';
 const CRLF = CR + LF;
 
-export function scanNlNode({ text, index }: Parser): NlNode | null {
+export function scanNlNode({ text, index }: Parser): Partial<NlNode> | null {
   if (text[index] === LF) {
-    return nlNode(index, index, LF);
+    return nlNode(LF);
   }
 
   if (text[index] === CR) {
     if (text[index + 1] === LF) {
-      return nlNode(index, index + 1, CRLF);
+      return nlNode(CRLF);
     }
 
-    return nlNode(index, index, CR);
+    return nlNode(CR);
   }
 
   return null;

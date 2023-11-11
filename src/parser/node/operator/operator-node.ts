@@ -1,4 +1,4 @@
-import { Integer, String2 } from '~/lib/core';
+import { String2 } from '~/lib/core';
 import { IdNode, idNode, scanIdNode } from '~/parser/node/id/id-node';
 import { KeywordNode } from '~/parser/node/keyword/keyword-node';
 import { ModifierNode } from '~/parser/node/modifier/modifier-node';
@@ -12,11 +12,9 @@ export interface OperatorNode extends TokenNode {
   $: NodeType.OPERATOR;
 }
 
-export function operatorNode(start: Integer, stop: Integer, text: String2): OperatorNode {
+export function operatorNode(text: String2): Partial<OperatorNode> {
   return {
     $: NodeType.OPERATOR,
-    start,
-    stop,
     text,
   };
 }
@@ -25,7 +23,7 @@ const OPERATORS = [
   ...new Set(operatorsOrders.flatMap((operatorsOrder) => operatorsOrder.operators).flatMap((operators) => operators)),
 ];
 
-export function scanOperatorNode(parser: Parser): OperatorNode | IdNode | ModifierNode | KeywordNode | null {
+export function scanOperatorNode(parser: Parser): Partial<OperatorNode | IdNode | ModifierNode | KeywordNode> | null {
   const { index, text, lastStatementNodes: lastNodes } = parser;
   let operators = OPERATORS.filter((x) => x[0] === text[index]);
 
@@ -53,16 +51,15 @@ export function scanOperatorNode(parser: Parser): OperatorNode | IdNode | Modifi
   }
 
   const operatorString = candidates[candidates.length - 1];
-  const operatorStopIndex = index + operatorString.length - 1;
   const idCandidate = scanIdNode(parser);
 
-  if (idCandidate && idCandidate.stop > operatorStopIndex) {
+  if (idCandidate && idCandidate.text && idCandidate.text.length > operatorString.length) {
     return idCandidate;
   }
 
   if (is(lastNodes.lastOrNull(), NodeType.MODIFIER)) {
-    return idNode(index, operatorStopIndex, operatorString);
+    return idNode(operatorString);
   }
 
-  return operatorNode(index, operatorStopIndex, operatorString);
+  return operatorNode(operatorString);
 }

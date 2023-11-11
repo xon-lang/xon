@@ -1,5 +1,5 @@
 import '~/extensions';
-import { Integer, String2 } from '~/lib/core';
+import { String2 } from '~/lib/core';
 import { KeywordNode, keywordNode } from '~/parser/node/keyword/keyword-node';
 import { ModifierNode, modifierNode } from '~/parser/node/modifier/modifier-node';
 import { Parser } from '~/parser/parser';
@@ -10,11 +10,9 @@ export interface IdNode extends TokenNode {
   $: NodeType.ID;
 }
 
-export function idNode(start: Integer, stop: Integer, text: String2): IdNode {
+export function idNode(text: String2): Partial<IdNode> {
   return {
     $: NodeType.ID,
-    start,
-    stop,
     text,
   };
 }
@@ -25,7 +23,11 @@ const DIGITS_LETTERS = DIGITS + LETTERS;
 const MODIFIERS = ['model', 'const', 'var', 'prefix', 'postfix', 'infix'];
 const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
 
-export function scanIdNode({ text, index, lastStatementNodes }: Parser): IdNode | ModifierNode | KeywordNode | null {
+export function scanIdNode({
+  index,
+  text,
+  lastStatementNodes,
+}: Parser): Partial<IdNode | ModifierNode | KeywordNode> | null {
   if (!LETTERS.includes(text[index])) {
     return null;
   }
@@ -33,12 +35,12 @@ export function scanIdNode({ text, index, lastStatementNodes }: Parser): IdNode 
   const sliced = text.takeWhile((x) => DIGITS_LETTERS.includes(x), index);
 
   if (lastStatementNodes.length === 0 && MODIFIERS.includes(sliced)) {
-    return modifierNode(index, index + sliced.length - 1, sliced);
+    return modifierNode(sliced);
   }
 
   if (KEYWORDS.includes(sliced)) {
-    return keywordNode(index, index + sliced.length - 1, sliced);
+    return keywordNode(sliced);
   }
 
-  return idNode(index, index + sliced.length - 1, sliced);
+  return idNode(sliced);
 }

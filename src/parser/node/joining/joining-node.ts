@@ -1,4 +1,4 @@
-import { Integer, String2 } from '~/lib/core';
+import { String2 } from '~/lib/core';
 import { Parser } from '~/parser/parser';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
@@ -7,11 +7,9 @@ export interface JoiningNode extends TokenNode {
   $: NodeType.JOINING;
 }
 
-export function joiningNode(start: Integer, stop: Integer, text: String2): JoiningNode {
+export function joiningNode(text: String2): Partial<JoiningNode> {
   return {
     $: NodeType.JOINING,
-    start,
-    stop,
     text,
   };
 }
@@ -19,7 +17,7 @@ export function joiningNode(start: Integer, stop: Integer, text: String2): Joini
 const JOINING = '\\';
 const AFTER_JOINING = ' \t\n\r';
 
-export function scanJoiningNode({ text, index }: Parser): JoiningNode | null {
+export function scanJoiningNode({ text, index }: Parser): Partial<JoiningNode> | null {
   if (text[index] !== JOINING) {
     return null;
   }
@@ -30,8 +28,9 @@ export function scanJoiningNode({ text, index }: Parser): JoiningNode | null {
     if (!AFTER_JOINING.includes(text[i])) {
       break;
     }
+
     nextIndex = i;
   }
 
-  return joiningNode(index, nextIndex, text.slice(index, nextIndex + 1));
+  return joiningNode(text.slice(index, nextIndex + 1));
 }

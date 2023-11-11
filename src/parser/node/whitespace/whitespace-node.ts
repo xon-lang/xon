@@ -1,4 +1,4 @@
-import { Integer, String2 } from '~/lib/core';
+import { String2 } from '~/lib/core';
 import { Parser } from '~/parser/parser';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
@@ -7,11 +7,9 @@ export interface WhitespaceNode extends TokenNode {
   $: NodeType.WHITESPACE;
 }
 
-export function whitespaceNode(start: Integer, stop: Integer, text: String2): WhitespaceNode {
+export function whitespaceNode(text: String2): Partial<WhitespaceNode> {
   return {
     $: NodeType.WHITESPACE,
-    start,
-    stop,
     text,
   };
 }
@@ -19,7 +17,7 @@ export function whitespaceNode(start: Integer, stop: Integer, text: String2): Wh
 const SPACE = ' ';
 const TAB = '\t';
 
-export function scanWhitespaceNode({ text, index }: Parser): WhitespaceNode | null {
+export function scanWhitespaceNode({ text, index }: Parser): Partial<WhitespaceNode> | null {
   if (text[index] !== SPACE && text[index] !== TAB) {
     return null;
   }
@@ -28,9 +26,9 @@ export function scanWhitespaceNode({ text, index }: Parser): WhitespaceNode | nu
     const nextChar = text[i];
 
     if (nextChar !== SPACE && nextChar !== TAB) {
-      return whitespaceNode(index, i - 1, text.slice(index, i));
+      return whitespaceNode(text.slice(index, i));
     }
   }
 
-  return whitespaceNode(index, text.length - 1, text.slice(index, text.length));
+  return whitespaceNode(text.slice(index, text.length));
 }

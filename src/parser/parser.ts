@@ -7,19 +7,19 @@ import { scanCommaNode } from '~/parser/node/comma/comma-node';
 import { scanGroupNode } from '~/parser/node/group/group-node';
 import { scanIdNode } from '~/parser/node/id/id-node';
 import { scanIntegerNode } from '~/parser/node/integer/integer-node';
-import { JoiningNode, scanJoiningNode } from '~/parser/node/joining/joining-node';
-import { NlNode, scanNlNode } from '~/parser/node/nl/nl-node';
+import { scanJoiningNode } from '~/parser/node/joining/joining-node';
+import { scanNlNode } from '~/parser/node/nl/nl-node';
 import { Node } from '~/parser/node/node';
 import { scanOperatorNode } from '~/parser/node/operator/operator-node';
 import { scanStringNode } from '~/parser/node/string/string-node';
 import { scanUnknownNode } from '~/parser/node/unknown/unknown-node';
-import { WhitespaceNode, scanWhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
+import { scanWhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
 import { NodeType } from './node/node-type';
 import { TokenNode } from './node/token-node';
 import { is } from './util/is';
 import { IndentBody, putStatement } from './util/put-statement';
 
-type NodeScanResult = TokenNode | Node | null;
+type NodeScanResult = Partial<TokenNode> | null;
 type NodeScanFn = (parser: Parser) => NodeScanResult;
 type BreakFn = (node: Node) => Boolean2;
 
@@ -69,13 +69,13 @@ export class Parser {
         break;
       }
 
-      if (is<WhitespaceNode>(node, NodeType.WHITESPACE) || is<JoiningNode>(node, NodeType.JOINING)) {
+      if (is(node, NodeType.WHITESPACE) || is(node, NodeType.JOINING)) {
         this.hidden.push(node);
 
         continue;
       }
 
-      if (is<NlNode>(node, NodeType.NL)) {
+      if (is(node, NodeType.NL)) {
         this.hidden.push(node);
         putStatement(indentBody, nodes);
         nodes = [];
@@ -91,14 +91,30 @@ export class Parser {
     return indentBody[0]?.body ?? bodyNode(null, []);
   }
 
-  public nextNode(): Exclude<NodeScanResult, null> {
+  public nextSymbol(): String2 {
+    this.index += 1;
+
+    return this.text[this.index];
+  }
+
+  public nextNode(): Node {
     for (const nodeScan of nodeScanFunctions) {
       const node = nodeScan(this);
 
       if (node) {
-        this.index = node.stop + 1;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const anyNode = node as any;
 
-        return node;
+        if (anyNode.text) {
+          anyNode.start = this.index;
+          anyNode.stop = this.index + anyNode.text.length - 1;
+          anyNode.row = this.row;
+          anyNode.column = this.column;
+        }
+
+        this.index = anyNode.stop + 1;
+
+        return node as Node;
       }
     }
 
