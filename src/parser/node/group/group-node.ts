@@ -59,21 +59,21 @@ export function scanGroupNode(parser: Parser): GroupNode | ObjectNode | ArrayNod
         (is<CloseNode>(node, NodeType.CLOSE) && node.text === OPEN_CLOSE[open.text]),
     );
 
-    // todo add other statements to hidden or as issue
-    const statement = statements.find((x) => x.nodes.length) ?? statements[0];
     const { breakNode } = parser;
 
     if (is<CommaNode>(breakNode, NodeType.COMMA)) {
       parser.hidden.push(breakNode);
-      items.push(statement);
+
+      if (statements.length > 0) {
+        items.push(statements[0]);
+      }
 
       continue;
     }
 
     if (is<CloseNode>(breakNode, NodeType.CLOSE)) {
-    // todo fix it with ignoring empty statements putting
-      if (items.length > 0 || statement.nodes.length > 0) {
-        items.push(statement);
+      if (statements.length > 0) {
+        items.push(statements[0]);
       }
 
       return createGroupNode(open, breakNode, items);

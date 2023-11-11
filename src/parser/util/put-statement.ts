@@ -2,20 +2,18 @@ import { Integer } from '~/lib/core';
 import { Node } from '~/parser/node/node';
 import { StatementNode, statementNode } from '~/parser/node/statement/statement-node';
 import { getSyntacticNodes } from '~/parser/util/get-syntactic-nodes';
-import { getStatementIndent } from './get-statement-indent';
 
 export interface IndentBody {
-  indent: Integer | null;
+  indent: Integer;
   statements: StatementNode[];
 }
 
 export function putStatement(indentBody: IndentBody[], nodes: Node[]): void {
-  // todo ignore if no nodes
-  // if(nodes.length === 0){
-  //   return
-  // }
+  if (nodes.length === 0) {
+    return;
+  }
 
-  const indent = getStatementIndent(nodes);
+  const indent = nodes[0].start.column;
   const lastIndentBody = indentBody.lastOrNull();
   const syntacticNodes = getSyntacticNodes(null, nodes);
   const statement = statementNode(syntacticNodes);
@@ -26,13 +24,7 @@ export function putStatement(indentBody: IndentBody[], nodes: Node[]): void {
     return;
   }
 
-  if (indent === null) {
-    lastIndentBody.statements.push(statement);
-
-    return;
-  }
-
-  if (lastIndentBody.indent !== null && indent > lastIndentBody.indent) {
+  if (indent > lastIndentBody.indent) {
     indentBody.push({ indent, statements: [statement] });
 
     const lastStatement = lastIndentBody.statements.last();
@@ -42,16 +34,10 @@ export function putStatement(indentBody: IndentBody[], nodes: Node[]): void {
     return;
   }
 
-  const foundIndentBodyIndex = indentBody.findLastIndex((x) => x.indent === null || x.indent <= indent);
+  const foundIndentBodyIndex = indentBody.findLastIndex((x) => x.indent <= indent);
 
-  if (foundIndentBodyIndex < 0) {
-    throw new Error('Not implemented');
-  }
-
-  // remove between current and parent bodies cuz we switch to existing body and never return to previous
   const foundIndentBody = indentBody[foundIndentBodyIndex];
   indentBody.splice(foundIndentBodyIndex + 1);
-  // foundIndentBody.indent = Math.min(foundIndentBody.indent ?? indent, indent);
   foundIndentBody.statements.push(statement);
 
   const lastStatementParent = foundIndentBody.statements.first().parent;
