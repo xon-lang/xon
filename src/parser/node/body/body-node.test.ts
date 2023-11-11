@@ -1,3 +1,6 @@
+import { IdNode } from '~/parser/node/id/id-node';
+import { InfixNode } from '~/parser/node/infix/infix-node';
+import { IntegerNode } from '~/parser/node/integer/integer-node';
 import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { NodeType } from '../node-type';
@@ -10,9 +13,10 @@ test('single expression', () => {
 
   expect(body.statements.length).toBe(2);
   expect(body.statements[0].nodes.length).toBe(0);
-  // expect((infix.left as IdNode).text).toBe('a');
-  // expect(infix.operator.text).toBe('=');
-  // expect((infix.right as IntegerNode).text).toBe('1');
+  const infix = body.statements[1].nodes[0] as InfixNode;
+  expect((infix.left as IdNode).text).toBe('a');
+  expect(infix.operator.text).toBe('=');
+  expect((infix.right as IntegerNode).text).toBe('1');
 });
 
 test('debug 1', () => {
