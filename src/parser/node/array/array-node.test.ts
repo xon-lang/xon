@@ -46,9 +46,7 @@ test('single comma', () => {
   expect(is(group, NodeType.ARRAY)).toBe(true);
   expect(is(group.open, NodeType.OPEN)).toBe(true);
   expect(is(group.close, NodeType.CLOSE)).toBe(true);
-  expect(group.items.length).toBe(2);
-  expect(group.items[0].nodes.length).toBe(0);
-  expect(group.items[1].nodes.length).toBe(0);
+  expect(group.items.length).toBe(0);
 });
 
 test('empty not closed', () => {
@@ -134,15 +132,13 @@ test('two integers and comma no ws at the end', () => {
 
   const group = nodes[0] as GroupNode;
   expect(is(group, NodeType.ARRAY)).toBe(true);
-  expect(group.items.length).toBe(3);
+  expect(group.items.length).toBe(2);
 
   expect(group.items[0].nodes.length).toBe(1);
   expect((group.items[0].nodes[0] as IntegerNode).text).toBe('1');
 
   expect(group.items[1].nodes.length).toBe(1);
   expect((group.items[1].nodes[0] as IntegerNode).text).toBe('2');
-
-  expect(group.items[2].nodes.length).toBe(0);
 });
 
 test('two integers and comma and ws', () => {
@@ -155,15 +151,13 @@ test('two integers and comma and ws', () => {
 
   const group = nodes[0] as GroupNode;
   expect(is(group, NodeType.ARRAY)).toBe(true);
-  expect(group.items.length).toBe(3);
+  expect(group.items.length).toBe(2);
 
   expect(group.items[0].nodes.length).toBe(1);
   expect((group.items[0].nodes[0] as IntegerNode).text).toBe('1');
 
   expect(group.items[1].nodes.length).toBe(1);
   expect((group.items[1].nodes[0] as IntegerNode).text).toBe('2');
-
-  expect(group.items[2].nodes.length).toBe(0);
 });
 
 test('array on several lines', () => {
@@ -186,4 +180,23 @@ test('array on several lines', () => {
 
   expect(group.items[1].nodes.length).toBe(1);
   expect((group.items[1].nodes[0] as InfixNode).operator.text).toBe('+');
+});
+
+test('debug 1', () => {
+  const code = '[1, , 2 ]';
+  const source = Source.fromText(code);
+  const lexer = new Parser(source.text);
+  const { nodes } = lexer.parse()[0];
+
+  expect(nodes.length).toBe(1);
+
+  const group = nodes[0] as GroupNode;
+  expect(is(group, NodeType.ARRAY)).toBe(true);
+  expect(group.items.length).toBe(2);
+
+  expect(group.items[0].nodes.length).toBe(1);
+  expect((group.items[0].nodes[0] as IntegerNode).text).toBe('1');
+
+  expect(group.items[1].nodes.length).toBe(1);
+  expect((group.items[1].nodes[0] as IntegerNode).text).toBe('2');
 });

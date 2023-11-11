@@ -25,10 +25,9 @@ test('single expression', () => {
   const scanner = new Parser(source.text);
   const statements = scanner.parse();
 
-  expect(statements.length).toBe(2);
-  expect(statements[0].nodes.length).toBe(0);
+  expect(statements.length).toBe(1);
 
-  const infix = statements[1].nodes[0] as InfixNode;
+  const infix = statements[0].nodes[0] as InfixNode;
   expect((infix.left as IdNode).text).toBe('a');
   expect(infix.operator.text).toBe('=');
   expect((infix.right as IntegerNode).text).toBe('1');
@@ -53,7 +52,7 @@ test('debug 2', () => {
   const scanner = new Parser(source.text);
   const statements = scanner.parse();
 
-  expect(statements.length).toBe(3);
+  expect(statements.length).toBe(2);
   expect(statements[0].nodes[0].$).toBe(NodeType.INFIX);
   expect(statements[1].nodes[0].$).toBe(NodeType.INFIX);
 });
@@ -90,7 +89,7 @@ test('multiple expression', () => {
   const scanner = new Parser(source.text);
   const statements = scanner.parse();
 
-  expect(statements.length).toBe(4);
+  expect(statements.length).toBe(3);
 });
 
 // test('import and if', () => {
