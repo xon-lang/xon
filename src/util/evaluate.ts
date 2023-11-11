@@ -19,7 +19,7 @@ export function evaluate(node: Node | null, argsMap = {}): Unknown2 {
   }
 
   if (is<GroupNode>(node, NodeType.GROUP)) {
-    return node.bodies.map((x) => evaluate(x ?? null));
+    return node.items.map((x) => evaluate(x.nodes[0] ?? null));
   }
 
   if (is<IntegerNode>(node, NodeType.INTEGER)) {
@@ -50,7 +50,9 @@ export function evaluate(node: Node | null, argsMap = {}): Unknown2 {
     if (argsMap[node.text]) {
       return argsMap[node.text];
     }
+
     throw new Error('Not implemented');
   }
+
   throw new Error('Not implemented');
 }

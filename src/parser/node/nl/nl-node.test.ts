@@ -39,7 +39,7 @@ test('lf cr', () => {
   const text = '\n\r';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const { statements } = lexer.parse();
+  const statements = lexer.parse();
 
   expect(statements.length).toBe(3);
   // expect(statements[0].hidden?.first().$).toBe(NodeType.NL);
@@ -55,7 +55,7 @@ test('several', () => {
   const code = '  \n    \r\nabc';
   const source = Source.fromText(code);
   const lexer = new Parser(source.text);
-  const { statements } = lexer.parse();
+  const statements = lexer.parse();
 
   expect(statements.length).toBe(3);
   // expect(statements[0].hidden?.length).toBe(2);

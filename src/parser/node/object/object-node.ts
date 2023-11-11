@@ -1,8 +1,8 @@
 import '~/extensions';
-import { BodyNode } from '~/parser/node/body/body-node';
 import { CloseNode } from '~/parser/node/close/close-node';
 import { clonePosition } from '~/parser/node/node-position';
 import { OpenNode } from '~/parser/node/open/open-node';
+import { StatementNode } from '~/parser/node/statement/statement-node';
 import { Node } from '../node';
 import { NodeType } from '../node-type';
 
@@ -13,11 +13,11 @@ export interface ObjectNode extends Node {
   $: NodeType.OBJECT;
   open: OpenNode;
   close: CloseNode | null;
-  bodies: BodyNode[];
+  items: StatementNode[];
 }
 
-export function objectNode(open: OpenNode, close: CloseNode | null, bodies: BodyNode[]): ObjectNode {
-  const lastStatement = bodies.lastOrNull()?.statements?.lastOrNull()?.nodes?.lastOrNull();
+export function objectNode(open: OpenNode, close: CloseNode | null, items: StatementNode[]): ObjectNode {
+  const lastStatement = items.lastOrNull()?.nodes?.lastOrNull();
 
   return {
     $: NodeType.OBJECT,
@@ -25,6 +25,6 @@ export function objectNode(open: OpenNode, close: CloseNode | null, bodies: Body
     stop: clonePosition(close?.stop ?? lastStatement?.stop ?? open.stop),
     open,
     close,
-    bodies,
+    items,
   };
 }
