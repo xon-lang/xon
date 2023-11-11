@@ -7,7 +7,7 @@ test('single id', () => {
   const text = 'abc';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const tokens = lexer.parse().statements[0].nodes as TokenNode[];
+  const tokens = lexer.parse()[0].nodes as TokenNode[];
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].text).toBe('abc');
@@ -18,7 +18,7 @@ test('several id', () => {
   const text = 'abc edf_    _ghi1_23';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const tokens = lexer.parse().statements[0].nodes as TokenNode[];
+  const tokens = lexer.parse()[0].nodes as TokenNode[];
 
   expect(tokens.length).toBe(3);
   expect(tokens[0].text).toBe('abc');

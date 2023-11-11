@@ -1,7 +1,6 @@
 /* eslint-disable max-lines */
 import { Issue } from '~/issue/issue';
 import { Boolean2, String2 } from '~/lib/core';
-import { BodyNode, bodyNode } from '~/parser/node/body/body-node';
 import { scanCloseNode } from '~/parser/node/close/close-node';
 import { scanCommaNode } from '~/parser/node/comma/comma-node';
 import { scanGroupNode } from '~/parser/node/group/group-node';
@@ -12,6 +11,7 @@ import { scanNlNode } from '~/parser/node/nl/nl-node';
 import { Node } from '~/parser/node/node';
 import { nodePosition } from '~/parser/node/node-position';
 import { scanOperatorNode } from '~/parser/node/operator/operator-node';
+import { StatementNode } from '~/parser/node/statement/statement-node';
 import { scanStringNode } from '~/parser/node/string/string-node';
 import { scanUnknownNode } from '~/parser/node/unknown/unknown-node';
 import { scanWhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
@@ -50,11 +50,11 @@ export class Parser {
 
   public constructor(public text: String2) {}
 
-  public parse(): BodyNode {
+  public parse(): StatementNode[] {
     return this.parseUntil(null);
   }
 
-  public parseUntil(breakFn: BreakFn | null): BodyNode {
+  public parseUntil(breakFn: BreakFn | null): StatementNode[] {
     const indentBody: IndentBody[] = [];
     let nodes: Node[] = [];
 
@@ -100,7 +100,7 @@ export class Parser {
 
     putStatement(indentBody, nodes);
 
-    return indentBody[0]?.body ?? bodyNode([]);
+    return indentBody[0]?.statements ?? [];
   }
 
   public nextSymbol(): String2 {

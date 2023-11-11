@@ -6,7 +6,7 @@ test('empty object', () => {
   const text = '{}';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const { nodes } = lexer.parse().statements[0];
+  const { nodes } = lexer.parse()[0];
   const tree = nodes[0];
 
   expect(nodes.length).toBe(1);

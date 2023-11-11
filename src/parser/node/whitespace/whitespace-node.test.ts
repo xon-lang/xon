@@ -6,7 +6,7 @@ test('whitespace', () => {
   const text = '    ';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const statements = lexer.parse().statements;
+  const statements = lexer.parse();
   const nodes = statements[0].nodes as TokenNode[];
 
   expect(statements.length).toBe(1);

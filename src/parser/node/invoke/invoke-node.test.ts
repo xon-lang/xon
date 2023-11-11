@@ -11,7 +11,7 @@ test('method call', () => {
   const text = "f(3, 'str')";
   const source = Source.fromText(text);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse().statements[0].nodes;
+  const nodes = lexer.parse()[0].nodes;
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
@@ -29,7 +29,7 @@ test('method on several lines', () => {
     415]`;
   const source = Source.fromText(text);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse().statements[0].nodes;
+  const nodes = lexer.parse()[0].nodes;
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
@@ -47,7 +47,7 @@ test('can call with type parameter', () => {
   const text = 'a.get [1]';
   const source = Source.fromText(text);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse().statements[0].nodes;
+  const nodes = lexer.parse()[0].nodes;
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
@@ -64,7 +64,7 @@ test('object method', () => {
   const text = '{a, b}.call()';
   const source = Source.fromText(text);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse().statements[0].nodes;
+  const nodes = lexer.parse()[0].nodes;
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
@@ -83,7 +83,7 @@ test('generics', () => {
   const text = 'Animal{T}';
   const source = Source.fromText(text);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse().statements[0].nodes;
+  const nodes = lexer.parse()[0].nodes;
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);

@@ -1,39 +1,36 @@
 import { Integer } from '~/lib/core';
-import { BodyNode, bodyNode } from '~/parser/node/body/body-node';
 import { Node } from '~/parser/node/node';
-import { statementNode } from '~/parser/node/statement/statement-node';
+import { StatementNode, statementNode } from '~/parser/node/statement/statement-node';
 import { getSyntacticNodes } from '~/parser/util/get-syntactic-nodes';
 import { getStatementIndent } from './get-statement-indent';
 
 export interface IndentBody {
   indent: Integer | null;
-  body: BodyNode;
+  statements: StatementNode[];
 }
 
 export function putStatement(indentBody: IndentBody[], nodes: Node[]): void {
   const indent = getStatementIndent(nodes);
   const lastIndentBody = indentBody.lastOrNull();
   const syntacticNodes = getSyntacticNodes(null, nodes);
-  const statement = statementNode(syntacticNodes, null);
+  const statement = statementNode(syntacticNodes, []);
 
   if (!lastIndentBody) {
-    indentBody.push({ indent, body: bodyNode([statement]) });
+    indentBody.push({ indent, statements: [statement] });
 
     return;
   }
 
   if (indent === null) {
-    lastIndentBody.body.statements.push(statement);
+    lastIndentBody.statements.push(statement);
 
     return;
   }
 
   if (lastIndentBody.indent !== null && indent > lastIndentBody.indent) {
-    const lastStatement = lastIndentBody.body.statements.last();
-    const body = bodyNode([statement]);
-    indentBody.push({ indent, body });
-
-    lastStatement.body = body;
+    indentBody.push({ indent, statements: [statement] });
+    // const lastStatement = lastIndentBody.statements.last();
+    // lastStatement.body = body;
 
     return;
   }
@@ -48,5 +45,5 @@ export function putStatement(indentBody: IndentBody[], nodes: Node[]): void {
   const foundIndentBody = indentBody[foundIndentBodyIndex];
   indentBody.splice(foundIndentBodyIndex + 1);
   foundIndentBody.indent = Math.min(foundIndentBody.indent ?? indent, indent);
-  foundIndentBody.body.statements.push(statement);
+  foundIndentBody.statements.push(statement);
 }

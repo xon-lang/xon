@@ -7,7 +7,7 @@ test('model id', () => {
   const text = 'model Abstract';
   const source = Source.fromText(text);
   const scanner = new Parser(source.text);
-  const nodes = scanner.parse().statements[0].nodes;
+  const nodes = scanner.parse()[0].nodes;
   const tree = nodes[0] as DeclarationNode;
 
   expect(nodes.length).toBe(1);
@@ -21,7 +21,7 @@ test('prefix operator', () => {
   const text = 'prefix +';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse().statements[0].nodes;
+  const nodes = lexer.parse()[0].nodes;
   const tree = nodes[0] as DeclarationNode;
 
   expect(nodes.length).toBe(1);

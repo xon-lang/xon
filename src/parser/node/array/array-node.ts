@@ -1,5 +1,4 @@
 import '~/extensions';
-import { BodyNode } from '~/parser/node/body/body-node';
 import { CloseNode } from '~/parser/node/close/close-node';
 import { clonePosition } from '~/parser/node/node-position';
 import { OpenNode } from '~/parser/node/open/open-node';
