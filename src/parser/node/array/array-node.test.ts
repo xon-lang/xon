@@ -64,7 +64,6 @@ test('empty not closed', () => {
   expect(is(group.open, NodeType.OPEN)).toBe(true);
   expect(group.close).toBe(null);
   expect(group.items.length).toBe(0);
-  expect(group.items[0].nodes.length).toBe(0);
 });
 
 test('inner group', () => {
@@ -82,7 +81,6 @@ test('inner group', () => {
   const innerGroup = group.items[0].nodes[0] as GroupNode;
   expect(is(innerGroup, NodeType.GROUP)).toBe(true);
   expect(innerGroup.items.length).toBe(0);
-  expect(innerGroup.items[0].nodes.length).toBe(0);
 });
 
 test('inner empty group', () => {
@@ -104,8 +102,7 @@ test('inner empty group', () => {
 
   const innerInnerGroup = innerGroup.items[0].nodes[0] as GroupNode;
   expect(is(innerInnerGroup, NodeType.ARRAY)).toBe(true);
-  expect(innerInnerGroup.items.length).toBe(1);
-  expect(innerInnerGroup.items[0].nodes.length).toBe(0);
+  expect(innerInnerGroup.items.length).toBe(0);
 });
 
 test('two integers no comma and ws at the end', () => {

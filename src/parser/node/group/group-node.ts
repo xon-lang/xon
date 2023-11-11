@@ -71,7 +71,10 @@ export function scanGroupNode(parser: Parser): GroupNode | ObjectNode | ArrayNod
     }
 
     if (is<CloseNode>(breakNode, NodeType.CLOSE)) {
-      items.push(statement);
+    // todo fix it with ignoring empty statements putting
+      if (items.length > 0 || statement.nodes.length > 0) {
+        items.push(statement);
+      }
 
       return createGroupNode(open, breakNode, items);
     }

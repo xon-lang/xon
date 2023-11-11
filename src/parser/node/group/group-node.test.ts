@@ -16,6 +16,5 @@ test('empty closed', () => {
   expect(is(group, NodeType.GROUP)).toBe(true);
   expect(is(group.open, NodeType.OPEN)).toBe(true);
   expect(is(group.close, NodeType.CLOSE)).toBe(true);
-  expect(group.items.length).toBe(1);
-  expect(group.items[0].nodes.length).toBe(0);
+  expect(group.items.length).toBe(0);
 });

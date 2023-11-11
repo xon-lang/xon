@@ -62,7 +62,7 @@ test('no arguments', () => {
   const tree = statements[0].nodes[0] as InfixNode;
 
   expect(tree.$).toBe(NodeType.INFIX);
-  expect((tree.left as GroupNode).items.length).toBe(1);
+  expect((tree.left as GroupNode).items.length).toBe(0);
   expect(evaluate(tree.right)).toBe(42 + 45);
 });
 
