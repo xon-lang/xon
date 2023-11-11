@@ -10,6 +10,7 @@ import { scanIntegerNode } from '~/parser/node/integer/integer-node';
 import { JoiningNode, scanJoiningNode } from '~/parser/node/joining/joining-node';
 import { scanNlNode } from '~/parser/node/nl/nl-node';
 import { Node } from '~/parser/node/node';
+import { nodePosition } from '~/parser/node/node-position';
 import { scanOperatorNode } from '~/parser/node/operator/operator-node';
 import { scanStringNode } from '~/parser/node/string/string-node';
 import { scanUnknownNode } from '~/parser/node/unknown/unknown-node';
@@ -99,7 +100,7 @@ export class Parser {
 
     putStatement(indentBody, nodes);
 
-    return indentBody[0]?.body ?? bodyNode(null, []);
+    return indentBody[0]?.body ?? bodyNode([]);
   }
 
   public nextSymbol(): String2 {
@@ -114,19 +115,21 @@ export class Parser {
 
       if (node) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const anyNode = node as any;
+        const anyNode = node as Node & { text?: String2 };
 
         if (anyNode.text) {
-          anyNode.start = this.index;
-          anyNode.stop = this.index + anyNode.text.length - 1;
-          anyNode.row = this.row;
-          anyNode.column = this.column;
-          this.column += anyNode.text.length;
+          anyNode.start = nodePosition(this.index, this.row, this.column);
+
+          const stopIndex = this.index + anyNode.text.length - 1;
+          const stopColumn = this.column + anyNode.text.length - 1;
+          anyNode.stop = nodePosition(stopIndex, this.row, stopColumn);
+
+          this.column += stopColumn + 1;
         }
 
-        this.index = anyNode.stop + 1;
+        this.index = anyNode.stop.index + 1;
 
-        return node as Node;
+        return anyNode;
       }
     }
 

@@ -1,4 +1,5 @@
 import { BodyNode } from '~/parser/node/body/body-node';
+import { clonePosition, noNodePosition } from '~/parser/node/node-position';
 import { Node } from '../node';
 import { NodeType } from '../node-type';
 
@@ -14,10 +15,8 @@ export function statementNode(nodes: Node[], body: BodyNode | null): StatementNo
 
   return {
     $: NodeType.STATEMENT,
-    start: first?.start ?? 0,
-    stop: (first ?? last)?.stop ?? 0,
-    row: first?.row ?? 0,
-    column: first?.column ?? 0,
+    start: first ? clonePosition(first.start) : noNodePosition(),
+    stop: last ? clonePosition(last.stop) : noNodePosition(),
     nodes,
     body,
   };

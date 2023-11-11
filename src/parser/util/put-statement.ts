@@ -17,7 +17,7 @@ export function putStatement(indentBody: IndentBody[], nodes: Node[]): void {
   const statement = statementNode(syntacticNodes, null);
 
   if (!lastIndentBody) {
-    indentBody.push({ indent, body: bodyNode(null, [statement]) });
+    indentBody.push({ indent, body: bodyNode([statement]) });
 
     return;
   }
@@ -30,7 +30,7 @@ export function putStatement(indentBody: IndentBody[], nodes: Node[]): void {
 
   if (lastIndentBody.indent !== null && indent > lastIndentBody.indent) {
     const lastStatement = lastIndentBody.body.statements.last();
-    const body = bodyNode(lastStatement, [statement]);
+    const body = bodyNode([statement]);
     indentBody.push({ indent, body });
 
     lastStatement.body = body;

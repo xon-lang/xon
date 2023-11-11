@@ -1,4 +1,5 @@
 import { Node } from '~/parser/node/node';
+import { clonePosition } from '~/parser/node/node-position';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
 import { NodeType } from '../node-type';
 
@@ -12,10 +13,8 @@ export interface InfixNode extends Node {
 export function infixNode(operator: OperatorNode, left: Node, right: Node): InfixNode {
   return {
     $: NodeType.INFIX,
-    start: left.start,
-    stop: right.stop,
-    row: left.row,
-    column: left.column,
+    start: clonePosition(left.start),
+    stop: clonePosition(right.stop),
     operator,
     left,
     right,

@@ -1,25 +1,21 @@
+import { clonePosition, noNodePosition } from '~/parser/node/node-position';
 import { StatementNode } from '~/parser/node/statement/statement-node';
 import { Node } from '../node';
 import { NodeType } from '../node-type';
 
 export interface BodyNode extends Node {
   $: NodeType.BODY;
-  // todo remove head property
-  head: StatementNode | null;
   statements: StatementNode[];
 }
 
-export function bodyNode(head: StatementNode | null, statements: StatementNode[]): BodyNode {
-  const first = statements.firstOrNull()?.nodes.firstOrNull();
-  const last = statements.lastOrNull()?.nodes.lastOrNull();
+export function bodyNode(statements: StatementNode[]): BodyNode {
+  const first = statements.first().nodes.first();
+  const last = statements.last().nodes.last();
 
   return {
     $: NodeType.BODY,
-    head,
-    start: first?.start ?? 0,
-    stop: last?.stop ?? first?.stop ?? 0,
-    row: first?.row ?? 0,
-    column: first?.column ?? 0,
+    start: first ? clonePosition(first.start) : noNodePosition(),
+    stop: last ? clonePosition(last.stop) : noNodePosition(),
     statements,
   };
 }

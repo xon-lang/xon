@@ -1,6 +1,7 @@
 import '~/extensions';
 import { BodyNode } from '~/parser/node/body/body-node';
 import { CloseNode } from '~/parser/node/close/close-node';
+import { clonePosition } from '~/parser/node/node-position';
 import { OpenNode } from '~/parser/node/open/open-node';
 import { Node } from '../node';
 import { NodeType } from '../node-type';
@@ -20,10 +21,8 @@ export function arrayNode(open: OpenNode, close: CloseNode | null, bodies: BodyN
 
   return {
     $: NodeType.ARRAY,
-    start: open.start,
-    stop: close?.stop ?? lastStatement?.stop ?? open.stop,
-    row: open.row,
-    column: open.column,
+    start: clonePosition(open.start),
+    stop: clonePosition(close?.stop ?? lastStatement?.stop ?? open.stop),
     open,
     close,
     bodies,

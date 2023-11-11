@@ -3,6 +3,7 @@ import { ARRAY_NODE_CLOSE, ARRAY_NODE_OPEN, ArrayNode, arrayNode } from '~/parse
 import { BodyNode, bodyNode } from '~/parser/node/body/body-node';
 import { CloseNode } from '~/parser/node/close/close-node';
 import { CommaNode } from '~/parser/node/comma/comma-node';
+import { clonePosition } from '~/parser/node/node-position';
 import { OBJECT_NODE_CLOSE, OBJECT_NODE_OPEN, ObjectNode, objectNode } from '~/parser/node/object/object-node';
 import { OpenNode, scanOpenNode } from '~/parser/node/open/open-node';
 import { statementNode } from '~/parser/node/statement/statement-node';
@@ -26,10 +27,8 @@ export function groupNode(open: OpenNode, close: CloseNode | null, bodies: BodyN
 
   return {
     $: NodeType.GROUP,
-    start: open.start,
-    stop: close?.stop ?? lastStatement?.stop ?? open.stop,
-    row: open.row,
-    column: open.column,
+    start: clonePosition(open.start),
+    stop: clonePosition(close?.stop ?? lastStatement?.stop ?? open.stop),
     open,
     close,
     bodies,
@@ -77,7 +76,7 @@ export function scanGroupNode(parser: Parser): GroupNode | ObjectNode | ArrayNod
   }
 
   if (bodies.length === 0) {
-    bodies.push(bodyNode(null, [statementNode([], null)]));
+    bodies.push(bodyNode([statementNode([], null)]));
   }
 
   return createGroupNode(open, null, bodies);

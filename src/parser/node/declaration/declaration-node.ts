@@ -1,6 +1,7 @@
 import { IdNode } from '~/parser/node/id/id-node';
 import { ModifierNode } from '~/parser/node/modifier/modifier-node';
 import { Node } from '~/parser/node/node';
+import { clonePosition, noNodePosition } from '~/parser/node/node-position';
 import { NodeType } from '../node-type';
 
 export interface DeclarationNode extends Node {
@@ -17,15 +18,13 @@ export function declarationNode(
   type: Node | null,
   value: Node | null,
 ): DeclarationNode {
-  const leftNode = modifier ?? id ?? type ?? value;
-  const rightNode = value ?? type ?? id ?? modifier;
+  const left = modifier ?? id ?? type ?? value;
+  const right = value ?? type ?? id ?? modifier;
 
   return {
     $: NodeType.DECLARATION,
-    start: leftNode?.start ?? 0,
-    stop: rightNode?.stop ?? 0,
-    row: leftNode?.row ?? 0,
-    column: leftNode?.column ?? 0,
+    start: left ? clonePosition(left.start) : noNodePosition(),
+    stop: right ? clonePosition(right.stop) : noNodePosition(),
     modifier,
     id,
     type,
