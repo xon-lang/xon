@@ -1,24 +1,34 @@
-import { clonePosition, noNodePosition } from '~/parser/node/node-position';
+import { Integer } from '~/lib/core';
+import { clonePosition } from '~/parser/node/node-position';
 import { Node } from '../node';
 import { NodeType } from '../node-type';
 
 export interface StatementNode extends Node {
-  $: NodeType.STATEMENT;
-  nodes: Node[];
-  parent: StatementNode | null;
-  children: StatementNode[];
+  readonly $: NodeType.STATEMENT;
+  readonly nodes: Node[];
+  readonly indent: Integer;
+  readonly parent: StatementNode | null;
+  readonly children: StatementNode[];
 }
 
-export function statementNode(nodes: Node[]): StatementNode {
-  const first = nodes.firstOrNull();
-  const last = nodes.lastOrNull();
+export function statementNode(nodes: Node[], parent: StatementNode | null): StatementNode {
+  const start = clonePosition(nodes.first().start);
+  const stop = clonePosition(nodes.last().stop);
+  const indent = start.column;
 
-  return {
+  const statement: StatementNode = {
     $: NodeType.STATEMENT,
-    start: first ? clonePosition(first.start) : noNodePosition(),
-    stop: last ? clonePosition(last.stop) : noNodePosition(),
+    start,
+    stop,
     nodes,
-    parent: null,
+    indent,
+    parent,
     children: [],
   };
+
+  if (parent) {
+    parent.children.push(statement);
+  }
+
+  return statement;
 }

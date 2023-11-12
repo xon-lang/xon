@@ -18,7 +18,7 @@ import { scanWhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
 import { NodeType } from './node/node-type';
 import { TokenNode } from './node/token-node';
 import { is } from './util/is';
-import { IndentBody, putStatement } from './util/put-statement';
+import { putStatement } from './util/put-statement';
 
 type NodeScanResult = Partial<TokenNode> | null;
 type NodeScanFn = (parser: Parser) => NodeScanResult;
@@ -55,7 +55,8 @@ export class Parser {
   }
 
   public parseUntil(breakFn: BreakFn | null): StatementNode[] {
-    const indentBody: IndentBody[] = [];
+    const statements: StatementNode[] = [];
+    let lastStatementNode: StatementNode | null = null;
     let nodes: Node[] = [];
 
     this.lastStatementNodes = nodes;
@@ -89,7 +90,7 @@ export class Parser {
         this.row += 1;
         this.column = 0;
 
-        putStatement(indentBody, nodes);
+        lastStatementNode = putStatement(statements, lastStatementNode, nodes);
         nodes = [];
 
         continue;
@@ -98,9 +99,9 @@ export class Parser {
       nodes.push(node);
     }
 
-    putStatement(indentBody, nodes);
+    lastStatementNode = putStatement(statements, lastStatementNode, nodes);
 
-    return indentBody[0]?.statements ?? [];
+    return statements;
   }
 
   public nextSymbol(): String2 {
