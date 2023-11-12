@@ -19,7 +19,3 @@ export function clonePosition(position: NodePosition): NodePosition {
     ...position,
   };
 }
-
-export function noNodePosition(): NodePosition {
-  return nodePosition(0, 0, 0);
-}

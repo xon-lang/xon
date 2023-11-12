@@ -1,7 +1,7 @@
 import { Integer } from '~/lib/core';
 import { Node } from '~/parser/node/node';
-import { StatementNode, statementNode } from '~/parser/node/statement/statement-node';
-import { getSyntacticNodes } from '~/parser/util/get-syntactic-nodes';
+import { StatementNode } from '~/parser/node/statement/statement-node';
+import { getSyntacticStatement } from '~/parser/util/get-syntactic-statement';
 
 export function putStatement(
   statements: StatementNode[],
@@ -13,21 +13,20 @@ export function putStatement(
   }
 
   const indent = nodes[0].start.column;
-  const syntacticNodes = getSyntacticNodes(null, nodes);
 
   if (!lastStatement) {
-    const statement = statementNode(syntacticNodes, null);
+    const statement = getSyntacticStatement(nodes, null);
     statements.push(statement);
 
     return statement;
   }
 
   if (indent > lastStatement.indent) {
-    return statementNode(syntacticNodes, lastStatement);
+    return getSyntacticStatement(nodes, lastStatement);
   }
 
   const parent = findParentWithLessIndent(lastStatement, indent);
-  const statement = statementNode(syntacticNodes, parent);
+  const statement = getSyntacticStatement(nodes, parent);
 
   if (!parent) {
     statements.push(statement);
