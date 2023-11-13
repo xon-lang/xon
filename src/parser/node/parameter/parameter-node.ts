@@ -1,18 +1,12 @@
 import { IdNode } from '~/parser/node/id/id-node';
-import { ModifierNode } from '~/parser/node/modifier/modifier-node';
 import { Node } from '~/parser/node/node';
-import { ParametersNode } from '~/parser/node/parameters/parameters-node';
-import { StatementNode } from '~/parser/node/statement/statement-node';
 import { NodeType } from '../node-type';
 
-export interface AttributeNode extends Node {
-  $: NodeType.ATTRIBUTE;
-  modifier: ModifierNode;
+export interface ParameterNode extends Node {
+  $: NodeType.PARAMETER;
   id: IdNode;
   type: Node | null;
-  parameters: ParametersNode;
   value: Node | null;
-  children: StatementNode[];
 }
 
 // export function modelNode(modifier: ModifierNode, id: IdNode, base: Node | null, attributes: Node[]): ModelNode {
