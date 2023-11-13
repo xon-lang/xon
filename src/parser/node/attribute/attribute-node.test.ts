@@ -1,4 +1,4 @@
-import { DeclarationNode } from '~/parser/node/declaration/declaration-node';
+import { ModelNode } from '~/parser/node/model/model-node';
 import { NodeType } from '~/parser/node/node-type';
 import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
@@ -8,7 +8,7 @@ test('model id', () => {
   const source = Source.fromText(text);
   const scanner = new Parser(source.text);
   const nodes = scanner.parse()[0].nodes;
-  const tree = nodes[0] as DeclarationNode;
+  const tree = nodes[0] as ModelNode;
 
   expect(nodes.length).toBe(1);
 
@@ -22,7 +22,7 @@ test('prefix operator', () => {
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
   const nodes = lexer.parse()[0].nodes;
-  const tree = nodes[0] as DeclarationNode;
+  const tree = nodes[0] as ModelNode;
 
   expect(nodes.length).toBe(1);
   expect(tree.$).toBe(NodeType.DECLARATION);

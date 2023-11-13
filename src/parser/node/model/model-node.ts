@@ -4,7 +4,7 @@ import { Node } from '~/parser/node/node';
 import { clonePosition } from '~/parser/node/node-position';
 import { NodeType } from '../node-type';
 
-export interface DeclarationNode extends Node {
+export interface ModelNode extends Node {
   $: NodeType.DECLARATION;
   modifier: ModifierNode | null;
   id: IdNode | null;
@@ -12,12 +12,12 @@ export interface DeclarationNode extends Node {
   value: Node | null;
 }
 
-export function declarationNode(
+export function modelNode(
   modifier: ModifierNode | null,
   id: IdNode | null,
   base: Node | null,
   value: Node | null,
-): DeclarationNode {
+): ModelNode {
   const left = modifier ?? id ?? base ?? value;
   const right = value ?? base ?? id ?? modifier;
 

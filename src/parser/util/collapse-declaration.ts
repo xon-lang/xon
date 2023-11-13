@@ -1,5 +1,5 @@
-import { declarationNode } from '~/parser/node/declaration/declaration-node';
 import { IdNode } from '~/parser/node/id/id-node';
+import { modelNode } from '~/parser/node/model/model-node';
 import { ModifierNode } from '~/parser/node/modifier/modifier-node';
 import { NodeType } from '~/parser/node/node-type';
 import { StatementNode } from '~/parser/node/statement/statement-node';
@@ -12,7 +12,7 @@ export function collapseDeclaration({ nodes, parent }: StatementNode): void {
     const secondNode = nodes[1];
 
     if (is<IdNode>(secondNode, NodeType.ID)) {
-      nodes[0] = declarationNode(firstNode, secondNode, null, null);
+      nodes[0] = modelNode(firstNode, secondNode, null, null);
       nodes.splice(1, 1);
     }
   }
