@@ -1,9 +1,8 @@
-import { StatementNode, statementNode } from '~/parser/node/statement/statement-node';
 import { collapseDeclaration } from '~/parser/util/collapse-declaration';
 import { Node } from '../node/node';
 import { collapseLineNodes } from './collapse-line-nodes';
 
-export function getSyntacticStatement(nodes: Node[], parent: StatementNode | null): StatementNode {
+export function getSyntacticNode(nodes: Node[], parent: Node | null): Node {
   collapseLineNodes(nodes);
   collapseDeclaration(nodes, parent);
 
@@ -12,7 +11,13 @@ export function getSyntacticStatement(nodes: Node[], parent: StatementNode | nul
   //   throw new Error('Not implemented');
   // }
 
-  const statement = statementNode(nodes[0], parent);
+  const node = nodes[0];
 
-  return statement;
+  if (parent) {
+    node.parent = parent;
+    parent.children ||= [];
+    parent.children.push(node);
+  }
+
+  return node;
 }

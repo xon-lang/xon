@@ -11,14 +11,13 @@ import { scanNlNode } from '~/parser/node/nl/nl-node';
 import { Node } from '~/parser/node/node';
 import { nodePosition } from '~/parser/node/node-position';
 import { scanOperatorNode } from '~/parser/node/operator/operator-node';
-import { StatementNode } from '~/parser/node/statement/statement-node';
 import { scanStringNode } from '~/parser/node/string/string-node';
 import { scanUnknownNode } from '~/parser/node/unknown/unknown-node';
 import { scanWhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
+import { putBodyNode } from '~/parser/util/put-body-node';
 import { NodeType } from './node/node-type';
 import { TokenNode } from './node/token-node';
 import { is } from './util/is';
-import { putStatement } from './util/put-statement';
 
 type NodeScanResult = Partial<TokenNode> | null;
 type NodeScanFn = (parser: Parser) => NodeScanResult;
@@ -55,8 +54,8 @@ export class Parser {
   }
 
   public parseUntil(breakFn: BreakFn | null): Node[] {
-    const statements: StatementNode[] = [];
-    let lastStatementNode: StatementNode | null = null;
+    const bodyNodes: Node[] = [];
+    let lastBodyNode: Node | null = null;
     let nodes: Node[] = [];
 
     this.lastStatementNodes = nodes;
@@ -90,7 +89,7 @@ export class Parser {
         this.row += 1;
         this.column = 0;
 
-        lastStatementNode = putStatement(statements, lastStatementNode, nodes);
+        lastBodyNode = putBodyNode(bodyNodes, lastBodyNode, nodes);
         nodes = [];
 
         continue;
@@ -99,14 +98,9 @@ export class Parser {
       nodes.push(node);
     }
 
-    lastStatementNode = putStatement(statements, lastStatementNode, nodes);
+    lastBodyNode = putBodyNode(bodyNodes, lastBodyNode, nodes);
 
-    // todo remove it
-    return statements.flatMap((x) => {
-      x.node.children = x.children.flatMap((x) => x.node);
-
-      return x.node;
-    });
+    return bodyNodes;
   }
 
   public nextSymbol(): String2 {
