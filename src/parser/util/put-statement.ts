@@ -21,7 +21,7 @@ export function putStatement(
     return statement;
   }
 
-  if (indent > lastStatement.indent) {
+  if (indent > lastStatement.nodes[0].start.column) {
     return getSyntacticStatement(nodes, lastStatement);
   }
 
@@ -40,7 +40,7 @@ function findParentWithLessIndent(lastStatement: StatementNode, indent: Integer)
     return null;
   }
 
-  if (lastStatement.parent?.indent < indent) {
+  if (lastStatement.parent?.nodes[0].start.column < indent) {
     return lastStatement.parent;
   }
 

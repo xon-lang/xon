@@ -22,8 +22,6 @@ export function collapseDeclaration({ nodes, parent }: StatementNode): void {
   } else if (is(parent, NodeType.MODEL)) {
     collapseAttributeNode(nodes);
   }
-
-  throw new Error('Not implemented');
 }
 
 function collapseAttributeNode(nodes: Node[]): void {
