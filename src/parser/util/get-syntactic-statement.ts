@@ -7,9 +7,10 @@ export function getSyntacticStatement(nodes: Node[], parent: StatementNode | nul
   collapseLineNodes(nodes);
   collapseDeclaration(nodes, parent);
 
-  if (nodes.length > 1) {
-    throw new Error('Not implemented');
-  }
+  // todo uncomment it
+  // if (nodes.length !== 1) {
+  //   throw new Error('Not implemented');
+  // }
 
   const statement = statementNode(nodes[0], parent);
 

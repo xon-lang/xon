@@ -10,16 +10,16 @@ import { NodeType } from '../node-type';
 test('method call', () => {
   const text = "f(3, 'str')";
   const source = Source.fromText(text);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
   expect(node.group.items.length).toBe(2);
-  expect(node.group.items[0]?.nodes[0].$).toBe(NodeType.INTEGER);
-  expect((node.group.items[0].nodes[0] as IntegerNode).text).toBe('3');
-  expect(node.group.items[1]?.nodes[0].$).toBe(NodeType.STRING);
-  expect((node.group.items[1].nodes[0] as IdNode).text).toBe("'str'");
+  expect(node.group.items[0]?.$).toBe(NodeType.INTEGER);
+  expect((node.group.items[0] as IntegerNode).text).toBe('3');
+  expect(node.group.items[1]?.$).toBe(NodeType.STRING);
+  expect((node.group.items[1] as IdNode).text).toBe("'str'");
   expect(node.instance.$).toBe(NodeType.ID);
 });
 
@@ -28,8 +28,8 @@ test('method on several lines', () => {
         'str', 123, 
     415]`;
   const source = Source.fromText(text);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
@@ -38,21 +38,21 @@ test('method on several lines', () => {
   const indexer1 = node.group.items[0];
   // eslint-disable-next-line prefer-destructuring
   const indexer2 = node.group.items[1];
-  expect(indexer1?.nodes[0].$).toBe(NodeType.INTEGER);
-  expect(indexer2?.nodes[0].$).toBe(NodeType.STRING);
+  expect(indexer1?.$).toBe(NodeType.INTEGER);
+  expect(indexer2?.$).toBe(NodeType.STRING);
   expect(node.instance.$).toBe(NodeType.ID);
 });
 
 test('can call with type parameter', () => {
   const text = 'a.get [1]';
   const source = Source.fromText(text);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
   expect(node.group.items.length).toBe(1);
-  expect((node.group.items[0].nodes[0] as IntegerNode).text).toBe('1');
+  expect((node.group.items[0] as IntegerNode).text).toBe('1');
   expect(node.instance.$).toBe(NodeType.MEMBER);
   const { operator, instance, id } = node.instance as MemberNode;
   expect(operator.text).toBe('.');
@@ -63,8 +63,8 @@ test('can call with type parameter', () => {
 test('object method', () => {
   const text = '{a, b}.call()';
   const source = Source.fromText(text);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
@@ -74,16 +74,16 @@ test('object method', () => {
   expect(operator.text).toBe('.');
   const leftParameters = (instance as GroupNode).items;
   expect(leftParameters.length).toBe(2);
-  expect((leftParameters[0].nodes[0] as IdNode).text).toBe('a');
-  expect((leftParameters[1].nodes[0] as IdNode).text).toBe('b');
+  expect((leftParameters[0] as IdNode).text).toBe('a');
+  expect((leftParameters[1] as IdNode).text).toBe('b');
   expect((id as IdNode).text).toBe('call');
 });
 
 test('generics', () => {
   const text = 'Animal{T}';
   const source = Source.fromText(text);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);

@@ -101,7 +101,12 @@ export class Parser {
 
     lastStatementNode = putStatement(statements, lastStatementNode, nodes);
 
-    return statements.flatMap((x) => x.node);
+    // todo remove it
+    return statements.flatMap((x) => {
+      x.node.children = x.children.flatMap((x) => x.node);
+
+      return x.node;
+    });
   }
 
   public nextSymbol(): String2 {

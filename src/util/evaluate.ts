@@ -19,7 +19,7 @@ export function evaluate(node: Node | null, argsMap = {}): Unknown2 {
   }
 
   if (is<GroupNode>(node, NodeType.GROUP)) {
-    return node.items.map((x) => evaluate(x.nodes[0] ?? null));
+    return node.items.map((x) => evaluate(x ?? null));
   }
 
   if (is<IntegerNode>(node, NodeType.INTEGER)) {

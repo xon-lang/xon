@@ -29,14 +29,13 @@ test('single item', () => {
   expect(is(group, NodeType.ARRAY)).toBe(true);
   expect(group.items.length).toBe(1);
   expect((group.items[0] as IntegerNode).text).toBe('123');
-  expect((group.items[1] as IntegerNode).text).toBe('456');
 });
 
 test('single comma', () => {
   const text = '[,]';
   const source = Source.fromText(text, null);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
 
@@ -50,8 +49,8 @@ test('single comma', () => {
 test('empty not closed', () => {
   const text = '[';
   const source = Source.fromText(text, null);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
 
@@ -65,8 +64,8 @@ test('empty not closed', () => {
 test('inner group', () => {
   const text = '[()]';
   const source = Source.fromText(text, null);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
 
@@ -82,8 +81,8 @@ test('inner group', () => {
 test('inner empty group', () => {
   const text = '[[[]]]';
   const source = Source.fromText(text, null);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
 
@@ -103,8 +102,8 @@ test('inner empty group', () => {
 test('two integers no comma and ws at the end', () => {
   const code = '[1, 2]';
   const source = Source.fromText(code);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
 
@@ -118,8 +117,8 @@ test('two integers no comma and ws at the end', () => {
 test('two integers and comma no ws at the end', () => {
   const code = '[1, 2,]';
   const source = Source.fromText(code);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
 
@@ -133,8 +132,8 @@ test('two integers and comma no ws at the end', () => {
 test('two integers and comma and ws', () => {
   const code = '[1, 2, ]';
   const source = Source.fromText(code);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
 
@@ -151,8 +150,8 @@ test('array on several lines', () => {
                 3,
      4,    6+6]`;
   const source = Source.fromText(code);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
 
@@ -166,8 +165,8 @@ test('array on several lines', () => {
 test('debug 1', () => {
   const code = '[1, , 2 ]';
   const source = Source.fromText(code);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
 

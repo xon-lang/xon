@@ -7,12 +7,11 @@ import { ModifierNode } from '~/parser/node/modifier/modifier-node';
 import { Node } from '~/parser/node/node';
 import { NodeType } from '~/parser/node/node-type';
 import { ParametersNode } from '~/parser/node/parameters/parameters-node';
-import { StatementNode } from '~/parser/node/statement/statement-node';
 import { TypeNode, typeNode } from '~/parser/node/type/type-node';
 import { is } from '~/parser/util/is';
 import { ASSIGN_TOKEN, MODEL_MODIFIER, TYPE_TOKEN } from '~/parser/util/operators';
 
-export function collapseDeclaration(nodes: Node[], parent: StatementNode | null): void {
+export function collapseDeclaration(nodes: Node[], parent: Node | null): void {
   const firstNode = nodes[0];
 
   if (is<ModifierNode>(firstNode, NodeType.MODIFIER)) {

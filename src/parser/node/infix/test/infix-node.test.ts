@@ -12,8 +12,8 @@ import { TokenNode } from '../../token-node';
 test('infix operator', () => {
   const text = 'abc.def';
   const source = Source.fromText(text);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const node = nodes[0] as MemberNode;
 
   expect(node.$).toBe(NodeType.MEMBER);
@@ -25,8 +25,8 @@ test('infix operator', () => {
 test('several operands with different priorities', () => {
   const text = '1*1+1+2^5*2/2';
   const source = Source.fromText(text);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe(NodeType.INFIX);
@@ -73,8 +73,8 @@ test('several operands with different priorities', () => {
 test('num plus str', () => {
   const text = "1  + 'str'";
   const source = Source.fromText(text);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe(NodeType.INFIX);
@@ -85,8 +85,8 @@ test('num plus str', () => {
 test('num is number', () => {
   const text = '1 & Number';
   const source = Source.fromText(text);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe(NodeType.INFIX);
@@ -98,8 +98,8 @@ test('num is number', () => {
 test('equals', () => {
   const text = 'this.text == 123';
   const source = Source.fromText(text);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe(NodeType.INFIX);
@@ -110,8 +110,8 @@ test('equals', () => {
 test('has several relational operators', () => {
   const text = 'a<b>c';
   const source = Source.fromText(text);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe(NodeType.INFIX);
@@ -129,8 +129,8 @@ test('has several relational operators', () => {
 test('several operators', () => {
   const text = '1 /+ 2';
   const source = Source.fromText(text);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe(NodeType.INFIX);

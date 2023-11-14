@@ -4,19 +4,17 @@ import { IntegerNode } from '~/parser/node/integer/integer-node';
 import { Parser } from '~/parser/parser';
 import { Source } from '~/source/source';
 import { NodeType } from '../node-type';
-import { TokenNode } from '../token-node';
 
 test('comma', () => {
   const code = '1';
   const source = Source.fromText(code);
   const scanner = new Parser(source.text);
-  const statements = scanner.parse();
-  const nodes = statements[0].nodes as TokenNode[];
+  const nodes = scanner.parse();
+  const tree = nodes[0] as IntegerNode;
 
-  expect(statements.length).toBe(1);
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.INTEGER);
-  expect(nodes[0].text).toBe('1');
+  expect(tree.text).toBe('1');
 });
 
 test('single expression', () => {
@@ -27,7 +25,7 @@ test('single expression', () => {
 
   expect(statements.length).toBe(1);
 
-  const infix = statements[0].nodes[0] as InfixNode;
+  const infix = statements[0] as InfixNode;
   expect((infix.left as IdNode).text).toBe('a');
   expect(infix.operator.text).toBe('=');
   expect((infix.right as IntegerNode).text).toBe('1');
@@ -40,10 +38,10 @@ test('debug 1', () => {
   const statements = scanner.parse();
 
   expect(statements.length).toBe(1);
-  expect(statements[0].nodes[0].$).toBe(NodeType.INFIX);
-  expect(statements[0].children.length).toBe(2);
-  expect(statements[0].children[0].nodes[0].$).toBe(NodeType.INFIX);
-  expect(statements[0].children[1].nodes[0].$).toBe(NodeType.PREFIX);
+  expect(statements[0].$).toBe(NodeType.INFIX);
+  expect(statements[0].children?.length).toBe(2);
+  expect(statements[0].children?.at(0)?.$).toBe(NodeType.INFIX);
+  expect(statements[0].children?.at(1)?.$).toBe(NodeType.PREFIX);
 });
 
 test('debug 2', () => {
@@ -53,8 +51,8 @@ test('debug 2', () => {
   const statements = scanner.parse();
 
   expect(statements.length).toBe(2);
-  expect(statements[0].nodes[0].$).toBe(NodeType.INFIX);
-  expect(statements[1].nodes[0].$).toBe(NodeType.INFIX);
+  expect(statements[0].$).toBe(NodeType.INFIX);
+  expect(statements[1].$).toBe(NodeType.INFIX);
 });
 
 test('debug 3', () => {
@@ -66,11 +64,8 @@ c`.trim();
   const statements = scanner.parse();
 
   expect(statements.length).toBe(2);
-  expect(statements[0].nodes.length).toBe(1);
-  expect(statements[0].nodes[0].$).toBe(NodeType.ID);
-
-  expect(statements[1].nodes.length).toBe(1);
-  expect(statements[1].nodes[0].$).toBe(NodeType.ID);
+  expect(statements[0].$).toBe(NodeType.ID);
+  expect(statements[1].$).toBe(NodeType.ID);
 });
 
 test('debug 4', () => {
@@ -80,7 +75,7 @@ test('debug 4', () => {
   const statements = scanner.parse();
 
   expect(statements.length).toBe(1);
-  expect(statements[0].children.length).toBe(2);
+  expect(statements[0].children?.length).toBe(2);
 });
 
 test('multiple expression', () => {

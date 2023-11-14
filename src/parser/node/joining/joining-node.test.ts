@@ -10,7 +10,7 @@ test('no space', () => {
   const text = 'abc\\.def';
   const source = Source.fromText(text, null);
   const parser = new Parser(source.text);
-  const nodes = parser.parse()[0].nodes;
+  const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);
@@ -25,7 +25,7 @@ test('spaces', () => {
   const text = 'abc\\  .def';
   const source = Source.fromText(text, null);
   const parser = new Parser(source.text);
-  const nodes = parser.parse()[0].nodes;
+  const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);
@@ -40,7 +40,7 @@ test('with new line', () => {
   const text = 'abc\\   \n  .def';
   const source = Source.fromText(text, null);
   const parser = new Parser(source.text);
-  const nodes = parser.parse()[0].nodes;
+  const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
   const hidden = parser.hidden[0] as JoiningNode;
 

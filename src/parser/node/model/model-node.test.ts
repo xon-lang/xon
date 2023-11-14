@@ -4,8 +4,8 @@ import { Parser } from '~/parser/parser';
 
 test('a', () => {
   const text = 'model Abstract';
-  const scanner = new Parser(text);
-  const nodes = scanner.parse()[0].nodes;
+  const parser = new Parser(text);
+  const nodes = parser.parse();
   const tree = nodes[0] as ModelNode;
 
   expect(nodes.length).toBe(1);

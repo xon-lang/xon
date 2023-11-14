@@ -5,4 +5,7 @@ export interface Node {
   readonly $: NodeType;
   start: NodePosition;
   stop: NodePosition;
+  // todo remove undefined type
+  parent?: Node | null;
+  children?: Node[];
 }

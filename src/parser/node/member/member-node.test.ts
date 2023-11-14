@@ -7,8 +7,8 @@ import { NodeType } from '../node-type';
 test('abc.def', () => {
   const text = 'abc.def';
   const source = Source.fromText(text, null);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);
@@ -20,8 +20,8 @@ test('abc.def', () => {
 test('meta property', () => {
   const text = 'abc::def';
   const source = Source.fromText(text, null);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);
@@ -36,8 +36,8 @@ test('meta property', () => {
 test('not safe', () => {
   const text = 'abc.def';
   const source = Source.fromText(text, null);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);
@@ -52,8 +52,8 @@ test('not safe', () => {
 test('left dot nl property', () => {
   const text = 'abc.\\def';
   const source = Source.fromText(text, null);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);
@@ -68,8 +68,8 @@ test('left dot nl property', () => {
 test('left nl dot property', () => {
   const text = 'abc\\.def';
   const source = Source.fromText(text, null);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);
@@ -84,8 +84,8 @@ test('left nl dot property', () => {
 test('left nl dot nl property', () => {
   const text = 'abc\\.\\def';
   const source = Source.fromText(text, null);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);
@@ -107,8 +107,8 @@ this.statements \
   `.trim();
 
   const source = Source.fromText(text, null);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);

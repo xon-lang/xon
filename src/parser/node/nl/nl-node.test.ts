@@ -65,5 +65,5 @@ test('several', () => {
   // expect(statements[1].hidden?.at(1)?.$).toBe(NodeType.NL);
   // expect(statements[1].hidden?.at(1)?.text).toBe('\r\n');
   // expect(statements[2].hidden?.length).toBe(0);
-  expect((statements[0].nodes[0] as TokenNode).text).toBe('abc');
+  expect((statements[0] as TokenNode).text).toBe('abc');
 });

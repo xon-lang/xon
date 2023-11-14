@@ -7,8 +7,8 @@ import { NodeType } from '../node-type';
 test('after integer', () => {
   const text = '1!';
   const source = Source.fromText(text);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
   const node = nodes[0] as PostfixNode;
 
   expect(node.$).toBe(NodeType.POSTFIX);

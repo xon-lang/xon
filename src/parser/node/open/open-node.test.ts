@@ -6,8 +6,8 @@ import { NodeType } from '../node-type';
 test('open paren', () => {
   const code = '(';
   const source = Source.fromText(code);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.GROUP);
@@ -19,8 +19,8 @@ test('open paren', () => {
 test('open bracket', () => {
   const code = '[';
   const source = Source.fromText(code);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.ARRAY);
@@ -32,8 +32,8 @@ test('open bracket', () => {
 test('open brace', () => {
   const code = '{';
   const source = Source.fromText(code);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse();
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.OBJECT);
