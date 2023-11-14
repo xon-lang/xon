@@ -3,6 +3,7 @@ import { String2 } from '~/lib/core';
 import { KeywordNode, keywordNode } from '~/parser/node/keyword/keyword-node';
 import { ModifierNode, modifierNode } from '~/parser/node/modifier/modifier-node';
 import { Parser } from '~/parser/parser';
+import { DIGITS_LETTERS, KEYWORDS, LETTERS, MODIFIERS } from '~/parser/util/operators';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
@@ -16,12 +17,6 @@ export function idNode(text: String2): Partial<IdNode> {
     text,
   };
 }
-
-const DIGITS = '0123456789';
-const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const DIGITS_LETTERS = DIGITS + LETTERS;
-const MODIFIERS = ['model', 'const', 'var', 'prefix', 'postfix', 'infix'];
-const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
 
 export function scanIdNode({
   index,

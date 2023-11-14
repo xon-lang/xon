@@ -19,8 +19,28 @@ export enum RecursiveType {
   RIGHT = 1,
 }
 
-export const TYPE_TOKEN = ':' as const;
-export const ASSIGN_TOKEN = '=' as const;
+export const TYPE_TOKEN = ':';
+export const ASSIGN_TOKEN = '=';
+export const DIGITS = '0123456789';
+export const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+export const DIGITS_LETTERS = DIGITS + LETTERS;
+
+export const MODEL_MODIFIER = 'model';
+export const CONST_MODIFIER = 'const';
+export const VAR_MODIFIER = 'var';
+export const PREFIX_MODIFIER = 'prefix';
+export const POSTFIX_MODIFIER = 'postfix';
+export const INFIX_MODIFIER = 'infix';
+export const MODIFIERS = [
+  MODEL_MODIFIER,
+  CONST_MODIFIER,
+  VAR_MODIFIER,
+  PREFIX_MODIFIER,
+  POSTFIX_MODIFIER,
+  INFIX_MODIFIER,
+];
+
+export const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
 
 export const operatorsOrders: OperatorsOrder[] = [
   {
