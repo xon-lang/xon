@@ -8,10 +8,10 @@ import { Source } from '~/source/source';
 import { NodeType } from '../node-type';
 
 test('method call', () => {
-  const text = 'f(3, \'str\')';
+  const text = "f(3, 'str')";
   const source = Source.fromText(text);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
@@ -19,7 +19,7 @@ test('method call', () => {
   expect(node.group.items[0]?.nodes[0].$).toBe(NodeType.INTEGER);
   expect((node.group.items[0].nodes[0] as IntegerNode).text).toBe('3');
   expect(node.group.items[1]?.nodes[0].$).toBe(NodeType.STRING);
-  expect((node.group.items[1].nodes[0] as IdNode).text).toBe('\'str\'');
+  expect((node.group.items[1].nodes[0] as IdNode).text).toBe("'str'");
   expect(node.instance.$).toBe(NodeType.ID);
 });
 
@@ -29,7 +29,7 @@ test('method on several lines', () => {
     415]`;
   const source = Source.fromText(text);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
@@ -47,7 +47,7 @@ test('can call with type parameter', () => {
   const text = 'a.get [1]';
   const source = Source.fromText(text);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
@@ -64,7 +64,7 @@ test('object method', () => {
   const text = '{a, b}.call()';
   const source = Source.fromText(text);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
@@ -83,7 +83,7 @@ test('generics', () => {
   const text = 'Animal{T}';
   const source = Source.fromText(text);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);

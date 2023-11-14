@@ -8,9 +8,8 @@ import { NodeType } from '../node-type';
 
 test('empty object', () => {
   const text = '{}';
-  const source = Source.fromText(text, null);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const scanner = new Parser(text);
+  const nodes = scanner.parse();
   const tree = nodes[0];
 
   expect(nodes.length).toBe(1);
@@ -21,24 +20,23 @@ test('empty object', () => {
 test('single item', () => {
   const text = '[123 456]';
   const source = Source.fromText(text, null);
-  const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const parser = new Parser(source.text);
+  const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
   expect(is(group, NodeType.ARRAY)).toBe(true);
   expect(group.items.length).toBe(1);
-  expect(group.items[0].nodes.length).toBe(2);
-  expect((group.items[0].nodes[0] as IntegerNode).text).toBe('123');
-  expect((group.items[0].nodes[1] as IntegerNode).text).toBe('456');
+  expect((group.items[0] as IntegerNode).text).toBe('123');
+  expect((group.items[1] as IntegerNode).text).toBe('456');
 });
 
 test('single comma', () => {
   const text = '[,]';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
 
   expect(nodes.length).toBe(1);
 
@@ -53,7 +51,7 @@ test('empty not closed', () => {
   const text = '[';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
 
   expect(nodes.length).toBe(1);
 
@@ -68,7 +66,7 @@ test('inner group', () => {
   const text = '[()]';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
 
   expect(nodes.length).toBe(1);
 
@@ -76,7 +74,7 @@ test('inner group', () => {
   expect(is(group, NodeType.ARRAY)).toBe(true);
   expect(group.items.length).toBe(1);
 
-  const innerGroup = group.items[0].nodes[0] as GroupNode;
+  const innerGroup = group.items[0] as GroupNode;
   expect(is(innerGroup, NodeType.GROUP)).toBe(true);
   expect(innerGroup.items.length).toBe(0);
 });
@@ -85,7 +83,7 @@ test('inner empty group', () => {
   const text = '[[[]]]';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
 
   expect(nodes.length).toBe(1);
 
@@ -93,12 +91,11 @@ test('inner empty group', () => {
   expect(is(group, NodeType.ARRAY)).toBe(true);
   expect(group.items.length).toBe(1);
 
-  const innerGroup = group.items[0].nodes[0] as GroupNode;
+  const innerGroup = group.items[0] as GroupNode;
   expect(is(innerGroup, NodeType.ARRAY)).toBe(true);
   expect(innerGroup.items.length).toBe(1);
-  expect(innerGroup.items[0].nodes.length).toBe(1);
 
-  const innerInnerGroup = innerGroup.items[0].nodes[0] as GroupNode;
+  const innerInnerGroup = innerGroup.items[0] as GroupNode;
   expect(is(innerInnerGroup, NodeType.ARRAY)).toBe(true);
   expect(innerInnerGroup.items.length).toBe(0);
 });
@@ -107,57 +104,45 @@ test('two integers no comma and ws at the end', () => {
   const code = '[1, 2]';
   const source = Source.fromText(code);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
 
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
   expect(is(group, NodeType.ARRAY)).toBe(true);
   expect(group.items.length).toBe(2);
-
-  expect(group.items[0].nodes.length).toBe(1);
-  expect((group.items[0].nodes[0] as IntegerNode).text).toBe('1');
-
-  expect(group.items[1].nodes.length).toBe(1);
-  expect((group.items[1].nodes[0] as IntegerNode).text).toBe('2');
+  expect((group.items[0] as IntegerNode).text).toBe('1');
+  expect((group.items[1] as IntegerNode).text).toBe('2');
 });
 
 test('two integers and comma no ws at the end', () => {
   const code = '[1, 2,]';
   const source = Source.fromText(code);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
 
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
   expect(is(group, NodeType.ARRAY)).toBe(true);
   expect(group.items.length).toBe(2);
-
-  expect(group.items[0].nodes.length).toBe(1);
-  expect((group.items[0].nodes[0] as IntegerNode).text).toBe('1');
-
-  expect(group.items[1].nodes.length).toBe(1);
-  expect((group.items[1].nodes[0] as IntegerNode).text).toBe('2');
+  expect((group.items[0] as IntegerNode).text).toBe('1');
+  expect((group.items[1] as IntegerNode).text).toBe('2');
 });
 
 test('two integers and comma and ws', () => {
   const code = '[1, 2, ]';
   const source = Source.fromText(code);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
 
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
   expect(is(group, NodeType.ARRAY)).toBe(true);
   expect(group.items.length).toBe(2);
-
-  expect(group.items[0].nodes.length).toBe(1);
-  expect((group.items[0].nodes[0] as IntegerNode).text).toBe('1');
-
-  expect(group.items[1].nodes.length).toBe(1);
-  expect((group.items[1].nodes[0] as IntegerNode).text).toBe('2');
+  expect((group.items[0] as IntegerNode).text).toBe('1');
+  expect((group.items[1] as IntegerNode).text).toBe('2');
 });
 
 test('array on several lines', () => {
@@ -167,36 +152,28 @@ test('array on several lines', () => {
      4,    6+6]`;
   const source = Source.fromText(code);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
 
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
   expect(is(group, NodeType.ARRAY)).toBe(true);
   expect(group.items.length).toBe(4);
-
-  expect(group.items[0].nodes.length).toBe(1);
-  expect((group.items[0].nodes[0] as IntegerNode).text).toBe('1');
-
-  expect(group.items[1].nodes.length).toBe(1);
-  expect((group.items[1].nodes[0] as InfixNode).operator.text).toBe('+');
+  expect((group.items[0] as IntegerNode).text).toBe('1');
+  expect((group.items[1] as InfixNode).operator.text).toBe('+');
 });
 
 test('debug 1', () => {
   const code = '[1, , 2 ]';
   const source = Source.fromText(code);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
 
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
   expect(is(group, NodeType.ARRAY)).toBe(true);
   expect(group.items.length).toBe(2);
-
-  expect(group.items[0].nodes.length).toBe(1);
-  expect((group.items[0].nodes[0] as IntegerNode).text).toBe('1');
-
-  expect(group.items[1].nodes.length).toBe(1);
-  expect((group.items[1].nodes[0] as IntegerNode).text).toBe('2');
+  expect((group.items[0] as IntegerNode).text).toBe('1');
+  expect((group.items[1] as IntegerNode).text).toBe('2');
 });

@@ -8,7 +8,7 @@ test('negative integer', () => {
   const text = '-1';
   const source = Source.fromText(text);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
   const node = nodes[0] as PrefixNode;
 
   expect(node.$).toBe(NodeType.PREFIX);

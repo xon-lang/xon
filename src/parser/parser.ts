@@ -50,11 +50,11 @@ export class Parser {
 
   public constructor(public text: String2) {}
 
-  public parse(): StatementNode[] {
+  public parse(): Node[] {
     return this.parseUntil(null);
   }
 
-  public parseUntil(breakFn: BreakFn | null): StatementNode[] {
+  public parseUntil(breakFn: BreakFn | null): Node[] {
     const statements: StatementNode[] = [];
     let lastStatementNode: StatementNode | null = null;
     let nodes: Node[] = [];
@@ -101,7 +101,7 @@ export class Parser {
 
     lastStatementNode = putStatement(statements, lastStatementNode, nodes);
 
-    return statements;
+    return statements.flatMap((x) => x.node);
   }
 
   public nextSymbol(): String2 {
@@ -115,7 +115,6 @@ export class Parser {
       const node = nodeScan(this);
 
       if (node) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const anyNode = node as Node & { text?: String2 };
 
         if (anyNode.text) {

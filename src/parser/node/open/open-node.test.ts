@@ -7,7 +7,7 @@ test('open paren', () => {
   const code = '(';
   const source = Source.fromText(code);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.GROUP);
@@ -20,7 +20,7 @@ test('open bracket', () => {
   const code = '[';
   const source = Source.fromText(code);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.ARRAY);
@@ -33,7 +33,7 @@ test('open brace', () => {
   const code = '{';
   const source = Source.fromText(code);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.OBJECT);

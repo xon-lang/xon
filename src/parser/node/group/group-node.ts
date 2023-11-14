@@ -5,7 +5,6 @@ import { CommaNode } from '~/parser/node/comma/comma-node';
 import { clonePosition } from '~/parser/node/node-position';
 import { OBJECT_NODE_CLOSE, OBJECT_NODE_OPEN, ObjectNode, objectNode } from '~/parser/node/object/object-node';
 import { OpenNode, scanOpenNode } from '~/parser/node/open/open-node';
-import { StatementNode } from '~/parser/node/statement/statement-node';
 import { Parser } from '~/parser/parser';
 import { is } from '~/parser/util/is';
 import { Node } from '../node';
@@ -18,16 +17,16 @@ export interface GroupNode extends Node {
   $: NodeType.GROUP;
   open: OpenNode;
   close: CloseNode | null;
-  items: StatementNode[];
+  items: Node[];
 }
 
-export function groupNode(open: OpenNode, close: CloseNode | null, items: StatementNode[]): GroupNode {
-  const lastStatement = items.lastOrNull()?.nodes?.lastOrNull();
+export function groupNode(open: OpenNode, close: CloseNode | null, items: Node[]): GroupNode {
+  const last = items.lastOrNull();
 
   return {
     $: NodeType.GROUP,
     start: clonePosition(open.start),
-    stop: clonePosition(close?.stop ?? lastStatement?.stop ?? open.stop),
+    stop: clonePosition((close ?? last ?? open).stop),
     open,
     close,
     items,
@@ -48,12 +47,12 @@ export function scanGroupNode(parser: Parser): GroupNode | ObjectNode | ArrayNod
     return null;
   }
 
-  const items: StatementNode[] = [];
+  const items: Node[] = [];
 
   parser.index += open.text.length;
 
   while (parser.index < text.length) {
-    const statements = parser.parseUntil(
+    const nodes = parser.parseUntil(
       (node) =>
         is<CommaNode>(node, NodeType.COMMA) ||
         (is<CloseNode>(node, NodeType.CLOSE) && node.text === OPEN_CLOSE[open.text]),
@@ -64,18 +63,20 @@ export function scanGroupNode(parser: Parser): GroupNode | ObjectNode | ArrayNod
     if (is<CommaNode>(breakNode, NodeType.COMMA)) {
       parser.hidden.push(breakNode);
 
-      if (statements.length > 0) {
-        items.push(statements[0]);
+      if (nodes.length > 0) {
+        items.push(nodes[0]);
       }
 
+      // throw new Error('Not implemented');
       continue;
     }
 
     if (is<CloseNode>(breakNode, NodeType.CLOSE)) {
-      if (statements.length > 0) {
-        items.push(statements[0]);
+      if (nodes.length > 0) {
+        items.push(nodes[0]);
       }
 
+      // throw new Error('Not implemented');
       return createGroupNode(open, breakNode, items);
     }
   }
@@ -83,21 +84,17 @@ export function scanGroupNode(parser: Parser): GroupNode | ObjectNode | ArrayNod
   return createGroupNode(open, null, items);
 }
 
-function createGroupNode(
-  open: OpenNode,
-  close: CloseNode | null,
-  statements: StatementNode[],
-): GroupNode | ObjectNode | ArrayNode {
+function createGroupNode(open: OpenNode, close: CloseNode | null, nodes: Node[]): GroupNode | ObjectNode | ArrayNode {
   if (open.text === GROUP_NODE_OPEN) {
-    return groupNode(open, close, statements);
+    return groupNode(open, close, nodes);
   }
 
   if (open.text === OBJECT_NODE_OPEN) {
-    return objectNode(open, close, statements);
+    return objectNode(open, close, nodes);
   }
 
   if (open.text === ARRAY_NODE_OPEN) {
-    return arrayNode(open, close, statements);
+    return arrayNode(open, close, nodes);
   }
 
   throw new Error('Not implemented');

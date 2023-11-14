@@ -12,7 +12,7 @@ import { TypeNode, typeNode } from '~/parser/node/type/type-node';
 import { is } from '~/parser/util/is';
 import { ASSIGN_TOKEN, MODEL_MODIFIER, TYPE_TOKEN } from '~/parser/util/operators';
 
-export function collapseDeclaration({ nodes, parent }: StatementNode): void {
+export function collapseDeclaration(nodes: Node[], parent: StatementNode | null): void {
   const firstNode = nodes[0];
 
   if (is<ModifierNode>(firstNode, NodeType.MODIFIER)) {

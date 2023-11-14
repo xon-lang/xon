@@ -18,7 +18,7 @@ test('after integer', () => {
   const text = '1!';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const nodes = lexer.parse()[0].nodes;
+  const nodes = lexer.parse();
   const tree = nodes[0] as PostfixNode;
 
   expect(tree.$).toBe(NodeType.POSTFIX);
