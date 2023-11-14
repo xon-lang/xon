@@ -8,7 +8,7 @@ test('empty closed', () => {
   const text = '()';
   const source = Source.fromText(text, null);
   const lexer = new Parser(source.text);
-  const { nodes } = lexer.parse()[0];
+  const nodes = lexer.parse()[0].nodes;
 
   expect(nodes.length).toBe(1);
 
