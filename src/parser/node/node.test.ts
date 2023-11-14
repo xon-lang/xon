@@ -1,8 +1,8 @@
 import { IdNode } from '~/parser/node/id/id-node';
 import { InfixNode } from '~/parser/node/infix/infix-node';
 import { IntegerNode } from '~/parser/node/integer/integer-node';
+import { NodeType } from '~/parser/node/node-type';
 import { Parser } from '~/parser/parser';
-import { NodeType } from '../node-type';
 
 test('comma', () => {
   const text = '1';

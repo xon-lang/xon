@@ -1,12 +1,10 @@
 import { Parser } from '~/parser/parser';
-import { Source } from '~/source/source';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
 test('close paren', () => {
   const text = ')';
-  const source = Source.fromText(text);
-  const scanner = new Parser(source.text);
+  const scanner = new Parser(text);
   const tokens = scanner.parse() as TokenNode[];
 
   expect(tokens.length).toBe(1);
