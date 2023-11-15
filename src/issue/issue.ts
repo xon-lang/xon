@@ -19,6 +19,27 @@ import { IssueMessage } from './issue-message';
 //   // }
 // }
 
+// formatter
+// export class IssueFormatter {
+//   constructor(public issue: Issue) {}
+
+//   toString(): String2 {
+//     const { message, node: sourceSpan } = this.issue;
+//     const text = sourceSpan.source.lineText(sourceSpan.start.lineIndex);
+//     const msg = redBright(message);
+//     const location = cyan(sourceSpan.source.location ?? '<code>');
+//     const line = cyan(`:${sourceSpan.start.line}`);
+//     const column = cyan(`:${sourceSpan.start.column}`);
+//     const lineNumberBeforeGrayed = `${sourceSpan.start.line} | `;
+//     const lineNumber = gray(lineNumberBeforeGrayed);
+//     const caret =
+//       ' '.repeat(sourceSpan.start.columnIndex + lineNumberBeforeGrayed.length) +
+//       red('~'.repeat(Math.min(sourceSpan.getText().length, code.length)));
+
+//     return `${msg}\n${location}${line}${column}\n${lineNumber}${code}\n${caret}`;
+//   }
+// }
+
 export interface Issue {
   node: Node;
   level: IssueLevel;

@@ -1,5 +1,4 @@
 {
-  "$schema": ".eslintrc-schema.json",
   "root": true,
   "env": {
     "browser": true,
