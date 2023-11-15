@@ -5,8 +5,8 @@ import { TokenNode } from '../token-node';
 // test('line feed', () => {
 //   const text = '\n';
 //   const source = Source.fromText(text, null);
-//   const lexer = new Parser(source.text);
-//   const nodes = lexer.parse()[0].hidden ?? [];
+//   const parser = new Parser(source.text);
+//   const nodes = parser.parse()[0].hidden ?? [];
 
 //   expect(nodes.length).toBe(1);
 //   expect(nodes[0].text).toBe('\n');
@@ -16,8 +16,8 @@ import { TokenNode } from '../token-node';
 // test('carriage return', () => {
 //   const text = '\r';
 //   const source = Source.fromText(text, null);
-//   const lexer = new Parser(source.text);
-//   const nodes = lexer.parse()[0].hidden ?? [];
+//   const parser = new Parser(source.text);
+//   const nodes = parser.parse()[0].hidden ?? [];
 
 //   expect(nodes.length).toBe(1);
 //   expect(nodes[0].text).toBe('\r');
@@ -27,8 +27,8 @@ import { TokenNode } from '../token-node';
 // test('cr lf', () => {
 //   const text = '\r\n';
 //   const source = Source.fromText(text, null);
-//   const lexer = new Parser(source.text);
-//   const nodes = lexer.parse()[0].hidden ?? [];
+//   const parser = new Parser(source.text);
+//   const nodes = parser.parse()[0].hidden ?? [];
 
 //   expect(nodes.length).toBe(1);
 //   expect(nodes[0].text).toBe('\r\n');
@@ -38,8 +38,8 @@ import { TokenNode } from '../token-node';
 test('lf cr', () => {
   const text = '\n\r';
   const source = Source.fromText(text, null);
-  const lexer = new Parser(source.text);
-  const statements = lexer.parse();
+  const parser = new Parser(source.text);
+  const statements = parser.parse();
 
   expect(statements.length).toBe(0);
   // expect(statements[0].hidden?.first().$).toBe(NodeType.NL);
@@ -54,8 +54,8 @@ test('lf cr', () => {
 test('several', () => {
   const code = '  \n    \r\nabc';
   const source = Source.fromText(code);
-  const lexer = new Parser(source.text);
-  const statements = lexer.parse();
+  const parser = new Parser(source.text);
+  const statements = parser.parse();
 
   expect(statements.length).toBe(1);
   // expect(statements[0].hidden?.length).toBe(2);

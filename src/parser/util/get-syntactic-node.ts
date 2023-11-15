@@ -1,15 +1,15 @@
+import { createErrorIssue } from '~/issue/issue';
+import { issueMessage } from '~/issue/issue-message';
+import { Parser } from '~/parser/parser';
 import { collapseDeclaration } from '~/parser/util/collapse-declaration';
 import { Node } from '../node/node';
 import { collapseLineNodes } from './collapse-line-nodes';
 
-export function getSyntacticNode(nodes: Node[], parent: Node | null): Node {
+export function getSyntacticNode(parser: Parser, nodes: Node[], parent: Node | null): Node {
   collapseLineNodes(nodes);
   collapseDeclaration(nodes, parent);
 
-  // todo uncomment it
-  // if (nodes.length !== 1) {
-  //   throw new Error('Not implemented');
-  // }
+  nodes.slice(1).forEach((node) => parser.issues.push(createErrorIssue(node, issueMessage.unexpectedNode)));
 
   const node = nodes[0];
 

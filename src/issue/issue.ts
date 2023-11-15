@@ -24,3 +24,11 @@ export interface Issue {
   level: IssueLevel;
   message: IssueMessage;
 }
+
+export function createErrorIssue(node: Node, message: IssueMessage): Issue {
+  return {
+    node,
+    level: IssueLevel.error,
+    message,
+  };
+}

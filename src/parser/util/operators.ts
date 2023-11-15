@@ -24,7 +24,6 @@ export const ASSIGN_TOKEN = '=';
 export const DIGITS = '0123456789';
 export const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 export const DIGITS_LETTERS = DIGITS + LETTERS;
-
 export const MODEL_MODIFIER = 'model';
 export const CONST_MODIFIER = 'const';
 export const VAR_MODIFIER = 'var';

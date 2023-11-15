@@ -1,8 +1,9 @@
 import { Integer } from '~/lib/core';
 import { Node } from '~/parser/node/node';
+import { Parser } from '~/parser/parser';
 import { getSyntacticNode } from '~/parser/util/get-syntactic-node';
 
-export function putBodyNode(bodyNodes: Node[], lastBodyNode: Node | null, nodes: Node[]): Node | null {
+export function putBodyNode(parser: Parser, bodyNodes: Node[], lastBodyNode: Node | null, nodes: Node[]): Node | null {
   if (nodes.length === 0) {
     return null;
   }
@@ -10,18 +11,18 @@ export function putBodyNode(bodyNodes: Node[], lastBodyNode: Node | null, nodes:
   const indent = nodes[0].start.column;
 
   if (!lastBodyNode) {
-    const statement = getSyntacticNode(nodes, null);
+    const statement = getSyntacticNode(parser, nodes, null);
     bodyNodes.push(statement);
 
     return statement;
   }
 
   if (indent > lastBodyNode.start.column) {
-    return getSyntacticNode(nodes, lastBodyNode);
+    return getSyntacticNode(parser, nodes, lastBodyNode);
   }
 
   const parent = findParentWithLessIndent(lastBodyNode, indent);
-  const statement = getSyntacticNode(nodes, parent);
+  const statement = getSyntacticNode(parser, nodes, parent);
 
   if (!parent) {
     bodyNodes.push(statement);

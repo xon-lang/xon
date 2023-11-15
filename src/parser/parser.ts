@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { Issue } from '~/issue/issue';
 import { Boolean2, String2 } from '~/lib/core';
 import { scanCloseNode } from '~/parser/node/close/close-node';
@@ -89,7 +88,7 @@ export class Parser {
         this.row += 1;
         this.column = 0;
 
-        lastBodyNode = putBodyNode(bodyNodes, lastBodyNode, nodes);
+        lastBodyNode = putBodyNode(this, bodyNodes, lastBodyNode, nodes);
         nodes = [];
 
         continue;
@@ -98,15 +97,9 @@ export class Parser {
       nodes.push(node);
     }
 
-    lastBodyNode = putBodyNode(bodyNodes, lastBodyNode, nodes);
+    lastBodyNode = putBodyNode(this, bodyNodes, lastBodyNode, nodes);
 
     return bodyNodes;
-  }
-
-  public nextSymbol(): String2 {
-    this.index += 1;
-
-    return this.text[this.index];
   }
 
   public nextNode(): Node {

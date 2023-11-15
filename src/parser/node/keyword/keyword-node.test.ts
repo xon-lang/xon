@@ -6,8 +6,8 @@ import { TokenNode } from '../token-node';
 test('if keyword', () => {
   const text = 'if';
   const source = Source.fromText(text, null);
-  const lexer = new Parser(source.text);
-  const tokens = lexer.parse() as TokenNode[];
+  const parser = new Parser(source.text);
+  const tokens = parser.parse() as TokenNode[];
 
   expect(tokens.length).toBe(1);
   expect(tokens[0].$).toBe(NodeType.KEYWORD);
