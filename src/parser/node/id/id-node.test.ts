@@ -1,13 +1,11 @@
 import { issueMessage } from '~/issue/issue-message';
 import { Parser } from '~/parser/parser';
-import { Source } from '~/source/source';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
 test('single id', () => {
   const text = 'abc';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const tokens = parser.parse() as TokenNode[];
 
   expect(tokens.length).toBe(1);
@@ -17,8 +15,7 @@ test('single id', () => {
 
 test('several id', () => {
   const text = 'abc edf_    _ghi1_23';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const tokens = parser.parse() as TokenNode[];
 
   // todo check other 2 error nodes

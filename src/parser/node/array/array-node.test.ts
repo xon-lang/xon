@@ -3,7 +3,6 @@ import { InfixNode } from '~/parser/node/infix/infix-node';
 import { IntegerNode } from '~/parser/node/integer/integer-node';
 import { Parser } from '~/parser/parser';
 import { is } from '~/parser/util/is';
-import { Source } from '~/source/source';
 import { NodeType } from '../node-type';
 
 test('empty object', () => {
@@ -19,8 +18,7 @@ test('empty object', () => {
 
 test('single item', () => {
   const text = '[123 456]';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
@@ -33,8 +31,7 @@ test('single item', () => {
 
 test('single comma', () => {
   const text = '[,]';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
@@ -48,8 +45,7 @@ test('single comma', () => {
 
 test('empty not closed', () => {
   const text = '[';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
@@ -63,8 +59,7 @@ test('empty not closed', () => {
 
 test('inner group', () => {
   const text = '[()]';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
@@ -80,8 +75,7 @@ test('inner group', () => {
 
 test('inner empty group', () => {
   const text = '[[[]]]';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
@@ -100,9 +94,8 @@ test('inner empty group', () => {
 });
 
 test('two integers no comma and ws at the end', () => {
-  const code = '[1, 2]';
-  const source = Source.fromText(code);
-  const parser = new Parser(source.text);
+  const text = '[1, 2]';
+  const parser = new Parser(text);
   const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
@@ -115,9 +108,8 @@ test('two integers no comma and ws at the end', () => {
 });
 
 test('two integers and comma no ws at the end', () => {
-  const code = '[1, 2,]';
-  const source = Source.fromText(code);
-  const parser = new Parser(source.text);
+  const text = '[1, 2,]';
+  const parser = new Parser(text);
   const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
@@ -130,9 +122,8 @@ test('two integers and comma no ws at the end', () => {
 });
 
 test('two integers and comma and ws', () => {
-  const code = '[1, 2, ]';
-  const source = Source.fromText(code);
-  const parser = new Parser(source.text);
+  const text = '[1, 2, ]';
+  const parser = new Parser(text);
   const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
@@ -145,12 +136,11 @@ test('two integers and comma and ws', () => {
 });
 
 test('array on several lines', () => {
-  const code = `[1,
+  const text = `[1,
                 2+2
                 3,
      4,    6+6]`;
-  const source = Source.fromText(code);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);
@@ -163,9 +153,8 @@ test('array on several lines', () => {
 });
 
 test('debug 1', () => {
-  const code = '[1, , 2 ]';
-  const source = Source.fromText(code);
-  const parser = new Parser(source.text);
+  const text = '[1, , 2 ]';
+  const parser = new Parser(text);
   const nodes = parser.parse();
 
   expect(nodes.length).toBe(1);

@@ -80,7 +80,7 @@ test('multiple expression', () => {
 });
 
 // test('import and if', () => {
-//   const code = `import ('xon.os') {Path}
+//   const text = `import ('xon.os') {Path}
 
 // 1+1
 // if e
@@ -97,7 +97,7 @@ test('multiple expression', () => {
 // });
 
 // test('preprocessor in attribute', () => {
-//   const code = `
+//   const text = `
 // toString: [] = String
 //   importStatements = this.statements.filter[[x] = x is ImportStatementTree].map[[x] = x as ImportStatementTree]
 //   importStatementsMap = {}
@@ -109,7 +109,7 @@ test('multiple expression', () => {
 // });
 
 // test('two if statements', () => {
-//   const code = `
+//   const text = `
 // if a
 //   123
 // if b
@@ -122,7 +122,7 @@ test('multiple expression', () => {
 // });
 
 // test('has comment', () => {
-//   const code = `
+//   const text = `
 // a := 1213
 
 // import abc
@@ -138,7 +138,7 @@ test('multiple expression', () => {
 // });
 
 // test('debug', () => {
-//   const code = `
+//   const text = `
 // abc: ABC
 
 //   if (b is c)
@@ -185,7 +185,7 @@ test('multiple expression', () => {
 // });
 
 // test('multiple body', () => {
-//   const code = `
+//   const text = `
 // abc
 //   a = 1
 // xyz()

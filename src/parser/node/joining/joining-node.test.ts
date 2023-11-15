@@ -3,13 +3,11 @@ import { JoiningNode } from '~/parser/node/joining/joining-node';
 import { MemberNode } from '~/parser/node/member/member-node';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
 import { Parser } from '~/parser/parser';
-import { Source } from '~/source/source';
 import { NodeType } from '../node-type';
 
 test('no space', () => {
   const text = 'abc\\.def';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
@@ -23,8 +21,7 @@ test('no space', () => {
 
 test('spaces', () => {
   const text = 'abc\\  .def';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
@@ -38,8 +35,7 @@ test('spaces', () => {
 
 test('with new line', () => {
   const text = 'abc\\   \n  .def';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
   const hidden = parser.hidden[0] as JoiningNode;

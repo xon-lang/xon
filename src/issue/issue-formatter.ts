@@ -1,10 +1,9 @@
-
 // export class IssueFormatter {
 //   constructor(public issue: Issue) {}
 
 //   toString(): String2 {
 //     const { message, node: sourceSpan } = this.issue;
-//     const code = sourceSpan.source.lineText(sourceSpan.start.lineIndex);
+//     const text = sourceSpan.source.lineText(sourceSpan.start.lineIndex);
 //     const msg = redBright(message);
 //     const location = cyan(sourceSpan.source.location ?? '<code>');
 //     const line = cyan(`:${sourceSpan.start.line}`);

@@ -1,5 +1,4 @@
 import { Parser } from '~/parser/parser';
-import { Source } from '~/source/source';
 import { TokenNode } from '../token-node';
 
 // test('line feed', () => {
@@ -37,8 +36,7 @@ import { TokenNode } from '../token-node';
 
 test('lf cr', () => {
   const text = '\n\r';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const statements = parser.parse();
 
   expect(statements.length).toBe(0);
@@ -52,9 +50,8 @@ test('lf cr', () => {
 });
 
 test('several', () => {
-  const code = '  \n    \r\nabc';
-  const source = Source.fromText(code);
-  const parser = new Parser(source.text);
+  const text = '  \n    \r\nabc';
+  const parser = new Parser(text);
   const statements = parser.parse();
 
   expect(statements.length).toBe(1);

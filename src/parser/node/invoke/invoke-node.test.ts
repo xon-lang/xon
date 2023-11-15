@@ -4,13 +4,11 @@ import { IntegerNode } from '~/parser/node/integer/integer-node';
 import { InvokeNode } from '~/parser/node/invoke/invoke-node';
 import { MemberNode } from '~/parser/node/member/member-node';
 import { Parser } from '~/parser/parser';
-import { Source } from '~/source/source';
 import { NodeType } from '../node-type';
 
 test('method call', () => {
   const text = "f(3, 'str')";
-  const source = Source.fromText(text);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
   const node = nodes[0] as InvokeNode;
 
@@ -27,8 +25,7 @@ test('method on several lines', () => {
   const text = `f[3,
         'str', 123, 
     415]`;
-  const source = Source.fromText(text);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
   const node = nodes[0] as InvokeNode;
 
@@ -45,8 +42,7 @@ test('method on several lines', () => {
 
 test('can call with type parameter', () => {
   const text = 'a.get [1]';
-  const source = Source.fromText(text);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
   const node = nodes[0] as InvokeNode;
 
@@ -62,8 +58,7 @@ test('can call with type parameter', () => {
 
 test('object method', () => {
   const text = '{a, b}.call()';
-  const source = Source.fromText(text);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
   const node = nodes[0] as InvokeNode;
 
@@ -81,8 +76,7 @@ test('object method', () => {
 
 test('generics', () => {
   const text = 'Animal{T}';
-  const source = Source.fromText(text);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
   const node = nodes[0] as InvokeNode;
 

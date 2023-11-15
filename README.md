@@ -18,7 +18,7 @@ npm i -S @xon/core
 ```js
 import { evalExpression, parseExpression } from '@xon/core';
 
-const code = '2 + 2 |x: x^x + x |z: z^x && x^z | z + x + 1'; // any valid xon expression
+const text = '2 + 2 |x: x^x + x |z: z^x && x^z | z + x + 1'; // any valid xon expression
 const tree = parseExpression(code); // generating ast
 const result = evalExpression(tree); // something like js eval
 

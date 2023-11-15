@@ -1,13 +1,11 @@
 import { IdNode } from '~/parser/node/id/id-node';
 import { MemberNode } from '~/parser/node/member/member-node';
 import { Parser } from '~/parser/parser';
-import { Source } from '~/source/source';
 import { NodeType } from '../node-type';
 
 test('abc.def', () => {
   const text = 'abc.def';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
@@ -19,8 +17,7 @@ test('abc.def', () => {
 
 test('meta property', () => {
   const text = 'abc::def';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
@@ -35,8 +32,7 @@ test('meta property', () => {
 
 test('not safe', () => {
   const text = 'abc.def';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
@@ -51,8 +47,7 @@ test('not safe', () => {
 
 test('left dot nl property', () => {
   const text = 'abc.\\def';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
@@ -67,8 +62,7 @@ test('left dot nl property', () => {
 
 test('left nl dot property', () => {
   const text = 'abc\\.def';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
@@ -83,8 +77,7 @@ test('left nl dot property', () => {
 
 test('left nl dot nl property', () => {
   const text = 'abc\\.\\def';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 
@@ -106,8 +99,7 @@ this.statements \
       .jkl \
   `.trim();
 
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
   const member = nodes[0] as MemberNode;
 

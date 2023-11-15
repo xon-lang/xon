@@ -1,6 +1,5 @@
 import { PostfixNode } from '~/parser/node/postfix/postfix-node';
 import { Parser } from '~/parser/parser';
-import { Source } from '~/source/source';
 import { NodeType } from '../node-type';
 
 // test('single operator', () => {
@@ -16,8 +15,7 @@ import { NodeType } from '../node-type';
 
 test('after integer', () => {
   const text = '1!';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const nodes = parser.parse();
   const tree = nodes[0] as PostfixNode;
 
@@ -26,7 +24,7 @@ test('after integer', () => {
 });
 
 // test('after invoke', () => {
-//   const code = 'ctx.parameters[]!';
+//   const text = 'ctx.parameters[]!';
 //   const source = Source.fromText(code);
 //   const tree = syntaxNode(source) as PostfixNode;
 

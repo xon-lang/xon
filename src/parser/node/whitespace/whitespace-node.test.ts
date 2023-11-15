@@ -1,10 +1,8 @@
 import { Parser } from '~/parser/parser';
-import { Source } from '~/source/source';
 
 test('whitespace', () => {
   const text = '    ';
-  const source = Source.fromText(text, null);
-  const parser = new Parser(source.text);
+  const parser = new Parser(text);
   const statements = parser.parse();
 
   expect(statements.length).toBe(0);
