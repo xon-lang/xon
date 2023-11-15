@@ -14,25 +14,6 @@
     "proto",
     "ts-nocheck"
   ],
-  "editor.codeActionsOnSave": {
-    "source.fixAll": true,
-    "source.organizeImports": true
-  },
-  "editor.formatOnPaste": false,
-  "editor.formatOnSave": true,
-  "editor.formatOnSaveMode": "file",
-  "editor.formatOnType": false,
-  "editor.tabSize": 2,
-  "files.autoSave": "afterDelay",
-  "search.exclude": {
-    "**/.DS_Store": true,
-    "**/.git": true,
-    "**/dist": true,
-    "**/node_modules": true,
-    "**/package-lock.json": true
-  },
-  "typescript.tsc.autoDetect": "off",
-  "typescript.tsdk": "./node_modules/typescript/lib",
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "[xon]": {
     "editor.defaultFormatter": "nizami.xon"
