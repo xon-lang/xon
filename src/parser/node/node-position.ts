@@ -2,14 +2,14 @@ import { Integer } from '~/lib/core';
 
 export interface NodePosition {
   index: Integer;
-  row: Integer;
+  line: Integer;
   column: Integer;
 }
 
-export function nodePosition(index: Integer, row: Integer, column: Integer): NodePosition {
+export function nodePosition(index: Integer, line: Integer, column: Integer): NodePosition {
   return {
     index,
-    row,
+    line,
     column,
   };
 }
