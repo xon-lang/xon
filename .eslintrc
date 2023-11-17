@@ -90,10 +90,10 @@
       "^([$A-Za-z0-9_]+)$"
     ],
     //!! "init-declarations": ["error", "always"],
-    "logical-assignment-operators": [
-      "error",
-      "always"
-    ],
+    // "logical-assignment-operators": [
+    //   "error",
+    //   "always"
+    // ],
     "max-classes-per-file": "error",
     "max-depth": [
       "error",
@@ -516,7 +516,7 @@
     //!! "@typescript-eslint/no-unnecessary-condition": "error",
     "@typescript-eslint/no-unnecessary-qualifier": "error",
     "@typescript-eslint/no-unnecessary-type-arguments": "error",
-    "@typescript-eslint/no-unsafe-declaration-merging": "error",
+    // "@typescript-eslint/no-unsafe-declaration-merging": "error",
     "@typescript-eslint/no-useless-empty-export": "error",
     "@typescript-eslint/non-nullable-type-assertion-style": "error",
     //!! "@typescript-eslint/parameter-properties": "error",
