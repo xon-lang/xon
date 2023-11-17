@@ -1,3 +1,4 @@
+import { IdNode } from '~/parser/node/id/id-node';
 import { ModelNode } from '~/parser/node/model/model-node';
 import { NodeType } from '~/parser/node/node-type';
 import { Parser } from '~/parser/parser';
@@ -14,5 +15,5 @@ test('abc attribute', () => {
   expect(tree.$).toBe(NodeType.MODEL);
   expect(tree.modifier?.text).toBe('model');
   expect(tree.id?.text).toBe('Abstract');
-  expect(tree.base?.value).toBe('Base');
+  expect((tree.base?.value as IdNode).text).toBe('Base');
 });

@@ -39,16 +39,18 @@ function collapseAttributeNode(nodes: Node[]): void {
 function collapseModelNode(modifier: ModifierNode, nodes: Node[]): void {
   const { id, type } = idParametersTypeValue(nodes[1]);
 
-  if (id) {
-    nodes[0] = modelNode(modifier, id, null);
+  if (id && type) {
+    nodes[0] = modelNode(modifier, id, type);
     nodes.splice(1, 1);
 
     return;
   }
 
-  if (id && type) {
-    nodes[0] = modelNode(modifier, id, type);
+  if (id) {
+    nodes[0] = modelNode(modifier, id, null);
     nodes.splice(1, 1);
+
+    return;
   }
 
   throw new Error('Not implemented');
