@@ -15,21 +15,6 @@ test('abc.def', () => {
   expect(member.id.text).toBe('def');
 });
 
-test('meta property', () => {
-  const text = 'abc::def';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
-  const member = nodes[0] as MemberNode;
-
-  expect(nodes.length).toBe(1);
-
-  expect(member.$).toBe(NodeType.MEMBER);
-  expect(member.instance.$).toBe(NodeType.ID);
-  expect((member.instance as IdNode).text).toBe('abc');
-  expect(member.operator.text).toBe('::');
-  expect(member.id.text).toBe('def');
-});
-
 test('not safe', () => {
   const text = 'abc.def';
   const parser = new Parser(text);

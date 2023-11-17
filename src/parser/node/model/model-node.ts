@@ -10,18 +10,18 @@ export interface ModelNode extends Node {
   $: NodeType.MODEL;
   modifier: ModifierNode;
   id: IdNode;
-  type: TypeNode | null;
+  base: TypeNode | null;
   attributes: AttributeNode[];
 }
 
-export function modelNode(modifier: ModifierNode, id: IdNode, type: TypeNode | null): ModelNode {
+export function modelNode(modifier: ModifierNode, id: IdNode, base: TypeNode | null): ModelNode {
   return {
     $: NodeType.MODEL,
     start: clonePosition(modifier.start),
-    stop: clonePosition((type ?? id).stop),
+    stop: clonePosition((base ?? id).stop),
     modifier,
     id,
-    type,
+    base,
     attributes: [],
   };
 }

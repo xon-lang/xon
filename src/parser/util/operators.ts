@@ -21,6 +21,8 @@ export enum RecursiveType {
 
 export const TYPE_TOKEN = ':';
 export const ASSIGN_TOKEN = '=';
+export const MEMBER_TOKEN = '.';
+export const META_MEMBER_TOKEN = '::';
 export const DIGITS = '0123456789';
 export const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 export const DIGITS_LETTERS = DIGITS + LETTERS;
@@ -43,7 +45,7 @@ export const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'c
 
 export const operatorsOrders: OperatorsOrder[] = [
   {
-    operators: ['. ::'],
+    operators: [`${MEMBER_TOKEN} ${META_MEMBER_TOKEN}`],
     operatorType: OperatorType.INFIX,
     recursiveType: RecursiveType.LEFT,
   },
