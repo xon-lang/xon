@@ -17,5 +17,8 @@
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "[xon]": {
     "editor.defaultFormatter": "nizami.xon"
+  },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
   }
 }
