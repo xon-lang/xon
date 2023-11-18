@@ -11,7 +11,7 @@ export interface ModelNode extends Node {
   modifier: ModifierNode;
   id: IdNode;
   base: TypeNode | null;
-  attributes: AttributeNode[];
+  children: AttributeNode[];
 }
 
 export function modelNode(modifier: ModifierNode, id: IdNode, base: TypeNode | null): ModelNode {
@@ -22,6 +22,6 @@ export function modelNode(modifier: ModifierNode, id: IdNode, base: TypeNode | n
     modifier,
     id,
     base,
-    attributes: [],
+    children: [],
   };
 }
