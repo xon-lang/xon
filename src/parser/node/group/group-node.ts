@@ -39,7 +39,7 @@ export function groupNode(open: OpenNode, close: CloseNode | null, items: Node[]
   };
 }
 
-const OPEN_CLOSE = {
+const OPEN_CLOSE_PAIR = {
   [GROUP_NODE_OPEN]: GROUP_NODE_CLOSE,
   [ARRAY_NODE_OPEN]: ARRAY_NODE_CLOSE,
   [OBJECT_NODE_OPEN]: OBJECT_NODE_CLOSE,
@@ -65,7 +65,7 @@ export function scanGroupNode(context: ParserContext): GroupNode | ObjectNode | 
       context.index,
       (node) =>
         is<CommaNode>(node, NodeType.COMMA) ||
-        (is<CloseNode>(node, NodeType.CLOSE) && node.text === OPEN_CLOSE[open.text]),
+        (is<CloseNode>(node, NodeType.CLOSE) && node.text === OPEN_CLOSE_PAIR[open.text]),
     );
 
     context.index = groupContext.index;
