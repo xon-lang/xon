@@ -1,7 +1,7 @@
 import { issueMessage } from '~/issue/issue-message';
+import { parse } from '~/parser/parser';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
-import { parse } from '~/parser/parser';
 
 test('single id', () => {
   const text = 'abc';
@@ -14,7 +14,7 @@ test('single id', () => {
 
 test('several id', () => {
   const text = 'abc edf_    _ghi1_23';
-  const context = parse(text)
+  const context = parse(text);
   const nodes = parse(text).root.children as TokenNode[];
 
   // todo check other 2 error nodes

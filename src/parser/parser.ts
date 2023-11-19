@@ -1,3 +1,5 @@
+import { createErrorIssue } from '~/issue/issue';
+import { issueMessage } from '~/issue/issue-message';
 import { Boolean2, Integer, String2 } from '~/lib/core';
 import { scanCloseNode } from '~/parser/node/close/close-node';
 import { scanCommaNode } from '~/parser/node/comma/comma-node';
@@ -62,20 +64,22 @@ export function parseUntil(source: Source, index: Integer, breakFn: BreakFn | nu
     }
 
     if (is<JoiningNode>(node, NodeType.JOINING)) {
-      context.hidden.push(node);
-      context.line += 1;
-      context.column = 0;
+      putHiddenNode(context, node);
 
       continue;
     }
 
     if (is(node, NodeType.NL)) {
-      context.hidden.push(node);
-      context.line += 1;
-      context.column = 0;
+      putHiddenNode(context, node);
 
       context.lastStatementNode = putStatementNode(context);
       context.lastStatementNodes = [];
+
+      continue;
+    }
+
+    if (is(node, NodeType.UNKNOWN)) {
+      context.issues.push(createErrorIssue(node, issueMessage.unexpectedNode));
 
       continue;
     }
@@ -117,4 +121,10 @@ export function setNodeRange(node: Partial<TokenNode>, context: ParserContext): 
     node.range = sourceRange(start, stop);
     context.column += stopColumn + 1;
   }
+}
+
+function putHiddenNode(context: ParserContext, node: Node): void {
+  context.hidden.push(node);
+  context.line += 1;
+  context.column = 0;
 }

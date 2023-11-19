@@ -12,10 +12,11 @@ test('unknown 1', () => {
 });
 
 test('unknown 2', () => {
-  // todo make all join unknown nodes
   const text = 'ºª¶';
-  const nodes = parse(text).root.children as TokenNode[];
+  const context = parse(text);
+  const nodes = context.root.children;
 
-  expect(nodes.length).toBe(1);
-  expect(nodes.map((x) => x.text).join('')).toBe('º');
+  expect(nodes.length).toBe(0);
+  expect(context.issues.length).toBe(3);
+  expect(context.issues.map((x) => (x.node as TokenNode).text).join('')).toBe('ºª¶');
 });
