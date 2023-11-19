@@ -2,12 +2,11 @@ import { IdNode } from '~/parser/node/id/id-node';
 import { InfixNode } from '~/parser/node/infix/infix-node';
 import { IntegerNode } from '~/parser/node/integer/integer-node';
 import { NodeType } from '~/parser/node/node-type';
-import { Parser } from '~/parser/parser';
+import { parse } from '~/parser/parser';
 
 test('comma', () => {
   const text = '1';
-  const scanner = new Parser(text);
-  const nodes = scanner.parse();
+  const nodes = parse(text).root.children;
   const tree = nodes[0] as IntegerNode;
 
   expect(nodes.length).toBe(1);
@@ -17,12 +16,11 @@ test('comma', () => {
 
 test('single expression', () => {
   const text = '\n  a = 1';
-  const scanner = new Parser(text);
-  const statements = scanner.parse();
+  const nodes = parse(text).root.children;
 
-  expect(statements.length).toBe(1);
+  expect(nodes.length).toBe(1);
 
-  const infix = statements[0] as InfixNode;
+  const infix = nodes[0] as InfixNode;
   expect((infix.left as IdNode).text).toBe('a');
   expect(infix.operator.text).toBe('=');
   expect((infix.right as IntegerNode).text).toBe('1');
@@ -30,53 +28,48 @@ test('single expression', () => {
 
 test('debug 1', () => {
   const text = 'a = 1\n b = 2\n +b';
-  const scanner = new Parser(text);
-  const statements = scanner.parse();
+  const nodes = parse(text).root.children;
 
-  expect(statements.length).toBe(1);
-  expect(statements[0].$).toBe(NodeType.INFIX);
-  expect(statements[0].children?.length).toBe(2);
-  expect(statements[0].children?.at(0)?.$).toBe(NodeType.INFIX);
-  expect(statements[0].children?.at(1)?.$).toBe(NodeType.PREFIX);
+  expect(nodes.length).toBe(1);
+  expect(nodes[0].$).toBe(NodeType.INFIX);
+  expect(nodes[0].children?.length).toBe(2);
+  expect(nodes[0].children?.at(0)?.$).toBe(NodeType.INFIX);
+  expect(nodes[0].children?.at(1)?.$).toBe(NodeType.PREFIX);
 });
 
 test('debug 2', () => {
   const text = 'a = 1\nb = 2\n';
-  const scanner = new Parser(text);
-  const statements = scanner.parse();
+  const nodes = parse(text).root.children;
 
-  expect(statements.length).toBe(2);
-  expect(statements[0].$).toBe(NodeType.INFIX);
-  expect(statements[1].$).toBe(NodeType.INFIX);
+  expect(nodes.length).toBe(2);
+  expect(nodes[0].$).toBe(NodeType.INFIX);
+  expect(nodes[1].$).toBe(NodeType.INFIX);
 });
 
 test('debug 3', () => {
   const text = `a
  b
 c`.trim();
-  const scanner = new Parser(text);
-  const statements = scanner.parse();
+  const nodes = parse(text).root.children;
 
-  expect(statements.length).toBe(2);
-  expect(statements[0].$).toBe(NodeType.ID);
-  expect(statements[1].$).toBe(NodeType.ID);
+  expect(nodes.length).toBe(2);
+  expect(nodes[0].$).toBe(NodeType.ID);
+  expect(nodes[1].$).toBe(NodeType.ID);
 });
 
 test('debug 4', () => {
   const text = 'a\n b\n b';
-  const scanner = new Parser(text);
-  const statements = scanner.parse();
+  const nodes = parse(text).root.children;
 
-  expect(statements.length).toBe(1);
-  expect(statements[0].children?.length).toBe(2);
+  expect(nodes.length).toBe(1);
+  expect(nodes[0].children?.length).toBe(2);
 });
 
 test('multiple expression', () => {
   const text = '\n  x = 1\n  y = 2\n  z = 3';
-  const scanner = new Parser(text);
-  const statements = scanner.parse();
+  const nodes = parse(text).root.children;
 
-  expect(statements.length).toBe(3);
+  expect(nodes.length).toBe(3);
 });
 
 // test('import and if', () => {
@@ -99,7 +92,7 @@ test('multiple expression', () => {
 // test('preprocessor in attribute', () => {
 //   const text = `
 // toString: [] = String
-//   importStatements = this.statements.filter[[x] = x is ImportStatementTree].map[[x] = x as ImportStatementTree]
+//   importStatements = this.nodes.filter[[x] = x is ImportStatementTree].map[[x] = x as ImportStatementTree]
 //   importStatementsMap = {}
 // `.trim();
 //   const source = Source.fromText(code);
@@ -108,7 +101,7 @@ test('multiple expression', () => {
 //   expect(node.type).toBe(NodeType.BODY);
 // });
 
-// test('two if statements', () => {
+// test('two if nodes', () => {
 //   const text = `
 // if a
 //   123

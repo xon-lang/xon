@@ -1,12 +1,11 @@
 import { IdNode } from '~/parser/node/id/id-node';
 import { MemberNode } from '~/parser/node/member/member-node';
-import { Parser } from '~/parser/parser';
+import { parse } from '~/parser/parser';
 import { NodeType } from '../node-type';
 
 test('abc.def', () => {
   const text = 'abc.def';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);
@@ -17,8 +16,7 @@ test('abc.def', () => {
 
 test('not safe', () => {
   const text = 'abc.def';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);
@@ -32,8 +30,7 @@ test('not safe', () => {
 
 test('left dot nl property', () => {
   const text = 'abc.\\def';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);
@@ -47,8 +44,7 @@ test('left dot nl property', () => {
 
 test('left nl dot property', () => {
   const text = 'abc\\.def';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);
@@ -62,8 +58,7 @@ test('left nl dot property', () => {
 
 test('left nl dot nl property', () => {
   const text = 'abc\\.\\def';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);
@@ -84,8 +79,7 @@ this.statements \
       .jkl \
   `.trim();
 
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const member = nodes[0] as MemberNode;
 
   expect(nodes.length).toBe(1);

@@ -1,6 +1,6 @@
 import '~/extensions';
 import { CloseNode } from '~/parser/node/close/close-node';
-import { clonePosition } from '~/parser/node/node-position';
+import { textRangeFromNodes } from '~/parser/node/node-position';
 import { OpenNode } from '~/parser/node/open/open-node';
 import { Node } from '../node';
 import { NodeType } from '../node-type';
@@ -20,8 +20,7 @@ export function objectNode(open: OpenNode, close: CloseNode | null, items: Node[
 
   return {
     $: NodeType.OBJECT,
-    start: clonePosition(open.start),
-    stop: clonePosition(close?.stop ?? lastStatement?.stop ?? open.stop),
+    range: textRangeFromNodes(open, close ?? lastStatement ?? open),
     open,
     close,
     items,

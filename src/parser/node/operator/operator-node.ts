@@ -2,7 +2,7 @@ import { String2 } from '~/lib/core';
 import { IdNode, idNode, scanIdNode } from '~/parser/node/id/id-node';
 import { KeywordNode } from '~/parser/node/keyword/keyword-node';
 import { ModifierNode } from '~/parser/node/modifier/modifier-node';
-import { Parser } from '~/parser/parser';
+import { ParserContext } from '~/parser/parser-context';
 import { is } from '~/parser/util/is';
 import { operatorsOrders } from '~/parser/util/operators';
 import { NodeType } from '../node-type';
@@ -23,8 +23,10 @@ const OPERATORS = [
   ...new Set(operatorsOrders.flatMap((operatorsOrder) => operatorsOrder.operators).flatMap((operators) => operators)),
 ];
 
-export function scanOperatorNode(parser: Parser): Partial<OperatorNode | IdNode | ModifierNode | KeywordNode> | null {
-  const { index, text, lastStatementNodes: lastNodes } = parser;
+export function scanOperatorNode(
+  context: ParserContext,
+): Partial<OperatorNode | IdNode | ModifierNode | KeywordNode> | null {
+  const { index, text, lastStatementNodes } = context;
   let operators = OPERATORS.filter((x) => x[0] === text[index]);
 
   if (operators.length === 0) {
@@ -51,13 +53,13 @@ export function scanOperatorNode(parser: Parser): Partial<OperatorNode | IdNode 
   }
 
   const operatorString = candidates[candidates.length - 1];
-  const idCandidate = scanIdNode(parser);
+  const idCandidate = scanIdNode(context);
 
   if (idCandidate && idCandidate.text && idCandidate.text.length > operatorString.length) {
     return idCandidate;
   }
 
-  if (is(lastNodes.lastOrNull(), NodeType.MODIFIER)) {
+  if (is(lastStatementNodes.lastOrNull(), NodeType.MODIFIER)) {
     return idNode(operatorString);
   }
 

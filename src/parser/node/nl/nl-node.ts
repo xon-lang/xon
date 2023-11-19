@@ -1,5 +1,5 @@
 import { String2 } from '~/lib/core';
-import { Parser } from '~/parser/parser';
+import { ParserContext } from '~/parser/parser-context';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
@@ -18,7 +18,7 @@ const CR = '\r';
 const LF = '\n';
 const CRLF = CR + LF;
 
-export function scanNlNode({ text, index }: Parser): Partial<NlNode> | null {
+export function scanNlNode({ text, index }: ParserContext): Partial<NlNode> | null {
   if (text[index] === LF) {
     return nlNode(LF);
   }

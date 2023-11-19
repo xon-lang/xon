@@ -1,5 +1,5 @@
 import { String2 } from '~/lib/core';
-import { Parser } from '~/parser/parser';
+import { ParserContext } from '~/parser/parser-context';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
@@ -14,6 +14,6 @@ export function unknownNode(text: String2): Partial<UnknownNode> {
   };
 }
 
-export function scanUnknownNode({ index, text }: Parser): Partial<UnknownNode> | null {
+export function scanUnknownNode({ index, text }: ParserContext): Partial<UnknownNode> | null {
   return unknownNode(text[index]);
 }

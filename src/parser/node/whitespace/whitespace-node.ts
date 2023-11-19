@@ -1,5 +1,5 @@
 import { String2 } from '~/lib/core';
-import { Parser } from '~/parser/parser';
+import { ParserContext } from '~/parser/parser-context';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
@@ -17,7 +17,7 @@ export function whitespaceNode(text: String2): Partial<WhitespaceNode> {
 const SPACE = ' ';
 const TAB = '\t';
 
-export function scanWhitespaceNode({ text, index }: Parser): Partial<WhitespaceNode> | null {
+export function scanWhitespaceNode({ text, index }: ParserContext): Partial<WhitespaceNode> | null {
   if (text[index] !== SPACE && text[index] !== TAB) {
     return null;
   }

@@ -1,11 +1,10 @@
-import { NodePosition } from '~/parser/node/node-position';
+import { TextRange } from '~/parser/node/node-position';
 import { NodeType } from './node-type';
 
 export interface Node {
-  readonly $: NodeType;
-  start: NodePosition;
-  stop: NodePosition;
-  // todo remove undefined type
+  $: NodeType;
+  range: TextRange;
   parent?: Node | null;
-  children?: Node[];
+  children?: Node[] | null;
+  declarations?: Node[] | null;
 }

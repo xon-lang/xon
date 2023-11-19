@@ -1,44 +1,51 @@
 import { Integer } from '~/lib/core';
 import { Node } from '~/parser/node/node';
-import { Parser } from '~/parser/parser';
+import { NodeType } from '~/parser/node/node-type';
+import { RootNode } from '~/parser/node/root/root-node';
 import { getSyntacticNode } from '~/parser/util/get-syntactic-node';
+import { is } from '~/parser/util/is';
+import { ParserContext } from '../parser-context';
 
-export function putBodyNode(parser: Parser, bodyNodes: Node[], lastBodyNode: Node | null, nodes: Node[]): Node | null {
-  if (nodes.length === 0) {
+export function putStatementNode(context: ParserContext): Node | null {
+  if (context.lastStatementNodes.length === 0) {
     return null;
   }
 
-  const indent = nodes[0].start.column;
+  const indent = context.lastStatementNodes[0].range.start.column;
 
-  if (!lastBodyNode) {
-    const statement = getSyntacticNode(parser, nodes, null);
-    bodyNodes.push(statement);
+  if (!context.lastStatementNode) {
+    const statement = getSyntacticNode(context, context.root);
+    context.lastStatementNodes.push(statement);
 
     return statement;
   }
 
-  if (indent > lastBodyNode.start.column) {
-    return getSyntacticNode(parser, nodes, lastBodyNode);
+  if (indent > context.lastStatementNode.range.start.column) {
+    return getSyntacticNode(context, context.lastStatementNode);
   }
 
-  const parent = findParentWithLessIndent(lastBodyNode, indent);
-  const statement = getSyntacticNode(parser, nodes, parent);
+  const parent = findParentWithLessIndent(context.lastStatementNode, indent);
+  const statement = getSyntacticNode(context, parent);
 
   if (!parent) {
-    bodyNodes.push(statement);
+    context.lastStatementNodes.push(statement);
   }
 
   return statement;
 }
 
-function findParentWithLessIndent(lastBodyNode: Node, indent: Integer): Node | null {
-  if (!lastBodyNode.parent) {
+function findParentWithLessIndent(lastStatementNode: Node, indent: Integer): Node | null {
+  if (is<RootNode>(lastStatementNode.parent, NodeType.ROOT)) {
+    return lastStatementNode.parent;
+  }
+
+  if (!lastStatementNode.parent) {
     return null;
   }
 
-  if (lastBodyNode.parent?.start.column < indent) {
-    return lastBodyNode.parent;
+  if (lastStatementNode.parent.range.start.column < indent) {
+    return lastStatementNode.parent!;
   }
 
-  return findParentWithLessIndent(lastBodyNode.parent, indent);
+  return findParentWithLessIndent(lastStatementNode.parent!, indent);
 }

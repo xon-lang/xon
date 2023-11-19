@@ -3,13 +3,12 @@ import { IdNode } from '~/parser/node/id/id-node';
 import { IntegerNode } from '~/parser/node/integer/integer-node';
 import { InvokeNode } from '~/parser/node/invoke/invoke-node';
 import { MemberNode } from '~/parser/node/member/member-node';
-import { Parser } from '~/parser/parser';
+import { parse } from '~/parser/parser';
 import { NodeType } from '../node-type';
 
 test('method call', () => {
-  const text = "f(3, 'str')";
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const text = 'f(3, \'str\')';
+  const nodes = parse(text).root.children;
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
@@ -17,7 +16,7 @@ test('method call', () => {
   expect(node.group.items[0]?.$).toBe(NodeType.INTEGER);
   expect((node.group.items[0] as IntegerNode).text).toBe('3');
   expect(node.group.items[1]?.$).toBe(NodeType.STRING);
-  expect((node.group.items[1] as IdNode).text).toBe("'str'");
+  expect((node.group.items[1] as IdNode).text).toBe('\'str\'');
   expect(node.instance.$).toBe(NodeType.ID);
 });
 
@@ -25,8 +24,7 @@ test('method on several lines', () => {
   const text = `f[3,
         'str', 123, 
     415]`;
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
@@ -42,8 +40,7 @@ test('method on several lines', () => {
 
 test('can call with type parameter', () => {
   const text = 'a.get [1]';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
@@ -58,8 +55,7 @@ test('can call with type parameter', () => {
 
 test('object method', () => {
   const text = '{a, b}.call()';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);
@@ -76,8 +72,7 @@ test('object method', () => {
 
 test('generics', () => {
   const text = 'Animal{T}';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe(NodeType.INVOKE);

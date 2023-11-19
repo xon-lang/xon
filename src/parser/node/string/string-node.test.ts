@@ -1,12 +1,11 @@
 import { StringNode } from '~/parser/node/string/string-node';
-import { Parser } from '~/parser/parser';
+import { parse } from '~/parser/parser';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
 test('string', () => {
-  const text = "'abc   def'";
-  const parser = new Parser(text);
-  const nodes = parser.parse() as TokenNode[];
+  const text = '\'abc   def\'';
+  const nodes = parse(text).root.children as TokenNode[];
   const tree = nodes[0] as StringNode;
 
   expect(nodes.length).toBe(1);
@@ -15,9 +14,8 @@ test('string', () => {
 });
 
 test('multiline string', () => {
-  const text = "'some\nmultiline\n\t\n\t\nstring\n'";
-  const parser = new Parser(text);
-  const nodes = parser.parse() as TokenNode[];
+  const text = '\'some\nmultiline\n\t\n\t\nstring\n\'';
+  const nodes = parse(text).root.children as TokenNode[];
   const tree = nodes[0] as StringNode;
 
   expect(tree.$).toBe(NodeType.STRING);
@@ -25,9 +23,8 @@ test('multiline string', () => {
 });
 
 test('empty string', () => {
-  const text = "''";
-  const parser = new Parser(text);
-  const nodes = parser.parse() as TokenNode[];
+  const text = '\'\'';
+  const nodes = parse(text).root.children as TokenNode[];
   const tree = nodes[0] as StringNode;
 
   expect(tree.$).toBe(NodeType.STRING);
@@ -35,11 +32,10 @@ test('empty string', () => {
 });
 
 test('not closed', () => {
-  const text = "'abc";
-  const parser = new Parser(text);
-  const nodes = parser.parse() as TokenNode[];
+  const text = '\'abc';
+  const nodes = parse(text).root.children as TokenNode[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.STRING);
-  expect(nodes[0].text).toBe("'abc");
+  expect(nodes[0].text).toBe('\'abc');
 });

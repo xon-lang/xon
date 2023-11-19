@@ -2,15 +2,14 @@ import { GroupNode } from '~/parser/node/group/group-node';
 import { IdNode } from '~/parser/node/id/id-node';
 import { InfixNode } from '~/parser/node/infix/infix-node';
 import { InvokeNode } from '~/parser/node/invoke/invoke-node';
-import { Parser } from '~/parser/parser';
+import { parse } from '~/parser/parser';
 import { evaluate } from '~/util/evaluate';
 import { NodeType } from '../../node-type';
 
 test('has argument', () => {
   const text = '[x] = x + 42';
-  const scanner = new Parser(text);
-  const statements = scanner.parse();
-  const tree = statements[0] as InfixNode;
+  const nodes = parse(text).root.children;
+  const tree = nodes[0] as InfixNode;
 
   expect(tree.$).toBe(NodeType.INFIX);
   expect((tree.left as GroupNode).items.length).toBe(1);
@@ -25,9 +24,8 @@ test('has argument', () => {
 
 test('generics', () => {
   const text = '{N,M ,K:String }[x] = x + 42';
-  const scanner = new Parser(text);
-  const statements = scanner.parse();
-  const tree = statements[0] as InfixNode;
+  const nodes = parse(text).root.children;
+  const tree = nodes[0] as InfixNode;
 
   expect(tree.$).toBe(NodeType.INFIX);
   const left = tree.left as InvokeNode;
@@ -53,9 +51,8 @@ test('generics', () => {
 
 test('no arguments', () => {
   const text = '[]= 42+45';
-  const scanner = new Parser(text);
-  const statements = scanner.parse();
-  const tree = statements[0] as InfixNode;
+  const nodes = parse(text).root.children;
+  const tree = nodes[0] as InfixNode;
 
   expect(tree.$).toBe(NodeType.INFIX);
   expect((tree.left as GroupNode).items.length).toBe(0);
@@ -64,9 +61,8 @@ test('no arguments', () => {
 
 test('lambda inner lambda', () => {
   const text = '[a] = [b, c] = 42+45';
-  const scanner = new Parser(text);
-  const statements = scanner.parse();
-  const tree = statements[0] as InfixNode;
+  const nodes = parse(text).root.children;
+  const tree = nodes[0] as InfixNode;
 
   expect(tree.$).toBe(NodeType.INFIX);
   expect(tree.left.$).toBe(NodeType.ARRAY);

@@ -11,7 +11,7 @@ import { is } from './is';
 export function handleInfix(operator: OperatorNode, left: Node, right: Node): Node {
   if (operator.text === MEMBER_TOKEN) {
     if (is<IdNode>(right, NodeType.ID)) {
-      return memberNode(operator, left, right);
+      return memberNode(left, operator, right);
     }
 
     throw new Error('Not implemented');
@@ -19,7 +19,7 @@ export function handleInfix(operator: OperatorNode, left: Node, right: Node): No
 
   if (operator.text === META_MEMBER_TOKEN) {
     if (is<IdNode>(right, NodeType.ID)) {
-      return metaMemberNode(operator, left, right);
+      return metaMemberNode(left, operator, right);
     }
 
     throw new Error('Not implemented');

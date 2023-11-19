@@ -1,10 +1,9 @@
-import { Parser } from '~/parser/parser';
+import { parse } from '~/parser/parser';
 import { TokenNode } from '../token-node';
 
 test('unknown 1', () => {
   const text = '123 §•∞•456';
-  const parser = new Parser(text);
-  const nodes = parser.parse() as TokenNode[];
+  const nodes = parse(text).root.children as TokenNode[];
 
   expect(nodes.length).toBe(1);
   // expect(nodes[1].text).toBe('§');
@@ -15,8 +14,7 @@ test('unknown 1', () => {
 test('unknown 2', () => {
   // todo make all join unknown nodes
   const text = 'ºª¶';
-  const parser = new Parser(text);
-  const nodes = parser.parse() as TokenNode[];
+  const nodes = parse(text).root.children as TokenNode[];
 
   expect(nodes.length).toBe(1);
   expect(nodes.map((x) => x.text).join('')).toBe('º');

@@ -3,15 +3,14 @@ import { InfixNode } from '~/parser/node/infix/infix-node';
 import { IntegerNode } from '~/parser/node/integer/integer-node';
 import { MemberNode } from '~/parser/node/member/member-node';
 import { PrefixNode } from '~/parser/node/prefix/prefix-node';
-import { Parser } from '~/parser/parser';
+import { parse } from '~/parser/parser';
 import { evaluate } from '~/util/evaluate';
 import { NodeType } from '../../node-type';
 import { TokenNode } from '../../token-node';
 
 test('infix operator', () => {
   const text = 'abc.def';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const node = nodes[0] as MemberNode;
 
   expect(node.$).toBe(NodeType.MEMBER);
@@ -22,8 +21,7 @@ test('infix operator', () => {
 
 test('several operands with different priorities', () => {
   const text = '1*1+1+2^5*2/2';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe(NodeType.INFIX);
@@ -68,9 +66,8 @@ test('several operands with different priorities', () => {
 // });
 
 test('num plus str', () => {
-  const text = "1  + 'str'";
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const text = '1  + \'str\'';
+  const nodes = parse(text).root.children;
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe(NodeType.INFIX);
@@ -80,8 +77,7 @@ test('num plus str', () => {
 
 test('num is number', () => {
   const text = '1 & Number';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe(NodeType.INFIX);
@@ -92,8 +88,7 @@ test('num is number', () => {
 
 test('equals', () => {
   const text = 'this.text == 123';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe(NodeType.INFIX);
@@ -103,8 +98,7 @@ test('equals', () => {
 
 test('has several relational operators', () => {
   const text = 'a<b>c';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe(NodeType.INFIX);
@@ -121,8 +115,7 @@ test('has several relational operators', () => {
 
 test('several operators', () => {
   const text = '1 /+ 2';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe(NodeType.INFIX);

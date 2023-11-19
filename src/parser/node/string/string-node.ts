@@ -1,5 +1,5 @@
 import { String2 } from '~/lib/core';
-import { Parser } from '~/parser/parser';
+import { ParserContext } from '~/parser/parser-context';
 import { Type } from '~/type/type';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
@@ -18,7 +18,7 @@ export function stringNode(text: String2): Partial<StringNode> {
 
 const QUOTE = '\'';
 
-export function scanStringNode({ index, text }: Parser): Partial<StringNode> | null {
+export function scanStringNode({ index, text }: ParserContext): Partial<StringNode> | null {
   if (text[index] === QUOTE) {
     const nextQuoteIndex = text.indexOf(QUOTE, index + 1);
 

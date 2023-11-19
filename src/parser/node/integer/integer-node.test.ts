@@ -1,11 +1,10 @@
-import { Parser } from '~/parser/parser';
+import { parse } from '~/parser/parser';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
 test('integer', () => {
   const text = '123';
-  const parser = new Parser(text);
-  const nodes = parser.parse() as TokenNode[];
+  const nodes = parse(text).root.children as TokenNode[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.INTEGER);
@@ -14,8 +13,7 @@ test('integer', () => {
 
 test('zero int number', () => {
   const text = '0';
-  const parser = new Parser(text);
-  const nodes = parser.parse() as TokenNode[];
+  const nodes = parse(text).root.children as TokenNode[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.INTEGER);
@@ -24,8 +22,7 @@ test('zero int number', () => {
 
 test('positive int number', () => {
   const text = '2x01110';
-  const parser = new Parser(text);
-  const nodes = parser.parse() as TokenNode[];
+  const nodes = parse(text).root.children as TokenNode[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.INTEGER);
@@ -34,8 +31,7 @@ test('positive int number', () => {
 
 test('radix int', () => {
   const text = '16x1a_b_c';
-  const parser = new Parser(text);
-  const nodes = parser.parse() as TokenNode[];
+  const nodes = parse(text).root.children as TokenNode[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.INTEGER);

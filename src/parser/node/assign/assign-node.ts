@@ -1,5 +1,5 @@
 import { Node } from '~/parser/node/node';
-import { clonePosition } from '~/parser/node/node-position';
+import { textRangeFromNodes } from '~/parser/node/node-position';
 import { NodeType } from '../node-type';
 
 export interface AssignNode extends Node {
@@ -11,8 +11,7 @@ export interface AssignNode extends Node {
 export function assignNode(operator: Node, value: Node): AssignNode {
   return {
     $: NodeType.ASSIGN,
-    start: clonePosition(operator.start),
-    stop: clonePosition(value.stop),
+    range: textRangeFromNodes(operator, value),
     operator,
     value,
   };

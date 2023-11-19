@@ -1,5 +1,5 @@
 import { Node } from '~/parser/node/node';
-import { clonePosition } from '~/parser/node/node-position';
+import { textRangeFromNodes } from '~/parser/node/node-position';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
 import { NodeType } from '../node-type';
 
@@ -13,8 +13,7 @@ export interface InfixNode extends Node {
 export function infixNode(operator: OperatorNode, left: Node, right: Node): InfixNode {
   return {
     $: NodeType.INFIX,
-    start: clonePosition(left.start),
-    stop: clonePosition(right.stop),
+    range: textRangeFromNodes(left, right),
     operator,
     left,
     right,

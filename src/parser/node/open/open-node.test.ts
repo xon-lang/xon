@@ -1,11 +1,10 @@
 import { GroupNode } from '~/parser/node/group/group-node';
-import { Parser } from '~/parser/parser';
+import { parse } from '~/parser/parser';
 import { NodeType } from '../node-type';
 
 test('open paren', () => {
   const text = '(';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.GROUP);
@@ -16,8 +15,7 @@ test('open paren', () => {
 
 test('open bracket', () => {
   const text = '[';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.ARRAY);
@@ -28,8 +26,7 @@ test('open bracket', () => {
 
 test('open brace', () => {
   const text = '{';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.OBJECT);

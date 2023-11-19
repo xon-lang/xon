@@ -2,7 +2,7 @@ import '~/extensions';
 import { String2 } from '~/lib/core';
 import { KeywordNode, keywordNode } from '~/parser/node/keyword/keyword-node';
 import { ModifierNode, modifierNode } from '~/parser/node/modifier/modifier-node';
-import { Parser } from '~/parser/parser';
+import { ParserContext } from '~/parser/parser-context';
 import { DIGITS_LETTERS, KEYWORDS, LETTERS, MODIFIERS } from '~/parser/util/operators';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
@@ -18,11 +18,10 @@ export function idNode(text: String2): Partial<IdNode> {
   };
 }
 
-export function scanIdNode({
-  index,
-  text,
-  lastStatementNodes,
-}: Parser): Partial<IdNode | ModifierNode | KeywordNode> | null {
+export function scanIdNode(context: ParserContext): Partial<IdNode | ModifierNode | KeywordNode> | null {
+  const { index, text } = context;
+  const { lastStatementNodes } = context;
+
   if (!LETTERS.includes(text[index])) {
     return null;
   }

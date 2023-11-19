@@ -1,7 +1,7 @@
 import { String2 } from '~/lib/core';
-import { Parser } from '~/parser/parser';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
+import { ParserContext } from '~/parser/parser-context';
 
 export interface JoiningNode extends TokenNode {
   $: NodeType.JOINING;
@@ -19,7 +19,7 @@ const CR = '\r';
 const LF = '\n';
 const WHITESPACE = ' \t';
 
-export function scanJoiningNode({ text, index }: Parser): Partial<JoiningNode> | null {
+export function scanJoiningNode({ text, index }: ParserContext): Partial<JoiningNode> | null {
   if (text[index] !== JOINING) {
     return null;
   }

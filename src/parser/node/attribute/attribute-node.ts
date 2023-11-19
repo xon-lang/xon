@@ -2,7 +2,7 @@ import { AssignNode } from '~/parser/node/assign/assign-node';
 import { IdNode } from '~/parser/node/id/id-node';
 import { ModifierNode } from '~/parser/node/modifier/modifier-node';
 import { Node } from '~/parser/node/node';
-import { clonePosition } from '~/parser/node/node-position';
+import { textRangeFromNodes } from '~/parser/node/node-position';
 import { ParametersNode } from '~/parser/node/parameters/parameters-node';
 import { NodeType } from '../node-type';
 
@@ -25,8 +25,7 @@ export function attributeNode(
 ): AttributeNode {
   return {
     $: NodeType.ATTRIBUTE,
-    start: clonePosition((modifier ?? id).start),
-    stop: clonePosition((assign ?? parameters ?? type ?? id ?? modifier).stop),
+    range: textRangeFromNodes(modifier ?? id, assign ?? parameters ?? type ?? id ?? modifier),
     modifier,
     id,
     type,

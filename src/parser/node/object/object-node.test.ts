@@ -1,10 +1,9 @@
-import { Parser } from '~/parser/parser';
+import { parse } from '~/parser/parser';
 import { NodeType } from '../node-type';
 
 test('empty object', () => {
   const text = '{}';
-  const parser = new Parser(text);
-  const nodes = parser.parse();
+  const nodes = parse(text).root.children;
   const tree = nodes[0];
 
   expect(nodes.length).toBe(1);

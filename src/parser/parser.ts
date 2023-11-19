@@ -1,5 +1,4 @@
-import { Issue } from '~/issue/issue';
-import { Boolean2, String2 } from '~/lib/core';
+import { Boolean2, Integer, String2 } from '~/lib/core';
 import { scanCloseNode } from '~/parser/node/close/close-node';
 import { scanCommaNode } from '~/parser/node/comma/comma-node';
 import { scanGroupNode } from '~/parser/node/group/group-node';
@@ -8,18 +7,19 @@ import { scanIntegerNode } from '~/parser/node/integer/integer-node';
 import { JoiningNode, scanJoiningNode } from '~/parser/node/joining/joining-node';
 import { scanNlNode } from '~/parser/node/nl/nl-node';
 import { Node } from '~/parser/node/node';
-import { nodePosition } from '~/parser/node/node-position';
+import { textPosition, textRange } from '~/parser/node/node-position';
 import { scanOperatorNode } from '~/parser/node/operator/operator-node';
 import { scanStringNode } from '~/parser/node/string/string-node';
 import { scanUnknownNode } from '~/parser/node/unknown/unknown-node';
 import { scanWhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
-import { putBodyNode } from '~/parser/util/put-body-node';
+import { putStatementNode } from '~/parser/util/put-body-node';
 import { NodeType } from './node/node-type';
 import { TokenNode } from './node/token-node';
+import { ParserContext, parserContext } from './parser-context';
 import { is } from './util/is';
 
-type NodeScanResult = Partial<TokenNode> | null;
-type NodeScanFn = (parser: Parser) => NodeScanResult;
+// todo remove partial if possible
+type NodeScanFn = (parser: ParserContext) => Partial<TokenNode> | null;
 type BreakFn = (node: Node) => Boolean2;
 
 const nodeScanFunctions: NodeScanFn[] = [
@@ -36,95 +36,82 @@ const nodeScanFunctions: NodeScanFn[] = [
   scanUnknownNode,
 ];
 
-export class Parser {
-  public hidden: Node[] = [];
-  public issues: Issue[] = [];
+export function parse(text: String2): ParserContext {
+  return parseUntil(text, 0, null);
+}
 
-  public index = 0;
-  public row = 0;
-  public column = 0;
-  public lastStatementNodes: Node[] = [];
-  public breakNode: Node | null = null;
+export function parseUntil(text: String2, index: Integer, breakFn: BreakFn | null): ParserContext {
+  const context = parserContext(text, index);
 
-  public constructor(public text: String2) {}
+  while (context.index < context.text.length) {
+    const node = nextNode(context);
 
-  public parse(): Node[] {
-    return this.parseUntil(null);
-  }
+    if (breakFn && breakFn(node)) {
+      context.breakNode = node;
 
-  public parseUntil(breakFn: BreakFn | null): Node[] {
-    const bodyNodes: Node[] = [];
-    let lastBodyNode: Node | null = null;
-    let nodes: Node[] = [];
-
-    this.lastStatementNodes = nodes;
-    this.breakNode = null;
-
-    while (this.index < this.text.length) {
-      const node = this.nextNode();
-
-      if (breakFn && breakFn(node)) {
-        this.breakNode = node;
-
-        break;
-      }
-
-      if (is(node, NodeType.WHITESPACE)) {
-        this.hidden.push(node);
-
-        continue;
-      }
-
-      if (is<JoiningNode>(node, NodeType.JOINING)) {
-        this.hidden.push(node);
-        this.row += 1;
-        this.column = 0;
-
-        continue;
-      }
-
-      if (is(node, NodeType.NL)) {
-        this.hidden.push(node);
-        this.row += 1;
-        this.column = 0;
-
-        lastBodyNode = putBodyNode(this, bodyNodes, lastBodyNode, nodes);
-        nodes = [];
-
-        continue;
-      }
-
-      nodes.push(node);
+      break;
     }
 
-    lastBodyNode = putBodyNode(this, bodyNodes, lastBodyNode, nodes);
+    if (is(node, NodeType.WHITESPACE)) {
+      context.hidden.push(node);
 
-    return bodyNodes;
-  }
-
-  public nextNode(): Node {
-    for (const nodeScan of nodeScanFunctions) {
-      const node = nodeScan(this);
-
-      if (node) {
-        const anyNode = node as Node & { text?: String2 };
-
-        if (anyNode.text) {
-          anyNode.start = nodePosition(this.index, this.row, this.column);
-
-          const stopIndex = this.index + anyNode.text.length - 1;
-          const stopColumn = this.column + anyNode.text.length - 1;
-          anyNode.stop = nodePosition(stopIndex, this.row, stopColumn);
-
-          this.column += stopColumn + 1;
-        }
-
-        this.index = anyNode.stop.index + 1;
-
-        return anyNode;
-      }
+      continue;
     }
 
-    throw new Error('Not implemented');
+    if (is<JoiningNode>(node, NodeType.JOINING)) {
+      context.hidden.push(node);
+      context.line += 1;
+      context.column = 0;
+
+      continue;
+    }
+
+    if (is(node, NodeType.NL)) {
+      context.hidden.push(node);
+      context.line += 1;
+      context.column = 0;
+
+      context.lastStatementNode = putStatementNode(context);
+      context.lastStatementNodes = [];
+
+      continue;
+    }
+
+    context.lastStatementNodes.push(node);
+  }
+
+  context.lastStatementNode = putStatementNode(context);
+
+  return context;
+}
+
+export function nextNode(context: ParserContext): Node {
+  for (const nodeScan of nodeScanFunctions) {
+    const node = nodeScan(context);
+
+    if (node) {
+      setNodeRange(node, context);
+
+      if (node.range) {
+        context.index = node.range.stop.index + 1;
+
+        return node as Node;
+      }
+    }
+  }
+
+  throw new Error('Not implemented');
+}
+
+export function setNodeRange(node: Partial<TokenNode>, context: ParserContext): void {
+  if (node.text) {
+    const start = textPosition(context.index, context.line, context.column);
+
+    const stopIndex = context.index + node.text.length - 1;
+    const stopColumn = context.column + node.text.length - 1;
+    const stop = textPosition(stopIndex, context.line, stopColumn);
+
+    node.range = textRange(start, stop);
+    context.column += stopColumn + 1;
   }
 }
