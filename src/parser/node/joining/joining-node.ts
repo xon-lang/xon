@@ -1,7 +1,7 @@
 import { String2 } from '~/lib/core';
+import { ParserContext } from '~/parser/parser-context';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
-import { ParserContext } from '~/parser/parser-context';
 
 export interface JoiningNode extends TokenNode {
   $: NodeType.JOINING;

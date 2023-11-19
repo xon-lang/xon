@@ -1,5 +1,6 @@
 import { String2 } from '~/lib/core';
 import { ParserContext } from '~/parser/parser-context';
+import { QUOTE } from '~/parser/util/operators';
 import { Type } from '~/type/type';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
@@ -15,8 +16,6 @@ export function stringNode(text: String2): Partial<StringNode> {
     text,
   };
 }
-
-const QUOTE = '\'';
 
 export function scanStringNode({ index, source }: ParserContext): Partial<StringNode> | null {
   if (source.text[index] === QUOTE) {

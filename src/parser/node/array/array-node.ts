@@ -5,10 +5,6 @@ import { rangeFromNodes } from '../../../source/source-range';
 import { Node } from '../node';
 import { NodeType } from '../node-type';
 
-export const ARRAY_NODE_OPEN = '[';
-
-export const ARRAY_NODE_CLOSE = ']';
-
 export interface ArrayNode extends Node {
   $: NodeType.ARRAY;
   open: OpenNode;

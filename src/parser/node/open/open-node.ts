@@ -1,9 +1,7 @@
 import { String2 } from '~/lib/core';
-import { ARRAY_NODE_OPEN } from '~/parser/node/array/array-node';
-import { GROUP_NODE_OPEN } from '~/parser/node/group/group-node';
-import { OBJECT_NODE_OPEN } from '~/parser/node/object/object-node';
 import { TokenNode } from '~/parser/node/token-node';
 import { ParserContext } from '~/parser/parser-context';
+import { ARRAY_NODE_OPEN, GROUP_NODE_OPEN, OBJECT_NODE_OPEN } from '~/parser/util/operators';
 import { NodeType } from '../node-type';
 
 export interface OpenNode extends TokenNode {

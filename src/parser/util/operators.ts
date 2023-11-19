@@ -19,19 +19,46 @@ export enum RecursiveType {
   RIGHT = 1,
 }
 
+export const GROUP_NODE_OPEN = '(';
+
+export const GROUP_NODE_CLOSE = ')';
+
+export const ARRAY_NODE_OPEN = '[';
+
+export const ARRAY_NODE_CLOSE = ']';
+
+export const OBJECT_NODE_OPEN = '{';
+
+export const OBJECT_NODE_CLOSE = '}';
+
+export const QUOTE = "'";
+
 export const TYPE_TOKEN = ':';
+
 export const ASSIGN_TOKEN = '=';
+
 export const MEMBER_TOKEN = '.';
+
 export const META_MEMBER_TOKEN = '::';
+
 export const DIGITS = '0123456789';
+
 export const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
 export const DIGITS_LETTERS = DIGITS + LETTERS;
+
 export const MODEL_MODIFIER = 'model';
+
 export const CONST_MODIFIER = 'const';
+
 export const VAR_MODIFIER = 'var';
+
 export const PREFIX_MODIFIER = 'prefix';
+
 export const POSTFIX_MODIFIER = 'postfix';
+
 export const INFIX_MODIFIER = 'infix';
+
 export const MODIFIERS = [
   MODEL_MODIFIER,
   CONST_MODIFIER,

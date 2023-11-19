@@ -5,10 +5,6 @@ import { rangeFromNodes } from '../../../source/source-range';
 import { Node } from '../node';
 import { NodeType } from '../node-type';
 
-export const OBJECT_NODE_OPEN = '{';
-
-export const OBJECT_NODE_CLOSE = '}';
-
 export interface ObjectNode extends Node {
   $: NodeType.OBJECT;
   open: OpenNode;

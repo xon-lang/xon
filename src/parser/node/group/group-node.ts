@@ -1,20 +1,24 @@
 import '~/extensions';
-import { ARRAY_NODE_CLOSE, ARRAY_NODE_OPEN, ArrayNode, arrayNode } from '~/parser/node/array/array-node';
+import { ArrayNode, arrayNode } from '~/parser/node/array/array-node';
 import { CloseNode } from '~/parser/node/close/close-node';
 import { CommaNode } from '~/parser/node/comma/comma-node';
-import { OBJECT_NODE_CLOSE, OBJECT_NODE_OPEN, ObjectNode, objectNode } from '~/parser/node/object/object-node';
+import { ObjectNode, objectNode } from '~/parser/node/object/object-node';
 import { OpenNode, scanOpenNode } from '~/parser/node/open/open-node';
 import { parseUntil } from '~/parser/parser';
 import { ParserContext } from '~/parser/parser-context';
 import { is } from '~/parser/util/is';
+import {
+  ARRAY_NODE_CLOSE,
+  ARRAY_NODE_OPEN,
+  GROUP_NODE_CLOSE,
+  GROUP_NODE_OPEN,
+  OBJECT_NODE_CLOSE,
+  OBJECT_NODE_OPEN,
+} from '~/parser/util/operators';
 import { sourcePosition } from '../../../source/source-position';
 import { rangeFromNodes, sourceRange } from '../../../source/source-range';
 import { Node } from '../node';
 import { NodeType } from '../node-type';
-
-export const GROUP_NODE_OPEN = '(';
-
-export const GROUP_NODE_CLOSE = ')';
 
 export interface GroupNode extends Node {
   $: NodeType.GROUP;

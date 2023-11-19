@@ -1,8 +1,6 @@
 import { String2 } from '~/lib/core';
-import { ARRAY_NODE_CLOSE } from '~/parser/node/array/array-node';
-import { GROUP_NODE_CLOSE } from '~/parser/node/group/group-node';
-import { OBJECT_NODE_CLOSE } from '~/parser/node/object/object-node';
 import { ParserContext } from '~/parser/parser-context';
+import { ARRAY_NODE_CLOSE, GROUP_NODE_CLOSE, OBJECT_NODE_CLOSE } from '~/parser/util/operators';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
