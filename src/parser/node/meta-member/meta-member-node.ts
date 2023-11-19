@@ -1,7 +1,7 @@
 import { IdNode } from '~/parser/node/id/id-node';
 import { Node } from '~/parser/node/node';
-import { textRangeFromNodes } from '~/parser/node/node-position';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
+import { rangeFromNodes } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 
 export interface MetaMemberNode extends Node {
@@ -14,7 +14,7 @@ export interface MetaMemberNode extends Node {
 export function metaMemberNode(instance: Node, operator: OperatorNode, id: IdNode): MetaMemberNode {
   return {
     $: NodeType.META_MEMBER,
-    range: textRangeFromNodes(instance, id),
+    range: rangeFromNodes(instance, id),
     operator,
     instance,
     id,

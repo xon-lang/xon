@@ -2,12 +2,13 @@ import '~/extensions';
 import { ARRAY_NODE_CLOSE, ARRAY_NODE_OPEN, ArrayNode, arrayNode } from '~/parser/node/array/array-node';
 import { CloseNode } from '~/parser/node/close/close-node';
 import { CommaNode } from '~/parser/node/comma/comma-node';
-import { textPosition, textRange, textRangeFromNodes } from '~/parser/node/node-position';
 import { OBJECT_NODE_CLOSE, OBJECT_NODE_OPEN, ObjectNode, objectNode } from '~/parser/node/object/object-node';
 import { OpenNode, scanOpenNode } from '~/parser/node/open/open-node';
 import { parseUntil } from '~/parser/parser';
 import { ParserContext } from '~/parser/parser-context';
 import { is } from '~/parser/util/is';
+import { sourcePosition } from '../../../source/source-position';
+import { rangeFromNodes, sourceRange } from '../../../source/source-range';
 import { Node } from '../node';
 import { NodeType } from '../node-type';
 
@@ -27,7 +28,7 @@ export function groupNode(open: OpenNode, close: CloseNode | null, items: Node[]
 
   return {
     $: NodeType.GROUP,
-    range: textRangeFromNodes(open, close ?? last ?? open),
+    range: rangeFromNodes(open, close ?? last ?? open),
     open,
     close,
     items,
@@ -41,22 +42,22 @@ const OPEN_CLOSE = {
 } as const;
 
 export function scanGroupNode(context: ParserContext): GroupNode | ObjectNode | ArrayNode | null {
-  const { text, index, line, column } = context;
+  const { source, index, line, column } = context;
   const open = scanOpenNode(context);
 
   if (!is<OpenNode>(open, NodeType.OPEN)) {
     return null;
   }
 
-  open.range = textRange(textPosition(index, line, column), textPosition(index, line, column));
+  open.range = sourceRange(sourcePosition(index, line, column), sourcePosition(index, line, column));
 
   const items: Node[] = [];
 
   context.index += open.text.length;
 
-  while (context.index < text.length) {
+  while (context.index < source.text.length) {
     const groupContext = parseUntil(
-      context.text,
+      context.source,
       context.index,
       (node) =>
         is<CommaNode>(node, NodeType.COMMA) ||

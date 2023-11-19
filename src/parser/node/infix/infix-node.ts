@@ -1,6 +1,6 @@
 import { Node } from '~/parser/node/node';
-import { textRangeFromNodes } from '~/parser/node/node-position';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
+import { rangeFromNodes } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 
 export interface InfixNode extends Node {
@@ -13,7 +13,7 @@ export interface InfixNode extends Node {
 export function infixNode(operator: OperatorNode, left: Node, right: Node): InfixNode {
   return {
     $: NodeType.INFIX,
-    range: textRangeFromNodes(left, right),
+    range: rangeFromNodes(left, right),
     operator,
     left,
     right,

@@ -18,15 +18,15 @@ export function stringNode(text: String2): Partial<StringNode> {
 
 const QUOTE = '\'';
 
-export function scanStringNode({ index, text }: ParserContext): Partial<StringNode> | null {
-  if (text[index] === QUOTE) {
-    const nextQuoteIndex = text.indexOf(QUOTE, index + 1);
+export function scanStringNode({ index, source }: ParserContext): Partial<StringNode> | null {
+  if (source.text[index] === QUOTE) {
+    const nextQuoteIndex = source.text.indexOf(QUOTE, index + 1);
 
     if (nextQuoteIndex < 0) {
-      return stringNode(text.slice(index, text.length));
+      return stringNode(source.text.slice(index, source.text.length));
     }
 
-    return stringNode(text.slice(index, nextQuoteIndex + 1));
+    return stringNode(source.text.slice(index, nextQuoteIndex + 1));
   }
 
   return null;

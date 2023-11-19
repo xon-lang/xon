@@ -1,10 +1,11 @@
 import { Issue } from '~/issue/issue';
-import { Integer, String2 } from '~/lib/core';
+import { Integer } from '~/lib/core';
 import { Node } from '~/parser/node/node';
 import { RootNode, rootNode } from '~/parser/node/root/root-node';
+import { Source } from '~/source/source';
 
 export interface ParserContext {
-  text: String2;
+  source: Source;
   index: Integer;
   line: Integer;
   column: Integer;
@@ -16,9 +17,9 @@ export interface ParserContext {
   root: RootNode;
 }
 
-export function parserContext(text: String2, index: Integer): ParserContext {
+export function parserContext(source: Source, index: Integer): ParserContext {
   return {
-    text,
+    source,
     index,
     line: 0,
     column: 0,

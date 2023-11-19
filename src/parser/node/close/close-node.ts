@@ -17,11 +17,11 @@ export function closeNode(text: String2): Partial<CloseNode> {
   };
 }
 
-export function scanCloseNode({ index, text }: ParserContext): Partial<CloseNode> | null {
+export function scanCloseNode({ index, source }: ParserContext): Partial<CloseNode> | null {
   const CLOSE = GROUP_NODE_CLOSE + OBJECT_NODE_CLOSE + ARRAY_NODE_CLOSE;
 
-  if (CLOSE.includes(text[index])) {
-    return closeNode(text[index]);
+  if (CLOSE.includes(source.text[index])) {
+    return closeNode(source.text[index]);
   }
 
   return null;

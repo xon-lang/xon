@@ -14,6 +14,6 @@ export function unknownNode(text: String2): Partial<UnknownNode> {
   };
 }
 
-export function scanUnknownNode({ index, text }: ParserContext): Partial<UnknownNode> | null {
-  return unknownNode(text[index]);
+export function scanUnknownNode({ index, source }: ParserContext): Partial<UnknownNode> | null {
+  return unknownNode(source.text[index]);
 }

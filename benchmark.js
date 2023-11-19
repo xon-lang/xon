@@ -13,13 +13,27 @@ const timer = function (name) {
   };
 };
 
+
+const a = 'abc'
+const b = Array.from('abc').map(x=>x.charCodeAt(0))
+
+let aa = null
+let bb = null
+
+
 console.clear();
-for (let times = 0; times < 100; times++) {
-  // const test1 = timer('text ');
-  // for (let i = 0; i < iterationCount; i++) {
-  //   const value = text[index];
-  // }
-  // test1.stop();
+for (let times = 0; times < 10; times++) {
+  const test1 = timer('a ');
+  for (let i = 0; i < iterationCount; i++) {
+   aa= a[1]
+  }
+  test1.stop();
+  
+  const test2 = timer('b ');
+  for (let i = 0; i < iterationCount; i++) {
+   bb= b[1]
+  }
+  test2.stop();
 
 
   console.log('--------------------');

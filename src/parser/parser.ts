@@ -7,18 +7,19 @@ import { scanIntegerNode } from '~/parser/node/integer/integer-node';
 import { JoiningNode, scanJoiningNode } from '~/parser/node/joining/joining-node';
 import { scanNlNode } from '~/parser/node/nl/nl-node';
 import { Node } from '~/parser/node/node';
-import { textPosition, textRange } from '~/parser/node/node-position';
 import { scanOperatorNode } from '~/parser/node/operator/operator-node';
 import { scanStringNode } from '~/parser/node/string/string-node';
 import { scanUnknownNode } from '~/parser/node/unknown/unknown-node';
 import { scanWhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
 import { putStatementNode } from '~/parser/util/put-body-node';
+import { Source, createSource } from '~/source/source';
+import { sourcePosition } from '../source/source-position';
+import { sourceRange } from '../source/source-range';
 import { NodeType } from './node/node-type';
 import { TokenNode } from './node/token-node';
 import { ParserContext, parserContext } from './parser-context';
 import { is } from './util/is';
 
-// todo remove partial if possible
 type NodeScanFn = (parser: ParserContext) => Partial<TokenNode> | null;
 type BreakFn = (node: Node) => Boolean2;
 
@@ -37,13 +38,15 @@ const nodeScanFunctions: NodeScanFn[] = [
 ];
 
 export function parse(text: String2): ParserContext {
-  return parseUntil(text, 0, null);
+  const source = createSource('', text);
+
+  return parseUntil(source, 0, null);
 }
 
-export function parseUntil(text: String2, index: Integer, breakFn: BreakFn | null): ParserContext {
-  const context = parserContext(text, index);
+export function parseUntil(source: Source, index: Integer, breakFn: BreakFn | null): ParserContext {
+  const context = parserContext(source, index);
 
-  while (context.index < context.text.length) {
+  while (context.index < context.source.text.length) {
     const node = nextNode(context);
 
     if (breakFn && breakFn(node)) {
@@ -105,13 +108,13 @@ export function nextNode(context: ParserContext): Node {
 
 export function setNodeRange(node: Partial<TokenNode>, context: ParserContext): void {
   if (node.text) {
-    const start = textPosition(context.index, context.line, context.column);
+    const start = sourcePosition(context.index, context.line, context.column);
 
     const stopIndex = context.index + node.text.length - 1;
     const stopColumn = context.column + node.text.length - 1;
-    const stop = textPosition(stopIndex, context.line, stopColumn);
+    const stop = sourcePosition(stopIndex, context.line, stopColumn);
 
-    node.range = textRange(start, stop);
+    node.range = sourceRange(start, stop);
     context.column += stopColumn + 1;
   }
 }

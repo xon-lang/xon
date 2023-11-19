@@ -1,6 +1,6 @@
 import { Node } from '~/parser/node/node';
-import { textRangeFromNodes } from '~/parser/node/node-position';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
+import { rangeFromNodes } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 
 export interface PrefixNode extends Node {
@@ -12,7 +12,7 @@ export interface PrefixNode extends Node {
 export function prefixNode(operator: OperatorNode, value: Node): PrefixNode {
   return {
     $: NodeType.PREFIX,
-    range: textRangeFromNodes(operator, value),
+    range: rangeFromNodes(operator, value),
     operator,
     value,
   };

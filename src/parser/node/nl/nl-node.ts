@@ -18,13 +18,13 @@ const CR = '\r';
 const LF = '\n';
 const CRLF = CR + LF;
 
-export function scanNlNode({ text, index }: ParserContext): Partial<NlNode> | null {
-  if (text[index] === LF) {
+export function scanNlNode({ source, index }: ParserContext): Partial<NlNode> | null {
+  if (source.text[index] === LF) {
     return nlNode(LF);
   }
 
-  if (text[index] === CR) {
-    if (text[index + 1] === LF) {
+  if (source.text[index] === CR) {
+    if (source.text[index + 1] === LF) {
       return nlNode(CRLF);
     }
 

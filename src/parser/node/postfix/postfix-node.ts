@@ -1,6 +1,6 @@
 import { Node } from '~/parser/node/node';
-import { textRangeFromNodes } from '~/parser/node/node-position';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
+import { rangeFromNodes } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 
 export interface PostfixNode extends Node {
@@ -12,7 +12,7 @@ export interface PostfixNode extends Node {
 export function postfixNode(operator: OperatorNode, value: Node): PostfixNode {
   return {
     $: NodeType.POSTFIX,
-    range: textRangeFromNodes(value, operator),
+    range: rangeFromNodes(value, operator),
     operator,
     value,
   };

@@ -17,18 +17,18 @@ export function whitespaceNode(text: String2): Partial<WhitespaceNode> {
 const SPACE = ' ';
 const TAB = '\t';
 
-export function scanWhitespaceNode({ text, index }: ParserContext): Partial<WhitespaceNode> | null {
-  if (text[index] !== SPACE && text[index] !== TAB) {
+export function scanWhitespaceNode({ source, index }: ParserContext): Partial<WhitespaceNode> | null {
+  if (source.text[index] !== SPACE && source.text[index] !== TAB) {
     return null;
   }
 
-  for (let i = index + 1; i < text.length; i++) {
-    const nextChar = text[i];
+  for (let i = index + 1; i < source.text.length; i++) {
+    const nextChar = source.text[i];
 
     if (nextChar !== SPACE && nextChar !== TAB) {
-      return whitespaceNode(text.slice(index, i));
+      return whitespaceNode(source.text.slice(index, i));
     }
   }
 
-  return whitespaceNode(text.slice(index, text.length));
+  return whitespaceNode(source.text.slice(index, source.text.length));
 }

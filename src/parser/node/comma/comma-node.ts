@@ -15,8 +15,8 @@ export function commaNode(): Partial<CommaNode> {
   };
 }
 
-export function scanCommaNode({ index, text }: ParserContext): Partial<CommaNode> | null {
-  if (text[index] === COMMA) {
+export function scanCommaNode({ index, source }: ParserContext): Partial<CommaNode> | null {
+  if (source.text[index] === COMMA) {
     return {
       $: NodeType.COMMA,
       text: COMMA,

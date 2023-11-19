@@ -2,8 +2,8 @@ import { AssignNode } from '~/parser/node/assign/assign-node';
 import { IdNode } from '~/parser/node/id/id-node';
 import { ModifierNode } from '~/parser/node/modifier/modifier-node';
 import { Node } from '~/parser/node/node';
-import { textRangeFromNodes } from '~/parser/node/node-position';
 import { ParametersNode } from '~/parser/node/parameters/parameters-node';
+import { rangeFromNodes } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 
 export interface AttributeNode extends Node {
@@ -25,7 +25,7 @@ export function attributeNode(
 ): AttributeNode {
   return {
     $: NodeType.ATTRIBUTE,
-    range: textRangeFromNodes(modifier ?? id, assign ?? parameters ?? type ?? id ?? modifier),
+    range: rangeFromNodes(modifier ?? id, assign ?? parameters ?? type ?? id ?? modifier),
     modifier,
     id,
     type,

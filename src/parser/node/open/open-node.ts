@@ -17,11 +17,11 @@ export function openNode(text: String2): Partial<OpenNode> {
   };
 }
 
-export function scanOpenNode({ text, index }: ParserContext): Partial<OpenNode> | null {
+export function scanOpenNode({ source, index }: ParserContext): Partial<OpenNode> | null {
   const OPEN = GROUP_NODE_OPEN + OBJECT_NODE_OPEN + ARRAY_NODE_OPEN;
 
-  if (OPEN.includes(text[index])) {
-    return openNode(text[index]);
+  if (OPEN.includes(source.text[index])) {
+    return openNode(source.text[index]);
   }
 
   return null;

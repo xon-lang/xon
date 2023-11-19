@@ -1,5 +1,5 @@
 import { Node } from '~/parser/node/node';
-import { textRangeFromNodes } from '~/parser/node/node-position';
+import { rangeFromNodes } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 
 export interface TypeNode extends Node {
@@ -11,7 +11,7 @@ export interface TypeNode extends Node {
 export function typeNode(operator: Node, value: Node): TypeNode {
   return {
     $: NodeType.TYPE,
-    range: textRangeFromNodes(operator, value),
+    range: rangeFromNodes(operator, value),
     operator,
     value,
   };

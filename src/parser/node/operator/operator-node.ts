@@ -26,8 +26,8 @@ const OPERATORS = [
 export function scanOperatorNode(
   context: ParserContext,
 ): Partial<OperatorNode | IdNode | ModifierNode | KeywordNode> | null {
-  const { index, text, lastStatementNodes } = context;
-  let operators = OPERATORS.filter((x) => x[0] === text[index]);
+  const { index, source, lastStatementNodes } = context;
+  let operators = OPERATORS.filter((x) => x[0] === source.text[index]);
 
   if (operators.length === 0) {
     return null;
@@ -35,8 +35,8 @@ export function scanOperatorNode(
 
   const candidates: String2[] = [];
 
-  for (let i = index; i < text.length; i++) {
-    operators = operators.filter((x) => x[i - index] === text[i]);
+  for (let i = index; i < source.text.length; i++) {
+    operators = operators.filter((x) => x[i - index] === source.text[i]);
     const candidate = operators.find((x) => x.length === i - index + 1);
 
     if (candidate) {

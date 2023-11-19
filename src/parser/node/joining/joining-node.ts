@@ -19,24 +19,24 @@ const CR = '\r';
 const LF = '\n';
 const WHITESPACE = ' \t';
 
-export function scanJoiningNode({ text, index }: ParserContext): Partial<JoiningNode> | null {
-  if (text[index] !== JOINING) {
+export function scanJoiningNode({ source, index }: ParserContext): Partial<JoiningNode> | null {
+  if (source.text[index] !== JOINING) {
     return null;
   }
 
   let nextIndex = index + 1;
 
-  for (; nextIndex < text.length; nextIndex++) {
-    if (WHITESPACE.includes(text[nextIndex])) {
+  for (; nextIndex < source.text.length; nextIndex++) {
+    if (WHITESPACE.includes(source.text[nextIndex])) {
       continue;
     }
 
-    if (text[nextIndex] === LF) {
+    if (source.text[nextIndex] === LF) {
       nextIndex += 1;
-    } else if (text[nextIndex] === CR) {
+    } else if (source.text[nextIndex] === CR) {
       nextIndex += 1;
 
-      if (text[nextIndex + 1] === LF) {
+      if (source.text[nextIndex + 1] === LF) {
         nextIndex += 1;
       }
     }
@@ -44,5 +44,5 @@ export function scanJoiningNode({ text, index }: ParserContext): Partial<Joining
     break;
   }
 
-  return joiningNode(text.slice(index, nextIndex));
+  return joiningNode(source.text.slice(index, nextIndex));
 }

@@ -18,11 +18,11 @@ const DIGITS = '0123456789';
 const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const DIGITS_LETTERS = DIGITS + LETTERS;
 
-export function scanIntegerNode({ text, index }: ParserContext): Partial<IntegerNode> | null {
-  if (DIGITS.includes(text[index])) {
-    const otherSymbols = text.takeWhile((x) => DIGITS_LETTERS.includes(x), index + 1);
+export function scanIntegerNode({ source, index }: ParserContext): Partial<IntegerNode> | null {
+  if (DIGITS.includes(source.text[index])) {
+    const otherSymbols = source.text.takeWhile((x) => DIGITS_LETTERS.includes(x), index + 1);
 
-    return integerNode(text[index] + otherSymbols);
+    return integerNode(source.text[index] + otherSymbols);
   }
 
   return null;

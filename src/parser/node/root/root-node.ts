@@ -1,5 +1,5 @@
 import { Node } from '~/parser/node/node';
-import { zeroRange } from '~/parser/node/node-position';
+import { zeroRange } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 
 export interface RootNode extends Node {
