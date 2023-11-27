@@ -1,18 +1,23 @@
-import { Node } from '~/parser/node/node';
-import { rangeFromNodes } from '../../../source/source-range';
+import { Node, addNodeChildren } from '~/parser/node/node';
+import { OperatorNode } from '~/parser/node/operator/operator-node';
+import { rangeFromNodes } from '~/source/source-range';
 import { NodeType } from '../node-type';
 
 export interface AssignNode extends Node {
   $: NodeType.ASSIGN;
-  operator: Node;
-  value: Node;
+  operator: OperatorNode;
+  value: Node | null;
 }
 
-export function assignNode(operator: Node, value: Node): AssignNode {
-  return {
+export function assignNode(operator: OperatorNode, value: Node | null): AssignNode {
+  const node: AssignNode = {
     $: NodeType.ASSIGN,
-    range: rangeFromNodes(operator, value),
+    range: rangeFromNodes(operator, value ?? operator),
     operator,
     value,
   };
+
+  addNodeChildren(node, operator, value);
+
+  return node;
 }
