@@ -15,11 +15,5 @@ export function getSyntacticNode(context: ParserContext, parent: Node | null): N
 
   const node = context.lastStatementNodes[0];
 
-  if (parent) {
-    node.parent = parent;
-    parent.children ||= [];
-    parent.children.push(node);
-  }
-
   return node;
 }

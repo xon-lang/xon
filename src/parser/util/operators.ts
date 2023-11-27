@@ -31,7 +31,9 @@ export const OBJECT_NODE_OPEN = '{';
 
 export const OBJECT_NODE_CLOSE = '}';
 
-export const QUOTE = "'";
+export const STRING_QUOTE = '"';
+
+export const CHAR_QUOTE = "'";
 
 export const TYPE_TOKEN = ':';
 

@@ -16,14 +16,14 @@ export function collapseDeclaration(nodes: Node[], parent: Node | null): void {
 
   if (is<ModifierNode>(firstNode, NodeType.MODIFIER)) {
     if (firstNode.text === MODEL_MODIFIER) {
-      collapseModelNode(firstNode, nodes);
+      collapseModelNode(firstNode, nodes, parent);
     }
   } else if (is(parent, NodeType.MODEL)) {
-    collapseAttributeNode(nodes);
+    collapseAttributeNode(nodes, parent);
   }
 }
 
-function collapseAttributeNode(nodes: Node[]): void {
+function collapseAttributeNode(nodes: Node[], parent: Node | null): void {
   const { id, parameters, type, assign } = idParametersTypeValue(nodes[0]);
 
   if (id) {
@@ -36,18 +36,14 @@ function collapseAttributeNode(nodes: Node[]): void {
   throw new Error('Not implemented');
 }
 
-function collapseModelNode(modifier: ModifierNode, nodes: Node[]): void {
+function collapseModelNode(modifier: ModifierNode, nodes: Node[], parent: Node | null): void {
   const { id, type } = idParametersTypeValue(nodes[1]);
 
-  if (id && type) {
-    nodes[0] = modelNode(modifier, id, type);
-    nodes.splice(1, 1);
-
-    return;
-  }
-
   if (id) {
-    nodes[0] = modelNode(modifier, id, null);
+    const model = modelNode(modifier, id, type ?? null);
+    model.parent?.declarations?.push(model);
+
+    nodes[0] = model;
     nodes.splice(1, 1);
 
     return;

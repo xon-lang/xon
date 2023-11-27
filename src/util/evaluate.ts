@@ -1,4 +1,5 @@
 import { String2, Unknown2 } from '~/lib/core';
+import { CharNode } from '~/parser/node/char/char-node';
 import { GroupNode } from '~/parser/node/group/group-node';
 import { IdNode } from '~/parser/node/id/id-node';
 import { InfixNode } from '~/parser/node/infix/infix-node';
@@ -26,7 +27,7 @@ export function evaluate(node: Node | null, argsMap = {}): Unknown2 {
     return Number(node.text);
   }
 
-  if (is<StringNode>(node, NodeType.STRING)) {
+  if (is<StringNode>(node, NodeType.STRING) || is<CharNode>(node, NodeType.CHAR)) {
     return node.text.slice(1, -1);
   }
 

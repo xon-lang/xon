@@ -1,6 +1,7 @@
 import { createErrorIssue } from '~/issue/issue';
 import { issueMessage } from '~/issue/issue-message';
 import { Boolean2, Integer, String2 } from '~/lib/core';
+import { scanCharNode } from '~/parser/node/char/char-node';
 import { scanCloseNode } from '~/parser/node/close/close-node';
 import { scanCommaNode } from '~/parser/node/comma/comma-node';
 import { scanGroupNode } from '~/parser/node/group/group-node';
@@ -13,7 +14,7 @@ import { scanOperatorNode } from '~/parser/node/operator/operator-node';
 import { scanStringNode } from '~/parser/node/string/string-node';
 import { scanUnknownNode } from '~/parser/node/unknown/unknown-node';
 import { scanWhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
-import { putStatementNode } from '~/parser/util/put-body-node';
+import { putStatementNode } from '~/parser/util/put-statement-node';
 import { Source, createSource } from '~/source/source';
 import { sourcePosition } from '../source/source-position';
 import { sourceRange } from '../source/source-range';
@@ -28,6 +29,7 @@ type BreakFn = (node: Node) => Boolean2;
 const nodeScanFunctions: NodeScanFn[] = [
   scanIntegerNode,
   scanStringNode,
+  scanCharNode,
   scanNlNode,
   scanGroupNode,
   scanCloseNode,
@@ -72,7 +74,10 @@ export function parseUntil(source: Source, index: Integer, breakFn: BreakFn | nu
     if (is(node, NodeType.NL)) {
       putHiddenNode(context, node);
 
-      context.lastStatementNode = putStatementNode(context);
+      if (context.lastStatementNodes.length > 0) {
+        context.lastStatement = putStatementNode(context);
+      }
+
       context.lastStatementNodes = [];
 
       continue;
@@ -87,7 +92,9 @@ export function parseUntil(source: Source, index: Integer, breakFn: BreakFn | nu
     context.lastStatementNodes.push(node);
   }
 
-  context.lastStatementNode = putStatementNode(context);
+  if (context.lastStatementNodes.length > 0) {
+    context.lastStatement = putStatementNode(context);
+  }
 
   return context;
 }
