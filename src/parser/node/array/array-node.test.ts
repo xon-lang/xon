@@ -131,7 +131,8 @@ test('array on several lines', () => {
                 2+2
                 3,
      4,    6+6]`;
-  const nodes = parse(text).root.children;
+  const context = parse(text);
+  const nodes = context.root.children;
 
   expect(nodes.length).toBe(1);
 

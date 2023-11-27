@@ -66,7 +66,7 @@ test('several operands with different priorities', () => {
 // });
 
 test('num plus str', () => {
-  const text = '1  + \'str\'';
+  const text = '1  + "str"';
   const nodes = parse(text).root.children;
   const node = nodes[0] as InfixNode;
 

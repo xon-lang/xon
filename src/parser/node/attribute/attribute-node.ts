@@ -13,7 +13,6 @@ export interface AttributeNode extends Node {
   parameters: ParametersNode | null;
   type: Node | null;
   assign: AssignNode | null;
-  children: Node[];
 }
 
 export function attributeNode(
@@ -23,14 +22,18 @@ export function attributeNode(
   type: Node | null,
   assign: AssignNode | null,
 ): AttributeNode {
-  return {
+  const node: AttributeNode = {
     $: NodeType.ATTRIBUTE,
     range: rangeFromNodes(modifier ?? id, assign ?? parameters ?? type ?? id ?? modifier),
+    parent: id.parent,
     modifier,
     id,
     type,
     parameters,
     assign,
-    children: [],
   };
+
+  id.parent?.declarations?.push(node);
+
+  return node;
 }

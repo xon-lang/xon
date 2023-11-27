@@ -15,12 +15,17 @@ export interface ModelNode extends Node {
 }
 
 export function modelNode(modifier: ModifierNode, id: IdNode, base: TypeNode | null): ModelNode {
-  return {
+  const node: ModelNode = {
     $: NodeType.MODEL,
     range: rangeFromNodes(modifier, base ?? id),
+    parent: id.parent,
+    children: [],
     modifier,
     id,
     base,
-    children: [],
   };
+
+  id.parent?.declarations?.push(node);
+
+  return node;
 }

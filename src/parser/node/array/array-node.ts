@@ -18,6 +18,7 @@ export function arrayNode(open: OpenNode, close: CloseNode | null, items: Node[]
   return {
     $: NodeType.ARRAY,
     range: rangeFromNodes(open, close ?? lastStatement ?? open),
+    parent: open.parent,
     open,
     close,
     items,
