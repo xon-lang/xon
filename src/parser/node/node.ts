@@ -8,3 +8,18 @@ export interface Node {
   children?: Node[] | null;
   declarations?: Node[] | null;
 }
+
+export function addNodeChildren(parent: Node, ...children: (Node | null)[]): void {
+  if (!parent.children) {
+    parent.children = [];
+  }
+
+  for (const node of children) {
+    if (!node) {
+      return;
+    }
+
+    parent.children.push(node);
+    node.parent = parent;
+  }
+}

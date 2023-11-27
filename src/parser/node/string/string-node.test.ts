@@ -4,7 +4,7 @@ import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
 test('string', () => {
-  const text = '\'abc   def\'';
+  const text = '"abc   def"';
   const nodes = parse(text).root.children as TokenNode[];
   const tree = nodes[0] as StringNode;
 
@@ -14,7 +14,7 @@ test('string', () => {
 });
 
 test('multiline string', () => {
-  const text = '\'some\nmultiline\n\t\n\t\nstring\n\'';
+  const text = '"some\nmultiline\n\t\n\t\nstring\n"';
   const nodes = parse(text).root.children as TokenNode[];
   const tree = nodes[0] as StringNode;
 
@@ -23,7 +23,7 @@ test('multiline string', () => {
 });
 
 test('empty string', () => {
-  const text = '\'\'';
+  const text = '"';
   const nodes = parse(text).root.children as TokenNode[];
   const tree = nodes[0] as StringNode;
 
@@ -32,10 +32,10 @@ test('empty string', () => {
 });
 
 test('not closed', () => {
-  const text = '\'abc';
+  const text = '"abc';
   const nodes = parse(text).root.children as TokenNode[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe(NodeType.STRING);
-  expect(nodes[0].text).toBe('\'abc');
+  expect(nodes[0].text).toBe('"abc');
 });

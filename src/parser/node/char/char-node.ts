@@ -1,24 +1,24 @@
 import { String2 } from '~/lib/core';
 import { ParserContext } from '~/parser/parser-context';
-import { STRING_QUOTE } from '~/parser/util/operators';
+import { CHAR_QUOTE, STRING_QUOTE } from '~/parser/util/operators';
 import { Type } from '~/type/type';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
-export interface StringNode extends TokenNode {
-  $: NodeType.STRING;
+export interface CharNode extends TokenNode {
+  $: NodeType.CHAR;
   type: Type;
 }
 
-export function stringNode(text: String2): Partial<StringNode> {
+export function stringNode(text: String2): Partial<CharNode> {
   return {
-    $: NodeType.STRING,
+    $: NodeType.CHAR,
     text,
   };
 }
 
-export function scanStringNode({ index, source }: ParserContext): Partial<StringNode> | null {
-  if (source.text[index] === STRING_QUOTE) {
+export function scanCharNode({ index, source }: ParserContext): Partial<CharNode> | null {
+  if (source.text[index] === CHAR_QUOTE) {
     const nextQuoteIndex = source.text.indexOf(STRING_QUOTE, index + 1);
 
     if (nextQuoteIndex < 0) {
