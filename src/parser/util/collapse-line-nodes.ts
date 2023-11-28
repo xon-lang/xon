@@ -1,8 +1,7 @@
 import { Node } from '~/parser/node/node';
+import { collapseOperator } from '~/parser/util/collapse-operator';
 import { OperatorType, operatorsOrders } from '~/parser/util/operators';
 import { collapseInvoke } from './collapse-invoke';
-import { collapseOperators } from './collapse-operators';
-import { findOperatorIndex } from './find-operator-index';
 
 export function collapseLineNodes(nodes: Node[]): void {
   for (const operatorsOrder of operatorsOrders) {
@@ -11,15 +10,9 @@ export function collapseLineNodes(nodes: Node[]): void {
     }
 
     for (const operators of operatorsOrder.operators) {
-      const operatorIndex = findOperatorIndex(
-        nodes,
-        operators,
-        operatorsOrder.operatorType,
-        operatorsOrder.recursiveType,
-      );
+      const node = collapseOperator(nodes, operators, operatorsOrder.operatorType, operatorsOrder.recursiveType);
 
-      if (operatorIndex >= 0) {
-        collapseOperators(nodes, operatorsOrder.operatorType, operatorIndex);
+      if (node) {
         collapseLineNodes(nodes);
       }
     }
