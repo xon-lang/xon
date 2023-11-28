@@ -1,4 +1,4 @@
-import { Node, addNodeChildren } from '~/parser/node/node';
+import { Node, addNodeParent } from '~/parser/node/node';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
 import { rangeFromNodes } from '~/source/source-range';
 import { NodeType } from '../node-type';
@@ -17,7 +17,7 @@ export function assignNode(operator: OperatorNode, value: Node | null): AssignNo
     value,
   };
 
-  addNodeChildren(node, operator, value);
+  addNodeParent(node, operator, value);
 
   return node;
 }

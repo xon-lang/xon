@@ -16,10 +16,20 @@ export function addNodeChildren(parent: Node, ...children: (Node | null)[]): voi
 
   for (const node of children) {
     if (!node) {
-      return;
+      continue;
     }
 
     parent.children.push(node);
+    node.parent = parent;
+  }
+}
+
+export function addNodeParent(parent: Node, ...children: (Node | null)[]): void {
+  for (const node of children) {
+    if (!node) {
+      continue;
+    }
+
     node.parent = parent;
   }
 }

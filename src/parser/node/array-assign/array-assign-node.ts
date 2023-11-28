@@ -1,6 +1,6 @@
 import { ArrayNode } from '~/parser/node/array/array-node';
 import { AssignNode } from '~/parser/node/assign/assign-node';
-import { Node, addNodeChildren } from '~/parser/node/node';
+import { Node, addNodeParent } from '~/parser/node/node';
 import { rangeFromNodes } from '~/source/source-range';
 import { NodeType } from '../node-type';
 
@@ -18,7 +18,7 @@ export function arrayAssignNode(assignee: ArrayNode, assign: AssignNode): ArrayA
     assign,
   };
 
-  addNodeChildren(node, assignee, assign);
+  addNodeParent(node, assignee, assign);
 
   return node;
 }

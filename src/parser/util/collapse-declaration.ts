@@ -1,3 +1,5 @@
+import { createErrorIssue } from '~/issue/issue';
+import { issueMessage } from '~/issue/issue-message';
 import { ArrayAssignNode, arrayAssignNode } from '~/parser/node/array-assign/array-assign-node';
 import { ArrayNode } from '~/parser/node/array/array-node';
 import { AssignNode, assignNode } from '~/parser/node/assign/assign-node';
@@ -13,13 +15,20 @@ import { ObjectAssignNode, objectAssignNode } from '~/parser/node/object-assign/
 import { ObjectNode } from '~/parser/node/object/object-node';
 import { ParametersNode } from '~/parser/node/parameters/parameters-node';
 import { TypeNode, typeNode } from '~/parser/node/type/type-node';
+import { ParserContext } from '~/parser/parser-context';
 import { is } from '~/parser/util/is';
 import { ASSIGN_TOKEN, MODEL_MODIFIER, TYPE_TOKEN } from '~/parser/util/operators';
 
-export function collapseDeclaration(nodes: Node[], parent: Node | null): void {
+export function collapseDeclaration(context: ParserContext, nodes: Node[], parent: Node | null): void {
   const firstNode = nodes[0];
 
   if (is<ModifierNode>(firstNode, NodeType.MODIFIER)) {
+    if (!is(nodes[1], NodeType.ID)) {
+      context.issues.push(createErrorIssue(firstNode, issueMessage.unexpectedNode));
+
+      return;
+    }
+
     if (firstNode.text === MODEL_MODIFIER) {
       const result = collapseModelNode(firstNode, nodes[1]);
 
@@ -115,7 +124,7 @@ function assigneeParametersTypeValue(node: Node): Partial<{
     return { ...assigneeType, assign };
   }
 
-  throw new Error('Not implemented');
+  return {};
 }
 
 function isAssigneeNode(node: Node): node is IdNode | ArrayNode | ObjectNode {

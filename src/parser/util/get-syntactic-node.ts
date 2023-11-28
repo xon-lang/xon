@@ -7,7 +7,7 @@ import { collapseLineNodes } from './collapse-line-nodes';
 
 export function getSyntacticNode(context: ParserContext, parent: Node | null): Node {
   collapseLineNodes(context.lastStatementNodes);
-  collapseDeclaration(context.lastStatementNodes, parent);
+  collapseDeclaration(context, context.lastStatementNodes, parent);
 
   context.lastStatementNodes
     .slice(1)

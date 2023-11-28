@@ -1,4 +1,4 @@
-import { Node, addNodeChildren } from '~/parser/node/node';
+import { Node, addNodeParent } from '~/parser/node/node';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
 import { rangeFromNodes } from '../../../source/source-range';
 import { NodeType } from '../node-type';
@@ -19,7 +19,7 @@ export function infixNode(operator: OperatorNode, left: Node, right: Node): Infi
     right,
   };
 
-  addNodeChildren(node, operator, left, right);
+  addNodeParent(node, operator, left, right);
 
   return node;
 }
