@@ -6,19 +6,19 @@ import { NodeType } from '../node-type';
 
 export interface ArrayAssignNode extends Node {
   $: NodeType.ARRAY_ASSIGN;
-  array: ArrayNode;
+  assignee: ArrayNode;
   assign: AssignNode;
 }
 
-export function arrayAssignNode(array: ArrayNode, assign: AssignNode): ArrayAssignNode {
+export function arrayAssignNode(assignee: ArrayNode, assign: AssignNode): ArrayAssignNode {
   const node: ArrayAssignNode = {
     $: NodeType.ARRAY_ASSIGN,
-    range: rangeFromNodes(array, assign),
-    array,
+    range: rangeFromNodes(assignee, assign),
+    assignee,
     assign,
   };
 
-  addNodeChildren(node, array, assign);
+  addNodeChildren(node, assignee, assign);
 
   return node;
 }

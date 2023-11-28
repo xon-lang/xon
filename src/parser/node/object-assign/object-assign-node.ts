@@ -6,19 +6,19 @@ import { NodeType } from '../node-type';
 
 export interface ObjectAssignNode extends Node {
   $: NodeType.OBJECT_ASSIGN;
-  object: ObjectNode;
+  assignee: ObjectNode;
   assign: AssignNode;
 }
 
-export function objectAssignNode(object: ObjectNode, assign: AssignNode): ObjectAssignNode {
+export function objectAssignNode(assignee: ObjectNode, assign: AssignNode): ObjectAssignNode {
   const node: ObjectAssignNode = {
     $: NodeType.OBJECT_ASSIGN,
-    range: rangeFromNodes(object, assign),
-    object,
+    range: rangeFromNodes(assignee, assign),
+    assignee,
     assign,
   };
 
-  addNodeChildren(node, object, assign);
+  addNodeChildren(node, assignee, assign);
 
   return node;
 }

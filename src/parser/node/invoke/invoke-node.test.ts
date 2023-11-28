@@ -29,9 +29,7 @@ test('method on several lines', () => {
 
   expect(node.$).toBe(NodeType.INVOKE);
   expect(node.group.items.length).toBe(4);
-  // eslint-disable-next-line prefer-destructuring
   const indexer1 = node.group.items[0];
-  // eslint-disable-next-line prefer-destructuring
   const indexer2 = node.group.items[1];
   expect(indexer1?.$).toBe(NodeType.INTEGER);
   expect(indexer2?.$).toBe(NodeType.STRING);

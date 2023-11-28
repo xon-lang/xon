@@ -16,6 +16,6 @@ test('abc attribute', () => {
   expect(tree.modifier?.text).toBe('model');
   expect(tree.id?.text).toBe('Abstract');
   expect((tree.base?.value as IdNode).text).toBe('Base');
-  expect(tree.children.length).toBe(1);
-  expect(tree.children.every((x) => is(x, NodeType.ATTRIBUTE))).toBe(true);
+  expect(tree.attributes.length).toBe(1);
+  expect(tree.attributes.every((x) => is(x, NodeType.ATTRIBUTE))).toBe(true);
 });
