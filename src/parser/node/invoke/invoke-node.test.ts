@@ -15,7 +15,7 @@ test('method call', () => {
   expect(node.group.items.length).toBe(2);
   expect(node.group.items[0]?.$).toBe(NodeType.INTEGER);
   expect((node.group.items[0] as IntegerNode).text).toBe('3');
-  expect(node.group.items[1]?.$).toBe(NodeType.STRING);
+  expect(node.group.items[1]?.$).toBe(NodeType.CHAR);
   expect((node.group.items[1] as IdNode).text).toBe('\'str\'');
   expect(node.instance.$).toBe(NodeType.ID);
 });
