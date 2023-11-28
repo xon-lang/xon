@@ -19,6 +19,20 @@ export enum RecursiveType {
   RIGHT = 1,
 }
 
+export const UPPER_A_CODE = 'A'.charCodeAt(0);
+
+export const UPPER_Z_CODE = 'Z'.charCodeAt(0);
+
+export const LOWER_A_CODE = 'a'.charCodeAt(0);
+
+export const LOWER_Z_CODE = 'z'.charCodeAt(0);
+
+export const DIGIT_0_CODE = '0'.charCodeAt(0);
+
+export const DIGIT_9_CODE = '9'.charCodeAt(0);
+
+export const UNDERSCORE_CODE = '_'.charCodeAt(0);
+
 export const GROUP_NODE_OPEN = '(';
 
 export const GROUP_NODE_CLOSE = ')';
@@ -42,12 +56,6 @@ export const ASSIGN_TOKEN = '=';
 export const MEMBER_TOKEN = '.';
 
 export const META_MEMBER_TOKEN = '::';
-
-export const DIGITS = '0123456789';
-
-export const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-export const DIGITS_LETTERS = DIGITS + LETTERS;
 
 export const MODEL_MODIFIER = 'model';
 
