@@ -10,7 +10,7 @@ test('a', () => {
 
   expect(nodes.length).toBe(1);
 
-  expect(tree.$).toBe(NodeType.OBJECT_ASSIGN);
+  expect(tree.$).toBe(NodeType.ARRAY_ASSIGN);
   expect(tree.assignee.items.length).toBe(1);
   expect((tree.assignee.items[0] as IdNode).text).toBe('a');
 });

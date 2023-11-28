@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 /* eslint-disable no-extend-native */
-import { Char, Integer, Number2, String2 } from '~/lib/core';
+import { Char, Number2, String2 } from '~/lib/core';
 
 // Array
 Array.prototype.takeWhile = function takeWhile<T>(
@@ -77,9 +77,9 @@ String.prototype.margin = function margin(delimiter?: String2): String2 {
   throw new Error('Not implemented');
 };
 
-String.prototype.toCharCodes = function toCharCodes(): Integer[] {
-  // const utf8Encoder = new TextEncoder();
+String.prototype.toCharCodes = function toCharCodes(): Uint8Array {
+  const utf8Encoder = new TextEncoder();
 
-  // return utf8Encoder.encode(this);
-  return Array.from(this).map((x) => x.charCodeAt(0));
+  return utf8Encoder.encode(this as string);
+  // return Array.from(this).map((x) => x.charCodeAt(0));
 };

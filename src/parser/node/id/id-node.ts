@@ -31,7 +31,7 @@ export function idNode(text: String2): Partial<IdNode> {
 export function scanIdNode(context: ParserContext): Partial<IdNode | ModifierNode | KeywordNode> | null {
   const { index, source, lastStatementNodes } = context;
 
-  const code = source.text[index].charCodeAt(0);
+  const code = source.characters[index];
   const isFirstCharForId =
     code === UNDERSCORE_CODE ||
     (code >= UPPER_A_CODE && code <= UPPER_Z_CODE) ||

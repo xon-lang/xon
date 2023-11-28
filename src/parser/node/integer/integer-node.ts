@@ -1,5 +1,14 @@
 import { String2 } from '~/lib/core';
 import { ParserContext } from '~/parser/parser-context';
+import {
+  DIGIT_0_CODE,
+  DIGIT_9_CODE,
+  LOWER_A_CODE,
+  LOWER_Z_CODE,
+  UNDERSCORE_CODE,
+  UPPER_A_CODE,
+  UPPER_Z_CODE,
+} from '~/parser/util/operators';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
@@ -14,16 +23,24 @@ export function integerNode(text: String2): Partial<IntegerNode> {
   };
 }
 
-const DIGITS = '0123456789';
-const LETTERS = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const DIGITS_LETTERS = DIGITS + LETTERS;
-
 export function scanIntegerNode({ source, index }: ParserContext): Partial<IntegerNode> | null {
-  if (DIGITS.includes(source.text[index])) {
-    const otherSymbols = source.text.takeWhile((x) => DIGITS_LETTERS.includes(x), index + 1);
+  const firstCharCode = source.characters[index];
+  const isFirstCharDigit = firstCharCode >= DIGIT_0_CODE && firstCharCode <= DIGIT_9_CODE;
 
-    return integerNode(source.text[index] + otherSymbols);
+  if (!isFirstCharDigit) {
+    return null;
   }
 
-  return null;
+  const sliced = source.text.takeWhile((x) => {
+    const code = x.charCodeAt(0);
+
+    return (
+      (code >= DIGIT_0_CODE && code <= DIGIT_9_CODE) ||
+      (code >= UPPER_A_CODE && code <= UPPER_Z_CODE) ||
+      (code >= LOWER_A_CODE && code <= LOWER_Z_CODE) ||
+      code === UNDERSCORE_CODE
+    );
+  }, index);
+
+  return integerNode(sliced);
 }

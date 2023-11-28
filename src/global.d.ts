@@ -22,6 +22,6 @@ declare global {
   interface String {
     takeWhile(predicate: (value: Char, index: number) => unknown, startIndex?: number): String2;
     margin(delimiter?: String2): String2;
-    toCharCodes(): Integer[];
+    toCharCodes(): Uint8Array;
   }
 }
