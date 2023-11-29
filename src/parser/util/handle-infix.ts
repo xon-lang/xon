@@ -2,10 +2,12 @@ import { ArrayAssignNode, arrayAssignNode } from '~/parser/node/array-assign/arr
 import { ArrayNode } from '~/parser/node/array/array-node';
 import { AssignNode, assignNode } from '~/parser/node/assign/assign-node';
 import { DeclarationNode, declarationNode } from '~/parser/node/declaration/declaration-node';
+import { GroupNode } from '~/parser/node/group/group-node';
 import { IdAssignNode, idAssignNode } from '~/parser/node/id-assign/id-assign-node';
 import { IdNode } from '~/parser/node/id/id-node';
 import { infixNode } from '~/parser/node/infix/infix-node';
 import { InvokeNode } from '~/parser/node/invoke/invoke-node';
+import { LambdaNode, lambdaNode } from '~/parser/node/lambda/lambda-node';
 import { memberNode } from '~/parser/node/member/member-node';
 import { metaMemberNode } from '~/parser/node/meta-member/meta-member-node';
 import { ModelNode } from '~/parser/node/model/model-node';
@@ -20,7 +22,7 @@ import { Node } from '../node/node';
 import { NodeType } from '../node/node-type';
 import { is } from './is';
 
-export function handleInfix(context: ParserContext, operator: OperatorNode, left: Node, right: Node): Node {
+export function handleInfix(context: ParserContext, operator: OperatorNode, left: Node, right: Node | null): Node {
   if (operator.text === MEMBER_TOKEN) {
     if (is<IdNode>(right, NodeType.ID)) {
       return memberNode(left, operator, right);
@@ -75,7 +77,10 @@ export function handleInfix(context: ParserContext, operator: OperatorNode, left
   return infixNode(operator, left, right);
 }
 
-function createAssignNode(assignee: Node, assign: AssignNode): IdAssignNode | ArrayAssignNode | ObjectAssignNode {
+function createAssignNode(
+  assignee: Node,
+  assign: AssignNode,
+): IdAssignNode | ArrayAssignNode | ObjectAssignNode | LambdaNode {
   if (is<IdNode>(assignee, NodeType.ID) && assign) {
     return idAssignNode(assignee, assign);
   }
@@ -88,9 +93,9 @@ function createAssignNode(assignee: Node, assign: AssignNode): IdAssignNode | Ar
     return objectAssignNode(assignee, assign);
   }
 
+  if (is<GroupNode>(assignee, NodeType.GROUP) && assign) {
+    return lambdaNode(assignee, assign);
+  }
+
   throw new Error('Not implemented');
 }
-
-// function isAssigneeNode(node: Node): node is IdNode | ArrayNode | ObjectNode {
-//   return is<IdNode>(node, NodeType.ID) || is<ArrayNode>(node, NodeType.ARRAY) || is<ObjectNode>(node, NodeType.OBJECT);
-// }

@@ -24,12 +24,12 @@ export function collapseOperator(
     }
 
     const left = context.nodes[index - 1];
-    const right = context.nodes[index + 1];
+    const right: Node | null = context.nodes[index + 1] ?? null;
 
     if (
       operatorType === OperatorType.PREFIX &&
-      !is(right, NodeType.OPERATOR) &&
-      (index === 0 || is(left, NodeType.OPERATOR))
+      !is<OperatorNode>(right, NodeType.OPERATOR) &&
+      (index === 0 || is<OperatorNode>(left, NodeType.OPERATOR))
     ) {
       const prefix = prefixNode(operator, right);
       context.nodes[index] = prefix;
@@ -40,8 +40,8 @@ export function collapseOperator(
 
     if (
       operatorType === OperatorType.POSTFIX &&
-      !is(left, NodeType.OPERATOR) &&
-      (index === context.nodes.length - 1 || is(right, NodeType.OPERATOR))
+      !is<OperatorNode>(left, NodeType.OPERATOR) &&
+      (index === context.nodes.length - 1 || is<OperatorNode>(right, NodeType.OPERATOR))
     ) {
       const postfix = postfixNode(operator, left);
       context.nodes[index] = postfix;
@@ -50,7 +50,11 @@ export function collapseOperator(
       return postfix;
     }
 
-    if (operatorType === OperatorType.INFIX && !is(left, NodeType.OPERATOR) && !is(right, NodeType.OPERATOR)) {
+    if (
+      operatorType === OperatorType.INFIX &&
+      !is<OperatorNode>(left, NodeType.OPERATOR) &&
+      !is<OperatorNode>(right, NodeType.OPERATOR)
+    ) {
       const infix = handleInfix(context, operator, left, right);
       context.nodes[index] = infix;
       context.nodes.splice(index - 1, 1);

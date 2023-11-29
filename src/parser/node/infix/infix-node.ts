@@ -7,10 +7,10 @@ export interface InfixNode extends Node {
   $: NodeType.INFIX;
   operator: OperatorNode;
   left: Node;
-  right: Node;
+  right: Node | null;
 }
 
-export function infixNode(operator: OperatorNode, left: Node, right: Node): InfixNode {
+export function infixNode(operator: OperatorNode, left: Node, right: Node | null): InfixNode {
   const node: InfixNode = {
     $: NodeType.INFIX,
     range: rangeFromNodes(left, right),
