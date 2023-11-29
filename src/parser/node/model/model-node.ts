@@ -25,7 +25,6 @@ export function modelNode(modifier: ModifierNode, id: IdNode, base: TypeNode | n
     base,
   };
 
-  id.parent?.declarations?.push(node);
   addNodeParent(node, modifier, id, base);
 
   return node;

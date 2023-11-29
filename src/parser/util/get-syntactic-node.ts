@@ -11,7 +11,5 @@ export function getSyntacticNode(context: ParserContext): Node {
 
   context.nodes.slice(1).forEach((node) => context.issues.push(createErrorIssue(node, issueMessage.unexpectedNode)));
 
-  const node = context.nodes[0];
-
-  return node;
+  return context.nodes[0];
 }

@@ -10,4 +10,8 @@ export const issueMessage = {
     actual: 'Unexpected node',
     expect: null,
   },
+  notImplemented: {
+    actual: 'Error not implemented',
+    expect: 'Create a valid error message',
+  },
 };

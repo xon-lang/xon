@@ -1,3 +1,5 @@
+import { createErrorIssue } from '~/issue/issue';
+import { issueMessage } from '~/issue/issue-message';
 import { AttributeNode, attributeNode } from '~/parser/node/attribute/attribute-node';
 import { DeclarationNode } from '~/parser/node/declaration/declaration-node';
 import { IdNode } from '~/parser/node/id/id-node';
@@ -15,7 +17,7 @@ export function collapseDeclaration(context: ParserContext): void {
     const secondNode = context.nodes[1];
 
     if (is<DeclarationNode>(secondNode, NodeType.DECLARATION)) {
-      const modifierDeclaration = createModifierDeclaration(firstNode, secondNode);
+      const modifierDeclaration = createModifierDeclaration(context, firstNode, secondNode);
       context.nodes[0] = modifierDeclaration;
       context.nodes.splice(1, 1);
 
@@ -24,8 +26,15 @@ export function collapseDeclaration(context: ParserContext): void {
 
     if (firstNode.text === MODEL_MODIFIER && is<IdNode>(secondNode, NodeType.ID) && context.nodes.length === 2) {
       const model = modelNode(firstNode, secondNode, null);
+      context.parent.declarations?.push(model);
       context.nodes[0] = model;
       context.nodes.splice(1, 1);
+
+      return;
+    }
+
+    if (context.nodes.length === 1) {
+      context.issues.push(createErrorIssue(firstNode, issueMessage.notImplemented));
 
       return;
     }
@@ -35,8 +44,9 @@ export function collapseDeclaration(context: ParserContext): void {
 
   if (is<DeclarationNode>(firstNode, NodeType.DECLARATION)) {
     if (is<ModelNode>(context.parent, NodeType.MODEL)) {
-      const modifierDeclaration = createAttributeNode(firstNode);
-      context.nodes[0] = modifierDeclaration;
+      const attribute = createAttributeNode(firstNode);
+      context.parent.attributes.push(attribute);
+      context.nodes[0] = attribute;
 
       return;
     }
@@ -45,9 +55,16 @@ export function collapseDeclaration(context: ParserContext): void {
   }
 }
 
-function createModifierDeclaration(modifier: ModifierNode, declaration: DeclarationNode): ModelNode {
+function createModifierDeclaration(
+  context: ParserContext,
+  modifier: ModifierNode,
+  declaration: DeclarationNode,
+): ModelNode {
   if (modifier.text === MODEL_MODIFIER && is<IdNode>(declaration.assignee, NodeType.ID)) {
-    return modelNode(modifier, declaration.assignee, declaration.type);
+    const model = modelNode(modifier, declaration.assignee, declaration.type);
+    context.parent.declarations?.push(model);
+
+    return model;
   }
 
   throw new Error('Not implemented');
@@ -60,3 +77,5 @@ function createAttributeNode(declaration: DeclarationNode): AttributeNode {
 
   throw new Error('Not implemented');
 }
+
+// todo create statement with children/body and declarations

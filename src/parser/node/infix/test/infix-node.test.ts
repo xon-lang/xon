@@ -104,7 +104,7 @@ test('has several relational operators', () => {
   expect(node.$).toBe(NodeType.INFIX);
   expect(node.operator.text).toBe('>');
   expect(node.left.$).toBe(NodeType.INFIX);
-  expect(node.right.$).toBe(NodeType.ID);
+  expect(node.right?.$).toBe(NodeType.ID);
 
   const left = node.left as InfixNode;
   expect(left.operator.text).toBe('<');
@@ -122,7 +122,7 @@ test('several operators', () => {
   expect(node.left.$).toBe(NodeType.INTEGER);
   expect(node.operator.text).toBe('/');
 
-  expect(node.right.$).toBe(NodeType.PREFIX);
+  expect(node.right?.$).toBe(NodeType.PREFIX);
   expect((node.right as PrefixNode).operator.text).toBe('+');
   expect((node.right as PrefixNode).value.$).toBe(NodeType.INTEGER);
   expect(((node.right as PrefixNode).value as IntegerNode).text).toBe('2');
