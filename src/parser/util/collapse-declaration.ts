@@ -55,7 +55,16 @@ export function collapseDeclaration(context: ParserContext, nodes: Node[], paren
 
     nodes[0] = result;
     nodes.splice(1, 1);
+
+    return;
   }
+
+  // if (is<InfixNode>(firstNode, NodeType.INFIX) && firstNode.operator.text === ASSIGN_TOKEN) {
+  //   const result = collapseAssignNode(nodes[0]);
+
+  //   nodes[0] = result;
+  //   nodes.splice(1, 1);
+  // }
 }
 
 function collapseAssignNode(node: Node): IdAssignNode | ArrayAssignNode | ObjectAssignNode {
