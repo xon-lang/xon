@@ -29,7 +29,7 @@ export function idNode(text: String2): Partial<IdNode> {
 }
 
 export function scanIdNode(context: ParserContext): Partial<IdNode | ModifierNode | KeywordNode> | null {
-  const { index, source, lastStatementNodes } = context;
+  const { index, source, nodes: lastStatementNodes } = context;
 
   const code = source.characters[index];
   const isFirstCharForId =

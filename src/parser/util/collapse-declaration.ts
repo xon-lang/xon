@@ -19,44 +19,42 @@ import { ParserContext } from '~/parser/parser-context';
 import { is } from '~/parser/util/is';
 import { ASSIGN_TOKEN, MODEL_MODIFIER, TYPE_TOKEN } from '~/parser/util/operators';
 
-export function collapseDeclaration(context: ParserContext, nodes: Node[], parent: Node | null): void {
-  const firstNode = nodes[0];
+export function collapseDeclaration(context: ParserContext): void {
+  const firstNode = context.nodes[0];
 
   if (is<ModifierNode>(firstNode, NodeType.MODIFIER)) {
-    if (!is(nodes[1], NodeType.ID)) {
+    if (!is(context.nodes[1], NodeType.ID)) {
       context.issues.push(createErrorIssue(firstNode, issueMessage.unexpectedNode));
 
       return;
     }
 
     if (firstNode.text === MODEL_MODIFIER) {
-      const result = collapseModelNode(firstNode, nodes[1]);
+      const result = collapseModelNode(firstNode, context.nodes[1]);
 
-      nodes[0] = result;
-      nodes.splice(1, 1);
+      context.nodes[0] = result;
+      context.nodes.splice(1, 1);
 
       return;
     }
   }
 
-  if (is<ModelNode>(parent, NodeType.MODEL)) {
-    const result = collapseAttributeNode(nodes[0]);
+  if (is<ModelNode>(context.parent, NodeType.MODEL)) {
+    const result = collapseAttributeNode(context.nodes[0]);
 
-    nodes[0] = result;
-    nodes.splice(1, 1);
+    context.nodes[0] = result;
+    context.nodes.splice(1, 1);
 
-    parent.attributes.push(result);
+    context.parent.attributes.push(result);
 
     return;
   }
 
   if (is<ModifierNode>(firstNode, NodeType.MODIFIER)) {
-    const result = collapseAssignNode(nodes[0]);
+    const result = collapseAssignNode(context.nodes[0]);
 
-    nodes[0] = result;
-    nodes.splice(1, 1);
-
-    return;
+    context.nodes[0] = result;
+    context.nodes.splice(1, 1);
   }
 
   // if (is<InfixNode>(firstNode, NodeType.INFIX) && firstNode.operator.text === ASSIGN_TOKEN) {

@@ -26,7 +26,7 @@ const OPERATORS = [
 export function scanOperatorNode(
   context: ParserContext,
 ): Partial<OperatorNode | IdNode | ModifierNode | KeywordNode> | null {
-  const { index, source, lastStatementNodes } = context;
+  const { index, source, nodes: lastStatementNodes } = context;
   let operators = OPERATORS.filter((x) => x[0] === source.text[index]);
 
   if (operators.length === 0) {

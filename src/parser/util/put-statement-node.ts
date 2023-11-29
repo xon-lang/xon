@@ -7,26 +7,29 @@ import { is } from '~/parser/util/is';
 import { ParserContext } from '../parser-context';
 
 export function putStatementNode(context: ParserContext): Node | null {
-  const { lastStatementNodes, lastStatement, root } = context;
+  const { nodes: lastStatementNodes, lastStatement, root } = context;
 
   const indent = lastStatementNodes[0].range.start.column;
 
   if (!lastStatement) {
-    const statement = getSyntacticNode(context, root);
+    context.parent = root;
+    const statement = getSyntacticNode(context);
     addNodeChildren(root, statement);
 
     return statement;
   }
 
   if (indent > lastStatement.range.start.column) {
-    const statement = getSyntacticNode(context, lastStatement);
+    context.parent = lastStatement;
+    const statement = getSyntacticNode(context);
     addNodeChildren(lastStatement, statement);
 
     return statement;
   }
 
   const parent = findParentWithLessIndent(lastStatement, indent);
-  const statement = getSyntacticNode(context, parent);
+  context.parent = parent;
+  const statement = getSyntacticNode(context);
 
   if (parent) {
     addNodeChildren(parent, statement);
@@ -35,13 +38,13 @@ export function putStatementNode(context: ParserContext): Node | null {
   return statement;
 }
 
-function findParentWithLessIndent(node: Node, indent: Integer): Node | null {
-  if (is<RootNode>(node.parent, NodeType.ROOT)) {
-    return node.parent;
+function findParentWithLessIndent(node: Node, indent: Integer): Node {
+  if (!node.parent) {
+    throw new Error('Not implemented');
   }
 
-  if (!node.parent) {
-    return null;
+  if (is<RootNode>(node.parent, NodeType.ROOT)) {
+    return node.parent;
   }
 
   if (node.parent.range.start.column < indent) {

@@ -12,7 +12,8 @@ export interface ParserContext {
   hidden: Node[];
   issues: Issue[];
   breakNode: Node | null;
-  lastStatementNodes: Node[];
+  parent: Node;
+  nodes: Node[];
   lastStatement: Node | null;
   root: RootNode;
 }
@@ -25,7 +26,8 @@ export function parserContext(source: Source, index: Integer): ParserContext {
     column: 0,
     hidden: [],
     issues: [],
-    lastStatementNodes: [],
+    parent: rootNode(),
+    nodes: [],
     lastStatement: null,
     breakNode: null,
     root: rootNode(),

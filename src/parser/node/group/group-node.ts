@@ -65,7 +65,7 @@ export function scanGroupNode(context: ParserContext): GroupNode | ObjectNode | 
     if (is<CommaNode>(groupContext.breakNode, NodeType.COMMA)) {
       context.hidden.push(groupContext.breakNode);
 
-      if (groupContext.lastStatementNodes.length > 0) {
+      if (groupContext.nodes.length > 0) {
         items.push(groupContext.root.children[0]);
       }
 
@@ -73,7 +73,7 @@ export function scanGroupNode(context: ParserContext): GroupNode | ObjectNode | 
     }
 
     if (is<CloseNode>(groupContext.breakNode, NodeType.CLOSE)) {
-      if (groupContext.lastStatementNodes.length > 0) {
+      if (groupContext.nodes.length > 0) {
         items.push(groupContext.root.children[0]);
       }
 

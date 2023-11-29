@@ -5,15 +5,13 @@ import { Node } from '../node/node';
 import { ParserContext } from '../parser-context';
 import { collapseLineNodes } from './collapse-line-nodes';
 
-export function getSyntacticNode(context: ParserContext, parent: Node | null): Node {
-  collapseLineNodes(context.lastStatementNodes, parent);
-  collapseDeclaration(context, context.lastStatementNodes, parent);
+export function getSyntacticNode(context: ParserContext): Node {
+  collapseLineNodes(context);
+  collapseDeclaration(context);
 
-  context.lastStatementNodes
-    .slice(1)
-    .forEach((node) => context.issues.push(createErrorIssue(node, issueMessage.unexpectedNode)));
+  context.nodes.slice(1).forEach((node) => context.issues.push(createErrorIssue(node, issueMessage.unexpectedNode)));
 
-  const node = context.lastStatementNodes[0];
+  const node = context.nodes[0];
 
   return node;
 }

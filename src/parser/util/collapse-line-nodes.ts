@@ -1,19 +1,19 @@
-import { Node } from '~/parser/node/node';
+import { ParserContext } from '~/parser/parser-context';
 import { collapseOperator } from '~/parser/util/collapse-operator';
 import { OperatorType, operatorsOrders } from '~/parser/util/operators';
 import { collapseInvoke } from './collapse-invoke';
 
-export function collapseLineNodes(nodes: Node[], parent: Node | null): void {
+export function collapseLineNodes(context: ParserContext): void {
   for (const operatorsOrder of operatorsOrders) {
     if (operatorsOrder.operatorType === OperatorType.INVOKE) {
-      collapseInvoke(nodes);
+      collapseInvoke(context);
     }
 
     for (const operators of operatorsOrder.operators) {
-      const node = collapseOperator(nodes, operators, operatorsOrder.operatorType, operatorsOrder.recursiveType);
+      const node = collapseOperator(context, operators, operatorsOrder.operatorType, operatorsOrder.recursiveType);
 
       if (node) {
-        collapseLineNodes(nodes, parent);
+        collapseLineNodes(context);
       }
     }
   }
