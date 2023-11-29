@@ -1,6 +1,6 @@
 import { String2 } from '~/lib/core';
 import { ParserContext } from '~/parser/parser-context';
-import { ARRAY_NODE_CLOSE, GROUP_NODE_CLOSE, OBJECT_NODE_CLOSE } from '~/parser/util/operators';
+import { ARRAY_NODE_CLOSE_CODE, GROUP_NODE_CLOSE_CODE, OBJECT_NODE_CLOSE_CODE } from '~/parser/util/operators';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
@@ -16,9 +16,9 @@ export function closeNode(text: String2): Partial<CloseNode> {
 }
 
 export function scanCloseNode({ index, source }: ParserContext): Partial<CloseNode> | null {
-  const CLOSE = GROUP_NODE_CLOSE + OBJECT_NODE_CLOSE + ARRAY_NODE_CLOSE;
+  const code = source.characters[index];
 
-  if (CLOSE.includes(source.text[index])) {
+  if (code === GROUP_NODE_CLOSE_CODE || code === ARRAY_NODE_CLOSE_CODE || code === OBJECT_NODE_CLOSE_CODE) {
     return closeNode(source.text[index]);
   }
 

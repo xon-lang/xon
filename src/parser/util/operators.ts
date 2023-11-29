@@ -33,17 +33,23 @@ export const DIGIT_9_CODE = '9'.charCodeAt(0);
 
 export const UNDERSCORE_CODE = '_'.charCodeAt(0);
 
-export const GROUP_NODE_OPEN = '(';
+export const GROUP_NODE_OPEN_CODE = '('.charCodeAt(0);
 
-export const GROUP_NODE_CLOSE = ')';
+export const GROUP_NODE_CLOSE_CODE = ')'.charCodeAt(0);
 
-export const ARRAY_NODE_OPEN = '[';
+export const ARRAY_NODE_OPEN_CODE = '['.charCodeAt(0);
 
-export const ARRAY_NODE_CLOSE = ']';
+export const ARRAY_NODE_CLOSE_CODE = ']'.charCodeAt(0);
 
-export const OBJECT_NODE_OPEN = '{';
+export const OBJECT_NODE_OPEN_CODE = '{'.charCodeAt(0);
 
-export const OBJECT_NODE_CLOSE = '}';
+export const OBJECT_NODE_CLOSE_CODE = '}'.charCodeAt(0);
+
+export const OPEN_CLOSE_PAIR = {
+  [GROUP_NODE_OPEN_CODE]: GROUP_NODE_CLOSE_CODE,
+  [ARRAY_NODE_OPEN_CODE]: ARRAY_NODE_CLOSE_CODE,
+  [OBJECT_NODE_OPEN_CODE]: OBJECT_NODE_CLOSE_CODE,
+} as const;
 
 export const STRING_QUOTE = '"';
 

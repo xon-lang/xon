@@ -8,12 +8,10 @@ import { parseUntil } from '~/parser/parser';
 import { ParserContext } from '~/parser/parser-context';
 import { is } from '~/parser/util/is';
 import {
-  ARRAY_NODE_CLOSE,
-  ARRAY_NODE_OPEN,
-  GROUP_NODE_CLOSE,
-  GROUP_NODE_OPEN,
-  OBJECT_NODE_CLOSE,
-  OBJECT_NODE_OPEN,
+  ARRAY_NODE_OPEN_CODE,
+  GROUP_NODE_OPEN_CODE,
+  OBJECT_NODE_OPEN_CODE,
+  OPEN_CLOSE_PAIR,
 } from '~/parser/util/operators';
 import { sourcePosition } from '../../../source/source-position';
 import { rangeFromNodes, sourceRange } from '../../../source/source-range';
@@ -39,12 +37,6 @@ export function groupNode(open: OpenNode, close: CloseNode | null, items: Node[]
   };
 }
 
-const OPEN_CLOSE_PAIR = {
-  [GROUP_NODE_OPEN]: GROUP_NODE_CLOSE,
-  [ARRAY_NODE_OPEN]: ARRAY_NODE_CLOSE,
-  [OBJECT_NODE_OPEN]: OBJECT_NODE_CLOSE,
-} as const;
-
 export function scanGroupNode(context: ParserContext): GroupNode | ObjectNode | ArrayNode | null {
   const { source, index, line, column } = context;
   const open = scanOpenNode(context);
@@ -65,7 +57,7 @@ export function scanGroupNode(context: ParserContext): GroupNode | ObjectNode | 
       context.index,
       (node) =>
         is<CommaNode>(node, NodeType.COMMA) ||
-        (is<CloseNode>(node, NodeType.CLOSE) && node.text === OPEN_CLOSE_PAIR[open.text]),
+        (is<CloseNode>(node, NodeType.CLOSE) && node.text.charCodeAt(0) === OPEN_CLOSE_PAIR[open.text.charCodeAt(0)]),
     );
 
     context.index = groupContext.index;
@@ -93,15 +85,17 @@ export function scanGroupNode(context: ParserContext): GroupNode | ObjectNode | 
 }
 
 function createGroupNode(open: OpenNode, close: CloseNode | null, nodes: Node[]): GroupNode | ObjectNode | ArrayNode {
-  if (open.text === GROUP_NODE_OPEN) {
+  const code = open.text.charCodeAt(0);
+
+  if (code === GROUP_NODE_OPEN_CODE) {
     return groupNode(open, close, nodes);
   }
 
-  if (open.text === OBJECT_NODE_OPEN) {
+  if (code === OBJECT_NODE_OPEN_CODE) {
     return objectNode(open, close, nodes);
   }
 
-  if (open.text === ARRAY_NODE_OPEN) {
+  if (code === ARRAY_NODE_OPEN_CODE) {
     return arrayNode(open, close, nodes);
   }
 
