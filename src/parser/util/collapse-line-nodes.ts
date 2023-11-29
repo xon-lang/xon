@@ -3,7 +3,7 @@ import { collapseOperator } from '~/parser/util/collapse-operator';
 import { OperatorType, operatorsOrders } from '~/parser/util/operators';
 import { collapseInvoke } from './collapse-invoke';
 
-export function collapseLineNodes(nodes: Node[]): void {
+export function collapseLineNodes(nodes: Node[], parent: Node | null): void {
   for (const operatorsOrder of operatorsOrders) {
     if (operatorsOrder.operatorType === OperatorType.INVOKE) {
       collapseInvoke(nodes);
@@ -13,7 +13,7 @@ export function collapseLineNodes(nodes: Node[]): void {
       const node = collapseOperator(nodes, operators, operatorsOrder.operatorType, operatorsOrder.recursiveType);
 
       if (node) {
-        collapseLineNodes(nodes);
+        collapseLineNodes(nodes, parent);
       }
     }
   }

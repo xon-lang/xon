@@ -6,7 +6,7 @@ import { ParserContext } from '../parser-context';
 import { collapseLineNodes } from './collapse-line-nodes';
 
 export function getSyntacticNode(context: ParserContext, parent: Node | null): Node {
-  collapseLineNodes(context.lastStatementNodes);
+  collapseLineNodes(context.lastStatementNodes, parent);
   collapseDeclaration(context, context.lastStatementNodes, parent);
 
   context.lastStatementNodes
