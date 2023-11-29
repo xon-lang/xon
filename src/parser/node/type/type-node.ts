@@ -6,10 +6,10 @@ import { NodeType } from '../node-type';
 export interface TypeNode extends Node {
   $: NodeType.TYPE;
   operator: OperatorNode;
-  value: Node;
+  value: Node | null;
 }
 
-export function typeNode(operator: OperatorNode, value: Node): TypeNode {
+export function typeNode(operator: OperatorNode, value: Node | null): TypeNode {
   return {
     $: NodeType.TYPE,
     range: rangeFromNodes(operator, value),

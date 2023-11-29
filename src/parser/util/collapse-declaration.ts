@@ -1,139 +1,62 @@
-import { createErrorIssue } from '~/issue/issue';
-import { issueMessage } from '~/issue/issue-message';
-import { ArrayAssignNode, arrayAssignNode } from '~/parser/node/array-assign/array-assign-node';
-import { ArrayNode } from '~/parser/node/array/array-node';
-import { AssignNode, assignNode } from '~/parser/node/assign/assign-node';
 import { AttributeNode, attributeNode } from '~/parser/node/attribute/attribute-node';
-import { IdAssignNode, idAssignNode } from '~/parser/node/id-assign/id-assign-node';
+import { DeclarationNode } from '~/parser/node/declaration/declaration-node';
 import { IdNode } from '~/parser/node/id/id-node';
-import { InfixNode } from '~/parser/node/infix/infix-node';
 import { ModelNode, modelNode } from '~/parser/node/model/model-node';
 import { ModifierNode } from '~/parser/node/modifier/modifier-node';
-import { Node } from '~/parser/node/node';
 import { NodeType } from '~/parser/node/node-type';
-import { ObjectAssignNode, objectAssignNode } from '~/parser/node/object-assign/object-assign-node';
-import { ObjectNode } from '~/parser/node/object/object-node';
-import { ParametersNode } from '~/parser/node/parameters/parameters-node';
-import { TypeNode, typeNode } from '~/parser/node/type/type-node';
 import { ParserContext } from '~/parser/parser-context';
 import { is } from '~/parser/util/is';
-import { ASSIGN_TOKEN, MODEL_MODIFIER, TYPE_TOKEN } from '~/parser/util/operators';
+import { MODEL_MODIFIER } from '~/parser/util/operators';
 
 export function collapseDeclaration(context: ParserContext): void {
   const firstNode = context.nodes[0];
 
   if (is<ModifierNode>(firstNode, NodeType.MODIFIER)) {
-    if (!is(context.nodes[1], NodeType.ID)) {
-      context.issues.push(createErrorIssue(firstNode, issueMessage.unexpectedNode));
+    const secondNode = context.nodes[1];
 
-      return;
-    }
-
-    if (firstNode.text === MODEL_MODIFIER) {
-      const result = collapseModelNode(firstNode, context.nodes[1]);
-
-      context.nodes[0] = result;
+    if (is<DeclarationNode>(secondNode, NodeType.DECLARATION)) {
+      const modifierDeclaration = createModifierDeclaration(firstNode, secondNode);
+      context.nodes[0] = modifierDeclaration;
       context.nodes.splice(1, 1);
 
       return;
     }
+
+    if (firstNode.text === MODEL_MODIFIER && is<IdNode>(secondNode, NodeType.ID) && context.nodes.length === 2) {
+      const model = modelNode(firstNode, secondNode, null);
+      context.nodes[0] = model;
+      context.nodes.splice(1, 1);
+
+      return;
+    }
+
+    throw new Error('Not implemented');
   }
 
-  if (is<ModelNode>(context.parent, NodeType.MODEL)) {
-    const result = collapseAttributeNode(context.nodes[0]);
+  if (is<DeclarationNode>(firstNode, NodeType.DECLARATION)) {
+    if (is<ModelNode>(context.parent, NodeType.MODEL)) {
+      const modifierDeclaration = createAttributeNode(firstNode);
+      context.nodes[0] = modifierDeclaration;
 
-    context.nodes[0] = result;
-    context.nodes.splice(1, 1);
+      return;
+    }
 
-    context.parent.attributes.push(result);
-
-    return;
+    throw new Error('Not implemented');
   }
-
-  if (is<ModifierNode>(firstNode, NodeType.MODIFIER)) {
-    const result = collapseAssignNode(context.nodes[0]);
-
-    context.nodes[0] = result;
-    context.nodes.splice(1, 1);
-  }
-
-  // if (is<InfixNode>(firstNode, NodeType.INFIX) && firstNode.operator.text === ASSIGN_TOKEN) {
-  //   const result = collapseAssignNode(nodes[0]);
-
-  //   nodes[0] = result;
-  //   nodes.splice(1, 1);
-  // }
 }
 
-function collapseAssignNode(node: Node): IdAssignNode | ArrayAssignNode | ObjectAssignNode {
-  const { assignee, assign } = assigneeParametersTypeValue(node);
-
-  if (is<IdNode>(assignee, NodeType.ID) && assign) {
-    return idAssignNode(assignee, assign);
-  }
-
-  if (is<ArrayNode>(assignee, NodeType.ARRAY) && assign) {
-    return arrayAssignNode(assignee, assign);
-  }
-
-  if (is<ObjectAssignNode>(assignee, NodeType.OBJECT) && assign) {
-    return objectAssignNode(assignee, assign);
+function createModifierDeclaration(modifier: ModifierNode, declaration: DeclarationNode): ModelNode {
+  if (modifier.text === MODEL_MODIFIER && is<IdNode>(declaration.assignee, NodeType.ID)) {
+    return modelNode(modifier, declaration.assignee, declaration.type);
   }
 
   throw new Error('Not implemented');
 }
 
-function collapseAttributeNode(node: Node): AttributeNode {
-  const { assignee, parameters, type, assign } = assigneeParametersTypeValue(node);
-
-  if (is<IdNode>(assignee, NodeType.ID)) {
-    return attributeNode(null, assignee, parameters ?? null, type ?? null, assign ?? null);
+function createAttributeNode(declaration: DeclarationNode): AttributeNode {
+  if (declaration.assignee && is<IdNode>(declaration.assignee, NodeType.ID)) {
+    return attributeNode(null, declaration.assignee, declaration.group, declaration.type, declaration.assign);
   }
 
   throw new Error('Not implemented');
-}
-
-function collapseModelNode(modifier: ModifierNode, node: Node): ModelNode {
-  const { assignee, type } = assigneeParametersTypeValue(node);
-
-  if (is<IdNode>(assignee, NodeType.ID)) {
-    const model = modelNode(modifier, assignee, type ?? null);
-    model.parent?.declarations?.push(model);
-
-    return model;
-  }
-
-  throw new Error('Not implemented');
-}
-
-function assigneeParametersTypeValue(node: Node): Partial<{
-  assignee: IdNode | ArrayNode | ObjectNode;
-  parameters: ParametersNode;
-  type: TypeNode;
-  assign: AssignNode;
-}> {
-  if (isAssigneeNode(node)) {
-    return { assignee: node };
-  }
-
-  if (is<InfixNode>(node, NodeType.INFIX) && node.operator.text === TYPE_TOKEN && isAssigneeNode(node.left)) {
-    const { operator, left, right } = node;
-    const type = typeNode(operator, right);
-
-    return { assignee: left, type };
-  }
-
-  if (is<InfixNode>(node, NodeType.INFIX) && node.operator.text === ASSIGN_TOKEN) {
-    const { operator, left, right } = node;
-    const assigneeType = assigneeParametersTypeValue(left);
-    const assign = assignNode(operator, right);
-
-    return { ...assigneeType, assign };
-  }
-
-  return {};
-}
-
-function isAssigneeNode(node: Node): node is IdNode | ArrayNode | ObjectNode {
-  return is<IdNode>(node, NodeType.ID) || is<ArrayNode>(node, NodeType.ARRAY) || is<ObjectNode>(node, NodeType.OBJECT);
 }

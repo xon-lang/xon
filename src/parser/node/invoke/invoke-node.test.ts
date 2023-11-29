@@ -32,7 +32,7 @@ test('method on several lines', () => {
   const indexer1 = node.group.items[0];
   const indexer2 = node.group.items[1];
   expect(indexer1?.$).toBe(NodeType.INTEGER);
-  expect(indexer2?.$).toBe(NodeType.STRING);
+  expect(indexer2?.$).toBe(NodeType.CHAR);
   expect(node.instance.$).toBe(NodeType.ID);
 });
 
