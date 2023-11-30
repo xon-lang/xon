@@ -26,7 +26,7 @@ export function attributeNode(
 ): AttributeNode {
   const node: AttributeNode = {
     $: NodeType.ATTRIBUTE,
-    range: rangeFromNodes(modifier ?? id, assign ?? group ?? type ?? id ?? modifier),
+    range: rangeFromNodes(modifier ?? id, assign ?? group ?? type ?? id),
     parent: id.parent,
     modifier,
     id,
@@ -35,7 +35,6 @@ export function attributeNode(
     assign,
   };
 
-  id.parent?.declarations?.push(node);
   addNodeParent(node, modifier, id, type, group, assign);
 
   return node;

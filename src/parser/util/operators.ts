@@ -98,7 +98,7 @@ export const operatorsOrders: OperatorsOrder[] = [
     recursiveType: RecursiveType.LEFT,
   },
   {
-    operators: ['+ - !'],
+    operators: ['... + - !'],
     operatorType: OperatorType.PREFIX,
     recursiveType: RecursiveType.LEFT,
   },

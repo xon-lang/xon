@@ -6,6 +6,7 @@ export interface Node {
   range: SourceRange;
   parent?: Node | null;
   children?: Node[] | null;
+  // todo mb should be in the statement node
   declarations?: Node[] | null;
 }
 
