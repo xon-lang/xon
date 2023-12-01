@@ -1,4 +1,7 @@
+import { String2 } from '~/lib/core';
 import { ParserContext } from '~/parser/parser-context';
+import { COMMA, COMMA_CODE } from '~/parser/util/operators';
+import { SourceRange } from '~/source/source-range';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
@@ -6,21 +9,19 @@ export interface CommaNode extends TokenNode {
   $: NodeType.COMMA;
 }
 
-const COMMA = ',';
-
-export function commaNode(): Partial<CommaNode> {
+export function commaNode(range: SourceRange, text: String2): CommaNode {
   return {
     $: NodeType.COMMA,
-    text: COMMA,
+    range,
+    text,
   };
 }
 
-export function scanCommaNode({ index, source }: ParserContext): Partial<CommaNode> | null {
-  if (source.text[index] === COMMA) {
-    return {
-      $: NodeType.COMMA,
-      text: COMMA,
-    };
+export function scanCommaNode(context: ParserContext): CommaNode | null {
+  if (context.source.characters[context.index] === COMMA_CODE) {
+    const range = context.getRange(COMMA.length);
+
+    return commaNode(range, COMMA);
   }
 
   return null;
