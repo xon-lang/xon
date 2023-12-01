@@ -1,4 +1,5 @@
 import { MODIFIERS } from '~/parser/util/operators';
+import { SourceRange } from '~/source/source-range';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
@@ -9,9 +10,10 @@ export interface ModifierNode extends TokenNode {
   text: ModifierText;
 }
 
-export function modifierNode(text: ModifierText): Partial<ModifierNode> {
+export function modifierNode(range: SourceRange, text: ModifierText): ModifierNode {
   return {
     $: NodeType.MODIFIER,
+    range,
     text,
   };
 }

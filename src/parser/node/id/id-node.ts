@@ -61,7 +61,8 @@ export function scanIdNode(context: ParserContext): Node | null {
   const range = context.getRange(sliced.length);
 
   if (lastStatementNodes.length === 0 && MODIFIERS.includes(sliced)) {
-    const modifier = modifierNode(sliced) as ModifierNode;
+    const range = context.getRange(sliced.length);
+    const modifier = modifierNode(range, sliced) as ModifierNode;
 
     return declarationNode(modifier, null, null, null, null);
   }

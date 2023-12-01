@@ -79,12 +79,22 @@ function idNodeText(context: ParserContext): {
     return null;
   }
 
-  // eslint-disable-next-line no-restricted-syntax
-  if (is<DeclarationNode>(id, NodeType.DECLARATION) && id.assignee && 'text' in id.assignee) {
-    return {
-      node: id,
-      text: id.assignee.text,
-    };
+  if (is<DeclarationNode>(id, NodeType.DECLARATION)) {
+    // eslint-disable-next-line no-restricted-syntax
+    if (id.modifier && 'text' in id.modifier) {
+      return {
+        node: id,
+        text: id.modifier?.text,
+      };
+    }
+
+    // eslint-disable-next-line no-restricted-syntax
+    if (id.assignee && 'text' in id.assignee) {
+      return {
+        node: id,
+        text: id.assignee?.text,
+      };
+    }
   }
 
   // eslint-disable-next-line no-restricted-syntax
