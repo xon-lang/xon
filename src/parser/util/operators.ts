@@ -19,6 +19,30 @@ export enum RecursiveType {
   RIGHT = 1,
 }
 
+export const CR = '\r';
+
+export const CR_CODE = CR.charCodeAt(0);
+
+export const LF = '\n';
+
+export const LF_CODE = LF.charCodeAt(0);
+
+export const COMMA = ',';
+
+export const COMMA_CODE = COMMA.charCodeAt(0);
+
+export const JOINING = '\\';
+
+export const JOINING_CODE = JOINING.charCodeAt(0);
+
+export const SPACE = ' ';
+
+export const SPACE_CODE = SPACE.charCodeAt(0);
+
+export const TAB = '\t';
+
+export const TAB_CODE = TAB.charCodeAt(0);
+
 export const UPPER_A_CODE = 'A'.charCodeAt(0);
 
 export const UPPER_Z_CODE = 'Z'.charCodeAt(0);

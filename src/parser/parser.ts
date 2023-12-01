@@ -16,14 +16,11 @@ import { scanUnknownNode } from '~/parser/node/unknown/unknown-node';
 import { scanWhitespaceNode } from '~/parser/node/whitespace/whitespace-node';
 import { putStatementNode } from '~/parser/util/put-statement-node';
 import { Source, createSource } from '~/source/source';
-import { sourcePosition } from '../source/source-position';
-import { sourceRange } from '../source/source-range';
 import { NodeType } from './node/node-type';
-import { TokenNode } from './node/token-node';
 import { ParserContext, parserContext } from './parser-context';
 import { is } from './util/is';
 
-type NodeScanFn = (parser: ParserContext) => Partial<TokenNode> | null;
+type NodeScanFn = (parser: ParserContext) => Node | null;
 type BreakFn = (node: Node) => Boolean2;
 
 const nodeScanFunctions: NodeScanFn[] = [
@@ -103,31 +100,22 @@ export function nextNode(context: ParserContext): Node {
   for (const nodeScan of nodeScanFunctions) {
     const node = nodeScan(context);
 
-    if (node) {
-      setNodeRange(node, context);
-
-      if (node.range) {
-        context.index = node.range.stop.index + 1;
-
-        return node as Node;
-      }
+    if (!node) {
+      continue;
     }
+
+    // todo make it easy
+    // eslint-disable-next-line no-restricted-syntax
+    if ('text' in node) {
+      context.column += node.range.stop.column + 1;
+    }
+
+    context.index = node.range.stop.index + 1;
+
+    return node as Node;
   }
 
   throw new Error('Not implemented');
-}
-
-export function setNodeRange(node: Partial<TokenNode>, context: ParserContext): void {
-  if (node.text) {
-    const start = sourcePosition(context.index, context.line, context.column);
-
-    const stopIndex = context.index + node.text.length - 1;
-    const stopColumn = context.column + node.text.length - 1;
-    const stop = sourcePosition(stopIndex, context.line, stopColumn);
-
-    node.range = sourceRange(start, stop);
-    context.column += stopColumn + 1;
-  }
 }
 
 function putHiddenNode(context: ParserContext, node: Node): void {

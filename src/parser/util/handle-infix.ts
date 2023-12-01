@@ -1,18 +1,15 @@
-import { ArrayAssignNode, arrayAssignNode } from '~/parser/node/array-assign/array-assign-node';
+import { arrayAssignNode } from '~/parser/node/array-assign/array-assign-node';
 import { ArrayNode } from '~/parser/node/array/array-node';
-import { AssignNode, assignNode } from '~/parser/node/assign/assign-node';
-import { DeclarationNode, declarationNode } from '~/parser/node/declaration/declaration-node';
+import { assignNode } from '~/parser/node/assign/assign-node';
+import { DeclarationNode } from '~/parser/node/declaration/declaration-node';
 import { GroupNode } from '~/parser/node/group/group-node';
-import { IdAssignNode, idAssignNode } from '~/parser/node/id-assign/id-assign-node';
+import { idAssignNode } from '~/parser/node/id-assign/id-assign-node';
 import { IdNode } from '~/parser/node/id/id-node';
 import { infixNode } from '~/parser/node/infix/infix-node';
-import { InvokeNode } from '~/parser/node/invoke/invoke-node';
-import { LambdaNode, lambdaNode } from '~/parser/node/lambda/lambda-node';
-import { memberNode } from '~/parser/node/member/member-node';
-import { metaMemberNode } from '~/parser/node/meta-member/meta-member-node';
-import { ModelNode } from '~/parser/node/model/model-node';
-import { ModifierNode } from '~/parser/node/modifier/modifier-node';
-import { ObjectAssignNode, objectAssignNode } from '~/parser/node/object-assign/object-assign-node';
+import { lambdaNode } from '~/parser/node/lambda/lambda-node';
+import { MemberNode, memberNode } from '~/parser/node/member/member-node';
+import { MetaMemberNode, metaMemberNode } from '~/parser/node/meta-member/meta-member-node';
+import { objectAssignNode } from '~/parser/node/object-assign/object-assign-node';
 import { ObjectNode } from '~/parser/node/object/object-node';
 import { OperatorNode } from '~/parser/node/operator/operator-node';
 import { typeNode } from '~/parser/node/type/type-node';
@@ -24,77 +21,87 @@ import { is } from './is';
 
 export function handleInfix(context: ParserContext, operator: OperatorNode, left: Node, right: Node | null): Node {
   if (operator.text === MEMBER_TOKEN) {
-    if (is<IdNode>(right, NodeType.ID)) {
-      return memberNode(left, operator, right);
-    }
-
-    throw new Error('Not implemented');
+    return createMember(operator, left, right);
   }
 
   if (operator.text === META_MEMBER_TOKEN) {
-    if (is<IdNode>(right, NodeType.ID)) {
-      return metaMemberNode(left, operator, right);
-    }
-
-    throw new Error('Not implemented');
+    return createMetaMember(operator, left, right);
   }
 
   if (operator.text === TYPE_TOKEN) {
-    const type = typeNode(operator, right);
-
-    if (is<InvokeNode>(left, NodeType.INVOKE) && is<IdNode>(left.instance, NodeType.ID)) {
-      return declarationNode(null, left.instance, left.group, type, null);
-    }
-
-    if (is<IdNode>(left, NodeType.ID) || is<ArrayNode>(left, NodeType.ARRAY) || is<ObjectNode>(left, NodeType.OBJECT)) {
-      return declarationNode(null, left, null, type, null);
-    }
-
-    throw new Error('Not implemented');
+    return createType(operator, left, right);
   }
 
   if (operator.text === ASSIGN_TOKEN) {
-    const assign = assignNode(operator, right);
-
-    if (is<DeclarationNode>(left, NodeType.DECLARATION)) {
-      left.assign = assign;
-      assign.parent = left;
-
-      return left;
-    }
-
-    if (
-      !is<ModelNode>(context.parent, NodeType.MODEL) &&
-      !is<ModifierNode>(context.nodes[0], NodeType.MODIFIER) &&
-      !is<InvokeNode>(left, NodeType.INVOKE)
-    ) {
-      return createAssignNode(left, assign);
-    }
-
-    throw new Error('Not implemented');
+    return createAssign(operator, left, right);
   }
 
   return infixNode(operator, left, right);
 }
 
-function createAssignNode(
-  assignee: Node,
-  assign: AssignNode,
-): IdAssignNode | ArrayAssignNode | ObjectAssignNode | LambdaNode {
-  if (is<IdNode>(assignee, NodeType.ID) && assign) {
-    return idAssignNode(assignee, assign);
+function createMember(operator: OperatorNode, left: Node, right: Node | null): MemberNode {
+  if (is<IdNode>(right, NodeType.ID)) {
+    return memberNode(left, operator, right);
   }
 
-  if (is<ArrayNode>(assignee, NodeType.ARRAY) && assign) {
-    return arrayAssignNode(assignee, assign);
+  throw new Error('Not implemented');
+}
+
+function createMetaMember(operator: OperatorNode, left: Node, right: Node | null): MetaMemberNode {
+  if (is<IdNode>(right, NodeType.ID)) {
+    return metaMemberNode(left, operator, right);
   }
 
-  if (is<ObjectNode>(assignee, NodeType.OBJECT) && assign) {
-    return objectAssignNode(assignee, assign);
+  throw new Error('Not implemented');
+}
+
+function createType(operator: OperatorNode, left: Node, right: Node | null): DeclarationNode {
+  const type = typeNode(operator, right);
+
+  if (is<DeclarationNode>(left, NodeType.DECLARATION)) {
+    left.type = type;
+    type.parent = left;
+
+    return left;
   }
 
-  if (is<GroupNode>(assignee, NodeType.GROUP) && assign) {
-    return lambdaNode(assignee, assign);
+  throw new Error('Not implemented');
+}
+
+function createAssign(operator: OperatorNode, left: Node, right: Node | null): Node {
+  const assign = assignNode(operator, right);
+
+  if (is<DeclarationNode>(left, NodeType.DECLARATION)) {
+    left.assign = assign;
+    assign.parent = left;
+
+    return left;
+  }
+
+  // todo check if it should be always declaration
+  // if (
+  //   is<IdNode>(left, NodeType.ID) ||
+  //   is<GroupNode>(left, NodeType.GROUP) ||
+  //   is<ArrayNode>(left, NodeType.ARRAY) ||
+  //   is<ObjectNode>(left, NodeType.OBJECT)
+  // ) {
+  //   return declarationNode(null, left, null, null, assign);
+  // }
+
+  if (is<IdNode>(left, NodeType.ID) && assign) {
+    return idAssignNode(left, assign);
+  }
+
+  if (is<ArrayNode>(left, NodeType.ARRAY) && assign) {
+    return arrayAssignNode(left, assign);
+  }
+
+  if (is<ObjectNode>(left, NodeType.OBJECT) && assign) {
+    return objectAssignNode(left, assign);
+  }
+
+  if (is<GroupNode>(left, NodeType.GROUP) && assign) {
+    return lambdaNode(left, assign);
   }
 
   throw new Error('Not implemented');

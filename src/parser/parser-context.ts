@@ -3,6 +3,8 @@ import { Integer } from '~/lib/core';
 import { Node } from '~/parser/node/node';
 import { RootNode, rootNode } from '~/parser/node/root/root-node';
 import { Source } from '~/source/source';
+import { sourcePosition } from '~/source/source-position';
+import { SourceRange, sourceRange } from '~/source/source-range';
 
 export interface ParserContext {
   source: Source;
@@ -16,6 +18,7 @@ export interface ParserContext {
   nodes: Node[];
   lastStatement: Node | null;
   root: RootNode;
+  getRange: (length: Integer) => SourceRange;
 }
 
 export function parserContext(source: Source, index: Integer): ParserContext {
@@ -31,5 +34,14 @@ export function parserContext(source: Source, index: Integer): ParserContext {
     lastStatement: null,
     breakNode: null,
     root: rootNode(),
+    getRange(length: Integer): SourceRange {
+      const start = sourcePosition(this.index, this.line, this.column);
+
+      const stopIndex = this.index + length - 1;
+      const stopColumn = this.column + length - 1;
+      const stop = sourcePosition(stopIndex, this.line, stopColumn);
+
+      return sourceRange(start, stop);
+    },
   };
 }
