@@ -1,8 +1,12 @@
 import '~/extensions';
 import { String2 } from '~/lib/core';
-import { KeywordNode, keywordNode } from '~/parser/node/keyword/keyword-node';
+import { declarationNode } from '~/parser/node/declaration/declaration-node';
+import { keywordNode } from '~/parser/node/keyword/keyword-node';
+import { ModelNode } from '~/parser/node/model/model-node';
 import { ModifierNode, modifierNode } from '~/parser/node/modifier/modifier-node';
+import { Node } from '~/parser/node/node';
 import { ParserContext } from '~/parser/parser-context';
+import { is } from '~/parser/util/is';
 import {
   DIGIT_0_CODE,
   DIGIT_9_CODE,
@@ -14,6 +18,7 @@ import {
   UPPER_A_CODE,
   UPPER_Z_CODE,
 } from '~/parser/util/operators';
+import { SourceRange } from '~/source/source-range';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
@@ -21,14 +26,15 @@ export interface IdNode extends TokenNode {
   $: NodeType.ID;
 }
 
-export function idNode(text: String2): Partial<IdNode> {
+export function idNode(range: SourceRange, text: String2): IdNode {
   return {
     $: NodeType.ID,
+    range,
     text,
   };
 }
 
-export function scanIdNode(context: ParserContext): Partial<IdNode | ModifierNode | KeywordNode> | null {
+export function scanIdNode(context: ParserContext): Node | null {
   const { index, source, nodes: lastStatementNodes } = context;
 
   const code = source.characters[index];
@@ -52,13 +58,27 @@ export function scanIdNode(context: ParserContext): Partial<IdNode | ModifierNod
     );
   }, index);
 
+  const range = context.getRange(sliced.length);
+
   if (lastStatementNodes.length === 0 && MODIFIERS.includes(sliced)) {
-    return modifierNode(sliced);
+    const modifier = modifierNode(sliced) as ModifierNode;
+
+    return declarationNode(modifier, null, null, null, null);
   }
 
   if (KEYWORDS.includes(sliced)) {
-    return keywordNode(sliced);
+    return keywordNode(range, sliced);
   }
 
-  return idNode(sliced);
+  const id = idNode(range, sliced);
+
+  if (is<ModifierNode>(context.nodes[0], NodeType.MODIFIER)) {
+    return declarationNode(context.nodes[0], id, null, null, null);
+  }
+
+  if (is<ModelNode>(context.parent, NodeType.MODEL)) {
+    return declarationNode(null, id, null, null, null);
+  }
+
+  return id;
 }
