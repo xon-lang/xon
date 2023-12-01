@@ -9,6 +9,7 @@ import {
   UPPER_A_CODE,
   UPPER_Z_CODE,
 } from '~/parser/util/operators';
+import { SourceRange } from '~/source/source-range';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
@@ -16,22 +17,23 @@ export interface IntegerNode extends TokenNode {
   $: NodeType.INTEGER;
 }
 
-export function integerNode(text: String2): Partial<IntegerNode> {
+export function integerNode(range: SourceRange, text: String2): IntegerNode {
   return {
     $: NodeType.INTEGER,
+    range,
     text,
   };
 }
 
-export function scanIntegerNode({ source, index }: ParserContext): Partial<IntegerNode> | null {
-  const firstCharCode = source.characters[index];
+export function scanIntegerNode(context: ParserContext): IntegerNode | null {
+  const firstCharCode = context.source.characters[context.index];
   const isFirstCharDigit = firstCharCode >= DIGIT_0_CODE && firstCharCode <= DIGIT_9_CODE;
 
   if (!isFirstCharDigit) {
     return null;
   }
 
-  const sliced = source.text.takeWhile((x) => {
+  const sliced = context.source.text.takeWhile((x) => {
     const code = x.charCodeAt(0);
 
     return (
@@ -40,7 +42,9 @@ export function scanIntegerNode({ source, index }: ParserContext): Partial<Integ
       (code >= LOWER_A_CODE && code <= LOWER_Z_CODE) ||
       code === UNDERSCORE_CODE
     );
-  }, index);
+  }, context.index);
 
-  return integerNode(sliced);
+  const range = context.getRange(sliced.length);
+
+  return integerNode(range, sliced);
 }
