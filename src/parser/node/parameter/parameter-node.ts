@@ -1,29 +1,52 @@
+import { ArrayNode } from '~/parser/node/array/array-node';
+import { AssignNode } from '~/parser/node/assign/assign-node';
+import { DeclarationNode } from '~/parser/node/declaration/declaration-node';
 import { IdNode } from '~/parser/node/id/id-node';
-import { Node } from '~/parser/node/node';
+import { ModifierNode } from '~/parser/node/modifier/modifier-node';
+import { Node, addNodeParent } from '~/parser/node/node';
+import { ObjectNode } from '~/parser/node/object/object-node';
+import { TypeNode } from '~/parser/node/type/type-node';
+import { rangeFromNodes } from '~/source/source-range';
 import { NodeType } from '../node-type';
 
 export interface ParameterNode extends Node {
   $: NodeType.PARAMETER;
-  id: IdNode;
-  type: Node | null;
-  value: Node | null;
+  modifier: ModifierNode | null;
+  assignee: IdNode | ArrayNode | ObjectNode;
+  type: TypeNode | null;
+  assign: AssignNode | null;
 }
 
-// export function modelNode(modifier: ModifierNode, id: IdNode, base: Node | null, attributes: Node[]): ModelNode {
-//   const left = modifier ?? id ?? base ?? value;
-//   const right = value ?? base ?? id ?? modifier;
+export function parameterNode(
+  modifier: ModifierNode | null,
+  assignee: IdNode | ArrayNode | ObjectNode,
+  type: TypeNode | null,
+  assign: AssignNode | null,
+): ParameterNode {
+  const node: ParameterNode = {
+    $: NodeType.PARAMETER,
+    range: rangeFromNodes(modifier ?? assignee, assign ?? type ?? assignee),
+    modifier,
+    assignee,
+    type,
+    assign,
+  };
 
-//   if (!left || !right) {
-//     throw new Error('Not implemented');
-//   }
+  addNodeParent(node, modifier, assignee, type, assign);
 
-//   return {
-//     $: NodeType.DECLARATION,
-//     start: clonePosition(left.start),
-//     stop: clonePosition(right.stop),
-//     modifier,
-//     id,
-//     base,
-//     value,
-//   };
-// }
+  return node;
+}
+
+export function parameterNodeFromDeclaration({
+  modifier,
+  assignee,
+  group,
+  type,
+  assign,
+}: DeclarationNode): ParameterNode {
+  if (!assignee || group) {
+    throw new Error('Not implemented');
+  }
+
+  return parameterNode(modifier, assignee, type, assign);
+}
