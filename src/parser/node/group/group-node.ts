@@ -1,8 +1,9 @@
 import '~/extensions';
-import { ArrayNode, arrayNode } from '~/parser/node/array/array-node';
+import { arrayNode } from '~/parser/node/array/array-node';
 import { CloseNode } from '~/parser/node/close/close-node';
 import { CommaNode } from '~/parser/node/comma/comma-node';
-import { ObjectNode, objectNode } from '~/parser/node/object/object-node';
+import { DeclarationNode, Group } from '~/parser/node/declaration/declaration-node';
+import { objectNode } from '~/parser/node/object/object-node';
 import { OpenNode, scanOpenNode } from '~/parser/node/open/open-node';
 import { parseUntil } from '~/parser/parser';
 import { ParserContext } from '~/parser/parser-context';
@@ -37,7 +38,7 @@ export function groupNode(open: OpenNode, close: CloseNode | null, items: Node[]
   };
 }
 
-export function scanGroupNode(context: ParserContext): GroupNode | ObjectNode | ArrayNode | null {
+export function scanGroupNode(context: ParserContext): Group | DeclarationNode | null {
   const { source, index, line, column } = context;
   const open = scanOpenNode(context);
 
@@ -48,6 +49,7 @@ export function scanGroupNode(context: ParserContext): GroupNode | ObjectNode | 
   open.range = sourceRange(sourcePosition(index, line, column), sourcePosition(index, line, column));
 
   const items: Node[] = [];
+  let close: CloseNode | null = null;
 
   context.index += open.text.length;
 
@@ -77,14 +79,26 @@ export function scanGroupNode(context: ParserContext): GroupNode | ObjectNode | 
         items.push(groupContext.root.children[0]);
       }
 
-      return createGroupNode(open, groupContext.breakNode, items);
+      close = groupContext.breakNode;
+
+      break;
     }
   }
 
-  return createGroupNode(open, null, items);
+  const group = createGroupNode(open, close, items);
+  const lastNode = context.nodes.lastOrNull();
+
+  if (is<DeclarationNode>(lastNode, NodeType.DECLARATION)) {
+    lastNode.group = group;
+    group.parent = lastNode;
+
+    return lastNode;
+  }
+
+  return group;
 }
 
-function createGroupNode(open: OpenNode, close: CloseNode | null, nodes: Node[]): GroupNode | ObjectNode | ArrayNode {
+function createGroupNode(open: OpenNode, close: CloseNode | null, nodes: Node[]): Group {
   const code = open.text.charCodeAt(0);
 
   if (code === GROUP_NODE_OPEN_CODE) {
