@@ -6,22 +6,27 @@ import { ModifierNode } from '~/parser/node/modifier/modifier-node';
 import { Node, addNodeParent } from '~/parser/node/node';
 import { ObjectNode } from '~/parser/node/object/object-node';
 import { TypeNode } from '~/parser/node/type/type-node';
+import { is } from '~/parser/util/is';
 import { rangeFromNodes } from '../../../source/source-range';
 import { NodeType } from '../node-type';
+
+export type Group = GroupNode | ArrayNode | ObjectNode;
+
+export type Assignee = IdNode | Group;
 
 export interface DeclarationNode extends Node {
   $: NodeType.DECLARATION;
   modifier: ModifierNode | null;
-  assignee: IdNode | ArrayNode | ObjectNode | null;
-  group: GroupNode | ObjectNode | ArrayNode | null;
+  assignee: Assignee | null;
+  group: Group | null;
   type: TypeNode | null;
   assign: AssignNode | null;
 }
 
 export function declarationNode(
   modifier: ModifierNode | null,
-  assignee: IdNode | ArrayNode | ObjectNode | null,
-  group: GroupNode | ObjectNode | ArrayNode | null,
+  assignee: Assignee | null,
+  group: Group | null,
   type: TypeNode | null,
   assign: AssignNode | null,
 ): DeclarationNode {
@@ -41,4 +46,14 @@ export function declarationNode(
   addNodeParent(node, modifier, assignee, group, type, assign);
 
   return node;
+}
+
+export function isGroupNode(node: Node): node is Group {
+  return (
+    is<GroupNode>(node, NodeType.GROUP) || is<ArrayNode>(node, NodeType.ARRAY) || is<ObjectNode>(node, NodeType.OBJECT)
+  );
+}
+
+export function isAssigneeNode(node: Node): node is Assignee {
+  return is<IdNode>(node, NodeType.ID) || isGroupNode(node);
 }
