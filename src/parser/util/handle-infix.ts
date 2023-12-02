@@ -6,6 +6,8 @@ import {
   DeclarationType,
   declarationNode,
   isAssigneeNode,
+  isObjectDeclaration,
+  updateDeclarationRange,
 } from '~/parser/node/declaration/declaration-node';
 import { GroupNode } from '~/parser/node/group/group-node';
 import { idAssignNode } from '~/parser/node/id-assign/id-assign-node';
@@ -34,7 +36,7 @@ export function handleInfix(context: ParserContext, operator: OperatorNode, left
   }
 
   if (operator.text === TYPE_TOKEN) {
-    return createType(operator, left, right);
+    return createType(context, operator, left, right);
   }
 
   if (operator.text === ASSIGN_TOKEN) {
@@ -60,18 +62,26 @@ function createMetaMember(operator: OperatorNode, left: Node, right: Node | null
   throw new Error('Not implemented');
 }
 
-function createType(operator: OperatorNode, left: Node, right: Node | null): DeclarationNode {
+function createType(context: ParserContext, operator: OperatorNode, left: Node, right: Node | null): DeclarationNode {
   const type = typeNode(operator, right);
 
   if (is<DeclarationNode>(left, NodeType.DECLARATION)) {
     left.type = type;
     type.parent = left;
+    updateDeclarationRange(left);
 
     return left;
   }
 
   if (isAssigneeNode(left)) {
-    return declarationNode(DeclarationType.UNKNOWN, null, left, null, type, null);
+    const declaration = declarationNode(DeclarationType.UNKNOWN, null, left, null, type, null);
+
+    if (isObjectDeclaration(context.parent)) {
+      declaration.declarationType = DeclarationType.ATTRIBUTE;
+      context.parent.attributes.push(declaration);
+    }
+
+    return declaration;
   }
 
   throw new Error('Not implemented');

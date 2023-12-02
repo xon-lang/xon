@@ -20,6 +20,17 @@ test('has argument', () => {
   ).toBe(37 + 42);
 });
 
+test('two parameter', () => {
+  const text = '(a, b) = a+b';
+  const nodes = parse(text).root.children;
+  const tree = nodes[0] as LambdaNode;
+
+  expect(tree.$).toBe(NodeType.LAMBDA);
+  expect(tree.assignee.items.length).toBe(2);
+  expect((tree.assignee.items[0] as IdNode).text).toBe('a');
+  expect((tree.assignee.items[1] as IdNode).text).toBe('b');
+});
+
 // test('generics', () => {
 //   const text = '{N,M ,K:String }[x] = x + 42';
 //   const nodes = parse(text).root.children;

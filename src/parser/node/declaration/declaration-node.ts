@@ -33,6 +33,7 @@ export interface DeclarationNode extends Node {
   group: Group | null;
   type: TypeNode | null;
   assign: AssignNode | null;
+  attributes: DeclarationNode[];
 }
 
 export function declarationNode(
@@ -55,6 +56,7 @@ export function declarationNode(
     group,
     type,
     assign,
+    attributes: [],
   };
 
   addNodeParent(node, modifier, assignee, group, type, assign);
@@ -78,4 +80,8 @@ export function updateDeclarationRange(declaration: DeclarationNode): void {
   const stopNode = assign ?? type ?? group ?? assignee ?? modifier;
 
   declaration.range = rangeFromNodes(startNode, stopNode);
+}
+
+export function isObjectDeclaration(node: Node): node is DeclarationNode {
+  return is<DeclarationNode>(node, NodeType.DECLARATION) && node.declarationType === DeclarationType.OBJECT;
 }

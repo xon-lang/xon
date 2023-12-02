@@ -6,6 +6,7 @@ import { NodeType } from '../node-type';
 
 export interface LambdaNode extends Node {
   $: NodeType.LAMBDA;
+  // todo mb parameters node
   assignee: GroupNode;
   assign: AssignNode;
 }

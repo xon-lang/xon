@@ -5,6 +5,7 @@ export interface Node {
   $: NodeType;
   range: SourceRange;
   parent?: Node | null;
+  // todo remove it
   children?: Node[] | null;
   // todo mb should be in the statement node
   declarations?: Node[] | null;

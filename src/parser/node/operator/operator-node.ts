@@ -1,5 +1,4 @@
 import { String2 } from '~/lib/core';
-import { DeclarationNode } from '~/parser/node/declaration/declaration-node';
 import { idNode, scanIdNode } from '~/parser/node/id/id-node';
 import { Node } from '~/parser/node/node';
 import { ParserContext } from '~/parser/parser-context';
@@ -53,10 +52,10 @@ export function scanOperatorNode(context: ParserContext): Node | null {
   }
 
   const text = candidates[candidates.length - 1];
-  const id = idNodeText(context);
+  const id = scanIdNode(context);
 
   if (id && id.text.length > text.length) {
-    return id.node;
+    return id;
   }
 
   const range = context.getRange(text.length);
@@ -66,44 +65,4 @@ export function scanOperatorNode(context: ParserContext): Node | null {
   }
 
   return operatorNode(range, text);
-}
-
-// todo make it simple
-function idNodeText(context: ParserContext): {
-  node: Node;
-  text: String2;
-} | null {
-  const id = scanIdNode(context);
-
-  if (!id) {
-    return null;
-  }
-
-  if (is<DeclarationNode>(id, NodeType.DECLARATION)) {
-    // eslint-disable-next-line no-restricted-syntax
-    if (id.modifier && 'text' in id.modifier) {
-      return {
-        node: id,
-        text: id.modifier?.text,
-      };
-    }
-
-    // eslint-disable-next-line no-restricted-syntax
-    if (id.assignee && 'text' in id.assignee) {
-      return {
-        node: id,
-        text: id.assignee?.text,
-      };
-    }
-  }
-
-  // eslint-disable-next-line no-restricted-syntax
-  if ('text' in id) {
-    return {
-      node: id,
-      text: id.text as String2,
-    };
-  }
-
-  return null;
 }

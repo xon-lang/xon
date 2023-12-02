@@ -1,23 +1,14 @@
 import '~/extensions';
 import { String2 } from '~/lib/core';
-import {
-  DeclarationNode,
-  DeclarationType,
-  declarationNode,
-  updateDeclarationRange,
-} from '~/parser/node/declaration/declaration-node';
-import { keywordNode } from '~/parser/node/keyword/keyword-node';
+import { KeywordNode, keywordNode } from '~/parser/node/keyword/keyword-node';
 import { ModifierNode, modifierNode } from '~/parser/node/modifier/modifier-node';
-import { Node } from '~/parser/node/node';
 import { ParserContext } from '~/parser/parser-context';
-import { is } from '~/parser/util/is';
 import {
   DIGIT_0_CODE,
   DIGIT_9_CODE,
   KEYWORDS,
   LOWER_A_CODE,
   LOWER_Z_CODE,
-  MODIFIERS,
   MODIFIERS_NAMES,
   UNDERSCORE_CODE,
   UPPER_A_CODE,
@@ -39,7 +30,7 @@ export function idNode(range: SourceRange, text: String2): IdNode {
   };
 }
 
-export function scanIdNode(context: ParserContext): Node | null {
+export function scanIdNode(context: ParserContext): ModifierNode | IdNode | KeywordNode | null {
   const { index, source, nodes: lastStatementNodes } = context;
 
   const code = source.characters[index];
@@ -67,10 +58,8 @@ export function scanIdNode(context: ParserContext): Node | null {
 
   if (lastStatementNodes.length === 0 && MODIFIERS_NAMES.includes(sliced)) {
     const range = context.getRange(sliced.length);
-    const modifier = modifierNode(range, sliced) as ModifierNode;
-    const declarationType = MODIFIERS[modifier.text];
 
-    return declarationNode(declarationType, modifier, null, null, null, null);
+    return modifierNode(range, sliced) as ModifierNode;
   }
 
   if (KEYWORDS.includes(sliced)) {
@@ -78,25 +67,6 @@ export function scanIdNode(context: ParserContext): Node | null {
   }
 
   const id = idNode(range, sliced);
-
-  if (is<DeclarationNode>(context.nodes[0], NodeType.DECLARATION)) {
-    // todo mb must be after all scan functions
-    const declaration = context.nodes[0];
-    declaration.assignee = id;
-    id.parent = declaration;
-    updateDeclarationRange(declaration);
-
-    context.nodes.splice(0, 1);
-
-    return declaration;
-  }
-
-  if (
-    is<DeclarationNode>(context.parent, NodeType.DECLARATION) &&
-    context.parent.declarationType === DeclarationType.OBJECT
-  ) {
-    return declarationNode(DeclarationType.UNKNOWN, null, id, null, null, null);
-  }
 
   return id;
 }
