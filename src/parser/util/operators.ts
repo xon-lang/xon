@@ -1,4 +1,5 @@
 import { String2 } from '~/lib/core';
+import { DeclarationType } from '~/parser/node/declaration/declaration-node';
 
 export interface OperatorsOrder {
   operators: String2[][];
@@ -77,7 +78,7 @@ export const OPEN_CLOSE_PAIR = {
 
 export const STRING_QUOTE = '"';
 
-export const CHAR_QUOTE = "'";
+export const CHAR_QUOTE = '\'';
 
 export const TYPE_TOKEN = ':';
 
@@ -87,26 +88,17 @@ export const MEMBER_TOKEN = '.';
 
 export const META_MEMBER_TOKEN = '::';
 
-export const MODEL_MODIFIER = 'model';
+// todo here we have declaration modifiers, should we have another modifiers?
+export const MODIFIERS: Record<String2, DeclarationType> = {
+  model: DeclarationType.OBJECT,
+  const: DeclarationType.VALUE,
+  var: DeclarationType.VALUE,
+  prefix: DeclarationType.METHOD,
+  postfix: DeclarationType.METHOD,
+  infix: DeclarationType.METHOD,
+};
 
-export const CONST_MODIFIER = 'const';
-
-export const VAR_MODIFIER = 'var';
-
-export const PREFIX_MODIFIER = 'prefix';
-
-export const POSTFIX_MODIFIER = 'postfix';
-
-export const INFIX_MODIFIER = 'infix';
-
-export const MODIFIERS = [
-  MODEL_MODIFIER,
-  CONST_MODIFIER,
-  VAR_MODIFIER,
-  PREFIX_MODIFIER,
-  POSTFIX_MODIFIER,
-  INFIX_MODIFIER,
-];
+export const MODIFIERS_NAMES = Object.keys(MODIFIERS);
 
 export const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
 

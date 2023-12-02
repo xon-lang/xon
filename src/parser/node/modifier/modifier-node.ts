@@ -1,16 +1,14 @@
-import { MODIFIERS } from '~/parser/util/operators';
+import { String2 } from '~/lib/core';
 import { SourceRange } from '~/source/source-range';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
-export type ModifierText = (typeof MODIFIERS)[number];
-
 export interface ModifierNode extends TokenNode {
   $: NodeType.MODIFIER;
-  text: ModifierText;
+  text: String2;
 }
 
-export function modifierNode(range: SourceRange, text: ModifierText): ModifierNode {
+export function modifierNode(range: SourceRange, text: String2): ModifierNode {
   return {
     $: NodeType.MODIFIER,
     range,

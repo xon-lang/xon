@@ -1,8 +1,7 @@
 import '~/extensions';
 import { String2 } from '~/lib/core';
-import { declarationNode } from '~/parser/node/declaration/declaration-node';
+import { DeclarationNode, DeclarationType, declarationNode } from '~/parser/node/declaration/declaration-node';
 import { keywordNode } from '~/parser/node/keyword/keyword-node';
-import { ModelNode } from '~/parser/node/model/model-node';
 import { ModifierNode, modifierNode } from '~/parser/node/modifier/modifier-node';
 import { Node } from '~/parser/node/node';
 import { ParserContext } from '~/parser/parser-context';
@@ -14,6 +13,7 @@ import {
   LOWER_A_CODE,
   LOWER_Z_CODE,
   MODIFIERS,
+  MODIFIERS_NAMES,
   UNDERSCORE_CODE,
   UPPER_A_CODE,
   UPPER_Z_CODE,
@@ -60,11 +60,12 @@ export function scanIdNode(context: ParserContext): Node | null {
 
   const range = context.getRange(sliced.length);
 
-  if (lastStatementNodes.length === 0 && MODIFIERS.includes(sliced)) {
+  if (lastStatementNodes.length === 0 && MODIFIERS_NAMES.includes(sliced)) {
     const range = context.getRange(sliced.length);
     const modifier = modifierNode(range, sliced) as ModifierNode;
+    const declarationType = MODIFIERS[modifier.text];
 
-    return declarationNode(modifier, null, null, null, null);
+    return declarationNode(declarationType, modifier, null, null, null, null);
   }
 
   if (KEYWORDS.includes(sliced)) {
@@ -74,11 +75,16 @@ export function scanIdNode(context: ParserContext): Node | null {
   const id = idNode(range, sliced);
 
   if (is<ModifierNode>(context.nodes[0], NodeType.MODIFIER)) {
-    return declarationNode(context.nodes[0], id, null, null, null);
+    const declarationType = MODIFIERS[context.nodes[0].text];
+
+    return declarationNode(declarationType, context.nodes[0], id, null, null, null);
   }
 
-  if (is<ModelNode>(context.parent, NodeType.MODEL)) {
-    return declarationNode(null, id, null, null, null);
+  if (
+    is<DeclarationNode>(context.parent, NodeType.DECLARATION) &&
+    context.parent.declarationType === DeclarationType.OBJECT
+  ) {
+    return declarationNode(DeclarationType.UNKNOWN, null, id, null, null, null);
   }
 
   return id;

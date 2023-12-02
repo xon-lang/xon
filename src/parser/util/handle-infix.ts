@@ -1,7 +1,12 @@
 import { arrayAssignNode } from '~/parser/node/array-assign/array-assign-node';
 import { ArrayNode } from '~/parser/node/array/array-node';
 import { assignNode } from '~/parser/node/assign/assign-node';
-import { DeclarationNode, declarationNode, isAssigneeNode } from '~/parser/node/declaration/declaration-node';
+import {
+  DeclarationNode,
+  DeclarationType,
+  declarationNode,
+  isAssigneeNode,
+} from '~/parser/node/declaration/declaration-node';
 import { GroupNode } from '~/parser/node/group/group-node';
 import { idAssignNode } from '~/parser/node/id-assign/id-assign-node';
 import { IdNode } from '~/parser/node/id/id-node';
@@ -66,7 +71,7 @@ function createType(operator: OperatorNode, left: Node, right: Node | null): Dec
   }
 
   if (isAssigneeNode(left)) {
-    return declarationNode(null, left, null, type, null);
+    return declarationNode(DeclarationType.UNKNOWN, null, left, null, type, null);
   }
 
   throw new Error('Not implemented');

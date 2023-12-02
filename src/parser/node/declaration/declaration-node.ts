@@ -14,17 +14,29 @@ export type Group = GroupNode | ArrayNode | ObjectNode;
 
 export type Assignee = IdNode | Group;
 
+export enum DeclarationType {
+  UNKNOWN = 'UNKNOWN',
+  OBJECT = 'OBJECT',
+  METHOD = 'METHOD',
+  VALUE = 'VALUE',
+  ATTRIBUTE = 'ATTRIBUTE',
+}
+
 // todo mb add hasAttributes
 export interface DeclarationNode extends Node {
   $: NodeType.DECLARATION;
+  declarationType: DeclarationType;
   modifier: ModifierNode | null;
   assignee: Assignee | null;
+
+  // todo make group as parameters
   group: Group | null;
   type: TypeNode | null;
   assign: AssignNode | null;
 }
 
 export function declarationNode(
+  declarationType: DeclarationType,
   modifier: ModifierNode | null,
   assignee: Assignee | null,
   group: Group | null,
@@ -37,6 +49,7 @@ export function declarationNode(
   const node: DeclarationNode = {
     $: NodeType.DECLARATION,
     range: rangeFromNodes(startNode, stopNode),
+    declarationType,
     modifier,
     assignee,
     group,
