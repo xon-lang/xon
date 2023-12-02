@@ -72,7 +72,7 @@ export function parseUntil(source: Source, index: Integer, breakFn: BreakFn | nu
       putHiddenNode(context, node);
 
       if (context.nodes.length > 0) {
-        context.lastStatement = putStatementNode(context);
+        putStatementNode(context);
       }
 
       context.nodes = [];
@@ -90,7 +90,7 @@ export function parseUntil(source: Source, index: Integer, breakFn: BreakFn | nu
   }
 
   if (context.nodes.length > 0) {
-    context.lastStatement = putStatementNode(context);
+    putStatementNode(context);
   }
 
   return context;

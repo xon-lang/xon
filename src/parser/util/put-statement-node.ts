@@ -6,24 +6,24 @@ import { getSyntacticNode } from '~/parser/util/get-syntactic-node';
 import { is } from '~/parser/util/is';
 import { ParserContext } from '../parser-context';
 
-export function putStatementNode(context: ParserContext): Node | null {
+export function putStatementNode(context: ParserContext): void {
   const { nodes: lastStatementNodes, lastStatement, root } = context;
 
   const indent = lastStatementNodes[0].range.start.column;
+  let parent: Node;
 
   if (!lastStatement) {
-    return handleStatement(context, root);
+    parent = root;
+  } else if (indent > lastStatement.range.start.column) {
+    parent = lastStatement;
+  } else {
+    parent = findParentWithLessIndent(lastStatement, indent);
   }
 
-  if (indent > lastStatement.range.start.column) {
-    return handleStatement(context, lastStatement);
-  }
-
-  const parent = findParentWithLessIndent(lastStatement, indent);
-
-  return handleStatement(context, parent);
+  handleStatement(context, parent);
 }
 
+// todo make it more clear and simple
 function handleStatement(context: ParserContext, parent: Node): Node {
   context.parent = parent;
   const statement = getSyntacticNode(context);
@@ -32,6 +32,8 @@ function handleStatement(context: ParserContext, parent: Node): Node {
   if (parent === context.root) {
     context.root.children.push(statement);
   }
+
+  context.lastStatement = statement;
 
   return statement;
 }
