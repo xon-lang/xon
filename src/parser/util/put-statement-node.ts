@@ -7,8 +7,15 @@ import { is } from '~/parser/util/is';
 import { ParserContext } from '../parser-context';
 
 export function putStatementNode(context: ParserContext): void {
-  const parent = getParent(context);
-  handleStatement(context, parent);
+  context.parent = getParent(context);
+  const statement = getSyntacticNode(context);
+  statement.parent = context.parent;
+
+  if (context.parent === context.root) {
+    context.root.children.push(statement);
+  }
+
+  context.lastStatement = statement;
 }
 
 function getParent(context: ParserContext): Node {
@@ -24,21 +31,6 @@ function getParent(context: ParserContext): Node {
   }
 
   return findParentWithLessIndent(lastStatement, indent);
-}
-
-// todo make it more clear and simple
-function handleStatement(context: ParserContext, parent: Node): Node {
-  context.parent = parent;
-  const statement = getSyntacticNode(context);
-  statement.parent = parent;
-
-  if (parent === context.root) {
-    context.root.children.push(statement);
-  }
-
-  context.lastStatement = statement;
-
-  return statement;
 }
 
 function findParentWithLessIndent(node: Node, indent: Integer): Node {
