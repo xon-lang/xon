@@ -1,5 +1,5 @@
 import { Integer } from '~/lib/core';
-import { Node, addNodeChildren } from '~/parser/node/node';
+import { Node } from '~/parser/node/node';
 import { NodeType } from '~/parser/node/node-type';
 import { RootNode } from '~/parser/node/root/root-node';
 import { getSyntacticNode } from '~/parser/util/get-syntactic-node';
@@ -12,27 +12,25 @@ export function putStatementNode(context: ParserContext): Node | null {
   const indent = lastStatementNodes[0].range.start.column;
 
   if (!lastStatement) {
-    context.parent = root;
-    const statement = getSyntacticNode(context);
-    addNodeChildren(root, statement);
-
-    return statement;
+    return handleStatement(context, root);
   }
 
   if (indent > lastStatement.range.start.column) {
-    context.parent = lastStatement;
-    const statement = getSyntacticNode(context);
-    addNodeChildren(lastStatement, statement);
-
-    return statement;
+    return handleStatement(context, lastStatement);
   }
 
   const parent = findParentWithLessIndent(lastStatement, indent);
+
+  return handleStatement(context, parent);
+}
+
+function handleStatement(context: ParserContext, parent: Node): Node {
   context.parent = parent;
   const statement = getSyntacticNode(context);
+  statement.parent = parent;
 
-  if (parent) {
-    addNodeChildren(parent, statement);
+  if (parent === context.root) {
+    context.root.children.push(statement);
   }
 
   return statement;

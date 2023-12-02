@@ -4,9 +4,9 @@ import { NodeType } from '../node-type';
 
 export interface RootNode extends Node {
   $: NodeType.ROOT;
+  parent: null;
   children: Node[];
   declarations: Node[];
-  parent: null;
 }
 
 export function rootNode(): RootNode {
