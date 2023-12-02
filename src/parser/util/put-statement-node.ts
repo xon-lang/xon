@@ -7,20 +7,23 @@ import { is } from '~/parser/util/is';
 import { ParserContext } from '../parser-context';
 
 export function putStatementNode(context: ParserContext): void {
-  const { nodes: lastStatementNodes, lastStatement, root } = context;
+  const parent = getParent(context);
+  handleStatement(context, parent);
+}
 
-  const indent = lastStatementNodes[0].range.start.column;
-  let parent: Node;
+function getParent(context: ParserContext): Node {
+  const { nodes, lastStatement, root } = context;
+  const indent = nodes[0].range.start.column;
 
   if (!lastStatement) {
-    parent = root;
-  } else if (indent > lastStatement.range.start.column) {
-    parent = lastStatement;
-  } else {
-    parent = findParentWithLessIndent(lastStatement, indent);
+    return root;
   }
 
-  handleStatement(context, parent);
+  if (indent > lastStatement.range.start.column) {
+    return lastStatement;
+  }
+
+  return findParentWithLessIndent(lastStatement, indent);
 }
 
 // todo make it more clear and simple
