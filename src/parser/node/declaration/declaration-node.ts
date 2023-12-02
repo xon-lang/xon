@@ -14,6 +14,7 @@ export type Group = GroupNode | ArrayNode | ObjectNode;
 
 export type Assignee = IdNode | Group;
 
+// todo mb add hasAttributes
 export interface DeclarationNode extends Node {
   $: NodeType.DECLARATION;
   modifier: ModifierNode | null;

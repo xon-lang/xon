@@ -1,7 +1,7 @@
 import { arrayAssignNode } from '~/parser/node/array-assign/array-assign-node';
 import { ArrayNode } from '~/parser/node/array/array-node';
 import { assignNode } from '~/parser/node/assign/assign-node';
-import { DeclarationNode } from '~/parser/node/declaration/declaration-node';
+import { DeclarationNode, declarationNode, isAssigneeNode } from '~/parser/node/declaration/declaration-node';
 import { GroupNode } from '~/parser/node/group/group-node';
 import { idAssignNode } from '~/parser/node/id-assign/id-assign-node';
 import { IdNode } from '~/parser/node/id/id-node';
@@ -65,6 +65,10 @@ function createType(operator: OperatorNode, left: Node, right: Node | null): Dec
     return left;
   }
 
+  if (isAssigneeNode(left)) {
+    return declarationNode(null, left, null, type, null);
+  }
+
   throw new Error('Not implemented');
 }
 
@@ -88,6 +92,7 @@ function createAssign(operator: OperatorNode, left: Node, right: Node | null): N
   //   return declarationNode(null, left, null, null, assign);
   // }
 
+  // todo change all with assignee node
   if (is<IdNode>(left, NodeType.ID) && assign) {
     return idAssignNode(left, assign);
   }
