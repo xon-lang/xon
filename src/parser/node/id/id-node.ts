@@ -1,6 +1,11 @@
 import '~/extensions';
 import { String2 } from '~/lib/core';
-import { DeclarationNode, DeclarationType, declarationNode } from '~/parser/node/declaration/declaration-node';
+import {
+  DeclarationNode,
+  DeclarationType,
+  declarationNode,
+  updateDeclarationRange,
+} from '~/parser/node/declaration/declaration-node';
 import { keywordNode } from '~/parser/node/keyword/keyword-node';
 import { ModifierNode, modifierNode } from '~/parser/node/modifier/modifier-node';
 import { Node } from '~/parser/node/node';
@@ -74,10 +79,16 @@ export function scanIdNode(context: ParserContext): Node | null {
 
   const id = idNode(range, sliced);
 
-  if (is<ModifierNode>(context.nodes[0], NodeType.MODIFIER)) {
-    const declarationType = MODIFIERS[context.nodes[0].text];
+  if (is<DeclarationNode>(context.nodes[0], NodeType.DECLARATION)) {
+    // todo mb must be after all scan functions
+    const declaration = context.nodes[0];
+    declaration.assignee = id;
+    id.parent = declaration;
+    updateDeclarationRange(declaration);
 
-    return declarationNode(declarationType, context.nodes[0], id, null, null, null);
+    context.nodes.splice(0, 1);
+
+    return declaration;
   }
 
   if (

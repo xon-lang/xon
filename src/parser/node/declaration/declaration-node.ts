@@ -71,3 +71,11 @@ export function isGroupNode(node: Node): node is Group {
 export function isAssigneeNode(node: Node): node is Assignee {
   return is<IdNode>(node, NodeType.ID) || isGroupNode(node);
 }
+
+export function updateDeclarationRange(declaration: DeclarationNode): void {
+  const { modifier, assignee, group, type, assign } = declaration;
+  const startNode = modifier ?? assignee ?? group ?? type ?? assign;
+  const stopNode = assign ?? type ?? group ?? assignee ?? modifier;
+
+  declaration.range = rangeFromNodes(startNode, stopNode);
+}
