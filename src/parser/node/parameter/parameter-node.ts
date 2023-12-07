@@ -1,10 +1,7 @@
-import { ArrayNode } from '~/parser/node/array/array-node';
 import { AssignNode } from '~/parser/node/assign/assign-node';
-import { DeclarationNode } from '~/parser/node/declaration/declaration-node';
-import { IdNode } from '~/parser/node/id/id-node';
+import { Assignee, DeclarationNode } from '~/parser/node/declaration/declaration-node';
 import { ModifierNode } from '~/parser/node/modifier/modifier-node';
 import { Node, addNodeParent } from '~/parser/node/node';
-import { ObjectNode } from '~/parser/node/object/object-node';
 import { TypeNode } from '~/parser/node/type/type-node';
 import { rangeFromNodes } from '~/source/source-range';
 import { NodeType } from '../node-type';
@@ -12,14 +9,14 @@ import { NodeType } from '../node-type';
 export interface ParameterNode extends Node {
   $: NodeType.PARAMETER;
   modifier: ModifierNode | null;
-  assignee: IdNode | ArrayNode | ObjectNode;
+  assignee: Assignee;
   type: TypeNode | null;
   assign: AssignNode | null;
 }
 
 export function parameterNode(
   modifier: ModifierNode | null,
-  assignee: IdNode | ArrayNode | ObjectNode,
+  assignee: Assignee,
   type: TypeNode | null,
   assign: AssignNode | null,
 ): ParameterNode {

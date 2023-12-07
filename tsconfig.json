@@ -4,20 +4,31 @@
     "baseUrl": ".",
     "declaration": true,
     "esModuleInterop": true,
-    "lib": ["ES2021"],
+    "lib": [
+      "ES2021"
+    ],
     "module": "CommonJS",
     "moduleResolution": "node",
     "noImplicitAny": false,
+    "noImplicitReturns": true,
     "outDir": ".",
     "paths": {
-      "~/*": ["src/*"],
-      "*": ["node_modules/*"]
+      "*": [
+        "node_modules/*"
+      ],
+      "~/*": [
+        "src/*"
+      ]
     },
     "sourceMap": true,
     "strict": true,
-    "useUnknownInCatchVariables": true,
-    "target": "ES2021"
+    "target": "ES2021",
+    "useUnknownInCatchVariables": true
   },
   "exclude": [],
-  "include": ["src/**/*", "test/**/*", "benchmark.js"]
+  "include": [
+    "src/**/*",
+    "test/**/*",
+    "benchmark.js"
+  ]
 }
