@@ -12,7 +12,8 @@
     "postpublish",
     "postversion",
     "proto",
-    "ts-nocheck"
+    "ts-nocheck",
+    "gulpfile"
   ],
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "[xon]": {
