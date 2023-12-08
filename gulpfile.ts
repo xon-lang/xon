@@ -5,7 +5,7 @@ import gulp, { dest, src } from 'gulp';
 import replace from 'gulp-replace';
 
 gulp.task('default', async () => {
-  await src(['dist/**/*.ts'])
+  await src('dist/**/*.{ts,js}')
     .pipe(
       replace('~', function () {
         const res = this.file.relative
