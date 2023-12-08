@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 /* eslint-disable no-extend-native */
-import { Char, Number2, String2 } from '~/lib/core';
+import { Char, Number2, String2 } from './lib/core';
 
 // Array
 Array.prototype.takeWhile = function takeWhile<T>(

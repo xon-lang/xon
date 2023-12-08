@@ -1,6 +1,6 @@
-import '~/extensions';
-import { CloseNode } from '~/parser/node/close/close-node';
-import { OpenNode } from '~/parser/node/open/open-node';
+import '../../../extensions';
+import { CloseNode } from '../../../parser/node/close/close-node';
+import { OpenNode } from '../../../parser/node/open/open-node';
 import { rangeFromNodes } from '../../../source/source-range';
 import { Node } from '../node';
 import { NodeType } from '../node-type';

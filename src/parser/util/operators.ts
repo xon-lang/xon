@@ -1,5 +1,5 @@
-import { String2 } from '~/lib/core';
-import { DeclarationType } from '~/parser/node/declaration/declaration-node';
+import { String2 } from '../../lib/core';
+import { DeclarationType } from '../../parser/node/declaration/declaration-node';
 
 export interface OperatorsOrder {
   operators: String2[][];

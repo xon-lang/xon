@@ -1,6 +1,6 @@
-import { ParserContext } from '~/parser/parser-context';
-import { collapseOperator } from '~/parser/util/collapse-operator';
-import { OperatorType, operatorsOrders } from '~/parser/util/operators';
+import { ParserContext } from '../../parser/parser-context';
+import { collapseOperator } from '../../parser/util/collapse-operator';
+import { OperatorType, operatorsOrders } from '../../parser/util/operators';
 import { collapseInvoke } from './collapse-invoke';
 
 export function collapseOperators(context: ParserContext): void {

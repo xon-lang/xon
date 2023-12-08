@@ -1,6 +1,6 @@
-import { PrefixNode } from '~/parser/node/prefix/prefix-node';
-import { parse } from '~/parser/parser';
-import { evaluate } from '~/util/evaluate';
+import { PrefixNode } from '../../../parser/node/prefix/prefix-node';
+import { parse } from '../../../parser/parser';
+import { evaluate } from '../../../util/evaluate';
 import { NodeType } from '../node-type';
 
 test('negative integer', () => {

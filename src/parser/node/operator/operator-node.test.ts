@@ -1,5 +1,5 @@
-import { PostfixNode } from '~/parser/node/postfix/postfix-node';
-import { parse } from '~/parser/parser';
+import { PostfixNode } from '../../../parser/node/postfix/postfix-node';
+import { parse } from '../../../parser/parser';
 import { NodeType } from '../node-type';
 
 // test('single operator', () => {

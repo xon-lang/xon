@@ -1,19 +1,19 @@
-import '~/extensions';
-import { arrayNode } from '~/parser/node/array/array-node';
-import { CloseNode } from '~/parser/node/close/close-node';
-import { CommaNode } from '~/parser/node/comma/comma-node';
-import { DeclarationNode, Group } from '~/parser/node/declaration/declaration-node';
-import { objectNode } from '~/parser/node/object/object-node';
-import { OpenNode, scanOpenNode } from '~/parser/node/open/open-node';
-import { parseUntil } from '~/parser/parser';
-import { ParserContext } from '~/parser/parser-context';
-import { is } from '~/parser/util/is';
+import '../../../extensions';
+import { arrayNode } from '../../../parser/node/array/array-node';
+import { CloseNode } from '../../../parser/node/close/close-node';
+import { CommaNode } from '../../../parser/node/comma/comma-node';
+import { DeclarationNode, Group } from '../../../parser/node/declaration/declaration-node';
+import { objectNode } from '../../../parser/node/object/object-node';
+import { OpenNode, scanOpenNode } from '../../../parser/node/open/open-node';
+import { parseUntil } from '../../../parser/parser';
+import { ParserContext } from '../../../parser/parser-context';
+import { is } from '../../../parser/util/is';
 import {
   ARRAY_NODE_OPEN_CODE,
   GROUP_NODE_OPEN_CODE,
   OBJECT_NODE_OPEN_CODE,
   OPEN_CLOSE_PAIR,
-} from '~/parser/util/operators';
+} from '../../../parser/util/operators';
 import { sourcePosition } from '../../../source/source-position';
 import { rangeFromNodes, sourceRange } from '../../../source/source-range';
 import { Node } from '../node';

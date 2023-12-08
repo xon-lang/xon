@@ -12,14 +12,6 @@
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "outDir": ".",
-    "paths": {
-      "*": [
-        "node_modules/*"
-      ],
-      "~/*": [
-        "src/*"
-      ]
-    },
     "sourceMap": true,
     "strict": true,
     "target": "ES2021",
@@ -27,9 +19,6 @@
   },
   "exclude": [],
   "include": [
-    "src/**/*",
-    "test/**/*",
-    "benchmark.js",
-    "gulpfile.ts",
+    "**/*",
   ]
 }

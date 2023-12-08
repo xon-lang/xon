@@ -1,11 +1,11 @@
-import { String2 } from '~/lib/core';
-import { Node } from '~/parser/node/node';
-import { OperatorNode } from '~/parser/node/operator/operator-node';
-import { postfixNode } from '~/parser/node/postfix/postfix-node';
-import { prefixNode } from '~/parser/node/prefix/prefix-node';
-import { ParserContext } from '~/parser/parser-context';
-import { handleInfix } from '~/parser/util/handle-infix';
-import { OperatorType, RecursiveType } from '~/parser/util/operators';
+import { String2 } from '../../lib/core';
+import { Node } from '../../parser/node/node';
+import { OperatorNode } from '../../parser/node/operator/operator-node';
+import { postfixNode } from '../../parser/node/postfix/postfix-node';
+import { prefixNode } from '../../parser/node/prefix/prefix-node';
+import { ParserContext } from '../../parser/parser-context';
+import { handleInfix } from '../../parser/util/handle-infix';
+import { OperatorType, RecursiveType } from '../../parser/util/operators';
 import { NodeType } from '../node/node-type';
 import { is } from './is';
 

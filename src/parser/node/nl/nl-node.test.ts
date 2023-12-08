@@ -1,4 +1,4 @@
-import { parse } from '~/parser/parser';
+import { parse } from '../../../parser/parser';
 import { TokenNode } from '../token-node';
 
 // test('line feed', () => {

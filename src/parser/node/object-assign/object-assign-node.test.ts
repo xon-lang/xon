@@ -1,7 +1,7 @@
-import { IdNode } from '~/parser/node/id/id-node';
-import { NodeType } from '~/parser/node/node-type';
-import { ObjectAssignNode } from '~/parser/node/object-assign/object-assign-node';
-import { parse } from '~/parser/parser';
+import { IdNode } from '../../../parser/node/id/id-node';
+import { NodeType } from '../../../parser/node/node-type';
+import { ObjectAssignNode } from '../../../parser/node/object-assign/object-assign-node';
+import { parse } from '../../../parser/parser';
 
 test('a', () => {
   const text = '{a} = 1';

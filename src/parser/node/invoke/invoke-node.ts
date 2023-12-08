@@ -1,5 +1,5 @@
-import { Group } from '~/parser/node/declaration/declaration-node';
-import { Node } from '~/parser/node/node';
+import { Group } from '../../../parser/node/declaration/declaration-node';
+import { Node } from '../../../parser/node/node';
 import { rangeFromNodes } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 

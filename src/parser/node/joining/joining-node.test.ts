@@ -1,8 +1,8 @@
-import { IdNode } from '~/parser/node/id/id-node';
-import { JoiningNode } from '~/parser/node/joining/joining-node';
-import { MemberNode } from '~/parser/node/member/member-node';
-import { OperatorNode } from '~/parser/node/operator/operator-node';
-import { parse } from '~/parser/parser';
+import { IdNode } from '../../../parser/node/id/id-node';
+import { JoiningNode } from '../../../parser/node/joining/joining-node';
+import { MemberNode } from '../../../parser/node/member/member-node';
+import { OperatorNode } from '../../../parser/node/operator/operator-node';
+import { parse } from '../../../parser/parser';
 import { NodeType } from '../node-type';
 
 test('no space', () => {

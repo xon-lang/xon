@@ -1,5 +1,5 @@
-import { IssueLevel } from '~/issue/issue-level';
-import { Node } from '~/parser/node/node';
+import { IssueLevel } from '../issue/issue-level';
+import { Node } from '../parser/node/node';
 import { IssueMessage } from './issue-message';
 
 // export class Issue {
@@ -34,7 +34,7 @@ import { IssueMessage } from './issue-message';
 //     const lineNumber = gray(lineNumberBeforeGrayed);
 //     const caret =
 //       ' '.repeat(sourceSpan.start.columnIndex + lineNumberBeforeGrayed.length) +
-//       red('~'.repeat(Math.min(sourceSpan.getText().length, code.length)));
+//       red('..'.repeat(Math.min(sourceSpan.getText().length, code.length)));
 
 //     return `${msg}\n${location}${line}${column}\n${lineNumber}${code}\n${caret}`;
 //   }

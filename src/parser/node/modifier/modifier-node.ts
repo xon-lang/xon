@@ -1,5 +1,5 @@
-import { String2 } from '~/lib/core';
-import { SourceRange } from '~/source/source-range';
+import { String2 } from '../../../lib/core';
+import { SourceRange } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 

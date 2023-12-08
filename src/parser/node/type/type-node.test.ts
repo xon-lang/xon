@@ -1,7 +1,7 @@
-import { DeclarationNode } from '~/parser/node/declaration/declaration-node';
-import { IdNode } from '~/parser/node/id/id-node';
-import { NodeType } from '~/parser/node/node-type';
-import { parse } from '~/parser/parser';
+import { DeclarationNode } from '../../../parser/node/declaration/declaration-node';
+import { IdNode } from '../../../parser/node/id/id-node';
+import { NodeType } from '../../../parser/node/node-type';
+import { parse } from '../../../parser/parser';
 
 test('a', () => {
   const text = 'a: Abstract';

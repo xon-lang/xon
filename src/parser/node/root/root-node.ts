@@ -1,4 +1,4 @@
-import { Node } from '~/parser/node/node';
+import { Node } from '../../../parser/node/node';
 import { zeroRange } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 

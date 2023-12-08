@@ -1,4 +1,4 @@
-import { parse } from '~/parser/parser';
+import { parse } from '../../../parser/parser';
 
 test('whitespace', () => {
   const text = '    ';

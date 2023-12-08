@@ -1,11 +1,11 @@
-import { CloseNode } from '~/parser/node/close/close-node';
-import { DeclarationNode } from '~/parser/node/declaration/declaration-node';
-import { GroupNode } from '~/parser/node/group/group-node';
-import { Node, addNodeParent } from '~/parser/node/node';
-import { OpenNode } from '~/parser/node/open/open-node';
-import { ParameterNode, parameterNodeFromDeclaration } from '~/parser/node/parameter/parameter-node';
-import { is } from '~/parser/util/is';
-import { rangeFromNodes } from '~/source/source-range';
+import { CloseNode } from '../../../parser/node/close/close-node';
+import { DeclarationNode } from '../../../parser/node/declaration/declaration-node';
+import { GroupNode } from '../../../parser/node/group/group-node';
+import { Node, addNodeParent } from '../../../parser/node/node';
+import { OpenNode } from '../../../parser/node/open/open-node';
+import { ParameterNode, parameterNodeFromDeclaration } from '../../../parser/node/parameter/parameter-node';
+import { is } from '../../../parser/util/is';
+import { rangeFromNodes } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 
 export interface ParametersNode extends Node {

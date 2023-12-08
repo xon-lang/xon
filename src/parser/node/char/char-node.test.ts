@@ -1,5 +1,5 @@
-import { StringNode } from '~/parser/node/string/string-node';
-import { parse } from '~/parser/parser';
+import { StringNode } from '../../../parser/node/string/string-node';
+import { parse } from '../../../parser/parser';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 

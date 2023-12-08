@@ -1,10 +1,7 @@
 {
   "coverageDirectory": "./",
   "coverageReporters": ["clover"],
-  "moduleNameMapper": {
-    "^~/(.*)$": "<rootDir>/src/$1"
-  },
-  "roots": ["<rootDir>/src", "<rootDir>/test"],
+  "roots": ["<rootDir>/src"],
   "testMatch": ["**/*.test.ts"],
   "transform": {
     "^.+\\.ts$": "ts-jest"

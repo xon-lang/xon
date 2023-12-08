@@ -1,9 +1,9 @@
-import { AssignNode } from '~/parser/node/assign/assign-node';
-import { Assignee, DeclarationNode } from '~/parser/node/declaration/declaration-node';
-import { ModifierNode } from '~/parser/node/modifier/modifier-node';
-import { Node, addNodeParent } from '~/parser/node/node';
-import { TypeNode } from '~/parser/node/type/type-node';
-import { rangeFromNodes } from '~/source/source-range';
+import { AssignNode } from '../../../parser/node/assign/assign-node';
+import { Assignee, DeclarationNode } from '../../../parser/node/declaration/declaration-node';
+import { ModifierNode } from '../../../parser/node/modifier/modifier-node';
+import { Node, addNodeParent } from '../../../parser/node/node';
+import { TypeNode } from '../../../parser/node/type/type-node';
+import { rangeFromNodes } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 
 export interface ParameterNode extends Node {

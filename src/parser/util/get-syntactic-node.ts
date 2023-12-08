@@ -1,17 +1,17 @@
-import { createErrorIssue } from '~/issue/issue';
-import { issueMessage } from '~/issue/issue-message';
+import { createErrorIssue } from '../../issue/issue';
+import { issueMessage } from '../../issue/issue-message';
 import {
   DeclarationType,
   declarationNode,
   isGroupNode,
   isObjectDeclaration,
   updateDeclarationRange,
-} from '~/parser/node/declaration/declaration-node';
-import { IdNode } from '~/parser/node/id/id-node';
-import { ModifierNode } from '~/parser/node/modifier/modifier-node';
-import { NodeType } from '~/parser/node/node-type';
-import { is } from '~/parser/util/is';
-import { MODIFIERS } from '~/parser/util/operators';
+} from '../../parser/node/declaration/declaration-node';
+import { IdNode } from '../../parser/node/id/id-node';
+import { ModifierNode } from '../../parser/node/modifier/modifier-node';
+import { NodeType } from '../../parser/node/node-type';
+import { is } from '../../parser/util/is';
+import { MODIFIERS } from '../../parser/util/operators';
 import { Node, addNodeParent } from '../node/node';
 import { ParserContext } from '../parser-context';
 import { collapseOperators } from './collapse-operators';

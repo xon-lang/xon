@@ -1,5 +1,5 @@
-import { IdNode } from '~/parser/node/id/id-node';
-import { Node } from '~/parser/node/node';
+import { IdNode } from '../../../parser/node/id/id-node';
+import { Node } from '../../../parser/node/node';
 import { NodeType } from '../node-type';
 
 export interface ArgumentNode extends Node {

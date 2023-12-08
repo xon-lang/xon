@@ -1,4 +1,4 @@
-import { Integer, String2 } from '~/lib/core';
+import { Integer, String2 } from '../lib/core';
 
 export interface Source {
   path: String2;

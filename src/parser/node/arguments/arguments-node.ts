@@ -1,6 +1,6 @@
-import { CloseNode } from '~/parser/node/close/close-node';
-import { Node } from '~/parser/node/node';
-import { OpenNode } from '~/parser/node/open/open-node';
+import { CloseNode } from '../../../parser/node/close/close-node';
+import { Node } from '../../../parser/node/node';
+import { OpenNode } from '../../../parser/node/open/open-node';
 import { NodeType } from '../node-type';
 
 export interface ArgumentsNode extends Node {

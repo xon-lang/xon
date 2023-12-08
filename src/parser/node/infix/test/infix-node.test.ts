@@ -1,10 +1,10 @@
-import { IdNode } from '~/parser/node/id/id-node';
-import { InfixNode } from '~/parser/node/infix/infix-node';
-import { IntegerNode } from '~/parser/node/integer/integer-node';
-import { MemberNode } from '~/parser/node/member/member-node';
-import { PrefixNode } from '~/parser/node/prefix/prefix-node';
-import { parse } from '~/parser/parser';
-import { evaluate } from '~/util/evaluate';
+import { IdNode } from '../../../../parser/node/id/id-node';
+import { InfixNode } from '../../../../parser/node/infix/infix-node';
+import { IntegerNode } from '../../../../parser/node/integer/integer-node';
+import { MemberNode } from '../../../../parser/node/member/member-node';
+import { PrefixNode } from '../../../../parser/node/prefix/prefix-node';
+import { parse } from '../../../../parser/parser';
+import { evaluate } from '../../../../util/evaluate';
 import { NodeType } from '../../node-type';
 import { TokenNode } from '../../token-node';
 

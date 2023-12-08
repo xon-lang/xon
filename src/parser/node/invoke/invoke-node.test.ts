@@ -1,9 +1,9 @@
-import { GroupNode } from '~/parser/node/group/group-node';
-import { IdNode } from '~/parser/node/id/id-node';
-import { IntegerNode } from '~/parser/node/integer/integer-node';
-import { InvokeNode } from '~/parser/node/invoke/invoke-node';
-import { MemberNode } from '~/parser/node/member/member-node';
-import { parse } from '~/parser/parser';
+import { GroupNode } from '../../../parser/node/group/group-node';
+import { IdNode } from '../../../parser/node/id/id-node';
+import { IntegerNode } from '../../../parser/node/integer/integer-node';
+import { InvokeNode } from '../../../parser/node/invoke/invoke-node';
+import { MemberNode } from '../../../parser/node/member/member-node';
+import { parse } from '../../../parser/parser';
 import { NodeType } from '../node-type';
 
 test('method call', () => {

@@ -1,5 +1,5 @@
-import { DeclarationNode } from '~/parser/node/declaration/declaration-node';
-import { parse } from '~/parser/parser';
+import { DeclarationNode } from '../../../parser/node/declaration/declaration-node';
+import { parse } from '../../../parser/parser';
 import { NodeType } from '../node-type';
 
 test('infix modifier', () => {

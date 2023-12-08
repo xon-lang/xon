@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/method-signature-style */
-import { Char, Integer, String2 } from '~/lib/core';
+import { Char, Integer, String2 } from './lib/core';
 
 declare global {
   // Array

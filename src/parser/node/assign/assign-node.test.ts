@@ -1,10 +1,10 @@
-import { ArrayAssignNode } from '~/parser/node/array-assign/array-assign-node';
-import { IdAssignNode } from '~/parser/node/id-assign/id-assign-node';
-import { IdNode } from '~/parser/node/id/id-node';
-import { IntegerNode } from '~/parser/node/integer/integer-node';
-import { NodeType } from '~/parser/node/node-type';
-import { ObjectAssignNode } from '~/parser/node/object-assign/object-assign-node';
-import { parse } from '~/parser/parser';
+import { ArrayAssignNode } from '../../../parser/node/array-assign/array-assign-node';
+import { IdAssignNode } from '../../../parser/node/id-assign/id-assign-node';
+import { IdNode } from '../../../parser/node/id/id-node';
+import { IntegerNode } from '../../../parser/node/integer/integer-node';
+import { NodeType } from '../../../parser/node/node-type';
+import { ObjectAssignNode } from '../../../parser/node/object-assign/object-assign-node';
+import { parse } from '../../../parser/parser';
 
 test('a', () => {
   const text = 'a = 1';

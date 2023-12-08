@@ -1,12 +1,12 @@
-import { ArrayNode } from '~/parser/node/array/array-node';
-import { AssignNode } from '~/parser/node/assign/assign-node';
-import { GroupNode } from '~/parser/node/group/group-node';
-import { IdNode } from '~/parser/node/id/id-node';
-import { ModifierNode } from '~/parser/node/modifier/modifier-node';
-import { Node, addNodeParent } from '~/parser/node/node';
-import { ObjectNode } from '~/parser/node/object/object-node';
-import { TypeNode } from '~/parser/node/type/type-node';
-import { is } from '~/parser/util/is';
+import { ArrayNode } from '../../../parser/node/array/array-node';
+import { AssignNode } from '../../../parser/node/assign/assign-node';
+import { GroupNode } from '../../../parser/node/group/group-node';
+import { IdNode } from '../../../parser/node/id/id-node';
+import { ModifierNode } from '../../../parser/node/modifier/modifier-node';
+import { Node, addNodeParent } from '../../../parser/node/node';
+import { ObjectNode } from '../../../parser/node/object/object-node';
+import { TypeNode } from '../../../parser/node/type/type-node';
+import { is } from '../../../parser/util/is';
 import { rangeFromNodes } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 

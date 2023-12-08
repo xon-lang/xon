@@ -1,4 +1,4 @@
-import { parse } from '~/parser/parser';
+import { parse } from '../../../parser/parser';
 import { NodeType } from '../node-type';
 
 test('empty object', () => {

@@ -1,8 +1,8 @@
-import { IdNode } from '~/parser/node/id/id-node';
-import { LambdaNode } from '~/parser/node/lambda/lambda-node';
-import { NodeType } from '~/parser/node/node-type';
-import { parse } from '~/parser/parser';
-import { evaluate } from '~/util/evaluate';
+import { IdNode } from '../../../parser/node/id/id-node';
+import { LambdaNode } from '../../../parser/node/lambda/lambda-node';
+import { NodeType } from '../../../parser/node/node-type';
+import { parse } from '../../../parser/parser';
+import { evaluate } from '../../../util/evaluate';
 
 test('has argument', () => {
   const text = '(x) = x + 42';

@@ -1,5 +1,5 @@
-import { GroupNode } from '~/parser/node/group/group-node';
-import { parse } from '~/parser/parser';
+import { GroupNode } from '../../../parser/node/group/group-node';
+import { parse } from '../../../parser/parser';
 import { NodeType } from '../node-type';
 
 test('open paren', () => {

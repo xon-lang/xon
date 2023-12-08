@@ -1,7 +1,7 @@
-import { ArrayNode } from '~/parser/node/array/array-node';
-import { AssignNode } from '~/parser/node/assign/assign-node';
-import { Node, addNodeParent } from '~/parser/node/node';
-import { rangeFromNodes } from '~/source/source-range';
+import { ArrayNode } from '../../../parser/node/array/array-node';
+import { AssignNode } from '../../../parser/node/assign/assign-node';
+import { Node, addNodeParent } from '../../../parser/node/node';
+import { rangeFromNodes } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 
 export interface ArrayAssignNode extends Node {

@@ -1,6 +1,6 @@
-import { PostfixNode } from '~/parser/node/postfix/postfix-node';
-import { parse } from '~/parser/parser';
-import { evaluate } from '~/util/evaluate';
+import { PostfixNode } from '../../../parser/node/postfix/postfix-node';
+import { parse } from '../../../parser/parser';
+import { evaluate } from '../../../util/evaluate';
 import { NodeType } from '../node-type';
 
 test('after integer', () => {

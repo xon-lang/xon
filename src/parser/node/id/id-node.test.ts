@@ -1,5 +1,5 @@
-import { issueMessage } from '~/issue/issue-message';
-import { parse } from '~/parser/parser';
+import { issueMessage } from '../../../issue/issue-message';
+import { parse } from '../../../parser/parser';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 

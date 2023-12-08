@@ -1,4 +1,4 @@
-import { Integer } from '~/lib/core';
+import { Integer } from '../lib/core';
 
 export interface SourcePosition {
   index: Integer;

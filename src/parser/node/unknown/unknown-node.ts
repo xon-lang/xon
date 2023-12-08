@@ -1,6 +1,6 @@
-import { String2 } from '~/lib/core';
-import { ParserContext } from '~/parser/parser-context';
-import { SourceRange } from '~/source/source-range';
+import { String2 } from '../../../lib/core';
+import { ParserContext } from '../../../parser/parser-context';
+import { SourceRange } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 

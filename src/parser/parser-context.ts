@@ -1,10 +1,10 @@
-import { Issue } from '~/issue/issue';
-import { Integer } from '~/lib/core';
-import { Node } from '~/parser/node/node';
-import { RootNode, rootNode } from '~/parser/node/root/root-node';
-import { Source } from '~/source/source';
-import { sourcePosition } from '~/source/source-position';
-import { SourceRange, sourceRange } from '~/source/source-range';
+import { Issue } from '../issue/issue';
+import { Integer } from '../lib/core';
+import { Node } from '../parser/node/node';
+import { RootNode, rootNode } from '../parser/node/root/root-node';
+import { Source } from '../source/source';
+import { sourcePosition } from '../source/source-position';
+import { SourceRange, sourceRange } from '../source/source-range';
 
 export interface ParserContext {
   source: Source;

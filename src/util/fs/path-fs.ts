@@ -1,9 +1,9 @@
 import { lstatSync, Stats } from 'fs';
 import { homedir } from 'os';
 import { join, resolve } from 'path';
-import { Boolean2, String2 } from '~/lib/core';
-import { DirectoryFs } from '~/util/fs/directory-fs';
-import { FileFs } from '~/util/fs/file-fs';
+import { Boolean2, String2 } from '../../lib/core';
+import { DirectoryFs } from '../../util/fs/directory-fs';
+import { FileFs } from '../../util/fs/file-fs';
 
 export class PathFs {
   fullPath: String2;
@@ -31,7 +31,7 @@ export class PathFs {
   }
 
   resolve(importPath: String2): String2 {
-    if (importPath[0] === '~') {
+    if (importPath[0] === '../..') {
       return join(homedir(), importPath.slice(1));
     }
 

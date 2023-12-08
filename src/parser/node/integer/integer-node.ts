@@ -1,5 +1,5 @@
-import { String2 } from '~/lib/core';
-import { ParserContext } from '~/parser/parser-context';
+import { String2 } from '../../../lib/core';
+import { ParserContext } from '../../../parser/parser-context';
 import {
   DIGIT_0_CODE,
   DIGIT_9_CODE,
@@ -8,8 +8,8 @@ import {
   UNDERSCORE_CODE,
   UPPER_A_CODE,
   UPPER_Z_CODE,
-} from '~/parser/util/operators';
-import { SourceRange } from '~/source/source-range';
+} from '../../../parser/util/operators';
+import { SourceRange } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 

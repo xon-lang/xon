@@ -1,7 +1,7 @@
-import { AssignNode } from '~/parser/node/assign/assign-node';
-import { IdNode } from '~/parser/node/id/id-node';
-import { Node, addNodeParent } from '~/parser/node/node';
-import { rangeFromNodes } from '~/source/source-range';
+import { AssignNode } from '../../../parser/node/assign/assign-node';
+import { IdNode } from '../../../parser/node/id/id-node';
+import { Node, addNodeParent } from '../../../parser/node/node';
+import { rangeFromNodes } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 
 export interface IdAssignNode extends Node {

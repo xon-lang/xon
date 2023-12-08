@@ -1,6 +1,6 @@
-import { IdNode } from '~/parser/node/id/id-node';
-import { MemberNode } from '~/parser/node/member/member-node';
-import { parse } from '~/parser/parser';
+import { IdNode } from '../../../parser/node/id/id-node';
+import { MemberNode } from '../../../parser/node/member/member-node';
+import { parse } from '../../../parser/parser';
 import { NodeType } from '../node-type';
 
 test('meta property', () => {

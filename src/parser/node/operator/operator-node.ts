@@ -1,10 +1,10 @@
-import { String2 } from '~/lib/core';
-import { idNode, scanIdNode } from '~/parser/node/id/id-node';
-import { Node } from '~/parser/node/node';
-import { ParserContext } from '~/parser/parser-context';
-import { is } from '~/parser/util/is';
-import { operatorsOrders } from '~/parser/util/operators';
-import { SourceRange } from '~/source/source-range';
+import { String2 } from '../../../lib/core';
+import { idNode, scanIdNode } from '../../../parser/node/id/id-node';
+import { Node } from '../../../parser/node/node';
+import { ParserContext } from '../../../parser/parser-context';
+import { is } from '../../../parser/util/is';
+import { operatorsOrders } from '../../../parser/util/operators';
+import { SourceRange } from '../../../source/source-range';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 

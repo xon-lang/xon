@@ -1,8 +1,8 @@
-import { GroupNode } from '~/parser/node/group/group-node';
-import { InfixNode } from '~/parser/node/infix/infix-node';
-import { IntegerNode } from '~/parser/node/integer/integer-node';
-import { parse } from '~/parser/parser';
-import { is } from '~/parser/util/is';
+import { GroupNode } from '../../../parser/node/group/group-node';
+import { InfixNode } from '../../../parser/node/infix/infix-node';
+import { IntegerNode } from '../../../parser/node/integer/integer-node';
+import { parse } from '../../../parser/parser';
+import { is } from '../../../parser/util/is';
 import { NodeType } from '../node-type';
 
 test('empty object', () => {

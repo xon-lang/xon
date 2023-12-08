@@ -1,4 +1,4 @@
-import { String2 } from '~/lib/core';
+import { String2 } from '../lib/core';
 
 export interface Type {
   declaration: Declaration;

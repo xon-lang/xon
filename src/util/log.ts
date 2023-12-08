@@ -1,5 +1,5 @@
 /* eslint-disable*/
-import { String2 } from '~/lib/core';
+import { String2 } from '../lib/core';
 
 // const Reset = '\x1b[0m';
 // const Bright = '\x1b[1m';

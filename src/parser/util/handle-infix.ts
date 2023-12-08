@@ -1,6 +1,6 @@
-import { arrayAssignNode } from '~/parser/node/array-assign/array-assign-node';
-import { ArrayNode } from '~/parser/node/array/array-node';
-import { assignNode } from '~/parser/node/assign/assign-node';
+import { arrayAssignNode } from '../../parser/node/array-assign/array-assign-node';
+import { ArrayNode } from '../../parser/node/array/array-node';
+import { assignNode } from '../../parser/node/assign/assign-node';
 import {
   DeclarationNode,
   DeclarationType,
@@ -8,20 +8,20 @@ import {
   isAssigneeNode,
   isObjectDeclaration,
   updateDeclarationRange,
-} from '~/parser/node/declaration/declaration-node';
-import { GroupNode } from '~/parser/node/group/group-node';
-import { idAssignNode } from '~/parser/node/id-assign/id-assign-node';
-import { IdNode } from '~/parser/node/id/id-node';
-import { infixNode } from '~/parser/node/infix/infix-node';
-import { lambdaNode } from '~/parser/node/lambda/lambda-node';
-import { MemberNode, memberNode } from '~/parser/node/member/member-node';
-import { MetaMemberNode, metaMemberNode } from '~/parser/node/meta-member/meta-member-node';
-import { objectAssignNode } from '~/parser/node/object-assign/object-assign-node';
-import { ObjectNode } from '~/parser/node/object/object-node';
-import { OperatorNode } from '~/parser/node/operator/operator-node';
-import { typeNode } from '~/parser/node/type/type-node';
-import { ParserContext } from '~/parser/parser-context';
-import { ASSIGN_TOKEN, MEMBER_TOKEN, META_MEMBER_TOKEN, TYPE_TOKEN } from '~/parser/util/operators';
+} from '../../parser/node/declaration/declaration-node';
+import { GroupNode } from '../../parser/node/group/group-node';
+import { idAssignNode } from '../../parser/node/id-assign/id-assign-node';
+import { IdNode } from '../../parser/node/id/id-node';
+import { infixNode } from '../../parser/node/infix/infix-node';
+import { lambdaNode } from '../../parser/node/lambda/lambda-node';
+import { MemberNode, memberNode } from '../../parser/node/member/member-node';
+import { MetaMemberNode, metaMemberNode } from '../../parser/node/meta-member/meta-member-node';
+import { objectAssignNode } from '../../parser/node/object-assign/object-assign-node';
+import { ObjectNode } from '../../parser/node/object/object-node';
+import { OperatorNode } from '../../parser/node/operator/operator-node';
+import { typeNode } from '../../parser/node/type/type-node';
+import { ParserContext } from '../../parser/parser-context';
+import { ASSIGN_TOKEN, MEMBER_TOKEN, META_MEMBER_TOKEN, TYPE_TOKEN } from '../../parser/util/operators';
 import { Node } from '../node/node';
 import { NodeType } from '../node/node-type';
 import { is } from './is';
