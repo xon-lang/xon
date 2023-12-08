@@ -40,9 +40,15 @@ export class PathFs {
 
   object(): FileFs | DirectoryFs {
     if (this.stats) {
-      if (this.isFile()) return new FileFs(this.fullPath, this.stats);
-      if (this.isDirectory()) return new DirectoryFs(this.fullPath, this.stats);
+      if (this.isFile()) {
+        return new FileFs(this.fullPath, this.stats);
+      }
+
+      if (this.isDirectory()) {
+        return new DirectoryFs(this.fullPath, this.stats);
+      }
     }
+
     throw new Error('Not implemented');
   }
 }

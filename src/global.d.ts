@@ -4,7 +4,7 @@ import { Char, Integer, String2 } from './lib/core';
 declare global {
   // Array
   interface Array<T> {
-    findLastIndex(predicate: (value: T, index: number, obj: T[]) => unknown, thisArg?: any): number;
+    findLastIndex(predicate: (value: T, index: number, obj: T[]) => unknown, thisArg?: unknown): number;
     takeWhile(predicate: (value: T, index: number) => unknown, startIndex?: number): T[];
     firstOrNull(): T | null;
     lastOrNull(): T | null;

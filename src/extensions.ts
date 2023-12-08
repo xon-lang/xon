@@ -74,7 +74,7 @@ String.prototype.takeWhile = function takeWhile(
 };
 
 String.prototype.margin = function margin(delimiter?: String2): String2 {
-  throw new Error('Not implemented');
+  throw new Error(`Not implemented ${delimiter}`);
 };
 
 String.prototype.toCharCodes = function toCharCodes(): Uint8Array {
