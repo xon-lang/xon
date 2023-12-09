@@ -63,13 +63,17 @@ export function parseUntil(source: Source, index: Integer, breakFn: BreakFn | nu
     }
 
     if (is<JoiningNode>(node, NodeType.JOINING)) {
-      putHiddenNode(context, node);
+      context.hidden.push(node);
+      context.line += 1;
+      context.column = 0;
 
       continue;
     }
 
     if (is(node, NodeType.NL)) {
-      putHiddenNode(context, node);
+      context.hidden.push(node);
+      context.line += 1;
+      context.column = 0;
 
       if (context.nodes.length > 0) {
         putStatementNode(context);
@@ -109,10 +113,4 @@ export function nextNode(context: ParserContext): Node {
   }
 
   throw new Error('Not implemented');
-}
-
-function putHiddenNode(context: ParserContext, node: Node): void {
-  context.hidden.push(node);
-  context.line += 1;
-  context.column = 0;
 }
