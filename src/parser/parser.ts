@@ -100,19 +100,12 @@ export function nextNode(context: ParserContext): Node {
   for (const nodeScan of nodeScanFunctions) {
     const node = nodeScan(context);
 
-    if (!node) {
-      continue;
-    }
-
-    // todo make it easy
-    // eslint-disable-next-line no-restricted-syntax
-    if ('text' in node) {
+    if (node) {
       context.column += node.range.stop.column + 1;
+      context.index = node.range.stop.index + 1;
+
+      return node as Node;
     }
-
-    context.index = node.range.stop.index + 1;
-
-    return node as Node;
   }
 
   throw new Error('Not implemented');
