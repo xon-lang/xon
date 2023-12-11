@@ -8,14 +8,9 @@ import { OpenNode, scanOpenNode } from '../../../parser/node/open/open-node';
 import { parseUntil } from '../../../parser/parser';
 import { ParserContext } from '../../../parser/parser-context';
 import { is } from '../../../parser/util/is';
-import {
-  ARRAY_NODE_OPEN_CODE,
-  GROUP_NODE_OPEN_CODE,
-  OBJECT_NODE_OPEN_CODE,
-  OPEN_CLOSE_PAIR,
-} from '../../../parser/util/operators';
 import { sourcePosition } from '../../../source/source-position';
 import { rangeFromNodes, sourceRange } from '../../../source/source-range';
+import { ARRAY_NODE_OPEN_CODE, GROUP_NODE_OPEN_CODE, OBJECT_NODE_OPEN_CODE, OPEN_CLOSE_PAIR } from '../../util/config';
 import { Node } from '../node';
 import { NodeType } from '../node-type';
 

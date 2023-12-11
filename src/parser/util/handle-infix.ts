@@ -21,9 +21,9 @@ import { ObjectNode } from '../../parser/node/object/object-node';
 import { OperatorNode } from '../../parser/node/operator/operator-node';
 import { typeNode } from '../../parser/node/type/type-node';
 import { ParserContext } from '../../parser/parser-context';
-import { ASSIGN_TOKEN, MEMBER_TOKEN, META_MEMBER_TOKEN, TYPE_TOKEN } from '../../parser/util/operators';
 import { Node } from '../node/node';
 import { NodeType } from '../node/node-type';
+import { ASSIGN_TOKEN, MEMBER_TOKEN, META_MEMBER_TOKEN, TYPE_TOKEN } from './config';
 import { is } from './is';
 
 export function handleInfix(context: ParserContext, operator: OperatorNode, left: Node, right: Node | null): Node {

@@ -1,7 +1,7 @@
 import { String2 } from '../../../lib/core';
 import { ParserContext } from '../../../parser/parser-context';
-import { STRING_QUOTE } from '../../../parser/util/operators';
 import { SourceRange } from '../../../source/source-range';
+import { STRING_QUOTE } from '../../util/config';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 

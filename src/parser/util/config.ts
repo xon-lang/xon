@@ -1,5 +1,5 @@
 import { String2 } from '../../lib/core';
-import { DeclarationType } from '../../parser/node/declaration/declaration-node';
+import { DeclarationType } from '../node/declaration/declaration-node';
 
 export interface OperatorsOrder {
   operators: String2[][];
@@ -78,7 +78,7 @@ export const OPEN_CLOSE_PAIR = {
 
 export const STRING_QUOTE = '"';
 
-export const CHAR_QUOTE = '\'';
+export const CHAR_QUOTE = "'";
 
 export const TYPE_TOKEN = ':';
 
@@ -143,3 +143,5 @@ export const operatorsOrders: OperatorsOrder[] = [
   operatorType: x.operatorType,
   recursiveType: x.recursiveType,
 }));
+
+// const allowedAssignNodes = [idNode ,...]

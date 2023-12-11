@@ -11,10 +11,10 @@ import { IdNode } from '../../parser/node/id/id-node';
 import { ModifierNode } from '../../parser/node/modifier/modifier-node';
 import { NodeType } from '../../parser/node/node-type';
 import { is } from '../../parser/util/is';
-import { MODIFIERS } from '../../parser/util/operators';
 import { Node, addNodeParent } from '../node/node';
 import { ParserContext } from '../parser-context';
 import { collapseOperators } from './collapse-operators';
+import { MODIFIERS } from './config';
 
 export function getSyntacticNode(context: ParserContext): Node {
   collapseModifierDeclaration(context);

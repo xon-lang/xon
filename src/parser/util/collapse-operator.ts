@@ -5,8 +5,8 @@ import { postfixNode } from '../../parser/node/postfix/postfix-node';
 import { prefixNode } from '../../parser/node/prefix/prefix-node';
 import { ParserContext } from '../../parser/parser-context';
 import { handleInfix } from '../../parser/util/handle-infix';
-import { OperatorType, RecursiveType } from '../../parser/util/operators';
 import { NodeType } from '../node/node-type';
+import { OperatorType, RecursiveType } from './config';
 import { is } from './is';
 
 export function collapseOperator(
