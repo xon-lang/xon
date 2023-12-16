@@ -20,6 +20,6 @@
     "editor.defaultFormatter": "nizami.xon"
   },
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true
+    "source.organizeImports": "explicit"
   }
 }

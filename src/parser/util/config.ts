@@ -1,3 +1,4 @@
+import { NodeType } from 'src/parser/node/node-type';
 import { String2 } from '../../lib/core';
 import { DeclarationType } from '../node/declaration/declaration-node';
 
@@ -144,4 +145,4 @@ export const operatorsOrders: OperatorsOrder[] = [
   recursiveType: x.recursiveType,
 }));
 
-// const allowedAssignNodes = [idNode ,...]
+export const ALLOW_ASSIGN_NODE_TYPES = [NodeType.ID, NodeType.GROUP, NodeType.ARRAY, NodeType.OBJECT];
