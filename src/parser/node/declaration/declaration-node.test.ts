@@ -31,3 +31,18 @@ test('abc attribute', () => {
   expect(tree.attributes.length).toBe(1);
   expect(tree.attributes.every((x) => is(x, NodeType.DECLARATION))).toBe(true);
 });
+
+test('has parameter', () => {
+  const text = 'prefix +(a: Integer)';
+  const nodes = parse(text).root.children;
+  const tree = nodes[0] as DeclarationNode;
+
+  expect(nodes.length).toBe(1);
+
+  expect(tree.$).toBe(NodeType.DECLARATION);
+  expect(tree.modifier?.text).toBe('prefix');
+  expect((tree.assignee as IdNode)?.text).toBe('+');
+  expect(tree.group?.items.length).toBe(1);
+  // todo add parameter check
+  // expect(tree.group?.items[0]..length).toBe(1);
+});
