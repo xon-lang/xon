@@ -1,6 +1,6 @@
-import { NodeType } from 'src/parser/node/node-type';
 import { String2 } from '../../lib/core';
 import { DeclarationType } from '../node/declaration/declaration-node';
+import { NodeType } from '../node/node-type';
 
 export interface OperatorsOrder {
   operators: String2[][];
