@@ -1,4 +1,5 @@
 import '../../../extensions';
+import { issueMessage } from '../../../issue/issue-message';
 import { arrayNode } from '../../../parser/node/array/array-node';
 import { CloseNode } from '../../../parser/node/close/close-node';
 import { CommaNode } from '../../../parser/node/comma/comma-node';
@@ -21,16 +22,26 @@ export interface GroupNode extends Node {
   items: Node[];
 }
 
-export function groupNode(open: OpenNode, close: CloseNode | null, items: Node[]): GroupNode {
+export function groupNode(context: ParserContext, open: OpenNode, close: CloseNode | null, items: Node[]): GroupNode {
   const last = items.lastOrNull();
 
-  return {
+  const node: GroupNode = {
     $: NodeType.GROUP,
     range: rangeFromNodes(open, close ?? last ?? open),
     open,
     close,
     items,
   };
+
+  validateGroupNode(context, node);
+
+  return node;
+}
+
+export function validateGroupNode(context: ParserContext, node: GroupNode): void {
+  if (!node.close) {
+    context.addErrorIssue(node, issueMessage.notImplemented);
+  }
 }
 
 export function scanGroupNode(context: ParserContext): Group | DeclarationNode | null {
@@ -80,7 +91,7 @@ export function scanGroupNode(context: ParserContext): Group | DeclarationNode |
     }
   }
 
-  const group = createGroupNode(open, close, items);
+  const group = createGroupNode(context, open, close, items);
   const lastNode = context.nodes.lastOrNull();
 
   if (is<DeclarationNode>(lastNode, NodeType.DECLARATION)) {
@@ -93,11 +104,11 @@ export function scanGroupNode(context: ParserContext): Group | DeclarationNode |
   return group;
 }
 
-function createGroupNode(open: OpenNode, close: CloseNode | null, nodes: Node[]): Group {
+function createGroupNode(context: ParserContext, open: OpenNode, close: CloseNode | null, nodes: Node[]): Group {
   const code = open.text.charCodeAt(0);
 
   if (code === GROUP_NODE_OPEN_CODE) {
-    return groupNode(open, close, nodes);
+    return groupNode(context, open, close, nodes);
   }
 
   if (code === OBJECT_NODE_OPEN_CODE) {

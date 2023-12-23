@@ -15,11 +15,11 @@
     "ts-nocheck",
     "gulpfile"
   ],
-  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifier": "relative",
   "[xon]": {
     "editor.defaultFormatter": "nizami.xon"
   },
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
-  }
+  },
 }

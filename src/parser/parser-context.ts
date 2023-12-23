@@ -1,5 +1,5 @@
-import { IssueMessage } from 'src/issue/issue-message';
 import { Issue, createErrorIssue } from '../issue/issue';
+import { IssueMessage } from '../issue/issue-message';
 import { Integer } from '../lib/core';
 import { Node } from '../parser/node/node';
 import { RootNode, rootNode } from '../parser/node/root/root-node';
