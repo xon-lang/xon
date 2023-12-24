@@ -2,8 +2,8 @@ import { SourceRange } from '../../source/source-range';
 import { NodeType } from './node-type';
 
 export interface Node {
-  $: NodeType;
-  range: SourceRange;
+  readonly $: NodeType;
+  readonly range: SourceRange;
   parent?: Node | null;
   // todo mb should be in the statement node
   declarations?: Node[] | null;

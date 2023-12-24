@@ -1,7 +1,7 @@
 import { String2 } from '../../../lib/core';
 import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
-import { CR_CODE, JOINING_CODE, LF_CODE, SPACE_CODE, TAB_CODE } from '../../util/config';
+import { CR_CODE, JOINING_CODE, LF_CODE, SPACE_CODE, TAB_CODE } from '../../parser-config';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
@@ -18,11 +18,11 @@ export function joiningNode(range: SourceRange, text: String2): JoiningNode {
 }
 
 export function scanJoiningNode(context: ParserContext): JoiningNode | null {
-  if (context.source.characters[context.index] !== JOINING_CODE) {
+  if (context.source.characters[context.position.index] !== JOINING_CODE) {
     return null;
   }
 
-  let nextIndex = context.index + 1;
+  let nextIndex = context.position.index + 1;
 
   for (; nextIndex < context.source.text.length; nextIndex++) {
     const nextCode = context.source.characters[nextIndex];
@@ -44,7 +44,7 @@ export function scanJoiningNode(context: ParserContext): JoiningNode | null {
     break;
   }
 
-  const text = context.source.text.slice(context.index, nextIndex);
+  const text = context.source.text.slice(context.position.index, nextIndex);
   const range = context.getRange(text.length);
 
   return joiningNode(range, text);

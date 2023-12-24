@@ -9,9 +9,14 @@ import { OpenNode, scanOpenNode } from '../../../parser/node/open/open-node';
 import { parseUntil } from '../../../parser/parser';
 import { ParserContext } from '../../../parser/parser-context';
 import { is } from '../../../parser/util/is';
-import { sourcePosition } from '../../../source/source-position';
-import { rangeFromNodes, sourceRange } from '../../../source/source-range';
-import { ARRAY_NODE_OPEN_CODE, GROUP_NODE_OPEN_CODE, OBJECT_NODE_OPEN_CODE, OPEN_CLOSE_PAIR } from '../../util/config';
+import { clonePosition } from '../../../source/source-position';
+import { rangeFromNodes } from '../../../source/source-range';
+import {
+  ARRAY_NODE_OPEN_CODE,
+  GROUP_NODE_OPEN_CODE,
+  OBJECT_NODE_OPEN_CODE,
+  OPEN_CLOSE_PAIR,
+} from '../../parser-config';
 import { Node } from '../node';
 import { NodeType } from '../node-type';
 
@@ -51,30 +56,27 @@ export function validateGroupNode(context: ParserContext, node: GroupNode): void
 }
 
 export function scanGroupNode(context: ParserContext): Group | DeclarationNode | null {
-  const { source, index, line, column } = context;
   const open = scanOpenNode(context);
 
   if (!is<OpenNode>(open, NodeType.OPEN)) {
     return null;
   }
 
-  open.range = sourceRange(sourcePosition(index, line, column), sourcePosition(index, line, column));
+  context.position.column = open.range.stop.column + 1;
+  context.position.index = open.range.stop.index + 1;
 
   const items: Node[] = [];
-  let close: CloseNode | null = null;
 
-  context.index += open.text.length;
-
-  while (context.index < source.text.length) {
+  while (context.position.index < context.source.text.length) {
     const groupContext = parseUntil(
       context.source,
-      context.index,
+      context.position,
       (node) =>
         is<CommaNode>(node, NodeType.COMMA) ||
         (is<CloseNode>(node, NodeType.CLOSE) && node.text.charCodeAt(0) === OPEN_CLOSE_PAIR[open.text.charCodeAt(0)]),
     );
 
-    context.index = groupContext.index;
+    context.position = clonePosition(groupContext.position);
 
     if (is<CommaNode>(groupContext.breakNode, NodeType.COMMA)) {
       context.hidden.push(groupContext.breakNode);
@@ -91,13 +93,11 @@ export function scanGroupNode(context: ParserContext): Group | DeclarationNode |
         items.push(groupContext.root.children[0]);
       }
 
-      close = groupContext.breakNode;
-
-      break;
+      return createGroupNode(context, open, groupContext.breakNode, items);
     }
   }
 
-  return createGroupNode(context, open, close, items);
+  return createGroupNode(context, open, null, items);
 }
 
 function createGroupNode(context: ParserContext, open: OpenNode, close: CloseNode | null, nodes: Node[]): Group {

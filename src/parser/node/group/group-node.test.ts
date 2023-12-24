@@ -2,7 +2,7 @@ import { ISSUE_MESSAGE } from '../../../issue/issue-message';
 import { GroupNode } from '../../../parser/node/group/group-node';
 import { parse } from '../../../parser/parser';
 import { is } from '../../../parser/util/is';
-import { OPEN_CLOSE_PAIR } from '../../util/config';
+import { OPEN_CLOSE_PAIR } from '../../parser-config';
 import { NodeType } from '../node-type';
 
 test('empty closed', () => {

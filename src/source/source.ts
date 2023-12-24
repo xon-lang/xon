@@ -1,19 +1,25 @@
 import { Integer, String2 } from '../lib/core';
+import { Node } from '../parser/node/node';
+import { ParserContext } from '../parser/parser-context';
 
 export interface Source {
-  path: String2;
+  location: String2 | null;
   text: String2;
   characters: Uint8Array;
   length: Integer;
 }
 
-export function createSource(path: String2, text: String2): Source {
+export function createSource(path: String2 | null, text: String2): Source {
   const characters = text.toCharCodes();
 
   return {
-    path,
+    location: path,
     text,
     characters,
     length: text.length,
   };
+}
+
+export function getNodeText({ source }: ParserContext, { range }: Node): String2 {
+  return source.text.slice(range.start.index, range.stop.index + 1);
 }

@@ -17,7 +17,7 @@ export function unknownNode(range: SourceRange, text: String2): UnknownNode {
 }
 
 export function scanUnknownNode(context: ParserContext): UnknownNode | null {
-  const text = context.source.text[context.index];
+  const text = context.source.text[context.position.index];
   const range = context.getRange(text.length);
 
   return unknownNode(range, text);

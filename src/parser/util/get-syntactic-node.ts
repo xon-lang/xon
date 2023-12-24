@@ -11,9 +11,9 @@ import { ModifierNode } from '../../parser/node/modifier/modifier-node';
 import { NodeType } from '../../parser/node/node-type';
 import { is } from '../../parser/util/is';
 import { Node } from '../node/node';
+import { MODIFIERS } from '../parser-config';
 import { ParserContext } from '../parser-context';
 import { collapseOperators } from './collapse-operators';
-import { MODIFIERS } from './config';
 
 export function getSyntacticNode(context: ParserContext): Node {
   collapseOperators(context);

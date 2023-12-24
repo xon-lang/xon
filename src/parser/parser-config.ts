@@ -1,8 +1,8 @@
 // todo rename the file to parser-config
 
-import { Integer, String2 } from '../../lib/core';
-import { DeclarationType } from '../node/declaration/declaration-node';
-import { NodeType } from '../node/node-type';
+import { Boolean2, Integer, String2 } from '../lib/core';
+import { DeclarationType } from './node/declaration/declaration-node';
+import { NodeType } from './node/node-type';
 
 export interface OperatorsOrder {
   operators: String2[][];
@@ -148,3 +148,7 @@ export const operatorsOrders: OperatorsOrder[] = [
 }));
 
 export const ALLOW_ASSIGN_NODE_TYPES = [NodeType.ID, NodeType.GROUP, NodeType.ARRAY, NodeType.OBJECT];
+
+export interface ParserConfig {
+  readonly throwErrorIssue: Boolean2;
+}

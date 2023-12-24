@@ -1,6 +1,6 @@
 import { createErrorIssue } from '../issue/issue';
 import { ISSUE_MESSAGE } from '../issue/issue-message';
-import { Boolean2, Integer, String2 } from '../lib/core';
+import { Boolean2, String2 } from '../lib/core';
 import { scanCharNode } from '../parser/node/char/char-node';
 import { scanCloseNode } from '../parser/node/close/close-node';
 import { scanCommaNode } from '../parser/node/comma/comma-node';
@@ -16,7 +16,9 @@ import { scanUnknownNode } from '../parser/node/unknown/unknown-node';
 import { scanWhitespaceNode } from '../parser/node/whitespace/whitespace-node';
 import { putStatementNode } from '../parser/util/put-statement-node';
 import { Source, createSource } from '../source/source';
+import { SourcePosition, zeroPosition } from '../source/source-position';
 import { NodeType } from './node/node-type';
+import { ParserConfig } from './parser-config';
 import { ParserContext, parserContext } from './parser-context';
 import { is } from './util/is';
 
@@ -38,16 +40,21 @@ const nodeScanFunctions: NodeScanFn[] = [
   scanUnknownNode,
 ];
 
-export function parse(text: String2): ParserContext {
-  const source = createSource('', text);
+export function parse(text: String2, config?: Partial<ParserConfig>): ParserContext {
+  const source = createSource(null, text);
 
-  return parseUntil(source, 0, null);
+  return parseUntil(source, zeroPosition(), null, config);
 }
 
-export function parseUntil(source: Source, index: Integer, breakFn: BreakFn | null): ParserContext {
-  const context = parserContext(source, index);
+export function parseUntil(
+  source: Source,
+  position: SourcePosition,
+  breakFn: BreakFn | null,
+  config?: Partial<ParserConfig>,
+): ParserContext {
+  const context = parserContext(source, position, config);
 
-  while (context.index < context.source.text.length) {
+  while (context.position.index < context.source.text.length) {
     const node = nextNode(context);
 
     if (breakFn && breakFn(node)) {
@@ -64,16 +71,16 @@ export function parseUntil(source: Source, index: Integer, breakFn: BreakFn | nu
 
     if (is<JoiningNode>(node, NodeType.JOINING)) {
       context.hidden.push(node);
-      context.line += 1;
-      context.column = 0;
+      context.position.line += 1;
+      context.position.column = 0;
 
       continue;
     }
 
     if (is(node, NodeType.NL)) {
       context.hidden.push(node);
-      context.line += 1;
-      context.column = 0;
+      context.position.line += 1;
+      context.position.column = 0;
 
       if (context.nodes.length > 0) {
         putStatementNode(context);
@@ -105,12 +112,12 @@ export function nextNode(context: ParserContext): Node {
     const node = nodeScan(context);
 
     if (node) {
-      context.column += node.range.stop.column + 1;
-      context.index = node.range.stop.index + 1;
+      context.position.column = node.range.stop.column + 1;
+      context.position.index = node.range.stop.index + 1;
 
       return node as Node;
     }
   }
 
-  throw new Error('Not implemented');
+  throw new Error(ISSUE_MESSAGE.notImplemented().actual);
 }

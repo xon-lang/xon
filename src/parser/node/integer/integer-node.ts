@@ -9,7 +9,7 @@ import {
   UNDERSCORE_CODE,
   UPPER_A_CODE,
   UPPER_Z_CODE,
-} from '../../util/config';
+} from '../../parser-config';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
@@ -26,7 +26,7 @@ export function integerNode(range: SourceRange, text: String2): IntegerNode {
 }
 
 export function scanIntegerNode(context: ParserContext): IntegerNode | null {
-  const firstCharCode = context.source.characters[context.index];
+  const firstCharCode = context.source.characters[context.position.index];
   const isFirstCharDigit = firstCharCode >= DIGIT_0_CODE && firstCharCode <= DIGIT_9_CODE;
 
   if (!isFirstCharDigit) {
@@ -42,7 +42,7 @@ export function scanIntegerNode(context: ParserContext): IntegerNode | null {
       (code >= LOWER_A_CODE && code <= LOWER_Z_CODE) ||
       code === UNDERSCORE_CODE
     );
-  }, context.index);
+  }, context.position.index);
 
   const range = context.getRange(sliced.length);
 

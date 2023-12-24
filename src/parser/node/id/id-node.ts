@@ -14,7 +14,7 @@ import {
   UNDERSCORE_CODE,
   UPPER_A_CODE,
   UPPER_Z_CODE,
-} from '../../util/config';
+} from '../../parser-config';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
@@ -31,9 +31,9 @@ export function idNode(range: SourceRange, text: String2): IdNode {
 }
 
 export function scanIdNode(context: ParserContext): ModifierNode | IdNode | KeywordNode | null {
-  const { index, source, nodes: lastStatementNodes } = context;
+  const { position, source, nodes: lastStatementNodes } = context;
 
-  const code = source.characters[index];
+  const code = source.characters[position.index];
   const isFirstCharForId =
     code === UNDERSCORE_CODE ||
     (code >= UPPER_A_CODE && code <= UPPER_Z_CODE) ||
@@ -52,13 +52,11 @@ export function scanIdNode(context: ParserContext): ModifierNode | IdNode | Keyw
       (code >= LOWER_A_CODE && code <= LOWER_Z_CODE) ||
       (code >= DIGIT_0_CODE && code <= DIGIT_9_CODE)
     );
-  }, index);
+  }, position.index);
 
   const range = context.getRange(sliced.length);
 
   if (lastStatementNodes.length === 0 && MODIFIERS_NAMES.includes(sliced)) {
-    const range = context.getRange(sliced.length);
-
     return modifierNode(range, sliced) as ModifierNode;
   }
 

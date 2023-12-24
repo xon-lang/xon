@@ -6,7 +6,7 @@ import { prefixNode } from '../../parser/node/prefix/prefix-node';
 import { ParserContext } from '../../parser/parser-context';
 import { handleInfix } from '../../parser/util/handle-infix';
 import { NodeType } from '../node/node-type';
-import { OperatorType, RecursiveType } from './config';
+import { OperatorType, RecursiveType } from '../parser-config';
 import { is } from './is';
 
 export function collapseOperator(

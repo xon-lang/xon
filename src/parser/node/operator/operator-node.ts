@@ -4,7 +4,7 @@ import { Node } from '../../../parser/node/node';
 import { ParserContext } from '../../../parser/parser-context';
 import { is } from '../../../parser/util/is';
 import { SourceRange } from '../../../source/source-range';
-import { operatorsOrders } from '../../util/config';
+import { operatorsOrders } from '../../parser-config';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
 
@@ -25,8 +25,8 @@ const OPERATORS = [
 ];
 
 export function scanOperatorNode(context: ParserContext): Node | null {
-  const { index, source, nodes: lastStatementNodes } = context;
-  let operators = OPERATORS.filter((x) => x[0] === source.text[index]);
+  const { position, source, nodes: lastStatementNodes } = context;
+  let operators = OPERATORS.filter((x) => x[0] === source.text[position.index]);
 
   if (operators.length === 0) {
     return null;
@@ -34,9 +34,9 @@ export function scanOperatorNode(context: ParserContext): Node | null {
 
   const candidates: String2[] = [];
 
-  for (let i = index; i < source.text.length; i++) {
-    operators = operators.filter((x) => x[i - index] === source.text[i]);
-    const candidate = operators.find((x) => x.length === i - index + 1);
+  for (let i = position.index; i < source.text.length; i++) {
+    operators = operators.filter((x) => x[i - position.index] === source.text[i]);
+    const candidate = operators.find((x) => x.length === i - position.index + 1);
 
     if (candidate) {
       candidates.push(candidate);
