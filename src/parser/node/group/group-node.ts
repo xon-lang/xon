@@ -1,5 +1,5 @@
 import '../../../extensions';
-import { issueMessage } from '../../../issue/issue-message';
+import { ISSUE_MESSAGE } from '../../../issue/issue-message';
 import { arrayNode } from '../../../parser/node/array/array-node';
 import { CloseNode } from '../../../parser/node/close/close-node';
 import { CommaNode } from '../../../parser/node/comma/comma-node';
@@ -40,7 +40,7 @@ export function groupNode(context: ParserContext, open: OpenNode, close: CloseNo
 
 export function validateGroupNode(context: ParserContext, node: GroupNode): void {
   if (!node.close) {
-    context.addErrorIssue(node, issueMessage.notImplemented);
+    context.addErrorIssue(node, ISSUE_MESSAGE.notImplemented());
   }
 }
 

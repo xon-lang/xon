@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { String2 } from '../lib/core';
 
 export interface IssueMessage {
@@ -5,13 +7,17 @@ export interface IssueMessage {
   expect: String2 | null;
 }
 
-export const issueMessage = {
-  unexpectedNode: {
+export const ISSUE_MESSAGE = {
+  unexpectedNode: () => ({
     actual: 'Unexpected node',
     expect: null,
-  },
-  notImplemented: {
+  }),
+  notImplemented: () => ({
     actual: 'Error not implemented',
     expect: 'Create a valid error message',
-  },
+  }),
+  test: (x: String2) => ({
+    actual: `Error not implemented ${x}`,
+    expect: null,
+  }),
 };

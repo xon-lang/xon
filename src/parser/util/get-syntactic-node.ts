@@ -1,5 +1,5 @@
 import { createErrorIssue } from '../../issue/issue';
-import { issueMessage } from '../../issue/issue-message';
+import { ISSUE_MESSAGE } from '../../issue/issue-message';
 import {
   DeclarationType,
   declarationNode,
@@ -21,7 +21,7 @@ export function getSyntacticNode(context: ParserContext): Node {
   collapseOperators(context);
   // collapseDeclaration(context);
 
-  context.nodes.slice(1).forEach((node) => context.issues.push(createErrorIssue(node, issueMessage.unexpectedNode)));
+  context.nodes.slice(1).forEach((node) => context.issues.push(createErrorIssue(node, ISSUE_MESSAGE.unexpectedNode())));
 
   return context.nodes[0];
 }

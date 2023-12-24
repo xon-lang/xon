@@ -1,4 +1,4 @@
-import { issueMessage } from '../../../issue/issue-message';
+import { ISSUE_MESSAGE } from '../../../issue/issue-message';
 import { parse } from '../../../parser/parser';
 import { NodeType } from '../node-type';
 import { TokenNode } from '../token-node';
@@ -23,8 +23,8 @@ test('several id', () => {
   expect(nodes[0].$).toBe(NodeType.ID);
 
   expect(context.issues.length).toBe(2);
-  expect(context.issues[0].message.actual).toBe(issueMessage.unexpectedNode.actual);
-  expect(context.issues[1].message.actual).toBe(issueMessage.unexpectedNode.actual);
+  expect(context.issues[0].message.actual).toBe(ISSUE_MESSAGE.unexpectedNode().actual);
+  expect(context.issues[1].message.actual).toBe(ISSUE_MESSAGE.unexpectedNode().actual);
 
   // expect(nodes[1].text).toBe('edf_');
   // expect(nodes[1].$).toBe(NodeType.ID);

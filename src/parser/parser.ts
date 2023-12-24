@@ -1,5 +1,5 @@
 import { createErrorIssue } from '../issue/issue';
-import { issueMessage } from '../issue/issue-message';
+import { ISSUE_MESSAGE } from '../issue/issue-message';
 import { Boolean2, Integer, String2 } from '../lib/core';
 import { scanCharNode } from '../parser/node/char/char-node';
 import { scanCloseNode } from '../parser/node/close/close-node';
@@ -85,7 +85,7 @@ export function parseUntil(source: Source, index: Integer, breakFn: BreakFn | nu
     }
 
     if (is(node, NodeType.UNKNOWN)) {
-      context.issues.push(createErrorIssue(node, issueMessage.unexpectedNode));
+      context.issues.push(createErrorIssue(node, ISSUE_MESSAGE.unexpectedNode()));
 
       continue;
     }
