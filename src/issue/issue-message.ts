@@ -16,8 +16,8 @@ export const ISSUE_MESSAGE = {
     actual: 'Error not implemented',
     expect: 'Create a valid error message',
   }),
-  test: (x: String2) => ({
-    actual: `Error not implemented ${x}`,
-    expect: null,
+  expectCloseToken: (open: String2, close: String2) => ({
+    actual: `Token '${open}' has no close pair '${close}'`,
+    expect: `Add close token '${close}'`,
   }),
 };

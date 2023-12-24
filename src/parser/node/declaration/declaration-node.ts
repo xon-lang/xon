@@ -24,16 +24,16 @@ export enum DeclarationType {
 
 // todo mb add hasAttributes
 export interface DeclarationNode extends Node {
-  $: NodeType.DECLARATION;
-  declarationType: DeclarationType;
-  modifier: ModifierNode | null;
-  assignee: Assignee | null;
+  readonly $: NodeType.DECLARATION;
+  readonly declarationType: DeclarationType;
+  readonly modifier: ModifierNode | null;
+  readonly assignee: Assignee | null;
 
   // todo make group as parameters
-  group: Group | null;
-  type: TypeNode | null;
-  assign: AssignNode | null;
-  attributes: DeclarationNode[];
+  readonly group: Group | null;
+  readonly type: TypeNode | null;
+  readonly assign: AssignNode | null;
+  readonly attributes: DeclarationNode[];
 }
 
 export function declarationNode(
@@ -72,14 +72,6 @@ export function isGroupNode(node: Node): node is Group {
 
 export function isAssigneeNode(node: Node): node is Assignee {
   return is<IdNode>(node, NodeType.ID) || isGroupNode(node);
-}
-
-export function updateDeclarationRange(declaration: DeclarationNode): void {
-  const { modifier, assignee, group, type, assign } = declaration;
-  const startNode = modifier ?? assignee ?? group ?? type ?? assign;
-  const stopNode = assign ?? type ?? group ?? assignee ?? modifier;
-
-  declaration.range = rangeFromNodes(startNode, stopNode);
 }
 
 export function isObjectDeclaration(node: Node): node is DeclarationNode {

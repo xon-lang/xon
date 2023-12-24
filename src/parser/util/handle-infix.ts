@@ -7,7 +7,6 @@ import {
   declarationNode,
   isAssigneeNode,
   isObjectDeclaration,
-  updateDeclarationRange,
 } from '../../parser/node/declaration/declaration-node';
 import { GroupNode } from '../../parser/node/group/group-node';
 import { idAssignNode } from '../../parser/node/id-assign/id-assign-node';
@@ -65,23 +64,15 @@ function createMetaMember(operator: OperatorNode, left: Node, right: Node | null
 function createType(context: ParserContext, operator: OperatorNode, left: Node, right: Node | null): DeclarationNode {
   const type = typeNode(operator, right);
 
-  if (is<DeclarationNode>(left, NodeType.DECLARATION)) {
-    left.type = type;
-    type.parent = left;
-    updateDeclarationRange(left);
-
-    return left;
-  }
-
   if (isAssigneeNode(left)) {
-    const declaration = declarationNode(DeclarationType.UNKNOWN, null, left, null, type, null);
-
     if (isObjectDeclaration(context.parent)) {
-      declaration.declarationType = DeclarationType.ATTRIBUTE;
+      const declaration = declarationNode(DeclarationType.ATTRIBUTE, null, left, null, type, null);
       context.parent.attributes.push(declaration);
+
+      return declaration;
     }
 
-    return declaration;
+    return declarationNode(DeclarationType.UNKNOWN, null, left, null, type, null);
   }
 
   throw new Error('Not implemented');
@@ -89,13 +80,6 @@ function createType(context: ParserContext, operator: OperatorNode, left: Node, 
 
 function createAssign(operator: OperatorNode, left: Node, right: Node | null): Node {
   const assign = assignNode(operator, right);
-
-  if (is<DeclarationNode>(left, NodeType.DECLARATION)) {
-    left.assign = assign;
-    assign.parent = left;
-
-    return left;
-  }
 
   // todo check if it should be always declaration
   // if (

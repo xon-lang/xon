@@ -1,4 +1,6 @@
-import { String2 } from '../../lib/core';
+// todo rename the file to parser-config
+
+import { Integer, String2 } from '../../lib/core';
 import { DeclarationType } from '../node/declaration/declaration-node';
 import { NodeType } from '../node/node-type';
 
@@ -71,7 +73,7 @@ export const OBJECT_NODE_OPEN_CODE = '{'.charCodeAt(0);
 
 export const OBJECT_NODE_CLOSE_CODE = '}'.charCodeAt(0);
 
-export const OPEN_CLOSE_PAIR = {
+export const OPEN_CLOSE_PAIR: Record<Integer, Integer> = {
   [GROUP_NODE_OPEN_CODE]: GROUP_NODE_CLOSE_CODE,
   [ARRAY_NODE_OPEN_CODE]: ARRAY_NODE_CLOSE_CODE,
   [OBJECT_NODE_OPEN_CODE]: OBJECT_NODE_CLOSE_CODE,

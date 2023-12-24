@@ -40,7 +40,13 @@ export function groupNode(context: ParserContext, open: OpenNode, close: CloseNo
 
 export function validateGroupNode(context: ParserContext, node: GroupNode): void {
   if (!node.close) {
-    context.addErrorIssue(node, ISSUE_MESSAGE.notImplemented());
+    context.addErrorIssue(
+      node.open,
+      ISSUE_MESSAGE.expectCloseToken(
+        node.open.text,
+        String.fromCharCode(OPEN_CLOSE_PAIR[node.open.text.charCodeAt(0)]),
+      ),
+    );
   }
 }
 
@@ -91,17 +97,7 @@ export function scanGroupNode(context: ParserContext): Group | DeclarationNode |
     }
   }
 
-  const group = createGroupNode(context, open, close, items);
-  const lastNode = context.nodes.lastOrNull();
-
-  if (is<DeclarationNode>(lastNode, NodeType.DECLARATION)) {
-    lastNode.group = group;
-    group.parent = lastNode;
-
-    return lastNode;
-  }
-
-  return group;
+  return createGroupNode(context, open, close, items);
 }
 
 function createGroupNode(context: ParserContext, open: OpenNode, close: CloseNode | null, nodes: Node[]): Group {
