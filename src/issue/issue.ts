@@ -22,42 +22,44 @@ import { IssueMessage } from './issue-message';
 //   // }
 // }
 
-export function formatIssue(context: ParserContext, { node, message }: Issue): String2 {
-  const msg = redBright(message.actual);
-  const lineText = context.source.text.split('\n')[node.range.start.line];
-  const nodeText = getNodeText(context, node);
-  const location = cyan(context.source.location ?? '<code>');
-  const line = cyan(`:${node.range.start.line + 1}`);
-  const column = cyan(`:${node.range.start.column + 1}`);
-  const lineNumberBeforeGrayed = `${node.range.start.line + 1} | `;
-  const lineNumber = gray(lineNumberBeforeGrayed);
-  const caret = ' '.repeat(node.range.start.column + lineNumberBeforeGrayed.length) + red('~'.repeat(nodeText.length));
-
-  return `${msg}\n${location}${line}${column}\n${lineNumber}${lineText}\n${caret}`;
+export enum IssueType {
+  SYNTACTIC = 0,
+  SEMANTIC = 1,
 }
 
 export interface Issue {
-  node: Node;
+  type: IssueType;
   level: IssueLevel;
+  node: Node;
   message: IssueMessage;
 }
 
-export function createErrorIssue(node: Node, message: IssueMessage): Issue {
+export function createSyntacticErrorIssue(node: Node, message: IssueMessage): Issue {
   return {
-    node,
+    type: IssueType.SYNTACTIC,
     level: IssueLevel.error,
+    node,
     message,
   };
 }
 
-const redBright = (x: String2): String2 => coloredText(x, COLOR.FG_RED);
-const cyan = (x: String2): String2 => coloredText(x, COLOR.FG_CYAN);
-const gray = (x: String2): String2 => coloredText(x, COLOR.FG_GRAY);
-const red = (x: String2): String2 => coloredText(x, COLOR.FG_RED);
+export function createSemanticErrorIssue(node: Node, message: IssueMessage): Issue {
+  return {
+    type: IssueType.SEMANTIC,
+    level: IssueLevel.error,
+    node,
+    message,
+  };
+}
 
-const coloredText = (text: String2, color: COLOR): String2 => `${color}${text}${COLOR.RESET}`;
+const redBright = (x: String2): String2 => colorText(x, Color.FG_RED);
+const cyan = (x: String2): String2 => colorText(x, Color.FG_CYAN);
+const gray = (x: String2): String2 => colorText(x, Color.FG_GRAY);
+const red = (x: String2): String2 => colorText(x, Color.FG_RED);
 
-enum COLOR {
+const colorText = (text: String2, color: Color): String2 => `${color}${text}${Color.RESET}`;
+
+enum Color {
   RESET = '\x1b[0m',
   BRIGHT = '\x1b[1m',
   DIM = '\x1b[2m',
@@ -85,4 +87,18 @@ enum COLOR {
   BG_CYAN = '\x1b[46m',
   BG_WHITE = '\x1b[47m',
   BG_GRAY = '\x1b[100m',
+}
+
+export function formatIssue(context: ParserContext, { node, message }: Issue): String2 {
+  const msg = redBright(message.actual);
+  const lineText = context.source.text.split('\n')[node.range.start.line];
+  const nodeText = getNodeText(context, node);
+  const location = cyan(context.source.location ?? '<code>');
+  const line = cyan(`:${node.range.start.line + 1}`);
+  const column = cyan(`:${node.range.start.column + 1}`);
+  const lineNumberBeforeGrayed = `${node.range.start.line + 1} | `;
+  const lineNumber = gray(lineNumberBeforeGrayed);
+  const caret = ' '.repeat(node.range.start.column + lineNumberBeforeGrayed.length) + red('~'.repeat(nodeText.length));
+
+  return `${msg}\n${location}${line}${column}\n${lineNumber}${lineText}\n${caret}`;
 }

@@ -1,4 +1,4 @@
-import { Issue, createErrorIssue, formatIssue } from '../issue/issue';
+import { Issue, createSyntacticErrorIssue, formatIssue } from '../issue/issue';
 import { IssueMessage } from '../issue/issue-message';
 import { Integer } from '../lib/core';
 import { Node } from '../parser/node/node';
@@ -23,7 +23,7 @@ export interface ParserContext {
   addErrorIssue: (node: Node, message: IssueMessage) => Issue;
 }
 
-export function parserContext(source: Source, position: SourcePosition, config?: Partial<ParserConfig>): ParserContext {
+export function parserContext(source: Source, position: SourcePosition, config: ParserConfig): ParserContext {
   return {
     source,
     position,
@@ -34,9 +34,7 @@ export function parserContext(source: Source, position: SourcePosition, config?:
     lastStatement: null,
     breakNode: null,
     root: rootNode(),
-    config: {
-      throwErrorIssue: config?.throwErrorIssue ?? true,
-    },
+    config,
     getRange(length: Integer): SourceRange {
       const { index, line, column } = this.position;
       const start = sourcePosition(index, line, column);
@@ -47,7 +45,7 @@ export function parserContext(source: Source, position: SourcePosition, config?:
       return sourceRange(start, stop);
     },
     addErrorIssue(node: Node, message: IssueMessage): Issue {
-      const issue = createErrorIssue(node, message);
+      const issue = createSyntacticErrorIssue(node, message);
       this.issues.push(issue);
 
       if (this.config.throwErrorIssue) {

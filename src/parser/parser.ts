@@ -1,4 +1,4 @@
-import { createErrorIssue } from '../issue/issue';
+import { createSyntacticErrorIssue } from '../issue/issue';
 import { ISSUE_MESSAGE } from '../issue/issue-message';
 import { Boolean2, String2 } from '../lib/core';
 import { scanCharNode } from '../parser/node/char/char-node';
@@ -23,7 +23,6 @@ import { ParserContext, parserContext } from './parser-context';
 import { is } from './util/is';
 
 type NodeScanFn = (parser: ParserContext) => Node | null;
-type BreakFn = (node: Node) => Boolean2;
 
 const nodeScanFunctions: NodeScanFn[] = [
   scanIntegerNode,
@@ -48,16 +47,20 @@ export function parse(text: String2, config?: Partial<ParserConfig>): ParserCont
 
 export function parseUntil(
   source: Source,
-  position: SourcePosition,
-  breakFn: BreakFn | null,
-  config?: Partial<ParserConfig>,
+  startPosition: SourcePosition,
+  breakOnNodeFn: ((node: Node) => Boolean2) | null,
+  parserConfig?: Partial<ParserConfig>,
 ): ParserContext {
-  const context = parserContext(source, position, config);
+  const config: ParserConfig = {
+    throwErrorIssue: parserConfig?.throwErrorIssue ?? true,
+  };
+
+  const context = parserContext(source, startPosition, config);
 
   while (context.position.index < context.source.text.length) {
     const node = nextNode(context);
 
-    if (breakFn && breakFn(node)) {
+    if (breakOnNodeFn && breakOnNodeFn(node)) {
       context.breakNode = node;
 
       break;
@@ -92,7 +95,7 @@ export function parseUntil(
     }
 
     if (is(node, NodeType.UNKNOWN)) {
-      context.issues.push(createErrorIssue(node, ISSUE_MESSAGE.unexpectedNode()));
+      context.issues.push(createSyntacticErrorIssue(node, ISSUE_MESSAGE.unexpectedNode()));
 
       continue;
     }
