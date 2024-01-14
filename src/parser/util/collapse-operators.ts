@@ -7,14 +7,12 @@ export function collapseOperators(context: ParserContext): void {
   for (const operatorsOrder of operatorsOrders) {
     if (operatorsOrder.operatorType === OperatorType.INVOKE) {
       collapseInvoke(context);
+
+      continue;
     }
 
     for (const operators of operatorsOrder.operators) {
-      const node = collapseOperator(context, operators, operatorsOrder.operatorType, operatorsOrder.recursiveType);
-
-      if (node) {
-        collapseOperators(context);
-      }
+      collapseOperator(context, operators, operatorsOrder.operatorType, operatorsOrder.recursiveType);
     }
   }
 }

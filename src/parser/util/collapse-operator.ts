@@ -4,7 +4,6 @@ import { OperatorNode } from '../../parser/node/operator/operator-node';
 import { postfixNode } from '../../parser/node/postfix/postfix-node';
 import { prefixNode } from '../../parser/node/prefix/prefix-node';
 import { ParserContext } from '../../parser/parser-context';
-import { infixNode } from '../node/infix/infix-node';
 import { NodeType } from '../node/node-type';
 import { OperatorType, RecursiveType } from '../parser-config';
 import { handleInfix } from './handle-infix';
@@ -15,7 +14,7 @@ export function collapseOperator(
   operators: String2[],
   operatorType: OperatorType,
   recursiveType: RecursiveType,
-): Node | null {
+): void {
   for (let i = 0; i < context.nodes.length; i++) {
     const index = recursiveType === RecursiveType.LEFT ? i : context.nodes.length - i - 1;
     const operator = context.nodes[index];
@@ -35,8 +34,9 @@ export function collapseOperator(
       const prefix = prefixNode(context, operator, right);
       context.nodes[index] = prefix;
       context.nodes.splice(index + 1, 1);
+      collapseOperator(context, operators, operatorType, recursiveType);
 
-      return prefix;
+      return;
     }
 
     if (
@@ -48,7 +48,9 @@ export function collapseOperator(
       context.nodes[index] = postfix;
       context.nodes.splice(index - 1, 1);
 
-      return postfix;
+      collapseOperator(context, operators, operatorType, recursiveType);
+
+      return;
     }
 
     if (
@@ -61,9 +63,9 @@ export function collapseOperator(
       context.nodes.splice(index - 1, 1);
       context.nodes.splice(index, 1);
 
-      return infix;
+      collapseOperator(context, operators, operatorType, recursiveType);
+
+      return;
     }
   }
-
-  return null;
 }

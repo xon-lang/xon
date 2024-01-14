@@ -119,11 +119,11 @@ test('several operators', () => {
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe(NodeType.INFIX);
-  expect(node.left.$).toBe(NodeType.INTEGER);
+  expect(node.left?.$).toBe(NodeType.INTEGER);
   expect(node.operator.text).toBe('/');
 
   expect(node.right?.$).toBe(NodeType.PREFIX);
   expect((node.right as PrefixNode).operator.text).toBe('+');
-  expect((node.right as PrefixNode).value.$).toBe(NodeType.INTEGER);
+  expect((node.right as PrefixNode).value?.$).toBe(NodeType.INTEGER);
   expect(((node.right as PrefixNode).value as IntegerNode).text).toBe('2');
 });
