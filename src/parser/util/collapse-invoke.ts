@@ -14,8 +14,7 @@ export function collapseInvoke(context: ParserContext): void {
       const prevNode = context.nodes[i - 1];
 
       if (!is<OperatorNode>(prevNode, NodeType.OPERATOR) && !is<ModifierNode>(prevNode, NodeType.MODIFIER)) {
-        context.nodes[i] = invokeNode(prevNode, node);
-        context.nodes.splice(i - 1, 1);
+        context.nodes.splice(i - 1, 2, invokeNode(prevNode, node));
         collapseInvoke(context);
 
         return;
