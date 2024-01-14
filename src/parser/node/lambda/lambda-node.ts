@@ -1,7 +1,7 @@
-import { AssignNode } from '../../../parser/node/assign/assign-node';
 import { GroupNode } from '../../../parser/node/group/group-node';
 import { Node, addNodeParent } from '../../../parser/node/node';
 import { rangeFromNodes } from '../../../source/source-range';
+import { AssignNode } from '../assign/assign-node';
 import { NodeType } from '../node-type';
 
 export interface LambdaNode extends Node {

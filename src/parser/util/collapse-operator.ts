@@ -4,9 +4,10 @@ import { OperatorNode } from '../../parser/node/operator/operator-node';
 import { postfixNode } from '../../parser/node/postfix/postfix-node';
 import { prefixNode } from '../../parser/node/prefix/prefix-node';
 import { ParserContext } from '../../parser/parser-context';
-import { handleInfix } from '../../parser/util/handle-infix';
+import { infixNode } from '../node/infix/infix-node';
 import { NodeType } from '../node/node-type';
 import { OperatorType, RecursiveType } from '../parser-config';
+import { handleInfix } from './handle-infix';
 import { is } from './is';
 
 export function collapseOperator(
@@ -31,7 +32,7 @@ export function collapseOperator(
       !is<OperatorNode>(right, NodeType.OPERATOR) &&
       (index === 0 || is<OperatorNode>(left, NodeType.OPERATOR))
     ) {
-      const prefix = prefixNode(operator, right);
+      const prefix = prefixNode(context, operator, right);
       context.nodes[index] = prefix;
       context.nodes.splice(index + 1, 1);
 
@@ -43,7 +44,7 @@ export function collapseOperator(
       !is<OperatorNode>(left, NodeType.OPERATOR) &&
       (index === context.nodes.length - 1 || is<OperatorNode>(right, NodeType.OPERATOR))
     ) {
-      const postfix = postfixNode(operator, left);
+      const postfix = postfixNode(context, operator, left);
       context.nodes[index] = postfix;
       context.nodes.splice(index - 1, 1);
 

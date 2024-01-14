@@ -52,7 +52,7 @@ export function parseUntil(
   parserConfig?: Partial<ParserConfig>,
 ): ParserContext {
   const config: ParserConfig = {
-    throwErrorIssue: parserConfig?.throwErrorIssue ?? true,
+    throwErrorIssue: parserConfig?.throwErrorIssue ?? false,
   };
 
   const context = parserContext(source, startPosition, config);
