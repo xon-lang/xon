@@ -103,7 +103,7 @@ test('has several relational operators', () => {
 
   expect(node.$).toBe(NodeType.INFIX);
   expect(node.operator.text).toBe('>');
-  expect(node.left.$).toBe(NodeType.INFIX);
+  expect(node.left?.$).toBe(NodeType.INFIX);
   expect(node.right?.$).toBe(NodeType.ID);
 
   const left = node.left as InfixNode;

@@ -32,8 +32,7 @@ export function collapseOperator(
       (index === 0 || is<OperatorNode>(left, NodeType.OPERATOR))
     ) {
       const prefix = prefixNode(context, operator, right);
-      context.nodes[index] = prefix;
-      context.nodes.splice(index + 1, 1);
+      context.nodes.splice(index, 2, prefix);
       collapseOperator(context, operators, operatorType, recursiveType);
 
       return;
@@ -45,8 +44,7 @@ export function collapseOperator(
       (index === context.nodes.length - 1 || is<OperatorNode>(right, NodeType.OPERATOR))
     ) {
       const postfix = postfixNode(context, operator, left);
-      context.nodes[index] = postfix;
-      context.nodes.splice(index - 1, 1);
+      context.nodes.splice(index - 1, 2, postfix);
 
       collapseOperator(context, operators, operatorType, recursiveType);
 
@@ -59,9 +57,8 @@ export function collapseOperator(
       !is<OperatorNode>(right, NodeType.OPERATOR)
     ) {
       const infix = handleInfix(context, operator, left, right);
-      context.nodes[index] = infix;
-      context.nodes.splice(index - 1, 1);
-      context.nodes.splice(index, 1);
+      // eslint-disable-next-line no-magic-numbers
+      context.nodes.splice(index - 1, 3, infix);
 
       collapseOperator(context, operators, operatorType, recursiveType);
 
