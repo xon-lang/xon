@@ -18,7 +18,7 @@ export interface ParametersNode extends Node {
 export function parametersNode(open: OpenNode, close: CloseNode | null, items: ParameterNode[]): ParametersNode {
   const node: ParametersNode = {
     $: NodeType.PARAMETERS,
-    range: rangeFromNodes(open, items.lastOrNull() ?? close ?? open),
+    range: rangeFromNodes(open, close ?? items.lastOrNull() ?? open),
     open,
     close,
     items,
