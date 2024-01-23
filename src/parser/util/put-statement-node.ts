@@ -7,11 +7,11 @@ import { is } from '../../parser/util/is';
 import { ParserContext } from '../parser-context';
 
 export function putStatementNode(context: ParserContext): void {
-  context.parent = getParent(context);
+  context.parentStatement = getParent(context);
   const statement = getSyntacticNode(context);
-  statement.parent = context.parent;
+  statement.parent = context.parentStatement;
 
-  if (context.parent === context.root) {
+  if (context.parentStatement === context.root) {
     context.root.children.push(statement);
   }
 

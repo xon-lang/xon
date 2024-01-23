@@ -14,7 +14,7 @@ export interface ParserContext {
   hidden: Node[];
   issues: Issue[];
   breakNode: Node | null;
-  parent: Node;
+  parentStatement: Node;
   nodes: Node[];
   lastStatement: Node | null;
   root: RootNode;
@@ -29,7 +29,7 @@ export function parserContext(source: Source, position: SourcePosition, config: 
     position,
     hidden: [],
     issues: [],
-    parent: rootNode(),
+    parentStatement: rootNode(),
     nodes: [],
     lastStatement: null,
     breakNode: null,

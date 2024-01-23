@@ -33,11 +33,11 @@ export function idNode(range: SourceRange, text: String2): IdNode {
 export function scanIdNode(context: ParserContext): ModifierNode | IdNode | KeywordNode | null {
   const { position, source, nodes: lastStatementNodes } = context;
 
-  const code = source.characters[position.index];
+  const firstCharCode = source.characters[position.index];
   const isFirstCharForId =
-    code === UNDERSCORE_CODE ||
-    (code >= UPPER_A_CODE && code <= UPPER_Z_CODE) ||
-    (code >= LOWER_A_CODE && code <= LOWER_Z_CODE);
+    firstCharCode === UNDERSCORE_CODE ||
+    (firstCharCode >= UPPER_A_CODE && firstCharCode <= UPPER_Z_CODE) ||
+    (firstCharCode >= LOWER_A_CODE && firstCharCode <= LOWER_Z_CODE);
 
   if (!isFirstCharForId) {
     return null;

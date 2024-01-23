@@ -65,9 +65,9 @@ function createType(context: ParserContext, operator: OperatorNode, left: Node, 
   const type = typeNode(context, operator, right);
 
   if (isAssigneeNode(left)) {
-    if (isObjectDeclaration(context.parent)) {
+    if (isObjectDeclaration(context.parentStatement)) {
       const declaration = declarationNode(DeclarationType.ATTRIBUTE, null, left, null, type, null);
-      context.parent.attributes.push(declaration);
+      context.parentStatement.attributes.push(declaration);
 
       return declaration;
     }
