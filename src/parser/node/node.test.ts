@@ -1,7 +1,8 @@
-import { IdAssignNode } from '../../parser/node/id-assign/id-assign-node';
 import { IntegerNode } from '../../parser/node/integer/integer-node';
 import { NodeType } from '../../parser/node/node-type';
 import { parse } from '../../parser/parser';
+import { InfixNode } from './infix/infix-node';
+import { TokenNode } from './token-node';
 
 test('comma', () => {
   const text = '1';
@@ -19,10 +20,10 @@ test('single expression', () => {
 
   expect(nodes.length).toBe(1);
 
-  const idAssign = nodes[0] as IdAssignNode;
-  expect(idAssign.assignee.text).toBe('a');
-  expect(idAssign.assign.operator.text).toBe('=');
-  expect((idAssign.assign.value as IntegerNode).text).toBe('1');
+  const node = nodes[0] as InfixNode;
+  expect((node.left as TokenNode).text).toBe('a');
+  expect(node.operator.text).toBe('=');
+  expect((node.right as IntegerNode).text).toBe('1');
 });
 
 test('debug 1', () => {
@@ -30,7 +31,7 @@ test('debug 1', () => {
   const nodes = parse(text).root.children;
 
   expect(nodes.length).toBe(1);
-  expect(nodes[0].$).toBe(NodeType.ID_ASSIGN);
+  expect(nodes[0].$).toBe(NodeType.INFIX);
   // todo fix it
   // expect(nodes[0].children?.length).toBe(2);
   // expect(nodes[0].children?.at(0)?.$).toBe(NodeType.ID_ASSIGN);
@@ -42,8 +43,8 @@ test('debug 2', () => {
   const nodes = parse(text).root.children;
 
   expect(nodes.length).toBe(2);
-  expect(nodes[0].$).toBe(NodeType.ID_ASSIGN);
-  expect(nodes[1].$).toBe(NodeType.ID_ASSIGN);
+  expect(nodes[0].$).toBe(NodeType.INFIX);
+  expect(nodes[1].$).toBe(NodeType.INFIX);
 });
 
 test('debug 3', () => {

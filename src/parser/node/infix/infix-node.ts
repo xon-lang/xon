@@ -37,3 +37,4 @@ export function validateInfixNode(context: ParserContext, node: InfixNode): void
     context.addErrorIssue(node, ISSUE_MESSAGE.notImplemented());
   }
 }
+

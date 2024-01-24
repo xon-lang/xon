@@ -1,15 +1,15 @@
-import { DeclarationNode } from '../../../parser/node/declaration/declaration-node';
 import { parse } from '../../../parser/parser';
 import { NodeType } from '../node-type';
+import { PrefixNode } from '../prefix/prefix-node';
 
 test('infix modifier', () => {
   const text = 'infix';
   const ast = parse(text);
   const nodes = ast.root.children;
-  const declaration = nodes[0] as DeclarationNode;
+  const node = nodes[0] as PrefixNode;
 
   expect(nodes.length).toBe(1);
-  expect(declaration.$).toBe(NodeType.DECLARATION);
-  expect(declaration.modifier?.$).toBe(NodeType.MODIFIER);
-  expect(declaration.modifier?.text).toBe('infix');
+  expect(node.$).toBe(NodeType.PREFIX);
+  expect(node.operator.text).toBe('infix');
+  expect(node.value).toBe(null);
 });

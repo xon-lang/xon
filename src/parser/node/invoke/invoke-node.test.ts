@@ -2,12 +2,12 @@ import { GroupNode } from '../../../parser/node/group/group-node';
 import { IdNode } from '../../../parser/node/id/id-node';
 import { IntegerNode } from '../../../parser/node/integer/integer-node';
 import { InvokeNode } from '../../../parser/node/invoke/invoke-node';
-import { MemberNode } from '../../../parser/node/member/member-node';
 import { parse } from '../../../parser/parser';
+import { InfixNode } from '../infix/infix-node';
 import { NodeType } from '../node-type';
 
 test('method call', () => {
-  const text = 'f(3, \'str\')';
+  const text = "f(3, 'str')";
   const nodes = parse(text).root.children;
   const node = nodes[0] as InvokeNode;
 
@@ -16,7 +16,7 @@ test('method call', () => {
   expect(node.group.items[0]?.$).toBe(NodeType.INTEGER);
   expect((node.group.items[0] as IntegerNode).text).toBe('3');
   expect(node.group.items[1]?.$).toBe(NodeType.CHAR);
-  expect((node.group.items[1] as IdNode).text).toBe('\'str\'');
+  expect((node.group.items[1] as IdNode).text).toBe("'str'");
   expect(node.instance.$).toBe(NodeType.ID);
 });
 
@@ -44,11 +44,11 @@ test('can call with type parameter', () => {
   expect(node.$).toBe(NodeType.INVOKE);
   expect(node.group.items.length).toBe(1);
   expect((node.group.items[0] as IntegerNode).text).toBe('1');
-  expect(node.instance.$).toBe(NodeType.MEMBER);
-  const { operator, instance, id } = node.instance as MemberNode;
+  expect(node.instance.$).toBe(NodeType.INFIX);
+  const { operator, left, right } = node.instance as InfixNode;
   expect(operator.text).toBe('.');
-  expect((instance as IdNode).text).toBe('a');
-  expect((id as IdNode).text).toBe('get');
+  expect((left as IdNode).text).toBe('a');
+  expect((right as IdNode).text).toBe('get');
 });
 
 test('object method', () => {
@@ -58,14 +58,14 @@ test('object method', () => {
 
   expect(node.$).toBe(NodeType.INVOKE);
   expect(node.group.items.length).toBe(0);
-  expect(node.instance.$).toBe(NodeType.MEMBER);
-  const { operator, instance, id } = node.instance as MemberNode;
+  expect(node.instance.$).toBe(NodeType.INFIX);
+  const { operator, left, right } = node.instance as InfixNode;
   expect(operator.text).toBe('.');
-  const leftParameters = (instance as GroupNode).items;
+  const leftParameters = (left as GroupNode).items;
   expect(leftParameters.length).toBe(2);
   expect((leftParameters[0] as IdNode).text).toBe('a');
   expect((leftParameters[1] as IdNode).text).toBe('b');
-  expect((id as IdNode).text).toBe('call');
+  expect((right as IdNode).text).toBe('call');
 });
 
 test('generics', () => {
