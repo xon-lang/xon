@@ -4,9 +4,9 @@ import { OperatorNode } from '../../parser/node/operator/operator-node';
 import { postfixNode } from '../../parser/node/postfix/postfix-node';
 import { prefixNode } from '../../parser/node/prefix/prefix-node';
 import { ParserContext } from '../../parser/parser-context';
+import { infixNode } from '../node/infix/infix-node';
 import { NodeType } from '../node/node-type';
 import { OperatorType, RecursiveType } from '../parser-config';
-import { handleInfix } from './handle-infix';
 import { is } from './is';
 
 export function collapseOperator(
@@ -56,7 +56,7 @@ export function collapseOperator(
       !is<OperatorNode>(left, NodeType.OPERATOR) &&
       !is<OperatorNode>(right, NodeType.OPERATOR)
     ) {
-      const infix = handleInfix(context, operator, left, right);
+      const infix = infixNode(context, operator, left, right);
       // eslint-disable-next-line no-magic-numbers
       context.nodes.splice(index - 1, 3, infix);
 

@@ -1,7 +1,7 @@
-import { isGroupNode } from '../../parser/node/declaration/declaration-node';
 import { invokeNode } from '../../parser/node/invoke/invoke-node';
 import { OperatorNode } from '../../parser/node/operator/operator-node';
 import { ParserContext } from '../../parser/parser-context';
+import { isGroupNode } from '../node/group/group-node';
 import { ModifierNode } from '../node/modifier/modifier-node';
 import { NodeType } from '../node/node-type';
 import { is } from './is';

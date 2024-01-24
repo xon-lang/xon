@@ -1,6 +1,6 @@
-import { Group } from '../../../parser/node/declaration/declaration-node';
 import { Node } from '../../../parser/node/node';
 import { rangeFromNodes } from '../../../source/source-range';
+import { Group } from '../group/group-node';
 import { NodeType } from '../node-type';
 
 export interface InvokeNode extends Node {

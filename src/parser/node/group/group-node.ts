@@ -1,10 +1,9 @@
 import '../../../extensions';
 import { ISSUE_MESSAGE } from '../../../issue/issue-message';
-import { arrayNode } from '../../../parser/node/array/array-node';
+import { ArrayNode, arrayNode } from '../../../parser/node/array/array-node';
 import { CloseNode } from '../../../parser/node/close/close-node';
 import { CommaNode } from '../../../parser/node/comma/comma-node';
-import { DeclarationNode, Group } from '../../../parser/node/declaration/declaration-node';
-import { objectNode } from '../../../parser/node/object/object-node';
+import { ObjectNode, objectNode } from '../../../parser/node/object/object-node';
 import { OpenNode, scanOpenNode } from '../../../parser/node/open/open-node';
 import { parseUntil } from '../../../parser/parser';
 import { ParserContext } from '../../../parser/parser-context';
@@ -19,6 +18,8 @@ import {
 } from '../../parser-config';
 import { Node } from '../node';
 import { NodeType } from '../node-type';
+
+export type Group = GroupNode | ArrayNode | ObjectNode;
 
 export interface GroupNode extends Node {
   $: NodeType.GROUP;
@@ -55,7 +56,7 @@ export function validateGroupNode(context: ParserContext, node: GroupNode): void
   }
 }
 
-export function scanGroupNode(context: ParserContext): Group | DeclarationNode | null {
+export function scanGroupNode(context: ParserContext): Group | null {
   const open = scanOpenNode(context);
 
   if (!is<OpenNode>(open, NodeType.OPEN)) {
@@ -116,4 +117,10 @@ function createGroupNode(context: ParserContext, open: OpenNode, close: CloseNod
   }
 
   throw new Error('Not implemented');
+}
+
+export function isGroupNode(node: Node): node is Group {
+  return (
+    is<GroupNode>(node, NodeType.GROUP) || is<ArrayNode>(node, NodeType.ARRAY) || is<ObjectNode>(node, NodeType.OBJECT)
+  );
 }

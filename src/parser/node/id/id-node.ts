@@ -10,7 +10,7 @@ import {
   KEYWORDS,
   LOWER_A_CODE,
   LOWER_Z_CODE,
-  MODIFIERS_NAMES,
+  MODIFIERS,
   UNDERSCORE_CODE,
   UPPER_A_CODE,
   UPPER_Z_CODE,
@@ -56,7 +56,7 @@ export function scanIdNode(context: ParserContext): ModifierNode | IdNode | Keyw
 
   const range = context.getRange(sliced.length);
 
-  if (lastStatementNodes.length === 0 && MODIFIERS_NAMES.includes(sliced)) {
+  if (lastStatementNodes.length === 0 && MODIFIERS.includes(sliced)) {
     return modifierNode(range, sliced) as ModifierNode;
   }
 

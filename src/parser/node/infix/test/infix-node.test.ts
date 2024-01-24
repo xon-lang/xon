@@ -1,7 +1,6 @@
 import { IdNode } from '../../../../parser/node/id/id-node';
 import { InfixNode } from '../../../../parser/node/infix/infix-node';
 import { IntegerNode } from '../../../../parser/node/integer/integer-node';
-import { MemberNode } from '../../../../parser/node/member/member-node';
 import { PrefixNode } from '../../../../parser/node/prefix/prefix-node';
 import { parse } from '../../../../parser/parser';
 import { evaluate } from '../../../../util/evaluate';
@@ -11,12 +10,12 @@ import { TokenNode } from '../../token-node';
 test('infix operator', () => {
   const text = 'abc.def';
   const nodes = parse(text).root.children;
-  const node = nodes[0] as MemberNode;
+  const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe(NodeType.MEMBER);
-  expect((node.instance as TokenNode).text).toBe('abc');
+  expect((node.left as TokenNode).text).toBe('abc');
   expect(node.operator.text).toBe('.');
-  expect(node.id.text).toBe('def');
+  expect((node.right as TokenNode).text).toBe('def');
 });
 
 test('several operands with different priorities', () => {

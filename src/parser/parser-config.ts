@@ -1,7 +1,6 @@
 // todo rename the file to parser-config
 
 import { Boolean2, Integer, String2 } from '../lib/core';
-import { DeclarationType } from './node/declaration/declaration-node';
 import { NodeType } from './node/node-type';
 
 export interface OperatorsOrder {
@@ -91,17 +90,7 @@ export const MEMBER_TOKEN = '.';
 
 export const META_MEMBER_TOKEN = '::';
 
-// todo here we have declaration modifiers, should we have another modifiers?
-export const MODIFIERS: Record<String2, DeclarationType> = {
-  model: DeclarationType.OBJECT,
-  const: DeclarationType.VALUE,
-  var: DeclarationType.VALUE,
-  prefix: DeclarationType.METHOD,
-  postfix: DeclarationType.METHOD,
-  infix: DeclarationType.METHOD,
-};
-
-export const MODIFIERS_NAMES = Object.keys(MODIFIERS);
+export const MODIFIERS = ['model', 'const', 'var', 'prefix', 'postfix', 'infix'];
 
 export const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
 
@@ -139,6 +128,11 @@ export const operatorsOrders: OperatorsOrder[] = [
   {
     operators: [ASSIGN_TOKEN],
     operatorType: OperatorType.INFIX,
+    recursiveType: RecursiveType.RIGHT,
+  },
+  {
+    operators: [MODIFIERS.join(' ')],
+    operatorType: OperatorType.PREFIX,
     recursiveType: RecursiveType.RIGHT,
   },
 ].map((x) => ({
