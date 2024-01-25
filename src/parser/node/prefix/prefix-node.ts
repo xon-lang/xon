@@ -3,15 +3,21 @@ import { Node, addNodeParent } from '../../../parser/node/node';
 import { OperatorNode } from '../../../parser/node/operator/operator-node';
 import { rangeFromNodes } from '../../../source/source-range';
 import { ParserContext } from '../../parser-context';
+import { KeywordNode } from '../keyword/keyword-node';
+import { ModifierNode } from '../modifier/modifier-node';
 import { NodeType } from '../node-type';
 
 export interface PrefixNode extends Node {
   readonly $: NodeType.PREFIX;
-  readonly operator: OperatorNode;
+  readonly operator: OperatorNode | ModifierNode | KeywordNode;
   readonly value: Node | null;
 }
 
-export function prefixNode(context: ParserContext, operator: OperatorNode, value: Node | null): PrefixNode {
+export function prefixNode(
+  context: ParserContext,
+  operator: OperatorNode | ModifierNode | KeywordNode,
+  value: Node | null,
+): PrefixNode {
   const node: PrefixNode = {
     $: NodeType.PREFIX,
     range: rangeFromNodes(operator, value),
