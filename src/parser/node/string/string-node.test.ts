@@ -29,6 +29,7 @@ test('empty string', () => {
 
   expect(tree.$).toBe(NodeType.STRING);
   expect(tree.text).toBe(text);
+  expect(tree.type.name).toBe('String');
 });
 
 test('not closed', () => {
