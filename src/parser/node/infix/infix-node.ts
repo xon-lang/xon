@@ -1,11 +1,11 @@
 import { ISSUE_MESSAGE } from '../../../issue/issue-message';
-import { Node, addNodeParent } from '../../../parser/node/node';
+import { Node, SyntaxNode, addNodeParent } from '../../../parser/node/node';
 import { OperatorNode } from '../../../parser/node/operator/operator-node';
 import { rangeFromNodes } from '../../../source/source-range';
 import { ParserContext } from '../../parser-context';
 import { NodeType } from '../node-type';
 
-export interface InfixNode extends Node {
+export interface InfixNode extends SyntaxNode {
   readonly $: NodeType.INFIX;
   readonly operator: OperatorNode;
   readonly left: Node | null;
@@ -21,6 +21,7 @@ export function infixNode(
   const node: InfixNode = {
     $: NodeType.INFIX,
     range: rangeFromNodes(left ?? operator, right ?? operator),
+    children: [],
     operator,
     left,
     right,
@@ -37,4 +38,3 @@ export function validateInfixNode(context: ParserContext, node: InfixNode): void
     context.addErrorIssue(node, ISSUE_MESSAGE.notImplemented());
   }
 }
-

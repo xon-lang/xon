@@ -2,8 +2,8 @@ import { String2 } from '../../../lib/core';
 import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
 import { CR_CODE, JOINING_CODE, LF_CODE, SPACE_CODE, TAB_CODE } from '../../parser-config';
+import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
-import { TokenNode } from '../token-node';
 
 export interface JoiningNode extends TokenNode {
   $: NodeType.JOINING;

@@ -2,8 +2,8 @@ import { String2 } from '../../../lib/core';
 import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
 import { SPACE_CODE, TAB_CODE } from '../../parser-config';
+import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
-import { TokenNode } from '../token-node';
 
 export interface WhitespaceNode extends TokenNode {
   $: NodeType.WHITESPACE;

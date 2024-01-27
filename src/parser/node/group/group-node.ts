@@ -16,12 +16,12 @@ import {
   OBJECT_NODE_OPEN_CODE,
   OPEN_CLOSE_PAIR,
 } from '../../parser-config';
-import { Node } from '../node';
+import { Node, SyntaxNode, addNodeParent } from '../node';
 import { NodeType } from '../node-type';
 
 export type Group = GroupNode | ArrayNode | ObjectNode;
 
-export interface GroupNode extends Node {
+export interface GroupNode extends SyntaxNode {
   $: NodeType.GROUP;
   open: OpenNode;
   close: CloseNode | null;
@@ -34,12 +34,14 @@ export function groupNode(context: ParserContext, open: OpenNode, close: CloseNo
   const node: GroupNode = {
     $: NodeType.GROUP,
     range: rangeFromNodes(open, close ?? last ?? open),
+    children: [],
     open,
     close,
     items,
   };
 
   validateGroupNode(context, node);
+  addNodeParent(node, open, ...items, close);
 
   return node;
 }

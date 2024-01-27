@@ -1,10 +1,10 @@
 import { StringNode } from '../../../parser/node/string/string-node';
 import { parse } from '../../../parser/parser';
+import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
-import { TokenNode } from '../token-node';
 
 test('a', () => {
-  const text = '\'a\'';
+  const text = "'a'";
   const nodes = parse(text).root.children as TokenNode[];
   const tree = nodes[0] as StringNode;
 

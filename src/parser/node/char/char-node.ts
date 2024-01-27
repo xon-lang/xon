@@ -2,8 +2,8 @@ import { String2 } from '../../../lib/core';
 import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
 import { CHAR_QUOTE } from '../../parser-config';
+import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
-import { TokenNode } from '../token-node';
 
 export interface CharNode extends TokenNode {
   $: NodeType.CHAR;

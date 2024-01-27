@@ -1,6 +1,6 @@
 import { parse } from '../../../parser/parser';
+import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
-import { TokenNode } from '../token-node';
 
 test('if keyword', () => {
   const text = 'if';

@@ -3,9 +3,9 @@ import { parse } from '../../parser';
 import { GroupNode } from '../group/group-node';
 import { IdNode } from '../id/id-node';
 import { IntegerNode } from '../integer/integer-node';
+import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
 import { PrefixNode } from '../prefix/prefix-node';
-import { TokenNode } from '../token-node';
 import { InfixNode } from './infix-node';
 
 test('infix operator', () => {

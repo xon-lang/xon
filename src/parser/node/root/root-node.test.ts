@@ -1,5 +1,5 @@
-import { TokenNode } from '../../../parser/node/token-node';
 import { parse } from '../../../parser/parser';
+import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
 
 test('comma', () => {

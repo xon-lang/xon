@@ -1,11 +1,11 @@
 import { ISSUE_MESSAGE } from '../../../issue/issue-message';
-import { Node, addNodeParent } from '../../../parser/node/node';
+import { Node, SyntaxNode, addNodeParent } from '../../../parser/node/node';
 import { OperatorNode } from '../../../parser/node/operator/operator-node';
 import { rangeFromNodes } from '../../../source/source-range';
 import { ParserContext } from '../../parser-context';
 import { NodeType } from '../node-type';
 
-export interface PostfixNode extends Node {
+export interface PostfixNode extends SyntaxNode {
   readonly $: NodeType.POSTFIX;
   readonly operator: OperatorNode;
   readonly value: Node;
@@ -15,6 +15,7 @@ export function postfixNode(context: ParserContext, operator: OperatorNode, valu
   const node: PostfixNode = {
     $: NodeType.POSTFIX,
     range: rangeFromNodes(value, operator),
+    children: [],
     operator,
     value,
   };

@@ -3,8 +3,8 @@ import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
 import { STRING_QUOTE } from '../../parser-config';
 import { StringType, Type } from '../../type/type';
+import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
-import { TokenNode } from '../token-node';
 
 export interface StringNode extends TokenNode {
   $: NodeType.STRING;

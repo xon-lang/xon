@@ -5,8 +5,8 @@ import { ParserContext } from '../../../parser/parser-context';
 import { is } from '../../../parser/util/is';
 import { SourceRange } from '../../../source/source-range';
 import { operatorsOrders } from '../../parser-config';
+import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
-import { TokenNode } from '../token-node';
 
 export interface OperatorNode extends TokenNode {
   $: NodeType.OPERATOR;

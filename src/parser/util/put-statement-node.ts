@@ -9,7 +9,8 @@ import { ParserContext } from '../parser-context';
 export function putStatementNode(context: ParserContext): void {
   context.parentStatement = getParent(context);
   const statement = getSyntacticNode(context);
-  statement.parent = context.parentStatement;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (statement as any).parent = context.parentStatement;
 
   if (context.parentStatement === context.root) {
     context.root.children.push(statement);
@@ -33,7 +34,7 @@ function getParent(context: ParserContext): Node {
   return findParentWithLessIndent(lastStatement, indent);
 }
 
-function findParentWithLessIndent(node: Node, indent: Integer): Node {
+function findParentWithLessIndent(node: Node & { parent?: Node }, indent: Integer): Node {
   if (!node.parent) {
     throw new Error('Not implemented');
   }
