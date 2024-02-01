@@ -1,10 +1,11 @@
 export enum NodeType {
-  ROOT = 'ROOT',
-
-  COMMENT = 'COMMENT',
   NL = 'NL',
+
   WHITESPACE = 'WHITESPACE',
   JOINING = 'JOINING',
+
+  ROOT = 'ROOT',
+  COMMENT = 'COMMENT',
 
   INTEGER = 'INTEGER',
   FLOAT = 'FLOAT',
