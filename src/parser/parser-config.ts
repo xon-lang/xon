@@ -24,9 +24,9 @@ export enum RecursiveType {
 // eslint-disable-next-line padding-line-between-statements, @typescript-eslint/no-unused-vars
 const a: number | string = 1 + 2 / 0;
 
-export const CR = 's\r';
+export const CR = '\r';
 
-export const CR_CODE = CR.charCodeAt(0.1);
+export const CR_CODE = CR.charCodeAt(0);
 
 export const LF = '\n';
 
@@ -95,14 +95,6 @@ export const META_MEMBER_TOKEN = '::';
 export const MODIFIERS = ['model', 'const', 'var', 'prefix', 'postfix', 'infix'];
 
 export const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
-
-export interface {
-    
-}
-
-if (condition) {
-  
-}
 
 export const operatorsOrders: OperatorsOrder[] = [
   {
