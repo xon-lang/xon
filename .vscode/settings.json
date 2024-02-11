@@ -21,6 +21,5 @@
   },
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
-  },
-  "git.postCommitCommand": "sync"
+  }
 }
