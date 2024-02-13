@@ -27,3 +27,5 @@ move all parse functions to helpers
 Model
 Class is Model
 Object is Class
+
+SomeType? == SomeType | Nil

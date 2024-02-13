@@ -1,9 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type Dynamic = any;
+export type Something = boolean | number | string | object;
 
-export type Any = unknown;
+export type Nothing = null | undefined;
 
-export type Unknown = object;
+export const Nothing = null;
 
 export type Char = string;
 
