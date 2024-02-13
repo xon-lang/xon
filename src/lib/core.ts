@@ -1,8 +1,10 @@
+export type Anything = unknown;
+
 export type Something = boolean | number | string | object;
 
 export type Nothing = null | undefined;
 
-export const Nothing = null;
+export const nothing = null;
 
 export type Char = string;
 
