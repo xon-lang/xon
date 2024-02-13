@@ -1,11 +1,11 @@
 /* eslint-disable id-denylist */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Boolean2, Integer, Nothing, Something, String2 } from '../../lib/core';
+import { Anything, Boolean2, Integer, Nothing, nothing, String2 } from '../../lib/core';
 
 export interface Type {
   name: String2;
   base: Type | Nothing;
-  data: Something | Nothing;
+  data: Anything;
   parameters: Type[];
 
   is: (type: Type) => Boolean2;
@@ -35,8 +35,8 @@ export interface UnionType extends Type {
 
 export const anyType: AnyType = {
   name: 'Any',
-  base: Nothing,
-  data: Nothing,
+  base: nothing,
+  data: nothing,
   parameters: [],
 
   is(type): Boolean2 {
@@ -55,7 +55,7 @@ export const anyType: AnyType = {
 export const numberType: NumberType = {
   name: 'Number',
   base: anyType,
-  data: Nothing,
+  data: nothing,
   parameters: [],
 
   is(type): Boolean2 {
@@ -74,7 +74,7 @@ export const numberType: NumberType = {
 export const integerType: IntegerType = {
   name: 'Integer',
   base: numberType,
-  data: Nothing,
+  data: nothing,
   parameters: [],
 
   is(type): Boolean2 {
@@ -114,7 +114,7 @@ export function integerLiteralType(value: Integer): IntegerLiteralType {
 export const stringType: StringType = {
   name: 'String',
   base: anyType,
-  data: Nothing,
+  data: nothing,
   parameters: [],
 
   is(type): Boolean2 {
@@ -144,7 +144,7 @@ export function stringLiteralType(value: String2): StringLiteralType {
     },
 
     eq(type): Boolean2 {
-      return this.data === type.data;
+      return this.data === type.data
     },
 
     attributes(): Record<String2, Type> {
