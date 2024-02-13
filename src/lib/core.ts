@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type Any = any;
+// export type Dynamic = any;
 
 export type Unknown2 = unknown;
 

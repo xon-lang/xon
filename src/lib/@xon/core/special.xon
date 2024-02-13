@@ -1,5 +1,3 @@
-model Never
-
 model Method
 
 model Map
@@ -13,3 +11,8 @@ model Array{T}
 model Any
 
 object null
+
+
+model Any /* Anything */
+model None: Any /* Nothing or Null */
+model Unknown /* Something */: Any -- all inherits from Unknown
