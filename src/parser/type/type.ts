@@ -5,10 +5,10 @@ export interface Type {
   base: Type | Nothing;
   data: Anything;
   parameters: Type[];
+  attributes: Record<String2, Type[]>;
 
   is: (type: Type) => Boolean2;
   eq: (type: Type) => Boolean2;
-  attributes: () => Record<String2, Type[]>;
 }
 
 export interface AnyType extends Type {}
@@ -36,6 +36,7 @@ export const anyType: AnyType = {
   base: nothing,
   data: nothing,
   parameters: [],
+  attributes: {},
 
   is(type): Boolean2 {
     return this.eq(type);
@@ -44,10 +45,6 @@ export const anyType: AnyType = {
   eq(type): Boolean2 {
     return this === type;
   },
-
-  attributes(): Record<String2, Type[]> {
-    return {};
-  },
 };
 
 export const numberType: NumberType = {
@@ -55,6 +52,7 @@ export const numberType: NumberType = {
   base: anyType,
   data: nothing,
   parameters: [],
+  attributes: {},
 
   is(type): Boolean2 {
     return (this.eq(type) || this.base?.is(type)) ?? false;
@@ -62,10 +60,6 @@ export const numberType: NumberType = {
 
   eq(type): Boolean2 {
     return this === type;
-  },
-
-  attributes(): Record<String2, Type[]> {
-    return {};
   },
 };
 
@@ -74,6 +68,7 @@ export const integerType: IntegerType = {
   base: numberType,
   data: nothing,
   parameters: [],
+  attributes: {},
 
   is(type): Boolean2 {
     return (this.eq(type) || this.base?.is(type)) ?? false;
@@ -81,10 +76,6 @@ export const integerType: IntegerType = {
 
   eq(type): Boolean2 {
     return this === type;
-  },
-
-  attributes(): Record<String2, Type[]> {
-    return {};
   },
 };
 
@@ -94,6 +85,7 @@ export function integerLiteralType(value: Integer): IntegerLiteralType {
     base: integerType,
     data: { value },
     parameters: [],
+    attributes: {},
 
     is(type): Boolean2 {
       return (this.eq(type) || this.base?.is(type)) ?? false;
@@ -101,10 +93,6 @@ export function integerLiteralType(value: Integer): IntegerLiteralType {
 
     eq(type): Boolean2 {
       return eq(this, type) && this.data?.value === type.data?.value;
-    },
-
-    attributes(): Record<String2, Type[]> {
-      return {};
     },
   };
 }
@@ -114,6 +102,7 @@ export const stringType: StringType = {
   base: anyType,
   data: nothing,
   parameters: [],
+  attributes: { length: [integerType] },
 
   is(type): Boolean2 {
     return (this.eq(type) || this.base?.is(type)) ?? false;
@@ -121,12 +110,6 @@ export const stringType: StringType = {
 
   eq(type): Boolean2 {
     return this === type;
-  },
-
-  attributes(): Record<String2, Type[]> {
-    return {
-      length: [integerType],
-    };
   },
 };
 
@@ -136,6 +119,7 @@ export function stringLiteralType(value: String2): StringLiteralType {
     base: stringType,
     data: { value },
     parameters: [],
+    attributes: { ...stringType.attributes, length: [integerLiteralType(value.length)] },
 
     is(type): Boolean2 {
       return (this.eq(type) || this.base?.is(type)) ?? false;
@@ -143,10 +127,6 @@ export function stringLiteralType(value: String2): StringLiteralType {
 
     eq(type): Boolean2 {
       return eq(this, type) && this.data?.value === type.data?.value;
-    },
-
-    attributes(): Record<String2, Type[]> {
-      return { ...stringType.attributes, length: [integerLiteralType(this.data.value.length)] };
     },
   };
 }
@@ -160,6 +140,7 @@ export function unionType(left: Type, right: Type): UnionType {
       right,
     },
     parameters: [],
+    attributes: {},
 
     is(type): Boolean2 {
       return (this.eq(type) || this.base?.is(type)) ?? false;
@@ -171,10 +152,6 @@ export function unionType(left: Type, right: Type): UnionType {
         ((this.data.left.eq(type.data.left) && this.data.right.eq(type.data.right)) ||
           (this.data.left.eq(type.data.right) && this.data.right.eq(type.data.left)))
       );
-    },
-
-    attributes(): Record<String2, Type[]> {
-      return {};
     },
   };
 }
