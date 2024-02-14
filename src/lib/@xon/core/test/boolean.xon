@@ -1,8 +1,0 @@
-model BooleanTest
-  test1 = null
-  test2 = null
-  test3 = null
-
-object falseTest: Boolean
-
-object trueTest: Boolean
