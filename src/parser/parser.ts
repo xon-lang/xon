@@ -19,7 +19,8 @@ import { SourcePosition, zeroPosition } from '../source/source-position';
 import { scanIdNode } from './node/id/id-node';
 import { NodeType } from './node/node-type';
 import { ParserConfig } from './parser-config';
-import { ParserContext, ParserResult, parserContext } from './parser-context';
+import { ParserContext, parserContext } from './parser-context';
+import { ParserResult } from './parser-result';
 import { is } from './util/is';
 
 type NodeScanFn = (parser: ParserContext) => Node | null;

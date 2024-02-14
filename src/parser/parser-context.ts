@@ -23,15 +23,6 @@ export interface ParserContext {
   addErrorIssue: (node: Node, message: IssueMessage) => Issue;
 }
 
-export interface ParserResult {
-  source: Source;
-  hidden: Node[];
-  issues: Issue[];
-  root: RootNode;
-  config: ParserConfig;
-  context: ParserContext;
-}
-
 export function parserContext(source: Source, position: SourcePosition, config: ParserConfig): ParserContext {
   return {
     source,
