@@ -6,7 +6,6 @@ import { PrefixNode, prefixNode } from '../../parser/node/prefix/prefix-node';
 import { ParserContext } from '../../parser/parser-context';
 import { IdNode } from '../node/id/id-node';
 import { InfixNode, infixNode } from '../node/infix/infix-node';
-import { ModifierNode } from '../node/modifier/modifier-node';
 import { NodeType } from '../node/node-type';
 import { MODEL_MODIFIER, OperatorType, RecursiveType, TYPE_TOKEN } from '../parser-config';
 import { somethingType } from '../type/something/something-type';
@@ -73,7 +72,7 @@ export function collapseOperator(
 }
 
 function handlePrefixNode(context: ParserContext, node: PrefixNode): void {
-  if (is<ModifierNode>(node.operator, NodeType.PREFIX) && node.operator.text === MODEL_MODIFIER) {
+  if (node.operator.text === MODEL_MODIFIER) {
     if (is<IdNode>(node.value, NodeType.ID)) {
       const type: Type = {
         name: node.value.text,
@@ -97,7 +96,11 @@ function handlePrefixNode(context: ParserContext, node: PrefixNode): void {
 }
 
 function handleInfixNode(context: ParserContext, node: InfixNode): void {
-  if (is<PrefixNode>(node.left, NodeType.PREFIX) && node.left.operator.text === TYPE_TOKEN) {
+  if (
+    node.operator.text === TYPE_TOKEN &&
+    is<PrefixNode>(node.left, NodeType.PREFIX) &&
+    node.left.operator.text === MODEL_MODIFIER
+  ) {
     if (is<IdNode>(node.left.value, NodeType.ID) && is<IdNode>(node.right, NodeType.ID)) {
       const name = node.left.value.text;
       const type = context.types.findLast((x) => x.name === name);

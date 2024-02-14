@@ -12,6 +12,8 @@ export enum NodeType {
   CHAR = 'CHAR',
   STRING = 'STRING',
 
+  OPERATOR = 'OPERATOR',
+
   ID = 'ID',
   OBJECT = 'OBJECT',
   ARRAY = 'ARRAY',
@@ -21,19 +23,10 @@ export enum NodeType {
   CLOSE = 'CLOSE',
   COMMA = 'COMMA',
 
-  OPERATOR = 'OPERATOR',
-  KEYWORD = 'KEYWORD',
-  MODIFIER = 'MODIFIER',
-
-  INFIX = 'INFIX',
   INVOKE = 'INVOKE',
+  INFIX = 'INFIX',
   POSTFIX = 'POSTFIX',
   PREFIX = 'PREFIX',
-
-  PARAMETERS = 'PARAMETERS',
-  PARAMETER = 'PARAMETER',
-  ARGUMENTS = 'ARGUMENTS',
-  ARGUMENT = 'ARGUMENT',
 
   UNKNOWN = 'UNKNOWN',
 }

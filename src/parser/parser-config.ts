@@ -125,6 +125,11 @@ export const operatorsOrders: OperatorsOrder[] = [
     recursiveType: RecursiveType.LEFT,
   },
   {
+    operators: [MODIFIERS.join(' ')],
+    operatorType: OperatorType.PREFIX,
+    recursiveType: RecursiveType.RIGHT,
+  },
+  {
     operators: [TYPE_TOKEN],
     operatorType: OperatorType.INFIX,
     recursiveType: RecursiveType.RIGHT,
@@ -135,7 +140,7 @@ export const operatorsOrders: OperatorsOrder[] = [
     recursiveType: RecursiveType.RIGHT,
   },
   {
-    operators: [MODIFIERS.join(' ')],
+    operators: [KEYWORDS.join(' ')],
     operatorType: OperatorType.PREFIX,
     recursiveType: RecursiveType.RIGHT,
   },

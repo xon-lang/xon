@@ -1,16 +1,12 @@
 import '../../../extensions';
 import { String2 } from '../../../lib/core';
-import { KeywordNode, keywordNode } from '../../../parser/node/keyword/keyword-node';
-import { ModifierNode, modifierNode } from '../../../parser/node/modifier/modifier-node';
 import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
 import {
   DIGIT_0_CODE,
   DIGIT_9_CODE,
-  KEYWORDS,
   LOWER_A_CODE,
   LOWER_Z_CODE,
-  MODIFIERS,
   UNDERSCORE_CODE,
   UPPER_A_CODE,
   UPPER_Z_CODE,
@@ -30,8 +26,8 @@ export function idNode(range: SourceRange, text: String2): IdNode {
   };
 }
 
-export function scanIdNode(context: ParserContext): ModifierNode | IdNode | KeywordNode | null {
-  const { position, source, nodes: lastStatementNodes } = context;
+export function scanIdNode(context: ParserContext): IdNode | null {
+  const { position, source } = context;
 
   const firstCharCode = source.characters[position.index];
   const isFirstCharForId =
@@ -56,15 +52,5 @@ export function scanIdNode(context: ParserContext): ModifierNode | IdNode | Keyw
 
   const range = context.getRange(sliced.length);
 
-  if (lastStatementNodes.length === 0 && MODIFIERS.includes(sliced)) {
-    return modifierNode(range, sliced) as ModifierNode;
-  }
-
-  if (KEYWORDS.includes(sliced)) {
-    return keywordNode(range, sliced);
-  }
-
-  const id = idNode(range, sliced);
-
-  return id;
+  return idNode(range, sliced);
 }

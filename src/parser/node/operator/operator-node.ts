@@ -1,8 +1,7 @@
 import { String2 } from '../../../lib/core';
-import { idNode, scanIdNode } from '../../../parser/node/id/id-node';
+import { scanIdNode } from '../../../parser/node/id/id-node';
 import { Node } from '../../../parser/node/node';
 import { ParserContext } from '../../../parser/parser-context';
-import { is } from '../../../parser/util/is';
 import { SourceRange } from '../../../source/source-range';
 import { operatorsOrders } from '../../parser-config';
 import { TokenNode } from '../node';
@@ -25,7 +24,7 @@ const OPERATORS = [
 ];
 
 export function scanOperatorNode(context: ParserContext): Node | null {
-  const { position, source, nodes: lastStatementNodes } = context;
+  const { position, source } = context;
   let operators = OPERATORS.filter((x) => x[0] === source.text[position.index]);
 
   if (operators.length === 0) {
@@ -59,10 +58,6 @@ export function scanOperatorNode(context: ParserContext): Node | null {
   }
 
   const range = context.getRange(text.length);
-
-  if (is(lastStatementNodes.lastOrNull(), NodeType.MODIFIER)) {
-    return idNode(range, text);
-  }
 
   return operatorNode(range, text);
 }
