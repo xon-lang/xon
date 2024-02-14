@@ -1,4 +1,4 @@
-import { Something, String2 } from '../lib/core';
+import { Anything, String2 } from '../lib/core';
 import { CharNode } from '../parser/node/char/char-node';
 import { GroupNode } from '../parser/node/group/group-node';
 import { IdNode } from '../parser/node/id/id-node';
@@ -14,7 +14,7 @@ export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);
 }
 
-export function evaluate(node: Node | null, argsMap = {}): Something {
+export function evaluate(node: Node | null, argsMap = {}): Anything {
   if (!node) {
     return null;
   }
