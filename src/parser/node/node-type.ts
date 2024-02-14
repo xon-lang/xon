@@ -5,6 +5,7 @@ export enum NodeType {
   JOINING = 'JOINING',
 
   ROOT = 'ROOT',
+  // todo add comments and block comments
   COMMENT = 'COMMENT',
 
   INTEGER = 'INTEGER',

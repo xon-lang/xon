@@ -1,0 +1,7 @@
+
+model Anything
+
+model Something: Anything
+
+model Nothing: Anything
+
