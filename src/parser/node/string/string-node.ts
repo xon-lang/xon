@@ -2,13 +2,13 @@ import { String2 } from '../../../lib/core';
 import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
 import { STRING_QUOTE } from '../../parser-config';
-import { Type, stringLiteralType } from '../../type/type';
+import { AnythingType, stringLiteralType } from '../../type/type';
 import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
 
 export interface StringNode extends TokenNode {
   $: NodeType.STRING;
-  type: Type;
+  type: AnythingType;
 }
 
 export function stringNode(range: SourceRange, text: String2): StringNode {
