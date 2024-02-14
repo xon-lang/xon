@@ -10,16 +10,19 @@ import {
   UPPER_A_CODE,
   UPPER_Z_CODE,
 } from '../../parser-config';
+import { IntegerLiteralType, integerLiteralType } from '../../type/integer/integer-type';
 import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
 
 export interface IntegerNode extends TokenNode {
   $: NodeType.INTEGER;
+  type: IntegerLiteralType;
 }
 
 export function integerNode(range: SourceRange, text: String2): IntegerNode {
   return {
     $: NodeType.INTEGER,
+    type: integerLiteralType(Number(text)),
     range,
     text,
   };

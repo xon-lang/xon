@@ -7,6 +7,8 @@ import { NodeType } from '../node-type';
 
 export interface ObjectNode extends SyntaxNode {
   $: NodeType.OBJECT;
+  // todo
+  // type: objectLiteralType;
   open: OpenNode;
   close: CloseNode | null;
   items: Node[];

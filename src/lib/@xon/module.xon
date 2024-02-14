@@ -1,1 +1,4 @@
-"sdfs".length
+model Module
+  name: String |  None = 'xon library'
+  author: String |  None = 'Nizami'
+  defaultImports: String[] = []
