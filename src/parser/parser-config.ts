@@ -92,7 +92,9 @@ export const MEMBER_TOKEN = '.';
 
 export const META_MEMBER_TOKEN = '::';
 
-export const MODIFIERS = ['model', 'const', 'var', 'prefix', 'postfix', 'infix'];
+export const MODEL_MODIFIER = 'model';
+
+export const MODIFIERS = [MODEL_MODIFIER, 'const', 'var', 'prefix', 'postfix', 'infix'];
 
 export const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
 

@@ -1,12 +1,16 @@
-import { String2 } from '../../lib/core';
+import { Boolean2, String2, nothing } from '../../lib/core';
 import { Node } from '../../parser/node/node';
 import { OperatorNode } from '../../parser/node/operator/operator-node';
 import { postfixNode } from '../../parser/node/postfix/postfix-node';
-import { prefixNode } from '../../parser/node/prefix/prefix-node';
+import { PrefixNode, prefixNode } from '../../parser/node/prefix/prefix-node';
 import { ParserContext } from '../../parser/parser-context';
-import { infixNode } from '../node/infix/infix-node';
+import { IdNode } from '../node/id/id-node';
+import { InfixNode, infixNode } from '../node/infix/infix-node';
+import { ModifierNode } from '../node/modifier/modifier-node';
 import { NodeType } from '../node/node-type';
-import { OperatorType, RecursiveType } from '../parser-config';
+import { MODEL_MODIFIER, OperatorType, RecursiveType, TYPE_TOKEN } from '../parser-config';
+import { somethingType } from '../type/something/something-type';
+import { Type } from '../type/type';
 import { is } from './is';
 
 export function collapseOperator(
@@ -33,6 +37,7 @@ export function collapseOperator(
     ) {
       const prefix = prefixNode(context, operator, right);
       context.nodes.splice(index, 2, prefix);
+      handlePrefixNode(context, prefix);
       collapseOperator(context, operators, operatorType, recursiveType);
 
       return;
@@ -59,10 +64,56 @@ export function collapseOperator(
       const infix = infixNode(context, operator, left, right);
       // eslint-disable-next-line no-magic-numbers
       context.nodes.splice(index - 1, 3, infix);
-
+      handleInfixNode(context, infix);
       collapseOperator(context, operators, operatorType, recursiveType);
 
       return;
+    }
+  }
+}
+
+function handlePrefixNode(context: ParserContext, node: PrefixNode): void {
+  if (is<ModifierNode>(node.operator, NodeType.PREFIX) && node.operator.text === MODEL_MODIFIER) {
+    if (is<IdNode>(node.value, NodeType.ID)) {
+      const type: Type = {
+        name: node.value.text,
+        base: somethingType,
+        data: nothing,
+        parameters: [],
+        attributes: {},
+
+        is(type: Type): Boolean2 {
+          return this.name === type.name || somethingType.is(type);
+        },
+
+        eq(type: Type): Boolean2 {
+          return this.name === type.name;
+        },
+      };
+
+      context.types.push(type);
+    }
+  }
+}
+
+function handleInfixNode(context: ParserContext, node: InfixNode): void {
+  if (is<PrefixNode>(node.left, NodeType.PREFIX) && node.left.operator.text === TYPE_TOKEN) {
+    if (is<IdNode>(node.left.value, NodeType.ID) && is<IdNode>(node.right, NodeType.ID)) {
+      const name = node.left.value.text;
+      const type = context.types.findLast((x) => x.name === name);
+
+      if (!type) {
+        throw new Error('Not implemented');
+      }
+
+      const baseName = node.right.text;
+      const baseType = context.types.findLast((x) => x.name === baseName);
+
+      if (!baseType) {
+        throw new Error('Not implemented');
+      }
+
+      type.base = baseType;
     }
   }
 }

@@ -1,0 +1,14 @@
+-/
+type
+  postfix ? (T) -- e.g. String?
+    return T | Nothing
+/-
+
+model Something
+
+model Number: Something
+
+model Integer: Number
+
+model String: Something
+  length: Integer

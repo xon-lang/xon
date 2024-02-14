@@ -13,3 +13,14 @@ test('infix modifier', () => {
   expect(node.operator.text).toBe('infix');
   expect(node.value).toBe(null);
 });
+
+test('model string', () => {
+  const text = 'model string';
+  const ast = parse(text);
+  const nodes = ast.root.children;
+  const node = nodes[0] as PrefixNode;
+
+  expect(nodes.length).toBe(1);
+  expect(node.$).toBe(NodeType.PREFIX);
+  expect(node.operator.text).toBe('model');
+});

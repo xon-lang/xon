@@ -9,8 +9,8 @@ import { ParserContext } from '../parser-context';
 export function putStatementNode(context: ParserContext): void {
   context.parentStatement = getParent(context);
   const statement = getSyntacticNode(context);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (statement as any).parent = context.parentStatement;
+  // todo create statement node
+  (statement as unknown as { parent: Node }).parent = context.parentStatement;
 
   if (context.parentStatement === context.root) {
     context.root.children.push(statement);

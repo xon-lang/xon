@@ -5,9 +5,17 @@ import { collapseOperators } from './collapse-operators';
 
 export function getSyntacticNode(context: ParserContext): Node {
   collapseOperators(context);
-  // collapseDeclaration(context);
+  // collapseTypes(context);
 
   context.nodes.slice(1).forEach((node) => context.addErrorIssue(node, ISSUE_MESSAGE.notImplemented()));
 
   return context.nodes[0];
 }
+
+// function collapseTypes(context: ParserContext): void {
+//   const node = context.nodes[0];
+
+//   if (is<PrefixNode>(node, NodeType.PREFIX) &&  is<ModifierNode>(node.operator)) {
+
+//   }
+// }

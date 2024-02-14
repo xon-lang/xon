@@ -7,12 +7,14 @@ import { Source } from '../source/source';
 import { SourcePosition, sourcePosition } from '../source/source-position';
 import { SourceRange, sourceRange } from '../source/source-range';
 import { ParserConfig } from './parser-config';
+import { Type } from './type/type';
 
 export interface ParserContext {
   source: Source;
   position: SourcePosition;
   hidden: Node[];
   issues: Issue[];
+  types: Type[];
   breakNode: Node | null;
   parentStatement: Node;
   nodes: Node[];
@@ -29,6 +31,7 @@ export function parserContext(source: Source, position: SourcePosition, config: 
     position,
     hidden: [],
     issues: [],
+    types: [],
     parentStatement: rootNode(),
     nodes: [],
     lastStatement: null,
