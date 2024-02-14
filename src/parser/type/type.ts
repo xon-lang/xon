@@ -5,7 +5,7 @@ export interface Type {
   base: Type | Nothing;
   data: Anything;
   parameters: Type[];
-  attributes: Record<String2, Type[]>;
+  attributes: Map<String2, Type[]>;
 
   is: (type: Type) => Boolean2;
   eq: (type: Type) => Boolean2;
@@ -36,7 +36,7 @@ export const anyType: AnyType = {
   base: nothing,
   data: nothing,
   parameters: [],
-  attributes: {},
+  attributes: new Map(),
 
   is(type): Boolean2 {
     return this.eq(type);
@@ -52,7 +52,7 @@ export const numberType: NumberType = {
   base: anyType,
   data: nothing,
   parameters: [],
-  attributes: {},
+  attributes: new Map(),
 
   is(type): Boolean2 {
     return (this.eq(type) || this.base?.is(type)) ?? false;
@@ -68,7 +68,7 @@ export const integerType: IntegerType = {
   base: numberType,
   data: nothing,
   parameters: [],
-  attributes: {},
+  attributes: new Map(),
 
   is(type): Boolean2 {
     return (this.eq(type) || this.base?.is(type)) ?? false;
@@ -85,7 +85,7 @@ export function integerLiteralType(value: Integer): IntegerLiteralType {
     base: integerType,
     data: { value },
     parameters: [],
-    attributes: {},
+    attributes: new Map(),
 
     is(type): Boolean2 {
       return (this.eq(type) || this.base?.is(type)) ?? false;
@@ -102,7 +102,7 @@ export const stringType: StringType = {
   base: anyType,
   data: nothing,
   parameters: [],
-  attributes: { length: [integerType] },
+  attributes: new Map([['length', [integerType]]]),
 
   is(type): Boolean2 {
     return (this.eq(type) || this.base?.is(type)) ?? false;
@@ -119,7 +119,7 @@ export function stringLiteralType(value: String2): StringLiteralType {
     base: stringType,
     data: { value },
     parameters: [],
-    attributes: { ...stringType.attributes, length: [integerLiteralType(value.length)] },
+    attributes: new Map([...stringType.attributes, ['length', [integerLiteralType(value.length)]]]),
 
     is(type): Boolean2 {
       return (this.eq(type) || this.base?.is(type)) ?? false;
@@ -140,7 +140,7 @@ export function unionType(left: Type, right: Type): UnionType {
       right,
     },
     parameters: [],
-    attributes: {},
+    attributes: new Map(),
 
     is(type): Boolean2 {
       return (this.eq(type) || this.base?.is(type)) ?? false;
