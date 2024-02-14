@@ -19,7 +19,7 @@ import { SourcePosition, zeroPosition } from '../source/source-position';
 import { scanIdNode } from './node/id/id-node';
 import { NodeType } from './node/node-type';
 import { ParserConfig } from './parser-config';
-import { ParserContext, parserContext } from './parser-context';
+import { ParserContext, ParserResult, parserContext } from './parser-context';
 import { is } from './util/is';
 
 type NodeScanFn = (parser: ParserContext) => Node | null;
@@ -39,7 +39,7 @@ const nodeScanFunctions: NodeScanFn[] = [
   scanUnknownNode,
 ];
 
-export function parse(text: String2, config?: Partial<ParserConfig>): ParserContext {
+export function parse(text: String2, config?: Partial<ParserConfig>): ParserResult {
   const source = createSource(null, text);
 
   return parseUntil(source, zeroPosition(), null, config);
@@ -50,7 +50,7 @@ export function parseUntil(
   startPosition: SourcePosition,
   breakOnNodeFn: ((node: Node) => Boolean2) | null,
   parserConfig?: Partial<ParserConfig>,
-): ParserContext {
+): ParserResult {
   const config: ParserConfig = {
     throwErrorIssue: parserConfig?.throwErrorIssue ?? false,
   };
@@ -107,7 +107,10 @@ export function parseUntil(
     putStatementNode(context);
   }
 
-  return context;
+  return {
+    ...context,
+    context,
+  };
 }
 
 export function nextNode(context: ParserContext): Node {

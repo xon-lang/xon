@@ -71,7 +71,7 @@ export function scanGroupNode(context: ParserContext): Group | null {
   const items: Node[] = [];
 
   while (context.position.index < context.source.text.length) {
-    const groupContext = parseUntil(
+    const { context: groupContext } = parseUntil(
       context.source,
       context.position,
       (node) =>
