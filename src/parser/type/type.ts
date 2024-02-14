@@ -1,5 +1,3 @@
-/* eslint-disable id-denylist */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Anything, Boolean2, Integer, Nothing, nothing, String2 } from '../../lib/core';
 
 export interface Type {
@@ -10,7 +8,7 @@ export interface Type {
 
   is: (type: Type) => Boolean2;
   eq: (type: Type) => Boolean2;
-  attributes: () => Record<String2, Type>;
+  attributes: () => Record<String2, Type[]>;
 }
 
 export interface AnyType extends Type {}
@@ -47,7 +45,7 @@ export const anyType: AnyType = {
     return this === type;
   },
 
-  attributes(): Record<String2, Type> {
+  attributes(): Record<String2, Type[]> {
     return {};
   },
 };
@@ -66,7 +64,7 @@ export const numberType: NumberType = {
     return this === type;
   },
 
-  attributes(): Record<String2, Type> {
+  attributes(): Record<String2, Type[]> {
     return {};
   },
 };
@@ -85,7 +83,7 @@ export const integerType: IntegerType = {
     return this === type;
   },
 
-  attributes(): Record<String2, Type> {
+  attributes(): Record<String2, Type[]> {
     return {};
   },
 };
@@ -102,10 +100,10 @@ export function integerLiteralType(value: Integer): IntegerLiteralType {
     },
 
     eq(type): Boolean2 {
-      return this.data === type.data;
+      return eq(this, type) && this.data?.value === type.data?.value;
     },
 
-    attributes(): Record<String2, Type> {
+    attributes(): Record<String2, Type[]> {
       return {};
     },
   };
@@ -125,9 +123,9 @@ export const stringType: StringType = {
     return this === type;
   },
 
-  attributes(): Record<String2, Type> {
+  attributes(): Record<String2, Type[]> {
     return {
-      length: integerType,
+      length: [integerType],
     };
   },
 };
@@ -144,11 +142,11 @@ export function stringLiteralType(value: String2): StringLiteralType {
     },
 
     eq(type): Boolean2 {
-      return this.data === type.data
+      return eq(this, type) && this.data?.value === type.data?.value;
     },
 
-    attributes(): Record<String2, Type> {
-      return { ...stringType.attributes, length: integerLiteralType(data.length) };
+    attributes(): Record<String2, Type[]> {
+      return { ...stringType.attributes, length: [integerLiteralType(this.data.value.length)] };
     },
   };
 }
@@ -175,7 +173,7 @@ export function unionType(left: Type, right: Type): UnionType {
       );
     },
 
-    attributes(): Record<String2, Type> {
+    attributes(): Record<String2, Type[]> {
       return {};
     },
   };
