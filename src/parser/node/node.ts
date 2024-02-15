@@ -1,5 +1,6 @@
-import { String2 } from '../../lib/core';
+import { Nothing, String2 } from '../../lib/core';
 import { SourceRange } from '../../source/source-range';
+import { Type } from '../type/type';
 import { NodeType } from './node-type';
 
 export interface Node {
@@ -8,12 +9,17 @@ export interface Node {
 }
 
 export interface TokenNode extends Node {
-  // todo remove it and get from range field
+  // todo remove it and get from range field to optimize memory
   readonly text: String2;
 }
 
 export interface SyntaxNode extends Node {
   readonly children: Node[];
+}
+
+export interface StatementNode extends SyntaxNode {
+  parent: StatementNode | Nothing;
+  modelDeclarationType: Type | null;
 }
 
 export function addNodeParent(parent: SyntaxNode, ...children: (Node | null)[]): void {

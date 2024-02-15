@@ -86,12 +86,12 @@ function handlePrefixNode(context: ParserContext, node: PrefixNode): void {
 }
 
 function handleInfixNode(context: ParserContext, node: InfixNode): void {
-  if (
-    node.operator.text === TYPE_TOKEN &&
-    is<PrefixNode>(node.left, NodeType.PREFIX) &&
-    node.left.operator.text === MODEL_MODIFIER
-  ) {
-    if (is<IdNode>(node.left.value, NodeType.ID)) {
+  if (node.operator.text === TYPE_TOKEN) {
+    if (
+      is<PrefixNode>(node.left, NodeType.PREFIX) &&
+      node.left.operator.text === MODEL_MODIFIER &&
+      is<IdNode>(node.left.value, NodeType.ID)
+    ) {
       const name = node.left.value.text;
       const type = context.types.findLast((x) => x.name === name);
 
@@ -131,7 +131,25 @@ function handleInfixNode(context: ParserContext, node: InfixNode): void {
         }
 
         type.base = baseType;
+
+        return;
       }
+    }
+
+    if (
+      is<IdNode>(node.left, NodeType.ID) &&
+      is<IdNode>(node.right, NodeType.ID) &&
+      context.parentStatement.modelDeclarationType
+    ) {
+      const name = node.left.text;
+      const typeName = node.right.text;
+      const type = context.types.findLast((x) => x.name === typeName);
+
+      if (!type) {
+        throw new Error('Not implemented');
+      }
+
+      context.parentStatement.modelDeclarationType.attributes[name] = [type];
     }
   }
 }
@@ -153,5 +171,6 @@ function addType(context: ParserContext, name: String2): void {
     },
   };
 
+  context.modelDeclarationType = type;
   context.types.push(type);
 }

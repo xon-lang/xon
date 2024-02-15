@@ -1,40 +1,43 @@
 import { Integer } from '../../lib/core';
-import { Node } from '../../parser/node/node';
+import { StatementNode } from '../../parser/node/node';
 import { NodeType } from '../../parser/node/node-type';
 import { RootNode } from '../../parser/node/root/root-node';
-import { getSyntacticNode } from '../../parser/util/get-syntactic-node';
+import { getStatementNode } from '../../parser/util/get-syntactic-node';
 import { is } from '../../parser/util/is';
 import { ParserContext } from '../parser-context';
 
 export function putStatementNode(context: ParserContext): void {
   context.parentStatement = getParent(context);
-  const statement = getSyntacticNode(context);
-  // todo create statement node
-  (statement as unknown as { parent: Node }).parent = context.parentStatement;
+  const statement = getStatementNode(context);
+  statement.parent = context.parentStatement;
+
+  // todo remove it. temp hack
+  statement.modelDeclarationType = context.modelDeclarationType;
+  context.modelDeclarationType = null;
 
   if (context.parentStatement === context.root) {
     context.root.children.push(statement);
   }
 
-  context.lastStatement = statement;
+  context.previousStatement = statement;
 }
 
-function getParent(context: ParserContext): Node {
-  const { nodes, lastStatement, root } = context;
+function getParent(context: ParserContext): StatementNode {
+  const { nodes, previousStatement, root } = context;
   const indent = nodes[0].range.start.column;
 
-  if (!lastStatement) {
+  if (!previousStatement) {
     return root;
   }
 
-  if (indent > lastStatement.range.start.column) {
-    return lastStatement;
+  if (indent > previousStatement.range.start.column) {
+    return previousStatement;
   }
 
-  return findParentWithLessIndent(lastStatement, indent);
+  return findParentStatementWithLessIndent(previousStatement, indent);
 }
 
-function findParentWithLessIndent(node: Node & { parent?: Node }, indent: Integer): Node {
+function findParentStatementWithLessIndent(node: StatementNode, indent: Integer): StatementNode {
   if (!node.parent) {
     throw new Error('Not implemented');
   }
@@ -47,5 +50,5 @@ function findParentWithLessIndent(node: Node & { parent?: Node }, indent: Intege
     return node.parent!;
   }
 
-  return findParentWithLessIndent(node.parent!, indent);
+  return findParentStatementWithLessIndent(node.parent!, indent);
 }

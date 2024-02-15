@@ -12,5 +12,6 @@ model Integer: Number
 model Char: Something
 
 model Array{T}: Something
+  length: Integer
 
 model String: Array{Char}

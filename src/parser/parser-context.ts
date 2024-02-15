@@ -1,7 +1,7 @@
 import { Issue, createSyntacticErrorIssue, formatIssue } from '../issue/issue';
 import { IssueMessage } from '../issue/issue-message';
 import { Integer } from '../lib/core';
-import { Node } from '../parser/node/node';
+import { Node, StatementNode } from '../parser/node/node';
 import { RootNode, rootNode } from '../parser/node/root/root-node';
 import { Source } from '../source/source';
 import { SourcePosition, sourcePosition } from '../source/source-position';
@@ -9,6 +9,7 @@ import { SourceRange, sourceRange } from '../source/source-range';
 import { ParserConfig } from './parser-config';
 import { Type } from './type/type';
 
+// todo perhaps should be new instance every time ???
 export interface ParserContext {
   source: Source;
   position: SourcePosition;
@@ -16,11 +17,13 @@ export interface ParserContext {
   issues: Issue[];
   types: Type[];
   breakNode: Node | null;
-  parentStatement: Node;
+  parentStatement: StatementNode;
   nodes: Node[];
-  lastStatement: Node | null;
+  previousStatement: StatementNode | null;
   root: RootNode;
   config: ParserConfig;
+  // todo remove it. temp hack
+  modelDeclarationType: StatementNode['modelDeclarationType'];
   getRange: (length: Integer) => SourceRange;
   addErrorIssue: (node: Node, message: IssueMessage) => Issue;
 }
@@ -34,10 +37,11 @@ export function parserContext(source: Source, position: SourcePosition, config: 
     types: [],
     parentStatement: rootNode(),
     nodes: [],
-    lastStatement: null,
+    previousStatement: null,
     breakNode: null,
     root: rootNode(),
     config,
+    modelDeclarationType: null,
     getRange(length: Integer): SourceRange {
       const { index, line, column } = this.position;
       const start = sourcePosition(index, line, column);
