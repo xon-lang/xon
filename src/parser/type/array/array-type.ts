@@ -1,37 +1,34 @@
 import { Boolean2 } from '../../../lib/core';
-import { AnythingType } from '../anything/anything-type';
-import { IntegerType, integerLiteralType, integerType } from '../integer/integer-type';
-import { nothingType } from '../nothing/nothing-type';
-import { SomethingType, somethingType } from '../something/something-type';
-import { eq } from '../type';
+import { integerType, nothingType, somethingType } from '../core';
+import { integerLiteralType } from '../integer/integer-type';
+import { Type, eq } from '../type';
 import { unionFromTypes } from '../union/union-type';
 
-export interface ArrayType extends SomethingType {
-  base: SomethingType;
-  data: { itemType: AnythingType };
+export interface ArrayType extends Type {
+  data: { itemType: Type };
   attributes: {
-    length: [IntegerType];
+    length: [Type];
   };
 }
 
 export interface ArrayLiteralType extends ArrayType {
   base: ArrayType;
-  data: { items: AnythingType[] } & ArrayType['data'];
+  data: { items: Type[] } & ArrayType['data'];
 }
 
-export function arrayType(itemType: AnythingType): ArrayType {
+export function arrayType(itemType: Type): ArrayType {
   return {
     name: 'Char',
-    base: somethingType,
+    base: somethingType(),
     data: { itemType },
     parameters: [],
     attributes: {
-      ...somethingType.attributes,
-      length: [integerType],
+      ...somethingType().attributes,
+      length: [integerType()],
     },
 
     is(type): Boolean2 {
-      return eq(this, type) && (this.data.itemType.is(type.data.itemType) || this.base.is(type));
+      return (eq(this, type) && (this.data.itemType.is(type.data.itemType) || this.base?.is(type))) ?? false;
     },
 
     eq(type): Boolean2 {
@@ -40,7 +37,7 @@ export function arrayType(itemType: AnythingType): ArrayType {
   };
 }
 
-export function arrayLiteralType(items: AnythingType[]): ArrayLiteralType {
+export function arrayLiteralType(items: Type[]): ArrayLiteralType {
   const base = itemsType(items);
 
   return {
@@ -71,9 +68,9 @@ export function arrayLiteralType(items: AnythingType[]): ArrayLiteralType {
   };
 }
 
-function itemsType(items: AnythingType[]): ArrayType {
+function itemsType(items: Type[]): ArrayType {
   if (items.length === 0) {
-    return arrayType(nothingType);
+    return arrayType(nothingType());
   }
 
   if (items.length === 1) {

@@ -8,7 +8,6 @@ import { IdNode } from '../node/id/id-node';
 import { InfixNode, infixNode } from '../node/infix/infix-node';
 import { NodeType } from '../node/node-type';
 import { MODEL_MODIFIER, OperatorType, RecursiveType, TYPE_TOKEN } from '../parser-config';
-import { somethingType } from '../type/something/something-type';
 import { Type } from '../type/type';
 import { is } from './is';
 
@@ -76,13 +75,13 @@ function handlePrefixNode(context: ParserContext, node: PrefixNode): void {
     if (is<IdNode>(node.value, NodeType.ID)) {
       const type: Type = {
         name: node.value.text,
-        base: somethingType,
+        base: nothing,
         data: nothing,
         parameters: [],
         attributes: {},
 
         is(type: Type): Boolean2 {
-          return this.name === type.name || somethingType.is(type);
+          return (this.name === type.name || this.base?.is(type)) ?? false;
         },
 
         eq(type: Type): Boolean2 {

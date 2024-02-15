@@ -1,11 +1,28 @@
 import { readFileSync } from 'fs';
+import { Char, Integer, String2 } from '../../lib/core';
 import { parse } from '../parser';
+import { Type } from './type';
 
-const coreSourceText = readFileSync('src/lib/@xon/core/test.xon').toString();
-const ast = parse(coreSourceText);
+let cachedTypes: Type[] | null = null;
 
-export const anythingType = ast.types.find((x) => x.name === 'Anything')!;
+function types(): Type[] {
+  if (!cachedTypes) {
+    cachedTypes = parse(readFileSync('src/lib/@xon/core/test.xon').toString()).types;
+  }
 
-export const somethingType = ast.types.find((x) => x.name === 'Something')!;
+  return cachedTypes;
+}
 
-export const nothingType = ast.types.find((x) => x.name === 'Nothing')!;
+export const anythingType = (): Type => types().find((x) => x.name === 'Anything')!;
+
+export const somethingType = (): Type => types().find((x) => x.name === 'Something')!;
+
+export const nothingType = (): Type => types().find((x) => x.name === 'Nothing')!;
+
+export const numberType = (): Type => types().find((x) => x.name === 'Number')!;
+
+export const integerType = (value?: Integer): Type => types().find((x) => x.name === 'Integer')!;
+
+export const charType = (value?: Char): Type => types().find((x) => x.name === 'Char')!;
+
+export const stringType = (value?: String2): Type => types().find((x) => x.name === 'String')!;

@@ -1,41 +1,14 @@
 import { Boolean2, Char } from '../../../lib/core';
-import { IntegerLiteralType, IntegerType, integerLiteralType, integerType } from '../integer/integer-type';
-import { SomethingType, somethingType } from '../something/something-type';
-import { eq } from '../type';
+import { charType } from '../core';
+import { IntegerLiteralType, integerLiteralType } from '../integer/integer-type';
+import { Type, eq } from '../type';
 
-export interface CharType extends SomethingType {
-  base: SomethingType;
-  attributes: {
-    code: [IntegerType];
-  };
-}
-
-export interface CharLiteralType extends CharType {
-  base: CharType;
+export interface CharLiteralType extends Type {
   data: { value: Char };
   attributes: {
     code: [IntegerLiteralType];
   };
 }
-
-export const charType: CharType = {
-  name: 'Char',
-  base: somethingType,
-  data: somethingType.data,
-  parameters: [],
-  attributes: {
-    ...somethingType.attributes,
-    code: [integerType],
-  },
-
-  is(type): Boolean2 {
-    return this === type || this.base.is(type);
-  },
-
-  eq(type): Boolean2 {
-    return this === type;
-  },
-};
 
 export function charLiteralType(value: Char): CharLiteralType {
   return {
@@ -49,7 +22,7 @@ export function charLiteralType(value: Char): CharLiteralType {
     },
 
     is(type): Boolean2 {
-      return this.eq(type) || this.base.is(type);
+      return (this.eq(type) || this.base?.is(type)) ?? false;
     },
 
     eq(type): Boolean2 {

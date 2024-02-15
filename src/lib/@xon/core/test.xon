@@ -5,3 +5,10 @@ model Something: Anything
 
 model Nothing: Anything
 
+model Number: Something
+
+model Integer: Number
+
+model Char: Something
+
+model String: Something

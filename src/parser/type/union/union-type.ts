@@ -1,22 +1,21 @@
 import { Boolean2 } from '../../../lib/core';
-import { AnythingType, anythingType } from '../anything/anything-type';
-import { eq } from '../type';
+import { anythingType } from '../core';
+import { Type, eq } from '../type';
 
-export interface UnionType extends AnythingType {
-  base: AnythingType;
-  data: { left: AnythingType; right: AnythingType };
+export interface UnionType extends Type {
+  data: { left: Type; right: Type };
 }
 
-export function unionType(left: AnythingType, right: AnythingType): UnionType {
+export function unionType(left: Type, right: Type): UnionType {
   return {
     name: 'Union',
-    base: anythingType,
+    base: anythingType(),
     data: {
       left,
       right,
     },
     parameters: [],
-    attributes: anythingType.attributes,
+    attributes: anythingType().attributes,
 
     is(type): Boolean2 {
       return this.eq(type);
@@ -32,7 +31,7 @@ export function unionType(left: AnythingType, right: AnythingType): UnionType {
   };
 }
 
-export function unionFromTypes(types: AnythingType[]): UnionType {
+export function unionFromTypes(types: Type[]): UnionType {
   if (types.length < 2) {
     throw new Error('Not implemented');
   }

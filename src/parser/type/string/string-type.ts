@@ -1,6 +1,7 @@
 import { Boolean2, String2 } from '../../../lib/core';
 import { ArrayLiteralType, ArrayType, arrayLiteralType, arrayType } from '../array/array-type';
-import { charLiteralType, charType } from '../char/char-type';
+import { charLiteralType } from '../char/char-type';
+import { charType } from '../core';
 import { integerLiteralType } from '../integer/integer-type';
 import { eq } from '../type';
 

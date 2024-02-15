@@ -1,42 +1,21 @@
 import { Boolean2, Integer } from '../../../lib/core';
-import { NumberType, numberType } from '../number/number-type';
-import { eq } from '../type';
+import { integerType } from '../core';
+import { Type, eq } from '../type';
 
-export interface IntegerType extends NumberType {
-  base: NumberType;
-}
-
-export interface IntegerLiteralType extends IntegerType {
-  base: IntegerType;
+export interface IntegerLiteralType extends Type {
   data: { value: Integer };
 }
-
-export const integerType: IntegerType = {
-  name: 'Integer',
-  base: numberType,
-  data: numberType.data,
-  parameters: [],
-  attributes: numberType.attributes,
-
-  is(type): Boolean2 {
-    return this === type || this.base.is(type);
-  },
-
-  eq(type): Boolean2 {
-    return this === type;
-  },
-};
 
 export function integerLiteralType(value: Integer): IntegerLiteralType {
   return {
     name: 'Integer',
-    base: integerType,
-    data: { ...integerType.data, value },
+    base: integerType(),
+    data: { ...integerType().data, value },
     parameters: [],
-    attributes: integerType.attributes,
+    attributes: integerType().attributes,
 
     is(type): Boolean2 {
-      return this.eq(type) || this.base.is(type);
+      return (this.eq(type) || this.base?.is(type)) ?? false;
     },
 
     eq(type): Boolean2 {
