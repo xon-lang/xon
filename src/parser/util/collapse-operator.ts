@@ -131,11 +131,13 @@ function handleInfixNode(context: ParserContext, node: InfixNode): void {
         }
 
         type.base = baseType;
+        type.attributes = mergeAttributes(baseType, type);
 
         return;
       }
     }
 
+    // length: Integer
     if (
       is<IdNode>(node.left, NodeType.ID) &&
       is<IdNode>(node.right, NodeType.ID) &&
@@ -173,4 +175,8 @@ function addType(context: ParserContext, name: String2): void {
 
   context.modelDeclarationType = type;
   context.types.push(type);
+}
+
+function mergeAttributes(base: Type, type: Type): Record<String2, Type[]> {
+  return { ...base.attributes, ...type.attributes };
 }

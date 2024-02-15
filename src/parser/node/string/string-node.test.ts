@@ -33,6 +33,10 @@ test('empty string', () => {
   expect(tree.type.base?.name).toBe('Array');
   expect(tree.type.base?.parameters.length).toBe(1);
   expect(tree.type.base?.parameters[0].name).toBe('Char');
+  expect(Object.keys(tree.type.attributes).length).toBe(1);
+  expect(Object.keys(tree.type.attributes)[0]).toBe('length');
+  expect(tree.type.attributes.length.length).toBe(1);
+  expect(tree.type.attributes.length[0].name).toBe('Integer');
 });
 
 test('not closed', () => {
