@@ -1,5 +1,5 @@
 import { Boolean2 } from '../../../lib/core';
-import { integerType, nothingType, somethingType } from '../core';
+import { coreType } from '../core';
 import { integerLiteralType } from '../integer/integer-type';
 import { Type, eq } from '../type';
 import { unionFromTypes } from '../union/union-type';
@@ -19,12 +19,12 @@ export interface ArrayLiteralType extends ArrayType {
 export function arrayType(itemType: Type): ArrayType {
   return {
     name: 'Char',
-    base: somethingType(),
+    base: coreType('Something'),
     data: { itemType },
     parameters: [],
     attributes: {
-      ...somethingType().attributes,
-      length: [integerType()],
+      ...coreType('Something').attributes,
+      length: [coreType('Integer')],
     },
 
     is(type): Boolean2 {
@@ -70,7 +70,7 @@ export function arrayLiteralType(items: Type[]): ArrayLiteralType {
 
 function itemsType(items: Type[]): ArrayType {
   if (items.length === 0) {
-    return arrayType(nothingType());
+    return arrayType(coreType('Nothing'));
   }
 
   if (items.length === 1) {

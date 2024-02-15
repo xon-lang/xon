@@ -10,7 +10,7 @@ import {
   UPPER_A_CODE,
   UPPER_Z_CODE,
 } from '../../parser-config';
-import { integerType } from '../../type/core';
+import { coreType } from '../../type/core';
 import { Type } from '../../type/type';
 import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
@@ -23,7 +23,7 @@ export interface IntegerNode extends TokenNode {
 export function integerNode(range: SourceRange, text: String2): IntegerNode {
   return {
     $: NodeType.INTEGER,
-    type: integerType(Number(text)),
+    type: coreType('Char', Number(text)),
     range,
     text,
   };

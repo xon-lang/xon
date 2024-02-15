@@ -2,7 +2,7 @@ import { String2 } from '../../../lib/core';
 import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
 import { STRING_QUOTE } from '../../parser-config';
-import { stringType } from '../../type/core';
+import { coreType } from '../../type/core';
 import { Type } from '../../type/type';
 import { TokenNode } from '../node';
 import { NodeType } from '../node-type';
@@ -15,7 +15,7 @@ export interface StringNode extends TokenNode {
 export function stringNode(range: SourceRange, text: String2): StringNode {
   return {
     $: NodeType.STRING,
-    type: stringType(text),
+    type: coreType('String', text),
     range,
     text,
   };

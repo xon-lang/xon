@@ -1,5 +1,5 @@
 import { Boolean2, Integer } from '../../../lib/core';
-import { integerType } from '../core';
+import { coreType } from '../core';
 import { Type, eq } from '../type';
 
 export interface IntegerLiteralType extends Type {
@@ -9,10 +9,10 @@ export interface IntegerLiteralType extends Type {
 export function integerLiteralType(value: Integer): IntegerLiteralType {
   return {
     name: 'Integer',
-    base: integerType(),
-    data: { ...integerType().data, value },
+    base: coreType('Integer'),
+    data: { ...coreType('Integer').data, value },
     parameters: [],
-    attributes: integerType().attributes,
+    attributes: coreType('Integer').attributes,
 
     is(type): Boolean2 {
       return (this.eq(type) || this.base?.is(type)) ?? false;
