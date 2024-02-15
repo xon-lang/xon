@@ -11,4 +11,6 @@ model Integer: Number
 
 model Char: Something
 
-model String: Something
+model Array{T}: Something
+
+model String: Array{Char}

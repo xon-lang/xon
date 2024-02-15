@@ -6,6 +6,7 @@ import { PrefixNode, prefixNode } from '../../parser/node/prefix/prefix-node';
 import { ParserContext } from '../../parser/parser-context';
 import { IdNode } from '../node/id/id-node';
 import { InfixNode, infixNode } from '../node/infix/infix-node';
+import { InvokeNode } from '../node/invoke/invoke-node';
 import { NodeType } from '../node/node-type';
 import { MODEL_MODIFIER, OperatorType, RecursiveType, TYPE_TOKEN } from '../parser-config';
 import { Type } from '../type/type';
@@ -73,23 +74,13 @@ export function collapseOperator(
 function handlePrefixNode(context: ParserContext, node: PrefixNode): void {
   if (node.operator.text === MODEL_MODIFIER) {
     if (is<IdNode>(node.value, NodeType.ID)) {
-      const type: Type = {
-        name: node.value.text,
-        base: nothing,
-        data: nothing,
-        parameters: [],
-        attributes: {},
+      addType(context, node.value.text);
 
-        is(type: Type): Boolean2 {
-          return (this.name === type.name || this.base?.is(type)) ?? false;
-        },
+      return;
+    }
 
-        eq(type: Type): Boolean2 {
-          return this.name === type.name;
-        },
-      };
-
-      context.types.push(type);
+    if (is<InvokeNode>(node.value, NodeType.INVOKE) && is<IdNode>(node.value.instance, NodeType.ID)) {
+      addType(context, node.value.instance.text);
     }
   }
 }
@@ -100,7 +91,7 @@ function handleInfixNode(context: ParserContext, node: InfixNode): void {
     is<PrefixNode>(node.left, NodeType.PREFIX) &&
     node.left.operator.text === MODEL_MODIFIER
   ) {
-    if (is<IdNode>(node.left.value, NodeType.ID) && is<IdNode>(node.right, NodeType.ID)) {
+    if (is<IdNode>(node.left.value, NodeType.ID)) {
       const name = node.left.value.text;
       const type = context.types.findLast((x) => x.name === name);
 
@@ -108,14 +99,59 @@ function handleInfixNode(context: ParserContext, node: InfixNode): void {
         throw new Error('Not implemented');
       }
 
-      const baseName = node.right.text;
-      const baseType = context.types.findLast((x) => x.name === baseName);
+      // : Something
+      if (is<IdNode>(node.right, NodeType.ID)) {
+        const baseName = node.right.text;
+        const baseType = context.types.findLast((x) => x.name === baseName);
 
-      if (!baseType) {
-        throw new Error('Not implemented');
+        if (!baseType) {
+          throw new Error('Not implemented');
+        }
+
+        type.base = baseType;
+
+        return;
       }
 
-      type.base = baseType;
+      // : Array{T}
+      if (is<InvokeNode>(node.right, NodeType.INVOKE) && is<IdNode>(node.right.instance, NodeType.ID)) {
+        const baseName = node.right.instance.text;
+        const baseType = context.types.findLast((x) => x.name === baseName);
+
+        if (!baseType) {
+          throw new Error('Not implemented');
+        }
+
+        baseType.parameters = node.right.group.items
+          .filter<IdNode>((x): x is IdNode => is<IdNode>(x, NodeType.ID))
+          .map((x) => context.types.findLast((t) => t.name === x.text)!);
+
+        if (baseType.parameters.some((x) => x === null)) {
+          throw new Error('Not implemented');
+        }
+
+        type.base = baseType;
+      }
     }
   }
+}
+
+function addType(context: ParserContext, name: String2): void {
+  const type: Type = {
+    name,
+    base: nothing,
+    data: nothing,
+    parameters: [],
+    attributes: {},
+
+    is(type: Type): Boolean2 {
+      return (this.name === type.name || this.base?.is(type)) ?? false;
+    },
+
+    eq(type: Type): Boolean2 {
+      return this.name === type.name;
+    },
+  };
+
+  context.types.push(type);
 }

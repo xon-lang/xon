@@ -30,6 +30,9 @@ test('empty string', () => {
   expect(tree.$).toBe(NodeType.STRING);
   expect(tree.text).toBe(text);
   expect(tree.type.name).toBe('String');
+  expect(tree.type.base?.name).toBe('Array');
+  expect(tree.type.base?.parameters.length).toBe(1);
+  expect(tree.type.base?.parameters[0].name).toBe('Char');
 });
 
 test('not closed', () => {

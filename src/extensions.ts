@@ -23,7 +23,7 @@ Array.prototype.findLast = function <T>(predicate: (value: T, index: number, obj
     return null;
   }
 
-  return this[index];
+  return this[index] ?? null;
 };
 
 Array.prototype.firstOrNull = function <T>(): T | null {
