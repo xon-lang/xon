@@ -1,7 +1,7 @@
 import { ISSUE_MESSAGE } from '../../../issue/issue-message';
 import { parse } from '../../../parser/parser';
 import { TokenNode } from '../node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 test('single id', () => {
   const text = 'abc';
@@ -9,7 +9,7 @@ test('single id', () => {
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].text).toBe('abc');
-  expect(nodes[0].$).toBe(NodeType.ID);
+  expect(nodes[0].$).toBe($Node.ID);
 });
 
 test('several id', () => {
@@ -20,7 +20,7 @@ test('several id', () => {
   // todo check other 2 error nodes
   expect(nodes.length).toBe(1);
   expect(nodes[0].text).toBe('abc');
-  expect(nodes[0].$).toBe(NodeType.ID);
+  expect(nodes[0].$).toBe($Node.ID);
 
   expect(context.issues.length).toBe(2);
   expect(context.issues[0].message.actual).toBe(ISSUE_MESSAGE.notImplemented().actual);

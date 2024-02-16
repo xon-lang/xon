@@ -1,5 +1,5 @@
 import { parse } from '../../../parser/parser';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 test('empty object', () => {
   const text = '{}';
@@ -8,5 +8,5 @@ test('empty object', () => {
 
   expect(nodes.length).toBe(1);
 
-  expect(tree.$).toBe(NodeType.OBJECT);
+  expect(tree.$).toBe($Node.OBJECT);
 });

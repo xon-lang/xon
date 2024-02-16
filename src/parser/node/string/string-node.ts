@@ -5,16 +5,16 @@ import { STRING_QUOTE } from '../../parser-config';
 import { coreType } from '../../type/core';
 import { Type } from '../../type/type';
 import { TokenNode } from '../node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 export interface StringNode extends TokenNode {
-  $: NodeType.STRING;
+  $: $Node.STRING;
   type: Type;
 }
 
 export function stringNode(range: SourceRange, text: String2): StringNode {
   return {
-    $: NodeType.STRING,
+    $: $Node.STRING,
     type: coreType('String', text),
     range,
     text,

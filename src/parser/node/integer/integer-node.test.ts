@@ -1,13 +1,13 @@
 import { parse } from '../../../parser/parser';
 import { TokenNode } from '../node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 test('integer', () => {
   const text = '123';
   const nodes = parse(text).root.children as TokenNode[];
 
   expect(nodes.length).toBe(1);
-  expect(nodes[0].$).toBe(NodeType.INTEGER);
+  expect(nodes[0].$).toBe($Node.INTEGER);
   expect(nodes[0].text).toBe('123');
 });
 
@@ -16,7 +16,7 @@ test('zero int number', () => {
   const nodes = parse(text).root.children as TokenNode[];
 
   expect(nodes.length).toBe(1);
-  expect(nodes[0].$).toBe(NodeType.INTEGER);
+  expect(nodes[0].$).toBe($Node.INTEGER);
   expect(nodes[0].text).toBe('0');
 });
 
@@ -25,7 +25,7 @@ test('positive int number', () => {
   const nodes = parse(text).root.children as TokenNode[];
 
   expect(nodes.length).toBe(1);
-  expect(nodes[0].$).toBe(NodeType.INTEGER);
+  expect(nodes[0].$).toBe($Node.INTEGER);
   expect(nodes[0].text).toBe('2x01110');
 });
 
@@ -34,6 +34,6 @@ test('radix int', () => {
   const nodes = parse(text).root.children as TokenNode[];
 
   expect(nodes.length).toBe(1);
-  expect(nodes[0].$).toBe(NodeType.INTEGER);
+  expect(nodes[0].$).toBe($Node.INTEGER);
   expect(nodes[0].text).toBe('16x1a_b_c');
 });

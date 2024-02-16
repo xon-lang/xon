@@ -3,15 +3,15 @@ import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
 import { CR_CODE, JOINING_CODE, LF_CODE, SPACE_CODE, TAB_CODE } from '../../parser-config';
 import { TokenNode } from '../node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 export interface JoiningNode extends TokenNode {
-  $: NodeType.JOINING;
+  $: $Node.JOINING;
 }
 
 export function joiningNode(range: SourceRange, text: String2): JoiningNode {
   return {
-    $: NodeType.JOINING,
+    $: $Node.JOINING,
     range,
     text,
   };

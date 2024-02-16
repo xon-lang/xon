@@ -3,7 +3,7 @@ import { InfixNode } from '../../../parser/node/infix/infix-node';
 import { IntegerNode } from '../../../parser/node/integer/integer-node';
 import { parse } from '../../../parser/parser';
 import { is } from '../../../parser/util/is';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 test('empty object', () => {
   const text = '{}';
@@ -12,7 +12,7 @@ test('empty object', () => {
 
   expect(nodes.length).toBe(1);
 
-  expect(tree.$).toBe(NodeType.OBJECT);
+  expect(tree.$).toBe($Node.OBJECT);
 });
 
 test('single item', () => {
@@ -22,7 +22,7 @@ test('single item', () => {
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
-  expect(is(group, NodeType.ARRAY)).toBe(true);
+  expect(is(group, $Node.ARRAY)).toBe(true);
   expect(group.items.length).toBe(1);
   expect((group.items[0] as IntegerNode).text).toBe('123');
 });
@@ -34,9 +34,9 @@ test('single comma', () => {
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
-  expect(is(group, NodeType.ARRAY)).toBe(true);
-  expect(is(group.open, NodeType.OPEN)).toBe(true);
-  expect(is(group.close, NodeType.CLOSE)).toBe(true);
+  expect(is(group, $Node.ARRAY)).toBe(true);
+  expect(is(group.open, $Node.OPEN)).toBe(true);
+  expect(is(group.close, $Node.CLOSE)).toBe(true);
   expect(group.items.length).toBe(0);
 });
 
@@ -47,8 +47,8 @@ test('empty not closed', () => {
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
-  expect(is(group, NodeType.ARRAY)).toBe(true);
-  expect(is(group.open, NodeType.OPEN)).toBe(true);
+  expect(is(group, $Node.ARRAY)).toBe(true);
+  expect(is(group.open, $Node.OPEN)).toBe(true);
   expect(group.close).toBe(null);
   expect(group.items.length).toBe(0);
 });
@@ -60,11 +60,11 @@ test('inner group', () => {
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
-  expect(is(group, NodeType.ARRAY)).toBe(true);
+  expect(is(group, $Node.ARRAY)).toBe(true);
   expect(group.items.length).toBe(1);
 
   const innerGroup = group.items[0] as GroupNode;
-  expect(is(innerGroup, NodeType.GROUP)).toBe(true);
+  expect(is(innerGroup, $Node.GROUP)).toBe(true);
   expect(innerGroup.items.length).toBe(0);
 });
 
@@ -75,15 +75,15 @@ test('inner empty group', () => {
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
-  expect(is(group, NodeType.ARRAY)).toBe(true);
+  expect(is(group, $Node.ARRAY)).toBe(true);
   expect(group.items.length).toBe(1);
 
   const innerGroup = group.items[0] as GroupNode;
-  expect(is(innerGroup, NodeType.ARRAY)).toBe(true);
+  expect(is(innerGroup, $Node.ARRAY)).toBe(true);
   expect(innerGroup.items.length).toBe(1);
 
   const innerInnerGroup = innerGroup.items[0] as GroupNode;
-  expect(is(innerInnerGroup, NodeType.ARRAY)).toBe(true);
+  expect(is(innerInnerGroup, $Node.ARRAY)).toBe(true);
   expect(innerInnerGroup.items.length).toBe(0);
 });
 
@@ -94,7 +94,7 @@ test('two integers no comma and ws at the end', () => {
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
-  expect(is(group, NodeType.ARRAY)).toBe(true);
+  expect(is(group, $Node.ARRAY)).toBe(true);
   expect(group.items.length).toBe(2);
   expect((group.items[0] as IntegerNode).text).toBe('1');
   expect((group.items[1] as IntegerNode).text).toBe('2');
@@ -107,7 +107,7 @@ test('two integers and comma no ws at the end', () => {
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
-  expect(is(group, NodeType.ARRAY)).toBe(true);
+  expect(is(group, $Node.ARRAY)).toBe(true);
   expect(group.items.length).toBe(2);
   expect((group.items[0] as IntegerNode).text).toBe('1');
   expect((group.items[1] as IntegerNode).text).toBe('2');
@@ -120,7 +120,7 @@ test('two integers and comma and ws', () => {
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
-  expect(is(group, NodeType.ARRAY)).toBe(true);
+  expect(is(group, $Node.ARRAY)).toBe(true);
   expect(group.items.length).toBe(2);
   expect((group.items[0] as IntegerNode).text).toBe('1');
   expect((group.items[1] as IntegerNode).text).toBe('2');
@@ -137,7 +137,7 @@ test('array on several lines', () => {
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
-  expect(is(group, NodeType.ARRAY)).toBe(true);
+  expect(is(group, $Node.ARRAY)).toBe(true);
   expect(group.items.length).toBe(4);
   expect((group.items[0] as IntegerNode).text).toBe('1');
   expect((group.items[1] as InfixNode).operator.text).toBe('+');
@@ -150,7 +150,7 @@ test('debug 1', () => {
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
-  expect(is(group, NodeType.ARRAY)).toBe(true);
+  expect(is(group, $Node.ARRAY)).toBe(true);
   expect(group.items.length).toBe(2);
   expect((group.items[0] as IntegerNode).text).toBe('1');
   expect((group.items[1] as IntegerNode).text).toBe('2');

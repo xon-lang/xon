@@ -3,15 +3,15 @@ import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
 import { COMMA, COMMA_CODE } from '../../parser-config';
 import { TokenNode } from '../node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 export interface CommaNode extends TokenNode {
-  $: NodeType.COMMA;
+  $: $Node.COMMA;
 }
 
 export function commaNode(range: SourceRange, text: String2): CommaNode {
   return {
-    $: NodeType.COMMA,
+    $: $Node.COMMA,
     range,
     text,
   };

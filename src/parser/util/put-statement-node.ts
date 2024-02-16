@@ -1,6 +1,6 @@
 import { Integer } from '../../lib/core';
 import { StatementNode } from '../../parser/node/node';
-import { NodeType } from '../../parser/node/node-type';
+import { $Node } from '../../parser/node/node-type';
 import { RootNode } from '../../parser/node/root/root-node';
 import { getStatementNode } from '../../parser/util/get-syntactic-node';
 import { is } from '../../parser/util/is';
@@ -42,7 +42,7 @@ function findParentStatementWithLessIndent(node: StatementNode, indent: Integer)
     throw new Error('Not implemented');
   }
 
-  if (is<RootNode>(node.parent, NodeType.ROOT)) {
+  if (is<RootNode>(node.parent, $Node.ROOT)) {
     return node.parent;
   }
 

@@ -4,7 +4,7 @@ import { GroupNode } from '../group/group-node';
 import { IdNode } from '../id/id-node';
 import { IntegerNode } from '../integer/integer-node';
 import { TokenNode } from '../node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 import { PrefixNode } from '../prefix/prefix-node';
 import { InfixNode } from './infix-node';
 
@@ -13,7 +13,7 @@ test('infix operator', () => {
   const nodes = parse(text).root.children;
   const node = nodes[0] as InfixNode;
 
-  expect(node.$).toBe(NodeType.INFIX);
+  expect(node.$).toBe($Node.INFIX);
   expect((node.left as TokenNode).text).toBe('abc');
   expect(node.operator.text).toBe('.');
   expect((node.right as TokenNode).text).toBe('def');
@@ -24,7 +24,7 @@ test('several operands with different priorities', () => {
   const nodes = parse(text).root.children;
   const node = nodes[0] as InfixNode;
 
-  expect(node.$).toBe(NodeType.INFIX);
+  expect(node.$).toBe($Node.INFIX);
   expect(node.operator.text).toBe('+');
   expect(evaluate(node)).toBe(34);
 });
@@ -70,7 +70,7 @@ test('num plus str', () => {
   const nodes = parse(text).root.children;
   const node = nodes[0] as InfixNode;
 
-  expect(node.$).toBe(NodeType.INFIX);
+  expect(node.$).toBe($Node.INFIX);
   expect(node.operator.text).toBe('+');
   expect(evaluate(node)).toBe('1str');
 });
@@ -80,7 +80,7 @@ test('num is number', () => {
   const nodes = parse(text).root.children;
   const node = nodes[0] as InfixNode;
 
-  expect(node.$).toBe(NodeType.INFIX);
+  expect(node.$).toBe($Node.INFIX);
   expect(node.operator.text).toBe('&');
   expect((node.left as IntegerNode).text).toBe('1');
   expect((node.right as IdNode).text).toBe('Number');
@@ -91,7 +91,7 @@ test('equals', () => {
   const nodes = parse(text).root.children;
   const node = nodes[0] as InfixNode;
 
-  expect(node.$).toBe(NodeType.INFIX);
+  expect(node.$).toBe($Node.INFIX);
   expect(node.operator.text).toBe('==');
   expect((node.right as IntegerNode).text).toBe('123');
 });
@@ -101,10 +101,10 @@ test('has several relational operators', () => {
   const nodes = parse(text).root.children;
   const node = nodes[0] as InfixNode;
 
-  expect(node.$).toBe(NodeType.INFIX);
+  expect(node.$).toBe($Node.INFIX);
   expect(node.operator.text).toBe('>');
-  expect(node.left?.$).toBe(NodeType.INFIX);
-  expect(node.right?.$).toBe(NodeType.ID);
+  expect(node.left?.$).toBe($Node.INFIX);
+  expect(node.right?.$).toBe($Node.ID);
 
   const left = node.left as InfixNode;
   expect(left.operator.text).toBe('<');
@@ -118,13 +118,13 @@ test('several operators', () => {
   const nodes = parse(text).root.children;
   const node = nodes[0] as InfixNode;
 
-  expect(node.$).toBe(NodeType.INFIX);
-  expect(node.left?.$).toBe(NodeType.INTEGER);
+  expect(node.$).toBe($Node.INFIX);
+  expect(node.left?.$).toBe($Node.INTEGER);
   expect(node.operator.text).toBe('/');
 
-  expect(node.right?.$).toBe(NodeType.PREFIX);
+  expect(node.right?.$).toBe($Node.PREFIX);
   expect((node.right as PrefixNode).operator.text).toBe('+');
-  expect((node.right as PrefixNode).value?.$).toBe(NodeType.INTEGER);
+  expect((node.right as PrefixNode).value?.$).toBe($Node.INTEGER);
   expect(((node.right as PrefixNode).value as IntegerNode).text).toBe('2');
 });
 
@@ -133,7 +133,7 @@ test('has argument', () => {
   const nodes = parse(text).root.children;
   const tree = nodes[0] as InfixNode;
 
-  expect(tree.$).toBe(NodeType.INFIX);
+  expect(tree.$).toBe($Node.INFIX);
   expect((tree.left as GroupNode).items.length).toBe(1);
   expect(((tree.left as GroupNode).items[0] as IdNode).text).toBe('x');
 
@@ -149,7 +149,7 @@ test('two parameter', () => {
   const nodes = parse(text).root.children;
   const tree = nodes[0] as InfixNode;
 
-  expect(tree.$).toBe(NodeType.INFIX);
+  expect(tree.$).toBe($Node.INFIX);
   expect((tree.left as GroupNode).items.length).toBe(2);
   expect(((tree.left as GroupNode).items[0] as IdNode).text).toBe('a');
   expect(((tree.left as GroupNode).items[1] as IdNode).text).toBe('b');

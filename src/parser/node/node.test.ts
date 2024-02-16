@@ -1,5 +1,5 @@
 import { IntegerNode } from '../../parser/node/integer/integer-node';
-import { NodeType } from '../../parser/node/node-type';
+import { $Node } from '../../parser/node/node-type';
 import { parse } from '../../parser/parser';
 import { InfixNode } from './infix/infix-node';
 import { TokenNode } from './node';
@@ -10,7 +10,7 @@ test('comma', () => {
   const tree = nodes[0] as IntegerNode;
 
   expect(nodes.length).toBe(1);
-  expect(nodes[0].$).toBe(NodeType.INTEGER);
+  expect(nodes[0].$).toBe($Node.INTEGER);
   expect(tree.text).toBe('1');
 });
 
@@ -31,7 +31,7 @@ test('debug 1', () => {
   const nodes = parse(text).root.children;
 
   expect(nodes.length).toBe(1);
-  expect(nodes[0].$).toBe(NodeType.INFIX);
+  expect(nodes[0].$).toBe($Node.INFIX);
   // todo fix it
   // expect(nodes[0].children?.length).toBe(2);
   // expect(nodes[0].children?.at(0)?.$).toBe(NodeType.ID_ASSIGN);
@@ -43,8 +43,8 @@ test('debug 2', () => {
   const nodes = parse(text).root.children;
 
   expect(nodes.length).toBe(2);
-  expect(nodes[0].$).toBe(NodeType.INFIX);
-  expect(nodes[1].$).toBe(NodeType.INFIX);
+  expect(nodes[0].$).toBe($Node.INFIX);
+  expect(nodes[1].$).toBe($Node.INFIX);
 });
 
 test('debug 3', () => {
@@ -54,8 +54,8 @@ c`.trim();
   const nodes = parse(text).root.children;
 
   expect(nodes.length).toBe(2);
-  expect(nodes[0].$).toBe(NodeType.ID);
-  expect(nodes[1].$).toBe(NodeType.ID);
+  expect(nodes[0].$).toBe($Node.ID);
+  expect(nodes[1].$).toBe($Node.ID);
 });
 
 test('debug 4', () => {

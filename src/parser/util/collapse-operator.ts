@@ -7,7 +7,7 @@ import { ParserContext } from '../../parser/parser-context';
 import { IdNode } from '../node/id/id-node';
 import { InfixNode, infixNode } from '../node/infix/infix-node';
 import { InvokeNode } from '../node/invoke/invoke-node';
-import { NodeType } from '../node/node-type';
+import { $Node } from '../node/node-type';
 import { MODEL_MODIFIER, OperatorType, RecursiveType, TYPE_TOKEN } from '../parser-config';
 import { Type } from '../type/type';
 import { is } from './is';
@@ -22,7 +22,7 @@ export function collapseOperator(
     const index = recursiveType === RecursiveType.LEFT ? i : context.nodes.length - i - 1;
     const operator = context.nodes[index];
 
-    if (!is<OperatorNode>(operator, NodeType.OPERATOR) || !operators.includes(operator.text)) {
+    if (!is<OperatorNode>(operator, $Node.OPERATOR) || !operators.includes(operator.text)) {
       continue;
     }
 
@@ -31,8 +31,8 @@ export function collapseOperator(
 
     if (
       operatorType === OperatorType.PREFIX &&
-      !is<OperatorNode>(right, NodeType.OPERATOR) &&
-      (index === 0 || is<OperatorNode>(left, NodeType.OPERATOR))
+      !is<OperatorNode>(right, $Node.OPERATOR) &&
+      (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))
     ) {
       const prefix = prefixNode(context, operator, right);
       context.nodes.splice(index, 2, prefix);
@@ -44,8 +44,8 @@ export function collapseOperator(
 
     if (
       operatorType === OperatorType.POSTFIX &&
-      !is<OperatorNode>(left, NodeType.OPERATOR) &&
-      (index === context.nodes.length - 1 || is<OperatorNode>(right, NodeType.OPERATOR))
+      !is<OperatorNode>(left, $Node.OPERATOR) &&
+      (index === context.nodes.length - 1 || is<OperatorNode>(right, $Node.OPERATOR))
     ) {
       const postfix = postfixNode(context, operator, left);
       context.nodes.splice(index - 1, 2, postfix);
@@ -57,8 +57,8 @@ export function collapseOperator(
 
     if (
       operatorType === OperatorType.INFIX &&
-      !is<OperatorNode>(left, NodeType.OPERATOR) &&
-      !is<OperatorNode>(right, NodeType.OPERATOR)
+      !is<OperatorNode>(left, $Node.OPERATOR) &&
+      !is<OperatorNode>(right, $Node.OPERATOR)
     ) {
       const infix = infixNode(context, operator, left, right);
       // eslint-disable-next-line no-magic-numbers
@@ -73,13 +73,13 @@ export function collapseOperator(
 
 function handlePrefixNode(context: ParserContext, node: PrefixNode): void {
   if (node.operator.text === MODEL_MODIFIER) {
-    if (is<IdNode>(node.value, NodeType.ID)) {
+    if (is<IdNode>(node.value, $Node.ID)) {
       addType(context, node.value.text);
 
       return;
     }
 
-    if (is<InvokeNode>(node.value, NodeType.INVOKE) && is<IdNode>(node.value.instance, NodeType.ID)) {
+    if (is<InvokeNode>(node.value, $Node.INVOKE) && is<IdNode>(node.value.instance, $Node.ID)) {
       addType(context, node.value.instance.text);
     }
   }
@@ -88,9 +88,9 @@ function handlePrefixNode(context: ParserContext, node: PrefixNode): void {
 function handleInfixNode(context: ParserContext, node: InfixNode): void {
   if (node.operator.text === TYPE_TOKEN) {
     if (
-      is<PrefixNode>(node.left, NodeType.PREFIX) &&
+      is<PrefixNode>(node.left, $Node.PREFIX) &&
       node.left.operator.text === MODEL_MODIFIER &&
-      is<IdNode>(node.left.value, NodeType.ID)
+      is<IdNode>(node.left.value, $Node.ID)
     ) {
       const name = node.left.value.text;
       const type = context.types.findLast((x) => x.name === name);
@@ -100,7 +100,7 @@ function handleInfixNode(context: ParserContext, node: InfixNode): void {
       }
 
       // : Something
-      if (is<IdNode>(node.right, NodeType.ID)) {
+      if (is<IdNode>(node.right, $Node.ID)) {
         const baseName = node.right.text;
         const baseType = context.types.findLast((x) => x.name === baseName);
 
@@ -114,7 +114,7 @@ function handleInfixNode(context: ParserContext, node: InfixNode): void {
       }
 
       // : Array{T}
-      if (is<InvokeNode>(node.right, NodeType.INVOKE) && is<IdNode>(node.right.instance, NodeType.ID)) {
+      if (is<InvokeNode>(node.right, $Node.INVOKE) && is<IdNode>(node.right.instance, $Node.ID)) {
         const baseName = node.right.instance.text;
         const baseType = context.types.findLast((x) => x.name === baseName);
 
@@ -123,7 +123,7 @@ function handleInfixNode(context: ParserContext, node: InfixNode): void {
         }
 
         baseType.parameters = node.right.group.items
-          .filter<IdNode>((x): x is IdNode => is<IdNode>(x, NodeType.ID))
+          .filter<IdNode>((x): x is IdNode => is<IdNode>(x, $Node.ID))
           .map((x) => context.types.findLast((t) => t.name === x.text)!);
 
         if (baseType.parameters.some((x) => x === null)) {
@@ -139,8 +139,8 @@ function handleInfixNode(context: ParserContext, node: InfixNode): void {
 
     // length: Integer
     if (
-      is<IdNode>(node.left, NodeType.ID) &&
-      is<IdNode>(node.right, NodeType.ID) &&
+      is<IdNode>(node.left, $Node.ID) &&
+      is<IdNode>(node.right, $Node.ID) &&
       context.parentStatement.modelDeclarationType
     ) {
       const name = node.left.text;

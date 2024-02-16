@@ -5,10 +5,10 @@ import { rangeFromNodes } from '../../../source/source-range';
 import { ArrayLiteralType, arrayLiteralType } from '../../type/array/array-type';
 import { coreType } from '../../type/core';
 import { Node, SyntaxNode, addNodeParent } from '../node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 export interface ArrayNode extends SyntaxNode {
-  $: NodeType.ARRAY;
+  $: $Node.ARRAY;
   type: ArrayLiteralType;
   open: OpenNode;
   close: CloseNode | null;
@@ -19,7 +19,7 @@ export function arrayNode(open: OpenNode, close: CloseNode | null, items: Node[]
   const lastStatement = items.lastOrNull();
 
   const node: ArrayNode = {
-    $: NodeType.ARRAY,
+    $: $Node.ARRAY,
     type: arrayLiteralType([coreType('Nothing')]),
     range: rangeFromNodes(open, close ?? lastStatement ?? open),
     children: [],

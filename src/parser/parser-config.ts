@@ -1,7 +1,7 @@
 // todo rename the file to parser-config
 
 import { Boolean2, Integer, String2 } from '../lib/core';
-import { NodeType } from './node/node-type';
+import { $Node } from './node/node-type';
 
 export interface OperatorsOrder {
   operators: String2[][];
@@ -82,7 +82,7 @@ export const OPEN_CLOSE_PAIR: Record<Integer, Integer> = {
 
 export const STRING_QUOTE = '"';
 
-export const CHAR_QUOTE = '\'';
+export const CHAR_QUOTE = "'";
 
 export const TYPE_TOKEN = ':';
 
@@ -150,7 +150,7 @@ export const operatorsOrders: OperatorsOrder[] = [
   recursiveType: x.recursiveType,
 }));
 
-export const ALLOW_ASSIGN_NODE_TYPES = [NodeType.ID, NodeType.GROUP, NodeType.ARRAY, NodeType.OBJECT];
+export const ALLOW_ASSIGN_NODE_TYPES = [$Node.ID, $Node.GROUP, $Node.ARRAY, $Node.OBJECT];
 
 export interface ParserConfig {
   readonly throwErrorIssue: Boolean2;

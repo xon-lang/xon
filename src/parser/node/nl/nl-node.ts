@@ -3,15 +3,15 @@ import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
 import { CR, CR_CODE, LF, LF_CODE } from '../../parser-config';
 import { TokenNode } from '../node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 export interface NlNode extends TokenNode {
-  $: NodeType.NL;
+  $: $Node.NL;
 }
 
 export function nlNode(range: SourceRange, text: String2): NlNode {
   return {
-    $: NodeType.NL,
+    $: $Node.NL,
     range,
     text,
   };

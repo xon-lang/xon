@@ -1,7 +1,7 @@
 import { StringNode } from '../../../parser/node/string/string-node';
 import { parse } from '../../../parser/parser';
 import { TokenNode } from '../node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 test('a', () => {
   const text = "'a'";
@@ -9,6 +9,6 @@ test('a', () => {
   const tree = nodes[0] as StringNode;
 
   expect(nodes.length).toBe(1);
-  expect(tree.$).toBe(NodeType.CHAR);
+  expect(tree.$).toBe($Node.CHAR);
   expect(tree.text).toBe(text);
 });

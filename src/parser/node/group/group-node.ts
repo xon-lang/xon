@@ -17,12 +17,12 @@ import {
   OPEN_CLOSE_PAIR,
 } from '../../parser-config';
 import { Node, SyntaxNode, addNodeParent } from '../node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 export type Group = GroupNode | ArrayNode | ObjectNode;
 
 export interface GroupNode extends SyntaxNode {
-  $: NodeType.GROUP;
+  $: $Node.GROUP;
   open: OpenNode;
   close: CloseNode | null;
   items: Node[];
@@ -32,7 +32,7 @@ export function groupNode(context: ParserContext, open: OpenNode, close: CloseNo
   const last = items.lastOrNull();
 
   const node: GroupNode = {
-    $: NodeType.GROUP,
+    $: $Node.GROUP,
     range: rangeFromNodes(open, close ?? last ?? open),
     children: [],
     open,
@@ -61,7 +61,7 @@ export function validateGroupNode(context: ParserContext, node: GroupNode): void
 export function scanGroupNode(context: ParserContext): Group | null {
   const open = scanOpenNode(context);
 
-  if (!is<OpenNode>(open, NodeType.OPEN)) {
+  if (!is<OpenNode>(open, $Node.OPEN)) {
     return null;
   }
 
@@ -75,13 +75,13 @@ export function scanGroupNode(context: ParserContext): Group | null {
       context.source,
       context.position,
       (node) =>
-        is<CommaNode>(node, NodeType.COMMA) ||
-        (is<CloseNode>(node, NodeType.CLOSE) && node.text.charCodeAt(0) === OPEN_CLOSE_PAIR[open.text.charCodeAt(0)]),
+        is<CommaNode>(node, $Node.COMMA) ||
+        (is<CloseNode>(node, $Node.CLOSE) && node.text.charCodeAt(0) === OPEN_CLOSE_PAIR[open.text.charCodeAt(0)]),
     );
 
     context.position = clonePosition(groupContext.position);
 
-    if (is<CommaNode>(groupContext.breakNode, NodeType.COMMA)) {
+    if (is<CommaNode>(groupContext.breakNode, $Node.COMMA)) {
       context.hidden.push(groupContext.breakNode);
 
       if (groupContext.nodes.length > 0) {
@@ -91,7 +91,7 @@ export function scanGroupNode(context: ParserContext): Group | null {
       continue;
     }
 
-    if (is<CloseNode>(groupContext.breakNode, NodeType.CLOSE)) {
+    if (is<CloseNode>(groupContext.breakNode, $Node.CLOSE)) {
       if (groupContext.nodes.length > 0) {
         items.push(groupContext.root.children[0]);
       }
@@ -122,7 +122,5 @@ function createGroupNode(context: ParserContext, open: OpenNode, close: CloseNod
 }
 
 export function isGroupNode(node: Node): node is Group {
-  return (
-    is<GroupNode>(node, NodeType.GROUP) || is<ArrayNode>(node, NodeType.ARRAY) || is<ObjectNode>(node, NodeType.OBJECT)
-  );
+  return is<GroupNode>(node, $Node.GROUP) || is<ArrayNode>(node, $Node.ARRAY) || is<ObjectNode>(node, $Node.OBJECT);
 }

@@ -4,20 +4,20 @@ import { IntegerNode } from '../../../parser/node/integer/integer-node';
 import { InvokeNode } from '../../../parser/node/invoke/invoke-node';
 import { parse } from '../../../parser/parser';
 import { InfixNode } from '../infix/infix-node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 test('method call', () => {
   const text = "f(3, 'str')";
   const nodes = parse(text).root.children;
   const node = nodes[0] as InvokeNode;
 
-  expect(node.$).toBe(NodeType.INVOKE);
+  expect(node.$).toBe($Node.INVOKE);
   expect(node.group.items.length).toBe(2);
-  expect(node.group.items[0]?.$).toBe(NodeType.INTEGER);
+  expect(node.group.items[0]?.$).toBe($Node.INTEGER);
   expect((node.group.items[0] as IntegerNode).text).toBe('3');
-  expect(node.group.items[1]?.$).toBe(NodeType.CHAR);
+  expect(node.group.items[1]?.$).toBe($Node.CHAR);
   expect((node.group.items[1] as IdNode).text).toBe("'str'");
-  expect(node.instance.$).toBe(NodeType.ID);
+  expect(node.instance.$).toBe($Node.ID);
 });
 
 test('method on several lines', () => {
@@ -27,13 +27,13 @@ test('method on several lines', () => {
   const nodes = parse(text).root.children;
   const node = nodes[0] as InvokeNode;
 
-  expect(node.$).toBe(NodeType.INVOKE);
+  expect(node.$).toBe($Node.INVOKE);
   expect(node.group.items.length).toBe(4);
   const indexer1 = node.group.items[0];
   const indexer2 = node.group.items[1];
-  expect(indexer1?.$).toBe(NodeType.INTEGER);
-  expect(indexer2?.$).toBe(NodeType.CHAR);
-  expect(node.instance.$).toBe(NodeType.ID);
+  expect(indexer1?.$).toBe($Node.INTEGER);
+  expect(indexer2?.$).toBe($Node.CHAR);
+  expect(node.instance.$).toBe($Node.ID);
 });
 
 test('can call with type parameter', () => {
@@ -41,10 +41,10 @@ test('can call with type parameter', () => {
   const nodes = parse(text).root.children;
   const node = nodes[0] as InvokeNode;
 
-  expect(node.$).toBe(NodeType.INVOKE);
+  expect(node.$).toBe($Node.INVOKE);
   expect(node.group.items.length).toBe(1);
   expect((node.group.items[0] as IntegerNode).text).toBe('1');
-  expect(node.instance.$).toBe(NodeType.INFIX);
+  expect(node.instance.$).toBe($Node.INFIX);
   const { operator, left, right } = node.instance as InfixNode;
   expect(operator.text).toBe('.');
   expect((left as IdNode).text).toBe('a');
@@ -56,9 +56,9 @@ test('object method', () => {
   const nodes = parse(text).root.children;
   const node = nodes[0] as InvokeNode;
 
-  expect(node.$).toBe(NodeType.INVOKE);
+  expect(node.$).toBe($Node.INVOKE);
   expect(node.group.items.length).toBe(0);
-  expect(node.instance.$).toBe(NodeType.INFIX);
+  expect(node.instance.$).toBe($Node.INFIX);
   const { operator, left, right } = node.instance as InfixNode;
   expect(operator.text).toBe('.');
   const leftParameters = (left as GroupNode).items;
@@ -73,8 +73,8 @@ test('generics', () => {
   const nodes = parse(text).root.children;
   const node = nodes[0] as InvokeNode;
 
-  expect(node.$).toBe(NodeType.INVOKE);
+  expect(node.$).toBe($Node.INVOKE);
   expect(node.group.items.length).toBe(1);
-  expect(node.instance.$).toBe(NodeType.ID);
+  expect(node.instance.$).toBe($Node.ID);
   expect((node.instance as IdNode).text).toBe('Animal');
 });

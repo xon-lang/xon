@@ -13,16 +13,16 @@ import {
 import { coreType } from '../../type/core';
 import { Type } from '../../type/type';
 import { TokenNode } from '../node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 export interface IntegerNode extends TokenNode {
-  $: NodeType.INTEGER;
+  $: $Node.INTEGER;
   type: Type;
 }
 
 export function integerNode(range: SourceRange, text: String2): IntegerNode {
   return {
-    $: NodeType.INTEGER,
+    $: $Node.INTEGER,
     type: coreType('Char', Number(text)),
     range,
     text,

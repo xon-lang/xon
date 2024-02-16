@@ -5,7 +5,7 @@ import { IdNode } from '../parser/node/id/id-node';
 import { InfixNode } from '../parser/node/infix/infix-node';
 import { IntegerNode } from '../parser/node/integer/integer-node';
 import { Node } from '../parser/node/node';
-import { NodeType } from '../parser/node/node-type';
+import { $Node } from '../parser/node/node-type';
 import { PrefixNode } from '../parser/node/prefix/prefix-node';
 import { StringNode } from '../parser/node/string/string-node';
 import { is } from '../parser/util/is';
@@ -19,19 +19,19 @@ export function evaluate(node: Node | null, argsMap = {}): Anything {
     return null;
   }
 
-  if (is<GroupNode>(node, NodeType.GROUP)) {
+  if (is<GroupNode>(node, $Node.GROUP)) {
     return node.items.map((x) => evaluate(x ?? null));
   }
 
-  if (is<IntegerNode>(node, NodeType.INTEGER)) {
+  if (is<IntegerNode>(node, $Node.INTEGER)) {
     return Number(node.text);
   }
 
-  if (is<StringNode>(node, NodeType.STRING) || is<CharNode>(node, NodeType.CHAR)) {
+  if (is<StringNode>(node, $Node.STRING) || is<CharNode>(node, $Node.CHAR)) {
     return node.text.slice(1, -1);
   }
 
-  if (is<InfixNode>(node, NodeType.INFIX)) {
+  if (is<InfixNode>(node, $Node.INFIX)) {
     const a = evaluate(node.left, argsMap);
     const b = evaluate(node.right, argsMap);
     const operator = (node.operator.text === '^' && '**') || node.operator.text;
@@ -40,14 +40,14 @@ export function evaluate(node: Node | null, argsMap = {}): Anything {
     return eval(`${escapeToString(a)} ${operator} ${escapeToString(b)}`);
   }
 
-  if (is<PrefixNode>(node, NodeType.PREFIX)) {
+  if (is<PrefixNode>(node, $Node.PREFIX)) {
     const a = evaluate(node.value, argsMap);
 
     // eslint-disable-next-line no-eval
     return eval(`${node.operator.text}${escapeToString(a)}`);
   }
 
-  if (is<IdNode>(node, NodeType.ID)) {
+  if (is<IdNode>(node, $Node.ID)) {
     if (argsMap[node.text]) {
       return argsMap[node.text];
     }

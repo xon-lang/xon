@@ -17,7 +17,7 @@ import { putStatementNode } from '../parser/util/put-statement-node';
 import { Source, createSource } from '../source/source';
 import { SourcePosition, zeroPosition } from '../source/source-position';
 import { scanIdNode } from './node/id/id-node';
-import { NodeType } from './node/node-type';
+import { $Node } from './node/node-type';
 import { ParserConfig } from './parser-config';
 import { ParserContext, parserContext } from './parser-context';
 import { ParserResult } from './parser-result';
@@ -67,13 +67,13 @@ export function parseUntil(
       break;
     }
 
-    if (is(node, NodeType.WHITESPACE)) {
+    if (is(node, $Node.WHITESPACE)) {
       context.hidden.push(node);
 
       continue;
     }
 
-    if (is<JoiningNode>(node, NodeType.JOINING)) {
+    if (is<JoiningNode>(node, $Node.JOINING)) {
       context.hidden.push(node);
       context.position.line += 1;
       context.position.column = 0;
@@ -81,7 +81,7 @@ export function parseUntil(
       continue;
     }
 
-    if (is(node, NodeType.NL)) {
+    if (is(node, $Node.NL)) {
       context.hidden.push(node);
       context.position.line += 1;
       context.position.column = 0;
@@ -95,7 +95,7 @@ export function parseUntil(
       continue;
     }
 
-    if (is(node, NodeType.UNKNOWN)) {
+    if (is(node, $Node.UNKNOWN)) {
       context.issues.push(createSyntacticErrorIssue(node, ISSUE_MESSAGE.unexpectedNode()));
 
       continue;

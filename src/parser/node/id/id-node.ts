@@ -12,15 +12,15 @@ import {
   UPPER_Z_CODE,
 } from '../../parser-config';
 import { TokenNode } from '../node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 export interface IdNode extends TokenNode {
-  $: NodeType.ID;
+  $: $Node.ID;
 }
 
 export function idNode(range: SourceRange, text: String2): IdNode {
   return {
-    $: NodeType.ID,
+    $: $Node.ID,
     range,
     text,
   };

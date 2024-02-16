@@ -2,15 +2,15 @@ import { String2 } from '../../../lib/core';
 import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
 import { TokenNode } from '../node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 export interface UnknownNode extends TokenNode {
-  $: NodeType.UNKNOWN;
+  $: $Node.UNKNOWN;
 }
 
 export function unknownNode(range: SourceRange, text: String2): UnknownNode {
   return {
-    $: NodeType.UNKNOWN,
+    $: $Node.UNKNOWN,
     range,
     text,
   };

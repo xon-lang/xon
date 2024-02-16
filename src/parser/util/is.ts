@@ -1,6 +1,6 @@
 import { Node } from '../../parser/node/node';
-import { NodeType } from '../node/node-type';
+import { $Node } from '../node/node-type';
 
-export function is<T extends Node = Node>(node: { $?: NodeType } | null | undefined, nodeType: NodeType): node is T {
+export function is<T extends Node = Node>(node: { $?: $Node } | null | undefined, nodeType: $Node): node is T {
   return node?.$ === nodeType;
 }

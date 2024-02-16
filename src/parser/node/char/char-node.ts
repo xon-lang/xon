@@ -5,16 +5,16 @@ import { CHAR_QUOTE } from '../../parser-config';
 import { coreType } from '../../type/core';
 import { Type } from '../../type/type';
 import { TokenNode } from '../node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 export interface CharNode extends TokenNode {
-  $: NodeType.CHAR;
+  $: $Node.CHAR;
   type: Type;
 }
 
 export function charNode(range: SourceRange, text: String2): CharNode {
   return {
-    $: NodeType.CHAR,
+    $: $Node.CHAR,
     type: coreType('Char', text),
     range,
     text,

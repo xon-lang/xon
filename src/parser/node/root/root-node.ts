@@ -1,15 +1,15 @@
 import { nothing } from '../../../lib/core';
 import { StatementNode } from '../../../parser/node/node';
 import { zeroRange } from '../../../source/source-range';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 export interface RootNode extends StatementNode {
-  $: NodeType.ROOT;
+  $: $Node.ROOT;
 }
 
 export function rootNode(): RootNode {
   return {
-    $: NodeType.ROOT,
+    $: $Node.ROOT,
     range: zeroRange(),
     parent: nothing,
     children: [],

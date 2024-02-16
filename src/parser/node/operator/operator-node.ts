@@ -5,15 +5,15 @@ import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
 import { operatorsOrders } from '../../parser-config';
 import { TokenNode } from '../node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 export interface OperatorNode extends TokenNode {
-  $: NodeType.OPERATOR;
+  $: $Node.OPERATOR;
 }
 
 export function operatorNode(range: SourceRange, text: String2): OperatorNode {
   return {
-    $: NodeType.OPERATOR,
+    $: $Node.OPERATOR,
     range,
     text,
   };

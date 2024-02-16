@@ -3,7 +3,7 @@ import { GroupNode } from '../../../parser/node/group/group-node';
 import { parse } from '../../../parser/parser';
 import { is } from '../../../parser/util/is';
 import { OPEN_CLOSE_PAIR } from '../../parser-config';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 test('empty closed', () => {
   const text = '()';
@@ -12,9 +12,9 @@ test('empty closed', () => {
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
-  expect(is(group, NodeType.GROUP)).toBe(true);
-  expect(is(group.open, NodeType.OPEN)).toBe(true);
-  expect(is(group.close, NodeType.CLOSE)).toBe(true);
+  expect(is(group, $Node.GROUP)).toBe(true);
+  expect(is(group.open, $Node.OPEN)).toBe(true);
+  expect(is(group.close, $Node.CLOSE)).toBe(true);
   expect(group.items.length).toBe(0);
 });
 
@@ -26,8 +26,8 @@ test('validate close pair', () => {
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
-  expect(is(group, NodeType.GROUP)).toBe(true);
-  expect(is(group.open, NodeType.OPEN)).toBe(true);
+  expect(is(group, $Node.GROUP)).toBe(true);
+  expect(is(group.open, $Node.OPEN)).toBe(true);
   expect(group.close).toBe(null);
   expect(group.items.length).toBe(0);
   expect(ast.issues.length).toBe(1);

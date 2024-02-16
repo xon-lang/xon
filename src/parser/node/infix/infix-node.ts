@@ -3,10 +3,10 @@ import { Node, SyntaxNode, addNodeParent } from '../../../parser/node/node';
 import { OperatorNode } from '../../../parser/node/operator/operator-node';
 import { rangeFromNodes } from '../../../source/source-range';
 import { ParserContext } from '../../parser-context';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 export interface InfixNode extends SyntaxNode {
-  readonly $: NodeType.INFIX;
+  readonly $: $Node.INFIX;
   readonly operator: OperatorNode;
   readonly left: Node | null;
   readonly right: Node | null;
@@ -19,7 +19,7 @@ export function infixNode(
   right: Node | null,
 ): InfixNode {
   const node: InfixNode = {
-    $: NodeType.INFIX,
+    $: $Node.INFIX,
     range: rangeFromNodes(left ?? operator, right ?? operator),
     children: [],
     operator,

@@ -15,6 +15,3 @@ model Array{T}: Something
   length: Integer
 
 model String: Array{Char}
-
-model $String: String
-  length: ${$String.length}

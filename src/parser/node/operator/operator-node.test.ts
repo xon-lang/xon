@@ -1,6 +1,6 @@
 import { PostfixNode } from '../../../parser/node/postfix/postfix-node';
 import { parse } from '../../../parser/parser';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 // test('single operator', () => {
 //   const text = '!';
@@ -18,7 +18,7 @@ test('after integer', () => {
   const nodes = parse(text).root.children;
   const tree = nodes[0] as PostfixNode;
 
-  expect(tree.$).toBe(NodeType.POSTFIX);
+  expect(tree.$).toBe($Node.POSTFIX);
   expect(tree.operator.text).toBe('!');
 });
 

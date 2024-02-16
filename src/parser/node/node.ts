@@ -1,10 +1,10 @@
 import { Nothing, String2 } from '../../lib/core';
 import { SourceRange } from '../../source/source-range';
 import { Type } from '../type/type';
-import { NodeType } from './node-type';
+import { $Node } from './node-type';
 
 export interface Node {
-  readonly $: NodeType;
+  readonly $: $Node;
   readonly range: SourceRange;
 }
 

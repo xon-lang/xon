@@ -3,10 +3,10 @@ import { CloseNode } from '../../../parser/node/close/close-node';
 import { OpenNode } from '../../../parser/node/open/open-node';
 import { rangeFromNodes } from '../../../source/source-range';
 import { Node, SyntaxNode, addNodeParent } from '../node';
-import { NodeType } from '../node-type';
+import { $Node } from '../node-type';
 
 export interface ObjectNode extends SyntaxNode {
-  $: NodeType.OBJECT;
+  $: $Node.OBJECT;
   // todo
   // type: objectLiteralType;
   open: OpenNode;
@@ -18,7 +18,7 @@ export function objectNode(open: OpenNode, close: CloseNode | null, items: Node[
   const lastStatement = items.lastOrNull();
 
   const node: ObjectNode = {
-    $: NodeType.OBJECT,
+    $: $Node.OBJECT,
     range: rangeFromNodes(open, close ?? lastStatement ?? open),
     children: [],
     open,

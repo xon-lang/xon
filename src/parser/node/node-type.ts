@@ -1,4 +1,4 @@
-export enum NodeType {
+export enum $Node {
   NL = 'NL',
 
   WHITESPACE = 'WHITESPACE',
