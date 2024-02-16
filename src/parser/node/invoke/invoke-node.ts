@@ -1,7 +1,7 @@
 import { Node, SyntaxNode, addNodeParent } from '../../../parser/node/node';
 import { rangeFromNodes } from '../../../source/source-range';
 import { Group } from '../group/group-node';
-import { $Node } from '../node-type';
+import { $Node } from '../node';
 
 export interface InvokeNode extends SyntaxNode {
   $: $Node.INVOKE;

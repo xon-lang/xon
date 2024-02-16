@@ -2,8 +2,7 @@ import { String2 } from '../../../lib/core';
 import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
 import { COMMA, COMMA_CODE } from '../../parser-config';
-import { TokenNode } from '../node';
-import { $Node } from '../node-type';
+import { $Node, TokenNode } from '../node';
 
 export interface CommaNode extends TokenNode {
   $: $Node.COMMA;

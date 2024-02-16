@@ -1,7 +1,6 @@
 import { StringNode } from '../../../parser/node/string/string-node';
 import { parse } from '../../../parser/parser';
-import { TokenNode } from '../node';
-import { $Node } from '../node-type';
+import { $Node, TokenNode } from '../node';
 
 test('string', () => {
   const text = '"abc   def"';

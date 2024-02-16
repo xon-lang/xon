@@ -1,7 +1,7 @@
 // todo rename the file to parser-config
 
 import { Boolean2, Integer, String2 } from '../lib/core';
-import { $Node } from './node/node-type';
+import { $Node } from './node/node';
 
 export interface OperatorsOrder {
   operators: String2[][];

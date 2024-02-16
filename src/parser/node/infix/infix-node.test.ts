@@ -3,8 +3,7 @@ import { parse } from '../../parser';
 import { GroupNode } from '../group/group-node';
 import { IdNode } from '../id/id-node';
 import { IntegerNode } from '../integer/integer-node';
-import { TokenNode } from '../node';
-import { $Node } from '../node-type';
+import { $Node, TokenNode } from '../node';
 import { PrefixNode } from '../prefix/prefix-node';
 import { InfixNode } from './infix-node';
 

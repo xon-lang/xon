@@ -1,7 +1,7 @@
 import { PostfixNode } from '../../../parser/node/postfix/postfix-node';
 import { parse } from '../../../parser/parser';
 import { evaluate } from '../../../util/evaluate';
-import { $Node } from '../node-type';
+import { $Node } from '../node';
 
 test('after integer', () => {
   const text = '1!';

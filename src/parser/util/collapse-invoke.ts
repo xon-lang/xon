@@ -2,7 +2,7 @@ import { invokeNode } from '../../parser/node/invoke/invoke-node';
 import { OperatorNode } from '../../parser/node/operator/operator-node';
 import { ParserContext } from '../../parser/parser-context';
 import { isGroupNode } from '../node/group/group-node';
-import { $Node } from '../node/node-type';
+import { $Node } from '../node/node';
 import { is } from './is';
 
 export function collapseInvoke(context: ParserContext): void {

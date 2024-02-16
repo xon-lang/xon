@@ -3,7 +3,7 @@ import { InfixNode } from '../../../parser/node/infix/infix-node';
 import { IntegerNode } from '../../../parser/node/integer/integer-node';
 import { parse } from '../../../parser/parser';
 import { is } from '../../../parser/util/is';
-import { $Node } from '../node-type';
+import { $Node } from '../node';
 
 test('empty object', () => {
   const text = '{}';

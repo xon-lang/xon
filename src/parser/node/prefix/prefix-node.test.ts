@@ -2,7 +2,7 @@ import { PrefixNode } from '../../../parser/node/prefix/prefix-node';
 import { parse } from '../../../parser/parser';
 import { evaluate } from '../../../util/evaluate';
 import { InfixNode } from '../infix/infix-node';
-import { $Node } from '../node-type';
+import { $Node } from '../node';
 
 test('negative integer', () => {
   const text = '-1';

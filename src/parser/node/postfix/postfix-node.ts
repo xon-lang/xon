@@ -3,7 +3,7 @@ import { Node, SyntaxNode, addNodeParent } from '../../../parser/node/node';
 import { OperatorNode } from '../../../parser/node/operator/operator-node';
 import { rangeFromNodes } from '../../../source/source-range';
 import { ParserContext } from '../../parser-context';
-import { $Node } from '../node-type';
+import { $Node } from '../node';
 
 export interface PostfixNode extends SyntaxNode {
   readonly $: $Node.POSTFIX;

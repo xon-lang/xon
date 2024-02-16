@@ -16,8 +16,7 @@ import {
   OBJECT_NODE_OPEN_CODE,
   OPEN_CLOSE_PAIR,
 } from '../../parser-config';
-import { Node, SyntaxNode, addNodeParent } from '../node';
-import { $Node } from '../node-type';
+import { $Node, Node, SyntaxNode, addNodeParent } from '../node';
 
 export type Group = GroupNode | ArrayNode | ObjectNode;
 

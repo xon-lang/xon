@@ -17,7 +17,7 @@ import { putStatementNode } from '../parser/util/put-statement-node';
 import { Source, createSource } from '../source/source';
 import { SourcePosition, zeroPosition } from '../source/source-position';
 import { scanIdNode } from './node/id/id-node';
-import { $Node } from './node/node-type';
+import { $Node } from './node/node';
 import { ParserConfig } from './parser-config';
 import { ParserContext, parserContext } from './parser-context';
 import { ParserResult } from './parser-result';

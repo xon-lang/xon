@@ -1,6 +1,6 @@
 import { GroupNode } from '../../../parser/node/group/group-node';
 import { parse } from '../../../parser/parser';
-import { $Node } from '../node-type';
+import { $Node } from '../node';
 
 test('open paren', () => {
   const text = '(';

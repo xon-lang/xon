@@ -1,9 +1,9 @@
 import { Integer } from '../../lib/core';
 import { StatementNode } from '../../parser/node/node';
-import { $Node } from '../../parser/node/node-type';
 import { RootNode } from '../../parser/node/root/root-node';
 import { getStatementNode } from '../../parser/util/get-syntactic-node';
 import { is } from '../../parser/util/is';
+import { $Node } from '../node/node';
 import { ParserContext } from '../parser-context';
 
 export function putStatementNode(context: ParserContext): void {

@@ -1,8 +1,7 @@
 import { IntegerNode } from '../../parser/node/integer/integer-node';
-import { $Node } from '../../parser/node/node-type';
 import { parse } from '../../parser/parser';
 import { InfixNode } from './infix/infix-node';
-import { TokenNode } from './node';
+import { $Node, TokenNode } from './node';
 
 test('comma', () => {
   const text = '1';

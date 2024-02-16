@@ -1,7 +1,6 @@
 import { Nothing, String2 } from '../../lib/core';
 import { SourceRange } from '../../source/source-range';
 import { Type } from '../type/type';
-import { $Node } from './node-type';
 
 export interface Node {
   readonly $: $Node;
@@ -35,4 +34,38 @@ export function addNodeParent(parent: SyntaxNode, ...children: (Node | null)[]):
 export function isSyntaxNode(node: Node): node is SyntaxNode {
   // eslint-disable-next-line no-restricted-syntax
   return 'children' in node;
+}
+
+export enum $Node {
+  NL = 'NL',
+
+  WHITESPACE = 'WHITESPACE',
+  JOINING = 'JOINING',
+
+  ROOT = 'ROOT',
+  // todo add comments and block comments
+  COMMENT = 'COMMENT',
+
+  INTEGER = 'INTEGER',
+  FLOAT = 'FLOAT',
+  CHAR = 'CHAR',
+  STRING = 'STRING',
+
+  OPERATOR = 'OPERATOR',
+
+  ID = 'ID',
+  OBJECT = 'OBJECT',
+  ARRAY = 'ARRAY',
+  GROUP = 'GROUP',
+
+  OPEN = 'OPEN',
+  CLOSE = 'CLOSE',
+  COMMA = 'COMMA',
+
+  INVOKE = 'INVOKE',
+  INFIX = 'INFIX',
+  POSTFIX = 'POSTFIX',
+  PREFIX = 'PREFIX',
+
+  UNKNOWN = 'UNKNOWN',
 }

@@ -4,7 +4,7 @@ import { IntegerNode } from '../../../parser/node/integer/integer-node';
 import { InvokeNode } from '../../../parser/node/invoke/invoke-node';
 import { parse } from '../../../parser/parser';
 import { InfixNode } from '../infix/infix-node';
-import { $Node } from '../node-type';
+import { $Node } from '../node';
 
 test('method call', () => {
   const text = "f(3, 'str')";

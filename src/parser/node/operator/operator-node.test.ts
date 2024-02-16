@@ -1,6 +1,6 @@
 import { PostfixNode } from '../../../parser/node/postfix/postfix-node';
 import { parse } from '../../../parser/parser';
-import { $Node } from '../node-type';
+import { $Node } from '../node';
 
 // test('single operator', () => {
 //   const text = '!';

@@ -4,8 +4,7 @@ import { SourceRange } from '../../../source/source-range';
 import { STRING_QUOTE } from '../../parser-config';
 import { coreType } from '../../type/core';
 import { Type } from '../../type/type';
-import { TokenNode } from '../node';
-import { $Node } from '../node-type';
+import { $Node, TokenNode } from '../node';
 
 export interface StringNode extends TokenNode {
   $: $Node.STRING;

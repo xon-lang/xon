@@ -1,7 +1,7 @@
 import { nothing } from '../../../lib/core';
 import { StatementNode } from '../../../parser/node/node';
 import { zeroRange } from '../../../source/source-range';
-import { $Node } from '../node-type';
+import { $Node } from '../node';
 
 export interface RootNode extends StatementNode {
   $: $Node.ROOT;

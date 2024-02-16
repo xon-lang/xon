@@ -1,6 +1,5 @@
 import { parse } from '../../../parser/parser';
-import { TokenNode } from '../node';
-import { $Node } from '../node-type';
+import { $Node, TokenNode } from '../node';
 
 test('comma', () => {
   const text = ',';

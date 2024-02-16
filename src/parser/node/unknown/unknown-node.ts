@@ -1,8 +1,7 @@
 import { String2 } from '../../../lib/core';
 import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
-import { TokenNode } from '../node';
-import { $Node } from '../node-type';
+import { $Node, TokenNode } from '../node';
 
 export interface UnknownNode extends TokenNode {
   $: $Node.UNKNOWN;

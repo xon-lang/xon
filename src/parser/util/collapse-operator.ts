@@ -7,7 +7,7 @@ import { ParserContext } from '../../parser/parser-context';
 import { IdNode } from '../node/id/id-node';
 import { InfixNode, infixNode } from '../node/infix/infix-node';
 import { InvokeNode } from '../node/invoke/invoke-node';
-import { $Node } from '../node/node-type';
+import { $Node } from '../node/node';
 import { MODEL_MODIFIER, OperatorType, RecursiveType, TYPE_TOKEN } from '../parser-config';
 import { Type } from '../type/type';
 import { is } from './is';

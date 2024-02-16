@@ -1,5 +1,5 @@
 import { parse } from '../../../parser/parser';
-import { $Node } from '../node-type';
+import { $Node } from '../node';
 
 test('empty object', () => {
   const text = '{}';

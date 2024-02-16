@@ -3,7 +3,7 @@ import { JoiningNode } from '../../../parser/node/joining/joining-node';
 import { OperatorNode } from '../../../parser/node/operator/operator-node';
 import { parse } from '../../../parser/parser';
 import { InfixNode } from '../infix/infix-node';
-import { $Node } from '../node-type';
+import { $Node } from '../node';
 
 test('no space', () => {
   const text = 'abc\\.def';

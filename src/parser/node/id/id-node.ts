@@ -11,8 +11,7 @@ import {
   UPPER_A_CODE,
   UPPER_Z_CODE,
 } from '../../parser-config';
-import { TokenNode } from '../node';
-import { $Node } from '../node-type';
+import { $Node, TokenNode } from '../node';
 
 export interface IdNode extends TokenNode {
   $: $Node.ID;

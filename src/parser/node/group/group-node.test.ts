@@ -3,7 +3,7 @@ import { GroupNode } from '../../../parser/node/group/group-node';
 import { parse } from '../../../parser/parser';
 import { is } from '../../../parser/util/is';
 import { OPEN_CLOSE_PAIR } from '../../parser-config';
-import { $Node } from '../node-type';
+import { $Node } from '../node';
 
 test('empty closed', () => {
   const text = '()';

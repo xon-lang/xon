@@ -4,8 +4,7 @@ import { OpenNode } from '../../../parser/node/open/open-node';
 import { rangeFromNodes } from '../../../source/source-range';
 import { ArrayLiteralType, arrayLiteralType } from '../../type/array/array-type';
 import { coreType } from '../../type/core';
-import { Node, SyntaxNode, addNodeParent } from '../node';
-import { $Node } from '../node-type';
+import { $Node, Node, SyntaxNode, addNodeParent } from '../node';
 
 export interface ArrayNode extends SyntaxNode {
   $: $Node.ARRAY;
