@@ -13,6 +13,6 @@ export function rootNode(): RootNode {
     range: zeroRange(),
     parent: nothing,
     children: [],
-    modelDeclarationType: null,
+    modelDeclarationMeta: null,
   };
 }

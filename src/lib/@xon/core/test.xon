@@ -15,3 +15,6 @@ model Array{T}: Something
   length: Integer
 
 model String: Array{Char}
+
+-- literal String{$T}: String
+--   length: $T.length

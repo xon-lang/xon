@@ -1,6 +1,6 @@
 import { Nothing, String2 } from '../../lib/core';
 import { SourceRange } from '../../source/source-range';
-import { Type } from '../type/type';
+import { DeclarationMeta } from '../type/type';
 
 export interface Node {
   readonly $: $Node;
@@ -18,7 +18,7 @@ export interface SyntaxNode extends Node {
 
 export interface StatementNode extends SyntaxNode {
   parent: StatementNode | Nothing;
-  modelDeclarationType: Type | null;
+  modelDeclarationMeta: DeclarationMeta | null;
 }
 
 export function addNodeParent(parent: SyntaxNode, ...children: (Node | null)[]): void {

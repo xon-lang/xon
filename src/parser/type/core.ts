@@ -1,13 +1,13 @@
 import { readFileSync } from 'fs';
-import { Something, String2 } from '../../lib/core';
+import { String2 } from '../../lib/core';
 import { parse } from '../parser';
-import { Type } from './type';
+import { DeclarationMeta, ValueMeta, valueMeta } from './type';
 
-let cachedTypes: Record<String2, Type> | null = null;
+let cachedTypes: Record<String2, DeclarationMeta> | null = null;
 
-function types(): Record<String2, Type> {
+function declarations(): Record<String2, DeclarationMeta> {
   if (!cachedTypes) {
-    cachedTypes = parse(readFileSync('src/lib/@xon/core/test.xon').toString()).types.reduce(
+    cachedTypes = parse(readFileSync('src/lib/@xon/core/test.xon').toString()).declarations.reduce(
       // eslint-disable-next-line no-sequences
       (cached, type) => ((cached[type.name] = type), cached),
       {},
@@ -17,6 +17,23 @@ function types(): Record<String2, Type> {
   return cachedTypes;
 }
 
-export type CoreTypeName = 'Anything' | 'Something' | 'Nothing' | 'Number' | 'Integer' | 'Char' | 'String';
+export type CoreDeclarationName =
+  | 'Anything'
+  | 'Something'
+  | 'Nothing'
+  | 'Number'
+  | 'Integer'
+  | 'Char'
+  | 'Array'
+  | 'String';
 
-export const coreType = (name: CoreTypeName, value?: Something): Type => types()[name]!;
+export function coreDeclarationMeta(name: CoreDeclarationName): DeclarationMeta {
+  return declarations()[name]!;
+}
+
+export const coreValueMeta = (name: CoreDeclarationName, ...args: ValueMeta[]): ValueMeta => {
+  const declaration = coreDeclarationMeta(name);
+  const meta = valueMeta(declaration, args);
+
+  return meta;
+};

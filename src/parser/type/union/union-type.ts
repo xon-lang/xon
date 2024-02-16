@@ -1,5 +1,5 @@
 import { Boolean2 } from '../../../lib/core';
-import { coreType } from '../core';
+import { coreValueMeta } from '../core';
 import { Type, eq } from '../type';
 
 export interface UnionType extends Type {
@@ -9,13 +9,13 @@ export interface UnionType extends Type {
 export function unionType(left: Type, right: Type): UnionType {
   return {
     name: 'Union',
-    base: coreType('Anything'),
+    base: coreValueMeta('Anything'),
     data: {
       left,
       right,
     },
     parameters: [],
-    attributes: coreType('Anything').attributes,
+    attributes: coreValueMeta('Anything').attributes,
 
     is(type): Boolean2 {
       return this.eq(type);

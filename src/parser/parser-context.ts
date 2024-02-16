@@ -7,7 +7,7 @@ import { Source } from '../source/source';
 import { SourcePosition, sourcePosition } from '../source/source-position';
 import { SourceRange, sourceRange } from '../source/source-range';
 import { ParserConfig } from './parser-config';
-import { Type } from './type/type';
+import { DeclarationMeta } from './type/type';
 
 // todo perhaps should be new instance every time ???
 export interface ParserContext {
@@ -15,7 +15,7 @@ export interface ParserContext {
   position: SourcePosition;
   hidden: Node[];
   issues: Issue[];
-  types: Type[];
+  declarations: DeclarationMeta[];
   breakNode: Node | null;
   parentStatement: StatementNode;
   nodes: Node[];
@@ -23,7 +23,7 @@ export interface ParserContext {
   root: RootNode;
   config: ParserConfig;
   // todo remove it. temp hack
-  modelDeclarationType: StatementNode['modelDeclarationType'];
+  modelDeclarationType: StatementNode['modelDeclarationMeta'];
   getRange: (length: Integer) => SourceRange;
   addErrorIssue: (node: Node, message: IssueMessage) => Issue;
 }
@@ -34,7 +34,7 @@ export function parserContext(source: Source, position: SourcePosition, config: 
     position,
     hidden: [],
     issues: [],
-    types: [],
+    declarations: [],
     parentStatement: rootNode(),
     nodes: [],
     previousStatement: null,

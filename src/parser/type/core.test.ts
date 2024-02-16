@@ -1,11 +1,11 @@
-import { coreType } from './core';
+import { coreValueMeta } from './core';
 
 test('something type', () => {
-  expect(coreType('Anything').name).toBe('Anything');
+  expect(coreValueMeta('Anything').declaration.name).toBe('Anything');
 
-  expect(coreType('Something').name).toBe('Something');
-  expect(coreType('Something').base?.name).toBe('Anything');
+  expect(coreValueMeta('Something').declaration.name).toBe('Something');
+  expect(coreValueMeta('Something').declaration.restriction?.declaration.name).toBe('Anything');
 
-  expect(coreType('Nothing').name).toBe('Nothing');
-  expect(coreType('Nothing').base?.name).toBe('Anything');
+  expect(coreValueMeta('Nothing').declaration.name).toBe('Nothing');
+  expect(coreValueMeta('Nothing').declaration.restriction?.declaration.name).toBe('Anything');
 });

@@ -2,19 +2,19 @@ import { String2 } from '../../../lib/core';
 import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
 import { STRING_QUOTE } from '../../parser-config';
-import { coreType } from '../../type/core';
-import { Type } from '../../type/type';
+import { coreDeclarationMeta } from '../../type/core';
+import { LiteralMeta, literalMeta } from '../../type/type';
 import { $Node, TokenNode } from '../node';
 
 export interface StringNode extends TokenNode {
   $: $Node.STRING;
-  type: Type;
+  meta: LiteralMeta;
 }
 
 export function stringNode(range: SourceRange, text: String2): StringNode {
   return {
     $: $Node.STRING,
-    type: coreType('String', text),
+    meta: literalMeta(coreDeclarationMeta('String'), text),
     range,
     text,
   };

@@ -10,19 +10,19 @@ import {
   UPPER_A_CODE,
   UPPER_Z_CODE,
 } from '../../parser-config';
-import { coreType } from '../../type/core';
-import { Type } from '../../type/type';
+import { coreDeclarationMeta } from '../../type/core';
+import { LiteralMeta, literalMeta } from '../../type/type';
 import { $Node, TokenNode } from '../node';
 
 export interface IntegerNode extends TokenNode {
   $: $Node.INTEGER;
-  type: Type;
+  meta: LiteralMeta;
 }
 
 export function integerNode(range: SourceRange, text: String2): IntegerNode {
   return {
     $: $Node.INTEGER,
-    type: coreType('Char', Number(text)),
+    meta: literalMeta(coreDeclarationMeta('Integer'), Number(text)),
     range,
     text,
   };

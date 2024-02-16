@@ -1,4 +1,4 @@
-import { Boolean2, String2, nothing } from '../../lib/core';
+import { String2, nothing } from '../../lib/core';
 import { Node } from '../../parser/node/node';
 import { OperatorNode } from '../../parser/node/operator/operator-node';
 import { postfixNode } from '../../parser/node/postfix/postfix-node';
@@ -9,7 +9,7 @@ import { InfixNode, infixNode } from '../node/infix/infix-node';
 import { InvokeNode } from '../node/invoke/invoke-node';
 import { $Node } from '../node/node';
 import { MODEL_MODIFIER, OperatorType, RecursiveType, TYPE_TOKEN } from '../parser-config';
-import { Type } from '../type/type';
+import { $DeclarationMeta, DeclarationMeta, valueMeta } from '../type/type';
 import { is } from './is';
 
 export function collapseOperator(
@@ -74,13 +74,13 @@ export function collapseOperator(
 function handlePrefixNode(context: ParserContext, node: PrefixNode): void {
   if (node.operator.text === MODEL_MODIFIER) {
     if (is<IdNode>(node.value, $Node.ID)) {
-      addType(context, node.value.text);
+      addModelDeclaration(context, node.value);
 
       return;
     }
 
     if (is<InvokeNode>(node.value, $Node.INVOKE) && is<IdNode>(node.value.instance, $Node.ID)) {
-      addType(context, node.value.instance.text);
+      addModelDeclaration(context, node.value.instance);
     }
   }
 }
@@ -93,7 +93,7 @@ function handleInfixNode(context: ParserContext, node: InfixNode): void {
       is<IdNode>(node.left.value, $Node.ID)
     ) {
       const name = node.left.value.text;
-      const type = context.types.findLast((x) => x.name === name);
+      const type = context.declarations.findLast((x) => x.name === name);
 
       if (!type) {
         throw new Error('Not implemented');
@@ -102,13 +102,19 @@ function handleInfixNode(context: ParserContext, node: InfixNode): void {
       // : Something
       if (is<IdNode>(node.right, $Node.ID)) {
         const baseName = node.right.text;
-        const baseType = context.types.findLast((x) => x.name === baseName);
+        const baseDeclaration = context.declarations.findLast((x) => x.name === baseName);
+
+        if (!baseDeclaration) {
+          throw new Error('Not implemented');
+        }
+
+        const baseType = valueMeta(baseDeclaration, []);
 
         if (!baseType) {
           throw new Error('Not implemented');
         }
 
-        type.base = baseType;
+        type.restriction = baseType;
 
         return;
       }
@@ -116,22 +122,25 @@ function handleInfixNode(context: ParserContext, node: InfixNode): void {
       // : Array{T}
       if (is<InvokeNode>(node.right, $Node.INVOKE) && is<IdNode>(node.right.instance, $Node.ID)) {
         const baseName = node.right.instance.text;
-        const baseType = context.types.findLast((x) => x.name === baseName);
+        const baseDeclaration = context.declarations.findLast((x) => x.name === baseName);
 
-        if (!baseType) {
+        if (!baseDeclaration) {
           throw new Error('Not implemented');
         }
 
-        baseType.parameters = node.right.group.items
+        const baseType = valueMeta(baseDeclaration, []);
+
+        baseType.arguments = node.right.group.items
           .filter<IdNode>((x): x is IdNode => is<IdNode>(x, $Node.ID))
-          .map((x) => context.types.findLast((t) => t.name === x.text)!);
+          .map((x) => context.declarations.findLast((t) => t.name === x.text)!)
+          .map((x) => valueMeta(x, []));
 
-        if (baseType.parameters.some((x) => x === null)) {
+        if (baseType.arguments.some((x) => x === null)) {
           throw new Error('Not implemented');
         }
 
-        type.base = baseType;
-        type.attributes = mergeAttributes(baseType, type);
+        type.restriction = baseType;
+        type.attributes = mergeAttributes(baseType.declaration, type);
 
         return;
       }
@@ -141,42 +150,37 @@ function handleInfixNode(context: ParserContext, node: InfixNode): void {
     if (
       is<IdNode>(node.left, $Node.ID) &&
       is<IdNode>(node.right, $Node.ID) &&
-      context.parentStatement.modelDeclarationType
+      context.parentStatement.modelDeclarationMeta
     ) {
       const name = node.left.text;
       const typeName = node.right.text;
-      const type = context.types.findLast((x) => x.name === typeName);
+      const type = context.declarations.findLast((x) => x.name === typeName);
 
       if (!type) {
         throw new Error('Not implemented');
       }
 
-      context.parentStatement.modelDeclarationType.attributes[name] = [type];
+      context.parentStatement.modelDeclarationMeta.attributes[name] = [type];
     }
   }
 }
 
-function addType(context: ParserContext, name: String2): void {
-  const type: Type = {
-    name,
-    base: nothing,
-    data: nothing,
+function addModelDeclaration(context: ParserContext, idNode: IdNode): void {
+  const declaration: DeclarationMeta = {
+    $: $DeclarationMeta.MODEL,
+    name: idNode.text,
+    source: context.source,
+    position: idNode.range.start,
+    usages: [],
+    restriction: nothing,
     parameters: [],
     attributes: {},
-
-    is(type: Type): Boolean2 {
-      return (this.name === type.name || this.base?.is(type)) ?? false;
-    },
-
-    eq(type: Type): Boolean2 {
-      return this.name === type.name;
-    },
   };
 
-  context.modelDeclarationType = type;
-  context.types.push(type);
+  context.modelDeclarationType = declaration;
+  context.declarations.push(declaration);
 }
 
-function mergeAttributes(base: Type, type: Type): Record<String2, Type[]> {
+function mergeAttributes(base: DeclarationMeta, type: DeclarationMeta): Record<String2, DeclarationMeta[]> {
   return { ...base.attributes, ...type.attributes };
 }

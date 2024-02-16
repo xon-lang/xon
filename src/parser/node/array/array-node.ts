@@ -2,13 +2,13 @@ import '../../../extensions';
 import { CloseNode } from '../../../parser/node/close/close-node';
 import { OpenNode } from '../../../parser/node/open/open-node';
 import { rangeFromNodes } from '../../../source/source-range';
-import { ArrayLiteralType, arrayLiteralType } from '../../type/array/array-type';
-import { coreType } from '../../type/core';
+import { coreDeclarationMeta } from '../../type/core';
+import { LiteralMeta, literalMeta } from '../../type/type';
 import { $Node, Node, SyntaxNode, addNodeParent } from '../node';
 
 export interface ArrayNode extends SyntaxNode {
   $: $Node.ARRAY;
-  type: ArrayLiteralType;
+  meta: LiteralMeta;
   open: OpenNode;
   close: CloseNode | null;
   items: Node[];
@@ -19,7 +19,8 @@ export function arrayNode(open: OpenNode, close: CloseNode | null, items: Node[]
 
   const node: ArrayNode = {
     $: $Node.ARRAY,
-    type: arrayLiteralType([coreType('Nothing')]),
+    // todo fix it
+    meta: literalMeta(coreDeclarationMeta('Array'), 0),
     range: rangeFromNodes(open, close ?? lastStatement ?? open),
     children: [],
     open,

@@ -30,7 +30,7 @@ test('model string', () => {
   const text = 'model String';
   const ast = parse(text);
   const nodes = ast.root.children;
-  const types = ast.types;
+  const types = ast.declarations;
   const node = nodes[0] as PrefixNode;
 
   expect(nodes.length).toBe(1);
@@ -45,7 +45,7 @@ test('model string with base class', () => {
   const text = 'model Array\nmodel String: Array';
   const ast = parse(text);
   const nodes = ast.root.children;
-  const types = ast.types;
+  const types = ast.declarations;
   const node = nodes[1] as InfixNode;
 
   expect(nodes.length).toBe(2);
@@ -58,5 +58,5 @@ test('model string with base class', () => {
   expect(types.length).toBe(2);
   expect(types[0].name).toBe('Array');
   expect(types[1].name).toBe('String');
-  expect(types[1].base?.name).toBe('Array');
+  expect(types[1].restriction?.declaration?.name).toBe('Array');
 });

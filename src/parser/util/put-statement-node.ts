@@ -12,7 +12,7 @@ export function putStatementNode(context: ParserContext): void {
   statement.parent = context.parentStatement;
 
   // todo remove it. temp hack
-  statement.modelDeclarationType = context.modelDeclarationType;
+  statement.modelDeclarationMeta = context.modelDeclarationType;
   context.modelDeclarationType = null;
 
   if (context.parentStatement === context.root) {

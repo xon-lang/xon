@@ -2,19 +2,19 @@ import { String2 } from '../../../lib/core';
 import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
 import { CHAR_QUOTE } from '../../parser-config';
-import { coreType } from '../../type/core';
-import { Type } from '../../type/type';
+import { coreDeclarationMeta } from '../../type/core';
+import { LiteralMeta, literalMeta } from '../../type/type';
 import { $Node, TokenNode } from '../node';
 
 export interface CharNode extends TokenNode {
   $: $Node.CHAR;
-  type: Type;
+  meta: LiteralMeta;
 }
 
 export function charNode(range: SourceRange, text: String2): CharNode {
   return {
     $: $Node.CHAR,
-    type: coreType('Char', text),
+    meta: literalMeta(coreDeclarationMeta('Char'), text),
     range,
     text,
   };
