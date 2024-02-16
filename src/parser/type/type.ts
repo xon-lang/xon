@@ -41,6 +41,7 @@ export interface DeclarationMeta extends Meta {
 export interface ValueMeta extends Meta {
   declaration: DeclarationMeta;
   arguments: ValueMeta[];
+  // attributes: Record<String2, DeclarationMeta[]>;
 
   is: (type: ValueMeta) => Boolean2;
 
