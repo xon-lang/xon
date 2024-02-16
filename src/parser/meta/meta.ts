@@ -1,29 +1,6 @@
-import { Anything, Boolean2, Nothing, Something, String2 } from '../../lib/core';
+import { Boolean2, Something, String2 } from '../../lib/core';
 import { Source } from '../../source/source';
 import { SourcePosition } from '../../source/source-position';
-
-export interface Type {
-  $: $Type;
-  name: String2;
-  base: Type | Nothing;
-  data: Record<String2, Anything> | Nothing;
-  parameters: Type[];
-  attributes: Record<String2, Type[]>;
-
-  is: (type: Type) => Boolean2;
-  eq: (type: Type) => Boolean2;
-}
-
-export function eq<T extends Type>(left: T, right: Type): right is T {
-  return left.name === right.name;
-}
-
-export enum $Type {
-  MODEL,
-  LITERAL,
-  OPERATOR,
-  VARIABLE,
-}
 
 export interface Meta {}
 

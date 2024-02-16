@@ -1,6 +1,6 @@
 import { Nothing, String2 } from '../../lib/core';
 import { SourceRange } from '../../source/source-range';
-import { DeclarationMeta } from '../type/type';
+import { DeclarationMeta } from '../meta/meta';
 
 export interface Node {
   readonly $: $Node;

@@ -2,8 +2,8 @@ import '../../../extensions';
 import { CloseNode } from '../../../parser/node/close/close-node';
 import { OpenNode } from '../../../parser/node/open/open-node';
 import { rangeFromNodes } from '../../../source/source-range';
-import { coreDeclarationMeta } from '../../type/core';
-import { LiteralMeta, literalMeta } from '../../type/type';
+import { coreDeclarationMeta } from '../../meta/core';
+import { LiteralMeta, literalMeta } from '../../meta/meta';
 import { $Node, Node, SyntaxNode, addNodeParent } from '../node';
 
 export interface ArrayNode extends SyntaxNode {

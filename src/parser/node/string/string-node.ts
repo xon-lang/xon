@@ -1,9 +1,9 @@
 import { String2 } from '../../../lib/core';
 import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
+import { coreDeclarationMeta } from '../../meta/core';
+import { LiteralMeta, literalMeta } from '../../meta/meta';
 import { STRING_QUOTE } from '../../parser-config';
-import { coreDeclarationMeta } from '../../type/core';
-import { LiteralMeta, literalMeta } from '../../type/type';
 import { $Node, TokenNode } from '../node';
 
 export interface StringNode extends TokenNode {

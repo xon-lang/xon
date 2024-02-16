@@ -6,8 +6,8 @@ import { RootNode, rootNode } from '../parser/node/root/root-node';
 import { Source } from '../source/source';
 import { SourcePosition, sourcePosition } from '../source/source-position';
 import { SourceRange, sourceRange } from '../source/source-range';
+import { DeclarationMeta } from './meta/meta';
 import { ParserConfig } from './parser-config';
-import { DeclarationMeta } from './type/type';
 
 // todo perhaps should be new instance every time ???
 export interface ParserContext {
