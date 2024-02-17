@@ -1,8 +1,8 @@
 import { IssueLevel } from '../issue/issue-level';
 import { String2 } from '../lib/core';
-import { Node } from '../parser/node/node';
-import { ParserContext } from '../parser/parser-context';
 import { getNodeText } from '../source/source';
+import { Node } from '../syntax/node/node';
+import { SyntaxContext } from '../syntax/syntax-context';
 import { IssueMessage } from './issue-message';
 
 // export class Issue {
@@ -89,7 +89,7 @@ enum Color {
   BG_GRAY = '\x1b[100m',
 }
 
-export function formatIssue(context: ParserContext, { node, message }: Issue): String2 {
+export function formatIssue(context: SyntaxContext, { node, message }: Issue): String2 {
   const msg = redBright(message.actual);
   const lineText = context.source.text.split('\n')[node.range.start.line];
   const nodeText = getNodeText(context, node);

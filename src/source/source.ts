@@ -1,6 +1,6 @@
 import { Integer, String2 } from '../lib/core';
-import { Node } from '../parser/node/node';
-import { ParserContext } from '../parser/parser-context';
+import { Node } from '../syntax/node/node';
+import { SyntaxContext } from '../syntax/syntax-context';
 
 import '../util/extension';
 
@@ -23,6 +23,6 @@ export function createSource(path: String2 | null, text: String2): Source {
   };
 }
 
-export function getNodeText({ source }: ParserContext, { range }: Node): String2 {
+export function getNodeText({ source }: SyntaxContext, { range }: Node): String2 {
   return source.text.slice(range.start.index, range.stop.index + 1);
 }

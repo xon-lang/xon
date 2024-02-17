@@ -1,4 +1,4 @@
-import { Node } from '../parser/node/node';
+import { Node } from '../syntax/node/node';
 import { SourcePosition, clonePosition, zeroPosition } from './source-position';
 
 export interface SourceRange {
