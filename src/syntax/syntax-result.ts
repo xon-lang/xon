@@ -3,7 +3,7 @@ import { DeclarationMeta } from '../semantic/semantic';
 import { Source } from '../source/source';
 import { Node } from './node/node';
 import { RootNode } from './node/root/root-node';
-import { ParserConfig } from './syntax-config';
+import { SyntaxConfig } from './syntax-config';
 import { SyntaxContext } from './syntax-context';
 
 export interface SyntaxResult {
@@ -12,6 +12,6 @@ export interface SyntaxResult {
   issues: Issue[];
   declarations: DeclarationMeta[];
   root: RootNode;
-  config: ParserConfig;
+  config: SyntaxConfig;
   context: SyntaxContext;
 }

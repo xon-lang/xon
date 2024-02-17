@@ -1,3 +1,1 @@
-src/grammar/xon-lexer.ts
-src/grammar/xon-parser.ts
 **/*.test.ts

@@ -16,13 +16,13 @@ import { scanOperatorNode } from './node/operator/operator-node';
 import { scanStringNode } from './node/string/string-node';
 import { scanUnknownNode } from './node/unknown/unknown-node';
 import { scanWhitespaceNode } from './node/whitespace/whitespace-node';
-import { ParserConfig } from './syntax-config';
-import { SyntaxContext, parserContext } from './syntax-context';
+import { SyntaxConfig } from './syntax-config';
+import { SyntaxContext, syntaxContext } from './syntax-context';
 import { SyntaxResult } from './syntax-result';
 import { is } from './util/is';
 import { putStatementNode } from './util/put-statement-node';
 
-type NodeScanFn = (parser: SyntaxContext) => Node | null;
+type NodeScanFn = (context: SyntaxContext) => Node | null;
 
 const nodeScanFunctions: NodeScanFn[] = [
   scanIntegerNode,
@@ -39,7 +39,7 @@ const nodeScanFunctions: NodeScanFn[] = [
   scanUnknownNode,
 ];
 
-export function parse(text: String2, config?: Partial<ParserConfig>): SyntaxResult {
+export function parse(text: String2, config?: Partial<SyntaxConfig>): SyntaxResult {
   const source = createSource(null, text);
 
   return parseUntil(source, zeroPosition(), null, config);
@@ -49,13 +49,13 @@ export function parseUntil(
   source: Source,
   startPosition: SourcePosition,
   breakOnNodeFn: ((node: Node) => Boolean2) | null,
-  parserConfig?: Partial<ParserConfig>,
+  syntaxConfig?: Partial<SyntaxConfig>,
 ): SyntaxResult {
-  const config: ParserConfig = {
-    throwErrorIssue: parserConfig?.throwErrorIssue ?? false,
+  const config: SyntaxConfig = {
+    throwErrorIssue: syntaxConfig?.throwErrorIssue ?? false,
   };
 
-  const context = parserContext(source, startPosition, config);
+  const context = syntaxContext(source, startPosition, config);
 
   while (context.position.index < context.source.text.length) {
     const node = nextNode(context);

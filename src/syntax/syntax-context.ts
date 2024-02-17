@@ -7,7 +7,7 @@ import { SourcePosition, sourcePosition } from '../source/source-position';
 import { SourceRange, sourceRange } from '../source/source-range';
 import { Node, StatementNode } from './node/node';
 import { RootNode, rootNode } from './node/root/root-node';
-import { ParserConfig } from './syntax-config';
+import { SyntaxConfig } from './syntax-config';
 
 // todo perhaps should be new instance every time ???
 export interface SyntaxContext {
@@ -21,14 +21,14 @@ export interface SyntaxContext {
   nodes: Node[];
   previousStatement: StatementNode | null;
   root: RootNode;
-  config: ParserConfig;
+  config: SyntaxConfig;
   // todo remove it. temp hack
   modelDeclarationType: StatementNode['modelDeclarationMeta'];
   getRange: (length: Integer) => SourceRange;
   addErrorIssue: (node: Node, message: IssueMessage) => Issue;
 }
 
-export function parserContext(source: Source, position: SourcePosition, config: ParserConfig): SyntaxContext {
+export function syntaxContext(source: Source, position: SourcePosition, config: SyntaxConfig): SyntaxContext {
   return {
     source,
     position,

@@ -5,23 +5,6 @@ import { Node } from '../syntax/node/node';
 import { SyntaxContext } from '../syntax/syntax-context';
 import { IssueMessage } from './issue-message';
 
-// export class Issue {
-//   // public actual: String2
-//   // public expect: String2
-//   constructor(public node: Node, public level: IssueLevel, public message: String2) {}
-//   // static errorFromSourceSpan(sourceSpan: SourceSpan, message: String2): Never {
-//   //   const issue = new Issue(sourceSpan, IssueLevel.error, message);
-//   //   const formatter = new IssueFormatter(issue);
-//   //   throw new Error(formatter.toString());
-//   // }
-//   // static errorFromContext(ctx: ParserRuleContext, message: String2): Never {
-//   //   Issue.errorFromSourceSpan(SourceSpan.fromContext(ctx), message);
-//   // }
-//   // static errorFromTree(node: Node, message: String2): Never {
-//   //   Issue.errorFromSourceSpan(node.sourceSpan, message);
-//   // }
-// }
-
 export enum IssueType {
   SYNTACTIC = 0,
   SEMANTIC = 1,

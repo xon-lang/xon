@@ -1,5 +1,3 @@
-// todo rename the file to parser-config
-
 import { Boolean2, Integer, String2 } from '../lib/core';
 import { $Node } from './node/node';
 
@@ -140,6 +138,6 @@ export const operatorsOrders: OperatorsOrder[] = [
 
 export const ALLOW_ASSIGN_NODE_TYPES = [$Node.ID, $Node.GROUP, $Node.ARRAY, $Node.OBJECT];
 
-export interface ParserConfig {
+export interface SyntaxConfig {
   readonly throwErrorIssue: Boolean2;
 }
