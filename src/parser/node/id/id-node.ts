@@ -1,7 +1,7 @@
 import { String2 } from '../../../lib/core';
 import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
-import '../../../util/extensions/extensions';
+import '../../../util/extension';
 import { UNDERSCORE_CODE } from '../../parser-config';
 import { $Node, TokenNode } from '../node';
 

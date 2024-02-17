@@ -9,7 +9,7 @@ import { ParserContext } from '../../../parser/parser-context';
 import { is } from '../../../parser/util/is';
 import { clonePosition } from '../../../source/source-position';
 import { rangeFromNodes } from '../../../source/source-range';
-import '../../../util/extensions/extensions';
+import '../../../util/extension';
 import {
   ARRAY_NODE_OPEN_CODE,
   GROUP_NODE_OPEN_CODE,

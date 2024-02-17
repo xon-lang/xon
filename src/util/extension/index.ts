@@ -1,3 +1,3 @@
 export * from './string-extension';
 
-export * from './extensions';
+export * from './array-extension';

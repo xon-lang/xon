@@ -1,7 +1,7 @@
 import { CloseNode } from '../../../parser/node/close/close-node';
 import { OpenNode } from '../../../parser/node/open/open-node';
 import { rangeFromNodes } from '../../../source/source-range';
-import '../../../util/extensions/extensions';
+import '../../../util/extension';
 import { coreDeclarationMeta } from '../../meta/core';
 import { LiteralMeta, literalMeta } from '../../meta/meta';
 import { $Node, Node, SyntaxNode, addNodeParent } from '../node';

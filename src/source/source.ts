@@ -2,7 +2,7 @@ import { Integer, String2 } from '../lib/core';
 import { Node } from '../parser/node/node';
 import { ParserContext } from '../parser/parser-context';
 
-import '../util/extensions';
+import '../util/extension';
 
 export interface Source {
   location: String2 | null;
