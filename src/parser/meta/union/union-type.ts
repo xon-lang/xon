@@ -1,11 +1,3 @@
-// import { Boolean2 } from '../../../lib/core';
-// import { coreValueMeta } from '../core';
-// import { Type, eq } from '../type';
-
-// export interface UnionType extends Type {
-//   data: { left: Type; right: Type };
-// }
-
 // export function unionType(left: Type, right: Type): UnionType {
 //   return {
 //     name: 'Union',
@@ -16,6 +8,8 @@
 //     },
 //     parameters: [],
 //     attributes: coreValueMeta('Anything').attributes,
+
+// import { DeclarationMeta } from '../meta';
 
 //     is(type): Boolean2 {
 //       return this.eq(type);
@@ -31,7 +25,9 @@
 //   };
 // }
 
-// export function unionFromTypes(types: Type[]): UnionType {
+export interface UnionType {}
+
+// export function unionFromTypes(declarations: DeclarationMeta[]): UnionType {
 //   if (types.length < 2) {
 //     throw new Error('Not implemented');
 //   }
