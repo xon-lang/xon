@@ -1,5 +1,5 @@
 import { String2, nothing } from '../../lib/core';
-import { $Meta, DeclarationMeta, valueMeta } from '../../semantic/semantic';
+import { $Semantic, DeclarationSemantic, valueSemantic } from '../../semantic/semantic';
 import { IdNode } from '../node/id/id-node';
 import { InfixNode, infixNode } from '../node/infix/infix-node';
 import { InvokeNode } from '../node/invoke/invoke-node';
@@ -107,7 +107,7 @@ function handleInfixNode(context: SyntaxContext, node: InfixNode): void {
           throw new Error('Not implemented');
         }
 
-        const baseType = valueMeta(baseDeclaration, []);
+        const baseType = valueSemantic(baseDeclaration, []);
 
         if (!baseType) {
           throw new Error('Not implemented');
@@ -127,12 +127,12 @@ function handleInfixNode(context: SyntaxContext, node: InfixNode): void {
           throw new Error('Not implemented');
         }
 
-        const baseType = valueMeta(baseDeclaration, []);
+        const baseType = valueSemantic(baseDeclaration, []);
 
         baseType.arguments = node.right.group.items
           .filter<IdNode>((x): x is IdNode => is<IdNode>(x, $Node.ID))
           .map((x) => context.declarations.findLast((t) => t.name === x.text)!)
-          .map((x) => valueMeta(x, []));
+          .map((x) => valueSemantic(x, []));
 
         if (baseType.arguments.some((x) => x === null)) {
           throw new Error('Not implemented');
@@ -149,7 +149,7 @@ function handleInfixNode(context: SyntaxContext, node: InfixNode): void {
     if (
       is<IdNode>(node.left, $Node.ID) &&
       is<IdNode>(node.right, $Node.ID) &&
-      context.parentStatement.modelDeclarationMeta
+      context.parentStatement.modelDeclarationSemantic
     ) {
       const name = node.left.text;
       const typeName = node.right.text;
@@ -159,14 +159,14 @@ function handleInfixNode(context: SyntaxContext, node: InfixNode): void {
         throw new Error('Not implemented');
       }
 
-      context.parentStatement.modelDeclarationMeta.attributes[name] = [type];
+      context.parentStatement.modelDeclarationSemantic.attributes[name] = [type];
     }
   }
 }
 
 function addModelDeclaration(context: SyntaxContext, idNode: IdNode): void {
-  const declaration: DeclarationMeta = {
-    $: $Meta.MODEL,
+  const declaration: DeclarationSemantic = {
+    $: $Semantic.MODEL,
     name: idNode.text,
     source: context.source,
     position: idNode.range.start,
@@ -180,6 +180,6 @@ function addModelDeclaration(context: SyntaxContext, idNode: IdNode): void {
   context.declarations.push(declaration);
 }
 
-function mergeAttributes(base: DeclarationMeta, type: DeclarationMeta): Record<String2, DeclarationMeta[]> {
+function mergeAttributes(base: DeclarationSemantic, type: DeclarationSemantic): Record<String2, DeclarationSemantic[]> {
   return { ...base.attributes, ...type.attributes };
 }

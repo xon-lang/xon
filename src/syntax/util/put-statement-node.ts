@@ -11,7 +11,7 @@ export function putStatementNode(context: SyntaxContext): void {
   statement.parent = context.parentStatement;
 
   // todo remove it. temp hack
-  statement.modelDeclarationMeta = context.modelDeclarationType;
+  statement.modelDeclarationSemantic = context.modelDeclarationType;
   context.modelDeclarationType = null;
 
   if (context.parentStatement === context.root) {

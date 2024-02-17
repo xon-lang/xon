@@ -1,5 +1,5 @@
 import { Issue } from '../issue/issue';
-import { DeclarationMeta } from '../semantic/semantic';
+import { DeclarationSemantic } from '../semantic/semantic';
 import { Source } from '../source/source';
 import { Node } from './node/node';
 import { RootNode } from './node/root/root-node';
@@ -10,7 +10,7 @@ export interface SyntaxResult {
   source: Source;
   hidden: Node[];
   issues: Issue[];
-  declarations: DeclarationMeta[];
+  declarations: DeclarationSemantic[];
   root: RootNode;
   config: SyntaxConfig;
   context: SyntaxContext;

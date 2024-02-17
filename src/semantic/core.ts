@@ -1,11 +1,11 @@
 import { readFileSync } from 'fs';
 import { String2 } from '../lib/core';
 import { parse } from '../syntax/syntax';
-import { DeclarationMeta, ValueMeta, valueMeta } from './semantic';
+import { DeclarationSemantic, ValueSemantic, valueSemantic } from './semantic';
 
-let cachedTypes: Record<String2, DeclarationMeta> | null = null;
+let cachedTypes: Record<String2, DeclarationSemantic> | null = null;
 
-function declarations(): Record<String2, DeclarationMeta> {
+function declarations(): Record<String2, DeclarationSemantic> {
   if (!cachedTypes) {
     cachedTypes = parse(readFileSync('src/lib/@xon/core/test.xon').toString()).declarations.reduce(
       // eslint-disable-next-line no-sequences
@@ -27,13 +27,12 @@ export type CoreDeclarationName =
   | 'Array'
   | 'String';
 
-export function coreDeclarationMeta(name: CoreDeclarationName): DeclarationMeta {
+export function coreDeclarationSemantic(name: CoreDeclarationName): DeclarationSemantic {
   return declarations()[name]!;
 }
 
-export const coreValueMeta = (name: CoreDeclarationName, ...args: ValueMeta[]): ValueMeta => {
-  const declaration = coreDeclarationMeta(name);
-  const meta = valueMeta(declaration, args);
+export const coreValueSemantic = (name: CoreDeclarationName, ...args: ValueSemantic[]): ValueSemantic => {
+  const declaration = coreDeclarationSemantic(name);
 
-  return meta;
+  return valueSemantic(declaration, args);
 };

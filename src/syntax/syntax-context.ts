@@ -1,7 +1,7 @@
 import { Issue, createSyntacticErrorIssue, formatIssue } from '../issue/issue';
 import { IssueMessage } from '../issue/issue-message';
 import { Integer } from '../lib/core';
-import { DeclarationMeta } from '../semantic/semantic';
+import { DeclarationSemantic } from '../semantic/semantic';
 import { Source } from '../source/source';
 import { SourcePosition, sourcePosition } from '../source/source-position';
 import { SourceRange, sourceRange } from '../source/source-range';
@@ -15,7 +15,7 @@ export interface SyntaxContext {
   position: SourcePosition;
   hidden: Node[];
   issues: Issue[];
-  declarations: DeclarationMeta[];
+  declarations: DeclarationSemantic[];
   breakNode: Node | null;
   parentStatement: StatementNode;
   nodes: Node[];
@@ -23,7 +23,7 @@ export interface SyntaxContext {
   root: RootNode;
   config: SyntaxConfig;
   // todo remove it. temp hack
-  modelDeclarationType: StatementNode['modelDeclarationMeta'];
+  modelDeclarationType: StatementNode['modelDeclarationSemantic'];
   getRange: (length: Integer) => SourceRange;
   addErrorIssue: (node: Node, message: IssueMessage) => Issue;
 }

@@ -1,5 +1,5 @@
 import { Nothing, String2 } from '../../lib/core';
-import { DeclarationMeta } from '../../semantic/semantic';
+import { DeclarationSemantic } from '../../semantic/semantic';
 import { SourceRange } from '../../source/source-range';
 
 export interface Node {
@@ -18,7 +18,7 @@ export interface SyntaxNode extends Node {
 
 export interface StatementNode extends SyntaxNode {
   parent: StatementNode | Nothing;
-  modelDeclarationMeta: DeclarationMeta | null;
+  modelDeclarationSemantic: DeclarationSemantic | null;
 }
 
 export function addNodeParent(parent: SyntaxNode, ...children: (Node | null)[]): void {

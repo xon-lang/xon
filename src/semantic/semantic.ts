@@ -2,35 +2,35 @@ import { Boolean2, Something, String2 } from '../lib/core';
 import { Source } from '../source/source';
 import { SourcePosition } from '../source/source-position';
 
-export interface Meta {
-  $: $Meta;
+export interface Semantic {
+  $: $Semantic;
 }
 
-export interface DeclarationMeta extends Meta {
+export interface DeclarationSemantic extends Semantic {
   name: String2;
   source: Source;
   position: SourcePosition;
-  usages: ValueMeta[];
-  parameters: DeclarationMeta[];
-  restriction: ValueMeta | null;
-  attributes: Record<String2, DeclarationMeta[]>;
+  usages: ValueSemantic[];
+  parameters: DeclarationSemantic[];
+  restriction: ValueSemantic | null;
+  attributes: Record<String2, DeclarationSemantic[]>;
 }
 
-export interface ValueMeta extends Meta {
-  declaration: DeclarationMeta;
-  arguments: ValueMeta[];
-  // attributes: Record<String2, DeclarationMeta[]>;
+export interface ValueSemantic extends Semantic {
+  declaration: DeclarationSemantic;
+  arguments: ValueSemantic[];
+  // attributes: Record<String2, DeclarationSemantic[]>;
 
-  is: (type: ValueMeta) => Boolean2;
+  is: (type: ValueSemantic) => Boolean2;
 
-  eq: (type: ValueMeta) => Boolean2;
+  eq: (type: ValueSemantic) => Boolean2;
 }
 
-export interface LiteralMeta extends ValueMeta {
+export interface LiteralSemantic extends ValueSemantic {
   value: Something;
 }
 
-export enum $Meta {
+export enum $Semantic {
   DECLARATION,
   GENERIC,
   MODEL,
@@ -45,43 +45,43 @@ export enum $Meta {
   // KEYWORD,
 }
 
-export function metaIs<T extends Meta = Meta>(meta: { $: $Meta }, type: $Meta): meta is T {
-  return meta.$ === type;
+export function semanticIs<T extends Semantic = Semantic>(semantic: { $: $Semantic }, type: $Semantic): semantic is T {
+  return semantic.$ === type;
 }
 
-export function valueMeta(declaration: DeclarationMeta, args: ValueMeta[]): ValueMeta {
+export function valueSemantic(declaration: DeclarationSemantic, args: ValueSemantic[]): ValueSemantic {
   if (declaration.parameters.length !== args.length) {
     throw new Error('Not implemented');
   }
 
   return {
-    $: $Meta.VALUE,
+    $: $Semantic.VALUE,
     declaration,
     arguments: args,
 
-    is(type: ValueMeta): Boolean2 {
+    is(type: ValueSemantic): Boolean2 {
       return (this.eq(type) || this.declaration.restriction?.is(type)) ?? false;
     },
 
-    eq(type: ValueMeta): Boolean2 {
+    eq(type: ValueSemantic): Boolean2 {
       return this.declaration.name === type.declaration.name;
     },
   };
 }
 
-export function literalMeta(declaration: DeclarationMeta, value: Something): LiteralMeta {
+export function literalSemantic(declaration: DeclarationSemantic, value: Something): LiteralSemantic {
   return {
-    $: $Meta.LITERAL,
+    $: $Semantic.LITERAL,
     declaration,
     arguments: [],
     value,
 
-    is(type: ValueMeta): Boolean2 {
+    is(type: ValueSemantic): Boolean2 {
       return this.eq(type);
     },
 
-    eq(type: ValueMeta): Boolean2 {
-      return this.value === (type as LiteralMeta)?.value;
+    eq(type: ValueSemantic): Boolean2 {
+      return this.value === (type as LiteralSemantic)?.value;
     },
   };
 }

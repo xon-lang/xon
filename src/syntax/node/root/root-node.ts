@@ -12,6 +12,6 @@ export function rootNode(): RootNode {
     range: zeroRange(),
     parent: nothing,
     children: [],
-    modelDeclarationMeta: null,
+    modelDeclarationSemantic: null,
   };
 }
