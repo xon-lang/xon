@@ -20,32 +20,16 @@ export function operatorNode(range: SourceRange, text: String2): OperatorNode {
 
 const OPERATORS = [
   ...new Set(operatorsOrders.flatMap((operatorsOrder) => operatorsOrder.operators).flatMap((operators) => operators)),
-];
+].sort((a, b) => a.length - b.length);
 
 export function scanOperatorNode(context: ParserContext): Node | null {
   const { position, source } = context;
-  const candidates: String2[] = [];
-  let operators = OPERATORS;
+  const text = OPERATORS.findLast((x) => x === source.text.slice(position.index, position.index + x.length));
 
-  for (let i = position.index, j = 0; i < source.text.length; i++, j++) {
-    operators = operators.filter((x) => x[j] === source.text[i]);
-
-    if (operators.length === 0) {
-      break;
-    }
-
-    const candidate = operators.find((x) => x.length === j + 1);
-
-    if (candidate) {
-      candidates.push(candidate);
-    }
-  }
-
-  if (candidates.length === 0) {
+  if (!text) {
     return null;
   }
 
-  const text = candidates.last();
   const id = scanIdNode(context);
 
   if (id && id.text.length > text.length) {

@@ -1,5 +1,6 @@
 import { PostfixNode } from '../../../parser/node/postfix/postfix-node';
 import { parse } from '../../../parser/parser';
+import { InfixNode } from '../infix/infix-node';
 import { $Node } from '../node';
 
 // test('single operator', () => {
@@ -20,6 +21,15 @@ test('after integer', () => {
 
   expect(tree.$).toBe($Node.POSTFIX);
   expect(tree.operator.text).toBe('!');
+});
+
+test('x + x', () => {
+  const text = 'x is Number';
+  const nodes = parse(text).root.children;
+  const tree = nodes[0] as InfixNode;
+
+  expect(tree.$).toBe($Node.INFIX);
+  expect(tree.operator.text).toBe('is');
 });
 
 // test('after invoke', () => {

@@ -13,7 +13,7 @@ declare global {
     removeFirst(): T[];
     removeLast(): T[];
     findLast(predicate: (value: T, index: number, obj: T[]) => unknown): T | null;
-
+    sortStrings(): T[];
     // aggregators
     sum(select: (value: T, index: number, obj: T[]) => Integer): Integer;
   }

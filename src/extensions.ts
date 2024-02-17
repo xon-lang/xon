@@ -54,6 +54,10 @@ Array.prototype.removeLast = function <T>(): T[] {
   return this;
 };
 
+Array.prototype.sortStrings = function(): String2[] {
+  return (this as String2[]).sort((a, b) => a.localeCompare(b));
+};
+
 Array.prototype.sum = function <T>(select: (value: T, index: number, obj: T[]) => Number2): Number2 {
   return this.reduce((sum, val, index, array) => sum + select(val, index, array), 0);
 };

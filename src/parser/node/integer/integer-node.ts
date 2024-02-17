@@ -16,13 +16,13 @@ import { $Node, TokenNode } from '../node';
 
 export interface IntegerNode extends TokenNode {
   $: $Node.INTEGER;
-  meta: LiteralMeta;
+  // meta: LiteralMeta;
 }
 
 export function integerNode(range: SourceRange, text: String2): IntegerNode {
   return {
     $: $Node.INTEGER,
-    meta: literalMeta(coreDeclarationMeta('Integer'), Number(text)),
+    // meta: literalMeta(coreDeclarationMeta('Integer'), Number(text)),
     range,
     text,
   };
