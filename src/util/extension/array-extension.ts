@@ -54,7 +54,7 @@ Array.prototype.removeLast = function <T>(): T[] {
   return this;
 };
 
-Array.prototype.sortStrings = function (): String2[] {
+Array.prototype.sortStrings = function(): String2[] {
   return (this as String2[]).sort((a, b) => a.localeCompare(b));
 };
 
