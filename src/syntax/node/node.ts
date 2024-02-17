@@ -1,5 +1,5 @@
 import { Nothing, String2 } from '../../lib/core';
-import { DeclarationSemantic } from '../../semantic/semantic';
+import { DeclarationSemantic } from '../../semantic/declaration/declaration-semantic';
 import { SourceRange } from '../../source/source-range';
 
 export interface Node {

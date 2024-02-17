@@ -1,5 +1,5 @@
 import { Issue } from '../issue/issue';
-import { DeclarationSemantic } from '../semantic/semantic';
+import { DeclarationSemantic } from '../semantic/declaration/declaration-semantic';
 import { Source } from '../source/source';
 import { Node } from './node/node';
 import { RootNode } from './node/root/root-node';

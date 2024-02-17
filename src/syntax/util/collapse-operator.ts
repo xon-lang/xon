@@ -1,5 +1,7 @@
 import { String2, nothing } from '../../lib/core';
-import { $Semantic, DeclarationSemantic, valueSemantic } from '../../semantic/semantic';
+import { DeclarationSemantic } from '../../semantic/declaration/declaration-semantic';
+import { $Semantic } from '../../semantic/semantic';
+import { valueSemantic } from '../../semantic/value/value-semantic';
 import { IdNode } from '../node/id/id-node';
 import { InfixNode, infixNode } from '../node/infix/infix-node';
 import { InvokeNode } from '../node/invoke/invoke-node';

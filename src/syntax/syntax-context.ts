@@ -1,7 +1,7 @@
 import { Issue, createSyntacticErrorIssue, formatIssue } from '../issue/issue';
 import { IssueMessage } from '../issue/issue-message';
 import { Integer } from '../lib/core';
-import { DeclarationSemantic } from '../semantic/semantic';
+import { DeclarationSemantic } from '../semantic/declaration/declaration-semantic';
 import { Source } from '../source/source';
 import { SourcePosition, sourcePosition } from '../source/source-position';
 import { SourceRange, sourceRange } from '../source/source-range';
