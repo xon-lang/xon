@@ -24,24 +24,20 @@ const OPERATORS = [
 
 export function scanOperatorNode(context: ParserContext): Node | null {
   const { position, source } = context;
-  let operators = OPERATORS.filter((x) => x[0] === source.text[position.index]);
-
-  if (operators.length === 0) {
-    return null;
-  }
-
   const candidates: String2[] = [];
+  let operators = OPERATORS;
 
-  for (let i = position.index; i < source.text.length; i++) {
-    operators = operators.filter((x) => x[i - position.index] === source.text[i]);
-    const candidate = operators.find((x) => x.length === i - position.index + 1);
-
-    if (candidate) {
-      candidates.push(candidate);
-    }
+  for (let i = position.index, j = 0; i < source.text.length; i++, j++) {
+    operators = operators.filter((x) => x[j] === source.text[i]);
 
     if (operators.length === 0) {
       break;
+    }
+
+    const candidate = operators.find((x) => x.length === j + 1);
+
+    if (candidate) {
+      candidates.push(candidate);
     }
   }
 
@@ -49,7 +45,7 @@ export function scanOperatorNode(context: ParserContext): Node | null {
     return null;
   }
 
-  const text = candidates[candidates.length - 1];
+  const text = candidates.last();
   const id = scanIdNode(context);
 
   if (id && id.text.length > text.length) {
