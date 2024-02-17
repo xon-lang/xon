@@ -1,10 +1,11 @@
 import { Nothing, String2 } from '../../lib/core';
-import { DeclarationSemantic } from '../../semantic/declaration/declaration-semantic';
+import { Semantic } from '../../semantic/semantic';
 import { SourceRange } from '../../source/source-range';
 
 export interface Node {
   readonly $: $Node;
   readonly range: SourceRange;
+  semantic?: Semantic;
 }
 
 export interface TokenNode extends Node {
@@ -17,8 +18,8 @@ export interface SyntaxNode extends Node {
 }
 
 export interface StatementNode extends SyntaxNode {
+  // readonly body: StatementNode[];
   parent: StatementNode | Nothing;
-  modelDeclarationSemantic: DeclarationSemantic | null;
 }
 
 export function addNodeParent(parent: SyntaxNode, ...children: (Node | null)[]): void {

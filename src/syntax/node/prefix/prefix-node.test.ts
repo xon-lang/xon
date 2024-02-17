@@ -30,22 +30,22 @@ test('model string', () => {
   const text = 'model String';
   const ast = parse(text);
   const nodes = ast.root.children;
-  const types = ast.declarations;
+  // const types = ast.declarations;
   const node = nodes[0] as PrefixNode;
 
   expect(nodes.length).toBe(1);
   expect(node.$).toBe($Node.PREFIX);
   expect(node.operator.text).toBe('model');
 
-  expect(types.length).toBe(1);
-  expect(types[0].name).toBe('String');
+  // expect(types.length).toBe(1);
+  // expect(types[0].name).toBe('String');
 });
 
 test('model string with base class', () => {
   const text = 'model Array\nmodel String: Array';
   const ast = parse(text);
   const nodes = ast.root.children;
-  const types = ast.declarations;
+  // const types = ast.declarations;
   const node = nodes[1] as InfixNode;
 
   expect(nodes.length).toBe(2);
@@ -55,8 +55,8 @@ test('model string with base class', () => {
   expect(node.left?.$).toBe($Node.PREFIX);
   expect((node.left as PrefixNode).operator.text).toBe('model');
 
-  expect(types.length).toBe(2);
-  expect(types[0].name).toBe('Array');
-  expect(types[1].name).toBe('String');
-  expect(types[1].restriction?.declaration?.name).toBe('Array');
+  // expect(types.length).toBe(2);
+  // expect(types[0].name).toBe('Array');
+  // expect(types[1].name).toBe('String');
+  // expect(types[1].restriction?.declaration?.name).toBe('Array');
 });

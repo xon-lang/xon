@@ -1,5 +1,5 @@
 import { Boolean2, Something } from '../../lib/core';
-import { DeclarationSemantic } from '../declaration/declaration-semantic';
+import { DeclarationSemantic } from '../model/model-semantic';
 import { $Semantic } from '../semantic';
 import { ValueSemantic } from '../value/value-semantic';
 

@@ -1,15 +1,10 @@
-import { String2, nothing } from '../../lib/core';
-import { DeclarationSemantic } from '../../semantic/declaration/declaration-semantic';
-import { $Semantic } from '../../semantic/semantic';
-import { valueSemantic } from '../../semantic/value/value-semantic';
-import { IdNode } from '../node/id/id-node';
-import { InfixNode, infixNode } from '../node/infix/infix-node';
-import { InvokeNode } from '../node/invoke/invoke-node';
+import { String2 } from '../../lib/core';
+import { infixNode } from '../node/infix/infix-node';
 import { $Node, Node } from '../node/node';
 import { OperatorNode } from '../node/operator/operator-node';
 import { postfixNode } from '../node/postfix/postfix-node';
-import { PrefixNode, prefixNode } from '../node/prefix/prefix-node';
-import { MODEL_MODIFIER, OperatorType, RecursiveType, TYPE_TOKEN } from '../syntax-config';
+import { prefixNode } from '../node/prefix/prefix-node';
+import { OperatorType, RecursiveType } from '../syntax-config';
 import { SyntaxContext } from '../syntax-context';
 import { is } from './is';
 
@@ -37,7 +32,7 @@ export function collapseOperator(
     ) {
       const prefix = prefixNode(context, operator, right);
       context.nodes.splice(index, 2, prefix);
-      handlePrefixNode(context, prefix);
+      // handlePrefixNode(context, prefix);
       collapseOperator(context, operators, operatorType, recursiveType);
 
       return;
@@ -64,7 +59,7 @@ export function collapseOperator(
       const infix = infixNode(context, operator, left, right);
       // eslint-disable-next-line no-magic-numbers
       context.nodes.splice(index - 1, 3, infix);
-      handleInfixNode(context, infix);
+      // handleInfixNode(context, infix);
       collapseOperator(context, operators, operatorType, recursiveType);
 
       return;
@@ -72,116 +67,116 @@ export function collapseOperator(
   }
 }
 
-function handlePrefixNode(context: SyntaxContext, node: PrefixNode): void {
-  if (node.operator.text === MODEL_MODIFIER) {
-    if (is<IdNode>(node.value, $Node.ID)) {
-      addModelDeclaration(context, node.value);
+// function handlePrefixNode(context: SyntaxContext, node: PrefixNode): void {
+//   if (node.operator.text === MODEL_MODIFIER) {
+//     if (is<IdNode>(node.value, $Node.ID)) {
+//       addModelDeclaration(context, node.value);
 
-      return;
-    }
+//       return;
+//     }
 
-    if (is<InvokeNode>(node.value, $Node.INVOKE) && is<IdNode>(node.value.instance, $Node.ID)) {
-      addModelDeclaration(context, node.value.instance);
-    }
-  }
-}
+//     if (is<InvokeNode>(node.value, $Node.INVOKE) && is<IdNode>(node.value.instance, $Node.ID)) {
+//       addModelDeclaration(context, node.value.instance);
+//     }
+//   }
+// }
 
-function handleInfixNode(context: SyntaxContext, node: InfixNode): void {
-  if (node.operator.text === TYPE_TOKEN) {
-    if (
-      is<PrefixNode>(node.left, $Node.PREFIX) &&
-      node.left.operator.text === MODEL_MODIFIER &&
-      is<IdNode>(node.left.value, $Node.ID)
-    ) {
-      const name = node.left.value.text;
-      const type = context.declarations.findLast((x) => x.name === name);
+// function handleInfixNode(context: SyntaxContext, node: InfixNode): void {
+//   if (node.operator.text === TYPE_TOKEN) {
+//     if (
+//       is<PrefixNode>(node.left, $Node.PREFIX) &&
+//       node.left.operator.text === MODEL_MODIFIER &&
+//       is<IdNode>(node.left.value, $Node.ID)
+//     ) {
+//       const name = node.left.value.text;
+//       const type = context.declarations.findLast((x) => x.name === name);
 
-      if (!type) {
-        throw new Error('Not implemented');
-      }
+//       if (!type) {
+//         throw new Error('Not implemented');
+//       }
 
-      // : Something
-      if (is<IdNode>(node.right, $Node.ID)) {
-        const baseName = node.right.text;
-        const baseDeclaration = context.declarations.findLast((x) => x.name === baseName);
+//       // : Something
+//       if (is<IdNode>(node.right, $Node.ID)) {
+//         const baseName = node.right.text;
+//         const baseDeclaration = context.declarations.findLast((x) => x.name === baseName);
 
-        if (!baseDeclaration) {
-          throw new Error('Not implemented');
-        }
+//         if (!baseDeclaration) {
+//           throw new Error('Not implemented');
+//         }
 
-        const baseType = valueSemantic(baseDeclaration, []);
+//         const baseType = valueSemantic(baseDeclaration, []);
 
-        if (!baseType) {
-          throw new Error('Not implemented');
-        }
+//         if (!baseType) {
+//           throw new Error('Not implemented');
+//         }
 
-        type.restriction = baseType;
+//         type.restriction = baseType;
 
-        return;
-      }
+//         return;
+//       }
 
-      // : Array{T}
-      if (is<InvokeNode>(node.right, $Node.INVOKE) && is<IdNode>(node.right.instance, $Node.ID)) {
-        const baseName = node.right.instance.text;
-        const baseDeclaration = context.declarations.findLast((x) => x.name === baseName);
+//       // : Array{T}
+//       if (is<InvokeNode>(node.right, $Node.INVOKE) && is<IdNode>(node.right.instance, $Node.ID)) {
+//         const baseName = node.right.instance.text;
+//         const baseDeclaration = context.declarations.findLast((x) => x.name === baseName);
 
-        if (!baseDeclaration) {
-          throw new Error('Not implemented');
-        }
+//         if (!baseDeclaration) {
+//           throw new Error('Not implemented');
+//         }
 
-        const baseType = valueSemantic(baseDeclaration, []);
+//         const baseType = valueSemantic(baseDeclaration, []);
 
-        baseType.arguments = node.right.group.items
-          .filter<IdNode>((x): x is IdNode => is<IdNode>(x, $Node.ID))
-          .map((x) => context.declarations.findLast((t) => t.name === x.text)!)
-          .map((x) => valueSemantic(x, []));
+//         baseType.arguments = node.right.group.items
+//           .filter<IdNode>((x): x is IdNode => is<IdNode>(x, $Node.ID))
+//           .map((x) => context.declarations.findLast((t) => t.name === x.text)!)
+//           .map((x) => valueSemantic(x, []));
 
-        if (baseType.arguments.some((x) => x === null)) {
-          throw new Error('Not implemented');
-        }
+//         if (baseType.arguments.some((x) => x === null)) {
+//           throw new Error('Not implemented');
+//         }
 
-        type.restriction = baseType;
-        type.attributes = mergeAttributes(baseType.declaration, type);
+//         type.restriction = baseType;
+//         type.attributes = mergeAttributes(baseType.declaration, type);
 
-        return;
-      }
-    }
+//         return;
+//       }
+//     }
 
-    // length: Integer
-    if (
-      is<IdNode>(node.left, $Node.ID) &&
-      is<IdNode>(node.right, $Node.ID) &&
-      context.parentStatement.modelDeclarationSemantic
-    ) {
-      const name = node.left.text;
-      const typeName = node.right.text;
-      const type = context.declarations.findLast((x) => x.name === typeName);
+//     // length: Integer
+//     if (
+//       is<IdNode>(node.left, $Node.ID) &&
+//       is<IdNode>(node.right, $Node.ID) &&
+//       context.parentStatement.modelDeclarationSemantic
+//     ) {
+//       const name = node.left.text;
+//       const typeName = node.right.text;
+//       const type = context.declarations.findLast((x) => x.name === typeName);
 
-      if (!type) {
-        throw new Error('Not implemented');
-      }
+//       if (!type) {
+//         throw new Error('Not implemented');
+//       }
 
-      context.parentStatement.modelDeclarationSemantic.attributes[name] = [type];
-    }
-  }
-}
+//       context.parentStatement.modelDeclarationSemantic.attributes[name] = [type];
+//     }
+//   }
+// }
 
-function addModelDeclaration(context: SyntaxContext, idNode: IdNode): void {
-  const declaration: DeclarationSemantic = {
-    $: $Semantic.MODEL,
-    name: idNode.text,
-    source: context.source,
-    position: idNode.range.start,
-    usages: [],
-    restriction: nothing,
-    parameters: [],
-    attributes: {},
-  };
+// function addModelDeclaration(context: SyntaxContext, idNode: IdNode): void {
+//   const declaration: DeclarationSemantic = {
+//     $: $Semantic.MODEL,
+//     name: idNode.text,
+//     source: context.source,
+//     position: idNode.range.start,
+//     usages: [],
+//     restriction: nothing,
+//     parameters: [],
+//     attributes: {},
+//   };
 
-  context.modelDeclarationType = declaration;
-  context.declarations.push(declaration);
-}
+//   context.modelDeclarationType = declaration;
+//   context.declarations.push(declaration);
+// }
 
-function mergeAttributes(base: DeclarationSemantic, type: DeclarationSemantic): Record<String2, DeclarationSemantic[]> {
-  return { ...base.attributes, ...type.attributes };
-}
+// function mergeAttributes(base: DeclarationSemantic, type: DeclarationSemantic): Record<String2, DeclarationSemantic[]> {
+//   return { ...base.attributes, ...type.attributes };
+// }

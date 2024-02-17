@@ -10,10 +10,6 @@ export function putStatementNode(context: SyntaxContext): void {
   const statement = getStatementNode(context);
   statement.parent = context.parentStatement;
 
-  // todo remove it. temp hack
-  statement.modelDeclarationSemantic = context.modelDeclarationType;
-  context.modelDeclarationType = null;
-
   if (context.parentStatement === context.root) {
     context.root.children.push(statement);
   }
