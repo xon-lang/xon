@@ -1,4 +1,3 @@
-import '../../../extensions';
 import { ISSUE_MESSAGE } from '../../../issue/issue-message';
 import { ArrayNode, arrayNode } from '../../../parser/node/array/array-node';
 import { CloseNode } from '../../../parser/node/close/close-node';
@@ -10,6 +9,7 @@ import { ParserContext } from '../../../parser/parser-context';
 import { is } from '../../../parser/util/is';
 import { clonePosition } from '../../../source/source-position';
 import { rangeFromNodes } from '../../../source/source-range';
+import '../../../util/extensions/extensions';
 import {
   ARRAY_NODE_OPEN_CODE,
   GROUP_NODE_OPEN_CODE,

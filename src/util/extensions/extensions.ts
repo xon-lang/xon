@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 /* eslint-disable no-extend-native */
-import { Char, Number2, String2 } from './lib/core';
+import { Number2, String2 } from '../../lib/core';
 
 // Array
 Array.prototype.takeWhile = function takeWhile<T>(
@@ -54,7 +54,7 @@ Array.prototype.removeLast = function <T>(): T[] {
   return this;
 };
 
-Array.prototype.sortStrings = function(): String2[] {
+Array.prototype.sortStrings = function (): String2[] {
   return (this as String2[]).sort((a, b) => a.localeCompare(b));
 };
 
@@ -62,27 +62,3 @@ Array.prototype.sum = function <T>(select: (value: T, index: number, obj: T[]) =
   return this.reduce((sum, val, index, array) => sum + select(val, index, array), 0);
 };
 
-// String
-String.prototype.takeWhile = function takeWhile(
-  predicate: (value: Char, index: number) => unknown,
-  startIndex = 0,
-): String2 {
-  for (let i = startIndex; i < this.length; i++) {
-    if (!predicate(this[i], i)) {
-      return this.slice(startIndex, i);
-    }
-  }
-
-  return this.slice(startIndex, this.length);
-};
-
-String.prototype.margin = function margin(delimiter?: String2): String2 {
-  throw new Error(`Not implemented ${delimiter}`);
-};
-
-String.prototype.toCharCodes = function toCharCodes(): Uint8Array {
-  const utf8Encoder = new TextEncoder();
-
-  return utf8Encoder.encode(this as string);
-  // return Array.from(this).map((x) => x.charCodeAt(0));
-};

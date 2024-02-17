@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/method-signature-style */
-import { Char, Integer, String2 } from './lib/core';
+import { Boolean2, Char, Integer, String2 } from '../../lib/core';
 
 declare global {
   // Array
@@ -23,5 +23,10 @@ declare global {
     takeWhile(predicate: (value: Char, index: number) => unknown, startIndex?: number): String2;
     margin(delimiter?: String2): String2;
     toCharCodes(): Uint8Array;
+    isDigit(index: Integer): Boolean2;
+    isLetter(index: Integer): Boolean2;
+    isUpperLetter(index: Integer): Boolean2;
+    isLowerLetter(index: Integer): Boolean2;
+    isDigitOrLetter(index: Integer): Boolean2;
   }
 }

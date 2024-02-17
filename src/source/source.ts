@@ -2,8 +2,11 @@ import { Integer, String2 } from '../lib/core';
 import { Node } from '../parser/node/node';
 import { ParserContext } from '../parser/parser-context';
 
+import '../util/extensions';
+
 export interface Source {
   location: String2 | null;
+  // todo remove it and use characters
   text: String2;
   characters: Uint8Array;
   length: Integer;
