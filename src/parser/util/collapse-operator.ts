@@ -4,7 +4,7 @@ import { OperatorNode } from '../../parser/node/operator/operator-node';
 import { postfixNode } from '../../parser/node/postfix/postfix-node';
 import { PrefixNode, prefixNode } from '../../parser/node/prefix/prefix-node';
 import { ParserContext } from '../../parser/parser-context';
-import { $DeclarationMeta, DeclarationMeta, valueMeta } from '../meta/meta';
+import { $Meta, DeclarationMeta, valueMeta } from '../meta/meta';
 import { IdNode } from '../node/id/id-node';
 import { InfixNode, infixNode } from '../node/infix/infix-node';
 import { InvokeNode } from '../node/invoke/invoke-node';
@@ -167,7 +167,7 @@ function handleInfixNode(context: ParserContext, node: InfixNode): void {
 
 function addModelDeclaration(context: ParserContext, idNode: IdNode): void {
   const declaration: DeclarationMeta = {
-    $: $DeclarationMeta.MODEL,
+    $: $Meta.MODEL,
     name: idNode.text,
     source: context.source,
     position: idNode.range.start,

@@ -1,4 +1,3 @@
-
 model Anything
 
 model Something: Anything

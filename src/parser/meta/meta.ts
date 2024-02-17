@@ -2,10 +2,11 @@ import { Boolean2, Something, String2 } from '../../lib/core';
 import { Source } from '../../source/source';
 import { SourcePosition } from '../../source/source-position';
 
-export interface Meta {}
+export interface Meta {
+  $: $Meta;
+}
 
 export interface DeclarationMeta extends Meta {
-  $: $DeclarationMeta;
   name: String2;
   source: Source;
   position: SourcePosition;
@@ -29,15 +30,23 @@ export interface LiteralMeta extends ValueMeta {
   value: Something;
 }
 
-export enum $DeclarationMeta {
+export enum $Meta {
+  DECLARATION,
   GENERIC,
   MODEL,
-  LITERAL,
   FUNCTION_PARAMETER,
   LAMBDA_PARAMETER,
   ATTRIBUTE,
   CONSTANT,
   VARIABLE,
+  LITERAL,
+  VALUE,
+  OPERATOR,
+  // KEYWORD,
+}
+
+export function metaIs<T extends Meta = Meta>(meta: { $: $Meta }, type: $Meta): meta is T {
+  return meta.$ === type;
 }
 
 export function valueMeta(declaration: DeclarationMeta, args: ValueMeta[]): ValueMeta {
@@ -46,6 +55,7 @@ export function valueMeta(declaration: DeclarationMeta, args: ValueMeta[]): Valu
   }
 
   return {
+    $: $Meta.VALUE,
     declaration,
     arguments: args,
 
@@ -61,6 +71,7 @@ export function valueMeta(declaration: DeclarationMeta, args: ValueMeta[]): Valu
 
 export function literalMeta(declaration: DeclarationMeta, value: Something): LiteralMeta {
   return {
+    $: $Meta.LITERAL,
     declaration,
     arguments: [],
     value,
