@@ -1,12 +1,12 @@
 import { Issue, createSyntacticErrorIssue, formatIssue } from '../issue/issue';
 import { IssueMessage } from '../issue/issue-message';
 import { Integer } from '../lib/core';
+import { DeclarationMeta } from '../meta/meta';
 import { Node, StatementNode } from '../parser/node/node';
 import { RootNode, rootNode } from '../parser/node/root/root-node';
 import { Source } from '../source/source';
 import { SourcePosition, sourcePosition } from '../source/source-position';
 import { SourceRange, sourceRange } from '../source/source-range';
-import { DeclarationMeta } from './meta/meta';
 import { ParserConfig } from './parser-config';
 
 // todo perhaps should be new instance every time ???

@@ -1,6 +1,6 @@
-import { Boolean2, Something, String2 } from '../../lib/core';
-import { Source } from '../../source/source';
-import { SourcePosition } from '../../source/source-position';
+import { Boolean2, Something, String2 } from '../lib/core';
+import { Source } from '../source/source';
+import { SourcePosition } from '../source/source-position';
 
 export interface Meta {
   $: $Meta;

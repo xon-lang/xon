@@ -1,10 +1,10 @@
 import { String2, nothing } from '../../lib/core';
+import { $Meta, DeclarationMeta, valueMeta } from '../../meta/meta';
 import { Node } from '../../parser/node/node';
 import { OperatorNode } from '../../parser/node/operator/operator-node';
 import { postfixNode } from '../../parser/node/postfix/postfix-node';
 import { PrefixNode, prefixNode } from '../../parser/node/prefix/prefix-node';
 import { ParserContext } from '../../parser/parser-context';
-import { $Meta, DeclarationMeta, valueMeta } from '../meta/meta';
 import { IdNode } from '../node/id/id-node';
 import { InfixNode, infixNode } from '../node/infix/infix-node';
 import { InvokeNode } from '../node/invoke/invoke-node';

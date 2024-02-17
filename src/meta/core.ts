@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
-import { String2 } from '../../lib/core';
-import { parse } from '../parser';
+import { String2 } from '../lib/core';
+import { parse } from '../parser/parser';
 import { DeclarationMeta, ValueMeta, valueMeta } from './meta';
 
 let cachedTypes: Record<String2, DeclarationMeta> | null = null;

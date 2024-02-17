@@ -1,20 +1,16 @@
 import { String2 } from '../../../lib/core';
 import { ParserContext } from '../../../parser/parser-context';
 import { SourceRange } from '../../../source/source-range';
-import { coreDeclarationMeta } from '../../meta/core';
-import { LiteralMeta, literalMeta } from '../../meta/meta';
 import { CHAR_QUOTE } from '../../parser-config';
 import { $Node, TokenNode } from '../node';
 
 export interface CharNode extends TokenNode {
   $: $Node.CHAR;
-  meta: LiteralMeta;
 }
 
 export function charNode(range: SourceRange, text: String2): CharNode {
   return {
     $: $Node.CHAR,
-    meta: literalMeta(coreDeclarationMeta('Char'), text),
     range,
     text,
   };
