@@ -70,7 +70,7 @@ export function scanGroupNode(context: SyntaxContext): Group | null {
   const items: Node[] = [];
 
   while (context.position.index < context.source.text.length) {
-    const { context: groupContext } = parseUntil(
+    const { syntaxContext: groupContext } = parseUntil(
       context.source,
       context.position,
       (node) =>

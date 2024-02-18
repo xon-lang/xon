@@ -109,7 +109,7 @@ export function parseUntil(
 
   return {
     ...context,
-    context,
+    syntaxContext: context,
   };
 }
 

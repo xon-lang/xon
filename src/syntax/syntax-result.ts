@@ -11,5 +11,5 @@ export interface SyntaxResult {
   issues: Issue[];
   root: RootNode;
   config: SyntaxConfig;
-  context: SyntaxContext;
+  syntaxContext: SyntaxContext;
 }

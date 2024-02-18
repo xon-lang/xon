@@ -5,7 +5,7 @@ import { SourceRange } from '../../source/source-range';
 export interface Node {
   readonly $: $Node;
   readonly range: SourceRange;
-  semantic?: Semantic;
+  semantic?: Semantic | Nothing;
 }
 
 export interface TokenNode extends Node {
@@ -18,7 +18,7 @@ export interface SyntaxNode extends Node {
 }
 
 export interface StatementNode extends SyntaxNode {
-  // readonly body: StatementNode[];
+  body: StatementNode[];
   parent: StatementNode | Nothing;
 }
 

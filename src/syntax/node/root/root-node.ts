@@ -10,7 +10,9 @@ export function rootNode(): RootNode {
   return {
     $: $Node.ROOT,
     range: zeroRange(),
+    semantic: nothing,
     parent: nothing,
     children: [],
+    body: [],
   };
 }

@@ -5,13 +5,22 @@ import { SyntaxContext } from '../syntax-context';
 import { getStatementNode } from './get-syntactic-node';
 import { is } from './is';
 
+// todo needs for refactoring
 export function putStatementNode(context: SyntaxContext): void {
-  context.parentStatement = getParent(context);
+  const parent = getParent(context);
   const statement = getStatementNode(context);
-  statement.parent = context.parentStatement;
 
-  if (context.parentStatement === context.root) {
-    context.root.children.push(statement);
+  statement.parent = context.parentStatement;
+  context.parentStatement = parent;
+
+  if (!parent.body) {
+    parent.body = [];
+  }
+
+  parent.body.push(statement);
+
+  if (parent === context.root) {
+    context.root.body.push(statement);
   }
 
   context.previousStatement = statement;

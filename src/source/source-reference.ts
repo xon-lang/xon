@@ -5,3 +5,10 @@ export interface SourceReference {
   source: Source;
   position: SourcePosition;
 }
+
+export function sourceReference(source: Source, position: SourcePosition): SourceReference {
+  return {
+    source,
+    position,
+  };
+}
