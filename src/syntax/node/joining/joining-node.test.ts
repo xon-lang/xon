@@ -7,7 +7,7 @@ import { JoiningNode } from './joining-node';
 
 test('no space', () => {
   const text = 'abc\\.def';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
   const member = nodes[0] as InfixNode;
 
   expect(nodes.length).toBe(1);
@@ -20,7 +20,7 @@ test('no space', () => {
 
 test('spaces', () => {
   const text = 'abc\\  .def';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
   const member = nodes[0] as InfixNode;
 
   expect(nodes.length).toBe(1);
@@ -34,7 +34,7 @@ test('spaces', () => {
 test('with new line', () => {
   const text = 'abc\\   \n  .def';
   const context = parse(text);
-  const nodes = context.root.children;
+  const nodes = context.statements.map((x) => x.item);
   const member = nodes[0] as InfixNode;
   const hidden = context.hidden[0] as JoiningNode;
 

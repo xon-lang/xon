@@ -1,11 +1,11 @@
 import { Issue, createSyntacticErrorIssue, formatIssue } from '../issue/issue';
 import { IssueMessage } from '../issue/issue-message';
-import { Integer } from '../lib/core';
+import { Integer, Nothing, nothing } from '../lib/core';
 import { Source } from '../source/source';
 import { SourcePosition, sourcePosition } from '../source/source-position';
 import { SourceRange, sourceRange } from '../source/source-range';
-import { Node, StatementNode } from './node/node';
-import { RootNode, rootNode } from './node/root/root-node';
+import { Node } from './node/node';
+import { StatementNode } from './node/statement/statement-node';
 import { SyntaxConfig } from './syntax-config';
 
 // todo perhaps should be new instance every time ???
@@ -15,10 +15,10 @@ export interface SyntaxContext {
   hidden: Node[];
   issues: Issue[];
   breakNode: Node | null;
-  parentStatement: StatementNode;
+  parentStatement: StatementNode | Nothing;
   nodes: Node[];
   previousStatement: StatementNode | null;
-  root: RootNode;
+  statements: StatementNode[];
   config: SyntaxConfig;
   getRange: (length: Integer) => SourceRange;
   addErrorIssue: (node: Node, message: IssueMessage) => Issue;
@@ -30,11 +30,11 @@ export function syntaxContext(source: Source, position: SourcePosition, config: 
     position,
     hidden: [],
     issues: [],
-    parentStatement: rootNode(),
+    parentStatement: nothing,
     nodes: [],
     previousStatement: null,
     breakNode: null,
-    root: rootNode(),
+    statements: [],
     config,
     getRange(length: Integer): SourceRange {
       const { index, line, column } = this.position;

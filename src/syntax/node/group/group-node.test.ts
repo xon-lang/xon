@@ -7,7 +7,7 @@ import { GroupNode } from './group-node';
 
 test('empty closed', () => {
   const text = '()';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
 
@@ -21,7 +21,7 @@ test('empty closed', () => {
 test('validate close pair', () => {
   const text = '(';
   const ast = parse(text);
-  const nodes = ast.root.children;
+  const nodes = ast.statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
 

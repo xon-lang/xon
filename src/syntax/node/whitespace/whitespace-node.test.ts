@@ -2,7 +2,7 @@ import { parse } from '../../syntax';
 
 test('whitespace', () => {
   const text = '    ';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(0);
   // expect(statements[0].hidden.length).toBe(1);

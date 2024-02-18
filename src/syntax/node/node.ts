@@ -17,11 +17,6 @@ export interface SyntaxNode extends Node {
   readonly children: Node[];
 }
 
-export interface StatementNode extends SyntaxNode {
-  body: StatementNode[];
-  parent: StatementNode | Nothing;
-}
-
 export function addNodeParent(parent: SyntaxNode, ...children: (Node | null)[]): void {
   for (const node of children) {
     if (!node) {
@@ -68,5 +63,6 @@ export enum $Node {
   POSTFIX = 'POSTFIX',
   PREFIX = 'PREFIX',
 
+  STATEMENT = 'STATEMENT',
   UNKNOWN = 'UNKNOWN',
 }

@@ -7,7 +7,7 @@ import { $Node } from '../node';
 
 test('empty object', () => {
   const text = '{}';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
   const tree = nodes[0];
 
   expect(nodes.length).toBe(1);
@@ -17,7 +17,7 @@ test('empty object', () => {
 
 test('single item', () => {
   const text = '[123 456]';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
 
@@ -29,7 +29,7 @@ test('single item', () => {
 
 test('single comma', () => {
   const text = '[,]';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
 
@@ -42,7 +42,7 @@ test('single comma', () => {
 
 test('empty not closed', () => {
   const text = '[';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
 
@@ -55,7 +55,7 @@ test('empty not closed', () => {
 
 test('inner group', () => {
   const text = '[()]';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
 
@@ -70,7 +70,7 @@ test('inner group', () => {
 
 test('inner empty group', () => {
   const text = '[[[]]]';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
 
@@ -89,7 +89,7 @@ test('inner empty group', () => {
 
 test('two integers no comma and ws at the end', () => {
   const text = '[1, 2]';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
 
@@ -102,7 +102,7 @@ test('two integers no comma and ws at the end', () => {
 
 test('two integers and comma no ws at the end', () => {
   const text = '[1, 2,]';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
 
@@ -115,7 +115,7 @@ test('two integers and comma no ws at the end', () => {
 
 test('two integers and comma and ws', () => {
   const text = '[1, 2, ]';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
 
@@ -132,7 +132,7 @@ test('array on several lines', () => {
                 3,
      4,    6+6]`;
   const context = parse(text);
-  const nodes = context.root.children;
+  const nodes = context.statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
 
@@ -145,7 +145,7 @@ test('array on several lines', () => {
 
 test('debug 1', () => {
   const text = '[1, , 2 ]';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
 

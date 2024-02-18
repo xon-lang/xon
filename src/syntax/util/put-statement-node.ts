@@ -1,38 +1,24 @@
-import { Integer } from '../../lib/core';
-import { $Node, StatementNode } from '../node/node';
-import { RootNode } from '../node/root/root-node';
+import { Integer, Nothing, nothing } from '../../lib/core';
+import { StatementNode } from '../node/statement/statement-node';
 import { SyntaxContext } from '../syntax-context';
 import { getStatementNode } from './get-syntactic-node';
-import { is } from './is';
 
-// todo needs for refactoring
 export function putStatementNode(context: SyntaxContext): void {
   const parent = getParent(context);
-  const statement = getStatementNode(context);
-
-  statement.parent = context.parentStatement;
   context.parentStatement = parent;
 
-  if (!parent.body) {
-    parent.body = [];
-  }
-
-  parent.body.push(statement);
-
-  if (parent === context.root) {
-    context.root.body.push(statement);
-  }
-
+  const statement = getStatementNode(context, parent);
   context.previousStatement = statement;
 }
 
-function getParent(context: SyntaxContext): StatementNode {
-  const { nodes, previousStatement, root } = context;
-  const indent = nodes[0].range.start.column;
+function getParent(context: SyntaxContext): StatementNode | Nothing {
+  const { nodes, previousStatement } = context;
 
   if (!previousStatement) {
-    return root;
+    return nothing;
   }
+
+  const indent = nodes[0].range.start.column;
 
   if (indent > previousStatement.range.start.column) {
     return previousStatement;
@@ -41,18 +27,14 @@ function getParent(context: SyntaxContext): StatementNode {
   return findParentStatementWithLessIndent(previousStatement, indent);
 }
 
-function findParentStatementWithLessIndent(node: StatementNode, indent: Integer): StatementNode {
+function findParentStatementWithLessIndent(node: StatementNode, indent: Integer): StatementNode | Nothing {
   if (!node.parent) {
-    throw new Error('Not implemented');
-  }
-
-  if (is<RootNode>(node.parent, $Node.ROOT)) {
-    return node.parent;
+    return nothing;
   }
 
   if (node.parent.range.start.column < indent) {
     return node.parent!;
   }
 
-  return findParentStatementWithLessIndent(node.parent!, indent);
+  return findParentStatementWithLessIndent(node.parent, indent);
 }

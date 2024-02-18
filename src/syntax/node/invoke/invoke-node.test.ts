@@ -8,7 +8,7 @@ import { InvokeNode } from './invoke-node';
 
 test('method call', () => {
   const text = "f(3, 'str')";
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe($Node.INVOKE);
@@ -24,7 +24,7 @@ test('method on several lines', () => {
   const text = `f[3,
         'str', 123, 
     415]`;
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe($Node.INVOKE);
@@ -38,7 +38,7 @@ test('method on several lines', () => {
 
 test('can call with type parameter', () => {
   const text = 'a.get [1]';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe($Node.INVOKE);
@@ -53,7 +53,7 @@ test('can call with type parameter', () => {
 
 test('object method', () => {
   const text = '{a, b}.call()';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe($Node.INVOKE);
@@ -70,7 +70,7 @@ test('object method', () => {
 
 test('generics', () => {
   const text = 'Animal{T}';
-  const nodes = parse(text).root.children;
+  const nodes = parse(text).statements.map((x) => x.item);
   const node = nodes[0] as InvokeNode;
 
   expect(node.$).toBe($Node.INVOKE);

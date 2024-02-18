@@ -58,44 +58,46 @@ export function validateGroupNode(context: SyntaxContext, node: GroupNode): void
 }
 
 export function scanGroupNode(context: SyntaxContext): Group | null {
+  const { source, position } = context;
   const open = scanOpenNode(context);
 
   if (!is<OpenNode>(open, $Node.OPEN)) {
     return null;
   }
 
-  context.position.column = open.range.stop.column + 1;
-  context.position.index = open.range.stop.index + 1;
+  position.column = open.range.stop.column + 1;
+  position.index = open.range.stop.index + 1;
 
   const items: Node[] = [];
 
-  while (context.position.index < context.source.text.length) {
-    const { syntaxContext: groupContext } = parseUntil(
-      context.source,
-      context.position,
+  while (position.index < source.text.length) {
+    const { syntaxContext: itemContext } = parseUntil(
+      source,
+      position,
       (node) =>
         is<CommaNode>(node, $Node.COMMA) ||
         (is<CloseNode>(node, $Node.CLOSE) && node.text.charCodeAt(0) === OPEN_CLOSE_PAIR[open.text.charCodeAt(0)]),
     );
 
-    context.position = clonePosition(groupContext.position);
+    // todo remove clone
+    context.position = clonePosition(itemContext.position);
 
-    if (is<CommaNode>(groupContext.breakNode, $Node.COMMA)) {
-      context.hidden.push(groupContext.breakNode);
+    if (is<CommaNode>(itemContext.breakNode, $Node.COMMA)) {
+      context.hidden.push(itemContext.breakNode);
 
-      if (groupContext.nodes.length > 0) {
-        items.push(groupContext.root.children[0]);
+      if (itemContext.nodes.length > 0) {
+        items.push(itemContext.statements[0].item);
       }
 
       continue;
     }
 
-    if (is<CloseNode>(groupContext.breakNode, $Node.CLOSE)) {
-      if (groupContext.nodes.length > 0) {
-        items.push(groupContext.root.children[0]);
+    if (is<CloseNode>(itemContext.breakNode, $Node.CLOSE)) {
+      if (itemContext.nodes.length > 0) {
+        items.push(itemContext.statements[0].item);
       }
 
-      return createGroupNode(context, open, groupContext.breakNode, items);
+      return createGroupNode(context, open, itemContext.breakNode, items);
     }
   }
 

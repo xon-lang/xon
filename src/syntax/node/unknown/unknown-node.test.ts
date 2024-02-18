@@ -3,7 +3,7 @@ import { TokenNode } from '../node';
 
 test('unknown 1', () => {
   const text = '123 §•∞•456';
-  const nodes = parse(text).root.children as TokenNode[];
+  const nodes = parse(text).statements.map((x) => x.item) as TokenNode[];
 
   expect(nodes.length).toBe(1);
   // expect(nodes[1].text).toBe('§');
@@ -14,7 +14,7 @@ test('unknown 1', () => {
 test('unknown 2', () => {
   const text = 'ºª¶';
   const context = parse(text);
-  const nodes = context.root.children;
+  const nodes = context.statements.map((x) => x.item);
 
   expect(nodes.length).toBe(0);
   expect(context.issues.length).toBe(3);
