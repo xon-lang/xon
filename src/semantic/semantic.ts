@@ -1,12 +1,8 @@
-import { String2, nothing } from '../lib/core';
-import { SourceReference, sourceReference } from '../source/source-reference';
-import { IdNode } from '../syntax/node/id/id-node';
-import { $Node, StatementNode } from '../syntax/node/node';
-import { PrefixNode } from '../syntax/node/prefix/prefix-node';
-import { MODEL_MODIFIER } from '../syntax/syntax-config';
+import { Nothing, String2 } from '../lib/core';
+import { SourceReference } from '../source/source-reference';
+import { StatementNode } from '../syntax/node/statement/statement-node';
 import { SyntaxResult } from '../syntax/syntax-result';
-import { is } from '../syntax/util/is';
-import { modelDeclarationSemantic } from './model/model-semantic';
+import { parseModelDeclaration } from './model/model-semantic-parser';
 import { SemanticContext } from './semantic-context';
 
 export interface Semantic {
@@ -62,28 +58,24 @@ export function parse(syntax: SyntaxResult): void {
     source: syntax.source,
     hidden: syntax.hidden,
     issues: syntax.issues,
-    statements: syntax.root.body,
+    statements: syntax.statements,
   };
 
   for (const statement of context.statements) {
-    if (is<PrefixNode>(statement, $Node.PREFIX)) {
-      parseStatement(context, statement);
-    }
+    parseStatement(context, statement);
   }
 }
+
+type StatementScanFn = (context: SemanticContext, statement: StatementNode) => Semantic | Nothing;
+
+const scanFunctions: StatementScanFn[] = [parseModelDeclaration];
 
 export function parseStatement(context: SemanticContext, statement: StatementNode): void {
-  
-}
-
-export function parsePrefix(syntax: SyntaxResult, node: PrefixNode): void {
-  if (node.operator.text === MODEL_MODIFIER && is<IdNode>(node.value, $Node.ID)) {
-    const reference = sourceReference(syntax.source, node.value.range.start);
-    const name = node.value.text;
-    const generics = [];
-    const base = nothing;
-    const attributes = {};
-
-    node.semantic = modelDeclarationSemantic(reference, name, generics, base, attributes);
+  for (const scan of scanFunctions) {
+    if (scan(context, statement)) {
+      return;
+    }
   }
+
+  throw new Error('Not implemented');
 }

@@ -22,7 +22,7 @@ export function modelDeclarationSemantic(
   reference: SourceReference,
   name: String2,
   generics: GenericDeclarationSemantic[],
-  base: ModelValueSemantic | Nothing,
+  base: ValueSemantic | Nothing,
   attributes: Record<String2, MethodDeclarationSemantic[]>,
 ): ModelDeclarationSemantic {
   return {
