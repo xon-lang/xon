@@ -81,7 +81,7 @@ export function parseValueSemantic(context: SemanticContext, node: Node | Nothin
   if (is<IdNode>(node, $Node.ID)) {
     const declarations = context.findDeclarations(node.text);
 
-    if (declarations.length > 1) {
+    if (declarations.length !== 1) {
       throw new Error('Not implemented');
     }
 

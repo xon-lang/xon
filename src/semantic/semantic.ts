@@ -3,7 +3,7 @@ import { SourceReference } from '../source/source-reference';
 import { StatementNode } from '../syntax/node/statement/statement-node';
 import { SyntaxResult } from '../syntax/syntax-result';
 import { parseModelDeclaration } from './model/model-semantic-parser';
-import { SemanticContext } from './semantic-context';
+import { SemanticContext, semanticContext } from './semantic-context';
 
 export interface Semantic {
   $: $Semantic;
@@ -49,21 +49,21 @@ export enum $Semantic {
   KEYWORD,
 }
 
-export function semanticIs<T extends Semantic = Semantic>(semantic: { $: $Semantic }, type: $Semantic): semantic is T {
-  return semantic.$ === type;
+export function semanticIs<T extends Semantic = Semantic>(
+  semantic: { $: $Semantic } | Nothing,
+  type: $Semantic,
+): semantic is T {
+  return semantic?.$ === type;
 }
 
-export function parse(syntax: SyntaxResult): void {
-  const context: SemanticContext = {
-    source: syntax.source,
-    hidden: syntax.hidden,
-    issues: syntax.issues,
-    statements: syntax.statements,
-  };
+export function parseSemantic(syntax: SyntaxResult): SemanticContext {
+  const context = semanticContext(null, syntax.source);
 
-  for (const statement of context.statements) {
+  for (const statement of syntax.statements) {
     parseStatement(context, statement);
   }
+
+  return context;
 }
 
 type StatementScanFn = (context: SemanticContext, statement: StatementNode) => Semantic | Nothing;

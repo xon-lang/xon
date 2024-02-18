@@ -1,9 +1,47 @@
-// test('a', () => {
-//   const text = "model A";
-//   const syntax = parse(text)
-//   const semantics = parse;
+import { parseSyntax } from '../../syntax/syntax';
+import { $Semantic, parseSemantic } from '../semantic';
+import { ModelDeclarationSemantic } from './model-semantic';
 
-//   expect(nodes.length).toBe(1);
-//   expect(tree.$).toBe($Node.CHAR);
-//   expect(tree.text).toBe(text);
-// });
+test('only a', () => {
+  const text = 'model A';
+  const syntax = parseSyntax(text);
+  const semantic = parseSemantic(syntax);
+
+  expect(Object.keys(semantic.declarations).length).toBe(1);
+  expect(semantic.declarations.A[0].$).toBe($Semantic.MODEL_DECLARATION);
+  expect(semantic.declarations.A[0].name).toBe('A');
+});
+
+test('declare b then a, a extends b', () => {
+  const text = 'model B\nmodel A: B';
+  const syntax = parseSyntax(text);
+  const semantic = parseSemantic(syntax);
+
+  expect(Object.keys(semantic.declarations).length).toBe(2);
+
+  const aDeclaration = semantic.declarations.A[0] as ModelDeclarationSemantic;
+  expect(aDeclaration.$).toBe($Semantic.MODEL_DECLARATION);
+  expect(aDeclaration.name).toBe('A');
+  expect(aDeclaration.base?.declaration.name).toBe('B');
+
+  const bDeclaration = semantic.declarations.B[0] as ModelDeclarationSemantic;
+  expect(bDeclaration.$).toBe($Semantic.MODEL_DECLARATION);
+  expect(bDeclaration.name).toBe('B');
+});
+
+test('declare a then b, a extends b', () => {
+  const text = 'model A: B\nmodel B';
+  const syntax = parseSyntax(text);
+  const semantic = parseSemantic(syntax);
+
+  expect(Object.keys(semantic.declarations).length).toBe(2);
+
+  const aDeclaration = semantic.declarations.A[0] as ModelDeclarationSemantic;
+  expect(aDeclaration.$).toBe($Semantic.MODEL_DECLARATION);
+  expect(aDeclaration.name).toBe('A');
+  expect(aDeclaration.base?.declaration.name).toBe('B');
+
+  const bDeclaration = semantic.declarations.B[0] as ModelDeclarationSemantic;
+  expect(bDeclaration.$).toBe($Semantic.MODEL_DECLARATION);
+  expect(bDeclaration.name).toBe('B');
+});
