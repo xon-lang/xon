@@ -1,4 +1,4 @@
-import { parse } from '../../syntax';
+import { parseSyntax } from '../../syntax';
 import { InfixNode } from '../infix/infix-node';
 import { $Node } from '../node';
 import { PostfixNode } from '../postfix/postfix-node';
@@ -16,7 +16,7 @@ import { PostfixNode } from '../postfix/postfix-node';
 
 test('after integer', () => {
   const text = '1!';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
   const tree = nodes[0] as PostfixNode;
 
   expect(tree.$).toBe($Node.POSTFIX);
@@ -25,7 +25,7 @@ test('after integer', () => {
 
 test('x + x', () => {
   const text = 'x is Number';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
   const tree = nodes[0] as InfixNode;
 
   expect(tree.$).toBe($Node.INFIX);

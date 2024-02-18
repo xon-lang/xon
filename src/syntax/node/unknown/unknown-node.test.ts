@@ -1,9 +1,9 @@
-import { parse } from '../../syntax';
+import { parseSyntax } from '../../syntax';
 import { TokenNode } from '../node';
 
 test('unknown 1', () => {
   const text = '123 §•∞•456';
-  const nodes = parse(text).statements.map((x) => x.item) as TokenNode[];
+  const nodes = parseSyntax(text).statements.map((x) => x.item) as TokenNode[];
 
   expect(nodes.length).toBe(1);
   // expect(nodes[1].text).toBe('§');
@@ -13,7 +13,7 @@ test('unknown 1', () => {
 
 test('unknown 2', () => {
   const text = 'ºª¶';
-  const context = parse(text);
+  const context = parseSyntax(text);
   const nodes = context.statements.map((x) => x.item);
 
   expect(nodes.length).toBe(0);

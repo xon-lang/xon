@@ -1,4 +1,4 @@
-import { parse } from '../../syntax';
+import { parseSyntax } from '../../syntax';
 import { IdNode } from '../id/id-node';
 import { InfixNode } from '../infix/infix-node';
 import { $Node } from '../node';
@@ -7,7 +7,7 @@ import { JoiningNode } from './joining-node';
 
 test('no space', () => {
   const text = 'abc\\.def';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
   const member = nodes[0] as InfixNode;
 
   expect(nodes.length).toBe(1);
@@ -20,7 +20,7 @@ test('no space', () => {
 
 test('spaces', () => {
   const text = 'abc\\  .def';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
   const member = nodes[0] as InfixNode;
 
   expect(nodes.length).toBe(1);
@@ -33,7 +33,7 @@ test('spaces', () => {
 
 test('with new line', () => {
   const text = 'abc\\   \n  .def';
-  const context = parse(text);
+  const context = parseSyntax(text);
   const nodes = context.statements.map((x) => x.item);
   const member = nodes[0] as InfixNode;
   const hidden = context.hidden[0] as JoiningNode;

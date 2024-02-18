@@ -1,5 +1,5 @@
 import { ISSUE_MESSAGE } from '../../../issue/issue-message';
-import { parse } from '../../syntax';
+import { parseSyntax } from '../../syntax';
 import { OPEN_CLOSE_PAIR } from '../../syntax-config';
 import { is } from '../../util/is';
 import { $Node } from '../node';
@@ -7,7 +7,7 @@ import { GroupNode } from './group-node';
 
 test('empty closed', () => {
   const text = '()';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
 
@@ -20,7 +20,7 @@ test('empty closed', () => {
 
 test('validate close pair', () => {
   const text = '(';
-  const ast = parse(text);
+  const ast = parseSyntax(text);
   const nodes = ast.statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);

@@ -1,10 +1,10 @@
-import { parse } from '../../syntax';
+import { parseSyntax } from '../../syntax';
 import { GroupNode } from '../group/group-node';
 import { $Node } from '../node';
 
 test('open paren', () => {
   const text = '(';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe($Node.GROUP);
@@ -15,7 +15,7 @@ test('open paren', () => {
 
 test('open bracket', () => {
   const text = '[';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe($Node.ARRAY);
@@ -26,7 +26,7 @@ test('open bracket', () => {
 
 test('open brace', () => {
   const text = '{';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe($Node.OBJECT);

@@ -1,12 +1,12 @@
 import { evaluate } from '../../../util/evaluate';
-import { parse } from '../../syntax';
+import { parseSyntax } from '../../syntax';
 import { InfixNode } from '../infix/infix-node';
 import { $Node } from '../node';
 import { PrefixNode } from './prefix-node';
 
 test('negative integer', () => {
   const text = '-1';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
   const node = nodes[0] as PrefixNode;
 
   expect(node.$).toBe($Node.PREFIX);
@@ -16,7 +16,7 @@ test('negative integer', () => {
 
 test('infix modifier', () => {
   const text = 'infix';
-  const ast = parse(text);
+  const ast = parseSyntax(text);
   const nodes = ast.statements.map((x) => x.item);
   const node = nodes[0] as PrefixNode;
 
@@ -28,7 +28,7 @@ test('infix modifier', () => {
 
 test('model string', () => {
   const text = 'model String';
-  const ast = parse(text);
+  const ast = parseSyntax(text);
   const nodes = ast.statements.map((x) => x.item);
   // const types = ast.declarations;
   const node = nodes[0] as PrefixNode;
@@ -43,7 +43,7 @@ test('model string', () => {
 
 test('model string with base class', () => {
   const text = 'model Array\nmodel String: Array';
-  const ast = parse(text);
+  const ast = parseSyntax(text);
   const nodes = ast.statements.map((x) => x.item);
   // const types = ast.declarations;
   const node = nodes[1] as InfixNode;

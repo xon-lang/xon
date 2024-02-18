@@ -1,5 +1,5 @@
 import { evaluate } from '../../../util/evaluate';
-import { parse } from '../../syntax';
+import { parseSyntax } from '../../syntax';
 import { GroupNode } from '../group/group-node';
 import { IdNode } from '../id/id-node';
 import { IntegerNode } from '../integer/integer-node';
@@ -9,7 +9,7 @@ import { InfixNode } from './infix-node';
 
 test('infix operator', () => {
   const text = 'abc.def';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe($Node.INFIX);
@@ -20,7 +20,7 @@ test('infix operator', () => {
 
 test('several operands with different priorities', () => {
   const text = '1*1+1+2^5*2/2';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe($Node.INFIX);
@@ -66,7 +66,7 @@ test('several operands with different priorities', () => {
 
 test('num plus str', () => {
   const text = '1  + "str"';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe($Node.INFIX);
@@ -76,7 +76,7 @@ test('num plus str', () => {
 
 test('num is number', () => {
   const text = '1 & Number';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe($Node.INFIX);
@@ -87,7 +87,7 @@ test('num is number', () => {
 
 test('equals', () => {
   const text = 'this.text == 123';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe($Node.INFIX);
@@ -97,7 +97,7 @@ test('equals', () => {
 
 test('has several relational operators', () => {
   const text = 'a<b>c';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe($Node.INFIX);
@@ -114,7 +114,7 @@ test('has several relational operators', () => {
 
 test('several operators', () => {
   const text = '1 /+ 2';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
   const node = nodes[0] as InfixNode;
 
   expect(node.$).toBe($Node.INFIX);
@@ -129,7 +129,7 @@ test('several operators', () => {
 
 test('has argument', () => {
   const text = '(x) = x + 42';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
   const tree = nodes[0] as InfixNode;
 
   expect(tree.$).toBe($Node.INFIX);
@@ -145,7 +145,7 @@ test('has argument', () => {
 
 test('two parameter', () => {
   const text = '(a, b) = a+b';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
   const tree = nodes[0] as InfixNode;
 
   expect(tree.$).toBe($Node.INFIX);

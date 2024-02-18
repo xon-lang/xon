@@ -1,10 +1,10 @@
 import { ISSUE_MESSAGE } from '../../../issue/issue-message';
-import { parse } from '../../syntax';
+import { parseSyntax } from '../../syntax';
 import { $Node, TokenNode } from '../node';
 
 test('single id', () => {
   const text = 'abc';
-  const nodes = parse(text).statements.map((x) => x.item) as TokenNode[];
+  const nodes = parseSyntax(text).statements.map((x) => x.item) as TokenNode[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].text).toBe('abc');
@@ -13,8 +13,8 @@ test('single id', () => {
 
 test('several id', () => {
   const text = 'abc edf_    _ghi1_23';
-  const context = parse(text);
-  const nodes = parse(text).statements.map((x) => x.item) as TokenNode[];
+  const context = parseSyntax(text);
+  const nodes = parseSyntax(text).statements.map((x) => x.item) as TokenNode[];
 
   // todo check other 2 error nodes
   expect(nodes.length).toBe(1);

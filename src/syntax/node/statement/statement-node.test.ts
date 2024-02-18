@@ -1,10 +1,10 @@
-import { parse } from '../../syntax';
+import { parseSyntax } from '../../syntax';
 import { $Node, TokenNode } from '../node';
 import { StringNode } from '../string/string-node';
 
 test('a', () => {
   const text = "'a'";
-  const nodes = parse(text).statements.map((x) => x.item) as TokenNode[];
+  const nodes = parseSyntax(text).statements.map((x) => x.item) as TokenNode[];
   const tree = nodes[0] as StringNode;
 
   expect(nodes.length).toBe(1);

@@ -2,7 +2,7 @@ import { ISSUE_MESSAGE } from '../../../issue/issue-message';
 import { clonePosition } from '../../../source/source-position';
 import { rangeFromNodes } from '../../../source/source-range';
 import '../../../util/extension';
-import { parseUntil } from '../../syntax';
+import { parseSyntaxUntil } from '../../syntax';
 import {
   ARRAY_NODE_OPEN_CODE,
   GROUP_NODE_OPEN_CODE,
@@ -71,7 +71,7 @@ export function scanGroupNode(context: SyntaxContext): Group | null {
   const items: Node[] = [];
 
   while (position.index < source.text.length) {
-    const { syntaxContext: itemContext } = parseUntil(
+    const { syntaxContext: itemContext } = parseSyntaxUntil(
       source,
       position,
       (node) =>

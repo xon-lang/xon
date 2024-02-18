@@ -1,11 +1,11 @@
-import { parse } from '../syntax';
+import { parseSyntax } from '../syntax';
 import { InfixNode } from './infix/infix-node';
 import { IntegerNode } from './integer/integer-node';
 import { $Node, TokenNode } from './node';
 
 test('comma', () => {
   const text = '1';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
   const tree = nodes[0] as IntegerNode;
 
   expect(nodes.length).toBe(1);
@@ -15,7 +15,7 @@ test('comma', () => {
 
 test('single expression', () => {
   const text = '\n  a = 1';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
 
@@ -27,7 +27,7 @@ test('single expression', () => {
 
 test('debug 1', () => {
   const text = 'a = 1\n b = 2\n +b';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe($Node.INFIX);
@@ -39,7 +39,7 @@ test('debug 1', () => {
 
 test('debug 2', () => {
   const text = 'a = 1\nb = 2\n';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(2);
   expect(nodes[0].$).toBe($Node.INFIX);
@@ -50,7 +50,7 @@ test('debug 3', () => {
   const text = `a
  b
 c`.trim();
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(2);
   expect(nodes[0].$).toBe($Node.ID);
@@ -59,7 +59,7 @@ c`.trim();
 
 test('debug 4', () => {
   const text = 'a\n b\n b';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
   // todo fix it
@@ -68,7 +68,7 @@ test('debug 4', () => {
 
 test('multiple expression', () => {
   const text = '\n  x = 1\n  y = 2\n  z = 3';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(3);
 });

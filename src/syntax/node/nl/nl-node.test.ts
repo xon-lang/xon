@@ -1,9 +1,9 @@
-import { parse } from '../../syntax';
+import { parseSyntax } from '../../syntax';
 import { TokenNode } from '../node';
 
 test('lf cr', () => {
   const text = '\n\r';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(0);
   // expect(nodes[0].hidden?.first().$).toBe(NodeType.NL);
@@ -17,7 +17,7 @@ test('lf cr', () => {
 
 test('several', () => {
   const text = '  \n    \r\nabc';
-  const nodes = parse(text).statements.map((x) => x.item);
+  const nodes = parseSyntax(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
   // expect(nodes[0].hidden?.length).toBe(2);

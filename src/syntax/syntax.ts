@@ -39,13 +39,13 @@ const scanFunctions: SyntaxScanFn[] = [
   scanUnknownNode,
 ];
 
-export function parse(text: String2, config?: Partial<SyntaxConfig>): SyntaxResult {
+export function parseSyntax(text: String2, config?: Partial<SyntaxConfig>): SyntaxResult {
   const source = createSource(null, text);
 
-  return parseUntil(source, zeroPosition(), null, config);
+  return parseSyntaxUntil(source, zeroPosition(), null, config);
 }
 
-export function parseUntil(
+export function parseSyntaxUntil(
   source: Source,
   startPosition: SourcePosition,
   breakOnNodeFn: ((node: Node) => Boolean2) | null,
