@@ -67,20 +67,6 @@ export function collapseOperator(
   }
 }
 
-// function handlePrefixNode(context: SyntaxContext, node: PrefixNode): void {
-//   if (node.operator.text === MODEL_MODIFIER) {
-//     if (is<IdNode>(node.value, $Node.ID)) {
-//       addModelDeclaration(context, node.value);
-
-//       return;
-//     }
-
-//     if (is<InvokeNode>(node.value, $Node.INVOKE) && is<IdNode>(node.value.instance, $Node.ID)) {
-//       addModelDeclaration(context, node.value.instance);
-//     }
-//   }
-// }
-
 // function handleInfixNode(context: SyntaxContext, node: InfixNode): void {
 //   if (node.operator.text === TYPE_TOKEN) {
 //     if (

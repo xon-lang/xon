@@ -1,6 +1,6 @@
 import { createSyntacticErrorIssue } from '../issue/issue';
 import { ISSUE_MESSAGE } from '../issue/issue-message';
-import { Boolean2, String2 } from '../lib/core';
+import { Boolean2, Nothing, String2 } from '../lib/core';
 import { Source, createSource } from '../source/source';
 import { SourcePosition, zeroPosition } from '../source/source-position';
 import { scanCharNode } from './node/char/char-node';
@@ -22,9 +22,9 @@ import { SyntaxResult } from './syntax-result';
 import { is } from './util/is';
 import { putStatementNode } from './util/put-statement-node';
 
-type NodeScanFn = (context: SyntaxContext) => Node | null;
+type SyntaxScanFn = (context: SyntaxContext) => Node | Nothing;
 
-const nodeScanFunctions: NodeScanFn[] = [
+const scanFunctions: SyntaxScanFn[] = [
   scanIntegerNode,
   scanStringNode,
   scanCharNode,
@@ -114,8 +114,8 @@ export function parseUntil(
 }
 
 export function nextNode(context: SyntaxContext): Node {
-  for (const nodeScan of nodeScanFunctions) {
-    const node = nodeScan(context);
+  for (const scan of scanFunctions) {
+    const node = scan(context);
 
     if (node) {
       context.position.column = node.range.stop.column + 1;
@@ -125,5 +125,5 @@ export function nextNode(context: SyntaxContext): Node {
     }
   }
 
-  throw new Error(ISSUE_MESSAGE.notImplemented().actual);
+  throw new Error('Not implemented');
 }
