@@ -49,14 +49,3 @@ export function parseSemantic(syntax: SyntaxResult): SemanticContext {
 
   return context;
 }
-
-// type StatementScanFn = (context: SemanticContext, node: Node) => Semantic | Nothing;
-
-// const scanFunctions: StatementScanFn[] = [];
-
-// export function parseStatement(context: SemanticContext, statement: StatementNode): void {
-//   for (const scan of scanFunctions) {
-//   }
-
-//   throw new Error('Not implemented');
-// }
