@@ -4,8 +4,8 @@ import { DeclarationNode } from '../syntax/node/declaration/declaration-node';
 import { $Node } from '../syntax/node/node';
 import { SyntaxResult } from '../syntax/syntax-result';
 import { is } from '../syntax/util/is';
-import { modelDeclarationsHandle } from './model/model-semantic-parser';
 import { SemanticContext, semanticContext } from './semantic-context';
+import { modelDeclarationsHandle } from './type/type-semantic-parser';
 
 export interface Semantic {
   $: $Semantic;

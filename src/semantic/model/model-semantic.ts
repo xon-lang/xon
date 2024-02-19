@@ -11,13 +11,6 @@ export interface ModelDeclarationSemantic extends DeclarationSemantic {
   attributes: Record<String2, MethodDeclarationSemantic[]>;
 }
 
-export interface ModelValueSemantic extends ValueSemantic {
-  $: $Semantic.MODEL_VALUE;
-  declaration: ModelDeclarationSemantic;
-  generics: (ValueSemantic | Nothing)[];
-  // attributes: Record<String2, AttributeValueSemantic[]>;
-}
-
 export function modelDeclarationSemantic(
   reference: SourceReference,
   name: String2,
@@ -46,21 +39,4 @@ export function modelShallowDeclarationSemantic(reference: SourceReference, name
     base: nothing,
     attributes: {},
   };
-}
-
-export function modelValueSemantic(
-  reference: SourceReference,
-  declaration: ModelDeclarationSemantic,
-  generics: (ValueSemantic | Nothing)[],
-): ModelValueSemantic {
-  const semantic: ModelValueSemantic = {
-    $: $Semantic.MODEL_VALUE,
-    reference,
-    declaration,
-    generics,
-  };
-
-  declaration.usages.push(semantic);
-
-  return semantic;
 }

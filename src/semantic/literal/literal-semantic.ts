@@ -1,25 +1,20 @@
-import { Boolean2, Something } from '../../lib/core';
-import { DeclarationSemantic } from '../model/model-semantic';
-import { $Semantic } from '../semantic';
-import { ValueSemantic } from '../value/value-semantic';
+import { Something } from '../../lib/core';
+import { SourceReference } from '../../source/source-reference';
+import { $Semantic, DeclarationSemantic, ValueSemantic } from '../semantic';
 
-export interface LiteralSemantic extends ValueSemantic {
+export interface LiteralValueSemantic extends ValueSemantic {
   value: Something;
 }
 
-export function literalSemantic(declaration: DeclarationSemantic, value: Something): LiteralSemantic {
+export function literalValueSemantic(
+  reference: SourceReference,
+  declaration: DeclarationSemantic,
+  value: Something,
+): LiteralValueSemantic {
   return {
     $: $Semantic.LITERAL,
+    reference,
     declaration,
-    arguments: [],
     value,
-
-    is(type: ValueSemantic): Boolean2 {
-      return this.eq(type);
-    },
-
-    eq(type: ValueSemantic): Boolean2 {
-      return this.value === (type as LiteralSemantic)?.value;
-    },
   };
 }

@@ -1,14 +1,13 @@
 import { readFileSync } from 'fs';
 import { String2 } from '../lib/core';
 import { parseSyntax } from '../syntax/syntax';
-import { DeclarationSemantic } from './model/model-semantic';
-import { ValueSemantic, valueSemantic } from './value/value-semantic';
+import { DeclarationSemantic, ValueSemantic } from './semantic';
 
 let cachedTypes: Record<String2, DeclarationSemantic> | null = null;
 
 function declarations(): Record<String2, DeclarationSemantic> {
   if (!cachedTypes) {
-    cachedTypes = parseSyntax(readFileSync('src/lib/@xon/core/test.xon').toString()).declarations.reduce(
+    cachedTypes = parseSyntax(readFileSync('src/lib/@xon/core/test.xon').toString()).reduce(
       (cached, type) => ((cached[type.name] = type), cached),
       {},
     );

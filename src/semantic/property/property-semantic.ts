@@ -1,22 +1,17 @@
 import { String2 } from '../../lib/core';
 import { SourceReference } from '../../source/source-reference';
-import { ModelDeclarationSemantic } from '../model/model-semantic';
-import { $Semantic, DeclarationSemantic, ValueSemantic } from '../semantic';
+import { $Semantic, DeclarationSemantic } from '../semantic';
+import { TypeValueSemantic } from '../type/type-semantic';
 
 export interface PropertyDeclarationSemantic extends DeclarationSemantic {
   $: $Semantic.PROPERTY_DECLARATION;
-  type: ModelDeclarationSemantic;
-}
-
-export interface PropertyValueSemantic extends ValueSemantic {
-  $: $Semantic.PROPERTY_VALUE;
-  declaration: PropertyDeclarationSemantic;
+  type: TypeValueSemantic;
 }
 
 export function propertyDeclarationSemantic(
   reference: SourceReference,
   name: String2,
-  type: ModelDeclarationSemantic,
+  type: TypeValueSemantic,
 ): PropertyDeclarationSemantic {
   return {
     $: $Semantic.PROPERTY_DECLARATION,
@@ -25,19 +20,4 @@ export function propertyDeclarationSemantic(
     usages: [],
     type,
   };
-}
-
-export function propertyValueSemantic(
-  reference: SourceReference,
-  declaration: PropertyDeclarationSemantic,
-): PropertyValueSemantic {
-  const semantic: PropertyValueSemantic = {
-    $: $Semantic.PROPERTY_VALUE,
-    reference,
-    declaration,
-  };
-
-  declaration.usages.push(semantic);
-
-  return semantic;
 }

@@ -1,13 +1,11 @@
 import { Nothing, nothing } from '../../lib/core';
 import { DeclarationNode } from '../../syntax/node/declaration/declaration-node';
-import { IdNode } from '../../syntax/node/id/id-node';
-import { $Node, Node } from '../../syntax/node/node';
 import { MODEL_MODIFIER } from '../../syntax/syntax-config';
-import { is } from '../../syntax/util/is';
 import { genericDeclarationsHandle } from '../generic/generic-semantic-parser';
-import { $Semantic, ValueSemantic, semanticIs } from '../semantic';
+import { $Semantic, semanticIs } from '../semantic';
 import { SemanticContext } from '../semantic-context';
-import { ModelDeclarationSemantic, modelShallowDeclarationSemantic, modelValueSemantic } from './model-semantic';
+import { parseValueSemantic } from '../type/type-semantic';
+import { ModelDeclarationSemantic, modelShallowDeclarationSemantic } from './model-semantic';
 
 export function modelDeclarationsHandle(
   context: SemanticContext,
@@ -57,28 +55,4 @@ export function modelDeclarationDeepHandle(context: SemanticContext, node: Decla
       // todo
     }
   }
-}
-
-function parseValueSemantic(context: SemanticContext, node: Node | Nothing): ValueSemantic | Nothing {
-  if (is<IdNode>(node, $Node.ID)) {
-    const declarations = context.findDeclarations(node.text);
-
-    if (declarations.length !== 1) {
-      throw new Error('Not implemented');
-    }
-
-    const declaration = declarations[0];
-
-    if (semanticIs<ModelDeclarationSemantic>(declaration, $Semantic.MODEL_DECLARATION)) {
-      const reference = context.createReference(node);
-      const semantic = modelValueSemantic(reference, declaration, []);
-      node.semantic = semantic;
-
-      return semantic;
-    }
-
-    return nothing;
-  }
-
-  return nothing;
 }
