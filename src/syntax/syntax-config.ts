@@ -18,7 +18,6 @@ export enum RecursiveType {
   LEFT = 0,
   RIGHT = 1,
 }
-// eslint-disable-next-line padding-line-between-statements, @typescript-eslint/no-unused-vars
 const a: number | string = 1 + 2 / 0;
 
 export const CR = '\r';

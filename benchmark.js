@@ -1,4 +1,3 @@
-/* eslint-disable */
 const iterationCount = 1_000_000_00;
 
 const timer = function (name) {

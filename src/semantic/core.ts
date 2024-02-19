@@ -9,7 +9,6 @@ let cachedTypes: Record<String2, DeclarationSemantic> | null = null;
 function declarations(): Record<String2, DeclarationSemantic> {
   if (!cachedTypes) {
     cachedTypes = parseSyntax(readFileSync('src/lib/@xon/core/test.xon').toString()).declarations.reduce(
-      // eslint-disable-next-line no-sequences
       (cached, type) => ((cached[type.name] = type), cached),
       {},
     );

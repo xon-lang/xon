@@ -1,4 +1,3 @@
-/* eslint-disable*/
 import { String2 } from '../lib/core';
 
 // const Reset = '\x1b[0m';

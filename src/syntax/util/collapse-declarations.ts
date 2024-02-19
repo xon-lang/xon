@@ -22,7 +22,6 @@ import {
 import { SyntaxContext } from '../syntax-context';
 import { is } from './is';
 
-// eslint-disable-next-line multiline-comment-style
 /*
 model A{T}: B{T}
   a

@@ -1,5 +1,3 @@
-/* eslint-disable func-names */
-/* eslint-disable no-extend-native */
 import { Number2, String2 } from '../../lib/core';
 
 // Array

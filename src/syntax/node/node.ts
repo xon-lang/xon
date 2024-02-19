@@ -29,7 +29,6 @@ export function addNodeParent(parent: SyntaxNode, ...children: (Node | Nothing)[
 }
 
 export function isSyntaxNode(node: Node): node is SyntaxNode {
-  // eslint-disable-next-line no-restricted-syntax
   return 'children' in node;
 }
 

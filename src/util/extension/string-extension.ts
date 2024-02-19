@@ -1,5 +1,3 @@
-/* eslint-disable func-names */
-/* eslint-disable no-extend-native */
 import { Boolean2, Char, Integer, String2 } from '../../lib/core';
 
 export const UPPER_A_CODE = 'A'.charCodeAt(0);

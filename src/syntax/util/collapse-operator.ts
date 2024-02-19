@@ -57,7 +57,6 @@ export function collapseOperator(
       !is<OperatorNode>(right, $Node.OPERATOR)
     ) {
       const infix = infixNode(context, operator, left, right);
-      // eslint-disable-next-line no-magic-numbers
       context.nodes.splice(index - 1, 3, infix);
       // handleInfixNode(context, infix);
       collapseOperator(context, operators, operatorType, recursiveType);

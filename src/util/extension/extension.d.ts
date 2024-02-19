@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/method-signature-style */
 import { Boolean2, Char, Integer, String2 } from '../../lib/core';
 
 declare global {

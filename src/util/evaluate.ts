@@ -35,14 +35,12 @@ export function evaluate(node: Node | null, argsMap = {}): Anything {
     const b = evaluate(node.right, argsMap);
     const operator = (node.operator.text === '^' && '**') || node.operator.text;
 
-    // eslint-disable-next-line no-eval
     return eval(`${escapeToString(a)} ${operator} ${escapeToString(b)}`);
   }
 
   if (is<PrefixNode>(node, $Node.PREFIX)) {
     const a = evaluate(node.value, argsMap);
 
-    // eslint-disable-next-line no-eval
     return eval(`${node.operator.text}${escapeToString(a)}`);
   }
 
