@@ -10,6 +10,7 @@ import { IdNode } from '../node/id/id-node';
 import { InfixNode } from '../node/infix/infix-node';
 import { InvokeNode } from '../node/invoke/invoke-node';
 import { $Node, Node } from '../node/node';
+import { ObjectNode } from '../node/object/object-node';
 import { PrefixNode, prefixNode } from '../node/prefix/prefix-node';
 import {
   ASSIGN_TOKEN,
@@ -112,7 +113,7 @@ function parseUnderModifierNode(
   }
 
   if (is<InvokeNode>(node, $Node.INVOKE)) {
-    if (is<GroupNode>(node.group, $Node.GROUP)) {
+    if (is<GroupNode>(node.group, $Node.GROUP) || is<ObjectNode>(node.group, $Node.OBJECT)) {
       const declarations = node.group.items.map((x) => parseDeclaration(context, x));
       const declarationList = declarationListNode(node.group.open, node.group.close, declarations);
       const instance = parseUnderModifierNode(context, node.instance);

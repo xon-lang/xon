@@ -23,3 +23,15 @@ test('model a extends b', () => {
   expect(node.id?.text).toBe('A');
   expect(node.type?.value?.$).toBe($Node.ID);
 });
+
+test('model a with generics extends b', () => {
+  const text = 'model A{T: String = String, U}: B';
+  const ast = parseSyntax(text);
+  const node = ast.statements[0].item as DeclarationNode;
+
+  expect(ast.statements.length).toBe(1);
+  expect(node.modifier?.text).toBe('model');
+  expect(node.id?.text).toBe('A');
+  expect(node.generics?.items.length).toBe(2);
+  expect(node.type?.value?.$).toBe($Node.ID);
+});
