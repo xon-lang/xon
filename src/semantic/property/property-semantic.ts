@@ -4,7 +4,7 @@ import { $Semantic, DeclarationSemantic } from '../semantic';
 import { TypeValueSemantic } from '../type/type-semantic';
 
 export interface PropertyDeclarationSemantic extends DeclarationSemantic {
-  $: $Semantic.PROPERTY_DECLARATION;
+  $: $Semantic.PROPERTY;
   type: TypeValueSemantic;
 }
 
@@ -14,7 +14,7 @@ export function propertyDeclarationSemantic(
   type: TypeValueSemantic,
 ): PropertyDeclarationSemantic {
   return {
-    $: $Semantic.PROPERTY_DECLARATION,
+    $: $Semantic.PROPERTY,
     reference,
     name,
     usages: [],

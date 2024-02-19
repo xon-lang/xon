@@ -3,7 +3,7 @@ import { SourceReference } from '../../source/source-reference';
 import { $Semantic, DeclarationSemantic, ValueSemantic } from '../semantic';
 
 export interface ParameterDeclarationSemantic extends DeclarationSemantic {
-  $: $Semantic.PARAMETER_DECLARATION;
+  $: $Semantic.PARAMETER;
   type: DeclarationSemantic;
   initializer: ValueSemantic;
 }
@@ -20,7 +20,7 @@ export function parameterDeclarationSemantic(
   initializer: ValueSemantic,
 ): ParameterDeclarationSemantic {
   return {
-    $: $Semantic.PARAMETER_DECLARATION,
+    $: $Semantic.PARAMETER,
     reference,
     name,
     usages: [],

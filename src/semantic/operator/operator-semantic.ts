@@ -8,7 +8,7 @@ export interface OperatorValueSemantic extends ValueSemantic {}
 
 export function operatorDeclarationSemantic(reference: SourceReference, name: String2): OperatorDeclarationSemantic {
   return {
-    $: $Semantic.PUNCTUATION_DECLARATION,
+    $: $Semantic.PUNCTUATION,
     reference,
     name,
     usages: [],

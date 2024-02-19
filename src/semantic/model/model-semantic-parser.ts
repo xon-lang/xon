@@ -4,7 +4,7 @@ import { MODEL_MODIFIER } from '../../syntax/syntax-config';
 import { genericDeclarationsHandle } from '../generic/generic-semantic-parser';
 import { $Semantic, semanticIs } from '../semantic';
 import { SemanticContext } from '../semantic-context';
-import { parseValueSemantic } from '../type/type-semantic';
+import { parseValueSemantic } from '../value/value-semantic-parser';
 import { ModelDeclarationSemantic, modelShallowDeclarationSemantic } from './model-semantic';
 
 export function modelDeclarationsHandle(
@@ -39,7 +39,7 @@ export function modelDeclarationShallowHandle(
 }
 
 export function modelDeclarationDeepHandle(context: SemanticContext, node: DeclarationNode): void {
-  if (semanticIs<ModelDeclarationSemantic>(node.semantic, $Semantic.MODEL_DECLARATION)) {
+  if (semanticIs<ModelDeclarationSemantic>(node.semantic, $Semantic.MODEL)) {
     const childContext = context.createChildContext();
 
     if (node.generics) {

@@ -4,8 +4,9 @@ import { DeclarationNode } from '../syntax/node/declaration/declaration-node';
 import { $Node } from '../syntax/node/node';
 import { SyntaxResult } from '../syntax/syntax-result';
 import { is } from '../syntax/util/is';
+import { modelDeclarationsHandle } from './model/model-semantic-parser';
 import { SemanticContext, semanticContext } from './semantic-context';
-import { modelDeclarationsHandle } from './type/type-semantic-parser';
+import { ValueSemantic } from './value/value-semantic';
 
 export interface Semantic {
   $: $Semantic;
@@ -17,38 +18,17 @@ export interface DeclarationSemantic extends Semantic {
   usages: ValueSemantic[];
 }
 
-export interface ValueSemantic extends Semantic {
-  declaration: DeclarationSemantic;
-}
-
 export enum $Semantic {
-  MODEL_DECLARATION,
-  MODEL_VALUE,
-
-  GENERIC_DECLARATION,
-  GENERIC_VALUE,
-
-  PARAMETER_DECLARATION,
-  PARAMETER_VALUE,
-
-  METHOD_DECLARATION,
-  METHOD_VALUE,
-
-  PROPERTY_DECLARATION,
-  PROPERTY_VALUE,
-
-  PUNCTUATION_DECLARATION,
-  PUNCTUATION_VALUE,
-
-  DECLARATION,
+  LITERAL,
+  VALUE,
+  MODEL,
   GENERIC,
-  FUNCTION_PARAMETER,
-  LAMBDA_PARAMETER,
+  PARAMETER,
+  METHOD,
+  PROPERTY,
   CONSTANT,
   VARIABLE,
-  LITERAL,
   OPERATOR,
-  KEYWORD,
 }
 
 export function semanticIs<T extends Semantic = Semantic>(

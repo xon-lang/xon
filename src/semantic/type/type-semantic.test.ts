@@ -1,6 +1,6 @@
 import { parseSyntax } from '../../syntax/syntax';
+import { ModelDeclarationSemantic } from '../model/model-semantic';
 import { $Semantic, parseSemantic } from '../semantic';
-import { ModelDeclarationSemantic } from './model-semantic';
 
 test('only a', () => {
   const text = 'model A';

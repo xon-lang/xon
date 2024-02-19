@@ -5,7 +5,7 @@ import { ParameterDeclarationSemantic, ParameterValueSemantic } from '../paramet
 import { $Semantic, DeclarationSemantic, ValueSemantic } from '../semantic';
 
 export interface MethodDeclarationSemantic extends DeclarationSemantic {
-  $: $Semantic.METHOD_DECLARATION;
+  $: $Semantic.METHOD;
   generics: GenericDeclarationSemantic[];
   parameters: ParameterDeclarationSemantic[];
 }
@@ -24,7 +24,7 @@ export function methodDeclarationSemantic(
   parameters: ParameterDeclarationSemantic[],
 ): MethodDeclarationSemantic {
   return {
-    $: $Semantic.METHOD_DECLARATION,
+    $: $Semantic.METHOD,
     reference,
     name,
     usages: [],

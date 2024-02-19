@@ -1,7 +1,6 @@
 import { Nothing, String2, nothing } from '../../lib/core';
 import { SourceReference } from '../../source/source-reference';
-import { $Semantic, DeclarationSemantic } from '../semantic';
-import { ValueSemantic } from '../value/value-semantic';
+import { $Semantic, DeclarationSemantic, ValueSemantic } from '../semantic';
 
 export interface GenericDeclarationSemantic extends DeclarationSemantic {
   $: $Semantic.GENERIC;

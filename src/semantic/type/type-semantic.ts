@@ -1,43 +1,37 @@
-import { Nothing, String2, nothing } from '../../lib/core';
+import { Nothing, String2 } from '../../lib/core';
 import { SourceReference } from '../../source/source-reference';
 import { GenericDeclarationSemantic } from '../generic/generic-semantic';
 import { MethodDeclarationSemantic } from '../method/method-semantic';
 import { $Semantic, DeclarationSemantic } from '../semantic';
-import { ValueSemantic } from '../value/value-semantic';
 
-export interface ModelDeclarationSemantic extends DeclarationSemantic {
+export interface TypeDeclarationSemantic extends DeclarationSemantic {
   $: $Semantic.MODEL;
   generics: (GenericDeclarationSemantic | Nothing)[];
-  base: ValueSemantic | Nothing;
   attributes: Record<String2, MethodDeclarationSemantic[]>;
 }
 
-export function modelDeclarationSemantic(
+export function typeDeclarationSemantic(
   reference: SourceReference,
   name: String2,
   generics: (GenericDeclarationSemantic | Nothing)[],
-  base: ValueSemantic | Nothing,
-  attributes: Record<String2, MethodDeclarationSemantic[]>,
-): ModelDeclarationSemantic {
+): TypeDeclarationSemantic {
   return {
     $: $Semantic.MODEL,
     reference,
     name,
     usages: [],
     generics,
-    base,
-    attributes,
+    attributes: {},
   };
 }
 
-export function modelShallowDeclarationSemantic(reference: SourceReference, name: String2): ModelDeclarationSemantic {
+export function typeShallowDeclarationSemantic(reference: SourceReference, name: String2): TypeDeclarationSemantic {
   return {
     $: $Semantic.MODEL,
     reference,
     name,
     usages: [],
     generics: [],
-    base: nothing,
     attributes: {},
   };
 }
