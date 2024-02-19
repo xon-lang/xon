@@ -1,6 +1,6 @@
 import { evaluate } from '../../../util/evaluate';
 import { parseSyntax } from '../../syntax';
-import { InfixNode } from '../infix/infix-node';
+import { DeclarationNode } from '../declaration/declaration-node';
 import { $Node } from '../node';
 import { PrefixNode } from './prefix-node';
 
@@ -31,11 +31,11 @@ test('model string', () => {
   const ast = parseSyntax(text);
   const nodes = ast.statements.map((x) => x.item);
   // const types = ast.declarations;
-  const node = nodes[0] as PrefixNode;
+  const node = nodes[0] as DeclarationNode;
 
   expect(nodes.length).toBe(1);
-  expect(node.$).toBe($Node.PREFIX);
-  expect(node.operator.text).toBe('model');
+  expect(node.$).toBe($Node.DECLARATION);
+  expect(node.modifier?.text).toBe('model');
 
   // expect(types.length).toBe(1);
   // expect(types[0].name).toBe('String');
@@ -46,14 +46,14 @@ test('model string with base class', () => {
   const ast = parseSyntax(text);
   const nodes = ast.statements.map((x) => x.item);
   // const types = ast.declarations;
-  const node = nodes[1] as InfixNode;
+  const node = nodes[1] as DeclarationNode;
 
   expect(nodes.length).toBe(2);
-  expect(node.$).toBe($Node.INFIX);
-  expect(node.operator.text).toBe(':');
+  expect(node.$).toBe($Node.DECLARATION);
+  expect(node.type?.operator.text).toBe(':');
 
-  expect(node.left?.$).toBe($Node.PREFIX);
-  expect((node.left as PrefixNode).operator.text).toBe('model');
+  expect(node.modifier?.$).toBe($Node.OPERATOR);
+  expect(node.modifier?.text).toBe('model');
 
   // expect(types.length).toBe(2);
   // expect(types[0].name).toBe('Array');
