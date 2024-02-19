@@ -1,23 +1,23 @@
 import { Nothing, nothing } from '../../lib/core';
 import { DeclarationNode } from '../../syntax/node/declaration/declaration-node';
 import { MODEL_MODIFIER } from '../../syntax/syntax-config';
-import { genericsHandle } from '../generic/generic-semantic-parser';
+import { genericsParse } from '../generic/generic-semantic-parser';
 import { $Semantic, semanticIs } from '../semantic';
 import { SemanticContext } from '../semantic-context';
 import { parseValueSemantic } from '../value/value-semantic-parser';
 import { ModelSemantic, modelShallowSemantic } from './model-semantic';
 
-export function modelsHandle(context: SemanticContext, declarations: DeclarationNode[]): (ModelSemantic | Nothing)[] {
-  const semanticDeclarations = declarations.map((x) => modelShallowHandle(context, x));
+export function modelsParse(context: SemanticContext, declarations: DeclarationNode[]): (ModelSemantic | Nothing)[] {
+  const semanticDeclarations = declarations.map((x) => modelShallowParse(context, x));
 
   for (const declaration of declarations) {
-    modelDeepHandle(context, declaration);
+    modelDeepParse(context, declaration);
   }
 
   return semanticDeclarations;
 }
 
-export function modelShallowHandle(context: SemanticContext, node: DeclarationNode): ModelSemantic | Nothing {
+function modelShallowParse(context: SemanticContext, node: DeclarationNode): ModelSemantic | Nothing {
   if (node.modifier?.text === MODEL_MODIFIER && node.id) {
     const reference = context.createReference(node);
     const name = node.id.text;
@@ -32,13 +32,13 @@ export function modelShallowHandle(context: SemanticContext, node: DeclarationNo
   return nothing;
 }
 
-export function modelDeepHandle(context: SemanticContext, node: DeclarationNode): void {
+function modelDeepParse(context: SemanticContext, node: DeclarationNode): void {
   if (semanticIs<ModelSemantic>(node.semantic, $Semantic.MODEL)) {
     const childContext = context.createChildContext();
 
     if (node.generics) {
       const genericDeclarations = node.generics.items.filter((x): x is DeclarationNode => !!x);
-      node.semantic.generics = genericsHandle(childContext, genericDeclarations);
+      node.semantic.generics = genericsParse(childContext, genericDeclarations);
     }
 
     if (node.type?.value) {
