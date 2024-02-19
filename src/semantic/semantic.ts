@@ -4,7 +4,7 @@ import { DeclarationNode } from '../syntax/node/declaration/declaration-node';
 import { $Node } from '../syntax/node/node';
 import { SyntaxResult } from '../syntax/syntax-result';
 import { is } from '../syntax/util/is';
-import { modelDeclarationsHandle } from './model/model-semantic-parser';
+import { modelsHandle } from './model/model-semantic-parser';
 import { SemanticContext, semanticContext } from './semantic-context';
 import { ValueSemantic } from './value/value-semantic';
 
@@ -45,7 +45,7 @@ export function parseSemantic(syntax: SyntaxResult): SemanticContext {
     .map((x) => x.item)
     .filter((x): x is DeclarationNode => is<DeclarationNode>(x, $Node.DECLARATION));
 
-  modelDeclarationsHandle(context, declarations);
+  modelsHandle(context, declarations);
 
   return context;
 }

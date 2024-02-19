@@ -3,18 +3,18 @@ import { SourceReference } from '../../source/source-reference';
 import { $Semantic, DeclarationSemantic } from '../semantic';
 import { ValueSemantic } from '../value/value-semantic';
 
-export interface ParameterDeclarationSemantic extends DeclarationSemantic {
+export interface ParameterSemantic extends DeclarationSemantic {
   $: $Semantic.PARAMETER;
   type: DeclarationSemantic;
   value: ValueSemantic;
 }
 
-export function parameterDeclarationSemantic(
+export function parameterSemantic(
   reference: SourceReference,
   name: String2,
   type: DeclarationSemantic,
   value: ValueSemantic,
-): ParameterDeclarationSemantic {
+): ParameterSemantic {
   return {
     $: $Semantic.PARAMETER,
     reference,

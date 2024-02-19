@@ -1,34 +1,28 @@
 import { Nothing, nothing } from '../../lib/core';
 import { DeclarationNode } from '../../syntax/node/declaration/declaration-node';
 import { MODEL_MODIFIER } from '../../syntax/syntax-config';
-import { genericDeclarationsHandle } from '../generic/generic-semantic-parser';
+import { genericsHandle } from '../generic/generic-semantic-parser';
 import { $Semantic, semanticIs } from '../semantic';
 import { SemanticContext } from '../semantic-context';
 import { parseValueSemantic } from '../value/value-semantic-parser';
-import { ModelDeclarationSemantic, modelShallowDeclarationSemantic } from './model-semantic';
+import { ModelSemantic, modelShallowSemantic } from './model-semantic';
 
-export function modelDeclarationsHandle(
-  context: SemanticContext,
-  declarations: DeclarationNode[],
-): (ModelDeclarationSemantic | Nothing)[] {
-  const semanticDeclarations = declarations.map((x) => modelDeclarationShallowHandle(context, x));
+export function modelsHandle(context: SemanticContext, declarations: DeclarationNode[]): (ModelSemantic | Nothing)[] {
+  const semanticDeclarations = declarations.map((x) => modelShallowHandle(context, x));
 
   for (const declaration of declarations) {
-    modelDeclarationDeepHandle(context, declaration);
+    modelDeepHandle(context, declaration);
   }
 
   return semanticDeclarations;
 }
 
-export function modelDeclarationShallowHandle(
-  context: SemanticContext,
-  node: DeclarationNode,
-): ModelDeclarationSemantic | Nothing {
+export function modelShallowHandle(context: SemanticContext, node: DeclarationNode): ModelSemantic | Nothing {
   if (node.modifier?.text === MODEL_MODIFIER && node.id) {
     const reference = context.createReference(node);
     const name = node.id.text;
 
-    const declaration = modelShallowDeclarationSemantic(reference, name);
+    const declaration = modelShallowSemantic(reference, name);
     node.semantic = declaration;
     context.addDeclaration(declaration);
 
@@ -38,13 +32,13 @@ export function modelDeclarationShallowHandle(
   return nothing;
 }
 
-export function modelDeclarationDeepHandle(context: SemanticContext, node: DeclarationNode): void {
-  if (semanticIs<ModelDeclarationSemantic>(node.semantic, $Semantic.MODEL)) {
+export function modelDeepHandle(context: SemanticContext, node: DeclarationNode): void {
+  if (semanticIs<ModelSemantic>(node.semantic, $Semantic.MODEL)) {
     const childContext = context.createChildContext();
 
     if (node.generics) {
       const genericDeclarations = node.generics.items.filter((x): x is DeclarationNode => !!x);
-      node.semantic.generics = genericDeclarationsHandle(childContext, genericDeclarations);
+      node.semantic.generics = genericsHandle(childContext, genericDeclarations);
     }
 
     if (node.type?.value) {

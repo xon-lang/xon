@@ -2,7 +2,7 @@ import { Nothing, nothing } from '../../lib/core';
 import { IdNode } from '../../syntax/node/id/id-node';
 import { $Node, Node } from '../../syntax/node/node';
 import { is } from '../../syntax/util/is';
-import { ModelDeclarationSemantic } from '../model/model-semantic';
+import { ModelSemantic } from '../model/model-semantic';
 import { $Semantic, semanticIs } from '../semantic';
 import { SemanticContext } from '../semantic-context';
 import { ValueSemantic, valueSemantic } from './value-semantic';
@@ -17,7 +17,7 @@ export function parseValueSemantic(context: SemanticContext, node: Node | Nothin
 
     const declaration = declarations[0];
 
-    if (semanticIs<ModelDeclarationSemantic>(declaration, $Semantic.MODEL)) {
+    if (semanticIs<ModelSemantic>(declaration, $Semantic.MODEL)) {
       const reference = context.createReference(node);
       const semantic = valueSemantic(reference, declaration, [], []);
       node.semantic = semantic;

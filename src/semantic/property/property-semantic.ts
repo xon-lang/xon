@@ -3,18 +3,18 @@ import { SourceReference } from '../../source/source-reference';
 import { $Semantic, DeclarationSemantic } from '../semantic';
 import { ValueSemantic } from '../value/value-semantic';
 
-export interface PropertyDeclarationSemantic extends DeclarationSemantic {
+export interface PropertySemantic extends DeclarationSemantic {
   $: $Semantic.PROPERTY;
   type: ValueSemantic | Nothing;
   value: ValueSemantic | Nothing;
 }
 
-export function propertyDeclarationSemantic(
+export function propertySemantic(
   reference: SourceReference,
   name: String2,
   type: ValueSemantic | Nothing,
   value: ValueSemantic | Nothing,
-): PropertyDeclarationSemantic {
+): PropertySemantic {
   return {
     $: $Semantic.PROPERTY,
     reference,

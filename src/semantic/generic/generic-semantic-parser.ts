@@ -2,30 +2,27 @@ import { Nothing, nothing } from '../../lib/core';
 import { DeclarationNode } from '../../syntax/node/declaration/declaration-node';
 import { MODEL_MODIFIER } from '../../syntax/syntax-config';
 import { SemanticContext } from '../semantic-context';
-import { GenericDeclarationSemantic, genericShallowDeclarationSemantic } from './generic-semantic';
+import { GenericSemantic, genericShallowSemantic } from './generic-semantic';
 
-export function genericDeclarationsHandle(
+export function genericsHandle(
   context: SemanticContext,
   declarations: DeclarationNode[],
-): (GenericDeclarationSemantic | Nothing)[] {
-  const semanticDeclarations = declarations.map((x) => genericDeclarationShallowHandle(context, x));
+): (GenericSemantic | Nothing)[] {
+  const semanticDeclarations = declarations.map((x) => genericShallowHandle(context, x));
 
   for (const declaration of declarations) {
-    genericDeclarationDeepHandle(context, declaration);
+    genericDeepHandle(context, declaration);
   }
 
   return semanticDeclarations;
 }
 
-export function genericDeclarationShallowHandle(
-  context: SemanticContext,
-  node: DeclarationNode,
-): GenericDeclarationSemantic | Nothing {
+export function genericShallowHandle(context: SemanticContext, node: DeclarationNode): GenericSemantic | Nothing {
   if (node.modifier?.text === MODEL_MODIFIER && node.id) {
     const reference = context.createReference(node);
     const name = node.id.text;
 
-    const declaration = genericShallowDeclarationSemantic(reference, name);
+    const declaration = genericShallowSemantic(reference, name);
     node.semantic = declaration;
     context.addDeclaration(declaration);
 
@@ -35,9 +32,6 @@ export function genericDeclarationShallowHandle(
   return nothing;
 }
 
-export function genericDeclarationDeepHandle(
-  context: SemanticContext,
-  node: DeclarationNode,
-): GenericDeclarationSemantic | Nothing {
+export function genericDeepHandle(context: SemanticContext, node: DeclarationNode): GenericSemantic | Nothing {
   return nothing;
 }

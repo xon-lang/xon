@@ -1,20 +1,20 @@
 import { Nothing, String2 } from '../../lib/core';
 import { SourceReference } from '../../source/source-reference';
-import { GenericDeclarationSemantic } from '../generic/generic-semantic';
-import { MethodDeclarationSemantic } from '../method/method-semantic';
+import { GenericSemantic } from '../generic/generic-semantic';
+import { MethodSemantic } from '../method/method-semantic';
 import { $Semantic, DeclarationSemantic } from '../semantic';
 
-export interface TypeDeclarationSemantic extends DeclarationSemantic {
+export interface TypeSemantic extends DeclarationSemantic {
   $: $Semantic.MODEL;
-  generics: (GenericDeclarationSemantic | Nothing)[];
-  attributes: Record<String2, MethodDeclarationSemantic[]>;
+  generics: (GenericSemantic | Nothing)[];
+  attributes: Record<String2, MethodSemantic[]>;
 }
 
-export function typeDeclarationSemantic(
+export function typeSemantic(
   reference: SourceReference,
   name: String2,
-  generics: (GenericDeclarationSemantic | Nothing)[],
-): TypeDeclarationSemantic {
+  generics: (GenericSemantic | Nothing)[],
+): TypeSemantic {
   return {
     $: $Semantic.MODEL,
     reference,
@@ -25,7 +25,7 @@ export function typeDeclarationSemantic(
   };
 }
 
-export function typeShallowDeclarationSemantic(reference: SourceReference, name: String2): TypeDeclarationSemantic {
+export function typeShallowSemantic(reference: SourceReference, name: String2): TypeSemantic {
   return {
     $: $Semantic.MODEL,
     reference,

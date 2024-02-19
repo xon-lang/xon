@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { Nothing, String2, nothing } from '../lib/core';
 import { parseSyntax } from '../syntax/syntax';
-import { ModelDeclarationSemantic } from './model/model-semantic';
+import { ModelSemantic } from './model/model-semantic';
 import { DeclarationSemantic, parseSemantic } from './semantic';
 
 let cachedTypes: Record<String2, DeclarationSemantic[]> | Nothing = nothing;
@@ -29,6 +29,6 @@ export type CoreDeclarationName =
   | 'Array'
   | 'String';
 
-export function coreDeclarationSemantic(name: CoreDeclarationName): ModelDeclarationSemantic {
-  return declarations()[name][0] as ModelDeclarationSemantic;
+export function coreDeclarationSemantic(name: CoreDeclarationName): ModelSemantic {
+  return declarations()[name][0] as ModelSemantic;
 }

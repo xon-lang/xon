@@ -3,18 +3,18 @@ import { SourceReference } from '../../source/source-reference';
 import { $Semantic, DeclarationSemantic } from '../semantic';
 import { ValueSemantic } from '../value/value-semantic';
 
-export interface GenericDeclarationSemantic extends DeclarationSemantic {
+export interface GenericSemantic extends DeclarationSemantic {
   $: $Semantic.GENERIC;
   base: ValueSemantic | Nothing;
   value: ValueSemantic | Nothing;
 }
 
-export function genericDeclarationSemantic(
+export function genericSemantic(
   reference: SourceReference,
   name: String2,
   base: ValueSemantic | Nothing,
   value: ValueSemantic | Nothing,
-): GenericDeclarationSemantic {
+): GenericSemantic {
   return {
     $: $Semantic.GENERIC,
     reference,
@@ -25,10 +25,7 @@ export function genericDeclarationSemantic(
   };
 }
 
-export function genericShallowDeclarationSemantic(
-  reference: SourceReference,
-  name: String2,
-): GenericDeclarationSemantic {
+export function genericShallowSemantic(reference: SourceReference, name: String2): GenericSemantic {
   return {
     $: $Semantic.GENERIC,
     reference,

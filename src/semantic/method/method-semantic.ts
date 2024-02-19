@@ -1,21 +1,21 @@
 import { Nothing, String2 } from '../../lib/core';
 import { SourceReference } from '../../source/source-reference';
-import { GenericDeclarationSemantic } from '../generic/generic-semantic';
-import { ParameterDeclarationSemantic } from '../parameter/parameter-semantic';
+import { GenericSemantic } from '../generic/generic-semantic';
+import { ParameterSemantic } from '../parameter/parameter-semantic';
 import { $Semantic, DeclarationSemantic } from '../semantic';
 
-export interface MethodDeclarationSemantic extends DeclarationSemantic {
+export interface MethodSemantic extends DeclarationSemantic {
   $: $Semantic.METHOD;
-  generics: (GenericDeclarationSemantic | Nothing)[];
-  parameters: (ParameterDeclarationSemantic | Nothing)[];
+  generics: (GenericSemantic | Nothing)[];
+  parameters: (ParameterSemantic | Nothing)[];
 }
 
-export function methodDeclarationSemantic(
+export function methodSemantic(
   reference: SourceReference,
   name: String2,
-  generics: (GenericDeclarationSemantic | Nothing)[],
-  parameters: (ParameterDeclarationSemantic | Nothing)[],
-): MethodDeclarationSemantic {
+  generics: (GenericSemantic | Nothing)[],
+  parameters: (ParameterSemantic | Nothing)[],
+): MethodSemantic {
   return {
     $: $Semantic.METHOD,
     reference,

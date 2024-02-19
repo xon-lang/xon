@@ -1,24 +1,24 @@
 import { Nothing, String2, nothing } from '../../lib/core';
 import { SourceReference } from '../../source/source-reference';
-import { GenericDeclarationSemantic } from '../generic/generic-semantic';
-import { MethodDeclarationSemantic } from '../method/method-semantic';
+import { GenericSemantic } from '../generic/generic-semantic';
+import { MethodSemantic } from '../method/method-semantic';
 import { $Semantic, DeclarationSemantic } from '../semantic';
 import { ValueSemantic } from '../value/value-semantic';
 
-export interface ModelDeclarationSemantic extends DeclarationSemantic {
+export interface ModelSemantic extends DeclarationSemantic {
   $: $Semantic.MODEL;
-  generics: (GenericDeclarationSemantic | Nothing)[];
+  generics: (GenericSemantic | Nothing)[];
   base: ValueSemantic | Nothing;
-  attributes: Record<String2, MethodDeclarationSemantic[]>;
+  attributes: Record<String2, MethodSemantic[]>;
 }
 
-export function modelDeclarationSemantic(
+export function modelSemantic(
   reference: SourceReference,
   name: String2,
-  generics: (GenericDeclarationSemantic | Nothing)[],
+  generics: (GenericSemantic | Nothing)[],
   base: ValueSemantic | Nothing,
-  attributes: Record<String2, MethodDeclarationSemantic[]>,
-): ModelDeclarationSemantic {
+  attributes: Record<String2, MethodSemantic[]>,
+): ModelSemantic {
   return {
     $: $Semantic.MODEL,
     reference,
@@ -30,7 +30,7 @@ export function modelDeclarationSemantic(
   };
 }
 
-export function modelShallowDeclarationSemantic(reference: SourceReference, name: String2): ModelDeclarationSemantic {
+export function modelShallowSemantic(reference: SourceReference, name: String2): ModelSemantic {
   return {
     $: $Semantic.MODEL,
     reference,

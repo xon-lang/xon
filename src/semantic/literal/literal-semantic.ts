@@ -3,17 +3,17 @@ import { SourceReference } from '../../source/source-reference';
 import { $Semantic, DeclarationSemantic } from '../semantic';
 import { ValueSemantic } from '../value/value-semantic';
 
-export interface LiteralValueSemantic extends ValueSemantic {
+export interface LiteralSemantic extends ValueSemantic {
   // todo
   // $: $Semantic.LITERAL,
   value: Something;
 }
 
-export function literalValueSemantic(
+export function literalSemantic(
   reference: SourceReference,
   declaration: DeclarationSemantic,
   value: Something,
-): LiteralValueSemantic {
+): LiteralSemantic {
   return {
     $: $Semantic.VALUE,
     reference,
