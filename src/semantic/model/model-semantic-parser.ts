@@ -49,8 +49,8 @@ export function modelDeclarationDeepHandle(context: SemanticContext, node: Decla
       node.semantic.generics = genericDeclarationsHandle(childContext, genericDeclarations);
     }
 
-    if (node.type) {
-      node.semantic.base = parseValueSemantic(childContext, node.type);
+    if (node.type?.value) {
+      node.semantic.base = parseValueSemantic(childContext, node.type.value);
     }
 
     if (node.attributes.length > 0) {
