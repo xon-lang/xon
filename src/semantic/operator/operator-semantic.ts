@@ -1,31 +1,16 @@
 import { String2 } from '../../lib/core';
 import { SourceReference } from '../../source/source-reference';
-import { $Semantic, DeclarationSemantic, ValueSemantic } from '../semantic';
+import { $Semantic, DeclarationSemantic } from '../semantic';
 
-export interface OperatorDeclarationSemantic extends DeclarationSemantic {}
-
-export interface OperatorValueSemantic extends ValueSemantic {}
+export interface OperatorDeclarationSemantic extends DeclarationSemantic {
+  $: $Semantic.OPERATOR;
+}
 
 export function operatorDeclarationSemantic(reference: SourceReference, name: String2): OperatorDeclarationSemantic {
   return {
-    $: $Semantic.PUNCTUATION,
+    $: $Semantic.OPERATOR,
     reference,
     name,
     usages: [],
   };
-}
-
-export function operatorValueSemantic(
-  reference: SourceReference,
-  declaration: OperatorDeclarationSemantic,
-): OperatorValueSemantic {
-  const semantic: OperatorValueSemantic = {
-    $: $Semantic.PUNCTUATION_VALUE,
-    reference,
-    declaration,
-  };
-
-  declaration.usages.push(semantic);
-
-  return semantic;
 }
