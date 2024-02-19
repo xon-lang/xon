@@ -1,4 +1,4 @@
-import { Nothing } from '../../../lib/core';
+import { Nothing, nothing } from '../../../lib/core';
 import { rangeFromNodes } from '../../../source/source-range';
 import { CloseNode } from '../close/close-node';
 import { IdNode } from '../id/id-node';
@@ -9,12 +9,12 @@ import { PrefixNode } from '../prefix/prefix-node';
 
 export interface DeclarationNode extends SyntaxNode {
   $: $Node.DECLARATION;
-  modifier?: OperatorNode | Nothing;
-  id?: IdNode | Nothing;
-  generics?: DeclarationListNode | Nothing;
-  parameters?: DeclarationListNode | Nothing;
-  type?: PrefixNode | Nothing;
-  assign?: PrefixNode | Nothing;
+  modifier: OperatorNode | Nothing;
+  id: IdNode | Nothing;
+  generics: DeclarationListNode | Nothing;
+  parameters: DeclarationListNode | Nothing;
+  type: PrefixNode | Nothing;
+  assign: PrefixNode | Nothing;
   attributes: DeclarationNode[];
 }
 
@@ -28,7 +28,12 @@ export function declarationNode(params: Partial<DeclarationNode>): DeclarationNo
     range,
     children: [],
     attributes: [],
-    ...params,
+    modifier: params.modifier ?? nothing,
+    id: params.id ?? nothing,
+    generics: params.generics ?? nothing,
+    parameters: params.parameters ?? nothing,
+    type: params.type ?? nothing,
+    assign: params.assign ?? nothing,
   };
 
   addNodeParent(node, params.modifier, params.id, params.generics, params.parameters, params.type, params.assign);
