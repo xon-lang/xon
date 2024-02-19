@@ -4,6 +4,7 @@ import { ARRAY_NODE_CLOSE_CODE, GROUP_NODE_CLOSE_CODE, OBJECT_NODE_CLOSE_CODE } 
 import { SyntaxContext } from '../../syntax-context';
 import { $Node, TokenNode } from '../node';
 
+// todo use token node instead of all related nodes
 export interface CloseNode extends TokenNode {
   $: $Node.CLOSE;
 }

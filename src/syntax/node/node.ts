@@ -17,7 +17,8 @@ export interface SyntaxNode extends Node {
   readonly children: Node[];
 }
 
-export function addNodeParent(parent: SyntaxNode, ...children: (Node | null)[]): void {
+// todo merge with rangeFromNodes ???
+export function addNodeParent(parent: SyntaxNode, ...children: (Node | Nothing)[]): void {
   for (const node of children) {
     if (!node) {
       continue;
@@ -48,21 +49,22 @@ export enum $Node {
   STRING = 'STRING',
 
   OPERATOR = 'OPERATOR',
+  OPEN = 'OPEN',
+  CLOSE = 'CLOSE',
+  COMMA = 'COMMA',
 
   ID = 'ID',
   OBJECT = 'OBJECT',
   ARRAY = 'ARRAY',
   GROUP = 'GROUP',
 
-  OPEN = 'OPEN',
-  CLOSE = 'CLOSE',
-  COMMA = 'COMMA',
-
   INVOKE = 'INVOKE',
   INFIX = 'INFIX',
   POSTFIX = 'POSTFIX',
   PREFIX = 'PREFIX',
 
+  DECLARATION = 'DECLARATION',
+  DECLARATION_LIST = 'DECLARATION_LIST',
   STATEMENT = 'STATEMENT',
   UNKNOWN = 'UNKNOWN',
 }

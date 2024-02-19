@@ -3,7 +3,7 @@ import { $Node, TokenNode } from '../node';
 import { StringNode } from '../string/string-node';
 
 test('a', () => {
-  const text = "'a'";
+  const text = '\'a\'';
   const nodes = parseSyntax(text).statements.map((x) => x.item) as TokenNode[];
   const tree = nodes[0] as StringNode;
 

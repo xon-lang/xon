@@ -8,11 +8,10 @@ export interface OperatorsOrder {
 }
 
 export enum OperatorType {
-  PREFIX = 0,
-  POSTFIX = 1,
-  INFIX = 2,
-  // eslint-disable-next-line no-magic-numbers
-  INVOKE = 3,
+  PREFIX,
+  POSTFIX,
+  INFIX,
+  INVOKE,
 }
 
 export enum RecursiveType {
@@ -68,7 +67,7 @@ export const OPEN_CLOSE_PAIR: Record<Integer, Integer> = {
 
 export const STRING_QUOTE = '"';
 
-export const CHAR_QUOTE = "'";
+export const CHAR_QUOTE = '\'';
 
 export const TYPE_TOKEN = ':';
 
