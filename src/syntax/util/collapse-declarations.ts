@@ -1,4 +1,4 @@
-import { Nothing, nothing } from '../../lib/core';
+import { Boolean2, Nothing, nothing } from '../../lib/core';
 import {
   DeclarationListNode,
   DeclarationNode,
@@ -35,17 +35,17 @@ model A{T}: B{T}
 export function collapseDeclarations(context: SyntaxContext): void {
   const node = context.nodes[0];
 
-  const declaration = parseDeclaration(context, node);
+  const declaration = parseDeclaration(context, node, false);
 
   if (declaration) {
     context.nodes[0] = declaration;
   }
 }
 
-function parseDeclaration(context: SyntaxContext, node: Node): DeclarationNode | Nothing {
+function parseDeclaration(context: SyntaxContext, node: Node, force: Boolean2): DeclarationNode | Nothing {
   const { header, type, value } = getHeaderTypeValue(context, node);
 
-  return parseHeader(context, header, type, value);
+  return parseHeader(context, header, type, value, force);
 }
 
 function getHeaderTypeValue(
@@ -79,6 +79,7 @@ function parseHeader(
   node: Node,
   type: PrefixNode | Nothing,
   assign: PrefixNode | Nothing,
+  force: Boolean2,
 ): DeclarationNode | Nothing {
   if (is<PrefixNode>(node, $Node.PREFIX) && node.operator.text === MODEL_MODIFIER) {
     const underModifier = parseUnderModifierNode(context, node.value);
@@ -95,6 +96,12 @@ function parseHeader(
     parentNode.attributes.push(declaration);
 
     return declaration;
+  }
+
+  if (force) {
+    const underModifier = parseUnderModifierNode(context, node);
+
+    return declarationNode({ ...underModifier, type, assign });
   }
 
   return nothing;
@@ -114,7 +121,7 @@ function parseUnderModifierNode(
 
   if (is<InvokeNode>(node, $Node.INVOKE)) {
     if (is<GroupNode>(node.group, $Node.GROUP) || is<ObjectNode>(node.group, $Node.OBJECT)) {
-      const declarations = node.group.items.map((x) => parseDeclaration(context, x));
+      const declarations = node.group.items.map((x) => parseDeclaration(context, x, true));
       const declarationList = declarationListNode(node.group.open, node.group.close, declarations);
       const instance = parseUnderModifierNode(context, node.instance);
 
