@@ -66,7 +66,7 @@ export const OPEN_CLOSE_PAIR: Record<Integer, Integer> = {
 
 export const STRING_QUOTE = '"';
 
-export const CHAR_QUOTE = '\'';
+export const CHAR_QUOTE = "'";
 
 export const TYPE_TOKEN = ':';
 

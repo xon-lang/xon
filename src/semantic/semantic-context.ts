@@ -12,17 +12,26 @@ export interface SemanticContext {
   issues: Issue[];
   declarations: Record<String2, DeclarationSemantic[]>;
 
+  createChildContext: () => SemanticContext;
   createReference: (node: Node) => SourceReference;
   addDeclaration: (declaration: DeclarationSemantic) => void;
   findDeclarations: (name: String2) => DeclarationSemantic[];
 }
 
-export function semanticContext(parent: SemanticContext | Nothing, source: Source): SemanticContext {
+export function semanticContext(
+  parent: SemanticContext | Nothing,
+  source: Source,
+  issues: Issue[] = [],
+): SemanticContext {
   return {
     parent,
     source,
-    issues: [],
+    issues,
     declarations: {},
+
+    createChildContext(): SemanticContext {
+      return semanticContext(this, this.source, this.issues);
+    },
 
     createReference(node: Node): SourceReference {
       return sourceReference(this.source, node.range.start);

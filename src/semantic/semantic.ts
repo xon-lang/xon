@@ -1,8 +1,10 @@
 import { Nothing, String2 } from '../lib/core';
 import { SourceReference } from '../source/source-reference';
-import { StatementNode } from '../syntax/node/statement/statement-node';
+import { DeclarationNode } from '../syntax/node/declaration/declaration-node';
+import { $Node } from '../syntax/node/node';
 import { SyntaxResult } from '../syntax/syntax-result';
-import { parseModelDeclaration } from './model/model-semantic-parser';
+import { is } from '../syntax/util/is';
+import { modelDeclarationsHandle } from './model/model-semantic-parser';
 import { SemanticContext, semanticContext } from './semantic-context';
 
 export interface Semantic {
@@ -59,23 +61,22 @@ export function semanticIs<T extends Semantic = Semantic>(
 export function parseSemantic(syntax: SyntaxResult): SemanticContext {
   const context = semanticContext(null, syntax.source);
 
-  for (const statement of syntax.statements) {
-    parseStatement(context, statement);
-  }
+  const declarations = syntax.statements
+    .map((x) => x.item)
+    .filter((x): x is DeclarationNode => is<DeclarationNode>(x, $Node.DECLARATION));
+
+  modelDeclarationsHandle(context, declarations);
 
   return context;
 }
 
-type StatementScanFn = (context: SemanticContext, statement: StatementNode) => Semantic | Nothing;
+// type StatementScanFn = (context: SemanticContext, node: Node) => Semantic | Nothing;
 
-const scanFunctions: StatementScanFn[] = [parseModelDeclaration];
+// const scanFunctions: StatementScanFn[] = [];
 
-export function parseStatement(context: SemanticContext, statement: StatementNode): void {
-  for (const scan of scanFunctions) {
-    if (scan(context, statement)) {
-      return;
-    }
-  }
+// export function parseStatement(context: SemanticContext, statement: StatementNode): void {
+//   for (const scan of scanFunctions) {
+//   }
 
-  throw new Error('Not implemented');
-}
+//   throw new Error('Not implemented');
+// }

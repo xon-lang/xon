@@ -1,83 +1,65 @@
 import { Nothing, nothing } from '../../lib/core';
-import { sourceReference } from '../../source/source-reference';
+import { DeclarationNode } from '../../syntax/node/declaration/declaration-node';
 import { IdNode } from '../../syntax/node/id/id-node';
-import { InfixNode } from '../../syntax/node/infix/infix-node';
-import { InvokeNode } from '../../syntax/node/invoke/invoke-node';
 import { $Node, Node } from '../../syntax/node/node';
-import { PrefixNode } from '../../syntax/node/prefix/prefix-node';
-import { StatementNode } from '../../syntax/node/statement/statement-node';
-import { MODEL_MODIFIER, TYPE_TOKEN } from '../../syntax/syntax-config';
+import { MODEL_MODIFIER } from '../../syntax/syntax-config';
 import { is } from '../../syntax/util/is';
-import { $Semantic, DeclarationSemantic, ValueSemantic, semanticIs } from '../semantic';
+import { genericDeclarationsHandle } from '../generic/generic-semantic-parser';
+import { $Semantic, ValueSemantic, semanticIs } from '../semantic';
 import { SemanticContext } from '../semantic-context';
-import { ModelDeclarationSemantic, modelDeclarationSemantic, modelValueSemantic } from './model-semantic';
+import { ModelDeclarationSemantic, modelShallowDeclarationSemantic, modelValueSemantic } from './model-semantic';
 
-export function parseModelDeclaration(
+export function modelDeclarationsHandle(
   context: SemanticContext,
-  statement: StatementNode,
-): DeclarationSemantic | Nothing {
-  const node = statement.item;
+  declarations: DeclarationNode[],
+): (ModelDeclarationSemantic | Nothing)[] {
+  const semanticDeclarations = declarations.map((x) => modelDeclarationShallowHandle(context, x));
 
-  if (is<PrefixNode>(node, $Node.PREFIX) && node.operator.text === MODEL_MODIFIER) {
-    const declaration = parseModelPrefix(context, node, nothing);
-
-    if (declaration) {
-      node.semantic = declaration;
-      context.addDeclaration(declaration);
-
-      return declaration;
-    }
-
-    return nothing;
+  for (const declaration of declarations) {
+    modelDeclarationDeepHandle(context, declaration);
   }
 
-  if (is<InfixNode>(node, $Node.INFIX) && node.operator.text === TYPE_TOKEN) {
-    if (is<PrefixNode>(node.left, $Node.PREFIX) && node.left.operator.text === MODEL_MODIFIER) {
-      const base = parseValueSemantic(context, node.right);
-      const declaration = parseModelPrefix(context, node.left, base);
-
-      if (declaration) {
-        node.semantic = declaration;
-        context.addDeclaration(declaration);
-
-        return declaration;
-      }
-
-      return nothing;
-    }
-  }
-
-  return nothing;
+  return semanticDeclarations;
 }
 
-function parseModelPrefix(
+export function modelDeclarationShallowHandle(
   context: SemanticContext,
-  node: PrefixNode,
-  base: ValueSemantic | Nothing,
+  node: DeclarationNode,
 ): ModelDeclarationSemantic | Nothing {
-  if (is<IdNode>(node.value, $Node.ID)) {
-    const reference = sourceReference(context.source, node.value.range.start);
-    const name = node.value.text;
-    const generics = [];
-    const attributes = {};
+  if (node.modifier?.text === MODEL_MODIFIER && node.id) {
+    const reference = context.createReference(node);
+    const name = node.id.text;
 
-    return modelDeclarationSemantic(reference, name, generics, base, attributes);
-  }
+    const declaration = modelShallowDeclarationSemantic(reference, name);
+    node.semantic = declaration;
+    context.addDeclaration(declaration);
 
-  if (is<InvokeNode>(node.value, $Node.INVOKE) && is<IdNode>(node.value.instance, $Node.ID)) {
-    const reference = sourceReference(context.source, node.value.range.start);
-    const name = node.value.instance.text;
-    const generics = [];
-    const base = nothing;
-    const attributes = {};
-
-    return modelDeclarationSemantic(reference, name, generics, base, attributes);
+    return declaration;
   }
 
   return nothing;
 }
 
-export function parseValueSemantic(context: SemanticContext, node: Node | Nothing): ValueSemantic | Nothing {
+export function modelDeclarationDeepHandle(context: SemanticContext, node: DeclarationNode): void {
+  if (semanticIs<ModelDeclarationSemantic>(node.semantic, $Semantic.MODEL_DECLARATION)) {
+    const childContext = context.createChildContext();
+
+    if (node.generics) {
+      const genericDeclarations = node.generics.items.filter((x): x is DeclarationNode => !!x);
+      node.semantic.generics = genericDeclarationsHandle(childContext, genericDeclarations);
+    }
+
+    if (node.type) {
+      node.semantic.base = parseValueSemantic(childContext, node.type);
+    }
+
+    if (node.attributes.length > 0) {
+      // todo
+    }
+  }
+}
+
+function parseValueSemantic(context: SemanticContext, node: Node | Nothing): ValueSemantic | Nothing {
   if (is<IdNode>(node, $Node.ID)) {
     const declarations = context.findDeclarations(node.text);
 
@@ -86,9 +68,9 @@ export function parseValueSemantic(context: SemanticContext, node: Node | Nothin
     }
 
     const declaration = declarations[0];
-    const reference = context.createReference(node);
 
     if (semanticIs<ModelDeclarationSemantic>(declaration, $Semantic.MODEL_DECLARATION)) {
+      const reference = context.createReference(node);
       const semantic = modelValueSemantic(reference, declaration, []);
       node.semantic = semantic;
 
