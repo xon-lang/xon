@@ -1,3 +1,4 @@
+import { Nothing } from '../lib/core';
 import { Node } from '../syntax/node/node';
 import { SourcePosition, clonePosition, zeroPosition } from './source-position';
 
@@ -13,7 +14,7 @@ export function sourceRange(start: SourcePosition, stop: SourcePosition): Source
   };
 }
 
-export function rangeFromNodes(startNode: Node | null, stopNode: Node | null): SourceRange {
+export function rangeFromNodes(startNode: Node | Nothing, stopNode: Node | Nothing): SourceRange {
   const start = startNode ? clonePosition(startNode.range.start) : zeroPosition();
   const stop = startNode ?? stopNode ? clonePosition((stopNode ?? startNode)!.range.stop) : zeroPosition();
 
