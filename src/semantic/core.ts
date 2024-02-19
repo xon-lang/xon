@@ -1,17 +1,19 @@
 import { readFileSync } from 'fs';
-import { String2 } from '../lib/core';
+import { Nothing, String2, nothing } from '../lib/core';
 import { parseSyntax } from '../syntax/syntax';
-import { DeclarationSemantic, ValueSemantic } from './semantic';
-import { valueSemantic } from './value/value-semantic';
+import { ModelDeclarationSemantic } from './model/model-semantic';
+import { DeclarationSemantic, parseSemantic } from './semantic';
 
-let cachedTypes: Record<String2, DeclarationSemantic> | null = null;
+let cachedTypes: Record<String2, DeclarationSemantic[]> | Nothing = nothing;
 
-function declarations(): Record<String2, DeclarationSemantic> {
+function declarations(): Record<String2, DeclarationSemantic[]> {
   if (!cachedTypes) {
-    cachedTypes = parseSyntax(readFileSync('src/lib/@xon/core/test.xon').toString()).reduce(
-      (cached, type) => ((cached[type.name] = type), cached),
-      {},
-    );
+    const libPath = 'src/lib/@xon/core/test.xon';
+    const libContent = readFileSync(libPath).toString();
+    const syntax = parseSyntax(libContent);
+    const semantic = parseSemantic(syntax);
+
+    cachedTypes = semantic.declarations;
   }
 
   return cachedTypes;
@@ -27,12 +29,6 @@ export type CoreDeclarationName =
   | 'Array'
   | 'String';
 
-export function coreDeclarationSemantic(name: CoreDeclarationName): DeclarationSemantic {
-  return declarations()[name]!;
+export function coreDeclarationSemantic(name: CoreDeclarationName): ModelDeclarationSemantic {
+  return declarations()[name][0] as ModelDeclarationSemantic;
 }
-
-export const coreValueSemantic = (name: CoreDeclarationName, ...args: ValueSemantic[]): ValueSemantic => {
-  const declaration = coreDeclarationSemantic(name);
-
-  return valueSemantic(declaration, args);
-};
