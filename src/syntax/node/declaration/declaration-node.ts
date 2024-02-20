@@ -10,7 +10,7 @@ import { PrefixNode } from '../prefix/prefix-node';
 export interface DeclarationNode extends SyntaxNode {
   $: $Node.DECLARATION;
   modifier: OperatorNode | Nothing;
-  id: IdNode | Nothing;
+  id: IdNode;
   generics: DeclarationListNode | Nothing;
   parameters: DeclarationListNode | Nothing;
   type: PrefixNode | Nothing;
@@ -18,9 +18,9 @@ export interface DeclarationNode extends SyntaxNode {
   attributes: DeclarationNode[];
 }
 
-export function declarationNode(params: Partial<DeclarationNode>): DeclarationNode {
-  const start = params.modifier ?? params.id ?? params.generics ?? params.parameters ?? params.type ?? params.assign;
-  const end = params.assign ?? params.type ?? params.parameters ?? params.generics ?? params.id ?? params.modifier;
+export function declarationNode(params: Partial<DeclarationNode> & { id: IdNode }): DeclarationNode {
+  const start = params.modifier ?? params.id;
+  const end = params.assign ?? params.type ?? params.parameters ?? params.generics ?? params.id;
   const range = rangeFromNodes(start, end);
 
   const node: DeclarationNode = {
@@ -29,7 +29,7 @@ export function declarationNode(params: Partial<DeclarationNode>): DeclarationNo
     children: [],
     attributes: [],
     modifier: params.modifier ?? nothing,
-    id: params.id ?? nothing,
+    id: params.id,
     generics: params.generics ?? nothing,
     parameters: params.parameters ?? nothing,
     type: params.type ?? nothing,

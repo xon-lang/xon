@@ -1,4 +1,4 @@
-import { Boolean2, Nothing, nothing } from '../../lib/core';
+import { Nothing, nothing } from '../../lib/core';
 import {
   DeclarationListNode,
   DeclarationNode,
@@ -15,42 +15,88 @@ import { PrefixNode, prefixNode } from '../node/prefix/prefix-node';
 import {
   ASSIGN_TOKEN,
   GROUP_NODE_OPEN_CODE,
-  MODEL_MODIFIER,
+  MODIFIERS,
+  MODIFIERS_WITH_ATTRIBUTES,
   OBJECT_NODE_OPEN_CODE,
   TYPE_TOKEN,
 } from '../syntax-config';
 import { SyntaxContext } from '../syntax-context';
 import { is } from './is';
 
-/*
-model A{T}: B{T}
-  a
-  a:{T}(): Integer = 1
-  a{T}(): Integer = 1
-  const a
-  var a: Integer = 1
-*/
-
 export function collapseDeclarations(context: SyntaxContext): void {
   const node = context.nodes[0];
 
-  const declaration = parseDeclaration(context, node, false);
+  const declaration = parseStatement(context, node);
 
   if (declaration) {
     context.nodes[0] = declaration;
   }
 }
 
-function parseDeclaration(context: SyntaxContext, node: Node, force: Boolean2): DeclarationNode | Nothing {
-  const { header, type, value } = getHeaderTypeValue(context, node);
+function parseStatement(context: SyntaxContext, node: Node): DeclarationNode | Nothing {
+  const parts = getDeclarationParts(context, node);
 
-  return parseHeader(context, header, type, value, force);
+  if (!parts) {
+    return nothing;
+  }
+
+  if (parts.modifier) {
+    return declarationNode(parts);
+  }
+
+  const parentStatementNode = context.parentStatement?.item;
+
+  if (
+    is<DeclarationNode>(parentStatementNode, $Node.DECLARATION) &&
+    parentStatementNode.modifier &&
+    MODIFIERS_WITH_ATTRIBUTES.includes(parentStatementNode.modifier?.text)
+  ) {
+    const declaration = declarationNode(parts);
+    parentStatementNode.attributes.push(declaration);
+
+    return declaration;
+  }
+
+  return nothing;
 }
 
-function getHeaderTypeValue(
+function getDeclarationParts(
+  context: SyntaxContext,
+  node: Node | Nothing,
+): (Partial<DeclarationNode> & { id: IdNode }) | Nothing {
+  if (!node) {
+    return nothing;
+  }
+
+  const { header, type, assign } = getHeaderTypeAssign(context, node);
+
+  if (is<PrefixNode>(header, $Node.PREFIX) && MODIFIERS.includes(header.operator.text)) {
+    if (!header.value) {
+      return nothing;
+    }
+
+    const underModifier = getUnderModifier(context, header.value);
+
+    if (!underModifier) {
+      return nothing;
+    }
+
+    return { modifier: header.operator, ...underModifier, type, assign };
+  }
+
+  const underModifier = getUnderModifier(context, header);
+
+  if (!underModifier) {
+    return nothing;
+  }
+
+  return { ...underModifier, type, assign };
+}
+
+function getHeaderTypeAssign(
   context: SyntaxContext,
   node: Node,
-): { header: Node; type?: PrefixNode | Nothing; value?: PrefixNode | Nothing } {
+): { header: Node; type?: PrefixNode | Nothing; assign?: PrefixNode | Nothing } {
   if (is<InfixNode>(node, $Node.INFIX)) {
     if (!node.left || !node.right) {
       throw new Error('Not implemented');
@@ -63,66 +109,34 @@ function getHeaderTypeValue(
     }
 
     if (node.operator.text === ASSIGN_TOKEN) {
-      const value = prefixNode(context, node.operator, node.right);
-      const headerType = getHeaderTypeValue(context, node.left);
+      const assign = prefixNode(context, node.operator, node.right);
+      const headerType = getHeaderTypeAssign(context, node.left);
 
-      return { ...headerType, value };
+      return { ...headerType, assign };
     }
   }
 
   return { header: node };
 }
 
-function parseHeader(
+function getUnderModifier(
   context: SyntaxContext,
   node: Node,
-  type: PrefixNode | Nothing,
-  assign: PrefixNode | Nothing,
-  force: Boolean2,
-): DeclarationNode | Nothing {
-  if (is<PrefixNode>(node, $Node.PREFIX) && node.operator.text === MODEL_MODIFIER) {
-    const underModifier = parseUnderModifierNode(context, node.value);
-
-    return declarationNode({ modifier: node.operator, ...underModifier, type, assign });
-  }
-
-  const parentNode = context.parentStatement?.item;
-
-  if (is<DeclarationNode>(parentNode, $Node.DECLARATION) && parentNode.modifier?.text === MODEL_MODIFIER) {
-    const underModifier = parseUnderModifierNode(context, node);
-
-    const declaration = declarationNode({ ...underModifier, type, assign });
-    parentNode.attributes.push(declaration);
-
-    return declaration;
-  }
-
-  if (force) {
-    const underModifier = parseUnderModifierNode(context, node);
-
-    return declarationNode({ ...underModifier, type, assign });
-  }
-
-  return nothing;
-}
-
-function parseUnderModifierNode(
-  context: SyntaxContext,
-  node: Node | Nothing,
-): { id?: IdNode | Nothing; generics?: DeclarationListNode | Nothing; parameters?: DeclarationListNode | Nothing } {
-  if (!node) {
-    return {};
-  }
-
+): { id: IdNode; generics?: DeclarationListNode | Nothing; parameters?: DeclarationListNode | Nothing } | Nothing {
   if (is<IdNode>(node, $Node.ID)) {
     return { id: node };
   }
 
   if (is<InvokeNode>(node, $Node.INVOKE)) {
     if (is<GroupNode>(node.group, $Node.GROUP) || is<ObjectNode>(node.group, $Node.OBJECT)) {
-      const declarations = node.group.items.map((x) => parseDeclaration(context, x, true));
+      const instance = getUnderModifier(context, node.instance);
+
+      if (!instance) {
+        return nothing;
+      }
+
+      const declarations = node.group.items.map((x) => parseStatement(context, x));
       const declarationList = declarationListNode(node.group.open, node.group.close, declarations);
-      const instance = parseUnderModifierNode(context, node.instance);
 
       if (declarationList.open.text.charCodeAt(0) === GROUP_NODE_OPEN_CODE) {
         return { ...instance, parameters: declarationList };
@@ -134,5 +148,5 @@ function parseUnderModifierNode(
     }
   }
 
-  return {};
+  return nothing;
 }
