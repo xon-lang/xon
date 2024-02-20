@@ -2,12 +2,12 @@ import { ISSUE_MESSAGE } from '../../issue/issue-message';
 import { Nothing } from '../../lib/core';
 import { StatementNode, statementNode } from '../node/statement/statement-node';
 import { SyntaxContext } from '../syntax-context';
+import { collapseDeclaration } from './collapse-declaration';
 import { collapseOperators } from './collapse-operators';
-import { collapseDeclarations } from './collapse-declarations';
 
 export function getStatementNode(context: SyntaxContext, parent: StatementNode | Nothing): StatementNode {
   collapseOperators(context);
-  collapseDeclarations(context);
+  collapseDeclaration(context);
 
   context.nodes.slice(1).forEach((node) => context.addErrorIssue(node, ISSUE_MESSAGE.notImplemented()));
 

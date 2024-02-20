@@ -23,7 +23,7 @@ import {
 import { SyntaxContext } from '../syntax-context';
 import { is } from './is';
 
-export function collapseDeclarations(context: SyntaxContext): void {
+export function collapseDeclaration(context: SyntaxContext): void {
   const node = context.nodes[0];
 
   const declaration = parseStatement(context, node);
@@ -58,6 +58,16 @@ function parseStatement(context: SyntaxContext, node: Node): DeclarationNode | N
   }
 
   return nothing;
+}
+
+function parseParameter(context: SyntaxContext, node: Node): DeclarationNode | Nothing {
+  const parts = getDeclarationParts(context, node);
+
+  if (!parts) {
+    return nothing;
+  }
+
+  return declarationNode(parts);
 }
 
 function getDeclarationParts(
@@ -135,7 +145,7 @@ function getUnderModifier(
         return nothing;
       }
 
-      const declarations = node.group.items.map((x) => parseStatement(context, x));
+      const declarations = node.group.items.map((x) => parseParameter(context, x));
       const declarationList = declarationListNode(node.group.open, node.group.close, declarations);
 
       if (declarationList.open.text.charCodeAt(0) === GROUP_NODE_OPEN_CODE) {
