@@ -1,8 +1,7 @@
 import { Integer, String2 } from '../lib/core';
-import { Node } from '../syntax/node/node';
-import { SyntaxContext } from '../syntax/syntax-context';
 
 import '../util/extension';
+import { SourceRange } from './source-range';
 
 export interface Source {
   location: String2 | null;
@@ -23,6 +22,6 @@ export function createSource(path: String2 | null, text: String2): Source {
   };
 }
 
-export function getNodeText({ source }: SyntaxContext, { range }: Node): String2 {
+export function getRangeText(source: Source, range: SourceRange): String2 {
   return source.text.slice(range.start.index, range.stop.index + 1);
 }
