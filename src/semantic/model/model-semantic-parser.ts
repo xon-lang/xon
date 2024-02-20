@@ -4,7 +4,7 @@ import { MODEL_MODIFIER } from '../../syntax/syntax-config';
 import { genericsParse } from '../generic/generic-semantic-parser';
 import { $Semantic, semanticIs } from '../semantic';
 import { SemanticContext } from '../semantic-context';
-import { parseValueSemantic } from '../value/value-semantic-parser';
+import { parseUsageSemantic } from '../usage/usage-semantic-parser';
 import { ModelSemantic, modelShallowSemantic } from './model-semantic';
 
 export function modelsParse(context: SemanticContext, declarations: DeclarationNode[]): (ModelSemantic | Nothing)[] {
@@ -42,7 +42,7 @@ function modelDeepParse(context: SemanticContext, node: DeclarationNode): void {
     }
 
     if (node.type?.value) {
-      node.semantic.base = parseValueSemantic(childContext, node.type.value);
+      node.semantic.base = parseUsageSemantic(childContext, node.type.value);
     }
 
     if (node.attributes.length > 0) {

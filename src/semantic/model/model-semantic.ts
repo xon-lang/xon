@@ -3,12 +3,12 @@ import { SourceReference } from '../../source/source-reference';
 import { GenericSemantic } from '../generic/generic-semantic';
 import { MethodSemantic } from '../method/method-semantic';
 import { $Semantic, DeclarationSemantic } from '../semantic';
-import { ValueSemantic } from '../value/value-semantic';
+import { UsageSemantic } from '../usage/usage-semantic';
 
 export interface ModelSemantic extends DeclarationSemantic {
   $: $Semantic.MODEL;
   generics: (GenericSemantic | Nothing)[];
-  base: ValueSemantic | Nothing;
+  base: UsageSemantic | Nothing;
   attributes: Record<String2, MethodSemantic[]>;
 }
 
@@ -16,7 +16,7 @@ export function modelSemantic(
   reference: SourceReference,
   name: String2,
   generics: (GenericSemantic | Nothing)[],
-  base: ValueSemantic | Nothing,
+  base: UsageSemantic | Nothing,
   attributes: Record<String2, MethodSemantic[]>,
 ): ModelSemantic {
   return {

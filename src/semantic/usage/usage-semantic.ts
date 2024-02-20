@@ -2,21 +2,21 @@ import { Nothing } from '../../lib/core';
 import { SourceReference } from '../../source/source-reference';
 import { $Semantic, DeclarationSemantic } from '../semantic';
 
-export interface ValueSemantic {
+export interface UsageSemantic {
   $: $Semantic.VALUE;
   reference: SourceReference;
   declaration: DeclarationSemantic;
-  generics: (ValueSemantic | Nothing)[];
-  arguments: (ValueSemantic | Nothing)[];
+  generics: (UsageSemantic | Nothing)[];
+  arguments: (UsageSemantic | Nothing)[];
 }
 
-export function valueSemantic(
+export function usageSemantic(
   reference: SourceReference,
   declaration: DeclarationSemantic,
-  generics: (ValueSemantic | Nothing)[],
-  args: (ValueSemantic | Nothing)[],
-): ValueSemantic {
-  const semantic: ValueSemantic = {
+  generics: (UsageSemantic | Nothing)[],
+  args: (UsageSemantic | Nothing)[],
+): UsageSemantic {
+  const semantic: UsageSemantic = {
     $: $Semantic.VALUE,
     reference,
     declaration,

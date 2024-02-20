@@ -5,9 +5,9 @@ import { is } from '../../syntax/util/is';
 import { ModelSemantic } from '../model/model-semantic';
 import { $Semantic, semanticIs } from '../semantic';
 import { SemanticContext } from '../semantic-context';
-import { ValueSemantic, valueSemantic } from './value-semantic';
+import { UsageSemantic, usageSemantic } from './usage-semantic';
 
-export function parseValueSemantic(context: SemanticContext, node: Node | Nothing): ValueSemantic | Nothing {
+export function parseUsageSemantic(context: SemanticContext, node: Node | Nothing): UsageSemantic | Nothing {
   if (is<IdNode>(node, $Node.ID)) {
     const declarations = context.findDeclarations(node.text);
 
@@ -19,7 +19,7 @@ export function parseValueSemantic(context: SemanticContext, node: Node | Nothin
 
     if (semanticIs<ModelSemantic>(declaration, $Semantic.MODEL)) {
       const reference = context.createReference(node);
-      const semantic = valueSemantic(reference, declaration, [], []);
+      const semantic = usageSemantic(reference, declaration, [], []);
       node.semantic = semantic;
 
       return semantic;

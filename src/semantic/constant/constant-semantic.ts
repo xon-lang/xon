@@ -1,19 +1,19 @@
 import { Nothing, String2, nothing } from '../../lib/core';
 import { SourceReference } from '../../source/source-reference';
 import { $Semantic, DeclarationSemantic } from '../semantic';
-import { ValueSemantic } from '../value/value-semantic';
+import { UsageSemantic } from '../usage/usage-semantic';
 
 export interface ConstantSemantic extends DeclarationSemantic {
   $: $Semantic.GENERIC;
-  base: ValueSemantic | Nothing;
-  value: ValueSemantic | Nothing;
+  base: UsageSemantic | Nothing;
+  value: UsageSemantic | Nothing;
 }
 
 export function constantSemantic(
   reference: SourceReference,
   name: String2,
-  base: ValueSemantic | Nothing,
-  value: ValueSemantic | Nothing,
+  base: UsageSemantic | Nothing,
+  value: UsageSemantic | Nothing,
 ): ConstantSemantic {
   return {
     $: $Semantic.GENERIC,

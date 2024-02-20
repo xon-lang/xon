@@ -1,9 +1,9 @@
 import { Something } from '../../lib/core';
 import { SourceReference } from '../../source/source-reference';
 import { $Semantic, DeclarationSemantic } from '../semantic';
-import { ValueSemantic } from '../value/value-semantic';
+import { UsageSemantic } from '../usage/usage-semantic';
 
-export interface LiteralSemantic extends ValueSemantic {
+export interface LiteralSemantic extends UsageSemantic {
   // todo
   // $: $Semantic.LITERAL,
   value: Something;

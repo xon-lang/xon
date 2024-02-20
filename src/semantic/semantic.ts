@@ -6,7 +6,7 @@ import { SyntaxResult } from '../syntax/syntax-result';
 import { is } from '../syntax/util/is';
 import { modelsParse } from './model/model-semantic-parser';
 import { SemanticContext, semanticContext } from './semantic-context';
-import { ValueSemantic } from './value/value-semantic';
+import { UsageSemantic } from './usage/usage-semantic';
 
 export interface Semantic {
   $: $Semantic;
@@ -15,7 +15,7 @@ export interface Semantic {
 
 export interface DeclarationSemantic extends Semantic {
   name: String2;
-  usages: ValueSemantic[];
+  usages: UsageSemantic[];
 }
 
 export enum $Semantic {
