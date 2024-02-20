@@ -8,18 +8,18 @@ import { parseUsageSemantic } from '../usage/usage-semantic-parser';
 import { ModelSemantic, modelShallowSemantic } from './model-semantic';
 
 export function modelShallowParse(context: SemanticContext, node: DeclarationNode): ModelSemantic | Nothing {
-  if (node.modifier?.text === MODEL_MODIFIER) {
-    const reference = context.createReference(node);
-    const name = node.id.text;
-
-    const declaration = modelShallowSemantic(reference, name);
-    node.semantic = declaration;
-    context.addDeclaration(declaration);
-
-    return declaration;
+  if (node.modifier?.text !== MODEL_MODIFIER) {
+    return nothing;
   }
 
-  return nothing;
+  const reference = context.createReference(node);
+  const name = node.id.text;
+
+  const declaration = modelShallowSemantic(reference, name);
+  node.semantic = declaration;
+  context.addDeclaration(declaration);
+
+  return declaration;
 }
 
 export function modelDeepParse(context: SemanticContext, node: DeclarationNode): void {
