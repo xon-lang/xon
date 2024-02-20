@@ -7,3 +7,6 @@ targets
     includes = ['src/tree/**/*.xon', 'src/util/**/*.xon']
     excludes = ['src/tree/**/test-files/**', 'src/tree/**/*.debug.xon']
     extension = '.ts'
+
+
+filenamePattern: ???-- e.g. 'abc-node.xon'

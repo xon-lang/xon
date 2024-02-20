@@ -1,8 +1,9 @@
 import { Nothing, String2 } from '../../lib/core';
 import { SourceReference } from '../../source/source-reference';
+import { DeclarationSemantic } from '../declaration/declaration-semantic';
 import { GenericSemantic } from '../generic/generic-semantic';
 import { MethodSemantic } from '../method/method-semantic';
-import { $Semantic, DeclarationSemantic } from '../semantic';
+import { $Semantic } from '../semantic';
 
 export interface TypeSemantic extends DeclarationSemantic {
   $: $Semantic.MODEL;

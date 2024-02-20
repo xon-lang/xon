@@ -3,12 +3,11 @@ import { Nothing, String2 } from '../lib/core';
 import { Source } from '../source/source';
 import { SourceReference, sourceReference } from '../source/source-reference';
 import { Node } from '../syntax/node/node';
-import { DeclarationSemantic } from './semantic';
+import { DeclarationSemantic } from './declaration/declaration-semantic';
 
 export interface SemanticContext {
   parent: SemanticContext | Nothing;
   source: Source;
-  // hidden: Node[];
   issues: Issue[];
   declarations: Record<String2, DeclarationSemantic[]>;
 

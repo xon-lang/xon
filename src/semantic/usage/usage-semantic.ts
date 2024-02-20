@@ -1,6 +1,7 @@
 import { Nothing } from '../../lib/core';
 import { SourceReference } from '../../source/source-reference';
-import { $Semantic, DeclarationSemantic } from '../semantic';
+import { DeclarationSemantic } from '../declaration/declaration-semantic';
+import { $Semantic } from '../semantic';
 
 export interface UsageSemantic {
   $: $Semantic.VALUE;

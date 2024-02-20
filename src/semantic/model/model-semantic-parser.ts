@@ -7,18 +7,8 @@ import { SemanticContext } from '../semantic-context';
 import { parseUsageSemantic } from '../usage/usage-semantic-parser';
 import { ModelSemantic, modelShallowSemantic } from './model-semantic';
 
-export function modelsParse(context: SemanticContext, declarations: DeclarationNode[]): (ModelSemantic | Nothing)[] {
-  const semanticDeclarations = declarations.map((x) => modelShallowParse(context, x));
-
-  for (const declaration of declarations) {
-    modelDeepParse(context, declaration);
-  }
-
-  return semanticDeclarations;
-}
-
-function modelShallowParse(context: SemanticContext, node: DeclarationNode): ModelSemantic | Nothing {
-  if (node.modifier?.text === MODEL_MODIFIER && node.id) {
+export function modelShallowParse(context: SemanticContext, node: DeclarationNode): ModelSemantic | Nothing {
+  if (node.modifier?.text === MODEL_MODIFIER) {
     const reference = context.createReference(node);
     const name = node.id.text;
 
@@ -32,7 +22,7 @@ function modelShallowParse(context: SemanticContext, node: DeclarationNode): Mod
   return nothing;
 }
 
-function modelDeepParse(context: SemanticContext, node: DeclarationNode): void {
+export function modelDeepParse(context: SemanticContext, node: DeclarationNode): void {
   if (semanticIs<ModelSemantic>(node.semantic, $Semantic.MODEL)) {
     const childContext = context.createChildContext();
 
