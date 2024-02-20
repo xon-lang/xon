@@ -30,13 +30,13 @@ test('validate close pair', () => {
   expect(is(group.open, $Node.OPEN)).toBe(true);
   expect(group.close).toBe(null);
   expect(group.items.length).toBe(0);
-  expect(ast.issues.length).toBe(1);
+  expect(ast.issueManager.issues.length).toBe(1);
 
   const issueMessage = ISSUE_MESSAGE.expectCloseToken(
     group.open.text,
     String.fromCharCode(OPEN_CLOSE_PAIR[group.open.text.charCodeAt(0)]),
   );
 
-  expect(ast.issues[0].message.actual).toBe(issueMessage.actual);
-  expect(ast.issues[0].message.expect).toBe(issueMessage.expect);
+  expect(ast.issueManager.issues[0].message.actual).toBe(issueMessage.actual);
+  expect(ast.issueManager.issues[0].message.expect).toBe(issueMessage.expect);
 });

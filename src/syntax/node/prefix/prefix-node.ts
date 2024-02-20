@@ -27,6 +27,6 @@ export function prefixNode(context: SyntaxContext, operator: OperatorNode, value
 
 export function validatePrefixNode(context: SyntaxContext, node: PrefixNode): void {
   if (!node.value) {
-    context.addErrorIssue(node, ISSUE_MESSAGE.notImplemented());
+    context.issueManager.addError(node, ISSUE_MESSAGE.notImplemented());
   }
 }

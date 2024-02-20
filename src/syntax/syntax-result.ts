@@ -1,4 +1,4 @@
-import { Issue } from '../issue/issue';
+import { IssueManager } from '../issue/issue-manager';
 import { Source } from '../source/source';
 import { Node } from './node/node';
 import { StatementNode } from './node/statement/statement-node';
@@ -8,7 +8,7 @@ import { SyntaxContext } from './syntax-context';
 export interface SyntaxResult {
   source: Source;
   hidden: Node[];
-  issues: Issue[];
+  issueManager: IssueManager;
   statements: StatementNode[];
   config: SyntaxConfig;
   syntaxContext: SyntaxContext;

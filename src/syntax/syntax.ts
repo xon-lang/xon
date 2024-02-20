@@ -1,4 +1,3 @@
-import { createSyntacticErrorIssue } from '../issue/issue';
 import { ISSUE_MESSAGE } from '../issue/issue-message';
 import { Boolean2, Nothing, String2 } from '../lib/core';
 import { Source, createSource } from '../source/source';
@@ -42,7 +41,9 @@ const scanFunctions: SyntaxScanFn[] = [
 export function parseSyntax(text: String2, config?: Partial<SyntaxConfig>): SyntaxResult {
   const source = createSource(null, text);
 
-  return parseSyntaxUntil(source, zeroPosition(), null, config);
+  const result = parseSyntaxUntil(source, zeroPosition(), null, config);
+  result.issueManager.issues.forEach((x) => result.issueManager.log(x));
+  return result;
 }
 
 export function parseSyntaxUntil(
@@ -95,7 +96,7 @@ export function parseSyntaxUntil(
     }
 
     if (is(node, $Node.UNKNOWN)) {
-      context.issues.push(createSyntacticErrorIssue(node, ISSUE_MESSAGE.unexpectedNode()));
+      context.issueManager.addError(node, ISSUE_MESSAGE.unexpectedNode());
 
       continue;
     }

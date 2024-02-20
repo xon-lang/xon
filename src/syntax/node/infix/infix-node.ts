@@ -34,6 +34,6 @@ export function infixNode(
 
 export function validateInfixNode(context: SyntaxContext, node: InfixNode): void {
   if (!node.left || !node.right) {
-    context.addErrorIssue(node, ISSUE_MESSAGE.notImplemented());
+    context.issueManager.addError(node, ISSUE_MESSAGE.notImplemented());
   }
 }

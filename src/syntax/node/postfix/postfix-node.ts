@@ -27,6 +27,6 @@ export function postfixNode(context: SyntaxContext, operator: OperatorNode, valu
 
 export function validatePostfixNode(context: SyntaxContext, node: PostfixNode): void {
   if (!node.value) {
-    context.addErrorIssue(node, ISSUE_MESSAGE.notImplemented());
+    context.issueManager.addError(node, ISSUE_MESSAGE.notImplemented());
   }
 }

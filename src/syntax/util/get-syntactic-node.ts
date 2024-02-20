@@ -9,7 +9,7 @@ export function getStatementNode(context: SyntaxContext, parent: StatementNode |
   collapseOperators(context);
   collapseDeclaration(context);
 
-  context.nodes.slice(1).forEach((node) => context.addErrorIssue(node, ISSUE_MESSAGE.notImplemented()));
+  context.nodes.slice(1).forEach((node) => context.issueManager.addError(node, ISSUE_MESSAGE.notImplemented()));
 
   return statementNode(context, context.nodes[0], parent);
 }

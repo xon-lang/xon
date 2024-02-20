@@ -17,6 +17,6 @@ test('unknown 2', () => {
   const nodes = context.statements.map((x) => x.item);
 
   expect(nodes.length).toBe(0);
-  expect(context.issues.length).toBe(3);
-  expect(context.issues.map((x) => (x.node as TokenNode).text).join('')).toBe('ºª¶');
+  expect(context.issueManager.issues.length).toBe(3);
+  expect(context.issueManager.issues.map((x) => (x.node as TokenNode).text).join('')).toBe('ºª¶');
 });

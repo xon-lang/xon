@@ -47,7 +47,7 @@ export function groupNode(context: SyntaxContext, open: OpenNode, close: CloseNo
 
 export function validateGroupNode(context: SyntaxContext, node: GroupNode): void {
   if (!node.close) {
-    context.addErrorIssue(
+    context.issueManager.addError(
       node.open,
       ISSUE_MESSAGE.expectCloseToken(
         node.open.text,
