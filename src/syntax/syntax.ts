@@ -43,6 +43,7 @@ export function parseSyntax(text: String2, config?: Partial<SyntaxConfig>): Synt
 
   const result = parseSyntaxUntil(source, zeroPosition(), null, config);
   result.issueManager.issues.forEach((x) => result.issueManager.log(x));
+
   return result;
 }
 

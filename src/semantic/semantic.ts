@@ -35,17 +35,16 @@ export function semanticIs<T extends Semantic = Semantic>(
 }
 
 export function parseSemantic(syntax: SyntaxResult): SemanticContext {
-  const context = semanticContext(
-    null,
-    syntax.source,
-    createIssueManager(IssueType.SEMANTIC, syntax.issueManager.issues),
-  );
+  const issueManager = createIssueManager(syntax.source, IssueType.SEMANTIC, syntax.issueManager.issues);
+  const context = semanticContext(null, syntax.source, issueManager);
 
   const declarations = syntax.statements
     .map((x) => x.item)
     .filter((x): x is DeclarationNode => is<DeclarationNode>(x, $Node.DECLARATION));
 
   declarationsParse(context, declarations);
+
+  issueManager.issues.forEach((x) => issueManager.log(x));
 
   return context;
 }
