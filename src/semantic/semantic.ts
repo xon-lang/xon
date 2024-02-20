@@ -1,3 +1,5 @@
+import { IssueType } from '../issue/issue';
+import { createIssueManager } from '../issue/issue-manager';
 import { Nothing } from '../lib/core';
 import { SourceReference } from '../source/source-reference';
 import { DeclarationNode } from '../syntax/node/declaration/declaration-node';
@@ -20,8 +22,8 @@ export enum $Semantic {
   PARAMETER,
   METHOD,
   PROPERTY,
-  CONSTANT,
-  VARIABLE,
+  CONST,
+  VAR,
   OPERATOR,
 }
 
@@ -33,7 +35,11 @@ export function semanticIs<T extends Semantic = Semantic>(
 }
 
 export function parseSemantic(syntax: SyntaxResult): SemanticContext {
-  const context = semanticContext(null, syntax.source);
+  const context = semanticContext(
+    null,
+    syntax.source,
+    createIssueManager(IssueType.SEMANTIC, syntax.issueManager.issues),
+  );
 
   const declarations = syntax.statements
     .map((x) => x.item)

@@ -6,19 +6,21 @@ import { GenericSemantic, genericShallowSemantic } from './generic-semantic';
 
 export function genericsParse(
   context: SemanticContext,
-  declarations: DeclarationNode[],
+  nodes: (DeclarationNode | Nothing)[],
 ): (GenericSemantic | Nothing)[] {
-  const semanticDeclarations = declarations.map((x) => genericShallowParse(context, x));
+  const semanticDeclarations = nodes.map((x) => genericShallowParse(context, x));
 
-  for (const declaration of declarations) {
-    genericDeepParse(context, declaration);
+  for (const node of nodes) {
+    if (node) {
+      genericDeepParse(context, node);
+    }
   }
 
   return semanticDeclarations;
 }
 
-function genericShallowParse(context: SemanticContext, node: DeclarationNode): GenericSemantic | Nothing {
-  if (node.modifier?.text === MODEL_MODIFIER && node.id) {
+function genericShallowParse(context: SemanticContext, node: DeclarationNode | Nothing): GenericSemantic | Nothing {
+  if (node?.modifier?.text === MODEL_MODIFIER) {
     const reference = context.createReference(node);
     const name = node.id.text;
 
@@ -32,6 +34,4 @@ function genericShallowParse(context: SemanticContext, node: DeclarationNode): G
   return nothing;
 }
 
-function genericDeepParse(context: SemanticContext, node: DeclarationNode): GenericSemantic | Nothing {
-  return nothing;
-}
+function genericDeepParse(context: SemanticContext, node: DeclarationNode): void {}

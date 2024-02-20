@@ -1,3 +1,4 @@
+import { ISSUE_MESSAGE } from '../../issue/issue-message';
 import { Nothing, nothing } from '../../lib/core';
 import { IdNode } from '../../syntax/node/id/id-node';
 import { $Node, Node } from '../../syntax/node/node';
@@ -10,6 +11,11 @@ import { UsageSemantic, usageSemantic } from './usage-semantic';
 export function parseUsageSemantic(context: SemanticContext, node: Node | Nothing): UsageSemantic | Nothing {
   if (is<IdNode>(node, $Node.ID)) {
     const declarations = context.findDeclarations(node.text);
+
+    if (declarations.length === 0) {
+      context.issueManager.addError(node, ISSUE_MESSAGE.declarationNotFound(node.text));
+      return nothing;
+    }
 
     if (declarations.length !== 1) {
       throw new Error('Not implemented');

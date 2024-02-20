@@ -7,6 +7,6 @@ test('a is integer', () => {
   const semantic = parseSemantic(syntax);
 
   expect(Object.keys(semantic.declarations).length).toBe(1);
-  expect(semantic.declarations.A[0].$).toBe($Semantic.MODEL);
-  expect(semantic.declarations.A[0].name).toBe('A');
+  expect(semantic.declarations.a[0].$).toBe($Semantic.CONST);
+  expect(semantic.declarations.a[0].name).toBe('A');
 });

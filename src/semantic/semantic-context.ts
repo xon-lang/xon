@@ -1,4 +1,4 @@
-import { Issue } from '../issue/issue';
+import { IssueManager } from '../issue/issue-manager';
 import { Nothing, String2 } from '../lib/core';
 import { Source } from '../source/source';
 import { SourceReference, sourceReference } from '../source/source-reference';
@@ -8,7 +8,7 @@ import { DeclarationSemantic } from './declaration/declaration-semantic';
 export interface SemanticContext {
   parent: SemanticContext | Nothing;
   source: Source;
-  issues: Issue[];
+  issueManager: IssueManager;
   declarations: Record<String2, DeclarationSemantic[]>;
 
   createChildContext: () => SemanticContext;
@@ -20,16 +20,16 @@ export interface SemanticContext {
 export function semanticContext(
   parent: SemanticContext | Nothing,
   source: Source,
-  issues: Issue[] = [],
+  issueManager: IssueManager,
 ): SemanticContext {
   return {
     parent,
     source,
-    issues,
+    issueManager,
     declarations: {},
 
     createChildContext(): SemanticContext {
-      return semanticContext(this, this.source, this.issues);
+      return semanticContext(this, this.source, this.issueManager);
     },
 
     createReference(node: Node): SourceReference {

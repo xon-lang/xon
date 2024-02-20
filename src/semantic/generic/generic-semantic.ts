@@ -6,7 +6,7 @@ import { UsageSemantic } from '../usage/usage-semantic';
 
 export interface GenericSemantic extends DeclarationSemantic {
   $: $Semantic.GENERIC;
-  base: UsageSemantic | Nothing;
+  type: UsageSemantic | Nothing;
   value: UsageSemantic | Nothing;
 }
 
@@ -21,7 +21,7 @@ export function genericSemantic(
     reference,
     name,
     usages: [],
-    base,
+    type: base,
     value,
   };
 }
@@ -32,7 +32,7 @@ export function genericShallowSemantic(reference: SourceReference, name: String2
     reference,
     name,
     usages: [],
-    base: nothing,
+    type: nothing,
     value: nothing,
   };
 }

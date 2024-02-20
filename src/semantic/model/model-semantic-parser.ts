@@ -27,8 +27,7 @@ export function modelDeepParse(context: SemanticContext, node: DeclarationNode):
     const childContext = context.createChildContext();
 
     if (node.generics) {
-      const genericDeclarations = node.generics.items.filter((x): x is DeclarationNode => !!x);
-      node.semantic.generics = genericsParse(childContext, genericDeclarations);
+      node.semantic.generics = genericsParse(childContext, node.generics.items);
     }
 
     if (node.type?.value) {

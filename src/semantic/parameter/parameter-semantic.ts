@@ -1,27 +1,38 @@
-import { String2 } from '../../lib/core';
+import { Nothing, String2, nothing } from '../../lib/core';
 import { SourceReference } from '../../source/source-reference';
 import { DeclarationSemantic } from '../declaration/declaration-semantic';
 import { $Semantic } from '../semantic';
 import { UsageSemantic } from '../usage/usage-semantic';
 
 export interface ParameterSemantic extends DeclarationSemantic {
-  $: $Semantic.PARAMETER;
-  type: DeclarationSemantic;
-  value: UsageSemantic;
+  $: $Semantic.GENERIC;
+  type: UsageSemantic | Nothing;
+  value: UsageSemantic | Nothing;
 }
 
 export function parameterSemantic(
   reference: SourceReference,
   name: String2,
-  type: DeclarationSemantic,
-  value: UsageSemantic,
+  base: UsageSemantic | Nothing,
+  value: UsageSemantic | Nothing,
 ): ParameterSemantic {
   return {
-    $: $Semantic.PARAMETER,
+    $: $Semantic.GENERIC,
     reference,
     name,
     usages: [],
-    type,
+    type: base,
     value,
+  };
+}
+
+export function parameterShallowSemantic(reference: SourceReference, name: String2): ParameterSemantic {
+  return {
+    $: $Semantic.GENERIC,
+    reference,
+    name,
+    usages: [],
+    type: nothing,
+    value: nothing,
   };
 }
