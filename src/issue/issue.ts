@@ -1,8 +1,7 @@
 import { IssueLevel } from '../issue/issue-level';
 import { String2 } from '../lib/core';
-import { getNodeText } from '../source/source';
+import { Source, getRangeText } from '../source/source';
 import { Node } from '../syntax/node/node';
-import { SyntaxContext } from '../syntax/syntax-context';
 import { IssueMessage } from './issue-message';
 
 export enum IssueType {
@@ -72,11 +71,11 @@ enum Color {
   BG_GRAY = '\x1b[100m',
 }
 
-export function formatIssue(context: SyntaxContext, { node, message }: Issue): String2 {
+export function formatIssue(source: Source, { node, message }: Issue): String2 {
   const msg = redBright(message.actual);
-  const lineText = context.source.text.split('\n')[node.range.start.line];
-  const nodeText = getNodeText(context, node);
-  const location = cyan(context.source.location ?? '<code>');
+  const lineText = source.text.split('\n')[node.range.start.line];
+  const nodeText = getRangeText(source, node.range);
+  const location = cyan(source.location ?? '<code>');
   const line = cyan(`:${node.range.start.line + 1}`);
   const column = cyan(`:${node.range.start.column + 1}`);
   const lineNumberBeforeGrayed = `${node.range.start.line + 1} | `;
