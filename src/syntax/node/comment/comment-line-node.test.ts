@@ -5,9 +5,9 @@ import { CommentLineNode } from './comment-line-node';
 test('line comment', () => {
   const text = '-- abc';
   const ast = parseSyntax(text);
-  const node = ast.statements[0].item as CommentLineNode;
+  const node = ast.hiddenNodes[0] as CommentLineNode;
 
-  expect(ast.statements.length).toBe(1);
+  expect(ast.hiddenNodes.length).toBe(1);
   expect(node.$).toBe($Node.COMMENT_LINE);
   expect(node.text).toBe('-- abc');
 });
@@ -15,9 +15,9 @@ test('line comment', () => {
 test('line comment', () => {
   const text = '-- abc';
   const ast = parseSyntax(text);
-  const node = ast.statements[0].item as CommentLineNode;
+  const node = ast.hiddenNodes[0] as CommentLineNode;
 
-  expect(ast.statements.length).toBe(1);
+  expect(ast.hiddenNodes.length).toBe(1);
   expect(node.$).toBe($Node.COMMENT_LINE);
   expect(node.text).toBe('-- abc');
 });
