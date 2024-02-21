@@ -16,14 +16,15 @@ export interface Semantic {
 
 export enum $Semantic {
   LITERAL,
-  VALUE,
+  USAGE,
+  MODIFIER,
   MODEL,
   GENERIC,
   PARAMETER,
   METHOD,
   PROPERTY,
-  CONST,
-  VAR,
+  CONSTANT,
+  VARIABLE,
   OPERATOR,
 }
 

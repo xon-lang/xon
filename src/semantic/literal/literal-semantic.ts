@@ -16,7 +16,7 @@ export function literalSemantic(
   value: Something,
 ): LiteralSemantic {
   return {
-    $: $Semantic.VALUE,
+    $: $Semantic.USAGE,
     reference,
     declaration,
     generics: [],

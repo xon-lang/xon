@@ -7,7 +7,7 @@ import { $Semantic } from '../semantic';
 import { UsageSemantic } from '../usage/usage-semantic';
 
 export interface ConstantSemantic extends DeclarationSemantic {
-  $: $Semantic.CONST;
+  $: $Semantic.CONSTANT;
   generics: (GenericSemantic | Nothing)[] | Nothing;
   parameters: (ParameterSemantic | Nothing)[] | Nothing;
   type: UsageSemantic | Nothing;
@@ -23,7 +23,7 @@ export function constantSemantic(
   assign: UsageSemantic | Nothing,
 ): ConstantSemantic {
   return {
-    $: $Semantic.CONST,
+    $: $Semantic.CONSTANT,
     reference,
     usages: [],
     name,
@@ -36,7 +36,7 @@ export function constantSemantic(
 
 export function constantShallowSemantic(reference: SourceReference, name: String2): ConstantSemantic {
   return {
-    $: $Semantic.CONST,
+    $: $Semantic.CONSTANT,
     reference,
     usages: [],
     name,

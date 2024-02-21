@@ -47,12 +47,8 @@ export const TYPE_TOKEN = ':';
 export const ASSIGN_TOKEN = '=';
 export const MEMBER_TOKEN = '.';
 export const META_MEMBER_TOKEN = '::';
-export const MODEL_MODIFIER = 'model';
-export const MODIFIERS_WITH_ATTRIBUTES = [MODEL_MODIFIER];
-export const CONST_MODIFIER = 'const';
-export const VAR_MODIFIER = 'var';
-export const MODIFIERS = [...MODIFIERS_WITH_ATTRIBUTES, CONST_MODIFIER, VAR_MODIFIER, 'prefix', 'postfix', 'infix'];
 export const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
+
 export const GROUP_NODE_OPEN_CODE = '('.charCodeAt(0);
 export const GROUP_NODE_CLOSE_CODE = ')'.charCodeAt(0);
 export const ARRAY_NODE_OPEN_CODE = '['.charCodeAt(0);
@@ -65,6 +61,24 @@ export const OPEN_CLOSE_PAIR: Record<Integer, Integer> = {
   [ARRAY_NODE_OPEN_CODE]: ARRAY_NODE_CLOSE_CODE,
   [OBJECT_NODE_OPEN_CODE]: OBJECT_NODE_CLOSE_CODE,
 } as const;
+
+export const MODEL_MODIFIER = 'model';
+export const CONSTANT_MODIFIER = 'const';
+export const VARIABLE_MODIFIER = 'var';
+export const PREFIX_MODIFIER = 'prefix';
+export const POSTFIX_MODIFIER = 'postfix';
+export const INFIX_MODIFIER = 'infix';
+
+export const MODIFIERS = [
+  MODEL_MODIFIER,
+  CONSTANT_MODIFIER,
+  VARIABLE_MODIFIER,
+  PREFIX_MODIFIER,
+  POSTFIX_MODIFIER,
+  INFIX_MODIFIER,
+];
+
+export const MODIFIERS_WITH_ATTRIBUTES = [MODEL_MODIFIER];
 
 export const operatorsOrders: OperatorsOrder[] = [
   {

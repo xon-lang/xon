@@ -1,6 +1,6 @@
 import { Nothing, nothing } from '../../lib/core';
 import { DeclarationNode } from '../../syntax/node/declaration/declaration-node';
-import { CONST_MODIFIER } from '../../syntax/syntax-config';
+import { CONSTANT_MODIFIER } from '../../syntax/syntax-config';
 import { genericsParse } from '../generic/generic-semantic-parser';
 import { parametersParse } from '../parameter/parameter-semantic-parser';
 import { $Semantic, semanticIs } from '../semantic';
@@ -9,7 +9,7 @@ import { parseUsageSemantic } from '../usage/usage-semantic-parser';
 import { ConstantSemantic, constantShallowSemantic } from './constant-semantic';
 
 export function constantShallowParse(context: SemanticContext, node: DeclarationNode): ConstantSemantic | Nothing {
-  if (node.modifier?.text !== CONST_MODIFIER) {
+  if (node.modifier?.text !== CONSTANT_MODIFIER) {
     return nothing;
   }
 
@@ -24,7 +24,7 @@ export function constantShallowParse(context: SemanticContext, node: Declaration
 }
 
 export function constantDeepParse(context: SemanticContext, node: DeclarationNode): void {
-  if (semanticIs<ConstantSemantic>(node.semantic, $Semantic.CONST)) {
+  if (semanticIs<ConstantSemantic>(node.semantic, $Semantic.CONSTANT)) {
     const childContext = context.createChildContext();
 
     if (node.generics) {

@@ -4,7 +4,7 @@ import { DeclarationSemantic } from '../declaration/declaration-semantic';
 import { $Semantic } from '../semantic';
 
 export interface UsageSemantic {
-  $: $Semantic.VALUE;
+  $: $Semantic.USAGE;
   reference: SourceReference;
   declaration: DeclarationSemantic;
   generics: (UsageSemantic | Nothing)[];
@@ -18,7 +18,7 @@ export function usageSemantic(
   args: (UsageSemantic | Nothing)[],
 ): UsageSemantic {
   const semantic: UsageSemantic = {
-    $: $Semantic.VALUE,
+    $: $Semantic.USAGE,
     reference,
     declaration,
     generics,
