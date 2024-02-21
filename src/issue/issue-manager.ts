@@ -34,7 +34,7 @@ export function createIssueManager(source: Source, issueType: IssueType, issues:
 
     log(issue: Issue): void {
       const error = formatIssue(this.source, issue);
-      console.log(error);
+      console.error(error);
     },
   };
 
