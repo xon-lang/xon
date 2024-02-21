@@ -20,18 +20,19 @@ export function genericsParse(
 }
 
 function genericShallowParse(context: SemanticContext, node: DeclarationNode | Nothing): GenericSemantic | Nothing {
-  if (node?.modifier?.text === MODEL_MODIFIER) {
-    const reference = context.createReference(node);
-    const name = node.id.text;
-
-    const declaration = genericShallowSemantic(reference, name);
-    node.semantic = declaration;
-    context.addDeclaration(declaration);
-
-    return declaration;
+  if (node?.modifier?.text !== MODEL_MODIFIER) {
+    return nothing;
   }
 
-  return nothing;
+  const reference = context.createReference(node);
+  const name = node.id.text;
+
+  const declaration = genericShallowSemantic(reference, name);
+  node.semantic = declaration;
+  node.id.semantic = declaration;
+  context.addDeclaration(declaration);
+
+  return declaration;
 }
 
 function genericDeepParse(context: SemanticContext, node: DeclarationNode): void {}

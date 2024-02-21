@@ -18,6 +18,7 @@ export function constantShallowParse(context: SemanticContext, node: Declaration
 
   const declaration = constantShallowSemantic(reference, name);
   node.semantic = declaration;
+  node.id.semantic = declaration;
   context.addDeclaration(declaration);
 
   return declaration;
