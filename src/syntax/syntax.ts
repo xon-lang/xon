@@ -5,10 +5,11 @@ import { SourcePosition, zeroPosition } from '../source/source-position';
 import { scanCharNode } from './node/char/char-node';
 import { scanCloseNode } from './node/close/close-node';
 import { scanCommaNode } from './node/comma/comma-node';
+import { scanCommentLineNode } from './node/comment/comment-line-node';
 import { scanGroupNode } from './node/group/group-node';
 import { scanIdNode } from './node/id/id-node';
 import { scanIntegerNode } from './node/integer/integer-node';
-import { JoiningNode, scanJoiningNode } from './node/joining/joining-node';
+import { scanJoiningNode } from './node/joining/joining-node';
 import { scanNlNode } from './node/nl/nl-node';
 import { $Node, Node } from './node/node';
 import { scanOperatorNode } from './node/operator/operator-node';
@@ -24,6 +25,7 @@ import { putStatementNode } from './util/put-statement-node';
 type SyntaxScanFn = (context: SyntaxContext) => Node | Nothing;
 
 const scanFunctions: SyntaxScanFn[] = [
+  scanCommentLineNode,
   scanIntegerNode,
   scanStringNode,
   scanCharNode,
@@ -68,16 +70,8 @@ export function parseSyntaxUntil(
       break;
     }
 
-    if (is(node, $Node.WHITESPACE)) {
+    if ([$Node.WHITESPACE, $Node.JOINING].some((x) => is(node, x))) {
       context.hiddenNodes.push(node);
-
-      continue;
-    }
-
-    if (is<JoiningNode>(node, $Node.JOINING)) {
-      context.hiddenNodes.push(node);
-      context.position.line += 1;
-      context.position.column = 0;
 
       continue;
     }
