@@ -40,6 +40,8 @@ const scanFunctions: SyntaxScanFn[] = [
   scanUnknownNode,
 ];
 
+const HIDDEN_NODES: $Node[] = [$Node.WHITESPACE, $Node.JOINING, $Node.COMMENT_LINE, $Node.COMMENT_BLOCK];
+
 export function parseSyntax(text: String2, config?: Partial<SyntaxConfig>): SyntaxResult {
   const source = createSource(null, text);
 
@@ -70,7 +72,7 @@ export function parseSyntaxUntil(
       break;
     }
 
-    if ([$Node.WHITESPACE, $Node.JOINING].some((x) => is(node, x))) {
+    if (HIDDEN_NODES.some((x) => is(node, x))) {
       context.hiddenNodes.push(node);
 
       continue;
@@ -118,7 +120,7 @@ export function nextNode(context: SyntaxContext): Node {
       context.position.column = node.range.stop.column + 1;
       context.position.index = node.range.stop.index + 1;
 
-      return node as Node;
+      return node;
     }
   }
 
