@@ -17,7 +17,6 @@ export function constantShallowParse(context: SemanticContext, node: Declaration
   const name = node.id.text;
 
   const declaration = constantShallowSemantic(reference, name);
-  node.semantic = declaration;
   node.id.semantic = declaration;
   context.addDeclaration(declaration);
 
@@ -25,19 +24,19 @@ export function constantShallowParse(context: SemanticContext, node: Declaration
 }
 
 export function constantDeepParse(context: SemanticContext, node: DeclarationNode): void {
-  if (semanticIs<ConstantSemantic>(node.semantic, $Semantic.CONSTANT)) {
+  if (semanticIs<ConstantSemantic>(node.id.semantic, $Semantic.CONSTANT)) {
     const childContext = context.createChildContext();
 
     if (node.generics) {
-      node.semantic.generics = genericsParse(childContext, node.generics.items);
+      node.id.semantic.generics = genericsParse(childContext, node.generics.items);
     }
 
     if (node.parameters) {
-      node.semantic.generics = parametersParse(childContext, node.parameters.items);
+      node.id.semantic.generics = parametersParse(childContext, node.parameters.items);
     }
 
     if (node.type?.value) {
-      node.semantic.type = parseUsageSemantic(childContext, node.type.value);
+      node.id.semantic.type = parseUsageSemantic(childContext, node.type.value);
     }
 
     if (node.attributes.length > 0) {

@@ -16,7 +16,6 @@ export function modelShallowParse(context: SemanticContext, node: DeclarationNod
   const name = node.id.text;
 
   const declaration = modelShallowSemantic(reference, name);
-  node.semantic = declaration;
   node.id.semantic = declaration;
   context.addDeclaration(declaration);
 
@@ -24,15 +23,15 @@ export function modelShallowParse(context: SemanticContext, node: DeclarationNod
 }
 
 export function modelDeepParse(context: SemanticContext, node: DeclarationNode): void {
-  if (semanticIs<ModelSemantic>(node.semantic, $Semantic.MODEL)) {
+  if (semanticIs<ModelSemantic>(node.id.semantic, $Semantic.MODEL)) {
     const childContext = context.createChildContext();
 
     if (node.generics) {
-      node.semantic.generics = genericsParse(childContext, node.generics.items);
+      node.id.semantic.generics = genericsParse(childContext, node.generics.items);
     }
 
     if (node.type?.value) {
-      node.semantic.base = parseUsageSemantic(childContext, node.type.value);
+      node.id.semantic.base = parseUsageSemantic(childContext, node.type.value);
     }
 
     if (node.attributes.length > 0) {

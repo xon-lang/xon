@@ -28,9 +28,9 @@ const a: Integer = 1
   expect(idSemantic.name).toBe('a');
 
   expect((constNode.type?.value as IdNode)?.text).toBe('Integer');
-  expect(constNode.type?.value?.semantic?.$).toBe($Semantic.USAGE);
+  expect((constNode.type?.value as IdNode)?.semantic?.$).toBe($Semantic.USAGE);
 
-  const typeSemantic = constNode.type?.value?.semantic as UsageSemantic;
+  const typeSemantic = (constNode.type?.value as IdNode)?.semantic as UsageSemantic;
   expect(typeSemantic.generics.length).toBe(0);
   expect(typeSemantic.arguments.length).toBe(0);
   expect(typeSemantic.declaration.$).toBe($Semantic.MODEL);
