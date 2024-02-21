@@ -14,7 +14,7 @@ import { scanNlNode } from './node/nl/nl-node';
 import { $Node, Node } from './node/node';
 import { scanOperatorNode } from './node/operator/operator-node';
 import { scanStringNode } from './node/string/string-node';
-import { scanUnknownNode } from './node/unknown/unknown-node';
+import { scanUnknownNode, unknownNode } from './node/unknown/unknown-node';
 import { scanWhitespaceNode } from './node/whitespace/whitespace-node';
 import { SyntaxConfig } from './syntax-config';
 import { SyntaxContext, syntaxContext } from './syntax-context';
@@ -124,5 +124,9 @@ export function nextNode(context: SyntaxContext): Node {
     }
   }
 
-  throw new Error('Not implemented');
+  const text = context.source.text.slice(context.position.index, context.source.length);
+  const range = context.getRange(text.length);
+  context.position.index = context.source.length;
+
+  return unknownNode(range, text);
 }
