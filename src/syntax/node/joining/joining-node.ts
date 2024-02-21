@@ -17,25 +17,26 @@ export function joiningNode(range: SourceRange, text: String2): JoiningNode {
 }
 
 export function scanJoiningNode(context: SyntaxContext): JoiningNode | null {
-  if (context.source.characters[context.position.index] !== JOINING_CODE) {
+  const { source, position } = context;
+  if (source.characters[position.index] !== JOINING_CODE) {
     return null;
   }
 
-  let nextIndex = context.position.index + 1;
+  let nextIndex = position.index + 1;
 
-  for (; nextIndex < context.source.text.length; nextIndex++) {
-    const nextCode = context.source.characters[nextIndex];
+  for (; nextIndex < source.text.length; nextIndex++) {
+    const nextCode = source.characters[nextIndex];
 
     if (nextCode === SPACE_CODE || nextCode === TAB_CODE) {
       continue;
     }
 
-    if (context.source.characters[nextIndex] === LF_CODE) {
+    if (nextCode === LF_CODE) {
       nextIndex += 1;
-    } else if (context.source.characters[nextIndex] === CR_CODE) {
+    } else if (nextCode === CR_CODE) {
       nextIndex += 1;
 
-      if (context.source.characters[nextIndex + 1] === LF_CODE) {
+      if (source.characters[nextIndex + 1] === LF_CODE) {
         nextIndex += 1;
       }
     }
@@ -43,7 +44,7 @@ export function scanJoiningNode(context: SyntaxContext): JoiningNode | null {
     break;
   }
 
-  const text = context.source.text.slice(context.position.index, nextIndex);
+  const text = source.text.slice(position.index, nextIndex);
   const range = context.getRange(text.length);
 
   return joiningNode(range, text);

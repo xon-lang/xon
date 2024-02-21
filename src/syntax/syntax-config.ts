@@ -20,19 +20,30 @@ export enum RecursiveType {
 }
 const a: number | string = 1 + 2 / 0;
 
+export const COMMENT_LINE = '--';
+export const COMMENT_LINE_CODE = COMMENT_LINE.charCodeAt(0);
+
 export const CR = '\r';
 export const CR_CODE = CR.charCodeAt(0);
+
 export const LF = '\n';
 export const LF_CODE = LF.charCodeAt(0);
+
 export const COMMA = ',';
 export const COMMA_CODE = COMMA.charCodeAt(0);
+
 export const JOINING = '\\';
 export const JOINING_CODE = JOINING.charCodeAt(0);
+
 export const SPACE = ' ';
 export const SPACE_CODE = SPACE.charCodeAt(0);
+
 export const TAB = '\t';
 export const TAB_CODE = TAB.charCodeAt(0);
-export const UNDERSCORE_CODE = '_'.charCodeAt(0);
+
+export const UNDERSCORE = '_';
+export const UNDERSCORE_CODE = UNDERSCORE.charCodeAt(0);
+
 export const STRING_QUOTE = '"';
 export const CHAR_QUOTE = "'";
 export const TYPE_TOKEN = ':';

@@ -33,14 +33,10 @@ export function isSyntaxNode(node: Node): node is SyntaxNode {
 }
 
 export enum $Node {
-  NL = 'NL',
-
+  COMMENT = 'COMMENT',
   WHITESPACE = 'WHITESPACE',
   JOINING = 'JOINING',
-
-  ROOT = 'ROOT',
-  // todo add comments and block comments
-  COMMENT = 'COMMENT',
+  NL = 'NL',
 
   INTEGER = 'INTEGER',
   FLOAT = 'FLOAT',
