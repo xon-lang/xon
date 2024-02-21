@@ -83,7 +83,7 @@ export function scanGroupNode(context: SyntaxContext): Group | null {
     context.position = clonePosition(itemContext.position);
 
     if (is<CommaNode>(itemContext.breakNode, $Node.COMMA)) {
-      context.hidden.push(itemContext.breakNode);
+      context.hiddenNodes.push(itemContext.breakNode);
 
       if (itemContext.nodes.length > 0) {
         items.push(itemContext.statements[0].item);

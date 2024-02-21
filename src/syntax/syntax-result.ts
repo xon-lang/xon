@@ -7,7 +7,8 @@ import { SyntaxContext } from './syntax-context';
 
 export interface SyntaxResult {
   source: Source;
-  hidden: Node[];
+  hiddenNodes: Node[];
+  unknownNodes: Node[];
   issueManager: IssueManager;
   statements: StatementNode[];
   config: SyntaxConfig;

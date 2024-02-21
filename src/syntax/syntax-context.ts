@@ -12,7 +12,8 @@ import { SyntaxConfig } from './syntax-config';
 export interface SyntaxContext {
   source: Source;
   position: SourcePosition;
-  hidden: Node[];
+  hiddenNodes: Node[];
+  unknownNodes: Node[];
   breakNode: Node | null;
   parentStatement: StatementNode | Nothing;
   nodes: Node[];
@@ -28,7 +29,8 @@ export function syntaxContext(source: Source, position: SourcePosition, config: 
   return {
     source,
     position,
-    hidden: [],
+    hiddenNodes: [],
+    unknownNodes: [],
     parentStatement: nothing,
     nodes: [],
     previousStatement: null,

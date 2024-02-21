@@ -69,13 +69,13 @@ export function parseSyntaxUntil(
     }
 
     if (is(node, $Node.WHITESPACE)) {
-      context.hidden.push(node);
+      context.hiddenNodes.push(node);
 
       continue;
     }
 
     if (is<JoiningNode>(node, $Node.JOINING)) {
-      context.hidden.push(node);
+      context.hiddenNodes.push(node);
       context.position.line += 1;
       context.position.column = 0;
 
@@ -83,7 +83,7 @@ export function parseSyntaxUntil(
     }
 
     if (is(node, $Node.NL)) {
-      context.hidden.push(node);
+      context.hiddenNodes.push(node);
       context.position.line += 1;
       context.position.column = 0;
 
@@ -97,6 +97,7 @@ export function parseSyntaxUntil(
     }
 
     if (is(node, $Node.UNKNOWN)) {
+      context.unknownNodes.push(node);
       context.issueManager.addError(node, ISSUE_MESSAGE.unexpectedNode());
 
       continue;

@@ -36,7 +36,7 @@ test('with new line', () => {
   const context = parseSyntax(text);
   const nodes = context.statements.map((x) => x.item);
   const member = nodes[0] as InfixNode;
-  const hidden = context.hidden[0] as JoiningNode;
+  const hidden = context.hiddenNodes[0] as JoiningNode;
 
   expect(nodes.length).toBe(1);
   expect(hidden.text).toBe('\\   \n');

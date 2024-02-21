@@ -4,13 +4,13 @@ import { SourceRange } from '../../source/source-range';
 
 export interface Node {
   readonly $: $Node;
-  readonly range: SourceRange;
+  range: SourceRange;
   semantic?: Semantic | Nothing;
 }
 
 export interface TokenNode extends Node {
   // todo remove it and get from range field to optimize memory
-  readonly text: String2;
+  text: String2;
 }
 
 export interface SyntaxNode extends Node {
