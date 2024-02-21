@@ -1,10 +1,10 @@
-import { Nothing, String2, nothing } from '../../lib/core';
-import { SourceReference } from '../../source/source-reference';
-import { DeclarationSemantic } from '../declaration/declaration-semantic';
+import { Nothing, String2, nothing } from '../../../lib/core';
+import { SourceReference } from '../../../source/source-reference';
+import { $Semantic } from '../../semantic';
+import { UsageSemantic } from '../../usage/usage-semantic';
+import { DeclarationSemantic } from '../declaration-semantic';
 import { GenericSemantic } from '../generic/generic-semantic';
 import { MethodSemantic } from '../method/method-semantic';
-import { $Semantic } from '../semantic';
-import { UsageSemantic } from '../usage/usage-semantic';
 
 export interface ModelSemantic extends DeclarationSemantic {
   $: $Semantic.MODEL;

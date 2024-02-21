@@ -1,5 +1,5 @@
-import { parseSyntax } from '../../syntax/syntax';
-import { $Semantic, parseSemantic } from '../semantic';
+import { parseSyntax } from '../../../syntax/syntax';
+import { $Semantic, parseSemantic } from '../../semantic';
 import { ModelSemantic } from './model-semantic';
 
 test('only a', () => {

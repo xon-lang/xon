@@ -1,10 +1,10 @@
-import { Nothing, nothing } from '../../lib/core';
-import { DeclarationNode } from '../../syntax/node/declaration/declaration-node';
-import { MODEL_MODIFIER } from '../../syntax/syntax-config';
+import { Nothing, nothing } from '../../../lib/core';
+import { DeclarationNode } from '../../../syntax/node/declaration/declaration-node';
+import { MODEL_MODIFIER } from '../../../syntax/syntax-config';
+import { $Semantic, semanticIs } from '../../semantic';
+import { SemanticContext } from '../../semantic-context';
+import { parseUsageSemantic } from '../../usage/usage-semantic-parser';
 import { genericsParse } from '../generic/generic-semantic-parser';
-import { $Semantic, semanticIs } from '../semantic';
-import { SemanticContext } from '../semantic-context';
-import { parseUsageSemantic } from '../usage/usage-semantic-parser';
 import { ModelSemantic, modelShallowSemantic } from './model-semantic';
 
 export function modelShallowParse(context: SemanticContext, node: DeclarationNode): ModelSemantic | Nothing {

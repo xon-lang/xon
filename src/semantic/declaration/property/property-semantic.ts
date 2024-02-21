@@ -1,8 +1,8 @@
-import { Nothing, String2 } from '../../lib/core';
-import { SourceReference } from '../../source/source-reference';
-import { DeclarationSemantic } from '../declaration/declaration-semantic';
-import { $Semantic } from '../semantic';
-import { UsageSemantic } from '../usage/usage-semantic';
+import { Nothing, String2 } from '../../../lib/core';
+import { SourceReference } from '../../../source/source-reference';
+import { $Semantic } from '../../semantic';
+import { UsageSemantic } from '../../usage/usage-semantic';
+import { DeclarationSemantic } from '../declaration-semantic';
 
 export interface PropertySemantic extends DeclarationSemantic {
   $: $Semantic.PROPERTY;

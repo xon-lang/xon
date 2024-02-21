@@ -1,7 +1,7 @@
-import { Nothing, nothing } from '../../lib/core';
-import { DeclarationNode } from '../../syntax/node/declaration/declaration-node';
-import { MODEL_MODIFIER } from '../../syntax/syntax-config';
-import { SemanticContext } from '../semantic-context';
+import { Nothing, nothing } from '../../../lib/core';
+import { DeclarationNode } from '../../../syntax/node/declaration/declaration-node';
+import { MODEL_MODIFIER } from '../../../syntax/syntax-config';
+import { SemanticContext } from '../../semantic-context';
 import { GenericSemantic, genericShallowSemantic } from './generic-semantic';
 
 export function genericsParse(

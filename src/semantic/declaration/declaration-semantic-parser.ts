@@ -1,9 +1,9 @@
 import { Nothing } from '../../lib/core';
 import { DeclarationNode } from '../../syntax/node/declaration/declaration-node';
-import { constantDeepParse, constantShallowParse } from '../constant/constant-semantic-parser';
-import { modelDeepParse, modelShallowParse } from '../model/model-semantic-parser';
 import { SemanticContext } from '../semantic-context';
+import { constantDeepParse, constantShallowParse } from './constant/constant-semantic-parser';
 import { DeclarationSemantic } from './declaration-semantic';
+import { modelDeepParse, modelShallowParse } from './model/model-semantic-parser';
 
 type ShallowDeclarationParseFn = (context: SemanticContext, node: DeclarationNode) => DeclarationSemantic | Nothing;
 type DeepDeclarationParseFn = (context: SemanticContext, node: DeclarationNode) => void;

@@ -1,11 +1,11 @@
-import { Nothing, nothing } from '../../lib/core';
-import { DeclarationNode } from '../../syntax/node/declaration/declaration-node';
-import { CONSTANT_MODIFIER } from '../../syntax/syntax-config';
+import { Nothing, nothing } from '../../../lib/core';
+import { DeclarationNode } from '../../../syntax/node/declaration/declaration-node';
+import { CONSTANT_MODIFIER } from '../../../syntax/syntax-config';
+import { $Semantic, semanticIs } from '../../semantic';
+import { SemanticContext } from '../../semantic-context';
+import { parseUsageSemantic } from '../../usage/usage-semantic-parser';
 import { genericsParse } from '../generic/generic-semantic-parser';
 import { parametersParse } from '../parameter/parameter-semantic-parser';
-import { $Semantic, semanticIs } from '../semantic';
-import { SemanticContext } from '../semantic-context';
-import { parseUsageSemantic } from '../usage/usage-semantic-parser';
 import { ConstantSemantic, constantShallowSemantic } from './constant-semantic';
 
 export function constantShallowParse(context: SemanticContext, node: DeclarationNode): ConstantSemantic | Nothing {

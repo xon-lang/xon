@@ -1,8 +1,9 @@
+import { nothing } from '../../lib/core';
 import { DeclarationNode } from '../../syntax/node/declaration/declaration-node';
 import { IdNode } from '../../syntax/node/id/id-node';
 import { parseSyntax } from '../../syntax/syntax';
-import { ConstantSemantic } from '../constant/constant-semantic';
-import { ModelSemantic } from '../model/model-semantic';
+import { ConstantSemantic } from '../declaration/constant/constant-semantic';
+import { ModelSemantic } from '../declaration/model/model-semantic';
 import { $Semantic, parseSemantic } from '../semantic';
 import { UsageSemantic } from '../usage/usage-semantic';
 
@@ -31,11 +32,20 @@ const a: Integer = 1
   expect((constNode.type?.value as IdNode)?.semantic?.$).toBe($Semantic.USAGE);
 
   const typeSemantic = (constNode.type?.value as IdNode)?.semantic as UsageSemantic;
-  expect(typeSemantic.generics.length).toBe(0);
-  expect(typeSemantic.arguments.length).toBe(0);
+  expect(typeSemantic.generics).toBe(nothing);
+  expect(typeSemantic.arguments).toBe(nothing);
   expect(typeSemantic.declaration.$).toBe($Semantic.MODEL);
 
-  const integerDeclaration = typeSemantic.declaration as ModelSemantic
+  const integerDeclaration = typeSemantic.declaration as ModelSemantic;
   expect(integerDeclaration.name).toBe('Integer');
   expect(integerDeclaration.base?.declaration.name).toBe('Number');
+
+  const assignSemantic = (constNode.assign?.value as IdNode)?.semantic as UsageSemantic;
+  expect(assignSemantic.generics).toBe(nothing);
+  expect(assignSemantic.arguments).toBe(nothing);
+  expect(assignSemantic.declaration.$).toBe($Semantic.MODEL);
+
+  // const integerDeclaration = typeSemantic.declaration as ModelSemantic
+  // expect(integerDeclaration.name).toBe('Integer');
+  // expect(integerDeclaration.base?.declaration.name).toBe('Number');
 });

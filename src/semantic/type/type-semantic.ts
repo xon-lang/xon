@@ -1,14 +1,17 @@
 import { Nothing, String2 } from '../../lib/core';
 import { SourceReference } from '../../source/source-reference';
 import { DeclarationSemantic } from '../declaration/declaration-semantic';
-import { GenericSemantic } from '../generic/generic-semantic';
-import { MethodSemantic } from '../method/method-semantic';
-import { $Semantic } from '../semantic';
+import { GenericSemantic } from '../declaration/generic/generic-semantic';
+import { MethodSemantic } from '../declaration/method/method-semantic';
+import { $Semantic, Semantic } from '../semantic';
+import { UsageSemantic } from '../usage/usage-semantic';
 
-export interface TypeSemantic extends DeclarationSemantic {
+export interface TypeSemantic extends Semantic {
   $: $Semantic.MODEL;
-  generics: (GenericSemantic | Nothing)[];
-  attributes: Record<String2, MethodSemantic[]>;
+  declaration: DeclarationSemantic;
+  generics: (UsageSemantic | Nothing)[] | Nothing;
+
+  attributes(): Record<String2, MethodSemantic[]>;
 }
 
 export function typeSemantic(
@@ -22,7 +25,10 @@ export function typeSemantic(
     name,
     usages: [],
     generics,
-    attributes: {},
+
+    attributes() {
+      return {};
+    },
   };
 }
 

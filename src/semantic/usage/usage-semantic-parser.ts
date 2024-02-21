@@ -3,12 +3,16 @@ import { Nothing, nothing } from '../../lib/core';
 import { IdNode } from '../../syntax/node/id/id-node';
 import { $Node, Node } from '../../syntax/node/node';
 import { is } from '../../syntax/util/is';
-import { ModelSemantic } from '../model/model-semantic';
+import { ModelSemantic } from '../declaration/model/model-semantic';
 import { $Semantic, semanticIs } from '../semantic';
 import { SemanticContext } from '../semantic-context';
 import { UsageSemantic, usageSemantic } from './usage-semantic';
 
 export function parseUsageSemantic(context: SemanticContext, node: Node | Nothing): UsageSemantic | Nothing {
+  if (!node) {
+    return nothing;
+  }
+
   if (is<IdNode>(node, $Node.ID)) {
     const declarations = context.findDeclarations(node.text);
 
@@ -25,7 +29,7 @@ export function parseUsageSemantic(context: SemanticContext, node: Node | Nothin
 
     if (semanticIs<ModelSemantic>(declaration, $Semantic.MODEL)) {
       const reference = context.createReference(node);
-      const semantic = usageSemantic(reference, declaration, [], []);
+      const semantic = usageSemantic(reference, declaration, nothing, nothing);
       node.semantic = semantic;
 
       return semantic;

@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 import { Nothing, String2, nothing } from '../lib/core';
 import { parseSyntax } from '../syntax/syntax';
 import { DeclarationSemantic } from './declaration/declaration-semantic';
-import { ModelSemantic } from './model/model-semantic';
+import { ModelSemantic } from './declaration/model/model-semantic';
 import { parseSemantic } from './semantic';
 
 let cachedTypes: Record<String2, DeclarationSemantic[]> | Nothing = nothing;

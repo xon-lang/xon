@@ -1,6 +1,6 @@
-import { Nothing, nothing } from '../../lib/core';
-import { DeclarationNode } from '../../syntax/node/declaration/declaration-node';
-import { SemanticContext } from '../semantic-context';
+import { Nothing, nothing } from '../../../lib/core';
+import { DeclarationNode } from '../../../syntax/node/declaration/declaration-node';
+import { SemanticContext } from '../../semantic-context';
 import { ParameterSemantic, parameterShallowSemantic } from './parameter-semantic';
 
 export function parametersParse(
