@@ -1,8 +1,8 @@
 import { parseSyntax } from '../../syntax';
 import { TokenNode } from '../node';
 
-test('lf cr', () => {
-  const text = '\n\r';
+test('lf nl', () => {
+  const text = '\n';
   const nodes = parseSyntax(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(0);
@@ -10,7 +10,7 @@ test('lf cr', () => {
   // expect(nodes[0].hidden?.first()?.text).toBe('\n');
 
   // expect(nodes[1].hidden?.first().$).toBe(NodeType.NL);
-  // expect(nodes[1].hidden?.first()?.text).toBe('\r');
+  // expect(nodes[1].hidden?.first()?.text).toBe('\r\n');
 
   // expect(nodes[2].hidden.length).toBe(0);
 });

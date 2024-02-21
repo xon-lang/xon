@@ -1,6 +1,6 @@
 import { String2 } from '../../../lib/core';
 import { SourceRange } from '../../../source/source-range';
-import { CR_CODE, JOINING_CODE, LF_CODE, SPACE_CODE, TAB_CODE } from '../../syntax-config';
+import { JOINING, NL, SPACE, TAB } from '../../syntax-config';
 import { SyntaxContext } from '../../syntax-context';
 import { $Node, TokenNode } from '../node';
 
@@ -18,33 +18,21 @@ export function joiningNode(range: SourceRange, text: String2): JoiningNode {
 
 export function scanJoiningNode(context: SyntaxContext): JoiningNode | null {
   const { source, position } = context;
-  if (source.characters[position.index] !== JOINING_CODE) {
+
+  if (source.text[position.index] !== JOINING) {
     return null;
   }
 
-  let nextIndex = position.index + 1;
+  let text = source.text.takeWhile((x) => x === JOINING || x === SPACE || x === TAB, position.index);
 
-  for (; nextIndex < source.text.length; nextIndex++) {
-    const nextCode = source.characters[nextIndex];
-
-    if (nextCode === SPACE_CODE || nextCode === TAB_CODE) {
-      continue;
-    }
-
-    if (nextCode === LF_CODE) {
-      nextIndex += 1;
-    } else if (nextCode === CR_CODE) {
-      nextIndex += 1;
-
-      if (source.characters[nextIndex + 1] === LF_CODE) {
-        nextIndex += 1;
-      }
-    }
-
-    break;
+  if (text.length === 0) {
+    return null;
   }
 
-  const text = source.text.slice(position.index, nextIndex);
+  if (source.text[position.index + text.length] === NL) {
+    text += NL;
+  }
+
   const range = context.getRange(text.length);
 
   return joiningNode(range, text);

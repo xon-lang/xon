@@ -13,12 +13,13 @@ export const DIGIT_0_CODE = '0'.charCodeAt(0);
 export const DIGIT_9_CODE = '9'.charCodeAt(0);
 
 String.prototype.takeWhile = function takeWhile(
-  predicate: (value: Char, index: number) => unknown,
+  predicate: (value: Char, index: Integer) => Boolean2,
   startIndex = 0,
+  includeConditionChar = false,
 ): String2 {
   for (let i = startIndex; i < this.length; i++) {
     if (!predicate(this[i], i)) {
-      return this.slice(startIndex, i);
+      return this.slice(startIndex, includeConditionChar ? i + 1 : i);
     }
   }
 

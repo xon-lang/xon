@@ -23,11 +23,8 @@ const a: number | string = 1 + 2 / 0;
 export const COMMENT_LINE = '--';
 export const COMMENT_LINE_CODE = COMMENT_LINE.charCodeAt(0);
 
-export const CR = '\r';
-export const CR_CODE = CR.charCodeAt(0);
-
-export const LF = '\n';
-export const LF_CODE = LF.charCodeAt(0);
+export const NL = '\n';
+export const NL_CODE = NL.charCodeAt(0);
 
 export const COMMA = ',';
 export const COMMA_CODE = COMMA.charCodeAt(0);
