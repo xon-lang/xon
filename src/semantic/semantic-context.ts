@@ -1,9 +1,13 @@
 import { IssueManager } from '../issue/issue-manager';
-import { Nothing, String2 } from '../lib/core';
+import { ISSUE_MESSAGE } from '../issue/issue-message';
+import { Nothing, String2, nothing } from '../lib/core';
 import { Source } from '../source/source';
 import { SourceReference, sourceReference } from '../source/source-reference';
+import { IdNode } from '../syntax/node/id/id-node';
 import { Node } from '../syntax/node/node';
 import { DeclarationSemantic } from './declaration/declaration-semantic';
+import { GenericSemantic } from './declaration/generic/generic-semantic';
+import { ParameterSemantic } from './declaration/parameter/parameter-semantic';
 
 export interface SemanticContext {
   parent: SemanticContext | Nothing;
@@ -14,7 +18,16 @@ export interface SemanticContext {
   createChildContext: () => SemanticContext;
   createReference: (node: Node) => SourceReference;
   addDeclaration: (declaration: DeclarationSemantic) => void;
-  findDeclarations: (name: String2) => DeclarationSemantic[];
+  findDeclarations: (
+    name: String2,
+    generics: GenericSemantic[] | Nothing,
+    parameters: ParameterSemantic[] | Nothing,
+  ) => DeclarationSemantic[];
+  findSingleDeclaration: (
+    node: IdNode,
+    generics: GenericSemantic[] | Nothing,
+    parameters: ParameterSemantic[] | Nothing,
+  ) => DeclarationSemantic | Nothing;
 }
 
 export function semanticContext(
@@ -44,8 +57,34 @@ export function semanticContext(
       this.declarations[declaration.name].push(declaration);
     },
 
-    findDeclarations(name: String2): DeclarationSemantic[] {
-      return this.declarations[name] ?? this.parent?.findDeclarations(name) ?? [];
+    findDeclarations(
+      name: String2,
+      generics: GenericSemantic[] | Nothing,
+      parameters: ParameterSemantic[] | Nothing,
+    ): DeclarationSemantic[] {
+      return this.declarations[name] ?? this.parent?.findDeclarations(name, generics, parameters) ?? [];
+    },
+
+    findSingleDeclaration(
+      node: IdNode,
+      generics: GenericSemantic[] | Nothing,
+      parameters: ParameterSemantic[] | Nothing,
+    ): DeclarationSemantic | Nothing {
+      const declarations = this.findDeclarations(node.text, generics, parameters);
+
+      if (declarations.length === 0) {
+        this.issueManager.addError(node, ISSUE_MESSAGE.declarationNotFound(node.text));
+
+        return nothing;
+      }
+
+      if (declarations.length !== 1) {
+        this.issueManager.addError(node, ISSUE_MESSAGE.tooManyDeclarationsFoundWithName(node.text));
+
+        return nothing;
+      }
+
+      return declarations[0];
     },
   };
 }

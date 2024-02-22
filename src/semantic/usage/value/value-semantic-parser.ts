@@ -1,14 +1,14 @@
-import { ISSUE_MESSAGE } from '../../issue/issue-message';
-import { Nothing, nothing } from '../../lib/core';
-import { IdNode } from '../../syntax/node/id/id-node';
-import { $Node, Node } from '../../syntax/node/node';
-import { is } from '../../syntax/util/is';
-import { ModelSemantic } from '../declaration/model/model-semantic';
-import { $Semantic, semanticIs } from '../semantic';
-import { SemanticContext } from '../semantic-context';
+import { ISSUE_MESSAGE } from '../../../issue/issue-message';
+import { Nothing, nothing } from '../../../lib/core';
+import { IdNode } from '../../../syntax/node/id/id-node';
+import { $Node, Node } from '../../../syntax/node/node';
+import { is } from '../../../syntax/util/is';
+import { ModelSemantic } from '../../declaration/model/model-semantic';
+import { $Semantic, semanticIs } from '../../semantic';
+import { SemanticContext } from '../../semantic-context';
 import { ValueSemantic, valueSemantic } from './value-semantic';
 
-export function typeSemanticParse(context: SemanticContext, node: Node | Nothing): ValueSemantic | Nothing {
+export function valueSemanticParse(context: SemanticContext, node: Node | Nothing): ValueSemantic | Nothing {
   if (!node) {
     return nothing;
   }

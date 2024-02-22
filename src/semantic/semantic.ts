@@ -16,7 +16,7 @@ export interface Semantic {
 
 export enum $Semantic {
   LITERAL,
-  TYPE,
+  ID_TYPE,
   VALUE,
   MODIFIER,
   MODEL,

@@ -26,4 +26,9 @@ export const ISSUE_MESSAGE = {
     actual: `Declaration '${name}' not found`,
     expect: null,
   }),
+
+  tooManyDeclarationsFoundWithName: (name: String2) => ({
+    actual: `Too many declarations found with '${name}'`,
+    expect: null,
+  }),
 };
