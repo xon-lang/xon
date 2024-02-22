@@ -3,7 +3,7 @@ import { IdNode } from '../../../syntax/node/id/id-node';
 import { $Node, Node } from '../../../syntax/node/node';
 import { is } from '../../../syntax/util/is';
 import { SemanticContext } from '../../semantic-context';
-import { idTypeSemanticParse } from './id/id-type-parser';
+import { idTypeSemanticParse } from './id/id-type-semantic-parser';
 import { TypeSemantic } from './type-semantic';
 
 export function typeSemanticParse(context: SemanticContext, node: Node | Nothing): TypeSemantic | Nothing {
