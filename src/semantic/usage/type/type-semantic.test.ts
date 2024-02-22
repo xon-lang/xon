@@ -4,19 +4,21 @@ import { IdNode } from '../../../syntax/node/id/id-node';
 import { parseSyntax } from '../../../syntax/syntax';
 import { ConstantSemantic } from '../../declaration/constant/constant-semantic';
 import { $Semantic, parseSemantic } from '../../semantic';
-import { UsageSemantic } from '../usage-semantic';
 import { TypeSemantic } from './type-semantic';
 
 test('a is integer', () => {
-  const text = `const a: Integer`;
+  const text = `
+    model Integer
+    const a: Integer
+  `;
   const syntax = parseSyntax(text);
   const semantic = parseSemantic(syntax);
 
-  expect(Object.keys(semantic.declarations).length).toBe(1);
+  expect(Object.keys(semantic.declarations).length).toBe(2);
   expect(semantic.declarations.a[0].$).toBe($Semantic.CONSTANT);
   expect(semantic.declarations.a[0].name).toBe('a');
 
-  const constNode = syntax.statements[0].item as DeclarationNode;
+  const constNode = syntax.statements[1].item as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($Semantic.CONSTANT);
 
