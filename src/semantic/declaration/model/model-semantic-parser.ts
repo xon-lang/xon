@@ -3,7 +3,7 @@ import { DeclarationNode } from '../../../syntax/node/declaration/declaration-no
 import { MODEL_MODIFIER } from '../../../syntax/syntax-config';
 import { $Semantic, semanticIs } from '../../semantic';
 import { SemanticContext } from '../../semantic-context';
-import { parseUsageSemantic } from '../../usage/usage-semantic-parser';
+import { typeSemanticParse } from '../../usage/type/type-semantic-parser';
 import { genericsParse } from '../generic/generic-semantic-parser';
 import { ModelSemantic, modelShallowSemantic } from './model-semantic';
 
@@ -31,7 +31,7 @@ export function modelDeepParse(context: SemanticContext, node: DeclarationNode):
     }
 
     if (node.type?.value) {
-      node.id.semantic.base = parseUsageSemantic(childContext, node.type.value);
+      node.id.semantic.base = typeSemanticParse(childContext, node.type.value);
     }
 
     if (node.attributes.length > 0) {

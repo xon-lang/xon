@@ -6,9 +6,9 @@ import { is } from '../../syntax/util/is';
 import { ModelSemantic } from '../declaration/model/model-semantic';
 import { $Semantic, semanticIs } from '../semantic';
 import { SemanticContext } from '../semantic-context';
-import { UsageSemantic, usageSemantic } from './usage-semantic';
+import { ValueSemantic, valueSemantic } from './value-semantic';
 
-export function parseUsageSemantic(context: SemanticContext, node: Node | Nothing): UsageSemantic | Nothing {
+export function typeSemanticParse(context: SemanticContext, node: Node | Nothing): ValueSemantic | Nothing {
   if (!node) {
     return nothing;
   }
@@ -29,7 +29,7 @@ export function parseUsageSemantic(context: SemanticContext, node: Node | Nothin
 
     if (semanticIs<ModelSemantic>(declaration, $Semantic.MODEL)) {
       const reference = context.createReference(node);
-      const semantic = usageSemantic(reference, declaration, nothing, nothing);
+      const semantic = valueSemantic(reference, declaration, nothing, nothing);
       node.semantic = semantic;
 
       return semantic;
