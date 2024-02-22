@@ -5,10 +5,10 @@ import { SourceRange } from '../../source/source-range';
 export interface Node {
   readonly $: $Node;
   range: SourceRange;
+  semantic?: Semantic | Nothing;
 }
 
 export interface TokenNode extends Node {
-  semantic?: Semantic | Nothing;
   text: String2;
 }
 

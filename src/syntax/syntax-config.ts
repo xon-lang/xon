@@ -68,6 +68,7 @@ export const VARIABLE_MODIFIER = 'var';
 export const PREFIX_MODIFIER = 'prefix';
 export const POSTFIX_MODIFIER = 'postfix';
 export const INFIX_MODIFIER = 'infix';
+export const MODIFIERS_WITH_ATTRIBUTES = [MODEL_MODIFIER];
 
 export const MODIFIERS = [
   MODEL_MODIFIER,
@@ -78,7 +79,7 @@ export const MODIFIERS = [
   INFIX_MODIFIER,
 ];
 
-export const MODIFIERS_WITH_ATTRIBUTES = [MODEL_MODIFIER];
+export const RANGE_TOKEN = '..';
 
 export const operatorsOrders: OperatorsOrder[] = [
   {
@@ -102,7 +103,7 @@ export const operatorsOrders: OperatorsOrder[] = [
     recursiveType: RecursiveType.LEFT,
   },
   {
-    operators: ['^', '* / %', '+ -', '..', '< <= >= >', '== !=', 'is as in', '&', '|'],
+    operators: ['^', '* / %', '+ -', RANGE_TOKEN, '< <= >= >', '== !=', 'is as in', '&', '|'],
     operatorType: OperatorType.INFIX,
     recursiveType: RecursiveType.LEFT,
   },
