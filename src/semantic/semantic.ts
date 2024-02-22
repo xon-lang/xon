@@ -15,15 +15,17 @@ export interface Semantic {
 }
 
 export enum $Semantic {
-  LITERAL,
-
-  LITERAL_TYPE,
-  DECLARATION_TYPE,
+  // literals
   INTEGER_TYPE,
   RANGE_TYPE,
+  // operators
   UNION_TYPE,
 
+  DECLARATION_TYPE,
+
   VALUE,
+
+  // declarations
   MODIFIER,
   MODEL,
   GENERIC,

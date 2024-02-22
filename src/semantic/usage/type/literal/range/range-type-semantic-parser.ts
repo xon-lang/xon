@@ -7,7 +7,7 @@ import { $Semantic, semanticIs } from '../../../../semantic';
 import { SemanticContext } from '../../../../semantic-context';
 import { TypeSemantic } from '../../type-semantic';
 import { typeSemanticParse } from '../../type-semantic-parser';
-import { LiteralTypeSemantic } from '../literal-type-semantic';
+import { IntegerTypeSemantic } from '../integer/integer-type-semantic';
 import { rangeTypeSemantic } from './range-type-semantic';
 
 export function rangeTypeSemanticParse(context: SemanticContext, node: Node): TypeSemantic | Nothing {
@@ -16,8 +16,8 @@ export function rangeTypeSemanticParse(context: SemanticContext, node: Node): Ty
     const to = typeSemanticParse(context, node.right);
 
     if (
-      !semanticIs<LiteralTypeSemantic>(from, $Semantic.LITERAL) ||
-      !semanticIs<LiteralTypeSemantic>(to, $Semantic.LITERAL)
+      !semanticIs<IntegerTypeSemantic>(from, $Semantic.INTEGER_TYPE) ||
+      !semanticIs<IntegerTypeSemantic>(to, $Semantic.INTEGER_TYPE)
     ) {
       return nothing;
     }
