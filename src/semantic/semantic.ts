@@ -16,26 +16,26 @@ export interface Semantic {
 
 export enum $Semantic {
   // literals
-  INTEGER_TYPE,
-  RANGE_TYPE,
-  ARRAY_TYPE,
+  INTEGER_TYPE = 'INTEGER_TYPE',
+  RANGE_TYPE = 'RANGE_TYPE',
+  ARRAY_TYPE = 'ARRAY_TYPE',
   // operators
-  UNION_TYPE,
+  UNION_TYPE = 'UNION_TYPE',
 
-  DECLARATION_TYPE,
+  DECLARATION_TYPE = 'DECLARATION_TYPE',
 
-  VALUE,
+  VALUE = 'VALUE',
 
   // declarations
-  MODIFIER,
-  MODEL,
-  GENERIC,
-  PARAMETER,
-  METHOD,
-  PROPERTY,
-  CONSTANT,
-  VARIABLE,
-  OPERATOR,
+  MODIFIER = 'MODIFIER',
+  MODEL = 'MODEL',
+  GENERIC = 'GENERIC',
+  PARAMETER = 'PARAMETER',
+  METHOD = 'METHOD',
+  PROPERTY = 'PROPERTY',
+  CONSTANT = 'CONSTANT',
+  VARIABLE = 'VARIABLE',
+  OPERATOR = 'OPERATOR',
 }
 
 export function semanticIs<T extends Semantic = Semantic>(
