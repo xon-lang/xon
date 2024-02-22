@@ -40,7 +40,7 @@ const scanFunctions: SyntaxScanFn[] = [
   scanUnknownNode,
 ];
 
-const HIDDEN_NODES: $Node[] = [$Node.WHITESPACE, $Node.JOINING, $Node.COMMENT_LINE, $Node.COMMENT_BLOCK];
+const HIDDEN_NODES: $Node[] = [$Node.WHITESPACE, $Node.JOINING, $Node.COMMA, $Node.COMMENT_LINE, $Node.COMMENT_BLOCK];
 
 export function parseSyntax(text: String2, config?: Partial<SyntaxConfig>): SyntaxResult {
   const source = createSource(null, text);

@@ -3,7 +3,8 @@ import { $Node, TokenNode } from '../node';
 
 test('comma', () => {
   const text = ',';
-  const nodes = parseSyntax(text).statements.map((x) => x.item) as TokenNode[];
+  const syntax = parseSyntax(text);
+  const nodes = syntax.hiddenNodes as TokenNode[];
 
   expect(nodes.length).toBe(1);
   expect(nodes[0].$).toBe($Node.COMMA);
