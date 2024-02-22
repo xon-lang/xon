@@ -80,6 +80,7 @@ export const MODIFIERS = [
 ];
 
 export const RANGE_TOKEN = '..';
+export const UNION_TOKEN = '|';
 
 export const operatorsOrders: OperatorsOrder[] = [
   {
@@ -103,7 +104,7 @@ export const operatorsOrders: OperatorsOrder[] = [
     recursiveType: RecursiveType.LEFT,
   },
   {
-    operators: ['^', '* / %', '+ -', RANGE_TOKEN, '< <= >= >', '== !=', 'is as in', '&', '|'],
+    operators: ['^', '* / %', '+ -', RANGE_TOKEN, '< <= >= >', '== !=', 'is as in', '&', UNION_TOKEN],
     operatorType: OperatorType.INFIX,
     recursiveType: RecursiveType.LEFT,
   },

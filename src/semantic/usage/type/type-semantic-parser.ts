@@ -4,11 +4,20 @@ import { SemanticContext } from '../../semantic-context';
 import { declarationTypeSemanticParse } from './declaration/declaration-type-semantic-parser';
 import { integerTypeSemanticParse } from './literal/integer/integer-type-semantic-parser';
 import { rangeTypeSemanticParse } from './literal/range/range-type-semantic-parser';
+import { unionTypeSemanticParse } from './operator/union/union-type-semantic-parser';
 import { TypeSemantic } from './type-semantic';
 
 type TypeParserFn = (context: SemanticContext, node: Node) => TypeSemantic | Nothing;
 
-const typeParsers: TypeParserFn[] = [integerTypeSemanticParse, rangeTypeSemanticParse, declarationTypeSemanticParse];
+const typeParsers: TypeParserFn[] = [
+  // literals
+  integerTypeSemanticParse,
+  rangeTypeSemanticParse,
+  // operators
+  unionTypeSemanticParse,
+  // declarations
+  declarationTypeSemanticParse,
+];
 
 export function typeSemanticParse(context: SemanticContext, node: Node | Nothing): TypeSemantic | Nothing {
   if (!node) {

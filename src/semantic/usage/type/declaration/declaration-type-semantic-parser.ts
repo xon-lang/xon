@@ -3,10 +3,9 @@ import { IdNode } from '../../../../syntax/node/id/id-node';
 import { $Node, Node } from '../../../../syntax/node/node';
 import { is } from '../../../../syntax/util/is';
 import { SemanticContext } from '../../../semantic-context';
-import { TypeSemantic } from '../type-semantic';
-import { declarationTypeSemantic } from './declaration-type-semantic';
+import { DeclarationTypeSemantic, declarationTypeSemantic } from './declaration-type-semantic';
 
-export function declarationTypeSemanticParse(context: SemanticContext, node: Node): TypeSemantic | Nothing {
+export function declarationTypeSemanticParse(context: SemanticContext, node: Node): DeclarationTypeSemantic | Nothing {
   if (is<IdNode>(node, $Node.ID)) {
     const declaration = context.findSingleDeclaration(node, nothing, nothing);
 

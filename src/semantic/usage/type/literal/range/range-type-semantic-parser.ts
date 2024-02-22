@@ -5,12 +5,11 @@ import { RANGE_TOKEN } from '../../../../../syntax/syntax-config';
 import { is } from '../../../../../syntax/util/is';
 import { $Semantic, semanticIs } from '../../../../semantic';
 import { SemanticContext } from '../../../../semantic-context';
-import { TypeSemantic } from '../../type-semantic';
 import { typeSemanticParse } from '../../type-semantic-parser';
 import { IntegerTypeSemantic } from '../integer/integer-type-semantic';
-import { rangeTypeSemantic } from './range-type-semantic';
+import { RangeTypeSemantic, rangeTypeSemantic } from './range-type-semantic';
 
-export function rangeTypeSemanticParse(context: SemanticContext, node: Node): TypeSemantic | Nothing {
+export function rangeTypeSemanticParse(context: SemanticContext, node: Node): RangeTypeSemantic | Nothing {
   if (is<InfixNode>(node, $Node.INFIX) && node.operator.text === RANGE_TOKEN) {
     const from = typeSemanticParse(context, node.left);
     const to = typeSemanticParse(context, node.right);

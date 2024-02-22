@@ -3,10 +3,9 @@ import { IntegerNode } from '../../../../../syntax/node/integer/integer-node';
 import { $Node, Node } from '../../../../../syntax/node/node';
 import { is } from '../../../../../syntax/util/is';
 import { SemanticContext } from '../../../../semantic-context';
-import { TypeSemantic } from '../../type-semantic';
-import { integerTypeSemantic } from './integer-type-semantic';
+import { IntegerTypeSemantic, integerTypeSemantic } from './integer-type-semantic';
 
-export function integerTypeSemanticParse(context: SemanticContext, node: Node): TypeSemantic | Nothing {
+export function integerTypeSemanticParse(context: SemanticContext, node: Node): IntegerTypeSemantic | Nothing {
   if (is<IntegerNode>(node, $Node.INTEGER)) {
     const value = Number(node.text);
     const reference = context.createReference(node);
