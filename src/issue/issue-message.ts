@@ -31,4 +31,14 @@ export const ISSUE_MESSAGE = {
     actual: `Too many declarations found with '${name}'`,
     expect: null,
   }),
+
+  shouldBeSingleItem: () => ({
+    actual: `Should be single item`,
+    expect: null,
+  }),
+
+  shouldBeInteger: () => ({
+    actual: `Should be integer`,
+    expect: null,
+  }),
 };

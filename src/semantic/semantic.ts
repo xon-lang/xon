@@ -18,6 +18,7 @@ export enum $Semantic {
   // literals
   INTEGER_TYPE,
   RANGE_TYPE,
+  ARRAY_TYPE,
   // operators
   UNION_TYPE,
 

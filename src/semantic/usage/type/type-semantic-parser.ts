@@ -2,6 +2,7 @@ import { Nothing, nothing } from '../../../lib/core';
 import { Node } from '../../../syntax/node/node';
 import { SemanticContext } from '../../semantic-context';
 import { declarationTypeSemanticParse } from './declaration/declaration-type-semantic-parser';
+import { arrayTypeSemanticParse } from './literal/array/array-type-semantic-parser';
 import { integerTypeSemanticParse } from './literal/integer/integer-type-semantic-parser';
 import { rangeTypeSemanticParse } from './literal/range/range-type-semantic-parser';
 import { unionTypeSemanticParse } from './operator/union/union-type-semantic-parser';
@@ -13,6 +14,7 @@ const typeParsers: TypeParserFn[] = [
   // literals
   integerTypeSemanticParse,
   rangeTypeSemanticParse,
+  arrayTypeSemanticParse,
   // operators
   unionTypeSemanticParse,
   // declarations
