@@ -13,7 +13,7 @@ import { NlNode, scanNlNode } from './node/nl/nl-node';
 import { $Node, Node } from './node/node';
 import { scanOperatorNode } from './node/operator/operator-node';
 import { scanStringNode } from './node/string/string-node';
-import { UnknownNode, unknownNode } from './node/unknown/unknown-node';
+import { UnknownNode, scanUnknownNode } from './node/unknown/unknown-node';
 import { scanWhitespaceNode } from './node/whitespace/whitespace-node';
 import { SyntaxContext, syntaxContext } from './syntax-context';
 import { SyntaxResult } from './syntax-result';
@@ -34,6 +34,7 @@ const scanFunctions: SyntaxScanFn[] = [
   scanWhitespaceNode,
   scanOperatorNode,
   scanIdNode,
+  scanUnknownNode,
 ];
 
 const HIDDEN_NODES: $Node[] = [$Node.WHITESPACE, $Node.JOINING, $Node.COMMENT_LINE, $Node.COMMENT_BLOCK];
@@ -80,6 +81,26 @@ export function parseSyntaxUntil(
       context.issueManager.addError(node, ISSUE_MESSAGE.unexpectedNode());
     }
 
+    if (is<NlNode>(node, $Node.NL)) {
+      context.hiddenNodes.push(node);
+      context.position.line += 1;
+      context.position.column = 0;
+
+      if (context.nodes.length > 0) {
+        putStatementNode(context);
+      }
+
+      context.nodes = [];
+
+      continue;
+    }
+
+    if (HIDDEN_NODES.some((x) => is(node, x))) {
+      context.hiddenNodes.push(node);
+
+      continue;
+    }
+
     context.nodes.push(node);
   }
 
@@ -93,42 +114,15 @@ export function parseSyntaxUntil(
   };
 }
 
-function nextNode(context: SyntaxContext): Node | Nothing {
+function nextNode(context: SyntaxContext): Node {
   const node = scanFunctions.findMap((scan) => scan(context));
 
   if (node) {
     context.position.index = node.range.stop.index + 1;
-
-    if (is<NlNode>(node, $Node.NL)) {
-      context.hiddenNodes.push(node);
-      context.position.line += 1;
-      context.position.column = 0;
-
-      if (context.nodes.length > 0) {
-        putStatementNode(context);
-      }
-
-      context.nodes = [];
-
-      return nothing;
-    }
-
     context.position.column = node.range.stop.column + 1;
-
-    if (HIDDEN_NODES.some((x) => is(node, x))) {
-      context.hiddenNodes.push(node);
-
-      return nothing;
-    }
 
     return node;
   }
 
-  const text = context.source.text[context.position.index];
-  const range = context.getRange(1);
-
-  context.position.index += 1;
-  context.position.column += 1;
-
-  return unknownNode(range, text);
+  throw new Error('Unexpected Node');
 }
