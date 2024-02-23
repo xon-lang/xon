@@ -6,7 +6,6 @@ import { SourcePosition, sourcePosition } from '../source/source-position';
 import { SourceRange, sourceRange } from '../source/source-range';
 import { Node } from './node/node';
 import { StatementNode } from './node/statement/statement-node';
-import { SyntaxConfig } from './syntax-config';
 
 // todo perhaps should be new instance every time ???
 export interface SyntaxContext {
@@ -19,13 +18,12 @@ export interface SyntaxContext {
   nodes: Node[];
   previousStatement: StatementNode | null;
   statements: StatementNode[];
-  config: SyntaxConfig;
   issueManager: IssueManager;
 
   getRange: (length: Integer) => SourceRange;
 }
 
-export function syntaxContext(source: Source, position: SourcePosition, config: SyntaxConfig): SyntaxContext {
+export function syntaxContext(source: Source, position: SourcePosition): SyntaxContext {
   return {
     source,
     position,
@@ -36,7 +34,6 @@ export function syntaxContext(source: Source, position: SourcePosition, config: 
     previousStatement: null,
     breakNode: null,
     statements: [],
-    config,
     issueManager: createIssueManager(source, IssueType.SYNTACTIC),
 
     getRange(length: Integer): SourceRange {

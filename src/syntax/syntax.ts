@@ -15,7 +15,6 @@ import { scanOperatorNode } from './node/operator/operator-node';
 import { scanStringNode } from './node/string/string-node';
 import { unknownNode } from './node/unknown/unknown-node';
 import { scanWhitespaceNode } from './node/whitespace/whitespace-node';
-import { SyntaxConfig } from './syntax-config';
 import { SyntaxContext, syntaxContext } from './syntax-context';
 import { SyntaxResult } from './syntax-result';
 import { is } from './util/is';
@@ -39,26 +38,38 @@ const scanFunctions: SyntaxScanFn[] = [
 
 const HIDDEN_NODES: $Node[] = [$Node.WHITESPACE, $Node.JOINING, $Node.COMMENT_LINE, $Node.COMMENT_BLOCK];
 
-export function parseSyntax(text: String2, config?: Partial<SyntaxConfig>): SyntaxResult {
+export function parseSyntax(text: String2): SyntaxResult {
   const source = createSource(null, text);
+  const context = syntaxContext(source, zeroPosition());
 
-  const result = parseSyntaxUntil(source, zeroPosition(), null, config);
-  result.issueManager.issues.forEach((x) => result.issueManager.log(x));
+  while (context.position.index < context.source.text.length) {
+    const node = nextNode(context);
 
-  return result;
+    if (!node) {
+      continue;
+    }
+
+    context.nodes.push(node);
+  }
+
+  if (context.nodes.length > 0) {
+    putStatementNode(context);
+  }
+
+  context.issueManager.issues.forEach((x) => context.issueManager.log(x));
+
+  return {
+    ...context,
+    syntaxContext: context,
+  };
 }
 
 export function parseSyntaxUntil(
   source: Source,
   startPosition: SourcePosition,
   breakOnNodeFn: ((node: Node) => Boolean2) | null,
-  syntaxConfig?: Partial<SyntaxConfig>,
 ): SyntaxResult {
-  const config: SyntaxConfig = {
-    throwErrorIssue: syntaxConfig?.throwErrorIssue ?? false,
-  };
-
-  const context = syntaxContext(source, startPosition, config);
+  const context = syntaxContext(source, startPosition);
 
   while (context.position.index < context.source.text.length) {
     const node = nextNode(context);
