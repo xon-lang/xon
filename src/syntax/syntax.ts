@@ -112,15 +112,13 @@ export function parseSyntaxUntil(
 }
 
 function nextNode(context: SyntaxContext): Node {
-  for (const scan of scanFunctions) {
-    const node = scan(context);
+  const node = scanFunctions.findMap<Node>((scan) => scan(context));
 
-    if (node) {
-      context.position.index = node.range.stop.index + 1;
-      context.position.column = node.range.stop.column + 1;
+  if (node) {
+    context.position.index = node.range.stop.index + 1;
+    context.position.column = node.range.stop.column + 1;
 
-      return node;
-    }
+    return node;
   }
 
   const text = context.source.text[context.position.index];

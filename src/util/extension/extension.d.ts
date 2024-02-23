@@ -1,7 +1,6 @@
 import { Boolean2, Char, Integer, Nothing, Something, String2 } from '../../lib/core';
 
 declare global {
-  // Array
   interface Array<T> {
     findLastIndex(predicate: (value: T, index: Integer, obj: T[]) => Boolean2, thisArg?: Something): Integer;
     takeWhile(predicate: (value: T, index: Integer) => Boolean2, startIndex?: Integer): T[];
@@ -14,9 +13,9 @@ declare global {
     findLast(predicate: (value: T, index: Integer, obj: T[]) => Boolean2): T | Nothing;
     sortStrings(): T[];
     sum(select: (value: T, index: Integer, obj: T[]) => Integer): Integer;
+    findMap<V>(predicate: (value: T, index: Integer, obj: T[]) => V | Nothing): V | Nothing;
   }
 
-  // String
   interface String {
     takeWhile(
       predicate: (value: Char, index: Integer) => Boolean2,
