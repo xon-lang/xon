@@ -1,5 +1,5 @@
 import { ISSUE_MESSAGE } from '../issue/issue-message';
-import { Boolean2, Nothing, String2 } from '../lib/core';
+import { Boolean2, Nothing, String2, nothing } from '../lib/core';
 import { Source, createSource } from '../source/source';
 import { SourcePosition, zeroPosition } from '../source/source-position';
 import { scanCharNode } from './node/char/char-node';
@@ -65,6 +65,10 @@ export function parseSyntaxUntil(
   while (context.position.index < context.source.text.length) {
     const node = nextNode(context);
 
+    if (!node) {
+      continue;
+    }
+
     if (breakOnNodeFn && breakOnNodeFn(node)) {
       context.breakNode = node;
 
@@ -91,13 +95,6 @@ export function parseSyntaxUntil(
       continue;
     }
 
-    if (is(node, $Node.UNKNOWN)) {
-      context.unknownNodes.push(node);
-      context.issueManager.addError(node, ISSUE_MESSAGE.unexpectedNode());
-
-      continue;
-    }
-
     context.nodes.push(node);
   }
 
@@ -111,20 +108,24 @@ export function parseSyntaxUntil(
   };
 }
 
-function nextNode(context: SyntaxContext): Node {
-  let node = scanFunctions.findMap<Node>((scan) => scan(context));
+function nextNode(context: SyntaxContext): Node | Nothing {
+  const node = scanFunctions.findMap<Node>((scan) => scan(context));
 
-  if (!node) {
-    const text = context.source.text[context.position.index];
-    const range = context.getRange(1);
-
-    node = unknownNode(range, text);
+  if (node) {
+    context.position.index = node.range.stop.index + 1;
+    context.position.column = node.range.stop.column + 1;
+    return node;
   }
 
-  context.position.index = node.range.stop.index + 1;
-  context.position.column = node.range.stop.column + 1;
+  const text = context.source.text[context.position.index];
+  const range = context.getRange(1);
+  const unknown = unknownNode(range, text);
 
-  return node;
+  context.position.index = unknown.range.stop.index + 1;
+  context.position.column = unknown.range.stop.column + 1;
+
+  context.unknownNodes.push(unknown);
+  context.issueManager.addError(unknown, ISSUE_MESSAGE.unexpectedNode());
+
+  return nothing;
 }
-
-// 1 + --(2)
