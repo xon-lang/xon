@@ -112,21 +112,19 @@ export function parseSyntaxUntil(
 }
 
 function nextNode(context: SyntaxContext): Node {
-  const node = scanFunctions.findMap<Node>((scan) => scan(context));
+  let node = scanFunctions.findMap<Node>((scan) => scan(context));
 
-  if (node) {
-    context.position.index = node.range.stop.index + 1;
-    context.position.column = node.range.stop.column + 1;
+  if (!node) {
+    const text = context.source.text[context.position.index];
+    const range = context.getRange(1);
 
-    return node;
+    node = unknownNode(range, text);
   }
 
-  const text = context.source.text[context.position.index];
-  const range = context.getRange(text.length);
-  context.position.index += 1;
-  context.position.column += 1;
+  context.position.index = node.range.stop.index + 1;
+  context.position.column = node.range.stop.column + 1;
 
-  return unknownNode(range, text);
+  return node;
 }
 
 // 1 + --(2)
