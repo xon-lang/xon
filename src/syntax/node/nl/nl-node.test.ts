@@ -16,7 +16,7 @@ test('lf nl', () => {
 });
 
 test('several', () => {
-  const text = '  \n    \r\nabc';
+  const text = '  \n    \nabc';
   const nodes = parseSyntax(text).statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);

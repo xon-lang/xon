@@ -17,7 +17,8 @@ test('unknown 2', () => {
   const context = parseSyntax(text);
   const nodes = context.statements.map((x) => x.item);
 
-  expect(nodes.length).toBe(0);
+  expect(nodes.length).toBe(1);
   expect(context.issueManager.issues.length).toBe(1);
   expect((context.issueManager.issues[0].node as UnknownNode).text).toBe('ºª¶');
+  expect((nodes[0] as UnknownNode).text).toBe('ºª¶');
 });

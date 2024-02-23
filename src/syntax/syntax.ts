@@ -78,8 +78,6 @@ export function parseSyntaxUntil(
 
       context.unknownNodes.push(node);
       context.issueManager.addError(node, ISSUE_MESSAGE.unexpectedNode());
-
-      continue;
     }
 
     context.nodes.push(node);
