@@ -6,13 +6,14 @@ import { SourcePosition, sourcePosition } from '../source/source-position';
 import { SourceRange, sourceRange } from '../source/source-range';
 import { Node } from './node/node';
 import { StatementNode } from './node/statement/statement-node';
+import { UnknownNode } from './node/unknown/unknown-node';
 
 // todo perhaps should be new instance every time ???
 export interface SyntaxContext {
   source: Source;
   position: SourcePosition;
   hiddenNodes: Node[];
-  unknownNodes: Node[];
+  unknownNodes: UnknownNode[];
   breakNode: Node | null;
   parentStatement: StatementNode | Nothing;
   nodes: Node[];

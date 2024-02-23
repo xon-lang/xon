@@ -13,7 +13,7 @@ import { NlNode, scanNlNode } from './node/nl/nl-node';
 import { $Node, Node } from './node/node';
 import { scanOperatorNode } from './node/operator/operator-node';
 import { scanStringNode } from './node/string/string-node';
-import { unknownNode } from './node/unknown/unknown-node';
+import { UnknownNode, unknownNode } from './node/unknown/unknown-node';
 import { scanWhitespaceNode } from './node/whitespace/whitespace-node';
 import { SyntaxContext, syntaxContext } from './syntax-context';
 import { SyntaxResult } from './syntax-result';
@@ -39,35 +39,17 @@ const scanFunctions: SyntaxScanFn[] = [
 const HIDDEN_NODES: $Node[] = [$Node.WHITESPACE, $Node.JOINING, $Node.COMMENT_LINE, $Node.COMMENT_BLOCK];
 
 export function parseSyntax(text: String2): SyntaxResult {
-  const source = createSource(null, text);
-  const context = syntaxContext(source, zeroPosition());
+  const source = createSource(nothing, text);
+  const result = parseSyntaxUntil(source, zeroPosition(), nothing);
+  result.issueManager.issues.forEach((x) => result.issueManager.log(x));
 
-  while (context.position.index < context.source.text.length) {
-    const node = nextNode(context);
-
-    if (!node) {
-      continue;
-    }
-
-    context.nodes.push(node);
-  }
-
-  if (context.nodes.length > 0) {
-    putStatementNode(context);
-  }
-
-  context.issueManager.issues.forEach((x) => context.issueManager.log(x));
-
-  return {
-    ...context,
-    syntaxContext: context,
-  };
+  return result;
 }
 
 export function parseSyntaxUntil(
   source: Source,
   startPosition: SourcePosition,
-  breakOnNodeFn: ((node: Node) => Boolean2) | null,
+  breakOnNodeFn: ((node: Node) => Boolean2) | Nothing,
 ): SyntaxResult {
   const context = syntaxContext(source, startPosition);
 
@@ -82,6 +64,22 @@ export function parseSyntaxUntil(
       context.breakNode = node;
 
       break;
+    }
+
+    if (is<UnknownNode>(node, $Node.UNKNOWN)) {
+      const lastUnknown = context.unknownNodes.lastOrNull();
+
+      if (lastUnknown?.range.stop.index === node.range.start.index - 1) {
+        lastUnknown.range.stop = node.range.stop;
+        lastUnknown.text += node.text;
+
+        continue;
+      }
+
+      context.unknownNodes.push(node);
+      context.issueManager.addError(node, ISSUE_MESSAGE.unexpectedNode());
+
+      continue;
     }
 
     context.nodes.push(node);
@@ -130,13 +128,9 @@ function nextNode(context: SyntaxContext): Node | Nothing {
 
   const text = context.source.text[context.position.index];
   const range = context.getRange(1);
-  const unknown = unknownNode(range, text);
 
-  context.position.index = unknown.range.stop.index + 1;
-  context.position.column = unknown.range.stop.column + 1;
+  context.position.index += 1;
+  context.position.column += 1;
 
-  context.unknownNodes.push(unknown);
-  context.issueManager.addError(unknown, ISSUE_MESSAGE.unexpectedNode());
-
-  return nothing;
+  return unknownNode(range, text);
 }
