@@ -4,13 +4,12 @@ import { Source, createSource } from '../source/source';
 import { SourcePosition, zeroPosition } from '../source/source-position';
 import { scanCharNode } from './node/char/char-node';
 import { scanCloseNode } from './node/close/close-node';
-import { scanCommaNode } from './node/comma/comma-node';
 import { scanCommentLineNode } from './node/comment/comment-line-node';
 import { scanGroupNode } from './node/group/group-node';
 import { scanIdNode } from './node/id/id-node';
 import { scanIntegerNode } from './node/integer/integer-node';
 import { scanJoiningNode } from './node/joining/joining-node';
-import { scanNlNode } from './node/nl/nl-node';
+import { NlNode, scanNlNode } from './node/nl/nl-node';
 import { $Node, Node } from './node/node';
 import { scanOperatorNode } from './node/operator/operator-node';
 import { scanStringNode } from './node/string/string-node';
@@ -32,14 +31,13 @@ const scanFunctions: SyntaxScanFn[] = [
   scanNlNode,
   scanGroupNode,
   scanCloseNode,
-  scanCommaNode,
   scanJoiningNode,
   scanWhitespaceNode,
   scanOperatorNode,
   scanIdNode,
 ];
 
-const HIDDEN_NODES: $Node[] = [$Node.WHITESPACE, $Node.JOINING, $Node.COMMA, $Node.COMMENT_LINE, $Node.COMMENT_BLOCK];
+const HIDDEN_NODES: $Node[] = [$Node.WHITESPACE, $Node.JOINING, $Node.COMMENT_LINE, $Node.COMMENT_BLOCK];
 
 export function parseSyntax(text: String2, config?: Partial<SyntaxConfig>): SyntaxResult {
   const source = createSource(null, text);
@@ -75,26 +73,6 @@ export function parseSyntaxUntil(
       break;
     }
 
-    if (HIDDEN_NODES.some((x) => is(node, x))) {
-      context.hiddenNodes.push(node);
-
-      continue;
-    }
-
-    if (is(node, $Node.NL)) {
-      context.hiddenNodes.push(node);
-      context.position.line += 1;
-      context.position.column = 0;
-
-      if (context.nodes.length > 0) {
-        putStatementNode(context);
-      }
-
-      context.nodes = [];
-
-      continue;
-    }
-
     context.nodes.push(node);
   }
 
@@ -109,11 +87,33 @@ export function parseSyntaxUntil(
 }
 
 function nextNode(context: SyntaxContext): Node | Nothing {
-  const node = scanFunctions.findMap<Node>((scan) => scan(context));
+  const node = scanFunctions.findMap((scan) => scan(context));
 
   if (node) {
     context.position.index = node.range.stop.index + 1;
+
+    if (is<NlNode>(node, $Node.NL)) {
+      context.hiddenNodes.push(node);
+      context.position.line += 1;
+      context.position.column = 0;
+
+      if (context.nodes.length > 0) {
+        putStatementNode(context);
+      }
+
+      context.nodes = [];
+
+      return nothing;
+    }
+
     context.position.column = node.range.stop.column + 1;
+
+    if (HIDDEN_NODES.some((x) => is(node, x))) {
+      context.hiddenNodes.push(node);
+
+      return nothing;
+    }
+
     return node;
   }
 

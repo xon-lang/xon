@@ -46,7 +46,6 @@ export enum $Node {
   OPERATOR = 'OPERATOR',
   OPEN = 'OPEN',
   CLOSE = 'CLOSE',
-  COMMA = 'COMMA',
 
   ID = 'ID',
   OBJECT = 'OBJECT',

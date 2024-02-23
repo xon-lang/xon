@@ -105,13 +105,9 @@ function getDeclarationParts(
 
 function getHeaderTypeAssign(
   context: SyntaxContext,
-  node: Node,
-): { header: Node; type?: PrefixNode | Nothing; assign?: PrefixNode | Nothing } {
+  node: Node | Nothing,
+): { header: Node | Nothing; type?: PrefixNode | Nothing; assign?: PrefixNode | Nothing } {
   if (is<InfixNode>(node, $Node.INFIX)) {
-    if (!node.left || !node.right) {
-      throw new Error('Not implemented');
-    }
-
     if (node.operator.text === TYPE_TOKEN) {
       const type = prefixNode(context, node.operator, node.right);
 
@@ -131,8 +127,12 @@ function getHeaderTypeAssign(
 
 function getUnderModifier(
   context: SyntaxContext,
-  node: Node,
+  node: Node | Nothing,
 ): { id: IdNode; generics?: DeclarationListNode | Nothing; parameters?: DeclarationListNode | Nothing } | Nothing {
+  if (!node) {
+    return nothing;
+  }
+
   if (is<IdNode>(node, $Node.ID)) {
     return { id: node };
   }

@@ -1,4 +1,5 @@
 import { ISSUE_MESSAGE } from '../../../issue/issue-message';
+import { Nothing } from '../../../lib/core';
 import { rangeFromNodes } from '../../../source/source-range';
 import { SyntaxContext } from '../../syntax-context';
 import { $Node, Node, SyntaxNode, addNodeParent } from '../node';
@@ -7,10 +8,10 @@ import { OperatorNode } from '../operator/operator-node';
 export interface PrefixNode extends SyntaxNode {
   readonly $: $Node.PREFIX;
   readonly operator: OperatorNode;
-  readonly value: Node | null;
+  readonly value: Node | Nothing;
 }
 
-export function prefixNode(context: SyntaxContext, operator: OperatorNode, value: Node | null): PrefixNode {
+export function prefixNode(context: SyntaxContext, operator: OperatorNode, value: Node | Nothing): PrefixNode {
   const node: PrefixNode = {
     $: $Node.PREFIX,
     range: rangeFromNodes(operator, value),

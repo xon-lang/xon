@@ -4,15 +4,17 @@ import { GroupNode } from '../group/group-node';
 import { InfixNode } from '../infix/infix-node';
 import { IntegerNode } from '../integer/integer-node';
 import { $Node } from '../node';
+import { ObjectNode } from '../object/object-node';
 
 test('empty object', () => {
   const text = '{}';
   const nodes = parseSyntax(text).statements.map((x) => x.item);
-  const tree = nodes[0];
+  const tree = nodes[0] as ObjectNode;
 
   expect(nodes.length).toBe(1);
 
   expect(tree.$).toBe($Node.OBJECT);
+  expect(tree.items.length).toBe(0);
 });
 
 test('single item', () => {
@@ -34,10 +36,10 @@ test('single comma', () => {
   expect(nodes.length).toBe(1);
 
   const group = nodes[0] as GroupNode;
+  expect(group.items.length).toBe(2);
   expect(is(group, $Node.ARRAY)).toBe(true);
   expect(is(group.open, $Node.OPEN)).toBe(true);
   expect(is(group.close, $Node.CLOSE)).toBe(true);
-  expect(group.items.length).toBe(0);
 });
 
 test('empty not closed', () => {
@@ -108,7 +110,7 @@ test('two integers and comma no ws at the end', () => {
 
   const group = nodes[0] as GroupNode;
   expect(is(group, $Node.ARRAY)).toBe(true);
-  expect(group.items.length).toBe(2);
+  expect(group.items.length).toBe(3);
   expect((group.items[0] as IntegerNode).text).toBe('1');
   expect((group.items[1] as IntegerNode).text).toBe('2');
 });
@@ -121,7 +123,7 @@ test('two integers and comma and ws', () => {
 
   const group = nodes[0] as GroupNode;
   expect(is(group, $Node.ARRAY)).toBe(true);
-  expect(group.items.length).toBe(2);
+  expect(group.items.length).toBe(3);
   expect((group.items[0] as IntegerNode).text).toBe('1');
   expect((group.items[1] as IntegerNode).text).toBe('2');
 });
@@ -151,7 +153,7 @@ test('debug 1', () => {
 
   const group = nodes[0] as GroupNode;
   expect(is(group, $Node.ARRAY)).toBe(true);
-  expect(group.items.length).toBe(2);
+  expect(group.items.length).toBe(3);
   expect((group.items[0] as IntegerNode).text).toBe('1');
-  expect((group.items[1] as IntegerNode).text).toBe('2');
+  expect((group.items[2] as IntegerNode).text).toBe('2');
 });

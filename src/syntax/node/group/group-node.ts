@@ -1,10 +1,11 @@
 import { ISSUE_MESSAGE } from '../../../issue/issue-message';
-import { clonePosition } from '../../../source/source-position';
+import { Nothing, nothing } from '../../../lib/core';
 import { rangeFromNodes } from '../../../source/source-range';
 import '../../../util/extension';
 import { parseSyntaxUntil } from '../../syntax';
 import {
   ARRAY_NODE_OPEN_CODE,
+  COMMA,
   GROUP_NODE_OPEN_CODE,
   OBJECT_NODE_OPEN_CODE,
   OPEN_CLOSE_PAIR,
@@ -13,10 +14,10 @@ import { SyntaxContext } from '../../syntax-context';
 import { is } from '../../util/is';
 import { ArrayNode, arrayNode } from '../array/array-node';
 import { CloseNode } from '../close/close-node';
-import { CommaNode } from '../comma/comma-node';
 import { $Node, Node, SyntaxNode, addNodeParent } from '../node';
 import { ObjectNode, objectNode } from '../object/object-node';
 import { OpenNode, scanOpenNode } from '../open/open-node';
+import { OperatorNode } from '../operator/operator-node';
 
 export type Group = GroupNode | ArrayNode | ObjectNode;
 
@@ -24,7 +25,7 @@ export interface GroupNode extends SyntaxNode {
   $: $Node.GROUP;
   open: OpenNode;
   close: CloseNode | null;
-  items: Node[];
+  items: (Node | Nothing)[];
 }
 
 export function groupNode(context: SyntaxContext, open: OpenNode, close: CloseNode | null, items: Node[]): GroupNode {
@@ -58,13 +59,13 @@ export function validateGroupNode(context: SyntaxContext, node: GroupNode): void
 }
 
 export function scanGroupNode(context: SyntaxContext): Group | null {
-  const { source, position } = context;
   const open = scanOpenNode(context);
 
   if (!is<OpenNode>(open, $Node.OPEN)) {
     return null;
   }
 
+  const { source, position } = context;
   position.column = open.range.stop.column + 1;
   position.index = open.range.stop.index + 1;
 
@@ -75,26 +76,22 @@ export function scanGroupNode(context: SyntaxContext): Group | null {
       source,
       position,
       (node) =>
-        is<CommaNode>(node, $Node.COMMA) ||
+        (is<OperatorNode>(node, $Node.OPERATOR) && node.text === COMMA) ||
         (is<CloseNode>(node, $Node.CLOSE) && node.text.charCodeAt(0) === OPEN_CLOSE_PAIR[open.text.charCodeAt(0)]),
     );
 
-    // todo remove clone
-    context.position = clonePosition(itemContext.position);
+    context.position = itemContext.position;
 
-    if (is<CommaNode>(itemContext.breakNode, $Node.COMMA)) {
+    if (is<OperatorNode>(itemContext.breakNode, $Node.OPERATOR)) {
       context.hiddenNodes.push(itemContext.breakNode);
-
-      if (itemContext.nodes.length > 0) {
-        items.push(itemContext.statements[0].item);
-      }
+      items.push(itemContext.statements[0]?.item ?? nothing);
 
       continue;
     }
 
     if (is<CloseNode>(itemContext.breakNode, $Node.CLOSE)) {
-      if (itemContext.nodes.length > 0) {
-        items.push(itemContext.statements[0].item);
+      if (itemContext.nodes.length > 0 || items.length > 0) {
+        items.push(itemContext.statements[0]?.item ?? nothing);
       }
 
       return createGroupNode(context, open, itemContext.breakNode, items);

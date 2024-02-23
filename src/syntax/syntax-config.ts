@@ -128,6 +128,11 @@ export const operatorsOrders: OperatorsOrder[] = [
     operatorType: OperatorType.PREFIX,
     recursiveType: RecursiveType.RIGHT,
   },
+  {
+    operators: [COMMA],
+    operatorType: OperatorType.INFIX,
+    recursiveType: RecursiveType.LEFT,
+  },
 ].map((x) => ({
   operators: x.operators.map((s) => s.split(' ')),
   operatorType: x.operatorType,

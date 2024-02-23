@@ -1,4 +1,4 @@
-import { String2 } from '../../lib/core';
+import { Nothing, String2, nothing } from '../../lib/core';
 import { infixNode } from '../node/infix/infix-node';
 import { $Node, Node } from '../node/node';
 import { OperatorNode } from '../node/operator/operator-node';
@@ -23,14 +23,14 @@ export function collapseOperator(
     }
 
     const left = context.nodes[index - 1];
-    const right: Node | null = context.nodes[index + 1] ?? null;
+    const right: Node | Nothing = context.nodes[index + 1] ?? nothing;
 
     if (
       operatorType === OperatorType.PREFIX &&
       !is<OperatorNode>(right, $Node.OPERATOR) &&
       (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))
     ) {
-      const prefix = prefixNode(context, operator, right);
+      const prefix = prefixNode(context, operator, right ?? nothing);
       context.nodes.splice(index, 2, prefix);
       collapseOperator(context, operators, operatorType, recursiveType);
 
@@ -42,7 +42,7 @@ export function collapseOperator(
       !is<OperatorNode>(left, $Node.OPERATOR) &&
       (index === context.nodes.length - 1 || is<OperatorNode>(right, $Node.OPERATOR))
     ) {
-      const postfix = postfixNode(context, operator, left);
+      const postfix = postfixNode(context, operator, left ?? nothing);
       context.nodes.splice(index - 1, 2, postfix);
 
       collapseOperator(context, operators, operatorType, recursiveType);
@@ -55,7 +55,7 @@ export function collapseOperator(
       !is<OperatorNode>(left, $Node.OPERATOR) &&
       !is<OperatorNode>(right, $Node.OPERATOR)
     ) {
-      const infix = infixNode(context, operator, left, right);
+      const infix = infixNode(context, operator, left ?? nothing, right ?? nothing);
       context.nodes.splice(index - 1, 3, infix);
       collapseOperator(context, operators, operatorType, recursiveType);
 

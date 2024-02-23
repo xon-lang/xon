@@ -1,3 +1,4 @@
+import { nothing } from '../../../lib/core';
 import { parseSyntax } from '../../syntax';
 import { InfixNode } from '../infix/infix-node';
 import { $Node } from '../node';
@@ -40,3 +41,15 @@ test('x + x', () => {
 //   expect(tree.$).toBe(NodeType.POSTFIX);
 //   expect(tree.operator.text).toBe('!');
 // });
+
+test('comma', () => {
+  const text = ',';
+  const syntax = parseSyntax(text);
+  const node = syntax.statements[0].item as InfixNode;
+
+  expect(syntax.statements.length).toBe(1);
+  expect(node.$).toBe($Node.INFIX);
+  expect(node.operator.text).toBe(',');
+  expect(node.left).toBe(nothing);
+  expect(node.right).toBe(nothing);
+});

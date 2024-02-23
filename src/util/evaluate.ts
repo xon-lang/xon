@@ -1,4 +1,4 @@
-import { Anything, String2 } from '../lib/core';
+import { Anything, Nothing, String2, nothing } from '../lib/core';
 import { CharNode } from '../syntax/node/char/char-node';
 import { GroupNode } from '../syntax/node/group/group-node';
 import { IdNode } from '../syntax/node/id/id-node';
@@ -13,13 +13,13 @@ export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);
 }
 
-export function evaluate(node: Node | null, argsMap = {}): Anything {
+export function evaluate(node: Node | Nothing, argsMap = {}): Anything {
   if (!node) {
-    return null;
+    return nothing;
   }
 
   if (is<GroupNode>(node, $Node.GROUP)) {
-    return node.items.map((x) => evaluate(x ?? null));
+    return node.items.map((x) => evaluate(x ?? nothing));
   }
 
   if (is<IntegerNode>(node, $Node.INTEGER)) {
