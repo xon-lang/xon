@@ -1,6 +1,5 @@
 import { String2 } from '../../../lib/core';
 import { SourceRange } from '../../../source/source-range';
-import { SyntaxContext } from '../../syntax-context';
 import { $Node, TokenNode } from '../node';
 
 export interface UnknownNode extends TokenNode {
@@ -13,11 +12,4 @@ export function unknownNode(range: SourceRange, text: String2): UnknownNode {
     range,
     text,
   };
-}
-
-export function scanUnknownNode(context: SyntaxContext): UnknownNode | null {
-  const text = context.source.text[context.position.index];
-  const range = context.getRange(text.length);
-
-  return unknownNode(range, text);
 }

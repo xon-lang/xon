@@ -14,7 +14,7 @@ import { scanNlNode } from './node/nl/nl-node';
 import { $Node, Node } from './node/node';
 import { scanOperatorNode } from './node/operator/operator-node';
 import { scanStringNode } from './node/string/string-node';
-import { scanUnknownNode, unknownNode } from './node/unknown/unknown-node';
+import { unknownNode } from './node/unknown/unknown-node';
 import { scanWhitespaceNode } from './node/whitespace/whitespace-node';
 import { SyntaxConfig } from './syntax-config';
 import { SyntaxContext, syntaxContext } from './syntax-context';
@@ -37,7 +37,6 @@ const scanFunctions: SyntaxScanFn[] = [
   scanWhitespaceNode,
   scanOperatorNode,
   scanIdNode,
-  scanUnknownNode,
 ];
 
 const HIDDEN_NODES: $Node[] = [$Node.WHITESPACE, $Node.JOINING, $Node.COMMA, $Node.COMMENT_LINE, $Node.COMMENT_BLOCK];
@@ -112,21 +111,24 @@ export function parseSyntaxUntil(
   };
 }
 
-export function nextNode(context: SyntaxContext): Node {
+function nextNode(context: SyntaxContext): Node {
   for (const scan of scanFunctions) {
     const node = scan(context);
 
     if (node) {
-      context.position.column = node.range.stop.column + 1;
       context.position.index = node.range.stop.index + 1;
+      context.position.column = node.range.stop.column + 1;
 
       return node;
     }
   }
 
-  const text = context.source.text.slice(context.position.index, context.source.length);
+  const text = context.source.text[context.position.index];
   const range = context.getRange(text.length);
-  context.position.index = context.source.length;
+  context.position.index += 1;
+  context.position.column += 1;
 
   return unknownNode(range, text);
 }
+
+// 1 + --(2)

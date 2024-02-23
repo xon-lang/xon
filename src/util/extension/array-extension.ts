@@ -1,4 +1,4 @@
-import { Number2, String2 } from '../../lib/core';
+import { Boolean2, Number2, String2 } from '../../lib/core';
 
 // Array
 Array.prototype.takeWhile = function takeWhile<T>(
@@ -14,7 +14,7 @@ Array.prototype.takeWhile = function takeWhile<T>(
   return this.slice(startIndex, this.length);
 };
 
-Array.prototype.findLast = function <T>(predicate: (value: T, index: number, obj: T[]) => unknown): T | null {
+Array.prototype.findLast = function <T>(predicate: (value: T, index: number, obj: T[]) => Boolean2): T | null {
   const index = this.findLastIndex(predicate);
 
   if (index < 0) {
@@ -52,11 +52,10 @@ Array.prototype.removeLast = function <T>(): T[] {
   return this;
 };
 
-Array.prototype.sortStrings = function(): String2[] {
+Array.prototype.sortStrings = function (): String2[] {
   return (this as String2[]).sort((a, b) => a.localeCompare(b));
 };
 
 Array.prototype.sum = function <T>(select: (value: T, index: number, obj: T[]) => Number2): Number2 {
   return this.reduce((sum, val, index, array) => sum + select(val, index, array), 0);
 };
-
