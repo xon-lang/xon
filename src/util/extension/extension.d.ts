@@ -29,5 +29,6 @@ declare global {
     isUpperLetter(index: Integer): Boolean2;
     isLowerLetter(index: Integer): Boolean2;
     isDigitOrLetter(index: Integer): Boolean2;
+    some(predicate: (value: Char, index: Integer, array: Char[]) => Boolean2): Boolean2;
   }
 }

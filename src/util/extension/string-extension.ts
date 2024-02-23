@@ -70,3 +70,8 @@ String.prototype.isDigitOrLetter = function isDigitOrLetter(index: Integer): Boo
     (char >= LOWER_A_CODE && char <= LOWER_Z_CODE)
   );
 };
+
+String.prototype.some = function some(predicate: (value: Char, index: Integer, array: Char[]) => Boolean2): Boolean2 {
+  const array = Array.from(this);
+  return array.some(predicate);
+};
