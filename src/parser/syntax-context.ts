@@ -8,7 +8,6 @@ import { Node } from './node/node';
 import { StatementNode } from './node/syntax/statement/statement-node';
 import { UnknownNode } from './node/token/unknown/unknown-node';
 
-// todo perhaps should be new instance every time ???
 export interface SyntaxContext {
   source: Source;
   position: SourcePosition;

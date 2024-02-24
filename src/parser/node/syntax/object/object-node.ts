@@ -7,8 +7,6 @@ import { SyntaxNode, getRangeAndChildren } from '../syntax-node';
 
 export interface ObjectNode extends SyntaxNode {
   $: $Node.OBJECT;
-  // todo
-  // type: objectLiteralType;
   open: OpenNode;
   close: CloseNode | null;
   items: (Node | Nothing)[];
