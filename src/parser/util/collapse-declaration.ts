@@ -1,5 +1,5 @@
 import { Nothing, nothing } from '../../lib/core';
-import { $Node, Node } from '../node/node';
+import { $Node, Node, is } from '../node/node';
 import {
   DeclarationListNode,
   DeclarationNode,
@@ -21,7 +21,6 @@ import {
   TYPE_TOKEN,
 } from '../syntax-config';
 import { SyntaxContext } from '../syntax-context';
-import { is } from './is';
 
 export function collapseDeclaration(context: SyntaxContext): void {
   const node = context.nodes[0];

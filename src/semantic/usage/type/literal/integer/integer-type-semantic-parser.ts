@@ -1,7 +1,6 @@
 import { Nothing, nothing } from '../../../../../lib/core';
-import { $Node, Node } from '../../../../../parser/node/node';
+import { $Node, Node, is } from '../../../../../parser/node/node';
 import { IntegerNode } from '../../../../../parser/node/token/integer/integer-node';
-import { is } from '../../../../../parser/util/is';
 import { SemanticContext } from '../../../../semantic-context';
 import { IntegerTypeSemantic, integerTypeSemantic } from './integer-type-semantic';
 

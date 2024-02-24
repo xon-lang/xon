@@ -1,5 +1,5 @@
 import { Anything, Nothing, String2, nothing } from '../lib/core';
-import { $Node, Node } from '../parser/node/node';
+import { $Node, Node, is } from '../parser/node/node';
 import { GroupNode } from '../parser/node/syntax/group/group-node';
 import { InfixNode } from '../parser/node/syntax/infix/infix-node';
 import { PrefixNode } from '../parser/node/syntax/prefix/prefix-node';
@@ -7,7 +7,6 @@ import { CharNode } from '../parser/node/token/char/char-node';
 import { IdNode } from '../parser/node/token/id/id-node';
 import { IntegerNode } from '../parser/node/token/integer/integer-node';
 import { StringNode } from '../parser/node/token/string/string-node';
-import { is } from '../parser/util/is';
 
 export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);

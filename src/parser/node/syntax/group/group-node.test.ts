@@ -1,8 +1,7 @@
 import { ISSUE_MESSAGE } from '../../../../issue/issue-message';
 import { parseSyntax } from '../../../syntax';
 import { OPEN_CLOSE_PAIR } from '../../../syntax-config';
-import { is } from '../../../util/is';
-import { $Node } from '../../node';
+import { $Node, is } from '../../node';
 import { GroupNode } from './group-node';
 
 test('empty closed', () => {

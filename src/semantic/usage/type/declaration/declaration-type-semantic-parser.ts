@@ -1,7 +1,6 @@
 import { Nothing, nothing } from '../../../../lib/core';
-import { $Node, Node } from '../../../../parser/node/node';
+import { $Node, Node, is } from '../../../../parser/node/node';
 import { IdNode } from '../../../../parser/node/token/id/id-node';
-import { is } from '../../../../parser/util/is';
 import { SemanticContext } from '../../../semantic-context';
 import { DeclarationTypeSemantic, declarationTypeSemantic } from './declaration-type-semantic';
 

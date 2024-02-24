@@ -1,5 +1,5 @@
 import { Nothing, String2 } from '../lib/core';
-import { $Node, Node } from '../parser/node/node';
+import { $Node, Node, is } from '../parser/node/node';
 import { ArrayNode } from '../parser/node/syntax/array/array-node';
 import { GroupNode } from '../parser/node/syntax/group/group-node';
 import { InfixNode } from '../parser/node/syntax/infix/infix-node';
@@ -12,7 +12,6 @@ import { OpenNode } from '../parser/node/token/open/open-node';
 import { isToken } from '../parser/node/token/token-node';
 import { NL } from '../parser/syntax-config';
 import { SyntaxResult } from '../parser/syntax-result';
-import { is } from '../parser/util/is';
 
 export function syntaxFormat(syntax: SyntaxResult) {
   const nodes = syntax.statements.map((x) => statementFormat(x));

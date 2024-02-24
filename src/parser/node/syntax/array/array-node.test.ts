@@ -1,6 +1,5 @@
 import { parseSyntax } from '../../../syntax';
-import { is } from '../../../util/is';
-import { $Node } from '../../node';
+import { $Node, is } from '../../node';
 import { IntegerNode } from '../../token/integer/integer-node';
 import { GroupNode } from '../group/group-node';
 import { InfixNode } from '../infix/infix-node';

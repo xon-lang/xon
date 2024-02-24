@@ -39,3 +39,7 @@ export enum $Node {
   STATEMENT = 'STATEMENT',
   UNKNOWN = 'UNKNOWN',
 }
+
+export function is<T extends Node = Node>(node: { $?: $Node } | Nothing, nodeType: $Node): node is T {
+  return node?.$ === nodeType;
+}

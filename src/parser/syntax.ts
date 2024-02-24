@@ -2,7 +2,7 @@ import { ISSUE_MESSAGE } from '../issue/issue-message';
 import { Boolean2, Nothing, String2, nothing } from '../lib/core';
 import { Source, createSource } from '../source/source';
 import { SourcePosition, zeroPosition } from '../source/source-position';
-import { $Node, Node } from './node/node';
+import { $Node, Node, is } from './node/node';
 import { scanGroupNode } from './node/syntax/group/group-node';
 import { scanCharNode } from './node/token/char/char-node';
 import { scanCloseNode } from './node/token/close/close-node';
@@ -18,7 +18,6 @@ import { UnknownNode, scanUnknownNode } from './node/token/unknown/unknown-node'
 import { scanWhitespaceNode } from './node/token/whitespace/whitespace-node';
 import { SyntaxContext, syntaxContext } from './syntax-context';
 import { SyntaxResult } from './syntax-result';
-import { is } from './util/is';
 import { putStatementNode } from './util/put-statement-node';
 
 type SyntaxScanFn = (context: SyntaxContext) => Node | Nothing;

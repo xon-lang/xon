@@ -1,7 +1,6 @@
 import { Nothing, String2 } from '../../../lib/core';
 import { SourceRange } from '../../../source/source-range';
-import { is } from '../../util/is';
-import { $Node, Node } from '../node';
+import { $Node, Node, is } from '../node';
 import { CommentLineNode } from './comment/comment-line-node';
 import { JoiningNode } from './joining/joining-node';
 import { WhitespaceNode } from './whitespace/whitespace-node';

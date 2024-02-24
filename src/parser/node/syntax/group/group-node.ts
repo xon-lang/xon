@@ -10,8 +10,7 @@ import {
   OPEN_CLOSE_PAIR,
 } from '../../../syntax-config';
 import { SyntaxContext } from '../../../syntax-context';
-import { is } from '../../../util/is';
-import { $Node, Node } from '../../node';
+import { $Node, Node, is } from '../../node';
 import { CloseNode } from '../../token/close/close-node';
 import { OpenNode, scanOpenNode } from '../../token/open/open-node';
 import { OperatorNode } from '../../token/operator/operator-node';

@@ -1,10 +1,9 @@
 import { IssueType } from '../issue/issue';
 import { createIssueManager } from '../issue/issue-manager';
 import { Nothing } from '../lib/core';
-import { $Node } from '../parser/node/node';
+import { $Node, is } from '../parser/node/node';
 import { DeclarationNode } from '../parser/node/syntax/declaration/declaration-node';
 import { SyntaxResult } from '../parser/syntax-result';
-import { is } from '../parser/util/is';
 import { SourceReference } from '../source/source-reference';
 import { declarationsParse } from './declaration/declaration-semantic-parser';
 import { SemanticContext, semanticContext } from './semantic-context';

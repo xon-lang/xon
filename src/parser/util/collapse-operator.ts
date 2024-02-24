@@ -1,12 +1,11 @@
 import { Nothing, String2, nothing } from '../../lib/core';
-import { $Node, Node } from '../node/node';
+import { $Node, Node, is } from '../node/node';
 import { infixNode } from '../node/syntax/infix/infix-node';
 import { postfixNode } from '../node/syntax/postfix/postfix-node';
 import { prefixNode } from '../node/syntax/prefix/prefix-node';
 import { OperatorNode } from '../node/token/operator/operator-node';
 import { OperatorType, RecursiveType } from '../syntax-config';
 import { SyntaxContext } from '../syntax-context';
-import { is } from './is';
 
 export function collapseOperator(
   context: SyntaxContext,
