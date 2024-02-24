@@ -14,10 +14,11 @@ export interface SyntaxContext {
   hiddenNodes: Node[];
   unknownNodes: UnknownNode[];
   formatters: Formatter[];
-  breakNode: Node | null;
+  breakNode: Node | Nothing;
   parentStatement: StatementNode | Nothing;
+  lastNode: Node | Nothing;
   nodes: Node[];
-  previousStatement: StatementNode | null;
+  previousStatement: StatementNode | Nothing;
   statements: StatementNode[];
   issueManager: IssueManager;
 
@@ -32,9 +33,10 @@ export function syntaxContext(source: Source, position: SourcePosition): SyntaxC
     unknownNodes: [],
     formatters: [],
     parentStatement: nothing,
+    lastNode: nothing,
     nodes: [],
-    previousStatement: null,
-    breakNode: null,
+    previousStatement: nothing,
+    breakNode: nothing,
     statements: [],
     issueManager: createIssueManager(source, IssueType.SYNTACTIC),
 

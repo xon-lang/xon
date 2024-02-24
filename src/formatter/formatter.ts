@@ -1,4 +1,3 @@
-import { TokenNode } from 'src/parser/node/token/token-node';
 import { Nothing, String2 } from '../lib/core';
 import { $Node, Node } from '../parser/node/node';
 import { ArrayNode } from '../parser/node/syntax/array/array-node';
@@ -10,6 +9,7 @@ import { PrefixNode } from '../parser/node/syntax/prefix/prefix-node';
 import { StatementNode } from '../parser/node/syntax/statement/statement-node';
 import { CloseNode } from '../parser/node/token/close/close-node';
 import { OpenNode } from '../parser/node/token/open/open-node';
+import { isToken } from '../parser/node/token/token-node';
 import { NL } from '../parser/syntax-config';
 import { SyntaxResult } from '../parser/syntax-result';
 import { is } from '../parser/util/is';
@@ -89,8 +89,4 @@ function groupFormat(node: { open: OpenNode; close: CloseNode | Nothing; items: 
 
   const items = node.items.map((x) => (x ? nodeFormat(x) : '')).join(', ');
   return `${open}${items}${close}`;
-}
-
-function isToken(node: Node): node is TokenNode {
-  return 'text' in node;
 }

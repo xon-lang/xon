@@ -13,6 +13,7 @@ import { scanJoiningNode } from './node/token/joining/joining-node';
 import { NlNode, scanNlNode } from './node/token/nl/nl-node';
 import { scanOperatorNode } from './node/token/operator/operator-node';
 import { scanStringNode } from './node/token/string/string-node';
+import { isHiddenNode, isToken } from './node/token/token-node';
 import { UnknownNode, scanUnknownNode } from './node/token/unknown/unknown-node';
 import { scanWhitespaceNode } from './node/token/whitespace/whitespace-node';
 import { SyntaxContext, syntaxContext } from './syntax-context';
@@ -33,11 +34,10 @@ const scanFunctions: SyntaxScanFn[] = [
   scanWhitespaceNode,
   scanOperatorNode,
   scanIdNode,
+  // todo remove from here
   scanGroupNode,
   scanUnknownNode,
 ];
-
-const HIDDEN_NODES: $Node[] = [$Node.WHITESPACE, $Node.JOINING, $Node.COMMENT_LINE, $Node.COMMENT_BLOCK];
 
 export function parseSyntax(text: String2): SyntaxResult {
   const source = createSource(nothing, text);
@@ -95,8 +95,12 @@ export function parseSyntaxUntil(
       continue;
     }
 
-    if (HIDDEN_NODES.some((x) => is(node, x))) {
+    if (isHiddenNode(node)) {
       context.hiddenNodes.push(node);
+
+      if (isToken(context.lastNode)) {
+        context.lastNode.hiddenNodes.push(node);
+      }
 
       continue;
     }

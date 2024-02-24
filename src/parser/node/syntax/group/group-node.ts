@@ -69,6 +69,7 @@ export function scanGroupNode(context: SyntaxContext): Group | null {
   const items: Node[] = [];
 
   while (position.index < source.text.length) {
+    // todo remove from here or refactor
     const { syntaxContext: itemContext } = parseSyntaxUntil(
       source,
       position,
