@@ -6,6 +6,16 @@ export interface SyntaxNode extends Node {
   readonly children: Node[];
 }
 
+// export function syntax<T extends $Node>($: T, range: SourceRange, text: String2): TokenNode & { $: T } {
+//   return {
+//     $,
+//     range,
+//     text,
+//     hiddenNodes: [],
+//   };
+// }
+
+
 export function getRangeAndChildren(...nodes: (Node | Nothing)[]): Pick<SyntaxNode, 'range' | 'children'> {
   const children = nodes.filter((x): x is Node => !!x);
   const range = rangeFromNodes(children.first(), children.last());

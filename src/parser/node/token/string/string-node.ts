@@ -3,14 +3,14 @@ import { SourceRange } from '../../../../source/source-range';
 import { STRING_QUOTE } from '../../../syntax-config';
 import { SyntaxContext } from '../../../syntax-context';
 import { $Node } from '../../node';
-import { TokenNode, token } from '../token-node';
+import { TokenNode, tokenNode } from '../token-node';
 
 export interface StringNode extends TokenNode {
   $: $Node.STRING;
 }
 
 export function stringNode(range: SourceRange, text: String2): StringNode {
-  return token($Node.STRING, range, text);
+  return tokenNode($Node.STRING, range, text);
 }
 
 export function scanStringNode(context: SyntaxContext): StringNode | null {

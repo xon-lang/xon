@@ -3,14 +3,14 @@ import { SourceRange } from '../../../../source/source-range';
 import { JOINING, NL, SPACE, TAB } from '../../../syntax-config';
 import { SyntaxContext } from '../../../syntax-context';
 import { $Node } from '../../node';
-import { TokenNode, token } from '../token-node';
+import { TokenNode, tokenNode } from '../token-node';
 
 export interface JoiningNode extends TokenNode {
   $: $Node.JOINING;
 }
 
 export function joiningNode(range: SourceRange, text: String2): JoiningNode {
-  return token($Node.JOINING, range, text);
+  return tokenNode($Node.JOINING, range, text);
 }
 
 export function scanJoiningNode(context: SyntaxContext): JoiningNode | null {

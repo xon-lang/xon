@@ -12,7 +12,7 @@ export interface TokenNode extends Node {
   hiddenNodes: HiddenNode[];
 }
 
-export function token<T extends $Node>($: T, range: SourceRange, text: String2): TokenNode & { $: T } {
+export function tokenNode<T extends $Node>($: T, range: SourceRange, text: String2): TokenNode & { $: T } {
   return {
     $,
     range,

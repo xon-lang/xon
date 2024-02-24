@@ -4,14 +4,14 @@ import { operatorsOrders } from '../../../syntax-config';
 import { SyntaxContext } from '../../../syntax-context';
 import { $Node, Node } from '../../node';
 import { scanIdNode } from '../id/id-node';
-import { TokenNode, token } from '../token-node';
+import { TokenNode, tokenNode } from '../token-node';
 
 export interface OperatorNode extends TokenNode {
   $: $Node.OPERATOR;
 }
 
 export function operatorNode(range: SourceRange, text: String2): OperatorNode {
-  return token($Node.OPERATOR, range, text);
+  return tokenNode($Node.OPERATOR, range, text);
 }
 
 const OPERATORS = [

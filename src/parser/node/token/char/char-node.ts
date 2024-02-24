@@ -3,14 +3,14 @@ import { SourceRange } from '../../../../source/source-range';
 import { CHAR_QUOTE } from '../../../syntax-config';
 import { SyntaxContext } from '../../../syntax-context';
 import { $Node } from '../../node';
-import { TokenNode, token } from '../token-node';
+import { TokenNode, tokenNode } from '../token-node';
 
 export interface CharNode extends TokenNode {
   $: $Node.CHAR;
 }
 
 export function charNode(range: SourceRange, text: String2): CharNode {
-  return token($Node.CHAR, range, text);
+  return tokenNode($Node.CHAR, range, text);
 }
 
 export function scanCharNode(context: SyntaxContext): CharNode | null {

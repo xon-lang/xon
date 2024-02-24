@@ -3,14 +3,14 @@ import { SourceRange } from '../../../../source/source-range';
 import { COMMENT_LINE, NL } from '../../../syntax-config';
 import { SyntaxContext } from '../../../syntax-context';
 import { $Node } from '../../node';
-import { TokenNode, token } from '../token-node';
+import { TokenNode, tokenNode } from '../token-node';
 
 export interface CommentLineNode extends TokenNode {
   $: $Node.COMMENT_LINE;
 }
 
 export function commentLineNode(range: SourceRange, text: String2): CommentLineNode {
-  return token($Node.COMMENT_LINE, range, text);
+  return tokenNode($Node.COMMENT_LINE, range, text);
 }
 
 export function scanCommentLineNode(context: SyntaxContext): CommentLineNode | null {
