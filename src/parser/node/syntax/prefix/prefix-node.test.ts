@@ -75,6 +75,6 @@ test('hidden nodes', () => {
   expect(node.operator.hiddenNodes[0].text).toBe('    ');
 
   expect(syntax.formatters.length).toBe(1);
-  expect(syntax.formatters[0].text).toBe(' ');
+  expect(syntax.formatters[0].text).toBe('');
   expect(evaluate(node)).toBe(-1);
 });

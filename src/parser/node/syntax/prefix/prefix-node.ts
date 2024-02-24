@@ -36,6 +36,11 @@ export function checkFormatting(context: SyntaxContext, node: PrefixNode): void 
   if (node.value) {
     // todo should we move it to parent functions ???
     node.hiddenNodes = node.value.hiddenNodes;
+
+    if (node.operator.hiddenNodes.length <= 0) {
+      return;
+    }
+
     // todo now we check only whitespace
     const hiddenNode = node.operator.hiddenNodes[0] as WhitespaceNode;
 
