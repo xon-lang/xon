@@ -1,6 +1,5 @@
 import { ISSUE_MESSAGE } from '../../../../issue/issue-message';
 import { Nothing, nothing } from '../../../../lib/core';
-import { rangeFromNodes } from '../../../../source/source-range';
 import '../../../../util/extension';
 import { parseSyntaxUntil } from '../../../syntax';
 import {
@@ -12,13 +11,13 @@ import {
 } from '../../../syntax-config';
 import { SyntaxContext } from '../../../syntax-context';
 import { is } from '../../../util/is';
-import { $Node, Node, addNodeParent } from '../../node';
+import { $Node, Node } from '../../node';
 import { CloseNode } from '../../token/close/close-node';
 import { OpenNode, scanOpenNode } from '../../token/open/open-node';
 import { OperatorNode } from '../../token/operator/operator-node';
 import { ArrayNode, arrayNode } from '../array/array-node';
 import { ObjectNode, objectNode } from '../object/object-node';
-import { SyntaxNode } from '../syntax-node';
+import { SyntaxNode, getRangeAndChildren } from '../syntax-node';
 
 export type Group = GroupNode | ArrayNode | ObjectNode;
 
@@ -31,19 +30,15 @@ export interface GroupNode extends SyntaxNode {
 }
 
 export function groupNode(context: SyntaxContext, open: OpenNode, close: CloseNode | null, items: Node[]): GroupNode {
-  const last = items.lastOrNull();
-
   const node: GroupNode = {
     $: $Node.GROUP,
-    range: rangeFromNodes(open, close ?? last ?? open),
-    children: [],
+    ...getRangeAndChildren(open, ...items, close),
     open,
     close,
     items,
   };
 
   validateGroupNode(context, node);
-  addNodeParent(node, open, ...items, close);
 
   return node;
 }

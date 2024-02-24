@@ -1,10 +1,9 @@
 import { ISSUE_MESSAGE } from '../../../../issue/issue-message';
 import { Nothing } from '../../../../lib/core';
-import { rangeFromNodes } from '../../../../source/source-range';
 import { SyntaxContext } from '../../../syntax-context';
-import { $Node, Node, addNodeParent } from '../../node';
+import { $Node, Node } from '../../node';
 import { OperatorNode } from '../../token/operator/operator-node';
-import { SyntaxNode } from '../syntax-node';
+import { SyntaxNode, getRangeAndChildren } from '../syntax-node';
 
 export interface InfixNode extends SyntaxNode {
   readonly $: $Node.INFIX;
@@ -21,15 +20,13 @@ export function infixNode(
 ): InfixNode {
   const node: InfixNode = {
     $: $Node.INFIX,
-    range: rangeFromNodes(left ?? operator, right ?? operator),
-    children: [],
+    ...getRangeAndChildren(left, operator, right),
     operator,
     left,
     right,
   };
 
   validateInfixNode(context, node);
-  addNodeParent(node, operator, left, right);
 
   return node;
 }

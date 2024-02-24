@@ -1,12 +1,12 @@
 import { Nothing, nothing } from '../../../../lib/core';
 import { rangeFromNodes } from '../../../../source/source-range';
-import { $Node, addNodeParent } from '../../node';
+import { $Node } from '../../node';
 import { CloseNode } from '../../token/close/close-node';
 import { IdNode } from '../../token/id/id-node';
 import { OpenNode } from '../../token/open/open-node';
 import { OperatorNode } from '../../token/operator/operator-node';
 import { PrefixNode } from '../prefix/prefix-node';
-import { SyntaxNode } from '../syntax-node';
+import { SyntaxNode, getRangeAndChildren } from '../syntax-node';
 
 export interface DeclarationNode extends SyntaxNode {
   $: $Node.DECLARATION;
@@ -26,8 +26,7 @@ export function declarationNode(params: Partial<DeclarationNode> & { id: IdNode 
 
   const node: DeclarationNode = {
     $: $Node.DECLARATION,
-    range,
-    children: [],
+    ...getRangeAndChildren(params.modifier, params.id, params.generics, params.parameters, params.type, params.assign),
     attributes: [],
     modifier: params.modifier ?? nothing,
     id: params.id,
@@ -36,8 +35,6 @@ export function declarationNode(params: Partial<DeclarationNode> & { id: IdNode 
     type: params.type ?? nothing,
     assign: params.assign ?? nothing,
   };
-
-  addNodeParent(node, params.modifier, params.id, params.generics, params.parameters, params.type, params.assign);
 
   return node;
 }
@@ -58,14 +55,11 @@ export function declarationListNode(
 
   const node: DeclarationListNode = {
     $: $Node.DECLARATION_LIST,
-    range: rangeFromNodes(open, close ?? last ?? open),
-    children: [],
+    ...getRangeAndChildren(open, ...items, close),
     open,
     close,
     items,
   };
-
-  addNodeParent(node, open, ...items, close);
 
   return node;
 }

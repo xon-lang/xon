@@ -1,9 +1,8 @@
 import { ISSUE_MESSAGE } from '../../../../issue/issue-message';
-import { rangeFromNodes } from '../../../../source/source-range';
 import { SyntaxContext } from '../../../syntax-context';
-import { $Node, Node, addNodeParent } from '../../node';
+import { $Node, Node } from '../../node';
 import { OperatorNode } from '../../token/operator/operator-node';
-import { SyntaxNode } from '../syntax-node';
+import { SyntaxNode, getRangeAndChildren } from '../syntax-node';
 
 export interface PostfixNode extends SyntaxNode {
   readonly $: $Node.POSTFIX;
@@ -14,14 +13,12 @@ export interface PostfixNode extends SyntaxNode {
 export function postfixNode(context: SyntaxContext, operator: OperatorNode, value: Node): PostfixNode {
   const node: PostfixNode = {
     $: $Node.POSTFIX,
-    range: rangeFromNodes(value, operator),
-    children: [],
+    ...getRangeAndChildren(value, operator),
     operator,
     value,
   };
 
   validatePostfixNode(context, node);
-  addNodeParent(node, operator, value);
 
   return node;
 }

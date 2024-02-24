@@ -1,10 +1,9 @@
 import { Nothing } from '../../../../lib/core';
-import { rangeFromNodes } from '../../../../source/source-range';
 import '../../../../util/extension';
-import { $Node, Node, addNodeParent } from '../../node';
+import { $Node, Node } from '../../node';
 import { CloseNode } from '../../token/close/close-node';
 import { OpenNode } from '../../token/open/open-node';
-import { SyntaxNode } from '../syntax-node';
+import { SyntaxNode, getRangeAndChildren } from '../syntax-node';
 
 export interface ArrayNode extends SyntaxNode {
   $: $Node.ARRAY;
@@ -18,15 +17,11 @@ export function arrayNode(open: OpenNode, close: CloseNode | null, items: Node[]
 
   const node: ArrayNode = {
     $: $Node.ARRAY,
-    // todo fix it
-    range: rangeFromNodes(open, close ?? lastStatement ?? open),
-    children: [],
+    ...getRangeAndChildren(open, ...items, close),
     open,
     close,
     items,
   };
-
-  addNodeParent(node, open, ...items, close);
 
   return node;
 }

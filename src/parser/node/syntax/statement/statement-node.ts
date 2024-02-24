@@ -1,7 +1,7 @@
 import { Nothing } from '../../../../lib/core';
 import { SyntaxContext } from '../../../syntax-context';
-import { $Node, Node, addNodeParent } from '../../node';
-import { SyntaxNode } from '../syntax-node';
+import { $Node, Node } from '../../node';
+import { SyntaxNode, getRangeAndChildren } from '../syntax-node';
 
 export interface StatementNode extends SyntaxNode {
   $: $Node.STATEMENT;
@@ -13,14 +13,11 @@ export interface StatementNode extends SyntaxNode {
 export function statementNode(context: SyntaxContext, item: Node, parent: StatementNode | Nothing): StatementNode {
   const node: StatementNode = {
     $: $Node.STATEMENT,
-    range: item.range,
-    children: [],
+    ...getRangeAndChildren(item),
     parent,
     item,
     body: [],
   };
-
-  addNodeParent(node, item);
 
   if (parent) {
     parent.body.push(node);
