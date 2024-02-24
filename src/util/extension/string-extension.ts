@@ -73,5 +73,6 @@ String.prototype.isLetterOrDigit = function isLetterOrDigit(index: Integer): Boo
 
 String.prototype.some = function some(predicate: (value: Char, index: Integer, array: Char[]) => Boolean2): Boolean2 {
   const array = Array.from(this);
+
   return array.some(predicate);
 };
