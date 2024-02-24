@@ -85,6 +85,7 @@ export function scanGroupNode(context: SyntaxContext): Group | null {
 
       continue;
     }
+
     // todo add hidden nodes for close token
     if (is<CloseNode>(itemContext.breakNode, $Node.CLOSE)) {
       if (itemContext.nodes.length > 0 || items.length > 0) {
