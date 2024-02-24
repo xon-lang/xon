@@ -1,5 +1,5 @@
 import { Nothing } from '../../lib/core';
-import { DeclarationNode } from '../../syntax/node/declaration/declaration-node';
+import { DeclarationNode } from '../../parser/node/syntax/declaration/declaration-node';
 import { SemanticContext } from '../semantic-context';
 import { constantDeepParse, constantShallowParse } from './constant/constant-semantic-parser';
 import { DeclarationSemantic } from './declaration-semantic';

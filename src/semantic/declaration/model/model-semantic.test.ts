@@ -1,4 +1,4 @@
-import { parseSyntax } from '../../../syntax/syntax';
+import { parseSyntax } from '../../../parser/syntax';
 import { $Semantic, parseSemantic } from '../../semantic';
 import { ModelSemantic } from './model-semantic';
 

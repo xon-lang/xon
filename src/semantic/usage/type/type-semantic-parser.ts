@@ -1,5 +1,5 @@
 import { Nothing, nothing } from '../../../lib/core';
-import { Node } from '../../../syntax/node/node';
+import { Node } from '../../../parser/node/node';
 import { SemanticContext } from '../../semantic-context';
 import { declarationTypeSemanticParse } from './declaration/declaration-type-semantic-parser';
 import { arrayTypeSemanticParse } from './literal/array/array-type-semantic-parser';

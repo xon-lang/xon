@@ -1,8 +1,8 @@
 import { ISSUE_MESSAGE } from '../../../issue/issue-message';
 import { Nothing, nothing } from '../../../lib/core';
-import { IdNode } from '../../../syntax/node/id/id-node';
-import { $Node, Node } from '../../../syntax/node/node';
-import { is } from '../../../syntax/util/is';
+import { $Node, Node } from '../../../parser/node/node';
+import { IdNode } from '../../../parser/node/token/id/id-node';
+import { is } from '../../../parser/util/is';
 import { ModelSemantic } from '../../declaration/model/model-semantic';
 import { $Semantic, semanticIs } from '../../semantic';
 import { SemanticContext } from '../../semantic-context';

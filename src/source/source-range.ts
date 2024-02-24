@@ -1,5 +1,5 @@
 import { Nothing } from '../lib/core';
-import { Node } from '../syntax/node/node';
+import { Node } from '../parser/node/node';
 import { SourcePosition, clonePosition, zeroPosition } from './source-position';
 
 export interface SourceRange {

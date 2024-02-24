@@ -1,6 +1,6 @@
 import { Nothing, nothing } from '../../../lib/core';
-import { DeclarationNode } from '../../../syntax/node/declaration/declaration-node';
-import { CONSTANT_MODIFIER } from '../../../syntax/syntax-config';
+import { DeclarationNode } from '../../../parser/node/syntax/declaration/declaration-node';
+import { CONSTANT_MODIFIER } from '../../../parser/syntax-config';
 import { $Semantic, semanticIs } from '../../semantic';
 import { SemanticContext } from '../../semantic-context';
 import { typeSemanticParse } from '../../usage/type/type-semantic-parser';

@@ -1,17 +1,18 @@
+import { TokenNode } from 'src/parser/node/token/token-node';
 import { Nothing, String2 } from '../lib/core';
-import { ArrayNode } from '../syntax/node/array/array-node';
-import { CloseNode } from '../syntax/node/close/close-node';
-import { GroupNode } from '../syntax/node/group/group-node';
-import { InfixNode } from '../syntax/node/infix/infix-node';
-import { $Node, Node, TokenNode } from '../syntax/node/node';
-import { ObjectNode } from '../syntax/node/object/object-node';
-import { OpenNode } from '../syntax/node/open/open-node';
-import { PostfixNode } from '../syntax/node/postfix/postfix-node';
-import { PrefixNode } from '../syntax/node/prefix/prefix-node';
-import { StatementNode } from '../syntax/node/statement/statement-node';
-import { NL } from '../syntax/syntax-config';
-import { SyntaxResult } from '../syntax/syntax-result';
-import { is } from '../syntax/util/is';
+import { $Node, Node } from '../parser/node/node';
+import { ArrayNode } from '../parser/node/syntax/array/array-node';
+import { GroupNode } from '../parser/node/syntax/group/group-node';
+import { InfixNode } from '../parser/node/syntax/infix/infix-node';
+import { ObjectNode } from '../parser/node/syntax/object/object-node';
+import { PostfixNode } from '../parser/node/syntax/postfix/postfix-node';
+import { PrefixNode } from '../parser/node/syntax/prefix/prefix-node';
+import { StatementNode } from '../parser/node/syntax/statement/statement-node';
+import { CloseNode } from '../parser/node/token/close/close-node';
+import { OpenNode } from '../parser/node/token/open/open-node';
+import { NL } from '../parser/syntax-config';
+import { SyntaxResult } from '../parser/syntax-result';
+import { is } from '../parser/util/is';
 
 export function syntaxFormat(syntax: SyntaxResult) {
   const nodes = syntax.statements.map((x) => statementFormat(x));

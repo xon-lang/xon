@@ -1,0 +1,34 @@
+import { ISSUE_MESSAGE } from '../../../../issue/issue-message';
+import { Nothing } from '../../../../lib/core';
+import { rangeFromNodes } from '../../../../source/source-range';
+import { SyntaxContext } from '../../../syntax-context';
+import { $Node, Node, addNodeParent } from '../../node';
+import { OperatorNode } from '../../token/operator/operator-node';
+import { SyntaxNode } from '../syntax-node';
+
+export interface PrefixNode extends SyntaxNode {
+  readonly $: $Node.PREFIX;
+  readonly operator: OperatorNode;
+  readonly value: Node | Nothing;
+}
+
+export function prefixNode(context: SyntaxContext, operator: OperatorNode, value: Node | Nothing): PrefixNode {
+  const node: PrefixNode = {
+    $: $Node.PREFIX,
+    range: rangeFromNodes(operator, value),
+    children: [],
+    operator,
+    value,
+  };
+
+  validatePrefixNode(context, node);
+  addNodeParent(node, operator, value);
+
+  return node;
+}
+
+export function validatePrefixNode(context: SyntaxContext, node: PrefixNode): void {
+  if (!node.value) {
+    context.issueManager.addError(node, ISSUE_MESSAGE.notImplemented());
+  }
+}

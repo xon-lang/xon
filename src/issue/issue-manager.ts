@@ -1,5 +1,5 @@
+import { Node } from '../parser/node/node';
 import { Source } from '../source/source';
-import { Node } from '../syntax/node/node';
 import { Issue, IssueType, formatIssue } from './issue';
 import { IssueLevel } from './issue-level';
 import { IssueMessage } from './issue-message';

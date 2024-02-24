@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 import { Nothing, String2, nothing } from '../lib/core';
-import { parseSyntax } from '../syntax/syntax';
+import { parseSyntax } from '../parser/syntax';
 import { DeclarationSemantic } from './declaration/declaration-semantic';
 import { ModelSemantic } from './declaration/model/model-semantic';
 import { parseSemantic } from './semantic';

@@ -1,7 +1,7 @@
 import { Nothing, nothing } from '../../../../../lib/core';
-import { IntegerNode } from '../../../../../syntax/node/integer/integer-node';
-import { $Node, Node } from '../../../../../syntax/node/node';
-import { is } from '../../../../../syntax/util/is';
+import { $Node, Node } from '../../../../../parser/node/node';
+import { IntegerNode } from '../../../../../parser/node/token/integer/integer-node';
+import { is } from '../../../../../parser/util/is';
 import { SemanticContext } from '../../../../semantic-context';
 import { IntegerTypeSemantic, integerTypeSemantic } from './integer-type-semantic';
 

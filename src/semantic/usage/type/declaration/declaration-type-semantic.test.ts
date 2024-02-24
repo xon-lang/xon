@@ -1,6 +1,6 @@
-import { DeclarationNode } from '../../../../syntax/node/declaration/declaration-node';
-import { IdNode } from '../../../../syntax/node/id/id-node';
-import { parseSyntax } from '../../../../syntax/syntax';
+import { DeclarationNode } from '../../../../parser/node/syntax/declaration/declaration-node';
+import { IdNode } from '../../../../parser/node/token/id/id-node';
+import { parseSyntax } from '../../../../parser/syntax';
 import { ConstantSemantic } from '../../../declaration/constant/constant-semantic';
 import { $Semantic, parseSemantic } from '../../../semantic';
 import { DeclarationTypeSemantic } from './declaration-type-semantic';

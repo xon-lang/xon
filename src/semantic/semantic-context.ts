@@ -1,10 +1,10 @@
 import { IssueManager } from '../issue/issue-manager';
 import { ISSUE_MESSAGE } from '../issue/issue-message';
 import { Nothing, String2, nothing } from '../lib/core';
+import { Node } from '../parser/node/node';
+import { IdNode } from '../parser/node/token/id/id-node';
 import { Source } from '../source/source';
 import { SourceReference, sourceReference } from '../source/source-reference';
-import { IdNode } from '../syntax/node/id/id-node';
-import { Node } from '../syntax/node/node';
 import { DeclarationSemantic } from './declaration/declaration-semantic';
 import { GenericSemantic } from './declaration/generic/generic-semantic';
 import { ParameterSemantic } from './declaration/parameter/parameter-semantic';

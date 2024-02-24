@@ -1,6 +1,6 @@
 import { nothing } from '../../../../../lib/core';
-import { DeclarationNode } from '../../../../../syntax/node/declaration/declaration-node';
-import { parseSyntax } from '../../../../../syntax/syntax';
+import { DeclarationNode } from '../../../../../parser/node/syntax/declaration/declaration-node';
+import { parseSyntax } from '../../../../../parser/syntax';
 import { ConstantSemantic } from '../../../../declaration/constant/constant-semantic';
 import { $Semantic, parseSemantic } from '../../../../semantic';
 import { DeclarationTypeSemantic } from '../../declaration/declaration-type-semantic';

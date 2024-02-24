@@ -1,7 +1,7 @@
 import { IssueLevel } from '../issue/issue-level';
 import { String2 } from '../lib/core';
+import { Node } from '../parser/node/node';
 import { Source, getRangeText } from '../source/source';
-import { Node } from '../syntax/node/node';
 import { IssueMessage } from './issue-message';
 
 export enum IssueType {

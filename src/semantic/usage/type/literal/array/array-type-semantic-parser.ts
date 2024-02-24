@@ -1,9 +1,9 @@
 import { ISSUE_MESSAGE } from '../../../../../issue/issue-message';
 import { Nothing, nothing } from '../../../../../lib/core';
-import { ArrayNode } from '../../../../../syntax/node/array/array-node';
-import { InvokeNode } from '../../../../../syntax/node/invoke/invoke-node';
-import { $Node, Node } from '../../../../../syntax/node/node';
-import { is } from '../../../../../syntax/util/is';
+import { $Node, Node } from '../../../../../parser/node/node';
+import { ArrayNode } from '../../../../../parser/node/syntax/array/array-node';
+import { InvokeNode } from '../../../../../parser/node/syntax/invoke/invoke-node';
+import { is } from '../../../../../parser/util/is';
 import { $Semantic, semanticIs } from '../../../../semantic';
 import { SemanticContext } from '../../../../semantic-context';
 import { typeSemanticParse } from '../../type-semantic-parser';

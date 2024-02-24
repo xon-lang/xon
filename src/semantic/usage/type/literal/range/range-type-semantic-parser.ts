@@ -1,8 +1,8 @@
 import { Nothing, nothing } from '../../../../../lib/core';
-import { InfixNode } from '../../../../../syntax/node/infix/infix-node';
-import { $Node, Node } from '../../../../../syntax/node/node';
-import { RANGE_TOKEN } from '../../../../../syntax/syntax-config';
-import { is } from '../../../../../syntax/util/is';
+import { $Node, Node } from '../../../../../parser/node/node';
+import { InfixNode } from '../../../../../parser/node/syntax/infix/infix-node';
+import { RANGE_TOKEN } from '../../../../../parser/syntax-config';
+import { is } from '../../../../../parser/util/is';
 import { $Semantic, semanticIs } from '../../../../semantic';
 import { SemanticContext } from '../../../../semantic-context';
 import { typeSemanticParse } from '../../type-semantic-parser';
