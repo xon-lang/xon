@@ -60,7 +60,11 @@ function parseStatement(context: SyntaxContext, node: Node): DeclarationNode | N
   return nothing;
 }
 
-function parseParameter(context: SyntaxContext, node: Node): DeclarationNode | Nothing {
+function parseParameter(context: SyntaxContext, node: Node | Nothing): DeclarationNode | Nothing {
+  if (!node) {
+    return nothing;
+  }
+
   const parts = getDeclarationParts(context, node);
 
   if (!parts) {

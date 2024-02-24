@@ -1,3 +1,4 @@
+import { Nothing } from '../../../lib/core';
 import { rangeFromNodes } from '../../../source/source-range';
 import '../../../util/extension';
 import { CloseNode } from '../close/close-node';
@@ -10,7 +11,7 @@ export interface ObjectNode extends SyntaxNode {
   // type: objectLiteralType;
   open: OpenNode;
   close: CloseNode | null;
-  items: Node[];
+  items: (Node | Nothing)[];
 }
 
 export function objectNode(open: OpenNode, close: CloseNode | null, items: Node[]): ObjectNode {

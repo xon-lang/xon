@@ -25,6 +25,7 @@ export interface GroupNode extends SyntaxNode {
   $: $Node.GROUP;
   open: OpenNode;
   close: CloseNode | null;
+  // todo make items as Statement[][] or as body
   items: (Node | Nothing)[];
 }
 
