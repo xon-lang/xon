@@ -28,12 +28,12 @@ const scanFunctions: SyntaxScanFn[] = [
   scanStringNode,
   scanCharNode,
   scanNlNode,
-  scanGroupNode,
   scanCloseNode,
   scanJoiningNode,
   scanWhitespaceNode,
   scanOperatorNode,
   scanIdNode,
+  scanGroupNode,
   scanUnknownNode,
 ];
 

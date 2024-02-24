@@ -1,4 +1,4 @@
-import { String2 } from '../../../../lib/core';
+import { Nothing, String2, nothing } from '../../../../lib/core';
 import { SourceRange } from '../../../../source/source-range';
 import { ARRAY_NODE_CLOSE_CODE, GROUP_NODE_CLOSE_CODE, OBJECT_NODE_CLOSE_CODE } from '../../../syntax-config';
 import { SyntaxContext } from '../../../syntax-context';
@@ -13,7 +13,7 @@ export function closeNode(range: SourceRange, text: String2): CloseNode {
   return token($Node.CLOSE, range, text);
 }
 
-export function scanCloseNode(context: SyntaxContext): CloseNode | null {
+export function scanCloseNode(context: SyntaxContext): CloseNode | Nothing {
   const code = context.source.characters[context.position.index];
 
   if (code === GROUP_NODE_CLOSE_CODE || code === ARRAY_NODE_CLOSE_CODE || code === OBJECT_NODE_CLOSE_CODE) {
@@ -23,5 +23,5 @@ export function scanCloseNode(context: SyntaxContext): CloseNode | null {
     return closeNode(range, text);
   }
 
-  return null;
+  return nothing;
 }
