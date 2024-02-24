@@ -32,6 +32,5 @@ export function validatePrefixNode(context: SyntaxContext, node: PrefixNode): vo
 
 export function checkFormatting(context: SyntaxContext, node: PrefixNode): void {
   if (node.value) {
-    
   }
 }

@@ -24,11 +24,11 @@ declare global {
     ): String2;
     margin(delimiter?: String2): String2;
     toCharCodes(): Uint8Array;
-    isDigit(index: Integer): Boolean2;
     isLetter(index: Integer): Boolean2;
     isUpperLetter(index: Integer): Boolean2;
     isLowerLetter(index: Integer): Boolean2;
-    isDigitOrLetter(index: Integer): Boolean2;
+    isDigit(index: Integer): Boolean2;
+    isLetterOrDigit(index: Integer): Boolean2;
     some(predicate: (value: Char, index: Integer, array: Char[]) => Boolean2): Boolean2;
   }
 }

@@ -37,12 +37,6 @@ String.prototype.toCharCodes = function toCharCodes(): Uint8Array {
   // return Array.from(this).map((x) => x.charCodeAt(0));
 };
 
-String.prototype.isDigit = function isDigit(index: Integer): Boolean2 {
-  const char = this[index].charCodeAt(0);
-
-  return char >= DIGIT_0_CODE && char <= DIGIT_9_CODE;
-};
-
 String.prototype.isUpperLetter = function isUpperLetter(index: Integer): Boolean2 {
   const char = this[index].charCodeAt(0);
 
@@ -61,7 +55,13 @@ String.prototype.isLetter = function isLetter(index: Integer): Boolean2 {
   return (char >= UPPER_A_CODE && char <= UPPER_Z_CODE) || (char >= LOWER_A_CODE && char <= LOWER_Z_CODE);
 };
 
-String.prototype.isDigitOrLetter = function isDigitOrLetter(index: Integer): Boolean2 {
+String.prototype.isDigit = function isDigit(index: Integer): Boolean2 {
+  const char = this[index].charCodeAt(0);
+
+  return char >= DIGIT_0_CODE && char <= DIGIT_9_CODE;
+};
+
+String.prototype.isLetterOrDigit = function isLetterOrDigit(index: Integer): Boolean2 {
   const char = this[index].charCodeAt(0);
 
   return (

@@ -6,15 +6,8 @@ export interface SyntaxNode extends Node {
   readonly children: Node[];
 }
 
-// export function syntax<T extends $Node>($: T, range: SourceRange, text: String2): TokenNode & { $: T } {
-//   return {
-//     $,
-//     range,
-//     text,
-//     hiddenNodes: [],
-//   };
+// export function syntaxNode<T extends SyntaxNode>(params: Partial<T>): T {
 // }
-
 
 export function getRangeAndChildren(...nodes: (Node | Nothing)[]): Pick<SyntaxNode, 'range' | 'children'> {
   const children = nodes.filter((x): x is Node => !!x);

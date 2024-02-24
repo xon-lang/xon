@@ -21,7 +21,7 @@ export function scanIntegerNode(context: SyntaxContext): IntegerNode | null {
   }
 
   const text = context.source.text.takeWhile(
-    (x, i) => x.charCodeAt(0) === UNDERSCORE_CODE || source.text.isDigitOrLetter(i),
+    (x, i) => x.charCodeAt(0) === UNDERSCORE_CODE || source.text.isLetterOrDigit(i),
     context.position.index,
   );
 

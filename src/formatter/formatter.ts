@@ -52,7 +52,7 @@ function prefixFormat(node: PrefixNode) {
   const operator = node.operator.text;
   const value = node.value ? nodeFormat(node.value) : '';
 
-  if (operator.some((x) => x.isDigitOrLetter(0))) {
+  if (operator.some((x) => x.isLetterOrDigit(0))) {
     return `${operator} ${value}`;
   }
 
@@ -63,7 +63,7 @@ function postfixFormat(node: PostfixNode) {
   const operator = node.operator.text;
   const value = node.value ? nodeFormat(node.value) : '';
 
-  if (operator.some((x) => x.isDigitOrLetter(0))) {
+  if (operator.some((x) => x.isLetterOrDigit(0))) {
     return `${value} ${operator}`;
   }
 

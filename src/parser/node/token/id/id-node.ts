@@ -22,7 +22,7 @@ export function scanIdNode(context: SyntaxContext): IdNode | null {
   }
 
   const text = source.text.takeWhile(
-    (x, i) => x.charCodeAt(0) === UNDERSCORE_CODE || source.text.isDigitOrLetter(i),
+    (x, i) => x.charCodeAt(0) === UNDERSCORE_CODE || source.text.isLetterOrDigit(i),
     position.index,
   );
 
