@@ -1,14 +1,11 @@
 import { Nothing } from '../../lib/core';
 import { Semantic } from '../../semantic/semantic';
 import { SourceRange } from '../../source/source-range';
-import { CommentLineNode } from './token/comment/comment-line-node';
-import { JoiningNode } from './token/joining/joining-node';
-import { WhitespaceNode } from './token/whitespace/whitespace-node';
 
 export interface Node {
   readonly $: $Node;
   range: SourceRange;
-  hiddenNodes: HiddenNode[];
+  hiddenNodes: Node[];
   semantic?: Semantic | Nothing;
 }
 
@@ -46,16 +43,4 @@ export enum $Node {
 
 export function is<T extends Node = Node>(node: { $?: $Node } | Nothing, nodeType: $Node): node is T {
   return node?.$ === nodeType;
-}
-
-export type HiddenNode = WhitespaceNode | JoiningNode | CommentLineNode;
-
-const HIDDEN_NODES: $Node[] = [$Node.WHITESPACE, $Node.JOINING, $Node.COMMENT_LINE, $Node.COMMENT_BLOCK];
-
-export function isHiddenNode(node: { $?: $Node } | Nothing): node is HiddenNode {
-  if (node) {
-    return HIDDEN_NODES.some((x) => is(node, x));
-  }
-
-  return false;
 }

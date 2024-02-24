@@ -2,7 +2,7 @@ import { ISSUE_MESSAGE } from '../issue/issue-message';
 import { Boolean2, Nothing, String2, nothing } from '../lib/core';
 import { Source, createSource } from '../source/source';
 import { SourcePosition, zeroPosition } from '../source/source-position';
-import { $Node, Node, is, isHiddenNode } from './node/node';
+import { $Node, Node, is } from './node/node';
 import { scanGroupNode } from './node/syntax/group/group-node';
 import { scanCharNode } from './node/token/char/char-node';
 import { scanCloseNode } from './node/token/close/close-node';
@@ -13,7 +13,7 @@ import { scanJoiningNode } from './node/token/joining/joining-node';
 import { NlNode, scanNlNode } from './node/token/nl/nl-node';
 import { scanOperatorNode } from './node/token/operator/operator-node';
 import { scanStringNode } from './node/token/string/string-node';
-import { isToken } from './node/token/token-node';
+import { isHiddenToken, isToken } from './node/token/token-node';
 import { UnknownNode, scanUnknownNode } from './node/token/unknown/unknown-node';
 import { scanWhitespaceNode } from './node/token/whitespace/whitespace-node';
 import { SyntaxContext, syntaxContext } from './syntax-context';
@@ -94,7 +94,7 @@ export function parseSyntaxUntil(
       continue;
     }
 
-    if (isHiddenNode(node)) {
+    if (isHiddenToken(node)) {
       context.hiddenNodes.push(node);
 
       if (isToken(context.lastNode)) {

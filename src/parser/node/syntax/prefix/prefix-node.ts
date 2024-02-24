@@ -32,6 +32,9 @@ export function validatePrefixNode(context: SyntaxContext, node: PrefixNode): vo
 
 export function checkFormatting(context: SyntaxContext, node: PrefixNode): void {
   if (node.value) {
-    
+    node.hiddenNodes = node.value.hiddenNodes;
+    // todo now we check only whitespace
+    const hiddenNode = node.operator.hiddenNodes[0];
+
   }
 }
