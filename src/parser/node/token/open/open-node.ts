@@ -3,18 +3,14 @@ import { SourceRange } from '../../../../source/source-range';
 import { ARRAY_NODE_OPEN_CODE, GROUP_NODE_OPEN_CODE, OBJECT_NODE_OPEN_CODE } from '../../../syntax-config';
 import { SyntaxContext } from '../../../syntax-context';
 import { $Node } from '../../node';
-import { TokenNode } from '../token-node';
+import { TokenNode, token } from '../token-node';
 
 export interface OpenNode extends TokenNode {
   $: $Node.OPEN;
 }
 
 export function openNode(range: SourceRange, text: String2): OpenNode {
-  return {
-    $: $Node.OPEN,
-    range,
-    text,
-  };
+  return token($Node.OPEN, range, text);
 }
 
 export function scanOpenNode(context: SyntaxContext): Partial<OpenNode> | null {

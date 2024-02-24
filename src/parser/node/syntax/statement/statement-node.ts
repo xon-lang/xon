@@ -1,4 +1,4 @@
-import { Nothing } from '../../../../lib/core';
+import { Integer, Nothing, String2 } from '../../../../lib/core';
 import { SyntaxContext } from '../../../syntax-context';
 import { $Node, Node } from '../../node';
 import { SyntaxNode, getRangeAndChildren } from '../syntax-node';
@@ -6,6 +6,8 @@ import { SyntaxNode, getRangeAndChildren } from '../syntax-node';
 export interface StatementNode extends SyntaxNode {
   $: $Node.STATEMENT;
   parent: StatementNode | Nothing;
+  // indentLevel: Integer;
+  // indentText: String2;
   item: Node;
   body: StatementNode[];
 }

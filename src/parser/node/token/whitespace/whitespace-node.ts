@@ -3,18 +3,14 @@ import { SourceRange } from '../../../../source/source-range';
 import { SPACE_CODE, TAB_CODE } from '../../../syntax-config';
 import { SyntaxContext } from '../../../syntax-context';
 import { $Node } from '../../node';
-import { TokenNode } from '../token-node';
+import { TokenNode, token } from '../token-node';
 
 export interface WhitespaceNode extends TokenNode {
   $: $Node.WHITESPACE;
 }
 
 export function whitespaceNode(range: SourceRange, text: String2): WhitespaceNode {
-  return {
-    $: $Node.WHITESPACE,
-    range,
-    text,
-  };
+  return token($Node.WHITESPACE, range, text);
 }
 
 export function scanWhitespaceNode(context: SyntaxContext): WhitespaceNode | null {

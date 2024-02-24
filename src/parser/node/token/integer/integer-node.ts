@@ -3,18 +3,14 @@ import { SourceRange } from '../../../../source/source-range';
 import { UNDERSCORE_CODE } from '../../../syntax-config';
 import { SyntaxContext } from '../../../syntax-context';
 import { $Node } from '../../node';
-import { TokenNode } from '../token-node';
+import { TokenNode, token } from '../token-node';
 
 export interface IntegerNode extends TokenNode {
   $: $Node.INTEGER;
 }
 
 export function integerNode(range: SourceRange, text: String2): IntegerNode {
-  return {
-    $: $Node.INTEGER,
-    range,
-    text,
-  };
+  return token($Node.INTEGER, range, text);
 }
 
 export function scanIntegerNode(context: SyntaxContext): IntegerNode | null {

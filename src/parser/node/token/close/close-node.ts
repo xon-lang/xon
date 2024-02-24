@@ -3,19 +3,14 @@ import { SourceRange } from '../../../../source/source-range';
 import { ARRAY_NODE_CLOSE_CODE, GROUP_NODE_CLOSE_CODE, OBJECT_NODE_CLOSE_CODE } from '../../../syntax-config';
 import { SyntaxContext } from '../../../syntax-context';
 import { $Node } from '../../node';
-import { TokenNode } from '../token-node';
+import { TokenNode, token } from '../token-node';
 
-// todo use token node instead of all related nodes
 export interface CloseNode extends TokenNode {
   $: $Node.CLOSE;
 }
 
 export function closeNode(range: SourceRange, text: String2): CloseNode {
-  return {
-    $: $Node.CLOSE,
-    range,
-    text,
-  };
+  return token($Node.CLOSE, range, text);
 }
 
 export function scanCloseNode(context: SyntaxContext): CloseNode | null {

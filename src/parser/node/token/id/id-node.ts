@@ -4,18 +4,14 @@ import '../../../../util/extension';
 import { UNDERSCORE_CODE } from '../../../syntax-config';
 import { SyntaxContext } from '../../../syntax-context';
 import { $Node } from '../../node';
-import { TokenNode } from '../token-node';
+import { TokenNode, token } from '../token-node';
 
 export interface IdNode extends TokenNode {
   $: $Node.ID;
 }
 
 export function idNode(range: SourceRange, text: String2): IdNode {
-  return {
-    $: $Node.ID,
-    range,
-    text,
-  };
+  return token($Node.ID, range, text);
 }
 
 export function scanIdNode(context: SyntaxContext): IdNode | null {

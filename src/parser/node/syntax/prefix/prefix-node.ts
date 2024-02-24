@@ -29,3 +29,9 @@ export function validatePrefixNode(context: SyntaxContext, node: PrefixNode): vo
     context.issueManager.addError(node, ISSUE_MESSAGE.notImplemented());
   }
 }
+
+export function checkFormatting(context: SyntaxContext, node: PrefixNode): void {
+  if (node.value) {
+    
+  }
+}

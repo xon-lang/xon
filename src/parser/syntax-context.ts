@@ -1,6 +1,6 @@
 import { IssueType } from '../issue/issue';
 import { IssueManager, createIssueManager } from '../issue/issue-manager';
-import { Integer, Nothing, nothing } from '../lib/core';
+import { Integer, Nothing, String2, nothing } from '../lib/core';
 import { Source } from '../source/source';
 import { SourcePosition, sourcePosition } from '../source/source-position';
 import { SourceRange, sourceRange } from '../source/source-range';
@@ -13,6 +13,7 @@ export interface SyntaxContext {
   position: SourcePosition;
   hiddenNodes: Node[];
   unknownNodes: UnknownNode[];
+  formatters: Formatter[];
   breakNode: Node | null;
   parentStatement: StatementNode | Nothing;
   nodes: Node[];
@@ -29,6 +30,7 @@ export function syntaxContext(source: Source, position: SourcePosition): SyntaxC
     position,
     hiddenNodes: [],
     unknownNodes: [],
+    formatters: [],
     parentStatement: nothing,
     nodes: [],
     previousStatement: null,
@@ -46,4 +48,9 @@ export function syntaxContext(source: Source, position: SourcePosition): SyntaxC
       return sourceRange(start, stop);
     },
   };
+}
+
+export interface Formatter {
+  range: SourceRange;
+  text: String2;
 }
