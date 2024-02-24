@@ -60,3 +60,21 @@ test('model string with base class', () => {
   // expect(types[1].name).toBe('String');
   // expect(types[1].restriction?.declaration?.name).toBe('Array');
 });
+
+test('hidden nodes', () => {
+  const text = '-    1';
+  const syntax = parseSyntax(text);
+  const nodes = syntax.statements.map((x) => x.item);
+  const node = nodes[0] as PrefixNode;
+
+  expect(node.$).toBe($Node.PREFIX);
+  expect(node.operator.text).toBe('-');
+
+  expect(node.operator.hiddenNodes.length).toBe(1);
+  expect(node.operator.hiddenNodes[0].$).toBe($Node.WHITESPACE);
+  expect(node.operator.hiddenNodes[0].text).toBe('    ');
+
+  expect(syntax.formatters.length).toBe(1);
+  expect(syntax.formatters[0].text).toBe(' ');
+  expect(evaluate(node)).toBe(-1);
+});

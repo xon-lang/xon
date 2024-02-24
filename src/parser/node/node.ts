@@ -1,17 +1,17 @@
 import { Nothing } from '../../lib/core';
 import { Semantic } from '../../semantic/semantic';
 import { SourceRange } from '../../source/source-range';
+import { TokenNode } from './token/token-node';
 
 export interface Node {
   readonly $: $Node;
   range: SourceRange;
-  hiddenNodes: Node[];
+  hiddenNodes: TokenNode[];
   semantic?: Semantic | Nothing;
 }
 
 export enum $Node {
-  COMMENT_LINE = 'COMMENT_LINE',
-  COMMENT_BLOCK = 'COMMENT_BLOCK',
+  COMMENT = 'COMMENT',
   WHITESPACE = 'WHITESPACE',
   JOINING = 'JOINING',
   NL = 'NL',

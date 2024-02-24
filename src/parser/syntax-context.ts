@@ -6,12 +6,13 @@ import { SourcePosition, sourcePosition } from '../source/source-position';
 import { SourceRange, sourceRange } from '../source/source-range';
 import { Node } from './node/node';
 import { StatementNode } from './node/syntax/statement/statement-node';
+import { TokenNode } from './node/token/token-node';
 import { UnknownNode } from './node/token/unknown/unknown-node';
 
 export interface SyntaxContext {
   source: Source;
   position: SourcePosition;
-  hiddenNodes: Node[];
+  hiddenNodes: TokenNode[];
   unknownNodes: UnknownNode[];
   formatters: Formatter[];
   breakNode: Node | Nothing;

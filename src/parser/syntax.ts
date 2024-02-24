@@ -6,7 +6,7 @@ import { $Node, Node, is } from './node/node';
 import { scanGroupNode } from './node/syntax/group/group-node';
 import { scanCharNode } from './node/token/char/char-node';
 import { scanCloseNode } from './node/token/close/close-node';
-import { scanCommentLineNode } from './node/token/comment/comment-line-node';
+import { scanCommentNode } from './node/token/comment/comment-node';
 import { scanIdNode } from './node/token/id/id-node';
 import { scanIntegerNode } from './node/token/integer/integer-node';
 import { scanJoiningNode } from './node/token/joining/joining-node';
@@ -23,7 +23,7 @@ import { putStatementNode } from './util/put-statement-node';
 type SyntaxScanFn = (context: SyntaxContext) => Node | Nothing;
 
 const scanFunctions: SyntaxScanFn[] = [
-  scanCommentLineNode,
+  scanCommentNode,
   scanIntegerNode,
   scanStringNode,
   scanCharNode,
@@ -104,6 +104,7 @@ export function parseSyntaxUntil(
       continue;
     }
 
+    context.lastNode = node;
     context.nodes.push(node);
   }
 
