@@ -20,10 +20,6 @@ export function addNodeParent(parent: SyntaxNode, ...children: (Node | Nothing)[
   }
 }
 
-export function isSyntaxNode(node: Node): node is SyntaxNode {
-  return 'children' in node;
-}
-
 export enum $Node {
   COMMENT_LINE = 'COMMENT_LINE',
   COMMENT_BLOCK = 'COMMENT_BLOCK',
