@@ -21,8 +21,7 @@ export enum RecursiveType {
 const a: number | string = 1 + 2 / 0;
 
 export const COMMENT_LINE = '--';
-export const COMMENT_BLOCK_START = '-/';
-export const COMMENT_BLOCK_STOP = '/-';
+export const COMMENT_BLOCK = '---';
 
 export const NL = '\n';
 export const NL_CODE = NL.charCodeAt(0);

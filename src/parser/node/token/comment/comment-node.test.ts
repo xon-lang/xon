@@ -12,12 +12,12 @@ test('line comment', () => {
   expect(node.text).toBe('-- abc');
 });
 
-test('line comment', () => {
-  const text = '-- abc';
+test('block comment', () => {
+  const text = '--- abc\n\n\n def---';
   const ast = parseSyntax(text);
   const node = ast.hiddenNodes[0] as CommentNode;
 
   expect(ast.hiddenNodes.length).toBe(1);
   expect(node.$).toBe($Node.COMMENT);
-  expect(node.text).toBe('-- abc');
+  expect(node.text).toBe('--- abc\n\n\n def---');
 });

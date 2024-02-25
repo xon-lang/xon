@@ -22,6 +22,7 @@ declare global {
       startIndex?: Integer,
       includeConditionChar?: Boolean2,
     ): String2;
+    take(length: Integer, index: Integer): String2;
     margin(delimiter?: String2): String2;
     toCharCodes(): Uint8Array;
     isLetter(index: Integer): Boolean2;

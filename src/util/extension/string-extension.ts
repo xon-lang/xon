@@ -26,6 +26,10 @@ String.prototype.takeWhile = function takeWhile(
   return this.slice(startIndex, this.length);
 };
 
+String.prototype.take = function take(length: Integer, index: Integer = 0): String2 {
+  return this.slice(index, index + length);
+};
+
 String.prototype.margin = function margin(delimiter?: String2): String2 {
   throw new Error(`Not implemented ${delimiter}`);
 };
