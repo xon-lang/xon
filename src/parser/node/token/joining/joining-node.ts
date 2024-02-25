@@ -1,4 +1,4 @@
-import { String2 } from '../../../../lib/core';
+import { Nothing, String2, nothing } from '../../../../lib/core';
 import { SourceRange } from '../../../../source/source-range';
 import { JOINING, NL, SPACE, TAB } from '../../../syntax-config';
 import { SyntaxContext } from '../../../syntax-context';
@@ -13,18 +13,14 @@ export function joiningNode(range: SourceRange, text: String2): JoiningNode {
   return tokenNode($Node.JOINING, range, text);
 }
 
-export function scanJoiningNode(context: SyntaxContext): JoiningNode | null {
+export function scanJoiningNode(context: SyntaxContext): JoiningNode | Nothing {
   const { source, position } = context;
 
   if (source.text[position.index] !== JOINING) {
-    return null;
+    return nothing;
   }
 
-  let text = source.text.takeWhile((x) => x === JOINING || x === SPACE || x === TAB, position.index);
-
-  if (text.length === 0) {
-    return null;
-  }
+  let text = JOINING + source.text.takeWhile((x) => x === SPACE || x === TAB, position.index + 1);
 
   if (source.text[position.index + text.length] === NL) {
     text += NL;

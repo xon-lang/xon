@@ -55,3 +55,18 @@ export function checkFormatting(context: SyntaxContext, node: PrefixNode): void 
     }
   }
 }
+
+/* 
+
+
+
+
++    1
+
++   \    \   \
+  1
+
++ -/ some /- -/ some /-     -/ some /-     1
+
+
+*/
