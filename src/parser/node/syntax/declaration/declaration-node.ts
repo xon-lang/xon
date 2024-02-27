@@ -22,7 +22,6 @@ export interface DeclarationNode extends SyntaxNode {
 export function declarationNode(params: Partial<DeclarationNode> & { id: IdNode }): DeclarationNode {
   const start = params.modifier ?? params.id;
   const end = params.assign ?? params.type ?? params.parameters ?? params.generics ?? params.id;
-  const range = rangeFromNodes(start, end);
 
   const node: DeclarationNode = {
     $: $Node.DECLARATION,

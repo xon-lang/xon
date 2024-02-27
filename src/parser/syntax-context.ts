@@ -1,6 +1,6 @@
 import { IssueType } from '../issue/issue';
 import { IssueManager, createIssueManager } from '../issue/issue-manager';
-import { Integer, Nothing, String2, nothing } from '../lib/core';
+import { Integer, Nothing, nothing } from '../lib/core';
 import { Source } from '../source/source';
 import { SourcePosition, sourcePosition } from '../source/source-position';
 import { SourceRange, sourceRange } from '../source/source-range';
@@ -8,6 +8,7 @@ import { Node } from './node/node';
 import { StatementNode } from './node/syntax/statement/statement-node';
 import { TokenNode } from './node/token/token-node';
 import { UnknownNode } from './node/token/unknown/unknown-node';
+import { Formatter } from './util/formatter';
 
 export interface SyntaxContext {
   source: Source;
@@ -51,9 +52,4 @@ export function syntaxContext(source: Source, position: SourcePosition): SyntaxC
       return sourceRange(start, stop);
     },
   };
-}
-
-export interface Formatter {
-  range: SourceRange;
-  text: String2;
 }

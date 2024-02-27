@@ -14,7 +14,10 @@ export function sourceRange(start: SourcePosition, stop: SourcePosition): Source
   };
 }
 
-export function rangeFromNodes(startNode: Node | Nothing, stopNode: Node | Nothing): SourceRange {
+export function rangeFromNodes(...nodes: (Node | Nothing)[]): SourceRange {
+  const startNode = nodes.firstOrNull();
+  const stopNode = nodes.lastOrNull();
+
   const start = startNode ? clonePosition(startNode.range.start) : zeroPosition();
   const stop = startNode ?? stopNode ? clonePosition((stopNode ?? startNode)!.range.stop) : zeroPosition();
 

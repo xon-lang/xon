@@ -3,7 +3,8 @@ import { Source } from '../source/source';
 import { Node } from './node/node';
 import { StatementNode } from './node/syntax/statement/statement-node';
 import { TokenNode } from './node/token/token-node';
-import { Formatter, SyntaxContext } from './syntax-context';
+import { SyntaxContext } from './syntax-context';
+import { Formatter } from './util/formatter';
 
 export interface SyntaxResult {
   source: Source;
