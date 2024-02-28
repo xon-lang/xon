@@ -1,9 +1,9 @@
-import { Boolean2, Nothing, String2, nothing } from '../../lib/core';
-import { SourceRange, rangeFromNodes, sourceRange } from '../../source/source-range';
-import { $Node, Node, is } from '../node/node';
-import { CommentNode } from '../node/token/comment/comment-node';
-import { WhitespaceNode } from '../node/token/whitespace/whitespace-node';
-import { SyntaxContext } from '../syntax-context';
+import {Boolean2, Nothing, String2, nothing} from '../../lib/core';
+import {SourceRange, rangeFromNodes, sourceRange} from '../../source/source-range';
+import {$Node, Node, is} from '../node/node';
+import {CommentNode} from '../node/token/comment/comment-node';
+import {WhitespaceNode} from '../node/token/whitespace/whitespace-node';
+import {SyntaxContext} from '../syntax-context';
 
 export interface Formatter {
   range: SourceRange;
@@ -20,7 +20,7 @@ export function formatHiddenNodes(context: SyntaxContext, node: Node, keepSingle
 
 // todo add tab (\t) handling
 function getFormatterForHiddenNodes(node: Node, keepSingleSpace: Boolean2): Formatter | Nothing {
-  const { hiddenNodes, range } = node;
+  const {hiddenNodes, range} = node;
 
   if (!isWhitespaceOrCommentNodes(hiddenNodes)) {
     return nothing;
@@ -40,7 +40,7 @@ function getFormatterForHiddenNodes(node: Node, keepSingleSpace: Boolean2): Form
   if (hiddenNodes.length === 1 && is<WhitespaceNode>(hiddenNodes[0], $Node.WHITESPACE)) {
     const text = hiddenNodes[0].text;
 
-    if ((text.length === 1 && keepSingleSpace) || (!keepSingleSpace && text.length === 0)) {
+    if ((keepSingleSpace && text.length === 1 && text[0] === ' ') || (!keepSingleSpace && text.length === 0)) {
       return nothing;
     }
 
@@ -65,7 +65,7 @@ function getFormatterForHiddenNodes(node: Node, keepSingleSpace: Boolean2): Form
   };
 }
 
-function isSameContent(nodes: (WhitespaceNode | CommentNode)[], text: String2) {
+function isSameContent(nodes: (WhitespaceNode | CommentNode)[], text: String2): Boolean2 {
   return nodes.map((x) => x.text).join('') === text;
 }
 
