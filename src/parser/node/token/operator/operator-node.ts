@@ -32,7 +32,7 @@ export function scanOperatorNode(context: SyntaxContext): Node | null {
     return id;
   }
 
-  const range = context.getRange(text.length);
+  const range = context.getRange(text.length, false);
 
   return operatorNode(range, text);
 }

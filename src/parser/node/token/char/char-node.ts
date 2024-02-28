@@ -19,7 +19,7 @@ export function scanCharNode(context: SyntaxContext): CharNode | null {
 
     const endSlice = nextQuoteIndex < 0 ? context.source.text.length : nextQuoteIndex + 1;
     const text = context.source.text.slice(context.position.index, endSlice);
-    const range = context.getRange(text.length);
+    const range = context.getRange(text.length, false);
 
     return charNode(range, text);
   }

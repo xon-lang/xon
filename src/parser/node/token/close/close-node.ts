@@ -1,9 +1,9 @@
-import { Nothing, String2, nothing } from '../../../../lib/core';
-import { SourceRange } from '../../../../source/source-range';
-import { ARRAY_NODE_CLOSE_CODE, GROUP_NODE_CLOSE_CODE, OBJECT_NODE_CLOSE_CODE } from '../../../syntax-config';
-import { SyntaxContext } from '../../../syntax-context';
-import { $Node } from '../../node';
-import { TokenNode, tokenNode } from '../token-node';
+import {Nothing, String2, nothing} from '../../../../lib/core';
+import {SourceRange} from '../../../../source/source-range';
+import {ARRAY_NODE_CLOSE_CODE, GROUP_NODE_CLOSE_CODE, OBJECT_NODE_CLOSE_CODE} from '../../../syntax-config';
+import {SyntaxContext} from '../../../syntax-context';
+import {$Node} from '../../node';
+import {TokenNode, tokenNode} from '../token-node';
 
 export interface CloseNode extends TokenNode {
   $: $Node.CLOSE;
@@ -18,7 +18,7 @@ export function scanCloseNode(context: SyntaxContext): CloseNode | Nothing {
 
   if (code === GROUP_NODE_CLOSE_CODE || code === ARRAY_NODE_CLOSE_CODE || code === OBJECT_NODE_CLOSE_CODE) {
     const text = context.source.text[context.position.index];
-    const range = context.getRange(1);
+    const range = context.getRange(1, false);
 
     return closeNode(range, text);
   }

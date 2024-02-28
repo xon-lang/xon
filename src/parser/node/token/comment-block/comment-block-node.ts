@@ -21,7 +21,7 @@ export function scanCommentBlockNode(context: SyntaxContext): CommentBlockNode |
     const endSlice = stopIndex < 0 ? source.text.length : stopIndex + COMMENT_BLOCK.length;
 
     const text = source.text.slice(position.index, endSlice);
-    const range = context.getRange(text.length);
+    const range = context.getRange(text.length, true);
 
     return commentBlockNode(range, text);
   }

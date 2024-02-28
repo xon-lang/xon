@@ -26,7 +26,7 @@ export function scanIdNode(context: SyntaxContext): IdNode | null {
     position.index,
   );
 
-  const range = context.getRange(text.length);
+  const range = context.getRange(text.length, false);
 
   return idNode(range, text);
 }

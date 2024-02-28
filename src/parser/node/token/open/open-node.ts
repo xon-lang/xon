@@ -18,7 +18,7 @@ export function scanOpenNode(context: SyntaxContext): Partial<OpenNode> | null {
 
   if (code === GROUP_NODE_OPEN_CODE || code === ARRAY_NODE_OPEN_CODE || code === OBJECT_NODE_OPEN_CODE) {
     const text = context.source.text[context.position.index];
-    const range = context.getRange(text.length);
+    const range = context.getRange(text.length, false);
 
     return openNode(range, text);
   }

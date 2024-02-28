@@ -21,7 +21,7 @@ export function scanCommentLineNode(context: SyntaxContext): CommentLineNode | N
   }
 
   const text = source.text.takeWhile((x) => x !== NL, position.index);
-  const range = context.getRange(text.length);
+  const range = context.getRange(text.length, false);
 
   return commentLineNode(range, text);
 }

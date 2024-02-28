@@ -84,8 +84,6 @@ export function parseSyntaxUntil(
 
     if (is<NlNode>(node, $Node.NL)) {
       context.hiddenNodes.push(node);
-      context.position.line += 1;
-      context.position.column = 0;
 
       if (context.nodes.length > 0) {
         putStatementNode(context);
@@ -125,6 +123,7 @@ function nextNode(context: SyntaxContext): Node {
 
   if (node) {
     context.position.index = node.range.stop.index;
+    context.position.line = node.range.stop.line;
     context.position.column = node.range.stop.column;
 
     return node;

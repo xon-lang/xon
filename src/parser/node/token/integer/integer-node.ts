@@ -25,7 +25,7 @@ export function scanIntegerNode(context: SyntaxContext): IntegerNode | Nothing {
     context.position.index,
   );
 
-  const range = context.getRange(text.length);
+  const range = context.getRange(text.length, false);
 
   return integerNode(range, text);
 }

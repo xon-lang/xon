@@ -1,9 +1,9 @@
-import { String2 } from '../../../../lib/core';
-import { SourceRange } from '../../../../source/source-range';
-import { NL, NL_CODE } from '../../../syntax-config';
-import { SyntaxContext } from '../../../syntax-context';
-import { $Node } from '../../node';
-import { TokenNode, tokenNode } from '../token-node';
+import {String2} from '../../../../lib/core';
+import {SourceRange} from '../../../../source/source-range';
+import {NL, NL_CODE} from '../../../syntax-config';
+import {SyntaxContext} from '../../../syntax-context';
+import {$Node} from '../../node';
+import {TokenNode, tokenNode} from '../token-node';
 
 export interface NlNode extends TokenNode {
   $: $Node.NL;
@@ -15,7 +15,7 @@ export function nlNode(range: SourceRange, text: String2): NlNode {
 
 export function scanNlNode(context: SyntaxContext): NlNode | null {
   if (context.source.characters[context.position.index] === NL_CODE) {
-    const range = context.getRange(NL.length);
+    const range = context.getRange(NL.length, true);
 
     return nlNode(range, NL);
   }

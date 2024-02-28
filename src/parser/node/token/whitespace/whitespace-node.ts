@@ -21,7 +21,7 @@ export function scanWhitespaceNode(context: SyntaxContext): WhitespaceNode | Not
     return nothing;
   }
 
-  const range = context.getRange(text.length);
+  const range = context.getRange(text.length, false);
 
   return whitespaceNode(range, text);
 }
