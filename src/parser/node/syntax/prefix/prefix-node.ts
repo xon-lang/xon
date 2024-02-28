@@ -26,13 +26,14 @@ export function prefixNode(context: SyntaxContext, operator: OperatorNode, value
   return node;
 }
 
-export function validatePrefixNode(context: SyntaxContext, node: PrefixNode): void {
+// todo refactor it if value will be required
+function validatePrefixNode(context: SyntaxContext, node: PrefixNode): void {
   if (!node.value) {
     context.issueManager.addError(node, ISSUE_MESSAGE.notImplemented());
   }
 }
 
-export function checkFormatting(context: SyntaxContext, node: PrefixNode): void {
+function checkFormatting(context: SyntaxContext, node: PrefixNode): void {
   if (!node.value) {
     node.hiddenNodes = node.operator.hiddenNodes;
 
