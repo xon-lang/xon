@@ -14,7 +14,7 @@ import {scanJoiningNode} from './node/token/joining/joining-node';
 import {NlNode, scanNlNode} from './node/token/nl/nl-node';
 import {scanOperatorNode} from './node/token/operator/operator-node';
 import {scanStringNode} from './node/token/string/string-node';
-import {isHiddenToken, isToken} from './node/token/token-node';
+import {isHiddenToken} from './node/token/token-node';
 import {UnknownNode, scanUnknownNode} from './node/token/unknown/unknown-node';
 import {scanWhitespaceNode} from './node/token/whitespace/whitespace-node';
 import {SyntaxContext, syntaxContext} from './syntax-context';
@@ -85,15 +85,8 @@ export function parseSyntaxUntil(
     if (isHiddenToken(node)) {
       context.hiddenNodes.push(node);
 
-      if (isToken(context.lastNode)) {
+      if (context.lastNode) {
         context.lastNode.hiddenNodes.push(node);
-      }
-
-      if (is<NlNode>(node, $Node.NL)) {
-        if (context.nodes.length > 0) {
-          putStatementNode(context);
-          context.nodes = [];
-        }
       }
 
       continue;
@@ -120,6 +113,11 @@ function nextNode(context: SyntaxContext): Node {
     context.position.index = node.range.stop.index;
     context.position.line = node.range.stop.line;
     context.position.column = node.range.stop.column;
+
+    if (is<NlNode>(node, $Node.NL) && context.nodes.length > 0) {
+      putStatementNode(context);
+      context.nodes = [];
+    }
 
     return node;
   }
