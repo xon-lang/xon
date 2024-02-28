@@ -103,12 +103,8 @@ function formatComment(node: TokenNode): String2 {
   }
 
   if (is<CommentBlockNode>(node, $Node.COMMENT_BLOCK)) {
-    return node.text.replace(/^---\s*((\S|\s)*?)\s*(---)?$/, (x, z: String2) => {
+    return node.text.replace(/^--- *((\S|\s)*?) *(---)?$/, (x, z: String2) => {
       if (z.length === 0) {
-        if (x.includes(NL)) {
-          return `---${NL}---`;
-        }
-
         return `--- ---`;
       }
 
