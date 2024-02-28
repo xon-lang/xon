@@ -1,7 +1,7 @@
-import { ISSUE_MESSAGE } from '../../../../issue/issue-message';
-import { Nothing, nothing } from '../../../../lib/core';
+import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
+import {Nothing, nothing} from '../../../../lib/core';
 import '../../../../util/extension';
-import { parseSyntaxUntil } from '../../../syntax';
+import {parseSyntaxUntil} from '../../../syntax';
 import {
   ARRAY_NODE_OPEN_CODE,
   COMMA,
@@ -9,14 +9,14 @@ import {
   OBJECT_NODE_OPEN_CODE,
   OPEN_CLOSE_PAIR,
 } from '../../../syntax-config';
-import { SyntaxContext } from '../../../syntax-context';
-import { $Node, Node, is } from '../../node';
-import { CloseNode } from '../../token/close/close-node';
-import { OpenNode, scanOpenNode } from '../../token/open/open-node';
-import { OperatorNode } from '../../token/operator/operator-node';
-import { ArrayNode, arrayNode } from '../array/array-node';
-import { ObjectNode, objectNode } from '../object/object-node';
-import { SyntaxNode, getRangeAndChildren } from '../syntax-node';
+import {SyntaxContext} from '../../../syntax-context';
+import {$Node, Node, is} from '../../node';
+import {CloseNode} from '../../token/close/close-node';
+import {OpenNode, scanOpenNode} from '../../token/open/open-node';
+import {OperatorNode} from '../../token/operator/operator-node';
+import {ArrayNode, arrayNode} from '../array/array-node';
+import {ObjectNode, objectNode} from '../object/object-node';
+import {SyntaxNode, getRangeAndChildren} from '../syntax-node';
 
 export type Group = GroupNode | ArrayNode | ObjectNode;
 
@@ -61,7 +61,7 @@ export function scanGroupNode(context: SyntaxContext): Group | null {
     return null;
   }
 
-  const { source, position } = context;
+  const {source, position} = context;
 
   position.column = open.range.stop.column;
   position.index = open.range.stop.index;
@@ -70,7 +70,7 @@ export function scanGroupNode(context: SyntaxContext): Group | null {
 
   while (position.index < source.text.length) {
     // todo remove from here or refactor
-    const { syntaxContext: itemContext } = parseSyntaxUntil(
+    const {syntaxContext: itemContext} = parseSyntaxUntil(
       source,
       position,
       (node) =>
@@ -81,7 +81,8 @@ export function scanGroupNode(context: SyntaxContext): Group | null {
     context.position = itemContext.position;
 
     if (is<OperatorNode>(itemContext.breakNode, $Node.OPERATOR)) {
-      context.hiddenNodes.push(itemContext.breakNode);
+      // todo create ItemNode and save comma in it
+      // context.hiddenNodes.push(itemContext.breakNode);
       items.push(itemContext.statements[0]?.item ?? nothing);
 
       continue;

@@ -69,16 +69,13 @@ export function parseSyntaxUntil(
     }
 
     if (is<UnknownNode>(node, $Node.UNKNOWN)) {
-      const lastUnknown = context.unknownNodes.lastOrNull();
-
-      if (lastUnknown?.range.stop.index === node.range.start.index) {
-        lastUnknown.range.stop = node.range.stop;
-        lastUnknown.text += node.text;
+      if (is<UnknownNode>(context.lastNode, $Node.UNKNOWN)) {
+        context.lastNode.range.stop = node.range.stop;
+        context.lastNode.text += node.text;
 
         continue;
       }
 
-      context.unknownNodes.push(node);
       context.issueManager.addError(node, ISSUE_MESSAGE.unexpectedNode());
     }
 
@@ -87,6 +84,11 @@ export function parseSyntaxUntil(
 
       if (context.lastNode) {
         context.lastNode.hiddenNodes.push(node);
+      }
+
+      if (is<NlNode>(node, $Node.NL) && context.nodes.length > 0) {
+        putStatementNode(context);
+        context.nodes = [];
       }
 
       continue;
@@ -113,11 +115,6 @@ function nextNode(context: SyntaxContext): Node {
     context.position.index = node.range.stop.index;
     context.position.line = node.range.stop.line;
     context.position.column = node.range.stop.column;
-
-    if (is<NlNode>(node, $Node.NL) && context.nodes.length > 0) {
-      putStatementNode(context);
-      context.nodes = [];
-    }
 
     return node;
   }

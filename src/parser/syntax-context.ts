@@ -7,7 +7,6 @@ import {SourceRange, sourceRange} from '../source/source-range';
 import {Node} from './node/node';
 import {StatementNode} from './node/syntax/statement/statement-node';
 import {TokenNode} from './node/token/token-node';
-import {UnknownNode} from './node/token/unknown/unknown-node';
 import {NL} from './syntax-config';
 import {Formatter} from './util/formatter';
 
@@ -15,7 +14,6 @@ export interface SyntaxContext {
   source: Source;
   position: SourcePosition;
   hiddenNodes: TokenNode[];
-  unknownNodes: UnknownNode[];
   formatters: Formatter[];
   breakNode: Node | Nothing;
   parentStatement: StatementNode | Nothing;
@@ -33,7 +31,6 @@ export function syntaxContext(source: Source, position: SourcePosition): SyntaxC
     source,
     position,
     hiddenNodes: [],
-    unknownNodes: [],
     formatters: [],
     parentStatement: nothing,
     lastNode: nothing,
