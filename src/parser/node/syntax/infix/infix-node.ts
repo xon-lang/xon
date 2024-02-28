@@ -22,7 +22,7 @@ export function infixNode(context: SyntaxContext, operator: OperatorNode, left: 
   };
 
   validateInfixNode(context, node);
-  // checkFormatting(context, node);
+  checkFormatting(context, node);
 
   return node;
 }
