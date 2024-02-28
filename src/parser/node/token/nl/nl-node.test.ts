@@ -1,5 +1,5 @@
-import { parseSyntax } from '../../../syntax';
-import { TokenNode } from '../token-node';
+import {parseSyntax} from '../../../syntax';
+import {TokenNode} from '../token-node';
 
 test('lf nl', () => {
   const text = '\n';
@@ -16,16 +16,14 @@ test('lf nl', () => {
 });
 
 test('several', () => {
-  const text = '  \n    \nabc';
-  const nodes = parseSyntax(text).statements.map((x) => x.item);
+  const text = '  \n    \n   abc';
+  const syntax = parseSyntax(text);
+  const nodes = syntax.statements.map((x) => x.item);
 
   expect(nodes.length).toBe(1);
-  // expect(nodes[0].hidden?.length).toBe(2);
-  // expect(nodes[0].hidden?.at(1)?.$).toBe(NodeType.NL);
-  // expect(nodes[0].hidden?.at(1)?.text).toBe('\n');
-  // expect(nodes[1].hidden?.length).toBe(2);
-  // expect(nodes[1].hidden?.at(1)?.$).toBe(NodeType.NL);
-  // expect(nodes[1].hidden?.at(1)?.text).toBe('\r\n');
-  // expect(nodes[2].hidden?.length).toBe(0);
   expect((nodes[0] as TokenNode).text).toBe('abc');
+
+  expect(syntax.hiddenNodes.length).toBe(2);
+  expect(syntax.hiddenNodes[0].text).toBe('  ');
+  expect(syntax.hiddenNodes[1].text).toBe('\n    \n   ');
 });

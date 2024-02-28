@@ -1,6 +1,6 @@
-import {String2} from '../../../../lib/core';
+import {Nothing, String2, nothing} from '../../../../lib/core';
 import {SourceRange} from '../../../../source/source-range';
-import {NL, NL_CODE} from '../../../syntax-config';
+import {NL, SPACE} from '../../../syntax-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node} from '../../node';
 import {TokenNode, tokenNode} from '../token-node';
@@ -13,12 +13,15 @@ export function nlNode(range: SourceRange, text: String2): NlNode {
   return tokenNode($Node.NL, range, text);
 }
 
-export function scanNlNode(context: SyntaxContext): NlNode | null {
-  if (context.source.characters[context.position.index] === NL_CODE) {
-    const range = context.getRange(NL.length, true);
+export function scanNlNode(context: SyntaxContext): NlNode | Nothing {
+  const {source, position} = context;
 
-    return nlNode(range, NL);
+  if (source.text[position.index] !== NL) {
+    return nothing;
   }
 
-  return null;
+  const text = source.text.takeWhile((x) => x === NL || x === SPACE, position.index);
+  const range = context.getRange(text.length, true);
+
+  return nlNode(range, text);
 }
