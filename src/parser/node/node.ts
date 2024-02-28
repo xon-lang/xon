@@ -1,7 +1,7 @@
-import { Nothing } from '../../lib/core';
-import { Semantic } from '../../semantic/semantic';
-import { SourceRange } from '../../source/source-range';
-import { TokenNode } from './token/token-node';
+import {Nothing} from '../../lib/core';
+import {Semantic} from '../../semantic/semantic';
+import {SourceRange} from '../../source/source-range';
+import {TokenNode} from './token/token-node';
 
 export interface Node {
   readonly $: $Node;
@@ -11,7 +11,8 @@ export interface Node {
 }
 
 export enum $Node {
-  COMMENT = 'COMMENT',
+  COMMENT_LINE = 'COMMENT_LINE',
+  COMMENT_BLOCK = 'COMMENT_BLOCK',
   WHITESPACE = 'WHITESPACE',
   JOINING = 'JOINING',
   NL = 'NL',
@@ -41,6 +42,6 @@ export enum $Node {
   UNKNOWN = 'UNKNOWN',
 }
 
-export function is<T extends Node = Node>(node: { $?: $Node } | Nothing, nodeType: $Node): node is T {
+export function is<T extends Node = Node>(node: {$?: $Node} | Nothing, nodeType: $Node): node is T {
   return node?.$ === nodeType;
 }

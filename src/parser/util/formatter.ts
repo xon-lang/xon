@@ -1,7 +1,7 @@
 import {Boolean2, Nothing, String2, nothing} from '../../lib/core';
 import {SourceRange, rangeFromNodes, sourceRange} from '../../source/source-range';
 import {$Node, Node, is} from '../node/node';
-import {CommentNode} from '../node/token/comment/comment-node';
+import {CommentLineNode} from '../node/token/comment-line/comment-line-node';
 import {WhitespaceNode} from '../node/token/whitespace/whitespace-node';
 import {SyntaxContext} from '../syntax-context';
 
@@ -51,7 +51,7 @@ function getFormatterForHiddenNodes(node: Node, keepSingleSpace: Boolean2): Form
   }
 
   const text = hiddenNodes
-    .filter((x) => is(x, $Node.COMMENT))
+    .filter((x) => is(x, $Node.COMMENT_LINE) || is(x, $Node.COMMENT_BLOCK))
     .map((x) => x.text)
     .join(' ');
 
@@ -65,10 +65,10 @@ function getFormatterForHiddenNodes(node: Node, keepSingleSpace: Boolean2): Form
   };
 }
 
-function isSameContent(nodes: (WhitespaceNode | CommentNode)[], text: String2): Boolean2 {
+function isSameContent(nodes: (WhitespaceNode | CommentLineNode)[], text: String2): Boolean2 {
   return nodes.map((x) => x.text).join('') === text;
 }
 
-function isWhitespaceOrCommentNodes(nodes: Node[]): nodes is (WhitespaceNode | CommentNode)[] {
-  return nodes.every((x) => is(x, $Node.WHITESPACE) || is(x, $Node.COMMENT));
+function isWhitespaceOrCommentNodes(nodes: Node[]): nodes is (WhitespaceNode | CommentLineNode)[] {
+  return nodes.every((x) => is(x, $Node.WHITESPACE) || is(x, $Node.COMMENT_LINE) || is(x, $Node.COMMENT_BLOCK));
 }

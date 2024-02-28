@@ -1,29 +1,31 @@
-import { ISSUE_MESSAGE } from '../issue/issue-message';
-import { Boolean2, Nothing, String2, nothing } from '../lib/core';
-import { Source, createSource } from '../source/source';
-import { SourcePosition, zeroPosition } from '../source/source-position';
-import { $Node, Node, is } from './node/node';
-import { scanGroupNode } from './node/syntax/group/group-node';
-import { scanCharNode } from './node/token/char/char-node';
-import { scanCloseNode } from './node/token/close/close-node';
-import { scanCommentNode } from './node/token/comment/comment-node';
-import { scanIdNode } from './node/token/id/id-node';
-import { scanIntegerNode } from './node/token/integer/integer-node';
-import { scanJoiningNode } from './node/token/joining/joining-node';
-import { NlNode, scanNlNode } from './node/token/nl/nl-node';
-import { scanOperatorNode } from './node/token/operator/operator-node';
-import { scanStringNode } from './node/token/string/string-node';
-import { isHiddenToken, isToken } from './node/token/token-node';
-import { UnknownNode, scanUnknownNode } from './node/token/unknown/unknown-node';
-import { scanWhitespaceNode } from './node/token/whitespace/whitespace-node';
-import { SyntaxContext, syntaxContext } from './syntax-context';
-import { SyntaxResult } from './syntax-result';
-import { putStatementNode } from './util/put-statement-node';
+import {ISSUE_MESSAGE} from '../issue/issue-message';
+import {Boolean2, Nothing, String2, nothing} from '../lib/core';
+import {Source, createSource} from '../source/source';
+import {SourcePosition, zeroPosition} from '../source/source-position';
+import {$Node, Node, is} from './node/node';
+import {scanGroupNode} from './node/syntax/group/group-node';
+import {scanCharNode} from './node/token/char/char-node';
+import {scanCloseNode} from './node/token/close/close-node';
+import {scanCommentBlockNode} from './node/token/comment-block/comment-block-node';
+import {scanCommentLineNode} from './node/token/comment-line/comment-line-node';
+import {scanIdNode} from './node/token/id/id-node';
+import {scanIntegerNode} from './node/token/integer/integer-node';
+import {scanJoiningNode} from './node/token/joining/joining-node';
+import {NlNode, scanNlNode} from './node/token/nl/nl-node';
+import {scanOperatorNode} from './node/token/operator/operator-node';
+import {scanStringNode} from './node/token/string/string-node';
+import {isHiddenToken, isToken} from './node/token/token-node';
+import {UnknownNode, scanUnknownNode} from './node/token/unknown/unknown-node';
+import {scanWhitespaceNode} from './node/token/whitespace/whitespace-node';
+import {SyntaxContext, syntaxContext} from './syntax-context';
+import {SyntaxResult} from './syntax-result';
+import {putStatementNode} from './util/put-statement-node';
 
 type SyntaxScanFn = (context: SyntaxContext) => Node | Nothing;
 
 const scanFunctions: SyntaxScanFn[] = [
-  scanCommentNode,
+  scanCommentBlockNode,
+  scanCommentLineNode,
   scanIntegerNode,
   scanStringNode,
   scanCharNode,
@@ -33,7 +35,7 @@ const scanFunctions: SyntaxScanFn[] = [
   scanWhitespaceNode,
   scanOperatorNode,
   scanIdNode,
-  // todo remove from here
+  // todo should we remove scan group from here
   scanGroupNode,
   scanUnknownNode,
 ];
