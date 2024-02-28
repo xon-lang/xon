@@ -36,7 +36,7 @@ export function validateInfixNode(context: SyntaxContext, node: InfixNode): void
 function checkFormatting(context: SyntaxContext, node: InfixNode): void {
   node.hiddenNodes = node.right.hiddenNodes;
 
-  const keepSingleWhitespace = node.operator.text.includes('.');
+  const keepSingleWhitespace = !node.operator.text.includes('.');
   const leftFormatter = formatHiddenNodes(node.left, keepSingleWhitespace);
   const rightFormatter = formatHiddenNodes(node.operator, keepSingleWhitespace);
 
