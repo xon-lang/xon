@@ -82,23 +82,18 @@ export function parseSyntaxUntil(
       context.issueManager.addError(node, ISSUE_MESSAGE.unexpectedNode());
     }
 
-    if (is<NlNode>(node, $Node.NL)) {
-      context.hiddenNodes.push(node);
-
-      if (context.nodes.length > 0) {
-        putStatementNode(context);
-      }
-
-      context.nodes = [];
-
-      continue;
-    }
-
     if (isHiddenToken(node)) {
       context.hiddenNodes.push(node);
 
       if (isToken(context.lastNode)) {
         context.lastNode.hiddenNodes.push(node);
+      }
+
+      if (is<NlNode>(node, $Node.NL)) {
+        if (context.nodes.length > 0) {
+          putStatementNode(context);
+          context.nodes = [];
+        }
       }
 
       continue;

@@ -24,7 +24,7 @@ export function isToken(node: {$?: $Node} | Nothing): node is TokenNode {
   return false;
 }
 
-const HIDDEN_TOKENS: $Node[] = [$Node.WHITESPACE, $Node.JOINING, $Node.COMMENT_LINE, $Node.COMMENT_BLOCK];
+const HIDDEN_TOKENS: $Node[] = [$Node.NL, $Node.WHITESPACE, $Node.JOINING, $Node.COMMENT_LINE, $Node.COMMENT_BLOCK];
 
 export function isHiddenToken(node: {$?: $Node} | Nothing): node is TokenNode {
   if (node) {
