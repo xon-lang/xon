@@ -1,9 +1,9 @@
-import { ISSUE_MESSAGE } from '../../../../issue/issue-message';
-import { SyntaxContext } from '../../../syntax-context';
-import { formatHiddenNodes } from '../../../util/formatter';
-import { $Node, Node } from '../../node';
-import { OperatorNode } from '../../token/operator/operator-node';
-import { SyntaxNode, getRangeAndChildren } from '../syntax-node';
+import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
+import {SyntaxContext} from '../../../syntax-context';
+import {FormattingType, formatHiddenNodes} from '../../../util/formatter';
+import {$Node, Node} from '../../node';
+import {OperatorNode} from '../../token/operator/operator-node';
+import {SyntaxNode, getRangeAndChildren} from '../syntax-node';
 
 export interface InfixNode extends SyntaxNode {
   readonly $: $Node.INFIX;
@@ -37,6 +37,6 @@ function checkFormatting(context: SyntaxContext, node: InfixNode): void {
   node.hiddenNodes = node.right.hiddenNodes;
 
   const keepSingleWhitespace = !node.operator.text.includes('.');
-  formatHiddenNodes(context, node.left, keepSingleWhitespace);
-  formatHiddenNodes(context, node.operator, keepSingleWhitespace);
+  formatHiddenNodes(context, node.left, keepSingleWhitespace, FormattingType.BETWEEN);
+  formatHiddenNodes(context, node.operator, keepSingleWhitespace, FormattingType.BETWEEN);
 }

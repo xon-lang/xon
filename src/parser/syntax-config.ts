@@ -1,5 +1,5 @@
-import { Integer, String2 } from '../lib/core';
-import { $Node } from './node/node';
+import {Integer, String2} from '../lib/core';
+import {$Node} from './node/node';
 
 export interface OperatorsOrder {
   operators: String2[][];
@@ -20,7 +20,7 @@ export enum RecursiveType {
 }
 const a: number | string = 1 + 2 / 0;
 
-export const COMMENT_LINE = '--';
+export const COMMENT_LINE = '//';
 export const COMMENT_BLOCK = '---';
 
 export const NL = '\n';

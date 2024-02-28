@@ -1,7 +1,9 @@
 import {Boolean2, Nothing, String2, nothing} from '../../lib/core';
 import {SourceRange, rangeFromNodes, sourceRange} from '../../source/source-range';
 import {$Node, Node, is} from '../node/node';
+import {CommentBlockNode} from '../node/token/comment-block/comment-block-node';
 import {CommentLineNode} from '../node/token/comment-line/comment-line-node';
+import {TokenNode} from '../node/token/token-node';
 import {WhitespaceNode} from '../node/token/whitespace/whitespace-node';
 import {SyntaxContext} from '../syntax-context';
 
@@ -10,8 +12,19 @@ export interface Formatter {
   text: String2;
 }
 
-export function formatHiddenNodes(context: SyntaxContext, node: Node, keepSingleSpace: Boolean2): Nothing {
-  const formatter = getFormatterForHiddenNodes(node, keepSingleSpace);
+export enum FormattingType {
+  BEFORE,
+  BETWEEN,
+  AFTER,
+}
+
+export function formatHiddenNodes(
+  context: SyntaxContext,
+  node: Node,
+  keepSingleSpace: Boolean2,
+  formattingType: FormattingType,
+): Nothing {
+  const formatter = getFormatterForHiddenNodes(node, keepSingleSpace, formattingType);
 
   if (formatter) {
     context.formatters.push(formatter);
@@ -19,7 +32,11 @@ export function formatHiddenNodes(context: SyntaxContext, node: Node, keepSingle
 }
 
 // todo add tab (\t) handling
-function getFormatterForHiddenNodes(node: Node, keepSingleSpace: Boolean2): Formatter | Nothing {
+function getFormatterForHiddenNodes(
+  node: Node,
+  keepSingleSpace: Boolean2,
+  formattingType: FormattingType,
+): Formatter | Nothing {
   const {hiddenNodes, range} = node;
 
   if (!isWhitespaceOrCommentNodes(hiddenNodes)) {
@@ -50,10 +67,24 @@ function getFormatterForHiddenNodes(node: Node, keepSingleSpace: Boolean2): Form
     };
   }
 
-  const text = hiddenNodes
+  let text = hiddenNodes
     .filter((x) => is(x, $Node.COMMENT_LINE) || is(x, $Node.COMMENT_BLOCK))
-    .map((x) => x.text)
+    .map(formatComment)
     .join(' ');
+
+  if (text.length > 0) {
+    if (formattingType === FormattingType.BEFORE) {
+      text = `${text} `;
+    }
+
+    if (formattingType === FormattingType.BETWEEN) {
+      text = ` ${text} `;
+    }
+
+    if (formattingType === FormattingType.AFTER) {
+      text = ` ${text}`;
+    }
+  }
 
   if (isSameContent(hiddenNodes, text)) {
     return nothing;
@@ -63,6 +94,18 @@ function getFormatterForHiddenNodes(node: Node, keepSingleSpace: Boolean2): Form
     range: rangeFromNodes(...hiddenNodes),
     text,
   };
+}
+
+function formatComment(node: TokenNode): String2 {
+  if (is<CommentLineNode>(node, $Node.COMMENT_LINE)) {
+    return node.text.replace(/^\/\/\s*/, '// ');
+  }
+
+  if (is<CommentBlockNode>(node, $Node.COMMENT_BLOCK)) {
+    return node.text.replace(/^---[\t ]*((\S|\s)*?)[\t ]*(---)?$/g, '--- $1 ---');
+  }
+
+  return '';
 }
 
 function isSameContent(nodes: (WhitespaceNode | CommentLineNode)[], text: String2): Boolean2 {
