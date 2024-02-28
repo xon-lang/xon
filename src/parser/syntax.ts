@@ -69,7 +69,7 @@ export function parseSyntaxUntil(
     if (is<UnknownNode>(node, $Node.UNKNOWN)) {
       const lastUnknown = context.unknownNodes.lastOrNull();
 
-      if (lastUnknown?.range.stop.index === node.range.start.index - 1) {
+      if (lastUnknown?.range.stop.index === node.range.start.index) {
         lastUnknown.range.stop = node.range.stop;
         lastUnknown.text += node.text;
 
@@ -122,8 +122,8 @@ function nextNode(context: SyntaxContext): Node {
   const node = scanFunctions.findMap((scan) => scan(context));
 
   if (node) {
-    context.position.index = node.range.stop.index + 1;
-    context.position.column = node.range.stop.column + 1;
+    context.position.index = node.range.stop.index;
+    context.position.column = node.range.stop.column;
 
     return node;
   }

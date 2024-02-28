@@ -45,8 +45,8 @@ export function syntaxContext(source: Source, position: SourcePosition): SyntaxC
     getRange(length: Integer): SourceRange {
       const { index, line, column } = this.position;
 
-      const stopIndex = index + length - 1;
-      const stopColumn = column + length - 1;
+      const stopIndex = index + length;
+      const stopColumn = column + length;
       const stop = sourcePosition(stopIndex, line, stopColumn);
       const start = sourcePosition(index, line, column);
 

@@ -62,8 +62,9 @@ export function scanGroupNode(context: SyntaxContext): Group | null {
   }
 
   const { source, position } = context;
-  position.column = open.range.stop.column + 1;
-  position.index = open.range.stop.index + 1;
+
+  position.column = open.range.stop.column;
+  position.index = open.range.stop.index;
 
   const items: Node[] = [];
 
