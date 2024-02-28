@@ -3,14 +3,23 @@ import { SourceRange, rangeFromNodes, sourceRange } from '../../source/source-ra
 import { $Node, Node, is } from '../node/node';
 import { CommentNode } from '../node/token/comment/comment-node';
 import { WhitespaceNode } from '../node/token/whitespace/whitespace-node';
+import { SyntaxContext } from '../syntax-context';
 
 export interface Formatter {
   range: SourceRange;
   text: String2;
 }
 
+export function formatHiddenNodes(context: SyntaxContext, node: Node, keepSingleSpace: Boolean2): Nothing {
+  const formatter = getFormatterForHiddenNodes(node, keepSingleSpace);
+
+  if (formatter) {
+    context.formatters.push(formatter);
+  }
+}
+
 // todo add tab (\t) handling
-export function formatHiddenNodes(node: Node, keepSingleSpace: Boolean2): Formatter | Nothing {
+function getFormatterForHiddenNodes(node: Node, keepSingleSpace: Boolean2): Formatter | Nothing {
   const { hiddenNodes, range } = node;
 
   if (!isWhitespaceOrCommentNodes(hiddenNodes)) {

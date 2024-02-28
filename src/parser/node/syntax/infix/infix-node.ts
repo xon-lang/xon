@@ -37,14 +37,6 @@ function checkFormatting(context: SyntaxContext, node: InfixNode): void {
   node.hiddenNodes = node.right.hiddenNodes;
 
   const keepSingleWhitespace = !node.operator.text.includes('.');
-  const leftFormatter = formatHiddenNodes(node.left, keepSingleWhitespace);
-  const rightFormatter = formatHiddenNodes(node.operator, keepSingleWhitespace);
-
-  if (leftFormatter) {
-    context.formatters.push(leftFormatter);
-  }
-
-  if (rightFormatter) {
-    context.formatters.push(rightFormatter);
-  }
+  formatHiddenNodes(context, node.left, keepSingleWhitespace);
+  formatHiddenNodes(context, node.operator, keepSingleWhitespace);
 }

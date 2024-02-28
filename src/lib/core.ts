@@ -2,7 +2,7 @@ export type Anything = unknown;
 
 export type Something = boolean | number | string | object;
 
-export type Nothing = null | undefined;
+export type Nothing = null | undefined | void;
 
 export const nothing = null;
 

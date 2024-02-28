@@ -30,9 +30,5 @@ function checkFormatting(context: SyntaxContext, node: PostfixNode): void {
   node.hiddenNodes = node.operator.hiddenNodes;
 
   const keepSingleWhitespace = node.operator.text.some((x) => x.isLetterOrDigit(0));
-  const formatter = formatHiddenNodes(node.value, keepSingleWhitespace);
-
-  if (formatter) {
-    context.formatters.push(formatter);
-  }
+  formatHiddenNodes(context, node.value, keepSingleWhitespace);
 }
