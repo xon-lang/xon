@@ -35,9 +35,6 @@ export const JOINING_CODE = JOINING.charCodeAt(0);
 export const SPACE = ' ';
 export const SPACE_CODE = SPACE.charCodeAt(0);
 
-export const TAB = '\t';
-export const TAB_CODE = TAB.charCodeAt(0);
-
 export const UNDERSCORE = '_';
 export const UNDERSCORE_CODE = UNDERSCORE.charCodeAt(0);
 

@@ -1,7 +1,7 @@
-import { parseSyntax } from '../../../syntax';
-import { $Node } from '../../node';
-import { TokenNode } from '../token-node';
-import { StringNode } from './string-node';
+import {parseSyntax} from '../../../syntax';
+import {$Node} from '../../node';
+import {TokenNode} from '../token-node';
+import {StringNode} from './string-node';
 
 test('string', () => {
   const text = '"abc   def"';
@@ -14,7 +14,7 @@ test('string', () => {
 });
 
 test('multiline string', () => {
-  const text = '"some\nmultiline\n\t\n\t\nstring\n"';
+  const text = '"some\nmultiline\n\n\nstring\n"';
   const nodes = parseSyntax(text).statements.map((x) => x.item) as TokenNode[];
   const tree = nodes[0] as StringNode;
 

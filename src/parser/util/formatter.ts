@@ -32,7 +32,6 @@ export function formatHiddenNodes(
   }
 }
 
-// todo add tab (\t) handling
 function getFormatterForHiddenNodes(
   node: Node,
   keepSingleSpace: Boolean2,
