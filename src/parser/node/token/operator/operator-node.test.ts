@@ -1,8 +1,8 @@
-import { nothing } from '../../../../lib/core';
 import { parseSyntax } from '../../../syntax';
 import { $Node } from '../../node';
 import { InfixNode } from '../../syntax/infix/infix-node';
 import { PostfixNode } from '../../syntax/postfix/postfix-node';
+import { OperatorNode } from './operator-node';
 
 // test('single operator', () => {
 //   const text = '!';
@@ -45,11 +45,9 @@ test('x + x', () => {
 test('comma', () => {
   const text = ',';
   const syntax = parseSyntax(text);
-  const node = syntax.statements[0].item as InfixNode;
+  const node = syntax.statements[0].item as OperatorNode;
 
   expect(syntax.statements.length).toBe(1);
-  expect(node.$).toBe($Node.INFIX);
-  expect(node.operator.text).toBe(',');
-  expect(node.left).toBe(nothing);
-  expect(node.right).toBe(nothing);
+  expect(node.$).toBe($Node.OPERATOR);
+  expect(node.text).toBe(',');
 });

@@ -1,6 +1,7 @@
 import { evaluate } from '../../../../util/evaluate';
 import { parseSyntax } from '../../../syntax';
 import { $Node } from '../../node';
+import { OperatorNode } from '../../token/operator/operator-node';
 import { DeclarationNode } from '../declaration/declaration-node';
 import { PrefixNode } from './prefix-node';
 
@@ -18,12 +19,11 @@ test('infix modifier', () => {
   const text = 'infix';
   const ast = parseSyntax(text);
   const nodes = ast.statements.map((x) => x.item);
-  const node = nodes[0] as PrefixNode;
+  const node = nodes[0] as OperatorNode;
 
   expect(nodes.length).toBe(1);
-  expect(node.$).toBe($Node.PREFIX);
-  expect(node.operator.text).toBe('infix');
-  expect(node.value).toBe(null);
+  expect(node.$).toBe($Node.OPERATOR);
+  expect(node.text).toBe('infix');
 });
 
 test('model string', () => {

@@ -1,24 +1,18 @@
 import { ISSUE_MESSAGE } from '../../../../issue/issue-message';
-import { Nothing } from '../../../../lib/core';
 import { SyntaxContext } from '../../../syntax-context';
+import { formatHiddenNodes } from '../../../util/formatter';
 import { $Node, Node } from '../../node';
 import { OperatorNode } from '../../token/operator/operator-node';
-import { WhitespaceNode } from '../../token/whitespace/whitespace-node';
 import { SyntaxNode, getRangeAndChildren } from '../syntax-node';
 
 export interface InfixNode extends SyntaxNode {
   readonly $: $Node.INFIX;
   readonly operator: OperatorNode;
-  readonly left: Node | Nothing;
-  readonly right: Node | Nothing;
+  readonly left: Node;
+  readonly right: Node;
 }
 
-export function infixNode(
-  context: SyntaxContext,
-  operator: OperatorNode,
-  left: Node | Nothing,
-  right: Node | Nothing,
-): InfixNode {
+export function infixNode(context: SyntaxContext, operator: OperatorNode, left: Node, right: Node): InfixNode {
   const node: InfixNode = {
     $: $Node.INFIX,
     ...getRangeAndChildren(left, operator, right),
@@ -39,26 +33,18 @@ export function validateInfixNode(context: SyntaxContext, node: InfixNode): void
   }
 }
 
-// export function checkFormatting(context: SyntaxContext, node: InfixNode): void {
-//   if (node.left) {
-//     // todo should we move it to parent functions ???
-//     node.hiddenNodes = node.value.hiddenNodes;
+function checkFormatting(context: SyntaxContext, node: InfixNode): void {
+  node.hiddenNodes = node.right.hiddenNodes;
 
-//     if (node.operator.hiddenNodes.length <= 0) {
-//       return;
-//     }
+  const keepSingleWhitespace = node.operator.text.includes('.');
+  const leftFormatter = formatHiddenNodes(node.left, keepSingleWhitespace);
+  const rightFormatter = formatHiddenNodes(node.operator, keepSingleWhitespace);
 
-//     // todo now we check only whitespace
-//     const hiddenNode = node.operator.hiddenNodes[0] as WhitespaceNode;
+  if (leftFormatter) {
+    context.formatters.push(leftFormatter);
+  }
 
-//     if (node.operator.text.some((x) => x.isLetterOrDigit(0))) {
-//       if (hiddenNode.text.length != 1) {
-//         context.formatters.push({ range: hiddenNode.range, text: ' ' });
-//       }
-//     } else {
-//       if (hiddenNode.text.length != 0) {
-//         context.formatters.push({ range: hiddenNode.range, text: '' });
-//       }
-//     }
-//   }
-// }
+  if (rightFormatter) {
+    context.formatters.push(rightFormatter);
+  }
+}

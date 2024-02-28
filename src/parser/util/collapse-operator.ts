@@ -1,4 +1,4 @@
-import { Nothing, String2, nothing } from '../../lib/core';
+import { Nothing, String2 } from '../../lib/core';
 import { $Node, Node, is } from '../node/node';
 import { infixNode } from '../node/syntax/infix/infix-node';
 import { postfixNode } from '../node/syntax/postfix/postfix-node';
@@ -21,15 +21,16 @@ export function collapseOperator(
       continue;
     }
 
-    const left = context.nodes[index - 1];
-    const right: Node | Nothing = context.nodes[index + 1] ?? nothing;
+    const left: Node | Nothing = context.nodes[index - 1];
+    const right: Node | Nothing = context.nodes[index + 1];
 
     if (
       operatorType === OperatorType.PREFIX &&
+      right &&
       !is<OperatorNode>(right, $Node.OPERATOR) &&
       (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))
     ) {
-      const prefix = prefixNode(context, operator, right ?? nothing);
+      const prefix = prefixNode(context, operator, right);
       context.nodes.splice(index, 2, prefix);
       collapseOperator(context, operators, operatorType, recursiveType);
 
@@ -38,10 +39,11 @@ export function collapseOperator(
 
     if (
       operatorType === OperatorType.POSTFIX &&
+      left &&
       !is<OperatorNode>(left, $Node.OPERATOR) &&
       (index === context.nodes.length - 1 || is<OperatorNode>(right, $Node.OPERATOR))
     ) {
-      const postfix = postfixNode(context, operator, left ?? nothing);
+      const postfix = postfixNode(context, operator, left);
       context.nodes.splice(index - 1, 2, postfix);
 
       collapseOperator(context, operators, operatorType, recursiveType);
@@ -51,10 +53,12 @@ export function collapseOperator(
 
     if (
       operatorType === OperatorType.INFIX &&
+      left &&
+      right &&
       !is<OperatorNode>(left, $Node.OPERATOR) &&
       !is<OperatorNode>(right, $Node.OPERATOR)
     ) {
-      const infix = infixNode(context, operator, left ?? nothing, right ?? nothing);
+      const infix = infixNode(context, operator, left, right);
       context.nodes.splice(index - 1, 3, infix);
       collapseOperator(context, operators, operatorType, recursiveType);
 
