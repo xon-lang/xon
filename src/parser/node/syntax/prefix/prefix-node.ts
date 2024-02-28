@@ -1,9 +1,9 @@
 import { ISSUE_MESSAGE } from '../../../../issue/issue-message';
 import { Nothing } from '../../../../lib/core';
 import { SyntaxContext } from '../../../syntax-context';
+import { formatHiddenNodes } from '../../../util/formatter';
 import { $Node, Node } from '../../node';
 import { OperatorNode } from '../../token/operator/operator-node';
-import { WhitespaceNode } from '../../token/whitespace/whitespace-node';
 import { SyntaxNode, getRangeAndChildren } from '../syntax-node';
 
 export interface PrefixNode extends SyntaxNode {
@@ -33,40 +33,22 @@ export function validatePrefixNode(context: SyntaxContext, node: PrefixNode): vo
 }
 
 export function checkFormatting(context: SyntaxContext, node: PrefixNode): void {
-  if (node.value) {
-    // todo should we move it to parent functions ???
-    node.hiddenNodes = node.value.hiddenNodes;
+  if (!node.value) {
+    node.hiddenNodes = node.operator.hiddenNodes;
 
-    if (node.operator.hiddenNodes.length <= 0) {
-      return;
-    }
+    return;
+  }
 
-    // todo now we check only whitespace
-    const hiddenNode = node.operator.hiddenNodes[0] as WhitespaceNode;
+  node.hiddenNodes = node.value.hiddenNodes;
 
-    if (node.operator.text.some((x) => x.isLetterOrDigit(0))) {
-      if (hiddenNode.text.length != 1) {
-        context.formatters.push({ range: hiddenNode.range, text: ' ' });
-      }
-    } else {
-      if (hiddenNode.text.length != 0) {
-        context.formatters.push({ range: hiddenNode.range, text: '' });
-      }
-    }
+  if (node.operator.hiddenNodes.length === 0) {
+    return;
+  }
+
+  const keepSingleWhitespace = node.operator.text.some((x) => x.isLetterOrDigit(0));
+  const formatter = formatHiddenNodes(node.operator.hiddenNodes, keepSingleWhitespace);
+
+  if (formatter) {
+    context.formatters.push(formatter);
   }
 }
-
-/* 
-
-
-
-
-+    1
-
-+   \    \   \
-  1
-
-+ -/ some /- -/ some /-     -/ some /-     1
-
-
-*/
