@@ -41,10 +41,6 @@ export function checkFormatting(context: SyntaxContext, node: PrefixNode): void 
 
   node.hiddenNodes = node.value.hiddenNodes;
 
-  if (node.operator.hiddenNodes.length === 0) {
-    return;
-  }
-
   const keepSingleWhitespace = node.operator.text.some((x) => x.isLetterOrDigit(0));
   const formatter = formatHiddenNodes(node.operator, keepSingleWhitespace);
 
