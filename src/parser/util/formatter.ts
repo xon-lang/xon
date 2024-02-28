@@ -5,6 +5,7 @@ import {CommentBlockNode} from '../node/token/comment-block/comment-block-node';
 import {CommentLineNode} from '../node/token/comment-line/comment-line-node';
 import {TokenNode} from '../node/token/token-node';
 import {WhitespaceNode} from '../node/token/whitespace/whitespace-node';
+import {NL} from '../syntax-config';
 import {SyntaxContext} from '../syntax-context';
 
 export interface Formatter {
@@ -102,7 +103,24 @@ function formatComment(node: TokenNode): String2 {
   }
 
   if (is<CommentBlockNode>(node, $Node.COMMENT_BLOCK)) {
-    return node.text.replace(/^---[\t ]*((\S|\s)*?)[\t ]*(---)?$/g, '--- $1 ---');
+    return node.text.replace(/^---\s*((\S|\s)*?)\s*(---)?$/, (_x, z: String2) => {
+      if (z.length === 0) {
+        return `--- ---`;
+      }
+
+      let start = '---';
+      let end = '---';
+
+      if (!z.startsWith(NL)) {
+        start += ' ';
+      }
+
+      if (!z.endsWith(NL)) {
+        end = ' ' + end;
+      }
+
+      return `${start}${z}${end}`;
+    });
   }
 
   return '';
