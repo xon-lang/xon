@@ -1,4 +1,4 @@
-import { Boolean2, Char, Integer, Nothing, Something, String2 } from '../../lib/core';
+import {Boolean2, Char, Integer, Nothing, Something, String2} from '../../lib/core';
 
 declare global {
   interface Array<T> {
@@ -17,11 +17,7 @@ declare global {
   }
 
   interface String {
-    takeWhile(
-      predicate: (value: Char, index: Integer) => Boolean2,
-      startIndex?: Integer,
-      includeConditionChar?: Boolean2,
-    ): String2;
+    takeWhile(predicate: (value: Char, index: Integer) => Boolean2, startIndex?: Integer): String2;
     take(length: Integer, index: Integer): String2;
     margin(delimiter?: String2): String2;
     toCharCodes(): Uint8Array;
