@@ -80,11 +80,8 @@ export function parseSyntaxUntil(
     }
 
     if (isHiddenToken(node)) {
-      context.hiddenNodes.push(node);
-
-      if (context.lastNode) {
-        context.lastNode.hiddenNodes.push(node);
-      }
+      const hiddenNodes = context.lastNode?.hiddenNodes ?? context.hiddenNodes;
+      hiddenNodes.push(node);
 
       if (is<NlNode>(node, $Node.NL) && context.nodes.length > 0) {
         putStatementNode(context);
