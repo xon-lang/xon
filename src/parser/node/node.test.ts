@@ -1,8 +1,8 @@
-import { parseSyntax } from '../syntax';
-import { $Node } from './node';
-import { InfixNode } from './syntax/infix/infix-node';
-import { IntegerNode } from './token/integer/integer-node';
-import { TokenNode } from './token/token-node';
+import {parseSyntax} from '../syntax';
+import {$Node} from './node';
+import {InfixNode} from './syntax/infix/infix-node';
+import {IntegerNode} from './token/integer/integer-node';
+import {TokenNode} from './token/token-node';
 
 test('comma', () => {
   const text = '1';
@@ -59,12 +59,15 @@ c`.trim();
 });
 
 test('debug 4', () => {
-  const text = 'a\n b\n b';
-  const nodes = parseSyntax(text).statements.map((x) => x.item);
+  const text = '  a\n   b\n   b';
+  const syntax = parseSyntax(text);
+  const statements = syntax.statements;
 
-  expect(nodes.length).toBe(1);
-  // todo fix it
-  // expect(nodes[0].children?.length).toBe(2);
+  expect(statements.length).toBe(1);
+  expect(statements[0].body.length).toBe(2);
+  expect(statements[0].indentLevel).toBe(0);
+  expect(statements[0].body[0].indentLevel).toBe(1);
+  expect(statements[0].body[1].indentLevel).toBe(1);
 });
 
 test('multiple expression', () => {

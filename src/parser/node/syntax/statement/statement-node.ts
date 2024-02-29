@@ -1,13 +1,12 @@
-import { Integer, Nothing, String2 } from '../../../../lib/core';
-import { SyntaxContext } from '../../../syntax-context';
-import { $Node, Node } from '../../node';
-import { SyntaxNode, getRangeAndChildren } from '../syntax-node';
+import {Integer, Nothing} from '../../../../lib/core';
+import {SyntaxContext} from '../../../syntax-context';
+import {$Node, Node} from '../../node';
+import {SyntaxNode, getRangeAndChildren} from '../syntax-node';
 
 export interface StatementNode extends SyntaxNode {
   $: $Node.STATEMENT;
+  indentLevel: Integer;
   parent: StatementNode | Nothing;
-  // indentLevel: Integer;
-  // indentText: String2;
   item: Node;
   body: StatementNode[];
 }
@@ -15,6 +14,7 @@ export interface StatementNode extends SyntaxNode {
 export function statementNode(context: SyntaxContext, item: Node, parent: StatementNode | Nothing): StatementNode {
   const node: StatementNode = {
     $: $Node.STATEMENT,
+    indentLevel: parent ? parent.indentLevel + 1 : 0,
     ...getRangeAndChildren(item),
     parent,
     item,
