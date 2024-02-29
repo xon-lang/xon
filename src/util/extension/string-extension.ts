@@ -1,4 +1,4 @@
-import { Boolean2, Char, Integer, String2 } from '../../lib/core';
+import {Boolean2, Char, Integer, Number2, String2} from '../../lib/core';
 
 export const UPPER_A_CODE = 'A'.charCodeAt(0);
 
@@ -79,4 +79,16 @@ String.prototype.some = function some(predicate: (value: Char, index: Integer, a
   const array = Array.from(this);
 
   return array.some(predicate);
+};
+
+String.prototype.sum = function sum(select: (value: Char, index: Integer, array: Char[]) => Number2): Number2 {
+  const array = Array.from(this);
+
+  return array.reduce((sum, val, index, array) => sum + select(val, index, array), 0);
+};
+
+String.prototype.count = function count(predicate: (value: Char, index: Integer, array: Char[]) => Boolean2): Integer {
+  const array = Array.from(this);
+
+  return array.reduce((sum, val, index, array) => sum + (predicate(val, index, array) ? 1 : 0), 0);
 };

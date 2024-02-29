@@ -2,7 +2,7 @@ import {Boolean2, Char, Integer, Nothing, Something, String2} from '../../lib/co
 
 declare global {
   interface Array<T> {
-    findLastIndex(predicate: (value: T, index: Integer, obj: T[]) => Boolean2, thisArg?: Something): Integer;
+    findLastIndex(predicate: (value: T, index: Integer, array: T[]) => Boolean2, thisArg?: Something): Integer;
     takeWhile(predicate: (value: T, index: Integer) => Boolean2, startIndex?: Integer): T[];
     firstOrNull(): T | Nothing;
     lastOrNull(): T | Nothing;
@@ -10,10 +10,11 @@ declare global {
     last(): T;
     removeFirst(): T[];
     removeLast(): T[];
-    findLast(predicate: (value: T, index: Integer, obj: T[]) => Boolean2): T | Nothing;
+    findLast(predicate: (value: T, index: Integer, array: T[]) => Boolean2): T | Nothing;
     sortStrings(): T[];
-    sum(select: (value: T, index: Integer, obj: T[]) => Integer): Integer;
-    findMap<V>(predicate: (value: T, index: Integer, obj: T[]) => V | Nothing): V | Nothing;
+    sum(select: (value: T, index: Integer, array: T[]) => Integer): Integer;
+    findMap<V>(predicate: (value: T, index: Integer, array: T[]) => V | Nothing): V | Nothing;
+    count(predicate: (value: T, index: Integer, array: T[]) => Boolean2): Integer;
   }
 
   interface String {
@@ -27,5 +28,7 @@ declare global {
     isDigit(index: Integer): Boolean2;
     isLetterOrDigit(index: Integer): Boolean2;
     some(predicate: (value: Char, index: Integer, array: Char[]) => Boolean2): Boolean2;
+    count(predicate: (value: Char, index: Integer, array: Char[]) => Boolean2): Integer;
+    sum(select: (value: Char, index: Integer, array: Char[]) => Integer): Integer;
   }
 }

@@ -40,7 +40,7 @@ export function statementNode(
 
 function checkFormatting(context: SyntaxContext, node: StatementNode): void {
   const betweenChildren = node.children.slice(0, -1);
-  betweenChildren.forEach((x) => formatHiddenNodes(context, x, false, FormattingType.BETWEEN));
+  betweenChildren.forEach((x) => formatHiddenNodes(context, x, true, FormattingType.BETWEEN));
 
   formatHiddenNodes(context, node.children.last(), false, FormattingType.AFTER);
 }

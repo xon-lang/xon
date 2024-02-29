@@ -3,6 +3,7 @@ import {SourceRange, rangeFromNodes, sourceRange} from '../../source/source-rang
 import {$Node, Node, is} from '../node/node';
 import {CommentBlockNode} from '../node/token/comment-block/comment-block-node';
 import {CommentLineNode} from '../node/token/comment-line/comment-line-node';
+import {NlNode} from '../node/token/nl/nl-node';
 import {TokenNode} from '../node/token/token-node';
 import {WhitespaceNode} from '../node/token/whitespace/whitespace-node';
 import {NL} from '../syntax-config';
@@ -68,8 +69,8 @@ function getFormatterForHiddenNodes(
   }
 
   let text = hiddenNodes
-    .filter((x) => is(x, $Node.COMMENT_LINE) || is(x, $Node.COMMENT_BLOCK))
-    .map(formatComment)
+    .filter((x) => is(x, $Node.NL) || is(x, $Node.COMMENT_LINE) || is(x, $Node.COMMENT_BLOCK))
+    .map(format)
     .join(' ');
 
   if (text.length > 0) {
@@ -96,7 +97,17 @@ function getFormatterForHiddenNodes(
   };
 }
 
-function formatComment(node: TokenNode): String2 {
+function format(node: TokenNode): String2 {
+  if (is<NlNode>(node, $Node.NL)) {
+    const nlCount = node.text.count((x) => x === NL);
+
+    if (nlCount === 1) {
+      return NL;
+    }
+
+    return NL + NL;
+  }
+
   if (is<CommentLineNode>(node, $Node.COMMENT_LINE)) {
     return node.text.replace(/^\/\/\s*/, '// ');
   }

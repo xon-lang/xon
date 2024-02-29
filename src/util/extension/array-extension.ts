@@ -1,4 +1,4 @@
-import { Boolean2, Integer, Nothing, Number2, Something, String2, nothing } from '../../lib/core';
+import {Boolean2, Integer, Nothing, Number2, Something, String2, nothing} from '../../lib/core';
 
 // Array
 Array.prototype.takeWhile = function takeWhile<T>(
@@ -14,7 +14,7 @@ Array.prototype.takeWhile = function takeWhile<T>(
   return this.slice(startIndex, this.length);
 };
 
-Array.prototype.findLast = function <T>(predicate: (value: T, index: Integer, obj: T[]) => Boolean2): T | Nothing {
+Array.prototype.findLast = function <T>(predicate: (value: T, index: Integer, array: T[]) => Boolean2): T | Nothing {
   const index = this.findLastIndex(predicate);
 
   if (index < 0) {
@@ -56,11 +56,13 @@ Array.prototype.sortStrings = function (): String2[] {
   return (this as String2[]).sort((a, b) => a.localeCompare(b));
 };
 
-Array.prototype.sum = function <T>(select: (value: T, index: Integer, obj: T[]) => Number2): Number2 {
+Array.prototype.sum = function <T>(select: (value: T, index: Integer, array: T[]) => Number2): Number2 {
   return this.reduce((sum, val, index, array) => sum + select(val, index, array), 0);
 };
 
-Array.prototype.findMap = function <T, V>(predicate: (value: T, index: Integer, obj: T[]) => V | Nothing): V | Nothing {
+Array.prototype.findMap = function <T, V>(
+  predicate: (value: T, index: Integer, array: T[]) => V | Nothing,
+): V | Nothing {
   for (let index = 0; index < this.length; index++) {
     const result = predicate(this[index], index, this);
 
@@ -70,4 +72,8 @@ Array.prototype.findMap = function <T, V>(predicate: (value: T, index: Integer, 
   }
 
   return nothing;
+};
+
+Array.prototype.count = function count<T>(predicate: (value: T, index: Integer, array: T[]) => Boolean2): Integer {
+  return this.reduce((sum, val, index, array) => sum + (predicate(val, index, array) ? 1 : 0), 0);
 };
