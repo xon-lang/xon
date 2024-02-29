@@ -1,6 +1,6 @@
+import {FormattingType, formatNode} from '../../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {SyntaxContext} from '../../../syntax-context';
-import {FormattingType, formatNode} from '../../../util/formatter';
 import {$Node, Node} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, getRangeAndChildren} from '../syntax-node';

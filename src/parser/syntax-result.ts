@@ -1,9 +1,9 @@
+import {Formatter} from '../formatter/formatter';
 import {IssueManager} from '../issue/issue-manager';
 import {Source} from '../source/source';
 import {StatementNode} from './node/syntax/statement/statement-node';
 import {TokenNode} from './node/token/token-node';
 import {SyntaxContext} from './syntax-context';
-import {Formatter} from './util/formatter';
 
 export interface SyntaxResult {
   source: Source;

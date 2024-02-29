@@ -1,3 +1,4 @@
+import {Formatter} from '../formatter/formatter';
 import {IssueType} from '../issue/issue';
 import {IssueManager, createIssueManager} from '../issue/issue-manager';
 import {Boolean2, Integer, Nothing, nothing} from '../lib/core';
@@ -8,7 +9,6 @@ import {Node} from './node/node';
 import {StatementNode} from './node/syntax/statement/statement-node';
 import {TokenNode} from './node/token/token-node';
 import {NL} from './syntax-config';
-import {Formatter} from './util/formatter';
 
 export interface SyntaxContext {
   source: Source;

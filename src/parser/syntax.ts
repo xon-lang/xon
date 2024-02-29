@@ -1,3 +1,4 @@
+import {formatNodes} from '../formatter/formatter';
 import {ISSUE_MESSAGE} from '../issue/issue-message';
 import {Boolean2, Nothing, String2, nothing} from '../lib/core';
 import {Source, createSource} from '../source/source';
@@ -93,12 +94,21 @@ export function parseSyntaxUntil(
       continue;
     }
 
+    if (context.nodes.length === 0 && context.previousStatement) {
+      formatNodes(context, context.previousStatement.children);
+    }
+
     context.lastNode = node;
     context.nodes.push(node);
   }
 
+  if (context.previousStatement) {
+    formatNodes(context, context.previousStatement.children);
+  }
+
   if (context.nodes.length > 0) {
     putStatementNode(context);
+    formatNodes(context, context.previousStatement!.children);
   }
 
   return {

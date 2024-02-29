@@ -1,13 +1,13 @@
-import {Boolean2, Nothing, String2, nothing} from '../../lib/core';
-import {SourceRange, rangeFromNodes, sourceRange} from '../../source/source-range';
-import {$Node, Node, is} from '../node/node';
-import {CommentBlockNode} from '../node/token/comment-block/comment-block-node';
-import {CommentLineNode} from '../node/token/comment-line/comment-line-node';
-import {NlNode} from '../node/token/nl/nl-node';
-import {TokenNode} from '../node/token/token-node';
-import {WhitespaceNode} from '../node/token/whitespace/whitespace-node';
-import {NL} from '../syntax-config';
-import {SyntaxContext} from '../syntax-context';
+import {Boolean2, Nothing, String2, nothing} from '../lib/core';
+import {$Node, Node, is} from '../parser/node/node';
+import {CommentBlockNode} from '../parser/node/token/comment-block/comment-block-node';
+import {CommentLineNode} from '../parser/node/token/comment-line/comment-line-node';
+import {NlNode} from '../parser/node/token/nl/nl-node';
+import {TokenNode} from '../parser/node/token/token-node';
+import {WhitespaceNode} from '../parser/node/token/whitespace/whitespace-node';
+import {NL} from '../parser/syntax-config';
+import {SyntaxContext} from '../parser/syntax-context';
+import {SourceRange, rangeFromNodes, sourceRange} from '../source/source-range';
 
 export interface Formatter {
   range: SourceRange;
@@ -47,10 +47,6 @@ function getFormatterForHiddenNodes(
 ): Formatter | Nothing {
   const {hiddenNodes, range} = node;
 
-  if (!isWhitespaceOrCommentNodes(hiddenNodes)) {
-    return nothing;
-  }
-
   if (hiddenNodes.length === 0) {
     if (keepSingleSpace) {
       return {
@@ -75,10 +71,24 @@ function getFormatterForHiddenNodes(
     };
   }
 
-  let text = hiddenNodes
-    .filter((x) => is(x, $Node.NL) || is(x, $Node.COMMENT_LINE) || is(x, $Node.COMMENT_BLOCK))
-    .map(format)
-    .join(' ');
+  const nonWhitespaceNodes = hiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
+
+  if (nonWhitespaceNodes.length === 0) {
+    return nothing;
+  }
+
+  let text = nonWhitespaceNodes
+    .slice(0, -1)
+    .map((x, i) => {
+      if (is<NlNode>(x, $Node.NL) || is<NlNode>(nonWhitespaceNodes[i + 1], $Node.NL)) {
+        return format(x);
+      }
+
+      return format(x) + ' ';
+    })
+    .join('');
+
+  text += format(nonWhitespaceNodes.last());
 
   if (text.length > 0) {
     if (formattingType === FormattingType.BEFORE) {
@@ -116,7 +126,13 @@ function format(node: TokenNode): String2 {
   }
 
   if (is<CommentLineNode>(node, $Node.COMMENT_LINE)) {
-    return node.text.replace(/^\/\/\s*/, '// ');
+    return node.text.replace(/^\/\/\s*(.*)/, (x, z: String2) => {
+      if (z.length === 0) {
+        return `//`;
+      }
+
+      return `// ${z}`;
+    });
   }
 
   if (is<CommentBlockNode>(node, $Node.COMMENT_BLOCK)) {
@@ -143,10 +159,6 @@ function format(node: TokenNode): String2 {
   return '';
 }
 
-function isSameContent(nodes: (WhitespaceNode | CommentLineNode)[], text: String2): Boolean2 {
+function isSameContent(nodes: TokenNode[], text: String2): Boolean2 {
   return nodes.map((x) => x.text).join('') === text;
-}
-
-function isWhitespaceOrCommentNodes(nodes: Node[]): nodes is (WhitespaceNode | CommentLineNode)[] {
-  return nodes.every((x) => is(x, $Node.WHITESPACE) || is(x, $Node.COMMENT_LINE) || is(x, $Node.COMMENT_BLOCK));
 }

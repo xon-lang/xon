@@ -1,6 +1,5 @@
 import {Integer, Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
-import {formatNodes} from '../../../util/formatter';
 import {$Node, Node} from '../../node';
 import {SyntaxNode, getRangeAndChildren} from '../syntax-node';
 
@@ -33,11 +32,5 @@ export function statementNode(
     context.statements.push(node);
   }
 
-  checkFormatting(context, node);
-
   return node;
-}
-
-function checkFormatting(context: SyntaxContext, node: StatementNode): void {
-  formatNodes(context, node.children);
 }
