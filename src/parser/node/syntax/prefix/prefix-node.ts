@@ -1,8 +1,8 @@
-import { SyntaxContext } from '../../../syntax-context';
-import { FormattingType, formatHiddenNodes } from '../../../util/formatter';
-import { $Node, Node } from '../../node';
-import { OperatorNode } from '../../token/operator/operator-node';
-import { SyntaxNode, getRangeAndChildren } from '../syntax-node';
+import {SyntaxContext} from '../../../syntax-context';
+import {FormattingType, formatNode} from '../../../util/formatter';
+import {$Node, Node} from '../../node';
+import {OperatorNode} from '../../token/operator/operator-node';
+import {SyntaxNode, getRangeAndChildren} from '../syntax-node';
 
 export interface PrefixNode extends SyntaxNode {
   readonly $: $Node.PREFIX;
@@ -31,5 +31,5 @@ function checkFormatting(context: SyntaxContext, node: PrefixNode): void {
   node.hiddenNodes = node.value.hiddenNodes;
 
   const keepSingleWhitespace = node.operator.text.some((x) => x.isLetterOrDigit(0));
-  formatHiddenNodes(context, node.operator, keepSingleWhitespace, FormattingType.BETWEEN);
+  formatNode(context, node.operator, keepSingleWhitespace, FormattingType.BETWEEN);
 }

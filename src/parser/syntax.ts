@@ -80,7 +80,9 @@ export function parseSyntaxUntil(
     }
 
     if (isHiddenToken(node)) {
-      const hiddenNodes = context.lastNode?.hiddenNodes ?? context.hiddenNodes;
+      const hiddenNodes =
+        (context.lastNode ?? context.previousStatement?.children.last())?.hiddenNodes ?? context.hiddenNodes;
+
       hiddenNodes.push(node);
 
       if (is<NlNode>(node, $Node.NL) && context.nodes.length > 0) {

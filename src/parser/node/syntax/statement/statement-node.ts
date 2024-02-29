@@ -1,6 +1,6 @@
 import {Integer, Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
-import {FormattingType, formatHiddenNodes} from '../../../util/formatter';
+import {formatNodes} from '../../../util/formatter';
 import {$Node, Node} from '../../node';
 import {SyntaxNode, getRangeAndChildren} from '../syntax-node';
 
@@ -39,8 +39,5 @@ export function statementNode(
 }
 
 function checkFormatting(context: SyntaxContext, node: StatementNode): void {
-  const betweenChildren = node.children.slice(0, -1);
-  betweenChildren.forEach((x) => formatHiddenNodes(context, x, true, FormattingType.BETWEEN));
-
-  formatHiddenNodes(context, node.children.last(), false, FormattingType.AFTER);
+  formatNodes(context, node.children);
 }

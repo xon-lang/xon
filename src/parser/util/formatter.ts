@@ -20,7 +20,14 @@ export enum FormattingType {
   AFTER,
 }
 
-export function formatHiddenNodes(
+export function formatNodes(context: SyntaxContext, nodes: Node[]): Nothing {
+  const betweenChildren = nodes.slice(0, -1);
+  betweenChildren.forEach((x) => formatNode(context, x, true, FormattingType.BETWEEN));
+
+  formatNode(context, nodes.last(), false, FormattingType.AFTER);
+}
+
+export function formatNode(
   context: SyntaxContext,
   node: Node,
   keepSingleSpace: Boolean2,
