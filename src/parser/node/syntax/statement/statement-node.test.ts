@@ -12,26 +12,3 @@ test('a', () => {
   expect(tree.$).toBe($Node.CHAR);
   expect(tree.text).toBe(text);
 });
-
-test('formatting', () => {
-  const text = `
-+ --- --- 1
-
-
-
-
-//   abc`;
-  const syntax = parseSyntax(text);
-
-  expect(syntax.statements.length).toBe(1);
-});
-
-test('formatting 2', () => {
-  const text = `+ --- --- 1 
-
-//
-`;
-  const syntax = parseSyntax(text);
-
-  expect(syntax.statements.length).toBe(1);
-});

@@ -1,7 +1,7 @@
 import {Formatter} from '../formatter/formatter';
 import {IssueType} from '../issue/issue';
 import {IssueManager, createIssueManager} from '../issue/issue-manager';
-import {Boolean2, Integer, Nothing, nothing} from '../lib/core';
+import {Boolean2, Integer, Nothing, String2, nothing} from '../lib/core';
 import {Source} from '../source/source';
 import {SourcePosition, sourcePosition} from '../source/source-position';
 import {SourceRange, sourceRange} from '../source/source-range';
@@ -24,6 +24,7 @@ export interface SyntaxContext {
   issueManager: IssueManager;
 
   getRange: (length: Integer, canContainNewLines: Boolean2) => SourceRange;
+  getFormattedText(): String2;
 }
 
 export function syntaxContext(source: Source, position: SourcePosition): SyntaxContext {
@@ -72,6 +73,20 @@ export function syntaxContext(source: Source, position: SourcePosition): SyntaxC
       const stop = sourcePosition(stopIndex, line, stopColumn);
 
       return sourceRange(start, stop);
+    },
+
+    getFormattedText(): String2 {
+      let index = 0;
+      let formattedText = '';
+
+      for (const {range, text} of this.formatters) {
+        formattedText += this.source.text.slice(index, range.start.index) + text;
+        index = range.stop.index;
+      }
+
+      formattedText += this.source.text.slice(index, this.source.text.length);
+
+      return formattedText;
     },
   };
 }
