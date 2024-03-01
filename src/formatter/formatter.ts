@@ -34,7 +34,7 @@ export function formatNode(
   keepSingleSpace: Boolean2,
   formattingType: FormattingType,
 ): Nothing {
-  const formatter = getFormatterForHiddenNodesWithSpaceKeeping(node, keepSingleSpace, formattingType);
+  const formatter = getFormatterForHiddenNodesWithSpaceKeeping(context, node, keepSingleSpace, formattingType);
 
   if (formatter) {
     context.formatters.push(formatter);
@@ -46,7 +46,7 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
   const lastIsWhitespace = is<WhitespaceNode>(lastHiddenNode, $Node.WHITESPACE);
 
   const hiddenNodes = node.hiddenNodes.slice(0, lastHiddenNode ? -1 : node.hiddenNodes.length);
-  const formatter = getFormatterForHiddenNodes(hiddenNodes, FormattingType.BEFORE);
+  const formatter = getFormatterForHiddenNodes(context, hiddenNodes, FormattingType.BEFORE);
 
   if (formatter) {
     context.formatters.push(formatter);
@@ -68,6 +68,7 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
 }
 
 function getFormatterForHiddenNodesWithSpaceKeeping(
+  context: SyntaxContext,
   node: Node,
   keepSingleSpace: Boolean2,
   formattingType: FormattingType,
@@ -98,10 +99,14 @@ function getFormatterForHiddenNodesWithSpaceKeeping(
     };
   }
 
-  return getFormatterForHiddenNodes(hiddenNodes, formattingType);
+  return getFormatterForHiddenNodes(context, hiddenNodes, formattingType);
 }
 
-function getFormatterForHiddenNodes(hiddenNodes: TokenNode[], formattingType: FormattingType): Formatter | Nothing {
+function getFormatterForHiddenNodes(
+  context: SyntaxContext,
+  hiddenNodes: TokenNode[],
+  formattingType: FormattingType,
+): Formatter | Nothing {
   const nonWhitespaceNodes = hiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
 
   if (nonWhitespaceNodes.length === 0) {
@@ -112,14 +117,14 @@ function getFormatterForHiddenNodes(hiddenNodes: TokenNode[], formattingType: Fo
     .slice(0, -1)
     .map((x, i) => {
       if (is<NlNode>(x, $Node.NL) || is<NlNode>(nonWhitespaceNodes[i + 1], $Node.NL)) {
-        return format(x);
+        return format(context, x);
       }
 
-      return format(x) + ' ';
+      return format(context, x) + ' ';
     })
     .join('');
 
-  text += format(nonWhitespaceNodes.last());
+  text += format(context, nonWhitespaceNodes.last());
 
   if (text.length > 0) {
     if (formattingType === FormattingType.BEFORE) {
@@ -145,8 +150,12 @@ function getFormatterForHiddenNodes(hiddenNodes: TokenNode[], formattingType: Fo
   };
 }
 
-function format(node: TokenNode): String2 {
+function format(context: SyntaxContext, node: TokenNode): String2 {
   if (is<NlNode>(node, $Node.NL)) {
+    if (node.range.stop.index === context.source.text.length) {
+      return NL;
+    }
+
     const nlCount = node.text.count((x) => x === NL);
 
     if (nlCount === 1) {
