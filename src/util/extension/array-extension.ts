@@ -77,3 +77,11 @@ Array.prototype.findMap = function <T, V>(
 Array.prototype.count = function count<T>(predicate: (value: T, index: Integer, array: T[]) => Boolean2): Integer {
   return this.reduce((sum, val, index, array) => sum + (predicate(val, index, array) ? 1 : 0), 0);
 };
+
+Array.prototype.sortBy = function sortBy<T>(select: (value: T) => Integer, ascending: Boolean2 = true): T[] {
+  if (ascending) {
+    return [...this].sort((a, b) => select(a) - select(b));
+  }
+
+  return [...this].sort((a, b) => select(b) - select(a));
+};

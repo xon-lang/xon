@@ -15,6 +15,7 @@ declare global {
     sum(select: (value: T, index: Integer, array: T[]) => Integer): Integer;
     findMap<V>(predicate: (value: T, index: Integer, array: T[]) => V | Nothing): V | Nothing;
     count(predicate: (value: T, index: Integer, array: T[]) => Boolean2): Integer;
+    sortBy(select: (value: T) => Integer, ascending?: Boolean2): T[];
   }
 
   interface String {
