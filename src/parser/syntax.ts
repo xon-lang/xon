@@ -1,12 +1,9 @@
-import {Formatter, formatNodes} from '../formatter/formatter';
 import {ISSUE_MESSAGE} from '../issue/issue-message';
 import {Boolean2, Nothing, String2, nothing} from '../lib/core';
 import {Source, createSource} from '../source/source';
 import {SourcePosition, zeroPosition} from '../source/source-position';
-import {rangeFromPosition} from '../source/source-range';
 import {$Node, Node, is} from './node/node';
 import {scanGroupNode} from './node/syntax/group/group-node';
-import {StatementNode} from './node/syntax/statement/statement-node';
 import {scanCharNode} from './node/token/char/char-node';
 import {scanCloseNode} from './node/token/close/close-node';
 import {scanCommentBlockNode} from './node/token/comment-block/comment-block-node';
@@ -71,10 +68,12 @@ export function parseSyntaxUntil(
       break;
     }
 
+    const lastNode = context.nodes.lastOrNull();
+
     if (is<UnknownNode>(node, $Node.UNKNOWN)) {
-      if (is<UnknownNode>(context.lastNode, $Node.UNKNOWN)) {
-        context.lastNode.range.stop = node.range.stop;
-        context.lastNode.text += node.text;
+      if (is<UnknownNode>(lastNode, $Node.UNKNOWN)) {
+        lastNode.range.stop = node.range.stop;
+        lastNode.text += node.text;
 
         continue;
       }
@@ -83,34 +82,23 @@ export function parseSyntaxUntil(
     }
 
     if (isHiddenToken(node)) {
-      const hiddenNodes =
-        (context.lastNode ?? context.previousStatement?.children.last())?.hiddenNodes ?? context.hiddenNodes;
-
+      const hiddenNodes = lastNode?.hiddenNodes ?? context.hiddenNodes;
       hiddenNodes.push(node);
 
       if (is<NlNode>(node, $Node.NL) && context.nodes.length > 0) {
         putStatementNode(context);
+
         context.nodes = [];
       }
 
       continue;
     }
 
-    if (context.nodes.length === 0 && context.previousStatement) {
-      formatStatement(context, context.previousStatement);
-    }
-
-    context.lastNode = node;
     context.nodes.push(node);
   }
 
-  // if (context.previousStatement) {
-  //   formatStatement(context, context.previousStatement);
-  // }
-
   if (context.nodes.length > 0) {
     putStatementNode(context);
-    formatStatement(context, context.previousStatement!);
   }
 
   return {
@@ -131,15 +119,4 @@ function nextNode(context: SyntaxContext): Node {
   }
 
   throw new Error('Unexpected Node');
-}
-
-function formatStatement(context: SyntaxContext, statement: StatementNode) {
-  formatNodes(context, statement.children);
-
-  const formatter: Formatter = {
-    text: '  '.repeat(statement.indentLevel),
-    range: rangeFromPosition(statement.range.start),
-  };
-
-  context.formatters.push(formatter);
 }

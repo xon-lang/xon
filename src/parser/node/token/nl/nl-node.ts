@@ -20,7 +20,9 @@ export function scanNlNode(context: SyntaxContext): NlNode | Nothing {
     return nothing;
   }
 
-  const text = source.text.takeWhile((x) => x === NL || x === SPACE, position.index);
+  const textWithIndents = source.text.takeWhile((x) => x === NL || x === SPACE, position.index);
+  const lastNLIndex = textWithIndents.lastIndexOf(NL);
+  const text = textWithIndents.slice(0, lastNLIndex + 1);
   const range = context.getRange(text.length, true);
 
   return nlNode(range, text);

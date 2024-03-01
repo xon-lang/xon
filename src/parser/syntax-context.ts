@@ -17,7 +17,6 @@ export interface SyntaxContext {
   formatters: Formatter[];
   breakNode: Node | Nothing;
   parentStatement: StatementNode | Nothing;
-  lastNode: Node | Nothing;
   nodes: Node[];
   previousStatement: StatementNode | Nothing;
   statements: StatementNode[];
@@ -34,7 +33,6 @@ export function syntaxContext(source: Source, position: SourcePosition): SyntaxC
     hiddenNodes: [],
     formatters: [],
     parentStatement: nothing,
-    lastNode: nothing,
     nodes: [],
     previousStatement: nothing,
     breakNode: nothing,
@@ -78,6 +76,7 @@ export function syntaxContext(source: Source, position: SourcePosition): SyntaxC
     getFormattedText(): String2 {
       let index = 0;
       let formattedText = '';
+      // todo remove it and add formatters in order
       const formatters = this.formatters.sortBy((x) => x.range.start.index);
 
       for (const {range, text} of formatters) {

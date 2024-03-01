@@ -21,15 +21,15 @@ Array.prototype.findLast = function <T>(predicate: (value: T, index: Integer, ar
     return nothing;
   }
 
-  return this[index] ?? nothing;
+  return this[index];
 };
 
 Array.prototype.firstOrNull = function <T>(): T | Nothing {
-  return this[0] ?? nothing;
+  return this[0];
 };
 
 Array.prototype.lastOrNull = function <T>(): T | Nothing {
-  return this[this.length - 1] ?? nothing;
+  return this[this.length - 1];
 };
 
 Array.prototype.first = function <T>(): T {

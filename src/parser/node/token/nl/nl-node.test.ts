@@ -23,7 +23,8 @@ test('several', () => {
   expect(nodes.length).toBe(1);
   expect((nodes[0] as TokenNode).text).toBe('abc');
 
-  expect(syntax.hiddenNodes.length).toBe(2);
-  expect(syntax.hiddenNodes[0].text).toBe('  ');
-  expect(syntax.hiddenNodes[1].text).toBe('\n    \n   ');
+  expect(syntax.statements[0].hiddenNodes.length).toBe(3);
+  expect(syntax.statements[0].hiddenNodes[0].text).toBe('  ');
+  expect(syntax.statements[0].hiddenNodes[1].text).toBe('\n    \n');
+  expect(syntax.statements[0].hiddenNodes[2].text).toBe('   ');
 });
