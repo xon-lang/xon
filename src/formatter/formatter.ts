@@ -1,5 +1,6 @@
 import {Boolean2, Nothing, String2, nothing} from '../lib/core';
 import {$Node, Node, is} from '../parser/node/node';
+import {StatementNode} from '../parser/node/syntax/statement/statement-node';
 import {CommentBlockNode} from '../parser/node/token/comment-block/comment-block-node';
 import {CommentLineNode} from '../parser/node/token/comment-line/comment-line-node';
 import {NlNode} from '../parser/node/token/nl/nl-node';
@@ -7,7 +8,7 @@ import {TokenNode} from '../parser/node/token/token-node';
 import {WhitespaceNode} from '../parser/node/token/whitespace/whitespace-node';
 import {NL} from '../parser/syntax-config';
 import {SyntaxContext} from '../parser/syntax-context';
-import {SourceRange, rangeFromNodes, sourceRange} from '../source/source-range';
+import {SourceRange, rangeFromNodes, rangeFromPosition} from '../source/source-range';
 
 export interface Formatter {
   range: SourceRange;
@@ -33,14 +34,40 @@ export function formatNode(
   keepSingleSpace: Boolean2,
   formattingType: FormattingType,
 ): Nothing {
-  const formatter = getFormatterForHiddenNodes(node, keepSingleSpace, formattingType);
+  const formatter = getFormatterForHiddenNodesWithSpaceKeeping(node, keepSingleSpace, formattingType);
 
   if (formatter) {
     context.formatters.push(formatter);
   }
 }
 
-function getFormatterForHiddenNodes(
+export function formatStatement(context: SyntaxContext, node: StatementNode): Nothing {
+  const lastHiddenNode = node.hiddenNodes.lastOrNull();
+  const lastIsWhitespace = is<WhitespaceNode>(lastHiddenNode, $Node.WHITESPACE);
+
+  const hiddenNodes = node.hiddenNodes.slice(0, lastHiddenNode ? -1 : node.hiddenNodes.length);
+  const formatter = getFormatterForHiddenNodes(hiddenNodes, FormattingType.BEFORE);
+
+  if (formatter) {
+    context.formatters.push(formatter);
+  }
+
+  const lastWhitespaceText = lastIsWhitespace ? lastHiddenNode.text : '';
+  const indentText = '  '.repeat(node.indentLevel);
+
+  if (indentText !== lastWhitespaceText) {
+    const formatter: Formatter = {
+      text: indentText,
+      range: lastIsWhitespace ? lastHiddenNode.range : rangeFromPosition(node.range.start),
+    };
+
+    context.formatters.push(formatter);
+  }
+
+  formatNodes(context, node.children);
+}
+
+function getFormatterForHiddenNodesWithSpaceKeeping(
   node: Node,
   keepSingleSpace: Boolean2,
   formattingType: FormattingType,
@@ -50,7 +77,7 @@ function getFormatterForHiddenNodes(
   if (hiddenNodes.length === 0) {
     if (keepSingleSpace) {
       return {
-        range: sourceRange(range.stop, range.stop),
+        range: rangeFromPosition(range.stop),
         text: ' ',
       };
     }
@@ -71,6 +98,10 @@ function getFormatterForHiddenNodes(
     };
   }
 
+  return getFormatterForHiddenNodes(hiddenNodes, formattingType);
+}
+
+function getFormatterForHiddenNodes(hiddenNodes: TokenNode[], formattingType: FormattingType): Formatter | Nothing {
   const nonWhitespaceNodes = hiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
 
   if (nonWhitespaceNodes.length === 0) {

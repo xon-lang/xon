@@ -1,6 +1,5 @@
-import {formatNode, formatNodes, Formatter, FormattingType} from '../../formatter/formatter';
+import {formatStatement} from '../../formatter/formatter';
 import {Integer, Nothing, nothing} from '../../lib/core';
-import {rangeFromPosition} from '../../source/source-range';
 import {StatementNode} from '../node/syntax/statement/statement-node';
 import {SyntaxContext} from '../syntax-context';
 import {getStatementNode} from './get-syntactic-node';
@@ -44,16 +43,4 @@ function findParentStatementWithLessIndent(node: StatementNode, indent: Integer)
   }
 
   return findParentStatementWithLessIndent(node.parent, indent);
-}
-
-function formatStatement(context: SyntaxContext, statement: StatementNode) {
-  formatNode(context, statement, false, FormattingType.BEFORE);
-  formatNodes(context, statement.children);
-
-  const formatter: Formatter = {
-    text: '  '.repeat(statement.indentLevel),
-    range: rangeFromPosition(statement.range.start),
-  };
-
-  context.formatters.push(formatter);
 }
