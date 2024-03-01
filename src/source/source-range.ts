@@ -1,5 +1,5 @@
-import { Node } from '../parser/node/node';
-import { SourcePosition, clonePosition, zeroPosition } from './source-position';
+import {Node} from '../parser/node/node';
+import {SourcePosition, clonePosition, zeroPosition} from './source-position';
 
 export interface SourceRange {
   start: SourcePosition;
@@ -27,6 +27,13 @@ export function rangeFromNodes(...nodes: Node[]): SourceRange {
   return {
     start,
     stop,
+  };
+}
+
+export function rangeFromPosition(position: SourcePosition): SourceRange {
+  return {
+    start: clonePosition(position),
+    stop: clonePosition(position),
   };
 }
 

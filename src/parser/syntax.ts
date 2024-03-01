@@ -1,10 +1,12 @@
-import {formatNodes} from '../formatter/formatter';
+import {Formatter, formatNodes} from '../formatter/formatter';
 import {ISSUE_MESSAGE} from '../issue/issue-message';
 import {Boolean2, Nothing, String2, nothing} from '../lib/core';
 import {Source, createSource} from '../source/source';
 import {SourcePosition, zeroPosition} from '../source/source-position';
+import {rangeFromPosition} from '../source/source-range';
 import {$Node, Node, is} from './node/node';
 import {scanGroupNode} from './node/syntax/group/group-node';
+import {StatementNode} from './node/syntax/statement/statement-node';
 import {scanCharNode} from './node/token/char/char-node';
 import {scanCloseNode} from './node/token/close/close-node';
 import {scanCommentBlockNode} from './node/token/comment-block/comment-block-node';
@@ -95,7 +97,7 @@ export function parseSyntaxUntil(
     }
 
     if (context.nodes.length === 0 && context.previousStatement) {
-      formatNodes(context, context.previousStatement.children);
+      formatStatement(context, context.previousStatement);
     }
 
     context.lastNode = node;
@@ -103,12 +105,12 @@ export function parseSyntaxUntil(
   }
 
   if (context.previousStatement) {
-    formatNodes(context, context.previousStatement.children);
+    formatStatement(context, context.previousStatement);
   }
 
   if (context.nodes.length > 0) {
     putStatementNode(context);
-    formatNodes(context, context.previousStatement!.children);
+    formatStatement(context, context.previousStatement!);
   }
 
   return {
@@ -129,4 +131,15 @@ function nextNode(context: SyntaxContext): Node {
   }
 
   throw new Error('Unexpected Node');
+}
+
+function formatStatement(context: SyntaxContext, statement: StatementNode) {
+  formatNodes(context, statement.children);
+
+  // const formatter: Formatter = {
+  //   text: '  '.repeat(statement.indentLevel),
+  //   range: rangeFromPosition(statement.range.start),
+  // };
+
+  // context.formatters.push(formatter);
 }

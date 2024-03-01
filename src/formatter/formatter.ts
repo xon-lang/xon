@@ -99,7 +99,7 @@ function getFormatterForHiddenNodes(
       text = ` ${text} `;
     }
 
-    if (formattingType === FormattingType.AFTER) {
+    if (formattingType === FormattingType.AFTER && !text.startsWith(NL)) {
       text = ` ${text}`;
     }
   }
