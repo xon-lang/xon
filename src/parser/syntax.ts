@@ -104,9 +104,9 @@ export function parseSyntaxUntil(
     context.nodes.push(node);
   }
 
-  if (context.previousStatement) {
-    formatStatement(context, context.previousStatement);
-  }
+  // if (context.previousStatement) {
+  //   formatStatement(context, context.previousStatement);
+  // }
 
   if (context.nodes.length > 0) {
     putStatementNode(context);
@@ -136,10 +136,10 @@ function nextNode(context: SyntaxContext): Node {
 function formatStatement(context: SyntaxContext, statement: StatementNode) {
   formatNodes(context, statement.children);
 
-  // const formatter: Formatter = {
-  //   text: '  '.repeat(statement.indentLevel),
-  //   range: rangeFromPosition(statement.range.start),
-  // };
+  const formatter: Formatter = {
+    text: '  '.repeat(statement.indentLevel),
+    range: rangeFromPosition(statement.range.start),
+  };
 
-  // context.formatters.push(formatter);
+  context.formatters.push(formatter);
 }

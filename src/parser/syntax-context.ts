@@ -78,8 +78,9 @@ export function syntaxContext(source: Source, position: SourcePosition): SyntaxC
     getFormattedText(): String2 {
       let index = 0;
       let formattedText = '';
+      const formatters = [...this.formatters].sort((a, b) => a.range.start.index - b.range.start.index);
 
-      for (const {range, text} of this.formatters) {
+      for (const {range, text} of formatters) {
         formattedText += this.source.text.slice(index, range.start.index) + text;
         index = range.stop.index;
       }
