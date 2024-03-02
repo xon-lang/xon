@@ -67,6 +67,51 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
   formatNodes(context, node.children);
 }
 
+export function formatContextHiddenNodes(context: SyntaxContext): Formatter | Nothing {
+  const {hiddenNodes} = context;
+  let nonWhitespaceNodes = hiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
+
+  if (nonWhitespaceNodes.length === 0) {
+    if (isSameContent(hiddenNodes, '')) {
+      return nothing;
+    }
+
+    return {
+      range: rangeFromNodes(...hiddenNodes),
+      text: '',
+    };
+  }
+
+  const nlStartsHiddenNodes = nonWhitespaceNodes.takeWhile((x) => is(x, $Node.NL));
+  nonWhitespaceNodes = nonWhitespaceNodes.slice(nlStartsHiddenNodes.length);
+
+  let text = nonWhitespaceNodes
+    .slice(0, -1)
+    .map((x, i) => {
+      if (is<NlNode>(x, $Node.NL) || is<NlNode>(nonWhitespaceNodes[i + 1], $Node.NL)) {
+        return format(context, x);
+      }
+
+      return format(context, x) + ' ';
+    })
+    .join('');
+
+  const last = nonWhitespaceNodes.last();
+
+  if (is<NlNode>(last, $Node.NL)) {
+    text += NL;
+  }
+
+  if (isSameContent(hiddenNodes, text)) {
+    return nothing;
+  }
+
+  return {
+    range: rangeFromNodes(...hiddenNodes),
+    text,
+  };
+}
+
 function getFormatterForHiddenNodesWithSpaceKeeping(
   context: SyntaxContext,
   node: Node,
@@ -199,6 +244,7 @@ function format(context: SyntaxContext, node: TokenNode): String2 {
   return '';
 }
 
+// todo slice from source
 function isSameContent(nodes: TokenNode[], text: String2): Boolean2 {
   return nodes.map((x) => x.text).join('') === text;
 }

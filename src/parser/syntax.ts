@@ -1,3 +1,4 @@
+import {formatContextHiddenNodes} from '../formatter/formatter';
 import {ISSUE_MESSAGE} from '../issue/issue-message';
 import {Boolean2, Nothing, String2, nothing} from '../lib/core';
 import {Source, createSource} from '../source/source';
@@ -99,6 +100,12 @@ export function parseSyntaxUntil(
 
   if (context.nodes.length > 0) {
     putStatementNode(context);
+  }
+
+  const formatter = formatContextHiddenNodes(context);
+
+  if (formatter) {
+    context.formatters.push(formatter);
   }
 
   return {
