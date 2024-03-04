@@ -72,7 +72,7 @@ export function formatContextHiddenNodes(context: SyntaxContext): Formatter | No
   let nonWhitespaceNodes = hiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
 
   if (nonWhitespaceNodes.length === 0) {
-    if (isSameContent(hiddenNodes, '')) {
+    if (isSameContent(context, hiddenNodes, '')) {
       return nothing;
     }
 
@@ -102,7 +102,7 @@ export function formatContextHiddenNodes(context: SyntaxContext): Formatter | No
     text += NL;
   }
 
-  if (isSameContent(hiddenNodes, text)) {
+  if (isSameContent(context, hiddenNodes, text)) {
     return nothing;
   }
 
@@ -185,7 +185,7 @@ function getFormatterForHiddenNodes(
     }
   }
 
-  if (isSameContent(hiddenNodes, text)) {
+  if (isSameContent(context, hiddenNodes, text)) {
     return nothing;
   }
 
@@ -244,7 +244,15 @@ function format(context: SyntaxContext, node: TokenNode): String2 {
   return '';
 }
 
-// todo slice from source
-function isSameContent(nodes: TokenNode[], text: String2): Boolean2 {
-  return nodes.map((x) => x.text).join('') === text;
+function isSameContent(context: SyntaxContext, nodes: TokenNode[], text: String2): Boolean2 {
+  const first = nodes.firstOrNull();
+  const last = nodes.lastOrNull();
+
+  if (!first || !last) {
+    return text === '';
+  }
+
+  const sliced = context.source.text.slice(first.range.start.index, last.range.stop.index);
+
+  return text === sliced;
 }
