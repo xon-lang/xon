@@ -1,4 +1,4 @@
-import {FormattingType, formatNode} from '../../../../formatter/formatter';
+import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
 import {Group} from '../group/group-node';
@@ -25,5 +25,5 @@ export function invokeNode(context: SyntaxContext, instance: Node, group: Group)
 
 function checkFormatting(context: SyntaxContext, node: InvokeNode): void {
   node.hiddenNodes = node.group.hiddenNodes;
-  formatNode(context, node.instance, false, FormattingType.BETWEEN);
+  formatBetweenHiddenNodes(context, node.instance, false);
 }

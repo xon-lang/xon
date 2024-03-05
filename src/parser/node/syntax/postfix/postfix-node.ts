@@ -1,4 +1,4 @@
-import {FormattingType, formatNode} from '../../../../formatter/formatter';
+import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
@@ -30,5 +30,5 @@ function checkFormatting(context: SyntaxContext, node: PostfixNode): void {
   node.hiddenNodes = node.operator.hiddenNodes;
 
   const keepSingleWhitespace = node.operator.text.some((x) => x.isLetterOrDigit(0));
-  formatNode(context, node.value, keepSingleWhitespace, FormattingType.BETWEEN);
+  formatBetweenHiddenNodes(context, node.value, keepSingleWhitespace);
 }

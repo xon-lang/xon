@@ -1,4 +1,4 @@
-import {FormattingType, formatNode} from '../../../../formatter/formatter';
+import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
@@ -37,6 +37,6 @@ function checkFormatting(context: SyntaxContext, node: InfixNode): void {
   node.hiddenNodes = node.right.hiddenNodes;
 
   const keepSingleWhitespace = !node.operator.text.includes('.');
-  formatNode(context, node.left, keepSingleWhitespace, FormattingType.BETWEEN);
-  formatNode(context, node.operator, keepSingleWhitespace, FormattingType.BETWEEN);
+  formatBetweenHiddenNodes(context, node.left, keepSingleWhitespace);
+  formatBetweenHiddenNodes(context, node.operator, keepSingleWhitespace);
 }
