@@ -13,7 +13,7 @@ export function sourceRange(start: SourcePosition, stop: SourcePosition): Source
   };
 }
 
-export function rangeFromNodes(...nodes: Node[]): SourceRange {
+export function rangeFromNodes(nodes: Node[]): SourceRange {
   const startNode = nodes.firstOrNull();
   const stopNode = nodes.lastOrNull();
 

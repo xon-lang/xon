@@ -1,5 +1,4 @@
 import { Nothing, nothing } from '../../../../lib/core';
-import { rangeFromNodes } from '../../../../source/source-range';
 import { $Node } from '../../node';
 import { CloseNode } from '../../token/close/close-node';
 import { IdNode } from '../../token/id/id-node';

@@ -10,7 +10,7 @@ export function getRangeAndChildren(
   ...nodes: (Node | Nothing)[]
 ): Pick<SyntaxNode, 'range' | 'children' | 'hiddenNodes'> {
   const children = nodes.filter((x): x is Node => !!x);
-  const range = rangeFromNodes(children.first(), children.last());
+  const range = rangeFromNodes([children.first(), children.last()]);
 
   // todo move hiddenNodes to node initializer like syntaxNode()
   return { range, children, hiddenNodes: [] };

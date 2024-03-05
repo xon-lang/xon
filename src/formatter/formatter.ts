@@ -82,7 +82,7 @@ export function getFormatterForHiddenNodes(
   let nonWhitespaceNodes = hiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
 
   if (nonWhitespaceNodes.length === 0) {
-    return compareAndCreateFormatter(context, hiddenNodes, rangeFromNodes(...hiddenNodes), '');
+    return compareAndCreateFormatter(context, hiddenNodes, rangeFromNodes(hiddenNodes), '');
   }
 
   const sliceEndIndex = atStartNodes ? nonWhitespaceNodes.length : -1;
@@ -121,7 +121,7 @@ export function getFormatterForHiddenNodes(
   }
 
   return {
-    range: rangeFromNodes(...hiddenNodes),
+    range: rangeFromNodes(hiddenNodes),
     text,
   };
 }
@@ -142,7 +142,7 @@ function getFormatterForHiddenNodesWithSpaceKeeping(
   }
 
   if (hiddenNodes.length === 1 && is<WhitespaceNode>(hiddenNodes[0], $Node.WHITESPACE)) {
-    return compareAndCreateFormatter(context, hiddenNodes, rangeFromNodes(...hiddenNodes), spaceText);
+    return compareAndCreateFormatter(context, hiddenNodes, rangeFromNodes(hiddenNodes), spaceText);
   }
 
   return getFormatterForHiddenNodes(context, hiddenNodes, formattingType, atStartNodes);
