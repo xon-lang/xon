@@ -8,7 +8,7 @@ import {TokenNode} from '../parser/node/token/token-node';
 import {WhitespaceNode} from '../parser/node/token/whitespace/whitespace-node';
 import {NL} from '../parser/syntax-config';
 import {SyntaxContext} from '../parser/syntax-context';
-import {SourceRange, rangeFromNodes, rangeFromPosition, zeroRange} from '../source/source-range';
+import {SourceRange, rangeFromNodes, rangeFromPosition} from '../source/source-range';
 
 export interface Formatter {
   range: SourceRange;
@@ -39,48 +39,49 @@ export function formatBetweenHiddenNodes(context: SyntaxContext, node: Node, kee
 export function formatStatement(context: SyntaxContext, node: StatementNode): Nothing {
   // todo for now we only take single whitespace but comments also required
   // todo use takeWhileFromEnd instead
-  const afterNlHiddenNodes = [...node.hiddenNodes].reverse().takeWhile((x) => !is(x, $Node.NL));
-  const hiddenNodes = node.hiddenNodes.slice(0, -afterNlHiddenNodes.length);
 
-  const formatter = getFormatterForHiddenNodes(
-    context,
-    hiddenNodes.length > 0 ? rangeFromNodes(hiddenNodes) : zeroRange(),
-    hiddenNodes,
-    nothing,
-  );
-
-  if (formatter) {
-    context.formatters.push(formatter);
+  if (node.hiddenNodes.length === 0) {
+    return;
   }
 
-  // const lastWhitespaceText = lastIsWhitespace ? lastHiddenNode.text : '';
-  // const indentText = '  '.repeat(node.indentLevel);
+  const ifFirstStatement = context.statements.first() === node;
+  const indentHiddenNodes = [...node.hiddenNodes].reverse().takeWhile((x) => !is(x, $Node.NL));
+  const beforeIndentHiddenNodes =
+    indentHiddenNodes.length > 0 ? node.hiddenNodes.slice(0, -indentHiddenNodes.length) : node.hiddenNodes;
 
-  // // todo replace with fn Compare and Create
-  // if (indentText !== lastWhitespaceText) {
-  //   const formatter: Formatter = {
-  //     text: indentText,
-  //     range: lastIsWhitespace ? lastHiddenNode.range : rangeFromPosition(node.range.start),
-  //   };
+  if (ifFirstStatement && beforeIndentHiddenNodes.length === 0) {
+    return;
+  }
 
-  //   context.formatters.push(formatter);
-  // }
+  if (beforeIndentHiddenNodes.length > 0) {
+    const range = rangeFromNodes(beforeIndentHiddenNodes);
+    const nonWhitespaceNodes = beforeIndentHiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
+    const splittedByNl = nonWhitespaceNodes.splitBy((x) => is(x, $Node.NL));
 
-  // const betweenChildren = node.children.slice(0, -1);
-  // betweenChildren.forEach((x) => formatBetweenHiddenNodes(context, x, true));
+    let text = splittedByNl
+      .map((x) => format(context, x.splitter) + x.items.map((z) => format(context, z)).join(' '))
+      .join('');
 
-  // const lastFormatter = getFormatterForHiddenNodesWithSpaceKeeping(
-  //   context,
-  //   node.children.last(),
-  //   false,
-  //   FormattingType.AFTER,
-  //   false,
-  //   false,
-  // );
+    if (ifFirstStatement) {
+      text = text.trimStart();
+    }
 
-  // if (lastFormatter) {
-  //   context.formatters.push(lastFormatter);
-  // }
+    const formatter = compareAndCreateFormatter(context, beforeIndentHiddenNodes, range, text);
+
+    if (formatter) {
+      context.formatters.push(formatter);
+    }
+  }
+
+  if (indentHiddenNodes.every((x) => is(x, $Node.WHITESPACE))) {
+    const range = rangeFromNodes(indentHiddenNodes);
+    const text = '  '.repeat(node.indentLevel);
+    const formatter = compareAndCreateFormatter(context, indentHiddenNodes, range, text);
+
+    if (formatter) {
+      context.formatters.push(formatter);
+    }
+  }
 }
 
 export function formatLastContextHiddenNodes(context: SyntaxContext): Formatter | Nothing {
