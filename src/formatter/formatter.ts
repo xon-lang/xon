@@ -8,7 +8,7 @@ import {TokenNode} from '../parser/node/token/token-node';
 import {WhitespaceNode} from '../parser/node/token/whitespace/whitespace-node';
 import {NL} from '../parser/syntax-config';
 import {SyntaxContext} from '../parser/syntax-context';
-import {SourceRange, rangeFromNodes, rangeFromPosition} from '../source/source-range';
+import {SourceRange, cloneRange, rangeFromNodes, rangeFromPosition} from '../source/source-range';
 
 export interface Formatter {
   range: SourceRange;
@@ -68,10 +68,21 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
     }
   }
 
-  if (node.indentHiddenNodes.every((x) => is(x, $Node.WHITESPACE))) {
-    const range = rangeFromNodes(node.indentHiddenNodes);
+  if (is<WhitespaceNode>(node.indentHiddenNodes.first(), $Node.WHITESPACE)) {
+    const range = cloneRange(node.indentHiddenNodes.first().range);
     const text = '  '.repeat(node.indentLevel);
     const formatter = compareAndCreateFormatter(context, node.indentHiddenNodes, range, text);
+
+    if (formatter) {
+      context.formatters.push(formatter);
+    }
+  }
+
+  const afterIntentHiddenNodes = node.indentHiddenNodes.slice(1);
+
+  if (afterIntentHiddenNodes.length > 0) {
+    const range = rangeFromNodes(afterIntentHiddenNodes);
+    const formatter = getFormatterForHiddenNodes(context, range, afterIntentHiddenNodes, FormattingType.BEFORE);
 
     if (formatter) {
       context.formatters.push(formatter);

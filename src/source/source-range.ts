@@ -13,6 +13,10 @@ export function sourceRange(start: SourcePosition, stop: SourcePosition): Source
   };
 }
 
+export function cloneRange(range: SourceRange): SourceRange {
+  return sourceRange(range.start, range.stop);
+}
+
 export function rangeFromNodes(nodes: Node[]): SourceRange {
   const startNode = nodes.firstOrNull();
   const stopNode = nodes.lastOrNull();
