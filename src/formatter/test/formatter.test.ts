@@ -7,6 +7,8 @@ test('2', () => testFormatter(2));
 test('3', () => testFormatter(3));
 test('4', () => testFormatter(4));
 test('5', () => testFormatter(5));
+test('6', () => testFormatter(6));
+test('7', () => testFormatter(7));
 
 function testFormatter(index: Integer) {
   const testDir = 'src/formatter/test';
