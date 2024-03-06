@@ -44,7 +44,7 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
   const ifFirstStatement = context.statements.first() === node;
   const beforeIndentHiddenNodes = node.beforeIndentHiddenNodes;
 
-  if (ifFirstStatement && beforeIndentHiddenNodes.length === 0) {
+  if (ifFirstStatement && node.hiddenNodes.length === 0) {
     return;
   }
 
@@ -83,6 +83,17 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
   if (afterIntentHiddenNodes.length > 0) {
     const range = rangeFromNodes(afterIntentHiddenNodes);
     const formatter = getFormatterForHiddenNodes(context, range, afterIntentHiddenNodes, FormattingType.BEFORE);
+
+    if (formatter) {
+      context.formatters.push(formatter);
+    }
+  }
+
+  const lastChildHiddenNodes = node.children.last().hiddenNodes;
+
+  if (lastChildHiddenNodes.length > 0) {
+    const range = rangeFromNodes(lastChildHiddenNodes);
+    const formatter = getFormatterForHiddenNodes(context, range, lastChildHiddenNodes, FormattingType.AFTER);
 
     if (formatter) {
       context.formatters.push(formatter);
