@@ -85,3 +85,27 @@ Array.prototype.sortBy = function sortBy<T>(select: (value: T) => Integer, ascen
 
   return [...this].sort((a, b) => select(b) - select(a));
 };
+
+Array.prototype.splitBy = function splitBy<T>(
+  predicate: (value: T, index: Integer, array: T[]) => Boolean2,
+): {splitter: T | Nothing; items: T[]}[] {
+  const result: {splitter: T | Nothing; items: T[]}[] = [];
+
+  for (let index = 0; index < this.length; index++) {
+    const item = this[index];
+
+    if (predicate(item, index, this)) {
+      result.push({splitter: item, items: []});
+
+      continue;
+    }
+
+    if (!result.lastOrNull()) {
+      result.push({splitter: nothing, items: []});
+    }
+
+    result.last()?.items.push(item);
+  }
+
+  return result;
+};

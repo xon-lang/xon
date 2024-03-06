@@ -1,4 +1,4 @@
-import {getFormatterForHiddenNodes} from '../formatter/formatter';
+import {formatLastContextHiddenNodes} from '../formatter/formatter';
 import {ISSUE_MESSAGE} from '../issue/issue-message';
 import {Boolean2, Nothing, String2, nothing} from '../lib/core';
 import {Source, createSource} from '../source/source';
@@ -82,15 +82,18 @@ export function parseSyntaxUntil(
       context.issueManager.addError(node, ISSUE_MESSAGE.unexpectedNode());
     }
 
+    if (is<NlNode>(node, $Node.NL) && context.nodes.length > 0) {
+      putStatementNode(context);
+
+      context.hiddenNodes.push(node);
+      context.nodes = [];
+
+      continue;
+    }
+
     if (isHiddenToken(node)) {
       const hiddenNodes = lastNode?.hiddenNodes ?? context.hiddenNodes;
       hiddenNodes.push(node);
-
-      if (is<NlNode>(node, $Node.NL) && context.nodes.length > 0) {
-        putStatementNode(context);
-
-        context.nodes = [];
-      }
 
       continue;
     }
@@ -102,7 +105,7 @@ export function parseSyntaxUntil(
     putStatementNode(context);
   }
 
-  const formatter = getFormatterForHiddenNodes(context, context.hiddenNodes, nothing, true);
+  const formatter = formatLastContextHiddenNodes(context);
 
   if (formatter) {
     context.formatters.push(formatter);

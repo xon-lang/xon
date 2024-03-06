@@ -8,7 +8,7 @@ import {TokenNode} from '../parser/node/token/token-node';
 import {WhitespaceNode} from '../parser/node/token/whitespace/whitespace-node';
 import {NL} from '../parser/syntax-config';
 import {SyntaxContext} from '../parser/syntax-context';
-import {SourceRange, rangeFromNodes, rangeFromPosition} from '../source/source-range';
+import {SourceRange, rangeFromNodes, rangeFromPosition, zeroRange} from '../source/source-range';
 
 export interface Formatter {
   range: SourceRange;
@@ -28,6 +28,7 @@ export function formatBetweenHiddenNodes(context: SyntaxContext, node: Node, kee
     keepSingleSpace,
     FormattingType.BETWEEN,
     false,
+    false,
   );
 
   if (formatter) {
@@ -36,71 +37,99 @@ export function formatBetweenHiddenNodes(context: SyntaxContext, node: Node, kee
 }
 
 export function formatStatement(context: SyntaxContext, node: StatementNode): Nothing {
-  const lastHiddenNode = node.hiddenNodes.lastOrNull();
-  const lastIsWhitespace = is<WhitespaceNode>(lastHiddenNode, $Node.WHITESPACE);
-  const hiddenNodes = node.hiddenNodes.slice(0, lastIsWhitespace ? -1 : node.hiddenNodes.length);
-  const formatter = getFormatterForHiddenNodes(context, hiddenNodes, FormattingType.BEFORE, !node.parent);
+  // todo for now we only take single whitespace but comments also required
+  // todo use takeWhileFromEnd instead
+  const afterNlHiddenNodes = [...node.hiddenNodes].reverse().takeWhile((x) => !is(x, $Node.NL));
+  const hiddenNodes = node.hiddenNodes.slice(0, -afterNlHiddenNodes.length);
+
+  const formatter = getFormatterForHiddenNodes(
+    context,
+    hiddenNodes.length > 0 ? rangeFromNodes(hiddenNodes) : zeroRange(),
+    hiddenNodes,
+    nothing,
+  );
 
   if (formatter) {
     context.formatters.push(formatter);
   }
 
-  const lastWhitespaceText = lastIsWhitespace ? lastHiddenNode.text : '';
-  const indentText = '  '.repeat(node.indentLevel);
+  // const lastWhitespaceText = lastIsWhitespace ? lastHiddenNode.text : '';
+  // const indentText = '  '.repeat(node.indentLevel);
 
-  if (indentText !== lastWhitespaceText) {
-    const formatter: Formatter = {
-      text: indentText,
-      range: lastIsWhitespace ? lastHiddenNode.range : rangeFromPosition(node.range.start),
-    };
+  // // todo replace with fn Compare and Create
+  // if (indentText !== lastWhitespaceText) {
+  //   const formatter: Formatter = {
+  //     text: indentText,
+  //     range: lastIsWhitespace ? lastHiddenNode.range : rangeFromPosition(node.range.start),
+  //   };
 
-    context.formatters.push(formatter);
+  //   context.formatters.push(formatter);
+  // }
+
+  // const betweenChildren = node.children.slice(0, -1);
+  // betweenChildren.forEach((x) => formatBetweenHiddenNodes(context, x, true));
+
+  // const lastFormatter = getFormatterForHiddenNodesWithSpaceKeeping(
+  //   context,
+  //   node.children.last(),
+  //   false,
+  //   FormattingType.AFTER,
+  //   false,
+  //   false,
+  // );
+
+  // if (lastFormatter) {
+  //   context.formatters.push(lastFormatter);
+  // }
+}
+
+export function formatLastContextHiddenNodes(context: SyntaxContext): Formatter | Nothing {
+  const {statements, hiddenNodes} = context;
+
+  if (statements.length === 0 && hiddenNodes.length === 0) {
+    return nothing;
   }
 
-  const betweenChildren = node.children.slice(0, -1);
-  betweenChildren.forEach((x) => formatBetweenHiddenNodes(context, x, true));
+  if (hiddenNodes.length > 0) {
+    const nonWhitespaceNodes = hiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
+    const splittedByNl = nonWhitespaceNodes.splitBy((x) => is(x, $Node.NL));
+    const range = rangeFromNodes(hiddenNodes);
 
-  const lastFormatter = getFormatterForHiddenNodesWithSpaceKeeping(
-    context,
-    node.children.last(),
-    false,
-    FormattingType.AFTER,
-    false,
-  );
+    let text = splittedByNl
+      .map((x) => format(context, x.splitter) + x.items.map((z) => format(context, z)).join(' '))
+      .join('');
 
-  if (lastFormatter) {
-    context.formatters.push(lastFormatter);
+    if (statements.length === 0) {
+      text = text.trim();
+      text = text.length > 0 ? text + NL : '';
+
+      return compareAndCreateFormatter(context, hiddenNodes, range, text);
+    }
+
+    return compareAndCreateFormatter(context, hiddenNodes, range, text.trimEnd() + NL);
   }
+
+  const lastStatementChild = context.statements.last().children.last();
+  const lastNode = lastStatementChild.hiddenNodes.lastOrNull() ?? lastStatementChild;
+
+  return {
+    range: rangeFromPosition(lastNode.range.stop),
+    text: NL,
+  };
 }
 
 export function getFormatterForHiddenNodes(
   context: SyntaxContext,
+  range: SourceRange,
   hiddenNodes: TokenNode[],
   formattingType: FormattingType | Nothing,
-  atStartNodes: Boolean2,
 ): Formatter | Nothing {
-  let nonWhitespaceNodes = hiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
+  const nonWhitespaceNodes = hiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
+  const splittedByNl = nonWhitespaceNodes.splitBy((x) => is(x, $Node.NL));
 
-  if (nonWhitespaceNodes.length === 0) {
-    return compareAndCreateFormatter(context, hiddenNodes, rangeFromNodes(hiddenNodes), '');
-  }
-
-  const sliceEndIndex = atStartNodes ? nonWhitespaceNodes.length : -1;
-  const nlStartsHiddenNodes = nonWhitespaceNodes.takeWhile((x) => is(x, $Node.NL)).slice(0, sliceEndIndex);
-  nonWhitespaceNodes = nonWhitespaceNodes.slice(nlStartsHiddenNodes.length);
-
-  let text = nonWhitespaceNodes
-    .slice(0, -1)
-    .map((x, i) => {
-      if (is<NlNode>(x, $Node.NL) || is<NlNode>(nonWhitespaceNodes[i + 1], $Node.NL)) {
-        return format(context, x);
-      }
-
-      return format(context, x) + ' ';
-    })
+  let text = splittedByNl
+    .map((x) => format(context, x.splitter) + x.items.map((z) => format(context, z)).join(' '))
     .join('');
-
-  text += format(context, nonWhitespaceNodes.last());
 
   if (text.length > 0 && formattingType) {
     if (formattingType === FormattingType.BEFORE) {
@@ -131,7 +160,8 @@ function getFormatterForHiddenNodesWithSpaceKeeping(
   node: Node,
   keepSingleSpace: Boolean2,
   formattingType: FormattingType,
-  atStartNodes: Boolean2,
+  isSourceStartHiddenNodes: Boolean2,
+  isSourceEndHiddenNodes: Boolean2,
 ): Formatter | Nothing {
   const {hiddenNodes, range} = node;
 
@@ -145,23 +175,20 @@ function getFormatterForHiddenNodesWithSpaceKeeping(
     return compareAndCreateFormatter(context, hiddenNodes, rangeFromNodes(hiddenNodes), spaceText);
   }
 
-  return getFormatterForHiddenNodes(context, hiddenNodes, formattingType, atStartNodes);
+  return getFormatterForHiddenNodes(
+    context,
+    hiddenNodes.length > 0 ? rangeFromNodes(hiddenNodes) : rangeFromPosition(node.range.stop),
+    hiddenNodes,
+    formattingType,
+  );
 }
 
-function format(context: SyntaxContext, node: TokenNode): String2 {
+function format(context: SyntaxContext, node: TokenNode | Nothing): String2 {
   if (is<NlNode>(node, $Node.NL)) {
-    // todo remove it
-    if (node.range.stop.index === context.source.text.length) {
-      return NL;
-    }
-
     const nlCount = node.text.count((x) => x === NL);
+    const text = NL.repeat(Math.min(nlCount, 2));
 
-    if (nlCount === 1) {
-      return NL;
-    }
-
-    return NL + NL;
+    return text;
   }
 
   if (is<CommentLineNode>(node, $Node.COMMENT_LINE)) {

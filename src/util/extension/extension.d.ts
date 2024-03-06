@@ -16,6 +16,7 @@ declare global {
     findMap<V>(predicate: (value: T, index: Integer, array: T[]) => V | Nothing): V | Nothing;
     count(predicate: (value: T, index: Integer, array: T[]) => Boolean2): Integer;
     sortBy(select: (value: T) => Integer, ascending?: Boolean2): T[];
+    splitBy(predicate: (value: T, index: Integer, array: T[]) => Boolean2): {splitter: T | Nothing; items: T[]}[];
   }
 
   interface String {
