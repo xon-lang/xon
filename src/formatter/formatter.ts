@@ -37,17 +37,12 @@ export function formatBetweenHiddenNodes(context: SyntaxContext, node: Node, kee
 }
 
 export function formatStatement(context: SyntaxContext, node: StatementNode): Nothing {
-  // todo for now we only take single whitespace but comments also required
-  // todo use takeWhileFromEnd instead
-
   if (node.hiddenNodes.length === 0) {
     return;
   }
 
   const ifFirstStatement = context.statements.first() === node;
-  const indentHiddenNodes = [...node.hiddenNodes].reverse().takeWhile((x) => !is(x, $Node.NL));
-  const beforeIndentHiddenNodes =
-    indentHiddenNodes.length > 0 ? node.hiddenNodes.slice(0, -indentHiddenNodes.length) : node.hiddenNodes;
+  const beforeIndentHiddenNodes = node.beforeIndentHiddenNodes;
 
   if (ifFirstStatement && beforeIndentHiddenNodes.length === 0) {
     return;
@@ -73,10 +68,10 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
     }
   }
 
-  if (indentHiddenNodes.every((x) => is(x, $Node.WHITESPACE))) {
-    const range = rangeFromNodes(indentHiddenNodes);
+  if (node.indentHiddenNodes.every((x) => is(x, $Node.WHITESPACE))) {
+    const range = rangeFromNodes(node.indentHiddenNodes);
     const text = '  '.repeat(node.indentLevel);
-    const formatter = compareAndCreateFormatter(context, indentHiddenNodes, range, text);
+    const formatter = compareAndCreateFormatter(context, node.indentHiddenNodes, range, text);
 
     if (formatter) {
       context.formatters.push(formatter);

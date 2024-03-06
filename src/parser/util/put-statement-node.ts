@@ -1,14 +1,24 @@
 import {formatStatement} from '../../formatter/formatter';
 import {Integer, Nothing, nothing} from '../../lib/core';
+import {$Node, is} from '../node/node';
 import {StatementNode} from '../node/syntax/statement/statement-node';
+import {WhitespaceNode} from '../node/token/whitespace/whitespace-node';
 import {SyntaxContext} from '../syntax-context';
-import {getStatementNode} from './get-syntactic-node';
+import {getStatementNode} from './get-statement-node';
 
 export function putStatementNode(context: SyntaxContext): void {
-  const parent = getParent(context);
+  const {hiddenNodes} = context;
+  const lastNlIndex = hiddenNodes.findLastIndex((x) => is(x, $Node.NL));
+  const beforeIndentHiddenNodes = hiddenNodes.slice(0, lastNlIndex + 1);
+  const indentHiddenNodes = hiddenNodes.slice(beforeIndentHiddenNodes.length);
+  const firstIndentHiddenNode = indentHiddenNodes.firstOrNull();
+  const isFirstHiddenWhitespace = is<WhitespaceNode>(firstIndentHiddenNode, $Node.WHITESPACE);
+  const indentStopColumn = isFirstHiddenWhitespace ? firstIndentHiddenNode.range.stop.column : 0;
+
+  const parent = getParent(context, indentStopColumn);
   context.parentStatement = parent;
 
-  const statement = getStatementNode(context, parent);
+  const statement = getStatementNode(context, parent, indentStopColumn, beforeIndentHiddenNodes, indentHiddenNodes);
   statement.hiddenNodes = context.hiddenNodes;
 
   formatStatement(context, statement);
@@ -17,30 +27,28 @@ export function putStatementNode(context: SyntaxContext): void {
   context.previousStatement = statement;
 }
 
-function getParent(context: SyntaxContext): StatementNode | Nothing {
+function getParent(context: SyntaxContext, indentStopColumn: Integer): StatementNode | Nothing {
   const {nodes, previousStatement} = context;
 
   if (!previousStatement) {
     return nothing;
   }
 
-  const indent = nodes[0].range.start.column;
-
-  if (indent > previousStatement.range.start.column) {
+  if (indentStopColumn > previousStatement.indentStopColumn) {
     return previousStatement;
   }
 
-  return findParentStatementWithLessIndent(previousStatement, indent);
+  return findParentStatementWithLessIndent(previousStatement, indentStopColumn);
 }
 
-function findParentStatementWithLessIndent(node: StatementNode, indent: Integer): StatementNode | Nothing {
+function findParentStatementWithLessIndent(node: StatementNode, indentStopColumn: Integer): StatementNode | Nothing {
   if (!node.parent) {
     return nothing;
   }
 
-  if (node.parent.range.start.column < indent) {
+  if (node.parent.indentStopColumn < indentStopColumn) {
     return node.parent!;
   }
 
-  return findParentStatementWithLessIndent(node.parent, indent);
+  return findParentStatementWithLessIndent(node.parent, indentStopColumn);
 }

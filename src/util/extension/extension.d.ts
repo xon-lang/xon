@@ -4,6 +4,7 @@ declare global {
   interface Array<T> {
     findLastIndex(predicate: (value: T, index: Integer, array: T[]) => Boolean2, thisArg?: Something): Integer;
     takeWhile(predicate: (value: T, index: Integer) => Boolean2, startIndex?: Integer): T[];
+    takeWhileFromLast(predicate: (value: T, index: Integer) => Boolean2, startIndex?: Integer): T[];
     firstOrNull(): T | Nothing;
     lastOrNull(): T | Nothing;
     first(): T;
