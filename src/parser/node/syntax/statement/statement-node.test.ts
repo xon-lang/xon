@@ -1,14 +1,29 @@
+import {nothing} from '../../../../lib/core';
+import {sourceFromText} from '../../../../source/source';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
-import {StringNode} from '../../token/string/string-node';
-import {TokenNode} from '../../token/token-node';
+import {CharNode} from '../../token/char/char-node';
 
 test('a', () => {
-  const text = "'a'";
-  const nodes = parseSyntax(text).statements.map((x) => x.item) as TokenNode[];
-  const tree = nodes[0] as StringNode;
+  const text = "   \n    \n  ---comment ---'a'";
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0];
 
-  expect(nodes.length).toBe(1);
-  expect(tree.$).toBe($Node.CHAR);
-  expect(tree.text).toBe(text);
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.STATEMENT);
+  expect(node.beforeIndentHiddenNodes.length).toBe(2);
+  expect(node.beforeIndentHiddenNodes[0].text).toBe('   ');
+  expect(node.beforeIndentHiddenNodes[1].text).toBe('\n    \n');
+  expect(node.indentHiddenNodes.length).toBe(2);
+  expect(node.indentHiddenNodes[0].text).toBe('  ');
+  expect(node.indentHiddenNodes[1].text).toBe('---comment ---');
+  expect(node.indentLevel).toBe(0);
+  expect(node.indentStopColumn).toBe(2);
+  expect(node.parent).toBe(nothing);
+  expect(node.children.length).toBe(1);
+  expect(node.children[0].$).toBe($Node.CHAR);
+  expect((node.children[0] as CharNode).text).toBe("'a'");
+  expect(node.body.length).toBe(0);
 });

@@ -1,13 +1,17 @@
-import { evaluate } from '../../../../util/evaluate';
-import { parseSyntax } from '../../../syntax';
-import { $Node } from '../../node';
-import { PostfixNode } from './postfix-node';
+import {sourceFromText} from '../../../../source/source';
+import {evaluate} from '../../../../util/evaluate';
+import {parseSyntax} from '../../../syntax';
+import {$Node} from '../../node';
+import {PostfixNode} from './postfix-node';
 
 test('after integer', () => {
   const text = '1!';
-  const nodes = parseSyntax(text).statements.map((x) => x.item);
-  const node = nodes[0] as PostfixNode;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as PostfixNode;
 
+  expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.POSTFIX);
   expect(node.operator.text).toBe('!');
   expect(evaluate(node.value)).toBe(1);

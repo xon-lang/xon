@@ -1,16 +1,20 @@
-import { parseSyntax } from '../../../syntax';
-import { $Node } from '../../node';
-import { IdNode } from '../../token/id/id-node';
-import { IntegerNode } from '../../token/integer/integer-node';
-import { GroupNode } from '../group/group-node';
-import { InfixNode } from '../infix/infix-node';
-import { InvokeNode } from './invoke-node';
+import {sourceFromText} from '../../../../source/source';
+import {parseSyntax} from '../../../syntax';
+import {$Node} from '../../node';
+import {IdNode} from '../../token/id/id-node';
+import {IntegerNode} from '../../token/integer/integer-node';
+import {GroupNode} from '../group/group-node';
+import {InfixNode} from '../infix/infix-node';
+import {InvokeNode} from './invoke-node';
 
 test('method call', () => {
   const text = "f(3, 'str')";
-  const nodes = parseSyntax(text).statements.map((x) => x.item);
-  const node = nodes[0] as InvokeNode;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as InvokeNode;
 
+  expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INVOKE);
   expect(node.group.items.length).toBe(2);
   expect(node.group.items[0]?.$).toBe($Node.INTEGER);
@@ -24,9 +28,12 @@ test('method on several lines', () => {
   const text = `f[3,
         'str', 123, 
     415]`;
-  const nodes = parseSyntax(text).statements.map((x) => x.item);
-  const node = nodes[0] as InvokeNode;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as InvokeNode;
 
+  expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INVOKE);
   expect(node.group.items.length).toBe(4);
   const indexer1 = node.group.items[0];
@@ -38,14 +45,17 @@ test('method on several lines', () => {
 
 test('can call with type parameter', () => {
   const text = 'a.get [1]';
-  const nodes = parseSyntax(text).statements.map((x) => x.item);
-  const node = nodes[0] as InvokeNode;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as InvokeNode;
 
+  expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INVOKE);
   expect(node.group.items.length).toBe(1);
   expect((node.group.items[0] as IntegerNode).text).toBe('1');
   expect(node.instance.$).toBe($Node.INFIX);
-  const { operator, left, right } = node.instance as InfixNode;
+  const {operator, left, right} = node.instance as InfixNode;
   expect(operator.text).toBe('.');
   expect((left as IdNode).text).toBe('a');
   expect((right as IdNode).text).toBe('get');
@@ -53,13 +63,16 @@ test('can call with type parameter', () => {
 
 test('object method', () => {
   const text = '{a, b}.call()';
-  const nodes = parseSyntax(text).statements.map((x) => x.item);
-  const node = nodes[0] as InvokeNode;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as InvokeNode;
 
+  expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INVOKE);
   expect(node.group.items.length).toBe(0);
   expect(node.instance.$).toBe($Node.INFIX);
-  const { operator, left, right } = node.instance as InfixNode;
+  const {operator, left, right} = node.instance as InfixNode;
   expect(operator.text).toBe('.');
   const leftParameters = (left as GroupNode).items;
   expect(leftParameters.length).toBe(2);
@@ -70,9 +83,12 @@ test('object method', () => {
 
 test('generics', () => {
   const text = 'Animal{T}';
-  const nodes = parseSyntax(text).statements.map((x) => x.item);
-  const node = nodes[0] as InvokeNode;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as InvokeNode;
 
+  expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INVOKE);
   expect(node.group.items.length).toBe(1);
   expect(node.instance.$).toBe($Node.ID);

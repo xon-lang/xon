@@ -1,16 +1,19 @@
-import { parseSyntax } from '../../../syntax';
-import { $Node } from '../../node';
-import { CharNode } from '../../token/char/char-node';
-import { IdNode } from '../../token/id/id-node';
-import { IntegerNode } from '../../token/integer/integer-node';
-import { DeclarationNode } from './declaration-node';
+import {sourceFromText} from '../../../../source/source';
+import {parseSyntax} from '../../../syntax';
+import {$Node} from '../../node';
+import {CharNode} from '../../token/char/char-node';
+import {IdNode} from '../../token/id/id-node';
+import {IntegerNode} from '../../token/integer/integer-node';
+import {DeclarationNode} from './declaration-node';
 
 test('model a', () => {
   const text = 'model A';
-  const ast = parseSyntax(text);
-  const node = ast.statements[0].item as DeclarationNode;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as DeclarationNode;
 
-  expect(ast.statements.length).toBe(1);
+  expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.DECLARATION);
   expect(node.modifier?.text).toBe('model');
   expect(node.id?.text).toBe('A');
@@ -18,10 +21,12 @@ test('model a', () => {
 
 test('model a extends b', () => {
   const text = 'model A: B';
-  const ast = parseSyntax(text);
-  const node = ast.statements[0].item as DeclarationNode;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as DeclarationNode;
 
-  expect(ast.statements.length).toBe(1);
+  expect(statements.length).toBe(1);
   expect(node.modifier?.text).toBe('model');
   expect(node.id?.text).toBe('A');
   expect(node.type?.value?.$).toBe($Node.ID);
@@ -30,10 +35,12 @@ test('model a extends b', () => {
 
 test('model a with generics extends b', () => {
   const text = 'model A{T: Array = String, U}: B';
-  const ast = parseSyntax(text);
-  const node = ast.statements[0].item as DeclarationNode;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as DeclarationNode;
 
-  expect(ast.statements.length).toBe(1);
+  expect(statements.length).toBe(1);
   expect(node.modifier?.text).toBe('model');
   expect(node.id?.text).toBe('A');
   expect(node.generics?.items.length).toBe(2);
@@ -46,10 +53,12 @@ test('model a with generics extends b', () => {
 
 test('model a with parameters extends b', () => {
   const text = "model A(a: Integer = 123, b: Boolean, c = 'C'): B";
-  const ast = parseSyntax(text);
-  const node = ast.statements[0].item as DeclarationNode;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as DeclarationNode;
 
-  expect(ast.statements.length).toBe(1);
+  expect(statements.length).toBe(1);
   expect(node.modifier?.text).toBe('model');
   expect(node.id?.text).toBe('A');
 
@@ -72,10 +81,12 @@ test('model a with parameters extends b', () => {
 
 test('model a with generics and parameters extends b', () => {
   const text = "model A{T: Array = String, U}(a: Integer = 123, b: Boolean, c = 'C'): B";
-  const ast = parseSyntax(text);
-  const node = ast.statements[0].item as DeclarationNode;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as DeclarationNode;
 
-  expect(ast.statements.length).toBe(1);
+  expect(statements.length).toBe(1);
   expect(node.modifier?.text).toBe('model');
   expect(node.id?.text).toBe('A');
 
@@ -110,10 +121,12 @@ test('model a has attributes', () => {
   e(a, b, c: Char, d = 2): Nothing
   f{T, U, V}(a, b, c: Char, d = 2) = a + b + d
   `;
-  const ast = parseSyntax(text);
-  const node = ast.statements[0].item as DeclarationNode;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as DeclarationNode;
 
-  expect(ast.statements.length).toBe(1);
+  expect(statements.length).toBe(1);
   expect(node.modifier?.text).toBe('model');
   expect(node.id?.text).toBe('A');
   expect(node.type?.value).toBeFalsy();

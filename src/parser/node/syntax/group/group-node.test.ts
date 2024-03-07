@@ -1,4 +1,5 @@
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
+import {sourceFromText} from '../../../../source/source';
 import {parseSyntax} from '../../../syntax';
 import {OPEN_CLOSE_PAIR} from '../../../syntax-config';
 import {$Node, is} from '../../node';
@@ -6,33 +7,34 @@ import {GroupNode} from './group-node';
 
 test('empty closed', () => {
   const text = '()';
-  const nodes = parseSyntax(text).statements.map((x) => x.item);
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as GroupNode;
 
-  expect(nodes.length).toBe(1);
-
-  const group = nodes[0] as GroupNode;
-  expect(is(group, $Node.GROUP)).toBe(true);
-  expect(is(group.open, $Node.OPEN)).toBe(true);
-  expect(is(group.close, $Node.CLOSE)).toBe(true);
-  expect(group.items.length).toBe(0);
+  expect(statements.length).toBe(1);
+  expect(is(node, $Node.GROUP)).toBe(true);
+  expect(is(node.open, $Node.OPEN)).toBe(true);
+  expect(is(node.close, $Node.CLOSE)).toBe(true);
+  expect(node.items.length).toBe(0);
 });
 
 test('validate close pair', () => {
   const text = '(';
-  const ast = parseSyntax(text);
-  const nodes = ast.statements.map((x) => x.item);
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as GroupNode;
 
-  expect(nodes.length).toBe(1);
+  expect(statements.length).toBe(1);
+  expect(is(node, $Node.GROUP)).toBe(true);
+  expect(is(node.open, $Node.OPEN)).toBe(true);
+  expect(node.close).toBe(null);
+  expect(node.items.length).toBe(0);
+  expect(syntax.issueManager.issues.length).toBe(1);
 
-  const group = nodes[0] as GroupNode;
-  expect(is(group, $Node.GROUP)).toBe(true);
-  expect(is(group.open, $Node.OPEN)).toBe(true);
-  expect(group.close).toBe(null);
-  expect(group.items.length).toBe(0);
-  expect(ast.issueManager.issues.length).toBe(1);
+  const issueMessage = ISSUE_MESSAGE.expectCloseToken(node.open.text, OPEN_CLOSE_PAIR[node.open.text]);
 
-  const issueMessage = ISSUE_MESSAGE.expectCloseToken(group.open.text, OPEN_CLOSE_PAIR[group.open.text]);
-
-  expect(ast.issueManager.issues[0].message.actual).toBe(issueMessage.actual);
-  expect(ast.issueManager.issues[0].message.expect).toBe(issueMessage.expect);
+  expect(syntax.issueManager.issues[0].message.actual).toBe(issueMessage.actual);
+  expect(syntax.issueManager.issues[0].message.expect).toBe(issueMessage.expect);
 });

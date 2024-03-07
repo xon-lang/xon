@@ -1,12 +1,16 @@
-import { parseSyntax } from '../../../syntax';
-import { $Node } from '../../node';
+import {sourceFromText} from '../../../../source/source';
+import {parseSyntax} from '../../../syntax';
+import {$Node} from '../../node';
+import {ObjectNode} from './object-node';
 
 test('empty object', () => {
   const text = '{}';
-  const nodes = parseSyntax(text).statements.map((x) => x.item);
-  const tree = nodes[0];
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as ObjectNode;
 
-  expect(nodes.length).toBe(1);
-
-  expect(tree.$).toBe($Node.OBJECT);
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.OBJECT);
+  expect(node.items.length).toBe(0);
 });

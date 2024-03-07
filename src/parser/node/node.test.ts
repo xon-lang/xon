@@ -39,7 +39,7 @@ test('debug 1', () => {
   const node = statements[0].item as InfixNode;
 
   expect(statements.length).toBe(1);
-  expect(node[0].$).toBe($Node.INFIX);
+  expect(node.$).toBe($Node.INFIX);
 });
 
 test('debug 2', () => {
