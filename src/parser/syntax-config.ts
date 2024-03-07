@@ -31,24 +31,26 @@ export const UNDERSCORE = '_';
 export const STRING_QUOTE = '"';
 export const CHAR_QUOTE = "'";
 export const TYPE_TOKEN = ':';
-export const ASSIGN_TOKEN = '=';
-export const MEMBER_TOKEN = '.';
-export const META_MEMBER_TOKEN = '::';
+export const ASSIGN = '=';
+export const MEMBER = '.';
+export const META_MEMBER = '::';
 export const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
+export const RANGE = '..';
+export const UNION = '|';
 
-export const GROUP_NODE_OPEN_CODE = '(';
-export const GROUP_NODE_CLOSE_CODE = ')';
+export const GROUP_NODE_OPEN = '(';
+export const GROUP_NODE_CLOSE = ')';
 
-export const ARRAY_NODE_OPEN_CODE = '[';
-export const ARRAY_NODE_CLOSE_CODE = ']';
+export const ARRAY_NODE_OPEN = '[';
+export const ARRAY_NODE_CLOSE = ']';
 
-export const OBJECT_NODE_OPEN_CODE = '{';
-export const OBJECT_NODE_CLOSE_CODE = '}';
+export const OBJECT_NODE_OPEN = '{';
+export const OBJECT_NODE_CLOSE = '}';
 
 export const OPEN_CLOSE_PAIR: Record<Char, Char> = {
-  [GROUP_NODE_OPEN_CODE]: GROUP_NODE_CLOSE_CODE,
-  [ARRAY_NODE_OPEN_CODE]: ARRAY_NODE_CLOSE_CODE,
-  [OBJECT_NODE_OPEN_CODE]: OBJECT_NODE_CLOSE_CODE,
+  [GROUP_NODE_OPEN]: GROUP_NODE_CLOSE,
+  [ARRAY_NODE_OPEN]: ARRAY_NODE_CLOSE,
+  [OBJECT_NODE_OPEN]: OBJECT_NODE_CLOSE,
 };
 
 export const MODEL_MODIFIER = 'model';
@@ -68,12 +70,9 @@ export const MODIFIERS = [
   INFIX_MODIFIER,
 ];
 
-export const RANGE_TOKEN = '..';
-export const UNION_TOKEN = '|';
-
 export const operatorsOrders: OperatorsOrder[] = [
   {
-    operators: [`${MEMBER_TOKEN} ${META_MEMBER_TOKEN}`],
+    operators: [`${MEMBER} ${META_MEMBER}`],
     operatorType: OperatorType.INFIX,
     recursiveType: RecursiveType.LEFT,
   },
@@ -93,7 +92,7 @@ export const operatorsOrders: OperatorsOrder[] = [
     recursiveType: RecursiveType.LEFT,
   },
   {
-    operators: ['^', '* / %', '+ -', RANGE_TOKEN, '< <= >= >', '== !=', 'is as in', '&', UNION_TOKEN],
+    operators: ['^', '* / %', '+ -', RANGE, '< <= >= >', '== !=', 'is as in', '&', UNION],
     operatorType: OperatorType.INFIX,
     recursiveType: RecursiveType.LEFT,
   },
@@ -108,7 +107,7 @@ export const operatorsOrders: OperatorsOrder[] = [
     recursiveType: RecursiveType.RIGHT,
   },
   {
-    operators: [ASSIGN_TOKEN],
+    operators: [ASSIGN],
     operatorType: OperatorType.INFIX,
     recursiveType: RecursiveType.RIGHT,
   },

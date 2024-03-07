@@ -2,7 +2,7 @@ import {Nothing, nothing} from '../../../../lib/core';
 import {$Node, Node, is} from '../../../../parser/node/node';
 import {InvokeNode} from '../../../../parser/node/syntax/invoke/invoke-node';
 import {IdNode} from '../../../../parser/node/token/id/id-node';
-import {OBJECT_NODE_OPEN_CODE} from '../../../../parser/syntax-config';
+import {OBJECT_NODE_OPEN} from '../../../../parser/syntax-config';
 import {SemanticContext} from '../../../semantic-context';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {DeclarationTypeSemantic, declarationTypeSemantic} from './declaration-type-semantic';
@@ -27,7 +27,7 @@ export function declarationTypeSemanticParse(context: SemanticContext, node: Nod
   // A[][]
   // A{T}
   if (is<InvokeNode>(node, $Node.INVOKE) && is<IdNode>(node.instance, $Node.ID)) {
-    if (node.group.open.text !== OBJECT_NODE_OPEN_CODE) {
+    if (node.group.open.text !== OBJECT_NODE_OPEN) {
       throw new Error('Not implemented');
     }
 

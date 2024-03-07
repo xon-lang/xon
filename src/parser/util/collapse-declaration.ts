@@ -13,11 +13,11 @@ import {ObjectNode} from '../node/syntax/object/object-node';
 import {PrefixNode, prefixNode} from '../node/syntax/prefix/prefix-node';
 import {IdNode} from '../node/token/id/id-node';
 import {
-  ASSIGN_TOKEN,
-  GROUP_NODE_OPEN_CODE,
+  ASSIGN,
+  GROUP_NODE_OPEN,
   MODIFIERS,
   MODIFIERS_WITH_ATTRIBUTES,
-  OBJECT_NODE_OPEN_CODE,
+  OBJECT_NODE_OPEN,
   TYPE_TOKEN,
 } from '../syntax-config';
 import {SyntaxContext} from '../syntax-context';
@@ -117,7 +117,7 @@ function getHeaderTypeAssign(
       return {header: node.left, type};
     }
 
-    if (node.operator.text === ASSIGN_TOKEN) {
+    if (node.operator.text === ASSIGN) {
       const assign = prefixNode(context, node.operator, node.right);
       const headerType = getHeaderTypeAssign(context, node.left);
 
@@ -151,11 +151,11 @@ function getUnderModifier(
       const declarations = node.group.items.map((x) => parseParameter(context, x));
       const declarationList = declarationListNode(node.group.open, node.group.close, declarations);
 
-      if (declarationList.open.text === GROUP_NODE_OPEN_CODE) {
+      if (declarationList.open.text === GROUP_NODE_OPEN) {
         return {...instance, parameters: declarationList};
       }
 
-      if (declarationList.open.text === OBJECT_NODE_OPEN_CODE) {
+      if (declarationList.open.text === OBJECT_NODE_OPEN) {
         return {...instance, generics: declarationList};
       }
     }

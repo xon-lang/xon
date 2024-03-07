@@ -2,13 +2,7 @@ import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {Nothing, nothing} from '../../../../lib/core';
 import '../../../../util/extension';
 import {parseSyntaxUntil} from '../../../syntax';
-import {
-  ARRAY_NODE_OPEN_CODE,
-  COMMA,
-  GROUP_NODE_OPEN_CODE,
-  OBJECT_NODE_OPEN_CODE,
-  OPEN_CLOSE_PAIR,
-} from '../../../syntax-config';
+import {ARRAY_NODE_OPEN, COMMA, GROUP_NODE_OPEN, OBJECT_NODE_OPEN, OPEN_CLOSE_PAIR} from '../../../syntax-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node, is} from '../../node';
 import {CloseNode} from '../../token/close/close-node';
@@ -99,15 +93,15 @@ export function scanGroupNode(context: SyntaxContext): Group | null {
 }
 
 function createGroupNode(context: SyntaxContext, open: OpenNode, close: CloseNode | null, nodes: Node[]): Group {
-  if (open.text === GROUP_NODE_OPEN_CODE) {
+  if (open.text === GROUP_NODE_OPEN) {
     return groupNode(context, open, close, nodes);
   }
 
-  if (open.text === OBJECT_NODE_OPEN_CODE) {
+  if (open.text === OBJECT_NODE_OPEN) {
     return objectNode(open, close, nodes);
   }
 
-  if (open.text === ARRAY_NODE_OPEN_CODE) {
+  if (open.text === ARRAY_NODE_OPEN) {
     return arrayNode(open, close, nodes);
   }
 
