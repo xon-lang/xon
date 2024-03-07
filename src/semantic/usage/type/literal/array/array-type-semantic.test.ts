@@ -1,18 +1,20 @@
-import { nothing } from '../../../../../lib/core';
-import { DeclarationNode } from '../../../../../parser/node/syntax/declaration/declaration-node';
-import { parseSyntax } from '../../../../../parser/syntax';
-import { ConstantSemantic } from '../../../../declaration/constant/constant-semantic';
-import { $Semantic, parseSemantic } from '../../../../semantic';
-import { DeclarationTypeSemantic } from '../../declaration/declaration-type-semantic';
-import { IntegerTypeSemantic } from '../integer/integer-type-semantic';
-import { ArrayTypeSemantic } from './array-type-semantic';
+import {nothing} from '../../../../../lib/core';
+import {DeclarationNode} from '../../../../../parser/node/syntax/declaration/declaration-node';
+import {parseSyntax} from '../../../../../parser/syntax';
+import {sourceFromText} from '../../../../../source/source';
+import {ConstantSemantic} from '../../../../declaration/constant/constant-semantic';
+import {$Semantic, parseSemantic} from '../../../../semantic';
+import {DeclarationTypeSemantic} from '../../declaration/declaration-type-semantic';
+import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
+import {ArrayTypeSemantic} from './array-type-semantic';
 
 test('a is array', () => {
   const text = `
     model Integer
     const a: Integer[3]
   `;
-  const syntax = parseSyntax(text);
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax);
 
   expect(Object.keys(semantic.declarations).length).toBe(2);
@@ -39,7 +41,8 @@ test('a is array of array', () => {
     model Integer
     const a: Integer[3][]
   `;
-  const syntax = parseSyntax(text);
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax);
 
   expect(Object.keys(semantic.declarations).length).toBe(2);

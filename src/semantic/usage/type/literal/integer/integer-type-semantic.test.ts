@@ -1,14 +1,16 @@
-import { DeclarationNode } from '../../../../../parser/node/syntax/declaration/declaration-node';
-import { parseSyntax } from '../../../../../parser/syntax';
-import { ConstantSemantic } from '../../../../declaration/constant/constant-semantic';
-import { $Semantic, parseSemantic } from '../../../../semantic';
-import { IntegerTypeSemantic } from './integer-type-semantic';
+import {DeclarationNode} from '../../../../../parser/node/syntax/declaration/declaration-node';
+import {parseSyntax} from '../../../../../parser/syntax';
+import {sourceFromText} from '../../../../../source/source';
+import {ConstantSemantic} from '../../../../declaration/constant/constant-semantic';
+import {$Semantic, parseSemantic} from '../../../../semantic';
+import {IntegerTypeSemantic} from './integer-type-semantic';
 
 test('a is integer', () => {
   const text = `
     const a: 123
   `;
-  const syntax = parseSyntax(text);
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax);
 
   expect(Object.keys(semantic.declarations).length).toBe(1);

@@ -1,11 +1,13 @@
 import {parseSyntax} from '../../../parser/syntax';
+import {sourceFromText} from '../../../source/source';
 import {$Semantic, parseSemantic} from '../../semantic';
 import {DeclarationTypeSemantic} from '../../usage/type/declaration/declaration-type-semantic';
 import {ModelSemantic} from './model-semantic';
 
 test('only a', () => {
   const text = 'model A';
-  const syntax = parseSyntax(text);
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax);
 
   expect(Object.keys(semantic.declarations).length).toBe(1);
@@ -15,7 +17,8 @@ test('only a', () => {
 
 test('declare b then a, a extends b', () => {
   const text = 'model B\nmodel A: B';
-  const syntax = parseSyntax(text);
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax);
 
   expect(Object.keys(semantic.declarations).length).toBe(2);
@@ -33,7 +36,8 @@ test('declare b then a, a extends b', () => {
 
 test('declare a then b, a extends b', () => {
   const text = 'model A: B\nmodel B';
-  const syntax = parseSyntax(text);
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax);
 
   expect(Object.keys(semantic.declarations).length).toBe(2);
