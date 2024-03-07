@@ -1,15 +1,18 @@
-import { parseSyntax } from '../../../syntax';
-import { $Node } from '../../node';
-import { TokenNode } from '../token-node';
+import {sourceFromText} from '../../../../source/source';
+import {parseSyntax} from '../../../syntax';
+import {$Node} from '../../node';
+import {TokenNode} from '../token-node';
+import {WhitespaceNode} from './whitespace-node';
 
 test('whitespace', () => {
   const text = '    ';
-  const syntax = parseSyntax(text);
-  const nodes = syntax.statements.map((x) => x.item);
-  const hiddenNodes = syntax.hiddenNodes;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = syntax.syntaxContext.hiddenNodes[0] as WhitespaceNode;
 
-  expect(nodes.length).toBe(0);
-  expect(hiddenNodes.length).toBe(1);
-  expect(hiddenNodes[0].$).toBe($Node.WHITESPACE);
-  expect((hiddenNodes[0] as TokenNode).text).toBe('    ');
+  expect(statements.length).toBe(0);
+  expect(syntax.syntaxContext.hiddenNodes.length).toBe(1);
+  expect(node.$).toBe($Node.WHITESPACE);
+  expect((node as TokenNode).text).toBe('    ');
 });

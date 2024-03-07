@@ -1,12 +1,16 @@
-import { parseSyntax } from '../../../syntax';
-import { $Node } from '../../node';
-import { TokenNode } from '../token-node';
+import {sourceFromText} from '../../../../source/source';
+import {parseSyntax} from '../../../syntax';
+import {$Node} from '../../node';
+import {CloseNode} from './close-node';
 
 test('close paren', () => {
   const text = ')';
-  const nodes = parseSyntax(text).statements.map((x) => x.item) as TokenNode[];
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as CloseNode;
 
-  expect(nodes.length).toBe(1);
-  expect(nodes[0].$).toBe($Node.CLOSE);
-  expect(nodes[0].text).toBe(')');
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.CLOSE);
+  expect(node.text).toBe(')');
 });

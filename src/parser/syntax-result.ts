@@ -2,7 +2,7 @@ import {SyntaxContext} from './syntax-context';
 
 export type SyntaxResult = Pick<
   SyntaxContext,
-  'source' | 'hiddenNodes' | 'formatters' | 'issueManager' | 'statements' | 'getFormattedText'
+  'source' | 'formatters' | 'issueManager' | 'statements' | 'getFormattedText'
 > & {
   syntaxContext: SyntaxContext;
 };

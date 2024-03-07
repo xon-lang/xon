@@ -1,36 +1,46 @@
-import { parseSyntax } from '../../../syntax';
-import { $Node } from '../../node';
-import { GroupNode } from '../../syntax/group/group-node';
+import {sourceFromText} from '../../../../source/source';
+import {parseSyntax} from '../../../syntax';
+import {$Node} from '../../node';
+import {GroupNode} from '../../syntax/group/group-node';
 
 test('open paren', () => {
   const text = '(';
-  const nodes = parseSyntax(text).statements.map((x) => x.item);
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as GroupNode;
 
-  expect(nodes.length).toBe(1);
-  expect(nodes[0].$).toBe($Node.GROUP);
-  expect((nodes[0] as GroupNode).open.$).toBe($Node.OPEN);
-  expect((nodes[0] as GroupNode).open.text).toBe('(');
-  expect((nodes[0] as GroupNode).close).toBe(null);
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.GROUP);
+  expect(node.open.$).toBe($Node.OPEN);
+  expect(node.open.text).toBe('(');
+  expect(node.close).toBe(null);
 });
 
 test('open bracket', () => {
   const text = '[';
-  const nodes = parseSyntax(text).statements.map((x) => x.item);
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as GroupNode;
 
-  expect(nodes.length).toBe(1);
-  expect(nodes[0].$).toBe($Node.ARRAY);
-  expect((nodes[0] as GroupNode).open.$).toBe($Node.OPEN);
-  expect((nodes[0] as GroupNode).open.text).toBe('[');
-  expect((nodes[0] as GroupNode).close).toBe(null);
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.ARRAY);
+  expect(node.open.$).toBe($Node.OPEN);
+  expect(node.open.text).toBe('[');
+  expect(node.close).toBe(null);
 });
 
 test('open brace', () => {
   const text = '{';
-  const nodes = parseSyntax(text).statements.map((x) => x.item);
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as GroupNode;
 
-  expect(nodes.length).toBe(1);
-  expect(nodes[0].$).toBe($Node.OBJECT);
-  expect((nodes[0] as GroupNode).open.$).toBe($Node.OPEN);
-  expect((nodes[0] as GroupNode).open.text).toBe('{');
-  expect((nodes[0] as GroupNode).close).toBe(null);
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.OBJECT);
+  expect((node as GroupNode).open.$).toBe($Node.OPEN);
+  expect((node as GroupNode).open.text).toBe('{');
+  expect((node as GroupNode).close).toBe(null);
 });

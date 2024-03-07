@@ -1,14 +1,16 @@
-import { parseSyntax } from '../../../syntax';
-import { $Node } from '../../node';
-import { StringNode } from '../string/string-node';
-import { TokenNode } from '../token-node';
+import {sourceFromText} from '../../../../source/source';
+import {parseSyntax} from '../../../syntax';
+import {$Node} from '../../node';
+import {CharNode} from './char-node';
 
 test('a', () => {
   const text = "'a'";
-  const nodes = parseSyntax(text).statements.map((x) => x.item) as TokenNode[];
-  const tree = nodes[0] as StringNode;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as CharNode;
 
-  expect(nodes.length).toBe(1);
-  expect(tree.$).toBe($Node.CHAR);
-  expect(tree.text).toBe(text);
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.CHAR);
+  expect(node.text).toBe(text);
 });

@@ -1,7 +1,7 @@
 import {formatLastContextHiddenNodes} from '../formatter/formatter';
 import {ISSUE_MESSAGE} from '../issue/issue-message';
-import {Boolean2, Nothing, String2, nothing} from '../lib/core';
-import {Source, createSource} from '../source/source';
+import {Boolean2, Nothing, nothing} from '../lib/core';
+import {Source} from '../source/source';
 import {SourcePosition, zeroPosition} from '../source/source-position';
 import {$Node, Node, is} from './node/node';
 import {scanGroupNode} from './node/syntax/group/group-node';
@@ -36,13 +36,13 @@ const scanFunctions: SyntaxScanFn[] = [
   scanWhitespaceNode,
   scanOperatorNode,
   scanIdNode,
-  // todo should we remove scan group from here
+  // todo should we remove scan group from here ???
   scanGroupNode,
   scanUnknownNode,
 ];
 
-export function parseSyntax(text: String2): SyntaxResult {
-  const source = createSource(nothing, text);
+// todo rename to syntax from source
+export function parseSyntax(source: Source): SyntaxResult {
   const result = parseSyntaxUntil(source, zeroPosition(), nothing);
   result.issueManager.issues.forEach((x) => result.issueManager.log(x));
 

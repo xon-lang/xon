@@ -1,24 +1,35 @@
-import { parseSyntax } from '../../../syntax';
-import { TokenNode } from '../token-node';
-import { UnknownNode } from './unknown-node';
+import {sourceFromText} from '../../../../source/source';
+import {parseSyntax} from '../../../syntax';
+import {$Node} from '../../node';
+import {IntegerNode} from '../integer/integer-node';
+import {UnknownNode} from './unknown-node';
 
 test('unknown 1', () => {
   const text = '123 §•∞•456';
-  const nodes = parseSyntax(text).statements.map((x) => x.item) as TokenNode[];
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node0 = statements[0].item as IntegerNode;
+  const node1 = statements[0].children[1] as UnknownNode;
 
-  expect(nodes.length).toBe(1);
-  // expect(nodes[1].text).toBe('§');
-  // expect(nodes[1].hidden.length).toBe(1);
-  // expect(nodes[1].hidden[0].text).toBe(' ');
+  expect(statements.length).toBe(1);
+  expect(node0.$).toBe($Node.INTEGER);
+  expect(node0.text).toBe('123');
+  expect(node0.hiddenNodes.length).toBe(1);
+  expect(node0.hiddenNodes[0].text).toBe(' ');
+
+  expect(node1.text).toBe('§•∞•');
 });
 
 test('unknown 2', () => {
   const text = 'ºª¶';
-  const context = parseSyntax(text);
-  const nodes = context.statements.map((x) => x.item);
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as UnknownNode;
 
-  expect(nodes.length).toBe(1);
-  expect(context.issueManager.issues.length).toBe(1);
-  expect((context.issueManager.issues[0].node as UnknownNode).text).toBe('ºª¶');
-  expect((nodes[0] as UnknownNode).text).toBe('ºª¶');
+  expect(statements.length).toBe(1);
+  expect(syntax.issueManager.issues.length).toBe(1);
+  expect((syntax.issueManager.issues[0].node as UnknownNode).text).toBe('ºª¶');
+  expect(node.text).toBe('ºª¶');
 });

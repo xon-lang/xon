@@ -1,17 +1,16 @@
 import {readFileSync} from 'fs';
-import {String2} from '../lib/core';
-
+import {Nothing, String2, nothing} from '../lib/core';
 import '../util/extension';
 import {SourceRange} from './source-range';
 
 export interface Source {
-  location: String2 | null;
+  location: String2 | Nothing;
   text: String2;
 }
 
-export function createSource(location: String2 | null, text: String2): Source {
+export function sourceFromText(text: String2): Source {
   return {
-    location,
+    location: nothing,
     text,
   };
 }
