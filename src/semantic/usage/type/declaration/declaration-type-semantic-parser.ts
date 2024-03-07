@@ -40,6 +40,8 @@ export function declarationTypeSemanticParse(context: SemanticContext, node: Nod
 
     const reference = context.createReference(node);
     const semantic = declarationTypeSemantic(reference, declaration, nothing);
+    // todo recheck, we always need set id semantic for all cases ???
+    node.instance.semantic = semantic;
     node.semantic = semantic;
 
     return semantic;
