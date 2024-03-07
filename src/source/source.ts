@@ -8,6 +8,13 @@ export interface Source {
   text: String2;
 }
 
+export function createSource(location: String2 | Nothing, text: String2): Source {
+  return {
+    location,
+    text,
+  };
+}
+
 export function sourceFromText(text: String2): Source {
   return {
     location: nothing,
