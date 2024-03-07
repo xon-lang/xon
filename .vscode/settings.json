@@ -1,4 +1,7 @@
 {
+  "[xon]": {
+    "editor.defaultFormatter": "nizami.xon"
+  },
   "cSpell.words": [
     "bfnrtv",
     "camelcase",
@@ -13,14 +16,16 @@
     "postversion",
     "proto",
     "ts-nocheck",
-    "gulpfile"
+    "gulpfile",
+    "esbuild",
+    "outfile",
+    "pinst",
+    "postpublish",
+    "seti"
   ],
-  "typescript.preferences.importModuleSpecifier": "relative",
-  "[xon]": {
-    "editor.defaultFormatter": "nizami.xon"
-  },
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
   },
+  "typescript.preferences.importModuleSpecifier": "relative",
   "typescript.tsdk": "node_modules/typescript/lib"
 }
