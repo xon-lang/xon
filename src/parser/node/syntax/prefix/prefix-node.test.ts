@@ -1,9 +1,9 @@
-import { evaluate } from '../../../../util/evaluate';
-import { parseSyntax } from '../../../syntax';
-import { $Node } from '../../node';
-import { OperatorNode } from '../../token/operator/operator-node';
-import { DeclarationNode } from '../declaration/declaration-node';
-import { PrefixNode } from './prefix-node';
+import {evaluate} from '../../../../util/evaluate';
+import {parseSyntax} from '../../../syntax';
+import {$Node} from '../../node';
+import {OperatorNode} from '../../token/operator/operator-node';
+import {DeclarationNode} from '../declaration/declaration-node';
+import {PrefixNode} from './prefix-node';
 
 test('negative integer', () => {
   const text = '-1';
@@ -62,7 +62,7 @@ test('model string with base class', () => {
 });
 
 test('hidden nodes', () => {
-  const text = '-    1';
+  const text = '-    1\n';
   const syntax = parseSyntax(text);
   const nodes = syntax.statements.map((x) => x.item);
   const node = nodes[0] as PrefixNode;
