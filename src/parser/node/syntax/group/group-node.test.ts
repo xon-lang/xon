@@ -1,8 +1,8 @@
-import { ISSUE_MESSAGE } from '../../../../issue/issue-message';
-import { parseSyntax } from '../../../syntax';
-import { OPEN_CLOSE_PAIR } from '../../../syntax-config';
-import { $Node, is } from '../../node';
-import { GroupNode } from './group-node';
+import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
+import {parseSyntax} from '../../../syntax';
+import {OPEN_CLOSE_PAIR} from '../../../syntax-config';
+import {$Node, is} from '../../node';
+import {GroupNode} from './group-node';
 
 test('empty closed', () => {
   const text = '()';
@@ -31,10 +31,7 @@ test('validate close pair', () => {
   expect(group.items.length).toBe(0);
   expect(ast.issueManager.issues.length).toBe(1);
 
-  const issueMessage = ISSUE_MESSAGE.expectCloseToken(
-    group.open.text,
-    String.fromCharCode(OPEN_CLOSE_PAIR[group.open.text.charCodeAt(0)]),
-  );
+  const issueMessage = ISSUE_MESSAGE.expectCloseToken(group.open.text, OPEN_CLOSE_PAIR[group.open.text]);
 
   expect(ast.issueManager.issues[0].message.actual).toBe(issueMessage.actual);
   expect(ast.issueManager.issues[0].message.expect).toBe(issueMessage.expect);

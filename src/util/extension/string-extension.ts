@@ -1,16 +1,11 @@
 import {Boolean2, Char, Integer, Number2, String2} from '../../lib/core';
 
-export const UPPER_A_CODE = 'A'.charCodeAt(0);
-
-export const UPPER_Z_CODE = 'Z'.charCodeAt(0);
-
-export const LOWER_A_CODE = 'a'.charCodeAt(0);
-
-export const LOWER_Z_CODE = 'z'.charCodeAt(0);
-
-export const DIGIT_0_CODE = '0'.charCodeAt(0);
-
-export const DIGIT_9_CODE = '9'.charCodeAt(0);
+const UPPER_A_CODE = 'A'.charCodeAt(0);
+const UPPER_Z_CODE = 'Z'.charCodeAt(0);
+const LOWER_A_CODE = 'a'.charCodeAt(0);
+const LOWER_Z_CODE = 'z'.charCodeAt(0);
+const DIGIT_0_CODE = '0'.charCodeAt(0);
+const DIGIT_9_CODE = '9'.charCodeAt(0);
 
 String.prototype.takeWhile = function takeWhile(
   predicate: (value: Char, index: Integer) => Boolean2,

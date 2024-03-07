@@ -46,10 +46,7 @@ export function validateGroupNode(context: SyntaxContext, node: GroupNode): void
   if (!node.close) {
     context.issueManager.addError(
       node.open,
-      ISSUE_MESSAGE.expectCloseToken(
-        node.open.text,
-        String.fromCharCode(OPEN_CLOSE_PAIR[node.open.text.charCodeAt(0)]),
-      ),
+      ISSUE_MESSAGE.expectCloseToken(node.open.text, OPEN_CLOSE_PAIR[node.open.text]),
     );
   }
 }
@@ -75,7 +72,7 @@ export function scanGroupNode(context: SyntaxContext): Group | null {
       position,
       (node) =>
         (is<OperatorNode>(node, $Node.OPERATOR) && node.text === COMMA) ||
-        (is<CloseNode>(node, $Node.CLOSE) && node.text.charCodeAt(0) === OPEN_CLOSE_PAIR[open.text.charCodeAt(0)]),
+        (is<CloseNode>(node, $Node.CLOSE) && node.text === OPEN_CLOSE_PAIR[open.text]),
     );
 
     context.position = itemContext.position;
@@ -102,17 +99,15 @@ export function scanGroupNode(context: SyntaxContext): Group | null {
 }
 
 function createGroupNode(context: SyntaxContext, open: OpenNode, close: CloseNode | null, nodes: Node[]): Group {
-  const code = open.text.charCodeAt(0);
-
-  if (code === GROUP_NODE_OPEN_CODE) {
+  if (open.text === GROUP_NODE_OPEN_CODE) {
     return groupNode(context, open, close, nodes);
   }
 
-  if (code === OBJECT_NODE_OPEN_CODE) {
+  if (open.text === OBJECT_NODE_OPEN_CODE) {
     return objectNode(open, close, nodes);
   }
 
-  if (code === ARRAY_NODE_OPEN_CODE) {
+  if (open.text === ARRAY_NODE_OPEN_CODE) {
     return arrayNode(open, close, nodes);
   }
 

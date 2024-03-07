@@ -1,17 +1,17 @@
-import { Nothing, nothing } from '../../lib/core';
-import { $Node, Node, is } from '../node/node';
+import {Nothing, nothing} from '../../lib/core';
+import {$Node, Node, is} from '../node/node';
 import {
   DeclarationListNode,
   DeclarationNode,
   declarationListNode,
   declarationNode,
 } from '../node/syntax/declaration/declaration-node';
-import { GroupNode } from '../node/syntax/group/group-node';
-import { InfixNode } from '../node/syntax/infix/infix-node';
-import { InvokeNode } from '../node/syntax/invoke/invoke-node';
-import { ObjectNode } from '../node/syntax/object/object-node';
-import { PrefixNode, prefixNode } from '../node/syntax/prefix/prefix-node';
-import { IdNode } from '../node/token/id/id-node';
+import {GroupNode} from '../node/syntax/group/group-node';
+import {InfixNode} from '../node/syntax/infix/infix-node';
+import {InvokeNode} from '../node/syntax/invoke/invoke-node';
+import {ObjectNode} from '../node/syntax/object/object-node';
+import {PrefixNode, prefixNode} from '../node/syntax/prefix/prefix-node';
+import {IdNode} from '../node/token/id/id-node';
 import {
   ASSIGN_TOKEN,
   GROUP_NODE_OPEN_CODE,
@@ -20,7 +20,7 @@ import {
   OBJECT_NODE_OPEN_CODE,
   TYPE_TOKEN,
 } from '../syntax-config';
-import { SyntaxContext } from '../syntax-context';
+import {SyntaxContext} from '../syntax-context';
 
 export function collapseDeclaration(context: SyntaxContext): void {
   const node = context.nodes[0];
@@ -76,12 +76,12 @@ function parseParameter(context: SyntaxContext, node: Node | Nothing): Declarati
 function getDeclarationParts(
   context: SyntaxContext,
   node: Node | Nothing,
-): (Partial<DeclarationNode> & { id: IdNode }) | Nothing {
+): (Partial<DeclarationNode> & {id: IdNode}) | Nothing {
   if (!node) {
     return nothing;
   }
 
-  const { header, type, assign } = getHeaderTypeAssign(context, node);
+  const {header, type, assign} = getHeaderTypeAssign(context, node);
 
   if (is<PrefixNode>(header, $Node.PREFIX) && MODIFIERS.includes(header.operator.text)) {
     if (!header.value) {
@@ -94,7 +94,7 @@ function getDeclarationParts(
       return nothing;
     }
 
-    return { modifier: header.operator, ...underModifier, type, assign };
+    return {modifier: header.operator, ...underModifier, type, assign};
   }
 
   const underModifier = getUnderModifier(context, header);
@@ -103,41 +103,41 @@ function getDeclarationParts(
     return nothing;
   }
 
-  return { ...underModifier, type, assign };
+  return {...underModifier, type, assign};
 }
 
 function getHeaderTypeAssign(
   context: SyntaxContext,
   node: Node | Nothing,
-): { header: Node | Nothing; type?: PrefixNode | Nothing; assign?: PrefixNode | Nothing } {
+): {header: Node | Nothing; type?: PrefixNode | Nothing; assign?: PrefixNode | Nothing} {
   if (is<InfixNode>(node, $Node.INFIX)) {
     if (node.operator.text === TYPE_TOKEN) {
       const type = prefixNode(context, node.operator, node.right);
 
-      return { header: node.left, type };
+      return {header: node.left, type};
     }
 
     if (node.operator.text === ASSIGN_TOKEN) {
       const assign = prefixNode(context, node.operator, node.right);
       const headerType = getHeaderTypeAssign(context, node.left);
 
-      return { ...headerType, assign };
+      return {...headerType, assign};
     }
   }
 
-  return { header: node };
+  return {header: node};
 }
 
 function getUnderModifier(
   context: SyntaxContext,
   node: Node | Nothing,
-): { id: IdNode; generics?: DeclarationListNode | Nothing; parameters?: DeclarationListNode | Nothing } | Nothing {
+): {id: IdNode; generics?: DeclarationListNode | Nothing; parameters?: DeclarationListNode | Nothing} | Nothing {
   if (!node) {
     return nothing;
   }
 
   if (is<IdNode>(node, $Node.ID)) {
-    return { id: node };
+    return {id: node};
   }
 
   if (is<InvokeNode>(node, $Node.INVOKE)) {
@@ -151,12 +151,12 @@ function getUnderModifier(
       const declarations = node.group.items.map((x) => parseParameter(context, x));
       const declarationList = declarationListNode(node.group.open, node.group.close, declarations);
 
-      if (declarationList.open.text.charCodeAt(0) === GROUP_NODE_OPEN_CODE) {
-        return { ...instance, parameters: declarationList };
+      if (declarationList.open.text === GROUP_NODE_OPEN_CODE) {
+        return {...instance, parameters: declarationList};
       }
 
-      if (declarationList.open.text.charCodeAt(0) === OBJECT_NODE_OPEN_CODE) {
-        return { ...instance, generics: declarationList };
+      if (declarationList.open.text === OBJECT_NODE_OPEN_CODE) {
+        return {...instance, generics: declarationList};
       }
     }
   }

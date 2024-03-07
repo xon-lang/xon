@@ -1,4 +1,4 @@
-import {Integer, String2} from '../lib/core';
+import {Char, String2} from '../lib/core';
 import {$Node} from './node/node';
 
 export interface OperatorsOrder {
@@ -24,20 +24,10 @@ export const COMMENT_LINE = '//';
 export const COMMENT_BLOCK = '---';
 
 export const NL = '\n';
-export const NL_CODE = NL.charCodeAt(0);
-
 export const COMMA = ',';
-export const COMMA_CODE = COMMA.charCodeAt(0);
-
 export const JOINING = '\\';
-export const JOINING_CODE = JOINING.charCodeAt(0);
-
 export const SPACE = ' ';
-export const SPACE_CODE = SPACE.charCodeAt(0);
-
 export const UNDERSCORE = '_';
-export const UNDERSCORE_CODE = UNDERSCORE.charCodeAt(0);
-
 export const STRING_QUOTE = '"';
 export const CHAR_QUOTE = "'";
 export const TYPE_TOKEN = ':';
@@ -46,18 +36,20 @@ export const MEMBER_TOKEN = '.';
 export const META_MEMBER_TOKEN = '::';
 export const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
 
-export const GROUP_NODE_OPEN_CODE = '('.charCodeAt(0);
-export const GROUP_NODE_CLOSE_CODE = ')'.charCodeAt(0);
-export const ARRAY_NODE_OPEN_CODE = '['.charCodeAt(0);
-export const ARRAY_NODE_CLOSE_CODE = ']'.charCodeAt(0);
-export const OBJECT_NODE_OPEN_CODE = '{'.charCodeAt(0);
-export const OBJECT_NODE_CLOSE_CODE = '}'.charCodeAt(0);
+export const GROUP_NODE_OPEN_CODE = '(';
+export const GROUP_NODE_CLOSE_CODE = ')';
 
-export const OPEN_CLOSE_PAIR: Record<Integer, Integer> = {
+export const ARRAY_NODE_OPEN_CODE = '[';
+export const ARRAY_NODE_CLOSE_CODE = ']';
+
+export const OBJECT_NODE_OPEN_CODE = '{';
+export const OBJECT_NODE_CLOSE_CODE = '}';
+
+export const OPEN_CLOSE_PAIR: Record<Char, Char> = {
   [GROUP_NODE_OPEN_CODE]: GROUP_NODE_CLOSE_CODE,
   [ARRAY_NODE_OPEN_CODE]: ARRAY_NODE_CLOSE_CODE,
   [OBJECT_NODE_OPEN_CODE]: OBJECT_NODE_CLOSE_CODE,
-} as const;
+};
 
 export const MODEL_MODIFIER = 'model';
 export const CONSTANT_MODIFIER = 'const';

@@ -1,6 +1,6 @@
 import {Nothing, String2, nothing} from '../../../../lib/core';
 import {SourceRange} from '../../../../source/source-range';
-import {UNDERSCORE_CODE} from '../../../syntax-config';
+import {UNDERSCORE} from '../../../syntax-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node} from '../../node';
 import {TokenNode, tokenNode} from '../token-node';
@@ -21,7 +21,7 @@ export function scanIntegerNode(context: SyntaxContext): IntegerNode | Nothing {
   }
 
   const text = context.source.text.takeWhile(
-    (x, i) => x.charCodeAt(0) === UNDERSCORE_CODE || source.text.isDigit(i),
+    (x, i) => x === UNDERSCORE || source.text.isDigit(i),
     context.position.index,
   );
 

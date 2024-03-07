@@ -14,9 +14,9 @@ export function closeNode(range: SourceRange, text: String2): CloseNode {
 }
 
 export function scanCloseNode(context: SyntaxContext): CloseNode | Nothing {
-  const code = context.source.characters[context.position.index];
+  const char = context.source.text[context.position.index];
 
-  if (code === GROUP_NODE_CLOSE_CODE || code === ARRAY_NODE_CLOSE_CODE || code === OBJECT_NODE_CLOSE_CODE) {
+  if (char === GROUP_NODE_CLOSE_CODE || char === ARRAY_NODE_CLOSE_CODE || char === OBJECT_NODE_CLOSE_CODE) {
     const text = context.source.text[context.position.index];
     const range = context.getRange(1, false);
 

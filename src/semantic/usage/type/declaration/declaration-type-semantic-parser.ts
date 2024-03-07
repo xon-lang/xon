@@ -27,7 +27,7 @@ export function declarationTypeSemanticParse(context: SemanticContext, node: Nod
   // A[][]
   // A{T}
   if (is<InvokeNode>(node, $Node.INVOKE) && is<IdNode>(node.instance, $Node.ID)) {
-    if (node.group.open.text.charCodeAt(0) !== OBJECT_NODE_OPEN_CODE) {
+    if (node.group.open.text !== OBJECT_NODE_OPEN_CODE) {
       throw new Error('Not implemented');
     }
 

@@ -1,7 +1,7 @@
 import { String2 } from '../../../../lib/core';
 import { SourceRange } from '../../../../source/source-range';
 import '../../../../util/extension';
-import { UNDERSCORE_CODE } from '../../../syntax-config';
+import { UNDERSCORE } from '../../../syntax-config';
 import { SyntaxContext } from '../../../syntax-context';
 import { $Node } from '../../node';
 import { TokenNode, tokenNode } from '../token-node';
@@ -17,12 +17,12 @@ export function idNode(range: SourceRange, text: String2): IdNode {
 export function scanIdNode(context: SyntaxContext): IdNode | null {
   const { position, source } = context;
 
-  if (source.text[position.index].charCodeAt(0) !== UNDERSCORE_CODE && !source.text.isLetter(position.index)) {
+  if (source.text[position.index] !== UNDERSCORE && !source.text.isLetter(position.index)) {
     return null;
   }
 
   const text = source.text.takeWhile(
-    (x, i) => x.charCodeAt(0) === UNDERSCORE_CODE || source.text.isLetterOrDigit(i),
+    (x, i) => x === UNDERSCORE || source.text.isLetterOrDigit(i),
     position.index,
   );
 
