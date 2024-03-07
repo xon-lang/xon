@@ -6,6 +6,7 @@ import {WhitespaceNode} from '../node/token/whitespace/whitespace-node';
 import {SyntaxContext} from '../syntax-context';
 import {getStatementNode} from './get-statement-node';
 
+// todo try to simplify it
 export function putStatementNode(context: SyntaxContext): void {
   const {hiddenNodes} = context;
   const lastNlIndex = hiddenNodes.findLastIndex((x) => is(x, $Node.NL));

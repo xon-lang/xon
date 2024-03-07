@@ -1,4 +1,4 @@
-import { coreDeclarationSemantic } from './core';
+import {coreDeclarationSemantic} from './core';
 
 test('something type', () => {
   expect(coreDeclarationSemantic('Anything').name).toBe('Anything');

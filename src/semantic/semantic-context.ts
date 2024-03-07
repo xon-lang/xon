@@ -1,13 +1,14 @@
-import { IssueManager } from '../issue/issue-manager';
-import { ISSUE_MESSAGE } from '../issue/issue-message';
-import { Nothing, String2, nothing } from '../lib/core';
-import { Node } from '../parser/node/node';
-import { IdNode } from '../parser/node/token/id/id-node';
-import { Source } from '../source/source';
-import { SourceReference, sourceReference } from '../source/source-reference';
-import { DeclarationSemantic } from './declaration/declaration-semantic';
-import { GenericSemantic } from './declaration/generic/generic-semantic';
-import { ParameterSemantic } from './declaration/parameter/parameter-semantic';
+import {IssueManager} from '../issue/issue-manager';
+import {ISSUE_MESSAGE} from '../issue/issue-message';
+import {Integer, Nothing, String2, nothing} from '../lib/core';
+import {Node} from '../parser/node/node';
+import {IdNode} from '../parser/node/token/id/id-node';
+import {Source} from '../source/source';
+import {SourceReference, sourceReference} from '../source/source-reference';
+import {DeclarationSemantic} from './declaration/declaration-semantic';
+import {ModelSemantic} from './declaration/model/model-semantic';
+import {ParameterSemantic} from './declaration/parameter/parameter-semantic';
+import {$Semantic, semanticIs} from './semantic';
 
 export interface SemanticContext {
   parent: SemanticContext | Nothing;
@@ -18,14 +19,11 @@ export interface SemanticContext {
   createChildContext: () => SemanticContext;
   createReference: (node: Node) => SourceReference;
   addDeclaration: (declaration: DeclarationSemantic) => void;
-  findDeclarations: (
-    name: String2,
-    generics: GenericSemantic[] | Nothing,
-    parameters: ParameterSemantic[] | Nothing,
-  ) => DeclarationSemantic[];
+
+  findDeclarations: (name: String2) => DeclarationSemantic[];
   findSingleDeclaration: (
     node: IdNode,
-    generics: GenericSemantic[] | Nothing,
+    genericLength: Integer,
     parameters: ParameterSemantic[] | Nothing,
   ) => DeclarationSemantic | Nothing;
 }
@@ -57,20 +55,16 @@ export function semanticContext(
       this.declarations[declaration.name].push(declaration);
     },
 
-    findDeclarations(
-      name: String2,
-      generics: GenericSemantic[] | Nothing,
-      parameters: ParameterSemantic[] | Nothing,
-    ): DeclarationSemantic[] {
-      return this.declarations[name] ?? this.parent?.findDeclarations(name, generics, parameters) ?? [];
+    findDeclarations(name: String2): DeclarationSemantic[] {
+      return this.declarations[name] ?? this.parent?.findDeclarations(name) ?? [];
     },
 
     findSingleDeclaration(
       node: IdNode,
-      generics: GenericSemantic[] | Nothing,
+      genericLength: Integer,
       parameters: ParameterSemantic[] | Nothing,
     ): DeclarationSemantic | Nothing {
-      const declarations = this.findDeclarations(node.text, generics, parameters);
+      const declarations = this.findDeclarations(node.text);
 
       if (declarations.length === 0) {
         this.issueManager.addError(node, ISSUE_MESSAGE.declarationNotFound(node.text));
@@ -78,13 +72,18 @@ export function semanticContext(
         return nothing;
       }
 
-      if (declarations.length !== 1) {
+      // todo also check other declarations instead of model, mb we need all declarations must contains generics
+      const filtered = declarations.filter(
+        (x) => semanticIs<ModelSemantic>(x, $Semantic.MODEL) && x.generics.length === genericLength,
+      );
+
+      if (filtered.length !== 1) {
         this.issueManager.addError(node, ISSUE_MESSAGE.tooManyDeclarationsFoundWithName(node.text));
 
         return nothing;
       }
 
-      return declarations[0];
+      return filtered.first();
     },
   };
 }

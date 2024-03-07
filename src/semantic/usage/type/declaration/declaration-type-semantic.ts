@@ -1,8 +1,8 @@
-import { Boolean2, Nothing, String2 } from '../../../../lib/core';
-import { SourceReference } from '../../../../source/source-reference';
-import { DeclarationSemantic } from '../../../declaration/declaration-semantic';
-import { $Semantic } from '../../../semantic';
-import { TypeSemantic } from '../type-semantic';
+import {Boolean2, Nothing, String2} from '../../../../lib/core';
+import {SourceReference} from '../../../../source/source-reference';
+import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
+import {$Semantic} from '../../../semantic';
+import {TypeSemantic} from '../type-semantic';
 
 export interface DeclarationTypeSemantic extends TypeSemantic {
   $: $Semantic.DECLARATION_TYPE;

@@ -1,3 +1,3 @@
-import { IntegerTypeSemantic } from './integer/integer-type-semantic';
+import {TypeSemantic} from '../type-semantic';
 
-export type LiteralType = IntegerTypeSemantic;
+export interface LiteralType extends TypeSemantic {}

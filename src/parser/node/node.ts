@@ -6,6 +6,7 @@ import {TokenNode} from './token/token-node';
 export interface Node {
   readonly $: $Node;
   range: SourceRange;
+  readonly children?: Node[];
   hiddenNodes: TokenNode[];
   semantic?: Semantic | Nothing;
 }
