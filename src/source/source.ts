@@ -1,4 +1,5 @@
-import {Integer, String2} from '../lib/core';
+import {readFileSync} from 'fs';
+import {String2} from '../lib/core';
 
 import '../util/extension';
 import {SourceRange} from './source-range';
@@ -6,14 +7,21 @@ import {SourceRange} from './source-range';
 export interface Source {
   location: String2 | null;
   text: String2;
-  length: Integer;
 }
 
-export function createSource(path: String2 | null, text: String2): Source {
+export function createSource(location: String2 | null, text: String2): Source {
   return {
-    location: path,
+    location,
     text,
-    length: text.length,
+  };
+}
+
+export function sourceFromFile(location: String2): Source {
+  const text = readFileSync(location).toString();
+
+  return {
+    location,
+    text,
   };
 }
 
