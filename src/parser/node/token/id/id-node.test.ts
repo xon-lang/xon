@@ -28,6 +28,6 @@ test('several id', () => {
   expect(node.$).toBe($Node.ID);
 
   expect(syntax.issueManager.issues.length).toBe(2);
-  expect(syntax.issueManager.issues[0].message.actual).toBe(ISSUE_MESSAGE.notImplemented().actual);
-  expect(syntax.issueManager.issues[1].message.actual).toBe(ISSUE_MESSAGE.notImplemented().actual);
+  expect(syntax.issueManager.issues[0].message.actual).toBe(ISSUE_MESSAGE.unexpectedExpression().actual);
+  expect(syntax.issueManager.issues[1].message.actual).toBe(ISSUE_MESSAGE.unexpectedExpression().actual);
 });
