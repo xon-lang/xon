@@ -19,7 +19,7 @@ export interface Issue {
 export function createSyntacticErrorIssue(node: Node, message: IssueMessage): Issue {
   return {
     type: IssueType.SYNTACTIC,
-    level: IssueLevel.error,
+    level: IssueLevel.ERROR,
     node,
     message,
   };
@@ -28,7 +28,7 @@ export function createSyntacticErrorIssue(node: Node, message: IssueMessage): Is
 export function createSemanticErrorIssue(node: Node, message: IssueMessage): Issue {
   return {
     type: IssueType.SEMANTIC,
-    level: IssueLevel.error,
+    level: IssueLevel.ERROR,
     node,
     message,
   };

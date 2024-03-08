@@ -22,7 +22,7 @@ export function createIssueManager(source: Source, issueType: IssueType, issues:
     addError(node: Node, message: IssueMessage): Issue {
       const issue = {
         type: this.issueType,
-        level: IssueLevel.error,
+        level: IssueLevel.ERROR,
         node,
         message,
       };
