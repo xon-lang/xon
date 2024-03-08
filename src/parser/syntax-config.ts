@@ -36,7 +36,8 @@ export const MEMBER = '.';
 export const META_MEMBER = '::';
 export const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
 export const RANGE = '..';
-export const UNION = '|';
+export const AND = '&';
+export const OR = '|';
 
 export const GROUP_NODE_OPEN = '(';
 export const GROUP_NODE_CLOSE = ')';
@@ -92,7 +93,7 @@ export const operatorsOrders: OperatorsOrder[] = [
     recursiveType: RecursiveType.LEFT,
   },
   {
-    operators: ['^', '* / %', '+ -', RANGE, '< <= >= >', '== !=', 'is as in', '&', UNION],
+    operators: ['^', '* / %', '+ -', RANGE, '< <= >= >', '== !=', 'is as in', AND, OR],
     operatorType: OperatorType.INFIX,
     recursiveType: RecursiveType.LEFT,
   },
