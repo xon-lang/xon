@@ -14,15 +14,7 @@ export function declarationShallowSemanticParse(
   context: SemanticContext,
   node: DeclarationNode,
 ): DeclarationSemantic | Nothing {
-  for (const shallowParse of shallowDeclarationParsers) {
-    const declaration = shallowParse(context, node);
-
-    if (declaration) {
-      return declaration;
-    }
-  }
-
-  return nothing;
+  return shallowDeclarationParsers.findMap((x) => x(context, node));
 }
 
 export function declarationDeepSemanticParse(
@@ -33,13 +25,5 @@ export function declarationDeepSemanticParse(
     return nothing;
   }
 
-  for (const deepParse of deepDeclarationParsers) {
-    const declaration = deepParse(context, node);
-
-    if (declaration) {
-      return declaration;
-    }
-  }
-
-  return nothing;
+  return deepDeclarationParsers.findMap((x) => x(context, node));
 }
