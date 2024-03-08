@@ -78,22 +78,27 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
     }
   }
 
-  const afterIntentHiddenNodes = node.indentHiddenNodes.slice(1);
+  const indentHiddenNodes = node.indentHiddenNodes.slice(1);
 
-  if (afterIntentHiddenNodes.length > 0) {
-    const range = rangeFromNodes(afterIntentHiddenNodes);
-    const formatter = getFormatterForHiddenNodes(context, range, afterIntentHiddenNodes, FormattingType.BEFORE);
+  if (indentHiddenNodes.length > 0) {
+    const range = rangeFromNodes(indentHiddenNodes);
+    const formatter = getFormatterForHiddenNodes(context, range, indentHiddenNodes, FormattingType.BEFORE);
 
     if (formatter) {
       context.formatters.push(formatter);
     }
   }
 
-  const lastChildHiddenNodes = node.children.last().hiddenNodes;
+  const childrenWithoutLast = node.children.slice(0, -1);
 
-  if (lastChildHiddenNodes.length > 0) {
-    const range = rangeFromNodes(lastChildHiddenNodes);
-    const formatter = getFormatterForHiddenNodes(context, range, lastChildHiddenNodes, FormattingType.AFTER);
+  for (const child of childrenWithoutLast) {
+    formatBetweenHiddenNodes(context, child, true);
+  }
+
+  const lastStatementNode = node.children.last();
+  if (lastStatementNode.hiddenNodes.length > 0) {
+    const range = rangeFromNodes(lastStatementNode.hiddenNodes);
+    const formatter = getFormatterForHiddenNodes(context, range, lastStatementNode.hiddenNodes, FormattingType.AFTER);
 
     if (formatter) {
       context.formatters.push(formatter);

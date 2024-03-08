@@ -28,6 +28,7 @@ export function createIssueManager(source: Source, issueType: IssueType, issues:
       };
 
       this.issues.push(issue);
+      this.log(issue);
 
       return issue;
     },

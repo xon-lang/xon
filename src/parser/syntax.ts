@@ -44,7 +44,6 @@ const scanFunctions: SyntaxScanFn[] = [
 // todo rename to syntax from source
 export function parseSyntax(source: Source): SyntaxResult {
   const result = parseSyntaxUntil(source, zeroPosition(), nothing);
-  result.issueManager.issues.forEach((x) => result.issueManager.log(x));
 
   return result;
 }
@@ -72,7 +71,7 @@ export function parseSyntaxUntil(
     const lastNode = context.nodes.lastOrNull();
 
     if (is<UnknownNode>(node, $Node.UNKNOWN)) {
-      if (is<UnknownNode>(lastNode, $Node.UNKNOWN)) {
+      if (is<UnknownNode>(lastNode, $Node.UNKNOWN) && lastNode.hiddenNodes.length === 0) {
         lastNode.range.stop = node.range.stop;
         lastNode.text += node.text;
 

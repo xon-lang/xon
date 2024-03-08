@@ -1,12 +1,12 @@
-import { IssueType } from '../issue/issue';
-import { createIssueManager } from '../issue/issue-manager';
-import { Nothing } from '../lib/core';
-import { $Node, is } from '../parser/node/node';
-import { DeclarationNode } from '../parser/node/syntax/declaration/declaration-node';
-import { SyntaxResult } from '../parser/syntax-result';
-import { SourceReference } from '../source/source-reference';
-import { declarationsParse } from './declaration/declaration-semantic-parser';
-import { SemanticContext, semanticContext } from './semantic-context';
+import {IssueType} from '../issue/issue';
+import {createIssueManager} from '../issue/issue-manager';
+import {Nothing} from '../lib/core';
+import {$Node, is} from '../parser/node/node';
+import {DeclarationNode} from '../parser/node/syntax/declaration/declaration-node';
+import {SyntaxResult} from '../parser/syntax-result';
+import {SourceReference} from '../source/source-reference';
+import {declarationsParse} from './declaration/declaration-semantic-parser';
+import {SemanticContext, semanticContext} from './semantic-context';
 
 export interface Semantic {
   $: $Semantic;
@@ -38,7 +38,7 @@ export enum $Semantic {
 }
 
 export function semanticIs<T extends Semantic = Semantic>(
-  semantic: { $: $Semantic } | Nothing,
+  semantic: {$: $Semantic} | Nothing,
   type: $Semantic,
 ): semantic is T {
   return semantic?.$ === type;
@@ -53,8 +53,6 @@ export function parseSemantic(syntax: SyntaxResult): SemanticContext {
     .filter((x): x is DeclarationNode => is<DeclarationNode>(x, $Node.DECLARATION));
 
   declarationsParse(context, declarations);
-
-  issueManager.issues.forEach((x) => issueManager.log(x));
 
   return context;
 }
