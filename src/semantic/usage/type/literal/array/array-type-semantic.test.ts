@@ -5,6 +5,7 @@ import {sourceFromText} from '../../../../../source/source';
 import {ConstantSemantic} from '../../../../declaration/constant/constant-semantic';
 import {$Semantic, parseSemantic} from '../../../../semantic';
 import {DeclarationTypeSemantic} from '../../declaration/declaration-type-semantic';
+import {typeSemanticParse} from '../../type-semantic-parser';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
 import {ArrayTypeSemantic} from './array-type-semantic';
 
@@ -28,7 +29,7 @@ test('a is array', () => {
   const idSemantic = constNode.id?.semantic as ConstantSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = constNode.type?.value?.semantic as ArrayTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as ArrayTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.ARRAY_TYPE);
   expect(typeSemantic.type.$).toBe($Semantic.DECLARATION_TYPE);
   expect((typeSemantic.type as DeclarationTypeSemantic).declaration.name).toBe('Integer');
@@ -56,7 +57,7 @@ test('a is array of array', () => {
   const idSemantic = constNode.id?.semantic as ConstantSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = constNode.type?.value?.semantic as ArrayTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as ArrayTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.ARRAY_TYPE);
   expect(typeSemantic.type.$).toBe($Semantic.ARRAY_TYPE);
   expect(typeSemantic.size).toBe(nothing);

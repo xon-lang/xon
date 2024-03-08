@@ -3,6 +3,7 @@ import {parseSyntax} from '../../../../../parser/syntax';
 import {sourceFromText} from '../../../../../source/source';
 import {ConstantSemantic} from '../../../../declaration/constant/constant-semantic';
 import {$Semantic, parseSemantic} from '../../../../semantic';
+import {typeSemanticParse} from '../../type-semantic-parser';
 import {RangeTypeSemantic} from './range-type-semantic';
 
 test('a is integer', () => {
@@ -24,7 +25,7 @@ test('a is integer', () => {
   const idSemantic = constNode.id?.semantic as ConstantSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = constNode.type?.value?.semantic as RangeTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as RangeTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.RANGE_TYPE);
   expect(typeSemantic.from.value).toBe(1);
   expect(typeSemantic.to.value).toBe(3);

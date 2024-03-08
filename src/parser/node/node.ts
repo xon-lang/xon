@@ -1,5 +1,4 @@
 import {Nothing} from '../../lib/core';
-import {Semantic} from '../../semantic/semantic';
 import {SourceRange} from '../../source/source-range';
 import {TokenNode} from './token/token-node';
 
@@ -8,7 +7,6 @@ export interface Node {
   range: SourceRange;
   readonly children?: Node[];
   hiddenNodes: TokenNode[];
-  semantic?: Semantic | Nothing;
 }
 
 export enum $Node {

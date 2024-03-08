@@ -1,4 +1,5 @@
 import {Nothing, String2, nothing} from '../../../../lib/core';
+import {Semantic} from '../../../../semantic/semantic';
 import {SourceRange} from '../../../../source/source-range';
 import {operatorsOrders} from '../../../syntax-config';
 import {SyntaxContext} from '../../../syntax-context';
@@ -8,6 +9,7 @@ import {TokenNode, tokenNode} from '../token-node';
 
 export interface OperatorNode extends TokenNode {
   $: $Node.OPERATOR;
+  semantic?: Semantic | Nothing;
 }
 
 export function operatorNode(range: SourceRange, text: String2): OperatorNode {

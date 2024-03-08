@@ -26,6 +26,7 @@ export function declarationTypeSemanticParse(context: SemanticContext, node: Nod
   // A[]
   // A[][]
   // A{T}
+  // todo check only for generics and array types
   if (is<InvokeNode>(node, $Node.INVOKE) && is<IdNode>(node.instance, $Node.ID)) {
     if (node.group.open.text !== OBJECT_NODE_OPEN) {
       throw new Error('Not implemented');
@@ -42,7 +43,6 @@ export function declarationTypeSemanticParse(context: SemanticContext, node: Nod
     const semantic = declarationTypeSemantic(reference, declaration, nothing);
     // todo recheck, we always need set id semantic for all cases ???
     node.instance.semantic = semantic;
-    node.semantic = semantic;
 
     return semantic;
   }
