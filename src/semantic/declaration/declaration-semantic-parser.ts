@@ -1,34 +1,45 @@
-import { Nothing } from '../../lib/core';
-import { DeclarationNode } from '../../parser/node/syntax/declaration/declaration-node';
-import { SemanticContext } from '../semantic-context';
-import { constantDeepParse, constantShallowParse } from './constant/constant-semantic-parser';
-import { DeclarationSemantic } from './declaration-semantic';
-import { modelDeepParse, modelShallowParse } from './model/model-semantic-parser';
+import {Nothing, nothing} from '../../lib/core';
+import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-node';
+import {SemanticContext} from '../semantic-context';
+import {constantDeepParse, constantShallowParse} from './constant/constant-semantic-parser';
+import {DeclarationSemantic} from './declaration-semantic';
+import {modelDeepParse, modelShallowParse} from './model/model-semantic-parser';
 
-type ShallowDeclarationParseFn = (context: SemanticContext, node: DeclarationNode) => DeclarationSemantic | Nothing;
-type DeepDeclarationParseFn = (context: SemanticContext, node: DeclarationNode) => void;
+type DeclarationParseFn = (context: SemanticContext, node: DeclarationNode) => DeclarationSemantic | Nothing;
 
-const shallowDeclarationParsers: ShallowDeclarationParseFn[] = [modelShallowParse, constantShallowParse];
-const deepDeclarationParsers: DeepDeclarationParseFn[] = [modelDeepParse, constantDeepParse];
+const shallowDeclarationParsers: DeclarationParseFn[] = [modelShallowParse, constantShallowParse];
+const deepDeclarationParsers: DeclarationParseFn[] = [modelDeepParse, constantDeepParse];
 
-export function declarationsParse(context: SemanticContext, nodes: DeclarationNode[]): DeclarationSemantic[] {
-  const declarations: DeclarationSemantic[] = [];
+export function declarationShallowSemanticParse(
+  context: SemanticContext,
+  node: DeclarationNode,
+): DeclarationSemantic | Nothing {
+  for (const shallowParse of shallowDeclarationParsers) {
+    const declaration = shallowParse(context, node);
 
-  for (const node of nodes) {
-    for (const shallowParse of shallowDeclarationParsers) {
-      const declaration = shallowParse(context, node);
-
-      if (declaration) {
-        declarations.push(declaration);
-      }
+    if (declaration) {
+      return declaration;
     }
   }
 
-  for (const declaration of nodes) {
-    for (const deepParse of deepDeclarationParsers) {
-      deepParse(context, declaration);
+  return nothing;
+}
+
+export function declarationDeepSemanticParse(
+  context: SemanticContext,
+  node: DeclarationNode,
+): DeclarationSemantic | Nothing {
+  if (!node.id.semantic) {
+    return nothing;
+  }
+
+  for (const deepParse of deepDeclarationParsers) {
+    const declaration = deepParse(context, node);
+
+    if (declaration) {
+      return declaration;
     }
   }
 
-  return declarations;
+  return nothing;
 }

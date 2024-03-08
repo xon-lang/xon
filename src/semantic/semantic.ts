@@ -5,7 +5,7 @@ import {$Node, is} from '../parser/node/node';
 import {DeclarationNode} from '../parser/node/syntax/declaration/declaration-node';
 import {SyntaxResult} from '../parser/syntax-result';
 import {SourceReference} from '../source/source-reference';
-import {declarationsParse} from './declaration/declaration-semantic-parser';
+import {declarationDeepSemanticParse, declarationShallowSemanticParse} from './declaration/declaration-semantic-parser';
 import {SemanticContext, semanticContext} from './semantic-context';
 
 export interface Semantic {
@@ -52,7 +52,13 @@ export function parseSemantic(syntax: SyntaxResult): SemanticContext {
     .map((x) => x.item)
     .filter((x): x is DeclarationNode => is<DeclarationNode>(x, $Node.DECLARATION));
 
-  declarationsParse(context, declarations);
+  for (const declaration of declarations) {
+    declarationShallowSemanticParse(context, declaration);
+  }
+
+  for (const declaration of declarations) {
+    declarationDeepSemanticParse(context, declaration);
+  }
 
   return context;
 }

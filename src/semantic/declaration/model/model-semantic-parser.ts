@@ -24,7 +24,7 @@ export function modelShallowParse(context: SemanticContext, node: DeclarationNod
   return declaration;
 }
 
-export function modelDeepParse(context: SemanticContext, node: DeclarationNode): void {
+export function modelDeepParse(context: SemanticContext, node: DeclarationNode): ModelSemantic | Nothing {
   if (semanticIs<ModelSemantic>(node.id.semantic, $Semantic.MODEL)) {
     const childContext = context.createChildContext();
 
@@ -45,5 +45,9 @@ export function modelDeepParse(context: SemanticContext, node: DeclarationNode):
     if (node.attributes.length > 0) {
       // todo
     }
+
+    return node.id.semantic;
   }
+
+  return nothing;
 }
