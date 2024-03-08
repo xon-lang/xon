@@ -16,7 +16,7 @@ export function getStatementNode(
   collapseOperators(context);
   collapseDeclaration(context);
 
-  context.nodes.slice(1).forEach((node) => context.issueManager.addError(node, ISSUE_MESSAGE.notImplemented()));
+  context.nodes.slice(1).forEach((node) => context.issueManager.addError(node, ISSUE_MESSAGE.unexpectedExpression()));
 
   return statementNode(context, context.nodes, parent, indentStopColumn, beforeIndentHiddenNodes, indentHiddenNodes);
 }

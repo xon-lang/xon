@@ -1,4 +1,4 @@
-import { String2 } from '../lib/core';
+import {String2} from '../lib/core';
 
 export interface IssueMessage {
   actual: String2;
@@ -6,8 +6,13 @@ export interface IssueMessage {
 }
 
 export const ISSUE_MESSAGE = {
-  unexpectedNode: () => ({
-    actual: 'Unexpected node',
+  unknownTokens: () => ({
+    actual: 'Unknown tokens',
+    expect: null,
+  }),
+
+  unexpectedExpression: () => ({
+    actual: 'Unexpected expression',
     expect: null,
   }),
 
