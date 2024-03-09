@@ -22,14 +22,14 @@ test('a is array', () => {
   expect(semantic.declarations.a[0].$).toBe($Semantic.CONSTANT);
   expect(semantic.declarations.a[0].name).toBe('a');
 
-  const constNode = syntax.statements[1].item as DeclarationNode;
+  const constNode = syntax.statements[1].declaration as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($Semantic.CONSTANT);
 
   const idSemantic = constNode.id?.semantic as ConstantSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as ArrayTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type) as ArrayTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.ARRAY_TYPE);
   expect(typeSemantic.type.$).toBe($Semantic.DECLARATION_TYPE);
   expect((typeSemantic.type as DeclarationTypeSemantic).declaration.name).toBe('Integer');
@@ -50,14 +50,14 @@ test('a is array of array', () => {
   expect(semantic.declarations.a[0].$).toBe($Semantic.CONSTANT);
   expect(semantic.declarations.a[0].name).toBe('a');
 
-  const constNode = syntax.statements[1].item as DeclarationNode;
+  const constNode = syntax.statements[1].declaration as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($Semantic.CONSTANT);
 
   const idSemantic = constNode.id?.semantic as ConstantSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as ArrayTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type) as ArrayTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.ARRAY_TYPE);
   expect(typeSemantic.type.$).toBe($Semantic.ARRAY_TYPE);
   expect(typeSemantic.size).toBe(nothing);

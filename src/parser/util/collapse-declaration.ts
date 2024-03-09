@@ -30,11 +30,7 @@ export function parseDeclarationStatement(context: SyntaxContext, node: Node): D
 
   const parentStatementNode = context.parentStatement?.declaration;
 
-  if (
-    is<DeclarationNode>(parentStatementNode, $Node.DECLARATION) &&
-    parentStatementNode.modifier &&
-    MODIFIERS_WITH_ATTRIBUTES.includes(parentStatementNode.modifier?.text)
-  ) {
+  if (parentStatementNode?.modifier && MODIFIERS_WITH_ATTRIBUTES.includes(parentStatementNode.modifier?.text)) {
     const declaration = declarationNode(parts);
     parentStatementNode.attributes.push(declaration);
 

@@ -39,7 +39,7 @@ test('model string', () => {
   const node = statements[0].declaration as DeclarationNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.DECLARATION);
+  expect(node).toBeTruthy();
   expect(node.modifier?.text).toBe('model');
 });
 
@@ -51,7 +51,7 @@ test('model string with base class', () => {
   const node = statements[1].declaration as DeclarationNode;
 
   expect(statements.length).toBe(2);
-  expect(node.$).toBe($Node.DECLARATION);
+  expect(node).toBeTruthy();
 
   expect(node.modifier?.$).toBe($Node.OPERATOR);
   expect(node.modifier?.text).toBe('model');

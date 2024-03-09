@@ -1,7 +1,6 @@
 import {IssueType} from '../issue/issue';
 import {createIssueManager} from '../issue/issue-manager';
 import {Nothing} from '../lib/core';
-import {$Node, is} from '../parser/node/node';
 import {DeclarationNode} from '../parser/node/syntax/declaration/declaration-node';
 import {SyntaxResult} from '../parser/syntax-result';
 import {SourceReference} from '../source/source-reference';
@@ -48,10 +47,7 @@ export function parseSemantic(syntax: SyntaxResult): SemanticContext {
   // todo mb we need to create single issue manager
   const issueManager = createIssueManager(syntax.source, IssueType.SEMANTIC, syntax.issueManager.issues);
   const context = semanticContext(null, syntax.source, issueManager);
-
-  const declarations = syntax.statements
-    .map((x) => x.item)
-    .filter((x): x is DeclarationNode => is<DeclarationNode>(x, $Node.DECLARATION));
+  const declarations = syntax.statements.map((x) => x.declaration).filter((x): x is DeclarationNode => !!x);
 
   for (const declaration of declarations) {
     declarationShallowSemanticParse(context, declaration);

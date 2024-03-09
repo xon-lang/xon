@@ -14,7 +14,7 @@ test('model a', () => {
   const node = statements[0].declaration as DeclarationNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.DECLARATION);
+  expect(node).toBeTruthy();
   expect(node.modifier?.text).toBe('model');
   expect(node.id?.text).toBe('A');
 });

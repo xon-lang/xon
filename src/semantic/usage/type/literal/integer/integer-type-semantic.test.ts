@@ -17,13 +17,13 @@ test('a is integer', () => {
   expect(semantic.declarations.a[0].$).toBe($Semantic.CONSTANT);
   expect(semantic.declarations.a[0].name).toBe('a');
 
-  const constNode = syntax.statements[0].item as DeclarationNode;
+  const constNode = syntax.statements[0].declaration as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($Semantic.CONSTANT);
 
   const idSemantic = constNode.id?.semantic as ConstantSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value);
+  const typeSemantic = typeSemanticParse(semantic, constNode.type);
   expect(typeSemantic?.$).toBe($Semantic.INTEGER_TYPE);
 });

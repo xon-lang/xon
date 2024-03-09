@@ -29,16 +29,16 @@ export function modelDeepParse(context: SemanticContext, node: DeclarationNode):
     const childContext = context.createChildContext();
 
     if (node.generics) {
-      node.id.semantic.generics = genericsParse(childContext, node.generics.items);
+      node.id.semantic.generics = genericsParse(childContext, node.generics);
     }
 
-    if (node.type?.value) {
-      const baseType = typeSemanticParse(childContext, node.type.value);
+    if (node.type) {
+      const baseType = typeSemanticParse(childContext, node.type);
 
       if (semanticIs<DeclarationTypeSemantic>(baseType, $Semantic.DECLARATION_TYPE)) {
         node.id.semantic.base = baseType;
       } else {
-        context.issueManager.addError(node.type.value, ISSUE_MESSAGE.notImplemented());
+        context.issueManager.addError(node.type, ISSUE_MESSAGE.notImplemented());
       }
     }
 

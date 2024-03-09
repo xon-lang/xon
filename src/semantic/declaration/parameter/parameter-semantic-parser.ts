@@ -1,7 +1,7 @@
-import { Nothing, nothing } from '../../../lib/core';
-import { DeclarationNode } from '../../../parser/node/syntax/declaration/declaration-node';
-import { SemanticContext } from '../../semantic-context';
-import { ParameterSemantic, parameterShallowSemantic } from './parameter-semantic';
+import {Nothing, nothing} from '../../../lib/core';
+import {DeclarationNode} from '../../../parser/node/syntax/declaration/declaration-node';
+import {SemanticContext} from '../../semantic-context';
+import {ParameterSemantic, parameterShallowSemantic} from './parameter-semantic';
 
 export function parametersParse(
   context: SemanticContext,
@@ -23,7 +23,7 @@ function parameterShallowParse(context: SemanticContext, node: DeclarationNode |
     return nothing;
   }
 
-  const reference = context.createReference(node);
+  const reference = context.createReference(node.id);
   const name = node.id.text;
 
   const declaration = parameterShallowSemantic(reference, name);
