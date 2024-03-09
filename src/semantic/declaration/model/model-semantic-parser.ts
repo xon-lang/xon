@@ -26,44 +26,44 @@ export function modelShallowParse(context: SemanticContext, node: DeclarationNod
 }
 
 export function modelDeepParse(context: SemanticContext, node: DeclarationNode): ModelSemantic | Nothing {
-  if (semanticIs<ModelSemantic>(node.id.semantic, $Semantic.MODEL)) {
-    const childContext = context.createChildContext();
-
-    if (node.generics) {
-      node.id.semantic.generics = genericsParse(childContext, node.generics);
-    }
-
-    if (node.type) {
-      const baseType = typeSemanticParse(childContext, node.type);
-
-      if (semanticIs<DeclarationTypeSemantic>(baseType, $Semantic.DECLARATION_TYPE)) {
-        node.id.semantic.base = baseType;
-      } else {
-        context.issueManager.addError(node.type, ISSUE_MESSAGE.notImplemented());
-      }
-    }
-
-    if (node.attributes.length > 0) {
-      const declarations = declarationsSemanticParse(childContext, node.attributes);
-      const attributes: ModelSemantic['attributes'] = {};
-
-      for (const declaration of declarations) {
-        if (!declaration) {
-          continue;
-        }
-
-        if (!attributes[declaration.name]) {
-          attributes[declaration.name] = [];
-        }
-
-        attributes[declaration.name].push(declaration);
-      }
-
-      node.id.semantic.attributes = attributes;
-    }
-
-    return node.id.semantic;
+  if (!semanticIs<ModelSemantic>(node.id.semantic, $Semantic.MODEL)) {
+    return nothing;
   }
 
-  return nothing;
+  const childContext = context.createChildContext();
+
+  if (node.generics) {
+    node.id.semantic.generics = genericsParse(childContext, node.generics);
+  }
+
+  if (node.type) {
+    const baseType = typeSemanticParse(childContext, node.type);
+
+    if (semanticIs<DeclarationTypeSemantic>(baseType, $Semantic.DECLARATION_TYPE)) {
+      node.id.semantic.base = baseType;
+    } else {
+      context.issueManager.addError(node.type, ISSUE_MESSAGE.notImplemented());
+    }
+  }
+
+  if (node.attributes.length > 0) {
+    const declarations = declarationsSemanticParse(childContext, node.attributes);
+    const attributes: ModelSemantic['attributes'] = {};
+
+    for (const declaration of declarations) {
+      if (!declaration) {
+        continue;
+      }
+
+      if (!attributes[declaration.name]) {
+        attributes[declaration.name] = [];
+      }
+
+      attributes[declaration.name].push(declaration);
+    }
+
+    node.id.semantic.attributes = attributes;
+  }
+
+  return node.id.semantic;
 }

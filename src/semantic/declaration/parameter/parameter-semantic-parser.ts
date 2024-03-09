@@ -3,6 +3,7 @@ import {DeclarationNode} from '../../../parser/node/syntax/declaration/declarati
 import {SemanticContext} from '../../semantic-context';
 import {ParameterSemantic, parameterSemantic} from './parameter-semantic';
 
+// todo use declarationsSemanticParse instead ???
 export function parametersParse(
   context: SemanticContext,
   nodes: (DeclarationNode | Nothing)[],

@@ -2,6 +2,7 @@ import {parseSyntax} from '../../../parser/syntax';
 import {sourceFromText} from '../../../source/source';
 import {$Semantic, parseSemantic} from '../../semantic';
 import {DeclarationTypeSemantic} from '../../usage/type/declaration/declaration-type-semantic';
+import {AttributeSemantic} from '../attribute/attribute-semantic';
 import {ModelSemantic} from './model-semantic';
 
 test('only a', () => {
@@ -15,12 +16,14 @@ test('only a', () => {
   expect(model.$).toBe($Semantic.MODEL);
   expect(model.name).toBe('A');
 
-  // expect(model.attributes.length).toBe(1);
+  expect(Object.keys(model.attributes).length).toBe(1);
 
-  // const pAttribute = model.attributes['p'][0]
-  // expect(pAttribute.$).toBe($Semantic.PROPERTY);
-  // expect(pAttribute.name).toBe('p');
-  // expect(model.attributes['p'][0]).toBe('p');
+  const pAttribute = model.attributes['p'][0] as AttributeSemantic;
+  expect(pAttribute.$).toBe($Semantic.ATTRIBUTE);
+  expect(pAttribute.name).toBe('p');
+  expect(pAttribute.generics).toBeFalsy();
+  expect(pAttribute.parameters).toBeFalsy();
+  expect((pAttribute.type as DeclarationTypeSemantic).declaration.name).toBe('A');
 });
 
 test('declare b then a, a extends b', () => {

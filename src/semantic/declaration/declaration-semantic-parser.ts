@@ -1,14 +1,19 @@
 import {Nothing, nothing} from '../../lib/core';
 import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-node';
 import {SemanticContext} from '../semantic-context';
+import {attributeDeepParse, attributeShallowParse} from './attribute/attribute-semantic-parser';
 import {constantDeepParse, constantShallowParse} from './constant/constant-semantic-parser';
 import {DeclarationSemantic} from './declaration-semantic';
 import {modelDeepParse, modelShallowParse} from './model/model-semantic-parser';
 
 type DeclarationParseFn = (context: SemanticContext, node: DeclarationNode) => DeclarationSemantic | Nothing;
 
-const shallowDeclarationParsers: DeclarationParseFn[] = [modelShallowParse, constantShallowParse];
-const deepDeclarationParsers: DeclarationParseFn[] = [modelDeepParse, constantDeepParse];
+const shallowDeclarationParsers: DeclarationParseFn[] = [
+  modelShallowParse,
+  attributeShallowParse,
+  constantShallowParse,
+];
+const deepDeclarationParsers: DeclarationParseFn[] = [modelDeepParse, attributeDeepParse, constantDeepParse];
 
 export function declarationsSemanticParse(
   context: SemanticContext,

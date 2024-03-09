@@ -20,8 +20,8 @@ export function attributeSemantic(reference: SourceReference, name: String2): At
     reference,
     name,
     usages: [],
-    generics: [],
-    parameters: [],
+    generics: nothing,
+    parameters: nothing,
     type: nothing,
     value: nothing,
   };
