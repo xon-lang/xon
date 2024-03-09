@@ -69,6 +69,7 @@ export function scanGroupNode(context: SyntaxContext): Group | null {
         (is<CloseNode>(node, $Node.CLOSE) && node.text === OPEN_CLOSE_PAIR[open.text]),
     );
 
+    context.operators.push(...itemContext.operators);
     context.position = itemContext.position;
 
     if (is<OperatorNode>(itemContext.breakNode, $Node.OPERATOR)) {

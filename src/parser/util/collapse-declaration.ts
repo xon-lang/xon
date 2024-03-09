@@ -10,8 +10,8 @@ import {IdNode} from '../node/token/id/id-node';
 import {
   ASSIGN,
   GROUP_NODE_OPEN,
-  MODIFIERS,
   MODIFIERS_WITH_ATTRIBUTES,
+  MODIFIER_KEYWORDS,
   OBJECT_NODE_OPEN,
   TYPE_TOKEN,
 } from '../syntax-config';
@@ -64,7 +64,7 @@ function getDeclarationParts(
 
   const {header, type, assign} = getHeaderTypeAssign(context, node);
 
-  if (is<PrefixNode>(header, $Node.PREFIX) && MODIFIERS.includes(header.operator.text)) {
+  if (is<PrefixNode>(header, $Node.PREFIX) && MODIFIER_KEYWORDS.includes(header.operator.text)) {
     if (!header.value) {
       return nothing;
     }

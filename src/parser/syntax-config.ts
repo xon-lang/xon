@@ -34,7 +34,6 @@ export const TYPE_TOKEN = ':';
 export const ASSIGN = '=';
 export const MEMBER = '.';
 export const META_MEMBER = '::';
-export const KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'import', 'return'];
 export const RANGE = '..';
 export const AND = '&';
 export const OR = '|';
@@ -62,7 +61,7 @@ export const POSTFIX_MODIFIER = 'postfix';
 export const INFIX_MODIFIER = 'infix';
 export const MODIFIERS_WITH_ATTRIBUTES = [MODEL_MODIFIER];
 
-export const MODIFIERS = [
+export const MODIFIER_KEYWORDS = [
   MODEL_MODIFIER,
   CONSTANT_MODIFIER,
   VARIABLE_MODIFIER,
@@ -70,6 +69,22 @@ export const MODIFIERS = [
   POSTFIX_MODIFIER,
   INFIX_MODIFIER,
 ];
+
+export const CONTROL_KEYWORDS = [
+  'if',
+  'then',
+  'else',
+  'for',
+  'do',
+  'while',
+  'break',
+  'continue',
+  'export',
+  'import',
+  'return',
+];
+
+export const OPERATOR_KEYWORDS = ['is', 'as', 'in'];
 
 export const operatorsOrders: OperatorsOrder[] = [
   {
@@ -93,12 +108,12 @@ export const operatorsOrders: OperatorsOrder[] = [
     recursiveType: RecursiveType.LEFT,
   },
   {
-    operators: ['^', '* / %', '+ -', RANGE, '< <= >= >', '== !=', 'is as in', AND, OR],
+    operators: ['^', '* / %', '+ -', RANGE, '< <= >= >', '== !=', OPERATOR_KEYWORDS.join(' '), AND, OR],
     operatorType: OperatorType.INFIX,
     recursiveType: RecursiveType.LEFT,
   },
   {
-    operators: [MODIFIERS.join(' ')],
+    operators: [MODIFIER_KEYWORDS.join(' ')],
     operatorType: OperatorType.PREFIX,
     recursiveType: RecursiveType.RIGHT,
   },
@@ -113,7 +128,7 @@ export const operatorsOrders: OperatorsOrder[] = [
     recursiveType: RecursiveType.RIGHT,
   },
   {
-    operators: [KEYWORDS.join(' ')],
+    operators: [CONTROL_KEYWORDS.join(' ')],
     operatorType: OperatorType.PREFIX,
     recursiveType: RecursiveType.RIGHT,
   },

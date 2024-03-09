@@ -7,6 +7,7 @@ import {SourcePosition, sourcePosition} from '../source/source-position';
 import {SourceRange, sourceRange} from '../source/source-range';
 import {Node} from './node/node';
 import {StatementNode} from './node/syntax/statement/statement-node';
+import {OperatorNode} from './node/token/operator/operator-node';
 import {TokenNode} from './node/token/token-node';
 import {NL} from './syntax-config';
 
@@ -14,6 +15,7 @@ export interface SyntaxContext {
   source: Source;
   position: SourcePosition;
   hiddenNodes: TokenNode[];
+  operators: OperatorNode[];
   breakNode: Node | Nothing;
   parentStatement: StatementNode | Nothing;
   nodes: Node[];
@@ -29,6 +31,7 @@ export function syntaxContext(source: Source, position: SourcePosition): SyntaxC
   return {
     source,
     position,
+    operators: [],
     hiddenNodes: [],
     parentStatement: nothing,
     nodes: [],
