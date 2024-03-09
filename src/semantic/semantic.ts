@@ -4,7 +4,7 @@ import {Nothing} from '../lib/core';
 import {DeclarationNode} from '../parser/node/syntax/declaration/declaration-node';
 import {SyntaxResult} from '../parser/syntax-result';
 import {SourceReference} from '../source/source-reference';
-import {declarationDeepSemanticParse, declarationShallowSemanticParse} from './declaration/declaration-semantic-parser';
+import {declarationsSemanticParse} from './declaration/declaration-semantic-parser';
 import {SemanticContext, semanticContext} from './semantic-context';
 
 export interface Semantic {
@@ -49,13 +49,7 @@ export function parseSemantic(syntax: SyntaxResult): SemanticContext {
   const context = semanticContext(null, syntax.source, issueManager);
   const declarations = syntax.statements.map((x) => x.declaration).filter((x): x is DeclarationNode => !!x);
 
-  for (const declaration of declarations) {
-    declarationShallowSemanticParse(context, declaration);
-  }
-
-  for (const declaration of declarations) {
-    declarationDeepSemanticParse(context, declaration);
-  }
+  declarationsSemanticParse(context, declarations);
 
   return context;
 }

@@ -10,6 +10,17 @@ type DeclarationParseFn = (context: SemanticContext, node: DeclarationNode) => D
 const shallowDeclarationParsers: DeclarationParseFn[] = [modelShallowParse, constantShallowParse];
 const deepDeclarationParsers: DeclarationParseFn[] = [modelDeepParse, constantDeepParse];
 
+export function declarationsSemanticParse(
+  context: SemanticContext,
+  nodes: DeclarationNode[],
+): (DeclarationSemantic | Nothing)[] {
+  const declarations = nodes.map((x) => declarationShallowSemanticParse(context, x));
+
+  nodes.forEach((x) => declarationDeepSemanticParse(context, x));
+
+  return declarations;
+}
+
 export function declarationShallowSemanticParse(
   context: SemanticContext,
   node: DeclarationNode,
