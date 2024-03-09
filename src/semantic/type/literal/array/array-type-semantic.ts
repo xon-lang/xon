@@ -1,8 +1,8 @@
-import { Boolean2, Nothing, String2 } from '../../../../../lib/core';
-import { SourceReference } from '../../../../../source/source-reference';
-import { $Semantic, semanticIs } from '../../../../semantic';
-import { TypeSemantic } from '../../type-semantic';
-import { IntegerTypeSemantic } from '../integer/integer-type-semantic';
+import {Boolean2, Nothing, String2} from '../../../../lib/core';
+import {SourceReference} from '../../../../source/source-reference';
+import {$Semantic, semanticIs} from '../../../semantic';
+import {TypeSemantic} from '../../type-semantic';
+import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
 
 export interface ArrayTypeSemantic extends TypeSemantic {
   $: $Semantic.ARRAY_TYPE;

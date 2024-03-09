@@ -1,8 +1,8 @@
 import {String2} from '../../lib/core';
 import {Semantic} from '../semantic';
-import {UsageSemantic} from '../usage/usage-semantic';
+import {DeclarationTypeSemantic} from '../type/declaration/declaration-type-semantic';
 
 export interface DeclarationSemantic extends Semantic {
-  usages: UsageSemantic[];
+  usages: DeclarationTypeSemantic[];
   name: String2;
 }

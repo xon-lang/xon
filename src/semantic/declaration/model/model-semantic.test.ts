@@ -1,7 +1,7 @@
 import {parseSyntax} from '../../../parser/syntax';
 import {sourceFromText} from '../../../source/source';
 import {$Semantic, parseSemantic} from '../../semantic';
-import {DeclarationTypeSemantic} from '../../usage/type/declaration/declaration-type-semantic';
+import {DeclarationTypeSemantic} from '../../type/declaration/declaration-type-semantic';
 import {AttributeSemantic} from '../attribute/attribute-semantic';
 import {ModelSemantic} from './model-semantic';
 

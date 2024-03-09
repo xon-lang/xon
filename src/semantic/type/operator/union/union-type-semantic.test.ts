@@ -1,8 +1,8 @@
-import {DeclarationNode} from '../../../../../parser/node/syntax/declaration/declaration-node';
-import {parseSyntax} from '../../../../../parser/syntax';
-import {sourceFromText} from '../../../../../source/source';
-import {ConstantSemantic} from '../../../../declaration/constant/constant-semantic';
-import {$Semantic, parseSemantic} from '../../../../semantic';
+import {DeclarationNode} from '../../../../parser/node/syntax/declaration/declaration-node';
+import {parseSyntax} from '../../../../parser/syntax';
+import {sourceFromText} from '../../../../source/source';
+import {ConstantSemantic} from '../../../declaration/constant/constant-semantic';
+import {$Semantic, parseSemantic} from '../../../semantic';
 import {DeclarationTypeSemantic} from '../../declaration/declaration-type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
 import {UnionTypeSemantic} from './union-type-semantic';

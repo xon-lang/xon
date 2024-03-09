@@ -1,8 +1,8 @@
-import { Boolean2, String2 } from '../../../../../lib/core';
-import { SourceReference } from '../../../../../source/source-reference';
-import { $Semantic, semanticIs } from '../../../../semantic';
-import { TypeSemantic } from '../../type-semantic';
-import { IntegerTypeSemantic } from '../integer/integer-type-semantic';
+import {Boolean2, String2} from '../../../../lib/core';
+import {SourceReference} from '../../../../source/source-reference';
+import {$Semantic, semanticIs} from '../../../semantic';
+import {TypeSemantic} from '../../type-semantic';
+import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
 
 export interface RangeTypeSemantic extends TypeSemantic {
   $: $Semantic.RANGE_TYPE;

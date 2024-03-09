@@ -1,7 +1,7 @@
-import { Boolean2, String2 } from '../../../../../lib/core';
-import { SourceReference } from '../../../../../source/source-reference';
-import { $Semantic } from '../../../../semantic';
-import { TypeSemantic } from '../../type-semantic';
+import {Boolean2, String2} from '../../../../lib/core';
+import {SourceReference} from '../../../../source/source-reference';
+import {$Semantic} from '../../../semantic';
+import {TypeSemantic} from '../../type-semantic';
 
 export interface UnionTypeSemantic extends TypeSemantic {
   $: $Semantic.UNION_TYPE;

@@ -4,8 +4,8 @@ import {DeclarationNode} from '../../../parser/node/syntax/declaration/declarati
 import {MODEL_MODIFIER} from '../../../parser/syntax-config';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
-import {DeclarationTypeSemantic} from '../../usage/type/declaration/declaration-type-semantic';
-import {typeSemanticParse} from '../../usage/type/type-semantic-parser';
+import {DeclarationTypeSemantic} from '../../type/declaration/declaration-type-semantic';
+import {typeSemanticParse} from '../../type/type-semantic-parser';
 import {declarationsSemanticParse} from '../declaration-semantic-parser';
 import {genericsParse} from '../generic/generic-semantic-parser';
 import {ModelSemantic, modelSemantic} from './model-semantic';

@@ -3,7 +3,7 @@ import {DeclarationNode} from '../../../parser/node/syntax/declaration/declarati
 import {CONSTANT_MODIFIER} from '../../../parser/syntax-config';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
-import {typeSemanticParse} from '../../usage/type/type-semantic-parser';
+import {typeSemanticParse} from '../../type/type-semantic-parser';
 import {genericsParse} from '../generic/generic-semantic-parser';
 import {parametersParse} from '../parameter/parameter-semantic-parser';
 import {ConstantSemantic, constantSemantic} from './constant-semantic';
@@ -32,7 +32,7 @@ export function constantDeepParse(context: SemanticContext, node: DeclarationNod
     }
 
     if (node.parameters) {
-      node.id.semantic.generics = parametersParse(childContext, node.parameters);
+      node.id.semantic.parameters = parametersParse(childContext, node.parameters);
     }
 
     if (node.type) {

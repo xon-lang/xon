@@ -1,9 +1,9 @@
-import {Nothing, nothing} from '../../../../lib/core';
-import {$Node, Node, is} from '../../../../parser/node/node';
-import {InvokeNode} from '../../../../parser/node/syntax/invoke/invoke-node';
-import {IdNode} from '../../../../parser/node/token/id/id-node';
-import {OBJECT_NODE_OPEN} from '../../../../parser/syntax-config';
-import {SemanticContext} from '../../../semantic-context';
+import {Nothing, nothing} from '../../../lib/core';
+import {$Node, Node, is} from '../../../parser/node/node';
+import {InvokeNode} from '../../../parser/node/syntax/invoke/invoke-node';
+import {IdNode} from '../../../parser/node/token/id/id-node';
+import {OBJECT_NODE_OPEN} from '../../../parser/syntax-config';
+import {SemanticContext} from '../../semantic-context';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {DeclarationTypeSemantic, declarationTypeSemantic} from './declaration-type-semantic';
 

@@ -1,7 +1,7 @@
 import {Nothing, String2, nothing} from '../../../lib/core';
 import {SourceReference} from '../../../source/source-reference';
 import {$Semantic} from '../../semantic';
-import {DeclarationTypeSemantic} from '../../usage/type/declaration/declaration-type-semantic';
+import {DeclarationTypeSemantic} from '../../type/declaration/declaration-type-semantic';
 import {DeclarationSemantic} from '../declaration-semantic';
 import {GenericSemantic} from '../generic/generic-semantic';
 

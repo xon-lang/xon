@@ -1,13 +1,12 @@
 import {Nothing, String2, nothing} from '../../../lib/core';
 import {SourceReference} from '../../../source/source-reference';
 import {$Semantic} from '../../semantic';
-import {UsageSemantic} from '../../usage/usage-semantic';
+import {TypeSemantic} from '../../type/type-semantic';
 import {DeclarationSemantic} from '../declaration-semantic';
 
 export interface ParameterSemantic extends DeclarationSemantic {
   $: $Semantic.GENERIC;
-  type: UsageSemantic | Nothing;
-  value: UsageSemantic | Nothing;
+  type: TypeSemantic | Nothing;
 }
 
 export function parameterSemantic(reference: SourceReference, name: String2): ParameterSemantic {
@@ -17,6 +16,5 @@ export function parameterSemantic(reference: SourceReference, name: String2): Pa
     name,
     usages: [],
     type: nothing,
-    value: nothing,
   };
 }
