@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../lib/core';
 import {$Node, Node, is} from '../node/node';
-import {DeclarationNode, declarationNode} from '../node/syntax/declaration/declaration-node';
+import {$DeclarationNodeType, DeclarationNode, declarationNode} from '../node/syntax/declaration/declaration-node';
 import {GroupNode} from '../node/syntax/group/group-node';
 import {InfixNode} from '../node/syntax/infix/infix-node';
 import {InvokeNode} from '../node/syntax/invoke/invoke-node';
@@ -25,13 +25,13 @@ export function parseDeclarationStatement(context: SyntaxContext, node: Node): D
   }
 
   if (parts.modifier) {
-    return declarationNode(parts);
+    return declarationNode($DeclarationNodeType.MODIFIER, parts);
   }
 
   const parentStatementNode = context.parentStatement?.declaration;
 
   if (parentStatementNode?.modifier && MODIFIERS_WITH_ATTRIBUTES.includes(parentStatementNode.modifier?.text)) {
-    const declaration = declarationNode(parts);
+    const declaration = declarationNode($DeclarationNodeType.ATTRIBUTE, parts);
     parentStatementNode.attributes.push(declaration);
 
     return declaration;
@@ -51,7 +51,21 @@ function parseParameter(context: SyntaxContext, node: Node | Nothing): Declarati
     return nothing;
   }
 
-  return declarationNode(parts);
+  return declarationNode($DeclarationNodeType.PARAMETER, parts);
+}
+
+function parseGeneric(context: SyntaxContext, node: Node | Nothing): DeclarationNode | Nothing {
+  if (!node) {
+    return nothing;
+  }
+
+  const parts = getDeclarationParts(context, node);
+
+  if (!parts) {
+    return nothing;
+  }
+
+  return declarationNode($DeclarationNodeType.GENERIC, parts);
 }
 
 function getDeclarationParts(
@@ -132,14 +146,16 @@ function getUnderModifier(
         return nothing;
       }
 
-      const declarations = node.group.items.map((x) => parseParameter(context, x));
-
       if (node.group.open.text === GROUP_NODE_OPEN) {
-        return {...instance, parameters: declarations};
+        const parameters = node.group.items.map((x) => parseParameter(context, x));
+
+        return {...instance, parameters};
       }
 
       if (node.group.open.text === OBJECT_NODE_OPEN) {
-        return {...instance, generics: declarations};
+        const generics = node.group.items.map((x) => parseParameter(context, x));
+
+        return {...instance, generics};
       }
     }
   }

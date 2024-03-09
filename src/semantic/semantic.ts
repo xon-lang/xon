@@ -29,8 +29,7 @@ export enum $Semantic {
   MODEL = 'MODEL',
   GENERIC = 'GENERIC',
   PARAMETER = 'PARAMETER',
-  METHOD = 'METHOD',
-  PROPERTY = 'PROPERTY',
+  ATTRIBUTE = 'ATTRIBUTE',
   CONSTANT = 'CONSTANT',
   VARIABLE = 'VARIABLE',
   OPERATOR = 'OPERATOR',
@@ -44,7 +43,7 @@ export function semanticIs<T extends Semantic = Semantic>(
 }
 
 export function parseSemantic(syntax: SyntaxResult): SemanticContext {
-  // todo mb we need to create single issue manager
+  // todo mb we need to create single issue manager ???
   const issueManager = createIssueManager(syntax.source, IssueType.SEMANTIC, syntax.issueManager.issues);
   const context = semanticContext(null, syntax.source, issueManager);
   const declarations = syntax.statements.map((x) => x.declaration).filter((x): x is DeclarationNode => !!x);

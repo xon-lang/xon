@@ -5,14 +5,22 @@ import {DeclarationTypeSemantic} from '../../usage/type/declaration/declaration-
 import {ModelSemantic} from './model-semantic';
 
 test('only a', () => {
-  const text = 'model A';
+  const text = 'model A\n  p: A';
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax);
+  const model = semantic.declarations.A[0] as ModelSemantic;
 
   expect(Object.keys(semantic.declarations).length).toBe(1);
-  expect(semantic.declarations.A[0].$).toBe($Semantic.MODEL);
-  expect(semantic.declarations.A[0].name).toBe('A');
+  expect(model.$).toBe($Semantic.MODEL);
+  expect(model.name).toBe('A');
+
+  // expect(model.attributes.length).toBe(1);
+
+  // const pAttribute = model.attributes['p'][0]
+  // expect(pAttribute.$).toBe($Semantic.PROPERTY);
+  // expect(pAttribute.name).toBe('p');
+  // expect(model.attributes['p'][0]).toBe('p');
 });
 
 test('declare b then a, a extends b', () => {

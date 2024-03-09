@@ -8,9 +8,9 @@ import {DeclarationTypeSemantic} from '../../usage/type/declaration/declaration-
 import {typeSemanticParse} from '../../usage/type/type-semantic-parser';
 import {declarationsSemanticParse} from '../declaration-semantic-parser';
 import {genericsParse} from '../generic/generic-semantic-parser';
-import {ModelSemantic, modelSemantic} from './model-semantic';
+import { AttributeSemantic, attributeSemantic } from './attribute-semantic';
 
-export function modelShallowParse(context: SemanticContext, node: DeclarationNode): ModelSemantic | Nothing {
+export function attributeShallowParse(context: SemanticContext, node: DeclarationNode): AttributeSemantic | Nothing {
   if (node.modifier?.text !== MODEL_MODIFIER) {
     return nothing;
   }
@@ -18,15 +18,15 @@ export function modelShallowParse(context: SemanticContext, node: DeclarationNod
   const reference = context.createReference(node.id);
   const name = node.id.text;
 
-  const declaration = modelSemantic(reference, name);
+  const declaration = attributeSemantic(reference, name);
   node.id.semantic = declaration;
   context.addDeclaration(declaration);
 
   return declaration;
 }
 
-export function modelDeepParse(context: SemanticContext, node: DeclarationNode): ModelSemantic | Nothing {
-  if (semanticIs<ModelSemantic>(node.id.semantic, $Semantic.MODEL)) {
+export function attributeDeepParse(context: SemanticContext, node: DeclarationNode): AttributeSemantic | Nothing {
+  if (semanticIs<AttributeSemantic>(node.id.semantic, $Semantic.ATTRIBUTE)) {
     const childContext = context.createChildContext();
 
     if (node.generics) {
