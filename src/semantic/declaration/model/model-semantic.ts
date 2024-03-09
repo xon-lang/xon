@@ -13,25 +13,7 @@ export interface ModelSemantic extends DeclarationSemantic {
   attributes: Record<String2, MethodSemantic[]>;
 }
 
-export function modelSemantic(
-  reference: SourceReference,
-  name: String2,
-  generics: (GenericSemantic | Nothing)[],
-  base: DeclarationTypeSemantic | Nothing,
-  attributes: Record<String2, MethodSemantic[]>,
-): ModelSemantic {
-  return {
-    $: $Semantic.MODEL,
-    reference,
-    name,
-    usages: [],
-    generics,
-    base,
-    attributes,
-  };
-}
-
-export function modelShallowSemantic(reference: SourceReference, name: String2): ModelSemantic {
+export function modelSemantic(reference: SourceReference, name: String2): ModelSemantic {
   return {
     $: $Semantic.MODEL,
     reference,

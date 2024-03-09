@@ -1,8 +1,8 @@
-import { Nothing, String2 } from '../../../lib/core';
-import { SourceReference } from '../../../source/source-reference';
-import { $Semantic } from '../../semantic';
-import { UsageSemantic } from '../../usage/usage-semantic';
-import { DeclarationSemantic } from '../declaration-semantic';
+import {Nothing, String2, nothing} from '../../../lib/core';
+import {SourceReference} from '../../../source/source-reference';
+import {$Semantic} from '../../semantic';
+import {UsageSemantic} from '../../usage/usage-semantic';
+import {DeclarationSemantic} from '../declaration-semantic';
 
 export interface PropertySemantic extends DeclarationSemantic {
   $: $Semantic.PROPERTY;
@@ -10,18 +10,13 @@ export interface PropertySemantic extends DeclarationSemantic {
   value: UsageSemantic | Nothing;
 }
 
-export function propertySemantic(
-  reference: SourceReference,
-  name: String2,
-  type: UsageSemantic | Nothing,
-  value: UsageSemantic | Nothing,
-): PropertySemantic {
+export function propertySemantic(reference: SourceReference, name: String2): PropertySemantic {
   return {
     $: $Semantic.PROPERTY,
     reference,
     name,
     usages: [],
-    type,
-    value,
+    type: nothing,
+    value: nothing,
   };
 }

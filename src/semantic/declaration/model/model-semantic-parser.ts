@@ -7,7 +7,7 @@ import {SemanticContext} from '../../semantic-context';
 import {DeclarationTypeSemantic} from '../../usage/type/declaration/declaration-type-semantic';
 import {typeSemanticParse} from '../../usage/type/type-semantic-parser';
 import {genericsParse} from '../generic/generic-semantic-parser';
-import {ModelSemantic, modelShallowSemantic} from './model-semantic';
+import {ModelSemantic, modelSemantic} from './model-semantic';
 
 export function modelShallowParse(context: SemanticContext, node: DeclarationNode): ModelSemantic | Nothing {
   if (node.modifier?.text !== MODEL_MODIFIER) {
@@ -17,7 +17,7 @@ export function modelShallowParse(context: SemanticContext, node: DeclarationNod
   const reference = context.createReference(node.id);
   const name = node.id.text;
 
-  const declaration = modelShallowSemantic(reference, name);
+  const declaration = modelSemantic(reference, name);
   node.id.semantic = declaration;
   context.addDeclaration(declaration);
 

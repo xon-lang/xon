@@ -8,8 +8,8 @@ import {declarationDeepSemanticParse, declarationShallowSemanticParse} from './d
 import {SemanticContext, semanticContext} from './semantic-context';
 
 export interface Semantic {
-  $: $Semantic;
-  reference: SourceReference;
+  readonly $: $Semantic;
+  readonly reference: SourceReference;
 }
 
 export enum $Semantic {

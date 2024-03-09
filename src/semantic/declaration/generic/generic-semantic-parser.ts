@@ -2,7 +2,7 @@ import {Nothing, nothing} from '../../../lib/core';
 import {DeclarationNode} from '../../../parser/node/syntax/declaration/declaration-node';
 import {MODEL_MODIFIER} from '../../../parser/syntax-config';
 import {SemanticContext} from '../../semantic-context';
-import {GenericSemantic, genericShallowSemantic} from './generic-semantic';
+import {GenericSemantic, genericSemantic} from './generic-semantic';
 
 export function genericsParse(
   context: SemanticContext,
@@ -27,7 +27,7 @@ function genericShallowParse(context: SemanticContext, node: DeclarationNode | N
   const reference = context.createReference(node.id);
   const name = node.id.text;
 
-  const declaration = genericShallowSemantic(reference, name);
+  const declaration = genericSemantic(reference, name);
   node.id.semantic = declaration;
   context.addDeclaration(declaration);
 

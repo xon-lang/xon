@@ -6,7 +6,7 @@ import {SemanticContext} from '../../semantic-context';
 import {typeSemanticParse} from '../../usage/type/type-semantic-parser';
 import {genericsParse} from '../generic/generic-semantic-parser';
 import {parametersParse} from '../parameter/parameter-semantic-parser';
-import {ConstantSemantic, constantShallowSemantic} from './constant-semantic';
+import {ConstantSemantic, constantSemantic} from './constant-semantic';
 
 export function constantShallowParse(context: SemanticContext, node: DeclarationNode): ConstantSemantic | Nothing {
   if (node.modifier?.text !== CONSTANT_MODIFIER) {
@@ -16,7 +16,7 @@ export function constantShallowParse(context: SemanticContext, node: Declaration
   const reference = context.createReference(node.id);
   const name = node.id.text;
 
-  const declaration = constantShallowSemantic(reference, name);
+  const declaration = constantSemantic(reference, name);
   node.id.semantic = declaration;
   context.addDeclaration(declaration);
 
