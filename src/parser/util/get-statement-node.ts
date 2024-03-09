@@ -3,7 +3,8 @@ import {Integer, Nothing} from '../../lib/core';
 import {StatementNode, statementNode} from '../node/syntax/statement/statement-node';
 import {TokenNode} from '../node/token/token-node';
 import {SyntaxContext} from '../syntax-context';
-import {collapseDeclaration} from './collapse-declaration';
+import {parseDeclarationStatement} from './collapse-declaration';
+
 import {collapseOperators} from './collapse-operators';
 
 export function getStatementNode(
@@ -14,9 +15,17 @@ export function getStatementNode(
   indentHiddenNodes: TokenNode[],
 ): StatementNode {
   collapseOperators(context);
-  collapseDeclaration(context);
+  const declaration = parseDeclarationStatement(context, context.nodes[0]);
 
   context.nodes.slice(1).forEach((node) => context.issueManager.addError(node, ISSUE_MESSAGE.unexpectedExpression()));
 
-  return statementNode(context, context.nodes, parent, indentStopColumn, beforeIndentHiddenNodes, indentHiddenNodes);
+  return statementNode(
+    context,
+    context.nodes,
+    parent,
+    indentStopColumn,
+    beforeIndentHiddenNodes,
+    indentHiddenNodes,
+    declaration,
+  );
 }

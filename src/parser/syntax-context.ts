@@ -1,7 +1,7 @@
-import {Formatter} from '../formatter/formatter';
+import {FormatterManager, createFormatterManager} from '../formatter/formatter-manager';
 import {IssueType} from '../issue/issue';
 import {IssueManager, createIssueManager} from '../issue/issue-manager';
-import {Boolean2, Integer, Nothing, String2, nothing} from '../lib/core';
+import {Boolean2, Integer, Nothing, nothing} from '../lib/core';
 import {Source} from '../source/source';
 import {SourcePosition, sourcePosition} from '../source/source-position';
 import {SourceRange, sourceRange} from '../source/source-range';
@@ -14,16 +14,15 @@ export interface SyntaxContext {
   source: Source;
   position: SourcePosition;
   hiddenNodes: TokenNode[];
-  formatters: Formatter[];
   breakNode: Node | Nothing;
   parentStatement: StatementNode | Nothing;
   nodes: Node[];
   previousStatement: StatementNode | Nothing;
   statements: StatementNode[];
   issueManager: IssueManager;
+  formatterManager: FormatterManager;
 
   getRange: (length: Integer, canContainNewLines: Boolean2) => SourceRange;
-  getFormattedText(): String2;
 }
 
 export function syntaxContext(source: Source, position: SourcePosition): SyntaxContext {
@@ -31,13 +30,13 @@ export function syntaxContext(source: Source, position: SourcePosition): SyntaxC
     source,
     position,
     hiddenNodes: [],
-    formatters: [],
     parentStatement: nothing,
     nodes: [],
     previousStatement: nothing,
     breakNode: nothing,
     statements: [],
     issueManager: createIssueManager(source, IssueType.SYNTACTIC),
+    formatterManager: createFormatterManager(source),
 
     getRange(length: Integer, canContainNewLines: Boolean2): SourceRange {
       const {index, line, column} = this.position;
@@ -71,22 +70,6 @@ export function syntaxContext(source: Source, position: SourcePosition): SyntaxC
       const stop = sourcePosition(stopIndex, line, stopColumn);
 
       return sourceRange(start, stop);
-    },
-
-    getFormattedText(): String2 {
-      let index = 0;
-      let formattedText = '';
-      // todo remove it and add formatters in order
-      const formatters = this.formatters.sortBy((x) => x.range.start.index);
-
-      for (const {range, text} of formatters) {
-        formattedText += this.source.text.slice(index, range.start.index) + text;
-        index = range.stop.index;
-      }
-
-      formattedText += this.source.text.slice(index, this.source.text.length);
-
-      return formattedText;
     },
   };
 }

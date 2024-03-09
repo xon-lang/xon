@@ -107,7 +107,7 @@ export function parseSyntaxUntil(
   const formatter = formatLastContextHiddenNodes(context);
 
   if (formatter) {
-    context.formatters.push(formatter);
+    context.formatterManager.addFormatter(formatter);
   }
 
   return {

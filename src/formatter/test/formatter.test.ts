@@ -11,6 +11,8 @@ test('5', () => testFormatter(5));
 test('6', () => testFormatter(6));
 test('7', () => testFormatter(7));
 test('8', () => testFormatter(8));
+test('9', () => testFormatter(9));
+test('10', () => testFormatter(10));
 
 function testFormatter(index: Integer) {
   const testDir = 'src/formatter/test';
@@ -18,7 +20,7 @@ function testFormatter(index: Integer) {
   const source = sourceFromFile(dirPath + 'source.xon');
   const syntax = parseSyntax(source);
 
-  const formattedText = syntax.getFormattedText();
+  const formattedText = syntax.formatterManager.getFormattedText();
   writeFileSync(dirPath + 'formatted.xon', formattedText);
 
   const etalonText = readFileSync(dirPath + 'etalon.xon').toString();

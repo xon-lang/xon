@@ -45,6 +45,7 @@ export function semanticIs<T extends Semantic = Semantic>(
 }
 
 export function parseSemantic(syntax: SyntaxResult): SemanticContext {
+  // todo mb we need to create single issue manager
   const issueManager = createIssueManager(syntax.source, IssueType.SEMANTIC, syntax.issueManager.issues);
   const context = semanticContext(null, syntax.source, issueManager);
 

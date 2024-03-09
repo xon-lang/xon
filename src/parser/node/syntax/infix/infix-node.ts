@@ -1,4 +1,4 @@
-import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
+import {formatAfterHiddenNodes, formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
@@ -36,7 +36,11 @@ export function validateInfixNode(context: SyntaxContext, node: InfixNode): void
 function checkFormatting(context: SyntaxContext, node: InfixNode): void {
   node.hiddenNodes = node.right.hiddenNodes;
 
-  const keepSingleWhitespace = !node.operator.text.includes('.');
-  formatBetweenHiddenNodes(context, node.left, keepSingleWhitespace);
-  formatBetweenHiddenNodes(context, node.operator, keepSingleWhitespace);
+  const NO_LEFT_SPACE_TOKENS = ['.', ':'];
+  const leftSingleWhitespace = !NO_LEFT_SPACE_TOKENS.includes(node.operator.text[0]);
+  formatBetweenHiddenNodes(context, node.left, leftSingleWhitespace);
+
+  const NO_OPERATOR_SPACE_TOKENS = ['.'];
+  const operatorSingleWhitespace = !NO_OPERATOR_SPACE_TOKENS.includes(node.operator.text[0]);
+  formatAfterHiddenNodes(context, node.operator, operatorSingleWhitespace);
 }

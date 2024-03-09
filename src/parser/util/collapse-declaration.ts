@@ -1,16 +1,11 @@
 import {Nothing, nothing} from '../../lib/core';
 import {$Node, Node, is} from '../node/node';
-import {
-  DeclarationListNode,
-  DeclarationNode,
-  declarationListNode,
-  declarationNode,
-} from '../node/syntax/declaration/declaration-node';
+import {DeclarationNode, declarationNode} from '../node/syntax/declaration/declaration-node';
 import {GroupNode} from '../node/syntax/group/group-node';
 import {InfixNode} from '../node/syntax/infix/infix-node';
 import {InvokeNode} from '../node/syntax/invoke/invoke-node';
 import {ObjectNode} from '../node/syntax/object/object-node';
-import {PrefixNode, prefixNode} from '../node/syntax/prefix/prefix-node';
+import {PrefixNode} from '../node/syntax/prefix/prefix-node';
 import {IdNode} from '../node/token/id/id-node';
 import {
   ASSIGN,
@@ -22,17 +17,7 @@ import {
 } from '../syntax-config';
 import {SyntaxContext} from '../syntax-context';
 
-export function collapseDeclaration(context: SyntaxContext): void {
-  const node = context.nodes[0];
-
-  const declaration = parseStatement(context, node);
-
-  if (declaration) {
-    context.nodes[0] = declaration;
-  }
-}
-
-function parseStatement(context: SyntaxContext, node: Node): DeclarationNode | Nothing {
+export function parseDeclarationStatement(context: SyntaxContext, node: Node): DeclarationNode | Nothing {
   const parts = getDeclarationParts(context, node);
 
   if (!parts) {
@@ -43,7 +28,7 @@ function parseStatement(context: SyntaxContext, node: Node): DeclarationNode | N
     return declarationNode(parts);
   }
 
-  const parentStatementNode = context.parentStatement?.item;
+  const parentStatementNode = context.parentStatement?.declaration;
 
   if (
     is<DeclarationNode>(parentStatementNode, $Node.DECLARATION) &&
@@ -109,19 +94,16 @@ function getDeclarationParts(
 function getHeaderTypeAssign(
   context: SyntaxContext,
   node: Node | Nothing,
-): {header: Node | Nothing; type?: PrefixNode | Nothing; assign?: PrefixNode | Nothing} {
+): {header: Node | Nothing; type?: Node | Nothing; assign?: Node | Nothing} {
   if (is<InfixNode>(node, $Node.INFIX)) {
     if (node.operator.text === TYPE_TOKEN) {
-      const type = prefixNode(context, node.operator, node.right);
-
-      return {header: node.left, type};
+      return {header: node.left, type: node.right};
     }
 
     if (node.operator.text === ASSIGN) {
-      const assign = prefixNode(context, node.operator, node.right);
       const headerType = getHeaderTypeAssign(context, node.left);
 
-      return {...headerType, assign};
+      return {...headerType, assign: node.right};
     }
   }
 
@@ -131,7 +113,13 @@ function getHeaderTypeAssign(
 function getUnderModifier(
   context: SyntaxContext,
   node: Node | Nothing,
-): {id: IdNode; generics?: DeclarationListNode | Nothing; parameters?: DeclarationListNode | Nothing} | Nothing {
+):
+  | {
+      id: IdNode;
+      generics?: (DeclarationNode | Nothing)[] | Nothing;
+      parameters?: (DeclarationNode | Nothing)[] | Nothing;
+    }
+  | Nothing {
   if (!node) {
     return nothing;
   }
@@ -149,14 +137,13 @@ function getUnderModifier(
       }
 
       const declarations = node.group.items.map((x) => parseParameter(context, x));
-      const declarationList = declarationListNode(node.group.open, node.group.close, declarations);
 
-      if (declarationList.open.text === GROUP_NODE_OPEN) {
-        return {...instance, parameters: declarationList};
+      if (node.group.open.text === GROUP_NODE_OPEN) {
+        return {...instance, parameters: declarations};
       }
 
-      if (declarationList.open.text === OBJECT_NODE_OPEN) {
-        return {...instance, generics: declarationList};
+      if (node.group.open.text === OBJECT_NODE_OPEN) {
+        return {...instance, generics: declarations};
       }
     }
   }

@@ -2,6 +2,7 @@ import {Integer, Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
 import {TokenNode} from '../../token/token-node';
+import {DeclarationNode} from '../declaration/declaration-node';
 import {SyntaxNode, getRangeAndChildren} from '../syntax-node';
 
 export interface StatementNode extends SyntaxNode {
@@ -13,6 +14,7 @@ export interface StatementNode extends SyntaxNode {
   parent: StatementNode | Nothing;
   children: Node[];
   item: Node;
+  declaration: DeclarationNode | Nothing;
   body: StatementNode[];
 }
 
@@ -23,6 +25,7 @@ export function statementNode(
   indentStopColumn: Integer,
   beforeIndentHiddenNodes: TokenNode[],
   indentHiddenNodes: TokenNode[],
+  declaration: DeclarationNode | Nothing,
 ): StatementNode {
   const node: StatementNode = {
     $: $Node.STATEMENT,
@@ -34,6 +37,7 @@ export function statementNode(
     parent,
     item: children[0],
     body: [],
+    declaration,
   };
 
   if (parent) {

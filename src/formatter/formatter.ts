@@ -22,17 +22,18 @@ export enum FormattingType {
 }
 
 export function formatBetweenHiddenNodes(context: SyntaxContext, node: Node, keepSingleSpace: Boolean2): Nothing {
-  const formatter = getFormatterForHiddenNodesWithSpaceKeeping(
-    context,
-    node,
-    keepSingleSpace,
-    FormattingType.BETWEEN,
-    false,
-    false,
-  );
+  const formatter = getFormatterForHiddenNodesWithSpaceKeeping(context, node, keepSingleSpace, FormattingType.BETWEEN);
 
   if (formatter) {
-    context.formatters.push(formatter);
+    context.formatterManager.addFormatter(formatter);
+  }
+}
+
+export function formatAfterHiddenNodes(context: SyntaxContext, node: Node, keepSingleSpace: Boolean2): Nothing {
+  const formatter = getFormatterForHiddenNodesWithSpaceKeeping(context, node, keepSingleSpace, FormattingType.AFTER);
+
+  if (formatter) {
+    context.formatterManager.addFormatter(formatter);
   }
 }
 
@@ -64,7 +65,7 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
     const formatter = compareAndCreateFormatter(context, beforeIndentHiddenNodes, range, text);
 
     if (formatter) {
-      context.formatters.push(formatter);
+      context.formatterManager.addFormatter(formatter);
     }
   }
 
@@ -74,7 +75,7 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
     const formatter = compareAndCreateFormatter(context, node.indentHiddenNodes, range, text);
 
     if (formatter) {
-      context.formatters.push(formatter);
+      context.formatterManager.addFormatter(formatter);
     }
   }
 
@@ -85,7 +86,7 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
     const formatter = getFormatterForHiddenNodes(context, range, indentHiddenNodes, FormattingType.BEFORE);
 
     if (formatter) {
-      context.formatters.push(formatter);
+      context.formatterManager.addFormatter(formatter);
     }
   }
 
@@ -101,7 +102,7 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
     const formatter = getFormatterForHiddenNodes(context, range, lastStatementNode.hiddenNodes, FormattingType.AFTER);
 
     if (formatter) {
-      context.formatters.push(formatter);
+      context.formatterManager.addFormatter(formatter);
     }
   }
 }
@@ -183,8 +184,6 @@ function getFormatterForHiddenNodesWithSpaceKeeping(
   node: Node,
   keepSingleSpace: Boolean2,
   formattingType: FormattingType,
-  isSourceStartHiddenNodes: Boolean2,
-  isSourceEndHiddenNodes: Boolean2,
 ): Formatter | Nothing {
   const {hiddenNodes, range} = node;
 

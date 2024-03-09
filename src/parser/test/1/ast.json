@@ -404,7 +404,8 @@
         "hiddenNodes": []
       }
     },
-    "body": []
+    "body": [],
+    "declaration": null
   },
   {
     "$": "STATEMENT",
@@ -635,7 +636,8 @@
         "hiddenNodes": []
       }
     },
-    "body": []
+    "body": [],
+    "declaration": null
   },
   {
     "$": "STATEMENT",
@@ -866,7 +868,8 @@
         "hiddenNodes": []
       }
     },
-    "body": []
+    "body": [],
+    "declaration": null
   },
   {
     "$": "STATEMENT",
@@ -1653,6 +1656,7 @@
         ]
       }
     },
-    "body": []
+    "body": [],
+    "declaration": null
   }
 ]
