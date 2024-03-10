@@ -63,15 +63,16 @@ export function collapseOperator(
       return;
     }
 
-    if (
-      operatorType === OperatorType.POSTFIX &&
-      left &&
-      !is<OperatorNode>(left, $Node.OPERATOR) &&
-      (index === lastIndex || is<OperatorNode>(right, $Node.OPERATOR))
-    ) {
-      const postfix = postfixNode(context, operator, left);
-      context.nodes.splice(index - 1, 2, postfix);
-      collapseOperator(context, operators, operatorType, recursiveType, i);
+    if (operatorType === OperatorType.POSTFIX) {
+      if (
+        left &&
+        !is<OperatorNode>(left, $Node.OPERATOR) &&
+        (index === lastIndex || is<OperatorNode>(right, $Node.OPERATOR))
+      ) {
+        const postfix = postfixNode(context, operator, left);
+        context.nodes.splice(index - 1, 2, postfix);
+        collapseOperator(context, operators, operatorType, recursiveType, i);
+      }
 
       return;
     }
