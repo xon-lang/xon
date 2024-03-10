@@ -1,7 +1,18 @@
 import {readFileSync, writeFileSync} from 'fs';
 import {Anything, Integer, String2} from '../../lib/core';
 import {sourceFromFile} from '../../source/source';
+import {performanceIterations} from '../../util/performance';
 import {parseSyntax} from '../syntax';
+
+test('performance', () => {
+  const source = sourceFromFile('src/parser/test/performance/source.xon');
+  const syntax = parseSyntax(source);
+  expect(syntax.issueManager.issues.length).toBe(0);
+
+  const {min, max, avg} = performanceIterations(10000, () => parseSyntax(source));
+
+  console.log(`min ${min}\nmax ${max}\navg ${avg}\n`);
+});
 
 test('1', () => testFormatter(1));
 
