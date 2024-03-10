@@ -2,7 +2,7 @@ import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
-import {SyntaxNode, getRangeAndChildren} from '../syntax-node';
+import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface PrefixNode extends SyntaxNode {
   readonly $: $Node.PREFIX;
@@ -11,12 +11,7 @@ export interface PrefixNode extends SyntaxNode {
 }
 
 export function prefixNode(context: SyntaxContext, operator: OperatorNode, value: Node): PrefixNode {
-  const node: PrefixNode = {
-    $: $Node.PREFIX,
-    ...getRangeAndChildren(operator, value),
-    operator,
-    value,
-  };
+  const node = syntaxNode($Node.PREFIX, {operator, value});
 
   format(context, node);
 
@@ -24,8 +19,6 @@ export function prefixNode(context: SyntaxContext, operator: OperatorNode, value
 }
 
 function format(context: SyntaxContext, node: PrefixNode): void {
-  node.hiddenNodes = node.value.hiddenNodes;
-
   const keepSingleWhitespace = node.operator.text.some((x) => x.isLetterOrDigit(0));
   formatBetweenHiddenNodes(context, node.operator, keepSingleWhitespace);
 }

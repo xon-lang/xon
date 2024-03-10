@@ -10,6 +10,7 @@ export enum $DeclarationNodeType {
   GENERIC,
 }
 
+// todo it is not a node
 export interface DeclarationNode {
   $: $DeclarationNodeType;
   modifier: OperatorNode | Nothing;

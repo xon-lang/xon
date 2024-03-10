@@ -3,7 +3,7 @@ import '../../../../util/extension';
 import {$Node, Node} from '../../node';
 import {CloseNode} from '../../token/close/close-node';
 import {OpenNode} from '../../token/open/open-node';
-import {SyntaxNode, getRangeAndChildren} from '../syntax-node';
+import {SyntaxNode, getRangeAndChildren, syntaxNode} from '../syntax-node';
 
 export interface ArrayNode extends SyntaxNode {
   $: $Node.ARRAY;
@@ -13,13 +13,7 @@ export interface ArrayNode extends SyntaxNode {
 }
 
 export function arrayNode(open: OpenNode, close: CloseNode | Nothing, items: Node[]): ArrayNode {
-  const node: ArrayNode = {
-    $: $Node.ARRAY,
-    ...getRangeAndChildren(open, ...items, close),
-    open,
-    close,
-    items,
-  };
+  const node = syntaxNode($Node.ARRAY, {open, items, close});
 
   return node;
 }

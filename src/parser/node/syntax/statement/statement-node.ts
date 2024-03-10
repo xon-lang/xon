@@ -1,9 +1,10 @@
 import {Integer, Nothing} from '../../../../lib/core';
+import {rangeFromNodes} from '../../../../source/source-range';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
 import {TokenNode} from '../../token/token-node';
 import {DeclarationNode} from '../declaration/declaration-node';
-import {SyntaxNode, getRangeAndChildren} from '../syntax-node';
+import {SyntaxNode} from '../syntax-node';
 
 export interface StatementNode extends SyntaxNode {
   $: $Node.STATEMENT;
@@ -18,6 +19,7 @@ export interface StatementNode extends SyntaxNode {
   body: StatementNode[];
 }
 
+// todo perhaps like a declaration node we need to move from syntax nodes ???
 export function statementNode(
   context: SyntaxContext,
   children: Node[],
@@ -27,9 +29,13 @@ export function statementNode(
   indentHiddenNodes: TokenNode[],
   declaration: DeclarationNode | Nothing,
 ): StatementNode {
+  const range = rangeFromNodes([children.first(), children.last()]);
+
   const node: StatementNode = {
     $: $Node.STATEMENT,
-    ...getRangeAndChildren(...children),
+    range,
+    children,
+    hiddenNodes: [],
     indentLevel: parent ? parent.indentLevel + 1 : 0,
     indentStopColumn,
     beforeIndentHiddenNodes,
@@ -45,6 +51,8 @@ export function statementNode(
   } else {
     context.statements.push(node);
   }
+
+  children.forEach((x) => (x.parent = node));
 
   return node;
 }

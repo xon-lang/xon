@@ -10,7 +10,7 @@ import {OpenNode, scanOpenNode} from '../../token/open/open-node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {ArrayNode, arrayNode} from '../array/array-node';
 import {ObjectNode, objectNode} from '../object/object-node';
-import {SyntaxNode, getRangeAndChildren} from '../syntax-node';
+import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type Group = GroupNode | ArrayNode | ObjectNode;
 
@@ -28,13 +28,7 @@ export function groupNode(
   close: CloseNode | Nothing,
   items: Node[],
 ): GroupNode {
-  const node: GroupNode = {
-    $: $Node.GROUP,
-    ...getRangeAndChildren(open, ...items, close),
-    open,
-    close,
-    items,
-  };
+  const node = syntaxNode($Node.GROUP, {open, items, close});
 
   validate(context, node);
 

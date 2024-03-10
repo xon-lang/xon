@@ -3,7 +3,7 @@ import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
-import {SyntaxNode, getRangeAndChildren} from '../syntax-node';
+import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface InfixNode extends SyntaxNode {
   readonly $: $Node.INFIX;
@@ -13,13 +13,7 @@ export interface InfixNode extends SyntaxNode {
 }
 
 export function infixNode(context: SyntaxContext, operator: OperatorNode, left: Node, right: Node): InfixNode {
-  const node: InfixNode = {
-    $: $Node.INFIX,
-    ...getRangeAndChildren(left, operator, right),
-    operator,
-    left,
-    right,
-  };
+  const node = syntaxNode($Node.INFIX, {left, operator, right});
 
   validate(context, node);
   format(context, node);
@@ -34,8 +28,6 @@ export function validate(context: SyntaxContext, node: InfixNode): void {
 }
 
 function format(context: SyntaxContext, node: InfixNode): void {
-  node.hiddenNodes = node.right.hiddenNodes;
-
   const NO_LEFT_SPACE_TOKENS = ['.', ':'];
   const leftSingleWhitespace = !NO_LEFT_SPACE_TOKENS.includes(node.operator.text[0]);
   formatBetweenHiddenNodes(context, node.left, leftSingleWhitespace);

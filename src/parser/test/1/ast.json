@@ -118,41 +118,6 @@
           }
         ],
         "hiddenNodes": [],
-        "operator": {
-          "$": "OPERATOR",
-          "range": {
-            "start": {
-              "index": 2,
-              "line": 0,
-              "column": 2
-            },
-            "stop": {
-              "index": 3,
-              "line": 0,
-              "column": 3
-            }
-          },
-          "text": "+",
-          "hiddenNodes": [
-            {
-              "$": "WHITESPACE",
-              "range": {
-                "start": {
-                  "index": 3,
-                  "line": 0,
-                  "column": 3
-                },
-                "stop": {
-                  "index": 4,
-                  "line": 0,
-                  "column": 4
-                }
-              },
-              "text": " ",
-              "hiddenNodes": []
-            }
-          ]
-        },
         "left": {
           "$": "ID",
           "range": {
@@ -181,6 +146,41 @@
                   "index": 2,
                   "line": 0,
                   "column": 2
+                }
+              },
+              "text": " ",
+              "hiddenNodes": []
+            }
+          ]
+        },
+        "operator": {
+          "$": "OPERATOR",
+          "range": {
+            "start": {
+              "index": 2,
+              "line": 0,
+              "column": 2
+            },
+            "stop": {
+              "index": 3,
+              "line": 0,
+              "column": 3
+            }
+          },
+          "text": "+",
+          "hiddenNodes": [
+            {
+              "$": "WHITESPACE",
+              "range": {
+                "start": {
+                  "index": 3,
+                  "line": 0,
+                  "column": 3
+                },
+                "stop": {
+                  "index": 4,
+                  "line": 0,
+                  "column": 4
                 }
               },
               "text": " ",
@@ -316,41 +316,6 @@
         }
       ],
       "hiddenNodes": [],
-      "operator": {
-        "$": "OPERATOR",
-        "range": {
-          "start": {
-            "index": 2,
-            "line": 0,
-            "column": 2
-          },
-          "stop": {
-            "index": 3,
-            "line": 0,
-            "column": 3
-          }
-        },
-        "text": "+",
-        "hiddenNodes": [
-          {
-            "$": "WHITESPACE",
-            "range": {
-              "start": {
-                "index": 3,
-                "line": 0,
-                "column": 3
-              },
-              "stop": {
-                "index": 4,
-                "line": 0,
-                "column": 4
-              }
-            },
-            "text": " ",
-            "hiddenNodes": []
-          }
-        ]
-      },
       "left": {
         "$": "ID",
         "range": {
@@ -379,6 +344,41 @@
                 "index": 2,
                 "line": 0,
                 "column": 2
+              }
+            },
+            "text": " ",
+            "hiddenNodes": []
+          }
+        ]
+      },
+      "operator": {
+        "$": "OPERATOR",
+        "range": {
+          "start": {
+            "index": 2,
+            "line": 0,
+            "column": 2
+          },
+          "stop": {
+            "index": 3,
+            "line": 0,
+            "column": 3
+          }
+        },
+        "text": "+",
+        "hiddenNodes": [
+          {
+            "$": "WHITESPACE",
+            "range": {
+              "start": {
+                "index": 3,
+                "line": 0,
+                "column": 3
+              },
+              "stop": {
+                "index": 4,
+                "line": 0,
+                "column": 4
               }
             },
             "text": " ",
@@ -473,23 +473,6 @@
           }
         ],
         "hiddenNodes": [],
-        "operator": {
-          "$": "OPERATOR",
-          "range": {
-            "start": {
-              "index": 7,
-              "line": 1,
-              "column": 1
-            },
-            "stop": {
-              "index": 8,
-              "line": 1,
-              "column": 2
-            }
-          },
-          "text": "!",
-          "hiddenNodes": []
-        },
         "value": {
           "$": "ID",
           "range": {
@@ -505,6 +488,23 @@
             }
           },
           "text": "c",
+          "hiddenNodes": []
+        },
+        "operator": {
+          "$": "OPERATOR",
+          "range": {
+            "start": {
+              "index": 7,
+              "line": 1,
+              "column": 1
+            },
+            "stop": {
+              "index": 8,
+              "line": 1,
+              "column": 2
+            }
+          },
+          "text": "!",
           "hiddenNodes": []
         }
       }
@@ -601,23 +601,6 @@
         }
       ],
       "hiddenNodes": [],
-      "operator": {
-        "$": "OPERATOR",
-        "range": {
-          "start": {
-            "index": 7,
-            "line": 1,
-            "column": 1
-          },
-          "stop": {
-            "index": 8,
-            "line": 1,
-            "column": 2
-          }
-        },
-        "text": "!",
-        "hiddenNodes": []
-      },
       "value": {
         "$": "ID",
         "range": {
@@ -633,6 +616,23 @@
           }
         },
         "text": "c",
+        "hiddenNodes": []
+      },
+      "operator": {
+        "$": "OPERATOR",
+        "range": {
+          "start": {
+            "index": 7,
+            "line": 1,
+            "column": 1
+          },
+          "stop": {
+            "index": 8,
+            "line": 1,
+            "column": 2
+          }
+        },
+        "text": "!",
         "hiddenNodes": []
       }
     },
@@ -1020,23 +1020,6 @@
               "text": "(",
               "hiddenNodes": []
             },
-            "close": {
-              "$": "CLOSE",
-              "range": {
-                "start": {
-                  "index": 20,
-                  "line": 5,
-                  "column": 6
-                },
-                "stop": {
-                  "index": 21,
-                  "line": 5,
-                  "column": 7
-                }
-              },
-              "text": ")",
-              "hiddenNodes": []
-            },
             "items": [
               {
                 "$": "ID",
@@ -1072,7 +1055,24 @@
                 "text": "g",
                 "hiddenNodes": []
               }
-            ]
+            ],
+            "close": {
+              "$": "CLOSE",
+              "range": {
+                "start": {
+                  "index": 20,
+                  "line": 5,
+                  "column": 6
+                },
+                "stop": {
+                  "index": 21,
+                  "line": 5,
+                  "column": 7
+                }
+              },
+              "text": ")",
+              "hiddenNodes": []
+            }
           }
         ],
         "hiddenNodes": [],
@@ -1195,23 +1195,6 @@
             "text": "(",
             "hiddenNodes": []
           },
-          "close": {
-            "$": "CLOSE",
-            "range": {
-              "start": {
-                "index": 20,
-                "line": 5,
-                "column": 6
-              },
-              "stop": {
-                "index": 21,
-                "line": 5,
-                "column": 7
-              }
-            },
-            "text": ")",
-            "hiddenNodes": []
-          },
           "items": [
             {
               "$": "ID",
@@ -1247,7 +1230,24 @@
               "text": "g",
               "hiddenNodes": []
             }
-          ]
+          ],
+          "close": {
+            "$": "CLOSE",
+            "range": {
+              "start": {
+                "index": 20,
+                "line": 5,
+                "column": 6
+              },
+              "stop": {
+                "index": 21,
+                "line": 5,
+                "column": 7
+              }
+            },
+            "text": ")",
+            "hiddenNodes": []
+          }
         }
       }
     ],
@@ -1426,23 +1426,6 @@
             "text": "(",
             "hiddenNodes": []
           },
-          "close": {
-            "$": "CLOSE",
-            "range": {
-              "start": {
-                "index": 20,
-                "line": 5,
-                "column": 6
-              },
-              "stop": {
-                "index": 21,
-                "line": 5,
-                "column": 7
-              }
-            },
-            "text": ")",
-            "hiddenNodes": []
-          },
           "items": [
             {
               "$": "ID",
@@ -1478,7 +1461,24 @@
               "text": "g",
               "hiddenNodes": []
             }
-          ]
+          ],
+          "close": {
+            "$": "CLOSE",
+            "range": {
+              "start": {
+                "index": 20,
+                "line": 5,
+                "column": 6
+              },
+              "stop": {
+                "index": 21,
+                "line": 5,
+                "column": 7
+              }
+            },
+            "text": ")",
+            "hiddenNodes": []
+          }
         }
       ],
       "hiddenNodes": [],
@@ -1601,23 +1601,6 @@
           "text": "(",
           "hiddenNodes": []
         },
-        "close": {
-          "$": "CLOSE",
-          "range": {
-            "start": {
-              "index": 20,
-              "line": 5,
-              "column": 6
-            },
-            "stop": {
-              "index": 21,
-              "line": 5,
-              "column": 7
-            }
-          },
-          "text": ")",
-          "hiddenNodes": []
-        },
         "items": [
           {
             "$": "ID",
@@ -1653,7 +1636,24 @@
             "text": "g",
             "hiddenNodes": []
           }
-        ]
+        ],
+        "close": {
+          "$": "CLOSE",
+          "range": {
+            "start": {
+              "index": 20,
+              "line": 5,
+              "column": 6
+            },
+            "stop": {
+              "index": 21,
+              "line": 5,
+              "column": 7
+            }
+          },
+          "text": ")",
+          "hiddenNodes": []
+        }
       }
     },
     "body": [],

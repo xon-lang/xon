@@ -34,8 +34,6 @@ function validate(context: SyntaxContext, node: MemberNode): void {
 }
 
 function format(context: SyntaxContext, node: MemberNode): void {
-  node.hiddenNodes = node.id?.hiddenNodes ?? node.operator.hiddenNodes;
-
   const NO_LEFT_SPACE_TOKENS = ['.', ':'];
   const leftSingleWhitespace = !NO_LEFT_SPACE_TOKENS.includes(node.operator.text[0]);
   formatBetweenHiddenNodes(context, node.instance, leftSingleWhitespace);

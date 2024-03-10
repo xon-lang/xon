@@ -2,7 +2,7 @@ import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
 import {Group} from '../group/group-node';
-import {SyntaxNode, getRangeAndChildren} from '../syntax-node';
+import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface InvokeNode extends SyntaxNode {
   $: $Node.INVOKE;
@@ -11,12 +11,7 @@ export interface InvokeNode extends SyntaxNode {
 }
 
 export function invokeNode(context: SyntaxContext, instance: Node, group: Group): InvokeNode {
-  const node: InvokeNode = {
-    $: $Node.INVOKE,
-    ...getRangeAndChildren(instance, group),
-    instance,
-    group,
-  };
+  const node = syntaxNode($Node.INVOKE, {instance, group});
 
   format(context, node);
 
@@ -24,6 +19,5 @@ export function invokeNode(context: SyntaxContext, instance: Node, group: Group)
 }
 
 function format(context: SyntaxContext, node: InvokeNode): void {
-  node.hiddenNodes = node.group.hiddenNodes;
   formatBetweenHiddenNodes(context, node.instance, false);
 }

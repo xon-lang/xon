@@ -6,11 +6,11 @@ export interface SyntaxNode extends Node {
   readonly children: Node[];
 }
 
-export function syntaxNode<T extends Record<String2, Node | Nothing>, V extends $Node>(
+export function syntaxNode<T extends Record<String2, Node | Node[] | Nothing>, V extends $Node>(
   $: V,
   nodes: T,
 ): SyntaxNode & {$: typeof $} & T {
-  const children = Object.values(nodes).filter((x): x is Node => !!x);
+  const children = Object.values(nodes).flatMap(flatNodes);
 
   if (children.length === 0) {
     throw new Error('Not implemented');
@@ -23,7 +23,7 @@ export function syntaxNode<T extends Record<String2, Node | Nothing>, V extends 
   const node = {
     $,
     range,
-    children,
+    children: children,
     hiddenNodes: last.hiddenNodes,
     ...nodes,
   };
@@ -42,4 +42,16 @@ export function getRangeAndChildren(
 
   // todo move hiddenNodes to node initializer like syntaxNode()
   return {range, children, hiddenNodes: []};
+}
+
+function flatNodes(nodes: Node | Node[] | Nothing): Node[] {
+  if (!nodes) {
+    return [];
+  }
+
+  if (Array.isArray(nodes)) {
+    return nodes.filter((x) => x);
+  }
+
+  return [nodes];
 }
