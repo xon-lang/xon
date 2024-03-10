@@ -39,29 +39,26 @@ export function collapseOperator(
       return;
     }
 
-    if (
-      operatorType === OperatorType.INFIX &&
-      left &&
-      right &&
-      !is<OperatorNode>(left, $Node.OPERATOR) &&
-      !is<OperatorNode>(right, $Node.OPERATOR)
-    ) {
-      const infix = infixNode(context, operator, left, right);
-      context.nodes.splice(index - 1, 3, infix);
-      collapseOperator(context, operators, operatorType, recursiveType, i);
+    if (operatorType === OperatorType.INFIX) {
+      if (left && right && !is<OperatorNode>(left, $Node.OPERATOR) && !is<OperatorNode>(right, $Node.OPERATOR)) {
+        const infix = infixNode(context, operator, left, right);
+        context.nodes.splice(index - 1, 3, infix);
+        collapseOperator(context, operators, operatorType, recursiveType, i);
+      }
 
       return;
     }
 
-    if (
-      operatorType === OperatorType.PREFIX &&
-      right &&
-      !is<OperatorNode>(right, $Node.OPERATOR) &&
-      (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))
-    ) {
-      const prefix = prefixNode(context, operator, right);
-      context.nodes.splice(index, 2, prefix);
-      collapseOperator(context, operators, operatorType, recursiveType, i);
+    if (operatorType === OperatorType.PREFIX) {
+      if (
+        right &&
+        !is<OperatorNode>(right, $Node.OPERATOR) &&
+        (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))
+      ) {
+        const prefix = prefixNode(context, operator, right);
+        context.nodes.splice(index, 2, prefix);
+        collapseOperator(context, operators, operatorType, recursiveType, i);
+      }
 
       return;
     }
