@@ -18,12 +18,12 @@ export function invokeNode(context: SyntaxContext, instance: Node, group: Group)
     group,
   };
 
-  checkFormatting(context, node);
+  format(context, node);
 
   return node;
 }
 
-function checkFormatting(context: SyntaxContext, node: InvokeNode): void {
+function format(context: SyntaxContext, node: InvokeNode): void {
   node.hiddenNodes = node.group.hiddenNodes;
   formatBetweenHiddenNodes(context, node.instance, false);
 }

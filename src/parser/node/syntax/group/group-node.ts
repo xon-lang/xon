@@ -36,12 +36,12 @@ export function groupNode(
     items,
   };
 
-  validateGroupNode(context, node);
+  validate(context, node);
 
   return node;
 }
 
-export function validateGroupNode(context: SyntaxContext, node: GroupNode): void {
+export function validate(context: SyntaxContext, node: GroupNode): void {
   if (!node.close) {
     context.issueManager.addError(
       node.open,

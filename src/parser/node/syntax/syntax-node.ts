@@ -1,6 +1,6 @@
-import { Nothing } from '../../../lib/core';
-import { rangeFromNodes } from '../../../source/source-range';
-import { Node } from '../node';
+import {Nothing} from '../../../lib/core';
+import {rangeFromNodes} from '../../../source/source-range';
+import {Node} from '../node';
 
 export interface SyntaxNode extends Node {
   readonly children: Node[];
@@ -13,5 +13,5 @@ export function getRangeAndChildren(
   const range = rangeFromNodes([children.first(), children.last()]);
 
   // todo move hiddenNodes to node initializer like syntaxNode()
-  return { range, children, hiddenNodes: [] };
+  return {range, children, hiddenNodes: []};
 }

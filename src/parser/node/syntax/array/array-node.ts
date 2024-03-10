@@ -13,8 +13,6 @@ export interface ArrayNode extends SyntaxNode {
 }
 
 export function arrayNode(open: OpenNode, close: CloseNode | Nothing, items: Node[]): ArrayNode {
-  const lastStatement = items.lastOrNothing();
-
   const node: ArrayNode = {
     $: $Node.ARRAY,
     ...getRangeAndChildren(open, ...items, close),

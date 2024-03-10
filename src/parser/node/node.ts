@@ -4,7 +4,8 @@ import {TokenNode} from './token/token-node';
 
 export interface Node {
   readonly $: $Node;
-  range: SourceRange;
+  readonly range: SourceRange;
+  parent?: Node | Nothing;
   readonly children?: Node[];
   hiddenNodes: TokenNode[];
 }

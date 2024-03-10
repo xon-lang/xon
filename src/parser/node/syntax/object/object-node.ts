@@ -13,8 +13,6 @@ export interface ObjectNode extends SyntaxNode {
 }
 
 export function objectNode(open: OpenNode, close: CloseNode | Nothing, items: Node[]): ObjectNode {
-  const lastStatement = items.lastOrNothing();
-
   const node: ObjectNode = {
     $: $Node.OBJECT,
     ...getRangeAndChildren(open, ...items, close),

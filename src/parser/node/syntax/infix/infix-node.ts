@@ -21,19 +21,19 @@ export function infixNode(context: SyntaxContext, operator: OperatorNode, left: 
     right,
   };
 
-  validateInfixNode(context, node);
-  checkFormatting(context, node);
+  validate(context, node);
+  format(context, node);
 
   return node;
 }
 
-export function validateInfixNode(context: SyntaxContext, node: InfixNode): void {
+export function validate(context: SyntaxContext, node: InfixNode): void {
   if (!node.left || !node.right) {
     context.issueManager.addError(node, ISSUE_MESSAGE.notImplemented());
   }
 }
 
-function checkFormatting(context: SyntaxContext, node: InfixNode): void {
+function format(context: SyntaxContext, node: InfixNode): void {
   node.hiddenNodes = node.right.hiddenNodes;
 
   const NO_LEFT_SPACE_TOKENS = ['.', ':'];

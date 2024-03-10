@@ -18,16 +18,12 @@ export function prefixNode(context: SyntaxContext, operator: OperatorNode, value
     value,
   };
 
-  validatePrefixNode(context, node);
-  checkFormatting(context, node);
+  format(context, node);
 
   return node;
 }
 
-// todo refactor it if value will be required
-function validatePrefixNode(context: SyntaxContext, node: PrefixNode): void {}
-
-function checkFormatting(context: SyntaxContext, node: PrefixNode): void {
+function format(context: SyntaxContext, node: PrefixNode): void {
   node.hiddenNodes = node.value.hiddenNodes;
 
   const keepSingleWhitespace = node.operator.text.some((x) => x.isLetterOrDigit(0));

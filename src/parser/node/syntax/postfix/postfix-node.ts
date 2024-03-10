@@ -18,15 +18,12 @@ export function postfixNode(context: SyntaxContext, operator: OperatorNode, valu
     value,
   };
 
-  validatePostfixNode(context, node);
-  checkFormatting(context, node);
+  format(context, node);
 
   return node;
 }
 
-function validatePostfixNode(context: SyntaxContext, node: PostfixNode): void {}
-
-function checkFormatting(context: SyntaxContext, node: PostfixNode): void {
+function format(context: SyntaxContext, node: PostfixNode): void {
   node.hiddenNodes = node.operator.hiddenNodes;
 
   const keepSingleWhitespace = node.operator.text.some((x) => x.isLetterOrDigit(0));
