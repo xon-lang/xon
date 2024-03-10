@@ -5,12 +5,12 @@ import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
-import {SyntaxNode, getRangeAndChildren} from '../syntax-node';
+import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface MemberNode extends SyntaxNode {
   readonly $: $Node.MEMBER;
-  readonly operator: OperatorNode;
   readonly instance: Node;
+  readonly operator: OperatorNode;
   readonly id: IdNode | Nothing;
 }
 
@@ -20,14 +20,7 @@ export function memberNode(
   instance: Node,
   id: IdNode | Nothing,
 ): MemberNode {
-  const node: MemberNode = {
-    $: $Node.MEMBER,
-    ...getRangeAndChildren(instance, operator, id),
-    operator,
-    instance,
-    id,
-  };
-
+  const node = syntaxNode($Node.MEMBER, {instance, operator, id});
   validate(context, node);
   format(context, node);
 
