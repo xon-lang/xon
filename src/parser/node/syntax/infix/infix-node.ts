@@ -21,7 +21,7 @@ export function infixNode(context: SyntaxContext, operator: OperatorNode, left: 
   return node;
 }
 
-export function validate(context: SyntaxContext, node: InfixNode): void {
+function validate(context: SyntaxContext, node: InfixNode): void {
   if (!node.left || !node.right) {
     context.issueManager.addError(node, ISSUE_MESSAGE.notImplemented());
   }
