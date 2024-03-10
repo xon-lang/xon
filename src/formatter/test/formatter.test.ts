@@ -13,6 +13,7 @@ test('7', () => testFormatter(7));
 test('8', () => testFormatter(8));
 test('9', () => testFormatter(9));
 test('10', () => testFormatter(10));
+test('11', () => testFormatter(11));
 
 function testFormatter(index: Integer) {
   const testDir = 'src/formatter/test';

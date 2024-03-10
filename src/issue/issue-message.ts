@@ -46,4 +46,9 @@ export const ISSUE_MESSAGE = {
     actual: `Should be integer`,
     expect: null,
   }),
+
+  shouldBeMemberName: () => ({
+    actual: `Should be member name`,
+    expect: null,
+  }),
 };

@@ -1,7 +1,7 @@
 import {sourceFromText} from '../../../../source/source';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
-import {InfixNode} from '../../syntax/infix/infix-node';
+import {MemberNode} from '../../syntax/member/member-node';
 import {IdNode} from '../id/id-node';
 import {OperatorNode} from '../operator/operator-node';
 
@@ -10,14 +10,14 @@ test('no space', () => {
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InfixNode;
+  const node = statements[0].item as MemberNode;
 
   expect(statements.length).toBe(1);
-  expect(node.left?.$).toBe($Node.ID);
-  expect((node.left as IdNode).text).toBe('abc');
+  expect(node.instance?.$).toBe($Node.ID);
+  expect((node.instance as IdNode).text).toBe('abc');
   expect((node.operator as OperatorNode).text).toBe('.');
-  expect(node.right?.$).toBe($Node.ID);
-  expect((node.right as IdNode).text).toBe('def');
+  expect(node.id?.$).toBe($Node.ID);
+  expect((node.id as IdNode).text).toBe('def');
 });
 
 test('spaces', () => {
@@ -25,14 +25,14 @@ test('spaces', () => {
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InfixNode;
+  const node = statements[0].item as MemberNode;
 
   expect(statements.length).toBe(1);
-  expect(node.left?.$).toBe($Node.ID);
-  expect((node.left as IdNode).text).toBe('abc');
+  expect(node.instance?.$).toBe($Node.ID);
+  expect((node.instance as IdNode).text).toBe('abc');
   expect((node.operator as OperatorNode).text).toBe('.');
-  expect(node.right?.$).toBe($Node.ID);
-  expect((node.right as IdNode).text).toBe('def');
+  expect(node.id?.$).toBe($Node.ID);
+  expect((node.id as IdNode).text).toBe('def');
 });
 
 test('with new line', () => {
@@ -40,13 +40,13 @@ test('with new line', () => {
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InfixNode;
+  const node = statements[0].item as MemberNode;
 
   expect(statements.length).toBe(1);
-  expect(node.left.hiddenNodes[0].text).toBe('\\   \n');
-  expect(node.left?.$).toBe($Node.ID);
-  expect((node.left as IdNode).text).toBe('abc');
+  expect(node.instance.hiddenNodes[0].text).toBe('\\   \n');
+  expect(node.instance?.$).toBe($Node.ID);
+  expect((node.instance as IdNode).text).toBe('abc');
   expect((node.operator as OperatorNode).text).toBe('.');
-  expect(node.right?.$).toBe($Node.ID);
-  expect((node.right as IdNode).text).toBe('def');
+  expect(node.id?.$).toBe($Node.ID);
+  expect((node.id as IdNode).text).toBe('def');
 });

@@ -4,24 +4,9 @@ import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
 import {IdNode} from '../../token/id/id-node';
 import {IntegerNode} from '../../token/integer/integer-node';
-import {TokenNode} from '../../token/token-node';
 import {GroupNode} from '../group/group-node';
 import {PrefixNode} from '../prefix/prefix-node';
 import {InfixNode} from './infix-node';
-
-test('infix operator', () => {
-  const text = 'abc.def';
-  const source = sourceFromText(text);
-  const syntax = parseSyntax(source);
-  const statements = syntax.statements;
-  const node = statements[0].item as InfixNode;
-
-  expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.INFIX);
-  expect((node.left as TokenNode).text).toBe('abc');
-  expect(node.operator.text).toBe('.');
-  expect((node.right as TokenNode).text).toBe('def');
-});
 
 test('several operands with different priorities', () => {
   const text = '1*1+1+2^5*2/2';

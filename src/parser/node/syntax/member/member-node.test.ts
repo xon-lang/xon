@@ -1,0 +1,43 @@
+import {nothing} from '../../../../lib/core';
+import {sourceFromText} from '../../../../source/source';
+import {parseSyntax} from '../../../syntax';
+import {$Node} from '../../node';
+import {TokenNode} from '../../token/token-node';
+import {MemberNode} from './member-node';
+
+test('member with id instance', () => {
+  const text = 'abc.def';
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as MemberNode;
+
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.MEMBER);
+
+  expect(node.instance.$).toBe($Node.ID);
+  expect((node.instance as TokenNode).text).toBe('abc');
+
+  expect(node.operator.text).toBe('.');
+
+  expect(node.id?.$).toBe($Node.ID);
+  expect(node.id?.text).toBe('def');
+});
+
+test('member without id', () => {
+  const text = 'abc.';
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as MemberNode;
+
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.MEMBER);
+
+  expect(node.instance.$).toBe($Node.ID);
+  expect((node.instance as TokenNode).text).toBe('abc');
+
+  expect(node.operator.text).toBe('.');
+
+  expect(node.id).toBe(nothing);
+});

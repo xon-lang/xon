@@ -1,8 +1,10 @@
-import {Nothing, String2} from '../../lib/core';
+import {Nothing, String2, nothing} from '../../lib/core';
 import {$Node, Node, is} from '../node/node';
 import {infixNode} from '../node/syntax/infix/infix-node';
+import {memberNode} from '../node/syntax/member/member-node';
 import {postfixNode} from '../node/syntax/postfix/postfix-node';
 import {prefixNode} from '../node/syntax/prefix/prefix-node';
+import {IdNode} from '../node/token/id/id-node';
 import {OperatorNode} from '../node/token/operator/operator-node';
 import {OperatorType, RecursiveType} from '../syntax-config';
 import {SyntaxContext} from '../syntax-context';
@@ -25,6 +27,17 @@ export function collapseOperator(
 
     const left: Node | Nothing = context.nodes[index - 1];
     const right: Node | Nothing = context.nodes[index + 1];
+
+    if (operatorType === OperatorType.MEMBER) {
+      if (left && !is<OperatorNode>(left, $Node.OPERATOR)) {
+        const id = is<IdNode>(right, $Node.ID) ? right : nothing;
+        const member = memberNode(context, operator, left, id);
+        context.nodes.splice(index - 1, member.children.length, member);
+        collapseOperator(context, operators, operatorType, recursiveType, i);
+      }
+
+      return;
+    }
 
     if (
       operatorType === OperatorType.INFIX &&

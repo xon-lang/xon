@@ -8,10 +8,11 @@ export interface OperatorsOrder {
 }
 
 export enum OperatorType {
+  MEMBER,
+  INVOKE,
+  INFIX,
   PREFIX,
   POSTFIX,
-  INFIX,
-  INVOKE,
 }
 
 export enum RecursiveType {
@@ -89,7 +90,7 @@ export const OPERATOR_KEYWORDS = ['is', 'as', 'in'];
 export const operatorsOrders: OperatorsOrder[] = [
   {
     operators: [`${MEMBER} ${META_MEMBER}`],
-    operatorType: OperatorType.INFIX,
+    operatorType: OperatorType.MEMBER,
     recursiveType: RecursiveType.LEFT,
   },
   {
