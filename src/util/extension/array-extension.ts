@@ -1,10 +1,7 @@
 import {Boolean2, Integer, Nothing, Number2, Something, String2, nothing} from '../../lib/core';
 
 // Array
-Array.prototype.takeWhile = function takeWhile<T>(
-  predicate: (value: T, index: Integer) => Something,
-  startIndex = 0,
-): T[] {
+Array.prototype.takeWhile = function <T>(predicate: (value: T, index: Integer) => Something, startIndex = 0): T[] {
   for (let i = startIndex; i < this.length; i++) {
     if (!predicate(this[i], i)) {
       return this.slice(startIndex, i);
@@ -14,7 +11,7 @@ Array.prototype.takeWhile = function takeWhile<T>(
   return this.slice(startIndex, this.length);
 };
 
-Array.prototype.takeWhileFromLast = function takeWhileFromLast<T>(
+Array.prototype.takeWhileFromLast = function <T>(
   predicate: (value: T, index: Integer) => Something,
   startIndex?: Integer,
 ): T[] {
@@ -41,11 +38,11 @@ Array.prototype.findLast = function <T>(predicate: (value: T, index: Integer, ar
   return this[index];
 };
 
-Array.prototype.firstOrNull = function <T>(): T | Nothing {
+Array.prototype.firstOrNothing = function <T>(): T | Nothing {
   return this[0];
 };
 
-Array.prototype.lastOrNull = function <T>(): T | Nothing {
+Array.prototype.lastOrNothing = function <T>(): T | Nothing {
   return this[this.length - 1];
 };
 
@@ -91,11 +88,11 @@ Array.prototype.findMap = function <T, V>(
   return nothing;
 };
 
-Array.prototype.count = function count<T>(predicate: (value: T, index: Integer, array: T[]) => Boolean2): Integer {
+Array.prototype.count = function <T>(predicate: (value: T, index: Integer, array: T[]) => Boolean2): Integer {
   return this.reduce((sum, val, index, array) => sum + (predicate(val, index, array) ? 1 : 0), 0);
 };
 
-Array.prototype.sortBy = function sortBy<T>(select: (value: T) => Integer, ascending: Boolean2 = true): T[] {
+Array.prototype.sortBy = function <T>(select: (value: T) => Integer, ascending: Boolean2 = true): T[] {
   if (ascending) {
     return [...this].sort((a, b) => select(a) - select(b));
   }
@@ -103,7 +100,7 @@ Array.prototype.sortBy = function sortBy<T>(select: (value: T) => Integer, ascen
   return [...this].sort((a, b) => select(b) - select(a));
 };
 
-Array.prototype.splitBy = function splitBy<T>(
+Array.prototype.splitBy = function <T>(
   predicate: (value: T, index: Integer, array: T[]) => Boolean2,
 ): {splitter: T | Nothing; items: T[]}[] {
   const result: {splitter: T | Nothing; items: T[]}[] = [];
@@ -117,7 +114,7 @@ Array.prototype.splitBy = function splitBy<T>(
       continue;
     }
 
-    if (!result.lastOrNull()) {
+    if (!result.lastOrNothing()) {
       result.push({splitter: nothing, items: []});
     }
 

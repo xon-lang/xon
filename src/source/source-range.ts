@@ -18,8 +18,8 @@ export function cloneRange(range: SourceRange): SourceRange {
 }
 
 export function rangeFromNodes(nodes: Node[]): SourceRange {
-  const startNode = nodes.firstOrNull();
-  const stopNode = nodes.lastOrNull();
+  const startNode = nodes.firstOrNothing();
+  const stopNode = nodes.lastOrNothing();
 
   if (!startNode) {
     return zeroRange();

@@ -1,19 +1,19 @@
-import {String2} from '../lib/core';
+import {Nothing, String2, nothing} from '../lib/core';
 
 export interface IssueMessage {
   actual: String2;
-  expect: String2 | null;
+  expect: String2 | Nothing;
 }
 
 export const ISSUE_MESSAGE = {
   unknownTokens: () => ({
     actual: 'Unknown tokens',
-    expect: null,
+    expect: nothing,
   }),
 
   unexpectedExpression: () => ({
     actual: 'Unexpected expression',
-    expect: null,
+    expect: nothing,
   }),
 
   notImplemented: () => ({
@@ -29,26 +29,26 @@ export const ISSUE_MESSAGE = {
   // Semantic
   declarationNotFound: (name: String2) => ({
     actual: `Declaration '${name}' not found`,
-    expect: null,
+    expect: nothing,
   }),
 
   tooManyDeclarationsFoundWithName: (name: String2) => ({
     actual: `Too many declarations found with '${name}'`,
-    expect: null,
+    expect: nothing,
   }),
 
   shouldBeSingleItem: () => ({
     actual: `Should be single item`,
-    expect: null,
+    expect: nothing,
   }),
 
   shouldBeInteger: () => ({
     actual: `Should be integer`,
-    expect: null,
+    expect: nothing,
   }),
 
   shouldBeMemberName: () => ({
     actual: `Should be member name`,
-    expect: null,
+    expect: nothing,
   }),
 };

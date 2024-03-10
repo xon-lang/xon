@@ -134,7 +134,7 @@ export function formatLastContextHiddenNodes(context: SyntaxContext): Formatter 
   }
 
   const lastStatementChild = context.statements.last().children.last();
-  const lastNode = lastStatementChild.hiddenNodes.lastOrNull() ?? lastStatementChild;
+  const lastNode = lastStatementChild.hiddenNodes.lastOrNothing() ?? lastStatementChild;
 
   return {
     range: rangeFromPosition(lastNode.range.stop),
@@ -264,8 +264,8 @@ function compareAndCreateFormatter(
 }
 
 function isSameContent(context: SyntaxContext, nodes: TokenNode[], text: String2): Boolean2 {
-  const first = nodes.firstOrNull();
-  const last = nodes.lastOrNull();
+  const first = nodes.firstOrNothing();
+  const last = nodes.lastOrNothing();
 
   if (!first || !last) {
     return text === '';

@@ -1,13 +1,13 @@
-import { lstatSync, Stats } from 'fs';
-import { homedir } from 'os';
-import { join, resolve } from 'path';
-import { Boolean2, String2 } from '../../lib/core';
-import { DirectoryFs } from '../../util/fs/directory-fs';
-import { FileFs } from '../../util/fs/file-fs';
+import {lstatSync, Stats} from 'fs';
+import {homedir} from 'os';
+import {join, resolve} from 'path';
+import {Boolean2, nothing, Nothing, String2} from '../../lib/core';
+import {DirectoryFs} from '../../util/fs/directory-fs';
+import {FileFs} from '../../util/fs/file-fs';
 
 export class PathFs {
   fullPath: String2;
-  stats: Stats | null = null;
+  stats: Stats | Nothing = nothing;
 
   constructor(public path: String2) {
     this.fullPath = this.resolve(path);

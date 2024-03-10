@@ -1,3 +1,4 @@
+import { nothing } from '../../../../lib/core';
 import {sourceFromText} from '../../../../source/source';
 import {parseSyntax} from '../../../syntax';
 import {$Node, is} from '../../node';
@@ -56,7 +57,7 @@ test('empty not closed', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
   expect(is(node.open, $Node.OPEN)).toBe(true);
-  expect(node.close).toBe(null);
+  expect(node.close).toBe(nothing);
   expect(node.items.length).toBe(0);
 });
 

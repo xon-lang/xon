@@ -1,4 +1,5 @@
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
+import {nothing} from '../../../../lib/core';
 import {sourceFromText} from '../../../../source/source';
 import {parseSyntax} from '../../../syntax';
 import {OPEN_CLOSE_PAIR} from '../../../syntax-config';
@@ -29,7 +30,7 @@ test('validate close pair', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $Node.GROUP)).toBe(true);
   expect(is(node.open, $Node.OPEN)).toBe(true);
-  expect(node.close).toBe(null);
+  expect(node.close).toBe(nothing);
   expect(node.items.length).toBe(0);
   expect(syntax.issueManager.issues.length).toBe(1);
 

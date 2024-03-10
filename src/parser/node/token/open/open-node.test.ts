@@ -1,3 +1,4 @@
+import {nothing} from '../../../../lib/core';
 import {sourceFromText} from '../../../../source/source';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
@@ -14,7 +15,7 @@ test('open paren', () => {
   expect(node.$).toBe($Node.GROUP);
   expect(node.open.$).toBe($Node.OPEN);
   expect(node.open.text).toBe('(');
-  expect(node.close).toBe(null);
+  expect(node.close).toBe(nothing);
 });
 
 test('open bracket', () => {
@@ -28,7 +29,7 @@ test('open bracket', () => {
   expect(node.$).toBe($Node.ARRAY);
   expect(node.open.$).toBe($Node.OPEN);
   expect(node.open.text).toBe('[');
-  expect(node.close).toBe(null);
+  expect(node.close).toBe(nothing);
 });
 
 test('open brace', () => {
@@ -42,5 +43,5 @@ test('open brace', () => {
   expect(node.$).toBe($Node.OBJECT);
   expect((node as GroupNode).open.$).toBe($Node.OPEN);
   expect((node as GroupNode).open.text).toBe('{');
-  expect((node as GroupNode).close).toBe(null);
+  expect((node as GroupNode).close).toBe(nothing);
 });

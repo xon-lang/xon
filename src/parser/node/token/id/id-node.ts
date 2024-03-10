@@ -1,4 +1,4 @@
-import {Nothing, String2} from '../../../../lib/core';
+import {Nothing, String2, nothing} from '../../../../lib/core';
 import {Semantic} from '../../../../semantic/semantic';
 import {SourceRange} from '../../../../source/source-range';
 import '../../../../util/extension';
@@ -16,11 +16,11 @@ export function idNode(range: SourceRange, text: String2): IdNode {
   return tokenNode($Node.ID, range, text);
 }
 
-export function scanIdNode(context: SyntaxContext): IdNode | null {
+export function scanIdNode(context: SyntaxContext): IdNode | Nothing {
   const {position, source} = context;
 
   if (source.text[position.index] !== UNDERSCORE && !source.text.isLetter(position.index)) {
-    return null;
+    return nothing;
   }
 
   const text = source.text.takeWhile((x, i) => x === UNDERSCORE || source.text.isLetterOrDigit(i), position.index);

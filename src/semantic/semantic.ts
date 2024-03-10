@@ -1,6 +1,6 @@
 import {IssueType} from '../issue/issue';
 import {createIssueManager} from '../issue/issue-manager';
-import {Nothing} from '../lib/core';
+import {Nothing, nothing} from '../lib/core';
 import {DeclarationNode} from '../parser/node/syntax/declaration/declaration-node';
 import {SyntaxResult} from '../parser/syntax-result';
 import {SourceReference} from '../source/source-reference';
@@ -45,7 +45,7 @@ export function semanticIs<T extends Semantic = Semantic>(
 export function parseSemantic(syntax: SyntaxResult): SemanticContext {
   // todo mb we need to create single issue manager ???
   const issueManager = createIssueManager(syntax.source, IssueType.SEMANTIC, syntax.issueManager.issues);
-  const context = semanticContext(null, syntax.source, issueManager);
+  const context = semanticContext(nothing, syntax.source, issueManager);
   const declarations = syntax.statements.map((x) => x.declaration).filter((x): x is DeclarationNode => !!x);
 
   declarationsSemanticParse(context, declarations);

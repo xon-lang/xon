@@ -15,7 +15,7 @@ export function collapseOperator(
   operatorType: OperatorType,
   recursiveType: RecursiveType,
   startIndex = 0,
-): void {
+): Nothing {
   for (let i = startIndex; i < context.nodes.length; i++) {
     const lastIndex = context.nodes.length - 1;
     const index = recursiveType === RecursiveType.LEFT ? i : lastIndex - i;

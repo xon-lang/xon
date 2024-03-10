@@ -17,12 +17,17 @@ export type Group = GroupNode | ArrayNode | ObjectNode;
 export interface GroupNode extends SyntaxNode {
   $: $Node.GROUP;
   open: OpenNode;
-  close: CloseNode | null;
+  close: CloseNode | Nothing;
   // todo make items as Statement[][] or as body
   items: (Node | Nothing)[];
 }
 
-export function groupNode(context: SyntaxContext, open: OpenNode, close: CloseNode | null, items: Node[]): GroupNode {
+export function groupNode(
+  context: SyntaxContext,
+  open: OpenNode,
+  close: CloseNode | Nothing,
+  items: Node[],
+): GroupNode {
   const node: GroupNode = {
     $: $Node.GROUP,
     ...getRangeAndChildren(open, ...items, close),
@@ -45,11 +50,11 @@ export function validateGroupNode(context: SyntaxContext, node: GroupNode): void
   }
 }
 
-export function scanGroupNode(context: SyntaxContext): Group | null {
+export function scanGroupNode(context: SyntaxContext): Group | Nothing {
   const open = scanOpenNode(context);
 
   if (!is<OpenNode>(open, $Node.OPEN)) {
-    return null;
+    return nothing;
   }
 
   const {source, position} = context;
@@ -90,10 +95,10 @@ export function scanGroupNode(context: SyntaxContext): Group | null {
     }
   }
 
-  return createGroupNode(context, open, null, items);
+  return createGroupNode(context, open, nothing, items);
 }
 
-function createGroupNode(context: SyntaxContext, open: OpenNode, close: CloseNode | null, nodes: Node[]): Group {
+function createGroupNode(context: SyntaxContext, open: OpenNode, close: CloseNode | Nothing, nodes: Node[]): Group {
   if (open.text === GROUP_NODE_OPEN) {
     return groupNode(context, open, close, nodes);
   }

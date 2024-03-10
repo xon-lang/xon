@@ -1,4 +1,4 @@
-import {String2} from '../../../../lib/core';
+import {Nothing, String2, nothing} from '../../../../lib/core';
 import {SourceRange} from '../../../../source/source-range';
 import {ARRAY_NODE_OPEN, GROUP_NODE_OPEN, OBJECT_NODE_OPEN} from '../../../syntax-config';
 import {SyntaxContext} from '../../../syntax-context';
@@ -13,7 +13,7 @@ export function openNode(range: SourceRange, text: String2): OpenNode {
   return tokenNode($Node.OPEN, range, text);
 }
 
-export function scanOpenNode(context: SyntaxContext): Partial<OpenNode> | null {
+export function scanOpenNode(context: SyntaxContext): Partial<OpenNode> | Nothing {
   const char = context.source.text[context.position.index];
 
   if (char === GROUP_NODE_OPEN || char === ARRAY_NODE_OPEN || char === OBJECT_NODE_OPEN) {
@@ -23,5 +23,5 @@ export function scanOpenNode(context: SyntaxContext): Partial<OpenNode> | null {
     return openNode(range, text);
   }
 
-  return null;
+  return nothing;
 }
