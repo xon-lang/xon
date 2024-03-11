@@ -29,7 +29,7 @@ function parameterShallowParse(context: SemanticContext, node: DeclarationNode |
 
   const declaration = parameterSemantic(reference, name);
   node.id.semantic = declaration;
-  context.addDeclaration(declaration);
+  context.declarationManager.add(declaration);
 
   return declaration;
 }

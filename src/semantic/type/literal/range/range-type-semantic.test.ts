@@ -14,9 +14,9 @@ test('a is integer', () => {
   const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax);
 
-  expect(Object.keys(semantic.declarations).length).toBe(1);
-  expect(semantic.declarations.a[0].$).toBe($Semantic.CONSTANT);
-  expect(semantic.declarations.a[0].name).toBe('a');
+  expect(semantic.declarationManager.count()).toBe(1);
+  expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.CONSTANT);
+  expect(semantic.declarationManager.declarations.a[0].name).toBe('a');
 
   const constNode = syntax.statements[0].declaration as DeclarationNode;
   expect(constNode.id?.text).toBe('a');

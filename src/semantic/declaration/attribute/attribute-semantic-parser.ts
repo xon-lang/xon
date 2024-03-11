@@ -19,7 +19,7 @@ export function attributeShallowParse(context: SemanticContext, node: Declaratio
 
   const declaration = attributeSemantic(reference, name);
   node.id.semantic = declaration;
-  context.addDeclaration(declaration);
+  context.declarationManager.add(declaration);
 
   return declaration;
 }

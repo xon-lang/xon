@@ -9,7 +9,7 @@ import {DeclarationTypeSemantic, declarationTypeSemantic} from './declaration-ty
 
 export function declarationTypeSemanticParse(context: SemanticContext, node: Node): DeclarationTypeSemantic | Nothing {
   if (is<IdNode>(node, $Node.ID)) {
-    const declaration = context.findSingleDeclaration(node, 0, nothing);
+    const declaration = context.declarationManager.findSingle(node, 0, nothing);
 
     if (!declaration) {
       return nothing;
@@ -33,7 +33,7 @@ export function declarationTypeSemanticParse(context: SemanticContext, node: Nod
     }
 
     const generics = node.group.items.map((x) => typeSemanticParse(context, x));
-    const declaration = context.findSingleDeclaration(node.instance, generics.length, nothing);
+    const declaration = context.declarationManager.findSingle(node.instance, generics.length, nothing);
 
     if (!declaration) {
       return nothing;

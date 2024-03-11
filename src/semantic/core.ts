@@ -14,7 +14,7 @@ function declarations(): Record<String2, DeclarationSemantic[]> {
     const syntax = parseSyntax(source);
     const semantic = parseSemantic(syntax);
 
-    cachedTypes = semantic.declarations;
+    cachedTypes = semantic.declarationManager.declarations;
   }
 
   return cachedTypes;

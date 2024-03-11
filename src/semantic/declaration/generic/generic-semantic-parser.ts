@@ -29,7 +29,7 @@ function genericShallowParse(context: SemanticContext, node: DeclarationNode | N
 
   const declaration = genericSemantic(reference, name);
   node.id.semantic = declaration;
-  context.addDeclaration(declaration);
+  context.declarationManager.add(declaration);
 
   return declaration;
 }

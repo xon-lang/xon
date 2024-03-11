@@ -20,7 +20,7 @@ export function modelShallowParse(context: SemanticContext, node: DeclarationNod
 
   const declaration = modelSemantic(reference, name);
   node.id.semantic = declaration;
-  context.addDeclaration(declaration);
+  context.declarationManager.add(declaration);
 
   return declaration;
 }

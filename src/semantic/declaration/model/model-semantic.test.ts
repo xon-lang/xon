@@ -10,9 +10,9 @@ test('only a', () => {
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax);
-  const model = semantic.declarations.A[0] as ModelSemantic;
+  const model = semantic.declarationManager.declarations.A[0] as ModelSemantic;
 
-  expect(Object.keys(semantic.declarations).length).toBe(1);
+  expect(semantic.declarationManager.count()).toBe(1);
   expect(model.$).toBe($Semantic.MODEL);
   expect(model.name).toBe('A');
 
@@ -32,15 +32,15 @@ test('declare b then a, a extends b', () => {
   const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax);
 
-  expect(Object.keys(semantic.declarations).length).toBe(2);
+  expect(semantic.declarationManager.count()).toBe(2);
 
-  const aDeclaration = semantic.declarations.A[0] as ModelSemantic;
+  const aDeclaration = semantic.declarationManager.declarations.A[0] as ModelSemantic;
   expect(aDeclaration.$).toBe($Semantic.MODEL);
   expect(aDeclaration.name).toBe('A');
   expect(aDeclaration.base?.$).toBe('DECLARATION_TYPE');
   expect((aDeclaration.base as DeclarationTypeSemantic)?.declaration.name).toBe('B');
 
-  const bDeclaration = semantic.declarations.B[0] as ModelSemantic;
+  const bDeclaration = semantic.declarationManager.declarations.B[0] as ModelSemantic;
   expect(bDeclaration.$).toBe($Semantic.MODEL);
   expect(bDeclaration.name).toBe('B');
 });
@@ -51,15 +51,15 @@ test('declare a then b, a extends b', () => {
   const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax);
 
-  expect(Object.keys(semantic.declarations).length).toBe(2);
+  expect(semantic.declarationManager.count()).toBe(2);
 
-  const aDeclaration = semantic.declarations.A[0] as ModelSemantic;
+  const aDeclaration = semantic.declarationManager.declarations.A[0] as ModelSemantic;
   expect(aDeclaration.$).toBe($Semantic.MODEL);
   expect(aDeclaration.name).toBe('A');
   expect(aDeclaration.base?.$).toBe('DECLARATION_TYPE');
   expect((aDeclaration.base as DeclarationTypeSemantic)?.declaration.name).toBe('B');
 
-  const bDeclaration = semantic.declarations.B[0] as ModelSemantic;
+  const bDeclaration = semantic.declarationManager.declarations.B[0] as ModelSemantic;
   expect(bDeclaration.$).toBe($Semantic.MODEL);
   expect(bDeclaration.name).toBe('B');
 });
