@@ -1,62 +1,84 @@
+import {ISSUE_MESSAGE} from '../../issue/issue-message';
 import {Nothing, nothing} from '../../lib/core';
 import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-node';
 import {$Semantic, semanticIs} from '../semantic';
 import {SemanticContext} from '../semantic-context';
-import {DeclarationSemantic} from './declaration-semantic';
-import {typeDeclarationDeepParse, typeDeclarationShallowParse} from './type/type-declaration-semantic-parser';
-import {valueDeclarationDeepParse, valueDeclarationShallowParse} from './value/value-declaration-semantic-parser';
+import {DeclarationTypeSemantic} from '../type/declaration/declaration-type-semantic';
+import {typeSemanticParse} from '../type/type-semantic-parser';
+import {DeclarationSemantic, declarationSemantic} from './declaration-semantic';
 
-const TYPE_DECLARATION_MODIFIERS = ['model'];
-const VALUE_DECLARATION_MODIFIERS = ['const', 'var'];
-
-export function declarationsSemanticParse(
+export function declarationsParse(
   context: SemanticContext,
-  nodes: DeclarationNode[],
+  nodes: (DeclarationNode | Nothing)[],
 ): (DeclarationSemantic | Nothing)[] {
-  const declarations = nodes.map((x) => declarationShallowSemanticParse(context, x));
+  const typeDeclarations = nodes.map((x) => (x ? declarationShallowParse(context, x) : nothing));
 
-  nodes.forEach((x) => declarationDeepSemanticParse(context, x));
+  for (const node of nodes) {
+    if (node) {
+      declarationDeepParse(context, node);
+    }
+  }
 
-  return declarations;
+  return typeDeclarations;
 }
 
-export function declarationShallowSemanticParse(
+export function declarationShallowParse(
   context: SemanticContext,
   node: DeclarationNode,
 ): DeclarationSemantic | Nothing {
+  const reference = context.createReference(node.id);
   const modifier = node.modifier?.text;
+  const name = node.id.text;
 
-  if (!modifier) {
-    return nothing;
-  }
+  const declaration = declarationSemantic(reference, modifier, name);
 
-  if (TYPE_DECLARATION_MODIFIERS.includes(modifier)) {
-    return typeDeclarationShallowParse(context, node);
-  }
+  node.id.semantic = declaration;
+  context.declarationManager.add(declaration);
 
-  if (VALUE_DECLARATION_MODIFIERS.includes(modifier)) {
-    return valueDeclarationShallowParse(context, node);
-  }
-
-  return nothing;
+  return declaration;
 }
 
-export function declarationDeepSemanticParse(
-  context: SemanticContext,
-  node: DeclarationNode,
-): DeclarationSemantic | Nothing {
-  const declaration = node.id.semantic;
-  if (!declaration) {
+export function declarationDeepParse(context: SemanticContext, node: DeclarationNode): DeclarationSemantic | Nothing {
+  // todo remove it if it alway will be type declaration
+  if (!semanticIs<DeclarationSemantic>(node.id.semantic, $Semantic.DECLARATION)) {
     return nothing;
   }
 
-  if (semanticIs(declaration, $Semantic.TYPE_DECLARATION)) {
-    return typeDeclarationDeepParse(context, node);
+  const childContext = context.createChildContext();
+
+  if (node.generics) {
+    node.id.semantic.generics = declarationsParse(childContext, node.generics);
   }
 
-  if (semanticIs(declaration, $Semantic.VALUE_DECLARATION)) {
-    return valueDeclarationDeepParse(context, node);
+  if (node.type) {
+    const type = typeSemanticParse(childContext, node.type);
+
+    if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.DECLARATION_TYPE)) {
+      node.id.semantic.type = type;
+    } else {
+      context.issueManager.addError(node.type, ISSUE_MESSAGE.notImplemented());
+    }
   }
 
-  return nothing;
+  if (node.attributes.length > 0) {
+    const declarations = declarationsParse(childContext, node.attributes);
+    const attributes: DeclarationSemantic['attributes'] = {};
+
+    for (const declaration of declarations) {
+      if (!declaration) {
+        continue;
+      }
+
+      // todo replace with attributes manager
+      if (!attributes[declaration.name]) {
+        attributes[declaration.name] = [];
+      }
+
+      attributes[declaration.name].push(declaration);
+    }
+
+    node.id.semantic.attributes = attributes;
+  }
+
+  return node.id.semantic;
 }

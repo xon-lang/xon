@@ -3,7 +3,6 @@ import {ISSUE_MESSAGE} from '../../issue/issue-message';
 import {Integer, Nothing, String2, nothing} from '../../lib/core';
 import {IdNode} from '../../parser/node/token/id/id-node';
 import {DeclarationSemantic} from './declaration-semantic';
-import {ValueDeclarationSemantic} from './value/value-declaration-semantic';
 
 export interface DeclarationManager {
   declarations: Record<String2, DeclarationSemantic[]>;
@@ -14,7 +13,7 @@ export interface DeclarationManager {
   findSingle: (
     node: IdNode,
     genericLength: Integer,
-    parameters: ValueDeclarationSemantic[] | Nothing,
+    parameters: DeclarationSemantic[] | Nothing,
   ) => DeclarationSemantic | Nothing;
 }
 
@@ -44,7 +43,7 @@ export function createDeclarationManager(
     findSingle(
       node: IdNode,
       genericLength: Integer,
-      parameters: ValueDeclarationSemantic[] | Nothing,
+      parameters: DeclarationSemantic[] | Nothing,
     ): DeclarationSemantic | Nothing {
       const declarations = this.findAll(node.text);
 
