@@ -2,7 +2,7 @@ import {Nothing, String2, nothing} from '../lib/core';
 import {parseSyntax} from '../parser/syntax';
 import {sourceFromFile} from '../source/source';
 import {DeclarationSemantic} from './declaration/declaration-semantic';
-import {ModelSemantic} from './declaration/model/model-semantic';
+import {TypeDeclarationSemantic} from './declaration/type/type-declaration-semantic';
 import {parseSemantic} from './semantic';
 
 let cachedTypes: Record<String2, DeclarationSemantic[]> | Nothing = nothing;
@@ -30,6 +30,6 @@ export type CoreDeclarationName =
   | 'Array'
   | 'String';
 
-export function coreDeclarationSemantic(name: CoreDeclarationName): ModelSemantic {
-  return declarations()[name][0] as ModelSemantic;
+export function coreDeclarationSemantic(name: CoreDeclarationName): TypeDeclarationSemantic {
+  return declarations()[name][0] as TypeDeclarationSemantic;
 }

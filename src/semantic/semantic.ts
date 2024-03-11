@@ -25,14 +25,8 @@ export enum $Semantic {
   VALUE = 'VALUE',
 
   // declarations
-  MODIFIER = 'MODIFIER',
-  MODEL = 'MODEL',
-  GENERIC = 'GENERIC',
-  PARAMETER = 'PARAMETER',
-  ATTRIBUTE = 'ATTRIBUTE',
-  CONSTANT = 'CONSTANT',
-  VARIABLE = 'VARIABLE',
-  OPERATOR = 'OPERATOR',
+  TYPE_DECLARATION = 'TYPE_DECLARATION',
+  VALUE_DECLARATION = 'VALUE_DECLARATION',
 }
 
 export function semanticIs<T extends Semantic = Semantic>(

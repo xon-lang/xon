@@ -1,19 +1,13 @@
 import {Nothing, nothing} from '../../lib/core';
 import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-node';
+import {$Semantic, semanticIs} from '../semantic';
 import {SemanticContext} from '../semantic-context';
-import {attributeDeepParse, attributeShallowParse} from './attribute/attribute-semantic-parser';
-import {constantDeepParse, constantShallowParse} from './constant/constant-semantic-parser';
 import {DeclarationSemantic} from './declaration-semantic';
-import {modelDeepParse, modelShallowParse} from './model/model-semantic-parser';
+import {typeDeclarationDeepParse, typeDeclarationShallowParse} from './type/type-declaration-semantic-parser';
+import {valueDeclarationDeepParse, valueDeclarationShallowParse} from './value/value-declaration-semantic-parser';
 
-type DeclarationParseFn = (context: SemanticContext, node: DeclarationNode) => DeclarationSemantic | Nothing;
-
-const shallowDeclarationParsers: DeclarationParseFn[] = [
-  modelShallowParse,
-  attributeShallowParse,
-  constantShallowParse,
-];
-const deepDeclarationParsers: DeclarationParseFn[] = [modelDeepParse, attributeDeepParse, constantDeepParse];
+const TYPE_DECLARATION_MODIFIERS = ['model'];
+const VALUE_DECLARATION_MODIFIERS = ['const', 'var'];
 
 export function declarationsSemanticParse(
   context: SemanticContext,
@@ -30,16 +24,39 @@ export function declarationShallowSemanticParse(
   context: SemanticContext,
   node: DeclarationNode,
 ): DeclarationSemantic | Nothing {
-  return shallowDeclarationParsers.findMap((x) => x(context, node));
+  const modifier = node.modifier?.text;
+
+  if (!modifier) {
+    return nothing;
+  }
+
+  if (TYPE_DECLARATION_MODIFIERS.includes(modifier)) {
+    return typeDeclarationShallowParse(context, node);
+  }
+
+  if (VALUE_DECLARATION_MODIFIERS.includes(modifier)) {
+    return valueDeclarationShallowParse(context, node);
+  }
+
+  return nothing;
 }
 
 export function declarationDeepSemanticParse(
   context: SemanticContext,
   node: DeclarationNode,
 ): DeclarationSemantic | Nothing {
-  if (!node.id.semantic) {
+  const declaration = node.id.semantic;
+  if (!declaration) {
     return nothing;
   }
 
-  return deepDeclarationParsers.findMap((x) => x(context, node));
+  if (semanticIs(declaration, $Semantic.TYPE_DECLARATION)) {
+    return typeDeclarationDeepParse(context, node);
+  }
+
+  if (semanticIs(declaration, $Semantic.VALUE_DECLARATION)) {
+    return valueDeclarationDeepParse(context, node);
+  }
+
+  return nothing;
 }

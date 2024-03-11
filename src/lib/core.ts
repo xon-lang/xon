@@ -1,4 +1,4 @@
-export type Anything = unknown;
+export type Anything = unknown; // also contains Nothing
 
 export type Something = boolean | number | string | object;
 

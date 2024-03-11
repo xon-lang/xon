@@ -1,7 +1,7 @@
 import {DeclarationNode} from '../../../../parser/node/syntax/declaration/declaration-node';
 import {parseSyntax} from '../../../../parser/syntax';
 import {sourceFromText} from '../../../../source/source';
-import {ConstantSemantic} from '../../../declaration/constant/constant-semantic';
+import {ValueDeclarationSemantic} from '../../../declaration/value/value-declaration-semantic';
 import {$Semantic, parseSemantic} from '../../../semantic';
 import {DeclarationTypeSemantic} from '../../declaration/declaration-type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
@@ -19,14 +19,14 @@ test('a is integer', () => {
   const semantic = parseSemantic(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);
-  expect(semantic.declarationManager.declarations['a'][0].$).toBe($Semantic.CONSTANT);
+  expect(semantic.declarationManager.declarations['a'][0].$).toBe($Semantic.VALUE_DECLARATION);
   expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[2].declaration as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($Semantic.CONSTANT);
+  expect(constNode.id?.semantic?.$).toBe($Semantic.VALUE_DECLARATION);
 
-  const idSemantic = constNode.id?.semantic as ConstantSemantic;
+  const idSemantic = constNode.id?.semantic as ValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
   const typeSemantic = typeSemanticParse(semantic, constNode.type) as UnionTypeSemantic;

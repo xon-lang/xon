@@ -2,10 +2,8 @@ import {IssueManager} from '../../issue/issue-manager';
 import {ISSUE_MESSAGE} from '../../issue/issue-message';
 import {Integer, Nothing, String2, nothing} from '../../lib/core';
 import {IdNode} from '../../parser/node/token/id/id-node';
-import {$Semantic, semanticIs} from '../semantic';
 import {DeclarationSemantic} from './declaration-semantic';
-import {ModelSemantic} from './model/model-semantic';
-import {ParameterSemantic} from './parameter/parameter-semantic';
+import {ValueDeclarationSemantic} from './value/value-declaration-semantic';
 
 export interface DeclarationManager {
   declarations: Record<String2, DeclarationSemantic[]>;
@@ -16,7 +14,7 @@ export interface DeclarationManager {
   findSingle: (
     node: IdNode,
     genericLength: Integer,
-    parameters: ParameterSemantic[] | Nothing,
+    parameters: ValueDeclarationSemantic[] | Nothing,
   ) => DeclarationSemantic | Nothing;
 }
 
@@ -46,7 +44,7 @@ export function createDeclarationManager(
     findSingle(
       node: IdNode,
       genericLength: Integer,
-      parameters: ParameterSemantic[] | Nothing,
+      parameters: ValueDeclarationSemantic[] | Nothing,
     ): DeclarationSemantic | Nothing {
       const declarations = this.findAll(node.text);
 
@@ -56,10 +54,7 @@ export function createDeclarationManager(
         return nothing;
       }
 
-      // todo also check other declarations instead of model, mb we need all declarations must contains generics
-      const filtered = declarations.filter(
-        (x) => semanticIs<ModelSemantic>(x, $Semantic.MODEL) && x.generics.length === genericLength,
-      );
+      const filtered = declarations.filter((x) => (x.generics?.length ?? 0) === genericLength);
 
       if (filtered.length !== 1) {
         issueManager.addError(node, ISSUE_MESSAGE.tooManyDeclarationsFoundWithName(node.text));
