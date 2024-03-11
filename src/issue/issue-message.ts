@@ -6,6 +6,11 @@ export interface IssueMessage {
 }
 
 export const ISSUE_MESSAGE = {
+  notImplemented: () => ({
+    actual: 'Error not implemented',
+    expect: 'Create a valid error message',
+  }),
+
   unknownTokens: () => ({
     actual: 'Unknown tokens',
     expect: nothing,
@@ -15,12 +20,6 @@ export const ISSUE_MESSAGE = {
     actual: 'Unexpected expression',
     expect: nothing,
   }),
-
-  notImplemented: () => ({
-    actual: 'Error not implemented',
-    expect: 'Create a valid error message',
-  }),
-
   expectCloseToken: (open: String2, close: String2) => ({
     actual: `Token '${open}' has no close pair '${close}'`,
     expect: `Add close token '${close}'`,

@@ -1,5 +1,4 @@
 import {formatAfterHiddenNodes, formatBetweenHiddenNodes} from '../../../../formatter/formatter';
-import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
@@ -16,16 +15,9 @@ export interface InfixNode extends SyntaxNode {
 export function infixNode(context: SyntaxContext, operator: OperatorNode, left: Node, right: Node): InfixNode {
   const node = syntaxNode($Node.INFIX, {left, operator, right});
 
-  validate(context, node);
   format(context, node);
 
   return node;
-}
-
-function validate(context: SyntaxContext, node: InfixNode): Nothing {
-  if (!node.left || !node.right) {
-    context.issueManager.addError(node, ISSUE_MESSAGE.notImplemented());
-  }
 }
 
 function format(context: SyntaxContext, node: InfixNode): Nothing {
