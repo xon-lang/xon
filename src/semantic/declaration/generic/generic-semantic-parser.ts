@@ -34,4 +34,4 @@ function genericShallowParse(context: SemanticContext, node: DeclarationNode | N
   return declaration;
 }
 
-function genericDeepParse(context: SemanticContext, node: DeclarationNode): void {}
+function genericDeepParse(context: SemanticContext, node: DeclarationNode): Nothing {}

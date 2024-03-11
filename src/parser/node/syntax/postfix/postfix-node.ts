@@ -1,4 +1,5 @@
 import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
+import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
@@ -18,7 +19,7 @@ export function postfixNode(context: SyntaxContext, operator: OperatorNode, valu
   return node;
 }
 
-function format(context: SyntaxContext, node: PostfixNode): void {
+function format(context: SyntaxContext, node: PostfixNode): Nothing {
   const keepSingleWhitespace = node.operator.text.some((x) => x.isLetterOrDigit(0));
   formatBetweenHiddenNodes(context, node.value, keepSingleWhitespace);
 }

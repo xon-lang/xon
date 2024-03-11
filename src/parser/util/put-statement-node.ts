@@ -7,7 +7,7 @@ import {SyntaxContext} from '../syntax-context';
 import {getStatementNode} from './get-statement-node';
 
 // todo try to simplify it
-export function putStatementNode(context: SyntaxContext): void {
+export function putStatementNode(context: SyntaxContext): Nothing {
   const {hiddenNodes} = context;
   const lastNlIndex = hiddenNodes.findLastIndex((x) => is(x, $Node.NL));
   const beforeIndentHiddenNodes = hiddenNodes.slice(0, lastNlIndex + 1);

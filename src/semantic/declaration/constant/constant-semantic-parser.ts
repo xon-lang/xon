@@ -23,7 +23,7 @@ export function constantShallowParse(context: SemanticContext, node: Declaration
   return declaration;
 }
 
-export function constantDeepParse(context: SemanticContext, node: DeclarationNode): void {
+export function constantDeepParse(context: SemanticContext, node: DeclarationNode): Nothing {
   if (semanticIs<ConstantSemantic>(node.id.semantic, $Semantic.CONSTANT)) {
     const childContext = context.createChildContext();
 

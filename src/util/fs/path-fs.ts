@@ -14,7 +14,7 @@ export class PathFs {
     this.setStats();
   }
 
-  setStats(): void {
+  setStats(): Nothing {
     try {
       this.stats = lstatSync(this.fullPath);
     } catch (error) {

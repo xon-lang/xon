@@ -1,5 +1,6 @@
 import {formatAfterHiddenNodes, formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
+import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
@@ -21,13 +22,13 @@ export function infixNode(context: SyntaxContext, operator: OperatorNode, left: 
   return node;
 }
 
-function validate(context: SyntaxContext, node: InfixNode): void {
+function validate(context: SyntaxContext, node: InfixNode): Nothing {
   if (!node.left || !node.right) {
     context.issueManager.addError(node, ISSUE_MESSAGE.notImplemented());
   }
 }
 
-function format(context: SyntaxContext, node: InfixNode): void {
+function format(context: SyntaxContext, node: InfixNode): Nothing {
   const NO_LEFT_SPACE_TOKENS = ['.', ':'];
   const leftSingleWhitespace = !NO_LEFT_SPACE_TOKENS.includes(node.operator.text[0]);
   formatBetweenHiddenNodes(context, node.left, leftSingleWhitespace);

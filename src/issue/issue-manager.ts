@@ -1,3 +1,4 @@
+import {Nothing} from '../lib/core';
 import {Node} from '../parser/node/node';
 import {Source} from '../source/source';
 import {Issue, IssueType, formatIssue} from './issue';
@@ -10,7 +11,7 @@ export interface IssueManager {
   issueType: IssueType;
 
   addError(node: Node, message: IssueMessage): Issue;
-  log(issue: Issue): void;
+  log(issue: Issue): Nothing;
 }
 
 export function createIssueManager(source: Source, issueType: IssueType, issues: Issue[] = []): IssueManager {
@@ -33,7 +34,7 @@ export function createIssueManager(source: Source, issueType: IssueType, issues:
       return issue;
     },
 
-    log(issue: Issue): void {
+    log(issue: Issue): Nothing {
       const error = formatIssue(this.source, issue);
       console.error(error);
     },

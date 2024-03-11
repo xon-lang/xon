@@ -34,4 +34,4 @@ function parameterShallowParse(context: SemanticContext, node: DeclarationNode |
   return declaration;
 }
 
-function parameterDeepParse(context: SemanticContext, node: DeclarationNode): void {}
+function parameterDeepParse(context: SemanticContext, node: DeclarationNode): Nothing {}

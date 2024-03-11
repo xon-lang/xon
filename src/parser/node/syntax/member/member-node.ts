@@ -27,13 +27,13 @@ export function memberNode(
   return node;
 }
 
-function validate(context: SyntaxContext, node: MemberNode): void {
+function validate(context: SyntaxContext, node: MemberNode): Nothing {
   if (!node.id) {
     context.issueManager.addError(node.operator, ISSUE_MESSAGE.shouldBeMemberName());
   }
 }
 
-function format(context: SyntaxContext, node: MemberNode): void {
+function format(context: SyntaxContext, node: MemberNode): Nothing {
   const NO_LEFT_SPACE_TOKENS = ['.', ':'];
   const leftSingleWhitespace = !NO_LEFT_SPACE_TOKENS.includes(node.operator.text[0]);
   formatBetweenHiddenNodes(context, node.instance, leftSingleWhitespace);

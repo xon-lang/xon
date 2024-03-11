@@ -1,9 +1,10 @@
-import { OperatorType, operatorsOrders } from '../syntax-config';
-import { SyntaxContext } from '../syntax-context';
-import { collapseInvoke } from './collapse-invoke';
-import { collapseOperator } from './collapse-operator';
+import {Nothing} from '../../lib/core';
+import {OperatorType, operatorsOrders} from '../syntax-config';
+import {SyntaxContext} from '../syntax-context';
+import {collapseInvoke} from './collapse-invoke';
+import {collapseOperator} from './collapse-operator';
 
-export function collapseOperators(context: SyntaxContext): void {
+export function collapseOperators(context: SyntaxContext): Nothing {
   for (const operatorsOrder of operatorsOrders) {
     if (operatorsOrder.operatorType === OperatorType.INVOKE) {
       collapseInvoke(context);

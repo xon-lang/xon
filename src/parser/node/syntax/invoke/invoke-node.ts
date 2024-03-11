@@ -1,4 +1,5 @@
 import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
+import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
 import {Group} from '../group/group-node';
@@ -18,6 +19,6 @@ export function invokeNode(context: SyntaxContext, instance: Node, group: Group)
   return node;
 }
 
-function format(context: SyntaxContext, node: InvokeNode): void {
+function format(context: SyntaxContext, node: InvokeNode): Nothing {
   formatBetweenHiddenNodes(context, node.instance, false);
 }

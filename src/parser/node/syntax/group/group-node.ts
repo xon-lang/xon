@@ -35,7 +35,7 @@ export function groupNode(
   return node;
 }
 
-function validate(context: SyntaxContext, node: GroupNode): void {
+function validate(context: SyntaxContext, node: GroupNode): Nothing {
   if (!node.close) {
     context.issueManager.addError(
       node.open,
