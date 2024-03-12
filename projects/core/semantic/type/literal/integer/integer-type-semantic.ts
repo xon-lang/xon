@@ -4,18 +4,18 @@ import {$Semantic, semanticIs} from '../../../semantic';
 import {TypeSemantic} from '../../type-semantic';
 
 export interface IntegerTypeSemantic extends TypeSemantic {
-  $: $Semantic.INTEGER;
+  $: $Semantic.INTEGER_TYPE;
   value: Integer;
 }
 
 export function integerTypeSemantic(reference: SourceReference, value: Integer): IntegerTypeSemantic {
   const semantic: IntegerTypeSemantic = {
-    $: $Semantic.INTEGER,
+    $: $Semantic.INTEGER_TYPE,
     reference,
     value,
 
     eq(type: TypeSemantic): Boolean2 {
-      if (semanticIs<IntegerTypeSemantic>(type, $Semantic.INTEGER)) {
+      if (semanticIs<IntegerTypeSemantic>(type, $Semantic.INTEGER_TYPE)) {
         return this.value === type.value;
       }
 

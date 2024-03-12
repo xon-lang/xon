@@ -11,12 +11,14 @@ import {
   TextDocument,
   Uri,
 } from 'vscode';
-import {nothing} from '../../../../core/lib/core';
+import {Nothing, nothing} from '../../../../core/lib/core';
 import {$Node, is} from '../../../../core/parser/node/node';
 import {IdNode} from '../../../../core/parser/node/token/id/id-node';
 import {OperatorNode} from '../../../../core/parser/node/token/operator/operator-node';
+import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
 import {$Semantic, parseSemantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
+import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeBytPositionInSyntax, getDocumentSyntax} from '../../util';
 
@@ -36,8 +38,12 @@ class LanguageDefinitionProvider implements DefinitionProvider {
     const node = findNodeBytPositionInSyntax(syntax, position);
 
     if (is<IdNode>(node, $Node.ID) || is<OperatorNode>(node, $Node.OPERATOR)) {
-      if (semanticIs<DeclarationTypeSemantic>(node.semantic, $Semantic.ID)) {
-        return navigateToDeclaration(node.semantic);
+      if (semanticIs<DeclarationTypeSemantic>(node.semantic, $Semantic.ID_TYPE)) {
+        return navigateToDeclaration(node.semantic.declaration);
+      }
+
+      if (semanticIs<ValueSemantic>(node.semantic, $Semantic.VALUE)) {
+        return navigateToDeclaration(node.semantic.declaration);
       }
     }
 
@@ -45,8 +51,12 @@ class LanguageDefinitionProvider implements DefinitionProvider {
   }
 }
 
-function navigateToDeclaration(semantic: DeclarationTypeSemantic): ProviderResult<Definition> {
-  const {reference} = semantic.declaration;
+function navigateToDeclaration(declaration: DeclarationSemantic | Nothing): ProviderResult<Definition> {
+  if (!declaration) {
+    return nothing;
+  }
+
+  const {reference} = declaration;
 
   if (reference.source.location) {
     const uri = Uri.parse(reference.source.location);

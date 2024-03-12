@@ -30,10 +30,10 @@ test('a is array', () => {
   expect(idSemantic.name).toBe('a');
 
   const typeSemantic = typeSemanticParse(semantic, constNode.type) as ArrayTypeSemantic;
-  expect(typeSemantic.$).toBe($Semantic.ARRAY);
-  expect(typeSemantic.type.$).toBe($Semantic.ID);
-  expect((typeSemantic.type as DeclarationTypeSemantic).declaration.name).toBe('Integer');
-  expect(typeSemantic.size?.$).toBe($Semantic.INTEGER);
+  expect(typeSemantic.$).toBe($Semantic.ARRAY_TYPE);
+  expect(typeSemantic.type.$).toBe($Semantic.ID_TYPE);
+  expect((typeSemantic.type as DeclarationTypeSemantic).declaration?.name).toBe('Integer');
+  expect(typeSemantic.size?.$).toBe($Semantic.INTEGER_TYPE);
   expect((typeSemantic.size as IntegerTypeSemantic).value).toBe(3);
 });
 
@@ -58,14 +58,14 @@ test('a is array of array', () => {
   expect(idSemantic.name).toBe('a');
 
   const typeSemantic = typeSemanticParse(semantic, constNode.type) as ArrayTypeSemantic;
-  expect(typeSemantic.$).toBe($Semantic.ARRAY);
-  expect(typeSemantic.type.$).toBe($Semantic.ARRAY);
+  expect(typeSemantic.$).toBe($Semantic.ARRAY_TYPE);
+  expect(typeSemantic.type.$).toBe($Semantic.ARRAY_TYPE);
   expect(typeSemantic.size).toBe(nothing);
 
   const outerTypeSemantic = typeSemantic.type as ArrayTypeSemantic;
-  expect(outerTypeSemantic.$).toBe($Semantic.ARRAY);
-  expect(outerTypeSemantic.type.$).toBe($Semantic.ID);
-  expect((outerTypeSemantic.type as DeclarationTypeSemantic).declaration.name).toBe('Integer');
-  expect(outerTypeSemantic.size?.$).toBe($Semantic.INTEGER);
+  expect(outerTypeSemantic.$).toBe($Semantic.ARRAY_TYPE);
+  expect(outerTypeSemantic.type.$).toBe($Semantic.ID_TYPE);
+  expect((outerTypeSemantic.type as DeclarationTypeSemantic).declaration?.name).toBe('Integer');
+  expect(outerTypeSemantic.size?.$).toBe($Semantic.INTEGER_TYPE);
   expect((outerTypeSemantic.size as IntegerTypeSemantic).value).toBe(3);
 });

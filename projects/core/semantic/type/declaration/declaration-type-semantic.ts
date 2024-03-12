@@ -5,8 +5,8 @@ import {$Semantic} from '../../semantic';
 import {TypeSemantic} from '../type-semantic';
 
 export interface DeclarationTypeSemantic extends TypeSemantic {
-  $: $Semantic.ID;
-  declaration: DeclarationSemantic;
+  $: $Semantic.ID_TYPE;
+  declaration: DeclarationSemantic | Nothing;
   generics: TypeSemantic[] | Nothing;
 }
 
@@ -16,7 +16,7 @@ export function declarationTypeSemantic(
   generics: TypeSemantic[] | Nothing,
 ): DeclarationTypeSemantic {
   const semantic: DeclarationTypeSemantic = {
-    $: $Semantic.ID,
+    $: $Semantic.ID_TYPE,
     reference,
     declaration,
     generics,

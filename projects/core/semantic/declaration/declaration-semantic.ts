@@ -3,10 +3,11 @@ import {SourceReference} from '../../source/source-reference';
 import {$Semantic, Semantic} from '../semantic';
 import {DeclarationTypeSemantic} from '../type/declaration/declaration-type-semantic';
 import {TypeSemantic} from '../type/type-semantic';
+import {ValueSemantic} from '../value/value-semantic';
 
 export interface DeclarationSemantic extends Semantic {
   $: $Semantic.DECLARATION;
-  usages: DeclarationTypeSemantic[];
+  usages: (DeclarationTypeSemantic | ValueSemantic)[];
   modifier: String2 | Nothing;
   name: String2;
   generics: (DeclarationSemantic | Nothing)[] | Nothing;

@@ -24,7 +24,7 @@ export function arrayTypeSemanticParse(context: SemanticContext, node: Node): Ar
 
     const size = node.group.items.length === 1 ? typeSemanticParse(context, node.group.items[0]) : nothing;
 
-    if (size && !semanticIs<IntegerTypeSemantic>(size, $Semantic.INTEGER)) {
+    if (size && !semanticIs<IntegerTypeSemantic>(size, $Semantic.INTEGER_TYPE)) {
       context.issueManager.addError(node.group, ISSUE_MESSAGE.shouldBeInteger());
       return;
     }

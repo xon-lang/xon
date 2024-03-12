@@ -30,9 +30,9 @@ test('a is integer', () => {
   expect(idSemantic.name).toBe('a');
 
   const typeSemantic = typeSemanticParse(semantic, constNode.type) as UnionTypeSemantic;
-  expect(typeSemantic.$).toBe($Semantic.UNION);
-  expect(typeSemantic.left.$).toBe($Semantic.ID);
-  expect((typeSemantic.left as DeclarationTypeSemantic).declaration.name).toBe('Integer');
-  expect(typeSemantic.right.$).toBe($Semantic.ID);
-  expect((typeSemantic.right as DeclarationTypeSemantic).declaration.name).toBe('Float');
+  expect(typeSemantic.$).toBe($Semantic.UNION_TYPE);
+  expect(typeSemantic.left.$).toBe($Semantic.ID_TYPE);
+  expect((typeSemantic.left as DeclarationTypeSemantic).declaration?.name).toBe('Integer');
+  expect(typeSemantic.right.$).toBe($Semantic.ID_TYPE);
+  expect((typeSemantic.right as DeclarationTypeSemantic).declaration?.name).toBe('Float');
 });

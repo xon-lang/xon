@@ -6,6 +6,7 @@ import {SyntaxResult} from '../parser/syntax-result';
 import {SourceReference} from '../source/source-reference';
 import {declarationsParse} from './declaration/declaration-semantic-parser';
 import {SemanticContext, semanticContext} from './semantic-context';
+import {valuesParse} from './value/value-semantic';
 
 export interface Semantic {
   readonly $: $Semantic;
@@ -13,12 +14,13 @@ export interface Semantic {
 }
 $DeclarationNodeType;
 export enum $Semantic {
-  ID = 'ID',
-  INTEGER = 'INTEGER',
-  RANGE = 'RANGE',
-  ARRAY = 'ARRAY',
-  UNION = 'UNION',
+  ID_TYPE = 'ID_TYPE',
+  INTEGER_TYPE = 'INTEGER_TYPE',
+  RANGE_TYPE = 'RANGE_TYPE',
+  ARRAY_TYPE = 'ARRAY_TYPE',
+  UNION_TYPE = 'UNION_TYPE',
 
+  VALUE = 'VALUE',
   DECLARATION = 'DECLARATION',
 }
 
@@ -36,6 +38,7 @@ export function parseSemantic(syntax: SyntaxResult): SemanticContext {
   const declarations = syntax.statements.map((x) => x.declaration).filter((x): x is DeclarationNode => !!x);
 
   declarationsParse(context, declarations);
+  valuesParse(context, syntax);
 
   return context;
 }

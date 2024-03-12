@@ -53,7 +53,7 @@ export function declarationDeepParse(context: SemanticContext, node: Declaration
   if (node.type) {
     const type = typeSemanticParse(childContext, node.type);
 
-    if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.ID)) {
+    if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.ID_TYPE)) {
       node.id.semantic.type = type;
     } else {
       context.issueManager.addError(node.type, ISSUE_MESSAGE.notImplemented());
