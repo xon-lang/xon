@@ -113,8 +113,8 @@
     }
   },
   "scripts": {
-    "vscode:build": "rm -rf dist && esbuild ./src/main.ts --bundle --outfile=dist/main.js --external:vscode --format=cjs --platform=node",
-    "vscode:watch": "npm run -S build -- --sourcemap --watch",
-    "vscode:prepublish": "npm run -S build -- --minify"
+    "build": "rm -rf dist && esbuild ./src/main.ts --bundle --outfile=dist/main.js --external:vscode --format=cjs --platform=node",
+    "watch": "npm run -S build -- --sourcemap --watch",
+    "prepublish": "npm run -S build -- --minify"
   }
 }
