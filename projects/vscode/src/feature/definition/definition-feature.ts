@@ -8,7 +8,6 @@ import {
   OutputChannel,
   Position,
   ProviderResult,
-  Range,
   TextDocument,
   Uri,
 } from 'vscode';
@@ -19,7 +18,7 @@ import {OperatorNode} from '../../../../core/parser/node/token/operator/operator
 import {$Semantic, parseSemantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
 import {LANGUAGE_NAME} from '../../config';
-import {convertPosition, findNodeBytPositionInSyntax, getDocumentSyntax} from '../../util';
+import {convertRange, findNodeBytPositionInSyntax, getDocumentSyntax} from '../../util';
 
 export function configureDefinitionFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
@@ -51,10 +50,9 @@ function navigateToDeclaration(semantic: DeclarationTypeSemantic): ProviderResul
 
   if (reference.source.location) {
     const uri = Uri.parse(reference.source.location);
-    const start = convertPosition(reference.position);
-    const stop = start.with({character: start.character + semantic.declaration.name.length});
+    const range = convertRange(reference.range);
 
-    return new Location(uri, new Range(start, stop));
+    return new Location(uri, range);
   }
 
   return nothing;
