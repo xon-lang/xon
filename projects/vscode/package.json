@@ -1,8 +1,8 @@
 {
   "name": "xon",
-  "displayName": "XON",
-  "description": "XON language support",
-  "author": "Nizami",
+  "displayName": "xon",
+  "description": "xon language support",
+  "author": "nizami",
   "publisher": "nizami",
   "version": "1.12.55",
   "license": "MIT",
@@ -10,12 +10,12 @@
     "vscode": "^1.87.0"
   },
   "bugs": {
-    "url": "https://github.com/xon-lang/vscode/issues"
+    "url": "https://github.com/xon-lang/core/issues"
   },
-  "homepage": "https://github.com/xon-lang/vscode#readme",
+  "homepage": "https://github.com/xon-lang/core#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/xon-lang/vscode.git"
+    "url": "https://github.com/xon-lang/core.git"
   },
   "keywords": [
     "XON",

@@ -1,4 +1,4 @@
 model Module
   name: String |  None = 'xon library'
-  author: String |  None = 'Nizami'
+  author: String |  None = 'nizami'
   defaultImports: String[] = []

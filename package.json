@@ -1,29 +1,8 @@
 {
-  "name": "@xon/core",
-  "author": "Nizami",
-  "version": "0.8.3",
-  "description": "XON is an open-source programming language",
-  "bugs": {
-    "url": "https://github.com/xon-lang/core/issues"
-  },
-  "homepage": "https://github.com/xon-lang/core#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xon-lang/core.git"
-  },
-  "keywords": [
-    "xon",
-    "ast",
-    "programming language"
-  ],
-  "license": "MIT",
-  "private": false,
-  "main": "index.js",
-  "types": "index.d.ts",
+  "name": "xon",
+  "author": "nizami",
   "scripts": {
     "test": "jest --no-cache",
-    "version": "npm run build",
-    "postversion": "git push --tags && cd dist/core && npm publish --access public",
     "vscode:debug": "rm -rf vscode/dist && tsc -p ./"
   },
   "devDependencies": {
