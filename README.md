@@ -1,12 +1,8 @@
 # XON <sup>alpha</sup>
 
-[![GitHub](https://img.shields.io/badge/GitHub-XON-blue)](https://github.com/xon-lang/core)
-[![Visual Studio Code](https://img.shields.io/badge/Visual_Studio_Code-XON-blue)](https://marketplace.visualstudio.com/items?itemName=nizami.xon)
-[![npm](https://img.shields.io/npm/v/@xon/core)](https://www.npmjs.com/package/@xon/core)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/xon-lang/core/blob/main/LICENSE)
+[![GitHub](https://img.shields.io/badge/GitHub-CORE-blue)](https://github.com/xon-lang/xon/tree/main/projects/core)
+[![GitHub](https://img.shields.io/badge/GitHub-VSCODE-blue)](https://github.com/xon-lang/xon/tree/main/projects/vscode)
+[![MIT License](https://img.shields.io/badge/License-MIT-blue)](https://github.com/xon-lang/xon/blob/main/LICENSE)
 
-## Projects
-
-### [core](https://github.com/xon-lang/core/tree/main/projects/core)
-
-### [vscode](https://github.com/xon-lang/core/tree/main/projects/vscode)
+![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/nizami.xon?label=vscode)
+![NPM Version](https://img.shields.io/npm/v/%40xon%2Fcore?color=blue)
