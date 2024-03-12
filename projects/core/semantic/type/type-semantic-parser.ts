@@ -1,7 +1,7 @@
 import {Nothing, nothing} from '../../lib/core';
 import {Node} from '../../parser/node/node';
 import {SemanticContext} from '../semantic-context';
-import {declarationTypeSemanticParse} from './declaration/declaration-type-semantic-parser';
+import {idTypeSemanticParse} from './id/id-type-semantic-parser';
 import {arrayTypeSemanticParse} from './literal/array/array-type-semantic-parser';
 import {integerTypeSemanticParse} from './literal/integer/integer-type-semantic-parser';
 import {rangeTypeSemanticParse} from './literal/range/range-type-semantic-parser';
@@ -18,7 +18,7 @@ const typeParsers: TypeParserFn[] = [
   // operators
   unionTypeSemanticParse,
   // declarations
-  declarationTypeSemanticParse,
+  idTypeSemanticParse,
 ];
 
 export function typeSemanticParse(context: SemanticContext, node: Node | Nothing): TypeSemantic | Nothing {

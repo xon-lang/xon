@@ -3,7 +3,7 @@ import {Nothing, nothing} from '../../lib/core';
 import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-node';
 import {$Semantic, semanticIs} from '../semantic';
 import {SemanticContext} from '../semantic-context';
-import {DeclarationTypeSemantic} from '../type/declaration/declaration-type-semantic';
+import {IdTypeSemantic} from '../type/id/id-type-semantic';
 import {typeSemanticParse} from '../type/type-semantic-parser';
 import {DeclarationSemantic, declarationSemantic} from './declaration-semantic';
 
@@ -53,7 +53,7 @@ export function declarationDeepParse(context: SemanticContext, node: Declaration
   if (node.type) {
     const type = typeSemanticParse(childContext, node.type);
 
-    if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.ID_TYPE)) {
+    if (semanticIs<IdTypeSemantic>(type, $Semantic.ID_TYPE)) {
       node.id.semantic.type = type;
     } else {
       context.issueManager.addError(node.type, ISSUE_MESSAGE.notImplemented());

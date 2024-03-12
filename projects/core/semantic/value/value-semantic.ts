@@ -17,16 +17,18 @@ export function valueSemantic(context: SemanticContext, node: IdNode): ValueSema
   const reference = context.createReference(node);
   const declaration = context.declarationManager.findSingle(node, 0);
 
-  if (declaration) {
-    declaration.usages.push();
-  }
-
-  return {
+  const semantic: ValueSemantic = {
     $: $Semantic.VALUE,
     reference,
     declaration,
     type: declaration?.type,
   };
+
+  if (declaration) {
+    declaration.usages.push(semantic);
+  }
+
+  return semantic;
 }
 
 export function valuesParse(context: SemanticContext, syntax: SyntaxResult) {

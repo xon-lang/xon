@@ -16,7 +16,7 @@ import {IdNode} from '../../../../core/parser/node/token/id/id-node';
 import {OperatorNode} from '../../../../core/parser/node/token/operator/operator-node';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
 import {$Semantic, Semantic, parseSemantic, semanticIs} from '../../../../core/semantic/semantic';
-import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
+import {IdTypeSemantic} from '../../../../core/semantic/type/id/id-type-semantic';
 import {TypeSemantic} from '../../../../core/semantic/type/type-semantic';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeBytPositionInSyntax, getDocumentSyntax} from '../../util';
@@ -54,7 +54,7 @@ function getSemanticHoverText(semantic: Semantic): MarkdownString | Nothing {
     return getDeclarationMarkdown(semantic);
   }
 
-  if (semanticIs<DeclarationTypeSemantic>(semantic, $Semantic.ID_TYPE)) {
+  if (semanticIs<IdTypeSemantic>(semantic, $Semantic.ID_TYPE)) {
     return getTypeMarkdown(semantic);
   }
 }
@@ -69,7 +69,7 @@ function getDeclarationMarkdown(declaration: DeclarationSemantic): MarkdownStrin
 }
 
 function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
-  if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.ID_TYPE) && type.declaration) {
+  if (semanticIs<IdTypeSemantic>(type, $Semantic.ID_TYPE) && type.declaration) {
     const modifier = type.declaration.modifier ? type.declaration.modifier + ' ' : '';
     const text = `${modifier}${type.declaration.name}`;
 
@@ -80,7 +80,7 @@ function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
 }
 
 function getTypeText(type: TypeSemantic): String2 {
-  if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.ID_TYPE) && type.declaration) {
+  if (semanticIs<IdTypeSemantic>(type, $Semantic.ID_TYPE) && type.declaration) {
     return `${type.declaration.name}`;
   }
 
