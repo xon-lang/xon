@@ -9,12 +9,10 @@
     "moduleResolution": "node",
     "noImplicitAny": false,
     "noImplicitReturns": true,
-    "outDir": ".",
+    "outDir": "dist",
     "sourceMap": true,
     "strict": true,
     "target": "ES2021",
     "useUnknownInCatchVariables": true
-  },
-  "exclude": [],
-  "include": ["src/**/*"]
+  }
 }

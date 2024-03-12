@@ -1,3 +1,0 @@
-{ABC} = import '.'
-
-model B: ABC

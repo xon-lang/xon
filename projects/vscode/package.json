@@ -1,0 +1,120 @@
+{
+  "name": "xon",
+  "displayName": "XON",
+  "description": "XON language support",
+  "author": "Nizami",
+  "publisher": "nizami",
+  "version": "1.12.55",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.87.0"
+  },
+  "bugs": {
+    "url": "https://github.com/xon-lang/vscode/issues"
+  },
+  "homepage": "https://github.com/xon-lang/vscode#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xon-lang/vscode.git"
+  },
+  "keywords": [
+    "XON",
+    "Programming Language"
+  ],
+  "icon": "xon.png",
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Linters",
+    "Debuggers",
+    "Formatters"
+  ],
+  "main": "./dist/main",
+  "contributes": {
+    "languages": [
+      {
+        "id": "xon",
+        "aliases": [
+          "xon"
+        ],
+        "extensions": [
+          ".xon"
+        ],
+        "configuration": "./contributes/language-configuration.json",
+        "icon": {
+          "light": "xon.png",
+          "dark": "xon.png"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "xon",
+        "scopeName": "source.xon",
+        "path": "./contributes/xon.tmLanguage.json"
+      }
+    ],
+    "semanticTokenScopes": [
+      {
+        "scopes": {
+          "keyword_modifier": [
+            "storage.type"
+          ],
+          "keyword_control": [
+            "keyword.control"
+          ],
+          "keyword_operator": [
+            "keyword.operator.expression"
+          ]
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "xon.translate-ts",
+        "title": "Translate to TypeScript"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "xon.translate-ts",
+          "when": "editorLangId == xon"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "xon.translate-ts",
+          "when": "resourceLangId == xon"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "xon.translate-ts",
+          "when": "resourceLangId == xon"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "xon.translate-ts",
+          "when": "resourceLangId == xon"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "XON",
+      "properties": {
+        "xon.translateOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Create translated ts file with near original one"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:build": "rm -rf dist && esbuild ./src/main.ts --bundle --outfile=dist/main.js --external:vscode --format=cjs --platform=node",
+    "vscode:watch": "npm run -S build -- --sourcemap --watch",
+    "vscode:prepublish": "npm run -S build -- --minify"
+  }
+}

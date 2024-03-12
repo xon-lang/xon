@@ -22,16 +22,21 @@
   "types": "index.d.ts",
   "scripts": {
     "test": "jest --no-cache",
-    "build": "scripts/build.sh",
     "version": "npm run build",
-    "postversion": "git push --tags && cd dist && npm publish --access public"
+    "postversion": "git push --tags && cd dist/core && npm publish --access public",
+    "vscode:debug": "rm -rf vscode/dist && tsc -p ./"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.25",
+    "@types/vscode": "^1.87.0",
     "create-ts-index": "^1.14.0",
+    "esbuild": "^0.20.1",
     "jest": "^29.7.0",
     "ts-jest": "^29.1.2",
     "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "rxjs": "^7.8.1"
   }
 }

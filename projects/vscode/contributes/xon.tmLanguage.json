@@ -1,0 +1,41 @@
+{
+  "$schema": "../scheme/tmlanguage.json",
+  "name": "xon",
+  "scopeName": "source.xon",
+  "patterns": [
+    {
+      "name": "comment.line.xon",
+      "begin": "//",
+      "end": "$"
+    },
+    {
+      "name": "comment.block.xon",
+      "begin": "---",
+      "end": "---"
+    },
+    {
+      "name": "constant.numeric.xon",
+      "match": "\\d+"
+    },
+    {
+      "name": "string.xon",
+      "match": "\".*\"|'.*'"
+    },
+    {
+      "name": "entity.name.type.xon",
+      "match": "\\b[A-Z][A-Za-z_]*\\b"
+    },
+    {
+      "name": "storage.type.xon",
+      "match": "\\b(model|object|literal)\\b"
+    },
+    {
+      "name": "variable.xon",
+      "match": "\\b[a-z][A-Za-z_]*\\b"
+    },
+    {
+      "name": "keyword.control.xon",
+      "match": "\\b(is|as|if|in|for|else|select|while|return|break|continue|expect|actual|or|and|not|throw|import|export)\\b"
+    }
+  ]
+}
