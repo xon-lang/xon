@@ -23,15 +23,15 @@
     },
     {
       "name": "entity.name.type.xon",
-      "match": "\\b[A-Z][A-Za-z_]*\\b"
+      "match": "\\b[A-Z_][A-Za-z0-9_]*\\b"
     },
     {
       "name": "storage.type.xon",
-      "match": "\\b(model|object|literal)\\b"
+      "match": "\\b(model|object|const|literal)\\b"
     },
     {
       "name": "variable.xon",
-      "match": "\\b[a-z][A-Za-z_]*\\b"
+      "match": "\\b[a-z_][A-Za-z0-9_]*\\b"
     },
     {
       "name": "keyword.control.xon",
