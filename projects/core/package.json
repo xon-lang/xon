@@ -4,12 +4,12 @@
   "version": "0.8.3",
   "description": "xon core is an ast generator lib",
   "bugs": {
-    "url": "https://github.com/xon-lang/core/issues"
+    "url": "https://github.com/xon-lang/xon/issues"
   },
-  "homepage": "https://github.com/xon-lang/core#readme",
+  "homepage": "https://github.com/xon-lang/xon/tree/main/projects/core#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xon-lang/core.git"
+    "url": "git+https://github.com/xon-lang/xon.git"
   },
   "keywords": [
     "xon",

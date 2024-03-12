@@ -1,12 +1,10 @@
 # XON <sup>alpha</sup>
 
-[![GitHub](https://img.shields.io/badge/GitHub-XON-blue)](https://github.com/xon-lang/core)
-[![Visual Studio Code](https://img.shields.io/badge/Visual_Studio_Code-XON-blue)](https://marketplace.visualstudio.com/items?itemName=nizami.xon)
-[![npm](https://img.shields.io/npm/v/@xon/core)](https://www.npmjs.com/package/@xon/core)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/xon-lang/core/blob/main/LICENSE)
+[![GitHub](https://img.shields.io/badge/GitHub-CORE-blue)](https://github.com/xon-lang/xon/tree/main/projects/core)
+[![GitHub](https://img.shields.io/badge/GitHub-VSCODE-blue)](https://github.com/xon-lang/xon/tree/main/projects/vscode)
+[![MIT License](https://img.shields.io/badge/License-MIT-blue)](https://github.com/xon-lang/xon/blob/main/LICENSE)
+![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/nizami.xon?label=vscode&color=green)
+![NPM Version](https://img.shields.io/npm/v/%40xon%2Fcore?color=green)
 
-<!-- [![codebeat badge](https://codebeat.co/badges/23a2e0a2-b327-4715-a1b1-8a81c821a785)](https://codebeat.co/projects/github-com-xon-lang-core-master)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/109836fff75345ca91f3d94e106798a8)](https://www.codacy.com/gh/xon-lang/core/dashboard)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/109836fff75345ca91f3d94e106798a8)](https://www.codacy.com/gh/xon-lang/core/dashboard) -->
 
 XON is a library for generating ast from XON language code
