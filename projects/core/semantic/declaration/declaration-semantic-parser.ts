@@ -3,8 +3,8 @@ import {Nothing, nothing} from '../../lib/core';
 import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-node';
 import {$Semantic, semanticIs} from '../semantic';
 import {SemanticContext} from '../semantic-context';
-import {IdTypeSemantic} from '../type/id/id-type-semantic';
 import {typeSemanticParse} from '../type/type-semantic-parser';
+import {valueSemanticParse} from '../value/value-semantic';
 import {DeclarationSemantic, declarationSemantic} from './declaration-semantic';
 
 export function declarationsParse(
@@ -39,24 +39,38 @@ export function declarationShallowParse(
 }
 
 export function declarationDeepParse(context: SemanticContext, node: DeclarationNode): DeclarationSemantic | Nothing {
+  const semantic = node.id.semantic;
+
   // todo remove it if it alway will be type declaration
-  if (!semanticIs<DeclarationSemantic>(node.id.semantic, $Semantic.DECLARATION)) {
+  if (!semanticIs<DeclarationSemantic>(semantic, $Semantic.DECLARATION)) {
     return nothing;
   }
 
   const childContext = context.createChildContext();
 
   if (node.generics) {
-    node.id.semantic.generics = declarationsParse(childContext, node.generics);
+    semantic.generics = declarationsParse(childContext, node.generics);
   }
 
   if (node.type) {
     const type = typeSemanticParse(childContext, node.type);
 
-    if (semanticIs<IdTypeSemantic>(type, $Semantic.ID_TYPE)) {
-      node.id.semantic.type = type;
+    if (type) {
+      semantic.type = type;
     } else {
-      context.issueManager.addError(node.type, ISSUE_MESSAGE.notImplemented());
+      context.issueManager.addError(node.type, ISSUE_MESSAGE.cannotResolveType());
+    }
+  }
+
+  if (node.value) {
+    const value = valueSemanticParse(childContext, node.value);
+
+    if (!semantic.type) {
+      if (value?.type) {
+        semantic.type = value.type;
+      }
+    } else if (!value?.type || !value.type.is(semantic.type)) {
+      childContext.issueManager.addError(node.value, ISSUE_MESSAGE.wrongType());
     }
   }
 
@@ -77,8 +91,8 @@ export function declarationDeepParse(context: SemanticContext, node: Declaration
       attributes[declaration.name].push(declaration);
     }
 
-    node.id.semantic.attributes = attributes;
+    semantic.attributes = attributes;
   }
 
-  return node.id.semantic;
+  return semantic;
 }

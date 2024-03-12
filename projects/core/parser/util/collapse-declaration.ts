@@ -85,7 +85,7 @@ function getDeclarationParts(
       return nothing;
     }
 
-    return {modifier: header.operator, ...underModifier, type, assign};
+    return {modifier: header.operator, ...underModifier, type, value: assign};
   }
 
   const underModifier = getUnderModifier(context, header);
@@ -94,7 +94,7 @@ function getDeclarationParts(
     return nothing;
   }
 
-  return {...underModifier, type, assign};
+  return {...underModifier, type, value: assign};
 }
 
 function getHeaderTypeAssign(

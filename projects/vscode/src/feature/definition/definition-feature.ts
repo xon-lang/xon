@@ -18,7 +18,7 @@ import {OperatorNode} from '../../../../core/parser/node/token/operator/operator
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
 import {$Semantic, parseSemantic, semanticIs} from '../../../../core/semantic/semantic';
 import {IdTypeSemantic} from '../../../../core/semantic/type/id/id-type-semantic';
-import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
+import {IdValueSemantic} from '../../../../core/semantic/value/id/id-value-semantic';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeBytPositionInSyntax, getDocumentSyntax} from '../../util';
 
@@ -42,7 +42,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
         return navigateToDeclaration(node.semantic.declaration);
       }
 
-      if (semanticIs<ValueSemantic>(node.semantic, $Semantic.VALUE)) {
+      if (semanticIs<IdValueSemantic>(node.semantic, $Semantic.ID_VALUE)) {
         return navigateToDeclaration(node.semantic.declaration);
       }
     }

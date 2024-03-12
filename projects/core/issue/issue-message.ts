@@ -50,4 +50,14 @@ export const ISSUE_MESSAGE = {
     actual: `Should be member name`,
     expect: nothing,
   }),
+
+  wrongType: () => ({
+    actual: `Wrong type`,
+    expect: nothing,
+  }),
+
+  cannotResolveType: () => ({
+    actual: `Cannot resolve type`,
+    expect: nothing,
+  }),
 };

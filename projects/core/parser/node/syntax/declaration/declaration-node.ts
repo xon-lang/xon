@@ -18,7 +18,7 @@ export interface DeclarationNode {
   generics: (DeclarationNode | Nothing)[] | Nothing;
   parameters: (DeclarationNode | Nothing)[] | Nothing;
   type: Node | Nothing;
-  assign: Node | Nothing;
+  value: Node | Nothing;
   attributes: DeclarationNode[];
 }
 
@@ -34,7 +34,7 @@ export function declarationNode(
     generics: params.generics ?? nothing,
     parameters: params.parameters ?? nothing,
     type: params.type ?? nothing,
-    assign: params.assign ?? nothing,
+    value: params.value ?? nothing,
   };
 
   return node;

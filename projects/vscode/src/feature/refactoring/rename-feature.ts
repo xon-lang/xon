@@ -16,9 +16,9 @@ import {Nothing, nothing, String2} from '../../../../core/lib/core';
 import {$Node, is} from '../../../../core/parser/node/node';
 import {IdNode} from '../../../../core/parser/node/token/id/id-node';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
-import {$Semantic, parseSemantic, semanticIs} from '../../../../core/semantic/semantic';
+import {$Semantic, parseSemantic, Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {IdTypeSemantic} from '../../../../core/semantic/type/id/id-type-semantic';
-import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
+import {IdValueSemantic} from '../../../../core/semantic/value/id/id-value-semantic';
 import {SourceReference} from '../../../../core/source/source-reference';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeBytPositionInSyntax, getDocumentSyntax} from '../../util';
@@ -45,20 +45,11 @@ class LanguageRenameProvider implements RenameProvider {
       return nothing;
     }
 
-    if (
-      (semanticIs<ValueSemantic>(node.semantic, $Semantic.VALUE) ||
-        semanticIs<IdTypeSemantic>(node.semantic, $Semantic.ID_TYPE)) &&
-      node.semantic.declaration
-    ) {
-      const workspace = new WorkspaceEdit();
-      renameDeclarationAndUsages(workspace, node.semantic.declaration, newName);
+    const declaration = getDeclaration(node.semantic);
 
-      return workspace;
-    }
-
-    if (semanticIs<DeclarationSemantic>(node.semantic, $Semantic.DECLARATION)) {
+    if (declaration) {
       const workspace = new WorkspaceEdit();
-      renameDeclarationAndUsages(workspace, node.semantic, newName);
+      renameDeclarationAndUsages(workspace, declaration, newName);
 
       return workspace;
     }
@@ -81,6 +72,19 @@ class LanguageRenameProvider implements RenameProvider {
     }
 
     return convertRange(node.range);
+  }
+}
+
+function getDeclaration(semantic: Semantic): DeclarationSemantic | Nothing {
+  if (semanticIs<DeclarationSemantic>(semantic, $Semantic.DECLARATION)) {
+    return semantic;
+  }
+
+  if (
+    semanticIs<IdTypeSemantic>(semantic, $Semantic.ID_TYPE) ||
+    semanticIs<IdValueSemantic>(semantic, $Semantic.ID_VALUE)
+  ) {
+    return semantic.declaration;
   }
 }
 

@@ -1,48 +1,41 @@
-import {Nothing} from '../../lib/core';
-import {$Node, is} from '../../parser/node/node';
+import {Nothing, nothing} from '../../lib/core';
+import {$Node, Node, is} from '../../parser/node/node';
 import {IdNode} from '../../parser/node/token/id/id-node';
 import {SyntaxResult} from '../../parser/syntax-result';
-import {DeclarationSemantic} from '../declaration/declaration-semantic';
-import {$Semantic, Semantic} from '../semantic';
+import {Semantic} from '../semantic';
 import {SemanticContext} from '../semantic-context';
 import {TypeSemantic} from '../type/type-semantic';
+import {idValueSemanticParse} from './id/id-value-semantic';
+import {integerValueSemanticParse} from './literal/integer-value-semantic';
 
 export interface ValueSemantic extends Semantic {
-  $: $Semantic.VALUE;
-  declaration: DeclarationSemantic | Nothing;
   type: TypeSemantic | Nothing;
 }
 
-export function valueSemantic(context: SemanticContext, node: IdNode): ValueSemantic {
-  const reference = context.createReference(node);
-  const declaration = context.declarationManager.findSingle(node, 0);
+type ValueSemanticParserFn = (context: SemanticContext, node: Node) => ValueSemantic | Nothing;
 
-  const semantic: ValueSemantic = {
-    $: $Semantic.VALUE,
-    reference,
-    declaration,
-    type: declaration?.type,
-  };
+const valueSemanticParsers: ValueSemanticParserFn[] = [idValueSemanticParse, integerValueSemanticParse];
 
-  if (declaration) {
-    declaration.usages.push(semantic);
-  }
-
-  return semantic;
-}
-
-export function valuesParse(context: SemanticContext, syntax: SyntaxResult) {
+export function valuesSemanticParse(context: SemanticContext, syntax: SyntaxResult) {
   for (const statement of syntax.statements) {
-    for (const node of statement.children) {
-      if (is<IdNode>(node, $Node.ID)) {
-        idParse(context, node);
+    if (statement.declaration) {
+      continue;
+    }
 
-        continue;
+    for (const node of statement.children) {
+      const semantic = valueSemanticParse(context, node);
+
+      if (is<IdNode>(node, $Node.ID)) {
+        node.semantic = semantic;
       }
     }
   }
 }
 
-function idParse(context: SemanticContext, node: IdNode): Nothing {
-  node.semantic = valueSemantic(context, node);
+export function valueSemanticParse(context: SemanticContext, node: Node | Nothing): ValueSemantic | Nothing {
+  if (!node) {
+    return nothing;
+  }
+
+  return valueSemanticParsers.findMap((x) => x(context, node));
 }

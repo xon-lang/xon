@@ -46,7 +46,7 @@ test('model a with generics extends b', () => {
   expect(node.generics?.length).toBe(2);
   expect(node.generics?.at(0)?.id?.text).toBe('T');
   expect((node.generics?.at(0)?.type as IdNode)?.text).toBe('Array');
-  expect((node.generics?.at(0)?.assign as IdNode)?.text).toBe('String');
+  expect((node.generics?.at(0)?.value as IdNode)?.text).toBe('String');
   expect(node.type?.$).toBe($Node.ID);
   expect((node.type as IdNode).text).toBe('B');
 });
@@ -65,15 +65,15 @@ test('model a with parameters extends b', () => {
   expect(node.parameters?.length).toBe(3);
   expect(node.parameters?.at(0)?.id?.text).toBe('a');
   expect((node.parameters?.at(0)?.type as IdNode)?.text).toBe('Integer');
-  expect((node.parameters?.at(0)?.assign as IntegerNode)?.text).toBe('123');
+  expect((node.parameters?.at(0)?.value as IntegerNode)?.text).toBe('123');
 
   expect(node.parameters?.at(1)?.id?.text).toBe('b');
   expect((node.parameters?.at(1)?.type as IdNode)?.text).toBe('Boolean');
-  expect(node.parameters?.at(1)?.assign).toBeFalsy();
+  expect(node.parameters?.at(1)?.value).toBeFalsy();
 
   expect(node.parameters?.at(2)?.id?.text).toBe('c');
   expect(node.parameters?.at(2)?.type).toBeFalsy();
-  expect((node.parameters?.at(2)?.assign as CharNode)?.text).toBe("'C'");
+  expect((node.parameters?.at(2)?.value as CharNode)?.text).toBe("'C'");
 
   expect(node.type?.$).toBe($Node.ID);
   expect((node.type as IdNode).text).toBe('B');
@@ -93,20 +93,20 @@ test('model a with generics and parameters extends b', () => {
   expect(node.generics?.length).toBe(2);
   expect(node.generics?.at(0)?.id?.text).toBe('T');
   expect((node.generics?.at(0)?.type as IdNode)?.text).toBe('Array');
-  expect((node.generics?.at(0)?.assign as IdNode)?.text).toBe('String');
+  expect((node.generics?.at(0)?.value as IdNode)?.text).toBe('String');
 
   expect(node.parameters?.length).toBe(3);
   expect(node.parameters?.at(0)?.id?.text).toBe('a');
   expect((node.parameters?.at(0)?.type as IdNode)?.text).toBe('Integer');
-  expect((node.parameters?.at(0)?.assign as IntegerNode)?.text).toBe('123');
+  expect((node.parameters?.at(0)?.value as IntegerNode)?.text).toBe('123');
 
   expect(node.parameters?.at(1)?.id?.text).toBe('b');
   expect((node.parameters?.at(1)?.type as IdNode)?.text).toBe('Boolean');
-  expect(node.parameters?.at(1)?.assign).toBeFalsy();
+  expect(node.parameters?.at(1)?.value).toBeFalsy();
 
   expect(node.parameters?.at(2)?.id?.text).toBe('c');
   expect(node.parameters?.at(2)?.type).toBeFalsy();
-  expect((node.parameters?.at(2)?.assign as CharNode)?.text).toBe("'C'");
+  expect((node.parameters?.at(2)?.value as CharNode)?.text).toBe("'C'");
 
   expect(node.type?.$).toBe($Node.ID);
   expect((node.type as IdNode).text).toBe('B');
