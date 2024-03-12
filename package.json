@@ -1,10 +1,6 @@
 {
   "name": "xon",
   "author": "nizami",
-  "scripts": {
-    "test": "jest --no-cache",
-    "vscode:debug": "rm -rf vscode/dist && tsc -p ./"
-  },
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.25",
@@ -17,5 +13,9 @@
   },
   "dependencies": {
     "rxjs": "^7.8.1"
+  },
+  "scripts": {
+    "test": "jest --no-cache",
+    "vscode:debug": "rm -rf vscode/dist && tsc -p ./"
   }
 }

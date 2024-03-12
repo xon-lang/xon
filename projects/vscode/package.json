@@ -4,7 +4,7 @@
   "description": "xon language support",
   "author": "nizami",
   "publisher": "nizami",
-  "version": "1.12.55",
+  "version": "1.12.59",
   "license": "MIT",
   "engines": {
     "vscode": "^1.87.0"
@@ -113,8 +113,7 @@
     }
   },
   "scripts": {
-    "build": "rm -rf dist && esbuild ./src/main.ts --bundle --outfile=dist/main.js --external:vscode --format=cjs --platform=node",
-    "watch": "npm run -S build -- --sourcemap --watch",
-    "prepublish": "npm run -S build -- --minify"
+    "vscode:build": "rm -rf dist && esbuild ./src/main.ts --bundle --outfile=dist/main.js --external:vscode --format=cjs --platform=node",
+    "vscode:prepublish": "npm run -S vscode:build -- --minify"
   }
 }
