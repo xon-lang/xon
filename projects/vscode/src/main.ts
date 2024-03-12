@@ -4,7 +4,7 @@ import {watchDocumentTree} from './document-tree';
 import {configureCompletionFeature} from './feature/completion/completion-feature';
 import {configureDefinitionFeature} from './feature/definition/definition-feature';
 import {configureDiagnosticsFeature} from './feature/diagnostics/diagnostics-feature';
-import {configureFormatterFeature} from './feature/formatter/formatter-feature';
+import {configureFormatterFeature} from './feature/formatting/formatting-feature';
 import {configureHighlightingFeature} from './feature/highlighting/highlighting-feature';
 import {configureHoverFeature} from './feature/hover/hover-feature';
 
