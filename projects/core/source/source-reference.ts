@@ -1,14 +1,14 @@
-import { Source } from './source';
-import { SourcePosition } from './source-position';
+import {Source} from './source';
+import {SourceRange} from './source-range';
 
 export interface SourceReference {
   source: Source;
-  position: SourcePosition;
+  range: SourceRange;
 }
 
-export function sourceReference(source: Source, position: SourcePosition): SourceReference {
+export function sourceReference(source: Source, range: SourceRange): SourceReference {
   return {
     source,
-    position,
+    range,
   };
 }

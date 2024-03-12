@@ -4,7 +4,7 @@ import {Nothing, nothing} from '../lib/core';
 import {DeclarationNode} from '../parser/node/syntax/declaration/declaration-node';
 import {SyntaxResult} from '../parser/syntax-result';
 import {SourceReference} from '../source/source-reference';
-import { declarationsParse } from './declaration/declaration-semantic-parser';
+import {declarationsParse} from './declaration/declaration-semantic-parser';
 import {SemanticContext, semanticContext} from './semantic-context';
 
 export interface Semantic {

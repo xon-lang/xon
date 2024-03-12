@@ -79,10 +79,6 @@ function getDeclarationParts(
   const {header, type, assign} = getHeaderTypeAssign(context, node);
 
   if (is<PrefixNode>(header, $Node.PREFIX) && MODIFIER_KEYWORDS.includes(header.operator.text)) {
-    if (!header.value) {
-      return nothing;
-    }
-
     const underModifier = getUnderModifier(context, header.value);
 
     if (!underModifier) {

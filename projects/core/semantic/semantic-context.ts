@@ -31,7 +31,7 @@ export function semanticContext(
     },
 
     createReference(node: Node): SourceReference {
-      return sourceReference(this.source, node.range.start);
+      return sourceReference(this.source, node.range);
     },
   };
 }
