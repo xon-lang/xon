@@ -27,7 +27,7 @@ export function configureDefinitionFeature(context: ExtensionContext, channel: O
   );
 }
 
-export class LanguageDefinitionProvider implements DefinitionProvider {
+class LanguageDefinitionProvider implements DefinitionProvider {
   constructor(private channel: OutputChannel) {}
 
   provideDefinition(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<Definition> {

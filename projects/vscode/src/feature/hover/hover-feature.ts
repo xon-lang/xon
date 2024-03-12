@@ -25,7 +25,7 @@ export function configureHoverFeature(context: ExtensionContext, channel: Output
   context.subscriptions.push(languages.registerHoverProvider(LANGUAGE_NAME, new LanguageHoverProvider(channel)));
 }
 
-export class LanguageHoverProvider implements HoverProvider {
+class LanguageHoverProvider implements HoverProvider {
   constructor(private channel: OutputChannel) {}
 
   provideHover(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<Hover> {

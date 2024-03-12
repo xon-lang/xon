@@ -10,12 +10,12 @@ import {
   ProviderResult,
   TextDocument,
 } from 'vscode';
-import {nothing} from '../../../../core/lib/core';
-import {$Node, is} from '../../../../core/parser/node/node';
-import {MemberNode} from '../../../../core/parser/node/syntax/member/member-node';
-import {IdNode} from '../../../../core/parser/node/token/id/id-node';
-import {parseSemantic} from '../../../../core/semantic/semantic';
-import {findNodeBytPositionInSyntax, getDocumentSyntax} from '../../util';
+import {nothing} from '../../../../../core/lib/core';
+import {$Node, is} from '../../../../../core/parser/node/node';
+import {MemberNode} from '../../../../../core/parser/node/syntax/member/member-node';
+import {IdNode} from '../../../../../core/parser/node/token/id/id-node';
+import {parseSemantic} from '../../../../../core/semantic/semantic';
+import {findNodeBytPositionInSyntax, getDocumentSyntax} from '../../../util';
 
 export class DotCompletionItemProvider implements CompletionItemProvider {
   constructor(private channel: OutputChannel) {}
