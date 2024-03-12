@@ -1,7 +1,7 @@
 import {IssueType} from '../issue/issue';
 import {createIssueManager} from '../issue/issue-manager';
 import {Nothing, nothing} from '../lib/core';
-import {DeclarationNode} from '../parser/node/syntax/declaration/declaration-node';
+import {$DeclarationNodeType, DeclarationNode} from '../parser/node/syntax/declaration/declaration-node';
 import {SyntaxResult} from '../parser/syntax-result';
 import {SourceReference} from '../source/source-reference';
 import {declarationsParse} from './declaration/declaration-semantic-parser';
@@ -11,18 +11,13 @@ export interface Semantic {
   readonly $: $Semantic;
   readonly reference: SourceReference;
 }
-
+$DeclarationNodeType;
 export enum $Semantic {
-  // literals
-  INTEGER_TYPE = 'INTEGER_TYPE',
-  RANGE_TYPE = 'RANGE_TYPE',
-  ARRAY_TYPE = 'ARRAY_TYPE',
-  // operators
-  UNION_TYPE = 'UNION_TYPE',
-
-  DECLARATION_TYPE = 'DECLARATION_TYPE',
-
-  VALUE = 'VALUE',
+  ID = 'ID',
+  INTEGER = 'INTEGER',
+  RANGE = 'RANGE',
+  ARRAY = 'ARRAY',
+  UNION = 'UNION',
 
   DECLARATION = 'DECLARATION',
 }

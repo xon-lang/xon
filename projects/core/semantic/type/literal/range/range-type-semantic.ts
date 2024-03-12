@@ -5,7 +5,7 @@ import {TypeSemantic} from '../../type-semantic';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
 
 export interface RangeTypeSemantic extends TypeSemantic {
-  $: $Semantic.RANGE_TYPE;
+  $: $Semantic.RANGE;
   from: IntegerTypeSemantic;
   to: IntegerTypeSemantic;
   // step: IntegerTypeSemantic;
@@ -18,14 +18,14 @@ export function rangeTypeSemantic(
   // step: IntegerTypeSemantic,
 ): RangeTypeSemantic {
   const semantic: RangeTypeSemantic = {
-    $: $Semantic.RANGE_TYPE,
+    $: $Semantic.RANGE,
     reference,
     from,
     to,
     // step,
 
     eq(type: TypeSemantic): Boolean2 {
-      if (semanticIs<RangeTypeSemantic>(type, $Semantic.RANGE_TYPE)) {
+      if (semanticIs<RangeTypeSemantic>(type, $Semantic.RANGE)) {
         return this.from.value === type.from.value || this.to.value === type.to.value;
       }
 

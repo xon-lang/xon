@@ -5,7 +5,7 @@ import {TypeSemantic} from '../../type-semantic';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
 
 export interface ArrayTypeSemantic extends TypeSemantic {
-  $: $Semantic.ARRAY_TYPE;
+  $: $Semantic.ARRAY;
   type: TypeSemantic;
   size: IntegerTypeSemantic | Nothing;
 }
@@ -16,13 +16,13 @@ export function arrayTypeSemantic(
   size: IntegerTypeSemantic | Nothing,
 ): ArrayTypeSemantic {
   const semantic: ArrayTypeSemantic = {
-    $: $Semantic.ARRAY_TYPE,
+    $: $Semantic.ARRAY,
     reference,
     type,
     size,
 
     eq(type: TypeSemantic): Boolean2 {
-      if (semanticIs<ArrayTypeSemantic>(type, $Semantic.ARRAY_TYPE)) {
+      if (semanticIs<ArrayTypeSemantic>(type, $Semantic.ARRAY)) {
         return this.type.eq(type);
       }
 

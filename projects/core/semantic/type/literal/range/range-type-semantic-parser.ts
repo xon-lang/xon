@@ -14,8 +14,8 @@ export function rangeTypeSemanticParse(context: SemanticContext, node: Node): Ra
     const to = typeSemanticParse(context, node.right);
 
     if (
-      !semanticIs<IntegerTypeSemantic>(from, $Semantic.INTEGER_TYPE) ||
-      !semanticIs<IntegerTypeSemantic>(to, $Semantic.INTEGER_TYPE)
+      !semanticIs<IntegerTypeSemantic>(from, $Semantic.INTEGER) ||
+      !semanticIs<IntegerTypeSemantic>(to, $Semantic.INTEGER)
     ) {
       return nothing;
     }

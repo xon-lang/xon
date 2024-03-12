@@ -36,7 +36,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
     const node = findNodeBytPositionInSyntax(syntax, position);
 
     if (is<IdNode>(node, $Node.ID) || is<OperatorNode>(node, $Node.OPERATOR)) {
-      if (semanticIs<DeclarationTypeSemantic>(node.semantic, $Semantic.DECLARATION_TYPE)) {
+      if (semanticIs<DeclarationTypeSemantic>(node.semantic, $Semantic.ID)) {
         return navigateToDeclaration(node.semantic);
       }
     }

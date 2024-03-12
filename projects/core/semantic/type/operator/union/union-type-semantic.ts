@@ -4,7 +4,7 @@ import {$Semantic} from '../../../semantic';
 import {TypeSemantic} from '../../type-semantic';
 
 export interface UnionTypeSemantic extends TypeSemantic {
-  $: $Semantic.UNION_TYPE;
+  $: $Semantic.UNION;
   left: TypeSemantic;
   right: TypeSemantic;
 }
@@ -15,7 +15,7 @@ export function unionTypeSemantic(
   right: TypeSemantic,
 ): UnionTypeSemantic {
   const semantic: UnionTypeSemantic = {
-    $: $Semantic.UNION_TYPE,
+    $: $Semantic.UNION,
     reference,
     left,
     right,
