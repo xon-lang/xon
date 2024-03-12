@@ -16,7 +16,7 @@ export function activate(context: ExtensionContext) {
   configureDiagnosticsFeature(context, channel);
   configureFormatterFeature(context, channel);
   configureHighlightingFeature(context, channel);
-  configureHoverFeature(context, channel);
+  // configureHoverFeature(context, channel);
   configureDefinitionFeature(context, channel);
   configureCompletionFeature(context, channel);
   // configureTranslatorFeature(context, channel);

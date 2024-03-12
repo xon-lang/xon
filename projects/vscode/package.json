@@ -29,7 +29,7 @@
     "Debuggers",
     "Formatters"
   ],
-  "main": "./dist/main",
+  "main": "./dist/vscode/src/main",
   "contributes": {
     "languages": [
       {
@@ -113,7 +113,7 @@
     }
   },
   "scripts": {
-    "vscode:build": "rm -rf dist && esbuild ./src/main.ts --bundle --outfile=dist/main.js --external:vscode --format=cjs --platform=node",
+    "vscode:build": "rm -rf dist && esbuild ./src/main.ts --bundle --outfile=dist/vscode/src/main.js --external:vscode --format=cjs --platform=node",
     "vscode:prepublish": "npm run -S vscode:build -- --minify"
   }
 }

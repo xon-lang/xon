@@ -1,4 +1,6 @@
 a
 
+model Integer
+
 model String
   length: Integer

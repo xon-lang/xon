@@ -9,7 +9,7 @@
     "moduleResolution": "node",
     "noImplicitAny": false,
     "noImplicitReturns": true,
-    "outDir": "dist",
+    "outDir": "projects/vscode/dist",
     "sourceMap": true,
     "strict": true,
     "target": "ES2021",

@@ -17,6 +17,7 @@ import {OperatorNode} from '../../../../core/parser/node/token/operator/operator
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
 import {$Semantic, Semantic, parseSemantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
+import {TypeSemantic} from '../../../../core/semantic/type/type-semantic';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeBytPositionInSyntax, getDocumentSyntax} from '../../util';
 
@@ -54,13 +55,20 @@ function getSemanticHoverText(semantic: Semantic): MarkdownString | Nothing {
   }
 
   if (semanticIs<DeclarationTypeSemantic>(semantic, $Semantic.DECLARATION_TYPE)) {
-    return getDeclarationMarkdown(semantic.declaration);
+    return getTypeMarkdown(semantic);
   }
 }
 
 function getDeclarationMarkdown(declaration: DeclarationSemantic): MarkdownString | Nothing {
+  const modifier = declaration.modifier ? declaration.modifier + ' ' : '';
+  const text = `${modifier} ${declaration.name}`;
+
+  return markdownCode(text);
+}
+
+function getTypeMarkdown(declaration: TypeSemantic): MarkdownString | Nothing {
   if (semanticIs<DeclarationSemantic>(declaration, $Semantic.DECLARATION)) {
-    const text = `model ${declaration.name}`;
+    const text = `${declaration.name}`;
 
     return markdownCode(text);
   }
