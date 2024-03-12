@@ -61,18 +61,30 @@ function getSemanticHoverText(semantic: Semantic): MarkdownString | Nothing {
 
 function getDeclarationMarkdown(declaration: DeclarationSemantic): MarkdownString | Nothing {
   const modifier = declaration.modifier ? declaration.modifier + ' ' : '';
-  const text = `${modifier} ${declaration.name}`;
+  const name = declaration.name;
+  const type = declaration.type ? ': ' + getTypeText(declaration.type) + ' ' : '';
+  const text = `${modifier}${name}${type}`;
 
   return markdownCode(text);
 }
 
-function getTypeMarkdown(declaration: TypeSemantic): MarkdownString | Nothing {
-  if (semanticIs<DeclarationSemantic>(declaration, $Semantic.DECLARATION)) {
-    const text = `${declaration.name}`;
+function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
+  if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.DECLARATION_TYPE)) {
+    const modifier = type.declaration.modifier ? type.declaration.modifier + ' ' : '';
+    const text = `${modifier}${type.declaration.name}`;
 
     return markdownCode(text);
   }
+
   return nothing;
+}
+
+function getTypeText(type: TypeSemantic): String2 {
+  if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.DECLARATION_TYPE)) {
+    return `${type.declaration.name}`;
+  }
+
+  return '';
 }
 
 function markdownCode(text: String2): MarkdownString {

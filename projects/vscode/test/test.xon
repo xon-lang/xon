@@ -4,3 +4,9 @@ model Integer
 
 model String
   length: Integer
+
+
+const abc = 2
+
+
+abc + 2
