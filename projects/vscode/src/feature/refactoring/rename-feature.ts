@@ -11,9 +11,11 @@ import {
   WorkspaceEdit,
 } from 'vscode';
 
+import {parseSemantic} from '../../../../core/semantic/semantic';
 import {LANGUAGE_NAME} from '../../config';
+import {getDocumentSyntax} from '../../util';
 
-export function configureFormatterFeature(context: ExtensionContext, channel: OutputChannel) {
+export function configureRefactoringFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(languages.registerRenameProvider(LANGUAGE_NAME, new LanguageRenameProvider(channel)));
 }
 
@@ -26,7 +28,7 @@ class LanguageRenameProvider implements RenameProvider {
     newName: string,
     token: CancellationToken,
   ): ProviderResult<WorkspaceEdit> {
-    throw new Error('Method not implemented.');
+    throw new Error('Method not implemented2.');
   }
 
   prepareRename?(
@@ -34,6 +36,9 @@ class LanguageRenameProvider implements RenameProvider {
     position: Position,
     token: CancellationToken,
   ): ProviderResult<Range | {range: Range; placeholder: string}> {
-    throw new Error('Method not implemented.');
+    const syntax = getDocumentSyntax(document);
+    parseSemantic(syntax);
+
+     
   }
 }

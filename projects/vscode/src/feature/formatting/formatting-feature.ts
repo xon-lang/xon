@@ -15,7 +15,7 @@ import {
 import {LANGUAGE_NAME} from '../../config';
 import {convertFormatter, getDocumentSyntax} from '../../util';
 
-export function configureFormatterFeature(context: ExtensionContext, channel: OutputChannel) {
+export function configureFormattingFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
     languages.registerDocumentFormattingEditProvider(
       LANGUAGE_NAME,
