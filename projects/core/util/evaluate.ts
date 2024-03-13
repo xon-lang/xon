@@ -3,10 +3,10 @@ import {$Node, Node, is} from '../parser/node/node';
 import {GroupNode} from '../parser/node/syntax/group/group-node';
 import {InfixNode} from '../parser/node/syntax/infix/infix-node';
 import {PrefixNode} from '../parser/node/syntax/prefix/prefix-node';
-import {CharNode} from '../parser/node/token/char/char-node';
 import {IdNode} from '../parser/node/token/id/id-node';
-import {IntegerNode} from '../parser/node/token/integer/integer-node';
-import {StringNode} from '../parser/node/token/string/string-node';
+import {CharLiteralNode} from '../parser/node/token/literal/char/char-literal-node';
+import {IntegerLiteralNode} from '../parser/node/token/literal/integer/integer-literal-node';
+import {StringLiteralNode} from '../parser/node/token/literal/string/string-literal-node';
 
 export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);
@@ -21,11 +21,11 @@ export function evaluate(node: Node | Nothing, argsMap = {}): Anything {
     return node.items.map((x) => evaluate(x ?? nothing));
   }
 
-  if (is<IntegerNode>(node, $Node.INTEGER)) {
+  if (is<IntegerLiteralNode>(node, $Node.INTEGER)) {
     return Number(node.text);
   }
 
-  if (is<StringNode>(node, $Node.STRING) || is<CharNode>(node, $Node.CHAR)) {
+  if (is<StringLiteralNode>(node, $Node.STRING) || is<CharLiteralNode>(node, $Node.CHAR)) {
     return node.text.slice(1, -1);
   }
 

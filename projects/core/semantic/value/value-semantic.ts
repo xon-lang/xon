@@ -5,16 +5,19 @@ import {SyntaxResult} from '../../parser/syntax-result';
 import {Semantic} from '../semantic';
 import {SemanticContext} from '../semantic-context';
 import {TypeSemantic} from '../type/type-semantic';
-import {idValueSemanticParse} from './id/id-value-semantic';
-import {integerValueSemanticParse} from './literal/integer-value-semantic';
+import {declarationValueSemanticTryParse} from './declaration/declaration-value-semantic-parse';
+import {literalValueSemanticTryParse} from './literal/declaration-value-semantic-parse';
 
 export interface ValueSemantic extends Semantic {
   type: TypeSemantic | Nothing;
 }
 
-type ValueSemanticParserFn = (context: SemanticContext, node: Node) => ValueSemantic | Nothing;
+type ValueSemanticTryParseFn = (context: SemanticContext, node: Node) => ValueSemantic | Nothing;
 
-const valueSemanticParsers: ValueSemanticParserFn[] = [idValueSemanticParse, integerValueSemanticParse];
+const valueSemanticParsers: ValueSemanticTryParseFn[] = [
+  literalValueSemanticTryParse,
+  declarationValueSemanticTryParse,
+];
 
 export function valuesSemanticParse(context: SemanticContext, syntax: SyntaxResult) {
   for (const statement of syntax.statements) {

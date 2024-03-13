@@ -1,20 +1,20 @@
-import {Boolean2, String2} from '../../../../lib/core';
-import {SourceReference} from '../../../../source/source-reference';
-import {$Semantic, semanticIs} from '../../../semantic';
-import {TypeSemantic} from '../../type-semantic';
-import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
+import {Boolean2, String2} from '../../../lib/core';
+import {SourceReference} from '../../../source/source-reference';
+import {IntegerLiteralSemantic} from '../../literal/integer/integer-literal-semantic';
+import {$Semantic, semanticIs} from '../../semantic';
+import {TypeSemantic} from '../type-semantic';
 
 export interface RangeTypeSemantic extends TypeSemantic {
   $: $Semantic.RANGE_TYPE;
-  from: IntegerTypeSemantic;
-  to: IntegerTypeSemantic;
+  from: IntegerLiteralSemantic;
+  to: IntegerLiteralSemantic;
   // step: IntegerTypeSemantic;
 }
 
 export function rangeTypeSemantic(
   reference: SourceReference,
-  from: IntegerTypeSemantic,
-  to: IntegerTypeSemantic,
+  from: IntegerLiteralSemantic,
+  to: IntegerLiteralSemantic,
   // step: IntegerTypeSemantic,
 ): RangeTypeSemantic {
   const semantic: RangeTypeSemantic = {

@@ -1,8 +1,8 @@
-import {DeclarationNode} from '../../../../parser/node/syntax/declaration/declaration-node';
-import {parseSyntax} from '../../../../parser/syntax';
-import {sourceFromText} from '../../../../source/source';
-import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
-import {$Semantic, parseSemantic} from '../../../semantic';
+import {DeclarationNode} from '../../../../../parser/node/syntax/declaration/declaration-node';
+import {parseSyntax} from '../../../../../parser/syntax';
+import {sourceFromText} from '../../../../../source/source';
+import {DeclarationSemantic} from '../../../../declaration/declaration-semantic';
+import {$Semantic, parseSemantic} from '../../../../semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
 
 test('a is integer', () => {

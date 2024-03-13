@@ -17,8 +17,8 @@ import {IdNode} from '../../../../core/parser/node/token/id/id-node';
 import {OperatorNode} from '../../../../core/parser/node/token/operator/operator-node';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
 import {$Semantic, parseSemantic, semanticIs} from '../../../../core/semantic/semantic';
-import {IdTypeSemantic} from '../../../../core/semantic/type/id/id-type-semantic';
-import {IdValueSemantic} from '../../../../core/semantic/value/id/id-value-semantic';
+import {DeclarationTypeSemantic} from '../../../../core/semantic/usage/type/declaration/declaration-type-semantic';
+import {IdValueSemantic} from '../../../../core/semantic/usage/value/id/id-value-semantic';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeBytPositionInSyntax, getDocumentSyntax} from '../../util';
 
@@ -38,11 +38,11 @@ class LanguageDefinitionProvider implements DefinitionProvider {
     const node = findNodeBytPositionInSyntax(syntax, position);
 
     if (is<IdNode>(node, $Node.ID) || is<OperatorNode>(node, $Node.OPERATOR)) {
-      if (semanticIs<IdTypeSemantic>(node.semantic, $Semantic.ID_TYPE)) {
+      if (semanticIs<DeclarationTypeSemantic>(node.semantic, $Semantic.DECLARATION_TYPE)) {
         return navigateToDeclaration(node.semantic.declaration);
       }
 
-      if (semanticIs<IdValueSemantic>(node.semantic, $Semantic.ID_VALUE)) {
+      if (semanticIs<IdValueSemantic>(node.semantic, $Semantic.DECLARATION_VALUE)) {
         return navigateToDeclaration(node.semantic.declaration);
       }
     }

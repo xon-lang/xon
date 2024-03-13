@@ -63,6 +63,7 @@ export function declarationDeepParse(context: SemanticContext, node: Declaration
   }
 
   if (node.value) {
+    // todo depends on declaration kind (e.g. generic or const) ???
     const value = valueSemanticParse(childContext, node.value);
 
     if (!semantic.type) {

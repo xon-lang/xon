@@ -1,19 +1,19 @@
-import {Boolean2, Nothing, String2} from '../../../../lib/core';
-import {SourceReference} from '../../../../source/source-reference';
-import {$Semantic, semanticIs} from '../../../semantic';
-import {TypeSemantic} from '../../type-semantic';
-import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
+import {Boolean2, Nothing, String2} from '../../../lib/core';
+import {SourceReference} from '../../../source/source-reference';
+import {IntegerLiteralSemantic} from '../../literal/integer/integer-literal-semantic';
+import {$Semantic, semanticIs} from '../../semantic';
+import {TypeSemantic} from '../type-semantic';
 
 export interface ArrayTypeSemantic extends TypeSemantic {
   $: $Semantic.ARRAY_TYPE;
   type: TypeSemantic;
-  size: IntegerTypeSemantic | Nothing;
+  size: IntegerLiteralSemantic | Nothing;
 }
 
 export function arrayTypeSemantic(
   reference: SourceReference,
   type: TypeSemantic,
-  size: IntegerTypeSemantic | Nothing,
+  size: IntegerLiteralSemantic | Nothing,
 ): ArrayTypeSemantic {
   const semantic: ArrayTypeSemantic = {
     $: $Semantic.ARRAY_TYPE,

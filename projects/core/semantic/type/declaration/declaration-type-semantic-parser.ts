@@ -5,9 +5,12 @@ import {IdNode} from '../../../parser/node/token/id/id-node';
 import {OBJECT_NODE_OPEN} from '../../../parser/syntax-config';
 import {SemanticContext} from '../../semantic-context';
 import {typeSemanticParse} from '../type-semantic-parser';
-import {IdTypeSemantic, idTypeSemantic} from './id-type-semantic';
+import {DeclarationTypeSemantic, declarationTypeSemantic} from './declaration-type-semantic';
 
-export function idTypeSemanticParse(context: SemanticContext, node: Node): IdTypeSemantic | Nothing {
+export function declarationTypeSemanticTryParse(
+  context: SemanticContext,
+  node: Node,
+): DeclarationTypeSemantic | Nothing {
   if (is<IdNode>(node, $Node.ID)) {
     const declaration = context.declarationManager.findSingle(node, 0, nothing);
 
@@ -16,7 +19,7 @@ export function idTypeSemanticParse(context: SemanticContext, node: Node): IdTyp
     }
 
     const reference = context.createReference(node);
-    const semantic = idTypeSemantic(reference, declaration, nothing);
+    const semantic = declarationTypeSemantic(reference, declaration, nothing);
     node.semantic = semantic;
 
     return semantic;
@@ -40,7 +43,7 @@ export function idTypeSemanticParse(context: SemanticContext, node: Node): IdTyp
     }
 
     const reference = context.createReference(node);
-    const semantic = idTypeSemantic(reference, declaration, nothing);
+    const semantic = declarationTypeSemantic(reference, declaration, nothing);
     // todo recheck, we always need set id semantic for all cases ???
     node.instance.semantic = semantic;
 
@@ -49,8 +52,3 @@ export function idTypeSemanticParse(context: SemanticContext, node: Node): IdTyp
 
   return nothing;
 }
-
-// function parseInvokeNode(node: InvokeNode): {
-//   id: IdNode;
-//   generics: ObjectNode | Nothing;
-// } {}
