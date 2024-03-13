@@ -1,11 +1,12 @@
-import {Nothing, String2, nothing} from '../../../../lib/core';
-import {SourceRange} from '../../../../source/source-range';
-import {CHAR_QUOTE} from '../../../syntax-config';
-import {SyntaxContext} from '../../../syntax-context';
-import {$Node} from '../../node';
-import {TokenNode, tokenNode} from '../token-node';
+import {Nothing, String2, nothing} from '../../../../../lib/core';
+import {SourceRange} from '../../../../../source/source-range';
+import {CHAR_QUOTE} from '../../../../syntax-config';
+import {SyntaxContext} from '../../../../syntax-context';
+import {$Node} from '../../../node';
+import {tokenNode} from '../../token-node';
+import {LiteralTokenNode} from '../literal-token-node';
 
-export interface CharNode extends TokenNode {
+export interface CharNode extends LiteralTokenNode {
   $: $Node.CHAR;
 }
 

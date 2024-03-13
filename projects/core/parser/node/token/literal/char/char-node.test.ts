@@ -1,6 +1,6 @@
-import {sourceFromText} from '../../../../source/source';
-import {parseSyntax} from '../../../syntax';
-import {$Node} from '../../node';
+import {sourceFromText} from '../../../../../source/source';
+import {parseSyntax} from '../../../../syntax';
+import {$Node} from '../../../node';
 import {CharNode} from './char-node';
 
 test('a', () => {

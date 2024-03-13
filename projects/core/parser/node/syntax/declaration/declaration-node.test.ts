@@ -1,9 +1,9 @@
 import {sourceFromText} from '../../../../source/source';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
-import {CharNode} from '../../token/char/char-node';
 import {IdNode} from '../../token/id/id-node';
-import {IntegerNode} from '../../token/integer/integer-node';
+import {CharNode} from '../../token/literal/char/char-node';
+import {IntegerNode} from '../../token/literal/integer/integer-node';
 import {DeclarationNode} from './declaration-node';
 
 test('model a', () => {

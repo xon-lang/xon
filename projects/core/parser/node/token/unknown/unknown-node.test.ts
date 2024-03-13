@@ -1,7 +1,7 @@
 import {sourceFromText} from '../../../../source/source';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
-import {IntegerNode} from '../integer/integer-node';
+import { IntegerNode } from '../literal/integer/integer-node';
 import {UnknownNode} from './unknown-node';
 
 test('unknown 1', () => {

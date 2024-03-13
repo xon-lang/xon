@@ -1,8 +1,8 @@
-import { nothing } from '../../../../lib/core';
+import {nothing} from '../../../../lib/core';
 import {sourceFromText} from '../../../../source/source';
 import {parseSyntax} from '../../../syntax';
 import {$Node, is} from '../../node';
-import {IntegerNode} from '../../token/integer/integer-node';
+import {IntegerNode} from '../../token/literal/integer/integer-node';
 import {GroupNode} from '../group/group-node';
 import {InfixNode} from '../infix/infix-node';
 import {ObjectNode} from '../object/object-node';

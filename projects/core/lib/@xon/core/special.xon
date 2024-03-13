@@ -17,3 +17,7 @@ object null
 -----------------------------------------------
 model Any
 literal Nil
+
+
+// declaration is e.g. Array{T}: Something
+prefix model (value: declaration)

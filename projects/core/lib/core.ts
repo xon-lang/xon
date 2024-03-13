@@ -1,8 +1,8 @@
-export type Anything = unknown; // also contains Nothing
-
 export type Something = boolean | number | string | object;
 
 export type Nothing = null | undefined | void;
+
+export type Anything = unknown; // Something | Nothing
 
 export const nothing = null;
 

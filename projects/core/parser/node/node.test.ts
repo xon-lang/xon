@@ -2,7 +2,7 @@ import {sourceFromText} from '../../source/source';
 import {parseSyntax} from '../syntax';
 import {$Node} from './node';
 import {InfixNode} from './syntax/infix/infix-node';
-import {IntegerNode} from './token/integer/integer-node';
+import {IntegerNode} from './token/literal/integer/integer-node';
 import {TokenNode} from './token/token-node';
 
 test('comma', () => {

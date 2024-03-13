@@ -2,7 +2,7 @@ import {nothing} from '../../../../lib/core';
 import {sourceFromText} from '../../../../source/source';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
-import {CharNode} from '../../token/char/char-node';
+import {CharNode} from '../../token/literal/char/char-node';
 
 test('a', () => {
   const text = "   \n    \n  ---comment ---'a'";

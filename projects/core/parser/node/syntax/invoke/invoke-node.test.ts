@@ -2,7 +2,7 @@ import {sourceFromText} from '../../../../source/source';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
 import {IdNode} from '../../token/id/id-node';
-import {IntegerNode} from '../../token/integer/integer-node';
+import {IntegerNode} from '../../token/literal/integer/integer-node';
 import {GroupNode} from '../group/group-node';
 import {MemberNode} from '../member/member-node';
 import {InvokeNode} from './invoke-node';

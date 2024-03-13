@@ -1,11 +1,13 @@
-import {Nothing, String2, nothing} from '../../../../lib/core';
-import {SourceRange} from '../../../../source/source-range';
-import {UNDERSCORE} from '../../../syntax-config';
-import {SyntaxContext} from '../../../syntax-context';
-import {$Node} from '../../node';
-import {TokenNode, tokenNode} from '../token-node';
+import {Nothing, String2, nothing} from '../../../../../lib/core';
+import {SourceRange} from '../../../../../source/source-range';
+import {UNDERSCORE} from '../../../../syntax-config';
+import {SyntaxContext} from '../../../../syntax-context';
+import {$Node} from '../../../node';
+import {tokenNode} from '../../token-node';
+import {LiteralTokenNode} from '../literal-token-node';
 
-export interface IntegerNode extends TokenNode {
+// todo rename to IntegerLiteralNode
+export interface IntegerNode extends LiteralTokenNode {
   $: $Node.INTEGER;
 }
 

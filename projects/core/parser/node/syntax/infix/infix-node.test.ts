@@ -3,7 +3,7 @@ import {evaluate} from '../../../../util/evaluate';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
 import {IdNode} from '../../token/id/id-node';
-import {IntegerNode} from '../../token/integer/integer-node';
+import {IntegerNode} from '../../token/literal/integer/integer-node';
 import {GroupNode} from '../group/group-node';
 import {PrefixNode} from '../prefix/prefix-node';
 import {InfixNode} from './infix-node';
