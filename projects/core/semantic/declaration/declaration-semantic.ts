@@ -1,14 +1,12 @@
 import {Nothing, String2, nothing} from '../../lib/core';
 import {SourceReference} from '../../source/source-reference';
 import {$Semantic, Semantic} from '../semantic';
-import {DeclarationTypeSemantic} from '../type/declaration/declaration-type-semantic';
 import {TypeSemantic} from '../type/type-semantic';
-import {DeclarationValueSemantic} from '../value/declaration/declaration-value-semantic';
 import {ValueSemantic} from '../value/value-semantic';
 
 export interface DeclarationSemantic extends Semantic {
   $: $Semantic.DECLARATION;
-  usages: (DeclarationTypeSemantic | DeclarationValueSemantic)[];
+  usages: SourceReference[];
   modifier: String2 | Nothing;
   name: String2;
   generics: (DeclarationSemantic | Nothing)[] | Nothing;
@@ -28,7 +26,7 @@ export function declarationSemantic(
     reference,
     modifier,
     name,
-    usages: [],
+    usages: [reference],
     generics: nothing,
     parameters: nothing,
     type: nothing,

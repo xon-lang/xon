@@ -2,13 +2,13 @@ import {Nothing, nothing} from '../../../lib/core';
 import {Node} from '../../../parser/node/node';
 import {literalSemanticTryParse} from '../../literal/literal-semantic-parse';
 import {SemanticContext} from '../../semantic-context';
-import {LiteralValueSemantic, literalValueSemantic} from './literal-value-semantic';
+import {LiteralTypeSemantic, literalTypeSemantic} from '../../type/literal/literal-type-semantic';
 
-export function literalValueSemanticTryParse(context: SemanticContext, node: Node): LiteralValueSemantic | Nothing {
+export function literalValueTypeTryParse(context: SemanticContext, node: Node): LiteralTypeSemantic | Nothing {
   const semantic = literalSemanticTryParse(context, node);
 
   if (semantic) {
-    return literalValueSemantic(semantic);
+    return literalTypeSemantic(semantic);
   }
 
   return nothing;

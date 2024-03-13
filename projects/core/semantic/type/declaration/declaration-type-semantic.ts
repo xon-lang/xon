@@ -34,7 +34,7 @@ export function declarationTypeSemantic(
     },
   };
 
-  declaration.usages.push(semantic);
+  declaration.usages.push(reference);
 
   return semantic;
 }

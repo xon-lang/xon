@@ -29,7 +29,6 @@ export function declarationShallowParse(
   const reference = context.createReference(node.id);
   const modifier = node.modifier?.text;
   const name = node.id.text;
-
   const declaration = declarationSemantic(reference, modifier, name);
 
   node.id.semantic = declaration;

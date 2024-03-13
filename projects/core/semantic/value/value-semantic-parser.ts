@@ -1,14 +1,20 @@
-import {Nothing} from '../../lib/core';
+import {Nothing, nothing} from '../../lib/core';
 import {Node} from '../../parser/node/node';
 import {SyntaxResult} from '../../parser/syntax-result';
 import {SemanticContext} from '../semantic-context';
-import {declarationValueSemanticTryParse} from './declaration/declaration-value-semantic-parser';
-import {literalValueSemanticTryParse} from './literal/declaration-value-semantic-parser';
-import {ValueSemantic} from './value-semantic';
+import {TypeSemantic} from '../type/type-semantic';
+import {declarationValueTypeTryParse} from './declaration/declaration-value-type-parser';
+import {literalValueTypeTryParse} from './literal/literal-value-type-parser';
+import {memberValueTypeTryParse} from './member/member-value-type-parser';
+import {ValueSemantic, valueSemantic} from './value-semantic';
 
-type ValueSemanticTryParseFn = (context: SemanticContext, node: Node) => ValueSemantic | Nothing;
+type ValueSemanticTryParseFn = (context: SemanticContext, node: Node) => TypeSemantic | Nothing;
 
-export const parsers: ValueSemanticTryParseFn[] = [literalValueSemanticTryParse, declarationValueSemanticTryParse];
+export const parsers: ValueSemanticTryParseFn[] = [
+  literalValueTypeTryParse,
+  declarationValueTypeTryParse,
+  memberValueTypeTryParse,
+];
 
 export function valuesSemanticParse(context: SemanticContext, syntax: SyntaxResult) {
   for (const statement of syntax.statements) {
@@ -23,8 +29,18 @@ export function valuesSemanticParse(context: SemanticContext, syntax: SyntaxResu
 }
 export function valueSemanticParse(context: SemanticContext, node: Node | Nothing): ValueSemantic | Nothing {
   if (!node) {
-    return;
+    return nothing;
   }
 
-  node.semantic = parsers.findMap((x) => x(context, node));
+  const type = parsers.findMap((x) => x(context, node));
+
+  if (type) {
+    const reference = context.createReference(node);
+    const semantic = valueSemantic(reference, type);
+    node.semantic = semantic;
+
+    return semantic;
+  }
+
+  return nothing;
 }

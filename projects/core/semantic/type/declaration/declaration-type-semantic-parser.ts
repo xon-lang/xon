@@ -20,6 +20,7 @@ export function declarationTypeSemanticTryParse(
 
     const reference = context.createReference(node);
     const semantic = declarationTypeSemantic(reference, declaration, nothing);
+    // todo move to type-semantic.ts
     node.semantic = semantic;
 
     return semantic;

@@ -93,10 +93,8 @@ function renameDeclarationAndUsages(
   declaration: DeclarationSemantic,
   newName: String2,
 ): Nothing {
-  renameWithWorkspace(workspace, declaration.reference, newName);
-
-  for (const usage of declaration.usages) {
-    renameWithWorkspace(workspace, usage.reference, newName);
+  for (const reference of declaration.usages) {
+    renameWithWorkspace(workspace, reference, newName);
   }
 }
 
