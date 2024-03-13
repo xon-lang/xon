@@ -3,7 +3,6 @@ import {DeclarationNode} from '../../../parser/node/syntax/declaration/declarati
 import {parseSyntax} from '../../../parser/syntax';
 import {sourceFromText} from '../../../source/source';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
-import {IntegerLiteralSemantic} from '../../literal/integer/integer-literal-semantic';
 import {$Semantic, parseSemantic} from '../../semantic';
 import {DeclarationTypeSemantic} from '../declaration/declaration-type-semantic';
 import {typeSemanticParse} from '../type-semantic-parser';
@@ -33,8 +32,8 @@ test('a is array', () => {
   expect(typeSemantic.$).toBe($Semantic.ARRAY_TYPE);
   expect(typeSemantic.type.$).toBe($Semantic.DECLARATION_TYPE);
   expect((typeSemantic.type as DeclarationTypeSemantic).declaration?.name).toBe('Integer');
-  expect(typeSemantic.size?.$).toBe($Semantic.INTEGER_TYPE);
-  expect((typeSemantic.size as IntegerLiteralSemantic).value).toBe(3);
+  expect(typeSemantic.size?.$).toBe($Semantic.INTEGER_LITERAL);
+  expect(typeSemantic.size?.value).toBe(3);
 });
 
 test('a is array of array', () => {
@@ -66,6 +65,6 @@ test('a is array of array', () => {
   expect(outerTypeSemantic.$).toBe($Semantic.ARRAY_TYPE);
   expect(outerTypeSemantic.type.$).toBe($Semantic.DECLARATION_TYPE);
   expect((outerTypeSemantic.type as DeclarationTypeSemantic).declaration?.name).toBe('Integer');
-  expect(outerTypeSemantic.size?.$).toBe($Semantic.INTEGER_TYPE);
-  expect((outerTypeSemantic.size as IntegerLiteralSemantic).value).toBe(3);
+  expect(outerTypeSemantic.size?.$).toBe($Semantic.INTEGER_LITERAL);
+  expect(outerTypeSemantic.size?.value).toBe(3);
 });

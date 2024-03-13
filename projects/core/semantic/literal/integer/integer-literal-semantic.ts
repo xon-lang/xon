@@ -4,18 +4,19 @@ import {$Semantic, semanticIs} from '../../semantic';
 import {LiteralSemantic} from '../literal-semantic';
 
 export interface IntegerLiteralSemantic extends LiteralSemantic {
-  $: $Semantic.INTEGER_TYPE;
+  $: $Semantic.INTEGER_LITERAL;
+  // todo use inner presentation ???
   value: Integer;
 }
 
 export function integerLiteralUsageSemantic(reference: SourceReference, value: Integer): IntegerLiteralSemantic {
   const semantic: IntegerLiteralSemantic = {
-    $: $Semantic.INTEGER_TYPE,
+    $: $Semantic.INTEGER_LITERAL,
     reference,
     value,
 
     eq(semantic: LiteralSemantic): Boolean2 {
-      if (semanticIs<IntegerLiteralSemantic>(semantic, $Semantic.LITERAL_TYPE)) {
+      if (semanticIs<IntegerLiteralSemantic>(semantic, $Semantic.INTEGER_LITERAL)) {
         return this.value === semantic.value;
       }
 

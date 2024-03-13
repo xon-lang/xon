@@ -3,6 +3,7 @@ import {parseSyntax} from '../../../parser/syntax';
 import {sourceFromText} from '../../../source/source';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, parseSemantic} from '../../semantic';
+import {LiteralTypeSemantic} from '../../type/literal/literal-type-semantic';
 import {typeSemanticParse} from '../../type/type-semantic-parser';
 
 test('a is integer', () => {
@@ -24,6 +25,7 @@ test('a is integer', () => {
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type);
-  expect(typeSemantic?.$).toBe($Semantic.INTEGER_TYPE);
+  const typeSemantic = typeSemanticParse(semantic, constNode.type) as LiteralTypeSemantic;
+  expect(typeSemantic?.$).toBe($Semantic.LITERAL_TYPE);
+  expect(typeSemantic?.literal.value).toBe(123);
 });
