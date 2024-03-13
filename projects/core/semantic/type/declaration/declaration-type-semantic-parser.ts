@@ -32,7 +32,7 @@ export function declarationTypeSemanticTryParse(
   // todo check only for generics and array types
   if (is<InvokeNode>(node, $Node.INVOKE) && is<IdNode>(node.instance, $Node.ID)) {
     if (node.group.open.text !== OBJECT_NODE_OPEN) {
-      throw new Error('Not implemented');
+      return nothing;
     }
 
     const generics = node.group.items.map((x) => typeSemanticParse(context, x));
