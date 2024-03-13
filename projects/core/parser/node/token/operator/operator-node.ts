@@ -1,5 +1,4 @@
 import {Nothing, String2, nothing} from '../../../../lib/core';
-import {Semantic} from '../../../../semantic/semantic';
 import {SourceRange} from '../../../../source/source-range';
 import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS, operatorsOrders} from '../../../syntax-config';
 import {SyntaxContext} from '../../../syntax-context';
@@ -16,7 +15,6 @@ export enum KeywordType {
 export interface OperatorNode extends TokenNode {
   $: $Node.OPERATOR;
   keywordType: KeywordType | Nothing;
-  semantic?: Semantic | Nothing;
 }
 
 export function operatorNode(context: SyntaxContext, range: SourceRange, text: String2): OperatorNode {

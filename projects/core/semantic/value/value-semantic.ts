@@ -1,6 +1,5 @@
-import {Nothing, nothing} from '../../lib/core';
-import {$Node, Node, is} from '../../parser/node/node';
-import {IdNode} from '../../parser/node/token/id/id-node';
+import {Nothing} from '../../lib/core';
+import {Node} from '../../parser/node/node';
 import {SyntaxResult} from '../../parser/syntax-result';
 import {Semantic} from '../semantic';
 import {SemanticContext} from '../semantic-context';
@@ -23,19 +22,15 @@ export function valuesSemanticParse(context: SemanticContext, syntax: SyntaxResu
     }
 
     for (const node of statement.children) {
-      const semantic = valueSemanticParse(context, node);
-
-      if (is<IdNode>(node, $Node.ID)) {
-        node.semantic = semantic;
-      }
+      valueSemanticParse(context, node);
     }
   }
 }
 
 export function valueSemanticParse(context: SemanticContext, node: Node | Nothing): ValueSemantic | Nothing {
   if (!node) {
-    return nothing;
+    return;
   }
 
-  return parsers.findMap((x) => x(context, node));
+  node.semantic = parsers.findMap((x) => x(context, node));
 }

@@ -16,8 +16,8 @@ import {IdNode} from '../../../../core/parser/node/token/id/id-node';
 import {OperatorNode} from '../../../../core/parser/node/token/operator/operator-node';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
 import {$Semantic, Semantic, parseSemantic, semanticIs} from '../../../../core/semantic/semantic';
-import {DeclarationTypeSemantic} from '../../../../core/semantic/usage/type/declaration/declaration-type-semantic';
-import {TypeSemantic} from '../../../../core/semantic/usage/type/type-semantic';
+import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
+import {TypeSemantic} from '../../../../core/semantic/type/type-semantic';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeBytPositionInSyntax, getDocumentSyntax} from '../../util';
 

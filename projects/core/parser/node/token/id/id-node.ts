@@ -9,7 +9,6 @@ import {TokenNode, tokenNode} from '../token-node';
 
 export interface IdNode extends TokenNode {
   $: $Node.ID;
-  semantic?: Semantic | Nothing;
 }
 
 export function idNode(range: SourceRange, text: String2): IdNode {

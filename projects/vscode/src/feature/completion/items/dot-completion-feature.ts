@@ -30,7 +30,7 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
     const semantic = parseSemantic(syntax);
     const node = findNodeBytPositionInSyntax(syntax, position);
 
-    if (is<MemberNode>(node?.parent, $Node.MEMBER) && is<IdNode>(node.parent.instance, $Node.ID)) {
+    if (is<MemberNode>(node?.parent, $Node.MEMBER) && node.parent.) {
       const declaration = semantic.declarationManager.findSingle(node.parent.instance, 0);
 
       if (declaration) {
