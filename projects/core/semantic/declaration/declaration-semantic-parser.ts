@@ -4,7 +4,7 @@ import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-
 import {$Semantic, semanticIs} from '../semantic';
 import {SemanticContext} from '../semantic-context';
 import {typeSemanticParse} from '../type/type-semantic-parser';
-import {valueSemanticParse} from '../value/value-semantic';
+import {valueSemanticParse} from '../value/value-semantic-parser';
 import {DeclarationSemantic, declarationSemantic} from './declaration-semantic';
 
 export function declarationsParse(

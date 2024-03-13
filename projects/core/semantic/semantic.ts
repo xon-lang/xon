@@ -6,7 +6,7 @@ import {SyntaxResult} from '../parser/syntax-result';
 import {SourceReference} from '../source/source-reference';
 import {declarationsParse} from './declaration/declaration-semantic-parser';
 import {SemanticContext, semanticContext} from './semantic-context';
-import {valuesSemanticParse} from './value/value-semantic';
+import {valuesSemanticParse} from './value/value-semantic-parser';
 
 export interface Semantic {
   readonly $: $Semantic;
@@ -34,7 +34,11 @@ export function semanticIs<T extends Semantic = Semantic>(
   semantic: {$: $Semantic} | Nothing,
   type: $Semantic,
 ): semantic is T {
-  return semantic?.$ === type;
+  if (!semantic) {
+    return false;
+  }
+
+  return semantic.$ === type || semantic.$.split('_').includes(type);
 }
 
 export function parseSemantic(syntax: SyntaxResult): SemanticContext {
