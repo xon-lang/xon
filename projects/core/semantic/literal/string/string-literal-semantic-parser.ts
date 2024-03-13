@@ -8,8 +8,8 @@ export function stringLiteralSemanticParse(
   context: SemanticContext,
   node: StringLiteralNode,
 ): StringLiteralSemantic | Nothing {
-  const lastIndex = node.text.length>1?node.text[node.text.length-1];
-  const value = node.text.slice();
+  const lastIndex = node.text.length>1 && node.text.last() === STRING_QUOTE?-1: node.text.length ;
+  const value = node.text.slice(1, lastIndex);
   const reference = context.createReference(node);
   const semantic = stringLiteralUsageSemantic(reference, value);
 

@@ -6,9 +6,9 @@ import {$Semantic, parseSemantic} from '../../semantic';
 import {LiteralTypeSemantic} from '../../type/literal/literal-type-semantic';
 import {typeSemanticParse} from '../../type/type-semantic-parser';
 
-test('a is integer', () => {
+test('a is string', () => {
   const text = `
-    const a: 123
+    const a: "abc"
   `;
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
@@ -27,5 +27,44 @@ test('a is integer', () => {
 
   const typeSemantic = typeSemanticParse(semantic, constNode.type) as LiteralTypeSemantic;
   expect(typeSemantic?.$).toBe($Semantic.LITERAL_TYPE);
-  expect(typeSemantic?.literal.value).toBe(123);
+  expect(typeSemantic?.literal.value).toBe('abc');
+});
+
+test('a is string 2', () => {
+  const text = `
+    const a: "abc`;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const semantic = parseSemantic(syntax);
+  const constNode = syntax.statements[0].declaration as DeclarationNode;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type) as LiteralTypeSemantic;
+
+  expect(typeSemantic?.$).toBe($Semantic.LITERAL_TYPE);
+  expect(typeSemantic?.literal.value).toBe('abc');
+});
+
+test('a is empty string 1', () => {
+  const text = `
+    const a: "`;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const semantic = parseSemantic(syntax);
+  const constNode = syntax.statements[0].declaration as DeclarationNode;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type) as LiteralTypeSemantic;
+
+  expect(typeSemantic?.$).toBe($Semantic.LITERAL_TYPE);
+  expect(typeSemantic?.literal.value).toBe('');
+});
+
+test('a is empty string 2', () => {
+  const text = `
+    const a: ""`;
+  const source = sourceFromText(text);
+  const syntax = parseSyntax(source);
+  const semantic = parseSemantic(syntax);
+  const constNode = syntax.statements[0].declaration as DeclarationNode;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type) as LiteralTypeSemantic;
+
+  expect(typeSemantic?.$).toBe($Semantic.LITERAL_TYPE);
+  expect(typeSemantic?.literal.value).toBe('');
 });
