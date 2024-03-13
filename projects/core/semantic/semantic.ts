@@ -26,10 +26,7 @@ export enum $Semantic {
   ARRAY_TYPE = 'ARRAY_TYPE',
   UNION_TYPE = 'UNION_TYPE',
 
-  VALUE = 'VALUE', // todo base class hack remove it later
-  DECLARATION_VALUE = 'DECLARATION_VALUE',
-  LITERAL_VALUE = 'LITERAL_VALUE',
-  INTEGER_VALUE = 'INTEGER_VALUE',
+  VALUE = 'VALUE',
 }
 
 export function semanticIs<T extends Semantic = Semantic>(

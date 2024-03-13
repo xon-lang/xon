@@ -17,10 +17,10 @@ import {IdNode} from '../../../../core/parser/node/token/id/id-node';
 import {OperatorNode} from '../../../../core/parser/node/token/operator/operator-node';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
 import {$Semantic, parseSemantic, semanticIs} from '../../../../core/semantic/semantic';
+import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
+import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeBytPositionInSyntax, getDocumentSyntax} from '../../util';
-import { DeclarationTypeSemantic } from '../../../../core/semantic/type/declaration/declaration-type-semantic';
-import { DeclarationValueSemantic } from '../../../../core/semantic/value/declaration/declaration-value-semantic';
 
 export function configureDefinitionFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
@@ -42,8 +42,11 @@ class LanguageDefinitionProvider implements DefinitionProvider {
         return navigateToDeclaration(node.semantic.declaration);
       }
 
-      if (semanticIs<DeclarationValueSemantic>(node.semantic, $Semantic.DECLARATION_VALUE)) {
-        return navigateToDeclaration(node.semantic.declaration);
+      if (
+        semanticIs<ValueSemantic>(node.semantic, $Semantic.VALUE) &&
+        semanticIs<DeclarationTypeSemantic>(node.semantic.type, $Semantic.DECLARATION_TYPE)
+      ) {
+        return navigateToDeclaration(node.semantic.type.declaration);
       }
     }
 
