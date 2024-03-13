@@ -6,7 +6,7 @@ import {integerLiteralSemanticParse} from './integer/integer-literal-semantic-pa
 import {LiteralSemantic} from './literal-semantic';
 
 export function literalSemanticTryParse(context: SemanticContext, node: Node): LiteralSemantic | Nothing {
-  if (is<IntegerLiteralNode>(node, $Node.ID)) {
+  if (is<IntegerLiteralNode>(node, $Node.INTEGER)) {
     return integerLiteralSemanticParse(context, node);
   }
 

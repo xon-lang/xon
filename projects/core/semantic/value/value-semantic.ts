@@ -5,8 +5,8 @@ import {SyntaxResult} from '../../parser/syntax-result';
 import {Semantic} from '../semantic';
 import {SemanticContext} from '../semantic-context';
 import {TypeSemantic} from '../type/type-semantic';
-import {declarationValueSemanticTryParse} from './declaration/declaration-value-semantic-parse';
-import {literalValueSemanticTryParse} from './literal/declaration-value-semantic-parse';
+import {declarationValueSemanticTryParse} from './declaration/declaration-value-semantic-parser';
+import {literalValueSemanticTryParse} from './literal/declaration-value-semantic-parser';
 
 export interface ValueSemantic extends Semantic {
   type: TypeSemantic | Nothing;
@@ -14,10 +14,7 @@ export interface ValueSemantic extends Semantic {
 
 type ValueSemanticTryParseFn = (context: SemanticContext, node: Node) => ValueSemantic | Nothing;
 
-const valueSemanticParsers: ValueSemanticTryParseFn[] = [
-  literalValueSemanticTryParse,
-  declarationValueSemanticTryParse,
-];
+const parsers: ValueSemanticTryParseFn[] = [literalValueSemanticTryParse, declarationValueSemanticTryParse];
 
 export function valuesSemanticParse(context: SemanticContext, syntax: SyntaxResult) {
   for (const statement of syntax.statements) {
@@ -40,5 +37,5 @@ export function valueSemanticParse(context: SemanticContext, node: Node | Nothin
     return nothing;
   }
 
-  return valueSemanticParsers.findMap((x) => x(context, node));
+  return parsers.findMap((x) => x(context, node));
 }

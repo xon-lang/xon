@@ -10,9 +10,10 @@ import {TypeSemantic} from './type-semantic';
 
 type TypeSemanticTryParseFn = (context: SemanticContext, node: Node) => TypeSemantic | Nothing;
 
-const typeParsers: TypeSemanticTryParseFn[] = [
+const parsers: TypeSemanticTryParseFn[] = [
   literalTypeSemanticTryParse,
   declarationTypeSemanticTryParse,
+
   rangeTypeSemanticTryParse,
   arrayTypeSemanticTryParse,
   unionTypeSemanticTryParse,
@@ -23,5 +24,5 @@ export function typeSemanticParse(context: SemanticContext, node: Node | Nothing
     return nothing;
   }
 
-  return typeParsers.findMap((x) => x(context, node));
+  return parsers.findMap((x) => x(context, node));
 }
