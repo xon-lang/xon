@@ -69,8 +69,10 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
     }
   }
 
-  if (is<WhitespaceNode>(node.indentHiddenNodes.first(), $Node.WHITESPACE)) {
-    const range = cloneRange(node.indentHiddenNodes.first().range);
+  const firstIndentHiddenNode = node.indentHiddenNodes.first();
+
+  if (is<WhitespaceNode>(firstIndentHiddenNode, $Node.WHITESPACE)) {
+    const range = cloneRange(firstIndentHiddenNode.range);
     const text = '  '.repeat(node.indentLevel);
     const formatter = compareAndCreateFormatter(context, node.indentHiddenNodes, range, text);
 
@@ -97,7 +99,7 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
   }
 
   const lastStatementNode = node.children.last();
-  if (lastStatementNode.hiddenNodes.length > 0) {
+  if (lastStatementNode && lastStatementNode.hiddenNodes.length > 0) {
     const range = rangeFromNodes(lastStatementNode.hiddenNodes);
     const formatter = getFormatterForHiddenNodes(context, range, lastStatementNode.hiddenNodes, FormattingType.AFTER);
 
@@ -133,11 +135,15 @@ export function formatLastContextHiddenNodes(context: SyntaxContext): Formatter 
     return compareAndCreateFormatter(context, hiddenNodes, range, text.trimEnd() + NL);
   }
 
-  const lastStatementChild = context.statements.last().children.last();
-  const lastNode = lastStatementChild.hiddenNodes.lastOrNothing() ?? lastStatementChild;
+  const lastStatementChild = context.statements.last()?.children.last();
+  const lastNode = lastStatementChild?.hiddenNodes.last() ?? lastStatementChild;
+
+  if (!lastNode) {
+    return nothing;
+  }
 
   return {
-    range: rangeFromPosition(lastNode.range.stop),
+    range: rangeFromPosition(lastNode?.range.stop),
     text: NL,
   };
 }
@@ -264,8 +270,8 @@ function compareAndCreateFormatter(
 }
 
 function isSameContent(context: SyntaxContext, nodes: TokenNode[], text: String2): Boolean2 {
-  const first = nodes.firstOrNothing();
-  const last = nodes.lastOrNothing();
+  const first = nodes.first();
+  const last = nodes.last();
 
   if (!first || !last) {
     return text === '';

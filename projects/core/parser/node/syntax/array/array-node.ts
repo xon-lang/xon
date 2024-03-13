@@ -3,7 +3,7 @@ import '../../../../util/extension';
 import {$Node, Node} from '../../node';
 import {CloseNode} from '../../token/close/close-node';
 import {OpenNode} from '../../token/open/open-node';
-import {SyntaxNode, getRangeAndChildren, syntaxNode} from '../syntax-node';
+import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface ArrayNode extends SyntaxNode {
   $: $Node.ARRAY;

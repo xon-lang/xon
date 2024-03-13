@@ -38,20 +38,44 @@ Array.prototype.findLast = function <T>(predicate: (value: T, index: Integer, ar
   return this[index];
 };
 
-Array.prototype.firstOrNothing = function <T>(): T | Nothing {
-  return this[0];
+Array.prototype.first = function <T>(predicate?: (value: T, index: Integer, array: T[]) => Boolean2): T | Nothing {
+  if (this.length === 0) {
+    return nothing;
+  }
+
+  if (!predicate) {
+    return this[0] ?? nothing;
+  }
+
+  for (let index = 0; index < this.length; index++) {
+    const element = this[index];
+
+    if (predicate(element, index, this)) {
+      return element;
+    }
+  }
+
+  return nothing;
 };
 
-Array.prototype.lastOrNothing = function <T>(): T | Nothing {
-  return this[this.length - 1];
-};
+Array.prototype.last = function <T>(predicate?: (value: T, index: Integer, array: T[]) => Boolean2): T | Nothing {
+  if (this.length === 0) {
+    return nothing;
+  }
 
-Array.prototype.first = function <T>(): T {
-  return this[0];
-};
+  if (!predicate) {
+    return this[this.length - 1] ?? nothing;
+  }
 
-Array.prototype.last = function <T>(): T {
-  return this[this.length - 1];
+  for (let index = this.length - 1; index >= 0; index--) {
+    const element = this[index];
+
+    if (predicate(element, index, this)) {
+      return element;
+    }
+  }
+
+  return nothing;
 };
 
 Array.prototype.removeFirst = function <T>(): T[] {
@@ -114,7 +138,7 @@ Array.prototype.splitBy = function <T>(
       continue;
     }
 
-    if (!result.lastOrNothing()) {
+    if (!result.last()) {
       result.push({splitter: nothing, items: []});
     }
 

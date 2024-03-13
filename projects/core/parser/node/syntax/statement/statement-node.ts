@@ -29,7 +29,11 @@ export function statementNode(
   indentHiddenNodes: TokenNode[],
   declaration: DeclarationNode | Nothing,
 ): StatementNode {
-  const range = rangeFromNodes([children.first(), children.last()]);
+  if (children.length === 0) {
+    throw new Error('Not implemented');
+  }
+
+  const range = rangeFromNodes([children.first()!, children.last()!]);
 
   const node: StatementNode = {
     $: $Node.STATEMENT,

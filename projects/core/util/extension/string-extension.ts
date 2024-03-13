@@ -1,4 +1,4 @@
-import {Boolean2, Char, Integer, Number2, String2} from '../../lib/core';
+import {Boolean2, Char, Integer, Nothing, Number2, String2, nothing} from '../../lib/core';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);
 const UPPER_Z_CODE = 'Z'.charCodeAt(0);
@@ -86,4 +86,48 @@ String.prototype.count = function (predicate: (value: Char, index: Integer, arra
   const array = Array.from(this);
 
   return array.reduce((sum, val, index, array) => sum + (predicate(val, index, array) ? 1 : 0), 0);
+};
+
+String.prototype.first = function (
+  predicate?: (value: Char, index: Integer, array: String) => Boolean2,
+): Char | Nothing {
+  if (this.length === 0) {
+    return nothing;
+  }
+
+  if (!predicate) {
+    return this[0] ?? nothing;
+  }
+
+  for (let index = 0; index < this.length; index++) {
+    const element = this[index];
+
+    if (predicate(element, index, this)) {
+      return element;
+    }
+  }
+
+  return nothing;
+};
+
+String.prototype.last = function (
+  predicate?: (value: Char, index: Integer, array: String) => Boolean2,
+): Char | Nothing {
+  if (this.length === 0) {
+    return nothing;
+  }
+
+  if (!predicate) {
+    return this[this.length - 1] ?? nothing;
+  }
+
+  for (let index = this.length - 1; index >= 0; index--) {
+    const element = this[index];
+
+    if (predicate(element, index, this)) {
+      return element;
+    }
+  }
+
+  return nothing;
 };

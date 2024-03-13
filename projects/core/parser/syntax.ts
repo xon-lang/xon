@@ -68,7 +68,7 @@ export function parseSyntaxUntil(
       break;
     }
 
-    const lastNode = context.nodes.lastOrNothing();
+    const lastNode = context.nodes.last();
 
     if (is<UnknownNode>(node, $Node.UNKNOWN)) {
       if (is<UnknownNode>(lastNode, $Node.UNKNOWN) && lastNode.hiddenNodes.length === 0) {

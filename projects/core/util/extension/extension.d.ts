@@ -5,10 +5,8 @@ declare global {
     findLastIndex(predicate: (value: T, index: Integer, array: T[]) => Boolean2, thisArg?: Something): Integer;
     takeWhile(predicate: (value: T, index: Integer) => Boolean2, startIndex?: Integer): T[];
     takeWhileFromLast(predicate: (value: T, index: Integer) => Boolean2, startIndex?: Integer): T[];
-    firstOrNothing(): T | Nothing;
-    lastOrNothing(): T | Nothing;
-    first(): T;
-    last(): T;
+    first(predicate?: (value: T, index: Integer, array: T[]) => Boolean2): T | Nothing;
+    last(predicate?: (value: T, index: Integer, array: T[]) => Boolean2): T | Nothing;
     removeFirst(): T[];
     removeLast(): T[];
     findLast(predicate: (value: T, index: Integer, array: T[]) => Boolean2): T | Nothing;
@@ -33,5 +31,7 @@ declare global {
     some(predicate: (value: Char, index: Integer, array: Char[]) => Boolean2): Boolean2;
     count(predicate: (value: Char, index: Integer, array: Char[]) => Boolean2): Integer;
     sum(select: (value: Char, index: Integer, array: Char[]) => Integer): Integer;
+    first(predicate?: (value: Char, index: Integer, array: String) => Boolean2): Char | Nothing;
+    last(predicate?: (value: Char, index: Integer, array: String) => Boolean2): Char | Nothing;
   }
 }

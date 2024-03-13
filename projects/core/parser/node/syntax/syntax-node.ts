@@ -16,8 +16,8 @@ export function syntaxNode<T extends Record<String2, Node | Node[] | Nothing>, V
     throw new Error('Not implemented');
   }
 
-  const first = children.first();
-  const last = children.last();
+  const first = children.first()!;
+  const last = children.last()!;
   const range = rangeFromNodes([first, last]);
 
   const node = {
@@ -32,16 +32,6 @@ export function syntaxNode<T extends Record<String2, Node | Node[] | Nothing>, V
   children.forEach((x) => (x.parent = node));
 
   return node;
-}
-
-export function getRangeAndChildren(
-  ...nodes: (Node | Nothing)[]
-): Pick<SyntaxNode, 'range' | 'children' | 'hiddenNodes'> {
-  const children = nodes.filter((x): x is Node => !!x);
-  const range = rangeFromNodes([children.first(), children.last()]);
-
-  // todo move hiddenNodes to node initializer like syntaxNode()
-  return {range, children, hiddenNodes: []};
 }
 
 function flatNodes(nodes: Node | Node[] | Nothing): Node[] {
