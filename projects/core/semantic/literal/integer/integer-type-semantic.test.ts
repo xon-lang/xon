@@ -1,9 +1,9 @@
-import {DeclarationNode} from '../../../../../parser/node/syntax/declaration/declaration-node';
-import {parseSyntax} from '../../../../../parser/syntax';
-import {sourceFromText} from '../../../../../source/source';
-import {DeclarationSemantic} from '../../../../declaration/declaration-semantic';
-import {$Semantic, parseSemantic} from '../../../../semantic';
-import {typeSemanticParse} from '../../type-semantic-parser';
+import {DeclarationNode} from '../../../parser/node/syntax/declaration/declaration-node';
+import {parseSyntax} from '../../../parser/syntax';
+import {sourceFromText} from '../../../source/source';
+import {DeclarationSemantic} from '../../declaration/declaration-semantic';
+import {$Semantic, parseSemantic} from '../../semantic';
+import {typeSemanticParse} from '../../type/type-semantic-parser';
 
 test('a is integer', () => {
   const text = `
