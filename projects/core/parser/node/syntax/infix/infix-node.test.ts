@@ -3,7 +3,7 @@ import {evaluate} from '../../../../util/evaluate';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
 import {IdNode} from '../../token/id/id-node';
-import {IntegerNode} from '../../token/literal/integer/integer-node';
+import {IntegerLiteralNode} from '../../token/literal/integer/integer-literal-node';
 import {GroupNode} from '../group/group-node';
 import {PrefixNode} from '../prefix/prefix-node';
 import {InfixNode} from './infix-node';
@@ -44,7 +44,7 @@ test('num is number', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INFIX);
   expect(node.operator.text).toBe('&');
-  expect((node.left as IntegerNode).text).toBe('1');
+  expect((node.left as IntegerLiteralNode).text).toBe('1');
   expect((node.right as IdNode).text).toBe('Number');
 });
 
@@ -58,7 +58,7 @@ test('equals', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INFIX);
   expect(node.operator.text).toBe('==');
-  expect((node.right as IntegerNode).text).toBe('123');
+  expect((node.right as IntegerLiteralNode).text).toBe('123');
 });
 
 test('has several relational operators', () => {
@@ -96,7 +96,7 @@ test('several operators', () => {
   expect(node.right?.$).toBe($Node.PREFIX);
   expect((node.right as PrefixNode).operator.text).toBe('+');
   expect((node.right as PrefixNode).value?.$).toBe($Node.INTEGER);
-  expect(((node.right as PrefixNode).value as IntegerNode).text).toBe('2');
+  expect(((node.right as PrefixNode).value as IntegerLiteralNode).text).toBe('2');
 });
 
 test('has argument', () => {

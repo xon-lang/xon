@@ -2,7 +2,7 @@ import {nothing} from '../../../../lib/core';
 import {sourceFromText} from '../../../../source/source';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
-import {CharNode} from '../../token/literal/char/char-node';
+import {CharLiteralNode} from '../../token/literal/char/char-literal-node';
 
 test('a', () => {
   const text = "   \n    \n  ---comment ---'a'";
@@ -24,6 +24,6 @@ test('a', () => {
   expect(node.parent).toBe(nothing);
   expect(node.children.length).toBe(1);
   expect(node.children[0].$).toBe($Node.CHAR);
-  expect((node.children[0] as CharNode).text).toBe("'a'");
+  expect((node.children[0] as CharLiteralNode).text).toBe("'a'");
   expect(node.body.length).toBe(0);
 });

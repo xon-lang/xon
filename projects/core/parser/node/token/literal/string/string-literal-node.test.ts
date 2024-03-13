@@ -1,14 +1,14 @@
 import {sourceFromText} from '../../../../../source/source';
 import {parseSyntax} from '../../../../syntax';
 import {$Node} from '../../../node';
-import {StringNode} from './string-node';
+import {StringLiteralNode} from './string-literal-node';
 
 test('string', () => {
   const text = '"abc   def"';
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node = statements[0].item as StringNode;
+  const node = statements[0].item as StringLiteralNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.STRING);
@@ -20,7 +20,7 @@ test('multiline string', () => {
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node = statements[0].item as StringNode;
+  const node = statements[0].item as StringLiteralNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.STRING);
@@ -32,7 +32,7 @@ test('empty string', () => {
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node = statements[0].item as StringNode;
+  const node = statements[0].item as StringLiteralNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.STRING);
@@ -44,7 +44,7 @@ test('not closed', () => {
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node = statements[0].item as StringNode;
+  const node = statements[0].item as StringLiteralNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.STRING);

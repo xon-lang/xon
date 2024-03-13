@@ -6,15 +6,15 @@ import {$Node} from '../../../node';
 import {tokenNode} from '../../token-node';
 import {LiteralTokenNode} from '../literal-token-node';
 
-export interface CharNode extends LiteralTokenNode {
+export interface CharLiteralNode extends LiteralTokenNode {
   $: $Node.CHAR;
 }
 
-export function charNode(range: SourceRange, text: String2): CharNode {
+export function charNode(range: SourceRange, text: String2): CharLiteralNode {
   return tokenNode($Node.CHAR, range, text);
 }
 
-export function scanCharNode(context: SyntaxContext): CharNode | Nothing {
+export function scanCharNode(context: SyntaxContext): CharLiteralNode | Nothing {
   if (context.source.text[context.position.index] !== CHAR_QUOTE) {
     return nothing;
   }

@@ -2,7 +2,7 @@ import {sourceFromText} from '../../source/source';
 import {parseSyntax} from '../syntax';
 import {$Node} from './node';
 import {InfixNode} from './syntax/infix/infix-node';
-import {IntegerNode} from './token/literal/integer/integer-node';
+import {IntegerLiteralNode} from './token/literal/integer/integer-literal-node';
 import {TokenNode} from './token/token-node';
 
 test('comma', () => {
@@ -10,7 +10,7 @@ test('comma', () => {
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node = statements[0].item as IntegerNode;
+  const node = statements[0].item as IntegerLiteralNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INTEGER);
@@ -28,7 +28,7 @@ test('single expression', () => {
 
   expect((node.left as TokenNode).text).toBe('a');
   expect(node.operator.text).toBe('=');
-  expect((node.right as IntegerNode).text).toBe('1');
+  expect((node.right as IntegerLiteralNode).text).toBe('1');
 });
 
 test('debug 1', () => {

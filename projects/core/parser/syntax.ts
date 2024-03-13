@@ -10,9 +10,9 @@ import {scanCommentBlockNode} from './node/token/comment-block/comment-block-nod
 import {scanCommentLineNode} from './node/token/comment-line/comment-line-node';
 import {scanIdNode} from './node/token/id/id-node';
 import {scanJoiningNode} from './node/token/joining/joining-node';
-import {scanCharNode} from './node/token/literal/char/char-node';
-import {scanIntegerNode} from './node/token/literal/integer/integer-node';
-import {scanStringNode} from './node/token/literal/string/string-node';
+import {scanCharNode} from './node/token/literal/char/char-literal-node';
+import {scanIntegerNode} from './node/token/literal/integer/integer-literal-node';
+import {scanStringNode} from './node/token/literal/string/string-literal-node';
 import {NlNode, scanNlNode} from './node/token/nl/nl-node';
 import {scanOperatorNode} from './node/token/operator/operator-node';
 import {isHiddenToken} from './node/token/token-node';

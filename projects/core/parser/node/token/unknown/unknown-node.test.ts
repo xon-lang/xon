@@ -1,7 +1,7 @@
 import {sourceFromText} from '../../../../source/source';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
-import { IntegerNode } from '../literal/integer/integer-node';
+import {IntegerLiteralNode} from '../literal/integer/integer-literal-node';
 import {UnknownNode} from './unknown-node';
 
 test('unknown 1', () => {
@@ -9,7 +9,7 @@ test('unknown 1', () => {
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node0 = statements[0].item as IntegerNode;
+  const node0 = statements[0].item as IntegerLiteralNode;
   const node1 = statements[0].children[1] as UnknownNode;
 
   expect(statements.length).toBe(1);
