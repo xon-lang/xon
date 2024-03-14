@@ -29,7 +29,7 @@ export function memberNode(
 
 function validate(context: SyntaxContext, node: MemberNode): Nothing {
   if (!node.id) {
-    context.issueManager.addError(node.operator, ISSUE_MESSAGE.shouldBeMemberName());
+    context.issueManager.addError(node.operator.range, ISSUE_MESSAGE.shouldBeMemberName());
   }
 }
 

@@ -78,7 +78,7 @@ export function parseSyntaxUntil(
         continue;
       }
 
-      context.issueManager.addError(node, ISSUE_MESSAGE.unknownTokens());
+      context.issueManager.addError(node.range, ISSUE_MESSAGE.unknownTokens());
     }
 
     if (is<NlNode>(node, $Node.NL) && context.nodes.length > 0) {

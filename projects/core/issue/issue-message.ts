@@ -60,4 +60,9 @@ export const ISSUE_MESSAGE = {
     actual: `Cannot resolve type`,
     expect: nothing,
   }),
+
+  cannotBeUsedAsAType: () => ({
+    actual: `Cannot be used as a type`,
+    expect: nothing,
+  }),
 };

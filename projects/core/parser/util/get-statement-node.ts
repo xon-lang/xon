@@ -17,7 +17,7 @@ export function getStatementNode(
   collapseOperators(context);
   const declaration = parseDeclarationStatement(context, context.nodes[0]);
 
-  context.nodes.slice(1).forEach((node) => context.issueManager.addError(node, ISSUE_MESSAGE.unexpectedExpression()));
+  context.nodes.slice(1).forEach((node) => context.issueManager.addError(node.range, ISSUE_MESSAGE.unexpectedExpression()));
 
   return statementNode(
     context,

@@ -1,4 +1,4 @@
-import {sourceFromText} from '../../../../source/source';
+import {getRangeText, sourceFromText} from '../../../../source/source';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
 import {IntegerLiteralNode} from '../literal/integer/integer-literal-node';
@@ -30,6 +30,6 @@ test('unknown 2', () => {
 
   expect(statements.length).toBe(1);
   expect(syntax.issueManager.issues.length).toBe(1);
-  expect((syntax.issueManager.issues[0].node as UnknownNode).text).toBe('ºª¶');
+  expect(getRangeText(source, syntax.issueManager.issues[0].range)).toBe('ºª¶');
   expect(node.text).toBe('ºª¶');
 });

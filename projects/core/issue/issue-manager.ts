@@ -1,6 +1,6 @@
 import {Nothing} from '../lib/core';
-import {Node} from '../parser/node/node';
 import {Source} from '../source/source';
+import {SourceRange} from '../source/source-range';
 import {Issue, IssueType, formatIssue} from './issue';
 import {IssueLevel} from './issue-level';
 import {IssueMessage} from './issue-message';
@@ -10,7 +10,7 @@ export interface IssueManager {
   issues: Issue[];
   issueType: IssueType;
 
-  addError(node: Node, message: IssueMessage): Issue;
+  addError(node: SourceRange, message: IssueMessage): Issue;
   log(issue: Issue): Nothing;
 }
 
@@ -20,11 +20,11 @@ export function createIssueManager(source: Source, issueType: IssueType, issues:
     issues,
     issueType,
 
-    addError(node: Node, message: IssueMessage): Issue {
+    addError(range: SourceRange, message: IssueMessage): Issue {
       const issue = {
         type: this.issueType,
         level: IssueLevel.ERROR,
-        node,
+        range,
         message,
       };
 

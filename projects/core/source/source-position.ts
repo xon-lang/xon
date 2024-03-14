@@ -1,9 +1,11 @@
-import { Integer } from '../lib/core';
+import {Boolean2, Integer} from '../lib/core';
 
 export interface SourcePosition {
   index: Integer;
   line: Integer;
   column: Integer;
+
+  eq(position: SourcePosition): Boolean2;
 }
 
 export function sourcePosition(index: Integer, line: Integer, column: Integer): SourcePosition {
@@ -11,19 +13,17 @@ export function sourcePosition(index: Integer, line: Integer, column: Integer): 
     index,
     line,
     column,
+
+    eq(position: SourcePosition): Boolean2 {
+      return this.index === position.index;
+    },
   };
 }
 
 export function clonePosition(position: SourcePosition): SourcePosition {
-  return {
-    ...position,
-  };
+  return sourcePosition(position.index, position.line, position.column);
 }
 
 export function zeroPosition(): SourcePosition {
-  return {
-    index: 0,
-    line: 0,
-    column: 0,
-  };
+  return sourcePosition(0, 0, 0);
 }

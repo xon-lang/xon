@@ -38,7 +38,7 @@ export function groupNode(
 function validate(context: SyntaxContext, node: GroupNode): Nothing {
   if (!node.close) {
     context.issueManager.addError(
-      node.open,
+      node.open.range,
       ISSUE_MESSAGE.expectCloseToken(node.open.text, OPEN_CLOSE_PAIR[node.open.text]),
     );
   }

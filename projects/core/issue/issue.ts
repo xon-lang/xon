@@ -1,6 +1,6 @@
 import {String2} from '../lib/core';
-import {Node} from '../parser/node/node';
 import {Source, getRangeText} from '../source/source';
+import {SourceRange} from '../source/source-range';
 import {IssueLevel} from './issue-level';
 import {IssueMessage} from './issue-message';
 
@@ -12,24 +12,24 @@ export enum IssueType {
 export interface Issue {
   type: IssueType;
   level: IssueLevel;
-  node: Node;
+  range: SourceRange;
   message: IssueMessage;
 }
 
-export function createSyntacticErrorIssue(node: Node, message: IssueMessage): Issue {
+export function createSyntacticErrorIssue(range: SourceRange, message: IssueMessage): Issue {
   return {
     type: IssueType.SYNTACTIC,
     level: IssueLevel.ERROR,
-    node,
+    range,
     message,
   };
 }
 
-export function createSemanticErrorIssue(node: Node, message: IssueMessage): Issue {
+export function createSemanticErrorIssue(range: SourceRange, message: IssueMessage): Issue {
   return {
     type: IssueType.SEMANTIC,
     level: IssueLevel.ERROR,
-    node,
+    range,
     message,
   };
 }
@@ -71,16 +71,16 @@ enum Color {
   BG_GRAY = '\x1b[100m',
 }
 
-export function formatIssue(source: Source, {node, message}: Issue): String2 {
+export function formatIssue(source: Source, {range, message}: Issue): String2 {
   const msg = redBright(message.actual);
-  const lineText = source.text.split('\n')[node.range.start.line];
-  const nodeText = getRangeText(source, node.range);
+  const lineText = source.text.split('\n')[range.start.line];
+  const nodeText = getRangeText(source, range);
   const location = cyan(source.location ?? '<code>');
-  const line = cyan(`:${node.range.start.line + 1}`);
-  const column = cyan(`:${node.range.start.column + 1}`);
-  const lineNumberBeforeGrayed = `${node.range.start.line + 1} | `;
+  const line = cyan(`:${range.start.line + 1}`);
+  const column = cyan(`:${range.start.column + 1}`);
+  const lineNumberBeforeGrayed = `${range.start.line + 1} | `;
   const lineNumber = gray(lineNumberBeforeGrayed);
-  const caret = ' '.repeat(node.range.start.column + lineNumberBeforeGrayed.length) + red('~'.repeat(nodeText.length));
+  const caret = ' '.repeat(range.start.column + lineNumberBeforeGrayed.length) + red('~'.repeat(nodeText.length));
 
   return `${msg}\n${location}${line}${column}\n${lineNumber}${lineText}\n${caret}`;
 }
