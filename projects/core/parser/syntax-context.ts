@@ -1,5 +1,4 @@
 import {FormatterManager, createFormatterManager} from '../formatter/formatter-manager';
-import {IssueType} from '../issue/issue';
 import {IssueManager, createIssueManager} from '../issue/issue-manager';
 import {Boolean2, Integer, Nothing, nothing} from '../lib/core';
 import {Source} from '../source/source';
@@ -38,7 +37,7 @@ export function syntaxContext(source: Source, position: SourcePosition): SyntaxC
     previousStatement: nothing,
     breakNode: nothing,
     statements: [],
-    issueManager: createIssueManager(source, IssueType.SYNTACTIC),
+    issueManager: createIssueManager(source),
     formatterManager: createFormatterManager(source),
 
     getRange(length: Integer, canContainNewLines: Boolean2): SourceRange {
