@@ -19,6 +19,7 @@ import {DeclarationSemantic} from '../../../../core/semantic/declaration/declara
 import {$Semantic, Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
+import {getRangeText} from '../../../../core/source/source';
 import {SourceReference} from '../../../../core/source/source-reference';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeBytPositionInSyntax, getDocumentSyntax} from '../../util';
@@ -48,7 +49,8 @@ class LanguageRenameProvider implements RenameProvider {
 
     if (declaration) {
       const workspace = new WorkspaceEdit();
-      renameDeclarationAndUsages(workspace, declaration, newName);
+      const oldName = declaration.name;
+      renameDeclarationAndUsages(workspace, declaration, oldName, newName);
 
       return workspace;
     }
@@ -66,7 +68,7 @@ class LanguageRenameProvider implements RenameProvider {
     const node = findNodeBytPositionInSyntax(syntax, position);
 
     if (!is<IdNode>(node, $Node.ID)) {
-      throw new Error('You cannot rename thi element');
+      throw new Error('You cannot rename this element');
     }
 
     return convertRange(node.range);
@@ -93,15 +95,21 @@ function getDeclaration(semantic: Semantic): DeclarationSemantic | Nothing {
 function renameDeclarationAndUsages(
   workspace: WorkspaceEdit,
   declaration: DeclarationSemantic,
+  oldName: String2,
   newName: String2,
 ): Nothing {
   for (const reference of declaration.usages) {
-    renameWithWorkspace(workspace, reference, newName);
+    renameWithWorkspace(workspace, reference, oldName, newName);
   }
 }
 
-function renameWithWorkspace(workspace: WorkspaceEdit, reference: SourceReference, newName: String2): Nothing {
-  if (reference.source.location) {
+function renameWithWorkspace(
+  workspace: WorkspaceEdit,
+  reference: SourceReference,
+  oldName: String2,
+  newName: String2,
+): Nothing {
+  if (reference.source.location && getRangeText(reference.source, reference.range) === oldName) {
     const uri = Uri.parse(reference.source.location);
     const range = convertRange(reference.range);
 

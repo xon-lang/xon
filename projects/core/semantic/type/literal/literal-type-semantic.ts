@@ -25,11 +25,11 @@ export function literalTypeSemantic(context: SemanticContext, literal: LiteralSe
     },
 
     is(type: TypeSemantic): Boolean2 {
-      return this.eq(type);
+      return this.eq(type) || literal.baseType.is(type);
     },
 
     attributes(): Record<String2, TypeSemantic[]> {
-      return getDeclarationAttributes(context, literal.reference, literal.declaration);
+      return getDeclarationAttributes(context, literal.declaration);
     },
   };
 
