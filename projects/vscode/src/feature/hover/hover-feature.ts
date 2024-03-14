@@ -11,13 +11,13 @@ import {
   languages,
 } from 'vscode';
 import {Nothing, String2, nothing} from '../../../../core/lib/core';
-import {$Node, is} from '../../../../core/parser/node/node';
-import {IdNode} from '../../../../core/parser/node/token/id/id-node';
-import {OperatorNode} from '../../../../core/parser/node/token/operator/operator-node';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
+import {StringLiteralSemantic} from '../../../../core/semantic/literal/string/string-literal-semantic';
 import {$Semantic, Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
-import {TypeSemantic} from '../../../../core/semantic/type/type-semantic';
+import {LiteralTypeSemantic} from '../../../../core/semantic/type/literal/literal-type-semantic';
+import {TypeSemantic, isTypeSemantic} from '../../../../core/semantic/type/type-semantic';
+import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeBytPositionInSyntax, getDocumentSyntax} from '../../util';
 
@@ -32,7 +32,7 @@ class LanguageHoverProvider implements HoverProvider {
     const syntax = getDocumentSyntax(document, this.channel);
     const node = findNodeBytPositionInSyntax(syntax, position);
 
-    if ((!is<IdNode>(node, $Node.ID) && !is<OperatorNode>(node, $Node.OPERATOR)) || !node.semantic) {
+    if (!node?.semantic) {
       return nothing;
     }
 
@@ -53,9 +53,15 @@ function getSemanticHoverText(semantic: Semantic): MarkdownString | Nothing {
     return getDeclarationMarkdown(semantic);
   }
 
-  if (semanticIs<DeclarationTypeSemantic>(semantic, $Semantic.DECLARATION_TYPE)) {
+  if (isTypeSemantic(semantic)) {
     return getTypeMarkdown(semantic);
   }
+
+  if (semanticIs<ValueSemantic>(semantic, $Semantic.VALUE) && semantic.type) {
+    return getTypeMarkdown(semantic.type);
+  }
+
+  return nothing;
 }
 
 function getDeclarationMarkdown(declaration: DeclarationSemantic): MarkdownString | Nothing {
@@ -68,9 +74,20 @@ function getDeclarationMarkdown(declaration: DeclarationSemantic): MarkdownStrin
 }
 
 function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
-  if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.DECLARATION_TYPE) && type.declaration) {
+  if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.DECLARATION_TYPE)) {
     const modifier = type.declaration.modifier ? type.declaration.modifier + ' ' : '';
     const text = `${modifier}${type.declaration.name}`;
+
+    return markdownCode(text);
+  }
+
+  if (semanticIs<LiteralTypeSemantic>(type, $Semantic.LITERAL_TYPE)) {
+    const declaration = type.literal.declaration;
+    const modifier = declaration.modifier ? declaration.modifier + ' ' : '';
+    const value = semanticIs<StringLiteralSemantic>(type.literal, $Semantic.STRING_LITERAL)
+      ? `"${type.literal.value}"`
+      : `${type.literal.value}`;
+    const text = `${modifier}${declaration.name}(${value})`;
 
     return markdownCode(text);
   }
@@ -79,7 +96,7 @@ function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
 }
 
 function getTypeText(type: TypeSemantic): String2 {
-  if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.DECLARATION_TYPE) && type.declaration) {
+  if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.DECLARATION_TYPE)) {
     return `${type.declaration.name}`;
   }
 

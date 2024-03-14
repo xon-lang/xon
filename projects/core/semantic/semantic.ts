@@ -18,7 +18,6 @@ export enum $Semantic {
   INTEGER_LITERAL = 'INTEGER_LITERAL',
   STRING_LITERAL = 'STRING_LITERAL',
 
-  TYPE = 'TYPE', // todo base class hack remove it later
   DECLARATION_TYPE = 'DECLARATION_TYPE',
   LITERAL_TYPE = 'LITERAL_TYPE',
   RANGE_TYPE = 'RANGE_TYPE',
@@ -32,11 +31,7 @@ export function semanticIs<T extends Semantic = Semantic>(
   semantic: {$: $Semantic} | Nothing,
   type: $Semantic,
 ): semantic is T {
-  if (!semantic) {
-    return false;
-  }
-
-  return semantic.$ === type || semantic.$.split('_').includes(type);
+  return semantic?.$ === type;
 }
 
 export function parseSemantic(syntax: SyntaxResult, config?: Partial<SemanticConfig>): SemanticContext {

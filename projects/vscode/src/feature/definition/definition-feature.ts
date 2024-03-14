@@ -18,6 +18,7 @@ import {OperatorNode} from '../../../../core/parser/node/token/operator/operator
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
+import {LiteralTypeSemantic} from '../../../../core/semantic/type/literal/literal-type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeBytPositionInSyntax, getDocumentSyntax} from '../../util';
@@ -36,17 +37,28 @@ class LanguageDefinitionProvider implements DefinitionProvider {
 
     const node = findNodeBytPositionInSyntax(syntax, position);
 
+    if (!node?.semantic) {
+      return nothing;
+    }
+
     if (is<IdNode>(node, $Node.ID) || is<OperatorNode>(node, $Node.OPERATOR)) {
       if (semanticIs<DeclarationTypeSemantic>(node.semantic, $Semantic.DECLARATION_TYPE)) {
         return navigateToDeclaration(node.semantic.declaration);
       }
 
-      if (
-        semanticIs<ValueSemantic>(node.semantic, $Semantic.VALUE) &&
-        semanticIs<DeclarationTypeSemantic>(node.semantic.type, $Semantic.DECLARATION_TYPE)
-      ) {
+      return nothing;
+    }
+
+    if (semanticIs<ValueSemantic>(node.semantic, $Semantic.VALUE)) {
+      if (semanticIs<DeclarationTypeSemantic>(node.semantic.type, $Semantic.DECLARATION_TYPE)) {
         return navigateToDeclaration(node.semantic.type.declaration);
       }
+
+      if (semanticIs<LiteralTypeSemantic>(node.semantic.type, $Semantic.LITERAL_TYPE)) {
+        return navigateToDeclaration(node.semantic.type.literal.declaration);
+      }
+
+      return nothing;
     }
 
     return nothing;
