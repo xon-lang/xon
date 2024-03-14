@@ -19,7 +19,7 @@
     },
     {
       "name": "string.xon",
-      "match": "\".*\"|'.*'"
+      "match": "\".*?\"|'.*?'"
     },
     {
       "name": "entity.name.type.xon",
