@@ -13,7 +13,8 @@ import {
 import {Nothing, String2, nothing} from '../../../../../core/lib/core';
 import {$Node, is} from '../../../../../core/parser/node/node';
 import {MemberNode} from '../../../../../core/parser/node/syntax/member/member-node';
-import {$Semantic, Semantic, parseSemantic, semanticIs} from '../../../../../core/semantic/semantic';
+import {$Semantic, Semantic, semanticIs} from '../../../../../core/semantic/semantic';
+import {DeclarationTypeSemantic} from '../../../../../core/semantic/type/declaration/declaration-type-semantic';
 import {TypeSemantic} from '../../../../../core/semantic/type/type-semantic';
 import {ValueSemantic} from '../../../../../core/semantic/value/value-semantic';
 import {findNodeBytPositionInSyntax, getDocumentSyntax} from '../../../util';
@@ -27,15 +28,14 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
     _token: CancellationToken,
     _context: CompletionContext,
   ): ProviderResult<CompletionItem[] | CompletionList<CompletionItem>> {
-    const syntax = getDocumentSyntax(document);
-    const semantic = parseSemantic(syntax);
+    const syntax = getDocumentSyntax(document, this.channel);
     const node = findNodeBytPositionInSyntax(syntax, position);
 
     if (is<MemberNode>(node?.parent, $Node.MEMBER) && node.parent.instance.semantic) {
       const attributes = getAttributes(node.parent.instance.semantic);
 
       if (attributes) {
-        return Object.keys(attributes).map((x) => new CompletionItem(x, CompletionItemKind.Property));
+        return Object.entries(attributes).map(([name, types]) => createPropertyCompletionItem(name, types));
       }
     }
 
@@ -53,4 +53,15 @@ function getAttributes(semantic: Semantic): Record<String2, TypeSemantic[]> | No
   }
 
   return nothing;
+}
+
+function createPropertyCompletionItem(name: String2, types: TypeSemantic[]) {
+  const item = new CompletionItem(name, CompletionItemKind.Property);
+  const type = types.first();
+
+  if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.DECLARATION_TYPE)) {
+    item.detail = type.declaration.name;
+  }
+
+  return item;
 }

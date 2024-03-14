@@ -39,7 +39,7 @@ export class LanguageDocumentFormattingEditProvider implements DocumentFormattin
     options: FormattingOptions,
     token: CancellationToken,
   ): ProviderResult<TextEdit[]> {
-    return getDocumentFormatters(document);
+    return getDocumentFormatters(document, this.channel);
   }
 }
 
@@ -52,7 +52,7 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
     options: FormattingOptions,
     token: CancellationToken,
   ): ProviderResult<TextEdit[]> {
-    const formatters = getDocumentFormatters(document).filter((x) => range.contains(x.range));
+    const formatters = getDocumentFormatters(document, this.channel).filter((x) => range.contains(x.range));
 
     return formatters;
   }
@@ -63,21 +63,23 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
     options: FormattingOptions,
     token: CancellationToken,
   ): ProviderResult<TextEdit[]> {
-    const formatters = getDocumentFormatters(document).filter((x) => ranges.some((z) => z.contains(x.range)));
+    const formatters = getDocumentFormatters(document, this.channel).filter((x) =>
+      ranges.some((z) => z.contains(x.range)),
+    );
 
     return formatters;
   }
 
   provideDocumentFormattingEdits(document: TextDocument): ProviderResult<TextEdit[]> {
-    const syntax = getDocumentSyntax(document);
+    const syntax = getDocumentSyntax(document, this.channel);
     const edits = syntax.formatterManager.formatters.map(convertFormatter);
 
     return edits;
   }
 }
 
-function getDocumentFormatters(document: TextDocument): TextEdit[] {
-  const syntax = getDocumentSyntax(document);
+function getDocumentFormatters(document: TextDocument, channel: OutputChannel): TextEdit[] {
+  const syntax = getDocumentSyntax(document, channel);
   const edits = syntax.formatterManager.formatters.map(convertFormatter);
 
   return edits;

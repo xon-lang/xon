@@ -8,7 +8,7 @@ export function literalTypeSemanticTryParse(context: SemanticContext, node: Node
   const literal = literalSemanticTryParse(context, node);
 
   if (literal) {
-    const semantic = literalTypeSemantic(literal);
+    const semantic = literalTypeSemantic(context, literal);
 
     return semantic;
   }

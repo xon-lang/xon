@@ -1,43 +1,16 @@
-import {Position, Range, TextDocument, TextEdit} from 'vscode';
+import {join} from 'path';
+import {OutputChannel, Position, Range, TextDocument, TextEdit} from 'vscode';
 import {Formatter} from '../../core/formatter/formatter';
-import {Issue} from '../../core/issue/issue';
-import {Anything, Nothing, String2, nothing} from '../../core/lib/core';
+import {Nothing, nothing} from '../../core/lib/core';
 import {Node} from '../../core/parser/node/node';
 import {StatementNode} from '../../core/parser/node/syntax/statement/statement-node';
 import {parseSyntax} from '../../core/parser/syntax';
 import {SyntaxResult} from '../../core/parser/syntax-result';
+import {parseSemantic} from '../../core/semantic/semantic';
+import {createSemanticConfig} from '../../core/semantic/semantic-config';
 import {createSource} from '../../core/source/source';
 import {SourcePosition} from '../../core/source/source-position';
 import {SourceRange} from '../../core/source/source-range';
-import {LANGUAGE_NAME} from './config';
-
-export interface DocumentTree {
-  document: TextDocument;
-  issues: Issue[];
-  statements: StatementNode[];
-}
-
-export function documentToDocumentTree(document: TextDocument): DocumentTree | Nothing {
-  if (document.languageId !== LANGUAGE_NAME) {
-    return nothing;
-  }
-
-  const syntax = getDocumentSyntax(document);
-
-  return {
-    document,
-    statements: syntax.statements,
-    issues: syntax.issueManager.issues,
-  };
-}
-
-export function jsonCircularReplacer(key: String2, val: Anything): Anything {
-  if (key === 'parent') {
-    return undefined;
-  }
-
-  return val;
-}
 
 export function convertFormatter(formatter: Formatter) {
   return TextEdit.replace(convertRange(formatter.range), formatter.text);
@@ -54,16 +27,22 @@ export function convertPosition(position: SourcePosition): Position {
   return new Position(position.line, position.column);
 }
 
-export function getDocumentSyntax(document: TextDocument): SyntaxResult {
-  // const firstLine = document.lineAt(0);
-  // const lastLine = document.lineAt(document.lineCount - 1);
-  // const range = new Range(firstLine.range.start, lastLine.range.end);
-  const text = document.getText();
-  const location = document.uri.toString();
-  const source = createSource(location, text);
-  const syntax = parseSyntax(source);
+export function getDocumentSyntax(document: TextDocument, channel: OutputChannel): SyntaxResult {
+  try {
+    const text = document.getText();
+    const location = document.uri.toString();
+    const source = createSource(location, text);
+    const syntax = parseSyntax(source);
+    const coreDir = join(__dirname, '/core/lib/@xon/core/test-core.xon');
+    const semanticConfig = createSemanticConfig({coreDir});
+    parseSemantic(syntax, semanticConfig);
 
-  return syntax;
+    return syntax;
+  } catch (error) {
+    channel.appendLine(error?.toString() ?? 'Some error');
+
+    throw new Error('Not implemented');
+  }
 }
 
 export function findNodeBytPositionInSyntax(syntax: SyntaxResult, position: Position): Node | Nothing {
@@ -90,7 +69,7 @@ export function findNodeByPosition(node: Node, position: Position): Node {
   });
 
   if (!child) {
-    throw new Error('Not implemented');
+    return node;
   }
 
   return findNodeByPosition(child, position);

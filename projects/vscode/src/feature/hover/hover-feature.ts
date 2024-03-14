@@ -15,7 +15,7 @@ import {$Node, is} from '../../../../core/parser/node/node';
 import {IdNode} from '../../../../core/parser/node/token/id/id-node';
 import {OperatorNode} from '../../../../core/parser/node/token/operator/operator-node';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
-import {$Semantic, Semantic, parseSemantic, semanticIs} from '../../../../core/semantic/semantic';
+import {$Semantic, Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
 import {TypeSemantic} from '../../../../core/semantic/type/type-semantic';
 import {LANGUAGE_NAME} from '../../config';
@@ -29,8 +29,7 @@ class LanguageHoverProvider implements HoverProvider {
   constructor(private channel: OutputChannel) {}
 
   provideHover(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<Hover> {
-    const syntax = getDocumentSyntax(document);
-    parseSemantic(syntax);
+    const syntax = getDocumentSyntax(document, this.channel);
     const node = findNodeBytPositionInSyntax(syntax, position);
 
     if ((!is<IdNode>(node, $Node.ID) && !is<OperatorNode>(node, $Node.OPERATOR)) || !node.semantic) {

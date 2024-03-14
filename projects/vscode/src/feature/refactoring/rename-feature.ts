@@ -16,7 +16,7 @@ import {Nothing, nothing, String2} from '../../../../core/lib/core';
 import {$Node, is} from '../../../../core/parser/node/node';
 import {IdNode} from '../../../../core/parser/node/token/id/id-node';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
-import {$Semantic, parseSemantic, Semantic, semanticIs} from '../../../../core/semantic/semantic';
+import {$Semantic, Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {SourceReference} from '../../../../core/source/source-reference';
@@ -28,7 +28,7 @@ export function configureRefactoringFeature(context: ExtensionContext, channel: 
 }
 
 class LanguageRenameProvider implements RenameProvider {
-  constructor(channel: OutputChannel) {}
+  constructor(private channel: OutputChannel) {}
 
   provideRenameEdits(
     document: TextDocument,
@@ -36,8 +36,7 @@ class LanguageRenameProvider implements RenameProvider {
     newName: String2,
     token: CancellationToken,
   ): ProviderResult<WorkspaceEdit> {
-    const syntax = getDocumentSyntax(document);
-    parseSemantic(syntax);
+    const syntax = getDocumentSyntax(document, this.channel);
 
     const node = findNodeBytPositionInSyntax(syntax, position);
 
@@ -62,8 +61,7 @@ class LanguageRenameProvider implements RenameProvider {
     position: Position,
     token: CancellationToken,
   ): ProviderResult<Range | {range: Range; placeholder: String2}> {
-    const syntax = getDocumentSyntax(document);
-    parseSemantic(syntax);
+    const syntax = getDocumentSyntax(document, this.channel);
 
     const node = findNodeBytPositionInSyntax(syntax, position);
 

@@ -31,7 +31,7 @@ class DocumentSemanticTokens implements DocumentSemanticTokensProvider {
   constructor(private channel: OutputChannel) {}
 
   provideDocumentSemanticTokens(document: TextDocument, token: CancellationToken): ProviderResult<SemanticTokens> {
-    const syntax = getDocumentSyntax(document);
+    const syntax = getDocumentSyntax(document, this.channel);
     const tokensBuilder = new SemanticTokensBuilder(legend);
 
     for (const operator of syntax.operators) {

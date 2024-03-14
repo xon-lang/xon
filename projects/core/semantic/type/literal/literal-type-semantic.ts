@@ -1,6 +1,8 @@
 import {Boolean2, String2} from '../../../lib/core';
 import {LiteralSemantic} from '../../literal/literal-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
+import {SemanticContext} from '../../semantic-context';
+import {getDeclarationAttributes} from '../declaration/declaration-type-semantic';
 import {TypeSemantic} from '../type-semantic';
 
 export interface LiteralTypeSemantic extends TypeSemantic {
@@ -8,7 +10,7 @@ export interface LiteralTypeSemantic extends TypeSemantic {
   literal: LiteralSemantic;
 }
 
-export function literalTypeSemantic(literal: LiteralSemantic): LiteralTypeSemantic {
+export function literalTypeSemantic(context: SemanticContext, literal: LiteralSemantic): LiteralTypeSemantic {
   const semantic: LiteralTypeSemantic = {
     $: $Semantic.LITERAL_TYPE,
     reference: literal.reference,
@@ -27,9 +29,7 @@ export function literalTypeSemantic(literal: LiteralSemantic): LiteralTypeSemant
     },
 
     attributes(): Record<String2, TypeSemantic[]> {
-      return {
-        // length: [semantic],
-      };
+      return getDeclarationAttributes(context, literal.reference, literal.declaration);
     },
   };
 

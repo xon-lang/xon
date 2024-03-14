@@ -16,7 +16,7 @@ import {$Node, is} from '../../../../core/parser/node/node';
 import {IdNode} from '../../../../core/parser/node/token/id/id-node';
 import {OperatorNode} from '../../../../core/parser/node/token/operator/operator-node';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
-import {$Semantic, parseSemantic, semanticIs} from '../../../../core/semantic/semantic';
+import {$Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {LANGUAGE_NAME} from '../../config';
@@ -32,8 +32,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
   constructor(private channel: OutputChannel) {}
 
   provideDefinition(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<Definition> {
-    const syntax = getDocumentSyntax(document);
-    parseSemantic(syntax);
+    const syntax = getDocumentSyntax(document, this.channel);
 
     const node = findNodeBytPositionInSyntax(syntax, position);
 
