@@ -24,7 +24,7 @@ export function stringLiteralSemantic(
     value,
 
     eq(semantic: LiteralSemantic): Boolean2 {
-      if (semanticIs<StringLiteralSemantic>(semantic, $Semantic.INTEGER_LITERAL)) {
+      if (semanticIs<StringLiteralSemantic>(semantic, $Semantic.STRING_LITERAL)) {
         return this.value === semantic.value;
       }
 
