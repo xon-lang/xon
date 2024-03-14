@@ -4,30 +4,14 @@ import {SourceRange} from '../source/source-range';
 import {IssueLevel} from './issue-level';
 import {IssueMessage} from './issue-message';
 
-export enum IssueType {
-  SYNTACTIC = 0,
-  SEMANTIC = 1,
-}
-
 export interface Issue {
-  type: IssueType;
   level: IssueLevel;
   range: SourceRange;
   message: IssueMessage;
 }
 
-export function createSyntacticErrorIssue(range: SourceRange, message: IssueMessage): Issue {
+export function createErrorIssue(range: SourceRange, message: IssueMessage): Issue {
   return {
-    type: IssueType.SYNTACTIC,
-    level: IssueLevel.ERROR,
-    range,
-    message,
-  };
-}
-
-export function createSemanticErrorIssue(range: SourceRange, message: IssueMessage): Issue {
-  return {
-    type: IssueType.SEMANTIC,
     level: IssueLevel.ERROR,
     range,
     message,

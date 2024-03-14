@@ -1,3 +1,4 @@
+import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Nothing, nothing} from '../../../lib/core';
 import {$Node, Node, is} from '../../../parser/node/node';
 import {IdNode} from '../../../parser/node/token/id/id-node';
@@ -25,7 +26,7 @@ function idNodeTryParse(context: SemanticContext, node: IdNode): TypeSemantic | 
   }
 
   if (declaration.modifier === MODEL_MODIFIER) {
-    throw new Error('Not implemented');
+    context.issueManager.addError(node.range, ISSUE_MESSAGE.notImplemented());
   }
 
   return nothing;

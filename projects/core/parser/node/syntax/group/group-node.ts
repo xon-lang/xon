@@ -92,7 +92,12 @@ export function scanGroupNode(context: SyntaxContext): Group | Nothing {
   return createGroupNode(context, open, nothing, items);
 }
 
-function createGroupNode(context: SyntaxContext, open: OpenNode, close: CloseNode | Nothing, nodes: Node[]): Group {
+function createGroupNode(
+  context: SyntaxContext,
+  open: OpenNode,
+  close: CloseNode | Nothing,
+  nodes: Node[],
+): Group | Nothing {
   if (open.text === GROUP_NODE_OPEN) {
     return groupNode(context, open, close, nodes);
   }
@@ -105,7 +110,10 @@ function createGroupNode(context: SyntaxContext, open: OpenNode, close: CloseNod
     return arrayNode(open, close, nodes);
   }
 
-  throw new Error('Not implemented');
+  context.issueManager.addError(open.range, ISSUE_MESSAGE.notImplemented());
+
+  // todo remove it
+  return nothing;
 }
 
 export function isGroupNode(node: Node): node is Group {

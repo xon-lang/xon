@@ -25,10 +25,6 @@ String.prototype.take = function (length: Integer, index: Integer = 0): String2 
   return this.slice(index, index + length);
 };
 
-String.prototype.margin = function (delimiter?: String2): String2 {
-  throw new Error(`Not implemented ${delimiter}`);
-};
-
 String.prototype.toCharCodes = function (): Uint8Array {
   const utf8Encoder = new TextEncoder();
 

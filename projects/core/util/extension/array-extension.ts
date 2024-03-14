@@ -11,23 +11,6 @@ Array.prototype.takeWhile = function <T>(predicate: (value: T, index: Integer) =
   return this.slice(startIndex, this.length);
 };
 
-Array.prototype.takeWhileFromLast = function <T>(
-  predicate: (value: T, index: Integer) => Something,
-  startIndex?: Integer,
-): T[] {
-  throw new Error('Not implemented');
-
-  // startIndex = startIndex ?? this.length - 1;
-
-  // for (let i = startIndex ?? this.length - 1; i >= 0; i--) {
-  //   if (!predicate(this[i], i)) {
-  //     return this.slice(startIndex, i);
-  //   }
-  // }
-
-  // return this.slice(startIndex, this.length);
-};
-
 Array.prototype.findLast = function <T>(predicate: (value: T, index: Integer, array: T[]) => Boolean2): T | Nothing {
   const index = this.findLastIndex(predicate);
 

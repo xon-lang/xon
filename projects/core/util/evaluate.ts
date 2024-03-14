@@ -48,8 +48,10 @@ export function evaluate(node: Node | Nothing, argsMap = {}): Anything {
       return argsMap[node.text];
     }
 
+    // todo use context issue manager
     throw new Error('Not implemented');
   }
 
+  // todo use context issue manager
   throw new Error('Not implemented');
 }

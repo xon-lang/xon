@@ -5,12 +5,13 @@ import {sourceFromFile} from '../source/source';
 import {DeclarationSemantic} from './declaration/declaration-semantic';
 import {parseSemantic} from './semantic';
 
+const DEFAULT_CORE_PATH = join(__dirname, '../lib/@xon/core/test.xon');
+
 let cachedTypes: Record<String2, DeclarationSemantic[]> | Nothing = nothing;
 
-function declarations(): Record<String2, DeclarationSemantic[]> {
+function declarations(corePath: String2): Record<String2, DeclarationSemantic[]> {
   if (!cachedTypes) {
-    const libPath = join(__dirname, '../lib/@xon/core/test.xon');
-    const source = sourceFromFile(libPath);
+    const source = sourceFromFile(corePath);
     const syntax = parseSyntax(source);
     const semantic = parseSemantic(syntax);
 
@@ -20,16 +21,12 @@ function declarations(): Record<String2, DeclarationSemantic[]> {
   return cachedTypes;
 }
 
-export type CoreDeclarationName =
-  | 'Anything'
-  | 'Something'
-  | 'Nothing'
-  | 'Number'
-  | 'Integer'
-  | 'Char'
-  | 'Array'
-  | 'String';
+const coreDeclarationName = ['Anything', 'Something', 'Nothing', 'Number', 'Integer', 'Char', 'Array', 'String'];
 
-export function coreDeclarationSemantic(name: CoreDeclarationName): DeclarationSemantic {
-  return declarations()[name][0];
+export function coreDeclarationSemantic(name: String2, corePath: String2 = DEFAULT_CORE_PATH): DeclarationSemantic {
+  if (coreDeclarationName.includes(name)) {
+    throw new Error('Not implemented');
+  }
+
+  return declarations(corePath)[name][0];
 }

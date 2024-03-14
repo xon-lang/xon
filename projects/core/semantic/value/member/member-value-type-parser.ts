@@ -1,3 +1,4 @@
+import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Nothing, nothing} from '../../../lib/core';
 import {$Node, Node, is} from '../../../parser/node/node';
 import {MemberNode} from '../../../parser/node/syntax/member/member-node';
@@ -14,7 +15,9 @@ export function memberValueTypeTryParse(context: SemanticContext, node: Node): T
 
       if (attributes) {
         if (attributes.length > 1) {
-          throw new Error('Not implemented');
+          context.issueManager.addError(node.id.range, ISSUE_MESSAGE.notImplemented());
+
+          return nothing;
         }
 
         return attributes.first();

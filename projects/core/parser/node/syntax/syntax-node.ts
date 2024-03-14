@@ -11,11 +11,6 @@ export function syntaxNode<T extends Record<String2, Node | Node[] | Nothing>, V
   nodes: T,
 ): SyntaxNode & {$: typeof $} & T {
   const children = Object.values(nodes).flatMap(flatNodes);
-
-  if (children.length === 0) {
-    throw new Error('Not implemented');
-  }
-
   const first = children.first()!;
   const last = children.last()!;
   const range = rangeFromNodes([first, last]);

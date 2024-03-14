@@ -4,7 +4,6 @@ declare global {
   interface Array<T> {
     findLastIndex(predicate: (value: T, index: Integer, array: T[]) => Boolean2, thisArg?: Something): Integer;
     takeWhile(predicate: (value: T, index: Integer) => Boolean2, startIndex?: Integer): T[];
-    takeWhileFromLast(predicate: (value: T, index: Integer) => Boolean2, startIndex?: Integer): T[];
     first(predicate?: (value: T, index: Integer, array: T[]) => Boolean2): T | Nothing;
     last(predicate?: (value: T, index: Integer, array: T[]) => Boolean2): T | Nothing;
     removeFirst(): T[];
@@ -21,7 +20,6 @@ declare global {
   interface String {
     takeWhile(predicate: (value: Char, index: Integer) => Boolean2, startIndex?: Integer): String2;
     take(length: Integer, index: Integer): String2;
-    margin(delimiter?: String2): String2;
     toCharCodes(): Uint8Array;
     isLetter(index: Integer): Boolean2;
     isUpperLetter(index: Integer): Boolean2;

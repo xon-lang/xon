@@ -34,6 +34,7 @@ export function declarationTypeSemantic(
 
     attributes(): Record<String2, TypeSemantic[]> {
       const modifier = this.declaration?.modifier;
+
       if (this.declaration?.typeIsBase) {
         const attributes: Record<String2, TypeSemantic[]> = {};
 
