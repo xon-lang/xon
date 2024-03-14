@@ -9,23 +9,35 @@ export const DEFAULT_CORE_PATH = join(__dirname, '../lib/@xon/core/test-core.xon
 
 let cachedTypes: Record<String2, DeclarationSemantic[]> | Nothing = nothing;
 
-function declarations(corePath: String2): Record<String2, DeclarationSemantic[]> {
+// const coreDeclarationNames = ['Anything', 'Something', 'Nothing', 'Number', 'Integer', 'Char', 'Array', 'String'];
+
+// todo remove this hack
+let initializationStarted = false;
+
+export function initializeCoreDeclarations(corePath: String2): Nothing {
+  if (initializationStarted) {
+    return;
+  }
+
+  initializationStarted = true;
+  // todo fix this hack
+  const path = corePath.replace('/vscode/dist/vscode/src', '');
+
   if (!cachedTypes) {
-    const source = sourceFromFile(corePath);
+    const source = sourceFromFile(path);
     const syntax = parseSyntax(source);
     const semantic = parseSemantic(syntax);
 
     cachedTypes = semantic.declarationManager.declarations;
   }
-
-  return cachedTypes;
 }
 
-const coreDeclarationNames = ['Anything', 'Something', 'Nothing', 'Number', 'Integer', 'Char', 'Array', 'String'];
+export function coreDeclarationSemantic(name: String2, corePath: String2 | Nothing): DeclarationSemantic | Nothing {
+  initializeCoreDeclarations(corePath ?? DEFAULT_CORE_PATH);
 
-export function coreDeclarationSemantic(
-  name: String2,
-  corePath: String2 = DEFAULT_CORE_PATH,
-): DeclarationSemantic | Nothing {
-  return declarations(corePath)[name].first();
+  if (!cachedTypes) {
+    return nothing;
+  }
+
+  return cachedTypes[name]?.first() ?? nothing;
 }

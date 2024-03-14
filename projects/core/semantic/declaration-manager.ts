@@ -80,7 +80,7 @@ export function createDeclarationManager(
     },
 
     findCore(name: String2): DeclarationSemantic | Nothing {
-      return coreDeclarationSemantic(name, config.coreDir);
+      return coreDeclarationSemantic(name, config.corePath);
     },
   };
 }

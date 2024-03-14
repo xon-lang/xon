@@ -33,8 +33,8 @@ export function getDocumentSyntax(document: TextDocument, channel: OutputChannel
     const location = document.uri.toString();
     const source = createSource(location, text);
     const syntax = parseSyntax(source);
-    const coreDir = join(__dirname, '/core/lib/@xon/core/test-core.xon');
-    const semanticConfig = createSemanticConfig({coreDir});
+    const corePath = join(__dirname, '/core/lib/@xon/core/test-core.xon');
+    const semanticConfig = createSemanticConfig({corePath});
     parseSemantic(syntax, semanticConfig);
 
     return syntax;
