@@ -17,7 +17,6 @@ export function activate(context: ExtensionContext) {
   configureHoverFeature(context, channel);
   configureDefinitionFeature(context, channel);
   configureCompletionFeature(context, channel);
-  configureCompletionFeature(context, channel);
   configureRefactoringFeature(context, channel);
   // configureTranslatorFeature(context, channel);
 }
