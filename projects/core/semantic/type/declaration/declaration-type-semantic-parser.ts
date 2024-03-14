@@ -1,3 +1,4 @@
+import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Nothing, nothing} from '../../../lib/core';
 import {$Node, Node, is} from '../../../parser/node/node';
 import {InvokeNode} from '../../../parser/node/syntax/invoke/invoke-node';
@@ -15,6 +16,12 @@ export function declarationTypeSemanticTryParse(
     const declaration = context.declarationManager.findSingle(node.text, 0, nothing);
 
     if (!declaration) {
+      return nothing;
+    }
+
+    if (declaration.restrictions?.canBeType === false) {
+      context.issueManager.addError(node.range, ISSUE_MESSAGE.cannotBeUsedAsAType());
+
       return nothing;
     }
 

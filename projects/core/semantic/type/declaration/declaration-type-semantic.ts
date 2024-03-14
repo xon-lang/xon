@@ -1,4 +1,3 @@
-import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Boolean2, Nothing, String2} from '../../../lib/core';
 import {SourceReference} from '../../../source/source-reference';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
@@ -33,7 +32,7 @@ export function declarationTypeSemantic(
     },
 
     attributes(): Record<String2, TypeSemantic[]> {
-      return getDeclarationAttributes(context, reference, declaration);
+      return getDeclarationAttributes(context, declaration);
     },
   };
 
@@ -44,21 +43,14 @@ export function declarationTypeSemantic(
 
 export function getDeclarationAttributes(
   context: SemanticContext,
-  reference: SourceReference,
   declaration: DeclarationSemantic,
 ): Record<String2, TypeSemantic[]> {
-  if (declaration?.restrictions?.hasAttributes) {
-    const attributes: Record<String2, TypeSemantic[]> = {};
+  const attributes: Record<String2, TypeSemantic[]> = {};
 
-    for (const [name, declarations] of Object.entries(declaration?.attributes)) {
-      const types = declarations.map((x) => x.type).filter((x): x is TypeSemantic => !!x);
-      attributes[name] = types;
-    }
-
-    return attributes;
+  for (const [name, declarations] of Object.entries(declaration?.attributes)) {
+    const types = declarations.map((x) => x.type).filter((x): x is TypeSemantic => !!x);
+    attributes[name] = types;
   }
 
-  context.issueManager.addError(reference.range, ISSUE_MESSAGE.cannotBeUsedAsAType());
-
-  return {};
+  return attributes;
 }
