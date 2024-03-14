@@ -28,7 +28,7 @@ export function literalTypeSemantic(literal: LiteralSemantic): LiteralTypeSemant
 
     attributes(): Record<String2, TypeSemantic[]> {
       return {
-        length: [semantic],
+        // length: [semantic],
       };
     },
   };

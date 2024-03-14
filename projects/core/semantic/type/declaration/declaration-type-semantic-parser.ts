@@ -12,14 +12,14 @@ export function declarationTypeSemanticTryParse(
   node: Node,
 ): DeclarationTypeSemantic | Nothing {
   if (is<IdNode>(node, $Node.ID)) {
-    const declaration = context.declarationManager.findSingle(node, 0, nothing);
+    const declaration = context.declarationManager.findSingle(node.text, 0, nothing);
 
     if (!declaration) {
       return nothing;
     }
 
     const reference = context.createReference(node);
-    const semantic = declarationTypeSemantic(reference, declaration, nothing);
+    const semantic = declarationTypeSemantic(context, reference, declaration, nothing);
 
     return semantic;
   }
@@ -35,14 +35,14 @@ export function declarationTypeSemanticTryParse(
     }
 
     const generics = node.group.items.map((x) => typeSemanticParse(context, x));
-    const declaration = context.declarationManager.findSingle(node.instance, generics.length, nothing);
+    const declaration = context.declarationManager.findSingle(node.instance.text, generics.length, nothing);
 
     if (!declaration) {
       return nothing;
     }
 
     const reference = context.createReference(node);
-    const semantic = declarationTypeSemantic(reference, declaration, nothing);
+    const semantic = declarationTypeSemantic(context, reference, declaration, nothing);
     // todo recheck, we always need set id semantic for all cases ???
     node.instance.semantic = semantic;
 

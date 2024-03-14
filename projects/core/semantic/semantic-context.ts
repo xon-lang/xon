@@ -3,7 +3,7 @@ import {Nothing} from '../lib/core';
 import {Node} from '../parser/node/node';
 import {Source} from '../source/source';
 import {SourceReference, sourceReference} from '../source/source-reference';
-import {DeclarationManager, createDeclarationManager} from './declaration/declaration-manager';
+import {DeclarationManager, createDeclarationManager} from './declaration-manager';
 
 export interface SemanticContext {
   parent: SemanticContext | Nothing;

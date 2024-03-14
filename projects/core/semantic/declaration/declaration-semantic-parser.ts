@@ -57,7 +57,7 @@ export function declarationDeepParse(context: SemanticContext, node: Declaration
     if (type) {
       semantic.type = type;
     } else {
-      context.issueManager.addError(node.type, ISSUE_MESSAGE.cannotResolveType());
+      context.issueManager.addError(node.type.range, ISSUE_MESSAGE.cannotResolveType());
     }
   }
 
@@ -70,7 +70,7 @@ export function declarationDeepParse(context: SemanticContext, node: Declaration
         semantic.type = value.type;
       }
     } else if (!value?.type || !value.type.is(semantic.type)) {
-      childContext.issueManager.addError(node.value, ISSUE_MESSAGE.wrongType());
+      childContext.issueManager.addError(node.value.range, ISSUE_MESSAGE.wrongType());
     }
   }
 

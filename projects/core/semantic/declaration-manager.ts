@@ -1,8 +1,6 @@
-import {IssueManager} from '../../issue/issue-manager';
-import {ISSUE_MESSAGE} from '../../issue/issue-message';
-import {Integer, Nothing, String2, nothing} from '../../lib/core';
-import {IdNode} from '../../parser/node/token/id/id-node';
-import {DeclarationSemantic} from './declaration-semantic';
+import {IssueManager} from '../issue/issue-manager';
+import {Integer, Nothing, String2, nothing} from '../lib/core';
+import {DeclarationSemantic} from './declaration/declaration-semantic';
 
 export interface DeclarationManager {
   declarations: Record<String2, DeclarationSemantic[]>;
@@ -11,7 +9,7 @@ export interface DeclarationManager {
   add: (declaration: DeclarationSemantic) => Nothing;
   findAll: (name: String2) => DeclarationSemantic[];
   findSingle: (
-    node: IdNode,
+    name: String2,
     genericLength: Integer,
     parameters: DeclarationSemantic[] | Nothing,
   ) => DeclarationSemantic | Nothing;
@@ -41,14 +39,14 @@ export function createDeclarationManager(
     },
 
     findSingle(
-      node: IdNode,
+      name: String2,
       genericLength: Integer,
       parameters: DeclarationSemantic[] | Nothing,
     ): DeclarationSemantic | Nothing {
-      const declarations = this.findAll(node.text);
+      const declarations = this.findAll(name);
 
       if (declarations.length === 0) {
-        issueManager.addError(node, ISSUE_MESSAGE.declarationNotFound(node.text));
+        // issueManager.addError(node, ISSUE_MESSAGE.declarationNotFound(node.text));
 
         return nothing;
       }
@@ -56,7 +54,7 @@ export function createDeclarationManager(
       const filtered = declarations.filter((x) => (x.generics?.length ?? 0) === genericLength);
 
       if (filtered.length !== 1) {
-        issueManager.addError(node, ISSUE_MESSAGE.tooManyDeclarationsFoundWithName(node.text));
+        // issueManager.addError(node, ISSUE_MESSAGE.tooManyDeclarationsFoundWithName(node.text));
 
         return nothing;
       }

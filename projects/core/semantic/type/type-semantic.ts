@@ -3,6 +3,6 @@ import {Semantic} from '../semantic';
 
 export interface TypeSemantic extends Semantic {
   attributes(): Record<String2, TypeSemantic[]>;
-  eq(type: TypeSemantic): Boolean2;
-  is(type: TypeSemantic): Boolean2;
+  eq(semantic: TypeSemantic): Boolean2;
+  is(semantic: TypeSemantic): Boolean2;
 }

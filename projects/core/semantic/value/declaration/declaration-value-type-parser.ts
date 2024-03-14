@@ -14,7 +14,7 @@ export function declarationValueTypeTryParse(context: SemanticContext, node: Nod
 }
 
 function idNodeTryParse(context: SemanticContext, node: IdNode): TypeSemantic | Nothing {
-  const declaration = context.declarationManager.findSingle(node, 0);
+  const declaration = context.declarationManager.findSingle(node.text, 0);
 
   if (!declaration) {
     return nothing;

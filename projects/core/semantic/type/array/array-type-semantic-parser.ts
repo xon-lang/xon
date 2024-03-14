@@ -19,7 +19,7 @@ export function arrayTypeSemanticTryParse(context: SemanticContext, node: Node):
     }
 
     if (node.group.items.length > 1) {
-      context.issueManager.addError(node.group, ISSUE_MESSAGE.shouldBeSingleItem());
+      context.issueManager.addError(node.group.range, ISSUE_MESSAGE.shouldBeSingleItem());
       return nothing;
     }
 
@@ -51,5 +51,5 @@ function getSizeSemantic(context: SemanticContext, node: Node | Nothing): Intege
     return sizeType.literal;
   }
 
-  context.issueManager.addError(node, ISSUE_MESSAGE.shouldBeInteger());
+  context.issueManager.addError(node.range, ISSUE_MESSAGE.shouldBeInteger());
 }
