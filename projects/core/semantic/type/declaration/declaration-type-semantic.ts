@@ -1,7 +1,7 @@
 import {Boolean2, Nothing, String2} from '../../../lib/core';
 import {SourceReference} from '../../../source/source-reference';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
-import {$Semantic} from '../../semantic';
+import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
 import {TypeSemantic} from '../type-semantic';
 
@@ -24,11 +24,14 @@ export function declarationTypeSemantic(
     generics,
 
     eq(semantic: TypeSemantic): Boolean2 {
-      return false;
+      return (
+        semanticIs<DeclarationTypeSemantic>(semantic, $Semantic.DECLARATION_TYPE) &&
+        this.declaration.eq(semantic.declaration)
+      );
     },
 
     is(semantic: TypeSemantic): Boolean2 {
-      return this.eq(semantic);
+      return (this.eq(semantic) || declaration.type?.is(semantic)) ?? false;
     },
 
     attributes(): Record<String2, TypeSemantic[]> {

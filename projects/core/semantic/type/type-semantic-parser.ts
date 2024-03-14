@@ -13,7 +13,6 @@ type TypeSemanticTryParseFn = (context: SemanticContext, node: Node) => TypeSema
 const parsers: TypeSemanticTryParseFn[] = [
   literalTypeSemanticTryParse,
   declarationTypeSemanticTryParse,
-
   rangeTypeSemanticTryParse,
   arrayTypeSemanticTryParse,
   unionTypeSemanticTryParse,
