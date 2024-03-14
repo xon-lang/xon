@@ -47,7 +47,7 @@ export function getDeclarationAttributes(
   reference: SourceReference,
   declaration: DeclarationSemantic,
 ): Record<String2, TypeSemantic[]> {
-  if (declaration?.typeIsBase) {
+  if (declaration?.restrictions?.hasAttributes) {
     const attributes: Record<String2, TypeSemantic[]> = {};
 
     for (const [name, declarations] of Object.entries(declaration?.attributes)) {

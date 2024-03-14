@@ -1,6 +1,8 @@
 import {ISSUE_MESSAGE} from '../../issue/issue-message';
 import {Nothing, nothing} from '../../lib/core';
+import {Node} from '../../parser/node/node';
 import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-node';
+import {rangeFromNodes} from '../../source/source-range';
 import {$Semantic, semanticIs} from '../semantic';
 import {SemanticContext} from '../semantic-context';
 import {typeSemanticParse} from '../type/type-semantic-parser';
@@ -9,14 +11,12 @@ import {DeclarationSemantic, declarationSemantic} from './declaration-semantic';
 
 export function declarationsParse(
   context: SemanticContext,
-  nodes: (DeclarationNode | Nothing)[],
+  nodes: DeclarationNode[],
 ): (DeclarationSemantic | Nothing)[] {
-  const typeDeclarations = nodes.map((x) => (x ? declarationShallowParse(context, x) : nothing));
+  const typeDeclarations = nodes.map((x) => declarationShallowParse(context, x));
 
   for (const node of nodes) {
-    if (node) {
-      declarationDeepParse(context, node);
-    }
+    declarationDeepParse(context, node);
   }
 
   return typeDeclarations;
@@ -48,51 +48,90 @@ export function declarationDeepParse(context: SemanticContext, node: Declaration
   const childContext = context.createChildContext();
 
   if (node.generics) {
-    semantic.generics = declarationsParse(childContext, node.generics);
+    genericsParse(childContext, semantic, node.generics);
   }
 
   if (node.type) {
-    const type = typeSemanticParse(childContext, node.type);
-
-    if (type) {
-      semantic.type = type;
-    } else {
-      context.issueManager.addError(node.type.range, ISSUE_MESSAGE.cannotResolveType());
-    }
+    typeParse(childContext, semantic, node.type);
   }
 
   if (node.value) {
-    // todo depends on declaration kind (e.g. generic or const) ???
-    const value = valueSemanticParse(childContext, node.value);
-
-    if (!semantic.type) {
-      if (value?.type) {
-        semantic.type = value.type;
-      }
-    } else if (!value?.type || !value.type.is(semantic.type)) {
-      childContext.issueManager.addError(node.value.range, ISSUE_MESSAGE.wrongType());
-    }
+    valueParse(childContext, semantic, node.value);
   }
 
   if (node.attributes.length > 0) {
-    const declarations = declarationsParse(childContext, node.attributes);
-    const attributes: DeclarationSemantic['attributes'] = {};
-
-    for (const declaration of declarations) {
-      if (!declaration) {
-        continue;
-      }
-
-      // todo replace with attributes manager
-      if (!attributes[declaration.name]) {
-        attributes[declaration.name] = [];
-      }
-
-      attributes[declaration.name].push(declaration);
-    }
-
-    semantic.attributes = attributes;
+    attributesParse(childContext, semantic, node.attributes);
   }
 
   return semantic;
+}
+
+function genericsParse(
+  context: SemanticContext,
+  declaration: DeclarationSemantic,
+  nodes: (DeclarationNode | Nothing)[],
+): Nothing {
+  declaration.generics = declarationsParse(
+    context,
+    nodes.filter((x): x is DeclarationNode => !!x),
+  );
+}
+
+function typeParse(context: SemanticContext, declaration: DeclarationSemantic, node: Node): Nothing {
+  const type = typeSemanticParse(context, node);
+
+  if (type) {
+    declaration.type = type;
+  } else {
+    context.issueManager.addError(node.range, ISSUE_MESSAGE.cannotResolveType());
+  }
+}
+
+function valueParse(context: SemanticContext, declaration: DeclarationSemantic, node: Node): Nothing {
+  if (declaration.restrictions?.hasValue === false) {
+    context.issueManager.addError(node.range, ISSUE_MESSAGE.noValueAllowed());
+
+    return;
+  }
+  // todo depends on declaration kind (e.g. generic or const) ???
+  const value = valueSemanticParse(context, node);
+
+  if (!declaration.type) {
+    if (value?.type) {
+      declaration.type = value.type;
+    }
+  } else if (!value?.type || !value.type.is(declaration.type)) {
+    context.issueManager.addError(node.range, ISSUE_MESSAGE.wrongType());
+  }
+}
+
+function attributesParse(
+  context: SemanticContext,
+  declaration: DeclarationSemantic,
+  nodes: DeclarationNode[],
+): Nothing {
+  if (declaration.restrictions?.hasAttributes === false) {
+    const range = rangeFromNodes(nodes.map((x) => x.id));
+    context.issueManager.addError(range, ISSUE_MESSAGE.noAttributesAllowed());
+
+    return;
+  }
+
+  const declarations = declarationsParse(context, nodes);
+  const attributes: DeclarationSemantic['attributes'] = {};
+
+  for (const declaration of declarations) {
+    if (!declaration) {
+      continue;
+    }
+
+    // todo replace with attributes manager
+    if (!attributes[declaration.name]) {
+      attributes[declaration.name] = [];
+    }
+
+    attributes[declaration.name].push(declaration);
+  }
+
+  declaration.attributes = attributes;
 }

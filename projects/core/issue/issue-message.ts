@@ -65,4 +65,14 @@ export const ISSUE_MESSAGE = {
     actual: `Cannot be used as a type`,
     expect: nothing,
   }),
+
+  noValueAllowed: () => ({
+    actual: `No value allowed`,
+    expect: nothing,
+  }),
+
+  noAttributesAllowed: () => ({
+    actual: `No attributes allowed`,
+    expect: nothing,
+  }),
 };
