@@ -12,6 +12,7 @@ import {
 } from 'vscode';
 import {Nothing, String2, nothing} from '../../../../core/lib/core';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
+import {LiteralSemantic} from '../../../../core/semantic/literal/literal-semantic';
 import {StringLiteralSemantic} from '../../../../core/semantic/literal/string/string-literal-semantic';
 import {$Semantic, Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
@@ -67,7 +68,7 @@ function getSemanticHoverText(semantic: Semantic): MarkdownString | Nothing {
 function getDeclarationMarkdown(declaration: DeclarationSemantic): MarkdownString | Nothing {
   const modifier = declaration.modifier ? declaration.modifier + ' ' : '';
   const name = declaration.name;
-  const type = declaration.type ? ': ' + getTypeText(declaration.type) + ' ' : '';
+  const type = declaration.type ? ': ' + typeToString(declaration.type) : '';
   const text = `${modifier}${name}${type}`;
 
   return markdownCode(text);
@@ -84,9 +85,7 @@ function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
   if (semanticIs<LiteralTypeSemantic>(type, $Semantic.LITERAL_TYPE)) {
     const declaration = type.literal.declaration;
     const modifier = declaration.modifier ? declaration.modifier + ' ' : '';
-    const value = semanticIs<StringLiteralSemantic>(type.literal, $Semantic.STRING_LITERAL)
-      ? `"${type.literal.value}"`
-      : `${type.literal.value}`;
+    const value = literalToString(type.literal);
     const text = `${modifier}${declaration.name}(${value})`;
 
     return markdownCode(text);
@@ -95,12 +94,24 @@ function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
   return nothing;
 }
 
-function getTypeText(type: TypeSemantic): String2 {
+function typeToString(type: TypeSemantic): String2 {
   if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.DECLARATION_TYPE)) {
     return `${type.declaration.name}`;
   }
 
+  if (semanticIs<LiteralTypeSemantic>(type, $Semantic.LITERAL_TYPE)) {
+    return literalToString(type.literal);
+  }
+
   return '';
+}
+
+function literalToString(literal: LiteralSemantic): String2 {
+  if (semanticIs<StringLiteralSemantic>(literal, $Semantic.STRING_LITERAL)) {
+    return `"${literal.value}"`;
+  }
+
+  return `${literal.value}`;
 }
 
 function markdownCode(text: String2): MarkdownString {

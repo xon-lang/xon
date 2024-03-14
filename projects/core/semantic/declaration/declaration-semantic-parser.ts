@@ -93,6 +93,7 @@ function valueParse(context: SemanticContext, declaration: DeclarationSemantic, 
 
     return;
   }
+
   // todo depends on declaration kind (e.g. generic or const) ???
   const value = valueSemanticParse(context, node);
 
