@@ -83,7 +83,7 @@ export function createDeclarationManager(
         return nothing;
       }
 
-      const filtered = declarations.filter((x) => (x.generics?.length ?? 0) === generics?.length);
+      const filtered = declarations.filter((x) => (x.generics?.length ?? 0) === (generics?.length ?? 0));
 
       if (filtered.length !== 1) {
         // issueManager.addError(node, ISSUE_MESSAGE.tooManyDeclarationsFoundWithName(node.text));
