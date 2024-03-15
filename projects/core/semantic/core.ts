@@ -25,6 +25,11 @@ export function initializeCoreDeclarations(corePath: String2): Nothing {
 
   if (!cachedTypes) {
     const source = sourceFromFile(path);
+
+    if (!source) {
+      return nothing;
+    }
+
     const syntax = parseSyntax(source);
     const semantic = parseSemantic(syntax);
 

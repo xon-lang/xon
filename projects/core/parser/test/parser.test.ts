@@ -19,6 +19,13 @@ test('1', () => testFormatter('1'));
 function testFormatter(index: String2) {
   const dirPath = join(__dirname, index);
   const source = sourceFromFile(join(dirPath, 'source.xon'));
+
+  expect(source).toBeTruthy();
+
+  if (!source) {
+    return;
+  }
+
   const syntax = parseSyntax(source);
 
   const syntaxJson = JSON.stringify(syntax.statements, jsonCircularReplacer, 2);

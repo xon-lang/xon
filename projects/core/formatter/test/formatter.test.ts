@@ -19,6 +19,13 @@ test('11', () => testFormatter('11'));
 function testFormatter(index: String2) {
   const dirPath = join(__dirname, index);
   const source = sourceFromFile(join(dirPath, 'source.xon'));
+
+  expect(source).toBeTruthy();
+
+  if (!source) {
+    return;
+  }
+
   const syntax = parseSyntax(source);
 
   const formattedText = syntax.formatterManager.getFormattedText();

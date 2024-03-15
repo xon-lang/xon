@@ -1,4 +1,4 @@
-import {readFileSync} from 'fs';
+import {existsSync, readFileSync} from 'fs';
 import {Boolean2, Nothing, String2, nothing} from '../lib/core';
 import '../util/extension';
 import {SourceRange} from './source-range';
@@ -7,7 +7,7 @@ export interface Source {
   location: String2 | Nothing;
   text: String2;
 
-  eq(source: Source): Boolean2
+  eq(source: Source): Boolean2;
 }
 
 export function createSource(location: String2 | Nothing, text: String2): Source {
@@ -16,11 +16,11 @@ export function createSource(location: String2 | Nothing, text: String2): Source
     text,
 
     eq(source): Boolean2 {
-      if(this.location){
-        return this.location === source.location
+      if (this.location) {
+        return this.location === source.location;
       }
 
-      return this.text === source.text
+      return this.text === source.text;
     },
   };
 }
@@ -29,7 +29,11 @@ export function sourceFromText(text: String2): Source {
   return createSource(nothing, text);
 }
 
-export function sourceFromFile(location: String2): Source {
+export function sourceFromFile(location: String2): Source | Nothing {
+  if (!existsSync(location)) {
+    return nothing;
+  }
+
   const text = readFileSync(location).toString();
 
   return createSource(location, text);
