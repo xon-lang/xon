@@ -2,7 +2,7 @@ import {Nothing} from '../../lib/core';
 import {TYPE_MODIFIERS} from '../../parser/syntax-config';
 import {SyntaxResult} from '../../parser/syntax-result';
 import {SemanticContext} from '../semantic-context';
-import {typeDeclarationShallowParse} from './type/type-declaration-semantic-parser';
+import {typeDeclarationDeepParse, typeDeclarationShallowParse} from './type/type-declaration-semantic-parser';
 import {valueDeclarationDeepParse, valueDeclarationShallowParse} from './value/value-declaration-semantic-parser';
 
 export function declarationsParse2(context: SemanticContext, syntax: SyntaxResult): Nothing {
@@ -19,7 +19,7 @@ export function declarationsParse2(context: SemanticContext, syntax: SyntaxResul
   }
 
   for (const node of nodes) {
-    typeDeclarationShallowParse(context, node);
+    typeDeclarationDeepParse(context, node);
     valueDeclarationDeepParse(context, node);
   }
 }

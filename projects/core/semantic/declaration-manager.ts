@@ -54,7 +54,7 @@ export function createDeclarationManager(
 
     filterByName(kind: DeclarationKind, name: String2): DeclarationSemantic[] {
       let declarations = this.declarations[name] ?? parentDeclarationManager?.filterByName(kind, name);
-      declarations = declarations.filter((x) => isDeclarationKind(x, kind));
+      declarations = declarations?.filter((x) => isDeclarationKind(x, kind));
 
       if (declarations && declarations.length > 0) {
         return declarations;

@@ -15,7 +15,7 @@ export function typeDeclarationsParse(
   const typeDeclarations = nodes.map((x) => typeDeclarationShallowParse(context, x));
 
   for (const node of nodes) {
-    declarationDeepParse(context, node);
+    typeDeclarationDeepParse(context, node);
   }
 
   return typeDeclarations;
@@ -36,7 +36,7 @@ export function typeDeclarationShallowParse(
   return declaration;
 }
 
-export function declarationDeepParse(
+export function typeDeclarationDeepParse(
   context: SemanticContext,
   node: DeclarationNode,
 ): TypeDeclarationSemantic | Nothing {

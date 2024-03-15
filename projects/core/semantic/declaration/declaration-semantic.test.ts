@@ -56,15 +56,15 @@ test('declare a then b, a extends b', () => {
 
   expect(semantic.declarationManager.count()).toBe(2);
 
-  const aDeclaration = semantic.declarationManager.declarations.A[0] as TypeDeclarationSemantic;
-  expect(aDeclaration.$).toBe($Semantic.TYPE_DECLARATION);
-  expect(aDeclaration.modifier).toBe('model');
-  expect(aDeclaration.name).toBe('A');
-  expect(aDeclaration.baseType?.$).toBe($Semantic.DECLARATION_TYPE);
-  expect((aDeclaration.baseType as DeclarationTypeSemantic)?.declaration?.name).toBe('B');
+  const modelA = semantic.declarationManager.declarations.A[0] as TypeDeclarationSemantic;
+  expect(modelA.$).toBe($Semantic.TYPE_DECLARATION);
+  expect(modelA.modifier).toBe('model');
+  expect(modelA.name).toBe('A');
+  expect(modelA.baseType?.$).toBe($Semantic.DECLARATION_TYPE);
+  expect((modelA.baseType as DeclarationTypeSemantic)?.declaration?.name).toBe('B');
 
-  const bDeclaration = semantic.declarationManager.declarations.B[0] as TypeDeclarationSemantic;
-  expect(bDeclaration.$).toBe($Semantic.TYPE_DECLARATION);
-  expect(bDeclaration.modifier).toBe('model');
-  expect(bDeclaration.name).toBe('B');
+  const modelB = semantic.declarationManager.declarations.B[0] as TypeDeclarationSemantic;
+  expect(modelB.$).toBe($Semantic.TYPE_DECLARATION);
+  expect(modelB.modifier).toBe('model');
+  expect(modelB.name).toBe('B');
 });
