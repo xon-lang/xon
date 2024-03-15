@@ -1,6 +1,6 @@
 import {Boolean2, String2} from '../../../lib/core';
 import {SourceReference} from '../../../source/source-reference';
-import {DeclarationSemantic} from '../../declaration/declaration-semantic';
+import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
 import {TypeSemantic} from '../../type/type-semantic';
 import {LiteralSemantic} from '../literal-semantic';
@@ -12,7 +12,7 @@ export interface StringLiteralSemantic extends LiteralSemantic {
 
 export function stringLiteralSemantic(
   reference: SourceReference,
-  declaration: DeclarationSemantic,
+  declaration: TypeDeclarationSemantic,
   type: TypeSemantic,
   value: String2,
 ): StringLiteralSemantic {

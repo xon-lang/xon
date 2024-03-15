@@ -1,20 +1,20 @@
 import {Boolean2, Nothing, String2} from '../../../lib/core';
 import {SourceReference} from '../../../source/source-reference';
-import {DeclarationSemantic} from '../../declaration/declaration-semantic';
+import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
 import {TypeSemantic} from '../type-semantic';
 
 export interface DeclarationTypeSemantic extends TypeSemantic {
   $: $Semantic.DECLARATION_TYPE;
-  declaration: DeclarationSemantic;
+  declaration: TypeDeclarationSemantic;
   generics: TypeSemantic[] | Nothing;
 }
 
 export function declarationTypeSemantic(
   context: SemanticContext,
   reference: SourceReference,
-  declaration: DeclarationSemantic,
+  declaration: TypeDeclarationSemantic,
   generics: TypeSemantic[] | Nothing,
 ): DeclarationTypeSemantic {
   const semantic: DeclarationTypeSemantic = {
@@ -31,7 +31,7 @@ export function declarationTypeSemantic(
     },
 
     is(semantic: TypeSemantic): Boolean2 {
-      return (this.eq(semantic) || declaration.type?.is(semantic)) ?? false;
+      return (this.eq(semantic) || declaration.baseType?.is(semantic)) ?? false;
     },
 
     attributes(): Record<String2, TypeSemantic[]> {
@@ -46,7 +46,7 @@ export function declarationTypeSemantic(
 
 export function getDeclarationAttributes(
   context: SemanticContext,
-  declaration: DeclarationSemantic,
+  declaration: TypeDeclarationSemantic,
 ): Record<String2, TypeSemantic[]> {
   const attributes: Record<String2, TypeSemantic[]> = {};
 

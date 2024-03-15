@@ -5,6 +5,7 @@ declare global {
     findLastIndex(predicate: (value: T, index: Integer, array: T[]) => Boolean2, thisArg?: Something): Integer;
     takeWhile(predicate: (value: T, index: Integer) => Boolean2, startIndex?: Integer): T[];
     first(predicate?: (value: T, index: Integer, array: T[]) => Boolean2): T | Nothing;
+    first<S extends T>(predicate?: (value: T, index: Integer, array: T[]) => value is S): S | Nothing;
     last(predicate?: (value: T, index: Integer, array: T[]) => Boolean2): T | Nothing;
     removeFirst(): T[];
     removeLast(): T[];
@@ -12,6 +13,7 @@ declare global {
     sortStrings(): T[];
     sum(select: (value: T, index: Integer, array: T[]) => Integer): Integer;
     findMap<V>(predicate: (value: T, index: Integer, array: T[]) => V | Nothing): V | Nothing;
+    filterMap<V>(predicate: (value: T, index: Integer, array: T[]) => V | Nothing): V[];
     count(predicate: (value: T, index: Integer, array: T[]) => Boolean2): Integer;
     sortBy(select: (value: T) => Integer, ascending?: Boolean2): T[];
     splitBy(predicate: (value: T, index: Integer, array: T[]) => Boolean2): {splitter: T | Nothing; items: T[]}[];

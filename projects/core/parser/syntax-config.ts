@@ -55,21 +55,24 @@ export const OPEN_CLOSE_PAIR: Record<Char, Char> = {
 };
 
 export const MODEL_MODIFIER = 'model';
+export const OBJECT_MODIFIER = 'object';
 export const CONSTANT_MODIFIER = 'const';
 export const VARIABLE_MODIFIER = 'var';
 export const PREFIX_MODIFIER = 'prefix';
 export const POSTFIX_MODIFIER = 'postfix';
 export const INFIX_MODIFIER = 'infix';
-export const MODIFIERS_WITH_ATTRIBUTES = [MODEL_MODIFIER];
 
-export const MODIFIER_KEYWORDS = [
-  MODEL_MODIFIER,
+export const TYPE_MODIFIERS = [MODEL_MODIFIER, OBJECT_MODIFIER];
+
+export const VALUE_MODIFIERS = [
   CONSTANT_MODIFIER,
   VARIABLE_MODIFIER,
   PREFIX_MODIFIER,
   POSTFIX_MODIFIER,
   INFIX_MODIFIER,
 ];
+
+export const MODIFIER_KEYWORDS = [...TYPE_MODIFIERS, ...VALUE_MODIFIERS];
 
 export const CONTROL_KEYWORDS = [
   'if',

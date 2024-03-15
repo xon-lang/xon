@@ -95,6 +95,20 @@ Array.prototype.findMap = function <T, V>(
   return nothing;
 };
 
+Array.prototype.filterMap = function <T, V>(predicate: (value: T, index: Integer, array: T[]) => V | Nothing): V[] {
+  const newArray: V[] = [];
+
+  for (let index = 0; index < this.length; index++) {
+    const result = predicate(this[index], index, this);
+
+    if (result) {
+      newArray.push(result);
+    }
+  }
+
+  return newArray;
+};
+
 Array.prototype.count = function <T>(predicate: (value: T, index: Integer, array: T[]) => Boolean2): Integer {
   return this.reduce((sum, val, index, array) => sum + (predicate(val, index, array) ? 1 : 0), 0);
 };

@@ -1,5 +1,8 @@
 import {Nothing, nothing} from '../../../lib/core';
 import {IntegerLiteralNode} from '../../../parser/node/token/literal/integer/integer-literal-node';
+import {DeclarationKind} from '../../declaration-manager';
+import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
+import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
 import {declarationTypeSemantic} from '../../type/declaration/declaration-type-semantic';
 import {IntegerLiteralSemantic, integerLiteralSemantic} from './integer-literal-semantic';
@@ -8,11 +11,17 @@ export function integerLiteralSemanticParse(
   context: SemanticContext,
   node: IntegerLiteralNode,
 ): IntegerLiteralSemantic | Nothing {
-  const declaration = context.declarationManager.findSingle(context.config.literalTypes.integer, 0);
+  const declaration = context.declarationManager.single(
+    DeclarationKind.TYPE,
+    context.config.literalTypeNames.integerTypeName,
+    nothing,
+    nothing,
+  );
 
-  if (!declaration) {
+  if (!declaration || !semanticIs<TypeDeclarationSemantic>(declaration, $Semantic.TYPE_DECLARATION)) {
     return nothing;
   }
+
   const reference = context.createReference(node);
   const type = declarationTypeSemantic(context, reference, declaration, []);
   const value = Number(node.text);

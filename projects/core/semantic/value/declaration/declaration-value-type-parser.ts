@@ -2,7 +2,10 @@ import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Nothing, nothing} from '../../../lib/core';
 import {$Node, Node, is} from '../../../parser/node/node';
 import {IdNode} from '../../../parser/node/token/id/id-node';
-import {CONSTANT_MODIFIER, MODEL_MODIFIER} from '../../../parser/syntax-config';
+import {DeclarationKind} from '../../declaration-manager';
+import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
+import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
+import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
 import {TypeSemantic} from '../../type/type-semantic';
 
@@ -15,17 +18,17 @@ export function declarationValueTypeTryParse(context: SemanticContext, node: Nod
 }
 
 function idNodeTryParse(context: SemanticContext, node: IdNode): TypeSemantic | Nothing {
-  const declaration = context.declarationManager.findSingle(node.text, 0);
+  const declaration = context.declarationManager.single(DeclarationKind.ANY, node.text, nothing, nothing);
 
   if (!declaration) {
     return nothing;
   }
 
-  if (declaration.modifier === CONSTANT_MODIFIER) {
+  if (semanticIs<ValueDeclarationSemantic>(declaration, $Semantic.VALUE_DECLARATION)) {
     return declaration.type;
   }
 
-  if (declaration.modifier === MODEL_MODIFIER) {
+  if (semanticIs<TypeDeclarationSemantic>(declaration, $Semantic.TYPE_DECLARATION)) {
     context.issueManager.addError(node.range, ISSUE_MESSAGE.notImplemented());
   }
 

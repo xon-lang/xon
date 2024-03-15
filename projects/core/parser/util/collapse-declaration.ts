@@ -10,9 +10,9 @@ import {IdNode} from '../node/token/id/id-node';
 import {
   ASSIGN,
   GROUP_NODE_OPEN,
-  MODIFIERS_WITH_ATTRIBUTES,
   MODIFIER_KEYWORDS,
   OBJECT_NODE_OPEN,
+  TYPE_MODIFIERS,
   TYPE_TOKEN,
 } from '../syntax-config';
 import {SyntaxContext} from '../syntax-context';
@@ -30,7 +30,7 @@ export function parseDeclarationStatement(context: SyntaxContext, node: Node): D
 
   const parentStatementNode = context.parentStatement?.declaration;
 
-  if (parentStatementNode?.modifier && MODIFIERS_WITH_ATTRIBUTES.includes(parentStatementNode.modifier?.text)) {
+  if (parentStatementNode?.modifier && TYPE_MODIFIERS.includes(parentStatementNode.modifier?.text)) {
     const declaration = declarationNode($DeclarationNodeType.ATTRIBUTE, parts);
     parentStatementNode.attributes.push(declaration);
 

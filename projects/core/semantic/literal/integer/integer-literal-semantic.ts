@@ -1,6 +1,7 @@
 import {Boolean2, Integer} from '../../../lib/core';
 import {SourceReference} from '../../../source/source-reference';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
+import { TypeDeclarationSemantic } from '../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
 import {TypeSemantic} from '../../type/type-semantic';
 import {LiteralSemantic} from '../literal-semantic';
@@ -13,7 +14,7 @@ export interface IntegerLiteralSemantic extends LiteralSemantic {
 
 export function integerLiteralSemantic(
   reference: SourceReference,
-  declaration: DeclarationSemantic,
+  declaration: TypeDeclarationSemantic,
   type: TypeSemantic,
   value: Integer,
 ): IntegerLiteralSemantic {

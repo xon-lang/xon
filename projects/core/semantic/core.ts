@@ -2,12 +2,12 @@ import {join} from 'path';
 import {Nothing, String2, nothing} from '../lib/core';
 import {parseSyntax} from '../parser/syntax';
 import {sourceFromFile} from '../source/source';
-import {DeclarationSemantic} from './declaration/declaration-semantic';
+import {DeclarationManager} from './declaration-manager';
 import {parseSemantic} from './semantic';
 
 export const DEFAULT_CORE_PATH = join(__dirname, '../lib/@xon/core/test-core.xon');
 
-let cachedTypes: Record<String2, DeclarationSemantic[]> | Nothing = nothing;
+let declarationManager: DeclarationManager | Nothing = nothing;
 
 // const coreDeclarationNames = ['Anything', 'Something', 'Nothing', 'Number', 'Integer', 'Char', 'Array', 'String'];
 
@@ -23,7 +23,7 @@ export function initializeCoreDeclarations(corePath: String2): Nothing {
   // todo fix this hack
   const path = corePath.replace('/vscode/dist/vscode/src', '');
 
-  if (!cachedTypes) {
+  if (!declarationManager) {
     const source = sourceFromFile(path);
 
     if (!source) {
@@ -33,16 +33,16 @@ export function initializeCoreDeclarations(corePath: String2): Nothing {
     const syntax = parseSyntax(source);
     const semantic = parseSemantic(syntax);
 
-    cachedTypes = semantic.declarationManager.declarations;
+    declarationManager = semantic.declarationManager;
   }
 }
 
-export function coreDeclarationSemantic(name: String2, corePath: String2 | Nothing): DeclarationSemantic | Nothing {
+export function coreDeclarationManager(corePath: String2 | Nothing): DeclarationManager | Nothing {
   initializeCoreDeclarations(corePath ?? DEFAULT_CORE_PATH);
 
-  if (!cachedTypes) {
+  if (!declarationManager) {
     return nothing;
   }
 
-  return cachedTypes[name]?.first() ?? nothing;
+  return declarationManager;
 }

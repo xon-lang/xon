@@ -1,6 +1,9 @@
 import {Nothing, nothing} from '../../../lib/core';
 import {StringLiteralNode} from '../../../parser/node/token/literal/string/string-literal-node';
 import {STRING_QUOTE} from '../../../parser/syntax-config';
+import {DeclarationKind} from '../../declaration-manager';
+import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
+import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
 import {declarationTypeSemantic} from '../../type/declaration/declaration-type-semantic';
 import {StringLiteralSemantic, stringLiteralSemantic} from './string-literal-semantic';
@@ -9,9 +12,14 @@ export function stringLiteralSemanticParse(
   context: SemanticContext,
   node: StringLiteralNode,
 ): StringLiteralSemantic | Nothing {
-  const declaration = context.declarationManager.findSingle(context.config.literalTypes.string, 0);
+  const declaration = context.declarationManager.single(
+    DeclarationKind.TYPE,
+    context.config.literalTypeNames.stringTypeName,
+    nothing,
+    nothing,
+  );
 
-  if (!declaration) {
+  if (!declaration || !semanticIs<TypeDeclarationSemantic>(declaration, $Semantic.TYPE_DECLARATION)) {
     return nothing;
   }
 
