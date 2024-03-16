@@ -16,5 +16,7 @@ model Array{T}: Something
 model String: Array{Char}
   length: Integer
 
+model Range: Something
+
 // literal String{$T}: String
-//   length: $T.length
+// length: $T.length

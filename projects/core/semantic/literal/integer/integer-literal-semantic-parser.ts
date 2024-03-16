@@ -1,3 +1,4 @@
+import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Nothing, nothing} from '../../../lib/core';
 import {IntegerLiteralNode} from '../../../parser/node/token/literal/integer/integer-literal-node';
 import {DeclarationKind} from '../../declaration-manager';
@@ -19,6 +20,11 @@ export function integerLiteralSemanticParse(
   );
 
   if (!declaration || !semanticIs<TypeDeclarationSemantic>(declaration, $Semantic.TYPE_DECLARATION)) {
+    context.issueManager.addError(
+      node.range,
+      ISSUE_MESSAGE.declarationNotFound(context.config.literalTypeNames.integerTypeName),
+    );
+
     return nothing;
   }
 

@@ -62,7 +62,7 @@ export function createDeclarationManager(
         return declarations;
       }
 
-      const coreDeclarations = this.coreManager()?.filterByName(kind, name);
+      const coreDeclarations = this.coreManager()?.declarations[name]?.filter((x) => isDeclarationKind(x, kind));
 
       if (coreDeclarations && coreDeclarations?.length > 0) {
         return coreDeclarations;

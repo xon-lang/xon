@@ -32,6 +32,11 @@ export function rangeLiteralSemanticParse(context: SemanticContext, node: RangeN
   );
 
   if (!declaration || !semanticIs<TypeDeclarationSemantic>(declaration, $Semantic.TYPE_DECLARATION)) {
+    context.issueManager.addError(
+      node.range,
+      ISSUE_MESSAGE.declarationNotFound(context.config.literalTypeNames.rangeTypeName),
+    );
+
     return nothing;
   }
 

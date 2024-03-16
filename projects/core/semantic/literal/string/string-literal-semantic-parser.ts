@@ -1,3 +1,4 @@
+import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Nothing, nothing} from '../../../lib/core';
 import {StringLiteralNode} from '../../../parser/node/token/literal/string/string-literal-node';
 import {STRING_QUOTE} from '../../../parser/parser-config';
@@ -20,6 +21,11 @@ export function stringLiteralSemanticParse(
   );
 
   if (!declaration || !semanticIs<TypeDeclarationSemantic>(declaration, $Semantic.TYPE_DECLARATION)) {
+    context.issueManager.addError(
+      node.range,
+      ISSUE_MESSAGE.declarationNotFound(context.config.literalTypeNames.stringTypeName),
+    );
+
     return nothing;
   }
 
