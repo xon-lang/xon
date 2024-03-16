@@ -9,7 +9,7 @@ import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
 import {declarationTypeSemantic} from '../../type/declaration/declaration-type-semantic';
 import {integerLiteralSemanticParse} from '../integer/integer-literal-semantic-parser';
-import {RangeLiteralSemantic, RangeLiteralSemanticValue, rangeLiteralSemantic} from './range-literal-semantic';
+import {RangeLiteralSemantic, rangeLiteralSemantic} from './range-literal-semantic';
 
 export function rangeLiteralSemanticParse(context: SemanticContext, node: RangeNode): RangeLiteralSemantic | Nothing {
   if (!is<IntegerLiteralNode>(node.from, $Node.INTEGER)) {
@@ -46,7 +46,7 @@ export function rangeLiteralSemanticParse(context: SemanticContext, node: RangeN
     return nothing;
   }
 
-  const value: RangeLiteralSemanticValue = {
+  const value: RangeLiteralSemantic['value'] = {
     from,
     to,
     step: nothing,

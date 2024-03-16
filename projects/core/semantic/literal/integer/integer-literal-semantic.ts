@@ -13,7 +13,7 @@ export interface IntegerLiteralSemantic extends LiteralSemantic {
 export function integerLiteralSemantic(
   reference: SourceReference,
   type: DeclarationTypeSemantic,
-  value: Integer,
+  value: IntegerLiteralSemantic['value'],
 ): IntegerLiteralSemantic {
   const semantic: IntegerLiteralSemantic = {
     $: $Semantic.INTEGER_LITERAL,

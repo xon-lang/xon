@@ -12,7 +12,7 @@ export interface StringLiteralSemantic extends LiteralSemantic {
 export function stringLiteralSemantic(
   reference: SourceReference,
   type: DeclarationTypeSemantic,
-  value: String2,
+  value: StringLiteralSemantic['value'],
 ): StringLiteralSemantic {
   const semantic: StringLiteralSemantic = {
     $: $Semantic.STRING_LITERAL,

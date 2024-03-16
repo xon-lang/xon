@@ -5,21 +5,19 @@ import {DeclarationTypeSemantic} from '../../type/declaration/declaration-type-s
 import {IntegerLiteralSemantic} from '../integer/integer-literal-semantic';
 import {LiteralSemantic} from '../literal-semantic';
 
-export type RangeLiteralSemanticValue = {
-  from: IntegerLiteralSemantic;
-  to: IntegerLiteralSemantic;
-  step: IntegerLiteralSemantic | Nothing;
-};
-
 export interface RangeLiteralSemantic extends LiteralSemantic {
   $: $Semantic.RANGE_LITERAL;
-  value: RangeLiteralSemanticValue;
+  value: {
+    from: IntegerLiteralSemantic;
+    to: IntegerLiteralSemantic;
+    step: IntegerLiteralSemantic | Nothing;
+  };
 }
 
 export function rangeLiteralSemantic(
   reference: SourceReference,
   type: DeclarationTypeSemantic,
-  value: RangeLiteralSemanticValue,
+  value: RangeLiteralSemantic['value'],
 ): RangeLiteralSemantic {
   const semantic: RangeLiteralSemantic = {
     $: $Semantic.RANGE_LITERAL,
