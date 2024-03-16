@@ -8,15 +8,16 @@ import {SemanticContext} from '../../semantic-context';
 import {typeSemanticParse} from '../../type/type-semantic-parser';
 import {valueSemanticParse} from '../../value/value-semantic-parser';
 import {declarationsParse} from '../declaration-semantic-parser';
-import {ValueDeclarationSemantic} from './value-declaration-semantic';
+import {ValueDeclarationSemantic} from '../value/value-declaration-semantic';
+import {ConstDeclarationSemantic} from './const-declaration-semantic';
 
-export function valueDeclarationDeepParse(
+export function constDeclarationDeepParse(
   context: SemanticContext,
   node: DeclarationNode,
-): ValueDeclarationSemantic | Nothing {
+): ConstDeclarationSemantic | Nothing {
   const semantic = node.id.semantic;
 
-  if (!semanticIs<ValueDeclarationSemantic>(semantic, $Semantic.VALUE_DECLARATION)) {
+  if (!semanticIs<ConstDeclarationSemantic>(semantic, $Semantic.CONST_DECLARATION)) {
     return nothing;
   }
 
@@ -47,39 +48,35 @@ export function valueDeclarationDeepParse(
 
 function genericsParse(
   context: SemanticContext,
-  declaration: ValueDeclarationSemantic,
+  declaration: ConstDeclarationSemantic,
   nodes: (DeclarationNode | Nothing)[],
 ): Nothing {
   // todo remove this hack 'as ValueDeclarationSemantic[]'
   declaration.generics = declarationsParse(context, nodes) as ValueDeclarationSemantic[];
 }
 
-function typeParse(context: SemanticContext, declaration: ValueDeclarationSemantic, node: Node): Nothing {
-  const type = typeSemanticParse(context, node);
-
-  if (type) {
-    declaration.type = type;
-  } else {
-    context.issueManager.addError(node.range, ISSUE_MESSAGE.cannotResolveType());
-  }
+function typeParse(context: SemanticContext, declaration: ConstDeclarationSemantic, node: Node): Nothing {
+  typeSemanticParse(context, node);
+  context.issueManager.addError(node.range, ISSUE_MESSAGE.noTypeRequiredForConst());
 }
 
-function valueParse(context: SemanticContext, declaration: ValueDeclarationSemantic, node: Node): Nothing {
+function valueParse(context: SemanticContext, declaration: ConstDeclarationSemantic, node: Node): Nothing {
   // todo depends on declaration kind (e.g. generic or const) ???
   const value = valueSemanticParse(context, node);
+  declaration.initializer = value;
 
-  if (!declaration.type) {
-    if (value?.type) {
-      declaration.type = value.type;
-    }
-  } else if (!value?.type || !value.type.is(declaration.type)) {
-    context.issueManager.addError(node.range, ISSUE_MESSAGE.wrongType());
+  const evaluatedValue = value?.evaluate();
+
+  if (evaluatedValue == nothing) {
+    context.issueManager.addError(node.range, ISSUE_MESSAGE.cannotEvaluate());
+  } else {
+    declaration.value = evaluatedValue;
   }
 }
 
 function attributesParse(
   context: SemanticContext,
-  declaration: ValueDeclarationSemantic,
+  declaration: ConstDeclarationSemantic,
   nodes: DeclarationNode[],
 ): Nothing {
   const range = rangeFromNodes(nodes.map((x) => x.id));

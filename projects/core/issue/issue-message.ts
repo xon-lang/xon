@@ -61,6 +61,11 @@ export const ISSUE_MESSAGE = {
     expect: nothing,
   }),
 
+  noTypeRequiredForConst: () => ({
+    actual: `No type required for const`,
+    expect: nothing,
+  }),
+
   cannotBeUsedAsAType: () => ({
     actual: `Cannot be used as a type`,
     expect: nothing,
@@ -73,6 +78,11 @@ export const ISSUE_MESSAGE = {
 
   noAttributesAllowed: () => ({
     actual: `No attributes allowed`,
+    expect: nothing,
+  }),
+
+  cannotEvaluate: () => ({
+    actual: `Cannot evaluate`,
     expect: nothing,
   }),
 };

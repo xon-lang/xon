@@ -2,10 +2,10 @@ import {Nothing, nothing} from '../lib/core';
 import {$DeclarationNodeType} from '../parser/node/syntax/declaration/declaration-node';
 import {SyntaxResult} from '../parser/syntax-result';
 import {SourceReference} from '../source/source-reference';
-import {declarationsParse2} from './declaration/declaration-semantic-parser';
+import {syntaxDeclarationsParse} from './declaration/declaration-semantic-parser';
 import {SemanticConfig} from './semantic-config';
 import {SemanticContext, semanticContext} from './semantic-context';
-import {valuesSemanticParse} from './value/value-semantic-parser';
+import {syntaxValuesParse} from './value/value-semantic-parser';
 
 export interface Semantic {
   readonly $: $Semantic;
@@ -14,6 +14,7 @@ export interface Semantic {
 $DeclarationNodeType;
 export enum $Semantic {
   TYPE_DECLARATION = 'TYPE_DECLARATION',
+  CONST_DECLARATION = 'CONST_DECLARATION',
   VALUE_DECLARATION = 'VALUE_DECLARATION',
 
   INTEGER_LITERAL = 'INTEGER_LITERAL',
@@ -37,8 +38,8 @@ export function semanticIs<T extends Semantic = Semantic>(
 export function parseSemantic(syntax: SyntaxResult, config?: Partial<SemanticConfig>): SemanticContext {
   const context = semanticContext(nothing, config, syntax.source, syntax.issueManager);
 
-  declarationsParse2(context, syntax);
-  valuesSemanticParse(context, syntax);
+  syntaxDeclarationsParse(context, syntax);
+  syntaxValuesParse(context, syntax);
 
   return context;
 }

@@ -5,36 +5,9 @@ import {DeclarationNode} from '../../../parser/node/syntax/declaration/declarati
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
 import {typeSemanticParse} from '../../type/type-semantic-parser';
-import {valueDeclarationsParse} from '../value/value-declaration-semantic-parser';
-import {TypeDeclarationSemantic, typeDeclarationSemantic} from './type-declaration-semantic';
-
-export function typeDeclarationsParse(
-  context: SemanticContext,
-  nodes: DeclarationNode[],
-): (TypeDeclarationSemantic | Nothing)[] {
-  const typeDeclarations = nodes.map((x) => typeDeclarationShallowParse(context, x));
-
-  for (const node of nodes) {
-    typeDeclarationDeepParse(context, node);
-  }
-
-  return typeDeclarations;
-}
-
-export function typeDeclarationShallowParse(
-  context: SemanticContext,
-  node: DeclarationNode,
-): TypeDeclarationSemantic | Nothing {
-  const reference = context.createReference(node.id);
-  const modifier = node.modifier?.text;
-  const name = node.id.text;
-  const declaration = typeDeclarationSemantic(reference, modifier, name);
-
-  node.id.semantic = declaration;
-  context.declarationManager.add(declaration);
-
-  return declaration;
-}
+import {declarationsParse} from '../declaration-semantic-parser';
+import {ValueDeclarationSemantic} from '../value/value-declaration-semantic';
+import {TypeDeclarationSemantic} from './type-declaration-semantic';
 
 export function typeDeclarationDeepParse(
   context: SemanticContext,
@@ -42,7 +15,6 @@ export function typeDeclarationDeepParse(
 ): TypeDeclarationSemantic | Nothing {
   const semantic = node.id.semantic;
 
-  // todo remove it if it alway will be type declaration
   if (!semanticIs<TypeDeclarationSemantic>(semantic, $Semantic.TYPE_DECLARATION)) {
     return nothing;
   }
@@ -77,10 +49,8 @@ function genericsParse(
   declaration: TypeDeclarationSemantic,
   nodes: (DeclarationNode | Nothing)[],
 ): Nothing {
-  declaration.generics = valueDeclarationsParse(
-    context,
-    nodes.filter((x): x is DeclarationNode => !!x),
-  );
+  // todo remove this hack 'as ValueDeclarationSemantic[]'
+  declaration.generics = declarationsParse(context, nodes) as ValueDeclarationSemantic[];
 }
 
 function typeParse(context: SemanticContext, declaration: TypeDeclarationSemantic, node: Node): Nothing {
@@ -108,11 +78,12 @@ function attributesParse(
   declaration: TypeDeclarationSemantic,
   nodes: DeclarationNode[],
 ): Nothing {
-  const declarations = valueDeclarationsParse(context, nodes);
+  const declarations = declarationsParse(context, nodes);
   const attributes: TypeDeclarationSemantic['attributes'] = {};
 
   for (const declaration of declarations) {
-    if (!declaration) {
+    // todo fix hack with semantic type checking
+    if (!declaration || !semanticIs<ValueDeclarationSemantic>(declaration, $Semantic.VALUE_DECLARATION)) {
       continue;
     }
 

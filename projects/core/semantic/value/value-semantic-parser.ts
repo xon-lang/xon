@@ -16,7 +16,7 @@ export const parsers: ValueSemanticTryParseFn[] = [
   memberValueTypeTryParse,
 ];
 
-export function valuesSemanticParse(context: SemanticContext, syntax: SyntaxResult) {
+export function syntaxValuesParse(context: SemanticContext, syntax: SyntaxResult) {
   for (const statement of syntax.statements) {
     if (statement.declaration) {
       continue;

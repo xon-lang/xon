@@ -23,15 +23,14 @@ export function declarationTypeSemantic(
     declaration,
     generics,
 
-    eq(other: TypeSemantic): Boolean2 {
-      return (
-        semanticIs<DeclarationTypeSemantic>(other, $Semantic.DECLARATION_TYPE) &&
-        this.declaration.eq(other.declaration)
-      );
-    },
-
     is(other: TypeSemantic): Boolean2 {
       return (this.eq(other) || declaration.baseType?.is(other)) ?? false;
+    },
+
+    eq(other: TypeSemantic): Boolean2 {
+      return (
+        semanticIs<DeclarationTypeSemantic>(other, $Semantic.DECLARATION_TYPE) && this.declaration.eq(other.declaration)
+      );
     },
 
     attributes(): Record<String2, TypeSemantic[]> {

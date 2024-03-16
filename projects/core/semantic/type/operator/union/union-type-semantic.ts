@@ -20,12 +20,12 @@ export function unionTypeSemantic(
     left,
     right,
 
-    eq(other: TypeSemantic): Boolean2 {
-      return false;
-    },
-
     is(other: TypeSemantic): Boolean2 {
       return this.eq(other);
+    },
+
+    eq(other: TypeSemantic): Boolean2 {
+      return false;
     },
 
     attributes(): Record<String2, TypeSemantic[]> {

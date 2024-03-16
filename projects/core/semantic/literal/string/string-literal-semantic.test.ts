@@ -15,12 +15,12 @@ test('a is string', () => {
   const semantic = parseSemantic(syntax);
 
   expect(semantic.declarationManager.count()).toBe(1);
-  expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.VALUE_DECLARATION);
+  expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.CONST_DECLARATION);
   expect(semantic.declarationManager.declarations.a[0].name).toBe('a');
 
   const constNode = syntax.statements[0].declaration as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($Semantic.VALUE_DECLARATION);
+  expect(constNode.id?.semantic?.$).toBe($Semantic.CONST_DECLARATION);
 
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');

@@ -4,8 +4,8 @@ import {Semantic} from '../semantic';
 export interface TypeSemantic extends Semantic {
   attributes(): Record<String2, TypeSemantic[]>;
 
-  eq(other: TypeSemantic): Boolean2;
   is(other: TypeSemantic): Boolean2;
+  eq(other: TypeSemantic): Boolean2;
 }
 
 export function isTypeSemantic(semantic: Semantic): semantic is TypeSemantic {

@@ -15,6 +15,10 @@ export function literalTypeSemantic(context: SemanticContext, literal: LiteralSe
     reference: literal.reference,
     literal,
 
+    is(other: TypeSemantic): Boolean2 {
+      return this.eq(other) || literal.type.is(other);
+    },
+
     eq(other: TypeSemantic): Boolean2 {
       if (semanticIs<LiteralTypeSemantic>(other, $Semantic.LITERAL_TYPE)) {
         return this.literal.eq(other.literal);
@@ -23,12 +27,8 @@ export function literalTypeSemantic(context: SemanticContext, literal: LiteralSe
       return false;
     },
 
-    is(other: TypeSemantic): Boolean2 {
-      return this.eq(other) || literal.type.is(other);
-    },
-
     attributes(): Record<String2, TypeSemantic[]> {
-      return {}
+      return {};
       // return getDeclarationAttributes(context, literal.declaration);
     },
   };
