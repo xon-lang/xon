@@ -3,8 +3,9 @@ import {parseSyntax} from '../../../parser/syntax';
 import {sourceFromText} from '../../../source/source';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, parseSemantic} from '../../semantic';
-import {typeSemanticParse} from '../type-semantic-parser';
-import {RangeTypeSemantic} from './range-type-semantic';
+import {LiteralTypeSemantic} from '../../type/literal/literal-type-semantic';
+import {typeSemanticParse} from '../../type/type-semantic-parser';
+import {RangeLiteralSemantic} from './range-literal-semantic';
 
 test('a is integer', () => {
   const text = `
@@ -25,8 +26,8 @@ test('a is integer', () => {
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as RangeTypeSemantic;
-  expect(typeSemantic.$).toBe($Semantic.RANGE_TYPE);
-  expect(typeSemantic.from.value).toBe(1);
-  expect(typeSemantic.to.value).toBe(3);
+  const typeSemantic = typeSemanticParse(semantic, constNode.type) as LiteralTypeSemantic;
+  expect(typeSemantic.$).toBe($Semantic.LITERAL_TYPE);
+  expect((typeSemantic.literal as RangeLiteralSemantic).value.from.value).toBe(1);
+  expect((typeSemantic.literal as RangeLiteralSemantic).value.to.value).toBe(3);
 });

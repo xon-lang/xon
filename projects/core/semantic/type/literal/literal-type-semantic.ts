@@ -2,7 +2,6 @@ import {Boolean2, String2} from '../../../lib/core';
 import {LiteralSemantic} from '../../literal/literal-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
-import {getDeclarationAttributes} from '../declaration/declaration-type-semantic';
 import {TypeSemantic} from '../type-semantic';
 
 export interface LiteralTypeSemantic extends TypeSemantic {
@@ -25,11 +24,12 @@ export function literalTypeSemantic(context: SemanticContext, literal: LiteralSe
     },
 
     is(type: TypeSemantic): Boolean2 {
-      return this.eq(type) || literal.baseType.is(type);
+      return this.eq(type) || literal.type.is(type);
     },
 
     attributes(): Record<String2, TypeSemantic[]> {
-      return getDeclarationAttributes(context, literal.declaration);
+      return {}
+      // return getDeclarationAttributes(context, literal.declaration);
     },
   };
 

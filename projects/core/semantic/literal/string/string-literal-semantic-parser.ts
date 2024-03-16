@@ -27,7 +27,7 @@ export function stringLiteralSemanticParse(
   const reference = context.createReference(node);
   const value = node.text.slice(1, lastIndex);
   const type = declarationTypeSemantic(context, reference, declaration, []);
-  const semantic = stringLiteralSemantic(reference, declaration, type, value);
+  const semantic = stringLiteralSemantic(reference, type, value);
 
   return semantic;
 }

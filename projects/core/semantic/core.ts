@@ -8,9 +8,6 @@ import {parseSemantic} from './semantic';
 export const DEFAULT_CORE_PATH = join(__dirname, '../lib/@xon/core/test-core.xon');
 
 let declarationManager: DeclarationManager | Nothing = nothing;
-
-// const coreDeclarationNames = ['Anything', 'Something', 'Nothing', 'Number', 'Integer', 'Char', 'Array', 'String'];
-
 // todo remove this hack
 let initializationStarted = false;
 

@@ -4,7 +4,6 @@ import {SemanticContext} from '../semantic-context';
 import {declarationTypeSemanticTryParse} from './declaration/declaration-type-semantic-parser';
 import {literalTypeSemanticTryParse} from './literal/literal-type-semantic-parser';
 import {unionTypeSemanticTryParse} from './operator/union/union-type-semantic-parser';
-import {rangeTypeSemanticTryParse} from './range/range-type-semantic-parser';
 import {TypeSemantic} from './type-semantic';
 
 type TypeSemanticTryParseFn = (context: SemanticContext, node: Node) => TypeSemantic | Nothing;
@@ -12,7 +11,6 @@ type TypeSemanticTryParseFn = (context: SemanticContext, node: Node) => TypeSema
 const parsers: TypeSemanticTryParseFn[] = [
   literalTypeSemanticTryParse,
   declarationTypeSemanticTryParse,
-  rangeTypeSemanticTryParse,
   unionTypeSemanticTryParse,
 ];
 

@@ -25,7 +25,7 @@ export function integerLiteralSemanticParse(
   const reference = context.createReference(node);
   const type = declarationTypeSemantic(context, reference, declaration, []);
   const value = Number(node.text);
-  const semantic = integerLiteralSemantic(reference, declaration, type, value);
+  const semantic = integerLiteralSemantic(reference, type, value);
 
   return semantic;
 }
