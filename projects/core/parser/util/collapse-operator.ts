@@ -52,7 +52,7 @@ export function collapseOperator(
 
     if (operatorType === OperatorType.INFIX) {
       if (left && right && !is<OperatorNode>(left, $Node.OPERATOR) && !is<OperatorNode>(right, $Node.OPERATOR)) {
-        const infix = infixNode(context, operator, left, right);
+        const infix = infixNode(context, left, operator, right);
         context.nodes.splice(index - 1, 3, infix);
         collapseOperator(context, operators, operatorType, recursiveType, i);
       }
@@ -80,7 +80,7 @@ export function collapseOperator(
         !is<OperatorNode>(left, $Node.OPERATOR) &&
         (index === lastIndex || is<OperatorNode>(right, $Node.OPERATOR))
       ) {
-        const postfix = postfixNode(context, operator, left);
+        const postfix = postfixNode(context, left, operator);
         context.nodes.splice(index - 1, 2, postfix);
         collapseOperator(context, operators, operatorType, recursiveType, i);
       }

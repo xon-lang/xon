@@ -7,12 +7,12 @@ import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface InfixNode extends SyntaxNode {
   readonly $: $Node.INFIX;
-  readonly operator: OperatorNode;
   readonly left: Node;
+  readonly operator: OperatorNode;
   readonly right: Node;
 }
 
-export function infixNode(context: SyntaxContext, operator: OperatorNode, left: Node, right: Node): InfixNode {
+export function infixNode(context: SyntaxContext, left: Node, operator: OperatorNode, right: Node): InfixNode {
   const node = syntaxNode($Node.INFIX, {left, operator, right});
 
   format(context, node);

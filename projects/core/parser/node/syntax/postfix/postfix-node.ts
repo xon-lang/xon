@@ -7,11 +7,11 @@ import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface PostfixNode extends SyntaxNode {
   readonly $: $Node.POSTFIX;
-  readonly operator: OperatorNode;
   readonly value: Node;
+  readonly operator: OperatorNode;
 }
 
-export function postfixNode(context: SyntaxContext, operator: OperatorNode, value: Node): PostfixNode {
+export function postfixNode(context: SyntaxContext, value: Node, operator: OperatorNode): PostfixNode {
   const node = syntaxNode($Node.POSTFIX, {value, operator});
 
   format(context, node);
