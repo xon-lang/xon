@@ -1,6 +1,5 @@
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Nothing, nothing} from '../../../lib/core';
-import {Node} from '../../../parser/node/node';
 import {DeclarationNode} from '../../../parser/node/syntax/declaration/declaration-node';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
@@ -21,40 +20,30 @@ export function typeDeclarationDeepParse(
 
   const childContext = context.createChildContext();
 
-  if (node.generics) {
-    genericsParse(childContext, semantic, node.generics);
-  }
-
-  // if (node.parameters) {
-  //   parametersParse(childContext, semantic, node.parameters);
-  // }
-
-  if (node.type) {
-    typeParse(childContext, semantic, node.type);
-  }
-
-  if (node.value) {
-    valueParse(childContext, semantic, node.value);
-  }
-
-  if (node.attributes.length > 0) {
-    attributesParse(childContext, semantic, node.attributes);
-  }
+  genericsParse(childContext, semantic, node);
+  //   parametersParse(childContext, semantic, node);
+  typeParse(childContext, semantic, node);
+  valueParse(childContext, semantic, node);
+  attributesParse(childContext, semantic, node);
 
   return semantic;
 }
 
-function genericsParse(
-  context: SemanticContext,
-  declaration: TypeDeclarationSemantic,
-  nodes: (DeclarationNode | Nothing)[],
-): Nothing {
+function genericsParse(context: SemanticContext, declaration: TypeDeclarationSemantic, node: DeclarationNode): Nothing {
   // todo remove this hack 'as ValueDeclarationSemantic[]'
-  declaration.generics = declarationsParse(context, nodes) as ValueDeclarationSemantic[];
+  if (!node.generics) {
+    return;
+  }
+
+  declaration.generics = declarationsParse(context, node.generics) as ValueDeclarationSemantic[];
 }
 
-function typeParse(context: SemanticContext, declaration: TypeDeclarationSemantic, node: Node): Nothing {
-  const type = typeSemanticParse(context, node);
+function typeParse(context: SemanticContext, declaration: TypeDeclarationSemantic, node: DeclarationNode): Nothing {
+  if (!node.type) {
+    return;
+  }
+
+  const type = typeSemanticParse(context, node.type);
 
   if (type) {
     declaration.baseType = type;
@@ -62,23 +51,27 @@ function typeParse(context: SemanticContext, declaration: TypeDeclarationSemanti
     return;
   }
 
-  context.issueManager.addError(node.range, ISSUE_MESSAGE.cannotResolveType());
+  context.issueManager.addError(node.type.range, ISSUE_MESSAGE.cannotResolveType());
 
   return nothing;
 }
 
-function valueParse(context: SemanticContext, declaration: TypeDeclarationSemantic, node: Node): Nothing {
-  context.issueManager.addError(node.range, ISSUE_MESSAGE.noValueAllowed());
-
-  return;
+function valueParse(context: SemanticContext, declaration: TypeDeclarationSemantic, node: DeclarationNode): Nothing {
+  if (node.value) {
+    context.issueManager.addError(node.value.range, ISSUE_MESSAGE.noValueAllowed());
+  }
 }
 
 function attributesParse(
   context: SemanticContext,
   declaration: TypeDeclarationSemantic,
-  nodes: DeclarationNode[],
+  node: DeclarationNode,
 ): Nothing {
-  const declarations = declarationsParse(context, nodes);
+  if (node.attributes.length === 0) {
+    return;
+  }
+
+  const declarations = declarationsParse(context, node.attributes);
   const attributes: TypeDeclarationSemantic['attributes'] = {};
 
   for (const declaration of declarations) {
