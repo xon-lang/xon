@@ -4,6 +4,7 @@ import {infixNode} from '../node/syntax/infix/infix-node';
 import {memberNode} from '../node/syntax/member/member-node';
 import {postfixNode} from '../node/syntax/postfix/postfix-node';
 import {prefixNode} from '../node/syntax/prefix/prefix-node';
+import {rangeNode} from '../node/syntax/range/range-node';
 import {IdNode} from '../node/token/id/id-node';
 import {OperatorNode} from '../node/token/operator/operator-node';
 import {OperatorType, RecursiveType} from '../parser-config';
@@ -33,6 +34,16 @@ export function collapseOperator(
         const id = is<IdNode>(right, $Node.ID) ? right : nothing;
         const member = memberNode(context, operator, left, id);
         context.nodes.splice(index - 1, member.children.length, member);
+        collapseOperator(context, operators, operatorType, recursiveType, i);
+      }
+
+      return;
+    }
+
+    if (operatorType === OperatorType.RANGE) {
+      if (left && right && !is<OperatorNode>(left, $Node.OPERATOR) && !is<OperatorNode>(right, $Node.OPERATOR)) {
+        const range = rangeNode(context, left, operator, right);
+        context.nodes.splice(index - 1, range.children.length, range);
         collapseOperator(context, operators, operatorType, recursiveType, i);
       }
 

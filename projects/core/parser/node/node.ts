@@ -34,6 +34,7 @@ export enum $Node {
   GROUP = 'GROUP',
 
   MEMBER = 'MEMBER',
+  RANGE = 'RANGE',
   INVOKE = 'INVOKE',
   INFIX = 'INFIX',
   PREFIX = 'PREFIX',

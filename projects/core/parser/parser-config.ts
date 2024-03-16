@@ -9,6 +9,7 @@ export interface OperatorsOrder {
 
 export enum OperatorType {
   MEMBER,
+  RANGE,
   INVOKE,
   INFIX,
   PREFIX,
@@ -115,7 +116,17 @@ export const operatorsOrders: OperatorsOrder[] = [
     recursiveType: RecursiveType.LEFT,
   },
   {
-    operators: ['^', '* / %', '+ -', RANGE, '< <= >= >', '== !=', OPERATOR_KEYWORDS.join(' '), AND, OR],
+    operators: ['^', '* / %', '+ -'],
+    operatorType: OperatorType.INFIX,
+    recursiveType: RecursiveType.LEFT,
+  },
+  {
+    operators: [RANGE],
+    operatorType: OperatorType.RANGE,
+    recursiveType: RecursiveType.LEFT,
+  },
+  {
+    operators: ['< <= >= >', '== !=', OPERATOR_KEYWORDS.join(' '), AND, OR],
     operatorType: OperatorType.INFIX,
     recursiveType: RecursiveType.LEFT,
   },
