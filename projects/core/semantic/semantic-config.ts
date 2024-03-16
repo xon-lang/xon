@@ -7,6 +7,7 @@ export interface SemanticConfig {
     integerTypeName: String2;
     stringTypeName: String2;
     rangeTypeName: String2;
+    arrayTypeName: String2;
   };
 }
 
@@ -17,6 +18,7 @@ export function createSemanticConfig(params: Partial<SemanticConfig> | Nothing):
       integerTypeName: params?.literalTypeNames?.integerTypeName ?? 'Integer',
       stringTypeName: params?.literalTypeNames?.stringTypeName ?? 'String',
       rangeTypeName: params?.literalTypeNames?.rangeTypeName ?? 'Range',
+      arrayTypeName: params?.literalTypeNames?.arrayTypeName ?? 'Array',
     },
   };
 }
