@@ -220,34 +220,38 @@ function format(context: SyntaxContext, node: TokenNode | Nothing): String2 {
   }
 
   if (is<CommentLineNode>(node, $Node.COMMENT_LINE)) {
-    return node.text.replace(/^\/\/\s*(.*)/, (x, z: String2) => {
-      if (z.length === 0) {
-        return `//`;
-      }
+    return node.text;
+    // todo should we format comments?
+    // return node.text.replace(/^\/\/\s*(.*)/, (x, z: String2) => {
+    //   if (z.length === 0) {
+    //     return `//`;
+    //   }
 
-      return `// ${z}`;
-    });
+    //   return `// ${z}`;
+    // });
   }
 
   if (is<CommentBlockNode>(node, $Node.COMMENT_BLOCK)) {
-    return node.text.replace(/^--- *((\S|\s)*?) *(---)?$/, (x, z: String2) => {
-      if (z.length === 0) {
-        return `--- ---`;
-      }
+    return node.text;
+    // todo should we format comments?
+    // return node.text.replace(/^--- *((\S|\s)*?) *(---)?$/, (x, z: String2) => {
+    //   if (z.length === 0) {
+    //     return `--- ---`;
+    //   }
 
-      let start = '---';
-      let end = '---';
+    //   let start = '---';
+    //   let end = '---';
 
-      if (!z.startsWith(NL)) {
-        start += ' ';
-      }
+    //   if (!z.startsWith(NL)) {
+    //     start += ' ';
+    //   }
 
-      if (!z.endsWith(NL)) {
-        end = ' ' + end;
-      }
+    //   if (!z.endsWith(NL)) {
+    //     end = ' ' + end;
+    //   }
 
-      return `${start}${z}${end}`;
-    });
+    //   return `${start}${z}${end}`;
+    // });
   }
 
   return '';
