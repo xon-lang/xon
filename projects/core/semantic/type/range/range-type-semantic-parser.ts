@@ -1,7 +1,7 @@
 import {Nothing, nothing} from '../../../lib/core';
 import {$Node, Node, is} from '../../../parser/node/node';
 import {InfixNode} from '../../../parser/node/syntax/infix/infix-node';
-import {RANGE} from '../../../parser/syntax-config';
+import {RANGE} from '../../../parser/parser-config';
 import {IntegerLiteralSemantic} from '../../literal/integer/integer-literal-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';

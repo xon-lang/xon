@@ -8,7 +8,7 @@ import {Node} from './node/node';
 import {StatementNode} from './node/syntax/statement/statement-node';
 import {OperatorNode} from './node/token/operator/operator-node';
 import {TokenNode} from './node/token/token-node';
-import {NL} from './syntax-config';
+import {NL} from './parser-config';
 
 export interface SyntaxContext {
   source: Source;

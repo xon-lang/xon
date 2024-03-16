@@ -1,5 +1,5 @@
 import {Nothing} from '../../lib/core';
-import {TYPE_MODIFIERS} from '../../parser/syntax-config';
+import {TYPE_MODIFIERS} from '../../parser/parser-config';
 import {SyntaxResult} from '../../parser/syntax-result';
 import {SemanticContext} from '../semantic-context';
 import {typeDeclarationDeepParse, typeDeclarationShallowParse} from './type/type-declaration-semantic-parser';

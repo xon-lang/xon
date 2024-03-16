@@ -3,7 +3,7 @@ import {Nothing, nothing} from '../../../lib/core';
 import {$Node, Node, is} from '../../../parser/node/node';
 import {InvokeNode} from '../../../parser/node/syntax/invoke/invoke-node';
 import {IdNode} from '../../../parser/node/token/id/id-node';
-import {OBJECT_NODE_OPEN} from '../../../parser/syntax-config';
+import {OBJECT_NODE_OPEN} from '../../../parser/parser-config';
 import {DeclarationKind} from '../../declaration-manager';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';

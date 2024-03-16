@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../lib/core';
 import {StringLiteralNode} from '../../../parser/node/token/literal/string/string-literal-node';
-import {STRING_QUOTE} from '../../../parser/syntax-config';
+import {STRING_QUOTE} from '../../../parser/parser-config';
 import {DeclarationKind} from '../../declaration-manager';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';

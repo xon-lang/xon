@@ -1,6 +1,6 @@
 import {Nothing, String2, nothing} from '../../../../lib/core';
 import {SourceRange} from '../../../../source/source-range';
-import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS, operatorsOrders} from '../../../syntax-config';
+import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS, operatorsOrders} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
 import {scanIdNode} from '../id/id-node';

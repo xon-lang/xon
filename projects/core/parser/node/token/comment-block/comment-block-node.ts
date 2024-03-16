@@ -1,6 +1,6 @@
 import {Nothing, String2, nothing} from '../../../../lib/core';
 import {SourceRange} from '../../../../source/source-range';
-import {COMMENT_BLOCK} from '../../../syntax-config';
+import {COMMENT_BLOCK} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node} from '../../node';
 import {TokenNode, tokenNode} from '../token-node';

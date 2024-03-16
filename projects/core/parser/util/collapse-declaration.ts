@@ -14,7 +14,7 @@ import {
   OBJECT_NODE_OPEN,
   TYPE_MODIFIERS,
   TYPE_TOKEN,
-} from '../syntax-config';
+} from '../parser-config';
 import {SyntaxContext} from '../syntax-context';
 
 export function parseDeclarationStatement(context: SyntaxContext, node: Node): DeclarationNode | Nothing {

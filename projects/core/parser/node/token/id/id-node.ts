@@ -1,8 +1,7 @@
 import {Nothing, String2, nothing} from '../../../../lib/core';
-import {Semantic} from '../../../../semantic/semantic';
 import {SourceRange} from '../../../../source/source-range';
 import '../../../../util/extension';
-import {UNDERSCORE} from '../../../syntax-config';
+import {UNDERSCORE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node} from '../../node';
 import {TokenNode, tokenNode} from '../token-node';

@@ -1,8 +1,8 @@
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {Nothing, nothing} from '../../../../lib/core';
 import '../../../../util/extension';
+import {ARRAY_NODE_OPEN, COMMA, GROUP_NODE_OPEN, OBJECT_NODE_OPEN, OPEN_CLOSE_PAIR} from '../../../parser-config';
 import {parseSyntaxUntil} from '../../../syntax';
-import {ARRAY_NODE_OPEN, COMMA, GROUP_NODE_OPEN, OBJECT_NODE_OPEN, OPEN_CLOSE_PAIR} from '../../../syntax-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node, is} from '../../node';
 import {CloseNode} from '../../token/close/close-node';

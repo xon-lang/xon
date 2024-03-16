@@ -1,8 +1,8 @@
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {nothing} from '../../../../lib/core';
 import {sourceFromText} from '../../../../source/source';
+import {OPEN_CLOSE_PAIR} from '../../../parser-config';
 import {parseSyntax} from '../../../syntax';
-import {OPEN_CLOSE_PAIR} from '../../../syntax-config';
 import {$Node, is} from '../../node';
 import {GroupNode} from './group-node';
 

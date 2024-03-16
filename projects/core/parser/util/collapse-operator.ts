@@ -6,7 +6,7 @@ import {postfixNode} from '../node/syntax/postfix/postfix-node';
 import {prefixNode} from '../node/syntax/prefix/prefix-node';
 import {IdNode} from '../node/token/id/id-node';
 import {OperatorNode} from '../node/token/operator/operator-node';
-import {OperatorType, RecursiveType} from '../syntax-config';
+import {OperatorType, RecursiveType} from '../parser-config';
 import {SyntaxContext} from '../syntax-context';
 
 export function collapseOperator(

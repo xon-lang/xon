@@ -6,7 +6,7 @@ import {CommentLineNode} from '../parser/node/token/comment-line/comment-line-no
 import {NlNode} from '../parser/node/token/nl/nl-node';
 import {TokenNode} from '../parser/node/token/token-node';
 import {WhitespaceNode} from '../parser/node/token/whitespace/whitespace-node';
-import {NL} from '../parser/syntax-config';
+import {NL} from '../parser/parser-config';
 import {SyntaxContext} from '../parser/syntax-context';
 import {SourceRange, cloneRange, rangeFromNodes, rangeFromPosition} from '../source/source-range';
 

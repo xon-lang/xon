@@ -1,6 +1,6 @@
 import {sourceFromText} from '../../../../source/source';
+import {NL} from '../../../parser-config';
 import {parseSyntax} from '../../../syntax';
-import {NL} from '../../../syntax-config';
 import {$Node} from '../../node';
 import {IdNode} from '../id/id-node';
 import {TokenNode} from '../token-node';

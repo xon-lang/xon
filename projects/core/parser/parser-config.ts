@@ -56,11 +56,14 @@ export const OPEN_CLOSE_PAIR: Record<Char, Char> = {
 
 export const MODEL_MODIFIER = 'model';
 export const OBJECT_MODIFIER = 'object';
+
 export const CONSTANT_MODIFIER = 'const';
+export const IDEM_MODIFIER = 'idem';
 export const VARIABLE_MODIFIER = 'var';
+
+export const INFIX_MODIFIER = 'infix';
 export const PREFIX_MODIFIER = 'prefix';
 export const POSTFIX_MODIFIER = 'postfix';
-export const INFIX_MODIFIER = 'infix';
 
 export const TYPE_MODIFIERS = [MODEL_MODIFIER, OBJECT_MODIFIER];
 
