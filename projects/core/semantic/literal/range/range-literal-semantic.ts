@@ -25,9 +25,9 @@ export function rangeLiteralSemantic(
     type,
     value,
 
-    eq(semantic: LiteralSemantic): Boolean2 {
-      if (semanticIs<RangeLiteralSemantic>(semantic, $Semantic.RANGE_LITERAL)) {
-        return this.value.from.value === semantic.value.from.value || this.value.to.value === semantic.value.to.value;
+    eq(other: LiteralSemantic): Boolean2 {
+      if (semanticIs<RangeLiteralSemantic>(other, $Semantic.RANGE_LITERAL)) {
+        return this.value.from.value === other.value.from.value || this.value.to.value === other.value.to.value;
       }
 
       return false;

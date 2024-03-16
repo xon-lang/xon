@@ -10,7 +10,7 @@ export interface TypeDeclarationSemantic extends DeclarationSemantic {
   baseType: TypeSemantic | Nothing;
   attributes: Record<String2, ValueDeclarationSemantic[]>;
 
-  eq(semantic: DeclarationSemantic): Boolean2;
+  eq(other: DeclarationSemantic): Boolean2;
 }
 
 export function typeDeclarationSemantic(
@@ -28,8 +28,8 @@ export function typeDeclarationSemantic(
     baseType: nothing,
     attributes: {},
 
-    eq(semantic: DeclarationSemantic): Boolean2 {
-      return this.reference.eq(semantic.reference);
+    eq(other: DeclarationSemantic): Boolean2 {
+      return this.reference.eq(other.reference);
     },
   };
 }

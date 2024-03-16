@@ -6,5 +6,5 @@ export interface LiteralSemantic extends Semantic {
   type: DeclarationTypeSemantic;
   value: Something;
 
-  eq(semantic: LiteralSemantic): Boolean2;
+  eq(other: LiteralSemantic): Boolean2;
 }

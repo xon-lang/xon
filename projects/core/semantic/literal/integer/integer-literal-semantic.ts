@@ -21,9 +21,9 @@ export function integerLiteralSemantic(
     type,
     value,
 
-    eq(semantic: LiteralSemantic): Boolean2 {
-      if (semanticIs<IntegerLiteralSemantic>(semantic, $Semantic.INTEGER_LITERAL)) {
-        return this.value === semantic.value;
+    eq(other: LiteralSemantic): Boolean2 {
+      if (semanticIs<IntegerLiteralSemantic>(other, $Semantic.INTEGER_LITERAL)) {
+        return this.value === other.value;
       }
 
       return false;

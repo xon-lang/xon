@@ -20,9 +20,9 @@ export function stringLiteralSemantic(
     type,
     value,
 
-    eq(semantic: LiteralSemantic): Boolean2 {
-      if (semanticIs<StringLiteralSemantic>(semantic, $Semantic.STRING_LITERAL)) {
-        return this.value === semantic.value;
+    eq(other: LiteralSemantic): Boolean2 {
+      if (semanticIs<StringLiteralSemantic>(other, $Semantic.STRING_LITERAL)) {
+        return this.value === other.value;
       }
 
       return false;

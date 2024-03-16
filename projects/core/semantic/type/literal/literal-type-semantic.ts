@@ -15,16 +15,16 @@ export function literalTypeSemantic(context: SemanticContext, literal: LiteralSe
     reference: literal.reference,
     literal,
 
-    eq(type: TypeSemantic): Boolean2 {
-      if (semanticIs<LiteralTypeSemantic>(type, $Semantic.LITERAL_TYPE)) {
-        return this.literal.eq(type.literal);
+    eq(other: TypeSemantic): Boolean2 {
+      if (semanticIs<LiteralTypeSemantic>(other, $Semantic.LITERAL_TYPE)) {
+        return this.literal.eq(other.literal);
       }
 
       return false;
     },
 
-    is(type: TypeSemantic): Boolean2 {
-      return this.eq(type) || literal.type.is(type);
+    is(other: TypeSemantic): Boolean2 {
+      return this.eq(other) || literal.type.is(other);
     },
 
     attributes(): Record<String2, TypeSemantic[]> {
