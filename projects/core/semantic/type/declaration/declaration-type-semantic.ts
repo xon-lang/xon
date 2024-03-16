@@ -8,14 +8,14 @@ import {TypeSemantic} from '../type-semantic';
 export interface DeclarationTypeSemantic extends TypeSemantic {
   $: $Semantic.DECLARATION_TYPE;
   declaration: TypeDeclarationSemantic;
-  generics: TypeSemantic[] | Nothing;
+  generics: (TypeSemantic | Nothing)[] | Nothing;
 }
 
 export function declarationTypeSemantic(
   context: SemanticContext,
   reference: SourceReference,
   declaration: TypeDeclarationSemantic,
-  generics: TypeSemantic[] | Nothing,
+  generics: (TypeSemantic | Nothing)[] | Nothing,
 ): DeclarationTypeSemantic {
   const semantic: DeclarationTypeSemantic = {
     $: $Semantic.DECLARATION_TYPE,

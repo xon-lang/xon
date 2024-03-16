@@ -9,6 +9,8 @@ import {TypeSemantic} from './type/type-semantic';
 export enum DeclarationKind {
   ANY = 'ANY',
   TYPE = 'TYPE',
+  // todo should we use const here or we need check declarations by some restrictions ???
+  CONST = 'CONST',
   VALUE = 'VALUE',
 }
 

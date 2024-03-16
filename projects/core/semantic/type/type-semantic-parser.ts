@@ -1,7 +1,6 @@
 import {Nothing, nothing} from '../../lib/core';
 import {Node} from '../../parser/node/node';
 import {SemanticContext} from '../semantic-context';
-import {arrayTypeSemanticTryParse} from './array/array-type-semantic-parser';
 import {declarationTypeSemanticTryParse} from './declaration/declaration-type-semantic-parser';
 import {literalTypeSemanticTryParse} from './literal/literal-type-semantic-parser';
 import {unionTypeSemanticTryParse} from './operator/union/union-type-semantic-parser';
@@ -14,7 +13,6 @@ const parsers: TypeSemanticTryParseFn[] = [
   literalTypeSemanticTryParse,
   declarationTypeSemanticTryParse,
   rangeTypeSemanticTryParse,
-  arrayTypeSemanticTryParse,
   unionTypeSemanticTryParse,
 ];
 
