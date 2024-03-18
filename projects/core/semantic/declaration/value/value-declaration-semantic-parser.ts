@@ -7,23 +7,22 @@ import {SemanticContext} from '../../semantic-context';
 import {typeSemanticParse} from '../../type/type-semantic-parser';
 import {valueSemanticParse} from '../../value/value-semantic-parser';
 import {declarationsParse} from '../declaration-semantic-parser';
-import {ValueDeclarationSemantic} from '../var/var-declaration-semantic';
-import {ConstDeclarationSemantic} from './const-declaration-semantic';
+import {ValueDeclarationSemantic} from './value-declaration-semantic';
 
-export function constDeclarationDeepParse(
+export function valueDeclarationDeepParse(
   context: SemanticContext,
   node: DeclarationNode,
-): ConstDeclarationSemantic | Nothing {
+): ValueDeclarationSemantic | Nothing {
   const semantic = node.id.semantic;
 
-  if (!semanticIs<ConstDeclarationSemantic>(semantic, $Semantic.CONST_DECLARATION)) {
+  if (!semanticIs<ValueDeclarationSemantic>(semantic, $Semantic.VALUE_DECLARATION)) {
     return nothing;
   }
 
   const childContext = context.createChildContext();
 
   genericsParse(childContext, semantic, node);
-  // parametersParse(childContext, semantic, node);
+  //   parametersParse(childContext, semantic, node);
   typeParse(childContext, semantic, node);
   valueParse(childContext, semantic, node);
   attributesParse(childContext, semantic, node);
@@ -33,7 +32,7 @@ export function constDeclarationDeepParse(
 
 function genericsParse(
   context: SemanticContext,
-  declaration: ConstDeclarationSemantic,
+  declaration: ValueDeclarationSemantic,
   node: DeclarationNode,
 ): Nothing {
   if (!node.generics) {
@@ -44,41 +43,43 @@ function genericsParse(
   declaration.generics = declarationsParse(context, node.generics) as ValueDeclarationSemantic[];
 }
 
-function typeParse(context: SemanticContext, declaration: ConstDeclarationSemantic, node: DeclarationNode): Nothing {
-  if (node.type) {
-    context.issueManager.addError(node.type.range, ISSUE_MESSAGE.noTypeRequiredForConst());
+function typeParse(context: SemanticContext, declaration: ValueDeclarationSemantic, node: DeclarationNode): Nothing {
+  if (!node.type) {
+    return;
   }
 
-  typeSemanticParse(context, node.type);
+  const type = typeSemanticParse(context, node.type);
+
+  if (type) {
+    declaration.type = type;
+  } else {
+    context.issueManager.addError(node.type.range, ISSUE_MESSAGE.cannotResolveType());
+  }
 }
 
-function valueParse(context: SemanticContext, declaration: ConstDeclarationSemantic, node: DeclarationNode): Nothing {
+function valueParse(context: SemanticContext, declaration: ValueDeclarationSemantic, node: DeclarationNode): Nothing {
   if (!node.value) {
-    context.issueManager.addError(node.id.range, ISSUE_MESSAGE.cannotEvaluate());
-
     return;
   }
 
   // todo depends on declaration kind (e.g. generic or const) ???
   const value = valueSemanticParse(context, node.value);
-  declaration.initializer = value;
 
-  const evaluatedValue = value?.evaluate();
-
-  if (evaluatedValue == nothing) {
-    context.issueManager.addError(node.value.range, ISSUE_MESSAGE.cannotEvaluate());
-  } else {
-    declaration.value = evaluatedValue;
+  if (!declaration.type) {
+    if (value?.type) {
+      declaration.type = value.type;
+    }
+  } else if (!value?.type || !value.type.is(declaration.type)) {
+    context.issueManager.addError(node.value.range, ISSUE_MESSAGE.wrongType());
   }
 }
 
 function attributesParse(
   context: SemanticContext,
-  declaration: ConstDeclarationSemantic,
+  declaration: ValueDeclarationSemantic,
   node: DeclarationNode,
 ): Nothing {
   if (node.attributes.length > 0) {
     const range = rangeFromNodes(node.attributes.map((x) => x.id));
-    context.issueManager.addError(range, ISSUE_MESSAGE.noAttributesAllowed());
   }
 }

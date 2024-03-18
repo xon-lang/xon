@@ -3,7 +3,7 @@ import {SourceReference} from '../../../source/source-reference';
 import {$Semantic} from '../../semantic';
 import {TypeSemantic} from '../../type/type-semantic';
 import {DeclarationSemantic} from '../declaration-semantic';
-import {ValueDeclarationSemantic} from '../var/var-declaration-semantic';
+import {ValueDeclarationSemantic} from '../value/value-declaration-semantic';
 
 export interface TypeDeclarationSemantic extends DeclarationSemantic {
   $: $Semantic.TYPE_DECLARATION;

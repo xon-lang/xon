@@ -1,6 +1,5 @@
 import {Boolean2, Nothing, String2} from '../../../lib/core';
 import {SourceReference} from '../../../source/source-reference';
-import {ConstDeclarationSemantic} from '../../declaration/const/const-declaration-semantic';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
@@ -8,14 +7,14 @@ import {TypeSemantic} from '../type-semantic';
 
 export interface DeclarationTypeSemantic extends TypeSemantic {
   $: $Semantic.DECLARATION_TYPE;
-  declaration: TypeDeclarationSemantic | ConstDeclarationSemantic;
+  declaration: TypeDeclarationSemantic;
   generics: (TypeSemantic | Nothing)[] | Nothing;
 }
 
 export function declarationTypeSemantic(
   context: SemanticContext,
   reference: SourceReference,
-  declaration: TypeDeclarationSemantic | ConstDeclarationSemantic,
+  declaration: TypeDeclarationSemantic,
   generics: (TypeSemantic | Nothing)[] | Nothing,
 ): DeclarationTypeSemantic {
   const semantic: DeclarationTypeSemantic = {
@@ -33,10 +32,6 @@ export function declarationTypeSemantic(
         return this.declaration.baseType?.is(other) ?? false;
       }
 
-      if (semanticIs<ConstDeclarationSemantic>(this.declaration, $Semantic.CONST_DECLARATION)) {
-        return this.declaration.initializer?.type?.is(other) ?? false;
-      }
-
       return false;
     },
 
@@ -46,15 +41,6 @@ export function declarationTypeSemantic(
         semanticIs<DeclarationTypeSemantic>(other, $Semantic.DECLARATION_TYPE)
       ) {
         return this.declaration.eq(other.declaration);
-      }
-
-      if (
-        semanticIs<ConstDeclarationSemantic>(this.declaration, $Semantic.CONST_DECLARATION) &&
-        semanticIs<DeclarationTypeSemantic>(other, $Semantic.DECLARATION_TYPE)
-      ) {
-        //  if( this.declaration.value != nothing){
-        //   return this.declaration.value === other.declaration.
-        //  }
       }
 
       return false;
@@ -72,7 +58,7 @@ export function declarationTypeSemantic(
 
 export function getDeclarationAttributes(
   context: SemanticContext,
-  declaration: TypeDeclarationSemantic | ConstDeclarationSemantic,
+  declaration: TypeDeclarationSemantic,
 ): Record<String2, TypeSemantic[]> {
   const attributes: Record<String2, TypeSemantic[]> = {};
 

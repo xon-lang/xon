@@ -1,16 +1,14 @@
 import {Nothing, String2, nothing} from '../../lib/core';
 import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-node';
-import {CONST_MODIFIER, TYPE_MODIFIERS} from '../../parser/parser-config';
+import {TYPE_MODIFIERS} from '../../parser/parser-config';
 import {SyntaxResult} from '../../parser/syntax-result';
 import {SourceReference} from '../../source/source-reference';
 import {SemanticContext} from '../semantic-context';
-import {constDeclarationSemantic} from './const/const-declaration-semantic';
-import {constDeclarationDeepParse} from './const/const-declaration-semantic-parser';
 import {DeclarationSemantic} from './declaration-semantic';
 import {typeDeclarationSemantic} from './type/type-declaration-semantic';
 import {typeDeclarationDeepParse} from './type/type-declaration-semantic-parser';
-import {valueDeclarationSemantic} from './var/var-declaration-semantic';
-import {valueDeclarationDeepParse} from './var/var-declaration-semantic-parser';
+import {valueDeclarationSemantic} from './value/value-declaration-semantic';
+import {valueDeclarationDeepParse} from './value/value-declaration-semantic-parser';
 
 export function syntaxDeclarationsParse(context: SemanticContext, syntax: SyntaxResult): Nothing {
   const nodes = syntax.statements.filterMap((x) => x.declaration);
@@ -29,7 +27,6 @@ export function declarationsParse(
     }
 
     typeDeclarationDeepParse(context, node);
-    constDeclarationDeepParse(context, node);
     valueDeclarationDeepParse(context, node);
   }
 
@@ -55,9 +52,6 @@ function getDeclarationFn(
   if (node.modifier) {
     if (TYPE_MODIFIERS.includes(node.modifier.text)) {
       return typeDeclarationSemantic;
-    }
-    if (node.modifier.text === CONST_MODIFIER) {
-      return constDeclarationSemantic;
     }
   }
 

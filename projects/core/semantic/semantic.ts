@@ -14,7 +14,6 @@ export interface Semantic {
 $DeclarationNodeType;
 export enum $Semantic {
   TYPE_DECLARATION = 'TYPE_DECLARATION',
-  CONST_DECLARATION = 'CONST_DECLARATION',
   VALUE_DECLARATION = 'VALUE_DECLARATION',
 
   INTEGER_LITERAL = 'INTEGER_LITERAL',
