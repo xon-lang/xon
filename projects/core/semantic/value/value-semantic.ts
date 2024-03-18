@@ -1,6 +1,7 @@
 import {Anything, Nothing, nothing} from '../../lib/core';
 import {SourceReference} from '../../source/source-reference';
-import {$Semantic, Semantic} from '../semantic';
+import {$Semantic, Semantic, semanticIs} from '../semantic';
+import {LiteralTypeSemantic} from '../type/literal/literal-type-semantic';
 import {TypeSemantic} from '../type/type-semantic';
 
 export interface ValueSemantic extends Semantic {
@@ -16,6 +17,10 @@ export function valueSemantic(reference: SourceReference, type: TypeSemantic): V
     type,
 
     evaluate() {
+      if (semanticIs<LiteralTypeSemantic>(this.type, $Semantic.LITERAL_TYPE)) {
+        return this.type.literal.value;
+      }
+
       return nothing;
     },
   };

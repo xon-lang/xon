@@ -7,7 +7,7 @@ import {SemanticContext} from '../../semantic-context';
 import {typeSemanticParse} from '../../type/type-semantic-parser';
 import {valueSemanticParse} from '../../value/value-semantic-parser';
 import {declarationsParse} from '../declaration-semantic-parser';
-import {ValueDeclarationSemantic} from './value-declaration-semantic';
+import {ValueDeclarationSemantic} from './var-declaration-semantic';
 
 export function valueDeclarationDeepParse(
   context: SemanticContext,

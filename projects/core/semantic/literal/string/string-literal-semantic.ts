@@ -27,6 +27,10 @@ export function stringLiteralSemantic(
 
       return false;
     },
+
+    evaluate(): String2 {
+      return this.value;
+    },
   };
 
   return semantic;

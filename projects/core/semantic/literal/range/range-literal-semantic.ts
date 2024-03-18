@@ -1,4 +1,4 @@
-import {Boolean2, Nothing} from '../../../lib/core';
+import {Anything, Boolean2, Nothing, Range2} from '../../../lib/core';
 import {SourceReference} from '../../../source/source-reference';
 import {$Semantic, semanticIs} from '../../semantic';
 import {DeclarationTypeSemantic} from '../../type/declaration/declaration-type-semantic';
@@ -31,6 +31,13 @@ export function rangeLiteralSemantic(
       }
 
       return false;
+    },
+
+    evaluate(): Range2<Anything, Anything> {
+      return {
+        from: this.value.from.evaluate(),
+        to: this.value.to.evaluate(),
+      };
     },
   };
 

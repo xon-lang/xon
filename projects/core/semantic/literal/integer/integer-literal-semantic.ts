@@ -1,8 +1,8 @@
-import {Boolean2, Integer} from '../../../lib/core';
-import {SourceReference} from '../../../source/source-reference';
-import {$Semantic, semanticIs} from '../../semantic';
-import {DeclarationTypeSemantic} from '../../type/declaration/declaration-type-semantic';
-import {LiteralSemantic} from '../literal-semantic';
+import { Boolean2, Integer } from '../../../lib/core';
+import { SourceReference } from '../../../source/source-reference';
+import { $Semantic, semanticIs } from '../../semantic';
+import { DeclarationTypeSemantic } from '../../type/declaration/declaration-type-semantic';
+import { LiteralSemantic } from '../literal-semantic';
 
 export interface IntegerLiteralSemantic extends LiteralSemantic {
   $: $Semantic.INTEGER_LITERAL;
@@ -27,6 +27,10 @@ export function integerLiteralSemantic(
       }
 
       return false;
+    },
+
+    evaluate(): Integer {
+      return this.value;
     },
   };
 

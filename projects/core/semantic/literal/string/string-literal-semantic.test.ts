@@ -8,7 +8,7 @@ import {typeSemanticParse} from '../../type/type-semantic-parser';
 
 test('a is string', () => {
   const text = `
-    const a: "abc"
+    const a: "abc" = "abc"
   `;
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);

@@ -9,8 +9,8 @@ import {constDeclarationDeepParse} from './const/const-declaration-semantic-pars
 import {DeclarationSemantic} from './declaration-semantic';
 import {typeDeclarationSemantic} from './type/type-declaration-semantic';
 import {typeDeclarationDeepParse} from './type/type-declaration-semantic-parser';
-import {valueDeclarationSemantic} from './value/value-declaration-semantic';
-import {valueDeclarationDeepParse} from './value/value-declaration-semantic-parser';
+import {valueDeclarationSemantic} from './var/var-declaration-semantic';
+import {valueDeclarationDeepParse} from './var/var-declaration-semantic-parser';
 
 export function syntaxDeclarationsParse(context: SemanticContext, syntax: SyntaxResult): Nothing {
   const nodes = syntax.statements.filterMap((x) => x.declaration);

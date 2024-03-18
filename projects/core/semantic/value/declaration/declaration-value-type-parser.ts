@@ -4,7 +4,7 @@ import {$Node, Node, is} from '../../../parser/node/node';
 import {IdNode} from '../../../parser/node/token/id/id-node';
 import {DeclarationKind} from '../../declaration-manager';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
-import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
+import {ValueDeclarationSemantic} from '../../declaration/var/var-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
 import {TypeSemantic} from '../../type/type-semantic';

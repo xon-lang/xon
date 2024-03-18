@@ -3,7 +3,7 @@ import {sourceFromText} from '../../source/source';
 import {$Semantic, parseSemantic} from '../semantic';
 import {DeclarationTypeSemantic} from '../type/declaration/declaration-type-semantic';
 import {TypeDeclarationSemantic} from './type/type-declaration-semantic';
-import {ValueDeclarationSemantic} from './value/value-declaration-semantic';
+import {ValueDeclarationSemantic} from './var/var-declaration-semantic';
 
 test('only a', () => {
   const text = 'model A\n  p: A';

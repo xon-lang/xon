@@ -1,4 +1,4 @@
-import {Boolean2} from '../../../lib/core';
+import {Anything, Array2, Boolean2} from '../../../lib/core';
 import {SourceReference} from '../../../source/source-reference';
 import {$Semantic, semanticIs} from '../../semantic';
 import {DeclarationTypeSemantic} from '../../type/declaration/declaration-type-semantic';
@@ -29,6 +29,10 @@ export function arrayLiteralSemantic(
       }
 
       return false;
+    },
+
+    evaluate(): Array2<Anything> {
+      return this.value.map((x) => x.evaluate());
     },
   };
 
