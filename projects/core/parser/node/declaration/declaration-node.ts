@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../../../lib/core';
+import {Nothing} from '../../../lib/core';
 import {Node} from '../node';
 import {IdNode} from '../token/id/id-node';
 import {OperatorNode} from '../token/operator/operator-node';
@@ -16,12 +16,12 @@ export interface DeclarationNode {
 export function declarationNode(params: Partial<DeclarationNode> & {id: IdNode}): DeclarationNode {
   const node: DeclarationNode = {
     attributes: [],
-    modifier: params.modifier ?? nothing,
+    modifier: params.modifier,
     id: params.id,
-    generics: params.generics ?? nothing,
-    parameters: params.parameters ?? nothing,
-    type: params.type ?? nothing,
-    value: params.value ?? nothing,
+    generics: params.generics,
+    parameters: params.parameters,
+    type: params.type,
+    value: params.value,
   };
 
   return node;
