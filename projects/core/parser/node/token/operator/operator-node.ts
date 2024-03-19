@@ -7,9 +7,9 @@ import {scanIdNode} from '../id/id-node';
 import {TokenNode, tokenNode} from '../token-node';
 
 export enum KeywordType {
+  OPERATOR = 'OPERATOR',
   MODIFIER = 'MODIFIER',
   CONTROL = 'CONTROL',
-  OPERATOR = 'OPERATOR',
 }
 
 export interface OperatorNode extends TokenNode {

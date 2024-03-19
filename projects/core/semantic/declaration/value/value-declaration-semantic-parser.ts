@@ -1,6 +1,6 @@
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Nothing, nothing} from '../../../lib/core';
-import {DeclarationNode} from '../../../parser/node/syntax/declaration/declaration-node';
+import {DeclarationNode} from '../../../parser/node/declaration/declaration-node';
 import {rangeFromNodes} from '../../../source/source-range';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';

@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../lib/core';
+import {DeclarationNode, declarationNode} from '../node/declaration/declaration-node';
 import {$Node, Node, is} from '../node/node';
-import {$DeclarationNodeType, DeclarationNode, declarationNode} from '../node/syntax/declaration/declaration-node';
 import {GroupNode} from '../node/syntax/group/group-node';
 import {InfixNode} from '../node/syntax/infix/infix-node';
 import {InvokeNode} from '../node/syntax/invoke/invoke-node';
@@ -25,13 +25,13 @@ export function parseDeclarationStatement(context: SyntaxContext, node: Node): D
   }
 
   if (parts.modifier) {
-    return declarationNode($DeclarationNodeType.MODIFIER, parts);
+    return declarationNode(parts);
   }
 
   const parentStatementNode = context.parentStatement?.declaration;
 
   if (parentStatementNode?.modifier && TYPE_MODIFIERS.includes(parentStatementNode.modifier?.text)) {
-    const declaration = declarationNode($DeclarationNodeType.ATTRIBUTE, parts);
+    const declaration = declarationNode(parts);
     parentStatementNode.attributes.push(declaration);
 
     return declaration;
@@ -51,7 +51,7 @@ function parseParameter(context: SyntaxContext, node: Node | Nothing): Declarati
     return nothing;
   }
 
-  return declarationNode($DeclarationNodeType.PARAMETER, parts);
+  return declarationNode(parts);
 }
 
 function parseGeneric(context: SyntaxContext, node: Node | Nothing): DeclarationNode | Nothing {
@@ -65,7 +65,7 @@ function parseGeneric(context: SyntaxContext, node: Node | Nothing): Declaration
     return nothing;
   }
 
-  return declarationNode($DeclarationNodeType.GENERIC, parts);
+  return declarationNode(parts);
 }
 
 function getDeclarationParts(

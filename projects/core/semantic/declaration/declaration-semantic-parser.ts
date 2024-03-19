@@ -1,5 +1,5 @@
 import {Nothing, String2, nothing} from '../../lib/core';
-import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-node';
+import {DeclarationNode} from '../../parser/node/declaration/declaration-node';
 import {TYPE_MODIFIERS} from '../../parser/parser-config';
 import {SyntaxResult} from '../../parser/syntax-result';
 import {SourceReference} from '../../source/source-reference';

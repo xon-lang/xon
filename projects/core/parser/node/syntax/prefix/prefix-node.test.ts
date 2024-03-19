@@ -1,9 +1,9 @@
 import {sourceFromText} from '../../../../source/source';
 import {evaluate} from '../../../../util/evaluate';
 import {parseSyntax} from '../../../syntax';
+import {DeclarationNode} from '../../declaration/declaration-node';
 import {$Node} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
-import {DeclarationNode} from '../declaration/declaration-node';
 import {PrefixNode} from './prefix-node';
 
 test('negative integer', () => {

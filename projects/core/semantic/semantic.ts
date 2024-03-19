@@ -1,5 +1,4 @@
 import {Nothing, nothing} from '../lib/core';
-import {$DeclarationNodeType} from '../parser/node/syntax/declaration/declaration-node';
 import {SyntaxResult} from '../parser/syntax-result';
 import {SourceReference} from '../source/source-reference';
 import {syntaxDeclarationsParse} from './declaration/declaration-semantic-parser';
@@ -11,7 +10,7 @@ export interface Semantic {
   readonly $: $Semantic;
   readonly reference: SourceReference;
 }
-$DeclarationNodeType;
+
 export enum $Semantic {
   TYPE_DECLARATION = 'TYPE_DECLARATION',
   VALUE_DECLARATION = 'VALUE_DECLARATION',

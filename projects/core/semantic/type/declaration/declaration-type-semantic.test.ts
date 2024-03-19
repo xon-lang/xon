@@ -1,4 +1,4 @@
-import {DeclarationNode} from '../../../parser/node/syntax/declaration/declaration-node';
+import {DeclarationNode} from '../../../parser/node/declaration/declaration-node';
 import {IdNode} from '../../../parser/node/token/id/id-node';
 import {parseSyntax} from '../../../parser/syntax';
 import {sourceFromText} from '../../../source/source';

@@ -70,6 +70,8 @@ export const TYPE_MODIFIERS = [MODEL_MODIFIER, OBJECT_MODIFIER];
 
 export const VALUE_MODIFIERS = [CONST_MODIFIER, VAR_MODIFIER, PREFIX_MODIFIER, POSTFIX_MODIFIER, INFIX_MODIFIER];
 
+export const OPERATOR_KEYWORDS = ['is', 'as', 'in'];
+
 export const MODIFIER_KEYWORDS = [...TYPE_MODIFIERS, ...VALUE_MODIFIERS];
 
 export const CONTROL_KEYWORDS = [
@@ -85,8 +87,6 @@ export const CONTROL_KEYWORDS = [
   'import',
   'return',
 ];
-
-export const OPERATOR_KEYWORDS = ['is', 'as', 'in'];
 
 export const operatorsOrders: OperatorsOrder[] = [
   {

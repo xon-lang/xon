@@ -1,9 +1,9 @@
 import {Integer, Nothing} from '../../../../lib/core';
 import {rangeFromNodes} from '../../../../source/source-range';
 import {SyntaxContext} from '../../../syntax-context';
+import {DeclarationNode} from '../../declaration/declaration-node';
 import {$Node, Node} from '../../node';
 import {TokenNode} from '../../token/token-node';
-import {DeclarationNode} from '../declaration/declaration-node';
 import {SyntaxNode} from '../syntax-node';
 
 export interface StatementNode extends SyntaxNode {
