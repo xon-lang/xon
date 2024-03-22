@@ -1,4 +1,4 @@
-import {join, resolve} from 'path';
+import {dirname, join, resolve} from 'path';
 import {ISSUE_MESSAGE} from '../../issue/issue-message';
 import {Nothing, String2, nothing} from '../../lib/core';
 import {$Node, is} from '../../parser/node/node';
@@ -32,7 +32,7 @@ export function importNodeParse(context: SemanticContext, node: PrefixNode): Not
   const lastIndex = node.value.text.length > 1 && node.value.text.last() === STRING_QUOTE ? -1 : node.value.text.length;
   const reference = context.createReference(node.value);
   const importString = node.value.text.slice(1, lastIndex);
-  const location = normalizeImportString(importString);
+  const location = normalizeImportString(importString, context.source.location);
   const resource = textResourceFromFilePath(location);
 
   if (!resource) {
@@ -75,11 +75,17 @@ export function declarationManagerFromImportString(importString: String2): Decla
   return declarationManager;
 }
 
-function normalizeImportString(location: String2): String2 {
+function normalizeImportString(location: String2, targetSourceLocation?: String2 | Nothing): String2 {
+  const locationWithExtension = location + '.xon';
+
   if (location.startsWith('/') || location.startsWith('.')) {
-    return location + '.xon';
+    if (targetSourceLocation) {
+      return join(dirname(targetSourceLocation), locationWithExtension);
+    }
+
+    return locationWithExtension;
   }
 
   // todo handle additional extension or other formats (json, other data files...)
-  return join(LIB_FOLDER, location + '.xon');
+  return join(LIB_FOLDER, locationWithExtension);
 }

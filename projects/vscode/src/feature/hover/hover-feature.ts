@@ -11,7 +11,7 @@ import {
   languages,
 } from 'vscode';
 import {Nothing, String2, nothing} from '../../../../core/lib/core';
-import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
+import {TypeDeclarationSemantic} from '../../../../core/semantic/declaration/type/type-declaration-semantic';
 import {LiteralSemantic} from '../../../../core/semantic/literal/literal-semantic';
 import {StringLiteralSemantic} from '../../../../core/semantic/literal/string/string-literal-semantic';
 import {$Semantic, Semantic, semanticIs} from '../../../../core/semantic/semantic';
@@ -50,7 +50,7 @@ class LanguageHoverProvider implements HoverProvider {
 }
 
 function getSemanticHoverText(semantic: Semantic): MarkdownString | Nothing {
-  if (semanticIs<DeclarationSemantic>(semantic, $Semantic.DECLARATION)) {
+  if (semanticIs<TypeDeclarationSemantic>(semantic, $Semantic.TYPE_DECLARATION)) {
     return getDeclarationMarkdown(semantic);
   }
 
@@ -65,10 +65,10 @@ function getSemanticHoverText(semantic: Semantic): MarkdownString | Nothing {
   return nothing;
 }
 
-function getDeclarationMarkdown(declaration: DeclarationSemantic): MarkdownString | Nothing {
+function getDeclarationMarkdown(declaration: TypeDeclarationSemantic): MarkdownString | Nothing {
   const modifier = declaration.modifier ? declaration.modifier + ' ' : '';
   const name = declaration.name;
-  const type = declaration.type ? ': ' + typeToString(declaration.type) : '';
+  const type = declaration.baseType ? ': ' + typeToString(declaration.baseType) : '';
   const text = `${modifier}${name}${type}`;
 
   return markdownCode(text);
@@ -83,7 +83,7 @@ function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
   }
 
   if (semanticIs<LiteralTypeSemantic>(type, $Semantic.LITERAL_TYPE)) {
-    const declaration = type.literal.declaration;
+    const declaration = type.literal.type.declaration;
     const modifier = declaration.modifier ? declaration.modifier + ' ' : '';
     const value = literalToString(type.literal);
     const text = `${modifier}${declaration.name}(${value})`;

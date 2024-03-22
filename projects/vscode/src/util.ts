@@ -1,4 +1,3 @@
-import {join} from 'path';
 import {OutputChannel, Position, Range, TextDocument, TextEdit} from 'vscode';
 import {Formatter} from '../../core/formatter/formatter';
 import {Nothing, nothing} from '../../core/lib/core';
@@ -7,7 +6,6 @@ import {StatementNode} from '../../core/parser/node/syntax/statement/statement-n
 import {parseSyntax} from '../../core/parser/syntax';
 import {SyntaxResult} from '../../core/parser/syntax-result';
 import {parseSemantic} from '../../core/semantic/semantic';
-import {createSemanticConfig} from '../../core/semantic/semantic-config';
 import {createSource} from '../../core/source/source';
 import {SourcePosition} from '../../core/source/source-position';
 import {SourceRange} from '../../core/source/source-range';
@@ -28,21 +26,16 @@ export function convertPosition(position: SourcePosition): Position {
 }
 
 export function getDocumentSyntax(document: TextDocument, channel: OutputChannel): SyntaxResult {
-  try {
-    const text = document.getText();
-    const location = document.uri.toString();
-    const source = createSource(location, text);
-    const syntax = parseSyntax(source);
-    const corePath = join(__dirname, '/core/lib/@xon/core/test-core.xon');
-    const semanticConfig = createSemanticConfig({corePath});
-    parseSemantic(syntax, semanticConfig);
+  const text = document.getText();
+  // todo should be const location = document.uri.toString();
+  const location = document.uri.fsPath;
+  const source = createSource(location, text);
+  const syntax = parseSyntax(source);
+  // const corePath = join(__dirname, '/core/lib/@xon/core/test-core.xon');
+  // const semanticConfig = createSemanticConfig({corePath});
+  parseSemantic(syntax);
 
-    return syntax;
-  } catch (error) {
-    channel.appendLine(error?.toString() ?? 'Some error');
-
-    throw new Error('Not implemented');
-  }
+  return syntax;
 }
 
 export function findNodeBytPositionInSyntax(syntax: SyntaxResult, position: Position): Node | Nothing {

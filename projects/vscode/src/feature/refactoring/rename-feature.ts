@@ -16,6 +16,7 @@ import {Nothing, nothing, String2} from '../../../../core/lib/core';
 import {$Node, is} from '../../../../core/parser/node/node';
 import {IdNode} from '../../../../core/parser/node/token/id/id-node';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
+import {TypeDeclarationSemantic} from '../../../../core/semantic/declaration/type/type-declaration-semantic';
 import {$Semantic, Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
@@ -76,7 +77,7 @@ class LanguageRenameProvider implements RenameProvider {
 }
 
 function getDeclaration(semantic: Semantic): DeclarationSemantic | Nothing {
-  if (semanticIs<DeclarationSemantic>(semantic, $Semantic.DECLARATION)) {
+  if (semanticIs<TypeDeclarationSemantic>(semantic, $Semantic.TYPE_DECLARATION)) {
     return semantic;
   }
 

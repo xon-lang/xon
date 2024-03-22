@@ -55,7 +55,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       }
 
       if (semanticIs<LiteralTypeSemantic>(node.semantic.type, $Semantic.LITERAL_TYPE)) {
-        return navigateToDeclaration(node.semantic.type.literal.declaration);
+        return navigateToDeclaration(node.semantic.type.literal.type.declaration);
       }
 
       return nothing;

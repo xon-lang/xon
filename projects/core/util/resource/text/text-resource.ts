@@ -1,5 +1,4 @@
 import {readFileSync, statSync} from 'fs';
-import {resolve} from 'path';
 import {Nothing, String2, nothing} from '../../../lib/core';
 import {$Resource, Resource} from '../data';
 
@@ -8,9 +7,7 @@ export interface TextResource extends Resource {
   data: String2;
 }
 
-export function textResourceFromFilePath(filePath: String2): TextResource | Nothing {
-  const location = resolve(filePath);
-
+export function textResourceFromFilePath(location: String2): TextResource | Nothing {
   if (!statSync(location).isFile()) {
     return nothing;
   }
