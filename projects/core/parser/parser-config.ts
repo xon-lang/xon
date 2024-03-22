@@ -77,7 +77,20 @@ export const OPERATOR_KEYWORDS = ['is', 'as', 'in'];
 
 export const MODIFIER_KEYWORDS = [...TYPE_MODIFIERS, ...VALUE_MODIFIERS];
 
-export const CONTROL_KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'return'];
+export const CONTROL_KEYWORDS = [
+  'if',
+  'then',
+  'else',
+  'for',
+  'do',
+  'while',
+  'break',
+  'continue',
+  'export',
+  'return',
+  EXPORT_CONTROL,
+  IMPORT_CONTROL,
+];
 
 export const operatorsOrders: OperatorsOrder[] = [
   {

@@ -2,6 +2,7 @@ import {Nothing, nothing} from '../lib/core';
 import {SyntaxResult} from '../parser/syntax-result';
 import {SourceReference} from '../source/source-reference';
 import {syntaxDeclarationsParse} from './declaration/declaration-semantic-parser';
+import {syntaxImportsParse} from './import/module-semantic-parser';
 import {SemanticConfig} from './semantic-config';
 import {SemanticContext, semanticContext} from './semantic-context';
 import {syntaxValuesParse} from './value/value-semantic-parser';
@@ -12,6 +13,9 @@ export interface Semantic {
 }
 
 export enum $Semantic {
+  EXPORT = 'EXPORT',
+  IMPORT = 'IMPORT',
+
   TYPE_DECLARATION = 'TYPE_DECLARATION',
   VALUE_DECLARATION = 'VALUE_DECLARATION',
 
@@ -36,6 +40,7 @@ export function semanticIs<T extends Semantic = Semantic>(
 export function parseSemantic(syntax: SyntaxResult, config?: Partial<SemanticConfig>): SemanticContext {
   const context = semanticContext(nothing, config, syntax.source, syntax.issueManager);
 
+  syntaxImportsParse(context, syntax);
   syntaxDeclarationsParse(context, syntax);
   syntaxValuesParse(context, syntax);
 

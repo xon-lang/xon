@@ -21,6 +21,7 @@ export interface DeclarationManager {
   count(): Integer;
   add(declaration: DeclarationSemantic): Nothing;
   filterByName(kind: DeclarationKind, name: String2): DeclarationSemantic[];
+  all(): DeclarationSemantic[];
 
   single(
     kind: DeclarationKind,
@@ -69,6 +70,10 @@ export function createDeclarationManager(
       }
 
       return [];
+    },
+
+    all(): DeclarationSemantic[] {
+      return Object.values(this.declarations).flat();
     },
 
     single(

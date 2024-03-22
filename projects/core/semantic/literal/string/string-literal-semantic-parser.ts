@@ -29,8 +29,8 @@ export function stringLiteralSemanticParse(
     return nothing;
   }
 
-  const lastIndex = node.text.length > 1 && node.text.last() === STRING_QUOTE ? -1 : node.text.length;
   const reference = context.createReference(node);
+  const lastIndex = node.text.length > 1 && node.text.last() === STRING_QUOTE ? -1 : node.text.length;
   const value = node.text.slice(1, lastIndex);
   const type = declarationTypeSemantic(context, reference, declaration, []);
   const semantic = stringLiteralSemantic(reference, type, value);

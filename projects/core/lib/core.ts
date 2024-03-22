@@ -8,6 +8,7 @@ export const nothing = null;
 
 export type Char = string;
 
+// todo rename to Text
 export type String2 = string;
 
 export type Number2 = number;

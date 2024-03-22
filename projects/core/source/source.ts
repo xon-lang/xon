@@ -1,6 +1,7 @@
 import {existsSync, readFileSync} from 'fs';
 import {Boolean2, Nothing, String2, nothing} from '../lib/core';
 import '../util/extension';
+import {TextResource} from '../util/resource/text/text-resource';
 import {SourceRange} from './source-range';
 
 export interface Source {
@@ -27,6 +28,10 @@ export function createSource(location: String2 | Nothing, text: String2): Source
 
 export function sourceFromText(text: String2): Source {
   return createSource(nothing, text);
+}
+
+export function sourceFromResource(resource: TextResource): Source {
+  return createSource(resource.location, resource.data);
 }
 
 export function sourceFromFile(location: String2): Source | Nothing {

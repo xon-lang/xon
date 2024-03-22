@@ -85,4 +85,9 @@ export const ISSUE_MESSAGE = {
     actual: `Cannot evaluate`,
     expect: nothing,
   }),
+
+  cannotFindResource: (path: String2) => ({
+    actual: `Cannot find resource '${[path]}'`,
+    expect: nothing,
+  }),
 };
