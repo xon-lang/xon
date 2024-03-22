@@ -2,8 +2,8 @@ import {Nothing, nothing} from '../lib/core';
 import {SyntaxResult} from '../parser/syntax-result';
 import {SourceReference} from '../source/source-reference';
 import {syntaxDeclarationsParse} from './declaration/declaration-semantic-parser';
-import {syntaxImportsParse} from './import/module-semantic-parser';
-import {SemanticConfig} from './semantic-config';
+import {declarationManagerFromImportString, syntaxImportsParse} from './import/import-semantic-parser';
+import {DEFAULT_SEMANTIC_CONFIG, SemanticConfig} from './semantic-config';
 import {SemanticContext, semanticContext} from './semantic-context';
 import {syntaxValuesParse} from './value/value-semantic-parser';
 
@@ -38,7 +38,9 @@ export function semanticIs<T extends Semantic = Semantic>(
 }
 
 export function parseSemantic(syntax: SyntaxResult, config?: Partial<SemanticConfig>): SemanticContext {
-  const context = semanticContext(nothing, config, syntax.source, syntax.issueManager);
+  const semanticConfig: SemanticConfig = {...DEFAULT_SEMANTIC_CONFIG, ...config};
+  const imports = semanticConfig?.defaultImports?.filterMap((x) => declarationManagerFromImportString(x)) ?? [];
+  const context = semanticContext(nothing, syntax.source, syntax.issueManager, imports, semanticConfig);
 
   syntaxImportsParse(context, syntax);
   syntaxDeclarationsParse(context, syntax);

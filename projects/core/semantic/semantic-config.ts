@@ -1,8 +1,7 @@
-import {Nothing, String2} from '../lib/core';
-import {DEFAULT_CORE_PATH} from './core';
+import {String2} from '../lib/core';
 
 export interface SemanticConfig {
-  corePath: String2;
+  defaultImports: String2[];
   literalTypeNames: {
     integerTypeName: String2;
     stringTypeName: String2;
@@ -11,14 +10,17 @@ export interface SemanticConfig {
   };
 }
 
-export function createSemanticConfig(params: Partial<SemanticConfig> | Nothing): SemanticConfig {
-  return {
-    corePath: params?.corePath ?? DEFAULT_CORE_PATH,
-    literalTypeNames: {
-      integerTypeName: params?.literalTypeNames?.integerTypeName ?? 'Integer',
-      stringTypeName: params?.literalTypeNames?.stringTypeName ?? 'String',
-      rangeTypeName: params?.literalTypeNames?.rangeTypeName ?? 'Range',
-      arrayTypeName: params?.literalTypeNames?.arrayTypeName ?? 'Array',
-    },
-  };
-}
+export const DEFAULT_SEMANTIC_CONFIG: SemanticConfig = {
+  defaultImports: [],
+  literalTypeNames: {
+    integerTypeName: 'Integer',
+    stringTypeName: 'String',
+    rangeTypeName: 'Range',
+    arrayTypeName: 'Array',
+  },
+};
+
+export const TEST_SEMANTIC_CONFIG: SemanticConfig = {
+  ...DEFAULT_SEMANTIC_CONFIG,
+  defaultImports: ['xon/core'],
+};

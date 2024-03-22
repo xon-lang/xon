@@ -3,17 +3,18 @@ import {parseSyntax} from '../../../parser/syntax';
 import {sourceFromText} from '../../../source/source';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, parseSemantic} from '../../semantic';
+import {TEST_SEMANTIC_CONFIG} from '../../semantic-config';
 import {LiteralTypeSemantic} from '../../type/literal/literal-type-semantic';
 import {typeSemanticParse} from '../../type/type-semantic-parser';
 import {ArrayLiteralSemantic} from './array-literal-semantic';
 
-test('a is integer', () => {
+test('a is array', () => {
   const text = `
     const a: [1, 2, "A"]
   `;
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
-  const semantic = parseSemantic(syntax);
+  const semantic = parseSemantic(syntax, TEST_SEMANTIC_CONFIG);
 
   expect(semantic.declarationManager.count()).toBe(1);
   expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.VALUE_DECLARATION);

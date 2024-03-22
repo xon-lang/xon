@@ -1,5 +1,6 @@
+import {join, resolve} from 'path';
 import {ISSUE_MESSAGE} from '../../issue/issue-message';
-import {Nothing} from '../../lib/core';
+import {Nothing, String2, nothing} from '../../lib/core';
 import {$Node, is} from '../../parser/node/node';
 import {PrefixNode} from '../../parser/node/syntax/prefix/prefix-node';
 import {StringLiteralNode} from '../../parser/node/token/literal/string/string-literal-node';
@@ -8,9 +9,12 @@ import {parseSyntax} from '../../parser/syntax';
 import {SyntaxResult} from '../../parser/syntax-result';
 import {sourceFromResource} from '../../source/source';
 import {textResourceFromFilePath} from '../../util/resource/text/text-resource';
+import {DeclarationManager} from '../declaration-manager';
 import {$Semantic, parseSemantic} from '../semantic';
 import {SemanticContext} from '../semantic-context';
 import {ImportSemantic} from './import-semantic';
+
+const LIB_FOLDER = resolve(__dirname, '../../lib');
 
 export function syntaxImportsParse(context: SemanticContext, syntax: SyntaxResult) {
   for (const statement of syntax.statements) {
@@ -27,7 +31,8 @@ export function importNodeParse(context: SemanticContext, node: PrefixNode): Not
 
   const lastIndex = node.value.text.length > 1 && node.value.text.last() === STRING_QUOTE ? -1 : node.value.text.length;
   const reference = context.createReference(node.value);
-  const location = node.value.text.slice(1, lastIndex);
+  const importString = node.value.text.slice(1, lastIndex);
+  const location = normalizeImportString(importString);
   const resource = textResourceFromFilePath(location);
 
   if (!resource) {
@@ -45,11 +50,32 @@ export function importNodeParse(context: SemanticContext, node: PrefixNode): Not
   node.value.semantic = semantic;
 
   const source = sourceFromResource(resource);
-
   const syntax = parseSyntax(source);
   const {declarationManager} = parseSemantic(syntax);
 
-  for (const declaration of declarationManager.all()) {
-    context.declarationManager.add(declaration);
+  context.declarationManager.imports?.push(declarationManager);
+}
+
+export function declarationManagerFromImportString(importString: String2): DeclarationManager | Nothing {
+  const location = normalizeImportString(importString);
+  const resource = textResourceFromFilePath(location);
+
+  if (!resource) {
+    return nothing;
   }
+
+  const source = sourceFromResource(resource);
+  const syntax = parseSyntax(source);
+  const {declarationManager} = parseSemantic(syntax);
+
+  return declarationManager;
+}
+
+function normalizeImportString(location: String2): String2 {
+  if (location.startsWith('/') || location.startsWith('.')) {
+    return location + '.xon';
+  }
+
+  // todo handle additional extension or other formats (json, other data files...)
+  return join(LIB_FOLDER, location + '.xon');
 }

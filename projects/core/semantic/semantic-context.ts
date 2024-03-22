@@ -1,10 +1,10 @@
 import {IssueManager} from '../issue/issue-manager';
-import {Nothing} from '../lib/core';
+import {Nothing, nothing} from '../lib/core';
 import {Node} from '../parser/node/node';
 import {Source} from '../source/source';
 import {SourceReference, sourceReference} from '../source/source-reference';
 import {DeclarationManager, createDeclarationManager} from './declaration-manager';
-import {SemanticConfig, createSemanticConfig} from './semantic-config';
+import {SemanticConfig} from './semantic-config';
 
 export interface SemanticContext {
   parent: SemanticContext | Nothing;
@@ -19,21 +19,22 @@ export interface SemanticContext {
 
 export function semanticContext(
   parent: SemanticContext | Nothing,
-  semanticConfig: Partial<SemanticConfig> | Nothing,
   source: Source,
   issueManager: IssueManager,
+  imports: DeclarationManager[] | Nothing,
+  config: SemanticConfig,
 ): SemanticContext {
-  const config = createSemanticConfig(semanticConfig);
+  const declarationManager = createDeclarationManager(issueManager, parent?.declarationManager, imports, config);
 
   return {
     parent,
     config,
     source,
     issueManager,
-    declarationManager: createDeclarationManager(issueManager, parent?.declarationManager, config),
+    declarationManager,
 
     createChildContext(): SemanticContext {
-      return semanticContext(this, this.config, this.source, this.issueManager);
+      return semanticContext(this, this.source, this.issueManager, nothing, this.config);
     },
 
     createReference(node: Node): SourceReference {

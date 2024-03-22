@@ -1,16 +1,17 @@
-import {DeclarationNode} from '../../../parser/node/declaration/declaration-node';
-import {parseSyntax} from '../../../parser/syntax';
-import {sourceFromText} from '../../../source/source';
-import {DeclarationSemantic} from '../../declaration/declaration-semantic';
-import {$Semantic, parseSemantic} from '../../semantic';
-import {TEST_SEMANTIC_CONFIG} from '../../semantic-config';
-import {LiteralTypeSemantic} from '../../type/literal/literal-type-semantic';
-import {typeSemanticParse} from '../../type/type-semantic-parser';
-import {RangeLiteralSemantic} from './range-literal-semantic';
+import {DeclarationNode} from '../../parser/node/declaration/declaration-node';
+import {parseSyntax} from '../../parser/syntax';
+import {sourceFromText} from '../../source/source';
+import {DeclarationSemantic} from '../declaration/declaration-semantic';
+import {StringLiteralSemantic} from '../literal/string/string-literal-semantic';
+import {$Semantic, parseSemantic} from '../semantic';
+import {TEST_SEMANTIC_CONFIG} from '../semantic-config';
+import {LiteralTypeSemantic} from '../type/literal/literal-type-semantic';
+import {typeSemanticParse} from '../type/type-semantic-parser';
 
-test('a is range', () => {
+test('import core', () => {
   const text = `
-    const a: 1..3
+    // import "xon/core"
+    const a: "abc"
   `;
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
@@ -21,6 +22,7 @@ test('a is range', () => {
   expect(semantic.declarationManager.declarations.a[0].name).toBe('a');
 
   const constNode = syntax.statements[0].declaration as DeclarationNode;
+  expect(constNode).toBeTruthy();
   expect(constNode.id?.text).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($Semantic.VALUE_DECLARATION);
 
@@ -29,6 +31,5 @@ test('a is range', () => {
 
   const typeSemantic = typeSemanticParse(semantic, constNode.type) as LiteralTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.LITERAL_TYPE);
-  expect((typeSemantic.literal as RangeLiteralSemantic).value.from.value).toBe(1);
-  expect((typeSemantic.literal as RangeLiteralSemantic).value.to.value).toBe(3);
+  expect((typeSemantic.literal as StringLiteralSemantic).value).toBe('abc');
 });

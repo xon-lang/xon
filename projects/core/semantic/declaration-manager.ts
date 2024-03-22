@@ -1,6 +1,5 @@
 import {IssueManager} from '../issue/issue-manager';
 import {Integer, Nothing, String2, nothing} from '../lib/core';
-import {coreDeclarationManager} from './core';
 import {DeclarationSemantic} from './declaration/declaration-semantic';
 import {$Semantic, semanticIs} from './semantic';
 import {SemanticConfig} from './semantic-config';
@@ -15,9 +14,9 @@ export enum DeclarationKind {
 }
 
 export interface DeclarationManager {
+  imports: DeclarationManager[] | Nothing;
   declarations: Record<String2, DeclarationSemantic[]>;
 
-  coreManager(): DeclarationManager | Nothing;
   count(): Integer;
   add(declaration: DeclarationSemantic): Nothing;
   filterByName(kind: DeclarationKind, name: String2): DeclarationSemantic[];
@@ -34,15 +33,13 @@ export interface DeclarationManager {
 export function createDeclarationManager(
   issueManager: IssueManager,
   parentDeclarationManager: DeclarationManager | Nothing,
+  imports: DeclarationManager[] | Nothing,
   config: SemanticConfig,
 ): DeclarationManager {
   return {
+    imports,
     declarations: {},
 
-    coreManager(): DeclarationManager | Nothing {
-      // todo remove it and use default import logic
-      return coreDeclarationManager(config.corePath);
-    },
     count(): Integer {
       return Object.keys(this.declarations).length;
     },
@@ -63,10 +60,12 @@ export function createDeclarationManager(
         return declarations;
       }
 
-      const coreDeclarations = this.coreManager()?.declarations[name]?.filter((x) => isDeclarationKind(x, kind));
+      const importDeclarations = this.imports?.flatMap((x) =>
+        x.declarations[name]?.filter((x) => isDeclarationKind(x, kind)),
+      );
 
-      if (coreDeclarations && coreDeclarations?.length > 0) {
-        return coreDeclarations;
+      if (importDeclarations && importDeclarations?.length > 0) {
+        return importDeclarations;
       }
 
       return [];

@@ -3,16 +3,17 @@ import {parseSyntax} from '../../../parser/syntax';
 import {sourceFromText} from '../../../source/source';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, parseSemantic} from '../../semantic';
+import {TEST_SEMANTIC_CONFIG} from '../../semantic-config';
 import {LiteralTypeSemantic} from '../../type/literal/literal-type-semantic';
 import {typeSemanticParse} from '../../type/type-semantic-parser';
 
-test('a is string', () => {
+test('a is string value', () => {
   const text = `
     const a: "abc" = "abc"
   `;
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
-  const semantic = parseSemantic(syntax);
+  const semantic = parseSemantic(syntax, TEST_SEMANTIC_CONFIG);
 
   expect(semantic.declarationManager.count()).toBe(1);
   expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.VALUE_DECLARATION);
@@ -30,12 +31,12 @@ test('a is string', () => {
   expect(typeSemantic?.literal.value).toBe('abc');
 });
 
-test('a is string 2', () => {
+test('a is string literal', () => {
   const text = `
     const a: "abc`;
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
-  const semantic = parseSemantic(syntax);
+  const semantic = parseSemantic(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].declaration as DeclarationNode;
   const typeSemantic = typeSemanticParse(semantic, constNode.type) as LiteralTypeSemantic;
 
@@ -48,7 +49,7 @@ test('a is empty string 1', () => {
     const a: "`;
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
-  const semantic = parseSemantic(syntax);
+  const semantic = parseSemantic(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].declaration as DeclarationNode;
   const typeSemantic = typeSemanticParse(semantic, constNode.type) as LiteralTypeSemantic;
 
@@ -61,7 +62,7 @@ test('a is empty string 2', () => {
     const a: ""`;
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
-  const semantic = parseSemantic(syntax);
+  const semantic = parseSemantic(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].declaration as DeclarationNode;
   const typeSemantic = typeSemanticParse(semantic, constNode.type) as LiteralTypeSemantic;
 
