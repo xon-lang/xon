@@ -55,6 +55,9 @@ export const OPEN_CLOSE_PAIR: Record<Char, Char> = {
   [OBJECT_NODE_OPEN]: OBJECT_NODE_CLOSE,
 };
 
+export const IMPORT_CONTROL = 'import';
+export const EXPORT_CONTROL = 'export';
+
 export const MODEL_MODIFIER = 'model';
 export const OBJECT_MODIFIER = 'object';
 
@@ -74,19 +77,7 @@ export const OPERATOR_KEYWORDS = ['is', 'as', 'in'];
 
 export const MODIFIER_KEYWORDS = [...TYPE_MODIFIERS, ...VALUE_MODIFIERS];
 
-export const CONTROL_KEYWORDS = [
-  'if',
-  'then',
-  'else',
-  'for',
-  'do',
-  'while',
-  'break',
-  'continue',
-  'export',
-  'import',
-  'return',
-];
+export const CONTROL_KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'export', 'return'];
 
 export const operatorsOrders: OperatorsOrder[] = [
   {
