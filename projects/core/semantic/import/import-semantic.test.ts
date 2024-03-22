@@ -10,18 +10,18 @@ import {typeSemanticParse} from '../type/type-semantic-parser';
 
 test('import core', () => {
   const text = `
-    // import "xon/core"
+    import "xon/core"
     const a: "abc"
   `;
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
-  const semantic = parseSemantic(syntax, TEST_SEMANTIC_CONFIG);
+  const semantic = parseSemantic(syntax);
 
   expect(semantic.declarationManager.count()).toBe(1);
   expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.VALUE_DECLARATION);
   expect(semantic.declarationManager.declarations.a[0].name).toBe('a');
 
-  const constNode = syntax.statements[0].declaration as DeclarationNode;
+  const constNode = syntax.statements[1].declaration as DeclarationNode;
   expect(constNode).toBeTruthy();
   expect(constNode.id?.text).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($Semantic.VALUE_DECLARATION);

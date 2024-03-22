@@ -53,7 +53,11 @@ export function importNodeParse(context: SemanticContext, node: PrefixNode): Not
   const syntax = parseSyntax(source);
   const {declarationManager} = parseSemantic(syntax);
 
-  context.declarationManager.imports?.push(declarationManager);
+  if (!context.declarationManager.imports) {
+    context.declarationManager.imports = [];
+  }
+
+  context.declarationManager.imports.push(declarationManager);
 }
 
 export function declarationManagerFromImportString(importString: String2): DeclarationManager | Nothing {
