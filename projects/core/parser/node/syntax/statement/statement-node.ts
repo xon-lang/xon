@@ -19,7 +19,6 @@ export interface StatementNode extends SyntaxNode {
   body: Array2<StatementNode>;
 }
 
-// todo perhaps like a declaration node we need to move from syntax nodes ???
 export function statementNode(
   context: SyntaxContext,
   children: Array2<Node>,

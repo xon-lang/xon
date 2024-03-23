@@ -41,7 +41,6 @@ const scanFunctions: Array2<SyntaxScanFn> = [
   scanUnknownNode,
 ];
 
-// todo rename to syntax from source
 export function parseSyntax(source: Source): SyntaxResult {
   const result = parseSyntaxUntil(source, zeroPosition(), nothing);
 

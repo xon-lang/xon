@@ -10,8 +10,10 @@ import {getStatementNode} from './get-statement-node';
 export function putStatementNode(context: SyntaxContext): Nothing {
   const {hiddenNodes} = context;
   const lastNlIndex = hiddenNodes.findLastIndex((x) => is(x, $Node.NL));
+
   const beforeIndentHiddenNodes = hiddenNodes.slice(0, lastNlIndex + 1);
   const indentHiddenNodes = hiddenNodes.slice(beforeIndentHiddenNodes.length);
+
   const firstIndentHiddenNode = indentHiddenNodes.first();
   const isFirstHiddenWhitespace = is<WhitespaceNode>(firstIndentHiddenNode, $Node.WHITESPACE);
   const indentStopColumn = isFirstHiddenWhitespace ? firstIndentHiddenNode.range.stop.column : 0;

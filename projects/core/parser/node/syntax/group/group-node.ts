@@ -112,7 +112,6 @@ function createGroupNode(
 
   context.issueManager.addError(open.range, ISSUE_MESSAGE.notImplemented());
 
-  // todo remove it
   return nothing;
 }
 

@@ -12,6 +12,7 @@ export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);
 }
 
+// todo remove this for syntax nodes and use literal semantic evaluate
 export function evaluate(node: Node | Nothing, argsMap = {}): Anything {
   if (!node) {
     return nothing;
@@ -48,10 +49,8 @@ export function evaluate(node: Node | Nothing, argsMap = {}): Anything {
       return argsMap[node.text];
     }
 
-    // todo use context issue manager
     throw new Error('Not implemented');
   }
 
-  // todo use context issue manager
   throw new Error('Not implemented');
 }

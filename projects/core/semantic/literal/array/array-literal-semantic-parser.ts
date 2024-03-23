@@ -38,7 +38,6 @@ export function arrayLiteralSemanticParse(context: SemanticContext, node: ArrayN
   }
 
   const reference = context.createReference(node);
-  // todo use union of literals for generics instead of nothing
   const type = declarationTypeSemantic(context, reference, declaration, nothing);
   // todo fix this hack with 'as LiteralTypeSemantic'
   const value: ArrayLiteralSemantic['value'] = (itemTypes as Array2<LiteralTypeSemantic>).map((x) => x.literal);

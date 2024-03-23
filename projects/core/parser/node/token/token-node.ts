@@ -11,7 +11,6 @@ export function tokenNode<T extends $Node>($: T, range: SourceRange, text: Strin
     $,
     range,
     text,
-    // todo move hiddenNodes to node initializer
     hiddenNodes: [],
   };
 }

@@ -6,10 +6,7 @@ import {SemanticConfig} from './semantic-config';
 import {TypeSemantic} from './type/type-semantic';
 
 export enum DeclarationKind {
-  ANY = 'ANY',
   TYPE = 'TYPE',
-  // todo should we use const here or we need check declarations by some restrictions ???
-  CONST = 'CONST',
   VALUE = 'VALUE',
 }
 
@@ -19,11 +16,11 @@ export interface DeclarationManager {
 
   count(): Integer;
   add(declaration: DeclarationSemantic): Nothing;
-  filterByName(kind: DeclarationKind, name: String2): Array2<DeclarationSemantic>;
+  filterByName(kind: DeclarationKind | Nothing, name: String2): Array2<DeclarationSemantic>;
   all(): Array2<DeclarationSemantic>;
 
   single(
-    kind: DeclarationKind,
+    kind: DeclarationKind | Nothing,
     name: String2,
     generics: Array2<TypeSemantic | Nothing> | Nothing,
     parameters: Array2<TypeSemantic | Nothing> | Nothing,
@@ -52,16 +49,16 @@ export function createDeclarationManager(
       this.declarations[declaration.name].push(declaration);
     },
 
-    filterByName(kind: DeclarationKind, name: String2): Array2<DeclarationSemantic> {
+    filterByName(kind: DeclarationKind | Nothing, name: String2): Array2<DeclarationSemantic> {
       let declarations = this.declarations[name] ?? parentDeclarationManager?.filterByName(kind, name);
-      declarations = declarations?.filter((x) => isDeclarationKind(x, kind));
+      declarations = declarations?.filter((x) => !kind || isDeclarationKind(x, kind));
 
       if (declarations && declarations.length > 0) {
         return declarations;
       }
 
       const importDeclarations = this.imports?.flatMap((x) =>
-        x.declarations[name]?.filter((x) => isDeclarationKind(x, kind)),
+        x.declarations[name]?.filter((x) => !kind || isDeclarationKind(x, kind)),
       );
 
       if (importDeclarations && importDeclarations?.length > 0) {
@@ -76,7 +73,7 @@ export function createDeclarationManager(
     },
 
     single(
-      kind: DeclarationKind,
+      kind: DeclarationKind | Nothing,
       name: String2,
       generics: Array2<TypeSemantic | Nothing> | Nothing,
       parameters: Array2<TypeSemantic | Nothing> | Nothing,
@@ -108,10 +105,6 @@ function isDeclarationKind<T extends DeclarationSemantic = DeclarationSemantic>(
   declaration: DeclarationSemantic,
   kind: DeclarationKind,
 ): declaration is T {
-  if (kind === DeclarationKind.ANY) {
-    return true;
-  }
-
   if (kind === DeclarationKind.TYPE && semanticIs<T>(declaration, $Semantic.TYPE_DECLARATION)) {
     return true;
   }
