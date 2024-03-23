@@ -1,4 +1,5 @@
 import {sourceFromText} from '../../../../source/source';
+import {JOINING} from '../../../parser-config';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
 import {MemberNode} from '../../syntax/member/member-node';
@@ -6,7 +7,7 @@ import {IdNode} from '../id/id-node';
 import {OperatorNode} from '../operator/operator-node';
 
 test('no space', () => {
-  const text = 'abc\\.def';
+  const text = 'abc~.def';
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
@@ -21,7 +22,7 @@ test('no space', () => {
 });
 
 test('spaces', () => {
-  const text = 'abc\\  .def';
+  const text = 'abc~  .def';
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
@@ -36,14 +37,14 @@ test('spaces', () => {
 });
 
 test('with new line', () => {
-  const text = 'abc\\   \n  .def';
+  const text = 'abc~   \n  .def';
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as MemberNode;
 
   expect(statements.length).toBe(1);
-  expect(node.instance.hiddenNodes[0].text).toBe('\\   \n');
+  expect(node.instance.hiddenNodes[0].text).toBe(JOINING + '   \n');
   expect(node.instance?.$).toBe($Node.ID);
   expect((node.instance as IdNode).text).toBe('abc');
   expect((node.operator as OperatorNode).text).toBe('.');

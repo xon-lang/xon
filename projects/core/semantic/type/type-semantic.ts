@@ -9,6 +9,5 @@ export interface TypeSemantic extends Semantic {
 }
 
 export function isTypeSemantic(semantic: Semantic): semantic is TypeSemantic {
-  // todo remove this hack
   return semantic.$.endsWith('_TYPE');
 }

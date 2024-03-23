@@ -1,13 +1,13 @@
 import {Nothing, nothing} from '../../../../lib/core';
 import {$Node, Node, is} from '../../../../parser/node/node';
 import {InfixNode} from '../../../../parser/node/syntax/infix/infix-node';
-import {OR} from '../../../../parser/parser-config';
+import {UNION} from '../../../../parser/parser-config';
 import {SemanticContext} from '../../../semantic-context';
 import {typeSemanticParse} from '../../type-semantic-parser';
-import {UnionTypeSemantic, unionTypeSemantic} from './union-type-semantic';
+import {UnionOperatorTypeSemantic, unionTypeSemantic} from './union-type-semantic';
 
-export function unionTypeSemanticTryParse(context: SemanticContext, node: Node): UnionTypeSemantic | Nothing {
-  if (is<InfixNode>(node, $Node.INFIX) && node.operator.text === OR) {
+export function unionTypeSemanticTryParse(context: SemanticContext, node: Node): UnionOperatorTypeSemantic | Nothing {
+  if (is<InfixNode>(node, $Node.INFIX) && node.operator.text === UNION) {
     const left = typeSemanticParse(context, node.left);
     const right = typeSemanticParse(context, node.right);
 

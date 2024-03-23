@@ -26,7 +26,7 @@ export const COMMENT_BLOCK = '---';
 
 export const NL = '\n';
 export const COMMA = ',';
-export const JOINING = '\\';
+export const JOINING = '~';
 export const SPACE = ' ';
 export const UNDERSCORE = '_';
 export const STRING_QUOTE = '"';
@@ -36,8 +36,10 @@ export const ASSIGN = '=';
 export const MEMBER = '.';
 export const META_MEMBER = '::';
 export const RANGE = '..';
-export const AND = '&';
-export const OR = '|';
+
+export const INTERSECTION = '&';
+export const UNION = '|';
+export const COMPLEMENT = '\\';
 
 export const GROUP_NODE_OPEN = '(';
 export const GROUP_NODE_CLOSE = ')';
@@ -123,7 +125,7 @@ export const operatorsOrders: Array2<OperatorsOrder> = [
     recursiveType: RecursiveType.LEFT,
   },
   {
-    operators: ['< <= >= >', '== !=', OPERATOR_KEYWORDS.join(' '), AND, OR],
+    operators: ['< <= >= >', '== !=', OPERATOR_KEYWORDS.join(' '), INTERSECTION, UNION + ' ' + COMPLEMENT],
     operatorType: OperatorType.INFIX,
     recursiveType: RecursiveType.LEFT,
   },

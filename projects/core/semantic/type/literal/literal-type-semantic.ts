@@ -2,6 +2,7 @@ import {Array2, Boolean2, String2} from '../../../lib/core';
 import {LiteralSemantic} from '../../literal/literal-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
+import {isInSet, isOperatorTypeSemantic} from '../operator/operator-type-semantic';
 import {TypeSemantic} from '../type-semantic';
 
 export interface LiteralTypeSemantic extends TypeSemantic {
@@ -16,6 +17,10 @@ export function literalTypeSemantic(context: SemanticContext, literal: LiteralSe
     literal,
 
     is(other: TypeSemantic): Boolean2 {
+      if (isOperatorTypeSemantic(other)) {
+        return isInSet(this, other);
+      }
+
       return this.eq(other) || literal.type.is(other);
     },
 
