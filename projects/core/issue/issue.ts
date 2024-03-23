@@ -1,18 +1,18 @@
 import {String2} from '../lib/core';
 import {Source, getRangeText} from '../source/source';
 import {SourceRange} from '../source/source-range';
-import {IssueLevel} from './issue-level';
+import {IssueSeverity} from './issue-level';
 import {IssueMessage} from './issue-message';
 
 export interface Issue {
-  level: IssueLevel;
+  level: IssueSeverity;
   range: SourceRange;
   message: IssueMessage;
 }
 
 export function createErrorIssue(range: SourceRange, message: IssueMessage): Issue {
   return {
-    level: IssueLevel.ERROR,
+    level: IssueSeverity.ERROR,
     range,
     message,
   };

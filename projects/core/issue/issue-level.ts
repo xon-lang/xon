@@ -1,5 +1,4 @@
-// todo rename to IssueSeverity ???
-export enum IssueLevel {
+export enum IssueSeverity {
   ERROR = 0,
   WARNING = 1,
   INFORMATION = 2,

@@ -2,7 +2,7 @@ import {Array2, Nothing} from '../lib/core';
 import {Source} from '../source/source';
 import {SourceRange} from '../source/source-range';
 import {Issue, formatIssue} from './issue';
-import {IssueLevel} from './issue-level';
+import {IssueSeverity} from './issue-level';
 import {IssueMessage} from './issue-message';
 
 export interface IssueManager {
@@ -20,7 +20,7 @@ export function createIssueManager(source: Source, issues: Array2<Issue> = []): 
 
     addError(range: SourceRange, message: IssueMessage): Issue {
       const issue = {
-        level: IssueLevel.ERROR,
+        level: IssueSeverity.ERROR,
         range,
         message,
       };

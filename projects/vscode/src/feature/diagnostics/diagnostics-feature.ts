@@ -10,7 +10,7 @@ import {
   workspace,
 } from 'vscode';
 import {Issue} from '../../../../core/issue/issue';
-import {IssueLevel} from '../../../../core/issue/issue-level';
+import {IssueSeverity} from '../../../../core/issue/issue-level';
 import {Array2} from '../../../../core/lib/core';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, getDocumentSyntax} from '../../util';
@@ -62,15 +62,15 @@ function getDiagnostics(issues: Array2<Issue>): Array2<Diagnostic> {
   return diagnostics;
 }
 
-function convertIssueLevel(level: IssueLevel): DiagnosticSeverity {
+function convertIssueLevel(level: IssueSeverity): DiagnosticSeverity {
   switch (level) {
-    case IssueLevel.ERROR:
+    case IssueSeverity.ERROR:
       return DiagnosticSeverity.Error;
-    case IssueLevel.WARNING:
+    case IssueSeverity.WARNING:
       return DiagnosticSeverity.Warning;
-    case IssueLevel.INFORMATION:
+    case IssueSeverity.INFORMATION:
       return DiagnosticSeverity.Information;
-    case IssueLevel.HINT:
+    case IssueSeverity.HINT:
       return DiagnosticSeverity.Hint;
   }
 }
