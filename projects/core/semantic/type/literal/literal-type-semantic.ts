@@ -1,4 +1,4 @@
-import {Boolean2, String2} from '../../../lib/core';
+import {Array2, Boolean2, String2} from '../../../lib/core';
 import {LiteralSemantic} from '../../literal/literal-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
@@ -27,7 +27,7 @@ export function literalTypeSemantic(context: SemanticContext, literal: LiteralSe
       return false;
     },
 
-    attributes(): Record<String2, TypeSemantic[]> {
+    attributes(): Record<String2, Array2<TypeSemantic>> {
       return {};
       // return getDeclarationAttributes(context, literal.declaration);
     },

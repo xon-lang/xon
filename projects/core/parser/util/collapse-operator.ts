@@ -1,4 +1,4 @@
-import {Nothing, String2, nothing} from '../../lib/core';
+import {Array2, Nothing, String2, nothing} from '../../lib/core';
 import {$Node, Node, is} from '../node/node';
 import {infixNode} from '../node/syntax/infix/infix-node';
 import {memberNode} from '../node/syntax/member/member-node';
@@ -12,7 +12,7 @@ import {SyntaxContext} from '../syntax-context';
 
 export function collapseOperator(
   context: SyntaxContext,
-  operators: String2[],
+  operators: Array2<String2>,
   operatorType: OperatorType,
   recursiveType: RecursiveType,
   startIndex = 0,

@@ -1,5 +1,5 @@
 import {IssueManager} from '../issue/issue-manager';
-import {Nothing, nothing} from '../lib/core';
+import {Array2, Nothing, nothing} from '../lib/core';
 import {Node} from '../parser/node/node';
 import {Source} from '../source/source';
 import {SourceReference, sourceReference} from '../source/source-reference';
@@ -21,7 +21,7 @@ export function semanticContext(
   parent: SemanticContext | Nothing,
   source: Source,
   issueManager: IssueManager,
-  imports: DeclarationManager[] | Nothing,
+  imports: Array2<DeclarationManager> | Nothing,
   config: SemanticConfig,
 ): SemanticContext {
   const declarationManager = createDeclarationManager(issueManager, parent?.declarationManager, imports, config);

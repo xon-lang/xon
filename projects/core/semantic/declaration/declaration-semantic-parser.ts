@@ -1,4 +1,4 @@
-import {Nothing, String2, nothing} from '../../lib/core';
+import {Array2, Nothing, String2, nothing} from '../../lib/core';
 import {DeclarationNode} from '../../parser/node/declaration/declaration-node';
 import {TYPE_MODIFIERS} from '../../parser/parser-config';
 import {SyntaxResult} from '../../parser/syntax-result';
@@ -17,8 +17,8 @@ export function syntaxDeclarationsParse(context: SemanticContext, syntax: Syntax
 
 export function declarationsParse(
   context: SemanticContext,
-  nodes: (DeclarationNode | Nothing)[],
-): (DeclarationSemantic | Nothing)[] {
+  nodes: Array2<DeclarationNode | Nothing>,
+): Array2<DeclarationSemantic | Nothing> {
   const declarations = nodes.map((x) => (x ? declarationShallowParse(context, x) : nothing));
 
   for (const node of nodes) {

@@ -1,8 +1,8 @@
-import {Char, String2} from '../lib/core';
+import {Array2, Char, String2} from '../lib/core';
 import {$Node} from './node/node';
 
 export interface OperatorsOrder {
-  operators: String2[][];
+  operators: Array2<Array2<String2>>;
   operatorType: OperatorType;
   recursiveType: RecursiveType;
 }
@@ -20,7 +20,6 @@ export enum RecursiveType {
   LEFT = 0,
   RIGHT = 1,
 }
-const a: number | string = 1 + 2 / 0;
 
 export const COMMENT_LINE = '//';
 export const COMMENT_BLOCK = '---';
@@ -92,7 +91,7 @@ export const CONTROL_KEYWORDS = [
   IMPORT_CONTROL,
 ];
 
-export const operatorsOrders: OperatorsOrder[] = [
+export const operatorsOrders: Array2<OperatorsOrder> = [
   {
     operators: [`${MEMBER} ${META_MEMBER}`],
     operatorType: OperatorType.MEMBER,

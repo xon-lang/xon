@@ -6,7 +6,7 @@ import {LiteralSemantic} from '../literal-semantic';
 
 export interface ArrayLiteralSemantic extends LiteralSemantic {
   $: $Semantic.RANGE_LITERAL;
-  value: LiteralSemantic[];
+  value: Array2<LiteralSemantic>;
 }
 
 export function arrayLiteralSemantic(

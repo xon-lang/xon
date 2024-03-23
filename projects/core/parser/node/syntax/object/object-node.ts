@@ -1,4 +1,4 @@
-import {Nothing} from '../../../../lib/core';
+import {Array2, Nothing} from '../../../../lib/core';
 import '../../../../util/extension';
 import {$Node, Node} from '../../node';
 import {CloseNode} from '../../token/close/close-node';
@@ -9,10 +9,10 @@ export interface ObjectNode extends SyntaxNode {
   $: $Node.OBJECT;
   open: OpenNode;
   close: CloseNode | Nothing;
-  items: (Node | Nothing)[];
+  items: Array2<Node | Nothing>;
 }
 
-export function objectNode(open: OpenNode, close: CloseNode | Nothing, items: Node[]): ObjectNode {
+export function objectNode(open: OpenNode, close: CloseNode | Nothing, items: Array2<Node>): ObjectNode {
   const node = syntaxNode($Node.OBJECT, {open, items, close});
 
   return node;

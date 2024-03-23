@@ -1,4 +1,4 @@
-import {Boolean2, Char, Integer, Nothing, Number2, String2, nothing} from '../../lib/core';
+import {Array2, Boolean2, Char, Integer, Nothing, Number2, String2, nothing} from '../../lib/core';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);
 const UPPER_Z_CODE = 'Z'.charCodeAt(0);
@@ -66,19 +66,19 @@ String.prototype.isLetterOrDigit = function (index: Integer): Boolean2 {
   );
 };
 
-String.prototype.some = function (predicate: (value: Char, index: Integer, array: Char[]) => Boolean2): Boolean2 {
+String.prototype.some = function (predicate: (value: Char, index: Integer, array: Array2<Char>) => Boolean2): Boolean2 {
   const array = Array.from(this);
 
   return array.some(predicate);
 };
 
-String.prototype.sum = function (select: (value: Char, index: Integer, array: Char[]) => Number2): Number2 {
+String.prototype.sum = function (select: (value: Char, index: Integer, array: Array2<Char>) => Number2): Number2 {
   const array = Array.from(this);
 
   return array.reduce((sum, val, index, array) => sum + select(val, index, array), 0);
 };
 
-String.prototype.count = function (predicate: (value: Char, index: Integer, array: Char[]) => Boolean2): Integer {
+String.prototype.count = function (predicate: (value: Char, index: Integer, array: Array2<Char>) => Boolean2): Integer {
   const array = Array.from(this);
 
   return array.reduce((sum, val, index, array) => sum + (predicate(val, index, array) ? 1 : 0), 0);

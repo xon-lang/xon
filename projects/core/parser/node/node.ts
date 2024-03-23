@@ -1,4 +1,4 @@
-import {Nothing} from '../../lib/core';
+import {Array2, Nothing} from '../../lib/core';
 import {Semantic} from '../../semantic/semantic';
 import {SourceRange} from '../../source/source-range';
 import {TokenNode} from './token/token-node';
@@ -7,8 +7,8 @@ export interface Node {
   readonly $: $Node;
   readonly range: SourceRange;
   parent?: Node | Nothing;
-  readonly children?: Node[];
-  hiddenNodes: TokenNode[];
+  readonly children?: Array2<Node>;
+  hiddenNodes: Array2<TokenNode>;
   semantic?: Semantic | Nothing;
 }
 

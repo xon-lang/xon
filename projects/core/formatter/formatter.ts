@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, String2, nothing} from '../lib/core';
+import {Array2, Boolean2, Nothing, String2, nothing} from '../lib/core';
 import {$Node, Node, is} from '../parser/node/node';
 import {StatementNode} from '../parser/node/syntax/statement/statement-node';
 import {CommentBlockNode} from '../parser/node/token/comment-block/comment-block-node';
@@ -151,7 +151,7 @@ export function formatLastContextHiddenNodes(context: SyntaxContext): Formatter 
 export function getFormatterForHiddenNodes(
   context: SyntaxContext,
   range: SourceRange,
-  hiddenNodes: TokenNode[],
+  hiddenNodes: Array2<TokenNode>,
   formattingType: FormattingType | Nothing,
 ): Formatter | Nothing {
   const nonWhitespaceNodes = hiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
@@ -259,7 +259,7 @@ function format(context: SyntaxContext, node: TokenNode | Nothing): String2 {
 
 function compareAndCreateFormatter(
   context: SyntaxContext,
-  nodes: TokenNode[],
+  nodes: Array2<TokenNode>,
   range: SourceRange,
   text: String2,
 ): Formatter | Nothing {
@@ -273,7 +273,7 @@ function compareAndCreateFormatter(
   };
 }
 
-function isSameContent(context: SyntaxContext, nodes: TokenNode[], text: String2): Boolean2 {
+function isSameContent(context: SyntaxContext, nodes: Array2<TokenNode>, text: String2): Boolean2 {
   const first = nodes.first();
   const last = nodes.last();
 

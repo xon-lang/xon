@@ -1,7 +1,7 @@
-import {String2} from '../lib/core';
+import {Array2, String2} from '../lib/core';
 
 export interface SemanticConfig {
-  defaultImports: String2[];
+  defaultImports: Array2<String2>;
   literalTypeNames: {
     integerTypeName: String2;
     stringTypeName: String2;

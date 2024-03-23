@@ -1,4 +1,4 @@
-import {Boolean2, String2} from '../../../../lib/core';
+import {Array2, Boolean2, String2} from '../../../../lib/core';
 import {SourceReference} from '../../../../source/source-reference';
 import {$Semantic} from '../../../semantic';
 import {TypeSemantic} from '../../type-semantic';
@@ -28,7 +28,7 @@ export function unionTypeSemantic(
       return false;
     },
 
-    attributes(): Record<String2, TypeSemantic[]> {
+    attributes(): Record<String2, Array2<TypeSemantic>> {
       return {};
     },
   };

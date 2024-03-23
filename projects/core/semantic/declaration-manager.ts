@@ -1,5 +1,5 @@
 import {IssueManager} from '../issue/issue-manager';
-import {Integer, Nothing, String2, nothing} from '../lib/core';
+import {Array2, Integer, Nothing, String2, nothing} from '../lib/core';
 import {DeclarationSemantic} from './declaration/declaration-semantic';
 import {$Semantic, semanticIs} from './semantic';
 import {SemanticConfig} from './semantic-config';
@@ -14,26 +14,26 @@ export enum DeclarationKind {
 }
 
 export interface DeclarationManager {
-  imports: DeclarationManager[] | Nothing;
-  declarations: Record<String2, DeclarationSemantic[]>;
+  imports: Array2<DeclarationManager> | Nothing;
+  declarations: Record<String2, Array2<DeclarationSemantic>>;
 
   count(): Integer;
   add(declaration: DeclarationSemantic): Nothing;
-  filterByName(kind: DeclarationKind, name: String2): DeclarationSemantic[];
-  all(): DeclarationSemantic[];
+  filterByName(kind: DeclarationKind, name: String2): Array2<DeclarationSemantic>;
+  all(): Array2<DeclarationSemantic>;
 
   single(
     kind: DeclarationKind,
     name: String2,
-    generics: (TypeSemantic | Nothing)[] | Nothing,
-    parameters: (TypeSemantic | Nothing)[] | Nothing,
+    generics: Array2<TypeSemantic | Nothing> | Nothing,
+    parameters: Array2<TypeSemantic | Nothing> | Nothing,
   ): DeclarationSemantic | Nothing;
 }
 
 export function createDeclarationManager(
   issueManager: IssueManager,
   parentDeclarationManager: DeclarationManager | Nothing,
-  imports: DeclarationManager[] | Nothing,
+  imports: Array2<DeclarationManager> | Nothing,
   config: SemanticConfig,
 ): DeclarationManager {
   return {
@@ -52,7 +52,7 @@ export function createDeclarationManager(
       this.declarations[declaration.name].push(declaration);
     },
 
-    filterByName(kind: DeclarationKind, name: String2): DeclarationSemantic[] {
+    filterByName(kind: DeclarationKind, name: String2): Array2<DeclarationSemantic> {
       let declarations = this.declarations[name] ?? parentDeclarationManager?.filterByName(kind, name);
       declarations = declarations?.filter((x) => isDeclarationKind(x, kind));
 
@@ -71,15 +71,15 @@ export function createDeclarationManager(
       return [];
     },
 
-    all(): DeclarationSemantic[] {
+    all(): Array2<DeclarationSemantic> {
       return Object.values(this.declarations).flat();
     },
 
     single(
       kind: DeclarationKind,
       name: String2,
-      generics: (TypeSemantic | Nothing)[] | Nothing,
-      parameters: (TypeSemantic | Nothing)[] | Nothing,
+      generics: Array2<TypeSemantic | Nothing> | Nothing,
+      parameters: Array2<TypeSemantic | Nothing> | Nothing,
     ): DeclarationSemantic | Nothing {
       const declarations = this.filterByName(kind, name);
 

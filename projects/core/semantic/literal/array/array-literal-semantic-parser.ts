@@ -1,5 +1,5 @@
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {Nothing, nothing} from '../../../lib/core';
+import {Array2, Nothing, nothing} from '../../../lib/core';
 import {ArrayNode} from '../../../parser/node/syntax/array/array-node';
 import {DeclarationKind} from '../../declaration-manager';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
@@ -41,7 +41,7 @@ export function arrayLiteralSemanticParse(context: SemanticContext, node: ArrayN
   // todo use union of literals for generics instead of nothing
   const type = declarationTypeSemantic(context, reference, declaration, nothing);
   // todo fix this hack with 'as LiteralTypeSemantic'
-  const value: ArrayLiteralSemantic['value'] = (itemTypes as LiteralTypeSemantic[]).map((x) => x.literal);
+  const value: ArrayLiteralSemantic['value'] = (itemTypes as Array2<LiteralTypeSemantic>).map((x) => x.literal);
   const semantic = arrayLiteralSemantic(reference, type, value);
 
   return semantic;

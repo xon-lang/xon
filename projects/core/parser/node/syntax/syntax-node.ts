@@ -1,12 +1,12 @@
-import {Nothing, String2} from '../../../lib/core';
+import {Array2, Nothing, String2} from '../../../lib/core';
 import {rangeFromNodes} from '../../../source/source-range';
 import {$Node, Node} from '../node';
 
 export interface SyntaxNode extends Node {
-  readonly children: Node[];
+  readonly children: Array2<Node>;
 }
 
-export function syntaxNode<T extends Record<String2, Node | Node[] | Nothing>, V extends $Node>(
+export function syntaxNode<T extends Record<String2, Node | Array2<Node> | Nothing>, V extends $Node>(
   $: V,
   nodes: T,
 ): SyntaxNode & {$: typeof $} & T {
@@ -29,7 +29,7 @@ export function syntaxNode<T extends Record<String2, Node | Node[] | Nothing>, V
   return node;
 }
 
-function flatNodes(nodes: Node | Node[] | Nothing): Node[] {
+function flatNodes(nodes: Node | Array2<Node> | Nothing): Array2<Node> {
   if (!nodes) {
     return [];
   }

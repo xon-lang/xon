@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../../lib/core';
+import {Array2, Nothing, nothing} from '../../lib/core';
 import {Node} from '../../parser/node/node';
 import {SemanticContext} from '../semantic-context';
 import {declarationTypeSemanticTryParse} from './declaration/declaration-type-semantic-parser';
@@ -8,7 +8,7 @@ import {TypeSemantic} from './type-semantic';
 
 type TypeSemanticTryParseFn = (context: SemanticContext, node: Node) => TypeSemantic | Nothing;
 
-const parsers: TypeSemanticTryParseFn[] = [
+const parsers: Array2<TypeSemanticTryParseFn> = [
   literalTypeSemanticTryParse,
   declarationTypeSemanticTryParse,
   unionTypeSemanticTryParse,

@@ -1,6 +1,6 @@
 import {OutputChannel, Position, Range, TextDocument, TextEdit} from 'vscode';
 import {Formatter} from '../../core/formatter/formatter';
-import {Nothing, nothing} from '../../core/lib/core';
+import {Array2, Nothing, nothing} from '../../core/lib/core';
 import {Node} from '../../core/parser/node/node';
 import {StatementNode} from '../../core/parser/node/syntax/statement/statement-node';
 import {parseSyntax} from '../../core/parser/syntax';
@@ -69,7 +69,10 @@ export function findNodeByPosition(node: Node, position: Position): Node {
 }
 
 // todo move function to core and optimize (use body last statement for range checking)
-export function findStatementNodeByPosition(statements: StatementNode[], position: Position): StatementNode | Nothing {
+export function findStatementNodeByPosition(
+  statements: Array2<StatementNode>,
+  position: Position,
+): StatementNode | Nothing {
   if (statements.length === 0) return nothing;
 
   for (const statement of statements) {

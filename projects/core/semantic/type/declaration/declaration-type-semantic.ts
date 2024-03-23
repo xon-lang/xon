@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, String2} from '../../../lib/core';
+import {Array2, Boolean2, Nothing, String2} from '../../../lib/core';
 import {SourceReference} from '../../../source/source-reference';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
@@ -8,14 +8,14 @@ import {TypeSemantic} from '../type-semantic';
 export interface DeclarationTypeSemantic extends TypeSemantic {
   $: $Semantic.DECLARATION_TYPE;
   declaration: TypeDeclarationSemantic;
-  generics: (TypeSemantic | Nothing)[] | Nothing;
+  generics: Array2<TypeSemantic | Nothing> | Nothing;
 }
 
 export function declarationTypeSemantic(
   context: SemanticContext,
   reference: SourceReference,
   declaration: TypeDeclarationSemantic,
-  generics: (TypeSemantic | Nothing)[] | Nothing,
+  generics: Array2<TypeSemantic | Nothing> | Nothing,
 ): DeclarationTypeSemantic {
   const semantic: DeclarationTypeSemantic = {
     $: $Semantic.DECLARATION_TYPE,
@@ -46,7 +46,7 @@ export function declarationTypeSemantic(
       return false;
     },
 
-    attributes(): Record<String2, TypeSemantic[]> {
+    attributes(): Record<String2, Array2<TypeSemantic>> {
       return getDeclarationAttributes(context, declaration);
     },
   };
@@ -59,8 +59,8 @@ export function declarationTypeSemantic(
 export function getDeclarationAttributes(
   context: SemanticContext,
   declaration: TypeDeclarationSemantic,
-): Record<String2, TypeSemantic[]> {
-  const attributes: Record<String2, TypeSemantic[]> = {};
+): Record<String2, Array2<TypeSemantic>> {
+  const attributes: Record<String2, Array2<TypeSemantic>> = {};
 
   if (semanticIs<TypeDeclarationSemantic>(declaration, $Semantic.TYPE_DECLARATION)) {
     for (const [name, declarations] of Object.entries(declaration?.attributes)) {

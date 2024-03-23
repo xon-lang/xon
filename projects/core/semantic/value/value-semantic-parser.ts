@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../../lib/core';
+import {Array2, Nothing, nothing} from '../../lib/core';
 import {Node} from '../../parser/node/node';
 import {SyntaxResult} from '../../parser/syntax-result';
 import {SemanticContext} from '../semantic-context';
@@ -10,7 +10,7 @@ import {ValueSemantic, valueSemantic} from './value-semantic';
 
 type ValueSemanticTryParseFn = (context: SemanticContext, node: Node) => TypeSemantic | Nothing;
 
-export const parsers: ValueSemanticTryParseFn[] = [
+export const parsers: Array2<ValueSemanticTryParseFn> = [
   literalValueTypeTryParse,
   declarationValueTypeTryParse,
   memberValueTypeTryParse,

@@ -1,6 +1,6 @@
 import {FormatterManager, createFormatterManager} from '../formatter/formatter-manager';
 import {IssueManager, createIssueManager} from '../issue/issue-manager';
-import {Boolean2, Integer, Nothing, nothing} from '../lib/core';
+import {Array2, Boolean2, Integer, Nothing, nothing} from '../lib/core';
 import {Source} from '../source/source';
 import {SourcePosition, sourcePosition} from '../source/source-position';
 import {SourceRange, sourceRange} from '../source/source-range';
@@ -13,13 +13,13 @@ import {NL} from './parser-config';
 export interface SyntaxContext {
   source: Source;
   position: SourcePosition;
-  hiddenNodes: TokenNode[];
-  operators: OperatorNode[];
+  hiddenNodes: Array2<TokenNode>;
+  operators: Array2<OperatorNode>;
   breakNode: Node | Nothing;
   parentStatement: StatementNode | Nothing;
-  nodes: Node[];
+  nodes: Array2<Node>;
   previousStatement: StatementNode | Nothing;
-  statements: StatementNode[];
+  statements: Array2<StatementNode>;
   issueManager: IssueManager;
   formatterManager: FormatterManager;
 

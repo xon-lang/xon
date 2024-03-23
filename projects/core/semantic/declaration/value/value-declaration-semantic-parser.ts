@@ -1,5 +1,5 @@
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {Nothing, nothing} from '../../../lib/core';
+import {Array2, Nothing, nothing} from '../../../lib/core';
 import {DeclarationNode} from '../../../parser/node/declaration/declaration-node';
 import {rangeFromNodes} from '../../../source/source-range';
 import {$Semantic, semanticIs} from '../../semantic';
@@ -39,8 +39,8 @@ function genericsParse(
     return;
   }
 
-  // todo remove this hack 'as ValueDeclarationSemantic[]'
-  declaration.generics = declarationsParse(context, node.generics) as ValueDeclarationSemantic[];
+  // todo remove this hack 'as Array2<ValueDeclarationSemantic>'
+  declaration.generics = declarationsParse(context, node.generics) as Array2<ValueDeclarationSemantic>;
 }
 
 function typeParse(context: SemanticContext, declaration: ValueDeclarationSemantic, node: DeclarationNode): Nothing {

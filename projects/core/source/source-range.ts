@@ -1,4 +1,4 @@
-import {Boolean2} from '../lib/core';
+import {Array2, Boolean2} from '../lib/core';
 import {Node} from '../parser/node/node';
 import {SourcePosition, clonePosition, zeroPosition} from './source-position';
 
@@ -24,7 +24,7 @@ export function cloneRange(range: SourceRange): SourceRange {
   return sourceRange(range.start, range.stop);
 }
 
-export function rangeFromNodes(nodes: Node[]): SourceRange {
+export function rangeFromNodes(nodes: Array2<Node>): SourceRange {
   const startNode = nodes.first();
   const stopNode = nodes.last();
 

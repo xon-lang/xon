@@ -1,4 +1,4 @@
-import {Nothing, String2} from '../../../lib/core';
+import {Array2, Nothing, String2} from '../../../lib/core';
 import {SourceRange} from '../../../source/source-range';
 import {$Node, Node, is} from '../node';
 
@@ -24,7 +24,13 @@ export function isToken(node: {$?: $Node} | Nothing): node is TokenNode {
   return false;
 }
 
-const HIDDEN_TOKENS: $Node[] = [$Node.NL, $Node.WHITESPACE, $Node.JOINING, $Node.COMMENT_LINE, $Node.COMMENT_BLOCK];
+const HIDDEN_TOKENS: Array2<$Node> = [
+  $Node.NL,
+  $Node.WHITESPACE,
+  $Node.JOINING,
+  $Node.COMMENT_LINE,
+  $Node.COMMENT_BLOCK,
+];
 
 export function isHiddenToken(node: {$?: $Node} | Nothing): node is TokenNode {
   if (node) {

@@ -1,6 +1,6 @@
 import {formatLastContextHiddenNodes} from '../formatter/formatter';
 import {ISSUE_MESSAGE} from '../issue/issue-message';
-import {Boolean2, Nothing, nothing} from '../lib/core';
+import {Array2, Boolean2, Nothing, nothing} from '../lib/core';
 import {Source} from '../source/source';
 import {SourcePosition, zeroPosition} from '../source/source-position';
 import {$Node, Node, is} from './node/node';
@@ -24,7 +24,7 @@ import {putStatementNode} from './util/put-statement-node';
 
 type SyntaxScanFn = (context: SyntaxContext) => Node | Nothing;
 
-const scanFunctions: SyntaxScanFn[] = [
+const scanFunctions: Array2<SyntaxScanFn> = [
   scanCommentBlockNode,
   scanCommentLineNode,
   scanIntegerNode,

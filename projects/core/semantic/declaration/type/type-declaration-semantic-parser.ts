@@ -1,5 +1,5 @@
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {Nothing, nothing} from '../../../lib/core';
+import {Array2, Nothing, nothing} from '../../../lib/core';
 import {DeclarationNode} from '../../../parser/node/declaration/declaration-node';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
@@ -30,12 +30,12 @@ export function typeDeclarationDeepParse(
 }
 
 function genericsParse(context: SemanticContext, declaration: TypeDeclarationSemantic, node: DeclarationNode): Nothing {
-  // todo remove this hack 'as ValueDeclarationSemantic[]'
   if (!node.generics) {
     return;
   }
 
-  declaration.generics = declarationsParse(context, node.generics) as ValueDeclarationSemantic[];
+  // todo remove this hack 'as Array2<ValueDeclarationSemantic>'
+  declaration.generics = declarationsParse(context, node.generics) as Array2<ValueDeclarationSemantic>;
 }
 
 function typeParse(context: SemanticContext, declaration: TypeDeclarationSemantic, node: DeclarationNode): Nothing {

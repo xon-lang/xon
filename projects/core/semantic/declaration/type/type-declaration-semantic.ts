@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, String2, nothing} from '../../../lib/core';
+import {Array2, Boolean2, Nothing, String2, nothing} from '../../../lib/core';
 import {SourceReference} from '../../../source/source-reference';
 import {$Semantic} from '../../semantic';
 import {TypeSemantic} from '../../type/type-semantic';
@@ -8,7 +8,7 @@ import {ValueDeclarationSemantic} from '../value/value-declaration-semantic';
 export interface TypeDeclarationSemantic extends DeclarationSemantic {
   $: $Semantic.TYPE_DECLARATION;
   baseType: TypeSemantic | Nothing;
-  attributes: Record<String2, ValueDeclarationSemantic[]>;
+  attributes: Record<String2, Array2<ValueDeclarationSemantic>>;
 
   eq(other: DeclarationSemantic): Boolean2;
 }

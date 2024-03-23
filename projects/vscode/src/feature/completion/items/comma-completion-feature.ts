@@ -21,7 +21,7 @@
 //     position: Position,
 //     _token: CancellationToken,
 //     _context: CompletionContext
-//   ): ProviderResult<CompletionItem[] | CompletionList<CompletionItem>> {
+//   ): ProviderResult<Array2<CompletionItem> | CompletionList<CompletionItem>> {
 //     const documentInfo = documentToDocumentTree(document);
 //     if (!documentInfo) return null;
 

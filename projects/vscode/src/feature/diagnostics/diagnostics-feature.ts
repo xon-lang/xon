@@ -11,6 +11,7 @@ import {
 } from 'vscode';
 import {Issue} from '../../../../core/issue/issue';
 import {IssueLevel} from '../../../../core/issue/issue-level';
+import {Array2} from '../../../../core/lib/core';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, getDocumentSyntax} from '../../util';
 
@@ -47,8 +48,8 @@ function checkDocument(document: TextDocument, diagnostics: DiagnosticCollection
   diagnostics.set(document.uri, getDiagnostics(syntax.issueManager.issues));
 }
 
-function getDiagnostics(issues: Issue[]): Diagnostic[] {
-  const diagnostics: Diagnostic[] = [];
+function getDiagnostics(issues: Array2<Issue>): Array2<Diagnostic> {
+  const diagnostics: Array2<Diagnostic> = [];
 
   for (const issue of issues) {
     const range = convertRange(issue.range);

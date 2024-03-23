@@ -12,6 +12,7 @@ import {
   TextEdit,
 } from 'vscode';
 
+import {Array2} from '../../../../core/lib/core';
 import {LANGUAGE_NAME} from '../../config';
 import {convertFormatter, getDocumentSyntax} from '../../util';
 
@@ -38,7 +39,7 @@ export class LanguageDocumentFormattingEditProvider implements DocumentFormattin
     document: TextDocument,
     options: FormattingOptions,
     token: CancellationToken,
-  ): ProviderResult<TextEdit[]> {
+  ): ProviderResult<Array2<TextEdit>> {
     return getDocumentFormatters(document, this.channel);
   }
 }
@@ -51,7 +52,7 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
     range: Range,
     options: FormattingOptions,
     token: CancellationToken,
-  ): ProviderResult<TextEdit[]> {
+  ): ProviderResult<Array2<TextEdit>> {
     const formatters = getDocumentFormatters(document, this.channel).filter((x) => range.contains(x.range));
 
     return formatters;
@@ -59,10 +60,10 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
 
   provideDocumentRangesFormattingEdits?(
     document: TextDocument,
-    ranges: Range[],
+    ranges: Array2<Range>,
     options: FormattingOptions,
     token: CancellationToken,
-  ): ProviderResult<TextEdit[]> {
+  ): ProviderResult<Array2<TextEdit>> {
     const formatters = getDocumentFormatters(document, this.channel).filter((x) =>
       ranges.some((z) => z.contains(x.range)),
     );
@@ -70,7 +71,7 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
     return formatters;
   }
 
-  provideDocumentFormattingEdits(document: TextDocument): ProviderResult<TextEdit[]> {
+  provideDocumentFormattingEdits(document: TextDocument): ProviderResult<Array2<TextEdit>> {
     const syntax = getDocumentSyntax(document, this.channel);
     const edits = syntax.formatterManager.formatters.map(convertFormatter);
 
@@ -78,7 +79,7 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
   }
 }
 
-function getDocumentFormatters(document: TextDocument, channel: OutputChannel): TextEdit[] {
+function getDocumentFormatters(document: TextDocument, channel: OutputChannel): Array2<TextEdit> {
   const syntax = getDocumentSyntax(document, channel);
   const edits = syntax.formatterManager.formatters.map(convertFormatter);
 

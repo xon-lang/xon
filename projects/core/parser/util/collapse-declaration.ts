@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../../lib/core';
+import {Array2, Nothing, nothing} from '../../lib/core';
 import {DeclarationNode, declarationNode} from '../node/declaration/declaration-node';
 import {$Node, Node, is} from '../node/node';
 import {GroupNode} from '../node/syntax/group/group-node';
@@ -122,8 +122,8 @@ function getUnderModifier(
 ):
   | {
       id: IdNode;
-      generics?: (DeclarationNode | Nothing)[] | Nothing;
-      parameters?: (DeclarationNode | Nothing)[] | Nothing;
+      generics?: Array2<DeclarationNode | Nothing> | Nothing;
+      parameters?: Array2<DeclarationNode | Nothing> | Nothing;
     }
   | Nothing {
   if (!node) {

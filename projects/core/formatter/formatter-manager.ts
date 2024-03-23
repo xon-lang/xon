@@ -1,10 +1,10 @@
-import {Nothing, String2} from '../lib/core';
+import {Array2, Nothing, String2} from '../lib/core';
 import {Source} from '../source/source';
 import {Formatter} from './formatter';
 
 export interface FormatterManager {
   source: Source;
-  formatters: Formatter[];
+  formatters: Array2<Formatter>;
 
   addFormatter(formatter: Formatter): Nothing;
   getFormattedText(): String2;

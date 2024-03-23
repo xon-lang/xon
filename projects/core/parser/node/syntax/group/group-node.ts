@@ -1,5 +1,5 @@
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
-import {Nothing, nothing} from '../../../../lib/core';
+import {Array2, Nothing, nothing} from '../../../../lib/core';
 import '../../../../util/extension';
 import {ARRAY_NODE_OPEN, COMMA, GROUP_NODE_OPEN, OBJECT_NODE_OPEN, OPEN_CLOSE_PAIR} from '../../../parser-config';
 import {parseSyntaxUntil} from '../../../syntax';
@@ -19,14 +19,14 @@ export interface GroupNode extends SyntaxNode {
   open: OpenNode;
   close: CloseNode | Nothing;
   // todo make items as Statement[][] or as body
-  items: (Node | Nothing)[];
+  items: Array2<Node | Nothing>;
 }
 
 export function groupNode(
   context: SyntaxContext,
   open: OpenNode,
   close: CloseNode | Nothing,
-  items: Node[],
+  items: Array2<Node>,
 ): GroupNode {
   const node = syntaxNode($Node.GROUP, {open, items, close});
 
@@ -56,7 +56,7 @@ export function scanGroupNode(context: SyntaxContext): Group | Nothing {
   position.column = open.range.stop.column;
   position.index = open.range.stop.index;
 
-  const items: Node[] = [];
+  const items: Array2<Node> = [];
 
   while (position.index < source.text.length) {
     // todo remove from here or refactor
@@ -96,7 +96,7 @@ function createGroupNode(
   context: SyntaxContext,
   open: OpenNode,
   close: CloseNode | Nothing,
-  nodes: Node[],
+  nodes: Array2<Node>,
 ): Group | Nothing {
   if (open.text === GROUP_NODE_OPEN) {
     return groupNode(context, open, close, nodes);
