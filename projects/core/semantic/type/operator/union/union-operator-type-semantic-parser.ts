@@ -4,7 +4,7 @@ import {InfixNode} from '../../../../parser/node/syntax/infix/infix-node';
 import {UNION} from '../../../../parser/parser-config';
 import {SemanticContext} from '../../../semantic-context';
 import {typeSemanticParse} from '../../type-semantic-parser';
-import {UnionOperatorTypeSemantic, unionTypeSemantic} from './union-type-semantic';
+import {UnionOperatorTypeSemantic, unionTypeSemantic} from './union-operator-type-semantic';
 
 export function unionTypeSemanticTryParse(context: SemanticContext, node: Node): UnionOperatorTypeSemantic | Nothing {
   if (is<InfixNode>(node, $Node.INFIX) && node.operator.text === UNION) {

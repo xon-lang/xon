@@ -5,14 +5,14 @@ import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
 import {$Semantic, parseSemantic} from '../../../semantic';
 import {DeclarationTypeSemantic} from '../../declaration/declaration-type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
-import {UnionOperatorTypeSemantic} from './union-type-semantic';
+import {IntersectionOperatorTypeSemantic} from './intersection-operator-type-semantic';
 
 test('a is integer', () => {
   const text = `
     model Integer
     model Float
 
-    const a: Integer | Float
+    const a: Integer & Float
   `;
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
@@ -29,7 +29,7 @@ test('a is integer', () => {
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as UnionOperatorTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type) as IntersectionOperatorTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.UNION_OPERATOR_TYPE);
   expect(typeSemantic.left.$).toBe($Semantic.DECLARATION_TYPE);
   expect((typeSemantic.left as DeclarationTypeSemantic).declaration?.name).toBe('Integer');

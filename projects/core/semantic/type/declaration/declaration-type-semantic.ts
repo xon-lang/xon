@@ -3,6 +3,7 @@ import {SourceReference} from '../../../source/source-reference';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
+import {isInSet, isOperatorTypeSemantic} from '../operator/operator-type-semantic';
 import {TypeSemantic} from '../type-semantic';
 
 export interface DeclarationTypeSemantic extends TypeSemantic {
@@ -24,6 +25,10 @@ export function declarationTypeSemantic(
     generics,
 
     is(other: TypeSemantic): Boolean2 {
+      if (isOperatorTypeSemantic(other)) {
+        return isInSet(this, other);
+      }
+
       if (this.eq(other)) {
         return true;
       }
