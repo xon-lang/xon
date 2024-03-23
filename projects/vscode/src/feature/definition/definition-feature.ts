@@ -21,7 +21,7 @@ import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaratio
 import {LiteralTypeSemantic} from '../../../../core/semantic/type/literal/literal-type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {LANGUAGE_NAME} from '../../config';
-import {convertRange, findNodeBytPositionInSyntax, getDocumentSyntax} from '../../util';
+import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
 export function configureDefinitionFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
@@ -35,7 +35,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
   provideDefinition(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<Definition> {
     const syntax = getDocumentSyntax(document, this.channel);
 
-    const node = findNodeBytPositionInSyntax(syntax, position);
+    const node = findNodeByPositionInSyntax(syntax, position);
 
     if (!node?.semantic) {
       return nothing;

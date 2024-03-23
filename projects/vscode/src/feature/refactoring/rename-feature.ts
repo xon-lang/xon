@@ -23,7 +23,7 @@ import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {getRangeText} from '../../../../core/source/source';
 import {SourceReference} from '../../../../core/source/source-reference';
 import {LANGUAGE_NAME} from '../../config';
-import {convertRange, findNodeBytPositionInSyntax, getDocumentSyntax} from '../../util';
+import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
 export function configureRefactoringFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(languages.registerRenameProvider(LANGUAGE_NAME, new LanguageRenameProvider(channel)));
@@ -40,7 +40,7 @@ class LanguageRenameProvider implements RenameProvider {
   ): ProviderResult<WorkspaceEdit> {
     const syntax = getDocumentSyntax(document, this.channel);
 
-    const node = findNodeBytPositionInSyntax(syntax, position);
+    const node = findNodeByPositionInSyntax(syntax, position);
 
     if (!is<IdNode>(node, $Node.ID) || !node.semantic) {
       return nothing;
@@ -66,7 +66,7 @@ class LanguageRenameProvider implements RenameProvider {
   ): ProviderResult<Range | {range: Range; placeholder: String2}> {
     const syntax = getDocumentSyntax(document, this.channel);
 
-    const node = findNodeBytPositionInSyntax(syntax, position);
+    const node = findNodeByPositionInSyntax(syntax, position);
 
     if (!is<IdNode>(node, $Node.ID)) {
       throw new Error('You cannot rename this element');

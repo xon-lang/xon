@@ -17,7 +17,7 @@ import {$Semantic, Semantic, semanticIs} from '../../../../../core/semantic/sema
 import {DeclarationTypeSemantic} from '../../../../../core/semantic/type/declaration/declaration-type-semantic';
 import {TypeSemantic, isTypeSemantic} from '../../../../../core/semantic/type/type-semantic';
 import {ValueSemantic} from '../../../../../core/semantic/value/value-semantic';
-import {findNodeBytPositionInSyntax, getDocumentSyntax} from '../../../util';
+import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../../util';
 
 export class DotCompletionItemProvider implements CompletionItemProvider {
   constructor(private channel: OutputChannel) {}
@@ -29,7 +29,7 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
     _context: CompletionContext,
   ): ProviderResult<Array2<CompletionItem> | CompletionList<CompletionItem>> {
     const syntax = getDocumentSyntax(document, this.channel);
-    const node = findNodeBytPositionInSyntax(syntax, position);
+    const node = findNodeByPositionInSyntax(syntax, position);
 
     if (is<MemberNode>(node?.parent, $Node.MEMBER) && node.parent.instance.semantic) {
       const attributes = getAttributes(node.parent.instance.semantic);

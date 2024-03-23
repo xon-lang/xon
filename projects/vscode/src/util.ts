@@ -38,7 +38,7 @@ export function getDocumentSyntax(document: TextDocument, channel: OutputChannel
   return syntax;
 }
 
-export function findNodeBytPositionInSyntax(syntax: SyntaxResult, position: Position): Node | Nothing {
+export function findNodeByPositionInSyntax(syntax: SyntaxResult, position: Position): Node | Nothing {
   const statement = findStatementNodeByPosition(syntax.statements, position);
 
   if (!statement) {
@@ -48,7 +48,6 @@ export function findNodeBytPositionInSyntax(syntax: SyntaxResult, position: Posi
   return findNodeByPosition(statement, position);
 }
 
-// todo move function to core
 export function findNodeByPosition(node: Node, position: Position): Node {
   if (!node.children) {
     return node;
