@@ -9,14 +9,14 @@ import {$Semantic, parseSemantic} from '../../../semantic';
 import {DeclarationTypeSemantic} from '../../declaration/declaration-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
-import {UnionTypeSemantic} from './union-type-semantic';
+import {ComplementTypeSemantic} from './complement-type-semantic';
 
 test('a is integer or float', () => {
   const text = `
     model Integer
     model Float
 
-    const a: Integer | Float
+    const a: Integer \\ Float
   `;
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
@@ -33,8 +33,8 @@ test('a is integer or float', () => {
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as UnionTypeSemantic;
-  expect(typeSemantic.$).toBe($Semantic.UNION_TYPE);
+  const typeSemantic = typeSemanticParse(semantic, constNode.type) as ComplementTypeSemantic;
+  expect(typeSemantic.$).toBe($Semantic.COMPLEMENT_TYPE);
   expect(typeSemantic.left.$).toBe($Semantic.DECLARATION_TYPE);
   expect((typeSemantic.left as DeclarationTypeSemantic).declaration?.name).toBe('Integer');
   expect(typeSemantic.right.$).toBe($Semantic.DECLARATION_TYPE);
@@ -45,35 +45,12 @@ test('check type', () => {
   const text = `
     model Number
     model Integer: Number
-    model Float
-
-    const a: Integer
-    const b: Integer | Float
-  `;
-  const source = sourceFromText(text);
-  const syntax = parseSyntax(source);
-  const semantic = parseSemantic(syntax);
-
-  const aConst = syntax.statements[3].declaration as DeclarationNode;
-  const bConst = syntax.statements[4].declaration as DeclarationNode;
-
-  const aType = typeSemanticParse(semantic, aConst.type) as TypeSemantic;
-  const bType = typeSemanticParse(semantic, bConst.type) as TypeSemantic;
-  expect(aType.$).toBe($Semantic.DECLARATION_TYPE);
-  expect(bType.$).toBe($Semantic.UNION_TYPE);
-  expect(aType.is(bType)).toBe(true);
-});
-
-test('check type', () => {
-  const text = `
-    model Number
-    model Integer: Number
     model Float: Number
     model String
 
-    const a: Integer | Float
-    const b: Float
-    const c: String
+    const a: Number \\ Float
+    const b: Integer
+    const c: Float
   `;
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
@@ -87,7 +64,7 @@ test('check type', () => {
   const bType = getConst('b');
   const cType = getConst('c');
 
-  expect(aType.$).toBe($Semantic.UNION_TYPE);
+  expect(aType.$).toBe($Semantic.COMPLEMENT_TYPE);
   expect(bType.$).toBe($Semantic.DECLARATION_TYPE);
   expect(cType.$).toBe($Semantic.DECLARATION_TYPE);
 

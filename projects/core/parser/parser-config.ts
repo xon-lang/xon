@@ -40,6 +40,7 @@ export const RANGE = '..';
 export const INTERSECTION = '&';
 export const UNION = '|';
 export const COMPLEMENT = '\\';
+export const NOT = '!';
 
 export const GROUP_NODE_OPEN = '(';
 export const GROUP_NODE_CLOSE = ')';
@@ -105,7 +106,7 @@ export const operatorsOrders: Array2<OperatorsOrder> = [
     recursiveType: RecursiveType.LEFT,
   },
   {
-    operators: ['... + - !'],
+    operators: ['... + - ' + NOT],
     operatorType: OperatorType.PREFIX,
     recursiveType: RecursiveType.LEFT,
   },

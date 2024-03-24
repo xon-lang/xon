@@ -4,7 +4,9 @@ import {SemanticContext} from '../semantic-context';
 import {arrayTypeSemanticTryParse} from './array/array-type-semantic-parser';
 import {declarationTypeSemanticTryParse} from './declaration/declaration-type-semantic-parser';
 import {integerTypeSemanticTryParse} from './integer/integer-type-semantic-parser';
+import {complementTypeSemanticTryParse} from './set/complement/intersection-type-semantic-parser';
 import {intersectionTypeSemanticTryParse} from './set/intersection/intersection-type-semantic-parser';
+import {notTypeSemanticTryParse} from './set/not/not-type-semantic-parser';
 import {rangeTypeSemanticTryParse} from './set/range/range-type-semantic-parser';
 import {unionTypeSemanticTryParse} from './set/union/union-type-semantic-parser';
 import {stringTypeSemanticTryParse} from './string/string-type-semantic-parser';
@@ -20,6 +22,8 @@ const parsers: Array2<TypeSemanticTryParseFn> = [
   declarationTypeSemanticTryParse,
   intersectionTypeSemanticTryParse,
   unionTypeSemanticTryParse,
+  complementTypeSemanticTryParse,
+  notTypeSemanticTryParse,
 ];
 
 export function typeSemanticParse(context: SemanticContext, node: Node | Nothing): TypeSemantic | Nothing {
