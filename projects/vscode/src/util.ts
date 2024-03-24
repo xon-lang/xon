@@ -28,13 +28,14 @@ export function convertPosition(position: SourcePosition): Position {
 const cachedSyntax: Record<String2, SyntaxResult> = {};
 
 export function getDocumentSyntax(document: TextDocument, channel: OutputChannel): SyntaxResult {
-  const foundSyntax = cachedSyntax[document.uri.toString()];
+  const text = document.getText();
+
+  const foundSyntax = cachedSyntax[text];
 
   if (foundSyntax) {
     return foundSyntax;
   }
 
-  const text = document.getText();
   // todo should be const location = document.uri.toString();
   const location = document.uri.fsPath;
   const source = createSource(location, text);

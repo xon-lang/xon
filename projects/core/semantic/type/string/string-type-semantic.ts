@@ -2,6 +2,7 @@ import {Array2, Boolean2, String2} from '../../../lib/core';
 import {SourceReference} from '../../../source/source-reference';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
+import { DeclarationTypeSemantic } from '../declaration/declaration-type-semantic';
 import {isInSet, isSetOperatorTypeSemantic} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
@@ -31,8 +32,8 @@ export function stringTypeSemantic(
         return true;
       }
 
-      if (semanticIs<TypeDeclarationSemantic>(other, $Semantic.TYPE_DECLARATION)) {
-        return this.declaration.eq(other) || (this.declaration.baseType?.is(other) ?? false);
+      if (semanticIs<DeclarationTypeSemantic>(other, $Semantic.DECLARATION_TYPE)) {
+        return this.declaration.eq(other.declaration) || (this.declaration.baseType?.is(other) ?? false);
       }
 
       return false;

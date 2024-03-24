@@ -8,15 +8,19 @@ export interface TextResource extends Resource {
 }
 
 export function textResourceFromFilePath(location: String2): TextResource | Nothing {
-  if (!statSync(location).isFile()) {
+  try {
+    if (!statSync(location).isFile()) {
+      return nothing;
+    }
+
+    const data = readFileSync(location).toString();
+
+    return {
+      $: $Resource.TEXT,
+      location,
+      data,
+    };
+  } catch (error) {
     return nothing;
   }
-
-  const data = readFileSync(location).toString();
-
-  return {
-    $: $Resource.TEXT,
-    location,
-    data,
-  };
 }
