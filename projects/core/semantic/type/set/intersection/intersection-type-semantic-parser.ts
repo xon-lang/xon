@@ -4,12 +4,12 @@ import {InfixNode} from '../../../../parser/node/syntax/infix/infix-node';
 import {INTERSECTION} from '../../../../parser/parser-config';
 import {SemanticContext} from '../../../semantic-context';
 import {typeSemanticParse} from '../../type-semantic-parser';
-import {IntersectionOperatorTypeSemantic, intersectionTypeSemantic} from './intersection-operator-type-semantic';
+import {IntersectionTypeSemantic, intersectionTypeSemantic} from './intersection-type-semantic';
 
 export function intersectionTypeSemanticTryParse(
   context: SemanticContext,
   node: Node,
-): IntersectionOperatorTypeSemantic | Nothing {
+): IntersectionTypeSemantic | Nothing {
   if (is<InfixNode>(node, $Node.INFIX) && node.operator.text === INTERSECTION) {
     const left = typeSemanticParse(context, node.left);
     const right = typeSemanticParse(context, node.right);

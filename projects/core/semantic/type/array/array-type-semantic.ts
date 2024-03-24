@@ -2,7 +2,7 @@ import {Array2, Boolean2, Nothing, String2} from '../../../lib/core';
 import {SourceReference} from '../../../source/source-reference';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
-import {isInSet, isSetOperatorTypeSemantic} from '../operator/operator-type-semantic';
+import {isInSet, isSetOperatorTypeSemantic} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
 export interface ArrayTypeSemantic extends TypeSemantic {

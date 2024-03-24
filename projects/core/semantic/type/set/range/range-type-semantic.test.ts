@@ -1,11 +1,11 @@
-import {DeclarationNode} from '../../../parser/node/declaration/declaration-node';
-import {parseSyntax} from '../../../parser/syntax';
-import {sourceFromText} from '../../../source/source';
-import {DeclarationSemantic} from '../../declaration/declaration-semantic';
-import {$Semantic, parseSemantic} from '../../semantic';
-import {TEST_SEMANTIC_CONFIG} from '../../semantic-config';
-import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
-import {typeSemanticParse} from '../type-semantic-parser';
+import {DeclarationNode} from '../../../../parser/node/declaration/declaration-node';
+import {parseSyntax} from '../../../../parser/syntax';
+import {sourceFromText} from '../../../../source/source';
+import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
+import {$Semantic, parseSemantic} from '../../../semantic';
+import {TEST_SEMANTIC_CONFIG} from '../../../semantic-config';
+import {IntegerTypeSemantic} from '../../integer/integer-type-semantic';
+import {typeSemanticParse} from '../../type-semantic-parser';
 import {RangeTypeSemantic} from './range-type-semantic';
 
 test('a is range', () => {

@@ -4,9 +4,9 @@ import {SemanticContext} from '../semantic-context';
 import {arrayTypeSemanticTryParse} from './array/array-type-semantic-parser';
 import {declarationTypeSemanticTryParse} from './declaration/declaration-type-semantic-parser';
 import {integerTypeSemanticTryParse} from './integer/integer-type-semantic-parser';
-import {intersectionTypeSemanticTryParse} from './operator/intersection/intersection-operator-type-semantic-parser';
-import {unionTypeSemanticTryParse} from './operator/union/union-operator-type-semantic-parser';
-import {rangeTypeSemanticTryParse} from './range/range-type-semantic-parser';
+import {intersectionTypeSemanticTryParse} from './set/intersection/intersection-type-semantic-parser';
+import {rangeTypeSemanticTryParse} from './set/range/range-type-semantic-parser';
+import {unionTypeSemanticTryParse} from './set/union/union-type-semantic-parser';
 import {stringTypeSemanticTryParse} from './string/string-type-semantic-parser';
 import {TypeSemantic} from './type-semantic';
 

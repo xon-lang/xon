@@ -1,19 +1,22 @@
+import {String2, nothing} from '../../../../lib/core';
 import {DeclarationNode} from '../../../../parser/node/declaration/declaration-node';
 import {parseSyntax} from '../../../../parser/syntax';
 import {sourceFromText} from '../../../../source/source';
+import {DeclarationKind} from '../../../declaration-manager';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
+import {ValueDeclarationSemantic} from '../../../declaration/value/value-declaration-semantic';
 import {$Semantic, parseSemantic} from '../../../semantic';
 import {DeclarationTypeSemantic} from '../../declaration/declaration-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
-import {UnionOperatorTypeSemantic} from './union-operator-type-semantic';
+import {IntersectionTypeSemantic} from './intersection-type-semantic';
 
-test('a is integer or float', () => {
+test('a is integer', () => {
   const text = `
     model Integer
     model Float
 
-    const a: Integer | Float
+    const a: Integer & Float
   `;
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
@@ -30,8 +33,8 @@ test('a is integer or float', () => {
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as UnionOperatorTypeSemantic;
-  expect(typeSemantic.$).toBe($Semantic.UNION_OPERATOR_TYPE);
+  const typeSemantic = typeSemanticParse(semantic, constNode.type) as IntersectionTypeSemantic;
+  expect(typeSemantic.$).toBe($Semantic.INTERSECTION_TYPE);
   expect(typeSemantic.left.$).toBe($Semantic.DECLARATION_TYPE);
   expect((typeSemantic.left as DeclarationTypeSemantic).declaration?.name).toBe('Integer');
   expect(typeSemantic.right.$).toBe($Semantic.DECLARATION_TYPE);
@@ -42,21 +45,29 @@ test('check type', () => {
   const text = `
     model Number
     model Integer: Number
-    model Float
+    model Float: Number
+    model String
 
-    const a: Integer
-    const b: Integer | Float
+    const a: Number & Float
+    const b: Float
+    const c: String
   `;
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax);
 
-  const aConst = syntax.statements[3].declaration as DeclarationNode;
-  const bConst = syntax.statements[4].declaration as DeclarationNode;
+  const getConst = (name: String2) =>
+    (semantic.declarationManager.single(DeclarationKind.VALUE, name, nothing, nothing) as ValueDeclarationSemantic)
+      .type as TypeSemantic;
 
-  const aType = typeSemanticParse(semantic, aConst.type) as TypeSemantic;
-  const bType = typeSemanticParse(semantic, bConst.type) as TypeSemantic;
-  expect(aType.$).toBe($Semantic.DECLARATION_TYPE);
-  expect(bType.$).toBe($Semantic.UNION_OPERATOR_TYPE);
-  expect(aType.is(bType)).toBe(true);
+  const aType = getConst('a');
+  const bType = getConst('b');
+  const cType = getConst('c');
+
+  expect(aType.$).toBe($Semantic.INTERSECTION_TYPE);
+  expect(bType.$).toBe($Semantic.DECLARATION_TYPE);
+  expect(cType.$).toBe($Semantic.DECLARATION_TYPE);
+
+  expect(bType.is(aType)).toBe(true);
+  expect(cType.is(aType)).toBe(false);
 });

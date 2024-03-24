@@ -2,21 +2,20 @@ import {Array2, Boolean2, String2} from '../../../../lib/core';
 import {SourceReference} from '../../../../source/source-reference';
 import {$Semantic} from '../../../semantic';
 import {TypeSemantic} from '../../type-semantic';
-import {OperatorTypeSemantic} from '../operator-type-semantic';
 
-export interface IntersectionOperatorTypeSemantic extends OperatorTypeSemantic {
-  $: $Semantic.INTERSECTION_OPERATOR_TYPE;
+export interface ComplementTypeSemantic extends TypeSemantic {
+  $: $Semantic.COMPLEMENT_TYPE;
   left: TypeSemantic;
   right: TypeSemantic;
 }
 
-export function intersectionTypeSemantic(
+export function complementTypeSemantic(
   reference: SourceReference,
   left: TypeSemantic,
   right: TypeSemantic,
-): IntersectionOperatorTypeSemantic {
-  const semantic: IntersectionOperatorTypeSemantic = {
-    $: $Semantic.INTERSECTION_OPERATOR_TYPE,
+): ComplementTypeSemantic {
+  const semantic: ComplementTypeSemantic = {
+    $: $Semantic.COMPLEMENT_TYPE,
     reference,
     left,
     right,

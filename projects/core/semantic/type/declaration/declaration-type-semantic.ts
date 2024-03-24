@@ -3,7 +3,7 @@ import {SourceReference} from '../../../source/source-reference';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
-import {isInSet, isSetOperatorTypeSemantic} from '../operator/operator-type-semantic';
+import {isInSet, isSetOperatorTypeSemantic} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
 export interface DeclarationTypeSemantic extends TypeSemantic {

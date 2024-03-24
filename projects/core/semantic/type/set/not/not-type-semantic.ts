@@ -2,24 +2,17 @@ import {Array2, Boolean2, String2} from '../../../../lib/core';
 import {SourceReference} from '../../../../source/source-reference';
 import {$Semantic} from '../../../semantic';
 import {TypeSemantic} from '../../type-semantic';
-import {OperatorTypeSemantic} from '../operator-type-semantic';
 
-export interface ComplementOperatorTypeSemantic extends OperatorTypeSemantic {
-  $: $Semantic.COMPLEMENT_OPERATOR_TYPE;
-  left: TypeSemantic;
-  right: TypeSemantic;
+export interface NotTypeSemantic extends TypeSemantic {
+  $: $Semantic.NOT_TYPE;
+  value: TypeSemantic;
 }
 
-export function complementTypeSemantic(
-  reference: SourceReference,
-  left: TypeSemantic,
-  right: TypeSemantic,
-): ComplementOperatorTypeSemantic {
-  const semantic: ComplementOperatorTypeSemantic = {
-    $: $Semantic.COMPLEMENT_OPERATOR_TYPE,
+export function notTypeSemantic(reference: SourceReference, value: TypeSemantic): NotTypeSemantic {
+  const semantic: NotTypeSemantic = {
+    $: $Semantic.NOT_TYPE,
     reference,
-    left,
-    right,
+    value,
 
     is(other: TypeSemantic): Boolean2 {
       return this.eq(other);

@@ -1,13 +1,13 @@
-import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {Nothing, nothing} from '../../../lib/core';
-import {$Node, Node, is} from '../../../parser/node/node';
-import {RangeNode} from '../../../parser/node/syntax/range/range-node';
-import {DeclarationKind} from '../../declaration-manager';
-import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
-import {$Semantic, semanticIs} from '../../semantic';
-import {SemanticContext} from '../../semantic-context';
-import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
-import {typeSemanticParse} from '../type-semantic-parser';
+import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
+import {Nothing, nothing} from '../../../../lib/core';
+import {$Node, Node, is} from '../../../../parser/node/node';
+import {RangeNode} from '../../../../parser/node/syntax/range/range-node';
+import {DeclarationKind} from '../../../declaration-manager';
+import {TypeDeclarationSemantic} from '../../../declaration/type/type-declaration-semantic';
+import {$Semantic, semanticIs} from '../../../semantic';
+import {SemanticContext} from '../../../semantic-context';
+import {IntegerTypeSemantic} from '../../integer/integer-type-semantic';
+import {typeSemanticParse} from '../../type-semantic-parser';
 import {RangeTypeSemantic, rangeTypeSemantic} from './range-type-semantic';
 
 export function rangeTypeSemanticTryParse(context: SemanticContext, node: Node): RangeTypeSemantic | Nothing {

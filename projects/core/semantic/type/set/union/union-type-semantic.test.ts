@@ -4,15 +4,16 @@ import {sourceFromText} from '../../../../source/source';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
 import {$Semantic, parseSemantic} from '../../../semantic';
 import {DeclarationTypeSemantic} from '../../declaration/declaration-type-semantic';
+import {TypeSemantic} from '../../type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
-import {IntersectionOperatorTypeSemantic} from './intersection-operator-type-semantic';
+import {UnionTypeSemantic} from './union-type-semantic';
 
-test('a is integer', () => {
+test('a is integer or float', () => {
   const text = `
     model Integer
     model Float
 
-    const a: Integer & Float
+    const a: Integer | Float
   `;
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
@@ -29,8 +30,8 @@ test('a is integer', () => {
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as IntersectionOperatorTypeSemantic;
-  expect(typeSemantic.$).toBe($Semantic.INTERSECTION_OPERATOR_TYPE);
+  const typeSemantic = typeSemanticParse(semantic, constNode.type) as UnionTypeSemantic;
+  expect(typeSemantic.$).toBe($Semantic.UNION_TYPE);
   expect(typeSemantic.left.$).toBe($Semantic.DECLARATION_TYPE);
   expect((typeSemantic.left as DeclarationTypeSemantic).declaration?.name).toBe('Integer');
   expect(typeSemantic.right.$).toBe($Semantic.DECLARATION_TYPE);
@@ -43,9 +44,8 @@ test('check type', () => {
     model Integer: Number
     model Float
 
-    const a: Integer & Float
-    const b: Integer
-    const b: Integer
+    const a: Integer
+    const b: Integer | Float
   `;
   const source = sourceFromText(text);
   const syntax = parseSyntax(source);
@@ -57,6 +57,6 @@ test('check type', () => {
   const aType = typeSemanticParse(semantic, aConst.type) as TypeSemantic;
   const bType = typeSemanticParse(semantic, bConst.type) as TypeSemantic;
   expect(aType.$).toBe($Semantic.DECLARATION_TYPE);
-  expect(bType.$).toBe($Semantic.INTERSECTION_OPERATOR_TYPE);
-  expect(aType.is(bType)).toBe(false);
+  expect(bType.$).toBe($Semantic.UNION_TYPE);
+  expect(aType.is(bType)).toBe(true);
 });

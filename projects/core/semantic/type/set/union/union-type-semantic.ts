@@ -2,22 +2,23 @@ import {Array2, Boolean2, String2} from '../../../../lib/core';
 import {SourceReference} from '../../../../source/source-reference';
 import {$Semantic} from '../../../semantic';
 import {TypeSemantic} from '../../type-semantic';
-import {OperatorTypeSemantic} from '../operator-type-semantic';
 
-export interface NotOperatorTypeSemantic extends OperatorTypeSemantic {
-  $: $Semantic.NOT_OPERATOR_TYPE;
-  value: TypeSemantic;
+export interface UnionTypeSemantic extends TypeSemantic {
+  $: $Semantic.UNION_TYPE;
+  left: TypeSemantic;
+  right: TypeSemantic;
 }
 
-export function notTypeSemantic(
+export function unionTypeSemantic(
   reference: SourceReference,
-  value: TypeSemantic,
+  left: TypeSemantic,
   right: TypeSemantic,
-): NotOperatorTypeSemantic {
-  const semantic: NotOperatorTypeSemantic = {
-    $: $Semantic.NOT_OPERATOR_TYPE,
+): UnionTypeSemantic {
+  const semantic: UnionTypeSemantic = {
+    $: $Semantic.UNION_TYPE,
     reference,
-    value,
+    left,
+    right,
 
     is(other: TypeSemantic): Boolean2 {
       return this.eq(other);

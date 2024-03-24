@@ -2,21 +2,20 @@ import {Array2, Boolean2, String2} from '../../../../lib/core';
 import {SourceReference} from '../../../../source/source-reference';
 import {$Semantic} from '../../../semantic';
 import {TypeSemantic} from '../../type-semantic';
-import {OperatorTypeSemantic} from '../operator-type-semantic';
 
-export interface UnionOperatorTypeSemantic extends OperatorTypeSemantic {
-  $: $Semantic.UNION_OPERATOR_TYPE;
+export interface IntersectionTypeSemantic extends TypeSemantic {
+  $: $Semantic.INTERSECTION_TYPE;
   left: TypeSemantic;
   right: TypeSemantic;
 }
 
-export function unionTypeSemantic(
+export function intersectionTypeSemantic(
   reference: SourceReference,
   left: TypeSemantic,
   right: TypeSemantic,
-): UnionOperatorTypeSemantic {
-  const semantic: UnionOperatorTypeSemantic = {
-    $: $Semantic.UNION_OPERATOR_TYPE,
+): IntersectionTypeSemantic {
+  const semantic: IntersectionTypeSemantic = {
+    $: $Semantic.INTERSECTION_TYPE,
     reference,
     left,
     right,
