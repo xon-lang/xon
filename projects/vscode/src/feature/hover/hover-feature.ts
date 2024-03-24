@@ -11,12 +11,11 @@ import {
   languages,
 } from 'vscode';
 import {Nothing, String2, nothing} from '../../../../core/lib/core';
-import {TypeDeclarationSemantic} from '../../../../core/semantic/declaration/type/type-declaration-semantic';
-import {LiteralSemantic} from '../../../../core/semantic/literal/literal-semantic';
-import {StringLiteralSemantic} from '../../../../core/semantic/literal/string/string-literal-semantic';
+import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
 import {$Semantic, Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
-import {LiteralTypeSemantic} from '../../../../core/semantic/type/literal/literal-type-semantic';
+import {IntegerTypeSemantic} from '../../../../core/semantic/type/integer/integer-type-semantic';
+import {StringTypeSemantic} from '../../../../core/semantic/type/string/string-type-semantic';
 import {TypeSemantic, isTypeSemantic} from '../../../../core/semantic/type/type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {LANGUAGE_NAME} from '../../config';
@@ -50,10 +49,6 @@ class LanguageHoverProvider implements HoverProvider {
 }
 
 function getSemanticHoverText(semantic: Semantic): MarkdownString | Nothing {
-  if (semanticIs<TypeDeclarationSemantic>(semantic, $Semantic.TYPE_DECLARATION)) {
-    return getDeclarationMarkdown(semantic);
-  }
-
   if (isTypeSemantic(semantic)) {
     return getTypeMarkdown(semantic);
   }
@@ -65,53 +60,40 @@ function getSemanticHoverText(semantic: Semantic): MarkdownString | Nothing {
   return nothing;
 }
 
-function getDeclarationMarkdown(declaration: TypeDeclarationSemantic): MarkdownString | Nothing {
-  const modifier = declaration.modifier ? declaration.modifier + ' ' : '';
-  const name = declaration.name;
-  const type = declaration.baseType ? ': ' + typeToString(declaration.baseType) : '';
-  const text = `${modifier}${name}${type}`;
+function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
+  const text = typeToText(type);
+
+  if (!text) {
+    return nothing;
+  }
 
   return markdownCode(text);
 }
 
-function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
+function typeToText(type: TypeSemantic): String2 | Nothing {
   if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.DECLARATION_TYPE)) {
-    const modifier = type.declaration.modifier ? type.declaration.modifier + ' ' : '';
-    const text = `${modifier}${type.declaration.name}`;
-
-    return markdownCode(text);
+    return declarationToText(type.declaration);
   }
 
-  if (semanticIs<LiteralTypeSemantic>(type, $Semantic.LITERAL_TYPE)) {
-    const declaration = type.literal.type.declaration;
-    const modifier = declaration.modifier ? declaration.modifier + ' ' : '';
-    const value = literalToString(type.literal);
-    const text = `${modifier}${declaration.name}(${value})`;
+  if (semanticIs<StringTypeSemantic>(type, $Semantic.STRING_TYPE)) {
+    const declaration = declarationToText(type.declaration);
 
-    return markdownCode(text);
+    return `${declaration}("${type.value}")`;
   }
 
-  return nothing;
-}
+  if (semanticIs<IntegerTypeSemantic>(type, $Semantic.INTEGER_TYPE)) {
+    const declaration = declarationToText(type.declaration);
 
-function typeToString(type: TypeSemantic): String2 {
-  if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.DECLARATION_TYPE)) {
-    return `${type.declaration.name}`;
-  }
-
-  if (semanticIs<LiteralTypeSemantic>(type, $Semantic.LITERAL_TYPE)) {
-    return literalToString(type.literal);
+    return `${declaration}(${type.value})`;
   }
 
   return '';
 }
 
-function literalToString(literal: LiteralSemantic): String2 {
-  if (semanticIs<StringLiteralSemantic>(literal, $Semantic.STRING_LITERAL)) {
-    return `"${literal.value}"`;
-  }
+function declarationToText(declaration: DeclarationSemantic) {
+  const modifier = declaration.modifier ? declaration.modifier + ' ' : '';
 
-  return `${literal.value}`;
+  return `${modifier}${declaration.name}`;
 }
 
 function markdownCode(text: String2): MarkdownString {

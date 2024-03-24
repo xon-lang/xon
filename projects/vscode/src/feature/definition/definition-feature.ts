@@ -12,13 +12,11 @@ import {
   Uri,
 } from 'vscode';
 import {Nothing, nothing} from '../../../../core/lib/core';
-import {$Node, is} from '../../../../core/parser/node/node';
-import {IdNode} from '../../../../core/parser/node/token/id/id-node';
-import {OperatorNode} from '../../../../core/parser/node/token/operator/operator-node';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
-import {LiteralTypeSemantic} from '../../../../core/semantic/type/literal/literal-type-semantic';
+import {IntegerTypeSemantic} from '../../../../core/semantic/type/integer/integer-type-semantic';
+import {StringTypeSemantic} from '../../../../core/semantic/type/string/string-type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
@@ -41,12 +39,8 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return nothing;
     }
 
-    if (is<IdNode>(node, $Node.ID) || is<OperatorNode>(node, $Node.OPERATOR)) {
-      if (semanticIs<DeclarationTypeSemantic>(node.semantic, $Semantic.DECLARATION_TYPE)) {
-        return navigateToDeclaration(node.semantic.declaration);
-      }
-
-      return nothing;
+    if (semanticIs<DeclarationTypeSemantic>(node.semantic, $Semantic.DECLARATION_TYPE)) {
+      return navigateToDeclaration(node.semantic.declaration);
     }
 
     if (semanticIs<ValueSemantic>(node.semantic, $Semantic.VALUE)) {
@@ -54,8 +48,12 @@ class LanguageDefinitionProvider implements DefinitionProvider {
         return navigateToDeclaration(node.semantic.type.declaration);
       }
 
-      if (semanticIs<LiteralTypeSemantic>(node.semantic.type, $Semantic.LITERAL_TYPE)) {
-        return navigateToDeclaration(node.semantic.type.literal.type.declaration);
+      if (semanticIs<IntegerTypeSemantic>(node.semantic.type, $Semantic.INTEGER_TYPE)) {
+        return navigateToDeclaration(node.semantic.type.declaration);
+      }
+
+      if (semanticIs<StringTypeSemantic>(node.semantic.type, $Semantic.STRING_TYPE)) {
+        return navigateToDeclaration(node.semantic.type.declaration);
       }
 
       return nothing;

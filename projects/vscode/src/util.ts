@@ -1,6 +1,6 @@
 import {OutputChannel, Position, Range, TextDocument, TextEdit} from 'vscode';
 import {Formatter} from '../../core/formatter/formatter';
-import {Array2, Nothing, nothing} from '../../core/lib/core';
+import {Array2, Nothing, String2, nothing} from '../../core/lib/core';
 import {Node} from '../../core/parser/node/node';
 import {StatementNode} from '../../core/parser/node/syntax/statement/statement-node';
 import {parseSyntax} from '../../core/parser/syntax';
@@ -25,7 +25,15 @@ export function convertPosition(position: SourcePosition): Position {
   return new Position(position.line, position.column);
 }
 
+const cachedSyntax: Record<String2, SyntaxResult> = {};
+
 export function getDocumentSyntax(document: TextDocument, channel: OutputChannel): SyntaxResult {
+  const foundSyntax = cachedSyntax[document.uri.toString()];
+
+  if (foundSyntax) {
+    return foundSyntax;
+  }
+
   const text = document.getText();
   // todo should be const location = document.uri.toString();
   const location = document.uri.fsPath;
@@ -34,6 +42,7 @@ export function getDocumentSyntax(document: TextDocument, channel: OutputChannel
   // const corePath = join(__dirname, '/core/lib/@xon/core/test-core.xon');
   // const semanticConfig = createSemanticConfig({corePath});
   parseSemantic(syntax);
+  cachedSyntax[document.uri.toString()] = syntax;
 
   return syntax;
 }
