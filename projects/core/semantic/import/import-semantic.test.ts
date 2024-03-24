@@ -2,10 +2,8 @@ import {DeclarationNode} from '../../parser/node/declaration/declaration-node';
 import {parseSyntax} from '../../parser/syntax';
 import {sourceFromText} from '../../source/source';
 import {DeclarationSemantic} from '../declaration/declaration-semantic';
-import {StringLiteralSemantic} from '../literal/string/string-literal-semantic';
 import {$Semantic, parseSemantic} from '../semantic';
-import {TEST_SEMANTIC_CONFIG} from '../semantic-config';
-import {LiteralTypeSemantic} from '../type/literal/literal-type-semantic';
+import {StringTypeSemantic} from '../type/string/string-type-semantic';
 import {typeSemanticParse} from '../type/type-semantic-parser';
 
 test('import core', () => {
@@ -29,7 +27,7 @@ test('import core', () => {
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as LiteralTypeSemantic;
-  expect(typeSemantic.$).toBe($Semantic.LITERAL_TYPE);
-  expect((typeSemantic.literal as StringLiteralSemantic).value).toBe('abc');
+  const typeSemantic = typeSemanticParse(semantic, constNode.type) as StringTypeSemantic;
+  expect(typeSemantic.$).toBe($Semantic.STRING_TYPE);
+  expect(typeSemantic.value).toBe('abc');
 });

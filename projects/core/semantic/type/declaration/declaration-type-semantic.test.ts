@@ -4,7 +4,7 @@ import {parseSyntax} from '../../../parser/syntax';
 import {sourceFromText} from '../../../source/source';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, parseSemantic} from '../../semantic';
-import {LiteralTypeSemantic} from '../literal/literal-type-semantic';
+import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {DeclarationTypeSemantic} from './declaration-type-semantic';
 
@@ -60,5 +60,5 @@ test('a is array', () => {
   expect(typeSemantic.declaration.$).toBe($Semantic.TYPE_DECLARATION);
   expect(typeSemantic.declaration.name).toBe('Array');
   expect(typeSemantic.generics?.length).toBe(1);
-  expect((typeSemantic.generics?.at(0) as LiteralTypeSemantic).literal.value).toBe(3);
+  expect((typeSemantic.generics?.at(0) as IntegerTypeSemantic).value).toBe(3);
 });

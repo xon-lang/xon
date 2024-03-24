@@ -4,9 +4,10 @@ import {sourceFromText} from '../../../source/source';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, parseSemantic} from '../../semantic';
 import {TEST_SEMANTIC_CONFIG} from '../../semantic-config';
-import {LiteralTypeSemantic} from '../../type/literal/literal-type-semantic';
-import {typeSemanticParse} from '../../type/type-semantic-parser';
-import {ArrayLiteralSemantic} from './array-literal-semantic';
+import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
+import {StringTypeSemantic} from '../string/string-type-semantic';
+import {typeSemanticParse} from '../type-semantic-parser';
+import {ArrayTypeSemantic} from './array-type-semantic';
 
 test('a is array', () => {
   const text = `
@@ -27,10 +28,10 @@ test('a is array', () => {
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as LiteralTypeSemantic;
-  expect(typeSemantic.$).toBe($Semantic.LITERAL_TYPE);
-  expect((typeSemantic.literal as ArrayLiteralSemantic).value.length).toBe(3);
-  expect((typeSemantic.literal as ArrayLiteralSemantic).value[0].value).toBe(1);
-  expect((typeSemantic.literal as ArrayLiteralSemantic).value[1].value).toBe(2);
-  expect((typeSemantic.literal as ArrayLiteralSemantic).value[2].value).toBe('A');
+  const typeSemantic = typeSemanticParse(semantic, constNode.type) as ArrayTypeSemantic;
+  expect(typeSemantic.$).toBe($Semantic.ARRAY_TYPE);
+  expect(typeSemantic.items.length).toBe(3);
+  expect((typeSemantic.items[0] as IntegerTypeSemantic).value).toBe(1);
+  expect((typeSemantic.items[1] as IntegerTypeSemantic).value).toBe(2);
+  expect((typeSemantic.items[2] as StringTypeSemantic).value).toBe('A');
 });

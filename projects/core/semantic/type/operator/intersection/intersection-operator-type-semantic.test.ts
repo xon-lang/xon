@@ -4,7 +4,6 @@ import {sourceFromText} from '../../../../source/source';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
 import {$Semantic, parseSemantic} from '../../../semantic';
 import {DeclarationTypeSemantic} from '../../declaration/declaration-type-semantic';
-import {TypeSemantic} from '../../type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
 import {IntersectionOperatorTypeSemantic} from './intersection-operator-type-semantic';
 
@@ -31,7 +30,7 @@ test('a is integer', () => {
   expect(idSemantic.name).toBe('a');
 
   const typeSemantic = typeSemanticParse(semantic, constNode.type) as IntersectionOperatorTypeSemantic;
-  expect(typeSemantic.$).toBe($Semantic.UNION_OPERATOR_TYPE);
+  expect(typeSemantic.$).toBe($Semantic.INTERSECTION_OPERATOR_TYPE);
   expect(typeSemantic.left.$).toBe($Semantic.DECLARATION_TYPE);
   expect((typeSemantic.left as DeclarationTypeSemantic).declaration?.name).toBe('Integer');
   expect(typeSemantic.right.$).toBe($Semantic.DECLARATION_TYPE);
