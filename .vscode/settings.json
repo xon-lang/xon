@@ -6,22 +6,21 @@
     "bfnrtv",
     "camelcase",
     "codacy",
+    "esbuild",
+    "gulpfile",
     "linebreak",
     "nodir",
     "nonblock-statement-body-position",
+    "outfile",
     "PAREN",
     "pinst",
     "plusplus",
     "postpublish",
     "postversion",
     "proto",
+    "seti",
     "ts-nocheck",
-    "gulpfile",
-    "esbuild",
-    "outfile",
-    "pinst",
-    "postpublish",
-    "seti"
+    "vsix"
   ],
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
