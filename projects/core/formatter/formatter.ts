@@ -45,10 +45,6 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
   const ifFirstStatement = context.statements.first() === node;
   const beforeIndentHiddenNodes = node.beforeIndentHiddenNodes;
 
-  if (ifFirstStatement && node.hiddenNodes.length === 0) {
-    return;
-  }
-
   if (beforeIndentHiddenNodes.length > 0) {
     const range = rangeFromNodes(beforeIndentHiddenNodes);
     const nonWhitespaceNodes = beforeIndentHiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
@@ -135,15 +131,15 @@ export function formatLastContextHiddenNodes(context: SyntaxContext): Formatter 
     return compareAndCreateFormatter(context, hiddenNodes, range, text.trimEnd() + NL);
   }
 
-  const lastStatementChild = context.statements.last()?.children.last();
-  const lastNode = lastStatementChild?.hiddenNodes.last() ?? lastStatementChild;
+  const lastStatementNode = context.nodes.last();
+  const lastNode = lastStatementNode?.hiddenNodes.last() ?? lastStatementNode;
 
   if (!lastNode) {
     return nothing;
   }
 
   return {
-    range: rangeFromPosition(lastNode?.range.stop),
+    range: rangeFromPosition(lastNode.range.stop),
     text: NL,
   };
 }

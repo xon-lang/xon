@@ -15,6 +15,7 @@ test('8', () => testFormatter('8'));
 test('9', () => testFormatter('9'));
 test('10', () => testFormatter('10'));
 test('11', () => testFormatter('11'));
+test('12', () => testFormatter('12'));
 
 function testFormatter(index: String2) {
   const dirPath = join(__dirname, index);
