@@ -2,9 +2,7 @@ import {dirname, join, resolve} from 'path';
 import {ISSUE_MESSAGE} from '../../issue/issue-message';
 import {Nothing, String2, nothing} from '../../lib/core';
 import {$Node, is} from '../../parser/node/node';
-import {PrefixNode} from '../../parser/node/syntax/prefix/prefix-node';
-import {StringNode} from '../../parser/node/token/string/string-node';
-import {IMPORT_CONTROL, STRING_QUOTE} from '../../parser/parser-config';
+import {ImportNode} from '../../parser/node/syntax/import/import-node';
 import {parseSyntax} from '../../parser/syntax';
 import {SyntaxResult} from '../../parser/syntax-result';
 import {sourceFromResource} from '../../source/source';
@@ -18,25 +16,19 @@ const LIB_FOLDER = resolve(__dirname, '../../lib');
 
 export function syntaxImportsParse(context: SemanticContext, syntax: SyntaxResult) {
   for (const statement of syntax.statements) {
-    if (is<PrefixNode>(statement.item, $Node.PREFIX)) {
+    if (is<ImportNode>(statement.item, $Node.IMPORT)) {
       importNodeParse(context, statement.item);
     }
   }
 }
 
-export function importNodeParse(context: SemanticContext, node: PrefixNode): Nothing {
-  if (node.operator.text !== IMPORT_CONTROL || !is<StringNode>(node.value, $Node.STRING)) {
-    return;
-  }
-
-  const lastIndex = node.value.text.length > 1 && node.value.text.last() === STRING_QUOTE ? -1 : node.value.text.length;
-  const reference = context.createReference(node.value);
-  const importString = node.value.text.slice(1, lastIndex);
-  const location = normalizeImportString(importString, context.source.location);
+export function importNodeParse(context: SemanticContext, node: ImportNode): Nothing {
+  const reference = context.createReference(node.location);
+  const location = normalizeImportString(node.location.value, context.source.location);
   const resource = textResourceFromFilePath(location);
 
   if (!resource) {
-    context.issueManager.addError(node.value.range, ISSUE_MESSAGE.cannotFindResource(location));
+    context.issueManager.addError(node.location.range, ISSUE_MESSAGE.cannotFindResource(location));
 
     return;
   }
@@ -47,7 +39,7 @@ export function importNodeParse(context: SemanticContext, node: PrefixNode): Not
     resource,
   };
 
-  node.value.semantic = semantic;
+  node.location.semantic = semantic;
 
   const source = sourceFromResource(resource);
   const syntax = parseSyntax(source);
