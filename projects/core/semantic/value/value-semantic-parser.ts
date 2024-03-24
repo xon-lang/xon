@@ -4,17 +4,12 @@ import {SyntaxResult} from '../../parser/syntax-result';
 import {SemanticContext} from '../semantic-context';
 import {TypeSemantic} from '../type/type-semantic';
 import {declarationValueTypeTryParse} from './declaration/declaration-value-type-parser';
-import {literalValueTypeTryParse} from './literal/literal-value-type-parser';
 import {memberValueTypeTryParse} from './member/member-value-type-parser';
 import {ValueSemantic, valueSemantic} from './value-semantic';
 
 type ValueSemanticTryParseFn = (context: SemanticContext, node: Node) => TypeSemantic | Nothing;
 
-export const parsers: Array2<ValueSemanticTryParseFn> = [
-  literalValueTypeTryParse,
-  declarationValueTypeTryParse,
-  memberValueTypeTryParse,
-];
+export const parsers: Array2<ValueSemanticTryParseFn> = [declarationValueTypeTryParse, memberValueTypeTryParse];
 
 export function syntaxValuesParse(context: SemanticContext, syntax: SyntaxResult) {
   for (const statement of syntax.statements) {

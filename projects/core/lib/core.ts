@@ -2,7 +2,7 @@ export type Something = boolean | number | string | object;
 
 export type Nothing = null | undefined | void;
 
-export type Anything = Something | Nothing;
+export type Anything = Something | Nothing; // Universe
 
 export const nothing = null;
 

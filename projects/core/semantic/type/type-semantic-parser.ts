@@ -2,7 +2,7 @@ import {Array2, Nothing, nothing} from '../../lib/core';
 import {Node} from '../../parser/node/node';
 import {SemanticContext} from '../semantic-context';
 import {declarationTypeSemanticTryParse} from './declaration/declaration-type-semantic-parser';
-import {literalTypeSemanticTryParse} from './literal/literal-type-semantic-parser';
+import {integerTypeSemanticTryParse} from './integer/integer-type-semantic-parser';
 import {intersectionTypeSemanticTryParse} from './operator/intersection/intersection-operator-type-semantic-parser';
 import {unionTypeSemanticTryParse} from './operator/union/union-operator-type-semantic-parser';
 import {TypeSemantic} from './type-semantic';
@@ -10,7 +10,7 @@ import {TypeSemantic} from './type-semantic';
 type TypeSemanticTryParseFn = (context: SemanticContext, node: Node) => TypeSemantic | Nothing;
 
 const parsers: Array2<TypeSemanticTryParseFn> = [
-  literalTypeSemanticTryParse,
+  integerTypeSemanticTryParse,
   declarationTypeSemanticTryParse,
   intersectionTypeSemanticTryParse,
   unionTypeSemanticTryParse,
