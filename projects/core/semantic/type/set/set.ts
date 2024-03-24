@@ -9,12 +9,12 @@ import {RangeTypeSemantic} from './range/range-type-semantic';
 import {UnionTypeSemantic} from './union/union-type-semantic';
 
 export function isInSet(type: TypeSemantic, setType: TypeSemantic): Boolean2 {
-  if (semanticIs<UnionTypeSemantic>(setType, $Semantic.UNION_TYPE)) {
-    return type.is(setType.left) || type.is(setType.right);
-  }
-
   if (semanticIs<IntersectionTypeSemantic>(setType, $Semantic.INTERSECTION_TYPE)) {
     return type.is(setType.left) && type.is(setType.right);
+  }
+
+  if (semanticIs<UnionTypeSemantic>(setType, $Semantic.UNION_TYPE)) {
+    return type.is(setType.left) || type.is(setType.right);
   }
 
   if (semanticIs<ComplementTypeSemantic>(setType, $Semantic.COMPLEMENT_TYPE)) {
