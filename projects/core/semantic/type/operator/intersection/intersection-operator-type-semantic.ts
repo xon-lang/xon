@@ -5,7 +5,7 @@ import {TypeSemantic} from '../../type-semantic';
 import {OperatorTypeSemantic} from '../operator-type-semantic';
 
 export interface IntersectionOperatorTypeSemantic extends OperatorTypeSemantic {
-  $: $Semantic.UNION_OPERATOR_TYPE;
+  $: $Semantic.INTERSECTION_OPERATOR_TYPE;
   left: TypeSemantic;
   right: TypeSemantic;
 }
@@ -16,7 +16,7 @@ export function intersectionTypeSemantic(
   right: TypeSemantic,
 ): IntersectionOperatorTypeSemantic {
   const semantic: IntersectionOperatorTypeSemantic = {
-    $: $Semantic.UNION_OPERATOR_TYPE,
+    $: $Semantic.INTERSECTION_OPERATOR_TYPE,
     reference,
     left,
     right,
