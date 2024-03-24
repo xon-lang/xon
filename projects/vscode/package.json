@@ -1,5 +1,5 @@
 {
-  "name": "@xon/vscode",
+  "name": "xon",
   "displayName": "XON",
   "description": "XON language support",
   "author": "nizami",
@@ -114,6 +114,7 @@
   },
   "scripts": {
     "vscode:build": "rm -rf dist && esbuild ./src/main.ts --bundle --outfile=dist/vscode/src/main.js --external:vscode --format=cjs --platform=node",
-    "vscode:prepublish": "npm run -S vscode:build -- --minify"
+    "vscode:prepublish": "npm run -S vscode:build -- --minify",
+    "vscode:install": "vsce pack -o dist/xon.vsix && code --install-extension dist/xon.vsix"
   }
 }
