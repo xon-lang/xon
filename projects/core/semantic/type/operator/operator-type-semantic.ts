@@ -28,6 +28,6 @@ export function isInSet(type: TypeSemantic, operatorType: OperatorTypeSemantic):
   return type.is(operatorType);
 }
 
-export function isSetOperatorTypeSemantic(semantic: Semantic): semantic is OperatorTypeSemantic {
+export function isSetOperatorTypeSemantic(semantic: Semantic): Boolean2 {
   return semantic.$.endsWith('_OPERATOR_TYPE');
 }

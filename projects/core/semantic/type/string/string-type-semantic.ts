@@ -39,7 +39,7 @@ export function stringTypeSemantic(
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (semanticIs<StringTypeSemantic>(other, $Semantic.INTEGER_TYPE)) {
+      if (semanticIs<StringTypeSemantic>(other, $Semantic.STRING_TYPE)) {
         return this.value === other.value;
       }
 
