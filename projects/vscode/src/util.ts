@@ -1,3 +1,4 @@
+import {createHash} from 'crypto';
 import {OutputChannel, Position, Range, TextDocument, TextEdit} from 'vscode';
 import {Formatter} from '../../core/formatter/formatter';
 import {Array2, Nothing, String2, nothing} from '../../core/lib/core';
@@ -29,8 +30,8 @@ const cachedSyntax: Record<String2, SyntaxResult> = {};
 
 export function getDocumentSyntax(document: TextDocument, channel: OutputChannel): SyntaxResult {
   const text = document.getText();
-
-  const foundSyntax = cachedSyntax[text];
+  const hash = createHash('sha256').update(text, 'utf8').digest('hex');
+  const foundSyntax = cachedSyntax[hash];
 
   if (foundSyntax) {
     return foundSyntax;
@@ -43,7 +44,7 @@ export function getDocumentSyntax(document: TextDocument, channel: OutputChannel
   // const corePath = join(__dirname, '/core/lib/@xon/core/test-core.xon');
   // const semanticConfig = createSemanticConfig({corePath});
   parseSemantic(syntax);
-  cachedSyntax[document.uri.toString()] = syntax;
+  cachedSyntax[hash] = syntax;
 
   return syntax;
 }

@@ -2,7 +2,7 @@ import {Array2, Nothing, String2, nothing} from '../../lib/core';
 import {DeclarationNode} from '../../parser/node/declaration/declaration-node';
 import {TYPE_MODIFIERS} from '../../parser/parser-config';
 import {SyntaxResult} from '../../parser/syntax-result';
-import {SourceReference} from '../../source/source-reference';
+import {ResourceReference} from '../../util/resource/resource-reference';
 import {SemanticContext} from '../semantic-context';
 import {DeclarationSemantic} from './declaration-semantic';
 import {typeDeclarationSemantic} from './type/type-declaration-semantic';
@@ -48,7 +48,7 @@ export function declarationShallowParse(context: SemanticContext, node: Declarat
 
 function getDeclarationFn(
   node: DeclarationNode,
-): (reference: SourceReference, modifier: String2 | Nothing, name: String2) => DeclarationSemantic {
+): (reference: ResourceReference, modifier: String2 | Nothing, name: String2) => DeclarationSemantic {
   if (node.modifier) {
     if (TYPE_MODIFIERS.includes(node.modifier.text)) {
       return typeDeclarationSemantic;

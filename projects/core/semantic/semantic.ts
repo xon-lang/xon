@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../lib/core';
 import {SyntaxResult} from '../parser/syntax-result';
-import {SourceReference} from '../source/source-reference';
+import {ResourceReference} from '../util/resource/resource-reference';
 import {syntaxDeclarationsParse} from './declaration/declaration-semantic-parser';
 import {declarationManagerFromImportString, syntaxImportsParse} from './import/import-semantic-parser';
 import {DEFAULT_SEMANTIC_CONFIG, SemanticConfig} from './semantic-config';
@@ -9,7 +9,7 @@ import {syntaxValuesParse} from './value/value-semantic-parser';
 
 export interface Semantic {
   readonly $: $Semantic;
-  readonly reference: SourceReference;
+  readonly reference: ResourceReference;
 }
 
 export enum $Semantic {

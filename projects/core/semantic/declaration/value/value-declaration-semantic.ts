@@ -1,5 +1,5 @@
 import {Array2, Nothing, String2, nothing} from '../../../lib/core';
-import {SourceReference} from '../../../source/source-reference';
+import {ResourceReference} from '../../../util/resource/resource-reference';
 import {$Semantic} from '../../semantic';
 import {TypeSemantic} from '../../type/type-semantic';
 import {ValueSemantic} from '../../value/value-semantic';
@@ -13,7 +13,7 @@ export interface ValueDeclarationSemantic extends DeclarationSemantic {
 }
 
 export function valueDeclarationSemantic(
-  reference: SourceReference,
+  reference: ResourceReference,
   modifier: String2 | Nothing,
   name: String2,
 ): ValueDeclarationSemantic {

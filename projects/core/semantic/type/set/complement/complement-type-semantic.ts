@@ -1,5 +1,5 @@
 import {Array2, Boolean2, String2} from '../../../../lib/core';
-import {SourceReference} from '../../../../source/source-reference';
+import {ResourceReference} from '../../../../util/resource/resource-reference';
 import {$Semantic} from '../../../semantic';
 import {TypeSemantic} from '../../type-semantic';
 
@@ -10,7 +10,7 @@ export interface ComplementTypeSemantic extends TypeSemantic {
 }
 
 export function complementTypeSemantic(
-  reference: SourceReference,
+  reference: ResourceReference,
   left: TypeSemantic,
   right: TypeSemantic,
 ): ComplementTypeSemantic {

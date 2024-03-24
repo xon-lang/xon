@@ -1,8 +1,8 @@
 import {Array2, Boolean2, String2} from '../../../lib/core';
-import {SourceReference} from '../../../source/source-reference';
+import {ResourceReference} from '../../../util/resource/resource-reference';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
-import { DeclarationTypeSemantic } from '../declaration/declaration-type-semantic';
+import {DeclarationTypeSemantic} from '../declaration/declaration-type-semantic';
 import {isInSet, isSetOperatorTypeSemantic} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
@@ -13,7 +13,7 @@ export interface StringTypeSemantic extends TypeSemantic {
 }
 
 export function stringTypeSemantic(
-  reference: SourceReference,
+  reference: ResourceReference,
   declaration: TypeDeclarationSemantic,
   value: StringTypeSemantic['value'],
 ): StringTypeSemantic {

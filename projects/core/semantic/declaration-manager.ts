@@ -1,6 +1,5 @@
 import {IssueManager} from '../issue/issue-manager';
 import {Array2, Integer, Nothing, String2, nothing} from '../lib/core';
-import { SourceReference } from '../source/source-reference';
 import {DeclarationSemantic} from './declaration/declaration-semantic';
 import {$Semantic, semanticIs} from './semantic';
 import {SemanticConfig} from './semantic-config';
