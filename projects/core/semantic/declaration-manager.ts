@@ -1,5 +1,6 @@
 import {IssueManager} from '../issue/issue-manager';
 import {Array2, Integer, Nothing, String2, nothing} from '../lib/core';
+import { SourceReference } from '../source/source-reference';
 import {DeclarationSemantic} from './declaration/declaration-semantic';
 import {$Semantic, semanticIs} from './semantic';
 import {SemanticConfig} from './semantic-config';
@@ -20,6 +21,7 @@ export interface DeclarationManager {
   all(): Array2<DeclarationSemantic>;
 
   single(
+    // reference: SourceReference,
     kind: DeclarationKind | Nothing,
     name: String2,
     generics: Array2<TypeSemantic | Nothing> | Nothing,
