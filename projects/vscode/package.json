@@ -1,7 +1,7 @@
 {
-  "name": "xon",
-  "displayName": "xon",
-  "description": "xon language support",
+  "name": "@xon/vscode",
+  "displayName": "XON",
+  "description": "XON language support",
   "author": "nizami",
   "publisher": "nizami",
   "version": "1.12.64",

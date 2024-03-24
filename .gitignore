@@ -2,3 +2,4 @@
 dist
 node_modules
 projects/vscode/test
+*.vsix
