@@ -1,7 +1,7 @@
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Nothing, nothing} from '../../../lib/core';
 import {$Node, Node, is} from '../../../parser/node/node';
-import {IntegerLiteralNode} from '../../../parser/node/token/literal/integer/integer-literal-node';
+import {IntegerNode} from '../../../parser/node/token/integer/integer-node';
 import {DeclarationKind} from '../../declaration-manager';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
@@ -9,7 +9,7 @@ import {SemanticContext} from '../../semantic-context';
 import {IntegerTypeSemantic, integerTypeSemantic} from './integer-type-semantic';
 
 export function integerTypeSemanticTryParse(context: SemanticContext, node: Node): IntegerTypeSemantic | Nothing {
-  if (!is<IntegerLiteralNode>(node, $Node.INTEGER)) {
+  if (!is<IntegerNode>(node, $Node.INTEGER)) {
     return nothing;
   }
 

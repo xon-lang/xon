@@ -1,9 +1,9 @@
 import {sourceFromText} from '../../../source/source';
 import {parseSyntax} from '../../syntax';
 import {$Node} from '../node';
+import {CharNode} from '../token/char/char-node';
 import {IdNode} from '../token/id/id-node';
-import {CharLiteralNode} from '../token/literal/char/char-literal-node';
-import {IntegerLiteralNode} from '../token/literal/integer/integer-literal-node';
+import {IntegerNode} from '../token/integer/integer-node';
 import {DeclarationNode} from './declaration-node';
 
 test('model a', () => {
@@ -65,7 +65,7 @@ test('model a with parameters extends b', () => {
   expect(node.parameters?.length).toBe(3);
   expect(node.parameters?.at(0)?.id?.text).toBe('a');
   expect((node.parameters?.at(0)?.type as IdNode)?.text).toBe('Integer');
-  expect((node.parameters?.at(0)?.value as IntegerLiteralNode)?.text).toBe('123');
+  expect((node.parameters?.at(0)?.value as IntegerNode)?.text).toBe('123');
 
   expect(node.parameters?.at(1)?.id?.text).toBe('b');
   expect((node.parameters?.at(1)?.type as IdNode)?.text).toBe('Boolean');
@@ -73,7 +73,7 @@ test('model a with parameters extends b', () => {
 
   expect(node.parameters?.at(2)?.id?.text).toBe('c');
   expect(node.parameters?.at(2)?.type).toBeFalsy();
-  expect((node.parameters?.at(2)?.value as CharLiteralNode)?.text).toBe("'C'");
+  expect((node.parameters?.at(2)?.value as CharNode)?.text).toBe("'C'");
 
   expect(node.type?.$).toBe($Node.ID);
   expect((node.type as IdNode).text).toBe('B');
@@ -98,7 +98,7 @@ test('model a with generics and parameters extends b', () => {
   expect(node.parameters?.length).toBe(3);
   expect(node.parameters?.at(0)?.id?.text).toBe('a');
   expect((node.parameters?.at(0)?.type as IdNode)?.text).toBe('Integer');
-  expect((node.parameters?.at(0)?.value as IntegerLiteralNode)?.text).toBe('123');
+  expect((node.parameters?.at(0)?.value as IntegerNode)?.text).toBe('123');
 
   expect(node.parameters?.at(1)?.id?.text).toBe('b');
   expect((node.parameters?.at(1)?.type as IdNode)?.text).toBe('Boolean');
@@ -106,7 +106,7 @@ test('model a with generics and parameters extends b', () => {
 
   expect(node.parameters?.at(2)?.id?.text).toBe('c');
   expect(node.parameters?.at(2)?.type).toBeFalsy();
-  expect((node.parameters?.at(2)?.value as CharLiteralNode)?.text).toBe("'C'");
+  expect((node.parameters?.at(2)?.value as CharNode)?.text).toBe("'C'");
 
   expect(node.type?.$).toBe($Node.ID);
   expect((node.type as IdNode).text).toBe('B');

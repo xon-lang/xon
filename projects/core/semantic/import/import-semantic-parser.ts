@@ -3,7 +3,7 @@ import {ISSUE_MESSAGE} from '../../issue/issue-message';
 import {Nothing, String2, nothing} from '../../lib/core';
 import {$Node, is} from '../../parser/node/node';
 import {PrefixNode} from '../../parser/node/syntax/prefix/prefix-node';
-import {StringLiteralNode} from '../../parser/node/token/literal/string/string-literal-node';
+import {StringNode} from '../../parser/node/token/string/string-node';
 import {IMPORT_CONTROL, STRING_QUOTE} from '../../parser/parser-config';
 import {parseSyntax} from '../../parser/syntax';
 import {SyntaxResult} from '../../parser/syntax-result';
@@ -25,7 +25,7 @@ export function syntaxImportsParse(context: SemanticContext, syntax: SyntaxResul
 }
 
 export function importNodeParse(context: SemanticContext, node: PrefixNode): Nothing {
-  if (node.operator.text !== IMPORT_CONTROL || !is<StringLiteralNode>(node.value, $Node.STRING)) {
+  if (node.operator.text !== IMPORT_CONTROL || !is<StringNode>(node.value, $Node.STRING)) {
     return;
   }
 

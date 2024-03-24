@@ -2,7 +2,7 @@ import {sourceFromText} from '../../../../source/source';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
 import {IdNode} from '../../token/id/id-node';
-import {IntegerLiteralNode} from '../../token/literal/integer/integer-literal-node';
+import {IntegerNode} from '../../token/integer/integer-node';
 import {GroupNode} from '../group/group-node';
 import {MemberNode} from '../member/member-node';
 import {InvokeNode} from './invoke-node';
@@ -18,7 +18,7 @@ test('method call', () => {
   expect(node.$).toBe($Node.INVOKE);
   expect(node.group.items.length).toBe(2);
   expect(node.group.items[0]?.$).toBe($Node.INTEGER);
-  expect((node.group.items[0] as IntegerLiteralNode).text).toBe('3');
+  expect((node.group.items[0] as IntegerNode).text).toBe('3');
   expect(node.group.items[1]?.$).toBe($Node.CHAR);
   expect((node.group.items[1] as IdNode).text).toBe("'str'");
   expect(node.instance.$).toBe($Node.ID);
@@ -53,7 +53,7 @@ test('can call with type parameter', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INVOKE);
   expect(node.group.items.length).toBe(1);
-  expect((node.group.items[0] as IntegerLiteralNode).text).toBe('1');
+  expect((node.group.items[0] as IntegerNode).text).toBe('1');
   expect(node.instance.$).toBe($Node.MEMBER);
   const {operator, instance, id} = node.instance as MemberNode;
   expect(operator.text).toBe('.');

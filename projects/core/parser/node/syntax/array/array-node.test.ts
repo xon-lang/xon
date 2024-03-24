@@ -2,7 +2,7 @@ import {nothing} from '../../../../lib/core';
 import {sourceFromText} from '../../../../source/source';
 import {parseSyntax} from '../../../syntax';
 import {$Node, is} from '../../node';
-import {IntegerLiteralNode} from '../../token/literal/integer/integer-literal-node';
+import {IntegerNode} from '../../token/integer/integer-node';
 import {GroupNode} from '../group/group-node';
 import {InfixNode} from '../infix/infix-node';
 import {ObjectNode} from '../object/object-node';
@@ -30,7 +30,7 @@ test('single item', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
   expect(node.items.length).toBe(1);
-  expect((node.items[0] as IntegerLiteralNode).text).toBe('123');
+  expect((node.items[0] as IntegerNode).text).toBe('123');
 });
 
 test('single comma', () => {
@@ -107,8 +107,8 @@ test('two integers no comma and ws at the end', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
   expect(node.items.length).toBe(2);
-  expect((node.items[0] as IntegerLiteralNode).text).toBe('1');
-  expect((node.items[1] as IntegerLiteralNode).text).toBe('2');
+  expect((node.items[0] as IntegerNode).text).toBe('1');
+  expect((node.items[1] as IntegerNode).text).toBe('2');
 });
 
 test('two integers and comma no ws at the end', () => {
@@ -121,8 +121,8 @@ test('two integers and comma no ws at the end', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
   expect(node.items.length).toBe(3);
-  expect((node.items[0] as IntegerLiteralNode).text).toBe('1');
-  expect((node.items[1] as IntegerLiteralNode).text).toBe('2');
+  expect((node.items[0] as IntegerNode).text).toBe('1');
+  expect((node.items[1] as IntegerNode).text).toBe('2');
 });
 
 test('two integers and comma and ws', () => {
@@ -135,8 +135,8 @@ test('two integers and comma and ws', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
   expect(node.items.length).toBe(3);
-  expect((node.items[0] as IntegerLiteralNode).text).toBe('1');
-  expect((node.items[1] as IntegerLiteralNode).text).toBe('2');
+  expect((node.items[0] as IntegerNode).text).toBe('1');
+  expect((node.items[1] as IntegerNode).text).toBe('2');
 });
 
 test('array on several lines', () => {
@@ -152,7 +152,7 @@ test('array on several lines', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
   expect(node.items.length).toBe(4);
-  expect((node.items[0] as IntegerLiteralNode).text).toBe('1');
+  expect((node.items[0] as IntegerNode).text).toBe('1');
   expect((node.items[1] as InfixNode).operator.text).toBe('+');
 });
 
@@ -166,6 +166,6 @@ test('debug 1', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
   expect(node.items.length).toBe(3);
-  expect((node.items[0] as IntegerLiteralNode).text).toBe('1');
-  expect((node.items[2] as IntegerLiteralNode).text).toBe('2');
+  expect((node.items[0] as IntegerNode).text).toBe('1');
+  expect((node.items[2] as IntegerNode).text).toBe('2');
 });

@@ -1,7 +1,7 @@
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Nothing, nothing} from '../../../lib/core';
 import {$Node, Node, is} from '../../../parser/node/node';
-import {StringLiteralNode} from '../../../parser/node/token/literal/string/string-literal-node';
+import {StringNode} from '../../../parser/node/token/string/string-node';
 import {STRING_QUOTE} from '../../../parser/parser-config';
 import {DeclarationKind} from '../../declaration-manager';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
@@ -10,7 +10,7 @@ import {SemanticContext} from '../../semantic-context';
 import {StringTypeSemantic, stringTypeSemantic} from './string-type-semantic';
 
 export function stringTypeSemanticTryParse(context: SemanticContext, node: Node): StringTypeSemantic | Nothing {
-  if (!is<StringLiteralNode>(node, $Node.STRING)) {
+  if (!is<StringNode>(node, $Node.STRING)) {
     return nothing;
   }
 
