@@ -1,4 +1,4 @@
-import {Nothing, String2, nothing} from '../../../../lib/core';
+import {Integer, Nothing, String2, nothing} from '../../../../lib/core';
 import {SourceRange} from '../../../../source/source-range';
 import {UNDERSCORE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
@@ -7,10 +7,13 @@ import {TokenNode, tokenNode} from '../token-node';
 
 export interface IntegerNode extends TokenNode {
   $: $Node.INTEGER;
+  value: Integer;
 }
 
 export function integerNode(range: SourceRange, text: String2): IntegerNode {
-  return tokenNode($Node.INTEGER, range, text);
+  const value = Number(text);
+
+  return tokenNode($Node.INTEGER, {range, text, value});
 }
 
 export function scanIntegerNode(context: SyntaxContext): IntegerNode | Nothing {

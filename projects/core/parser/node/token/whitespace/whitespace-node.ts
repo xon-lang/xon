@@ -10,7 +10,7 @@ export interface WhitespaceNode extends TokenNode {
 }
 
 export function whitespaceNode(range: SourceRange, text: String2): WhitespaceNode {
-  return tokenNode($Node.WHITESPACE, range, text);
+  return tokenNode($Node.WHITESPACE, {range, text});
 }
 
 export function scanWhitespaceNode(context: SyntaxContext): WhitespaceNode | Nothing {

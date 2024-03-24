@@ -6,6 +6,7 @@ export interface SyntaxNode extends Node {
   readonly children: Array2<Node>;
 }
 
+// export function syntaxNode<T extends Record<String2,Anything>, V extends $Node>(
 export function syntaxNode<T extends Record<String2, Node | Array2<Node> | Nothing>, V extends $Node>(
   $: V,
   nodes: T,

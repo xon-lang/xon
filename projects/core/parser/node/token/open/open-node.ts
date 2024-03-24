@@ -10,7 +10,7 @@ export interface OpenNode extends TokenNode {
 }
 
 export function openNode(range: SourceRange, text: String2): OpenNode {
-  return tokenNode($Node.OPEN, range, text);
+  return tokenNode($Node.OPEN, {range, text});
 }
 
 export function scanOpenNode(context: SyntaxContext): Partial<OpenNode> | Nothing {

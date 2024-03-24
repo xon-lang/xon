@@ -7,10 +7,14 @@ import {TokenNode, tokenNode} from '../token-node';
 
 export interface StringNode extends TokenNode {
   $: $Node.STRING;
+  value: String2;
 }
 
 export function stringNode(range: SourceRange, text: String2): StringNode {
-  return tokenNode($Node.STRING, range, text);
+  const lastIndex = text.length > 1 && text.last() === STRING_QUOTE ? -1 : text.length;
+  const value = text.slice(1, lastIndex);
+
+  return tokenNode($Node.STRING, {range, text, value});
 }
 
 export function scanStringNode(context: SyntaxContext): StringNode | Nothing {

@@ -18,7 +18,7 @@ export interface OperatorNode extends TokenNode {
 }
 
 export function operatorNode(context: SyntaxContext, range: SourceRange, text: String2): OperatorNode {
-  const token = tokenNode($Node.OPERATOR, range, text);
+  const token = tokenNode($Node.OPERATOR, {range, text});
   const keywordType = getKeywordType(text);
 
   const node = {

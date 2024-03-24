@@ -11,7 +11,7 @@ export interface IdNode extends TokenNode {
 }
 
 export function idNode(range: SourceRange, text: String2): IdNode {
-  return tokenNode($Node.ID, range, text);
+  return tokenNode($Node.ID, {range, text});
 }
 
 export function scanIdNode(context: SyntaxContext): IdNode | Nothing {

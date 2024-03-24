@@ -4,6 +4,7 @@ import '../util/extension';
 import {TextResource} from '../util/resource/text/text-resource';
 import {SourceRange} from './source-range';
 
+// replace with Resource
 export interface Source {
   location: String2 | Nothing;
   text: String2;

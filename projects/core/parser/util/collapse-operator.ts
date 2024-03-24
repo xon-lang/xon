@@ -1,5 +1,6 @@
 import {Array2, Nothing, String2, nothing} from '../../lib/core';
 import {$Node, Node, is} from '../node/node';
+import {importNode} from '../node/syntax/import/import-node';
 import {infixNode} from '../node/syntax/infix/infix-node';
 import {memberNode} from '../node/syntax/member/member-node';
 import {postfixNode} from '../node/syntax/postfix/postfix-node';
@@ -7,6 +8,7 @@ import {prefixNode} from '../node/syntax/prefix/prefix-node';
 import {rangeNode} from '../node/syntax/range/range-node';
 import {IdNode} from '../node/token/id/id-node';
 import {OperatorNode} from '../node/token/operator/operator-node';
+import {StringNode} from '../node/token/string/string-node';
 import {OperatorType, RecursiveType} from '../parser-config';
 import {SyntaxContext} from '../syntax-context';
 
@@ -29,11 +31,23 @@ export function collapseOperator(
     const left: Node | Nothing = context.nodes[index - 1];
     const right: Node | Nothing = context.nodes[index + 1];
 
+    if (operatorType === OperatorType.IMPORT) {
+      if (is<StringNode>(right, $Node.STRING) && (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))) {
+        const node = importNode(context, operator, right);
+        context.nodes.splice(index, 2, node);
+
+        collapseOperator(context, operators, operatorType, recursiveType, i);
+      }
+
+      return;
+    }
+
     if (operatorType === OperatorType.MEMBER) {
       if (left && !is<OperatorNode>(left, $Node.OPERATOR)) {
         const id = is<IdNode>(right, $Node.ID) ? right : nothing;
-        const member = memberNode(context, operator, left, id);
-        context.nodes.splice(index - 1, member.children.length, member);
+        const node = memberNode(context, operator, left, id);
+        context.nodes.splice(index - 1, node.children.length, node);
+
         collapseOperator(context, operators, operatorType, recursiveType, i);
       }
 
@@ -42,8 +56,9 @@ export function collapseOperator(
 
     if (operatorType === OperatorType.RANGE) {
       if (left && right && !is<OperatorNode>(left, $Node.OPERATOR) && !is<OperatorNode>(right, $Node.OPERATOR)) {
-        const range = rangeNode(context, left, operator, right);
-        context.nodes.splice(index - 1, range.children.length, range);
+        const node = rangeNode(context, left, operator, right);
+        context.nodes.splice(index - 1, node.children.length, node);
+
         collapseOperator(context, operators, operatorType, recursiveType, i);
       }
 
@@ -52,8 +67,9 @@ export function collapseOperator(
 
     if (operatorType === OperatorType.INFIX) {
       if (left && right && !is<OperatorNode>(left, $Node.OPERATOR) && !is<OperatorNode>(right, $Node.OPERATOR)) {
-        const infix = infixNode(context, left, operator, right);
-        context.nodes.splice(index - 1, 3, infix);
+        const node = infixNode(context, left, operator, right);
+        context.nodes.splice(index - 1, 3, node);
+
         collapseOperator(context, operators, operatorType, recursiveType, i);
       }
 
@@ -66,8 +82,9 @@ export function collapseOperator(
         !is<OperatorNode>(right, $Node.OPERATOR) &&
         (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))
       ) {
-        const prefix = prefixNode(context, operator, right);
-        context.nodes.splice(index, 2, prefix);
+        const node = prefixNode(context, operator, right);
+        context.nodes.splice(index, 2, node);
+
         collapseOperator(context, operators, operatorType, recursiveType, i);
       }
 
@@ -80,8 +97,9 @@ export function collapseOperator(
         !is<OperatorNode>(left, $Node.OPERATOR) &&
         (index === lastIndex || is<OperatorNode>(right, $Node.OPERATOR))
       ) {
-        const postfix = postfixNode(context, left, operator);
-        context.nodes.splice(index - 1, 2, postfix);
+        const node = postfixNode(context, left, operator);
+        context.nodes.splice(index - 1, 2, node);
+
         collapseOperator(context, operators, operatorType, recursiveType, i);
       }
 

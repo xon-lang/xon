@@ -70,6 +70,10 @@ class LanguageDefinitionProvider implements DefinitionProvider {
 }
 
 function navigateToReference(reference: ResourceReference): ProviderResult<Definition> {
+  if (!reference.location) {
+    return nothing;
+  }
+
   return navigateToLocation(reference.location, reference.range);
 }
 

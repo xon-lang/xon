@@ -8,6 +8,7 @@ export interface OperatorsOrder {
 }
 
 export enum OperatorType {
+  IMPORT,
   MEMBER,
   RANGE,
   INVOKE,
@@ -91,10 +92,14 @@ export const CONTROL_KEYWORDS = [
   'export',
   'return',
   EXPORT_CONTROL,
-  IMPORT_CONTROL,
 ];
 
 export const operatorsOrders: Array2<OperatorsOrder> = [
+  {
+    operators: [IMPORT_CONTROL],
+    operatorType: OperatorType.IMPORT,
+    recursiveType: RecursiveType.RIGHT,
+  },
   {
     operators: [`${MEMBER} ${META_MEMBER}`],
     operatorType: OperatorType.MEMBER,

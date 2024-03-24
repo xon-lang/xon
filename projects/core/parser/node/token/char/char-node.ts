@@ -1,4 +1,4 @@
-import {Nothing, String2, nothing} from '../../../../lib/core';
+import {Char, Nothing, String2, nothing} from '../../../../lib/core';
 import {SourceRange} from '../../../../source/source-range';
 import {CHAR_QUOTE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
@@ -7,10 +7,14 @@ import {TokenNode, tokenNode} from '../token-node';
 
 export interface CharNode extends TokenNode {
   $: $Node.CHAR;
+  value: Char;
 }
 
 export function charNode(range: SourceRange, text: String2): CharNode {
-  return tokenNode($Node.CHAR, range, text);
+  const lastIndex = text.length > 1 && text.last() === CHAR_QUOTE ? -1 : text.length;
+  const value = text.slice(1, lastIndex);
+
+  return tokenNode($Node.CHAR, {range, text, value});
 }
 
 export function scanCharNode(context: SyntaxContext): CharNode | Nothing {

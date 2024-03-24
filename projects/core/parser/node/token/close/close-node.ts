@@ -10,7 +10,7 @@ export interface CloseNode extends TokenNode {
 }
 
 export function closeNode(range: SourceRange, text: String2): CloseNode {
-  return tokenNode($Node.CLOSE, range, text);
+  return tokenNode($Node.CLOSE, {range, text});
 }
 
 export function scanCloseNode(context: SyntaxContext): CloseNode | Nothing {

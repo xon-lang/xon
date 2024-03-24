@@ -10,7 +10,7 @@ export interface JoiningNode extends TokenNode {
 }
 
 export function joiningNode(range: SourceRange, text: String2): JoiningNode {
-  return tokenNode($Node.JOINING, range, text);
+  return tokenNode($Node.JOINING, {range, text});
 }
 
 export function scanJoiningNode(context: SyntaxContext): JoiningNode | Nothing {

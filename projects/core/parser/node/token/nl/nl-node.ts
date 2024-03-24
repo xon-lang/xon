@@ -10,7 +10,7 @@ export interface NlNode extends TokenNode {
 }
 
 export function nlNode(range: SourceRange, text: String2): NlNode {
-  return tokenNode($Node.NL, range, text);
+  return tokenNode($Node.NL, {range, text});
 }
 
 export function scanNlNode(context: SyntaxContext): NlNode | Nothing {

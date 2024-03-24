@@ -31,22 +31,10 @@
         "children": [
           {
             "$": "ID",
-            "range": {
-              "start": {
-                "index": 0,
-                "line": 0,
-                "column": 0
-              },
-              "stop": {
-                "index": 1,
-                "line": 0,
-                "column": 1
-              }
-            },
-            "text": "a",
             "hiddenNodes": [
               {
                 "$": "WHITESPACE",
+                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 1,
@@ -59,29 +47,29 @@
                     "column": 2
                   }
                 },
-                "text": " ",
-                "hiddenNodes": []
+                "text": " "
               }
-            ]
+            ],
+            "range": {
+              "start": {
+                "index": 0,
+                "line": 0,
+                "column": 0
+              },
+              "stop": {
+                "index": 1,
+                "line": 0,
+                "column": 1
+              }
+            },
+            "text": "a"
           },
           {
             "$": "OPERATOR",
-            "range": {
-              "start": {
-                "index": 2,
-                "line": 0,
-                "column": 2
-              },
-              "stop": {
-                "index": 3,
-                "line": 0,
-                "column": 3
-              }
-            },
-            "text": "+",
             "hiddenNodes": [
               {
                 "$": "WHITESPACE",
+                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 3,
@@ -94,13 +82,26 @@
                     "column": 4
                   }
                 },
-                "text": " ",
-                "hiddenNodes": []
+                "text": " "
               }
-            ]
+            ],
+            "range": {
+              "start": {
+                "index": 2,
+                "line": 0,
+                "column": 2
+              },
+              "stop": {
+                "index": 3,
+                "line": 0,
+                "column": 3
+              }
+            },
+            "text": "+"
           },
           {
             "$": "ID",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 4,
@@ -113,29 +114,16 @@
                 "column": 5
               }
             },
-            "text": "b",
-            "hiddenNodes": []
+            "text": "b"
           }
         ],
         "hiddenNodes": [],
         "left": {
           "$": "ID",
-          "range": {
-            "start": {
-              "index": 0,
-              "line": 0,
-              "column": 0
-            },
-            "stop": {
-              "index": 1,
-              "line": 0,
-              "column": 1
-            }
-          },
-          "text": "a",
           "hiddenNodes": [
             {
               "$": "WHITESPACE",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 1,
@@ -148,29 +136,29 @@
                   "column": 2
                 }
               },
-              "text": " ",
-              "hiddenNodes": []
+              "text": " "
             }
-          ]
+          ],
+          "range": {
+            "start": {
+              "index": 0,
+              "line": 0,
+              "column": 0
+            },
+            "stop": {
+              "index": 1,
+              "line": 0,
+              "column": 1
+            }
+          },
+          "text": "a"
         },
         "operator": {
           "$": "OPERATOR",
-          "range": {
-            "start": {
-              "index": 2,
-              "line": 0,
-              "column": 2
-            },
-            "stop": {
-              "index": 3,
-              "line": 0,
-              "column": 3
-            }
-          },
-          "text": "+",
           "hiddenNodes": [
             {
               "$": "WHITESPACE",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 3,
@@ -183,13 +171,26 @@
                   "column": 4
                 }
               },
-              "text": " ",
-              "hiddenNodes": []
+              "text": " "
             }
-          ]
+          ],
+          "range": {
+            "start": {
+              "index": 2,
+              "line": 0,
+              "column": 2
+            },
+            "stop": {
+              "index": 3,
+              "line": 0,
+              "column": 3
+            }
+          },
+          "text": "+"
         },
         "right": {
           "$": "ID",
+          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 4,
@@ -202,8 +203,7 @@
               "column": 5
             }
           },
-          "text": "b",
-          "hiddenNodes": []
+          "text": "b"
         }
       }
     ],
@@ -229,22 +229,10 @@
       "children": [
         {
           "$": "ID",
-          "range": {
-            "start": {
-              "index": 0,
-              "line": 0,
-              "column": 0
-            },
-            "stop": {
-              "index": 1,
-              "line": 0,
-              "column": 1
-            }
-          },
-          "text": "a",
           "hiddenNodes": [
             {
               "$": "WHITESPACE",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 1,
@@ -257,29 +245,29 @@
                   "column": 2
                 }
               },
-              "text": " ",
-              "hiddenNodes": []
+              "text": " "
             }
-          ]
+          ],
+          "range": {
+            "start": {
+              "index": 0,
+              "line": 0,
+              "column": 0
+            },
+            "stop": {
+              "index": 1,
+              "line": 0,
+              "column": 1
+            }
+          },
+          "text": "a"
         },
         {
           "$": "OPERATOR",
-          "range": {
-            "start": {
-              "index": 2,
-              "line": 0,
-              "column": 2
-            },
-            "stop": {
-              "index": 3,
-              "line": 0,
-              "column": 3
-            }
-          },
-          "text": "+",
           "hiddenNodes": [
             {
               "$": "WHITESPACE",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 3,
@@ -292,13 +280,26 @@
                   "column": 4
                 }
               },
-              "text": " ",
-              "hiddenNodes": []
+              "text": " "
             }
-          ]
+          ],
+          "range": {
+            "start": {
+              "index": 2,
+              "line": 0,
+              "column": 2
+            },
+            "stop": {
+              "index": 3,
+              "line": 0,
+              "column": 3
+            }
+          },
+          "text": "+"
         },
         {
           "$": "ID",
+          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 4,
@@ -311,29 +312,16 @@
               "column": 5
             }
           },
-          "text": "b",
-          "hiddenNodes": []
+          "text": "b"
         }
       ],
       "hiddenNodes": [],
       "left": {
         "$": "ID",
-        "range": {
-          "start": {
-            "index": 0,
-            "line": 0,
-            "column": 0
-          },
-          "stop": {
-            "index": 1,
-            "line": 0,
-            "column": 1
-          }
-        },
-        "text": "a",
         "hiddenNodes": [
           {
             "$": "WHITESPACE",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 1,
@@ -346,29 +334,29 @@
                 "column": 2
               }
             },
-            "text": " ",
-            "hiddenNodes": []
+            "text": " "
           }
-        ]
+        ],
+        "range": {
+          "start": {
+            "index": 0,
+            "line": 0,
+            "column": 0
+          },
+          "stop": {
+            "index": 1,
+            "line": 0,
+            "column": 1
+          }
+        },
+        "text": "a"
       },
       "operator": {
         "$": "OPERATOR",
-        "range": {
-          "start": {
-            "index": 2,
-            "line": 0,
-            "column": 2
-          },
-          "stop": {
-            "index": 3,
-            "line": 0,
-            "column": 3
-          }
-        },
-        "text": "+",
         "hiddenNodes": [
           {
             "$": "WHITESPACE",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 3,
@@ -381,13 +369,26 @@
                 "column": 4
               }
             },
-            "text": " ",
-            "hiddenNodes": []
+            "text": " "
           }
-        ]
+        ],
+        "range": {
+          "start": {
+            "index": 2,
+            "line": 0,
+            "column": 2
+          },
+          "stop": {
+            "index": 3,
+            "line": 0,
+            "column": 3
+          }
+        },
+        "text": "+"
       },
       "right": {
         "$": "ID",
+        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 4,
@@ -400,8 +401,7 @@
             "column": 5
           }
         },
-        "text": "b",
-        "hiddenNodes": []
+        "text": "b"
       }
     },
     "body": [],
@@ -439,6 +439,7 @@
         "children": [
           {
             "$": "ID",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 6,
@@ -451,11 +452,11 @@
                 "column": 1
               }
             },
-            "text": "c",
-            "hiddenNodes": []
+            "text": "c"
           },
           {
             "$": "OPERATOR",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 7,
@@ -468,13 +469,13 @@
                 "column": 2
               }
             },
-            "text": "!",
-            "hiddenNodes": []
+            "text": "!"
           }
         ],
         "hiddenNodes": [],
         "value": {
           "$": "ID",
+          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 6,
@@ -487,11 +488,11 @@
               "column": 1
             }
           },
-          "text": "c",
-          "hiddenNodes": []
+          "text": "c"
         },
         "operator": {
           "$": "OPERATOR",
+          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 7,
@@ -504,14 +505,14 @@
               "column": 2
             }
           },
-          "text": "!",
-          "hiddenNodes": []
+          "text": "!"
         }
       }
     ],
     "hiddenNodes": [
       {
         "$": "NL",
+        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 5,
@@ -524,8 +525,7 @@
             "column": 0
           }
         },
-        "text": "\n",
-        "hiddenNodes": []
+        "text": "\n"
       }
     ],
     "indentLevel": 0,
@@ -533,6 +533,7 @@
     "beforeIndentHiddenNodes": [
       {
         "$": "NL",
+        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 5,
@@ -545,8 +546,7 @@
             "column": 0
           }
         },
-        "text": "\n",
-        "hiddenNodes": []
+        "text": "\n"
       }
     ],
     "indentHiddenNodes": [],
@@ -567,6 +567,7 @@
       "children": [
         {
           "$": "ID",
+          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 6,
@@ -579,11 +580,11 @@
               "column": 1
             }
           },
-          "text": "c",
-          "hiddenNodes": []
+          "text": "c"
         },
         {
           "$": "OPERATOR",
+          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 7,
@@ -596,13 +597,13 @@
               "column": 2
             }
           },
-          "text": "!",
-          "hiddenNodes": []
+          "text": "!"
         }
       ],
       "hiddenNodes": [],
       "value": {
         "$": "ID",
+        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 6,
@@ -615,11 +616,11 @@
             "column": 1
           }
         },
-        "text": "c",
-        "hiddenNodes": []
+        "text": "c"
       },
       "operator": {
         "$": "OPERATOR",
+        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 7,
@@ -632,8 +633,7 @@
             "column": 2
           }
         },
-        "text": "!",
-        "hiddenNodes": []
+        "text": "!"
       }
     },
     "body": [],
@@ -671,6 +671,7 @@
         "children": [
           {
             "$": "OPERATOR",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 10,
@@ -683,11 +684,11 @@
                 "column": 1
               }
             },
-            "text": "-",
-            "hiddenNodes": []
+            "text": "-"
           },
           {
             "$": "ID",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 11,
@@ -700,13 +701,13 @@
                 "column": 2
               }
             },
-            "text": "d",
-            "hiddenNodes": []
+            "text": "d"
           }
         ],
         "hiddenNodes": [],
         "operator": {
           "$": "OPERATOR",
+          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 10,
@@ -719,11 +720,11 @@
               "column": 1
             }
           },
-          "text": "-",
-          "hiddenNodes": []
+          "text": "-"
         },
         "value": {
           "$": "ID",
+          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 11,
@@ -736,14 +737,14 @@
               "column": 2
             }
           },
-          "text": "d",
-          "hiddenNodes": []
+          "text": "d"
         }
       }
     ],
     "hiddenNodes": [
       {
         "$": "NL",
+        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 8,
@@ -756,8 +757,7 @@
             "column": 0
           }
         },
-        "text": "\n\n",
-        "hiddenNodes": []
+        "text": "\n\n"
       }
     ],
     "indentLevel": 0,
@@ -765,6 +765,7 @@
     "beforeIndentHiddenNodes": [
       {
         "$": "NL",
+        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 8,
@@ -777,8 +778,7 @@
             "column": 0
           }
         },
-        "text": "\n\n",
-        "hiddenNodes": []
+        "text": "\n\n"
       }
     ],
     "indentHiddenNodes": [],
@@ -799,6 +799,7 @@
       "children": [
         {
           "$": "OPERATOR",
+          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 10,
@@ -811,11 +812,11 @@
               "column": 1
             }
           },
-          "text": "-",
-          "hiddenNodes": []
+          "text": "-"
         },
         {
           "$": "ID",
+          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 11,
@@ -828,13 +829,13 @@
               "column": 2
             }
           },
-          "text": "d",
-          "hiddenNodes": []
+          "text": "d"
         }
       ],
       "hiddenNodes": [],
       "operator": {
         "$": "OPERATOR",
+        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 10,
@@ -847,11 +848,11 @@
             "column": 1
           }
         },
-        "text": "-",
-        "hiddenNodes": []
+        "text": "-"
       },
       "value": {
         "$": "ID",
+        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 11,
@@ -864,8 +865,7 @@
             "column": 2
           }
         },
-        "text": "d",
-        "hiddenNodes": []
+        "text": "d"
       }
     },
     "body": [],
@@ -903,6 +903,7 @@
         "children": [
           {
             "$": "ID",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 14,
@@ -915,8 +916,7 @@
                 "column": 1
               }
             },
-            "text": "e",
-            "hiddenNodes": []
+            "text": "e"
           },
           {
             "$": "GROUP",
@@ -935,6 +935,7 @@
             "children": [
               {
                 "$": "OPEN",
+                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 15,
@@ -947,11 +948,11 @@
                     "column": 2
                   }
                 },
-                "text": "(",
-                "hiddenNodes": []
+                "text": "("
               },
               {
                 "$": "ID",
+                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 16,
@@ -964,11 +965,11 @@
                     "column": 3
                   }
                 },
-                "text": "f",
-                "hiddenNodes": []
+                "text": "f"
               },
               {
                 "$": "ID",
+                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 19,
@@ -981,11 +982,11 @@
                     "column": 6
                   }
                 },
-                "text": "g",
-                "hiddenNodes": []
+                "text": "g"
               },
               {
                 "$": "CLOSE",
+                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 20,
@@ -998,13 +999,13 @@
                     "column": 7
                   }
                 },
-                "text": ")",
-                "hiddenNodes": []
+                "text": ")"
               }
             ],
             "hiddenNodes": [],
             "open": {
               "$": "OPEN",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 15,
@@ -1017,12 +1018,12 @@
                   "column": 2
                 }
               },
-              "text": "(",
-              "hiddenNodes": []
+              "text": "("
             },
             "items": [
               {
                 "$": "ID",
+                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 16,
@@ -1035,11 +1036,11 @@
                     "column": 3
                   }
                 },
-                "text": "f",
-                "hiddenNodes": []
+                "text": "f"
               },
               {
                 "$": "ID",
+                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 19,
@@ -1052,12 +1053,12 @@
                     "column": 6
                   }
                 },
-                "text": "g",
-                "hiddenNodes": []
+                "text": "g"
               }
             ],
             "close": {
               "$": "CLOSE",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 20,
@@ -1070,14 +1071,14 @@
                   "column": 7
                 }
               },
-              "text": ")",
-              "hiddenNodes": []
+              "text": ")"
             }
           }
         ],
         "hiddenNodes": [],
         "instance": {
           "$": "ID",
+          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 14,
@@ -1090,8 +1091,7 @@
               "column": 1
             }
           },
-          "text": "e",
-          "hiddenNodes": []
+          "text": "e"
         },
         "group": {
           "$": "GROUP",
@@ -1110,6 +1110,7 @@
           "children": [
             {
               "$": "OPEN",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 15,
@@ -1122,11 +1123,11 @@
                   "column": 2
                 }
               },
-              "text": "(",
-              "hiddenNodes": []
+              "text": "("
             },
             {
               "$": "ID",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 16,
@@ -1139,11 +1140,11 @@
                   "column": 3
                 }
               },
-              "text": "f",
-              "hiddenNodes": []
+              "text": "f"
             },
             {
               "$": "ID",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 19,
@@ -1156,11 +1157,11 @@
                   "column": 6
                 }
               },
-              "text": "g",
-              "hiddenNodes": []
+              "text": "g"
             },
             {
               "$": "CLOSE",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 20,
@@ -1173,13 +1174,13 @@
                   "column": 7
                 }
               },
-              "text": ")",
-              "hiddenNodes": []
+              "text": ")"
             }
           ],
           "hiddenNodes": [],
           "open": {
             "$": "OPEN",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 15,
@@ -1192,12 +1193,12 @@
                 "column": 2
               }
             },
-            "text": "(",
-            "hiddenNodes": []
+            "text": "("
           },
           "items": [
             {
               "$": "ID",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 16,
@@ -1210,11 +1211,11 @@
                   "column": 3
                 }
               },
-              "text": "f",
-              "hiddenNodes": []
+              "text": "f"
             },
             {
               "$": "ID",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 19,
@@ -1227,12 +1228,12 @@
                   "column": 6
                 }
               },
-              "text": "g",
-              "hiddenNodes": []
+              "text": "g"
             }
           ],
           "close": {
             "$": "CLOSE",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 20,
@@ -1245,8 +1246,7 @@
                 "column": 7
               }
             },
-            "text": ")",
-            "hiddenNodes": []
+            "text": ")"
           }
         }
       }
@@ -1254,6 +1254,7 @@
     "hiddenNodes": [
       {
         "$": "NL",
+        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 12,
@@ -1266,8 +1267,7 @@
             "column": 0
           }
         },
-        "text": "\n\n",
-        "hiddenNodes": []
+        "text": "\n\n"
       }
     ],
     "indentLevel": 0,
@@ -1275,6 +1275,7 @@
     "beforeIndentHiddenNodes": [
       {
         "$": "NL",
+        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 12,
@@ -1287,8 +1288,7 @@
             "column": 0
           }
         },
-        "text": "\n\n",
-        "hiddenNodes": []
+        "text": "\n\n"
       }
     ],
     "indentHiddenNodes": [],
@@ -1309,6 +1309,7 @@
       "children": [
         {
           "$": "ID",
+          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 14,
@@ -1321,8 +1322,7 @@
               "column": 1
             }
           },
-          "text": "e",
-          "hiddenNodes": []
+          "text": "e"
         },
         {
           "$": "GROUP",
@@ -1341,6 +1341,7 @@
           "children": [
             {
               "$": "OPEN",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 15,
@@ -1353,11 +1354,11 @@
                   "column": 2
                 }
               },
-              "text": "(",
-              "hiddenNodes": []
+              "text": "("
             },
             {
               "$": "ID",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 16,
@@ -1370,11 +1371,11 @@
                   "column": 3
                 }
               },
-              "text": "f",
-              "hiddenNodes": []
+              "text": "f"
             },
             {
               "$": "ID",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 19,
@@ -1387,11 +1388,11 @@
                   "column": 6
                 }
               },
-              "text": "g",
-              "hiddenNodes": []
+              "text": "g"
             },
             {
               "$": "CLOSE",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 20,
@@ -1404,13 +1405,13 @@
                   "column": 7
                 }
               },
-              "text": ")",
-              "hiddenNodes": []
+              "text": ")"
             }
           ],
           "hiddenNodes": [],
           "open": {
             "$": "OPEN",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 15,
@@ -1423,12 +1424,12 @@
                 "column": 2
               }
             },
-            "text": "(",
-            "hiddenNodes": []
+            "text": "("
           },
           "items": [
             {
               "$": "ID",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 16,
@@ -1441,11 +1442,11 @@
                   "column": 3
                 }
               },
-              "text": "f",
-              "hiddenNodes": []
+              "text": "f"
             },
             {
               "$": "ID",
+              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 19,
@@ -1458,12 +1459,12 @@
                   "column": 6
                 }
               },
-              "text": "g",
-              "hiddenNodes": []
+              "text": "g"
             }
           ],
           "close": {
             "$": "CLOSE",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 20,
@@ -1476,14 +1477,14 @@
                 "column": 7
               }
             },
-            "text": ")",
-            "hiddenNodes": []
+            "text": ")"
           }
         }
       ],
       "hiddenNodes": [],
       "instance": {
         "$": "ID",
+        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 14,
@@ -1496,8 +1497,7 @@
             "column": 1
           }
         },
-        "text": "e",
-        "hiddenNodes": []
+        "text": "e"
       },
       "group": {
         "$": "GROUP",
@@ -1516,6 +1516,7 @@
         "children": [
           {
             "$": "OPEN",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 15,
@@ -1528,11 +1529,11 @@
                 "column": 2
               }
             },
-            "text": "(",
-            "hiddenNodes": []
+            "text": "("
           },
           {
             "$": "ID",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 16,
@@ -1545,11 +1546,11 @@
                 "column": 3
               }
             },
-            "text": "f",
-            "hiddenNodes": []
+            "text": "f"
           },
           {
             "$": "ID",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 19,
@@ -1562,11 +1563,11 @@
                 "column": 6
               }
             },
-            "text": "g",
-            "hiddenNodes": []
+            "text": "g"
           },
           {
             "$": "CLOSE",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 20,
@@ -1579,13 +1580,13 @@
                 "column": 7
               }
             },
-            "text": ")",
-            "hiddenNodes": []
+            "text": ")"
           }
         ],
         "hiddenNodes": [],
         "open": {
           "$": "OPEN",
+          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 15,
@@ -1598,12 +1599,12 @@
               "column": 2
             }
           },
-          "text": "(",
-          "hiddenNodes": []
+          "text": "("
         },
         "items": [
           {
             "$": "ID",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 16,
@@ -1616,11 +1617,11 @@
                 "column": 3
               }
             },
-            "text": "f",
-            "hiddenNodes": []
+            "text": "f"
           },
           {
             "$": "ID",
+            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 19,
@@ -1633,12 +1634,12 @@
                 "column": 6
               }
             },
-            "text": "g",
-            "hiddenNodes": []
+            "text": "g"
           }
         ],
         "close": {
           "$": "CLOSE",
+          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 20,
@@ -1651,8 +1652,7 @@
               "column": 7
             }
           },
-          "text": ")",
-          "hiddenNodes": []
+          "text": ")"
         }
       }
     },

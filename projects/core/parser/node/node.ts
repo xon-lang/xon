@@ -33,6 +33,7 @@ export enum $Node {
   ARRAY = 'ARRAY',
   GROUP = 'GROUP',
 
+  IMPORT = 'IMPORT',
   MEMBER = 'MEMBER',
   RANGE = 'RANGE',
   INVOKE = 'INVOKE',
