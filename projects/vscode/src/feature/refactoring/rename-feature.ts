@@ -25,7 +25,7 @@ import {ResourceReference} from '../../../../core/util/resource/resource-referen
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
-export function configureRefactoringFeature(context: ExtensionContext, channel: OutputChannel) {
+export function configureRenameFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(languages.registerRenameProvider(LANGUAGE_NAME, new LanguageRenameProvider(channel)));
 }
 

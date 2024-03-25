@@ -6,10 +6,11 @@ import {configureDiagnosticsFeature} from './feature/diagnostics/diagnostics-fea
 import {configureFormattingFeature} from './feature/formatting/formatting-feature';
 import {configureHighlightingFeature} from './feature/highlighting/highlighting-feature';
 import {configureHoverFeature} from './feature/hover/hover-feature';
-import {configureRefactoringFeature} from './feature/refactoring/rename-feature';
+import {configureMoveToNewFileFeature} from './feature/refactoring/move-to-new-file-feature';
+import {configureRenameFeature} from './feature/refactoring/rename-feature';
 
 export function activate(context: ExtensionContext) {
-  const channel = window.createOutputChannel(LANGUAGE_NAME);
+  const channel = window.createOutputChannel(LANGUAGE_NAME.toUpperCase());
 
   configureDiagnosticsFeature(context, channel);
   configureFormattingFeature(context, channel);
@@ -17,6 +18,7 @@ export function activate(context: ExtensionContext) {
   configureHoverFeature(context, channel);
   configureDefinitionFeature(context, channel);
   configureCompletionFeature(context, channel);
-  configureRefactoringFeature(context, channel);
+  configureRenameFeature(context, channel);
+  configureMoveToNewFileFeature(context, channel);
   // configureTranslatorFeature(context, channel);
 }
