@@ -1,10 +1,10 @@
 import {
   CancellationToken,
-  Definition,
+  DefinitionLink,
   DefinitionProvider,
   ExtensionContext,
   languages,
-  Location,
+  LocationLink,
   OutputChannel,
   Position,
   ProviderResult,
@@ -32,7 +32,11 @@ export function configureDefinitionFeature(context: ExtensionContext, channel: O
 class LanguageDefinitionProvider implements DefinitionProvider {
   constructor(private channel: OutputChannel) {}
 
-  provideDefinition(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<Definition> {
+  provideDefinition(
+    document: TextDocument,
+    position: Position,
+    token: CancellationToken,
+  ): ProviderResult<DefinitionLink[]> {
     const syntax = getDocumentSyntax(document, this.channel);
 
     const node = findNodeByPositionInSyntax(syntax, position);
@@ -43,27 +47,27 @@ class LanguageDefinitionProvider implements DefinitionProvider {
 
     if (semanticIs<ImportSemantic>(node.semantic, $Semantic.IMPORT)) {
       if (node.semantic.resource) {
-        return navigateToLocation(node.semantic.resource.location);
+        return navigateToLocation(node.range, node.semantic.resource.location);
       }
 
       return nothing;
     }
 
     if (semanticIs<DeclarationTypeSemantic>(node.semantic, $Semantic.DECLARATION_TYPE)) {
-      return navigateToReference(node.semantic.declaration.reference);
+      return navigateToReference(node.range, node.semantic.declaration.reference);
     }
 
     if (semanticIs<ValueSemantic>(node.semantic, $Semantic.VALUE)) {
       if (semanticIs<DeclarationTypeSemantic>(node.semantic.type, $Semantic.DECLARATION_TYPE)) {
-        return navigateToReference(node.semantic.type.declaration.reference);
+        return navigateToReference(node.range, node.semantic.type.declaration.reference);
       }
 
       if (semanticIs<IntegerTypeSemantic>(node.semantic.type, $Semantic.INTEGER_TYPE)) {
-        return navigateToReference(node.semantic.type.declaration.reference);
+        return navigateToReference(node.range, node.semantic.type.declaration.reference);
       }
 
       if (semanticIs<StringTypeSemantic>(node.semantic.type, $Semantic.STRING_TYPE)) {
-        return navigateToReference(node.semantic.type.declaration.reference);
+        return navigateToReference(node.range, node.semantic.type.declaration.reference);
       }
 
       return nothing;
@@ -73,17 +77,30 @@ class LanguageDefinitionProvider implements DefinitionProvider {
   }
 }
 
-function navigateToReference(reference: ResourceReference): ProviderResult<Definition> {
+function navigateToReference(
+  highlightingRange: SourceRange,
+  reference: ResourceReference,
+): ProviderResult<LocationLink[]> {
   if (!reference.location) {
     return nothing;
   }
 
-  return navigateToLocation(reference.location, reference.range);
+  return navigateToLocation(highlightingRange, reference.location, reference.range);
 }
 
-function navigateToLocation(location: String2, sourceRange: SourceRange | Nothing): ProviderResult<Definition> {
+function navigateToLocation(
+  highlightingRange: SourceRange,
+  location: String2,
+  sourceRange: SourceRange | Nothing,
+): ProviderResult<LocationLink[]> {
   const uri = Uri.parse(location);
   const range = sourceRange ? convertRange(sourceRange) : convertRange(zeroRange());
 
-  return new Location(uri, range);
+  return [
+    {
+      targetUri: uri,
+      targetRange: range,
+      originSelectionRange: convertRange(highlightingRange),
+    },
+  ];
 }
