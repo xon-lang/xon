@@ -10,6 +10,9 @@
     "ts-jest": "^29.1.2",
     "typescript": "^5.4.3"
   },
+  "dependencies": {
+    "change-case-all": "^2.1.0"
+  },
   "scripts": {
     "test": "jest --no-cache",
     "build": "rm -rf projects/vscode/dist && tsc",

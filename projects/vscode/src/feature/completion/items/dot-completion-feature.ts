@@ -30,6 +30,7 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
   ): ProviderResult<Array2<CompletionItem> | CompletionList<CompletionItem>> {
     const syntax = getDocumentSyntax(document, this.channel);
     const node = findNodeByPositionInSyntax(syntax, position);
+
     if (is<MemberNode>(node?.parent, $Node.MEMBER) && node.parent.instance.semantic) {
       const attributes = getAttributes(node.parent.instance.semantic);
       if (attributes) {
