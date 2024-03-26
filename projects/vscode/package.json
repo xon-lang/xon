@@ -104,10 +104,33 @@
     "configuration": {
       "title": "XON",
       "properties": {
-        "xon.translateOnSave": {
-          "type": "boolean",
-          "default": false,
-          "description": "Create translated ts file with near original one"
+        "xon": {
+          "type": "object",
+          "properties": {
+            "translateOnSave": {
+              "type": "boolean",
+              "default": false,
+              "description": "Create translated ts file with near original one"
+            },
+            "newFileNameCase": {
+              "type": "string",
+              "enum": [
+                "camel",
+                "capital",
+                "constant",
+                "dot",
+                "kebab",
+                "pascal",
+                "pascal_snake",
+                "path",
+                "sentence",
+                "snake",
+                "train"
+              ],
+              "default": "kebab",
+              "description": "Create new file with specified case when refactoring"
+            }
+          }
         }
       }
     }

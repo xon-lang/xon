@@ -20,8 +20,8 @@ import {dirname} from 'path';
 import {nothing} from '../../../../core/lib/core';
 import {$Node, is} from '../../../../core/parser/node/node';
 import {IdNode} from '../../../../core/parser/node/token/id/id-node';
-import {kebabCase} from '../../../../core/util/change-case';
-import {LANGUAGE_EXTENSION, LANGUAGE_NAME} from '../../config';
+import {getCaseFnByName, kebabCase} from '../../../../core/util/change-case';
+import {LANGUAGE_EXTENSION, LANGUAGE_NAME, WORKSPACE_CONFIG} from '../../config';
 import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
 export function configureMoveToNewFileFeature(context: ExtensionContext, channel: OutputChannel) {
@@ -44,11 +44,12 @@ class MoveToNewFileProvider implements CodeActionProvider {
       return nothing;
     }
 
-    const action = new CodeAction('Move to a new file', CodeActionKind.RefactorMove);
-    action.edit = new WorkspaceEdit();
     const dir = dirname(document.uri.fsPath);
-    const fileName = kebabCase(node.text);
-    const path = Uri.joinPath(Uri.parse(dir), fileName + '.' + LANGUAGE_EXTENSION);
+    const caseFn = getCaseFnByName(WORKSPACE_CONFIG.newFileNameCase()) ?? kebabCase;
+    const fileName = caseFn(node.text) + '.' + LANGUAGE_EXTENSION;
+    const action = new CodeAction(`Move to a new file: './${fileName}'`, CodeActionKind.RefactorMove);
+    action.edit = new WorkspaceEdit();
+    const path = Uri.joinPath(Uri.parse(dir), fileName);
     action.edit.createFile(path);
 
     return [
