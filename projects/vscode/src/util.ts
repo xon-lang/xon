@@ -30,12 +30,12 @@ const cachedSyntax: Record<String2, SyntaxResult> = {};
 
 export function getDocumentSyntax(document: TextDocument, channel: OutputChannel): SyntaxResult {
   const text = document.getText();
-  const hash = createHash('sha256').update(text, 'utf8').digest('hex');
-  const foundSyntax = cachedSyntax[hash];
+  // const hash = createHash('sha256').update(text, 'utf8').digest('hex');
+  // const foundSyntax = cachedSyntax[hash];
 
-  if (foundSyntax) {
-    return foundSyntax;
-  }
+  // if (foundSyntax) {
+  //   return foundSyntax;
+  // }
 
   // todo should be const location = document.uri.toString();
   const location = document.uri.fsPath;
@@ -44,7 +44,7 @@ export function getDocumentSyntax(document: TextDocument, channel: OutputChannel
   // const corePath = join(__dirname, '/core/lib/@xon/core/test-core.xon');
   // const semanticConfig = createSemanticConfig({corePath});
   parseSemantic(syntax);
-  cachedSyntax[hash] = syntax;
+  // cachedSyntax[hash] = syntax;
 
   return syntax;
 }
