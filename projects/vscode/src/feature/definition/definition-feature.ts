@@ -18,8 +18,8 @@ import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaratio
 import {IntegerTypeSemantic} from '../../../../core/semantic/type/integer/integer-type-semantic';
 import {StringTypeSemantic} from '../../../../core/semantic/type/string/string-type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
-import {SourceRange, zeroRange} from '../../../../core/source/source-range';
 import {TextResourceReference} from '../../../../core/util/resource/resource-reference';
+import {TextResourceRange, zeroRange} from '../../../../core/util/resource/text/text-resource-range';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
@@ -78,7 +78,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
 }
 
 function navigateToReference(
-  highlightingRange: SourceRange,
+  highlightingRange: TextResourceRange,
   reference: TextResourceReference,
 ): ProviderResult<LocationLink[]> {
   if (!reference.resource.location) {
@@ -89,9 +89,9 @@ function navigateToReference(
 }
 
 function navigateToLocation(
-  highlightingRange: SourceRange,
+  highlightingRange: TextResourceRange,
   location: String2,
-  sourceRange: SourceRange | Nothing,
+  sourceRange: TextResourceRange | Nothing,
 ): ProviderResult<LocationLink[]> {
   const uri = Uri.parse(location);
   const range = sourceRange ? convertRange(sourceRange) : convertRange(zeroRange());

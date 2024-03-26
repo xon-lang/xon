@@ -1,5 +1,5 @@
 import {Boolean2, Nothing, Something, String2} from '../../lib/core';
-import {SourceRange} from '../../source/source-range';
+import {TextResourceRange} from './text/text-resource-range';
 
 export interface Resource {
   $: $Resource;
@@ -17,6 +17,6 @@ export function resourceIs<T extends Resource = Resource>(data: {$: $Resource} |
   return data?.$ === type;
 }
 
-export function getRangeText(text: String2, range: SourceRange): String2 {
+export function getRangeText(text: String2, range: TextResourceRange): String2 {
   return text.slice(range.start.index, range.stop.index);
 }

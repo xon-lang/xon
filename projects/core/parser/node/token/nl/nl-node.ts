@@ -1,5 +1,5 @@
 import {Nothing, String2, nothing} from '../../../../lib/core';
-import {SourceRange} from '../../../../source/source-range';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {NL, SPACE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node} from '../../node';
@@ -9,7 +9,7 @@ export interface NlNode extends TokenNode {
   $: $Node.NL;
 }
 
-export function nlNode(range: SourceRange, text: String2): NlNode {
+export function nlNode(range: TextResourceRange, text: String2): NlNode {
   return tokenNode($Node.NL, {range, text});
 }
 

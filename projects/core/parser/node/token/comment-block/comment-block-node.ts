@@ -1,5 +1,5 @@
 import {Nothing, String2, nothing} from '../../../../lib/core';
-import {SourceRange} from '../../../../source/source-range';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {COMMENT_BLOCK} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node} from '../../node';
@@ -9,7 +9,7 @@ export interface CommentBlockNode extends TokenNode {
   $: $Node.COMMENT_BLOCK;
 }
 
-export function commentBlockNode(range: SourceRange, text: String2): CommentBlockNode {
+export function commentBlockNode(range: TextResourceRange, text: String2): CommentBlockNode {
   return tokenNode($Node.COMMENT_BLOCK, {range, text});
 }
 

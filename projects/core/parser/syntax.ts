@@ -1,8 +1,8 @@
 import {formatLastContextHiddenNodes} from '../formatter/formatter';
 import {ISSUE_MESSAGE} from '../issue/issue-message';
 import {Array2, Boolean2, Nothing, nothing} from '../lib/core';
-import {SourcePosition, zeroPosition} from '../source/source-position';
 import {TextResource} from '../util/resource/text/text-resource';
+import {TextResourcePosition, zeroPosition} from '../util/resource/text/text-resource-position';
 import {$Node, Node, is} from './node/node';
 import {scanGroupNode} from './node/syntax/group/group-node';
 import {scanCharNode} from './node/token/char/char-node';
@@ -49,7 +49,7 @@ export function parseSyntax(source: TextResource): SyntaxResult {
 
 export function parseSyntaxUntil(
   resource: TextResource,
-  startPosition: SourcePosition,
+  startPosition: TextResourcePosition,
   breakOnNodeFn: ((node: Node) => Boolean2) | Nothing,
 ): SyntaxResult {
   const context = syntaxContext(resource, startPosition);

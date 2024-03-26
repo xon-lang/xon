@@ -1,6 +1,6 @@
 import {Array2, Nothing} from '../lib/core';
-import {SourceRange} from '../source/source-range';
 import {TextResource} from '../util/resource/text/text-resource';
+import {TextResourceRange} from '../util/resource/text/text-resource-range';
 import {Issue, formatIssue} from './issue';
 import {IssueSeverity} from './issue-level';
 import {IssueMessage} from './issue-message';
@@ -9,7 +9,7 @@ export interface IssueManager {
   resource: TextResource;
   issues: Array2<Issue>;
 
-  addError(node: SourceRange, message: IssueMessage): Issue;
+  addError(node: TextResourceRange, message: IssueMessage): Issue;
   log(issue: Issue): Nothing;
 }
 
@@ -18,7 +18,7 @@ export function createIssueManager(resource: TextResource, issues: Array2<Issue>
     resource,
     issues,
 
-    addError(range: SourceRange, message: IssueMessage): Issue {
+    addError(range: TextResourceRange, message: IssueMessage): Issue {
       const issue = {
         level: IssueSeverity.ERROR,
         range,

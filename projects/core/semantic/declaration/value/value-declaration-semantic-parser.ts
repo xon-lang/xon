@@ -1,7 +1,7 @@
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Array2, Nothing, nothing} from '../../../lib/core';
 import {DeclarationNode} from '../../../parser/node/declaration/declaration-node';
-import {rangeFromNodes} from '../../../source/source-range';
+import {rangeFromNodes} from '../../../util/resource/text/text-resource-range';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
 import {typeSemanticParse} from '../../type/type-semantic-parser';

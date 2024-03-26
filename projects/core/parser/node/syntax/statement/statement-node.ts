@@ -1,5 +1,5 @@
 import {Array2, Integer, Nothing} from '../../../../lib/core';
-import {rangeFromNodes} from '../../../../source/source-range';
+import {rangeFromNodes} from '../../../../util/resource/text/text-resource-range';
 import {SyntaxContext} from '../../../syntax-context';
 import {DeclarationNode} from '../../declaration/declaration-node';
 import {$Node, Node} from '../../node';

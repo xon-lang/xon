@@ -1,5 +1,5 @@
 import {Anything, Array2, Nothing, String2} from '../../../lib/core';
-import {SourceRange} from '../../../source/source-range';
+import {TextResourceRange} from '../../../util/resource/text/text-resource-range';
 import {$Node, Node, is} from '../node';
 
 export interface TokenNode extends Node {
@@ -8,7 +8,7 @@ export interface TokenNode extends Node {
 
 export function tokenNode<T extends Record<String2, Anything>, V extends $Node>(
   $: V,
-  params: T & {range: SourceRange; text: String2},
+  params: T & {range: TextResourceRange; text: String2},
 ): TokenNode & {$: typeof $} & T {
   return {
     $,

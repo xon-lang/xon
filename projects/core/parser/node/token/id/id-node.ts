@@ -1,6 +1,6 @@
 import {Nothing, String2, nothing} from '../../../../lib/core';
-import {SourceRange} from '../../../../source/source-range';
 import '../../../../util/extension';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {UNDERSCORE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node} from '../../node';
@@ -10,7 +10,7 @@ export interface IdNode extends TokenNode {
   $: $Node.ID;
 }
 
-export function idNode(range: SourceRange, text: String2): IdNode {
+export function idNode(range: TextResourceRange, text: String2): IdNode {
   return tokenNode($Node.ID, {range, text});
 }
 

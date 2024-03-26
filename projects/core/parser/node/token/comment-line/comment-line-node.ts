@@ -1,5 +1,5 @@
 import {Nothing, String2, nothing} from '../../../../lib/core';
-import {SourceRange} from '../../../../source/source-range';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {COMMENT_LINE, NL} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node} from '../../node';
@@ -9,7 +9,7 @@ export interface CommentLineNode extends TokenNode {
   $: $Node.COMMENT_LINE;
 }
 
-export function commentLineNode(range: SourceRange, text: String2): CommentLineNode {
+export function commentLineNode(range: TextResourceRange, text: String2): CommentLineNode {
   return tokenNode($Node.COMMENT_LINE, {range, text});
 }
 

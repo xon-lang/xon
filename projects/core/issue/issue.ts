@@ -1,17 +1,17 @@
 import {String2} from '../lib/core';
-import {SourceRange} from '../source/source-range';
 import {getRangeText} from '../util/resource/resource';
 import {TextResource} from '../util/resource/text/text-resource';
+import {TextResourceRange} from '../util/resource/text/text-resource-range';
 import {IssueSeverity} from './issue-level';
 import {IssueMessage} from './issue-message';
 
 export interface Issue {
   level: IssueSeverity;
-  range: SourceRange;
+  range: TextResourceRange;
   message: IssueMessage;
 }
 
-export function createErrorIssue(range: SourceRange, message: IssueMessage): Issue {
+export function createErrorIssue(range: TextResourceRange, message: IssueMessage): Issue {
   return {
     level: IssueSeverity.ERROR,
     range,

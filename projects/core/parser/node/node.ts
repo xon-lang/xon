@@ -1,11 +1,11 @@
 import {Array2, Nothing} from '../../lib/core';
 import {Semantic} from '../../semantic/semantic';
-import {SourceRange} from '../../source/source-range';
+import {TextResourceRange} from '../../util/resource/text/text-resource-range';
 import {TokenNode} from './token/token-node';
 
 export interface Node {
   readonly $: $Node;
-  readonly range: SourceRange;
+  readonly range: TextResourceRange;
   parent?: Node | Nothing;
   readonly children?: Array2<Node>;
   hiddenNodes: Array2<TokenNode>;

@@ -1,9 +1,9 @@
 import {FormatterManager, createFormatterManager} from '../formatter/formatter-manager';
 import {IssueManager, createIssueManager} from '../issue/issue-manager';
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../lib/core';
-import {SourcePosition, sourcePosition} from '../source/source-position';
-import {SourceRange, sourceRange} from '../source/source-range';
 import {TextResource} from '../util/resource/text/text-resource';
+import {TextResourcePosition, textResourcePosition} from '../util/resource/text/text-resource-position';
+import {TextResourceRange, textResourceRange} from '../util/resource/text/text-resource-range';
 import {Node} from './node/node';
 import {StatementNode} from './node/syntax/statement/statement-node';
 import {OperatorNode} from './node/token/operator/operator-node';
@@ -12,7 +12,7 @@ import {NL} from './parser-config';
 
 export interface SyntaxContext {
   resource: TextResource;
-  position: SourcePosition;
+  position: TextResourcePosition;
   hiddenNodes: Array2<TokenNode>;
   operators: Array2<OperatorNode>;
   breakNode: Node | Nothing;
@@ -23,10 +23,10 @@ export interface SyntaxContext {
   issueManager: IssueManager;
   formatterManager: FormatterManager;
 
-  getRange: (length: Integer, canContainNewLines: Boolean2) => SourceRange;
+  getRange: (length: Integer, canContainNewLines: Boolean2) => TextResourceRange;
 }
 
-export function syntaxContext(resource: TextResource, position: SourcePosition): SyntaxContext {
+export function syntaxContext(resource: TextResource, position: TextResourcePosition): SyntaxContext {
   return {
     resource,
     position,
@@ -40,7 +40,7 @@ export function syntaxContext(resource: TextResource, position: SourcePosition):
     issueManager: createIssueManager(resource),
     formatterManager: createFormatterManager(resource),
 
-    getRange(length: Integer, canContainNewLines: Boolean2): SourceRange {
+    getRange(length: Integer, canContainNewLines: Boolean2): TextResourceRange {
       const {index, line, column} = this.position;
 
       if (canContainNewLines) {
@@ -60,18 +60,18 @@ export function syntaxContext(resource: TextResource, position: SourcePosition):
           columnIndent += 1;
         }
 
-        const start = sourcePosition(index, line, column);
-        const stop = sourcePosition(index + length, nlCount, columnIndent);
+        const start = textResourcePosition(index, line, column);
+        const stop = textResourcePosition(index + length, nlCount, columnIndent);
 
-        return sourceRange(start, stop);
+        return textResourceRange(start, stop);
       }
 
       const stopIndex = index + length;
       const stopColumn = column + length;
-      const start = sourcePosition(index, line, column);
-      const stop = sourcePosition(stopIndex, line, stopColumn);
+      const start = textResourcePosition(index, line, column);
+      const stop = textResourcePosition(stopIndex, line, stopColumn);
 
-      return sourceRange(start, stop);
+      return textResourceRange(start, stop);
     },
   };
 }

@@ -1,5 +1,5 @@
 import {Nothing, String2, nothing} from '../../../../lib/core';
-import {SourceRange} from '../../../../source/source-range';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {JOINING, NL, SPACE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node} from '../../node';
@@ -9,7 +9,7 @@ export interface JoiningNode extends TokenNode {
   $: $Node.JOINING;
 }
 
-export function joiningNode(range: SourceRange, text: String2): JoiningNode {
+export function joiningNode(range: TextResourceRange, text: String2): JoiningNode {
   return tokenNode($Node.JOINING, {range, text});
 }
 

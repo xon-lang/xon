@@ -8,10 +8,15 @@ import {TokenNode} from '../parser/node/token/token-node';
 import {WhitespaceNode} from '../parser/node/token/whitespace/whitespace-node';
 import {NL} from '../parser/parser-config';
 import {SyntaxContext} from '../parser/syntax-context';
-import {SourceRange, cloneRange, rangeFromNodes, rangeFromPosition} from '../source/source-range';
+import {
+  TextResourceRange,
+  cloneRange,
+  rangeFromNodes,
+  rangeFromPosition,
+} from '../util/resource/text/text-resource-range';
 
 export interface Formatter {
-  range: SourceRange;
+  range: TextResourceRange;
   text: String2;
 }
 
@@ -146,7 +151,7 @@ export function formatLastContextHiddenNodes(context: SyntaxContext): Formatter 
 
 export function getFormatterForHiddenNodes(
   context: SyntaxContext,
-  range: SourceRange,
+  range: TextResourceRange,
   hiddenNodes: Array2<TokenNode>,
   formattingType: FormattingType | Nothing,
 ): Formatter | Nothing {
@@ -256,7 +261,7 @@ function format(context: SyntaxContext, node: TokenNode | Nothing): String2 {
 function compareAndCreateFormatter(
   context: SyntaxContext,
   nodes: Array2<TokenNode>,
-  range: SourceRange,
+  range: TextResourceRange,
   text: String2,
 ): Formatter | Nothing {
   if (isSameContent(context, nodes, text)) {

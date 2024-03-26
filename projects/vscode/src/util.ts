@@ -1,4 +1,3 @@
-import {createHash} from 'crypto';
 import {OutputChannel, Position, Range, TextDocument, TextEdit} from 'vscode';
 import {Formatter} from '../../core/formatter/formatter';
 import {Array2, Nothing, String2, nothing} from '../../core/lib/core';
@@ -8,21 +7,21 @@ import {parseSyntax} from '../../core/parser/syntax';
 import {SyntaxResult} from '../../core/parser/syntax-result';
 import {parseSemantic} from '../../core/semantic/semantic';
 import {createSource} from '../../core/source/source';
-import {SourcePosition} from '../../core/source/source-position';
-import {SourceRange} from '../../core/source/source-range';
+import {TextResourcePosition} from '../../core/util/resource/text/text-resource-position';
+import {TextResourceRange} from '../../core/util/resource/text/text-resource-range';
 
 export function convertFormatter(formatter: Formatter) {
   return TextEdit.replace(convertRange(formatter.range), formatter.text);
 }
 
-export function convertRange(range: SourceRange): Range {
+export function convertRange(range: TextResourceRange): Range {
   const start = convertPosition(range.start);
   const stop = convertPosition(range.stop);
 
   return new Range(start, stop);
 }
 
-export function convertPosition(position: SourcePosition): Position {
+export function convertPosition(position: TextResourcePosition): Position {
   return new Position(position.line, position.column);
 }
 

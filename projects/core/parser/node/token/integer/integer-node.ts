@@ -1,5 +1,5 @@
 import {Integer, Nothing, String2, nothing} from '../../../../lib/core';
-import {SourceRange} from '../../../../source/source-range';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {UNDERSCORE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node} from '../../node';
@@ -10,7 +10,7 @@ export interface IntegerNode extends TokenNode {
   value: Integer;
 }
 
-export function integerNode(range: SourceRange, text: String2): IntegerNode {
+export function integerNode(range: TextResourceRange, text: String2): IntegerNode {
   const value = Number(text);
 
   return tokenNode($Node.INTEGER, {range, text, value});
