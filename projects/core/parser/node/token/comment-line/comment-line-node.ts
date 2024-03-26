@@ -14,13 +14,13 @@ export function commentLineNode(range: SourceRange, text: String2): CommentLineN
 }
 
 export function scanCommentLineNode(context: SyntaxContext): CommentLineNode | Nothing {
-  const {source, position} = context;
+  const {resource: source, position} = context;
 
-  if (source.text.slice(position.index, position.index + COMMENT_LINE.length) !== COMMENT_LINE) {
+  if (source.data.slice(position.index, position.index + COMMENT_LINE.length) !== COMMENT_LINE) {
     return nothing;
   }
 
-  const text = source.text.takeWhile((x) => x !== NL, position.index);
+  const text = source.data.takeWhile((x) => x !== NL, position.index);
   const range = context.getRange(text.length, false);
 
   return commentLineNode(range, text);

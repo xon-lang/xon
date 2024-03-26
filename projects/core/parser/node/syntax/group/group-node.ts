@@ -51,17 +51,17 @@ export function scanGroupNode(context: SyntaxContext): Group | Nothing {
     return nothing;
   }
 
-  const {source, position} = context;
+  const {resource, position} = context;
 
   position.column = open.range.stop.column;
   position.index = open.range.stop.index;
 
   const items: Array2<Node> = [];
 
-  while (position.index < source.text.length) {
+  while (position.index < resource.data.length) {
     // todo remove from here or refactor
     const {syntaxContext: itemContext} = parseSyntaxUntil(
-      source,
+      resource,
       position,
       (node) =>
         (is<OperatorNode>(node, $Node.OPERATOR) && node.text === COMMA) ||

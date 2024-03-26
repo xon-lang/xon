@@ -1,12 +1,13 @@
-import {sourceFromText} from '../../../../source/source';
+import {nothing} from '../../../../lib/core';
 import {evaluate} from '../../../../util/evaluate';
+import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
 import {PostfixNode} from './postfix-node';
 
 test('after integer', () => {
   const text = '1!';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as PostfixNode;

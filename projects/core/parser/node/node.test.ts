@@ -1,4 +1,5 @@
-import {sourceFromText} from '../../source/source';
+import {nothing} from '../../lib/core';
+import {textResourceFrom} from '../../util/resource/text/text-resource';
 import {parseSyntax} from '../syntax';
 import {$Node} from './node';
 import {InfixNode} from './syntax/infix/infix-node';
@@ -7,7 +8,7 @@ import {TokenNode} from './token/token-node';
 
 test('comma', () => {
   const text = '1';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as IntegerNode;
@@ -19,7 +20,7 @@ test('comma', () => {
 
 test('single expression', () => {
   const text = '\n  a = 1';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as InfixNode;
@@ -33,7 +34,7 @@ test('single expression', () => {
 
 test('debug 1', () => {
   const text = 'a = 1\n b = 2\n +b';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as InfixNode;
@@ -44,7 +45,7 @@ test('debug 1', () => {
 
 test('debug 2', () => {
   const text = 'a = 1\nb = 2\n';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node0 = statements[0].item as InfixNode;
@@ -59,7 +60,7 @@ test('debug 3', () => {
   const text = `a
  b
 c`;
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node0 = statements[0].item as InfixNode;
@@ -72,7 +73,7 @@ c`;
 
 test('debug 4', () => {
   const text = '  a\n   b\n   b';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
 
@@ -85,7 +86,7 @@ test('debug 4', () => {
 
 test('multiple expression', () => {
   const text = '\n  x = 1\n  y = 2\n  z = 3';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
 

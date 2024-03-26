@@ -1,4 +1,6 @@
-import {getRangeText, sourceFromText} from '../../../../source/source';
+import {nothing} from '../../../../lib/core';
+import {getRangeText} from '../../../../util/resource/resource';
+import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
 import {IntegerNode} from '../integer/integer-node';
@@ -6,7 +8,7 @@ import {UnknownNode} from './unknown-node';
 
 test('unknown 1', () => {
   const text = '123 §•∞•456';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node0 = statements[0].item as IntegerNode;
@@ -23,13 +25,13 @@ test('unknown 1', () => {
 
 test('unknown 2', () => {
   const text = 'ºª¶';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as UnknownNode;
 
   expect(statements.length).toBe(1);
   expect(syntax.issueManager.issues.length).toBe(1);
-  expect(getRangeText(source.text, syntax.issueManager.issues[0].range)).toBe('ºª¶');
+  expect(getRangeText(source.data, syntax.issueManager.issues[0].range)).toBe('ºª¶');
   expect(node.text).toBe('ºª¶');
 });

@@ -1,7 +1,7 @@
 import {String2, nothing} from '../../../../lib/core';
 import {DeclarationNode} from '../../../../parser/node/declaration/declaration-node';
 import {parseSyntax} from '../../../../parser/syntax';
-import {sourceFromText} from '../../../../source/source';
+import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {DeclarationKind} from '../../../declaration-manager';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
 import {ValueDeclarationSemantic} from '../../../declaration/value/value-declaration-semantic';
@@ -18,7 +18,7 @@ test('a is integer', () => {
 
     const a: Integer & Float
   `;
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax);
 
@@ -52,7 +52,7 @@ test('check type', () => {
     const b: Float
     const c: String
   `;
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax);
 

@@ -1,4 +1,5 @@
-import {sourceFromText} from '../../../../source/source';
+import {nothing} from '../../../../lib/core';
+import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {JOINING} from '../../../parser-config';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
@@ -8,7 +9,7 @@ import {OperatorNode} from '../operator/operator-node';
 
 test('no space', () => {
   const text = 'abc~.def';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as MemberNode;
@@ -23,7 +24,7 @@ test('no space', () => {
 
 test('spaces', () => {
   const text = 'abc~  .def';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as MemberNode;
@@ -38,7 +39,7 @@ test('spaces', () => {
 
 test('with new line', () => {
   const text = 'abc~   \n  .def';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as MemberNode;

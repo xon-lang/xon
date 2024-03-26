@@ -14,10 +14,10 @@ export function closeNode(range: SourceRange, text: String2): CloseNode {
 }
 
 export function scanCloseNode(context: SyntaxContext): CloseNode | Nothing {
-  const char = context.source.text[context.position.index];
+  const char = context.resource.data[context.position.index];
 
   if (char === GROUP_NODE_CLOSE || char === ARRAY_NODE_CLOSE || char === OBJECT_NODE_CLOSE) {
-    const text = context.source.text[context.position.index];
+    const text = context.resource.data[context.position.index];
     const range = context.getRange(1, false);
 
     return closeNode(range, text);

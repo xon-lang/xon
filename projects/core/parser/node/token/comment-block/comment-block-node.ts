@@ -14,13 +14,13 @@ export function commentBlockNode(range: SourceRange, text: String2): CommentBloc
 }
 
 export function scanCommentBlockNode(context: SyntaxContext): CommentBlockNode | Nothing {
-  const {source, position} = context;
+  const {resource: source, position} = context;
 
-  if (source.text.take(COMMENT_BLOCK.length, position.index) === COMMENT_BLOCK) {
-    const stopIndex = source.text.indexOf(COMMENT_BLOCK, position.index + COMMENT_BLOCK.length);
-    const endSlice = stopIndex < 0 ? source.text.length : stopIndex + COMMENT_BLOCK.length;
+  if (source.data.take(COMMENT_BLOCK.length, position.index) === COMMENT_BLOCK) {
+    const stopIndex = source.data.indexOf(COMMENT_BLOCK, position.index + COMMENT_BLOCK.length);
+    const endSlice = stopIndex < 0 ? source.data.length : stopIndex + COMMENT_BLOCK.length;
 
-    const text = source.text.slice(position.index, endSlice);
+    const text = source.data.slice(position.index, endSlice);
     const range = context.getRange(text.length, true);
 
     return commentBlockNode(range, text);

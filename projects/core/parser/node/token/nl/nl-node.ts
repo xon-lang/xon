@@ -14,13 +14,13 @@ export function nlNode(range: SourceRange, text: String2): NlNode {
 }
 
 export function scanNlNode(context: SyntaxContext): NlNode | Nothing {
-  const {source, position} = context;
+  const {resource: source, position} = context;
 
-  if (source.text[position.index] !== NL) {
+  if (source.data[position.index] !== NL) {
     return nothing;
   }
 
-  const textWithIndents = source.text.takeWhile((x) => x === NL || x === SPACE, position.index);
+  const textWithIndents = source.data.takeWhile((x) => x === NL || x === SPACE, position.index);
   const lastNLIndex = textWithIndents.lastIndexOf(NL);
   const text = textWithIndents.slice(0, lastNLIndex + 1);
   const range = context.getRange(text.length, true);

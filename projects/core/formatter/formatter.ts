@@ -277,7 +277,7 @@ function isSameContent(context: SyntaxContext, nodes: Array2<TokenNode>, text: S
     return text === '';
   }
 
-  const sliced = context.source.text.slice(first.range.start.index, last.range.stop.index);
+  const sliced = context.resource.data.slice(first.range.start.index, last.range.stop.index);
 
   return text === sliced;
 }

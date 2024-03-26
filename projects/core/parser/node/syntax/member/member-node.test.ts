@@ -1,5 +1,5 @@
 import {nothing} from '../../../../lib/core';
-import {sourceFromText} from '../../../../source/source';
+import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
 import {TokenNode} from '../../token/token-node';
@@ -7,7 +7,7 @@ import {MemberNode} from './member-node';
 
 test('member with id instance', () => {
   const text = 'abc.def';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as MemberNode;
@@ -26,7 +26,7 @@ test('member with id instance', () => {
 
 test('member without id', () => {
   const text = 'abc.';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as MemberNode;

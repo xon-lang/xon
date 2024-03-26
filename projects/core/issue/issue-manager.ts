@@ -1,21 +1,21 @@
 import {Array2, Nothing} from '../lib/core';
-import {Source} from '../source/source';
 import {SourceRange} from '../source/source-range';
+import {TextResource} from '../util/resource/text/text-resource';
 import {Issue, formatIssue} from './issue';
 import {IssueSeverity} from './issue-level';
 import {IssueMessage} from './issue-message';
 
 export interface IssueManager {
-  source: Source;
+  resource: TextResource;
   issues: Array2<Issue>;
 
   addError(node: SourceRange, message: IssueMessage): Issue;
   log(issue: Issue): Nothing;
 }
 
-export function createIssueManager(source: Source, issues: Array2<Issue> = []): IssueManager {
+export function createIssueManager(resource: TextResource, issues: Array2<Issue> = []): IssueManager {
   const manager: IssueManager = {
-    source,
+    resource,
     issues,
 
     addError(range: SourceRange, message: IssueMessage): Issue {
@@ -32,7 +32,7 @@ export function createIssueManager(source: Source, issues: Array2<Issue> = []): 
     },
 
     log(issue: Issue): Nothing {
-      const error = formatIssue(this.source, issue);
+      const error = formatIssue(this.resource, issue);
       console.error(error);
     },
   };

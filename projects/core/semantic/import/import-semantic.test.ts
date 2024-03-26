@@ -1,6 +1,7 @@
+import {nothing} from '../../lib/core';
 import {DeclarationNode} from '../../parser/node/declaration/declaration-node';
 import {parseSyntax} from '../../parser/syntax';
-import {sourceFromText} from '../../source/source';
+import {textResourceFrom} from '../../util/resource/text/text-resource';
 import {DeclarationSemantic} from '../declaration/declaration-semantic';
 import {$Semantic, parseSemantic} from '../semantic';
 import {StringTypeSemantic} from '../type/string/string-type-semantic';
@@ -11,7 +12,7 @@ test('import core', () => {
     import "xon/core"
     const a: "abc"
   `;
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax);
 

@@ -1,6 +1,7 @@
 import {String2} from '../lib/core';
-import {Source, getRangeText} from '../source/source';
 import {SourceRange} from '../source/source-range';
+import {getRangeText} from '../util/resource/resource';
+import {TextResource} from '../util/resource/text/text-resource';
 import {IssueSeverity} from './issue-level';
 import {IssueMessage} from './issue-message';
 
@@ -55,11 +56,11 @@ enum Color {
   BG_GRAY = '\x1b[100m',
 }
 
-export function formatIssue(source: Source, {range, message}: Issue): String2 {
+export function formatIssue(resource: TextResource, {range, message}: Issue): String2 {
   const msg = redBright(message.actual);
-  const lineText = source.text.split('\n')[range.start.line];
-  const nodeText = getRangeText(source.text, range);
-  const location = cyan(source.location ?? '<code>');
+  const lineText = resource.data.split('\n')[range.start.line];
+  const nodeText = getRangeText(resource.data, range);
+  const location = cyan(resource.location ?? '<code>');
   const line = cyan(`:${range.start.line + 1}`);
   const column = cyan(`:${range.start.column + 1}`);
   const lineNumberBeforeGrayed = `${range.start.line + 1} | `;

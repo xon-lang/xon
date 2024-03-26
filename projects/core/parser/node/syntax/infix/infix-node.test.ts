@@ -1,5 +1,6 @@
-import {sourceFromText} from '../../../../source/source';
+import { nothing } from '../../../../lib/core';
 import {evaluate} from '../../../../util/evaluate';
+import { textResourceFrom } from '../../../../util/resource/text/text-resource';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
 import {IdNode} from '../../token/id/id-node';
@@ -10,7 +11,7 @@ import {InfixNode} from './infix-node';
 
 test('several operands with different priorities', () => {
   const text = '1*1+1+2^5*2/2';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as InfixNode;
@@ -23,7 +24,7 @@ test('several operands with different priorities', () => {
 
 test('num plus str', () => {
   const text = '1  + "str"';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as InfixNode;
@@ -36,7 +37,7 @@ test('num plus str', () => {
 
 test('num is number', () => {
   const text = '1 & Number';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as InfixNode;
@@ -50,7 +51,7 @@ test('num is number', () => {
 
 test('equals', () => {
   const text = 'this.text == 123';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as InfixNode;
@@ -63,7 +64,7 @@ test('equals', () => {
 
 test('has several relational operators', () => {
   const text = 'a<b>c';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as InfixNode;
@@ -83,7 +84,7 @@ test('has several relational operators', () => {
 
 test('several operators', () => {
   const text = '1 /+ 2';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as InfixNode;
@@ -101,7 +102,7 @@ test('several operators', () => {
 
 test('has argument', () => {
   const text = '(x) = x + 42';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as InfixNode;
@@ -120,7 +121,7 @@ test('has argument', () => {
 
 test('two parameter', () => {
   const text = '(a, b) = a+b';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as InfixNode;

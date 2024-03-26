@@ -14,15 +14,15 @@ export function joiningNode(range: SourceRange, text: String2): JoiningNode {
 }
 
 export function scanJoiningNode(context: SyntaxContext): JoiningNode | Nothing {
-  const {source, position} = context;
+  const {resource: source, position} = context;
 
-  if (source.text[position.index] !== JOINING) {
+  if (source.data[position.index] !== JOINING) {
     return nothing;
   }
 
-  let text = JOINING + source.text.takeWhile((x) => x === SPACE, position.index + 1);
+  let text = JOINING + source.data.takeWhile((x) => x === SPACE, position.index + 1);
 
-  if (source.text[position.index + text.length] === NL) {
+  if (source.data[position.index + text.length] === NL) {
     text += NL;
   }
 

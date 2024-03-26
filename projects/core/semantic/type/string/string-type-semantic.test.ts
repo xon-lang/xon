@@ -1,6 +1,7 @@
+import {nothing} from '../../../lib/core';
 import {DeclarationNode} from '../../../parser/node/declaration/declaration-node';
 import {parseSyntax} from '../../../parser/syntax';
-import {sourceFromText} from '../../../source/source';
+import {textResourceFrom} from '../../../util/resource/text/text-resource';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, parseSemantic} from '../../semantic';
 import {TEST_SEMANTIC_CONFIG} from '../../semantic-config';
@@ -11,7 +12,7 @@ test('a is string value', () => {
   const text = `
     const a: "abc" = "abc"
   `;
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax, TEST_SEMANTIC_CONFIG);
 
@@ -34,7 +35,7 @@ test('a is string value', () => {
 test('a is string literal', () => {
   const text = `
     const a: "abc`;
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].declaration as DeclarationNode;
@@ -47,7 +48,7 @@ test('a is string literal', () => {
 test('a is empty string 1', () => {
   const text = `
     const a: "`;
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].declaration as DeclarationNode;
@@ -60,7 +61,7 @@ test('a is empty string 1', () => {
 test('a is empty string 2', () => {
   const text = `
     const a: ""`;
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].declaration as DeclarationNode;

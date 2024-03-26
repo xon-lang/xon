@@ -5,8 +5,7 @@ import {$Node, is} from '../../parser/node/node';
 import {ImportNode} from '../../parser/node/syntax/import/import-node';
 import {parseSyntax} from '../../parser/syntax';
 import {SyntaxResult} from '../../parser/syntax-result';
-import {sourceFromResource} from '../../source/source';
-import {textResourceFromFilePath} from '../../util/resource/text/text-resource';
+import {TextResource, textResourceFromFilePath} from '../../util/resource/text/text-resource';
 import {DeclarationManager} from '../declaration-manager';
 import {$Semantic, parseSemantic} from '../semantic';
 import {SemanticContext} from '../semantic-context';
@@ -24,7 +23,7 @@ export function syntaxImportsParse(context: SemanticContext, syntax: SyntaxResul
 
 export function importNodeParse(context: SemanticContext, node: ImportNode): Nothing {
   const reference = context.createReference(node.location);
-  const location = normalizeImportString(node.location.value, context.source.location);
+  const location = normalizeImportString(node.location.value, context.resource.location);
   const resource = textResourceFromFilePath(location);
 
   if (!resource) {
@@ -41,8 +40,7 @@ export function importNodeParse(context: SemanticContext, node: ImportNode): Not
 
   node.location.semantic = semantic;
 
-  const source = sourceFromResource(resource);
-  const syntax = parseSyntax(source);
+  const syntax = parseSyntax(resource);
   const {declarationManager} = parseSemantic(syntax);
 
   if (!context.declarationManager.imports) {
@@ -60,8 +58,7 @@ export function declarationManagerFromImportString(importString: String2): Decla
     return nothing;
   }
 
-  const source = sourceFromResource(resource);
-  const syntax = parseSyntax(source);
+  const syntax = parseSyntax(resource);
   const {declarationManager} = parseSemantic(syntax);
 
   return declarationManager;
@@ -80,4 +77,7 @@ function normalizeImportString(location: String2, targetSourceLocation?: String2
 
   // todo handle additional extension or other formats (json, other data files...)
   return join(LIB_FOLDER, locationWithExtension);
+}
+function sourceFromResource(resource: TextResource) {
+  throw new Error('Function not implemented.');
 }

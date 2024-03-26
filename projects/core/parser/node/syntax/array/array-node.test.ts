@@ -1,5 +1,5 @@
 import {nothing} from '../../../../lib/core';
-import {sourceFromText} from '../../../../source/source';
+import { textResourceFrom } from '../../../../util/resource/text/text-resource';
 import {parseSyntax} from '../../../syntax';
 import {$Node, is} from '../../node';
 import {IntegerNode} from '../../token/integer/integer-node';
@@ -10,7 +10,7 @@ import {ArrayNode} from './array-node';
 
 test('empty object', () => {
   const text = '{}';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as ObjectNode;
@@ -22,7 +22,7 @@ test('empty object', () => {
 
 test('single item', () => {
   const text = '[123 456]';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as ArrayNode;
@@ -35,7 +35,7 @@ test('single item', () => {
 
 test('single comma', () => {
   const text = '[,]';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as ArrayNode;
@@ -49,7 +49,7 @@ test('single comma', () => {
 
 test('empty not closed', () => {
   const text = '[';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as ArrayNode;
@@ -63,7 +63,7 @@ test('empty not closed', () => {
 
 test('inner group', () => {
   const text = '[()]';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as ArrayNode;
@@ -79,7 +79,7 @@ test('inner group', () => {
 
 test('inner empty group', () => {
   const text = '[[[]]]';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as ArrayNode;
@@ -99,7 +99,7 @@ test('inner empty group', () => {
 
 test('two integers no comma and ws at the end', () => {
   const text = '[1, 2]';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as ArrayNode;
@@ -113,7 +113,7 @@ test('two integers no comma and ws at the end', () => {
 
 test('two integers and comma no ws at the end', () => {
   const text = '[1, 2,]';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as ArrayNode;
@@ -127,7 +127,7 @@ test('two integers and comma no ws at the end', () => {
 
 test('two integers and comma and ws', () => {
   const text = '[1, 2, ]';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as ArrayNode;
@@ -144,7 +144,7 @@ test('array on several lines', () => {
                 2+2
                 3,
      4,    6+6]`;
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as ArrayNode;
@@ -158,7 +158,7 @@ test('array on several lines', () => {
 
 test('debug 1', () => {
   const text = '[1, , 2 ]';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as ArrayNode;

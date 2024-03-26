@@ -17,14 +17,14 @@ export function integerNode(range: SourceRange, text: String2): IntegerNode {
 }
 
 export function scanIntegerNode(context: SyntaxContext): IntegerNode | Nothing {
-  const {source, position} = context;
+  const {resource: source, position} = context;
 
-  if (!source.text.isDigit(position.index)) {
+  if (!source.data.isDigit(position.index)) {
     return nothing;
   }
 
-  const text = context.source.text.takeWhile(
-    (x, i) => x === UNDERSCORE || source.text.isDigit(i),
+  const text = context.resource.data.takeWhile(
+    (x, i) => x === UNDERSCORE || source.data.isDigit(i),
     context.position.index,
   );
 

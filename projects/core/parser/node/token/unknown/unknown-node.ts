@@ -13,7 +13,7 @@ export function unknownNode(range: SourceRange, text: String2): UnknownNode {
 }
 
 export function scanUnknownNode(context: SyntaxContext): UnknownNode | Nothing {
-  const text = context.source.text[context.position.index];
+  const text = context.resource.data[context.position.index];
   const range = context.getRange(1, false);
 
   return unknownNode(range, text);

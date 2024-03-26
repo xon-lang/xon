@@ -1,7 +1,7 @@
 import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
 import {Anything, String2} from '../../lib/core';
-import {sourceFromFile} from '../../source/source';
+import {textResourceFromFilePath} from '../../util/resource/text/text-resource';
 import {parseSyntax} from '../syntax';
 
 // test('performance', () => {
@@ -18,7 +18,7 @@ test('1', () => testFormatter('1'));
 
 function testFormatter(index: String2) {
   const dirPath = join(__dirname, index);
-  const source = sourceFromFile(join(dirPath, 'source.xon'));
+  const source = textResourceFromFilePath(join(dirPath, 'source.xon'));
 
   expect(source).toBeTruthy();
 

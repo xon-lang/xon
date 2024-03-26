@@ -36,8 +36,8 @@ const OPERATORS = [
 ].sort((a, b) => a.length - b.length);
 
 export function scanOperatorNode(context: SyntaxContext): Node | Nothing {
-  const {position, source} = context;
-  const text = OPERATORS.findLast((x) => x === source.text.slice(position.index, position.index + x.length));
+  const {position, resource: source} = context;
+  const text = OPERATORS.findLast((x) => x === source.data.slice(position.index, position.index + x.length));
 
   if (!text) {
     return nothing;

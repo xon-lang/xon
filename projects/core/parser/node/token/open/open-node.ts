@@ -14,10 +14,10 @@ export function openNode(range: SourceRange, text: String2): OpenNode {
 }
 
 export function scanOpenNode(context: SyntaxContext): Partial<OpenNode> | Nothing {
-  const char = context.source.text[context.position.index];
+  const char = context.resource.data[context.position.index];
 
   if (char === GROUP_NODE_OPEN || char === ARRAY_NODE_OPEN || char === OBJECT_NODE_OPEN) {
-    const text = context.source.text[context.position.index];
+    const text = context.resource.data[context.position.index];
     const range = context.getRange(text.length, false);
 
     return openNode(range, text);

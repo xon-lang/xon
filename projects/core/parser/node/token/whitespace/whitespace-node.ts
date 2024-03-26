@@ -14,8 +14,8 @@ export function whitespaceNode(range: SourceRange, text: String2): WhitespaceNod
 }
 
 export function scanWhitespaceNode(context: SyntaxContext): WhitespaceNode | Nothing {
-  const {source, position} = context;
-  const text = source.text.takeWhile((x) => x === SPACE, position.index);
+  const {resource: source, position} = context;
+  const text = source.data.takeWhile((x) => x === SPACE, position.index);
 
   if (text.length === 0) {
     return nothing;

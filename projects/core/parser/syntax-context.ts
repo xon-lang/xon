@@ -1,9 +1,9 @@
 import {FormatterManager, createFormatterManager} from '../formatter/formatter-manager';
 import {IssueManager, createIssueManager} from '../issue/issue-manager';
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../lib/core';
-import {Source} from '../source/source';
 import {SourcePosition, sourcePosition} from '../source/source-position';
 import {SourceRange, sourceRange} from '../source/source-range';
+import {TextResource} from '../util/resource/text/text-resource';
 import {Node} from './node/node';
 import {StatementNode} from './node/syntax/statement/statement-node';
 import {OperatorNode} from './node/token/operator/operator-node';
@@ -11,7 +11,7 @@ import {TokenNode} from './node/token/token-node';
 import {NL} from './parser-config';
 
 export interface SyntaxContext {
-  source: Source;
+  resource: TextResource;
   position: SourcePosition;
   hiddenNodes: Array2<TokenNode>;
   operators: Array2<OperatorNode>;
@@ -26,9 +26,9 @@ export interface SyntaxContext {
   getRange: (length: Integer, canContainNewLines: Boolean2) => SourceRange;
 }
 
-export function syntaxContext(source: Source, position: SourcePosition): SyntaxContext {
+export function syntaxContext(resource: TextResource, position: SourcePosition): SyntaxContext {
   return {
-    source,
+    resource,
     position,
     operators: [],
     hiddenNodes: [],
@@ -37,8 +37,8 @@ export function syntaxContext(source: Source, position: SourcePosition): SyntaxC
     previousStatement: nothing,
     breakNode: nothing,
     statements: [],
-    issueManager: createIssueManager(source),
-    formatterManager: createFormatterManager(source),
+    issueManager: createIssueManager(resource),
+    formatterManager: createFormatterManager(resource),
 
     getRange(length: Integer, canContainNewLines: Boolean2): SourceRange {
       const {index, line, column} = this.position;
@@ -48,7 +48,7 @@ export function syntaxContext(source: Source, position: SourcePosition): SyntaxC
         let columnIndent = column;
 
         for (let i = index; i < index + length; i++) {
-          const char = this.source.text[i];
+          const char = this.resource.data[i];
 
           if (char === NL) {
             nlCount += 1;

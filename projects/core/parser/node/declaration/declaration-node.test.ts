@@ -1,4 +1,5 @@
-import {sourceFromText} from '../../../source/source';
+import { nothing } from '../../../lib/core';
+import { textResourceFrom } from '../../../util/resource/text/text-resource';
 import {parseSyntax} from '../../syntax';
 import {$Node} from '../node';
 import {CharNode} from '../token/char/char-node';
@@ -8,7 +9,7 @@ import {DeclarationNode} from './declaration-node';
 
 test('model a', () => {
   const text = 'model A';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].declaration as DeclarationNode;
@@ -21,7 +22,7 @@ test('model a', () => {
 
 test('model a extends b', () => {
   const text = 'model A: B';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].declaration as DeclarationNode;
@@ -35,7 +36,7 @@ test('model a extends b', () => {
 
 test('model a with generics extends b', () => {
   const text = 'model A{T: Array = String, U}: B';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].declaration as DeclarationNode;
@@ -53,7 +54,7 @@ test('model a with generics extends b', () => {
 
 test('model a with parameters extends b', () => {
   const text = "model A(a: Integer = 123, b: Boolean, c = 'C'): B";
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].declaration as DeclarationNode;
@@ -81,7 +82,7 @@ test('model a with parameters extends b', () => {
 
 test('model a with generics and parameters extends b', () => {
   const text = "model A{T: Array = String, U}(a: Integer = 123, b: Boolean, c = 'C'): B";
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].declaration as DeclarationNode;
@@ -121,7 +122,7 @@ test('model a has attributes', () => {
   e(a, b, c: Char, d = 2): Nothing
   f{T, U, V}(a, b, c: Char, d = 2) = a + b + d
   `;
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].declaration as DeclarationNode;

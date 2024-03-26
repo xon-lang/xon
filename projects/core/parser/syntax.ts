@@ -1,8 +1,8 @@
 import {formatLastContextHiddenNodes} from '../formatter/formatter';
 import {ISSUE_MESSAGE} from '../issue/issue-message';
 import {Array2, Boolean2, Nothing, nothing} from '../lib/core';
-import {Source} from '../source/source';
 import {SourcePosition, zeroPosition} from '../source/source-position';
+import {TextResource} from '../util/resource/text/text-resource';
 import {$Node, Node, is} from './node/node';
 import {scanGroupNode} from './node/syntax/group/group-node';
 import {scanCharNode} from './node/token/char/char-node';
@@ -41,20 +41,20 @@ const scanFunctions: Array2<SyntaxScanFn> = [
   scanUnknownNode,
 ];
 
-export function parseSyntax(source: Source): SyntaxResult {
+export function parseSyntax(source: TextResource): SyntaxResult {
   const result = parseSyntaxUntil(source, zeroPosition(), nothing);
 
   return result;
 }
 
 export function parseSyntaxUntil(
-  source: Source,
+  resource: TextResource,
   startPosition: SourcePosition,
   breakOnNodeFn: ((node: Node) => Boolean2) | Nothing,
 ): SyntaxResult {
-  const context = syntaxContext(source, startPosition);
+  const context = syntaxContext(resource, startPosition);
 
-  while (context.position.index < context.source.text.length) {
+  while (context.position.index < context.resource.data.length) {
     const node = nextNode(context);
 
     if (!node) {

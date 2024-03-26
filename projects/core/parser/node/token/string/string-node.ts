@@ -18,13 +18,13 @@ export function stringNode(range: SourceRange, text: String2): StringNode {
 }
 
 export function scanStringNode(context: SyntaxContext): StringNode | Nothing {
-  const {source, position} = context;
+  const {resource: source, position} = context;
 
-  if (source.text[position.index] === STRING_QUOTE) {
-    const stopIndex = source.text.indexOf(STRING_QUOTE, position.index + STRING_QUOTE.length);
-    const endSlice = stopIndex < 0 ? source.text.length : stopIndex + STRING_QUOTE.length;
+  if (source.data[position.index] === STRING_QUOTE) {
+    const stopIndex = source.data.indexOf(STRING_QUOTE, position.index + STRING_QUOTE.length);
+    const endSlice = stopIndex < 0 ? source.data.length : stopIndex + STRING_QUOTE.length;
 
-    const text = source.text.slice(position.index, endSlice);
+    const text = source.data.slice(position.index, endSlice);
     const range = context.getRange(text.length, true);
 
     return stringNode(range, text);

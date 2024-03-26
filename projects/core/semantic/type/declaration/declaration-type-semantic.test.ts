@@ -1,7 +1,8 @@
+import {nothing} from '../../../lib/core';
 import {DeclarationNode} from '../../../parser/node/declaration/declaration-node';
 import {IdNode} from '../../../parser/node/token/id/id-node';
 import {parseSyntax} from '../../../parser/syntax';
-import {sourceFromText} from '../../../source/source';
+import {textResourceFrom} from '../../../util/resource/text/text-resource';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, parseSemantic} from '../../semantic';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
@@ -13,7 +14,7 @@ test('a is integer', () => {
     model Integer
     const a: Integer
   `;
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const semantic = parseSemantic(syntax);
 
@@ -40,8 +41,8 @@ test('a is array', () => {
     model Array{T}
     const a: Array{3}
   `;
-  const source = sourceFromText(text);
-  const syntax = parseSyntax(source);
+  const resource = textResourceFrom(nothing, text);
+  const syntax = parseSyntax(resource);
   const semantic = parseSemantic(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);

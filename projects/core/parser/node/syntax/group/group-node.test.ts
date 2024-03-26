@@ -1,6 +1,6 @@
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {nothing} from '../../../../lib/core';
-import {sourceFromText} from '../../../../source/source';
+import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {OPEN_CLOSE_PAIR} from '../../../parser-config';
 import {parseSyntax} from '../../../syntax';
 import {$Node, is} from '../../node';
@@ -8,7 +8,7 @@ import {GroupNode} from './group-node';
 
 test('empty closed', () => {
   const text = '()';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as GroupNode;
@@ -22,7 +22,7 @@ test('empty closed', () => {
 
 test('validate close pair', () => {
   const text = '(';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as GroupNode;

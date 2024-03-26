@@ -1,5 +1,6 @@
-import {sourceFromText} from '../../../../source/source';
+import {nothing} from '../../../../lib/core';
 import {evaluate} from '../../../../util/evaluate';
+import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {parseSyntax} from '../../../syntax';
 import {DeclarationNode} from '../../declaration/declaration-node';
 import {$Node} from '../../node';
@@ -8,7 +9,7 @@ import {PrefixNode} from './prefix-node';
 
 test('negative integer', () => {
   const text = '-1';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as PrefixNode;
@@ -21,7 +22,7 @@ test('negative integer', () => {
 
 test('infix modifier', () => {
   const text = 'infix';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as OperatorNode;
@@ -33,7 +34,7 @@ test('infix modifier', () => {
 
 test('model string', () => {
   const text = 'model String';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].declaration as DeclarationNode;
@@ -45,7 +46,7 @@ test('model string', () => {
 
 test('model string with base class', () => {
   const text = 'model Array\nmodel String: Array';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[1].declaration as DeclarationNode;
@@ -59,7 +60,7 @@ test('model string with base class', () => {
 
 test('hidden nodes', () => {
   const text = '-    1\n';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as PrefixNode;

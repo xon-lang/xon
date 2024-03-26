@@ -1,4 +1,5 @@
-import {sourceFromText} from '../../../../source/source';
+import {nothing} from '../../../../lib/core';
+import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
 import {InfixNode} from '../../syntax/infix/infix-node';
@@ -7,7 +8,7 @@ import {OperatorNode} from './operator-node';
 
 test('single operator', () => {
   const text = '!';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as OperatorNode;
@@ -19,7 +20,7 @@ test('single operator', () => {
 
 test('after integer', () => {
   const text = '1!';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as PrefixNode;
@@ -31,7 +32,7 @@ test('after integer', () => {
 
 test('x + x', () => {
   const text = 'x is Number';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as InfixNode;
@@ -43,7 +44,7 @@ test('x + x', () => {
 
 test('comma', () => {
   const text = ',';
-  const source = sourceFromText(text);
+  const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
   const node = statements[0].item as OperatorNode;

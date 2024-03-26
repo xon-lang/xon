@@ -2,7 +2,7 @@ import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
 import {String2} from '../../lib/core';
 import {parseSyntax} from '../../parser/syntax';
-import {sourceFromFile} from '../../source/source';
+import {textResourceFromFilePath} from '../../util/resource/text/text-resource';
 
 test('1', () => testFormatter('1'));
 test('2', () => testFormatter('2'));
@@ -19,15 +19,15 @@ test('12', () => testFormatter('12'));
 
 function testFormatter(index: String2) {
   const dirPath = join(__dirname, index);
-  const source = sourceFromFile(join(dirPath, 'source.xon'));
+  const resource = textResourceFromFilePath(join(dirPath, 'source.xon'));
 
-  expect(source).toBeTruthy();
+  expect(resource).toBeTruthy();
 
-  if (!source) {
+  if (!resource) {
     return;
   }
 
-  const syntax = parseSyntax(source);
+  const syntax = parseSyntax(resource);
 
   const formattedText = syntax.formatterManager.getFormattedText();
   writeFileSync(join(dirPath, 'formatted.xon'), formattedText);
