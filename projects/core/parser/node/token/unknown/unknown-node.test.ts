@@ -30,6 +30,6 @@ test('unknown 2', () => {
 
   expect(statements.length).toBe(1);
   expect(syntax.issueManager.issues.length).toBe(1);
-  expect(getRangeText(source, syntax.issueManager.issues[0].range)).toBe('ºª¶');
+  expect(getRangeText(source.text, syntax.issueManager.issues[0].range)).toBe('ºª¶');
   expect(node.text).toBe('ºª¶');
 });

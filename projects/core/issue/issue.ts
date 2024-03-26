@@ -58,7 +58,7 @@ enum Color {
 export function formatIssue(source: Source, {range, message}: Issue): String2 {
   const msg = redBright(message.actual);
   const lineText = source.text.split('\n')[range.start.line];
-  const nodeText = getRangeText(source, range);
+  const nodeText = getRangeText(source.text, range);
   const location = cyan(source.location ?? '<code>');
   const line = cyan(`:${range.start.line + 1}`);
   const column = cyan(`:${range.start.column + 1}`);

@@ -46,7 +46,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
     }
 
     if (semanticIs<ImportSemantic>(node.semantic, $Semantic.IMPORT)) {
-      if (node.semantic.resource) {
+      if (node.semantic.resource?.location) {
         return navigateToLocation(node.range, node.semantic.resource.location);
       }
 
@@ -81,11 +81,11 @@ function navigateToReference(
   highlightingRange: SourceRange,
   reference: TextResourceReference,
 ): ProviderResult<LocationLink[]> {
-  if (!reference.location) {
+  if (!reference.resource.location) {
     return nothing;
   }
 
-  return navigateToLocation(highlightingRange, reference.location, reference.range);
+  return navigateToLocation(highlightingRange, reference.resource.location, reference.range);
 }
 
 function navigateToLocation(
