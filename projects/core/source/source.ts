@@ -46,5 +46,5 @@ export function sourceFromFile(location: String2): Source | Nothing {
 }
 
 export function getRangeText(source: Source, range: SourceRange): String2 {
-  return source.text.slice(range.start.index, range.stop.index + 1);
+  return source.text.slice(range.start.index, range.stop.index);
 }

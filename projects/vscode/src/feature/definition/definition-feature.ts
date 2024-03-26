@@ -19,7 +19,7 @@ import {IntegerTypeSemantic} from '../../../../core/semantic/type/integer/intege
 import {StringTypeSemantic} from '../../../../core/semantic/type/string/string-type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {SourceRange, zeroRange} from '../../../../core/source/source-range';
-import {ResourceReference} from '../../../../core/util/resource/resource-reference';
+import {TextResourceReference} from '../../../../core/util/resource/resource-reference';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
@@ -79,7 +79,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
 
 function navigateToReference(
   highlightingRange: SourceRange,
-  reference: ResourceReference,
+  reference: TextResourceReference,
 ): ProviderResult<LocationLink[]> {
   if (!reference.location) {
     return nothing;

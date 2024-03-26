@@ -1,5 +1,5 @@
 import {Array2, Boolean2, Nothing, String2, nothing} from '../../../lib/core';
-import {ResourceReference} from '../../../util/resource/resource-reference';
+import {TextResourceReference} from '../../../util/resource/resource-reference';
 import {$Semantic} from '../../semantic';
 import {TypeSemantic} from '../../type/type-semantic';
 import {DeclarationSemantic} from '../declaration-semantic';
@@ -14,7 +14,7 @@ export interface TypeDeclarationSemantic extends DeclarationSemantic {
 }
 
 export function typeDeclarationSemantic(
-  reference: ResourceReference,
+  reference: TextResourceReference,
   modifier: String2 | Nothing,
   name: String2,
 ): TypeDeclarationSemantic {

@@ -1,5 +1,5 @@
 import {Array2, Boolean2, Integer, String2} from '../../../lib/core';
-import {ResourceReference} from '../../../util/resource/resource-reference';
+import {TextResourceReference} from '../../../util/resource/resource-reference';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
 import {DeclarationTypeSemantic} from '../declaration/declaration-type-semantic';
@@ -13,7 +13,7 @@ export interface IntegerTypeSemantic extends TypeSemantic {
 }
 
 export function integerTypeSemantic(
-  reference: ResourceReference,
+  reference: TextResourceReference,
   declaration: TypeDeclarationSemantic,
   value: IntegerTypeSemantic['value'],
 ): IntegerTypeSemantic {

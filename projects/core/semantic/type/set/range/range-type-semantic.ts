@@ -1,5 +1,5 @@
 import {Array2, Boolean2, Nothing, String2} from '../../../../lib/core';
-import {ResourceReference} from '../../../../util/resource/resource-reference';
+import {TextResourceReference} from '../../../../util/resource/resource-reference';
 import {TypeDeclarationSemantic} from '../../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../../semantic';
 import {IntegerTypeSemantic} from '../../integer/integer-type-semantic';
@@ -15,7 +15,7 @@ export interface RangeTypeSemantic extends TypeSemantic {
 }
 
 export function rangeTypeSemantic(
-  reference: ResourceReference,
+  reference: TextResourceReference,
   declaration: TypeDeclarationSemantic,
   from: RangeTypeSemantic['from'],
   to: RangeTypeSemantic['to'],

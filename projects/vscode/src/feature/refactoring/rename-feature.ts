@@ -21,7 +21,7 @@ import {$Semantic, Semantic, semanticIs} from '../../../../core/semantic/semanti
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {getRangeText, Source} from '../../../../core/source/source';
-import {ResourceReference} from '../../../../core/util/resource/resource-reference';
+import {TextResourceReference} from '../../../../core/util/resource/resource-reference';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
@@ -39,7 +39,6 @@ class LanguageRenameProvider implements RenameProvider {
     token: CancellationToken,
   ): ProviderResult<WorkspaceEdit> {
     const syntax = getDocumentSyntax(document, this.channel);
-
     const node = findNodeByPositionInSyntax(syntax, position);
 
     if (!is<IdNode>(node, $Node.ID) || !node.semantic) {
@@ -65,7 +64,6 @@ class LanguageRenameProvider implements RenameProvider {
     token: CancellationToken,
   ): ProviderResult<Range | {range: Range; placeholder: String2}> {
     const syntax = getDocumentSyntax(document, this.channel);
-
     const node = findNodeByPositionInSyntax(syntax, position);
 
     if (!is<IdNode>(node, $Node.ID)) {
@@ -108,11 +106,13 @@ function renameDeclarationAndUsages(
 function renameWithWorkspace(
   workspace: WorkspaceEdit,
   source: Source,
-  reference: ResourceReference,
+  reference: TextResourceReference,
   oldName: String2,
   newName: String2,
 ): Nothing {
-  if (!reference.location || getRangeText(source, reference.range) !== oldName) {
+  const rangeText = getRangeText(source, reference.range);
+
+  if (!reference.location || rangeText !== oldName) {
     return;
   }
 

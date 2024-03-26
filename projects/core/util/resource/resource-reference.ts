@@ -1,23 +1,24 @@
-import {Boolean2, Nothing, String2} from '../../lib/core';
+import {Boolean2} from '../../lib/core';
 import {SourceRange} from '../../source/source-range';
+import {TextResource} from './text/text-resource';
 
-export interface ResourceReference {
-  location: String2 | Nothing;
+export interface TextResourceReference {
+  resource: TextResource;
   range: SourceRange;
 
-  eq(reference: ResourceReference): Boolean2;
+  eq(reference: TextResourceReference): Boolean2;
 }
 
-export function resourceReference(
-  location: ResourceReference['location'],
-  range: ResourceReference['range'],
-): ResourceReference {
+export function textResourceReference(
+  resource: TextResourceReference['resource'],
+  range: TextResourceReference['range'],
+): TextResourceReference {
   return {
-    location,
+    resource,
     range,
 
-    eq(other: ResourceReference): Boolean2 {
-      return this.location === other.location && this.range.eq(other.range);
+    eq(other: TextResourceReference): Boolean2 {
+      return this.resource.eq(other.resource) && this.range.eq(other.range);
     },
   };
 }
