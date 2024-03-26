@@ -20,7 +20,6 @@ import {TypeDeclarationSemantic} from '../../../../core/semantic/declaration/typ
 import {$Semantic, Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
-import {getRangeText} from '../../../../core/source/source';
 import {TextResourceReference} from '../../../../core/util/resource/resource-reference';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
@@ -108,9 +107,7 @@ function renameWithWorkspace(
   oldName: String2,
   newName: String2,
 ): Nothing {
-  const rangeText = getRangeText(reference.resource.data, reference.range);
-
-  if (!reference.resource.location || rangeText !== oldName) {
+  if (!reference.resource.location || reference.getText() !== oldName) {
     return;
   }
 

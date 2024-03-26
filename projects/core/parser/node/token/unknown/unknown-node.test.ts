@@ -1,5 +1,4 @@
 import {nothing} from '../../../../lib/core';
-import {getRangeText} from '../../../../util/resource/resource';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
@@ -25,13 +24,13 @@ test('unknown 1', () => {
 
 test('unknown 2', () => {
   const text = 'ºª¶';
-  const source = textResourceFrom(nothing, text);
-  const syntax = parseSyntax(source);
+  const resource = textResourceFrom(nothing, text);
+  const syntax = parseSyntax(resource);
   const statements = syntax.statements;
   const node = statements[0].item as UnknownNode;
 
   expect(statements.length).toBe(1);
   expect(syntax.issueManager.issues.length).toBe(1);
-  expect(getRangeText(source.data, syntax.issueManager.issues[0].range)).toBe('ºª¶');
+  expect(resource.getRangeText(syntax.issueManager.issues[0].range)).toBe('ºª¶');
   expect(node.text).toBe('ºª¶');
 });

@@ -1,5 +1,4 @@
 import {Boolean2, String2} from '../../lib/core';
-import {getRangeText} from './resource';
 import {TextResource} from './text/text-resource';
 import {TextResourceRange} from './text/text-resource-range';
 
@@ -24,7 +23,7 @@ export function textResourceReference(
     },
 
     getText(): String2 {
-      return getRangeText(this.resource.data, this.range);
+      return this.resource.getRangeText(this.range);
     },
   };
 }

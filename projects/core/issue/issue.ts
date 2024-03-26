@@ -1,5 +1,4 @@
 import {String2} from '../lib/core';
-import {getRangeText} from '../util/resource/resource';
 import {TextResource} from '../util/resource/text/text-resource';
 import {TextResourceRange} from '../util/resource/text/text-resource-range';
 import {IssueSeverity} from './issue-level';
@@ -59,7 +58,7 @@ enum Color {
 export function formatIssue(resource: TextResource, {range, message}: Issue): String2 {
   const msg = redBright(message.actual);
   const lineText = resource.data.split('\n')[range.start.line];
-  const nodeText = getRangeText(resource.data, range);
+  const nodeText = resource.getRangeText(range);
   const location = cyan(resource.location ?? '<code>');
   const line = cyan(`:${range.start.line + 1}`);
   const column = cyan(`:${range.start.column + 1}`);

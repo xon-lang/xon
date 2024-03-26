@@ -6,7 +6,7 @@ export interface TextResourceRange {
   start: TextResourcePosition;
   stop: TextResourcePosition;
 
-  eq(range: TextResourceRange): Boolean2;
+  eq(other: TextResourceRange): Boolean2;
 }
 
 export function textResourceRange(start: TextResourcePosition, stop: TextResourcePosition): TextResourceRange {
@@ -14,8 +14,8 @@ export function textResourceRange(start: TextResourcePosition, stop: TextResourc
     start: clonePosition(start),
     stop: clonePosition(stop),
 
-    eq(range: TextResourceRange): Boolean2 {
-      return this.start.eq(range.start) && this.stop.eq(range.stop);
+    eq(other: TextResourceRange): Boolean2 {
+      return this.start.eq(other.start) && this.stop.eq(other.stop);
     },
   };
 }
