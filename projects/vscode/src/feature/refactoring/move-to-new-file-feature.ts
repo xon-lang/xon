@@ -1,4 +1,3 @@
-import {kebabCase} from 'change-case-all';
 import {
   CancellationToken,
   CodeAction,
@@ -21,6 +20,7 @@ import {dirname} from 'path';
 import {nothing} from '../../../../core/lib/core';
 import {$Node, is} from '../../../../core/parser/node/node';
 import {IdNode} from '../../../../core/parser/node/token/id/id-node';
+import {kebabCase} from '../../../../core/util/change-case';
 import {LANGUAGE_EXTENSION, LANGUAGE_NAME} from '../../config';
 import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
