@@ -25,6 +25,8 @@ const COLLAPSE_FUNCTIONS: Record<Integer, CollapseFn | Nothing> = {
   [OperatorType.IMPORT]: importCollapse,
   [OperatorType.MEMBER]: memberCollapse,
   [OperatorType.RANGE]: rangeCollapse,
+  [OperatorType.INFIX]: infixCollapse,
+  [OperatorType.PREFIX]: prefixCollapse,
 };
 
 export function collapseOperator(
@@ -52,32 +54,6 @@ export function collapseOperator(
       const result = collapse(context, index, left, operator, right);
       if (result) {
         context.nodes.splice(result.spliceIndex, result.node.children.length, result.node);
-        collapseOperator(context, operators, operatorType, recursiveType, i);
-      }
-
-      return;
-    }
-
-    if (operatorType === OperatorType.INFIX) {
-      if (left && right && !is<OperatorNode>(left, $Node.OPERATOR) && !is<OperatorNode>(right, $Node.OPERATOR)) {
-        const node = infixNode(context, left, operator, right);
-        context.nodes.splice(index - 1, 3, node);
-
-        collapseOperator(context, operators, operatorType, recursiveType, i);
-      }
-
-      return;
-    }
-
-    if (operatorType === OperatorType.PREFIX) {
-      if (
-        right &&
-        !is<OperatorNode>(right, $Node.OPERATOR) &&
-        (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))
-      ) {
-        const node = prefixNode(context, operator, right);
-        context.nodes.splice(index, 2, node);
-
         collapseOperator(context, operators, operatorType, recursiveType, i);
       }
 
@@ -148,4 +124,36 @@ function rangeCollapse(
   const node = rangeNode(context, left, operator, right);
 
   return {spliceIndex: index - 1, node};
+}
+
+function infixCollapse(
+  context: SyntaxContext,
+  index: Integer,
+  left: Node | Nothing,
+  operator: OperatorNode,
+  right: Node | Nothing,
+): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+  if (!left || !right || is<OperatorNode>(left, $Node.OPERATOR) || is<OperatorNode>(right, $Node.OPERATOR)) {
+    return nothing;
+  }
+
+  const node = infixNode(context, left, operator, right);
+
+  return {spliceIndex: index - 1, node};
+}
+
+function prefixCollapse(
+  context: SyntaxContext,
+  index: Integer,
+  left: Node | Nothing,
+  operator: OperatorNode,
+  right: Node | Nothing,
+): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+  if (right && !is<OperatorNode>(right, $Node.OPERATOR) && (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))) {
+    const node = prefixNode(context, operator, right);
+
+    return {spliceIndex: index, node};
+  }
+
+  return nothing;
 }
