@@ -12,6 +12,8 @@ export enum OperatorType {
   MEMBER,
   RANGE,
   INVOKE,
+  TYPE,
+  ASSIGN,
   INFIX,
   PREFIX,
   POSTFIX,

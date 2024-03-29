@@ -1,4 +1,4 @@
-import {Array2, Nothing, String2, nothing} from '../../lib/core';
+import {Array2, Integer, Nothing, String2, nothing} from '../../lib/core';
 import {$Node, Node, is} from '../node/node';
 import {importNode} from '../node/syntax/import/import-node';
 import {infixNode} from '../node/syntax/infix/infix-node';
@@ -6,6 +6,7 @@ import {memberNode} from '../node/syntax/member/member-node';
 import {postfixNode} from '../node/syntax/postfix/postfix-node';
 import {prefixNode} from '../node/syntax/prefix/prefix-node';
 import {rangeNode} from '../node/syntax/range/range-node';
+import {SyntaxNode} from '../node/syntax/syntax-node';
 import {IdNode} from '../node/token/id/id-node';
 import {OperatorNode} from '../node/token/operator/operator-node';
 import {StringNode} from '../node/token/string/string-node';
@@ -31,6 +32,8 @@ export function collapseOperator(
     const left: Node | Nothing = context.nodes[index - 1];
     const right: Node | Nothing = context.nodes[index + 1];
 
+    // todo sort by usages
+
     if (operatorType === OperatorType.IMPORT) {
       if (is<StringNode>(right, $Node.STRING) && (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))) {
         const node = importNode(context, operator, right);
@@ -43,16 +46,22 @@ export function collapseOperator(
     }
 
     if (operatorType === OperatorType.MEMBER) {
-      if (left && !is<OperatorNode>(left, $Node.OPERATOR)) {
-        const id = is<IdNode>(right, $Node.ID) ? right : nothing;
-        const node = memberNode(context, operator, left, id);
-        context.nodes.splice(index - 1, node.children.length, node);
-
+      const result = collapseMember(context, index, left, operator, right);
+      if (result) {
+        context.nodes.splice(result.spliceIndex, result.node.children.length, result.node);
         collapseOperator(context, operators, operatorType, recursiveType, i);
       }
 
       return;
     }
+
+    // if (operatorType === OperatorType.TYPE) {
+    //   if (collapseType(context, index, left, operator, right)) {
+    //     collapseOperator(context, operators, operatorType, recursiveType, i);
+    //   }
+
+    //   return;
+    // }
 
     if (operatorType === OperatorType.RANGE) {
       if (left && right && !is<OperatorNode>(left, $Node.OPERATOR) && !is<OperatorNode>(right, $Node.OPERATOR)) {
@@ -107,3 +116,38 @@ export function collapseOperator(
     }
   }
 }
+
+function collapseMember(
+  context: SyntaxContext,
+  index: Integer,
+  left: Node | Nothing,
+  operator: OperatorNode,
+  right: Node | Nothing,
+): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+  if (!left || is<OperatorNode>(left, $Node.OPERATOR)) {
+    return nothing;
+  }
+
+  const id = is<IdNode>(right, $Node.ID) ? right : nothing;
+  const node = memberNode(context, operator, left, id);
+
+  return {spliceIndex: index - 1, node};
+}
+
+// function collapseType(
+//   context: SyntaxContext,
+//   index: Integer,
+//   left: Node | Nothing,
+//   operator: OperatorNode,
+//   right: Node | Nothing,
+// ): Boolean2 {
+//   if (is<DeclarationNode>(left, $Node.DECLARATION) ) {
+//     const value = is<OperatorNode>(right, $Node.OPERATOR)?no
+//     const type = typeNode(context, operator,  )
+//     const id = is<IdNode>(right, $Node.ID) ? right : nothing;
+//     const node = memberNode(context, operator, left, id);
+//     context.nodes.splice(index - 1, node.children.length, node);
+//   }
+
+//   return true;
+// }
