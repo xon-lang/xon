@@ -1,6 +1,6 @@
-import { nothing } from '../../../../lib/core';
+import {nothing} from '../../../../lib/core';
 import {evaluate} from '../../../../util/evaluate';
-import { textResourceFrom } from '../../../../util/resource/text/text-resource';
+import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
 import {IdNode} from '../../token/id/id-node';
@@ -110,7 +110,7 @@ test('has argument', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INFIX);
   expect((node.left as GroupNode).items.length).toBe(1);
-  expect(((node.left as GroupNode).items[0] as IdNode).text).toBe('x');
+  expect(((node.left as GroupNode).items[0].value as IdNode).text).toBe('x');
 
   expect(
     evaluate(node.right, {
@@ -129,6 +129,6 @@ test('two parameter', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INFIX);
   expect((node.left as GroupNode).items.length).toBe(2);
-  expect(((node.left as GroupNode).items[0] as IdNode).text).toBe('a');
-  expect(((node.left as GroupNode).items[1] as IdNode).text).toBe('b');
+  expect(((node.left as GroupNode).items[0].value as IdNode).text).toBe('a');
+  expect(((node.left as GroupNode).items[1].value as IdNode).text).toBe('b');
 });

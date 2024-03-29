@@ -31,7 +31,7 @@ export function arrayTypeSemanticTryParse(context: SemanticContext, node: Node):
   }
 
   const reference = context.createReference(node);
-  const items = node.items.map((x) => typeSemanticParse(context, x));
+  const items = node.items.map((x) => typeSemanticParse(context, x.value));
   const semantic = integerTypeSemantic(reference, declaration, items);
 
   return semantic;

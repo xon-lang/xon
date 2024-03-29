@@ -54,7 +54,7 @@ function invokeParse(context: SemanticContext, node: InvokeNode): DeclarationTyp
     return nothing;
   }
 
-  const generics = node.group.items.map((x) => typeSemanticParse(context, x));
+  const generics = node.group.items.map((x) => typeSemanticParse(context, x.value));
 
   if (is<IdNode>(node.instance, $Node.ID)) {
     const declaration = context.declarationManager.single(DeclarationKind.TYPE, node.instance.text, generics, nothing);

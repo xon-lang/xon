@@ -19,7 +19,7 @@ export function evaluate(node: Node | Nothing, argsMap = {}): Anything {
   }
 
   if (is<GroupNode>(node, $Node.GROUP)) {
-    return node.items.map((x) => evaluate(x ?? nothing));
+    return node.items.map((x) => evaluate(x.value ?? nothing));
   }
 
   if (is<IntegerNode>(node, $Node.INTEGER)) {

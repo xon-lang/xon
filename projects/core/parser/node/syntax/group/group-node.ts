@@ -9,6 +9,7 @@ import {CloseNode} from '../../token/close/close-node';
 import {OpenNode, scanOpenNode} from '../../token/open/open-node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {ArrayNode, arrayNode} from '../array/array-node';
+import {ItemNode, itemNode} from '../item/item-node';
 import {ObjectNode, objectNode} from '../object/object-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
@@ -18,15 +19,14 @@ export interface GroupNode extends SyntaxNode {
   $: $Node.GROUP;
   open: OpenNode;
   close: CloseNode | Nothing;
-  // todo make items as Statement[][] or as body
-  items: Array2<Node | Nothing>;
+  items: Array2<ItemNode>;
 }
 
 export function groupNode(
   context: SyntaxContext,
   open: OpenNode,
   close: CloseNode | Nothing,
-  items: Array2<Node | Nothing>,
+  items: Array2<ItemNode>,
 ): GroupNode {
   const node = syntaxNode($Node.GROUP, {open, items, close});
 
@@ -56,7 +56,7 @@ export function scanGroupNode(context: SyntaxContext): Group | Nothing {
   position.column = open.range.stop.column;
   position.index = open.range.stop.index;
 
-  const items: Array2<Node> = [];
+  const items: Array2<ItemNode> = [];
 
   while (position.index < resource.data.length) {
     // todo use this cycle to group syntax by comma in the main parseSyntax function
@@ -68,21 +68,19 @@ export function scanGroupNode(context: SyntaxContext): Group | Nothing {
         (is<CloseNode>(node, $Node.CLOSE) && node.text === OPEN_CLOSE_PAIR[open.text]),
     );
 
-    context.operators.push(...itemContext.operators);
     context.position = itemContext.position;
 
     if (is<OperatorNode>(itemContext.breakNode, $Node.OPERATOR)) {
-      // todo create ItemNode and save comma in it
-      // context.hiddenNodes.push(itemContext.breakNode);
-      items.push(itemContext.statements[0]?.item ?? nothing);
+      const item = itemNode(context, itemContext.statements, itemContext.breakNode);
+      items.push(item);
 
       continue;
     }
 
-    // todo add hidden nodes for close token
     if (is<CloseNode>(itemContext.breakNode, $Node.CLOSE)) {
-      if (itemContext.nodes.length > 0 || items.length > 0) {
-        items.push(itemContext.statements[0]?.item ?? nothing);
+      if (itemContext.statements.length > 1 || itemContext.nodes.length > 0) {
+        const item = itemNode(context, itemContext.statements, nothing);
+        items.push(item);
       }
 
       return createGroupNode(context, open, itemContext.breakNode, items);
@@ -96,7 +94,7 @@ function createGroupNode(
   context: SyntaxContext,
   open: OpenNode,
   close: CloseNode | Nothing,
-  nodes: Array2<Node>,
+  nodes: Array2<ItemNode>,
 ): Group | Nothing {
   if (open.text === GROUP_NODE_OPEN) {
     return groupNode(context, open, close, nodes);

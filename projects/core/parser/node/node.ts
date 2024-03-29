@@ -30,6 +30,7 @@ export enum $Node {
   CLOSE = 'CLOSE',
 
   ID = 'ID',
+  ITEM = 'ITEM',
   OBJECT = 'OBJECT',
   ARRAY = 'ARRAY',
   GROUP = 'GROUP',

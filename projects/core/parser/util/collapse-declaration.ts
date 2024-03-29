@@ -120,14 +120,14 @@ function getUnderModifier(
       }
 
       if (node.group.open.text === OBJECT_NODE_OPEN) {
-        const items = node.group.items.map((x) => parseGeneric(context, x));
+        const items = node.group.items.map((x) => parseGeneric(context, x.value));
         const generics = genericsNode(node.group.open, items, node.group.close);
 
         return {...instance, generics};
       }
 
       if (node.group.open.text === GROUP_NODE_OPEN) {
-        const items = node.group.items.map((x) => parseParameter(context, x));
+        const items = node.group.items.map((x) => parseParameter(context, x.value));
         const parameters = parametersNode(node.group.open, items, node.group.close);
 
         return {...instance, parameters};

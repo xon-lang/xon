@@ -1,5 +1,5 @@
-import { nothing } from '../../../../lib/core';
-import { textResourceFrom } from '../../../../util/resource/text/text-resource';
+import {nothing} from '../../../../lib/core';
+import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
 import {IdNode} from '../../token/id/id-node';
@@ -18,10 +18,10 @@ test('method call', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INVOKE);
   expect(node.group.items.length).toBe(2);
-  expect(node.group.items[0]?.$).toBe($Node.INTEGER);
-  expect((node.group.items[0] as IntegerNode).text).toBe('3');
-  expect(node.group.items[1]?.$).toBe($Node.CHAR);
-  expect((node.group.items[1] as IdNode).text).toBe("'str'");
+  expect(node.group.items[0]?.value?.$).toBe($Node.INTEGER);
+  expect((node.group.items[0]?.value as IntegerNode).text).toBe('3');
+  expect(node.group.items[1]?.value?.$).toBe($Node.CHAR);
+  expect((node.group.items[1]?.value as IdNode).text).toBe("'str'");
   expect(node.instance.$).toBe($Node.ID);
 });
 
@@ -37,8 +37,8 @@ test('method on several lines', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INVOKE);
   expect(node.group.items.length).toBe(4);
-  const indexer1 = node.group.items[0];
-  const indexer2 = node.group.items[1];
+  const indexer1 = node.group.items[0]?.value;
+  const indexer2 = node.group.items[1]?.value;
   expect(indexer1?.$).toBe($Node.INTEGER);
   expect(indexer2?.$).toBe($Node.CHAR);
   expect(node.instance.$).toBe($Node.ID);
@@ -54,7 +54,7 @@ test('can call with type parameter', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INVOKE);
   expect(node.group.items.length).toBe(1);
-  expect((node.group.items[0] as IntegerNode).text).toBe('1');
+  expect((node.group.items[0]?.value as IntegerNode).text).toBe('1');
   expect(node.instance.$).toBe($Node.MEMBER);
   const {operator, instance, id} = node.instance as MemberNode;
   expect(operator.text).toBe('.');
@@ -77,8 +77,8 @@ test('object method', () => {
   expect(operator.text).toBe('.');
   const leftParameters = (instance as GroupNode).items;
   expect(leftParameters.length).toBe(2);
-  expect((leftParameters[0] as IdNode).text).toBe('a');
-  expect((leftParameters[1] as IdNode).text).toBe('b');
+  expect((leftParameters[0].value as IdNode).text).toBe('a');
+  expect((leftParameters[1].value as IdNode).text).toBe('b');
   expect((id as IdNode).text).toBe('call');
 });
 

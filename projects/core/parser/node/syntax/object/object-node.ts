@@ -1,18 +1,19 @@
 import {Array2, Nothing} from '../../../../lib/core';
 import '../../../../util/extension';
-import {$Node, Node} from '../../node';
+import {$Node} from '../../node';
 import {CloseNode} from '../../token/close/close-node';
 import {OpenNode} from '../../token/open/open-node';
+import {ItemNode} from '../item/item-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface ObjectNode extends SyntaxNode {
   $: $Node.OBJECT;
   open: OpenNode;
   close: CloseNode | Nothing;
-  items: Array2<Node | Nothing>;
+  items: Array2<ItemNode>;
 }
 
-export function objectNode(open: OpenNode, close: CloseNode | Nothing, items: Array2<Node | Nothing>): ObjectNode {
+export function objectNode(open: OpenNode, close: CloseNode | Nothing, items: Array2<ItemNode>): ObjectNode {
   const node = syntaxNode($Node.OBJECT, {open, items, close});
 
   return node;
