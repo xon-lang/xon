@@ -13,6 +13,19 @@ import {StringNode} from '../node/token/string/string-node';
 import {OperatorType, RecursiveType} from '../parser-config';
 import {SyntaxContext} from '../syntax-context';
 
+type CollapseFn = (
+  context: SyntaxContext,
+  index: Integer,
+  left: Node | Nothing,
+  operator: OperatorNode,
+  right: Node | Nothing,
+) => {spliceIndex: Integer; node: SyntaxNode} | Nothing;
+
+const COLLAPSE_FUNCTIONS: Record<Integer, CollapseFn | Nothing> = {
+  [OperatorType.IMPORT]: importCollapse,
+  [OperatorType.MEMBER]: memberCollapse,
+};
+
 export function collapseOperator(
   context: SyntaxContext,
   operators: Array2<String2>,
@@ -32,21 +45,10 @@ export function collapseOperator(
     const left: Node | Nothing = context.nodes[index - 1];
     const right: Node | Nothing = context.nodes[index + 1];
 
-    // todo sort by usages
+    const collapse = COLLAPSE_FUNCTIONS[operatorType];
 
-    if (operatorType === OperatorType.IMPORT) {
-      if (is<StringNode>(right, $Node.STRING) && (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))) {
-        const node = importNode(context, operator, right);
-        context.nodes.splice(index, 2, node);
-
-        collapseOperator(context, operators, operatorType, recursiveType, i);
-      }
-
-      return;
-    }
-
-    if (operatorType === OperatorType.MEMBER) {
-      const result = collapseMember(context, index, left, operator, right);
+    if (collapse) {
+      const result = collapse(context, index, left, operator, right);
       if (result) {
         context.nodes.splice(result.spliceIndex, result.node.children.length, result.node);
         collapseOperator(context, operators, operatorType, recursiveType, i);
@@ -117,7 +119,23 @@ export function collapseOperator(
   }
 }
 
-function collapseMember(
+function importCollapse(
+  context: SyntaxContext,
+  index: Integer,
+  left: Node | Nothing,
+  operator: OperatorNode,
+  right: Node | Nothing,
+): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+  if (is<StringNode>(right, $Node.STRING) && (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))) {
+    const node = importNode(context, operator, right);
+
+    return {spliceIndex: index, node};
+  }
+
+  return nothing;
+}
+
+function memberCollapse(
   context: SyntaxContext,
   index: Integer,
   left: Node | Nothing,
