@@ -1,10 +1,10 @@
-import {SyntaxResult} from '../../core/parser/syntax-context';
 import {OutputChannel, Position, Range, TextDocument, TextEdit} from 'vscode';
 import {Formatter} from '../../core/formatter/formatter';
 import {Array2, Nothing, String2, nothing} from '../../core/lib/core';
-import {Node} from '../../core/parser/node/node';
+import {Node, isSyntaxNode} from '../../core/parser/node/node';
 import {StatementNode} from '../../core/parser/node/syntax/statement/statement-node';
 import {parseSyntax} from '../../core/parser/syntax';
+import {SyntaxResult} from '../../core/parser/syntax-context';
 import {parseSemantic} from '../../core/semantic/semantic';
 import {textResourceFrom} from '../../core/util/resource/text/text-resource';
 import {TextResourcePosition} from '../../core/util/resource/text/text-resource-position';
@@ -59,7 +59,7 @@ export function findNodeByPositionInSyntax(syntax: SyntaxResult, position: Posit
 }
 
 export function findNodeByPosition(node: Node, position: Position): Node {
-  if (!node.children) {
+  if (!isSyntaxNode(node)) {
     return node;
   }
 

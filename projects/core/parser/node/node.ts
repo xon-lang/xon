@@ -1,6 +1,7 @@
 import {Array2, Nothing} from '../../lib/core';
 import {Semantic} from '../../semantic/semantic';
 import {TextResourceRange} from '../../util/resource/text/text-resource-range';
+import {SyntaxNode} from './syntax/syntax-node';
 import {TokenNode} from './token/token-node';
 
 export interface Node {
@@ -23,34 +24,35 @@ export enum $Node {
   FLOAT = 'FLOAT',
   CHAR = 'CHAR',
   STRING = 'STRING',
-
+  ID = 'ID',
   OPERATOR = 'OPERATOR',
   OPEN = 'OPEN',
   CLOSE = 'CLOSE',
-
-  ID = 'ID',
-  ITEM = 'ITEM',
-  OBJECT = 'OBJECT',
-  ARRAY = 'ARRAY',
-  GROUP = 'GROUP',
-  DECLARATION = 'DECLARATION',
-  GENERICS = 'GENERICS',
-  PARAMETERS = 'PARAMETERS',
-
-  IMPORT = 'IMPORT',
-  MEMBER = 'MEMBER',
-  RANGE = 'RANGE',
-  INVOKE = 'INVOKE',
-  INFIX = 'INFIX',
-  PREFIX = 'PREFIX',
-  POSTFIX = 'POSTFIX',
-  TYPE = 'TYPE',
-  ASSIGN = 'ASSIGN',
-
-  STATEMENT = 'STATEMENT',
   UNKNOWN = 'UNKNOWN',
+
+  ITEM = 'ITEM SYNTAX NODE',
+  OBJECT = 'OBJECT SYNTAX NODE',
+  ARRAY = 'ARRAY SYNTAX NODE',
+  GROUP = 'GROUP SYNTAX NODE',
+  DECLARATION = 'DECLARATION SYNTAX NODE',
+  GENERICS = 'GENERICS SYNTAX NODE',
+  PARAMETERS = 'PARAMETERS SYNTAX NODE',
+  IMPORT = 'IMPORT SYNTAX NODE',
+  MEMBER = 'MEMBER SYNTAX NODE',
+  RANGE = 'RANGE SYNTAX NODE',
+  INVOKE = 'INVOKE SYNTAX NODE',
+  INFIX = 'INFIX SYNTAX NODE',
+  PREFIX = 'PREFIX SYNTAX NODE',
+  POSTFIX = 'POSTFIX SYNTAX NODE',
+  TYPE = 'TYPE SYNTAX NODE',
+  ASSIGN = 'ASSIGN SYNTAX NODE',
+  STATEMENT = 'STATEMENT SYNTAX NODE',
 }
 
 export function is<T extends Node = Node>(node: {$?: $Node} | Nothing, nodeType: $Node): node is T {
   return node?.$ === nodeType;
+}
+
+export function isSyntaxNode(node: Node): node is SyntaxNode {
+  return node.$.includes(' SYNTAX ');
 }
