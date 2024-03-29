@@ -26,8 +26,6 @@ export function operatorNode(context: SyntaxContext, range: TextResourceRange, t
     keywordType,
   };
 
-  context.operators.push(node);
-
   return node;
 }
 

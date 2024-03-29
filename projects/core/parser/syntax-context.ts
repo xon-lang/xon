@@ -6,7 +6,6 @@ import {TextResourcePosition, textResourcePosition} from '../util/resource/text/
 import {TextResourceRange, textResourceRange} from '../util/resource/text/text-resource-range';
 import {Node} from './node/node';
 import {StatementNode} from './node/syntax/statement/statement-node';
-import {OperatorNode} from './node/token/operator/operator-node';
 import {TokenNode} from './node/token/token-node';
 import {NL} from './parser-config';
 
@@ -14,7 +13,6 @@ export interface SyntaxContext {
   resource: TextResource;
   position: TextResourcePosition;
   hiddenNodes: Array2<TokenNode>;
-  operators: Array2<OperatorNode>;
   breakNode: Node | Nothing;
   parentStatement: StatementNode | Nothing;
   nodes: Array2<Node>;
@@ -31,7 +29,6 @@ export function syntaxContext(resource: TextResource, position: TextResourcePosi
   return {
     resource,
     position,
-    operators: [],
     hiddenNodes: [],
     parentStatement: nothing,
     nodes: [],

@@ -14,7 +14,6 @@ import {
 import {Number2} from '../../../../core/lib/core';
 import {KeywordType} from '../../../../core/parser/node/token/operator/operator-node';
 import {LANGUAGE_NAME} from '../../config';
-import {convertRange, getDocumentSyntax} from '../../util';
 
 const selector = {language: LANGUAGE_NAME, scheme: 'file'};
 const tokenTypes = ['keyword_modifier', 'keyword_control', 'keyword_operator'];
@@ -31,15 +30,15 @@ class DocumentSemanticTokens implements DocumentSemanticTokensProvider {
   constructor(private channel: OutputChannel) {}
 
   provideDocumentSemanticTokens(document: TextDocument, token: CancellationToken): ProviderResult<SemanticTokens> {
-    const syntax = getDocumentSyntax(document, this.channel);
+    // const syntax = getDocumentSyntax(document, this.channel);
     const tokensBuilder = new SemanticTokensBuilder(legend);
 
-    for (const operator of syntax.operators) {
-      if (operator.keywordType) {
-        const tokenType = getKeywordTokenType(operator.keywordType);
-        tokensBuilder.push(convertRange(operator.range), tokenType);
-      }
-    }
+    // for (const operator of syntax.operators) {
+    //   if (operator.keywordType) {
+    //     const tokenType = getKeywordTokenType(operator.keywordType);
+    //     tokensBuilder.push(convertRange(operator.range), tokenType);
+    //   }
+    // }
 
     return tokensBuilder.build();
   }
