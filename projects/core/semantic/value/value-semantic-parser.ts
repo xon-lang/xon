@@ -1,6 +1,6 @@
+import {SyntaxResult} from '../../../core/parser/syntax-context';
 import {Array2, Nothing, nothing} from '../../lib/core';
 import {Node} from '../../parser/node/node';
-import {SyntaxResult} from '../../parser/syntax-result';
 import {SemanticContext} from '../semantic-context';
 import {TypeSemantic} from '../type/type-semantic';
 import {declarationValueTypeTryParse} from './declaration/declaration-value-type-parser';

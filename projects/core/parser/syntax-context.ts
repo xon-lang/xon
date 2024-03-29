@@ -9,6 +9,12 @@ import {StatementNode} from './node/syntax/statement/statement-node';
 import {TokenNode} from './node/token/token-node';
 import {NL} from './parser-config';
 
+type ContextAttributes = 'resource' | 'statements' | 'issueManager' | 'formatterManager';
+
+export type SyntaxResult = Pick<SyntaxContext, ContextAttributes> & {
+  syntaxContext: SyntaxContext;
+};
+
 export interface SyntaxContext {
   resource: TextResource;
   position: TextResourcePosition;
@@ -17,7 +23,6 @@ export interface SyntaxContext {
   parentStatement: StatementNode | Nothing;
   nodes: Array2<Node>;
   previousStatement: StatementNode | Nothing;
-  // todo use rootNode instead of statements array
   statements: Array2<StatementNode>;
   issueManager: IssueManager;
   formatterManager: FormatterManager;

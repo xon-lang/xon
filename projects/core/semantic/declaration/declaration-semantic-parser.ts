@@ -1,8 +1,8 @@
+import {SyntaxResult} from '../../../core/parser/syntax-context';
 import {Array2, Nothing, String2, nothing} from '../../lib/core';
 import {$Node, is} from '../../parser/node/node';
 import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-node';
 import {TYPE_MODIFIERS} from '../../parser/parser-config';
-import {SyntaxResult} from '../../parser/syntax-result';
 import {TextResourceReference} from '../../util/resource/resource-reference';
 import {SemanticContext} from '../semantic-context';
 import {DeclarationSemantic} from './declaration-semantic';

@@ -22,20 +22,24 @@
       "match": "\".*?\"|'.*?'"
     },
     {
-      "name": "entity.name.type.xon",
-      "match": "\\b[A-Z_][A-Za-z0-9_]*\\b"
-    },
-    {
       "name": "storage.type.xon",
       "match": "\\b(model|object|const|literal)\\b"
     },
     {
-      "name": "variable.xon",
-      "match": "\\b[a-z_][A-Za-z0-9_]*\\b"
+      "name": "keyword.control.xon",
+      "match": "\\b(if|for|else|select|while|return|break|continue|expect|actual|throw|import|export)\\b"
     },
     {
-      "name": "keyword.control.xon",
-      "match": "\\b(is|as|if|in|for|else|select|while|return|break|continue|expect|actual|or|and|not|throw|import|export)\\b"
+      "name": "keyword.operator.expression",
+      "match": "\\b(is|as|in|or|and|not)\\b"
+    },
+    {
+      "name": "entity.name.type.xon",
+      "match": "\\b[A-Z_][A-Za-z0-9_]*\\b"
+    },
+    {
+      "name": "variable.xon",
+      "match": "\\b[a-z_][A-Za-z0-9_]*\\b"
     }
   ]
 }

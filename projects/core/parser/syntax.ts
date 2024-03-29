@@ -18,8 +18,7 @@ import {scanStringNode} from './node/token/string/string-node';
 import {isHiddenToken} from './node/token/token-node';
 import {UnknownNode, scanUnknownNode} from './node/token/unknown/unknown-node';
 import {scanWhitespaceNode} from './node/token/whitespace/whitespace-node';
-import {SyntaxContext, syntaxContext} from './syntax-context';
-import {SyntaxResult} from './syntax-result';
+import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
 import {putStatementNode} from './util/put-statement-node';
 
 type SyntaxScanFn = (context: SyntaxContext) => Node | Nothing;

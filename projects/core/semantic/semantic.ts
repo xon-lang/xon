@@ -1,5 +1,5 @@
 import {Nothing, nothing} from '../lib/core';
-import {SyntaxResult} from '../parser/syntax-result';
+import {SyntaxResult} from '../parser/syntax-context';
 import {TextResourceReference} from '../util/resource/resource-reference';
 import {syntaxDeclarationsParse} from './declaration/declaration-semantic-parser';
 import {declarationManagerFromImportString, syntaxImportsParse} from './import/import-semantic-parser';
