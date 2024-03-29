@@ -8,8 +8,8 @@ import {SemanticContext, semanticContext} from './semantic-context';
 import {syntaxValuesParse} from './value/value-semantic-parser';
 
 export interface Semantic {
-  readonly $: $Semantic;
-  readonly reference: TextResourceReference;
+  $: $Semantic;
+  reference: TextResourceReference;
 }
 
 export enum $Semantic {
@@ -22,6 +22,7 @@ export enum $Semantic {
   INTEGER_TYPE = 'INTEGER_TYPE',
   STRING_TYPE = 'STRING_TYPE',
   ARRAY_TYPE = 'ARRAY_TYPE',
+  FUNCTION_TYPE = 'FUNCTION_TYPE',
   DECLARATION_TYPE = 'DECLARATION_TYPE',
 
   INTERSECTION_TYPE = 'INTERSECTION_SET_TYPE',
