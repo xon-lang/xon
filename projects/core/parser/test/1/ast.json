@@ -404,8 +404,7 @@
         "text": "b"
       }
     },
-    "body": [],
-    "declaration": null
+    "body": []
   },
   {
     "$": "STATEMENT",
@@ -636,8 +635,7 @@
         "text": "!"
       }
     },
-    "body": [],
-    "declaration": null
+    "body": []
   },
   {
     "$": "STATEMENT",
@@ -868,8 +866,7 @@
         "text": "d"
       }
     },
-    "body": [],
-    "declaration": null
+    "body": []
   },
   {
     "$": "STATEMENT",
@@ -1656,7 +1653,6 @@
         }
       }
     },
-    "body": [],
-    "declaration": null
+    "body": []
   }
 ]

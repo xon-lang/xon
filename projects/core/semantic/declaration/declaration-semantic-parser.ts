@@ -1,5 +1,6 @@
 import {Array2, Nothing, String2, nothing} from '../../lib/core';
-import {DeclarationNode} from '../../parser/node/declaration/declaration-node';
+import {$Node, is} from '../../parser/node/node';
+import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-node';
 import {TYPE_MODIFIERS} from '../../parser/parser-config';
 import {SyntaxResult} from '../../parser/syntax-result';
 import {TextResourceReference} from '../../util/resource/resource-reference';
@@ -11,7 +12,7 @@ import {valueDeclarationSemantic} from './value/value-declaration-semantic';
 import {valueDeclarationDeepParse} from './value/value-declaration-semantic-parser';
 
 export function syntaxDeclarationsParse(context: SemanticContext, syntax: SyntaxResult): Nothing {
-  const nodes = syntax.statements.filterMap((x) => x.declaration);
+  const nodes = syntax.statements.filterMap((x) => (is<DeclarationNode>(x.item, $Node.DECLARATION) ? x.item : nothing));
   declarationsParse(context, nodes);
 }
 
@@ -33,7 +34,14 @@ export function declarationsParse(
   return declarations;
 }
 
-export function declarationShallowParse(context: SemanticContext, node: DeclarationNode): DeclarationSemantic {
+export function declarationShallowParse(
+  context: SemanticContext,
+  node: DeclarationNode,
+): DeclarationSemantic | Nothing {
+  if (!node.id) {
+    return nothing;
+  }
+
   const reference = context.createReference(node.id);
   const modifier = node.modifier?.text;
   const name = node.id.text;

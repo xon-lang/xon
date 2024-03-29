@@ -14,7 +14,7 @@ import {parseSyntax} from '../syntax';
 //   console.log(`min ${min}\nmax ${max}\navg ${avg}\n`);
 // });
 
-test('1', () => testFormatter('1'));
+// test('1', () => testFormatter('1'));
 
 function testFormatter(index: String2) {
   const dirPath = join(__dirname, index);

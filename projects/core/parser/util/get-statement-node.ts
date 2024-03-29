@@ -17,17 +17,13 @@ export function getStatementNode(
   collapseOperators(context);
   const declaration = parseDeclarationStatement(context, context.nodes[0]);
 
+  if (declaration) {
+    context.nodes[0] = declaration;
+  }
+
   context.nodes
     .slice(1)
     .forEach((node) => context.issueManager.addError(node.range, ISSUE_MESSAGE.unexpectedExpression()));
 
-  return statementNode(
-    context,
-    context.nodes,
-    parent,
-    indentStopColumn,
-    beforeIndentHiddenNodes,
-    indentHiddenNodes,
-    declaration,
-  );
+  return statementNode(context, context.nodes, parent, indentStopColumn, beforeIndentHiddenNodes, indentHiddenNodes);
 }

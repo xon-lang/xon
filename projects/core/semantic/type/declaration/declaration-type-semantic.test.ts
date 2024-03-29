@@ -1,5 +1,5 @@
 import {nothing} from '../../../lib/core';
-import {DeclarationNode} from '../../../parser/node/declaration/declaration-node';
+import {DeclarationNode} from '../../../parser/node/syntax/declaration/declaration-node';
 import {IdNode} from '../../../parser/node/token/id/id-node';
 import {parseSyntax} from '../../../parser/syntax';
 import {textResourceFrom} from '../../../util/resource/text/text-resource';
@@ -22,16 +22,16 @@ test('a is integer', () => {
   expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.VALUE_DECLARATION);
   expect(semantic.declarationManager.declarations.a[0].name).toBe('a');
 
-  const constNode = syntax.statements[1].declaration as DeclarationNode;
+  const constNode = syntax.statements[1].item as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($Semantic.VALUE_DECLARATION);
 
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
-  expect((constNode.type as IdNode)?.text).toBe('Integer');
-  expect((constNode.type as IdNode)?.semantic?.$).toBe($Semantic.DECLARATION_TYPE);
+  expect((constNode.type?.value as IdNode)?.text).toBe('Integer');
+  expect((constNode.type?.value as IdNode)?.semantic?.$).toBe($Semantic.DECLARATION_TYPE);
 
-  const typeSemantic = (constNode.type as IdNode)?.semantic as DeclarationTypeSemantic;
+  const typeSemantic = (constNode.type?.value as IdNode)?.semantic as DeclarationTypeSemantic;
   expect(typeSemantic.declaration?.$).toBe($Semantic.TYPE_DECLARATION);
 });
 
@@ -49,14 +49,14 @@ test('a is array', () => {
   expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.VALUE_DECLARATION);
   expect(semantic.declarationManager.declarations.a[0].name).toBe('a');
 
-  const constNode = syntax.statements[2].declaration as DeclarationNode;
+  const constNode = syntax.statements[2].item as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($Semantic.VALUE_DECLARATION);
 
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as DeclarationTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as DeclarationTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.DECLARATION_TYPE);
   expect(typeSemantic.declaration.$).toBe($Semantic.TYPE_DECLARATION);
   expect(typeSemantic.declaration.name).toBe('Array');

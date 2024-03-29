@@ -1,6 +1,6 @@
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Array2, Nothing, nothing} from '../../../lib/core';
-import {DeclarationNode} from '../../../parser/node/declaration/declaration-node';
+import {DeclarationNode} from '../../../parser/node/syntax/declaration/declaration-node';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
 import {typeSemanticParse} from '../../type/type-semantic-parser';
@@ -12,7 +12,7 @@ export function typeDeclarationDeepParse(
   context: SemanticContext,
   node: DeclarationNode,
 ): TypeDeclarationSemantic | Nothing {
-  const semantic = node.id.semantic;
+  const semantic = node.id?.semantic;
 
   if (!semanticIs<TypeDeclarationSemantic>(semantic, $Semantic.TYPE_DECLARATION)) {
     return nothing;
@@ -35,7 +35,7 @@ function genericsParse(context: SemanticContext, declaration: TypeDeclarationSem
   }
 
   // todo remove this hack 'as Array2<ValueDeclarationSemantic>'
-  declaration.generics = declarationsParse(context, node.generics) as Array2<ValueDeclarationSemantic>;
+  declaration.generics = declarationsParse(context, node.generics.items) as Array2<ValueDeclarationSemantic>;
 }
 
 function typeParse(context: SemanticContext, declaration: TypeDeclarationSemantic, node: DeclarationNode): Nothing {
@@ -43,7 +43,7 @@ function typeParse(context: SemanticContext, declaration: TypeDeclarationSemanti
     return;
   }
 
-  const type = typeSemanticParse(context, node.type);
+  const type = typeSemanticParse(context, node.type.value);
 
   if (type) {
     declaration.baseType = type;
@@ -57,8 +57,8 @@ function typeParse(context: SemanticContext, declaration: TypeDeclarationSemanti
 }
 
 function valueParse(context: SemanticContext, declaration: TypeDeclarationSemantic, node: DeclarationNode): Nothing {
-  if (node.value) {
-    context.issueManager.addError(node.value.range, ISSUE_MESSAGE.noValueAllowed());
+  if (node.assign) {
+    context.issueManager.addError(node.assign.range, ISSUE_MESSAGE.noValueAllowed());
   }
 }
 

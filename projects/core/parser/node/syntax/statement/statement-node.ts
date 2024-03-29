@@ -1,10 +1,8 @@
 import {Array2, Integer, Nothing} from '../../../../lib/core';
-import {rangeFromNodes} from '../../../../util/resource/text/text-resource-range';
 import {SyntaxContext} from '../../../syntax-context';
-import {DeclarationNode} from '../../declaration/declaration-node';
 import {$Node, Node} from '../../node';
 import {TokenNode} from '../../token/token-node';
-import {SyntaxNode} from '../syntax-node';
+import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface StatementNode extends SyntaxNode {
   $: $Node.STATEMENT;
@@ -15,7 +13,6 @@ export interface StatementNode extends SyntaxNode {
   parent: StatementNode | Nothing;
   children: Array2<Node>;
   item: Node;
-  declaration: DeclarationNode | Nothing;
   body: Array2<StatementNode>;
 }
 
@@ -26,32 +23,28 @@ export function statementNode(
   indentStopColumn: Integer,
   beforeIndentHiddenNodes: Array2<TokenNode>,
   indentHiddenNodes: Array2<TokenNode>,
-  declaration: DeclarationNode | Nothing,
 ): StatementNode {
-  const range = rangeFromNodes([children.first()!, children.last()!]);
+  const node = syntaxNode($Node.STATEMENT, {children});
+  const indentLevel = parent ? parent.indentLevel + 1 : 0;
+  const item = children[0];
 
-  const node: StatementNode = {
-    $: $Node.STATEMENT,
-    range,
-    children,
-    hiddenNodes: [],
-    indentLevel: parent ? parent.indentLevel + 1 : 0,
+  const statement: StatementNode = {
+    ...node,
+
+    indentLevel,
     indentStopColumn,
     beforeIndentHiddenNodes,
     indentHiddenNodes,
     parent,
-    item: children[0],
+    item,
     body: [],
-    declaration,
   };
 
   if (parent) {
-    parent.body.push(node);
+    parent.body.push(statement);
   } else {
-    context.statements.push(node);
+    context.statements.push(statement);
   }
 
-  children.forEach((x) => (x.parent = node));
-
-  return node;
+  return statement;
 }

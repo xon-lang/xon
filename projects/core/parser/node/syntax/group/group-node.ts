@@ -26,7 +26,7 @@ export function groupNode(
   context: SyntaxContext,
   open: OpenNode,
   close: CloseNode | Nothing,
-  items: Array2<Node>,
+  items: Array2<Node | Nothing>,
 ): GroupNode {
   const node = syntaxNode($Node.GROUP, {open, items, close});
 
@@ -59,7 +59,7 @@ export function scanGroupNode(context: SyntaxContext): Group | Nothing {
   const items: Array2<Node> = [];
 
   while (position.index < resource.data.length) {
-    // todo remove from here or refactor
+    // todo use this cycle to group syntax by comma in the main parseSyntax function
     const {syntaxContext: itemContext} = parseSyntaxUntil(
       resource,
       position,

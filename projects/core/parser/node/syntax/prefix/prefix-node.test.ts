@@ -2,9 +2,9 @@ import {nothing} from '../../../../lib/core';
 import {evaluate} from '../../../../util/evaluate';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {parseSyntax} from '../../../syntax';
-import {DeclarationNode} from '../../declaration/declaration-node';
 import {$Node} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
+import {DeclarationNode} from '../declaration/declaration-node';
 import {PrefixNode} from './prefix-node';
 
 test('negative integer', () => {
@@ -37,7 +37,7 @@ test('model string', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node = statements[0].declaration as DeclarationNode;
+  const node = statements[0].item as DeclarationNode;
 
   expect(statements.length).toBe(1);
   expect(node).toBeTruthy();
@@ -49,7 +49,7 @@ test('model string with base class', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node = statements[1].declaration as DeclarationNode;
+  const node = statements[1].item as DeclarationNode;
 
   expect(statements.length).toBe(2);
   expect(node).toBeTruthy();

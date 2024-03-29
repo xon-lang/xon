@@ -12,7 +12,7 @@ export interface ArrayNode extends SyntaxNode {
   items: Array2<Node | Nothing>;
 }
 
-export function arrayNode(open: OpenNode, close: CloseNode | Nothing, items: Array2<Node>): ArrayNode {
+export function arrayNode(open: OpenNode, close: CloseNode | Nothing, items: Array2<Node | Nothing>): ArrayNode {
   const node = syntaxNode($Node.ARRAY, {open, items, close});
 
   return node;

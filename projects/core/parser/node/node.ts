@@ -4,10 +4,10 @@ import {TextResourceRange} from '../../util/resource/text/text-resource-range';
 import {TokenNode} from './token/token-node';
 
 export interface Node {
-  readonly $: $Node;
-  readonly range: TextResourceRange;
+  $: $Node;
+  range: TextResourceRange;
   parent?: Node | Nothing;
-  readonly children?: Array2<Node>;
+  children?: Array2<Node>;
   // todo make 'hiddenNodes' optional
   hiddenNodes: Array2<TokenNode>;
   semantic?: Semantic | Nothing;
@@ -33,6 +33,9 @@ export enum $Node {
   OBJECT = 'OBJECT',
   ARRAY = 'ARRAY',
   GROUP = 'GROUP',
+  DECLARATION = 'DECLARATION',
+  GENERICS = 'GENERICS',
+  PARAMETERS = 'PARAMETERS',
 
   IMPORT = 'IMPORT',
   MEMBER = 'MEMBER',
@@ -41,9 +44,9 @@ export enum $Node {
   INFIX = 'INFIX',
   PREFIX = 'PREFIX',
   POSTFIX = 'POSTFIX',
+  TYPE = 'TYPE',
+  ASSIGN = 'ASSIGN',
 
-  DECLARATION = 'DECLARATION',
-  DECLARATION_LIST = 'DECLARATION_LIST',
   STATEMENT = 'STATEMENT',
   UNKNOWN = 'UNKNOWN',
 }

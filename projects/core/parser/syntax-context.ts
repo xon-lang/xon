@@ -19,6 +19,7 @@ export interface SyntaxContext {
   parentStatement: StatementNode | Nothing;
   nodes: Array2<Node>;
   previousStatement: StatementNode | Nothing;
+  // todo use rootNode instead of statements array
   statements: Array2<StatementNode>;
   issueManager: IssueManager;
   formatterManager: FormatterManager;

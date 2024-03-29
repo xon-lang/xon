@@ -1,11 +1,15 @@
-import {Array2, Nothing, nothing} from '../../lib/core';
-import {DeclarationNode, declarationNode} from '../node/declaration/declaration-node';
+import {Nothing, nothing} from '../../lib/core';
 import {$Node, Node, is} from '../node/node';
+import {AssignNode, assignNode} from '../node/syntax/assign/assign-node';
+import {DeclarationNode, declarationNode} from '../node/syntax/declaration/declaration-node';
+import {GenericsNode, genericsNode} from '../node/syntax/generics/generics-node';
 import {GroupNode} from '../node/syntax/group/group-node';
 import {InfixNode} from '../node/syntax/infix/infix-node';
 import {InvokeNode} from '../node/syntax/invoke/invoke-node';
 import {ObjectNode} from '../node/syntax/object/object-node';
+import {ParametersNode, parametersNode} from '../node/syntax/parameters/parameters-node';
 import {PrefixNode} from '../node/syntax/prefix/prefix-node';
+import {TypeNode, typeNode} from '../node/syntax/type/type-node';
 import {IdNode} from '../node/token/id/id-node';
 import {
   ASSIGN,
@@ -25,14 +29,18 @@ export function parseDeclarationStatement(context: SyntaxContext, node: Node): D
   }
 
   if (parts.modifier) {
-    return declarationNode(parts);
+    return partsToDeclaration(parts);
   }
 
-  const parentStatementNode = context.parentStatement?.declaration;
+  const parentDeclaration = context.parentStatement?.item;
 
-  if (parentStatementNode?.modifier && TYPE_MODIFIERS.includes(parentStatementNode.modifier?.text)) {
-    const declaration = declarationNode(parts);
-    parentStatementNode.attributes.push(declaration);
+  if (
+    is<DeclarationNode>(parentDeclaration, $Node.DECLARATION) &&
+    parentDeclaration.modifier?.text &&
+    TYPE_MODIFIERS.includes(parentDeclaration.modifier.text)
+  ) {
+    const declaration = partsToDeclaration(parts);
+    parentDeclaration.attributes.push(declaration);
 
     return declaration;
   }
@@ -40,38 +48,7 @@ export function parseDeclarationStatement(context: SyntaxContext, node: Node): D
   return nothing;
 }
 
-function parseParameter(context: SyntaxContext, node: Node | Nothing): DeclarationNode | Nothing {
-  if (!node) {
-    return nothing;
-  }
-
-  const parts = getDeclarationParts(context, node);
-
-  if (!parts) {
-    return nothing;
-  }
-
-  return declarationNode(parts);
-}
-
-function parseGeneric(context: SyntaxContext, node: Node | Nothing): DeclarationNode | Nothing {
-  if (!node) {
-    return nothing;
-  }
-
-  const parts = getDeclarationParts(context, node);
-
-  if (!parts) {
-    return nothing;
-  }
-
-  return declarationNode(parts);
-}
-
-function getDeclarationParts(
-  context: SyntaxContext,
-  node: Node | Nothing,
-): (Partial<DeclarationNode> & {id: IdNode}) | Nothing {
+function getDeclarationParts(context: SyntaxContext, node: Node | Nothing): Partial<DeclarationNode> | Nothing {
   if (!node) {
     return nothing;
   }
@@ -85,7 +62,7 @@ function getDeclarationParts(
       return nothing;
     }
 
-    return {modifier: header.operator, ...underModifier, type, value: assign};
+    return {modifier: header.operator, ...underModifier, type, assign: assign};
   }
 
   const underModifier = getUnderModifier(context, header);
@@ -94,22 +71,22 @@ function getDeclarationParts(
     return nothing;
   }
 
-  return {...underModifier, type, value: assign};
+  return {...underModifier, type, assign: assign};
 }
 
 function getHeaderTypeAssign(
   context: SyntaxContext,
   node: Node | Nothing,
-): {header: Node | Nothing; type?: Node | Nothing; assign?: Node | Nothing} {
+): {header: Node | Nothing; type?: TypeNode | Nothing; assign?: AssignNode | Nothing} {
   if (is<InfixNode>(node, $Node.INFIX)) {
     if (node.operator.text === TYPE_TOKEN) {
-      return {header: node.left, type: node.right};
+      return {header: node.left, type: typeNode(context, node.operator, node.right)};
     }
 
     if (node.operator.text === ASSIGN) {
       const headerType = getHeaderTypeAssign(context, node.left);
 
-      return {...headerType, assign: node.right};
+      return {...headerType, assign: assignNode(context, node.operator, node.right)};
     }
   }
 
@@ -121,9 +98,9 @@ function getUnderModifier(
   node: Node | Nothing,
 ):
   | {
-      id: IdNode;
-      generics?: Array2<DeclarationNode | Nothing> | Nothing;
-      parameters?: Array2<DeclarationNode | Nothing> | Nothing;
+      id?: IdNode;
+      generics?: GenericsNode | Nothing;
+      parameters?: ParametersNode | Nothing;
     }
   | Nothing {
   if (!node) {
@@ -142,19 +119,55 @@ function getUnderModifier(
         return nothing;
       }
 
-      if (node.group.open.text === GROUP_NODE_OPEN) {
-        const parameters = node.group.items.map((x) => parseParameter(context, x));
-
-        return {...instance, parameters};
-      }
-
       if (node.group.open.text === OBJECT_NODE_OPEN) {
-        const generics = node.group.items.map((x) => parseParameter(context, x));
+        const items = node.group.items.map((x) => parseGeneric(context, x));
+        const generics = genericsNode(node.group.open, items, node.group.close);
 
         return {...instance, generics};
+      }
+
+      if (node.group.open.text === GROUP_NODE_OPEN) {
+        const items = node.group.items.map((x) => parseParameter(context, x));
+        const parameters = parametersNode(node.group.open, items, node.group.close);
+
+        return {...instance, parameters};
       }
     }
   }
 
   return nothing;
+}
+
+// todo remove it
+function parseGeneric(context: SyntaxContext, node: Node | Nothing): DeclarationNode | Nothing {
+  if (!node) {
+    return nothing;
+  }
+
+  const parts = getDeclarationParts(context, node);
+
+  if (!parts) {
+    return nothing;
+  }
+
+  return partsToDeclaration(parts);
+}
+
+// todo remove it
+function parseParameter(context: SyntaxContext, node: Node | Nothing): DeclarationNode | Nothing {
+  if (!node) {
+    return nothing;
+  }
+
+  const parts = getDeclarationParts(context, node);
+
+  if (!parts) {
+    return nothing;
+  }
+
+  return partsToDeclaration(parts);
+}
+
+function partsToDeclaration(parts: Partial<DeclarationNode>) {
+  return declarationNode(parts.modifier, parts.id, parts.generics, parts.parameters, parts.type, parts.assign);
 }

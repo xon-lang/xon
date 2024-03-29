@@ -1,5 +1,5 @@
 import {String2, nothing} from '../../../../lib/core';
-import {DeclarationNode} from '../../../../parser/node/declaration/declaration-node';
+import {DeclarationNode} from '../../../../parser/node/syntax/declaration/declaration-node';
 import {parseSyntax} from '../../../../parser/syntax';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {DeclarationKind} from '../../../declaration-manager';
@@ -26,14 +26,14 @@ test('a is integer', () => {
   expect(semantic.declarationManager.declarations['a'][0].$).toBe($Semantic.VALUE_DECLARATION);
   expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
-  const constNode = syntax.statements[2].declaration as DeclarationNode;
+  const constNode = syntax.statements[2].item as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($Semantic.VALUE_DECLARATION);
 
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as IntersectionTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as IntersectionTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.INTERSECTION_TYPE);
   expect(typeSemantic.left.$).toBe($Semantic.DECLARATION_TYPE);
   expect((typeSemantic.left as DeclarationTypeSemantic).declaration?.name).toBe('Integer');
