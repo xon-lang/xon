@@ -12,11 +12,4 @@ export function configureCompletionFeature(context: ExtensionContext, channel: O
   context.subscriptions.push(
     languages.registerCompletionItemProvider(LANGUAGE_NAME, new IdCompletionItemProvider(channel)),
   );
-
-  //   const commaCompletion = languages.registerCompletionItemProvider(
-  //     LANGUAGE_NAME,
-  //     new CommaCompletionItemProvider(channel),
-  //     ...[',', ' ']
-  //   );
-  //, commaCompletion);
 }

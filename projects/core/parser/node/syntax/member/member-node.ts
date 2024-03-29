@@ -34,13 +34,9 @@ function validate(context: SyntaxContext, node: MemberNode): Nothing {
 }
 
 function format(context: SyntaxContext, node: MemberNode): Nothing {
-  const NO_LEFT_SPACE_TOKENS = ['.', ':'];
-  const leftSingleWhitespace = !NO_LEFT_SPACE_TOKENS.includes(node.operator.text[0]);
-  formatBetweenHiddenNodes(context, node.instance, leftSingleWhitespace);
+  formatBetweenHiddenNodes(context, node.instance, false);
 
   if (node.id) {
-    const NO_OPERATOR_SPACE_TOKENS = ['.'];
-    const operatorSingleWhitespace = !NO_OPERATOR_SPACE_TOKENS.includes(node.operator.text[0]);
-    formatAfterHiddenNodes(context, node.operator, operatorSingleWhitespace);
+    formatAfterHiddenNodes(context, node.operator, false);
   }
 }

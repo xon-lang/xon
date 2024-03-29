@@ -8,6 +8,7 @@ export interface Node {
   readonly range: TextResourceRange;
   parent?: Node | Nothing;
   readonly children?: Array2<Node>;
+  // todo make 'hiddenNodes' optional
   hiddenNodes: Array2<TokenNode>;
   semantic?: Semantic | Nothing;
 }
