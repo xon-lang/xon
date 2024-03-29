@@ -24,6 +24,7 @@ type CollapseFn = (
 const COLLAPSE_FUNCTIONS: Record<Integer, CollapseFn | Nothing> = {
   [OperatorType.IMPORT]: importCollapse,
   [OperatorType.MEMBER]: memberCollapse,
+  [OperatorType.RANGE]: rangeCollapse,
 };
 
 export function collapseOperator(
@@ -51,25 +52,6 @@ export function collapseOperator(
       const result = collapse(context, index, left, operator, right);
       if (result) {
         context.nodes.splice(result.spliceIndex, result.node.children.length, result.node);
-        collapseOperator(context, operators, operatorType, recursiveType, i);
-      }
-
-      return;
-    }
-
-    // if (operatorType === OperatorType.TYPE) {
-    //   if (collapseType(context, index, left, operator, right)) {
-    //     collapseOperator(context, operators, operatorType, recursiveType, i);
-    //   }
-
-    //   return;
-    // }
-
-    if (operatorType === OperatorType.RANGE) {
-      if (left && right && !is<OperatorNode>(left, $Node.OPERATOR) && !is<OperatorNode>(right, $Node.OPERATOR)) {
-        const node = rangeNode(context, left, operator, right);
-        context.nodes.splice(index - 1, node.children.length, node);
-
         collapseOperator(context, operators, operatorType, recursiveType, i);
       }
 
@@ -152,20 +134,18 @@ function memberCollapse(
   return {spliceIndex: index - 1, node};
 }
 
-// function collapseType(
-//   context: SyntaxContext,
-//   index: Integer,
-//   left: Node | Nothing,
-//   operator: OperatorNode,
-//   right: Node | Nothing,
-// ): Boolean2 {
-//   if (is<DeclarationNode>(left, $Node.DECLARATION) ) {
-//     const value = is<OperatorNode>(right, $Node.OPERATOR)?no
-//     const type = typeNode(context, operator,  )
-//     const id = is<IdNode>(right, $Node.ID) ? right : nothing;
-//     const node = memberNode(context, operator, left, id);
-//     context.nodes.splice(index - 1, node.children.length, node);
-//   }
+function rangeCollapse(
+  context: SyntaxContext,
+  index: Integer,
+  left: Node | Nothing,
+  operator: OperatorNode,
+  right: Node | Nothing,
+): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+  if (!left || !right || is<OperatorNode>(left, $Node.OPERATOR) || is<OperatorNode>(right, $Node.OPERATOR)) {
+    return nothing;
+  }
 
-//   return true;
-// }
+  const node = rangeNode(context, left, operator, right);
+
+  return {spliceIndex: index - 1, node};
+}
