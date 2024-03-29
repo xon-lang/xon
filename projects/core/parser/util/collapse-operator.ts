@@ -52,14 +52,15 @@ export function collapseOperator(
 
     const collapse = COLLAPSE_FUNCTIONS[operatorType];
 
-    if (collapse) {
-      const result = collapse(context, index, lastIndex, left, operator, right);
-      if (result) {
-        context.nodes.splice(result.spliceIndex, result.node.children.length, result.node);
-        collapseOperator(context, operators, operatorType, recursiveType, i);
-      }
-
+    if (!collapse) {
       return;
+    }
+
+    const result = collapse(context, index, lastIndex, left, operator, right);
+
+    if (result) {
+      context.nodes.splice(result.spliceIndex, result.node.children.length, result.node);
+      collapseOperator(context, operators, operatorType, recursiveType, i);
     }
   }
 }
