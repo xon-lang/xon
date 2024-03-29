@@ -6,9 +6,9 @@ import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface PrefixNode extends SyntaxNode {
-  readonly $: $Node.PREFIX;
-  readonly operator: OperatorNode;
-  readonly value: Node;
+  $: $Node.PREFIX;
+  operator: OperatorNode;
+  value: Node;
 }
 
 export function prefixNode(context: SyntaxContext, operator: OperatorNode, value: Node): PrefixNode {

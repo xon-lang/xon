@@ -8,10 +8,10 @@ import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface MemberNode extends SyntaxNode {
-  readonly $: $Node.MEMBER;
-  readonly instance: Node;
-  readonly operator: OperatorNode;
-  readonly id: IdNode | Nothing;
+  $: $Node.MEMBER;
+  instance: Node;
+  operator: OperatorNode;
+  id: IdNode | Nothing;
 }
 
 export function memberNode(

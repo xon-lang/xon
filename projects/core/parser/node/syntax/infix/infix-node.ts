@@ -6,10 +6,10 @@ import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface InfixNode extends SyntaxNode {
-  readonly $: $Node.INFIX;
-  readonly left: Node;
-  readonly operator: OperatorNode;
-  readonly right: Node;
+  $: $Node.INFIX;
+  left: Node;
+  operator: OperatorNode;
+  right: Node;
 }
 
 export function infixNode(context: SyntaxContext, left: Node, operator: OperatorNode, right: Node): InfixNode {

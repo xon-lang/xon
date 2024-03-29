@@ -6,9 +6,9 @@ import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface PostfixNode extends SyntaxNode {
-  readonly $: $Node.POSTFIX;
-  readonly value: Node;
-  readonly operator: OperatorNode;
+  $: $Node.POSTFIX;
+  value: Node;
+  operator: OperatorNode;
 }
 
 export function postfixNode(context: SyntaxContext, value: Node, operator: OperatorNode): PostfixNode {

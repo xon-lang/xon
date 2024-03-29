@@ -6,10 +6,10 @@ import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface RangeNode extends SyntaxNode {
-  readonly $: $Node.RANGE;
-  readonly from: Node;
-  readonly operator: OperatorNode;
-  readonly to: Node;
+  $: $Node.RANGE;
+  from: Node;
+  operator: OperatorNode;
+  to: Node;
 }
 
 export function rangeNode(context: SyntaxContext, from: Node, operator: OperatorNode, to: Node): RangeNode {

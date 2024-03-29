@@ -7,9 +7,9 @@ import {StringNode} from '../../token/string/string-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface ImportNode extends SyntaxNode {
-  readonly $: $Node.IMPORT;
-  readonly operator: OperatorNode;
-  readonly location: StringNode;
+  $: $Node.IMPORT;
+  operator: OperatorNode;
+  location: StringNode;
 }
 
 export function importNode(context: SyntaxContext, operator: OperatorNode, location: StringNode): ImportNode {
