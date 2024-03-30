@@ -23,7 +23,9 @@ type CollapseFn = (
   left: Node | Nothing,
   operator: OperatorNode,
   right: Node | Nothing,
-) => {spliceIndex: Integer; node: SyntaxNode} | Nothing;
+) => CollapseResult;
+
+type CollapseResult = {spliceIndex: Integer; deleteCount?: Integer | Nothing; node: SyntaxNode} | Nothing;
 
 const COLLAPSE_FUNCTIONS: Record<OperatorType, CollapseFn | Nothing> = {
   // todo never called from here fix it
@@ -53,7 +55,7 @@ export function collapseOperator(
       const result = invokeCollapse(context, index);
 
       if (result) {
-        context.nodes.splice(result.spliceIndex, result.node.children.length, result.node);
+        context.nodes.splice(result.spliceIndex, result.deleteCount ?? result.node.children.length, result.node);
         collapseOperator(context, operators, operatorType, recursiveType, i);
       }
     }
@@ -76,7 +78,7 @@ export function collapseOperator(
     const result = collapse(context, index, left, operator, right);
 
     if (result) {
-      context.nodes.splice(result.spliceIndex, result.node.children.length, result.node);
+      context.nodes.splice(result.spliceIndex, result.deleteCount ?? result.node.children.length, result.node);
       collapseOperator(context, operators, operatorType, recursiveType, i);
     }
   }
@@ -88,7 +90,7 @@ function importCollapse(
   left: Node | Nothing,
   operator: OperatorNode,
   right: Node | Nothing,
-): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+): CollapseResult {
   if (is<StringNode>(right, $Node.STRING) && (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))) {
     const node = importNode(context, operator, right);
 
@@ -104,7 +106,7 @@ function memberCollapse(
   left: Node | Nothing,
   operator: OperatorNode,
   right: Node | Nothing,
-): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+): CollapseResult {
   if (!left || is<OperatorNode>(left, $Node.OPERATOR)) {
     return nothing;
   }
@@ -121,7 +123,7 @@ function rangeCollapse(
   left: Node | Nothing,
   operator: OperatorNode,
   right: Node | Nothing,
-): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+): CollapseResult {
   if (!left || !right || is<OperatorNode>(left, $Node.OPERATOR) || is<OperatorNode>(right, $Node.OPERATOR)) {
     return nothing;
   }
@@ -137,7 +139,7 @@ function infixCollapse(
   left: Node | Nothing,
   operator: OperatorNode,
   right: Node | Nothing,
-): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+): CollapseResult {
   if (!left || !right || is<OperatorNode>(left, $Node.OPERATOR) || is<OperatorNode>(right, $Node.OPERATOR)) {
     return nothing;
   }
@@ -153,7 +155,7 @@ function prefixCollapse(
   left: Node | Nothing,
   operator: OperatorNode,
   right: Node | Nothing,
-): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+): CollapseResult {
   if (right && !is<OperatorNode>(right, $Node.OPERATOR) && (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))) {
     const node = prefixNode(context, operator, right);
 
@@ -169,7 +171,7 @@ function postfixCollapse(
   left: Node | Nothing,
   operator: OperatorNode,
   right: Node | Nothing,
-): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+): CollapseResult {
   const lastIndex = context.nodes.length - 1;
 
   if (
@@ -191,7 +193,7 @@ function typeCollapse(
   left: Node | Nothing,
   operator: OperatorNode,
   right: Node | Nothing,
-): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+): CollapseResult {
   if (left && !is<OperatorNode>(left, $Node.OPERATOR)) {
     if (right && !is<OperatorNode>(right, $Node.OPERATOR)) {
       const node = typeNode(context, left, operator, right);
@@ -213,7 +215,7 @@ function assignCollapse(
   left: Node | Nothing,
   operator: OperatorNode,
   right: Node | Nothing,
-): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+): CollapseResult {
   if (left && !is<OperatorNode>(left, $Node.OPERATOR)) {
     if (right && !is<OperatorNode>(right, $Node.OPERATOR)) {
       const node = assignNode(context, left, operator, right);
@@ -229,7 +231,7 @@ function assignCollapse(
   return nothing;
 }
 
-function invokeCollapse(context: SyntaxContext, index: Integer): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+function invokeCollapse(context: SyntaxContext, index: Integer): CollapseResult {
   const instance = context.nodes[index - 1];
   const group = context.nodes[index];
 
