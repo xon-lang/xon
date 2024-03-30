@@ -25,7 +25,7 @@ type CollapseFn = (
   right: Node | Nothing,
 ) => CollapseResult;
 
-type CollapseResult = {spliceIndex: Integer; deleteCount?: Integer | Nothing; node: SyntaxNode} | Nothing;
+type CollapseResult = {spliceIndex: Integer; node: SyntaxNode} | Nothing;
 
 const COLLAPSE_FUNCTIONS: Record<OperatorType, CollapseFn | Nothing> = {
   // todo never called from here fix it
@@ -55,7 +55,7 @@ export function collapseOperator(
       const result = invokeCollapse(context, index);
 
       if (result) {
-        context.nodes.splice(result.spliceIndex, result.deleteCount ?? result.node.children.length, result.node);
+        context.nodes.splice(result.spliceIndex, result.node.children.length, result.node);
         collapseOperator(context, operators, operatorType, recursiveType, i);
       }
     }
@@ -78,7 +78,7 @@ export function collapseOperator(
     const result = collapse(context, index, left, operator, right);
 
     if (result) {
-      context.nodes.splice(result.spliceIndex, result.deleteCount ?? result.node.children.length, result.node);
+      context.nodes.splice(result.spliceIndex, result.node.children.length, result.node);
       collapseOperator(context, operators, operatorType, recursiveType, i);
     }
   }
@@ -194,19 +194,19 @@ function typeCollapse(
   operator: OperatorNode,
   right: Node | Nothing,
 ): CollapseResult {
-  if (left && !is<OperatorNode>(left, $Node.OPERATOR)) {
-    if (right && !is<OperatorNode>(right, $Node.OPERATOR)) {
-      const node = typeNode(context, left, operator, right);
+  if (!left || is<OperatorNode>(left, $Node.OPERATOR)) {
+    return nothing;
+  }
 
-      return {spliceIndex: index - 1, node};
-    }
-
-    const node = typeNode(context, left, operator, nothing);
+  if (right && !is<OperatorNode>(right, $Node.OPERATOR)) {
+    const node = typeNode(context, left, operator, right);
 
     return {spliceIndex: index - 1, node};
   }
 
-  return nothing;
+  const node = typeNode(context, left, operator, nothing);
+
+  return {spliceIndex: index - 1, node};
 }
 
 function assignCollapse(
@@ -216,19 +216,19 @@ function assignCollapse(
   operator: OperatorNode,
   right: Node | Nothing,
 ): CollapseResult {
-  if (left && !is<OperatorNode>(left, $Node.OPERATOR)) {
-    if (right && !is<OperatorNode>(right, $Node.OPERATOR)) {
-      const node = assignNode(context, left, operator, right);
+  if (!left || is<OperatorNode>(left, $Node.OPERATOR)) {
+    return nothing;
+  }
 
-      return {spliceIndex: index - 1, node};
-    }
-
-    const node = assignNode(context, left, operator, nothing);
+  if (right && !is<OperatorNode>(right, $Node.OPERATOR)) {
+    const node = assignNode(context, left, operator, right);
 
     return {spliceIndex: index - 1, node};
   }
 
-  return nothing;
+  const node = assignNode(context, left, operator, nothing);
+
+  return {spliceIndex: index - 1, node};
 }
 
 function invokeCollapse(context: SyntaxContext, index: Integer): CollapseResult {
