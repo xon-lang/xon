@@ -3,7 +3,7 @@ import {$Node, Node, is} from '../node/node';
 import {AssignNode} from '../node/syntax/assign/assign-node';
 import {DeclarationNode, declarationNode} from '../node/syntax/declaration/declaration-node';
 import {GenericsNode, genericsNode} from '../node/syntax/generics/generics-node';
-import {Group, GroupNode} from '../node/syntax/group/group-node';
+import {Group, GroupNode, isGroupNode} from '../node/syntax/group/group-node';
 import {InvokeNode} from '../node/syntax/invoke/invoke-node';
 import {ItemNode} from '../node/syntax/item/item-node';
 import {ObjectNode} from '../node/syntax/object/object-node';
@@ -22,10 +22,6 @@ export function parseDeclarationStatement(context: SyntaxContext, node: Node): D
     return nothing;
   }
 
-  if (parts.modifier) {
-    return partsToDeclaration(parts);
-  }
-
   const parentDeclaration = context.parentStatement?.item;
 
   if (
@@ -37,6 +33,10 @@ export function parseDeclarationStatement(context: SyntaxContext, node: Node): D
     parentDeclaration.attributes.push(declaration);
 
     return declaration;
+  }
+
+  if (parts.modifier || parts.typeOperator || (parts.parameters && parts.assignOperator)) {
+    return partsToDeclaration(parts);
   }
 
   return nothing;
@@ -56,7 +56,7 @@ function getDeclarationParts(context: SyntaxContext, node: Node | Nothing): Part
       return nothing;
     }
 
-    return {modifier: header.operator, ...underModifier, typeOperator, type, assignOperator, assign: assign};
+    return {modifier: header.operator, ...underModifier, typeOperator, type, assignOperator, assign};
   }
 
   const underModifier = getUnderModifier(context, header);
@@ -65,7 +65,7 @@ function getDeclarationParts(context: SyntaxContext, node: Node | Nothing): Part
     return nothing;
   }
 
-  return {...underModifier, type, assign: assign};
+  return {...underModifier, typeOperator, type, assignOperator, assign};
 }
 
 function getHeaderTypeAssign(
@@ -120,6 +120,10 @@ function getUnderModifier(
     return {...instance, ...group};
   }
 
+  if (isGroupNode(node)) {
+    return parseGroup(context, node);
+  }
+
   return nothing;
 }
 
@@ -147,6 +151,10 @@ function parseGroup(
 function itemToDeclarations(context: SyntaxContext, item: ItemNode): DeclarationNode | Nothing {
   if (!item) {
     return nothing;
+  }
+
+  if (is<DeclarationNode>(item.value, $Node.DECLARATION)) {
+    return item.value;
   }
 
   const parts = getDeclarationParts(context, item.value);

@@ -6,8 +6,6 @@ import {$Node} from '../../node';
 import {CharNode} from '../../token/char/char-node';
 import {IdNode} from '../../token/id/id-node';
 import {IntegerNode} from '../../token/integer/integer-node';
-import {AssignNode} from '../assign/assign-node';
-import {GroupNode} from '../group/group-node';
 import {DeclarationNode} from './declaration-node';
 
 test('model A', () => {
@@ -142,19 +140,19 @@ test('has attributes', () => {
   expect(node.attributes.length).toBe(6);
 });
 
-// test('function with no parameters', () => {
-//   const text = '(): Integer';
-//   const source = textResourceFrom(nothing, text);
-//   const syntax = parseSyntax(source);
-//   const statements = syntax.statements;
-//   const node = statements[0].item as DeclarationNode;
+test('function with no parameters', () => {
+  const text = '(): Integer';
+  const source = textResourceFrom(nothing, text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as DeclarationNode;
 
-//   expect(statements.length).toBe(1);
-//   expect(node.$).toBe($Node.DECLARATION);
-//   expect(node.generics).toBeFalsy();
-//   expect(node.parameters?.items.length).toBe(0);
-//   expect((node.type as IdNode).text).toBe('Integer');
-// });
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.DECLARATION);
+  expect(node.generics).toBeFalsy();
+  expect(node.parameters?.items.length).toBe(0);
+  expect((node.type as IdNode).text).toBe('Integer');
+});
 
 // test('function with generic', () => {
 //   const text = '{T}(): T';
@@ -208,15 +206,15 @@ test('has argument', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node = statements[0].item as AssignNode;
+  const node = statements[0].item as DeclarationNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.ASSIGN);
-  expect((node.left as GroupNode).items.length).toBe(1);
-  expect(((node.left as GroupNode).items[0].value as IdNode).text).toBe('x');
+  expect(node.$).toBe($Node.DECLARATION);
+  expect(node.parameters?.items.length).toBe(1);
+  expect(node.parameters?.items[0]?.id?.text).toBe('x');
 
   expect(
-    evaluate(node.right, {
+    evaluate(node.assign, {
       x: 37,
     }),
   ).toBe(37 + 42);
@@ -227,11 +225,11 @@ test('two parameter', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node = statements[0].item as AssignNode;
+  const node = statements[0].item as DeclarationNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.ASSIGN);
-  expect((node.left as GroupNode).items.length).toBe(2);
-  expect(((node.left as GroupNode).items[0].value as IdNode).text).toBe('a');
-  expect(((node.left as GroupNode).items[1].value as IdNode).text).toBe('b');
+  expect(node.$).toBe($Node.DECLARATION);
+  expect(node.parameters?.items.length).toBe(2);
+  expect(node.parameters?.items[0]?.id?.text).toBe('a');
+  expect(node.parameters?.items[1]?.id?.text).toBe('b');
 });
