@@ -23,7 +23,7 @@ test('model A', () => {
   expect(node.id?.text).toBe('A');
 });
 
-test('extends b', () => {
+test('model A: B', () => {
   const text = 'model A: B';
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
@@ -147,12 +147,12 @@ test('has attributes', () => {
 //   const source = textResourceFrom(nothing, text);
 //   const syntax = parseSyntax(source);
 //   const statements = syntax.statements;
-//   const node = statements[0].item as FunctionNode;
+//   const node = statements[0].item as DeclarationNode;
 
 //   expect(statements.length).toBe(1);
-//   expect(node.$).toBe($Node.FUNCTION);
+//   expect(node.$).toBe($Node.DECLARATION);
 //   expect(node.generics).toBeFalsy();
-//   expect(node.parameters.items.length).toBe(0);
+//   expect(node.parameters?.items.length).toBe(0);
 //   expect((node.type as IdNode).text).toBe('Integer');
 // });
 

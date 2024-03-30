@@ -3,15 +3,16 @@ import {$Node, Node, is} from '../node/node';
 import {AssignNode} from '../node/syntax/assign/assign-node';
 import {DeclarationNode, declarationNode} from '../node/syntax/declaration/declaration-node';
 import {GenericsNode, genericsNode} from '../node/syntax/generics/generics-node';
-import {GroupNode} from '../node/syntax/group/group-node';
+import {Group, GroupNode} from '../node/syntax/group/group-node';
 import {InvokeNode} from '../node/syntax/invoke/invoke-node';
+import {ItemNode} from '../node/syntax/item/item-node';
 import {ObjectNode} from '../node/syntax/object/object-node';
 import {ParametersNode, parametersNode} from '../node/syntax/parameters/parameters-node';
 import {PrefixNode} from '../node/syntax/prefix/prefix-node';
 import {TypeNode} from '../node/syntax/type/type-node';
 import {IdNode} from '../node/token/id/id-node';
 import {OperatorNode} from '../node/token/operator/operator-node';
-import {GROUP_NODE_OPEN, MODIFIER_KEYWORDS, OBJECT_NODE_OPEN, TYPE_MODIFIERS} from '../parser-config';
+import {MODIFIER_KEYWORDS, TYPE_MODIFIERS} from '../parser-config';
 import {SyntaxContext} from '../syntax-context';
 
 export function parseDeclarationStatement(context: SyntaxContext, node: Node): DeclarationNode | Nothing {
@@ -46,7 +47,7 @@ function getDeclarationParts(context: SyntaxContext, node: Node | Nothing): Part
     return nothing;
   }
 
-  const {header, type, assign} = getHeaderTypeAssign(context, node);
+  const {header, typeOperator, type, assignOperator, assign} = getHeaderTypeAssign(context, node);
 
   if (is<PrefixNode>(header, $Node.PREFIX) && MODIFIER_KEYWORDS.includes(header.operator.text)) {
     const underModifier = getUnderModifier(context, header.value);
@@ -55,7 +56,7 @@ function getDeclarationParts(context: SyntaxContext, node: Node | Nothing): Part
       return nothing;
     }
 
-    return {modifier: header.operator, ...underModifier, type, assign: assign};
+    return {modifier: header.operator, ...underModifier, typeOperator, type, assignOperator, assign: assign};
   }
 
   const underModifier = getUnderModifier(context, header);
@@ -80,6 +81,7 @@ function getHeaderTypeAssign(
   if (is<TypeNode>(node, $Node.TYPE)) {
     return {header: node.left, typeOperator: node.operator, type: node.right};
   }
+
   if (is<AssignNode>(node, $Node.ASSIGN)) {
     const headerType = getHeaderTypeAssign(context, node.left);
 
@@ -108,38 +110,46 @@ function getUnderModifier(
   }
 
   if (is<InvokeNode>(node, $Node.INVOKE)) {
-    if (is<GroupNode>(node.group, $Node.GROUP) || is<ObjectNode>(node.group, $Node.OBJECT)) {
-      const instance = getUnderModifier(context, node.instance);
+    const instance = getUnderModifier(context, node.instance);
 
-      if (!instance) {
-        return nothing;
-      }
-
-      if (node.group.open.text === OBJECT_NODE_OPEN) {
-        const items = node.group.items.map((x) => parseParameter(context, x.value));
-        const generics = genericsNode(node.group.open, items, node.group.close);
-
-        return {...instance, generics};
-      }
-
-      if (node.group.open.text === GROUP_NODE_OPEN) {
-        const items = node.group.items.map((x) => parseParameter(context, x.value));
-        const parameters = parametersNode(node.group.open, items, node.group.close);
-
-        return {...instance, parameters};
-      }
+    if (!instance) {
+      return nothing;
     }
+
+    const group = parseGroup(context, node.group);
+    return {...instance, ...group};
   }
 
   return nothing;
 }
 
-function parseParameter(context: SyntaxContext, node: Node | Nothing): DeclarationNode | Nothing {
-  if (!node) {
+function parseGroup(
+  context: SyntaxContext,
+  group: Group,
+): {generics?: GenericsNode | Nothing; parameters?: ParametersNode | Nothing} {
+  if (is<ObjectNode>(group, $Node.OBJECT)) {
+    const items = group.items.map((x) => itemToDeclarations(context, x));
+    const generics = genericsNode(group.open, items, group.close);
+
+    return {generics};
+  }
+
+  if (is<GroupNode>(group, $Node.GROUP)) {
+    const items = group.items.map((x) => itemToDeclarations(context, x));
+    const parameters = parametersNode(group.open, items, group.close);
+
+    return {parameters};
+  }
+
+  return {};
+}
+
+function itemToDeclarations(context: SyntaxContext, item: ItemNode): DeclarationNode | Nothing {
+  if (!item) {
     return nothing;
   }
 
-  const parts = getDeclarationParts(context, node);
+  const parts = getDeclarationParts(context, item.value);
 
   if (!parts) {
     return nothing;
