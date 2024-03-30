@@ -39,3 +39,14 @@ test('validate close pair', () => {
   expect(syntax.issueManager.issues[0].message.actual).toBe(issueMessage.actual);
   expect(syntax.issueManager.issues[0].message.expect).toBe(issueMessage.expect);
 });
+
+test('a in group', () => {
+  const text = '(a)';
+  const source = textResourceFrom(nothing, text);
+  const syntax = parseSyntax(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as GroupNode;
+
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.GROUP);
+});
