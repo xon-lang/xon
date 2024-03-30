@@ -16,7 +16,6 @@ import {SyntaxContext} from '../syntax-context';
 type CollapseFn = (
   context: SyntaxContext,
   index: Integer,
-  lastIndex: Integer,
   left: Node | Nothing,
   operator: OperatorNode,
   right: Node | Nothing,
@@ -47,8 +46,8 @@ export function collapseOperator(
       continue;
     }
 
-    const left: Node | Nothing = context.nodes[index - 1];
-    const right: Node | Nothing = context.nodes[index + 1];
+    const left = context.nodes[index - 1];
+    const right = context.nodes[index + 1];
 
     const collapse = COLLAPSE_FUNCTIONS[operatorType];
 
@@ -56,7 +55,7 @@ export function collapseOperator(
       return;
     }
 
-    const result = collapse(context, index, lastIndex, left, operator, right);
+    const result = collapse(context, index, left, operator, right);
 
     if (result) {
       context.nodes.splice(result.spliceIndex, result.node.children.length, result.node);
@@ -68,7 +67,6 @@ export function collapseOperator(
 function importCollapse(
   context: SyntaxContext,
   index: Integer,
-  lastIndex: Integer,
   left: Node | Nothing,
   operator: OperatorNode,
   right: Node | Nothing,
@@ -85,7 +83,6 @@ function importCollapse(
 function memberCollapse(
   context: SyntaxContext,
   index: Integer,
-  lastIndex: Integer,
   left: Node | Nothing,
   operator: OperatorNode,
   right: Node | Nothing,
@@ -103,7 +100,6 @@ function memberCollapse(
 function rangeCollapse(
   context: SyntaxContext,
   index: Integer,
-  lastIndex: Integer,
   left: Node | Nothing,
   operator: OperatorNode,
   right: Node | Nothing,
@@ -120,7 +116,6 @@ function rangeCollapse(
 function infixCollapse(
   context: SyntaxContext,
   index: Integer,
-  lastIndex: Integer,
   left: Node | Nothing,
   operator: OperatorNode,
   right: Node | Nothing,
@@ -137,7 +132,6 @@ function infixCollapse(
 function prefixCollapse(
   context: SyntaxContext,
   index: Integer,
-  lastIndex: Integer,
   left: Node | Nothing,
   operator: OperatorNode,
   right: Node | Nothing,
@@ -154,11 +148,12 @@ function prefixCollapse(
 function postfixCollapse(
   context: SyntaxContext,
   index: Integer,
-  lastIndex: Integer,
   left: Node | Nothing,
   operator: OperatorNode,
   right: Node | Nothing,
 ): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+  const lastIndex = context.nodes.length - 1;
+
   if (
     left &&
     !is<OperatorNode>(left, $Node.OPERATOR) &&
@@ -171,3 +166,26 @@ function postfixCollapse(
 
   return nothing;
 }
+
+// function invokeCollapse(
+//   context: SyntaxContext,
+//   index: Integer,
+//   left: Node | Nothing,
+//   operator: OperatorNode,
+//   right: Node | Nothing,
+// ): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+//   for (let i = 0; i < context.nodes.length; i++) {
+//     const node = context.nodes[i];
+
+//     if (isGroupNode(node) && i > 0) {
+//       const prevNode = context.nodes[i - 1];
+
+//       if (!is<OperatorNode>(prevNode, $Node.OPERATOR)) {
+//         context.nodes.splice(i - 1, 2, invokeNode(context, prevNode, node));
+//         collapseInvoke(context);
+
+//         return;
+//       }
+//     }
+//   }
+// }
