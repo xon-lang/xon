@@ -1,6 +1,6 @@
 import {Nothing, String2, nothing} from '../../../../lib/core';
 import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
-import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS, operatorsOrders} from '../../../parser-config';
+import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS, OPERATOR_ORDERS} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
 import {scanIdNode} from '../id/id-node';
@@ -30,7 +30,7 @@ export function operatorNode(context: SyntaxContext, range: TextResourceRange, t
 }
 
 const OPERATORS = [
-  ...new Set(operatorsOrders.flatMap((operatorsOrder) => operatorsOrder.operators).flatMap((operators) => operators)),
+  ...new Set(OPERATOR_ORDERS.flatMap((operatorsOrder) => operatorsOrder.operators).flatMap((operators) => operators)),
 ].sort((a, b) => a.length - b.length);
 
 export function scanOperatorNode(context: SyntaxContext): Node | Nothing {

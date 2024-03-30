@@ -96,7 +96,7 @@ export const CONTROL_KEYWORDS = [
   EXPORT_CONTROL,
 ];
 
-export const operatorsOrders: Array2<OperatorsOrder> = [
+export const OPERATOR_ORDERS: Array2<OperatorsOrder> = [
   {
     operators: [IMPORT_CONTROL],
     operatorType: OperatorType.IMPORT,
@@ -108,7 +108,7 @@ export const operatorsOrders: Array2<OperatorsOrder> = [
     recursiveType: RecursiveType.LEFT,
   },
   {
-    operators: [],
+    operators: [''],
     operatorType: OperatorType.INVOKE,
     recursiveType: RecursiveType.LEFT,
   },

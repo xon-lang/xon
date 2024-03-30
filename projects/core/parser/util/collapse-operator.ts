@@ -1,7 +1,9 @@
 import {Array2, Integer, Nothing, String2, nothing} from '../../lib/core';
 import {$Node, Node, is} from '../node/node';
+import {isGroupNode} from '../node/syntax/group/group-node';
 import {importNode} from '../node/syntax/import/import-node';
 import {infixNode} from '../node/syntax/infix/infix-node';
+import {invokeNode} from '../node/syntax/invoke/invoke-node';
 import {memberNode} from '../node/syntax/member/member-node';
 import {postfixNode} from '../node/syntax/postfix/postfix-node';
 import {prefixNode} from '../node/syntax/prefix/prefix-node';
@@ -22,6 +24,8 @@ type CollapseFn = (
 ) => {spliceIndex: Integer; node: SyntaxNode} | Nothing;
 
 const COLLAPSE_FUNCTIONS: Record<Integer, CollapseFn | Nothing> = {
+  // todo never called from here fix it
+  [OperatorType.INVOKE]: invokeCollapse,
   [OperatorType.IMPORT]: importCollapse,
   [OperatorType.MEMBER]: memberCollapse,
   [OperatorType.RANGE]: rangeCollapse,
@@ -40,6 +44,16 @@ export function collapseOperator(
   for (let i = startIndex; i < context.nodes.length; i++) {
     const lastIndex = context.nodes.length - 1;
     const index = recursiveType === RecursiveType.LEFT ? i : lastIndex - i;
+
+    if (operatorType === OperatorType.INVOKE) {
+      const result = invokeCollapse(context, index);
+
+      if (result) {
+        context.nodes.splice(result.spliceIndex, result.node.children.length, result.node);
+        collapseOperator(context, operators, operatorType, recursiveType, i);
+      }
+    }
+
     const operator = context.nodes[index];
 
     if (!is<OperatorNode>(operator, $Node.OPERATOR) || !operators.includes(operator.text)) {
@@ -167,25 +181,15 @@ function postfixCollapse(
   return nothing;
 }
 
-// function invokeCollapse(
-//   context: SyntaxContext,
-//   index: Integer,
-//   left: Node | Nothing,
-//   operator: OperatorNode,
-//   right: Node | Nothing,
-// ): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
-//   for (let i = 0; i < context.nodes.length; i++) {
-//     const node = context.nodes[i];
+function invokeCollapse(context: SyntaxContext, index: Integer): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+  const instance = context.nodes[index - 1];
+  const group = context.nodes[index];
 
-//     if (isGroupNode(node) && i > 0) {
-//       const prevNode = context.nodes[i - 1];
+  if (index > 0 && instance && isGroupNode(group) && !is<OperatorNode>(instance, $Node.OPERATOR)) {
+    const node = invokeNode(context, instance, group);
 
-//       if (!is<OperatorNode>(prevNode, $Node.OPERATOR)) {
-//         context.nodes.splice(i - 1, 2, invokeNode(context, prevNode, node));
-//         collapseInvoke(context);
+    return {spliceIndex: index - 1, node};
+  }
 
-//         return;
-//       }
-//     }
-//   }
-// }
+  return nothing;
+}
