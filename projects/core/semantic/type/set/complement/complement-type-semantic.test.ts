@@ -33,7 +33,7 @@ test('a is integer or float', () => {
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as ComplementTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type) as ComplementTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.COMPLEMENT_TYPE);
   expect(typeSemantic.left.$).toBe($Semantic.DECLARATION_TYPE);
   expect((typeSemantic.left as DeclarationTypeSemantic).declaration?.name).toBe('Integer');

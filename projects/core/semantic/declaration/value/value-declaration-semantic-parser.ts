@@ -47,7 +47,7 @@ function typeParse(context: SemanticContext, declaration: ValueDeclarationSemant
     return;
   }
 
-  const type = typeSemanticParse(context, node.type.value);
+  const type = typeSemanticParse(context, node.type);
 
   if (type) {
     declaration.type = type;

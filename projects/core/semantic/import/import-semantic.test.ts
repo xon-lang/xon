@@ -28,7 +28,7 @@ test('import core', () => {
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as StringTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type) as StringTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.STRING_TYPE);
   expect(typeSemantic.value).toBe('abc');
 });
