@@ -4,7 +4,7 @@ import {StatementNode, statementNode} from '../node/syntax/statement/statement-n
 import {TokenNode} from '../node/token/token-node';
 import {OPERATOR_ORDERS} from '../parser-config';
 import {SyntaxContext} from '../syntax-context';
-import {parseDeclarationStatement} from './collapse-declaration';
+// import {parseDeclarationStatement} from './collapse-declaration';
 import {collapseOperator} from './collapse-operator';
 
 export function getStatementNode(
@@ -15,11 +15,11 @@ export function getStatementNode(
   indentHiddenNodes: Array2<TokenNode>,
 ): StatementNode {
   collapseOperators(context);
-  const declaration = parseDeclarationStatement(context, context.nodes[0]);
+  // const declaration = parseDeclarationStatement(context, context.nodes[0]);
 
-  if (declaration) {
-    context.nodes[0] = declaration;
-  }
+  // if (declaration) {
+  //   context.nodes[0] = declaration;
+  // }
 
   context.nodes
     .slice(1)

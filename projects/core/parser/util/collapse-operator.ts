@@ -1,5 +1,6 @@
 import {Array2, Integer, Nothing, String2, nothing} from '../../lib/core';
 import {$Node, Node, is} from '../node/node';
+import {assignNode} from '../node/syntax/assign/assign-node';
 import {isGroupNode} from '../node/syntax/group/group-node';
 import {importNode} from '../node/syntax/import/import-node';
 import {infixNode} from '../node/syntax/infix/infix-node';
@@ -9,6 +10,7 @@ import {postfixNode} from '../node/syntax/postfix/postfix-node';
 import {prefixNode} from '../node/syntax/prefix/prefix-node';
 import {rangeNode} from '../node/syntax/range/range-node';
 import {SyntaxNode} from '../node/syntax/syntax-node';
+import {typeNode} from '../node/syntax/type/type-node';
 import {IdNode} from '../node/token/id/id-node';
 import {OperatorNode} from '../node/token/operator/operator-node';
 import {StringNode} from '../node/token/string/string-node';
@@ -23,7 +25,7 @@ type CollapseFn = (
   right: Node | Nothing,
 ) => {spliceIndex: Integer; node: SyntaxNode} | Nothing;
 
-const COLLAPSE_FUNCTIONS: Record<Integer, CollapseFn | Nothing> = {
+const COLLAPSE_FUNCTIONS: Record<OperatorType, CollapseFn | Nothing> = {
   // todo never called from here fix it
   [OperatorType.INVOKE]: invokeCollapse,
   [OperatorType.IMPORT]: importCollapse,
@@ -32,6 +34,8 @@ const COLLAPSE_FUNCTIONS: Record<Integer, CollapseFn | Nothing> = {
   [OperatorType.INFIX]: infixCollapse,
   [OperatorType.PREFIX]: prefixCollapse,
   [OperatorType.POSTFIX]: postfixCollapse,
+  [OperatorType.TYPE]: typeCollapse,
+  [OperatorType.ASSIGN]: assignCollapse,
 };
 
 export function collapseOperator(
@@ -174,6 +178,50 @@ function postfixCollapse(
     (index === lastIndex || is<OperatorNode>(right, $Node.OPERATOR))
   ) {
     const node = postfixNode(context, left, operator);
+
+    return {spliceIndex: index - 1, node};
+  }
+
+  return nothing;
+}
+
+function typeCollapse(
+  context: SyntaxContext,
+  index: Integer,
+  left: Node | Nothing,
+  operator: OperatorNode,
+  right: Node | Nothing,
+): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+  if (left && !is<OperatorNode>(left, $Node.OPERATOR)) {
+    if (right && !is<OperatorNode>(right, $Node.OPERATOR)) {
+      const node = typeNode(context, left, operator, right);
+
+      return {spliceIndex: index - 1, node};
+    }
+
+    const node = typeNode(context, left, operator, nothing);
+
+    return {spliceIndex: index - 1, node};
+  }
+
+  return nothing;
+}
+
+function assignCollapse(
+  context: SyntaxContext,
+  index: Integer,
+  left: Node | Nothing,
+  operator: OperatorNode,
+  right: Node | Nothing,
+): {spliceIndex: Integer; node: SyntaxNode} | Nothing {
+  if (left && !is<OperatorNode>(left, $Node.OPERATOR)) {
+    if (right && !is<OperatorNode>(right, $Node.OPERATOR)) {
+      const node = assignNode(context, left, operator, right);
+
+      return {spliceIndex: index - 1, node};
+    }
+
+    const node = assignNode(context, left, operator, nothing);
 
     return {spliceIndex: index - 1, node};
   }

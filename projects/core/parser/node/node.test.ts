@@ -2,6 +2,7 @@ import {nothing} from '../../lib/core';
 import {textResourceFrom} from '../../util/resource/text/text-resource';
 import {parseSyntax} from '../syntax';
 import {$Node} from './node';
+import {AssignNode} from './syntax/assign/assign-node';
 import {InfixNode} from './syntax/infix/infix-node';
 import {IntegerNode} from './token/integer/integer-node';
 import {TokenNode} from './token/token-node';
@@ -23,7 +24,7 @@ test('single expression', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InfixNode;
+  const node = statements[0].item as AssignNode;
 
   expect(statements.length).toBe(1);
 
@@ -37,10 +38,10 @@ test('debug 1', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InfixNode;
+  const node = statements[0].item as AssignNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.INFIX);
+  expect(node.$).toBe($Node.ASSIGN);
 });
 
 test('debug 2', () => {
@@ -48,12 +49,12 @@ test('debug 2', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node0 = statements[0].item as InfixNode;
-  const node1 = statements[1].item as InfixNode;
+  const node0 = statements[0].item as AssignNode;
+  const node1 = statements[1].item as AssignNode;
 
   expect(statements.length).toBe(2);
-  expect(node0.$).toBe($Node.INFIX);
-  expect(node1.$).toBe($Node.INFIX);
+  expect(node0.$).toBe($Node.ASSIGN);
+  expect(node1.$).toBe($Node.ASSIGN);
 });
 
 test('debug 3', () => {

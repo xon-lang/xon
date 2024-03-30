@@ -34,7 +34,7 @@ export const SPACE = ' ';
 export const UNDERSCORE = '_';
 export const STRING_QUOTE = '"';
 export const CHAR_QUOTE = "'";
-export const TYPE_TOKEN = ':';
+export const TYPE = ':';
 export const ASSIGN = '=';
 export const MEMBER = '.';
 export const META_MEMBER = '::';
@@ -143,13 +143,13 @@ export const OPERATOR_ORDERS: Array2<OperatorsOrder> = [
     recursiveType: RecursiveType.RIGHT,
   },
   {
-    operators: [TYPE_TOKEN],
-    operatorType: OperatorType.INFIX,
+    operators: [TYPE],
+    operatorType: OperatorType.TYPE,
     recursiveType: RecursiveType.RIGHT,
   },
   {
     operators: [ASSIGN],
-    operatorType: OperatorType.INFIX,
+    operatorType: OperatorType.ASSIGN,
     recursiveType: RecursiveType.RIGHT,
   },
   {
