@@ -6,6 +6,7 @@ export interface TokenNode extends Node {
   text: String2;
 }
 
+// todo simplify it
 export function tokenNode<T extends Record<String2, Anything>, V extends $Node>(
   $: V,
   params: T & {range: TextResourceRange; text: String2},

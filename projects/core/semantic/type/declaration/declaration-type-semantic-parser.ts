@@ -3,7 +3,7 @@ import {Nothing, nothing} from '../../../lib/core';
 import {$Node, Node, is} from '../../../parser/node/node';
 import {InvokeNode} from '../../../parser/node/syntax/invoke/invoke-node';
 import {IdNode} from '../../../parser/node/token/id/id-node';
-import {OBJECT_NODE_OPEN} from '../../../parser/parser-config';
+import {OBJECT_OPEN} from '../../../parser/parser-config';
 import {DeclarationKind} from '../../declaration-manager';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
@@ -48,7 +48,7 @@ function idParse(context: SemanticContext, node: IdNode): DeclarationTypeSemanti
 }
 
 function invokeParse(context: SemanticContext, node: InvokeNode): DeclarationTypeSemantic | Nothing {
-  if (node.group.open.text !== OBJECT_NODE_OPEN) {
+  if (node.group.open.text !== OBJECT_OPEN) {
     context.issueManager.addError(node.group.open.range, ISSUE_MESSAGE.notImplemented());
 
     return nothing;

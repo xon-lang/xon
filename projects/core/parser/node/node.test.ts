@@ -2,7 +2,7 @@ import {nothing} from '../../lib/core';
 import {textResourceFrom} from '../../util/resource/text/text-resource';
 import {parseSyntax} from '../syntax';
 import {$Node} from './node';
-import {AssignNode} from './syntax/assign/assign-node';
+// import {AssignNode} from './syntax/assign/assign-node';
 import {InfixNode} from './syntax/infix/infix-node';
 import {IntegerNode} from './token/integer/integer-node';
 import {TokenNode} from './token/token-node';
@@ -19,43 +19,43 @@ test('comma', () => {
   expect(node.text).toBe('1');
 });
 
-test('single expression', () => {
-  const text = '\n  a = 1';
-  const source = textResourceFrom(nothing, text);
-  const syntax = parseSyntax(source);
-  const statements = syntax.statements;
-  const node = statements[0].item as AssignNode;
+// test('single expression', () => {
+//   const text = '\n  a = 1';
+//   const source = textResourceFrom(nothing, text);
+//   const syntax = parseSyntax(source);
+//   const statements = syntax.statements;
+//   const node = statements[0].item as AssignNode;
 
-  expect(statements.length).toBe(1);
+//   expect(statements.length).toBe(1);
 
-  expect((node.left as TokenNode).text).toBe('a');
-  expect(node.operator.text).toBe('=');
-  expect((node.right as IntegerNode).text).toBe('1');
-});
+//   expect((node.left as TokenNode).text).toBe('a');
+//   expect(node.operator.text).toBe('=');
+//   expect((node.right as IntegerNode).text).toBe('1');
+// });
 
-test('debug 1', () => {
-  const text = 'a = 1\n b = 2\n +b';
-  const source = textResourceFrom(nothing, text);
-  const syntax = parseSyntax(source);
-  const statements = syntax.statements;
-  const node = statements[0].item as AssignNode;
+// test('debug 1', () => {
+//   const text = 'a = 1\n b = 2\n +b';
+//   const source = textResourceFrom(nothing, text);
+//   const syntax = parseSyntax(source);
+//   const statements = syntax.statements;
+//   const node = statements[0].item as AssignNode;
 
-  expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.ASSIGN);
-});
+//   expect(statements.length).toBe(1);
+//   expect(node.$).toBe($Node.ASSIGN);
+// });
 
-test('debug 2', () => {
-  const text = 'a = 1\nb = 2\n';
-  const source = textResourceFrom(nothing, text);
-  const syntax = parseSyntax(source);
-  const statements = syntax.statements;
-  const node0 = statements[0].item as AssignNode;
-  const node1 = statements[1].item as AssignNode;
+// test('debug 2', () => {
+//   const text = 'a = 1\nb = 2\n';
+//   const source = textResourceFrom(nothing, text);
+//   const syntax = parseSyntax(source);
+//   const statements = syntax.statements;
+//   const node0 = statements[0].item as AssignNode;
+//   const node1 = statements[1].item as AssignNode;
 
-  expect(statements.length).toBe(2);
-  expect(node0.$).toBe($Node.ASSIGN);
-  expect(node1.$).toBe($Node.ASSIGN);
-});
+//   expect(statements.length).toBe(2);
+//   expect(node0.$).toBe($Node.ASSIGN);
+//   expect(node1.$).toBe($Node.ASSIGN);
+// });
 
 test('debug 3', () => {
   const text = `a

@@ -1,7 +1,7 @@
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {Array2, Nothing, nothing} from '../../../../lib/core';
 import '../../../../util/extension';
-import {ARRAY_NODE_OPEN, COMMA, GROUP_NODE_OPEN, OBJECT_NODE_OPEN, OPEN_CLOSE_PAIR} from '../../../parser-config';
+import {ARRAY_OPEN, COMMA, GROUP_OPEN, OBJECT_OPEN, OPEN_CLOSE_PAIR} from '../../../parser-config';
 import {parseSyntaxUntil} from '../../../syntax';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node, is} from '../../node';
@@ -96,15 +96,15 @@ function createGroupNode(
   close: CloseNode | Nothing,
   nodes: Array2<ItemNode>,
 ): Group | Nothing {
-  if (open.text === GROUP_NODE_OPEN) {
+  if (open.text === GROUP_OPEN) {
     return groupNode(context, open, close, nodes);
   }
 
-  if (open.text === OBJECT_NODE_OPEN) {
+  if (open.text === OBJECT_OPEN) {
     return objectNode(open, close, nodes);
   }
 
-  if (open.text === ARRAY_NODE_OPEN) {
+  if (open.text === ARRAY_OPEN) {
     return arrayNode(open, close, nodes);
   }
 

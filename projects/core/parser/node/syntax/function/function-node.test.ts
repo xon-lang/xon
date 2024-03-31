@@ -6,14 +6,14 @@
 // import {CharNode} from '../../token/char/char-node';
 // import {IdNode} from '../../token/id/id-node';
 // import {IntegerNode} from '../../token/integer/integer-node';
-// import {DeclarationNode} from './declaration-node';
+// import {FunctionNode} from './function-node';
 
 // test('model A', () => {
 //   const text = 'model A';
 //   const source = textResourceFrom(nothing, text);
 //   const syntax = parseSyntax(source);
 //   const statements = syntax.statements;
-//   const node = statements[0].item as DeclarationNode;
+//   const node = statements[0].item as FunctionNode;
 
 //   expect(statements.length).toBe(1);
 //   expect(node.$).toBe($Node.DECLARATION);
@@ -26,7 +26,7 @@
 //   const source = textResourceFrom(nothing, text);
 //   const syntax = parseSyntax(source);
 //   const statements = syntax.statements;
-//   const node = statements[0].item as DeclarationNode;
+//   const node = statements[0].item as FunctionNode;
 
 //   expect(statements.length).toBe(1);
 //   expect(node.$).toBe($Node.DECLARATION);
@@ -41,7 +41,7 @@
 //   const source = textResourceFrom(nothing, text);
 //   const syntax = parseSyntax(source);
 //   const statements = syntax.statements;
-//   const node = statements[0].item as DeclarationNode;
+//   const node = statements[0].item as FunctionNode;
 
 //   expect(statements.length).toBe(1);
 //   expect(node.$).toBe($Node.DECLARATION);
@@ -60,7 +60,7 @@
 //   const source = textResourceFrom(nothing, text);
 //   const syntax = parseSyntax(source);
 //   const statements = syntax.statements;
-//   const node = statements[0].item as DeclarationNode;
+//   const node = statements[0].item as FunctionNode;
 
 //   expect(statements.length).toBe(1);
 //   expect(node.$).toBe($Node.DECLARATION);
@@ -89,7 +89,7 @@
 //   const source = textResourceFrom(nothing, text);
 //   const syntax = parseSyntax(source);
 //   const statements = syntax.statements;
-//   const node = statements[0].item as DeclarationNode;
+//   const node = statements[0].item as FunctionNode;
 
 //   expect(statements.length).toBe(1);
 //   expect(node.$).toBe($Node.DECLARATION);
@@ -130,7 +130,7 @@
 //   const source = textResourceFrom(nothing, text);
 //   const syntax = parseSyntax(source);
 //   const statements = syntax.statements;
-//   const node = statements[0].item as DeclarationNode;
+//   const node = statements[0].item as FunctionNode;
 
 //   expect(statements.length).toBe(1);
 //   expect(node.$).toBe($Node.DECLARATION);
@@ -145,7 +145,7 @@
 //   const source = textResourceFrom(nothing, text);
 //   const syntax = parseSyntax(source);
 //   const statements = syntax.statements;
-//   const node = statements[0].item as DeclarationNode;
+//   const node = statements[0].item as FunctionNode;
 
 //   expect(statements.length).toBe(1);
 //   expect(node.$).toBe($Node.DECLARATION);
@@ -192,7 +192,7 @@
 //   const source = textResourceFrom(nothing, text);
 //   const syntax = parseSyntax(source);
 //   const statements = syntax.statements;
-//   const node = statements[1].item as DeclarationNode;
+//   const node = statements[1].item as FunctionNode;
 
 //   expect(statements.length).toBe(2);
 //   expect(node.$).toBe($Node.DECLARATION);
@@ -206,7 +206,7 @@
 //   const source = textResourceFrom(nothing, text);
 //   const syntax = parseSyntax(source);
 //   const statements = syntax.statements;
-//   const node = statements[0].item as DeclarationNode;
+//   const node = statements[0].item as FunctionNode;
 
 //   expect(statements.length).toBe(1);
 //   expect(node.$).toBe($Node.DECLARATION);
@@ -225,7 +225,7 @@
 //   const source = textResourceFrom(nothing, text);
 //   const syntax = parseSyntax(source);
 //   const statements = syntax.statements;
-//   const node = statements[0].item as DeclarationNode;
+//   const node = statements[0].item as FunctionNode;
 
 //   expect(statements.length).toBe(1);
 //   expect(node.$).toBe($Node.DECLARATION);

@@ -1,245 +1,73 @@
-import {Array2, Integer, Nothing, String2, nothing} from '../../lib/core';
-import {$Node, Node, is} from '../node/node';
-import {assignNode} from '../node/syntax/assign/assign-node';
-import {isGroupNode} from '../node/syntax/group/group-node';
-import {importNode} from '../node/syntax/import/import-node';
-import {infixNode} from '../node/syntax/infix/infix-node';
-import {invokeNode} from '../node/syntax/invoke/invoke-node';
-import {memberNode} from '../node/syntax/member/member-node';
-import {postfixNode} from '../node/syntax/postfix/postfix-node';
-import {prefixNode} from '../node/syntax/prefix/prefix-node';
-import {rangeNode} from '../node/syntax/range/range-node';
-import {SyntaxNode} from '../node/syntax/syntax-node';
-import {typeNode} from '../node/syntax/type/type-node';
-import {IdNode} from '../node/token/id/id-node';
-import {OperatorNode} from '../node/token/operator/operator-node';
-import {StringNode} from '../node/token/string/string-node';
-import {OperatorType, RecursiveType} from '../parser-config';
-import {SyntaxContext} from '../syntax-context';
+// function typeCollapse(
+//   context: SyntaxContext,
+//   index: Integer,
+//   left: Node | Nothing,
+//   operator: OperatorNode,
+//   right: Node | Nothing,
+// ): CollapseResult {
+//   if (!left || is<OperatorNode>(left, $Node.OPERATOR)) {
+//     return nothing;
+//   }
 
-type CollapseFn = (
-  context: SyntaxContext,
-  index: Integer,
-  left: Node | Nothing,
-  operator: OperatorNode,
-  right: Node | Nothing,
-) => CollapseResult;
+//   const rightNode = right && !is<OperatorNode>(right, $Node.OPERATOR) ? right : nothing;
 
-type CollapseResult = {spliceIndex: Integer; node: SyntaxNode} | Nothing;
+//   if (is<InvokeNode>(left, $Node.GROUP) && left.open.text === GROUP_OPEN) {
+//     const node = parametersTypeCollapse(left, operator, rightNode);
 
-const COLLAPSE_FUNCTIONS: Record<OperatorType, CollapseFn | Nothing> = {
-  // todo never called from here fix it
-  [OperatorType.INVOKE]: invokeCollapse,
-  [OperatorType.IMPORT]: importCollapse,
-  [OperatorType.MEMBER]: memberCollapse,
-  [OperatorType.RANGE]: rangeCollapse,
-  [OperatorType.INFIX]: infixCollapse,
-  [OperatorType.PREFIX]: prefixCollapse,
-  [OperatorType.POSTFIX]: postfixCollapse,
-  [OperatorType.TYPE]: typeCollapse,
-  [OperatorType.ASSIGN]: assignCollapse,
-};
+//     return {spliceIndex, node};
+//   }
 
-export function collapseOperator(
-  context: SyntaxContext,
-  operators: Array2<String2>,
-  operatorType: OperatorType,
-  recursiveType: RecursiveType,
-  startIndex = 0,
-): Nothing {
-  for (let i = startIndex; i < context.nodes.length; i++) {
-    const lastIndex = context.nodes.length - 1;
-    const index = recursiveType === RecursiveType.LEFT ? i : lastIndex - i;
+//   if (is<GroupNode>(left, $Node.GROUP)) {
+//     const node = groupTypeCollapse(context, left, operator, rightNode);
 
-    if (operatorType === OperatorType.INVOKE) {
-      const result = invokeCollapse(context, index);
+//     return {spliceIndex, deleteCount: 3, node};
+//   }
 
-      if (result) {
-        context.nodes.splice(result.spliceIndex, result.node.children.length, result.node);
-        collapseOperator(context, operators, operatorType, recursiveType, i);
-      }
-    }
+//   return nothing;
+// }
 
-    const operator = context.nodes[index];
+// function invokeTypeCollapse(
+//   context: SyntaxContext,
+//   index: Integer,
+//   invoke: InvokeNode,
+//   operator: OperatorNode,
+//   type: Node | Nothing,
+// ): CollapseResult {
+//   if (is<GroupNode>(invoke.instance, $Node.GROUP) && invoke.instance.open.text === OBJECT_OPEN) {
+//     for (const item of invoke.instance.items) {
+//       if (is<IdNode>(item.value, $Node.ID)) {
+//         item.value = idToDeclaration(item.value);
+//       }
+//     }
 
-    if (!is<OperatorNode>(operator, $Node.OPERATOR) || !operators.includes(operator.text)) {
-      continue;
-    }
+//     for (const item of invoke.group.items) {
+//       if (is<IdNode>(item.value, $Node.ID)) {
+//         item.value = idToDeclaration(item.value);
+//       }
+//     }
 
-    const left = context.nodes[index - 1];
-    const right = context.nodes[index + 1];
+//     const node = functionNode(invoke.group, invoke.instance, operator, type, nothing, nothing);
 
-    const collapse = COLLAPSE_FUNCTIONS[operatorType];
+//     return {spliceIndex: index - 1, node};
+//   }
 
-    if (!collapse) {
-      return;
-    }
+//   return nothing;
+// }
 
-    const result = collapse(context, index, left, operator, right);
+// function groupTypeCollapse(
+//   context: SyntaxContext,
+//   index: Integer,
+//   group: GroupNode,
+//   operator: OperatorNode,
+//   type: Node | Nothing,
+// ): CollapseResult {
+//   for (const item of group.items) {
+//     if (is<IdNode>(item.value, $Node.ID)) {
+//       item.value = idToDeclaration(item.value);
+//     }
+//   }
 
-    if (result) {
-      context.nodes.splice(result.spliceIndex, result.node.children.length, result.node);
-      collapseOperator(context, operators, operatorType, recursiveType, i);
-    }
-  }
-}
+//   const node = functionNode(nothing, group, operator, type, nothing, nothing);
 
-function importCollapse(
-  context: SyntaxContext,
-  index: Integer,
-  left: Node | Nothing,
-  operator: OperatorNode,
-  right: Node | Nothing,
-): CollapseResult {
-  if (is<StringNode>(right, $Node.STRING) && (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))) {
-    const node = importNode(context, operator, right);
-
-    return {spliceIndex: index, node};
-  }
-
-  return nothing;
-}
-
-function memberCollapse(
-  context: SyntaxContext,
-  index: Integer,
-  left: Node | Nothing,
-  operator: OperatorNode,
-  right: Node | Nothing,
-): CollapseResult {
-  if (!left || is<OperatorNode>(left, $Node.OPERATOR)) {
-    return nothing;
-  }
-
-  const id = is<IdNode>(right, $Node.ID) ? right : nothing;
-  const node = memberNode(context, operator, left, id);
-
-  return {spliceIndex: index - 1, node};
-}
-
-function rangeCollapse(
-  context: SyntaxContext,
-  index: Integer,
-  left: Node | Nothing,
-  operator: OperatorNode,
-  right: Node | Nothing,
-): CollapseResult {
-  if (!left || !right || is<OperatorNode>(left, $Node.OPERATOR) || is<OperatorNode>(right, $Node.OPERATOR)) {
-    return nothing;
-  }
-
-  const node = rangeNode(context, left, operator, right);
-
-  return {spliceIndex: index - 1, node};
-}
-
-function infixCollapse(
-  context: SyntaxContext,
-  index: Integer,
-  left: Node | Nothing,
-  operator: OperatorNode,
-  right: Node | Nothing,
-): CollapseResult {
-  if (!left || !right || is<OperatorNode>(left, $Node.OPERATOR) || is<OperatorNode>(right, $Node.OPERATOR)) {
-    return nothing;
-  }
-
-  const node = infixNode(context, left, operator, right);
-
-  return {spliceIndex: index - 1, node};
-}
-
-function prefixCollapse(
-  context: SyntaxContext,
-  index: Integer,
-  left: Node | Nothing,
-  operator: OperatorNode,
-  right: Node | Nothing,
-): CollapseResult {
-  if (right && !is<OperatorNode>(right, $Node.OPERATOR) && (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))) {
-    const node = prefixNode(context, operator, right);
-
-    return {spliceIndex: index, node};
-  }
-
-  return nothing;
-}
-
-function postfixCollapse(
-  context: SyntaxContext,
-  index: Integer,
-  left: Node | Nothing,
-  operator: OperatorNode,
-  right: Node | Nothing,
-): CollapseResult {
-  const lastIndex = context.nodes.length - 1;
-
-  if (
-    left &&
-    !is<OperatorNode>(left, $Node.OPERATOR) &&
-    (index === lastIndex || is<OperatorNode>(right, $Node.OPERATOR))
-  ) {
-    const node = postfixNode(context, left, operator);
-
-    return {spliceIndex: index - 1, node};
-  }
-
-  return nothing;
-}
-
-function typeCollapse(
-  context: SyntaxContext,
-  index: Integer,
-  left: Node | Nothing,
-  operator: OperatorNode,
-  right: Node | Nothing,
-): CollapseResult {
-  if (!left || is<OperatorNode>(left, $Node.OPERATOR)) {
-    return nothing;
-  }
-
-  if (right && !is<OperatorNode>(right, $Node.OPERATOR)) {
-    const node = typeNode(context, left, operator, right);
-
-    return {spliceIndex: index - 1, node};
-  }
-
-  const node = typeNode(context, left, operator, nothing);
-
-  return {spliceIndex: index - 1, node};
-}
-
-function assignCollapse(
-  context: SyntaxContext,
-  index: Integer,
-  left: Node | Nothing,
-  operator: OperatorNode,
-  right: Node | Nothing,
-): CollapseResult {
-  if (!left || is<OperatorNode>(left, $Node.OPERATOR)) {
-    return nothing;
-  }
-
-  if (right && !is<OperatorNode>(right, $Node.OPERATOR)) {
-    const node = assignNode(context, left, operator, right);
-
-    return {spliceIndex: index - 1, node};
-  }
-
-  const node = assignNode(context, left, operator, nothing);
-
-  return {spliceIndex: index - 1, node};
-}
-
-function invokeCollapse(context: SyntaxContext, index: Integer): CollapseResult {
-  const instance = context.nodes[index - 1];
-  const group = context.nodes[index];
-
-  if (index > 0 && instance && isGroupNode(group) && !is<OperatorNode>(instance, $Node.OPERATOR)) {
-    const node = invokeNode(context, instance, group);
-
-    return {spliceIndex: index - 1, node};
-  }
-
-  return nothing;
-}
+//   return {spliceIndex: index - 1, node};
+// }

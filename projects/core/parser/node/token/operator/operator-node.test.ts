@@ -3,7 +3,7 @@ import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {parseSyntax} from '../../../syntax';
 import {$Node} from '../../node';
 import {InfixNode} from '../../syntax/infix/infix-node';
-import {PrefixNode} from '../../syntax/prefix/prefix-node';
+import {PostfixNode} from '../../syntax/postfix/postfix-node';
 import {OperatorNode} from './operator-node';
 
 test('single operator', () => {
@@ -23,7 +23,7 @@ test('after integer', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
   const statements = syntax.statements;
-  const node = statements[0].item as PrefixNode;
+  const node = statements[0].item as PostfixNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.POSTFIX);

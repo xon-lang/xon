@@ -1,28 +1,4 @@
-import {Array2, Char, String2} from '../lib/core';
-import {$Node} from './node/node';
-
-export interface OperatorsOrder {
-  operators: Array2<Array2<String2>>;
-  operatorType: OperatorType;
-  recursiveType: RecursiveType;
-}
-
-export enum OperatorType {
-  IMPORT,
-  MEMBER,
-  RANGE,
-  INVOKE,
-  TYPE,
-  ASSIGN,
-  INFIX,
-  PREFIX,
-  POSTFIX,
-}
-
-export enum RecursiveType {
-  LEFT = 0,
-  RIGHT = 1,
-}
+import {Char} from '../lib/core';
 
 export const COMMENT_LINE = '//';
 export const COMMENT_BLOCK = '---';
@@ -45,19 +21,19 @@ export const UNION = '|';
 export const COMPLEMENT = '\\';
 export const NOT = '!';
 
-export const GROUP_NODE_OPEN = '(';
-export const GROUP_NODE_CLOSE = ')';
+export const GROUP_OPEN = '(';
+export const GROUP_CLOSE = ')';
 
-export const ARRAY_NODE_OPEN = '[';
-export const ARRAY_NODE_CLOSE = ']';
+export const ARRAY_OPEN = '[';
+export const ARRAY_CLOSE = ']';
 
-export const OBJECT_NODE_OPEN = '{';
-export const OBJECT_NODE_CLOSE = '}';
+export const OBJECT_OPEN = '{';
+export const OBJECT_CLOSE = '}';
 
 export const OPEN_CLOSE_PAIR: Record<Char, Char> = {
-  [GROUP_NODE_OPEN]: GROUP_NODE_CLOSE,
-  [ARRAY_NODE_OPEN]: ARRAY_NODE_CLOSE,
-  [OBJECT_NODE_OPEN]: OBJECT_NODE_CLOSE,
+  [GROUP_OPEN]: GROUP_CLOSE,
+  [ARRAY_OPEN]: ARRAY_CLOSE,
+  [OBJECT_OPEN]: OBJECT_CLOSE,
 };
 
 export const IMPORT_CONTROL = 'import';
@@ -96,76 +72,50 @@ export const CONTROL_KEYWORDS = [
   EXPORT_CONTROL,
 ];
 
-export const OPERATOR_ORDERS: Array2<OperatorsOrder> = [
-  {
-    operators: [IMPORT_CONTROL],
-    operatorType: OperatorType.IMPORT,
-    recursiveType: RecursiveType.RIGHT,
-  },
-  {
-    operators: [`${MEMBER} ${META_MEMBER}`],
-    operatorType: OperatorType.MEMBER,
-    recursiveType: RecursiveType.LEFT,
-  },
-  {
-    operators: [''],
-    operatorType: OperatorType.INVOKE,
-    recursiveType: RecursiveType.LEFT,
-  },
-  {
-    operators: ['... + - ' + NOT],
-    operatorType: OperatorType.PREFIX,
-    recursiveType: RecursiveType.LEFT,
-  },
-  {
-    operators: ['? !'],
-    operatorType: OperatorType.POSTFIX,
-    recursiveType: RecursiveType.LEFT,
-  },
-  {
-    operators: ['^', '* / %', '+ -'],
-    operatorType: OperatorType.INFIX,
-    recursiveType: RecursiveType.LEFT,
-  },
-  {
-    operators: [RANGE],
-    operatorType: OperatorType.RANGE,
-    recursiveType: RecursiveType.LEFT,
-  },
-  {
-    operators: ['< <= >= >', '== !=', OPERATOR_KEYWORDS.join(' '), INTERSECTION, UNION + ' ' + COMPLEMENT],
-    operatorType: OperatorType.INFIX,
-    recursiveType: RecursiveType.LEFT,
-  },
-  {
-    operators: [MODIFIER_KEYWORDS.join(' ')],
-    operatorType: OperatorType.PREFIX,
-    recursiveType: RecursiveType.RIGHT,
-  },
-  {
-    operators: [TYPE],
-    operatorType: OperatorType.TYPE,
-    recursiveType: RecursiveType.RIGHT,
-  },
-  {
-    operators: [ASSIGN],
-    operatorType: OperatorType.ASSIGN,
-    recursiveType: RecursiveType.RIGHT,
-  },
-  {
-    operators: [CONTROL_KEYWORDS.join(' ')],
-    operatorType: OperatorType.PREFIX,
-    recursiveType: RecursiveType.RIGHT,
-  },
-  {
-    operators: [COMMA],
-    operatorType: OperatorType.INFIX,
-    recursiveType: RecursiveType.LEFT,
-  },
-].map((x) => ({
-  operators: x.operators.map((s) => s.split(' ')),
-  operatorType: x.operatorType,
-  recursiveType: x.recursiveType,
-}));
+export const REST = '...';
+export const PLUS = '+';
+export const MINUS = '-';
+export const OPTIONAL = '?';
+export const PROMISE = '!';
+export const SQUARE = '^';
+export const MULTIPLY = '*';
+export const DIVIDE = '/';
+export const MOD = '%';
+export const GREAT = '>';
+export const GREAT_EQUALS = '>=';
+export const LESS = '<';
+export const LESS_EQUALS = '<=';
+export const EQUALS = '==';
+export const NOT_EQUALS = '!=';
 
-export const ALLOW_ASSIGN_NODE_TYPES = [$Node.ID, $Node.GROUP, $Node.ARRAY, $Node.OBJECT];
+export const OPERATORS = [
+  IMPORT_CONTROL,
+  MEMBER,
+  META_MEMBER,
+  REST,
+  PLUS,
+  MINUS,
+  NOT,
+  OPTIONAL,
+  PROMISE,
+  SQUARE,
+  MULTIPLY,
+  DIVIDE,
+  MOD,
+  PLUS,
+  MINUS,
+  RANGE,
+  LESS,
+  LESS_EQUALS,
+  GREAT_EQUALS,
+  GREAT,
+  EQUALS,
+  NOT_EQUALS,
+  INTERSECTION,
+  UNION,
+  COMPLEMENT,
+  COMMA,
+  ...MODIFIER_KEYWORDS,
+  ...CONTROL_KEYWORDS,
+  ...OPERATOR_KEYWORDS,
+].sort((a, b) => a.length - b.length);

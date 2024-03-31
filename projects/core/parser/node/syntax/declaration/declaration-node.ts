@@ -9,7 +9,7 @@ import {SyntaxNode, syntaxNode} from '../syntax-node';
 export interface DeclarationNode extends SyntaxNode {
   $: $Node.DECLARATION;
   modifier: OperatorNode | Nothing;
-  id: IdNode | Nothing;
+  id: IdNode;
   generics: GenericsNode | Nothing;
   parameters: ParametersNode | Nothing;
 
@@ -22,8 +22,25 @@ export interface DeclarationNode extends SyntaxNode {
   attributes: Array2<DeclarationNode>;
 }
 
-export function declarationNode(params: Omit<DeclarationNode, keyof SyntaxNode | 'attributes'>): DeclarationNode {
+export function declarationNode(params: Omit<DeclarationNode, keyof SyntaxNode | '$' | 'attributes'>): DeclarationNode {
   const node = syntaxNode($Node.DECLARATION, {...params, attributes: []});
 
   return node;
+}
+
+export function idToDeclaration(id: IdNode): DeclarationNode {
+  return partialToDeclaration({id});
+}
+
+export function partialToDeclaration(params: Partial<DeclarationNode> & {id: IdNode}) {
+  return declarationNode({
+    modifier: params.modifier,
+    id: params.id,
+    generics: params.generics,
+    parameters: params.parameters,
+    typeOperator: params.typeOperator,
+    type: params.type,
+    assignOperator: params.assignOperator,
+    assign: params.assign,
+  });
 }
