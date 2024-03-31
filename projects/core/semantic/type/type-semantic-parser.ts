@@ -3,6 +3,7 @@ import {Node} from '../../parser/node/node';
 import {SemanticContext} from '../semantic-context';
 import {arrayTypeSemanticTryParse} from './array/array-type-semantic-parser';
 import {declarationTypeSemanticTryParse} from './declaration/declaration-type-semantic-parser';
+import {functionTypeSemanticTryParse} from './function/function-type-semantic-parser';
 import {integerTypeSemanticTryParse} from './integer/integer-type-semantic-parser';
 import {complementTypeSemanticTryParse} from './set/complement/intersection-type-semantic-parser';
 import {intersectionTypeSemanticTryParse} from './set/intersection/intersection-type-semantic-parser';
@@ -20,6 +21,7 @@ const parsers: Array2<TypeSemanticTryParseFn> = [
   rangeTypeSemanticTryParse,
   arrayTypeSemanticTryParse,
   declarationTypeSemanticTryParse,
+  functionTypeSemanticTryParse,
   intersectionTypeSemanticTryParse,
   unionTypeSemanticTryParse,
   complementTypeSemanticTryParse,

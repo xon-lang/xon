@@ -1,36 +1,21 @@
-// import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-// import {Nothing, nothing} from '../../../lib/core';
-// import {$Node, Node, is} from '../../../parser/node/node';
-// import {StringNode} from '../../../parser/node/token/string/string-node';
-// import {DeclarationKind} from '../../declaration-manager';
-// import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
-// import {$Semantic, semanticIs} from '../../semantic';
-// import {SemanticContext} from '../../semantic-context';
-// import {FunctionTypeSemantic, functionTypeSemantic} from './function-type-semantic';
+import {Nothing, nothing} from '../../../lib/core';
+import {$Node, Node, is} from '../../../parser/node/node';
+import {DeclarationNode} from '../../../parser/node/syntax/declaration/declaration-node';
+import {declarationsParse} from '../../declaration/declaration-semantic-parser';
+import {SemanticContext} from '../../semantic-context';
+import {typeSemanticParse} from '../type-semantic-parser';
+import {FunctionTypeSemantic, functionTypeSemantic} from './function-type-semantic';
 
-// export function functionTypeSemanticTryParse(context: SemanticContext, node: Node): FunctionTypeSemantic | Nothing {
-//   if (!is<StringNode>(node, $Node.STRING)) {
-//     return nothing;
-//   }
+export function functionTypeSemanticTryParse(context: SemanticContext, node: Node): FunctionTypeSemantic | Nothing {
+  if (!is<DeclarationNode>(node, $Node.DECLARATION) || !node.parameters) {
+    return nothing;
+  }
 
-//   const declaration = context.declarationManager.single(
-//     DeclarationKind.TYPE,
-//     context.config.literalTypeNames.stringTypeName,
-//     nothing,
-//     nothing,
-//   );
+  const reference = context.createReference(node);
+  const generics = node.generics?.items.map((x) => typeSemanticParse(context, x));
+  const parameters = declarationsParse(context, node.parameters.items);
+  const result = typeSemanticParse(context, node.type);
+  const semantic = functionTypeSemantic(reference, generics, parameters, result);
 
-//   if (!declaration || !semanticIs<TypeDeclarationSemantic>(declaration, $Semantic.TYPE_DECLARATION)) {
-//     context.issueManager.addError(
-//       node.range,
-//       ISSUE_MESSAGE.declarationNotFound(context.config.literalTypeNames.stringTypeName),
-//     );
-
-//     return nothing;
-//   }
-
-//   const reference = context.createReference(node);
-//   const semantic = functionTypeSemantic(reference, declaration, node.value);
-
-//   return semantic;
-// }
+  return semantic;
+}
