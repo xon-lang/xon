@@ -1,9 +1,9 @@
 import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
-import {Nothing} from '../../../../lib/core';
+import {Integer, Nothing, nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, Node} from '../../node';
+import {$Node, Node, findNode, is} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
-import {SyntaxNode, syntaxNode} from '../syntax-node';
+import {SyntaxNode, SyntaxParseFn, syntaxNode} from '../syntax-node';
 
 export interface RangeNode extends SyntaxNode {
   $: $Node.RANGE;
@@ -22,4 +22,30 @@ export function rangeNode(context: SyntaxContext, from: Node, operator: Operator
 function format(context: SyntaxContext, node: RangeNode): Nothing {
   formatBetweenHiddenNodes(context, node.from, false);
   formatBetweenHiddenNodes(context, node.operator, false);
+}
+
+export function rangeSyntaxParse(operators: String[], isLeftRecursive = true): SyntaxParseFn {
+  return (context: SyntaxContext, startIndex: Integer = 0) => {
+    const found = findNode(
+      context.nodes,
+      startIndex,
+      isLeftRecursive,
+      (x): x is OperatorNode => is<OperatorNode>(x, $Node.OPERATOR) && operators.includes(x.text),
+    );
+
+    if (!found) {
+      return;
+    }
+
+    const left = context.nodes[found.index - 1];
+    const right = context.nodes[found.index + 1];
+
+    if (!left || !right || is<OperatorNode>(left, $Node.OPERATOR) || is<OperatorNode>(right, $Node.OPERATOR)) {
+      return nothing;
+    }
+
+    const node = rangeNode(context, left, found.node, right);
+
+    return {node, spliceIndex: found.index - 1};
+  };
 }

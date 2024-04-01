@@ -1,8 +1,9 @@
 import {ISSUE_MESSAGE} from '../../issue/issue-message';
 import {Array2, Integer, Nothing} from '../../lib/core';
 import {StatementNode, statementNode} from '../node/syntax/statement/statement-node';
+import {syntaxParse} from '../node/syntax/syntax-node';
 import {TokenNode} from '../node/token/token-node';
-import {OPERATOR_ORDERS} from '../operator/operator-orders';
+
 import {SyntaxContext} from '../syntax-context';
 // import {parseDeclarationStatement} from './collapse-declaration';
 
@@ -13,7 +14,7 @@ export function getStatementNode(
   beforeIndentHiddenNodes: Array2<TokenNode>,
   indentHiddenNodes: Array2<TokenNode>,
 ): StatementNode {
-  collapseOperators(context);
+  syntaxParse(context);
   // const declaration = parseDeclarationStatement(context, context.nodes[0]);
 
   // if (declaration) {
@@ -25,10 +26,4 @@ export function getStatementNode(
     .forEach((node) => context.issueManager.addError(node.range, ISSUE_MESSAGE.unexpectedExpression()));
 
   return statementNode(context, context.nodes, parent, indentStopColumn, beforeIndentHiddenNodes, indentHiddenNodes);
-}
-
-export function collapseOperators(context: SyntaxContext): Nothing {
-  for (const operatorsOrder of OPERATOR_ORDERS) {
-    operatorsOrder.collapse(context, 0);
-  }
 }

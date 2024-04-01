@@ -1,10 +1,11 @@
 import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
-import {Nothing} from '../../../../lib/core';
+import {Integer, Nothing} from '../../../../lib/core';
+import {IMPORT} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node} from '../../node';
+import {$Node, findNode, is} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {StringNode} from '../../token/string/string-node';
-import {SyntaxNode, syntaxNode} from '../syntax-node';
+import {SyntaxNode, SyntaxParseResult, syntaxNode} from '../syntax-node';
 
 export interface ImportNode extends SyntaxNode {
   $: $Node.IMPORT;
@@ -24,22 +25,24 @@ function format(context: SyntaxContext, node: ImportNode): Nothing {
   formatBetweenHiddenNodes(context, node.operator, true);
 }
 
-importNodeParse(context: SyntaxContext, startIndex: Integer): Nothing {
-  is<OperatorNode>(operator, $Node.OPERATOR) && operators.includes(operator.text)
-  const foundOperator = findOperatorNode(context, startIndex, this.operators);
+export function importSyntaxParse(context: SyntaxContext, startIndex: Integer = 0): SyntaxParseResult {
+  const found = findNode(
+    context.nodes,
+    startIndex,
+    true,
+    (x): x is OperatorNode => is<OperatorNode>(x, $Node.OPERATOR) && x.text === IMPORT,
+  );
 
-  if (!foundOperator) {
+  if (!found) {
     return;
   }
 
-  const {index, operator} = foundOperator;
-  const left = context.nodes[index - 1];
-  const right = context.nodes[index + 1];
+  const left = context.nodes[found.index - 1];
+  const right = context.nodes[found.index + 1];
 
-  if (is<StringNode>(right, $Node.STRING) && (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))) {
-    const node = importNode(context, operator, right);
+  if (is<StringNode>(right, $Node.STRING) && (found.index === 0 || is<OperatorNode>(left, $Node.OPERATOR))) {
+    const node = importNode(context, found.node, right);
 
-    context.nodes.splice(index, node.children.length, node);
-    this.collapse(context, index);
+    return {node, spliceIndex: found.index};
   }
-},
+}

@@ -36,41 +36,29 @@ export const OPEN_CLOSE_PAIR: Record<Char, Char> = {
   [OBJECT_OPEN]: OBJECT_CLOSE,
 };
 
-export const IMPORT_CONTROL = 'import';
-export const EXPORT_CONTROL = 'export';
+export const IMPORT = 'import';
+export const EXPORT = 'export';
 
-export const MODEL_MODIFIER = 'model';
-export const OBJECT_MODIFIER = 'object';
+export const MODEL = 'model';
+export const OBJECT = 'object';
 
-export const CONST_MODIFIER = 'const';
-export const IDEM_MODIFIER = 'idem';
-export const VAR_MODIFIER = 'var';
+export const CONST = 'const';
+export const IDEM = 'idem';
+export const VAR = 'var';
 
-export const INFIX_MODIFIER = 'infix';
-export const PREFIX_MODIFIER = 'prefix';
-export const POSTFIX_MODIFIER = 'postfix';
+export const INFIX = 'infix';
+export const PREFIX = 'prefix';
+export const POSTFIX = 'postfix';
 
-export const TYPE_MODIFIERS = [MODEL_MODIFIER, OBJECT_MODIFIER];
+export const TYPE_MODIFIERS = [MODEL, OBJECT];
 
-export const VALUE_MODIFIERS = [CONST_MODIFIER, VAR_MODIFIER, PREFIX_MODIFIER, POSTFIX_MODIFIER, INFIX_MODIFIER];
+export const VALUE_MODIFIERS = [CONST, VAR, PREFIX, POSTFIX, INFIX];
 
 export const OPERATOR_KEYWORDS = ['is', 'as', 'in'];
 
 export const MODIFIER_KEYWORDS = [...TYPE_MODIFIERS, ...VALUE_MODIFIERS];
 
-export const CONTROL_KEYWORDS = [
-  'if',
-  'then',
-  'else',
-  'for',
-  'do',
-  'while',
-  'break',
-  'continue',
-  'export',
-  'return',
-  EXPORT_CONTROL,
-];
+export const CONTROL_KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'return', EXPORT];
 
 export const REST = '...';
 export const PLUS = '+';
@@ -89,7 +77,7 @@ export const EQUALS = '==';
 export const NOT_EQUALS = '!=';
 
 export const OPERATORS = [
-  IMPORT_CONTROL,
+  IMPORT,
   MEMBER,
   META_MEMBER,
   REST,
