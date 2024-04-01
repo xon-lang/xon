@@ -1,14 +1,14 @@
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {nothing} from '../../../../lib/core';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {parseSyntax} from '../../../syntax';
+import {syntaxParse} from '../../../syntax';
 import {$Node} from '../../node';
 import {IdNode} from './id-node';
 
 test('single id', () => {
   const text = 'abc';
   const source = textResourceFrom(nothing, text);
-  const syntax = parseSyntax(source);
+  const syntax = syntaxParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as IdNode;
 
@@ -20,7 +20,7 @@ test('single id', () => {
 test('several id', () => {
   const text = 'abc edf_    _ghi1_23';
   const source = textResourceFrom(nothing, text);
-  const syntax = parseSyntax(source);
+  const syntax = syntaxParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as IdNode;
 

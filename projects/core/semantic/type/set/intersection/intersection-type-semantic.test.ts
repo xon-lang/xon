@@ -1,6 +1,6 @@
 import {String2, nothing} from '../../../../lib/core';
 import {DeclarationNode} from '../../../../parser/node/syntax/declaration/declaration-node';
-import {parseSyntax} from '../../../../parser/syntax';
+import {syntaxParse} from '../../../../parser/syntax';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {DeclarationKind} from '../../../declaration-manager';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
@@ -19,7 +19,7 @@ test('a is integer', () => {
     const a: Integer & Float
   `;
   const source = textResourceFrom(nothing, text);
-  const syntax = parseSyntax(source);
+  const syntax = syntaxParse(source);
   const semantic = semanticParse(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);
@@ -53,7 +53,7 @@ test('check type', () => {
     const c: String
   `;
   const source = textResourceFrom(nothing, text);
-  const syntax = parseSyntax(source);
+  const syntax = syntaxParse(source);
   const semantic = semanticParse(syntax);
 
   const getConst = (name: String2) =>

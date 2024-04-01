@@ -4,7 +4,7 @@ import {ISSUE_MESSAGE} from '../../issue/issue-message';
 import {Nothing, String2, nothing} from '../../lib/core';
 import {$Node, is} from '../../parser/node/node';
 import {ImportNode} from '../../parser/node/syntax/import/import-node';
-import {parseSyntax} from '../../parser/syntax';
+import {syntaxParse} from '../../parser/syntax';
 import {TextResource, textResourceFromFilePath} from '../../util/resource/text/text-resource';
 import {DeclarationManager} from '../declaration-manager';
 import {$Semantic, semanticParse} from '../semantic';
@@ -40,7 +40,7 @@ export function importNodeParse(context: SemanticContext, node: ImportNode): Not
 
   node.location.semantic = semantic;
 
-  const syntax = parseSyntax(resource);
+  const syntax = syntaxParse(resource);
   const {declarationManager} = semanticParse(syntax);
 
   if (!context.declarationManager.imports) {
@@ -58,7 +58,7 @@ export function declarationManagerFromImportString(importString: String2): Decla
     return nothing;
   }
 
-  const syntax = parseSyntax(resource);
+  const syntax = syntaxParse(resource);
   const {declarationManager} = semanticParse(syntax);
 
   return declarationManager;

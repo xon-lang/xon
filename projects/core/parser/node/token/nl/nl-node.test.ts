@@ -1,7 +1,7 @@
 import {nothing} from '../../../../lib/core';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {NL} from '../../../parser-config';
-import {parseSyntax} from '../../../syntax';
+import {syntaxParse} from '../../../syntax';
 import {$Node} from '../../node';
 import {IdNode} from '../id/id-node';
 import {TokenNode} from '../token-node';
@@ -10,7 +10,7 @@ import {NlNode} from './nl-node';
 test('lf nl', () => {
   const text = '\n';
   const source = textResourceFrom(nothing, text);
-  const syntax = parseSyntax(source);
+  const syntax = syntaxParse(source);
   const statements = syntax.statements;
   const node = syntax.syntaxContext.hiddenNodes[0] as NlNode;
 
@@ -22,7 +22,7 @@ test('lf nl', () => {
 test('several', () => {
   const text = '  \n    \n   abc';
   const source = textResourceFrom(nothing, text);
-  const syntax = parseSyntax(source);
+  const syntax = syntaxParse(source);
   const statements = syntax.statements;
   const node0 = statements[0].hiddenNodes[0] as TokenNode;
   const node1 = statements[0].hiddenNodes[1] as TokenNode;

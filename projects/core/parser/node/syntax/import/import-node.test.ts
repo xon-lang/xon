@@ -1,13 +1,13 @@
 import {nothing} from '../../../../lib/core';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {parseSyntax} from '../../../syntax';
+import {syntaxParse} from '../../../syntax';
 import {$Node} from '../../node';
 import {ImportNode} from './import-node';
 
 test('negative integer', () => {
   const text = 'import "xon/core"';
   const source = textResourceFrom(nothing, text);
-  const syntax = parseSyntax(source);
+  const syntax = syntaxParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as ImportNode;
 

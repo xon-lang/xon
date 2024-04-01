@@ -3,7 +3,7 @@ import {Formatter} from '../../core/formatter/formatter';
 import {Array2, Nothing, String2, nothing} from '../../core/lib/core';
 import {Node, isSyntaxNode} from '../../core/parser/node/node';
 import {StatementNode} from '../../core/parser/node/syntax/statement/statement-node';
-import {parseSyntax} from '../../core/parser/syntax';
+import {syntaxParse} from '../../core/parser/syntax';
 import {SyntaxResult} from '../../core/parser/syntax-context';
 import {semanticParse} from '../../core/semantic/semantic';
 import {textResourceFrom} from '../../core/util/resource/text/text-resource';
@@ -39,7 +39,7 @@ export function getDocumentSyntax(document: TextDocument, channel: OutputChannel
   // todo should be const location = document.uri.toString();
   const location = document.uri.fsPath;
   const resource = textResourceFrom(location, text);
-  const syntax = parseSyntax(resource);
+  const syntax = syntaxParse(resource);
   // const corePath = join(__dirname, '/core/lib/@xon/core/test-core.xon');
   // const semanticConfig = createSemanticConfig({corePath});
   semanticParse(syntax);

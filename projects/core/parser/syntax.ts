@@ -40,7 +40,7 @@ const tokenParsers: Array2<TokenParseFn> = [
   unknownTokenParse,
 ];
 
-export function parseSyntax(source: TextResource): SyntaxResult {
+export function syntaxParse(source: TextResource): SyntaxResult {
   const result = parseSyntaxUntil(source, zeroPosition(), nothing);
 
   return result;
