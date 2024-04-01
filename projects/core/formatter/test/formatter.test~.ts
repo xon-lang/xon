@@ -1,7 +1,7 @@
 import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
 import {String2} from '../../lib/core';
-import {syntaxParse} from '../../parser/parser';
+import {syntaxParse} from '../../parser/resource-parser';
 import {textResourceFromFilePath} from '../../util/resource/text/text-resource';
 
 // test('1', () => testFormatter('1'));

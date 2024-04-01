@@ -37,6 +37,9 @@ import {prefixSyntaxParse} from './prefix/prefix-node';
 import {rangeSyntaxParse} from './range/range-node';
 import {SyntaxNode} from './syntax-node';
 
+export type SyntaxParseResult = {spliceIndex: Integer; node: SyntaxNode} | Nothing;
+export type SyntaxParseFn = (context: SyntaxContext, startIndex: Integer) => SyntaxParseResult;
+
 const parsers: Array2<SyntaxParseFn> = [
   importSyntaxParse,
   memberSyntaxParse([MEMBER, META_MEMBER]),
@@ -56,9 +59,6 @@ const parsers: Array2<SyntaxParseFn> = [
   prefixSyntaxParse(CONTROL_KEYWORDS, false),
   infixSyntaxParse([COMMA]),
 ];
-
-export type SyntaxParseResult = {spliceIndex: Integer; node: SyntaxNode} | Nothing;
-export type SyntaxParseFn = (context: SyntaxContext, startIndex: Integer) => SyntaxParseResult;
 
 export function syntaxParse(context: SyntaxContext): Nothing {
   for (const parse of parsers) {

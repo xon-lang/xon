@@ -1,8 +1,8 @@
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {nothing} from '../../../../lib/core';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {syntaxParse} from '../../../parser';
 import {OPEN_CLOSE_PAIR} from '../../../parser-config';
+import {syntaxParse} from '../../../resource-parser';
 import {$Node, is} from '../../node';
 import {GroupNode} from './group-node';
 

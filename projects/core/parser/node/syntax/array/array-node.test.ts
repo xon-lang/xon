@@ -1,6 +1,6 @@
 import {nothing} from '../../../../lib/core';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {syntaxParse} from '../../../parser';
+import {syntaxParse} from '../../../resource-parser';
 import {$Node, is} from '../../node';
 import {IntegerNode} from '../../token/integer/integer-node';
 import {GroupNode} from '../group/group-node';

@@ -21,9 +21,11 @@ import {whitespaceTokenParse} from './node/token/whitespace/whitespace-node';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
 import {putStatementNode} from './util/put-statement-node';
 
-type TokenParseFn = (context: SyntaxContext) => Node | Nothing;
 
-const tokenParsers: Array2<TokenParseFn> = [
+export type TokenParseResult = Node | Nothing;
+export type TokenParseFn = (context: SyntaxContext) => TokenParseResult;
+
+const parsers: Array2<TokenParseFn> = [
   commentBlockTokenParse,
   commentLineTokenParse,
   integerTokenParse,
@@ -113,7 +115,7 @@ export function syntaxParseUntil(
 }
 
 function nextNode(context: SyntaxContext): Node {
-  const node = tokenParsers.findMap((parse) => parse(context));
+  const node = parsers.findMap((parse) => parse(context));
 
   if (node) {
     context.position.index = node.range.stop.index;

@@ -4,7 +4,7 @@ import {ISSUE_MESSAGE} from '../../issue/issue-message';
 import {Nothing, String2, nothing} from '../../lib/core';
 import {$Node, is} from '../../parser/node/node';
 import {ImportNode} from '../../parser/node/syntax/import/import-node';
-import {syntaxParse} from '../../parser/parser';
+import {syntaxParse} from '../../parser/resource-parser';
 import {TextResource, textResourceFromFilePath} from '../../util/resource/text/text-resource';
 import {DeclarationManager} from '../declaration-manager';
 import {$Semantic, semanticParse} from '../semantic';
