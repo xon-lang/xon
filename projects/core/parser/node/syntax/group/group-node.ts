@@ -2,7 +2,7 @@ import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {Array2, Nothing, nothing} from '../../../../lib/core';
 import '../../../../util/extension';
 import {ARRAY_OPEN, COMMA, GROUP_OPEN, OBJECT_OPEN, OPEN_CLOSE_PAIR} from '../../../parser-config';
-import {parseSyntaxUntil} from '../../../syntax';
+import {syntaxParseUntil} from '../../../syntax';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node, is} from '../../node';
 import {CloseNode} from '../../token/close/close-node';
@@ -60,7 +60,7 @@ export function scanGroupNode(context: SyntaxContext): Group | Nothing {
 
   while (position.index < resource.data.length) {
     // todo use this cycle to group syntax by comma in the main parseSyntax function
-    const {syntaxContext: itemContext} = parseSyntaxUntil(
+    const {syntaxContext: itemContext} = syntaxParseUntil(
       resource,
       position,
       (node) =>

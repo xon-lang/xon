@@ -41,12 +41,12 @@ const tokenParsers: Array2<TokenParseFn> = [
 ];
 
 export function syntaxParse(source: TextResource): SyntaxResult {
-  const result = parseSyntaxUntil(source, zeroPosition(), nothing);
+  const result = syntaxParseUntil(source, zeroPosition(), nothing);
 
   return result;
 }
 
-export function parseSyntaxUntil(
+export function syntaxParseUntil(
   resource: TextResource,
   startPosition: TextResourcePosition,
   breakOnNodeFn: ((node: Node) => Boolean2) | Nothing,
