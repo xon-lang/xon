@@ -5,7 +5,7 @@ import {Node, isSyntaxNode} from '../../core/parser/node/node';
 import {StatementNode} from '../../core/parser/node/syntax/statement/statement-node';
 import {parseSyntax} from '../../core/parser/syntax';
 import {SyntaxResult} from '../../core/parser/syntax-context';
-import {parseSemantic} from '../../core/semantic/semantic';
+import {semanticParse} from '../../core/semantic/semantic';
 import {textResourceFrom} from '../../core/util/resource/text/text-resource';
 import {TextResourcePosition} from '../../core/util/resource/text/text-resource-position';
 import {TextResourceRange} from '../../core/util/resource/text/text-resource-range';
@@ -42,7 +42,7 @@ export function getDocumentSyntax(document: TextDocument, channel: OutputChannel
   const syntax = parseSyntax(resource);
   // const corePath = join(__dirname, '/core/lib/@xon/core/test-core.xon');
   // const semanticConfig = createSemanticConfig({corePath});
-  parseSemantic(syntax);
+  semanticParse(syntax);
   // cachedSyntax[hash] = syntax;
 
   return syntax;

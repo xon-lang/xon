@@ -4,7 +4,7 @@ import {parseSyntax} from '../../../parser/syntax';
 import {textResourceFrom} from '../../../util/resource/text/text-resource';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
-import {$Semantic, parseSemantic} from '../../semantic';
+import {$Semantic, semanticParse} from '../../semantic';
 import {DeclarationTypeSemantic} from '../declaration/declaration-type-semantic';
 import {FunctionTypeSemantic} from './function-type-semantic';
 
@@ -15,7 +15,7 @@ test('a is integer', () => {
   `;
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
-  const semantic = parseSemantic(syntax);
+  const semantic = semanticParse(syntax);
 
   expect(semantic.declarationManager.count()).toBe(2);
   expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.VALUE_DECLARATION);

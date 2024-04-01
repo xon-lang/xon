@@ -41,7 +41,7 @@ export function semanticIs<T extends Semantic = Semantic>(
   return semantic?.$ === type;
 }
 
-export function parseSemantic(syntax: SyntaxResult, config?: Partial<SemanticConfig>): SemanticContext {
+export function semanticParse(syntax: SyntaxResult, config?: Partial<SemanticConfig>): SemanticContext {
   const semanticConfig: SemanticConfig = {...DEFAULT_SEMANTIC_CONFIG, ...config};
   const imports = semanticConfig?.defaultImports?.filterMap((x) => declarationManagerFromImportString(x)) ?? [];
   const context = semanticContext(nothing, syntax.resource, syntax.issueManager, imports, semanticConfig);

@@ -3,7 +3,7 @@ import {DeclarationNode} from '../../../../parser/node/syntax/declaration/declar
 import {parseSyntax} from '../../../../parser/syntax';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
-import {$Semantic, parseSemantic} from '../../../semantic';
+import {$Semantic, semanticParse} from '../../../semantic';
 import {TEST_SEMANTIC_CONFIG} from '../../../semantic-config';
 import {IntegerTypeSemantic} from '../../integer/integer-type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
@@ -15,7 +15,7 @@ test('a is range', () => {
   `;
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
-  const semantic = parseSemantic(syntax, TEST_SEMANTIC_CONFIG);
+  const semantic = semanticParse(syntax, TEST_SEMANTIC_CONFIG);
 
   expect(semantic.declarationManager.count()).toBe(1);
   expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.VALUE_DECLARATION);

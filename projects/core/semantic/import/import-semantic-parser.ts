@@ -7,7 +7,7 @@ import {ImportNode} from '../../parser/node/syntax/import/import-node';
 import {parseSyntax} from '../../parser/syntax';
 import {TextResource, textResourceFromFilePath} from '../../util/resource/text/text-resource';
 import {DeclarationManager} from '../declaration-manager';
-import {$Semantic, parseSemantic} from '../semantic';
+import {$Semantic, semanticParse} from '../semantic';
 import {SemanticContext} from '../semantic-context';
 import {ImportSemantic} from './import-semantic';
 
@@ -41,7 +41,7 @@ export function importNodeParse(context: SemanticContext, node: ImportNode): Not
   node.location.semantic = semantic;
 
   const syntax = parseSyntax(resource);
-  const {declarationManager} = parseSemantic(syntax);
+  const {declarationManager} = semanticParse(syntax);
 
   if (!context.declarationManager.imports) {
     context.declarationManager.imports = [];
@@ -59,7 +59,7 @@ export function declarationManagerFromImportString(importString: String2): Decla
   }
 
   const syntax = parseSyntax(resource);
-  const {declarationManager} = parseSemantic(syntax);
+  const {declarationManager} = semanticParse(syntax);
 
   return declarationManager;
 }

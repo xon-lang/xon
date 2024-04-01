@@ -3,7 +3,7 @@ import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-
 import {parseSyntax} from '../../parser/syntax';
 import {textResourceFrom} from '../../util/resource/text/text-resource';
 import {DeclarationSemantic} from '../declaration/declaration-semantic';
-import {$Semantic, parseSemantic} from '../semantic';
+import {$Semantic, semanticParse} from '../semantic';
 import {StringTypeSemantic} from '../type/string/string-type-semantic';
 import {typeSemanticParse} from '../type/type-semantic-parser';
 
@@ -14,7 +14,7 @@ test('import core', () => {
   `;
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
-  const semantic = parseSemantic(syntax);
+  const semantic = semanticParse(syntax);
 
   expect(semantic.declarationManager.count()).toBe(1);
   expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.VALUE_DECLARATION);

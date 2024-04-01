@@ -3,7 +3,7 @@ import {DeclarationNode} from '../../../parser/node/syntax/declaration/declarati
 import {parseSyntax} from '../../../parser/syntax';
 import {textResourceFrom} from '../../../util/resource/text/text-resource';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
-import {$Semantic, parseSemantic} from '../../semantic';
+import {$Semantic, semanticParse} from '../../semantic';
 import {TEST_SEMANTIC_CONFIG} from '../../semantic-config';
 import {typeSemanticParse} from '../../type/type-semantic-parser';
 import {StringTypeSemantic} from './string-type-semantic';
@@ -14,7 +14,7 @@ test('a is string value', () => {
   `;
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
-  const semantic = parseSemantic(syntax, TEST_SEMANTIC_CONFIG);
+  const semantic = semanticParse(syntax, TEST_SEMANTIC_CONFIG);
 
   expect(semantic.declarationManager.count()).toBe(1);
   expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.VALUE_DECLARATION);
@@ -37,7 +37,7 @@ test('a is string literal', () => {
     const a: "abc`;
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
-  const semantic = parseSemantic(syntax, TEST_SEMANTIC_CONFIG);
+  const semantic = semanticParse(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].item as DeclarationNode;
   const typeSemantic = typeSemanticParse(semantic, constNode.type) as StringTypeSemantic;
 
@@ -50,7 +50,7 @@ test('a is empty string 1', () => {
     const a: "`;
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
-  const semantic = parseSemantic(syntax, TEST_SEMANTIC_CONFIG);
+  const semantic = semanticParse(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].item as DeclarationNode;
   const typeSemantic = typeSemanticParse(semantic, constNode.type) as StringTypeSemantic;
 
@@ -63,7 +63,7 @@ test('a is empty string 2', () => {
     const a: ""`;
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
-  const semantic = parseSemantic(syntax, TEST_SEMANTIC_CONFIG);
+  const semantic = semanticParse(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].item as DeclarationNode;
   const typeSemantic = typeSemanticParse(semantic, constNode.type) as StringTypeSemantic;
 

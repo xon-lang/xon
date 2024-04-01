@@ -5,7 +5,7 @@ import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {DeclarationKind} from '../../../declaration-manager';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
 import {ValueDeclarationSemantic} from '../../../declaration/value/value-declaration-semantic';
-import {$Semantic, parseSemantic} from '../../../semantic';
+import {$Semantic, semanticParse} from '../../../semantic';
 import {DeclarationTypeSemantic} from '../../declaration/declaration-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
@@ -20,7 +20,7 @@ test('a is integer or float', () => {
   `;
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
-  const semantic = parseSemantic(syntax);
+  const semantic = semanticParse(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);
   expect(semantic.declarationManager.declarations['a'][0].$).toBe($Semantic.VALUE_DECLARATION);
@@ -52,7 +52,7 @@ test('check type', () => {
   `;
   const source = textResourceFrom(nothing, text);
   const syntax = parseSyntax(source);
-  const semantic = parseSemantic(syntax);
+  const semantic = semanticParse(syntax);
 
   const getConst = (name: String2) =>
     (semantic.declarationManager.single(DeclarationKind.VALUE, name, nothing, nothing) as ValueDeclarationSemantic)
