@@ -6,7 +6,8 @@ import {OperatorNode} from '../../token/operator/operator-node';
 import {ArrayNode} from '../array/array-node';
 import {Group, GroupNode} from '../group/group-node';
 import {ObjectNode} from '../object/object-node';
-import {SyntaxNode, SyntaxParseFn, syntaxNode} from '../syntax-node';
+import {SyntaxNode, syntaxNode} from '../syntax-node';
+import {SyntaxParseFn} from '../syntax-parser';
 
 export interface InvokeNode extends SyntaxNode {
   $: $Node.INVOKE;

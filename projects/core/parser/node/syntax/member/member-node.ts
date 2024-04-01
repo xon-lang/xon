@@ -5,7 +5,8 @@ import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node, findNode, is} from '../../node';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
-import {SyntaxNode, SyntaxParseFn, syntaxNode} from '../syntax-node';
+import {SyntaxNode, syntaxNode} from '../syntax-node';
+import {SyntaxParseFn} from '../syntax-parser';
 
 export interface MemberNode extends SyntaxNode {
   $: $Node.MEMBER;

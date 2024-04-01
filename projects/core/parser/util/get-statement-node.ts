@@ -1,7 +1,7 @@
 import {ISSUE_MESSAGE} from '../../issue/issue-message';
 import {Array2, Integer, Nothing} from '../../lib/core';
 import {StatementNode, statementNode} from '../node/syntax/statement/statement-node';
-import {syntaxParse} from '../node/syntax/syntax-node';
+import {syntaxParse} from '../node/syntax/syntax-parser';
 import {TokenNode} from '../node/token/token-node';
 
 import {SyntaxContext} from '../syntax-context';

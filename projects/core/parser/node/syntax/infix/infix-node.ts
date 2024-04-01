@@ -3,7 +3,8 @@ import {Integer, Nothing, nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node, findNode, is} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
-import {SyntaxNode, SyntaxParseFn, syntaxNode} from '../syntax-node';
+import {SyntaxNode, syntaxNode} from '../syntax-node';
+import {SyntaxParseFn} from '../syntax-parser';
 
 export interface InfixNode extends SyntaxNode {
   $: $Node.INFIX;
