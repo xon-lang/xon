@@ -43,7 +43,7 @@ export function formatAfterHiddenNodes(context: SyntaxContext, node: Node, keepS
 }
 
 export function formatStatement(context: SyntaxContext, node: StatementNode): Nothing {
-  if (node.hiddenNodes.length === 0) {
+  if (node.hiddenNodes?.length === 0) {
     return;
   }
 
@@ -100,7 +100,7 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
   }
 
   const lastStatementNode = node.children.last();
-  if (lastStatementNode && lastStatementNode.hiddenNodes.length > 0) {
+  if (lastStatementNode?.hiddenNodes && lastStatementNode.hiddenNodes.length > 0) {
     const range = rangeFromNodes(lastStatementNode.hiddenNodes);
     const formatter = getFormatterForHiddenNodes(context, range, lastStatementNode.hiddenNodes, FormattingType.AFTER);
 
@@ -137,7 +137,7 @@ export function formatLastContextHiddenNodes(context: SyntaxContext): Formatter 
   }
 
   const lastStatementNode = context.nodes.last();
-  const lastNode = lastStatementNode?.hiddenNodes.last() ?? lastStatementNode;
+  const lastNode = lastStatementNode?.hiddenNodes?.last() ?? lastStatementNode;
 
   if (!lastNode) {
     return nothing;
@@ -192,12 +192,11 @@ function getFormatterForHiddenNodesWithSpaceKeeping(
   keepSingleSpace: Boolean2,
   formattingType: FormattingType,
 ): Formatter | Nothing {
-  const {hiddenNodes, range} = node;
-
+  const hiddenNodes = node.hiddenNodes ?? [];
   const spaceText = keepSingleSpace ? ' ' : '';
 
   if (hiddenNodes.length === 0) {
-    return compareAndCreateFormatter(context, hiddenNodes, rangeFromPosition(range.stop), spaceText);
+    return compareAndCreateFormatter(context, hiddenNodes, rangeFromPosition(node.range.stop), spaceText);
   }
 
   if (hiddenNodes.length === 1 && is<WhitespaceNode>(hiddenNodes[0], $Node.WHITESPACE)) {

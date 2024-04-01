@@ -16,8 +16,8 @@ test('unknown 1', () => {
   expect(statements.length).toBe(1);
   expect(node0.$).toBe($Node.INTEGER);
   expect(node0.text).toBe('123');
-  expect(node0.hiddenNodes.length).toBe(1);
-  expect(node0.hiddenNodes[0].text).toBe(' ');
+  expect(node0.hiddenNodes?.length).toBe(1);
+  expect(node0.hiddenNodes?.at(0)?.text).toBe(' ');
 
   expect(node1.text).toBe('§•∞•');
 });

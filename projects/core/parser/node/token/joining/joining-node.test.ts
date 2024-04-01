@@ -45,7 +45,7 @@ test('with new line', () => {
   const node = statements[0].item as MemberNode;
 
   expect(statements.length).toBe(1);
-  expect(node.instance.hiddenNodes[0].text).toBe(JOINING + '   \n');
+  expect(node.instance.hiddenNodes?.at(0)?.text).toBe(JOINING + '   \n');
   expect(node.instance?.$).toBe($Node.ID);
   expect((node.instance as IdNode).text).toBe('abc');
   expect((node.operator as OperatorNode).text).toBe('.');

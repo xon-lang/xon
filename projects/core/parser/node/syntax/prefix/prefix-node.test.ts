@@ -42,9 +42,9 @@ test('hidden nodes', () => {
   expect(node.$).toBe($Node.PREFIX);
   expect(node.operator.text).toBe('-');
 
-  expect(node.operator.hiddenNodes.length).toBe(1);
-  expect(node.operator.hiddenNodes[0].$).toBe($Node.WHITESPACE);
-  expect(node.operator.hiddenNodes[0].text).toBe('    ');
+  expect(node.operator.hiddenNodes?.length).toBe(1);
+  expect(node.operator.hiddenNodes?.at(0)?.$).toBe($Node.WHITESPACE);
+  expect(node.operator.hiddenNodes?.at(0)?.text).toBe('    ');
 
   expect(syntax.formatterManager.formatters.length).toBe(1);
   expect(syntax.formatterManager.formatters[0].text).toBe('');

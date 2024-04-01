@@ -24,15 +24,15 @@ test('several', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = resourceParse(source);
   const statements = syntax.statements;
-  const node0 = statements[0].hiddenNodes[0] as TokenNode;
-  const node1 = statements[0].hiddenNodes[1] as TokenNode;
-  const node2 = statements[0].hiddenNodes[2] as TokenNode;
+  const node0 = statements[0].hiddenNodes?.at(0) as TokenNode;
+  const node1 = statements[0].hiddenNodes?.at(1) as TokenNode;
+  const node2 = statements[0].hiddenNodes?.at(2) as TokenNode;
 
   expect(statements.length).toBe(1);
   expect(statements[0].item.$).toBe($Node.ID);
   expect((statements[0].item as IdNode).text).toBe('abc');
 
-  expect(syntax.statements[0].hiddenNodes.length).toBe(3);
+  expect(syntax.statements[0].hiddenNodes?.length).toBe(3);
   expect(node0.text).toBe('  ');
   expect(node1.text).toBe('\n    \n');
   expect(node2.text).toBe('   ');
