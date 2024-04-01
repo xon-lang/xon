@@ -21,7 +21,6 @@ import {whitespaceTokenParse} from './node/token/whitespace/whitespace-node';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
 import {putStatementNode} from './util/put-statement-node';
 
-
 export type TokenParseResult = Node | Nothing;
 export type TokenParseFn = (context: SyntaxContext) => TokenParseResult;
 
@@ -42,7 +41,7 @@ const parsers: Array2<TokenParseFn> = [
   unknownTokenParse,
 ];
 
-export function syntaxParse(resource: TextResource): SyntaxResult {
+export function resourceParse(resource: TextResource): SyntaxResult {
   return syntaxParseUntil(resource, zeroPosition(), nothing);
 }
 

@@ -2,14 +2,14 @@ import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {nothing} from '../../../../lib/core';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {OPEN_CLOSE_PAIR} from '../../../parser-config';
-import {syntaxParse} from '../../../resource-parser';
+import {resourceParse} from '../../../resource-parser';
 import {$Node, is} from '../../node';
 import {GroupNode} from './group-node';
 
 test('empty closed', () => {
   const text = '()';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as GroupNode;
 
@@ -23,7 +23,7 @@ test('empty closed', () => {
 test('validate close pair', () => {
   const text = '(';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as GroupNode;
 
@@ -43,7 +43,7 @@ test('validate close pair', () => {
 test('a in group', () => {
   const text = '(a)';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as GroupNode;
 

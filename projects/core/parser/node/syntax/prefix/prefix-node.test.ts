@@ -1,7 +1,7 @@
 import {nothing} from '../../../../lib/core';
 import {evaluate} from '../../../../util/evaluate';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {syntaxParse} from '../../../resource-parser';
+import {resourceParse} from '../../../resource-parser';
 import {$Node} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {PrefixNode} from './prefix-node';
@@ -9,7 +9,7 @@ import {PrefixNode} from './prefix-node';
 test('negative integer', () => {
   const text = '-1';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as PrefixNode;
 
@@ -22,7 +22,7 @@ test('negative integer', () => {
 test('infix modifier', () => {
   const text = 'infix';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as OperatorNode;
 
@@ -34,7 +34,7 @@ test('infix modifier', () => {
 test('hidden nodes', () => {
   const text = '-    1\n';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as PrefixNode;
 
