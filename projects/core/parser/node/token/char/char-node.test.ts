@@ -1,6 +1,6 @@
 import {nothing} from '../../../../lib/core';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {syntaxParse} from '../../../syntax';
+import {syntaxParse} from '../../../parser';
 import {$Node} from '../../node';
 import {CharNode} from './char-node';
 

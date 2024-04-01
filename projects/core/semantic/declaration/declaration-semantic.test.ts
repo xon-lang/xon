@@ -1,5 +1,5 @@
 import {nothing} from '../../lib/core';
-import {syntaxParse} from '../../parser/syntax';
+import {syntaxParse} from '../../parser/parser';
 import {textResourceFrom} from '../../util/resource/text/text-resource';
 import {$Semantic, semanticParse} from '../semantic';
 import {DeclarationTypeSemantic} from '../type/declaration/declaration-type-semantic';

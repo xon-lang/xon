@@ -2,7 +2,7 @@ import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
 import {Anything, String2} from '../../lib/core';
 import {textResourceFromFilePath} from '../../util/resource/text/text-resource';
-import {syntaxParse} from '../syntax';
+import {syntaxParse} from '../parser';
 
 // test('performance', () => {
 //   const source = sourceFromFile('src/parser/test/performance/source.xon');

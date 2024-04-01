@@ -3,7 +3,7 @@ import {Formatter} from '../../core/formatter/formatter';
 import {Array2, Nothing, String2, nothing} from '../../core/lib/core';
 import {Node, isSyntaxNode} from '../../core/parser/node/node';
 import {StatementNode} from '../../core/parser/node/syntax/statement/statement-node';
-import {syntaxParse} from '../../core/parser/syntax';
+import {syntaxParse} from '../../core/parser/parser';
 import {SyntaxResult} from '../../core/parser/syntax-context';
 import {semanticParse} from '../../core/semantic/semantic';
 import {textResourceFrom} from '../../core/util/resource/text/text-resource';
