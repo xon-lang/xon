@@ -5,39 +5,39 @@ import {TextResource} from '../util/resource/text/text-resource';
 import {TextResourcePosition, zeroPosition} from '../util/resource/text/text-resource-position';
 import {$Node, Node, is} from './node/node';
 import {scanGroupNode} from './node/syntax/group/group-node';
-import {charNodeParse} from './node/token/char/char-node';
-import {closeNodeParse} from './node/token/close/close-node';
-import {commentBlockNodeParse} from './node/token/comment-block/comment-block-node';
-import {commentLineNodeParse} from './node/token/comment-line/comment-line-node';
-import {idNodeParse} from './node/token/id/id-node';
-import {integerNodeParse} from './node/token/integer/integer-node';
-import {joiningNodeParse} from './node/token/joining/joining-node';
-import {NlNode, nlNodeParse} from './node/token/nl/nl-node';
-import {operatorNodeParse} from './node/token/operator/operator-node';
-import {stringNodeParse} from './node/token/string/string-node';
+import {charTokenParse} from './node/token/char/char-node';
+import {closeTokenParse} from './node/token/close/close-node';
+import {commentBlockTokenParse} from './node/token/comment-block/comment-block-node';
+import {commentLineTokenParse} from './node/token/comment-line/comment-line-node';
+import {idTokenParse} from './node/token/id/id-node';
+import {integerTokenParse} from './node/token/integer/integer-node';
+import {joiningTokenParse} from './node/token/joining/joining-node';
+import {NlNode, nlTokenParse} from './node/token/nl/nl-node';
+import {operatorTokenParse} from './node/token/operator/operator-node';
+import {stringTokenParse} from './node/token/string/string-node';
 import {isHiddenToken} from './node/token/token-node';
-import {UnknownNode, unknownNodeParse} from './node/token/unknown/unknown-node';
-import {whitespaceNodeParse} from './node/token/whitespace/whitespace-node';
+import {UnknownNode, unknownTokenParse} from './node/token/unknown/unknown-node';
+import {whitespaceTokenParse} from './node/token/whitespace/whitespace-node';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
 import {putStatementNode} from './util/put-statement-node';
 
 type TokenParseFn = (context: SyntaxContext) => Node | Nothing;
 
 const tokenParsers: Array2<TokenParseFn> = [
-  commentBlockNodeParse,
-  commentLineNodeParse,
-  integerNodeParse,
-  stringNodeParse,
-  charNodeParse,
-  nlNodeParse,
-  closeNodeParse,
-  joiningNodeParse,
-  whitespaceNodeParse,
-  operatorNodeParse,
-  idNodeParse,
+  commentBlockTokenParse,
+  commentLineTokenParse,
+  integerTokenParse,
+  stringTokenParse,
+  charTokenParse,
+  nlTokenParse,
+  closeTokenParse,
+  joiningTokenParse,
+  whitespaceTokenParse,
+  operatorTokenParse,
+  idTokenParse,
   // todo should we remove scan group from here ???
   scanGroupNode,
-  unknownNodeParse,
+  unknownTokenParse,
 ];
 
 export function parseSyntax(source: TextResource): SyntaxResult {

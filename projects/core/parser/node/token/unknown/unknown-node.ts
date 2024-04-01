@@ -12,7 +12,7 @@ export function unknownNode(range: TextResourceRange, text: String2): UnknownNod
   return tokenNode($Node.UNKNOWN, {range, text});
 }
 
-export function unknownNodeParse(context: SyntaxContext): UnknownNode | Nothing {
+export function unknownTokenParse(context: SyntaxContext): UnknownNode | Nothing {
   const text = context.resource.data[context.position.index];
   const range = context.getRange(1, false);
 

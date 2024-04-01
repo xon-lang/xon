@@ -13,7 +13,7 @@ export function joiningNode(range: TextResourceRange, text: String2): JoiningNod
   return tokenNode($Node.JOINING, {range, text});
 }
 
-export function joiningNodeParse(context: SyntaxContext): JoiningNode | Nothing {
+export function joiningTokenParse(context: SyntaxContext): JoiningNode | Nothing {
   const {resource: source, position} = context;
 
   if (source.data[position.index] !== JOINING) {

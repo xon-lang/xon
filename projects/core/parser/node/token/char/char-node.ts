@@ -17,7 +17,7 @@ export function charNode(range: TextResourceRange, text: String2): CharNode {
   return tokenNode($Node.CHAR, {range, text, value});
 }
 
-export function charNodeParse(context: SyntaxContext): CharNode | Nothing {
+export function charTokenParse(context: SyntaxContext): CharNode | Nothing {
   if (context.resource.data[context.position.index] !== CHAR_QUOTE) {
     return nothing;
   }

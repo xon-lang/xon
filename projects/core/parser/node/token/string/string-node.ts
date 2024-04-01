@@ -17,7 +17,7 @@ export function stringNode(range: TextResourceRange, text: String2): StringNode 
   return tokenNode($Node.STRING, {range, text, value});
 }
 
-export function stringNodeParse(context: SyntaxContext): StringNode | Nothing {
+export function stringTokenParse(context: SyntaxContext): StringNode | Nothing {
   const {resource: source, position} = context;
 
   if (source.data[position.index] === STRING_QUOTE) {

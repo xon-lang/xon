@@ -14,7 +14,7 @@ export function idNode(range: TextResourceRange, text: String2): IdNode {
   return tokenNode($Node.ID, {range, text});
 }
 
-export function idNodeParse(context: SyntaxContext): IdNode | Nothing {
+export function idTokenParse(context: SyntaxContext): IdNode | Nothing {
   const {position, resource: source} = context;
 
   if (source.data[position.index] !== UNDERSCORE && !source.data.isLetter(position.index)) {

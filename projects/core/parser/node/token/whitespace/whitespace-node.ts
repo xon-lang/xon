@@ -13,7 +13,7 @@ export function whitespaceNode(range: TextResourceRange, text: String2): Whitesp
   return tokenNode($Node.WHITESPACE, {range, text});
 }
 
-export function whitespaceNodeParse(context: SyntaxContext): WhitespaceNode | Nothing {
+export function whitespaceTokenParse(context: SyntaxContext): WhitespaceNode | Nothing {
   const {resource: source, position} = context;
   const text = source.data.takeWhile((x) => x === SPACE, position.index);
 
