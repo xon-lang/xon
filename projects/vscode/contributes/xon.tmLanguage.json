@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../schemes/tmlanguage.json",
+  "$schema": "../schemes/tmlanguage.json",
   "name": "xon",
   "scopeName": "source.xon",
   "patterns": [
