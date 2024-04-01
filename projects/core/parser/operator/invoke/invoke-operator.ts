@@ -29,7 +29,6 @@ export function invokeOperator(operators: String2[]): InvokeOperator {
       const {index} = foundNode;
 
       const instance = context.nodes[index - 1];
-      const group = context.nodes[index];
 
       if (index > 0 && instance && !is<OperatorNode>(instance, $Node.OPERATOR)) {
         const node = invokeNode(context, instance, foundNode.node);

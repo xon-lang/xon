@@ -14,7 +14,6 @@ export enum $Operator {
   MEMBER = 'MEMBER',
   RANGE = 'RANGE',
   INVOKE = 'INVOKE',
-  // TYPE = 'TYPE',
   // ASSIGN = 'ASSIGN',
   INFIX = 'INFIX',
   PREFIX = 'PREFIX',
