@@ -23,3 +23,23 @@ export function importNode(context: SyntaxContext, operator: OperatorNode, locat
 function format(context: SyntaxContext, node: ImportNode): Nothing {
   formatBetweenHiddenNodes(context, node.operator, true);
 }
+
+importNodeParse(context: SyntaxContext, startIndex: Integer): Nothing {
+  is<OperatorNode>(operator, $Node.OPERATOR) && operators.includes(operator.text)
+  const foundOperator = findOperatorNode(context, startIndex, this.operators);
+
+  if (!foundOperator) {
+    return;
+  }
+
+  const {index, operator} = foundOperator;
+  const left = context.nodes[index - 1];
+  const right = context.nodes[index + 1];
+
+  if (is<StringNode>(right, $Node.STRING) && (index === 0 || is<OperatorNode>(left, $Node.OPERATOR))) {
+    const node = importNode(context, operator, right);
+
+    context.nodes.splice(index, node.children.length, node);
+    this.collapse(context, index);
+  }
+},

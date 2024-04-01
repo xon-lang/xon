@@ -13,7 +13,7 @@ export function openNode(range: TextResourceRange, text: String2): OpenNode {
   return tokenNode($Node.OPEN, {range, text});
 }
 
-export function scanOpenNode(context: SyntaxContext): Partial<OpenNode> | Nothing {
+export function openNodeParse(context: SyntaxContext): Partial<OpenNode> | Nothing {
   const char = context.resource.data[context.position.index];
 
   if (char === GROUP_OPEN || char === ARRAY_OPEN || char === OBJECT_OPEN) {

@@ -13,7 +13,7 @@ export function commentLineNode(range: TextResourceRange, text: String2): Commen
   return tokenNode($Node.COMMENT_LINE, {range, text});
 }
 
-export function scanCommentLineNode(context: SyntaxContext): CommentLineNode | Nothing {
+export function commentLineNodeParse(context: SyntaxContext): CommentLineNode | Nothing {
   const {resource: source, position} = context;
 
   if (source.data.slice(position.index, position.index + COMMENT_LINE.length) !== COMMENT_LINE) {

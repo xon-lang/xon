@@ -54,5 +54,3 @@ function flatExistingNodes(nodes: SyntaxChild): Array2<Node> {
 
   return [nodes];
 }
-
-function getSyntaxNodeRange(node: SyntaxNode) {}

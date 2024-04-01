@@ -13,7 +13,7 @@ export function closeNode(range: TextResourceRange, text: String2): CloseNode {
   return tokenNode($Node.CLOSE, {range, text});
 }
 
-export function scanCloseNode(context: SyntaxContext): CloseNode | Nothing {
+export function closeNodeParse(context: SyntaxContext): CloseNode | Nothing {
   const char = context.resource.data[context.position.index];
 
   if (char === GROUP_CLOSE || char === ARRAY_CLOSE || char === OBJECT_CLOSE) {

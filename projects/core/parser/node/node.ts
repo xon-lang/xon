@@ -1,7 +1,6 @@
-import {Array2, Nothing} from '../../lib/core';
+import {Array2, Boolean2, Integer, Nothing, nothing} from '../../lib/core';
 import {Semantic} from '../../semantic/semantic';
 import {TextResourceRange} from '../../util/resource/text/text-resource-range';
-import {SyntaxNode} from './syntax/syntax-node';
 import {TokenNode} from './token/token-node';
 
 export interface Node {
@@ -14,22 +13,24 @@ export interface Node {
 }
 
 export enum $Node {
-  COMMENT_LINE = 'COMMENT_LINE',
-  COMMENT_BLOCK = 'COMMENT_BLOCK',
-  WHITESPACE = 'WHITESPACE',
-  JOINING = 'JOINING',
-  NL = 'NL',
+  NODE = 'NODE',
+  TOKEN = 'TOKEN NODE',
+  COMMENT_LINE = 'COMMENT_LINE TOKEN NODE',
+  COMMENT_BLOCK = 'COMMENT_BLOCK TOKEN NODE',
+  WHITESPACE = 'WHITESPACE TOKEN NODE',
+  JOINING = 'JOINING TOKEN NODE',
+  NL = 'NL TOKEN NODE',
+  INTEGER = 'INTEGER TOKEN NODE',
+  FLOAT = 'FLOAT TOKEN NODE',
+  CHAR = 'CHAR TOKEN NODE',
+  STRING = 'STRING TOKEN NODE',
+  ID = 'ID TOKEN NODE',
+  OPERATOR = 'OPERATOR TOKEN NODE',
+  OPEN = 'OPEN TOKEN NODE',
+  CLOSE = 'CLOSE TOKEN NODE',
+  UNKNOWN = 'UNKNOWN TOKEN NODE',
 
-  INTEGER = 'INTEGER',
-  FLOAT = 'FLOAT',
-  CHAR = 'CHAR',
-  STRING = 'STRING',
-  ID = 'ID',
-  OPERATOR = 'OPERATOR',
-  OPEN = 'OPEN',
-  CLOSE = 'CLOSE',
-  UNKNOWN = 'UNKNOWN',
-
+  SYNTAX = 'SYNTAX NODE',
   ITEM = 'ITEM SYNTAX NODE',
   OBJECT = 'OBJECT SYNTAX NODE',
   ARRAY = 'ARRAY SYNTAX NODE',
@@ -50,10 +51,33 @@ export enum $Node {
   STATEMENT = 'STATEMENT SYNTAX NODE',
 }
 
-export function is<T extends Node = Node>(node: {$?: $Node} | Nothing, nodeType: $Node): node is T {
-  return node?.$ === nodeType;
+export function is<T extends Node = Node>(node: {$?: $Node} | Nothing, type: $Node): node is T {
+  if (!node?.$) {
+    return false;
+  }
+
+  return node.$ === type || node.$.split(' ').includes(type);
 }
 
-export function isSyntaxNode(node: Node): node is SyntaxNode {
-  return node.$.includes(' SYNTAX ');
+export function findNode<T extends Node>(
+  nodes: Node[],
+  startIndex: Integer,
+  isLeftRecursive: Boolean2,
+  predicate: (node: Node, index, nodes: Node[]) => node is T,
+): {index: Integer; node: T} | Nothing {
+  for (let i = startIndex; i < nodes.length; i++) {
+    const lastIndex = nodes.length - 1;
+    const index = isLeftRecursive ? i : lastIndex - i;
+
+    const node = nodes[index];
+
+    if (predicate(node, index, nodes)) {
+      return {
+        index,
+        node,
+      };
+    }
+  }
+
+  return nothing;
 }

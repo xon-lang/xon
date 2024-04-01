@@ -6,7 +6,7 @@ import {parseSyntaxUntil} from '../../../syntax';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node, is} from '../../node';
 import {CloseNode} from '../../token/close/close-node';
-import {OpenNode, scanOpenNode} from '../../token/open/open-node';
+import {OpenNode, openNodeParse} from '../../token/open/open-node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {ArrayNode, arrayNode} from '../array/array-node';
 import {ItemNode, itemNode} from '../item/item-node';
@@ -45,7 +45,7 @@ function validate(context: SyntaxContext, node: GroupNode): Nothing {
 }
 
 export function scanGroupNode(context: SyntaxContext): Group | Nothing {
-  const open = scanOpenNode(context);
+  const open = openNodeParse(context);
 
   if (!is<OpenNode>(open, $Node.OPEN)) {
     return nothing;

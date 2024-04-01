@@ -3,7 +3,7 @@ import {TextResourceRange} from '../../../../util/resource/text/text-resource-ra
 import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATORS, OPERATOR_KEYWORDS} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
-import {scanIdNode} from '../id/id-node';
+import {idNodeParse} from '../id/id-node';
 import {TokenNode, tokenNode} from '../token-node';
 
 export enum KeywordType {
@@ -29,7 +29,7 @@ export function operatorNode(context: SyntaxContext, range: TextResourceRange, t
   return node;
 }
 
-export function scanOperatorNode(context: SyntaxContext): Node | Nothing {
+export function operatorNodeParse(context: SyntaxContext): Node | Nothing {
   const {position, resource: source} = context;
   const text = OPERATORS.findLast((x) => x === source.data.slice(position.index, position.index + x.length));
 
@@ -37,7 +37,7 @@ export function scanOperatorNode(context: SyntaxContext): Node | Nothing {
     return nothing;
   }
 
-  const id = scanIdNode(context);
+  const id = idNodeParse(context);
 
   if (id && id.text.length > text.length) {
     return id;

@@ -16,7 +16,7 @@ export function integerNode(range: TextResourceRange, text: String2): IntegerNod
   return tokenNode($Node.INTEGER, {range, text, value});
 }
 
-export function scanIntegerNode(context: SyntaxContext): IntegerNode | Nothing {
+export function integerNodeParse(context: SyntaxContext): IntegerNode | Nothing {
   const {resource: source, position} = context;
 
   if (!source.data.isDigit(position.index)) {

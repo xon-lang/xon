@@ -13,7 +13,7 @@ export function commentBlockNode(range: TextResourceRange, text: String2): Comme
   return tokenNode($Node.COMMENT_BLOCK, {range, text});
 }
 
-export function scanCommentBlockNode(context: SyntaxContext): CommentBlockNode | Nothing {
+export function commentBlockNodeParse(context: SyntaxContext): CommentBlockNode | Nothing {
   const {resource: source, position} = context;
 
   if (source.data.take(COMMENT_BLOCK.length, position.index) === COMMENT_BLOCK) {

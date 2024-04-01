@@ -13,7 +13,7 @@ export function nlNode(range: TextResourceRange, text: String2): NlNode {
   return tokenNode($Node.NL, {range, text});
 }
 
-export function scanNlNode(context: SyntaxContext): NlNode | Nothing {
+export function nlNodeParse(context: SyntaxContext): NlNode | Nothing {
   const {resource: source, position} = context;
 
   if (source.data[position.index] !== NL) {

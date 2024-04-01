@@ -5,39 +5,39 @@ import {TextResource} from '../util/resource/text/text-resource';
 import {TextResourcePosition, zeroPosition} from '../util/resource/text/text-resource-position';
 import {$Node, Node, is} from './node/node';
 import {scanGroupNode} from './node/syntax/group/group-node';
-import {scanCharNode} from './node/token/char/char-node';
-import {scanCloseNode} from './node/token/close/close-node';
-import {scanCommentBlockNode} from './node/token/comment-block/comment-block-node';
-import {scanCommentLineNode} from './node/token/comment-line/comment-line-node';
-import {scanIdNode} from './node/token/id/id-node';
-import {scanIntegerNode} from './node/token/integer/integer-node';
-import {scanJoiningNode} from './node/token/joining/joining-node';
-import {NlNode, scanNlNode} from './node/token/nl/nl-node';
-import {scanOperatorNode} from './node/token/operator/operator-node';
-import {scanStringNode} from './node/token/string/string-node';
+import {charNodeParse} from './node/token/char/char-node';
+import {closeNodeParse} from './node/token/close/close-node';
+import {commentBlockNodeParse} from './node/token/comment-block/comment-block-node';
+import {commentLineNodeParse} from './node/token/comment-line/comment-line-node';
+import {idNodeParse} from './node/token/id/id-node';
+import {integerNodeParse} from './node/token/integer/integer-node';
+import {joiningNodeParse} from './node/token/joining/joining-node';
+import {NlNode, nlNodeParse} from './node/token/nl/nl-node';
+import {operatorNodeParse} from './node/token/operator/operator-node';
+import {stringNodeParse} from './node/token/string/string-node';
 import {isHiddenToken} from './node/token/token-node';
-import {UnknownNode, scanUnknownNode} from './node/token/unknown/unknown-node';
-import {scanWhitespaceNode} from './node/token/whitespace/whitespace-node';
+import {UnknownNode, unknownNodeParse} from './node/token/unknown/unknown-node';
+import {whitespaceNodeParse} from './node/token/whitespace/whitespace-node';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
 import {putStatementNode} from './util/put-statement-node';
 
-type SyntaxScanFn = (context: SyntaxContext) => Node | Nothing;
+type TokenParseFn = (context: SyntaxContext) => Node | Nothing;
 
-const scanFunctions: Array2<SyntaxScanFn> = [
-  scanCommentBlockNode,
-  scanCommentLineNode,
-  scanIntegerNode,
-  scanStringNode,
-  scanCharNode,
-  scanNlNode,
-  scanCloseNode,
-  scanJoiningNode,
-  scanWhitespaceNode,
-  scanOperatorNode,
-  scanIdNode,
+const tokenParsers: Array2<TokenParseFn> = [
+  commentBlockNodeParse,
+  commentLineNodeParse,
+  integerNodeParse,
+  stringNodeParse,
+  charNodeParse,
+  nlNodeParse,
+  closeNodeParse,
+  joiningNodeParse,
+  whitespaceNodeParse,
+  operatorNodeParse,
+  idNodeParse,
   // todo should we remove scan group from here ???
   scanGroupNode,
-  scanUnknownNode,
+  unknownNodeParse,
 ];
 
 export function parseSyntax(source: TextResource): SyntaxResult {
@@ -115,7 +115,7 @@ export function parseSyntaxUntil(
 }
 
 function nextNode(context: SyntaxContext): Node {
-  const node = scanFunctions.findMap((scan) => scan(context));
+  const node = tokenParsers.findMap((parse) => parse(context));
 
   if (node) {
     context.position.index = node.range.stop.index;
