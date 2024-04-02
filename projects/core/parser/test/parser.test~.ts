@@ -2,7 +2,7 @@ import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
 import {Anything, String2} from '../../lib/core';
 import {textResourceFromFilePath} from '../../util/resource/text/text-resource';
-import {syntaxParse} from '../syntax-parser';
+import {resourceParse} from '../resource-parser';
 
 // test('performance', () => {
 //   const source = sourceFromFile('src/parser/test/performance/source.xon');
@@ -26,7 +26,7 @@ function testFormatter(index: String2) {
     return;
   }
 
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
 
   const syntaxJson = JSON.stringify(syntax.statements, jsonCircularReplacer, 2);
   writeFileSync(join(dirPath, 'ast.json'), syntaxJson);

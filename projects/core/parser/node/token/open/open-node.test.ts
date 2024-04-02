@@ -1,13 +1,13 @@
 import {nothing} from '../../../../lib/core';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {syntaxParse} from '../../../syntax-parser';
+import {resourceParse} from '../../../resource-parser';
 import {$Node} from '../../node';
 import {GroupNode} from '../../syntax/group/group-node';
 
 test('open paren', () => {
   const text = '(';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as GroupNode;
 
@@ -21,7 +21,7 @@ test('open paren', () => {
 test('open bracket', () => {
   const text = '[';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as GroupNode;
 
@@ -35,7 +35,7 @@ test('open bracket', () => {
 test('open brace', () => {
   const text = '{';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as GroupNode;
 

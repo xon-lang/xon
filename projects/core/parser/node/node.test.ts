@@ -1,6 +1,6 @@
 import {nothing} from '../../lib/core';
 import {textResourceFrom} from '../../util/resource/text/text-resource';
-import {syntaxParse} from '../syntax-parser';
+import {resourceParse} from '../resource-parser';
 import {$Node} from './node';
 // import {AssignNode} from './syntax/assign/assign-node';
 import {InfixNode} from './syntax/infix/infix-node';
@@ -9,7 +9,7 @@ import {IntegerNode} from './token/integer/integer-node';
 test('comma', () => {
   const text = '1';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as IntegerNode;
 
@@ -61,7 +61,7 @@ test('debug 3', () => {
  b
 c`;
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
   const node0 = statements[0].item as InfixNode;
   const node1 = statements[1].item as InfixNode;
@@ -74,7 +74,7 @@ c`;
 test('debug 4', () => {
   const text = '  a\n   b\n   b';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
 
   expect(statements.length).toBe(1);
@@ -87,7 +87,7 @@ test('debug 4', () => {
 test('multiple expression', () => {
   const text = '\n  x = 1\n  y = 2\n  z = 3';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
 
   expect(statements.length).toBe(3);

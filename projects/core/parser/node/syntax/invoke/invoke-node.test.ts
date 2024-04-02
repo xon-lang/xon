@@ -1,6 +1,6 @@
 import {nothing} from '../../../../lib/core';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {syntaxParse} from '../../../syntax-parser';
+import {resourceParse} from '../../../resource-parser';
 import {$Node} from '../../node';
 import {IdNode} from '../../token/id/id-node';
 import {IntegerNode} from '../../token/integer/integer-node';
@@ -11,7 +11,7 @@ import {InvokeNode} from './invoke-node';
 test('method call', () => {
   const text = "f(3, 'str')";
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as InvokeNode;
 
@@ -30,7 +30,7 @@ test('method on several lines', () => {
         'str', 123, 
     415]`;
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as InvokeNode;
 
@@ -47,7 +47,7 @@ test('method on several lines', () => {
 test('can call with type parameter', () => {
   const text = 'a.get [1]';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as InvokeNode;
 
@@ -65,7 +65,7 @@ test('can call with type parameter', () => {
 test('object method', () => {
   const text = '{a, b}.call()';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as InvokeNode;
 
@@ -85,7 +85,7 @@ test('object method', () => {
 test('generics', () => {
   const text = 'Animal{T}';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as InvokeNode;
 

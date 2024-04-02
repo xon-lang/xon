@@ -7,7 +7,6 @@ export interface Node {
   $: $Node;
   range: TextResourceRange;
   parent?: Node | Nothing;
-  // todo make 'hiddenNodes' optional
   hiddenNodes?: Array2<TokenNode>;
   semantic?: Semantic | Nothing;
 }

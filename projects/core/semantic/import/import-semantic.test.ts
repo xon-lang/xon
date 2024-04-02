@@ -1,6 +1,6 @@
 import {nothing} from '../../lib/core';
 import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-node';
-import {syntaxParse} from '../../parser/syntax-parser';
+import {resourceParse} from '../../parser/resource-parser';
 import {textResourceFrom} from '../../util/resource/text/text-resource';
 import {DeclarationSemantic} from '../declaration/declaration-semantic';
 import {$Semantic, semanticParse} from '../semantic';
@@ -13,7 +13,7 @@ test('import core', () => {
     const a: "abc"
   `;
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = resourceParse(source);
   const semantic = semanticParse(syntax);
 
   expect(semantic.declarationManager.count()).toBe(1);
