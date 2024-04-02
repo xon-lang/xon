@@ -17,17 +17,14 @@ export function integerNode(range: TextResourceRange, text: String2): IntegerNod
 }
 
 export function integerTokenParse(context: SyntaxContext): IntegerNode | Nothing {
-  const {resource: source, position} = context;
+  const index = context.position.index;
+  const data = context.resource.data;
 
-  if (!source.data.isDigit(position.index)) {
+  if (!data.isDigit(index)) {
     return nothing;
   }
 
-  const text = context.resource.data.takeWhile(
-    (x, i) => x === UNDERSCORE || source.data.isDigit(i),
-    context.position.index,
-  );
-
+  const text = data.takeWhile((x, i) => x === UNDERSCORE || data.isDigit(i), index);
   const range = context.getRange(text.length, false);
 
   return integerNode(range, text);

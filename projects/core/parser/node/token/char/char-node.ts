@@ -18,14 +18,17 @@ export function charNode(range: TextResourceRange, text: String2): CharNode {
 }
 
 export function charTokenParse(context: SyntaxContext): CharNode | Nothing {
-  if (context.resource.data[context.position.index] !== CHAR_QUOTE) {
+  const index = context.position.index;
+  const data = context.resource.data;
+
+  if (data[index] !== CHAR_QUOTE) {
     return nothing;
   }
 
-  const nextQuoteIndex = context.resource.data.indexOf(CHAR_QUOTE, context.position.index + 1);
+  const nextQuoteIndex = data.indexOf(CHAR_QUOTE, index + 1);
 
-  const endSlice = nextQuoteIndex < 0 ? context.resource.data.length : nextQuoteIndex + 1;
-  const text = context.resource.data.slice(context.position.index, endSlice);
+  const endSlice = nextQuoteIndex < 0 ? data.length : nextQuoteIndex + 1;
+  const text = data.slice(index, endSlice);
   const range = context.getRange(text.length, false);
 
   return charNode(range, text);

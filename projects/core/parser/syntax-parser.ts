@@ -1,30 +1,30 @@
-import { formatLastContextHiddenNodes } from "../../../formatter/formatter";
-import { ISSUE_MESSAGE } from "../../../issue/issue-message";
-import { Nothing, Array2, nothing, Boolean2 } from "../../../lib/core";
-import { TextResource } from "../../../util/resource/text/text-resource";
-import { zeroPosition, TextResourcePosition } from "../../../util/resource/text/text-resource-position";
-import { SyntaxContext, SyntaxResult, syntaxContext } from "../../syntax-context";
-import { putStatementNode } from "../../util/put-statement-node";
-import { Node, is, $Node } from "../node";
-import { scanGroupNode } from "../syntax/group/group-node";
-import { charTokenParse } from "./char/char-node";
-import { closeTokenParse } from "./close/close-node";
-import { commentBlockTokenParse } from "./comment-block/comment-block-node";
-import { commentLineTokenParse } from "./comment-line/comment-line-node";
-import { idTokenParse } from "./id/id-node";
-import { integerTokenParse } from "./integer/integer-node";
-import { joiningTokenParse } from "./joining/joining-node";
-import { nlTokenParse, NlNode } from "./nl/nl-node";
-import { operatorTokenParse } from "./operator/operator-node";
-import { stringTokenParse } from "./string/string-node";
-import { isHiddenToken } from "./token-node";
-import { unknownTokenParse, UnknownNode } from "./unknown/unknown-node";
-import { whitespaceTokenParse } from "./whitespace/whitespace-node";
+import {formatLastContextHiddenNodes} from '../formatter/formatter';
+import {ISSUE_MESSAGE} from '../issue/issue-message';
+import {Array2, Boolean2, Nothing, nothing} from '../lib/core';
+import {TextResource} from '../util/resource/text/text-resource';
+import {TextResourcePosition, zeroPosition} from '../util/resource/text/text-resource-position';
+import {$Node, Node, is} from './node/node';
+import {scanGroupNode} from './node/syntax/group/group-node';
+import {charTokenParse} from './node/token/char/char-node';
+import {closeTokenParse} from './node/token/close/close-node';
+import {commentBlockTokenParse} from './node/token/comment-block/comment-block-node';
+import {commentLineTokenParse} from './node/token/comment-line/comment-line-node';
+import {idTokenParse} from './node/token/id/id-node';
+import {integerTokenParse} from './node/token/integer/integer-node';
+import {joiningTokenParse} from './node/token/joining/joining-node';
+import {NlNode, nlTokenParse} from './node/token/nl/nl-node';
+import {operatorTokenParse} from './node/token/operator/operator-node';
+import {stringTokenParse} from './node/token/string/string-node';
+import {isHiddenToken} from './node/token/token-node';
+import {UnknownNode, unknownTokenParse} from './node/token/unknown/unknown-node';
+import {whitespaceTokenParse} from './node/token/whitespace/whitespace-node';
+import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
+import {putStatementNode} from './util/put-statement-node';
 
-export type TokenParseResult = Node | Nothing;
-export type TokenParseFn = (context: SyntaxContext) => TokenParseResult;
+export type SyntaxParseResult = Node | Nothing;
+export type SyntaxParseFn = (context: SyntaxContext) => SyntaxParseResult;
 
-const parsers: Array2<TokenParseFn> = [
+const parsers: Array2<SyntaxParseFn> = [
   commentBlockTokenParse,
   commentLineTokenParse,
   integerTokenParse,
@@ -36,10 +36,11 @@ const parsers: Array2<TokenParseFn> = [
   whitespaceTokenParse,
   operatorTokenParse,
   idTokenParse,
+  scanGroupNode,
   unknownTokenParse,
 ];
 
-export function tokenParse(resource: TextResource): Node[] {
+export function syntaxParse(resource: TextResource): SyntaxResult {
   return syntaxParseUntil(resource, zeroPosition(), nothing);
 }
 
@@ -66,7 +67,7 @@ export function syntaxParseUntil(
     const lastNode = context.nodes.last();
 
     if (is<UnknownNode>(node, $Node.UNKNOWN)) {
-      if (is<UnknownNode>(lastNode, $Node.UNKNOWN) && lastNode.hiddenNodes.length === 0) {
+      if (is<UnknownNode>(lastNode, $Node.UNKNOWN) && lastNode.hiddenNodes?.length === 0) {
         lastNode.range.stop = node.range.stop;
         lastNode.text += node.text;
 

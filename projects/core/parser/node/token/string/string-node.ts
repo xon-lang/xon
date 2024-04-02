@@ -18,17 +18,18 @@ export function stringNode(range: TextResourceRange, text: String2): StringNode 
 }
 
 export function stringTokenParse(context: SyntaxContext): StringNode | Nothing {
-  const {resource: source, position} = context;
+  const index = context.position.index;
+  const data = context.resource.data;
 
-  if (source.data[position.index] === STRING_QUOTE) {
-    const stopIndex = source.data.indexOf(STRING_QUOTE, position.index + STRING_QUOTE.length);
-    const endSlice = stopIndex < 0 ? source.data.length : stopIndex + STRING_QUOTE.length;
-
-    const text = source.data.slice(position.index, endSlice);
-    const range = context.getRange(text.length, true);
-
-    return stringNode(range, text);
+  if (data[index] !== STRING_QUOTE) {
+    return nothing;
   }
 
-  return nothing;
+  const stopIndex = data.indexOf(STRING_QUOTE, index + STRING_QUOTE.length);
+  const endSlice = stopIndex < 0 ? data.length : stopIndex + STRING_QUOTE.length;
+
+  const text = data.slice(index, endSlice);
+  const range = context.getRange(text.length, true);
+
+  return stringNode(range, text);
 }

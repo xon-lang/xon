@@ -1,6 +1,6 @@
 import {nothing} from '../../../../lib/core';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {resourceParse} from '../../../resource-parser';
+import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';
 import {IntegerNode} from '../integer/integer-node';
 import {UnknownNode} from './unknown-node';
@@ -8,7 +8,7 @@ import {UnknownNode} from './unknown-node';
 test('unknown 1', () => {
   const text = '123 §•∞•456';
   const source = textResourceFrom(nothing, text);
-  const syntax = resourceParse(source);
+  const syntax = syntaxParse(source);
   const statements = syntax.statements;
   const node0 = statements[0].item as IntegerNode;
   const node1 = statements[0].children[1] as UnknownNode;
@@ -25,7 +25,7 @@ test('unknown 1', () => {
 test('unknown 2', () => {
   const text = 'ºª¶';
   const resource = textResourceFrom(nothing, text);
-  const syntax = resourceParse(resource);
+  const syntax = syntaxParse(resource);
   const statements = syntax.statements;
   const node = statements[0].item as UnknownNode;
 

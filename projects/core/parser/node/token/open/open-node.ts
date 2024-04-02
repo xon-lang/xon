@@ -14,14 +14,17 @@ export function openNode(range: TextResourceRange, text: String2): OpenNode {
 }
 
 export function openNodeParse(context: SyntaxContext): Partial<OpenNode> | Nothing {
-  const char = context.resource.data[context.position.index];
+  const index = context.position.index;
+  const data = context.resource.data;
 
-  if (char === GROUP_OPEN || char === ARRAY_OPEN || char === OBJECT_OPEN) {
-    const text = context.resource.data[context.position.index];
-    const range = context.getRange(text.length, false);
+  const char = data[index];
 
-    return openNode(range, text);
+  if (char !== GROUP_OPEN && char !== ARRAY_OPEN && char !== OBJECT_OPEN) {
+    return nothing;
   }
 
-  return nothing;
+  const text = data[index];
+  const range = context.getRange(text.length, false);
+
+  return openNode(range, text);
 }

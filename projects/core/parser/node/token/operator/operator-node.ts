@@ -2,7 +2,7 @@ import {Nothing, String2, nothing} from '../../../../lib/core';
 import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATORS, OPERATOR_KEYWORDS} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, Node} from '../../node';
+import {$Node} from '../../node';
 import {idTokenParse} from '../id/id-node';
 import {TokenNode, tokenNode} from '../token-node';
 
@@ -17,7 +17,7 @@ export interface OperatorNode extends TokenNode {
   keywordType: KeywordType | Nothing;
 }
 
-export function operatorNode(context: SyntaxContext, range: TextResourceRange, text: String2): OperatorNode {
+export function operatorNode(range: TextResourceRange, text: String2): OperatorNode {
   const token = tokenNode($Node.OPERATOR, {range, text});
   const keywordType = getKeywordType(text);
 
@@ -29,9 +29,11 @@ export function operatorNode(context: SyntaxContext, range: TextResourceRange, t
   return node;
 }
 
-export function operatorTokenParse(context: SyntaxContext): Node | Nothing {
-  const {position, resource: source} = context;
-  const text = OPERATORS.findLast((x) => x === source.data.slice(position.index, position.index + x.length));
+export function operatorTokenParse(context: SyntaxContext): TokenNode | Nothing {
+  const index = context.position.index;
+  const data = context.resource.data;
+
+  const text = OPERATORS.findLast((x) => x === data.slice(index, index + x.length));
 
   if (!text) {
     return nothing;
@@ -45,7 +47,7 @@ export function operatorTokenParse(context: SyntaxContext): Node | Nothing {
 
   const range = context.getRange(text.length, false);
 
-  return operatorNode(context, range, text);
+  return operatorNode(range, text);
 }
 
 function getKeywordType(text: String2): KeywordType | Nothing {

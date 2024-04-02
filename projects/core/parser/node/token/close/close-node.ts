@@ -14,14 +14,17 @@ export function closeNode(range: TextResourceRange, text: String2): CloseNode {
 }
 
 export function closeTokenParse(context: SyntaxContext): CloseNode | Nothing {
-  const char = context.resource.data[context.position.index];
+  const index = context.position.index;
+  const data = context.resource.data;
 
-  if (char === GROUP_CLOSE || char === ARRAY_CLOSE || char === OBJECT_CLOSE) {
-    const text = context.resource.data[context.position.index];
-    const range = context.getRange(1, false);
+  const char = data[index];
 
-    return closeNode(range, text);
+  if (char !== GROUP_CLOSE && char !== ARRAY_CLOSE && char !== OBJECT_CLOSE) {
+    return nothing;
   }
 
-  return nothing;
+  const text = data[index];
+  const range = context.getRange(1, false);
+
+  return closeNode(range, text);
 }
