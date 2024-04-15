@@ -1,13 +1,13 @@
 import {nothing} from '../../../../lib/core';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {resourceParse} from '../../../resource-parser';
+import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';
 import {EofNode} from './eof-node';
 
 test('a', () => {
   const text = "'a'";
   const source = textResourceFrom(nothing, text);
-  const syntax = resourceParse(source);
+  const syntax = syntaxParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as EofNode;
 

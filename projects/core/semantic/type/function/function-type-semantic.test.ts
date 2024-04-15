@@ -1,6 +1,6 @@
 import {nothing} from '../../../lib/core';
 import {DeclarationNode} from '../../../parser/node/syntax/declaration/declaration-node';
-import {resourceParse} from '../../../parser/resource-parser';
+import {syntaxParse} from '../../../parser/syntax-parser';
 import {textResourceFrom} from '../../../util/resource/text/text-resource';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
@@ -14,7 +14,7 @@ test('a is integer', () => {
     const a: (x: Integer): Integer
   `;
   const source = textResourceFrom(nothing, text);
-  const syntax = resourceParse(source);
+  const syntax = syntaxParse(source);
   const semantic = semanticParse(syntax);
 
   expect(semantic.declarationManager.count()).toBe(2);

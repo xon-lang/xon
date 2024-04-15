@@ -1,13 +1,13 @@
 import {nothing} from '../../../../lib/core';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {resourceParse} from '../../../resource-parser';
+import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';
 import {ObjectNode} from './object-node';
 
 test('empty object', () => {
   const text = '{}';
   const source = textResourceFrom(nothing, text);
-  const syntax = resourceParse(source);
+  const syntax = syntaxParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as ObjectNode;
 

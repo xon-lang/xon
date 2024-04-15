@@ -1,13 +1,13 @@
 import {nothing} from '../../../../lib/core';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {resourceParse} from '../../../resource-parser';
+import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';
 import {StringNode} from './string-node';
 
 test('string', () => {
   const text = '"abc   def"';
   const source = textResourceFrom(nothing, text);
-  const syntax = resourceParse(source);
+  const syntax = syntaxParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as StringNode;
 
@@ -19,7 +19,7 @@ test('string', () => {
 test('multiline string', () => {
   const text = '"some\nmultiline\n\n\nstring\n"';
   const source = textResourceFrom(nothing, text);
-  const syntax = resourceParse(source);
+  const syntax = syntaxParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as StringNode;
 
@@ -31,7 +31,7 @@ test('multiline string', () => {
 test('empty string', () => {
   const text = '"';
   const source = textResourceFrom(nothing, text);
-  const syntax = resourceParse(source);
+  const syntax = syntaxParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as StringNode;
 
@@ -43,7 +43,7 @@ test('empty string', () => {
 test('not closed', () => {
   const text = '"abc';
   const source = textResourceFrom(nothing, text);
-  const syntax = resourceParse(source);
+  const syntax = syntaxParse(source);
   const statements = syntax.statements;
   const node = statements[0].item as StringNode;
 
