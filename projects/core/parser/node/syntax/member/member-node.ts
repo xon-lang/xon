@@ -2,11 +2,11 @@ import {formatAfterHiddenNodes, formatBetweenHiddenNodes} from '../../../../form
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {Integer, Nothing, nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
+import {SyntaxParseFn} from '../../../util/statement-collapse';
 import {$Node, Node, findNode, is} from '../../node';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
-import {SyntaxParseFn} from '../syntax-parser';
 
 export interface MemberNode extends SyntaxNode {
   $: $Node.MEMBER;

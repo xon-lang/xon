@@ -1,4 +1,12 @@
-import {Array2, Integer, Nothing, nothing} from '../../../lib/core';
+import {Array2, Integer, Nothing, nothing} from '../../lib/core';
+import {importSyntaxParse} from '../node/syntax/import/import-node';
+import {infixSyntaxParse} from '../node/syntax/infix/infix-node';
+import {invokeSyntaxParse} from '../node/syntax/invoke/invoke-node';
+import {memberSyntaxParse} from '../node/syntax/member/member-node';
+import {postfixSyntaxParse} from '../node/syntax/postfix/postfix-node';
+import {prefixSyntaxParse} from '../node/syntax/prefix/prefix-node';
+import {rangeSyntaxParse} from '../node/syntax/range/range-node';
+import {SyntaxNode} from '../node/syntax/syntax-node';
 import {
   COMMA,
   COMPLEMENT,
@@ -26,16 +34,8 @@ import {
   REST,
   SQUARE,
   UNION,
-} from '../../parser-config';
-import {SyntaxContext} from '../../syntax-context';
-import {importSyntaxParse} from './import/import-node';
-import {infixSyntaxParse} from './infix/infix-node';
-import {invokeSyntaxParse} from './invoke/invoke-node';
-import {memberSyntaxParse} from './member/member-node';
-import {postfixSyntaxParse} from './postfix/postfix-node';
-import {prefixSyntaxParse} from './prefix/prefix-node';
-import {rangeSyntaxParse} from './range/range-node';
-import {SyntaxNode} from './syntax-node';
+} from '../parser-config';
+import {SyntaxContext} from '../syntax-context';
 
 export type SyntaxParseResult = {spliceIndex: Integer; node: SyntaxNode} | Nothing;
 export type SyntaxParseFn = (context: SyntaxContext, startIndex: Integer) => SyntaxParseResult;

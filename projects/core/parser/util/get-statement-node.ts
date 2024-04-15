@@ -1,8 +1,8 @@
 import {ISSUE_MESSAGE} from '../../issue/issue-message';
 import {Array2, Integer, Nothing} from '../../lib/core';
 import {StatementNode, statementNode} from '../node/syntax/statement/statement-node';
-import {statementCollapse} from '../node/syntax/syntax-parser';
 import {TokenNode} from '../node/token/token-node';
+import {statementCollapse} from './statement-collapse';
 
 import {SyntaxContext} from '../syntax-context';
 // import {parseDeclarationStatement} from './collapse-declaration';

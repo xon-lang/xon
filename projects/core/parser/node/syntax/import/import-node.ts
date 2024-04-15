@@ -2,11 +2,11 @@ import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {Integer, Nothing} from '../../../../lib/core';
 import {IMPORT} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
+import {SyntaxParseResult} from '../../../util/statement-collapse';
 import {$Node, findNode, is} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {StringNode} from '../../token/string/string-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
-import {SyntaxParseResult} from '../syntax-parser';
 
 export interface ImportNode extends SyntaxNode {
   $: $Node.IMPORT;

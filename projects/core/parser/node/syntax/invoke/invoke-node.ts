@@ -1,13 +1,13 @@
 import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {Integer, Nothing, nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
+import {SyntaxParseFn} from '../../../util/statement-collapse';
 import {$Node, Node, findNode, is} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {ArrayNode} from '../array/array-node';
 import {Group, GroupNode} from '../group/group-node';
 import {ObjectNode} from '../object/object-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
-import {SyntaxParseFn} from '../syntax-parser';
 
 export interface InvokeNode extends SyntaxNode {
   $: $Node.INVOKE;
