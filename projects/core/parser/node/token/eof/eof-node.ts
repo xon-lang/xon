@@ -4,6 +4,7 @@ import {SyntaxContext} from '../../../syntax-context';
 import {$Node} from '../../node';
 import {TokenNode, tokenNode} from '../token-node';
 
+// todo need for it ???
 export interface EofNode extends TokenNode {
   $: $Node.EOF;
 }

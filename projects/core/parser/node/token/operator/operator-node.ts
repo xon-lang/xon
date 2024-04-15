@@ -30,10 +30,9 @@ export function operatorNode(range: TextResourceRange, text: String2): OperatorN
 }
 
 export function operatorTokenParse(context: SyntaxContext): TokenNode | Nothing {
-  const index = context.position.index;
-  const data = context.resource.data;
+  const {resource, position} = context;
 
-  const text = OPERATORS.findLast((x) => x === data.slice(index, index + x.length));
+  const text = OPERATORS.findLast((x) => x === resource.data.slice(position.index, position.index + x.length));
 
   if (!text) {
     return nothing;

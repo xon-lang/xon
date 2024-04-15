@@ -14,17 +14,16 @@ export function commentBlockNode(range: TextResourceRange, text: String2): Comme
 }
 
 export function commentBlockTokenParse(context: SyntaxContext): CommentBlockNode | Nothing {
-  const index = context.position.index;
-  const data = context.resource.data;
+  const {resource, position} = context;
 
-  if (data.take(COMMENT_BLOCK.length, index) !== COMMENT_BLOCK) {
+  if (resource.data.take(COMMENT_BLOCK.length, position.index) !== COMMENT_BLOCK) {
     return nothing;
   }
 
-  const stopIndex = data.indexOf(COMMENT_BLOCK, index + COMMENT_BLOCK.length);
-  const endSlice = stopIndex < 0 ? data.length : stopIndex + COMMENT_BLOCK.length;
+  const stopIndex = resource.data.indexOf(COMMENT_BLOCK, position.index + COMMENT_BLOCK.length);
+  const endSlice = stopIndex < 0 ? resource.data.length : stopIndex + COMMENT_BLOCK.length;
 
-  const text = data.slice(index, endSlice);
+  const text = resource.data.slice(position.index, endSlice);
   const range = context.getRange(text.length, true);
 
   return commentBlockNode(range, text);

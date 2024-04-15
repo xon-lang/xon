@@ -15,14 +15,13 @@ export function idNode(range: TextResourceRange, text: String2): IdNode {
 }
 
 export function idTokenParse(context: SyntaxContext): IdNode | Nothing {
-  const index = context.position.index;
-  const data = context.resource.data;
+  const {resource, position} = context;
 
-  if (data[index] !== UNDERSCORE && !data.isLetter(index)) {
+  if (resource.data[position.index] !== UNDERSCORE && !resource.data.isLetter(position.index)) {
     return nothing;
   }
 
-  const text = data.takeWhile((x, i) => x === UNDERSCORE || data.isLetterOrDigit(i), index);
+  const text = resource.data.takeWhile((x, i) => x === UNDERSCORE || resource.data.isLetterOrDigit(i), position.index);
 
   const range = context.getRange(text.length, false);
 

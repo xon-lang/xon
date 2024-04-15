@@ -44,37 +44,46 @@ export function syntaxContext(resource: TextResource, position: TextResourcePosi
     formatterManager: createFormatterManager(resource),
 
     getRange(length: Integer, canContainNewLines: Boolean2): TextResourceRange {
-      const {index, line, column} = this.position;
-
       if (canContainNewLines) {
-        let nlCount = line;
-        let columnIndent = column;
-
-        for (let i = index; i < index + length; i++) {
-          const char = this.resource.data[i];
-
-          if (char === NL) {
-            nlCount += 1;
-            columnIndent = 0;
-
-            continue;
-          }
-
-          columnIndent += 1;
-        }
-
-        const start = textResourcePosition(index, line, column);
-        const stop = textResourcePosition(index + length, nlCount, columnIndent);
-
-        return textResourceRange(start, stop);
+        return getTokenRangeWithNL(length, this.resource, this.position);
       }
 
-      const stopIndex = index + length;
-      const stopColumn = column + length;
-      const start = textResourcePosition(index, line, column);
-      const stop = textResourcePosition(stopIndex, line, stopColumn);
-
-      return textResourceRange(start, stop);
+      return getTokenRangeWithoutNL(length, this.resource, this.position);
     },
   };
+}
+
+function getTokenRangeWithNL(length: Integer, resource: TextResource, position: TextResourcePosition) {
+  const {index, line, column} = position;
+  let nlCount = line;
+  let columnIndent = column;
+
+  for (let i = index; i < index + length; i++) {
+    const char = resource.data[i];
+
+    if (char === NL) {
+      nlCount += 1;
+      columnIndent = 0;
+
+      continue;
+    }
+
+    columnIndent += 1;
+  }
+
+  const start = textResourcePosition(index, line, column);
+  const stop = textResourcePosition(index + length, nlCount, columnIndent);
+
+  return textResourceRange(start, stop);
+}
+
+function getTokenRangeWithoutNL(length: Integer, resource: TextResource, position: TextResourcePosition) {
+  const {index, line, column} = position;
+  const stopIndex = index + length;
+  const stopColumn = column + length;
+
+  const start = textResourcePosition(index, line, column);
+  const stop = textResourcePosition(stopIndex, line, stopColumn);
+
+  return textResourceRange(start, stop);
 }

@@ -60,7 +60,7 @@ const parsers: Array2<SyntaxParseFn> = [
   infixSyntaxParse([COMMA]),
 ];
 
-export function syntaxParse(context: SyntaxContext): Nothing {
+export function statementCollapse(context: SyntaxContext): Nothing {
   for (const parse of parsers) {
     let result: SyntaxParseResult = nothing;
     let startIndex = 0;

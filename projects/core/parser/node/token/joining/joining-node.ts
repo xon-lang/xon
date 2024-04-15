@@ -14,16 +14,15 @@ export function joiningNode(range: TextResourceRange, text: String2): JoiningNod
 }
 
 export function joiningTokenParse(context: SyntaxContext): JoiningNode | Nothing {
-  const index = context.position.index;
-  const data = context.resource.data;
+  const {resource, position} = context;
 
-  if (data[index] !== JOINING) {
+  if (resource.data[position.index] !== JOINING) {
     return nothing;
   }
 
-  let text = JOINING + data.takeWhile((x) => x === SPACE, index + JOINING.length);
+  let text = JOINING + resource.data.takeWhile((x) => x === SPACE, position.index + JOINING.length);
 
-  if (data[index + text.length] === NL) {
+  if (resource.data[position.index + text.length] === NL) {
     text += NL;
   }
 

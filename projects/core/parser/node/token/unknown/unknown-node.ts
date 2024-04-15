@@ -1,4 +1,4 @@
-import {Nothing, String2} from '../../../../lib/core';
+import {String2} from '../../../../lib/core';
 import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node} from '../../node';
@@ -12,11 +12,10 @@ export function unknownNode(range: TextResourceRange, text: String2): UnknownNod
   return tokenNode($Node.UNKNOWN, {range, text});
 }
 
-export function unknownTokenParse(context: SyntaxContext): UnknownNode | Nothing {
-  const index = context.position.index;
-  const data = context.resource.data;
+export function unknownTokenParse(context: SyntaxContext): UnknownNode {
+  const {resource, position} = context;
 
-  const text = data[index];
+  const text = resource.data[position.index];
   const range = context.getRange(1, false);
 
   return unknownNode(range, text);

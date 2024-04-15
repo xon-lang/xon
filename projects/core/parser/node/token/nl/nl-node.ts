@@ -14,14 +14,13 @@ export function nlNode(range: TextResourceRange, text: String2): NlNode {
 }
 
 export function nlTokenParse(context: SyntaxContext): NlNode | Nothing {
-  const index = context.position.index;
-  const data = context.resource.data;
+  const {resource, position} = context;
 
-  if (data[index] !== NL) {
+  if (resource.data[position.index] !== NL) {
     return nothing;
   }
 
-  const textWithIndents = data.takeWhile((x) => x === NL || x === SPACE, index);
+  const textWithIndents = resource.data.takeWhile((x) => x === NL || x === SPACE, position.index);
   const lastNLIndex = textWithIndents.lastIndexOf(NL);
 
   const text = textWithIndents.slice(0, lastNLIndex + 1);

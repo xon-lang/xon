@@ -14,10 +14,9 @@ export function whitespaceNode(range: TextResourceRange, text: String2): Whitesp
 }
 
 export function whitespaceTokenParse(context: SyntaxContext): WhitespaceNode | Nothing {
-  const index = context.position.index;
-  const data = context.resource.data;
+  const {resource, position} = context;
 
-  const text = data.takeWhile((x) => x === SPACE, index);
+  const text = resource.data.takeWhile((x) => x === SPACE, position.index);
 
   if (text.length === 0) {
     return nothing;
