@@ -1,7 +1,7 @@
 // import {nothing} from '../../../../lib/core';
 // import {evaluate} from '../../../../util/evaluate';
 // import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-// import {parseSyntax} from '../../../syntax';
+// import {syntaxParse} from '../../../syntax-parser';
 // import {$Node} from '../../node';
 // import {CharNode} from '../../token/char/char-node';
 // import {IdNode} from '../../token/id/id-node';
@@ -10,8 +10,8 @@
 
 // test('model A', () => {
 //   const text = 'model A';
-//   const source = textResourceFrom(nothing, text);
-//   const syntax = parseSyntax(source);
+//   const resource = textResourceFrom(nothing, text);
+//   const syntax = syntaxParse(resource);
 //   const statements = syntax.statements;
 //   const node = statements[0].item as DeclarationNode;
 
@@ -23,8 +23,8 @@
 
 // test('model A: B', () => {
 //   const text = 'model A: B';
-//   const source = textResourceFrom(nothing, text);
-//   const syntax = parseSyntax(source);
+//   const resource = textResourceFrom(nothing, text);
+//   const syntax = syntaxParse(resource);
 //   const statements = syntax.statements;
 //   const node = statements[0].item as DeclarationNode;
 
@@ -38,8 +38,8 @@
 
 // test('with generics extends b', () => {
 //   const text = 'model A{T: Array = String, U}: B';
-//   const source = textResourceFrom(nothing, text);
-//   const syntax = parseSyntax(source);
+//   const resource = textResourceFrom(nothing, text);
+//   const syntax = syntaxParse(resource);
 //   const statements = syntax.statements;
 //   const node = statements[0].item as DeclarationNode;
 
@@ -57,8 +57,8 @@
 
 // test('with parameters extends b', () => {
 //   const text = "model A(a: Integer = 123, b: Boolean, c = 'C'): B";
-//   const source = textResourceFrom(nothing, text);
-//   const syntax = parseSyntax(source);
+//   const resource = textResourceFrom(nothing, text);
+//   const syntax = syntaxParse(resource);
 //   const statements = syntax.statements;
 //   const node = statements[0].item as DeclarationNode;
 
@@ -86,8 +86,8 @@
 
 // test('with generics and parameters extends b', () => {
 //   const text = "model A{T: Array = String, U}(a: Integer = 123, b: Boolean, c = 'C'): B";
-//   const source = textResourceFrom(nothing, text);
-//   const syntax = parseSyntax(source);
+//   const resource = textResourceFrom(nothing, text);
+//   const syntax = syntaxParse(resource);
 //   const statements = syntax.statements;
 //   const node = statements[0].item as DeclarationNode;
 
@@ -127,8 +127,8 @@
 //   e(a, b, c: Char, d = 2): Nothing
 //   f{T, U, V}(a, b, c: Char, d = 2) = a + b + d
 //   `;
-//   const source = textResourceFrom(nothing, text);
-//   const syntax = parseSyntax(source);
+//   const resource = textResourceFrom(nothing, text);
+//   const syntax = syntaxParse(resource);
 //   const statements = syntax.statements;
 //   const node = statements[0].item as DeclarationNode;
 
@@ -142,8 +142,8 @@
 
 // test('function with no parameters', () => {
 //   const text = '(): Integer';
-//   const source = textResourceFrom(nothing, text);
-//   const syntax = parseSyntax(source);
+//   const resource = textResourceFrom(nothing, text);
+//   const syntax = syntaxParse(resource);
 //   const statements = syntax.statements;
 //   const node = statements[0].item as DeclarationNode;
 
@@ -156,8 +156,8 @@
 
 // // test('function with generic', () => {
 // //   const text = '{T}(): T';
-// //   const source = textResourceFrom(nothing, text);
-// //   const syntax = parseSyntax(source);
+// //   const resource = textResourceFrom(nothing, text);
+// //   const syntax = syntaxParse(resource);
 // //   const statements = syntax.statements;
 // //   const node = statements[0].item as DeclarationNode;
 
@@ -172,8 +172,8 @@
 
 // // test('function with generic and parameter', () => {
 // //   const text = '{T}(a: T): T';
-// //   const source = textResourceFrom(nothing, text);
-// //   const syntax = parseSyntax(source);
+// //   const resource = textResourceFrom(nothing, text);
+// //   const syntax = syntaxParse(resource);
 // //   const statements = syntax.statements;
 // //   const node = statements[0].item as FunctionNode;
 
@@ -189,8 +189,8 @@
 
 // test('model string with base class', () => {
 //   const text = 'model Array\nmodel String: Array';
-//   const source = textResourceFrom(nothing, text);
-//   const syntax = parseSyntax(source);
+//   const resource = textResourceFrom(nothing, text);
+//   const syntax = syntaxParse(resource);
 //   const statements = syntax.statements;
 //   const node = statements[1].item as DeclarationNode;
 
@@ -203,8 +203,8 @@
 
 // test('has argument', () => {
 //   const text = '(x) = x + 42';
-//   const source = textResourceFrom(nothing, text);
-//   const syntax = parseSyntax(source);
+//   const resource = textResourceFrom(nothing, text);
+//   const syntax = syntaxParse(resource);
 //   const statements = syntax.statements;
 //   const node = statements[0].item as DeclarationNode;
 
@@ -222,8 +222,8 @@
 
 // test('two parameter', () => {
 //   const text = '(a, b) = a+b';
-//   const source = textResourceFrom(nothing, text);
-//   const syntax = parseSyntax(source);
+//   const resource = textResourceFrom(nothing, text);
+//   const syntax = syntaxParse(resource);
 //   const statements = syntax.statements;
 //   const node = statements[0].item as DeclarationNode;
 
