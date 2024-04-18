@@ -23,11 +23,11 @@ export function evaluate(node: Node | Nothing, argsMap = {}): Anything {
   }
 
   if (is<IntegerNode>(node, $Node.INTEGER)) {
-    return Number(node.text);
+    return node.value;
   }
 
   if (is<StringNode>(node, $Node.STRING) || is<CharNode>(node, $Node.CHAR)) {
-    return node.text.slice(1, -1);
+    return node.value;
   }
 
   if (is<InfixNode>(node, $Node.INFIX)) {
