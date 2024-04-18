@@ -29,10 +29,10 @@ import {
   OPERATOR_KEYWORDS,
   OPTIONAL,
   PLUS,
+  POW,
   PROMISE,
   RANGE,
   REST,
-  SQUARE,
   UNION,
 } from '../parser-config';
 import {SyntaxContext} from '../syntax-context';
@@ -46,7 +46,7 @@ const parsers: Array2<SyntaxParseFn> = [
   invokeSyntaxParse([]),
   prefixSyntaxParse([REST, PLUS, MINUS, NOT]),
   postfixSyntaxParse([OPTIONAL, PROMISE]),
-  infixSyntaxParse([SQUARE]),
+  infixSyntaxParse([POW]),
   infixSyntaxParse([MULTIPLY, DIVIDE, MOD]),
   infixSyntaxParse([PLUS, MINUS]),
   rangeSyntaxParse([RANGE]),

@@ -65,7 +65,7 @@ export const PLUS = '+';
 export const MINUS = '-';
 export const OPTIONAL = '?';
 export const PROMISE = '!';
-export const SQUARE = '^';
+export const POW = '^';
 export const MULTIPLY = '*';
 export const DIVIDE = '/';
 export const MOD = '%';
@@ -86,7 +86,7 @@ export const OPERATORS = [
   NOT,
   OPTIONAL,
   PROMISE,
-  SQUARE,
+  POW,
   MULTIPLY,
   DIVIDE,
   MOD,
