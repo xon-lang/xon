@@ -37,7 +37,6 @@ const parsers: Array2<SyntaxParseFn> = [
   operatorTokenParse,
   idTokenParse,
   scanGroupNode,
-  unknownTokenParse,
 ];
 
 export function syntaxParse(resource: TextResource): SyntaxResult {
@@ -53,10 +52,7 @@ export function syntaxParseUntil(
 
   while (context.position.index < context.resource.data.length) {
     const node = nextNode(context);
-
-    if (!node) {
-      continue;
-    }
+    context.position = node.range.stop;
 
     if (breakOnNodeFn && breakOnNodeFn(node)) {
       context.breakNode = node;
@@ -113,15 +109,5 @@ export function syntaxParseUntil(
 }
 
 function nextNode(context: SyntaxContext): Node {
-  const node = parsers.findMap((parse) => parse(context));
-
-  if (node) {
-    context.position.index = node.range.stop.index;
-    context.position.line = node.range.stop.line;
-    context.position.column = node.range.stop.column;
-
-    return node;
-  }
-
-  throw new Error('Unexpected Node');
+  return parsers.findMap((parse) => parse(context)) ?? unknownTokenParse(context);
 }

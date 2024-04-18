@@ -59,6 +59,7 @@ export function is<T extends Node = Node>(node: {$?: $Node} | Nothing, type: $No
   return node.$ === type || node.$.split(' ').includes(type);
 }
 
+// todo refactor findNode function
 export function findNode<T extends Node>(
   nodes: Node[],
   startIndex: Integer,

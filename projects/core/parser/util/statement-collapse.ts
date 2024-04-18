@@ -63,10 +63,10 @@ const parsers: Array2<SyntaxParseFn> = [
 export function statementCollapse(context: SyntaxContext): Nothing {
   for (const parse of parsers) {
     let result: SyntaxParseResult = nothing;
-    let startIndex = 0;
+    let index = 0;
 
-    while ((result = parse(context, startIndex))) {
-      startIndex = result.spliceIndex + result.node.children.length - 1;
+    while ((result = parse(context, index))) {
+      index = result.spliceIndex;
       context.nodes.splice(result.spliceIndex, result.node.children.length, result.node);
     }
   }
