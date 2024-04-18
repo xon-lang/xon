@@ -61,8 +61,9 @@ const parsers: Array2<SyntaxParseFn> = [
 ];
 
 export function statementCollapse(context: SyntaxContext): Nothing {
+  let result: SyntaxParseResult = nothing;
+
   for (const parse of parsers) {
-    let result: SyntaxParseResult = nothing;
     let index = 0;
 
     while ((result = parse(context, index))) {

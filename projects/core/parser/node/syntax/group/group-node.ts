@@ -51,18 +51,16 @@ export function scanGroupNode(context: SyntaxContext): Group | Nothing {
     return nothing;
   }
 
-  const {resource, position} = context;
-
-  position.column = open.range.stop.column;
-  position.index = open.range.stop.index;
+  context.position.column = open.range.stop.column;
+  context.position.index = open.range.stop.index;
 
   const items: Array2<ItemNode> = [];
 
-  while (position.index < resource.data.length) {
+  while (context.position.index < context.resource.data.length) {
     // todo use this cycle to group syntax by comma in the main parseSyntax function
     const {syntaxContext: itemContext} = syntaxParseUntil(
-      resource,
-      position,
+      context.resource,
+      context.position,
       (node) =>
         (is<OperatorNode>(node, $Node.OPERATOR) && node.text === COMMA) ||
         (is<CloseNode>(node, $Node.CLOSE) && node.text === OPEN_CLOSE_PAIR[open.text]),
