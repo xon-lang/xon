@@ -1,5 +1,5 @@
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
-import {Array2, Nothing, nothing} from '../../../../lib/core';
+import {Array2, Integer, Nothing, nothing} from '../../../../lib/core';
 import {ARRAY_OPEN, COMMA, GROUP_OPEN, OBJECT_OPEN, OPEN_CLOSE_PAIR} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {syntaxParseUntil} from '../../../syntax-parser';
@@ -13,8 +13,8 @@ import {ItemNode, itemNode} from '../item/item-node';
 import {objectNode} from '../object/object-node';
 import {Group, groupNode} from './group-node';
 
-export function groupNodeParse(context: SyntaxContext): Group | Nothing {
-  const open = openNodeParse(context);
+export function groupNodeParse(context: SyntaxContext, index: Integer): Group | Nothing {
+  const open = openNodeParse(context, index);
 
   if (!is<OpenNode>(open, $Node.OPEN)) {
     return nothing;

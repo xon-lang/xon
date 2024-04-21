@@ -1,16 +1,14 @@
-import {Nothing, nothing} from '../../../../lib/core';
+import {Integer, Nothing, nothing} from '../../../../lib/core';
 import {UNDERSCORE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {IntegerNode, integerNode} from './integer-node';
 
-export function integerNodeParse(context: SyntaxContext): IntegerNode | Nothing {
-  const {resource, position} = context;
-
-  if (!resource.data.isDigit(position.index)) {
+export function integerNodeParse(context: SyntaxContext, index: Integer): IntegerNode | Nothing {
+  if (!context.resource.data.isDigit(index)) {
     return nothing;
   }
 
-  const text = resource.data.takeWhile((x, i) => x === UNDERSCORE || resource.data.isDigit(i), position.index);
+  const text = context.resource.data.takeWhile((x, i) => x === UNDERSCORE || context.resource.data.isDigit(i), index);
   const range = context.getRange(text.length, false);
 
   return integerNode(range, text);

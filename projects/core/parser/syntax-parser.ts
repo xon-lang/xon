@@ -1,6 +1,6 @@
 import {formatLastContextHiddenNodes} from '../formatter/formatter';
 import {ISSUE_MESSAGE} from '../issue/issue-message';
-import {Array2, Boolean2, Nothing, nothing} from '../lib/core';
+import {Array2, Boolean2, Integer, Nothing, nothing} from '../lib/core';
 import {TextResource} from '../util/resource/text/text-resource';
 import {TextResourcePosition, zeroPosition} from '../util/resource/text/text-resource-position';
 import {$Node, Node, is} from './node/node';
@@ -24,7 +24,7 @@ import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
 import {putStatementNode} from './util/put-statement-node';
 
 export type TokenParseResult = Node | Nothing;
-export type TokenParseFn = (context: SyntaxContext) => TokenParseResult;
+export type TokenParseFn = (context: SyntaxContext, index: Integer) => TokenParseResult;
 
 const parsers: Array2<TokenParseFn> = [
   commentBlockNodeParse,
@@ -112,5 +112,8 @@ export function syntaxParseUntil(
 }
 
 function nextNode(context: SyntaxContext): Node {
-  return parsers.findMap((parse) => parse(context)) ?? unknownNodeParse(context);
+  return (
+    parsers.findMap((parse) => parse(context, context.position.index)) ??
+    unknownNodeParse(context, context.position.index)
+  );
 }
