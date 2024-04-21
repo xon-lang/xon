@@ -11,8 +11,8 @@ export const ISSUE_MESSAGE = {
     expect: 'Create a valid error message',
   }),
 
-  unknownTokens: () => ({
-    actual: 'Unknown tokens',
+  unknownSymbol: () => ({
+    actual: 'Unknown symbol',
     expect: nothing,
   }),
 

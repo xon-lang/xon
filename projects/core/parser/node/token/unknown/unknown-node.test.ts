@@ -19,7 +19,7 @@ test('unknown 1', () => {
   expect(node0.hiddenNodes?.length).toBe(1);
   expect(node0.hiddenNodes?.at(0)?.text).toBe(' ');
 
-  expect(node1.text).toBe('§•∞•');
+  expect(node1.text).toBe('§');
 });
 
 test('unknown 2', () => {
@@ -30,7 +30,7 @@ test('unknown 2', () => {
   const node = statements[0].item as UnknownNode;
 
   expect(statements.length).toBe(1);
-  expect(syntax.issueManager.issues.length).toBe(1);
-  expect(resource.getRangeText(syntax.issueManager.issues[0].range)).toBe('ºª¶');
-  expect(node.text).toBe('ºª¶');
+  expect(syntax.issueManager.issues.length).toBe(5);
+  expect(resource.getRangeText(syntax.issueManager.issues[0].range)).toBe('º');
+  expect(node.text).toBe('º');
 });

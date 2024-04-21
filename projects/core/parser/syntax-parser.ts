@@ -1,5 +1,4 @@
 import {formatLastContextHiddenNodes} from '../formatter/formatter';
-import {ISSUE_MESSAGE} from '../issue/issue-message';
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../lib/core';
 import {TextResource} from '../util/resource/text/text-resource';
 import {TextResourcePosition, zeroPosition} from '../util/resource/text/text-resource-position';
@@ -17,7 +16,6 @@ import {nlNodeParse} from './node/token/nl/nl-node-parse';
 import {operatorNodeParse} from './node/token/operator/operator-node-parse';
 import {stringNodeParse} from './node/token/string/string-node-parse';
 import {isHiddenToken} from './node/token/token-node';
-import {UnknownNode} from './node/token/unknown/unknown-node';
 import {unknownNodeParse} from './node/token/unknown/unknown-node-parse';
 import {whitespaceNodeParse} from './node/token/whitespace/whitespace-node-parse';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
@@ -62,19 +60,6 @@ export function syntaxParseUntil(
       break;
     }
 
-    const lastNode = context.nodes.last();
-
-    if (is<UnknownNode>(node, $Node.UNKNOWN)) {
-      if (is<UnknownNode>(lastNode, $Node.UNKNOWN) && lastNode.hiddenNodes?.length === 0) {
-        lastNode.range.stop = node.range.stop;
-        lastNode.text += node.text;
-
-        continue;
-      }
-
-      context.issueManager.addError(node.range, ISSUE_MESSAGE.unknownTokens());
-    }
-
     if (is<NlNode>(node, $Node.NL) && context.nodes.length > 0) {
       putStatementNode(context);
 
@@ -84,6 +69,7 @@ export function syntaxParseUntil(
       continue;
     }
 
+    const lastNode = context.nodes.last();
     if (isHiddenToken(node)) {
       const hiddenNodes = lastNode?.hiddenNodes ?? context.hiddenNodes;
       hiddenNodes.push(node);
