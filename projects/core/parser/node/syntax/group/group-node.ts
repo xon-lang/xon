@@ -41,7 +41,3 @@ function validate(context: SyntaxContext, node: GroupNode): Nothing {
     );
   }
 }
-
-export function isGroupNode(node: Node): node is Group {
-  return is<GroupNode>(node, $Node.GROUP) || is<ArrayNode>(node, $Node.ARRAY) || is<ObjectNode>(node, $Node.OBJECT);
-}
