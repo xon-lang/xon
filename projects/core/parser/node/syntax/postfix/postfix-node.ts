@@ -1,8 +1,7 @@
 import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
-import {Integer, Nothing, nothing} from '../../../../lib/core';
+import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
-import {SyntaxParseFn} from '../../../util/statement-collapse';
-import {$Node, Node, findNode, is} from '../../node';
+import {$Node, Node} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
@@ -23,35 +22,4 @@ export function postfixNode(context: SyntaxContext, value: Node, operator: Opera
 function format(context: SyntaxContext, node: PostfixNode): Nothing {
   const keepSingleWhitespace = node.operator.text.some((x) => x.isLetterOrDigit(0));
   formatBetweenHiddenNodes(context, node.value, keepSingleWhitespace);
-}
-
-export function postfixSyntaxParse(operators: String[]): SyntaxParseFn {
-  return (context: SyntaxContext, startIndex: Integer) => {
-    const found = findNode(
-      context.nodes,
-      startIndex,
-      true,
-      (x): x is OperatorNode => is<OperatorNode>(x, $Node.OPERATOR) && operators.includes(x.text),
-    );
-
-    if (!found) {
-      return;
-    }
-
-    const lastIndex = context.nodes.length - 1;
-    const left = context.nodes[found.index - 1];
-    const right = context.nodes[found.index + 1];
-
-    if (
-      !left ||
-      is<OperatorNode>(left, $Node.OPERATOR) ||
-      !(found.index === lastIndex || is<OperatorNode>(right, $Node.OPERATOR))
-    ) {
-      return nothing;
-    }
-
-    const node = postfixNode(context, left, found.node);
-
-    return {node, spliceIndex: found.index - 1};
-  };
 }

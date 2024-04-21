@@ -4,7 +4,7 @@ import {Array2, Boolean2, Nothing, nothing} from '../lib/core';
 import {TextResource} from '../util/resource/text/text-resource';
 import {TextResourcePosition, zeroPosition} from '../util/resource/text/text-resource-position';
 import {$Node, Node, is} from './node/node';
-import {scanGroupNode} from './node/syntax/group/group-node';
+import {groupNodeParse} from './node/syntax/group/group-node-parse';
 import {charTokenParse} from './node/token/char/char-node';
 import {closeTokenParse} from './node/token/close/close-node';
 import {commentBlockTokenParse} from './node/token/comment-block/comment-block-node';
@@ -36,7 +36,7 @@ const parsers: Array2<TokenParseFn> = [
   whitespaceTokenParse,
   operatorTokenParse,
   idTokenParse,
-  scanGroupNode,
+  groupNodeParse,
 ];
 
 export function syntaxParse(resource: TextResource): SyntaxResult {
