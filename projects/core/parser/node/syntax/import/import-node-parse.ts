@@ -7,10 +7,10 @@ import {StringNode} from '../../token/string/string-node';
 import {importNode} from './import-node';
 
 export function importNodeParse(operators: String2[]): SyntaxParseFn {
-  return (context: SyntaxContext, startIndex: Integer) => {
+  return (context: SyntaxContext, index: Integer) => {
     const found = findNode(
       context.nodes,
-      startIndex,
+      index,
       true,
       (x): x is OperatorNode => is<OperatorNode>(x, $Node.OPERATOR) && operators.includes(x.text),
     );

@@ -48,10 +48,10 @@ export function partialToDeclaration(params: Partial<DeclarationNode> & {id: IdN
 }
 
 export function declarationSyntaxParse(operators: String[]): TokenParseFn {
-  return (context: SyntaxContext, startIndex: Integer) => {
+  return (context: SyntaxContext, index: Integer) => {
     const found = findNode(
       context.nodes,
-      startIndex,
+      index,
       true,
       (x): x is OperatorNode => is<OperatorNode>(x, $Node.OPERATOR) && operators.includes(x.text),
     );

@@ -6,10 +6,10 @@ import {OperatorNode} from '../../token/operator/operator-node';
 import {infixNode} from './infix-node';
 
 export function infixNodeParse(operators: String[]): SyntaxParseFn {
-  return (context: SyntaxContext, startIndex: Integer) => {
+  return (context: SyntaxContext, index: Integer) => {
     const found = findNode(
       context.nodes,
-      startIndex,
+      index,
       true,
       (x): x is OperatorNode => is<OperatorNode>(x, $Node.OPERATOR) && operators.includes(x.text),
     );

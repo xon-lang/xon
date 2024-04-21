@@ -6,10 +6,10 @@ import {OperatorNode} from '../../token/operator/operator-node';
 import {prefixNode} from './prefix-node';
 
 export function prefixNodeParse(operators: String[], isLeftRecursive = true): SyntaxParseFn {
-  return (context: SyntaxContext, startIndex: Integer) => {
+  return (context: SyntaxContext, index: Integer) => {
     const found = findNode(
       context.nodes,
-      startIndex,
+      index,
       isLeftRecursive,
       (x): x is OperatorNode => is<OperatorNode>(x, $Node.OPERATOR) && operators.includes(x.text),
     );

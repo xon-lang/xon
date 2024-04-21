@@ -38,7 +38,7 @@ import {
 import {SyntaxContext} from '../syntax-context';
 
 export type SyntaxParseResult = {spliceIndex: Integer; node: SyntaxNode} | Nothing;
-export type SyntaxParseFn = (context: SyntaxContext, startIndex: Integer) => SyntaxParseResult;
+export type SyntaxParseFn = (context: SyntaxContext, index: Integer) => SyntaxParseResult;
 
 const parsers: Array2<SyntaxParseFn> = [
   importNodeParse([IMPORT]),

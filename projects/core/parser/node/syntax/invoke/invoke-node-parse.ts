@@ -9,11 +9,11 @@ import {ObjectNode} from '../object/object-node';
 import {invokeNode} from './invoke-node';
 
 export function invokeNodeParse(): SyntaxParseFn {
-  return (context: SyntaxContext, startIndex: Integer) => {
+  return (context: SyntaxContext, index: Integer) => {
     const found =
-      findNode(context.nodes, startIndex, true, (x): x is GroupNode => is<GroupNode>(x, $Node.GROUP)) ??
-      findNode(context.nodes, startIndex, true, (x): x is ArrayNode => is<ArrayNode>(x, $Node.ARRAY)) ??
-      findNode(context.nodes, startIndex, true, (x): x is ObjectNode => is<ObjectNode>(x, $Node.OBJECT));
+      findNode(context.nodes, index, true, (x): x is GroupNode => is<GroupNode>(x, $Node.GROUP)) ??
+      findNode(context.nodes, index, true, (x): x is ArrayNode => is<ArrayNode>(x, $Node.ARRAY)) ??
+      findNode(context.nodes, index, true, (x): x is ObjectNode => is<ObjectNode>(x, $Node.OBJECT));
 
     if (!found) {
       return;
