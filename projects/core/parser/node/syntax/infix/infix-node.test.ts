@@ -5,6 +5,7 @@ import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';
 import {IdNode} from '../../token/id/id-node';
 import {IntegerNode} from '../../token/integer/integer-node';
+import {TokenNode} from '../../token/token-node';
 import {PrefixNode} from '../prefix/prefix-node';
 import {InfixNode} from './infix-node';
 
@@ -97,4 +98,23 @@ test('several operators', () => {
   expect((node.right as PrefixNode).operator.text).toBe('+');
   expect((node.right as PrefixNode).value?.$).toBe($Node.INTEGER);
   expect(((node.right as PrefixNode).value as IntegerNode).text).toBe('2');
+});
+
+test('range', () => {
+  const text = '0..3';
+  const source = textResourceFrom(nothing, text);
+  const syntax = syntaxParse(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as InfixNode;
+
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.INFIX);
+
+  expect(node.left.$).toBe($Node.INTEGER);
+  expect((node.left as TokenNode).text).toBe('0');
+
+  expect(node.operator.text).toBe('..');
+
+  expect(node.right?.$).toBe($Node.INTEGER);
+  expect((node.right as TokenNode).text).toBe('3');
 });

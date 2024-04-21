@@ -96,6 +96,7 @@ export function syntaxParseUntil(
     putStatementNode(context);
   }
 
+  // todo try to use EOF node to format as the last one
   const formatter = formatLastContextHiddenNodes(context);
 
   if (formatter) {

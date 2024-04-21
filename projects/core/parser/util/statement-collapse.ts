@@ -5,7 +5,6 @@ import {invokeSyntaxParse} from '../node/syntax/invoke/invoke-node';
 import {memberSyntaxParse} from '../node/syntax/member/member-node';
 import {postfixSyntaxParse} from '../node/syntax/postfix/postfix-node';
 import {prefixSyntaxParse} from '../node/syntax/prefix/prefix-node';
-import {rangeSyntaxParse} from '../node/syntax/range/range-node';
 import {SyntaxNode} from '../node/syntax/syntax-node';
 import {
   COMMA,
@@ -49,7 +48,7 @@ const parsers: Array2<SyntaxParseFn> = [
   infixSyntaxParse([POW]),
   infixSyntaxParse([MULTIPLY, DIVIDE, MOD]),
   infixSyntaxParse([PLUS, MINUS]),
-  rangeSyntaxParse([RANGE]),
+  infixSyntaxParse([RANGE]),
   infixSyntaxParse([LESS, LESS_EQUALS, GREAT_EQUALS, GREAT]),
   infixSyntaxParse([EQUALS, NOT_EQUALS]),
   infixSyntaxParse(OPERATOR_KEYWORDS),

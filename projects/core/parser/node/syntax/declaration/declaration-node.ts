@@ -1,17 +1,19 @@
-import {Array2, Nothing} from '../../../../lib/core';
-import {$Node, Node} from '../../node';
+import {Array2, Integer, Nothing, nothing} from '../../../../lib/core';
+import {SyntaxContext} from '../../../syntax-context';
+import {SyntaxParseFn} from '../../../syntax-parser';
+import {$Node, Node, findNode, is} from '../../node';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
-import {GenericsNode} from '../generics/generics-node';
-import {ParametersNode} from '../parameters/parameters-node';
+import {Group} from '../group/group-node';
+import {infixNode} from '../infix/infix-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface DeclarationNode extends SyntaxNode {
   $: $Node.DECLARATION;
   modifier: OperatorNode | Nothing;
   id: IdNode;
-  generics: GenericsNode | Nothing;
-  parameters: ParametersNode | Nothing;
+  generics: Group | Nothing;
+  parameters: Group | Nothing;
 
   typeOperator: OperatorNode | Nothing;
   type: Node | Nothing;
@@ -43,4 +45,30 @@ export function partialToDeclaration(params: Partial<DeclarationNode> & {id: IdN
     assignOperator: params.assignOperator,
     assign: params.assign,
   });
+}
+
+export function declarationSyntaxParse(operators: String[]): SyntaxParseFn {
+  return (context: SyntaxContext, startIndex: Integer = 0) => {
+    const found = findNode(
+      context.nodes,
+      startIndex,
+      true,
+      (x): x is OperatorNode => is<OperatorNode>(x, $Node.OPERATOR) && operators.includes(x.text),
+    );
+
+    if (!found) {
+      return;
+    }
+
+    const left = context.nodes[found.index - 1];
+    const right = context.nodes[found.index + 1];
+
+    if (!left || !right || is<OperatorNode>(left, $Node.OPERATOR) || is<OperatorNode>(right, $Node.OPERATOR)) {
+      return nothing;
+    }
+
+    const node = infixNode(context, left, found.node, right);
+
+    return {node, spliceIndex: found.index - 1};
+  };
 }

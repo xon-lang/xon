@@ -10,10 +10,15 @@ export interface InfixNode extends SyntaxNode {
   $: $Node.INFIX;
   left: Node;
   operator: OperatorNode;
-  right: Node;
+  right: Node | Nothing;
 }
 
-export function infixNode(context: SyntaxContext, left: Node, operator: OperatorNode, right: Node): InfixNode {
+export function infixNode(
+  context: SyntaxContext,
+  left: Node,
+  operator: OperatorNode,
+  right: Node | Nothing,
+): InfixNode {
   const node = syntaxNode($Node.INFIX, {left, operator, right});
 
   format(context, node);
