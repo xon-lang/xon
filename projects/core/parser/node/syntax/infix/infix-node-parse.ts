@@ -1,7 +1,7 @@
 import {Integer, nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {SyntaxParseFn} from '../../../util/statement-collapse';
-import {$Node, findNode, is} from '../../node';
+import {$Node, findNode, is, isExpressionNode} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {infixNode} from './infix-node';
 
@@ -21,7 +21,7 @@ export function infixNodeParse(operators: String[]): SyntaxParseFn {
     const left = context.nodes[found.index - 1];
     const right = context.nodes[found.index + 1];
 
-    if (!left || !right || is<OperatorNode>(left, $Node.OPERATOR) || is<OperatorNode>(right, $Node.OPERATOR)) {
+    if (!isExpressionNode(left) || !isExpressionNode(right)) {
       return nothing;
     }
 

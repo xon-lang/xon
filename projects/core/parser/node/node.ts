@@ -1,6 +1,7 @@
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../../lib/core';
 import {Semantic} from '../../semantic/semantic';
 import {TextResourceRange} from '../../util/resource/text/text-resource-range';
+import {Group} from './syntax/group/group-node';
 import {TokenNode} from './token/token-node';
 
 export interface Node {
@@ -56,6 +57,39 @@ export function is<T extends Node = Node>(node: {$?: $Node} | Nothing, type: $No
   }
 
   return node.$ === type || node.$.split(' ').includes(type);
+}
+
+const expressions = [
+  $Node.CHAR,
+  $Node.ID,
+  $Node.INTEGER,
+  $Node.STRING,
+  $Node.ARRAY,
+  $Node.GROUP,
+  $Node.OBJECT,
+  $Node.INFIX,
+  $Node.PREFIX,
+  $Node.POSTFIX,
+  $Node.INVOKE,
+  $Node.MEMBER,
+];
+
+export function isExpressionNode(node: Node | Nothing): node is Node {
+  if (!node) {
+    return false;
+  }
+
+  return expressions.some((x) => node.$ === x);
+}
+
+const groups = [$Node.GROUP, $Node.ARRAY, $Node.OBJECT];
+
+export function isGroupNode(node: Node | Nothing): node is Group {
+  if (!node) {
+    return false;
+  }
+
+  return groups.some((x) => node.$ === x);
 }
 
 // todo refactor findNode function
