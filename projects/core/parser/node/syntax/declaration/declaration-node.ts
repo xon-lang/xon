@@ -1,6 +1,6 @@
 import {Array2, Integer, Nothing, nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
-import {SyntaxParseFn} from '../../../syntax-parser';
+import {TokenParseFn} from '../../../syntax-parser';
 import {$Node, Node, findNode, is} from '../../node';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
@@ -47,8 +47,8 @@ export function partialToDeclaration(params: Partial<DeclarationNode> & {id: IdN
   });
 }
 
-export function declarationSyntaxParse(operators: String[]): SyntaxParseFn {
-  return (context: SyntaxContext, startIndex: Integer = 0) => {
+export function declarationSyntaxParse(operators: String[]): TokenParseFn {
+  return (context: SyntaxContext, startIndex: Integer) => {
     const found = findNode(
       context.nodes,
       startIndex,

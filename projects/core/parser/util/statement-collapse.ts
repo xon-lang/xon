@@ -40,9 +40,9 @@ export type SyntaxParseResult = {spliceIndex: Integer; node: SyntaxNode} | Nothi
 export type SyntaxParseFn = (context: SyntaxContext, startIndex: Integer) => SyntaxParseResult;
 
 const parsers: Array2<SyntaxParseFn> = [
-  importSyntaxParse,
+  importSyntaxParse(),
   memberSyntaxParse([MEMBER, META_MEMBER]),
-  invokeSyntaxParse([]),
+  invokeSyntaxParse(),
   prefixSyntaxParse([REST, PLUS, MINUS, NOT]),
   postfixSyntaxParse([OPTIONAL, PROMISE]),
   infixSyntaxParse([POW]),

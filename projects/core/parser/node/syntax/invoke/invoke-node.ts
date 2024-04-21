@@ -27,8 +27,8 @@ function format(context: SyntaxContext, node: InvokeNode): Nothing {
   formatBetweenHiddenNodes(context, node.instance, false);
 }
 
-export function invokeSyntaxParse(operators: String[]): SyntaxParseFn {
-  return (context: SyntaxContext, startIndex: Integer = 0) => {
+export function invokeSyntaxParse(): SyntaxParseFn {
+  return (context: SyntaxContext, startIndex: Integer) => {
     const found =
       findNode(context.nodes, startIndex, true, (x): x is GroupNode => is<GroupNode>(x, $Node.GROUP)) ??
       findNode(context.nodes, startIndex, true, (x): x is ArrayNode => is<ArrayNode>(x, $Node.ARRAY)) ??

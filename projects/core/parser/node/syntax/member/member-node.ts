@@ -43,7 +43,7 @@ function format(context: SyntaxContext, node: MemberNode): Nothing {
 }
 
 export function memberSyntaxParse(operators: String[]): SyntaxParseFn {
-  return (context: SyntaxContext, startIndex: Integer = 0) => {
+  return (context: SyntaxContext, startIndex: Integer) => {
     const found = findNode(
       context.nodes,
       startIndex,

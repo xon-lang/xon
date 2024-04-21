@@ -21,10 +21,10 @@ import {whitespaceTokenParse} from './node/token/whitespace/whitespace-node';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
 import {putStatementNode} from './util/put-statement-node';
 
-export type SyntaxParseResult = Node | Nothing;
-export type SyntaxParseFn = (context: SyntaxContext) => SyntaxParseResult;
+export type TokenParseResult = Node | Nothing;
+export type TokenParseFn = (context: SyntaxContext) => TokenParseResult;
 
-const parsers: Array2<SyntaxParseFn> = [
+const parsers: Array2<TokenParseFn> = [
   commentBlockTokenParse,
   commentLineTokenParse,
   integerTokenParse,
