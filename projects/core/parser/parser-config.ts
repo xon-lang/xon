@@ -51,13 +51,10 @@ export const PREFIX = 'prefix';
 export const POSTFIX = 'postfix';
 
 export const TYPE_MODIFIERS = [MODEL, OBJECT];
-
 export const VALUE_MODIFIERS = [CONST, VAR, PREFIX, POSTFIX, INFIX];
 
-export const OPERATOR_KEYWORDS = ['is', 'as', 'in'];
-
 export const MODIFIER_KEYWORDS = [...TYPE_MODIFIERS, ...VALUE_MODIFIERS];
-
+export const OPERATOR_KEYWORDS = ['is', 'as', 'in'];
 export const CONTROL_KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'return', EXPORT];
 
 export const REST = '...';

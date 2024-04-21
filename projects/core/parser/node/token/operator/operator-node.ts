@@ -1,9 +1,7 @@
-import {Nothing, String2, nothing} from '../../../../lib/core';
+import {Nothing, String2} from '../../../../lib/core';
 import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
-import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATORS, OPERATOR_KEYWORDS} from '../../../parser-config';
-import {SyntaxContext} from '../../../syntax-context';
+import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS} from '../../../parser-config';
 import {$Node} from '../../node';
-import {idTokenParse} from '../id/id-node';
 import {TokenNode, tokenNode} from '../token-node';
 
 export enum KeywordType {
@@ -27,26 +25,6 @@ export function operatorNode(range: TextResourceRange, text: String2): OperatorN
   };
 
   return node;
-}
-
-export function operatorTokenParse(context: SyntaxContext): TokenNode | Nothing {
-  const {resource, position} = context;
-
-  const text = OPERATORS.findLast((x) => x === resource.data.slice(position.index, position.index + x.length));
-
-  if (!text) {
-    return nothing;
-  }
-
-  const id = idTokenParse(context);
-
-  if (id && id.text.length > text.length) {
-    return id;
-  }
-
-  const range = context.getRange(text.length, false);
-
-  return operatorNode(range, text);
 }
 
 function getKeywordType(text: String2): KeywordType | Nothing {

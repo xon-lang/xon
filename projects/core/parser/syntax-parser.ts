@@ -5,19 +5,21 @@ import {TextResource} from '../util/resource/text/text-resource';
 import {TextResourcePosition, zeroPosition} from '../util/resource/text/text-resource-position';
 import {$Node, Node, is} from './node/node';
 import {groupNodeParse} from './node/syntax/group/group-node-parse';
-import {charTokenParse} from './node/token/char/char-node';
-import {closeTokenParse} from './node/token/close/close-node';
-import {commentBlockTokenParse} from './node/token/comment-block/comment-block-node';
-import {commentLineTokenParse} from './node/token/comment-line/comment-line-node';
-import {idTokenParse} from './node/token/id/id-node';
-import {integerTokenParse} from './node/token/integer/integer-node';
-import {joiningTokenParse} from './node/token/joining/joining-node';
-import {NlNode, nlTokenParse} from './node/token/nl/nl-node';
-import {operatorTokenParse} from './node/token/operator/operator-node';
-import {stringTokenParse} from './node/token/string/string-node';
+import {charNodeParse} from './node/token/char/char-node-parse';
+import {closeNodeParse} from './node/token/close/close-node-parse';
+import {commentBlockNodeParse} from './node/token/comment-block/comment-block-node-parse';
+import {commentLineNodeParse} from './node/token/comment-line/comment-line-node-parse';
+import {idNodeParse} from './node/token/id/id-node-parse';
+import {integerNodeParse} from './node/token/integer/integer-node-parse';
+import {joiningNodeParse} from './node/token/joining/joining-node-parse';
+import {NlNode} from './node/token/nl/nl-node';
+import {nlNodeParse} from './node/token/nl/nl-node-parse';
+import {operatorNodeParse} from './node/token/operator/operator-node-parse';
+import {stringNodeParse} from './node/token/string/string-node-parse';
 import {isHiddenToken} from './node/token/token-node';
-import {UnknownNode, unknownTokenParse} from './node/token/unknown/unknown-node';
-import {whitespaceTokenParse} from './node/token/whitespace/whitespace-node';
+import {UnknownNode} from './node/token/unknown/unknown-node';
+import {unknownNodeParse} from './node/token/unknown/unknown-node-parse';
+import {whitespaceNodeParse} from './node/token/whitespace/whitespace-node-parse';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
 import {putStatementNode} from './util/put-statement-node';
 
@@ -25,17 +27,17 @@ export type TokenParseResult = Node | Nothing;
 export type TokenParseFn = (context: SyntaxContext) => TokenParseResult;
 
 const parsers: Array2<TokenParseFn> = [
-  commentBlockTokenParse,
-  commentLineTokenParse,
-  integerTokenParse,
-  stringTokenParse,
-  charTokenParse,
-  nlTokenParse,
-  closeTokenParse,
-  joiningTokenParse,
-  whitespaceTokenParse,
-  operatorTokenParse,
-  idTokenParse,
+  commentBlockNodeParse,
+  commentLineNodeParse,
+  integerNodeParse,
+  stringNodeParse,
+  charNodeParse,
+  nlNodeParse,
+  closeNodeParse,
+  joiningNodeParse,
+  whitespaceNodeParse,
+  operatorNodeParse,
+  idNodeParse,
   groupNodeParse,
 ];
 
@@ -110,5 +112,5 @@ export function syntaxParseUntil(
 }
 
 function nextNode(context: SyntaxContext): Node {
-  return parsers.findMap((parse) => parse(context)) ?? unknownTokenParse(context);
+  return parsers.findMap((parse) => parse(context)) ?? unknownNodeParse(context);
 }
