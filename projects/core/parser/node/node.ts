@@ -2,6 +2,7 @@ import {Array2, Boolean2, Integer, Nothing, nothing} from '../../lib/core';
 import {Semantic} from '../../semantic/semantic';
 import {TextResourceRange} from '../../util/resource/text/text-resource-range';
 import {Group} from './syntax/group/group-node';
+import {StatementNode} from './syntax/statement/statement-node';
 import {TokenNode} from './token/token-node';
 
 export interface Node {
@@ -9,6 +10,7 @@ export interface Node {
   range: TextResourceRange;
   parent?: Node | Nothing;
   hiddenNodes?: Array2<TokenNode>;
+  body?: Array2<StatementNode>;
   semantic?: Semantic | Nothing;
 }
 

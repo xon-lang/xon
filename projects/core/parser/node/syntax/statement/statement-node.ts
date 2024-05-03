@@ -10,22 +10,21 @@ export interface StatementNode extends SyntaxNode {
   indentStopColumn: Integer;
   beforeIndentHiddenNodes: Array2<TokenNode>;
   indentHiddenNodes: Array2<TokenNode>;
-  parent: StatementNode | Nothing;
+  parentStatement: StatementNode | Nothing;
   children: Array2<Node>;
   item: Node;
-  body: Array2<StatementNode>;
 }
 
 export function statementNode(
   context: SyntaxContext,
   children: Array2<Node>,
-  parent: StatementNode | Nothing,
+  parentStatement: StatementNode | Nothing,
   indentStopColumn: Integer,
   beforeIndentHiddenNodes: Array2<TokenNode>,
   indentHiddenNodes: Array2<TokenNode>,
 ): StatementNode {
   const node = syntaxNode($Node.STATEMENT, {children});
-  const indentLevel = parent ? parent.indentLevel + 1 : 0;
+  const indentLevel = parentStatement ? parentStatement.indentLevel + 1 : 0;
   const item = children[0];
 
   const statement: StatementNode = {
@@ -35,16 +34,9 @@ export function statementNode(
     indentStopColumn,
     beforeIndentHiddenNodes,
     indentHiddenNodes,
-    parent,
+    parentStatement: parentStatement,
     item,
-    body: [],
   };
-
-  if (parent) {
-    parent.body.push(statement);
-  } else {
-    context.statements.push(statement);
-  }
 
   return statement;
 }

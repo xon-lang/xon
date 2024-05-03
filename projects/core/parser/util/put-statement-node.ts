@@ -18,11 +18,32 @@ export function putStatementNode(context: SyntaxContext): Nothing {
   const isFirstHiddenWhitespace = is<WhitespaceNode>(firstIndentHiddenNode, $Node.WHITESPACE);
   const indentStopColumn = isFirstHiddenWhitespace ? firstIndentHiddenNode.range.stop.column : 0;
 
-  const parent = getParent(context, indentStopColumn);
-  context.parentStatement = parent;
+  const parentStatement = getParent(context, indentStopColumn);
+  context.parentStatement = parentStatement;
 
-  const statement = getStatementNode(context, parent, indentStopColumn, beforeIndentHiddenNodes, indentHiddenNodes);
+  const statement = getStatementNode(
+    context,
+    parentStatement,
+    indentStopColumn,
+    beforeIndentHiddenNodes,
+    indentHiddenNodes,
+  );
+
   statement.hiddenNodes = context.hiddenNodes;
+
+  if (parentStatement) {
+    const lastStatementNode = parentStatement.children.last();
+
+    if (lastStatementNode) {
+      if (!lastStatementNode.body) {
+        lastStatementNode.body = [];
+      }
+
+      lastStatementNode.body.push(statement);
+    }
+  } else {
+    context.statements.push(statement);
+  }
 
   formatStatement(context, statement);
 
@@ -31,7 +52,7 @@ export function putStatementNode(context: SyntaxContext): Nothing {
 }
 
 function getParent(context: SyntaxContext, indentStopColumn: Integer): StatementNode | Nothing {
-  const {nodes, previousStatement} = context;
+  const {previousStatement} = context;
 
   if (!previousStatement) {
     return nothing;
@@ -45,13 +66,13 @@ function getParent(context: SyntaxContext, indentStopColumn: Integer): Statement
 }
 
 function findParentStatementWithLessIndent(node: StatementNode, indentStopColumn: Integer): StatementNode | Nothing {
-  if (!node.parent) {
+  if (!node.parentStatement) {
     return nothing;
   }
 
-  if (node.parent.indentStopColumn < indentStopColumn) {
-    return node.parent!;
+  if (node.parentStatement.indentStopColumn < indentStopColumn) {
+    return node.parentStatement;
   }
 
-  return findParentStatementWithLessIndent(node.parent, indentStopColumn);
+  return findParentStatementWithLessIndent(node.parentStatement, indentStopColumn);
 }
