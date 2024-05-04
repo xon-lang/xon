@@ -3,7 +3,7 @@ import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';
 import {IdNode} from '../../token/id/id-node';
-import { DeclarationNode } from '../declaration/declaration-node';
+import {DeclarationNode} from '../declaration/declaration-node';
 import {LambdaNode} from './lambda-node';
 
 test('function with no parameters', () => {
@@ -35,22 +35,22 @@ test('function with generic', () => {
   expect((node.type?.value as IdNode).text).toBe('T');
 });
 
-// // test('function with generic and parameter', () => {
-// //   const text = '{T}(a: T): T';
-// //   const resource = textResourceFrom(nothing, text);
-// //   const syntax = syntaxParse(resource);
-// //   const statements = syntax.statements;
-// //   const node = statements[0].item as FunctionNode;
+test('function with generic and parameter', () => {
+  const text = '{T}(a: T): T';
+  const resource = textResourceFrom(nothing, text);
+  const syntax = syntaxParse(resource);
+  const statements = syntax.statements;
+  const node = statements[0].item as LambdaNode;
 
-// //   expect(statements.length).toBe(1);
-// //   expect(node.$).toBe($Node.FUNCTION);
-// //   expect(node.generics).toBeFalsy();
-// //   expect(node.generics?.items.length).toBe(1);
-// //   expect((node.generics?.items[0] as IdNode).text).toBe(1);
-// //   expect(node.parameters.items.length).toBe(0);
-// //   expect((node.parameters?.items[0] as DeclarationNode).text).toBe('a');
-// //   expect((node.type as IdNode).text).toBe('T');
-// // });
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.LAMBDA);
+  expect(node.generics?.items.length).toBe(1);
+  expect((node.generics?.items[0].value as DeclarationNode).id.text).toBe('T');
+  expect(node.parameters.items.length).toBe(1);
+  expect((node.parameters?.items[0].value as DeclarationNode).id.text).toBe('a');
+  expect(((node.parameters?.items[0].value as DeclarationNode).type?.value as IdNode).text).toBe('T');
+  expect((node.type?.value as IdNode).text).toBe('T');
+});
 
 // test('has argument', () => {
 //   const text = '(x) = x + 42';
