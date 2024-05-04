@@ -1,7 +1,18 @@
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../../lib/core';
 import {Semantic} from '../../semantic/semantic';
 import {TextResourceRange} from '../../util/resource/text/text-resource-range';
-import {Group} from './syntax/group/group-node';
+import {ArrayNode} from './syntax/array/array-node';
+import {Group, GroupNode} from './syntax/group/group-node';
+import {InfixNode} from './syntax/infix/infix-node';
+import {InvokeNode} from './syntax/invoke/invoke-node';
+import {MemberNode} from './syntax/member/member-node';
+import {ObjectNode} from './syntax/object/object-node';
+import {PostfixNode} from './syntax/postfix/postfix-node';
+import {PrefixNode} from './syntax/prefix/prefix-node';
+import {CharNode} from './token/char/char-node';
+import {IdNode} from './token/id/id-node';
+import {IntegerNode} from './token/integer/integer-node';
+import {StringNode} from './token/string/string-node';
 import {TokenNode} from './token/token-node';
 
 export interface Node {
@@ -72,7 +83,21 @@ const expressions = [
   $Node.MEMBER,
 ];
 
-export function isExpressionNode(node: Node | Nothing): node is Node {
+export type ExpressionNode =
+  | CharNode
+  | IdNode
+  | IntegerNode
+  | StringNode
+  | ArrayNode
+  | GroupNode
+  | ObjectNode
+  | InfixNode
+  | PrefixNode
+  | PostfixNode
+  | InvokeNode
+  | MemberNode;
+
+export function isExpressionNode(node: Node | Nothing): node is ExpressionNode {
   if (!node) {
     return false;
   }

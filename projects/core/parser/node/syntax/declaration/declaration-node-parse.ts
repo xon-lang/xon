@@ -3,12 +3,13 @@ import {Integer, Nothing, nothing} from '../../../../lib/core';
 import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIERS} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {SyntaxParseFn} from '../../../util/statement-collapse';
-import {$Node, Node, findNode, is, isExpressionNode} from '../../node';
+import {$Node, Node, findNode, is, isExpressionNode, isGroupNode} from '../../node';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {ArrayNode} from '../array/array-node';
 import {Group, GroupNode} from '../group/group-node';
 import {InvokeNode} from '../invoke/invoke-node';
+import {LambdaNode, declarationToLambda} from '../lambda/lambda-node';
 import {ObjectNode} from '../object/object-node';
 import {PrefixNode, prefixNode} from '../prefix/prefix-node';
 import {DeclarationNode, partialToDeclaration} from './declaration-node';
@@ -29,11 +30,15 @@ export function declarationNodeParse(): SyntaxParseFn {
   };
 }
 
-function parseDeclarationStatement(context: SyntaxContext): DeclarationNode | Nothing {
+function parseDeclarationStatement(context: SyntaxContext): DeclarationNode | LambdaNode | Nothing {
   const parts = getDeclarationParts(context);
 
   if (!parts) {
     return nothing;
+  }
+
+  if (!parts.id && parts.parameters) {
+    return declarationToLambda(parts);
   }
 
   const parentDeclaration = context.parentStatement?.item;
@@ -45,7 +50,11 @@ function parseDeclarationStatement(context: SyntaxContext): DeclarationNode | No
   ) {
     const declaration = partialToDeclaration(parts);
 
-    if (parentDeclaration.assign) {
+    if (!declaration) {
+      return nothing;
+    }
+
+    if (parentDeclaration.assign && !is<LambdaNode>(parentDeclaration.assign.value, $Node.LAMBDA)) {
       context.issueManager.addError(declaration.range, ISSUE_MESSAGE.unexpectedExpression());
     }
 
@@ -59,7 +68,7 @@ function parseDeclarationStatement(context: SyntaxContext): DeclarationNode | No
   return nothing;
 }
 
-function getDeclarationParts(context: SyntaxContext): (Partial<DeclarationNode> & {id: IdNode}) | Nothing {
+function getDeclarationParts(context: SyntaxContext): Partial<DeclarationNode> | Nothing {
   const headerTypeAssign = getHeaderTypeAssign(context);
 
   if (!headerTypeAssign) {
@@ -81,7 +90,7 @@ function getDeclarationParts(context: SyntaxContext): (Partial<DeclarationNode> 
   const underModifier = getUnderModifier(context, header);
 
   if (!underModifier) {
-    return nothing;
+    return {type, assign};
   }
 
   return {...underModifier, type, assign};
@@ -162,7 +171,7 @@ function getUnderModifier(
   node: Node | Nothing,
 ):
   | {
-      id: IdNode;
+      id?: IdNode;
       generics?: Group | Nothing;
       parameters?: Group | Nothing;
     }
@@ -173,6 +182,11 @@ function getUnderModifier(
 
   if (is<IdNode>(node, $Node.ID)) {
     return {id: node};
+  }
+
+  // for lambda
+  if (isGroupNode(node)) {
+    return parseGenericsOrParameters(context, node);
   }
 
   if (is<InvokeNode>(node, $Node.INVOKE)) {
