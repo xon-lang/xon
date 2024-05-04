@@ -14,6 +14,7 @@ import {ObjectNode} from '../object/object-node';
 import {PrefixNode, prefixNode} from '../prefix/prefix-node';
 import {DeclarationNode, partialToDeclaration} from './declaration-node';
 
+// todo create separate function for lambda parse
 export function declarationNodeParse(): SyntaxParseFn {
   return (context: SyntaxContext, index: Integer) => {
     if (is<DeclarationNode>(context.nodes[0], $Node.DECLARATION)) {
@@ -37,7 +38,7 @@ function parseDeclarationStatement(context: SyntaxContext): DeclarationNode | La
     return nothing;
   }
 
-  if (!parts.id && parts.parameters) {
+  if (!parts.id && parts.parameters && (parts.type || parts.assign)) {
     return declarationToLambda(parts);
   }
 

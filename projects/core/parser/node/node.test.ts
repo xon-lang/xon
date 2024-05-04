@@ -79,10 +79,10 @@ test('debug 4', () => {
 
   expect(statements.length).toBe(1);
   expect(statements[0].children.length).toBe(1);
-  expect(statements[0].children[0].body?.length).toBe(2);
+  expect(statements[0].body?.length).toBe(2);
   expect(statements[0].indentLevel).toBe(0);
-  expect(statements[0].children[0].body?.at(0)?.indentLevel).toBe(1);
-  expect(statements[0].children[0].body?.at(1)?.indentLevel).toBe(1);
+  expect(statements[0].body?.at(0)?.indentLevel).toBe(1);
+  expect(statements[0].body?.at(1)?.indentLevel).toBe(1);
 });
 
 test('multiple expression', () => {

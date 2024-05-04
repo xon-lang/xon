@@ -25,5 +25,5 @@ test('a', () => {
   expect(statement.children.length).toBe(1);
   expect(statement.children[0].$).toBe($Node.CHAR);
   expect((statement.children[0] as CharNode).text).toBe("'a'");
-  expect(statement.children[0].body).toBeFalsy();
+  expect(statement.body.length).toBe(0);
 });
