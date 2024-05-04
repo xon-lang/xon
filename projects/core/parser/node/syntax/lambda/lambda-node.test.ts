@@ -72,16 +72,16 @@ test('has argument and value', () => {
   ).toBe(37 + 42);
 });
 
-// test('two parameter', () => {
-//   const text = '(a, b) = a+b';
-//   const resource = textResourceFrom(nothing, text);
-//   const syntax = syntaxParse(resource);
-//   const statements = syntax.statements;
-//   const node = statements[0].item as DeclarationNode;
+test('two parameter', () => {
+  const text = '(a, b) = a+b';
+  const resource = textResourceFrom(nothing, text);
+  const syntax = syntaxParse(resource);
+  const statements = syntax.statements;
+  const node = statements[0].item as LambdaNode;
 
-//   expect(statements.length).toBe(1);
-//   expect(node.$).toBe($Node.DECLARATION);
-//   expect(node.parameters?.items.length).toBe(2);
-//   expect(node.parameters?.items[0]?.id?.text).toBe('a');
-//   expect(node.parameters?.items[1]?.id?.text).toBe('b');
-// });
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.LAMBDA);
+  expect(node.parameters?.items.length).toBe(2);
+  expect((node.parameters?.items[0].value as DeclarationNode).id?.text).toBe('a');
+  expect((node.parameters?.items[1].value as DeclarationNode).id?.text).toBe('b');
+});
