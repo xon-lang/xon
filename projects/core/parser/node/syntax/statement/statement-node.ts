@@ -13,6 +13,7 @@ export interface StatementNode extends SyntaxNode {
   parentStatement: StatementNode | Nothing;
   children: Array2<Node>;
   item: Node;
+  body: Array2<StatementNode>;
 }
 
 export function statementNode(
@@ -36,6 +37,7 @@ export function statementNode(
     indentHiddenNodes,
     parentStatement: parentStatement,
     item,
+    body: [],
   };
 
   return statement;

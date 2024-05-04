@@ -3,7 +3,7 @@ import {Array2, Nothing} from '../../../../lib/core';
 import '../../../../util/extension';
 import {OPEN_CLOSE_PAIR} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, Node, is} from '../../node';
+import {$Node} from '../../node';
 import {CloseNode} from '../../token/close/close-node';
 import {OpenNode} from '../../token/open/open-node';
 import {ArrayNode} from '../array/array-node';
@@ -23,8 +23,8 @@ export interface GroupNode extends SyntaxNode {
 export function groupNode(
   context: SyntaxContext,
   open: OpenNode,
-  close: CloseNode | Nothing,
   items: Array2<ItemNode>,
+  close: CloseNode | Nothing,
 ): GroupNode {
   const node = syntaxNode($Node.GROUP, {open, items, close});
 

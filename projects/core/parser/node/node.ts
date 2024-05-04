@@ -2,7 +2,6 @@ import {Array2, Boolean2, Integer, Nothing, nothing} from '../../lib/core';
 import {Semantic} from '../../semantic/semantic';
 import {TextResourceRange} from '../../util/resource/text/text-resource-range';
 import {Group} from './syntax/group/group-node';
-import {StatementNode} from './syntax/statement/statement-node';
 import {TokenNode} from './token/token-node';
 
 export interface Node {
@@ -10,7 +9,6 @@ export interface Node {
   range: TextResourceRange;
   parent?: Node | Nothing;
   hiddenNodes?: Array2<TokenNode>;
-  body?: Array2<StatementNode>;
   semantic?: Semantic | Nothing;
 }
 
@@ -39,7 +37,7 @@ export enum $Node {
   ARRAY = 'ARRAY SYNTAX NODE',
   GROUP = 'GROUP SYNTAX NODE',
   DECLARATION = 'DECLARATION SYNTAX NODE',
-  FUNCTION = 'FUNCTION SYNTAX NODE',
+  LAMBDA = 'LAMBDA SYNTAX NODE',
   GENERICS = 'GENERICS SYNTAX NODE',
   PARAMETERS = 'PARAMETERS SYNTAX NODE',
   IMPORT = 'IMPORT SYNTAX NODE',
@@ -48,8 +46,6 @@ export enum $Node {
   INFIX = 'INFIX SYNTAX NODE',
   PREFIX = 'PREFIX SYNTAX NODE',
   POSTFIX = 'POSTFIX SYNTAX NODE',
-  TYPE = 'TYPE SYNTAX NODE',
-  ASSIGN = 'ASSIGN SYNTAX NODE',
   STATEMENT = 'STATEMENT SYNTAX NODE',
 }
 

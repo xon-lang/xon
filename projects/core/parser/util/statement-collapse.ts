@@ -1,4 +1,5 @@
 import {Array2, Integer, Nothing, nothing} from '../../lib/core';
+import { declarationNodeParse } from '../node/syntax/declaration/declaration-node-parse';
 import {importNodeParse} from '../node/syntax/import/import-node-parse';
 import {infixNodeParse} from '../node/syntax/infix/infix-node-parse';
 import {invokeNodeParse} from '../node/syntax/invoke/invoke-node-parse';
@@ -44,20 +45,21 @@ const parsers: Array2<SyntaxParseFn> = [
   importNodeParse([IMPORT]),
   memberNodeParse([MEMBER, META_MEMBER]),
   invokeNodeParse(),
-  prefixNodeParse([REST, PLUS, MINUS, NOT]),
-  postfixNodeParse([OPTIONAL, PROMISE]),
-  infixNodeParse([POW]),
-  infixNodeParse([MULTIPLY, DIVIDE, MOD]),
-  infixNodeParse([PLUS, MINUS]),
-  infixNodeParse([RANGE]),
-  infixNodeParse([LESS, LESS_EQUALS, GREAT_EQUALS, GREAT]),
-  infixNodeParse([EQUALS, NOT_EQUALS]),
-  infixNodeParse(OPERATOR_KEYWORDS),
-  infixNodeParse([INTERSECTION]),
-  infixNodeParse([UNION, COMPLEMENT]),
+  prefixNodeParse([REST, PLUS, MINUS, NOT], true),
+  postfixNodeParse([OPTIONAL, PROMISE], true),
+  infixNodeParse([POW], true),
+  infixNodeParse([MULTIPLY, DIVIDE, MOD], true),
+  infixNodeParse([PLUS, MINUS], true),
+  infixNodeParse([RANGE], true),
+  infixNodeParse([LESS, LESS_EQUALS, GREAT_EQUALS, GREAT], true),
+  infixNodeParse([EQUALS, NOT_EQUALS], true),
+  infixNodeParse(OPERATOR_KEYWORDS, true),
+  infixNodeParse([INTERSECTION], true),
+  infixNodeParse([UNION, COMPLEMENT], true),
   prefixNodeParse(MODIFIER_KEYWORDS, false),
   prefixNodeParse(CONTROL_KEYWORDS, false),
-  infixNodeParse([COMMA]),
+  declarationNodeParse(),
+  infixNodeParse([COMMA], true),
 ];
 
 export function statementCollapse(context: SyntaxContext): Nothing {

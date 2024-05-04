@@ -6,6 +6,7 @@ import {TokenNode} from '../token-node';
 import {operatorNode} from './operator-node';
 
 export function operatorNodeParse(context: SyntaxContext, index: Integer): TokenNode | Nothing {
+  // todo use Array.last method
   const text = OPERATORS.findLast((x) => x === context.resource.data.slice(index, index + x.length));
 
   if (!text) {

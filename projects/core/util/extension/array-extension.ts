@@ -14,6 +14,7 @@ Array.prototype.takeWhile = function <T>(
   return this.slice(startIndex, this.length);
 };
 
+// todo remove and use Array.last
 Array.prototype.findLast = function <T>(
   predicate: (value: T, index: Integer, array: Array2<T>) => Boolean2,
 ): T | Nothing {

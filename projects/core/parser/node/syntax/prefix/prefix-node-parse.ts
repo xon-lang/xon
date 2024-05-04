@@ -1,11 +1,11 @@
-import {Integer, nothing} from '../../../../lib/core';
+import {Boolean2, Integer, nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {SyntaxParseFn} from '../../../util/statement-collapse';
 import {$Node, findNode, is, isExpressionNode} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {prefixNode} from './prefix-node';
 
-export function prefixNodeParse(operators: String[], isLeftRecursive = true): SyntaxParseFn {
+export function prefixNodeParse(operators: String[], isLeftRecursive: Boolean2): SyntaxParseFn {
   return (context: SyntaxContext, index: Integer) => {
     const found = findNode(
       context.nodes,

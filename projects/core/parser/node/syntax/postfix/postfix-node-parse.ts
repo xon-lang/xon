@@ -1,16 +1,16 @@
-import {Integer, nothing} from '../../../../lib/core';
+import {Boolean2, Integer, nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {SyntaxParseFn} from '../../../util/statement-collapse';
 import {$Node, findNode, is, isExpressionNode} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {postfixNode} from './postfix-node';
 
-export function postfixNodeParse(operators: String[]): SyntaxParseFn {
+export function postfixNodeParse(operators: String[], isLeftRecursive: Boolean2): SyntaxParseFn {
   return (context: SyntaxContext, index: Integer) => {
     const found = findNode(
       context.nodes,
       index,
-      true,
+      isLeftRecursive,
       (x): x is OperatorNode => is<OperatorNode>(x, $Node.OPERATOR) && operators.includes(x.text),
     );
 

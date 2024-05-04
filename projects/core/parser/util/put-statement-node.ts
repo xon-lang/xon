@@ -32,15 +32,7 @@ export function putStatementNode(context: SyntaxContext): Nothing {
   statement.hiddenNodes = context.hiddenNodes;
 
   if (parentStatement) {
-    const lastStatementNode = parentStatement.children.last();
-
-    if (lastStatementNode) {
-      if (!lastStatementNode.body) {
-        lastStatementNode.body = [];
-      }
-
-      lastStatementNode.body.push(statement);
-    }
+    parentStatement.body.push(statement);
   } else {
     context.statements.push(statement);
   }

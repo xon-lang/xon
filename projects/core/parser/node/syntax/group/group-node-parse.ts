@@ -64,15 +64,15 @@ export function createGroupNode(
   nodes: Array2<ItemNode>,
 ): Group | Nothing {
   if (open.text === GROUP_OPEN) {
-    return groupNode(context, open, close, nodes);
+    return groupNode(context, open, nodes, close);
   }
 
   if (open.text === OBJECT_OPEN) {
-    return objectNode(open, close, nodes);
+    return objectNode(open, nodes, close);
   }
 
   if (open.text === ARRAY_OPEN) {
-    return arrayNode(open, close, nodes);
+    return arrayNode(open, nodes, close);
   }
 
   context.issueManager.addError(open.range, ISSUE_MESSAGE.notImplemented());
