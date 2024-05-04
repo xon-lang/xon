@@ -44,7 +44,10 @@ function parseDeclarationStatement(context: SyntaxContext): DeclarationNode | No
     TYPE_MODIFIERS.includes(parentDeclaration.modifier.text)
   ) {
     const declaration = partialToDeclaration(parts);
-    parentDeclaration.attributes.push(declaration);
+
+    if (parentDeclaration.assign) {
+      context.issueManager.addError(declaration.range, ISSUE_MESSAGE.unexpectedExpression());
+    }
 
     return declaration;
   }
