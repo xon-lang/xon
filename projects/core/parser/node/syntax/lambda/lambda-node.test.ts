@@ -1,4 +1,5 @@
 import {nothing} from '../../../../lib/core';
+import {evaluate} from '../../../../util/evaluate';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';
@@ -52,24 +53,24 @@ test('function with generic and parameter', () => {
   expect((node.type?.value as IdNode).text).toBe('T');
 });
 
-// test('has argument', () => {
-//   const text = '(x) = x + 42';
-//   const resource = textResourceFrom(nothing, text);
-//   const syntax = syntaxParse(resource);
-//   const statements = syntax.statements;
-//   const node = statements[0].item as DeclarationNode;
+test('has argument and value', () => {
+  const text = '(x) = x + 42';
+  const resource = textResourceFrom(nothing, text);
+  const syntax = syntaxParse(resource);
+  const statements = syntax.statements;
+  const node = statements[0].item as LambdaNode;
 
-//   expect(statements.length).toBe(1);
-//   expect(node.$).toBe($Node.DECLARATION);
-//   expect(node.parameters?.items.length).toBe(1);
-//   expect(node.parameters?.items[0]?.id?.text).toBe('x');
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.LAMBDA);
+  expect(node.parameters?.items.length).toBe(1);
+  expect((node.parameters?.items[0].value as DeclarationNode).id.text).toBe('x');
 
-//   expect(
-//     evaluate(node.assign, {
-//       x: 37,
-//     }),
-//   ).toBe(37 + 42);
-// });
+  expect(
+    evaluate(node.assign?.value, {
+      x: 37,
+    }),
+  ).toBe(37 + 42);
+});
 
 // test('two parameter', () => {
 //   const text = '(a, b) = a+b';
