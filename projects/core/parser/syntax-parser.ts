@@ -1,4 +1,5 @@
 import {formatLastContextHiddenNodes} from '../formatter/formatter';
+import {ISSUE_MESSAGE} from '../issue/issue-message';
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../lib/core';
 import {TextResource} from '../util/resource/text/text-resource';
 import {TextResourcePosition, zeroPosition} from '../util/resource/text/text-resource-position';
@@ -16,6 +17,7 @@ import {nlNodeParse} from './node/token/nl/nl-node-parse';
 import {operatorNodeParse} from './node/token/operator/operator-node-parse';
 import {stringNodeParse} from './node/token/string/string-node-parse';
 import {isHiddenToken} from './node/token/token-node';
+import {UnknownNode} from './node/token/unknown/unknown-node';
 import {unknownNodeParse} from './node/token/unknown/unknown-node-parse';
 import {whitespaceNodeParse} from './node/token/whitespace/whitespace-node-parse';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
@@ -52,7 +54,6 @@ export function syntaxParseUntil(
 
   while (context.position.index < context.resource.data.length) {
     const node = nextNode(context);
-    context.position = node.range.stop;
 
     if (breakOnNodeFn && breakOnNodeFn(node)) {
       context.breakNode = node;
@@ -67,11 +68,13 @@ export function syntaxParseUntil(
       context.nodes = [];
 
       continue;
+    } else if (is<UnknownNode>(node, $Node.UNKNOWN)) {
+      context.issueManager.addError(node.range, ISSUE_MESSAGE.unknownSymbol());
     }
 
-    const lastNode = context.nodes.last();
     if (isHiddenToken(node)) {
-      const hiddenNodes = lastNode?.hiddenNodes ?? context.hiddenNodes;
+      const hiddenNodes = context.nodes.last()?.hiddenNodes ?? context.hiddenNodes;
+
       hiddenNodes.push(node);
 
       continue;
@@ -98,8 +101,11 @@ export function syntaxParseUntil(
 }
 
 function nextNode(context: SyntaxContext): Node {
-  return (
+  const node =
     parsers.findMap((parse) => parse(context, context.position.index)) ??
-    unknownNodeParse(context, context.position.index)
-  );
+    unknownNodeParse(context, context.position.index);
+
+  context.position = node.range.stop;
+
+  return node;
 }

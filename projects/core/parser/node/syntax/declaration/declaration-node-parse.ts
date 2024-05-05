@@ -49,7 +49,7 @@ function parseDeclarationStatement(context: SyntaxContext): DeclarationNode | La
     parentDeclaration.modifier?.text &&
     TYPE_MODIFIERS.includes(parentDeclaration.modifier.text)
   ) {
-    const declaration = partialToDeclaration(parts);
+    const declaration = partialToDeclaration(context, parts);
 
     if (!declaration) {
       return nothing;
@@ -63,7 +63,7 @@ function parseDeclarationStatement(context: SyntaxContext): DeclarationNode | La
   }
 
   if (parts.modifier || parts.type || parts.assign) {
-    return partialToDeclaration(parts);
+    return partialToDeclaration(context, parts);
   }
 
   return nothing;
@@ -223,7 +223,7 @@ function parseGenericsOrParameters(
 ): {generics?: Group | Nothing; parameters?: Group | Nothing} | Nothing {
   for (const item of group.items) {
     if (is<IdNode>(item.value, $Node.ID)) {
-      item.value = partialToDeclaration({id: item.value});
+      item.value = partialToDeclaration(context, {id: item.value});
     }
   }
 

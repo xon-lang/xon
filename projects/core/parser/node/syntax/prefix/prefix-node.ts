@@ -1,5 +1,6 @@
 import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {Nothing} from '../../../../lib/core';
+import {ASSIGN, TYPE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, Node} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
@@ -20,6 +21,6 @@ export function prefixNode(context: SyntaxContext, operator: OperatorNode, value
 }
 
 function format(context: SyntaxContext, node: PrefixNode): Nothing {
-  const keepSingleWhitespace = node.operator.text.some((x) => x.isLetterOrDigit(0));
+  const keepSingleWhitespace = node.operator.text.some((x) => x.isLetterOrDigit(0) || x === TYPE || x === ASSIGN);
   formatBetweenHiddenNodes(context, node.operator, keepSingleWhitespace);
 }
