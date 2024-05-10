@@ -1,4 +1,4 @@
-import {Anything, Array2, Integer, String2} from '../lib/core';
+import {Anything, Integer, String2} from '../lib/core';
 
 export function performanceTimer(name: String2) {
   const start = performance.now();
@@ -19,7 +19,12 @@ export function performanceTimer(name: String2) {
 export function performanceIterations(count: Integer, fn: () => Anything): {min: Integer; max: Integer; avg: Integer} {
   let min = Infinity;
   let max = 0;
-  const timespans: Array2<Integer> = [];
+  let timespans = 0;
+
+  // cold start
+  for (let i = 0; i < 1000; i++) {
+    fn();
+  }
 
   for (let i = 0; i < count; i++) {
     const start = performance.now();
@@ -28,13 +33,13 @@ export function performanceIterations(count: Integer, fn: () => Anything): {min:
 
     const stop = performance.now();
     const timespan = stop - start;
-    timespans.push(timespan);
 
+    timespans += timespan;
     min = Math.min(min, timespan);
     max = Math.max(max, timespan);
   }
 
-  const avg = timespans.sum((x) => x) / count;
+  const avg = timespans / count;
 
   return {
     min,

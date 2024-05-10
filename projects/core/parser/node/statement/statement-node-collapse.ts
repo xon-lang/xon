@@ -46,7 +46,7 @@ const parsers: Array2<SyntaxParseFn> = [
   importNodeParse([IMPORT]),
   memberNodeParse([MEMBER, META_MEMBER]),
   invokeNodeParse(),
-  prefixNodeParse([REST, PLUS, MINUS, NOT], true),
+  prefixNodeParse([REST, PLUS, MINUS, PLUS, NOT], true),
   postfixNodeParse([OPTIONAL, PROMISE], true),
   infixNodeParse([POW], true),
   infixNodeParse([MULTIPLY, DIVIDE, MOD], true),

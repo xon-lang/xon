@@ -1,17 +1,17 @@
 import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, Node} from '../../node';
+import {$Node, ExpressionNode} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface PostfixNode extends SyntaxNode {
   $: $Node.POSTFIX;
-  value: Node;
+  value: ExpressionNode;
   operator: OperatorNode;
 }
 
-export function postfixNode(context: SyntaxContext, value: Node, operator: OperatorNode): PostfixNode {
+export function postfixNode(context: SyntaxContext, value: ExpressionNode, operator: OperatorNode): PostfixNode {
   const node = syntaxNode($Node.POSTFIX, {value, operator});
 
   format(context, node);

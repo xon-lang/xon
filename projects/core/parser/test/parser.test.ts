@@ -1,20 +1,26 @@
 import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
 import {Anything, String2} from '../../lib/core';
+import {performanceIterations} from '../../util/performance';
 import {textResourceFromFilePath} from '../../util/resource/text/text-resource';
 import {syntaxParse} from '../syntax-parser';
 
-// test('performance', () => {
-//   const source = sourceFromFile('src/parser/test/performance/source.xon');
-//   const syntax = parseSyntax(source);
-//   expect(syntax.issueManager.issues.length).toBe(0);
+test('performance', () => {
+  const resource = textResourceFromFilePath('projects/core/parser/test/performance/source.xon');
 
-//   const {min, max, avg} = performanceIterations(10000, () => parseSyntax(source));
+  if (!resource) {
+    return;
+  }
 
-//   console.log(`min ${min}\nmax ${max}\navg ${avg}\n`);
-// });
+  const syntax = syntaxParse(resource);
+  expect(syntax.issueManager.issues.length).toBe(0);
 
-// test('1', () => testFormatter('1'));
+  const {min, max, avg} = performanceIterations(1000, () => syntaxParse(resource));
+
+  console.log(`min ${min}ms\nmax ${max}ms\navg ${avg}ms\n`);
+});
+
+test('1', () => testFormatter('1'));
 
 function testFormatter(index: String2) {
   const dirPath = join(__dirname, index);

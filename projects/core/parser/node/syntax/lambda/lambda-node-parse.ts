@@ -2,7 +2,7 @@ import {Integer, Nothing, nothing} from '../../../../lib/core';
 import {ASSIGN, TYPE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
-import {$Node, Node, findNode, is, isExpressionNode} from '../../node';
+import {$Node, ExpressionNode, Node, findNode, is, isExpressionNode} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
@@ -51,10 +51,9 @@ function getLambdaParts(context: SyntaxContext):
 
   if (typeOperatorFound) {
     const header = getGenericsParameters(context, context.nodes[typeOperatorFound.index - 1]);
-    const typeValue = context.nodes[typeOperatorFound.index + 1];
+    const typeValue = context.nodes[typeOperatorFound.index + 1] as ExpressionNode;
     const assignOperator = context.nodes[typeOperatorFound.index + 2];
     const assignValue = context.nodes[typeOperatorFound.index + 3];
-
     const type = prefixNode(context, typeOperatorFound.node, typeValue);
 
     if (
@@ -86,8 +85,7 @@ function getLambdaParts(context: SyntaxContext):
 
   if (assignOperatorFound) {
     const header = getGenericsParameters(context, context.nodes[assignOperatorFound.index - 1]);
-    const assignValue = context.nodes[assignOperatorFound.index + 1];
-
+    const assignValue = context.nodes[assignOperatorFound.index + 1] as ExpressionNode;
     const assign = prefixNode(context, assignOperatorFound.node, assignValue);
 
     return {spliceIndex: assignOperatorFound.index - 1, deleteCount: 3, ...header, assign};

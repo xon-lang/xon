@@ -116,6 +116,7 @@ export function isGroupNode(node: Node | Nothing): node is Group {
 }
 
 // todo refactor findNode function
+// todo add several outputs for complex predicates
 export function findNode<T extends Node>(
   nodes: Node[],
   startIndex: Integer,

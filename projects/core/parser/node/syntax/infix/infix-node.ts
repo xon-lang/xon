@@ -1,18 +1,23 @@
 import {formatAfterHiddenNodes, formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, Node} from '../../node';
+import {$Node, ExpressionNode} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface InfixNode extends SyntaxNode {
   $: $Node.INFIX;
-  left: Node;
+  left: ExpressionNode;
   operator: OperatorNode;
-  right: Node;
+  right: ExpressionNode;
 }
 
-export function infixNode(context: SyntaxContext, left: Node, operator: OperatorNode, right: Node): InfixNode {
+export function infixNode(
+  context: SyntaxContext,
+  left: ExpressionNode,
+  operator: OperatorNode,
+  right: ExpressionNode,
+): InfixNode {
   const node = syntaxNode($Node.INFIX, {left, operator, right});
 
   format(context, node);
