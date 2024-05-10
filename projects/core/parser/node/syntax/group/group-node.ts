@@ -7,9 +7,9 @@ import {$Node} from '../../node';
 import {CloseNode} from '../../token/close/close-node';
 import {OpenNode} from '../../token/open/open-node';
 import {ArrayNode} from '../array/array-node';
-import {ItemNode} from '../item/item-node';
 import {ObjectNode} from '../object/object-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
+import {ItemNode} from './item-node';
 
 export type Group = GroupNode | ArrayNode | ObjectNode;
 

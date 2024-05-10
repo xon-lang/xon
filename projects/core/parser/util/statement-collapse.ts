@@ -59,7 +59,6 @@ const parsers: Array2<SyntaxParseFn> = [
   prefixNodeParse(MODIFIER_KEYWORDS, false),
   prefixNodeParse(CONTROL_KEYWORDS, false),
   declarationNodeParse(),
-  infixNodeParse([COMMA], true),
 ];
 
 export function statementCollapse(context: SyntaxContext): Nothing {

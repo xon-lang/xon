@@ -9,9 +9,9 @@ import {OpenNode} from '../../token/open/open-node';
 import {openNodeParse} from '../../token/open/open-node-parse';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {arrayNode} from '../array/array-node';
-import {ItemNode, itemNode} from '../item/item-node';
 import {objectNode} from '../object/object-node';
 import {Group, groupNode} from './group-node';
+import {ItemNode, itemNode} from './item-node';
 
 export function groupNodeParse(context: SyntaxContext, index: Integer): Group | Nothing {
   const open = openNodeParse(context, index);
