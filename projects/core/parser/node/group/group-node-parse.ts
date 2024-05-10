@@ -1,5 +1,5 @@
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {Array2, Integer, Nothing, nothing} from '../../../lib/core';
+import {Array2, Nothing, nothing} from '../../../lib/core';
 import {ARRAY_OPEN, COMMA, GROUP_OPEN, OBJECT_OPEN, OPEN_CLOSE_PAIR} from '../../parser-config';
 import {SyntaxContext} from '../../syntax-context';
 import {syntaxParseUntil} from '../../syntax-parser';
@@ -8,21 +8,11 @@ import {arrayNode} from '../syntax/array/array-node';
 import {objectNode} from '../syntax/object/object-node';
 import {CloseNode} from '../token/close/close-node';
 import {OpenNode} from '../token/open/open-node';
-import {openNodeParse} from '../token/open/open-node-parse';
 import {OperatorNode} from '../token/operator/operator-node';
 import {Group, groupNode} from './group-node';
 import {ItemNode, itemNode} from './item-node';
 
-export function groupNodeParse(context: SyntaxContext, index: Integer): Group | Nothing {
-  const open = openNodeParse(context, index);
-
-  if (!open) {
-    return nothing;
-  }
-
-  context.position.column = open.range.stop.column;
-  context.position.index = open.range.stop.index;
-
+export function groupNodeParse(context: SyntaxContext, open: OpenNode): Group {
   const items: Array2<ItemNode> = [];
 
   while (context.position.index < context.resource.data.length) {
@@ -62,7 +52,7 @@ export function createGroupNode(
   open: OpenNode,
   close: CloseNode | Nothing,
   nodes: Array2<ItemNode>,
-): Group | Nothing {
+): Group {
   if (open.text === GROUP_OPEN) {
     return groupNode(context, open, nodes, close);
   }
@@ -77,5 +67,5 @@ export function createGroupNode(
 
   context.issueManager.addError(open.range, ISSUE_MESSAGE.notImplemented());
 
-  return nothing;
+  return groupNode(context, open, nodes, close);
 }

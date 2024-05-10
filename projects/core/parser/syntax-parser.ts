@@ -14,6 +14,8 @@ import {integerNodeParse} from './node/token/integer/integer-node-parse';
 import {joiningNodeParse} from './node/token/joining/joining-node-parse';
 import {NlNode} from './node/token/nl/nl-node';
 import {nlNodeParse} from './node/token/nl/nl-node-parse';
+import {OpenNode} from './node/token/open/open-node';
+import {openNodeParse} from './node/token/open/open-node-parse';
 import {operatorNodeParse} from './node/token/operator/operator-node-parse';
 import {stringNodeParse} from './node/token/string/string-node-parse';
 import {isHiddenToken} from './node/token/token-node';
@@ -33,12 +35,12 @@ const parsers: Array2<TokenParseFn> = [
   stringNodeParse,
   charNodeParse,
   nlNodeParse,
+  openNodeParse,
   closeNodeParse,
   joiningNodeParse,
   whitespaceNodeParse,
   operatorNodeParse,
   idNodeParse,
-  groupNodeParse,
 ];
 
 export function syntaxParse(resource: TextResource): SyntaxResult {
@@ -107,6 +109,10 @@ function nextNode(context: SyntaxContext): Node {
     unknownNodeParse(context, context.position.index);
 
   context.position = node.range.stop;
+
+  if (is<OpenNode>(node, $Node.OPEN)) {
+    return groupNodeParse(context, node);
+  }
 
   return node;
 }
