@@ -1,12 +1,13 @@
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Array2, Nothing, nothing} from '../../../lib/core';
-import {ARRAY_OPEN, COMMA, GROUP_OPEN, OBJECT_OPEN, OPEN_CLOSE_PAIR} from '../../parser-config';
+import {ARRAY_OPEN, GROUP_OPEN, OBJECT_OPEN, OPEN_CLOSE_PAIR} from '../../parser-config';
 import {SyntaxContext} from '../../syntax-context';
 import {syntaxParseUntil} from '../../syntax-parser';
 import {$Node, is} from '../node';
 import {arrayNode} from '../syntax/array/array-node';
 import {objectNode} from '../syntax/object/object-node';
 import {CloseNode} from '../token/close/close-node';
+import {CommaNode} from '../token/comma/comma-node';
 import {OpenNode} from '../token/open/open-node';
 import {OperatorNode} from '../token/operator/operator-node';
 import {Group, groupNode} from './group-node';
@@ -20,13 +21,13 @@ export function groupNodeParse(context: SyntaxContext, open: OpenNode): Group {
       context.resource,
       context.position,
       (node) =>
-        (is<OperatorNode>(node, $Node.OPERATOR) && node.text === COMMA) ||
+        is<CommaNode>(node, $Node.COMMA) ||
         (is<CloseNode>(node, $Node.CLOSE) && node.text === OPEN_CLOSE_PAIR[open.text]),
     );
 
     context.position = itemContext.position;
 
-    if (is<OperatorNode>(itemContext.breakNode, $Node.OPERATOR)) {
+    if (is<CommaNode>(itemContext.breakNode, $Node.COMMA)) {
       const item = itemNode(context, itemContext.statements, itemContext.breakNode);
       items.push(item);
 

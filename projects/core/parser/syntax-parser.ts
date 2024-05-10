@@ -5,6 +5,7 @@ import {TextResourcePosition, zeroPosition} from '../util/resource/text/text-res
 import {$Node, Node, is} from './node/node';
 import {charNodeParse} from './node/token/char/char-node-parse';
 import {closeNodeParse} from './node/token/close/close-node-parse';
+import {commaNodeParse} from './node/token/comma/comma-node-parse';
 import {commentBlockNodeParse} from './node/token/comment-block/comment-block-node-parse';
 import {commentLineNodeParse} from './node/token/comment-line/comment-line-node-parse';
 import {idNodeParse} from './node/token/id/id-node-parse';
@@ -33,6 +34,7 @@ const parsers: Array2<TokenParseFn> = [
   nlNodeParse,
   openNodeParse,
   closeNodeParse,
+  commaNodeParse,
   joiningNodeParse,
   whitespaceNodeParse,
   operatorNodeParse,

@@ -41,15 +41,3 @@ test('x + x', () => {
   expect(node.$).toBe($Node.INFIX);
   expect(node.operator.text).toBe('is');
 });
-
-test('comma', () => {
-  const text = ',';
-  const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
-  const statements = syntax.statements;
-  const node = statements[0].item as OperatorNode;
-
-  expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.OPERATOR);
-  expect(node.text).toBe(',');
-});
