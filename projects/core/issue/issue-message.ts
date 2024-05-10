@@ -20,9 +20,9 @@ export const ISSUE_MESSAGE = {
     actual: 'Unexpected expression',
     expect: nothing,
   }),
-  expectCloseToken: (open: String2, close: String2) => ({
-    actual: `Token '${open}' has no close pair '${close}'`,
-    expect: `Add close token '${close}'`,
+  expectCloseToken: (open: String2) => ({
+    actual: `Token '${open}' has no close pair`,
+    expect: nothing,
   }),
 
   // Semantic

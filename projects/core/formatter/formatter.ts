@@ -8,15 +8,10 @@ import {TokenNode} from '../parser/node/token/token-node';
 import {WhitespaceNode} from '../parser/node/token/whitespace/whitespace-node';
 import {NL} from '../parser/parser-config';
 import {SyntaxContext} from '../parser/syntax-context';
-import {
-  TextResourceRange,
-  cloneRange,
-  rangeFromNodes,
-  rangeFromPosition,
-} from '../util/resource/text/text-resource-range';
+import {TextRange, rangeFromNodes, rangeFromPosition} from '../util/resource/text/text-range';
 
 export interface Formatter {
-  range: TextResourceRange;
+  range: TextRange;
   text: String2;
 }
 
@@ -54,64 +49,48 @@ export function formatStatement(context: SyntaxContext, statement: StatementNode
   // if (statement.hiddenNodes?.length === 0) {
   //   return;
   // }
-
   // const ifFirstStatement = context.statements.first() === statement;
   // const beforeIndentHiddenNodes = statement.beforeIndentHiddenNodes;
-
   // if (beforeIndentHiddenNodes.length > 0) {
   //   const range = rangeFromNodes(beforeIndentHiddenNodes);
   //   const nonWhitespaceNodes = beforeIndentHiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
   //   const splittedByNl = nonWhitespaceNodes.splitBy((x) => is(x, $Node.NL));
-
   //   let text = splittedByNl
   //     .map((x) => format(context, x.splitter) + x.items.map((z) => format(context, z)).join(' '))
   //     .join('');
-
   //   if (ifFirstStatement) {
   //     text = text.trimStart();
   //   }
-
   //   const formatter = compareAndCreateFormatter(context, beforeIndentHiddenNodes, range, text);
-
   //   if (formatter) {
   //     context.formatterManager.addFormatter(formatter);
   //   }
   // }
-
   // const firstIndentHiddenNode = statement.indentHiddenNodes.first();
-
   // if (is<WhitespaceNode>(firstIndentHiddenNode, $Node.WHITESPACE)) {
   //   const range = cloneRange(firstIndentHiddenNode.range);
   //   const text = '  '.repeat(statement.indentLevel);
   //   const formatter = compareAndCreateFormatter(context, statement.indentHiddenNodes, range, text);
-
   //   if (formatter) {
   //     context.formatterManager.addFormatter(formatter);
   //   }
   // }
-
   // const indentHiddenNodes = statement.indentHiddenNodes.slice(1);
-
   // if (indentHiddenNodes.length > 0) {
   //   const range = rangeFromNodes(indentHiddenNodes);
   //   const formatter = getFormatterForHiddenNodes(context, range, indentHiddenNodes, FormattingType.BEFORE);
-
   //   if (formatter) {
   //     context.formatterManager.addFormatter(formatter);
   //   }
   // }
-
   // const childrenWithoutLast = statement.children.slice(0, -1);
-
   // for (const child of childrenWithoutLast) {
   //   formatBetweenHiddenNodes(context, child, true);
   // }
-
   // const lastStatementNode = statement.children.last();
   // if (lastStatementNode?.hiddenNodes && lastStatementNode.hiddenNodes.length > 0) {
   //   const range = rangeFromNodes(lastStatementNode.hiddenNodes);
   //   const formatter = getFormatterForHiddenNodes(context, range, lastStatementNode.hiddenNodes, FormattingType.AFTER);
-
   //   if (formatter) {
   //     context.formatterManager.addFormatter(formatter);
   //   }
@@ -159,7 +138,7 @@ export function formatLastContextHiddenNodes(context: SyntaxContext): Formatter 
 
 export function getFormatterForHiddenNodes(
   context: SyntaxContext,
-  range: TextResourceRange,
+  range: TextRange,
   hiddenNodes: Array2<TokenNode>,
   formattingType: FormattingType | Nothing,
 ): Formatter | Nothing {
@@ -241,7 +220,7 @@ function format(context: SyntaxContext, node: TokenNode | Nothing): String2 {
 function compareAndCreateFormatter(
   context: SyntaxContext,
   nodes: Array2<TokenNode>,
-  range: TextResourceRange,
+  range: TextRange,
   text: String2,
 ): Formatter | Nothing {
   if (isSameContent(context, nodes, text)) {

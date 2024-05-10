@@ -14,7 +14,7 @@ export function joiningNodeParse(context: SyntaxContext, index: Integer): Joinin
     text += NL;
   }
 
-  const range = context.getRange(text.length, true);
+  const range = context.getRangeWithNL(text.length);
 
   return joiningNode(range, text);
 }

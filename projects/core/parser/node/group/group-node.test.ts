@@ -35,7 +35,7 @@ test('validate close pair', () => {
   expect(node.items.length).toBe(0);
   expect(syntax.issueManager.issues.length).toBe(1);
 
-  const issueMessage = ISSUE_MESSAGE.expectCloseToken(node.open.text, ')');
+  const issueMessage = ISSUE_MESSAGE.expectCloseToken(node.open.text);
 
   expect(syntax.issueManager.issues[0].message.actual).toBe(issueMessage.actual);
   expect(syntax.issueManager.issues[0].message.expect).toBe(issueMessage.expect);

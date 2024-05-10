@@ -9,7 +9,7 @@ export function commentLineNodeParse(context: SyntaxContext, index: Integer): Co
   }
 
   const text = context.resource.data.takeWhile((x) => x !== NL, index);
-  const range = context.getRange(text.length, false);
+  const range = context.getRange(text.length);
 
   return commentLineNode(range, text);
 }

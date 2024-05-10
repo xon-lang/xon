@@ -1,5 +1,5 @@
 import {Nothing, String2} from '../../../../lib/core';
-import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
+import {TextRange} from '../../../../util/resource/text/text-range';
 import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS} from '../../../parser-config';
 import {$Node} from '../../node';
 import {TokenNode, tokenNode} from '../token-node';
@@ -15,7 +15,7 @@ export interface OperatorNode extends TokenNode {
   keywordType: KeywordType | Nothing;
 }
 
-export function operatorNode(range: TextResourceRange, text: String2): OperatorNode {
+export function operatorNode(range: TextRange, text: String2): OperatorNode {
   const token = tokenNode($Node.OPERATOR, {range, text});
   const keywordType = getKeywordType(text);
 

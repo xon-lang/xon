@@ -9,7 +9,7 @@ export function nlNodeParse(context: SyntaxContext, index: Integer): NlNode | No
   }
 
   const text = context.resource.data.takeWhile((x) => x === NL || x === SPACE, index);
-  const range = context.getRange(text.length, true);
+  const range = context.getRangeWithNL(text.length);
 
   return nlNode(range, text);
 }

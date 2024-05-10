@@ -9,7 +9,7 @@ export function commaNodeParse(context: SyntaxContext, index: Integer): CommaNod
   }
 
   const text = COMMA;
-  const range = context.getRange(1, false);
+  const range = context.getSymbolRange();
 
   return commaNode(range, text);
 }

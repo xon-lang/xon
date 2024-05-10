@@ -13,7 +13,7 @@ export function idNodeParse(context: SyntaxContext, index: Integer): IdNode | No
     index,
   );
 
-  const range = context.getRange(text.length, false);
+  const range = context.getRange(text.length);
 
   return idNode(range, text);
 }

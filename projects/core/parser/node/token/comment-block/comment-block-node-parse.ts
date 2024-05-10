@@ -12,7 +12,7 @@ export function commentBlockNodeParse(context: SyntaxContext, index: Integer): C
   const endSlice = stopIndex < 0 ? context.resource.data.length : stopIndex + COMMENT_BLOCK.length;
 
   const text = context.resource.data.slice(index, endSlice);
-  const range = context.getRange(text.length, true);
+  const range = context.getRangeWithNL(text.length);
 
   return commentBlockNode(range, text);
 }

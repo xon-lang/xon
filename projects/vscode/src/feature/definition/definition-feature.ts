@@ -19,7 +19,7 @@ import {IntegerTypeSemantic} from '../../../../core/semantic/type/integer/intege
 import {StringTypeSemantic} from '../../../../core/semantic/type/string/string-type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {TextResourceReference} from '../../../../core/util/resource/resource-reference';
-import {TextResourceRange, zeroRange} from '../../../../core/util/resource/text/text-resource-range';
+import {TextRange, zeroRange} from '../../../../core/util/resource/text/text-range';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
@@ -78,7 +78,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
 }
 
 function navigateToReference(
-  highlightingRange: TextResourceRange,
+  highlightingRange: TextRange,
   reference: TextResourceReference,
 ): ProviderResult<LocationLink[]> {
   if (!reference.resource.location) {
@@ -89,9 +89,9 @@ function navigateToReference(
 }
 
 function navigateToLocation(
-  highlightingRange: TextResourceRange,
+  highlightingRange: TextRange,
   location: String2,
-  sourceRange: TextResourceRange | Nothing,
+  sourceRange: TextRange | Nothing,
 ): ProviderResult<LocationLink[]> {
   const uri = Uri.parse(location);
   const range = sourceRange ? convertRange(sourceRange) : convertRange(zeroRange());

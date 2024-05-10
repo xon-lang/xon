@@ -14,7 +14,7 @@ export function charNodeParse(context: SyntaxContext, index: Integer): CharNode 
 
   const endSlice = nextQuoteIndex < 0 ? resource.data.length : nextQuoteIndex + 1;
   const text = resource.data.slice(position.index, endSlice);
-  const range = context.getRange(text.length, false);
+  const range = context.getRangeWithNL(text.length);
 
   return charNode(range, text);
 }

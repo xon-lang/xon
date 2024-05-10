@@ -11,7 +11,7 @@ export function closeNodeParse(context: SyntaxContext, index: Integer): CloseNod
   }
 
   const text = context.resource.data[index];
-  const range = context.getRange(1, false);
+  const range = context.getSymbolRange();
 
   return closeNode(range, text);
 }

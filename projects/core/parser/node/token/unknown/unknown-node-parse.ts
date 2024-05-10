@@ -5,7 +5,7 @@ import {UnknownNode, unknownNode} from './unknown-node';
 
 export function unknownNodeParse(context: SyntaxContext, index: Integer): UnknownNode {
   const text = context.resource.data[index];
-  const range = context.getRange(1, false);
+  const range = context.getSymbolRange();
 
   context.issueManager.addError(range, ISSUE_MESSAGE.unknownSymbol());
 

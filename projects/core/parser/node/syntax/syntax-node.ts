@@ -1,5 +1,5 @@
 import {Array2, Nothing, String2} from '../../../lib/core';
-import {rangeFromNodes} from '../../../util/resource/text/text-resource-range';
+import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {$Node, Node} from '../node';
 
 export interface SyntaxNode extends Node {

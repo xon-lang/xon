@@ -19,7 +19,7 @@ export function operatorNodeParse(context: SyntaxContext, index: Integer): Token
     return id;
   }
 
-  const range = context.getRange(text.length, false);
+  const range = context.getRange(text.length);
 
   return operatorNode(range, text);
 }

@@ -29,7 +29,7 @@ export function typeDeclarationSemantic(
     attributes: {},
 
     eq(other: DeclarationSemantic): Boolean2 {
-      return this.reference.eq(other.reference);
+      return this.reference.positionEquals(other.reference);
     },
   };
 }

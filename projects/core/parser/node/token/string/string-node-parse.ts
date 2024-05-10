@@ -12,7 +12,7 @@ export function stringNodeParse(context: SyntaxContext, index: Integer): StringN
   const endSlice = stopIndex < 0 ? context.resource.data.length : stopIndex + STRING_QUOTE.length;
 
   const text = context.resource.data.slice(index, endSlice);
-  const range = context.getRange(text.length, true);
+  const range = context.getRangeWithNL(text.length);
 
   return stringNode(range, text);
 }

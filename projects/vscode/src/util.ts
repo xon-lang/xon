@@ -6,22 +6,22 @@ import {StatementNode} from '../../core/parser/node/statement/statement-node';
 import {SyntaxResult} from '../../core/parser/syntax-context';
 import {syntaxParse} from '../../core/parser/syntax-parser';
 import {semanticParse} from '../../core/semantic/semantic';
+import {TextPosition} from '../../core/util/resource/text/text-position';
+import {TextRange} from '../../core/util/resource/text/text-range';
 import {textResourceFrom} from '../../core/util/resource/text/text-resource';
-import {TextResourcePosition} from '../../core/util/resource/text/text-resource-position';
-import {TextResourceRange} from '../../core/util/resource/text/text-resource-range';
 
 export function convertFormatter(formatter: Formatter) {
   return TextEdit.replace(convertRange(formatter.range), formatter.text);
 }
 
-export function convertRange(range: TextResourceRange): Range {
+export function convertRange(range: TextRange): Range {
   const start = convertPosition(range.start);
   const stop = convertPosition(range.stop);
 
   return new Range(start, stop);
 }
 
-export function convertPosition(position: TextResourcePosition): Position {
+export function convertPosition(position: TextPosition): Position {
   return new Position(position.line, position.column);
 }
 

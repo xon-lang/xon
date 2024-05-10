@@ -1,5 +1,5 @@
 import {String2} from '../../../../lib/core';
-import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
+import {TextRange} from '../../../../util/resource/text/text-range';
 import {STRING_QUOTE} from '../../../parser-config';
 import {$Node} from '../../node';
 import {TokenNode, tokenNode} from '../token-node';
@@ -9,7 +9,7 @@ export interface StringNode extends TokenNode {
   value: String2;
 }
 
-export function stringNode(range: TextResourceRange, text: String2): StringNode {
+export function stringNode(range: TextRange, text: String2): StringNode {
   const lastIndex = text.length > 1 && text.last() === STRING_QUOTE ? -1 : text.length;
   const value = text.slice(1, lastIndex);
 

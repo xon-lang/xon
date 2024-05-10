@@ -1,6 +1,6 @@
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../../lib/core';
 import {Semantic} from '../../semantic/semantic';
-import {TextResourceRange} from '../../util/resource/text/text-resource-range';
+import {TextRange} from '../../util/resource/text/text-range';
 import {ArrayNode, Group, GroupNode, ObjectNode} from './group/group-node';
 import {InfixNode} from './syntax/infix/infix-node';
 import {InvokeNode} from './syntax/invoke/invoke-node';
@@ -15,7 +15,7 @@ import {TokenNode} from './token/token-node';
 
 export interface Node {
   $: $Node;
-  range: TextResourceRange;
+  range: TextRange;
   parent?: Node | Nothing;
   hiddenNodes?: Array2<TokenNode>;
   semantic?: Semantic | Nothing;

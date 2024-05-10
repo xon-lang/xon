@@ -9,7 +9,7 @@ export function integerNodeParse(context: SyntaxContext, index: Integer): Intege
   }
 
   const text = context.resource.data.takeWhile((x, i) => x === UNDERSCORE || context.resource.data.isDigit(i), index);
-  const range = context.getRange(text.length, false);
+  const range = context.getRange(text.length);
 
   return integerNode(range, text);
 }
