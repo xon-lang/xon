@@ -1,8 +1,8 @@
 import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
+import {Group} from '../../group/group-node';
 import {$Node, ExpressionNode} from '../../node';
-import {Group} from '../group/group-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface InvokeNode extends SyntaxNode {

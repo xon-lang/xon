@@ -1,6 +1,6 @@
 import {Anything, Nothing, String2, nothing} from '../lib/core';
+import {GroupNode} from '../parser/node/group/group-node';
 import {$Node, Node, is} from '../parser/node/node';
-import {GroupNode} from '../parser/node/syntax/group/group-node';
 import {InfixNode} from '../parser/node/syntax/infix/infix-node';
 import {PrefixNode} from '../parser/node/syntax/prefix/prefix-node';
 import {CharNode} from '../parser/node/token/char/char-node';

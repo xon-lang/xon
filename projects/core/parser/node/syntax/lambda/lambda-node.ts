@@ -1,7 +1,7 @@
 import {Nothing, nothing} from '../../../../lib/core';
+import {Group} from '../../group/group-node';
 import {$Node} from '../../node';
 import {DeclarationNode} from '../declaration/declaration-node';
-import {Group} from '../group/group-node';
 import {PrefixNode} from '../prefix/prefix-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 

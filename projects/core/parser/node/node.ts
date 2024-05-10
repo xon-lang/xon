@@ -1,8 +1,8 @@
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../../lib/core';
 import {Semantic} from '../../semantic/semantic';
 import {TextResourceRange} from '../../util/resource/text/text-resource-range';
+import {Group, GroupNode} from './group/group-node';
 import {ArrayNode} from './syntax/array/array-node';
-import {Group, GroupNode} from './syntax/group/group-node';
 import {InfixNode} from './syntax/infix/infix-node';
 import {InvokeNode} from './syntax/invoke/invoke-node';
 import {MemberNode} from './syntax/member/member-node';

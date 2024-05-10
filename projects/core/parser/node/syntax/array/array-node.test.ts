@@ -1,9 +1,9 @@
 import {nothing} from '../../../../lib/core';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../../syntax-parser';
+import {GroupNode} from '../../group/group-node';
 import {$Node, is} from '../../node';
 import {IntegerNode} from '../../token/integer/integer-node';
-import {GroupNode} from '../group/group-node';
 import {InfixNode} from '../infix/infix-node';
 import {ObjectNode} from '../object/object-node';
 import {ArrayNode} from './array-node';

@@ -1,14 +1,14 @@
-import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
-import {Array2, Nothing} from '../../../../lib/core';
-import '../../../../util/extension';
-import {OPEN_CLOSE_PAIR} from '../../../parser-config';
-import {SyntaxContext} from '../../../syntax-context';
-import {$Node} from '../../node';
-import {CloseNode} from '../../token/close/close-node';
-import {OpenNode} from '../../token/open/open-node';
-import {ArrayNode} from '../array/array-node';
-import {ObjectNode} from '../object/object-node';
-import {SyntaxNode, syntaxNode} from '../syntax-node';
+import {ISSUE_MESSAGE} from '../../../issue/issue-message';
+import {Array2, Nothing} from '../../../lib/core';
+import '../../../util/extension';
+import {OPEN_CLOSE_PAIR} from '../../parser-config';
+import {SyntaxContext} from '../../syntax-context';
+import {$Node} from '../node';
+import {ArrayNode} from '../syntax/array/array-node';
+import {ObjectNode} from '../syntax/object/object-node';
+import {SyntaxNode, syntaxNode} from '../syntax/syntax-node';
+import {CloseNode} from '../token/close/close-node';
+import {OpenNode} from '../token/open/open-node';
 import {ItemNode} from './item-node';
 
 export type Group = GroupNode | ArrayNode | ObjectNode;

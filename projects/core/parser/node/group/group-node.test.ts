@@ -1,9 +1,9 @@
-import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
-import {nothing} from '../../../../lib/core';
-import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {OPEN_CLOSE_PAIR} from '../../../parser-config';
-import {syntaxParse} from '../../../syntax-parser';
-import {$Node, is} from '../../node';
+import {ISSUE_MESSAGE} from '../../../issue/issue-message';
+import {nothing} from '../../../lib/core';
+import {textResourceFrom} from '../../../util/resource/text/text-resource';
+import {OPEN_CLOSE_PAIR} from '../../parser-config';
+import {syntaxParse} from '../../syntax-parser';
+import {$Node, is} from '../node';
 import {GroupNode} from './group-node';
 
 test('empty closed', () => {

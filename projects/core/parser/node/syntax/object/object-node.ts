@@ -1,9 +1,9 @@
 import {Array2, Nothing} from '../../../../lib/core';
 import '../../../../util/extension';
+import {ItemNode} from '../../group/item-node';
 import {$Node} from '../../node';
 import {CloseNode} from '../../token/close/close-node';
 import {OpenNode} from '../../token/open/open-node';
-import {ItemNode} from '../group/item-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface ObjectNode extends SyntaxNode {

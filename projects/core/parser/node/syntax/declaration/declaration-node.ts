@@ -1,10 +1,10 @@
 import {formatBeforeHiddenNodes} from '../../../../formatter/formatter';
 import {Nothing, nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
+import {Group} from '../../group/group-node';
 import {$Node} from '../../node';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
-import {Group} from '../group/group-node';
 import {PrefixNode} from '../prefix/prefix-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 

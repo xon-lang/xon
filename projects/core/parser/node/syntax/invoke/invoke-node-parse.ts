@@ -1,8 +1,8 @@
 import {Integer} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {SyntaxParseFn} from '../../../util/statement-collapse';
+import {Group} from '../../group/group-node';
 import {ExpressionNode, findNode, isExpressionNode, isGroupNode} from '../../node';
-import {Group} from '../group/group-node';
 import {invokeNode} from './invoke-node';
 
 export function invokeNodeParse(): SyntaxParseFn {
