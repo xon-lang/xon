@@ -1,5 +1,7 @@
+import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {Array2, Integer, Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
+import {statementCollapse} from '../../../util/statement-collapse';
 import {$Node, Node} from '../../node';
 import {TokenNode} from '../../token/token-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
@@ -45,4 +47,20 @@ export function statementNode(
   };
 
   return statement;
+}
+
+export function constructStatementNode(
+  context: SyntaxContext,
+  parent: StatementNode | Nothing,
+  indentStopColumn: Integer,
+  beforeIndentHiddenNodes: Array2<TokenNode>,
+  indentHiddenNodes: Array2<TokenNode>,
+): StatementNode {
+  statementCollapse(context);
+
+  context.nodes
+    .slice(1)
+    .forEach((node) => context.issueManager.addError(node.range, ISSUE_MESSAGE.unexpectedExpression()));
+
+  return statementNode(context, context.nodes, parent, indentStopColumn, beforeIndentHiddenNodes, indentHiddenNodes);
 }

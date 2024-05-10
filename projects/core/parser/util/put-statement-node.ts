@@ -1,10 +1,9 @@
 import {formatStatement} from '../../formatter/formatter';
 import {Integer, Nothing, nothing} from '../../lib/core';
 import {$Node, is} from '../node/node';
-import {StatementNode} from '../node/syntax/statement/statement-node';
+import {StatementNode, constructStatementNode} from '../node/syntax/statement/statement-node';
 import {WhitespaceNode} from '../node/token/whitespace/whitespace-node';
 import {SyntaxContext} from '../syntax-context';
-import {getStatementNode} from './get-statement-node';
 
 // todo try to simplify it
 export function putStatementNode(context: SyntaxContext): Nothing {
@@ -21,7 +20,7 @@ export function putStatementNode(context: SyntaxContext): Nothing {
   const parentStatement = getParent(context, indentStopColumn);
   context.parentStatement = parentStatement;
 
-  const statement = getStatementNode(
+  const statement = constructStatementNode(
     context,
     parentStatement,
     indentStopColumn,
