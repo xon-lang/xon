@@ -1,9 +1,7 @@
 import {formatLastContextHiddenNodes} from '../formatter/formatter';
-import {ISSUE_MESSAGE} from '../issue/issue-message';
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../lib/core';
 import {TextResource} from '../util/resource/text/text-resource';
 import {TextResourcePosition, zeroPosition} from '../util/resource/text/text-resource-position';
-import {groupNodeParse} from './node/group/group-node-parse';
 import {$Node, Node, is} from './node/node';
 import {charNodeParse} from './node/token/char/char-node-parse';
 import {closeNodeParse} from './node/token/close/close-node-parse';
@@ -14,12 +12,10 @@ import {integerNodeParse} from './node/token/integer/integer-node-parse';
 import {joiningNodeParse} from './node/token/joining/joining-node-parse';
 import {NlNode} from './node/token/nl/nl-node';
 import {nlNodeParse} from './node/token/nl/nl-node-parse';
-import {OpenNode} from './node/token/open/open-node';
 import {openNodeParse} from './node/token/open/open-node-parse';
 import {operatorNodeParse} from './node/token/operator/operator-node-parse';
 import {stringNodeParse} from './node/token/string/string-node-parse';
 import {isHiddenToken} from './node/token/token-node';
-import {UnknownNode} from './node/token/unknown/unknown-node';
 import {unknownNodeParse} from './node/token/unknown/unknown-node-parse';
 import {whitespaceNodeParse} from './node/token/whitespace/whitespace-node-parse';
 import {putStatementNode} from './put-statement-node';
@@ -110,14 +106,6 @@ function nextNode(context: SyntaxContext): Node {
     unknownNodeParse(context, context.position.index);
 
   context.position = node.range.stop;
-
-  if (is<UnknownNode>(node, $Node.UNKNOWN)) {
-    context.issueManager.addError(node.range, ISSUE_MESSAGE.unknownSymbol());
-  }
-
-  if (is<OpenNode>(node, $Node.OPEN)) {
-    return groupNodeParse(context, node);
-  }
 
   return node;
 }
