@@ -25,6 +25,9 @@ export function statementNode(
   indentHiddenNodes: Array2<TokenNode>,
 ): StatementNode {
   const node = syntaxNode($Node.STATEMENT, {children});
+
+  children.last()!.hiddenNodes = node.hiddenNodes;
+
   const indentLevel = parentStatement ? parentStatement.indentLevel + 1 : 0;
   const item = children[0];
 
@@ -37,6 +40,7 @@ export function statementNode(
     indentHiddenNodes,
     parentStatement: parentStatement,
     item,
+    hiddenNodes: [],
     body: [],
   };
 

@@ -61,6 +61,10 @@ export function syntaxParseUntil(
       break;
     }
 
+    if (is<UnknownNode>(node, $Node.UNKNOWN)) {
+      context.issueManager.addError(node.range, ISSUE_MESSAGE.unknownSymbol());
+    }
+
     if (is<NlNode>(node, $Node.NL) && context.nodes.length > 0) {
       putStatementNode(context);
 
@@ -68,8 +72,6 @@ export function syntaxParseUntil(
       context.nodes = [];
 
       continue;
-    } else if (is<UnknownNode>(node, $Node.UNKNOWN)) {
-      context.issueManager.addError(node.range, ISSUE_MESSAGE.unknownSymbol());
     }
 
     if (isHiddenToken(node)) {
@@ -87,7 +89,6 @@ export function syntaxParseUntil(
     putStatementNode(context);
   }
 
-  // todo try to use EOF node to format as the last one
   const formatter = formatLastContextHiddenNodes(context);
 
   if (formatter) {

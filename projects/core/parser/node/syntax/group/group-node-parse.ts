@@ -16,7 +16,7 @@ import {Group, groupNode} from './group-node';
 export function groupNodeParse(context: SyntaxContext, index: Integer): Group | Nothing {
   const open = openNodeParse(context, index);
 
-  if (!is<OpenNode>(open, $Node.OPEN)) {
+  if (!open) {
     return nothing;
   }
 
@@ -26,7 +26,7 @@ export function groupNodeParse(context: SyntaxContext, index: Integer): Group | 
   const items: Array2<ItemNode> = [];
 
   while (context.position.index < context.resource.data.length) {
-    // todo use this cycle to group syntax by comma in the main parseSyntax function
+    // todo use this cycle to group syntax by comma in the main syntaxParse function
     const {syntaxContext: itemContext} = syntaxParseUntil(
       context.resource,
       context.position,

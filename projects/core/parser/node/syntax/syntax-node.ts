@@ -4,8 +4,6 @@ import {$Node, Node} from '../node';
 
 export interface SyntaxNode extends Node {
   children: Array2<Node>;
-
-  addChild(node: Node): Nothing;
 }
 
 type SyntaxChild = Node | Array2<Node | Nothing> | Nothing;
@@ -23,17 +21,6 @@ export function syntaxNode<T extends Record<String2, SyntaxChild>, V extends $No
     range,
     children: children,
     hiddenNodes: last.hiddenNodes,
-
-    addChild(node: Node): Nothing {
-      const last = this.children.last()!;
-      last.hiddenNodes = this.hiddenNodes;
-      this.hiddenNodes = node.hiddenNodes;
-      node.hiddenNodes = [];
-
-      this.range.stop = node.range.stop;
-      this.children.push(node);
-    },
-
     ...nodes,
   };
 
