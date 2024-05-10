@@ -26,6 +26,14 @@ export enum FormattingType {
   AFTER = 'AFTER',
 }
 
+export function formatBeforeHiddenNodes(context: SyntaxContext, node: Node, keepSingleSpace: Boolean2): Nothing {
+  const formatter = getFormatterForHiddenNodesWithSpaceKeeping(context, node, keepSingleSpace, FormattingType.BEFORE);
+
+  if (formatter) {
+    context.formatterManager.addFormatter(formatter);
+  }
+}
+
 export function formatBetweenHiddenNodes(context: SyntaxContext, node: Node, keepSingleSpace: Boolean2): Nothing {
   const formatter = getFormatterForHiddenNodesWithSpaceKeeping(context, node, keepSingleSpace, FormattingType.BETWEEN);
 
@@ -42,13 +50,13 @@ export function formatAfterHiddenNodes(context: SyntaxContext, node: Node, keepS
   }
 }
 
-export function formatStatement(context: SyntaxContext, node: StatementNode): Nothing {
-  if (node.hiddenNodes?.length === 0) {
-    return;
-  }
+export function formatStatement(context: SyntaxContext, statement: StatementNode): Nothing {
+  // if (statement.hiddenNodes?.length === 0) {
+  //   return;
+  // }
 
-  const ifFirstStatement = context.statements.first() === node;
-  const beforeIndentHiddenNodes = node.beforeIndentHiddenNodes;
+  const ifFirstStatement = context.statements.first() === statement;
+  const beforeIndentHiddenNodes = statement.beforeIndentHiddenNodes;
 
   if (beforeIndentHiddenNodes.length > 0) {
     const range = rangeFromNodes(beforeIndentHiddenNodes);
@@ -70,19 +78,19 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
     }
   }
 
-  const firstIndentHiddenNode = node.indentHiddenNodes.first();
+  const firstIndentHiddenNode = statement.indentHiddenNodes.first();
 
   if (is<WhitespaceNode>(firstIndentHiddenNode, $Node.WHITESPACE)) {
     const range = cloneRange(firstIndentHiddenNode.range);
-    const text = '  '.repeat(node.indentLevel);
-    const formatter = compareAndCreateFormatter(context, node.indentHiddenNodes, range, text);
+    const text = '  '.repeat(statement.indentLevel);
+    const formatter = compareAndCreateFormatter(context, statement.indentHiddenNodes, range, text);
 
     if (formatter) {
       context.formatterManager.addFormatter(formatter);
     }
   }
 
-  const indentHiddenNodes = node.indentHiddenNodes.slice(1);
+  const indentHiddenNodes = statement.indentHiddenNodes.slice(1);
 
   if (indentHiddenNodes.length > 0) {
     const range = rangeFromNodes(indentHiddenNodes);
@@ -93,13 +101,13 @@ export function formatStatement(context: SyntaxContext, node: StatementNode): No
     }
   }
 
-  const childrenWithoutLast = node.children.slice(0, -1);
+  const childrenWithoutLast = statement.children.slice(0, -1);
 
   for (const child of childrenWithoutLast) {
     formatBetweenHiddenNodes(context, child, true);
   }
 
-  const lastStatementNode = node.children.last();
+  const lastStatementNode = statement.children.last();
   if (lastStatementNode?.hiddenNodes && lastStatementNode.hiddenNodes.length > 0) {
     const range = rangeFromNodes(lastStatementNode.hiddenNodes);
     const formatter = getFormatterForHiddenNodes(context, range, lastStatementNode.hiddenNodes, FormattingType.AFTER);
@@ -221,37 +229,10 @@ function format(context: SyntaxContext, node: TokenNode | Nothing): String2 {
 
   if (is<CommentLineNode>(node, $Node.COMMENT_LINE)) {
     return node.text;
-    // todo should we format comments?
-    // return node.text.replace(/^\/\/\s*(.*)/, (x, z: String2) => {
-    //   if (z.length === 0) {
-    //     return `//`;
-    //   }
-
-    //   return `// ${z}`;
-    // });
   }
 
   if (is<CommentBlockNode>(node, $Node.COMMENT_BLOCK)) {
     return node.text;
-    // todo should we format comments?
-    // return node.text.replace(/^--- *((\S|\s)*?) *(---)?$/, (x, z: String2) => {
-    //   if (z.length === 0) {
-    //     return `--- ---`;
-    //   }
-
-    //   let start = '---';
-    //   let end = '---';
-
-    //   if (!z.startsWith(NL)) {
-    //     start += ' ';
-    //   }
-
-    //   if (!z.endsWith(NL)) {
-    //     end = ' ' + end;
-    //   }
-
-    //   return `${start}${z}${end}`;
-    // });
   }
 
   return '';
