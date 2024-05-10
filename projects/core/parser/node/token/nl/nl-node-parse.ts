@@ -8,10 +8,7 @@ export function nlNodeParse(context: SyntaxContext, index: Integer): NlNode | No
     return nothing;
   }
 
-  const textWithIndents = context.resource.data.takeWhile((x) => x === NL || x === SPACE, index);
-  const lastNLIndex = textWithIndents.lastIndexOf(NL);
-
-  const text = textWithIndents.slice(0, lastNLIndex + 1);
+  const text = context.resource.data.takeWhile((x) => x === NL || x === SPACE, index);
   const range = context.getRange(text.length, true);
 
   return nlNode(range, text);

@@ -13,18 +13,18 @@ export function syntaxNode<T extends Record<String2, SyntaxChild>, V extends $No
   nodes: T,
 ): SyntaxNode & {$: typeof $} & T {
   const children = Object.values(nodes).flatMap(flatExistingNodes);
-  const last = children.last()!;
+  const first = children.first()!;
   const range = rangeFromNodes(children);
 
   const node = {
     $,
     range,
     children: children,
-    hiddenNodes: last.hiddenNodes,
+    hiddenNodes: first.hiddenNodes,
     ...nodes,
   };
 
-  last.hiddenNodes = [];
+  first.hiddenNodes = [];
   children.forEach((x) => (x.parent = node));
 
   return node;

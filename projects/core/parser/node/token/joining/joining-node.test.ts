@@ -45,10 +45,10 @@ test('with new line', () => {
   const node = statements[0].item as MemberNode;
 
   expect(statements.length).toBe(1);
-  expect(node.instance.hiddenNodes?.at(0)?.text).toBe(JOINING + '   \n');
   expect(node.instance?.$).toBe($Node.ID);
   expect((node.instance as IdNode).text).toBe('abc');
   expect((node.operator as OperatorNode).text).toBe('.');
+  expect(node.operator.hiddenNodes?.at(0)?.text).toBe(JOINING + '   \n');
   expect(node.id?.$).toBe($Node.ID);
   expect((node.id as IdNode).text).toBe('def');
 });

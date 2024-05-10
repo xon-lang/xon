@@ -55,71 +55,71 @@ export function formatStatement(context: SyntaxContext, statement: StatementNode
   //   return;
   // }
 
-  const ifFirstStatement = context.statements.first() === statement;
-  const beforeIndentHiddenNodes = statement.beforeIndentHiddenNodes;
+  // const ifFirstStatement = context.statements.first() === statement;
+  // const beforeIndentHiddenNodes = statement.beforeIndentHiddenNodes;
 
-  if (beforeIndentHiddenNodes.length > 0) {
-    const range = rangeFromNodes(beforeIndentHiddenNodes);
-    const nonWhitespaceNodes = beforeIndentHiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
-    const splittedByNl = nonWhitespaceNodes.splitBy((x) => is(x, $Node.NL));
+  // if (beforeIndentHiddenNodes.length > 0) {
+  //   const range = rangeFromNodes(beforeIndentHiddenNodes);
+  //   const nonWhitespaceNodes = beforeIndentHiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
+  //   const splittedByNl = nonWhitespaceNodes.splitBy((x) => is(x, $Node.NL));
 
-    let text = splittedByNl
-      .map((x) => format(context, x.splitter) + x.items.map((z) => format(context, z)).join(' '))
-      .join('');
+  //   let text = splittedByNl
+  //     .map((x) => format(context, x.splitter) + x.items.map((z) => format(context, z)).join(' '))
+  //     .join('');
 
-    if (ifFirstStatement) {
-      text = text.trimStart();
-    }
+  //   if (ifFirstStatement) {
+  //     text = text.trimStart();
+  //   }
 
-    const formatter = compareAndCreateFormatter(context, beforeIndentHiddenNodes, range, text);
+  //   const formatter = compareAndCreateFormatter(context, beforeIndentHiddenNodes, range, text);
 
-    if (formatter) {
-      context.formatterManager.addFormatter(formatter);
-    }
-  }
+  //   if (formatter) {
+  //     context.formatterManager.addFormatter(formatter);
+  //   }
+  // }
 
-  const firstIndentHiddenNode = statement.indentHiddenNodes.first();
+  // const firstIndentHiddenNode = statement.indentHiddenNodes.first();
 
-  if (is<WhitespaceNode>(firstIndentHiddenNode, $Node.WHITESPACE)) {
-    const range = cloneRange(firstIndentHiddenNode.range);
-    const text = '  '.repeat(statement.indentLevel);
-    const formatter = compareAndCreateFormatter(context, statement.indentHiddenNodes, range, text);
+  // if (is<WhitespaceNode>(firstIndentHiddenNode, $Node.WHITESPACE)) {
+  //   const range = cloneRange(firstIndentHiddenNode.range);
+  //   const text = '  '.repeat(statement.indentLevel);
+  //   const formatter = compareAndCreateFormatter(context, statement.indentHiddenNodes, range, text);
 
-    if (formatter) {
-      context.formatterManager.addFormatter(formatter);
-    }
-  }
+  //   if (formatter) {
+  //     context.formatterManager.addFormatter(formatter);
+  //   }
+  // }
 
-  const indentHiddenNodes = statement.indentHiddenNodes.slice(1);
+  // const indentHiddenNodes = statement.indentHiddenNodes.slice(1);
 
-  if (indentHiddenNodes.length > 0) {
-    const range = rangeFromNodes(indentHiddenNodes);
-    const formatter = getFormatterForHiddenNodes(context, range, indentHiddenNodes, FormattingType.BEFORE);
+  // if (indentHiddenNodes.length > 0) {
+  //   const range = rangeFromNodes(indentHiddenNodes);
+  //   const formatter = getFormatterForHiddenNodes(context, range, indentHiddenNodes, FormattingType.BEFORE);
 
-    if (formatter) {
-      context.formatterManager.addFormatter(formatter);
-    }
-  }
+  //   if (formatter) {
+  //     context.formatterManager.addFormatter(formatter);
+  //   }
+  // }
 
-  const childrenWithoutLast = statement.children.slice(0, -1);
+  // const childrenWithoutLast = statement.children.slice(0, -1);
 
-  for (const child of childrenWithoutLast) {
-    formatBetweenHiddenNodes(context, child, true);
-  }
+  // for (const child of childrenWithoutLast) {
+  //   formatBetweenHiddenNodes(context, child, true);
+  // }
 
-  const lastStatementNode = statement.children.last();
-  if (lastStatementNode?.hiddenNodes && lastStatementNode.hiddenNodes.length > 0) {
-    const range = rangeFromNodes(lastStatementNode.hiddenNodes);
-    const formatter = getFormatterForHiddenNodes(context, range, lastStatementNode.hiddenNodes, FormattingType.AFTER);
+  // const lastStatementNode = statement.children.last();
+  // if (lastStatementNode?.hiddenNodes && lastStatementNode.hiddenNodes.length > 0) {
+  //   const range = rangeFromNodes(lastStatementNode.hiddenNodes);
+  //   const formatter = getFormatterForHiddenNodes(context, range, lastStatementNode.hiddenNodes, FormattingType.AFTER);
 
-    if (formatter) {
-      context.formatterManager.addFormatter(formatter);
-    }
-  }
+  //   if (formatter) {
+  //     context.formatterManager.addFormatter(formatter);
+  //   }
+  // }
 }
 
 export function formatLastContextHiddenNodes(context: SyntaxContext): Formatter | Nothing {
-  const {statements, hiddenNodes} = context;
+  const {statements, hiddenNodesBuffer: hiddenNodes} = context;
 
   if (statements.length === 0 && hiddenNodes.length === 0) {
     return nothing;

@@ -3,16 +3,13 @@ import {Array2, Integer, Nothing} from '../../../lib/core';
 import {SyntaxContext} from '../../syntax-context';
 import {$Node, Node} from '../node';
 import {SyntaxNode, syntaxNode} from '../syntax/syntax-node';
-import {TokenNode} from '../token/token-node';
 import {statementNodeCollapse} from './statement-node-collapse';
 
 export interface StatementNode extends SyntaxNode {
   $: $Node.STATEMENT;
-  indentLevel: Integer;
-  indentStopColumn: Integer;
-  beforeIndentHiddenNodes: Array2<TokenNode>;
-  indentHiddenNodes: Array2<TokenNode>;
   parentStatement: StatementNode | Nothing;
+  indentLevel: Integer;
+  indentColumn: Integer;
   children: Array2<Node>;
   item: Node;
   body: Array2<StatementNode>;
@@ -22,9 +19,7 @@ export function statementNode(
   context: SyntaxContext,
   children: Array2<Node>,
   parentStatement: StatementNode | Nothing,
-  indentStopColumn: Integer,
-  beforeIndentHiddenNodes: Array2<TokenNode>,
-  indentHiddenNodes: Array2<TokenNode>,
+  indentColumn: Integer,
 ): StatementNode {
   const node = syntaxNode($Node.STATEMENT, {children});
 
@@ -36,10 +31,8 @@ export function statementNode(
   const statement: StatementNode = {
     ...node,
 
+    indentColumn,
     indentLevel,
-    indentStopColumn,
-    beforeIndentHiddenNodes,
-    indentHiddenNodes,
     parentStatement: parentStatement,
     item,
     hiddenNodes: [],
@@ -52,9 +45,7 @@ export function statementNode(
 export function constructStatementNode(
   context: SyntaxContext,
   parent: StatementNode | Nothing,
-  indentStopColumn: Integer,
-  beforeIndentHiddenNodes: Array2<TokenNode>,
-  indentHiddenNodes: Array2<TokenNode>,
+  indentColumn: Integer,
 ): StatementNode {
   statementNodeCollapse(context);
 
@@ -62,5 +53,5 @@ export function constructStatementNode(
     .slice(1)
     .forEach((node) => context.issueManager.addError(node.range, ISSUE_MESSAGE.unexpectedExpression()));
 
-  return statementNode(context, context.nodes, parent, indentStopColumn, beforeIndentHiddenNodes, indentHiddenNodes);
+  return statementNode(context, context.nodes, parent, indentColumn);
 }

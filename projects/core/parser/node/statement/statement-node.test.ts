@@ -13,14 +13,8 @@ test('a', () => {
 
   expect(statements.length).toBe(1);
   expect(statement.$).toBe($Node.STATEMENT);
-  expect(statement.beforeIndentHiddenNodes.length).toBe(2);
-  expect(statement.beforeIndentHiddenNodes[0].text).toBe('   ');
-  expect(statement.beforeIndentHiddenNodes[1].text).toBe('\n    \n');
-  expect(statement.indentHiddenNodes.length).toBe(2);
-  expect(statement.indentHiddenNodes[0].text).toBe('  ');
-  expect(statement.indentHiddenNodes[1].text).toBe('---comment ---');
   expect(statement.indentLevel).toBe(0);
-  expect(statement.indentStopColumn).toBe(2);
+  expect(statement.indentColumn).toBe(2);
   expect(statement.parentStatement).toBe(nothing);
   expect(statement.children.length).toBe(1);
   expect(statement.children[0].$).toBe($Node.CHAR);

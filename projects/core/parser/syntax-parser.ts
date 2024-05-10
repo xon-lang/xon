@@ -53,6 +53,7 @@ export function syntaxParseUntil(
   breakOnNodeFn: ((node: Node) => Boolean2) | Nothing,
 ): SyntaxResult {
   const context = syntaxContext(resource, startPosition);
+  let statementIndentColumn = -1;
 
   while (context.position.index < context.resource.data.length) {
     const node = nextNode(context);
@@ -63,32 +64,32 @@ export function syntaxParseUntil(
       break;
     }
 
-    if (is<UnknownNode>(node, $Node.UNKNOWN)) {
-      context.issueManager.addError(node.range, ISSUE_MESSAGE.unknownSymbol());
-    }
-
-    if (is<NlNode>(node, $Node.NL) && context.nodes.length > 0) {
-      putStatementNode(context);
-
-      context.hiddenNodes.push(node);
-      context.nodes = [];
-
-      continue;
-    }
-
     if (isHiddenToken(node)) {
-      const hiddenNodes = context.nodes.last()?.hiddenNodes ?? context.hiddenNodes;
+      if (is<NlNode>(node, $Node.NL)) {
+        if (context.nodes.length > 0) {
+          putStatementNode(context, statementIndentColumn);
+          context.nodes = [];
+        }
 
-      hiddenNodes.push(node);
+        statementIndentColumn = node.range.stop.column;
+      }
+
+      context.hiddenNodesBuffer.push(node);
 
       continue;
     }
 
+    if (statementIndentColumn < 0) {
+      statementIndentColumn = node.range.start.column;
+    }
+
+    node.hiddenNodes = context.hiddenNodesBuffer;
+    context.hiddenNodesBuffer = [];
     context.nodes.push(node);
   }
 
   if (context.nodes.length > 0) {
-    putStatementNode(context);
+    putStatementNode(context, statementIndentColumn);
   }
 
   const formatter = formatLastContextHiddenNodes(context);
@@ -109,6 +110,10 @@ function nextNode(context: SyntaxContext): Node {
     unknownNodeParse(context, context.position.index);
 
   context.position = node.range.stop;
+
+  if (is<UnknownNode>(node, $Node.UNKNOWN)) {
+    context.issueManager.addError(node.range, ISSUE_MESSAGE.unknownSymbol());
+  }
 
   if (is<OpenNode>(node, $Node.OPEN)) {
     return groupNodeParse(context, node);

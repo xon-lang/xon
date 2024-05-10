@@ -9,10 +9,10 @@ test('block comment', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = syntax.syntaxContext.hiddenNodes[0] as CommentBlockNode;
+  const node = syntax.syntaxContext.hiddenNodesBuffer[0] as CommentBlockNode;
 
   expect(statements.length).toBe(0);
-  expect(syntax.syntaxContext.hiddenNodes.length).toBe(1);
+  expect(syntax.syntaxContext.hiddenNodesBuffer.length).toBe(1);
   expect(node.$).toBe($Node.COMMENT_BLOCK);
   expect(node.text).toBe('--- abc\n\n\n def---');
 });
