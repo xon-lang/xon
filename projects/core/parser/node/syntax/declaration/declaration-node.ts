@@ -1,5 +1,5 @@
 import {formatBeforeHiddenNodes} from '../../../../formatter/formatter';
-import {Nothing, nothing} from '../../../../lib/core';
+import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group} from '../../group/group-node';
 import {$Node} from '../../node';
@@ -49,12 +49,8 @@ function format(context: SyntaxContext, node: DeclarationNode): Nothing {
 
 export function partialToDeclaration(
   context: SyntaxContext,
-  params: Partial<DeclarationNode>,
-): DeclarationNode | Nothing {
-  if (!params.id) {
-    return nothing;
-  }
-
+  params: Partial<DeclarationNode> & {id: IdNode},
+): DeclarationNode {
   return declarationNode(
     context,
     params.modifier,

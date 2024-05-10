@@ -17,48 +17,36 @@ export function declarationNodeParse(): SyntaxParseFn {
       return nothing;
     }
 
-    const node = parseDeclarationStatement(context);
+    const parts = getDeclarationParts(context);
 
-    if (!node) {
+    if (!parts) {
       return nothing;
     }
 
-    return {node, spliceIndex: 0};
-  };
-}
+    const parentDeclaration = context.parentStatement?.item;
 
-function parseDeclarationStatement(context: SyntaxContext): DeclarationNode | Nothing {
-  const parts = getDeclarationParts(context);
+    if (
+      is<DeclarationNode>(parentDeclaration, $Node.DECLARATION) &&
+      parentDeclaration.modifier?.text &&
+      TYPE_MODIFIERS.includes(parentDeclaration.modifier.text)
+    ) {
+      const declaration = partialToDeclaration(context, parts);
 
-  if (!parts) {
+      if (parentDeclaration.assign) {
+        context.issueManager.addError(declaration.range, ISSUE_MESSAGE.unexpectedExpression());
+      }
+
+      return {spliceIndex: parts.spliceIndex, deleteCount: parts.deleteCount, node: declaration};
+    }
+
+    if (parts.modifier || parts.type) {
+      const declaration = partialToDeclaration(context, parts);
+
+      return {spliceIndex: parts.spliceIndex, deleteCount: parts.deleteCount, node: declaration};
+    }
+
     return nothing;
-  }
-
-  const parentDeclaration = context.parentStatement?.item;
-
-  if (
-    is<DeclarationNode>(parentDeclaration, $Node.DECLARATION) &&
-    parentDeclaration.modifier?.text &&
-    TYPE_MODIFIERS.includes(parentDeclaration.modifier.text)
-  ) {
-    const declaration = partialToDeclaration(context, parts);
-
-    if (!declaration) {
-      return nothing;
-    }
-
-    if (parentDeclaration.assign) {
-      context.issueManager.addError(declaration.range, ISSUE_MESSAGE.unexpectedExpression());
-    }
-
-    return declaration;
-  }
-
-  if (parts.modifier || parts.type) {
-    return partialToDeclaration(context, parts);
-  }
-
-  return nothing;
+  };
 }
 
 function getDeclarationParts(context: SyntaxContext):
@@ -112,14 +100,7 @@ function getDeclarationParts(context: SyntaxContext):
     0,
     true,
     (x, index, nodes): x is OperatorNode =>
-      index - 1 === 0 &&
-      is<OperatorNode>(x, $Node.OPERATOR) &&
-      x.text === ASSIGN &&
-      isExpressionNode(nodes[index + 1]) &&
-      (is<GroupNode>(nodes[index - 1], $Node.GROUP) ||
-        (is<InvokeNode>(nodes[index - 1], $Node.INVOKE) &&
-          is<ObjectNode>((nodes[index - 1] as InvokeNode).instance, $Node.OBJECT) &&
-          is<GroupNode>((nodes[index - 1] as InvokeNode).group, $Node.GROUP))),
+      index - 1 === 0 && is<OperatorNode>(x, $Node.OPERATOR) && x.text === ASSIGN && isExpressionNode(nodes[index + 1]),
   );
 
   if (assignOperatorFound) {
