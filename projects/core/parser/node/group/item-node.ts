@@ -1,7 +1,7 @@
 import {Nothing} from '../../../lib/core';
 import {SyntaxContext} from '../../syntax-context';
 import {$Node, Node} from '../node';
-import {StatementNode} from '../syntax/statement/statement-node';
+import {StatementNode} from '../statement/statement-node';
 import {SyntaxNode, syntaxNode} from '../syntax/syntax-node';
 import {OperatorNode} from '../token/operator/operator-node';
 

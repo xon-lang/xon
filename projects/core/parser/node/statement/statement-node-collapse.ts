@@ -1,14 +1,5 @@
-import {Array2, Integer, Nothing, nothing} from '../../lib/core';
-import { declarationNodeParse } from '../node/syntax/declaration/declaration-node-parse';
-import {importNodeParse} from '../node/syntax/import/import-node-parse';
-import {infixNodeParse} from '../node/syntax/infix/infix-node-parse';
-import {invokeNodeParse} from '../node/syntax/invoke/invoke-node-parse';
-import {memberNodeParse} from '../node/syntax/member/member-node-parse';
-import {postfixNodeParse} from '../node/syntax/postfix/postfix-node-parse';
-import {prefixNodeParse} from '../node/syntax/prefix/prefix-node-parse';
-import {SyntaxNode} from '../node/syntax/syntax-node';
+import {Array2, Integer, Nothing, nothing} from '../../../lib/core';
 import {
-  COMMA,
   COMPLEMENT,
   CONTROL_KEYWORDS,
   DIVIDE,
@@ -35,8 +26,16 @@ import {
   RANGE,
   REST,
   UNION,
-} from '../parser-config';
-import {SyntaxContext} from '../syntax-context';
+} from '../../parser-config';
+import {SyntaxContext} from '../../syntax-context';
+import {declarationNodeParse} from '../syntax/declaration/declaration-node-parse';
+import {importNodeParse} from '../syntax/import/import-node-parse';
+import {infixNodeParse} from '../syntax/infix/infix-node-parse';
+import {invokeNodeParse} from '../syntax/invoke/invoke-node-parse';
+import {memberNodeParse} from '../syntax/member/member-node-parse';
+import {postfixNodeParse} from '../syntax/postfix/postfix-node-parse';
+import {prefixNodeParse} from '../syntax/prefix/prefix-node-parse';
+import {SyntaxNode} from '../syntax/syntax-node';
 
 export type SyntaxParseResult = {spliceIndex: Integer; node: SyntaxNode} | Nothing;
 export type SyntaxParseFn = (context: SyntaxContext, index: Integer) => SyntaxParseResult;
@@ -61,7 +60,7 @@ const parsers: Array2<SyntaxParseFn> = [
   declarationNodeParse(),
 ];
 
-export function statementCollapse(context: SyntaxContext): Nothing {
+export function statementNodeCollapse(context: SyntaxContext): Nothing {
   let result: SyntaxParseResult = nothing;
 
   for (const parse of parsers) {

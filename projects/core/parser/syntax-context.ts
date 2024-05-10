@@ -5,7 +5,7 @@ import {TextResource} from '../util/resource/text/text-resource';
 import {TextResourcePosition, textResourcePosition} from '../util/resource/text/text-resource-position';
 import {TextResourceRange, textResourceRange} from '../util/resource/text/text-resource-range';
 import {Node} from './node/node';
-import {StatementNode} from './node/syntax/statement/statement-node';
+import {StatementNode} from './node/statement/statement-node';
 import {TokenNode} from './node/token/token-node';
 import {NL} from './parser-config';
 

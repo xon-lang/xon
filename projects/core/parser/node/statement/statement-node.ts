@@ -1,10 +1,10 @@
-import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
-import {Array2, Integer, Nothing} from '../../../../lib/core';
-import {SyntaxContext} from '../../../syntax-context';
-import {statementCollapse} from '../../../util/statement-collapse';
-import {$Node, Node} from '../../node';
-import {TokenNode} from '../../token/token-node';
-import {SyntaxNode, syntaxNode} from '../syntax-node';
+import {ISSUE_MESSAGE} from '../../../issue/issue-message';
+import {Array2, Integer, Nothing} from '../../../lib/core';
+import {SyntaxContext} from '../../syntax-context';
+import {$Node, Node} from '../node';
+import {SyntaxNode, syntaxNode} from '../syntax/syntax-node';
+import {TokenNode} from '../token/token-node';
+import {statementNodeCollapse} from './statement-node-collapse';
 
 export interface StatementNode extends SyntaxNode {
   $: $Node.STATEMENT;
@@ -56,7 +56,7 @@ export function constructStatementNode(
   beforeIndentHiddenNodes: Array2<TokenNode>,
   indentHiddenNodes: Array2<TokenNode>,
 ): StatementNode {
-  statementCollapse(context);
+  statementNodeCollapse(context);
 
   context.nodes
     .slice(1)

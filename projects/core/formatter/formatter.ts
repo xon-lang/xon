@@ -1,6 +1,6 @@
 import {Array2, Boolean2, Nothing, String2, nothing} from '../lib/core';
 import {$Node, Node, is} from '../parser/node/node';
-import {StatementNode} from '../parser/node/syntax/statement/statement-node';
+import {StatementNode} from '../parser/node/statement/statement-node';
 import {CommentBlockNode} from '../parser/node/token/comment-block/comment-block-node';
 import {CommentLineNode} from '../parser/node/token/comment-line/comment-line-node';
 import {NlNode} from '../parser/node/token/nl/nl-node';

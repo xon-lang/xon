@@ -2,7 +2,7 @@ import {OutputChannel, Position, Range, TextDocument, TextEdit} from 'vscode';
 import {Formatter} from '../../core/formatter/formatter';
 import {Array2, Nothing, String2, nothing} from '../../core/lib/core';
 import {Node, isSyntaxNode} from '../../core/parser/node/node';
-import {StatementNode} from '../../core/parser/node/syntax/statement/statement-node';
+import {StatementNode} from '../../core/parser/node/statement/statement-node';
 import {SyntaxResult} from '../../core/parser/syntax-context';
 import {syntaxParse} from '../../core/parser/syntax-parser';
 import {semanticParse} from '../../core/semantic/semantic';

@@ -22,8 +22,8 @@ import {isHiddenToken} from './node/token/token-node';
 import {UnknownNode} from './node/token/unknown/unknown-node';
 import {unknownNodeParse} from './node/token/unknown/unknown-node-parse';
 import {whitespaceNodeParse} from './node/token/whitespace/whitespace-node-parse';
+import {putStatementNode} from './put-statement-node';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
-import {putStatementNode} from './util/put-statement-node';
 
 export type TokenParseResult = Node | Nothing;
 export type TokenParseFn = (context: SyntaxContext, index: Integer) => TokenParseResult;

@@ -1,9 +1,9 @@
-import {formatStatement} from '../../formatter/formatter';
-import {Integer, Nothing, nothing} from '../../lib/core';
-import {$Node, is} from '../node/node';
-import {StatementNode, constructStatementNode} from '../node/syntax/statement/statement-node';
-import {WhitespaceNode} from '../node/token/whitespace/whitespace-node';
-import {SyntaxContext} from '../syntax-context';
+import {formatStatement} from '../formatter/formatter';
+import {Integer, Nothing, nothing} from '../lib/core';
+import {$Node, is} from './node/node';
+import {StatementNode, constructStatementNode} from './node/statement/statement-node';
+import {WhitespaceNode} from './node/token/whitespace/whitespace-node';
+import {SyntaxContext} from './syntax-context';
 
 // todo try to simplify it
 export function putStatementNode(context: SyntaxContext): Nothing {

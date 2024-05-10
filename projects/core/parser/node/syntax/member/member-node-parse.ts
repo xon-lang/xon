@@ -1,7 +1,7 @@
 import {Integer, nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
-import {SyntaxParseFn} from '../../../util/statement-collapse';
 import {$Node, findNode, is, isExpressionNode} from '../../node';
+import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {memberNode} from './member-node';
