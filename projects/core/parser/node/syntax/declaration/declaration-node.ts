@@ -1,4 +1,4 @@
-import {formatAfterHiddenNodes, formatBetweenHiddenNodes} from '../../../../formatter/formatter';
+import {formatBeforeHiddenNodes} from '../../../../formatter/formatter';
 import {Nothing, nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node} from '../../node';
@@ -42,19 +42,9 @@ export function declarationNode(
 }
 
 function format(context: SyntaxContext, node: DeclarationNode): Nothing {
-  if (node.generics || node.parameters || node.type) {
-    formatBetweenHiddenNodes(context, node.id, false);
-  }
-
-  // if (node.generics || node.parameters) {
-  //   formatBetweenHiddenNodes(context, node.id, false);
-  // }
-
   if (node.assign) {
-    formatBetweenHiddenNodes(context, node.id, true);
+    formatBeforeHiddenNodes(context, node.assign, true);
   }
-
-  formatAfterHiddenNodes(context, node, false);
 }
 
 export function partialToDeclaration(
