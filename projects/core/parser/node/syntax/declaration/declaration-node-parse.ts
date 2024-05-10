@@ -2,15 +2,13 @@ import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {Integer, Nothing, nothing} from '../../../../lib/core';
 import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIERS} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
-import {Group, GroupNode} from '../../group/group-node';
+import {ArrayNode, Group, GroupNode, ObjectNode} from '../../group/group-node';
 import {$Node, Node, findNode, is, isExpressionNode, isGroupNode} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
-import {ArrayNode} from '../array/array-node';
 import {InvokeNode} from '../invoke/invoke-node';
 import {LambdaNode, declarationToLambda} from '../lambda/lambda-node';
-import {ObjectNode} from '../object/object-node';
 import {PrefixNode, prefixNode} from '../prefix/prefix-node';
 import {DeclarationNode, partialToDeclaration} from './declaration-node';
 

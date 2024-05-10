@@ -1,5 +1,3 @@
-import {Char} from '../lib/core';
-
 export const COMMENT_LINE = '//';
 export const COMMENT_BLOCK = '---';
 
@@ -29,12 +27,6 @@ export const ARRAY_CLOSE = ']';
 
 export const OBJECT_OPEN = '{';
 export const OBJECT_CLOSE = '}';
-
-export const OPEN_CLOSE_PAIR: Record<Char, Char> = {
-  [GROUP_OPEN]: GROUP_CLOSE,
-  [ARRAY_OPEN]: ARRAY_CLOSE,
-  [OBJECT_OPEN]: OBJECT_CLOSE,
-};
 
 export const IMPORT = 'import';
 export const EXPORT = 'export';
