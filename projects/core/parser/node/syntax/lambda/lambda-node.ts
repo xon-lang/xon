@@ -1,7 +1,6 @@
-import {Nothing, nothing} from '../../../../lib/core';
+import {Nothing} from '../../../../lib/core';
 import {Group} from '../../group/group-node';
 import {$Node} from '../../node';
-import {DeclarationNode} from '../declaration/declaration-node';
 import {PrefixNode} from '../prefix/prefix-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
@@ -27,12 +26,4 @@ export function lambdaNode(
   });
 
   return node;
-}
-
-export function declarationToLambda(params: Partial<DeclarationNode>): LambdaNode | Nothing {
-  if (!params.parameters) {
-    return nothing;
-  }
-
-  return lambdaNode(params.generics, params.parameters, params.type, params.assign);
 }

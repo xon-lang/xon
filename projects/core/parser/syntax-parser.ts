@@ -26,17 +26,19 @@ export type TokenParseResult = Node | Nothing;
 export type TokenParseFn = (context: SyntaxContext, index: Integer) => TokenParseResult;
 
 const parsers: Array2<TokenParseFn> = [
-  commentBlockNodeParse,
-  commentLineNodeParse,
-  integerNodeParse,
-  stringNodeParse,
-  charNodeParse,
-  nlNodeParse,
   openNodeParse,
   closeNodeParse,
   commaNodeParse,
-  joiningNodeParse,
+
+  commentLineNodeParse,
+  commentBlockNodeParse,
   whitespaceNodeParse,
+  nlNodeParse,
+  joiningNodeParse,
+
+  integerNodeParse,
+  charNodeParse,
+  stringNodeParse,
   operatorNodeParse,
   idNodeParse,
 ];

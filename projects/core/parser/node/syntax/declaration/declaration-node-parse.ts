@@ -2,17 +2,15 @@ import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {Integer, Nothing, nothing} from '../../../../lib/core';
 import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIERS} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
-import {ArrayNode, Group, GroupNode, ObjectNode} from '../../group/group-node';
-import {$Node, Node, findNode, is, isExpressionNode, isGroupNode} from '../../node';
+import {Group, GroupNode, ObjectNode} from '../../group/group-node';
+import {$Node, Node, findNode, is, isExpressionNode} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {InvokeNode} from '../invoke/invoke-node';
-import {LambdaNode, declarationToLambda} from '../lambda/lambda-node';
 import {PrefixNode, prefixNode} from '../prefix/prefix-node';
 import {DeclarationNode, partialToDeclaration} from './declaration-node';
 
-// todo create separate function for lambda parse
 export function declarationNodeParse(): SyntaxParseFn {
   return (context: SyntaxContext, index: Integer) => {
     if (is<DeclarationNode>(context.nodes[0], $Node.DECLARATION)) {
@@ -29,15 +27,11 @@ export function declarationNodeParse(): SyntaxParseFn {
   };
 }
 
-function parseDeclarationStatement(context: SyntaxContext): DeclarationNode | LambdaNode | Nothing {
+function parseDeclarationStatement(context: SyntaxContext): DeclarationNode | Nothing {
   const parts = getDeclarationParts(context);
 
   if (!parts) {
     return nothing;
-  }
-
-  if (!parts.id && parts.parameters && (parts.type || parts.assign)) {
-    return declarationToLambda(parts);
   }
 
   const parentDeclaration = context.parentStatement?.item;
@@ -53,116 +47,126 @@ function parseDeclarationStatement(context: SyntaxContext): DeclarationNode | La
       return nothing;
     }
 
-    if (parentDeclaration.assign && !is<LambdaNode>(parentDeclaration.assign.value, $Node.LAMBDA)) {
+    if (parentDeclaration.assign) {
       context.issueManager.addError(declaration.range, ISSUE_MESSAGE.unexpectedExpression());
     }
 
     return declaration;
   }
 
-  if (parts.modifier || parts.type || parts.assign) {
+  if (parts.modifier || parts.type) {
     return partialToDeclaration(context, parts);
   }
 
   return nothing;
 }
 
-function getDeclarationParts(context: SyntaxContext): Partial<DeclarationNode> | Nothing {
-  const headerTypeAssign = getHeaderTypeAssign(context);
+function getDeclarationParts(context: SyntaxContext):
+  | {
+      spliceIndex: Integer;
+      deleteCount: Integer;
+      modifier?: OperatorNode | Nothing;
+      id: IdNode;
+      generics?: Group | Nothing;
+      parameters?: Group | Nothing;
+      type?: PrefixNode | Nothing;
+      assign?: PrefixNode | Nothing;
+    }
+  | Nothing {
+  const typeOperatorFound = findNode(
+    context.nodes,
+    0,
+    true,
+    (x, index, nodes): x is OperatorNode =>
+      index - 1 === 0 && is<OperatorNode>(x, $Node.OPERATOR) && x.text === TYPE && isExpressionNode(nodes[index + 1]),
+  );
 
-  if (!headerTypeAssign) {
-    return nothing;
+  if (typeOperatorFound) {
+    const header = getHeader(context, context.nodes[typeOperatorFound.index - 1]);
+
+    if (!header) {
+      return nothing;
+    }
+
+    const typeValue = context.nodes[typeOperatorFound.index + 1];
+    const assignOperator = context.nodes[typeOperatorFound.index + 2];
+    const assignValue = context.nodes[typeOperatorFound.index + 3];
+
+    const type = prefixNode(context, typeOperatorFound.node, typeValue);
+
+    if (
+      is<OperatorNode>(assignOperator, $Node.OPERATOR) &&
+      assignOperator.text === ASSIGN &&
+      isExpressionNode(assignValue)
+    ) {
+      const assign = prefixNode(context, assignOperator, assignValue);
+
+      return {spliceIndex: typeOperatorFound.index - 1, deleteCount: 5, ...header, type, assign};
+    }
+
+    return {spliceIndex: typeOperatorFound.index - 1, deleteCount: 3, ...header, type};
   }
 
-  const {header, type, assign} = headerTypeAssign;
+  const assignOperatorFound = findNode(
+    context.nodes,
+    0,
+    true,
+    (x, index, nodes): x is OperatorNode =>
+      index - 1 === 0 &&
+      is<OperatorNode>(x, $Node.OPERATOR) &&
+      x.text === ASSIGN &&
+      isExpressionNode(nodes[index + 1]) &&
+      (is<GroupNode>(nodes[index - 1], $Node.GROUP) ||
+        (is<InvokeNode>(nodes[index - 1], $Node.INVOKE) &&
+          is<ObjectNode>((nodes[index - 1] as InvokeNode).instance, $Node.OBJECT) &&
+          is<GroupNode>((nodes[index - 1] as InvokeNode).group, $Node.GROUP))),
+  );
 
-  if (is<PrefixNode>(header, $Node.PREFIX) && MODIFIER_KEYWORDS.includes(header.operator.text)) {
-    const underModifier = getUnderModifier(context, header.value);
+  if (assignOperatorFound) {
+    const header = getHeader(context, context.nodes[assignOperatorFound.index - 1]);
+
+    if (!header) {
+      return nothing;
+    }
+
+    const assignValue = context.nodes[assignOperatorFound.index + 1];
+
+    const assign = prefixNode(context, assignOperatorFound.node, assignValue);
+
+    return {spliceIndex: assignOperatorFound.index - 1, deleteCount: 3, ...header, assign};
+  }
+
+  const header = getHeader(context, context.nodes[0]);
+
+  if (header) {
+    return {spliceIndex: 0, deleteCount: 1, ...header};
+  }
+
+  return nothing;
+}
+
+function getHeader(
+  context: SyntaxContext,
+  node: Node | Nothing,
+):
+  | {
+      modifier?: OperatorNode | Nothing;
+      id: IdNode;
+      generics?: Group | Nothing;
+      parameters?: Group | Nothing;
+    }
+  | Nothing {
+  if (is<PrefixNode>(node, $Node.PREFIX) && MODIFIER_KEYWORDS.includes(node.operator.text)) {
+    const underModifier = getUnderModifier(context, node.value);
 
     if (!underModifier) {
       return nothing;
     }
 
-    return {modifier: header.operator, ...underModifier, type, assign};
+    return {modifier: node.operator, ...underModifier};
   }
 
-  const underModifier = getUnderModifier(context, header);
-
-  if (!underModifier) {
-    return {type, assign};
-  }
-
-  return {...underModifier, type, assign};
-}
-
-function getHeaderTypeAssign(context: SyntaxContext):
-  | {
-      header: Node | Nothing;
-      type?: PrefixNode | Nothing;
-      assign?: PrefixNode | Nothing;
-    }
-  | Nothing {
-  const firstNode = context.nodes[0];
-
-  if (!isExpressionNode(firstNode)) {
-    return nothing;
-  }
-
-  const typeOperator = findNode(
-    context.nodes,
-    0,
-    true,
-    (x): x is OperatorNode => is<OperatorNode>(x, $Node.OPERATOR) && x.text === TYPE,
-  );
-
-  const assignOperator = findNode(
-    context.nodes,
-    0,
-    true,
-    (x): x is OperatorNode => is<OperatorNode>(x, $Node.OPERATOR) && x.text === ASSIGN,
-  );
-
-  // when no type but assign
-  if (assignOperator && (!typeOperator || typeOperator.index > assignOperator.index)) {
-    const left = context.nodes[assignOperator.index - 1];
-    const right = context.nodes[assignOperator.index + 1];
-
-    if (left !== firstNode || !isExpressionNode(left) || !isExpressionNode(right)) {
-      return {header: firstNode};
-    }
-
-    const assign = prefixNode(context, assignOperator.node, right);
-
-    return {header: firstNode, assign};
-  }
-
-  if (typeOperator) {
-    const left = context.nodes[typeOperator.index - 1];
-    const right = context.nodes[typeOperator.index + 1];
-
-    if (left !== firstNode || !isExpressionNode(left) || !isExpressionNode(right)) {
-      return {header: firstNode};
-    }
-
-    const type = prefixNode(context, typeOperator.node, right);
-
-    // todo use node index (add property for nodes in statement children) ???
-    if (assignOperator?.index === 3) {
-      const assignValue = context.nodes[assignOperator.index + 1];
-
-      if (!isExpressionNode(assignValue)) {
-        return {header: firstNode, type};
-      }
-
-      const assign = prefixNode(context, assignOperator.node, assignValue);
-
-      return {header: firstNode, type, assign};
-    }
-
-    return {header: firstNode, type};
-  }
-
-  return {header: firstNode};
+  return getUnderModifier(context, node);
 }
 
 function getUnderModifier(
@@ -170,7 +174,7 @@ function getUnderModifier(
   node: Node | Nothing,
 ):
   | {
-      id?: IdNode;
+      id: IdNode;
       generics?: Group | Nothing;
       parameters?: Group | Nothing;
     }
@@ -183,83 +187,39 @@ function getUnderModifier(
     return {id: node};
   }
 
-  // for lambda
-  if (isGroupNode(node)) {
-    return parseGenericsOrParameters(context, node);
-  }
-
   if (is<InvokeNode>(node, $Node.INVOKE)) {
-    const instance = getUnderModifier(context, node.instance);
+    if (
+      is<InvokeNode>(node.instance, $Node.INVOKE) &&
+      is<GroupNode>(node.group, $Node.GROUP) &&
+      is<IdNode>(node.instance.instance, $Node.ID) &&
+      is<ObjectNode>(node.instance.group, $Node.OBJECT)
+    ) {
+      parseDeclarations(context, node.instance.group);
+      parseDeclarations(context, node.group);
 
-    if (!instance) {
-      return nothing;
+      return {id: node.instance.instance, generics: node.instance.group, parameters: node.group};
     }
 
-    const group = parseGenericsOrParameters(context, node.group);
+    if (is<IdNode>(node.instance, $Node.ID)) {
+      parseDeclarations(context, node.group);
 
-    if (!group) {
-      return nothing;
+      if (is<ObjectNode>(node.group, $Node.OBJECT)) {
+        return {id: node.instance, generics: node.group};
+      }
+
+      if (is<GroupNode>(node.group, $Node.GROUP)) {
+        return {id: node.instance, parameters: node.group};
+      }
     }
-
-    if (group.parameters && instance.parameters) {
-      context.issueManager.addError(group.parameters.range, ISSUE_MESSAGE.unexpectedExpression());
-    }
-
-    if (group.generics && instance.generics) {
-      context.issueManager.addError(group.generics.range, ISSUE_MESSAGE.unexpectedExpression());
-    }
-
-    return {...group, ...instance};
   }
 
   return nothing;
 }
 
-function parseGenericsOrParameters(
-  context: SyntaxContext,
-  group: Group,
-): {generics?: Group | Nothing; parameters?: Group | Nothing} | Nothing {
+function parseDeclarations(context: SyntaxContext, group: Group): Nothing {
   for (const item of group.items) {
     if (is<IdNode>(item.value, $Node.ID)) {
       item.value = partialToDeclaration(context, {id: item.value});
     }
   }
-
-  if (is<ObjectNode>(group, $Node.OBJECT)) {
-    return {generics: group};
-
-    // const items = group.items.map((x) => itemToDeclarations(context, x));
-    // const generics = objectNode(group.open, items, group.close);
-
-    // return {generics};
-  }
-
-  if (is<GroupNode>(group, $Node.GROUP) || is<ArrayNode>(group, $Node.ARRAY)) {
-    return {parameters: group};
-
-    // const items = group.items.map((x) => itemToDeclarations(context, x));
-    // const parameters = parametersNode(group.open, items, group.close);
-
-    // return {parameters};
-  }
-
-  return nothing;
 }
-
-// function itemToDeclarations(context: SyntaxContext, item: ItemNode): Node | Nothing {
-//   if (!item) {
-//     return nothing;
-//   }
-
-//   if (is<DeclarationNode>(item.value, $Node.DECLARATION)) {
-//     return item.value;
-//   }
-
-//   const parts = getDeclarationParts(context, item.value);
-
-//   if (!parts) {
-//     return item.value;
-//   }
-
-//   return partialToDeclaration(parts);
-// }
