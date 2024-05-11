@@ -1,3 +1,5 @@
+import {formatBetweenHiddenNodes} from '../../../formatter/formatter';
+import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Nothing} from '../../../lib/core';
 import {SyntaxContext} from '../../syntax-context';
 import {$Node, Node} from '../node';
@@ -16,5 +18,20 @@ export function itemNode(context: SyntaxContext, statements: StatementNode[], co
   const value = statements.first()?.item;
   const node = syntaxNode($Node.ITEM, {value, statements, comma});
 
+  validate(context, node);
+  format(context, node);
+
   return node;
+}
+
+function validate(context: SyntaxContext, node: ItemNode): Nothing {
+  if (!node.value) {
+    context.issueManager.addError(node.range, ISSUE_MESSAGE.unexpectedExpression());
+  }
+}
+
+function format(context: SyntaxContext, node: ItemNode): Nothing {
+  if (node.comma) {
+    formatBetweenHiddenNodes(context, node.comma, false);
+  }
 }

@@ -17,7 +17,7 @@ export interface Node {
   $: $Node;
   range: TextRange;
   parent?: Node | Nothing;
-  hiddenNodes?: Array2<TokenNode>;
+  hiddenNodes?: Array2<TokenNode> | Nothing;
   semantic?: Semantic | Nothing;
 }
 

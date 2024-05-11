@@ -1,4 +1,4 @@
-import {Array2, Nothing, String2} from '../../../lib/core';
+import {Array2, Nothing, String2, nothing} from '../../../lib/core';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {$Node, Node} from '../node';
 
@@ -24,7 +24,7 @@ export function syntaxNode<T extends Record<String2, SyntaxChild>, V extends $No
     ...nodes,
   };
 
-  first.hiddenNodes = [];
+  first.hiddenNodes = nothing;
   children.forEach((x) => (x.parent = node));
 
   return node;

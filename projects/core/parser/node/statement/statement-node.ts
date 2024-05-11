@@ -17,21 +17,16 @@ export interface StatementNode extends SyntaxNode {
 
 export function statementNode(context: SyntaxContext, children: Array2<Node>, indentColumn: Integer): StatementNode {
   const node = syntaxNode($Node.STATEMENT, {children});
-
-  children.last()!.hiddenNodes = node.hiddenNodes;
-
   const parentStatement = context.parentStatement;
   const indentLevel = parentStatement ? parentStatement.indentLevel + 1 : 0;
   const item = children[0];
 
   const statement: StatementNode = {
     ...node,
-
     indentColumn,
     indentLevel,
-    parentStatement: parentStatement,
+    parentStatement,
     item,
-    hiddenNodes: [],
     body: [],
   };
 

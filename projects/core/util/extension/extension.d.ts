@@ -1,22 +1,25 @@
-import {Array2, Boolean2, Char, Integer, Nothing, Something, String2} from '../../lib/core';
+import {Array2, Boolean2, Char, Integer, Nothing, String2} from '../../lib/core';
 
 declare global {
   interface Array<T> {
-    findLastIndex(predicate: (value: T, index: Integer, array: Array2<T>) => Boolean2, thisArg?: Something): Integer;
-    takeWhile(predicate: (value: T, index: Integer) => Boolean2, startIndex?: Integer): Array2<T>;
     first(predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2): T | Nothing;
     first<S extends T>(predicate?: (value: T, index: Integer, array: Array2<T>) => value is S): S | Nothing;
+    firstIndex(predicate: (value: T, index: Integer, array: Array2<T>) => Boolean2): Integer;
+    removeFirst(): Array2<T>;
+
     last(predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2): T | Nothing;
     last<S extends T>(predicate?: (value: T, index: Integer, array: Array2<T>) => value is S): S | Nothing;
-    removeFirst(): Array2<T>;
+    lastIndex(predicate: (value: T, index: Integer, array: Array2<T>) => Boolean2): Integer;
     removeLast(): Array2<T>;
-    findLast(predicate: (value: T, index: Integer, array: Array2<T>) => Boolean2): T | Nothing;
+
+    takeWhile(predicate: (value: T, index: Integer) => Boolean2, startIndex?: Integer): Array2<T>;
     sortStrings(): Array2<T>;
     sum(select: (value: T, index: Integer, array: Array2<T>) => Integer): Integer;
     findMap<V>(predicate: (value: T, index: Integer, array: Array2<T>) => V | Nothing): V | Nothing;
     filterMap<V>(predicate: (value: T, index: Integer, array: Array2<T>) => V | Nothing): Array2<V>;
     count(predicate: (value: T, index: Integer, array: Array2<T>) => Boolean2): Integer;
     sortBy(select: (value: T) => Integer, ascending?: Boolean2): Array2<T>;
+
     splitBy(
       predicate: (value: T, index: Integer, array: Array2<T>) => Boolean2,
     ): Array2<{splitter: T | Nothing; items: Array2<T>}>;

@@ -14,19 +14,6 @@ Array.prototype.takeWhile = function <T>(
   return this.slice(startIndex, this.length);
 };
 
-// todo remove and use Array.last
-Array.prototype.findLast = function <T>(
-  predicate: (value: T, index: Integer, array: Array2<T>) => Boolean2,
-): T | Nothing {
-  const index = this.findLastIndex(predicate);
-
-  if (index < 0) {
-    return nothing;
-  }
-
-  return this[index];
-};
-
 Array.prototype.first = function <T>(
   predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2,
 ): T | Nothing {
@@ -35,7 +22,7 @@ Array.prototype.first = function <T>(
   }
 
   if (!predicate) {
-    return this[0] ?? nothing;
+    return this[0];
   }
 
   for (let index = 0; index < this.length; index++) {
@@ -49,13 +36,33 @@ Array.prototype.first = function <T>(
   return nothing;
 };
 
+Array.prototype.firstIndex = function <T>(
+  predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2,
+): Integer {
+  if (this.length === 0) {
+    return -1;
+  }
+
+  if (!predicate) {
+    return 0;
+  }
+
+  for (let index = 0; index < this.length; index++) {
+    if (predicate(this[index], index, this)) {
+      return index;
+    }
+  }
+
+  return -1;
+};
+
 Array.prototype.last = function <T>(predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2): T | Nothing {
   if (this.length === 0) {
     return nothing;
   }
 
   if (!predicate) {
-    return this[this.length - 1] ?? nothing;
+    return this[this.length - 1];
   }
 
   for (let index = this.length - 1; index >= 0; index--) {
@@ -67,6 +74,26 @@ Array.prototype.last = function <T>(predicate?: (value: T, index: Integer, array
   }
 
   return nothing;
+};
+
+Array.prototype.lastIndex = function <T>(
+  predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2,
+): Integer {
+  if (this.length === 0) {
+    return -1;
+  }
+
+  if (!predicate) {
+    return this.length - 1;
+  }
+
+  for (let index = this.length - 1; index >= 0; index--) {
+    if (predicate(this[index], index, this)) {
+      return index;
+    }
+  }
+
+  return -1;
 };
 
 Array.prototype.removeFirst = function <T>(): Array2<T> {
