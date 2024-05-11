@@ -45,76 +45,44 @@ export function formatAfterHiddenNodes(context: SyntaxContext, node: Node, keepS
 }
 
 export function formatStatement(context: SyntaxContext, statement: StatementNode): Nothing {
-  // if (!statement.hiddenNodes || statement.hiddenNodes.length === 0) {
-  //   return;
-  // }
+  if (!statement.hiddenNodes || statement.hiddenNodes.length === 0) {
+    return;
+  }
 
-  // const indentNlIndex = statement.hiddenNodes.findLast<NlNode>((x): x is NlNode => is<NlNode>(x, $Node.NL));
+  const indentNlIndex = statement.hiddenNodes.lastIndex((x) => is<NlNode>(x, $Node.NL));
 
-  // if (!indentNlNode) {
-  //   const indentText = '  '.repeat(statement.indentLevel);
-  //   const nonWhitespaceNodes = statement.hiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
-  //   const text = indentText + nonWhitespaceNodes.map((x) => x.text).join(' ');
+  if (indentNlIndex < 0) {
+    const indentText = '  '.repeat(statement.indentLevel);
+    const nonWhitespaceNodes = statement.hiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
+    const text = indentText + nonWhitespaceNodes.map((x) => x.text).join(' ');
 
-  //   if (isSameContent(context.resource, statement.hiddenNodes, text)) {
-  //     return nothing;
-  //   }
-  
-  //     context.formatterManager.addFormatter({
-  //       range: rangeFromNodes( statement.hiddenNodes),
-  //       text,
-  //     });
-  // } 
+    if (isSameContent(context.resource, statement.hiddenNodes, text)) {
+      return nothing;
+    }
 
+    context.formatterManager.addFormatter({
+      range: rangeFromNodes(statement.hiddenNodes),
+      text,
+    });
+  }
 
+  const beforeIndentHiddenNodes = statement.hiddenNodes.slice(0, indentNlIndex + 1);
+  const afterIndentHiddenNodes = statement.hiddenNodes.slice(indentNlIndex + 1);
+  const ifFirstStatement = context.statements.first() === statement;
+  const formattedBefore = formatHiddenNodes(beforeIndentHiddenNodes, nothing, ifFirstStatement ? 0 : 2);
 
+  const indentText = '  '.repeat(statement.indentLevel);
+  const nonWhitespaceNodes = afterIndentHiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
+  const text = formattedBefore + indentText + nonWhitespaceNodes.map((x) => x.text).join(' ');
 
-  // const ifFirstStatement = context.statements.first() === statement;
-  // const beforeIndentHiddenNodes = statement.beforeIndentHiddenNodes;
-  // if (beforeIndentHiddenNodes.length > 0) {
-  //   const range = rangeFromNodes(beforeIndentHiddenNodes);
-  //   const nonWhitespaceNodes = beforeIndentHiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
-  //   const splittedByNl = nonWhitespaceNodes.splitBy((x) => is(x, $Node.NL));
-  //   let text = splittedByNl
-  //     .map((x) => format(context, x.splitter) + x.items.map((z) => format(context, z)).join(' '))
-  //     .join('');
-  //   if (ifFirstStatement) {
-  //     text = text.trimStart();
-  //   }
-  //   const formatter = compareAndCreateFormatter(context, beforeIndentHiddenNodes, range, text);
-  //   if (formatter) {
-  //     context.formatterManager.addFormatter(formatter);
-  //   }
-  // }
-  // const firstIndentHiddenNode = statement.indentHiddenNodes.first();
-  // if (is<WhitespaceNode>(firstIndentHiddenNode, $Node.WHITESPACE)) {
-  //   const range = cloneRange(firstIndentHiddenNode.range);
-  //   const text = '  '.repeat(statement.indentLevel);
-  //   const formatter = compareAndCreateFormatter(context, statement.indentHiddenNodes, range, text);
-  //   if (formatter) {
-  //     context.formatterManager.addFormatter(formatter);
-  //   }
-  // }
-  // const indentHiddenNodes = statement.indentHiddenNodes.slice(1);
-  // if (indentHiddenNodes.length > 0) {
-  //   const range = rangeFromNodes(indentHiddenNodes);
-  //   const formatter = getFormatterForHiddenNodes(context, range, indentHiddenNodes, FormattingType.BEFORE);
-  //   if (formatter) {
-  //     context.formatterManager.addFormatter(formatter);
-  //   }
-  // }
-  // const childrenWithoutLast = statement.children.slice(0, -1);
-  // for (const child of childrenWithoutLast) {
-  //   formatBetweenHiddenNodes(context, child, true);
-  // }
-  // const lastStatementNode = statement.children.last();
-  // if (lastStatementNode?.hiddenNodes && lastStatementNode.hiddenNodes.length > 0) {
-  //   const range = rangeFromNodes(lastStatementNode.hiddenNodes);
-  //   const formatter = getFormatterForHiddenNodes(context, range, lastStatementNode.hiddenNodes, FormattingType.AFTER);
-  //   if (formatter) {
-  //     context.formatterManager.addFormatter(formatter);
-  //   }
-  // }
+  if (isSameContent(context.resource, statement.hiddenNodes, text)) {
+    return nothing;
+  }
+
+  context.formatterManager.addFormatter({
+    range: rangeFromNodes(statement.hiddenNodes),
+    text,
+  });
 }
 
 export function formatRemainingContextHiddenNodes(context: SyntaxContext): Formatter | Nothing {
@@ -205,12 +173,18 @@ export function getFormatterForHiddenNodes(
   };
 }
 
-export function formatHiddenNodes(hiddenNodes: Array2<TokenNode>, formattingType: FormattingType | Nothing): String2 {
+export function formatHiddenNodes(
+  hiddenNodes: Array2<TokenNode>,
+  formattingType: FormattingType | Nothing,
+  maxNlCount = 2,
+): String2 {
   const splittedByNl = hiddenNodes
     .filter((x) => !is(x, $Node.WHITESPACE))
     .splitBy<NlNode>((x): x is NlNode => is<NlNode>(x, $Node.NL));
 
-  const text = splittedByNl.map((x) => formatNlNode(x.splitter) + x.items.map((z) => z.text).join(' ')).join('');
+  const text = splittedByNl
+    .map((x) => formatNlNode(x.splitter, maxNlCount) + x.items.map((z) => z.text).join(' '))
+    .join('');
 
   if (text.length > 0 && formattingType) {
     if (formattingType === FormattingType.BEFORE) {
@@ -228,14 +202,14 @@ export function formatHiddenNodes(hiddenNodes: Array2<TokenNode>, formattingType
   return text;
 }
 
-function formatNlNode(node: NlNode | Nothing): String2 {
+function formatNlNode(node: NlNode | Nothing, maxNlCount): String2 {
   if (!node) {
     return '';
   }
 
   // todo replace with node.range.stop.line - node.range.start.line
   const nlCount = node.text.count((x) => x === NL);
-  const text = NL.repeat(Math.min(nlCount, 2));
+  const text = NL.repeat(Math.min(nlCount, maxNlCount));
 
   return text;
 }
