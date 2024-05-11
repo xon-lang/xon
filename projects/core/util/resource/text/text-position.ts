@@ -15,9 +15,17 @@ export function textPosition(index: Integer, line: Integer, column: Integer): Te
 }
 
 export function clonePosition(position: TextPosition): TextPosition {
-  return textPosition(position.index, position.line, position.column);
+  return {
+    index: position.index,
+    line: position.line,
+    column: position.column,
+  };
 }
 
 export function zeroPosition(): TextPosition {
-  return textPosition(0, 0, 0);
+  return {
+    index: 0,
+    line: 0,
+    column: 0,
+  };
 }

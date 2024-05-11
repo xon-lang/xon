@@ -7,6 +7,7 @@ declare global {
     first(predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2): T | Nothing;
     first<S extends T>(predicate?: (value: T, index: Integer, array: Array2<T>) => value is S): S | Nothing;
     last(predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2): T | Nothing;
+    last<S extends T>(predicate?: (value: T, index: Integer, array: Array2<T>) => value is S): S | Nothing;
     removeFirst(): Array2<T>;
     removeLast(): Array2<T>;
     findLast(predicate: (value: T, index: Integer, array: Array2<T>) => Boolean2): T | Nothing;
@@ -19,6 +20,9 @@ declare global {
     splitBy(
       predicate: (value: T, index: Integer, array: Array2<T>) => Boolean2,
     ): Array2<{splitter: T | Nothing; items: Array2<T>}>;
+    splitBy<S extends T>(
+      predicate: (value: T, index: Integer, array: Array2<T>) => value is S,
+    ): Array2<{splitter: S | Nothing; items: Array2<T>}>;
   }
 
   interface String {

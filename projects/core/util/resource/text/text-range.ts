@@ -15,27 +15,36 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
 }
 
 export function cloneRange(range: TextRange): TextRange {
-  return textRange(range.start, range.stop);
+  return {
+    start: clonePosition(range.start),
+    stop: clonePosition(range.stop),
+  };
 }
 
 export function rangeFromNodes(nodes: Array2<Node>): TextRange {
   const startNode = nodes.first();
   const stopNode = nodes.last();
 
-  if (!startNode) {
+  if (!startNode || !stopNode) {
     return zeroRange();
   }
 
-  const start = clonePosition(startNode.range.start);
-  const stop = clonePosition(stopNode!.range.stop);
-
-  return textRange(start, stop);
+  return {
+    start: clonePosition(startNode.range.start),
+    stop: clonePosition(stopNode.range.stop),
+  };
 }
 
 export function rangeFromPosition(position: TextPosition): TextRange {
-  return textRange(clonePosition(position), clonePosition(position));
+  return {
+    start: clonePosition(position),
+    stop: clonePosition(position),
+  };
 }
 
 export function zeroRange(): TextRange {
-  return textRange(zeroPosition(), zeroPosition());
+  return {
+    start: zeroPosition(),
+    stop: zeroPosition(),
+  };
 }

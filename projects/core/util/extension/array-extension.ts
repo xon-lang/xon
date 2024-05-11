@@ -131,6 +131,7 @@ Array.prototype.sortBy = function <T>(select: (value: T) => Integer, ascending: 
   return [...this].sort((a, b) => select(b) - select(a));
 };
 
+// [1, 2, 3, 0, 5].splitBy(x=>x===0) is [{splitter: nothing, items: [1, 2, 3]}, {splitter: 0, items: [5]}]
 Array.prototype.splitBy = function <T>(
   predicate: (value: T, index: Integer, array: Array2<T>) => Boolean2,
 ): Array2<{splitter: T | Nothing; items: Array2<T>}> {
@@ -145,7 +146,7 @@ Array.prototype.splitBy = function <T>(
       continue;
     }
 
-    if (!result.last()) {
+    if (result.length === 0) {
       result.push({splitter: nothing, items: []});
     }
 
