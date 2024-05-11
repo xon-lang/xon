@@ -43,7 +43,7 @@ export type SyntaxParseResult = {spliceIndex: Integer; deleteCount?: Integer; no
 export type SyntaxParseFn = (context: SyntaxContext, index: Integer) => SyntaxParseResult;
 
 const parsers: Array2<SyntaxParseFn> = [
-  importNodeParse([IMPORT]),
+  importNodeParse(),
   memberNodeParse([MEMBER, META_MEMBER]),
   invokeNodeParse(),
   prefixNodeParse([REST, PLUS, MINUS, PLUS, NOT], true),

@@ -12,7 +12,7 @@ test('lf nl', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = syntax.syntaxContext.hiddenNodesBuffer[0] as NlNode;
+  const node = syntax.syntaxContext.hiddenNodes[0] as NlNode;
 
   expect(statements.length).toBe(0);
   expect(node.$).toBe($Node.NL);

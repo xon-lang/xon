@@ -8,33 +8,19 @@ export function putStatementNode(context: SyntaxContext, indentColumn: Integer):
   context.parentStatement = parentStatement;
 
   const statement = constructStatementNode(context, parentStatement, indentColumn);
-
-  statement.hiddenNodes = context.hiddenNodesBuffer;
-
-  if (parentStatement) {
-    parentStatement.body.push(statement);
-  } else {
-    context.statements.push(statement);
-  }
-
-  formatStatement(context, statement);
-
-  context.hiddenNodesBuffer = [];
   context.previousStatement = statement;
 }
 
 function getParent(context: SyntaxContext, indent: Integer): StatementNode | Nothing {
-  const {previousStatement} = context;
-
-  if (!previousStatement) {
+  if (!context.previousStatement) {
     return nothing;
   }
 
-  if (indent > previousStatement.indentColumn) {
-    return previousStatement;
+  if (indent > context.previousStatement.indentColumn) {
+    return context.previousStatement;
   }
 
-  return findParentStatementWithLessIndent(previousStatement, indent);
+  return findParentStatementWithLessIndent(context.previousStatement, indent);
 }
 
 function findParentStatementWithLessIndent(node: StatementNode, indent: Integer): StatementNode | Nothing {

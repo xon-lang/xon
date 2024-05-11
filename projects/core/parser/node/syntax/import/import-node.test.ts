@@ -2,6 +2,7 @@ import {nothing} from '../../../../lib/core';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';
+import {StringNode} from '../../token/string/string-node';
 import {ImportNode} from './import-node';
 
 test('negative integer', () => {
@@ -15,5 +16,5 @@ test('negative integer', () => {
   expect(node.$).toBe($Node.IMPORT);
   expect(node.operator.text).toBe('import');
   expect(node.value.$).toBe($Node.STRING);
-  expect(node.value.value).toBe('xon/core');
+  expect((node.value as StringNode).value).toBe('xon/core');
 });

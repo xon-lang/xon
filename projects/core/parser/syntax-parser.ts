@@ -1,4 +1,4 @@
-import {formatLastContextHiddenNodes} from '../formatter/formatter';
+import {formatRemainingContextHiddenNodes} from '../formatter/formatter';
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../lib/core';
 import {TextPosition, zeroPosition} from '../util/resource/text/text-position';
 import {TextResource} from '../util/resource/text/text-resource';
@@ -74,7 +74,7 @@ export function syntaxParseUntil(
         statementIndentColumn = node.range.stop.column;
       }
 
-      context.hiddenNodesBuffer.push(node);
+      context.hiddenNodes.push(node);
 
       continue;
     }
@@ -83,8 +83,8 @@ export function syntaxParseUntil(
       statementIndentColumn = node.range.start.column;
     }
 
-    node.hiddenNodes = context.hiddenNodesBuffer;
-    context.hiddenNodesBuffer = [];
+    node.hiddenNodes = context.hiddenNodes;
+    context.hiddenNodes = [];
     context.nodes.push(node);
   }
 
@@ -92,7 +92,7 @@ export function syntaxParseUntil(
     putStatementNode(context, statementIndentColumn);
   }
 
-  const formatter = formatLastContextHiddenNodes(context);
+  const formatter = formatRemainingContextHiddenNodes(context);
 
   if (formatter) {
     context.formatterManager.addFormatter(formatter);

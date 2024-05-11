@@ -18,7 +18,7 @@ export type SyntaxResult = Pick<SyntaxContext, ContextAttributes> & {
 export interface SyntaxContext {
   resource: TextResource;
   position: TextPosition;
-  hiddenNodesBuffer: Array2<TokenNode>;
+  hiddenNodes: Array2<TokenNode>;
   breakNode: Node | Nothing;
   parentStatement: StatementNode | Nothing;
   nodes: Array2<Node>;
@@ -36,7 +36,7 @@ export function syntaxContext(resource: TextResource, position: TextPosition): S
   return {
     resource,
     position,
-    hiddenNodesBuffer: [],
+    hiddenNodes: [],
     parentStatement: nothing,
     nodes: [],
     previousStatement: nothing,

@@ -39,7 +39,17 @@ export function statementNode(
     body: [],
   };
 
+  if (parentStatement) {
+    parentStatement.body.push(statement);
+  } else {
+    context.statements.push(statement);
+  }
+
   return statement;
+}
+
+export function format( context: SyntaxContext, node: StatementNode) {
+  
 }
 
 export function constructStatementNode(
