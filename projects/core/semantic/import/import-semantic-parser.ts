@@ -4,6 +4,7 @@ import {ISSUE_MESSAGE} from '../../issue/issue-message';
 import {Nothing, String2, nothing} from '../../lib/core';
 import {$Node, is} from '../../parser/node/node';
 import {ImportNode} from '../../parser/node/syntax/import/import-node';
+import {StringNode} from '../../parser/node/token/string/string-node';
 import {syntaxParse} from '../../parser/syntax-parser';
 import {TextResource, textResourceFromFilePath} from '../../util/resource/text/text-resource';
 import {DeclarationManager} from '../declaration-manager';
@@ -22,12 +23,16 @@ export function syntaxImportsParse(context: SemanticContext, syntax: SyntaxResul
 }
 
 export function importNodeParse(context: SemanticContext, node: ImportNode): Nothing {
-  const reference = context.createReference(node.location);
-  const location = normalizeImportString(node.location.value, context.resource.location);
+  if (!is<StringNode>(node.value, $Node.STRING)) {
+    return;
+  }
+
+  const reference = context.createReference(node.value);
+  const location = normalizeImportString(node.value.value, context.resource.location);
   const resource = textResourceFromFilePath(location);
 
   if (!resource) {
-    context.issueManager.addError(node.location.range, ISSUE_MESSAGE.cannotFindResource(location));
+    context.issueManager.addError(node.value.range, ISSUE_MESSAGE.cannotFindResource(location));
 
     return;
   }
@@ -38,7 +43,7 @@ export function importNodeParse(context: SemanticContext, node: ImportNode): Not
     resource,
   };
 
-  node.location.semantic = semantic;
+  node.value.semantic = semantic;
 
   const syntax = syntaxParse(resource);
   const {declarationManager} = semanticParse(syntax);
