@@ -14,6 +14,6 @@ test('negative integer', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.IMPORT);
   expect(node.operator.text).toBe('import');
-  expect(node.location.$).toBe($Node.STRING);
-  expect(node.location.value).toBe('xon/core');
+  expect(node.value.$).toBe($Node.STRING);
+  expect(node.value.value).toBe('xon/core');
 });

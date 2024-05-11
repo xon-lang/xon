@@ -20,5 +20,5 @@ export function invokeNode(context: SyntaxContext, instance: ExpressionNode, gro
 }
 
 function format(context: SyntaxContext, node: InvokeNode): Nothing {
-  formatBetweenHiddenNodes(context, node.instance, false);
+  formatBetweenHiddenNodes(context, node.group, false);
 }

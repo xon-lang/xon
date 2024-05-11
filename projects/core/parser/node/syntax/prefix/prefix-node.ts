@@ -21,6 +21,6 @@ export function prefixNode(context: SyntaxContext, operator: OperatorNode, value
 }
 
 function format(context: SyntaxContext, node: PrefixNode): Nothing {
-  const keepSingleWhitespace = node.operator.text.some((x) => x.isLetterOrDigit(0) || x === TYPE || x === ASSIGN);
-  formatBetweenHiddenNodes(context, node.operator, keepSingleWhitespace);
+  const keepSingleWhitespace = node.operator.text.some((x) => x.isLetter(0) || x === TYPE || x === ASSIGN);
+  formatBetweenHiddenNodes(context, node.value, keepSingleWhitespace);
 }

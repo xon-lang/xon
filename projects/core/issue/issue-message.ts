@@ -90,4 +90,9 @@ export const ISSUE_MESSAGE = {
     actual: `Cannot find resource '${[path]}'`,
     expect: nothing,
   }),
+
+  importValueShouldBeString: () => ({
+    actual: `Import value should be string`,
+    expect: nothing,
+  }),
 };

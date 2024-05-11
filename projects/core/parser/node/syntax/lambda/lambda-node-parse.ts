@@ -19,7 +19,7 @@ export function lambdaNodeParse(): SyntaxParseFn {
       return nothing;
     }
 
-    const node = lambdaNode(parts.generics, parts.parameters, parts.type, parts.assign);
+    const node = lambdaNode(context, parts.generics, parts.parameters, parts.type, parts.assign);
 
     return {node, spliceIndex: parts.spliceIndex, deleteCount: parts.deleteCount};
   };

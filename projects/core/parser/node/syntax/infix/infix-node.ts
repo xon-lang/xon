@@ -1,4 +1,4 @@
-import {formatAfterHiddenNodes, formatBetweenHiddenNodes} from '../../../../formatter/formatter';
+import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, ExpressionNode} from '../../node';
@@ -26,11 +26,6 @@ export function infixNode(
 }
 
 function format(context: SyntaxContext, node: InfixNode): Nothing {
-  const NO_LEFT_SPACE_TOKENS = ['.', ':'];
-  const leftSingleWhitespace = !NO_LEFT_SPACE_TOKENS.includes(node.operator.text[0]);
-  formatBetweenHiddenNodes(context, node.left, leftSingleWhitespace);
-
-  const NO_OPERATOR_SPACE_TOKENS = ['.'];
-  const operatorSingleWhitespace = !NO_OPERATOR_SPACE_TOKENS.includes(node.operator.text[0]);
-  formatAfterHiddenNodes(context, node.operator, operatorSingleWhitespace);
+  formatBetweenHiddenNodes(context, node.operator, true);
+  formatBetweenHiddenNodes(context, node.right, true);
 }

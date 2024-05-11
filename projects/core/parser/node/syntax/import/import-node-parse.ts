@@ -1,33 +1,31 @@
-import {Integer, String2, nothing} from '../../../../lib/core';
+import {Boolean2, Integer, nothing} from '../../../../lib/core';
+import { IMPORT } from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, findNode, is} from '../../node';
+import {$Node, ExpressionNode, findNode, is, isExpressionNode} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {OperatorNode} from '../../token/operator/operator-node';
-import {StringNode} from '../../token/string/string-node';
-import {importNode} from './import-node';
+import { importNode } from './import-node';
 
-export function importNodeParse(operators: String2[]): SyntaxParseFn {
+export function importNodeParse(): SyntaxParseFn {
   return (context: SyntaxContext, index: Integer) => {
     const found = findNode(
       context.nodes,
       index,
-      true,
-      (x): x is OperatorNode => is<OperatorNode>(x, $Node.OPERATOR) && operators.includes(x.text),
+      false,
+      (x, i, nodes): x is OperatorNode =>
+        is<OperatorNode>(x, $Node.OPERATOR) &&
+        x.text === IMPORT &&
+        (i === 0 || is<OperatorNode>(nodes[i - 1], $Node.OPERATOR)) &&
+        isExpressionNode(nodes[i + 1]),
     );
 
     if (!found) {
       return nothing;
     }
 
-    const left = context.nodes[found.index - 1];
-    const right = context.nodes[found.index + 1];
+    const value = context.nodes[found.index + 1] as ExpressionNode;
+    const node = importNode(context, found.node, value);
 
-    if (is<StringNode>(right, $Node.STRING) && (found.index === 0 || is<OperatorNode>(left, $Node.OPERATOR))) {
-      const node = importNode(context, found.node, right);
-
-      return {node, spliceIndex: found.index};
-    }
-
-    return nothing;
+    return {node, spliceIndex: found.index};
   };
 }

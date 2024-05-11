@@ -1,4 +1,6 @@
+import {formatBeforeHiddenNodes} from '../../../../formatter/formatter';
 import {Nothing} from '../../../../lib/core';
+import {SyntaxContext} from '../../../syntax-context';
 import {Group} from '../../group/group-node';
 import {$Node} from '../../node';
 import {PrefixNode} from '../prefix/prefix-node';
@@ -13,6 +15,7 @@ export interface LambdaNode extends SyntaxNode {
 }
 
 export function lambdaNode(
+  context: SyntaxContext,
   generics: Group | Nothing,
   parameters: Group,
   type: PrefixNode | Nothing,
@@ -25,5 +28,17 @@ export function lambdaNode(
     assign,
   });
 
+  format(context, node);
+
   return node;
+}
+
+function format(context: SyntaxContext, node: LambdaNode): Nothing {
+  if (node.type) {
+    formatBeforeHiddenNodes(context, node.type, false);
+  }
+
+  if (node.assign) {
+    formatBeforeHiddenNodes(context, node.assign, true);
+  }
 }

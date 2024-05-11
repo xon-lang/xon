@@ -42,6 +42,10 @@ export function declarationNode(
 }
 
 function format(context: SyntaxContext, node: DeclarationNode): Nothing {
+  if (node.type) {
+    formatBeforeHiddenNodes(context, node.type, false);
+  }
+
   if (node.assign) {
     formatBeforeHiddenNodes(context, node.assign, true);
   }

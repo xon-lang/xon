@@ -16,11 +16,12 @@ export interface MemberNode extends SyntaxNode {
 
 export function memberNode(
   context: SyntaxContext,
-  operator: OperatorNode,
   instance: Node,
+  operator: OperatorNode,
   id: IdNode | Nothing,
 ): MemberNode {
   const node = syntaxNode($Node.MEMBER, {instance, operator, id});
+
   validate(context, node);
   format(context, node);
 
@@ -34,9 +35,9 @@ function validate(context: SyntaxContext, node: MemberNode): Nothing {
 }
 
 function format(context: SyntaxContext, node: MemberNode): Nothing {
-  formatBetweenHiddenNodes(context, node.instance, false);
+  formatBetweenHiddenNodes(context, node.operator, false);
 
   if (node.id) {
-    formatAfterHiddenNodes(context, node.operator, false);
+    formatAfterHiddenNodes(context, node.id, false);
   }
 }

@@ -20,6 +20,6 @@ export function postfixNode(context: SyntaxContext, value: ExpressionNode, opera
 }
 
 function format(context: SyntaxContext, node: PostfixNode): Nothing {
-  const keepSingleWhitespace = node.operator.text.some((x) => x.isLetterOrDigit(0));
-  formatBetweenHiddenNodes(context, node.value, keepSingleWhitespace);
+  const keepSingleWhitespace = node.operator.text.some((x) => x.isLetter(0));
+  formatBetweenHiddenNodes(context, node.operator, keepSingleWhitespace);
 }
