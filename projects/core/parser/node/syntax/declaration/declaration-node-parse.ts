@@ -1,4 +1,3 @@
-import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {Integer, Nothing, nothing} from '../../../../lib/core';
 import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIERS} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
@@ -12,7 +11,7 @@ import {PrefixNode, prefixNode} from '../prefix/prefix-node';
 import {DeclarationNode, partialToDeclaration} from './declaration-node';
 
 export function declarationNodeParse(): SyntaxParseFn {
-  return (context: SyntaxContext, index: Integer) => {
+  return (context: SyntaxContext) => {
     if (is<DeclarationNode>(context.nodes[0], $Node.DECLARATION)) {
       return nothing;
     }
@@ -23,29 +22,7 @@ export function declarationNodeParse(): SyntaxParseFn {
       return nothing;
     }
 
-    const parentDeclaration = context.parentStatement?.item;
-
-    if (
-      is<DeclarationNode>(parentDeclaration, $Node.DECLARATION) &&
-      parentDeclaration.modifier?.text &&
-      TYPE_MODIFIERS.includes(parentDeclaration.modifier.text)
-    ) {
-      const declaration = partialToDeclaration(context, parts);
-
-      if (parentDeclaration.assign) {
-        context.issueManager.addError(declaration.range, ISSUE_MESSAGE.unexpectedExpression());
-      }
-
-      return {spliceIndex: parts.spliceIndex, deleteCount: parts.deleteCount, node: declaration};
-    }
-
-    if (parts.modifier || parts.type) {
-      const declaration = partialToDeclaration(context, parts);
-
-      return {spliceIndex: parts.spliceIndex, deleteCount: parts.deleteCount, node: declaration};
-    }
-
-    return nothing;
+    return {spliceIndex: parts.spliceIndex, deleteCount: parts.deleteCount, node: partialToDeclaration(context, parts)};
   };
 }
 
@@ -61,6 +38,12 @@ function getDeclarationParts(context: SyntaxContext):
       assign?: PrefixNode | Nothing;
     }
   | Nothing {
+  const header = getHeader(context, context.nodes[0]);
+
+  if (!header) {
+    return nothing;
+  }
+
   const typeOperatorFound = findNode(
     context.nodes,
     0,
@@ -70,12 +53,6 @@ function getDeclarationParts(context: SyntaxContext):
   );
 
   if (typeOperatorFound) {
-    const header = getHeader(context, context.nodes[typeOperatorFound.index - 1]);
-
-    if (!header) {
-      return nothing;
-    }
-
     const typeValue = context.nodes[typeOperatorFound.index + 1] as ExpressionNode;
     const assignOperator = context.nodes[typeOperatorFound.index + 2];
     const assignValue = context.nodes[typeOperatorFound.index + 3];
@@ -95,6 +72,10 @@ function getDeclarationParts(context: SyntaxContext):
     return {spliceIndex: typeOperatorFound.index - 1, deleteCount: 3, ...header, type};
   }
 
+  if (!header.modifier && !isParentDeclaration(context.parentStatement?.item)) {
+    return nothing;
+  }
+
   const assignOperatorFound = findNode(
     context.nodes,
     0,
@@ -104,25 +85,13 @@ function getDeclarationParts(context: SyntaxContext):
   );
 
   if (assignOperatorFound) {
-    const header = getHeader(context, context.nodes[assignOperatorFound.index - 1]);
-
-    if (!header) {
-      return nothing;
-    }
-
     const assignValue = context.nodes[assignOperatorFound.index + 1] as ExpressionNode;
     const assign = prefixNode(context, assignOperatorFound.node, assignValue);
 
     return {spliceIndex: assignOperatorFound.index - 1, deleteCount: 3, ...header, assign};
   }
 
-  const header = getHeader(context, context.nodes[0]);
-
-  if (header) {
-    return {spliceIndex: 0, deleteCount: 1, ...header};
-  }
-
-  return nothing;
+  return {spliceIndex: 0, deleteCount: 1, ...header};
 }
 
 function getHeader(
@@ -202,4 +171,16 @@ function parseDeclarations(context: SyntaxContext, group: Group): Nothing {
       item.value = partialToDeclaration(context, {id: item.value});
     }
   }
+}
+
+export function isParentDeclaration(declarationNode: Node | Nothing): declarationNode is DeclarationNode {
+  if (
+    is<DeclarationNode>(declarationNode, $Node.DECLARATION) &&
+    declarationNode.modifier?.text &&
+    TYPE_MODIFIERS.includes(declarationNode.modifier.text)
+  ) {
+    return true;
+  }
+
+  return false;
 }
