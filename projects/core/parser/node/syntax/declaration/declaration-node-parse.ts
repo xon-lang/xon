@@ -1,4 +1,4 @@
-import {Integer, Nothing, nothing} from '../../../../lib/core';
+import {Array2, Integer, Nothing, nothing} from '../../../../lib/core';
 import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIERS} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
@@ -6,6 +6,7 @@ import {$Node, ExpressionNode, Node, findNode, is, isExpressionNode} from '../..
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
+import {TokenNode} from '../../token/token-node';
 import {InvokeNode} from '../invoke/invoke-node';
 import {PrefixNode, prefixNode} from '../prefix/prefix-node';
 import {DeclarationNode, partialToDeclaration} from './declaration-node';
@@ -22,6 +23,14 @@ export function declarationNodeParse(): SyntaxParseFn {
       return nothing;
     }
 
+    if (parts.modifier) {
+      parts.modifier.hiddenNodes = parts.modifierHiddenNodes;
+    }
+
+    if (parts.id) {
+      parts.id.hiddenNodes = parts.idHiddenNodes;
+    }
+
     return {spliceIndex: parts.spliceIndex, deleteCount: parts.deleteCount, node: partialToDeclaration(context, parts)};
   };
 }
@@ -30,7 +39,9 @@ function getDeclarationParts(context: SyntaxContext):
   | {
       spliceIndex: Integer;
       deleteCount: Integer;
+      modifierHiddenNodes?: Array2<TokenNode> | Nothing;
       modifier?: OperatorNode | Nothing;
+      idHiddenNodes?: Array2<TokenNode> | Nothing;
       id: IdNode;
       generics?: Group | Nothing;
       parameters?: Group | Nothing;
@@ -99,7 +110,9 @@ function getHeader(
   node: Node | Nothing,
 ):
   | {
+      modifierHiddenNodes?: Array2<TokenNode> | Nothing;
       modifier?: OperatorNode | Nothing;
+      idHiddenNodes?: Array2<TokenNode> | Nothing;
       id: IdNode;
       generics?: Group | Nothing;
       parameters?: Group | Nothing;
@@ -112,7 +125,7 @@ function getHeader(
       return nothing;
     }
 
-    return {modifier: node.operator, ...underModifier};
+    return {modifierHiddenNodes: node.hiddenNodes, modifier: node.operator, ...underModifier};
   }
 
   return getUnderModifier(context, node);
@@ -123,6 +136,7 @@ function getUnderModifier(
   node: Node | Nothing,
 ):
   | {
+      idHiddenNodes?: Array2<TokenNode> | Nothing;
       id: IdNode;
       generics?: Group | Nothing;
       parameters?: Group | Nothing;
@@ -133,7 +147,7 @@ function getUnderModifier(
   }
 
   if (is<IdNode>(node, $Node.ID)) {
-    return {id: node};
+    return {idHiddenNodes: node.hiddenNodes, id: node};
   }
 
   if (is<InvokeNode>(node, $Node.INVOKE)) {
@@ -146,18 +160,23 @@ function getUnderModifier(
       parseDeclarations(context, node.instance.group);
       parseDeclarations(context, node.group);
 
-      return {id: node.instance.instance, generics: node.instance.group, parameters: node.group};
+      return {
+        idHiddenNodes: node.hiddenNodes,
+        id: node.instance.instance,
+        generics: node.instance.group,
+        parameters: node.group,
+      };
     }
 
     if (is<IdNode>(node.instance, $Node.ID)) {
       parseDeclarations(context, node.group);
 
       if (is<ObjectNode>(node.group, $Node.OBJECT)) {
-        return {id: node.instance, generics: node.group};
+        return {idHiddenNodes: node.hiddenNodes, id: node.instance, generics: node.group};
       }
 
       if (is<GroupNode>(node.group, $Node.GROUP)) {
-        return {id: node.instance, parameters: node.group};
+        return {idHiddenNodes: node.hiddenNodes, id: node.instance, parameters: node.group};
       }
     }
   }

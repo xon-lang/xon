@@ -1,3 +1,4 @@
+import {formatStatement} from '../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Array2, Integer, Nothing} from '../../../lib/core';
 import {SyntaxContext} from '../../syntax-context';
@@ -36,10 +37,14 @@ export function statementNode(context: SyntaxContext, children: Array2<Node>, in
     context.statements.push(statement);
   }
 
+  format(context, statement);
+
   return statement;
 }
 
-export function format(context: SyntaxContext, node: StatementNode) {}
+export function format(context: SyntaxContext, node: StatementNode) {
+  formatStatement(context, node);
+}
 
 export function constructStatementNode(context: SyntaxContext, indentColumn: Integer): StatementNode {
   statementNodeCollapse(context);

@@ -1,4 +1,4 @@
-import {Integer, Nothing, nothing} from '../../../../lib/core';
+import {Array2, Integer, Nothing, nothing} from '../../../../lib/core';
 import {ASSIGN, TYPE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
@@ -6,6 +6,7 @@ import {$Node, ExpressionNode, Node, findNode, is, isExpressionNode} from '../..
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
+import {TokenNode} from '../../token/token-node';
 import {partialToDeclaration} from '../declaration/declaration-node';
 import {InvokeNode} from '../invoke/invoke-node';
 import {PrefixNode, prefixNode} from '../prefix/prefix-node';
@@ -19,6 +20,10 @@ export function lambdaNodeParse(): SyntaxParseFn {
       return nothing;
     }
 
+    if (parts.generics) {
+      parts.generics.hiddenNodes = parts.genericsHiddenNodes;
+    }
+
     const node = lambdaNode(context, parts.generics, parts.parameters, parts.type, parts.assign);
 
     return {node, spliceIndex: parts.spliceIndex, deleteCount: parts.deleteCount};
@@ -29,6 +34,7 @@ function getLambdaParts(context: SyntaxContext):
   | {
       spliceIndex: Integer;
       deleteCount: Integer;
+      genericsHiddenNodes?: Array2<TokenNode> | Nothing;
       generics?: Group | Nothing;
       parameters?: Group | Nothing;
       type?: PrefixNode | Nothing;
@@ -98,6 +104,7 @@ function getGenericsParameters(
   context: SyntaxContext,
   node: Node,
 ): {
+  genericsHiddenNodes?: Array2<TokenNode> | Nothing;
   generics?: Group | Nothing;
   parameters?: Group | Nothing;
 } {
@@ -111,7 +118,7 @@ function getGenericsParameters(
     parseDeclarations(context, node.instance);
     parseDeclarations(context, node.group);
 
-    return {generics: node.instance, parameters: node.group};
+    return {genericsHiddenNodes: node.hiddenNodes, generics: node.instance, parameters: node.group};
   }
 
   return {};
