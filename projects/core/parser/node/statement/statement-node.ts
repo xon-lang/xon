@@ -15,16 +15,12 @@ export interface StatementNode extends SyntaxNode {
   body: Array2<StatementNode>;
 }
 
-export function statementNode(
-  context: SyntaxContext,
-  children: Array2<Node>,
-  parentStatement: StatementNode | Nothing,
-  indentColumn: Integer,
-): StatementNode {
+export function statementNode(context: SyntaxContext, children: Array2<Node>, indentColumn: Integer): StatementNode {
   const node = syntaxNode($Node.STATEMENT, {children});
 
   children.last()!.hiddenNodes = node.hiddenNodes;
 
+  const parentStatement = context.parentStatement;
   const indentLevel = parentStatement ? parentStatement.indentLevel + 1 : 0;
   const item = children[0];
 
@@ -48,20 +44,14 @@ export function statementNode(
   return statement;
 }
 
-export function format( context: SyntaxContext, node: StatementNode) {
-  
-}
+export function format(context: SyntaxContext, node: StatementNode) {}
 
-export function constructStatementNode(
-  context: SyntaxContext,
-  parent: StatementNode | Nothing,
-  indentColumn: Integer,
-): StatementNode {
+export function constructStatementNode(context: SyntaxContext, indentColumn: Integer): StatementNode {
   statementNodeCollapse(context);
 
   context.nodes
     .slice(1)
     .forEach((node) => context.issueManager.addError(node.range, ISSUE_MESSAGE.unexpectedExpression()));
 
-  return statementNode(context, context.nodes, parent, indentColumn);
+  return statementNode(context, context.nodes, indentColumn);
 }

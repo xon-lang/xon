@@ -1,26 +1,22 @@
-import {formatStatement} from '../formatter/formatter';
 import {Integer, Nothing, nothing} from '../lib/core';
 import {StatementNode, constructStatementNode} from './node/statement/statement-node';
 import {SyntaxContext} from './syntax-context';
 
 export function putStatementNode(context: SyntaxContext, indentColumn: Integer): Nothing {
-  const parentStatement = getParent(context, indentColumn);
-  context.parentStatement = parentStatement;
-
-  const statement = constructStatementNode(context, parentStatement, indentColumn);
-  context.previousStatement = statement;
+  context.parentStatement = getParent(context, indentColumn);
+  context.lastStatement = constructStatementNode(context, indentColumn);
 }
 
 function getParent(context: SyntaxContext, indent: Integer): StatementNode | Nothing {
-  if (!context.previousStatement) {
+  if (!context.lastStatement) {
     return nothing;
   }
 
-  if (indent > context.previousStatement.indentColumn) {
-    return context.previousStatement;
+  if (indent > context.lastStatement.indentColumn) {
+    return context.lastStatement;
   }
 
-  return findParentStatementWithLessIndent(context.previousStatement, indent);
+  return findParentStatementWithLessIndent(context.lastStatement, indent);
 }
 
 function findParentStatementWithLessIndent(node: StatementNode, indent: Integer): StatementNode | Nothing {

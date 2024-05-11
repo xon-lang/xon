@@ -22,7 +22,7 @@ export interface SyntaxContext {
   breakNode: Node | Nothing;
   parentStatement: StatementNode | Nothing;
   nodes: Array2<Node>;
-  previousStatement: StatementNode | Nothing;
+  lastStatement: StatementNode | Nothing;
   statements: Array2<StatementNode>;
   issueManager: IssueManager;
   formatterManager: FormatterManager;
@@ -39,7 +39,7 @@ export function syntaxContext(resource: TextResource, position: TextPosition): S
     hiddenNodes: [],
     parentStatement: nothing,
     nodes: [],
-    previousStatement: nothing,
+    lastStatement: nothing,
     breakNode: nothing,
     statements: [],
     issueManager: createIssueManager(resource),
