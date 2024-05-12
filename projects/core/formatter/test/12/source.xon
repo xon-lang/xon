@@ -1,3 +1,3 @@
 
-
 model Abc
+ name :  String  
