@@ -18,6 +18,8 @@ export function itemNode(context: SyntaxContext, statements: StatementNode[], co
   const value = statements.first()?.item;
   const node = syntaxNode($Node.ITEM, {value, statements, comma});
 
+if(statements)
+
   validate(context, node);
   format(context, node);
 

@@ -31,7 +31,7 @@ export function groupNode(
   const node = syntaxNode($, {open, items, close});
 
   validate(context, node);
-  format(context, node);
+  // format(context, node);
 
   return node;
 }
@@ -42,16 +42,16 @@ function validate(context: SyntaxContext, node: GroupNode): Nothing {
   }
 }
 
-function format(context: SyntaxContext, node: GroupNode): Nothing {
-  if (node.items.length > 0) {
-    formatBetweenHiddenNodes(context, node.items[0], false);
+// function format(context: SyntaxContext, node: GroupNode): Nothing {
+//   if (node.items.length > 0) {
+//     formatBetweenHiddenNodes(context, node.items[0], false);
 
-    for (let i = 1; i < node.items.length; i++) {
-      formatBetweenHiddenNodes(context, node.items[i], true);
-    }
-  }
+//     for (let i = 1; i < node.items.length; i++) {
+//       formatBetweenHiddenNodes(context, node.items[i], true);
+//     }
+//   }
 
-  if (node.close) {
-    formatBetweenHiddenNodes(context, node.close, false);
-  }
-}
+//   if (node.close) {
+//     formatBetweenHiddenNodes(context, node.close, false);
+//   }
+// }

@@ -4,6 +4,7 @@ import {Array2, Integer, Nothing, nothing} from '../lib/core';
 import {TextPosition, textPosition} from '../util/resource/text/text-position';
 import {TextRange, textRange} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
+import {DEFAULT_SYNTAX_PARSER_CONFIG, SyntaxParserConfig} from './syntax-parser-config';
 import {Node} from './node/node';
 import {StatementNode} from './node/statement/statement-node';
 import {TokenNode} from './node/token/token-node';
@@ -26,13 +27,20 @@ export interface SyntaxContext {
   statements: Array2<StatementNode>;
   issueManager: IssueManager;
   formatterManager: FormatterManager;
+  config: SyntaxParserConfig;
 
   getRange: (length: Integer) => TextRange;
   getSymbolRange: () => TextRange;
   getRangeWithNL: (length: Integer) => TextRange;
 }
 
-export function syntaxContext(resource: TextResource, position: TextPosition): SyntaxContext {
+export function syntaxContext(
+  resource: TextResource,
+  position: TextPosition,
+  issueManager: IssueManager | Nothing,
+  formatterManager: FormatterManager | Nothing,
+  config: SyntaxParserConfig | Nothing,
+): SyntaxContext {
   return {
     resource,
     position,
@@ -42,8 +50,9 @@ export function syntaxContext(resource: TextResource, position: TextPosition): S
     lastStatement: nothing,
     breakNode: nothing,
     statements: [],
-    issueManager: createIssueManager(resource),
-    formatterManager: createFormatterManager(resource),
+    issueManager: issueManager ?? createIssueManager(resource),
+    formatterManager: formatterManager ?? createFormatterManager(resource),
+    config: config ?? DEFAULT_SYNTAX_PARSER_CONFIG,
 
     getRange(length: Integer): TextRange {
       return textRange(

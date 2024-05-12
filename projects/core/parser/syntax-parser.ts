@@ -1,5 +1,7 @@
 import {formatRemainingContextHiddenNodes} from '../formatter/formatter';
-import {Array2, Boolean2, Integer, Nothing, nothing} from '../lib/core';
+import {FormatterManager} from '../formatter/formatter-manager';
+import {IssueManager} from '../issue/issue-manager';
+import {Array2, Boolean2, Integer, Nothing} from '../lib/core';
 import {TextPosition, zeroPosition} from '../util/resource/text/text-position';
 import {TextResource} from '../util/resource/text/text-resource';
 import {$Node, Node, is} from './node/node';
@@ -21,6 +23,7 @@ import {unknownNodeParse} from './node/token/unknown/unknown-node-parse';
 import {whitespaceNodeParse} from './node/token/whitespace/whitespace-node-parse';
 import {putStatementNode} from './put-statement-node';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
+import {SyntaxParserConfig} from './syntax-parser-config';
 
 export type TokenParseResult = Node | Nothing;
 export type TokenParseFn = (context: SyntaxContext, index: Integer) => TokenParseResult;
@@ -43,16 +46,15 @@ const parsers: Array2<TokenParseFn> = [
   idNodeParse,
 ];
 
-export function syntaxParse(resource: TextResource): SyntaxResult {
-  return syntaxParseUntil(resource, zeroPosition(), nothing);
-}
-
-export function syntaxParseUntil(
+export function syntaxParse(
   resource: TextResource,
-  startPosition: TextPosition,
+  startPosition: TextPosition | Nothing,
+  issueManager: IssueManager | Nothing,
+  formatterManager: FormatterManager | Nothing,
   breakOnNodeFn: ((node: Node) => Boolean2) | Nothing,
+  config: SyntaxParserConfig | Nothing,
 ): SyntaxResult {
-  const context = syntaxContext(resource, startPosition);
+  const context = syntaxContext(resource, startPosition ?? zeroPosition(), issueManager, formatterManager, config);
   let statementIndentColumn = -1;
 
   while (context.position.index < context.resource.data.length) {
@@ -92,11 +94,7 @@ export function syntaxParseUntil(
     putStatementNode(context, statementIndentColumn);
   }
 
-  const formatter = formatRemainingContextHiddenNodes(context);
-
-  if (formatter) {
-    context.formatterManager.addFormatter(formatter);
-  }
+  formatRemainingContextHiddenNodes(context);
 
   return {
     ...context,

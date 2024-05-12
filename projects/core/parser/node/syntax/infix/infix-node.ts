@@ -1,5 +1,6 @@
 import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {Nothing} from '../../../../lib/core';
+import {RANGE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, ExpressionNode} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
@@ -26,6 +27,7 @@ export function infixNode(
 }
 
 function format(context: SyntaxContext, node: InfixNode): Nothing {
-  formatBetweenHiddenNodes(context, node.operator, true);
-  formatBetweenHiddenNodes(context, node.right, true);
+  const keepSingleWhitespace = node.operator.text !== RANGE;
+  formatBetweenHiddenNodes(context, node.operator, keepSingleWhitespace);
+  formatBetweenHiddenNodes(context, node.right, keepSingleWhitespace);
 }

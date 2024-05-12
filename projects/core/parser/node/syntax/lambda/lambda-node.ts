@@ -1,4 +1,4 @@
-import {formatBeforeHiddenNodes} from '../../../../formatter/formatter';
+import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group} from '../../group/group-node';
@@ -35,10 +35,10 @@ export function lambdaNode(
 
 function format(context: SyntaxContext, node: LambdaNode): Nothing {
   if (node.type) {
-    formatBeforeHiddenNodes(context, node.type, false);
+    formatBetweenHiddenNodes(context, node.type, false);
   }
 
   if (node.assign) {
-    formatBeforeHiddenNodes(context, node.assign, true);
+    formatBetweenHiddenNodes(context, node.assign, true);
   }
 }

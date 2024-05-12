@@ -1,4 +1,4 @@
-import {formatAfterHiddenNodes, formatBetweenHiddenNodes} from '../../../../formatter/formatter';
+import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
@@ -38,6 +38,6 @@ function format(context: SyntaxContext, node: MemberNode): Nothing {
   formatBetweenHiddenNodes(context, node.operator, false);
 
   if (node.id) {
-    formatAfterHiddenNodes(context, node.id, false);
+    formatBetweenHiddenNodes(context, node.id, false);
   }
 }
