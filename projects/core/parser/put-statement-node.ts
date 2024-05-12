@@ -1,30 +1,31 @@
-import {Integer, Nothing, nothing} from '../lib/core';
+import {Nothing, nothing} from '../lib/core';
+import {TextRange} from '../util/resource/text/text-range';
 import {StatementNode, constructStatementNode} from './node/statement/statement-node';
 import {SyntaxContext} from './syntax-context';
 
-export function putStatementNode(context: SyntaxContext, indentColumn: Integer): Nothing {
-  context.parentStatement = getParent(context, indentColumn);
-  context.lastStatement = constructStatementNode(context, indentColumn);
+export function putStatementNode(context: SyntaxContext, indent: TextRange): Nothing {
+  context.parentStatement = getParent(context, indent);
+  context.lastStatement = constructStatementNode(context, indent);
 }
 
-function getParent(context: SyntaxContext, indent: Integer): StatementNode | Nothing {
+function getParent(context: SyntaxContext, indent: TextRange): StatementNode | Nothing {
   if (!context.lastStatement) {
     return nothing;
   }
 
-  if (indent > context.lastStatement.indentColumn) {
+  if (indent.stop.column > context.lastStatement.indent.stop.column) {
     return context.lastStatement;
   }
 
   return findParentStatementWithLessIndent(context.lastStatement, indent);
 }
 
-function findParentStatementWithLessIndent(node: StatementNode, indent: Integer): StatementNode | Nothing {
+function findParentStatementWithLessIndent(node: StatementNode, indent: TextRange): StatementNode | Nothing {
   if (!node.parentStatement) {
     return nothing;
   }
 
-  if (node.parentStatement.indentColumn < indent) {
+  if (node.parentStatement.indent.stop.column < indent.stop.column) {
     return node.parentStatement;
   }
 
