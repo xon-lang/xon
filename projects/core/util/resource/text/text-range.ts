@@ -9,8 +9,8 @@ export interface TextRange {
 
 export function textRange(start: TextPosition, stop: TextPosition): TextRange {
   return {
-    start: clonePosition(start),
-    stop: clonePosition(stop),
+    start,
+    stop,
   };
 }
 

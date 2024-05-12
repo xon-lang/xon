@@ -29,6 +29,8 @@ declare global {
   }
 
   interface String {
+    first(predicate?: (value: Char, index: Integer, array: String) => Boolean2): Char | Nothing;
+    last(predicate?: (value: Char, index: Integer, array: String) => Boolean2): Char | Nothing;
     takeWhile(predicate: (value: Char, index: Integer) => Boolean2, startIndex?: Integer): String2;
     take(length: Integer, index: Integer): String2;
     toCharCodes(): Uint8Array;
@@ -40,7 +42,5 @@ declare global {
     some(predicate: (value: Char, index: Integer, array: Array2<Char>) => Boolean2): Boolean2;
     count(predicate: (value: Char, index: Integer, array: Array2<Char>) => Boolean2): Integer;
     sum(select: (value: Char, index: Integer, array: Array2<Char>) => Integer): Integer;
-    first(predicate?: (value: Char, index: Integer, array: String) => Boolean2): Char | Nothing;
-    last(predicate?: (value: Char, index: Integer, array: String) => Boolean2): Char | Nothing;
   }
 }
