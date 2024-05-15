@@ -25,8 +25,8 @@ export function createFormatterManager(source: TextResource) {
       const formatters = this.formatters.sortBy((x) => x.range.start.index);
 
       for (const {range, text} of formatters) {
-        index = range.stop.index;
         formattedText += this.resource.data.slice(index, range.start.index) + text;
+        index = range.stop.index;
       }
 
       formattedText += this.resource.data.slice(index, this.resource.data.length);
