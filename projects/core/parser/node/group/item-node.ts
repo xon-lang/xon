@@ -1,4 +1,4 @@
-import {formatBetweenHiddenNodes} from '../../../formatter/formatter';
+import {formatChildNode} from '../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Nothing} from '../../../lib/core';
 import {SyntaxContext} from '../../syntax-context';
@@ -33,6 +33,6 @@ function validate(context: SyntaxContext, node: ItemNode): Nothing {
 function format(context: SyntaxContext, node: ItemNode): Nothing {
   // todo move first statement hidden nodes to item and comma
   if (node.comma) {
-    formatBetweenHiddenNodes(context, node.comma, false);
+    formatChildNode(context, node.comma, false);
   }
 }

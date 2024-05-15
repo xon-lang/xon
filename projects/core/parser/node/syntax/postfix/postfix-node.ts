@@ -1,4 +1,4 @@
-import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
+import {formatChildNode} from '../../../../formatter/formatter';
 import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, ExpressionNode} from '../../node';
@@ -21,5 +21,5 @@ export function postfixNode(context: SyntaxContext, value: ExpressionNode, opera
 
 function format(context: SyntaxContext, node: PostfixNode): Nothing {
   const keepSingleWhitespace = node.operator.text.some((x) => x.isLetter(0));
-  formatBetweenHiddenNodes(context, node.operator, keepSingleWhitespace);
+  formatChildNode(context, node.operator, keepSingleWhitespace);
 }

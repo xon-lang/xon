@@ -1,4 +1,3 @@
-import {formatBetweenHiddenNodes} from '../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Array2, Nothing} from '../../../lib/core';
 import '../../../util/extension';

@@ -1,4 +1,4 @@
-import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
+import {formatChildNode} from '../../../../formatter/formatter';
 import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group} from '../../group/group-node';
@@ -20,5 +20,5 @@ export function invokeNode(context: SyntaxContext, instance: ExpressionNode, gro
 }
 
 function format(context: SyntaxContext, node: InvokeNode): Nothing {
-  formatBetweenHiddenNodes(context, node.group, false);
+  formatChildNode(context, node.group, false);
 }

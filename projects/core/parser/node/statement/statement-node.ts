@@ -1,7 +1,7 @@
-import {formatStatement} from '../../../formatter/formatter';
+import {formatStatementNode} from '../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Array2, Integer, Nothing} from '../../../lib/core';
-import {TextRange, zeroRange} from '../../../util/resource/text/text-range';
+import {TextRange} from '../../../util/resource/text/text-range';
 import {SyntaxContext} from '../../syntax-context';
 import {$Node, Node} from '../node';
 import {SyntaxNode, syntaxNode} from '../syntax/syntax-node';
@@ -45,7 +45,7 @@ export function statementNode(context: SyntaxContext, children: Array2<Node>, in
 }
 
 export function format(context: SyntaxContext, node: StatementNode) {
-  formatStatement(context, node);
+  formatStatementNode(context, node);
 }
 
 export function constructStatementNode(context: SyntaxContext, indent: TextRange): StatementNode {

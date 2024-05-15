@@ -1,4 +1,4 @@
-import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
+import {formatChildNode} from '../../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
@@ -29,5 +29,5 @@ function validate(context: SyntaxContext, node: ImportNode): Nothing {
 }
 
 function format(context: SyntaxContext, node: ImportNode): Nothing {
-  formatBetweenHiddenNodes(context, node.value, true);
+  formatChildNode(context, node.value, true);
 }

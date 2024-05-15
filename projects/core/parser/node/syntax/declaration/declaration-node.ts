@@ -1,4 +1,4 @@
-import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
+import {formatChildNode} from '../../../../formatter/formatter';
 import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group} from '../../group/group-node';
@@ -43,11 +43,11 @@ export function declarationNode(
 
 function format(context: SyntaxContext, node: DeclarationNode): Nothing {
   if (node.type) {
-    formatBetweenHiddenNodes(context, node.type, false);
+    formatChildNode(context, node.type, false);
   }
 
   if (node.assign) {
-    formatBetweenHiddenNodes(context, node.assign, true);
+    formatChildNode(context, node.assign, true);
   }
 }
 

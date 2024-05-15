@@ -1,4 +1,4 @@
-import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
+import {formatChildNode} from '../../../../formatter/formatter';
 import {Nothing} from '../../../../lib/core';
 import {RANGE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
@@ -28,6 +28,6 @@ export function infixNode(
 
 function format(context: SyntaxContext, node: InfixNode): Nothing {
   const keepSingleWhitespace = node.operator.text !== RANGE;
-  formatBetweenHiddenNodes(context, node.operator, keepSingleWhitespace);
-  formatBetweenHiddenNodes(context, node.right, keepSingleWhitespace);
+  formatChildNode(context, node.operator, keepSingleWhitespace);
+  formatChildNode(context, node.right, keepSingleWhitespace);
 }

@@ -1,4 +1,4 @@
-import {formatBetweenHiddenNodes} from '../../../../formatter/formatter';
+import {formatChildNode} from '../../../../formatter/formatter';
 import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node} from '../../node';
@@ -21,5 +21,5 @@ export function assignmentNode(context: SyntaxContext, id: IdNode, assign: Prefi
 }
 
 function format(context: SyntaxContext, node: AssignmentNode): Nothing {
-  formatBetweenHiddenNodes(context, node.assign, true);
+  formatChildNode(context, node.assign, true);
 }

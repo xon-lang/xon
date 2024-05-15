@@ -14,15 +14,55 @@ export interface Formatter {
   text: String2;
 }
 
-export function formatBetweenHiddenNodes(context: SyntaxContext, node: Node, keepSingleSpace: Boolean2): Nothing {
-  const formatter = getFormatterForHiddenNodesWithSpaceKeeping(context, node, keepSingleSpace, true);
+export function formatChildNode(context: SyntaxContext, node: Node, keepSingleSpace: Boolean2): Nothing {
+  if (!node.hiddenNodes || node.hiddenNodes.length === 0) {
+    if (keepSingleSpace) {
+      context.formatterManager.addFormatter({
+        range: rangeFromPosition(node.range.start),
+        text: ' ',
+      });
+    }
 
-  if (formatter) {
-    context.formatterManager.addFormatter(formatter);
+    return;
   }
+
+  if (node.hiddenNodes.length === 1 && is<WhitespaceNode>(node.hiddenNodes[0], $Node.WHITESPACE)) {
+    const whitespace = node.hiddenNodes[0];
+
+    if (!keepSingleSpace) {
+      context.formatterManager.addFormatter({
+        range: cloneRange(whitespace.range),
+        text: '',
+      });
+
+      return;
+    }
+
+    if (whitespace.text === ' ') {
+      return;
+    }
+
+    context.formatterManager.addFormatter({
+      range: cloneRange(whitespace.range),
+      text: ' ',
+    });
+
+    return;
+  }
+
+  const text = formatHiddenNodes(context, node.hiddenNodes, true);
+
+  if (isSameContent(context.resource, node.hiddenNodes, text)) {
+    return nothing;
+  }
+
+  context.formatterManager.addFormatter({
+    range: rangeFromNodes(node.hiddenNodes),
+    text,
+  });
 }
 
-export function formatStatement(context: SyntaxContext, statement: StatementNode): Nothing {
+export function formatStatementNode(context: SyntaxContext, statement: StatementNode): Nothing {
   if (!statement.hiddenNodes || statement.hiddenNodes.length === 0) {
     return;
   }
@@ -108,63 +148,6 @@ export function formatRemainingContextHiddenNodes(context: SyntaxContext): Nothi
   });
 }
 
-function getFormatterForHiddenNodesWithSpaceKeeping(
-  context: SyntaxContext,
-  node: Node,
-  keepSingleSpace: Boolean2,
-  isNoFirstChildNode: Boolean2,
-): Formatter | Nothing {
-  if (!node.hiddenNodes || node.hiddenNodes.length === 0) {
-    if (keepSingleSpace) {
-      return {
-        range: rangeFromPosition(node.range.start),
-        text: ' ',
-      };
-    }
-
-    return nothing;
-  }
-
-  if (node.hiddenNodes.length === 1 && is<WhitespaceNode>(node.hiddenNodes[0], $Node.WHITESPACE)) {
-    const whitespace = node.hiddenNodes[0];
-
-    if (!keepSingleSpace) {
-      return {
-        range: cloneRange(whitespace.range),
-        text: '',
-      };
-    }
-
-    if (whitespace.text === ' ') {
-      return nothing;
-    }
-
-    return {
-      range: cloneRange(whitespace.range),
-      text: ' ',
-    };
-  }
-
-  return getFormatterForHiddenNodes(context, node.hiddenNodes, isNoFirstChildNode);
-}
-
-export function getFormatterForHiddenNodes(
-  context: SyntaxContext,
-  hiddenNodes: Array2<TokenNode>,
-  isNoFirstChildNode: Boolean2,
-): Formatter | Nothing {
-  const text = formatHiddenNodes(context, hiddenNodes, isNoFirstChildNode);
-
-  if (isSameContent(context.resource, hiddenNodes, text)) {
-    return nothing;
-  }
-
-  return {
-    range: rangeFromNodes(hiddenNodes),
-    text,
-  };
-}
-
 export function formatHiddenNodes(
   context: SyntaxContext,
   hiddenNodes: Array2<TokenNode>,
@@ -191,20 +174,17 @@ function formatNlNode(context: SyntaxContext, node: NlNode | Nothing): String2 {
   }
 
   const nlCount = node.range.stop.line - node.range.start.line;
-  const text = NL.repeat(Math.min(nlCount, context.config.formatting.maxNewLines));
 
-  return text;
+  return NL.repeat(Math.min(nlCount, context.config.formatting.maxNewLines));
 }
 
 function isSameContent(resource: TextResource, hiddenNodes: Array2<TokenNode>, text: String2): Boolean2 {
-  const first = hiddenNodes.first();
-  const last = hiddenNodes.last();
-
-  if (!first || !last) {
-    return text === '';
+  if (hiddenNodes.length === 0) {
+    return text.length === 0;
   }
 
-  const sliced = resource.data.slice(first.range.start.index, last.range.stop.index);
+  const startIndex = hiddenNodes.first()!.range.start.index;
+  const stopIndex = hiddenNodes.last()!.range.stop.index;
 
-  return text === sliced;
+  return text === resource.data.slice(startIndex, stopIndex);
 }
