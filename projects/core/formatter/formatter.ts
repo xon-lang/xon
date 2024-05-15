@@ -14,22 +14,8 @@ export interface Formatter {
   text: String2;
 }
 
-export enum FormattingType {
-  BEFORE = 'BEFORE',
-  BETWEEN = 'BETWEEN',
-  AFTER = 'AFTER',
-}
-
-// export function formatBeforeHiddenNodes(context: SyntaxContext, node: Node, keepSingleSpace: Boolean2): Nothing {
-//   const formatter = getFormatterForHiddenNodesWithSpaceKeeping(context, node, keepSingleSpace, FormattingType.BEFORE);
-
-//   if (formatter) {
-//     context.formatterManager.addFormatter(formatter);
-//   }
-// }
-
 export function formatBetweenHiddenNodes(context: SyntaxContext, node: Node, keepSingleSpace: Boolean2): Nothing {
-  const formatter = getFormatterForHiddenNodesWithSpaceKeeping(context, node, keepSingleSpace, FormattingType.BETWEEN);
+  const formatter = getFormatterForHiddenNodesWithSpaceKeeping(context, node, keepSingleSpace, true);
 
   if (formatter) {
     context.formatterManager.addFormatter(formatter);
@@ -46,7 +32,7 @@ export function formatStatement(context: SyntaxContext, statement: StatementNode
 
   if (lastNlIndex >= 0) {
     const beforeNlHiddenNodes = statement.hiddenNodes.slice(0, lastNlIndex + 1);
-    let text = formatHiddenNodes(context, beforeNlHiddenNodes);
+    let text = formatHiddenNodes(context, beforeNlHiddenNodes, false);
 
     if (text.length > 0) {
       if (isFirstStatement) {
@@ -96,7 +82,7 @@ export function formatRemainingContextHiddenNodes(context: SyntaxContext): Nothi
     return;
   }
 
-  let text = formatHiddenNodes(context, hiddenNodes, nothing).trimEnd();
+  let text = formatHiddenNodes(context, hiddenNodes, false).trimEnd();
 
   if (statements.length === 0) {
     text = text.trimStart();
@@ -126,7 +112,7 @@ function getFormatterForHiddenNodesWithSpaceKeeping(
   context: SyntaxContext,
   node: Node,
   keepSingleSpace: Boolean2,
-  formattingType: FormattingType,
+  isNoFirstChildNode: Boolean2,
 ): Formatter | Nothing {
   if (!node.hiddenNodes || node.hiddenNodes.length === 0) {
     if (keepSingleSpace) {
@@ -159,15 +145,15 @@ function getFormatterForHiddenNodesWithSpaceKeeping(
     };
   }
 
-  return getFormatterForHiddenNodes(context, node.hiddenNodes, formattingType);
+  return getFormatterForHiddenNodes(context, node.hiddenNodes, isNoFirstChildNode);
 }
 
 export function getFormatterForHiddenNodes(
   context: SyntaxContext,
   hiddenNodes: Array2<TokenNode>,
-  formattingType: FormattingType,
+  isNoFirstChildNode: Boolean2,
 ): Formatter | Nothing {
-  const text = formatHiddenNodes(context, hiddenNodes, formattingType);
+  const text = formatHiddenNodes(context, hiddenNodes, isNoFirstChildNode);
 
   if (isSameContent(context.resource, hiddenNodes, text)) {
     return nothing;
@@ -182,7 +168,7 @@ export function getFormatterForHiddenNodes(
 export function formatHiddenNodes(
   context: SyntaxContext,
   hiddenNodes: Array2<TokenNode>,
-  formattingType: FormattingType | Nothing,
+  isNoFirstChildNode: Boolean2,
 ): String2 {
   const splittedByNl = hiddenNodes
     .filter((x) => !is(x, $Node.WHITESPACE))
@@ -192,17 +178,8 @@ export function formatHiddenNodes(
     .map((x) => formatNlNode(context, x.splitter) + x.items.map((z) => z.text).join(' '))
     .join('');
 
-  if (text.length > 0 && formattingType) {
-    if (formattingType === FormattingType.BEFORE) {
-      return `${text} `;
-    }
-    if (formattingType === FormattingType.BETWEEN) {
-      return ` ${text} `;
-    }
-    // todo remove branch with FormattingType.AFTER
-    if (formattingType === FormattingType.AFTER && !text.startsWith(NL)) {
-      return ` ${text}`;
-    }
+  if (text.length > 0 && isNoFirstChildNode) {
+    return ` ${text} `;
   }
 
   return text;
@@ -213,8 +190,7 @@ function formatNlNode(context: SyntaxContext, node: NlNode | Nothing): String2 {
     return '';
   }
 
-  // todo replace with node.range.stop.line - node.range.start.line
-  const nlCount = node.text.count((x) => x === NL);
+  const nlCount = node.range.stop.line - node.range.start.line;
   const text = NL.repeat(Math.min(nlCount, context.config.formatting.maxNewLines));
 
   return text;
