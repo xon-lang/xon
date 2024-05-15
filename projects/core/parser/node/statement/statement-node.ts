@@ -1,7 +1,7 @@
 import {formatStatement} from '../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Array2, Integer, Nothing} from '../../../lib/core';
-import {TextRange} from '../../../util/resource/text/text-range';
+import {TextRange, zeroRange} from '../../../util/resource/text/text-range';
 import {SyntaxContext} from '../../syntax-context';
 import {$Node, Node} from '../node';
 import {SyntaxNode, syntaxNode} from '../syntax/syntax-node';
@@ -13,7 +13,6 @@ export interface StatementNode extends SyntaxNode {
   parentStatement: StatementNode | Nothing;
   indentLevel: Integer;
   indent: TextRange;
-  formattedIndentColumn?: Integer | Nothing;
   children: Array2<Node>;
   item: Node;
   body: Array2<StatementNode>;

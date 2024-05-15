@@ -225,3 +225,22 @@ test('empty object', () => {
   expect(node.$).toBe($Node.OBJECT);
   expect(node.items.length).toBe(0);
 });
+
+test('group with nl', () => {
+  const text = `  (123 ,456
+  7)`;
+  const source = textResourceFrom(nothing, text);
+  const syntax = syntaxParse(source);
+  const statements = syntax.statements;
+  const node = statements[0].item as GroupNode;
+
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.GROUP);
+  expect(node.items.length).toBe(2);
+  expect((node.items[0]?.value as IntegerNode).text).toBe('123');
+  expect(node.items[0]?.statements.length).toBe(1);
+  expect((node.items[1]?.value as IntegerNode).text).toBe('456');
+  expect(node.items[1]?.statements.length).toBe(1);
+  expect(node.items[1]?.statements[0].body.length).toBe(1);
+  expect((node.items[1]?.statements[0].body[0].item as IntegerNode).text).toBe('7');
+});

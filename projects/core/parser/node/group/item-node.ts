@@ -18,8 +18,6 @@ export function itemNode(context: SyntaxContext, statements: StatementNode[], co
   const value = statements.first()?.item;
   const node = syntaxNode($Node.ITEM, {value, statements, comma});
 
-if(statements)
-
   validate(context, node);
   format(context, node);
 
@@ -33,6 +31,7 @@ function validate(context: SyntaxContext, node: ItemNode): Nothing {
 }
 
 function format(context: SyntaxContext, node: ItemNode): Nothing {
+  // todo move first statement hidden nodes to item and comma
   if (node.comma) {
     formatBetweenHiddenNodes(context, node.comma, false);
   }

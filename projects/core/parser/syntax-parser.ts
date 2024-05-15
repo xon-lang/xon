@@ -1,9 +1,9 @@
 import {formatRemainingContextHiddenNodes} from '../formatter/formatter';
 import {FormatterManager} from '../formatter/formatter-manager';
 import {IssueManager} from '../issue/issue-manager';
-import {Array2, Boolean2, Integer, Nothing, nothing} from '../lib/core';
-import {TextPosition, clonePosition, textPosition, zeroPosition} from '../util/resource/text/text-position';
-import {TextRange, cloneRange, textRange, zeroRange} from '../util/resource/text/text-range';
+import {Array2, Boolean2, Integer, Nothing} from '../lib/core';
+import {TextPosition, zeroPosition} from '../util/resource/text/text-position';
+import {TextRange, cloneRange, rangeFromPosition} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
 import {$Node, Node, is} from './node/node';
 import {charNodeParse} from './node/token/char/char-node-parse';
@@ -23,7 +23,6 @@ import {isHiddenToken} from './node/token/token-node';
 import {unknownNodeParse} from './node/token/unknown/unknown-node-parse';
 import {WhitespaceNode} from './node/token/whitespace/whitespace-node';
 import {whitespaceNodeParse} from './node/token/whitespace/whitespace-node-parse';
-import {NL} from './parser-config';
 import {putStatementNode} from './put-statement-node';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
 import {SyntaxParserConfig} from './syntax-parser-config';
@@ -57,9 +56,10 @@ export function syntaxParse(
   breakOnNodeFn: ((node: Node) => Boolean2) | Nothing,
   config: SyntaxParserConfig | Nothing,
 ): SyntaxResult {
-  const context = syntaxContext(resource, startPosition ?? zeroPosition(), issueManager, formatterManager, config);
-  let lastNlNode: NlNode | Nothing = nothing;
-  let statementIndent: TextRange = zeroRange();
+  const position = startPosition ?? zeroPosition();
+  const context = syntaxContext(resource, position, issueManager, formatterManager, config);
+
+  let statementIndent: TextRange = rangeFromPosition(position);
 
   while (context.position.index < context.resource.data.length) {
     const node = nextNode(context);
@@ -81,8 +81,6 @@ export function syntaxParse(
           putStatementNode(context, statementIndent);
           context.nodes = [];
         }
-
-        lastNlNode = node;
       }
 
       context.hiddenNodes.push(node);
@@ -90,17 +88,18 @@ export function syntaxParse(
       continue;
     }
 
-    if (context.nodes.length === 0) {
-      if (lastNlNode) {
-        const lastNlIndex = lastNlNode.text.lastIndexOf(NL);
-        const index = lastNlNode.range.stop.index - lastNlIndex;
-        const line = lastNlNode.range.stop.line;
-        const column = lastNlNode.text.length - lastNlIndex;
-        const start = textPosition(index, line, column);
-        const stop = clonePosition(lastNlNode.range.stop);
+    if (context.nodes.length === 0 && context.hiddenNodes.length > 0) {
+      const lastNlIndex = context.hiddenNodes.lastIndex((x) => is<NlNode>(x, $Node.NL));
 
-        statementIndent = textRange(start, stop);
-      } else if (context.hiddenNodes.length > 0 && is<WhitespaceNode>(context.hiddenNodes[0], $Node.WHITESPACE)) {
+      if (lastNlIndex >= 0) {
+        const whiteSpaceNode = context.hiddenNodes[lastNlIndex + 1];
+
+        if (is<WhitespaceNode>(whiteSpaceNode, $Node.WHITESPACE)) {
+          statementIndent = cloneRange(whiteSpaceNode.range);
+        } else {
+          statementIndent = rangeFromPosition(context.hiddenNodes[lastNlIndex].range.stop);
+        }
+      } else if (is<WhitespaceNode>(context.hiddenNodes[0], $Node.WHITESPACE)) {
         statementIndent = cloneRange(context.hiddenNodes[0].range);
       }
     }
