@@ -19,7 +19,7 @@ export function infixNodeParse(operators: String[], isLeftRecursive: Boolean2): 
         return nothing;
       }
 
-      return {node: infixNode(context, left, node, right), spliceIndex: index - 1};
+      return {node: infixNode(context, left, node, right), index: index - 1};
     });
   };
 }

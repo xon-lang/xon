@@ -19,7 +19,7 @@ export function importNodeParse(): SyntaxParseFn {
         return nothing;
       }
 
-      return {node: importNode(context, node, value), spliceIndex: index};
+      return {node: importNode(context, node, value), index};
     });
   };
 }

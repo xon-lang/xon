@@ -22,7 +22,7 @@ export function memberNodeParse(operators: String[]): SyntaxParseFn {
       const right = nodes[index + 1];
       const id = is<IdNode>(right, $Node.ID) ? right : nothing;
 
-      return {node: memberNode(context, instance, node, id), spliceIndex: index - 1};
+      return {node: memberNode(context, instance, node, id), index: index - 1};
     });
   };
 }

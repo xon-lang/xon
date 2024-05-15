@@ -22,7 +22,7 @@ export function prefixNodeParse(operators: String[], isLeftRecursive: Boolean2):
         return nothing;
       }
 
-      return {node: prefixNode(context, node, value), spliceIndex: index};
+      return {node: prefixNode(context, node, value), index: index};
     });
   };
 }

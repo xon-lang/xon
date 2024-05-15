@@ -31,7 +31,7 @@ export function declarationNodeParse(): SyntaxParseFn {
       parts.id.hiddenNodes = parts.idHiddenNodes;
     }
 
-    return {spliceIndex: parts.spliceIndex, deleteCount: parts.deleteCount, node: partialToDeclaration(context, parts)};
+    return {index: parts.spliceIndex, deleteCount: parts.deleteCount, node: partialToDeclaration(context, parts)};
   };
 }
 

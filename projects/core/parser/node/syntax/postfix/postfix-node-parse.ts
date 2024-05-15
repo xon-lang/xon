@@ -22,7 +22,7 @@ export function postfixNodeParse(operators: String[], isLeftRecursive: Boolean2)
         return nothing;
       }
 
-      return {node: postfixNode(context, value, node), spliceIndex: index - 1};
+      return {node: postfixNode(context, value, node), index: index - 1};
     });
   };
 }

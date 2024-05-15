@@ -26,7 +26,7 @@ export function lambdaNodeParse(): SyntaxParseFn {
 
     const node = lambdaNode(context, parts.generics, parts.parameters, parts.type, parts.assign);
 
-    return {node, spliceIndex: parts.spliceIndex, deleteCount: parts.deleteCount};
+    return {node, index: parts.spliceIndex, deleteCount: parts.deleteCount};
   };
 }
 

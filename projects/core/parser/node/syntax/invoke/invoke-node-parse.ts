@@ -17,7 +17,7 @@ export function invokeNodeParse(): SyntaxParseFn {
         return nothing;
       }
 
-      return {node: invokeNode(context, instance, node), spliceIndex: index - 1};
+      return {node: invokeNode(context, instance, node), index: index - 1};
     });
   };
 }

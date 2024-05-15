@@ -129,7 +129,7 @@ export function nodeFindMap<T>(
     const node = nodes[index];
 
     const result = predicateMap(node, index, nodes);
-   
+
     if (result) {
       return result;
     }

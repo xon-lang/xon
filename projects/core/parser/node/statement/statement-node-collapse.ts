@@ -39,7 +39,7 @@ import {prefixNodeParse} from '../syntax/prefix/prefix-node-parse';
 import {SyntaxNode} from '../syntax/syntax-node';
 
 // todo rename spliceIndex to index
-export type SyntaxParseResult = {spliceIndex: Integer; deleteCount?: Integer; node: SyntaxNode} | Nothing;
+export type SyntaxParseResult = {index: Integer; deleteCount?: Integer; node: SyntaxNode} | Nothing;
 export type SyntaxParseFn = (context: SyntaxContext, startIndex: Integer) => SyntaxParseResult;
 
 const parsers: Array2<SyntaxParseFn> = [
@@ -71,8 +71,8 @@ export function statementNodeCollapse(context: SyntaxContext): Nothing {
     let index = 0;
 
     while ((result = parse(context, index))) {
-      index = result.spliceIndex;
-      context.nodes.splice(result.spliceIndex, result.deleteCount ?? result.node.children.length, result.node);
+      index = result.index;
+      context.nodes.splice(result.index, result.deleteCount ?? result.node.children.length, result.node);
     }
   }
 }

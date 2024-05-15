@@ -24,7 +24,7 @@ export function assignmentNodeParse(): SyntaxParseFn {
 
       const assign = prefixNode(context, node, value);
 
-      return {node: assignmentNode(context, id, assign), spliceIndex: index - 1, deleteCount: 3};
+      return {node: assignmentNode(context, id, assign), index: index - 1, deleteCount: 3};
     });
   };
 }
