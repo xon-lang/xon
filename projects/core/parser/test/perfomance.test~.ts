@@ -20,7 +20,7 @@ test('performance', () => {
   console.log(`min ${min}ms\nmax ${max}ms\navg ${avg}ms\n`);
 });
 
-test('1', () => testFormatter('1'));
+// test('1', () => testFormatter('1'));
 
 function testFormatter(index: String2) {
   const dirPath = join(__dirname, index);

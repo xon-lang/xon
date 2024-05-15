@@ -119,16 +119,22 @@ export function nodeFindMap<T>(
   nodes: Node[],
   startIndex: Integer,
   isLeftRecursive: Boolean2,
-  predicateMap: (node: Node, index, nodes: Node[]) => T,
+  predicateMap: (node: Node, index: Integer, nodes: Node[]) => T,
 ): T | Nothing {
-  for (let i = startIndex; i < nodes.length; i++) {
-    const lastIndex = nodes.length - 1;
-    // todo simplify it
-    const index = isLeftRecursive ? i : lastIndex - i;
+  if (isLeftRecursive) {
+    for (let i = startIndex; i < nodes.length; i++) {
+      const result = predicateMap(nodes[i], i, nodes);
 
-    const node = nodes[index];
+      if (result) {
+        return result;
+      }
+    }
 
-    const result = predicateMap(node, index, nodes);
+    return nothing;
+  }
+
+  for (let i = nodes.length - 1; i >= startIndex; i--) {
+    const result = predicateMap(nodes[i], i, nodes);
 
     if (result) {
       return result;

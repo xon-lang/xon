@@ -42,6 +42,9 @@ import {SyntaxNode} from '../syntax/syntax-node';
 export type SyntaxParseResult = {index: Integer; deleteCount?: Integer; node: SyntaxNode} | Nothing;
 export type SyntaxParseFn = (context: SyntaxContext, startIndex: Integer) => SyntaxParseResult;
 
+const declarationNodeParseFn = declarationNodeParse();
+const lambdaNodeParseFn = lambdaNodeParse();
+
 const parsers: Array2<SyntaxParseFn> = [
   importNodeParse(),
   memberNodeParse([MEMBER, META_MEMBER]),
@@ -59,20 +62,40 @@ const parsers: Array2<SyntaxParseFn> = [
   infixNodeParse([UNION, COMPLEMENT], true),
   prefixNodeParse(MODIFIER_KEYWORDS, false),
   prefixNodeParse(CONTROL_KEYWORDS, false),
-  lambdaNodeParse(),
-  declarationNodeParse(),
+  lambdaNodeParseFn,
+  declarationNodeParseFn,
   assignmentNodeParse(),
 ];
 
 export function statementNodeCollapse(context: SyntaxContext): Nothing {
+  if (context.nodes.length === 0) {
+    return;
+  }
+
   let result: SyntaxParseResult = nothing;
 
   for (const parse of parsers) {
     let index = 0;
 
+    // todo check and remove optimization if does'nt need
+    if (context.nodes.length === 1) {
+      result = lambdaNodeParseFn(context, index) ?? declarationNodeParseFn(context, index);
+
+      if (result) {
+        context.nodes.splice(result.index, result.deleteCount ?? result.node.children.length, result.node);
+      }
+
+      break;
+    }
+
     while ((result = parse(context, index))) {
-      index = result.index;
       context.nodes.splice(result.index, result.deleteCount ?? result.node.children.length, result.node);
+      index = result.index + 1;
+
+      // todo check and remove optimization if does'nt need
+      if (index >= context.nodes.length || context.nodes.length === 1) {
+        break;
+      }
     }
   }
 }

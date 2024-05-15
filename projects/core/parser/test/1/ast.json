@@ -13,6 +13,7 @@
         "column": 5
       }
     },
+    "hiddenNodes": [],
     "children": [
       {
         "$": "INFIX SYNTAX NODE",
@@ -31,7 +32,6 @@
         "children": [
           {
             "$": "ID TOKEN NODE",
-            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 0,
@@ -44,14 +44,27 @@
                 "column": 1
               }
             },
-            "text": "a"
+            "text": "a",
+            "hiddenNodes": null
           },
           {
             "$": "OPERATOR TOKEN NODE",
+            "range": {
+              "start": {
+                "index": 2,
+                "line": 0,
+                "column": 2
+              },
+              "stop": {
+                "index": 3,
+                "line": 0,
+                "column": 3
+              }
+            },
+            "text": "+",
             "hiddenNodes": [
               {
                 "$": "WHITESPACE TOKEN NODE",
-                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 1,
@@ -66,27 +79,26 @@
                 },
                 "text": " "
               }
-            ],
-            "range": {
-              "start": {
-                "index": 2,
-                "line": 0,
-                "column": 2
-              },
-              "stop": {
-                "index": 3,
-                "line": 0,
-                "column": 3
-              }
-            },
-            "text": "+"
+            ]
           },
           {
             "$": "ID TOKEN NODE",
+            "range": {
+              "start": {
+                "index": 4,
+                "line": 0,
+                "column": 4
+              },
+              "stop": {
+                "index": 5,
+                "line": 0,
+                "column": 5
+              }
+            },
+            "text": "b",
             "hiddenNodes": [
               {
                 "$": "WHITESPACE TOKEN NODE",
-                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 3,
@@ -101,26 +113,12 @@
                 },
                 "text": " "
               }
-            ],
-            "range": {
-              "start": {
-                "index": 4,
-                "line": 0,
-                "column": 4
-              },
-              "stop": {
-                "index": 5,
-                "line": 0,
-                "column": 5
-              }
-            },
-            "text": "b"
+            ]
           }
         ],
         "hiddenNodes": [],
         "left": {
           "$": "ID TOKEN NODE",
-          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 0,
@@ -133,14 +131,27 @@
               "column": 1
             }
           },
-          "text": "a"
+          "text": "a",
+          "hiddenNodes": null
         },
         "operator": {
           "$": "OPERATOR TOKEN NODE",
+          "range": {
+            "start": {
+              "index": 2,
+              "line": 0,
+              "column": 2
+            },
+            "stop": {
+              "index": 3,
+              "line": 0,
+              "column": 3
+            }
+          },
+          "text": "+",
           "hiddenNodes": [
             {
               "$": "WHITESPACE TOKEN NODE",
-              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 1,
@@ -155,27 +166,26 @@
               },
               "text": " "
             }
-          ],
-          "range": {
-            "start": {
-              "index": 2,
-              "line": 0,
-              "column": 2
-            },
-            "stop": {
-              "index": 3,
-              "line": 0,
-              "column": 3
-            }
-          },
-          "text": "+"
+          ]
         },
         "right": {
           "$": "ID TOKEN NODE",
+          "range": {
+            "start": {
+              "index": 4,
+              "line": 0,
+              "column": 4
+            },
+            "stop": {
+              "index": 5,
+              "line": 0,
+              "column": 5
+            }
+          },
+          "text": "b",
           "hiddenNodes": [
             {
               "$": "WHITESPACE TOKEN NODE",
-              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 3,
@@ -190,27 +200,23 @@
               },
               "text": " "
             }
-          ],
-          "range": {
-            "start": {
-              "index": 4,
-              "line": 0,
-              "column": 4
-            },
-            "stop": {
-              "index": 5,
-              "line": 0,
-              "column": 5
-            }
-          },
-          "text": "b"
+          ]
         }
       }
     ],
-    "hiddenNodes": [],
-    "indentColumn": 0,
+    "indent": {
+      "start": {
+        "index": 0,
+        "line": 0,
+        "column": 0
+      },
+      "stop": {
+        "index": 0,
+        "line": 0,
+        "column": 0
+      }
+    },
     "indentLevel": 0,
-    "parentStatement": null,
     "item": {
       "$": "INFIX SYNTAX NODE",
       "range": {
@@ -228,7 +234,6 @@
       "children": [
         {
           "$": "ID TOKEN NODE",
-          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 0,
@@ -241,14 +246,27 @@
               "column": 1
             }
           },
-          "text": "a"
+          "text": "a",
+          "hiddenNodes": null
         },
         {
           "$": "OPERATOR TOKEN NODE",
+          "range": {
+            "start": {
+              "index": 2,
+              "line": 0,
+              "column": 2
+            },
+            "stop": {
+              "index": 3,
+              "line": 0,
+              "column": 3
+            }
+          },
+          "text": "+",
           "hiddenNodes": [
             {
               "$": "WHITESPACE TOKEN NODE",
-              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 1,
@@ -263,27 +281,26 @@
               },
               "text": " "
             }
-          ],
-          "range": {
-            "start": {
-              "index": 2,
-              "line": 0,
-              "column": 2
-            },
-            "stop": {
-              "index": 3,
-              "line": 0,
-              "column": 3
-            }
-          },
-          "text": "+"
+          ]
         },
         {
           "$": "ID TOKEN NODE",
+          "range": {
+            "start": {
+              "index": 4,
+              "line": 0,
+              "column": 4
+            },
+            "stop": {
+              "index": 5,
+              "line": 0,
+              "column": 5
+            }
+          },
+          "text": "b",
           "hiddenNodes": [
             {
               "$": "WHITESPACE TOKEN NODE",
-              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 3,
@@ -298,26 +315,12 @@
               },
               "text": " "
             }
-          ],
-          "range": {
-            "start": {
-              "index": 4,
-              "line": 0,
-              "column": 4
-            },
-            "stop": {
-              "index": 5,
-              "line": 0,
-              "column": 5
-            }
-          },
-          "text": "b"
+          ]
         }
       ],
       "hiddenNodes": [],
       "left": {
         "$": "ID TOKEN NODE",
-        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 0,
@@ -330,14 +333,27 @@
             "column": 1
           }
         },
-        "text": "a"
+        "text": "a",
+        "hiddenNodes": null
       },
       "operator": {
         "$": "OPERATOR TOKEN NODE",
+        "range": {
+          "start": {
+            "index": 2,
+            "line": 0,
+            "column": 2
+          },
+          "stop": {
+            "index": 3,
+            "line": 0,
+            "column": 3
+          }
+        },
+        "text": "+",
         "hiddenNodes": [
           {
             "$": "WHITESPACE TOKEN NODE",
-            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 1,
@@ -352,27 +368,26 @@
             },
             "text": " "
           }
-        ],
-        "range": {
-          "start": {
-            "index": 2,
-            "line": 0,
-            "column": 2
-          },
-          "stop": {
-            "index": 3,
-            "line": 0,
-            "column": 3
-          }
-        },
-        "text": "+"
+        ]
       },
       "right": {
         "$": "ID TOKEN NODE",
+        "range": {
+          "start": {
+            "index": 4,
+            "line": 0,
+            "column": 4
+          },
+          "stop": {
+            "index": 5,
+            "line": 0,
+            "column": 5
+          }
+        },
+        "text": "b",
         "hiddenNodes": [
           {
             "$": "WHITESPACE TOKEN NODE",
-            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 3,
@@ -387,20 +402,7 @@
             },
             "text": " "
           }
-        ],
-        "range": {
-          "start": {
-            "index": 4,
-            "line": 0,
-            "column": 4
-          },
-          "stop": {
-            "index": 5,
-            "line": 0,
-            "column": 5
-          }
-        },
-        "text": "b"
+        ]
       }
     },
     "body": []
@@ -419,6 +421,24 @@
         "column": 2
       }
     },
+    "hiddenNodes": [
+      {
+        "$": "NL TOKEN NODE",
+        "range": {
+          "start": {
+            "index": 5,
+            "line": 0,
+            "column": 5
+          },
+          "stop": {
+            "index": 6,
+            "line": 1,
+            "column": 0
+          }
+        },
+        "text": "\n"
+      }
+    ],
     "children": [
       {
         "$": "POSTFIX SYNTAX NODE",
@@ -437,7 +457,6 @@
         "children": [
           {
             "$": "ID TOKEN NODE",
-            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 6,
@@ -450,11 +469,11 @@
                 "column": 1
               }
             },
-            "text": "c"
+            "text": "c",
+            "hiddenNodes": null
           },
           {
             "$": "OPERATOR TOKEN NODE",
-            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 7,
@@ -467,31 +486,13 @@
                 "column": 2
               }
             },
-            "text": "!"
+            "text": "!",
+            "hiddenNodes": []
           }
         ],
-        "hiddenNodes": [
-          {
-            "$": "NL TOKEN NODE",
-            "hiddenNodes": [],
-            "range": {
-              "start": {
-                "index": 5,
-                "line": 0,
-                "column": 5
-              },
-              "stop": {
-                "index": 6,
-                "line": 1,
-                "column": 0
-              }
-            },
-            "text": "\n"
-          }
-        ],
+        "hiddenNodes": [],
         "value": {
           "$": "ID TOKEN NODE",
-          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 6,
@@ -504,11 +505,11 @@
               "column": 1
             }
           },
-          "text": "c"
+          "text": "c",
+          "hiddenNodes": null
         },
         "operator": {
           "$": "OPERATOR TOKEN NODE",
-          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 7,
@@ -521,14 +522,24 @@
               "column": 2
             }
           },
-          "text": "!"
+          "text": "!",
+          "hiddenNodes": []
         }
       }
     ],
-    "hiddenNodes": [],
-    "indentColumn": 0,
+    "indent": {
+      "start": {
+        "index": 6,
+        "line": 1,
+        "column": 0
+      },
+      "stop": {
+        "index": 6,
+        "line": 1,
+        "column": 0
+      }
+    },
     "indentLevel": 0,
-    "parentStatement": null,
     "item": {
       "$": "POSTFIX SYNTAX NODE",
       "range": {
@@ -546,7 +557,6 @@
       "children": [
         {
           "$": "ID TOKEN NODE",
-          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 6,
@@ -559,11 +569,11 @@
               "column": 1
             }
           },
-          "text": "c"
+          "text": "c",
+          "hiddenNodes": null
         },
         {
           "$": "OPERATOR TOKEN NODE",
-          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 7,
@@ -576,31 +586,13 @@
               "column": 2
             }
           },
-          "text": "!"
+          "text": "!",
+          "hiddenNodes": []
         }
       ],
-      "hiddenNodes": [
-        {
-          "$": "NL TOKEN NODE",
-          "hiddenNodes": [],
-          "range": {
-            "start": {
-              "index": 5,
-              "line": 0,
-              "column": 5
-            },
-            "stop": {
-              "index": 6,
-              "line": 1,
-              "column": 0
-            }
-          },
-          "text": "\n"
-        }
-      ],
+      "hiddenNodes": [],
       "value": {
         "$": "ID TOKEN NODE",
-        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 6,
@@ -613,11 +605,11 @@
             "column": 1
           }
         },
-        "text": "c"
+        "text": "c",
+        "hiddenNodes": null
       },
       "operator": {
         "$": "OPERATOR TOKEN NODE",
-        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 7,
@@ -630,7 +622,8 @@
             "column": 2
           }
         },
-        "text": "!"
+        "text": "!",
+        "hiddenNodes": []
       }
     },
     "body": []
@@ -649,6 +642,24 @@
         "column": 2
       }
     },
+    "hiddenNodes": [
+      {
+        "$": "NL TOKEN NODE",
+        "range": {
+          "start": {
+            "index": 8,
+            "line": 1,
+            "column": 2
+          },
+          "stop": {
+            "index": 10,
+            "line": 3,
+            "column": 0
+          }
+        },
+        "text": "\n\n"
+      }
+    ],
     "children": [
       {
         "$": "PREFIX SYNTAX NODE",
@@ -667,7 +678,6 @@
         "children": [
           {
             "$": "OPERATOR TOKEN NODE",
-            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 10,
@@ -680,11 +690,11 @@
                 "column": 1
               }
             },
-            "text": "-"
+            "text": "-",
+            "hiddenNodes": null
           },
           {
             "$": "ID TOKEN NODE",
-            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 11,
@@ -697,31 +707,13 @@
                 "column": 2
               }
             },
-            "text": "d"
+            "text": "d",
+            "hiddenNodes": []
           }
         ],
-        "hiddenNodes": [
-          {
-            "$": "NL TOKEN NODE",
-            "hiddenNodes": [],
-            "range": {
-              "start": {
-                "index": 8,
-                "line": 1,
-                "column": 2
-              },
-              "stop": {
-                "index": 10,
-                "line": 3,
-                "column": 0
-              }
-            },
-            "text": "\n\n"
-          }
-        ],
+        "hiddenNodes": [],
         "operator": {
           "$": "OPERATOR TOKEN NODE",
-          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 10,
@@ -734,11 +726,11 @@
               "column": 1
             }
           },
-          "text": "-"
+          "text": "-",
+          "hiddenNodes": null
         },
         "value": {
           "$": "ID TOKEN NODE",
-          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 11,
@@ -751,14 +743,24 @@
               "column": 2
             }
           },
-          "text": "d"
+          "text": "d",
+          "hiddenNodes": []
         }
       }
     ],
-    "hiddenNodes": [],
-    "indentColumn": 0,
+    "indent": {
+      "start": {
+        "index": 10,
+        "line": 3,
+        "column": 0
+      },
+      "stop": {
+        "index": 10,
+        "line": 3,
+        "column": 0
+      }
+    },
     "indentLevel": 0,
-    "parentStatement": null,
     "item": {
       "$": "PREFIX SYNTAX NODE",
       "range": {
@@ -776,7 +778,6 @@
       "children": [
         {
           "$": "OPERATOR TOKEN NODE",
-          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 10,
@@ -789,11 +790,11 @@
               "column": 1
             }
           },
-          "text": "-"
+          "text": "-",
+          "hiddenNodes": null
         },
         {
           "$": "ID TOKEN NODE",
-          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 11,
@@ -806,31 +807,13 @@
               "column": 2
             }
           },
-          "text": "d"
+          "text": "d",
+          "hiddenNodes": []
         }
       ],
-      "hiddenNodes": [
-        {
-          "$": "NL TOKEN NODE",
-          "hiddenNodes": [],
-          "range": {
-            "start": {
-              "index": 8,
-              "line": 1,
-              "column": 2
-            },
-            "stop": {
-              "index": 10,
-              "line": 3,
-              "column": 0
-            }
-          },
-          "text": "\n\n"
-        }
-      ],
+      "hiddenNodes": [],
       "operator": {
         "$": "OPERATOR TOKEN NODE",
-        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 10,
@@ -843,11 +826,11 @@
             "column": 1
           }
         },
-        "text": "-"
+        "text": "-",
+        "hiddenNodes": null
       },
       "value": {
         "$": "ID TOKEN NODE",
-        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 11,
@@ -860,7 +843,8 @@
             "column": 2
           }
         },
-        "text": "d"
+        "text": "d",
+        "hiddenNodes": []
       }
     },
     "body": []
@@ -879,6 +863,24 @@
         "column": 7
       }
     },
+    "hiddenNodes": [
+      {
+        "$": "NL TOKEN NODE",
+        "range": {
+          "start": {
+            "index": 12,
+            "line": 3,
+            "column": 2
+          },
+          "stop": {
+            "index": 14,
+            "line": 5,
+            "column": 0
+          }
+        },
+        "text": "\n\n"
+      }
+    ],
     "children": [
       {
         "$": "INVOKE SYNTAX NODE",
@@ -897,7 +899,6 @@
         "children": [
           {
             "$": "ID TOKEN NODE",
-            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 14,
@@ -910,7 +911,8 @@
                 "column": 1
               }
             },
-            "text": "e"
+            "text": "e",
+            "hiddenNodes": null
           },
           {
             "$": "GROUP SYNTAX NODE",
@@ -929,7 +931,6 @@
             "children": [
               {
                 "$": "OPEN TOKEN NODE",
-                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 15,
@@ -960,23 +961,6 @@
                 },
                 "children": [
                   {
-                    "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 16,
-                        "line": 5,
-                        "column": 2
-                      },
-                      "stop": {
-                        "index": 17,
-                        "line": 5,
-                        "column": 3
-                      }
-                    },
-                    "text": "f"
-                  },
-                  {
                     "$": "STATEMENT SYNTAX NODE",
                     "range": {
                       "start": {
@@ -990,10 +974,10 @@
                         "column": 3
                       }
                     },
+                    "hiddenNodes": [],
                     "children": [
                       {
                         "$": "ID TOKEN NODE",
-                        "hiddenNodes": [],
                         "range": {
                           "start": {
                             "index": 16,
@@ -1006,16 +990,25 @@
                             "column": 3
                           }
                         },
-                        "text": "f"
+                        "text": "f",
+                        "hiddenNodes": []
                       }
                     ],
-                    "hiddenNodes": [],
-                    "indentColumn": 2,
+                    "indent": {
+                      "start": {
+                        "index": 16,
+                        "line": 5,
+                        "column": 2
+                      },
+                      "stop": {
+                        "index": 16,
+                        "line": 5,
+                        "column": 2
+                      }
+                    },
                     "indentLevel": 0,
-                    "parentStatement": null,
                     "item": {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 16,
@@ -1028,13 +1021,13 @@
                           "column": 3
                         }
                       },
-                      "text": "f"
+                      "text": "f",
+                      "hiddenNodes": []
                     },
                     "body": []
                   },
                   {
                     "$": "COMMA TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 17,
@@ -1050,9 +1043,8 @@
                     "text": ","
                   }
                 ],
-                "hiddenNodes": [],
                 "value": {
-                  "$": "DECLARATION SYNTAX NODE",
+                  "$": "ID TOKEN NODE",
                   "range": {
                     "start": {
                       "index": 16,
@@ -1065,43 +1057,8 @@
                       "column": 3
                     }
                   },
-                  "children": [
-                    {
-                      "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
-                      "range": {
-                        "start": {
-                          "index": 16,
-                          "line": 5,
-                          "column": 2
-                        },
-                        "stop": {
-                          "index": 17,
-                          "line": 5,
-                          "column": 3
-                        }
-                      },
-                      "text": "f"
-                    }
-                  ],
-                  "hiddenNodes": [],
-                  "id": {
-                    "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 16,
-                        "line": 5,
-                        "column": 2
-                      },
-                      "stop": {
-                        "index": 17,
-                        "line": 5,
-                        "column": 3
-                      }
-                    },
-                    "text": "f"
-                  }
+                  "text": "f",
+                  "hiddenNodes": []
                 },
                 "statements": [
                   {
@@ -1118,10 +1075,10 @@
                         "column": 3
                       }
                     },
+                    "hiddenNodes": [],
                     "children": [
                       {
                         "$": "ID TOKEN NODE",
-                        "hiddenNodes": [],
                         "range": {
                           "start": {
                             "index": 16,
@@ -1134,16 +1091,25 @@
                             "column": 3
                           }
                         },
-                        "text": "f"
+                        "text": "f",
+                        "hiddenNodes": []
                       }
                     ],
-                    "hiddenNodes": [],
-                    "indentColumn": 2,
+                    "indent": {
+                      "start": {
+                        "index": 16,
+                        "line": 5,
+                        "column": 2
+                      },
+                      "stop": {
+                        "index": 16,
+                        "line": 5,
+                        "column": 2
+                      }
+                    },
                     "indentLevel": 0,
-                    "parentStatement": null,
                     "item": {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 16,
@@ -1156,14 +1122,14 @@
                           "column": 3
                         }
                       },
-                      "text": "f"
+                      "text": "f",
+                      "hiddenNodes": []
                     },
                     "body": []
                   }
                 ],
                 "comma": {
                   "$": "COMMA TOKEN NODE",
-                  "hiddenNodes": [],
                   "range": {
                     "start": {
                       "index": 17,
@@ -1195,23 +1161,6 @@
                 },
                 "children": [
                   {
-                    "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 19,
-                        "line": 5,
-                        "column": 5
-                      },
-                      "stop": {
-                        "index": 20,
-                        "line": 5,
-                        "column": 6
-                      }
-                    },
-                    "text": "g"
-                  },
-                  {
                     "$": "STATEMENT SYNTAX NODE",
                     "range": {
                       "start": {
@@ -1225,10 +1174,27 @@
                         "column": 6
                       }
                     },
+                    "hiddenNodes": [
+                      {
+                        "$": "WHITESPACE TOKEN NODE",
+                        "range": {
+                          "start": {
+                            "index": 18,
+                            "line": 5,
+                            "column": 4
+                          },
+                          "stop": {
+                            "index": 19,
+                            "line": 5,
+                            "column": 5
+                          }
+                        },
+                        "text": " "
+                      }
+                    ],
                     "children": [
                       {
                         "$": "ID TOKEN NODE",
-                        "hiddenNodes": [],
                         "range": {
                           "start": {
                             "index": 19,
@@ -1241,16 +1207,25 @@
                             "column": 6
                           }
                         },
-                        "text": "g"
+                        "text": "g",
+                        "hiddenNodes": []
                       }
                     ],
-                    "hiddenNodes": [],
-                    "indentColumn": 5,
+                    "indent": {
+                      "start": {
+                        "index": 18,
+                        "line": 5,
+                        "column": 4
+                      },
+                      "stop": {
+                        "index": 19,
+                        "line": 5,
+                        "column": 5
+                      }
+                    },
                     "indentLevel": 0,
-                    "parentStatement": null,
                     "item": {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 19,
@@ -1263,32 +1238,14 @@
                           "column": 6
                         }
                       },
-                      "text": "g"
+                      "text": "g",
+                      "hiddenNodes": []
                     },
                     "body": []
                   }
                 ],
-                "hiddenNodes": [
-                  {
-                    "$": "WHITESPACE TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 18,
-                        "line": 5,
-                        "column": 4
-                      },
-                      "stop": {
-                        "index": 19,
-                        "line": 5,
-                        "column": 5
-                      }
-                    },
-                    "text": " "
-                  }
-                ],
                 "value": {
-                  "$": "DECLARATION SYNTAX NODE",
+                  "$": "ID TOKEN NODE",
                   "range": {
                     "start": {
                       "index": 19,
@@ -1301,43 +1258,8 @@
                       "column": 6
                     }
                   },
-                  "children": [
-                    {
-                      "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
-                      "range": {
-                        "start": {
-                          "index": 19,
-                          "line": 5,
-                          "column": 5
-                        },
-                        "stop": {
-                          "index": 20,
-                          "line": 5,
-                          "column": 6
-                        }
-                      },
-                      "text": "g"
-                    }
-                  ],
-                  "hiddenNodes": [],
-                  "id": {
-                    "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 19,
-                        "line": 5,
-                        "column": 5
-                      },
-                      "stop": {
-                        "index": 20,
-                        "line": 5,
-                        "column": 6
-                      }
-                    },
-                    "text": "g"
-                  }
+                  "text": "g",
+                  "hiddenNodes": []
                 },
                 "statements": [
                   {
@@ -1354,10 +1276,27 @@
                         "column": 6
                       }
                     },
+                    "hiddenNodes": [
+                      {
+                        "$": "WHITESPACE TOKEN NODE",
+                        "range": {
+                          "start": {
+                            "index": 18,
+                            "line": 5,
+                            "column": 4
+                          },
+                          "stop": {
+                            "index": 19,
+                            "line": 5,
+                            "column": 5
+                          }
+                        },
+                        "text": " "
+                      }
+                    ],
                     "children": [
                       {
                         "$": "ID TOKEN NODE",
-                        "hiddenNodes": [],
                         "range": {
                           "start": {
                             "index": 19,
@@ -1370,16 +1309,25 @@
                             "column": 6
                           }
                         },
-                        "text": "g"
+                        "text": "g",
+                        "hiddenNodes": []
                       }
                     ],
-                    "hiddenNodes": [],
-                    "indentColumn": 5,
+                    "indent": {
+                      "start": {
+                        "index": 18,
+                        "line": 5,
+                        "column": 4
+                      },
+                      "stop": {
+                        "index": 19,
+                        "line": 5,
+                        "column": 5
+                      }
+                    },
                     "indentLevel": 0,
-                    "parentStatement": null,
                     "item": {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 19,
@@ -1392,7 +1340,8 @@
                           "column": 6
                         }
                       },
-                      "text": "g"
+                      "text": "g",
+                      "hiddenNodes": []
                     },
                     "body": []
                   }
@@ -1401,7 +1350,6 @@
               },
               {
                 "$": "CLOSE TOKEN NODE",
-                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 20,
@@ -1417,10 +1365,8 @@
                 "text": ")"
               }
             ],
-            "hiddenNodes": [],
             "open": {
               "$": "OPEN TOKEN NODE",
-              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 15,
@@ -1452,23 +1398,6 @@
                 },
                 "children": [
                   {
-                    "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 16,
-                        "line": 5,
-                        "column": 2
-                      },
-                      "stop": {
-                        "index": 17,
-                        "line": 5,
-                        "column": 3
-                      }
-                    },
-                    "text": "f"
-                  },
-                  {
                     "$": "STATEMENT SYNTAX NODE",
                     "range": {
                       "start": {
@@ -1482,10 +1411,10 @@
                         "column": 3
                       }
                     },
+                    "hiddenNodes": [],
                     "children": [
                       {
                         "$": "ID TOKEN NODE",
-                        "hiddenNodes": [],
                         "range": {
                           "start": {
                             "index": 16,
@@ -1498,16 +1427,25 @@
                             "column": 3
                           }
                         },
-                        "text": "f"
+                        "text": "f",
+                        "hiddenNodes": []
                       }
                     ],
-                    "hiddenNodes": [],
-                    "indentColumn": 2,
+                    "indent": {
+                      "start": {
+                        "index": 16,
+                        "line": 5,
+                        "column": 2
+                      },
+                      "stop": {
+                        "index": 16,
+                        "line": 5,
+                        "column": 2
+                      }
+                    },
                     "indentLevel": 0,
-                    "parentStatement": null,
                     "item": {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 16,
@@ -1520,13 +1458,13 @@
                           "column": 3
                         }
                       },
-                      "text": "f"
+                      "text": "f",
+                      "hiddenNodes": []
                     },
                     "body": []
                   },
                   {
                     "$": "COMMA TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 17,
@@ -1542,9 +1480,8 @@
                     "text": ","
                   }
                 ],
-                "hiddenNodes": [],
                 "value": {
-                  "$": "DECLARATION SYNTAX NODE",
+                  "$": "ID TOKEN NODE",
                   "range": {
                     "start": {
                       "index": 16,
@@ -1557,43 +1494,8 @@
                       "column": 3
                     }
                   },
-                  "children": [
-                    {
-                      "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
-                      "range": {
-                        "start": {
-                          "index": 16,
-                          "line": 5,
-                          "column": 2
-                        },
-                        "stop": {
-                          "index": 17,
-                          "line": 5,
-                          "column": 3
-                        }
-                      },
-                      "text": "f"
-                    }
-                  ],
-                  "hiddenNodes": [],
-                  "id": {
-                    "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 16,
-                        "line": 5,
-                        "column": 2
-                      },
-                      "stop": {
-                        "index": 17,
-                        "line": 5,
-                        "column": 3
-                      }
-                    },
-                    "text": "f"
-                  }
+                  "text": "f",
+                  "hiddenNodes": []
                 },
                 "statements": [
                   {
@@ -1610,10 +1512,10 @@
                         "column": 3
                       }
                     },
+                    "hiddenNodes": [],
                     "children": [
                       {
                         "$": "ID TOKEN NODE",
-                        "hiddenNodes": [],
                         "range": {
                           "start": {
                             "index": 16,
@@ -1626,16 +1528,25 @@
                             "column": 3
                           }
                         },
-                        "text": "f"
+                        "text": "f",
+                        "hiddenNodes": []
                       }
                     ],
-                    "hiddenNodes": [],
-                    "indentColumn": 2,
+                    "indent": {
+                      "start": {
+                        "index": 16,
+                        "line": 5,
+                        "column": 2
+                      },
+                      "stop": {
+                        "index": 16,
+                        "line": 5,
+                        "column": 2
+                      }
+                    },
                     "indentLevel": 0,
-                    "parentStatement": null,
                     "item": {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 16,
@@ -1648,14 +1559,14 @@
                           "column": 3
                         }
                       },
-                      "text": "f"
+                      "text": "f",
+                      "hiddenNodes": []
                     },
                     "body": []
                   }
                 ],
                 "comma": {
                   "$": "COMMA TOKEN NODE",
-                  "hiddenNodes": [],
                   "range": {
                     "start": {
                       "index": 17,
@@ -1687,23 +1598,6 @@
                 },
                 "children": [
                   {
-                    "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 19,
-                        "line": 5,
-                        "column": 5
-                      },
-                      "stop": {
-                        "index": 20,
-                        "line": 5,
-                        "column": 6
-                      }
-                    },
-                    "text": "g"
-                  },
-                  {
                     "$": "STATEMENT SYNTAX NODE",
                     "range": {
                       "start": {
@@ -1717,10 +1611,27 @@
                         "column": 6
                       }
                     },
+                    "hiddenNodes": [
+                      {
+                        "$": "WHITESPACE TOKEN NODE",
+                        "range": {
+                          "start": {
+                            "index": 18,
+                            "line": 5,
+                            "column": 4
+                          },
+                          "stop": {
+                            "index": 19,
+                            "line": 5,
+                            "column": 5
+                          }
+                        },
+                        "text": " "
+                      }
+                    ],
                     "children": [
                       {
                         "$": "ID TOKEN NODE",
-                        "hiddenNodes": [],
                         "range": {
                           "start": {
                             "index": 19,
@@ -1733,16 +1644,25 @@
                             "column": 6
                           }
                         },
-                        "text": "g"
+                        "text": "g",
+                        "hiddenNodes": []
                       }
                     ],
-                    "hiddenNodes": [],
-                    "indentColumn": 5,
+                    "indent": {
+                      "start": {
+                        "index": 18,
+                        "line": 5,
+                        "column": 4
+                      },
+                      "stop": {
+                        "index": 19,
+                        "line": 5,
+                        "column": 5
+                      }
+                    },
                     "indentLevel": 0,
-                    "parentStatement": null,
                     "item": {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 19,
@@ -1755,32 +1675,14 @@
                           "column": 6
                         }
                       },
-                      "text": "g"
+                      "text": "g",
+                      "hiddenNodes": []
                     },
                     "body": []
                   }
                 ],
-                "hiddenNodes": [
-                  {
-                    "$": "WHITESPACE TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 18,
-                        "line": 5,
-                        "column": 4
-                      },
-                      "stop": {
-                        "index": 19,
-                        "line": 5,
-                        "column": 5
-                      }
-                    },
-                    "text": " "
-                  }
-                ],
                 "value": {
-                  "$": "DECLARATION SYNTAX NODE",
+                  "$": "ID TOKEN NODE",
                   "range": {
                     "start": {
                       "index": 19,
@@ -1793,43 +1695,8 @@
                       "column": 6
                     }
                   },
-                  "children": [
-                    {
-                      "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
-                      "range": {
-                        "start": {
-                          "index": 19,
-                          "line": 5,
-                          "column": 5
-                        },
-                        "stop": {
-                          "index": 20,
-                          "line": 5,
-                          "column": 6
-                        }
-                      },
-                      "text": "g"
-                    }
-                  ],
-                  "hiddenNodes": [],
-                  "id": {
-                    "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 19,
-                        "line": 5,
-                        "column": 5
-                      },
-                      "stop": {
-                        "index": 20,
-                        "line": 5,
-                        "column": 6
-                      }
-                    },
-                    "text": "g"
-                  }
+                  "text": "g",
+                  "hiddenNodes": []
                 },
                 "statements": [
                   {
@@ -1846,10 +1713,27 @@
                         "column": 6
                       }
                     },
+                    "hiddenNodes": [
+                      {
+                        "$": "WHITESPACE TOKEN NODE",
+                        "range": {
+                          "start": {
+                            "index": 18,
+                            "line": 5,
+                            "column": 4
+                          },
+                          "stop": {
+                            "index": 19,
+                            "line": 5,
+                            "column": 5
+                          }
+                        },
+                        "text": " "
+                      }
+                    ],
                     "children": [
                       {
                         "$": "ID TOKEN NODE",
-                        "hiddenNodes": [],
                         "range": {
                           "start": {
                             "index": 19,
@@ -1862,16 +1746,25 @@
                             "column": 6
                           }
                         },
-                        "text": "g"
+                        "text": "g",
+                        "hiddenNodes": []
                       }
                     ],
-                    "hiddenNodes": [],
-                    "indentColumn": 5,
+                    "indent": {
+                      "start": {
+                        "index": 18,
+                        "line": 5,
+                        "column": 4
+                      },
+                      "stop": {
+                        "index": 19,
+                        "line": 5,
+                        "column": 5
+                      }
+                    },
                     "indentLevel": 0,
-                    "parentStatement": null,
                     "item": {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 19,
@@ -1884,7 +1777,8 @@
                           "column": 6
                         }
                       },
-                      "text": "g"
+                      "text": "g",
+                      "hiddenNodes": []
                     },
                     "body": []
                   }
@@ -1894,7 +1788,6 @@
             ],
             "close": {
               "$": "CLOSE TOKEN NODE",
-              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 20,
@@ -1908,31 +1801,13 @@
                 }
               },
               "text": ")"
-            }
-          }
-        ],
-        "hiddenNodes": [
-          {
-            "$": "NL TOKEN NODE",
-            "hiddenNodes": [],
-            "range": {
-              "start": {
-                "index": 12,
-                "line": 3,
-                "column": 2
-              },
-              "stop": {
-                "index": 14,
-                "line": 5,
-                "column": 0
-              }
             },
-            "text": "\n\n"
+            "hiddenNodes": []
           }
         ],
+        "hiddenNodes": [],
         "instance": {
           "$": "ID TOKEN NODE",
-          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 14,
@@ -1945,7 +1820,8 @@
               "column": 1
             }
           },
-          "text": "e"
+          "text": "e",
+          "hiddenNodes": null
         },
         "group": {
           "$": "GROUP SYNTAX NODE",
@@ -1964,7 +1840,6 @@
           "children": [
             {
               "$": "OPEN TOKEN NODE",
-              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 15,
@@ -1995,23 +1870,6 @@
               },
               "children": [
                 {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 16,
-                      "line": 5,
-                      "column": 2
-                    },
-                    "stop": {
-                      "index": 17,
-                      "line": 5,
-                      "column": 3
-                    }
-                  },
-                  "text": "f"
-                },
-                {
                   "$": "STATEMENT SYNTAX NODE",
                   "range": {
                     "start": {
@@ -2025,10 +1883,10 @@
                       "column": 3
                     }
                   },
+                  "hiddenNodes": [],
                   "children": [
                     {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 16,
@@ -2041,16 +1899,25 @@
                           "column": 3
                         }
                       },
-                      "text": "f"
+                      "text": "f",
+                      "hiddenNodes": []
                     }
                   ],
-                  "hiddenNodes": [],
-                  "indentColumn": 2,
+                  "indent": {
+                    "start": {
+                      "index": 16,
+                      "line": 5,
+                      "column": 2
+                    },
+                    "stop": {
+                      "index": 16,
+                      "line": 5,
+                      "column": 2
+                    }
+                  },
                   "indentLevel": 0,
-                  "parentStatement": null,
                   "item": {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 16,
@@ -2063,13 +1930,13 @@
                         "column": 3
                       }
                     },
-                    "text": "f"
+                    "text": "f",
+                    "hiddenNodes": []
                   },
                   "body": []
                 },
                 {
                   "$": "COMMA TOKEN NODE",
-                  "hiddenNodes": [],
                   "range": {
                     "start": {
                       "index": 17,
@@ -2085,9 +1952,8 @@
                   "text": ","
                 }
               ],
-              "hiddenNodes": [],
               "value": {
-                "$": "DECLARATION SYNTAX NODE",
+                "$": "ID TOKEN NODE",
                 "range": {
                   "start": {
                     "index": 16,
@@ -2100,43 +1966,8 @@
                     "column": 3
                   }
                 },
-                "children": [
-                  {
-                    "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 16,
-                        "line": 5,
-                        "column": 2
-                      },
-                      "stop": {
-                        "index": 17,
-                        "line": 5,
-                        "column": 3
-                      }
-                    },
-                    "text": "f"
-                  }
-                ],
-                "hiddenNodes": [],
-                "id": {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 16,
-                      "line": 5,
-                      "column": 2
-                    },
-                    "stop": {
-                      "index": 17,
-                      "line": 5,
-                      "column": 3
-                    }
-                  },
-                  "text": "f"
-                }
+                "text": "f",
+                "hiddenNodes": []
               },
               "statements": [
                 {
@@ -2153,10 +1984,10 @@
                       "column": 3
                     }
                   },
+                  "hiddenNodes": [],
                   "children": [
                     {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 16,
@@ -2169,16 +2000,25 @@
                           "column": 3
                         }
                       },
-                      "text": "f"
+                      "text": "f",
+                      "hiddenNodes": []
                     }
                   ],
-                  "hiddenNodes": [],
-                  "indentColumn": 2,
+                  "indent": {
+                    "start": {
+                      "index": 16,
+                      "line": 5,
+                      "column": 2
+                    },
+                    "stop": {
+                      "index": 16,
+                      "line": 5,
+                      "column": 2
+                    }
+                  },
                   "indentLevel": 0,
-                  "parentStatement": null,
                   "item": {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 16,
@@ -2191,14 +2031,14 @@
                         "column": 3
                       }
                     },
-                    "text": "f"
+                    "text": "f",
+                    "hiddenNodes": []
                   },
                   "body": []
                 }
               ],
               "comma": {
                 "$": "COMMA TOKEN NODE",
-                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 17,
@@ -2230,23 +2070,6 @@
               },
               "children": [
                 {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 19,
-                      "line": 5,
-                      "column": 5
-                    },
-                    "stop": {
-                      "index": 20,
-                      "line": 5,
-                      "column": 6
-                    }
-                  },
-                  "text": "g"
-                },
-                {
                   "$": "STATEMENT SYNTAX NODE",
                   "range": {
                     "start": {
@@ -2260,10 +2083,27 @@
                       "column": 6
                     }
                   },
+                  "hiddenNodes": [
+                    {
+                      "$": "WHITESPACE TOKEN NODE",
+                      "range": {
+                        "start": {
+                          "index": 18,
+                          "line": 5,
+                          "column": 4
+                        },
+                        "stop": {
+                          "index": 19,
+                          "line": 5,
+                          "column": 5
+                        }
+                      },
+                      "text": " "
+                    }
+                  ],
                   "children": [
                     {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 19,
@@ -2276,16 +2116,25 @@
                           "column": 6
                         }
                       },
-                      "text": "g"
+                      "text": "g",
+                      "hiddenNodes": []
                     }
                   ],
-                  "hiddenNodes": [],
-                  "indentColumn": 5,
+                  "indent": {
+                    "start": {
+                      "index": 18,
+                      "line": 5,
+                      "column": 4
+                    },
+                    "stop": {
+                      "index": 19,
+                      "line": 5,
+                      "column": 5
+                    }
+                  },
                   "indentLevel": 0,
-                  "parentStatement": null,
                   "item": {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 19,
@@ -2298,32 +2147,14 @@
                         "column": 6
                       }
                     },
-                    "text": "g"
+                    "text": "g",
+                    "hiddenNodes": []
                   },
                   "body": []
                 }
               ],
-              "hiddenNodes": [
-                {
-                  "$": "WHITESPACE TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 18,
-                      "line": 5,
-                      "column": 4
-                    },
-                    "stop": {
-                      "index": 19,
-                      "line": 5,
-                      "column": 5
-                    }
-                  },
-                  "text": " "
-                }
-              ],
               "value": {
-                "$": "DECLARATION SYNTAX NODE",
+                "$": "ID TOKEN NODE",
                 "range": {
                   "start": {
                     "index": 19,
@@ -2336,43 +2167,8 @@
                     "column": 6
                   }
                 },
-                "children": [
-                  {
-                    "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 19,
-                        "line": 5,
-                        "column": 5
-                      },
-                      "stop": {
-                        "index": 20,
-                        "line": 5,
-                        "column": 6
-                      }
-                    },
-                    "text": "g"
-                  }
-                ],
-                "hiddenNodes": [],
-                "id": {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 19,
-                      "line": 5,
-                      "column": 5
-                    },
-                    "stop": {
-                      "index": 20,
-                      "line": 5,
-                      "column": 6
-                    }
-                  },
-                  "text": "g"
-                }
+                "text": "g",
+                "hiddenNodes": []
               },
               "statements": [
                 {
@@ -2389,10 +2185,27 @@
                       "column": 6
                     }
                   },
+                  "hiddenNodes": [
+                    {
+                      "$": "WHITESPACE TOKEN NODE",
+                      "range": {
+                        "start": {
+                          "index": 18,
+                          "line": 5,
+                          "column": 4
+                        },
+                        "stop": {
+                          "index": 19,
+                          "line": 5,
+                          "column": 5
+                        }
+                      },
+                      "text": " "
+                    }
+                  ],
                   "children": [
                     {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 19,
@@ -2405,16 +2218,25 @@
                           "column": 6
                         }
                       },
-                      "text": "g"
+                      "text": "g",
+                      "hiddenNodes": []
                     }
                   ],
-                  "hiddenNodes": [],
-                  "indentColumn": 5,
+                  "indent": {
+                    "start": {
+                      "index": 18,
+                      "line": 5,
+                      "column": 4
+                    },
+                    "stop": {
+                      "index": 19,
+                      "line": 5,
+                      "column": 5
+                    }
+                  },
                   "indentLevel": 0,
-                  "parentStatement": null,
                   "item": {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 19,
@@ -2427,7 +2249,8 @@
                         "column": 6
                       }
                     },
-                    "text": "g"
+                    "text": "g",
+                    "hiddenNodes": []
                   },
                   "body": []
                 }
@@ -2436,7 +2259,6 @@
             },
             {
               "$": "CLOSE TOKEN NODE",
-              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 20,
@@ -2452,10 +2274,8 @@
               "text": ")"
             }
           ],
-          "hiddenNodes": [],
           "open": {
             "$": "OPEN TOKEN NODE",
-            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 15,
@@ -2487,23 +2307,6 @@
               },
               "children": [
                 {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 16,
-                      "line": 5,
-                      "column": 2
-                    },
-                    "stop": {
-                      "index": 17,
-                      "line": 5,
-                      "column": 3
-                    }
-                  },
-                  "text": "f"
-                },
-                {
                   "$": "STATEMENT SYNTAX NODE",
                   "range": {
                     "start": {
@@ -2517,10 +2320,10 @@
                       "column": 3
                     }
                   },
+                  "hiddenNodes": [],
                   "children": [
                     {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 16,
@@ -2533,16 +2336,25 @@
                           "column": 3
                         }
                       },
-                      "text": "f"
+                      "text": "f",
+                      "hiddenNodes": []
                     }
                   ],
-                  "hiddenNodes": [],
-                  "indentColumn": 2,
+                  "indent": {
+                    "start": {
+                      "index": 16,
+                      "line": 5,
+                      "column": 2
+                    },
+                    "stop": {
+                      "index": 16,
+                      "line": 5,
+                      "column": 2
+                    }
+                  },
                   "indentLevel": 0,
-                  "parentStatement": null,
                   "item": {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 16,
@@ -2555,13 +2367,13 @@
                         "column": 3
                       }
                     },
-                    "text": "f"
+                    "text": "f",
+                    "hiddenNodes": []
                   },
                   "body": []
                 },
                 {
                   "$": "COMMA TOKEN NODE",
-                  "hiddenNodes": [],
                   "range": {
                     "start": {
                       "index": 17,
@@ -2577,9 +2389,8 @@
                   "text": ","
                 }
               ],
-              "hiddenNodes": [],
               "value": {
-                "$": "DECLARATION SYNTAX NODE",
+                "$": "ID TOKEN NODE",
                 "range": {
                   "start": {
                     "index": 16,
@@ -2592,43 +2403,8 @@
                     "column": 3
                   }
                 },
-                "children": [
-                  {
-                    "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 16,
-                        "line": 5,
-                        "column": 2
-                      },
-                      "stop": {
-                        "index": 17,
-                        "line": 5,
-                        "column": 3
-                      }
-                    },
-                    "text": "f"
-                  }
-                ],
-                "hiddenNodes": [],
-                "id": {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 16,
-                      "line": 5,
-                      "column": 2
-                    },
-                    "stop": {
-                      "index": 17,
-                      "line": 5,
-                      "column": 3
-                    }
-                  },
-                  "text": "f"
-                }
+                "text": "f",
+                "hiddenNodes": []
               },
               "statements": [
                 {
@@ -2645,10 +2421,10 @@
                       "column": 3
                     }
                   },
+                  "hiddenNodes": [],
                   "children": [
                     {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 16,
@@ -2661,16 +2437,25 @@
                           "column": 3
                         }
                       },
-                      "text": "f"
+                      "text": "f",
+                      "hiddenNodes": []
                     }
                   ],
-                  "hiddenNodes": [],
-                  "indentColumn": 2,
+                  "indent": {
+                    "start": {
+                      "index": 16,
+                      "line": 5,
+                      "column": 2
+                    },
+                    "stop": {
+                      "index": 16,
+                      "line": 5,
+                      "column": 2
+                    }
+                  },
                   "indentLevel": 0,
-                  "parentStatement": null,
                   "item": {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 16,
@@ -2683,14 +2468,14 @@
                         "column": 3
                       }
                     },
-                    "text": "f"
+                    "text": "f",
+                    "hiddenNodes": []
                   },
                   "body": []
                 }
               ],
               "comma": {
                 "$": "COMMA TOKEN NODE",
-                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 17,
@@ -2722,23 +2507,6 @@
               },
               "children": [
                 {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 19,
-                      "line": 5,
-                      "column": 5
-                    },
-                    "stop": {
-                      "index": 20,
-                      "line": 5,
-                      "column": 6
-                    }
-                  },
-                  "text": "g"
-                },
-                {
                   "$": "STATEMENT SYNTAX NODE",
                   "range": {
                     "start": {
@@ -2752,10 +2520,27 @@
                       "column": 6
                     }
                   },
+                  "hiddenNodes": [
+                    {
+                      "$": "WHITESPACE TOKEN NODE",
+                      "range": {
+                        "start": {
+                          "index": 18,
+                          "line": 5,
+                          "column": 4
+                        },
+                        "stop": {
+                          "index": 19,
+                          "line": 5,
+                          "column": 5
+                        }
+                      },
+                      "text": " "
+                    }
+                  ],
                   "children": [
                     {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 19,
@@ -2768,16 +2553,25 @@
                           "column": 6
                         }
                       },
-                      "text": "g"
+                      "text": "g",
+                      "hiddenNodes": []
                     }
                   ],
-                  "hiddenNodes": [],
-                  "indentColumn": 5,
+                  "indent": {
+                    "start": {
+                      "index": 18,
+                      "line": 5,
+                      "column": 4
+                    },
+                    "stop": {
+                      "index": 19,
+                      "line": 5,
+                      "column": 5
+                    }
+                  },
                   "indentLevel": 0,
-                  "parentStatement": null,
                   "item": {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 19,
@@ -2790,32 +2584,14 @@
                         "column": 6
                       }
                     },
-                    "text": "g"
+                    "text": "g",
+                    "hiddenNodes": []
                   },
                   "body": []
                 }
               ],
-              "hiddenNodes": [
-                {
-                  "$": "WHITESPACE TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 18,
-                      "line": 5,
-                      "column": 4
-                    },
-                    "stop": {
-                      "index": 19,
-                      "line": 5,
-                      "column": 5
-                    }
-                  },
-                  "text": " "
-                }
-              ],
               "value": {
-                "$": "DECLARATION SYNTAX NODE",
+                "$": "ID TOKEN NODE",
                 "range": {
                   "start": {
                     "index": 19,
@@ -2828,43 +2604,8 @@
                     "column": 6
                   }
                 },
-                "children": [
-                  {
-                    "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 19,
-                        "line": 5,
-                        "column": 5
-                      },
-                      "stop": {
-                        "index": 20,
-                        "line": 5,
-                        "column": 6
-                      }
-                    },
-                    "text": "g"
-                  }
-                ],
-                "hiddenNodes": [],
-                "id": {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 19,
-                      "line": 5,
-                      "column": 5
-                    },
-                    "stop": {
-                      "index": 20,
-                      "line": 5,
-                      "column": 6
-                    }
-                  },
-                  "text": "g"
-                }
+                "text": "g",
+                "hiddenNodes": []
               },
               "statements": [
                 {
@@ -2881,10 +2622,27 @@
                       "column": 6
                     }
                   },
+                  "hiddenNodes": [
+                    {
+                      "$": "WHITESPACE TOKEN NODE",
+                      "range": {
+                        "start": {
+                          "index": 18,
+                          "line": 5,
+                          "column": 4
+                        },
+                        "stop": {
+                          "index": 19,
+                          "line": 5,
+                          "column": 5
+                        }
+                      },
+                      "text": " "
+                    }
+                  ],
                   "children": [
                     {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 19,
@@ -2897,16 +2655,25 @@
                           "column": 6
                         }
                       },
-                      "text": "g"
+                      "text": "g",
+                      "hiddenNodes": []
                     }
                   ],
-                  "hiddenNodes": [],
-                  "indentColumn": 5,
+                  "indent": {
+                    "start": {
+                      "index": 18,
+                      "line": 5,
+                      "column": 4
+                    },
+                    "stop": {
+                      "index": 19,
+                      "line": 5,
+                      "column": 5
+                    }
+                  },
                   "indentLevel": 0,
-                  "parentStatement": null,
                   "item": {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 19,
@@ -2919,7 +2686,8 @@
                         "column": 6
                       }
                     },
-                    "text": "g"
+                    "text": "g",
+                    "hiddenNodes": []
                   },
                   "body": []
                 }
@@ -2929,7 +2697,6 @@
           ],
           "close": {
             "$": "CLOSE TOKEN NODE",
-            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 20,
@@ -2943,14 +2710,24 @@
               }
             },
             "text": ")"
-          }
+          },
+          "hiddenNodes": []
         }
       }
     ],
-    "hiddenNodes": [],
-    "indentColumn": 0,
+    "indent": {
+      "start": {
+        "index": 14,
+        "line": 5,
+        "column": 0
+      },
+      "stop": {
+        "index": 14,
+        "line": 5,
+        "column": 0
+      }
+    },
     "indentLevel": 0,
-    "parentStatement": null,
     "item": {
       "$": "INVOKE SYNTAX NODE",
       "range": {
@@ -2968,7 +2745,6 @@
       "children": [
         {
           "$": "ID TOKEN NODE",
-          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 14,
@@ -2981,7 +2757,8 @@
               "column": 1
             }
           },
-          "text": "e"
+          "text": "e",
+          "hiddenNodes": null
         },
         {
           "$": "GROUP SYNTAX NODE",
@@ -3000,7 +2777,6 @@
           "children": [
             {
               "$": "OPEN TOKEN NODE",
-              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 15,
@@ -3031,23 +2807,6 @@
               },
               "children": [
                 {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 16,
-                      "line": 5,
-                      "column": 2
-                    },
-                    "stop": {
-                      "index": 17,
-                      "line": 5,
-                      "column": 3
-                    }
-                  },
-                  "text": "f"
-                },
-                {
                   "$": "STATEMENT SYNTAX NODE",
                   "range": {
                     "start": {
@@ -3061,10 +2820,10 @@
                       "column": 3
                     }
                   },
+                  "hiddenNodes": [],
                   "children": [
                     {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 16,
@@ -3077,16 +2836,25 @@
                           "column": 3
                         }
                       },
-                      "text": "f"
+                      "text": "f",
+                      "hiddenNodes": []
                     }
                   ],
-                  "hiddenNodes": [],
-                  "indentColumn": 2,
+                  "indent": {
+                    "start": {
+                      "index": 16,
+                      "line": 5,
+                      "column": 2
+                    },
+                    "stop": {
+                      "index": 16,
+                      "line": 5,
+                      "column": 2
+                    }
+                  },
                   "indentLevel": 0,
-                  "parentStatement": null,
                   "item": {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 16,
@@ -3099,13 +2867,13 @@
                         "column": 3
                       }
                     },
-                    "text": "f"
+                    "text": "f",
+                    "hiddenNodes": []
                   },
                   "body": []
                 },
                 {
                   "$": "COMMA TOKEN NODE",
-                  "hiddenNodes": [],
                   "range": {
                     "start": {
                       "index": 17,
@@ -3121,9 +2889,8 @@
                   "text": ","
                 }
               ],
-              "hiddenNodes": [],
               "value": {
-                "$": "DECLARATION SYNTAX NODE",
+                "$": "ID TOKEN NODE",
                 "range": {
                   "start": {
                     "index": 16,
@@ -3136,43 +2903,8 @@
                     "column": 3
                   }
                 },
-                "children": [
-                  {
-                    "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 16,
-                        "line": 5,
-                        "column": 2
-                      },
-                      "stop": {
-                        "index": 17,
-                        "line": 5,
-                        "column": 3
-                      }
-                    },
-                    "text": "f"
-                  }
-                ],
-                "hiddenNodes": [],
-                "id": {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 16,
-                      "line": 5,
-                      "column": 2
-                    },
-                    "stop": {
-                      "index": 17,
-                      "line": 5,
-                      "column": 3
-                    }
-                  },
-                  "text": "f"
-                }
+                "text": "f",
+                "hiddenNodes": []
               },
               "statements": [
                 {
@@ -3189,10 +2921,10 @@
                       "column": 3
                     }
                   },
+                  "hiddenNodes": [],
                   "children": [
                     {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 16,
@@ -3205,16 +2937,25 @@
                           "column": 3
                         }
                       },
-                      "text": "f"
+                      "text": "f",
+                      "hiddenNodes": []
                     }
                   ],
-                  "hiddenNodes": [],
-                  "indentColumn": 2,
+                  "indent": {
+                    "start": {
+                      "index": 16,
+                      "line": 5,
+                      "column": 2
+                    },
+                    "stop": {
+                      "index": 16,
+                      "line": 5,
+                      "column": 2
+                    }
+                  },
                   "indentLevel": 0,
-                  "parentStatement": null,
                   "item": {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 16,
@@ -3227,14 +2968,14 @@
                         "column": 3
                       }
                     },
-                    "text": "f"
+                    "text": "f",
+                    "hiddenNodes": []
                   },
                   "body": []
                 }
               ],
               "comma": {
                 "$": "COMMA TOKEN NODE",
-                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 17,
@@ -3266,23 +3007,6 @@
               },
               "children": [
                 {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 19,
-                      "line": 5,
-                      "column": 5
-                    },
-                    "stop": {
-                      "index": 20,
-                      "line": 5,
-                      "column": 6
-                    }
-                  },
-                  "text": "g"
-                },
-                {
                   "$": "STATEMENT SYNTAX NODE",
                   "range": {
                     "start": {
@@ -3296,10 +3020,27 @@
                       "column": 6
                     }
                   },
+                  "hiddenNodes": [
+                    {
+                      "$": "WHITESPACE TOKEN NODE",
+                      "range": {
+                        "start": {
+                          "index": 18,
+                          "line": 5,
+                          "column": 4
+                        },
+                        "stop": {
+                          "index": 19,
+                          "line": 5,
+                          "column": 5
+                        }
+                      },
+                      "text": " "
+                    }
+                  ],
                   "children": [
                     {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 19,
@@ -3312,16 +3053,25 @@
                           "column": 6
                         }
                       },
-                      "text": "g"
+                      "text": "g",
+                      "hiddenNodes": []
                     }
                   ],
-                  "hiddenNodes": [],
-                  "indentColumn": 5,
+                  "indent": {
+                    "start": {
+                      "index": 18,
+                      "line": 5,
+                      "column": 4
+                    },
+                    "stop": {
+                      "index": 19,
+                      "line": 5,
+                      "column": 5
+                    }
+                  },
                   "indentLevel": 0,
-                  "parentStatement": null,
                   "item": {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 19,
@@ -3334,32 +3084,14 @@
                         "column": 6
                       }
                     },
-                    "text": "g"
+                    "text": "g",
+                    "hiddenNodes": []
                   },
                   "body": []
                 }
               ],
-              "hiddenNodes": [
-                {
-                  "$": "WHITESPACE TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 18,
-                      "line": 5,
-                      "column": 4
-                    },
-                    "stop": {
-                      "index": 19,
-                      "line": 5,
-                      "column": 5
-                    }
-                  },
-                  "text": " "
-                }
-              ],
               "value": {
-                "$": "DECLARATION SYNTAX NODE",
+                "$": "ID TOKEN NODE",
                 "range": {
                   "start": {
                     "index": 19,
@@ -3372,43 +3104,8 @@
                     "column": 6
                   }
                 },
-                "children": [
-                  {
-                    "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 19,
-                        "line": 5,
-                        "column": 5
-                      },
-                      "stop": {
-                        "index": 20,
-                        "line": 5,
-                        "column": 6
-                      }
-                    },
-                    "text": "g"
-                  }
-                ],
-                "hiddenNodes": [],
-                "id": {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 19,
-                      "line": 5,
-                      "column": 5
-                    },
-                    "stop": {
-                      "index": 20,
-                      "line": 5,
-                      "column": 6
-                    }
-                  },
-                  "text": "g"
-                }
+                "text": "g",
+                "hiddenNodes": []
               },
               "statements": [
                 {
@@ -3425,10 +3122,27 @@
                       "column": 6
                     }
                   },
+                  "hiddenNodes": [
+                    {
+                      "$": "WHITESPACE TOKEN NODE",
+                      "range": {
+                        "start": {
+                          "index": 18,
+                          "line": 5,
+                          "column": 4
+                        },
+                        "stop": {
+                          "index": 19,
+                          "line": 5,
+                          "column": 5
+                        }
+                      },
+                      "text": " "
+                    }
+                  ],
                   "children": [
                     {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 19,
@@ -3441,16 +3155,25 @@
                           "column": 6
                         }
                       },
-                      "text": "g"
+                      "text": "g",
+                      "hiddenNodes": []
                     }
                   ],
-                  "hiddenNodes": [],
-                  "indentColumn": 5,
+                  "indent": {
+                    "start": {
+                      "index": 18,
+                      "line": 5,
+                      "column": 4
+                    },
+                    "stop": {
+                      "index": 19,
+                      "line": 5,
+                      "column": 5
+                    }
+                  },
                   "indentLevel": 0,
-                  "parentStatement": null,
                   "item": {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 19,
@@ -3463,7 +3186,8 @@
                         "column": 6
                       }
                     },
-                    "text": "g"
+                    "text": "g",
+                    "hiddenNodes": []
                   },
                   "body": []
                 }
@@ -3472,7 +3196,6 @@
             },
             {
               "$": "CLOSE TOKEN NODE",
-              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 20,
@@ -3488,10 +3211,8 @@
               "text": ")"
             }
           ],
-          "hiddenNodes": [],
           "open": {
             "$": "OPEN TOKEN NODE",
-            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 15,
@@ -3523,23 +3244,6 @@
               },
               "children": [
                 {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 16,
-                      "line": 5,
-                      "column": 2
-                    },
-                    "stop": {
-                      "index": 17,
-                      "line": 5,
-                      "column": 3
-                    }
-                  },
-                  "text": "f"
-                },
-                {
                   "$": "STATEMENT SYNTAX NODE",
                   "range": {
                     "start": {
@@ -3553,10 +3257,10 @@
                       "column": 3
                     }
                   },
+                  "hiddenNodes": [],
                   "children": [
                     {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 16,
@@ -3569,16 +3273,25 @@
                           "column": 3
                         }
                       },
-                      "text": "f"
+                      "text": "f",
+                      "hiddenNodes": []
                     }
                   ],
-                  "hiddenNodes": [],
-                  "indentColumn": 2,
+                  "indent": {
+                    "start": {
+                      "index": 16,
+                      "line": 5,
+                      "column": 2
+                    },
+                    "stop": {
+                      "index": 16,
+                      "line": 5,
+                      "column": 2
+                    }
+                  },
                   "indentLevel": 0,
-                  "parentStatement": null,
                   "item": {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 16,
@@ -3591,13 +3304,13 @@
                         "column": 3
                       }
                     },
-                    "text": "f"
+                    "text": "f",
+                    "hiddenNodes": []
                   },
                   "body": []
                 },
                 {
                   "$": "COMMA TOKEN NODE",
-                  "hiddenNodes": [],
                   "range": {
                     "start": {
                       "index": 17,
@@ -3613,9 +3326,8 @@
                   "text": ","
                 }
               ],
-              "hiddenNodes": [],
               "value": {
-                "$": "DECLARATION SYNTAX NODE",
+                "$": "ID TOKEN NODE",
                 "range": {
                   "start": {
                     "index": 16,
@@ -3628,43 +3340,8 @@
                     "column": 3
                   }
                 },
-                "children": [
-                  {
-                    "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 16,
-                        "line": 5,
-                        "column": 2
-                      },
-                      "stop": {
-                        "index": 17,
-                        "line": 5,
-                        "column": 3
-                      }
-                    },
-                    "text": "f"
-                  }
-                ],
-                "hiddenNodes": [],
-                "id": {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 16,
-                      "line": 5,
-                      "column": 2
-                    },
-                    "stop": {
-                      "index": 17,
-                      "line": 5,
-                      "column": 3
-                    }
-                  },
-                  "text": "f"
-                }
+                "text": "f",
+                "hiddenNodes": []
               },
               "statements": [
                 {
@@ -3681,10 +3358,10 @@
                       "column": 3
                     }
                   },
+                  "hiddenNodes": [],
                   "children": [
                     {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 16,
@@ -3697,16 +3374,25 @@
                           "column": 3
                         }
                       },
-                      "text": "f"
+                      "text": "f",
+                      "hiddenNodes": []
                     }
                   ],
-                  "hiddenNodes": [],
-                  "indentColumn": 2,
+                  "indent": {
+                    "start": {
+                      "index": 16,
+                      "line": 5,
+                      "column": 2
+                    },
+                    "stop": {
+                      "index": 16,
+                      "line": 5,
+                      "column": 2
+                    }
+                  },
                   "indentLevel": 0,
-                  "parentStatement": null,
                   "item": {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 16,
@@ -3719,14 +3405,14 @@
                         "column": 3
                       }
                     },
-                    "text": "f"
+                    "text": "f",
+                    "hiddenNodes": []
                   },
                   "body": []
                 }
               ],
               "comma": {
                 "$": "COMMA TOKEN NODE",
-                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 17,
@@ -3758,23 +3444,6 @@
               },
               "children": [
                 {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 19,
-                      "line": 5,
-                      "column": 5
-                    },
-                    "stop": {
-                      "index": 20,
-                      "line": 5,
-                      "column": 6
-                    }
-                  },
-                  "text": "g"
-                },
-                {
                   "$": "STATEMENT SYNTAX NODE",
                   "range": {
                     "start": {
@@ -3788,10 +3457,27 @@
                       "column": 6
                     }
                   },
+                  "hiddenNodes": [
+                    {
+                      "$": "WHITESPACE TOKEN NODE",
+                      "range": {
+                        "start": {
+                          "index": 18,
+                          "line": 5,
+                          "column": 4
+                        },
+                        "stop": {
+                          "index": 19,
+                          "line": 5,
+                          "column": 5
+                        }
+                      },
+                      "text": " "
+                    }
+                  ],
                   "children": [
                     {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 19,
@@ -3804,16 +3490,25 @@
                           "column": 6
                         }
                       },
-                      "text": "g"
+                      "text": "g",
+                      "hiddenNodes": []
                     }
                   ],
-                  "hiddenNodes": [],
-                  "indentColumn": 5,
+                  "indent": {
+                    "start": {
+                      "index": 18,
+                      "line": 5,
+                      "column": 4
+                    },
+                    "stop": {
+                      "index": 19,
+                      "line": 5,
+                      "column": 5
+                    }
+                  },
                   "indentLevel": 0,
-                  "parentStatement": null,
                   "item": {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 19,
@@ -3826,32 +3521,14 @@
                         "column": 6
                       }
                     },
-                    "text": "g"
+                    "text": "g",
+                    "hiddenNodes": []
                   },
                   "body": []
                 }
               ],
-              "hiddenNodes": [
-                {
-                  "$": "WHITESPACE TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 18,
-                      "line": 5,
-                      "column": 4
-                    },
-                    "stop": {
-                      "index": 19,
-                      "line": 5,
-                      "column": 5
-                    }
-                  },
-                  "text": " "
-                }
-              ],
               "value": {
-                "$": "DECLARATION SYNTAX NODE",
+                "$": "ID TOKEN NODE",
                 "range": {
                   "start": {
                     "index": 19,
@@ -3864,43 +3541,8 @@
                     "column": 6
                   }
                 },
-                "children": [
-                  {
-                    "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
-                    "range": {
-                      "start": {
-                        "index": 19,
-                        "line": 5,
-                        "column": 5
-                      },
-                      "stop": {
-                        "index": 20,
-                        "line": 5,
-                        "column": 6
-                      }
-                    },
-                    "text": "g"
-                  }
-                ],
-                "hiddenNodes": [],
-                "id": {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 19,
-                      "line": 5,
-                      "column": 5
-                    },
-                    "stop": {
-                      "index": 20,
-                      "line": 5,
-                      "column": 6
-                    }
-                  },
-                  "text": "g"
-                }
+                "text": "g",
+                "hiddenNodes": []
               },
               "statements": [
                 {
@@ -3917,10 +3559,27 @@
                       "column": 6
                     }
                   },
+                  "hiddenNodes": [
+                    {
+                      "$": "WHITESPACE TOKEN NODE",
+                      "range": {
+                        "start": {
+                          "index": 18,
+                          "line": 5,
+                          "column": 4
+                        },
+                        "stop": {
+                          "index": 19,
+                          "line": 5,
+                          "column": 5
+                        }
+                      },
+                      "text": " "
+                    }
+                  ],
                   "children": [
                     {
                       "$": "ID TOKEN NODE",
-                      "hiddenNodes": [],
                       "range": {
                         "start": {
                           "index": 19,
@@ -3933,16 +3592,25 @@
                           "column": 6
                         }
                       },
-                      "text": "g"
+                      "text": "g",
+                      "hiddenNodes": []
                     }
                   ],
-                  "hiddenNodes": [],
-                  "indentColumn": 5,
+                  "indent": {
+                    "start": {
+                      "index": 18,
+                      "line": 5,
+                      "column": 4
+                    },
+                    "stop": {
+                      "index": 19,
+                      "line": 5,
+                      "column": 5
+                    }
+                  },
                   "indentLevel": 0,
-                  "parentStatement": null,
                   "item": {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 19,
@@ -3955,7 +3623,8 @@
                         "column": 6
                       }
                     },
-                    "text": "g"
+                    "text": "g",
+                    "hiddenNodes": []
                   },
                   "body": []
                 }
@@ -3965,7 +3634,6 @@
           ],
           "close": {
             "$": "CLOSE TOKEN NODE",
-            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 20,
@@ -3979,31 +3647,13 @@
               }
             },
             "text": ")"
-          }
-        }
-      ],
-      "hiddenNodes": [
-        {
-          "$": "NL TOKEN NODE",
-          "hiddenNodes": [],
-          "range": {
-            "start": {
-              "index": 12,
-              "line": 3,
-              "column": 2
-            },
-            "stop": {
-              "index": 14,
-              "line": 5,
-              "column": 0
-            }
           },
-          "text": "\n\n"
+          "hiddenNodes": []
         }
       ],
+      "hiddenNodes": [],
       "instance": {
         "$": "ID TOKEN NODE",
-        "hiddenNodes": [],
         "range": {
           "start": {
             "index": 14,
@@ -4016,7 +3666,8 @@
             "column": 1
           }
         },
-        "text": "e"
+        "text": "e",
+        "hiddenNodes": null
       },
       "group": {
         "$": "GROUP SYNTAX NODE",
@@ -4035,7 +3686,6 @@
         "children": [
           {
             "$": "OPEN TOKEN NODE",
-            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 15,
@@ -4066,23 +3716,6 @@
             },
             "children": [
               {
-                "$": "ID TOKEN NODE",
-                "hiddenNodes": [],
-                "range": {
-                  "start": {
-                    "index": 16,
-                    "line": 5,
-                    "column": 2
-                  },
-                  "stop": {
-                    "index": 17,
-                    "line": 5,
-                    "column": 3
-                  }
-                },
-                "text": "f"
-              },
-              {
                 "$": "STATEMENT SYNTAX NODE",
                 "range": {
                   "start": {
@@ -4096,10 +3729,10 @@
                     "column": 3
                   }
                 },
+                "hiddenNodes": [],
                 "children": [
                   {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 16,
@@ -4112,16 +3745,25 @@
                         "column": 3
                       }
                     },
-                    "text": "f"
+                    "text": "f",
+                    "hiddenNodes": []
                   }
                 ],
-                "hiddenNodes": [],
-                "indentColumn": 2,
+                "indent": {
+                  "start": {
+                    "index": 16,
+                    "line": 5,
+                    "column": 2
+                  },
+                  "stop": {
+                    "index": 16,
+                    "line": 5,
+                    "column": 2
+                  }
+                },
                 "indentLevel": 0,
-                "parentStatement": null,
                 "item": {
                   "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
                   "range": {
                     "start": {
                       "index": 16,
@@ -4134,13 +3776,13 @@
                       "column": 3
                     }
                   },
-                  "text": "f"
+                  "text": "f",
+                  "hiddenNodes": []
                 },
                 "body": []
               },
               {
                 "$": "COMMA TOKEN NODE",
-                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 17,
@@ -4156,9 +3798,8 @@
                 "text": ","
               }
             ],
-            "hiddenNodes": [],
             "value": {
-              "$": "DECLARATION SYNTAX NODE",
+              "$": "ID TOKEN NODE",
               "range": {
                 "start": {
                   "index": 16,
@@ -4171,43 +3812,8 @@
                   "column": 3
                 }
               },
-              "children": [
-                {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 16,
-                      "line": 5,
-                      "column": 2
-                    },
-                    "stop": {
-                      "index": 17,
-                      "line": 5,
-                      "column": 3
-                    }
-                  },
-                  "text": "f"
-                }
-              ],
-              "hiddenNodes": [],
-              "id": {
-                "$": "ID TOKEN NODE",
-                "hiddenNodes": [],
-                "range": {
-                  "start": {
-                    "index": 16,
-                    "line": 5,
-                    "column": 2
-                  },
-                  "stop": {
-                    "index": 17,
-                    "line": 5,
-                    "column": 3
-                  }
-                },
-                "text": "f"
-              }
+              "text": "f",
+              "hiddenNodes": []
             },
             "statements": [
               {
@@ -4224,10 +3830,10 @@
                     "column": 3
                   }
                 },
+                "hiddenNodes": [],
                 "children": [
                   {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 16,
@@ -4240,16 +3846,25 @@
                         "column": 3
                       }
                     },
-                    "text": "f"
+                    "text": "f",
+                    "hiddenNodes": []
                   }
                 ],
-                "hiddenNodes": [],
-                "indentColumn": 2,
+                "indent": {
+                  "start": {
+                    "index": 16,
+                    "line": 5,
+                    "column": 2
+                  },
+                  "stop": {
+                    "index": 16,
+                    "line": 5,
+                    "column": 2
+                  }
+                },
                 "indentLevel": 0,
-                "parentStatement": null,
                 "item": {
                   "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
                   "range": {
                     "start": {
                       "index": 16,
@@ -4262,14 +3877,14 @@
                       "column": 3
                     }
                   },
-                  "text": "f"
+                  "text": "f",
+                  "hiddenNodes": []
                 },
                 "body": []
               }
             ],
             "comma": {
               "$": "COMMA TOKEN NODE",
-              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 17,
@@ -4301,23 +3916,6 @@
             },
             "children": [
               {
-                "$": "ID TOKEN NODE",
-                "hiddenNodes": [],
-                "range": {
-                  "start": {
-                    "index": 19,
-                    "line": 5,
-                    "column": 5
-                  },
-                  "stop": {
-                    "index": 20,
-                    "line": 5,
-                    "column": 6
-                  }
-                },
-                "text": "g"
-              },
-              {
                 "$": "STATEMENT SYNTAX NODE",
                 "range": {
                   "start": {
@@ -4331,10 +3929,27 @@
                     "column": 6
                   }
                 },
+                "hiddenNodes": [
+                  {
+                    "$": "WHITESPACE TOKEN NODE",
+                    "range": {
+                      "start": {
+                        "index": 18,
+                        "line": 5,
+                        "column": 4
+                      },
+                      "stop": {
+                        "index": 19,
+                        "line": 5,
+                        "column": 5
+                      }
+                    },
+                    "text": " "
+                  }
+                ],
                 "children": [
                   {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 19,
@@ -4347,16 +3962,25 @@
                         "column": 6
                       }
                     },
-                    "text": "g"
+                    "text": "g",
+                    "hiddenNodes": []
                   }
                 ],
-                "hiddenNodes": [],
-                "indentColumn": 5,
+                "indent": {
+                  "start": {
+                    "index": 18,
+                    "line": 5,
+                    "column": 4
+                  },
+                  "stop": {
+                    "index": 19,
+                    "line": 5,
+                    "column": 5
+                  }
+                },
                 "indentLevel": 0,
-                "parentStatement": null,
                 "item": {
                   "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
                   "range": {
                     "start": {
                       "index": 19,
@@ -4369,32 +3993,14 @@
                       "column": 6
                     }
                   },
-                  "text": "g"
+                  "text": "g",
+                  "hiddenNodes": []
                 },
                 "body": []
               }
             ],
-            "hiddenNodes": [
-              {
-                "$": "WHITESPACE TOKEN NODE",
-                "hiddenNodes": [],
-                "range": {
-                  "start": {
-                    "index": 18,
-                    "line": 5,
-                    "column": 4
-                  },
-                  "stop": {
-                    "index": 19,
-                    "line": 5,
-                    "column": 5
-                  }
-                },
-                "text": " "
-              }
-            ],
             "value": {
-              "$": "DECLARATION SYNTAX NODE",
+              "$": "ID TOKEN NODE",
               "range": {
                 "start": {
                   "index": 19,
@@ -4407,43 +4013,8 @@
                   "column": 6
                 }
               },
-              "children": [
-                {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 19,
-                      "line": 5,
-                      "column": 5
-                    },
-                    "stop": {
-                      "index": 20,
-                      "line": 5,
-                      "column": 6
-                    }
-                  },
-                  "text": "g"
-                }
-              ],
-              "hiddenNodes": [],
-              "id": {
-                "$": "ID TOKEN NODE",
-                "hiddenNodes": [],
-                "range": {
-                  "start": {
-                    "index": 19,
-                    "line": 5,
-                    "column": 5
-                  },
-                  "stop": {
-                    "index": 20,
-                    "line": 5,
-                    "column": 6
-                  }
-                },
-                "text": "g"
-              }
+              "text": "g",
+              "hiddenNodes": []
             },
             "statements": [
               {
@@ -4460,10 +4031,27 @@
                     "column": 6
                   }
                 },
+                "hiddenNodes": [
+                  {
+                    "$": "WHITESPACE TOKEN NODE",
+                    "range": {
+                      "start": {
+                        "index": 18,
+                        "line": 5,
+                        "column": 4
+                      },
+                      "stop": {
+                        "index": 19,
+                        "line": 5,
+                        "column": 5
+                      }
+                    },
+                    "text": " "
+                  }
+                ],
                 "children": [
                   {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 19,
@@ -4476,16 +4064,25 @@
                         "column": 6
                       }
                     },
-                    "text": "g"
+                    "text": "g",
+                    "hiddenNodes": []
                   }
                 ],
-                "hiddenNodes": [],
-                "indentColumn": 5,
+                "indent": {
+                  "start": {
+                    "index": 18,
+                    "line": 5,
+                    "column": 4
+                  },
+                  "stop": {
+                    "index": 19,
+                    "line": 5,
+                    "column": 5
+                  }
+                },
                 "indentLevel": 0,
-                "parentStatement": null,
                 "item": {
                   "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
                   "range": {
                     "start": {
                       "index": 19,
@@ -4498,7 +4095,8 @@
                       "column": 6
                     }
                   },
-                  "text": "g"
+                  "text": "g",
+                  "hiddenNodes": []
                 },
                 "body": []
               }
@@ -4507,7 +4105,6 @@
           },
           {
             "$": "CLOSE TOKEN NODE",
-            "hiddenNodes": [],
             "range": {
               "start": {
                 "index": 20,
@@ -4523,10 +4120,8 @@
             "text": ")"
           }
         ],
-        "hiddenNodes": [],
         "open": {
           "$": "OPEN TOKEN NODE",
-          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 15,
@@ -4558,23 +4153,6 @@
             },
             "children": [
               {
-                "$": "ID TOKEN NODE",
-                "hiddenNodes": [],
-                "range": {
-                  "start": {
-                    "index": 16,
-                    "line": 5,
-                    "column": 2
-                  },
-                  "stop": {
-                    "index": 17,
-                    "line": 5,
-                    "column": 3
-                  }
-                },
-                "text": "f"
-              },
-              {
                 "$": "STATEMENT SYNTAX NODE",
                 "range": {
                   "start": {
@@ -4588,10 +4166,10 @@
                     "column": 3
                   }
                 },
+                "hiddenNodes": [],
                 "children": [
                   {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 16,
@@ -4604,16 +4182,25 @@
                         "column": 3
                       }
                     },
-                    "text": "f"
+                    "text": "f",
+                    "hiddenNodes": []
                   }
                 ],
-                "hiddenNodes": [],
-                "indentColumn": 2,
+                "indent": {
+                  "start": {
+                    "index": 16,
+                    "line": 5,
+                    "column": 2
+                  },
+                  "stop": {
+                    "index": 16,
+                    "line": 5,
+                    "column": 2
+                  }
+                },
                 "indentLevel": 0,
-                "parentStatement": null,
                 "item": {
                   "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
                   "range": {
                     "start": {
                       "index": 16,
@@ -4626,13 +4213,13 @@
                       "column": 3
                     }
                   },
-                  "text": "f"
+                  "text": "f",
+                  "hiddenNodes": []
                 },
                 "body": []
               },
               {
                 "$": "COMMA TOKEN NODE",
-                "hiddenNodes": [],
                 "range": {
                   "start": {
                     "index": 17,
@@ -4648,9 +4235,8 @@
                 "text": ","
               }
             ],
-            "hiddenNodes": [],
             "value": {
-              "$": "DECLARATION SYNTAX NODE",
+              "$": "ID TOKEN NODE",
               "range": {
                 "start": {
                   "index": 16,
@@ -4663,43 +4249,8 @@
                   "column": 3
                 }
               },
-              "children": [
-                {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 16,
-                      "line": 5,
-                      "column": 2
-                    },
-                    "stop": {
-                      "index": 17,
-                      "line": 5,
-                      "column": 3
-                    }
-                  },
-                  "text": "f"
-                }
-              ],
-              "hiddenNodes": [],
-              "id": {
-                "$": "ID TOKEN NODE",
-                "hiddenNodes": [],
-                "range": {
-                  "start": {
-                    "index": 16,
-                    "line": 5,
-                    "column": 2
-                  },
-                  "stop": {
-                    "index": 17,
-                    "line": 5,
-                    "column": 3
-                  }
-                },
-                "text": "f"
-              }
+              "text": "f",
+              "hiddenNodes": []
             },
             "statements": [
               {
@@ -4716,10 +4267,10 @@
                     "column": 3
                   }
                 },
+                "hiddenNodes": [],
                 "children": [
                   {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 16,
@@ -4732,16 +4283,25 @@
                         "column": 3
                       }
                     },
-                    "text": "f"
+                    "text": "f",
+                    "hiddenNodes": []
                   }
                 ],
-                "hiddenNodes": [],
-                "indentColumn": 2,
+                "indent": {
+                  "start": {
+                    "index": 16,
+                    "line": 5,
+                    "column": 2
+                  },
+                  "stop": {
+                    "index": 16,
+                    "line": 5,
+                    "column": 2
+                  }
+                },
                 "indentLevel": 0,
-                "parentStatement": null,
                 "item": {
                   "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
                   "range": {
                     "start": {
                       "index": 16,
@@ -4754,14 +4314,14 @@
                       "column": 3
                     }
                   },
-                  "text": "f"
+                  "text": "f",
+                  "hiddenNodes": []
                 },
                 "body": []
               }
             ],
             "comma": {
               "$": "COMMA TOKEN NODE",
-              "hiddenNodes": [],
               "range": {
                 "start": {
                   "index": 17,
@@ -4793,23 +4353,6 @@
             },
             "children": [
               {
-                "$": "ID TOKEN NODE",
-                "hiddenNodes": [],
-                "range": {
-                  "start": {
-                    "index": 19,
-                    "line": 5,
-                    "column": 5
-                  },
-                  "stop": {
-                    "index": 20,
-                    "line": 5,
-                    "column": 6
-                  }
-                },
-                "text": "g"
-              },
-              {
                 "$": "STATEMENT SYNTAX NODE",
                 "range": {
                   "start": {
@@ -4823,10 +4366,27 @@
                     "column": 6
                   }
                 },
+                "hiddenNodes": [
+                  {
+                    "$": "WHITESPACE TOKEN NODE",
+                    "range": {
+                      "start": {
+                        "index": 18,
+                        "line": 5,
+                        "column": 4
+                      },
+                      "stop": {
+                        "index": 19,
+                        "line": 5,
+                        "column": 5
+                      }
+                    },
+                    "text": " "
+                  }
+                ],
                 "children": [
                   {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 19,
@@ -4839,16 +4399,25 @@
                         "column": 6
                       }
                     },
-                    "text": "g"
+                    "text": "g",
+                    "hiddenNodes": []
                   }
                 ],
-                "hiddenNodes": [],
-                "indentColumn": 5,
+                "indent": {
+                  "start": {
+                    "index": 18,
+                    "line": 5,
+                    "column": 4
+                  },
+                  "stop": {
+                    "index": 19,
+                    "line": 5,
+                    "column": 5
+                  }
+                },
                 "indentLevel": 0,
-                "parentStatement": null,
                 "item": {
                   "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
                   "range": {
                     "start": {
                       "index": 19,
@@ -4861,32 +4430,14 @@
                       "column": 6
                     }
                   },
-                  "text": "g"
+                  "text": "g",
+                  "hiddenNodes": []
                 },
                 "body": []
               }
             ],
-            "hiddenNodes": [
-              {
-                "$": "WHITESPACE TOKEN NODE",
-                "hiddenNodes": [],
-                "range": {
-                  "start": {
-                    "index": 18,
-                    "line": 5,
-                    "column": 4
-                  },
-                  "stop": {
-                    "index": 19,
-                    "line": 5,
-                    "column": 5
-                  }
-                },
-                "text": " "
-              }
-            ],
             "value": {
-              "$": "DECLARATION SYNTAX NODE",
+              "$": "ID TOKEN NODE",
               "range": {
                 "start": {
                   "index": 19,
@@ -4899,43 +4450,8 @@
                   "column": 6
                 }
               },
-              "children": [
-                {
-                  "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
-                  "range": {
-                    "start": {
-                      "index": 19,
-                      "line": 5,
-                      "column": 5
-                    },
-                    "stop": {
-                      "index": 20,
-                      "line": 5,
-                      "column": 6
-                    }
-                  },
-                  "text": "g"
-                }
-              ],
-              "hiddenNodes": [],
-              "id": {
-                "$": "ID TOKEN NODE",
-                "hiddenNodes": [],
-                "range": {
-                  "start": {
-                    "index": 19,
-                    "line": 5,
-                    "column": 5
-                  },
-                  "stop": {
-                    "index": 20,
-                    "line": 5,
-                    "column": 6
-                  }
-                },
-                "text": "g"
-              }
+              "text": "g",
+              "hiddenNodes": []
             },
             "statements": [
               {
@@ -4952,10 +4468,27 @@
                     "column": 6
                   }
                 },
+                "hiddenNodes": [
+                  {
+                    "$": "WHITESPACE TOKEN NODE",
+                    "range": {
+                      "start": {
+                        "index": 18,
+                        "line": 5,
+                        "column": 4
+                      },
+                      "stop": {
+                        "index": 19,
+                        "line": 5,
+                        "column": 5
+                      }
+                    },
+                    "text": " "
+                  }
+                ],
                 "children": [
                   {
                     "$": "ID TOKEN NODE",
-                    "hiddenNodes": [],
                     "range": {
                       "start": {
                         "index": 19,
@@ -4968,16 +4501,25 @@
                         "column": 6
                       }
                     },
-                    "text": "g"
+                    "text": "g",
+                    "hiddenNodes": []
                   }
                 ],
-                "hiddenNodes": [],
-                "indentColumn": 5,
+                "indent": {
+                  "start": {
+                    "index": 18,
+                    "line": 5,
+                    "column": 4
+                  },
+                  "stop": {
+                    "index": 19,
+                    "line": 5,
+                    "column": 5
+                  }
+                },
                 "indentLevel": 0,
-                "parentStatement": null,
                 "item": {
                   "$": "ID TOKEN NODE",
-                  "hiddenNodes": [],
                   "range": {
                     "start": {
                       "index": 19,
@@ -4990,7 +4532,8 @@
                       "column": 6
                     }
                   },
-                  "text": "g"
+                  "text": "g",
+                  "hiddenNodes": []
                 },
                 "body": []
               }
@@ -5000,7 +4543,6 @@
         ],
         "close": {
           "$": "CLOSE TOKEN NODE",
-          "hiddenNodes": [],
           "range": {
             "start": {
               "index": 20,
@@ -5014,7 +4556,8 @@
             }
           },
           "text": ")"
-        }
+        },
+        "hiddenNodes": []
       }
     },
     "body": []
