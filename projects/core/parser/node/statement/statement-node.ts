@@ -1,10 +1,10 @@
 import {formatStatementNode} from '../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {Array2, Integer, Nothing} from '../../../lib/core';
-import {TextRange} from '../../../util/resource/text/text-range';
+import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
 import {SyntaxContext} from '../../syntax-context';
 import {$Node, Node} from '../node';
-import {SyntaxNode, syntaxNode} from '../syntax/syntax-node';
+import {SyntaxNode} from '../syntax/syntax-node';
 import {statementNodeCollapse} from './statement-node-collapse';
 
 export interface StatementNode extends SyntaxNode {
@@ -18,22 +18,23 @@ export interface StatementNode extends SyntaxNode {
 }
 
 export function statementNode(context: SyntaxContext, children: Array2<Node>, indent: TextRange): StatementNode {
-  const node = syntaxNode($Node.STATEMENT, {children});
-  const parent = context.parentStatement;
-  const indentLevel = parent ? parent.indentLevel + 1 : 0;
-  const item = children[0];
-
   const statement: StatementNode = {
-    ...node,
+    $: $Node.STATEMENT,
+    range: rangeFromNodes(children),
+    hiddenNodes: children[0].hiddenNodes,
+    children,
     indent,
-    indentLevel,
-    parent,
-    item,
+    indentLevel: (context.parentStatement?.indentLevel ?? -1) + 1,
+    parent: context.parentStatement,
+    item: children[0],
     body: [],
   };
 
-  if (parent) {
-    parent.body.push(statement);
+  children[0].hiddenNodes = [];
+  children.forEach((x) => (x.parent = statement));
+
+  if (context.parentStatement) {
+    context.parentStatement.body.push(statement);
   } else {
     context.statements.push(statement);
   }
