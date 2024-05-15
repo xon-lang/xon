@@ -38,54 +38,37 @@ export function formatBetweenHiddenNodes(context: SyntaxContext, node: Node, kee
 
 export function formatStatement(context: SyntaxContext, statement: StatementNode): Nothing {
   if (!statement.hiddenNodes || statement.hiddenNodes.length === 0) {
-    statement.formattedIndentColumn = statement.range.start.column;
-
     return;
   }
 
   const isFirstStatement = context.statements.first() === statement;
   const lastNlIndex = statement.hiddenNodes.lastIndex((x) => is<NlNode>(x, $Node.NL));
-  let beforeIndentFormattedText = '';
 
   if (lastNlIndex >= 0) {
-    const beforeIndentHiddenNodes = statement.hiddenNodes.slice(0, lastNlIndex + 1);
-    beforeIndentFormattedText = formatHiddenNodes(context, beforeIndentHiddenNodes);
+    const beforeNlHiddenNodes = statement.hiddenNodes.slice(0, lastNlIndex + 1);
+    let text = formatHiddenNodes(context, beforeNlHiddenNodes);
 
-    if (beforeIndentFormattedText.length > 0) {
+    if (text.length > 0) {
       if (isFirstStatement) {
-        beforeIndentFormattedText = beforeIndentFormattedText.trimStart();
-      } else if (beforeIndentFormattedText[0] !== NL) {
-        beforeIndentFormattedText = ' ' + beforeIndentFormattedText;
+        text = text.trimStart();
+      } else if (text[0] !== NL) {
+        text = ' ' + text;
       }
     }
 
-    if (!isSameContent(context.resource, beforeIndentHiddenNodes, beforeIndentFormattedText)) {
+    if (!isSameContent(context.resource, beforeNlHiddenNodes, text)) {
       context.formatterManager.addFormatter({
-        range: rangeFromNodes(beforeIndentHiddenNodes),
-        text: beforeIndentFormattedText,
+        range: rangeFromNodes(beforeNlHiddenNodes),
+        text: text,
       });
     }
   }
 
-  let indentText = '';
-
-  if (statement.parentStatement?.formattedIndentColumn != null) {
-    indentText = ' '.repeat(
-      context.config.formatting.indentSpaceLength + statement.parentStatement?.formattedIndentColumn,
-    );
-  }
-
+  const indentText = ' '.repeat(context.config.formatting.indentSpaceLength * statement.indentLevel);
   const afterIndentHiddenNodes = statement.hiddenNodes.slice(lastNlIndex + 1);
   const nonWhitespaceNodes = afterIndentHiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
   const text =
     indentText + nonWhitespaceNodes.map((x) => x.text).join(' ') + (nonWhitespaceNodes.length > 0 ? ' ' : '');
-
-  if (lastNlIndex >= 0 && beforeIndentFormattedText.length === 0) {
-    statement.formattedIndentColumn = statement.hiddenNodes[0].range.start.column;
-  } else {
-    const beforeLength = statement.item.range.start.column - statement.indent.start.column;
-    statement.formattedIndentColumn = statement.item.range.start.column + (text.length - beforeLength);
-  }
 
   if (isSameContent(context.resource, afterIndentHiddenNodes, text)) {
     return nothing;

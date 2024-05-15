@@ -1,7 +1,7 @@
 import {formatRemainingContextHiddenNodes} from '../formatter/formatter';
 import {FormatterManager} from '../formatter/formatter-manager';
 import {IssueManager} from '../issue/issue-manager';
-import {Array2, Boolean2, Integer, Nothing} from '../lib/core';
+import {Array2, Boolean2, Integer, Nothing, nothing} from '../lib/core';
 import {TextPosition, zeroPosition} from '../util/resource/text/text-position';
 import {TextRange, cloneRange, rangeFromPosition} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
@@ -88,21 +88,7 @@ export function syntaxParse(
       continue;
     }
 
-    if (context.nodes.length === 0 && context.hiddenNodes.length > 0) {
-      const lastNlIndex = context.hiddenNodes.lastIndex((x) => is<NlNode>(x, $Node.NL));
-
-      if (lastNlIndex >= 0) {
-        const whiteSpaceNode = context.hiddenNodes[lastNlIndex + 1];
-
-        if (is<WhitespaceNode>(whiteSpaceNode, $Node.WHITESPACE)) {
-          statementIndent = cloneRange(whiteSpaceNode.range);
-        } else {
-          statementIndent = rangeFromPosition(context.hiddenNodes[lastNlIndex].range.stop);
-        }
-      } else if (is<WhitespaceNode>(context.hiddenNodes[0], $Node.WHITESPACE)) {
-        statementIndent = cloneRange(context.hiddenNodes[0].range);
-      }
-    }
+    statementIndent = getStatementIndent(context) ?? statementIndent;
 
     node.hiddenNodes = context.hiddenNodes;
     context.hiddenNodes = [];
@@ -129,4 +115,28 @@ function nextNode(context: SyntaxContext): Node {
   context.position = node.range.stop;
 
   return node;
+}
+
+export function getStatementIndent(context: SyntaxContext): TextRange | Nothing {
+  if (context.nodes.length !== 0 || context.hiddenNodes.length === 0) {
+    return nothing;
+  }
+
+  const lastNlIndex = context.hiddenNodes.lastIndex((x) => is<NlNode>(x, $Node.NL));
+
+  if (lastNlIndex >= 0) {
+    const whiteSpaceNode = context.hiddenNodes[lastNlIndex + 1];
+
+    if (is<WhitespaceNode>(whiteSpaceNode, $Node.WHITESPACE)) {
+      return cloneRange(whiteSpaceNode.range);
+    }
+
+    return rangeFromPosition(context.hiddenNodes[lastNlIndex].range.stop);
+  }
+
+  if (is<WhitespaceNode>(context.hiddenNodes[0], $Node.WHITESPACE)) {
+    return cloneRange(context.hiddenNodes[0].range);
+  }
+
+  return nothing;
 }
