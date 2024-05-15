@@ -15,7 +15,7 @@ test('a', () => {
   expect(statement.$).toBe($Node.STATEMENT);
   expect(statement.indentLevel).toBe(0);
   expect(statement.indent.stop.column).toBe(2);
-  expect(statement.parentStatement).toBe(nothing);
+  expect(statement.parent).toBe(nothing);
   expect(statement.children.length).toBe(1);
   expect(statement.children[0].$).toBe($Node.CHAR);
   expect((statement.children[0] as CharNode).text).toBe("'a'");

@@ -22,12 +22,11 @@ export function createFormatterManager(source: TextResource) {
     getFormattedText(): String2 {
       let index = 0;
       let formattedText = '';
-      // todo remove it and add formatters in order
       const formatters = this.formatters.sortBy((x) => x.range.start.index);
 
       for (const {range, text} of formatters) {
-        formattedText += this.resource.data.slice(index, range.start.index) + text;
         index = range.stop.index;
+        formattedText += this.resource.data.slice(index, range.start.index) + text;
       }
 
       formattedText += this.resource.data.slice(index, this.resource.data.length);

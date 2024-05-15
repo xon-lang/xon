@@ -9,8 +9,7 @@ import {statementNodeCollapse} from './statement-node-collapse';
 
 export interface StatementNode extends SyntaxNode {
   $: $Node.STATEMENT;
-  // todo rename to 'parent: StatementNode | Nothing;'
-  parentStatement: StatementNode | Nothing;
+  parent: StatementNode | Nothing;
   indentLevel: Integer;
   indent: TextRange;
   children: Array2<Node>;
@@ -20,21 +19,21 @@ export interface StatementNode extends SyntaxNode {
 
 export function statementNode(context: SyntaxContext, children: Array2<Node>, indent: TextRange): StatementNode {
   const node = syntaxNode($Node.STATEMENT, {children});
-  const parentStatement = context.parentStatement;
-  const indentLevel = parentStatement ? parentStatement.indentLevel + 1 : 0;
+  const parent = context.parentStatement;
+  const indentLevel = parent ? parent.indentLevel + 1 : 0;
   const item = children[0];
 
   const statement: StatementNode = {
     ...node,
     indent,
     indentLevel,
-    parentStatement,
+    parent,
     item,
     body: [],
   };
 
-  if (parentStatement) {
-    parentStatement.body.push(statement);
+  if (parent) {
+    parent.body.push(statement);
   } else {
     context.statements.push(statement);
   }

@@ -20,14 +20,14 @@ function getParent(context: SyntaxContext, indent: TextRange): StatementNode | N
   return findParentStatementWithLessIndent(context.lastStatement, indent);
 }
 
-function findParentStatementWithLessIndent(node: StatementNode, indent: TextRange): StatementNode | Nothing {
-  if (!node.parentStatement) {
+function findParentStatementWithLessIndent(statement: StatementNode, indent: TextRange): StatementNode | Nothing {
+  if (!statement.parent) {
     return nothing;
   }
 
-  if (node.parentStatement.indent.stop.column < indent.stop.column) {
-    return node.parentStatement;
+  if (statement.parent.indent.stop.column < indent.stop.column) {
+    return statement.parent;
   }
 
-  return findParentStatementWithLessIndent(node.parentStatement, indent);
+  return findParentStatementWithLessIndent(statement.parent, indent);
 }
