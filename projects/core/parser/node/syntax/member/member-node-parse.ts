@@ -1,30 +1,28 @@
 import {Integer, nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, ExpressionNode, findNode, is, isExpressionNode} from '../../node';
+import {$Node, is, isExpressionNode, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {memberNode} from './member-node';
 
 export function memberNodeParse(operators: String[]): SyntaxParseFn {
-  return (context: SyntaxContext, index: Integer) => {
-    const found = findNode(
-      context.nodes,
-      index,
-      true,
-      (x, i, nodes): x is OperatorNode =>
-        is<OperatorNode>(x, $Node.OPERATOR) && operators.includes(x.text) && isExpressionNode(nodes[i - 1]),
-    );
+  return (context: SyntaxContext, startIndex: Integer) => {
+    return nodeFindMap(context.nodes, startIndex, true, (node, index, nodes) => {
+      if (!is<OperatorNode>(node, $Node.OPERATOR) || !operators.includes(node.text)) {
+        return nothing;
+      }
 
-    if (!found) {
-      return;
-    }
+      const instance = nodes[index - 1];
 
-    const instance = context.nodes[found.index - 1] as ExpressionNode;
-    const right = context.nodes[found.index + 1];
-    const id = is<IdNode>(right, $Node.ID) ? right : nothing;
-    const node = memberNode(context, instance, found.node, id);
+      if (!isExpressionNode(instance)) {
+        return nothing;
+      }
 
-    return {node, spliceIndex: found.index - 1};
+      const right = nodes[index + 1];
+      const id = is<IdNode>(right, $Node.ID) ? right : nothing;
+
+      return {node: memberNode(context, instance, node, id), spliceIndex: index - 1};
+    });
   };
 }

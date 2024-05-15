@@ -6,7 +6,6 @@ import {
   EQUALS,
   GREAT,
   GREAT_EQUALS,
-  IMPORT,
   INTERSECTION,
   LESS,
   LESS_EQUALS,
@@ -39,8 +38,9 @@ import {postfixNodeParse} from '../syntax/postfix/postfix-node-parse';
 import {prefixNodeParse} from '../syntax/prefix/prefix-node-parse';
 import {SyntaxNode} from '../syntax/syntax-node';
 
+// todo rename spliceIndex to index
 export type SyntaxParseResult = {spliceIndex: Integer; deleteCount?: Integer; node: SyntaxNode} | Nothing;
-export type SyntaxParseFn = (context: SyntaxContext, index: Integer) => SyntaxParseResult;
+export type SyntaxParseFn = (context: SyntaxContext, startIndex: Integer) => SyntaxParseResult;
 
 const parsers: Array2<SyntaxParseFn> = [
   importNodeParse(),

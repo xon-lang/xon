@@ -115,25 +115,23 @@ export function isGroupNode(node: Node | Nothing): node is Group {
   return groups.some((x) => node.$ === x);
 }
 
-// todo refactor findNode function
-// todo add several outputs for complex predicates
-export function findNode<T extends Node>(
+export function nodeFindMap<T>(
   nodes: Node[],
   startIndex: Integer,
   isLeftRecursive: Boolean2,
-  predicate: (node: Node, index, nodes: Node[]) => node is T,
-): {index: Integer; node: T} | Nothing {
+  predicateMap: (node: Node, index, nodes: Node[]) => T,
+): T | Nothing {
   for (let i = startIndex; i < nodes.length; i++) {
     const lastIndex = nodes.length - 1;
+    // todo simplify it
     const index = isLeftRecursive ? i : lastIndex - i;
 
     const node = nodes[index];
 
-    if (predicate(node, index, nodes)) {
-      return {
-        index,
-        node,
-      };
+    const result = predicateMap(node, index, nodes);
+   
+    if (result) {
+      return result;
     }
   }
 

@@ -1,26 +1,23 @@
-import {Integer} from '../../../../lib/core';
+import {Integer, nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
-import {Group} from '../../group/group-node';
-import {ExpressionNode, findNode, isExpressionNode, isGroupNode} from '../../node';
+import {isExpressionNode, isGroupNode, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {invokeNode} from './invoke-node';
 
 export function invokeNodeParse(): SyntaxParseFn {
-  return (context: SyntaxContext, index: Integer) => {
-    const found = findNode(
-      context.nodes,
-      index,
-      true,
-      (x, index): x is Group => index > 0 && isGroupNode(x) && isExpressionNode(context.nodes[index - 1]),
-    );
+  return (context: SyntaxContext, startIndex: Integer) => {
+    return nodeFindMap(context.nodes, startIndex, true, (node, index, nodes) => {
+      if (index === 0 || !isGroupNode(node)) {
+        return nothing;
+      }
 
-    if (!found) {
-      return;
-    }
+      const instance = nodes[index - 1];
 
-    const instance = context.nodes[found.index - 1];
-    const node = invokeNode(context, instance as ExpressionNode, found.node);
+      if (!isExpressionNode(instance)) {
+        return nothing;
+      }
 
-    return {node, spliceIndex: found.index - 1};
+      return {node: invokeNode(context, instance, node), spliceIndex: index - 1};
+    });
   };
 }

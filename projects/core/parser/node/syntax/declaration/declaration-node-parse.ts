@@ -2,7 +2,7 @@ import {Array2, Integer, Nothing, nothing} from '../../../../lib/core';
 import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIERS} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
-import {$Node, ExpressionNode, Node, findNode, is, isExpressionNode} from '../../node';
+import {$Node, ExpressionNode, Node, is, isExpressionNode, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
@@ -55,13 +55,18 @@ function getDeclarationParts(context: SyntaxContext):
     return nothing;
   }
 
-  const typeOperatorFound = findNode(
-    context.nodes,
-    0,
-    true,
-    (x, index, nodes): x is OperatorNode =>
-      index - 1 === 0 && is<OperatorNode>(x, $Node.OPERATOR) && x.text === TYPE && isExpressionNode(nodes[index + 1]),
-  );
+  const typeOperatorFound = nodeFindMap(context.nodes, 0, true, (node, index, nodes) => {
+    if (
+      index - 1 === 0 &&
+      is<OperatorNode>(node, $Node.OPERATOR) &&
+      node.text === TYPE &&
+      isExpressionNode(nodes[index + 1])
+    ) {
+      return {node, index};
+    }
+
+    return nothing;
+  });
 
   if (typeOperatorFound) {
     const typeValue = context.nodes[typeOperatorFound.index + 1] as ExpressionNode;
@@ -87,13 +92,18 @@ function getDeclarationParts(context: SyntaxContext):
     return nothing;
   }
 
-  const assignOperatorFound = findNode(
-    context.nodes,
-    0,
-    true,
-    (x, index, nodes): x is OperatorNode =>
-      index - 1 === 0 && is<OperatorNode>(x, $Node.OPERATOR) && x.text === ASSIGN && isExpressionNode(nodes[index + 1]),
-  );
+  const assignOperatorFound = nodeFindMap(context.nodes, 0, true, (node, index, nodes) => {
+    if (
+      index - 1 === 0 &&
+      is<OperatorNode>(node, $Node.OPERATOR) &&
+      node.text === ASSIGN &&
+      isExpressionNode(nodes[index + 1])
+    ) {
+      return {node, index};
+    }
+
+    return nothing;
+  });
 
   if (assignOperatorFound) {
     const assignValue = context.nodes[assignOperatorFound.index + 1] as ExpressionNode;

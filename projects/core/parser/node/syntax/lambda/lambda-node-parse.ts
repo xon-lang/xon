@@ -2,7 +2,7 @@ import {Array2, Integer, Nothing, nothing} from '../../../../lib/core';
 import {ASSIGN, TYPE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
-import {$Node, ExpressionNode, Node, findNode, is, isExpressionNode} from '../../node';
+import {$Node, ExpressionNode, Node, is, isExpressionNode, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
@@ -41,19 +41,21 @@ function getLambdaParts(context: SyntaxContext):
       assign?: PrefixNode | Nothing;
     }
   | Nothing {
-  const typeOperatorFound = findNode(
-    context.nodes,
-    0,
-    false,
-    (x, index, nodes): x is OperatorNode =>
-      is<OperatorNode>(x, $Node.OPERATOR) &&
-      x.text === TYPE &&
+  const typeOperatorFound = nodeFindMap(context.nodes, 0, false, (node, index, nodes) => {
+    if (
+      is<OperatorNode>(node, $Node.OPERATOR) &&
+      node.text === TYPE &&
       isExpressionNode(nodes[index + 1]) &&
       (is<GroupNode>(nodes[index - 1], $Node.GROUP) ||
         (is<InvokeNode>(nodes[index - 1], $Node.INVOKE) &&
           is<ObjectNode>((nodes[index - 1] as InvokeNode).instance, $Node.OBJECT) &&
-          is<GroupNode>((nodes[index - 1] as InvokeNode).group, $Node.GROUP))),
-  );
+          is<GroupNode>((nodes[index - 1] as InvokeNode).group, $Node.GROUP)))
+    ) {
+      return {node, index};
+    }
+
+    return nothing;
+  });
 
   if (typeOperatorFound) {
     const header = getGenericsParameters(context, context.nodes[typeOperatorFound.index - 1]);
@@ -75,19 +77,21 @@ function getLambdaParts(context: SyntaxContext):
     return {spliceIndex: typeOperatorFound.index - 1, deleteCount: 3, ...header, type};
   }
 
-  const assignOperatorFound = findNode(
-    context.nodes,
-    0,
-    false,
-    (x, index, nodes): x is OperatorNode =>
-      is<OperatorNode>(x, $Node.OPERATOR) &&
-      x.text === ASSIGN &&
+  const assignOperatorFound = nodeFindMap(context.nodes, 0, false, (node, index, nodes) => {
+    if (
+      is<OperatorNode>(node, $Node.OPERATOR) &&
+      node.text === ASSIGN &&
       isExpressionNode(nodes[index + 1]) &&
       (is<GroupNode>(nodes[index - 1], $Node.GROUP) ||
         (is<InvokeNode>(nodes[index - 1], $Node.INVOKE) &&
           is<ObjectNode>((nodes[index - 1] as InvokeNode).instance, $Node.OBJECT) &&
-          is<GroupNode>((nodes[index - 1] as InvokeNode).group, $Node.GROUP))),
-  );
+          is<GroupNode>((nodes[index - 1] as InvokeNode).group, $Node.GROUP)))
+    ) {
+      return {node, index};
+    }
+
+    return nothing;
+  });
 
   if (assignOperatorFound) {
     const header = getGenericsParameters(context, context.nodes[assignOperatorFound.index - 1]);
