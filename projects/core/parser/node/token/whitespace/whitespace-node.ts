@@ -8,5 +8,5 @@ export interface WhitespaceNode extends TokenNode {
 }
 
 export function whitespaceNode(range: TextRange, text: String2): WhitespaceNode {
-  return tokenNode($Node.WHITESPACE, {range, text});
+  return tokenNode({$: $Node.WHITESPACE, range, text});
 }

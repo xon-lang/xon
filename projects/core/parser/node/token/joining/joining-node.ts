@@ -8,5 +8,5 @@ export interface JoiningNode extends TokenNode {
 }
 
 export function joiningNode(range: TextRange, text: String2): JoiningNode {
-  return tokenNode($Node.JOINING, {range, text});
+  return tokenNode({$: $Node.JOINING, range, text});
 }

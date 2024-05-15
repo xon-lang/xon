@@ -13,5 +13,5 @@ export function stringNode(range: TextRange, text: String2): StringNode {
   const lastIndex = text.length > 1 && text.last() === STRING_QUOTE ? -1 : text.length;
   const value = text.slice(1, lastIndex);
 
-  return tokenNode($Node.STRING, {range, text, value});
+  return tokenNode({$: $Node.STRING, range, text, value});
 }

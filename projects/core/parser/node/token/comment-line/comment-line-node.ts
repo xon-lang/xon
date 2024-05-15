@@ -8,5 +8,5 @@ export interface CommentLineNode extends TokenNode {
 }
 
 export function commentLineNode(range: TextRange, text: String2): CommentLineNode {
-  return tokenNode($Node.COMMENT_LINE, {range, text});
+  return tokenNode({$: $Node.COMMENT_LINE, range, text});
 }

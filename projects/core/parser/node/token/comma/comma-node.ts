@@ -8,5 +8,5 @@ export interface CommaNode extends TokenNode {
 }
 
 export function commaNode(range: TextRange, text: String2): CommaNode {
-  return tokenNode($Node.COMMA, {range, text});
+  return tokenNode({$: $Node.COMMA, range, text});
 }

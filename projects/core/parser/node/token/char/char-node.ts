@@ -11,7 +11,6 @@ export interface CharNode extends TokenNode {
 
 export function charNode(range: TextRange, text: String2): CharNode {
   const lastIndex = text.length > 1 && text.last() === CHAR_QUOTE ? -1 : text.length;
-  const value = text.slice(1, lastIndex);
 
-  return tokenNode($Node.CHAR, {range, text, value});
+  return tokenNode({$: $Node.CHAR, range, text, value: text.slice(1, lastIndex)});
 }

@@ -8,5 +8,5 @@ export interface CloseNode extends TokenNode {
 }
 
 export function closeNode(range: TextRange, text: String2): CloseNode {
-  return tokenNode($Node.CLOSE, {range, text});
+  return tokenNode({$: $Node.CLOSE, range, text});
 }

@@ -9,5 +9,5 @@ export interface IdNode extends TokenNode {
 }
 
 export function idNode(range: TextRange, text: String2): IdNode {
-  return tokenNode($Node.ID, {range, text});
+  return tokenNode({$: $Node.ID, range, text});
 }

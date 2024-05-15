@@ -1,21 +1,12 @@
 import {Anything, Array2, Nothing, String2} from '../../../lib/core';
-import {TextRange} from '../../../util/resource/text/text-range';
 import {$Node, Node, is} from '../node';
 
 export interface TokenNode extends Node {
   text: String2;
 }
 
-// todo simplify it
-export function tokenNode<T extends Record<String2, Anything>, V extends $Node>(
-  $: V,
-  params: T & {range: TextRange; text: String2},
-): TokenNode & {$: typeof $} & T {
-  return {
-    $,
-    hiddenNodes: [],
-    ...params,
-  };
+export function tokenNode<T extends TokenNode & Record<String2, Anything>>(params: T): T {
+  return params;
 }
 
 export function isToken(node: {$?: $Node} | Nothing): node is TokenNode {

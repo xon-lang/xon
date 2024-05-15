@@ -8,5 +8,5 @@ export interface OpenNode extends TokenNode {
 }
 
 export function openNode(range: TextRange, text: String2): OpenNode {
-  return tokenNode($Node.OPEN, {range, text});
+  return tokenNode({$: $Node.OPEN, range, text});
 }

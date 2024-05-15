@@ -9,7 +9,5 @@ export interface IntegerNode extends TokenNode {
 }
 
 export function integerNode(range: TextRange, text: String2): IntegerNode {
-  const value = Number(text);
-
-  return tokenNode($Node.INTEGER, {range, text, value});
+  return tokenNode({$: $Node.INTEGER, range, text, value: Number(text)});
 }

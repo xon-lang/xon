@@ -8,5 +8,5 @@ export interface UnknownNode extends TokenNode {
 }
 
 export function unknownNode(range: TextRange, text: String2): UnknownNode {
-  return tokenNode($Node.UNKNOWN, {range, text});
+  return tokenNode({$: $Node.UNKNOWN, range, text});
 }

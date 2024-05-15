@@ -8,5 +8,5 @@ export interface NlNode extends TokenNode {
 }
 
 export function nlNode(range: TextRange, text: String2): NlNode {
-  return tokenNode($Node.NL, {range, text});
+  return tokenNode({$: $Node.NL, range, text});
 }
