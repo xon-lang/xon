@@ -8,14 +8,17 @@ import {prefixNode} from './prefix-node';
 export function prefixNodeParse(operators: String[], isLeftRecursive: Boolean2): SyntaxParseFn {
   return (context: SyntaxContext, startIndex: Integer) => {
     return nodeFindMap(context.nodes, startIndex, isLeftRecursive, (node, index, nodes) => {
-      if (!is<OperatorNode>(node, $Node.OPERATOR) || !operators.includes(node.text)) {
+      if (
+        !is<OperatorNode>(node, $Node.OPERATOR) ||
+        !operators.includes(node.text) ||
+        (index !== 0 && !is<OperatorNode>(nodes[index - 1], $Node.OPERATOR))
+      ) {
         return nothing;
       }
 
       const value = nodes[index + 1];
 
-      // todo move it up
-      if ((index !== 0 && !is<OperatorNode>(nodes[index - 1], $Node.OPERATOR)) || !isExpressionNode(value)) {
+      if (!isExpressionNode(value)) {
         return nothing;
       }
 
