@@ -1,5 +1,4 @@
-import {OutputChannel, Position, Range, TextDocument, TextEdit} from 'vscode';
-import {Formatter} from '../../core/formatter/formatter';
+import {OutputChannel, Position, Range, TextDocument} from 'vscode';
 import {Node, isSyntaxNode} from '../../core/parser/node/node';
 import {StatementNode} from '../../core/parser/node/statement/statement-node';
 import {SyntaxResult} from '../../core/parser/syntax-context';
@@ -9,10 +8,6 @@ import {TextPosition} from '../../core/util/resource/text/text-position';
 import {TextRange} from '../../core/util/resource/text/text-range';
 import {textResourceFrom} from '../../core/util/resource/text/text-resource';
 import {Array2, Nothing, String2, nothing} from '../../lib/types';
-
-export function convertFormatter(formatter: Formatter) {
-  return TextEdit.replace(convertRange(formatter.range), formatter.text);
-}
 
 export function convertRange(range: TextRange): Range {
   const start = convertPosition(range.start);
