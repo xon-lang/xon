@@ -1,4 +1,4 @@
-import {Anything, Array2, Nothing, String2} from '../../../lib/core';
+import {Anything, Array2, Nothing, String2} from '../../../../lib/types';
 import {$Node, Node, is} from '../node';
 
 export interface TokenNode extends Node {

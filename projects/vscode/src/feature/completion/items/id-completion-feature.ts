@@ -10,7 +10,7 @@ import {
   ProviderResult,
   TextDocument,
 } from 'vscode';
-import {Array2, Something} from '../../../../../core/lib/core';
+import {Array2, Something} from '../../../../../lib/types';
 import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../../util';
 
 export class IdCompletionItemProvider implements CompletionItemProvider {

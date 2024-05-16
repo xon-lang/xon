@@ -1,4 +1,4 @@
-import {Array2} from '../../../lib/core';
+import {Array2} from '../../../../lib/types';
 import {Node} from '../../../parser/node/node';
 import {TextPosition, clonePosition, zeroPosition} from './text-position';
 

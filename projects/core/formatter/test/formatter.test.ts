@@ -1,6 +1,6 @@
 import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
-import {String2} from '../../lib/core';
+import {String2} from '../../../lib/types';
 import {syntaxParse} from '../../parser/syntax-parser';
 import {textResourceFromFilePath} from '../../util/resource/text/text-resource';
 

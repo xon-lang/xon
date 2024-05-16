@@ -1,4 +1,4 @@
-import {Nothing, String2} from '../../../../lib/core';
+import {Nothing, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
 import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS} from '../../../parser-config';
 import {$Node} from '../../node';

@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../lib/core';
+import {Nothing, nothing} from '../../lib/types';
 import {TextRange} from '../util/resource/text/text-range';
 import {StatementNode, constructStatementNode} from './node/statement/statement-node';
 import {SyntaxContext} from './syntax-context';

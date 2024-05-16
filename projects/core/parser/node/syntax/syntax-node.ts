@@ -1,4 +1,4 @@
-import {Array2, Nothing, String2, nothing} from '../../../lib/core';
+import {Array2, Nothing, String2, nothing} from '../../../../lib/types';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {$Node, Node} from '../node';
 

@@ -10,7 +10,6 @@ import {
   TextDocument,
   languages,
 } from 'vscode';
-import {Nothing, String2, nothing} from '../../../../core/lib/core';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
 import {$Semantic, Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
@@ -18,6 +17,7 @@ import {IntegerTypeSemantic} from '../../../../core/semantic/type/integer/intege
 import {StringTypeSemantic} from '../../../../core/semantic/type/string/string-type-semantic';
 import {TypeSemantic, isTypeSemantic} from '../../../../core/semantic/type/type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
+import {Nothing, String2, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 

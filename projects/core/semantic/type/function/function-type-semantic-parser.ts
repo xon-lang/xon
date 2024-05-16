@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../../../lib/core';
+import {Nothing, nothing} from '../../../../lib/types';
 import {$Node, Node, is} from '../../../parser/node/node';
 import {DeclarationNode} from '../../../parser/node/syntax/declaration/declaration-node';
 import {declarationsParse} from '../../declaration/declaration-semantic-parser';

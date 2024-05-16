@@ -1,4 +1,4 @@
-import {Array2, Boolean2, Integer, Nothing, Number2, Something, String2, nothing} from '../../lib/core';
+import {Array2, Boolean2, Integer, Nothing, Number2, Something, String2, nothing} from '../../../lib/types';
 
 // Array
 Array.prototype.takeWhile = function <T>(

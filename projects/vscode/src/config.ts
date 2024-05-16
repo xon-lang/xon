@@ -1,5 +1,5 @@
 import {workspace} from 'vscode';
-import {Boolean2} from '../../core/lib/core';
+import {Boolean2} from '../../lib/types';
 
 export const LANGUAGE_NAME = 'xon';
 export const LANGUAGE_EXTENSION = 'xon';

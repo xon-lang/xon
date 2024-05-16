@@ -12,7 +12,7 @@ import {
   TextEdit,
 } from 'vscode';
 
-import {Array2} from '../../../../core/lib/core';
+import {Array2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertFormatter, getDocumentSyntax} from '../../util';
 

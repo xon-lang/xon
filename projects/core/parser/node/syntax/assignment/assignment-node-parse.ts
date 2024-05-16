@@ -1,4 +1,4 @@
-import {Integer, nothing} from '../../../../lib/core';
+import {Integer, nothing} from '../../../../../lib/types';
 import {ASSIGN} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, is, isExpressionNode, nodeFindMap} from '../../node';

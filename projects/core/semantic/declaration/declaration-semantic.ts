@@ -1,4 +1,4 @@
-import {Array2, Nothing, String2} from '../../lib/core';
+import {Array2, Nothing, String2} from '../../../lib/types';
 import {TextResourceReference} from '../../util/resource/resource-reference';
 import {Semantic} from '../semantic';
 import {ValueDeclarationSemantic} from './value/value-declaration-semantic';

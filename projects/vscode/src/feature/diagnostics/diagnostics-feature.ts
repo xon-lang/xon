@@ -11,7 +11,7 @@ import {
 } from 'vscode';
 import {Issue} from '../../../../core/issue/issue';
 import {IssueSeverity} from '../../../../core/issue/issue-level';
-import {Array2} from '../../../../core/lib/core';
+import {Array2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, getDocumentSyntax} from '../../util';
 

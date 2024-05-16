@@ -1,4 +1,4 @@
-import {Integer, Nothing, nothing} from '../../../../lib/core';
+import {Integer, Nothing, nothing} from '../../../../../lib/types';
 import {ARRAY_CLOSE, GROUP_CLOSE, OBJECT_CLOSE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {CloseNode, closeNode} from './close-node';

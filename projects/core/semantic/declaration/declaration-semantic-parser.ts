@@ -1,5 +1,5 @@
 import {SyntaxResult} from '../../../core/parser/syntax-context';
-import {Array2, Nothing, String2, nothing} from '../../lib/core';
+import {Array2, Nothing, String2, nothing} from '../../../lib/types';
 import {$Node, is} from '../../parser/node/node';
 import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-node';
 import {TYPE_MODIFIERS} from '../../parser/parser-config';

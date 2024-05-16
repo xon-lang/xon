@@ -1,4 +1,4 @@
-import {nothing} from '../../../../lib/core';
+import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {NL} from '../../../parser-config';
 import {syntaxParse} from '../../../syntax-parser';

@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../lib/core';
+import {Nothing, nothing} from '../../lib/types';
 import {SyntaxResult} from '../parser/syntax-context';
 import {TextResourceReference} from '../util/resource/resource-reference';
 import {syntaxDeclarationsParse} from './declaration/declaration-semantic-parser';

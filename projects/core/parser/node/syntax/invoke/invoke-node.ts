@@ -1,5 +1,5 @@
+import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
-import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group} from '../../group/group-node';
 import {$Node, ExpressionNode} from '../../node';

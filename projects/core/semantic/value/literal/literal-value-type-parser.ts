@@ -1,4 +1,4 @@
-import {Nothing} from '../../../lib/core';
+import {Nothing} from '../../../../lib/types';
 import {Node} from '../../../parser/node/node';
 import {SemanticContext} from '../../semantic-context';
 import {integerTypeSemanticTryParse} from '../../type/integer/integer-type-semantic-parser';

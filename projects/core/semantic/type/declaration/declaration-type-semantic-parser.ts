@@ -1,5 +1,5 @@
+import {Nothing, nothing} from '../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {Nothing, nothing} from '../../../lib/core';
 import {$Node, Node, is} from '../../../parser/node/node';
 import {InvokeNode} from '../../../parser/node/syntax/invoke/invoke-node';
 import {IdNode} from '../../../parser/node/token/id/id-node';

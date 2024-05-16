@@ -1,4 +1,4 @@
-import {Array2, Boolean2, Nothing, String2, nothing} from '../lib/core';
+import {Array2, Boolean2, Nothing, String2, nothing} from '../../lib/types';
 import {$Node, Node, is} from '../parser/node/node';
 import {StatementNode} from '../parser/node/statement/statement-node';
 import {NlNode} from '../parser/node/token/nl/nl-node';

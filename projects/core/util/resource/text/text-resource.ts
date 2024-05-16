@@ -1,5 +1,5 @@
 import {readFileSync, statSync} from 'fs';
-import {Boolean2, Nothing, String2, nothing} from '../../../lib/core';
+import {Boolean2, Nothing, String2, nothing} from '../../../../lib/types';
 import {$Resource, Resource, resourceIs} from '../resource';
 import {TextPosition} from './text-position';
 import {TextRange} from './text-range';

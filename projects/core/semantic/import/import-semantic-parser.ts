@@ -1,7 +1,7 @@
 import {dirname, join, resolve} from 'path';
 import {SyntaxResult} from '../../../core/parser/syntax-context';
+import {Nothing, String2, nothing} from '../../../lib/types';
 import {ISSUE_MESSAGE} from '../../issue/issue-message';
-import {Nothing, String2, nothing} from '../../lib/core';
 import {$Node, is} from '../../parser/node/node';
 import {ImportNode} from '../../parser/node/syntax/import/import-node';
 import {StringNode} from '../../parser/node/token/string/string-node';

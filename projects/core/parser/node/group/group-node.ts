@@ -1,5 +1,5 @@
+import {Array2, Nothing} from '../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {Array2, Nothing} from '../../../lib/core';
 import '../../../util/extension';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {SyntaxContext} from '../../syntax-context';

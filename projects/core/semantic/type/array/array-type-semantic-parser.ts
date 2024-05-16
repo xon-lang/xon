@@ -1,6 +1,6 @@
 import {ArrayNode} from 'projects/core/parser/node/group/group-node';
+import {Nothing, nothing} from '../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {Nothing, nothing} from '../../../lib/core';
 import {$Node, Node, is} from '../../../parser/node/node';
 import {DeclarationKind} from '../../declaration-manager';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';

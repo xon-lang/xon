@@ -1,5 +1,5 @@
+import {Integer} from '../../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
-import {Integer} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {UnknownNode, unknownNode} from './unknown-node';
 

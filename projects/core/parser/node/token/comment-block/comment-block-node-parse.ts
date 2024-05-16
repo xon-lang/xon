@@ -1,4 +1,4 @@
-import {Integer, Nothing, nothing} from '../../../../lib/core';
+import {Integer, Nothing, nothing} from '../../../../../lib/types';
 import {COMMENT_BLOCK} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {CommentBlockNode, commentBlockNode} from './comment-block-node';

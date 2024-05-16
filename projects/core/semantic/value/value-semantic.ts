@@ -1,4 +1,4 @@
-import {Nothing} from '../../lib/core';
+import {Nothing} from '../../../lib/types';
 import {TextResourceReference} from '../../util/resource/resource-reference';
 import {$Semantic, Semantic} from '../semantic';
 import {TypeSemantic} from '../type/type-semantic';

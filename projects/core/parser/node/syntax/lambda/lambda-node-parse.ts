@@ -1,4 +1,4 @@
-import {Array2, Integer, Nothing, nothing} from '../../../../lib/core';
+import {Array2, Integer, Nothing, nothing} from '../../../../../lib/types';
 import {ASSIGN, TYPE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';

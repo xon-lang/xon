@@ -1,4 +1,4 @@
-import {Integer, nothing} from '../../../../lib/core';
+import {Integer, nothing} from '../../../../../lib/types';
 import {SyntaxContext} from '../../../syntax-context';
 import {isExpressionNode, isGroupNode, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';

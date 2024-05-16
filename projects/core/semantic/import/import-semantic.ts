@@ -1,4 +1,4 @@
-import {Nothing} from '../../lib/core';
+import {Nothing} from '../../../lib/types';
 import {Resource} from '../../util/resource/resource';
 import {$Semantic, Semantic} from '../semantic';
 

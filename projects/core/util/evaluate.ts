@@ -1,4 +1,4 @@
-import {Anything, Nothing, String2, nothing} from '../lib/core';
+import {Anything, Nothing, String2, nothing} from '../../lib/types';
 import {GroupNode} from '../parser/node/group/group-node';
 import {$Node, Node, is} from '../parser/node/node';
 import {InfixNode} from '../parser/node/syntax/infix/infix-node';

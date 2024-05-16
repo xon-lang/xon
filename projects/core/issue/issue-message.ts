@@ -1,4 +1,4 @@
-import {Nothing, String2, nothing} from '../lib/core';
+import {Nothing, String2, nothing} from '../../lib/types';
 
 export interface IssueMessage {
   actual: String2;

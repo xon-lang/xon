@@ -1,4 +1,4 @@
-import {Array2, Nothing} from '../lib/core';
+import {Array2, Nothing} from '../../lib/types';
 import {TextRange} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
 import {Issue, formatIssue} from './issue';

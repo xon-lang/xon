@@ -1,4 +1,4 @@
-import {Array2, Boolean2, Char, Integer, Nothing, Number2, String2, nothing} from '../../lib/core';
+import {Array2, Boolean2, Char, Integer, Nothing, Number2, String2, nothing} from '../../../lib/types';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);
 const UPPER_Z_CODE = 'Z'.charCodeAt(0);

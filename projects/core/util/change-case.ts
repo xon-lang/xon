@@ -1,6 +1,6 @@
 // TAKEN FROM: https://github.com/blakeembrey/change-case/blob/main/packages/change-case/src/index.ts
 
-import {Nothing, String2, nothing} from '../lib/core';
+import {Nothing, String2, nothing} from '../../lib/types';
 
 // Regexps involved with splitting words in various case formats.
 const SPLIT_LOWER_UPPER_RE = /([\p{Ll}\d])(\p{Lu})/gu;

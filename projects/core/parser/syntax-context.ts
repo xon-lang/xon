@@ -1,14 +1,14 @@
+import {Array2, Integer, Nothing, nothing} from '../../lib/types';
 import {FormatterManager, createFormatterManager} from '../formatter/formatter-manager';
 import {IssueManager, createIssueManager} from '../issue/issue-manager';
-import {Array2, Integer, Nothing, nothing} from '../lib/core';
 import {TextPosition, textPosition} from '../util/resource/text/text-position';
 import {TextRange, textRange} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
-import {DEFAULT_SYNTAX_PARSER_CONFIG, SyntaxParserConfig} from './syntax-parser-config';
 import {Node} from './node/node';
 import {StatementNode} from './node/statement/statement-node';
 import {TokenNode} from './node/token/token-node';
 import {NL} from './parser-config';
+import {DEFAULT_SYNTAX_PARSER_CONFIG, SyntaxParserConfig} from './syntax-parser-config';
 
 type ContextAttributes = 'resource' | 'statements' | 'issueManager' | 'formatterManager';
 

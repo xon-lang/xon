@@ -1,5 +1,5 @@
+import {Array2, Nothing, nothing} from '../../lib/types';
 import {IssueManager} from '../issue/issue-manager';
-import {Array2, Nothing, nothing} from '../lib/core';
 import {Node} from '../parser/node/node';
 import {TextResourceReference, textResourceReference} from '../util/resource/resource-reference';
 import {TextResource, textResourceFrom} from '../util/resource/text/text-resource';

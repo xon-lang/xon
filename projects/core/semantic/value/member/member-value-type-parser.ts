@@ -1,5 +1,5 @@
+import {Nothing, nothing} from '../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {Nothing, nothing} from '../../../lib/core';
 import {$Node, Node, is} from '../../../parser/node/node';
 import {MemberNode} from '../../../parser/node/syntax/member/member-node';
 import {SemanticContext} from '../../semantic-context';

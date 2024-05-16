@@ -1,4 +1,4 @@
-import {String2, nothing} from '../../../../lib/core';
+import {String2, nothing} from '../../../../../lib/types';
 import {DeclarationNode} from '../../../../parser/node/syntax/declaration/declaration-node';
 import {syntaxParse} from '../../../../parser/syntax-parser';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';

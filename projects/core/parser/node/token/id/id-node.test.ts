@@ -1,5 +1,5 @@
+import {nothing} from '../../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
-import {nothing} from '../../../../lib/core';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';

@@ -1,6 +1,6 @@
+import {Array2, Integer, Nothing} from '../../../../lib/types';
 import {formatStatementNode} from '../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {Array2, Integer, Nothing} from '../../../lib/core';
 import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
 import {SyntaxContext} from '../../syntax-context';
 import {$Node, Node} from '../node';

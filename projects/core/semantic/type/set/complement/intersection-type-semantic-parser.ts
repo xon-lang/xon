@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../../../../lib/core';
+import {Nothing, nothing} from '../../../../../lib/types';
 import {$Node, Node, is} from '../../../../parser/node/node';
 import {InfixNode} from '../../../../parser/node/syntax/infix/infix-node';
 import {COMPLEMENT} from '../../../../parser/parser-config';

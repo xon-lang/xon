@@ -1,4 +1,4 @@
-import {Integer, Nothing, nothing} from '../../../../lib/core';
+import {Integer, Nothing, nothing} from '../../../../../lib/types';
 import {STRING_QUOTE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {StringNode, stringNode} from './string-node';

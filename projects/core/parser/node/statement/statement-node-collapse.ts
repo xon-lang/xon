@@ -1,4 +1,4 @@
-import {Array2, Integer, Nothing, nothing} from '../../../lib/core';
+import {Array2, Integer, Nothing, nothing} from '../../../../lib/types';
 import {
   COMPLEMENT,
   CONTROL_KEYWORDS,

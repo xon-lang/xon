@@ -1,4 +1,4 @@
-import {nothing} from '../../../lib/core';
+import {nothing} from '../../../../lib/types';
 import {DeclarationNode} from '../../../parser/node/syntax/declaration/declaration-node';
 import {IdNode} from '../../../parser/node/token/id/id-node';
 import {syntaxParse} from '../../../parser/syntax-parser';

@@ -1,4 +1,4 @@
-import {Array2, Boolean2, Char, Integer, Nothing, String2} from '../../lib/core';
+import {Array2, Boolean2, Char, Integer, Nothing, String2} from '../../../lib/types';
 
 declare global {
   interface Array<T> {

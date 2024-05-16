@@ -1,4 +1,4 @@
-import {Integer, Nothing, nothing} from '../../../../lib/core';
+import {Integer, Nothing, nothing} from '../../../../../lib/types';
 import {COMMA} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {CommaNode, commaNode} from './comma-node';

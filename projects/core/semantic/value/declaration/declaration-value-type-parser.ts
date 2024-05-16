@@ -1,8 +1,7 @@
+import {Nothing, nothing} from '../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {Nothing, nothing} from '../../../lib/core';
 import {$Node, Node, is} from '../../../parser/node/node';
 import {IdNode} from '../../../parser/node/token/id/id-node';
-import {DeclarationKind} from '../../declaration-manager';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';

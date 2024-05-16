@@ -1,4 +1,4 @@
-import {Integer, Nothing, nothing} from '../../../../lib/core';
+import {Integer, Nothing, nothing} from '../../../../../lib/types';
 import {JOINING, NL, SPACE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {JoiningNode, joiningNode} from './joining-node';

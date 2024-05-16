@@ -1,5 +1,5 @@
+import {Nothing, nothing} from '../../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
-import {Nothing, nothing} from '../../../../lib/core';
 import {$Node, Node, is} from '../../../../parser/node/node';
 import {RangeNode} from '../../../../parser/node/syntax/range/range-node';
 import {DeclarationKind} from '../../../declaration-manager';

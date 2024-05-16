@@ -1,4 +1,4 @@
-import {Boolean2, Integer} from '../lib/core';
+import {Boolean2, Integer} from '../../lib/types';
 
 export interface SyntaxParserConfig {
   formatting: {

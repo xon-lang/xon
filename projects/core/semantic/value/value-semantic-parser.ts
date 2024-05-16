@@ -1,5 +1,5 @@
 import {SyntaxResult} from '../../../core/parser/syntax-context';
-import {Array2, Nothing, nothing} from '../../lib/core';
+import {Array2, Nothing, nothing} from '../../../lib/types';
 import {Node} from '../../parser/node/node';
 import {SemanticContext} from '../semantic-context';
 import {TypeSemantic} from '../type/type-semantic';

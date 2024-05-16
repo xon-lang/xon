@@ -1,5 +1,5 @@
+import {Array2, Nothing, nothing} from '../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {Array2, Nothing, nothing} from '../../../lib/core';
 import {DeclarationNode} from '../../../parser/node/syntax/declaration/declaration-node';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';

@@ -1,4 +1,4 @@
-import {Boolean2} from '../../../lib/core';
+import {Boolean2} from '../../../../lib/types';
 import {$Semantic, Semantic, semanticIs} from '../../semantic';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
 import {TypeSemantic} from '../type-semantic';

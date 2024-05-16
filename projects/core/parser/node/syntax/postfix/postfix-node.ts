@@ -1,5 +1,5 @@
+import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
-import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, ExpressionNode} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';

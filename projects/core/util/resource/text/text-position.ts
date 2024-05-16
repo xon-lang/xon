@@ -1,4 +1,4 @@
-import {Integer} from '../../../lib/core';
+import {Integer} from '../../../../lib/types';
 
 export interface TextPosition {
   index: Integer;

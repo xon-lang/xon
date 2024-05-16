@@ -1,4 +1,4 @@
-import {Array2, Nothing, String2} from '../lib/core';
+import {Array2, Nothing, String2} from '../../lib/types';
 import {TextResource} from '../util/resource/text/text-resource';
 import {Formatter} from './formatter';
 

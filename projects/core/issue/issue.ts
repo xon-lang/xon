@@ -1,4 +1,4 @@
-import {String2} from '../lib/core';
+import {String2} from '../../lib/types';
 import {TextRange} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
 import {IssueSeverity} from './issue-level';

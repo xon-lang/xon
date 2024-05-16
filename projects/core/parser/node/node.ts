@@ -1,4 +1,4 @@
-import {Array2, Boolean2, Integer, Nothing, nothing} from '../../lib/core';
+import {Array2, Boolean2, Integer, Nothing, nothing} from '../../../lib/types';
 import {Semantic} from '../../semantic/semantic';
 import {TextRange} from '../../util/resource/text/text-range';
 import {ArrayNode, Group, GroupNode, ObjectNode} from './group/group-node';

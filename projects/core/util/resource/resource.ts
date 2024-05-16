@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, Something, String2} from '../../lib/core';
+import {Boolean2, Nothing, Something, String2} from '../../../lib/types';
 
 export interface Resource {
   $: $Resource;

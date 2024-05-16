@@ -1,6 +1,6 @@
+import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
-import {Nothing} from '../../../../lib/core';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, ExpressionNode, is} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';

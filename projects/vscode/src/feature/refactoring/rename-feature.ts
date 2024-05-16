@@ -12,7 +12,6 @@ import {
   WorkspaceEdit,
 } from 'vscode';
 
-import {Nothing, nothing, String2} from '../../../../core/lib/core';
 import {$Node, is} from '../../../../core/parser/node/node';
 import {IdNode} from '../../../../core/parser/node/token/id/id-node';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
@@ -21,6 +20,7 @@ import {$Semantic, Semantic, semanticIs} from '../../../../core/semantic/semanti
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {TextResourceReference} from '../../../../core/util/resource/resource-reference';
+import {Nothing, nothing, String2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 

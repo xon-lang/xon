@@ -1,5 +1,5 @@
+import {Array2, Integer, Nothing, String2, nothing} from '../../lib/types';
 import {IssueManager} from '../issue/issue-manager';
-import {Array2, Integer, Nothing, String2, nothing} from '../lib/core';
 import {DeclarationSemantic} from './declaration/declaration-semantic';
 import {$Semantic, semanticIs} from './semantic';
 import {SemanticConfig} from './semantic-config';

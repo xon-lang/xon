@@ -17,10 +17,10 @@ import {
 } from 'vscode';
 
 import {dirname} from 'path';
-import {nothing} from '../../../../core/lib/core';
 import {$Node, is} from '../../../../core/parser/node/node';
 import {IdNode} from '../../../../core/parser/node/token/id/id-node';
 import {getCaseFnByName, kebabCase} from '../../../../core/util/change-case';
+import {nothing} from '../../../../lib/types';
 import {LANGUAGE_EXTENSION, LANGUAGE_NAME, WORKSPACE_CONFIG} from '../../config';
 import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 

@@ -11,7 +11,6 @@ import {
   TextDocument,
   Uri,
 } from 'vscode';
-import {Nothing, nothing, String2} from '../../../../core/lib/core';
 import {ImportSemantic} from '../../../../core/semantic/import/import-semantic';
 import {$Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
@@ -20,6 +19,7 @@ import {StringTypeSemantic} from '../../../../core/semantic/type/string/string-t
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {TextResourceReference} from '../../../../core/util/resource/resource-reference';
 import {TextRange, zeroRange} from '../../../../core/util/resource/text/text-range';
+import {Nothing, nothing, String2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 

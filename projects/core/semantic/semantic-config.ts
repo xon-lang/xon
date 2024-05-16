@@ -1,4 +1,4 @@
-import {Array2, String2} from '../lib/core';
+import {Array2, String2} from '../../lib/types';
 
 export interface SemanticConfig {
   defaultImports: Array2<String2>;

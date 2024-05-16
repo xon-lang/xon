@@ -1,4 +1,4 @@
-import {Integer, Nothing, nothing} from '../../../../lib/core';
+import {Integer, Nothing, nothing} from '../../../../../lib/types';
 import {ARRAY_CLOSE, ARRAY_OPEN, GROUP_CLOSE, GROUP_OPEN, OBJECT_CLOSE, OBJECT_OPEN} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group} from '../../group/group-node';

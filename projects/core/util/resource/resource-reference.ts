@@ -1,4 +1,4 @@
-import {Boolean2, String2} from '../../lib/core';
+import {Boolean2, String2} from '../../../lib/types';
 import {TextRange} from './text/text-range';
 import {TextResource} from './text/text-resource';
 

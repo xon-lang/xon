@@ -1,4 +1,4 @@
-import {String2} from '../../../../lib/core';
+import {String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
 import {STRING_QUOTE} from '../../../parser-config';
 import {$Node} from '../../node';

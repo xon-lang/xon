@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../../../../lib/core';
+import {Nothing, nothing} from '../../../../../lib/types';
 import {$Node, Node, is} from '../../../../parser/node/node';
 import {PrefixNode} from '../../../../parser/node/syntax/prefix/prefix-node';
 import {NOT} from '../../../../parser/parser-config';

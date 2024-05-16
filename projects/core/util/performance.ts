@@ -1,4 +1,4 @@
-import {Anything, Integer, String2} from '../lib/core';
+import {Anything, Integer, String2} from '../../lib/types';
 
 export function performanceTimer(name: String2) {
   const start = performance.now();

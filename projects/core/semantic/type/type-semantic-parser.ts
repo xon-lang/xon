@@ -1,4 +1,4 @@
-import {Array2, Nothing, nothing} from '../../lib/core';
+import {Array2, Nothing, nothing} from '../../../lib/types';
 import {Node} from '../../parser/node/node';
 import {SemanticContext} from '../semantic-context';
 import {arrayTypeSemanticTryParse} from './array/array-type-semantic-parser';

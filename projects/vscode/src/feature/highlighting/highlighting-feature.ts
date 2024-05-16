@@ -11,8 +11,8 @@ import {
   TextDocument,
 } from 'vscode';
 
-import {Number2} from '../../../../core/lib/core';
 import {KeywordType} from '../../../../core/parser/node/token/operator/operator-node';
+import {Number2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 
 const selector = {language: LANGUAGE_NAME, scheme: 'file'};

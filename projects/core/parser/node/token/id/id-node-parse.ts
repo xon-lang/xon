@@ -1,4 +1,4 @@
-import {Integer, Nothing, nothing} from '../../../../lib/core';
+import {Integer, Nothing, nothing} from '../../../../../lib/types';
 import {UNDERSCORE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {IdNode, idNode} from './id-node';

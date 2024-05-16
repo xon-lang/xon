@@ -1,4 +1,4 @@
-import {Integer, String2} from '../../../../lib/core';
+import {Integer, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
 import {$Node} from '../../node';
 import {TokenNode, tokenNode} from '../token-node';

@@ -1,4 +1,4 @@
-import {Array2, String2, nothing} from '../../../lib/core';
+import {Array2, String2, nothing} from '../../../../lib/types';
 import {SyntaxContext} from '../../syntax-context';
 import {syntaxParse} from '../../syntax-parser';
 import {SyntaxParserConfig} from '../../syntax-parser-config';
