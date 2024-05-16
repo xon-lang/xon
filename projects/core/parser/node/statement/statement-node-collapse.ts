@@ -38,7 +38,6 @@ import {postfixNodeParse} from '../syntax/postfix/postfix-node-parse';
 import {prefixNodeParse} from '../syntax/prefix/prefix-node-parse';
 import {SyntaxNode} from '../syntax/syntax-node';
 
-// todo rename spliceIndex to index
 export type SyntaxParseResult = {index: Integer; deleteCount?: Integer; node: SyntaxNode} | Nothing;
 export type SyntaxParseFn = (context: SyntaxContext, startIndex: Integer) => SyntaxParseResult;
 
@@ -77,7 +76,6 @@ export function statementNodeCollapse(context: SyntaxContext): Nothing {
   for (const parse of parsers) {
     let index = 0;
 
-    // todo check and remove optimization if does'nt need
     if (context.nodes.length === 1) {
       result = lambdaNodeParseFn(context, index) ?? declarationNodeParseFn(context, index);
 
@@ -92,7 +90,6 @@ export function statementNodeCollapse(context: SyntaxContext): Nothing {
       context.nodes.splice(result.index, result.deleteCount ?? result.node.children.length, result.node);
       index = result.index + 1;
 
-      // todo check and remove optimization if does'nt need
       if (index >= context.nodes.length || context.nodes.length === 1) {
         break;
       }

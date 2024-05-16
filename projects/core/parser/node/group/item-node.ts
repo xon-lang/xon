@@ -11,7 +11,6 @@ import {CommaNode} from '../token/comma/comma-node';
 export interface ItemNode extends SyntaxNode {
   $: $Node.ITEM;
   value: Node | Nothing;
-  // todo fix it
   statements: StatementNode[];
   comma: CommaNode | Nothing;
 }
@@ -41,7 +40,6 @@ function validate(context: SyntaxContext, node: ItemNode): Nothing {
 }
 
 function format(context: SyntaxContext, node: ItemNode): Nothing {
-  // todo move first statement hidden nodes to item and comma
   if (node.comma) {
     formatChildNode(context, node.comma, false);
   }

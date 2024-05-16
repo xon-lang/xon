@@ -12,7 +12,6 @@ export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);
 }
 
-// todo remove this for syntax nodes and use literal semantic evaluate
 export function evaluate(node: Node | Nothing, argsMap = {}): Anything {
   if (!node) {
     return nothing;
