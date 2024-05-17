@@ -30,8 +30,8 @@ export interface SyntaxContext {
   config: SyntaxParserConfig;
 
   getRange: (length: Integer) => TextRange;
-  getSymbolRange: () => TextRange;
   getRangeWithNL: (length: Integer) => TextRange;
+  getSymbolRange: () => TextRange;
 }
 
 export function syntaxContext(
@@ -61,13 +61,6 @@ export function syntaxContext(
       );
     },
 
-    getSymbolRange(): TextRange {
-      return textRange(
-        textPosition(this.position.index, this.position.line, this.position.column),
-        textPosition(this.position.index + 1, this.position.line, this.position.column + 1),
-      );
-    },
-
     getRangeWithNL(length: Integer): TextRange {
       let nlCount = this.position.line;
       let columnIndent = this.position.column;
@@ -88,6 +81,13 @@ export function syntaxContext(
       return textRange(
         textPosition(this.position.index, this.position.line, this.position.column),
         textPosition(this.position.index + length, nlCount, columnIndent),
+      );
+    },
+
+    getSymbolRange(): TextRange {
+      return textRange(
+        textPosition(this.position.index, this.position.line, this.position.column),
+        textPosition(this.position.index + 1, this.position.line, this.position.column + 1),
       );
     },
   };

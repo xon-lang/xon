@@ -88,7 +88,7 @@ function getDeclarationParts(context: SyntaxContext):
     return {spliceIndex: typeOperatorFound.index - 1, deleteCount: 3, ...header, type};
   }
 
-  if (!header.modifier && !isParentDeclaration(context.parentStatement?.item)) {
+  if (!header.modifier && !isTypeDeclarationNode(context.parentStatement?.item)) {
     return nothing;
   }
 
@@ -202,7 +202,7 @@ function parseDeclarations(context: SyntaxContext, group: Group): Nothing {
   }
 }
 
-export function isParentDeclaration(declarationNode: Node | Nothing): declarationNode is DeclarationNode {
+export function isTypeDeclarationNode(declarationNode: Node | Nothing): declarationNode is DeclarationNode {
   if (
     is<DeclarationNode>(declarationNode, $Node.DECLARATION) &&
     declarationNode.modifier?.text &&

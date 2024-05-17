@@ -58,7 +58,6 @@ export function syntaxParse(
 ): SyntaxResult {
   const position = startPosition ?? zeroPosition();
   const context = syntaxContext(resource, position, issueManager, formatterManager, config);
-
   let statementIndent: TextRange = rangeFromPosition(position);
 
   while (context.position.index < context.resource.data.length) {
