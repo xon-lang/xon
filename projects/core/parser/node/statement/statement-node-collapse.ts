@@ -41,29 +41,26 @@ import {SyntaxNode} from '../syntax/syntax-node';
 export type SyntaxParseResult = {index: Integer; deleteCount?: Integer; node: SyntaxNode} | Nothing;
 export type SyntaxParseFn = (context: SyntaxContext, startIndex: Integer) => SyntaxParseResult;
 
-const declarationNodeParseFn = declarationNodeParse();
-const lambdaNodeParseFn = lambdaNodeParse();
-
-const parsers: Array2<SyntaxParseFn> = [
-  importNodeParse(),
-  memberNodeParse([MEMBER, META_MEMBER]),
-  invokeNodeParse(),
-  prefixNodeParse([REST, PLUS, MINUS, PLUS, NOT], true),
-  postfixNodeParse([OPTIONAL, PROMISE], true),
-  infixNodeParse([POW], true),
-  infixNodeParse([MULTIPLY, DIVIDE, MOD], true),
-  infixNodeParse([PLUS, MINUS], true),
-  infixNodeParse([RANGE], true),
-  infixNodeParse([LESS, LESS_EQUALS, GREAT_EQUALS, GREAT], true),
-  infixNodeParse([EQUALS, NOT_EQUALS], true),
-  infixNodeParse(OPERATOR_KEYWORDS, true),
-  infixNodeParse([INTERSECTION], true),
-  infixNodeParse([UNION, COMPLEMENT], true),
-  prefixNodeParse(MODIFIER_KEYWORDS, false),
-  prefixNodeParse(CONTROL_KEYWORDS, false),
-  lambdaNodeParseFn,
-  declarationNodeParseFn,
-  assignmentNodeParse(),
+const parsers: Array2<{min: Integer; parse: SyntaxParseFn}> = [
+  {min: 2, parse: importNodeParse()},
+  {min: 2, parse: memberNodeParse([MEMBER, META_MEMBER])},
+  {min: 2, parse: invokeNodeParse()},
+  {min: 2, parse: prefixNodeParse([REST, PLUS, MINUS, PLUS, NOT], true)},
+  {min: 2, parse: postfixNodeParse([OPTIONAL, PROMISE], true)},
+  {min: 3, parse: infixNodeParse([POW], true)},
+  {min: 3, parse: infixNodeParse([MULTIPLY, DIVIDE, MOD], true)},
+  {min: 3, parse: infixNodeParse([PLUS, MINUS], true)},
+  {min: 3, parse: infixNodeParse([RANGE], true)},
+  {min: 3, parse: infixNodeParse([LESS, LESS_EQUALS, GREAT_EQUALS, GREAT], true)},
+  {min: 3, parse: infixNodeParse([EQUALS, NOT_EQUALS], true)},
+  {min: 3, parse: infixNodeParse(OPERATOR_KEYWORDS, true)},
+  {min: 3, parse: infixNodeParse([INTERSECTION], true)},
+  {min: 3, parse: infixNodeParse([UNION, COMPLEMENT], true)},
+  {min: 2, parse: prefixNodeParse(MODIFIER_KEYWORDS, false)},
+  {min: 2, parse: prefixNodeParse(CONTROL_KEYWORDS, false)},
+  {min: 1, parse: lambdaNodeParse()},
+  {min: 1, parse: declarationNodeParse()},
+  {min: 3, parse: assignmentNodeParse()},
 ];
 
 export function statementNodeCollapse(context: SyntaxContext): Nothing {
@@ -73,24 +70,18 @@ export function statementNodeCollapse(context: SyntaxContext): Nothing {
 
   let result: SyntaxParseResult = nothing;
 
-  for (const parse of parsers) {
-    let index = 0;
-
-    if (context.nodes.length === 1) {
-      result = lambdaNodeParseFn(context, index) ?? declarationNodeParseFn(context, index);
-
-      if (result) {
-        context.nodes.splice(result.index, result.deleteCount ?? result.node.children.length, result.node);
-      }
-
-      break;
+  for (const {min, parse} of parsers) {
+    if (context.nodes.length < min) {
+      continue;
     }
+
+    let index = 0;
 
     while ((result = parse(context, index))) {
       context.nodes.splice(result.index, result.deleteCount ?? result.node.children.length, result.node);
       index = result.index + 1;
 
-      if (index >= context.nodes.length || context.nodes.length === 1) {
+      if (index >= context.nodes.length || context.nodes.length < min) {
         break;
       }
     }
