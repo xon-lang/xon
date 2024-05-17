@@ -1,7 +1,8 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {$Node, Node, is} from '../../../../parser/node/node';
-import {RangeNode} from '../../../../parser/node/syntax/range/range-node';
+import {InfixNode} from '../../../../parser/node/syntax/infix/infix-node';
+import {RANGE} from '../../../../parser/parser-config';
 import {DeclarationKind} from '../../../declaration-manager';
 import {TypeDeclarationSemantic} from '../../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../../semantic';
@@ -11,7 +12,7 @@ import {typeSemanticParse} from '../../type-semantic-parser';
 import {RangeTypeSemantic, rangeTypeSemantic} from './range-type-semantic';
 
 export function rangeTypeSemanticTryParse(context: SemanticContext, node: Node): RangeTypeSemantic | Nothing {
-  if (!is<RangeNode>(node, $Node.RANGE)) {
+  if (!is<InfixNode>(node, $Node.INFIX) || node.operator.text !== RANGE) {
     return nothing;
   }
 
@@ -32,8 +33,8 @@ export function rangeTypeSemanticTryParse(context: SemanticContext, node: Node):
   }
 
   const reference = context.createReference(node);
-  const from = typeSemanticParse(context, node.from);
-  const to = typeSemanticParse(context, node.to);
+  const from = typeSemanticParse(context, node.left);
+  const to = typeSemanticParse(context, node.right);
   // todo add step
   const step = nothing;
 
@@ -44,11 +45,11 @@ export function rangeTypeSemanticTryParse(context: SemanticContext, node: Node):
   }
 
   if (!semanticIs<IntegerTypeSemantic>(from, $Semantic.INTEGER_TYPE)) {
-    context.issueManager.addError(node.from.range, ISSUE_MESSAGE.notImplemented());
+    context.issueManager.addError(node.left.range, ISSUE_MESSAGE.notImplemented());
   }
 
   if (!semanticIs<IntegerTypeSemantic>(to, $Semantic.INTEGER_TYPE)) {
-    context.issueManager.addError(node.to.range, ISSUE_MESSAGE.notImplemented());
+    context.issueManager.addError(node.right.range, ISSUE_MESSAGE.notImplemented());
   }
 
   const semantic = rangeTypeSemantic(reference, declaration, from, to, step);

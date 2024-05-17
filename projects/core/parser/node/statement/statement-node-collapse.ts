@@ -1,4 +1,5 @@
 import {Array2, Integer, Nothing, nothing} from '../../../../lib/types';
+import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {
   COMPLEMENT,
   CONTROL_KEYWORDS,
@@ -27,8 +28,10 @@ import {
   UNION,
 } from '../../parser-config';
 import {SyntaxContext} from '../../syntax-context';
+import {$Node, Node, is} from '../node';
 import {assignmentNodeParse} from '../syntax/assignment/assignment-node-parse';
-import {declarationNodeParse} from '../syntax/declaration/declaration-node-parse';
+import {DeclarationNode} from '../syntax/declaration/declaration-node';
+import {declarationNodeParse, isTypeDeclarationNode} from '../syntax/declaration/declaration-node-parse';
 import {importNodeParse} from '../syntax/import/import-node-parse';
 import {infixNodeParse} from '../syntax/infix/infix-node-parse';
 import {invokeNodeParse} from '../syntax/invoke/invoke-node-parse';
@@ -81,9 +84,35 @@ export function statementNodeCollapse(context: SyntaxContext): Nothing {
       context.nodes.splice(result.index, result.deleteCount ?? result.node.children.length, result.node);
       index = result.index + 1;
 
+      validate(context, result.node);
+
       if (index >= context.nodes.length || context.nodes.length < min) {
         break;
       }
     }
+  }
+}
+
+function validate(context: SyntaxContext, node: Node): Nothing {
+  const parentDeclaration = context.parentStatement?.item;
+
+  if (isTypeDeclarationNode(parentDeclaration)) {
+    if (parentDeclaration.assign) {
+      context.issueManager.addError(node.range, ISSUE_MESSAGE.shouldNotBeBody());
+
+      return;
+    }
+
+    if (!is<DeclarationNode>(node, $Node.DECLARATION)) {
+      context.issueManager.addError(node.range, ISSUE_MESSAGE.shouldBeDeclarationStatement());
+
+      return;
+    }
+
+    if (!parentDeclaration.attributes) {
+      parentDeclaration.attributes = [];
+    }
+
+    parentDeclaration.attributes.push(node);
   }
 }

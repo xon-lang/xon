@@ -1,8 +1,8 @@
-import {Nothing} from '../../../../../lib/types';
+import {Array2, Nothing, nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group} from '../../group/group-node';
-import {$Node} from '../../node';
+import {$Node, is} from '../../node';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {PrefixNode} from '../prefix/prefix-node';
@@ -16,6 +16,7 @@ export interface DeclarationNode extends SyntaxNode {
   parameters: Group | Nothing;
   type: PrefixNode | Nothing;
   assign: PrefixNode | Nothing;
+  attributes?: Array2<DeclarationNode>;
 }
 
 export function declarationNode(
@@ -64,4 +65,40 @@ export function partialToDeclaration(
     params.type,
     params.assign,
   );
+}
+
+export function getDeclarationAttributes(node: DeclarationNode): Array2<DeclarationNode> {
+  if (node.attributes) {
+    return node.attributes;
+  }
+
+  return [];
+}
+
+export function getDeclarationGenerics(node: DeclarationNode): Array2<DeclarationNode | Nothing> {
+  if (node.generics) {
+    return node.generics.items.map<DeclarationNode | Nothing>((x) => {
+      if (is<DeclarationNode>(x, $Node.DECLARATION)) {
+        return x;
+      }
+
+      return nothing;
+    });
+  }
+
+  return [];
+}
+
+export function getDeclarationParameters(node: DeclarationNode): Array2<DeclarationNode | Nothing> {
+  if (node.parameters) {
+    return node.parameters.items.map<DeclarationNode | Nothing>((x) => {
+      if (is<DeclarationNode>(x, $Node.DECLARATION)) {
+        return x;
+      }
+
+      return nothing;
+    });
+  }
+
+  return [];
 }

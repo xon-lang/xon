@@ -1,6 +1,10 @@
 import {Array2, Nothing, nothing} from '../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {DeclarationNode} from '../../../parser/node/syntax/declaration/declaration-node';
+import {
+  DeclarationNode,
+  getDeclarationAttributes,
+  getDeclarationGenerics,
+} from '../../../parser/node/syntax/declaration/declaration-node';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
 import {typeSemanticParse} from '../../type/type-semantic-parser';
@@ -35,7 +39,8 @@ function genericsParse(context: SemanticContext, declaration: TypeDeclarationSem
   }
 
   // todo remove this hack 'as Array2<ValueDeclarationSemantic>'
-  declaration.generics = declarationsParse(context, node.generics.items) as Array2<ValueDeclarationSemantic>;
+  const syntaxGenerics = getDeclarationGenerics(node);
+  declaration.generics = declarationsParse(context, syntaxGenerics) as Array2<ValueDeclarationSemantic>;
 }
 
 function typeParse(context: SemanticContext, declaration: TypeDeclarationSemantic, node: DeclarationNode): Nothing {
@@ -67,11 +72,13 @@ function attributesParse(
   declaration: TypeDeclarationSemantic,
   node: DeclarationNode,
 ): Nothing {
-  if (node.attributes.length === 0) {
+  const syntaxAttributes = getDeclarationAttributes(node);
+
+  if (syntaxAttributes.length === 0) {
     return;
   }
 
-  const declarations = declarationsParse(context, node.attributes);
+  const declarations = declarationsParse(context, syntaxAttributes);
   const attributes: TypeDeclarationSemantic['attributes'] = {};
 
   for (const declaration of declarations) {

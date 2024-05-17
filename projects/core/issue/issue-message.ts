@@ -95,4 +95,14 @@ export const ISSUE_MESSAGE = {
     actual: `Import value should be string`,
     expect: nothing,
   }),
+
+  shouldBeDeclarationStatement: () => ({
+    actual: `Should be declaration statement`,
+    expect: nothing,
+  }),
+
+  shouldNotBeBody: () => ({
+    actual: `Should not be body`,
+    expect: nothing,
+  }),
 };

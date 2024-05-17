@@ -1,0 +1,22 @@
+model Anything
+
+model Something: Anything
+
+model Nothing: Anything
+
+model Number: Something
+
+model Integer: Number
+
+model Char: Something
+
+model Array{T}: Something
+  length: Integer
+
+model String: Array{Char}
+  length: Integer
+
+model Range: Something
+
+// literal String{$T}: String
+//   length: $T.length

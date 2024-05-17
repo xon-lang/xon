@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../lib/types';
 import {$Node, Node, is} from '../../../parser/node/node';
-import {DeclarationNode} from '../../../parser/node/syntax/declaration/declaration-node';
+import {DeclarationNode, getDeclarationParameters} from '../../../parser/node/syntax/declaration/declaration-node';
 import {declarationsParse} from '../../declaration/declaration-semantic-parser';
 import {SemanticContext} from '../../semantic-context';
 import {typeSemanticParse} from '../type-semantic-parser';
@@ -13,7 +13,8 @@ export function functionTypeSemanticTryParse(context: SemanticContext, node: Nod
 
   const reference = context.createReference(node);
   const generics = node.generics?.items.map((x) => typeSemanticParse(context, x));
-  const parameters = declarationsParse(context, node.parameters.items);
+  const syntaxParameters = getDeclarationParameters(node);
+  const parameters = declarationsParse(context, syntaxParameters);
   const result = typeSemanticParse(context, node.type);
   const semantic = functionTypeSemantic(reference, generics, parameters, result);
 

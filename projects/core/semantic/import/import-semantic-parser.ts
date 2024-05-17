@@ -12,7 +12,7 @@ import {$Semantic, semanticParse} from '../semantic';
 import {SemanticContext} from '../semantic-context';
 import {ImportSemantic} from './import-semantic';
 
-const LIB_FOLDER = resolve(__dirname, '../../lib');
+const LIB_FOLDER = resolve(__dirname, '../../../lib');
 
 export function syntaxImportsParse(context: SemanticContext, syntax: SyntaxResult) {
   for (const statement of syntax.statements) {
