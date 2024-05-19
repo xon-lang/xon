@@ -6,6 +6,7 @@ import {$Node, is} from '../../node';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {AssignNode} from '../assign/assign-node';
+import {LambdaNode} from '../lambda/lambda-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 import {TypeNode} from '../type/type-node';
 
@@ -76,30 +77,30 @@ export function getDeclarationAttributes(node: DeclarationNode): Array2<Declarat
   return [];
 }
 
-export function getDeclarationGenerics(node: DeclarationNode): Array2<DeclarationNode | Nothing> {
-  if (node.generics) {
-    return node.generics.items.map<DeclarationNode | Nothing>((x) => {
-      if (is<DeclarationNode>(x, $Node.DECLARATION)) {
-        return x;
-      }
-
-      return nothing;
-    });
+export function getDeclarationGenerics(node: DeclarationNode | LambdaNode): Array2<DeclarationNode | Nothing> {
+  if (!node.generics) {
+    return [];
   }
 
-  return [];
+  return node.generics.items.map<DeclarationNode | Nothing>((x) => {
+    if (is<DeclarationNode>(x.value, $Node.DECLARATION)) {
+      return x.value;
+    }
+
+    return nothing;
+  });
 }
 
-export function getDeclarationParameters(node: DeclarationNode): Array2<DeclarationNode | Nothing> {
-  if (node.parameters) {
-    return node.parameters.items.map<DeclarationNode | Nothing>((x) => {
-      if (is<DeclarationNode>(x, $Node.DECLARATION)) {
-        return x;
-      }
-
-      return nothing;
-    });
+export function getDeclarationParameters(node: DeclarationNode | LambdaNode): Array2<DeclarationNode | Nothing> {
+  if (!node.parameters) {
+    return [];
   }
 
-  return [];
+  return node.parameters.items.map<DeclarationNode | Nothing>((x) => {
+    if (is<DeclarationNode>(x.value, $Node.DECLARATION)) {
+      return x.value;
+    }
+
+    return nothing;
+  });
 }

@@ -83,6 +83,7 @@ const expressions = [
   $Node.POSTFIX,
   $Node.INVOKE,
   $Node.MEMBER,
+  $Node.LAMBDA,
 ];
 
 export type ExpressionNode =

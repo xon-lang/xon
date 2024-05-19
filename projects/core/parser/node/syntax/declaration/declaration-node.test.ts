@@ -164,3 +164,18 @@ test('model string with base class', () => {
   expect(node.modifier?.$).toBe($Node.OPERATOR);
   expect(node.modifier?.text).toBe('model');
 });
+
+test('lambda type', () => {
+  const text = 'const a: (x: Integer): Integer';
+  const resource = textResourceFrom(nothing, text);
+  const syntax = syntaxParse(resource);
+  const statements = syntax.statements;
+  const node = statements[0].item as DeclarationNode;
+
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.DECLARATION);
+
+  expect(node.modifier?.$).toBe($Node.OPERATOR);
+  expect(node.modifier?.text).toBe('const');
+  expect(node.type?.value.$).toBe($Node.LAMBDA);
+});

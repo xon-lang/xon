@@ -97,7 +97,7 @@ function validate(context: SyntaxContext, node: Node): Nothing {
   const parentDeclaration = context.parentStatement?.item;
 
   if (isTypeDeclarationNode(parentDeclaration)) {
-    if (parentDeclaration.assign) {
+    if (parentDeclaration.assign?.value) {
       context.issueManager.addError(node.range, ISSUE_MESSAGE.shouldNotBeBody());
 
       return;

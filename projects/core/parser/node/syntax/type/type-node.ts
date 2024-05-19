@@ -7,7 +7,7 @@ import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export interface TypeNode extends SyntaxNode {
   $: $Node.TYPE;
-  semantic:  Nothing;
+  semantic: Nothing;
   operator: OperatorNode;
   value: ExpressionNode;
 }

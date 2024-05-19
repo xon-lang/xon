@@ -7,9 +7,10 @@ import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {TokenNode} from '../../token/token-node';
+import {AssignNode, assignNode} from '../assign/assign-node';
 import {partialToDeclaration} from '../declaration/declaration-node';
 import {InvokeNode} from '../invoke/invoke-node';
-import {PrefixNode, prefixNode} from '../prefix/prefix-node';
+import {TypeNode, typeNode} from '../type/type-node';
 import {lambdaNode} from './lambda-node';
 
 export function lambdaNodeParse(): SyntaxParseFn {
@@ -37,8 +38,8 @@ function getLambdaParts(context: SyntaxContext):
       genericsHiddenNodes?: Array2<TokenNode> | Nothing;
       generics?: Group | Nothing;
       parameters?: Group | Nothing;
-      type?: PrefixNode | Nothing;
-      assign?: PrefixNode | Nothing;
+      type?: TypeNode | Nothing;
+      assign?: AssignNode | Nothing;
     }
   | Nothing {
   const typeOperatorFound = nodeFindMap(context.nodes, 0, false, (node, index, nodes) => {
@@ -62,14 +63,14 @@ function getLambdaParts(context: SyntaxContext):
     const typeValue = context.nodes[typeOperatorFound.index + 1] as ExpressionNode;
     const assignOperator = context.nodes[typeOperatorFound.index + 2];
     const assignValue = context.nodes[typeOperatorFound.index + 3];
-    const type = prefixNode(context, typeOperatorFound.node, typeValue);
+    const type = typeNode(context, typeOperatorFound.node, typeValue);
 
     if (
       is<OperatorNode>(assignOperator, $Node.OPERATOR) &&
       assignOperator.text === ASSIGN &&
       isExpressionNode(assignValue)
     ) {
-      const assign = prefixNode(context, assignOperator, assignValue);
+      const assign = assignNode(context, assignOperator, assignValue);
 
       return {spliceIndex: typeOperatorFound.index - 1, deleteCount: 5, ...header, type, assign};
     }
@@ -96,7 +97,7 @@ function getLambdaParts(context: SyntaxContext):
   if (assignOperatorFound) {
     const header = getGenericsParameters(context, context.nodes[assignOperatorFound.index - 1]);
     const assignValue = context.nodes[assignOperatorFound.index + 1] as ExpressionNode;
-    const assign = prefixNode(context, assignOperatorFound.node, assignValue);
+    const assign = assignNode(context, assignOperatorFound.node, assignValue);
 
     return {spliceIndex: assignOperatorFound.index - 1, deleteCount: 3, ...header, assign};
   }
