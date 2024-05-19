@@ -5,8 +5,9 @@ import {Group} from '../../group/group-node';
 import {$Node, is} from '../../node';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
-import {PrefixNode} from '../prefix/prefix-node';
+import {AssignNode} from '../assign/assign-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
+import {TypeNode} from '../type/type-node';
 
 export interface DeclarationNode extends SyntaxNode {
   $: $Node.DECLARATION;
@@ -14,8 +15,8 @@ export interface DeclarationNode extends SyntaxNode {
   id: IdNode;
   generics: Group | Nothing;
   parameters: Group | Nothing;
-  type: PrefixNode | Nothing;
-  assign: PrefixNode | Nothing;
+  type: TypeNode | Nothing;
+  assign: AssignNode | Nothing;
   attributes?: Array2<DeclarationNode>;
 }
 
@@ -25,8 +26,8 @@ export function declarationNode(
   id: IdNode,
   generics: Group | Nothing,
   parameters: Group | Nothing,
-  type: PrefixNode | Nothing,
-  assign: PrefixNode | Nothing,
+  type: TypeNode | Nothing,
+  assign: AssignNode | Nothing,
 ): DeclarationNode {
   const node = syntaxNode($Node.DECLARATION, {
     modifier,

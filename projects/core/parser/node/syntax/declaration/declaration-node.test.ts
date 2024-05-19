@@ -31,7 +31,7 @@ test('model A: B', () => {
   expect(node.$).toBe($Node.DECLARATION);
   expect(node.modifier?.text).toBe('model');
   expect(node.id?.text).toBe('A');
-  expect(node.type?.$).toBe($Node.PREFIX);
+  expect(node.type?.$).toBe($Node.TYPE);
   expect((node.type?.value as IdNode).text).toBe('B');
 });
 
@@ -52,7 +52,7 @@ test('with generics extends b', () => {
   expect(generic?.id?.text).toBe('T');
   expect((generic?.type?.value as IdNode)?.text).toBe('Array');
   expect((generic?.assign?.value as IdNode)?.text).toBe('String');
-  expect(node.type?.$).toBe($Node.PREFIX);
+  expect(node.type?.$).toBe($Node.TYPE);
   expect((node.type?.value as IdNode).text).toBe('B');
 });
 
