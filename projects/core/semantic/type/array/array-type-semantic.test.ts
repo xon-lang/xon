@@ -29,7 +29,7 @@ test('a is array', () => {
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as ArrayTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as ArrayTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.ARRAY_TYPE);
   expect(typeSemantic.items.length).toBe(3);
   expect((typeSemantic.items[0] as IntegerTypeSemantic).value).toBe(1);

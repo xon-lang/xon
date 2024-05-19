@@ -27,7 +27,7 @@ test('a is string value', () => {
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as StringTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as StringTypeSemantic;
   expect(typeSemantic?.$).toBe($Semantic.STRING_TYPE);
   expect(typeSemantic?.value).toBe('abc');
 });
@@ -39,7 +39,7 @@ test('a is string literal', () => {
   const syntax = syntaxParse(source);
   const semantic = semanticParse(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].item as DeclarationNode;
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as StringTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as StringTypeSemantic;
 
   expect(typeSemantic?.$).toBe($Semantic.STRING_TYPE);
   expect(typeSemantic?.value).toBe('abc');
@@ -52,7 +52,7 @@ test('a is empty string 1', () => {
   const syntax = syntaxParse(source);
   const semantic = semanticParse(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].item as DeclarationNode;
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as StringTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as StringTypeSemantic;
 
   expect(typeSemantic?.$).toBe($Semantic.STRING_TYPE);
   expect(typeSemantic?.value).toBe('');
@@ -65,7 +65,7 @@ test('a is empty string 2', () => {
   const syntax = syntaxParse(source);
   const semantic = semanticParse(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].item as DeclarationNode;
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as StringTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as StringTypeSemantic;
 
   expect(typeSemantic?.$).toBe($Semantic.STRING_TYPE);
   expect(typeSemantic?.value).toBe('');

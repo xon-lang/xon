@@ -12,6 +12,7 @@ export enum DeclarationKind {
 
 export interface DeclarationManager {
   imports: Array2<DeclarationManager> | Nothing;
+  parent: DeclarationManager | Nothing;
   declarations: Record<String2, Array2<DeclarationSemantic>>;
 
   count(): Integer;
@@ -30,12 +31,13 @@ export interface DeclarationManager {
 
 export function createDeclarationManager(
   issueManager: IssueManager,
-  parentDeclarationManager: DeclarationManager | Nothing,
+  parent: DeclarationManager | Nothing,
   imports: Array2<DeclarationManager> | Nothing,
   config: SemanticConfig,
 ): DeclarationManager {
   return {
     imports,
+    parent,
     declarations: {},
 
     count(): Integer {
@@ -51,8 +53,9 @@ export function createDeclarationManager(
     },
 
     filterByName(kind: DeclarationKind | Nothing, name: String2): Array2<DeclarationSemantic> {
-      let declarations = this.declarations[name] ?? parentDeclarationManager?.filterByName(kind, name);
-      declarations = declarations?.filter((x) => !kind || isDeclarationKind(x, kind));
+      const declarations = (this.declarations[name] ?? this.parent?.filterByName(kind, name))?.filter(
+        (x) => !kind || isDeclarationKind(x, kind),
+      );
 
       if (declarations && declarations.length > 0) {
         return declarations;

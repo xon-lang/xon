@@ -27,9 +27,9 @@ test('a is integer', () => {
 
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
-  // expect(constNode.type?.$).toBe($Node.DECLARATION);
+  // expect(constNode.type?.value.$).toBe($Node.DECLARATION);
 
-  const typeSemantic = constNode.type?.semantic as FunctionTypeSemantic;
+  const typeSemantic = constNode.type?.value.semantic as FunctionTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.FUNCTION_TYPE);
   expect(typeSemantic.parameters.length).toBe(1);
   expect(typeSemantic.parameters[0]?.$).toBe($Semantic.VALUE_DECLARATION);

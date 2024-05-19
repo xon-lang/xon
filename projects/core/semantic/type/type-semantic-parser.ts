@@ -33,7 +33,7 @@ export function typeSemanticParse(context: SemanticContext, node: Node | Nothing
     return nothing;
   }
 
-  const semantic = parsers.findMap((x) => x(context, node));
+  const semantic = parsers.findMap((parse) => parse(context, node));
   node.semantic = semantic;
 
   return semantic;

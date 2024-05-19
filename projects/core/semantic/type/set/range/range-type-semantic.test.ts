@@ -28,7 +28,7 @@ test('a is range', () => {
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as RangeTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as RangeTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.RANGE_TYPE);
   expect((typeSemantic.from as IntegerTypeSemantic).value).toBe(1);
   expect((typeSemantic.to as IntegerTypeSemantic).value).toBe(3);

@@ -27,7 +27,7 @@ test('a is integer', () => {
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as IntegerTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as IntegerTypeSemantic;
   expect(typeSemantic?.$).toBe($Semantic.INTEGER_TYPE);
   expect(typeSemantic?.value).toBe(123);
 });

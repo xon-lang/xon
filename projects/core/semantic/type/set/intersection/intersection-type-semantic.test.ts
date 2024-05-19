@@ -33,7 +33,7 @@ test('a is integer', () => {
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type) as IntersectionTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as IntersectionTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.INTERSECTION_TYPE);
   expect(typeSemantic.left.$).toBe($Semantic.DECLARATION_TYPE);
   expect((typeSemantic.left as DeclarationTypeSemantic).declaration?.name).toBe('Integer');

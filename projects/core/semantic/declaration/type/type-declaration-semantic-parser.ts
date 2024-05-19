@@ -44,11 +44,11 @@ function genericsParse(context: SemanticContext, declaration: TypeDeclarationSem
 }
 
 function typeParse(context: SemanticContext, declaration: TypeDeclarationSemantic, node: DeclarationNode): Nothing {
-  if (!node.type) {
+  if (!node.type?.value) {
     return;
   }
 
-  const type = typeSemanticParse(context, node.type);
+  const type = typeSemanticParse(context, node.type.value);
 
   if (type) {
     declaration.baseType = type;
@@ -56,14 +56,14 @@ function typeParse(context: SemanticContext, declaration: TypeDeclarationSemanti
     return;
   }
 
-  context.issueManager.addError(node.type.range, ISSUE_MESSAGE.cannotResolveType());
+  context.issueManager.addError(node.type.value.range, ISSUE_MESSAGE.cannotResolveType());
 
   return nothing;
 }
 
 function valueParse(context: SemanticContext, declaration: TypeDeclarationSemantic, node: DeclarationNode): Nothing {
-  if (node.assign) {
-    context.issueManager.addError(node.assign.range, ISSUE_MESSAGE.noValueAllowed());
+  if (node.assign?.value) {
+    context.issueManager.addError(node.assign.value.range, ISSUE_MESSAGE.noValueAllowed());
   }
 }
 

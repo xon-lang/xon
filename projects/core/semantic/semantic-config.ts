@@ -22,5 +22,5 @@ export const DEFAULT_SEMANTIC_CONFIG: SemanticConfig = {
 
 export const TEST_SEMANTIC_CONFIG: SemanticConfig = {
   ...DEFAULT_SEMANTIC_CONFIG,
-  defaultImports: ['xon/types'],
+  defaultImports: ['xon/core'],
 };

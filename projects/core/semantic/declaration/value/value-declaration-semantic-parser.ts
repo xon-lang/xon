@@ -48,11 +48,11 @@ function genericsParse(
 }
 
 function typeParse(context: SemanticContext, declaration: ValueDeclarationSemantic, node: DeclarationNode): Nothing {
-  if (!node.type) {
+  if (!node.type?.value) {
     return;
   }
 
-  const type = typeSemanticParse(context, node.type);
+  const type = typeSemanticParse(context, node.type.value);
 
   if (type) {
     declaration.type = type;
@@ -62,19 +62,19 @@ function typeParse(context: SemanticContext, declaration: ValueDeclarationSemant
 }
 
 function valueParse(context: SemanticContext, declaration: ValueDeclarationSemantic, node: DeclarationNode): Nothing {
-  if (!node.assign) {
+  if (!node.assign?.value) {
     return;
   }
 
   // todo depends on declaration kind (e.g. generic or const) ???
-  const value = valueSemanticParse(context, node.assign);
+  const value = valueSemanticParse(context, node.assign.value);
 
   if (!declaration.type) {
     if (value?.type) {
       declaration.type = value.type;
     }
   } else if (!value?.type || !value.type.is(declaration.type)) {
-    context.issueManager.addError(node.assign.range, ISSUE_MESSAGE.wrongType());
+    context.issueManager.addError(node.assign.value.range, ISSUE_MESSAGE.wrongType());
   }
 }
 
