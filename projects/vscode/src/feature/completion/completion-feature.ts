@@ -1,5 +1,4 @@
 import {ExtensionContext, languages, OutputChannel} from 'vscode';
-// import { CommaCompletionItemProvider } from './comma-completion-feature';
 import {LANGUAGE_NAME} from '../../config';
 import {DotCompletionItemProvider} from './items/dot-completion-feature';
 import {IdCompletionItemProvider} from './items/id-completion-feature';

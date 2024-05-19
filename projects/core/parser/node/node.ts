@@ -7,6 +7,7 @@ import {InvokeNode} from './syntax/invoke/invoke-node';
 import {MemberNode} from './syntax/member/member-node';
 import {PostfixNode} from './syntax/postfix/postfix-node';
 import {PrefixNode} from './syntax/prefix/prefix-node';
+import {SyntaxNode} from './syntax/syntax-node';
 import {CharNode} from './token/char/char-node';
 import {IdNode} from './token/id/id-node';
 import {IntegerNode} from './token/integer/integer-node';
@@ -23,7 +24,7 @@ export interface Node {
 
 export enum $Node {
   NODE = 'NODE',
-  TOKEN = 'TOKEN NODE',
+  TOKEN = `TOKEN NODE`,
   COMMENT_LINE = 'COMMENT_LINE TOKEN NODE',
   COMMENT_BLOCK = 'COMMENT_BLOCK TOKEN NODE',
   WHITESPACE = 'WHITESPACE TOKEN NODE',
@@ -39,7 +40,6 @@ export enum $Node {
   CLOSE = 'CLOSE TOKEN NODE',
   COMMA = 'COMMA TOKEN NODE',
   UNKNOWN = 'UNKNOWN TOKEN NODE',
-  EOF = 'EOF TOKEN NODE',
 
   SYNTAX = 'SYNTAX NODE',
   ITEM = 'ITEM SYNTAX NODE',
@@ -106,6 +106,14 @@ export function isExpressionNode(node: Node | Nothing): node is ExpressionNode {
   }
 
   return expressions.some((x) => node.$ === x);
+}
+
+export function isSyntaxNode(node: Node | Nothing): node is SyntaxNode {
+  if (!node) {
+    return false;
+  }
+
+  return node.$.split(' ').includes('SYNTAX');
 }
 
 const groups = [$Node.GROUP, $Node.ARRAY, $Node.OBJECT];

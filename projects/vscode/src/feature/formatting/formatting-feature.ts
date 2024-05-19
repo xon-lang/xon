@@ -15,7 +15,7 @@ import {
 import {Formatter} from '../../../../core/formatter/formatter';
 import {Array2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
-import {convertFormatter, convertRange, getDocumentSyntax} from '../../util';
+import {convertRange, getDocumentSyntax} from '../../util';
 
 export function configureFormattingFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
