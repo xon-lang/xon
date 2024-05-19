@@ -1,5 +1,5 @@
 import {Array2, Nothing, String2, nothing} from '../../../../lib/types';
-import {rangeFromNodes} from '../../../util/resource/text/text-range';
+import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
 import {$Node, Node} from '../node';
 
 export interface SyntaxNode extends Node {
@@ -9,7 +9,7 @@ export interface SyntaxNode extends Node {
 export function syntaxNode<T extends $Node, U extends Record<String2, Node | Nothing>>(
   $: T,
   nodes: U,
-): SyntaxNode & {$: T} & U {
+): {$: T} & {children: Array2<Node>; range: TextRange; semantic: Nothing} & U {
   const children = Object.values(nodes).filter<Node>((x): x is Node => !!x);
   const first = children.first();
 
@@ -18,6 +18,7 @@ export function syntaxNode<T extends $Node, U extends Record<String2, Node | Not
     range: rangeFromNodes(children),
     children,
     hiddenNodes: first?.hiddenNodes,
+    semantic: nothing,
     ...nodes,
   };
 
