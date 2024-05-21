@@ -15,7 +15,7 @@ import {Array2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, getDocumentSyntax} from '../../util';
 
-export function configureDiagnosticsFeature(context: ExtensionContext, channel: OutputChannel) {
+export function configureDiagnosticFeature(context: ExtensionContext, channel: OutputChannel) {
   const diagnostics = languages.createDiagnosticCollection(LANGUAGE_NAME);
   context.subscriptions.push(diagnostics);
 
