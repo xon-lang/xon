@@ -39,6 +39,8 @@ export function groupNode(
     close,
   };
 
+  children.forEach((x) => (x.parent = node));
+
   validate(context, node);
 
   return node;
