@@ -19,7 +19,7 @@ import {nlNodeParse} from './node/token/nl/nl-node-parse';
 import {openNodeParse} from './node/token/open/open-node-parse';
 import {operatorNodeParse} from './node/token/operator/operator-node-parse';
 import {stringNodeParse} from './node/token/string/string-node-parse';
-import {isHiddenToken} from './node/token/token-node';
+import {HiddenNode} from './node/token/token-node';
 import {unknownNodeParse} from './node/token/unknown/unknown-node-parse';
 import {WhitespaceNode} from './node/token/whitespace/whitespace-node';
 import {whitespaceNodeParse} from './node/token/whitespace/whitespace-node-parse';
@@ -74,7 +74,7 @@ export function syntaxParse(
       }
     }
 
-    if (isHiddenToken(node)) {
+    if (is<HiddenNode>(node, $Node.HIDDEN)) {
       if (is<NlNode>(node, $Node.NL)) {
         if (context.nodes.length > 0) {
           putStatementNode(context, statementIndent);
