@@ -2,13 +2,13 @@ import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group} from '../../group/group-node';
-import {$Node, SemanticNode} from '../../node';
+import {$Node, ExpressionNode} from '../../node';
 import {AssignNode} from '../assign/assign-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 import {TypeNode} from '../type/type-node';
 
 export type LambdaNode = SyntaxNode<$Node.LAMBDA> &
-  SemanticNode & {
+  ExpressionNode & {
     generics: Group | Nothing;
     parameters: Group;
     type: TypeNode | Nothing;

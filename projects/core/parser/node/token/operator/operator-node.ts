@@ -1,7 +1,7 @@
 import {Nothing, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
 import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS} from '../../../parser-config';
-import {$Node, SemanticNode} from '../../node';
+import {$Node, ExpressionNode} from '../../node';
 import {TokenNode, tokenNode} from '../token-node';
 
 export enum KeywordType {
@@ -11,7 +11,7 @@ export enum KeywordType {
 }
 
 export type OperatorNode = TokenNode<$Node.OPERATOR> &
-  SemanticNode & {
+  ExpressionNode & {
     keywordType: KeywordType | Nothing;
   };
 

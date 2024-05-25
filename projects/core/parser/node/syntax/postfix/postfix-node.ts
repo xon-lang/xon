@@ -1,13 +1,12 @@
 import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, ExpressionNode, SemanticNode} from '../../node';
+import {$Node, ExpressionNode} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type PostfixNode = SyntaxNode<$Node.POSTFIX> &
-  ExpressionNode &
-  SemanticNode & {
+  ExpressionNode & {
     value: ExpressionNode;
     operator: OperatorNode;
   };

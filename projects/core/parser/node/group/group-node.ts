@@ -3,7 +3,7 @@ import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import '../../../util/extension';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {SyntaxContext} from '../../syntax-context';
-import {$Node, ExpressionNode, SemanticNode} from '../node';
+import {$Node, ExpressionNode} from '../node';
 import {SyntaxNode} from '../syntax/syntax-node';
 import {CloseNode} from '../token/close/close-node';
 import {OpenNode} from '../token/open/open-node';
@@ -15,8 +15,7 @@ export type ArrayNode = GroupNode;
 export type ObjectNode = GroupNode;
 
 export type GroupNode = SyntaxNode<$Node.GROUP | $Node.ARRAY | $Node.OBJECT> &
-  ExpressionNode &
-  SemanticNode & {
+  ExpressionNode & {
     open: OpenNode;
     items: Array2<ItemNode>;
     close: CloseNode | Nothing;

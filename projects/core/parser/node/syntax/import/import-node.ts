@@ -2,13 +2,13 @@ import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, ExpressionNode, SemanticNode, is} from '../../node';
+import {$Node, ExpressionNode, is} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {StringNode} from '../../token/string/string-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type ImportNode = SyntaxNode<$Node.IMPORT> &
-  SemanticNode & {
+  ExpressionNode & {
     operator: OperatorNode;
     value: ExpressionNode;
   };

@@ -1,12 +1,11 @@
 import {Char, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
 import {CHAR_QUOTE} from '../../../parser-config';
-import {$Node, ExpressionNode, SemanticNode} from '../../node';
+import {$Node, ExpressionNode} from '../../node';
 import {TokenNode, tokenNode} from '../token-node';
 
 export type CharNode = TokenNode<$Node.CHAR> &
-  ExpressionNode &
-  SemanticNode & {
+  ExpressionNode & {
     value: Char;
   };
 

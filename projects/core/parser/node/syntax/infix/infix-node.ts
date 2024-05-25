@@ -2,13 +2,12 @@ import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {RANGE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, ExpressionNode, SemanticNode} from '../../node';
+import {$Node, ExpressionNode} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type InfixNode = SyntaxNode<$Node.INFIX> &
-  ExpressionNode &
-  SemanticNode & {
+  ExpressionNode & {
     left: ExpressionNode;
     operator: OperatorNode;
     right: ExpressionNode;
