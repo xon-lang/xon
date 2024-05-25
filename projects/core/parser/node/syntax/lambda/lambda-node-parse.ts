@@ -2,7 +2,7 @@ import {Array2, Integer, Nothing, nothing} from '../../../../../lib/types';
 import {ASSIGN, TYPE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
-import {$Node, ExpressionNode, Node, is, isExpressionNode, nodeFindMap} from '../../node';
+import {$Node, ExpressionNode, Node, is, isNonOperatorExpression, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
@@ -46,7 +46,7 @@ function getLambdaParts(context: SyntaxContext):
     if (
       is<OperatorNode>(node, $Node.OPERATOR) &&
       node.text === TYPE &&
-      isExpressionNode(nodes[index + 1]) &&
+      isNonOperatorExpression(nodes[index + 1]) &&
       (is<GroupNode>(nodes[index - 1], $Node.GROUP) ||
         (is<InvokeNode>(nodes[index - 1], $Node.INVOKE) &&
           is<ObjectNode>((nodes[index - 1] as InvokeNode).instance, $Node.OBJECT) &&
@@ -68,7 +68,7 @@ function getLambdaParts(context: SyntaxContext):
     if (
       is<OperatorNode>(assignOperator, $Node.OPERATOR) &&
       assignOperator.text === ASSIGN &&
-      isExpressionNode(assignValue)
+      isNonOperatorExpression(assignValue)
     ) {
       const assign = assignNode(context, assignOperator, assignValue);
 
@@ -82,7 +82,7 @@ function getLambdaParts(context: SyntaxContext):
     if (
       is<OperatorNode>(node, $Node.OPERATOR) &&
       node.text === ASSIGN &&
-      isExpressionNode(nodes[index + 1]) &&
+      isNonOperatorExpression(nodes[index + 1]) &&
       (is<GroupNode>(nodes[index - 1], $Node.GROUP) ||
         (is<InvokeNode>(nodes[index - 1], $Node.INVOKE) &&
           is<ObjectNode>((nodes[index - 1] as InvokeNode).instance, $Node.OBJECT) &&

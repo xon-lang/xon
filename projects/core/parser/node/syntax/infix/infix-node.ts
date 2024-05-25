@@ -7,6 +7,7 @@ import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type InfixNode = SyntaxNode<$Node.INFIX> &
+  ExpressionNode &
   SemanticNode & {
     left: ExpressionNode;
     operator: OperatorNode;

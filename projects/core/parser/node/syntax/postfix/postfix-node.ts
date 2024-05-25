@@ -6,6 +6,7 @@ import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type PostfixNode = SyntaxNode<$Node.POSTFIX> &
+  ExpressionNode &
   SemanticNode & {
     value: ExpressionNode;
     operator: OperatorNode;

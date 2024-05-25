@@ -6,6 +6,7 @@ import {$Node, ExpressionNode, SemanticNode} from '../../node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type InvokeNode = SyntaxNode<$Node.INVOKE> &
+  ExpressionNode &
   SemanticNode & {
     instance: ExpressionNode;
     group: Group;

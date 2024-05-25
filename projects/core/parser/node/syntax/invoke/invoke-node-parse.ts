@@ -1,6 +1,6 @@
 import {Integer, nothing} from '../../../../../lib/types';
 import {SyntaxContext} from '../../../syntax-context';
-import {isExpressionNode, isGroupNode, nodeFindMap} from '../../node';
+import {isGroupNode, isNonOperatorExpression, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {invokeNode} from './invoke-node';
 
@@ -13,7 +13,7 @@ export function invokeNodeParse(): SyntaxParseFn {
 
       const instance = nodes[index - 1];
 
-      if (!isExpressionNode(instance)) {
+      if (!isNonOperatorExpression(instance)) {
         return nothing;
       }
 

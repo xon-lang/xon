@@ -1,6 +1,7 @@
 import {OutputChannel, Position, Range, TextDocument} from 'vscode';
-import {Node, isSyntaxNode} from '../../core/parser/node/node';
+import {$Node, Node, is} from '../../core/parser/node/node';
 import {StatementNode} from '../../core/parser/node/statement/statement-node';
+import {SyntaxNode} from '../../core/parser/node/syntax/syntax-node';
 import {SyntaxResult} from '../../core/parser/syntax-context';
 import {syntaxParse} from '../../core/parser/syntax-parser';
 import {semanticParse} from '../../core/semantic/semantic';
@@ -54,7 +55,7 @@ export function findNodeByPositionInSyntax(syntax: SyntaxResult, position: Posit
 }
 
 export function findNodeByPosition(node: Node, position: Position): Node {
-  if (!isSyntaxNode(node)) {
+  if (!is<SyntaxNode>(node, $Node.SYNTAX)) {
     return node;
   }
 

@@ -1,7 +1,7 @@
 import {Integer, nothing} from '../../../../../lib/types';
 import {ASSIGN} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, is, isExpressionNode, nodeFindMap} from '../../node';
+import {$Node, is, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {assignNode} from './assign-node';
@@ -19,7 +19,7 @@ function assignNodeParse(): SyntaxParseFn {
 
       const value = nodes[index + 1];
 
-      if (!isExpressionNode(value)) {
+      if (!is(value, $Node.e)) {
         return nothing;
       }
 

@@ -1,6 +1,6 @@
 import {Boolean2, Integer, nothing} from '../../../../../lib/types';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, is, isExpressionNode, nodeFindMap} from '../../node';
+import {$Node, is, isNonOperatorExpression, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {infixNode} from './infix-node';
@@ -15,7 +15,7 @@ export function infixNodeParse(operators: String[], isLeftRecursive: Boolean2): 
       const left = nodes[index - 1];
       const right = nodes[index + 1];
 
-      if (!isExpressionNode(left) || !isExpressionNode(right)) {
+      if (!isNonOperatorExpression(left) || !isNonOperatorExpression(right)) {
         return nothing;
       }
 

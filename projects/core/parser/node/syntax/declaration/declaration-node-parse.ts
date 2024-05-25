@@ -2,7 +2,7 @@ import {Array2, Integer, Nothing, nothing} from '../../../../../lib/types';
 import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIERS} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
-import {$Node, ExpressionNode, Node, is, isExpressionNode, nodeFindMap} from '../../node';
+import {$Node, ExpressionNode, Node, is, isNonOperatorExpression, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
@@ -62,7 +62,7 @@ function getDeclarationParts(context: SyntaxContext):
       index - 1 === 0 &&
       is<OperatorNode>(node, $Node.OPERATOR) &&
       node.text === TYPE &&
-      isExpressionNode(nodes[index + 1])
+      isNonOperatorExpression(nodes[index + 1])
     ) {
       return {node, index};
     }
@@ -80,7 +80,7 @@ function getDeclarationParts(context: SyntaxContext):
     if (
       is<OperatorNode>(assignOperator, $Node.OPERATOR) &&
       assignOperator.text === ASSIGN &&
-      isExpressionNode(assignValue)
+      isNonOperatorExpression(assignValue)
     ) {
       const assign = assignNode(context, assignOperator, assignValue);
 
@@ -99,7 +99,7 @@ function getDeclarationParts(context: SyntaxContext):
       index - 1 === 0 &&
       is<OperatorNode>(node, $Node.OPERATOR) &&
       node.text === ASSIGN &&
-      isExpressionNode(nodes[index + 1])
+      isNonOperatorExpression(nodes[index + 1])
     ) {
       return {node, index};
     }

@@ -1,10 +1,11 @@
 import {String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
 import {STRING_QUOTE} from '../../../parser-config';
-import {$Node, SemanticNode} from '../../node';
+import {$Node, ExpressionNode, SemanticNode} from '../../node';
 import {TokenNode, tokenNode} from '../token-node';
 
 export type StringNode = TokenNode<$Node.STRING> &
+  ExpressionNode &
   SemanticNode & {
     value: String2;
   };
