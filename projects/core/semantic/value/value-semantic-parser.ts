@@ -23,25 +23,23 @@ export function syntaxValuesParse(context: SemanticContext, syntax: SyntaxResult
     }
 
     for (const node of statement.children) {
-      valueSemanticParse(context, node);
+      if (is<ExpressionNode>(node, $Node.EXPRESSION)) {
+        valueSemanticParse(context, node);
+      }
     }
   }
 }
 
-export function valueSemanticParse(context: SemanticContext, node: Node | Nothing): ValueSemantic | Nothing {
-  if (!is<ExpressionNode>(node, $Node.EXPRESSION)) {
+export function valueSemanticParse(context: SemanticContext, node: ExpressionNode): ValueSemantic | Nothing {
+  const type = parsers.findMap((parse) => parse(context, node));
+
+  if (!type) {
     return nothing;
   }
 
-  const type = parsers.findMap((x) => x(context, node));
+  const reference = context.createReference(node);
+  const semantic = valueSemantic(reference, type);
+  node.semantic = semantic;
 
-  if (type) {
-    const reference = context.createReference(node);
-    const semantic = valueSemantic(reference, type);
-    node.semantic = semantic;
-
-    return semantic;
-  }
-
-  return nothing;
+  return semantic;
 }
