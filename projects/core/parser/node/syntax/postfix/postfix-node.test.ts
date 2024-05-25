@@ -10,7 +10,7 @@ test('after integer', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as PostfixNode;
+  const node = statements[0].value as PostfixNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.POSTFIX);

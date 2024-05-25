@@ -14,7 +14,7 @@ test('several operands with different priorities', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InfixNode;
+  const node = statements[0].value as InfixNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INFIX);
@@ -27,7 +27,7 @@ test('num plus str', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InfixNode;
+  const node = statements[0].value as InfixNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INFIX);
@@ -40,7 +40,7 @@ test('num is number', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InfixNode;
+  const node = statements[0].value as InfixNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INFIX);
@@ -54,7 +54,7 @@ test('equals', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InfixNode;
+  const node = statements[0].value as InfixNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INFIX);
@@ -87,7 +87,7 @@ test('several operators', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InfixNode;
+  const node = statements[0].value as InfixNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INFIX);
@@ -105,7 +105,7 @@ test('range', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InfixNode;
+  const node = statements[0].value as InfixNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INFIX);

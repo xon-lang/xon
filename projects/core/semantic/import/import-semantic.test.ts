@@ -4,7 +4,6 @@ import {syntaxParse} from '../../parser/syntax-parser';
 import {textResourceFrom} from '../../util/resource/text/text-resource';
 import {DeclarationSemantic} from '../declaration/declaration-semantic';
 import {$Semantic, semanticParse} from '../semantic';
-import {TEST_SEMANTIC_CONFIG} from '../semantic-config';
 import {StringTypeSemantic} from '../type/string/string-type-semantic';
 import {typeSemanticParse} from '../type/type-semantic-parser';
 
@@ -21,7 +20,7 @@ test('import core', () => {
   expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.VALUE_DECLARATION);
   expect(semantic.declarationManager.declarations.a[0].name).toBe('a');
 
-  const constNode = syntax.statements[1].item as DeclarationNode;
+  const constNode = syntax.statements[1].value as DeclarationNode;
   expect(constNode).toBeTruthy();
   expect(constNode.id?.text).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($Semantic.VALUE_DECLARATION);

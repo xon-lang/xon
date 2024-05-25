@@ -13,7 +13,7 @@ import {valueDeclarationDeepParse} from './value/value-declaration-semantic-pars
 
 export function syntaxDeclarationsParse(context: SemanticContext, syntax: SyntaxResult): Nothing {
   const declarationNodes = syntax.statements.filterMap((x) =>
-    is<DeclarationNode>(x.item, $Node.DECLARATION) ? x.item : nothing,
+    is<DeclarationNode>(x.value, $Node.DECLARATION) ? x.value : nothing,
   );
 
   declarationsParse(context, declarationNodes);

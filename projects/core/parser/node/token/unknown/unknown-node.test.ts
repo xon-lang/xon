@@ -10,7 +10,7 @@ test('unknown 1', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node0 = statements[0].item as IntegerNode;
+  const node0 = statements[0].value as IntegerNode;
   const node1 = statements[0].children[1] as UnknownNode;
 
   expect(statements.length).toBe(1);
@@ -27,7 +27,7 @@ test('unknown 2', () => {
   const resource = textResourceFrom(nothing, text);
   const syntax = syntaxParse(resource);
   const statements = syntax.statements;
-  const node = statements[0].item as UnknownNode;
+  const node = statements[0].value as UnknownNode;
 
   expect(statements.length).toBe(1);
   expect(syntax.issueManager.issues.length).toBe(5);

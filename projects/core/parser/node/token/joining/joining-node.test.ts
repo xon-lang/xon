@@ -12,7 +12,7 @@ test('no space', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as MemberNode;
+  const node = statements[0].value as MemberNode;
 
   expect(statements.length).toBe(1);
   expect(node.instance?.$).toBe($Node.ID);
@@ -27,7 +27,7 @@ test('spaces', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as MemberNode;
+  const node = statements[0].value as MemberNode;
 
   expect(statements.length).toBe(1);
   expect(node.instance?.$).toBe($Node.ID);
@@ -42,7 +42,7 @@ test('with new line', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as MemberNode;
+  const node = statements[0].value as MemberNode;
 
   expect(statements.length).toBe(1);
   expect(node.instance?.$).toBe($Node.ID);

@@ -12,7 +12,7 @@ export type StatementNode = SyntaxNode<$Node.STATEMENT> & {
   indentLevel: Integer;
   indent: TextRange;
   children: Array2<Node>;
-  item: Node;
+  value: Node;
   body: Array2<StatementNode>;
 };
 
@@ -25,7 +25,7 @@ export function statementNode(context: SyntaxContext, children: Array2<Node>, in
     indent,
     indentLevel: (context.parentStatement?.indentLevel ?? -1) + 1,
     parent: context.parentStatement,
-    item: children[0],
+    value: children[0],
     body: [],
   };
 

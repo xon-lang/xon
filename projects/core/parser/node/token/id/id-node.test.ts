@@ -10,7 +10,7 @@ test('single id', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as IdNode;
+  const node = statements[0].value as IdNode;
 
   expect(statements.length).toBe(1);
   expect(node.text).toBe('abc');
@@ -22,7 +22,7 @@ test('several id', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as IdNode;
+  const node = statements[0].value as IdNode;
 
   expect(statements.length).toBe(1);
   expect(node.text).toBe('abc');

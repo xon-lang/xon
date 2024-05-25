@@ -21,7 +21,7 @@ export function itemNode(context: SyntaxContext, statements: StatementNode[], co
     $: $Node.ITEM,
     range: rangeFromNodes(children),
     children,
-    value: statements.first()?.item,
+    value: statements.first()?.value,
     statements,
     comma,
   };

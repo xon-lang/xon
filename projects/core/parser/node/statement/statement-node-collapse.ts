@@ -94,7 +94,7 @@ export function statementNodeCollapse(context: SyntaxContext): Nothing {
 }
 
 function validate(context: SyntaxContext, node: Node): Nothing {
-  const parentDeclaration = context.parentStatement?.item;
+  const parentDeclaration = context.parentStatement?.value;
 
   if (isTypeDeclarationNode(parentDeclaration)) {
     if (parentDeclaration.assign?.value) {

@@ -11,7 +11,7 @@ test('comma', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as IntegerNode;
+  const node = statements[0].value as IntegerNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INTEGER);
@@ -63,8 +63,8 @@ c`;
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node0 = statements[0].item as InfixNode;
-  const node1 = statements[1].item as InfixNode;
+  const node0 = statements[0].value as InfixNode;
+  const node1 = statements[1].value as InfixNode;
 
   expect(statements.length).toBe(2);
   expect(node0.$).toBe($Node.ID);

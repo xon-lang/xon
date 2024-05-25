@@ -9,7 +9,7 @@ test('string', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as StringNode;
+  const node = statements[0].value as StringNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.STRING);
@@ -21,7 +21,7 @@ test('multiline string', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as StringNode;
+  const node = statements[0].value as StringNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.STRING);
@@ -33,7 +33,7 @@ test('empty string', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as StringNode;
+  const node = statements[0].value as StringNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.STRING);
@@ -45,7 +45,7 @@ test('not closed', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as StringNode;
+  const node = statements[0].value as StringNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.STRING);

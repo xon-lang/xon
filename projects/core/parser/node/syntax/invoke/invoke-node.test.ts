@@ -13,7 +13,7 @@ test('method call', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InvokeNode;
+  const node = statements[0].value as InvokeNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INVOKE);
@@ -32,7 +32,7 @@ test('method on several lines', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InvokeNode;
+  const node = statements[0].value as InvokeNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INVOKE);
@@ -49,7 +49,7 @@ test('can call with type parameter', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InvokeNode;
+  const node = statements[0].value as InvokeNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INVOKE);
@@ -67,7 +67,7 @@ test('object method', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InvokeNode;
+  const node = statements[0].value as InvokeNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INVOKE);
@@ -87,7 +87,7 @@ test('generics', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InvokeNode;
+  const node = statements[0].value as InvokeNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INVOKE);

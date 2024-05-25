@@ -18,7 +18,7 @@ export const parsers: Array2<ValueSemanticTryParseFn> = [
 
 export function syntaxValuesParse(context: SemanticContext, syntax: SyntaxResult) {
   for (const statement of syntax.statements) {
-    if (statement.item) {
+    if (statement.value) {
       continue;
     }
 

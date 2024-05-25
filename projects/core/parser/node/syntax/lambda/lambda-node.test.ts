@@ -12,7 +12,7 @@ test('function with no parameters', () => {
   const resource = textResourceFrom(nothing, text);
   const syntax = syntaxParse(resource);
   const statements = syntax.statements;
-  const node = statements[0].item as LambdaNode;
+  const node = statements[0].value as LambdaNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.LAMBDA);
@@ -26,7 +26,7 @@ test('function with generic', () => {
   const resource = textResourceFrom(nothing, text);
   const syntax = syntaxParse(resource);
   const statements = syntax.statements;
-  const node = statements[0].item as LambdaNode;
+  const node = statements[0].value as LambdaNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.LAMBDA);
@@ -41,7 +41,7 @@ test('function with generic and parameter', () => {
   const resource = textResourceFrom(nothing, text);
   const syntax = syntaxParse(resource);
   const statements = syntax.statements;
-  const node = statements[0].item as LambdaNode;
+  const node = statements[0].value as LambdaNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.LAMBDA);
@@ -58,7 +58,7 @@ test('has argument and value', () => {
   const resource = textResourceFrom(nothing, text);
   const syntax = syntaxParse(resource);
   const statements = syntax.statements;
-  const node = statements[0].item as LambdaNode;
+  const node = statements[0].value as LambdaNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.LAMBDA);
@@ -77,7 +77,7 @@ test('two parameter', () => {
   const resource = textResourceFrom(nothing, text);
   const syntax = syntaxParse(resource);
   const statements = syntax.statements;
-  const node = statements[0].item as LambdaNode;
+  const node = statements[0].value as LambdaNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.LAMBDA);

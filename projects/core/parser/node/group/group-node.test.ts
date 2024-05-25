@@ -12,7 +12,7 @@ test('empty closed', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as GroupNode;
+  const node = statements[0].value as GroupNode;
 
   expect(statements.length).toBe(1);
   expect(is(node, $Node.GROUP)).toBe(true);
@@ -26,7 +26,7 @@ test('validate close pair', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as GroupNode;
+  const node = statements[0].value as GroupNode;
 
   expect(statements.length).toBe(1);
   expect(is(node, $Node.GROUP)).toBe(true);
@@ -46,7 +46,7 @@ test('a in group', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as GroupNode;
+  const node = statements[0].value as GroupNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.GROUP);
@@ -57,7 +57,7 @@ test('empty object', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as ObjectNode;
+  const node = statements[0].value as ObjectNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.OBJECT);
@@ -69,7 +69,7 @@ test('single item', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as ArrayNode;
+  const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
@@ -82,7 +82,7 @@ test('single comma', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as ArrayNode;
+  const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
   expect(node.items.length).toBe(1);
@@ -96,7 +96,7 @@ test('empty not closed', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as ArrayNode;
+  const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
@@ -110,7 +110,7 @@ test('inner group', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as ArrayNode;
+  const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
@@ -126,7 +126,7 @@ test('inner empty group', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as ArrayNode;
+  const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
@@ -146,7 +146,7 @@ test('two integers no comma and ws at the end', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as ArrayNode;
+  const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
@@ -160,7 +160,7 @@ test('two integers and comma no ws at the end', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as ArrayNode;
+  const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
@@ -174,7 +174,7 @@ test('two integers and comma and ws', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as ArrayNode;
+  const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
@@ -191,7 +191,7 @@ test('array on several lines', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as ArrayNode;
+  const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
@@ -205,7 +205,7 @@ test('debug 1', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as ArrayNode;
+  const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
@@ -219,7 +219,7 @@ test('empty object', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as ObjectNode;
+  const node = statements[0].value as ObjectNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.OBJECT);

@@ -22,7 +22,7 @@ test('a is array', () => {
   expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.VALUE_DECLARATION);
   expect(semantic.declarationManager.declarations.a[0].name).toBe('a');
 
-  const constNode = syntax.statements[0].item as DeclarationNode;
+  const constNode = syntax.statements[0].value as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($Semantic.VALUE_DECLARATION);
 

@@ -11,7 +11,7 @@ test('single operator', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as OperatorNode;
+  const node = statements[0].value as OperatorNode;
 
   expect(statements.length).toBe(1);
   expect(node.text).toBe('!');
@@ -23,7 +23,7 @@ test('after integer', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as PostfixNode;
+  const node = statements[0].value as PostfixNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.POSTFIX);
@@ -35,7 +35,7 @@ test('x + x', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as InfixNode;
+  const node = statements[0].value as InfixNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.INFIX);

@@ -90,7 +90,7 @@ function getDeclarationParts(context: SyntaxContext):
     return {spliceIndex: typeOperatorFound.index - 1, deleteCount: 3, ...header, type};
   }
 
-  if (!header.modifier && !isTypeDeclarationNode(context.parentStatement?.item)) {
+  if (!header.modifier && !isTypeDeclarationNode(context.parentStatement?.value)) {
     return nothing;
   }
 

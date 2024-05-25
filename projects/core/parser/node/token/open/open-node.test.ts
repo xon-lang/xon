@@ -9,7 +9,7 @@ test('open paren', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as GroupNode;
+  const node = statements[0].value as GroupNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.GROUP);
@@ -23,7 +23,7 @@ test('open bracket', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as GroupNode;
+  const node = statements[0].value as GroupNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.ARRAY);
@@ -37,7 +37,7 @@ test('open brace', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as GroupNode;
+  const node = statements[0].value as GroupNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.OBJECT);

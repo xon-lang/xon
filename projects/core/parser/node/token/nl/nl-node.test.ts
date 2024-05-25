@@ -29,8 +29,8 @@ test('several', () => {
   const node2 = statements[0].hiddenNodes?.at(2) as TokenNode;
 
   expect(statements.length).toBe(1);
-  expect(statements[0].item.$).toBe($Node.ID);
-  expect((statements[0].item as IdNode).text).toBe('abc');
+  expect(statements[0].value.$).toBe($Node.ID);
+  expect((statements[0].value as IdNode).text).toBe('abc');
 
   expect(statements[0].hiddenNodes?.length).toBe(3);
   expect(node0.text).toBe('  ');

@@ -10,7 +10,7 @@ test('member with id instance', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as MemberNode;
+  const node = statements[0].value as MemberNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.MEMBER);
@@ -29,7 +29,7 @@ test('member without id', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = statements[0].item as MemberNode;
+  const node = statements[0].value as MemberNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.MEMBER);

@@ -12,7 +12,7 @@ test('model A', () => {
   const resource = textResourceFrom(nothing, text);
   const syntax = syntaxParse(resource);
   const statements = syntax.statements;
-  const node = statements[0].item as DeclarationNode;
+  const node = statements[0].value as DeclarationNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.DECLARATION);
@@ -25,7 +25,7 @@ test('model A: B', () => {
   const resource = textResourceFrom(nothing, text);
   const syntax = syntaxParse(resource);
   const statements = syntax.statements;
-  const node = statements[0].item as DeclarationNode;
+  const node = statements[0].value as DeclarationNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.DECLARATION);
@@ -40,7 +40,7 @@ test('with generics extends b', () => {
   const resource = textResourceFrom(nothing, text);
   const syntax = syntaxParse(resource);
   const statements = syntax.statements;
-  const node = statements[0].item as DeclarationNode;
+  const node = statements[0].value as DeclarationNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.DECLARATION);
@@ -61,7 +61,7 @@ test('with parameters extends b', () => {
   const resource = textResourceFrom(nothing, text);
   const syntax = syntaxParse(resource);
   const statements = syntax.statements;
-  const node = statements[0].item as DeclarationNode;
+  const node = statements[0].value as DeclarationNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.DECLARATION);
@@ -94,7 +94,7 @@ test('with generics and parameters extends b', () => {
   const resource = textResourceFrom(nothing, text);
   const syntax = syntaxParse(resource);
   const statements = syntax.statements;
-  const node = statements[0].item as DeclarationNode;
+  const node = statements[0].value as DeclarationNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.DECLARATION);
@@ -141,7 +141,7 @@ test('has attributes', () => {
   const resource = textResourceFrom(nothing, text);
   const syntax = syntaxParse(resource);
   const statements = syntax.statements;
-  const node = statements[0].item as DeclarationNode;
+  const node = statements[0].value as DeclarationNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.DECLARATION);
@@ -156,7 +156,7 @@ test('model string with base class', () => {
   const resource = textResourceFrom(nothing, text);
   const syntax = syntaxParse(resource);
   const statements = syntax.statements;
-  const node = statements[1].item as DeclarationNode;
+  const node = statements[1].value as DeclarationNode;
 
   expect(statements.length).toBe(2);
   expect(node.$).toBe($Node.DECLARATION);
@@ -170,7 +170,7 @@ test('lambda type', () => {
   const resource = textResourceFrom(nothing, text);
   const syntax = syntaxParse(resource);
   const statements = syntax.statements;
-  const node = statements[0].item as DeclarationNode;
+  const node = statements[0].value as DeclarationNode;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.DECLARATION);

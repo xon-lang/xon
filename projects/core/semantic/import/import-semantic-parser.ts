@@ -16,8 +16,8 @@ const LIB_FOLDER = resolve(__dirname, '../../../lib');
 
 export function syntaxImportsParse(context: SemanticContext, syntax: SyntaxResult) {
   for (const statement of syntax.statements) {
-    if (is<ImportNode>(statement.item, $Node.IMPORT)) {
-      importNodeParse(context, statement.item);
+    if (is<ImportNode>(statement.value, $Node.IMPORT)) {
+      importNodeParse(context, statement.value);
     }
   }
 }
