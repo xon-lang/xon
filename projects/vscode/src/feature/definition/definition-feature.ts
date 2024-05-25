@@ -11,6 +11,7 @@ import {
   TextDocument,
   Uri,
 } from 'vscode';
+import {hasSemantic} from '../../../../core/parser/node/node';
 import {ImportSemantic} from '../../../../core/semantic/import/import-semantic';
 import {$Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
@@ -41,7 +42,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
 
     const node = findNodeByPositionInSyntax(syntax, position);
 
-    if (!node?.semantic) {
+    if (!hasSemantic(node)) {
       return nothing;
     }
 

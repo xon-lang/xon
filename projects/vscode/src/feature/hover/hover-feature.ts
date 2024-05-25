@@ -20,6 +20,7 @@ import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {Nothing, String2, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
+import { $Node, ExpressionNode, hasSemantic, is } from '../../../../core/parser/node/node';
 
 export function configureHoverFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(languages.registerHoverProvider(LANGUAGE_NAME, new LanguageHoverProvider(channel)));
@@ -32,7 +33,7 @@ class LanguageHoverProvider implements HoverProvider {
     const syntax = getDocumentSyntax(document, this.channel);
     const node = findNodeByPositionInSyntax(syntax, position);
 
-    if (!node?.semantic) {
+    if (!hasSemantic(node)) {
       return nothing;
     }
 

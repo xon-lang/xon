@@ -71,6 +71,10 @@ export function isNonOperatorExpression(node: Node): node is ExpressionNode {
   return is<ExpressionNode>(node, $Node.EXPRESSION) && !is<OperatorNode>(node, $Node.OPERATOR);
 }
 
+export function hasSemantic(node: Node | Nothing): node is ExpressionNode & {semantic: Semantic} {
+  return is<ExpressionNode>(node, $Node.EXPRESSION) && !!node.semantic;
+}
+
 const groups = [$Node.GROUP, $Node.ARRAY, $Node.OBJECT];
 
 export function isGroupNode(node: Node | Nothing): node is Group {
