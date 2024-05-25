@@ -9,7 +9,7 @@ import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type MemberNode = SyntaxNode<$Node.MEMBER> &
   ExpressionNode & {
-    instance: Node;
+    instance: ExpressionNode;
     operator: OperatorNode;
     id: IdNode | Nothing;
   };
