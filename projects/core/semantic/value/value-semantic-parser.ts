@@ -23,14 +23,16 @@ export function syntaxValuesParse(context: SemanticContext, syntax: SyntaxResult
     }
 
     for (const node of statement.children) {
-      if (is<ExpressionNode>(node, $Node.EXPRESSION)) {
-        valueSemanticParse(context, node);
-      }
+      valueSemanticParse(context, node);
     }
   }
 }
 
-export function valueSemanticParse(context: SemanticContext, node: ExpressionNode): ValueSemantic | Nothing {
+export function valueSemanticParse(context: SemanticContext, node: Node | Nothing): ValueSemantic | Nothing {
+  if (!is<ExpressionNode>(node, $Node.EXPRESSION)) {
+    return nothing;
+  }
+
   const type = parsers.findMap((parse) => parse(context, node));
 
   if (!type) {
