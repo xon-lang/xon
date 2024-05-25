@@ -2,12 +2,12 @@ import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {ASSIGN, TYPE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, ExpressionNode, HasSemantic} from '../../node';
+import {$Node, ExpressionNode, SemanticNode} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type PrefixNode = SyntaxNode<$Node.PREFIX> &
-  HasSemantic & {
+  SemanticNode & {
     operator: OperatorNode;
     value: ExpressionNode;
   };

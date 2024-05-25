@@ -41,7 +41,7 @@ test('a is integer or float', () => {
   expect((typeSemantic.right as DeclarationTypeSemantic).declaration?.name).toBe('Float');
 });
 
-test('check type', () => {
+test('1 check type', () => {
   const text = `
     model Number
     model Integer: Number
@@ -64,7 +64,7 @@ test('check type', () => {
   expect(aType.is(bType)).toBe(true);
 });
 
-test('check type', () => {
+test('2 check type', () => {
   const text = `
     model Number
     model Integer: Number

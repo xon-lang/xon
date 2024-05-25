@@ -7,8 +7,8 @@ import {DEFAULT_SEMANTIC_CONFIG, SemanticConfig} from './semantic-config';
 import {SemanticContext, semanticContext} from './semantic-context';
 import {syntaxValuesParse} from './value/value-semantic-parser';
 
-export interface Semantic {
-  $: $Semantic;
+export interface Semantic<T extends $Semantic = $Semantic> {
+  $: T;
   reference: TextResourceReference;
 }
 

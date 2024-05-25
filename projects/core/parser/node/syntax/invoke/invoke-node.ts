@@ -2,11 +2,11 @@ import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group} from '../../group/group-node';
-import {$Node, ExpressionNode, HasSemantic} from '../../node';
+import {$Node, ExpressionNode, SemanticNode} from '../../node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type InvokeNode = SyntaxNode<$Node.INVOKE> &
-  HasSemantic & {
+  SemanticNode & {
     instance: ExpressionNode;
     group: Group;
   };

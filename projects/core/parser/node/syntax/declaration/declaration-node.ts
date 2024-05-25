@@ -2,7 +2,7 @@ import {Array2, Nothing, nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group} from '../../group/group-node';
-import {$Node, HasSemantic, is} from '../../node';
+import {$Node, SemanticNode, is} from '../../node';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {AssignNode} from '../assign/assign-node';
@@ -11,7 +11,7 @@ import {SyntaxNode, syntaxNode} from '../syntax-node';
 import {TypeNode} from '../type/type-node';
 
 export type DeclarationNode = SyntaxNode<$Node.DECLARATION> &
-  HasSemantic & {
+  SemanticNode & {
     modifier: OperatorNode | Nothing;
     id: IdNode;
     generics: Group | Nothing;

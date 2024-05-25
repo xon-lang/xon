@@ -12,17 +12,20 @@ import {valueDeclarationSemantic} from './value/value-declaration-semantic';
 import {valueDeclarationDeepParse} from './value/value-declaration-semantic-parser';
 
 export function syntaxDeclarationsParse(context: SemanticContext, syntax: SyntaxResult): Nothing {
-  const nodes = syntax.statements.filterMap((x) => (is<DeclarationNode>(x.item, $Node.DECLARATION) ? x.item : nothing));
-  declarationsParse(context, nodes);
+  const declarationNodes = syntax.statements.filterMap((x) =>
+    is<DeclarationNode>(x.item, $Node.DECLARATION) ? x.item : nothing,
+  );
+
+  declarationsParse(context, declarationNodes);
 }
 
 export function declarationsParse(
   context: SemanticContext,
-  nodes: Array2<DeclarationNode | Nothing>,
+  declarationNodes: Array2<DeclarationNode | Nothing>,
 ): Array2<DeclarationSemantic | Nothing> {
-  const declarations = nodes.map((x) => (x ? declarationShallowParse(context, x) : nothing));
+  const declarations = declarationNodes.map((x) => (x ? declarationShallowParse(context, x) : nothing));
 
-  for (const node of nodes) {
+  for (const node of declarationNodes) {
     if (!node) {
       continue;
     }

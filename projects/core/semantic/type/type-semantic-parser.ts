@@ -1,5 +1,5 @@
 import {Array2, Nothing, nothing} from '../../../lib/types';
-import {Node, hasSemantic} from '../../parser/node/node';
+import {$Node, Node, SemanticNode, is} from '../../parser/node/node';
 import {SemanticContext} from '../semantic-context';
 import {arrayTypeSemanticTryParse} from './array/array-type-semantic-parser';
 import {declarationTypeSemanticTryParse} from './declaration/declaration-type-semantic-parser';
@@ -29,7 +29,7 @@ const parsers: Array2<TypeSemanticTryParseFn> = [
 ];
 
 export function typeSemanticParse(context: SemanticContext, node: Node | Nothing): TypeSemantic | Nothing {
-  if (!hasSemantic(node)) {
+  if (!is<SemanticNode>(node, $Node.SEMANTIC)) {
     return nothing;
   }
 

@@ -1,10 +1,10 @@
 import {Integer, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
-import {$Node, HasSemantic} from '../../node';
+import {$Node, SemanticNode} from '../../node';
 import {TokenNode, tokenNode} from '../token-node';
 
 export type IntegerNode = TokenNode<$Node.INTEGER> &
-  HasSemantic & {
+  SemanticNode & {
     value: Integer;
   };
 
