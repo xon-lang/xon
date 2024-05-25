@@ -2,17 +2,17 @@ import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, Node} from '../../node';
+import {$Node, HasSemantic, Node} from '../../node';
 import {IdNode} from '../../token/id/id-node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
-export interface MemberNode extends SyntaxNode {
-  $: $Node.MEMBER;
-  instance: Node;
-  operator: OperatorNode;
-  id: IdNode | Nothing;
-}
+export type MemberNode = SyntaxNode<$Node.MEMBER> &
+  HasSemantic & {
+    instance: Node;
+    operator: OperatorNode;
+    id: IdNode | Nothing;
+  };
 
 export function memberNode(
   context: SyntaxContext,

@@ -14,13 +14,12 @@ import {IntegerNode} from './token/integer/integer-node';
 import {StringNode} from './token/string/string-node';
 import {TokenNode} from './token/token-node';
 
-export interface Node {
-  $: $Node;
+export type Node<T extends $Node = $Node> = {
+  $: T;
   range: TextRange;
   parent?: Node | Nothing;
   hiddenNodes?: Array2<TokenNode> | Nothing;
-  semantic?: Semantic | Nothing;
-}
+};
 
 export enum $Node {
   NODE = 'NODE',
@@ -68,6 +67,18 @@ export function is<T extends Node = Node>(node: {$?: $Node} | Nothing, type: $No
   }
 
   return node.$ === type || node.$.split(' ').includes(type);
+}
+
+export type HasSemantic = {
+  semantic?: Semantic | Nothing;
+};
+
+export function hasSemantic<T extends Node>(node: T | Nothing): node is T & HasSemantic {
+  if (!node) {
+    return false;
+  }
+
+  return 'semantic' in node;
 }
 
 const expressions = [

@@ -2,18 +2,18 @@ import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group} from '../../group/group-node';
-import {$Node} from '../../node';
+import {$Node, HasSemantic} from '../../node';
 import {AssignNode} from '../assign/assign-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 import {TypeNode} from '../type/type-node';
 
-export interface LambdaNode extends SyntaxNode {
-  $: $Node.LAMBDA;
-  generics: Group | Nothing;
-  parameters: Group;
-  type: TypeNode | Nothing;
-  assign: AssignNode | Nothing;
-}
+export type LambdaNode = SyntaxNode<$Node.LAMBDA> &
+  HasSemantic & {
+    generics: Group | Nothing;
+    parameters: Group;
+    type: TypeNode | Nothing;
+    assign: AssignNode | Nothing;
+  };
 
 export function lambdaNode(
   context: SyntaxContext,

@@ -1,6 +1,6 @@
 import {SyntaxResult} from '../../../core/parser/syntax-context';
 import {Array2, Nothing, nothing} from '../../../lib/types';
-import {Node} from '../../parser/node/node';
+import {Node, hasSemantic} from '../../parser/node/node';
 import {SemanticContext} from '../semantic-context';
 import {TypeSemantic} from '../type/type-semantic';
 import {declarationValueTypeTryParse} from './declaration/declaration-value-type-parser';
@@ -29,7 +29,7 @@ export function syntaxValuesParse(context: SemanticContext, syntax: SyntaxResult
 }
 
 export function valueSemanticParse(context: SemanticContext, node: Node | Nothing): ValueSemantic | Nothing {
-  if (!node) {
+  if (!hasSemantic(node)) {
     return nothing;
   }
 

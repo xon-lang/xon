@@ -8,12 +8,11 @@ import {StatementNode} from '../statement/statement-node';
 import {SyntaxNode} from '../syntax/syntax-node';
 import {CommaNode} from '../token/comma/comma-node';
 
-export interface ItemNode extends SyntaxNode {
-  $: $Node.ITEM;
+export type ItemNode = SyntaxNode<$Node.ITEM> & {
   value: Node | Nothing;
   statements: StatementNode[];
   comma: CommaNode | Nothing;
-}
+};
 
 export function itemNode(context: SyntaxContext, statements: StatementNode[], comma: CommaNode | Nothing): ItemNode {
   const children = comma ? [...statements, comma] : [...statements];

@@ -2,15 +2,15 @@ import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {ASSIGN, TYPE} from '../../../parser-config';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, ExpressionNode} from '../../node';
+import {$Node, ExpressionNode, HasSemantic} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
-export interface PrefixNode extends SyntaxNode {
-  $: $Node.PREFIX;
-  operator: OperatorNode;
-  value: ExpressionNode;
-}
+export type PrefixNode = SyntaxNode<$Node.PREFIX> &
+  HasSemantic & {
+    operator: OperatorNode;
+    value: ExpressionNode;
+  };
 
 export function prefixNode(context: SyntaxContext, operator: OperatorNode, value: ExpressionNode): PrefixNode {
   const node = syntaxNode($Node.PREFIX, {operator, value});

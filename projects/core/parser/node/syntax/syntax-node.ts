@@ -2,9 +2,9 @@ import {Array2, Nothing, String2, nothing} from '../../../../lib/types';
 import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
 import {$Node, Node} from '../node';
 
-export interface SyntaxNode extends Node {
+export type SyntaxNode<T extends $Node = $Node> = Node<T> & {
   children: Array2<Node>;
-}
+};
 
 export function syntaxNode<T extends $Node, U extends Record<String2, Node | Nothing>>(
   $: T,

@@ -1,13 +1,13 @@
 import {String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
 import {STRING_QUOTE} from '../../../parser-config';
-import {$Node} from '../../node';
+import {$Node, HasSemantic} from '../../node';
 import {TokenNode, tokenNode} from '../token-node';
 
-export interface StringNode extends TokenNode {
-  $: $Node.STRING;
-  value: String2;
-}
+export type StringNode = TokenNode<$Node.STRING> &
+  HasSemantic & {
+    value: String2;
+  };
 
 export function stringNode(range: TextRange, text: String2): StringNode {
   const lastIndex = text.length > 1 && text.last() === STRING_QUOTE ? -1 : text.length;

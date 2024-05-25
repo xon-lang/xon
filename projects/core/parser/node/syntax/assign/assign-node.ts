@@ -5,12 +5,11 @@ import {$Node, ExpressionNode} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
-export interface AssignNode extends SyntaxNode {
-  $: $Node.ASSIGN;
+export type AssignNode = SyntaxNode<$Node.ASSIGN> & {
   semantic: Nothing;
   operator: OperatorNode;
   value: ExpressionNode;
-}
+};
 
 export function assignNode(context: SyntaxContext, operator: OperatorNode, value: ExpressionNode): AssignNode {
   const node = syntaxNode($Node.ASSIGN, {operator, value});

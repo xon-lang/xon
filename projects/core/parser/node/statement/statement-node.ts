@@ -7,15 +7,14 @@ import {$Node, Node} from '../node';
 import {SyntaxNode} from '../syntax/syntax-node';
 import {statementNodeCollapse} from './statement-node-collapse';
 
-export interface StatementNode extends SyntaxNode {
-  $: $Node.STATEMENT;
+export type StatementNode = SyntaxNode<$Node.STATEMENT> & {
   parent: StatementNode | Nothing;
   indentLevel: Integer;
   indent: TextRange;
   children: Array2<Node>;
   item: Node;
   body: Array2<StatementNode>;
-}
+};
 
 export function statementNode(context: SyntaxContext, children: Array2<Node>, indent: TextRange): StatementNode {
   const statement: StatementNode = {
