@@ -20,3 +20,8 @@ model Range: Something
 
 // literal String{$T}: String
 //   length: $T.length
+
+--- doc
+  @a - 
+---
+min(a: Integer, b: Integer): Integer

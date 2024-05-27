@@ -14,7 +14,7 @@ import {
 import {hasSemantic} from '../../../../core/parser/node/node';
 import {ImportSemantic} from '../../../../core/semantic/import/import-semantic';
 import {$Semantic, semanticIs} from '../../../../core/semantic/semantic';
-import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
+import {IdTypeSemantic} from '../../../../core/semantic/type/id/id-type-semantic';
 import {IntegerTypeSemantic} from '../../../../core/semantic/type/integer/integer-type-semantic';
 import {StringTypeSemantic} from '../../../../core/semantic/type/string/string-type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
@@ -54,12 +54,12 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return nothing;
     }
 
-    if (semanticIs<DeclarationTypeSemantic>(node.semantic, $Semantic.DECLARATION_TYPE)) {
+    if (semanticIs<IdTypeSemantic>(node.semantic, $Semantic.DECLARATION_TYPE)) {
       return navigateToReference(node.range, node.semantic.declaration.reference);
     }
 
     if (semanticIs<ValueSemantic>(node.semantic, $Semantic.VALUE)) {
-      if (semanticIs<DeclarationTypeSemantic>(node.semantic.type, $Semantic.DECLARATION_TYPE)) {
+      if (semanticIs<IdTypeSemantic>(node.semantic.type, $Semantic.DECLARATION_TYPE)) {
         return navigateToReference(node.range, node.semantic.type.declaration.reference);
       }
 

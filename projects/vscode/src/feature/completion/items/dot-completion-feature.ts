@@ -13,7 +13,7 @@ import {
 import {$Node, is} from '../../../../../core/parser/node/node';
 import {MemberNode} from '../../../../../core/parser/node/syntax/member/member-node';
 import {$Semantic, Semantic, semanticIs} from '../../../../../core/semantic/semantic';
-import {DeclarationTypeSemantic} from '../../../../../core/semantic/type/declaration/declaration-type-semantic';
+import {IdTypeSemantic} from '../../../../../core/semantic/type/id/id-type-semantic';
 import {TypeSemantic, isTypeSemantic} from '../../../../../core/semantic/type/type-semantic';
 import {ValueSemantic} from '../../../../../core/semantic/value/value-semantic';
 import {Array2, Nothing, String2, nothing} from '../../../../../lib/types';
@@ -57,7 +57,7 @@ function createPropertyCompletionItem(name: String2, types: Array2<TypeSemantic>
   const item = new CompletionItem(name, CompletionItemKind.Property);
   const type = types.first();
 
-  if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.DECLARATION_TYPE)) {
+  if (semanticIs<IdTypeSemantic>(type, $Semantic.DECLARATION_TYPE)) {
     item.detail = type.declaration.name;
   }
 

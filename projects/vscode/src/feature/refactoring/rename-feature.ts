@@ -17,7 +17,7 @@ import {IdNode} from '../../../../core/parser/node/token/id/id-node';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
 import {TypeDeclarationSemantic} from '../../../../core/semantic/declaration/type/type-declaration-semantic';
 import {$Semantic, Semantic, semanticIs} from '../../../../core/semantic/semantic';
-import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
+import {IdTypeSemantic} from '../../../../core/semantic/type/id/id-type-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {TextResourceReference} from '../../../../core/util/resource/resource-reference';
 import {Nothing, nothing, String2} from '../../../../lib/types';
@@ -78,13 +78,13 @@ function getDeclaration(semantic: Semantic): DeclarationSemantic | Nothing {
     return semantic;
   }
 
-  if (semanticIs<DeclarationTypeSemantic>(semantic, $Semantic.DECLARATION_TYPE)) {
+  if (semanticIs<IdTypeSemantic>(semantic, $Semantic.DECLARATION_TYPE)) {
     return semantic.declaration;
   }
 
   if (
     semanticIs<ValueSemantic>(semantic, $Semantic.VALUE) &&
-    semanticIs<DeclarationTypeSemantic>(semantic.type, $Semantic.DECLARATION_TYPE)
+    semanticIs<IdTypeSemantic>(semantic.type, $Semantic.DECLARATION_TYPE)
   ) {
     return semantic.type.declaration;
   }

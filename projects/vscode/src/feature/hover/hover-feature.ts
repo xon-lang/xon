@@ -10,9 +10,10 @@ import {
   TextDocument,
   languages,
 } from 'vscode';
+import {hasSemantic} from '../../../../core/parser/node/node';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
 import {$Semantic, Semantic, semanticIs} from '../../../../core/semantic/semantic';
-import {DeclarationTypeSemantic} from '../../../../core/semantic/type/declaration/declaration-type-semantic';
+import {IdTypeSemantic} from '../../../../core/semantic/type/id/id-type-semantic';
 import {IntegerTypeSemantic} from '../../../../core/semantic/type/integer/integer-type-semantic';
 import {StringTypeSemantic} from '../../../../core/semantic/type/string/string-type-semantic';
 import {TypeSemantic, isTypeSemantic} from '../../../../core/semantic/type/type-semantic';
@@ -20,7 +21,6 @@ import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {Nothing, String2, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
-import { $Node, ExpressionNode, hasSemantic, is } from '../../../../core/parser/node/node';
 
 export function configureHoverFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(languages.registerHoverProvider(LANGUAGE_NAME, new LanguageHoverProvider(channel)));
@@ -72,7 +72,7 @@ function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
 }
 
 function typeToText(type: TypeSemantic): String2 | Nothing {
-  if (semanticIs<DeclarationTypeSemantic>(type, $Semantic.DECLARATION_TYPE)) {
+  if (semanticIs<IdTypeSemantic>(type, $Semantic.DECLARATION_TYPE)) {
     return declarationToText(type.declaration);
   }
 

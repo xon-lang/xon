@@ -2,6 +2,7 @@ import {
   CancellationToken,
   ExtensionContext,
   OutputChannel,
+  ParameterInformation,
   Position,
   ProviderResult,
   SignatureHelp,
@@ -11,7 +12,7 @@ import {
   TextDocument,
   languages,
 } from 'vscode';
-import {$Node, Node, is, isGroupNode} from '../../../../core/parser/node/node';
+import {$Node, Node, hasSemantic, is, isGroupNode} from '../../../../core/parser/node/node';
 import {InvokeNode} from '../../../../core/parser/node/syntax/invoke/invoke-node';
 import {IdNode} from '../../../../core/parser/node/token/id/id-node';
 import {Nothing, nothing} from '../../../../lib/types';
@@ -37,20 +38,26 @@ class LanguageSignatureProvider implements SignatureHelpProvider {
     const nodeAtPosition = findNodeByPositionInSyntax(syntax, position);
     const node = getInvokeNode(nodeAtPosition);
 
-    if (!node?.semantic) {
+    if (!hasSemantic(node)) {
       return nothing;
     }
 
-    const signature = new SignatureHelp();
+    const signatureHelp = new SignatureHelp();
 
-    signature.activeParameter = 0;
-    signature.activeSignature = 0;
+    signatureHelp.activeParameter = 1;
+    signatureHelp.activeSignature = 0;
 
+    node.semantic.
     if (is<IdNode>(node.instance, $Node.ID)) {
-      signature.signatures = [new SignatureInformation(node.instance.text, 'abcAA')];
+      const signature = new SignatureInformation('', 'signature doc');
+      signature.parameters = [
+        new ParameterInformation('p1', 'param doc 1'),
+        new ParameterInformation('p2', 'param doc 2'),
+      ];
+      signatureHelp.signatures = [signature];
     }
 
-    return signature;
+    return signatureHelp;
   }
 }
 
