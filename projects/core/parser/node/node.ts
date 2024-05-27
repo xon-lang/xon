@@ -23,6 +23,7 @@ export enum $Node {
   SYNTAX = 'SYNTAX',
   EXPRESSION = 'EXPRESSION',
 
+  DOCUMENTATION = 'DOCUMENTATION HIDDEN TOKEN NODE',
   COMMENT_LINE = 'COMMENT_LINE HIDDEN TOKEN NODE',
   COMMENT_BLOCK = 'COMMENT_BLOCK HIDDEN TOKEN NODE',
   WHITESPACE = 'WHITESPACE HIDDEN TOKEN NODE',
@@ -71,7 +72,7 @@ export function isNonOperatorExpression(node: Node): node is ExpressionNode {
   return is<ExpressionNode>(node, $Node.EXPRESSION) && !is<OperatorNode>(node, $Node.OPERATOR);
 }
 
-export function hasSemantic(node: Node | Nothing): node is ExpressionNode & {semantic: Semantic} {
+export function hasSemantic<T extends Node>(node: T | Nothing): node is T & {semantic: Semantic} {
   return is<ExpressionNode>(node, $Node.EXPRESSION) && !!node.semantic;
 }
 
