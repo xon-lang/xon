@@ -6,7 +6,7 @@ import {DeclarationKind} from '../../../declaration-manager';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
 import {ValueDeclarationSemantic} from '../../../declaration/value/value-declaration-semantic';
 import {$Semantic, semanticParse} from '../../../semantic';
-import {DeclarationTypeSemantic} from '../../declaration/declaration-type-semantic';
+import {IdTypeSemantic} from '../../id/id-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
 import {NotTypeSemantic} from './not-type-semantic';
@@ -36,7 +36,7 @@ test('a is integer or float', () => {
   const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as NotTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.NOT_TYPE);
   expect(typeSemantic.value.$).toBe($Semantic.DECLARATION_TYPE);
-  expect((typeSemantic.value as DeclarationTypeSemantic).declaration?.name).toBe('Integer');
+  expect((typeSemantic.value as IdTypeSemantic).declaration?.name).toBe('Integer');
 });
 
 test('check type', () => {

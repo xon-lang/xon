@@ -9,12 +9,9 @@ import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-s
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
 import {typeSemanticParse} from '../type-semantic-parser';
-import {DeclarationTypeSemantic, declarationTypeSemantic} from './declaration-type-semantic';
+import {IdTypeSemantic, idTypeSemantic} from './id-type-semantic';
 
-export function declarationTypeSemanticTryParse(
-  context: SemanticContext,
-  node: Node,
-): DeclarationTypeSemantic | Nothing {
+export function declarationTypeSemanticTryParse(context: SemanticContext, node: Node): IdTypeSemantic | Nothing {
   if (is<IdNode>(node, $Node.ID)) {
     return idParse(context, node);
   }
@@ -26,7 +23,7 @@ export function declarationTypeSemanticTryParse(
   return nothing;
 }
 
-function idParse(context: SemanticContext, node: IdNode): DeclarationTypeSemantic | Nothing {
+function idParse(context: SemanticContext, node: IdNode): IdTypeSemantic | Nothing {
   const declaration = context.declarationManager.single(DeclarationKind.TYPE, node.text, nothing, nothing);
 
   if (!declaration) {
@@ -37,7 +34,7 @@ function idParse(context: SemanticContext, node: IdNode): DeclarationTypeSemanti
 
   if (semanticIs<TypeDeclarationSemantic>(declaration, $Semantic.TYPE_DECLARATION)) {
     const reference = context.createReference(node);
-    const semantic = declarationTypeSemantic(context, reference, declaration, nothing);
+    const semantic = idTypeSemantic(context, reference, declaration, nothing);
 
     return semantic;
   }
@@ -47,7 +44,7 @@ function idParse(context: SemanticContext, node: IdNode): DeclarationTypeSemanti
   return nothing;
 }
 
-function invokeParse(context: SemanticContext, node: InvokeNode): DeclarationTypeSemantic | Nothing {
+function invokeParse(context: SemanticContext, node: InvokeNode): IdTypeSemantic | Nothing {
   if (node.group.open.text !== OBJECT_OPEN) {
     context.issueManager.addError(node.group.open.range, ISSUE_MESSAGE.notImplemented());
 
@@ -65,7 +62,7 @@ function invokeParse(context: SemanticContext, node: InvokeNode): DeclarationTyp
 
     if (semanticIs<TypeDeclarationSemantic>(declaration, $Semantic.TYPE_DECLARATION)) {
       const reference = context.createReference(node);
-      const semantic = declarationTypeSemantic(context, reference, declaration, generics);
+      const semantic = idTypeSemantic(context, reference, declaration, generics);
       // todo control when semantic attribute must be set
       node.instance.semantic = semantic;
 

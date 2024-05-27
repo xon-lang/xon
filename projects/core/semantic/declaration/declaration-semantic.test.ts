@@ -2,7 +2,7 @@ import {nothing} from '../../../lib/types';
 import {syntaxParse} from '../../parser/syntax-parser';
 import {textResourceFrom} from '../../util/resource/text/text-resource';
 import {$Semantic, semanticParse} from '../semantic';
-import {DeclarationTypeSemantic} from '../type/declaration/declaration-type-semantic';
+import {IdTypeSemantic} from '../type/id/id-type-semantic';
 import {TypeDeclarationSemantic} from './type/type-declaration-semantic';
 import {ValueDeclarationSemantic} from './value/value-declaration-semantic';
 
@@ -25,7 +25,7 @@ test('only a', () => {
   expect(attributeP.name).toBe('p');
   expect(attributeP.generics).toBeFalsy();
   expect(attributeP.parameters).toBeFalsy();
-  expect((attributeP.type as DeclarationTypeSemantic).declaration?.name).toBe('A');
+  expect((attributeP.type as IdTypeSemantic).declaration?.name).toBe('A');
 });
 
 test('declare b then a, a extends b', () => {
@@ -41,7 +41,7 @@ test('declare b then a, a extends b', () => {
   expect(modelA.modifier).toBe('model');
   expect(modelA.name).toBe('A');
   expect(modelA.baseType?.$).toBe($Semantic.DECLARATION_TYPE);
-  expect((modelA.baseType as DeclarationTypeSemantic)?.declaration?.name).toBe('B');
+  expect((modelA.baseType as IdTypeSemantic)?.declaration?.name).toBe('B');
 
   const modelB = semantic.declarationManager.declarations.B[0] as TypeDeclarationSemantic;
   expect(modelB.$).toBe($Semantic.TYPE_DECLARATION);
@@ -62,7 +62,7 @@ test('declare a then b, a extends b', () => {
   expect(modelA.modifier).toBe('model');
   expect(modelA.name).toBe('A');
   expect(modelA.baseType?.$).toBe($Semantic.DECLARATION_TYPE);
-  expect((modelA.baseType as DeclarationTypeSemantic)?.declaration?.name).toBe('B');
+  expect((modelA.baseType as IdTypeSemantic)?.declaration?.name).toBe('B');
 
   const modelB = semantic.declarationManager.declarations.B[0] as TypeDeclarationSemantic;
   expect(modelB.$).toBe($Semantic.TYPE_DECLARATION);

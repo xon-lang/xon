@@ -6,7 +6,7 @@ import {$Node, is} from '../../parser/node/node';
 import {ImportNode} from '../../parser/node/syntax/import/import-node';
 import {StringNode} from '../../parser/node/token/string/string-node';
 import {syntaxParse} from '../../parser/syntax-parser';
-import {TextResource, textResourceFromFilePath} from '../../util/resource/text/text-resource';
+import {textResourceFromFilePath} from '../../util/resource/text/text-resource';
 import {DeclarationManager} from '../declaration-manager';
 import {$Semantic, semanticParse} from '../semantic';
 import {SemanticContext} from '../semantic-context';
@@ -82,7 +82,4 @@ function normalizeImportString(location: String2, targetSourceLocation?: String2
 
   // todo handle additional extension or other formats (json, other data files...)
   return join(LIB_FOLDER, locationWithExtension);
-}
-function sourceFromResource(resource: TextResource) {
-  throw new Error('Function not implemented.');
 }

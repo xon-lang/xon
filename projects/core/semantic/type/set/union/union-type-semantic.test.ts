@@ -6,7 +6,7 @@ import {DeclarationKind} from '../../../declaration-manager';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
 import {ValueDeclarationSemantic} from '../../../declaration/value/value-declaration-semantic';
 import {$Semantic, semanticParse} from '../../../semantic';
-import {DeclarationTypeSemantic} from '../../declaration/declaration-type-semantic';
+import {IdTypeSemantic} from '../../id/id-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
 import {UnionTypeSemantic} from './union-type-semantic';
@@ -36,9 +36,9 @@ test('a is integer or float', () => {
   const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as UnionTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.UNION_TYPE);
   expect(typeSemantic.left.$).toBe($Semantic.DECLARATION_TYPE);
-  expect((typeSemantic.left as DeclarationTypeSemantic).declaration?.name).toBe('Integer');
+  expect((typeSemantic.left as IdTypeSemantic).declaration?.name).toBe('Integer');
   expect(typeSemantic.right.$).toBe($Semantic.DECLARATION_TYPE);
-  expect((typeSemantic.right as DeclarationTypeSemantic).declaration?.name).toBe('Float');
+  expect((typeSemantic.right as IdTypeSemantic).declaration?.name).toBe('Float');
 });
 
 test('1 check type', () => {

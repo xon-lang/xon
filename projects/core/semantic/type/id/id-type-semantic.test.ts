@@ -7,7 +7,7 @@ import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, semanticParse} from '../../semantic';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
 import {typeSemanticParse} from '../type-semantic-parser';
-import {DeclarationTypeSemantic} from './declaration-type-semantic';
+import {IdTypeSemantic} from './id-type-semantic';
 
 test('a is integer', () => {
   const text = `
@@ -31,7 +31,7 @@ test('a is integer', () => {
   expect((constNode.type?.value as IdNode)?.text).toBe('Integer');
   expect((constNode.type?.value as IdNode)?.semantic?.$).toBe($Semantic.DECLARATION_TYPE);
 
-  const typeSemantic = (constNode.type?.value as IdNode)?.semantic as DeclarationTypeSemantic;
+  const typeSemantic = (constNode.type?.value as IdNode)?.semantic as IdTypeSemantic;
   expect(typeSemantic.declaration?.$).toBe($Semantic.TYPE_DECLARATION);
 });
 
@@ -56,7 +56,7 @@ test('a is array', () => {
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as DeclarationTypeSemantic;
+  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as IdTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.DECLARATION_TYPE);
   expect(typeSemantic.declaration.$).toBe($Semantic.TYPE_DECLARATION);
   expect(typeSemantic.declaration.name).toBe('Array');

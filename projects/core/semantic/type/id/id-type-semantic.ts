@@ -6,19 +6,19 @@ import {SemanticContext} from '../../semantic-context';
 import {isInSet, isSetOperatorTypeSemantic} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
-export interface DeclarationTypeSemantic extends TypeSemantic {
+export interface IdTypeSemantic extends TypeSemantic {
   $: $Semantic.DECLARATION_TYPE;
   declaration: TypeDeclarationSemantic;
   generics: Array2<TypeSemantic | Nothing> | Nothing;
 }
 
-export function declarationTypeSemantic(
+export function idTypeSemantic(
   context: SemanticContext,
   reference: TextResourceReference,
   declaration: TypeDeclarationSemantic,
   generics: Array2<TypeSemantic | Nothing> | Nothing,
-): DeclarationTypeSemantic {
-  const semantic: DeclarationTypeSemantic = {
+): IdTypeSemantic {
+  const semantic: IdTypeSemantic = {
     $: $Semantic.DECLARATION_TYPE,
     reference,
     declaration,
@@ -43,7 +43,7 @@ export function declarationTypeSemantic(
     eq(other: TypeSemantic): Boolean2 {
       if (
         semanticIs<TypeDeclarationSemantic>(this.declaration, $Semantic.TYPE_DECLARATION) &&
-        semanticIs<DeclarationTypeSemantic>(other, $Semantic.DECLARATION_TYPE)
+        semanticIs<IdTypeSemantic>(other, $Semantic.DECLARATION_TYPE)
       ) {
         return this.declaration.eq(other.declaration);
       }

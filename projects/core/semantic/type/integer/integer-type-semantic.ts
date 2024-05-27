@@ -2,7 +2,7 @@ import {Array2, Boolean2, Integer, String2} from '../../../../lib/types';
 import {TextResourceReference} from '../../../util/resource/resource-reference';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
-import {DeclarationTypeSemantic} from '../declaration/declaration-type-semantic';
+import {IdTypeSemantic} from '../id/id-type-semantic';
 import {isInSet, isSetOperatorTypeSemantic} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
@@ -32,7 +32,7 @@ export function integerTypeSemantic(
         return true;
       }
 
-      if (semanticIs<DeclarationTypeSemantic>(other, $Semantic.DECLARATION_TYPE)) {
+      if (semanticIs<IdTypeSemantic>(other, $Semantic.DECLARATION_TYPE)) {
         return this.declaration.eq(other.declaration) || (this.declaration.baseType?.is(other) ?? false);
       }
 

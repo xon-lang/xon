@@ -6,17 +6,14 @@ import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-s
 import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
 import {SemanticContext} from '../../semantic-context';
-import {TypeSemantic} from '../../type/type-semantic';
 
-export function declarationValueTypeTryParse(context: SemanticContext, node: Node): TypeSemantic | Nothing {
-  if (is<IdNode>(node, $Node.ID)) {
-    return idNodeTryParse(context, node);
+import {IdValueSemantic, idValueSemantic} from './id-value-semantic';
+
+export function idValueSemanticTryParse(context: SemanticContext, node: Node): IdValueSemantic | Nothing {
+  if (!is<IdNode>(node, $Node.ID)) {
+    return nothing;
   }
 
-  return nothing;
-}
-
-function idNodeTryParse(context: SemanticContext, node: IdNode): TypeSemantic | Nothing {
   const declaration = context.declarationManager.single(nothing, node.text, nothing, nothing);
 
   if (!declaration) {
@@ -24,7 +21,7 @@ function idNodeTryParse(context: SemanticContext, node: IdNode): TypeSemantic | 
   }
 
   if (semanticIs<ValueDeclarationSemantic>(declaration, $Semantic.VALUE_DECLARATION)) {
-    return declaration.type;
+    return idValueSemantic(context.createReference(node), declaration);
   }
 
   if (semanticIs<TypeDeclarationSemantic>(declaration, $Semantic.TYPE_DECLARATION)) {
