@@ -3,7 +3,6 @@ import {DeclarationNode} from '../../../parser/node/syntax/declaration/declarati
 import {syntaxParse} from '../../../parser/syntax-parser';
 import {textResourceFrom} from '../../../util/resource/text/text-resource';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
-import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
 import {$Semantic, semanticParse} from '../../semantic';
 import {IdTypeSemantic} from '../id/id-type-semantic';
 import {FunctionTypeSemantic} from './function-type-semantic';
@@ -33,8 +32,8 @@ test('a is integer', () => {
   expect(typeSemantic.$).toBe($Semantic.FUNCTION_TYPE);
   expect(typeSemantic.parameters.length).toBe(1);
   expect(typeSemantic.parameters[0]?.$).toBe($Semantic.DECLARATION);
-  expect((typeSemantic.parameters[0] as ValueDeclarationSemantic).name).toBe('x');
-  expect(((typeSemantic.parameters[0] as ValueDeclarationSemantic).type as IdTypeSemantic).declaration.name).toBe(
+  expect((typeSemantic.parameters[0] as DeclarationSemantic).name).toBe('x');
+  expect(((typeSemantic.parameters[0] as DeclarationSemantic).type as IdTypeSemantic).declaration.name).toBe(
     'Integer',
   );
 });

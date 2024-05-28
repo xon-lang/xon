@@ -4,7 +4,6 @@ import {syntaxParse} from '../../../../parser/syntax-parser';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {DeclarationKind} from '../../../declaration-manager';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
-import {ValueDeclarationSemantic} from '../../../declaration/value/value-declaration-semantic';
 import {$Semantic, semanticParse} from '../../../semantic';
 import {IdTypeSemantic} from '../../id/id-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
@@ -80,7 +79,7 @@ test('2 check type', () => {
   const semantic = semanticParse(syntax);
 
   const getConst = (name: String2) =>
-    (semantic.declarationManager.single(DeclarationKind.VALUE, name, nothing, nothing) as ValueDeclarationSemantic)
+    (semantic.declarationManager.single(DeclarationKind.VALUE, name, nothing, nothing) as DeclarationSemantic)
       .type as TypeSemantic;
 
   const aType = getConst('a');
