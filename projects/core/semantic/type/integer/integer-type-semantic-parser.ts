@@ -3,8 +3,7 @@ import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {$Node, Node, is} from '../../../parser/node/node';
 import {IntegerNode} from '../../../parser/node/token/integer/integer-node';
 import {DeclarationKind} from '../../declaration-manager';
-import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
-import {$Semantic, semanticIs} from '../../semantic';
+import {isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {SemanticContext} from '../../semantic-context';
 import {IntegerTypeSemantic, integerTypeSemantic} from './integer-type-semantic';
 
@@ -20,7 +19,7 @@ export function integerTypeSemanticTryParse(context: SemanticContext, node: Node
     nothing,
   );
 
-  if (!declaration || !semanticIs<TypeDeclarationSemantic>(declaration, $Semantic.TYPE_DECLARATION)) {
+  if (!declaration || !isTypeDeclarationSemantic(declaration)) {
     context.issueManager.addError(
       node.range,
       ISSUE_MESSAGE.declarationNotFound(context.config.literalTypeNames.integerTypeName),

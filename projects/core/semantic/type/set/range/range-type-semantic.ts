@@ -1,6 +1,6 @@
 import {Array2, Boolean2, Nothing, String2} from '../../../../../lib/types';
 import {TextResourceReference} from '../../../../util/resource/resource-reference';
-import {TypeDeclarationSemantic} from '../../../declaration/type/type-declaration-semantic';
+import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../../declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../../semantic';
 import {IntegerTypeSemantic} from '../../integer/integer-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
@@ -8,7 +8,7 @@ import {isInSet, isSetOperatorTypeSemantic} from '../set';
 
 export interface RangeTypeSemantic extends TypeSemantic {
   $: $Semantic.RANGE_TYPE;
-  declaration: TypeDeclarationSemantic;
+  declaration: DeclarationSemantic;
   from: TypeSemantic;
   to: TypeSemantic;
   step: TypeSemantic | Nothing;
@@ -16,7 +16,7 @@ export interface RangeTypeSemantic extends TypeSemantic {
 
 export function rangeTypeSemantic(
   reference: TextResourceReference,
-  declaration: TypeDeclarationSemantic,
+  declaration: DeclarationSemantic,
   from: RangeTypeSemantic['from'],
   to: RangeTypeSemantic['to'],
   step: RangeTypeSemantic['step'],
@@ -44,8 +44,8 @@ export function rangeTypeSemantic(
           return this.from.value >= other.from.value && this.to.value <= other.to.value;
       }
 
-      if (semanticIs<TypeDeclarationSemantic>(other, $Semantic.TYPE_DECLARATION)) {
-        return this.declaration.eq(other) || (this.declaration.baseType?.is(other) ?? false);
+      if (isTypeDeclarationSemantic(other)) {
+        return this.declaration.eq(other) || (this.declaration.type?.is(other) ?? false);
       }
 
       return false;

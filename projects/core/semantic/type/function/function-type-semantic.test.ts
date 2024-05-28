@@ -18,12 +18,12 @@ test('a is integer', () => {
   const semantic = semanticParse(syntax);
 
   expect(semantic.declarationManager.count()).toBe(2);
-  expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.VALUE_DECLARATION);
+  expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.DECLARATION);
   expect(semantic.declarationManager.declarations.a[0].name).toBe('a');
 
   const constNode = syntax.statements[1].value as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($Semantic.VALUE_DECLARATION);
+  expect(constNode.id?.semantic?.$).toBe($Semantic.DECLARATION);
 
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
@@ -32,7 +32,7 @@ test('a is integer', () => {
   const typeSemantic = constNode.type?.value.semantic as FunctionTypeSemantic;
   expect(typeSemantic.$).toBe($Semantic.FUNCTION_TYPE);
   expect(typeSemantic.parameters.length).toBe(1);
-  expect(typeSemantic.parameters[0]?.$).toBe($Semantic.VALUE_DECLARATION);
+  expect(typeSemantic.parameters[0]?.$).toBe($Semantic.DECLARATION);
   expect((typeSemantic.parameters[0] as ValueDeclarationSemantic).name).toBe('x');
   expect(((typeSemantic.parameters[0] as ValueDeclarationSemantic).type as IdTypeSemantic).declaration.name).toBe(
     'Integer',

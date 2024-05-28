@@ -2,9 +2,9 @@ import {Nothing, nothing} from '../../lib/types';
 import {SyntaxResult} from '../parser/syntax-context';
 import {TextResourceReference} from '../util/resource/resource-reference';
 import {syntaxDeclarationsParse} from './declaration/declaration-semantic-parser';
-import {declarationManagerFromImportString, syntaxImportsParse} from './import/import-semantic-parser';
 import {DEFAULT_SEMANTIC_CONFIG, SemanticConfig} from './semantic-config';
 import {SemanticContext, semanticContext} from './semantic-context';
+import {declarationManagerFromImportString, syntaxImportsParse} from './value/import/import-value-semantic-parser';
 import {syntaxValuesParse} from './value/value-semantic-parser';
 
 export interface Semantic<T extends $Semantic = $Semantic> {
@@ -13,13 +13,10 @@ export interface Semantic<T extends $Semantic = $Semantic> {
 }
 
 export enum $Semantic {
-  IMPORT = 'IMPORT',
-
-  TYPE_DECLARATION = 'TYPE_DECLARATION',
-  VALUE_DECLARATION = 'VALUE_DECLARATION',
+  DECLARATION = 'DECLARATION',
 
   TYPE = 'TYPE',
-  DECLARATION_TYPE = 'DECLARATION_TYPE',
+  ID_TYPE = 'DECLARATION_TYPE',
   INTEGER_TYPE = 'INTEGER_TYPE',
   STRING_TYPE = 'STRING_TYPE',
   ARRAY_TYPE = 'ARRAY_TYPE',
@@ -36,6 +33,7 @@ export enum $Semantic {
   INTEGER_VALUE = 'INTEGER_VALUE',
   STRING_VALUE = 'STRING_VALUE',
   MEMBER_VALUE = 'MEMBER_VALUE',
+  IMPORT_VALUE = 'IMPORT_VALUE',
 }
 
 export function semanticIs<T extends Semantic = Semantic>(

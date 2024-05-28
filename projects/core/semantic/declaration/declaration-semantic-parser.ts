@@ -1,15 +1,11 @@
 import {SyntaxResult} from '../../../core/parser/syntax-context';
-import {Array2, Nothing, String2, nothing} from '../../../lib/types';
+import {Array2, Nothing, nothing} from '../../../lib/types';
 import {$Node, is} from '../../parser/node/node';
 import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-node';
-import {TYPE_MODIFIERS} from '../../parser/parser-config';
-import {TextResourceReference} from '../../util/resource/resource-reference';
 import {SemanticContext} from '../semantic-context';
 import {DeclarationSemantic} from './declaration-semantic';
-import {typeDeclarationSemantic} from './type/type-declaration-semantic';
-import {typeDeclarationDeepParse} from './type/type-declaration-semantic-parser';
-import {valueDeclarationSemantic} from './value/value-declaration-semantic';
-import {valueDeclarationDeepParse} from './value/value-declaration-semantic-parser';
+import {declarationDeepParse} from './declaration-semantic-deep-parser';
+import {declarationShallowParse} from './declaration-semantic-shallow-parser';
 
 export function syntaxDeclarationsParse(context: SemanticContext, syntax: SyntaxResult): Nothing {
   const declarationNodes = syntax.statements.filterMap((x) =>
@@ -30,41 +26,9 @@ export function declarationsParse(
       continue;
     }
 
-    typeDeclarationDeepParse(context, node);
-    valueDeclarationDeepParse(context, node);
+    declarationDeepParse(context, node);
+    declarationDeepParse(context, node);
   }
 
   return declarations;
-}
-
-export function declarationShallowParse(
-  context: SemanticContext,
-  node: DeclarationNode,
-): DeclarationSemantic | Nothing {
-  if (!node.id) {
-    return nothing;
-  }
-
-  const reference = context.createReference(node.id);
-  const modifier = node.modifier?.text;
-  const name = node.id.text;
-  const createDeclaration = getDeclarationFn(node);
-  const declaration: DeclarationSemantic = createDeclaration(reference, modifier, name);
-
-  node.id.semantic = declaration;
-  context.declarationManager.add(declaration);
-
-  return declaration;
-}
-
-function getDeclarationFn(
-  node: DeclarationNode,
-): (reference: TextResourceReference, modifier: String2 | Nothing, name: String2) => DeclarationSemantic {
-  if (node.modifier) {
-    if (TYPE_MODIFIERS.includes(node.modifier.text)) {
-      return typeDeclarationSemantic;
-    }
-  }
-
-  return valueDeclarationSemantic;
 }

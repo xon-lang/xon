@@ -12,11 +12,11 @@ import {
   Uri,
 } from 'vscode';
 import {hasSemantic} from '../../../../core/parser/node/node';
-import {ImportSemantic} from '../../../../core/semantic/import/import-semantic';
 import {$Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {IdTypeSemantic} from '../../../../core/semantic/type/id/id-type-semantic';
 import {IntegerTypeSemantic} from '../../../../core/semantic/type/integer/integer-type-semantic';
 import {StringTypeSemantic} from '../../../../core/semantic/type/string/string-type-semantic';
+import {ImportValueSemantic} from '../../../../core/semantic/value/import/import-value-semantic';
 import {ValueSemantic} from '../../../../core/semantic/value/value-semantic';
 import {TextResourceReference} from '../../../../core/util/resource/resource-reference';
 import {TextRange, zeroRange} from '../../../../core/util/resource/text/text-range';
@@ -46,7 +46,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return nothing;
     }
 
-    if (semanticIs<ImportSemantic>(node.semantic, $Semantic.IMPORT)) {
+    if (semanticIs<ImportValueSemantic>(node.semantic, $Semantic.IMPORT)) {
       if (node.semantic.resource?.location) {
         return navigateToLocation(node.range, node.semantic.resource.location);
       }
@@ -54,12 +54,12 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return nothing;
     }
 
-    if (semanticIs<IdTypeSemantic>(node.semantic, $Semantic.DECLARATION_TYPE)) {
+    if (semanticIs<IdTypeSemantic>(node.semantic, $Semantic.ID_TYPE)) {
       return navigateToReference(node.range, node.semantic.declaration.reference);
     }
 
     if (semanticIs<ValueSemantic>(node.semantic, $Semantic.VALUE)) {
-      if (semanticIs<IdTypeSemantic>(node.semantic.type, $Semantic.DECLARATION_TYPE)) {
+      if (semanticIs<IdTypeSemantic>(node.semantic.type, $Semantic.ID_TYPE)) {
         return navigateToReference(node.range, node.semantic.type.declaration.reference);
       }
 

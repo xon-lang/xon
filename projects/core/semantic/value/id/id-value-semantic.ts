@@ -1,17 +1,13 @@
 import {TextResourceReference} from '../../../util/resource/resource-reference';
-import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
+import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic} from '../../semantic';
 import {ValueSemantic} from '../value-semantic';
 
 export type IdValueSemantic = ValueSemantic<$Semantic.ID_VALUE> & {
-  // todo perhaps we also need to add '| TypeDeclarationSemantic'
-  declaration: ValueDeclarationSemantic;
+  declaration: DeclarationSemantic;
 };
 
-export function idValueSemantic(
-  reference: TextResourceReference,
-  declaration: ValueDeclarationSemantic,
-): IdValueSemantic {
+export function idValueSemantic(reference: TextResourceReference, declaration: DeclarationSemantic): IdValueSemantic {
   return {
     $: $Semantic.ID_VALUE,
     reference,

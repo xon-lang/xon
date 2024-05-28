@@ -72,7 +72,7 @@ function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
 }
 
 function typeToText(type: TypeSemantic): String2 | Nothing {
-  if (semanticIs<IdTypeSemantic>(type, $Semantic.DECLARATION_TYPE)) {
+  if (semanticIs<IdTypeSemantic>(type, $Semantic.ID_TYPE)) {
     return declarationToText(type.declaration);
   }
 

@@ -4,7 +4,7 @@ import {$Node, Node, is} from '../../../../parser/node/node';
 import {InfixNode} from '../../../../parser/node/syntax/infix/infix-node';
 import {RANGE} from '../../../../parser/parser-config';
 import {DeclarationKind} from '../../../declaration-manager';
-import {TypeDeclarationSemantic} from '../../../declaration/type/type-declaration-semantic';
+import {isTypeDeclarationSemantic} from '../../../declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../../semantic';
 import {SemanticContext} from '../../../semantic-context';
 import {IntegerTypeSemantic} from '../../integer/integer-type-semantic';
@@ -23,7 +23,7 @@ export function rangeTypeSemanticTryParse(context: SemanticContext, node: Node):
     nothing,
   );
 
-  if (!declaration || !semanticIs<TypeDeclarationSemantic>(declaration, $Semantic.TYPE_DECLARATION)) {
+  if (!declaration || !isTypeDeclarationSemantic(declaration)) {
     context.issueManager.addError(
       node.range,
       ISSUE_MESSAGE.declarationNotFound(context.config.literalTypeNames.integerTypeName),

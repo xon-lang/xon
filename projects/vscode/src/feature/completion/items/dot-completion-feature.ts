@@ -57,7 +57,7 @@ function createPropertyCompletionItem(name: String2, types: Array2<TypeSemantic>
   const item = new CompletionItem(name, CompletionItemKind.Property);
   const type = types.first();
 
-  if (semanticIs<IdTypeSemantic>(type, $Semantic.DECLARATION_TYPE)) {
+  if (semanticIs<IdTypeSemantic>(type, $Semantic.ID_TYPE)) {
     item.detail = type.declaration.name;
   }
 

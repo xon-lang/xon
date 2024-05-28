@@ -1,33 +1,35 @@
 import {dirname, join, resolve} from 'path';
-import {SyntaxResult} from '../../../core/parser/syntax-context';
-import {Nothing, String2, nothing} from '../../../lib/types';
-import {ISSUE_MESSAGE} from '../../issue/issue-message';
-import {$Node, is} from '../../parser/node/node';
-import {ImportNode} from '../../parser/node/syntax/import/import-node';
-import {StringNode} from '../../parser/node/token/string/string-node';
-import {syntaxParse} from '../../parser/syntax-parser';
-import {textResourceFromFilePath} from '../../util/resource/text/text-resource';
-import {DeclarationManager} from '../declaration-manager';
-import {$Semantic, semanticParse} from '../semantic';
-import {SemanticContext} from '../semantic-context';
-import {ImportSemantic} from './import-semantic';
+import {Nothing, String2, nothing} from '../../../../lib/types';
+import {ISSUE_MESSAGE} from '../../../issue/issue-message';
+import {$Node, Node, is} from '../../../parser/node/node';
+import {ImportNode} from '../../../parser/node/syntax/import/import-node';
+import {SyntaxResult} from '../../../parser/syntax-context';
+import {syntaxParse} from '../../../parser/syntax-parser';
+import {textResourceFromFilePath} from '../../../util/resource/text/text-resource';
+import {DeclarationManager} from '../../declaration-manager';
+import {semanticParse} from '../../semantic';
+import {SemanticContext} from '../../semantic-context';
+import {ImportValueSemantic, importValueSemantic} from './import-value-semantic';
 
 const LIB_FOLDER = resolve(__dirname, '../../../lib');
 
 export function syntaxImportsParse(context: SemanticContext, syntax: SyntaxResult) {
   for (const statement of syntax.statements) {
     if (is<ImportNode>(statement.value, $Node.IMPORT)) {
-      importNodeParse(context, statement.value);
+      importValueSemanticTryParse(context, statement.value);
     }
   }
 }
 
-export function importNodeParse(context: SemanticContext, node: ImportNode): Nothing {
-  if (!is<StringNode>(node.value, $Node.STRING)) {
-    return;
+export function importValueSemanticTryParse(context: SemanticContext, node: Node): ImportValueSemantic | Nothing {
+  if (!is<ImportNode>(node, $Node.IMPORT)) {
+    return nothing;
   }
 
-  const reference = context.createReference(node.value);
+  if (!node.value) {
+    return importValueSemantic(context.createReference(node), nothing);
+  }
+
   const location = normalizeImportString(node.value.value, context.resource.location);
   const resource = textResourceFromFilePath(location);
 
@@ -37,14 +39,6 @@ export function importNodeParse(context: SemanticContext, node: ImportNode): Not
     return;
   }
 
-  const semantic: ImportSemantic = {
-    $: $Semantic.IMPORT,
-    reference,
-    resource,
-  };
-
-  node.value.semantic = semantic;
-
   const syntax = syntaxParse(resource);
   const {declarationManager} = semanticParse(syntax);
 
@@ -53,6 +47,8 @@ export function importNodeParse(context: SemanticContext, node: ImportNode): Not
   }
 
   context.declarationManager.imports.push(declarationManager);
+
+  return importValueSemantic(context.createReference(node));
 }
 
 export function declarationManagerFromImportString(importString: String2): DeclarationManager | Nothing {

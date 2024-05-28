@@ -2,9 +2,7 @@ import {Nothing, nothing} from '../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {$Node, Node, is} from '../../../parser/node/node';
 import {IdNode} from '../../../parser/node/token/id/id-node';
-import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
-import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
-import {$Semantic, semanticIs} from '../../semantic';
+import {isTypeDeclarationSemantic, isValueDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {SemanticContext} from '../../semantic-context';
 
 import {IdValueSemantic, idValueSemantic} from './id-value-semantic';
@@ -20,11 +18,12 @@ export function idValueSemanticTryParse(context: SemanticContext, node: Node): I
     return nothing;
   }
 
-  if (semanticIs<ValueDeclarationSemantic>(declaration, $Semantic.VALUE_DECLARATION)) {
+  // todo review condition and another one below
+  if (isValueDeclarationSemantic(declaration)) {
     return idValueSemantic(context.createReference(node), declaration);
   }
 
-  if (semanticIs<TypeDeclarationSemantic>(declaration, $Semantic.TYPE_DECLARATION)) {
+  if (isTypeDeclarationSemantic(declaration)) {
     context.issueManager.addError(node.range, ISSUE_MESSAGE.notImplemented());
   }
 

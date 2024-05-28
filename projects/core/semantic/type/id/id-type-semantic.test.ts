@@ -19,20 +19,20 @@ test('a is integer', () => {
   const semantic = semanticParse(syntax);
 
   expect(semantic.declarationManager.count()).toBe(2);
-  expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.VALUE_DECLARATION);
+  expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.DECLARATION);
   expect(semantic.declarationManager.declarations.a[0].name).toBe('a');
 
   const constNode = syntax.statements[1].value as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($Semantic.VALUE_DECLARATION);
+  expect(constNode.id?.semantic?.$).toBe($Semantic.DECLARATION);
 
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
   expect((constNode.type?.value as IdNode)?.text).toBe('Integer');
-  expect((constNode.type?.value as IdNode)?.semantic?.$).toBe($Semantic.DECLARATION_TYPE);
+  expect((constNode.type?.value as IdNode)?.semantic?.$).toBe($Semantic.ID_TYPE);
 
   const typeSemantic = (constNode.type?.value as IdNode)?.semantic as IdTypeSemantic;
-  expect(typeSemantic.declaration?.$).toBe($Semantic.TYPE_DECLARATION);
+  expect(typeSemantic.declaration?.$).toBe($Semantic.DECLARATION);
 });
 
 test('a is array', () => {
@@ -46,19 +46,19 @@ test('a is array', () => {
   const semantic = semanticParse(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);
-  expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.VALUE_DECLARATION);
+  expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.DECLARATION);
   expect(semantic.declarationManager.declarations.a[0].name).toBe('a');
 
   const constNode = syntax.statements[2].value as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($Semantic.VALUE_DECLARATION);
+  expect(constNode.id?.semantic?.$).toBe($Semantic.DECLARATION);
 
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
   const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as IdTypeSemantic;
-  expect(typeSemantic.$).toBe($Semantic.DECLARATION_TYPE);
-  expect(typeSemantic.declaration.$).toBe($Semantic.TYPE_DECLARATION);
+  expect(typeSemantic.$).toBe($Semantic.ID_TYPE);
+  expect(typeSemantic.declaration.$).toBe($Semantic.DECLARATION);
   expect(typeSemantic.declaration.name).toBe('Array');
   expect(typeSemantic.generics?.length).toBe(1);
   expect((typeSemantic.generics?.at(0) as IntegerTypeSemantic).value).toBe(3);

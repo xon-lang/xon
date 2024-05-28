@@ -1,7 +1,10 @@
 import {Array2, Integer, Nothing, String2, nothing} from '../../lib/types';
 import {IssueManager} from '../issue/issue-manager';
-import {DeclarationSemantic} from './declaration/declaration-semantic';
-import {$Semantic, semanticIs} from './semantic';
+import {
+  DeclarationSemantic,
+  isTypeDeclarationSemantic,
+  isValueDeclarationSemantic,
+} from './declaration/declaration-semantic';
 import {SemanticConfig} from './semantic-config';
 import {TypeSemantic} from './type/type-semantic';
 
@@ -109,11 +112,11 @@ function isDeclarationKind<T extends DeclarationSemantic = DeclarationSemantic>(
   declaration: DeclarationSemantic,
   kind: DeclarationKind,
 ): declaration is T {
-  if (kind === DeclarationKind.TYPE && semanticIs<T>(declaration, $Semantic.TYPE_DECLARATION)) {
+  if (kind === DeclarationKind.TYPE && isTypeDeclarationSemantic(declaration)) {
     return true;
   }
 
-  if (kind === DeclarationKind.VALUE && semanticIs<T>(declaration, $Semantic.VALUE_DECLARATION)) {
+  if (kind === DeclarationKind.VALUE && isValueDeclarationSemantic(declaration)) {
     return true;
   }
 

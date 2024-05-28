@@ -2,7 +2,7 @@ import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, ExpressionNode, is} from '../../node';
+import {$Node, ExpressionNode} from '../../node';
 import {OperatorNode} from '../../token/operator/operator-node';
 import {StringNode} from '../../token/string/string-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
@@ -10,10 +10,10 @@ import {SyntaxNode, syntaxNode} from '../syntax-node';
 export type ImportNode = SyntaxNode<$Node.IMPORT> &
   ExpressionNode & {
     operator: OperatorNode;
-    value: ExpressionNode;
+    value: StringNode | Nothing;
   };
 
-export function importNode(context: SyntaxContext, operator: OperatorNode, value: ExpressionNode): ImportNode {
+export function importNode(context: SyntaxContext, operator: OperatorNode, value: StringNode | Nothing): ImportNode {
   const node = syntaxNode($Node.IMPORT, {operator, value});
 
   validate(context, node);
@@ -23,11 +23,13 @@ export function importNode(context: SyntaxContext, operator: OperatorNode, value
 }
 
 function validate(context: SyntaxContext, node: ImportNode): Nothing {
-  if (!is<StringNode>(node.value, $Node.STRING)) {
-    context.issueManager.addError(node.value.range, ISSUE_MESSAGE.importValueShouldBeString());
+  if (!node.value) {
+    context.issueManager.addError(node.range, ISSUE_MESSAGE.importValueShouldBeString());
   }
 }
 
 function format(context: SyntaxContext, node: ImportNode): Nothing {
-  formatChildNode(context, node.value, true);
+  if (node.value) {
+    formatChildNode(context, node.value, true);
+  }
 }
