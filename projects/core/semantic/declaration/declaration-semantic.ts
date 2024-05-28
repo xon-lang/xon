@@ -6,6 +6,7 @@ import {TypeSemantic} from '../type/type-semantic';
 import {ValueSemantic} from '../value/value-semantic';
 
 export interface DeclarationSemantic extends Semantic<$Semantic.DECLARATION> {
+  documentation?: String2 | Nothing;
   usages: Array2<TextResourceReference>;
   modifier?: String2 | Nothing;
   name: String2;
@@ -47,7 +48,6 @@ export function isTypeDeclarationSemantic(semantic: Semantic): semantic is Decla
 export function isValueDeclarationSemantic(semantic: Semantic): semantic is DeclarationSemantic {
   return (
     semanticIs<DeclarationSemantic>(semantic, $Semantic.DECLARATION) &&
-    !!semantic.modifier &&
-    VALUE_MODIFIERS.includes(semantic.modifier)
+    (!semantic.modifier || VALUE_MODIFIERS.includes(semantic.modifier))
   );
 }

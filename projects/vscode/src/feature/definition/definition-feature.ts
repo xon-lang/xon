@@ -46,7 +46,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return nothing;
     }
 
-    if (semanticIs<ImportValueSemantic>(node.semantic, $Semantic.IMPORT)) {
+    if (semanticIs<ImportValueSemantic>(node.semantic, $Semantic.IMPORT_VALUE)) {
       if (node.semantic.resource?.location) {
         return navigateToLocation(node.range, node.semantic.resource.location);
       }
