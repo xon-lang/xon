@@ -66,19 +66,25 @@ String.prototype.isLetterOrDigit = function (index: Integer): Boolean2 {
   );
 };
 
-String.prototype.some = function (predicate: (value: Char, index: Integer, array: Array2<Char>) => Boolean2): Boolean2 {
+String.prototype.some = function (
+  predicate: (value: Char, index: Integer, array: Array2<Char>) => Boolean2,
+): Boolean2 {
   const array = Array.from(this);
 
   return array.some(predicate);
 };
 
-String.prototype.sum = function (select: (value: Char, index: Integer, array: Array2<Char>) => Number2): Number2 {
+String.prototype.sum = function (
+  select: (value: Char, index: Integer, array: Array2<Char>) => Number2,
+): Number2 {
   const array = Array.from(this);
 
   return array.reduce((sum, val, index, array) => sum + select(val, index, array), 0);
 };
 
-String.prototype.count = function (predicate: (value: Char, index: Integer, array: Array2<Char>) => Boolean2): Integer {
+String.prototype.count = function (
+  predicate: (value: Char, index: Integer, array: Array2<Char>) => Boolean2,
+): Integer {
   const array = Array.from(this);
 
   return array.reduce((sum, val, index, array) => sum + (predicate(val, index, array) ? 1 : 0), 0);
@@ -126,4 +132,36 @@ String.prototype.last = function (
   }
 
   return nothing;
+};
+
+String.prototype.setPadding = function (padding: Integer): String2 {
+  if (this.length === 0) {
+    return this.toString();
+  }
+
+  const lines = this.split('\n').map((x) => ({
+    str: x,
+    padding: x.takeWhile((x) => x === ' ').length,
+  }));
+
+  const minLinePadding = lines.reduce(
+    (min, line) => (line.str.length > 0 ? Math.min(line.padding, min) : min),
+    this.length,
+  );
+
+  if (minLinePadding === padding) {
+    return this.toString();
+  }
+
+  const resultLines: Array2<String2> = lines.map((x) => {
+    if (x.str.length === 0) {
+      return x.str;
+    }
+
+    const indent = ' '.repeat(x.padding + (padding - minLinePadding));
+
+    return indent + x.str.trimStart();
+  });
+
+  return resultLines.join('\n');
 };

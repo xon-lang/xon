@@ -42,5 +42,6 @@ declare global {
     some(predicate: (value: Char, index: Integer, array: Array2<Char>) => Boolean2): Boolean2;
     count(predicate: (value: Char, index: Integer, array: Array2<Char>) => Boolean2): Integer;
     sum(select: (value: Char, index: Integer, array: Array2<Char>) => Integer): Integer;
+    setPadding(padding: Integer): String2;
   }
 }
