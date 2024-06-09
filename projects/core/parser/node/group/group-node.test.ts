@@ -85,7 +85,7 @@ test('single comma', () => {
   const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
-  expect(node.items.length).toBe(1);
+  expect(node.items.length).toBe(2);
   expect(is(node, $Node.ARRAY)).toBe(true);
   expect(is(node.open, $Node.OPEN)).toBe(true);
   expect(is(node.close, $Node.CLOSE)).toBe(true);
@@ -164,7 +164,7 @@ test('two integers and comma no ws at the end', () => {
 
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
-  expect(node.items.length).toBe(2);
+  expect(node.items.length).toBe(3);
   expect((node.items[0]?.value as IntegerNode).text).toBe('1');
   expect((node.items[1]?.value as IntegerNode).text).toBe('2');
 });
@@ -178,7 +178,7 @@ test('two integers and comma and ws', () => {
 
   expect(statements.length).toBe(1);
   expect(is(node, $Node.ARRAY)).toBe(true);
-  expect(node.items.length).toBe(2);
+  expect(node.items.length).toBe(3);
   expect((node.items[0]?.value as IntegerNode).text).toBe('1');
   expect((node.items[1]?.value as IntegerNode).text).toBe('2');
 });

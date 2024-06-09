@@ -26,7 +26,7 @@ export function createIssueManager(resource: TextResource, issues: Array2<Issue>
       };
 
       this.issues.push(issue);
-      // this.log(issue);
+      this.log(issue);
 
       return issue;
     },

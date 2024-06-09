@@ -12,10 +12,17 @@ import {
   TextDocument,
   languages,
 } from 'vscode';
+import {ItemNode} from '../../../../core/parser/node/group/item-node';
 import {$Node, Node, hasSemantic, is, isGroupNode} from '../../../../core/parser/node/node';
 import {InvokeNode} from '../../../../core/parser/node/syntax/invoke/invoke-node';
+import {CommaNode} from '../../../../core/parser/node/token/comma/comma-node';
 import {IdNode} from '../../../../core/parser/node/token/id/id-node';
-import {Nothing, nothing} from '../../../../lib/types';
+import {OpenNode} from '../../../../core/parser/node/token/open/open-node';
+import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
+import {$Semantic, semanticIs} from '../../../../core/semantic/semantic';
+import {IdTypeSemantic} from '../../../../core/semantic/type/id/id-type-semantic';
+import {IdValueSemantic} from '../../../../core/semantic/value/id/id-value-semantic';
+import {Integer, Nothing, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
@@ -36,38 +43,81 @@ class LanguageSignatureProvider implements SignatureHelpProvider {
   ): ProviderResult<SignatureHelp> {
     const syntax = getDocumentSyntax(document, this.channel);
     const nodeAtPosition = findNodeByPositionInSyntax(syntax, position);
-    const node = getInvokeNode(nodeAtPosition);
+    const invokeParameterIndex = getInvokeNodeAndParameterIndex(nodeAtPosition);
 
-    if (!hasSemantic(node)) {
+    if (!hasSemantic(invokeParameterIndex?.invokeNode)) {
       return nothing;
     }
 
-    const signatureHelp = new SignatureHelp();
+    if (is<IdNode>(invokeParameterIndex.invokeNode.instance, $Node.ID)) {
+      const declaration = getIdNodeDeclaration(invokeParameterIndex.invokeNode.instance);
 
-    signatureHelp.activeParameter = 1;
-    signatureHelp.activeSignature = 0;
+      if (declaration) {
+        const signatureHelp = new SignatureHelp();
+        const documentation = declaration.documentation?.setPadding(0) ?? '';
+        const signature = new SignatureInformation('fff(p1, p2)', documentation);
 
-    node.semantic.
-    if (is<IdNode>(node.instance, $Node.ID)) {
-      const signature = new SignatureInformation('', 'signature doc');
-      signature.parameters = [
-        new ParameterInformation('p1', 'param doc 1'),
-        new ParameterInformation('p2', 'param doc 2'),
-      ];
-      signatureHelp.signatures = [signature];
+        signatureHelp.activeSignature = 0;
+        signatureHelp.activeParameter = invokeParameterIndex.parameterIndex;
+
+        signature.parameters = [
+          new ParameterInformation('p1', 'param doc 1'),
+          new ParameterInformation('p2', 'param doc 2'),
+        ];
+
+        signatureHelp.signatures = [signature];
+
+        return signatureHelp;
+      }
     }
 
-    return signatureHelp;
+    return nothing;
   }
 }
 
-function getInvokeNode(nodeAtPosition: Node | Nothing): InvokeNode | Nothing {
+function getInvokeNodeAndParameterIndex(
+  nodeAtPosition: Node | Nothing,
+): {invokeNode: InvokeNode; parameterIndex: Integer} | Nothing {
   if (!nodeAtPosition) {
     return nothing;
   }
 
-  if (isGroupNode(nodeAtPosition.parent) && is<InvokeNode>(nodeAtPosition.parent.parent, $Node.INVOKE)) {
-    return nodeAtPosition.parent.parent;
+  if (is<OpenNode>(nodeAtPosition, $Node.OPEN)) {
+    if (isGroupNode(nodeAtPosition.parent) && is<InvokeNode>(nodeAtPosition.parent.parent, $Node.INVOKE)) {
+      return {
+        invokeNode: nodeAtPosition.parent.parent,
+        parameterIndex: 0,
+      };
+    }
+  }
+
+  if (is<CommaNode>(nodeAtPosition, $Node.COMMA)) {
+    // todo fix complexity of 'parent.parent.parent...'
+    if (
+      is<ItemNode>(nodeAtPosition.parent, $Node.ITEM) &&
+      isGroupNode(nodeAtPosition.parent.parent) &&
+      is<InvokeNode>(nodeAtPosition.parent.parent.parent, $Node.INVOKE)
+    ) {
+      return {
+        invokeNode: nodeAtPosition.parent.parent.parent,
+        parameterIndex: nodeAtPosition.parent.parent.items.indexOf(nodeAtPosition.parent),
+      };
+    }
+  }
+
+  return nothing;
+}
+
+export function getIdNodeDeclaration(node: IdNode): DeclarationSemantic | Nothing {
+  if (
+    semanticIs<IdTypeSemantic>(node.semantic, $Semantic.ID_TYPE) ||
+    semanticIs<IdValueSemantic>(node.semantic, $Semantic.ID_VALUE)
+  ) {
+    return node.semantic.declaration;
+  }
+
+  if (semanticIs<DeclarationSemantic>(node.semantic, $Semantic.DECLARATION)) {
+    return node.semantic;
   }
 
   return nothing;

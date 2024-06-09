@@ -1,4 +1,4 @@
-import {Array2, String2, nothing} from '../../../../lib/types';
+import {Array2, Nothing, String2, nothing} from '../../../../lib/types';
 import {SyntaxContext} from '../../syntax-context';
 import {syntaxParse} from '../../syntax-parser';
 import {SyntaxParserConfig} from '../../syntax-parser-config';
@@ -9,7 +9,12 @@ import {openNode} from '../token/open/open-node';
 import {$Group, Group, groupNode} from './group-node';
 import {ItemNode, itemNode} from './item-node';
 
-export function groupNodeParse(context: SyntaxContext, $: $Group, openText: String2, closeText: String2): Group {
+export function groupNodeParse(
+  context: SyntaxContext,
+  $: $Group,
+  openText: String2,
+  closeText: String2,
+): Group {
   const range = context.getSymbolRange();
   const open = openNode(range, openText);
 
@@ -25,33 +30,38 @@ export function groupNodeParse(context: SyntaxContext, $: $Group, openText: Stri
     },
   };
 
+  let itemIndex = 0;
+  let commaNode: CommaNode | Nothing = nothing;
+
   while (context.position.index < context.resource.data.length) {
     const {syntaxContext: itemContext} = syntaxParse(
       context.resource,
       context.position,
       context.issueManager,
       context.formatterManager,
-      (node) => is<CommaNode>(node, $Node.COMMA) || (is<CloseNode>(node, $Node.CLOSE) && node.text === closeText),
+      (node) =>
+        is<CommaNode>(node, $Node.COMMA) || (is<CloseNode>(node, $Node.CLOSE) && node.text === closeText),
       config,
     );
 
     context.position = itemContext.position;
 
     if (is<CommaNode>(itemContext.breakNode, $Node.COMMA)) {
-      const item = itemNode(context, itemContext.statements, itemContext.breakNode);
+      const item = itemNode(context, itemIndex, commaNode, itemContext.statements);
       items.push(item);
-
-      continue;
+      commaNode = itemContext.breakNode;
     }
 
     if (is<CloseNode>(itemContext.breakNode, $Node.CLOSE)) {
-      if (itemContext.statements.length > 0) {
-        const item = itemNode(context, itemContext.statements, nothing);
+      if (items.length > 0 || itemContext.statements.length > 0) {
+        const item = itemNode(context, itemIndex, commaNode, itemContext.statements);
         items.push(item);
       }
 
       return groupNode(context, $, open, items, itemContext.breakNode);
     }
+
+    itemIndex += 1;
   }
 
   return groupNode(context, $, open, items, nothing);
