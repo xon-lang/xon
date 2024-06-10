@@ -1,6 +1,6 @@
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../../../lib/types';
-import {Semantic} from '../../semantic/semantic';
 import {TextRange} from '../../util/resource/text/text-range';
+import {Semantic} from '../semantic/semantic';
 import {Group} from './group/group-node';
 import {OperatorNode} from './token/operator/operator-node';
 import {TokenNode} from './token/token-node';

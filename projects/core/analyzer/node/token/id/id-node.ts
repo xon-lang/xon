@@ -1,9 +1,9 @@
 import {Nothing, String2} from '../../../../../lib/types';
-import {DeclarationSemantic} from '../../../../semantic/declaration/declaration-semantic';
-import {IdTypeSemantic} from '../../../../semantic/type/id/id-type-semantic';
-import {IdValueSemantic} from '../../../../semantic/value/id/id-value-semantic';
 import '../../../../util/extension';
 import {TextRange} from '../../../../util/resource/text/text-range';
+import {DeclarationSemantic} from '../../../semantic/declaration/declaration-semantic';
+import {IdTypeSemantic} from '../../../semantic/type/id/id-type-semantic';
+import {IdValueSemantic} from '../../../semantic/value/id/id-value-semantic';
 import {$Node, ExpressionNode} from '../../node';
 import {TokenNode, tokenNode} from '../token-node';
 

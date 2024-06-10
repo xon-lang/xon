@@ -12,10 +12,10 @@ import {
 } from 'vscode';
 import {$Node, is} from '../../../../../core/analyzer/node/node';
 import {MemberNode} from '../../../../../core/analyzer/node/syntax/member/member-node';
-import {$Semantic, Semantic, semanticIs} from '../../../../../core/semantic/semantic';
-import {IdTypeSemantic} from '../../../../../core/semantic/type/id/id-type-semantic';
-import {TypeSemantic, isTypeSemantic} from '../../../../../core/semantic/type/type-semantic';
-import {ValueSemantic} from '../../../../../core/semantic/value/value-semantic';
+import {$Semantic, Semantic, semanticIs} from '../../../../../core/analyzer/semantic/semantic';
+import {IdTypeSemantic} from '../../../../../core/analyzer/semantic/type/id/id-type-semantic';
+import {TypeSemantic, isTypeSemantic} from '../../../../../core/analyzer/semantic/type/type-semantic';
+import {ValueSemantic} from '../../../../../core/analyzer/semantic/value/value-semantic';
 import {Array2, Nothing, String2, nothing} from '../../../../../lib/types';
 import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../../util';
 

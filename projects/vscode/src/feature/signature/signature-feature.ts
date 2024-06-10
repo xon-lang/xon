@@ -18,10 +18,10 @@ import {InvokeNode} from '../../../../core/analyzer/node/syntax/invoke/invoke-no
 import {CommaNode} from '../../../../core/analyzer/node/token/comma/comma-node';
 import {IdNode} from '../../../../core/analyzer/node/token/id/id-node';
 import {OpenNode} from '../../../../core/analyzer/node/token/open/open-node';
-import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
-import {$Semantic, semanticIs} from '../../../../core/semantic/semantic';
-import {IdTypeSemantic} from '../../../../core/semantic/type/id/id-type-semantic';
-import {IdValueSemantic} from '../../../../core/semantic/value/id/id-value-semantic';
+import {DeclarationSemantic} from '../../../../core/analyzer/semantic/declaration/declaration-semantic';
+import {$Semantic, semanticIs} from '../../../../core/analyzer/semantic/semantic';
+import {IdTypeSemantic} from '../../../../core/analyzer/semantic/type/id/id-type-semantic';
+import {IdValueSemantic} from '../../../../core/analyzer/semantic/value/id/id-value-semantic';
 import {Integer, Nothing, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
