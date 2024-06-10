@@ -1,4 +1,4 @@
-import {Anything, Nothing, String2, nothing} from '../../lib/types';
+import {Anything, Nothing, Something, String2, nothing} from '../../lib/types';
 import {GroupNode} from '../analyzer/node/group/group-node';
 import {$Node, Node, is} from '../analyzer/node/node';
 import {InfixNode} from '../analyzer/node/syntax/infix/infix-node';
@@ -12,7 +12,7 @@ export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);
 }
 
-export function evaluate(node: Node | Nothing, argsMap = {}): Anything {
+export function evaluate(node: Node | Nothing, argsMap: {[key: String2]: Something} = {}): Anything {
   if (!node) {
     return nothing;
   }
