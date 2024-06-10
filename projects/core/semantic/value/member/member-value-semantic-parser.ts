@@ -1,13 +1,16 @@
 import {Nothing, nothing} from '../../../../lib/types';
+import {$Node, Node, is} from '../../../analyzer/node/node';
+import {MemberNode} from '../../../analyzer/node/syntax/member/member-node';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {$Node, Node, is} from '../../../parser/node/node';
-import {MemberNode} from '../../../parser/node/syntax/member/member-node';
 import {SemanticContext} from '../../semantic-context';
 import {TypeSemantic} from '../../type/type-semantic';
 import {valueSemanticParse} from '../value-semantic-parser';
 import {MemberValueSemantic, memberValueSemantic} from './member-value-semantic';
 
-export function memberValueSemanticTryParse(context: SemanticContext, node: Node): MemberValueSemantic | Nothing {
+export function memberValueSemanticTryParse(
+  context: SemanticContext,
+  node: Node,
+): MemberValueSemantic | Nothing {
   if (!is<MemberNode>(node, $Node.MEMBER)) {
     return nothing;
   }

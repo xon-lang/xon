@@ -1,7 +1,7 @@
 import {Nothing, nothing} from '../../../../../lib/types';
-import {$Node, Node, is} from '../../../../parser/node/node';
-import {PrefixNode} from '../../../../parser/node/syntax/prefix/prefix-node';
-import {NOT} from '../../../../parser/parser-config';
+import {$Node, Node, is} from '../../../../analyzer/node/node';
+import {PrefixNode} from '../../../../analyzer/node/syntax/prefix/prefix-node';
+import {NOT} from '../../../../analyzer/parser-config';
 import {SemanticContext} from '../../../semantic-context';
 import {typeSemanticParse} from '../../type-semantic-parser';
 import {NotTypeSemantic, notTypeSemantic} from './not-type-semantic';

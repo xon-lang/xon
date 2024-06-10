@@ -1,13 +1,16 @@
 import {Nothing, nothing} from '../../../../lib/types';
+import {$Node, Node, is} from '../../../analyzer/node/node';
+import {IntegerNode} from '../../../analyzer/node/token/integer/integer-node';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {$Node, Node, is} from '../../../parser/node/node';
-import {IntegerNode} from '../../../parser/node/token/integer/integer-node';
 import {DeclarationKind} from '../../declaration-manager';
 import {isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {SemanticContext} from '../../semantic-context';
 import {IntegerTypeSemantic, integerTypeSemantic} from './integer-type-semantic';
 
-export function integerTypeSemanticTryParse(context: SemanticContext, node: Node): IntegerTypeSemantic | Nothing {
+export function integerTypeSemanticTryParse(
+  context: SemanticContext,
+  node: Node,
+): IntegerTypeSemantic | Nothing {
   if (!is<IntegerNode>(node, $Node.INTEGER)) {
     return nothing;
   }

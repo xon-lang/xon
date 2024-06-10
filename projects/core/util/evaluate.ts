@@ -1,12 +1,12 @@
 import {Anything, Nothing, String2, nothing} from '../../lib/types';
-import {GroupNode} from '../parser/node/group/group-node';
-import {$Node, Node, is} from '../parser/node/node';
-import {InfixNode} from '../parser/node/syntax/infix/infix-node';
-import {PrefixNode} from '../parser/node/syntax/prefix/prefix-node';
-import {CharNode} from '../parser/node/token/char/char-node';
-import {IdNode} from '../parser/node/token/id/id-node';
-import {IntegerNode} from '../parser/node/token/integer/integer-node';
-import {StringNode} from '../parser/node/token/string/string-node';
+import {GroupNode} from '../analyzer/node/group/group-node';
+import {$Node, Node, is} from '../analyzer/node/node';
+import {InfixNode} from '../analyzer/node/syntax/infix/infix-node';
+import {PrefixNode} from '../analyzer/node/syntax/prefix/prefix-node';
+import {CharNode} from '../analyzer/node/token/char/char-node';
+import {IdNode} from '../analyzer/node/token/id/id-node';
+import {IntegerNode} from '../analyzer/node/token/integer/integer-node';
+import {StringNode} from '../analyzer/node/token/string/string-node';
 
 export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);

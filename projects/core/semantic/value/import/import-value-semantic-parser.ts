@@ -1,10 +1,10 @@
 import {dirname, join, resolve} from 'path';
 import {Nothing, String2, nothing} from '../../../../lib/types';
+import {$Node, Node, is} from '../../../analyzer/node/node';
+import {ImportNode} from '../../../analyzer/node/syntax/import/import-node';
+import {SyntaxResult} from '../../../analyzer/syntax-context';
+import {syntaxParse} from '../../../analyzer/syntax-parser';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {$Node, Node, is} from '../../../parser/node/node';
-import {ImportNode} from '../../../parser/node/syntax/import/import-node';
-import {SyntaxResult} from '../../../parser/syntax-context';
-import {syntaxParse} from '../../../parser/syntax-parser';
 import {textResourceFromFilePath} from '../../../util/resource/text/text-resource';
 import {DeclarationManager} from '../../declaration-manager';
 import {semanticParse} from '../../semantic';
@@ -21,7 +21,10 @@ export function syntaxImportsParse(context: SemanticContext, syntax: SyntaxResul
   }
 }
 
-export function importValueSemanticTryParse(context: SemanticContext, node: Node): ImportValueSemantic | Nothing {
+export function importValueSemanticTryParse(
+  context: SemanticContext,
+  node: Node,
+): ImportValueSemantic | Nothing {
   if (!is<ImportNode>(node, $Node.IMPORT)) {
     return nothing;
   }

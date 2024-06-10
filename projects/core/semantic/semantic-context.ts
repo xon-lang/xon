@@ -1,6 +1,6 @@
 import {Array2, Nothing, nothing} from '../../lib/types';
+import {Node} from '../analyzer/node/node';
 import {IssueManager} from '../issue/issue-manager';
-import {Node} from '../parser/node/node';
 import {TextResourceReference, textResourceReference} from '../util/resource/resource-reference';
 import {TextResource, textResourceFrom} from '../util/resource/text/text-resource';
 import {DeclarationManager, createDeclarationManager} from './declaration-manager';
@@ -24,7 +24,12 @@ export function semanticContext(
   imports: Array2<DeclarationManager> | Nothing,
   config: SemanticConfig,
 ): SemanticContext {
-  const declarationManager = createDeclarationManager(issueManager, parent?.declarationManager, imports, config);
+  const declarationManager = createDeclarationManager(
+    issueManager,
+    parent?.declarationManager,
+    imports,
+    config,
+  );
 
   return {
     parent,

@@ -10,7 +10,7 @@ import {
   TextDocument,
   languages,
 } from 'vscode';
-import {hasSemantic} from '../../../../core/parser/node/node';
+import {hasSemantic} from '../../../../core/analyzer/node/node';
 import {DeclarationSemantic} from '../../../../core/semantic/declaration/declaration-semantic';
 import {$Semantic, Semantic, semanticIs} from '../../../../core/semantic/semantic';
 import {IdTypeSemantic} from '../../../../core/semantic/type/id/id-type-semantic';
@@ -23,7 +23,9 @@ import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
 export function configureHoverFeature(context: ExtensionContext, channel: OutputChannel) {
-  context.subscriptions.push(languages.registerHoverProvider(LANGUAGE_NAME, new LanguageHoverProvider(channel)));
+  context.subscriptions.push(
+    languages.registerHoverProvider(LANGUAGE_NAME, new LanguageHoverProvider(channel)),
+  );
 }
 
 class LanguageHoverProvider implements HoverProvider {

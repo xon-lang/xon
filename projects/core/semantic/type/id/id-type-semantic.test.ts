@@ -1,7 +1,7 @@
 import {nothing} from '../../../../lib/types';
-import {DeclarationNode} from '../../../parser/node/syntax/declaration/declaration-node';
-import {IdNode} from '../../../parser/node/token/id/id-node';
-import {syntaxParse} from '../../../parser/syntax-parser';
+import {DeclarationNode} from '../../../analyzer/node/syntax/declaration/declaration-node';
+import {IdNode} from '../../../analyzer/node/token/id/id-node';
+import {syntaxParse} from '../../../analyzer/syntax-parser';
 import {textResourceFrom} from '../../../util/resource/text/text-resource';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, semanticParse} from '../../semantic';

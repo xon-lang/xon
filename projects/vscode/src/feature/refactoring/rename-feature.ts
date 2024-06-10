@@ -12,8 +12,8 @@ import {
   WorkspaceEdit,
 } from 'vscode';
 
-import {$Node, is} from '../../../../core/parser/node/node';
-import {IdNode} from '../../../../core/parser/node/token/id/id-node';
+import {$Node, is} from '../../../../core/analyzer/node/node';
+import {IdNode} from '../../../../core/analyzer/node/token/id/id-node';
 import {
   DeclarationSemantic,
   isTypeDeclarationSemantic,
@@ -27,7 +27,9 @@ import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
 export function configureRenameFeature(context: ExtensionContext, channel: OutputChannel) {
-  context.subscriptions.push(languages.registerRenameProvider(LANGUAGE_NAME, new LanguageRenameProvider(channel)));
+  context.subscriptions.push(
+    languages.registerRenameProvider(LANGUAGE_NAME, new LanguageRenameProvider(channel)),
+  );
 }
 
 class LanguageRenameProvider implements RenameProvider {

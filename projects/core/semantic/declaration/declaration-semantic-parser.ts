@@ -1,7 +1,7 @@
-import {SyntaxResult} from '../../../core/parser/syntax-context';
 import {Array2, Nothing, nothing} from '../../../lib/types';
-import {$Node, is} from '../../parser/node/node';
-import {DeclarationNode} from '../../parser/node/syntax/declaration/declaration-node';
+import {$Node, is} from '../../analyzer/node/node';
+import {DeclarationNode} from '../../analyzer/node/syntax/declaration/declaration-node';
+import {SyntaxResult} from '../../analyzer/syntax-context';
 import {SemanticContext} from '../semantic-context';
 import {DeclarationSemantic} from './declaration-semantic';
 import {declarationDeepParse} from './declaration-semantic-deep-parser';

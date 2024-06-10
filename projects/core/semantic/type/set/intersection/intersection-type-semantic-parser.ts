@@ -1,7 +1,7 @@
 import {Nothing, nothing} from '../../../../../lib/types';
-import {$Node, Node, is} from '../../../../parser/node/node';
-import {InfixNode} from '../../../../parser/node/syntax/infix/infix-node';
-import {INTERSECTION} from '../../../../parser/parser-config';
+import {$Node, Node, is} from '../../../../analyzer/node/node';
+import {InfixNode} from '../../../../analyzer/node/syntax/infix/infix-node';
+import {INTERSECTION} from '../../../../analyzer/parser-config';
 import {SemanticContext} from '../../../semantic-context';
 import {typeSemanticParse} from '../../type-semantic-parser';
 import {IntersectionTypeSemantic, intersectionTypeSemantic} from './intersection-type-semantic';

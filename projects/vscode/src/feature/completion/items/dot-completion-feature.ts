@@ -10,8 +10,8 @@ import {
   ProviderResult,
   TextDocument,
 } from 'vscode';
-import {$Node, is} from '../../../../../core/parser/node/node';
-import {MemberNode} from '../../../../../core/parser/node/syntax/member/member-node';
+import {$Node, is} from '../../../../../core/analyzer/node/node';
+import {MemberNode} from '../../../../../core/analyzer/node/syntax/member/member-node';
 import {$Semantic, Semantic, semanticIs} from '../../../../../core/semantic/semantic';
 import {IdTypeSemantic} from '../../../../../core/semantic/type/id/id-type-semantic';
 import {TypeSemantic, isTypeSemantic} from '../../../../../core/semantic/type/type-semantic';

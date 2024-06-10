@@ -17,15 +17,17 @@ import {
 } from 'vscode';
 
 import {dirname} from 'path';
-import {$Node, is} from '../../../../core/parser/node/node';
-import {IdNode} from '../../../../core/parser/node/token/id/id-node';
+import {$Node, is} from '../../../../core/analyzer/node/node';
+import {IdNode} from '../../../../core/analyzer/node/token/id/id-node';
 import {getCaseFnByName, kebabCase} from '../../../../core/util/change-case';
 import {nothing} from '../../../../lib/types';
 import {LANGUAGE_EXTENSION, LANGUAGE_NAME, WORKSPACE_CONFIG} from '../../config';
 import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
 export function configureMoveToNewFileFeature(context: ExtensionContext, channel: OutputChannel) {
-  context.subscriptions.push(languages.registerCodeActionsProvider(LANGUAGE_NAME, new MoveToNewFileProvider(channel)));
+  context.subscriptions.push(
+    languages.registerCodeActionsProvider(LANGUAGE_NAME, new MoveToNewFileProvider(channel)),
+  );
 }
 
 class MoveToNewFileProvider implements CodeActionProvider {

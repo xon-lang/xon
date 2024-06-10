@@ -1,18 +1,24 @@
 import {Nothing, nothing} from '../../../../lib/types';
-import {$Node, Node, is} from '../../../parser/node/node';
+import {$Node, Node, is} from '../../../analyzer/node/node';
 import {
   DeclarationNode,
   getDeclarationGenerics,
   getDeclarationParameters,
-} from '../../../parser/node/syntax/declaration/declaration-node';
-import {LambdaNode} from '../../../parser/node/syntax/lambda/lambda-node';
+} from '../../../analyzer/node/syntax/declaration/declaration-node';
+import {LambdaNode} from '../../../analyzer/node/syntax/lambda/lambda-node';
 import {declarationsParse} from '../../declaration/declaration-semantic-parser';
 import {SemanticContext} from '../../semantic-context';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {FunctionTypeSemantic, functionTypeSemantic} from './function-type-semantic';
 
-export function functionTypeSemanticTryParse(context: SemanticContext, node: Node): FunctionTypeSemantic | Nothing {
-  if ((!is<DeclarationNode>(node, $Node.DECLARATION) && !is<LambdaNode>(node, $Node.LAMBDA)) || !node.parameters) {
+export function functionTypeSemanticTryParse(
+  context: SemanticContext,
+  node: Node,
+): FunctionTypeSemantic | Nothing {
+  if (
+    (!is<DeclarationNode>(node, $Node.DECLARATION) && !is<LambdaNode>(node, $Node.LAMBDA)) ||
+    !node.parameters
+  ) {
     return nothing;
   }
 

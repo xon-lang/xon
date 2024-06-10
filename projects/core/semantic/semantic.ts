@@ -1,10 +1,13 @@
 import {Nothing, nothing} from '../../lib/types';
-import {SyntaxResult} from '../parser/syntax-context';
+import {SyntaxResult} from '../analyzer/syntax-context';
 import {TextResourceReference} from '../util/resource/resource-reference';
 import {syntaxDeclarationsParse} from './declaration/declaration-semantic-parser';
 import {DEFAULT_SEMANTIC_CONFIG, SemanticConfig} from './semantic-config';
 import {SemanticContext, semanticContext} from './semantic-context';
-import {declarationManagerFromImportString, syntaxImportsParse} from './value/import/import-value-semantic-parser';
+import {
+  declarationManagerFromImportString,
+  syntaxImportsParse,
+} from './value/import/import-value-semantic-parser';
 import {syntaxValuesParse} from './value/value-semantic-parser';
 
 export interface Semantic<T extends $Semantic = $Semantic> {
@@ -45,7 +48,8 @@ export function semanticIs<T extends Semantic = Semantic>(
 
 export function semanticParse(syntax: SyntaxResult, config?: Partial<SemanticConfig>): SemanticContext {
   const semanticConfig: SemanticConfig = {...DEFAULT_SEMANTIC_CONFIG, ...config};
-  const imports = semanticConfig?.defaultImports?.filterMap((x) => declarationManagerFromImportString(x)) ?? [];
+  const imports =
+    semanticConfig?.defaultImports?.filterMap((x) => declarationManagerFromImportString(x)) ?? [];
   const context = semanticContext(nothing, syntax.resource, syntax.issueManager, imports, semanticConfig);
 
   syntaxImportsParse(context, syntax);

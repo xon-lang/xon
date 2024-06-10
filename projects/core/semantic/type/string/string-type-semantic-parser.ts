@@ -1,13 +1,16 @@
 import {Nothing, nothing} from '../../../../lib/types';
+import {$Node, Node, is} from '../../../analyzer/node/node';
+import {StringNode} from '../../../analyzer/node/token/string/string-node';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {$Node, Node, is} from '../../../parser/node/node';
-import {StringNode} from '../../../parser/node/token/string/string-node';
 import {DeclarationKind} from '../../declaration-manager';
 import {isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {SemanticContext} from '../../semantic-context';
 import {StringTypeSemantic, stringTypeSemantic} from './string-type-semantic';
 
-export function stringTypeSemanticTryParse(context: SemanticContext, node: Node): StringTypeSemantic | Nothing {
+export function stringTypeSemanticTryParse(
+  context: SemanticContext,
+  node: Node,
+): StringTypeSemantic | Nothing {
   if (!is<StringNode>(node, $Node.STRING)) {
     return nothing;
   }

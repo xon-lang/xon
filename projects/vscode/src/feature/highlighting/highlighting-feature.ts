@@ -11,7 +11,7 @@ import {
   TextDocument,
 } from 'vscode';
 
-import {KeywordType} from '../../../../core/parser/node/token/operator/operator-node';
+import {KeywordType} from '../../../../core/analyzer/node/token/operator/operator-node';
 import {Number2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 
@@ -29,7 +29,10 @@ export function configureHighlightingFeature(context: ExtensionContext, channel:
 class DocumentSemanticTokens implements DocumentSemanticTokensProvider {
   constructor(private channel: OutputChannel) {}
 
-  provideDocumentSemanticTokens(document: TextDocument, token: CancellationToken): ProviderResult<SemanticTokens> {
+  provideDocumentSemanticTokens(
+    document: TextDocument,
+    token: CancellationToken,
+  ): ProviderResult<SemanticTokens> {
     // const syntax = getDocumentSyntax(document, this.channel);
     const tokensBuilder = new SemanticTokensBuilder(legend);
 

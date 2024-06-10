@@ -1,9 +1,9 @@
 import {Nothing, nothing} from '../../../../lib/types';
+import {$Node, Node, is} from '../../../analyzer/node/node';
+import {InvokeNode} from '../../../analyzer/node/syntax/invoke/invoke-node';
+import {IdNode} from '../../../analyzer/node/token/id/id-node';
+import {OBJECT_OPEN} from '../../../analyzer/parser-config';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
-import {$Node, Node, is} from '../../../parser/node/node';
-import {InvokeNode} from '../../../parser/node/syntax/invoke/invoke-node';
-import {IdNode} from '../../../parser/node/token/id/id-node';
-import {OBJECT_OPEN} from '../../../parser/parser-config';
 import {DeclarationKind} from '../../declaration-manager';
 import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
@@ -11,7 +11,10 @@ import {SemanticContext} from '../../semantic-context';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {IdTypeSemantic, idTypeSemantic} from './id-type-semantic';
 
-export function declarationTypeSemanticTryParse(context: SemanticContext, node: Node): IdTypeSemantic | Nothing {
+export function declarationTypeSemanticTryParse(
+  context: SemanticContext,
+  node: Node,
+): IdTypeSemantic | Nothing {
   if (is<IdNode>(node, $Node.ID)) {
     return idParse(context, node);
   }
@@ -54,7 +57,12 @@ function invokeParse(context: SemanticContext, node: InvokeNode): IdTypeSemantic
   const generics = node.group.items.map((x) => typeSemanticParse(context, x.value));
 
   if (is<IdNode>(node.instance, $Node.ID)) {
-    const declaration = context.declarationManager.single(DeclarationKind.TYPE, node.instance.text, generics, nothing);
+    const declaration = context.declarationManager.single(
+      DeclarationKind.TYPE,
+      node.instance.text,
+      generics,
+      nothing,
+    );
 
     if (!declaration) {
       return nothing;

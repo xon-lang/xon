@@ -1,10 +1,10 @@
 import {Array2, Nothing, nothing} from '../../../lib/types';
-import {ISSUE_MESSAGE} from '../../issue/issue-message';
 import {
   DeclarationNode,
   getDeclarationAttributes,
   getDeclarationGenerics,
-} from '../../parser/node/syntax/declaration/declaration-node';
+} from '../../analyzer/node/syntax/declaration/declaration-node';
+import {ISSUE_MESSAGE} from '../../issue/issue-message';
 import {$Semantic, semanticIs} from '../semantic';
 import {SemanticContext} from '../semantic-context';
 import {typeSemanticParse} from '../type/type-semantic-parser';
@@ -12,7 +12,10 @@ import {valueSemanticParse} from '../value/value-semantic-parser';
 import {DeclarationSemantic} from './declaration-semantic';
 import {declarationsParse} from './declaration-semantic-parser';
 
-export function declarationDeepParse(context: SemanticContext, node: DeclarationNode): DeclarationSemantic | Nothing {
+export function declarationDeepParse(
+  context: SemanticContext,
+  node: DeclarationNode,
+): DeclarationSemantic | Nothing {
   const semantic = node.id?.semantic;
 
   if (!semanticIs<DeclarationSemantic>(semantic, $Semantic.DECLARATION)) {
@@ -30,7 +33,11 @@ export function declarationDeepParse(context: SemanticContext, node: Declaration
   return semantic;
 }
 
-function genericsParse(context: SemanticContext, declaration: DeclarationSemantic, node: DeclarationNode): Nothing {
+function genericsParse(
+  context: SemanticContext,
+  declaration: DeclarationSemantic,
+  node: DeclarationNode,
+): Nothing {
   if (!node.generics) {
     return;
   }
@@ -40,7 +47,11 @@ function genericsParse(context: SemanticContext, declaration: DeclarationSemanti
   declaration.generics = declarationsParse(context, syntaxGenerics) as Array2<DeclarationSemantic>;
 }
 
-function parametersParse(context: SemanticContext, declaration: DeclarationSemantic, node: DeclarationNode): Nothing {
+function parametersParse(
+  context: SemanticContext,
+  declaration: DeclarationSemantic,
+  node: DeclarationNode,
+): Nothing {
   if (!node.parameters) {
     return;
   }
@@ -50,7 +61,11 @@ function parametersParse(context: SemanticContext, declaration: DeclarationSeman
   declaration.parameters = declarationsParse(context, syntaxGenerics) as Array2<DeclarationSemantic>;
 }
 
-function typeParse(context: SemanticContext, declaration: DeclarationSemantic, node: DeclarationNode): Nothing {
+function typeParse(
+  context: SemanticContext,
+  declaration: DeclarationSemantic,
+  node: DeclarationNode,
+): Nothing {
   if (!node.type?.value) {
     return;
   }
@@ -64,7 +79,11 @@ function typeParse(context: SemanticContext, declaration: DeclarationSemantic, n
   }
 }
 
-function valueParse(context: SemanticContext, declaration: DeclarationSemantic, node: DeclarationNode): Nothing {
+function valueParse(
+  context: SemanticContext,
+  declaration: DeclarationSemantic,
+  node: DeclarationNode,
+): Nothing {
   if (!node.assign?.value) {
     return;
   }
@@ -81,7 +100,11 @@ function valueParse(context: SemanticContext, declaration: DeclarationSemantic, 
   }
 }
 
-function attributesParse(context: SemanticContext, declaration: DeclarationSemantic, node: DeclarationNode): Nothing {
+function attributesParse(
+  context: SemanticContext,
+  declaration: DeclarationSemantic,
+  node: DeclarationNode,
+): Nothing {
   const syntaxAttributes = getDeclarationAttributes(node);
 
   if (syntaxAttributes.length === 0) {

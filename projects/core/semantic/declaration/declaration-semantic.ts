@@ -1,5 +1,5 @@
 import {Array2, Boolean2, Nothing, String2} from '../../../lib/types';
-import {TYPE_MODIFIERS, VALUE_MODIFIERS} from '../../parser/parser-config';
+import {TYPE_MODIFIERS, VALUE_MODIFIERS} from '../../analyzer/parser-config';
 import {TextResourceReference} from '../../util/resource/resource-reference';
 import {$Semantic, Semantic, semanticIs} from '../semantic';
 import {TypeSemantic} from '../type/type-semantic';

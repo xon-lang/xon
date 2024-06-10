@@ -1,9 +1,9 @@
 import {OutputChannel, Position, Range, TextDocument} from 'vscode';
-import {$Node, Node, is} from '../../core/parser/node/node';
-import {StatementNode} from '../../core/parser/node/statement/statement-node';
-import {SyntaxNode} from '../../core/parser/node/syntax/syntax-node';
-import {SyntaxResult} from '../../core/parser/syntax-context';
-import {syntaxParse} from '../../core/parser/syntax-parser';
+import {$Node, Node, is} from '../../core/analyzer/node/node';
+import {StatementNode} from '../../core/analyzer/node/statement/statement-node';
+import {SyntaxNode} from '../../core/analyzer/node/syntax/syntax-node';
+import {SyntaxResult} from '../../core/analyzer/syntax-context';
+import {syntaxParse} from '../../core/analyzer/syntax-parser';
 import {semanticParse} from '../../core/semantic/semantic';
 import {TextPosition} from '../../core/util/resource/text/text-position';
 import {TextRange} from '../../core/util/resource/text/text-range';

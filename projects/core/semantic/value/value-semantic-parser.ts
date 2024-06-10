@@ -1,6 +1,6 @@
-import {SyntaxResult} from '../../../core/parser/syntax-context';
 import {Array2, Nothing, nothing} from '../../../lib/types';
-import {$Node, ExpressionNode, Node, is} from '../../parser/node/node';
+import {$Node, ExpressionNode, Node, is} from '../../analyzer/node/node';
+import {SyntaxResult} from '../../analyzer/syntax-context';
 import {SemanticContext} from '../semantic-context';
 import {idValueSemanticTryParse} from './id/id-value-semantic-parser';
 import {integerValueSemanticTryParse} from './integer/integer-value-semantic-parser';
