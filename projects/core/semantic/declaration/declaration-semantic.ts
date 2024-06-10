@@ -21,12 +21,14 @@ export interface DeclarationSemantic extends Semantic<$Semantic.DECLARATION> {
 
 export function declarationSemantic(
   reference: TextResourceReference,
+  documentation: String2 | Nothing,
   modifier: String2 | Nothing,
   name: String2,
 ): DeclarationSemantic {
   return {
     $: $Semantic.DECLARATION,
     reference,
+    documentation,
     modifier,
     name,
     usages: [reference],

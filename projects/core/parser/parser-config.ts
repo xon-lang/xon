@@ -1,5 +1,6 @@
 export const COMMENT_LINE = '//';
 export const COMMENT_BLOCK = '---';
+export const DOCUMENTATION = '===';
 
 export const NL = '\n';
 export const COMMA = ',';
@@ -47,7 +48,18 @@ export const VALUE_MODIFIERS = [CONST, VAR, PREFIX, POSTFIX, INFIX];
 
 export const MODIFIER_KEYWORDS = [...TYPE_MODIFIERS, ...VALUE_MODIFIERS];
 export const OPERATOR_KEYWORDS = ['is', 'as', 'in'];
-export const CONTROL_KEYWORDS = ['if', 'then', 'else', 'for', 'do', 'while', 'break', 'continue', 'return', EXPORT];
+export const CONTROL_KEYWORDS = [
+  'if',
+  'then',
+  'else',
+  'for',
+  'do',
+  'while',
+  'break',
+  'continue',
+  'return',
+  EXPORT,
+];
 
 export const REST = '...';
 export const PLUS = '+';
