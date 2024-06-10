@@ -1,11 +1,11 @@
 import {Nothing, nothing} from '../../../../../lib/types';
-import {$Node, Node, is} from '../../../node/node';
+import {$Node, Node, is} from '../../../syntax/node';
 import {
   DeclarationNode,
   getDeclarationGenerics,
   getDeclarationParameters,
-} from '../../../node/syntax/declaration/declaration-node';
-import {LambdaNode} from '../../../node/syntax/lambda/lambda-node';
+} from '../../../syntax/node/declaration/declaration-node';
+import {LambdaNode} from '../../../syntax/node/lambda/lambda-node';
 import {declarationsParse} from '../../declaration/declaration-semantic-parser';
 import {SemanticContext} from '../../semantic-context';
 import {typeSemanticParse} from '../type-semantic-parser';

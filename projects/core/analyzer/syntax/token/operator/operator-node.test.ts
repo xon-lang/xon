@@ -2,8 +2,8 @@ import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';
-import {InfixNode} from '../../syntax/infix/infix-node';
-import {PostfixNode} from '../../syntax/postfix/postfix-node';
+import {InfixNode} from '../../node/infix/infix-node';
+import {PostfixNode} from '../../node/postfix/postfix-node';
 import {OperatorNode} from './operator-node';
 
 test('single operator', () => {

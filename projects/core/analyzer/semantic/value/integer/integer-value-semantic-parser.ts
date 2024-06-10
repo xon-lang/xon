@@ -1,5 +1,5 @@
 import {Nothing, nothing} from '../../../../../lib/types';
-import {Node} from '../../../node/node';
+import {Node} from '../../../syntax/node';
 import {SemanticContext} from '../../semantic-context';
 import {integerTypeSemanticTryParse} from '../../type/integer/integer-type-semantic-parser';
 import {IntegerValueSemantic, integerValueSemantic} from './integer-value-semantic';

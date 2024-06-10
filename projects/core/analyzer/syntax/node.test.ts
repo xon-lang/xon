@@ -3,7 +3,7 @@ import {textResourceFrom} from '../../util/resource/text/text-resource';
 import {syntaxParse} from '../syntax-parser';
 import {$Node} from './node';
 // import {AssignNode} from './syntax/assign/assign-node';
-import {InfixNode} from './syntax/infix/infix-node';
+import {InfixNode} from './node/infix/infix-node';
 import {IntegerNode} from './token/integer/integer-node';
 
 test('comma', () => {

@@ -1,5 +1,5 @@
 import {Array2} from '../../../../lib/types';
-import {Node} from '../../../analyzer/node/node';
+import {Node} from '../../../analyzer/syntax/node';
 import {TextPosition, clonePosition, zeroPosition} from './text-position';
 
 export interface TextRange {

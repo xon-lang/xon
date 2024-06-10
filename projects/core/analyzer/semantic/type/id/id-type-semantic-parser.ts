@@ -1,9 +1,9 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
-import {$Node, Node, is} from '../../../node/node';
-import {InvokeNode} from '../../../node/syntax/invoke/invoke-node';
-import {IdNode} from '../../../node/token/id/id-node';
 import {OBJECT_OPEN} from '../../../parser-config';
+import {$Node, Node, is} from '../../../syntax/node';
+import {InvokeNode} from '../../../syntax/node/invoke/invoke-node';
+import {IdNode} from '../../../syntax/token/id/id-node';
 import {DeclarationKind} from '../../declaration-manager';
 import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';

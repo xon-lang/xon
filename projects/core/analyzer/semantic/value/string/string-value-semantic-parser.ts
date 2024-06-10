@@ -1,5 +1,5 @@
 import {Nothing, nothing} from '../../../../../lib/types';
-import {Node} from '../../../node/node';
+import {Node} from '../../../syntax/node';
 import {SemanticContext} from '../../semantic-context';
 import {stringTypeSemanticTryParse} from '../../type/string/string-type-semantic-parser';
 import {StringValueSemantic, stringValueSemantic} from './string-value-semantic';

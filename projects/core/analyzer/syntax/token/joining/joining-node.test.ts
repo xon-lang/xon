@@ -3,7 +3,7 @@ import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {JOINING} from '../../../parser-config';
 import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';
-import {MemberNode} from '../../syntax/member/member-node';
+import {MemberNode} from '../../node/member/member-node';
 import {IdNode} from '../id/id-node';
 import {OperatorNode} from '../operator/operator-node';
 

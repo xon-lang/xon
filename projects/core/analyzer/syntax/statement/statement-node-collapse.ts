@@ -29,17 +29,17 @@ import {
 } from '../../parser-config';
 import {SyntaxContext} from '../../syntax-context';
 import {$Node, Node, is} from '../node';
-import {assignmentNodeParse} from '../syntax/assignment/assignment-node-parse';
-import {DeclarationNode} from '../syntax/declaration/declaration-node';
-import {declarationNodeParse, isTypeDeclarationNode} from '../syntax/declaration/declaration-node-parse';
-import {importNodeParse} from '../syntax/import/import-node-parse';
-import {infixNodeParse} from '../syntax/infix/infix-node-parse';
-import {invokeNodeParse} from '../syntax/invoke/invoke-node-parse';
-import {lambdaNodeParse} from '../syntax/lambda/lambda-node-parse';
-import {memberNodeParse} from '../syntax/member/member-node-parse';
-import {postfixNodeParse} from '../syntax/postfix/postfix-node-parse';
-import {prefixNodeParse} from '../syntax/prefix/prefix-node-parse';
-import {SyntaxNode} from '../syntax/syntax-node';
+import {assignmentNodeParse} from '../node/assignment/assignment-node-parse';
+import {DeclarationNode} from '../node/declaration/declaration-node';
+import {declarationNodeParse, isTypeDeclarationNode} from '../node/declaration/declaration-node-parse';
+import {importNodeParse} from '../node/import/import-node-parse';
+import {infixNodeParse} from '../node/infix/infix-node-parse';
+import {invokeNodeParse} from '../node/invoke/invoke-node-parse';
+import {lambdaNodeParse} from '../node/lambda/lambda-node-parse';
+import {memberNodeParse} from '../node/member/member-node-parse';
+import {postfixNodeParse} from '../node/postfix/postfix-node-parse';
+import {prefixNodeParse} from '../node/prefix/prefix-node-parse';
+import {SyntaxNode} from '../node/syntax-node';
 
 export type SyntaxParseResult = {index: Integer; deleteCount?: Integer; node: SyntaxNode} | Nothing;
 export type SyntaxParseFn = (context: SyntaxContext, startIndex: Integer) => SyntaxParseResult;

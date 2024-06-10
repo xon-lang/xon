@@ -1,8 +1,8 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../../../issue/issue-message';
-import {$Node, Node, is} from '../../../../node/node';
-import {InfixNode} from '../../../../node/syntax/infix/infix-node';
 import {RANGE} from '../../../../parser-config';
+import {$Node, Node, is} from '../../../../syntax/node';
+import {InfixNode} from '../../../../syntax/node/infix/infix-node';
 import {DeclarationKind} from '../../../declaration-manager';
 import {isTypeDeclarationSemantic} from '../../../declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../../semantic';

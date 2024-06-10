@@ -11,7 +11,7 @@ import {
   TextDocument,
 } from 'vscode';
 
-import {KeywordType} from '../../../../core/analyzer/node/token/operator/operator-node';
+import {KeywordType} from '../../../../core/analyzer/syntax/token/operator/operator-node';
 import {Number2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 

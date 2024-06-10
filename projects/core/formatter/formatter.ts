@@ -1,11 +1,11 @@
 import {Array2, Boolean2, Nothing, String2, nothing} from '../../lib/types';
-import {$Node, Node, is} from '../analyzer/node/node';
-import {StatementNode} from '../analyzer/node/statement/statement-node';
-import {NlNode} from '../analyzer/node/token/nl/nl-node';
-import {TokenNode} from '../analyzer/node/token/token-node';
-import {WhitespaceNode} from '../analyzer/node/token/whitespace/whitespace-node';
 import {NL} from '../analyzer/parser-config';
 import {SyntaxContext} from '../analyzer/syntax-context';
+import {$Node, Node, is} from '../analyzer/syntax/node';
+import {StatementNode} from '../analyzer/syntax/statement/statement-node';
+import {NlNode} from '../analyzer/syntax/token/nl/nl-node';
+import {TokenNode} from '../analyzer/syntax/token/token-node';
+import {WhitespaceNode} from '../analyzer/syntax/token/whitespace/whitespace-node';
 import {TextRange, cloneRange, rangeFromNodes, rangeFromPosition} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
 

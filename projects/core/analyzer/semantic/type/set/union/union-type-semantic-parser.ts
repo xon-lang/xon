@@ -1,7 +1,7 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
-import {$Node, Node, is} from '../../../../node/node';
-import {InfixNode} from '../../../../node/syntax/infix/infix-node';
 import {UNION} from '../../../../parser-config';
+import {$Node, Node, is} from '../../../../syntax/node';
+import {InfixNode} from '../../../../syntax/node/infix/infix-node';
 import {SemanticContext} from '../../../semantic-context';
 import {typeSemanticParse} from '../../type-semantic-parser';
 import {UnionTypeSemantic, unionTypeSemantic} from './union-type-semantic';

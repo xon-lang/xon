@@ -4,7 +4,7 @@ import {
   DeclarationNode,
   getDeclarationAttributes,
   getDeclarationGenerics,
-} from '../../node/syntax/declaration/declaration-node';
+} from '../../syntax/node/declaration/declaration-node';
 import {$Semantic, semanticIs} from '../semantic';
 import {SemanticContext} from '../semantic-context';
 import {typeSemanticParse} from '../type/type-semantic-parser';

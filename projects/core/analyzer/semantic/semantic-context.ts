@@ -2,7 +2,7 @@ import {Array2, Nothing, nothing} from '../../../lib/types';
 import {IssueManager} from '../../issue/issue-manager';
 import {TextResourceReference, textResourceReference} from '../../util/resource/resource-reference';
 import {TextResource, textResourceFrom} from '../../util/resource/text/text-resource';
-import {Node} from '../node/node';
+import {Node} from '../syntax/node';
 import {DeclarationManager, createDeclarationManager} from './declaration-manager';
 import {SemanticConfig} from './semantic-config';
 

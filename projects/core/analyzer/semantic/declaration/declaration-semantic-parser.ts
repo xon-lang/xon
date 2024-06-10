@@ -1,7 +1,7 @@
 import {Array2, Nothing, nothing} from '../../../../lib/types';
-import {$Node, is} from '../../node/node';
-import {DeclarationNode} from '../../node/syntax/declaration/declaration-node';
 import {SyntaxResult} from '../../syntax-context';
+import {$Node, is} from '../../syntax/node';
+import {DeclarationNode} from '../../syntax/node/declaration/declaration-node';
 import {SemanticContext} from '../semantic-context';
 import {DeclarationSemantic} from './declaration-semantic';
 import {declarationDeepParse} from './declaration-semantic-deep-parser';

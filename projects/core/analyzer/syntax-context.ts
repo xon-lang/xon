@@ -4,11 +4,11 @@ import {IssueManager, createIssueManager} from '../issue/issue-manager';
 import {TextPosition, textPosition} from '../util/resource/text/text-position';
 import {TextRange, textRange} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
-import {Node} from './node/node';
-import {StatementNode} from './node/statement/statement-node';
-import {TokenNode} from './node/token/token-node';
 import {NL} from './parser-config';
 import {DEFAULT_SYNTAX_PARSER_CONFIG, SyntaxParserConfig} from './syntax-parser-config';
+import {Node} from './syntax/node';
+import {StatementNode} from './syntax/statement/statement-node';
+import {TokenNode} from './syntax/token/token-node';
 
 type ContextAttributes = 'resource' | 'statements' | 'issueManager' | 'formatterManager';
 

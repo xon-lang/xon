@@ -4,7 +4,7 @@ import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
 import {SyntaxContext} from '../../syntax-context';
 import {$Node, Node} from '../node';
-import {SyntaxNode} from '../syntax/syntax-node';
+import {SyntaxNode} from '../node/syntax-node';
 import {statementNodeCollapse} from './statement-node-collapse';
 
 export type StatementNode = SyntaxNode<$Node.STATEMENT> & {
@@ -16,7 +16,11 @@ export type StatementNode = SyntaxNode<$Node.STATEMENT> & {
   body: Array2<StatementNode>;
 };
 
-export function statementNode(context: SyntaxContext, children: Array2<Node>, indent: TextRange): StatementNode {
+export function statementNode(
+  context: SyntaxContext,
+  children: Array2<Node>,
+  indent: TextRange,
+): StatementNode {
   const statement: StatementNode = {
     $: $Node.STATEMENT,
     range: rangeFromNodes(children),

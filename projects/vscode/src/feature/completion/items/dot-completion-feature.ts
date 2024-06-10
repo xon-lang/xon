@@ -10,12 +10,12 @@ import {
   ProviderResult,
   TextDocument,
 } from 'vscode';
-import {$Node, is} from '../../../../../core/analyzer/node/node';
-import {MemberNode} from '../../../../../core/analyzer/node/syntax/member/member-node';
 import {$Semantic, Semantic, semanticIs} from '../../../../../core/analyzer/semantic/semantic';
 import {IdTypeSemantic} from '../../../../../core/analyzer/semantic/type/id/id-type-semantic';
 import {TypeSemantic, isTypeSemantic} from '../../../../../core/analyzer/semantic/type/type-semantic';
 import {ValueSemantic} from '../../../../../core/analyzer/semantic/value/value-semantic';
+import {$Node, is} from '../../../../../core/analyzer/syntax/node';
+import {MemberNode} from '../../../../../core/analyzer/syntax/node/member/member-node';
 import {Array2, Nothing, String2, nothing} from '../../../../../lib/types';
 import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../../util';
 

@@ -1,5 +1,5 @@
 import {Nothing, String2, nothing} from '../../../../lib/types';
-import {DeclarationNode} from '../../node/syntax/declaration/declaration-node';
+import {DeclarationNode} from '../../syntax/node/declaration/declaration-node';
 import {SemanticContext} from '../semantic-context';
 import {DeclarationSemantic, declarationSemantic} from './declaration-semantic';
 

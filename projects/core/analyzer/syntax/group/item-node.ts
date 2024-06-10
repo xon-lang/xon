@@ -4,8 +4,8 @@ import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {SyntaxContext} from '../../syntax-context';
 import {$Node, Node} from '../node';
+import {SyntaxNode} from '../node/syntax-node';
 import {StatementNode} from '../statement/statement-node';
-import {SyntaxNode} from '../syntax/syntax-node';
 import {CommaNode} from '../token/comma/comma-node';
 
 export type ItemNode = SyntaxNode<$Node.ITEM> & {

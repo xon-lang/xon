@@ -1,7 +1,7 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
-import {$Node, Node, is} from '../../../node/node';
-import {MemberNode} from '../../../node/syntax/member/member-node';
+import {$Node, Node, is} from '../../../syntax/node';
+import {MemberNode} from '../../../syntax/node/member/member-node';
 import {SemanticContext} from '../../semantic-context';
 import {TypeSemantic} from '../../type/type-semantic';
 import {valueSemanticParse} from '../value-semantic-parser';

@@ -1,5 +1,5 @@
 import {Array2, Nothing, nothing} from '../../../../lib/types';
-import {$Node, ExpressionNode, Node, is} from '../../node/node';
+import {$Node, ExpressionNode, Node, is} from '../../syntax/node';
 import {SemanticContext} from '../semantic-context';
 import {arrayTypeSemanticTryParse} from './array/array-type-semantic-parser';
 import {functionTypeSemanticTryParse} from './function/function-type-semantic-parser';
