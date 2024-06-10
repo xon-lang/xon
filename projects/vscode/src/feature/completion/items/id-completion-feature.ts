@@ -10,7 +10,9 @@ import {
   ProviderResult,
   TextDocument,
 } from 'vscode';
-import {Array2, Something} from '../../../../../lib/types';
+import {$Node, is} from '../../../../../core/analyzer/node/node';
+import {TokenNode} from '../../../../../core/analyzer/node/token/token-node';
+import {Array2} from '../../../../../lib/types';
 import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../../util';
 
 export class IdCompletionItemProvider implements CompletionItemProvider {
@@ -25,7 +27,9 @@ export class IdCompletionItemProvider implements CompletionItemProvider {
     const syntax = getDocumentSyntax(document, this.channel);
     const node = findNodeByPositionInSyntax(syntax, position);
 
-    const item = new CompletionItem((node as Something)['text'] ?? 'name', CompletionItemKind.Property);
+    if (is<TokenNode>(node, $Node.TOKEN)) {
+      const item = new CompletionItem(node.text, CompletionItemKind.Property);
+    }
 
     return [];
   }

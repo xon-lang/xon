@@ -1,14 +1,10 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "declaration": true,
-    "esModuleInterop": true,
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "outDir": "projects/vscode/dist",
-    "sourceMap": true,
     "strict": true,
     "target": "ESNext",
     "useUnknownInCatchVariables": true
