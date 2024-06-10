@@ -1,5 +1,12 @@
 import {Integer, Nothing, nothing} from '../../../../../lib/types';
-import {ARRAY_CLOSE, ARRAY_OPEN, GROUP_CLOSE, GROUP_OPEN, OBJECT_CLOSE, OBJECT_OPEN} from '../../../parser-config';
+import {
+  ARRAY_CLOSE,
+  ARRAY_OPEN,
+  GROUP_CLOSE,
+  GROUP_OPEN,
+  OBJECT_CLOSE,
+  OBJECT_OPEN,
+} from '../../../lexical/lexical-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group} from '../../group/group-node';
 import {groupNodeParse} from '../../group/group-node-parse';

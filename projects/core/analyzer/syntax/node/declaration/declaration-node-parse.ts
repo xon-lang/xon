@@ -1,5 +1,5 @@
 import {Array2, Integer, Nothing, nothing} from '../../../../../lib/types';
-import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIERS} from '../../../parser-config';
+import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIERS} from '../../../lexical/lexical-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
 import {$Node, ExpressionNode, Node, is, isNonOperatorExpression, nodeFindMap} from '../../node';
@@ -33,7 +33,11 @@ export function declarationNodeParse(): SyntaxParseFn {
       parts.id.hiddenNodes = parts.idHiddenNodes;
     }
 
-    return {index: parts.spliceIndex, deleteCount: parts.deleteCount, node: partialToDeclaration(context, parts)};
+    return {
+      index: parts.spliceIndex,
+      deleteCount: parts.deleteCount,
+      node: partialToDeclaration(context, parts),
+    };
   };
 }
 

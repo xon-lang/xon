@@ -1,5 +1,5 @@
 import {Integer, Nothing, nothing} from '../../../../../lib/types';
-import {OPERATORS} from '../../../parser-config';
+import {OPERATORS} from '../../../lexical/lexical-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {idNodeParse} from '../id/id-node-parse';
 import {TokenNode} from '../token-node';

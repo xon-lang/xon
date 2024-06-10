@@ -1,5 +1,5 @@
 import {Integer, nothing} from '../../../../../lib/types';
-import {IMPORT} from '../../../parser-config';
+import {IMPORT} from '../../../lexical/lexical-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, is, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';

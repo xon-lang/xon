@@ -1,5 +1,5 @@
 import {Integer, Nothing, nothing} from '../../../../../lib/types';
-import {COMMENT_LINE, NL} from '../../../parser-config';
+import {COMMENT_LINE, NL} from '../../../lexical/lexical-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {CommentLineNode, commentLineNode} from './comment-line-node';
 

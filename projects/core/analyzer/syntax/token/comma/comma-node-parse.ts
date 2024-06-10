@@ -1,5 +1,5 @@
 import {Integer, Nothing, nothing} from '../../../../../lib/types';
-import {COMMA} from '../../../parser-config';
+import {COMMA} from '../../../lexical/lexical-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {CommaNode, commaNode} from './comma-node';
 

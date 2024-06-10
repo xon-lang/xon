@@ -1,5 +1,5 @@
 import {Array2, Boolean2, Nothing, String2, nothing} from '../../lib/types';
-import {NL} from '../analyzer/parser-config';
+import {NL} from '../analyzer/lexical/lexical-config';
 import {SyntaxContext} from '../analyzer/syntax-context';
 import {$Node, Node, is} from '../analyzer/syntax/node';
 import {StatementNode} from '../analyzer/syntax/statement/statement-node';

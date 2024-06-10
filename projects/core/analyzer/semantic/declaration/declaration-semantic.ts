@@ -1,6 +1,6 @@
 import {Array2, Boolean2, Nothing, String2} from '../../../../lib/types';
 import {TextResourceReference} from '../../../util/resource/resource-reference';
-import {TYPE_MODIFIERS, VALUE_MODIFIERS} from '../../parser-config';
+import {TYPE_MODIFIERS, VALUE_MODIFIERS} from '../../lexical/lexical-config';
 import {$Semantic, Semantic, semanticIs} from '../semantic';
 import {TypeSemantic} from '../type/type-semantic';
 import {ValueSemantic} from '../value/value-semantic';

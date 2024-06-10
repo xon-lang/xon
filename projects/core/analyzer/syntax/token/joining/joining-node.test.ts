@@ -1,6 +1,6 @@
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {JOINING} from '../../../parser-config';
+import {JOINING} from '../../../lexical/lexical-config';
 import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';
 import {MemberNode} from '../../node/member/member-node';

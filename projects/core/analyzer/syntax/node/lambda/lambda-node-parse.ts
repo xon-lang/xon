@@ -1,5 +1,5 @@
 import {Array2, Integer, Nothing, nothing} from '../../../../../lib/types';
-import {ASSIGN, TYPE} from '../../../parser-config';
+import {ASSIGN, TYPE} from '../../../lexical/lexical-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
 import {$Node, ExpressionNode, Node, is, isNonOperatorExpression, nodeFindMap} from '../../node';

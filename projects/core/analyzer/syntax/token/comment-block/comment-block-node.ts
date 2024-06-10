@@ -1,6 +1,6 @@
 import {String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
-import {COMMENT_BLOCK} from '../../../parser-config';
+import {COMMENT_BLOCK} from '../../../lexical/lexical-config';
 import {$Node} from '../../node';
 import {HiddenNode, TokenNode, tokenNode} from '../token-node';
 

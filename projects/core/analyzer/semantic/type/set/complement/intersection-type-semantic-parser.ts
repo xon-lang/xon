@@ -1,5 +1,5 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
-import {COMPLEMENT} from '../../../../parser-config';
+import {COMPLEMENT} from '../../../../lexical/lexical-config';
 import {$Node, Node, is} from '../../../../syntax/node';
 import {InfixNode} from '../../../../syntax/node/infix/infix-node';
 import {SemanticContext} from '../../../semantic-context';

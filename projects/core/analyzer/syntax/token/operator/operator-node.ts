@@ -1,6 +1,6 @@
 import {Nothing, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
-import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS} from '../../../parser-config';
+import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS} from '../../../lexical/lexical-config';
 import {$Node, ExpressionNode} from '../../node';
 import {TokenNode, tokenNode} from '../token-node';
 

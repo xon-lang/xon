@@ -1,5 +1,5 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
-import {NOT} from '../../../../parser-config';
+import {NOT} from '../../../../lexical/lexical-config';
 import {$Node, Node, is} from '../../../../syntax/node';
 import {PrefixNode} from '../../../../syntax/node/prefix/prefix-node';
 import {SemanticContext} from '../../../semantic-context';

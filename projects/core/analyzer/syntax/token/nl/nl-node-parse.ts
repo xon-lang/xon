@@ -1,5 +1,5 @@
 import {Integer, Nothing, nothing} from '../../../../../lib/types';
-import {NL, SPACE} from '../../../parser-config';
+import {NL, SPACE} from '../../../lexical/lexical-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {NlNode, nlNode} from './nl-node';
 

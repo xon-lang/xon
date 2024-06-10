@@ -1,5 +1,5 @@
 import {Integer, Nothing, nothing} from '../../../../../lib/types';
-import {DOCUMENTATION} from '../../../parser-config';
+import {DOCUMENTATION} from '../../../lexical/lexical-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {DocumentationNode, documentationNode} from './documentation-node';
 

@@ -1,5 +1,5 @@
 import {Integer, Nothing, nothing} from '../../../../../lib/types';
-import {STRING_QUOTE} from '../../../parser-config';
+import {STRING_QUOTE} from '../../../lexical/lexical-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {StringNode, stringNode} from './string-node';
 

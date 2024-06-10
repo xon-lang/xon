@@ -1,5 +1,5 @@
 import {Integer, Nothing, nothing} from '../../../../../lib/types';
-import {JOINING, NL, SPACE} from '../../../parser-config';
+import {JOINING, NL, SPACE} from '../../../lexical/lexical-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {JoiningNode, joiningNode} from './joining-node';
 

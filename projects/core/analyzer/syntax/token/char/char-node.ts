@@ -1,6 +1,6 @@
 import {Char, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
-import {CHAR_QUOTE} from '../../../parser-config';
+import {CHAR_QUOTE} from '../../../lexical/lexical-config';
 import {$Node, ExpressionNode} from '../../node';
 import {TokenNode, tokenNode} from '../token-node';
 
