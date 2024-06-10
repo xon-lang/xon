@@ -1,5 +1,5 @@
-import {ArrayNode} from 'projects/core/analyzer/node/group/group-node';
 import {Nothing, nothing} from '../../../../lib/types';
+import {ArrayNode} from '../../../analyzer/node/group/group-node';
 import {$Node, Node, is} from '../../../analyzer/node/node';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {DeclarationKind} from '../../declaration-manager';
