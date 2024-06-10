@@ -10,7 +10,7 @@
     "outDir": "projects/vscode/dist",
     "sourceMap": true,
     "strict": true,
-    "target": "ES2021",
+    "target": "ESNext",
     "useUnknownInCatchVariables": true
   }
 }
