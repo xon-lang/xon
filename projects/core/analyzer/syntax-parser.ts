@@ -8,6 +8,7 @@ import {TextResource} from '../util/resource/text/text-resource';
 import {putStatementNode} from './put-statement-node';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
 import {SyntaxParserConfig} from './syntax-parser-config';
+import {groupNodeParse} from './syntax/group/group-node-parse';
 import {$Node, Node, is} from './syntax/node';
 import {charNodeParse} from './syntax/token/char/char-node-parse';
 import {closeNodeParse} from './syntax/token/close/close-node-parse';
@@ -19,7 +20,6 @@ import {integerNodeParse} from './syntax/token/integer/integer-node-parse';
 import {joiningNodeParse} from './syntax/token/joining/joining-node-parse';
 import {NlNode} from './syntax/token/nl/nl-node';
 import {nlNodeParse} from './syntax/token/nl/nl-node-parse';
-import {openNodeParse} from './syntax/token/open/open-node-parse';
 import {operatorNodeParse} from './syntax/token/operator/operator-node-parse';
 import {stringNodeParse} from './syntax/token/string/string-node-parse';
 import {HiddenNode} from './syntax/token/token-node';
@@ -31,7 +31,7 @@ export type TokenParseResult = Node | Nothing;
 export type TokenParseFn = (context: SyntaxContext, index: Integer) => TokenParseResult;
 
 const parsers: Array2<TokenParseFn> = [
-  openNodeParse,
+  groupNodeParse,
   closeNodeParse,
   commaNodeParse,
 

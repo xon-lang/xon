@@ -1,4 +1,12 @@
-import {Array2, Nothing, String2, nothing} from '../../../../lib/types';
+import {Array2, Integer, Nothing, String2, nothing} from '../../../../lib/types';
+import {
+  ARRAY_CLOSE,
+  ARRAY_OPEN,
+  GROUP_CLOSE,
+  GROUP_OPEN,
+  OBJECT_CLOSE,
+  OBJECT_OPEN,
+} from '../../lexical/lexical-config';
 import {SyntaxContext} from '../../syntax-context';
 import {syntaxParse} from '../../syntax-parser';
 import {SyntaxParserConfig} from '../../syntax-parser-config';
@@ -9,7 +17,25 @@ import {openNode} from '../token/open/open-node';
 import {$Group, Group, groupNode} from './group-node';
 import {ItemNode, itemNode} from './item-node';
 
-export function groupNodeParse(
+export function groupNodeParse(context: SyntaxContext, index: Integer): Group | Nothing {
+  const char = context.resource.data[index];
+
+  if (char === GROUP_OPEN) {
+    return groupNodeParseInner(context, $Node.GROUP, GROUP_OPEN, GROUP_CLOSE);
+  }
+
+  if (char === ARRAY_OPEN) {
+    return groupNodeParseInner(context, $Node.ARRAY, ARRAY_OPEN, ARRAY_CLOSE);
+  }
+
+  if (char === OBJECT_OPEN) {
+    return groupNodeParseInner(context, $Node.OBJECT, OBJECT_OPEN, OBJECT_CLOSE);
+  }
+
+  return nothing;
+}
+
+function groupNodeParseInner(
   context: SyntaxContext,
   $: $Group,
   openText: String2,
