@@ -4,7 +4,7 @@ import {SyntaxContext} from '../../../syntax-context';
 import {CommentBlockNode, commentBlockNode} from './comment-block-node';
 
 export function commentBlockNodeParse(context: SyntaxContext, index: Integer): CommentBlockNode | Nothing {
-  if (context.resource.data.take(COMMENT_BLOCK_OPEN.length, index) !== COMMENT_BLOCK_OPEN) {
+  if (!context.checkLexemeAtIndex(COMMENT_BLOCK_OPEN, index)) {
     return nothing;
   }
 
