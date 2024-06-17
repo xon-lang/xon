@@ -4,7 +4,7 @@ import {SyntaxContext} from '../../../syntax-context';
 import {NlNode, nlNode} from './nl-node';
 
 export function nlNodeParse(context: SyntaxContext, index: Integer): NlNode | Nothing {
-  if (context.resource.data[index] !== NL) {
+  if (context.resource.data.take(NL.length, index) !== NL) {
     return nothing;
   }
 

@@ -4,7 +4,7 @@ import {SyntaxContext} from '../../../syntax-context';
 import {WhitespaceNode, whitespaceNode} from './whitespace-node';
 
 export function whitespaceNodeParse(context: SyntaxContext, index: Integer): WhitespaceNode | Nothing {
-  if (context.resource.data[index] !== SPACE) {
+  if (context.resource.data.take(SPACE.length, index) !== SPACE) {
     return nothing;
   }
 

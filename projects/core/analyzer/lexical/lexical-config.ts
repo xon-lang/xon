@@ -19,6 +19,8 @@ export const MEMBER = '.';
 export const META_MEMBER = '::';
 export const RANGE = '..';
 
+export const AT = '@';
+
 export const INTERSECTION = '&';
 export const UNION = '|';
 export const COMPLEMENT = '\\';

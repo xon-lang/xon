@@ -1,9 +1,9 @@
 import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
-import {Anything, String2} from '../../../lib/types';
-import {performanceIterations} from '../../util/performance';
-import {textResourceFromFilePath} from '../../util/resource/text/text-resource';
-import {syntaxParse} from '../syntax-parser';
+import {Anything, String2} from '../../lib/types';
+import {syntaxParse} from '../analyzer/syntax-parser';
+import {performanceIterations} from '../util/performance';
+import {textResourceFromFilePath} from '../util/resource/text/text-resource';
 
 test('performance', () => {
   const resource = textResourceFromFilePath('projects/core/parser/test/performance/source.xon');

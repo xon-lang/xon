@@ -4,7 +4,7 @@ import {SyntaxContext} from '../../../syntax-context';
 import {JoiningNode, joiningNode} from './joining-node';
 
 export function joiningNodeParse(context: SyntaxContext, index: Integer): JoiningNode | Nothing {
-  if (context.resource.data[index] !== JOINING) {
+  if (!context.checkLexemeAtIndex(JOINING, index)) {
     return nothing;
   }
 

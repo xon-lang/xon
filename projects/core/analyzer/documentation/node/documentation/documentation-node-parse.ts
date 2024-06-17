@@ -1,4 +1,4 @@
-import {Array2, Nothing, nothing} from '../../../../../lib/types';
+import {Array2, Integer, Nothing, nothing} from '../../../../../lib/types';
 import {DOCUMENTATION_OPEN} from '../../../lexical/lexical-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {syntaxParse} from '../../../syntax-parser';
@@ -11,7 +11,11 @@ import {CommaNode} from '../../../syntax/token/comma/comma-node';
 import {openNode} from '../../../syntax/token/open/open-node';
 import {DocumentationNode} from './documentation-node';
 
-export function documentationNodeParse(context: SyntaxContext): DocumentationNode {
+export function documentationNodeParse(context: SyntaxContext, index: Integer): DocumentationNode | Nothing {
+  if (context.resource.data.take(DOCUMENTATION_OPEN.length, index) !== DOCUMENTATION_OPEN) {
+    return nothing;
+  }
+
   const range = context.getRange(DOCUMENTATION_OPEN.length);
   const open = openNode(range, DOCUMENTATION_OPEN);
 

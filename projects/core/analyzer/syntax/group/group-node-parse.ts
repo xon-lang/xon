@@ -18,17 +18,15 @@ import {$Group, Group, groupNode} from './group-node';
 import {ItemNode, itemNode} from './item-node';
 
 export function groupNodeParse(context: SyntaxContext, index: Integer): Group | Nothing {
-  const char = context.resource.data[index];
-
-  if (char === GROUP_OPEN) {
+  if (context.checkLexemeAtIndex(GROUP_OPEN, index)) {
     return groupNodeParseInner(context, $Node.GROUP, GROUP_OPEN, GROUP_CLOSE);
   }
 
-  if (char === ARRAY_OPEN) {
+  if (context.checkLexemeAtIndex(ARRAY_OPEN, index)) {
     return groupNodeParseInner(context, $Node.ARRAY, ARRAY_OPEN, ARRAY_CLOSE);
   }
 
-  if (char === OBJECT_OPEN) {
+  if (context.checkLexemeAtIndex(OBJECT_OPEN, index)) {
     return groupNodeParseInner(context, $Node.OBJECT, OBJECT_OPEN, OBJECT_CLOSE);
   }
 

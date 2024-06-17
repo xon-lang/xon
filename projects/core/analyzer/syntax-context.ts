@@ -1,4 +1,4 @@
-import {Array2, Integer, Nothing, nothing} from '../../lib/types';
+import {Array2, Boolean2, Integer, Nothing, String2, nothing} from '../../lib/types';
 import {FormatterManager, createFormatterManager} from '../formatter/formatter-manager';
 import {IssueManager, createIssueManager} from '../issue/issue-manager';
 import {TextPosition, textPosition} from '../util/resource/text/text-position';
@@ -29,9 +29,10 @@ export interface SyntaxContext {
   formatterManager: FormatterManager;
   config: SyntaxParserConfig;
 
-  getRange: (length: Integer) => TextRange;
-  getRangeWithNL: (length: Integer) => TextRange;
-  getSymbolRange: () => TextRange;
+  getRange(length: Integer): TextRange;
+  getRangeWithNL(length: Integer): TextRange;
+  getSymbolRange(): TextRange;
+  checkLexemeAtIndex(lexeme: String2, index: Integer): Boolean2;
 }
 
 export function syntaxContext(
@@ -89,6 +90,10 @@ export function syntaxContext(
         textPosition(this.position.index, this.position.line, this.position.column),
         textPosition(this.position.index + 1, this.position.line, this.position.column + 1),
       );
+    },
+
+    checkLexemeAtIndex(lexeme: String2, index: Integer): Boolean2 {
+      return this.resource.data.take(lexeme.length, index) === lexeme;
     },
   };
 }
