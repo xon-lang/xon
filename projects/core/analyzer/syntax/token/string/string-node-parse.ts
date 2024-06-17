@@ -4,7 +4,7 @@ import {SyntaxContext} from '../../../syntax-context';
 import {StringNode, stringNode} from './string-node';
 
 export function stringNodeParse(context: SyntaxContext, index: Integer): StringNode | Nothing {
-  if (context.resource.data[index] !== STRING_QUOTE) {
+  if (!context.checkLexemeAtIndex(STRING_QUOTE, index)) {
     return nothing;
   }
 
