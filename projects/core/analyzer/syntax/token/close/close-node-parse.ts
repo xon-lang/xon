@@ -4,9 +4,10 @@ import {SyntaxContext} from '../../../syntax-context';
 import {CloseNode, closeNode} from './close-node';
 
 export function closeNodeParse(context: SyntaxContext, index: Integer): CloseNode | Nothing {
-  const char = context.resource.data[index];
+  // todo create separate tokens for each lexemes
+  const closesLexemes = [GROUP_CLOSE, ARRAY_CLOSE, OBJECT_CLOSE];
 
-  if (char !== GROUP_CLOSE && char !== ARRAY_CLOSE && char !== OBJECT_CLOSE) {
+  if (!closesLexemes.some((x) => context.checkLexemeAtIndex(x, index))) {
     return nothing;
   }
 

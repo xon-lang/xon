@@ -4,7 +4,7 @@ import {SyntaxContext} from '../../../syntax-context';
 import {CommaNode, commaNode} from './comma-node';
 
 export function commaNodeParse(context: SyntaxContext, index: Integer): CommaNode | Nothing {
-  if (context.resource.data[index] !== COMMA) {
+  if (!context.checkLexemeAtIndex(COMMA, index)) {
     return nothing;
   }
 
