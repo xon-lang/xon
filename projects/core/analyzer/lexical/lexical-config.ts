@@ -1,6 +1,10 @@
 export const COMMENT_LINE = '//';
-export const COMMENT_BLOCK = '---';
-export const DOCUMENTATION = '===';
+
+export const COMMENT_BLOCK_OPEN = '---';
+export const COMMENT_BLOCK_CLOSE = '---';
+
+export const DOCUMENTATION_OPEN = '===';
+export const DOCUMENTATION_CLOSE = '===';
 
 export const NL = '\n';
 export const COMMA = ',';

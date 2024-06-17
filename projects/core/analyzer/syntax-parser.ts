@@ -14,7 +14,6 @@ import {closeNodeParse} from './syntax/token/close/close-node-parse';
 import {commaNodeParse} from './syntax/token/comma/comma-node-parse';
 import {commentBlockNodeParse} from './syntax/token/comment-block/comment-block-node-parse';
 import {commentLineNodeParse} from './syntax/token/comment-line/comment-line-node-parse';
-import {documentationNodeParse} from './syntax/token/documentation/documentation-parse';
 import {idNodeParse} from './syntax/token/id/id-node-parse';
 import {integerNodeParse} from './syntax/token/integer/integer-node-parse';
 import {joiningNodeParse} from './syntax/token/joining/joining-node-parse';
@@ -38,7 +37,6 @@ const parsers: Array2<TokenParseFn> = [
 
   commentLineNodeParse,
   commentBlockNodeParse,
-  documentationNodeParse,
   whitespaceNodeParse,
   nlNodeParse,
   joiningNodeParse,
