@@ -23,7 +23,7 @@ export function declarationShallowParse(
   return declaration;
 }
 
-export function getDocumentation(node: DeclarationNode): String2 | Nothing {
+export function getDocumentation(_node: DeclarationNode): String2 | Nothing {
   return '';
   // if (is<StatementNode>(node.parent, $Node.STATEMENT)) {
   //   return node.parent.hiddenNodes?.last<DocumentationNode>((x): x is DocumentationNode =>

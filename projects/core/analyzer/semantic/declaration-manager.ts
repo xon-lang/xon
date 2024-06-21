@@ -1,11 +1,9 @@
 import {Array2, Integer, Nothing, String2, nothing} from '../../../lib/types';
-import {IssueManager} from '../../issue/issue-manager';
 import {
   DeclarationSemantic,
   isTypeDeclarationSemantic,
   isValueDeclarationSemantic,
 } from './declaration/declaration-semantic';
-import {SemanticConfig} from './semantic-config';
 import {TypeSemantic} from './type/type-semantic';
 
 export enum DeclarationKind {
@@ -33,10 +31,10 @@ export interface DeclarationManager {
 }
 
 export function createDeclarationManager(
-  issueManager: IssueManager,
+  // issueManager: IssueManager,
   parent?: DeclarationManager,
   imports?: Array2<DeclarationManager> | Nothing,
-  config?: SemanticConfig | Nothing,
+  // config?: SemanticConfig | Nothing,
 ): DeclarationManager {
   return {
     imports,
@@ -83,7 +81,7 @@ export function createDeclarationManager(
       kind: DeclarationKind | Nothing,
       name: String2,
       generics: Array2<TypeSemantic | Nothing> | Nothing,
-      parameters: Array2<TypeSemantic | Nothing> | Nothing,
+      // parameters: Array2<TypeSemantic | Nothing> | Nothing,
     ): DeclarationSemantic | Nothing {
       const declarations = this.filterByName(kind, name);
 

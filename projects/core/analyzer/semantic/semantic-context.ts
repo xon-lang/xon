@@ -25,10 +25,10 @@ export function semanticContext(
   config: SemanticConfig,
 ): SemanticContext {
   const declarationManager = createDeclarationManager(
-    issueManager,
+    // issueManager,
     parent?.declarationManager,
     imports,
-    config,
+    // config,
   );
 
   return {

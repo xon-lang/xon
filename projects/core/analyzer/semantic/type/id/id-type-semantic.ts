@@ -62,7 +62,7 @@ export function idTypeSemantic(
 }
 
 export function getDeclarationAttributes(
-  context: SemanticContext,
+  _context: SemanticContext,
   declaration: DeclarationSemantic,
 ): Record<String2, Array2<TypeSemantic>> {
   const attributes: Record<String2, Array2<TypeSemantic>> = {};

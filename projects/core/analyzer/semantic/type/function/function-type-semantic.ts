@@ -37,7 +37,7 @@ export function functionTypeSemantic(
       return false;
     },
 
-    eq(other: TypeSemantic): Boolean2 {
+    eq(_other: TypeSemantic): Boolean2 {
       return false;
     },
 

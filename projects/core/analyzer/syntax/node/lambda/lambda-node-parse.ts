@@ -14,7 +14,7 @@ import {TypeNode, typeNode} from '../type/type-node';
 import {lambdaNode} from './lambda-node';
 
 export function lambdaNodeParse(): SyntaxParseFn {
-  return (context: SyntaxContext, index: Integer) => {
+  return (context: SyntaxContext) => {
     const parts = getLambdaParts(context);
 
     if (!parts || !parts.parameters) {

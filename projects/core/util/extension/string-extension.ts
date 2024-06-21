@@ -80,7 +80,7 @@ String.prototype.count = function (
 ): Integer {
   const array = Array.from<Char>(this);
 
-  return array.reduce((sum, val, index, array) => sum + (predicate(val, index, this.toString()) ? 1 : 0), 0);
+  return array.reduce((sum, val, index) => sum + (predicate(val, index, this.toString()) ? 1 : 0), 0);
 };
 
 String.prototype.first = function (

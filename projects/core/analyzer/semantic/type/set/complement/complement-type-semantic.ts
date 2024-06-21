@@ -24,7 +24,7 @@ export function complementTypeSemantic(
       return this.eq(other);
     },
 
-    eq(other: TypeSemantic): Boolean2 {
+    eq(_other: TypeSemantic): Boolean2 {
       return false;
     },
 
