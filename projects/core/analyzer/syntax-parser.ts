@@ -55,12 +55,12 @@ const tokenParsers: Array2<TokenParseFn> = [
 
 export function syntaxParse(
   resource: TextResource,
-  startPosition: TextPosition | Nothing,
-  issueManager: IssueManager | Nothing,
-  formatterManager: FormatterManager | Nothing,
-  breakOnNodeFn: ((node: Node) => Boolean2) | Nothing,
-  config: SyntaxParserConfig | Nothing,
-  lexer: LexicalAnalyzer | Nothing,
+  startPosition?: TextPosition | Nothing,
+  issueManager?: IssueManager | Nothing,
+  formatterManager?: FormatterManager | Nothing,
+  breakOnNodeFn?: ((node: Node) => Boolean2) | Nothing,
+  config?: SyntaxParserConfig | Nothing,
+  lexer?: LexicalAnalyzer | Nothing,
 ): SyntaxResult {
   const position = startPosition ?? zeroPosition();
   const lexerInner = lexer ?? createLexicalAnalyzer(tokenParsers, resource, position);

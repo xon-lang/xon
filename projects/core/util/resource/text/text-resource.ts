@@ -1,6 +1,6 @@
 import {readFileSync, statSync} from 'fs';
-import {Boolean2, Nothing, String2, nothing} from '../../../../lib/types';
-import {$Resource, Resource, resourceIs} from '../resource';
+import {Nothing, String2, nothing} from '../../../../lib/types';
+import {$Resource, Resource} from '../resource';
 import {TextPosition} from './text-position';
 import {TextRange} from './text-range';
 
@@ -17,14 +17,6 @@ export function textResourceFrom(location: String2 | Nothing, data: String2): Te
     $: $Resource.TEXT,
     location,
     data,
-
-    eq(other: Resource): Boolean2 {
-      if (this.location) {
-        return this.location === other.location;
-      }
-
-      return resourceIs<TextResource>(other, $Resource.TEXT) && this.data === other.data;
-    },
 
     getRangeText({start, stop}: TextRange): String2 {
       return this.data.slice(start.index, stop.index);

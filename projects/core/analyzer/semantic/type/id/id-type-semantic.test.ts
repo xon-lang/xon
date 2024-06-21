@@ -19,8 +19,8 @@ test('a is integer', () => {
   const semantic = semanticParse(syntax);
 
   expect(semantic.declarationManager.count()).toBe(2);
-  expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.DECLARATION);
-  expect(semantic.declarationManager.declarations.a[0].name).toBe('a');
+  expect(semantic.declarationManager.declarations['a'][0].$).toBe($Semantic.DECLARATION);
+  expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[1].value as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
@@ -46,8 +46,8 @@ test('a is array', () => {
   const semantic = semanticParse(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);
-  expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.DECLARATION);
-  expect(semantic.declarationManager.declarations.a[0].name).toBe('a');
+  expect(semantic.declarationManager.declarations['a'][0].$).toBe($Semantic.DECLARATION);
+  expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[2].value as DeclarationNode;
   expect(constNode.id?.text).toBe('a');

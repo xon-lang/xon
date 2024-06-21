@@ -1,6 +1,6 @@
 export type Something = boolean | number | string | object;
 
-export type Nothing = null | undefined | void;
+export type Nothing = null | undefined;
 
 export type Anything = Something | Nothing; // Universe
 
