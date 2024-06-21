@@ -6,7 +6,8 @@ import {ISSUE_MESSAGE} from '../issue/issue-message';
 import {TextPosition, zeroPosition} from '../util/resource/text/text-position';
 import {TextRange, cloneRange, rangeFromPosition} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
-import {TextResourcePosition, textResourcePosition} from '../util/resource/text/text-resource-position';
+import {TextResourcePosition} from '../util/resource/text/text-resource-position';
+import {LexicalAnalyzer, createLexicalAnalyzer} from './lexical/lexical-analyzer';
 import {putStatementNode} from './put-statement-node';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
 import {SyntaxParserConfig} from './syntax-parser-config';
@@ -28,7 +29,6 @@ import {operatorNodeParse} from './syntax/token/operator/operator-node-parse';
 import {stringNodeParse} from './syntax/token/string/string-node-parse';
 import {HiddenNode, TokenNode} from './syntax/token/token-node';
 import {UnknownNode} from './syntax/token/unknown/unknown-node';
-import {unknownNodeParse} from './syntax/token/unknown/unknown-node-parse';
 import {WhitespaceNode} from './syntax/token/whitespace/whitespace-node';
 import {whitespaceNodeParse} from './syntax/token/whitespace/whitespace-node-parse';
 
@@ -60,10 +60,10 @@ export function syntaxParse(
   formatterManager: FormatterManager | Nothing,
   breakOnNodeFn: ((node: Node) => Boolean2) | Nothing,
   config: SyntaxParserConfig | Nothing,
-  lexer: LexerAnalyzer | Nothing,
+  lexer: LexicalAnalyzer | Nothing,
 ): SyntaxResult {
   const position = startPosition ?? zeroPosition();
-  const lexerInner = lexer ?? createLexerAnalyzer(tokenParsers, resource, position);
+  const lexerInner = lexer ?? createLexicalAnalyzer(tokenParsers, resource, position);
   const context = syntaxContext(resource, lexerInner, issueManager, formatterManager, config);
   let statementIndent: TextRange = rangeFromPosition(position);
 
@@ -118,35 +118,6 @@ export function syntaxParse(
   return {
     ...context,
     syntaxContext: context,
-  };
-}
-
-export interface LexerAnalyzer {
-  tokenParsers: Array2<TokenParseFn>;
-  resource: TextResource;
-  startPosition: TextPosition;
-  cursor: TextResourcePosition;
-
-  nextNode(): TokenNode;
-}
-
-export function createLexerAnalyzer(
-  tokenParsers: Array2<TokenParseFn>,
-  resource: TextResource,
-  startPosition: TextPosition,
-): LexerAnalyzer {
-  return {
-    tokenParsers,
-    resource,
-    startPosition,
-    cursor: textResourcePosition(resource, startPosition),
-
-    nextNode(): TokenNode {
-      const node = this.tokenParsers.findMap((lexer) => lexer(this.cursor)) ?? unknownNodeParse(this.cursor);
-      this.cursor.position = node.range.stop;
-
-      return node;
-    },
   };
 }
 

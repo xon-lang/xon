@@ -2,7 +2,7 @@ import {Array2, Nothing, nothing} from '../../lib/types';
 import {FormatterManager, createFormatterManager} from '../formatter/formatter-manager';
 import {IssueManager, createIssueManager} from '../issue/issue-manager';
 import {TextResource} from '../util/resource/text/text-resource';
-import {LexerAnalyzer} from './syntax-parser';
+import {LexicalAnalyzer} from './lexical/lexical-analyzer';
 import {DEFAULT_SYNTAX_PARSER_CONFIG, SyntaxParserConfig} from './syntax-parser-config';
 import {Node} from './syntax/node';
 import {StatementNode} from './syntax/statement/statement-node';
@@ -16,7 +16,7 @@ export type SyntaxResult = Pick<SyntaxContext, ContextAttributes> & {
 
 export interface SyntaxContext {
   resource: TextResource;
-  lexer: LexerAnalyzer;
+  lexer: LexicalAnalyzer;
   hiddenNodes: Array2<TokenNode>;
   breakNode: Node | Nothing;
   parentStatement: StatementNode | Nothing;
@@ -30,7 +30,7 @@ export interface SyntaxContext {
 
 export function syntaxContext(
   resource: TextResource,
-  lexer: LexerAnalyzer,
+  lexer: LexicalAnalyzer,
   issueManager: IssueManager | Nothing,
   formatterManager: FormatterManager | Nothing,
   config: SyntaxParserConfig | Nothing,
