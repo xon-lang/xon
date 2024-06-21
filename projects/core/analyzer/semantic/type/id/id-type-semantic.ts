@@ -69,7 +69,7 @@ export function getDeclarationAttributes(
 
   if (isTypeDeclarationSemantic(declaration)) {
     for (const [name, declarations] of Object.entries(declaration?.attributes ?? {})) {
-      const types = declarations.map((x) => x.type).filter((x): x is TypeSemantic => !!x);
+      const types = declarations.map((x) => x.type).filter((x) => !!x);
       attributes[name] = types;
     }
   }

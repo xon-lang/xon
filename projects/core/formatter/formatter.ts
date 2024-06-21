@@ -92,7 +92,7 @@ export function formatStatementNode(context: SyntaxContext, statement: Statement
 
   const indentText = ' '.repeat(context.config.formatting.indentSpaceLength * statement.indentLevel);
   const afterIndentHiddenNodes = statement.hiddenNodes.slice(lastNlIndex + 1);
-  const nonWhitespaceNodes = afterIndentHiddenNodes.filter((x) => !is(x, $Node.WHITESPACE));
+  const nonWhitespaceNodes = afterIndentHiddenNodes.filter((x) => !is<WhitespaceNode>(x, $Node.WHITESPACE));
   const text =
     indentText + nonWhitespaceNodes.map((x) => x.text).join(' ') + (nonWhitespaceNodes.length > 0 ? ' ' : '');
 
@@ -154,8 +154,8 @@ export function formatHiddenNodes(
   isNoFirstChildNode: Boolean2,
 ): String2 {
   const splittedByNl = hiddenNodes
-    .filter((x) => !is(x, $Node.WHITESPACE))
-    .splitBy<NlNode>((x): x is NlNode => is<NlNode>(x, $Node.NL));
+    .filter((x) => !is<WhitespaceNode>(x, $Node.WHITESPACE))
+    .splitBy<NlNode>((x) => is<NlNode>(x, $Node.NL));
 
   const text = splittedByNl
     .map((x) => formatNlNode(context, x.splitter) + x.items.map((z) => z.text).join(' '))

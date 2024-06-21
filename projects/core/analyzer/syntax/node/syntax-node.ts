@@ -11,7 +11,7 @@ export function syntaxNode<T extends $Node, U extends Record<String2, Node | Arr
   nodes: U,
 ): {$: T} & {children: Array2<Node>; range: TextRange; semantic: Nothing} & U {
   const children = Object.values(nodes)
-    .filter((x): x is Node | Array2<Node> => !!x)
+    .filter((x) => !!x)
     .flat();
   const first = children.first();
 
