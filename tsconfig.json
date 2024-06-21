@@ -1,13 +1,6 @@
 {
-  // "compileOnSave": false,
+  "compileOnSave": false,
   "compilerOptions": {
-
-    // "noImplicitAny": true,
-    // "noImplicitReturns": true,
-    // "outDir": "projects/vscode/dist",
-    // "strict": true,
-    // "useUnknownInCatchVariables": true,
-
     // "alwaysStrict": true,
     // "declaration": false,
     // "esModuleInterop": true,
@@ -17,31 +10,17 @@
     "moduleResolution": "NodeNext",
     // "noFallthroughCasesInSwitch": true,
     // "noImplicitAny": true,
-    // "noImplicitOverride": true,
-    // "noImplicitReturns": false,
-    // "noPropertyAccessFromIndexSignature": true,
-    // "outDir": "projects/vscode/dist",
-    // "skipLibCheck": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": false,
+    "noPropertyAccessFromIndexSignature": true,
+    "outDir": "projects/vscode/dist",
+    "skipLibCheck": true,
     "strict": true,
-    "target": "ESNext"
-    // "useDefineForClassFields": false,
-    // "useUnknownInCatchVariables": true,
+    "target": "ESNext",
+    "useDefineForClassFields": false,
+    "useUnknownInCatchVariables": true,
     // "verbatimModuleSyntax": true,
-    // "allowUnreachableCode": false,
-    // "allowUnusedLabels": false
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false
   }
 }
-
-
-// {
-//   "compilerOptions": {
-//     "module": "NodeNext",
-//     "moduleResolution": "NodeNext",
-//     "noImplicitAny": true,
-//     "noImplicitReturns": true,
-//     "outDir": "projects/vscode/dist",
-//     "strict": true,
-//     "target": "ESNext",
-//     "useUnknownInCatchVariables": true
-//   }
-// }

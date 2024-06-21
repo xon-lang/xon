@@ -10,7 +10,7 @@ test('only a', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const semantic = semanticParse(syntax);
-  const model = semantic.declarationManager.declarations.A[0] as DeclarationSemantic;
+  const model = semantic.declarationManager.declarations['A'][0] as DeclarationSemantic;
 
   expect(semantic.declarationManager.count()).toBe(1);
   expect(model.$).toBe($Semantic.DECLARATION);
@@ -35,14 +35,14 @@ test('declare b then a, a extends b', () => {
 
   expect(semantic.declarationManager.count()).toBe(2);
 
-  const modelA = semantic.declarationManager.declarations.A[0] as DeclarationSemantic;
+  const modelA = semantic.declarationManager.declarations['A'][0] as DeclarationSemantic;
   expect(modelA.$).toBe($Semantic.DECLARATION);
   expect(modelA.modifier).toBe('model');
   expect(modelA.name).toBe('A');
   expect(modelA.type?.$).toBe($Semantic.ID_TYPE);
   expect((modelA.type as IdTypeSemantic)?.declaration?.name).toBe('B');
 
-  const modelB = semantic.declarationManager.declarations.B[0] as DeclarationSemantic;
+  const modelB = semantic.declarationManager.declarations['B'][0] as DeclarationSemantic;
   expect(modelB.$).toBe($Semantic.DECLARATION);
   expect(modelB.modifier).toBe('model');
   expect(modelB.name).toBe('B');
@@ -56,14 +56,14 @@ test('declare a then b, a extends b', () => {
 
   expect(semantic.declarationManager.count()).toBe(2);
 
-  const modelA = semantic.declarationManager.declarations.A[0] as DeclarationSemantic;
+  const modelA = semantic.declarationManager.declarations['A'][0] as DeclarationSemantic;
   expect(modelA.$).toBe($Semantic.DECLARATION);
   expect(modelA.modifier).toBe('model');
   expect(modelA.name).toBe('A');
   expect(modelA.type?.$).toBe($Semantic.ID_TYPE);
   expect((modelA.type as IdTypeSemantic)?.declaration?.name).toBe('B');
 
-  const modelB = semantic.declarationManager.declarations.B[0] as DeclarationSemantic;
+  const modelB = semantic.declarationManager.declarations['B'][0] as DeclarationSemantic;
   expect(modelB.$).toBe($Semantic.DECLARATION);
   expect(modelB.modifier).toBe('model');
   expect(modelB.name).toBe('B');

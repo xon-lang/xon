@@ -18,8 +18,8 @@ test('a is range', () => {
   const semantic = semanticParse(syntax, TEST_SEMANTIC_CONFIG);
 
   expect(semantic.declarationManager.count()).toBe(1);
-  expect(semantic.declarationManager.declarations.a[0].$).toBe($Semantic.DECLARATION);
-  expect(semantic.declarationManager.declarations.a[0].name).toBe('a');
+  expect(semantic.declarationManager.declarations['a'][0].$).toBe($Semantic.DECLARATION);
+  expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[0].value as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
