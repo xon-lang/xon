@@ -47,19 +47,19 @@ function genericsParse(
   declaration.generics = declarationsParse(context, syntaxGenerics) as Array2<DeclarationSemantic>;
 }
 
-function parametersParse(
-  context: SemanticContext,
-  declaration: DeclarationSemantic,
-  node: DeclarationNode,
-): void {
-  if (!node.parameters) {
-    return;
-  }
+// function parametersParse(
+//   context: SemanticContext,
+//   declaration: DeclarationSemantic,
+//   node: DeclarationNode,
+// ): void {
+//   if (!node.parameters) {
+//     return;
+//   }
 
-  const syntaxGenerics = getDeclarationGenerics(node);
-  // todo remove this hack 'as Array2<DeclarationSemantic>'
-  declaration.parameters = declarationsParse(context, syntaxGenerics) as Array2<DeclarationSemantic>;
-}
+//   const syntaxGenerics = getDeclarationGenerics(node);
+//   // todo remove this hack 'as Array2<DeclarationSemantic>'
+//   declaration.parameters = declarationsParse(context, syntaxGenerics) as Array2<DeclarationSemantic>;
+// }
 
 function typeParse(context: SemanticContext, declaration: DeclarationSemantic, node: DeclarationNode): void {
   if (!node.type?.value) {
