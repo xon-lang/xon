@@ -1,6 +1,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    // "verbatimModuleSyntax": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
     "alwaysStrict": true,
     "declaration": false,
     "esModuleInterop": true,
@@ -18,9 +21,6 @@
     "strict": true,
     "target": "ES2022",
     "useDefineForClassFields": false,
-    "useUnknownInCatchVariables": true,
-    // "verbatimModuleSyntax": true,
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false
+    "useUnknownInCatchVariables": true
   }
 }
