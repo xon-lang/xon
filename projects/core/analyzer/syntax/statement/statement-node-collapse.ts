@@ -66,7 +66,7 @@ const parsers: Array2<{min: Integer; parse: SyntaxParseFn}> = [
   {min: 3, parse: assignmentNodeParse()},
 ];
 
-export function statementNodeCollapse(context: SyntaxContext): Nothing {
+export function statementNodeCollapse(context: SyntaxContext): void {
   if (context.nodes.length === 0) {
     return;
   }
@@ -93,7 +93,7 @@ export function statementNodeCollapse(context: SyntaxContext): Nothing {
   }
 }
 
-function validate(context: SyntaxContext, node: Node): Nothing {
+function validate(context: SyntaxContext, node: Node): void {
   const parentDeclaration = context.parentStatement?.value;
 
   if (isTypeDeclarationNode(parentDeclaration)) {

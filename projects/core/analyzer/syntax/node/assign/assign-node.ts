@@ -11,7 +11,11 @@ export type AssignNode = SyntaxNode<$Node.ASSIGN> & {
   value: ExpressionNode;
 };
 
-export function assignNode(context: SyntaxContext, operator: OperatorNode, value: ExpressionNode): AssignNode {
+export function assignNode(
+  context: SyntaxContext,
+  operator: OperatorNode,
+  value: ExpressionNode,
+): AssignNode {
   const node = syntaxNode($Node.ASSIGN, {operator, value});
 
   format(context, node);
@@ -19,6 +23,6 @@ export function assignNode(context: SyntaxContext, operator: OperatorNode, value
   return node;
 }
 
-function format(context: SyntaxContext, node: AssignNode): Nothing {
+function format(context: SyntaxContext, node: AssignNode): void {
   formatChildNode(context, node.value, true);
 }

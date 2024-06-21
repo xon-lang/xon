@@ -1,4 +1,4 @@
-import {Array2, Boolean2, Nothing, String2, nothing} from '../../lib/types';
+import {Array2, Boolean2, Nothing, String2} from '../../lib/types';
 import {NL} from '../analyzer/lexical/lexical-config';
 import {SyntaxContext} from '../analyzer/syntax-context';
 import {$Node, Node, is} from '../analyzer/syntax/node';
@@ -14,7 +14,7 @@ export interface Formatter {
   text: String2;
 }
 
-export function formatChildNode(context: SyntaxContext, node: Node, keepSingleSpace: Boolean2): Nothing {
+export function formatChildNode(context: SyntaxContext, node: Node, keepSingleSpace: Boolean2): void {
   if (!node.hiddenNodes || node.hiddenNodes.length === 0) {
     if (keepSingleSpace) {
       context.formatterManager.addFormatter({
@@ -53,7 +53,7 @@ export function formatChildNode(context: SyntaxContext, node: Node, keepSingleSp
   const text = formatHiddenNodes(context, node.hiddenNodes, true);
 
   if (isSameContent(context.resource, node.hiddenNodes, text)) {
-    return nothing;
+    return;
   }
 
   context.formatterManager.addFormatter({
@@ -62,7 +62,7 @@ export function formatChildNode(context: SyntaxContext, node: Node, keepSingleSp
   });
 }
 
-export function formatStatementNode(context: SyntaxContext, statement: StatementNode): Nothing {
+export function formatStatementNode(context: SyntaxContext, statement: StatementNode): void {
   if (!statement.hiddenNodes || statement.hiddenNodes.length === 0) {
     return;
   }
@@ -97,7 +97,7 @@ export function formatStatementNode(context: SyntaxContext, statement: Statement
     indentText + nonWhitespaceNodes.map((x) => x.text).join(' ') + (nonWhitespaceNodes.length > 0 ? ' ' : '');
 
   if (isSameContent(context.resource, afterIndentHiddenNodes, text)) {
-    return nothing;
+    return;
   }
 
   context.formatterManager.addFormatter({
@@ -106,7 +106,7 @@ export function formatStatementNode(context: SyntaxContext, statement: Statement
   });
 }
 
-export function formatRemainingContextHiddenNodes(context: SyntaxContext): Nothing {
+export function formatRemainingContextHiddenNodes(context: SyntaxContext): void {
   const {statements, hiddenNodes} = context;
 
   if (hiddenNodes.length === 0) {

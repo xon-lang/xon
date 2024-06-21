@@ -37,7 +37,7 @@ function genericsParse(
   context: SemanticContext,
   declaration: DeclarationSemantic,
   node: DeclarationNode,
-): Nothing {
+): void {
   if (!node.generics) {
     return;
   }
@@ -51,7 +51,7 @@ function parametersParse(
   context: SemanticContext,
   declaration: DeclarationSemantic,
   node: DeclarationNode,
-): Nothing {
+): void {
   if (!node.parameters) {
     return;
   }
@@ -61,11 +61,7 @@ function parametersParse(
   declaration.parameters = declarationsParse(context, syntaxGenerics) as Array2<DeclarationSemantic>;
 }
 
-function typeParse(
-  context: SemanticContext,
-  declaration: DeclarationSemantic,
-  node: DeclarationNode,
-): Nothing {
+function typeParse(context: SemanticContext, declaration: DeclarationSemantic, node: DeclarationNode): void {
   if (!node.type?.value) {
     return;
   }
@@ -79,11 +75,7 @@ function typeParse(
   }
 }
 
-function valueParse(
-  context: SemanticContext,
-  declaration: DeclarationSemantic,
-  node: DeclarationNode,
-): Nothing {
+function valueParse(context: SemanticContext, declaration: DeclarationSemantic, node: DeclarationNode): void {
   if (!node.assign?.value) {
     return;
   }
@@ -104,7 +96,7 @@ function attributesParse(
   context: SemanticContext,
   declaration: DeclarationSemantic,
   node: DeclarationNode,
-): Nothing {
+): void {
   const syntaxAttributes = getDeclarationAttributes(node);
 
   if (syntaxAttributes.length === 0) {

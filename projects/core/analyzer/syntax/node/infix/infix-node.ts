@@ -1,4 +1,3 @@
-import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {RANGE} from '../../../lexical/lexical-config';
 import {SyntaxContext} from '../../../syntax-context';
@@ -26,7 +25,7 @@ export function infixNode(
   return node;
 }
 
-function format(context: SyntaxContext, node: InfixNode): Nothing {
+function format(context: SyntaxContext, node: InfixNode): void {
   const keepSingleWhitespace = node.operator.text !== RANGE;
   formatChildNode(context, node.operator, keepSingleWhitespace);
   formatChildNode(context, node.right, keepSingleWhitespace);

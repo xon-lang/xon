@@ -99,7 +99,7 @@ function renameDeclarationAndUsages(
   declaration: DeclarationSemantic,
   oldName: String2,
   newName: String2,
-): Nothing {
+): void {
   for (const reference of declaration.usages) {
     renameWithWorkspace(workspace, reference, oldName, newName);
   }
@@ -110,7 +110,7 @@ function renameWithWorkspace(
   reference: TextResourceRange,
   oldName: String2,
   newName: String2,
-): Nothing {
+): void {
   if (!reference.resource.location || reference.getText() !== oldName) {
     return;
   }

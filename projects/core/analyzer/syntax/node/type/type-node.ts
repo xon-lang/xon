@@ -19,6 +19,6 @@ export function typeNode(context: SyntaxContext, operator: OperatorNode, value: 
   return node;
 }
 
-function format(context: SyntaxContext, node: TypeNode): Nothing {
+function format(context: SyntaxContext, node: TypeNode): void {
   formatChildNode(context, node.value, true);
 }

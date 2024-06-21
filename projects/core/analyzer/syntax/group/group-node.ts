@@ -46,7 +46,7 @@ export function groupNode(
   return node;
 }
 
-function validate(context: SyntaxContext, node: GroupNode): Nothing {
+function validate(context: SyntaxContext, node: GroupNode): void {
   if (!node.close) {
     context.issueManager.addError(node.open.range, ISSUE_MESSAGE.expectCloseToken(node.open.text));
   }

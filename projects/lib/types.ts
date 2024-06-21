@@ -18,6 +18,6 @@ export type Float = number;
 
 export type Boolean2 = boolean;
 
-export type Array2<T> = T[];
+export type Array2<T> = Array<T>;
 
 export type Range2<FROM, TO> = {from: FROM; to: TO};

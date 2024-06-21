@@ -43,7 +43,7 @@ export function declarationNode(
   return node;
 }
 
-function format(context: SyntaxContext, node: DeclarationNode): Nothing {
+function format(context: SyntaxContext, node: DeclarationNode): void {
   if (node.type) {
     formatChildNode(context, node.type, false);
   }
@@ -76,7 +76,9 @@ export function getDeclarationAttributes(node: DeclarationNode): Array2<Declarat
   return [];
 }
 
-export function getDeclarationGenerics(node: DeclarationNode | LambdaNode): Array2<DeclarationNode | Nothing> {
+export function getDeclarationGenerics(
+  node: DeclarationNode | LambdaNode,
+): Array2<DeclarationNode | Nothing> {
   if (!node.generics) {
     return [];
   }
@@ -90,7 +92,9 @@ export function getDeclarationGenerics(node: DeclarationNode | LambdaNode): Arra
   });
 }
 
-export function getDeclarationParameters(node: DeclarationNode | LambdaNode): Array2<DeclarationNode | Nothing> {
+export function getDeclarationParameters(
+  node: DeclarationNode | LambdaNode,
+): Array2<DeclarationNode | Nothing> {
   if (!node.parameters) {
     return [];
   }

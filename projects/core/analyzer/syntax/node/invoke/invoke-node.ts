@@ -1,4 +1,3 @@
-import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group} from '../../group/group-node';
@@ -19,6 +18,6 @@ export function invokeNode(context: SyntaxContext, instance: ExpressionNode, gro
   return node;
 }
 
-function format(context: SyntaxContext, node: InvokeNode): Nothing {
+function format(context: SyntaxContext, node: InvokeNode): void {
   formatChildNode(context, node.group, false);
 }

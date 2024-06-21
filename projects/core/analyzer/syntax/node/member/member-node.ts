@@ -28,13 +28,13 @@ export function memberNode(
   return node;
 }
 
-function validate(context: SyntaxContext, node: MemberNode): Nothing {
+function validate(context: SyntaxContext, node: MemberNode): void {
   if (!node.id) {
     context.issueManager.addError(node.operator.range, ISSUE_MESSAGE.shouldBeMemberName());
   }
 }
 
-function format(context: SyntaxContext, node: MemberNode): Nothing {
+function format(context: SyntaxContext, node: MemberNode): void {
   formatChildNode(context, node.operator, false);
 
   if (node.id) {

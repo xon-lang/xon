@@ -200,7 +200,7 @@ function getUnderModifier(
   return nothing;
 }
 
-function parseDeclarations(context: SyntaxContext, group: Group): Nothing {
+function parseDeclarations(context: SyntaxContext, group: Group): void {
   for (const item of group.items) {
     if (is<IdNode>(item.value, $Node.ID)) {
       item.value = partialToDeclaration(context, {id: item.value});

@@ -1,4 +1,3 @@
-import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node} from '../../node';
@@ -19,6 +18,6 @@ export function assignmentNode(context: SyntaxContext, id: IdNode, assign: Prefi
   return node;
 }
 
-function format(context: SyntaxContext, node: AssignmentNode): Nothing {
+function format(context: SyntaxContext, node: AssignmentNode): void {
   formatChildNode(context, node.assign, true);
 }

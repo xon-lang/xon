@@ -10,7 +10,7 @@ export type ImportValueSemantic = ValueSemantic<$Semantic.IMPORT_VALUE> & {
 
 export function importValueSemantic(
   reference: TextResourceRange,
-  resource: Resource | Nothing,
+  resource?: Resource | Nothing,
 ): ImportValueSemantic {
   return {
     $: $Semantic.IMPORT_VALUE,

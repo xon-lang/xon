@@ -1,4 +1,4 @@
-import {Array2, Nothing, String2} from '../../lib/types';
+import {Array2, String2} from '../../lib/types';
 import {TextResource} from '../util/resource/text/text-resource';
 import {Formatter} from './formatter';
 
@@ -6,7 +6,7 @@ export interface FormatterManager {
   resource: TextResource;
   formatters: Array2<Formatter>;
 
-  addFormatter(formatter: Formatter): Nothing;
+  addFormatter(formatter: Formatter): void;
   getFormattedText(): String2;
 }
 
@@ -15,7 +15,7 @@ export function createFormatterManager(source: TextResource) {
     resource: source,
     formatters: [],
 
-    addFormatter(formatter: Formatter): Nothing {
+    addFormatter(formatter: Formatter): void {
       this.formatters.push(formatter);
     },
 

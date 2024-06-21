@@ -7,7 +7,7 @@ import {DeclarationSemantic} from './declaration-semantic';
 import {declarationDeepParse} from './declaration-semantic-deep-parser';
 import {declarationShallowParse} from './declaration-semantic-shallow-parser';
 
-export function syntaxDeclarationsParse(context: SemanticContext, syntax: SyntaxResult): Nothing {
+export function syntaxDeclarationsParse(context: SemanticContext, syntax: SyntaxResult): void {
   const declarationNodes = syntax.statements.filterMap((x) =>
     is<DeclarationNode>(x.value, $Node.DECLARATION) ? x.value : nothing,
   );

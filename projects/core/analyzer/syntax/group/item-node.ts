@@ -41,13 +41,13 @@ export function itemNode(
   return node;
 }
 
-function validate(context: SyntaxContext, node: ItemNode): Nothing {
+function validate(context: SyntaxContext, node: ItemNode): void {
   if (!node.value) {
     context.issueManager.addError(node.range, ISSUE_MESSAGE.unexpectedExpression());
   }
 }
 
-function format(context: SyntaxContext, node: ItemNode): Nothing {
+function format(context: SyntaxContext, node: ItemNode): void {
   if (node.comma) {
     formatChildNode(context, node.comma, false);
   }

@@ -34,7 +34,7 @@ export function lambdaNode(
   return node;
 }
 
-function format(context: SyntaxContext, node: LambdaNode): Nothing {
+function format(context: SyntaxContext, node: LambdaNode): void {
   if (node.type) {
     formatChildNode(context, node.type, false);
   }

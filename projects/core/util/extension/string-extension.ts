@@ -1,4 +1,4 @@
-import {Array2, Boolean2, Char, Integer, Nothing, Number2, String2, nothing} from '../../../lib/types';
+import {Boolean2, Char, Integer, Nothing, String2, nothing} from '../../../lib/types';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);
 const UPPER_Z_CODE = 'Z'.charCodeAt(0);
@@ -8,12 +8,13 @@ const DIGIT_0_CODE = '0'.charCodeAt(0);
 const DIGIT_9_CODE = '9'.charCodeAt(0);
 
 String.prototype.takeWhile = function (
-  predicate: (value: Char, index: Integer) => Boolean2,
+  predicate: (value: Char, index: Integer, array: String2) => Boolean2,
   startIndex = 0,
   includeConditionChar = false,
 ): String2 {
   for (let i = startIndex; i < this.length; i++) {
-    if (!predicate(this[i], i)) {
+    // todo should we replace .toString with array of char ???
+    if (!predicate(this[i], i, this.toString())) {
       return this.slice(startIndex, includeConditionChar ? i + 1 : i);
     }
   }
@@ -67,31 +68,23 @@ String.prototype.isLetterOrDigit = function (index: Integer): Boolean2 {
 };
 
 String.prototype.some = function (
-  predicate: (value: Char, index: Integer, array: Array2<Char>) => Boolean2,
+  predicate: (value: Char, index: Integer, array: String2) => Boolean2,
 ): Boolean2 {
   const array = Array.from(this);
 
-  return array.some(predicate);
-};
-
-String.prototype.sum = function (
-  select: (value: Char, index: Integer, array: Array2<Char>) => Number2,
-): Number2 {
-  const array = Array.from(this);
-
-  return array.reduce((sum, val, index, array) => sum + select(val, index, array), 0);
+  return array.some((x, i) => predicate(x, i, this.toString()));
 };
 
 String.prototype.count = function (
-  predicate: (value: Char, index: Integer, array: Array2<Char>) => Boolean2,
+  predicate: (value: Char, index: Integer, array: String2) => Boolean2,
 ): Integer {
-  const array = Array.from(this);
+  const array = Array.from<Char>(this);
 
-  return array.reduce((sum, val, index, array) => sum + (predicate(val, index, array) ? 1 : 0), 0);
+  return array.reduce((sum, val, index, array) => sum + (predicate(val, index, this.toString()) ? 1 : 0), 0);
 };
 
 String.prototype.first = function (
-  predicate?: (value: Char, index: Integer, array: String) => Boolean2,
+  predicate?: (value: Char, index: Integer, array: String2) => Boolean2,
 ): Char | Nothing {
   if (this.length === 0) {
     return nothing;
@@ -104,7 +97,7 @@ String.prototype.first = function (
   for (let index = 0; index < this.length; index++) {
     const element = this[index];
 
-    if (predicate(element, index, this)) {
+    if (predicate(element, index, this.toString())) {
       return element;
     }
   }
@@ -113,7 +106,7 @@ String.prototype.first = function (
 };
 
 String.prototype.last = function (
-  predicate?: (value: Char, index: Integer, array: String) => Boolean2,
+  predicate?: (value: Char, index: Integer, array: String2) => Boolean2,
 ): Char | Nothing {
   if (this.length === 0) {
     return nothing;
@@ -126,7 +119,7 @@ String.prototype.last = function (
   for (let index = this.length - 1; index >= 0; index--) {
     const element = this[index];
 
-    if (predicate(element, index, this)) {
+    if (predicate(element, index, this.toString())) {
       return element;
     }
   }
@@ -153,7 +146,7 @@ String.prototype.setPadding = function (padding: Integer): String2 {
     return this.toString();
   }
 
-  const resultLines: Array2<String2> = lines.map((x) => {
+  const resultLines = lines.map((x) => {
     if (x.str.length === 0) {
       return x.str;
     }

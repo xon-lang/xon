@@ -19,7 +19,7 @@ export interface DeclarationManager {
   declarations: Record<String2, Array2<DeclarationSemantic>>;
 
   count(): Integer;
-  add(declaration: DeclarationSemantic): Nothing;
+  add(declaration: DeclarationSemantic): void;
   filterByName(kind: DeclarationKind | Nothing, name: String2): Array2<DeclarationSemantic>;
   all(): Array2<DeclarationSemantic>;
 
@@ -34,9 +34,9 @@ export interface DeclarationManager {
 
 export function createDeclarationManager(
   issueManager: IssueManager,
-  parent: DeclarationManager | Nothing,
-  imports: Array2<DeclarationManager> | Nothing,
-  config: SemanticConfig,
+  parent?: DeclarationManager,
+  imports?: Array2<DeclarationManager> | Nothing,
+  config?: SemanticConfig | Nothing,
 ): DeclarationManager {
   return {
     imports,
@@ -47,7 +47,7 @@ export function createDeclarationManager(
       return Object.keys(this.declarations).length;
     },
 
-    add(declaration: DeclarationSemantic): Nothing {
+    add(declaration: DeclarationSemantic): void {
       if (!this.declarations[declaration.name]) {
         this.declarations[declaration.name] = [];
       }

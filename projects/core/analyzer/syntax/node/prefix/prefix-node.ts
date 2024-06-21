@@ -1,4 +1,3 @@
-import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {ASSIGN, TYPE} from '../../../lexical/lexical-config';
 import {SyntaxContext} from '../../../syntax-context';
@@ -24,7 +23,7 @@ export function prefixNode(
   return node;
 }
 
-function format(context: SyntaxContext, node: PrefixNode): Nothing {
+function format(context: SyntaxContext, node: PrefixNode): void {
   const keepSingleWhitespace = node.operator.text.some((x) => x.isLetter(0) || x === TYPE || x === ASSIGN);
   formatChildNode(context, node.value, keepSingleWhitespace);
 }

@@ -13,7 +13,11 @@ export type ImportNode = SyntaxNode<$Node.IMPORT> &
     value: StringNode | Nothing;
   };
 
-export function importNode(context: SyntaxContext, operator: OperatorNode, value: StringNode | Nothing): ImportNode {
+export function importNode(
+  context: SyntaxContext,
+  operator: OperatorNode,
+  value: StringNode | Nothing,
+): ImportNode {
   const node = syntaxNode($Node.IMPORT, {operator, value});
 
   validate(context, node);
@@ -22,13 +26,13 @@ export function importNode(context: SyntaxContext, operator: OperatorNode, value
   return node;
 }
 
-function validate(context: SyntaxContext, node: ImportNode): Nothing {
+function validate(context: SyntaxContext, node: ImportNode): void {
   if (!node.value) {
     context.issueManager.addError(node.range, ISSUE_MESSAGE.importValueShouldBeString());
   }
 }
 
-function format(context: SyntaxContext, node: ImportNode): Nothing {
+function format(context: SyntaxContext, node: ImportNode): void {
   if (node.value) {
     formatChildNode(context, node.value, true);
   }

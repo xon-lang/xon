@@ -1,12 +1,12 @@
-import {Array2, Boolean2, Integer, Nothing, Number2, Something, String2, nothing} from '../../../lib/types';
+import {Array2, Boolean2, Integer, Nothing, Number2, String2, nothing} from '../../../lib/types';
 
 // Array
 Array.prototype.takeWhile = function <T>(
-  predicate: (value: T, index: Integer) => Something,
+  predicate: (value: T, index: Integer, array: Array2<T>) => Boolean2,
   startIndex = 0,
 ): Array2<T> {
   for (let i = startIndex; i < this.length; i++) {
-    if (!predicate(this[i], i)) {
+    if (!predicate(this[i], i, this)) {
       return this.slice(startIndex, i);
     }
   }
@@ -56,7 +56,9 @@ Array.prototype.firstIndex = function <T>(
   return -1;
 };
 
-Array.prototype.last = function <T>(predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2): T | Nothing {
+Array.prototype.last = function <T>(
+  predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2,
+): T | Nothing {
   if (this.length === 0) {
     return nothing;
   }
@@ -146,7 +148,9 @@ Array.prototype.filterMap = function <T, V>(
   return newArray;
 };
 
-Array.prototype.count = function <T>(predicate: (value: T, index: Integer, array: Array2<T>) => Boolean2): Integer {
+Array.prototype.count = function <T>(
+  predicate: (value: T, index: Integer, array: Array2<T>) => Boolean2,
+): Integer {
   return this.reduce((sum, val, index, array) => sum + (predicate(val, index, array) ? 1 : 0), 0);
 };
 
