@@ -7,7 +7,7 @@ export function labelDocumentationNodeParse(
   context: SyntaxContext,
   index: Integer,
 ): LabelDocumentationNode | Nothing {
-  if (!context.checkLexemeAtIndex(AT, index)) {
+  if (!context.checkTextAtIndex(AT, index)) {
     return nothing;
   }
 

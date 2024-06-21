@@ -1,5 +1,5 @@
 import {Array2, Boolean2, String2} from '../../../../../../lib/types';
-import {TextResourceReference} from '../../../../../util/resource/resource-reference';
+import {TextResourceRange} from '../../../../../util/resource/text/text-resource-reference';
 import {$Semantic} from '../../../semantic';
 import {TypeSemantic} from '../../type-semantic';
 
@@ -8,7 +8,7 @@ export interface NotTypeSemantic extends TypeSemantic {
   value: TypeSemantic;
 }
 
-export function notTypeSemantic(reference: TextResourceReference, value: TypeSemantic): NotTypeSemantic {
+export function notTypeSemantic(reference: TextResourceRange, value: TypeSemantic): NotTypeSemantic {
   const semantic: NotTypeSemantic = {
     $: $Semantic.NOT_TYPE,
     reference,

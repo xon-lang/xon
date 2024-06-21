@@ -83,7 +83,7 @@ export const LESS_EQUALS = '<=';
 export const EQUALS = '==';
 export const NOT_EQUALS = '!=';
 
-export const OPERATORS = [
+export const OPERATORS_SORTED = [
   IMPORT,
   MEMBER,
   META_MEMBER,

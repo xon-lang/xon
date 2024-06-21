@@ -1,5 +1,5 @@
 import {Array2, Boolean2, Nothing, String2} from '../../../../lib/types';
-import {TextResourceReference} from '../../../util/resource/resource-reference';
+import {TextResourceRange} from '../../../util/resource/text/text-resource-reference';
 import {TYPE_MODIFIERS, VALUE_MODIFIERS} from '../../lexical/lexical-config';
 import {$Semantic, Semantic, semanticIs} from '../semantic';
 import {TypeSemantic} from '../type/type-semantic';
@@ -7,7 +7,7 @@ import {ValueSemantic} from '../value/value-semantic';
 
 export interface DeclarationSemantic extends Semantic<$Semantic.DECLARATION> {
   documentation?: String2 | Nothing;
-  usages: Array2<TextResourceReference>;
+  usages: Array2<TextResourceRange>;
   modifier?: String2 | Nothing;
   name: String2;
   generics?: Array2<DeclarationSemantic | Nothing> | Nothing;
@@ -20,7 +20,7 @@ export interface DeclarationSemantic extends Semantic<$Semantic.DECLARATION> {
 }
 
 export function declarationSemantic(
-  reference: TextResourceReference,
+  reference: TextResourceRange,
   documentation: String2 | Nothing,
   modifier: String2 | Nothing,
   name: String2,

@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {Resource} from '../../../../util/resource/resource';
-import {TextResourceReference} from '../../../../util/resource/resource-reference';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-reference';
 import {$Semantic} from '../../semantic';
 import {ValueSemantic} from '../value-semantic';
 
@@ -9,7 +9,7 @@ export type ImportValueSemantic = ValueSemantic<$Semantic.IMPORT_VALUE> & {
 };
 
 export function importValueSemantic(
-  reference: TextResourceReference,
+  reference: TextResourceRange,
   resource: Resource | Nothing,
 ): ImportValueSemantic {
   return {

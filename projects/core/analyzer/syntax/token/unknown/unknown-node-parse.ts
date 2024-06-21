@@ -1,13 +1,9 @@
-import {Integer} from '../../../../../lib/types';
-import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
-import {SyntaxContext} from '../../../syntax-context';
+import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
 import {UnknownNode, unknownNode} from './unknown-node';
 
-export function unknownNodeParse(context: SyntaxContext, index: Integer): UnknownNode {
-  const text = context.resource.data[index];
-  const range = context.getSymbolRange();
-
-  context.issueManager.addError(range, ISSUE_MESSAGE.unknownSymbol());
+export function unknownNodeParse(cursor: TextResourcePosition): UnknownNode {
+  const text = cursor.resource.data[cursor.position.index];
+  const range = cursor.getRange(1);
 
   return unknownNode(range, text);
 }

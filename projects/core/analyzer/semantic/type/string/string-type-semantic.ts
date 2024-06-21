@@ -1,5 +1,5 @@
 import {Array2, Boolean2, String2} from '../../../../../lib/types';
-import {TextResourceReference} from '../../../../util/resource/resource-reference';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-reference';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
 import {IdTypeSemantic} from '../id/id-type-semantic';
@@ -13,7 +13,7 @@ export interface StringTypeSemantic extends TypeSemantic {
 }
 
 export function stringTypeSemantic(
-  reference: TextResourceReference,
+  reference: TextResourceRange,
   declaration: DeclarationSemantic,
   value: StringTypeSemantic['value'],
 ): StringTypeSemantic {

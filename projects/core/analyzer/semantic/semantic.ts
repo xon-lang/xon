@@ -1,5 +1,5 @@
 import {Nothing, nothing} from '../../../lib/types';
-import {TextResourceReference} from '../../util/resource/resource-reference';
+import {TextResourceRange} from '../../util/resource/text/text-resource-reference';
 import {SyntaxResult} from '../syntax-context';
 import {syntaxDeclarationsParse} from './declaration/declaration-semantic-parser';
 import {DEFAULT_SEMANTIC_CONFIG, SemanticConfig} from './semantic-config';
@@ -12,7 +12,7 @@ import {syntaxValuesParse} from './value/value-semantic-parser';
 
 export interface Semantic<T extends $Semantic = $Semantic> {
   $: T;
-  reference: TextResourceReference;
+  reference: TextResourceRange;
 }
 
 export enum $Semantic {

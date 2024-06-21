@@ -1,19 +1,19 @@
-import {Integer, Nothing, nothing} from '../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../lib/types';
+import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
 import {UNDERSCORE} from '../../../lexical/lexical-config';
-import {SyntaxContext} from '../../../syntax-context';
 import {IdNode, idNode} from './id-node';
 
-export function idNodeParse(context: SyntaxContext, index: Integer): IdNode | Nothing {
-  if (!context.checkLexemeAtIndex(UNDERSCORE, index) && !context.resource.data.isLetter(index)) {
+export function idNodeParse(cursor: TextResourcePosition): IdNode | Nothing {
+  if (!cursor.checkTextAtPosition(UNDERSCORE) && !cursor.resource.data.isLetter(cursor.position.index)) {
     return nothing;
   }
 
-  const text = context.resource.data.takeWhile(
-    (x, i) => x === UNDERSCORE || context.resource.data.isLetterOrDigit(i),
-    index,
+  const text = cursor.resource.data.takeWhile(
+    (x, i) => x === UNDERSCORE || cursor.resource.data.isLetterOrDigit(i),
+    cursor.position.index,
   );
 
-  const range = context.getRange(text.length);
+  const range = cursor.getRange(text.length);
 
   return idNode(range, text);
 }

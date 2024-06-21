@@ -8,7 +8,7 @@ export function descriptionDocumentationNodeParse(
   index: Integer,
 ): DescriptionDocumentationNode | Nothing {
   const text = context.resource.data.takeWhile(
-    (x, i) => x !== AT && !context.checkLexemeAtIndex(DOCUMENTATION_CLOSE, i),
+    (x, i) => x !== AT && !context.checkTextAtIndex(DOCUMENTATION_CLOSE, i),
     index,
   );
 

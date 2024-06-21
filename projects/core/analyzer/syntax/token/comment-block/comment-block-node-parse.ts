@@ -1,18 +1,23 @@
-import {Integer, Nothing, nothing} from '../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../lib/types';
+import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
 import {COMMENT_BLOCK_CLOSE, COMMENT_BLOCK_OPEN} from '../../../lexical/lexical-config';
-import {SyntaxContext} from '../../../syntax-context';
 import {CommentBlockNode, commentBlockNode} from './comment-block-node';
 
-export function commentBlockNodeParse(context: SyntaxContext, index: Integer): CommentBlockNode | Nothing {
-  if (!context.checkLexemeAtIndex(COMMENT_BLOCK_OPEN, index)) {
+export function commentBlockNodeParse(cursor: TextResourcePosition): CommentBlockNode | Nothing {
+  if (!cursor.checkTextAtPosition(COMMENT_BLOCK_OPEN)) {
     return nothing;
   }
 
-  const stopIndex = context.resource.data.indexOf(COMMENT_BLOCK_CLOSE, index + COMMENT_BLOCK_CLOSE.length);
-  const endSlice = stopIndex < 0 ? context.resource.data.length : stopIndex + COMMENT_BLOCK_CLOSE.length;
+  const stopIndex = cursor.resource.data.indexOf(
+    COMMENT_BLOCK_CLOSE,
+    cursor.position.index + COMMENT_BLOCK_OPEN.length,
+  );
 
-  const text = context.resource.data.slice(index, endSlice);
-  const range = context.getRangeWithNL(text.length);
+  const endSlice = stopIndex < 0 ? cursor.resource.data.length : stopIndex + COMMENT_BLOCK_CLOSE.length;
+
+  const text = cursor.resource.data.slice(cursor.position.index, endSlice);
+  // todo should we calculate nl count in place ???
+  const range = cursor.getRangeWithNL(text.length);
 
   return commentBlockNode(range, text);
 }

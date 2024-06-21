@@ -7,7 +7,7 @@ export function closeDocumentationNodeParse(
   context: SyntaxContext,
   index: Integer,
 ): CloseDocumentationNode | Nothing {
-  if (!context.checkLexemeAtIndex(DOCUMENTATION_CLOSE, index)) {
+  if (!context.checkTextAtIndex(DOCUMENTATION_CLOSE, index)) {
     return nothing;
   }
 

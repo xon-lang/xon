@@ -1,15 +1,15 @@
-import {Integer, Nothing, nothing} from '../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../lib/types';
+import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
 import {COMMA} from '../../../lexical/lexical-config';
-import {SyntaxContext} from '../../../syntax-context';
 import {CommaNode, commaNode} from './comma-node';
 
-export function commaNodeParse(context: SyntaxContext, index: Integer): CommaNode | Nothing {
-  if (!context.checkLexemeAtIndex(COMMA, index)) {
+export function commaNodeParse(cursor: TextResourcePosition): CommaNode | Nothing {
+  if (!cursor.checkTextAtPosition(COMMA)) {
     return nothing;
   }
 
   const text = COMMA;
-  const range = context.getSymbolRange();
+  const range = cursor.getRange(text.length);
 
   return commaNode(range, text);
 }

@@ -1,15 +1,15 @@
-import {Integer, Nothing, nothing} from '../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../lib/types';
+import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
 import {COMMENT_LINE, NL} from '../../../lexical/lexical-config';
-import {SyntaxContext} from '../../../syntax-context';
 import {CommentLineNode, commentLineNode} from './comment-line-node';
 
-export function commentLineNodeParse(context: SyntaxContext, index: Integer): CommentLineNode | Nothing {
-  if (!context.checkLexemeAtIndex(COMMENT_LINE, index)) {
+export function commentLineNodeParse(cursor: TextResourcePosition): CommentLineNode | Nothing {
+  if (!cursor.checkTextAtPosition(COMMENT_LINE)) {
     return nothing;
   }
 
-  const text = context.resource.data.takeWhile((x) => x !== NL, index);
-  const range = context.getRange(text.length);
+  const text = cursor.resource.data.takeWhile((x) => x !== NL, cursor.position.index);
+  const range = cursor.getRange(text.length);
 
   return commentLineNode(range, text);
 }

@@ -1,18 +1,19 @@
-import {Integer, Nothing, nothing} from '../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../lib/types';
+import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
 import {UNDERSCORE} from '../../../lexical/lexical-config';
-import {SyntaxContext} from '../../../syntax-context';
 import {IntegerNode, integerNode} from './integer-node';
 
-export function integerNodeParse(context: SyntaxContext, index: Integer): IntegerNode | Nothing {
-  if (!context.resource.data.isDigit(index)) {
+export function integerNodeParse(cursor: TextResourcePosition): IntegerNode | Nothing {
+  if (!cursor.resource.data.isDigit(cursor.position.index)) {
     return nothing;
   }
 
-  const text = context.resource.data.takeWhile(
-    (x, i) => x === UNDERSCORE || context.resource.data.isDigit(i),
-    index,
+  const text = cursor.resource.data.takeWhile(
+    (x, i) => x === UNDERSCORE || cursor.resource.data.isDigit(i),
+    cursor.position.index,
   );
-  const range = context.getRange(text.length);
+
+  const range = cursor.getRange(text.length);
 
   return integerNode(range, text);
 }

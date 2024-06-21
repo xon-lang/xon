@@ -1,5 +1,5 @@
 import {Nothing} from '../../../../../lib/types';
-import {TextResourceReference} from '../../../../util/resource/resource-reference';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-reference';
 import {$Semantic} from '../../semantic';
 import {TypeSemantic} from '../../type/type-semantic';
 import {ValueSemantic} from '../value-semantic';
@@ -7,7 +7,7 @@ import {ValueSemantic} from '../value-semantic';
 export type MemberValueSemantic = ValueSemantic<$Semantic.MEMBER_VALUE>;
 
 export function memberValueSemantic(
-  reference: TextResourceReference,
+  reference: TextResourceRange,
   type: TypeSemantic | Nothing,
 ): MemberValueSemantic {
   return {

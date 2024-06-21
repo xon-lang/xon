@@ -1,10 +1,8 @@
-import {Array2, Boolean2, Integer, Nothing, String2, nothing} from '../../lib/types';
+import {Array2, Nothing, nothing} from '../../lib/types';
 import {FormatterManager, createFormatterManager} from '../formatter/formatter-manager';
 import {IssueManager, createIssueManager} from '../issue/issue-manager';
-import {TextPosition, textPosition} from '../util/resource/text/text-position';
-import {TextRange, textRange} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
-import {NL} from './lexical/lexical-config';
+import {LexerAnalyzer} from './syntax-parser';
 import {DEFAULT_SYNTAX_PARSER_CONFIG, SyntaxParserConfig} from './syntax-parser-config';
 import {Node} from './syntax/node';
 import {StatementNode} from './syntax/statement/statement-node';
@@ -18,7 +16,7 @@ export type SyntaxResult = Pick<SyntaxContext, ContextAttributes> & {
 
 export interface SyntaxContext {
   resource: TextResource;
-  position: TextPosition;
+  lexer: LexerAnalyzer;
   hiddenNodes: Array2<TokenNode>;
   breakNode: Node | Nothing;
   parentStatement: StatementNode | Nothing;
@@ -28,23 +26,18 @@ export interface SyntaxContext {
   issueManager: IssueManager;
   formatterManager: FormatterManager;
   config: SyntaxParserConfig;
-
-  getRange(length: Integer): TextRange;
-  getRangeWithNL(length: Integer): TextRange;
-  getSymbolRange(): TextRange;
-  checkLexemeAtIndex(lexeme: String2, index: Integer): Boolean2;
 }
 
 export function syntaxContext(
   resource: TextResource,
-  position: TextPosition,
+  lexer: LexerAnalyzer,
   issueManager: IssueManager | Nothing,
   formatterManager: FormatterManager | Nothing,
   config: SyntaxParserConfig | Nothing,
 ): SyntaxContext {
   return {
     resource,
-    position,
+    lexer,
     hiddenNodes: [],
     parentStatement: nothing,
     nodes: [],
@@ -54,46 +47,5 @@ export function syntaxContext(
     issueManager: issueManager ?? createIssueManager(resource),
     formatterManager: formatterManager ?? createFormatterManager(resource),
     config: config ?? DEFAULT_SYNTAX_PARSER_CONFIG,
-
-    getRange(length: Integer): TextRange {
-      return textRange(
-        textPosition(this.position.index, this.position.line, this.position.column),
-        textPosition(this.position.index + length, this.position.line, this.position.column + length),
-      );
-    },
-
-    getRangeWithNL(length: Integer): TextRange {
-      let nlCount = this.position.line;
-      let columnIndent = this.position.column;
-
-      for (let i = this.position.index; i < this.position.index + length; i++) {
-        const char = resource.data[i];
-
-        if (char === NL) {
-          nlCount += 1;
-          columnIndent = 0;
-
-          continue;
-        }
-
-        columnIndent += 1;
-      }
-
-      return textRange(
-        textPosition(this.position.index, this.position.line, this.position.column),
-        textPosition(this.position.index + length, nlCount, columnIndent),
-      );
-    },
-
-    getSymbolRange(): TextRange {
-      return textRange(
-        textPosition(this.position.index, this.position.line, this.position.column),
-        textPosition(this.position.index + 1, this.position.line, this.position.column + 1),
-      );
-    },
-
-    checkLexemeAtIndex(lexeme: String2, index: Integer): Boolean2 {
-      return this.resource.data.take(lexeme.length, index) === lexeme;
-    },
   };
 }

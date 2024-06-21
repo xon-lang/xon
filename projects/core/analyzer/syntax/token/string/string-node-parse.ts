@@ -1,18 +1,18 @@
-import {Integer, Nothing, nothing} from '../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../lib/types';
+import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
 import {STRING_QUOTE} from '../../../lexical/lexical-config';
-import {SyntaxContext} from '../../../syntax-context';
 import {StringNode, stringNode} from './string-node';
 
-export function stringNodeParse(context: SyntaxContext, index: Integer): StringNode | Nothing {
-  if (!context.checkLexemeAtIndex(STRING_QUOTE, index)) {
+export function stringNodeParse(cursor: TextResourcePosition): StringNode | Nothing {
+  if (!cursor.checkTextAtPosition(STRING_QUOTE)) {
     return nothing;
   }
 
-  const stopIndex = context.resource.data.indexOf(STRING_QUOTE, index + STRING_QUOTE.length);
-  const endSlice = stopIndex < 0 ? context.resource.data.length : stopIndex + STRING_QUOTE.length;
+  const stopIndex = cursor.resource.data.indexOf(STRING_QUOTE, cursor.position.index + STRING_QUOTE.length);
+  const endSlice = stopIndex < 0 ? cursor.resource.data.length : stopIndex + STRING_QUOTE.length;
 
-  const text = context.resource.data.slice(index, endSlice);
-  const range = context.getRangeWithNL(text.length);
+  const text = cursor.resource.data.slice(cursor.position.index, endSlice);
+  const range = cursor.getRangeWithNL(text.length);
 
   return stringNode(range, text);
 }

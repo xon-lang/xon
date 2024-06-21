@@ -1,4 +1,4 @@
-import {TextResourceReference} from '../../../../util/resource/resource-reference';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-reference';
 import {$Semantic} from '../../semantic';
 import {IntegerTypeSemantic} from '../../type/integer/integer-type-semantic';
 import {ValueSemantic} from '../value-semantic';
@@ -6,7 +6,7 @@ import {ValueSemantic} from '../value-semantic';
 export type IntegerValueSemantic = ValueSemantic<$Semantic.INTEGER_VALUE, IntegerTypeSemantic>;
 
 export function integerValueSemantic(
-  reference: TextResourceReference,
+  reference: TextResourceRange,
   type: IntegerTypeSemantic,
 ): IntegerValueSemantic {
   return {

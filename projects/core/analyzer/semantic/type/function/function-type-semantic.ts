@@ -1,5 +1,5 @@
 import {Array2, Boolean2, Nothing, String2} from '../../../../../lib/types';
-import {TextResourceReference} from '../../../../util/resource/resource-reference';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-reference';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic} from '../../semantic';
 import {isInSet, isSetOperatorTypeSemantic} from '../set/set';
@@ -13,7 +13,7 @@ export interface FunctionTypeSemantic extends TypeSemantic {
 }
 
 export function functionTypeSemantic(
-  reference: TextResourceReference,
+  reference: TextResourceRange,
   generics: Array2<TypeSemantic | Nothing> | Nothing,
   parameters: Array2<DeclarationSemantic | Nothing>,
   result: TypeSemantic | Nothing,

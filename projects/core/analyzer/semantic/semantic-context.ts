@@ -1,7 +1,7 @@
 import {Array2, Nothing, nothing} from '../../../lib/types';
 import {IssueManager} from '../../issue/issue-manager';
-import {TextResourceReference, textResourceReference} from '../../util/resource/resource-reference';
 import {TextResource, textResourceFrom} from '../../util/resource/text/text-resource';
+import {TextResourceRange, textResourceRange} from '../../util/resource/text/text-resource-reference';
 import {Node} from '../syntax/node';
 import {DeclarationManager, createDeclarationManager} from './declaration-manager';
 import {SemanticConfig} from './semantic-config';
@@ -14,7 +14,7 @@ export interface SemanticContext {
   declarationManager: DeclarationManager;
 
   createChildContext: () => SemanticContext;
-  createReference: (node: Node) => TextResourceReference;
+  createReference: (node: Node) => TextResourceRange;
 }
 
 export function semanticContext(
@@ -42,10 +42,10 @@ export function semanticContext(
       return semanticContext(this, this.resource, this.issueManager, nothing, this.config);
     },
 
-    createReference(node: Node): TextResourceReference {
+    createReference(node: Node): TextResourceRange {
       const resource = textResourceFrom(this.resource.location, this.resource.data);
 
-      return textResourceReference(resource, node.range);
+      return textResourceRange(resource, node.range);
     },
   };
 }

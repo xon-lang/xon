@@ -1,15 +1,15 @@
-import {Integer, Nothing, nothing} from '../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../lib/types';
+import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
 import {SPACE} from '../../../lexical/lexical-config';
-import {SyntaxContext} from '../../../syntax-context';
 import {WhitespaceNode, whitespaceNode} from './whitespace-node';
 
-export function whitespaceNodeParse(context: SyntaxContext, index: Integer): WhitespaceNode | Nothing {
-  if (!context.checkLexemeAtIndex(SPACE, index)) {
+export function whitespaceNodeParse(cursor: TextResourcePosition): WhitespaceNode | Nothing {
+  if (!cursor.checkTextAtPosition(SPACE)) {
     return nothing;
   }
 
-  const text = context.resource.data.takeWhile((x) => x === SPACE, index);
-  const range = context.getRange(text.length);
+  const text = cursor.resource.data.takeWhile((x) => x === SPACE, cursor.position.index);
+  const range = cursor.getRange(text.length);
 
   return whitespaceNode(range, text);
 }

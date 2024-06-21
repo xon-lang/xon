@@ -1,5 +1,5 @@
 import {Array2, Boolean2, Nothing, String2} from '../../../../../lib/types';
-import {TextResourceReference} from '../../../../util/resource/resource-reference';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-reference';
 import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';
 import {isInSet, isSetOperatorTypeSemantic} from '../set/set';
@@ -12,7 +12,7 @@ export interface ArrayTypeSemantic extends TypeSemantic {
 }
 
 export function integerTypeSemantic(
-  reference: TextResourceReference,
+  reference: TextResourceRange,
   declaration: DeclarationSemantic,
   items: ArrayTypeSemantic['items'],
 ): ArrayTypeSemantic {

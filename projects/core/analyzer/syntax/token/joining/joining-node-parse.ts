@@ -1,20 +1,21 @@
-import {Integer, Nothing, nothing} from '../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../lib/types';
+import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
 import {JOINING, NL, SPACE} from '../../../lexical/lexical-config';
-import {SyntaxContext} from '../../../syntax-context';
 import {JoiningNode, joiningNode} from './joining-node';
 
-export function joiningNodeParse(context: SyntaxContext, index: Integer): JoiningNode | Nothing {
-  if (!context.checkLexemeAtIndex(JOINING, index)) {
+export function joiningNodeParse(cursor: TextResourcePosition): JoiningNode | Nothing {
+  if (!cursor.checkTextAtPosition(JOINING)) {
     return nothing;
   }
 
-  let text = JOINING + context.resource.data.takeWhile((x) => x === SPACE, index + JOINING.length);
+  let text =
+    JOINING + cursor.resource.data.takeWhile((x) => x === SPACE, cursor.position.index + JOINING.length);
 
-  if (context.resource.data[index + text.length] === NL) {
+  if (cursor.resource.data[cursor.position.index + text.length] === NL) {
     text += NL;
   }
 
-  const range = context.getRangeWithNL(text.length);
+  const range = cursor.getRangeWithNL(text.length);
 
   return joiningNode(range, text);
 }

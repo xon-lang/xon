@@ -18,8 +18,8 @@ import {StringTypeSemantic} from '../../../../core/analyzer/semantic/type/string
 import {ImportValueSemantic} from '../../../../core/analyzer/semantic/value/import/import-value-semantic';
 import {ValueSemantic} from '../../../../core/analyzer/semantic/value/value-semantic';
 import {hasSemantic} from '../../../../core/analyzer/syntax/node';
-import {TextResourceReference} from '../../../../core/util/resource/resource-reference';
 import {TextRange, zeroRange} from '../../../../core/util/resource/text/text-range';
+import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-reference';
 import {Nothing, nothing, String2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
@@ -80,7 +80,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
 
 function navigateToReference(
   highlightingRange: TextRange,
-  reference: TextResourceReference,
+  reference: TextResourceRange,
 ): ProviderResult<LocationLink[]> {
   if (!reference.resource.location) {
     return nothing;
